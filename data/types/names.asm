@@ -9,6 +9,9 @@ TypeNames:
 	dw .Rock
 	dw .Normal
 	dw .Bug
+	dw .Dragon
+	dw .Dark
+	dw .Steel
 	dw .Ghost
 
 REPT UNUSED_TYPES_END - UNUSED_TYPES
@@ -21,7 +24,8 @@ ENDR
 	dw .Electric
 	dw .Psychic
 	dw .Ice
-	dw .Dragon
+	dw .Fairy
+	dw .Gas
 
 	assert_table_length NUM_TYPES
 
@@ -41,3 +45,7 @@ ENDR
 .Bug:      db "BUG@"
 .Ghost:    db "GHOST@"
 .Dragon:   db "DRAGON@"
+.Dark:     db "DARK@"
+.Steel:    db "STEEL@"
+.Fairy:    db "FAIRY@"
+.Gas:      db "GAS@"
