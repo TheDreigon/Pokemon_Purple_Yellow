@@ -79,11 +79,10 @@ ROMX $B
 	"Battle Engine 5"
 ROMX $C
 	"Poke Sprites 4"
-	"Poke Sprites 8"
 ROMX $D
 	"Poke Sprites 5"
-	"Slot Machines"
 ROMX $E
+	"Slot Machines"
 	"Battle Engine 6"
 ROMX $F
 	"Battle Core"
@@ -233,9 +232,6 @@ ROMX $3E
 	"Surfing Minigame"
 ROMX $3F
 	"Overworld Pikachu"
-ROMX $40
-    "Poke Sprites 6"
-    "Poke Sprites 7"
 WRAM0
 	"Audio RAM"
 	org $c100

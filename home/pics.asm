@@ -8,23 +8,36 @@ UncompressMonSprite::
 	ld [wSpriteInputPtr], a    ; fetch sprite input pointer
 	ld a, [hl]
 	ld [wSpriteInputPtr+1], a
-	ld a, [wcf91] ; XXX name for this ram location
-
-; new approach because of map pieces
+; define (by index number) the bank that a pokemon's image is in
+; index = MEW:             bank $1
+; index = FOSSIL_KABUTOPS: bank $B
+;       index < $1F:       bank $9 ("Poke Sprites 1")
+; $1F ≤ index < $4A:       bank $A ("Poke Sprites 2")
+; $4A ≤ index < $74:       bank $B ("Poke Sprites 3")
+; $74 ≤ index < $99:       bank $C ("Poke Sprites 4")
+; $99 ≤ index:             bank $D ("Poke Sprites 5")
+	ld a, [wcf91]
+	ld b, a
 	cp FOSSIL_KABUTOPS
-	jr nc, .RecallBank
-; old approach before map pieces
-;	cp FOSSIL_KABUTOPS
-;	jr z, .RecallBank
-;	cp FOSSIL_AERODACTYL
-;	jr z, .RecallBank
-;	cp MON_GHOST
-;	jr z, .RecallBank
-
-	ld a, [wMonHPicBank]
-	jr .GotBank
-.RecallBank
 	ld a, BANK(FossilKabutopsPic)
+	jr z, .GotBank
+	ld a, b
+	cp NIDOQUEEN + 1
+	ld a, BANK("Poke Sprites 1")
+	jr c, .GotBank
+	ld a, b
+	cp ABRA + 1
+	ld a, BANK("Poke Sprites 2")
+	jr c, .GotBank
+	ld a, b
+	cp GENGAR + 1
+	ld a, BANK("Poke Sprites 3")
+	jr c, .GotBank
+	ld a, b
+	cp SCYTHER + 1
+	ld a, BANK("Poke Sprites 4")
+	jr c, .GotBank
+	ld a, BANK("Poke Sprites 5")
 .GotBank
 	jp UncompressSpriteData
 
