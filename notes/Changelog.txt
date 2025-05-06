@@ -557,7 +557,7 @@ Mewtwo: Psychic -> Psychic/Dark
 
 Pokemon type matchup changes:
 
-Ghost: Not Effective against Psychic -> Super-Effective against Psychic (aligns with later generations). ___DONE _
+Ghost: Not Effective against Psychic -> Super-Effective against Psychic (aligns with later generations). ___DONE _ (already done in Smith's hack)
 Ghost: Regularly Effective against Bug -> Not Very Effective against Bug. ___DONE _
 
 Bug: Super-Effective against Poison -> Not Very Effective against Poison (aligns with later generations). ___DONE _
@@ -577,6 +577,8 @@ Fighting: Super-Effective against Normal -> Regularly against Normal. ___DONE _
 
 Psychic: Super-Effective against Poison -> Regularly Effective against Poison. ___DONE _
 Psychic: Regularly Effective against Bug -> Not Very Effective against Bug. ___DONE _
+Psychic: Regularly Effective against Ghost -> Super-Effective against Ghost. ___DONE _
+Psychic: Not Very Effective against Psychic -> Regularly against Psychic. ___DONE _
 
 Flying: Regularly Effective against Ice -> Not Very Effective against Ice. ___DONE _
 
@@ -612,8 +614,8 @@ Dark - original:
 Dark - revised: 
 	strong VS Psychic, Ghost, Normal; 
 	not strong VS Fighting, Fairy, Bug, Dark;
-	weak TO Fighting, Bug, Fairy, Ghost; 
-	resists Psychic, Dark.
+	weak TO Fighting, Bug, Fairy; 
+	resists Psychic, Dark, Ghost.
 	
 	
 Fairy - original: 
@@ -625,7 +627,7 @@ Fairy - original:
 	
 Fairy - revised: 
 	strong VS Fighting, Dragon, Dark; 
-	not strong VS Fire, Poison, Steel; 
+	not strong VS Fire, Poison, Steel;
 	weak TO Poison, Steel, Fire, Gas; 
 	resists Fighting, Bug, Dark, Grass;
 	Immune TO Dragon.
@@ -633,9 +635,9 @@ Fairy - revised:
 	
 Gas - new: 
 	strong VS Grass, Fairy, Bug; 
-	not strong VS Ghost, Poison, Flying, Rock, Dragon, Gas; 
+	not strong VS Poison, Rock, Ghost, Flying, Dragon, Gas; 
 	weak TO Fire, Ice, Flying; 
-	resists Bug, Poison, Normal, Ghost, Gas;
+	resists Poison, Bug, Normal, Ghost, Gas;
 	Immune TO Ground.
 	Does not affect Steel.
 
@@ -1294,4 +1296,3 @@ Possible pokemon to add:
 - Electivire and Magmortar
 
 ____________________ - - - - - - - - - - 
-
