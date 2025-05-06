@@ -851,7 +851,7 @@ revised : 130 75 45 80 80 - 410
 Raticate
 original: 55 81 60 50 97 - 343
 revised : 70 90 65 60 90 - 375
-* Rattata also +10HP (30 to 40), -1Attack (56 to 55), +8Speed (72 to 80). 
+* Rattata also +5HP (30 to 35), -1Attack (56 to 55), +8Speed (72 to 80). 
 
 Lickitung
 original: 90 55 75 60 30 - 310
@@ -867,8 +867,8 @@ original: 75 100 95 70 110 - 450
 revised : 90 120 80 50 110 - 450
 
 Kangaskhan
-original: 105 95  80 40 90 - 410
-revised : 120 100 75 60 75 - 430
+original: 105 95 80 40 90 - 410
+revised : 110 90 80 60 80 - 420
 
 Chansey
 original: 250 5 5 105 50 - 415
@@ -904,7 +904,7 @@ revised : 90 75 90 110 55 - 420
 
 Tangela
 original: 65 55 115 100 60 - 395
-revised : 80 60 110 90  60 - 400
+revised : 80 60 100 90  60 - 390
 
 
 Electric: - - - - - - - - - - - - - -
@@ -994,13 +994,13 @@ revised : 60 80 70 80 110 - 400
 Muk
 original: 105 105 75 65 50 - 400
 smith   : 105 105 75 85 50 - 420
-revised : 130 95  70 95 40 - 430
-* Grimer also -20Attack (80 to 60), +20 Special (40 to 60), +5 Speed (from 25 to 30).
+revised : 125 95  70 95 40 - 425
+* Grimer also -20Attack (80 to 60), +25 Special (40 to 65), +5 Speed (from 25 to 30).
 
 Weezing
-original: 65  90 120 85 60 - 420
-revised : 100 95 100 95 50 - 430
-* Koffing also +10Hp (40 to 50), -15Defense (95 to 80), +20Special (60 to 80), +5Speed (35 to 40).
+original: 65 90 120 85 60 - 420
+revised : 90 95 100 95 50 - 430
+* Koffing also -15Defense (95 to 80), +5Special (60 to 65), +5Speed (35 to 40).
 
 Gengar
 original: 60 65 60 130 110 - 425
@@ -1071,9 +1071,9 @@ revised : 100 80 60 120 100 - 460
 * Tentacool also +10Hp (40 to 50), -5Defense (35 to 30), -20Special (100 to 80), -20Speed (70 to 50).
 
 Slowbro
-original: 95 75 110 80 30 - 390
-revised : 95 75 110 85 30 - 395
-* Slowpoke also -5HP (90 to 85), -20Attack (65 to 45), +15Special (40 to 55), +5Speed (15 to 20).
+original: 95  75 110 80 30 - 390
+revised : 100 75 110 85 30 - 400
+* Slowpoke also -20Attack (65 to 45), +15Special (40 to 55).
 
 Kingler
 original: 55 130 115 50 75 - 425
