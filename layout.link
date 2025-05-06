@@ -69,18 +69,19 @@ ROMX $8
 	"Audio Engine 2"
 	"Music 2"
 ROMX $9
-	"Pics 1"
+	"Poke Sprites 1"
 	"Battle Engine 3"
 ROMX $A
-	"Pics 2"
+	"Poke Sprites 2"
 	"Battle Engine 4"
 ROMX $B
-	"Pics 3"
+	"Poke Sprites 3"
 	"Battle Engine 5"
 ROMX $C
-	"Pics 4"
+	"Poke Sprites 4"
+	"Poke Sprites 8"
 ROMX $D
-	"Pics 5"
+	"Poke Sprites 5"
 	"Slot Machines"
 ROMX $E
 	"Battle Engine 6"
@@ -185,7 +186,7 @@ ROMX $2D
 	"NPC Sprites 4"
 ROMX $2E
 	"Pokédex Text"
-ROMX $2f
+ROMX $2F
 	"Move Names"
 	"BG Map Attributes (Debug)"
 	org $5000
@@ -226,12 +227,15 @@ ROMX $3C
 	"Hidden Objects Core"
 ROMX $3D
 	"Battle Engine 8"
-	"Pics 7"
+	"Trainer Pics 4"
 	"Battle Engine 9"
 ROMX $3E
 	"Surfing Minigame"
 ROMX $3F
 	"Overworld Pikachu"
+ROMX $40
+    "Poke Sprites 6"
+    "Poke Sprites 7"
 WRAM0
 	"Audio RAM"
 	org $c100

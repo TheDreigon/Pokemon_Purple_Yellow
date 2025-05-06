@@ -1730,8 +1730,8 @@ wMonHFrontSprite:: dw
 wMonHBackSprite:: dw
 wMonHMoves:: ds NUM_MOVES
 wMonHGrowthRate:: db
-wMonHLearnset:: flag_array NUM_TMS + NUM_HMS
-	ds 1
+wMonHLearnset:: flag_array NUM_TMS + NUM_HMS ; increased by increasing the number of TMs
+wMonHPicBank:: db
 wMonHeaderEnd::
 
 ; saved at the start of a battle and then written back at the end of the battle
