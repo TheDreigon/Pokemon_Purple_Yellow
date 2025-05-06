@@ -1187,7 +1187,6 @@ Goldeen     	   ___DONE (pokemon Green sprite)
 Hitmonlee          ___DONE (pokemon Blue sprite)
 Jolteon            ___DONE (pokemon Green sprite)
 Flareon    	       ___DONE (pokemon Blue sprite)
-Vaporeon    	   ___DONE (pokemon redstarbluestar sprite)
 Pinsir   		   ___DONE (pokemon Blue sprite, flipped horizontally)
 Lapras 		       ___DONE (pokemon Blue sprite)
 Poliwhirl          ___DONE (pokemon redstarbluestar sprite)
@@ -1206,6 +1205,7 @@ Pinsir             ___DONE (pokemon redstarbluestar sprite)
 Dodrio    		   ___DONE (pokemon Blue sprite)
 Beedrill   		   ___DONE (pokemon Blue sprite)
 Magikarp   		   ___DONE (pokemon Blue sprite)
+Drowzee   		   ___DONE (pokemon Blue sprite)
 
 
 Swapped back sprites (replaced TheSmith's reworked sprite with its original sprite):
@@ -1215,6 +1215,7 @@ Gyarados           ___DONE
 Magikarp           ___DONE
 Slowpole           ___DONE
 Slowbro            ___DONE
+Drowzee            ___DONE
 
 
 Sprites que ainda não estou satisfeito:
