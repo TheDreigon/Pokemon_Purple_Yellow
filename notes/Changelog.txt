@@ -1,0 +1,1297 @@
+____________________
+
+REVISED movelist organized by type and damge - includes new moves:
+
+
+Normal (18 moves)  __FIRST REVISION DONE
+    move SUPERSONIC,   CONFUSION_EFFECT,             0, NORMAL,        80, 20
+	
+	move POUND,        NO_ADDITIONAL_EFFECT,        30, NORMAL,       100, 35
+	
+    move SCRATCH,      NO_ADDITIONAL_EFFECT,        40, NORMAL,       100, 30
+    move BITE,         NO_ADDITIONAL_EFFECT,        40, NORMAL,       100, 30
+    move TACKLE,       NO_ADDITIONAL_EFFECT,        40, NORMAL,       100, 30
+	
+    move DOUBLESLAP,   TWO_TO_FIVE_ATTACKS_EFFECT,  15, NORMAL,        90, 20
+    move FURY_ATTACK,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20
+    move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20
+	
+    move QUICK_ATTACK, NO_ADDITIONAL_EFFECT,        45, NORMAL,       100, 20
+    move HEADBUTT,     CONFUSION_SIDE_EFFECT,       50, NORMAL,       100, 25
+    move HORN_ATTACK,  NO_ADDITIONAL_EFFECT,        50, NORMAL,       100, 25
+	
+    move SLASH,        NO_ADDITIONAL_EFFECT,        70, NORMAL,       100, 20
+    move CRUNCH,       DEFENSE_DOWN_SIDE_EFFECT,    75, NORMAL,       100, 20  -- new move 
+    move BODY_SLAM,    PARALYZE_SIDE_EFFECT2,       80, NORMAL,       100, 20
+
+    move DOUBLE_EDGE,  RECOIL_EFFECT,              100, NORMAL,       100, 10
+
+    move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, NORMAL,       100, 20  -- signature move
+    move HYPER_FANG,   DEFENSE_DOWN_SIDE_EFFECT,    75, NORMAL,       100, 20  -- signature move
+    move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 15  -- signature move
+
+
+Fighting (14 moves)  __FIRST REVISION DONE
+    move SEISMIC_TOSS, SPECIAL_DAMAGE_EFFECT,        1, FIGHTING,     100, 25
+    move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         30, FIGHTING,     100, 20
+    move LOW_KICK,     FLINCH_SIDE_EFFECT2,         45, FIGHTING,      90, 25
+    move STRENGTH,     ATTACK_UP1_EFFECT,           60, FIGHTING,     100, 30
+    move MEGA_PUNCH,   NO_ADDITIONAL_EFFECT,        70, FIGHTING,      90, 25
+    move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  20, FIGHTING,     100, 20
+    move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        80, FIGHTING,     100, 20
+
+    move MACH_PUNCH,   NO_ADDITIONAL_EFFECT,        45, FIGHTING,     100, 20  -- new signature move (priority move)
+    move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       60, FIGHTING,     100, 30  -- signature move
+    move ROLLING_KICK, FLINCH_SIDE_EFFECT1,         60, FIGHTING,     100, 30  -- signature move
+    move HI_JUMP_KICK, NO_ADDITIONAL_EFFECT,       100, FIGHTING,      90, 20  -- signature move
+    move KARATE_CHOP,  NO_ADDITIONAL_EFFECT,        60, FIGHTING,     100, 30  -- signature move
+    move SUBMISSION,   ATTACK_DOWN1_EFFECT,         90, FIGHTING,     100, 20  -- signature move
+    move LEEK_STRIKE,  NO_ADDITIONAL_EFFECT,        55, FIGHTING,     100, 30  -- new signature move
+	
+	
+Flying (6 moves)  __FIRST REVISION DONE  !! (Edit Update: criar um novo move de priority ?) !!
+    move PECK,         NO_ADDITIONAL_EFFECT,        35, FLYING,       100, 30
+	move GUST,         NO_ADDITIONAL_EFFECT,        35, FLYING,       100, 30
+    move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        55, FLYING,       100, 25
+    move FLY,          FLY_EFFECT,                  75, FLYING,       100, 20
+    move DRILL_PECK,   DEFENSE_DOWN1_EFFECT,        90, FLYING,       100, 15
+    move SKY_ATTACK,   FLY_EFFECT,                 100, FLYING,       100, 10
+
+	
+Fire (6 moves)  __FIRST REVISION DONE
+    move EMBER,        BURN_SIDE_EFFECT1,           40, FIRE,         100, 30
+    move FIRE_PUNCH,   BURN_SIDE_EFFECT1,           55, FIRE,         100, 25  -- also add Fang move (if enough pokemon learn it)
+    move FIRE_SPIN,    BURN_SIDE_EFFECT1,           70, FIRE,         100, 20  -- rename to 'Flame Charge'.
+    move FLAMETHROWER, BURN_SIDE_EFFECT2,           90, FIRE,         100, 15
+    move FIRE_BLAST,   BURN_SIDE_EFFECT2,          110, FIRE,          80, 10
+    
+    move EGG_BOMB,     BURN_SIDE_EFFECT2,           65, FIRE,         100, 15  -- signature move
+	move SELFDESTRUCT, EXPLODE_EFFECT,             130, FIRE,         100,  5  -- signature move
+
+
+Ice (5 moves)  __FIRST REVISION DONE
+    move ICY_MIST,     SPEED_DOWN_SIDE_EFFECT,      40, ICE,          100, 30
+    move ICE_PUNCH,    FREEZE_SIDE_EFFECT,          55, ICE,          100, 25  -- also add Fang move (if enough pokemon learn it)
+    move AURORA_BEAM,  SPECIAL_DOWN_SIDE_EFFECT,    70, ICE,          100, 20
+    move ICE_BEAM,     FREEZE_SIDE_EFFECT,          90, ICE,          100, 15
+    move BLIZZARD,     FREEZE_SIDE_EFFECT,         110, ICE,           80, 10
+
+
+Electric (8 moves)  __FIRST REVISION DONE
+    move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC,     100, 20
+	
+    move THUNDERSHOCK, PARALYZE_SIDE_EFFECT1,       40, ELECTRIC,     100, 30
+	move FLASH_ZAP,    NO_ADDITIONAL_EFFECT,        45, ELECTRIC,     100, 20  -- new move (priority move)
+    move THUNDERPUNCH, PARALYZE_SIDE_EFFECT1,       55, ELECTRIC,     100, 25  -- also add Fang move (if enough pokemon learn it)
+    move DISCHARGE,    PARALYZE_SIDE_EFFECT1,       70, ELECTRIC,     100, 20  -- new move
+    move THUNDERBOLT,  PARALYZE_SIDE_EFFECT2,       90, ELECTRIC,     100, 15
+    move THUNDER,      PARALYZE_SIDE_EFFECT2,      110, ELECTRIC,      80, 10
+
+    move TRI_ATTACK,   ACCURACY_UP1_EFFECT,         90, ELECTRIC,     100, 20  -- signature move
+
+
+Bug (10 moves)  __FIRST REVISION DONE
+    move CONSTRICT,    SPEED_DOWN1_EFFECT,          30, BUG,          100, 30
+    move BUG_BITE,     FLINCH_SIDE_EFFECT1,         40, BUG,          100, 30  -- new move
+    move LEECH_LIFE,   DRAIN_HP_EFFECT,             60, BUG,          100, 20
+	move BUG_BUZZ,     DEFENSE_DOWN_SIDE_EFFECT,    90, BUG,          100, 15  -- new move
+	move MEGAHORN,     DEFENSE_DOWN_SIDE_EFFECT,    90, BUG,          100, 15  -- new move
+
+    move SPORE,        SLEEP_EFFECT,                 0, BUG,          100, 20  -- signature move
+    move VICEGRIP,     PARALYZE_SIDE_EFFECT1,       75, BUG,          100, 25  -- signature move
+    move GUILLOTINE,   DEFENSE_DOWN1_EFFECT,       120, BUG,           80,  5  -- signature move
+    move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, BUG,           90, 20  -- signature move ; maybe remove.
+    move TWINEEDLE,    TWINEEDLE_EFFECT,            45, BUG,          100, 20  -- signature move
+
+
+Rock (7 moves)  __FIRST REVISION DONE
+	move BIND,         PARALYZE_SIDE_EFFECT2,       40, ROCK,         100, 30
+    move ROCK_THROW,   FLINCH_SIDE_EFFECT2,         65, ROCK,          90, 25
+    move ROCK_SLIDE,   PARALYZE_SIDE_EFFECT2,       90, ROCK,         100, 15
+    move SKULL_BASH,   RECOIL_EFFECT,              100, ROCK,         100, 10
+
+	move HORN_DRILL,   DEFENSE_DOWN1_EFFECT,       120, ROCK,          80,  5  -- signature move
+    move CRABHAMMER,   FLINCH_SIDE_EFFECT2,         90, ROCK,          90, 20  -- signature move
+    move CLAMP,        TRAPPING_EFFECT,             20, ROCK,          90, 20  -- signature move
+    move ROLLOUT,      TWO_TO_FIVE_ATTACKS_EFFECT,  20, ROCK,          90, 20  -- new signature move
+
+
+Steel (4 moves)  __FIRST REVISION DONE
+    move CUT,          DEFENSE_DOWN1_EFFECT,        60, STEEL,        100, 25
+    move STEEL_WING,   DEFENSE_DOWN_SIDE_EFFECT,    70, STEEL,        100, 20  -- new move
+    move IRON_TAIL,    DEFENSE_DOWN_SIDE_EFFECT,    70, STEEL,        100, 20  -- new move
+	move IRON_HEAD,    FLINCH_SIDE_EFFECT2,         80, STEEL,        100, 15  -- new move
+
+
+Dragon (6 moves)  __FIRST REVISION DONE
+    move DRAGON_RAGE,  SPECIAL_DAMAGE_EFFECT,        1, DRAGON,       100, 20
+    move DRAGONBREATH, PARALYZE_SIDE_EFFECT1,       65, DRAGON,       100, 20  -- new move
+    move RAGE,         ATTACK_UP1_EFFECT,           70, DRAGON,        90, 15
+    move DRAGON_SLAM,  PARALYZE_SIDE_EFFECT2,       90, DRAGON,       100, 15  -- new move
+    move THRASH,       THRASH_PETAL_DANCE_EFFECT,  100, DRAGON,       100, 10
+    move HYPER_BEAM,   HYPER_BEAM_EFFECT,          130, DRAGON,        80,  5
+	
+	
+Water (6 moves)  __FIRST REVISION DONE
+    move WATER_GUN,    NO_ADDITIONAL_EFFECT,        40, WATER,        100, 30
+    move BUBBLEBEAM,   CONFUSION_SIDE_EFFECT,       55, WATER,        100, 25
+    move WATERFALL,    FLINCH_SIDE_EFFECT1,         70, WATER,        100, 20
+    move SURF,         SPEED_DOWN1_EFFECT,          90, WATER,        100, 15
+    move HYDRO_PUMP,   SPEED_DOWN2_EFFECT,         110, WATER,         80, 10
+
+
+Psychic (6 moves)  __FIRST REVISION DONE
+    move HYPNOSIS,     SLEEP_EFFECT,                 0, PSYCHIC_TYPE,  70, 20
+	
+    move PSYWAVE,      CONFUSION_EFFECT,            25, PSYCHIC_TYPE, 100, 30
+    move CONFUSION,    CONFUSION_SIDE_EFFECT,       45, PSYCHIC_TYPE, 100, 25
+	move PSYBEAM,      SPECIAL_DOWN1_EFFECT,        65, PSYCHIC_TYPE, 100, 20
+    move PSYCHIC_M,    SPECIAL_UP1_EFFECT,          85, PSYCHIC_TYPE, 100, 15
+    move DREAM_EATER,  DREAM_EATER_EFFECT,         100, PSYCHIC_TYPE, 100, 20
+	
+
+Ghost (5 moves)  __FIRST REVISION DONE
+    move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,        100, 20
+	
+    move NIGHT_SHADE,  SPECIAL_DAMAGE_EFFECT,        0, GHOST,        100, 25
+	move OMINOUS_WIND, SPECIAL_DOWN1_EFFECT,        55, GHOST,        100, 20  -- new move
+	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             60, GHOST,        100, 20  -- new move
+    move SHADOW_BALL,  ACCURACY_DOWN1_EFFECT,       75, GHOST,        100, 15  -- new move
+
+
+Dark (7 moves)  __FIRST REVISION DONE. Edit: ponderar adicionar o move das gerações recentes: Brutal Swing (seria uma espécie de Dark type Body Slam).
+    move GLARE,        PARALYZE_EFFECT,              0, DARK,          90, 20
+	
+    move LICK,         PARALYZE_SIDE_EFFECT2,       20, DARK,         100, 20
+	move PURSUIT,      NO_ADDITIONAL_EFFECT,        45, DARK,         100, 20  -- new move (priority move)
+	move FEINT_ATTACK, SWIFT_EFFECT,                60, DARK,         100, 25  -- new move
+	move NIGHT_SLASH,  NO_ADDITIONAL_EFFECT,        70, DARK,         100, 20  -- new move
+    move DARK_PULSE,   FLINCH_SIDE_EFFECT2,         80, DARK,         100, 20  -- new move
+
+    move LOVELY_KISS,  SLEEP_EFFECT,                 0, DARK,          80, 20  -- signature move
+
+
+Grass (13 moves)  __FIRST REVISION DONE
+    move POISONPOWDER, POISON_EFFECT,                0, GRASS,         85, 20
+    move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,         80, 20
+    move SLEEP_POWDER, SLEEP_EFFECT,                 0, GRASS,         75, 20
+    move LEECH_SEED,   LEECH_SEED_EFFECT,            0, GRASS,        100, 20
+	
+    move ABSORB,       DRAIN_HP_EFFECT,             25, GRASS,        100, 30
+    move VINE_WHIP,    NO_ADDITIONAL_EFFECT,        40, GRASS,        100, 30
+    move WRAP,         TRAPPING_EFFECT,             16, GRASS,         85, 30
+    move MEGA_DRAIN,   DRAIN_HP_EFFECT,             50, GRASS,        100, 25
+    move RAZOR_LEAF,   NO_ADDITIONAL_EFFECT,        70, GRASS,        100, 20
+	move GIGA_DRAIN,   DRAIN_HP_EFFECT,             75, GRASS,        100, 20  -- new move
+    move PETAL_DANCE,  THRASH_PETAL_DANCE_EFFECT,  100, GRASS,        100, 10
+    move SOLARBEAM,    CHARGE_EFFECT,              120, GRASS,        100, 10
+
+    move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  20, GRASS,         90, 15  -- signature move
+
+
+Ground (8 moves)  __FIRST REVISION DONE
+    move SAND_ATTACK,  ACCURACY_DOWN1_EFFECT,       20, GROUND,       100, 20
+    move GROUND_STOMP, SPEED_DOWN_SIDE_EFFECT,      45, GROUND,       100, 30  -- new move
+    move BULLDOZE,     SPEED_DOWN1_EFFECT,          60, GROUND,       100, 25  -- new move
+    move DIG,          CHARGE_EFFECT,               75, GROUND,       100, 20
+    move EARTHQUAKE,   SPEED_DOWN1_EFFECT,          90, GROUND,       100, 15
+    move FISSURE,      SPEED_DOWN2_EFFECT,         120, GROUND,        80,  5
+
+    move BONE_CLUB,    FLINCH_SIDE_EFFECT1,         60, GROUND,       100, 30  -- signature move
+    move BONEMERANG,   ATTACK_TWICE_EFFECT,         50, GROUND,        90, 20  -- signature move
+
+
+Poison (8 moves)  __FIRST REVISION DONE
+    move TOXIC,        POISON_EFFECT,                0, POISON,       100, 20
+	
+    move POISON_STING, POISON_SIDE_EFFECT1,         35, POISON,       100, 30
+    move ACID,         DEFENSE_DOWN1_EFFECT,        45, POISON,       100, 25
+    move POISON_FANG,  POISON_SIDE_EFFECT2,         60, POISON,       100, 25  -- new move
+	move TOXIC_DRAIN,  DRAIN_HP_EFFECT,             60, POISON,       100, 20  -- new move
+    move SLUDGE,       POISON_SIDE_EFFECT1,         65, POISON,       100, 20
+    move POISON_JAB,   POISON_SIDE_EFFECT2,         80, POISON,       100, 15  -- new move
+    move SLUDGE_BOMB,  POISON_SIDE_EFFECT2,         90, POISON,       100, 15  -- new move
+
+
+Gas (5 moves)  __FIRST REVISION DONE
+    move POISON_GAS,   POISON_EFFECT,                0, GAS,           80, 20
+	
+    move SMOG,         POISON_SIDE_EFFECT1,         35, GAS,          100, 30
+    move MIST_WHIRL,   ACCURACY_DOWN1_EFFECT,       50, GAS,          100, 25  -- new move
+    move TOXIC_CLOUD,  POISON_SIDE_EFFECT1,         65, GAS,          100, 20  -- new move
+    move HAZE,         POISON_SIDE_EFFECT2,         90, GAS,          100, 15
+	
+	
+Fairy (1 moves)
+    x
+	
+	move SING,         SLEEP_EFFECT,                 0, FAIRY,        80, 20  -- signature move
+	
+	
+Bird (46 moves)
+    move GROWL,        ATTACK_DOWN1_EFFECT,          0, BIRD,         100, 30
+    move TAIL_WHIP,    DEFENSE_DOWN1_EFFECT,         0, BIRD,         100, 30
+    move CONFUSE,      SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 25
+    move LEER,         SPEED_DOWN1_EFFECT,           0, BIRD,         100, 30
+    move STRING_SHOT,  SPEED_DOWN1_EFFECT,           0, BIRD,         100, 30
+    move WHIRLWIND,    SPEED_DOWN1_EFFECT,           0, BIRD,         100, 30
+    move SMOKESCREEN,  ACCURACY_DOWN1_EFFECT,        0, BIRD,         100, 20
+	
+	move X_X_X_X_X_X,  ATTACK_DOWN2_EFFECT,          0, BIRD,         100, 20  -- new move ('Charm')
+	move X_X_X_X_X_X,  ATTACK_DOWN2_EFFECT,          0, BIRD,         100, 20  -- new move ('Intimidate')
+    move SCREECH,      DEFENSE_DOWN2_EFFECT,         0, BIRD,         100, 20
+	move X_X_X_X_X_X,  SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 15  -- new move ('Fake Tears' (?))
+	move X_X_X_X_X_X,  SPEED_DOWN2_EFFECT,           0, BIRD,         100, 20  -- new move ('Scary Face')
+    move FLASH,        ACCURACY_DOWN2_EFFECT,        0, BIRD,         100, 15
+	
+    move ROAR,         ATTACK_UP1_EFFECT,            0, BIRD,         100, 30
+    move HARDEN,       DEFENSE_UP1_EFFECT,           0, BIRD,         100, 30
+    move DEFENSE_CURL, DEFENSE_UP1_EFFECT,           0, BIRD,         100, 30
+    move WITHDRAW,     DEFENSE_UP1_EFFECT,           0, BIRD,         100, 30
+    move GROWTH,       SPECIAL_UP1_EFFECT,           0, BIRD,         100, 25
+    move MEDITATE,     SPECIAL_UP1_EFFECT,           0, BIRD,         100, 25  -- rename to 'Calm Mind'
+    move X_X_X_X_X_X,  SPECIAL_UP1_EFFECT,           0, BIRD,         100, 25  -- new move ('Nasty Plot')
+    move X_X_X_X_X_X,  SPEED_UP1_EFFECT,             0, BIRD,         100, 30  -- new move ('Nimble')
+    move X_X_X_X_X_X,  SPEED_UP1_EFFECT,             0, BIRD,         100, 30  -- new move ('Rock Polish')
+    move BLINK_SHIFT,  EVASION_UP1_EFFECT,           0, BIRD,         100, 20
+	
+	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 20
+    move ACID_ARMOR,   DEFENSE_UP2_EFFECT,           0, BIRD,         100, 20
+	move BARRIER,      DEFENSE_UP2_EFFECT,           0, BIRD,         100, 20
+    move AMNESIA,      SPECIAL_UP2_EFFECT,           0, BIRD,         100, 15
+    move AGILITY,      SPEED_UP2_EFFECT,             0, BIRD,         100, 20
+    move X_X_X_X_X_X,  ACCURACY_UP2_EFFECT,          0, BIRD,         100, 20  -- new move ('Lock On')
+	
+    move FOCUS_ENERGY, FOCUS_ENERGY_EFFECT,          0, BIRD,         100, 30
+    move SHARPEN,      ATTACK_UP2_EFFECT,            0, BIRD,         100, 20
+    move CONVERSION,   SPECIAL_UP2_EFFECT,           0, BIRD,         100, 15
+    move LIGHT_SCREEN, LIGHT_SCREEN_EFFECT,          0, BIRD,         100, 20
+    move REFLECT,      REFLECT_EFFECT,               0, BIRD,         100, 20
+	move BIDE,         BIDE_EFFECT,                  0, BIRD,         100, 20
+    move DISABLE,      DISABLE_EFFECT,               0, BIRD,          75, 15
+    move SUBSTITUTE,   SUBSTITUTE_EFFECT,            0, BIRD,         100, 10
+    move MIRROR_MOVE,  MIRROR_MOVE_EFFECT,           0, BIRD,         100, 20
+    move MIMIC,        MIMIC_EFFECT,                 0, BIRD,         100, 20
+    move METRONOME,    METRONOME_EFFECT,             0, BIRD,         100, 20
+    move TRANSFORM,    TRANSFORM_EFFECT,             0, BIRD,         100, 40
+    move REST,         HEAL_EFFECT,                  0, BIRD,         100, 30
+    move RECOVER,      HEAL_EFFECT,                  0, BIRD,         100, 15
+    move SOFTBOILED,   HEAL_EFFECT,                  0, BIRD,         100, 20
+    move SPLASH,       SPLASH_EFFECT,                0, BIRD,         100, 40
+	
+    move STRUGGLE,     RECOIL_EFFECT,               40, BIRD,         100, 10
+	
+
+Moves count per type:
+	Normal: 18 moves
+	Fighting: 14 moves
+	Flying: 6 moves
+	Poison: 8 moves
+	Ground: 8 moves
+	Rock: 7 moves
+	Bug: 10 moves
+	Ghost: 5 moves
+	Fire: 6 moves
+	Water: 6 moves
+	Grass: 13 moves
+	Electric: 8 moves
+	Psychic: 6 moves
+	Ice: 5 moves
+	Dragon: 6 moves
+	Dark: 7 moves
+	Steel: 4 moves
+	Gas: 5 moves
+	Fairy: 1 moves
+	Bird: 46 moves
+Total: 189 moves (originally 166) (ideal number under 200)
+
+____________________ - - - - - - - - - - 
+
+- talvez tornar a Digglet's Cave escura, como o Rock Tunnel.
+- find how to fix the 'Badge Boost glitch'.
+- find how to make the AI not have infinite PP.
+- make Freeze not infinite.
+
+- change old/good/super rods gift place: old rod to cerulean, good rod to route 12, super rod to fuchsia. 
+		(Edit: afinal o rom base vai ser o do Smith, e nele a Old Rod está em Viridian e a Good em Vermilion)
+- first rival fights (until lavender tower (excl.)) he partially rotates pokemon team, to reflect routes. (Edit: afinal o rom base vai ser o do Smith e isto já está lá feito)
+
+- passar a venderem-se moonstone e talvez aumentar o preco de todas as pedras ligeiramente.
+- se conseguir fazer 2 stats ao mesmo tempo, fazer o Roar +1Attk +1Defense.
+- comentario do reddit: "The Hitmons not being able to learn Earthquake or Rock Slide is really annoying."
+- new move para Mr. Mime?
+- Doduo/Dodrio: lose Fly attack.
+
+- - - - - - - - - - 
+
+- afinal ser: '40/30, 55/25 (TMs), 70/20, 90/15 (TMs), 110/10 (80 acc)'.
+
+- mudar o nome dos elemental punches para fang (para fazer sentido mais pokemon aprenderem). ex: FIRE_PUNCH -> FIRE_FANG. Update: talvez ter os dois...
+- mudar o nome do ICY_MIST para 'ICY_WIND'.
+- mudar o nome do FIRE_SPIN para 'FLAME_BURST'.
+
+- colocar o move Counter de volta no seu sítio e o Shadow Ball no sitio do Counter. Novos moves ficarao apos o Shadow Ball e antes do Struggle. 
+		(Edit: como afinal o rom base vai ser o do Smith, o Counter não desaparecerá)
+- testar o Counter, apos eu ter adicionado o + 1Defense.
+- testar se ataques como o Strength ainda aumentam os stats caso não acertem no oponente.
+- ver se o ACCURACY_UP1_EFFECT do TRI_ATTACK funciona.
+- review Clamp move.
+
+- fazer o special split, rever o amnesia, e adicionar um novo move estilo nasty plot mas com outro nome. (Edit: não deu para fazer o Special Split)
+
+____________________
+
+-> make all TMs available in Celadon Store (but expensive (Edit: maybe Smith's rom already has this covered)	
+
+número de TMs no jogo definido no file 'item_constants.asm' na linha 120.
+
+New TMS:
+1 - FIRE_PUNCH
+2 - Flamethrower
+3 - Ground Stomp
+4 - ICE_PUNCH
+5 - Dragon Slam
+6 - Poison Fang
+7 - Quick Attack
+8 - Confuse Ray
+9 - THUNDERPUNCH
+10 - Confusion
+11 - Light Screen
+12 - Rock Throw
+13 - Thrash
+14 - Agility
+15 - Poison Jab
+16 - Glare
+17 - Sand-Attack
+18 - Amnesia (nao deixar o Alakazam e Gengar aprenderem no caso de NÃO haver Special split)
+19 - Will-o-Wisp
+20 - Recover
+21 - Iron Defense
+22 - Giga Drain
+23 - Nasty Plot (nao deixar o Alakazam e Gengar aprenderem no caso de haver Special split (Edit: não deu para fazer o Special Split, por isso pôr aqui outro move, tipo o Dragon Rage de novo))
+
+TMS to remove:
+1 - TM04 Whirlwind -> remove
+2 - TM05 Mega Kick -> remove
+3 - TM07 Horn Drill -> remove
+4 - TM16 Pay Day -> remove
+5 - TM30 Teleport -> remove
+6 - TM36 Selfdestruct -> remove
+7 - TM37 Egg Bomb -> remove
+8 - TM41 Softboiled -> remove
+9 - TM46 Psywave -> remove
+10 - TM49 Tri Attack -> remove
+11 - TM47 Explosion -> remove
+12 - TM14 Blizzard  -> remove
+13 - TM25 Thunder  -> remove
+14 - TM38 Fire Blast  -> remove
+15 - TM27 Fissure  -> remove
+16 - TM17 Submission  -> remove
+17 - TM39 Swift  -> remove
+18 - TM18 Counter  -> remove
+19 - TM23 Dragon Rage  -> remove
+20 - TM40 Skull Bash -> remove
+21 - TM12 Water Gun -> remove
+22 - TM19 Seismic Toss -> remove
+23 - TM21 Mega Drain -> remove
+
+HMs:
+1 - Cut
+2 - Fly
+3 - Surf
+4 - Strength
+5 - Flash
+
+TM total: 50 + 23 - 23 = 50 (+ 5 HMs = 55)
+
+-> tornar os HMs em TMs. (Edit: afinal não, como o rom base vai passar a ser o rom do Smith e ele melhorou-os (em quality of life e move deleter))
+
+- - - - - - - - - - 
+
+TMs - original and Smith's: 
+
+TM   Move          Type      Locations                                            Price		In Smith's rom
+TM01 Mega Punch    Normal    Mt. Moon, Celadon Department Store                   $3000
+TM02 Razor Wind    Normal    Rocket Hideout, Celadon Department Store             $2000		-> location changed to that of TM04, to 'Route 4'
+TM03 Swords Dance  Normal    Silph Co.                                            N/A
+TM04 Whirlwind     Normal    Route 4                                              N/A		-> move changed to 'Flamethrower' and location changed to that of TM02, to 'Rocket Hideout, Celadon Department Store'
+TM05 Mega Kick     Normal    Victory Road, Celadon Department Store               $3000
+TM06 Toxic         Poison    Prize for defeating Fuchsia Gym Leader Koga          N/A
+TM07 Horn Drill    Normal    Rocket Hideout, Celadon Department Store             $2000
+TM08 Body Slam     Normal    S.S. Anne                                            N/A
+TM09 Take Down     Normal    Silph Co., Celadon Department Store                  $3000
+TM10 Double-Edge   Normal    Rocket Hideout                                       N/A
+TM11 BubbleBeam    Water     Prize for defeating Cerulean Gym Leader Misty        N/A
+TM12 Water Gun     Water     Mt. Moon                                             N/A
+TM13 Ice Beam      Ice       Celadon Department Store roof                        N/A
+TM14 Blizzard      Ice       Pokémon Mansion                                      N/A
+TM15 Hyper Beam    Normal    Rocket Game Corner                                   5500C
+TM16 Pay Day       Normal    Route 12                                             N/A
+TM17 Submission    Fighting  Victory Road, Celadon Department Store               $3000
+TM18 Counter       Fighting  Celadon Department Store                             N/A
+TM19 Seismic Toss  Fighting  Route 25                                             N/A
+TM20 Rage          Normal    Route 15                                             N/A
+TM21 Mega Drain    Grass     Prize for defeating Celadon Gym Leader Erika         N/A
+TM22 SolarBeam     Grass     Pokémon Mansion                                      N/A
+TM23 Dragon Rage   Dragon    Rocket Game Corner                                   3300C
+TM24 Thunderbolt   Electric  Prize for defeating Vermilion Gym Leader Lt. Surge   N/A
+TM25 Thunder       Electric  Kanto Power Plant                                    N/A
+TM26 Earthquake    Ground    Silph Co.                                            N/A
+TM27 Fissure       Ground    Prize for defeating Viridian Gym Leader Giovanni     N/A
+TM28 Dig           Ground    Cerulean City                                        N/A
+TM29 Psychic       Psychic   Saffron City                                         N/A
+TM30 Teleport      Psychic   Route 9                                              N/A
+TM31 Mimic         Normal    Saffron City                                         N/A
+TM32 Double Team   Normal    Safari Zone, Celadon Department Store                $1000
+TM33 Reflect       Psychic   Kanto Power Plant, Celadon Department Store          $1000
+TM34 Bide          Normal    Prize for defeating Pewter Gym Leader Brock          N/A
+TM35 Metronome     Normal    Pokémon Lab                                          N/A
+TM36 Selfdestruct  Normal    Silph Co.                                            N/A
+TM37 Egg Bomb      Normal    Safari Zone, Celadon Department Store                $2000
+TM38 Fire Blast    Fire      Prize for defeating Cinnabar Gym Leader Blaine       N/A
+TM39 Swift         Normal    Route 12                                             N/A
+TM40 Skull Bash    Normal    Safari Zone                                          N/A
+TM41 Softboiled    Normal    Celadon City                                         N/A
+TM42 Dream Eater   Psychic   Viridian City                                        N/A
+TM43 Sky Attack    Flying    Victory Road                                         N/A
+TM44 Rest          Psychic   S.S. Anne                                            N/A
+TM45 Thunder Wave  Electric  Route 24                                             N/A
+TM46 Psywave       Psychic   Prize for defeating Saffron Gym Leader Sabrina       N/A
+TM47 Explosion     Normal    Victory Road                                         N/A
+TM48 Rock Slide    Rock      Celadon Department Store roof                        N/A
+TM49 Tri Attack    Normal    Celadon Department Store roof                        N/A
+TM50 Substitute    Normal    Rocket Game Corner                                   7700C
+
+- - - - - - - - - - 
+
+TMs - new, with Smith's as the base: 
+
+TM   Move          Type      Locations                                            Price
+TM01 Mega Punch    Normal    Mt. Moon, Celadon Department Store                   $3000
+TM02 Razor Wind    Normal    Route 4								              $2000
+TM03 Swords Dance  Normal    Silph Co.                                            N/A
+TM04 Flamethrower  Normal    Rocket Hideout, Celadon Department Store             N/A
+TM05 Mega Kick     Normal    Victory Road, Celadon Department Store               $3000
+TM06 Toxic         Poison    Prize for defeating Fuchsia Gym Leader Koga          N/A
+TM07 Horn Drill    Normal    Rocket Hideout, Celadon Department Store             $2000
+TM08 Body Slam     Normal    S.S. Anne                                            N/A
+TM09 Take Down     Normal    Silph Co., Celadon Department Store                  $3000
+TM10 Double-Edge   Normal    Rocket Hideout                                       N/A
+TM11 BubbleBeam    Water     Prize for defeating Cerulean Gym Leader Misty        N/A
+TM12 Water Gun     Water     Mt. Moon                                             N/A
+TM13 Ice Beam      Ice       Celadon Department Store roof                        N/A
+TM14 Blizzard      Ice       Pokémon Mansion                                      N/A
+TM15 Hyper Beam    Normal    Rocket Game Corner                                   5500C
+TM16 Pay Day       Normal    Route 12                                             N/A
+TM17 Submission    Fighting  Victory Road, Celadon Department Store               $3000
+TM18 Counter       Fighting  Celadon Department Store                             N/A
+TM19 Seismic Toss  Fighting  Route 25                                             N/A
+TM20 Rage          Normal    Route 15                                             N/A
+TM21 Mega Drain    Grass     Prize for defeating Celadon Gym Leader Erika         N/A
+TM22 SolarBeam     Grass     Pokémon Mansion                                      N/A
+TM23 Dragon Rage   Dragon    Rocket Game Corner                                   3300C
+TM24 Thunderbolt   Electric  Prize for defeating Vermilion Gym Leader Lt. Surge   N/A
+TM25 Thunder       Electric  Kanto Power Plant                                    N/A
+TM26 Earthquake    Ground    Silph Co.                                            N/A
+TM27 Fissure       Ground    Prize for defeating Viridian Gym Leader Giovanni     N/A
+TM28 Dig           Ground    Cerulean City                                        N/A
+TM29 Psychic       Psychic   Saffron City                                         N/A
+TM30 Teleport      Psychic   Route 9                                              N/A
+TM31 Mimic         Normal    Saffron City                                         N/A
+TM32 Double Team   Normal    Safari Zone, Celadon Department Store                $1000
+TM33 Reflect       Psychic   Kanto Power Plant, Celadon Department Store          $1000
+TM34 Bide          Normal    Prize for defeating Pewter Gym Leader Brock          N/A
+TM35 Metronome     Normal    Pokémon Lab                                          N/A
+TM36 Selfdestruct  Normal    Silph Co.                                            N/A
+TM37 Egg Bomb      Normal    Safari Zone, Celadon Department Store                $2000
+TM38 Fire Blast    Fire      Prize for defeating Cinnabar Gym Leader Blaine       N/A
+TM39 Swift         Normal    Route 12                                             N/A
+TM40 Skull Bash    Normal    Safari Zone                                          N/A
+TM41 Softboiled    Normal    Celadon City                                         N/A
+TM42 Dream Eater   Psychic   Viridian City                                        N/A
+TM43 Sky Attack    Flying    Victory Road                                         N/A
+TM44 Rest          Psychic   S.S. Anne                                            N/A
+TM45 Thunder Wave  Electric  Route 24                                             N/A
+TM46 Psywave       Psychic   Prize for defeating Saffron Gym Leader Sabrina       N/A
+TM47 Explosion     Normal    Victory Road                                         N/A
+TM48 Rock Slide    Rock      Celadon Department Store roof                        N/A
+TM49 Tri Attack    Normal    Celadon Department Store roof                        N/A
+TM50 Substitute    Normal    Rocket Game Corner                                   7700C
+
+____________________ - - - - - - - - - - 
+
+Pokemon typings to change:
+
+Butterfree: Bug/Flying -> Bug/Psychic
+Pinsir: Bug -> Bug/Fighting
+Golduck: Water -> Water/Psychic
+Growlithe/Arcanine: Fire -> Fire/Normal
+Farfetch'd: Normal/Flying -> Fighting/Flying
+Seel: Water -> Water/Ice (Dewgong already is Water/Ice)
+Gyarados: Water/Flying -> Water/Dragon
+Porygon: Normal -> Normal/Electric
+Seadra: Water -> Water/Dragon
+Jynx: Ice/Psychic -> Ghost/Ice
+Tangela: Grass -> Grass/Water (?)
+Marowak: Ground -> Ground/Dark
+Magnemite/Magneton: Electric -> Electric/Steel
+Voltorb/Electrode: Eletric -> Electric/Steel
+Raticate: Normal -> Normal/Dark
+Arbok: Poison -> Poison/Dark
+Drowzee/Hypno: Psychic -> Psychic/Dark
+Mankey/Primeape: Fighting -> Fighting/Dark
+Gastly/Haunter: Ghost/Poison - Ghost/Gas
+Gengar: Ghost/Poison - Ghost/Dark
+Vulpix/Ninetales: Fire -> Ghost/Fire
+Jigglypuff/Wigglytuff: Normal -> Fairy/Normal
+Chansey: Normal -> Fairy/Normal
+Clefairy/Clefable: Normal -> Fairy
+Mr. Mime: Psychic -> Psychic/Fairy
+Koffing/Weezing: Poison -> Poison/Gas (Gas: new typing, immune to Ground)
+Duduo/Dodrio: Normal/Flying -> Normal
+Rhyhorn/Rhydon: Rock/Ground -> Rock
+Mewtwo: Psychic -> Psychic/Dark
+
+
+- - - - - - - - - - 
+
+Pokemon type matchup changes:
+
+Ghost: Not Effective against Psychic -> Super-Effective against Psychic (aligns with later generations). ___DONE _
+Ghost: Regularly Effective against Bug -> Not Very Effective against Bug. ___DONE _
+
+Bug: Super-Effective against Poison -> Not Very Effective against Poison (aligns with later generations). ___DONE _
+Bug: Regularly Effective against Rock -> Not Very Effective against Rock. ___DONE _
+Bug: Not Very Effective against Ghost -> Regularly Effective against Ghost. ___DONE _
+
+Poison: Regularly Effective against Psychic -> Not Very Effective against Psychic. ___DONE _
+Poison: Regularly Effective against Ice -> Not Very Effective against Ice. ___DONE _
+Poison: Regularly Effective against Fighting -> Not Very Effective against Fighting. ___DONE _
+
+Ice: Regularly Effective against Fire -> Not Very Effective against Fire (aligns with later generations). ___DONE _
+Ice: Not Very Effective against Water -> Regularly Effective against Water. ___DONE _
+Ice: Regularly Effective against Fighting -> Not Very Effective against Fighting. ___DONE _
+
+Fighting: Regularly Effective against Dragon -> Super-Effective against Dragon. ___DONE _
+Fighting: Super-Effective against Normal -> Regularly against Normal. ___DONE _
+
+Psychic: Super-Effective against Poison -> Regularly Effective against Poison. ___DONE _
+Psychic: Regularly Effective against Bug -> Not Very Effective against Bug. ___DONE _
+
+Flying: Regularly Effective against Ice -> Not Very Effective against Ice. ___DONE _
+
+Ground: Regularly Effective against Ghost -> Not Very Effective against Ghost. ___DONE _
+
+Fire: Regularly Effective against Ground -> Not Very Effective against Ground. ___DONE _
+
+Rock: Super-Effective against Fire -> Regularly Effective against Fire. ___DONE _
+
+
+Steel - original: 
+	strong VS Ice, Rock; 
+	not strong VS Fire, Water, Electric, Steel; 
+	weak TO Fire, Fighting, Ground; 
+	resists Normal, Grass, Ice, Flying, Bug, Rock, Dragon, Steel, Fairy, Psychic, Ghost, Dark;
+	Immune TO Poison.
+	
+Steel - revised: 
+	strong VS Ice, Rock, Dragon, Fairy; 
+	not strong VS Fire, Water, Electric, Steel; 
+	weak TO Fire, Fighting, Ground; 
+	resists Normal, Grass, Ice, Flying, Bug, Rock, Dragon, Steel, Fairy;
+	Immune TO Poison, Gas.
+	
+	
+Dark - original: 
+	strong VS Psychic, Ghost; 
+	not strong VS Fighting, Dark, Steel; 
+	weak TO Fighting, Bug, Fairy; 
+	resists Ghost, Dark;
+	Immune TO Psychic.
+	
+Dark - revised: 
+	strong VS Psychic, Ghost, Normal; 
+	not strong VS Fighting, Fairy, Bug, Dark;
+	weak TO Fighting, Bug, Fairy, Ghost; 
+	resists Psychic, Dark.
+	
+	
+Fairy - original: 
+	strong VS Fighting, Dragon, Dark; 
+	not strong VS Fire, Poison, Steel; 
+	weak TO Poison, Steel; 
+	resists Fighting, Bug, Dark;
+	Immune TO Dragon.
+	
+Fairy - revised: 
+	strong VS Fighting, Dragon, Dark; 
+	not strong VS Fire, Poison, Steel; 
+	weak TO Poison, Steel, Fire, Gas; 
+	resists Fighting, Bug, Dark, Grass;
+	Immune TO Dragon.
+	
+	
+Gas - new: 
+	strong VS Grass, Fairy, Bug; 
+	not strong VS Ghost, Poison, Flying, Rock, Dragon, Gas; 
+	weak TO Fire, Ice, Flying; 
+	resists Bug, Poison, Normal, Ghost, Gas;
+	Immune TO Ground.
+	Does not affect Steel.
+
+____________________ - - - - - - - - - - 
+
+Pokemon evolution methods/levels to change:
+
+Ivysaur: level 32 -> level 36
+Caterpie/Weedle: level 7 -> level 8
+Metapod/Kakuna: level 10 -> level 12
+Pidgey: level 18 -> level 17
+Pidgeotto: level 36 -> level 37
+Rattata: level 20 -> level 21
+Ekans: level 22 -> level 21
+Sandshrew: level 22 -> level 21
+Nidoran: level 16 -> level 17
+Nidorino/Nidorina: Moonstone -> level 37
+Jigglypuff: Moonstone -> level 24
+Zubat: level 22 -> level 21
+Oddish: level 21 -> level 22
+Gloom: Leafstone -> level 38
+Paras: level 24 -> level 21
+Venonat: level 31 -> level 16
+Diglett: level 28 -> level 33
+Psyduck: level 33 -> level 30
+Mankey: level 28 -> level 29
+Poliwag: level 25 -> level 18 (Smith) -> level 20 (old rod encounter)
+Abra: level 16 -> level 26
+Kadabra: trading -> level 42
+Machop: level 28 -> level 26
+Machoke: trading -> level 42
+Bellsprout: level 21 -> level 22
+Weepinbell: Leafstone -> level 38
+Geodude: level 28 -> level 26
+Graveler: trading -> level 42
+Gastly: level 25 -> level 26
+Haunter: trading -> level 42
+Ponyta: level 40 -> level 35
+Slowpoke: level 37 -> level 31
+Magnemite: level 30 -> level 33
+Doduo: level 31 -> level 33
+Seel: level 34 -> level 35
+Grimer: level 38 -> level 31
+Drowzee: level 26 -> level 30
+Krabby: level 28 -> level 30 (good rod encounter)
+Cubone: level 28 -> level 25 (pô-lo a ser apanhado a um nível mais baixo)
+Koffing: level 35 -> level 31
+Rhyhorn: level 42 -> level 40
+Horsea: level 35 -> level 30 (good rod encounter)
+Goldeen: level 32 -> level 20 (old rod encounter)
+Magikarp: level 20 -> level 26
+Dratini: level 30 -> level 26
+Dragonair: level 55 -> level 46
+
+Evolution stones reminder and update:
+
+- Moonstone: (4) Clefairy, Jigglypuff, Nidorino, Nidorina -> (3) Clefairy, Vulpix, Staryu
+- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder
+- Leafstone: (3) Gloom, Weepinbell, Exeggcute -> (3) Exeggcute, Gloom, Weepinbell (TODO: Tangela also, in a future version)
+- Thunderstone: (2) Eevee, Pikachu -> (2) Eevee, Pikachu (TODO: add Voltorb too)
+- Firestone: (3) Eevee, Vulpix, Growlithe -> (2) Eevee, Growlithe
+
+____________________
+
+*Pokemon Stats* (hp, attack, defense, special, speed, base stat total):
+
+Starters: - - - - -  - - - - -
+
+Venusaur
+original: 80  82 83 100 80 - 425
+revised : 100 85 90 105 80 - 460
+
+Charizard
+original: 78 84  78 85 100 - 425
+smith   : 78 84  78 95 100 - 435
+revised : 90 100 80 100 90 - 460
+
+Blastoise
+original: 79 83 100 85 78 - 425
+revised : 90 85 110 95 80 - 460
+
+Pikachu
+original: 35 55 30 50 90 - 260
+smith   : 60 55 50 70 90 - 325
+revised : 60 55 50 75 95 - 335
+
+Eevee
+original: 55 55 50 65 55 - 280
+smith   : 70 65 65 70 55 - 325
+revised : 65 65 65 65 65 - 325
+
+Vaporeon
+original: 130 65 60 110 65 - 430
+revised : 130 65 65 110 80 - 450
+
+Jolteon
+original: 65 65 60 110 130 - 430
+revised : 65 80 65 110 130 - 450
+
+Flareon
+original: 65 130 60 110 65 - 430
+revised : 65 110 80 130 65 - 450
+
+
+Bug: - - - - - - - - - - - -
+
+Butterfree
+original: 60 45 50 80 70 - 305
+revised : 65 60 50 90 85 - 350
+* Metapod also +20 Defense (55 to 75), -20Speed (30 to 10).
+
+Beedrill
+original: 65 80 40 45 75 - 305
+revised : 65 95 60 60 90 - 370
+* Kakuna also +25 Defense (50 to 75), -25Speed (35 to 10).
+
+Venomoth
+original: 70 65 60 90 90  - 375
+smith   : 70 75 60 95 100 - 400
+revised : 65 80 65 80 80  - 370
+* Venonat also +10Special (40 to 50), +5Speed (45 to 50).
+
+Parasect
+original: 60 95 80 80 30 - 345
+revised : 90 90 90 90 20 - 380
+* Paras also +10Hp (35 to 45), +15Speed (25 to 40).
+
+Scyther
+original: 70 110 80 55 105 - 420
+revised : 50 110 80 60 110 - 410
+
+Pinsir
+original: 65 125 100 55 85 - 430
+revised : 70 120 100 60 60 - 410
+
+
+Rock: - - - - - - - - - - - -
+
+Onix
+original: 35 45  160 30 70 - 340
+smith   : 75 80  160 65 85 - 465
+revised : 50 100 150 70 50 - 420
+
+Golem
+original: 80 110 130 55 45 - 420
+revised : 80 110 130 65 65 - 450
+* Graveler also +5Hp (55 to 60), +5Attack (95 to 100), -5 Defense (115 to 110), +10Speed (35 to 45).
+
+Rhydon
+original: 105 130 120 45 40 - 440
+revised : 110 120 110 50 45 - 435
+* Rhyhorn also +25Speed (25 to 50).
+
+Omastar
+original: 70 60  125 115 55 - 425
+revised : 80 100 120 110 50 - 460
+
+Kabutops
+original: 60 115 105 70 80 - 430
+revised : 80 120 105 75 80 - 460
+
+Aerodactyl
+original: 80 105 65 60 130 - 440
+revised : 80 105 90 65 120 - 460
+
+
+Ground: - - - - - - - - - - - - - -
+
+Marowak
+original: 60 80 110 50 45 - 345
+smith   : 60 80 110 80 45 - 375
+revised : 70 90 100 80 75 - 415
+* Cubone also -15Defense (95 to 80), +5Speed (35 to 40).
+
+Sandslash
+original: 75 100 110 55 65 - 405
+revised : 70 110 110 55 70 - 415
+* Sandshrew also +5Defense (85 to 90).
+
+Dugtrio
+original: 35 80 50 70 120 - 355
+smith   : 35 90 50 70 120 - 365
+revised : 45 90 50 70 120 - 375
+* Diglett +5HP (10 to 15), +5Attack (55 to 60), -5Special (45 to 40).
+
+Nidoqueen
+original: 90  82 87 75 76 - 410
+revised : 100 85 85 80 80 - 430
+* Nidorina also +5HP (70 to 75), and +9Speed (56 to 65).
+* Nidoran-F also +9Speed (41 to 50).
+
+Nidoking
+original: 81 92  77 75 85 - 410
+revised : 90 100 85 75 80 - 430
+* Nidorino also +4HP (61 to 65), +8Attack (72 to 80), and +5Speed (65 to 70).
+* Nidoran-M also +5Speed (50 to 55).
+
+
+Normal: - - - - - - - - - - - - - -
+
+Clefable
+original: 95  70 73 85  60 - 383
+smith   : 95  70 73 95  60 - 393
+revised : 100 70 75 110 70 - 425
+* Clefairy also +10HP (70 to 80), -3Defense (48 to 45), +10Special (60 to 70), +10Speed (35 to 45).
+
+Wigglytuff
+original: 140 70 45 50 45 - 350
+smith   : 140 70 55 85 45 - 395
+revised : 130 75 45 80 80 - 410
+* Jigglypuff also -5Hp (115 to 110), +10Defense (20 to 30), +15Special (25 to 40), +40Speed (20 to 60).
+
+Raticate
+original: 55 81 60 50 97 - 343
+revised : 70 90 65 60 90 - 375
+* Rattata also +10HP (30 to 40), -1Attack (56 to 55), +8Speed (72 to 80). 
+
+Lickitung
+original: 90 55 75 60 30 - 310
+smith   : 95 70 85 75 30 - 355
+revised : 90 70 85 75 40 - 360
+
+Snorlax
+original: 160 110 65 65 30 - 430
+revised : 180 110 60 80 20 - 450
+
+Tauros
+original: 75 100 95 70 110 - 450
+revised : 90 120 80 50 110 - 450
+
+Kangaskhan
+original: 105 95  80 40 90 - 410
+revised : 120 100 75 60 75 - 430
+
+Chansey
+original: 250 5 5 105 50 - 415
+revised : 250 5 5 100 70 - 430
+
+Persian
+original: 65 70 60 65 115 - 375
+revised : 90 80 50 50 115 - 385
+* Meowth also +5HP (40 to 45), +5Attack (45 to 50), +5Defense (35 to 40).
+
+Ditto
+original: 48 48 48 48 48 - 240
+revised : 50 50 50 50 50 - 250
+
+
+Grass: - - - - - - - - - - - - - -
+
+Vileplume
+original: 75  80 85 100 50 - 390
+smith   : 90  80 85 100 50 - 405
+revised : 110 95 85 95  45 - 440
+* Gloom also +20Hp (60 to 80), +5Attack (65 to 70).
+
+Victreebel
+original: 80 105 65 100 70 - 420
+revised : 80 100 70 100 90 - 440
+* Weepinbell +5Speed (55 to 60).
+
+Exeggutor
+original: 95 95 85 125 55 - 455
+revised : 90 75 90 110 55 - 420
+* Exeggcute -35Defense (80 to 45), +20Special (60 to 80).
+
+Tangela
+original: 65 55 115 100 60 - 395
+revised : 80 60 110 90  60 - 400
+
+
+Electric: - - - - - - - - - - - - - -
+
+Raichu
+original: 60 90 55 90  100 - 395
+revised : 75 85 65 110 90  - 425
+
+Magneton
+original: 50 60 95  120 70 - 395
+revised : 60 70 100 120 60 - 410
+* Magnemite also -5Hp (25 to 20), +10Defense (70 to 80), -15Special (95 to 80), -5Speed (45 to 40).
+
+Electrode
+original: 60 50 70 80  140 - 400
+revised : 40 80 80 100 130 - 430
+* Voltorb also -20Hp (40 to 20), -10Defense (50 to 40), +10Attack (30 to 40), +5Special (55 to 60), +10Speed (100 to 110).
+
+Electabuzz
+original: 65 83 57 85 105 - 395
+revised : 75 95 65 95 95  - 420
+
+Porygon
+original: 65 60 70 75 40 - 310
+smith   : 75 70 70 95 40 - 350
+revised : 70 80 70 90 70 - 380
+
+
+Fire : - - - - - - - - - - - - - -
+
+Ninetales
+original: 73 76 75 100 100 - 424
+revised : 90 75 60 100 100 - 430
+* Vulpix also +22HP (38 to 60).
+
+Arcanine
+original: 90  110 80 80 95 - 455
+revised : 100 100 80 90 90 - 460
+* Growlithe also +20Hp (55 to 75).
+
+Rapidash
+original: 65 100 70 80 105 - 420
+smith   : 65 100 70 80 115 - 430
+revised : 70 95  70 85 110 - 430
+* Ponyta also -10Speed (100 to 90)
+
+Magmar
+original: 65 95 57 85 93 - 395
+smith   : 65 95 57 95 93 - 405
+revised : 75 95 75 95 85 - 420
+
+
+Ice: - - - - - - - - - - - - - -
+
+Dewgong
+original: 90  70 80 95 70 - 405
+revised : 100 75 80 90 70 - 415
+* Seel also +5HP (65 to 70).
+
+Cloyster
+original: 50 95 180 85 70 - 480
+revised : 45 90 180 90 45 - 460
+
+Jynx
+original: 65 50 35 95  95 - 340
+revised : 70 60 50 110 90 - 380
+
+Lapras
+original: 130 85 80  95  60 - 450
+revised : 130 70 105 100 75 - 480
+
+
+Poison: - - - - - - - - - - - - - -
+
+Arbok
+original: 60 85 69 65 80  - 359
+smith   : 62 95 69 65 90  - 381
+revised : 60 90 90 60 100 - 400
+* Ekans also +10Defense (35 to 45), +25Speed (55 to 80).
+
+Golbat
+original: 75 80 70 75 90  - 390
+smith   : 75 80 70 75 100 - 400
+revised : 60 80 70 80 110 - 400
+* Zubat also +35Speed (55 to 90).
+
+Muk
+original: 105 105 75 65 50 - 400
+smith   : 105 105 75 85 50 - 420
+revised : 130 95  70 95 40 - 430
+* Grimer also -20Attack (80 to 60), +20 Special (40 to 60), +5 Speed (from 25 to 30).
+
+Weezing
+original: 65  90 120 85 60 - 420
+revised : 100 95 100 95 50 - 430
+* Koffing also +10Hp (40 to 50), -15Defense (95 to 80), +20Special (60 to 80), +5Speed (35 to 40).
+
+Gengar
+original: 60 65 60 130 110 - 425
+revised : 65 90 55 115 115 - 440
+* Haunter also +10Attack (50 to 60).
+
+
+Flying: - - - - - - - - - - - - - -
+
+Pidgeot
+original: 83 80 75 70 91  - 399
+revised : 90 90 75 70 100 - 425
+* Pidgeotto also +7HP (63 to 70), +5Attack (60 to 65), +3Speed (71 to 74).
+
+Fearow
+original: 65 90 65 61 100 - 381
+revised : 70 95 65 65 95  - 390
+
+Dodrio
+original: 60 110 70 60 100 - 400
+revised : 60 110 60 60 110 - 400
+
+Farfetch'd
+original: 52  65 55 58 60 - 290
+smith   : 62  75 65 68 70 - 340
+revised : 100 75 50 50 75 - 350
+
+
+Fighting: - - - - - - - - - - - - - -
+
+Primeape
+original: 65 105 60 60 95 - 385
+revised : 70 110 65 60 95 - 400
+
+Machamp
+original: 90  130 80 65 55 - 420
+revised : 100 130 75 65 75 - 460
+* Machoke also +10Hp (80 to 90) and +20Speed (45 to 65).
+* Machop also +15Speed (35 to 50).
+
+Poliwrath
+original: 90 85  95 70 70 - 410
+revised : 90 100 90 85 85 - 450
+* Poliwhirl also +20Special (50 to 70), -10Speed (90 to 80).
+* Poliwag also -5 Attack (50 to 45), -15Speed (90 to 75).
+
+Hitmonlee
+original: 50 120 53 35 87 - 345
+smith   : 65 120 70 60 93 - 408
+revised : 80 110 70 60 95 - 415
+
+Hitmonchan
+original: 50 105 79 35  76 - 345
+smith   : 60 50  79 105 76 - 370
+revised : 90 80  90 75  80 - 415
+
+
+Water: - - - - - - - - - - - - - -
+
+Golduck
+original: 80 82 78 80 85 - 405
+revised : 80 80 70 90 85 - 405
+* Psyduck also +20Special (50 to 70).
+
+Tentacruel
+original: 80  70 65 120 100 - 435
+revised : 100 80 60 120 100 - 460
+* Tentacool also +10Hp (40 to 50), -5Defense (35 to 30), -20Special (100 to 80), -20Speed (70 to 50).
+
+Slowbro
+original: 95 75 110 80 30 - 390
+revised : 95 75 110 85 30 - 395
+* Slowpoke also -5HP (90 to 85), -20Attack (65 to 45), +15Special (40 to 55), +5Speed (15 to 20).
+
+Kingler
+original: 55 130 115 50 75 - 425
+revised : 50 120 115 75 80 - 440
+* Krabby also -25Attack (105 to 80), -15Defense (90 to 75), +20Special (25 to 45), +10Speed (50 to 60).
+
+Seaking
+original: 80 92 65 80 68 - 385
+revised : 90 95 65 85 85 - 420
+* Goldeen also +10HP (45 to 55), -2Attack (67 to 65), and +2Speed (63 to 65).
+
+Starmie
+original: 60 75 85 100 115 - 435
+revised : 65 75 85 100 100 - 425
+
+
+Dragon: - - - - - - - - - - - - - -
+
+Seadra
+original: 55 65 95  95 85 - 395
+revised : 70 70 100 80 80 - 400
+* Horsea also +5HP (30 to 35), -10Special (70 to 60).
+
+Gyarados
+original: 95 125 79 100 81 - 480
+revised : 95 130 80 100 75 - 480
+
+Dragonite
+original: 91  134 95 100 80 - 500
+revised : 100 125 85 110 80 - 500
+* Dragonair also +19HP (61 to 80), -4Attack (84 to 80), +10Special (70 to 80), +5Speed(70 to 75).
+* Dratini also +19HP (41 to 60), -4Attack (64 to 60), +10Speed (50 to 60).
+
+
+Psychic: - - - - - - - - - - - - - -
+
+Alakazam
+original: 55 50 45 135 120 - 405
+revised : 55 50 50 135 125 - 415
+
+Hypno
+original: 85 73 70 115 67 - 410
+revised : 85 85 70 110 70 - 420
+
+Mr Mime
+original: 40 45 65 100 90 - 340
+revised : 60 60 70 110 90 - 380
+
+
+Legendary: - - - - - - - - - - - - - -
+
+Mewtwo
+original: 106 110 90  154 130 - 590
+revised : 100 100 100 150 150 - 600
+
+Mew
+original: 100 100 100 100 100 - 500
+revised : 200 80  80  80  140 - 580
+
+Articuno
+original: 90  85 100 125 85  - 485
+revised : 100 90 100 130 100 - 520
+
+Zapdos
+original: 90  90  85 125 100 - 490
+revised : 100 100 80 130 110 - 520
+
+Moltres
+original: 90  100 90 125 90  - 495
+revised : 100 100 90 130 100 - 520
+
+
+____________________ - - - - - - - - - - 
+
+**
+Swapped front sprites:
+
+Onix       	       ___DONE (pokemon Blue sprite)
+Victreebel   	   ___DONE (pokemon Blue sprite)
+Clefable           ___DONE (pokemon Green sprite)
+Sandslash          ___DONE (pokemon Blue sprite)
+Koffing 	  	   ___DONE (pokemon Green sprite)
+Weezing    	       ___DONE (pokemon Green sprite)
+Tentacruel     	   ___DONE (pokemon Blue sprite)
+Nidoking  	       ___DONE (pokemon Blue sprite)
+Cloyster 		   ___DONE (pokemon Green sprite)
+Dratini            ___DONE (pokemon Green sprite)
+Dragonair  		   ___DONE (pokemon redstarbluestar sprite)
+Dragonite          ___DONE (pokemon redstarbluestar sprite)
+Rattata            ___DONE (pokemon redstarbluestar sprite)
+Paras & Parasect   ___DONE (pokemon Green sprite)
+Golduck            ___DONE (pokemon Blue sprite)
+Grimer & Muk       ___DONE (pokemon Blue sprite)
+Slowpoke           ___DONE (pokemon Blue sprite)
+Slowbro            ___DONE (pokemon Blue sprite)
+Alakazam   	       ___DONE (pokemon Blue sprite)
+Cubone   		   ___DONE (pokemon Green sprite)
+Marowak            ___DONE (pokemon Blue sprite)
+Goldeen     	   ___DONE (pokemon Green sprite)
+Hitmonlee          ___DONE (pokemon Blue sprite)
+Jolteon            ___DONE (pokemon Green sprite)
+Flareon    	       ___DONE (pokemon Blue sprite)
+Vaporeon    	   ___DONE (pokemon redstarbluestar sprite)
+Pinsir   		   ___DONE (pokemon Blue sprite, flipped horizontally)
+Lapras 		       ___DONE (pokemon Blue sprite)
+Poliwhirl          ___DONE (pokemon redstarbluestar sprite)
+Ditto     	       ___DONE (pokemon Blue sprite)
+Jynx			   ___DONE (pokemon redstarbluestar sprite)
+Porygon            ___DONE (pokemon Green sprite)
+Starmie      	   ___DONE (pokemon Green sprite)
+Aerodactyl 		   ___DONE (pokemon Green sprite)
+Mr Mime 		   ___DONE (pokemon Green sprite)
+Gyarados 		   ___DONE (pokemon Blue sprite)
+Kabutops 		   ___DONE (pokemon Blue sprite)
+Fossil Aerodactyl  ___DONE (pokemon redstarbluestar sprite)
+Hypno    		   ___DONE (pokemon Blue sprite)
+Exeggcute          ___DONE (pokemon redstarbluestar sprite)
+Pinsir             ___DONE (pokemon redstarbluestar sprite)
+Dodrio    		   ___DONE (pokemon Blue sprite)
+Beedrill   		   ___DONE (pokemon Blue sprite)
+
+
+Swapped back sprites (replaced TheSmith's reworked sprite with its original sprite):
+
+Charizard          ___DONE
+Gyarados           ___DONE
+Magikarp           ___DONE
+Slowpole           ___DONE
+Slowbro            ___DONE
+
+
+Sprites que ainda não estou satisfeito:
+Kabutops front sprite
+
+- - - - - - 
+
+Palette swaps:
+
+Wartortle & Blastoise: from Cyan to Blue
+Gloom: from Red to Blue
+Vileplume: from Red to Purple
+Golduck: back to Cyan again
+Tentacool & Tentacruel: from Cyan to Blue
+Seel & Dewgong: from Blue to Cyan
+Cubone & Marowak: from Brown to Grey
+Horsea & Seadra: from Cyan to Blue
+Vaporeon: from Cyan to Blue
+Omanyte & Omaster: from Blue to Cyan
+Articuno: from Blue to Cyan
+Dragonite: from Brown to Blue
+
+
+- - - - - - 
+
+
+
+- - - - - - 
+
+- alterar o cry do Muk para ser mais grave e lento.
+
+- - - - - - 
+
+- rever os growth types/speeds.
+
+- - - - - - 
+
+- para compensar a falta de imagem agora, no museu, onde diz "Aerodactyl/Kabutops Fossil A primitive and rare Pokémon.", escrever algo mais.
+- há um rocket grunt no mount moon que tem um rattata e um zubat (nao me lembro do nivel do rattata mas o zubat é lvl13). ele no red/blue tinha apenas um raticate. voltar a repor isso.
+
+____________________ - - - - - - - - - - 
+
+Fazer as alterações do código em 4 passos: __UPDATE: ia cum caneco, consigo mudar os sprites (não editar) e a sua palete de cor.
+
+	1 - typings: 
+			special/physical types ___DONE
+			corrigir type matchups originais ___DONE
+			new types ___DONE
+			adicionar type matchups dos novos types ___DONE
+			testar novos types e matchups ___TODO _-_-_-_-
+			
+	2 - sprites: 
+			corrigir todas as cores dos originais ___DONE
+			fazer lista de potenciais sprites yellow a serem substituidos por sprites blue ** ___DONE
+			substituir esses sprites, com a cor apropriada, e testar ___DONE
+			ver se é preciso reverter algum backsprite novo do yellow legacy pelo seu original (tipo charizard) ___DONE
+	
+	3 - overworld: 
+			fazer justes de melhoria em todas as rotas e cidades que seja necessário, e ir testando ___TODO _-_-_-_-
+	
+	4 - moves: _-_-_-_-
+		decidir os moves novos e os a remover (o nº de moves originais é 165 e o limite é por volta de 218, mas deverei contar com menos, tipo 190-200) 
+																								(apontar aqui os adicionados e os removidos) ___TODO 
+		adicionar os novos moves a moves/names.asm ___TODO
+		adaptar esses novos moves nos outros files ___TODO
+		melhorar o animations.asm, tendo cuidado com o espaço ___TODO
+		TMs: lista deles e seus locais de encontro ___TODO
+		
+	5 - ir a cada pokemon e adaptar consoante: 
+		os novos moves ___TODO _-_-_-_-
+		os novos typings ___DONE
+		meio de evolução ___DONE
+		ajustar os seus stats ___DONE
+	
+	6 - rever a situação de modo geral e certificar que os gym leaders, rival, etc, não estão a usar moves removidos. ___TODO _-_-_-_-
+
+____________________ - - - - - - - - - - 
+
+Possible pokemon to add:
+
+- Steelix
+- Kingdra (evolve with waterstone)
+- Tangrowth (evolve with leafstone)
+- Crobat (evolve level 37) (ou melhor: "Poison Stone" - pedra nova que também se aplica aos Nidos)
+- eeveelutions
+- heracross
+- porygon2
+
+- Electivire and Magmortar
+
+____________________ - - - - - - - - - - 
+
