@@ -695,7 +695,7 @@ Dragonair: level 55 -> level 46
 Evolution stones reminder and update:
 
 - Moonstone: (4) Clefairy, Jigglypuff, Nidorino, Nidorina -> (3) Clefairy, Vulpix, Staryu
-- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder
+- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder (TODO: add Magikarp too)
 - Leafstone: (3) Gloom, Weepinbell, Exeggcute -> (3) Exeggcute, Gloom, Weepinbell (TODO: Tangela also, in a future version)
 - Thunderstone: (2) Eevee, Pikachu -> (2) Eevee, Pikachu (TODO: add Voltorb too)
 - Firestone: (3) Eevee, Vulpix, Growlithe -> (2) Eevee, Growlithe
@@ -963,8 +963,8 @@ Ice: - - - - - - - - - - - - - -
 
 Dewgong
 original: 90  70 80 95 70 - 405
-revised : 100 75 80 90 70 - 415
-* Seel also +5HP (65 to 70).
+revised : 100 75 80 85 70 - 410
+* Seel also +10HP (65 to 75).
 
 Cloyster
 original: 50 95 180 85 70 - 480
@@ -1006,24 +1006,28 @@ revised : 90 95 100 95 50 - 430
 
 Gengar
 original: 60 65 60 130 110 - 425
-revised : 65 90 55 115 115 - 440
-* Haunter also +10Attack (50 to 60).
+revised : 60 90 60 115 115 - 440
+* Haunter also +10Attack (50 to 60), -10Special (115 to 105), +10Speed (95 to 105).
+* Gastly also -5Attack (35 to 30), -5Special (100 to 95), +15Speed (80 to 95).
 
 
 Flying: - - - - - - - - - - - - - -
 
 Pidgeot
-original: 83 80 75 70 91  - 399
-revised : 90 90 75 70 100 - 425
-* Pidgeotto also +7HP (63 to 70), +5Attack (60 to 65), +3Speed (71 to 74).
+original: 83  80 75 70 91  - 399
+revised : 100 90 75 70 100 - 435
+* Pidgeotto also +7HP (63 to 70), +5Attack (60 to 65), +4Speed (71 to 75).
+* Pidgey also +5Hp (40 to 45), -1Speed (56 to 55).
 
 Fearow
 original: 65 90 65 61 100 - 381
 revised : 70 95 65 65 95  - 390
+* Spearow also +5Attack (60 to 65), +5Defense (30 to 35), -1Special (31 to 30), -5Speed (70 to 65).
 
 Dodrio
 original: 60 110 70 60 100 - 400
-revised : 60 110 60 60 110 - 400
+revised : 60 120 60 60 110 - 410
+* Doduo also +5Hp (35 to 40), +5Attack (85 to 90), -5Defense (45 to 40), -5Special (35 to 30), +15Speed (75 to 90).
 
 Farfetch'd
 original: 52  65 55 58 60 - 290
@@ -1036,35 +1040,36 @@ Fighting: - - - - - - - - - - - - - -
 Primeape
 original: 65 105 60 60 95 - 385
 revised : 70 110 65 60 95 - 400
+* Mankey also -5Special (35 to 30), +5Speed (70 to 75).
 
 Machamp
 original: 90  130 80 65 55 - 420
-revised : 100 130 75 65 75 - 460
-* Machoke also +10Hp (80 to 90) and +20Speed (45 to 65).
+revised : 100 130 80 65 80 - 455
+* Machoke also +10Hp (80 to 90) and +20Speed (45 to 60).
 * Machop also +15Speed (35 to 50).
 
 Poliwrath
 original: 90 85  95 70 70 - 410
-revised : 90 100 90 85 85 - 450
-* Poliwhirl also +20Special (50 to 70), -10Speed (90 to 80).
-* Poliwag also -5 Attack (50 to 45), -15Speed (90 to 75).
+revised : 90 100 90 85 75 - 440
+* Poliwhirl also +20Special (50 to 70), -5Speed (90 to 85).
+* Poliwag also -5 Attack (50 to 45), -20Speed (90 to 70).
 
 Hitmonlee
 original: 50 120 53 35 87 - 345
 smith   : 65 120 70 60 93 - 408
-revised : 80 110 70 60 95 - 415
+revised : 80 110 70 60 90 - 410
 
 Hitmonchan
 original: 50 105 79 35  76 - 345
 smith   : 60 50  79 105 76 - 370
-revised : 90 80  90 75  80 - 415
+revised : 90 80  90 75  75 - 410
 
 
 Water: - - - - - - - - - - - - - -
 
 Golduck
 original: 80 82 78 80 85 - 405
-revised : 80 80 70 90 85 - 405
+revised : 80 85 70 90 85 - 410
 * Psyduck also +20Special (50 to 70).
 
 Tentacruel
@@ -1084,12 +1089,13 @@ revised : 50 120 115 75 80 - 440
 
 Seaking
 original: 80 92 65 80 68 - 385
-revised : 90 95 65 85 85 - 420
+revised : 90 90 65 85 80 - 410
 * Goldeen also +10HP (45 to 55), -2Attack (67 to 65), and +2Speed (63 to 65).
 
 Starmie
 original: 60 75 85 100 115 - 435
-revised : 65 75 85 100 100 - 425
+revised : 60 75 90 100 100 - 425
+* Staryu also -5Attack (45 to 40), -5Defense (55 to 50), +5Special (70 to 75), -10Speed (85 to 75).
 
 
 Dragon: - - - - - - - - - - - - - -
@@ -1101,20 +1107,23 @@ revised : 70 70 100 80 80 - 400
 
 Gyarados
 original: 95 125 79 100 81 - 480
-revised : 95 130 80 100 75 - 480
+revised : 90 130 90 100 70 - 480
+* Magikarp also +10Hp (20 to 30), +20Attack (10 to 30), +5Defense (55 to 60), +10Special (20 to 30), -20Speed (80 to 60).
 
 Dragonite
 original: 91  134 95 100 80 - 500
-revised : 100 125 85 110 80 - 500
-* Dragonair also +19HP (61 to 80), -4Attack (84 to 80), +10Special (70 to 80), +5Speed(70 to 75).
-* Dratini also +19HP (41 to 60), -4Attack (64 to 60), +10Speed (50 to 60).
+revised : 110 110 80 110 80 - 490
+* Dragonair also +19HP (61 to 80), -4Attack (84 to 80), -5Defense (65 to 60), +10Special (70 to 80).
+* Dratini also +19HP (41 to 60), -4Attack (64 to 60), -5Defense (45 to 40), +10Speed (50 to 60).
 
 
 Psychic: - - - - - - - - - - - - - -
 
 Alakazam
 original: 55 50 45 135 120 - 405
-revised : 55 50 50 135 125 - 415
+revised : 60 50 50 135 125 - 420
+* Kadabra also +5Defense (30 to 35).
+* Abra also -5Special (105 to 100), +10Speed (90 to 100).
 
 Hypno
 original: 85 73 70 115 67 - 410
@@ -1196,6 +1205,7 @@ Exeggcute          ___DONE (pokemon redstarbluestar sprite)
 Pinsir             ___DONE (pokemon redstarbluestar sprite)
 Dodrio    		   ___DONE (pokemon Blue sprite)
 Beedrill   		   ___DONE (pokemon Blue sprite)
+Magikarp   		   ___DONE (pokemon Blue sprite)
 
 
 Swapped back sprites (replaced TheSmith's reworked sprite with its original sprite):
