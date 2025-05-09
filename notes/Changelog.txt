@@ -645,9 +645,9 @@ ____________________ - - - - - - - - - -
 
 Pokemon evolution methods/levels to change:
 
-Ivysaur: level 32 -> level 36
+Ivysaur: level 32 -> level 36  __DONE
 Caterpie/Weedle: level 7 -> level 8
-Metapod/Kakuna: level 10 -> level 12
+Metapod/Kakuna: level 10 -> level 12 (make experience gain FAST)
 Pidgey: level 18 -> level 17
 Pidgeotto: level 36 -> level 37
 Rattata: level 20 -> level 21
@@ -660,7 +660,7 @@ Zubat: level 22 -> level 21
 Oddish: level 21 -> level 22
 Gloom: Leafstone -> level 38
 Paras: level 24 -> level 21
-Venonat: level 31 -> level 16
+Venonat: level 31 -> level 15
 Diglett: level 28 -> level 33
 Psyduck: level 33 -> level 30
 Mankey: level 28 -> level 29
@@ -682,12 +682,12 @@ Doduo: level 31 -> level 33
 Seel: level 34 -> level 35
 Grimer: level 38 -> level 31
 Drowzee: level 26 -> level 30
-Krabby: level 28 -> level 30 (good rod encounter)
+Krabby: level 28 -> level 28 (stays the same; good rod encounter)
 Cubone: level 28 -> level 25 (pô-lo a ser apanhado a um nível mais baixo)
 Koffing: level 35 -> level 31
 Rhyhorn: level 42 -> level 40
 Horsea: level 35 -> level 30 (good rod encounter)
-Goldeen: level 32 -> level 20 (old rod encounter)
+Goldeen: level 32 -> level 28 (old rod encounter)
 Magikarp: level 20 -> level 26
 Dratini: level 30 -> level 26
 Dragonair: level 55 -> level 46

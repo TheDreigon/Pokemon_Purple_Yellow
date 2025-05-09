@@ -170,15 +170,15 @@ RhydonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 10, TAIL_WHIP
+	db 8, TAIL_WHIP
 	db 10, FURY_ATTACK
-	db 13, STOMP
+	db 14, STOMP
 	db 19, ROCK_THROW
-	db 24, DIG
-	db 39, ROCK_SLIDE
-	db 44, EARTHQUAKE
-	db 49, TAKE_DOWN
-	db 55, HORN_DRILL
+	db 24, BODY_SLAM
+	db 30, ROCK_SLIDE
+	db 36, TAKE_DOWN
+	db 42, EARTHQUAKE
+	db 50, HORN_DRILL
 	db 0
 
 KangaskhanEvosMoves:
@@ -187,11 +187,12 @@ KangaskhanEvosMoves:
 ; Learnset
 	db 7, LEER
 	db 13, BITE
-	db 19, TAIL_WHIP
+	db 18, ROAR
 	db 24, MEGA_PUNCH
-	db 29, DIZZY_PUNCH
-	db 37, BODY_SLAM
-	db 48, DOUBLE_EDGE
+	db 28, DIZZY_PUNCH
+	db 34, DIZZY_PUNCH
+	db 40, BODY_SLAM
+	db 46, DOUBLE_EDGE
 	db 0
 
 NidoranMEvosMoves:
@@ -418,15 +419,15 @@ RhyhornEvosMoves:
 	db EVOLVE_LEVEL, 42, RHYDON
 	db 0
 ; Learnset
-	db 10, TAIL_WHIP
+	db 8, TAIL_WHIP
 	db 10, FURY_ATTACK
-	db 13, STOMP
+	db 14, STOMP
 	db 19, ROCK_THROW
-	db 24, DIG
-	db 39, ROCK_SLIDE
-	db 44, EARTHQUAKE
-	db 49, TAKE_DOWN
-	db 55, HORN_DRILL
+	db 24, BODY_SLAM
+	db 30, ROCK_SLIDE
+	db 36, TAKE_DOWN
+	db 42, EARTHQUAKE
+	db 50, HORN_DRILL
 	db 0
 
 LaprasEvosMoves:
@@ -759,7 +760,7 @@ HitmonleeEvosMoves:
 	db 28, FOCUS_ENERGY
 	db 30, MEDITATE
 	db 31, ROLLING_KICK
-	db 35, STOMP
+	db 36, STOMP
 	db 40, JUMP_KICK
 	db 42, COUNTER
 	db 46, HI_JUMP_KICK
@@ -770,15 +771,14 @@ HitmonchanEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 25, KARATE_CHOP
+	db 25, COMET_PUNCH
 	db 26, MEGA_PUNCH
 	db 28, DEFENSE_CURL
 	db 30, MEDITATE
 	db 31, DIZZY_PUNCH
 	db 34, THUNDERPUNCH
-	db 35, FIRE_PUNCH
-	db 36, ICE_PUNCH
-	db 40, COMET_PUNCH
+	db 36, FIRE_PUNCH
+	db 48, ICE_PUNCH
 	db 42, COUNTER
 	db 46, SUBMISSION
 	db 50, AGILITY
