@@ -314,7 +314,7 @@ WhirlwindAnim:
 	db -1 ; end
 
 FlyAnim:
-	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 7
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
@@ -1022,9 +1022,7 @@ LovelyKissAnim:
 	db -1 ; end
 
 SkyAttackAnim:
-	battle_anim SKY_ATTACK, SE_SQUISH_MON_PIC
-	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
-	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 5
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 

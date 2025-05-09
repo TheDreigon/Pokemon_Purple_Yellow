@@ -154,6 +154,7 @@ CreditsTextPointers:
 ; 15 / 14 = -6
 ; 16 / 17 = -7
 ; 18 / 19 = -8
+; TODO
 CreditsText_Version:
 	db -6, "YELLOW LEGACY"
 	next   "    STAFF@"

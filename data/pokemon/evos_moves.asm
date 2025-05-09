@@ -285,7 +285,7 @@ SlowbroEvosMoves:
 
 IvysaurEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 32, VENUSAUR
+	db EVOLVE_LEVEL, 36, VENUSAUR
 	db 0
 ; Learnset
 	db 7, LEECH_SEED
@@ -296,7 +296,7 @@ IvysaurEvosMoves:
 	db 29, RAZOR_LEAF
 	db 38, GROWTH
 	db 42, BODY_SLAM
-	db 54, SOLARBEAM
+	db 50, SOLARBEAM
 	db 0
 
 ExeggutorEvosMoves:
@@ -403,13 +403,14 @@ CuboneEvosMoves:
 	db 0
 ; Learnset
 	db 5, LEER
-	db 10, BONE_CLUB
-	db 13, TAIL_WHIP
-	db 18, HEADBUTT
+	db 9, TACKLE
+	db 12, TAIL_WHIP
+	db 16, BONE_CLUB
+	db 20, HEADBUTT
 	db 25, FOCUS_ENERGY
 	db 31, BONEMERANG
-	db 38, THRASH
-	db 46, RAGE
+	db 36, RAGE
+	db 42, THRASH
 	db 0
 
 RhyhornEvosMoves:
@@ -448,7 +449,7 @@ ArcanineEvosMoves:
 	db 0
 ; Learnset
 	db 18, EMBER
-	db 23, LEER
+	db 23, ROAR
 	db 30, TAKE_DOWN
 	db 45, FLAMETHROWER
 	db 46, AGILITY
@@ -532,13 +533,13 @@ ScytherEvosMoves:
 	db 0
 ; Learnset
 	db 6, FOCUS_ENERGY
+	db 10, QUICK_ATTACK
 	db 16, CUT
 	db 24, AGILITY
 	db 30, WING_ATTACK
 	db 36, SLASH
-	db 42, TWINEEDLE
-	db 48, DOUBLE_TEAM
-	db 54, SWORDS_DANCE
+	db 42, DOUBLE_TEAM
+	db 50, SWORDS_DANCE
 	db 0
 
 StaryuEvosMoves:
@@ -578,14 +579,15 @@ PinsirEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 5, HARDEN
+	db 5, TACKLE
 	db 8, FOCUS_ENERGY
+	db 13, CONSTRICT
 	db 25, SEISMIC_TOSS
 	db 30, TWINEEDLE
 	db 36, SUBMISSION
 	db 42, SLASH
-	db 45, GUILLOTINE
-	db 48, BIND
+	db 45, BIND
+	db 50, GUILLOTINE
 	db 54, SWORDS_DANCE
 	db 0
 
@@ -593,8 +595,9 @@ TangelaEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 15, ABSORB
-	db 19, VINE_WHIP
+	db 6, VINE_WHIP
+	db 10, CONSTRICT
+	db 16, ABSORB
 	db 21, POISONPOWDER
 	db 23, STUN_SPORE
 	db 25, SLEEP_POWDER
@@ -610,7 +613,7 @@ GrowlitheEvosMoves:
 	db 0
 ; Learnset
 	db 18, EMBER
-	db 23, LEER
+	db 23, ROAR
 	db 30, TAKE_DOWN
 	db 35, FLAMETHROWER
 	db 36, AGILITY
@@ -751,12 +754,16 @@ HitmonleeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 25, FOCUS_ENERGY
-	db 33, ROLLING_KICK
-	db 38, JUMP_KICK
-	db 43, MEDITATE
-	db 48, HI_JUMP_KICK
-	db 53, MEGA_KICK
+	db 25, DOUBLE_KICK
+	db 26, MEGA_KICK
+	db 28, FOCUS_ENERGY
+	db 30, MEDITATE
+	db 31, ROLLING_KICK
+	db 35, STOMP
+	db 40, JUMP_KICK
+	db 42, COUNTER
+	db 46, HI_JUMP_KICK
+	db 50, AGILITY
 	db 0
 
 HitmonchanEvosMoves:
@@ -764,13 +771,17 @@ HitmonchanEvosMoves:
 	db 0
 ; Learnset
 	db 25, KARATE_CHOP
-	db 33, FIRE_PUNCH
-	db 35, ICE_PUNCH
-	db 37, THUNDERPUNCH
-	db 40, DIZZY_PUNCH
-	db 42, SUBMISSION
-	db 48, MEGA_PUNCH
-	db 53, COUNTER
+	db 26, MEGA_PUNCH
+	db 28, DEFENSE_CURL
+	db 30, MEDITATE
+	db 31, DIZZY_PUNCH
+	db 34, THUNDERPUNCH
+	db 35, FIRE_PUNCH
+	db 36, ICE_PUNCH
+	db 40, COMET_PUNCH
+	db 42, COUNTER
+	db 46, SUBMISSION
+	db 50, AGILITY
 	db 0
 
 ArbokEvosMoves:
@@ -948,11 +959,12 @@ TaurosEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 13, HORN_ATTACK
-	db 15, LEER
-	db 19, STOMP
-	db 23, TAIL_WHIP
-	db 27, HEADBUTT
+	db 5, LEER
+	db 12, HEADBUTT
+	db 15, STOMP
+	db 18, HORN_ATTACK
+	db 21, TAIL_WHIP
+	db 28, SKULL_BASH
 	db 35, RAGE
 	db 40, TAKE_DOWN
 	db 45, THRASH
@@ -1119,7 +1131,7 @@ VulpixEvosMoves:
 	db 0
 ; Learnset
 	db 7, QUICK_ATTACK
-	db 13, ROAR
+	db 13, LEER
 	db 16, CONFUSE_RAY
 	db 25, REFLECT
 	db 32, FLAMETHROWER
@@ -1132,7 +1144,7 @@ NinetalesEvosMoves:
 	db 0
 ; Learnset
 	db 7, QUICK_ATTACK
-	db 13, ROAR
+	db 13, LEER
 	db 16, CONFUSE_RAY
 	db 25, REFLECT
 	db 32, FLAMETHROWER
@@ -1527,14 +1539,16 @@ BeedrillEvosMoves:
 	db 0
 ; Learnset
 	db 10, PIN_MISSILE
-	db 12, RAGE
-	db 15, FOCUS_ENERGY
-	db 18, FURY_ATTACK
-	db 21, ACID
-	db 27, TWINEEDLE
-	db 30, SLUDGE
-	db 35, SWORDS_DANCE
-	db 40, AGILITY
+	db 12, POISON_STING
+	db 14, QUICK_ATTACK
+	db 16, FURY_ATTACK
+	db 18, RAGE
+	db 20, TWINEEDLE
+	db 23, HORN_ATTACK
+	db 27, ACID
+	db 31, SLUDGE
+	db 35, AGILITY
+	db 40, SWORDS_DANCE
 	db 0
 
 DodrioEvosMoves:
@@ -1825,13 +1839,15 @@ MarowakEvosMoves:
 	db 0
 ; Learnset
 	db 5, LEER
-	db 10, BONE_CLUB
-	db 13, TAIL_WHIP
-	db 18, HEADBUTT
+	db 9, TACKLE
+	db 12, TAIL_WHIP
+	db 16, BONE_CLUB
+	db 20, HEADBUTT
 	db 25, FOCUS_ENERGY
 	db 31, BONEMERANG
-	db 38, THRASH
-	db 46, EARTHQUAKE
+	db 36, RAGE
+	db 42, THRASH
+	db 48, EARTHQUAKE
 	db 0
 
 HaunterEvosMoves:
@@ -1917,7 +1933,7 @@ BulbasaurEvosMoves:
 	db 29, RAZOR_LEAF
 	db 38, GROWTH
 	db 42, BODY_SLAM
-	db 52, SOLARBEAM
+	db 50, SOLARBEAM
 	db 0
 
 VenusaurEvosMoves:
@@ -1933,7 +1949,7 @@ VenusaurEvosMoves:
 	db 36, SLUDGE
 	db 38, GROWTH
 	db 42, BODY_SLAM
-	db 54, SOLARBEAM
+	db 50, SOLARBEAM
 	db 0
 
 TentacruelEvosMoves:

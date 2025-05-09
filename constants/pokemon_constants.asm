@@ -158,9 +158,10 @@
 	const DRAGONITE          ; 149
 	const MEWTWO             ; 150
 	const MEW                ; 151
-	const FOSSIL_KABUTOPS    ; 152
-	const FOSSIL_AERODACTYL  ; 153
-	const MON_GHOST          ; 154
+	const FOSSIL_KABUTOPS
+	const FOSSIL_AERODACTYL
+	const MON_GHOST
+
 DEF NUM_POKEMON_INDEXES EQU const_value - 1
 
 ; player starter
