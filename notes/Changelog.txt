@@ -695,7 +695,7 @@ Dragonair: level 55 -> level 46
 Evolution stones reminder and update:
 
 - Moonstone: (4) Clefairy, Jigglypuff, Nidorino, Nidorina -> (3) Clefairy, Vulpix, Staryu
-- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder (TODO: add Magikarp too)
+- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder
 - Leafstone: (3) Gloom, Weepinbell, Exeggcute -> (3) Exeggcute, Gloom, Weepinbell (TODO: Tangela also, in a future version)
 - Thunderstone: (2) Eevee, Pikachu -> (2) Eevee, Pikachu (TODO: add Voltorb too)
 - Firestone: (3) Eevee, Vulpix, Growlithe -> (2) Eevee, Growlithe

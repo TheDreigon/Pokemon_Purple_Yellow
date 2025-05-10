@@ -243,13 +243,14 @@ VoltorbEvosMoves:
 	db EVOLVE_LEVEL, 30, ELECTRODE
 	db 0
 ; Learnset
-	db 17, SONICBOOM
-	db 19, THUNDERSHOCK
+	db 10, QUICK_ATTACK
+	db 14, SONICBOOM
+	db 18, THUNDERSHOCK
 	db 22, SELFDESTRUCT
-	db 26, SWIFT
+	db 26, BIDE
 	db 30, LIGHT_SCREEN
 	db 35, THUNDERBOLT
-	db 44, EXPLOSION
+	db 42, EXPLOSION
 	db 50, THUNDER
 	db 0
 
@@ -273,15 +274,15 @@ SlowbroEvosMoves:
 	db 0
 ; Learnset
 	db 5, GROWL
-	db 5, WATER_GUN
-	db 10, CONFUSION 
-	db 18, DISABLE
-	db 22, HEADBUTT
-	db 25, PSYBEAM
-	db 28, WATERFALL
-	db 36, WITHDRAW
-	db 40, AMNESIA
-	db 45, PSYCHIC_M
+	db 10, WATER_GUN
+	db 15, WITHDRAW
+	db 20, DISABLE
+	db 25, HEADBUTT
+	db 31, BARRIER
+	db 36, WATERFALL
+	db 42, AMNESIA
+	db 46, PSYCHIC_M
+	db 50, RECOVER
 	db 0
 
 IvysaurEvosMoves:
@@ -533,14 +534,16 @@ ScytherEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 6, FOCUS_ENERGY
-	db 10, QUICK_ATTACK
-	db 16, CUT
-	db 24, AGILITY
-	db 30, WING_ATTACK
-	db 36, SLASH
-	db 42, DOUBLE_TEAM
-	db 50, SWORDS_DANCE
+	db 5, LEER
+	db 10, FOCUS_ENERGY
+	db 15, CUT
+	db 20, WING_ATTACK
+	db 25, SLASH
+	db 30, DOUBLE_TEAM
+	db 35, RAZOR_WIND
+	db 40, TAKE_DOWN
+	db 45, SWORDS_DANCE
+	db 50, GUILLOTINE
 	db 0
 
 StaryuEvosMoves:
@@ -548,16 +551,17 @@ StaryuEvosMoves:
 	db EVOLVE_ITEM, WATER_STONE, 1, STARMIE
 	db 0
 ; Learnset
-	db 7, WATER_GUN
-	db 10, CONFUSION
-	db 15, SWIFT
-	db 22, HARDEN
-	db 24, BUBBLEBEAM
-	db 27, RECOVER
-	db 37, MINIMIZE
-	db 40, PSYCHIC_M
-	db 42, LIGHT_SCREEN
-	db 47, HYDRO_PUMP
+	db 10, HARDEN
+	db 14, CONFUSION
+	db 18, SWIFT
+	db 22, BUBBLEBEAM
+	db 26, RECOVER
+	db 30, MINIMIZE
+	db 31, GROWTH
+	db 35, PSYBEAM
+	db 40, LIGHT_SCREEN
+	db 45, PSYCHIC_M
+	db 50, HYDRO_PUMP
 	db 0
 
 BlastoiseEvosMoves:
@@ -580,32 +584,32 @@ PinsirEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 5, TACKLE
-	db 8, FOCUS_ENERGY
-	db 13, CONSTRICT
+	db 5, CONSTRICT
+	db 10, PECK
+	db 15, HORN_ATTACK
+	db 20, DEFENSE_CURL
 	db 25, SEISMIC_TOSS
-	db 30, TWINEEDLE
-	db 36, SUBMISSION
-	db 42, SLASH
-	db 45, BIND
+	db 30, COUNTER
+	db 35, DIG
+	db 40, SUBMISSION
+	db 45, SWORDS_DANCE
 	db 50, GUILLOTINE
-	db 54, SWORDS_DANCE
 	db 0
 
 TangelaEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 6, VINE_WHIP
+	db 5, TACKLE
 	db 10, CONSTRICT
-	db 16, ABSORB
-	db 21, POISONPOWDER
-	db 23, STUN_SPORE
-	db 25, SLEEP_POWDER
-	db 32, MEGA_DRAIN
-	db 42, BODY_SLAM
-	db 45, GROWTH
-	db 48, BIND
+	db 15, WRAP
+	db 20, ABSORB
+	db 25, GROWTH
+	db 30, STUN_SPORE
+	db 35, BODY_SLAM
+	db 40, RECOVER
+	db 45, MEGA_DRAIN
+	db 50, SLAM
 	db 0
 
 GrowlitheEvosMoves:
@@ -669,15 +673,15 @@ SlowpokeEvosMoves:
 	db 0
 ; Learnset
 	db 5, GROWL
-	db 5, WATER_GUN
-	db 10, CONFUSION 
-	db 18, DISABLE
-	db 22, HEADBUTT
-	db 25, PSYBEAM
-	db 28, WATERFALL
-	db 36, WITHDRAW
-	db 40, AMNESIA
-	db 45, PSYCHIC_M
+	db 10, WATER_GUN
+	db 15, WITHDRAW
+	db 20, DISABLE
+	db 25, HEADBUTT
+	db 31, BARRIER
+	db 36, WATERFALL
+	db 42, AMNESIA
+	db 46, PSYCHIC_M
+	db 50, RECOVER
 	db 0
 
 KadabraEvosMoves:
@@ -1785,13 +1789,14 @@ ElectrodeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 17, SONICBOOM
-	db 19, THUNDERSHOCK
+	db 10, QUICK_ATTACK
+	db 14, SONICBOOM
+	db 18, THUNDERSHOCK
 	db 22, SELFDESTRUCT
-	db 26, SWIFT
+	db 26, BIDE
 	db 30, LIGHT_SCREEN
 	db 35, THUNDERBOLT
-	db 44, EXPLOSION
+	db 42, EXPLOSION
 	db 50, THUNDER
 	db 0
 
@@ -1913,12 +1918,17 @@ StarmieEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 23, HARDEN
-	db 27, RECOVER
-	db 37, MINIMIZE
-	db 40, PSYCHIC_M
-	db 42, LIGHT_SCREEN
-	db 47, HYDRO_PUMP
+	db 10, HARDEN
+	db 14, CONFUSION
+	db 18, SWIFT
+	db 22, BUBBLEBEAM
+	db 26, RECOVER
+	db 30, MINIMIZE
+	db 31, GROWTH
+	db 35, PSYBEAM
+	db 40, LIGHT_SCREEN
+	db 45, PSYCHIC_M
+	db 50, HYDRO_PUMP
 	db 0
 
 BulbasaurEvosMoves:

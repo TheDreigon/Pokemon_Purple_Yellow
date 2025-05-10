@@ -21,7 +21,7 @@ Moves:
 	move ICE_PUNCH,    FREEZE_SIDE_EFFECT,          65, ICE,          100, 20
 	move THUNDERPUNCH, PARALYZE_SIDE_EFFECT1,       65, ELECTRIC,     100, 20
 	move SCRATCH,      NO_ADDITIONAL_EFFECT,        40, NORMAL,       100, 35
-	move VICEGRIP,     SPEED_DOWN_SIDE_EFFECT,      60, BUG,          100, 25
+	move VICEGRIP,     FLINCH_SIDE_EFFECT2,         60, BUG,          100, 25
 	move GUILLOTINE,   OHKO_EFFECT,                  1, BUG,           30,  5
 	move RAZOR_WIND,   HYPER_BEAM_EFFECT,           80, FLYING,       100, 10
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 20
@@ -30,8 +30,8 @@ Moves:
 	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        65, FLYING,       100, 20
 	move WHIRLWIND,    SPEED_DOWN1_EFFECT,           0, BIRD,         100, 40
 	move FLY,          FLY_EFFECT,                  70, FLYING,       100, 15
-	move BIND,         TRAPPING_EFFECT,             16, NORMAL,        85, 20
-	move SLAM,         FLINCH_SIDE_EFFECT1,        80,  DRAGON,        95, 20
+	move BIND,         TRAPPING_EFFECT,             16, NORMAL,        85, 20  ; TODO: change stats
+	move SLAM,         FLINCH_SIDE_EFFECT2,         80,  DRAGON,        95, 20  ; TODO: change name to Dragon Slam
 	move VINE_WHIP,    NO_ADDITIONAL_EFFECT,        40, GRASS,        100, 30
 	move STOMP,        SPEED_DOWN_SIDE_EFFECT,      60, GROUND,       100, 20
 	move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         30, FIGHTING,     100, 30
