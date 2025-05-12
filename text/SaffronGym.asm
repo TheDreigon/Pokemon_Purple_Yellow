@@ -92,9 +92,10 @@ _TM46ExplanationText::
 	text_start
 
 	para "TM46 is PSYWAVE!"
-	line "It uses powerful"
+	line "It uses enigmatic"
 	cont "psychic waves to"
-	cont "inflict damage!"
+	cont "inflict damage and"
+	cont "confuse the opponent!"
 	done
 
 _SaffronGymSabrinaTM46NoRoomText::

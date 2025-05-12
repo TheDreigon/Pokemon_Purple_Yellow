@@ -27,7 +27,7 @@ DEF FIRST_SE_ID EQU const_value
 	const SE_SHOOT_BALLS_UPWARD        ; $ED used in Teleport/Sky Attack
 	const SE_SQUISH_MON_PIC            ; $EE used in Teleport/Sky Attack
 	const SE_HIDE_MON_PIC              ; $EF
-	const SE_LIGHT_SCREEN_PALETTE      ; $F0 used in Mist/Double Edge/Absorb/etc.
+	const SE_LIGHT_SCREEN_PALETTE      ; $F0 used in Double Edge/Absorb/etc.
 	const SE_RESET_MON_POSITION        ; $F1 used in Tackle/Body Slam/etc.
 	const SE_MOVE_MON_HORIZONTALLY     ; $F2 used in Tackle/Body Slam/etc.
 	const SE_BLINK_MON                 ; $F3 used in Recover
@@ -37,7 +37,7 @@ DEF FIRST_SE_ID EQU const_value
 	const SE_SLIDE_MON_UP              ; $F7 used in Dig/Waterfall/etc.
 	const SE_FLASH_SCREEN_LONG         ; $F8 used in Confusion/Psychic/etc.
 	const SE_DARKEN_MON_PALETTE        ; $F9 used in Smokescreen/Smog/etc.
-	const SE_WATER_DROPLETS_EVERYWHERE ; $FA used in Mist/Surf/Toxic/etc.
+	const SE_WATER_DROPLETS_EVERYWHERE ; $FA used in Surf/Toxic/etc.
 	const SE_SHAKE_SCREEN              ; $FB used in Earthquake/Fissure/etc.
 	const SE_RESET_SCREEN_PALETTE      ; $FC used in Leer/Thunderpunch/etc.
 	const SE_DARK_SCREEN_PALETTE       ; $FD used in Hyper Beam/Thunderpunch/etc.

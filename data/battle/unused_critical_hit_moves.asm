@@ -1,6 +1,5 @@
 UnusedHighCriticalMoves:
 	db RAZOR_LEAF
-	db CRABHAMMER
 	db SLASH
 	db CUT
 	db PAY_DAY

@@ -26,9 +26,9 @@
 	const WHIRLWIND    ; 12
 	const FLY          ; 13
 	const BIND         ; 14
-	const SLAM         ; 15
+	const DRAGON_SLAM  ; 15
 	const VINE_WHIP    ; 16
-	const STOMP        ; 17
+	const GROUND_STOMP ; 17
 	const DOUBLE_KICK  ; 18
 	const MEGA_KICK    ; 19
 	const JUMP_KICK    ; 1a
@@ -59,7 +59,7 @@
 	const ACID         ; 33
 	const EMBER        ; 34
 	const FLAMETHROWER ; 35
-	const MIST         ; 36
+	const ICY_MIST     ; 36
 	const WATER_GUN    ; 37
 	const HYDRO_PUMP   ; 38
 	const SURF         ; 39
@@ -170,7 +170,8 @@
 	const SUPER_FANG   ; a2
 	const SLASH        ; a3
 	const SUBSTITUTE   ; a4
-	const STRUGGLE     ; a5
+	const SHADOW_BALL  ; a5
+	const STRUGGLE     ; a6
 DEF NUM_ATTACKS EQU const_value - 1
 
 	; Moves do double duty as animation identifiers.
