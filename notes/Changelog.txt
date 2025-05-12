@@ -695,9 +695,9 @@ Dragonair: level 55 -> level 46
 Evolution stones reminder and update:
 
 - Moonstone: (4) Clefairy, Jigglypuff, Nidorino, Nidorina -> (3) Clefairy, Vulpix, Staryu
-- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder
+- Waterstone: (4) Eevee, Poliwhirl, Shellder, Staryu -> (3) Eevee, Poliwhirl, Shellder (TODO: add Gyarados too?)
 - Leafstone: (3) Gloom, Weepinbell, Exeggcute -> (3) Exeggcute, Gloom, Weepinbell (TODO: Tangela also, in a future version)
-- Thunderstone: (2) Eevee, Pikachu -> (2) Eevee, Pikachu (TODO: add Voltorb too)
+- Thunderstone: (2) Eevee, Pikachu -> (2) Eevee, Pikachu
 - Firestone: (3) Eevee, Vulpix, Growlithe -> (2) Eevee, Growlithe
 
 ____________________
@@ -793,15 +793,15 @@ revised : 110 120 110 50 45 - 435
 
 Omastar
 original: 70 60  125 115 55 - 425
-revised : 80 100 120 110 50 - 460
+revised : 80 100 125 105 40 - 450
 
 Kabutops
 original: 60 115 105 70 80 - 430
-revised : 80 120 105 75 80 - 460
+revised : 80 120 105 75 70 - 450
 
 Aerodactyl
 original: 80 105 65 60 130 - 440
-revised : 80 105 90 65 120 - 460
+revised : 80 105 80 65 120 - 450
 
 
 Ground: - - - - - - - - - - - - - -
@@ -809,12 +809,12 @@ Ground: - - - - - - - - - - - - - -
 Marowak
 original: 60 80 110 50 45 - 345
 smith   : 60 80 110 80 45 - 375
-revised : 70 90 100 80 75 - 415
+revised : 70 90 100 80 70 - 410
 * Cubone also -15Defense (95 to 80), +5Speed (35 to 40).
 
 Sandslash
 original: 75 100 110 55 65 - 405
-revised : 70 110 110 55 70 - 415
+revised : 70 110 110 55 65 - 410
 * Sandshrew also +5Defense (85 to 90).
 
 Dugtrio
@@ -841,14 +841,14 @@ Normal: - - - - - - - - - - - - - -
 Clefable
 original: 95  70 73 85  60 - 383
 smith   : 95  70 73 95  60 - 393
-revised : 100 70 75 110 70 - 425
+revised : 100 70 75 110 75 - 430
 * Clefairy also +10HP (70 to 80), -3Defense (48 to 45), +10Special (60 to 70), +10Speed (35 to 45).
 
 Wigglytuff
 original: 140 70 45 50 45 - 350
 smith   : 140 70 55 85 45 - 395
-revised : 130 75 45 80 80 - 410
-* Jigglypuff also -5Hp (115 to 110), +10Defense (20 to 30), +15Special (25 to 40), +40Speed (20 to 60).
+revised : 125 75 40 80 80 - 400
+* Jigglypuff also -5Hp (115 to 110), +10Defense (20 to 30), +15Special (25 to 40), +50Speed (20 to 70).
 
 Raticate
 original: 55 81 60 50 97 - 343
@@ -901,8 +901,8 @@ revised : 80 100 70 100 90 - 440
 
 Exeggutor
 original: 95 95 85 125 55 - 455
-revised : 90 75 90 110 55 - 420
-* Exeggcute -35Defense (80 to 45), +20Special (60 to 80).
+revised : 90 70 90 120 60 - 430
+* Exeggcute -50Defense (80 to 30), -5Attack (40 to 35), +20Special (60 to 80), -10Speed (40 to 30).
 
 Tangela
 original: 65 55 115 100 60 - 395
@@ -939,19 +939,19 @@ Fire : - - - - - - - - - - - - - -
 
 Ninetales
 original: 73 76 75 100 100 - 424
-revised : 90 75 60 100 100 - 430
-* Vulpix also +22HP (38 to 60).
+revised : 90 75 60 105 95  - 430
+* Vulpix also +22HP (38 to 60), -1Attack (41 to 40).
 
 Arcanine
-original: 90  110 80 80 95 - 455
-revised : 100 100 80 90 90 - 460
-* Growlithe also +20Hp (55 to 75).
+original: 90 110 80 80 95 - 455
+revised : 95 100 80 90 95 - 460
+* Growlithe also +10Hp (55 to 65), +10Defense (40 to 50), +10Special (50 to 60), +5Speed (60 to 65).
 
 Rapidash
 original: 65 100 70 80 105 - 420
 smith   : 65 100 70 80 115 - 430
 revised : 70 95  70 85 110 - 430
-* Ponyta also -10Speed (100 to 90)
+* Ponyta also -10Speed (100 to 90), -20Attack (85 to 65), -5Defense (55 to 50).
 
 Magmar
 original: 65 95 57 85 93 - 395
@@ -963,7 +963,7 @@ Ice: - - - - - - - - - - - - - -
 
 Dewgong
 original: 90  70 80 95 70 - 405
-revised : 100 75 80 85 70 - 410
+revised : 100 75 85 90 70 - 420
 * Seel also +10HP (65 to 75).
 
 Cloyster
@@ -1015,7 +1015,7 @@ Flying: - - - - - - - - - - - - - -
 
 Pidgeot
 original: 83  80 75 70 91  - 399
-revised : 100 90 75 70 100 - 435
+revised : 100 85 75 65 100 - 425
 * Pidgeotto also +7HP (63 to 70), +5Attack (60 to 65), +4Speed (71 to 75).
 * Pidgey also +5Hp (40 to 45), -1Speed (56 to 55).
 
@@ -1206,7 +1206,6 @@ Dodrio    		   ___DONE (pokemon Blue sprite)
 Beedrill   		   ___DONE (pokemon Blue sprite)
 Magikarp   		   ___DONE (pokemon Blue sprite)
 Drowzee   		   ___DONE (pokemon Blue sprite)
-
 Zubat   		   ___DONE (pokemon Blue sprite)
 Rhyhorn   		   ___DONE (pokemon redstarbluestar sprite)
 
@@ -1216,7 +1215,7 @@ Swapped back sprites (replaced TheSmith's reworked sprite with its original spri
 Charizard          ___DONE
 Gyarados           ___DONE
 Magikarp           ___DONE
-Slowpole           ___DONE
+Slowpoke           ___DONE
 Slowbro            ___DONE
 Drowzee            ___DONE
 
