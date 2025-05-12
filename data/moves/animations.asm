@@ -20,9 +20,9 @@ AttackAnimationPointers:
 	dw WhirlwindAnim
 	dw FlyAnim
 	dw BindAnim
-	dw SlamAnim
+	dw DragonSlamAnim
 	dw VineWhipAnim
-	dw StompAnim
+	dw GroundStompAnim
 	dw DoubleKickAnim
 	dw MegaKickAnim
 	dw JumpKickAnim
@@ -53,7 +53,7 @@ AttackAnimationPointers:
 	dw AcidAnim
 	dw EmberAnim
 	dw FlamethrowerAnim
-	dw MistAnim
+	dw IcyMistAnim
 	dw WaterGunAnim
 	dw HydroPumpAnim
 	dw SurfAnim
@@ -68,6 +68,7 @@ AttackAnimationPointers:
 	dw SubmissionAnim
 	dw LowKickAnim
 	dw CounterAnim
+	dw ShadowBallAnim
 	dw SeismicTossAnim
 	dw StrengthAnim
 	dw AbsorbAnim
@@ -233,21 +234,21 @@ StruggleAnim:
 	db -1 ; end
 
 KarateChopAnim:
-	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 8
+	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 6
 	db -1 ; end
 
 DoubleSlapAnim:
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 5
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 5
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 4
 	db -1 ; end
 
 CometPunchAnim:
-	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 4
-	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 4
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
 	db -1 ; end
 
 MegaPunchAnim:
-	battle_anim MEGA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim MEGA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	db -1 ; end
 
 PayDayAnim:
@@ -273,7 +274,7 @@ ThunderPunchAnim:
 	db -1 ; end
 
 ScratchAnim:
-	battle_anim SCRATCH, SUBANIM_0_SCRATCHES, 0, 6
+	battle_anim SCRATCH, SUBANIM_0_SCRATCHES, 0, 5
 	db -1 ; end
 
 VicegripAnim:
@@ -281,7 +282,8 @@ VicegripAnim:
 	db -1 ; end
 
 GuillotineAnim:
-	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 12
 	db -1 ; end
 
 RazorWindAnim:
@@ -310,21 +312,25 @@ WingAttackAnim:
 
 WhirlwindAnim:
 	battle_anim WHIRLWIND, SUBANIM_1_TORNADO, 1, 6
-	battle_anim NO_MOVE, SE_SLIDE_ENEMY_MON_OFF
 	db -1 ; end
 
 FlyAnim:
-	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 7
+	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 BindAnim:
-	battle_anim BIND, SUBANIM_0_BIND, 0, 4
-	battle_anim BIND, SUBANIM_0_BIND, 0, 4
+	battle_anim BIND, SUBANIM_0_BIND, 0, 28
+	battle_anim BIND, SUBANIM_0_BIND, 0, 28
 	db -1 ; end
 
-SlamAnim:
-	battle_anim SLAM, SUBANIM_0_STAR_THRICE, 0, 6
+DragonSlamAnim:
+    battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
+	battle_anim DRAGON_SLAM, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+    battle_anim MEGA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+    battle_anim NO_MOVE, SE_RESET_MON_POSITION
+    battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 VineWhipAnim:
@@ -332,8 +338,9 @@ VineWhipAnim:
 	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-StompAnim:
-	battle_anim STOMP, SUBANIM_1_STAR_BIG, 1, 8
+GroundStompAnim:
+	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
+	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
 	db -1 ; end
 
 DoubleKickAnim:
@@ -359,7 +366,9 @@ SandAttackAnim:
 	db -1 ; end
 
 HeadButtAnim:
-	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 6
+    battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 8
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 HornAttackAnim:
@@ -373,10 +382,17 @@ FuryAttackAnim:
 	db -1 ; end
 
 HornDrillAnim:
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 2
+    battle_anim LEECH_SEED, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
 	db -1 ; end
 
@@ -388,29 +404,36 @@ TackleAnim:
 BodySlamAnim:
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 WrapAnim:
-	battle_anim WRAP, SUBANIM_0_BIND, 0, 4
-	battle_anim WRAP, SUBANIM_0_BIND, 0, 4
-	battle_anim WRAP, SUBANIM_0_BIND, 0, 4
+	battle_anim WRAP, SUBANIM_0_BIND, 0, 8
+	battle_anim WRAP, SUBANIM_0_BIND, 0, 8
+	battle_anim WRAP, SUBANIM_0_BIND, 0, 8
 	db -1 ; end
 
 TakeDownAnim:
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 ThrashAnim:
-	battle_anim THRASH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+    battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim THRASH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 DoubleEdgeAnim:
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_CENTERING, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim DOUBLE_EDGE, SE_DARK_SCREEN_FLASH
@@ -432,12 +455,14 @@ PoisonStingAnim:
 	db -1 ; end
 
 TwineedleAnim:
-	battle_anim TWINEEDLE, SUBANIM_0_STAR_TWICE, 0, 5
-	battle_anim TWINEEDLE, SUBANIM_0_STAR_TWICE, 0, 5
+    battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim TWINEEDLE, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim TWINEEDLE, SUBANIM_0_STAR_TWICE, 0, 4
+    battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 PinMissileAnim:
-	battle_anim PIN_MISSILE, SUBANIM_0_STAR_TWICE, 0, 3
+	battle_anim PIN_MISSILE, SUBANIM_0_STAR_TWICE, 0, 2
 	db -1 ; end
 
 LeerAnim:
@@ -448,7 +473,9 @@ LeerAnim:
 	db -1 ; end
 
 BiteAnim:
-	battle_anim BITE, SUBANIM_0_STAR_THRICE, 0, 8
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim BITE, SUBANIM_0_STAR_TWICE, 0, 10
+    battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 GrowlAnim:
@@ -468,13 +495,14 @@ SingAnim:
 	db -1 ; end
 
 SupersonicAnim:
-	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 6
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
 	db -1 ; end
 
 SonicBoomAnim:
-	battle_anim ROAR, SUBANIM_1_SHOUT, 1, 6
-	battle_anim ROAR, SUBANIM_1_SHOUT, 1, 6
-	battle_anim GUST, SUBANIM_1_TORNADO, 1, 6
+	battle_anim ROAR, SUBANIM_1_SHOUT, 1, 5
+	battle_anim ROAR, SUBANIM_1_SHOUT, 1, 5
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 5
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	db -1 ; end
 
@@ -486,8 +514,8 @@ DisableAnim:
 	db -1 ; end
 
 AcidAnim:
-	battle_anim ACID, SUBANIM_1_BLOB_TOSS, 1, 6
-	battle_anim ACID, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim ACID, SUBANIM_1_BLOB_TOSS, 1, 5
+	battle_anim ACID, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 7
 	db -1 ; end
 
 EmberAnim:
@@ -498,11 +526,12 @@ FlamethrowerAnim:
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_BEAM, 1, 6
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_1, 1, 6
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_2, 1, 6
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_3, 1, 6
 	db -1 ; end
 
-MistAnim:
+IcyMistAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim CONFUSE_RAY, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -511,61 +540,79 @@ WaterGunAnim:
 	db -1 ; end
 
 HydroPumpAnim:
-	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 6
-	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 6
+	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
 	db -1 ; end
 
 SurfAnim:
 	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 6
+	battle_anim HYDRO_PUMP, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	db -1 ; end
 
 IceBeamAnim:
-	battle_anim ICE_BEAM, SUBANIM_0_BEAM, 0, 3
-	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 16
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim ICE_BEAM, SUBANIM_0_BEAM, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 20
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	db -1 ; end
 
 BlizzardAnim:
+	battle_anim BLIZZARD, SUBANIM_0_ICE_FALL, 0, 3
 	battle_anim BLIZZARD, SUBANIM_0_ICE_FALL, 0, 4
-	battle_anim HYDRO_PUMP, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim HYDRO_PUMP, SUBANIM_0_ICE_FALL, 0, 3
 	db -1 ; end
 
 PsyBeamAnim:
-	battle_anim PSYBEAM, SUBANIM_0_BEAM, 0, 3
+	battle_anim PSYBEAM, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	db -1 ; end
 
 BubbleBeamAnim:
-	battle_anim BUBBLEBEAM, SUBANIM_0_WATER_BUBBLES, 0, 18
+	battle_anim BUBBLEBEAM, SUBANIM_0_WATER_BUBBLES, 0, 16
 	db -1 ; end
 
 AuroraBeamAnim:
-	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 3
+    battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HyperBeamAnim:
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
-	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 2
+	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim MEGA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim MEGA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 8
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 PeckAnim:
-	battle_anim PECK, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim PECK, SUBANIM_0_STAR_TWICE, 0, 5
 	db -1 ; end
 
 DrillPeckAnim:
-	battle_anim DRILL_PECK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 5
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+    battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+    battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 3
+    battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
+    battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
 	db -1 ; end
 
 SubmissionAnim:
 	battle_anim SUBMISSION, SE_SLIDE_MON_OFF
-	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 12
+	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
@@ -581,24 +628,35 @@ CounterAnim:
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
+ShadowBallAnim:
+    battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+    battle_anim PSYBEAM, SUBANIM_1_STAR_BIG_TOSS, 1, 5
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+    battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
 SeismicTossAnim:
-	battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
-	battle_anim BARRAGE, SUBANIM_1_SPHERE_BIG, 1, 1
-	battle_anim NO_MOVE, SE_HIDE_ENEMY_MON_PIC
-	battle_anim NO_MOVE, SE_SLIDE_MON_OFF
-	battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_RISE, 1, 2
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_SHOW_MON_PIC
-	battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_FALL, 1, 1
-	battle_anim NO_MOVE, SE_SHOW_ENEMY_MON_PIC
+	;battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
+	;battle_anim BARRAGE, SUBANIM_1_SPHERE_BIG, 1, 1
+	;battle_anim NO_MOVE, SE_HIDE_ENEMY_MON_PIC
+	;battle_anim NO_MOVE, SE_SLIDE_MON_OFF
+	;battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_RISE, 1, 2
+	;battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	;battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	;battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	;battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_FALL, 1, 1
+	;battle_anim NO_MOVE, SE_SHOW_ENEMY_MON_PIC
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 StrengthAnim:
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim FIRE_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim FIRE_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 8
 	db -1 ; end
 
 AbsorbAnim:
@@ -635,8 +693,11 @@ RazorLeafAnim:
 	db -1 ; end
 
 SolarBeamAnim:
-	battle_anim SOLARBEAM, SUBANIM_0_BEAM, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 6
+    battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 PoisonPowderAnim:
@@ -653,7 +714,8 @@ SleepPowderAnim:
 
 PetalDanceAnim:
 	battle_anim PETAL_DANCE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_PETALS_FALLING
+	battle_anim RAZOR_LEAF, SE_LEAVES_FALLING
+    battle_anim SWIFT, SUBANIM_1_LEAVES_TOSS, 1, 1
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -662,31 +724,33 @@ StringShotAnim:
 	db -1 ; end
 
 DragonRageAnim:
+    battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim DRAGON_RAGE, SUBANIM_1_FLAME_BEAM, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FireSpinAnim:
-	battle_anim FIRE_SPIN, SUBANIM_1_FLAME_COLUMN_1, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	battle_anim FIRE_SPIN, SUBANIM_1_FLAME_COLUMN_2, 1, 10
+	battle_anim FIRE_SPIN, SUBANIM_1_FLAME_COLUMN_2, 1, 10
+	battle_anim FIRE_SPIN, SUBANIM_1_FLAME_COLUMN_2, 1, 10
 	db -1 ; end
 
 ThunderShockAnim:
-	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL, 1, 4
 	db -1 ; end
 
 ThunderBoltAnim:
-	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 1
-	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim THUNDER_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim THUNDER_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	db -1 ; end
 
 ThunderWaveAnim:
-	battle_anim THUNDER_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 2
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 4
+	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 2
+	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 2
 	db -1 ; end
 
 ThunderAnim:
@@ -705,9 +769,12 @@ RockThrowAnim:
 EarthquakeAnim:
 	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
 	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
+	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 FissureAnim:
+	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
@@ -715,8 +782,8 @@ FissureAnim:
 	db -1 ; end
 
 DigAnim:
-	battle_anim DIG, SUBANIM_1_STAR_BIG_MOVING, 1, 6
-	battle_anim NO_MOVE, SE_SLIDE_MON_UP
+	battle_anim DIG, SE_SLIDE_MON_UP
+	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	db -1 ; end
 
 ToxicAnim:
@@ -726,6 +793,7 @@ ToxicAnim:
 
 ConfusionAnim:
 	battle_anim CONFUSION, SE_FLASH_SCREEN_LONG
+	battle_anim CONFUSION, SE_WAVY_SCREEN
 	db -1 ; end
 
 PsychicAnim:
@@ -739,29 +807,35 @@ HypnosisAnim:
 
 MeditateAnim:
 	battle_anim MEDITATE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AgilityAnim:
-	battle_anim AGILITY, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim AGILITY, SE_SHAKE_BACK_AND_FORTH
+    battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 QuickAttackAnim:
+    battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim QUICK_ATTACK, SE_SLIDE_MON_OFF
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 1
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 RageAnim:
-	battle_anim RAGE, SUBANIM_0_STAR_TWICE, 0, 6
+    battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim RAGE, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-TeleportAnim:
+TeleportAnim: ; TODO: rever.
 	battle_anim TELEPORT, SE_SQUISH_MON_PIC
 	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 NightShadeAnim:
@@ -775,10 +849,10 @@ MimicAnim:
 	db -1 ; end
 
 ScreechAnim:
-	battle_anim SCREECH, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	battle_anim SCREECH, SUBANIM_0_HEART_1_MUSIC, 1, 8
 	db -1 ; end
 
-DoubleTeamAnim:
+DoubleTeamAnim: ; TODO: rever.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -787,7 +861,6 @@ DoubleTeamAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim DOUBLE_TEAM, SE_SHAKE_BACK_AND_FORTH
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
-	battle_anim BARRIER, SUBANIM_1_BARRIER, 1, 6
 	db -1 ; end
 
 RecoverAnim:
@@ -806,25 +879,19 @@ HardenAnim:
 
 MinimizeAnim:
 	battle_anim MINIMIZE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
-	battle_anim NO_MOVE, SE_MINIMIZE_MON
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+    battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+    battle_anim NO_MOVE, SE_MINIMIZE_MON
+    battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SmokeScreenAnim:
-	battle_anim SMOKESCREEN, SUBANIM_1_SAND, 1, 6
-	battle_anim NO_MOVE, SUBANIM_0_BALL_POOF_ENEMY, 0, 4
-	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim SMOKESCREEN, SUBANIM_1_SAND, 1, 12
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SMOKESCREEN, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -844,8 +911,8 @@ WithdrawAnim:
 	db -1 ; end
 
 DefenseCurlAnim:
-	battle_anim DEFENSE_CURL, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 6
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim DEFENSE_CURL, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -864,6 +931,7 @@ LightScreenAnim:
 
 HazeAnim:
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim HYDRO_PUMP, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -876,7 +944,9 @@ ReflectAnim:
 	db -1 ; end
 
 FocusEnergyAnim:
-	battle_anim FOCUS_ENERGY, SE_SPIRAL_BALLS_INWARD
+	battle_anim FOCUS_ENERGY, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 BideAnim:
@@ -902,12 +972,16 @@ SelfdestructAnim:
 	db -1 ; end
 
 EggBombAnim:
-	battle_anim EGG_BOMB, SUBANIM_1_CIRCLE_BLACK_TOSS, 1, 4
-	battle_anim EGG_BOMB, SUBANIM_1_EXPLOSION_SMALL_ENEMY, 1, 4
+	battle_anim EGG_BOMB, SUBANIM_1_CIRCLE_BLACK_TOSS, 1, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim EXPLOSION, SUBANIM_1_EXPLOSION_SMALL_ENEMY, 1, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	db -1 ; end
 
 LickAnim:
-	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim LEECH_SEED, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 4
 	db -1 ; end
 
 SmogAnim:
@@ -917,12 +991,17 @@ SmogAnim:
 	db -1 ; end
 
 SludgeAnim:
-	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 6
-	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+    battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 BoneClubAnim:
-	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 8
+	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 10
 	db -1 ; end
 
 FireBlastAnim:
@@ -931,13 +1010,14 @@ FireBlastAnim:
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 6
 	db -1 ; end
 
 WaterfallAnim:
 	battle_anim LEECH_SEED, SE_SLIDE_MON_DOWN
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 8
 	battle_anim NO_MOVE, SE_SLIDE_MON_UP
+	battle_anim MEGA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	db -1 ; end
 
 ClampAnim:
@@ -947,11 +1027,20 @@ ClampAnim:
 	db -1 ; end
 
 SwiftAnim:
-	battle_anim SWIFT, SUBANIM_1_STARS_SMALL_TOSS, 1, 3
+    battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim KINESIS, SUBANIM_1_STARS_SMALL_TOSS, 1, 2
+    battle_anim KINESIS, SUBANIM_1_STARS_SMALL_TOSS, 1, 2
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SkullBashAnim:
-	battle_anim SKULL_BASH, SUBANIM_1_STAR_BIG, 1, 6
+    battle_anim LEECH_SEED, SE_DELAY_ANIMATION_10
+    battle_anim DRAGON_SLAM, SE_MOVE_MON_HORIZONTALLY
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SKULL_BASH, SUBANIM_1_STAR_BIG, 1, 8
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 SpikeCannonAnim:
@@ -959,9 +1048,8 @@ SpikeCannonAnim:
 	db -1 ; end
 
 ConstrictAnim:
-	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 6
-	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 6
-	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 6
+	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 5
+	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 5
 	db -1 ; end
 
 AmnesiaAnim:
@@ -970,7 +1058,7 @@ AmnesiaAnim:
 	db -1 ; end
 
 KinesisAnim:
-	battle_anim KINESIS, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim KINESIS, SUBANIM_0_STAR_TWICE, 0, 20
 	db -1 ; end
 
 SoftboiledAnim:
@@ -983,7 +1071,11 @@ SoftboiledAnim:
 	db -1 ; end
 
 HiJumpKickAnim:
-	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+    battle_anim NO_MOVE, SE_SLIDE_MON_OFF
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 8
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 GlareAnim:
@@ -1022,7 +1114,9 @@ LovelyKissAnim:
 	db -1 ; end
 
 SkyAttackAnim:
-	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 5
+	battle_anim SKY_ATTACK, SE_SQUISH_MON_PIC
+	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
+	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
@@ -1056,8 +1150,8 @@ FlashAnim:
 	db -1 ; end
 
 PsywaveAnim:
-	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 6
-	battle_anim CONFUSION, SE_WAVY_SCREEN
+	battle_anim CONFUSION, SUBANIM_0_SOUND_WAVE, 0, 10
+	battle_anim KINESIS, SUBANIM_0_STAR_TWICE, 0, 15
 	db -1 ; end
 
 SplashAnim:
@@ -1065,12 +1159,18 @@ SplashAnim:
 	db -1 ; end
 
 AcidArmorAnim:
-	battle_anim ACID_ARMOR, SE_SLIDE_MON_DOWN_AND_HIDE
+    battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
+	battle_anim RECOVER, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 CrabHammerAnim:
-	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 6
-	battle_anim NO_MOVE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
+    battle_anim GLARE, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+    battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 28
 	db -1 ; end
 
 ExplosionAnim:
@@ -1082,7 +1182,9 @@ FurySwipesAnim:
 	db -1 ; end
 
 BonemerangAnim:
+    battle_anim BONEMERANG, SE_DELAY_ANIMATION_10
 	battle_anim BONEMERANG, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim BONEMERANG, SE_DELAY_ANIMATION_10
 	db -1 ; end
 
 RestAnim:
@@ -1102,16 +1204,14 @@ HyperFangAnim:
 
 SharpenAnim:
 	battle_anim SHARPEN, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ConversionAnim:
-	battle_anim CONVERSION, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 1, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 1, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim CONVERSION, SE_DARK_SCREEN_PALETTE
+    battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 10
+    battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 TriAttackAnim:
@@ -1127,7 +1227,7 @@ SuperFangAnim:
 	db -1 ; end
 
 SlashAnim:
-	battle_anim SLASH, SUBANIM_0_SCRATCHES, 0, 6
+	battle_anim SLASH, SUBANIM_0_SCRATCHES, 0, 8
 	db -1 ; end
 
 SubstituteAnim:
@@ -1218,7 +1318,7 @@ ShrinkingSquareBlackAnim:
 
 UnusedAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SHOOT_MANY_BALLS_UPWARD
+	battle_anim NO_MOVE, SE_SHOOT_MANY_BALLS_UPWARD ; TODO: check this animation out.
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
