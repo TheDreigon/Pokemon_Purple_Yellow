@@ -337,7 +337,7 @@ SpecialTrainerMoves:
 	db 1, 3, THUNDER_WAVE
 	db 2, 1, FLY
 	db 2, 2, SURF
-	db 2, 3, SLAM
+	db 2, 3, DRAGON_SLAM
 	db 3, 3, HYPER_BEAM
 	db 3, 4, EARTHQUAKE
 	db 4, 3, EARTHQUAKE
