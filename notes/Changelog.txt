@@ -1055,14 +1055,14 @@ revised : 90 100 90 85 75 - 440
 * Poliwag also -5 Attack (50 to 45), -20Speed (90 to 70).
 
 Hitmonlee
-original: 50 120 53 35 87 - 345
-smith   : 65 120 70 60 93 - 408
-revised : 80 110 70 60 90 - 410
+original: 50 120 53 35 87  - 345
+smith   : 65 120 70 60 93  - 408
+revised : 80 110 70 60 100 - 420
 
 Hitmonchan
 original: 50 105 79 35  76 - 345
 smith   : 60 50  79 105 76 - 370
-revised : 90 80  90 75  75 - 410
+revised : 90 80  90 80  80 - 420
 
 
 Water: - - - - - - - - - - - - - -

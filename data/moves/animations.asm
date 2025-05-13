@@ -68,7 +68,6 @@ AttackAnimationPointers:
 	dw SubmissionAnim
 	dw LowKickAnim
 	dw CounterAnim
-	dw ShadowBallAnim
 	dw SeismicTossAnim
 	dw StrengthAnim
 	dw AbsorbAnim
@@ -165,6 +164,7 @@ AttackAnimationPointers:
 	dw SuperFangAnim
 	dw SlashAnim
 	dw SubstituteAnim
+	dw ShadowBallAnim
 	dw StruggleAnim
 	assert_table_length NUM_ATTACKS
 	dw ShowPicAnim
@@ -287,7 +287,13 @@ GuillotineAnim:
 	db -1 ; end
 
 RazorWindAnim:
-	battle_anim RAZOR_WIND, SUBANIM_0_SLICE, 0, 4
+	battle_anim GUST, SUBANIM_1_TORNADO, 1, 1
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim GUST, SUBANIM_1_TORNADO, 1, 1
+    battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim RAZOR_WIND, SUBANIM_0_SLICE, 0, 2
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 2
 	db -1 ; end
 
 SwordsDanceAnim:
@@ -636,16 +642,16 @@ ShadowBallAnim:
 	db -1 ; end
 
 SeismicTossAnim:
-	;battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
-	;battle_anim BARRAGE, SUBANIM_1_SPHERE_BIG, 1, 1
-	;battle_anim NO_MOVE, SE_HIDE_ENEMY_MON_PIC
-	;battle_anim NO_MOVE, SE_SLIDE_MON_OFF
-	;battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_RISE, 1, 2
-	;battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	;battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	;battle_anim NO_MOVE, SE_SHOW_MON_PIC
-	;battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_FALL, 1, 1
-	;battle_anim NO_MOVE, SE_SHOW_ENEMY_MON_PIC
+	battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
+	battle_anim BARRAGE, SUBANIM_1_SPHERE_BIG, 1, 1
+	battle_anim NO_MOVE, SE_HIDE_ENEMY_MON_PIC
+	battle_anim NO_MOVE, SE_SLIDE_MON_OFF
+	battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_RISE, 1, 2
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim SEISMIC_TOSS, SUBANIM_1_SPHERE_BIG_FALL, 1, 1
+	battle_anim NO_MOVE, SE_SHOW_ENEMY_MON_PIC
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
@@ -832,9 +838,16 @@ RageAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-TeleportAnim: ; TODO: rever.
+TeleportAnim:
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim TELEPORT, SE_SQUISH_MON_PIC
 	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
@@ -852,15 +865,11 @@ ScreechAnim:
 	battle_anim SCREECH, SUBANIM_0_HEART_1_MUSIC, 1, 8
 	db -1 ; end
 
-DoubleTeamAnim: ; TODO: rever.
+DoubleTeamAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim DOUBLE_TEAM, SE_SHAKE_BACK_AND_FORTH
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 RecoverAnim:
@@ -885,10 +894,11 @@ MinimizeAnim:
 	db -1 ; end
 
 SmokeScreenAnim:
-	battle_anim SMOKESCREEN, SUBANIM_1_SAND, 1, 12
+	battle_anim SMOKESCREEN, SUBANIM_1_SAND, 1, 10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SMOKESCREEN, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10

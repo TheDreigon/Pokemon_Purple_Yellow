@@ -17,19 +17,19 @@ Moves:
 	move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        95, 25
 	move MEGA_PUNCH,   NO_ADDITIONAL_EFFECT,        80, NORMAL,        90, 20
 	move PAY_DAY,      PAY_DAY_EFFECT,              50, NORMAL,       100, 30
-	move FIRE_PUNCH,   BURN_SIDE_EFFECT1,           65, FIRE,         100, 20
-	move ICE_PUNCH,    FREEZE_SIDE_EFFECT,          65, ICE,          100, 20
-	move THUNDERPUNCH, PARALYZE_SIDE_EFFECT1,       65, ELECTRIC,     100, 20
+	move FIRE_PUNCH,   BURN_SIDE_EFFECT1,           60, FIRE,         100, 20
+	move ICE_PUNCH,    FREEZE_SIDE_EFFECT,          60, ICE,          100, 20
+	move THUNDERPUNCH, PARALYZE_SIDE_EFFECT1,       60, ELECTRIC,     100, 20
 	move SCRATCH,      NO_ADDITIONAL_EFFECT,        45, NORMAL,       100, 35
 	move VICEGRIP,     FLINCH_SIDE_EFFECT2,         60, BUG,          100, 25
 	move GUILLOTINE,   OHKO_EFFECT,                  1, BUG,           30,  5
-	move RAZOR_WIND,   HYPER_BEAM_EFFECT,           80, FLYING,       100, 10
+	move RAZOR_WIND,   FLINCH_SIDE_EFFECT2,         55, FLYING,       100, 25
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 20
 	move CUT,          DEFENSE_DOWN_SIDE_EFFECT,    55, BUG,          100, 25
 	move GUST,         NO_ADDITIONAL_EFFECT,        40, FLYING,       100, 30
 	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        65, FLYING,       100, 20
 	move WHIRLWIND,    SPEED_DOWN1_EFFECT,           0, BIRD,         100, 40
-	move FLY,          FLY_EFFECT,                  70, FLYING,       100, 15
+	move FLY,          FLY_EFFECT,                  70, FLYING,       100, 20
 	move BIND,         PARALYZE_SIDE_EFFECT2,       40, ROCK,         100, 30
 	move DRAGON_SLAM,  PARALYZE_SIDE_EFFECT2,       90, DRAGON,        90, 20
 	move VINE_WHIP,    NO_ADDITIONAL_EFFECT,        40, GRASS,        100, 30
@@ -132,7 +132,7 @@ Moves:
 	move MIRROR_MOVE,  MIRROR_MOVE_EFFECT,           0, BIRD,         100, 20
 	move SELFDESTRUCT, EXPLODE_EFFECT,             200, NORMAL,       100,  5
 	move EGG_BOMB,     BURN_SIDE_EFFECT2,           90, FIRE,         100, 10
-	move LICK,         PARALYZE_SIDE_EFFECT2,       35, GHOST,        100, 35
+	move LICK,         PARALYZE_SIDE_EFFECT2,       30, GHOST,        100, 35
 	move SMOG,         POISON_SIDE_EFFECT2,         40, POISON,        80, 30
 	move SLUDGE,       POISON_SIDE_EFFECT2,         90, POISON,       100, 15
 	move BONE_CLUB,    FLINCH_SIDE_EFFECT1,         75, GROUND,       100, 20
@@ -140,10 +140,10 @@ Moves:
 	move WATERFALL,    FLINCH_SIDE_EFFECT1,         75, WATER,        100, 15
 	move CLAMP,        TRAPPING_EFFECT,             27, WATER,         85, 20  ; (27 * 5 = 135 = 90 * 1.5)
 	move SWIFT,        SWIFT_EFFECT,                60, NORMAL,       100, 20
-	move SKULL_BASH,   HYPER_BEAM_EFFECT,          100, NORMAL,       100, 15
+	move SKULL_BASH,   RECOIL_EFFECT,               80, ROCK,         100, 10
 	move SPIKE_CANNON, TWO_TO_FIVE_ATTACKS_EFFECT,  20, ROCK,          95, 25
 	move CONSTRICT,    SPEED_DOWN_SIDE_EFFECT,      35, BUG,          100, 35
-	move AMNESIA,      SPECIAL_UP2_EFFECT,           0, BIRD,         100, 15
+	move AMNESIA,      SPECIAL_UP1_EFFECT,           0, BIRD,         100, 20
 	move KINESIS,      ACCURACY_DOWN1_EFFECT,        0, BIRD,         100, 20
 	move SOFTBOILED,   HEAL_EFFECT,                  0, BIRD,         100, 15
 	move HI_JUMP_KICK, JUMP_KICK_EFFECT,           110, FIGHTING,      90, 20
