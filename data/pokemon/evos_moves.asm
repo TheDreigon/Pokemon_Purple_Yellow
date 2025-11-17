@@ -854,7 +854,8 @@ PsyduckEvosMoves:
 	db EVOLVE_LEVEL, 33, GOLDUCK
 	db 0
 ; Learnset
-	db 10, DISABLE
+	db 6, DISABLE
+	db 10, BUBBLE
 	db 15, CONFUSION
 	db 17, BUBBLEBEAM
 	db 23, SCREECH
@@ -1823,7 +1824,8 @@ GolduckEvosMoves:
 	db 0
 ; Learnset
 	db 28, TAIL_WHIP
-	db 10, DISABLE
+	db 6, DISABLE
+	db 10, BUBBLE
 	db 15, CONFUSION
 	db 17, BUBBLEBEAM
 	db 23, SCREECH

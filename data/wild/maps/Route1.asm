@@ -9,7 +9,7 @@ Route1WildMons:
 	db  5, PIDGEY
 	db  4, RATTATA
 	db  5, SPEAROW
-	db  6, SPEAROW
+	db  5, PIKACHU
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
