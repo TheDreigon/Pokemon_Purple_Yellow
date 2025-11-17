@@ -12,8 +12,8 @@ _ViridianCityOldManHadMyCoffeeNowText::
 	para "Sure, you can go"
 	line "through!"
 
-	para "I'm sorry I was"
-	line "so rude to you!"
+	para "I'm sorry if I"
+	line "was rude to you!"
 
 	para "I see you're using"
 	line "a #DEX."
