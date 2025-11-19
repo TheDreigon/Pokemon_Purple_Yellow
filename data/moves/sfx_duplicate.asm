@@ -2,51 +2,6 @@ MoveSoundTable:
 	table_width 3, MoveSoundTable
 	; ID, pitch mod, tempo mod
 
-	; === BIRD TYPE ===
-	db SFX_BATTLE_0B,          $00, $80 ; STRUGGLE
-	db SFX_NOT_VERY_EFFECTIVE, $10, $c0 ; SWORDS_DANCE
-	db SFX_BATTLE_13,          $00, $e0 ; WHIRLWIND
-	db SFX_BATTLE_1B,          $01, $a0 ; SAND_ATTACK
-	db SFX_BATTLE_21,          $00, $80 ; TAIL_WHIP
-	db SFX_BATTLE_31,          $ff, $40 ; LEER
-	db SFX_BATTLE_0B,          $00, $c0 ; GROWL
-	db SFX_BATTLE_0B,          $00, $40 ; ROAR
-	db SFX_BATTLE_35,          $00, $80 ; SING
-	db SFX_BATTLE_27,          $40, $60 ; SUPERSONIC
-	db SFX_BATTLE_27,          $ff, $40 ; DISABLE
-	db SFX_BATTLE_25,          $11, $e0 ; GROWTH
-	db SFX_BATTLE_09,          $20, $c0 ; MEDITATE
-	db SFX_FAINT_FALL,         $20, $c0 ; AGILITY
-	db SFX_BATTLE_09,          $f0, $40 ; MIMIC
-	db SFX_BATTLE_31,          $00, $80 ; SCREECH
-	db SFX_BATTLE_33,          $80, $40 ; DOUBLE_TEAM
-	db SFX_BATTLE_33,          $00, $80 ; RECOVER
-	db SFX_BATTLE_14,          $11, $20 ; HARDEN
-	db SFX_BATTLE_14,          $22, $10 ; MINIMIZE
-	db SFX_BATTLE_1B,          $f1, $ff ; SMOKESCREEN
-	db SFX_BATTLE_14,          $33, $30 ; WITHDRAW
-	db SFX_BATTLE_32,          $40, $c0 ; DEFENSE_CURL
-	db SFX_BATTLE_0E,          $20, $20 ; BARRIER
-	db SFX_BATTLE_0E,          $f0, $10 ; LIGHT_SCREEN
-	db SFX_BATTLE_0F,          $f8, $10 ; HAZE
-	db SFX_NOT_VERY_EFFECTIVE, $f0, $10 ; REFLECT
-	db SFX_BATTLE_25,          $00, $80 ; FOCUS_ENERGY
-	db SFX_BATTLE_18,          $00, $c0 ; BIDE
-	db SFX_BATTLE_32,          $c0, $ff ; METRONOME
-	db SFX_BATTLE_09,          $f8, $10 ; AMNESIA
-	db SFX_FAINT_FALL,         $18, $20 ; KINESIS
-	db SFX_BATTLE_32,          $08, $40 ; SOFTBOILED
-	db SFX_NOT_VERY_EFFECTIVE, $09, $ff ; GLARE
-	db SFX_BATTLE_09,          $88, $10 ; LOVELY_KISS
-	db SFX_FAINT_FALL,         $ff, $ff ; TRANSFORM
-	db SFX_BATTLE_13,          $f8, $ff ; FLASH
-	db SFX_BATTLE_0F,          $08, $10 ; SPLASH
-	db SFX_BATTLE_0D,          $f0, $ff ; ACID_ARMOR
-	db SFX_BATTLE_21,          $12, $10 ; REST
-	db SFX_BATTLE_31,          $80, $04 ; SHARPEN
-	db SFX_BATTLE_33,          $f0, $10 ; CONVERSION
-	db SFX_BATTLE_2C,          $d8, $04 ; SUBSTITUTE
-
 	; === BUG TYPE ===
 	db SFX_BATTLE_19,          $00, $80 ; PIN_MISSILE
 	db SFX_BATTLE_1B,          $20, $c0 ; TWINEEDLE
@@ -198,6 +153,51 @@ MoveSoundTable:
 	db SFX_BATTLE_2C,          $00, $80 ; SURF
 	db SFX_SUPER_EFFECTIVE,    $f0, $ff ; CRABHAMMER
 	db SFX_BATTLE_2A,          $00, $80 ; HYDRO_PUMP
+
+	; === BIRD TYPE ===
+	db SFX_NOT_VERY_EFFECTIVE, $10, $c0 ; SWORDS_DANCE
+	db SFX_BATTLE_13,          $00, $e0 ; WHIRLWIND
+	db SFX_BATTLE_1B,          $01, $a0 ; SAND_ATTACK
+	db SFX_BATTLE_21,          $00, $80 ; TAIL_WHIP
+	db SFX_BATTLE_31,          $ff, $40 ; LEER
+	db SFX_BATTLE_0B,          $00, $c0 ; GROWL
+	db SFX_BATTLE_0B,          $00, $40 ; ROAR
+	db SFX_BATTLE_35,          $00, $80 ; SING
+	db SFX_BATTLE_27,          $40, $60 ; SUPERSONIC
+	db SFX_BATTLE_27,          $ff, $40 ; DISABLE
+	db SFX_BATTLE_25,          $11, $e0 ; GROWTH
+	db SFX_BATTLE_09,          $20, $c0 ; MEDITATE
+	db SFX_FAINT_FALL,         $20, $c0 ; AGILITY
+	db SFX_BATTLE_09,          $f0, $40 ; MIMIC
+	db SFX_BATTLE_31,          $00, $80 ; SCREECH
+	db SFX_BATTLE_33,          $80, $40 ; DOUBLE_TEAM
+	db SFX_BATTLE_33,          $00, $80 ; RECOVER
+	db SFX_BATTLE_14,          $11, $20 ; HARDEN
+	db SFX_BATTLE_14,          $22, $10 ; MINIMIZE
+	db SFX_BATTLE_1B,          $f1, $ff ; SMOKESCREEN
+	db SFX_BATTLE_14,          $33, $30 ; WITHDRAW
+	db SFX_BATTLE_32,          $40, $c0 ; DEFENSE_CURL
+	db SFX_BATTLE_0E,          $20, $20 ; BARRIER
+	db SFX_BATTLE_0E,          $f0, $10 ; LIGHT_SCREEN
+	db SFX_BATTLE_0F,          $f8, $10 ; HAZE
+	db SFX_NOT_VERY_EFFECTIVE, $f0, $10 ; REFLECT
+	db SFX_BATTLE_25,          $00, $80 ; FOCUS_ENERGY
+	db SFX_BATTLE_18,          $00, $c0 ; BIDE
+	db SFX_BATTLE_32,          $c0, $ff ; METRONOME
+	db SFX_BATTLE_09,          $f8, $10 ; AMNESIA
+	db SFX_FAINT_FALL,         $18, $20 ; KINESIS
+	db SFX_BATTLE_32,          $08, $40 ; SOFTBOILED
+	db SFX_NOT_VERY_EFFECTIVE, $09, $ff ; GLARE
+	db SFX_BATTLE_09,          $88, $10 ; LOVELY_KISS
+	db SFX_FAINT_FALL,         $ff, $ff ; TRANSFORM
+	db SFX_BATTLE_13,          $f8, $ff ; FLASH
+	db SFX_BATTLE_0F,          $08, $10 ; SPLASH
+	db SFX_BATTLE_0D,          $f0, $ff ; ACID_ARMOR
+	db SFX_BATTLE_21,          $12, $10 ; REST
+	db SFX_BATTLE_31,          $80, $04 ; SHARPEN
+	db SFX_BATTLE_33,          $f0, $10 ; CONVERSION
+	db SFX_BATTLE_2C,          $d8, $04 ; SUBSTITUTE
+	db SFX_BATTLE_0B,          $00, $80 ; STRUGGLE
 
 	assert_table_length NUM_ATTACKS
 	db SFX_BATTLE_0B,          $00, $80
