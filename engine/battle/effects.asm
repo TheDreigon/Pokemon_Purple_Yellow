@@ -1162,7 +1162,7 @@ RecoilEffect:
 
 ConfusionSideEffect:
 	call BattleRandom
-	cp 10 percent ; chance of confusion
+	cp 20 percent ; chance of confusion
 	ret nc
 	jr ConfusionSideEffectSuccess
 

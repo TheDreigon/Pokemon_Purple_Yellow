@@ -4981,10 +4981,10 @@ ApplyAttackToEnemyPokemon:
 	jr z, .storeDamage
 	cp NIGHT_SHADE
 	jr z, .storeDamage
-	ld b, SONICBOOM_DAMAGE ; 20
+	ld b, SONICBOOM_DAMAGE ; 25
 	cp SONICBOOM
 	jr z, .storeDamage
-	ld b, DRAGON_RAGE_DAMAGE ; 40
+	ld b, DRAGON_RAGE_DAMAGE ; 50
 	cp DRAGON_RAGE
 	jr z, .storeDamage
 ; Psywave

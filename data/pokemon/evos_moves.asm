@@ -507,7 +507,6 @@ GyaradosEvosMoves:
 	db 0
 ; Learnset
 	db 20, BITE
-	db 22, GUST
 	db 25, WATERFALL
 	db 28, DRAGON_RAGE
 	db 32, LEER
