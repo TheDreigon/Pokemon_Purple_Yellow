@@ -15,7 +15,7 @@ Moves:
 	; === BUG TYPE (8 moves) ===
 	move CONSTRICT,    SPEED_DOWN1_EFFECT,          20, BUG,          100, 35
 	move BUG_BITE,     FLINCH_SIDE_EFFECT1,         35, BUG,          100, 35 ; new move.
-	move LEECH_LIFE,   DRAIN_HP_EFFECT,             60, BUG,          100, 20
+	move LEECH_LIFE,   DRAIN_HP_EFFECT,             60, BUG,          100, 20 ; high-crit.
 	move VICEGRIP,     ATTACK_TWICE_EFFECT,         30, BUG,          100, 30
 	move BUG_BUZZ,     SPECIAL_DOWN_SIDE_EFFECT,    80, BUG,          100, 20 ; new move.
 	move MEGAHORN,     NO_ADDITIONAL_EFFECT,        90, BUG,           95, 15 ; new move.
@@ -24,7 +24,7 @@ Moves:
 	; move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, BUG,          100, 20 ; remove.
 
 
-	; === DARK TYPE (8 moves) === ; new type
+	; === DARK TYPE (10 moves) === ; new type
 	move FAINT_ATTACK, SWIFT_EFFECT,                45, DARK,         100, 25 ; new move.
 	move RAGE,         RAGE_EFFECT,                 60, DARK,          95, 20
 	move NIGHT_SLASH,  NO_ADDITIONAL_EFFECT,        70, DARK,         100, 20 ; new move. high-crit.
@@ -32,7 +32,9 @@ Moves:
 	move DARK_PULSE,   FLINCH_SIDE_EFFECT2,         85, DARK,         100, 15 ; new move.
 	move GORE_ATTACK,  NO_ADDITIONAL_EFFECT,        95, DARK,          95, 15 ; new move. high-crit.
 	move THRASH,       THRASH_PETAL_DANCE_EFFECT,  100, DARK,          95, 10
-	move PAY_DAY,      PAY_DAY_EFFECT,              65, DARK,         100, 25 ; signature. becomes high-crit.
+	move HYPNOSIS,     SLEEP_EFFECT,                 0, DARK,          75, 15
+	move PAY_DAY,      PAY_DAY_EFFECT,              65, DARK,         100, 25 ; signature. high-crit.
+	move DREAM_EATER,  DREAM_EATER_EFFECT,         110, DARK,         100, 15 ; signature.
 
 
 	; === DRAGON TYPE (6 moves) ===
@@ -59,11 +61,11 @@ Moves:
 
     ; === FAIRY TYPE (6 moves) === ; new type
 	move DOUBLESLAP,   TWO_TO_FIVE_ATTACKS_EFFECT,  16, FAIRY,         90, 20
-	move FAIRY_WIND,   NO_ADDITIONAL_EFFECT,        35, FAIRY,        100, 35 ; new move.
-	move DRAINING_KISS,DRAIN_HP_EFFECT,             50, FAIRY,        100, 20 ; new move.
-	move DAZE_GLEAM,   FLINCH_SIDE_EFFECT2,         60, FAIRY,        100, 20 ; new move.
-	move PLAY_ROUGH,   ATTACK_DOWN1_EFFECT,         70, FAIRY,        100, 20 ; new move.
-	move MOONBLAST,    SPECIAL_DOWN_SIDE_EFFECT,    85, FAIRY,        100, 15 ; new move.
+	move FAIRY_WIND,   ATTACK_DOWN_SIDE_EFFECT,     35, FAIRY,        100, 30 ; new move.
+	move DRAINING_KISS,DRAIN_HP_EFFECT,             50, FAIRY,        100, 25 ; new move.
+	move DAZE_GLEAM,   FLINCH_SIDE_EFFECT2,         65, FAIRY,        100, 20 ; new move.
+	move PLAY_ROUGH,   ATTACK_DOWN1_EFFECT,         75, FAIRY,        100, 20 ; new move.
+	move MOONBLAST,    SPECIAL_DOWN_SIDE_EFFECT,    90, FAIRY,        100, 15 ; new move.
 
 
 	; === FIGHTING TYPE (13 moves) ===
@@ -112,12 +114,13 @@ Moves:
 	move POISON_GAS,   POISON_EFFECT,                0, GAS,           85, 25
 
 
-	; === GHOST TYPE (7 moves) ===
+	; === GHOST TYPE (8 moves) ===
 	move NIGHT_SHADE,  SPECIAL_DAMAGE_EFFECT,        0, GHOST,        100, 20
-	move LICK,         PARALYZE_SIDE_EFFECT2,       20, GHOST,        100, 30
+	move LICK,         PARALYZE_SIDE_EFFECT2,       25, GHOST,        100, 30
 	move ASTONISH,     FLINCH_SIDE_EFFECT2,         40, GHOST,        100, 30 ; new move.
-	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             60, GHOST,        100, 20 ; new move.
-	move SHADOW_BALL,  PARALYZE_SIDE_EFFECT2,       85, GHOST,        100, 15 ; new move.
+	move SHADOW_PUNCH, SWIFT_EFFECT,                55, GHOST,        100, 25 ; new move.
+	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             70, GHOST,        100, 15 ; new move.
+	move SHADOW_BALL,  PARALYZE_SIDE_EFFECT2,       90, GHOST,        100, 15 ; new move.
 	move SHADOW_SNEAK, NO_ADDITIONAL_EFFECT,        45, GHOST,        100, 25 ; new move. signature. make it go first like Quick Attack.
 	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,         85, 25
 
@@ -207,14 +210,12 @@ Moves:
 	move NEUROTOXIN,   PARALYZE_EFFECT,              0, POISON,        85, 25 ; new move.
 
 
-	; === PSYCHIC_TYPE (8 moves) ===
+	; === PSYCHIC_TYPE (6 moves) ===
 	move PSYWAVE,      CONFUSION_SIDE_EFFECT,       30, PSYCHIC_TYPE, 100, 30
 	move CONFUSION,    CONFUSION_SIDE_EFFECT,       45, PSYCHIC_TYPE, 100, 30
 	move EXTRASENSORY, SWIFT_EFFECT,                60, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,      SPECIAL_DOWN_SIDE_EFFECT,    75, PSYCHIC_TYPE, 100, 20
-	move PSYCHIC_M,    SPECIAL_DOWN_SIDE_EFFECT,    95, PSYCHIC_TYPE, 100, 15
-	move HYPNOSIS,     SLEEP_EFFECT,                 0, PSYCHIC_TYPE,  75, 15
-	move DREAM_EATER,  DREAM_EATER_EFFECT,         110, PSYCHIC_TYPE, 100, 15 ; signature.
+	move PSYCHIC_M,    SPECIAL_DOWN1_EFFECT,        90, PSYCHIC_TYPE, 100, 15
 	move MIND_BREAK,   FLINCH_SIDE_EFFECT2,        120, PSYCHIC_TYPE,  90, 10 ; signature.
 
 
@@ -227,14 +228,15 @@ Moves:
 	move STONE_EDGE,   NO_ADDITIONAL_EFFECT,       110, ROCK,          85, 10 ; new move. high-crit.
 	move CLAMP,        TRAPPING_EFFECT,             20, ROCK,          80, 20 ; signature.
 	move BONEMERANG,   ATTACK_TWICE_EFFECT,         45, ROCK,          90, 20 ; signature.
-	move CRABHAMMER,   FLINCH_SIDE_EFFECT2,        100, ROCK,          95, 10 ; signature.
+	move CRABHAMMER,   FLINCH_SIDE_EFFECT2,         90, ROCK,          90, 15 ; signature.
 	move HORN_DRILL,   DEFENSE_DOWN1_EFFECT,       100, ROCK,          90, 15 ; signature.
 
 
-    ; === STEEL TYPE (5 moves) === ; new type
+    ; === STEEL TYPE (6 moves) === ; new type
 	move CUT,          NO_ADDITIONAL_EFFECT,        55, STEEL,        100, 25 ; high-crit.
 	move IRON_TAIL,    DEFENSE_DOWN_SIDE_EFFECT,    65, STEEL,        100, 20 ; new move.
 	move IRON_HEAD,    FLINCH_SIDE_EFFECT2,         75, STEEL,        100, 20 ; new move.
+	move MAGNET_BOMB,  SWIFT_EFFECT,               100, STEEL,        100, 10 ; new move.
 	move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, STEEL,        100, 20 ; signature. set damage from 20 to 25.
 	move BULLET_PUNCH, NO_ADDITIONAL_EFFECT,        45, STEEL,        100, 25 ; new move. signature. make it go first like Quick Attack.
 
@@ -250,7 +252,7 @@ Moves:
 	; move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      10, WATER,        100, 30 ; remove.
 
 
-    ; === BIRD TYPE (63 moves) ===
+    ; === BIRD TYPE (65 moves) ===
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 25
 	move SHARPEN,      ATTACK_UP2_EFFECT,            0, BIRD,         100, 25 ; signature.
 	move HOWL,         ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; new move.
@@ -265,6 +267,7 @@ Moves:
 
 	move CALM_MIND,    SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35 ; new move.
 	move NASTY_PLOT,   SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35 ; new move.
+	move AROMATIC_MIST,SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35 ; new move.
 	move GROWTH,       SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35
 	move AMNESIA,      SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35
 
@@ -313,6 +316,7 @@ Moves:
 	move LOVELY_KISS,  SLEEP_EFFECT,                 0, BIRD,          75, 15 ; signature.
 
 	move RECOVER,      HEAL_EFFECT,                  0, BIRD,         100, 15
+	move MOONLIGHT,    HEAL_EFFECT,                  0, BIRD,         100, 15 ; new move.
 	move REST,         HEAL_EFFECT,                  0, BIRD,         100, 25
 	move SOFTBOILED,   HEAL_EFFECT,                  0, BIRD,         100, 20 ; signature.
 

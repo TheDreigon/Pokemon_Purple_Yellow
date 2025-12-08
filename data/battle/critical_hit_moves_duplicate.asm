@@ -1,4 +1,5 @@
 HighCriticalMoves:
+	db LEECH_LIFE
 	db NIGHT_SLASH
 	db GORE_ATTACK
 	db PAY_DAY
