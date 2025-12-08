@@ -1,5 +1,14 @@
 HighCriticalMoves:
-	db PAY_DAY
-	db LEEK_STRIKE
+	db NIGHT_SLASH
 	db GORE_ATTACK
+	db PAY_DAY
+	db HYPER_BEAM
+	db VOLT_ATTACK
+	db LEEK_STRIKE
+	db EXPLOSION
+	db RAZOR_LEAF
+	db HORN_CHARGE
+	db HYPER_FANG
+	db STONE_EDGE
+	db CUT
 	db -1 ; end
