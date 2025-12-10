@@ -8,6 +8,7 @@ HighCriticalMoves:
 	db LEEK_STRIKE
 	db EXPLOSION
 	db RAZOR_LEAF
+	db SLASH
 	db HORN_CHARGE
 	db HYPER_FANG
 	db STONE_EDGE

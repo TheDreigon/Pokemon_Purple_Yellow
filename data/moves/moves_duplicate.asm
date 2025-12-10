@@ -32,9 +32,9 @@ Moves:
 	move DARK_PULSE,   FLINCH_SIDE_EFFECT2,         85, DARK,         100, 15 ; new move.
 	move GORE_ATTACK,  NO_ADDITIONAL_EFFECT,        95, DARK,          95, 15 ; new move. high-crit.
 	move THRASH,       THRASH_PETAL_DANCE_EFFECT,  100, DARK,          95, 10
-	move HYPNOSIS,     SLEEP_EFFECT,                 0, DARK,          75, 15
+	move DEEP_SLEEP,   SLEEP_EFFECT,                 0, DARK,          85, 20 ; signature.
 	move PAY_DAY,      PAY_DAY_EFFECT,              65, DARK,         100, 25 ; signature. high-crit.
-	move DREAM_EATER,  DREAM_EATER_EFFECT,         110, DARK,         100, 15 ; signature.
+	move DREAM_EATER,  DREAM_EATER_EFFECT,         110, DARK,         100, 20 ; signature.
 
 
 	; === DRAGON TYPE (6 moves) ===
@@ -74,13 +74,13 @@ Moves:
 	move BIND,         PARALYZE_SIDE_EFFECT2,       45, FIGHTING,      90, 30
 	move KARATE_CHOP,  NO_ADDITIONAL_EFFECT,        55, FIGHTING,     100, 30
 	move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         30, FIGHTING,     100, 25
-	move STRENGTH,     ATTACK_UP1_EFFECT,           75, FIGHTING,     100, 20
-	move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        85, FIGHTING,     100, 15
+	move STRENGTH,     NO_ADDITIONAL_EFFECT,        80, FIGHTING,     100, 20
+	move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        85, FIGHTING,      95, 15
 	move JUMP_KICK,    JUMP_KICK_EFFECT,            90, FIGHTING,      90, 15
-	move SUBMISSION,   ATTACK_DOWN1_EFFECT,         95, FIGHTING,     100, 15
-	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       60, FIGHTING,     100, 20 ; signature.
-	move ROLLING_KICK, FLINCH_SIDE_EFFECT2,         60, FIGHTING,     100, 20 ; signature.
-	move LEEK_STRIKE,  FLINCH_SIDE_EFFECT2,         70, FIGHTING,     100, 20 ; new move. signature. high-crit.
+	move SUBMISSION,   ATTACK_DOWN1_EFFECT,         95, FIGHTING,      95, 15
+	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       65, FIGHTING,     100, 25 ; signature.
+	move ROLLING_KICK, FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; signature.
+	move LEEK_STRIKE,  FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; new move. signature. high-crit.
 	move HI_JUMP_KICK, JUMP_KICK_EFFECT,           120, FIGHTING,      80, 10 ; signature.
 	; move COUNTER,      NO_ADDITIONAL_EFFECT,         1, FIGHTING,     100, 20 ; remove.
 
@@ -137,7 +137,7 @@ Moves:
 	move POISONPOWDER, POISON_EFFECT,                0, POISON,        85, 25
 	move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,         80, 20
 	move SLEEP_POWDER, SLEEP_EFFECT,                 0, GRASS,         75, 15
-	move SPORE,        SLEEP_EFFECT,                 0, GRASS,        100, 15 ; signature.
+	move SPORE,        SLEEP_EFFECT,                 0, GRASS,         95, 15 ; signature.
 	; move EGG_BOMB,     NO_ADDITIONAL_EFFECT,       100, GRASS,        100, 15 ; remove.
 
 
@@ -155,7 +155,7 @@ Moves:
 	; === ICE TYPE (6 moves) ===
 	move POWDER_SNOW,  NO_ADDITIONAL_EFFECT,        35, ICE,          100, 35 ; new move.
 	move ICY_WIND,     SPEED_DOWN_SIDE_EFFECT,      50, ICE,          100, 30 ; new move.
-	move AURORA_BEAM,  ATTACK_DOWN_SIDE_EFFECT,     65, ICE,          100, 25
+	move AURORA_BEAM,  ATTACK_DOWN1_EFFECT,         65, ICE,          100, 25
 	move FROST_BREATH, SPEED_DOWN1_EFFECT,          80, ICE,          100, 20 ; new move.
 	move ICE_BEAM,     FREEZE_SIDE_EFFECT,          95, ICE,          100, 15
 	move BLIZZARD,     FREEZE_SIDE_EFFECT,         115, ICE,           85, 10
@@ -168,7 +168,7 @@ Moves:
 	move LAVA_PLUME,   BURN_SIDE_EFFECT2,           90, MAGMA,        100, 15 ; new move. signature.
 
 
-	; === NORMAL TYPE (20 moves) ===
+	; === NORMAL TYPE (21 moves) ===
 	move WRAP,         TRAPPING_EFFECT,             16, NORMAL,        85, 20
 	move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20
 	move FURY_ATTACK,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, NORMAL,        90, 20
@@ -180,11 +180,12 @@ Moves:
 	move BITE,         FLINCH_SIDE_EFFECT1,         50, NORMAL,       100, 30
 	move HEADBUTT,     CONFUSION_SIDE_EFFECT,       55, NORMAL,       100, 25
 	move HORN_ATTACK,  NO_ADDITIONAL_EFFECT,        60, NORMAL,        95, 25
-	move SLASH,        NO_ADDITIONAL_EFFECT,        65, NORMAL,       100, 20
-	move MEGA_PUNCH,   NO_ADDITIONAL_EFFECT,        75, NORMAL,        90, 20
+	move SLASH,        NO_ADDITIONAL_EFFECT,        65, NORMAL,        95, 20 ; high-crit.
+	move MEGA_PUNCH,   FLINCH_SIDE_EFFECT1,         75, NORMAL,        90, 20
 	move CRUNCH,       DEFENSE_DOWN_SIDE_EFFECT,    75, NORMAL,       100, 20 ; new move.
 	move BODY_SLAM,    NO_ADDITIONAL_EFFECT,        80, NORMAL,        95, 20
-	move HORN_CHARGE,  NO_ADDITIONAL_EFFECT,        90, NORMAL,        95, 15 ; new move. high-crit.
+	move HORN_CHARGE,  NO_ADDITIONAL_EFFECT,        85, NORMAL,        95, 15 ; new move. high-crit.
+	move HEAVY_SLAM,   PARALYZE_SIDE_EFFECT2,      100, NORMAL,        90, 10
 	move DOUBLE_EDGE,  RECOIL_EFFECT,              120, NORMAL,        90, 10
 	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. signature. make it go first like Quick Attack.
 	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 10 ; signature.
@@ -210,13 +211,14 @@ Moves:
 	move NEUROTOXIN,   PARALYZE_EFFECT,              0, POISON,        85, 25 ; new move.
 
 
-	; === PSYCHIC_TYPE (6 moves) ===
+	; === PSYCHIC_TYPE (7 moves) ===
 	move PSYWAVE,      CONFUSION_SIDE_EFFECT,       30, PSYCHIC_TYPE, 100, 30
 	move CONFUSION,    CONFUSION_SIDE_EFFECT,       45, PSYCHIC_TYPE, 100, 30
 	move EXTRASENSORY, SWIFT_EFFECT,                60, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,      SPECIAL_DOWN_SIDE_EFFECT,    75, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,    SPECIAL_DOWN1_EFFECT,        90, PSYCHIC_TYPE, 100, 15
 	move MIND_BREAK,   FLINCH_SIDE_EFFECT2,        120, PSYCHIC_TYPE,  90, 10 ; signature.
+	move HYPNOSIS,     SLEEP_EFFECT,                 0, PSYCHIC_TYPE,  75, 15
 
 
 	; === ROCK TYPE (10 moves) ===
