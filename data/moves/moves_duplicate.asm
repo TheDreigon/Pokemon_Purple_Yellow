@@ -13,7 +13,7 @@ Moves:
 	table_width MOVE_LENGTH, Moves
 
 	; === BUG TYPE (8 moves) ===
-	move CONSTRICT,    SPEED_DOWN1_EFFECT,          20, BUG,          100, 35
+	move CONSTRICT,    SPEED_DOWN1_EFFECT,          20, BUG,          100, 30
 	move BUG_BITE,     FLINCH_SIDE_EFFECT1,         35, BUG,          100, 35 ; new move.
 	move LEECH_LIFE,   DRAIN_HP_EFFECT,             60, BUG,          100, 20 ; high-crit.
 	move VICEGRIP,     ATTACK_TWICE_EFFECT,         30, BUG,          100, 30
@@ -75,12 +75,12 @@ Moves:
 	move KARATE_CHOP,  NO_ADDITIONAL_EFFECT,        55, FIGHTING,     100, 30
 	move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         30, FIGHTING,     100, 25
 	move STRENGTH,     NO_ADDITIONAL_EFFECT,        80, FIGHTING,     100, 20
-	move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        85, FIGHTING,      95, 15
+	move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        85, FIGHTING,      90, 15
 	move JUMP_KICK,    JUMP_KICK_EFFECT,            90, FIGHTING,      90, 15
-	move SUBMISSION,   ATTACK_DOWN1_EFFECT,         95, FIGHTING,      95, 15
 	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       65, FIGHTING,     100, 25 ; signature.
 	move ROLLING_KICK, FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; signature.
 	move LEEK_STRIKE,  FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; new move. signature. high-crit.
+	move SUBMISSION,   ATTACK_DOWN1_EFFECT,         95, FIGHTING,     100, 15 ; signature.
 	move HI_JUMP_KICK, JUMP_KICK_EFFECT,           120, FIGHTING,      80, 10 ; signature.
 	; move COUNTER,      NO_ADDITIONAL_EFFECT,         1, FIGHTING,     100, 20 ; remove.
 
@@ -103,15 +103,15 @@ Moves:
 	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        60, FLYING,       100, 25
 	move AERIAL_ACE,   SWIFT_EFFECT,                70, FLYING,       100, 20 ; new move.
 	move FLY,          FLY_EFFECT,                  80, FLYING,       100, 20
-	move DRILL_PECK,   NO_ADDITIONAL_EFFECT,        90, FLYING,       100, 15
-	move HURRICANE,    CONFUSION_SIDE_EFFECT,      100, FLYING,       100, 10 ; new move.
-	move SKY_ATTACK,   FLY_EFFECT,                 110, FLYING,        90, 10 ; becomes like FLY_EFFECT.
+	move HURRICANE,    CONFUSION_SIDE_EFFECT,       95, FLYING,       100, 15 ; new move.
+	move SKY_ATTACK,   FLY_EFFECT,                 110, FLYING,       100, 10 ; becomes like FLY_EFFECT.
+	move DRILL_PECK,   NO_ADDITIONAL_EFFECT,        90, FLYING,       100, 20 ; signature.
 
 
     ; === GAS TYPE (3 moves) === ; new type
 	move SMOG,         ACCURACY_DOWN1_EFFECT,       40, GAS,           90, 30
-	move HAZE,         ACCURACY_DOWN1_EFFECT,       80, GAS,           90, 20 ; signature.
 	move POISON_GAS,   POISON_EFFECT,                0, GAS,           85, 25
+	move HAZE,         ACCURACY_DOWN1_EFFECT,       80, GAS,           90, 20 ; signature.
 
 
 	; === GHOST TYPE (8 moves) ===
@@ -306,6 +306,7 @@ Moves:
 	move SLUDGE_TRAP,  SPEED_DOWN2_EFFECT,           0, BIRD,         100, 25 ; new move. signature.
 	move SWEET_SCENT,  SPEED_DOWN1_EFFECT,           0, BIRD,         100, 35 ; new move.
 	move HINDER,       SPEED_DOWN1_EFFECT,           0, BIRD,         100, 35 ; new move.
+	move STRING_SHOT,  SPEED_DOWN1_EFFECT,           0, BIRD,         100, 35
 
 	move SMOKESCREEN,  ACCURACY_DOWN1_EFFECT,        0, BIRD,         100, 15
 	move SAND_ATTACK,  ACCURACY_DOWN1_EFFECT,        0, BIRD,         100, 15
@@ -335,7 +336,6 @@ Moves:
 	move SPLASH,       SPLASH_EFFECT,                0, BIRD,         100, 40 ; signature.
 
 	; move MEDITATE,     ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; remove.
-	; move STRING_SHOT,  SPEED_DOWN1_EFFECT,           0, BIRD,         100, 35 ; remove.
 	; move BARRIER,      DEFENSE_UP2_EFFECT,           0, BIRD,         100, 25 ; remove.
 	; move KINESIS,      ACCURACY_DOWN1_EFFECT,        0, BIRD,         100, 15 ; remove.
 	; move ROAR,         SWITCH_AND_TELEPORT_EFFECT,   0, BIRD,         100, 35 ; remove.
