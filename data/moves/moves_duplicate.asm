@@ -128,7 +128,7 @@ Moves:
 	move ABSORB,       DRAIN_HP_EFFECT,             25, GRASS,        100, 25
 	move VINE_WHIP,    NO_ADDITIONAL_EFFECT,        35, GRASS,        100, 35
 	move MEGA_DRAIN,   DRAIN_HP_EFFECT,             50, GRASS,        100, 20
-	move RAZOR_LEAF,   NO_ADDITIONAL_EFFECT,        55, GRASS,        100, 25 ; high-crit.
+	move RAZOR_LEAF,   NO_ADDITIONAL_EFFECT,        60, GRASS,        100, 20 ; high-crit.
 	move GIGA_DRAIN,   DRAIN_HP_EFFECT,             75, GRASS,        100, 15 ; new move.
 	move PETAL_DANCE,  THRASH_PETAL_DANCE_EFFECT,   90, GRASS,        100, 15
 	move SOLARBEAM,    CHARGE_EFFECT,              180, GRASS,        100, 10
@@ -187,7 +187,7 @@ Moves:
 	move DOUBLE_EDGE,  RECOIL_EFFECT,              120, NORMAL,        80, 10 ; high-crit.
 	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. signature. make it go first like Quick Attack.
 	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 10 ; signature.
-	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        80, NORMAL,       100, 20 ; signature. high-crit.
+	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        75, NORMAL,       100, 20 ; signature. high-crit.
 	; move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20 ; remove.
 	; move SPIKE_CANNON, TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        90, 20 ; remove.
 	; move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        90, 20 ; remove.
@@ -332,10 +332,10 @@ Moves:
 	move MIRROR_MOVE,  MIRROR_MOVE_EFFECT,           0, BIRD,         100, 20
 	move FOCUS_ENERGY, FOCUS_ENERGY_EFFECT,          0, BIRD,         100, 30
 	move BIDE,         BIDE_EFFECT,                  0, BIRD,         100, 20
-	move METRONOME,    METRONOME_EFFECT,             0, BIRD,         100, 20
 	move SUBSTITUTE,   SUBSTITUTE_EFFECT,            0, BIRD,         100, 15
 	move TRANSFORM,    TRANSFORM_EFFECT,             0, BIRD,         100, 40 ; signature.
 	move SPLASH,       SPLASH_EFFECT,                0, BIRD,         100, 40 ; signature.
+	move METRONOME,    METRONOME_EFFECT,             0, BIRD,         100, 20
 
 	; move MEDITATE,     ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; remove.
 	; move BARRIER,      DEFENSE_UP2_EFFECT,           0, BIRD,         100, 25 ; remove.
@@ -344,6 +344,6 @@ Moves:
 	; move WHIRLWIND,    SWITCH_AND_TELEPORT_EFFECT,   0, BIRD,         100, 35 ; remove.
 	; move CONVERSION,   CONVERSION_EFFECT,            0, BIRD,         100, 30 ; remove.
 
-	move STRUGGLE,     RECOIL_EFFECT,               50, BIRD,         100, 10
+	move STRUGGLE,     RECOIL_EFFECT,               50, BIRD,         100, 10 ; has to be last in list.
 
 	assert_table_length NUM_ATTACKS
