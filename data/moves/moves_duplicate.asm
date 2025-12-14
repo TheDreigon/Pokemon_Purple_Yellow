@@ -47,14 +47,13 @@ Moves:
 	; move SLAM,         FLINCH_SIDE_EFFECT1,         80, DRAGON,       100, 20 ; remove.
 
 
-	; === ELECTRIC TYPE (8 moves) ===
+	; === ELECTRIC TYPE (7 moves) ===
 	move NUZZLE,       PARALYZE_SIDE_EFFECT2,       35, ELECTRIC,     100, 30 ; new move.
 	move THUNDERSHOCK, PARALYZE_SIDE_EFFECT1,       55, ELECTRIC,     100, 25
 	move DISCHARGE,    SWIFT_EFFECT,                75, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,  PARALYZE_SIDE_EFFECT1,       95, ELECTRIC,     100, 15
 	move THUNDER,      PARALYZE_SIDE_EFFECT2,      115, ELECTRIC,      85, 10
 	move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC,     100, 20
-	move TRI_ATTACK,   BURN_SIDE_EFFECT2,           85, ELECTRIC,     100, 20 ; signature.
 	move VOLT_ATTACK,  NO_ADDITIONAL_EFFECT,        75, ELECTRIC,     100, 20 ; new move. signature. make it go first like Quick Attack. high-crit.
 	; move THUNDERPUNCH, PARALYZE_SIDE_EFFECT2,       70, ELECTRIC,     100, 25 ; remove.
 
@@ -155,7 +154,7 @@ Moves:
 	; === ICE TYPE (6 moves) ===
 	move POWDER_SNOW,  NO_ADDITIONAL_EFFECT,        35, ICE,          100, 35 ; new move.
 	move ICY_WIND,     SPEED_DOWN_SIDE_EFFECT,      50, ICE,          100, 30 ; new move.
-	move AURORA_BEAM,  ATTACK_DOWN1_EFFECT,         65, ICE,          100, 25
+	move AURORA_BEAM,  ATTACK_DOWN_SIDE_EFFECT,     65, ICE,          100, 25
 	move FROST_BREATH, SPEED_DOWN1_EFFECT,          80, ICE,          100, 20 ; new move.
 	move ICE_BEAM,     FREEZE_SIDE_EFFECT,          95, ICE,          100, 15
 	move BLIZZARD,     FREEZE_SIDE_EFFECT,         115, ICE,           85, 10
@@ -168,9 +167,8 @@ Moves:
 	move LAVA_PLUME,   BURN_SIDE_EFFECT2,           90, MAGMA,        100, 15 ; new move. signature.
 
 
-	; === NORMAL TYPE (21 moves) ===
+	; === NORMAL TYPE (20 moves) ===
 	move WRAP,         TRAPPING_EFFECT,             16, NORMAL,        85, 20
-	move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20
 	move FURY_ATTACK,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, NORMAL,        90, 20
 	move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, NORMAL,        90, 20
 	move POUND,        NO_ADDITIONAL_EFFECT,        30, NORMAL,       100, 35
@@ -186,10 +184,11 @@ Moves:
 	move BODY_SLAM,    NO_ADDITIONAL_EFFECT,        80, NORMAL,        95, 20
 	move HORN_CHARGE,  NO_ADDITIONAL_EFFECT,        85, NORMAL,        95, 15 ; new move. high-crit.
 	move HEAVY_SLAM,   PARALYZE_SIDE_EFFECT2,      100, NORMAL,        90, 10
-	move DOUBLE_EDGE,  RECOIL_EFFECT,              120, NORMAL,        90, 10
+	move DOUBLE_EDGE,  RECOIL_EFFECT,              120, NORMAL,        80, 10 ; high-crit.
 	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. signature. make it go first like Quick Attack.
 	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 10 ; signature.
 	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        80, NORMAL,       100, 20 ; signature. high-crit.
+	; move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20 ; remove.
 	; move SPIKE_CANNON, TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        90, 20 ; remove.
 	; move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        90, 20 ; remove.
 	; move SWIFT,        SWIFT_EFFECT,                60, NORMAL,       100, 20 ; remove.
@@ -200,15 +199,16 @@ Moves:
 	; move SELFDESTRUCT, EXPLODE_EFFECT,             200, NORMAL,       100,  5 ; remove.
 
 
-	; === POISON TYPE (8 moves) ===
-	move POISON_STING, POISON_SIDE_EFFECT1,         35, POISON,       100, 35
-	move ACID,         DEFENSE_DOWN_SIDE_EFFECT,    45, POISON,       100, 30
+	; === POISON TYPE (9 moves) ===
+	move POISON_STING, POISON_SIDE_EFFECT1,         35, POISON,       100, 30
+	move ACID,         DEFENSE_DOWN1_EFFECT,        45, POISON,       100, 25
 	move POISON_FANG,  POISON_SIDE_EFFECT2,         65, POISON,       100, 25 ; new move.
-	move SLUDGE,       DEFENSE_DOWN_SIDE_EFFECT,    75, POISON,       100, 20
+	move SLUDGE,       POISON_SIDE_EFFECT1,         70, POISON,       100, 20
 	move SLUDGE_BOMB,  POISON_SIDE_EFFECT2,         90, POISON,       100, 15 ; new move.
-	move GUNK_SHOT,    POISON_SIDE_EFFECT2,        115, POISON,        85, 10 ; new move.
+	move GUNK_SHOT,    POISON_EFFECT,              110, POISON,        80, 10 ; new move.
 	move TOXIC,        POISON_EFFECT,                0, POISON,        80, 20
 	move NEUROTOXIN,   PARALYZE_EFFECT,              0, POISON,        85, 25 ; new move.
+	move SLUDGE_WAVE,  SPEED_DOWN1_EFFECT,          85, POISON,       100, 20 ; new move. signature.
 
 
 	; === PSYCHIC_TYPE (7 moves) ===
@@ -254,7 +254,9 @@ Moves:
 	; move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      10, WATER,        100, 30 ; remove.
 
 
-    ; === BIRD TYPE (65 moves) ===
+    ; === BIRD TYPE (65 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	move TRI_ATTACK,   SWIFT_EFFECT,                90, BIRD,         100, 15 ; signature.
+
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 25
 	move SHARPEN,      ATTACK_UP2_EFFECT,            0, BIRD,         100, 25 ; signature.
 	move HOWL,         ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; new move.

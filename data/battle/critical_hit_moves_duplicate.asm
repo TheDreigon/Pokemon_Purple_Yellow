@@ -10,6 +10,7 @@ HighCriticalMoves:
 	db RAZOR_LEAF
 	db SLASH
 	db HORN_CHARGE
+	db DOUBLE_EDGE
 	db HYPER_FANG
 	db STONE_EDGE
 	db CUT
