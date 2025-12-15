@@ -176,8 +176,7 @@ MoveSoundTable:
 	db SFX_PSYCHIC_M,          $20, $60 ; MIND_BREAK (novo - similar Psychic)
 	db SFX_BATTLE_35,          $11, $18 ; HYPNOSIS
 
-	; === ROCK TYPE (10 moves) ===
-	db SFX_BATTLE_26,          $1f, $18 ; ROCK_BLAST (novo - similar Spike Cannon)
+	; === ROCK TYPE (9 moves) ===
 	db SFX_BATTLE_0D,          $10, $60 ; ROCK_PUNCH (novo - similar Fire Punch, rock)
 	db SFX_BATTLE_14,          $01, $e0 ; ROCK_THROW
 	db SFX_BATTLE_29,          $10, $60 ; ROCK_TOMB (novo - similar Earthquake)

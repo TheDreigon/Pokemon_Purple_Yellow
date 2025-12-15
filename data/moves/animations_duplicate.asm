@@ -175,8 +175,7 @@ AttackAnimationPointers:
 	dw MindBreakAnim
 	dw HypnosisAnim
 
-	; === ROCK TYPE (10 moves) ===
-	dw RockBlastAnim
+	; === ROCK TYPE (9 moves) ===
 	dw RockPunchAnim
 	dw RockThrowAnim
 	dw RockTombAnim
@@ -1223,10 +1222,6 @@ HypnosisAnim:
 
 
 ; === ROCK TYPE ===
-RockBlastAnim:
-	battle_anim ROCK_BLAST, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 3
-	db -1 ; end
-
 RockPunchAnim:
 	battle_anim ROCK_PUNCH, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4

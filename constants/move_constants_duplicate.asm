@@ -50,7 +50,7 @@
 	const DOUBLESLAP   ; 20
 	const FAIRY_WIND   ; 21
 	const DRAINING_KISS ; 22
-	const DAZE_GLEAM ; 23
+	const DAZE_GLEAM   ; 23
 	const PLAY_ROUGH   ; 24
 	const MOONBLAST    ; 25
 
@@ -181,104 +181,103 @@
 	const MIND_BREAK   ; 8b
 	const HYPNOSIS     ; 8c
 
-	; === ROCK TYPE (10 moves) ===
-	const ROCK_BLAST   ; 8d
-	const ROCK_PUNCH   ; 8e
-	const ROCK_THROW   ; 8f
-	const ROCK_TOMB    ; 90
-	const ROCK_SLIDE   ; 91
-	const STONE_EDGE   ; 92
-	const CLAMP        ; 93
-	const BONEMERANG   ; 94
-	const CRABHAMMER   ; 95
-	const HORN_DRILL   ; 96
+	; === ROCK TYPE (9 moves) ===
+	const ROCK_PUNCH   ; 8d
+	const ROCK_THROW   ; 8e
+	const ROCK_TOMB    ; 8f
+	const ROCK_SLIDE   ; 90
+	const STONE_EDGE   ; 91
+	const CLAMP        ; 92
+	const BONEMERANG   ; 93
+	const CRABHAMMER   ; 94
+	const HORN_DRILL   ; 95
 
 	; === STEEL TYPE (6 moves) ===
-	const CUT          ; 97
-	const IRON_TAIL    ; 98
-	const IRON_HEAD    ; 99
-	const MAGNET_BOMB  ; 9a
-	const SONICBOOM    ; 9b
-	const BULLET_PUNCH ; 9c
+	const CUT          ; 96
+	const IRON_TAIL    ; 97
+	const IRON_HEAD    ; 98
+	const MAGNET_BOMB  ; 99
+	const SONICBOOM    ; 9a
+	const BULLET_PUNCH ; 9b
 
 	; === WATER TYPE (7 moves) ===
-	const WATER_GUN    ; 9d
-	const BUBBLEBEAM   ; 9e
-	const WATER_PULSE  ; 9f
-	const WATERFALL    ; a0
-	const SURF         ; a1
-	const HYDRO_PUMP   ; a2
-	const AQUA_JET     ; a3
+	const WATER_GUN    ; 9c
+	const BUBBLEBEAM   ; 9d
+	const WATER_PULSE  ; 9e
+	const WATERFALL    ; 9f
+	const SURF         ; a0
+	const HYDRO_PUMP   ; a1
+	const AQUA_JET     ; a2
 
 	; === BIRD TYPE (65 moves) ===
-	const TRI_ATTACK   ; a4
-	const SWORDS_DANCE ; a5
-	const SHARPEN      ; a6
-	const HOWL         ; a7
-	const HONE_CLAWS   ; a8
-	const WORK_UP      ; a9
-	const ACID_ARMOR   ; aa
-	const HARDEN       ; ab
-	const WITHDRAW     ; ac
-	const DEFENSE_CURL ; ad
-	const AQUA_VEIL    ; ae
-	const CALM_MIND    ; af
-	const NASTY_PLOT   ; b0
-	const AROMATIC_MIST ; b1
-	const GROWTH       ; b2
-	const AMNESIA      ; b3
-	const AGILITY      ; b4
-	const TAILWIND     ; b5
-	const ROCK_POLISH  ; b6
-	const QUIVER_DANCE ; b7
-	const MINIMIZE     ; b8
-	const DOUBLE_TEAM  ; b9
-	const TELEPORT     ; ba
-	const CHARM        ; bb
-	const INTIMIDATE   ; bc
-	const NOBLE_ROAR   ; bd
-	const LEER         ; be
-	const GROWL        ; bf
-	const FEATHER_DANCE ; c0
-	const TAUNT        ; c1
-	const CORRODE      ; c2
-	const TAIL_WHIP    ; c3
-	const TICKLE       ; c4
-	const DECAY        ; c5
-	const FAKE_TEARS   ; c6
-	const METAL_SOUND  ; c7
-	const SCREECH      ; c8
-	const EERIE_IMPULSE ; c9
-	const CONFIDE      ; ca
-	const SCARY_FACE   ; cb
-	const PSYCHIC_BIND ; cc
-	const SLUDGE_TRAP  ; cd
-	const SWEET_SCENT  ; ce
-	const HINDER       ; cf
-	const STRING_SHOT  ; d0
-	const SMOKESCREEN  ; d1
-	const SAND_ATTACK  ; d2
-	const FLASH        ; d3
-	const SING         ; d4
-	const SUPERSONIC   ; d5
-	const DISABLE      ; d6
-	const GLARE        ; d7
-	const LOVELY_KISS  ; d8
-	const RECOVER      ; d9
-	const MOONLIGHT    ; da
-	const REST         ; db
-	const SOFTBOILED   ; dc
-	const LIGHT_SCREEN ; dd
-	const REFLECT      ; de
-	const MIMIC        ; df
-	const MIRROR_MOVE  ; e0
-	const FOCUS_ENERGY ; e1
-	const BIDE         ; e2
-	const SUBSTITUTE   ; e3
-	const TRANSFORM    ; e4
-	const SPLASH       ; e5
-	const METRONOME    ; e6
-	const STRUGGLE     ; e7
+	const TRI_ATTACK   ; a3
+	const SWORDS_DANCE ; a4
+	const SHARPEN      ; a5
+	const HOWL         ; a6
+	const HONE_CLAWS   ; a7
+	const WORK_UP      ; a8
+	const ACID_ARMOR   ; a9
+	const HARDEN       ; aa
+	const WITHDRAW     ; ab
+	const DEFENSE_CURL ; ac
+	const AQUA_VEIL    ; ad
+	const CALM_MIND    ; ae
+	const NASTY_PLOT   ; af
+	const AROMATIC_MIST ; b0
+	const GROWTH       ; b1
+	const AMNESIA      ; b2
+	const AGILITY      ; b3
+	const TAILWIND     ; b4
+	const ROCK_POLISH  ; b5
+	const QUIVER_DANCE ; b6
+	const MINIMIZE     ; b7
+	const DOUBLE_TEAM  ; b8
+	const TELEPORT     ; b9
+	const CHARM        ; ba
+	const INTIMIDATE   ; bb
+	const NOBLE_ROAR   ; bc
+	const LEER         ; bd
+	const GROWL        ; be
+	const FEATHER_DANCE ; bf
+	const TAUNT        ; c0
+	const CORRODE      ; c1
+	const TAIL_WHIP    ; c2
+	const TICKLE       ; c3
+	const DECAY        ; c4
+	const FAKE_TEARS   ; c5
+	const METAL_SOUND  ; c6
+	const SCREECH      ; c7
+	const EERIE_IMPULSE ; c8
+	const CONFIDE      ; c9
+	const SCARY_FACE   ; ca
+	const PSYCHIC_BIND ; cb
+	const SLUDGE_TRAP  ; cc
+	const SWEET_SCENT  ; cd
+	const HINDER       ; ce
+	const STRING_SHOT  ; cf
+	const SMOKESCREEN  ; d0
+	const SAND_ATTACK  ; d1
+	const FLASH        ; d2
+	const SING         ; d3
+	const SUPERSONIC   ; d4
+	const DISABLE      ; d5
+	const GLARE        ; d6
+	const LOVELY_KISS  ; d7
+	const RECOVER      ; d8
+	const MOONLIGHT    ; d9
+	const REST         ; da
+	const SOFTBOILED   ; db
+	const LIGHT_SCREEN ; dc
+	const REFLECT      ; dd
+	const MIMIC        ; de
+	const MIRROR_MOVE  ; df
+	const FOCUS_ENERGY ; e0
+	const BIDE         ; e1
+	const SUBSTITUTE   ; e2
+	const TRANSFORM    ; e3
+	const SPLASH       ; e4
+	const METRONOME    ; e5
+	const STRUGGLE     ; e6
 
 DEF NUM_ATTACKS EQU const_value - 1
 

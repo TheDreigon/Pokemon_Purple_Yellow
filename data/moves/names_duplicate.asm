@@ -175,8 +175,7 @@ MoveNames::
     li "MIND BREAK"
     li "HYPNOSIS"
 
-    ; === ROCK TYPE (10 moves) ===
-    li "ROCK BLAST"
+    ; === ROCK TYPE (9 moves) ===
     li "ROCK PUNCH"
     li "ROCK THROW"
     li "ROCK TOMB"

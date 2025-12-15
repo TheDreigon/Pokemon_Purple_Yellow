@@ -118,9 +118,9 @@ Moves:
 	move LICK,         PARALYZE_SIDE_EFFECT2,       25, GHOST,        100, 30
 	move ASTONISH,     FLINCH_SIDE_EFFECT2,         40, GHOST,        100, 30 ; new move.
 	move SHADOW_PUNCH, SWIFT_EFFECT,                55, GHOST,        100, 25 ; new move.
-	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             70, GHOST,        100, 15 ; new move.
 	move SHADOW_BALL,  PARALYZE_SIDE_EFFECT2,       90, GHOST,        100, 15 ; new move.
 	move SHADOW_SNEAK, NO_ADDITIONAL_EFFECT,        45, GHOST,        100, 25 ; new move. signature. make it go first like Quick Attack.
+	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             70, GHOST,        100, 15 ; new move. signature.
 	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,         85, 25
 
 
@@ -221,8 +221,7 @@ Moves:
 	move HYPNOSIS,     SLEEP_EFFECT,                 0, PSYCHIC_TYPE,  75, 15
 
 
-	; === ROCK TYPE (10 moves) ===
-	move ROCK_BLAST,   TWO_TO_FIVE_ATTACKS_EFFECT,  18, ROCK,          90, 35 ; new move.
+	; === ROCK TYPE (9 moves) ===
 	move ROCK_PUNCH,   NO_ADDITIONAL_EFFECT,        50, ROCK,         100, 30 ; new move.
 	move ROCK_THROW,   FLINCH_SIDE_EFFECT2,         65, ROCK,          90, 25
 	move ROCK_TOMB,    SPEED_DOWN1_EFFECT,          80, ROCK,          95, 20 ; new move.
