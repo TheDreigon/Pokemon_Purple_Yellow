@@ -62,7 +62,7 @@ _Route24CooltrainerM1YouCouldBecomeATopLeaderText::
 	done
 
 _Route24CooltrainerM2BattleText::
-	text "I saw your feet"
+	text "I saw your feat"
 	line "from the grass!"
 	done
 
