@@ -21,7 +21,6 @@ Moves:
 	move MEGAHORN,     NO_ADDITIONAL_EFFECT,        90, BUG,           95, 15 ; new move. almost-signature.
 	move TWINEEDLE,    TWINEEDLE_EFFECT,            40, BUG,          100, 20 ; signature.
 	move GUILLOTINE,   DEFENSE_DOWN1_EFFECT,       115, BUG,           85, 10 ; signature.
-	; move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, BUG,          100, 20 ; remove.
 
 
 	; === DARK TYPE (10 moves) === ; new type
@@ -44,7 +43,6 @@ Moves:
 	move DRAGON_SLAM,  RECOIL_EFFECT,               90, DRAGON,       100, 15 ; new move.
 	move OUTRAGE,      THRASH_PETAL_DANCE_EFFECT,  105, DRAGON,        90, 10 ; new move.
 	move HYPER_BEAM,   HYPER_BEAM_EFFECT,          125, DRAGON,        75,  5 ; high-crit.
-	; move SLAM,         FLINCH_SIDE_EFFECT1,         80, DRAGON,       100, 20 ; remove.
 
 
 	; === ELECTRIC TYPE (7 moves) ===
@@ -55,7 +53,6 @@ Moves:
 	move THUNDER,      PARALYZE_SIDE_EFFECT2,      115, ELECTRIC,      85, 10
 	move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC,     100, 20
 	move VOLT_ATTACK,  NO_ADDITIONAL_EFFECT,        75, ELECTRIC,     100, 20 ; new move. signature. make it go first like Quick Attack. high-crit.
-	; move THUNDERPUNCH, PARALYZE_SIDE_EFFECT2,       70, ELECTRIC,     100, 25 ; remove.
 
 
     ; === FAIRY TYPE (6 moves) === ; new type
@@ -81,7 +78,6 @@ Moves:
 	move LEEK_STRIKE,  FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; new move. signature. high-crit.
 	move SUBMISSION,   ATTACK_DOWN1_EFFECT,         95, FIGHTING,     100, 15 ; signature.
 	move HI_JUMP_KICK, JUMP_KICK_EFFECT,           120, FIGHTING,      80, 10 ; signature.
-	; move COUNTER,      NO_ADDITIONAL_EFFECT,         1, FIGHTING,     100, 20 ; remove.
 
 
 	; === FIRE TYPE (7 moves) ===
@@ -92,8 +88,6 @@ Moves:
 	move FIRE_BLAST,   BURN_SIDE_EFFECT2,          115, FIRE,          85, 10
 	move FLAME_CHARGE, SPEED_UP1_EFFECT,            65, FIRE,         100, 20 ; new move. signature.
 	move EXPLOSION,    EXPLODE_EFFECT,             200, FIRE,         100,  5 ; signature. high-crit.
-	; move FIRE_SPIN,    TRAPPING_EFFECT,             16, FIRE,          85, 15 ; remove.
-	; move FIRE_PUNCH,   BURN_SIDE_EFFECT2,           70, FIRE,         100, 25 ; remove.
 
 
 	; === FLYING TYPE (8 moves) ===
@@ -137,7 +131,6 @@ Moves:
 	move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,         80, 20
 	move SLEEP_POWDER, SLEEP_EFFECT,                 0, GRASS,         75, 15
 	move SPORE,        SLEEP_EFFECT,                 0, GRASS,         95, 15 ; signature.
-	; move EGG_BOMB,     NO_ADDITIONAL_EFFECT,       100, GRASS,        100, 15 ; remove.
 
 
 	; === GROUND TYPE (8 moves) ===
@@ -158,8 +151,6 @@ Moves:
 	move FROST_BREATH, SPEED_DOWN1_EFFECT,          80, ICE,          100, 20 ; new move.
 	move ICE_BEAM,     FREEZE_SIDE_EFFECT,          95, ICE,          100, 15
 	move BLIZZARD,     FREEZE_SIDE_EFFECT,         115, ICE,           85, 10
-	; move ICE_PUNCH,    FREEZE_SIDE_EFFECT,          70, ICE,          100, 25 ; remove.
-	; move MIST,         MIST_EFFECT,                  0, ICE,          100, 30 ; remove.
 
 
     ; === MAGMA TYPE (2 moves) === ; new type
@@ -188,15 +179,6 @@ Moves:
 	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. almost-signature. make it go first like Quick Attack.
 	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 10 ; signature.
 	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        75, NORMAL,       100, 20 ; signature. high-crit.
-	; move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20 ; remove.
-	; move SPIKE_CANNON, TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        90, 20 ; remove.
-	; move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  20, NORMAL,        90, 20 ; remove.
-	; move SWIFT,        SWIFT_EFFECT,                60, NORMAL,       100, 20 ; remove.
-	; move STOMP,        FLINCH_SIDE_EFFECT2,         65, NORMAL,       100, 20 ; remove.
-	; move RAZOR_WIND,   HYPER_BEAM_EFFECT,           80, NORMAL,       100, 10 ; remove.
-	; move SKULL_BASH,   HYPER_BEAM_EFFECT,          100, NORMAL,       100, 15 ; remove.
-	; move MEGA_KICK,    NO_ADDITIONAL_EFFECT,       115, NORMAL,        85, 10 ; remove.
-	; move SELFDESTRUCT, EXPLODE_EFFECT,             200, NORMAL,       100,  5 ; remove.
 
 
 	; === POISON TYPE (9 moves) ===
@@ -250,10 +232,9 @@ Moves:
 	move SURF,         SPEED_DOWN_SIDE_EFFECT,      95, WATER,        100, 15
 	move HYDRO_PUMP,   SPEED_DOWN1_EFFECT,         115, WATER,         85, 10
 	move AQUA_JET,     NO_ADDITIONAL_EFFECT,        45, WATER,        100, 25 ; new move. signature. make it go first like Quick Attack.
-	; move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      10, WATER,        100, 30 ; remove.
 
 
-    ; === BIRD TYPE (65 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+    ; === BIRD TYPE (68 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,   SWIFT_EFFECT,                90, BIRD,         100, 15 ; signature.
 
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 25
@@ -335,13 +316,6 @@ Moves:
 	move TRANSFORM,    TRANSFORM_EFFECT,             0, BIRD,         100, 40 ; signature.
 	move SPLASH,       SPLASH_EFFECT,                0, BIRD,         100, 40 ; signature.
 	move METRONOME,    METRONOME_EFFECT,             0, BIRD,         100, 20
-
-	; move MEDITATE,     ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; remove.
-	; move BARRIER,      DEFENSE_UP2_EFFECT,           0, BIRD,         100, 25 ; remove.
-	; move KINESIS,      ACCURACY_DOWN1_EFFECT,        0, BIRD,         100, 15 ; remove.
-	; move ROAR,         SWITCH_AND_TELEPORT_EFFECT,   0, BIRD,         100, 35 ; remove.
-	; move WHIRLWIND,    SWITCH_AND_TELEPORT_EFFECT,   0, BIRD,         100, 35 ; remove.
-	; move CONVERSION,   CONVERSION_EFFECT,            0, BIRD,         100, 30 ; remove.
 
 	move STRUGGLE,     RECOIL_EFFECT,               50, BIRD,         100, 10 ; has to be last in list.
 
