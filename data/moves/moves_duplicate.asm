@@ -18,7 +18,7 @@ Moves:
 	move LEECH_LIFE,   DRAIN_HP_EFFECT,             60, BUG,          100, 20 ; high-crit.
 	move VICEGRIP,     ATTACK_TWICE_EFFECT,         30, BUG,          100, 30
 	move BUG_BUZZ,     SPECIAL_DOWN_SIDE_EFFECT,    80, BUG,          100, 20 ; new move.
-	move MEGAHORN,     NO_ADDITIONAL_EFFECT,        90, BUG,           95, 15 ; new move.
+	move MEGAHORN,     NO_ADDITIONAL_EFFECT,        90, BUG,           95, 15 ; new move. almost-signature.
 	move TWINEEDLE,    TWINEEDLE_EFFECT,            40, BUG,          100, 20 ; signature.
 	move GUILLOTINE,   DEFENSE_DOWN1_EFFECT,       115, BUG,           85, 10 ; signature.
 	; move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, BUG,          100, 20 ; remove.
@@ -90,7 +90,7 @@ Moves:
 	move FLAME_BURST,  SWIFT_EFFECT,                75, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER, BURN_SIDE_EFFECT1,           95, FIRE,         100, 15
 	move FIRE_BLAST,   BURN_SIDE_EFFECT2,          115, FIRE,          85, 10
-	move FLAME_CHARGE, SPEED_UP1_EFFECT,            60, FIRE,         100, 25 ; new move. signature.
+	move FLAME_CHARGE, SPEED_UP1_EFFECT,            65, FIRE,         100, 20 ; new move. signature.
 	move EXPLOSION,    EXPLODE_EFFECT,             200, FIRE,         100,  5 ; signature. high-crit.
 	; move FIRE_SPIN,    TRAPPING_EFFECT,             16, FIRE,          85, 15 ; remove.
 	; move FIRE_PUNCH,   BURN_SIDE_EFFECT2,           70, FIRE,         100, 25 ; remove.
@@ -119,7 +119,7 @@ Moves:
 	move ASTONISH,     FLINCH_SIDE_EFFECT2,         40, GHOST,        100, 30 ; new move.
 	move SHADOW_PUNCH, SWIFT_EFFECT,                55, GHOST,        100, 25 ; new move.
 	move SHADOW_BALL,  PARALYZE_SIDE_EFFECT2,       90, GHOST,        100, 15 ; new move.
-	move SHADOW_SNEAK, NO_ADDITIONAL_EFFECT,        45, GHOST,        100, 25 ; new move. signature. make it go first like Quick Attack.
+	move SHADOW_SNEAK, NO_ADDITIONAL_EFFECT,        45, GHOST,        100, 25 ; new move. almost-signature. make it go first like Quick Attack.
 	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             70, GHOST,        100, 15 ; new move. signature.
 	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,         85, 25
 
@@ -132,7 +132,7 @@ Moves:
 	move GIGA_DRAIN,   DRAIN_HP_EFFECT,             75, GRASS,        100, 15 ; new move.
 	move PETAL_DANCE,  THRASH_PETAL_DANCE_EFFECT,   90, GRASS,        100, 15
 	move SOLARBEAM,    CHARGE_EFFECT,              180, GRASS,        100, 10
-	move LEECH_SEED,   LEECH_SEED_EFFECT,            0, GRASS,         90, 15
+	move LEECH_SEED,   LEECH_SEED_EFFECT,            0, GRASS,         90, 20
 	move POISONPOWDER, POISON_EFFECT,                0, POISON,        85, 25
 	move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,         80, 20
 	move SLEEP_POWDER, SLEEP_EFFECT,                 0, GRASS,         75, 15
@@ -185,7 +185,7 @@ Moves:
 	move HORN_CHARGE,  NO_ADDITIONAL_EFFECT,        85, NORMAL,        95, 15 ; new move. high-crit.
 	move HEAVY_SLAM,   PARALYZE_SIDE_EFFECT2,      100, NORMAL,        90, 10
 	move DOUBLE_EDGE,  RECOIL_EFFECT,              120, NORMAL,        80, 10 ; high-crit.
-	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. signature. make it go first like Quick Attack.
+	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. almost-signature. make it go first like Quick Attack.
 	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 10 ; signature.
 	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        75, NORMAL,       100, 20 ; signature. high-crit.
 	; move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  17, NORMAL,        90, 20 ; remove.
