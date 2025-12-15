@@ -2,7 +2,7 @@ MoveSoundTable:
 	table_width 3, MoveSoundTable
 	; ID, pitch mod, tempo mod
 
-	; === BUG TYPE (8 moves) ===
+	; === BUG TYPE ===
 	db SFX_BATTLE_14,          $0f, $80 ; CONSTRICT
 	db SFX_BATTLE_1E,          $00, $80 ; BUG_BITE (novo - similar Bite)
 	db SFX_BATTLE_24,          $00, $80 ; LEECH_LIFE
@@ -12,7 +12,7 @@ MoveSoundTable:
 	db SFX_BATTLE_1B,          $20, $c0 ; TWINEEDLE
 	db SFX_BATTLE_0F,          $00, $80 ; GUILLOTINE (mudou para Bug!)
 
-	; === DARK TYPE (10 moves) ===
+	; === DARK TYPE ===
 	db SFX_BATTLE_2B,          $00, $80 ; FAINT_ATTACK (novo - similar Swift)
 	db SFX_BATTLE_26,          $f0, $20 ; RAGE
 	db SFX_NOT_VERY_EFFECTIVE, $01, $ff ; NIGHT_SLASH (novo - similar Slash)
@@ -24,7 +24,7 @@ MoveSoundTable:
 	db SFX_SILPH_SCOPE,        $00, $ff ; PAY_DAY (mudou para Dark!)
 	db SFX_BATTLE_35,          $42, $01 ; DREAM_EATER (mudou para Dark!)
 
-	; === DRAGON TYPE (6 moves) ===
+	; === DRAGON TYPE ===
 	db SFX_BATTLE_29,          $f0, $80 ; DRAGON_RAGE
 	db SFX_NOT_VERY_EFFECTIVE, $10, $a0 ; DRAGON_CLAW (novo - similar Cut, claws)
 	db SFX_BATTLE_29,          $00, $c0 ; DRAGON_BREATH (novo - similar Dragon Rage)
@@ -32,7 +32,7 @@ MoveSoundTable:
 	db SFX_BATTLE_22,          $30, $c0 ; OUTRAGE (novo - similar Thrash)
 	db SFX_BATTLE_36,          $00, $80 ; HYPER_BEAM (mudou para Dragon!)
 
-	; === ELECTRIC TYPE (7 moves) ===
+	; === ELECTRIC TYPE ===
 	db SFX_BATTLE_2F,          $00, $40 ; NUZZLE (novo - similar Thundershock, weak)
 	db SFX_BATTLE_2F,          $00, $20 ; THUNDERSHOCK
 	db SFX_BATTLE_2F,          $10, $60 ; DISCHARGE (novo - similar Thunderbolt)
@@ -41,7 +41,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2E,          $12, $60 ; THUNDER_WAVE
 	db SFX_BATTLE_2F,          $30, $20 ; VOLT_ATTACK (novo - similar Quick Attack + electric)
 
-	; === FAIRY TYPE (6 moves) ===
+	; === FAIRY TYPE ===
 	db SFX_DOUBLESLAP,         $00, $80 ; DOUBLESLAP (mudou para Fairy!)
 	db SFX_BATTLE_12,          $00, $80 ; FAIRY_WIND (novo - similar Gust)
 	db SFX_BATTLE_24,          $20, $80 ; DRAINING_KISS (novo - similar Absorb)
@@ -49,7 +49,7 @@ MoveSoundTable:
 	db SFX_BATTLE_26,          $10, $80 ; PLAY_ROUGH (novo - similar Strength, rough)
 	db SFX_BATTLE_28,          $30, $a0 ; MOONBLAST (novo - similar Ice Beam, blast)
 
-	; === FIGHTING TYPE (13 moves) ===
+	; === FIGHTING TYPE ===
 	db SFX_BATTLE_26,          $01, $60 ; SEISMIC_TOSS
 	db SFX_BATTLE_23,          $00, $80 ; LOW_KICK
 	db SFX_BATTLE_14,          $00, $80 ; BIND
@@ -64,7 +64,7 @@ MoveSoundTable:
 	db SFX_BATTLE_23,          $01, $c0 ; SUBMISSION
 	db SFX_BATTLE_17,          $01, $e0 ; HI_JUMP_KICK
 
-	; === FIRE TYPE (7 moves) ===
+	; === FIRE TYPE ===
 	db SFX_BATTLE_19,          $10, $a0 ; EMBER
 	db SFX_BATTLE_19,          $20, $c0 ; FLAME_WHEEL (novo - similar Ember, stronger)
 	db SFX_BATTLE_19,          $30, $e0 ; FLAME_BURST (novo - similar Flamethrower)
@@ -73,7 +73,7 @@ MoveSoundTable:
 	db SFX_BATTLE_19,          $15, $c0 ; FLAME_CHARGE (novo - similar Flame Wheel)
 	db SFX_BATTLE_34,          $10, $ff ; EXPLOSION (mudou para Fire!)
 
-	; === FLYING TYPE (8 moves) ===
+	; === FLYING TYPE ===
 	db SFX_PECK,               $01, $a0 ; PECK
 	db SFX_BATTLE_12,          $00, $c0 ; GUST
 	db SFX_BATTLE_12,          $10, $a0 ; WING_ATTACK
@@ -83,12 +83,12 @@ MoveSoundTable:
 	db SFX_BATTLE_25,          $48, $ff ; SKY_ATTACK
 	db SFX_BATTLE_13,          $f0, $20 ; DRILL_PECK (signature)
 
-	; === GAS TYPE (3 moves) ===
+	; === GAS TYPE ===
 	db SFX_NOT_VERY_EFFECTIVE, $10, $ff ; SMOG
 	db SFX_BATTLE_1C,          $00, $ff ; POISON_GAS
 	db SFX_BATTLE_0F,          $f8, $10 ; HAZE (mudou para Gas!)
 
-	; === GHOST TYPE (8 moves) ===
+	; === GHOST TYPE ===
 	db SFX_NOT_VERY_EFFECTIVE, $f0, $e0 ; NIGHT_SHADE
 	db SFX_BATTLE_09,          $00, $40 ; LICK
 	db SFX_BATTLE_09,          $10, $60 ; ASTONISH (novo - similar Lick)
@@ -98,7 +98,7 @@ MoveSoundTable:
 	db SFX_BATTLE_25,          $20, $10 ; SHADOW_SNEAK (novo - similar Quick Attack)
 	db SFX_BATTLE_13,          $f1, $ff ; CONFUSE_RAY
 
-	; === GRASS TYPE (12 moves) ===
+	; === GRASS TYPE ===
 	db SFX_BATTLE_24,          $00, $80 ; ABSORB
 	db SFX_VINE_WHIP,          $01, $80 ; VINE_WHIP
 	db SFX_BATTLE_24,          $40, $c0 ; MEGA_DRAIN
@@ -112,7 +112,7 @@ MoveSoundTable:
 	db SFX_BATTLE_1C,          $01, $c0 ; SLEEP_POWDER
 	db SFX_BATTLE_1C,          $01, $ff ; SPORE
 
-	; === GROUND TYPE (8 moves) ===
+	; === GROUND TYPE ===
 	db SFX_BATTLE_20,          $00, $60 ; GROUND_STOMP (novo - similar Stomp)
 	db SFX_BATTLE_2A,          $00, $60 ; MUD_SHOT (novo - similar Sludge)
 	db SFX_BATTLE_29,          $00, $80 ; BULLDOZE (novo - similar Earthquake)
@@ -122,7 +122,7 @@ MoveSoundTable:
 	db SFX_BATTLE_32,          $00, $80 ; BONE_CLUB
 	db SFX_DAMAGE,             $10, $40 ; DIG
 
-	; === ICE TYPE (6 moves) ===
+	; === ICE TYPE ===
 	db SFX_BATTLE_28,          $00, $40 ; POWDER_SNOW (novo - similar Aurora Beam)
 	db SFX_BATTLE_12,          $30, $80 ; ICY_WIND (novo - similar Gust, icy)
 	db SFX_BATTLE_28,          $00, $80 ; AURORA_BEAM
@@ -130,11 +130,11 @@ MoveSoundTable:
 	db SFX_BATTLE_28,          $40, $80 ; ICE_BEAM
 	db SFX_BATTLE_29,          $f0, $e0 ; BLIZZARD
 
-	; === MAGMA TYPE (2 moves) ===
+	; === MAGMA TYPE ===
 	db SFX_BATTLE_0D,          $20, $60 ; MAGMA_PUNCH (novo - similar Fire Punch)
 	db SFX_BATTLE_29,          $20, $40 ; LAVA_PLUME (novo - similar Fire Blast)
 
-	; === NORMAL TYPE (20 moves) ===
+	; === NORMAL TYPE ===
 	db SFX_BATTLE_14,          $10, $60 ; WRAP
 	db SFX_BATTLE_1E,          $01, $40 ; FURY_ATTACK
 	db SFX_BATTLE_0B,          $01, $80 ; COMET_PUNCH
@@ -156,7 +156,7 @@ MoveSoundTable:
 	db SFX_BATTLE_26,          $f0, $ff ; SUPER_FANG
 	db SFX_BATTLE_1E,          $12, $ff ; HYPER_FANG
 
-	; === POISON TYPE (9 moves) ===
+	; === POISON TYPE ===
 	db SFX_BATTLE_1B,          $00, $80 ; POISON_STING
 	db SFX_BATTLE_2A,          $80, $c0 ; ACID
 	db SFX_BATTLE_1B,          $10, $a0 ; POISON_FANG (novo - similar Poison Sting)
@@ -167,7 +167,7 @@ MoveSoundTable:
 	db SFX_BATTLE_0F,          $20, $a0 ; NEUROTOXIN (novo - similar Toxic)
 	db SFX_BATTLE_2A,          $10, $80 ; SLUDGE_WAVE (novo - similar Sludge)
 
-	; === PSYCHIC_TYPE (7 moves) ===
+	; === PSYCHIC_TYPE ===
 	db SFX_BATTLE_0C,          $f0, $f0 ; PSYWAVE
 	db SFX_BATTLE_14,          $00, $20 ; CONFUSION
 	db SFX_BATTLE_14,          $10, $40 ; EXTRASENSORY (novo - similar Confusion)
@@ -176,7 +176,7 @@ MoveSoundTable:
 	db SFX_PSYCHIC_M,          $20, $60 ; MIND_BREAK (novo - similar Psychic)
 	db SFX_BATTLE_35,          $11, $18 ; HYPNOSIS
 
-	; === ROCK TYPE (9 moves) ===
+	; === ROCK TYPE ===
 	db SFX_BATTLE_0D,          $10, $60 ; ROCK_PUNCH (novo - similar Fire Punch, rock)
 	db SFX_BATTLE_14,          $01, $e0 ; ROCK_THROW
 	db SFX_BATTLE_29,          $10, $60 ; ROCK_TOMB (novo - similar Earthquake)
@@ -187,7 +187,7 @@ MoveSoundTable:
 	db SFX_SUPER_EFFECTIVE,    $f0, $ff ; CRABHAMMER
 	db SFX_HORN_DRILL,         $00, $a0 ; HORN_DRILL (mudou para Rock!)
 
-	; === STEEL TYPE (6 moves) ===
+	; === STEEL TYPE ===
 	db SFX_NOT_VERY_EFFECTIVE, $00, $a0 ; CUT (mudou para Steel!)
 	db SFX_BATTLE_26,          $10, $60 ; IRON_TAIL (novo - similar Strength)
 	db SFX_BATTLE_18,          $10, $80 ; IRON_HEAD (novo - similar Headbutt)
@@ -195,7 +195,7 @@ MoveSoundTable:
 	db SFX_BATTLE_27,          $00, $80 ; SONICBOOM (mudou para Steel!)
 	db SFX_BATTLE_25,          $00, $20 ; BULLET_PUNCH (novo - similar Quick Attack)
 
-	; === WATER TYPE (7 moves) ===
+	; === WATER TYPE ===
 	db SFX_BATTLE_24,          $20, $60 ; WATER_GUN
 	db SFX_BATTLE_2A,          $f0, $60 ; BUBBLEBEAM
 	db SFX_BATTLE_24,          $30, $80 ; WATER_PULSE (novo - similar Water Gun)
@@ -204,7 +204,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2A,          $00, $80 ; HYDRO_PUMP
 	db SFX_BATTLE_25,          $30, $20 ; AQUA_JET (novo - similar Quick Attack + water)
 
-	; === BIRD TYPE (65 moves) ===
+	; === BIRD TYPE ===
 	db SFX_BATTLE_29,          $f8, $ff ; TRI_ATTACK (mudou para Bird!)
 	db SFX_NOT_VERY_EFFECTIVE, $10, $c0 ; SWORDS_DANCE
 	db SFX_BATTLE_31,          $80, $04 ; SHARPEN

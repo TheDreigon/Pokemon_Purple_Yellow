@@ -1,7 +1,7 @@
 MoveNames::
     list_start MoveNames
 
-    ; === BUG TYPE (8 moves) ===
+    ; === BUG TYPE ===
     li "CONSTRICT"
     li "BUG BITE"
     li "LEECH LIFE"
@@ -11,7 +11,7 @@ MoveNames::
     li "TWINEEDLE"
     li "GUILLOTINE"
 
-    ; === DARK TYPE (10 moves) ===
+    ; === DARK TYPE ===
     li "FAINT ATTACK"
     li "RAGE"
     li "NIGHT SLASH"
@@ -23,7 +23,7 @@ MoveNames::
     li "PAY DAY"
     li "DREAM EATER"
 
-    ; === DRAGON TYPE (6 moves) ===
+    ; === DRAGON TYPE ===
     li "DRAGON RAGE"
     li "DRAGON CLAW"
     li "DRAGON BREATH"
@@ -31,7 +31,7 @@ MoveNames::
     li "OUTRAGE"
     li "HYPER BEAM"
 
-    ; === ELECTRIC TYPE (7 moves) ===
+    ; === ELECTRIC TYPE ===
     li "NUZZLE"
     li "THUNDERSHOCK"
     li "DISCHARGE"
@@ -40,7 +40,7 @@ MoveNames::
     li "THUNDER WAVE"
     li "VOLT ATTACK"
 
-    ; === FAIRY TYPE (6 moves) ===
+    ; === FAIRY TYPE ===
     li "DOUBLESLAP"
     li "FAIRY WIND"
     li "DRAINING KISS"
@@ -48,7 +48,7 @@ MoveNames::
     li "PLAY ROUGH"
     li "MOONBLAST"
 
-    ; === FIGHTING TYPE (13 moves) ===
+    ; === FIGHTING TYPE ===
     li "SEISMIC TOSS"
     li "LOW KICK"
     li "BIND"
@@ -63,7 +63,7 @@ MoveNames::
     li "SUBMISSION"
     li "HI JUMP KICK"
 
-    ; === FIRE TYPE (7 moves) ===
+    ; === FIRE TYPE ===
     li "EMBER"
     li "FLAME WHEEL"
     li "FLAME BURST"
@@ -72,7 +72,7 @@ MoveNames::
     li "FLAME CHARGE"
     li "EXPLOSION"
 
-    ; === FLYING TYPE (8 moves) ===
+    ; === FLYING TYPE ===
     li "PECK"
     li "GUST"
     li "WING ATTACK"
@@ -82,12 +82,12 @@ MoveNames::
     li "SKY ATTACK"
     li "DRILL PECK"
 
-    ; === GAS TYPE (3 moves) ===
+    ; === GAS TYPE ===
     li "SMOG"
     li "POISON GAS"
     li "HAZE"
 
-    ; === GHOST TYPE (8 moves) ===
+    ; === GHOST TYPE ===
     li "NIGHT SHADE"
     li "LICK"
     li "ASTONISH"
@@ -97,7 +97,7 @@ MoveNames::
     li "SHADOW SNEAK"
     li "CONFUSE RAY"
 
-    ; === GRASS TYPE (12 moves) ===
+    ; === GRASS TYPE ===
     li "ABSORB"
     li "VINE WHIP"
     li "MEGA DRAIN"
@@ -111,7 +111,7 @@ MoveNames::
     li "SLEEP POWDER"
     li "SPORE"
 
-    ; === GROUND TYPE (8 moves) ===
+    ; === GROUND TYPE ===
     li "GROUND STOMP"
     li "MUD SHOT"
     li "BULLDOZE"
@@ -121,7 +121,7 @@ MoveNames::
     li "BONE CLUB"
     li "DIG"
 
-    ; === ICE TYPE (6 moves) ===
+    ; === ICE TYPE ===
     li "POWDER SNOW"
     li "ICY WIND"
     li "AURORA BEAM"
@@ -129,11 +129,11 @@ MoveNames::
     li "ICE BEAM"
     li "BLIZZARD"
 
-    ; === MAGMA TYPE (2 moves) ===
+    ; === MAGMA TYPE ===
     li "MAGMA PUNCH"
     li "LAVA PLUME"
 
-    ; === NORMAL TYPE (20 moves) ===
+    ; === NORMAL TYPE ===
     li "WRAP"
     li "FURY ATTACK"
     li "COMET PUNCH"
@@ -155,7 +155,7 @@ MoveNames::
     li "SUPER FANG"
     li "HYPER FANG"
 
-    ; === POISON TYPE (9 moves) ===
+    ; === POISON TYPE ===
     li "POISON STING"
     li "ACID"
     li "POISON FANG"
@@ -166,7 +166,7 @@ MoveNames::
     li "NEUROTOXIN"
     li "SLUDGE WAVE"
 
-    ; === PSYCHIC_TYPE (7 moves) ===
+    ; === PSYCHIC_TYPE ===
     li "PSYWAVE"
     li "CONFUSION"
     li "EXTRASENSORY"
@@ -175,7 +175,7 @@ MoveNames::
     li "MIND BREAK"
     li "HYPNOSIS"
 
-    ; === ROCK TYPE (9 moves) ===
+    ; === ROCK TYPE ===
     li "ROCK PUNCH"
     li "ROCK THROW"
     li "ROCK TOMB"
@@ -186,7 +186,7 @@ MoveNames::
     li "CRABHAMMER"
     li "HORN DRILL"
 
-    ; === STEEL TYPE (6 moves) ===
+    ; === STEEL TYPE ===
     li "CUT"
     li "IRON TAIL"
     li "IRON HEAD"
@@ -194,7 +194,7 @@ MoveNames::
     li "SONICBOOM"
     li "BULLET PUNCH"
 
-    ; === WATER TYPE (7 moves) ===
+    ; === WATER TYPE ===
     li "WATER GUN"
     li "BUBBLEBEAM"
     li "WATER PULSE"
@@ -203,7 +203,7 @@ MoveNames::
     li "HYDRO PUMP"
     li "AQUA JET"
 
-    ; === BIRD TYPE (65 moves) ===
+    ; === BIRD TYPE ===
     li "TRI ATTACK"
     li "SWORDS DANCE"
     li "SHARPEN"

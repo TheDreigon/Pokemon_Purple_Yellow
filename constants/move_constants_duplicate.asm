@@ -7,7 +7,7 @@
 	const_def
 	const NO_MOVE      ; 00
 
-	; === BUG TYPE (8 moves) ===
+	; === BUG TYPE ===
 	const CONSTRICT    ; 01
 	const BUG_BITE     ; 02
 	const LEECH_LIFE   ; 03
@@ -17,7 +17,7 @@
 	const TWINEEDLE    ; 07
 	const GUILLOTINE   ; 08
 
-	; === DARK TYPE (10 moves) ===
+	; === DARK TYPE ===
 	const FAINT_ATTACK ; 09
 	const RAGE         ; 0a
 	const NIGHT_SLASH  ; 0b
@@ -29,7 +29,7 @@
 	const PAY_DAY      ; 11
 	const DREAM_EATER  ; 12
 
-	; === DRAGON TYPE (6 moves) ===
+	; === DRAGON TYPE ===
 	const DRAGON_RAGE  ; 13
 	const DRAGON_CLAW  ; 14
 	const DRAGON_BREATH ; 15
@@ -37,7 +37,7 @@
 	const OUTRAGE      ; 17
 	const HYPER_BEAM   ; 18
 
-	; === ELECTRIC TYPE (7 moves) ===
+	; === ELECTRIC TYPE ===
 	const NUZZLE       ; 19
 	const THUNDERSHOCK ; 1a
 	const DISCHARGE    ; 1b
@@ -46,7 +46,7 @@
 	const THUNDER_WAVE ; 1e
 	const VOLT_ATTACK  ; 1f
 
-	; === FAIRY TYPE (6 moves) ===
+	; === FAIRY TYPE ===
 	const DOUBLESLAP   ; 20
 	const FAIRY_WIND   ; 21
 	const DRAINING_KISS ; 22
@@ -54,7 +54,7 @@
 	const PLAY_ROUGH   ; 24
 	const MOONBLAST    ; 25
 
-	; === FIGHTING TYPE (13 moves) ===
+	; === FIGHTING TYPE ===
 	const SEISMIC_TOSS ; 26
 	const LOW_KICK     ; 27
 	const BIND         ; 28
@@ -69,7 +69,7 @@
 	const SUBMISSION   ; 31
 	const HI_JUMP_KICK ; 32
 
-	; === FIRE TYPE (7 moves) ===
+	; === FIRE TYPE ===
 	const EMBER        ; 33
 	const FLAME_WHEEL  ; 34
 	const FLAME_BURST  ; 35
@@ -78,7 +78,7 @@
 	const FLAME_CHARGE ; 38
 	const EXPLOSION    ; 39
 
-	; === FLYING TYPE (8 moves) ===
+	; === FLYING TYPE ===
 	const PECK         ; 3a
 	const GUST         ; 3b
 	const WING_ATTACK  ; 3c
@@ -88,12 +88,12 @@
 	const SKY_ATTACK   ; 40
 	const DRILL_PECK   ; 41
 
-	; === GAS TYPE (3 moves) ===
+	; === GAS TYPE ===
 	const SMOG         ; 42
 	const POISON_GAS   ; 43
 	const HAZE         ; 44
 
-	; === GHOST TYPE (8 moves) ===
+	; === GHOST TYPE ===
 	const NIGHT_SHADE  ; 45
 	const LICK         ; 46
 	const ASTONISH     ; 47
@@ -103,7 +103,7 @@
 	const SHADOW_SNEAK ; 4b
 	const CONFUSE_RAY  ; 4c
 
-	; === GRASS TYPE (12 moves) ===
+	; === GRASS TYPE ===
 	const ABSORB       ; 4d
 	const VINE_WHIP    ; 4e
 	const MEGA_DRAIN   ; 4f
@@ -117,7 +117,7 @@
 	const SLEEP_POWDER ; 57
 	const SPORE        ; 58
 
-	; === GROUND TYPE (8 moves) ===
+	; === GROUND TYPE ===
 	const GROUND_STOMP ; 59
 	const MUD_SHOT     ; 5a
 	const BULLDOZE     ; 5b
@@ -127,7 +127,7 @@
 	const BONE_CLUB    ; 5f
 	const DIG          ; 60
 
-	; === ICE TYPE (6 moves) ===
+	; === ICE TYPE ===
 	const POWDER_SNOW  ; 61
 	const ICY_WIND     ; 62
 	const AURORA_BEAM  ; 63
@@ -135,11 +135,11 @@
 	const ICE_BEAM     ; 65
 	const BLIZZARD     ; 66
 
-	; === MAGMA TYPE (2 moves) ===
+	; === MAGMA TYPE ===
 	const MAGMA_PUNCH  ; 67
 	const LAVA_PLUME   ; 68
 
-	; === NORMAL TYPE (20 moves) ===
+	; === NORMAL TYPE ===
 	const WRAP         ; 69
 	const FURY_ATTACK  ; 6a
 	const COMET_PUNCH  ; 6b
@@ -161,7 +161,7 @@
 	const SUPER_FANG   ; 7b
 	const HYPER_FANG   ; 7c
 
-	; === POISON TYPE (9 moves) ===
+	; === POISON TYPE ===
 	const POISON_STING ; 7d
 	const ACID         ; 7e
 	const POISON_FANG  ; 7f
@@ -172,7 +172,7 @@
 	const NEUROTOXIN   ; 84
 	const SLUDGE_WAVE  ; 85
 
-	; === PSYCHIC_TYPE (7 moves) ===
+	; === PSYCHIC_TYPE ===
 	const PSYWAVE      ; 86
 	const CONFUSION    ; 87
 	const EXTRASENSORY ; 88
@@ -181,7 +181,7 @@
 	const MIND_BREAK   ; 8b
 	const HYPNOSIS     ; 8c
 
-	; === ROCK TYPE (9 moves) ===
+	; === ROCK TYPE ===
 	const ROCK_PUNCH   ; 8d
 	const ROCK_THROW   ; 8e
 	const ROCK_TOMB    ; 8f
@@ -192,7 +192,7 @@
 	const CRABHAMMER   ; 94
 	const HORN_DRILL   ; 95
 
-	; === STEEL TYPE (6 moves) ===
+	; === STEEL TYPE ===
 	const CUT          ; 96
 	const IRON_TAIL    ; 97
 	const IRON_HEAD    ; 98
@@ -200,7 +200,7 @@
 	const SONICBOOM    ; 9a
 	const BULLET_PUNCH ; 9b
 
-	; === WATER TYPE (7 moves) ===
+	; === WATER TYPE ===
 	const WATER_GUN    ; 9c
 	const BUBBLEBEAM   ; 9d
 	const WATER_PULSE  ; 9e
@@ -209,7 +209,7 @@
 	const HYDRO_PUMP   ; a1
 	const AQUA_JET     ; a2
 
-	; === BIRD TYPE (65 moves) ===
+	; === BIRD TYPE ===
 	const TRI_ATTACK   ; a3
 	const SWORDS_DANCE ; a4
 	const SHARPEN      ; a5

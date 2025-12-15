@@ -1,7 +1,7 @@
 AttackAnimationPointers:
 	table_width 2, AttackAnimationPointers
 
-	; === BUG TYPE (8 moves) ===
+	; === BUG TYPE ===
 	dw ConstrictAnim
 	dw BugBiteAnim
 	dw LeechLifeAnim
@@ -11,7 +11,7 @@ AttackAnimationPointers:
 	dw TwineedleAnim
 	dw GuillotineAnim
 
-	; === DARK TYPE (10 moves) ===
+	; === DARK TYPE ===
 	dw FaintAttackAnim
 	dw RageAnim
 	dw NightSlashAnim
@@ -23,7 +23,7 @@ AttackAnimationPointers:
 	dw PayDayAnim
 	dw DreamEaterAnim
 
-	; === DRAGON TYPE (6 moves) ===
+	; === DRAGON TYPE ===
 	dw DragonRageAnim
 	dw DragonClawAnim
 	dw DragonBreathAnim
@@ -31,7 +31,7 @@ AttackAnimationPointers:
 	dw OutrageAnim
 	dw HyperBeamAnim
 
-	; === ELECTRIC TYPE (7 moves) ===
+	; === ELECTRIC TYPE ===
 	dw NuzzleAnim
 	dw ThunderShockAnim
 	dw DischargeAnim
@@ -40,7 +40,7 @@ AttackAnimationPointers:
 	dw ThunderWaveAnim
 	dw VoltAttackAnim
 
-	; === FAIRY TYPE (6 moves) ===
+	; === FAIRY TYPE ===
 	dw DoubleSlapAnim
 	dw FairyWindAnim
 	dw DrainingKissAnim
@@ -48,7 +48,7 @@ AttackAnimationPointers:
 	dw PlayRoughAnim
 	dw MoonblastAnim
 
-	; === FIGHTING TYPE (13 moves) ===
+	; === FIGHTING TYPE ===
 	dw SeismicTossAnim
 	dw LowKickAnim
 	dw BindAnim
@@ -63,7 +63,7 @@ AttackAnimationPointers:
 	dw SubmissionAnim
 	dw HiJumpKickAnim
 
-	; === FIRE TYPE (7 moves) ===
+	; === FIRE TYPE ===
 	dw EmberAnim
 	dw FlameWheelAnim
 	dw FlameBurstAnim
@@ -72,7 +72,7 @@ AttackAnimationPointers:
 	dw FlameChargeAnim
 	dw ExplosionAnim
 
-	; === FLYING TYPE (8 moves) ===
+	; === FLYING TYPE ===
 	dw PeckAnim
 	dw GustAnim
 	dw WingAttackAnim
@@ -82,12 +82,12 @@ AttackAnimationPointers:
 	dw SkyAttackAnim
 	dw DrillPeckAnim
 
-	; === GAS TYPE (3 moves) ===
+	; === GAS TYPE ===
 	dw SmogAnim
 	dw PoisonGasAnim
 	dw HazeAnim
 
-	; === GHOST TYPE (8 moves) ===
+	; === GHOST TYPE ===
 	dw NightShadeAnim
 	dw LickAnim
 	dw AstonishAnim
@@ -97,7 +97,7 @@ AttackAnimationPointers:
 	dw ShadowSneakAnim
 	dw ConfuseRayAnim
 
-	; === GRASS TYPE (12 moves) ===
+	; === GRASS TYPE ===
 	dw AbsorbAnim
 	dw VineWhipAnim
 	dw MegaDrainAnim
@@ -111,7 +111,7 @@ AttackAnimationPointers:
 	dw SleepPowderAnim
 	dw SporeAnim
 
-	; === GROUND TYPE (8 moves) ===
+	; === GROUND TYPE ===
 	dw GroundStompAnim
 	dw MudShotAnim
 	dw BulldozeAnim
@@ -121,7 +121,7 @@ AttackAnimationPointers:
 	dw BoneClubAnim
 	dw DigAnim
 
-	; === ICE TYPE (6 moves) ===
+	; === ICE TYPE ===
 	dw PowderSnowAnim
 	dw IcyWindAnim
 	dw AuroraBeamAnim
@@ -129,11 +129,11 @@ AttackAnimationPointers:
 	dw IceBeamAnim
 	dw BlizzardAnim
 
-	; === MAGMA TYPE (2 moves) ===
+	; === MAGMA TYPE ===
 	dw MagmaPunchAnim
 	dw LavaPlumeAnim
 
-	; === NORMAL TYPE (20 moves) ===
+	; === NORMAL TYPE ===
 	dw WrapAnim
 	dw FuryAttackAnim
 	dw CometPunchAnim
@@ -155,7 +155,7 @@ AttackAnimationPointers:
 	dw SuperFangAnim
 	dw HyperFangAnim
 
-	; === POISON TYPE (9 moves) ===
+	; === POISON TYPE ===
 	dw PoisonStingAnim
 	dw AcidAnim
 	dw PoisonFangAnim
@@ -166,7 +166,7 @@ AttackAnimationPointers:
 	dw NeurotoxinAnim
 	dw SludgeWaveAnim
 
-	; === PSYCHIC_TYPE (7 moves) ===
+	; === PSYCHIC_TYPE ===
 	dw PsywaveAnim
 	dw ConfusionAnim
 	dw ExtrasensoryAnim
@@ -175,7 +175,7 @@ AttackAnimationPointers:
 	dw MindBreakAnim
 	dw HypnosisAnim
 
-	; === ROCK TYPE (9 moves) ===
+	; === ROCK TYPE ===
 	dw RockPunchAnim
 	dw RockThrowAnim
 	dw RockTombAnim
@@ -186,7 +186,7 @@ AttackAnimationPointers:
 	dw CrabHammerAnim
 	dw HornDrillAnim
 
-	; === STEEL TYPE (6 moves) ===
+	; === STEEL TYPE ===
 	dw CutAnim
 	dw IronTailAnim
 	dw IronHeadAnim
@@ -194,7 +194,7 @@ AttackAnimationPointers:
 	dw SonicBoomAnim
 	dw BulletPunchAnim
 
-	; === WATER TYPE (7 moves) ===
+	; === WATER TYPE ===
 	dw WaterGunAnim
 	dw BubbleBeamAnim
 	dw WaterPulseAnim
@@ -203,7 +203,7 @@ AttackAnimationPointers:
 	dw HydroPumpAnim
 	dw AquaJetAnim
 
-	; === BIRD TYPE (65 moves) ===
+	; === BIRD TYPE ===
 	dw TriAttackAnim
 	dw SwordsDanceAnim
 	dw SharpenAnim
