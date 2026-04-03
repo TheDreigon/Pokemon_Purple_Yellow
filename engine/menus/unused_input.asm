@@ -72,7 +72,7 @@ HandleMenuInputPokemonSelectionDuplicate: ; unreferenced
 	ldh a, [hJoy5]
 	ret
 
-PlaceMenuCursorDuplicate:
+PlaceMenuCursorDuplicate: ; used only by the unreferenced above
 	ld a, [wTopMenuItemY]
 	and a
 	jr z, .asm_f5ac0

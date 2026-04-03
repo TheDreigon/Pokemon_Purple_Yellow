@@ -1,8 +1,7 @@
 Func_f0a54: ; unreferenced
 	ret
 
-LoadMissableObjectData::
-; farcalled by an unreferenced function
+LoadMissableObjectData:: ; farcalled by an unreferenced function
 	ld hl, .MissableObjectsMaps
 .loop
 	ld a, [hli]

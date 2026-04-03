@@ -6,7 +6,7 @@ INCLUDE "engine/movie/title.asm"
 INCLUDE "engine/pokemon/load_mon_data.asm"
 INCLUDE "data/items/prices.asm"
 INCLUDE "data/items/names.asm"
-INCLUDE "data/text/unused_names.asm"
+;INCLUDE "data/text/unused_names.asm"
 INCLUDE "engine/gfx/sprite_oam.asm"
 INCLUDE "engine/link/print_waiting_text.asm"
 INCLUDE "engine/overworld/sprite_collisions.asm"
@@ -341,11 +341,7 @@ ENDC
 
 
 SECTION "bank30", ROMX
-
-; This whole bank is garbage data.
-IF !DEF(_DEBUG)
-	INCBIN "garbage/bank30.bin"
-ENDC
+; Free bank - 16 KB available for Purple Yellow
 
 
 SECTION "bank3A", ROMX
@@ -398,7 +394,7 @@ SECTION "Battle Engine 9", ROMX
 
 INCLUDE "engine/movie/title_yellow.asm"
 INCLUDE "engine/menus/link_menu.asm"
-INCLUDE "engine/menus/unused_input.asm"
+;INCLUDE "engine/menus/unused_input.asm"
 INCLUDE "engine/overworld/field_move_messages.asm"
 INCLUDE "engine/items/inventory.asm"
 INCLUDE "gfx/trainer_card.asm"
