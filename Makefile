@@ -29,11 +29,16 @@ else
 SHA1 := sha1sum
 endif
 
-RGBDS ?=
-RGBASM  ?= $(RGBDS)rgbasm
-RGBFIX  ?= $(RGBDS)rgbfix
-RGBGFX  ?= $(RGBDS)rgbgfx
-RGBLINK ?= $(RGBDS)rgblink
+# ./rgbasm --version = rgbasm v0.6.1
+# ./rgblink --version = rgblink v0.6.1
+# ./rgbfix --version = rgbfix v0.6.1
+# ./rgbgfx --version = rgbgfx v0.6.1
+
+RGBDS = rgbds/
+RGBASM  = $(RGBDS)rgbasm
+RGBFIX  = $(RGBDS)rgbfix
+RGBGFX  = $(RGBDS)rgbgfx
+RGBLINK = $(RGBDS)rgblink
 
 
 ### Build targets
