@@ -8,7 +8,7 @@ Route2_Object:
 	def_warp_events
 	warp_event 14,  9, DIGLETTS_CAVE_ROUTE_2, 1
 	warp_event  3, 11, VIRIDIAN_FOREST_NORTH_GATE, 2
-	warp_event 15, 19, ROUTE_2_TRADE_HOUSE, 1
+	warp_event 15, 21, ROUTE_2_TRADE_HOUSE, 1
 	warp_event 16, 35, ROUTE_2_GATE, 2
 	warp_event 15, 39, ROUTE_2_GATE, 3
 	warp_event  3, 43, VIRIDIAN_FOREST_SOUTH_GATE, 3
@@ -19,8 +19,8 @@ Route2_Object:
 	bg_event 13, 11, TEXT_ROUTE2_DIGLETTS_CAVE_SIGN
 
 	def_object_events
-	object_event 19, 68, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE2_MOON_STONE, MOON_STONE
-	object_event 17, 54, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE2_HP_UP, HP_UP
+	object_event 17, 68, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE2_MOON_STONE, MOON_STONE
+	object_event 18, 67, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE2_HP_UP, HP_UP
 
 	def_warps_to ROUTE_2
 
