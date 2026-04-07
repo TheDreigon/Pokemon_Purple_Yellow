@@ -15,6 +15,7 @@ Route21_ScriptPointers:
 
 Route21_TextPointers:
 	def_text_pointers
+	dw_const PickUpItemText,      TEXT_ROUTE21_CALCIUM
 	dw_const Route21Fisher1Text,  TEXT_ROUTE21_FISHER1
 	dw_const Route21Fisher2Text,  TEXT_ROUTE21_FISHER2
 	dw_const Route21Swimmer1Text, TEXT_ROUTE21_SWIMMER1
