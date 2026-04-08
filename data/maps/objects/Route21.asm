@@ -1,4 +1,5 @@
 	object_const_def
+	const_export ROUTE21_CALCIUM
 	const_export ROUTE21_FISHER1
 	const_export ROUTE21_FISHER2
 	const_export ROUTE21_SWIMMER1
