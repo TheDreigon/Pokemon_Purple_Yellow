@@ -509,7 +509,11 @@ UpdateStatDone:
 	call nz, Bankswitch
 	pop de
 .notMinimize
+	ld a, [wMoveDidntMiss]
+	and a
+	jr nz, .skipUpAnim ; v0.5: damage already played the animation, or dual-stat second leg
 	call PlayCurrentMoveAnimation
+.skipUpAnim
 	ld a, [de]
 	cp MINIMIZE
 	jr nz, .applyBadgeBoostsAndStatusPenalties
@@ -700,6 +704,9 @@ UpdateLoweredStatDone:
 	push de
 	call PrintStatText
 	pop de
+	ld a, [wMoveDidntMiss]
+	and a
+	jr nz, .ApplyBadgeBoostsAndStatusPenalties ; v0.5: damage already played anim, or dual-stat second leg
 	ld a, [de]
 	cp $44
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
@@ -1550,6 +1557,11 @@ AttackDefenseUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
+	; Suppress animation on the second leg (we only want one "used BULK_UP"
+	; hit) by spoofing wMoveDidntMiss; the guard in StatModifierUpEffect
+	; reads this flag and skips PlayCurrentMoveAnimation.
+	ld a, 1
+	ld [wMoveDidntMiss], a
 	push de
 	ld a, DEFENSE_UP1_EFFECT
 	ld [de], a
@@ -1577,7 +1589,11 @@ AccuracyEvasionDown1Effect:
 	call StatModifierDownEffect
 	pop de
 	xor a
-	ld [wMoveMissed], a ; reset miss flag between legs
+	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
+	; Suppress animation on the second leg: the guard in StatModifierDownEffect
+	; reads wMoveDidntMiss and skips PlayCurrentMoveAnimation2 when set.
+	ld a, 1
+	ld [wMoveDidntMiss], a
 	push de
 	ld a, EVASION_DOWN1_EFFECT
 	ld [de], a
