@@ -70,7 +70,7 @@ MoveNames::
 	li "FLY"
 	li "HURRICANE"
 	li "DRILL PECK"
-; === FUNGI ===
+; === FUNGUS ===
 	li "PARASITE"
 	li "SPORE"
 ; === GAS ===

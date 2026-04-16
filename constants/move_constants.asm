@@ -89,7 +89,7 @@
 	const HURRICANE    ; 3d
 	const DRILL_PECK   ; 3e
 
-; === FUNGI ===
+; === FUNGUS ===
 	const PARASITE     ; 3f
 	const SPORE        ; 40
 

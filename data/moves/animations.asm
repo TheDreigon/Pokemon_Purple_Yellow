@@ -70,7 +70,7 @@ AttackAnimationPointers:
 	dw FlyAnim
 	dw HurricaneAnim
 	dw DrillPeckAnim
-; === FUNGI ===
+; === FUNGUS ===
 	dw ParasiteAnim
 	dw SporeAnim
 ; === GAS ===
@@ -583,7 +583,7 @@ DrillPeckAnim:
 	db -1 ; end
 
 ; ============================================================
-; === FUNGI ===
+; === FUNGUS ===
 ; ============================================================
 
 ParasiteAnim:

@@ -98,9 +98,9 @@ Moves:
 	move DRILL_PECK,   FLINCH_SIDE_EFFECT2,         90, FLYING,       100, 15 ; signature.
 
 
-	; === FUNGI TYPE (2 moves) === ; new type
-	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGI,         90, 10 ; signature.
-	move SPORE,        SLEEP_EFFECT,                 0, FUNGI,         95, 20 ; signature.
+	; === FUNGUS TYPE (2 moves) === ; new type
+	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGUS,         90, 10 ; signature.
+	move SPORE,        SLEEP_EFFECT,                 0, FUNGUS,         95, 20 ; signature.
 
 
 	; === GAS TYPE (3 moves) === ; new type

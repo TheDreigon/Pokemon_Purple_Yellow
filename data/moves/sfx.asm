@@ -76,7 +76,7 @@ MoveSoundTable:
 	db SFX_POUND, $00, $80 ; FLY
 	db SFX_POUND, $00, $80 ; HURRICANE
 	db SFX_POUND, $00, $80 ; DRILL_PECK
-; === FUNGI ===
+; === FUNGUS ===
 	db SFX_POUND, $00, $80 ; PARASITE
 	db SFX_POUND, $00, $80 ; SPORE
 ; === GAS ===

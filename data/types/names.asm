@@ -1,33 +1,33 @@
 TypeNames:
 	table_width 2, TypeNames
 
-	dw .Normal
-	dw .Fighting
-	dw .Flying
-	dw .Poison
-	dw .Ground
-	dw .Rock
-	dw .Normal
-	dw .Bug
-	dw .Ghost
-	dw .Dark      ; new type (Purple Yellow)
-	dw .Fairy     ; new type (Purple Yellow)
-	dw .Steel     ; new type (Purple Yellow)
-	dw .Gas       ; new type (Purple Yellow)
-	dw .Magma     ; new type (Purple Yellow)
-	dw .Fungi     ; new type (Purple Yellow)
+	dw .Normal     ; $00
+	dw .Fighting   ; $01
+	dw .Flying     ; $02
+	dw .Poison     ; $03
+	dw .Ground     ; $04
+	dw .Rock       ; $05
+	dw .Normal     ; $06  BIRD (typeless placeholder; shows as "NORMAL")
+	dw .Bug        ; $07
+	dw .Dragon     ; $08  moved from $1A (Purple Yellow)
+	dw .Dark       ; $09  new type (Purple Yellow)
+	dw .Steel      ; $0A  new type (Purple Yellow)
+	dw .Magma      ; $0B  new type (Purple Yellow)
+	dw .Fungus     ; $0C  new type (Purple Yellow)
+	dw .Ghost      ; $0D  moved from $08 (Purple Yellow)
 
 REPT UNUSED_TYPES_END - UNUSED_TYPES
 	dw .Normal
 ENDR
 
-	dw .Fire
-	dw .Water
-	dw .Grass
-	dw .Electric
-	dw .Psychic
-	dw .Ice
-	dw .Dragon
+	dw .Fire       ; $14
+	dw .Water      ; $15
+	dw .Grass      ; $16
+	dw .Electric   ; $17
+	dw .Psychic    ; $18
+	dw .Ice        ; $19
+	dw .Fairy      ; $1A  new type (Purple Yellow)
+	dw .Gas        ; $1B  new type (Purple Yellow)
 
 	assert_table_length NUM_TYPES
 
@@ -52,4 +52,4 @@ ENDR
 .Steel:    db "STEEL@"
 .Gas:      db "GAS@"
 .Magma:    db "MAGMA@"
-.Fungi:    db "FUNGI@"
+.Fungus:   db "FUNGUS@"
