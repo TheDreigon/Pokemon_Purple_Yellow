@@ -284,7 +284,6 @@ VoltorbEvosMoves:
 	db 26, FAINT_ATTACK
 	db 30, LIGHT_SCREEN
 	db 35, THUNDERBOLT
-	db 44, EXPLOSION
 	db 50, THUNDER
 	db 0
 
@@ -596,7 +595,6 @@ BlastoiseEvosMoves:
 	db 0
 ; Learnset
 	db 5, WATER_GUN
-	db 10, WATER_GUN
 	db 15, BITE
 	db 21, BUBBLEBEAM
 	db 27, BODY_SLAM
@@ -746,7 +744,6 @@ GravelerEvosMoves:
 	db 31, EXPLOSION
 	db 40, ROCK_SLIDE
 	db 45, EARTHQUAKE
-	db 48, EXPLOSION
 	db 0
 
 ChanseyEvosMoves:
@@ -788,7 +785,6 @@ MrMimeEvosMoves:
 	db 39, CALM_MIND
 	db 43, PSYCHIC_M
 	db 47, SUBSTITUTE
-	db 50, REFLECT
 	db 0
 
 HitmonleeEvosMoves:
@@ -885,7 +881,6 @@ GolemEvosMoves:
 	db 31, EXPLOSION
 	db 40, ROCK_SLIDE
 	db 45, EARTHQUAKE
-	db 48, EXPLOSION
 	db 0
 
 MissingNo32EvosMoves:
@@ -953,7 +948,6 @@ KoffingEvosMoves:
 	db 38, AMNESIA
 	db 40, EXPLOSION
 	db 45, HAZE
-	db 48, EXPLOSION
 	db 0
 
 MissingNo38EvosMoves:
@@ -1117,7 +1111,6 @@ PoliwagEvosMoves:
 	db 0
 ; Learnset
 	db 9, WATER_GUN
-	db 13, WATER_GUN
 	db 22, BUBBLEBEAM
 	db 35, BODY_SLAM
 	db 43, HYPNOSIS
@@ -1147,7 +1140,6 @@ MoltresEvosMoves:
 	db 40, DRILL_PECK
 	db 45, FLAMETHROWER
 	db 51, FIRE_BLAST
-	db 55, DRILL_PECK
 	db 0
 
 ArticunoEvosMoves:
@@ -1158,7 +1150,6 @@ ArticunoEvosMoves:
 	db 40, DRILL_PECK
 	db 45, ICE_BEAM
 	db 51, BLIZZARD
-	db 55, DRILL_PECK
 	db 0
 
 ZapdosEvosMoves:
@@ -1169,7 +1160,6 @@ ZapdosEvosMoves:
 	db 40, DRILL_PECK
 	db 45, THUNDERBOLT
 	db 51, THUNDER
-	db 55, DRILL_PECK
 	db 60, LIGHT_SCREEN
 	db 0
 
@@ -1316,7 +1306,6 @@ DragonairEvosMoves:
 	db 20, DRAGON_RAGE
 	db 25, AGILITY
 	db 30, HEAVY_SLAM
-	db 45, DRAGON_RAGE
 	db 60, HYPER_BEAM
 	db 0
 
@@ -1952,7 +1941,6 @@ ElectrodeEvosMoves:
 	db 26, FAINT_ATTACK
 	db 30, LIGHT_SCREEN
 	db 35, THUNDERBOLT
-	db 44, EXPLOSION
 	db 50, THUNDER
 	db 0
 
@@ -1979,7 +1967,6 @@ WeezingEvosMoves:
 	db 38, AMNESIA
 	db 40, EXPLOSION
 	db 45, HAZE
-	db 48, EXPLOSION
 	db 0
 
 PersianEvosMoves:
@@ -2293,7 +2280,6 @@ GeodudeEvosMoves:
 	db 31, EXPLOSION
 	db 40, ROCK_SLIDE
 	db 45, EARTHQUAKE
-	db 48, EXPLOSION
 	db 0
 
 PorygonEvosMoves:
@@ -2377,7 +2363,6 @@ SquirtleEvosMoves:
 	db 0
 ; Learnset
 	db 5, WATER_GUN
-	db 10, WATER_GUN
 	db 15, BITE
 	db 21, BUBBLEBEAM
 	db 27, BODY_SLAM
@@ -2409,7 +2394,6 @@ WartortleEvosMoves:
 	db 0
 ; Learnset
 	db 5, WATER_GUN
-	db 10, WATER_GUN
 	db 15, BITE
 	db 21, BUBBLEBEAM
 	db 27, BODY_SLAM

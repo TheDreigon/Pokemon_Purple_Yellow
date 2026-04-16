@@ -298,341 +298,965 @@ MACRO battle_anim
 	ENDC
 ENDM
 
-; PURPLE YELLOW v0.5: every move uses a generic STAR_TWICE placeholder
-; (the original POUND/struggle animation). Each move has its own labeled
-; block so animations can be redesigned independently later.
-
-MACRO placeholder_anim
-	battle_anim \1, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-ENDM
+; PURPLE YELLOW v0.5: every move uses the same generic placeholder
+; (STAR_TWICE, the original POUND animation). Each move has its own
+; block so animations can be customised one at a time later.
 
 ; ============================================================
 ; === BUG ===
 ; ============================================================
 
-ConstrictAnim:    placeholder_anim CONSTRICT
-BugBiteAnim:      placeholder_anim BUG_BITE
-LeechLifeAnim:    placeholder_anim LEECH_LIFE
-BugBuzzAnim:      placeholder_anim BUG_BUZZ
-MegahornAnim:     placeholder_anim MEGAHORN
-GuillotineAnim:   placeholder_anim GUILLOTINE
-VicegripAnim:     placeholder_anim VICEGRIP
-TwineedleAnim:    placeholder_anim TWINEEDLE
+ConstrictAnim:
+	battle_anim CONSTRICT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BugBiteAnim:
+	battle_anim BUG_BITE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LeechLifeAnim:
+	battle_anim LEECH_LIFE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BugBuzzAnim:
+	battle_anim BUG_BUZZ, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MegahornAnim:
+	battle_anim MEGAHORN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GuillotineAnim:
+	battle_anim GUILLOTINE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+VicegripAnim:
+	battle_anim VICEGRIP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TwineedleAnim:
+	battle_anim TWINEEDLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === DARK ===
 ; ============================================================
 
-FaintAttackAnim:  placeholder_anim FAINT_ATTACK
-RageAnim:         placeholder_anim RAGE
-NightSlashAnim:   placeholder_anim NIGHT_SLASH
-BrutalSwingAnim:  placeholder_anim BRUTAL_SWING
-DarkPulseAnim:    placeholder_anim DARK_PULSE
-GoreAttackAnim:   placeholder_anim GORE_ATTACK
-ThrashAnim:       placeholder_anim THRASH
-DeepSleepAnim:    placeholder_anim DEEP_SLEEP
-PayDayAnim:       placeholder_anim PAY_DAY
-DreamEaterAnim:   placeholder_anim DREAM_EATER
+FaintAttackAnim:
+	battle_anim FAINT_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RageAnim:
+	battle_anim RAGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+NightSlashAnim:
+	battle_anim NIGHT_SLASH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BrutalSwingAnim:
+	battle_anim BRUTAL_SWING, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DarkPulseAnim:
+	battle_anim DARK_PULSE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GoreAttackAnim:
+	battle_anim GORE_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ThrashAnim:
+	battle_anim THRASH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DeepSleepAnim:
+	battle_anim DEEP_SLEEP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PayDayAnim:
+	battle_anim PAY_DAY, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DreamEaterAnim:
+	battle_anim DREAM_EATER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === DRAGON ===
 ; ============================================================
 
-DragonRageAnim:   placeholder_anim DRAGON_RAGE
-DragonClawAnim:   placeholder_anim DRAGON_CLAW
-DragonBreathAnim: placeholder_anim DRAGON_BREATH
-DragonSlamAnim:   placeholder_anim DRAGON_SLAM
-HyperBeamAnim:    placeholder_anim HYPER_BEAM
+DragonRageAnim:
+	battle_anim DRAGON_RAGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DragonClawAnim:
+	battle_anim DRAGON_CLAW, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DragonBreathAnim:
+	battle_anim DRAGON_BREATH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DragonSlamAnim:
+	battle_anim DRAGON_SLAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HyperBeamAnim:
+	battle_anim HYPER_BEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === ELECTRIC ===
 ; ============================================================
 
-NuzzleAnim:       placeholder_anim NUZZLE
-ThundershockAnim: placeholder_anim THUNDERSHOCK
-DischargeAnim:    placeholder_anim DISCHARGE
-ThunderboltAnim:  placeholder_anim THUNDERBOLT
-ThunderAnim:      placeholder_anim THUNDER
-ThunderWaveAnim:  placeholder_anim THUNDER_WAVE
-VoltTackleAnim:   placeholder_anim VOLT_TACKLE
+NuzzleAnim:
+	battle_anim NUZZLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ThundershockAnim:
+	battle_anim THUNDERSHOCK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DischargeAnim:
+	battle_anim DISCHARGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ThunderboltAnim:
+	battle_anim THUNDERBOLT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ThunderAnim:
+	battle_anim THUNDER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ThunderWaveAnim:
+	battle_anim THUNDER_WAVE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+VoltTackleAnim:
+	battle_anim VOLT_TACKLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === FAIRY ===
 ; ============================================================
 
-DoubleSlapAnim:   placeholder_anim DOUBLESLAP
-FairyWindAnim:    placeholder_anim FAIRY_WIND
-DrainingKissAnim: placeholder_anim DRAINING_KISS
-DazeGleamAnim:    placeholder_anim DAZE_GLEAM
-PlayRoughAnim:    placeholder_anim PLAY_ROUGH
-MoonblastAnim:    placeholder_anim MOONBLAST
+DoubleSlapAnim:
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FairyWindAnim:
+	battle_anim FAIRY_WIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DrainingKissAnim:
+	battle_anim DRAINING_KISS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DazeGleamAnim:
+	battle_anim DAZE_GLEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PlayRoughAnim:
+	battle_anim PLAY_ROUGH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MoonblastAnim:
+	battle_anim MOONBLAST, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === FIGHTING ===
 ; ============================================================
 
-SeismicTossAnim:  placeholder_anim SEISMIC_TOSS
-LowKickAnim:      placeholder_anim LOW_KICK
-BindAnim:         placeholder_anim BIND
-KarateChopAnim:   placeholder_anim KARATE_CHOP
-DoubleKickAnim:   placeholder_anim DOUBLE_KICK
-StrengthAnim:     placeholder_anim STRENGTH
-TakeDownAnim:     placeholder_anim TAKE_DOWN
-JumpKickAnim:     placeholder_anim JUMP_KICK
-DizzyPunchAnim:   placeholder_anim DIZZY_PUNCH
-RollingKickAnim:  placeholder_anim ROLLING_KICK
-LeekStrikeAnim:   placeholder_anim LEEK_STRIKE
-SubmissionAnim:   placeholder_anim SUBMISSION
-HiJumpKickAnim:   placeholder_anim HI_JUMP_KICK
+SeismicTossAnim:
+	battle_anim SEISMIC_TOSS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LowKickAnim:
+	battle_anim LOW_KICK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BindAnim:
+	battle_anim BIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+KarateChopAnim:
+	battle_anim KARATE_CHOP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DoubleKickAnim:
+	battle_anim DOUBLE_KICK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+StrengthAnim:
+	battle_anim STRENGTH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TakeDownAnim:
+	battle_anim TAKE_DOWN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+JumpKickAnim:
+	battle_anim JUMP_KICK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DizzyPunchAnim:
+	battle_anim DIZZY_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RollingKickAnim:
+	battle_anim ROLLING_KICK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LeekStrikeAnim:
+	battle_anim LEEK_STRIKE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SubmissionAnim:
+	battle_anim SUBMISSION, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HiJumpKickAnim:
+	battle_anim HI_JUMP_KICK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === FIRE ===
 ; ============================================================
 
-EmberAnim:        placeholder_anim EMBER
-FlameChargeAnim:  placeholder_anim FLAME_CHARGE
-FlameBurstAnim:   placeholder_anim FLAME_BURST
-FlamethrowerAnim: placeholder_anim FLAMETHROWER
-FireBlastAnim:    placeholder_anim FIRE_BLAST
-ExplosionAnim:    placeholder_anim EXPLOSION
+EmberAnim:
+	battle_anim EMBER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FlameChargeAnim:
+	battle_anim FLAME_CHARGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FlameBurstAnim:
+	battle_anim FLAME_BURST, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FlamethrowerAnim:
+	battle_anim FLAMETHROWER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FireBlastAnim:
+	battle_anim FIRE_BLAST, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ExplosionAnim:
+	battle_anim EXPLOSION, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === FLYING ===
 ; ============================================================
 
-PeckAnim:         placeholder_anim PECK
-GustAnim:         placeholder_anim GUST
-WingAttackAnim:   placeholder_anim WING_ATTACK
-AerialAceAnim:    placeholder_anim AERIAL_ACE
-FlyAnim:          placeholder_anim FLY
-HurricaneAnim:    placeholder_anim HURRICANE
-DrillPeckAnim:    placeholder_anim DRILL_PECK
+PeckAnim:
+	battle_anim PECK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GustAnim:
+	battle_anim GUST, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+WingAttackAnim:
+	battle_anim WING_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AerialAceAnim:
+	battle_anim AERIAL_ACE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FlyAnim:
+	battle_anim FLY, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HurricaneAnim:
+	battle_anim HURRICANE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DrillPeckAnim:
+	battle_anim DRILL_PECK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === FUNGI ===
 ; ============================================================
 
-ParasiteAnim:     placeholder_anim PARASITE
-SporeAnim:        placeholder_anim SPORE
+ParasiteAnim:
+	battle_anim PARASITE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SporeAnim:
+	battle_anim SPORE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === GAS ===
 ; ============================================================
 
-SmogAnim:         placeholder_anim SMOG
-PoisonGasAnim:    placeholder_anim POISON_GAS
-HazeAnim:         placeholder_anim HAZE
+SmogAnim:
+	battle_anim SMOG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PoisonGasAnim:
+	battle_anim POISON_GAS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HazeAnim:
+	battle_anim HAZE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === GHOST ===
 ; ============================================================
 
-NightShadeAnim:   placeholder_anim NIGHT_SHADE
-LickAnim:         placeholder_anim LICK
-AstonishAnim:     placeholder_anim ASTONISH
-ShadowSneakAnim:  placeholder_anim SHADOW_SNEAK
-ShadowPunchAnim:  placeholder_anim SHADOW_PUNCH
-SpiritDrainAnim:  placeholder_anim SPIRIT_DRAIN
-ShadowBallAnim:   placeholder_anim SHADOW_BALL
-ConfuseRayAnim:   placeholder_anim CONFUSE_RAY
+NightShadeAnim:
+	battle_anim NIGHT_SHADE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LickAnim:
+	battle_anim LICK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AstonishAnim:
+	battle_anim ASTONISH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ShadowSneakAnim:
+	battle_anim SHADOW_SNEAK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ShadowPunchAnim:
+	battle_anim SHADOW_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SpiritDrainAnim:
+	battle_anim SPIRIT_DRAIN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ShadowBallAnim:
+	battle_anim SHADOW_BALL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ConfuseRayAnim:
+	battle_anim CONFUSE_RAY, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === GRASS ===
 ; ============================================================
 
-AbsorbAnim:       placeholder_anim ABSORB
-VineWhipAnim:     placeholder_anim VINE_WHIP
-MegaDrainAnim:    placeholder_anim MEGA_DRAIN
-RazorLeafAnim:    placeholder_anim RAZOR_LEAF
-GigaDrainAnim:    placeholder_anim GIGA_DRAIN
-PetalDanceAnim:   placeholder_anim PETAL_DANCE
-SolarBeamAnim:    placeholder_anim SOLARBEAM
-LeechSeedAnim:    placeholder_anim LEECH_SEED
-PoisonPowderAnim: placeholder_anim POISONPOWDER
-StunSporeAnim:    placeholder_anim STUN_SPORE
-SleepPowderAnim:  placeholder_anim SLEEP_POWDER
+AbsorbAnim:
+	battle_anim ABSORB, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+VineWhipAnim:
+	battle_anim VINE_WHIP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MegaDrainAnim:
+	battle_anim MEGA_DRAIN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RazorLeafAnim:
+	battle_anim RAZOR_LEAF, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GigaDrainAnim:
+	battle_anim GIGA_DRAIN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PetalDanceAnim:
+	battle_anim PETAL_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SolarBeamAnim:
+	battle_anim SOLARBEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LeechSeedAnim:
+	battle_anim LEECH_SEED, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PoisonPowderAnim:
+	battle_anim POISONPOWDER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+StunSporeAnim:
+	battle_anim STUN_SPORE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SleepPowderAnim:
+	battle_anim SLEEP_POWDER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === GROUND ===
 ; ============================================================
 
-GroundStompAnim:  placeholder_anim GROUND_STOMP
-MudShotAnim:      placeholder_anim MUD_SHOT
-BulldozeAnim:     placeholder_anim BULLDOZE
-MudBombAnim:      placeholder_anim MUD_BOMB
-EarthquakeAnim:   placeholder_anim EARTHQUAKE
-FissureAnim:      placeholder_anim FISSURE
-BoneClubAnim:     placeholder_anim BONE_CLUB
-DigAnim:          placeholder_anim DIG
+GroundStompAnim:
+	battle_anim GROUND_STOMP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MudShotAnim:
+	battle_anim MUD_SHOT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BulldozeAnim:
+	battle_anim BULLDOZE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MudBombAnim:
+	battle_anim MUD_BOMB, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+EarthquakeAnim:
+	battle_anim EARTHQUAKE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FissureAnim:
+	battle_anim FISSURE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BoneClubAnim:
+	battle_anim BONE_CLUB, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DigAnim:
+	battle_anim DIG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === ICE ===
 ; ============================================================
 
-PowderSnowAnim:   placeholder_anim POWDER_SNOW
-IcyWindAnim:      placeholder_anim ICY_WIND
-AuroraBeamAnim:   placeholder_anim AURORA_BEAM
-FrostBreathAnim:  placeholder_anim FROST_BREATH
-IceBeamAnim:      placeholder_anim ICE_BEAM
-BlizzardAnim:     placeholder_anim BLIZZARD
+PowderSnowAnim:
+	battle_anim POWDER_SNOW, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+IcyWindAnim:
+	battle_anim ICY_WIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AuroraBeamAnim:
+	battle_anim AURORA_BEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FrostBreathAnim:
+	battle_anim FROST_BREATH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+IceBeamAnim:
+	battle_anim ICE_BEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BlizzardAnim:
+	battle_anim BLIZZARD, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === MAGMA ===
 ; ============================================================
 
-MagmaPunchAnim:   placeholder_anim MAGMA_PUNCH
-LavaPlumeAnim:    placeholder_anim LAVA_PLUME
+MagmaPunchAnim:
+	battle_anim MAGMA_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LavaPlumeAnim:
+	battle_anim LAVA_PLUME, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === NORMAL ===
 ; ============================================================
 
-WrapAnim:         placeholder_anim WRAP
-FuryAttackAnim:   placeholder_anim FURY_ATTACK
-CometPunchAnim:   placeholder_anim COMET_PUNCH
-ScratchAnim:      placeholder_anim SCRATCH
-TackleAnim:       placeholder_anim TACKLE
-BiteAnim:         placeholder_anim BITE
-QuickAttackAnim:  placeholder_anim QUICK_ATTACK
-HeadButtAnim:     placeholder_anim HEADBUTT
-HornAttackAnim:   placeholder_anim HORN_ATTACK
-SlashAnim:        placeholder_anim SLASH
-BodySlamAnim:     placeholder_anim BODY_SLAM
-MegaPunchAnim:    placeholder_anim MEGA_PUNCH
-CrunchAnim:       placeholder_anim CRUNCH
-HornChargeAnim:   placeholder_anim HORN_CHARGE
-HeavySlamAnim:    placeholder_anim HEAVY_SLAM
-DoubleEdgeAnim:   placeholder_anim DOUBLE_EDGE
-ExtremeSpeedAnim: placeholder_anim EXTREMESPEED
-SuperFangAnim:    placeholder_anim SUPER_FANG
-HyperFangAnim:    placeholder_anim HYPER_FANG
+WrapAnim:
+	battle_anim WRAP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FuryAttackAnim:
+	battle_anim FURY_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CometPunchAnim:
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ScratchAnim:
+	battle_anim SCRATCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TackleAnim:
+	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BiteAnim:
+	battle_anim BITE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+QuickAttackAnim:
+	battle_anim QUICK_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HeadButtAnim:
+	battle_anim HEADBUTT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HornAttackAnim:
+	battle_anim HORN_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SlashAnim:
+	battle_anim SLASH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BodySlamAnim:
+	battle_anim BODY_SLAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MegaPunchAnim:
+	battle_anim MEGA_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CrunchAnim:
+	battle_anim CRUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HornChargeAnim:
+	battle_anim HORN_CHARGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HeavySlamAnim:
+	battle_anim HEAVY_SLAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DoubleEdgeAnim:
+	battle_anim DOUBLE_EDGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ExtremeSpeedAnim:
+	battle_anim EXTREMESPEED, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SuperFangAnim:
+	battle_anim SUPER_FANG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HyperFangAnim:
+	battle_anim HYPER_FANG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === POISON ===
 ; ============================================================
 
-PoisonStingAnim:  placeholder_anim POISON_STING
-AcidAnim:         placeholder_anim ACID
-PoisonFangAnim:   placeholder_anim POISON_FANG
-SludgeAnim:       placeholder_anim SLUDGE
-SludgeBombAnim:   placeholder_anim SLUDGE_BOMB
-GunkShotAnim:     placeholder_anim GUNK_SHOT
-ToxicAnim:        placeholder_anim TOXIC
-NeurotoxinAnim:   placeholder_anim NEUROTOXIN
-SludgeWaveAnim:   placeholder_anim SLUDGE_WAVE
+PoisonStingAnim:
+	battle_anim POISON_STING, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AcidAnim:
+	battle_anim ACID, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PoisonFangAnim:
+	battle_anim POISON_FANG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SludgeAnim:
+	battle_anim SLUDGE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SludgeBombAnim:
+	battle_anim SLUDGE_BOMB, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GunkShotAnim:
+	battle_anim GUNK_SHOT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ToxicAnim:
+	battle_anim TOXIC, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+NeurotoxinAnim:
+	battle_anim NEUROTOXIN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SludgeWaveAnim:
+	battle_anim SLUDGE_WAVE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === PSYCHIC ===
 ; ============================================================
 
-PsywaveAnim:      placeholder_anim PSYWAVE
-ConfusionAnim:    placeholder_anim CONFUSION
-ExtrasensoryAnim: placeholder_anim EXTRASENSORY
-PsybeamAnim:      placeholder_anim PSYBEAM
-PsychicAnim:      placeholder_anim PSYCHIC_M
-MindBreakAnim:    placeholder_anim MIND_BREAK
-HypnosisAnim:     placeholder_anim HYPNOSIS
+PsywaveAnim:
+	battle_anim PSYWAVE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ConfusionAnim:
+	battle_anim CONFUSION, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ExtrasensoryAnim:
+	battle_anim EXTRASENSORY, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PsybeamAnim:
+	battle_anim PSYBEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PsychicAnim:
+	battle_anim PSYCHIC_M, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MindBreakAnim:
+	battle_anim MIND_BREAK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HypnosisAnim:
+	battle_anim HYPNOSIS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === ROCK ===
 ; ============================================================
 
-RockPunchAnim:    placeholder_anim ROCK_PUNCH
-RockThrowAnim:    placeholder_anim ROCK_THROW
-RockTombAnim:     placeholder_anim ROCK_TOMB
-HeadSmashAnim:    placeholder_anim HEAD_SMASH
-RockSlideAnim:    placeholder_anim ROCK_SLIDE
-ClampAnim:        placeholder_anim CLAMP
-BonemerangAnim:   placeholder_anim BONEMERANG
-CrabhammerAnim:   placeholder_anim CRABHAMMER
-HornDrillAnim:    placeholder_anim HORN_DRILL
+RockPunchAnim:
+	battle_anim ROCK_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RockThrowAnim:
+	battle_anim ROCK_THROW, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RockTombAnim:
+	battle_anim ROCK_TOMB, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HeadSmashAnim:
+	battle_anim HEAD_SMASH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RockSlideAnim:
+	battle_anim ROCK_SLIDE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ClampAnim:
+	battle_anim CLAMP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BonemerangAnim:
+	battle_anim BONEMERANG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CrabhammerAnim:
+	battle_anim CRABHAMMER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HornDrillAnim:
+	battle_anim HORN_DRILL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === STEEL ===
 ; ============================================================
 
-CutAnim:          placeholder_anim CUT
-IronTailAnim:     placeholder_anim IRON_TAIL
-IronHeadAnim:     placeholder_anim IRON_HEAD
-SonicBoomAnim:    placeholder_anim SONICBOOM
-BulletPunchAnim:  placeholder_anim BULLET_PUNCH
-MagnetBombAnim:   placeholder_anim MAGNET_BOMB
+CutAnim:
+	battle_anim CUT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+IronTailAnim:
+	battle_anim IRON_TAIL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+IronHeadAnim:
+	battle_anim IRON_HEAD, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SonicBoomAnim:
+	battle_anim SONICBOOM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BulletPunchAnim:
+	battle_anim BULLET_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MagnetBombAnim:
+	battle_anim MAGNET_BOMB, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === WATER ===
 ; ============================================================
 
-WaterGunAnim:     placeholder_anim WATER_GUN
-AquaJetAnim:      placeholder_anim AQUA_JET
-BubbleBeamAnim:   placeholder_anim BUBBLEBEAM
-WaterPulseAnim:   placeholder_anim WATER_PULSE
-WaterfallAnim:    placeholder_anim WATERFALL
-SurfAnim:         placeholder_anim SURF
-HydroPumpAnim:    placeholder_anim HYDRO_PUMP
+WaterGunAnim:
+	battle_anim WATER_GUN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AquaJetAnim:
+	battle_anim AQUA_JET, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BubbleBeamAnim:
+	battle_anim BUBBLEBEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+WaterPulseAnim:
+	battle_anim WATER_PULSE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+WaterfallAnim:
+	battle_anim WATERFALL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SurfAnim:
+	battle_anim SURF, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HydroPumpAnim:
+	battle_anim HYDRO_PUMP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === BIRD (typeless) ===
 ; ============================================================
 
-TriAttackAnim:    placeholder_anim TRI_ATTACK
-SwordsDanceAnim:  placeholder_anim SWORDS_DANCE
-CoilAnim:         placeholder_anim COIL
-FlexAnim:         placeholder_anim FLEX
-HoneClawsAnim:    placeholder_anim HONE_CLAWS
-AcidArmorAnim:    placeholder_anim ACID_ARMOR
-DefenseCurlAnim:  placeholder_anim DEFENSE_CURL
-HardenAnim:       placeholder_anim HARDEN
-WithdrawAnim:     placeholder_anim WITHDRAW
-AmnesiaAnim:      placeholder_anim AMNESIA
-CalmMindAnim:     placeholder_anim CALM_MIND
-GrowthAnim:       placeholder_anim GROWTH
-NastyPlotAnim:    placeholder_anim NASTY_PLOT
-AgilityAnim:      placeholder_anim AGILITY
-QuiverDanceAnim:  placeholder_anim QUIVER_DANCE
-RockPolishAnim:   placeholder_anim ROCK_POLISH
-TailwindAnim:     placeholder_anim TAILWIND
-DoubleTeamAnim:   placeholder_anim DOUBLE_TEAM
-MinimizeAnim:     placeholder_anim MINIMIZE
-TeleportAnim:     placeholder_anim TELEPORT
-CharmAnim:        placeholder_anim CHARM
-IntimidateAnim:   placeholder_anim INTIMIDATE
-LeerAnim:         placeholder_anim LEER
-GrowlAnim:        placeholder_anim GROWL
-CorrodeAnim:      placeholder_anim CORRODE
-TailWhipAnim:     placeholder_anim TAIL_WHIP
-TauntAnim:        placeholder_anim TAUNT
-TickleAnim:       placeholder_anim TICKLE
-FakeTearsAnim:    placeholder_anim FAKE_TEARS
-MetalSoundAnim:   placeholder_anim METAL_SOUND
-EerieImpulseAnim: placeholder_anim EERIE_IMPULSE
-ScreechAnim:      placeholder_anim SCREECH
-EntangleAnim:     placeholder_anim ENTANGLE
-ScaryFaceAnim:    placeholder_anim SCARY_FACE
-PsychicBindAnim:  placeholder_anim PSYCHIC_BIND
-HinderAnim:       placeholder_anim HINDER
-FlashAnim:        placeholder_anim FLASH
-SandAttackAnim:   placeholder_anim SAND_ATTACK
-SmokescreenAnim:  placeholder_anim SMOKESCREEN
-DisableAnim:      placeholder_anim DISABLE
-GlareAnim:        placeholder_anim GLARE
-LovelyKissAnim:   placeholder_anim LOVELY_KISS
-SingAnim:         placeholder_anim SING
-SupersonicAnim:   placeholder_anim SUPERSONIC
-RecoverAnim:      placeholder_anim RECOVER
-RestAnim:         placeholder_anim REST
-SoftboiledAnim:   placeholder_anim SOFTBOILED
-LightScreenAnim:  placeholder_anim LIGHT_SCREEN
-ReflectAnim:      placeholder_anim REFLECT
-BideAnim:         placeholder_anim BIDE
-FocusEnergyAnim:  placeholder_anim FOCUS_ENERGY
-MimicAnim:        placeholder_anim MIMIC
-MirrorMoveAnim:   placeholder_anim MIRROR_MOVE
-SubstituteAnim:   placeholder_anim SUBSTITUTE
-TransformAnim:    placeholder_anim TRANSFORM
-SplashAnim:       placeholder_anim SPLASH
-MetronomeAnim:    placeholder_anim METRONOME
-StruggleAnim:     placeholder_anim STRUGGLE
+TriAttackAnim:
+	battle_anim TRI_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SwordsDanceAnim:
+	battle_anim SWORDS_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CoilAnim:
+	battle_anim COIL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FlexAnim:
+	battle_anim FLEX, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HoneClawsAnim:
+	battle_anim HONE_CLAWS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AcidArmorAnim:
+	battle_anim ACID_ARMOR, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DefenseCurlAnim:
+	battle_anim DEFENSE_CURL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HardenAnim:
+	battle_anim HARDEN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+WithdrawAnim:
+	battle_anim WITHDRAW, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AmnesiaAnim:
+	battle_anim AMNESIA, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CalmMindAnim:
+	battle_anim CALM_MIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GrowthAnim:
+	battle_anim GROWTH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+NastyPlotAnim:
+	battle_anim NASTY_PLOT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AgilityAnim:
+	battle_anim AGILITY, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+QuiverDanceAnim:
+	battle_anim QUIVER_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RockPolishAnim:
+	battle_anim ROCK_POLISH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TailwindAnim:
+	battle_anim TAILWIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DoubleTeamAnim:
+	battle_anim DOUBLE_TEAM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MinimizeAnim:
+	battle_anim MINIMIZE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TeleportAnim:
+	battle_anim TELEPORT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CharmAnim:
+	battle_anim CHARM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+IntimidateAnim:
+	battle_anim INTIMIDATE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LeerAnim:
+	battle_anim LEER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GrowlAnim:
+	battle_anim GROWL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+CorrodeAnim:
+	battle_anim CORRODE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TailWhipAnim:
+	battle_anim TAIL_WHIP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TauntAnim:
+	battle_anim TAUNT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TickleAnim:
+	battle_anim TICKLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FakeTearsAnim:
+	battle_anim FAKE_TEARS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MetalSoundAnim:
+	battle_anim METAL_SOUND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+EerieImpulseAnim:
+	battle_anim EERIE_IMPULSE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ScreechAnim:
+	battle_anim SCREECH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+EntangleAnim:
+	battle_anim ENTANGLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ScaryFaceAnim:
+	battle_anim SCARY_FACE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+PsychicBindAnim:
+	battle_anim PSYCHIC_BIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+HinderAnim:
+	battle_anim HINDER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FlashAnim:
+	battle_anim FLASH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SandAttackAnim:
+	battle_anim SAND_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SmokescreenAnim:
+	battle_anim SMOKESCREEN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+DisableAnim:
+	battle_anim DISABLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+GlareAnim:
+	battle_anim GLARE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LovelyKissAnim:
+	battle_anim LOVELY_KISS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SingAnim:
+	battle_anim SING, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SupersonicAnim:
+	battle_anim SUPERSONIC, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RecoverAnim:
+	battle_anim RECOVER, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+RestAnim:
+	battle_anim REST, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SoftboiledAnim:
+	battle_anim SOFTBOILED, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+LightScreenAnim:
+	battle_anim LIGHT_SCREEN, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ReflectAnim:
+	battle_anim REFLECT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+BideAnim:
+	battle_anim BIDE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FocusEnergyAnim:
+	battle_anim FOCUS_ENERGY, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MimicAnim:
+	battle_anim MIMIC, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MirrorMoveAnim:
+	battle_anim MIRROR_MOVE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SubstituteAnim:
+	battle_anim SUBSTITUTE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+TransformAnim:
+	battle_anim TRANSFORM, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SplashAnim:
+	battle_anim SPLASH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MetronomeAnim:
+	battle_anim METRONOME, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+StruggleAnim:
+	battle_anim STRUGGLE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ; ============================================================
 ; === NON-MOVE ANIMATIONS (kept from upstream) ===

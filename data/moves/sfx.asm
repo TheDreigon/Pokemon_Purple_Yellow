@@ -3,250 +3,246 @@ MoveSoundTable:
 	; ID, pitch mod, tempo mod
 	;
 	; PURPLE YELLOW v0.5: every move uses the POUND SFX as a placeholder.
-	; Each entry is labeled with its move name in the comment so that each
-	; row can be customised independently later.
-
-MACRO placeholder_sfx
-	db SFX_POUND, $00, $80 ; \1
-ENDM
+	; Each row is labelled in the comment so that each entry can be
+	; customised independently later.
 
 ; === BUG ===
-	placeholder_sfx CONSTRICT
-	placeholder_sfx BUG_BITE
-	placeholder_sfx LEECH_LIFE
-	placeholder_sfx BUG_BUZZ
-	placeholder_sfx MEGAHORN
-	placeholder_sfx GUILLOTINE
-	placeholder_sfx VICEGRIP
-	placeholder_sfx TWINEEDLE
+	db SFX_POUND, $00, $80 ; CONSTRICT
+	db SFX_POUND, $00, $80 ; BUG_BITE
+	db SFX_POUND, $00, $80 ; LEECH_LIFE
+	db SFX_POUND, $00, $80 ; BUG_BUZZ
+	db SFX_POUND, $00, $80 ; MEGAHORN
+	db SFX_POUND, $00, $80 ; GUILLOTINE
+	db SFX_POUND, $00, $80 ; VICEGRIP
+	db SFX_POUND, $00, $80 ; TWINEEDLE
 ; === DARK ===
-	placeholder_sfx FAINT_ATTACK
-	placeholder_sfx RAGE
-	placeholder_sfx NIGHT_SLASH
-	placeholder_sfx BRUTAL_SWING
-	placeholder_sfx DARK_PULSE
-	placeholder_sfx GORE_ATTACK
-	placeholder_sfx THRASH
-	placeholder_sfx DEEP_SLEEP
-	placeholder_sfx PAY_DAY
-	placeholder_sfx DREAM_EATER
+	db SFX_POUND, $00, $80 ; FAINT_ATTACK
+	db SFX_POUND, $00, $80 ; RAGE
+	db SFX_POUND, $00, $80 ; NIGHT_SLASH
+	db SFX_POUND, $00, $80 ; BRUTAL_SWING
+	db SFX_POUND, $00, $80 ; DARK_PULSE
+	db SFX_POUND, $00, $80 ; GORE_ATTACK
+	db SFX_POUND, $00, $80 ; THRASH
+	db SFX_POUND, $00, $80 ; DEEP_SLEEP
+	db SFX_POUND, $00, $80 ; PAY_DAY
+	db SFX_POUND, $00, $80 ; DREAM_EATER
 ; === DRAGON ===
-	placeholder_sfx DRAGON_RAGE
-	placeholder_sfx DRAGON_CLAW
-	placeholder_sfx DRAGON_BREATH
-	placeholder_sfx DRAGON_SLAM
-	placeholder_sfx HYPER_BEAM
+	db SFX_POUND, $00, $80 ; DRAGON_RAGE
+	db SFX_POUND, $00, $80 ; DRAGON_CLAW
+	db SFX_POUND, $00, $80 ; DRAGON_BREATH
+	db SFX_POUND, $00, $80 ; DRAGON_SLAM
+	db SFX_POUND, $00, $80 ; HYPER_BEAM
 ; === ELECTRIC ===
-	placeholder_sfx NUZZLE
-	placeholder_sfx THUNDERSHOCK
-	placeholder_sfx DISCHARGE
-	placeholder_sfx THUNDERBOLT
-	placeholder_sfx THUNDER
-	placeholder_sfx THUNDER_WAVE
-	placeholder_sfx VOLT_TACKLE
+	db SFX_POUND, $00, $80 ; NUZZLE
+	db SFX_POUND, $00, $80 ; THUNDERSHOCK
+	db SFX_POUND, $00, $80 ; DISCHARGE
+	db SFX_POUND, $00, $80 ; THUNDERBOLT
+	db SFX_POUND, $00, $80 ; THUNDER
+	db SFX_POUND, $00, $80 ; THUNDER_WAVE
+	db SFX_POUND, $00, $80 ; VOLT_TACKLE
 ; === FAIRY ===
-	placeholder_sfx DOUBLESLAP
-	placeholder_sfx FAIRY_WIND
-	placeholder_sfx DRAINING_KISS
-	placeholder_sfx DAZE_GLEAM
-	placeholder_sfx PLAY_ROUGH
-	placeholder_sfx MOONBLAST
+	db SFX_POUND, $00, $80 ; DOUBLESLAP
+	db SFX_POUND, $00, $80 ; FAIRY_WIND
+	db SFX_POUND, $00, $80 ; DRAINING_KISS
+	db SFX_POUND, $00, $80 ; DAZE_GLEAM
+	db SFX_POUND, $00, $80 ; PLAY_ROUGH
+	db SFX_POUND, $00, $80 ; MOONBLAST
 ; === FIGHTING ===
-	placeholder_sfx SEISMIC_TOSS
-	placeholder_sfx LOW_KICK
-	placeholder_sfx BIND
-	placeholder_sfx KARATE_CHOP
-	placeholder_sfx DOUBLE_KICK
-	placeholder_sfx STRENGTH
-	placeholder_sfx TAKE_DOWN
-	placeholder_sfx JUMP_KICK
-	placeholder_sfx DIZZY_PUNCH
-	placeholder_sfx ROLLING_KICK
-	placeholder_sfx LEEK_STRIKE
-	placeholder_sfx SUBMISSION
-	placeholder_sfx HI_JUMP_KICK
+	db SFX_POUND, $00, $80 ; SEISMIC_TOSS
+	db SFX_POUND, $00, $80 ; LOW_KICK
+	db SFX_POUND, $00, $80 ; BIND
+	db SFX_POUND, $00, $80 ; KARATE_CHOP
+	db SFX_POUND, $00, $80 ; DOUBLE_KICK
+	db SFX_POUND, $00, $80 ; STRENGTH
+	db SFX_POUND, $00, $80 ; TAKE_DOWN
+	db SFX_POUND, $00, $80 ; JUMP_KICK
+	db SFX_POUND, $00, $80 ; DIZZY_PUNCH
+	db SFX_POUND, $00, $80 ; ROLLING_KICK
+	db SFX_POUND, $00, $80 ; LEEK_STRIKE
+	db SFX_POUND, $00, $80 ; SUBMISSION
+	db SFX_POUND, $00, $80 ; HI_JUMP_KICK
 ; === FIRE ===
-	placeholder_sfx EMBER
-	placeholder_sfx FLAME_CHARGE
-	placeholder_sfx FLAME_BURST
-	placeholder_sfx FLAMETHROWER
-	placeholder_sfx FIRE_BLAST
-	placeholder_sfx EXPLOSION
+	db SFX_POUND, $00, $80 ; EMBER
+	db SFX_POUND, $00, $80 ; FLAME_CHARGE
+	db SFX_POUND, $00, $80 ; FLAME_BURST
+	db SFX_POUND, $00, $80 ; FLAMETHROWER
+	db SFX_POUND, $00, $80 ; FIRE_BLAST
+	db SFX_POUND, $00, $80 ; EXPLOSION
 ; === FLYING ===
-	placeholder_sfx PECK
-	placeholder_sfx GUST
-	placeholder_sfx WING_ATTACK
-	placeholder_sfx AERIAL_ACE
-	placeholder_sfx FLY
-	placeholder_sfx HURRICANE
-	placeholder_sfx DRILL_PECK
+	db SFX_POUND, $00, $80 ; PECK
+	db SFX_POUND, $00, $80 ; GUST
+	db SFX_POUND, $00, $80 ; WING_ATTACK
+	db SFX_POUND, $00, $80 ; AERIAL_ACE
+	db SFX_POUND, $00, $80 ; FLY
+	db SFX_POUND, $00, $80 ; HURRICANE
+	db SFX_POUND, $00, $80 ; DRILL_PECK
 ; === FUNGI ===
-	placeholder_sfx PARASITE
-	placeholder_sfx SPORE
+	db SFX_POUND, $00, $80 ; PARASITE
+	db SFX_POUND, $00, $80 ; SPORE
 ; === GAS ===
-	placeholder_sfx SMOG
-	placeholder_sfx POISON_GAS
-	placeholder_sfx HAZE
+	db SFX_POUND, $00, $80 ; SMOG
+	db SFX_POUND, $00, $80 ; POISON_GAS
+	db SFX_POUND, $00, $80 ; HAZE
 ; === GHOST ===
-	placeholder_sfx NIGHT_SHADE
-	placeholder_sfx LICK
-	placeholder_sfx ASTONISH
-	placeholder_sfx SHADOW_SNEAK
-	placeholder_sfx SHADOW_PUNCH
-	placeholder_sfx SPIRIT_DRAIN
-	placeholder_sfx SHADOW_BALL
-	placeholder_sfx CONFUSE_RAY
+	db SFX_POUND, $00, $80 ; NIGHT_SHADE
+	db SFX_POUND, $00, $80 ; LICK
+	db SFX_POUND, $00, $80 ; ASTONISH
+	db SFX_POUND, $00, $80 ; SHADOW_SNEAK
+	db SFX_POUND, $00, $80 ; SHADOW_PUNCH
+	db SFX_POUND, $00, $80 ; SPIRIT_DRAIN
+	db SFX_POUND, $00, $80 ; SHADOW_BALL
+	db SFX_POUND, $00, $80 ; CONFUSE_RAY
 ; === GRASS ===
-	placeholder_sfx ABSORB
-	placeholder_sfx VINE_WHIP
-	placeholder_sfx MEGA_DRAIN
-	placeholder_sfx RAZOR_LEAF
-	placeholder_sfx GIGA_DRAIN
-	placeholder_sfx PETAL_DANCE
-	placeholder_sfx SOLARBEAM
-	placeholder_sfx LEECH_SEED
-	placeholder_sfx POISONPOWDER
-	placeholder_sfx STUN_SPORE
-	placeholder_sfx SLEEP_POWDER
+	db SFX_POUND, $00, $80 ; ABSORB
+	db SFX_POUND, $00, $80 ; VINE_WHIP
+	db SFX_POUND, $00, $80 ; MEGA_DRAIN
+	db SFX_POUND, $00, $80 ; RAZOR_LEAF
+	db SFX_POUND, $00, $80 ; GIGA_DRAIN
+	db SFX_POUND, $00, $80 ; PETAL_DANCE
+	db SFX_POUND, $00, $80 ; SOLARBEAM
+	db SFX_POUND, $00, $80 ; LEECH_SEED
+	db SFX_POUND, $00, $80 ; POISONPOWDER
+	db SFX_POUND, $00, $80 ; STUN_SPORE
+	db SFX_POUND, $00, $80 ; SLEEP_POWDER
 ; === GROUND ===
-	placeholder_sfx GROUND_STOMP
-	placeholder_sfx MUD_SHOT
-	placeholder_sfx BULLDOZE
-	placeholder_sfx MUD_BOMB
-	placeholder_sfx EARTHQUAKE
-	placeholder_sfx FISSURE
-	placeholder_sfx BONE_CLUB
-	placeholder_sfx DIG
+	db SFX_POUND, $00, $80 ; GROUND_STOMP
+	db SFX_POUND, $00, $80 ; MUD_SHOT
+	db SFX_POUND, $00, $80 ; BULLDOZE
+	db SFX_POUND, $00, $80 ; MUD_BOMB
+	db SFX_POUND, $00, $80 ; EARTHQUAKE
+	db SFX_POUND, $00, $80 ; FISSURE
+	db SFX_POUND, $00, $80 ; BONE_CLUB
+	db SFX_POUND, $00, $80 ; DIG
 ; === ICE ===
-	placeholder_sfx POWDER_SNOW
-	placeholder_sfx ICY_WIND
-	placeholder_sfx AURORA_BEAM
-	placeholder_sfx FROST_BREATH
-	placeholder_sfx ICE_BEAM
-	placeholder_sfx BLIZZARD
+	db SFX_POUND, $00, $80 ; POWDER_SNOW
+	db SFX_POUND, $00, $80 ; ICY_WIND
+	db SFX_POUND, $00, $80 ; AURORA_BEAM
+	db SFX_POUND, $00, $80 ; FROST_BREATH
+	db SFX_POUND, $00, $80 ; ICE_BEAM
+	db SFX_POUND, $00, $80 ; BLIZZARD
 ; === MAGMA ===
-	placeholder_sfx MAGMA_PUNCH
-	placeholder_sfx LAVA_PLUME
+	db SFX_POUND, $00, $80 ; MAGMA_PUNCH
+	db SFX_POUND, $00, $80 ; LAVA_PLUME
 ; === NORMAL ===
-	placeholder_sfx WRAP
-	placeholder_sfx FURY_ATTACK
-	placeholder_sfx COMET_PUNCH
-	placeholder_sfx SCRATCH
-	placeholder_sfx TACKLE
-	placeholder_sfx BITE
-	placeholder_sfx QUICK_ATTACK
-	placeholder_sfx HEADBUTT
-	placeholder_sfx HORN_ATTACK
-	placeholder_sfx SLASH
-	placeholder_sfx BODY_SLAM
-	placeholder_sfx MEGA_PUNCH
-	placeholder_sfx CRUNCH
-	placeholder_sfx HORN_CHARGE
-	placeholder_sfx HEAVY_SLAM
-	placeholder_sfx DOUBLE_EDGE
-	placeholder_sfx EXTREMESPEED
-	placeholder_sfx SUPER_FANG
-	placeholder_sfx HYPER_FANG
+	db SFX_POUND, $00, $80 ; WRAP
+	db SFX_POUND, $00, $80 ; FURY_ATTACK
+	db SFX_POUND, $00, $80 ; COMET_PUNCH
+	db SFX_POUND, $00, $80 ; SCRATCH
+	db SFX_POUND, $00, $80 ; TACKLE
+	db SFX_POUND, $00, $80 ; BITE
+	db SFX_POUND, $00, $80 ; QUICK_ATTACK
+	db SFX_POUND, $00, $80 ; HEADBUTT
+	db SFX_POUND, $00, $80 ; HORN_ATTACK
+	db SFX_POUND, $00, $80 ; SLASH
+	db SFX_POUND, $00, $80 ; BODY_SLAM
+	db SFX_POUND, $00, $80 ; MEGA_PUNCH
+	db SFX_POUND, $00, $80 ; CRUNCH
+	db SFX_POUND, $00, $80 ; HORN_CHARGE
+	db SFX_POUND, $00, $80 ; HEAVY_SLAM
+	db SFX_POUND, $00, $80 ; DOUBLE_EDGE
+	db SFX_POUND, $00, $80 ; EXTREMESPEED
+	db SFX_POUND, $00, $80 ; SUPER_FANG
+	db SFX_POUND, $00, $80 ; HYPER_FANG
 ; === POISON ===
-	placeholder_sfx POISON_STING
-	placeholder_sfx ACID
-	placeholder_sfx POISON_FANG
-	placeholder_sfx SLUDGE
-	placeholder_sfx SLUDGE_BOMB
-	placeholder_sfx GUNK_SHOT
-	placeholder_sfx TOXIC
-	placeholder_sfx NEUROTOXIN
-	placeholder_sfx SLUDGE_WAVE
+	db SFX_POUND, $00, $80 ; POISON_STING
+	db SFX_POUND, $00, $80 ; ACID
+	db SFX_POUND, $00, $80 ; POISON_FANG
+	db SFX_POUND, $00, $80 ; SLUDGE
+	db SFX_POUND, $00, $80 ; SLUDGE_BOMB
+	db SFX_POUND, $00, $80 ; GUNK_SHOT
+	db SFX_POUND, $00, $80 ; TOXIC
+	db SFX_POUND, $00, $80 ; NEUROTOXIN
+	db SFX_POUND, $00, $80 ; SLUDGE_WAVE
 ; === PSYCHIC ===
-	placeholder_sfx PSYWAVE
-	placeholder_sfx CONFUSION
-	placeholder_sfx EXTRASENSORY
-	placeholder_sfx PSYBEAM
-	placeholder_sfx PSYCHIC_M
-	placeholder_sfx MIND_BREAK
-	placeholder_sfx HYPNOSIS
+	db SFX_POUND, $00, $80 ; PSYWAVE
+	db SFX_POUND, $00, $80 ; CONFUSION
+	db SFX_POUND, $00, $80 ; EXTRASENSORY
+	db SFX_POUND, $00, $80 ; PSYBEAM
+	db SFX_POUND, $00, $80 ; PSYCHIC_M
+	db SFX_POUND, $00, $80 ; MIND_BREAK
+	db SFX_POUND, $00, $80 ; HYPNOSIS
 ; === ROCK ===
-	placeholder_sfx ROCK_PUNCH
-	placeholder_sfx ROCK_THROW
-	placeholder_sfx ROCK_TOMB
-	placeholder_sfx HEAD_SMASH
-	placeholder_sfx ROCK_SLIDE
-	placeholder_sfx CLAMP
-	placeholder_sfx BONEMERANG
-	placeholder_sfx CRABHAMMER
-	placeholder_sfx HORN_DRILL
+	db SFX_POUND, $00, $80 ; ROCK_PUNCH
+	db SFX_POUND, $00, $80 ; ROCK_THROW
+	db SFX_POUND, $00, $80 ; ROCK_TOMB
+	db SFX_POUND, $00, $80 ; HEAD_SMASH
+	db SFX_POUND, $00, $80 ; ROCK_SLIDE
+	db SFX_POUND, $00, $80 ; CLAMP
+	db SFX_POUND, $00, $80 ; BONEMERANG
+	db SFX_POUND, $00, $80 ; CRABHAMMER
+	db SFX_POUND, $00, $80 ; HORN_DRILL
 ; === STEEL ===
-	placeholder_sfx CUT
-	placeholder_sfx IRON_TAIL
-	placeholder_sfx IRON_HEAD
-	placeholder_sfx SONICBOOM
-	placeholder_sfx BULLET_PUNCH
-	placeholder_sfx MAGNET_BOMB
+	db SFX_POUND, $00, $80 ; CUT
+	db SFX_POUND, $00, $80 ; IRON_TAIL
+	db SFX_POUND, $00, $80 ; IRON_HEAD
+	db SFX_POUND, $00, $80 ; SONICBOOM
+	db SFX_POUND, $00, $80 ; BULLET_PUNCH
+	db SFX_POUND, $00, $80 ; MAGNET_BOMB
 ; === WATER ===
-	placeholder_sfx WATER_GUN
-	placeholder_sfx AQUA_JET
-	placeholder_sfx BUBBLEBEAM
-	placeholder_sfx WATER_PULSE
-	placeholder_sfx WATERFALL
-	placeholder_sfx SURF
-	placeholder_sfx HYDRO_PUMP
+	db SFX_POUND, $00, $80 ; WATER_GUN
+	db SFX_POUND, $00, $80 ; AQUA_JET
+	db SFX_POUND, $00, $80 ; BUBBLEBEAM
+	db SFX_POUND, $00, $80 ; WATER_PULSE
+	db SFX_POUND, $00, $80 ; WATERFALL
+	db SFX_POUND, $00, $80 ; SURF
+	db SFX_POUND, $00, $80 ; HYDRO_PUMP
 ; === BIRD (typeless) ===
-	placeholder_sfx TRI_ATTACK
-	placeholder_sfx SWORDS_DANCE
-	placeholder_sfx COIL
-	placeholder_sfx FLEX
-	placeholder_sfx HONE_CLAWS
-	placeholder_sfx ACID_ARMOR
-	placeholder_sfx DEFENSE_CURL
-	placeholder_sfx HARDEN
-	placeholder_sfx WITHDRAW
-	placeholder_sfx AMNESIA
-	placeholder_sfx CALM_MIND
-	placeholder_sfx GROWTH
-	placeholder_sfx NASTY_PLOT
-	placeholder_sfx AGILITY
-	placeholder_sfx QUIVER_DANCE
-	placeholder_sfx ROCK_POLISH
-	placeholder_sfx TAILWIND
-	placeholder_sfx DOUBLE_TEAM
-	placeholder_sfx MINIMIZE
-	placeholder_sfx TELEPORT
-	placeholder_sfx CHARM
-	placeholder_sfx INTIMIDATE
-	placeholder_sfx LEER
-	placeholder_sfx GROWL
-	placeholder_sfx CORRODE
-	placeholder_sfx TAIL_WHIP
-	placeholder_sfx TAUNT
-	placeholder_sfx TICKLE
-	placeholder_sfx FAKE_TEARS
-	placeholder_sfx METAL_SOUND
-	placeholder_sfx EERIE_IMPULSE
-	placeholder_sfx SCREECH
-	placeholder_sfx ENTANGLE
-	placeholder_sfx SCARY_FACE
-	placeholder_sfx PSYCHIC_BIND
-	placeholder_sfx HINDER
-	placeholder_sfx FLASH
-	placeholder_sfx SAND_ATTACK
-	placeholder_sfx SMOKESCREEN
-	placeholder_sfx DISABLE
-	placeholder_sfx GLARE
-	placeholder_sfx LOVELY_KISS
-	placeholder_sfx SING
-	placeholder_sfx SUPERSONIC
-	placeholder_sfx RECOVER
-	placeholder_sfx REST
-	placeholder_sfx SOFTBOILED
-	placeholder_sfx LIGHT_SCREEN
-	placeholder_sfx REFLECT
-	placeholder_sfx BIDE
-	placeholder_sfx FOCUS_ENERGY
-	placeholder_sfx MIMIC
-	placeholder_sfx MIRROR_MOVE
-	placeholder_sfx SUBSTITUTE
-	placeholder_sfx TRANSFORM
-	placeholder_sfx SPLASH
-	placeholder_sfx METRONOME
-	placeholder_sfx STRUGGLE
+	db SFX_POUND, $00, $80 ; TRI_ATTACK
+	db SFX_POUND, $00, $80 ; SWORDS_DANCE
+	db SFX_POUND, $00, $80 ; COIL
+	db SFX_POUND, $00, $80 ; FLEX
+	db SFX_POUND, $00, $80 ; HONE_CLAWS
+	db SFX_POUND, $00, $80 ; ACID_ARMOR
+	db SFX_POUND, $00, $80 ; DEFENSE_CURL
+	db SFX_POUND, $00, $80 ; HARDEN
+	db SFX_POUND, $00, $80 ; WITHDRAW
+	db SFX_POUND, $00, $80 ; AMNESIA
+	db SFX_POUND, $00, $80 ; CALM_MIND
+	db SFX_POUND, $00, $80 ; GROWTH
+	db SFX_POUND, $00, $80 ; NASTY_PLOT
+	db SFX_POUND, $00, $80 ; AGILITY
+	db SFX_POUND, $00, $80 ; QUIVER_DANCE
+	db SFX_POUND, $00, $80 ; ROCK_POLISH
+	db SFX_POUND, $00, $80 ; TAILWIND
+	db SFX_POUND, $00, $80 ; DOUBLE_TEAM
+	db SFX_POUND, $00, $80 ; MINIMIZE
+	db SFX_POUND, $00, $80 ; TELEPORT
+	db SFX_POUND, $00, $80 ; CHARM
+	db SFX_POUND, $00, $80 ; INTIMIDATE
+	db SFX_POUND, $00, $80 ; LEER
+	db SFX_POUND, $00, $80 ; GROWL
+	db SFX_POUND, $00, $80 ; CORRODE
+	db SFX_POUND, $00, $80 ; TAIL_WHIP
+	db SFX_POUND, $00, $80 ; TAUNT
+	db SFX_POUND, $00, $80 ; TICKLE
+	db SFX_POUND, $00, $80 ; FAKE_TEARS
+	db SFX_POUND, $00, $80 ; METAL_SOUND
+	db SFX_POUND, $00, $80 ; EERIE_IMPULSE
+	db SFX_POUND, $00, $80 ; SCREECH
+	db SFX_POUND, $00, $80 ; ENTANGLE
+	db SFX_POUND, $00, $80 ; SCARY_FACE
+	db SFX_POUND, $00, $80 ; PSYCHIC_BIND
+	db SFX_POUND, $00, $80 ; HINDER
+	db SFX_POUND, $00, $80 ; FLASH
+	db SFX_POUND, $00, $80 ; SAND_ATTACK
+	db SFX_POUND, $00, $80 ; SMOKESCREEN
+	db SFX_POUND, $00, $80 ; DISABLE
+	db SFX_POUND, $00, $80 ; GLARE
+	db SFX_POUND, $00, $80 ; LOVELY_KISS
+	db SFX_POUND, $00, $80 ; SING
+	db SFX_POUND, $00, $80 ; SUPERSONIC
+	db SFX_POUND, $00, $80 ; RECOVER
+	db SFX_POUND, $00, $80 ; REST
+	db SFX_POUND, $00, $80 ; SOFTBOILED
+	db SFX_POUND, $00, $80 ; LIGHT_SCREEN
+	db SFX_POUND, $00, $80 ; REFLECT
+	db SFX_POUND, $00, $80 ; BIDE
+	db SFX_POUND, $00, $80 ; FOCUS_ENERGY
+	db SFX_POUND, $00, $80 ; MIMIC
+	db SFX_POUND, $00, $80 ; MIRROR_MOVE
+	db SFX_POUND, $00, $80 ; SUBSTITUTE
+	db SFX_POUND, $00, $80 ; TRANSFORM
+	db SFX_POUND, $00, $80 ; SPLASH
+	db SFX_POUND, $00, $80 ; METRONOME
+	db SFX_POUND, $00, $80 ; STRUGGLE
 	assert_table_length NUM_ATTACKS
