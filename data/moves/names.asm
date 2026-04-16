@@ -86,6 +86,7 @@ MoveNames::
 	li "SPIRIT DRAIN"
 	li "SHADOW BALL"
 	li "CONFUSE RAY"
+	li "WILL-O-WISP"
 ; === GRASS ===
 	li "ABSORB"
 	li "VINE WHIP"
@@ -184,7 +185,7 @@ MoveNames::
 	li "TRI ATTACK"
 	li "SWORDS DANCE"
 	li "COIL"
-	li "FLEX"
+	li "BULK UP"
 	li "HONE CLAWS"
 	li "ACID ARMOR"
 	li "DEFENSE CURL"

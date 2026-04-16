@@ -221,14 +221,10 @@ FreezeBurnParalyzeEffect:
 	cp b ; do target type 2 and move type match?
 	ret z  ; return if they match
 	ld a, [wPlayerMoveEffect]
-	cp UNUSED_EFFECT_23 ; more stadium stuff
+	cp FREEZE_SIDE_EFFECT2 ; 20% freeze chance (Blizzard)
 	jr nz, .asm_3f2c7
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	ld a, FREEZE_SIDE_EFFECT
-	ld b, 30 percent + 1
-	jr z, .regular_effectiveness
-	ld b, 10 percent + 1
+	ld b, 20 percent + 1
+	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .asm_3f2c7
 	cp PARALYZE_SIDE_EFFECT1 + 1
@@ -246,7 +242,7 @@ FreezeBurnParalyzeEffect:
 	ld a, b ; what type of effect is this?
 	cp BURN_SIDE_EFFECT1
 	jr z, .burn1
-	cp FREEZE_SIDE_EFFECT
+	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze1
 ; .paralyze1
 	ld a, 1 << PAR
@@ -284,14 +280,10 @@ FreezeBurnParalyzeEffect:
 	cp b
 	ret z
 	ld a, [wEnemyMoveEffect]
-	cp UNUSED_EFFECT_23 ; more stadium stuff
+	cp FREEZE_SIDE_EFFECT2 ; 20% freeze chance (Blizzard)
 	jr nz, .asm_3f341
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	ld a, FREEZE_SIDE_EFFECT
-	ld b, 30 percent + 1
-	jr z, .regular_effectiveness2
-	ld b, 10 percent + 1
+	ld b, 20 percent + 1
+	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .asm_3f341
 	cp PARALYZE_SIDE_EFFECT1 + 1
@@ -309,7 +301,7 @@ FreezeBurnParalyzeEffect:
 	ld a, b
 	cp BURN_SIDE_EFFECT1
 	jr z, .burn2
-	cp FREEZE_SIDE_EFFECT
+	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze2
 ; .paralyze2
 	ld a, 1 << PAR
@@ -1538,3 +1530,99 @@ PlayBattleAnimationGotID:
 	pop de
 	pop hl
 	ret
+
+
+; ============================================================
+; === PURPLE YELLOW: dual-stat and burn effect handlers ===
+; ============================================================
+
+AttackDefenseUp1Effect:
+; Dual-stat +1 for the user (Attack + Defense). Used by BULK_UP.
+; Spoofs wPlayer/EnemyMoveEffect and calls StatModifierUpEffect twice.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr
+	ld de, wEnemyMoveEffect
+.gotEffectPtr
+	push de
+	ld a, ATTACK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	push de
+	ld a, DEFENSE_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, ATTACK_DEFENSE_UP1_EFFECT
+	ld [de], a
+	ret
+
+AccuracyEvasionDown1Effect:
+; Dual-stat -1 on the target (Accuracy + Evasion). Used by FLASH.
+; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
+; its own accuracy check; for 100% accurate moves (FLASH) both always land.
+; For sub-100% users the two effects roll independently, which is a known
+; minor quirk.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr2
+	ld de, wEnemyMoveEffect
+.gotEffectPtr2
+	push de
+	ld a, ACCURACY_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	xor a
+	ld [wMoveMissed], a ; reset miss flag between legs
+	push de
+	ld a, EVASION_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	ld a, ACCURACY_EVASION_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+BurnEffect:
+; Always-burn status move (WILL_O_WISP). Mirrors PoisonEffect structure.
+	ld hl, wEnemyMonStatus
+	ld de, wPlayerMoveEffect
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .burnEffect
+	ld hl, wBattleMonStatus
+	ld de, wEnemyMoveEffect
+.burnEffect
+	call CheckTargetSubstitute
+	jr nz, .didntAffect
+	ld a, [hli]
+	ld b, a
+	and a
+	jr nz, .didntAffect ; already statused
+	ld a, [hli]
+	cp FIRE ; can not burn a fire-type target
+	jr z, .didntAffect
+	ld a, [hld]
+	cp FIRE
+	jr z, .didntAffect
+	push hl
+	push de
+	call MoveHitTest
+	pop de
+	pop hl
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .didntAffect
+	; apply burn
+	dec hl
+	set BRN, [hl]
+	call HalveAttackDueToBurn
+	call PlayCurrentMoveAnimation2
+	ld hl, BurnedText
+	jp PrintText
+.didntAffect
+	jp PrintDidntAffectText

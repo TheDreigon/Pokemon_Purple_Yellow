@@ -107,11 +107,12 @@
 	const SPIRIT_DRAIN ; 49
 	const SHADOW_BALL  ; 4a
 	const CONFUSE_RAY  ; 4b
+	const WILL_O_WISP  ; 4c  ; new move (Purple Yellow)
 
 ; === GRASS ===
-	const ABSORB       ; 4c
-	const VINE_WHIP    ; 4d
-	const MEGA_DRAIN   ; 4e
+	const ABSORB       ; 4d
+	const VINE_WHIP    ; 4e
+	const MEGA_DRAIN   ; 4f
 	const RAZOR_LEAF   ; 4f
 	const GIGA_DRAIN   ; 50
 	const PETAL_DANCE  ; 51
@@ -216,7 +217,7 @@
 	const TRI_ATTACK   ; a0
 	const SWORDS_DANCE ; a1
 	const COIL         ; a2
-	const FLEX         ; a3
+	const BULK_UP      ; a4  ; renamed from FLEX (now dual-stat Atk+Def)
 	const HONE_CLAWS   ; a4
 	const ACID_ARMOR   ; a5
 	const DEFENSE_CURL ; a6

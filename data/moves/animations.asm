@@ -86,6 +86,7 @@ AttackAnimationPointers:
 	dw SpiritDrainAnim
 	dw ShadowBallAnim
 	dw ConfuseRayAnim
+	dw WillOWispAnim
 ; === GRASS ===
 	dw AbsorbAnim
 	dw VineWhipAnim
@@ -184,7 +185,7 @@ AttackAnimationPointers:
 	dw TriAttackAnim
 	dw SwordsDanceAnim
 	dw CoilAnim
-	dw FlexAnim
+	dw BulkUpAnim
 	dw HoneClawsAnim
 	dw AcidArmorAnim
 	dw DefenseCurlAnim
@@ -646,6 +647,10 @@ ConfuseRayAnim:
 	battle_anim CONFUSE_RAY, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
+WillOWispAnim:
+	battle_anim WILL_O_WISP, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
 ; ============================================================
 ; === GRASS ===
 ; ============================================================
@@ -1038,8 +1043,8 @@ CoilAnim:
 	battle_anim COIL, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-FlexAnim:
-	battle_anim FLEX, SUBANIM_0_STAR_TWICE, 0, 8
+BulkUpAnim:
+	battle_anim BULK_UP, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 HoneClawsAnim:

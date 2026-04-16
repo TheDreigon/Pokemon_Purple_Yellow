@@ -3453,11 +3453,20 @@ MirrorMoveCheck:
 	call MetronomePickMove
 	jp CheckIfPlayerNeedsToChargeUp ; Go back to damage calculation for the move picked by Metronome
 .next
+	; PURPLE YELLOW: only skip to a ResidualEffects2 effect if the move has no
+	; damaging power. Otherwise, the damage calc below runs and the stat-change
+	; effect is dispatched after damage via the SpecialEffects fallthrough at
+	; `.executeOtherEffects` below. This lets moves like MUD_BOMB deal damage
+	; AND lower a stat; status-only moves like GROWL / FLASH still dispatch here.
+	ld a, [wPlayerMovePower]
+	and a
+	jr nz, .skipResidualEffects2Dispatch
 	ld a, [wPlayerMoveEffect]
 	ld hl, ResidualEffects2
 	ld de, 1
 	call IsInArray
 	jp c, JumpMoveEffect ; done here after executing effects of ResidualEffects2
+.skipResidualEffects2Dispatch
 	ld a, [wMoveMissed]
 	and a
 	jr z, .moveDidNotMiss
@@ -5984,11 +5993,17 @@ EnemyCheckIfMirrorMoveEffect:
 	call MetronomePickMove
 	jp CheckIfEnemyNeedsToChargeUp
 .notMetronomeEffect
+	; PURPLE YELLOW: same guard as in ExecutePlayerMove (see the equivalent site
+	; above). Only skip to the ResidualEffects2 effect for zero-power moves.
+	ld a, [wEnemyMovePower]
+	and a
+	jr nz, .skipEnemyResidualEffects2Dispatch
 	ld a, [wEnemyMoveEffect]
 	ld hl, ResidualEffects2
 	ld de, $1
 	call IsInArray
 	jp c, JumpMoveEffect
+.skipEnemyResidualEffects2Dispatch
 	ld a, [wMoveMissed]
 	and a
 	jr z, .moveDidNotMiss
