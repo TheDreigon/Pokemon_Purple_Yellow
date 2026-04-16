@@ -344,6 +344,11 @@ SECTION "bank30", ROMX
 ; Free bank - 16 KB available for Purple Yellow
 
 
+SECTION "Move SFX Table", ROMX
+
+INCLUDE "data/moves/sfx.asm"
+
+
 SECTION "bank3A", ROMX
 
 INCLUDE "data/pokemon/names.asm"

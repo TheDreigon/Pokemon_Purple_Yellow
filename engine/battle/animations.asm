@@ -2356,13 +2356,15 @@ GetMoveSoundB:
 	ret
 
 GetMoveSound:
+; MoveSoundTable is in another bank; read entries via GetFarByte.
 	ld hl, MoveSoundTable
 	ld e, a
 	ld d, 0
 	add hl, de
 	add hl, de
 	add hl, de
-	ld a, [hli]
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
 	ld b, a
 	call IsCryMove
 	jr nc, .NotCryMove
@@ -2378,18 +2380,29 @@ GetMoveSound:
 	call GetCryData
 	ld b, a
 	pop hl
+	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
+	ld c, a
 	ld a, [wFrequencyModifier]
-	add [hl]
+	add c
 	ld [wFrequencyModifier], a
 	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
+	ld c, a
 	ld a, [wTempoModifier]
-	add [hl]
+	add c
 	ld [wTempoModifier], a
 	jr .done
 .NotCryMove
-	ld a, [hli]
+	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
 	ld [wFrequencyModifier], a
-	ld a, [hli]
+	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
 	ld [wTempoModifier], a
 .done
 	ld a, b
@@ -2407,8 +2420,6 @@ IsCryMove:
 .CryMove
 	scf
 	ret
-
-INCLUDE "data/moves/sfx.asm"
 
 CopyPicTiles:
 	ldh a, [hWhoseTurn]
