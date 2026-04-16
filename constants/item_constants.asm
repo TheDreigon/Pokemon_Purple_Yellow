@@ -158,10 +158,10 @@ ENDM
 
 DEF TM01 EQU const_value
 	add_tm MEGA_PUNCH   ; $C9
-	add_tm RAZOR_WIND   ; $CA
+	add_tm AERIAL_ACE   ; $CA  was RAZOR_WIND
 	add_tm SWORDS_DANCE ; $CB
 	add_tm FLAMETHROWER ; $CC
-	add_tm MEGA_KICK    ; $CD
+	add_tm HEAVY_SLAM   ; $CD  was MEGA_KICK
 	add_tm TOXIC        ; $CE
 	add_tm HORN_DRILL   ; $CF
 	add_tm BODY_SLAM    ; $D0
@@ -174,7 +174,7 @@ DEF TM01 EQU const_value
 	add_tm HYPER_BEAM   ; $D7
 	add_tm PAY_DAY      ; $D8
 	add_tm SUBMISSION   ; $D9
-	add_tm COUNTER      ; $DA
+	add_tm CALM_MIND    ; $DA  was COUNTER
 	add_tm SEISMIC_TOSS ; $DB
 	add_tm RAGE         ; $DC
 	add_tm MEGA_DRAIN   ; $DD
@@ -192,14 +192,14 @@ DEF TM01 EQU const_value
 	add_tm REFLECT      ; $E9
 	add_tm BIDE         ; $EA
 	add_tm METRONOME    ; $EB
-	add_tm SELFDESTRUCT ; $EC
-	add_tm EGG_BOMB     ; $ED
+	add_tm DARK_PULSE   ; $EC  was SELFDESTRUCT (TM47 already covers explosion; using a Dark TM here)
+	add_tm GUNK_SHOT    ; $ED  was EGG_BOMB
 	add_tm FIRE_BLAST   ; $EE
-	add_tm SWIFT        ; $EF
-	add_tm SKULL_BASH   ; $F0
+	add_tm DISCHARGE    ; $EF  was SWIFT
+	add_tm HEAD_SMASH   ; $F0  was SKULL_BASH
 	add_tm SOFTBOILED   ; $F1
 	add_tm DREAM_EATER  ; $F2
-	add_tm SKY_ATTACK   ; $F3
+	add_tm HURRICANE    ; $F3  was SKY_ATTACK
 	add_tm REST         ; $F4
 	add_tm THUNDER_WAVE ; $F5
 	add_tm PSYWAVE      ; $F6

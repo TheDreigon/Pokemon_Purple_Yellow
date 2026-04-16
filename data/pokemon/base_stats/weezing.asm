@@ -15,7 +15,7 @@
 
 	; tm/hm learnset
 	tmhm FLAMETHROWER, TOXIC,        HYPER_BEAM,   RAGE,         THUNDERBOLT,  THUNDER,      \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         SELFDESTRUCT, FIRE_BLAST,   \
+	     MIMIC,        DOUBLE_TEAM,  BIDE,         DARK_PULSE, FIRE_BLAST,   \
 	     REST,         EXPLOSION,    SUBSTITUTE
 	; end
 

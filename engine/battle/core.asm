@@ -4896,12 +4896,14 @@ HandleCounterMove:
 	ld de, wPlayerMovePower
 	ld a, [wEnemySelectedMove]
 .next
-	cp COUNTER
-	ret nz ; return if not using Counter
+	; Counter was removed in the v0.5 movelist overhaul; this guard short-circuits
+	; the Counter handler so it never fires (no move ID ever equals NO_MOVE here).
+	cp NO_MOVE
+	ret nz ; return if not using Counter (always taken now)
 	ld a, $01
 	ld [wMoveMissed], a ; initialize the move missed variable to true (it is set to false below if the move hits)
 	ld a, [hl]
-	cp COUNTER
+	cp NO_MOVE
 	ret z ; miss if the opponent's last selected move is Counter.
 	ld a, [de]
 	and a
@@ -6179,7 +6181,7 @@ CheckEnemyStatusConditions:
 	xor a
 	ld [wAnimationType], a
 	ldh [hWhoseTurn], a
-	ld a, POUND
+	ld a, BUG_BITE ; placeholder generic-impact animation (was POUND)
 	call PlayMoveAnimation
 	ld a, $1
 	ldh [hWhoseTurn], a
@@ -7010,8 +7012,8 @@ HandleExplodingAnimation:
 	ld de, wEnemyBattleStatus1
 	ld a, [wEnemyMoveNum]
 .player
-	cp SELFDESTRUCT
-	jr z, .isExplodingMove
+	; SELFDESTRUCT was removed in the v0.5 movelist overhaul; only EXPLOSION
+	; remains as an exploding move.
 	cp EXPLOSION
 	ret nz
 .isExplodingMove
@@ -7029,8 +7031,10 @@ HandleExplodingAnimation:
 	ret nz
 	ld a, ANIMATIONTYPE_SHAKE_SCREEN_HORIZONTALLY_LIGHT
 	ld [wAnimationType], a
-	assert ANIMATIONTYPE_SHAKE_SCREEN_HORIZONTALLY_LIGHT == MEGA_PUNCH
-	; ld a, MEGA_PUNCH
+	; The original code relied on MEGA_PUNCH having the same numeric ID as
+	; ANIMATIONTYPE_SHAKE_SCREEN_HORIZONTALLY_LIGHT (both were $05). The v0.5
+	; movelist reorder broke that coincidence, so load the move ID explicitly.
+	ld a, EXPLOSION
 ; fallthrough
 PlayMoveAnimation:
 	ld [wAnimationID], a

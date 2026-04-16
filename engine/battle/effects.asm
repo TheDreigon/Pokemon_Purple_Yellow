@@ -932,9 +932,7 @@ SwitchAndTeleportEffect:
 	ld hl, RanFromBattleText
 	cp TELEPORT
 	jr z, .printText
-	ld hl, RanAwayScaredText
-	cp ROAR
-	jr z, .printText
+	; ROAR was removed in v0.5; "scared away" text path is unreachable.
 	ld hl, WasBlownAwayText
 .printText
 	jp PrintText
@@ -1082,17 +1080,10 @@ ChargeMoveEffectText:
 	text_far _ChargeMoveEffectText
 	text_asm
 	ld a, [wChargeMoveNum]
-	cp RAZOR_WIND
-	ld hl, MadeWhirlwindText
-	jr z, .gotText
+	; RAZOR_WIND, SKULL_BASH, SKY_ATTACK were removed in v0.5; only SOLARBEAM,
+	; FLY and DIG remain as charge moves.
 	cp SOLARBEAM
 	ld hl, TookInSunlightText
-	jr z, .gotText
-	cp SKULL_BASH
-	ld hl, LoweredItsHeadText
-	jr z, .gotText
-	cp SKY_ATTACK
-	ld hl, SkyAttackGlowingText
 	jr z, .gotText
 	cp FLY
 	ld hl, FlewUpHighText

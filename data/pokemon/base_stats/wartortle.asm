@@ -10,14 +10,14 @@
 	INCBIN "gfx/pokemon/front/wartortle.pic", 0, 1 ; sprite dimensions
 	dw WartortlePicFront, WartortlePicBack
 
-	db TACKLE, TAIL_WHIP, BUBBLE, NO_MOVE ; level 1 learnset
+	db TACKLE, TAIL_WHIP, WATER_GUN, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
+	tmhm MEGA_PUNCH,   HEAVY_SLAM,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
 	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         DIG,          \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         SKULL_BASH,   \
+	     SUBMISSION,   CALM_MIND,      SEISMIC_TOSS, RAGE,         DIG,          \
+	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         HEAD_SMASH,   \
 	     REST,         SUBSTITUTE,   SURF,         STRENGTH
 	; end
 

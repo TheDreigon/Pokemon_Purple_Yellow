@@ -47,3 +47,8 @@ pokeyellow_debug.map
 *.ss8
 *.ss9
 *.cheats
+
+# local tool / IDE / agent config
+.idea/
+.claude/
+rgbds/

@@ -1,170 +1,252 @@
 MoveSoundTable:
 	table_width 3, MoveSoundTable
 	; ID, pitch mod, tempo mod
-	db SFX_POUND,              $00, $80 ; POUND
-	db SFX_BATTLE_0C,          $10, $80 ; KARATE_CHOP
-	db SFX_DOUBLESLAP,         $00, $80 ; DOUBLESLAP
-	db SFX_BATTLE_0B,          $01, $80 ; COMET_PUNCH
-	db SFX_BATTLE_0D,          $00, $40 ; MEGA_PUNCH
-	db SFX_SILPH_SCOPE,        $00, $ff ; PAY_DAY
-	db SFX_BATTLE_0D,          $10, $60 ; FIRE_PUNCH
-	db SFX_BATTLE_0D,          $20, $80 ; ICE_PUNCH
-	db SFX_BATTLE_0D,          $00, $a0 ; THUNDERPUNCH
-	db SFX_DAMAGE,             $00, $80 ; SCRATCH
-	db SFX_BATTLE_0F,          $20, $40 ; VICEGRIP
-	db SFX_BATTLE_0F,          $00, $80 ; GUILLOTINE
-	db SFX_BATTLE_0E,          $00, $a0 ; RAZOR_WIND
-	db SFX_NOT_VERY_EFFECTIVE, $10, $c0 ; SWORDS_DANCE
-	db SFX_NOT_VERY_EFFECTIVE, $00, $a0 ; CUT
-	db SFX_BATTLE_12,          $00, $c0 ; GUST
-	db SFX_BATTLE_12,          $10, $a0 ; WING_ATTACK
-	db SFX_BATTLE_13,          $00, $e0 ; WHIRLWIND
-	db SFX_NOT_VERY_EFFECTIVE, $20, $c0 ; FLY
-	db SFX_BATTLE_14,          $00, $80 ; BIND
-	db SFX_BATTLE_22,          $00, $80 ; SLAM
-	db SFX_VINE_WHIP,          $01, $80 ; VINE_WHIP
-	db SFX_BATTLE_20,          $00, $80 ; STOMP
-	db SFX_BATTLE_17,          $f0, $40 ; DOUBLE_KICK
-	db SFX_SUPER_EFFECTIVE,    $00, $80 ; MEGA_KICK
-	db SFX_BATTLE_17,          $00, $80 ; JUMP_KICK
-	db SFX_BATTLE_21,          $10, $80 ; ROLLING_KICK
-	db SFX_BATTLE_1B,          $01, $a0 ; SAND_ATTACK
-	db SFX_BATTLE_18,          $00, $80 ; HEADBUTT
-	db SFX_BATTLE_1E,          $00, $60 ; HORN_ATTACK
-	db SFX_BATTLE_1E,          $01, $40 ; FURY_ATTACK
-	db SFX_HORN_DRILL,         $00, $a0 ; HORN_DRILL
-	db SFX_SUPER_EFFECTIVE,    $10, $a0 ; TACKLE
-	db SFX_BATTLE_20,          $00, $c0 ; BODY_SLAM
-	db SFX_BATTLE_14,          $10, $60 ; WRAP
-	db SFX_SUPER_EFFECTIVE,    $00, $a0 ; TAKE_DOWN
-	db SFX_BATTLE_22,          $11, $c0 ; THRASH
-	db SFX_SUPER_EFFECTIVE,    $20, $c0 ; DOUBLE_EDGE
-	db SFX_BATTLE_21,          $00, $80 ; TAIL_WHIP
-	db SFX_BATTLE_1B,          $00, $80 ; POISON_STING
-	db SFX_BATTLE_1B,          $20, $c0 ; TWINEEDLE
-	db SFX_BATTLE_19,          $00, $80 ; PIN_MISSILE
-	db SFX_BATTLE_31,          $ff, $40 ; LEER
-	db SFX_BATTLE_1E,          $00, $80 ; BITE
-	db SFX_BATTLE_0B,          $00, $c0 ; GROWL
-	db SFX_BATTLE_0B,          $00, $40 ; ROAR
-	db SFX_BATTLE_35,          $00, $80 ; SING
-	db SFX_BATTLE_27,          $40, $60 ; SUPERSONIC
-	db SFX_BATTLE_27,          $00, $80 ; SONICBOOM
-	db SFX_BATTLE_27,          $ff, $40 ; DISABLE
-	db SFX_BATTLE_2A,          $80, $c0 ; ACID
-	db SFX_BATTLE_19,          $10, $a0 ; EMBER
-	db SFX_BATTLE_19,          $21, $e0 ; FLAMETHROWER
-	db SFX_BATTLE_29,          $00, $80 ; MIST
-	db SFX_BATTLE_24,          $20, $60 ; WATER_GUN
-	db SFX_BATTLE_2A,          $00, $80 ; HYDRO_PUMP
-	db SFX_BATTLE_2C,          $00, $80 ; SURF
-	db SFX_BATTLE_28,          $40, $80 ; ICE_BEAM
-	db SFX_BATTLE_29,          $f0, $e0 ; BLIZZARD
-	db SFX_PSYBEAM,            $00, $80 ; PSYBEAM
-	db SFX_BATTLE_2A,          $f0, $60 ; BUBBLEBEAM
-	db SFX_BATTLE_28,          $00, $80 ; AURORA_BEAM
-	db SFX_BATTLE_36,          $00, $80 ; HYPER_BEAM
-	db SFX_PECK,               $01, $a0 ; PECK
-	db SFX_BATTLE_13,          $f0, $20 ; DRILL_PECK
-	db SFX_BATTLE_23,          $01, $c0 ; SUBMISSION
-	db SFX_BATTLE_23,          $00, $80 ; LOW_KICK
-	db SFX_SUPER_EFFECTIVE,    $00, $e0 ; COUNTER
-	db SFX_BATTLE_26,          $01, $60 ; SEISMIC_TOSS
-	db SFX_BATTLE_26,          $20, $40 ; STRENGTH
-	db SFX_BATTLE_24,          $00, $80 ; ABSORB
-	db SFX_BATTLE_24,          $40, $c0 ; MEGA_DRAIN
-	db SFX_BATTLE_1B,          $03, $60 ; LEECH_SEED
-	db SFX_BATTLE_25,          $11, $e0 ; GROWTH
-	db SFX_BATTLE_12,          $20, $e0 ; RAZOR_LEAF
-	db SFX_BATTLE_2E,          $00, $80 ; SOLARBEAM
-	db SFX_BATTLE_1C,          $00, $80 ; POISONPOWDER
-	db SFX_BATTLE_1C,          $11, $a0 ; STUN_SPORE
-	db SFX_BATTLE_1C,          $01, $c0 ; SLEEP_POWDER
-	db SFX_BATTLE_13,          $14, $c0 ; PETAL_DANCE
-	db SFX_BATTLE_1B,          $02, $a0 ; STRING_SHOT
-	db SFX_BATTLE_29,          $f0, $80 ; DRAGON_RAGE
-	db SFX_BATTLE_29,          $20, $c0 ; FIRE_SPIN
-	db SFX_BATTLE_2F,          $00, $20 ; THUNDERSHOCK
-	db SFX_BATTLE_2F,          $20, $80 ; THUNDERBOLT
-	db SFX_BATTLE_2E,          $12, $60 ; THUNDER_WAVE
-	db SFX_BATTLE_26,          $00, $80 ; THUNDER
-	db SFX_BATTLE_14,          $01, $e0 ; ROCK_THROW
-	db SFX_BATTLE_29,          $0f, $e0 ; EARTHQUAKE
-	db SFX_BATTLE_29,          $11, $20 ; FISSURE
-	db SFX_DAMAGE,             $10, $40 ; DIG
-	db SFX_BATTLE_0F,          $10, $c0 ; TOXIC
-	db SFX_BATTLE_14,          $00, $20 ; CONFUSION
-	db SFX_PSYCHIC_M,          $00, $80 ; PSYCHIC_M
-	db SFX_BATTLE_35,          $11, $18 ; HYPNOSIS
-	db SFX_BATTLE_09,          $20, $c0 ; MEDITATE
-	db SFX_FAINT_FALL,         $20, $c0 ; AGILITY
-	db SFX_BATTLE_25,          $00, $10 ; QUICK_ATTACK
-	db SFX_BATTLE_26,          $f0, $20 ; RAGE
-	db SFX_BATTLE_33,          $f0, $c0 ; TELEPORT
-	db SFX_NOT_VERY_EFFECTIVE, $f0, $e0 ; NIGHT_SHADE
-	db SFX_BATTLE_09,          $f0, $40 ; MIMIC
-	db SFX_BATTLE_31,          $00, $80 ; SCREECH
-	db SFX_BATTLE_33,          $80, $40 ; DOUBLE_TEAM
-	db SFX_BATTLE_33,          $00, $80 ; RECOVER
-	db SFX_BATTLE_14,          $11, $20 ; HARDEN
-	db SFX_BATTLE_14,          $22, $10 ; MINIMIZE
-	db SFX_BATTLE_1B,          $f1, $ff ; SMOKESCREEN
-	db SFX_BATTLE_13,          $f1, $ff ; CONFUSE_RAY
-	db SFX_BATTLE_14,          $33, $30 ; WITHDRAW
-	db SFX_BATTLE_32,          $40, $c0 ; DEFENSE_CURL
-	db SFX_BATTLE_0E,          $20, $20 ; BARRIER
-	db SFX_BATTLE_0E,          $f0, $10 ; LIGHT_SCREEN
-	db SFX_BATTLE_0F,          $f8, $10 ; HAZE
-	db SFX_NOT_VERY_EFFECTIVE, $f0, $10 ; REFLECT
-	db SFX_BATTLE_25,          $00, $80 ; FOCUS_ENERGY
-	db SFX_BATTLE_18,          $00, $c0 ; BIDE
-	db SFX_BATTLE_32,          $c0, $ff ; METRONOME
-	db SFX_BATTLE_09,          $f2, $20 ; MIRROR_MOVE
-	db SFX_BATTLE_34,          $00, $80 ; SELFDESTRUCT
-	db SFX_BATTLE_34,          $00, $40 ; EGG_BOMB
-	db SFX_BATTLE_09,          $00, $40 ; LICK
-	db SFX_NOT_VERY_EFFECTIVE, $10, $ff ; SMOG
-	db SFX_BATTLE_2A,          $20, $20 ; SLUDGE
-	db SFX_BATTLE_32,          $00, $80 ; BONE_CLUB
-	db SFX_BATTLE_29,          $1f, $20 ; FIRE_BLAST
-	db SFX_BATTLE_25,          $2f, $80 ; WATERFALL
-	db SFX_BATTLE_0F,          $1f, $ff ; CLAMP
-	db SFX_BATTLE_2B,          $1f, $60 ; SWIFT
-	db SFX_BATTLE_26,          $1e, $20 ; SKULL_BASH
-	db SFX_BATTLE_26,          $1f, $18 ; SPIKE_CANNON
-	db SFX_BATTLE_14,          $0f, $80 ; CONSTRICT
-	db SFX_BATTLE_09,          $f8, $10 ; AMNESIA
-	db SFX_FAINT_FALL,         $18, $20 ; KINESIS
-	db SFX_BATTLE_32,          $08, $40 ; SOFTBOILED
-	db SFX_BATTLE_17,          $01, $e0 ; HI_JUMP_KICK
-	db SFX_NOT_VERY_EFFECTIVE, $09, $ff ; GLARE
-	db SFX_BATTLE_35,          $42, $01 ; DREAM_EATER
-	db SFX_BATTLE_1C,          $00, $ff ; POISON_GAS
-	db SFX_BATTLE_32,          $08, $e0 ; BARRAGE
-	db SFX_BATTLE_24,          $00, $80 ; LEECH_LIFE
-	db SFX_BATTLE_09,          $88, $10 ; LOVELY_KISS
-	db SFX_BATTLE_25,          $48, $ff ; SKY_ATTACK
-	db SFX_FAINT_FALL,         $ff, $ff ; TRANSFORM
-	db SFX_BATTLE_24,          $ff, $10 ; BUBBLE
-	db SFX_FAINT_FALL,         $ff, $04 ; DIZZY_PUNCH
-	db SFX_BATTLE_1C,          $01, $ff ; SPORE
-	db SFX_BATTLE_13,          $f8, $ff ; FLASH
-	db SFX_BATTLE_0C,          $f0, $f0 ; PSYWAVE
-	db SFX_BATTLE_0F,          $08, $10 ; SPLASH
-	db SFX_BATTLE_0D,          $f0, $ff ; ACID_ARMOR
-	db SFX_SUPER_EFFECTIVE,    $f0, $ff ; CRABHAMMER
-	db SFX_BATTLE_34,          $10, $ff ; EXPLOSION
-	db SFX_BATTLE_0E,          $f0, $20 ; FURY_SWIPES
-	db SFX_BATTLE_2B,          $f0, $60 ; BONEMERANG
-	db SFX_BATTLE_21,          $12, $10 ; REST
-	db SFX_BATTLE_36,          $f0, $20 ; ROCK_SLIDE
-	db SFX_BATTLE_1E,          $12, $ff ; HYPER_FANG
-	db SFX_BATTLE_31,          $80, $04 ; SHARPEN
-	db SFX_BATTLE_33,          $f0, $10 ; CONVERSION
-	db SFX_BATTLE_29,          $f8, $ff ; TRI_ATTACK
-	db SFX_BATTLE_26,          $f0, $ff ; SUPER_FANG
-	db SFX_NOT_VERY_EFFECTIVE, $01, $ff ; SLASH
-	db SFX_BATTLE_2C,          $d8, $04 ; SUBSTITUTE
-	db SFX_BATTLE_0B,          $00, $80 ; STRUGGLE
+	;
+	; PURPLE YELLOW v0.5: every move uses the POUND SFX as a placeholder.
+	; Each entry is labeled with its move name in the comment so that each
+	; row can be customised independently later.
+
+MACRO placeholder_sfx
+	db SFX_POUND, $00, $80 ; \1
+ENDM
+
+; === BUG ===
+	placeholder_sfx CONSTRICT
+	placeholder_sfx BUG_BITE
+	placeholder_sfx LEECH_LIFE
+	placeholder_sfx BUG_BUZZ
+	placeholder_sfx MEGAHORN
+	placeholder_sfx GUILLOTINE
+	placeholder_sfx VICEGRIP
+	placeholder_sfx TWINEEDLE
+; === DARK ===
+	placeholder_sfx FAINT_ATTACK
+	placeholder_sfx RAGE
+	placeholder_sfx NIGHT_SLASH
+	placeholder_sfx BRUTAL_SWING
+	placeholder_sfx DARK_PULSE
+	placeholder_sfx GORE_ATTACK
+	placeholder_sfx THRASH
+	placeholder_sfx DEEP_SLEEP
+	placeholder_sfx PAY_DAY
+	placeholder_sfx DREAM_EATER
+; === DRAGON ===
+	placeholder_sfx DRAGON_RAGE
+	placeholder_sfx DRAGON_CLAW
+	placeholder_sfx DRAGON_BREATH
+	placeholder_sfx DRAGON_SLAM
+	placeholder_sfx HYPER_BEAM
+; === ELECTRIC ===
+	placeholder_sfx NUZZLE
+	placeholder_sfx THUNDERSHOCK
+	placeholder_sfx DISCHARGE
+	placeholder_sfx THUNDERBOLT
+	placeholder_sfx THUNDER
+	placeholder_sfx THUNDER_WAVE
+	placeholder_sfx VOLT_TACKLE
+; === FAIRY ===
+	placeholder_sfx DOUBLESLAP
+	placeholder_sfx FAIRY_WIND
+	placeholder_sfx DRAINING_KISS
+	placeholder_sfx DAZE_GLEAM
+	placeholder_sfx PLAY_ROUGH
+	placeholder_sfx MOONBLAST
+; === FIGHTING ===
+	placeholder_sfx SEISMIC_TOSS
+	placeholder_sfx LOW_KICK
+	placeholder_sfx BIND
+	placeholder_sfx KARATE_CHOP
+	placeholder_sfx DOUBLE_KICK
+	placeholder_sfx STRENGTH
+	placeholder_sfx TAKE_DOWN
+	placeholder_sfx JUMP_KICK
+	placeholder_sfx DIZZY_PUNCH
+	placeholder_sfx ROLLING_KICK
+	placeholder_sfx LEEK_STRIKE
+	placeholder_sfx SUBMISSION
+	placeholder_sfx HI_JUMP_KICK
+; === FIRE ===
+	placeholder_sfx EMBER
+	placeholder_sfx FLAME_CHARGE
+	placeholder_sfx FLAME_BURST
+	placeholder_sfx FLAMETHROWER
+	placeholder_sfx FIRE_BLAST
+	placeholder_sfx EXPLOSION
+; === FLYING ===
+	placeholder_sfx PECK
+	placeholder_sfx GUST
+	placeholder_sfx WING_ATTACK
+	placeholder_sfx AERIAL_ACE
+	placeholder_sfx FLY
+	placeholder_sfx HURRICANE
+	placeholder_sfx DRILL_PECK
+; === FUNGI ===
+	placeholder_sfx PARASITE
+	placeholder_sfx SPORE
+; === GAS ===
+	placeholder_sfx SMOG
+	placeholder_sfx POISON_GAS
+	placeholder_sfx HAZE
+; === GHOST ===
+	placeholder_sfx NIGHT_SHADE
+	placeholder_sfx LICK
+	placeholder_sfx ASTONISH
+	placeholder_sfx SHADOW_SNEAK
+	placeholder_sfx SHADOW_PUNCH
+	placeholder_sfx SPIRIT_DRAIN
+	placeholder_sfx SHADOW_BALL
+	placeholder_sfx CONFUSE_RAY
+; === GRASS ===
+	placeholder_sfx ABSORB
+	placeholder_sfx VINE_WHIP
+	placeholder_sfx MEGA_DRAIN
+	placeholder_sfx RAZOR_LEAF
+	placeholder_sfx GIGA_DRAIN
+	placeholder_sfx PETAL_DANCE
+	placeholder_sfx SOLARBEAM
+	placeholder_sfx LEECH_SEED
+	placeholder_sfx POISONPOWDER
+	placeholder_sfx STUN_SPORE
+	placeholder_sfx SLEEP_POWDER
+; === GROUND ===
+	placeholder_sfx GROUND_STOMP
+	placeholder_sfx MUD_SHOT
+	placeholder_sfx BULLDOZE
+	placeholder_sfx MUD_BOMB
+	placeholder_sfx EARTHQUAKE
+	placeholder_sfx FISSURE
+	placeholder_sfx BONE_CLUB
+	placeholder_sfx DIG
+; === ICE ===
+	placeholder_sfx POWDER_SNOW
+	placeholder_sfx ICY_WIND
+	placeholder_sfx AURORA_BEAM
+	placeholder_sfx FROST_BREATH
+	placeholder_sfx ICE_BEAM
+	placeholder_sfx BLIZZARD
+; === MAGMA ===
+	placeholder_sfx MAGMA_PUNCH
+	placeholder_sfx LAVA_PLUME
+; === NORMAL ===
+	placeholder_sfx WRAP
+	placeholder_sfx FURY_ATTACK
+	placeholder_sfx COMET_PUNCH
+	placeholder_sfx SCRATCH
+	placeholder_sfx TACKLE
+	placeholder_sfx BITE
+	placeholder_sfx QUICK_ATTACK
+	placeholder_sfx HEADBUTT
+	placeholder_sfx HORN_ATTACK
+	placeholder_sfx SLASH
+	placeholder_sfx BODY_SLAM
+	placeholder_sfx MEGA_PUNCH
+	placeholder_sfx CRUNCH
+	placeholder_sfx HORN_CHARGE
+	placeholder_sfx HEAVY_SLAM
+	placeholder_sfx DOUBLE_EDGE
+	placeholder_sfx EXTREMESPEED
+	placeholder_sfx SUPER_FANG
+	placeholder_sfx HYPER_FANG
+; === POISON ===
+	placeholder_sfx POISON_STING
+	placeholder_sfx ACID
+	placeholder_sfx POISON_FANG
+	placeholder_sfx SLUDGE
+	placeholder_sfx SLUDGE_BOMB
+	placeholder_sfx GUNK_SHOT
+	placeholder_sfx TOXIC
+	placeholder_sfx NEUROTOXIN
+	placeholder_sfx SLUDGE_WAVE
+; === PSYCHIC ===
+	placeholder_sfx PSYWAVE
+	placeholder_sfx CONFUSION
+	placeholder_sfx EXTRASENSORY
+	placeholder_sfx PSYBEAM
+	placeholder_sfx PSYCHIC_M
+	placeholder_sfx MIND_BREAK
+	placeholder_sfx HYPNOSIS
+; === ROCK ===
+	placeholder_sfx ROCK_PUNCH
+	placeholder_sfx ROCK_THROW
+	placeholder_sfx ROCK_TOMB
+	placeholder_sfx HEAD_SMASH
+	placeholder_sfx ROCK_SLIDE
+	placeholder_sfx CLAMP
+	placeholder_sfx BONEMERANG
+	placeholder_sfx CRABHAMMER
+	placeholder_sfx HORN_DRILL
+; === STEEL ===
+	placeholder_sfx CUT
+	placeholder_sfx IRON_TAIL
+	placeholder_sfx IRON_HEAD
+	placeholder_sfx SONICBOOM
+	placeholder_sfx BULLET_PUNCH
+	placeholder_sfx MAGNET_BOMB
+; === WATER ===
+	placeholder_sfx WATER_GUN
+	placeholder_sfx AQUA_JET
+	placeholder_sfx BUBBLEBEAM
+	placeholder_sfx WATER_PULSE
+	placeholder_sfx WATERFALL
+	placeholder_sfx SURF
+	placeholder_sfx HYDRO_PUMP
+; === BIRD (typeless) ===
+	placeholder_sfx TRI_ATTACK
+	placeholder_sfx SWORDS_DANCE
+	placeholder_sfx COIL
+	placeholder_sfx FLEX
+	placeholder_sfx HONE_CLAWS
+	placeholder_sfx ACID_ARMOR
+	placeholder_sfx DEFENSE_CURL
+	placeholder_sfx HARDEN
+	placeholder_sfx WITHDRAW
+	placeholder_sfx AMNESIA
+	placeholder_sfx CALM_MIND
+	placeholder_sfx GROWTH
+	placeholder_sfx NASTY_PLOT
+	placeholder_sfx AGILITY
+	placeholder_sfx QUIVER_DANCE
+	placeholder_sfx ROCK_POLISH
+	placeholder_sfx TAILWIND
+	placeholder_sfx DOUBLE_TEAM
+	placeholder_sfx MINIMIZE
+	placeholder_sfx TELEPORT
+	placeholder_sfx CHARM
+	placeholder_sfx INTIMIDATE
+	placeholder_sfx LEER
+	placeholder_sfx GROWL
+	placeholder_sfx CORRODE
+	placeholder_sfx TAIL_WHIP
+	placeholder_sfx TAUNT
+	placeholder_sfx TICKLE
+	placeholder_sfx FAKE_TEARS
+	placeholder_sfx METAL_SOUND
+	placeholder_sfx EERIE_IMPULSE
+	placeholder_sfx SCREECH
+	placeholder_sfx ENTANGLE
+	placeholder_sfx SCARY_FACE
+	placeholder_sfx PSYCHIC_BIND
+	placeholder_sfx HINDER
+	placeholder_sfx FLASH
+	placeholder_sfx SAND_ATTACK
+	placeholder_sfx SMOKESCREEN
+	placeholder_sfx DISABLE
+	placeholder_sfx GLARE
+	placeholder_sfx LOVELY_KISS
+	placeholder_sfx SING
+	placeholder_sfx SUPERSONIC
+	placeholder_sfx RECOVER
+	placeholder_sfx REST
+	placeholder_sfx SOFTBOILED
+	placeholder_sfx LIGHT_SCREEN
+	placeholder_sfx REFLECT
+	placeholder_sfx BIDE
+	placeholder_sfx FOCUS_ENERGY
+	placeholder_sfx MIMIC
+	placeholder_sfx MIRROR_MOVE
+	placeholder_sfx SUBSTITUTE
+	placeholder_sfx TRANSFORM
+	placeholder_sfx SPLASH
+	placeholder_sfx METRONOME
+	placeholder_sfx STRUGGLE
 	assert_table_length NUM_ATTACKS
-	db SFX_BATTLE_0B,          $00, $80
