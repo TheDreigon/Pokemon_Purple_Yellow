@@ -13,6 +13,12 @@ DEF PHYSICAL EQU const_value
 
 DEF SPECIAL EQU const_value
 	const GHOST        ; $08
+	const DARK         ; $09  ; new type (Purple Yellow)
+	const FAIRY        ; $0A  ; new type (Purple Yellow)
+	const STEEL        ; $0B  ; new type (Purple Yellow)
+	const GAS          ; $0C  ; new type (Purple Yellow)
+	const MAGMA        ; $0D  ; new type (Purple Yellow)
+	const FUNGI        ; $0E  ; new type (Purple Yellow)
 
 DEF UNUSED_TYPES EQU const_value
 	const_next 20

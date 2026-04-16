@@ -10,6 +10,12 @@ TypeNames:
 	dw .Normal
 	dw .Bug
 	dw .Ghost
+	dw .Dark      ; new type (Purple Yellow)
+	dw .Fairy     ; new type (Purple Yellow)
+	dw .Steel     ; new type (Purple Yellow)
+	dw .Gas       ; new type (Purple Yellow)
+	dw .Magma     ; new type (Purple Yellow)
+	dw .Fungi     ; new type (Purple Yellow)
 
 REPT UNUSED_TYPES_END - UNUSED_TYPES
 	dw .Normal
@@ -41,3 +47,9 @@ ENDR
 .Bug:      db "BUG@"
 .Ghost:    db "GHOST@"
 .Dragon:   db "DRAGON@"
+.Dark:     db "DARK@"
+.Fairy:    db "FAIRY@"
+.Steel:    db "STEEL@"
+.Gas:      db "GAS@"
+.Magma:    db "MAGMA@"
+.Fungi:    db "FUNGI@"
