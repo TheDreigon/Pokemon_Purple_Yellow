@@ -29,10 +29,10 @@ Moves:
 	move NIGHT_SLASH,  NO_ADDITIONAL_EFFECT,        70, DARK,         100, 20 ; new move. high-crit.
 	move BRUTAL_SWING, DEFENSE_DOWN_SIDE_EFFECT,    80, DARK,         100, 20 ; new move.
 	move DARK_PULSE,   FLINCH_SIDE_EFFECT2,         85, DARK,         100, 15 ; new move.
-	move GORE_ATTACK,  NO_ADDITIONAL_EFFECT,        95, DARK,          95, 15 ; new move. high-crit.
-	move THRASH,       THRASH_PETAL_DANCE_EFFECT,  100, DARK,          95, 10
+	move GORE_ATTACK,  PARALYZE_SIDE_EFFECT2,       95, DARK,          95, 15 ; new move. high-crit.
+	move THRASH,       THRASH_PETAL_DANCE_EFFECT,  100, DARK,         100, 10
 	move DEEP_SLEEP,   SLEEP_EFFECT,                 0, DARK,          85, 20 ; signature.
-	move PAY_DAY,      PAY_DAY_EFFECT,              65, DARK,         100, 25 ; signature. high-crit.
+	move PAY_DAY,      PAY_DAY_EFFECT,              60, DARK,         100, 25 ; signature. high-crit.
 	move DREAM_EATER,  DREAM_EATER_EFFECT,         110, DARK,         100, 20 ; signature.
 
 

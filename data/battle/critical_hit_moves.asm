@@ -20,7 +20,6 @@ HighCriticalMoves:
 	db DOUBLE_EDGE
 	db HYPER_FANG
 	; ROCK
-	db CRABHAMMER
 	db HORN_DRILL
 	; STEEL
 	db CUT
