@@ -1,9 +1,6 @@
 	db DEX_JIGGLYPUFF ; pokedex id
-
-	db 115,  45,  20,  20,  25
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 120, 45, 20, 35, 55 ; hp atk def spc spd
+	db NORMAL, FAIRY ; type
 	db 170 ; catch rate
 	db 76 ; base exp
 

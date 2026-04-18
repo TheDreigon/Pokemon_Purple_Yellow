@@ -1,9 +1,6 @@
 	db DEX_MEW ; pokedex id
-
-	db 100, 100, 100, 100, 100
-	;   hp  atk  def  spd  spc
-
-	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
+	base_stat_row 140, 80, 80, 120, 140 ; hp atk def spc spd
+	db PSYCHIC_TYPE, FAIRY ; type
 	db 45 ; catch rate
 	db 64 ; base exp
 

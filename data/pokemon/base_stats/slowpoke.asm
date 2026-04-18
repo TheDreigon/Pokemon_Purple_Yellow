@@ -1,9 +1,6 @@
 	db DEX_SLOWPOKE ; pokedex id
-
-	db  90,  65,  65,  15,  40
-	;   hp  atk  def  spd  spc
-
-	db WATER, PSYCHIC_TYPE ; type
+	base_stat_row 90, 45, 65, 55, 15 ; hp atk def spc spd
+	db WATER, NORMAL ; type
 	db 190 ; catch rate
 	db 99 ; base exp
 

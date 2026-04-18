@@ -14,6 +14,16 @@ MACRO bcd3
 ENDM
 
 ; used in data/pokemon/base_stats/*.asm
+; PURPLE YELLOW v0.5: lets us write stat rows in the display order used by the
+; status screen (hp/atk/def/SPECIAL/SPEED) while still emitting the bytes in the
+; engine's struct order (hp/atk/def/SPEED/SPECIAL). Swap-on-emit keeps the
+; battle engine untouched.
+; Usage:  base_stat_row HP, ATK, DEF, SPC, SPD
+MACRO base_stat_row
+	db \1, \2, \3, \5, \4
+ENDM
+
+; used in data/pokemon/base_stats/*.asm
 MACRO tmhm
 ; initialize bytes to 0
 	FOR n, (NUM_TM_HM + 7) / 8

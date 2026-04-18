@@ -1,7 +1,5 @@
 	db DEX_CHARIZARD ; pokedex id
-
-	db  78,  84,  78, 100,  95
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 100, 80, 100, 90 ; hp atk def spc spd
 
 	db FIRE, FLYING ; type
 	db 45 ; catch rate

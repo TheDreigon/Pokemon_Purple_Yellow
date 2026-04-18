@@ -1,9 +1,6 @@
 	db DEX_NINETALES ; pokedex id
-
-	db  73,  76,  75, 100, 100
-	;   hp  atk  def  spd  spc
-
-	db FIRE, FIRE ; type
+	base_stat_row 80, 70, 70, 110, 105 ; hp atk def spc spd
+	db FIRE, FAIRY ; type
 	db 75 ; catch rate
 	db 178 ; base exp
 

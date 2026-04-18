@@ -1,7 +1,5 @@
 	db DEX_ZAPDOS ; pokedex id
-
-	db  90,  90,  85, 100, 125
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 100, 80, 130, 110 ; hp atk def spc spd
 
 	db ELECTRIC, FLYING ; type
 	db 3 ; catch rate

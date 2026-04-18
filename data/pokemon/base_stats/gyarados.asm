@@ -1,9 +1,6 @@
 	db DEX_GYARADOS ; pokedex id
-
-	db  95, 125,  79,  81, 100
-	;   hp  atk  def  spd  spc
-
-	db WATER, FLYING ; type
+	base_stat_row 90, 130, 90, 90, 80 ; hp atk def spc spd
+	db WATER, DRAGON ; type
 	db 45 ; catch rate
 	db 214 ; base exp
 

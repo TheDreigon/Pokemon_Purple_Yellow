@@ -1,7 +1,5 @@
 	db DEX_SQUIRTLE ; pokedex id
-
-	db  44,  48,  65,  43,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 50, 65, 55, 45 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 45 ; catch rate

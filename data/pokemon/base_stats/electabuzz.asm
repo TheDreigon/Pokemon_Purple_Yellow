@@ -1,7 +1,5 @@
 	db DEX_ELECTABUZZ ; pokedex id
-
-	db  65,  83,  57, 105,  85
-	;   hp  atk  def  spd  spc
+	base_stat_row 75, 95, 65, 95, 95 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 45 ; catch rate

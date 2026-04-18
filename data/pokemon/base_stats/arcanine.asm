@@ -1,9 +1,6 @@
 	db DEX_ARCANINE ; pokedex id
-
-	db  90, 110,  80,  95,  80
-	;   hp  atk  def  spd  spc
-
-	db FIRE, FIRE ; type
+	base_stat_row 100, 100, 80, 80, 95 ; hp atk def spc spd
+	db FIRE, NORMAL ; type
 	db 75 ; catch rate
 	db 213 ; base exp
 

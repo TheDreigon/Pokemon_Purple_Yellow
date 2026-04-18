@@ -1,9 +1,6 @@
 	db DEX_SEEL ; pokedex id
-
-	db  65,  45,  55,  45,  70
-	;   hp  atk  def  spd  spc
-
-	db WATER, WATER ; type
+	base_stat_row 65, 45, 55, 65, 50 ; hp atk def spc spd
+	db WATER, ICE ; type
 	db 190 ; catch rate
 	db 100 ; base exp
 

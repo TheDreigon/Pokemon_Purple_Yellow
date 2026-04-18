@@ -1,7 +1,5 @@
 	db DEX_PONYTA ; pokedex id
-
-	db  50,  85,  55, 100,  65
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 65, 50, 65, 80 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 190 ; catch rate

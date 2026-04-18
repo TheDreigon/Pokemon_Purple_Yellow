@@ -1,7 +1,5 @@
 	db DEX_TENTACOOL ; pokedex id
-
-	db  40,  40,  35,  70, 100
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 40, 30, 80, 60 ; hp atk def spc spd
 
 	db WATER, POISON ; type
 	db 190 ; catch rate

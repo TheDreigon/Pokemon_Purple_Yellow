@@ -1,7 +1,5 @@
 	db DEX_EKANS ; pokedex id
-
-	db  35,  60,  44,  55,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 30, 60, 45, 40, 80 ; hp atk def spc spd
 
 	db POISON, POISON ; type
 	db 255 ; catch rate

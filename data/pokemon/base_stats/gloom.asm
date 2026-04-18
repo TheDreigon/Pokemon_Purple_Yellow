@@ -1,9 +1,6 @@
 	db DEX_GLOOM ; pokedex id
-
-	db  70,  65,  70,  40,  85
-	;   hp  atk  def  spd  spc
-
-	db GRASS, POISON ; type
+	base_stat_row 80, 70, 70, 80, 40 ; hp atk def spc spd
+	db GRASS, FUNGUS ; type
 	db 120 ; catch rate
 	db 132 ; base exp
 

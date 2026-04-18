@@ -1,7 +1,5 @@
 	db DEX_PSYDUCK ; pokedex id
-
-	db  50,  52,  48,  55,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 52, 48, 70, 55 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 190 ; catch rate

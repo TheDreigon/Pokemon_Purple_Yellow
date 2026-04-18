@@ -1,9 +1,6 @@
 	db DEX_STARYU ; pokedex id
-
-	db  30,  45,  55,  85,  70
-	;   hp  atk  def  spd  spc
-
-	db WATER, WATER ; type
+	base_stat_row 30, 40, 50, 75, 75 ; hp atk def spc spd
+	db WATER, PSYCHIC_TYPE ; type
 	db 225 ; catch rate
 	db 106 ; base exp
 

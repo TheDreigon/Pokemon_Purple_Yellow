@@ -1,7 +1,5 @@
 	db DEX_WEEPINBELL ; pokedex id
-
-	db  65,  90,  50,  55,  85
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 85, 50, 75, 60 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 120 ; catch rate

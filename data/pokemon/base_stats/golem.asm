@@ -1,7 +1,5 @@
 	db DEX_GOLEM ; pokedex id
-
-	db  80, 110, 130,  45,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 110, 135, 65, 65 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate

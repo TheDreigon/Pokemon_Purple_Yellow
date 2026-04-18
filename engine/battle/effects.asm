@@ -351,8 +351,12 @@ CheckDefrost:
 	jr nz, .opponent
 	;player [attacker]
 	ld a, [wPlayerMoveType]
-	sub FIRE
-	ret nz ; return if type of move used isn't fire
+	cp FIRE
+	jr z, .playerDefrosts
+	cp MAGMA ; PURPLE YELLOW v0.5: Magma-type moves also defrost
+	ret nz
+.playerDefrosts
+	xor a
 	ld [wEnemyMonStatus], a ; set opponent status to 00 ["defrost" a frozen monster]
 	ld hl, wEnemyMon1Status
 	ld a, [wEnemyMonPartyPos]
@@ -364,8 +368,12 @@ CheckDefrost:
 	jr .common
 .opponent
 	ld a, [wEnemyMoveType] ; same as above with addresses swapped
-	sub FIRE
+	cp FIRE
+	jr z, .enemyDefrosts
+	cp MAGMA ; PURPLE YELLOW v0.5: Magma-type moves also defrost
 	ret nz
+.enemyDefrosts
+	xor a
 	ld [wBattleMonStatus], a
 	ld hl, wPartyMon1Status
 	ld a, [wPlayerMonNumber]

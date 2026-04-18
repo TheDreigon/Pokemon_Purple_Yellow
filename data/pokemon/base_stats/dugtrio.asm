@@ -1,7 +1,5 @@
 	db DEX_DUGTRIO ; pokedex id
-
-	db  35,  90,  50, 120,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 45, 90, 50, 70, 120 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 50 ; catch rate

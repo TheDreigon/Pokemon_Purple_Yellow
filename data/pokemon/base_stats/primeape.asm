@@ -1,9 +1,6 @@
 	db DEX_PRIMEAPE ; pokedex id
-
-	db  65, 105,  60,  95,  60
-	;   hp  atk  def  spd  spc
-
-	db FIGHTING, FIGHTING ; type
+	base_stat_row 80, 110, 65, 60, 95 ; hp atk def spc spd
+	db FIGHTING, DARK ; type
 	db 75 ; catch rate
 	db 149 ; base exp
 

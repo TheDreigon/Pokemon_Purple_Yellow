@@ -1,9 +1,6 @@
 	db DEX_GRIMER ; pokedex id
-
-	db  80,  80,  50,  25,  40
-	;   hp  atk  def  spd  spc
-
-	db POISON, POISON ; type
+	base_stat_row 80, 60, 50, 65, 30 ; hp atk def spc spd
+	db POISON, WATER ; type
 	db 190 ; catch rate
 	db 90 ; base exp
 

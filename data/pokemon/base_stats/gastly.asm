@@ -1,9 +1,6 @@
 	db DEX_GASTLY ; pokedex id
-
-	db  30,  35,  30,  80, 100
-	;   hp  atk  def  spd  spc
-
-	db GHOST, POISON ; type
+	base_stat_row 30, 40, 30, 90, 90 ; hp atk def spc spd
+	db GHOST, GAS ; type
 	db 190 ; catch rate
 	db 95 ; base exp
 

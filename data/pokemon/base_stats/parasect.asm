@@ -1,9 +1,6 @@
 	db DEX_PARASECT ; pokedex id
-
-	db  60,  95,  80,  30,  80
-	;   hp  atk  def  spd  spc
-
-	db BUG, GRASS ; type
+	base_stat_row 95, 90, 90, 90, 20 ; hp atk def spc spd
+	db BUG, FUNGUS ; type
 	db 75 ; catch rate
 	db 128 ; base exp
 

@@ -1,7 +1,5 @@
 	db DEX_MACHAMP ; pokedex id
-
-	db  90, 130,  80,  55,  65
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 130, 85, 65, 80 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate

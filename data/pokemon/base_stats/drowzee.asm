@@ -1,9 +1,6 @@
 	db DEX_DROWZEE ; pokedex id
-
-	db  60,  48,  45,  42,  90
-	;   hp  atk  def  spd  spc
-
-	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
+	base_stat_row 60, 50, 45, 85, 40 ; hp atk def spc spd
+	db PSYCHIC_TYPE, DARK ; type
 	db 190 ; catch rate
 	db 102 ; base exp
 

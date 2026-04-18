@@ -1,9 +1,6 @@
 	db DEX_VULPIX ; pokedex id
-
-	db  45,  41,  45,  75,  70
-	;   hp  atk  def  spd  spc
-
-	db FIRE, FIRE ; type
+	base_stat_row 50, 40, 40, 70, 70 ; hp atk def spc spd
+	db FIRE, FAIRY ; type
 	db 190 ; catch rate
 	db 63 ; base exp
 

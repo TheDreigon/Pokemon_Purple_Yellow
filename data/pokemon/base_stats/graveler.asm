@@ -1,7 +1,5 @@
 	db DEX_GRAVELER ; pokedex id
-
-	db  55,  95, 115,  35,  45
-	;   hp  atk  def  spd  spc
+	base_stat_row 55, 100, 115, 50, 45 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
 	db 120 ; catch rate

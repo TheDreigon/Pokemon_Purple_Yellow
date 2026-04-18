@@ -1,7 +1,5 @@
 	db DEX_DEWGONG ; pokedex id
-
-	db  90,  70,  80,  70,  95
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 70, 80, 90, 75 ; hp atk def spc spd
 
 	db WATER, ICE ; type
 	db 75 ; catch rate

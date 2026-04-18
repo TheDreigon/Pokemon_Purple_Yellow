@@ -1,7 +1,5 @@
 	db DEX_SPEAROW ; pokedex id
-
-	db  40,  60,  30,  70,  31
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 65, 35, 30, 65 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 255 ; catch rate

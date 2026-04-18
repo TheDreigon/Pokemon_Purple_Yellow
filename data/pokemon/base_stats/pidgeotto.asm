@@ -1,7 +1,5 @@
 	db DEX_PIDGEOTTO ; pokedex id
-
-	db  63,  60,  55,  71,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 65, 55, 50, 75 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 120 ; catch rate

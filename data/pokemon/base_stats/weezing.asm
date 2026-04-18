@@ -1,9 +1,6 @@
 	db DEX_WEEZING ; pokedex id
-
-	db  65,  90, 120,  60,  85
-	;   hp  atk  def  spd  spc
-
-	db POISON, POISON ; type
+	base_stat_row 90, 95, 100, 95, 50 ; hp atk def spc spd
+	db POISON, GAS ; type
 	db 60 ; catch rate
 	db 173 ; base exp
 

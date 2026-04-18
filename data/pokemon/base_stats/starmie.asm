@@ -1,7 +1,5 @@
 	db DEX_STARMIE ; pokedex id
-
-	db  60,  75,  85, 115, 100
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 75, 90, 100, 100 ; hp atk def spc spd
 
 	db WATER, PSYCHIC_TYPE ; type
 	db 60 ; catch rate

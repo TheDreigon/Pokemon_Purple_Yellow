@@ -1,9 +1,6 @@
 	db DEX_KABUTOPS ; pokedex id
-
-	db  60, 115, 105,  80,  70
-	;   hp  atk  def  spd  spc
-
-	db ROCK, WATER ; type
+	base_stat_row 75, 115, 110, 80, 80 ; hp atk def spc spd
+	db ROCK, BUG ; type
 	db 45 ; catch rate
 	db 201 ; base exp
 

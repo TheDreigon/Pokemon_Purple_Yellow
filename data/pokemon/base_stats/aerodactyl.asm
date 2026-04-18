@@ -1,7 +1,5 @@
 	db DEX_AERODACTYL ; pokedex id
-
-	db  80, 105,  65, 130,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 110, 80, 75, 120 ; hp atk def spc spd
 
 	db ROCK, FLYING ; type
 	db 45 ; catch rate

@@ -1,7 +1,5 @@
 	db DEX_DRATINI ; pokedex id
-
-	db  41,  64,  45,  50,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 60, 40, 50, 60 ; hp atk def spc spd
 
 	db DRAGON, DRAGON ; type
 	db 45 ; catch rate

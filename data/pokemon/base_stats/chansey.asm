@@ -1,9 +1,6 @@
 	db DEX_CHANSEY ; pokedex id
-
-	db 250,   5,   5,  50, 105
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 250, 5, 5, 100, 70 ; hp atk def spc spd
+	db NORMAL, FAIRY ; type
 	db 30 ; catch rate
 	db 255 ; base exp
 

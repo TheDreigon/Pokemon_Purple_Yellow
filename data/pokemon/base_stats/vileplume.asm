@@ -1,9 +1,6 @@
 	db DEX_VILEPLUME ; pokedex id
-
-	db  90,  80,  85,  50, 100
-	;   hp  atk  def  spd  spc
-
-	db GRASS, POISON ; type
+	base_stat_row 110, 95, 85, 95, 45 ; hp atk def spc spd
+	db GRASS, FUNGUS ; type
 	db 45 ; catch rate
 	db 184 ; base exp
 

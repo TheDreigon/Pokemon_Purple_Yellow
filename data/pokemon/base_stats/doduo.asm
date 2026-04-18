@@ -1,7 +1,5 @@
 	db DEX_DODUO ; pokedex id
-
-	db  35,  85,  45,  75,  35
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 80, 40, 40, 90 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 190 ; catch rate

@@ -1,7 +1,5 @@
 	db DEX_SCYTHER ; pokedex id
-
-	db  70, 110,  80, 105,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 105, 80, 55, 110 ; hp atk def spc spd
 
 	db BUG, FLYING ; type
 	db 45 ; catch rate

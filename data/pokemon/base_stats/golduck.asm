@@ -1,9 +1,6 @@
 	db DEX_GOLDUCK ; pokedex id
-
-	db  80,  82,  78,  85,  80
-	;   hp  atk  def  spd  spc
-
-	db WATER, WATER ; type
+	base_stat_row 80, 80, 70, 90, 85 ; hp atk def spc spd
+	db WATER, PSYCHIC_TYPE ; type
 	db 75 ; catch rate
 	db 174 ; base exp
 

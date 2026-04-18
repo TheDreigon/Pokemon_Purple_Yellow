@@ -1,7 +1,5 @@
 	db DEX_KRABBY ; pokedex id
-
-	db  30, 105,  90,  50,  25
-	;   hp  atk  def  spd  spc
+	base_stat_row 30, 75, 75, 35, 60 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 225 ; catch rate

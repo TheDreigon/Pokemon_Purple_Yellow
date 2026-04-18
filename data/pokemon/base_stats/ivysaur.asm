@@ -1,7 +1,5 @@
 	db DEX_IVYSAUR ; pokedex id
-
-	db  60,  62,  63,  60,  80
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 60, 65, 75, 60 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate

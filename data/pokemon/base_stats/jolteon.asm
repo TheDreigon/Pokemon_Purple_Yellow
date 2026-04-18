@@ -1,7 +1,5 @@
 	db DEX_JOLTEON ; pokedex id
-
-	db  65,  65,  60, 130, 110
-	;   hp  atk  def  spd  spc
+	base_stat_row 65, 80, 65, 110, 130 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 45 ; catch rate

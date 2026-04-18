@@ -1,7 +1,5 @@
 	db DEX_PIKACHU ; pokedex id
-
-	db  60,  55,  50,  90,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 55, 55, 50, 80, 95 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 190 ; catch rate

@@ -1,7 +1,5 @@
 	db DEX_CHARMELEON ; pokedex id
-
-	db  58,  64,  58,  80,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 70, 55, 70, 75 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 45 ; catch rate

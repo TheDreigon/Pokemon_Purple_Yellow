@@ -1,7 +1,5 @@
 	db DEX_FLAREON ; pokedex id
-
-	db  65, 130,  60,  65, 110
-	;   hp  atk  def  spd  spc
+	base_stat_row 65, 110, 80, 130, 65 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 45 ; catch rate

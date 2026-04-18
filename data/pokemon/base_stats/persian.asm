@@ -1,9 +1,6 @@
 	db DEX_PERSIAN ; pokedex id
-
-	db  65,  70,  60, 115,  65
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 90, 80, 50, 60, 115 ; hp atk def spc spd
+	db NORMAL, DARK ; type
 	db 90 ; catch rate
 	db 148 ; base exp
 

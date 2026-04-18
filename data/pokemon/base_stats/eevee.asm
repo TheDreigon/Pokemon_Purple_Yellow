@@ -1,7 +1,5 @@
 	db DEX_EEVEE ; pokedex id
-
-	db  70,  65,  65,  55,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 65, 65, 65, 65, 65 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 45 ; catch rate

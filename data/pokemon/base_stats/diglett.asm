@@ -1,7 +1,5 @@
 	db DEX_DIGLETT ; pokedex id
-
-	db  10,  70,  25,  95,  45
-	;   hp  atk  def  spd  spc
+	base_stat_row 15, 60, 25, 40, 95 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 255 ; catch rate

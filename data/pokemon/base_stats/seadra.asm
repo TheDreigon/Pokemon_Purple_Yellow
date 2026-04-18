@@ -1,9 +1,6 @@
 	db DEX_SEADRA ; pokedex id
-
-	db  55,  65,  95,  85,  95
-	;   hp  atk  def  spd  spc
-
-	db WATER, WATER ; type
+	base_stat_row 60, 70, 90, 80, 80 ; hp atk def spc spd
+	db WATER, DRAGON ; type
 	db 75 ; catch rate
 	db 155 ; base exp
 

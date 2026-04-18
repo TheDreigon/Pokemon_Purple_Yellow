@@ -1,7 +1,5 @@
 	db DEX_VICTREEBEL ; pokedex id
-
-	db  80, 105,  65,  70, 100
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 100, 70, 100, 90 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate

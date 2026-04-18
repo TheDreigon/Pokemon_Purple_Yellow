@@ -1,7 +1,5 @@
 	db DEX_NIDORAN_M ; pokedex id
-
-	db  46,  57,  40,  50,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 46, 57, 40, 40, 55 ; hp atk def spc spd
 
 	db POISON, POISON ; type
 	db 235 ; catch rate

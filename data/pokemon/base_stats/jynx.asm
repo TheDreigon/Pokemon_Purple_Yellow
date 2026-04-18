@@ -1,9 +1,6 @@
 	db DEX_JYNX ; pokedex id
-
-	db  65,  50,  35,  95,  95
-	;   hp  atk  def  spd  spc
-
-	db ICE, PSYCHIC_TYPE ; type
+	base_stat_row 65, 60, 50, 110, 95 ; hp atk def spc spd
+	db GHOST, ICE ; type
 	db 45 ; catch rate
 	db 137 ; base exp
 

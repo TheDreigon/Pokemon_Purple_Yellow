@@ -1,7 +1,5 @@
 	db DEX_DITTO ; pokedex id
-
-	db  48,  48,  48,  48,  48
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 50, 50, 50, 50 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 35 ; catch rate

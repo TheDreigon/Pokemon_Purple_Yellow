@@ -1,7 +1,5 @@
 	db DEX_ONIX ; pokedex id
-
-	db  75,  80, 160, 85,  65
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 100, 160, 60, 40 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate

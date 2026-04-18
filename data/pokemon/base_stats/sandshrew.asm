@@ -1,7 +1,5 @@
 	db DEX_SANDSHREW ; pokedex id
-
-	db  50,  75,  85,  40,  30
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 70, 90, 30, 40 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 255 ; catch rate

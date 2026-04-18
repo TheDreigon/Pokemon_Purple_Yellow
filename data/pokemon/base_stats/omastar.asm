@@ -1,7 +1,5 @@
 	db DEX_OMASTAR ; pokedex id
-
-	db  70,  60, 125,  55, 115
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 90, 120, 100, 60 ; hp atk def spc spd
 
 	db ROCK, WATER ; type
 	db 45 ; catch rate

@@ -1,9 +1,6 @@
 	db DEX_VOLTORB ; pokedex id
-
-	db  40,  30,  50, 100,  55
-	;   hp  atk  def  spd  spc
-
-	db ELECTRIC, ELECTRIC ; type
+	base_stat_row 20, 50, 40, 50, 110 ; hp atk def spc spd
+	db ELECTRIC, STEEL ; type
 	db 190 ; catch rate
 	db 103 ; base exp
 

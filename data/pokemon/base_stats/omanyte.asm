@@ -1,7 +1,5 @@
 	db DEX_OMANYTE ; pokedex id
-
-	db  35,  40, 100,  35,  90
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 40, 100, 80, 30 ; hp atk def spc spd
 
 	db ROCK, WATER ; type
 	db 45 ; catch rate

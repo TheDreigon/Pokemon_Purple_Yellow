@@ -1,7 +1,5 @@
 	db DEX_POLIWRATH ; pokedex id
-
-	db  90,  85,  95,  70,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 95, 80, 85, 75 ; hp atk def spc spd
 
 	db WATER, FIGHTING ; type
 	db 45 ; catch rate

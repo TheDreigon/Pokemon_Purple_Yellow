@@ -1,7 +1,5 @@
 	db DEX_HITMONLEE ; pokedex id
-
-	db  65, 120,  70,  93,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 110, 70, 60, 100 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate

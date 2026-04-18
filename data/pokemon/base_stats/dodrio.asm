@@ -1,7 +1,5 @@
 	db DEX_DODRIO ; pokedex id
-
-	db  60, 110,  70, 100,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 120, 60, 60, 110 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 45 ; catch rate

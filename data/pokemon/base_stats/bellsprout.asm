@@ -1,7 +1,5 @@
 	db DEX_BELLSPROUT ; pokedex id
-
-	db  50,  75,  35,  40,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 65, 35, 55, 40 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 255 ; catch rate
