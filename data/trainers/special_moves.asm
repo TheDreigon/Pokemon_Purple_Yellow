@@ -152,7 +152,6 @@ SpecialTrainerMoves:
 	db 1, 3, DOUBLE_TEAM
 	db 1, 4, CONFUSE_RAY
 	db 2, 3, MEGA_DRAIN
-	db 2, 4, MINIMIZE
 	db 3, 1, SURF
 	db 3, 3, BLIZZARD
 	db 3, 4, REFLECT
@@ -642,7 +641,6 @@ SpecialTrainerMoves:
     db 1, 2, PSYCHIC_M
     db 1, 3, ICE_BEAM
     db 1, 4, THUNDERBOLT
-    db 2, 3, MINIMIZE
     db 2, 4, FIRE_BLAST
     db 3, 1, DOUBLE_TEAM
     db 3, 2, SURF

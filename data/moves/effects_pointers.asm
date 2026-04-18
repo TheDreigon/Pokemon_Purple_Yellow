@@ -75,10 +75,10 @@ MoveEffectPointerTable:
 	dw AttackDefenseUp1Effect    ; ATTACK_DEFENSE_UP1_EFFECT
 	dw AccuracyEvasionDown1Effect; ACCURACY_EVASION_DOWN1_EFFECT
 	dw BurnEffect                ; BURN_EFFECT
-	dw StatModifierDownEffect    ; unused effect
+	dw PoisonEffect              ; POISON_SIDE_EFFECT3
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT
 	dw TwoToFiveAttacksEffect    ; TWINEEDLE_EFFECT
-	dw NULL                      ; unused effect
+	dw AttackAccuracyUp1Effect   ; ATTACK_ACCURACY_UP1_EFFECT
 	dw SubstituteEffect          ; SUBSTITUTE_EFFECT
 	dw HyperBeamEffect           ; HYPER_BEAM_EFFECT
 	dw RageEffect                ; RAGE_EFFECT

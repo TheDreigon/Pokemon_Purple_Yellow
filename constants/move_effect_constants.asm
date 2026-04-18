@@ -79,10 +79,10 @@
 	const ATTACK_DEFENSE_UP1_EFFECT  ; $48  user Atk+1 & Def+1 (Bulk Up)
 	const ACCURACY_EVASION_DOWN1_EFFECT ; $49  target Acc-1 & Evasion-1 (Flash)
 	const BURN_EFFECT                ; $4A  always burn (Will-O-Wisp)
-	const_skip                       ; $4B
+	const POISON_SIDE_EFFECT3        ; $4B  50% poison chance (Toxic Fangs)
 	const CONFUSION_SIDE_EFFECT      ; $4C
 	const TWINEEDLE_EFFECT           ; $4D
-	const_skip                       ; $4E
+	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)
 	const SUBSTITUTE_EFFECT          ; $4F
 	const HYPER_BEAM_EFFECT          ; $50
 	const RAGE_EFFECT                ; $51

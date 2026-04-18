@@ -50,7 +50,7 @@ Moves:
 	move DISCHARGE,    SWIFT_EFFECT,                75, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,  PARALYZE_SIDE_EFFECT1,       95, ELECTRIC,     100, 15
 	move THUNDER,      PARALYZE_SIDE_EFFECT2,      115, ELECTRIC,      85, 10
-	move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC,      90, 20
+	move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC,      95, 20
 	move VOLT_TACKLE,  NO_ADDITIONAL_EFFECT,        65, ELECTRIC,     100, 20 ; new move. signature. priority. high-crit.
 
 
@@ -63,8 +63,9 @@ Moves:
 	move MOONBLAST,    SPECIAL_DOWN_SIDE_EFFECT,    95, FAIRY,         95, 15 ; new move. signature.
 
 
-	; === FIGHTING TYPE (13 moves) ===
+	; === FIGHTING TYPE (14 moves) ===
 	move SEISMIC_TOSS, SPECIAL_DAMAGE_EFFECT,        1, FIGHTING,     100, 20
+	move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, FIGHTING,      90, 20
 	move LOW_KICK,     FLINCH_SIDE_EFFECT2,         35, FIGHTING,      90, 35
 	move BIND,         PARALYZE_SIDE_EFFECT2,       45, FIGHTING,      90, 30
 	move KARATE_CHOP,  NO_ADDITIONAL_EFFECT,        55, FIGHTING,     100, 30
@@ -88,19 +89,21 @@ Moves:
 	move EXPLOSION,    EXPLODE_EFFECT,             200, FIRE,         100,  5 ; signature. high-crit.
 
 
-	; === FLYING TYPE (7 moves) ===
+	; === FLYING TYPE (8 moves) ===
 	move PECK,         NO_ADDITIONAL_EFFECT,        35, FLYING,       100, 35
 	move GUST,         SPEED_DOWN_SIDE_EFFECT,      50, FLYING,       100, 30
 	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        60, FLYING,       100, 25
 	move AERIAL_ACE,   SWIFT_EFFECT,                70, FLYING,       100, 20 ; new move.
 	move FLY,          FLY_EFFECT,                  80, FLYING,       100, 20
 	move HURRICANE,    CONFUSION_SIDE_EFFECT,       90, FLYING,       100, 15 ; new move.
+	move SKY_ATTACK,   CHARGE_EFFECT,              160, FLYING,       100, 10
 	move DRILL_PECK,   FLINCH_SIDE_EFFECT2,         90, FLYING,       100, 15 ; signature.
 
 
-	; === FUNGUS TYPE (2 moves) === ; new type
-	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGUS,         90, 10 ; signature.
-	move SPORE,        SLEEP_EFFECT,                 0, FUNGUS,         95, 20 ; signature.
+	; === FUNGUS TYPE (3 moves) === ; new type
+	move SPORE_DAZE,   CONFUSION_SIDE_EFFECT,       60, FUNGUS,       100, 20 ; new move.
+	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGUS,        90, 10 ; signature.
+	move SPORE,        SLEEP_EFFECT,                 0, FUNGUS,        95, 20 ; signature.
 
 
 	; === GAS TYPE (3 moves) === ; new type
@@ -128,7 +131,7 @@ Moves:
 	move RAZOR_LEAF,   NO_ADDITIONAL_EFFECT,        60, GRASS,        100, 20 ; high-crit.
 	move GIGA_DRAIN,   DRAIN_HP_EFFECT,             75, GRASS,        100, 15 ; new move.
 	move PETAL_DANCE,  THRASH_PETAL_DANCE_EFFECT,   90, GRASS,        100, 15
-	move SOLARBEAM,    CHARGE_EFFECT,              180, GRASS,        100, 10
+	move SOLARBEAM,    CHARGE_EFFECT,              160, GRASS,        100, 10
 	move LEECH_SEED,   LEECH_SEED_EFFECT,            0, GRASS,         90, 20
 	move POISONPOWDER, POISON_EFFECT,                0, POISON,        85, 25
 	move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,         80, 20
@@ -160,10 +163,9 @@ Moves:
 	move LAVA_PLUME,   BURN_SIDE_EFFECT2,           90, MAGMA,        100, 15 ; new move. signature.
 
 
-	; === NORMAL TYPE (19 moves) ===
-	move WRAP,         TRAPPING_EFFECT,             16, NORMAL,        85, 20
+	; === NORMAL TYPE (18 moves) ===
+	move WRAP,         TRAPPING_EFFECT,             16, NORMAL,        80, 25
 	move FURY_ATTACK,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, NORMAL,        90, 20
-	move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, NORMAL,        90, 20
 	move SCRATCH,      NO_ADDITIONAL_EFFECT,        35, NORMAL,       100, 30
 	move TACKLE,       NO_ADDITIONAL_EFFECT,        40, NORMAL,       100, 30
 	move BITE,         NO_ADDITIONAL_EFFECT,        45, NORMAL,       100, 30
@@ -182,16 +184,16 @@ Moves:
 	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        75, NORMAL,       100, 20 ; signature. high-crit.
 
 
-	; === POISON TYPE (9 moves) ===
+	; === POISON TYPE (9 moves) === (exception to the regular moves order)
 	move POISON_STING, POISON_SIDE_EFFECT1,         35, POISON,       100, 30
-	move ACID,         DEFENSE_DOWN1_EFFECT,        50, POISON,       100, 25
-	move POISON_FANG,  POISON_SIDE_EFFECT2,         65, POISON,       100, 25 ; new move.
-	move SLUDGE,       POISON_SIDE_EFFECT1,         70, POISON,       100, 20
-	move SLUDGE_BOMB,  POISON_SIDE_EFFECT2,         90, POISON,       100, 15 ; new move.
-	move GUNK_SHOT,    POISON_EFFECT,              110, POISON,        80, 10 ; new move.
-	move TOXIC,        POISON_EFFECT,                0, POISON,        80, 20
-	move NEUROTOXIN,   PARALYZE_EFFECT,              0, POISON,        85, 25 ; new move. signature.
-	move SLUDGE_WAVE,  SPEED_DOWN1_EFFECT,          80, POISON,       100, 20 ; new move. signature.
+	move POISON_FANG,  POISON_SIDE_EFFECT2,         60, POISON,        95, 25 ; new move.
+	move TOXIC_FANGS,  POISON_SIDE_EFFECT3,         85, POISON,        90, 20 ; new move. new effect (50% poison).
+	move ACID,         DEFENSE_DOWN1_EFFECT,        40, POISON,       100, 25
+	move SLUDGE,       POISON_SIDE_EFFECT2,         65, POISON,       100, 20
+	move SLUDGE_WAVE,  SPEED_DOWN1_EFFECT,          90, POISON,       100, 15 ; new move. signature.
+	move GUNK_SHOT,    POISON_EFFECT,              115, POISON,        80, 10 ; new move.
+	move TOXIC,        POISON_EFFECT,                0, POISON,        90, 20
+	move NEUROTOXIN,   PARALYZE_EFFECT,              0, POISON,        90, 20 ; new move. signature.
 
 
 	; === PSYCHIC_TYPE (7 moves) ===
@@ -210,7 +212,7 @@ Moves:
 	move ROCK_TOMB,    SPEED_DOWN1_EFFECT,          75, ROCK,          95, 20 ; new move.
 	move HEAD_SMASH,   RECOIL_EFFECT,               85, ROCK,          95, 20 ; new move.
 	move ROCK_SLIDE,   PARALYZE_SIDE_EFFECT2,       95, ROCK,         100, 15
-	move CLAMP,        TRAPPING_EFFECT,             20, ROCK,          80, 20 ; signature.
+	move CLAMP,        TRAPPING_EFFECT,             20, ROCK,          80, 25 ; signature.
 	move BONEMERANG,   ATTACK_TWICE_EFFECT,         45, ROCK,          90, 20 ; signature.
 	move CRABHAMMER,   FLINCH_SIDE_EFFECT2,         90, ROCK,          90, 15 ; signature.
 	move HORN_DRILL,   DEFENSE_DOWN_SIDE_EFFECT,   100, ROCK,          90, 15 ; signature. high-crit.
@@ -218,7 +220,7 @@ Moves:
 
 	; === STEEL TYPE (6 moves) === ; new type
 	move CUT,          NO_ADDITIONAL_EFFECT,        55, STEEL,        100, 25 ; high-crit.
-	move IRON_TAIL,    DEFENSE_DOWN_SIDE_EFFECT,    65, STEEL,        100, 20 ; new move.
+	move IRON_TAIL,    DEFENSE_DOWN_SIDE_EFFECT,    65, STEEL,         90, 25 ; new move.
 	move IRON_HEAD,    FLINCH_SIDE_EFFECT2,         75, STEEL,        100, 20 ; new move.
 	move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, STEEL,        100, 20 ; signature. set damage from 20 to 25.
 	move BULLET_PUNCH, NO_ADDITIONAL_EFFECT,        45, STEEL,        100, 25 ; new move. signature. priority.
@@ -235,32 +237,29 @@ Moves:
 	move HYDRO_PUMP,   SPEED_DOWN1_EFFECT,         115, WATER,         85, 10
 
 
-	; === BIRD TYPE (58 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	; === BIRD TYPE (55 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,   SWIFT_EFFECT,                90, BIRD,         100, 15 ; signature.
 
+	move BULK_UP,      ATTACK_DEFENSE_UP1_EFFECT,    0, BIRD,         100, 20 ; new move. new effect (dual Atk+Def).
+	move HONE_CLAWS,   ATTACK_ACCURACY_UP1_EFFECT,   0, BIRD,         100, 20 ; new move. new effect (dual Atk+Acc).
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 20
 	move COIL,         ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; new move.
-	move BULK_UP,      ATTACK_DEFENSE_UP1_EFFECT,    0, BIRD,         100, 20 ; new move. dual-stat (Atk+1, Def+1).
-	move HONE_CLAWS,   ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; new move.
 
 	move ACID_ARMOR,   DEFENSE_UP2_EFFECT,           0, BIRD,         100, 20 ; signature.
-	move DEFENSE_CURL, DEFENSE_UP1_EFFECT,           0, BIRD,         100, 35
 	move HARDEN,       DEFENSE_UP1_EFFECT,           0, BIRD,         100, 35
 	move WITHDRAW,     DEFENSE_UP1_EFFECT,           0, BIRD,         100, 35
 
-	move AMNESIA,      SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35
-	move CALM_MIND,    SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35 ; new move.
-	move GROWTH,       SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35
-	move NASTY_PLOT,   SPECIAL_UP1_EFFECT,           0, BIRD,         100, 35 ; new move.
+	move AMNESIA,      SPECIAL_UP1_EFFECT,           0, BIRD,         100, 30
+	move CALM_MIND,    SPECIAL_UP1_EFFECT,           0, BIRD,         100, 30 ; new move.
+	move GROWTH,       SPECIAL_UP1_EFFECT,           0, BIRD,         100, 30
+	move NASTY_PLOT,   SPECIAL_UP1_EFFECT,           0, BIRD,         100, 30 ; new move.
 
 	move AGILITY,      SPEED_UP2_EFFECT,             0, BIRD,         100, 20
 	move QUIVER_DANCE, SPEED_UP1_EFFECT,             0, BIRD,         100, 35 ; new move.
-	move ROCK_POLISH,  SPEED_UP1_EFFECT,             0, BIRD,         100, 35 ; new move.
 	move TAILWIND,     SPEED_UP1_EFFECT,             0, BIRD,         100, 35 ; new move.
 
-	move DOUBLE_TEAM,  EVASION_UP1_EFFECT,           0, BIRD,         100, 15
-	move MINIMIZE,     EVASION_UP1_EFFECT,           0, BIRD,         100, 15
-	move TELEPORT,     EVASION_UP1_EFFECT,           0, BIRD,         100, 15
+	move DOUBLE_TEAM,  EVASION_UP1_EFFECT,           0, BIRD,         100, 20
+	move TELEPORT,     EVASION_UP1_EFFECT,           0, BIRD,         100, 20
 
 	move CHARM,        ATTACK_DOWN2_EFFECT,          0, BIRD,         100, 20 ; new move.
 	move INTIMIDATE,   ATTACK_DOWN2_EFFECT,          0, BIRD,         100, 20 ; new move.
@@ -272,10 +271,10 @@ Moves:
 	move TAUNT,        DEFENSE_DOWN1_EFFECT,         0, BIRD,         100, 35 ; new move.
 	move TICKLE,       DEFENSE_DOWN1_EFFECT,         0, BIRD,         100, 35 ; new move.
 
-	move FAKE_TEARS,   SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 20 ; new move.
-	move METAL_SOUND,  SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 20 ; new move. signature.
-	move EERIE_IMPULSE,SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 35 ; new move.
-	move SCREECH,      SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 35
+	move FAKE_TEARS,   SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 15 ; new move.
+	move METAL_SOUND,  SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 15 ; new move. signature.
+	move EERIE_IMPULSE,SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 30 ; new move.
+	move SCREECH,      SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 30
 
 	move ENTANGLE,     SPEED_DOWN2_EFFECT,           0, BIRD,         100, 15 ; new move.
 	move SCARY_FACE,   SPEED_DOWN2_EFFECT,           0, BIRD,         100, 15 ; new move.
@@ -288,12 +287,12 @@ Moves:
 
 	move DISABLE,      DISABLE_EFFECT,               0, BIRD,          75, 25
 	move GLARE,        PARALYZE_EFFECT,              0, BIRD,          90, 20 ; signature.
-	move LOVELY_KISS,  SLEEP_EFFECT,                 0, BIRD,          75, 15 ; signature.
-	move SING,         SLEEP_EFFECT,                 0, BIRD,          75, 15
+	move LOVELY_KISS,  SLEEP_EFFECT,                 0, BIRD,          80, 15 ; signature.
+	move SING,         SLEEP_EFFECT,                 0, BIRD,          80, 15
 	move SUPERSONIC,   CONFUSION_EFFECT,             0, BIRD,          80, 25
 
-	move RECOVER,      HEAL_EFFECT,                  0, BIRD,         100, 15
-	move REST,         HEAL_EFFECT,                  0, BIRD,         100, 30
+	move RECOVER,      HEAL_EFFECT,                  0, BIRD,         100, 20
+	move REST,         HEAL_EFFECT,                  0, BIRD,         100, 20
 	move SOFTBOILED,   HEAL_EFFECT,                  0, BIRD,         100, 20 ; signature.
 
 	move LIGHT_SCREEN, LIGHT_SCREEN_EFFECT,          0, BIRD,         100, 30

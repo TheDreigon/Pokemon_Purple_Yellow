@@ -48,9 +48,7 @@ ExclamationPointMoveSets:
 	db TOXIC
 	db SCREECH
 	db HARDEN
-	db MINIMIZE
 	db WITHDRAW
-	db DEFENSE_CURL
 	db METRONOME
 	db LICK
 	db CLAMP

@@ -113,6 +113,9 @@ PoisonEffect:
 	cp POISON_SIDE_EFFECT2
 	ld b, 40 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
+	cp POISON_SIDE_EFFECT3
+	ld b, 50 percent + 1 ; chance of poisoning
+	jr z, .sideEffectTest
 	push hl
 	push de
 	call MoveHitTest ; apply accuracy tests
@@ -485,45 +488,14 @@ UpdateStatDone:
 	ld b, c
 	inc b
 	call PrintStatText
-	ld hl, wPlayerBattleStatus2
-	ld de, wPlayerMoveNum
-	ld bc, wPlayerMonMinimized
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .playerTurn
-	ld hl, wEnemyBattleStatus2
-	ld de, wEnemyMoveNum
-	ld bc, wEnemyMonMinimized
-.playerTurn
-	ld a, [de]
-	cp MINIMIZE
-	jr nz, .notMinimize
- ; if a substitute is up, slide off the substitute and show the mon pic before
- ; playing the minimize animation
-	bit HAS_SUBSTITUTE_UP, [hl]
-	push af
-	push bc
-	push de
-	ld hl, HideSubstituteShowMonAnim
-	ld b, BANK(HideSubstituteShowMonAnim)
-	call nz, Bankswitch
-	pop de
-.notMinimize
+	; PURPLE YELLOW v0.5: MINIMIZE was removed from the movelist, so the
+	; substitute-handling special case below is dead code. Keep the post-animation
+	; flow (`.applyBadgeBoostsAndStatusPenalties`) but drop the MINIMIZE branch.
 	ld a, [wMoveDidntMiss]
 	and a
-	jr nz, .skipUpAnim ; v0.5: damage already played the animation, or dual-stat second leg
+	jr nz, .skipUpAnim ; damage already played the animation, or dual-stat second leg
 	call PlayCurrentMoveAnimation
 .skipUpAnim
-	ld a, [de]
-	cp MINIMIZE
-	jr nz, .applyBadgeBoostsAndStatusPenalties
-	pop bc
-	ld a, $1
-	ld [bc], a
-	ld hl, ReshowSubstituteAnim
-	ld b, BANK(ReshowSubstituteAnim)
-	pop af
-	call nz, Bankswitch
 .applyBadgeBoostsAndStatusPenalties
 	ldh a, [hWhoseTurn]
 	and a
@@ -1079,10 +1051,13 @@ ChargeMoveEffectText:
 	text_far _ChargeMoveEffectText
 	text_asm
 	ld a, [wChargeMoveNum]
-	; RAZOR_WIND, SKULL_BASH, SKY_ATTACK were removed in v0.5; only SOLARBEAM,
-	; FLY and DIG remain as charge moves.
+	; PURPLE YELLOW v0.5: RAZOR_WIND and SKULL_BASH were removed. SKY_ATTACK was
+	; reintroduced in the later revision and still needs its charge flavour text.
 	cp SOLARBEAM
 	ld hl, TookInSunlightText
+	jr z, .gotText
+	cp SKY_ATTACK
+	ld hl, SkyAttackGlowingText
 	jr z, .gotText
 	cp FLY
 	ld hl, FlewUpHighText
@@ -1568,6 +1543,32 @@ AttackDefenseUp1Effect:
 	call StatModifierUpEffect
 	pop de
 	ld a, ATTACK_DEFENSE_UP1_EFFECT
+	ld [de], a
+	ret
+
+AttackAccuracyUp1Effect:
+; Dual-stat +1 for the user (Attack + Accuracy). Used by HONE_CLAWS.
+; Same pattern as AttackDefenseUp1Effect.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr3
+	ld de, wEnemyMoveEffect
+.gotEffectPtr3
+	push de
+	ld a, ATTACK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, ACCURACY_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, ATTACK_ACCURACY_UP1_EFFECT
 	ld [de], a
 	ret
 

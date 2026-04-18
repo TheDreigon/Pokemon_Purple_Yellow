@@ -12,266 +12,265 @@
 	const NO_MOVE      ; 00
 
 ; === BUG ===
-	const CONSTRICT    ; 01
-	const BUG_BITE     ; 02
-	const LEECH_LIFE   ; 03
-	const BUG_BUZZ     ; 04
-	const MEGAHORN     ; 05
-	const GUILLOTINE   ; 06
-	const VICEGRIP     ; 07
-	const TWINEEDLE    ; 08
+	const CONSTRICT
+	const BUG_BITE
+	const LEECH_LIFE
+	const BUG_BUZZ
+	const MEGAHORN
+	const GUILLOTINE
+	const VICEGRIP
+	const TWINEEDLE
 
 ; === DARK ===
-	const FAINT_ATTACK ; 09
-	const RAGE         ; 0a
-	const NIGHT_SLASH  ; 0b
-	const BRUTAL_SWING ; 0c
-	const DARK_PULSE   ; 0d
-	const GORE_ATTACK  ; 0e
-	const THRASH       ; 0f
-	const DEEP_SLEEP   ; 10
-	const PAY_DAY      ; 11
-	const DREAM_EATER  ; 12
+	const FAINT_ATTACK
+	const RAGE
+	const NIGHT_SLASH
+	const BRUTAL_SWING
+	const DARK_PULSE
+	const GORE_ATTACK
+	const THRASH
+	const DEEP_SLEEP
+	const PAY_DAY
+	const DREAM_EATER
 
 ; === DRAGON ===
-	const DRAGON_RAGE  ; 13
-	const DRAGON_CLAW  ; 14
-	const DRAGON_BREATH; 15
-	const DRAGON_SLAM  ; 16
-	const HYPER_BEAM   ; 17
+	const DRAGON_RAGE
+	const DRAGON_CLAW
+	const DRAGON_BREATH
+	const DRAGON_SLAM
+	const HYPER_BEAM
 
 ; === ELECTRIC ===
-	const NUZZLE       ; 18
-	const THUNDERSHOCK ; 19
-	const DISCHARGE    ; 1a
-	const THUNDERBOLT  ; 1b
-	const THUNDER      ; 1c
-	const THUNDER_WAVE ; 1d
-	const VOLT_TACKLE  ; 1e
+	const NUZZLE
+	const THUNDERSHOCK
+	const DISCHARGE
+	const THUNDERBOLT
+	const THUNDER
+	const THUNDER_WAVE
+	const VOLT_TACKLE
 
 ; === FAIRY ===
-	const DOUBLESLAP   ; 1f
-	const FAIRY_WIND   ; 20
-	const DRAINING_KISS; 21
-	const DAZE_GLEAM   ; 22
-	const PLAY_ROUGH   ; 23
-	const MOONBLAST    ; 24
+	const DOUBLESLAP
+	const FAIRY_WIND
+	const DRAINING_KISS
+	const DAZE_GLEAM
+	const PLAY_ROUGH
+	const MOONBLAST
 
 ; === FIGHTING ===
-	const SEISMIC_TOSS ; 25
-	const LOW_KICK     ; 26
-	const BIND         ; 27
-	const KARATE_CHOP  ; 28
-	const DOUBLE_KICK  ; 29
-	const STRENGTH     ; 2a
-	const TAKE_DOWN    ; 2b
-	const JUMP_KICK    ; 2c
-	const DIZZY_PUNCH  ; 2d
-	const ROLLING_KICK ; 2e
-	const LEEK_STRIKE  ; 2f
-	const SUBMISSION   ; 30
-	const HI_JUMP_KICK ; 31
+	const SEISMIC_TOSS
+	const COMET_PUNCH
+	const LOW_KICK
+	const BIND
+	const KARATE_CHOP
+	const DOUBLE_KICK
+	const STRENGTH
+	const TAKE_DOWN
+	const JUMP_KICK
+	const DIZZY_PUNCH
+	const ROLLING_KICK
+	const LEEK_STRIKE
+	const SUBMISSION
+	const HI_JUMP_KICK
 
 ; === FIRE ===
-	const EMBER        ; 32
-	const FLAME_CHARGE ; 33
-	const FLAME_BURST  ; 34
-	const FLAMETHROWER ; 35
-	const FIRE_BLAST   ; 36
-	const EXPLOSION    ; 37
+	const EMBER
+	const FLAME_CHARGE
+	const FLAME_BURST
+	const FLAMETHROWER
+	const FIRE_BLAST
+	const EXPLOSION
 
 ; === FLYING ===
-	const PECK         ; 38
-	const GUST         ; 39
-	const WING_ATTACK  ; 3a
-	const AERIAL_ACE   ; 3b
-	const FLY          ; 3c
-	const HURRICANE    ; 3d
-	const DRILL_PECK   ; 3e
+	const PECK
+	const GUST
+	const WING_ATTACK
+	const AERIAL_ACE
+	const FLY
+	const HURRICANE
+	const SKY_ATTACK
+	const DRILL_PECK
 
 ; === FUNGUS ===
-	const PARASITE     ; 3f
-	const SPORE        ; 40
+	const SPORE_DAZE
+	const PARASITE
+	const SPORE
 
 ; === GAS ===
-	const SMOG         ; 41
-	const POISON_GAS   ; 42
-	const HAZE         ; 43
+	const SMOG
+	const POISON_GAS
+	const HAZE
 
 ; === GHOST ===
-	const NIGHT_SHADE  ; 44
-	const LICK         ; 45
-	const ASTONISH     ; 46
-	const SHADOW_SNEAK ; 47
-	const SHADOW_PUNCH ; 48
-	const SPIRIT_DRAIN ; 49
-	const SHADOW_BALL  ; 4a
-	const CONFUSE_RAY  ; 4b
-	const WILL_O_WISP  ; 4c  ; new move (Purple Yellow)
+	const NIGHT_SHADE
+	const LICK
+	const ASTONISH
+	const SHADOW_SNEAK
+	const SHADOW_PUNCH
+	const SPIRIT_DRAIN
+	const SHADOW_BALL
+	const CONFUSE_RAY
+	const WILL_O_WISP
 
 ; === GRASS ===
-	const ABSORB       ; 4d
-	const VINE_WHIP    ; 4e
-	const MEGA_DRAIN   ; 4f
-	const RAZOR_LEAF   ; 4f
-	const GIGA_DRAIN   ; 50
-	const PETAL_DANCE  ; 51
-	const SOLARBEAM    ; 52
-	const LEECH_SEED   ; 53
-	const POISONPOWDER ; 54
-	const STUN_SPORE   ; 55
-	const SLEEP_POWDER ; 56
+	const ABSORB
+	const VINE_WHIP
+	const MEGA_DRAIN
+	const RAZOR_LEAF
+	const GIGA_DRAIN
+	const PETAL_DANCE
+	const SOLARBEAM
+	const LEECH_SEED
+	const POISONPOWDER
+	const STUN_SPORE
+	const SLEEP_POWDER
 
 ; === GROUND ===
-	const GROUND_STOMP ; 57
-	const MUD_SHOT     ; 58
-	const BULLDOZE     ; 59
-	const MUD_BOMB     ; 5a
-	const EARTHQUAKE   ; 5b
-	const FISSURE      ; 5c
-	const BONE_CLUB    ; 5d
-	const DIG          ; 5e
+	const GROUND_STOMP
+	const MUD_SHOT
+	const BULLDOZE
+	const MUD_BOMB
+	const EARTHQUAKE
+	const FISSURE
+	const BONE_CLUB
+	const DIG
 
 ; === ICE ===
-	const POWDER_SNOW  ; 5f
-	const ICY_WIND     ; 60
-	const AURORA_BEAM  ; 61
-	const FROST_BREATH ; 62
-	const ICE_BEAM     ; 63
-	const BLIZZARD     ; 64
+	const POWDER_SNOW
+	const ICY_WIND
+	const AURORA_BEAM
+	const FROST_BREATH
+	const ICE_BEAM
+	const BLIZZARD
 
 ; === MAGMA ===
-	const MAGMA_PUNCH  ; 65
-	const LAVA_PLUME   ; 66
+	const MAGMA_PUNCH
+	const LAVA_PLUME
 
 ; === NORMAL ===
-	const WRAP         ; 67
-	const FURY_ATTACK  ; 68
-	const COMET_PUNCH  ; 69
-	const SCRATCH      ; 6a
-	const TACKLE       ; 6b
-	const BITE         ; 6c
-	const QUICK_ATTACK ; 6d
-	const HEADBUTT     ; 6e
-	const HORN_ATTACK  ; 6f
-	const SLASH        ; 70
-	const BODY_SLAM    ; 71
-	const MEGA_PUNCH   ; 72
-	const CRUNCH       ; 73
-	const HORN_CHARGE  ; 74
-	const HEAVY_SLAM   ; 75
-	const DOUBLE_EDGE  ; 76
-	const EXTREMESPEED ; 77
-	const SUPER_FANG   ; 78
-	const HYPER_FANG   ; 79
+	const WRAP
+	const FURY_ATTACK
+	const SCRATCH
+	const TACKLE
+	const BITE
+	const QUICK_ATTACK
+	const HEADBUTT
+	const HORN_ATTACK
+	const SLASH
+	const BODY_SLAM
+	const MEGA_PUNCH
+	const CRUNCH
+	const HORN_CHARGE
+	const HEAVY_SLAM
+	const DOUBLE_EDGE
+	const EXTREMESPEED
+	const SUPER_FANG
+	const HYPER_FANG
 
 ; === POISON ===
-	const POISON_STING ; 7a
-	const ACID         ; 7b
-	const POISON_FANG  ; 7c
-	const SLUDGE       ; 7d
-	const SLUDGE_BOMB  ; 7e
-	const GUNK_SHOT    ; 7f
-	const TOXIC        ; 80
-	const NEUROTOXIN   ; 81
-	const SLUDGE_WAVE  ; 82
+	const POISON_STING
+	const POISON_FANG
+	const TOXIC_FANGS
+	const ACID
+	const SLUDGE
+	const SLUDGE_WAVE
+	const GUNK_SHOT
+	const TOXIC
+	const NEUROTOXIN
 
 ; === PSYCHIC ===
-	const PSYWAVE      ; 83
-	const CONFUSION    ; 84
-	const EXTRASENSORY ; 85
-	const PSYBEAM      ; 86
-	const PSYCHIC_M    ; 87
-	const MIND_BREAK   ; 88
-	const HYPNOSIS     ; 89
+	const PSYWAVE
+	const CONFUSION
+	const EXTRASENSORY
+	const PSYBEAM
+	const PSYCHIC_M
+	const MIND_BREAK
+	const HYPNOSIS
 
 ; === ROCK ===
-	const ROCK_PUNCH   ; 8a
-	const ROCK_THROW   ; 8b
-	const ROCK_TOMB    ; 8c
-	const HEAD_SMASH   ; 8d
-	const ROCK_SLIDE   ; 8e
-	const CLAMP        ; 8f
-	const BONEMERANG   ; 90
-	const CRABHAMMER   ; 91
-	const HORN_DRILL   ; 92
+	const ROCK_PUNCH
+	const ROCK_THROW
+	const ROCK_TOMB
+	const HEAD_SMASH
+	const ROCK_SLIDE
+	const CLAMP
+	const BONEMERANG
+	const CRABHAMMER
+	const HORN_DRILL
 
 ; === STEEL ===
-	const CUT          ; 93
-	const IRON_TAIL    ; 94
-	const IRON_HEAD    ; 95
-	const SONICBOOM    ; 96
-	const BULLET_PUNCH ; 97
-	const MAGNET_BOMB  ; 98
+	const CUT
+	const IRON_TAIL
+	const IRON_HEAD
+	const SONICBOOM
+	const BULLET_PUNCH
+	const MAGNET_BOMB
 
 ; === WATER ===
-	const WATER_GUN    ; 99
-	const AQUA_JET     ; 9a
-	const BUBBLEBEAM   ; 9b
-	const WATER_PULSE  ; 9c
-	const WATERFALL    ; 9d
-	const SURF         ; 9e
-	const HYDRO_PUMP   ; 9f
+	const WATER_GUN
+	const AQUA_JET
+	const BUBBLEBEAM
+	const WATER_PULSE
+	const WATERFALL
+	const SURF
+	const HYDRO_PUMP
 
 ; === BIRD (typeless / status moves) ===
-	const TRI_ATTACK   ; a0
-	const SWORDS_DANCE ; a1
-	const COIL         ; a2
-	const BULK_UP      ; a4  ; renamed from FLEX (now dual-stat Atk+Def)
-	const HONE_CLAWS   ; a4
-	const ACID_ARMOR   ; a5
-	const DEFENSE_CURL ; a6
-	const HARDEN       ; a7
-	const WITHDRAW     ; a8
-	const AMNESIA      ; a9
-	const CALM_MIND    ; aa
-	const GROWTH       ; ab
-	const NASTY_PLOT   ; ac
-	const AGILITY      ; ad
-	const QUIVER_DANCE ; ae
-	const ROCK_POLISH  ; af
-	const TAILWIND     ; b0
-	const DOUBLE_TEAM  ; b1
-	const MINIMIZE     ; b2
-	const TELEPORT     ; b3
-	const CHARM        ; b4
-	const INTIMIDATE   ; b5
-	const LEER         ; b6
-	const GROWL        ; b7
-	const CORRODE      ; b8
-	const TAIL_WHIP    ; b9
-	const TAUNT        ; ba
-	const TICKLE       ; bb
-	const FAKE_TEARS   ; bc
-	const METAL_SOUND  ; bd
-	const EERIE_IMPULSE; be
-	const SCREECH      ; bf
-	const ENTANGLE     ; c0
-	const SCARY_FACE   ; c1
-	const PSYCHIC_BIND ; c2
-	const HINDER       ; c3
-	const FLASH        ; c4
-	const SAND_ATTACK  ; c5
-	const SMOKESCREEN  ; c6
-	const DISABLE      ; c7
-	const GLARE        ; c8
-	const LOVELY_KISS  ; c9
-	const SING         ; ca
-	const SUPERSONIC   ; cb
-	const RECOVER      ; cc
-	const REST         ; cd
-	const SOFTBOILED   ; ce
-	const LIGHT_SCREEN ; cf
-	const REFLECT      ; d0
-	const BIDE         ; d1
-	const FOCUS_ENERGY ; d2
-	const MIMIC        ; d3
-	const MIRROR_MOVE  ; d4
-	const SUBSTITUTE   ; d5
-	const TRANSFORM    ; d6
-	const SPLASH       ; d7
-	const METRONOME    ; d8
-	const STRUGGLE     ; d9 (must remain last)
+	const TRI_ATTACK
+	const BULK_UP
+	const HONE_CLAWS
+	const SWORDS_DANCE
+	const COIL
+	const ACID_ARMOR
+	const HARDEN
+	const WITHDRAW
+	const AMNESIA
+	const CALM_MIND
+	const GROWTH
+	const NASTY_PLOT
+	const AGILITY
+	const QUIVER_DANCE
+	const TAILWIND
+	const DOUBLE_TEAM
+	const TELEPORT
+	const CHARM
+	const INTIMIDATE
+	const LEER
+	const GROWL
+	const CORRODE
+	const TAIL_WHIP
+	const TAUNT
+	const TICKLE
+	const FAKE_TEARS
+	const METAL_SOUND
+	const EERIE_IMPULSE
+	const SCREECH
+	const ENTANGLE
+	const SCARY_FACE
+	const PSYCHIC_BIND
+	const HINDER
+	const FLASH
+	const SAND_ATTACK
+	const SMOKESCREEN
+	const DISABLE
+	const GLARE
+	const LOVELY_KISS
+	const SING
+	const SUPERSONIC
+	const RECOVER
+	const REST
+	const SOFTBOILED
+	const LIGHT_SCREEN
+	const REFLECT
+	const BIDE
+	const FOCUS_ENERGY
+	const MIMIC
+	const MIRROR_MOVE
+	const SUBSTITUTE
+	const TRANSFORM
+	const SPLASH
+	const METRONOME
+	const STRUGGLE     ; must remain last
 DEF NUM_ATTACKS EQU const_value - 1
 
 	; Moves do double duty as animation identifiers.

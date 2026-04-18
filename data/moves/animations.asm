@@ -43,6 +43,7 @@ AttackAnimationPointers:
 	dw MoonblastAnim
 ; === FIGHTING ===
 	dw SeismicTossAnim
+	dw CometPunchAnim
 	dw LowKickAnim
 	dw BindAnim
 	dw KarateChopAnim
@@ -69,8 +70,10 @@ AttackAnimationPointers:
 	dw AerialAceAnim
 	dw FlyAnim
 	dw HurricaneAnim
+	dw SkyAttackAnim
 	dw DrillPeckAnim
 ; === FUNGUS ===
+	dw SporeDazeAnim
 	dw ParasiteAnim
 	dw SporeAnim
 ; === GAS ===
@@ -121,7 +124,6 @@ AttackAnimationPointers:
 ; === NORMAL ===
 	dw WrapAnim
 	dw FuryAttackAnim
-	dw CometPunchAnim
 	dw ScratchAnim
 	dw TackleAnim
 	dw BiteAnim
@@ -140,14 +142,14 @@ AttackAnimationPointers:
 	dw HyperFangAnim
 ; === POISON ===
 	dw PoisonStingAnim
-	dw AcidAnim
 	dw PoisonFangAnim
+	dw ToxicFangsAnim
+	dw AcidAnim
 	dw SludgeAnim
-	dw SludgeBombAnim
+	dw SludgeWaveAnim
 	dw GunkShotAnim
 	dw ToxicAnim
 	dw NeurotoxinAnim
-	dw SludgeWaveAnim
 ; === PSYCHIC ===
 	dw PsywaveAnim
 	dw ConfusionAnim
@@ -183,12 +185,11 @@ AttackAnimationPointers:
 	dw HydroPumpAnim
 ; === BIRD (typeless) ===
 	dw TriAttackAnim
-	dw SwordsDanceAnim
-	dw CoilAnim
 	dw BulkUpAnim
 	dw HoneClawsAnim
+	dw SwordsDanceAnim
+	dw CoilAnim
 	dw AcidArmorAnim
-	dw DefenseCurlAnim
 	dw HardenAnim
 	dw WithdrawAnim
 	dw AmnesiaAnim
@@ -197,10 +198,8 @@ AttackAnimationPointers:
 	dw NastyPlotAnim
 	dw AgilityAnim
 	dw QuiverDanceAnim
-	dw RockPolishAnim
 	dw TailwindAnim
 	dw DoubleTeamAnim
-	dw MinimizeAnim
 	dw TeleportAnim
 	dw CharmAnim
 	dw IntimidateAnim
@@ -475,6 +474,10 @@ SeismicTossAnim:
 	battle_anim SEISMIC_TOSS, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
+CometPunchAnim:
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
 LowKickAnim:
 	battle_anim LOW_KICK, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
@@ -579,6 +582,10 @@ HurricaneAnim:
 	battle_anim HURRICANE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
+SkyAttackAnim:
+	battle_anim SKY_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
 DrillPeckAnim:
 	battle_anim DRILL_PECK, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
@@ -586,6 +593,10 @@ DrillPeckAnim:
 ; ============================================================
 ; === FUNGUS ===
 ; ============================================================
+
+SporeDazeAnim:
+	battle_anim SPORE_DAZE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
 
 ParasiteAnim:
 	battle_anim PARASITE, SUBANIM_0_STAR_TWICE, 0, 8
@@ -787,10 +798,6 @@ FuryAttackAnim:
 	battle_anim FURY_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-CometPunchAnim:
-	battle_anim COMET_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
 ScratchAnim:
 	battle_anim SCRATCH, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
@@ -863,20 +870,24 @@ PoisonStingAnim:
 	battle_anim POISON_STING, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-AcidAnim:
-	battle_anim ACID, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
 PoisonFangAnim:
 	battle_anim POISON_FANG, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+ToxicFangsAnim:
+	battle_anim TOXIC_FANGS, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AcidAnim:
+	battle_anim ACID, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 SludgeAnim:
 	battle_anim SLUDGE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-SludgeBombAnim:
-	battle_anim SLUDGE_BOMB, SUBANIM_0_STAR_TWICE, 0, 8
+SludgeWaveAnim:
+	battle_anim SLUDGE_WAVE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 GunkShotAnim:
@@ -889,10 +900,6 @@ ToxicAnim:
 
 NeurotoxinAnim:
 	battle_anim NEUROTOXIN, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
-SludgeWaveAnim:
-	battle_anim SLUDGE_WAVE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 ; ============================================================
@@ -1035,14 +1042,6 @@ TriAttackAnim:
 	battle_anim TRI_ATTACK, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-SwordsDanceAnim:
-	battle_anim SWORDS_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
-CoilAnim:
-	battle_anim COIL, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
 BulkUpAnim:
 	battle_anim BULK_UP, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
@@ -1051,12 +1050,16 @@ HoneClawsAnim:
 	battle_anim HONE_CLAWS, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-AcidArmorAnim:
-	battle_anim ACID_ARMOR, SUBANIM_0_STAR_TWICE, 0, 8
+SwordsDanceAnim:
+	battle_anim SWORDS_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-DefenseCurlAnim:
-	battle_anim DEFENSE_CURL, SUBANIM_0_STAR_TWICE, 0, 8
+CoilAnim:
+	battle_anim COIL, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AcidArmorAnim:
+	battle_anim ACID_ARMOR, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 HardenAnim:
@@ -1091,20 +1094,12 @@ QuiverDanceAnim:
 	battle_anim QUIVER_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-RockPolishAnim:
-	battle_anim ROCK_POLISH, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
 TailwindAnim:
 	battle_anim TAILWIND, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 DoubleTeamAnim:
 	battle_anim DOUBLE_TEAM, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
-MinimizeAnim:
-	battle_anim MINIMIZE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 TeleportAnim:

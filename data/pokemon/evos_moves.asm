@@ -249,8 +249,6 @@ ClefairyEvosMoves:
 	db 0
 ; Learnset
 	db 13, DOUBLESLAP
-	db 19, MINIMIZE
-	db 26, DEFENSE_CURL
 	db 30, METRONOME
 	db 32, SING
 	db 35, BODY_SLAM
@@ -356,7 +354,6 @@ LickitungEvosMoves:
 	db 7, GROUND_STOMP
 	db 15, DISABLE
 	db 19, HEADBUTT
-	db 23, DEFENSE_CURL
 	db 32, BODY_SLAM
 	db 39, SCREECH
 	db 44, WRAP
@@ -386,7 +383,6 @@ GrimerEvosMoves:
 	db 16, ACID
 	db 19, POISON_GAS
 	db 24, ACID_ARMOR
-	db 27, MINIMIZE
 	db 33, SLUDGE
 	db 37, BODY_SLAM
 	db 42, TOXIC
@@ -584,7 +580,6 @@ StaryuEvosMoves:
 	db 22, HARDEN
 	db 24, BUBBLEBEAM
 	db 27, RECOVER
-	db 37, MINIMIZE
 	db 40, PSYCHIC_M
 	db 42, LIGHT_SCREEN
 	db 47, HYDRO_PUMP
@@ -737,7 +732,6 @@ GravelerEvosMoves:
 	db EVOLVE_LEVEL, 38, GOLEM
 	db 0
 ; Learnset
-	db 6, DEFENSE_CURL
 	db 12, ROCK_THROW
 	db 21, DIG
 	db 26, HARDEN
@@ -753,8 +747,6 @@ ChanseyEvosMoves:
 	db 12, DOUBLESLAP
 	db 24, SING
 	db 30, GROWL
-	db 38, MINIMIZE
-	db 44, DEFENSE_CURL
 	db 48, LIGHT_SCREEN
 	db 50, MEGA_PUNCH
 	db 54, DOUBLE_EDGE
@@ -874,7 +866,6 @@ GolemEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 6, DEFENSE_CURL
 	db 12, ROCK_THROW
 	db 21, DIG
 	db 26, HARDEN
@@ -1448,7 +1439,6 @@ JigglypuffEvosMoves:
 	db 0
 ; Learnset
 	db 3, TACKLE
-	db 5, DEFENSE_CURL
 	db 14, DISABLE
 	db 16, DOUBLESLAP
 	db 24, REST
@@ -1462,7 +1452,6 @@ WigglytuffEvosMoves:
 	db 0
 ; Learnset
 	db 3, TACKLE
-	db 5, DEFENSE_CURL
 	db 14, DISABLE
 	db 16, DOUBLESLAP
 	db 24, REST
@@ -1884,7 +1873,6 @@ MukEvosMoves:
 	db 16, ACID
 	db 19, POISON_GAS
 	db 24, ACID_ARMOR
-	db 27, MINIMIZE
 	db 33, SLUDGE
 	db 37, BODY_SLAM
 	db 42, TOXIC
@@ -1949,8 +1937,6 @@ ClefableEvosMoves:
 	db 0
 ; Learnset
 	db 13, DOUBLESLAP
-	db 19, MINIMIZE
-	db 26, DEFENSE_CURL
 	db 30, METRONOME
 	db 35, BODY_SLAM
 	db 43, LIGHT_SCREEN
@@ -2067,7 +2053,6 @@ StarmieEvosMoves:
 ; Learnset
 	db 23, HARDEN
 	db 27, RECOVER
-	db 37, MINIMIZE
 	db 40, PSYCHIC_M
 	db 42, LIGHT_SCREEN
 	db 47, HYDRO_PUMP
@@ -2273,7 +2258,6 @@ GeodudeEvosMoves:
 	db EVOLVE_LEVEL, 25, GRAVELER
 	db 0
 	; Learnset
-	db 6, DEFENSE_CURL
 	db 12, ROCK_THROW
 	db 21, DIG
 	db 26, HARDEN
