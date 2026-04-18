@@ -189,7 +189,7 @@ AttackAnimationPointers:
 	dw HoneClawsAnim
 	dw SwordsDanceAnim
 	dw CoilAnim
-	dw AcidArmorAnim
+	dw DefenseCurlAnim
 	dw HardenAnim
 	dw WithdrawAnim
 	dw AmnesiaAnim
@@ -1058,8 +1058,8 @@ CoilAnim:
 	battle_anim COIL, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-AcidArmorAnim:
-	battle_anim ACID_ARMOR, SUBANIM_0_STAR_TWICE, 0, 8
+DefenseCurlAnim:
+	battle_anim DEFENSE_CURL, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 HardenAnim:

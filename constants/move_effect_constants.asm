@@ -80,7 +80,7 @@
 	const ACCURACY_EVASION_DOWN1_EFFECT ; $49  target Acc-1 & Evasion-1 (Flash)
 	const BURN_EFFECT                ; $4A  always burn (Will-O-Wisp)
 	const POISON_SIDE_EFFECT3        ; $4B  50% poison chance (Toxic Fangs)
-	const CONFUSION_SIDE_EFFECT      ; $4C
+	const CONFUSION_SIDE_EFFECT1     ; $4C
 	const TWINEEDLE_EFFECT           ; $4D
 	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)
 	const SUBSTITUTE_EFFECT          ; $4F
@@ -92,4 +92,6 @@
 	const SPLASH_EFFECT              ; $55
 	const DISABLE_EFFECT             ; $56
 	const SPEED_EVASION_UP1_EFFECT   ; $57  user Speed+1 & Evasion+1 (new Agility)
+	const CONFUSION_SIDE_EFFECT2     ; $58  30% confusion (Hurricane, Spore Daze)
+	const SPECIAL_SPEED_DOWN1_EFFECT ; $59  target Spc-1 & Speed-1 (new Eerie Impulse)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

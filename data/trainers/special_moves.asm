@@ -121,7 +121,7 @@ SpecialTrainerMoves:
 	db KOGA, 1 ; 42, GOLBAT, 42, MUK, 41, TENTACRUEL, 43, VENOMOTH, 0
 	db 1, 2, TOXIC
 	db 1, 3, BITE
-	db 2, 1, ACID_ARMOR
+	db 2, 1, DEFENSE_CURL
 	db 2, 3, MEGA_DRAIN
 	db 3, 1, SURF
 	db 3, 2, ICE_BEAM
@@ -136,7 +136,7 @@ SpecialTrainerMoves:
 	db 1, 2, CONFUSE_RAY
 	db 1, 4, BITE
 	db 2, 2, MEGA_DRAIN
-	db 2, 4, ACID_ARMOR
+	db 2, 4, DEFENSE_CURL
 	db 3, 2, SURF
 	db 3, 3, ICE_BEAM
 	db 4, 2, SLUDGE

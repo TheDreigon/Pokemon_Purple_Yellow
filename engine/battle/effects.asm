@@ -1137,8 +1137,22 @@ RecoilEffect:
 	jpfar RecoilEffect_
 
 ConfusionSideEffect:
+; PURPLE YELLOW v0.5: tiered confusion side effect.
+; CONFUSION_SIDE_EFFECT1 = 15% (default tier).
+; CONFUSION_SIDE_EFFECT2 = 30% (Hurricane, Spore Daze).
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveEffect]
+	jr z, .gotEffect
+	ld a, [wEnemyMoveEffect]
+.gotEffect
+	cp CONFUSION_SIDE_EFFECT1
+	ld b, 15 percent + 1
+	jr z, .rollChance
+	ld b, 30 percent + 1
+.rollChance
 	call BattleRandom
-	cp 10 percent ; chance of confusion
+	cp b
 	ret nc
 	jr ConfusionSideEffectSuccess
 
@@ -1171,8 +1185,11 @@ ConfusionSideEffectSuccess:
 	inc a
 	ld [bc], a ; confusion status will last 2-5 turns
 	pop af
-	cp CONFUSION_SIDE_EFFECT
+	cp CONFUSION_SIDE_EFFECT1
+	jr z, .skipAnim
+	cp CONFUSION_SIDE_EFFECT2
 	call nz, PlayCurrentMoveAnimation2
+.skipAnim
 	ld hl, BecameConfusedText
 	jp PrintText
 
@@ -1181,7 +1198,9 @@ BecameConfusedText:
 	text_end
 
 ConfusionEffectFailed:
-	cp CONFUSION_SIDE_EFFECT
+	cp CONFUSION_SIDE_EFFECT1
+	ret z
+	cp CONFUSION_SIDE_EFFECT2
 	ret z
 	ld c, 50
 	call DelayFrames
@@ -1638,6 +1657,35 @@ AccuracyEvasionDown1Effect:
 	call StatModifierDownEffect
 	pop de
 	ld a, ACCURACY_EVASION_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpecialSpeedDown1Effect:
+; Dual-stat -1 on the target (Special + Speed). Used by EERIE_IMPULSE.
+; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
+; its own accuracy check; for 100% accurate moves both always land.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr5
+	ld de, wEnemyMoveEffect
+.gotEffectPtr5
+	push de
+	ld a, SPECIAL_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	xor a
+	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, SPEED_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	ld a, SPECIAL_SPEED_DOWN1_EFFECT
 	ld [de], a
 	ret
 

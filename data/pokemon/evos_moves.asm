@@ -382,7 +382,7 @@ GrimerEvosMoves:
 	db 10, HARDEN
 	db 16, ACID
 	db 19, POISON_GAS
-	db 24, ACID_ARMOR
+	db 24, DEFENSE_CURL
 	db 33, SLUDGE
 	db 37, BODY_SLAM
 	db 42, TOXIC
@@ -1520,7 +1520,7 @@ VaporeonEvosMoves:
 	db 30, BITE
 	db 36, AURORA_BEAM
 	db 39, HAZE
-	db 41, ACID_ARMOR
+	db 41, DEFENSE_CURL
 	db 47, REST
 	db 52, HYDRO_PUMP
 	db 0
@@ -1872,7 +1872,7 @@ MukEvosMoves:
 	db 10, HARDEN
 	db 16, ACID
 	db 19, POISON_GAS
-	db 24, ACID_ARMOR
+	db 24, DEFENSE_CURL
 	db 33, SLUDGE
 	db 37, BODY_SLAM
 	db 42, TOXIC

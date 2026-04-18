@@ -189,7 +189,7 @@ MoveNames::
 	li "HONE CLAWS"
 	li "SWORDS DANCE"
 	li "COIL"
-	li "ACID ARMOR"
+	li "DEFENSE CURL"
 	li "HARDEN"
 	li "WITHDRAW"
 	li "AMNESIA"

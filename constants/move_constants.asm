@@ -221,7 +221,7 @@
 	const HONE_CLAWS
 	const SWORDS_DANCE
 	const COIL
-	const ACID_ARMOR
+	const DEFENSE_CURL
 	const HARDEN
 	const WITHDRAW
 	const AMNESIA

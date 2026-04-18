@@ -17,7 +17,7 @@ Moves:
 	move BUG_BITE,     FLINCH_SIDE_EFFECT1,         40, BUG,          100, 35 ; new move.
 	move LEECH_LIFE,   DRAIN_HP_EFFECT,             70, BUG,          100, 20
 	move BUG_BUZZ,     SPECIAL_DOWN_SIDE_EFFECT,    80, BUG,          100, 20 ; new move.
-	move MEGAHORN,     FLINCH_SIDE_EFFECT2,         95, BUG,           95, 15
+	move MEGAHORN,     FLINCH_SIDE_EFFECT2,         90, BUG,          100, 15 ; new move.
 	move GUILLOTINE,   DEFENSE_DOWN1_EFFECT,       115, BUG,           80, 10
 	move VICEGRIP,     ATTACK_TWICE_EFFECT,         35, BUG,          100, 25 ; signature.
 	move TWINEEDLE,    TWINEEDLE_EFFECT,            40, BUG,          100, 20 ; signature.
@@ -73,7 +73,7 @@ Moves:
 	move STRENGTH,     NO_ADDITIONAL_EFFECT,        80, FIGHTING,     100, 20
 	move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        85, FIGHTING,      90, 15
 	move JUMP_KICK,    JUMP_KICK_EFFECT,            90, FIGHTING,      90, 15
-	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       65, FIGHTING,     100, 25 ; signature.
+	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT1,     65, FIGHTING,     100, 25 ; signature.
 	move ROLLING_KICK, FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; signature.
 	move LEEK_STRIKE,  FLINCH_SIDE_EFFECT2,         65, FIGHTING,     100, 25 ; new move. signature. high-crit.
 	move SUBMISSION,   ATTACK_DOWN1_EFFECT,         95, FIGHTING,     100, 15 ; signature.
@@ -95,13 +95,13 @@ Moves:
 	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        60, FLYING,       100, 25
 	move AERIAL_ACE,   SWIFT_EFFECT,                70, FLYING,       100, 20 ; new move.
 	move FLY,          FLY_EFFECT,                  80, FLYING,       100, 20
-	move HURRICANE,    CONFUSION_SIDE_EFFECT,       90, FLYING,       100, 15 ; new move.
+	move HURRICANE,    CONFUSION_SIDE_EFFECT2,      90, FLYING,       100, 15 ; new move.
 	move SKY_ATTACK,   CHARGE_EFFECT,              160, FLYING,       100, 10
 	move DRILL_PECK,   FLINCH_SIDE_EFFECT2,         90, FLYING,       100, 15 ; signature.
 
 
 	; === FUNGUS TYPE (3 moves) === ; new type
-	move SPORE_DAZE,   CONFUSION_SIDE_EFFECT,       60, FUNGUS,       100, 20 ; new move.
+	move SPORE_DAZE,   CONFUSION_SIDE_EFFECT2,      60, FUNGUS,       100, 20 ; new move.
 	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGUS,        90, 15 ; signature.
 	move SPORE,        SLEEP_EFFECT,                 0, FUNGUS,        95, 20 ; signature.
 
@@ -170,7 +170,7 @@ Moves:
 	move TACKLE,       NO_ADDITIONAL_EFFECT,        40, NORMAL,       100, 30
 	move BITE,         NO_ADDITIONAL_EFFECT,        45, NORMAL,       100, 30
 	move QUICK_ATTACK, NO_ADDITIONAL_EFFECT,        50, NORMAL,       100, 25
-	move HEADBUTT,     CONFUSION_SIDE_EFFECT,       55, NORMAL,       100, 25
+	move HEADBUTT,     CONFUSION_SIDE_EFFECT1,     55, NORMAL,       100, 25
 	move HORN_ATTACK,  FLINCH_SIDE_EFFECT1,         60, NORMAL,       100, 25
 	move SLASH,        NO_ADDITIONAL_EFFECT,        65, NORMAL,       100, 20 ; high-crit.
 	move BODY_SLAM,    PARALYZE_SIDE_EFFECT1,       70, NORMAL,        95, 20
@@ -198,7 +198,7 @@ Moves:
 
 	; === PSYCHIC_TYPE (7 moves) ===
 	move PSYWAVE,      FLINCH_SIDE_EFFECT2,         30, PSYCHIC_TYPE, 100, 30
-	move CONFUSION,    CONFUSION_SIDE_EFFECT,       45, PSYCHIC_TYPE, 100, 30
+	move CONFUSION,    CONFUSION_SIDE_EFFECT1,     45, PSYCHIC_TYPE, 100, 30
 	move EXTRASENSORY, SWIFT_EFFECT,                60, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,      SPECIAL_DOWN_SIDE_EFFECT,    75, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,    SPECIAL_DOWN1_EFFECT,        90, PSYCHIC_TYPE, 100, 15
@@ -231,7 +231,7 @@ Moves:
 	move WATER_GUN,    NO_ADDITIONAL_EFFECT,        35, WATER,        100, 35
 	move AQUA_JET,     NO_ADDITIONAL_EFFECT,        45, WATER,        100, 25 ; new move. priority.
 	move BUBBLEBEAM,   SPEED_DOWN_SIDE_EFFECT,      50, WATER,        100, 30
-	move WATER_PULSE,  CONFUSION_SIDE_EFFECT,       65, WATER,        100, 25 ; new move.
+	move WATER_PULSE,  CONFUSION_SIDE_EFFECT1,     65, WATER,        100, 25 ; new move.
 	move WATERFALL,    FLINCH_SIDE_EFFECT1,         80, WATER,        100, 20
 	move SURF,         SPEED_DOWN_SIDE_EFFECT,      95, WATER,        100, 15
 	move HYDRO_PUMP,   SPEED_DOWN1_EFFECT,         115, WATER,         85, 10
@@ -245,7 +245,7 @@ Moves:
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, BIRD,         100, 20
 	move COIL,         ATTACK_UP1_EFFECT,            0, BIRD,         100, 35 ; new move.
 
-	move ACID_ARMOR,   DEFENSE_UP2_EFFECT,           0, BIRD,         100, 20 ; signature.
+	move DEFENSE_CURL, DEFENSE_UP1_EFFECT,           0, BIRD,         100, 35
 	move HARDEN,       DEFENSE_UP1_EFFECT,           0, BIRD,         100, 35
 	move WITHDRAW,     DEFENSE_UP1_EFFECT,           0, BIRD,         100, 35
 
@@ -274,7 +274,7 @@ Moves:
 
 	move FAKE_TEARS,   SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 15 ; new move.
 	move METAL_SOUND,  SPECIAL_DOWN2_EFFECT,         0, BIRD,         100, 15 ; new move. signature.
-	move EERIE_IMPULSE,SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 30 ; new move.
+	move EERIE_IMPULSE,SPECIAL_SPEED_DOWN1_EFFECT,   0, BIRD,         100, 15 ; new move. new effect (dual Spc+Speed).
 	move SCREECH,      SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 30
 
 	move SCARY_FACE,   SPEED_DOWN2_EFFECT,           0, BIRD,         100, 15 ; new move.

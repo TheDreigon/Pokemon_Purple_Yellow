@@ -76,7 +76,7 @@ MoveEffectPointerTable:
 	dw AccuracyEvasionDown1Effect; ACCURACY_EVASION_DOWN1_EFFECT
 	dw BurnEffect                ; BURN_EFFECT
 	dw PoisonEffect              ; POISON_SIDE_EFFECT3
-	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT
+	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT1
 	dw TwoToFiveAttacksEffect    ; TWINEEDLE_EFFECT
 	dw AttackAccuracyUp1Effect   ; ATTACK_ACCURACY_UP1_EFFECT
 	dw SubstituteEffect          ; SUBSTITUTE_EFFECT
@@ -88,4 +88,6 @@ MoveEffectPointerTable:
 	dw SplashEffect              ; SPLASH_EFFECT
 	dw DisableEffect             ; DISABLE_EFFECT
 	dw SpeedEvasionUp1Effect     ; SPEED_EVASION_UP1_EFFECT
+	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT2
+	dw SpecialSpeedDown1Effect   ; SPECIAL_SPEED_DOWN1_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS
