@@ -91,4 +91,5 @@
 	const LEECH_SEED_EFFECT          ; $54
 	const SPLASH_EFFECT              ; $55
 	const DISABLE_EFFECT             ; $56
+	const SPEED_EVASION_UP1_EFFECT   ; $57  user Speed+1 & Evasion+1 (new Agility)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

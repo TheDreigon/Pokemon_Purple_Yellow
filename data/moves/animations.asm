@@ -196,9 +196,9 @@ AttackAnimationPointers:
 	dw CalmMindAnim
 	dw GrowthAnim
 	dw NastyPlotAnim
-	dw AgilityAnim
 	dw QuiverDanceAnim
 	dw TailwindAnim
+	dw AgilityAnim
 	dw DoubleTeamAnim
 	dw TeleportAnim
 	dw CharmAnim
@@ -213,8 +213,8 @@ AttackAnimationPointers:
 	dw MetalSoundAnim
 	dw EerieImpulseAnim
 	dw ScreechAnim
-	dw EntangleAnim
 	dw ScaryFaceAnim
+	dw EntangleAnim
 	dw PsychicBindAnim
 	dw HinderAnim
 	dw FlashAnim
@@ -1086,16 +1086,16 @@ NastyPlotAnim:
 	battle_anim NASTY_PLOT, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-AgilityAnim:
-	battle_anim AGILITY, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
 QuiverDanceAnim:
 	battle_anim QUIVER_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 TailwindAnim:
 	battle_anim TAILWIND, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+AgilityAnim:
+	battle_anim AGILITY, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 DoubleTeamAnim:
@@ -1154,12 +1154,12 @@ ScreechAnim:
 	battle_anim SCREECH, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-EntangleAnim:
-	battle_anim ENTANGLE, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
 ScaryFaceAnim:
 	battle_anim SCARY_FACE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+EntangleAnim:
+	battle_anim ENTANGLE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 PsychicBindAnim:

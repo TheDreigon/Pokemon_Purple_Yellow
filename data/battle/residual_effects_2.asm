@@ -32,4 +32,5 @@ ResidualEffects2:
 	db ATTACK_DEFENSE_UP1_EFFECT     ; dual-stat
 	db ACCURACY_EVASION_DOWN1_EFFECT ; dual-stat
 	db ATTACK_ACCURACY_UP1_EFFECT    ; dual-stat
+	db SPEED_EVASION_UP1_EFFECT      ; dual-stat
 	db -1 ; end

@@ -579,13 +579,13 @@ _GrowlitheDexEntry::
 	dex
 
 _ArcanineDexEntry::
-	text "A legendary #-"
-	next "MON in China."
-	next "Many people are"
+	text "A proud, noble"
+	next "#MON admired"
+	next "by many for its"
 
-	page "charmed by its"
-	next "grace and beauty"
-	next "while running"
+	page "grace and beauty"
+	next "while running at"
+	next "blistering speed"
 	dex
 
 _PoliwagDexEntry::

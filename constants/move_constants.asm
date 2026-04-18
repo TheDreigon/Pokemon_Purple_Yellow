@@ -228,9 +228,9 @@
 	const CALM_MIND
 	const GROWTH
 	const NASTY_PLOT
-	const AGILITY
 	const QUIVER_DANCE
 	const TAILWIND
+	const AGILITY
 	const DOUBLE_TEAM
 	const TELEPORT
 	const CHARM
@@ -245,8 +245,8 @@
 	const METAL_SOUND
 	const EERIE_IMPULSE
 	const SCREECH
-	const ENTANGLE
 	const SCARY_FACE
+	const ENTANGLE
 	const PSYCHIC_BIND
 	const HINDER
 	const FLASH

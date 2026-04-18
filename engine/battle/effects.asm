@@ -1583,6 +1583,32 @@ AttackAccuracyUp1Effect:
 	ld [de], a
 	ret
 
+SpeedEvasionUp1Effect:
+; Dual-stat +1 for the user (Speed + Evasion). Used by AGILITY (revised).
+; Same pattern as AttackAccuracyUp1Effect.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr4
+	ld de, wEnemyMoveEffect
+.gotEffectPtr4
+	push de
+	ld a, SPEED_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, EVASION_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, SPEED_EVASION_UP1_EFFECT
+	ld [de], a
+	ret
+
 AccuracyEvasionDown1Effect:
 ; Dual-stat -1 on the target (Accuracy + Evasion). Used by FLASH.
 ; Spoofs the effect and calls StatModifierDownEffect twice. Each call does

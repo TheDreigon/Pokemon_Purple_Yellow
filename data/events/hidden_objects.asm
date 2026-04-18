@@ -223,7 +223,7 @@ Route12HiddenObjects:
 
 Route13HiddenObjects:
 	hidden_object  1, 14, PP_UP, HiddenItems
-	hidden_object 16, 13, CALCIUM, HiddenItems
+	hidden_object 16, 13, PROTEIN, HiddenItems ; was CALCIUM
 	db -1 ; end
 
 Route15Gate2FHiddenObjects:

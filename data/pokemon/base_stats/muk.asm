@@ -1,5 +1,5 @@
 	db DEX_MUK ; pokedex id
-	base_stat_row 125, 95, 70, 95, 40 ; hp atk def spc spd
+	base_stat_row 130, 95, 70, 95, 40 ; hp atk def spc spd
 	db POISON, WATER ; type
 	db 75 ; catch rate
 	db 157 ; base exp

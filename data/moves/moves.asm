@@ -68,7 +68,7 @@ Moves:
 	move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, FIGHTING,      90, 20
 	move LOW_KICK,     FLINCH_SIDE_EFFECT2,         35, FIGHTING,      90, 35
 	move BIND,         PARALYZE_SIDE_EFFECT2,       45, FIGHTING,      90, 30
-	move KARATE_CHOP,  NO_ADDITIONAL_EFFECT,        55, FIGHTING,     100, 30
+	move KARATE_CHOP,  NO_ADDITIONAL_EFFECT,        50, FIGHTING,     100, 30 ; high-crit.
 	move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         30, FIGHTING,     100, 25
 	move STRENGTH,     NO_ADDITIONAL_EFFECT,        80, FIGHTING,     100, 20
 	move TAKE_DOWN,    DEFENSE_DOWN1_EFFECT,        85, FIGHTING,      90, 15
@@ -102,7 +102,7 @@ Moves:
 
 	; === FUNGUS TYPE (3 moves) === ; new type
 	move SPORE_DAZE,   CONFUSION_SIDE_EFFECT,       60, FUNGUS,       100, 20 ; new move.
-	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGUS,        90, 10 ; signature.
+	move PARASITE,     SUPER_FANG_EFFECT,            1, FUNGUS,        90, 15 ; signature.
 	move SPORE,        SLEEP_EFFECT,                 0, FUNGUS,        95, 20 ; signature.
 
 
@@ -120,7 +120,7 @@ Moves:
 	move SHADOW_PUNCH, SWIFT_EFFECT,                60, GHOST,        100, 25 ; new move.
 	move SPIRIT_DRAIN, DRAIN_HP_EFFECT,             70, GHOST,        100, 20 ; new move.
 	move SHADOW_BALL,  PARALYZE_SIDE_EFFECT2,       90, GHOST,        100, 15 ; new move.
-	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,         85, 25
+	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,         90, 20
 	move WILL_O_WISP,  BURN_EFFECT,                  0, GHOST,         90, 20 ; new move. signature.
 
 
@@ -180,7 +180,7 @@ Moves:
 	move HEAVY_SLAM,   PARALYZE_SIDE_EFFECT2,      100, NORMAL,        90, 10
 	move DOUBLE_EDGE,  RECOIL_EFFECT,              120, NORMAL,        80, 10 ; high-crit.
 	move EXTREMESPEED, NO_ADDITIONAL_EFFECT,        75, NORMAL,       100, 20 ; new move. almost-signature. priority.
-	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 10 ; signature.
+	move SUPER_FANG,   SUPER_FANG_EFFECT,            1, NORMAL,        90, 15 ; signature.
 	move HYPER_FANG,   DEFENSE_DOWN1_EFFECT,        75, NORMAL,       100, 20 ; signature. high-crit.
 
 
@@ -254,9 +254,10 @@ Moves:
 	move GROWTH,       SPECIAL_UP1_EFFECT,           0, BIRD,         100, 30
 	move NASTY_PLOT,   SPECIAL_UP1_EFFECT,           0, BIRD,         100, 30 ; new move.
 
-	move AGILITY,      SPEED_UP2_EFFECT,             0, BIRD,         100, 20
 	move QUIVER_DANCE, SPEED_UP1_EFFECT,             0, BIRD,         100, 35 ; new move.
 	move TAILWIND,     SPEED_UP1_EFFECT,             0, BIRD,         100, 35 ; new move.
+
+	move AGILITY,      SPEED_EVASION_UP1_EFFECT,     0, BIRD,         100, 15 ; new effect (Spd+1, Evasion+1).
 
 	move DOUBLE_TEAM,  EVASION_UP1_EFFECT,           0, BIRD,         100, 20
 	move TELEPORT,     EVASION_UP1_EFFECT,           0, BIRD,         100, 20
@@ -276,8 +277,8 @@ Moves:
 	move EERIE_IMPULSE,SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 30 ; new move.
 	move SCREECH,      SPECIAL_DOWN1_EFFECT,         0, BIRD,         100, 30
 
-	move ENTANGLE,     SPEED_DOWN2_EFFECT,           0, BIRD,         100, 15 ; new move.
 	move SCARY_FACE,   SPEED_DOWN2_EFFECT,           0, BIRD,         100, 15 ; new move.
+	move ENTANGLE,     SPEED_DOWN2_EFFECT,           0, BIRD,         100, 15 ; new move.
 	move PSYCHIC_BIND, SPEED_DOWN1_EFFECT,           0, BIRD,         100, 30 ; new move.
 	move HINDER,       SPEED_DOWN1_EFFECT,           0, BIRD,         100, 30 ; new move.
 
