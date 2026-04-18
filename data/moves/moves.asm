@@ -304,7 +304,7 @@ Moves:
 	move MIMIC,        MIMIC_EFFECT,                 0, BIRD,         100, 15
 	move MIRROR_MOVE,  MIRROR_MOVE_EFFECT,           0, BIRD,         100, 20
 	move SUBSTITUTE,   SUBSTITUTE_EFFECT,            0, BIRD,         100, 15
-	move TRANSFORM,    TRANSFORM_EFFECT,             0, BIRD,         100, 40 ; signature.
+	move TRANSFORM,    TRANSFORM_EFFECT,             0, BIRD,         100, 40 ; signature. priority move.
 	move SPLASH,       SPLASH_EFFECT,                0, BIRD,         100, 40 ; signature.
 	move METRONOME,    METRONOME_EFFECT,             0, BIRD,         100, 20
 
