@@ -3607,6 +3607,22 @@ CheckPlayerStatusConditions:
 .FrozenCheck
 	bit FRZ, [hl] ; frozen?
 	jr z, .HeldInPlaceCheck
+	; PURPLE YELLOW v0.5: decrement freeze-turn counter, thaw at 0.
+	push hl
+	ld hl, wPlayerFreezeCounter
+	ld a, [hl]
+	and a
+	jr z, .playerFreezeCounterUnderflow
+	dec [hl]
+	jr nz, .playerStillFrozen
+.playerFreezeCounterUnderflow
+	pop hl
+	res FRZ, [hl] ; thaw
+	ld hl, ThawedOutText
+	call PrintText
+	jr .HeldInPlaceCheck
+.playerStillFrozen
+	pop hl
 	ld hl, IsFrozenText
 	call PrintText
 	xor a
@@ -3848,6 +3864,10 @@ WokeUpText:
 
 IsFrozenText:
 	text_far _IsFrozenText
+	text_end
+
+ThawedOutText:
+	text_far _ThawedOutText
 	text_end
 
 FullyParalyzedText:
@@ -6090,6 +6110,22 @@ CheckEnemyStatusConditions:
 .checkIfFrozen
 	bit FRZ, [hl]
 	jr z, .checkIfTrapped
+	; PURPLE YELLOW v0.5: decrement enemy freeze-turn counter, thaw at 0.
+	push hl
+	ld hl, wEnemyFreezeCounter
+	ld a, [hl]
+	and a
+	jr z, .enemyFreezeCounterUnderflow
+	dec [hl]
+	jr nz, .enemyStillFrozen
+.enemyFreezeCounterUnderflow
+	pop hl
+	res FRZ, [hl] ; thaw
+	ld hl, ThawedOutText
+	call PrintText
+	jr .checkIfTrapped
+.enemyStillFrozen
+	pop hl
 	ld hl, IsFrozenText
 	call PrintText
 	xor a

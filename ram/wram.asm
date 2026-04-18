@@ -1522,7 +1522,9 @@ NEXTU
 wPlayerNumHits:: db
 ENDU
 
-	ds 2
+; PURPLE YELLOW v0.5: repurposed from the 2-byte pad that lived here.
+wPlayerFreezeCounter:: db
+wEnemyFreezeCounter:: db
 
 ; non-zero when an item or move that allows escape from battle was used
 wEscapedFromBattle:: db

@@ -56,17 +56,10 @@ SleepEffect:
 	and a
 	jr nz, .didntAffect
 .setSleepCounter
-; set target's sleep counter to a random number between 1 and 7
+; PURPLE YELLOW v0.5: sleep lasts 2-5 turns (was 1-7 with Stadium override to 1-3).
 	call BattleRandom
-	and $7
-	jr z, .setSleepCounter
-	ld b, a
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	jr z, .asm_3f1ba ; XXX stadium stuff?
-	ld a, b
-	and $3
-	jr z, .setSleepCounter
+	and $3   ; 0-3
+	add 2    ; 2-5
 	ld b, a
 .asm_3f1ba
 	ld a, b
@@ -114,7 +107,7 @@ PoisonEffect:
 	ld b, 40 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	cp POISON_SIDE_EFFECT3
-	ld b, 50 percent + 1 ; chance of poisoning
+	ld b, 60 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	push hl
 	push de
@@ -224,14 +217,14 @@ FreezeBurnParalyzeEffect:
 	cp b ; do target type 2 and move type match?
 	ret z  ; return if they match
 	ld a, [wPlayerMoveEffect]
-	cp FREEZE_SIDE_EFFECT2 ; 20% freeze chance (Blizzard)
+	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
 	jr nz, .asm_3f2c7
-	ld b, 20 percent + 1
+	ld b, 30 percent + 1
 	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .asm_3f2c7
 	cp PARALYZE_SIDE_EFFECT1 + 1
-	ld b, 10 percent + 1
+	ld b, 15 percent + 1 ; _SIDE_EFFECT1 tier: 15%
 	jr c, .regular_effectiveness
 ; extra effectiveness
 	ld b, 30 percent + 1
@@ -266,6 +259,11 @@ FreezeBurnParalyzeEffect:
 	call ClearHyperBeam ; resets hyper beam (recharge) condition from target
 	ld a, 1 << FRZ
 	ld [wEnemyMonStatus], a
+	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
+	call BattleRandom
+	and $3
+	add 3
+	ld [wEnemyFreezeCounter], a
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlayBattleAnimation
 	ld hl, FrozenText
@@ -283,14 +281,14 @@ FreezeBurnParalyzeEffect:
 	cp b
 	ret z
 	ld a, [wEnemyMoveEffect]
-	cp FREEZE_SIDE_EFFECT2 ; 20% freeze chance (Blizzard)
+	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
 	jr nz, .asm_3f341
-	ld b, 20 percent + 1
+	ld b, 30 percent + 1
 	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .asm_3f341
 	cp PARALYZE_SIDE_EFFECT1 + 1
-	ld b, 10 percent + 1
+	ld b, 15 percent + 1 ; _SIDE_EFFECT1 tier: 15%
 	jr c, .regular_effectiveness2
 ; extra effectiveness
 	ld b, 30 percent + 1
@@ -326,6 +324,11 @@ FreezeBurnParalyzeEffect:
 	call ClearHyperBeam
 	ld a, 1 << FRZ
 	ld [wBattleMonStatus], a
+	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
+	call BattleRandom
+	and $3
+	add 3
+	ld [wPlayerFreezeCounter], a
 	ld a, SHAKE_SCREEN_ANIM
 	call PlayBattleAnimation2
 	ld hl, FrozenText
@@ -982,7 +985,7 @@ FlinchSideEffect:
 	call z, ClearHyperBeam
 	ld a, [de]
 	cp FLINCH_SIDE_EFFECT1
-	ld b, 10 percent + 1 ; chance of flinch (FLINCH_SIDE_EFFECT1)
+	ld b, 15 percent + 1 ; chance of flinch (FLINCH_SIDE_EFFECT1)
 	jr z, .gotEffectChance
 	ld b, 30 percent + 1 ; chance of flinch otherwise
 .gotEffectChance
