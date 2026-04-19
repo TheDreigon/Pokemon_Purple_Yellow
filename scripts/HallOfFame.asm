@@ -117,7 +117,7 @@ HallOfFameOakCongratulationsScript:
 	ld a, HS_CHAMPIONS_ROOM_OAK
 	ld [wMissableObjectIndex], a
 	predef HideObject
-	ld a, HS_INDIGO_PLATEU_LOBBY_CLERK_HS
+	ld a, HS_INDIGO_PLATEAU_LOBBY_POST_GAME_CLERK
 	ld [wMissableObjectIndex], a
 	predef ShowObject
 	ld a, HS_LORELEISROOM_LORELEI

@@ -1344,12 +1344,6 @@ ShrinkingSquareBlackAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-UnusedAnim:
-	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SHOOT_MANY_BALLS_UPWARD
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	db -1 ; end
-
 ParalyzeAnim:
 	battle_anim BIND, SUBANIM_0_STATUS_PARALYZED, 0, 4
 	battle_anim BIND, SUBANIM_0_STATUS_PARALYZED, 0, 4
