@@ -190,7 +190,7 @@ AttackAnimationPointers:
 	dw WaterfallAnim
 	dw SurfAnim
 	dw HydroPumpAnim
-; === BIRD (typeless / status moves) ===
+; === BIRD (typeless) ===
 	dw TriAttackAnim
 	dw BulkUpAnim
 	dw HoneClawsAnim

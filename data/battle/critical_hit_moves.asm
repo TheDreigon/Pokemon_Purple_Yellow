@@ -4,6 +4,7 @@ HighCriticalMoves:
 	db GORE_ATTACK
 	db PAY_DAY
 	; DRAGON
+	db DRAGON_CLAW
 	db HYPER_BEAM
 	; ELECTRIC
 	db VOLT_TACKLE

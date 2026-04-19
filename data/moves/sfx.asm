@@ -196,7 +196,7 @@ MoveSoundTable:
 	db SFX_POUND, $00, $80 ; WATERFALL
 	db SFX_POUND, $00, $80 ; SURF
 	db SFX_POUND, $00, $80 ; HYDRO_PUMP
-; === BIRD (typeless / status moves) ===
+; === BIRD (typeless) ===
 	db SFX_POUND, $00, $80 ; TRI_ATTACK
 	db SFX_POUND, $00, $80 ; BULK_UP
 	db SFX_POUND, $00, $80 ; HONE_CLAWS

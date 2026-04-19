@@ -53,8 +53,8 @@ DEF MIN_NEUTRAL_DAMAGE EQU 2
 DEF MAX_NEUTRAL_DAMAGE EQU 999
 
 ; fixed damage constants
-DEF SONICBOOM_DAMAGE   EQU 20
-DEF DRAGON_RAGE_DAMAGE EQU 40
+DEF SONICBOOM_DAMAGE   EQU 25 ; was 20 (vanilla); buffed per biblia
+DEF DRAGON_RAGE_DAMAGE EQU 50 ; was 40 (vanilla); buffed per biblia
 
 ; type effectiveness factors, scaled by 10
 DEF SUPER_EFFECTIVE    EQU 20

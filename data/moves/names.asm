@@ -190,7 +190,7 @@ MoveNames::
 	li "WATERFALL"
 	li "SURF"
 	li "HYDRO PUMP"
-; === BIRD (typeless / status moves) ===
+; === BIRD (typeless) ===
 	li "TRI ATTACK"
 	li "BULK UP"
 	li "HONE CLAWS"
