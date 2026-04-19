@@ -17,9 +17,10 @@ AttackAnimationPointers:
 	dw DarkPulseAnim
 	dw GoreAttackAnim
 	dw ThrashAnim
-	dw DeepSleepAnim
 	dw PayDayAnim
 	dw DreamEaterAnim
+	dw GlareAnim
+	dw DeepSleepAnim
 ; === DRAGON ===
 	dw DragonRageAnim
 	dw DragonClawAnim
@@ -41,20 +42,24 @@ AttackAnimationPointers:
 	dw DazeGleamAnim
 	dw PlayRoughAnim
 	dw MoonblastAnim
+	dw LovelyKissAnim
+	dw SingAnim
 ; === FIGHTING ===
 	dw SeismicTossAnim
 	dw CometPunchAnim
 	dw LowKickAnim
 	dw BindAnim
+	dw MachPunchAnim
 	dw KarateChopAnim
 	dw DoubleKickAnim
+	dw DizzyPunchAnim
 	dw StrengthAnim
 	dw TakeDownAnim
 	dw JumpKickAnim
-	dw DizzyPunchAnim
 	dw RollingKickAnim
 	dw LeekStrikeAnim
 	dw SubmissionAnim
+	dw MegaPunchAnim
 	dw HiJumpKickAnim
 ; === FIRE ===
 	dw EmberAnim
@@ -62,6 +67,7 @@ AttackAnimationPointers:
 	dw FlameBurstAnim
 	dw FlamethrowerAnim
 	dw FireBlastAnim
+	dw IgniteAnim
 	dw ExplosionAnim
 ; === FLYING ===
 	dw PeckAnim
@@ -132,12 +138,12 @@ AttackAnimationPointers:
 	dw HornAttackAnim
 	dw SlashAnim
 	dw BodySlamAnim
-	dw MegaPunchAnim
 	dw CrunchAnim
 	dw HornChargeAnim
 	dw HeavySlamAnim
 	dw DoubleEdgeAnim
 	dw ExtremeSpeedAnim
+	dw SupersonicAnim
 	dw SuperFangAnim
 	dw HyperFangAnim
 ; === POISON ===
@@ -148,8 +154,8 @@ AttackAnimationPointers:
 	dw SludgeAnim
 	dw SludgeWaveAnim
 	dw GunkShotAnim
-	dw ToxicAnim
 	dw NeurotoxinAnim
+	dw ToxicAnim
 ; === PSYCHIC ===
 	dw PsywaveAnim
 	dw ConfusionAnim
@@ -157,10 +163,11 @@ AttackAnimationPointers:
 	dw PsybeamAnim
 	dw PsychicAnim
 	dw MindBreakAnim
+	dw DisableAnim
 	dw HypnosisAnim
 ; === ROCK ===
-	dw RockPunchAnim
 	dw RockThrowAnim
+	dw RockPunchAnim
 	dw RockTombAnim
 	dw HeadSmashAnim
 	dw RockSlideAnim
@@ -183,7 +190,7 @@ AttackAnimationPointers:
 	dw WaterfallAnim
 	dw SurfAnim
 	dw HydroPumpAnim
-; === BIRD (typeless) ===
+; === BIRD (typeless / status moves) ===
 	dw TriAttackAnim
 	dw BulkUpAnim
 	dw HoneClawsAnim
@@ -211,8 +218,8 @@ AttackAnimationPointers:
 	dw TickleAnim
 	dw FakeTearsAnim
 	dw MetalSoundAnim
-	dw EerieImpulseAnim
 	dw ScreechAnim
+	dw EerieImpulseAnim
 	dw ScaryFaceAnim
 	dw EntangleAnim
 	dw PsychicBindAnim
@@ -220,11 +227,6 @@ AttackAnimationPointers:
 	dw FlashAnim
 	dw SandAttackAnim
 	dw SmokescreenAnim
-	dw DisableAnim
-	dw GlareAnim
-	dw LovelyKissAnim
-	dw SingAnim
-	dw SupersonicAnim
 	dw RecoverAnim
 	dw RestAnim
 	dw SoftboiledAnim
@@ -1397,3 +1399,11 @@ ThrowRockAnim:
 ThrowBaitAnim:
 	battle_anim TACKLE, SUBANIM_0_SAFARI_BAIT, 0, 3
 	db -1 ; end
+IgniteAnim:
+	battle_anim IGNITE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+MachPunchAnim:
+	battle_anim MACH_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+

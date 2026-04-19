@@ -6,6 +6,8 @@ PriorityMovesList:
     db TRANSFORM,      8
     ; ELECTRIC
     db VOLT_TACKLE,    8
+    ; FIGHTING
+    db MACH_PUNCH,     8
     ; GHOST
     db SHADOW_SNEAK,   8
     ; NORMAL

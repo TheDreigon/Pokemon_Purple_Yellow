@@ -29,9 +29,10 @@
 	const DARK_PULSE
 	const GORE_ATTACK
 	const THRASH
-	const DEEP_SLEEP
 	const PAY_DAY
 	const DREAM_EATER
+	const GLARE
+	const DEEP_SLEEP
 
 ; === DRAGON ===
 	const DRAGON_RAGE
@@ -56,21 +57,25 @@
 	const DAZE_GLEAM
 	const PLAY_ROUGH
 	const MOONBLAST
+	const LOVELY_KISS
+	const SING
 
 ; === FIGHTING ===
 	const SEISMIC_TOSS
 	const COMET_PUNCH
 	const LOW_KICK
 	const BIND
+	const MACH_PUNCH
 	const KARATE_CHOP
 	const DOUBLE_KICK
+	const DIZZY_PUNCH
 	const STRENGTH
 	const TAKE_DOWN
 	const JUMP_KICK
-	const DIZZY_PUNCH
 	const ROLLING_KICK
 	const LEEK_STRIKE
 	const SUBMISSION
+	const MEGA_PUNCH
 	const HI_JUMP_KICK
 
 ; === FIRE ===
@@ -79,6 +84,7 @@
 	const FLAME_BURST
 	const FLAMETHROWER
 	const FIRE_BLAST
+	const IGNITE
 	const EXPLOSION
 
 ; === FLYING ===
@@ -158,12 +164,12 @@
 	const HORN_ATTACK
 	const SLASH
 	const BODY_SLAM
-	const MEGA_PUNCH
 	const CRUNCH
 	const HORN_CHARGE
 	const HEAVY_SLAM
 	const DOUBLE_EDGE
 	const EXTREMESPEED
+	const SUPERSONIC
 	const SUPER_FANG
 	const HYPER_FANG
 
@@ -175,8 +181,8 @@
 	const SLUDGE
 	const SLUDGE_WAVE
 	const GUNK_SHOT
-	const TOXIC
 	const NEUROTOXIN
+	const TOXIC
 
 ; === PSYCHIC ===
 	const PSYWAVE
@@ -185,11 +191,12 @@
 	const PSYBEAM
 	const PSYCHIC_M
 	const MIND_BREAK
+	const DISABLE
 	const HYPNOSIS
 
 ; === ROCK ===
-	const ROCK_PUNCH
 	const ROCK_THROW
+	const ROCK_PUNCH
 	const ROCK_TOMB
 	const HEAD_SMASH
 	const ROCK_SLIDE
@@ -243,8 +250,8 @@
 	const TICKLE
 	const FAKE_TEARS
 	const METAL_SOUND
-	const EERIE_IMPULSE
 	const SCREECH
+	const EERIE_IMPULSE
 	const SCARY_FACE
 	const ENTANGLE
 	const PSYCHIC_BIND
@@ -252,11 +259,6 @@
 	const FLASH
 	const SAND_ATTACK
 	const SMOKESCREEN
-	const DISABLE
-	const GLARE
-	const LOVELY_KISS
-	const SING
-	const SUPERSONIC
 	const RECOVER
 	const REST
 	const SOFTBOILED
@@ -270,7 +272,8 @@
 	const TRANSFORM
 	const SPLASH
 	const METRONOME
-	const STRUGGLE     ; must remain last
+	const STRUGGLE
+
 DEF NUM_ATTACKS EQU const_value - 1
 
 	; Moves do double duty as animation identifiers.
