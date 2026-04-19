@@ -291,8 +291,8 @@ DEF NUM_ATTACKS EQU const_value - 1
 	const ANIM_B3
 	const ANIM_B4
 	const ANIM_B5
-	const ANIM_B6
-	const ANIM_B7
+	; PURPLE YELLOW v0.5: removed ANIM_B6/ANIM_B7 (UnusedAnim placeholders)
+	; to free 2 slots, raising max NUM_ATTACKS from 218 to 220.
 	const ANIM_B8
 	const ANIM_B9
 	const BURN_PSN_ANIM ; Plays when a monster is burned or poisoned

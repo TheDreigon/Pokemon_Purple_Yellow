@@ -256,8 +256,8 @@ AttackAnimationPointers:
 	dw XStatItemBlackAnim
 	dw ShrinkingSquareBlackAnim
 	dw ShrinkingSquareBlackAnim
-	dw UnusedAnim
-	dw UnusedAnim
+	; PURPLE YELLOW v0.5: removed 2x "dw UnusedAnim" (ANIM_B6/ANIM_B7 slots)
+	; to raise max NUM_ATTACKS ceiling from 218 to 220.
 	dw ParalyzeAnim
 	dw ParalyzeAnim
 	dw PoisonAnim
