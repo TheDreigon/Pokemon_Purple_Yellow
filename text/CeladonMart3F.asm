@@ -65,13 +65,11 @@ _CeladonMart3FPokemonPosterText::
 	done
 
 _CeladonMart3FClerkTM18PreReceiveText::
-	text "Oh, hi! My MACHOP"
+	text "Oh, hi! MACHOP"
 	line "got me hooked on"
 	cont "working out!"
 
-	para "Look, I'm getting"
-	line "ripped! Want to"
-	cont "try this?"
+	para "Try this!"
 	prompt
 
 _CeladonMart3FClerkReceivedTM18Text::
@@ -83,11 +81,8 @@ _CeladonMart3FClerkReceivedTM18Text::
 
 _CeladonMart3FClerkTM18ExplanationText::
 	text "TM18 is BULK UP!"
-	line "Boosts ATTACK and"
-	cont "DEFENSE!"
-
-	para "MACHOP and I do"
-	line "it every morning!"
+	line "Boosts ATK and"
+	cont "DEF!"
 	done
 
 _CeladonMart3FClerkTM18NoRoomText::
