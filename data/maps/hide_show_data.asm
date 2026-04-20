@@ -235,7 +235,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw NoHS
+	dw RockTunnelB1FHS ; v0.5 Phase B.4 (was NoHS for ROCK_TUNNEL_B1F)
 	dw SilphCo9FHS
 	dw SilphCo10FHS
 	dw SilphCo11FHS
@@ -601,5 +601,7 @@ BrunosRoomHS:
 AgathasRoomHS:
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA,   			SHOW
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA_REMATCH,   	HIDE
+RockTunnelB1FHS: ; v0.5 Phase B.4 (new block at end of file to avoid HS index cascade)
+	db ROCK_TUNNEL_B1F, ROCKTUNNELB1F_TM_IRON_HEAD, SHOW
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

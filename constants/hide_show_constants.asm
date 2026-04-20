@@ -263,4 +263,5 @@ DEF SHOW EQU $15
 	const HS_BRUNOSROOM_BRUNO_REMATCH
 	const HS_AGATHASROOM_AGATHA
 	const HS_AGATHASROOM_AGATHA_REMATCH
+	const HS_ROCK_TUNNEL_B1F_ITEM_1 ; v0.5 Phase B.4 (TM13 Iron Head; appended at end to avoid cascade)
 DEF NUM_HS_OBJECTS EQU const_value
