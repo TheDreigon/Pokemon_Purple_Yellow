@@ -15,52 +15,18 @@ _CopycatsHouse2FCopycatDoYouLikePokemonText::
 	line "favorite hobby!"
 	prompt
 
-_CopycatsHouse2FCopycatTM31PreReceiveText::
-	text "Oh wow!"
-	line "A # DOLL!"
+_CopycatsHouse2FCopycatBrotherText::
+	text "COPYCAT: My"
+	line "brother won the"
+	cont "MIMIC TM at the"
+	cont "GAME CORNER!"
 
-	para "For me?"
-	line "Thank you!"
+	para "He gave it to me!"
+	line "How thoughtful!"
 
-	para "You can have"
-	line "this, then!"
-	prompt
-
-_CopycatsHouse2FCopycatReceivedTM31Text::
-	text "<PLAYER> received"
-	line "@"
-	text_ram wStringBuffer
-	text "!@"
-	text_end
-
-_CopycatsHouse2FCopycatTM31Explanation1Text::
-	text_start
-
-	para "TM31 contains my"
-	line "favorite, MIMIC!"
-
-	para "Use it on a good"
-	line "#MON!@"
-	text_end
-
-_CopycatsHouse2FCopycatTM31Explanation2Text::
-	text "<PLAYER>: Hi!"
-	line "Thanks for TM31!"
-
-	para "<PLAYER>: Pardon?"
-
-	para "<PLAYER>: Is it"
-	line "that fun to mimic"
-	cont "my every move?"
-
-	para "COPYCAT: You bet!"
-	line "It's a scream!"
+	para "MIMIC suits me"
+	line "perfectly!"
 	done
-
-_CopycatsHouse2FCopycatTM31NoRoomText::
-	text "Don't you want"
-	line "this?@"
-	text_end
 
 _CopycatsHouse2FDoduoText::
 	text "DODUO: Giiih!"

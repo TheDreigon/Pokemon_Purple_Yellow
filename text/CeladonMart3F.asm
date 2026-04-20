@@ -65,12 +65,13 @@ _CeladonMart3FPokemonPosterText::
 	done
 
 _CeladonMart3FClerkTM18PreReceiveText::
-	text "Oh, hi! I finally"
-	line "finished #MON!"
+	text "Oh, hi! My MACHOP"
+	line "got me hooked on"
+	cont "working out!"
 
-	para "Not done yet?"
-	line "This might be"
-	cont "useful!"
+	para "Look, I'm getting"
+	line "ripped! Want to"
+	cont "try this?"
 	prompt
 
 _CeladonMart3FClerkReceivedTM18Text::
@@ -81,10 +82,12 @@ _CeladonMart3FClerkReceivedTM18Text::
 	text_end
 
 _CeladonMart3FClerkTM18ExplanationText::
-	text "TM18 is COUNTER!"
-	line "Not like the one"
-	cont "I'm leaning on,"
-	cont "mind you!"
+	text "TM18 is BULK UP!"
+	line "Boosts ATTACK and"
+	cont "DEFENSE!"
+
+	para "MACHOP and I do"
+	line "it every morning!"
 	done
 
 _CeladonMart3FClerkTM18NoRoomText::

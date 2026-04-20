@@ -31,12 +31,14 @@ _CeladonCityGramps2Text::
 _CeladonCityGramps3Text::
 	text "Hello, there!"
 
-	para "I've seen you,"
-	line "but I never had a"
-	cont "chance to talk!"
+	para "I tend the flowers"
+	line "now, but I used"
+	cont "to be quite the"
+	cont "trainer back in"
+	cont "the day!"
 
-	para "Here's a gift for"
-	line "dropping by!"
+	para "Take this, kid."
+	line "Sharpen your edge!"
 	prompt
 
 _CeladonCityGramps3ReceivedTM41Text::
@@ -48,10 +50,10 @@ _CeladonCityGramps3ReceivedTM41Text::
 
 _CeladonCityGramps3TM41ExplanationText::
 	text "TM41 teaches"
-	line "SOFTBOILED!"
+	line "SWORDS DANCE!"
 
-	para "Not many #MON"
-	line "can use it!"
+	para "Doubles ATTACK in"
+	line "one fierce step!"
 	done
 
 _CeladonCityGramps3TM41NoRoomText::
