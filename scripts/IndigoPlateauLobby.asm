@@ -44,10 +44,10 @@ IndigoPlateauLobbyChanseyText:
 	jp TextScriptEnd
 
 IndigoPlateauLobbyClerkText::
-	; Phase B.2: Indigo Lobby pre-E4 (strong damage). Medical items kept; 10 TMs per spec.
-	script_mart ULTRA_BALL, HYPER_POTION, FULL_RESTORE, REVIVE, FULL_HEAL, MAX_REPEL, TM_GIGA_DRAIN, TM_MEGAHORN, TM_HURRICANE, TM_EARTHQUAKE, TM_ROCK_SLIDE, TM_SHADOW_BALL, TM_FLAMETHROWER, TM_THUNDERBOLT, TM_ICE_BEAM, TM_PSYCHIC_M
+	; v0.5 TM rework (rev8 spec): pre-E4 strong damage. Medical kept; 9 TMs (NIGHT_SHADE moved to Celadon 2F).
+	script_mart ULTRA_BALL, HYPER_POTION, FULL_RESTORE, REVIVE, FULL_HEAL, MAX_REPEL, TM_MEGAHORN, TM_THUNDERBOLT, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
 
 IndigoPlateauLobbyPostGameClerkText::
-	; Phase B.2: Indigo Lobby post-E4 (top tier / endgame). 7 TMs + PP Up per spec.
-	script_mart TM_THRASH, TM_SOLARBEAM, TM_THUNDER, TM_FIRE_BLAST, TM_HYDRO_PUMP, TM_BLIZZARD, TM_DOUBLE_EDGE, PP_UP
+	; v0.5 TM rework (rev8 spec): post-E4 top tier / endgame. 7 TMs + PP Up.
+	script_mart TM_OUTRAGE, TM_THUNDER, TM_FIRE_BLAST, TM_SOLARBEAM, TM_BLIZZARD, TM_DOUBLE_EDGE, TM_HYDRO_PUMP, PP_UP
 	

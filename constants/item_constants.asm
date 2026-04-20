@@ -170,7 +170,7 @@ DEF TM01 EQU const_value
 	add_tm IRON_TAIL,     ; $D3  TM11
 	add_tm THUNDERBOLT,   ; $D4  TM12
 	add_tm IRON_HEAD,     ; $D5  TM13
-	add_tm SHADOW_BALL,   ; $D6  TM14
+	add_tm NIGHT_SHADE,   ; $D6  TM14
 	add_tm CONFUSE_RAY,   ; $D7  TM15
 	add_tm IGNITE,        ; $D8  TM16
 	add_tm THUNDER_WAVE,  ; $D9  TM17
@@ -211,7 +211,7 @@ DEF TM01 EQU const_value
 	add_tm FIRE_BLAST,    ; $FC  TM52
 	add_tm HYDRO_PUMP,    ; $FD  TM53
 	add_tm BLIZZARD,      ; $FE  TM54
-	add_tm THRASH,        ; $FF  TM55
+	add_tm OUTRAGE,       ; $FF  TM55
 ASSERT NUM_TMS == const_value - TM01, "NUM_TMS ({d:NUM_TMS}) does not match the number of add_tm definitions"
 
 DEF NUM_TM_HM EQU NUM_TMS + NUM_HMS

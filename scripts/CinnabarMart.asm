@@ -16,5 +16,5 @@ CinnabarMartScientistText:
 	text_end
 
 CinnabarMartClerkText::
-	; Phase B.2: Cinnabar Mart (mid-tier damage). Medical items kept; 8 TMs per spec.
-	script_mart ULTRA_BALL, HYPER_POTION, MAX_REPEL, ESCAPE_ROPE, FULL_HEAL, REVIVE, TM_DRAGON_RAGE, TM_EXTRASENSORY, TM_POISON_FANG, TM_DAZE_GLEAM, TM_BULLDOZE, TM_LEECH_LIFE, TM_IRON_HEAD, TM_TAKE_DOWN
+	; v0.5 TM rework (rev8 spec): mid-tier damage. Medical kept; 8 TMs per spec.
+	script_mart ULTRA_BALL, HYPER_POTION, MAX_REPEL, ESCAPE_ROPE, FULL_HEAL, REVIVE, TM_LEECH_LIFE, TM_DRAGON_RAGE, TM_DAZE_GLEAM, TM_TAKE_DOWN, TM_BULLDOZE, TM_POISON_FANG, TM_EXTRASENSORY, TM_IRON_HEAD
