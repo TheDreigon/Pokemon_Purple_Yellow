@@ -17,4 +17,8 @@ FuchsiaMartCooltrainerFText:
 	text_end
 
 FuchsiaMartClerkText::
-	script_mart GREAT_BALL, ULTRA_BALL, SUPER_POTION, HYPER_POTION, REVIVE, FULL_HEAL, SUPER_REPEL
+	; Phase B.3: 4 status TMs from the Game Corner spec sold here too.
+	; Fuchsia is the "status / debuff" mart, fitting the poison theme
+	; (Koga's gym town). TM_TOXIC is also Koga's gift, but sold here too
+	; so the player isn't blocked if they miss the gift / want extras.
+	script_mart GREAT_BALL, ULTRA_BALL, SUPER_POTION, HYPER_POTION, REVIVE, FULL_HEAL, SUPER_REPEL, TM_CONFUSE_RAY, TM_THUNDER_WAVE, TM_IGNITE, TM_TOXIC

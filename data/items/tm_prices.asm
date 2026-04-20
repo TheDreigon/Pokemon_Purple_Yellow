@@ -17,9 +17,9 @@ TechnicalMachinePrices:
 	db $02, $50, $00 ; TM12 THUNDERBOLT =  25000
 	db $00, $75, $00 ; TM13 IRON_HEAD =   7500
 	db $02, $00, $00 ; TM14 SHADOW_BALL =  20000
-	db $00, $00, $00 ; TM15 CONFUSE_RAY =      0
-	db $00, $00, $00 ; TM16 IGNITE =      0
-	db $00, $00, $00 ; TM17 THUNDER_WAVE =      0
+	db $01, $00, $00 ; TM15 CONFUSE_RAY =  10000  ; Phase B.3: Fuchsia mart
+	db $02, $00, $00 ; TM16 IGNITE =       20000  ; Phase B.3: Fuchsia mart
+	db $02, $00, $00 ; TM17 THUNDER_WAVE = 20000  ; Phase B.3: Fuchsia mart
 	db $01, $50, $00 ; TM18 BULK_UP =  15000
 	db $00, $00, $00 ; TM19 MIMIC =      0
 	db $00, $00, $00 ; TM20 MIRROR_MOVE =      0
@@ -36,7 +36,7 @@ TechnicalMachinePrices:
 	db $02, $00, $00 ; TM31 HURRICANE =  20000
 	db $02, $00, $00 ; TM32 MEGAHORN =  20000
 	db $01, $50, $00 ; TM33 DRAGON_RAGE =  15000
-	db $00, $00, $00 ; TM34 TOXIC =      0
+	db $03, $00, $00 ; TM34 TOXIC =       30000  ; Phase B.3: Fuchsia mart (also Koga gift)
 	db $01, $00, $00 ; TM35 EXTRASENSORY =  10000
 	db $02, $00, $00 ; TM36 INTIMIDATE =  20000
 	db $01, $50, $00 ; TM37 SCARY_FACE =  15000
