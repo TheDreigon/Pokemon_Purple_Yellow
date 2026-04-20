@@ -671,6 +671,65 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	; hl = pointer to moves data for our mon
 	;  b = mon's level
 	ld c, 0 ; c = count of relearnable moves
+
+	; v0.5: prepend cross-species "always relearnable" moves (e.g. REST).
+	; These appear at the top of the menu before per-species learnset moves.
+	; See data/pokemon/always_relearnable_moves.asm.
+	; Stack management:
+	; - Save learnset_hl (outer push hl).
+	; - Save mon_level via `push af` (a holds mon_level). Using af instead of
+	;   bc so the c register (running count) survives the global-loop iterations.
+	push hl                       ; save learnset pointer
+	ld a, b                       ; a = mon_level
+	push af                       ; save mon_level via a (flags ignored)
+	ld hl, AlwaysRelearnableMoves
+.globalLoop
+	ld a, [hl]
+	cp $ff
+	jr z, .globalDone
+	ld b, a                       ; b = global move id (clobbers level; we saved it)
+	push hl                       ; save global list pointer
+	push de                       ; save mon's moves pointer
+	; 4-slot known-move check
+	ld a, [de]
+	cp b
+	jr z, .globalKnown
+	inc de
+	ld a, [de]
+	cp b
+	jr z, .globalKnown
+	inc de
+	ld a, [de]
+	cp b
+	jr z, .globalKnown
+	inc de
+	ld a, [de]
+	cp b
+	jr z, .globalKnown
+	; not known: write to buffer at index c
+	pop de                        ; restore mon's moves pointer
+	push bc                       ; preserve count (and our move-id-in-b)
+	ld a, b                       ; a = move id
+	ld b, 0
+	ld hl, wMoveBuffer + 1
+	add hl, bc
+	ld [hl], a                    ; buffer[1+count] = move id
+	pop bc                        ; restore count
+	inc c                         ; count++
+	pop hl                        ; restore global list pointer
+	inc hl                        ; next entry
+	jr .globalLoop
+.globalKnown
+	pop de                        ; restore mon's moves pointer
+	pop hl                        ; restore global list pointer
+	inc hl                        ; next entry
+	jr .globalLoop
+.globalDone
+	pop af                        ; restore a = mon_level
+	ld b, a                       ; b = mon_level
+	pop hl                        ; restore learnset pointer
+	; --- end v0.5 globals ---
+
 .loop
 	ld a, [hli]
 	and a
@@ -941,4 +1000,5 @@ StorePKMNLevels:
 	pop hl
 	ret
 
+INCLUDE "data/pokemon/always_relearnable_moves.asm"
 INCLUDE "data/pokemon/evos_moves.asm"
