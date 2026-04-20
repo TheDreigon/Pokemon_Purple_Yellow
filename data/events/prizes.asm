@@ -34,10 +34,10 @@ PrizeMenuMon2Cost:
 	bcd2 1000
 	db "@"
 
-; Phase B.3: Game Corner has 4 TMs (engine extended from 3 to 4 prize slots
-; for the TM menu only; Mon menus stay at 3). The other 4 spec TMs (Confuse
-; Ray, Thunder Wave, Ignite, Toxic) are sold at Fuchsia Mart instead.
-; Tier coverage: 2x500c, 1x1000c, 1x1500c.
+; Phase B.3: Game Corner has 4 TMs (all 3 menus use a uniform 4-prize
+; layout now). The other 4 spec TMs (Confuse Ray, Thunder Wave, Ignite,
+; Toxic) are sold at Fuchsia Mart instead. Tier coverage: 2x500c,
+; 1x1000c, 1x1500c.
 PrizeMenuTMsEntries:
 	db TM_MIRROR_MOVE
 	db TM_MIMIC
