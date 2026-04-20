@@ -9,38 +9,23 @@ CeladonPrizeMenu::
 	set 6, [hl] ; disable letter-printing delay
 	ld hl, ExchangeCoinsForPrizesTextPtr
 	call PrintText
-; v0.5 Phase B.3: determine menu type up front so we can size the layout.
-; TM menu (window 2) shows 4 prizes; Mon menus (windows 0, 1) show 3.
-	ldh a, [hSpriteIndexOrTextID]
-	sub 4
-	ld [wWhichPrizeWindow], a
-; common menu setup
+; v0.5 Phase B.3: all 3 menus (Mon1, Mon2, TM) show 4 prizes. Layout is
+; uniform now; the only Mon-vs-TM branching left is GetMonName vs
+; GetItemName for the prize names (handled in GetPrizeMenuId).
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
 	ld a, A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
 	ld a, $04
+	ld [wMaxMenuItem], a ; 4 prizes + NO_THANKS = 5 items, max index = 4
+	ld a, $04
 	ld [wTopMenuItemY], a
 	ld a, $01
 	ld [wTopMenuItemX], a
 	call PrintPrizePrice
-	ld a, [wWhichPrizeWindow]
-	cp 2
-	jr z, .tmMenuLayout
-; Mon menu: 3 prizes + NO_THANKS = 4 items, textbox 8 rows
-	ld a, $03
-	ld [wMaxMenuItem], a
-	hlcoord 0, 2
-	lb bc, 8, 16
-	jr .drawTextBox
-.tmMenuLayout
-; TM menu: 4 prizes + NO_THANKS = 5 items, textbox 10 rows
-	ld a, $04
-	ld [wMaxMenuItem], a
 	hlcoord 0, 2
 	lb bc, 10, 16
-.drawTextBox
 	call TextBoxBorder
 	call GetPrizeMenuId
 	call UpdateSprites
@@ -50,8 +35,7 @@ CeladonPrizeMenu::
 	bit BIT_B_BUTTON, a
 	jr nz, .noChoice
 	ld a, [wCurrentMenuItem]
-	ld hl, wMaxMenuItem
-	cp [hl] ; "NO,THANKS" is always the last item (index = wMaxMenuItem)
+	cp 4 ; "NO,THANKS" choice (always the last item)
 	jr z, .noChoice
 	call HandlePrizeChoice
 .noChoice
@@ -73,10 +57,10 @@ WhichPrizeTextPtr:
 	text_end
 
 GetPrizeMenuId:
-; v0.5 Phase B.3: handles 3 (Mon) or 4 (TM) prizes depending on
-; wWhichPrizeWindow (already set by CeladonPrizeMenu).
-; Loads the prizes at wPrize1.., the prices at wPrize1Price.., and
-; displays them at the right rows for each menu type.
+; v0.5 Phase B.3: handles 4 prizes for all menus (Mon1, Mon2, TM).
+; Only difference between Mon and TM is GetMonName vs GetItemName for
+; rendering the prize names; everything else (textbox size, price
+; copy size, NO_THANKS row) is uniform.
 	ldh a, [hSpriteIndexOrTextID]
 	sub 4       ; prize-texts' id are 3, 4 and 5
 	ld [wWhichPrizeWindow], a    ; prize-texts' id (relative, i.e. 0, 1 or 2)
@@ -98,13 +82,7 @@ GetPrizeMenuId:
 	ld h, [hl]
 	ld l, a
 	ld de, wPrize1Price
-; TM menu has 4 prices (8 bytes); Mon menus have 3 (6 bytes).
-	ld a, [wWhichPrizeWindow]
-	cp 2
-	ld bc, 6
-	jr nz, .gotPriceBytes
-	ld bc, 8
-.gotPriceBytes
+	ld bc, 8 ; 4 prices x 2 bytes each (BCD)
 	call CopyData
 	ld a, [wWhichPrizeWindow]
 	cp 2        ;is TM_menu?
@@ -129,10 +107,7 @@ GetPrizeMenuId:
 	call GetItemName
 	hlcoord 2, 10
 	call PlaceString
-	hlcoord 2, 12
-	ld de, NoThanksText
-	call PlaceString
-	jr .putPrices
+	jr .putNoThanksText
 .putMonName
 	ld a, [wPrize1]
 	ld [wd11e], a
@@ -149,10 +124,15 @@ GetPrizeMenuId:
 	call GetMonName
 	hlcoord 2, 8
 	call PlaceString
+	ld a, [wPrize4]
+	ld [wd11e], a
+	call GetMonName
 	hlcoord 2, 10
+	call PlaceString
+.putNoThanksText
+	hlcoord 2, 12
 	ld de, NoThanksText
 	call PlaceString
-.putPrices
 ; put prices on the right side of the textbox
 ; reg. c: [low nybble] number of bytes; [bits 765 = %100] space-padding
 	ld de, wPrize1Price
@@ -167,9 +147,6 @@ GetPrizeMenuId:
 	hlcoord 13, 9
 	ld c, (1 << 7 | 2)
 	call PrintBCDNumber
-	ld a, [wWhichPrizeWindow]
-	cp 2 ; is TM menu?
-	ret nz
 	ld de, wPrize4Price
 	hlcoord 13, 11
 	ld c, (1 << 7 | 2)
