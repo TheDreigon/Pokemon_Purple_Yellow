@@ -254,6 +254,7 @@ DEF SHOW EQU $15
 	const HS_SEAFOAM_ISLANDS_B3F_ITEM_1    ; v0.5 Phase B.4 (TM41 Light Screen)
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_1 ; E9
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; EA
+	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1    ; v0.5 Phase B.4 (TM42 Ice Beam)
 	const HS_ARTICUNO                      ; EB
 	const HS_DAISY_SITTING_COPY            ; EC
 	const HS_DAISY_WALKING_COPY            ; ED
