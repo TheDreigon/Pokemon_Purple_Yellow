@@ -224,7 +224,6 @@ KangaskhanEvosMoves:
 	db 7, LEER
 	db 13, BITE
 	db 19, TAIL_WHIP
-	db 24, MEGA_PUNCH
 	db 29, DIZZY_PUNCH
 	db 37, BODY_SLAM
 	db 48, DOUBLE_EDGE
@@ -488,7 +487,6 @@ MewEvosMoves:
 ; Learnset
 	db 10, TRANSFORM
 	db 15, CONFUSION
-	db 20, MEGA_PUNCH
 	db 25, PSYBEAM
 	db 30, METRONOME
 	db 40, PSYCHIC_M
@@ -748,7 +746,6 @@ ChanseyEvosMoves:
 	db 24, SING
 	db 30, GROWL
 	db 48, LIGHT_SCREEN
-	db 50, MEGA_PUNCH
 	db 54, DOUBLE_EDGE
 	db 0
 
@@ -785,7 +782,6 @@ HitmonleeEvosMoves:
 ; Learnset
 	db 25, FOCUS_ENERGY
 	db 33, ROLLING_KICK
-	db 38, JUMP_KICK
 	db 43, CALM_MIND
 	db 48, HI_JUMP_KICK
 	db 53, HEAVY_SLAM
@@ -801,7 +797,6 @@ HitmonchanEvosMoves:
 	db 37, DISCHARGE
 	db 40, DIZZY_PUNCH
 	db 42, SUBMISSION
-	db 48, MEGA_PUNCH
 	db 0
 
 ArbokEvosMoves:
@@ -1475,7 +1470,6 @@ EeveeEvosMoves:
 	db 17, DOUBLE_KICK
 	db 22, HEADBUTT
 	db 30, FOCUS_ENERGY
-	db 36, JUMP_KICK
 	db 42, TAKE_DOWN
 	db 0
 
@@ -1659,7 +1653,6 @@ DodrioEvosMoves:
 	db 30, DRILL_PECK
 	db 36, RAGE
 	db 39, TRI_ATTACK
-	db 45, JUMP_KICK
 	db 51, AGILITY
 	db 0
 

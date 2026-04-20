@@ -16,7 +16,6 @@ AttackAnimationPointers:
 	dw BrutalSwingAnim
 	dw DarkPulseAnim
 	dw GoreAttackAnim
-	dw ThrashAnim
 	dw PayDayAnim
 	dw DreamEaterAnim
 	dw GlareAnim
@@ -26,6 +25,7 @@ AttackAnimationPointers:
 	dw DragonClawAnim
 	dw DragonBreathAnim
 	dw DragonSlamAnim
+	dw OutrageAnim
 	dw HyperBeamAnim
 ; === ELECTRIC ===
 	dw NuzzleAnim
@@ -52,14 +52,13 @@ AttackAnimationPointers:
 	dw MachPunchAnim
 	dw KarateChopAnim
 	dw DoubleKickAnim
-	dw DizzyPunchAnim
 	dw StrengthAnim
 	dw TakeDownAnim
-	dw JumpKickAnim
-	dw RollingKickAnim
 	dw LeekStrikeAnim
+	dw DizzyPunchAnim
+	dw RollingKickAnim
 	dw SubmissionAnim
-	dw MegaPunchAnim
+	dw SkyUppercutAnim
 	dw HiJumpKickAnim
 ; === FIRE ===
 	dw EmberAnim
@@ -140,6 +139,7 @@ AttackAnimationPointers:
 	dw BodySlamAnim
 	dw CrunchAnim
 	dw HornChargeAnim
+	dw ThrashAnim
 	dw HeavySlamAnim
 	dw DoubleEdgeAnim
 	dw ExtremeSpeedAnim
@@ -199,8 +199,8 @@ AttackAnimationPointers:
 	dw DefenseCurlAnim
 	dw HardenAnim
 	dw WithdrawAnim
-	dw AmnesiaAnim
 	dw CalmMindAnim
+	dw AmnesiaAnim
 	dw GrowthAnim
 	dw NastyPlotAnim
 	dw QuiverDanceAnim
@@ -502,10 +502,6 @@ StrengthAnim:
 
 TakeDownAnim:
 	battle_anim TAKE_DOWN, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
-JumpKickAnim:
-	battle_anim JUMP_KICK, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 DizzyPunchAnim:
@@ -830,10 +826,6 @@ SlashAnim:
 
 BodySlamAnim:
 	battle_anim BODY_SLAM, SUBANIM_0_STAR_TWICE, 0, 8
-	db -1 ; end
-
-MegaPunchAnim:
-	battle_anim MEGA_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 CrunchAnim:
@@ -1399,5 +1391,13 @@ IgniteAnim:
 
 MachPunchAnim:
 	battle_anim MACH_PUNCH, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+SkyUppercutAnim:
+	battle_anim SKY_UPPERCUT, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+OutrageAnim:
+	battle_anim OUTRAGE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 

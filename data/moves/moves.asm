@@ -23,26 +23,26 @@ Moves: ; Current total = 219
 	move TWINEEDLE,      TWINEEDLE_EFFECT,                 40, BUG,          100, 20 ; signature.
 
 
-	; === DARK TYPE (11 moves) === ; new type
+	; === DARK TYPE (10 moves) === ; new type
 	move FAINT_ATTACK,   SWIFT_EFFECT,                     45, DARK,         100, 30 ; new move.
 	move RAGE,           RAGE_EFFECT,                      60, DARK,          95, 25
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
-	move BRUTAL_SWING,   DEFENSE_DOWN_SIDE_EFFECT,         80, DARK,         100, 20 ; new move.
-	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              85, DARK,         100, 15 ; new move.
+	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             85, DARK,          90, 20 ; new move.
+	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
 	move GORE_ATTACK,    PARALYZE_SIDE_EFFECT2,            95, DARK,          95, 15 ; new move. high-crit.
-	move THRASH,         THRASH_PETAL_DANCE_EFFECT,       100, DARK,         100, 10
 	move PAY_DAY,        PAY_DAY_EFFECT,                   60, DARK,         100, 25 ; signature. high-crit.
 	move DREAM_EATER,    DREAM_EATER_EFFECT,              110, DARK,         100, 20 ; signature.
 	move GLARE,          PARALYZE_EFFECT,                   0, DARK,          90, 20 ; signature.
 	move DEEP_SLEEP,     SLEEP_EFFECT,                      0, DARK,          85, 20 ; signature.
 
 
-	; === DRAGON TYPE (5 moves) ===
+	; === DRAGON TYPE (6 moves) ===
 	move DRAGON_RAGE,    SPECIAL_DAMAGE_EFFECT,             1, DRAGON,       100, 20 ; set damage from 40 to 50.
 	move DRAGON_CLAW,    NO_ADDITIONAL_EFFECT,             60, DRAGON,       100, 25 ; new move. high-crit.
 	move DRAGON_BREATH,  PARALYZE_SIDE_EFFECT2,            75, DRAGON,       100, 20 ; new move.
 	move DRAGON_SLAM,    RECOIL_EFFECT,                    95, DRAGON,        95, 15 ; new move.
-	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        75,  5 ; high-crit.
+	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       100, DRAGON,       100, 10 ; new move.
+	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        75,  5
 
 
 	; === ELECTRIC TYPE (7 moves) ===
@@ -66,23 +66,22 @@ Moves: ; Current total = 219
 	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; signature.
 
 
-	; === FIGHTING TYPE (16 moves) ===
+	; === FIGHTING TYPE (15 moves) ===
 	move SEISMIC_TOSS,   SPECIAL_DAMAGE_EFFECT,             1, FIGHTING,     100, 20
 	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       18, FIGHTING,      90, 20
 	move LOW_KICK,       FLINCH_SIDE_EFFECT2,              35, FIGHTING,      90, 35
 	move BIND,           PARALYZE_SIDE_EFFECT2,            45, FIGHTING,      90, 30
-	move MACH_PUNCH,     NO_ADDITIONAL_EFFECT,             45, FIGHTING,     100, 20 ; new move. priority move.
+	move MACH_PUNCH,     NO_ADDITIONAL_EFFECT,             45, FIGHTING,     100, 20 ; priority move.
 	move KARATE_CHOP,    NO_ADDITIONAL_EFFECT,             50, FIGHTING,     100, 30 ; high-crit.
 	move DOUBLE_KICK,    ATTACK_TWICE_EFFECT,              30, FIGHTING,     100, 25
-	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           60, FIGHTING,     100, 20 ; almost-signature.
-	move STRENGTH,       NO_ADDITIONAL_EFFECT,             80, FIGHTING,     100, 20
-	move TAKE_DOWN,      DEFENSE_DOWN1_EFFECT,             85, FIGHTING,      90, 15
-	move JUMP_KICK,      JUMP_KICK_EFFECT,                 90, FIGHTING,      90, 20 ; almost-signature.
-	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25
+	move STRENGTH,       ATTACK_UP1_EFFECT,                65, FIGHTING,     100, 20
+	move TAKE_DOWN,      DEFENSE_DOWN1_EFFECT,             80, FIGHTING,      90, 20
 	move LEEK_STRIKE,    FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25 ; new move. signature. high-crit.
+	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           80, FIGHTING,     100, 20 ; signature. new effect.
+	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,     100, 20 ; signature.
 	move SUBMISSION,     ATTACK_DOWN1_EFFECT,              95, FIGHTING,     100, 15 ; signature.
-	move MEGA_PUNCH,     NO_ADDITIONAL_EFFECT,            100, FIGHTING,      90, 15 ; signature.
-	move HI_JUMP_KICK,   JUMP_KICK_EFFECT,                120, FIGHTING,      80, 10 ; signature.
+	move SKY_UPPERCUT,   NO_ADDITIONAL_EFFECT,            100, FIGHTING,      95, 10 ; new move. signature. high-crit.
+	move HI_JUMP_KICK,   JUMP_KICK_EFFECT,                110, FIGHTING,      90, 10 ; signature. high-crit.
 
 
 	; === FIRE TYPE (7 moves) ===
@@ -91,7 +90,7 @@ Moves: ; Current total = 219
 	move FLAME_BURST,    SWIFT_EFFECT,                     75, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
-	move IGNITE,         BURN_EFFECT,                       0, FIRE,          90, 20 ; new move.
+	move IGNITE,         BURN_EFFECT,                       0, FIRE,          90, 20
 	move EXPLOSION,      EXPLODE_EFFECT,                  200, FIRE,         100,  5 ; signature. high-crit.
 
 
@@ -102,7 +101,7 @@ Moves: ; Current total = 219
 	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 20 ; new move.
 	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
-	move SKY_ATTACK,     CHARGE_EFFECT,                   160, FLYING,       100, 10
+	move SKY_ATTACK,     CHARGE_EFFECT,                   170, FLYING,       100, 10
 	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; signature.
 
 
@@ -136,8 +135,8 @@ Moves: ; Current total = 219
 	move MEGA_DRAIN,     DRAIN_HP_EFFECT,                  50, GRASS,        100, 20
 	move RAZOR_LEAF,     NO_ADDITIONAL_EFFECT,             60, GRASS,        100, 20 ; high-crit.
 	move GIGA_DRAIN,     DRAIN_HP_EFFECT,                  75, GRASS,        100, 15 ; new move.
-	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        90, GRASS,        100, 15
-	move SOLARBEAM,      CHARGE_EFFECT,                   160, GRASS,        100, 10
+	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        90, GRASS,        100, 10
+	move SOLARBEAM,      CHARGE_EFFECT,                   170, GRASS,        100, 10
 	move LEECH_SEED,     LEECH_SEED_EFFECT,                 0, GRASS,         90, 20
 	move POISONPOWDER,   POISON_EFFECT,                     0, POISON,        85, 25
 	move STUN_SPORE,     PARALYZE_EFFECT,                   0, GRASS,         80, 20
@@ -169,7 +168,7 @@ Moves: ; Current total = 219
 	move LAVA_PLUME,     BURN_SIDE_EFFECT2,                90, MAGMA,        100, 15 ; new move. signature.
 
 
-	; === NORMAL TYPE (18 moves) ===
+	; === NORMAL TYPE (19 moves) ===
 	move WRAP,           TRAPPING_EFFECT,                  16, NORMAL,        80, 25
 	move FURY_ATTACK,    TWO_TO_FIVE_ATTACKS_EFFECT,       18, NORMAL,        90, 20
 	move SCRATCH,        NO_ADDITIONAL_EFFECT,             35, NORMAL,       100, 30
@@ -182,6 +181,7 @@ Moves: ; Current total = 219
 	move BODY_SLAM,      PARALYZE_SIDE_EFFECT1,            70, NORMAL,        95, 20
 	move CRUNCH,         DEFENSE_DOWN_SIDE_EFFECT,         75, NORMAL,       100, 20 ; new move.
 	move HORN_CHARGE,    FLINCH_SIDE_EFFECT1,              90, NORMAL,        95, 15 ; new move. high-crit.
+	move THRASH,         THRASH_PETAL_DANCE_EFFECT,        95, NORMAL,       100, 10
 	move HEAVY_SLAM,     PARALYZE_SIDE_EFFECT2,           100, NORMAL,        90, 10
 	move DOUBLE_EDGE,    RECOIL_EFFECT,                   120, NORMAL,        80, 10 ; high-crit.
 	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. almost-signature. priority move.
@@ -193,7 +193,7 @@ Moves: ; Current total = 219
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
 	move POISON_STING,   POISON_SIDE_EFFECT1,              35, POISON,       100, 30
 	move POISON_FANG,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
-	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 60% chance.
+	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 50% chance.
 	move ACID,           DEFENSE_DOWN1_EFFECT,             40, POISON,       100, 25
 	move SLUDGE,         POISON_SIDE_EFFECT2,              65, POISON,       100, 20
 	move SLUDGE_WAVE,    SPEED_DOWN1_EFFECT,               90, POISON,       100, 15 ; new move.
@@ -208,7 +208,7 @@ Moves: ; Current total = 219
 	move EXTRASENSORY,   SWIFT_EFFECT,                     60, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         75, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      SPECIAL_DOWN1_EFFECT,             95, PSYCHIC_TYPE, 100, 15
-	move MIND_BREAK,     PARALYZE_EFFECT,                 120, PSYCHIC_TYPE,  90, 10 ; signature.
+	move MIND_BREAK,     PARALYZE_EFFECT,                 125, PSYCHIC_TYPE,  90, 10 ; signature.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
 
@@ -256,8 +256,8 @@ Moves: ; Current total = 219
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
-	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 	move CALM_MIND,      SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 	move GROWTH,         SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 

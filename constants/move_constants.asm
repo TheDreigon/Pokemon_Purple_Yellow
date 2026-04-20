@@ -28,7 +28,6 @@
 	const BRUTAL_SWING
 	const DARK_PULSE
 	const GORE_ATTACK
-	const THRASH
 	const PAY_DAY
 	const DREAM_EATER
 	const GLARE
@@ -39,6 +38,7 @@
 	const DRAGON_CLAW
 	const DRAGON_BREATH
 	const DRAGON_SLAM
+	const OUTRAGE
 	const HYPER_BEAM
 
 ; === ELECTRIC ===
@@ -68,14 +68,13 @@
 	const MACH_PUNCH
 	const KARATE_CHOP
 	const DOUBLE_KICK
-	const DIZZY_PUNCH
 	const STRENGTH
 	const TAKE_DOWN
-	const JUMP_KICK
-	const ROLLING_KICK
 	const LEEK_STRIKE
+	const DIZZY_PUNCH
+	const ROLLING_KICK
 	const SUBMISSION
-	const MEGA_PUNCH
+	const SKY_UPPERCUT
 	const HI_JUMP_KICK
 
 ; === FIRE ===
@@ -166,6 +165,7 @@
 	const BODY_SLAM
 	const CRUNCH
 	const HORN_CHARGE
+	const THRASH
 	const HEAVY_SLAM
 	const DOUBLE_EDGE
 	const EXTREMESPEED
@@ -231,8 +231,8 @@
 	const DEFENSE_CURL
 	const HARDEN
 	const WITHDRAW
-	const AMNESIA
 	const CALM_MIND
+	const AMNESIA
 	const GROWTH
 	const NASTY_PLOT
 	const QUIVER_DANCE
