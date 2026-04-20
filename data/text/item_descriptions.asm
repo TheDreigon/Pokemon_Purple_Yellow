@@ -363,7 +363,7 @@ _TM03Description::
 	prompt
 
 _TM04Description::
-	text "FAIRY beam, may"
+	text "FAIRY gleam, may"
 	next "cause flinching."
 	prompt
 
@@ -618,7 +618,7 @@ _TM54Description::
 	prompt
 
 _TM55Description::
-	text "DRAGON rage. The"
+	text "DRAGON fury. The"
 	next "user locks in."
 	prompt
 
