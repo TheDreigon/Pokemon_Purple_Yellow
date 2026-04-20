@@ -27,19 +27,19 @@ PrizeMenuMon2Cost:
 	bcd2 4500
 	db "@"
 
-; Phase B.3 (partial): spec wants 8 TMs at Game Corner but the existing
-; menu UI is hardcoded for 3 prize slots. Picked 3 spec TMs that cover
-; the price range (500/1000/1500 coins) and feel "Game Corner classic".
-; The other 5 spec TMs (Confuse Ray, Thunder Wave, Ignite, Toxic,
-; Mirror Move) need a dedicated Phase B.3 to expand the menu UI to 8
-; entries per submenu (or split into 2-3 NPCs).
+; Phase B.3: Game Corner has 4 TMs (engine extended from 3 to 4 prize slots
+; for the TM menu only; Mon menus stay at 3). The other 4 spec TMs (Confuse
+; Ray, Thunder Wave, Ignite, Toxic) are sold at Fuchsia Mart instead.
+; Tier coverage: 2x500c, 1x1000c, 1x1500c.
 PrizeMenuTMsEntries:
+	db TM_MIRROR_MOVE
 	db TM_MIMIC
 	db TM_SUBSTITUTE
 	db TM_METRONOME
 	db "@"
 
 PrizeMenuTMsCost:
+	bcd2 500
 	bcd2 500
 	bcd2 1000
 	bcd2 1500

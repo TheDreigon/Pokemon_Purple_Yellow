@@ -1866,6 +1866,7 @@ wNumberOfNoRandomBattleStepsLeft:: db
 wPrize1:: db
 wPrize2:: db
 wPrize3:: db
+wPrize4:: db ; v0.5 TM rework Phase B.3: 4-TM Game Corner menu
 
 wNoSprintSteps:: db
 
@@ -1876,8 +1877,7 @@ NEXTU
 wPrize1Price:: dw
 wPrize2Price:: dw
 wPrize3Price:: dw
-
-	ds 1
+wPrize4Price:: dw ; v0.5 TM rework Phase B.3: 4-TM Game Corner menu (replaced ds 1 padding)
 
 ; shared list of 9 random numbers, indexed by wLinkBattleRandomNumberListIndex
 wLinkBattleRandomNumberList:: ds 10
@@ -2639,5 +2639,7 @@ wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 SECTION "Stack", WRAM0
 
 ; the stack grows downward
-	ds $eb - 1
+; v0.5 TM rework Phase B.3: shrunk by 2 bytes (235 -> 233) to make room
+; for wPrize4 + wPrize4Price added for the 4-TM Game Corner menu.
+	ds $eb - 3
 wStack:: db
