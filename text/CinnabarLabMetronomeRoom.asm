@@ -6,14 +6,14 @@ _CinnabarLabMetronomeRoomScientist1Text::
 	line "kinds of fun!"
 	prompt
 
-_CinnabarLabMetronomeRoomScientist1ReceivedTM35Text::
+_CinnabarLabMetronomeRoomScientist1ReceivedTM22Text::
 	text "<PLAYER> received "
 	line "@"
 	text_ram wStringBuffer
 	text "!@"
 	text_end
 
-_CinnabarLabMetronomeRoomScientist1TM35ExplanationText::
+_CinnabarLabMetronomeRoomScientist1TM22ExplanationText::
 	text "Tch-tch-tch!"
 	line "That's the sound"
 	cont "of a METRONOME!"
@@ -24,7 +24,7 @@ _CinnabarLabMetronomeRoomScientist1TM35ExplanationText::
 	cont "it doesn't know!"
 	done
 
-_CinnabarLabMetronomeRoomScientist1TM35NoRoomText::
+_CinnabarLabMetronomeRoomScientist1TM22NoRoomText::
 	text "Your pack is"
 	line "crammed full!"
 	done
