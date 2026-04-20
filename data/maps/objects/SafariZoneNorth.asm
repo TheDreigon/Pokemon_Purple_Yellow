@@ -1,6 +1,6 @@
 	object_const_def
 	const_export SAFARIZONENORTH_PROTEIN
-	const_export SAFARIZONENORTH_TM_SKULL_BASH
+	const_export SAFARIZONENORTH_TM_DRAGON_RAGE
 
 SafariZoneNorth_Object:
 	db $0 ; border block
@@ -25,6 +25,6 @@ SafariZoneNorth_Object:
 
 	def_object_events
 	object_event 25,  1, SPRITE_POKE_BALL, STAY, NONE, TEXT_SAFARIZONENORTH_PROTEIN, PROTEIN
-	object_event 19,  7, SPRITE_POKE_BALL, STAY, NONE, TEXT_SAFARIZONENORTH_TM_SKULL_BASH, TM_DRAGON_RAGE
+	object_event 19,  7, SPRITE_POKE_BALL, STAY, NONE, TEXT_SAFARIZONENORTH_TM_DRAGON_RAGE, TM_DRAGON_RAGE
 
 	def_warps_to SAFARI_ZONE_NORTH

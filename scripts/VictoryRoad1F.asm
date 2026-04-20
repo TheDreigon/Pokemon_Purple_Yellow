@@ -52,7 +52,7 @@ VictoryRoad1F_TextPointers:
 	dw_const VictoryRoad1FBeautyText, 		TEXT_VICTORYROAD1F_BEAUTY
 	dw_const VictoryRoad1FBurglarText, 		TEXT_VICTORYROAD1F_BURGLAR
 	dw_const VictoryRoad1FBlackbeltText, 	TEXT_VICTORYROAD1F_BLACKBELT
-	dw_const PickUpItemText,                TEXT_VICTORYROAD1F_TM_SKY_ATTACK
+	dw_const PickUpItemText,                TEXT_VICTORYROAD1F_TM_THUNDER
 	dw_const PickUpItemText,                TEXT_VICTORYROAD1F_RARE_CANDY
 	dw_const BoulderText,                   TEXT_VICTORYROAD1F_BOULDER1
 	dw_const BoulderText,                   TEXT_VICTORYROAD1F_BOULDER2
