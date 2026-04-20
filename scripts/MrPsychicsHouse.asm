@@ -11,7 +11,7 @@ MrPsychicsHouseMrPsychicText:
 	jr nz, .got_item
 	ld hl, .YouWantedThisText
 	call PrintText
-	lb bc, TM_PSYCHIC_M, 1
+	lb bc, TM_EXTRASENSORY, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .ReceivedTM29Text
