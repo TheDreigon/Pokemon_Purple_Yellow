@@ -11,11 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm AERIAL_ACE,   SWORDS_DANCE, HEAVY_SLAM,    TOXIC,        BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     \
-	     BLIZZARD,     HYPER_BEAM,   SUBMISSION,   SEISMIC_TOSS, RAGE,         \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         HEAD_SMASH,   \
-	     REST,         SUBSTITUTE,   CUT,      SURF,  ROCK_SLIDE
+	tmhm
 	; end
 
 	db 0 ; padding

@@ -12,10 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   HEAVY_SLAM,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  SUBMISSION,   CALM_MIND,      SEISMIC_TOSS, RAGE,         \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         METRONOME,    DISCHARGE,        \
-	     HEAD_SMASH,   REST,         SUBSTITUTE,   STRENGTH, ROCK_SLIDE
+	tmhm
 	; end
 
 	db 0 ; padding

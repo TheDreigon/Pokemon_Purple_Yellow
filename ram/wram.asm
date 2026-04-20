@@ -1733,7 +1733,9 @@ wMonHBackSprite:: dw
 wMonHMoves:: ds NUM_MOVES
 wMonHGrowthRate:: db
 wMonHLearnset:: flag_array NUM_TMS + NUM_HMS
-	ds 1
+	; v0.5 TM rework: removed `ds 1` padding. With NUM_TMS=55 + NUM_HMS=5 = 60 bits,
+	; the flag_array now occupies 8 bytes naturally, so the padding byte that kept the
+	; struct aligned with the previous 7-byte (55-bit) learnset is no longer needed.
 wMonHeaderEnd::
 
 ; saved at the start of a battle and then written back at the end of the battle

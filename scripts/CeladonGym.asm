@@ -54,7 +54,7 @@ CeladonGymReceiveTM21:
 	ld a, HS_REDS_HOUSE_2F_MR_MIME
 	ld [wMissableObjectIndex], a
 	predef ShowObject
-	lb bc, TM_MEGA_DRAIN, 1
+	lb bc, TM_GIGA_DRAIN, 1
 	call GiveItem
 	jr nc, .BagFull
 	ld a, TEXT_CELADONGYM_RECEIVED_TM21

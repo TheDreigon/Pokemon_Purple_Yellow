@@ -11,10 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC, BODY_SLAM, TAKE_DOWN, DOUBLE_EDGE, HYPER_BEAM,   \
-	     RAGE,   SOLARBEAM,    DIG,      MIMIC,   DOUBLE_TEAM,   REFLECT,      \
-	     BIDE,         FIRE_BLAST,   DISCHARGE,        HEAD_SMASH,   REST,         \
-	     SUBSTITUTE
+	tmhm
 	; end
 
 	db 0 ; padding

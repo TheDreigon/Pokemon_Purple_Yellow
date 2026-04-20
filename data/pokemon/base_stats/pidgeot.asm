@@ -12,10 +12,7 @@
 	db GROWTH_MEDIUM_SLOW ; growth rate
 
 	; tm/hm learnset
-	tmhm AERIAL_ACE,    TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         DISCHARGE,        HURRICANE,   REST,         SUBSTITUTE,   \
-	     FLY
+	tmhm
 	; end
 
 	db 0 ; padding

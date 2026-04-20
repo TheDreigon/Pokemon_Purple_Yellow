@@ -29,7 +29,7 @@ PrizeMenuMon2Cost:
 
 PrizeMenuTMsEntries:
 	db TM_DRAGON_RAGE
-	db TM_HYPER_BEAM
+	db TM_METRONOME
 	db TM_SUBSTITUTE
 	db "@"
 

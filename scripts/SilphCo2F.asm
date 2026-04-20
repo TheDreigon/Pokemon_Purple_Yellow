@@ -118,7 +118,7 @@ SilphCo2FSilphWorkerFText:
 	jr nz, .already_have_tm
 	ld hl, .PleaseTakeThisText
 	call PrintText
-	lb bc, TM_DARK_PULSE, 1
+	lb bc, TM_INTIMIDATE, 1
 	call GiveItem
 	ld hl, .TM36NoRoomText
 	jr nc, .print_text

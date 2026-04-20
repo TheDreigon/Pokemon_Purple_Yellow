@@ -1,54 +1,60 @@
 TechnicalMachinePrices:
-; In thousands (nybbles).
-	nybble_array TechnicalMachinePrices
-	nybble 3 ; TM01
-	nybble 2 ; TM02
-	nybble 2 ; TM03
-	nybble 4 ; TM04
-	nybble 3 ; TM05
-	nybble 4 ; TM06
-	nybble 2 ; TM07
-	nybble 4 ; TM08
-	nybble 3 ; TM09
-	nybble 4 ; TM10
-	nybble 2 ; TM11
-	nybble 1 ; TM12
-	nybble 4 ; TM13
-	nybble 5 ; TM14
-	nybble 5 ; TM15
-	nybble 5 ; TM16
-	nybble 3 ; TM17
-	nybble 2 ; TM18
-	nybble 3 ; TM19
-	nybble 2 ; TM20
-	nybble 5 ; TM21
-	nybble 5 ; TM22
-	nybble 5 ; TM23
-	nybble 2 ; TM24
-	nybble 5 ; TM25
-	nybble 4 ; TM26
-	nybble 5 ; TM27
-	nybble 2 ; TM28
-	nybble 4 ; TM29
-	nybble 1 ; TM30
-	nybble 2 ; TM31
-	nybble 1 ; TM32
-	nybble 1 ; TM33
-	nybble 2 ; TM34
-	nybble 4 ; TM35
-	nybble 2 ; TM36
-	nybble 2 ; TM37
-	nybble 5 ; TM38
-	nybble 2 ; TM39
-	nybble 4 ; TM40
-	nybble 2 ; TM41
-	nybble 2 ; TM42
-	nybble 5 ; TM43
-	nybble 2 ; TM44
-	nybble 2 ; TM45
-	nybble 4 ; TM46
-	nybble 3 ; TM47
-	nybble 4 ; TM48
-	nybble 4 ; TM49
-	nybble 2 ; TM50
-	end_nybble_array NUM_TMS
+; Each entry is a 3-byte packed BCD price (0..999999).
+; Reading routine: engine/items/tm_prices.asm:GetMachinePrice.
+; Migrated from nybble_array (max 15000) to 3-byte BCD (max 999999)
+; in the v0.5 TM rework to support prices up to 30000.
+	db $00, $50, $00 ; TM01 ROCK_THROW =   5000
+	db $00, $50, $00 ; TM02 KARATE_CHOP =   5000
+	db $00, $50, $00 ; TM03 QUICK_ATTACK =   5000
+	db $01, $00, $00 ; TM04 DAZE_GLEAM =  10000
+	db $01, $50, $00 ; TM05 BULLDOZE =  15000
+	db $00, $75, $00 ; TM06 WATER_PULSE =   7500
+	db $01, $00, $00 ; TM07 DOUBLE_TEAM =  10000
+	db $00, $75, $00 ; TM08 SEISMIC_TOSS =   7500
+	db $01, $00, $00 ; TM09 DRAGON_CLAW =  10000
+	db $00, $75, $00 ; TM10 BODY_SLAM =   7500
+	db $00, $50, $00 ; TM11 IRON_TAIL =   5000
+	db $02, $50, $00 ; TM12 THUNDERBOLT =  25000
+	db $00, $75, $00 ; TM13 IRON_HEAD =   7500
+	db $02, $00, $00 ; TM14 SHADOW_BALL =  20000
+	db $00, $00, $00 ; TM15 CONFUSE_RAY =      0
+	db $00, $00, $00 ; TM16 IGNITE =      0
+	db $00, $00, $00 ; TM17 THUNDER_WAVE =      0
+	db $01, $50, $00 ; TM18 BULK_UP =  15000
+	db $00, $00, $00 ; TM19 MIMIC =      0
+	db $00, $00, $00 ; TM20 MIRROR_MOVE =      0
+	db $00, $00, $00 ; TM21 SUBSTITUTE =      0
+	db $00, $00, $00 ; TM22 METRONOME =      0
+	db $02, $00, $00 ; TM23 GIGA_DRAIN =  20000
+	db $00, $50, $00 ; TM24 FAINT_ATTACK =   5000
+	db $00, $75, $00 ; TM25 BIND =   7500
+	db $01, $00, $00 ; TM26 POISON_FANG =  10000
+	db $01, $00, $00 ; TM27 LEECH_LIFE =  10000
+	db $02, $00, $00 ; TM28 FAKE_TEARS =  20000
+	db $00, $50, $00 ; TM29 AERIAL_ACE =   5000
+	db $01, $00, $00 ; TM30 HONE_CLAWS =  10000
+	db $02, $00, $00 ; TM31 HURRICANE =  20000
+	db $02, $00, $00 ; TM32 MEGAHORN =  20000
+	db $01, $50, $00 ; TM33 DRAGON_RAGE =  15000
+	db $00, $00, $00 ; TM34 TOXIC =      0
+	db $01, $00, $00 ; TM35 EXTRASENSORY =  10000
+	db $02, $00, $00 ; TM36 INTIMIDATE =  20000
+	db $01, $50, $00 ; TM37 SCARY_FACE =  15000
+	db $02, $50, $00 ; TM38 DOUBLE_EDGE =  25000
+	db $02, $00, $00 ; TM39 TAKE_DOWN =  20000
+	db $03, $00, $00 ; TM40 PSYCHIC_M =  30000
+	db $01, $00, $00 ; TM41 LIGHT_SCREEN =  10000
+	db $02, $50, $00 ; TM42 ICE_BEAM =  25000
+	db $03, $00, $00 ; TM43 SOLARBEAM =  30000
+	db $02, $50, $00 ; TM44 ROCK_SLIDE =  25000
+	db $02, $50, $00 ; TM45 FLAMETHROWER =  25000
+	db $01, $00, $00 ; TM46 REFLECT =  10000
+	db $01, $50, $00 ; TM47 AGILITY =  15000
+	db $02, $00, $00 ; TM48 SWORDS_DANCE =  20000
+	db $01, $00, $00 ; TM49 CALM_MIND =  10000
+	db $02, $50, $00 ; TM50 EARTHQUAKE =  25000
+	db $03, $00, $00 ; TM51 THUNDER =  30000
+	db $03, $00, $00 ; TM52 FIRE_BLAST =  30000
+	db $03, $00, $00 ; TM53 HYDRO_PUMP =  30000
+	db $03, $00, $00 ; TM54 BLIZZARD =  30000
+	db $02, $50, $00 ; TM55 THRASH =  25000

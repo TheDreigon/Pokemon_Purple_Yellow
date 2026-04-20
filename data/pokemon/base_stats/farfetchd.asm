@@ -11,10 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm AERIAL_ACE,   SWORDS_DANCE,    TOXIC,        BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         DISCHARGE,        HEAD_SMASH,   REST,         \
-	     SUBSTITUTE,   CUT,          FLY
+	tmhm
 	; end
 
 	db 0 ; padding

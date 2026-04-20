@@ -11,11 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,  FLAMETHROWER, HEAVY_SLAM, TOXIC, BODY_SLAM, TAKE_DOWN,    \
-	     DOUBLE_EDGE,  HYPER_BEAM,   SUBMISSION,   CALM_MIND,      SEISMIC_TOSS, \
-	     RAGE,         PSYCHIC_M,    TELEPORT,     MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,         METRONOME,    FIRE_BLAST,   HEAD_SMASH,   REST,         \
-	     PSYWAVE,      SUBSTITUTE,   STRENGTH
+	tmhm
 	; end
 
 	db 0 ; padding
