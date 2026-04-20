@@ -183,7 +183,8 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_7F_RIVAL             ; AB
 	const HS_SILPH_CO_7F_ITEM_1            ; AC
 	const HS_SILPH_CO_7F_ITEM_2            ; AD
-	const HS_SILPH_CO_7F_8                 ; AE XXX sprite doesn't exist
+	; v0.5 Phase B.4: removed HS_SILPH_CO_7F_8 (sprite didn't exist; data entry was orphan).
+	; Frees one HS slot to compensate for new TM ball items added elsewhere.
 	const HS_SILPH_CO_8F_1                 ; AF
 	const HS_SILPH_CO_8F_2                 ; B0
 	const HS_SILPH_CO_8F_3                 ; B1
@@ -200,7 +201,8 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_11F_JAMES            ; BC
 	const HS_SILPH_CO_11F_2                ; BD
 	const HS_SILPH_CO_11F_JESSIE           ; BE
-	const HS_UNUSED_MAP_F4_1               ; BF XXX sprite doesn't exist
+	; v0.5 Phase B.4: removed HS_UNUSED_MAP_F4_1 (UNUSED_MAP_F4 doesn't exist as a map).
+	; Frees one HS slot to compensate for new TM ball items added elsewhere.
 	const HS_POKEMON_MANSION_2F_ITEM       ; C0
 	const HS_POKEMON_MANSION_2F_OAK
 	const HS_POKEMON_MANSION_3F_ITEM_1     ; C1

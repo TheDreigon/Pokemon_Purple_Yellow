@@ -247,7 +247,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw UnusedMapF4HS
+	dw NoHS ; was UnusedMapF4HS (removed in Phase B.4)
 	dw LoreleisRoomHS
 	dw BrunosRoomHS
 	dw AgathasRoomHS
@@ -497,7 +497,7 @@ SilphCo7FHS:
 	db SILPH_CO_7F, SILPHCO7F_RIVAL,           SHOW
 	db SILPH_CO_7F, SILPHCO7F_CALCIUM,         SHOW
 	db SILPH_CO_7F, SILPHCO7F_TM_SWORDS_DANCE, SHOW
-	db SILPH_CO_7F, SILPHCO7F_UNUSED,          SHOW
+	; v0.5 Phase B.4: removed SILPHCO7F_UNUSED entry (no corresponding object_event).
 SilphCo8FHS:
 	db SILPH_CO_8F, SILPHCO8F_ROCKET1,   SHOW
 	db SILPH_CO_8F, SILPHCO8F_SCIENTIST, SHOW
@@ -518,8 +518,8 @@ SilphCo11FHS:
 	db SILPH_CO_11F, SILPHCO11F_JAMES,    SHOW
 	db SILPH_CO_11F, SILPHCO11F_ROCKET,   SHOW
 	db SILPH_CO_11F, SILPHCO11F_JESSIE,   SHOW
-UnusedMapF4HS:
-	db UNUSED_MAP_F4, $02, SHOW ; unused
+; v0.5 Phase B.4: removed UnusedMapF4HS block (UNUSED_MAP_F4 doesn't exist as a map).
+; MapHSPointers entry for unused map redirected to NoHS.
 PokemonMansion2FHS:
 	db POKEMON_MANSION_2F, POKEMONMANSION2F_CALCIUM, SHOW
 	db POKEMON_MANSION_2F, POKEMONMANSION2F_OAK, HIDE
