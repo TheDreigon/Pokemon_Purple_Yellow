@@ -21,7 +21,13 @@ HealEffect_:
 .passed
 	ld a, b
 	cp REST
-	jr nz, .healHP
+	jr z, .restPath
+	cp SOFTBOILED
+	jr z, .softboiledPath
+	cp GROWTH
+	jr z, .growthDivide
+	jr .healHP
+.restPath
 	push hl
 	push de
 	push af
@@ -44,6 +50,49 @@ HealEffect_:
 	pop af
 	pop de
 	pop hl
+	jr .healHP
+.softboiledPath
+; v0.6: Softboiled also clears the user's status (no sleep). Heal still /2.
+	push hl
+	push de
+	ld c, 50
+	call DelayFrames
+	ld hl, wBattleMonStatus
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .softboiledStatusPtr
+	ld hl, wEnemyMonStatus
+.softboiledStatusPtr
+	ld a, [hl]
+	and a
+	jr z, .softboiledNoStatus ; nothing to clear; skip refreshed message
+	xor a
+	ld [hl], a ; clear status
+	push de
+	ld hl, RegainedStatusText
+	call PrintText
+	pop de
+.softboiledNoStatus
+	pop de
+	pop hl
+	or 1 ; ensure NZ so .healHP runs the /2 divide
+	jr .healHP
+.growthDivide
+; v0.6: GROWTH (effect SPECIAL_UP1_HEAL_EFFECT) calls into HealEffect_ for the
+; heal portion only, with a 1/4 max HP divisor. SPC+1 happens in the wrapper
+; handler (SpecialUp1HealEffect in effects.asm), which sets wMoveDidntMiss=1
+; before this farcall to suppress the move-anim replay in .playAnim below.
+	ld a, [hld]
+	ld [wHPBarMaxHP], a
+	ld c, a
+	ld a, [hl]
+	ld [wHPBarMaxHP+1], a
+	ld b, a
+	srl b
+	rr c
+	srl b
+	rr c ; bc = maxHP / 4
+	jr .gotHPAmountToHeal
 .healHP
 	ld a, [hld]
 	ld [wHPBarMaxHP], a
@@ -86,8 +135,15 @@ HealEffect_:
 	ld [de], a
 	ld [wHPBarNewHP], a
 .playAnim
+; v0.6: SpecialUp1HealEffect (Growth) sets wMoveDidntMiss=1 before farcalling
+; HealEffect_, so this skip avoids re-playing the move anim that the SPC+1 leg
+; already played. Other callers (Recover/Rest/Softboiled) leave the flag at 0.
+	ld a, [wMoveDidntMiss]
+	and a
+	jr nz, .skipMoveAnim
 	ld hl, PlayCurrentMoveAnimation
 	call EffectCallBattleCore
+.skipMoveAnim
 	ldh a, [hWhoseTurn]
 	and a
 	hlcoord 10, 9
@@ -118,4 +174,8 @@ FellAsleepBecameHealthyText:
 
 RegainedHealthText:
 	text_far _RegainedHealthText
+	text_end
+
+RegainedStatusText:
+	text_far _RegainedStatusText
 	text_end

@@ -94,4 +94,6 @@
 	const SPEED_EVASION_UP1_EFFECT   ; $57  user Speed+1 & Evasion+1 (new Agility)
 	const CONFUSION_SIDE_EFFECT2     ; $58  30% confusion (Hurricane, Spore Daze)
 	const SPECIAL_SPEED_DOWN1_EFFECT ; $59  target Spc-1 & Speed-1 (new Eerie Impulse)
+	const ATTACK_UP1_DOWN1_EFFECT    ; $5A  user Atk+1 / target Atk-1 (Fierce Roar)
+	const SPECIAL_UP1_HEAL_EFFECT    ; $5B  user Spc+1 + heal 1/4 max HP (Growth)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

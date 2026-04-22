@@ -229,6 +229,11 @@ _RegainedHealthText::
 	line "regained health!"
 	prompt
 
+_RegainedStatusText::
+	text "<USER>"
+	line "felt refreshed!"
+	prompt
+
 _TransformedText::
 	text "<USER>"
 	line "transformed into"

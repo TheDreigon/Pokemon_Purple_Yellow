@@ -1689,6 +1689,62 @@ SpecialSpeedDown1Effect:
 	ld [de], a
 	ret
 
+AttackUp1Down1Effect:
+; Mixed-direction dual-stat: ATK+1 to user, ATK-1 to target. Used by FIERCE_ROAR.
+; Up leg always succeeds; down leg has its own hit roll, so reset wMoveMissed
+; before invoking it (otherwise a miss carries over from somewhere upstream).
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr6
+	ld de, wEnemyMoveEffect
+.gotEffectPtr6
+	push de
+	ld a, ATTACK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect       ; targets user
+	pop de
+	; Reset miss flag for the down leg's independent hit test.
+	xor a
+	ld [wMoveMissed], a
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, ATTACK_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect     ; targets opponent
+	pop de
+	ld a, ATTACK_UP1_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpecialUp1HealEffect:
+; Dual: SPC+1 to user + heal 1/4 max HP. Used by GROWTH (revised).
+; Phase 1 uses StatModifierUpEffect for animated SPC+1 + "rose!" text.
+; Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch that
+; divides max HP by 4 and honours wMoveDidntMiss to skip re-animating.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr7
+	ld de, wEnemyMoveEffect
+.gotEffectPtr7
+	push de
+	ld a, SPECIAL_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect       ; +1 SPC to user (anim + text)
+	pop de
+	; Suppress the move-anim replay inside HealEffect_'s .playAnim.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	callfar HealEffect_             ; /4 heal via Growth branch
+	pop de
+	ld a, SPECIAL_UP1_HEAL_EFFECT
+	ld [de], a
+	ret
+
 BurnEffect:
 ; Always-burn status move (WILL_O_WISP). Mirrors PoisonEffect structure.
 	ld hl, wEnemyMonStatus
