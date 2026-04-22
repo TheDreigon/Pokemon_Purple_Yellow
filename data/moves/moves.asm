@@ -297,7 +297,7 @@ Moves: ; Current total = 220
 
 	move RECOVER,        HEAL_EFFECT,                       0, BIRD,         100, 20
 	move REST,           HEAL_EFFECT,                       0, BIRD,         100, 20
-	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 20 ; signature.
+	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 20 ; signature. also acts as Full Heal now.
 
 	move LIGHT_SCREEN,   LIGHT_SCREEN_EFFECT,               0, BIRD,         100, 30
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
