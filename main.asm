@@ -171,7 +171,8 @@ INCLUDE "engine/battle/move_effects/reflect_light_screen.asm"
 SECTION "Battle Engine 10", ROMX
 
 INCLUDE "engine/pokemon/evos_moves.asm"
-INCLUDE "data/pokemon/base_stats.asm"
+; v0.6: base_stats.asm moved to bank30 to relieve bank $3B which overflowed
+; after Pass 2 added ~3KB of level-up learnset entries to evos_moves.asm.
 
 
 SECTION "Battle Core", ROMX
@@ -340,7 +341,12 @@ ENDC
 
 
 SECTION "bank30", ROMX
-; Free bank - 16 KB available for Purple Yellow
+; v0.6: hosts Pokemon base_stats. Moved here from "Battle Engine 10" (bank $3B)
+; which overflowed when Pass 2 added ~3KB of level-up learnset data to
+; evos_moves.asm. base_stats.asm is ~4.7KB (151 mons x 32 bytes); plenty of
+; remaining headroom in this bank for future use.
+
+INCLUDE "data/pokemon/base_stats.asm"
 
 
 SECTION "Move SFX Table", ROMX
