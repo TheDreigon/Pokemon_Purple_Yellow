@@ -266,6 +266,18 @@ AIMoveChoiceModification1:
 	ld a, [de]
 	cp [hl]
 	jr nz, .notFullHealth
+	; PURPLE YELLOW v0.6: Softboiled now also clears status (Full Heal). Allow
+	; the AI to use Softboiled at full HP if it has a status to refresh.
+	ld a, [wEnemyMoveNum]
+	cp SOFTBOILED
+	jr nz, .fullHealthDiscourage
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .fullHealthDiscourage
+	pop de
+	pop hl
+	jp .nextMove ; statused: Softboiled is worth using as Full Heal
+.fullHealthDiscourage
 	pop de
 	pop hl
 	jp .discourage
@@ -444,6 +456,16 @@ Modifier2PreferredMoves:
 	db ACCURACY_DOWN2_EFFECT
 	db EVASION_DOWN2_EFFECT
 	db SUBSTITUTE_EFFECT
+	; PURPLE YELLOW v0.5/v0.6: dual-stat + mixed-direction effects added so the
+	; AI treats them as setup-worthy on turn 1 (otherwise they fall through to
+	; nextMove unscored, since the engine added them after vanilla AI was written).
+	db ATTACK_DEFENSE_UP1_EFFECT     ; Bulk Up, Coil
+	db ATTACK_ACCURACY_UP1_EFFECT    ; Hone Claws
+	db SPEED_EVASION_UP1_EFFECT      ; Agility (revised)
+	db ATTACK_UP1_DOWN1_EFFECT       ; Fierce Roar (user up + target down)
+	db SPECIAL_UP1_HEAL_EFFECT       ; Growth (revised: SPC up + heal 1/4)
+	db ACCURACY_EVASION_DOWN1_EFFECT ; Flash (target dual-down)
+	db SPECIAL_SPEED_DOWN1_EFFECT    ; Eerie Impulse (target dual-down)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine
@@ -623,7 +645,15 @@ AIMoveChoiceModification4:
 	ld a, 2 ; 1/2 maximum HP
 	call AICheckIfHPBelowFractionWrapped
 	jr c, .preferMove ; if HP is below 50% encourage using a healing move
-	jr .nextMove ; otherwise don't encourage it
+	; PURPLE YELLOW v0.6: Softboiled also acts as Full Heal — encourage it when
+	; the AI has a status condition, regardless of HP.
+	ld a, [wEnemyMoveNum]
+	cp SOFTBOILED
+	jr nz, .nextMove
+	ld a, [wEnemyMonStatus]
+	and a
+	jr nz, .preferMove
+	jr .nextMove
 .checkOpponentAsleep
 	ld a, [wAITargetMonStatus] ; set to nonzero if player healed battle mon's status or switched one with a status out this turn
 	and SLP_MASK
@@ -645,6 +675,7 @@ Modifier4PreferredMoves:
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
 	db BURN_SIDE_EFFECT2
+	db BURN_EFFECT       ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (always-burn status moves)
 	db CONFUSION_EFFECT
 	db -1 ; end
 
