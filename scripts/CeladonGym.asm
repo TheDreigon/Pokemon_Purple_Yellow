@@ -57,13 +57,13 @@ CeladonGymReceiveTM21:
 	lb bc, TM_GIGA_DRAIN, 1
 	call GiveItem
 	jr nc, .BagFull
-	ld a, TEXT_CELADONGYM_RECEIVED_TM21
+	ld a, TEXT_CELADONGYM_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	SetEvent EVENT_GOT_TM21
+	SetEvent EVENT_GOT_ERIKA_TM
 	jr .gymVictory
 .BagFull
-	ld a, TEXT_CELADONGYM_TM21_NO_ROOM
+	ld a, TEXT_CELADONGYM_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 .gymVictory
@@ -94,8 +94,8 @@ CeladonGym_TextPointers:
 	dw_const CeladonGymBeauty3Text,          TEXT_CELADONGYM_BEAUTY3
 	dw_const CeladonGymCooltrainerF4Text,    TEXT_CELADONGYM_COOLTRAINER_F4
 	dw_const CeladonGymRainbowBadgeInfoText, TEXT_CELADONGYM_RAINBOWBADGE_INFO
-	dw_const CeladonGymReceivedTM21Text,     TEXT_CELADONGYM_RECEIVED_TM21
-	dw_const CeladonGymTM21NoRoomText,       TEXT_CELADONGYM_TM21_NO_ROOM
+	dw_const CeladonGymReceivedTMText,     TEXT_CELADONGYM_RECEIVED_TM
+	dw_const CeladonGymTMNoRoomText,       TEXT_CELADONGYM_TM_NO_ROOM
 	dw_const CeladonGymRematchPostBattleText,TEXT_CELADONGYM_REMATCH_POST_BATTLE
 
 CeladonGymTrainerHeaders:
@@ -120,7 +120,7 @@ CeladonGymErikaText:
 	text_asm
 	CheckEvent EVENT_BEAT_ERIKA
 	jr z, .beforeBeat
-	CheckEventReuseA EVENT_GOT_TM21
+	CheckEventReuseA EVENT_GOT_ERIKA_TM
 	jr nz, .afterBeat
 	call z, CeladonGymReceiveTM21
 	call DisableWaitingAfterTextDisplay
@@ -239,14 +239,14 @@ CeladonGymRainbowBadgeInfoText:
 	text_far _CeladonGymRainbowBadgeInfoText
 	text_end
 
-CeladonGymReceivedTM21Text:
-	text_far _CeladonGymReceivedTM21Text
+CeladonGymReceivedTMText:
+	text_far _CeladonGymReceivedTMText
 	sound_get_item_1
-	text_far _TM21ExplanationText
+	text_far _CeladonGymTMExplanationText
 	text_end
 
-CeladonGymTM21NoRoomText:
-	text_far _CeladonGymTM21NoRoomText
+CeladonGymTMNoRoomText:
+	text_far _CeladonGymTMNoRoomText
 	text_end
 
 CeladonGymCooltrainerF1Text:

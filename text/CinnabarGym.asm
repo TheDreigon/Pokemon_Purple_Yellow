@@ -75,28 +75,28 @@ _CinnabarGymBlaineVolcanoBadgeInfoText::
 	line "have this too!"
 	done
 
-_CinnabarGymBlaineReceivedTM38Text::
+_CinnabarGymBlaineReceivedTMText::
 	text "<PLAYER> received"
 	line "@"
 	text_ram wStringBuffer
 	text "!@"
 	text_end
 
-_CinnabarGymBlaineTM38ExplanationText::
+_CinnabarGymBlaineTMExplanationText::
 	text_start
 
-	para "TM38 contains"
-	line "FIRE BLAST!"
+	para "TM45 contains"
+	line "FLAMETHROWER!"
 
-	para "Teach it to fire-"
-	line "type #MON!"
+	para "A scorching jet"
+	line "of flames — may"
+	cont "burn the foe!"
 
-	para "CHARMELEON or"
-	line "PONYTA would be"
-	cont "good bets!"
+	para "Hot pick: VULPIX"
+	line "or PONYTA!"
 	done
 
-_CinnabarGymBlaineTM38NoRoomText::
+_CinnabarGymBlaineTMNoRoomText::
 	text "Make room for my"
 	line "gift!"
 	done

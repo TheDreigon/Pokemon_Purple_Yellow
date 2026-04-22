@@ -87,12 +87,14 @@ _PewterGymBrockWaitTakeThisText::
 	line "with you!"
 	done
 
-_PewterGymReceivedTM34Text::
+_PewterGymReceivedTMText::
 	text "<PLAYER> received"
-	line "TM34 BIDE!@"
+	line "@"
+	text_ram wStringBuffer
+	text "!@"
 	text_end
 
-_TM34ExplanationText::
+_PewterGymTMExplanationText::
 	text_start
 
 	para "A TM contains a"
@@ -107,16 +109,16 @@ _TM34ExplanationText::
 	cont "pick the #MON"
 	cont "carefully!"
 
-	para "TM34 contains"
-	line "BIDE!"
+	para "TM01 contains"
+	line "ROCK THROW!"
 
-	para "Your #MON will"
-	line "absorb damage in"
-	cont "battle then pay"
-	cont "it back double!"
+	para "A heavy stone"
+	line "hurled at the foe."
+	cont "May leave them"
+	cont "stunned mid-move!"
 	done
 
-_PewterGymTM34NoRoomText::
+_PewterGymTMNoRoomText::
 	text "You don't have"
 	line "room for this!"
 	done

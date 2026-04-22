@@ -83,21 +83,25 @@ _SaffronGymSabrinaMarshBadgeInfoText::
 	line "this TM with you!"
 	done
 
-_SaffronGymSabrinaReceivedTM46Text::
+_SaffronGymSabrinaReceivedTMText::
 	text "<PLAYER> received"
-	line "TM46!@"
+	line "@"
+	text_ram wStringBuffer
+	text "!@"
 	text_end
 
-_TM46ExplanationText::
+_SaffronGymSabrinaTMExplanationText::
 	text_start
 
-	para "TM46 is PSYWAVE!"
-	line "It uses powerful"
-	cont "psychic waves to"
-	cont "inflict damage!"
+	para "TM40 is PSYCHIC."
+
+	para "A focused psychic"
+	line "strike that may"
+	cont "erode the target's"
+	cont "SPECIAL stat."
 	done
 
-_SaffronGymSabrinaTM46NoRoomText::
+_SaffronGymSabrinaTMNoRoomText::
 	text "Your pack is full"
 	line "of other items!"
 	done

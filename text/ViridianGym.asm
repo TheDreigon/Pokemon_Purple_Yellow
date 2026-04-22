@@ -61,25 +61,32 @@ _ViridianGymGiovanniEarthBadgeInfoText::
 	cont "LEAGUE challenge!"
 	done
 
-_ViridianGymGiovanniReceivedTM27Text::
+_ViridianGymGiovanniReceivedTMText::
 	text "<PLAYER> received"
-	line "TM27 FISSURE!@"
+	line "@"
+	text_ram wStringBuffer
+	text "!@"
 	text_end
 
-_ViridianGymGiovanniTM27ExplanationText::
+_ViridianGymGiovanniTMExplanationText::
 	text_start
 
-	para "TM27 is FISSURE!"
-	line "It will take out"
-	cont "#MON with just"
-	cont "one hit!"
+	para "TM50 is"
+	line "EARTHQUAKE!"
 
-	para "I made it when I"
-	line "ran the GYM here,"
-	cont "too long ago..."
+	para "It shakes the"
+	line "ground violently."
+	cont "May slow the foe."
+
+	para "EARTHQUAKE has"
+	line "stood by me since"
+	cont "the day I claimed"
+	cont "this GYM."
+
+	para "Long ago..."
 	done
 
-_ViridianGymGiovanniTM27NoRoomText::
+_ViridianGymGiovanniTMNoRoomText::
 	text "You do not have"
 	line "space for this!"
 	done

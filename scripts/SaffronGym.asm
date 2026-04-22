@@ -54,13 +54,13 @@ SaffronGymSabrinaReceiveTM46Script:
 	lb bc, TM_PSYCHIC_M, 1
 	call GiveItem
 	jr nc, .BagFull
-	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM46
+	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	SetEvent EVENT_GOT_TM46
+	SetEvent EVENT_GOT_SABRINA_TM
 	jr .gymVictory
 .BagFull
-	ld a, TEXT_SAFFRONGYM_SABRINA_TM46_NO_ROOM
+	ld a, TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 .gymVictory
@@ -92,8 +92,8 @@ SaffronGym_TextPointers:
 	dw_const SaffronGymYoungster4Text,            TEXT_SAFFRONGYM_YOUNGSTER4
 	dw_const SaffronGymGymGuideText,              TEXT_SAFFRONGYM_GYM_GUIDE
 	dw_const SaffronGymSabrinaMarshBadgeInfoText, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
-	dw_const SaffronGymSabrinaReceivedTM46Text,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM46
-	dw_const SaffronGymSabrinaTM46NoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM46_NO_ROOM
+	dw_const SaffronGymSabrinaReceivedTMText,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
+	dw_const SaffronGymSabrinaTMNoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
 	dw_const SaffronGymRematchPostBattleText,     TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
 
 SaffronGymTrainerHeaders:
@@ -118,7 +118,7 @@ SaffronGymSabrinaText:
 	text_asm
 	CheckEvent EVENT_BEAT_SABRINA
 	jr z, .beforeBeat
-	CheckEventReuseA EVENT_GOT_TM46
+	CheckEventReuseA EVENT_GOT_SABRINA_TM
 	jr nz, .afterBeat
 	call z, SaffronGymSabrinaReceiveTM46Script
 	call DisableWaitingAfterTextDisplay
@@ -226,14 +226,14 @@ SaffronGymSabrinaMarshBadgeInfoText:
 	text_far _SaffronGymSabrinaMarshBadgeInfoText
 	text_end
 
-SaffronGymSabrinaReceivedTM46Text:
-	text_far _SaffronGymSabrinaReceivedTM46Text
+SaffronGymSabrinaReceivedTMText:
+	text_far _SaffronGymSabrinaReceivedTMText
 	sound_get_item_1
-	text_far _TM46ExplanationText
+	text_far _SaffronGymSabrinaTMExplanationText
 	text_end
 
-SaffronGymSabrinaTM46NoRoomText:
-	text_far _SaffronGymSabrinaTM46NoRoomText
+SaffronGymSabrinaTMNoRoomText:
+	text_far _SaffronGymSabrinaTMNoRoomText
 	text_end
 
 SaffronGymChanneler1Text:

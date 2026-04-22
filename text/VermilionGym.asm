@@ -82,24 +82,25 @@ _VermilionGymLTSurgeThunderBadgeInfoText::
 	line "kid! Take this!"
 	done
 
-_VermilionGymLTSurgeReceivedTM24Text::
+_VermilionGymLTSurgeReceivedTMText::
 	text "<PLAYER> received "
 	line "@"
 	text_ram wStringBuffer
 	text "!@"
 	text_end
 
-_TM24ExplanationText::
+_VermilionGymLTSurgeTMExplanationText::
 	text_start
 
-	para "TM24 contains"
-	line "THUNDERBOLT!"
+	para "TM12 packs"
+	line "THUNDERBOLT, kid!"
 
-	para "Teach it to an"
-	line "electric #MON!"
+	para "Strong electric"
+	line "blast that might"
+	cont "leave 'em twitchin'!"
 	done
 
-_VermilionGymLTSurgeTM24NoRoomText::
+_VermilionGymLTSurgeTMNoRoomText::
 	text "Yo kid, make room"
 	line "in your pack!"
 	done
