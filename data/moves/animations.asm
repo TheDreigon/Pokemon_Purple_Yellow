@@ -39,7 +39,7 @@ AttackAnimationPointers:
 	dw DoubleSlapAnim
 	dw FairyWindAnim
 	dw DrainingKissAnim
-	dw DazeGleamAnim
+	dw DazzleGleamAnim
 	dw PlayRoughAnim
 	dw MoonblastAnim
 	dw LovelyKissAnim
@@ -192,9 +192,10 @@ AttackAnimationPointers:
 	dw HydroPumpAnim
 ; === BIRD (typeless) ===
 	dw TriAttackAnim
+	dw SwordsDanceAnim
 	dw BulkUpAnim
 	dw HoneClawsAnim
-	dw SwordsDanceAnim
+	dw FierceRoarAnim
 	dw CoilAnim
 	dw DefenseCurlAnim
 	dw HardenAnim
@@ -456,8 +457,8 @@ DrainingKissAnim:
 	battle_anim DRAINING_KISS, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
-DazeGleamAnim:
-	battle_anim DAZE_GLEAM, SUBANIM_0_STAR_TWICE, 0, 8
+DazzleGleamAnim:
+	battle_anim DAZZLE_GLEAM, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 PlayRoughAnim:
@@ -1046,6 +1047,10 @@ HoneClawsAnim:
 
 SwordsDanceAnim:
 	battle_anim SWORDS_DANCE, SUBANIM_0_STAR_TWICE, 0, 8
+	db -1 ; end
+
+FierceRoarAnim:
+	battle_anim FIERCE_ROAR, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 CoilAnim:

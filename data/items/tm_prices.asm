@@ -6,7 +6,7 @@ TechnicalMachinePrices:
 	db $00, $50, $00 ; TM01 ROCK_THROW   =   5000  ; Celadon 2F
 	db $00, $50, $00 ; TM02 KARATE_CHOP  =   5000  ; Celadon 2F
 	db $00, $50, $00 ; TM03 QUICK_ATTACK =   5000  ; Celadon 2F
-	db $01, $00, $00 ; TM04 DAZE_GLEAM   =  10000  ; Cinnabar
+	db $01, $00, $00 ; TM04 DAZZLE_GLEAM   =  10000  ; Cinnabar
 	db $01, $50, $00 ; TM05 BULLDOZE     =  15000  ; Cinnabar
 	db $00, $75, $00 ; TM06 WATER_PULSE  =   7500  ; Celadon 2F
 	db $01, $00, $00 ; TM07 DOUBLE_TEAM  =  10000  ; Celadon 5F

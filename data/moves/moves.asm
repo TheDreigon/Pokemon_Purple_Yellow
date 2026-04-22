@@ -8,7 +8,7 @@ MACRO move
 	assert \6 <= 40, "PP must be 40 or less"
 ENDM
 
-Moves: ; Current total = 219
+Moves: ; Current total = 220
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -59,9 +59,9 @@ Moves: ; Current total = 219
 	move DOUBLESLAP,     TWO_TO_FIVE_ATTACKS_EFFECT,       16, FAIRY,         90, 20
 	move FAIRY_WIND,     ATTACK_DOWN_SIDE_EFFECT,          35, FAIRY,        100, 30 ; new move.
 	move DRAINING_KISS,  DRAIN_HP_EFFECT,                  50, FAIRY,        100, 20 ; new move.
-	move DAZE_GLEAM,     FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
+	move DAZZLE_GLEAM,   FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              80, FAIRY,        100, 20 ; new move.
-	move MOONBLAST,      SPECIAL_DOWN_SIDE_EFFECT,         95, FAIRY,         95, 15 ; new move. signature. (use solarbeam's animation)
+	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. signature. (use solarbeam's animation)
 	move LOVELY_KISS,    SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; signature.
 	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; signature.
 
@@ -101,7 +101,7 @@ Moves: ; Current total = 219
 	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 20 ; new move.
 	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
-	move SKY_ATTACK,     CHARGE_EFFECT,                   170, FLYING,       100, 10
+	move SKY_ATTACK,     CHARGE_EFFECT,                   180, FLYING,       100, 10
 	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; signature.
 
 
@@ -136,7 +136,7 @@ Moves: ; Current total = 219
 	move RAZOR_LEAF,     NO_ADDITIONAL_EFFECT,             60, GRASS,        100, 20 ; high-crit.
 	move GIGA_DRAIN,     DRAIN_HP_EFFECT,                  75, GRASS,        100, 15 ; new move.
 	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        90, GRASS,        100, 10
-	move SOLARBEAM,      CHARGE_EFFECT,                   170, GRASS,        100, 10
+	move SOLARBEAM,      CHARGE_EFFECT,                   180, GRASS,        100, 10
 	move LEECH_SEED,     LEECH_SEED_EFFECT,                 0, GRASS,         90, 20
 	move POISONPOWDER,   POISON_EFFECT,                     0, POISON,        85, 25
 	move STUN_SPORE,     PARALYZE_EFFECT,                   0, GRASS,         80, 20
@@ -244,21 +244,22 @@ Moves: ; Current total = 219
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
 
-	; === BIRD TYPE (50 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	; === BIRD TYPE (51 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,     SWIFT_EFFECT,                     90, BIRD,         100, 15 ; signature.
 
-	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 20 ; new move. new effect.
-	move HONE_CLAWS,     ATTACK_ACCURACY_UP1_EFFECT,        0, BIRD,         100, 20 ; new move. new effect.
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
-	move COIL,           ATTACK_UP1_EFFECT,                 0, BIRD,         100, 35 ; new move.
+	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
+	move HONE_CLAWS,     ATTACK_ACCURACY_UP1_EFFECT,        0, BIRD,         100, 25 ; new move. new effect.
+	move FIERCE_ROAR,    ATTACK_UP1_DOWN1_EFFECT,           0, BIRD,         100, 25 ; new move. new effect.
+	move COIL,           ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
 
 	move DEFENSE_CURL,   DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
+	move GROWTH,         SPECIAL_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect.
 	move CALM_MIND,      SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
-	move GROWTH,         SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 
 	move QUIVER_DANCE,   SPEED_UP1_EFFECT,                  0, BIRD,         100, 35 ; new move.

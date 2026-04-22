@@ -160,7 +160,7 @@ DEF TM01 EQU const_value
 	add_tm ROCK_THROW,    ; $C9  TM01
 	add_tm KARATE_CHOP,   ; $CA  TM02
 	add_tm QUICK_ATTACK,  ; $CB  TM03
-	add_tm DAZE_GLEAM,    ; $CC  TM04
+	add_tm DAZZLE_GLEAM,    ; $CC  TM04
 	add_tm BULLDOZE,      ; $CD  TM05
 	add_tm WATER_PULSE,   ; $CE  TM06
 	add_tm DOUBLE_TEAM,   ; $CF  TM07

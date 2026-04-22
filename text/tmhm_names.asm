@@ -8,7 +8,7 @@ tmhmNames::
 	db "TM01 RKTHROW@"
 	db "TM02 KARTCHP@"
 	db "TM03 QCKATCK@"
-	db "TM04 DZGLEAM@"
+	db "TM04 DZLGLEM@"
 	db "TM05 BULLDZE@"
 	db "TM06 WTRPLSE@"
 	db "TM07 DBLTEAM@"

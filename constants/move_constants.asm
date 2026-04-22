@@ -54,7 +54,7 @@
 	const DOUBLESLAP
 	const FAIRY_WIND
 	const DRAINING_KISS
-	const DAZE_GLEAM
+	const DAZZLE_GLEAM
 	const PLAY_ROUGH
 	const MOONBLAST
 	const LOVELY_KISS
@@ -224,9 +224,10 @@
 
 ; === BIRD (typeless / status moves) ===
 	const TRI_ATTACK
+	const SWORDS_DANCE
 	const BULK_UP
 	const HONE_CLAWS
-	const SWORDS_DANCE
+	const FIERCE_ROAR
 	const COIL
 	const DEFENSE_CURL
 	const HARDEN
