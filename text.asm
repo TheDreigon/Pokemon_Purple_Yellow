@@ -241,14 +241,13 @@ INCLUDE "text/PalletTown.asm"
 INCLUDE "text/ViridianCity.asm"
 INCLUDE "text/PewterCity.asm"
 INCLUDE "text/CeruleanCity.asm"
+INCLUDE "text/CeruleanGym.asm"
 INCLUDE "text/LavenderTown.asm"
 INCLUDE "text/VermilionCity.asm"
 INCLUDE "text/CeladonCity.asm"
 INCLUDE "text/FuchsiaCity.asm"
 INCLUDE "text/CinnabarIsland.asm"
 INCLUDE "text/SaffronCity.asm"
-INCLUDE "text/ViridianSchoolHouse.asm"
-INCLUDE "text/CeruleanGym.asm"
 
 INCLUDE "data/text/text_8.asm"
 
@@ -259,6 +258,7 @@ INCLUDE "text/move_deleter.asm"
 INCLUDE "text/move_relearner.asm"
 INCLUDE "text/ChampionsRoom.asm"
 INCLUDE "text/Route9.asm"
+INCLUDE "text/ViridianSchoolHouse.asm"
 
 INCLUDE "data/text/text_9.asm"
 
