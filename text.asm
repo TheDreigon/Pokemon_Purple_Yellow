@@ -194,7 +194,6 @@ INCLUDE "text/CeladonMansion3F.asm"
 INCLUDE "text/CeladonMansionRoof.asm"
 INCLUDE "text/CeladonMansionRoofHouse.asm"
 INCLUDE "text/CeladonPokecenter.asm"
-INCLUDE "text/CeladonGym.asm"
 INCLUDE "text/GameCorner.asm"
 
 
@@ -259,6 +258,7 @@ INCLUDE "text/move_relearner.asm"
 INCLUDE "text/ChampionsRoom.asm"
 INCLUDE "text/Route9.asm"
 INCLUDE "text/ViridianSchoolHouse.asm"
+INCLUDE "text/CeladonGym.asm"
 
 INCLUDE "data/text/text_9.asm"
 
