@@ -1,16 +1,21 @@
 _Route11Gambler1BattleText::
 	text "Win, lose or draw!"
+	line "Like a bike race!"
 	done
 
 _Route11Gambler1EndBattleText::
 	text "Atcha!"
-	line "Didn't go my way!"
+	line "Bet wrong again!"
 	prompt
 
 _Route11Gambler1AfterBattleText::
-	text "#MON is life!"
-	line "And to live is to"
-	cont "gamble!"
+	text "I'm puttin' my"
+	line "savings on the"
+	cont "ROUTE 17 racer!"
+
+	para "Heard he ain't"
+	line "lost a single"
+	cont "downhill yet."
 	done
 
 _Route11Gambler2BattleText::
@@ -61,9 +66,9 @@ _Route11SuperNerd1AfterBattleText::
 	done
 
 _Route11Youngster2BattleText::
-	text "I just became a"
-	line "trainer! But, I"
-	cont "think I can win!"
+	text "I quit racing for"
+	line "#MON! I'll win"
+	cont "this for sure!"
 	done
 
 _Route11Youngster2EndBattleText::
@@ -72,8 +77,11 @@ _Route11Youngster2EndBattleText::
 	prompt
 
 _Route11Youngster2AfterBattleText5::
-	text "What do you want?"
-	line "Leave me alone!"
+	text "Leave me alone!"
+
+	para "Maybe my bike"
+	line "and ROUTE 17"
+	cont "needed me more..."
 	done
 
 _Route11Gambler3BattleText::
@@ -118,13 +126,13 @@ _Route11Youngster3EndBattleText::
 	prompt
 
 _Route11Youngster3AfterBattleText::
-	text "There's a fat"
-	line "#MON that"
-	cont "comes down from"
-	cont "the mountains."
+	text "Cycling here is"
+	line "fun, but it's"
+	cont "nothing like the"
+	cont "rush on ROUTE 17!"
 
-	para "It's strong if"
-	line "you can get it."
+	para "One day I'll race"
+	line "down that hill!"
 	done
 
 _Route11SuperNerd2BattleText::
