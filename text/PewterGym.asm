@@ -123,6 +123,18 @@ _PewterGymTMNoRoomText::
 	line "room for this!"
 	done
 
+_PewterGymReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_PewterGymBrockCandyCommentText::
+	text_start
+
+	para "Feed them well —"
+	line "strength follows."
+	done
+
 _PewterGymBrockReceivedBoulderBadgeText::
 	text "I took"
 	line "you for granted."

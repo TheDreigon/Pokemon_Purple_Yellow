@@ -118,6 +118,18 @@ _CeladonGymTMNoRoomText::
 	line "room for this."
 	done
 
+_CeladonGymReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_CeladonGymErikaCandyCommentText::
+	text_start
+
+	para "A small gift to"
+	line "nurture growth."
+	done
+
 _CeladonGymBattleText2::
 	text "Hey!"
 

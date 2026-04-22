@@ -101,6 +101,18 @@ _CinnabarGymBlaineTMNoRoomText::
 	line "gift!"
 	done
 
+_CinnabarGymBlaineReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_CinnabarGymBlaineCandyCommentText::
+	text_start
+
+	para "Stoke that fire"
+	line "inside you!"
+	done
+
 _CinnabarGymSuperNerd1BattleText::
 	text "Do you know how"
 	line "hot #MON fire"

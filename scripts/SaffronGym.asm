@@ -46,20 +46,32 @@ SaffronGymSabrinaPostBattle:
 	and a
 	jr nz, SabrinaRematchPostBattle
 ; fallthrough
-SaffronGymSabrinaReceiveTM46Script:
+SaffronGymSabrinaReceiveGiftsScript:
 	ld a, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_SABRINA
+	CheckEvent EVENT_GOT_SABRINA_TM
+	jr nz, .tryCandy
 	lb bc, TM_PSYCHIC_M, 1
 	call GiveItem
-	jr nc, .BagFull
+	jr nc, .bagFull
 	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_SABRINA_TM
+.tryCandy
+	CheckEvent EVENT_GOT_SABRINA_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_SABRINA_CANDY
 	jr .gymVictory
-.BagFull
+.bagFull
 	ld a, TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -94,6 +106,7 @@ SaffronGym_TextPointers:
 	dw_const SaffronGymSabrinaMarshBadgeInfoText, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
 	dw_const SaffronGymSabrinaReceivedTMText,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
 	dw_const SaffronGymSabrinaTMNoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
+	dw_const SaffronGymSabrinaReceivedCandyText, TEXT_SAFFRONGYM_SABRINA_RECEIVED_CANDY
 	dw_const SaffronGymRematchPostBattleText,     TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
 
 SaffronGymTrainerHeaders:
@@ -119,8 +132,11 @@ SaffronGymSabrinaText:
 	CheckEvent EVENT_BEAT_SABRINA
 	jr z, .beforeBeat
 	CheckEventReuseA EVENT_GOT_SABRINA_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_SABRINA_CANDY
 	jr nz, .afterBeat
-	call z, SaffronGymSabrinaReceiveTM46Script
+.needGifts
+	call SaffronGymSabrinaReceiveGiftsScript
 	call DisableWaitingAfterTextDisplay
 	jr .todone
 .afterBeat
@@ -234,6 +250,12 @@ SaffronGymSabrinaReceivedTMText:
 
 SaffronGymSabrinaTMNoRoomText:
 	text_far _SaffronGymSabrinaTMNoRoomText
+	text_end
+
+SaffronGymSabrinaReceivedCandyText:
+	text_far _SaffronGymSabrinaReceivedCandyText
+	sound_get_item_1
+	text_far _SaffronGymSabrinaCandyCommentText
 	text_end
 
 SaffronGymChanneler1Text:

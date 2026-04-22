@@ -65,11 +65,13 @@ VermilionGymLTSurgeAfterBattleScript:
 	and a
 	jr nz, SurgeRematchPostBattle
 ; fallthrough
-VermilionGymLTSurgeReceiveTMScript:
+VermilionGymLTSurgeReceiveGiftsScript:
 	ld a, TEXT_VERMILIONGYM_LT_SURGE_THUNDER_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_LT_SURGE
+	CheckEvent EVENT_GOT_SURGE_TM
+	jr nz, .try_candy
 	lb bc, TM_THUNDERBOLT, 1
 	call GiveItem
 	jr nc, .bag_full
@@ -77,6 +79,16 @@ VermilionGymLTSurgeReceiveTMScript:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_SURGE_TM
+.try_candy
+	CheckEvent EVENT_GOT_SURGE_CANDY
+	jr nz, .gym_victory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bag_full
+	ld a, TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_SURGE_CANDY
 	jr .gym_victory
 .bag_full
 	ld a, TEXT_VERMILIONGYM_LT_SURGE_TM_NO_ROOM
@@ -109,6 +121,7 @@ VermilionGym_TextPointers:
 	dw_const VermilionGymLTSurgeThunderBadgeInfoText, TEXT_VERMILIONGYM_LT_SURGE_THUNDER_BADGE_INFO
 	dw_const VermilionGymLTSurgeReceivedTMText,     TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_TM
 	dw_const VermilionGymLTSurgeTMNoRoomText,       TEXT_VERMILIONGYM_LT_SURGE_TM_NO_ROOM
+	dw_const VermilionGymLTSurgeReceivedCandyText,  TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_CANDY
 	dw_const VermilionGymRematchPostBattleText, 	  TEXT_VERMILIONGYM_REMATCH_POST_BATTLE
 
 VermilionGymTrainerHeaders:
@@ -126,11 +139,14 @@ VermilionGymLTSurgeText:
 	CheckEvent EVENT_BEAT_LT_SURGE
 	jr z, .before_beat
 	CheckEventReuseA EVENT_GOT_SURGE_TM
-	jr nz, .got_tm24_already
-	call z, VermilionGymLTSurgeReceiveTMScript
+	jr z, .need_gifts
+	CheckEvent EVENT_GOT_SURGE_CANDY
+	jr nz, .gifts_done
+.need_gifts
+	call VermilionGymLTSurgeReceiveGiftsScript
 	call DisableWaitingAfterTextDisplay
 	jr .text_script_end
-.got_tm24_already
+.gifts_done
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr nz, .SurgeRematch
@@ -220,6 +236,12 @@ VermilionGymLTSurgeReceivedTMText:
 
 VermilionGymLTSurgeTMNoRoomText:
 	text_far _VermilionGymLTSurgeTMNoRoomText
+	text_end
+
+VermilionGymLTSurgeReceivedCandyText:
+	text_far _VermilionGymLTSurgeReceivedCandyText
+	sound_get_item_1
+	text_far _VermilionGymLTSurgeCandyCommentText
 	text_end
 
 VermilionGymLTSurgeReceivedThunderBadgeText:

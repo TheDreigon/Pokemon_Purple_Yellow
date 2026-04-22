@@ -91,6 +91,19 @@ _ViridianGymGiovanniTMNoRoomText::
 	line "space for this!"
 	done
 
+_ViridianGymGiovanniReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_ViridianGymGiovanniCandyCommentText::
+	text_start
+
+	para "Take it. I won't"
+	line "need it where"
+	cont "I'm going."
+	done
+
 _ViridianGymCooltrainerM1BattleText::
 	text "Heh! You must be"
 	line "running out of"

@@ -96,6 +96,19 @@ _CeruleanGymMistyTMNoRoomText::
 	line "room for this!"
 	done
 
+_CeruleanGymMistyReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_CeruleanGymMistyCandyCommentText::
+	text_start
+
+	para "Don't let sweets"
+	line "make you soft,"
+	cont "sweetie!"
+	done
+
 _CeruleanGymMistyReceivedCascadeBadgeText::
 	text "I can't"
 	line "believe I lost!"

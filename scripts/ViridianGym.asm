@@ -135,11 +135,13 @@ ViridianGymGiovanniPostBattle:
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 ; fallthrough
-ViridianGymReceiveTM27:
+ViridianGymReceiveGifts:
 	ld a, TEXT_VIRIDIANGYM_GIOVANNI_EARTH_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
+	CheckEvent EVENT_GOT_GIOVANNI_TM
+	jr nz, .try_candy
 	lb bc, TM_EARTHQUAKE, 1
 	call GiveItem
 	jr nc, .bag_full
@@ -147,6 +149,16 @@ ViridianGymReceiveTM27:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_GIOVANNI_TM
+.try_candy
+	CheckEvent EVENT_GOT_GIOVANNI_CANDY
+	jr nz, .gym_victory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bag_full
+	ld a, TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_GIOVANNI_CANDY
 	jr .gym_victory
 .bag_full
 	ld a, TEXT_VIRIDIANGYM_GIOVANNI_TM_NO_ROOM
@@ -183,6 +195,7 @@ ViridianGym_TextPointers:
 	dw_const ViridianGymGiovanniEarthBadgeInfoText, TEXT_VIRIDIANGYM_GIOVANNI_EARTH_BADGE_INFO
 	dw_const ViridianGymGiovanniReceivedTMText,   TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_TM
 	dw_const ViridianGymGiovanniTMNoRoomText,     TEXT_VIRIDIANGYM_GIOVANNI_TM_NO_ROOM
+	dw_const ViridianGymGiovanniReceivedCandyText, TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_CANDY
 
 ViridianGymTrainerHeaders:
 	def_trainers 2
@@ -209,8 +222,11 @@ ViridianGymGiovanniText:
 	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
 	jr z, .beforeBeat
 	CheckEventReuseA EVENT_GOT_GIOVANNI_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_GIOVANNI_CANDY
 	jr nz, .afterBeat
-	call z, ViridianGymReceiveTM27
+.needGifts
+	call ViridianGymReceiveGifts
 	call DisableWaitingAfterTextDisplay
 	jr .text_script_end
 .afterBeat
@@ -277,6 +293,12 @@ ViridianGymGiovanniTMExplanationText:
 
 ViridianGymGiovanniTMNoRoomText:
 	text_far _ViridianGymGiovanniTMNoRoomText
+	text_end
+
+ViridianGymGiovanniReceivedCandyText:
+	text_far _ViridianGymGiovanniReceivedCandyText
+	sound_get_item_1
+	text_far _ViridianGymGiovanniCandyCommentText
 	text_end
 
 ViridianGymCooltrainerM1Text:

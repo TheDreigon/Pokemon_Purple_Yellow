@@ -46,20 +46,32 @@ CeruleanGymMistyPostBattleScript:
 	and a
 	jr nz, MistyRematchPostBattle
 ; fallthrough
-CeruleanGymReceiveTM:
+CeruleanGymReceiveGifts:
 	ld a, TEXT_CERULEANGYM_MISTY_CASCADE_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_MISTY
+	CheckEvent EVENT_GOT_MISTY_TM
+	jr nz, .tryCandy
 	lb bc, TM_WATER_PULSE, 1
 	call GiveItem
-	jr nc, .BagFull
+	jr nc, .bagFull
 	ld a, TEXT_CERULEANGYM_MISTY_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_MISTY_TM
+.tryCandy
+	CheckEvent EVENT_GOT_MISTY_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_CERULEANGYM_MISTY_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_MISTY_CANDY
 	jr .gymVictory
-.BagFull
+.bagFull
 	ld a, TEXT_CERULEANGYM_MISTY_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -89,6 +101,7 @@ CeruleanGym_TextPointers:
 	dw_const CeruleanGymMistyCascadeBadgeInfoText, TEXT_CERULEANGYM_MISTY_CASCADE_BADGE_INFO
 	dw_const CeruleanGymMistyReceivedTMText,     TEXT_CERULEANGYM_MISTY_RECEIVED_TM
 	dw_const CeruleanGymMistyTMNoRoomText,       TEXT_CERULEANGYM_MISTY_TM_NO_ROOM
+	dw_const CeruleanGymMistyReceivedCandyText,  TEXT_CERULEANGYM_MISTY_RECEIVED_CANDY
 	dw_const CeruleanGymRematchPostBattleText, 	   TEXT_CERULEANGYM_REMATCH_POST_BATTLE
 
 CeruleanGymTrainerHeaders:
@@ -104,8 +117,11 @@ CeruleanGymMistyText:
 	CheckEvent EVENT_BEAT_MISTY
 	jr z, .beforeBeat
 	CheckEventReuseA EVENT_GOT_MISTY_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_MISTY_CANDY
 	jr nz, .afterBeat
-	call z, CeruleanGymReceiveTM
+.needGifts
+	call CeruleanGymReceiveGifts
 	call DisableWaitingAfterTextDisplay
 	jr .done
 .afterBeat
@@ -196,6 +212,12 @@ CeruleanGymMistyReceivedTMText:
 
 CeruleanGymMistyTMNoRoomText:
 	text_far _CeruleanGymMistyTMNoRoomText
+	text_end
+
+CeruleanGymMistyReceivedCandyText:
+	text_far _CeruleanGymMistyReceivedCandyText
+	sound_get_item_1
+	text_far _CeruleanGymMistyCandyCommentText
 	text_end
 
 CeruleanGymMistyReceivedCascadeBadgeText:

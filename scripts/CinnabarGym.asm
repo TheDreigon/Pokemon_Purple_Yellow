@@ -220,20 +220,32 @@ CinnabarGymBlainePostBattleScript:
 	and a
 	jr nz, BlaineRematchPostBattle
 ; fallthrough
-CinnabarGymReceiveTM38:
+CinnabarGymReceiveGifts:
 	ld a, TEXT_CINNABARGYM_BLAINE_VOLCANO_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_BLAINE
+	CheckEvent EVENT_GOT_BLAINE_TM
+	jr nz, .tryCandy
 	lb bc, TM_FLAMETHROWER, 1
 	call GiveItem
-	jr nc, .BagFull
+	jr nc, .bagFull
 	ld a, TEXT_CINNABARGYM_BLAINE_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_BLAINE_TM
+.tryCandy
+	CheckEvent EVENT_GOT_BLAINE_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_CINNABARGYM_BLAINE_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_BLAINE_CANDY
 	jr .gymVictory
-.BagFull
+.bagFull
 	ld a, TEXT_CINNABARGYM_BLAINE_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -271,6 +283,7 @@ CinnabarGym_TextPointers:
 	dw_const CinnabarGymBlaineVolcanoBadgeInfoText, TEXT_CINNABARGYM_BLAINE_VOLCANO_BADGE_INFO
 	dw_const CinnabarGymBlaineReceivedTMText,     TEXT_CINNABARGYM_BLAINE_RECEIVED_TM
 	dw_const CinnabarGymBlaineTMNoRoomText,       TEXT_CINNABARGYM_BLAINE_TM_NO_ROOM
+	dw_const CinnabarGymBlaineReceivedCandyText,  TEXT_CINNABARGYM_BLAINE_RECEIVED_CANDY
 	dw_const CinnabarGymRematchPostBattleText, 	  	TEXT_CINNABARGYM_REMATCH_POST_BATTLE
 
 CinnabarGymStartBattleScript:
@@ -340,8 +353,11 @@ CinnabarGymBlaineText:
 	CheckEvent EVENT_BEAT_BLAINE
 	jr z, .beforeBeat
 	CheckEventReuseA EVENT_GOT_BLAINE_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_BLAINE_CANDY
 	jr nz, .afterBeat
-	call z, CinnabarGymReceiveTM38
+.needGifts
+	call CinnabarGymReceiveGifts
 	call DisableWaitingAfterTextDisplay
 	jp TextScriptEnd
 .afterBeat
@@ -389,6 +405,12 @@ CinnabarGymBlaineReceivedTMText:
 
 CinnabarGymBlaineTMNoRoomText:
 	text_far _CinnabarGymBlaineTMNoRoomText
+	text_end
+
+CinnabarGymBlaineReceivedCandyText:
+	text_far _CinnabarGymBlaineReceivedCandyText
+	sound_get_item_1
+	text_far _CinnabarGymBlaineCandyCommentText
 	text_end
 
 CinnabarGymSuperNerd1:

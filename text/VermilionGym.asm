@@ -105,6 +105,18 @@ _VermilionGymLTSurgeTMNoRoomText::
 	line "in your pack!"
 	done
 
+_VermilionGymLTSurgeReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_VermilionGymLTSurgeCandyCommentText::
+	text_start
+
+	para "Power up,"
+	line "recruit!"
+	done
+
 _VermilionGymLTSurgeReceivedThunderBadgeText::
 	text "Whoa!"
 

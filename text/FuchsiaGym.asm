@@ -118,6 +118,18 @@ _FuchsiaGymKogaTMNoRoomText::
 	line "this, child!"
 	done
 
+_FuchsiaGymKogaReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_FuchsiaGymKogaCandyCommentText::
+	text_start
+
+	para "Sustenance for"
+	line "the path ahead."
+	done
+
 _FuchsiaGymRocker1BattleText::
 	text "Strength isn't"
 	line "the key for"

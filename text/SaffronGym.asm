@@ -106,6 +106,18 @@ _SaffronGymSabrinaTMNoRoomText::
 	line "of other items!"
 	done
 
+_SaffronGymSabrinaReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_SaffronGymSabrinaCandyCommentText::
+	text_start
+
+	para "I foresaw this"
+	line "gift. Take it."
+	done
+
 _SaffronGymGuideChampInMakingText::
 	text "Yo! Champ in"
 	line "making!"

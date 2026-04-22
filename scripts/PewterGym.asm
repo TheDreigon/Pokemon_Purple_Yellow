@@ -47,20 +47,32 @@ PewterGymBrockPostBattle:
 	and a
 	jr nz, BrockRematchPostBattle
 ; fallthrough
-PewterGymScriptReceiveTM:
+PewterGymScriptReceiveGifts:
 	ld a, TEXT_PEWTERGYM_BROCK_WAIT_TAKE_THIS
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_BROCK
+	CheckEvent EVENT_GOT_BROCK_TM
+	jr nz, .tryCandy
 	lb bc, TM_ROCK_THROW, 1
 	call GiveItem
-	jr nc, .BagFull
+	jr nc, .bagFull
 	ld a, TEXT_PEWTERGYM_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_BROCK_TM
+.tryCandy
+	CheckEvent EVENT_GOT_BROCK_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_PEWTERGYM_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_BROCK_CANDY
 	jr .gymVictory
-.BagFull
+.bagFull
 	ld a, TEXT_PEWTERGYM_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -96,8 +108,9 @@ PewterGym_TextPointers:
 	dw_const PewterGymCooltrainerMText,      TEXT_PEWTERGYM_COOLTRAINER_M
 	dw_const PewterGymGuideText,             TEXT_PEWTERGYM_GYM_GUIDE
 	dw_const PewterGymBrockWaitTakeThisText, TEXT_PEWTERGYM_BROCK_WAIT_TAKE_THIS
-	dw_const PewterGymReceivedTMText,      TEXT_PEWTERGYM_RECEIVED_TM
-	dw_const PewterGymTMNoRoomText,        TEXT_PEWTERGYM_TM_NO_ROOM
+	dw_const PewterGymReceivedTMText,        TEXT_PEWTERGYM_RECEIVED_TM
+	dw_const PewterGymTMNoRoomText,          TEXT_PEWTERGYM_TM_NO_ROOM
+	dw_const PewterGymReceivedCandyText,     TEXT_PEWTERGYM_RECEIVED_CANDY
 	dw_const PewterGymRematchPostBattleText, TEXT_PEWTERGYM_REMATCH_POST_BATTLE
 
 PewterGymTrainerHeaders:
@@ -111,8 +124,11 @@ PewterGymBrockText:
 	CheckEvent EVENT_BEAT_BROCK
 	jr z, .beforeBeat
 	CheckEventReuseA EVENT_GOT_BROCK_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_BROCK_CANDY
 	jr nz, .afterBeat
-	call z, PewterGymScriptReceiveTM
+.needGifts
+	call PewterGymScriptReceiveGifts
 	call DisableWaitingAfterTextDisplay
 	jr .done
 .afterBeat
@@ -205,6 +221,12 @@ PewterGymReceivedTMText:
 
 PewterGymTMNoRoomText:
 	text_far _PewterGymTMNoRoomText
+	text_end
+
+PewterGymReceivedCandyText:
+	text_far _PewterGymReceivedCandyText
+	sound_get_item_1
+	text_far _PewterGymBrockCandyCommentText
 	text_end
 
 PewterGymBrockReceivedBoulderBadgeText:
