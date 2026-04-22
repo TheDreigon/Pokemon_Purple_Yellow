@@ -9,7 +9,7 @@
 	dw TentacoolPicFront, TentacoolPicBack
 
 	db POISON_STING, WATER_GUN, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	tmhm

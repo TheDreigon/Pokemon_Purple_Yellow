@@ -9,7 +9,7 @@
 	dw KakunaPicFront, KakunaPicBack
 
 	db POISON_STING, ENTANGLE, HARDEN, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
 	tmhm

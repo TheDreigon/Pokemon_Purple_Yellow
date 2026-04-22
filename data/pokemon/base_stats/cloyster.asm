@@ -9,7 +9,7 @@
 	dw CloysterPicFront, CloysterPicBack
 
 	db TACKLE, WITHDRAW, CLAMP, AURORA_BEAM ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	tmhm

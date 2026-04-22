@@ -9,7 +9,7 @@
 	dw ZapdosPicFront, ZapdosPicBack
 
 	db THUNDERSHOCK, WING_ATTACK, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
 	tmhm

@@ -9,7 +9,7 @@
 	dw MewtwoPicFront, MewtwoPicBack
 
 	db CONFUSION, DISABLE, FAINT_ATTACK, PSYCHIC_M ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
 	tmhm

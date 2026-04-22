@@ -9,7 +9,7 @@
 	dw VictreebelPicFront, VictreebelPicBack
 
 	db STUN_SPORE, SLEEP_POWDER, ACID, RAZOR_LEAF ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	tmhm

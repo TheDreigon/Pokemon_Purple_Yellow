@@ -9,7 +9,7 @@
 	dw WeepinbellPicFront, WeepinbellPicBack
 
 	db GROWTH, POISONPOWDER, VINE_WHIP, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	tmhm
