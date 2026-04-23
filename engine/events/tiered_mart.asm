@@ -1,3 +1,43 @@
+; Top-level entry point for `script_tiered_mart` clerks. On entry,
+; wItemList holds the script-side extras (count + items + $ff) that
+; the home dispatcher loaded via LoadItemList. We snapshot them to
+; wMartExtras, rebuild wItemList from the global tiered inventory
+; filtered by badges + post-E4 flag, append the extras, and then
+; chain into DisplayPokemartDialogue_ exactly like the regular
+; `script_mart` path would.
+TieredMartFlow::
+	; 1) Snapshot extras (currently in wItemList) to wMartExtras.
+	ld hl, wItemList
+	ld de, wMartExtras
+	ld a, [hli]
+	ld [de], a                   ; extras count
+	inc de
+	and a
+	jr z, .build
+	ld b, a
+.copy_in
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, .copy_in
+.build
+	; 2) Build the tiered inventory at wItemList from scratch.
+	call BuildTieredMartList
+	; 3) Mimic DisplayPokemartDialogue's setup: point wItemListPointer
+	;    at wItemList and pick the priced item list menu.
+	ld hl, wItemList
+	ld a, h
+	ld [wItemListPointer], a
+	ld a, l
+	ld [wItemListPointer + 1], a
+	ld a, PRICEDITEMLISTMENU
+	ld [wListMenuID], a
+	; 4) Hand off to the shared mart UI. DisplayPokemartDialogue_ lives
+	;    in the same bank, so a plain jp tail-calls it cleanly: the
+	;    home-side `homecall` returns once its menu loop ends.
+	jp DisplayPokemartDialogue_
+
 ; Builds the regular-pokemart inventory at runtime by filtering the global
 ; RegularMartTieredInventory table against the player's current badge count
 ; (and the post-E4 flag for tier 9 items). Output goes to wItemList in the

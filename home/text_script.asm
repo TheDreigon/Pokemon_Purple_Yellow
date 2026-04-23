@@ -151,44 +151,19 @@ DisplayPokemartDialogue::
 ; optionally carry a small list of extra fixed items (typically TMs)
 ; that get appended after the tiered list.
 ;
-; Layout of the script payload at hl:
-;   db TX_SCRIPT_TIERED_MART
-;   db extras_count
-;   db extra_item_0, extra_item_1, ..., extra_item_N
-;   db $ff
+; All the heavy lifting lives in TieredMartFlow (bank1) to keep the
+; home-bank footprint minimal. The script-side extras are loaded into
+; wItemList here while we're still in the map's ROM bank; the bank1
+; routine moves them to wMartExtras and rebuilds wItemList from the
+; global tiered inventory + the extras.
 DisplayTieredMartDialogue::
 	push hl
 	ld hl, PokemartGreetingText
 	call PrintText
 	pop hl
 	inc hl                       ; -> extras count byte
-	; Snapshot the script-side extras into wMartExtras while we're still
-	; in the map's ROM bank. BuildTieredMartList runs in another bank and
-	; would otherwise read garbage if it tried to dereference [hl].
-	ld a, [hli]                  ; extras count
-	ld [wMartExtras], a
-	and a
-	jr z, .no_extras
-	ld b, a
-	ld de, wMartExtras + 1
-.copy_extras
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .copy_extras
-.no_extras
-	homecall BuildTieredMartList
-	; Point wItemListPointer at the freshly-built wItemList so the same
-	; downstream code that DisplayPokemartDialogue uses works unchanged.
-	ld hl, wItemList
-	ld a, h
-	ld [wItemListPointer], a
-	ld a, l
-	ld [wItemListPointer + 1], a
-	ld a, PRICEDITEMLISTMENU
-	ld [wListMenuID], a
-	homecall DisplayPokemartDialogue_
+	call LoadItemList            ; copies extras to wItemList
+	homecall TieredMartFlow
 	jp AfterDisplayingTextID
 
 PokemartGreetingText::
