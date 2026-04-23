@@ -74,6 +74,7 @@ MACRO dict2
 ENDM
 
 	dict  TX_SCRIPT_MART,                    DisplayPokemartDialogue
+	dict  TX_SCRIPT_TIERED_MART,             DisplayTieredMartDialogue
 	dict  TX_SCRIPT_POKECENTER_NURSE,        DisplayPokemonCenterDialogue
 	dict  TX_SCRIPT_PLAYERS_PC,              TextScript_ItemStoragePC
 	dict  TX_SCRIPT_BILLS_PC,                TextScript_BillsPC
@@ -139,6 +140,52 @@ DisplayPokemartDialogue::
 	pop hl
 	inc hl
 	call LoadItemList
+	ld a, PRICEDITEMLISTMENU
+	ld [wListMenuID], a
+	homecall DisplayPokemartDialogue_
+	jp AfterDisplayingTextID
+
+; Same as DisplayPokemartDialogue, but the inventory is built at runtime
+; from the global RegularMartTieredInventory filtered against the player's
+; badge count (and post-E4 flag for tier 9). The script payload may
+; optionally carry a small list of extra fixed items (typically TMs)
+; that get appended after the tiered list.
+;
+; Layout of the script payload at hl:
+;   db TX_SCRIPT_TIERED_MART
+;   db extras_count
+;   db extra_item_0, extra_item_1, ..., extra_item_N
+;   db $ff
+DisplayTieredMartDialogue::
+	push hl
+	ld hl, PokemartGreetingText
+	call PrintText
+	pop hl
+	inc hl                       ; -> extras count byte
+	; Snapshot the script-side extras into wMartExtras while we're still
+	; in the map's ROM bank. BuildTieredMartList runs in another bank and
+	; would otherwise read garbage if it tried to dereference [hl].
+	ld a, [hli]                  ; extras count
+	ld [wMartExtras], a
+	and a
+	jr z, .no_extras
+	ld b, a
+	ld de, wMartExtras + 1
+.copy_extras
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, .copy_extras
+.no_extras
+	homecall BuildTieredMartList
+	; Point wItemListPointer at the freshly-built wItemList so the same
+	; downstream code that DisplayPokemartDialogue uses works unchanged.
+	ld hl, wItemList
+	ld a, h
+	ld [wItemListPointer], a
+	ld a, l
+	ld [wItemListPointer + 1], a
 	ld a, PRICEDITEMLISTMENU
 	ld [wListMenuID], a
 	homecall DisplayPokemartDialogue_

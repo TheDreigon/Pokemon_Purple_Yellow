@@ -185,7 +185,21 @@ MACRO script_players_pc
 	db TX_SCRIPT_PLAYERS_PC
 ENDM
 
-	const_skip ; $fb
+	const TX_SCRIPT_TIERED_MART ; $fb
+; A regular pokemart whose inventory is the global RegularMartTieredInventory
+; filtered by the player's badge count (and post-E4 flag for top-tier items),
+; optionally followed by a list of extra fixed items (typically the TMs that
+; a particular mart sells alongside its regular goods, e.g. Fuchsia/Cinnabar).
+; Used by every "real" pokemart clerk; Celadon Mart 4F/5F speciality clerks
+; keep using `script_mart` with explicit fixed lists.
+MACRO script_tiered_mart
+	db TX_SCRIPT_TIERED_MART
+	db _NARG ; number of extra fixed items (0 if pure tiered)
+	IF _NARG
+		db \# ; the extra items (e.g. TMs)
+	ENDC
+	db -1 ; end
+ENDM
 
 	const_skip ; $fa
 

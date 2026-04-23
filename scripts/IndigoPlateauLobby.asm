@@ -44,8 +44,10 @@ IndigoPlateauLobbyChanseyText:
 	jp TextScriptEnd
 
 IndigoPlateauLobbyClerkText::
-	; v0.5 TM rework (rev8 spec): pre-E4 strong damage. Medical kept; 9 TMs (NIGHT_SHADE moved to Celadon 2F).
-	script_mart ULTRA_BALL, HYPER_POTION, FULL_RESTORE, REVIVE, FULL_HEAL, MAX_REPEL, TM_MEGAHORN, TM_THUNDERBOLT, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
+	; v0.5 TM rework (rev8 spec): pre-E4 strong damage. 9 TMs (NIGHT_SHADE moved to Celadon 2F).
+	; Regular items now come from the global tiered mart inventory; the
+	; TMs below are appended as fixed extras.
+	script_tiered_mart TM_MEGAHORN, TM_THUNDERBOLT, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
 
 IndigoPlateauLobbyPostGameClerkText::
 	; v0.5 TM rework (rev8 spec): post-E4 top tier / endgame. 7 TMs + PP Up.

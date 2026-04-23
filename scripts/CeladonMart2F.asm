@@ -22,7 +22,7 @@ CeladonMart2FCurrentFloorSignText:
 	text_end
 
 CeladonMart2FClerk1Text::
-	script_mart POKE_BALL, GREAT_BALL, POTION, SUPER_POTION, REVIVE, SUPER_REPEL, FULL_HEAL, ANTIDOTE, PARLYZ_HEAL, AWAKENING, BURN_HEAL, ICE_HEAL
+	script_tiered_mart
 
 CeladonMart2FClerk2Text::
 	; v0.5 TM rework (rev8 spec): early/mid damage. 12 TMs per spec.

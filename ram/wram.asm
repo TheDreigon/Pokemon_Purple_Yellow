@@ -1259,7 +1259,16 @@ wGymCityName:: ds 17
 
 wGymLeaderName:: ds NAME_LENGTH
 
-wItemList:: ds 16
+wItemList:: ds 32 ; bumped from 16 to fit the tiered-mart inventory at full
+                  ; unlock (up to T9 = 20 items) plus the per-mart TM extras
+                  ; (Cinnabar/Fuchsia/Indigo). count byte + items + $ff terminator.
+
+; Scratch buffer for the per-mart TM extras passed via `script_tiered_mart`.
+; Layout: [count, item0, item1, ..., itemN]. No $ff terminator.
+; Populated in home before BuildTieredMartList runs in another bank, since
+; the script payload lives in the map's ROM bank and is otherwise unreachable
+; once the bank has switched.
+wMartExtras:: ds 12
 
 wListPointer:: dw
 
