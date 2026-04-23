@@ -2650,5 +2650,8 @@ SECTION "Stack", WRAM0
 ; the stack grows downward
 ; v0.5 TM rework Phase B.3: shrunk by 2 bytes (235 -> 233) to make room
 ; for wPrize4 + wPrize4Price added for the 4-TM Game Corner menu.
-	ds $eb - 3
+; v0.5 mart rework: shrunk a further 28 bytes (233 -> 205) to absorb
+; wItemList expansion (16 -> 32) and the new wMartExtras (12 bytes).
+; See layout.link "Stack" org $df33.
+	ds $cd - 1
 wStack:: db
