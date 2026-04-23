@@ -1,11 +1,6 @@
-# The debug ROM target (pokeyellow_debug.gbc) is intentionally NOT in
-# this default list. The IF DEF(_DEBUG) source blocks throughout the
-# codebase remain intact and the `make yellow_debug` target still
-# builds it on demand for any future dev that wants the debug menu /
-# warp / level-up cheats. We just don't pay its tight-HOME-bank cost
-# on every regular build.
 roms := \
-	pokeyellow.gbc
+	pokeyellow.gbc \
+	pokeyellow_debug.gbc
 patches := \
 	pokeyellow.patch
 
