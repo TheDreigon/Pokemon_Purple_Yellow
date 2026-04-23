@@ -73,8 +73,18 @@ MACRO dict2
 .not\@
 ENDM
 
+; Inline body for the TX_SCRIPT_TIERED_MART dispatch. Kept tiny so the
+; whole entry costs ~16 bytes in home: it loads the script-side extras
+; into wItemList while the map's ROM bank is still selected, then hands
+; off to TieredMartHandler in bank1 which does the actual work.
+MACRO dispatch_tiered_mart
+	inc hl                       ; -> extras count byte
+	call LoadItemList            ; copies extras to wItemList
+	farcall TieredMartHandler
+ENDM
+
 	dict  TX_SCRIPT_MART,                    DisplayPokemartDialogue
-	dict  TX_SCRIPT_TIERED_MART,             DisplayTieredMartDialogue
+	dict2 TX_SCRIPT_TIERED_MART,             dispatch_tiered_mart
 	dict  TX_SCRIPT_POKECENTER_NURSE,        DisplayPokemonCenterDialogue
 	dict  TX_SCRIPT_PLAYERS_PC,              TextScript_ItemStoragePC
 	dict  TX_SCRIPT_BILLS_PC,                TextScript_BillsPC
@@ -145,26 +155,9 @@ DisplayPokemartDialogue::
 	homecall DisplayPokemartDialogue_
 	jp AfterDisplayingTextID
 
-; Same as DisplayPokemartDialogue, but the inventory is built at runtime
-; from the global RegularMartTieredInventory filtered against the player's
-; badge count (and post-E4 flag for tier 9). The script payload may
-; optionally carry a small list of extra fixed items (typically TMs)
-; that get appended after the tiered list.
-;
-; All the heavy lifting lives in TieredMartFlow (bank1) to keep the
-; home-bank footprint minimal. The script-side extras are loaded into
-; wItemList here while we're still in the map's ROM bank; the bank1
-; routine moves them to wMartExtras and rebuilds wItemList from the
-; global tiered inventory + the extras.
-DisplayTieredMartDialogue::
-	push hl
-	ld hl, PokemartGreetingText
-	call PrintText
-	pop hl
-	inc hl                       ; -> extras count byte
-	call LoadItemList            ; copies extras to wItemList
-	homecall TieredMartFlow
-	jp AfterDisplayingTextID
+; The TX_SCRIPT_TIERED_MART path is handled entirely via the
+; `dispatch_tiered_mart` macro inlined into the dict2 entry above
+; (see DisplayTextID). Real work lives in TieredMartHandler (bank1).
 
 PokemartGreetingText::
 	text_far _PokemartGreetingText

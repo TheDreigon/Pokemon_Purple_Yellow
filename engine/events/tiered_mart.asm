@@ -1,11 +1,17 @@
-; Top-level entry point for `script_tiered_mart` clerks. On entry,
+; Top-level entry point for `script_tiered_mart` clerks. Reached via
+; farcall from the dict2 dispatch in home (DisplayTextID). On entry,
 ; wItemList holds the script-side extras (count + items + $ff) that
-; the home dispatcher loaded via LoadItemList. We snapshot them to
-; wMartExtras, rebuild wItemList from the global tiered inventory
-; filtered by badges + post-E4 flag, append the extras, and then
-; chain into DisplayPokemartDialogue_ exactly like the regular
-; `script_mart` path would.
-TieredMartFlow::
+; the home dispatcher loaded via LoadItemList while the map's ROM bank
+; was still selected. We print the greeting (PrintText is in home, so
+; reachable from any bank), snapshot extras to wMartExtras, rebuild
+; wItemList from the global tiered inventory filtered by badges +
+; post-E4 flag, append the extras, and chain into DisplayPokemartDialogue_
+; exactly like the regular `script_mart` path would.
+TieredMartHandler::
+	; 0) Print the standard pokemart greeting first (matches the look
+	;    and feel of the regular DisplayPokemartDialogue path).
+	ld hl, PokemartGreetingText
+	call PrintText
 	; 1) Snapshot extras (currently in wItemList) to wMartExtras.
 	ld hl, wItemList
 	ld de, wMartExtras
