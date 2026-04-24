@@ -8,8 +8,7 @@
 ; Both functions read TypeEffects (defined in data/types/type_matchups.asm,
 ; INCLUDEd at the bottom of this file) and use only HRAM/WRAM and
 ; home-bank routines (Multiply, Divide), so they run unchanged in any
-; bank. AIGetTypeEffectiveness still needs BattleRandom, which lives in
-; bank $0F, so it `callfar`s back for the Lorelei/Dewgong AI quirk.
+; bank.
 
 ; Walk TypeEffects and apply every matching multiplier to wDamage,
 ; chained (so dual-typed defenders get 4x / 0.25x as expected). Sets
@@ -127,19 +126,13 @@ AIGetTypeEffectiveness::
 	inc hl
 	jr .loop
 .done
-	; 40% chance for Lorelei's Dewgong to ignore type effectiveness?
-	ld a, [wTrainerClass]
-	cp LORELEI
-	jr nz, .ok
-	ld a, [wEnemyMonSpecies]
-	cp DEWGONG
-	jr nz, .ok
-	push hl                    ; v0.7: hl points into TypeEffects; preserve across far call
-	callfar BattleRandom       ; v0.7: BattleRandom lives in bank $0F (Battle Core)
-	pop hl
-	cp $66 ; 40 percent
-	ret c
-.ok
+	; v0.7: removed vanilla Yellow's "40% chance for Lorelei's Dewgong to
+	; ignore type effectiveness" quirk. It was the only trainer+species
+	; hardcoded AI special-case in the engine, was never properly
+	; documented (the disassembly comment ended in `?`), and clashed with
+	; this hack's philosophy of explicit, controlled difficulty tuning.
+	; If softening is wanted for the first E4, do it via team / moveset /
+	; level — not via a hidden 40% random nerf on one specific Pokémon.
 	ld a, [hl]
 	ld [wTypeEffectiveness], a ; store damage multiplier
 	ret
