@@ -34,7 +34,7 @@ IF DEF(_DEBUG)
 	ld [wMenuWatchedKeys], a
 	xor a
 	ld [wMenuJoypadPollCount], a
-	inc a
+	ld a, 2 ; v0.7: now 3 entries (FIGHT/DEBUG/ANIM); was 1 (FIGHT/DEBUG)
 	ld [wMaxMenuItem], a
 	ld a, 7
 	ld [wTopMenuItemY], a
@@ -53,8 +53,13 @@ IF DEF(_DEBUG)
 	ld a, [wCurrentMenuItem]
 	and a ; FIGHT?
 	jp z, TestBattle
+	dec a ; DEBUG?
+	jr z, .debug
+	; ANIM (v0.7): jumps to AnimationTestMenu in this same bank.
+	; AnimationTestMenu's exit path is `jp DebugMenu`, so it loops back here.
+	jp AnimationTestMenu
 
-	; DEBUG
+.debug
 	ld hl, wd732
 	set BIT_DEBUG_MODE, [hl]
 	ld hl, StartNewGameDebug
@@ -68,7 +73,8 @@ DebugBattleRivalName:
 
 DebugMenuOptions:
 	db   "FIGHT"
-	next "DEBUG@"
+	next "DEBUG"
+	next "ANIM@"
 
 TestBattle: ; unreferenced except in _DEBUG
 	ld a, 1
