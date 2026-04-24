@@ -22,7 +22,12 @@ CeladonMart2FCurrentFloorSignText:
 	text_end
 
 CeladonMart2FClerk1Text::
-	script_tiered_mart
+	; v0.5 mart rework: this is one of the two "elite" tiered mart clerks
+	; (the other being Indigo Plateau). Sells T0..T8 like every regular mart,
+	; plus the post-E4 elite items (ETHER, ELIXER, PP_UP, MAX_REVIVE) once
+	; the player has beaten the Elite Four, plus the post-rematch elite items
+	; (MAX_ETHER, MAX_ELIXER, PP_MAX, RARE_CANDY) after the first E4 rematch.
+	script_tiered_mart_elite
 
 CeladonMart2FClerk2Text::
 	; v0.5 TM rework (rev8 spec): early/mid damage. 12 TMs per spec.

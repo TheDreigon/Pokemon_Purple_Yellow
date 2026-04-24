@@ -69,12 +69,18 @@ MACRO dict2
 .not\@
 ENDM
 
-; Inline body for the TX_SCRIPT_TIERED_MART dispatch. Kept tiny so the
-; whole entry costs ~16 bytes in home: it loads the script-side extras
-; into wItemList while the map's ROM bank is still selected, then hands
-; off to TieredMartHandler in bank1 which does the actual work.
+; Inline body for the TX_SCRIPT_TIERED_MART dispatch. The script payload
+; carries:
+;   db TX_SCRIPT_TIERED_MART
+;   db TYPE        ; TIERED_MART_TYPE_REGULAR / _ELITE
+;   db count, items, ..., $ff   (the per-mart fixed extras, e.g. TMs)
+; We snapshot TYPE into wMartType (still in the map's ROM bank, before
+; the bank switch), then have LoadItemList copy the extras into wItemList,
+; and finally farcall the bank1 handler which does the heavy work.
 MACRO dispatch_tiered_mart
-	inc hl                       ; -> extras count byte
+	inc hl                       ; -> TYPE byte
+	ld a, [hli]                  ; load TYPE; hl now -> extras count
+	ld [wMartType], a
 	call LoadItemList            ; copies extras to wItemList
 	farcall TieredMartHandler
 ENDM

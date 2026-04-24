@@ -1259,16 +1259,21 @@ wGymCityName:: ds 17
 
 wGymLeaderName:: ds NAME_LENGTH
 
-wItemList:: ds 32 ; bumped from 16 to fit the tiered-mart inventory at full
-                  ; unlock (up to T9 = 20 items) plus the per-mart TM extras
-                  ; (Cinnabar/Fuchsia/Indigo). count byte + items + $ff terminator.
+wItemList:: ds 40 ; sized for the worst-case tiered mart at full unlock:
+                  ; T0..T8 (~17 items) + post-E4 elite addons + post-rematch
+                  ; elite addons + Indigo TM extras + count + $ff terminator.
 
 ; Scratch buffer for the per-mart TM extras passed via `script_tiered_mart`.
 ; Layout: [count, item0, item1, ..., itemN]. No $ff terminator.
-; Populated in home before BuildTieredMartList runs in another bank, since
+; Populated in home before TieredMartHandler runs in another bank, since
 ; the script payload lives in the map's ROM bank and is otherwise unreachable
 ; once the bank has switched.
 wMartExtras:: ds 12
+
+; Mart variant flag, written by the home dispatcher and read by the bank1
+; TieredMartHandler. See macros/scripts/text.asm for TIERED_MART_TYPE_*
+; values.
+wMartType:: db
 
 wListPointer:: dw
 
@@ -2652,6 +2657,8 @@ SECTION "Stack", WRAM0
 ; for wPrize4 + wPrize4Price added for the 4-TM Game Corner menu.
 ; v0.5 mart rework: shrunk a further 28 bytes (233 -> 205) to absorb
 ; wItemList expansion (16 -> 32) and the new wMartExtras (12 bytes).
-; See layout.link "Stack" org $df33.
-	ds $cd - 1
+; v0.5 elite tiered mart rework: another 9-byte shrink (205 -> 196) for
+; wItemList 32 -> 40 (+8) and the new wMartType variant flag (+1). See
+; layout.link "Stack" org $df3c.
+	ds $c4 - 1
 wStack:: db

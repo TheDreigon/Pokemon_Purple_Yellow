@@ -531,8 +531,8 @@ TextCommand_SOUND::
 	jr z, .pokemonCry
 	cp TX_SOUND_CRY_PIDGEOT
 	jr z, .pokemonCry
-	cp TX_SOUND_CRY_DEWGONG
-	jr z, .pokemonCry
+	; TX_SOUND_CRY_DEWGONG check removed in v0.5: never emitted by any
+	; script (the table entry below is also gone). Saves 4 home bytes.
 	ld a, [hl]
 	call PlaySound
 	call WaitForSoundToFinish
@@ -559,7 +559,8 @@ TextCommandSounds::
 	db TX_SOUND_DEX_PAGE_ADDED,       SFX_DEX_PAGE_ADDED
 	db TX_SOUND_CRY_PIKACHU,          STARTER_PIKACHU ; used in OakSpeech
 	db TX_SOUND_CRY_PIDGEOT,          PIDGEOT ; used in SaffronCityPidgeotText
-	db TX_SOUND_CRY_DEWGONG,          DEWGONG ; unused
+	; TX_SOUND_CRY_DEWGONG entry removed in v0.5 (paired with the cp/jr z
+	; removal in TextCommand_SOUND .play above). Was never emitted.
 
 TextCommand_DOTS::
 ; wait for button press or 30 frames while printing "…"s

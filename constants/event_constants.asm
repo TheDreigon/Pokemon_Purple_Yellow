@@ -778,7 +778,8 @@ DEF INDIGO_PLATEAU_EVENTS_START EQU const_value
 	const EVENT_LANCES_ROOM_LOCK_DOOR
 	const_skip
 	const EVENT_BEAT_CHAMPION_RIVAL
-	const_skip 5
+	const EVENT_BEAT_E4_REMATCH ; v0.5 mart rework: gates the post-rematch elite items
+	const_skip 4
 	const_skip
 DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 

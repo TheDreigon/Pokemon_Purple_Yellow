@@ -246,7 +246,7 @@ WRAM0
 	"Main Data"
 	"Current Box Data"
 	"GBC Palette Data"
-	org $df33 ; was $df17; +28 wram bytes for wItemList expansion (16->32) and wMartExtras (+12) absorbed by stack shrink (233 -> 205); see ram/wram.asm
+	org $df3c ; was $df33; +9 more wram bytes for wItemList 32->40 (+8) and the new wMartType variant flag (+1) for the elite tiered mart system; stack shrunk 205 -> 196.
 	"Stack"
 VRAM $0
 	"VRAM"

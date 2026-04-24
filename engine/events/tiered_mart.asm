@@ -45,47 +45,71 @@ TieredMartHandler::
 	jp DisplayPokemartDialogue_
 
 ; Builds the regular-pokemart inventory at runtime by filtering the global
-; RegularMartTieredInventory table against the player's current badge count
-; (and the post-E4 flag for tier 9 items). Output goes to wItemList in the
+; RegularMartTieredInventory table against the player's current badge count.
+; If wMartType == TIERED_MART_TYPE_ELITE, the EliteMartAddons table is
+; also walked and any items unlocked by the player's post-E4 / post-rematch
+; progress are appended. Finally any per-mart fixed extras snapshotted into
+; wMartExtras (typically TMs) are appended. Output goes to wItemList in the
 ; same `db count, item, item, ..., -1` format that LoadItemList would
 ; produce, so DisplayPokemartDialogue_ can consume it unchanged.
 ;
 ; Tier semantics:
-;   tiers 0-8 -> require at least N gym badges
-;   tier 9    -> require non-zero wGameStage (post-E4 / Hall of Fame)
+;   regular table entries -> tier byte = required badge count (0..8)
+;   elite table entries   -> tier byte 9 (post-E4 unlock, gated by wGameStage)
+;                            tier byte 10 (post-E4-rematch unlock, gated by
+;                                          EVENT_BEAT_E4_REMATCH)
 
 BuildTieredMartList::
 	call CountObtainedBadges     ; b = badge count (0..8)
 	ld hl, RegularMartTieredInventory
 	ld de, wItemList + 1         ; reserve byte 0 for the count
 	ld c, 0                      ; running item count
-.loop
+.regular_loop
 	ld a, [hli]                  ; tier byte
 	cp -1
-	jr z, .append_extras
-	cp 9
-	jr z, .post_e4_check
+	jr z, .check_elite
 	; tiers 0-8: include if tier <= badge count
 	cp b
-	jr z, .include               ; tier == badges -> ok
-	jr c, .include               ; tier <  badges -> ok
+	jr z, .reg_include           ; tier == badges -> ok
+	jr c, .reg_include           ; tier <  badges -> ok
 	; tier > badges: skip the item byte
 	inc hl
-	jr .loop
-.post_e4_check
-	ld a, [wGameStage]
-	and a
-	jr z, .skip_postE4           ; not yet post-E4
-	; fall through to .include (still pointing at item byte)
-.include
+	jr .regular_loop
+.reg_include
 	ld a, [hli]                  ; item id
 	ld [de], a
 	inc de
 	inc c
-	jr .loop
-.skip_postE4
+	jr .regular_loop
+.check_elite
+	ld a, [wMartType]
+	cp TIERED_MART_TYPE_ELITE
+	jr nz, .append_extras        ; regular mart -> skip elite addons
+	ld hl, EliteMartAddons
+.elite_loop
+	ld a, [hli]                  ; tier byte (9 or 10)
+	cp -1
+	jr z, .append_extras
+	cp 10
+	jr z, .elite_t10
+	; tier 9: gated by wGameStage != 0
+	ld a, [wGameStage]
+	and a
+	jr z, .elite_skip
+	jr .elite_include
+.elite_t10
+	; tier 10: gated by EVENT_BEAT_E4_REMATCH
+	CheckEvent EVENT_BEAT_E4_REMATCH
+	jr z, .elite_skip
+.elite_include
+	ld a, [hli]                  ; item id
+	ld [de], a
+	inc de
+	inc c
+	jr .elite_loop
+.elite_skip
 	inc hl                       ; skip item byte
-	jr .loop
+	jr .elite_loop
 .append_extras
 	; Append the script-provided extras (typically TMs) that were copied
 	; into wMartExtras by the home dispatcher before the bank switch.
@@ -124,7 +148,7 @@ CountObtainedBadges::
 
 ; Global tiered inventory used by every regular pokemart clerk.
 ; Format: pairs of `db tier, item`, terminated by `db -1`.
-; Tiers map to required badge counts; tier 9 requires post-E4.
+; Tiers map to required badge counts (0..8).
 ;
 ; Edits here change the inventory of EVERY regular pokemart at once
 ; (Viridian, Pewter, Cerulean, Lavender, Vermilion, Celadon Mart 2F,
@@ -160,6 +184,24 @@ RegularMartTieredInventory::
 	db 7, MAX_POTION
 	; T8 - 8 badges (Earth)
 	db 8, FULL_RESTORE
-	; T9 - post-E4 (Hall of Fame)
+	db -1
+
+; Elite addons appended by `script_tiered_mart_elite` clerks (Indigo
+; Plateau pre-E4 clerk + Celadon Mart 2F regular clerk). Format same as
+; RegularMartTieredInventory but the tier byte gates differently:
+;   tier  9 -> player has beaten the Elite Four at least once
+;             (wGameStage != 0; set in scripts/HallOfFame.asm)
+;   tier 10 -> player has beaten the Elite Four AGAIN as Champion
+;             (EVENT_BEAT_E4_REMATCH; set in scripts/ChampionsRoom.asm)
+EliteMartAddons::
+	; T9 - Post E4
+	db 9, ETHER
+	db 9, ELIXER
+	db 9, PP_UP
 	db 9, MAX_REVIVE
+	; T10 - Post E4 Rematch
+	db 10, MAX_ETHER
+	db 10, MAX_ELIXER
+	db 10, PP_MAX
+	db 10, RARE_CANDY
 	db -1

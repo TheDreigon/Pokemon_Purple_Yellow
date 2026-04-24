@@ -44,10 +44,13 @@ IndigoPlateauLobbyChanseyText:
 	jp TextScriptEnd
 
 IndigoPlateauLobbyClerkText::
-	; v0.5 TM rework (rev8 spec): pre-E4 strong damage. 9 TMs (NIGHT_SHADE moved to Celadon 2F).
-	; Regular items now come from the global tiered mart inventory; the
-	; TMs below are appended as fixed extras.
-	script_tiered_mart TM_MEGAHORN, TM_THUNDERBOLT, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
+	; v0.5 mart rework: elite tiered mart. T0..T8 from the global inventory,
+	; plus post-E4 elite items (ETHER, ELIXER, PP_UP, MAX_REVIVE) once the
+	; player has beaten the Elite Four, plus post-rematch elite items
+	; (MAX_ETHER, MAX_ELIXER, PP_MAX, RARE_CANDY) after the first E4 rematch.
+	; v0.5 TM rework (rev8 spec): 9 TMs appended as fixed extras (pre-E4
+	; strong damage; NIGHT_SHADE moved to Celadon 2F).
+	script_tiered_mart_elite TM_MEGAHORN, TM_THUNDERBOLT, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
 
 IndigoPlateauLobbyPostGameClerkText::
 	; v0.5 TM rework (rev8 spec): post-E4 top tier / endgame. 7 TMs + PP Up.
