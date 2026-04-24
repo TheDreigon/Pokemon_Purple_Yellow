@@ -66,7 +66,7 @@ ItemUsePtrTable:
 	dw ItemUseEvoStone   ; LEAF_STONE
 	dw UnusableItem      ; CARD_KEY
 	dw UnusableItem      ; NUGGET
-	dw UnusableItem      ; ??? PP_UP
+	dw ItemUsePPUp       ; PP_MAX (formerly ??? ITEM_32 ghost; v0.5)
 	dw ItemUsePokedoll   ; POKE_DOLL
 	dw ItemUseMedicine   ; FULL_HEAL
 	dw ItemUseMedicine   ; REVIVE
@@ -2221,6 +2221,8 @@ ItemUsePPRestore:
 
 .usePPItem
 	ld a, [wPPRestoreItem]
+	cp PP_MAX
+	jp z, .usePPMax ; if PP Max (Gen 2 QoL: bumps move to max PP Ups in one go)
 	cp ELIXER
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02
@@ -2249,7 +2251,7 @@ ItemUsePPRestore:
 	pop hl
 	ld a, [wPPRestoreItem]
 	cp ETHER
-	jr nc, .useEther ; if Ether or Max Ether
+	jp nc, .useEther ; if Ether or Max Ether (jp not jr: PP_MAX expansion pushed .useEther out of jr range)
 .usePPUp
 	ld bc, wPartyMon1PP - wPartyMon1Moves
 	add hl, bc
@@ -2267,6 +2269,37 @@ ItemUsePPRestore:
 	ld a, 1 ; 1 PP Up used
 	ld [wd11e], a
 	call RestoreBonusPP ; add the bonus PP to current PP
+	ld a, SFX_HEAL_AILMENT
+	call PlaySound
+	ld hl, PPIncreasedText
+	call PrintText
+	jp .done
+
+; PP Max bumps the chosen move straight to the maximum 3 PP Ups in one use,
+; applying each missing bonus to the current PP. Functionally equivalent to
+; calling PP Up enough times to hit the cap, but in a single inventory action.
+.usePPMax
+	ld bc, wPartyMon1PP - wPartyMon1Moves
+	add hl, bc                 ; hl -> chosen move's PP byte
+	ld a, [hl]
+	cp 3 << 6                  ; already at 3 PP Ups?
+	jr c, .ppMaxLoop
+	ld hl, PPMaxedOutText
+	call PrintText
+	jp .chooseMove
+.ppMaxLoop
+	ld a, [hl]
+	cp 3 << 6
+	jr nc, .ppMaxFinish        ; reached the cap
+	add 1 << 6                 ; +1 PP Up
+	ld [hl], a
+	push hl
+	ld a, 1                    ; signal "1 PP Up used" so RestoreBonusPP
+	ld [wd11e], a              ; only adds one bonus per call
+	call RestoreBonusPP
+	pop hl
+	jr .ppMaxLoop
+.ppMaxFinish
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld hl, PPIncreasedText
