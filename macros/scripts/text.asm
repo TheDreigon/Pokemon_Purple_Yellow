@@ -137,10 +137,11 @@ MACRO sound_cry_pidgeot
 	db TX_SOUND_CRY_PIDGEOT
 ENDM
 
-	const TX_SOUND_CRY_DEWGONG ; $16
-MACRO sound_cry_dewgong
-	db TX_SOUND_CRY_DEWGONG
-ENDM
+	const_skip ; $16 - was TX_SOUND_CRY_DEWGONG; constant + macro removed in v0.5.
+	;        The handler that recognised this opcode lived in
+	;        TextCommand_SOUND.play and the table entry in TextCommandSounds
+	;        (both in home/text.asm); both are gone too. Slot kept skipped so
+	;        TX_FAR stays at $17 (used by every text_far call).
 
 	const TX_FAR ; $17
 MACRO text_far
