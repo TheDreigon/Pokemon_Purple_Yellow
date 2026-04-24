@@ -346,8 +346,13 @@ SECTION "bank30", ROMX
 ; which overflowed when Pass 2 added ~3KB of level-up learnset data to
 ; evos_moves.asm. base_stats.asm is ~4.7KB (151 mons x 32 bytes); plenty of
 ; remaining headroom in this bank for future use.
+;
+; v0.7: also hosts the type-matchups table + lookup loops (moved from
+; "Battle Core" / bank $0F, which was 2 bytes over in debug after the
+; matchups expansion). See engine/battle/type_effectiveness.asm.
 
 INCLUDE "data/pokemon/base_stats.asm"
+INCLUDE "engine/battle/type_effectiveness.asm"
 
 
 SECTION "Move SFX Table", ROMX
