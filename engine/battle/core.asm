@@ -4853,50 +4853,56 @@ CriticalHitTest:
 	ret z                        ; do nothing if zero
 	dec hl
 	ld c, [hl]                   ; read move id
+; v0.7: Purple Yellow crit-rate formula. Replaces vanilla Gen 1's broken
+; "speed/2 (normal) or speed*8 (high-crit)" with:
+;   crit_rate = base + base_speed/4
+;   where base = CRIT_BASE_NORMAL (~10%) or CRIT_BASE_HIGH (~20%).
+; Memorable in percentage points: 10 + speed/10 (normal); 20 + speed/10
+; (high-crit). Focus Energy then multiplies by FOCUS_ENERGY_CRIT_MULT
+; (= 3, capped at 255). The vanilla "guaranteed crit at 255 in normal
+; mode" hack is gone; it was compensation for the vanilla speed*8 bug
+; we just removed.
+	srl b                        ; b = base_speed / 4 (the speed bonus,
+	srl b                        ;     ≈ speed/10 in percentage points)
 	ld hl, HighCriticalMoves     ; table of high critical hit moves
 .Loop
 	ld a, [hli]                  ; read move from move table
 	cp c                         ; does it match the move about to be used?
-	jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
+	jr z, .HighCritical          ; if so, use the high-crit base
 	inc a                        ; move on to the next move, FF terminates loop
-	jr nz, .Loop                 ; check the next move in HighCriticalMoves
-	srl b                        ; /2 for regular move
-	jr .SkipHighCritical         ; continue as a normal move
+	jr nz, .Loop
+	ld a, CRIT_BASE_NORMAL       ; ~10%
+	jr .addBase
 .HighCritical
-	sla b                        ; *2 for high critical hit moves
-	jr nc, .noCarry
-	ld b, $ff                    ; cap at 255/256
-.noCarry
-	sla b                        ; *4 for high critical move
-	jr nc, .SkipHighCritical
-	ld b, $ff
-.SkipHighCritical
+	ld a, CRIT_BASE_HIGH         ; ~20%
+.addBase
+	add b                        ; a = base + speed/4
+	jr nc, .gotBase
+	ld a, $ff                    ; cap at 255/256
+.gotBase
+	ld b, a
 	ld a, [de]
 	bit GETTING_PUMPED, a        ; test for focus energy
 	jr z, .noFocusEnergyUsed
-	sla b                        ; (effective (base speed*2))
-	jr nc, .focusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
-	jr .noFocusEnergyUsed
-.focusEnergyUsed
-	sla b                        ; (effective ((base speed*2)*2))
-	jr nc, .noFocusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
+	; Focus Energy: b = b * FOCUS_ENERGY_CRIT_MULT (= 3), cap at 255.
+	; Computed as b + (b * 2) with intermediate and final caps.
+	ld a, b                      ; save original
+	sla b                        ; b = orig * 2
+	jr nc, .feNoIntermediateCap
+	ld b, $ff                    ; cap intermediate at 255
+.feNoIntermediateCap
+	add b                        ; a = orig + (b after cap) = orig * 3 (or capped)
+	jr nc, .feNoFinalCap
+	ld a, $ff                    ; cap final at 255
+.feNoFinalCap
+	ld b, a                      ; b = orig * 3 (capped)
 .noFocusEnergyUsed
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	jr nz, .NotGuarenteedCrit ; keep 1/256 chance to not crit if on hard mode
-	ld a, b
-	inc a ; optimization of "cp $ff"
-	jr z, .guaranteedCriticalHit
-.NotGuarenteedCrit
-	call BattleRandom            ; generates a random value, in "a"
+	call BattleRandom            ; a = random byte 0-255
 	rlc a
 	rlc a
 	rlc a
-	cp b                         ; check a against calculated crit rate
-	ret nc                       ; no critical hit if no borrow
-.guaranteedCriticalHit
+	cp b                         ; crit if random < b (a < b → carry set)
+	ret nc                       ; no critical hit
 	ld a, $1
 	ld [wCriticalHitOrOHKO], a   ; set critical hit flag
 	ret
