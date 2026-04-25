@@ -153,6 +153,14 @@ IF DEF(_DEBUG)
 	; causing Pikachu to blink in/out at the start of every iteration).
 	call AnimTest_ReloadSprites
 
+	; v0.7: Clear the sticky press buffer immediately before the
+	; animation. Any tap during the animation playback (or pause that
+	; follows) will OR into hStickyPressBuf via ReadJoypad_ in vblank.
+	; Without this clear, the previous iteration's leftover bits would
+	; trigger immediately. See engine/joypad.asm for the buffer write.
+	xor a
+	ldh [hStickyPressBuf], a
+
 	; Play the current move's animation
 	ld a, [wWhichPokemon]
 	ld [wAnimationID], a
@@ -164,25 +172,24 @@ IF DEF(_DEBUG)
 	call AnimTest_DrawPlayHeader
 
 	; Inter-loop pause, ~30 frames (~0.5s) at 60Hz, polling input.
-	; v0.7: switched from JoypadLowSensitivity/hJoy5 to plain Joypad/hJoyHeld.
-	; Reason: JoypadLowSensitivity reads hJoyPressed (edge-triggered, set
-	; only on the single frame a button transitions from released to held)
-	; AND has a 30-frame deadband after any registered press. During an
-	; animation (1s+), DelayFrame is called repeatedly inside MoveAnimation,
-	; refreshing Joypad each frame and clearing hJoyPressed the frame after
-	; it was set. So any tap that happens DURING the animation is lost
-	; before the pause loop runs — the user has to time their press exactly
-	; into the 30-frame pause window AND hit just on the first frame.
-	; Reading hJoyHeld instead means: any frame the button is being held
-	; during the pause window registers. Hold L/R briefly and the next
-	; move plays. Much more forgiving.
+	; v0.7 v2: instead of relying on JoypadLowSensitivity (edge-triggered
+	; with deadband, loses taps during animation) or hJoyHeld (only
+	; catches buttons currently being held), we read the sticky buffer
+	; populated by ReadJoypad_ every vblank. This contains the OR of all
+	; rising edges since we cleared it at .playAnim, so taps that
+	; happened anywhere during the animation OR pause register cleanly.
+	; Also OR in hJoyHeld so a button being held without a fresh rising
+	; edge (e.g. user is still holding from before the cycle started)
+	; also counts.
 	ld c, 30
 .pauseFrame
 	push bc
 	call DelayFrame
-	call Joypad
 	pop bc
-	ldh a, [hJoyHeld]
+	ldh a, [hStickyPressBuf]
+	ld b, a
+	ldh a, [hJoyInput]                 ; current input (updated in vblank)
+	or b                               ; OR sticky | currently-held
 	bit BIT_B_BUTTON, a
 	jp nz, .listView                   ; B in PLAY = back to LIST
 	bit BIT_D_LEFT, a

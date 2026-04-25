@@ -389,7 +389,15 @@ hLCDCPointer:: db
 
 hJoyInput:: db
 
-	ds 2
+; v0.7: ANIM TEST sticky press buffer.
+; ReadJoypad_ runs every vblank and OR's rising edges (current input
+; AND NOT previous input) into hStickyPressBuf. This survives across
+; opaque blocking calls like MoveAnimation, so the ANIM TEST PLAY loop
+; can detect taps that happened during animation playback (when nothing
+; else was polling). Caller is responsible for clearing the buffer
+; after consuming. Harmless to leave running globally.
+hStickyPrevInput:: db
+hStickyPressBuf::  db
 
 hDisableJoypadPolling:: db
 
