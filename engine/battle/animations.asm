@@ -404,16 +404,11 @@ MoveAnimationTilesPointers:
 	anim_tileset 79, MoveAnimationTiles1
 	anim_tileset 64, MoveAnimationTiles2
 
-MoveAnimationTiles0:
-MoveAnimationTiles2:
-	INCBIN "gfx/battle/move_anim_0.2bpp"
-
-MoveAnimationTiles1:
-	INCBIN "gfx/battle/move_anim_1.2bpp"
-
-SlotMachineTiles2:
-	INCBIN "gfx/slots/slots_2.2bpp"
-SlotMachineTiles2End:
+; v0.7: MoveAnimationTiles0/1/2 + SlotMachineTiles2 GFX moved out of
+; this bank (bank $1E) into a separate bank — see
+; gfx/battle/move_animation_tiles.asm. They're loaded via Far/CopyVideoData
+; with BANK(label), so the bank change is transparent. Frees ~3.3 KB
+; in bank $1E for data/moves/animations.asm to grow during v0.7.
 
 MoveAnimation:
 	push hl

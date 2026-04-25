@@ -316,11 +316,13 @@ INCLUDE "engine/events/hidden_items.asm"
 
 
 SECTION "bank1E", ROMX
+; v0.7: cut2.asm, dust_smoke.asm, and gfx/fishing.asm were moved out of
+; this bank into "bank30" (see below) to give data/moves/animations.asm
+; ample room to grow as the move animation pass progresses through v0.7.
+; All three moved-out routines are reached via farcall/callfar from
+; their callers, so the bank change is transparent.
 
 INCLUDE "engine/battle/animations.asm"
-INCLUDE "engine/overworld/cut2.asm"
-INCLUDE "engine/overworld/dust_smoke.asm"
-INCLUDE "gfx/fishing.asm"
 INCLUDE "data/moves/animations.asm"
 INCLUDE "data/battle_anims/subanimations.asm"
 INCLUDE "data/battle_anims/frame_blocks.asm"
@@ -350,9 +352,17 @@ SECTION "bank30", ROMX
 ; v0.7: also hosts the type-matchups table + lookup loops (moved from
 ; "Battle Core" / bank $0F, which was 2 bytes over in debug after the
 ; matchups expansion). See engine/battle/type_effectiveness.asm.
+;
+; v0.7: cut2 / dust_smoke / fishing GFX moved here from bank1E to free
+; space for the data/moves/animations.asm work. All three are reached
+; via farcall/callfar so the bank change is transparent.
 
 INCLUDE "data/pokemon/base_stats.asm"
 INCLUDE "engine/battle/type_effectiveness.asm"
+INCLUDE "engine/overworld/cut2.asm"
+INCLUDE "engine/overworld/dust_smoke.asm"
+INCLUDE "gfx/fishing.asm"
+INCLUDE "gfx/battle/move_animation_tiles.asm"
 
 
 SECTION "Move SFX Table", ROMX
