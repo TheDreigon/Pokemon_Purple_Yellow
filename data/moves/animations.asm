@@ -669,6 +669,8 @@ LowKickAnim:
 BindAnim:
 	; Slow crush — duration sells the squeezing pressure that justifies
 	; the paralyze side-effect, even at low BP.
+	; Mental image (Forte): Machamp hugging you with all four arms,
+	; squeezing harder and harder. The slowness IS the move.
 	battle_anim BIND, SUBANIM_0_BIND, 0, 28
 	battle_anim BIND, SUBANIM_0_BIND, 0, 32
 	db -1 ; end
