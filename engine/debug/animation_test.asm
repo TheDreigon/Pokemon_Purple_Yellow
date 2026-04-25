@@ -148,6 +148,9 @@ IF DEF(_DEBUG)
 .playAnim
 	; Re-load sprites BEFORE every play so anims like Transform that
 	; rewrite the back-pic VRAM area don't persist between iterations.
+	; The reload now disables auto-BG-transfer internally so the
+	; tilemap clear inside LoadMonBackPic isn't briefly visible (was
+	; causing Pikachu to blink in/out at the start of every iteration).
 	call AnimTest_ReloadSprites
 
 	; Play the current move's animation
@@ -160,8 +163,9 @@ IF DEF(_DEBUG)
 	; have been clobbered by the animation so redraw them.
 	call AnimTest_DrawPlayHeader
 
-	; Inter-loop pause, ~60 frames (~1s) at 60Hz, polling input
-	ld c, 60
+	; Inter-loop pause, ~30 frames (~0.5s) at 60Hz, polling input.
+	; Was 60 (~1s); shorter feels snappier when cycling moves with L/R.
+	ld c, 30
 .pauseFrame
 	push bc
 	call DelayFrame
@@ -193,6 +197,12 @@ IF DEF(_DEBUG)
 	ld a, NUM_ATTACKS
 .storePlayMove
 	ld [wWhichPokemon], a
+	; v0.7: redraw the move name/ID line IMMEDIATELY after L/R presses.
+	; Previously it only updated after the new move's animation finished
+	; playing — so the user saw old-name → animation → new-name with
+	; seconds of lag. Now the name updates before the animation starts,
+	; giving instant visual feedback that the press registered.
+	call AnimTest_DrawPlayHeader
 	jp .playAnim
 
 .exit
@@ -362,6 +372,16 @@ AnimTest_LoadBattleSceneAndSprites:
 
 
 AnimTest_ReloadSprites:
+	; v0.7: disable auto-BG-transfer for the duration of the reload.
+	; LoadMonBackPic internally calls ClearScreenArea which blanks the
+	; tilemap region where the sprite is shown — with auto-transfer on,
+	; the next vblank flushes that blank state to VRAM and the user
+	; sees Pikachu briefly disappear before the new tile IDs are
+	; written. Disable -> reload -> re-enable means the BG map only
+	; updates atomically once the new sprite is fully in place.
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+
 	; --- Enemy front sprite (Rattata) ---
 	ld a, RATTATA
 	ld [wd0b5], a
@@ -388,6 +408,10 @@ AnimTest_ReloadSprites:
 	ldh [hStartTileID], a
 	hlcoord 1, 5
 	predef CopyUncompressedPicToTilemap
+
+	; Re-enable auto-BG-transfer; next vblank flushes the new tilemap.
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
 	ret
 
 
