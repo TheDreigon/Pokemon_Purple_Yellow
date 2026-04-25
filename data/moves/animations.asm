@@ -667,10 +667,10 @@ LowKickAnim:
 	db -1 ; end
 
 BindAnim:
-	; v0.7 reviewed (45 BP): tightened delays — 60 frames was too long
-	; for a 45 BP move, drags the loop. 16+16 reads as a quick squeeze.
-	battle_anim BIND, SUBANIM_0_BIND, 0, 16
-	battle_anim BIND, SUBANIM_0_BIND, 0, 16
+	; Slow crush — duration sells the squeezing pressure that justifies
+	; the paralyze side-effect, even at low BP.
+	battle_anim BIND, SUBANIM_0_BIND, 0, 28
+	battle_anim BIND, SUBANIM_0_BIND, 0, 32
 	db -1 ; end
 
 MachPunchAnim:
@@ -718,12 +718,12 @@ TakeDownAnim:
 	db -1 ; end
 
 DizzyPunchAnim:
-	; v0.7 reviewed (80 BP, can confuse): dropped one birdie cycle (was
-	; 4 cycles + slap, ~24 frames of birdies); 2 cycles read as dizzy
-	; without dragging.
+	; Sustained spinning birdies sell the dizzy effect; the slap at the
+	; end is the punch landing.
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_THRICE, 0, 5
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
+	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_THRICE, 0, 6
 	db -1 ; end
 
 RollingKickAnim:
@@ -1118,11 +1118,9 @@ SleepPowderAnim:
 ; ============================================================
 
 GroundStompAnim:
-	; v0.7 reviewed (35 BP): tightened delays — 24 frames star_big was
-	; longer than EARTHQUAKE for a 35 BP move. Now: quick stomp + ground
-	; impact, half the duration.
-	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 6
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	; Held star_big sells the planted stomp pressure even at low BP.
+	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
+	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
 	db -1 ; end
 
 MudShotAnim:
@@ -1528,31 +1526,30 @@ BonemerangAnim:
 	db -1 ; end
 
 CrabhammerAnim:
-	; v0.7 reviewed (110 BP, high-crit): trimmed pre-flash buildup +
-	; tightened the long star_big delay (28→8). Now: crit-flash +
-	; charge delay + decisive 2-hit hammer + shake. Reads precisely as
-	; a calculated heavy strike, not a held attack.
+	; Long pre-strike pause + held star sells the calculated, heavy
+	; crit-tier hammer drop. Slowness reads as inevitability.
 	battle_anim GLARE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 8
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 6
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 28
 	db -1 ; end
 
 HornDrillAnim:
-	; v0.7 reviewed (100 BP, high-crit, signature): collapsed 12 lines
-	; (6 cycles of 6-frame stars) down to 4 sustained drill cycles.
-	; Same drilling motion, ~2/3 the duration; sound-loop reads better
-	; without the dragging tail.
+	; Sustained drilling — 6 cycles of star_big alternating fast/slow
+	; sells the boring-through, signature-weight strike.
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 2
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
 	db -1 ; end
 
 ; ============================================================
