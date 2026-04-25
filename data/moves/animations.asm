@@ -49,7 +49,7 @@ AttackAnimationPointers:
 	dw CometPunchAnim
 	dw LowKickAnim
 	dw BindAnim
-	dw KarateChopAnim ; MachPunch: v0.7 placeholder reusing KarateChop anim (TODO)
+	dw MachPunchAnim
 	dw KarateChopAnim
 	dw DoubleKickAnim
 	dw StrengthAnim
@@ -58,7 +58,7 @@ AttackAnimationPointers:
 	dw DizzyPunchAnim
 	dw RollingKickAnim
 	dw SubmissionAnim
-	dw KarateChopAnim ; SkyUppercut: v0.7 placeholder reusing KarateChop anim (TODO)
+	dw SkyUppercutAnim
 	dw HiJumpKickAnim
 ; === FIRE ===
 	dw EmberAnim
@@ -66,7 +66,7 @@ AttackAnimationPointers:
 	dw FlameBurstAnim
 	dw FlamethrowerAnim
 	dw FireBlastAnim
-	dw EmberAnim    ; Ignite: v0.7 placeholder reusing Ember's flame anim (TODO)
+	dw IgniteAnim
 	dw ExplosionAnim
 ; === FLYING ===
 	dw PeckAnim
@@ -78,8 +78,8 @@ AttackAnimationPointers:
 	dw SkyAttackAnim
 	dw DrillPeckAnim
 ; === FUNGUS ===
-	dw SporeAnim    ; SporeDaze: v0.7 placeholder reusing Spore's powder anim (TODO)
-	dw AbsorbAnim   ; Parasite:  v0.7 placeholder reusing Absorb's drain anim (TODO)
+	dw SporeDazeAnim
+	dw ParasiteAnim
 	dw SporeAnim
 ; === GAS ===
 	dw SmogAnim
@@ -94,7 +94,7 @@ AttackAnimationPointers:
 	dw SpiritDrainAnim
 	dw ShadowBallAnim
 	dw ConfuseRayAnim
-	dw EmberAnim    ; WillOWisp: v0.7 placeholder reusing Ember's flame anim (TODO)
+	dw WillOWispAnim
 ; === GRASS ===
 	dw AbsorbAnim
 	dw VineWhipAnim
@@ -149,7 +149,7 @@ AttackAnimationPointers:
 ; === POISON ===
 	dw PoisonStingAnim
 	dw PoisonFangAnim
-	dw PoisonFangAnim ; ToxicFangs: v0.7 placeholder reusing PoisonFang anim (TODO)
+	dw ToxicFangsAnim
 	dw AcidAnim
 	dw SludgeAnim
 	dw SludgeWaveAnim
@@ -169,7 +169,7 @@ AttackAnimationPointers:
 	dw RockThrowAnim
 	dw RockPunchAnim
 	dw RockTombAnim
-	dw HeadButtAnim ; HeadSmash: v0.7 placeholder reusing HeadButt anim (TODO)
+	dw HeadSmashAnim
 	dw RockSlideAnim
 	dw ClampAnim
 	dw BonemerangAnim
@@ -195,7 +195,7 @@ AttackAnimationPointers:
 	dw SwordsDanceAnim
 	dw BulkUpAnim
 	dw HoneClawsAnim
-	dw GrowlAnim    ; FierceRoar: v0.7 placeholder reusing Growl anim (TODO)
+	dw FierceRoarAnim
 	dw CoilAnim
 	dw DefenseCurlAnim
 	dw HardenAnim
@@ -455,6 +455,12 @@ DragonSlamAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
+OutrageAnim:
+	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	db -1 ; end
+
 HyperBeamAnim:
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
@@ -590,6 +596,11 @@ BindAnim:
 	battle_anim BIND, SUBANIM_0_BIND, 0, 32
 	db -1 ; end
 
+MachPunchAnim:
+	; v0.7 speculation: fast punch, modelled on KarateChop. Customise as desired.
+	battle_anim MACH_PUNCH, SUBANIM_0_STAR_DESCENDING, 0, 6
+	db -1 ; end
+
 KarateChopAnim:
 	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 6
 	db -1 ; end
@@ -641,6 +652,11 @@ SubmissionAnim:
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
+SkyUppercutAnim:
+	; v0.7 speculation: upward chop, modelled on KarateChop. Customise as desired.
+	battle_anim SKY_UPPERCUT, SUBANIM_0_STAR_DESCENDING, 0, 6
+	db -1 ; end
+
 HiJumpKickAnim:
 	battle_anim NO_MOVE, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -681,6 +697,11 @@ FireBlastAnim:
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	db -1 ; end
+
+IgniteAnim:
+	; v0.7 speculation: fire startup, modelled on Ember. Customise as desired.
+	battle_anim IGNITE, SUBANIM_1_FLAMES, 1, 6
 	db -1 ; end
 
 ExplosionAnim:
@@ -747,8 +768,18 @@ DrillPeckAnim:
 ; === FUNGUS ===
 ; ============================================================
 
-; SporeDazeAnim and ParasiteAnim: no body — pointer table redirects them
-; to SporeAnim and AbsorbAnim respectively (v0.7 placeholders, TODO real anims).
+SporeDazeAnim:
+	; v0.7 speculation: powder spore, modelled on Spore. Customise as desired.
+	battle_anim SPORE_DAZE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	db -1 ; end
+
+ParasiteAnim:
+	; v0.7 speculation: drain HP, modelled on Absorb. Customise as desired.
+	battle_anim PARASITE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
 
 SporeAnim:
 	battle_anim SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 6
@@ -830,8 +861,10 @@ ConfuseRayAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-; WillOWispAnim: no body — pointer table redirects it to EmberAnim
-; (v0.7 placeholder, TODO real anim).
+WillOWispAnim:
+	; v0.7 speculation: small ghostly flame, modelled on Ember. Customise as desired.
+	battle_anim WILL_O_WISP, SUBANIM_1_FLAMES, 1, 6
+	db -1 ; end
 
 ; ============================================================
 ; === GRASS ===
@@ -1124,8 +1157,10 @@ PoisonFangAnim:
 	battle_anim POISON_FANG, SUBANIM_0_STAR_TWICE, 0, 6
 	db -1 ; end
 
-; ToxicFangsAnim: no body — pointer table redirects it to PoisonFangAnim
-; (v0.7 placeholder, TODO real anim).
+ToxicFangsAnim:
+	; v0.7 speculation: fang + poison, modelled on PoisonFang. Customise as desired.
+	battle_anim TOXIC_FANGS, SUBANIM_0_STAR_TWICE, 0, 6
+	db -1 ; end
 
 AcidAnim:
 	battle_anim ACID, SUBANIM_1_BLOB_TOSS, 1, 5
@@ -1225,8 +1260,12 @@ RockTombAnim:
 	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4
 	db -1 ; end
 
-; HeadSmashAnim: no body — pointer table redirects it to HeadButtAnim
-; (v0.7 placeholder, TODO real anim).
+HeadSmashAnim:
+	; v0.7 speculation: head impact, modelled on HeadButt. Customise as desired.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim HEAD_SMASH, SUBANIM_1_STAR_BIG, 1, 8
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	db -1 ; end
 
 RockSlideAnim:
 	battle_anim ROCK_SLIDE, SUBANIM_0_ROCKS_LIFT, 0, 4
@@ -1384,8 +1423,10 @@ SwordsDanceAnim:
 	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 6
 	db -1 ; end
 
-; FierceRoarAnim: no body — pointer table redirects it to GrowlAnim
-; (v0.7 placeholder, TODO real anim).
+FierceRoarAnim:
+	; v0.7 speculation: intimidating roar, modelled on Growl. Customise as desired.
+	battle_anim FIERCE_ROAR, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	db -1 ; end
 
 CoilAnim:
 	battle_anim COIL, SE_LIGHT_SCREEN_PALETTE
@@ -1821,12 +1862,3 @@ ThrowRockAnim:
 ThrowBaitAnim:
 	battle_anim TACKLE, SUBANIM_0_SAFARI_BAIT, 0, 3
 	db -1 ; end
-; IgniteAnim, MachPunchAnim, SkyUppercutAnim: no body — pointer table redirects them
-; to EmberAnim, KarateChopAnim, KarateChopAnim respectively (v0.7 placeholders, TODO real anims).
-
-OutrageAnim:
-	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
-	db -1 ; end
-
