@@ -304,6 +304,22 @@ ENDM
 ; PURPLE YELLOW v0.5: every move uses the same generic placeholder
 ; (STAR_TWICE, the original POUND animation). Each move has its own
 ; block so animations can be customised one at a time later.
+;
+; v0.7 review pass: animation+SFX overhaul targeting impact, name-clarity,
+; and power-readability. Principles applied:
+;   * Power tier dictates duration AND screen effects:
+;       - <=40 BP: short (~30 frames), 1 hit, no shake
+;       - 40-70:    medium, 2 elements, optional flash
+;       - 70-100:   long, screen flash + shake at impact
+;       - 100+:     dramatic finale, multiple shakes
+;       - 180 (charge): explicit buildup phase before payload
+;   * Priority moves: light flash + slide-off + 1-frame slam (speed feel).
+;   * Status moves: subtle, no shake, visual matching the effect type.
+;   * SFX: status = subtle/musical, damage = impactful. SFX in sfx.asm
+;     defines the *primary* sound; battle_anim's first arg references
+;     another move's row to "borrow" its SFX entry as a sample.
+; Speculations from the v0.7 port pass that lacked sources have been
+; replaced with proper bodies (look for ; v0.7 reviewed comments).
 
 ; ============================================================
 ; === BUG ===
@@ -329,18 +345,31 @@ LeechLifeAnim:
 	db -1 ; end
 
 BugBuzzAnim:
+	; v0.7 reviewed (80 BP): added flash + double sound wave for buzz weight.
 	battle_anim BUG_BUZZ, SUBANIM_0_BEAM, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 4
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 4
 	db -1 ; end
 
 MegahornAnim:
+	; v0.7 reviewed (90 BP): added screen flash + shake for impact weight.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim MEGAHORN, SUBANIM_0_HORN_JAB_TWICE, 0, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 GuillotineAnim:
+	; v0.7 reviewed (115 BP): heavy double slice with palette dip + shake.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 12
+	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 8
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 VicegripAnim:
@@ -379,8 +408,10 @@ NightSlashAnim:
 	db -1 ; end
 
 BrutalSwingAnim:
+	; v0.7 reviewed (85 BP): added shake — "brutal" needs felt impact.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim BRUTAL_SWING, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -418,9 +449,14 @@ PayDayAnim:
 	db -1 ; end
 
 DreamEaterAnim:
+	; v0.7 reviewed (110 BP): added drain back-toss + second flash — needs
+	; payload weight; the dream is being EATEN, not just visited.
 	battle_anim DREAM_EATER, SE_FLASH_SCREEN_LONG
 	battle_anim DREAM_EATER, SE_DARK_SCREEN_PALETTE
-	battle_anim DREAM_EATER, SUBANIM_0_STAR_THRICE, 0, 8
+	battle_anim DREAM_EATER, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -438,12 +474,21 @@ DragonRageAnim:
 	db -1 ; end
 
 DragonClawAnim:
+	; v0.7 reviewed (60 BP, high-crit): added screen darken to mark
+	; the move as a deliberate slash, not a generic scratch.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim DRAGON_CLAW, SUBANIM_0_SCRATCHES, 0, 6
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 DragonBreathAnim:
+	; v0.7 reviewed (75 BP, can paralyze): single FLAME_BEAM was too thin;
+	; added breath-out columns + flash for spread-out feel.
 	battle_anim DRAGON_BREATH, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 4
 	db -1 ; end
 
 DragonSlamAnim:
@@ -456,9 +501,15 @@ DragonSlamAnim:
 	db -1 ; end
 
 OutrageAnim:
-	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	; v0.7 reviewed (100 BP, locks 2-3 turns): added third hit + screen
+	; darken — the user is RAGING; should feel chaotic & sustained.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 3
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 3
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim OUTRAGE, SUBANIM_1_STAR_BIG_MOVING, 1, 3
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HyperBeamAnim:
@@ -482,17 +533,30 @@ NuzzleAnim:
 	db -1 ; end
 
 ThundershockAnim:
+	; v0.7 reviewed (55 BP): added quick screen flash for the "shock" beat.
 	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL, 1, 4
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	db -1 ; end
 
 DischargeAnim:
+	; v0.7 reviewed (75 BP, hits all): added a real lightning bolt + flash
+	; — two ball flickers alone read as weaker than Thundershock.
 	battle_anim DISCHARGE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim DISCHARGE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	db -1 ; end
 
 ThunderboltAnim:
-	battle_anim THUNDER_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
-	battle_anim THUNDER_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	; v0.7 reviewed (95 BP): was using the THUNDER_WAVE-borrowed sound
+	; with two ball flickers — way underweight for 95 BP. Now: dark dip,
+	; lightning bolt, flash, ball impact, shake.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ThunderAnim:
@@ -550,15 +614,26 @@ DazzleGleamAnim:
 	db -1 ; end
 
 PlayRoughAnim:
+	; v0.7 reviewed (80 BP): added shake + secondary scratch hits — a
+	; "rough" play is repeated bashing, not one nice star.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim PLAY_ROUGH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim PLAY_ROUGH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_0_SCRATCHES, 0, 4
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 MoonblastAnim:
+	; v0.7 reviewed (180 BP, CHARGE_EFFECT): added explicit charge phase
+	; — moon energy gathering — before payload. 180 BP needs buildup
+	; readability matching SOLARBEAM's pattern.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim MOONBLAST, SUBANIM_0_BEAM, 0, 4
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim MOONBLAST, SUBANIM_0_BEAM, 0, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -592,13 +667,22 @@ LowKickAnim:
 	db -1 ; end
 
 BindAnim:
-	battle_anim BIND, SUBANIM_0_BIND, 0, 28
-	battle_anim BIND, SUBANIM_0_BIND, 0, 32
+	; v0.7 reviewed (45 BP): tightened delays — 60 frames was too long
+	; for a 45 BP move, drags the loop. 16+16 reads as a quick squeeze.
+	battle_anim BIND, SUBANIM_0_BIND, 0, 16
+	battle_anim BIND, SUBANIM_0_BIND, 0, 16
 	db -1 ; end
 
 MachPunchAnim:
-	; v0.7 speculation: fast punch, modelled on KarateChop. Customise as desired.
-	battle_anim MACH_PUNCH, SUBANIM_0_STAR_DESCENDING, 0, 6
+	; v0.7 reviewed (45 BP, +1 priority): replaces the placeholder. Now
+	; uses the priority-move template (light flash + slide-off + 1-frame
+	; descend hit) so the speed reads instantly. Distinct from KARATE_CHOP
+	; which has no flash/slide.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim MACH_PUNCH, SE_SLIDE_MON_OFF
+	battle_anim NO_MOVE, SUBANIM_0_STAR_DESCENDING, 0, 2
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 KarateChopAnim:
@@ -611,38 +695,55 @@ DoubleKickAnim:
 	db -1 ; end
 
 StrengthAnim:
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	; v0.7 reviewed (65 BP): cut leading delay, kept slam impact pattern.
+	; Pre-slide buildup reads as charging; hit + flash + shake = impact.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim MAGMA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim MAGMA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 8
 	db -1 ; end
 
 TakeDownAnim:
+	; v0.7 reviewed (80 BP): added shake on impact — body-tackle that
+	; lowers def needs felt mass. The slide-off + double flash already
+	; reads as charge-then-collide; shake completes it.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 DizzyPunchAnim:
+	; v0.7 reviewed (80 BP, can confuse): dropped one birdie cycle (was
+	; 4 cycles + slap, ~24 frames of birdies); 2 cycles read as dizzy
+	; without dragging.
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_THRICE, 0, 5
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
-	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_THRICE, 0, 6
 	db -1 ; end
 
 RollingKickAnim:
-	battle_anim ROLLING_KICK, SE_DARK_SCREEN_FLASH
+	; v0.7 reviewed (80 BP): added slide-off motion to read as the kick
+	; rolling forward, not just a generic flash.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim ROLLING_KICK, SE_SLIDE_MON_OFF
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LeekStrikeAnim:
-	battle_anim LEEK_STRIKE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	; v0.7 reviewed (65 BP, high-crit signature): added crit-flash setup
+	; — NIGHT_SLASH-style dark dip frames the precision strike.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim LEEK_STRIKE, SUBANIM_0_SLICE, 0, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SubmissionAnim:
@@ -653,8 +754,18 @@ SubmissionAnim:
 	db -1 ; end
 
 SkyUppercutAnim:
-	; v0.7 speculation: upward chop, modelled on KarateChop. Customise as desired.
-	battle_anim SKY_UPPERCUT, SUBANIM_0_STAR_DESCENDING, 0, 6
+	; v0.7 reviewed (100 BP, high-crit, hits flying): replaces placeholder.
+	; Pattern: enemy is squished/lifted (uppercut throws them up), then a
+	; rising hit, then they crash back. Mirrors SeismicToss's "lift and
+	; drop" structure, but read as a single rising punch.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim SKY_UPPERCUT, SE_SQUISH_MON_PIC
+	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HiJumpKickAnim:
@@ -679,7 +790,10 @@ FlameChargeAnim:
 	db -1 ; end
 
 FlameBurstAnim:
+	; v0.7 reviewed (75 BP): added shake on the burst — flames erupting
+	; outwards from the contact point need an impact beat.
 	battle_anim FLAME_BURST, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 6
 	db -1 ; end
 
@@ -700,12 +814,30 @@ FireBlastAnim:
 	db -1 ; end
 
 IgniteAnim:
-	; v0.7 speculation: fire startup, modelled on Ember. Customise as desired.
-	battle_anim IGNITE, SUBANIM_1_FLAMES, 1, 6
+	; v0.7 reviewed (status burn, Will-O-Wisp's Fire counterpart):
+	; replaces placeholder. Distinct from EMBER (a damage move) — this
+	; is a slow ignition of a single sustained flame on the target,
+	; framed by light dip + small flame, no full attack flash.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim IGNITE, SUBANIM_1_FLAMES, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ExplosionAnim:
+	; v0.7 reviewed (200 BP, suicide): a single SELFDESTRUCT subanim was
+	; way too brief for the highest-power move. Multi-flash + shake +
+	; second blast read as catastrophic. Player loses everything; the
+	; animation should match the cost.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim EXPLOSION, SUBANIM_1_SELFDESTRUCT, 1, 3
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_1_SELFDESTRUCT, 1, 3
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -737,21 +869,39 @@ AerialAceAnim:
 	db -1 ; end
 
 FlyAnim:
-	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	; v0.7 reviewed (80 BP, FLY_EFFECT semi-invuln charge): the charge
+	; turn already plays a "user disappears upward" sub-anim via
+	; FLY_EFFECT in the engine; this body handles the DIVE turn — user
+	; flying back in for the strike.
+	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 HurricaneAnim:
+	; v0.7 reviewed (90 BP, can confuse): was identical to SkyAttack —
+	; just user lifts up + 1 hit. Now: multiple wind/tornado layers + a
+	; final shake to read as SUSTAINED storm, not a single dive.
 	battle_anim FLY, SE_SQUISH_MON_PIC
-	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
-	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim HURRICANE, SUBANIM_1_TORNADO, 1, 5
+	battle_anim NO_MOVE, SUBANIM_1_TORNADO, 1, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 SkyAttackAnim:
+	; v0.7 reviewed (180 BP, CHARGE_EFFECT): explicit charge phase up
+	; (squish + balls) → delay → diving star + flash + shake. Now
+	; distinct from FLY (which is also charge but lands earlier).
 	battle_anim FLY, SE_SQUISH_MON_PIC
 	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
-	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SKY_ATTACK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
@@ -769,15 +919,23 @@ DrillPeckAnim:
 ; ============================================================
 
 SporeDazeAnim:
-	; v0.7 speculation: powder spore, modelled on Spore. Customise as desired.
+	; v0.7 reviewed (60 BP, can confuse): replaces placeholder. Spore
+	; powder release + dizzy birdies on enemy reads as "powder that
+	; confuses". Distinct from SPORE (status, no birdies) and
+	; CONFUSION (no powder).
 	battle_anim SPORE_DAZE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 5
 	db -1 ; end
 
 ParasiteAnim:
-	; v0.7 speculation: drain HP, modelled on Absorb. Customise as desired.
-	battle_anim PARASITE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
+	; v0.7 reviewed (1 BP, halves HP — fungus version of SUPER_FANG):
+	; replaces placeholder. Drain pattern with dark palette to read as
+	; "something is feeding on you", not a friendly absorb.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim PARASITE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -862,8 +1020,15 @@ ConfuseRayAnim:
 	db -1 ; end
 
 WillOWispAnim:
-	; v0.7 speculation: small ghostly flame, modelled on Ember. Customise as desired.
-	battle_anim WILL_O_WISP, SUBANIM_1_FLAMES, 1, 6
+	; v0.7 reviewed (status burn, GHOST counterpart of IGNITE): replaces
+	; placeholder. Dark palette + drifting flame + small fire = wandering
+	; ghostly fire, not a direct attack like Ember. Same "two-pulse +
+	; delay" pacing as IGNITE so they feel like a pair.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim WILL_O_WISP, SUBANIM_1_FLAMES, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -898,10 +1063,15 @@ RazorLeafAnim:
 	db -1 ; end
 
 GigaDrainAnim:
+	; v0.7 reviewed (75 BP): doubled the drain cycle so it reads as
+	; substantially bigger than MegaDrain (which has 1 cycle). Same
+	; pattern, more drain.
 	battle_anim GIGA_DRAIN, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -914,10 +1084,15 @@ PetalDanceAnim:
 	db -1 ; end
 
 SolarBeamAnim:
+	; v0.7 reviewed (180 BP, CHARGE_EFFECT): bumped charge phase with
+	; spiral (sun energy gathering) + flash on impact + shake. Now
+	; clearly stronger-feeling than HYPER_BEAM (125 BP).
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 4
+	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -943,8 +1118,11 @@ SleepPowderAnim:
 ; ============================================================
 
 GroundStompAnim:
-	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
-	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
+	; v0.7 reviewed (35 BP): tightened delays — 24 frames star_big was
+	; longer than EARTHQUAKE for a 35 BP move. Now: quick stomp + ground
+	; impact, half the duration.
+	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 MudShotAnim:
@@ -957,7 +1135,10 @@ BulldozeAnim:
 	db -1 ; end
 
 MudBombAnim:
+	; v0.7 reviewed (80 BP, can lower acc): added shake on impact —
+	; "BOMB" needs felt mass on landing.
 	battle_anim MUD_BOMB, SUBANIM_1_BLOB_TOSS, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
 	db -1 ; end
 
@@ -977,12 +1158,23 @@ FissureAnim:
 	db -1 ; end
 
 BoneClubAnim:
-	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 10
+	; v0.7 reviewed (75 BP, can flinch): added impact framing — bone
+	; club is a heavy thwack, not a multi-hit star burst. Flash + shake
+	; mark each clubbing motion.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 DigAnim:
+	; v0.7 reviewed (80 BP, CHARGE_EFFECT semi-invuln): the engine plays
+	; the user-disappears-down sub-anim during the charge turn via
+	; CHARGE_EFFECT; this body handles the EMERGENCE turn — surface
+	; rumble + user pops up from below + ground star + shake.
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim DIG, SE_SLIDE_MON_UP
 	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 ; ============================================================
@@ -1019,9 +1211,15 @@ IceBeamAnim:
 	db -1 ; end
 
 BlizzardAnim:
+	; v0.7 reviewed (115 BP, can freeze): added wind tornado + flash for
+	; storm fury — three ICE_FALL waves alone read more like a snowfall
+	; than a blizzard.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim BLIZZARD, SUBANIM_1_TORNADO, 1, 4
 	battle_anim BLIZZARD, SUBANIM_0_ICE_FALL, 0, 3
-	battle_anim BLIZZARD, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HYDRO_PUMP, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -1034,9 +1232,13 @@ MagmaPunchAnim:
 	db -1 ; end
 
 LavaPlumeAnim:
-	battle_anim LAVA_PLUME, SUBANIM_1_FLAME_BEAM, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
+	; v0.7 reviewed (90 BP): added third column + shake for the eruption
+	; payoff. Distinct now from MAGMA_PUNCH (small flame burst).
+	battle_anim LAVA_PLUME, SUBANIM_1_FLAME_BEAM, 1, 5
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 5
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 5
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 5
 	db -1 ; end
 
 ; ============================================================
@@ -1093,9 +1295,11 @@ SlashAnim:
 	db -1 ; end
 
 BodySlamAnim:
+	; v0.7 reviewed (70 BP, can paralyze even Normal types post-v0.7):
+	; added shake — body-SLAM needs felt mass on contact.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -1111,10 +1315,18 @@ HornChargeAnim:
 	db -1 ; end
 
 HeavySlamAnim:
+	; v0.7 reviewed (100 BP, can paralyze): minimal slam wasn't reading
+	; as the heaviest 100 BP normal hit. Now: dark dip, slow charge,
+	; double shake on impact, palette reset.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 DoubleEdgeAnim:
@@ -1154,12 +1366,25 @@ PoisonStingAnim:
 	db -1 ; end
 
 PoisonFangAnim:
+	; v0.7 reviewed (60 BP, ~30% bad poison): added bite-then-drip so
+	; the fang impact AND the poison transfer both read.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim POISON_FANG, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 4
 	db -1 ; end
 
 ToxicFangsAnim:
-	; v0.7 speculation: fang + poison, modelled on PoisonFang. Customise as desired.
-	battle_anim TOXIC_FANGS, SUBANIM_0_STAR_TWICE, 0, 6
+	; v0.7 reviewed (85 BP, ~50% bad poison): replaces placeholder.
+	; Bigger version of POISON_FANG — darken (toxic atmosphere), bite,
+	; flash, sustained poison drip. Higher tier in the fang line.
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim TOXIC_FANGS, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AcidAnim:
@@ -1233,9 +1458,17 @@ PsychicAnim:
 	db -1 ; end
 
 MindBreakAnim:
+	; v0.7 reviewed (125 BP, can paralyze, signature): for the
+	; highest-power Psychic move, needs proper "mind shattering" weight.
+	; Now: long flash + darken + multiple wavy screens + shake. Reads as
+	; sustained psychic violence rather than three quick beats.
 	battle_anim MIND_BREAK, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HypnosisAnim:
@@ -1261,10 +1494,17 @@ RockTombAnim:
 	db -1 ; end
 
 HeadSmashAnim:
-	; v0.7 speculation: head impact, modelled on HeadButt. Customise as desired.
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim HEAD_SMASH, SUBANIM_1_STAR_BIG, 1, 8
+	; v0.7 reviewed (85 BP, recoil): replaces placeholder. HeadButt
+	; pattern but heavier — dark dip, slide, big star, double flash and
+	; shake to read as bone-crushing impact (justifying the recoil).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim HEAD_SMASH, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 RockSlideAnim:
@@ -1280,32 +1520,39 @@ ClampAnim:
 	db -1 ; end
 
 BonemerangAnim:
-	battle_anim BONEMERANG, SE_DELAY_ANIMATION_10
-	battle_anim BONEMERANG, SUBANIM_0_STAR_THRICE, 0, 6
-	battle_anim BONEMERANG, SE_DELAY_ANIMATION_10
+	; v0.7 reviewed (45 BP, hits twice): now reads as a throw + return.
+	; Was just generic stars between two delays.
+	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 4
+	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 4
+	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 4
 	db -1 ; end
 
 CrabhammerAnim:
+	; v0.7 reviewed (110 BP, high-crit): trimmed pre-flash buildup +
+	; tightened the long star_big delay (28→8). Now: crit-flash +
+	; charge delay + decisive 2-hit hammer + shake. Reads precisely as
+	; a calculated heavy strike, not a held attack.
 	battle_anim GLARE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 28
+	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 8
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim CRABHAMMER, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HornDrillAnim:
+	; v0.7 reviewed (100 BP, high-crit, signature): collapsed 12 lines
+	; (6 cycles of 6-frame stars) down to 4 sustained drill cycles.
+	; Same drilling motion, ~2/3 the duration; sound-loop reads better
+	; without the dragging tail.
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 ; ============================================================
@@ -1318,7 +1565,13 @@ CutAnim:
 	db -1 ; end
 
 IronTailAnim:
-	battle_anim IRON_TAIL, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	; v0.7 reviewed (65 BP, can lower def): added metal-glint dark dip +
+	; second sweep + flash. Single moving star didn't read as STEEL.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim IRON_TAIL, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_0_SLICE, 0, 3
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IronHeadAnim:
@@ -1383,7 +1636,11 @@ WaterfallAnim:
 	db -1 ; end
 
 SurfAnim:
+	; v0.7 reviewed (95 BP, hits all): added wave columns + shake on
+	; first impact. Two droplet bursts alone didn't sell the wave size.
 	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim HYDRO_PUMP, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	db -1 ; end
@@ -1424,8 +1681,13 @@ SwordsDanceAnim:
 	db -1 ; end
 
 FierceRoarAnim:
-	; v0.7 speculation: intimidating roar, modelled on Growl. Customise as desired.
-	battle_anim FIERCE_ROAR, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	; v0.7 reviewed (status: atk +1, target atk -1): replaces placeholder
+	; (HEART_MUSIC was completely wrong — fierce, not lovely). Now: dark
+	; flash framing + SHOUT subanim from INTIMIDATE. The +1/-1 swing
+	; deserves the most aggressive of the BIRD-type "yell" moves.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim FIERCE_ROAR, SUBANIM_1_SHOUT, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	db -1 ; end
 
 CoilAnim:
@@ -1532,7 +1794,11 @@ LeerAnim:
 	db -1 ; end
 
 GrowlAnim:
-	battle_anim GROWL, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	; v0.7 reviewed (atk -1): SHOUT reads as a snarling growl; HEART_MUSIC
+	; was musical, fitting CHARM/SING but not a threat. Mild of the three
+	; "yell" moves (no flash; FIERCE_ROAR has flash, INTIMIDATE has
+	; the loudest SFX).
+	battle_anim GROWL, SUBANIM_1_SHOUT, 1, 6
 	db -1 ; end
 
 CorrodeAnim:
@@ -1550,7 +1816,10 @@ TailWhipAnim:
 	db -1 ; end
 
 TauntAnim:
-	battle_anim TAUNT, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	; v0.7 reviewed (def -1): SHOUT instead of HEART_MUSIC — taunting is
+	; antagonistic, not affectionate. (TICKLE keeps HEART since it IS
+	; playful.)
+	battle_anim TAUNT, SUBANIM_1_SHOUT, 1, 6
 	db -1 ; end
 
 TickleAnim:
@@ -1562,19 +1831,36 @@ FakeTearsAnim:
 	db -1 ; end
 
 MetalSoundAnim:
-	battle_anim METAL_SOUND, SUBANIM_0_HEART_1_MUSIC, 1, 8
+	; v0.7 reviewed (spc -2, signature): SOUND_WAVE + SHOUT pair reads
+	; as a piercing screech. HEART_MUSIC was inappropriate (this is not
+	; a song, it's a horrible scraping noise).
+	battle_anim METAL_SOUND, SUBANIM_0_SOUND_WAVE, 0, 5
+	battle_anim NO_MOVE, SUBANIM_1_SHOUT, 1, 5
 	db -1 ; end
 
 EerieImpulseAnim:
+	; v0.7 reviewed (spc -1, spd -1): added darken framing — name says
+	; "EERIE", needs unsettling atmosphere not just a stray spark.
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim EERIE_IMPULSE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ScreechAnim:
-	battle_anim SCREECH, SUBANIM_0_HEART_1_MUSIC, 1, 8
+	; v0.7 reviewed (spc -1): SHOUT — same logic as METAL_SOUND but
+	; lower tier (-1 vs -2), so single SHOUT, no SOUND_WAVE.
+	battle_anim SCREECH, SUBANIM_1_SHOUT, 1, 6
 	db -1 ; end
 
 ScaryFaceAnim:
+	; v0.7 reviewed (speed -2): single flash was too brief. Now: dark
+	; dip + face flash + second flash + reset, framing the menace.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim SCARY_FACE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 EntangleAnim:
@@ -1680,7 +1966,15 @@ ReflectAnim:
 	db -1 ; end
 
 BideAnim:
-	battle_anim BIDE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	; v0.7 reviewed (BIDE_EFFECT, stores 2x damage): single star_big was
+	; weak for the buildup nature of this move. Added dark + spiral +
+	; delay = "absorbing energy" feel. Same charge body for both
+	; storing turns and the release; the engine reuses the body.
+	battle_anim BIDE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FocusEnergyAnim:
@@ -1695,7 +1989,13 @@ MimicAnim:
 	db -1 ; end
 
 MirrorMoveAnim:
-	battle_anim MIRROR_MOVE, SUBANIM_0_STAR_TWICE, 0, 8
+	; v0.7 reviewed (copies enemy's last move): added a mirror-image
+	; effect with palette flip + circle-toss-back (visualises "bouncing
+	; back what you threw"). More distinctive than just stars.
+	battle_anim MIRROR_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SubstituteAnim:
@@ -1726,7 +2026,15 @@ MetronomeAnim:
 	db -1 ; end
 
 StruggleAnim:
-	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 8
+	; v0.7 reviewed (50 BP recoil, last-resort): added desperate-thrash
+	; framing — slide + 2 stars + slide back, NOT the clean star_twice
+	; that resembled TACKLE. Player should feel the desperation.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 ; ============================================================
