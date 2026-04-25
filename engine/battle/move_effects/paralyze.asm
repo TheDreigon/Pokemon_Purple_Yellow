@@ -32,7 +32,7 @@ ParalyzeEffect_:
 	and a
 	jr nz, .didntAffect
 	set PAR, [hl]
-	callfar QuarterSpeedDueToParalysis
+	callfar HalveSpeedDueToParalysis
 	ld c, 30
 	call DelayFrames
 	callfar PlayCurrentMoveAnimation

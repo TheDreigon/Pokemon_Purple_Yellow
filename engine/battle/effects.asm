@@ -243,7 +243,7 @@ FreezeBurnParalyzeEffect:
 ; .paralyze1
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
-	call QuarterSpeedDueToParalysis ; quarter speed of affected mon
+	call HalveSpeedDueToParalysis ; halve speed of affected mon
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlayBattleAnimation
 	jp PrintMayNotAttackText ; print paralysis text
@@ -307,7 +307,7 @@ FreezeBurnParalyzeEffect:
 ; .paralyze2
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
-	call QuarterSpeedDueToParalysis
+	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
 	call PlayBattleAnimation2
 	jp PrintMayNotAttackText
@@ -389,7 +389,7 @@ TriStatusSideEffect:
 	ret nz
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
-	call QuarterSpeedDueToParalysis
+	call HalveSpeedDueToParalysis
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlayBattleAnimation
 	jp PrintMayNotAttackText
@@ -441,7 +441,7 @@ TriStatusSideEffect:
 	ret nz
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
-	call QuarterSpeedDueToParalysis
+	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
 	call PlayBattleAnimation2
 	jp PrintMayNotAttackText
@@ -642,6 +642,11 @@ UpdateStat:
 UpdateStatDone:
 	ld b, c
 	inc b
+	; v0.7 burn/para reapplication fix: stash the recalc'd stat index so
+	; the post-PrintText block knows which stat (and therefore which
+	; status penalty, if any) to re-apply. wd11e is short-lived scratch.
+	ld a, c
+	ld [wd11e], a
 	call PrintStatText
 	; PURPLE YELLOW v0.5: MINIMIZE was removed from the movelist, so the
 	; substitute-handling special case below is dead code. Keep the post-animation
@@ -659,10 +664,28 @@ UpdateStatDone:
 	; to re-apply on top.
 	ld hl, MonsStatsRoseText
 	call PrintText
-
-; these shouldn't be here
-	call QuarterSpeedDueToParalysis ; apply speed penalty to the player whose turn is not, if it's paralyzed
-	jp HalveAttackDueToBurn ; apply attack penalty to the player whose turn is not, if it's burned
+	; v0.7 burn/para reapplication fix: vanilla called HalveSpeed +
+	; HalveAttack on the OPPOSITE side here, on stats that hadn't been
+	; recalc'd, causing penalty compounding (similar to badge glitch).
+	; Replaced with a selective reapply: only the stat just recalc'd, and
+	; only on the USER (whose stat changed during stat-up). Flip
+	; hWhoseTurn temporarily because Halve* dispatch targets opposite of
+	; hWhoseTurn (vanilla convention).
+	ld a, [wd11e]                       ; retrieve recalc'd stat index
+	ld c, a
+	ldh a, [hWhoseTurn]
+	push af
+	xor 1
+	ldh [hWhoseTurn], a
+	ld a, c
+	cp 0                                ; was attack the changed stat?
+	call z, HalveAttackDueToBurn        ; if so & user is burnt, halve it
+	ld a, c
+	cp 2                                ; was speed the changed stat?
+	call z, HalveSpeedDueToParalysis    ; if so & user is paralyzed, halve it
+	pop af
+	ldh [hWhoseTurn], a
+	ret
 
 RestoreOriginalStatModifier:
 	pop hl
@@ -829,6 +852,10 @@ UpdateLoweredStat:
 UpdateLoweredStatDone:
 	ld b, c
 	inc b
+	; v0.7 burn/para reapplication fix: stash the recalc'd stat index
+	; for the selective penalty re-apply below.
+	ld a, c
+	ld [wd11e], a
 	push de
 	call PrintStatText
 	pop de
@@ -845,12 +872,20 @@ UpdateLoweredStatDone:
 	; badges are baked into unmodified stats at LoadPlayerMon.
 	ld hl, MonsStatsFellText
 	call PrintText
-
-; These where probably added given that a stat-down move affecting speed or attack will override
-; the stat penalties from paralysis and burn respectively.
-; But they are always called regardless of the stat affected by the stat-down move.
-	call QuarterSpeedDueToParalysis
-	jp HalveAttackDueToBurn
+	; v0.7 burn/para reapplication fix: vanilla called HalveSpeed +
+	; HalveAttack here regardless of which stat was just modified, often
+	; on stats that hadn't been recalc'd, causing penalty compounding.
+	; The original code's own comment admits this. Replaced with a
+	; selective reapply: only the stat just recalc'd, on the TARGET (which
+	; is already opposite-of-hWhoseTurn — the existing dispatch direction).
+	ld a, [wd11e]                       ; retrieve recalc'd stat index
+	ld c, a
+	cp 0                                ; was attack the changed stat?
+	call z, HalveAttackDueToBurn        ; if so & target is burnt, halve it
+	ld a, c
+	cp 2                                ; was speed the changed stat?
+	call z, HalveSpeedDueToParalysis    ; if so & target is paralyzed, halve it
+	ret
 
 CantLowerAnymore_Pop:
 	pop de

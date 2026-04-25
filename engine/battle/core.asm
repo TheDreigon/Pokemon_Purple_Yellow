@@ -6671,14 +6671,21 @@ ApplyBurnAndParalysisPenaltiesToEnemy:
 
 ApplyBurnAndParalysisPenalties:
 	ldh [hWhoseTurn], a
-	call QuarterSpeedDueToParalysis
+	call HalveSpeedDueToParalysis
 	jp HalveAttackDueToBurn
 
-QuarterSpeedDueToParalysis:
+HalveSpeedDueToParalysis:
+; v0.7: was HalveSpeedDueToParalysis (/ 4) — now halves (/ 2) per modern
+; Pokemon (Gen 7+ behavior) and project owner's call. Rename + one less
+; srl/rr pair per side. Behaviour: halve current speed if statused.
+; (Idempotency caveat: still halves whatever's there — must only be called
+; right after a recalc-from-unmodified, never on a stat that already had
+; the penalty applied. See UpdateStatDone / UpdateLoweredStatDone in
+; effects.asm and LoadPlayerMon for the v0.7-correct call sites.)
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .playerTurn
-.enemyTurn ; quarter the player's speed
+.enemyTurn ; halve the player's speed
 	ld a, [wBattleMonStatus]
 	and 1 << PAR
 	ret z ; return if player not paralysed
@@ -6688,8 +6695,6 @@ QuarterSpeedDueToParalysis:
 	ld a, [hl]
 	srl a
 	rr b
-	srl a
-	rr b
 	ld [hli], a
 	or b
 	jr nz, .storePlayerSpeed
@@ -6697,7 +6702,7 @@ QuarterSpeedDueToParalysis:
 .storePlayerSpeed
 	ld [hl], b
 	ret
-.playerTurn ; quarter the enemy's speed
+.playerTurn ; halve the enemy's speed
 	ld a, [wEnemyMonStatus]
 	and 1 << PAR
 	ret z ; return if enemy not paralysed
@@ -6705,8 +6710,6 @@ QuarterSpeedDueToParalysis:
 	ld a, [hld]
 	ld b, a
 	ld a, [hl]
-	srl a
-	rr b
 	srl a
 	rr b
 	ld [hli], a
