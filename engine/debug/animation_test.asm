@@ -77,7 +77,11 @@ IF DEF(_DEBUG)
 	ld [wBattleMonSpecies], a
 	ld [wBattleMonSpecies2], a
 	call GetMonHeader
-	call LoadMonBackPic
+	callfar LoadMonBackPic ; v0.7 fix: LoadMonBackPic lives in bank $3D
+	                       ; ("Battle Engine 9"); we are in bank $3F
+	                       ; ("Overworld Pikachu"). Plain `call` would
+	                       ; jump to whatever's at that offset in $3F
+	                       ; and freeze/crash.
 	ld a, $31
 	ldh [hStartTileID], a
 	hlcoord 1, 5
