@@ -2,17 +2,21 @@
 ;
 ; Lets the developer pick a move from a scrollable LIST and watch its
 ; animation auto-loop in PLAY view. Reached from the debug menu (ANIM
-; entry).
+; entry). Lives in bank $3F next to DebugMenu.
 ;
 ; UX:
 ;   * LIST view (entry point):
 ;       UP/DOWN move cursor by 1, LEFT/RIGHT page by 10, A enters PLAY,
 ;       B exits to debug menu. Window of 10 items visible at a time.
 ;   * PLAY view:
-;       Auto-loops the current move's animation with a short (~1s)
-;       pause between plays. LEFT/RIGHT cycle prev/next move (with
-;       wrap from NUM_ATTACKS back to 1 and vice-versa) — re-enters
-;       PLAY for the new move. A replays immediately. B returns to LIST.
+;       Auto-loops the current move's animation with a 30-frame
+;       (~0.5s) pause between plays. LEFT/RIGHT cycle prev/next move
+;       (with wrap from NUM_ATTACKS back to 1 and vice-versa) —
+;       re-enters PLAY for the new move. A replays immediately. B
+;       returns to LIST. PLAY input uses the vblank-level sticky
+;       press buffer (hStickyPressBuf, fed by ReadJoypad_) so taps
+;       that occur DURING the opaque MoveAnimation also register;
+;       see engine/joypad.asm for the buffer write.
 ;
 ; Layout (PLAY view mirrors a real battle so the engine's mon-sprite
 ; animations have something to animate):
@@ -28,7 +32,8 @@
 ;   * Music is stopped on entry and wAudioROMBank is forced to
 ;     BANK(Audio2_PlaySound) so the SFX dispatcher routes battle SFX
 ;     to SFX_Headers_2 (the only header table that actually contains
-;     the move SFX implementations).
+;     the move SFX implementations). Music isn't restored on exit;
+;     DisplayTitleScreen's own setup re-arms it on the next loop.
 ;   * Sprites are reloaded at the start of every PLAY iteration so
 ;     animations like Transform (which copies the enemy pic over the
 ;     player back-pic in VRAM) don't leave the player permanently
@@ -141,9 +146,9 @@ IF DEF(_DEBUG)
 ; PLAY view: load sprites once, then auto-loop the animation
 ; ---------------------------------------------------------------
 .enterPlayView
-	; Initial setup that's the same for every PLAY entry: clear screen,
-	; load both mon sprites with the proper CGB battle palette.
-	call AnimTest_LoadBattleSceneAndSprites
+	; One-time PLAY view setup; sprites are loaded by the first
+	; .playAnim iteration via AnimTest_ReloadSprites.
+	call AnimTest_InitPlayView
 
 .playAnim
 	; Re-load sprites BEFORE every play so anims like Transform that
@@ -172,15 +177,15 @@ IF DEF(_DEBUG)
 	call AnimTest_DrawPlayHeader
 
 	; Inter-loop pause, ~30 frames (~0.5s) at 60Hz, polling input.
-	; v0.7 v2: instead of relying on JoypadLowSensitivity (edge-triggered
-	; with deadband, loses taps during animation) or hJoyHeld (only
-	; catches buttons currently being held), we read the sticky buffer
-	; populated by ReadJoypad_ every vblank. This contains the OR of all
-	; rising edges since we cleared it at .playAnim, so taps that
-	; happened anywhere during the animation OR pause register cleanly.
-	; Also OR in hJoyHeld so a button being held without a fresh rising
-	; edge (e.g. user is still holding from before the cycle started)
-	; also counts.
+	; Input source: hStickyPressBuf (rising-edge buffer maintained by
+	; ReadJoypad_ every vblank; cleared at .playAnim) OR'd with
+	; hJoyInput (current raw state, also vblank-fresh). The OR catches
+	; taps that occurred ANYWHERE during the animation+pause cycle
+	; (sticky), as well as buttons held into the pause without a fresh
+	; edge (input). Avoids JoypadLowSensitivity entirely — its
+	; edge-triggered hJoyPressed is cleared the frame after a press,
+	; and inside the opaque MoveAnimation nothing polls, so any tap
+	; mid-animation would otherwise be lost.
 	ld c, 30
 .pauseFrame
 	push bc
@@ -237,22 +242,8 @@ AnimTest_DrawList:
 	ld de, .listTitle
 	call PlaceString
 
-	; Compute window_start = current - 4, clamped to [1, NUM_ATTACKS - 9]
-	ld a, [wWhichPokemon]
-	sub 4
-	jr nc, .startNotNeg
-	ld a, 1
-	jr .startClampLow
-.startNotNeg
-	or a
-	jr nz, .startClampLow
-	ld a, 1
-.startClampLow
-	cp NUM_ATTACKS - 9 + 1
-	jr c, .startOk
-	ld a, NUM_ATTACKS - 9
-.startOk
 	; b = window_start = first item to display
+	call AnimTest_ComputeWindowStart
 	ld b, a
 
 	; Draw 10 items
@@ -269,30 +260,13 @@ AnimTest_DrawList:
 	dec c
 	jr nz, .drawLoop
 
-	; Draw cursor "▶" at the row of the current item
-	ld a, [wWhichPokemon]
-	sub b                              ; b is now (window_start + 10), too late
-	; ^ wrong, b mutated by loop. Recompute window_start instead.
-	; Cleanest: recompute from current.
-	ld a, [wWhichPokemon]
-	sub 4
-	jr nc, .cursorStartNotNeg
-	ld a, 1
-	jr .cursorStartClampLow
-.cursorStartNotNeg
-	or a
-	jr nz, .cursorStartClampLow
-	ld a, 1
-.cursorStartClampLow
-	cp NUM_ATTACKS - 9 + 1
-	jr c, .cursorStartOk
-	ld a, NUM_ATTACKS - 9
-.cursorStartOk
+	; Draw cursor "▶" at the row of the current item. The drawLoop
+	; mutated b, so recompute window_start to get the cursor offset.
+	call AnimTest_ComputeWindowStart
 	ld b, a                            ; b = window_start
 	ld a, [wWhichPokemon]
 	sub b                              ; a = offset within window (0..9)
 	add ANIM_TEST_LIST_FIRST_ROW       ; a = row of current item
-	; Compute hl for col CURSOR_COL, row a
 	push af
 	call AnimTest_RowToCoord
 	pop af
@@ -375,16 +349,39 @@ AnimTest_RowToCoord:
 	ret
 
 
+; Out: a = window_start, in [1, NUM_ATTACKS - 9]
+; Centres the visible window on wWhichPokemon (current - 4) but clamps
+; the result so the window never extends past the start or end of the
+; full move list. Used by both the item-draw loop and the cursor
+; placement step in AnimTest_DrawList.
+AnimTest_ComputeWindowStart:
+	ld a, [wWhichPokemon]
+	sub 4
+	jr nc, .notNeg
+	ld a, 1
+	jr .clampLow
+.notNeg
+	or a
+	jr nz, .clampLow
+	ld a, 1
+.clampLow
+	cp NUM_ATTACKS - 9 + 1
+	ret c
+	ld a, NUM_ATTACKS - 9
+	ret
+
+
 ; ===============================================================
 ; PLAY view rendering
 ; ===============================================================
-AnimTest_LoadBattleSceneAndSprites:
+; One-time PLAY view setup. Sprite loading itself is left to the
+; first .playAnim iteration, which calls AnimTest_ReloadSprites
+; unconditionally — calling it here would just be a redundant pre-load
+; whose tilemap output would be overwritten an instant later.
+AnimTest_InitPlayView:
 	call ClearScreen
 	call ClearSprites
-	call AnimTest_ReloadSprites
-
-	; CGB battle palette
-	ld b, SET_PAL_BATTLE
+	ld b, SET_PAL_BATTLE               ; CGB battle palette
 	call RunPaletteCommand
 	ret
 
