@@ -63,6 +63,13 @@ IF DEF(_DEBUG)
 	call LoadFontTilePatterns
 	call LoadHpBarAndStatusTilePatterns
 
+	; Set the CGB battle palette NOW (not just on PLAY entry) so the
+	; LIST view also renders in clean greys instead of inheriting the
+	; title-screen yellow/red. Also resets the BG attribute map so
+	; residual title-screen tile palettes don't bleed into our text.
+	ld b, SET_PAL_BATTLE
+	call RunPaletteCommand
+
 	; Animation context defaults
 	xor a
 	ldh [hWhoseTurn], a
@@ -291,27 +298,30 @@ AnimTest_DrawList:
 ; In: b = move ID (1..NUM_ATTACKS), d = display row
 ; Renders one list row: " NNN MOVENAME"
 AnimTest_DrawListItem:
+	; Save item ID to wd11e IMMEDIATELY — `ld bc, ...` and
+	; AnimTest_RowToCoord both clobber b before we'd otherwise have a
+	; chance to stash it. wd11e is read by both PrintNumber (via de) and
+	; GetMoveName (directly), so a single store covers both calls.
+	ld a, b
+	ld [wd11e], a
+
 	; Compute hl for col TEXT_COL, row d
 	ld a, d
 	call AnimTest_RowToCoord
 	ld bc, ANIM_TEST_LIST_TEXT_COL
 	add hl, bc
 
-	; Print 3-digit ID
+	; Print 3-digit ID at hl
 	push hl
-	ld a, b
-	ld [wd11e], a
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	pop hl
-	; PrintNumber advances hl past the digits; recompute & advance manually
-	ld bc, 4                            ; 3 digits + 1 space
+	; Advance hl by 4 (3 digits + 1 space) for the name column
+	ld bc, 4
 	add hl, bc
 
-	; Print move name
-	ld a, b                             ; (b is item ID, preserved)
-	ld [wd11e], a
+	; Print move name (wd11e still has the item ID)
 	push hl
 	call GetMoveName
 	pop hl
