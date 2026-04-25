@@ -353,12 +353,19 @@ BugBuzzAnim:
 	db -1 ; end
 
 MegahornAnim:
-	; v0.7 reviewed (90 BP): added screen flash + shake for impact weight.
+	; Mental image (Forte): like a beetle TOSSING its opponent with its
+	; horn — launching, not perforating. Distinct from HORN_DRILL
+	; (sustained boring through). Charge step + one big horn impact +
+	; enemy visibly thrown back (star_big_toss across screen) + HUD
+	; rattle + screen shake.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim MEGAHORN, SUBANIM_0_HORN_JAB_TWICE, 0, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim MEGAHORN, SUBANIM_0_HORN_JAB_TWICE, 0, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_TOSS, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -492,10 +499,17 @@ DragonBreathAnim:
 	db -1 ; end
 
 DragonSlamAnim:
-	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
-	battle_anim DRAGON_SLAM, SE_MOVE_MON_HORIZONTALLY
+	; Mental image (Forte): a Body Slam but stronger and more savage,
+	; reckless — that's why it has recoil. The user CHARGES in
+	; uncontrolled, hits multiple times, and the screen reels.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim DRAGON_SLAM, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim KARATE_CHOP, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1645,12 +1659,19 @@ SurfAnim:
 	db -1 ; end
 
 HydroPumpAnim:
+	; Mental image (Forte): jets of water that are strong AND repeated —
+	; a pummeling barrage, not two polite bursts. Each column rocks the
+	; screen; mid-burst droplets sell the spray; no central pause that
+	; would break the "fortíssimos e repetidos" continuity.
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 ; ============================================================
