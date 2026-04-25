@@ -331,8 +331,12 @@ ConstrictAnim:
 	db -1 ; end
 
 BugBiteAnim:
+	; Mental image: insect mandibles latching — quick tearing rather
+	; than crushing. Lighter than NORMAL/BITE (jaws); distinct via the
+	; horn-jab follow-through (the mandible chew after the lunge).
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim BUG_BITE, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim BUG_BITE, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim BUG_BITE, SUBANIM_0_HORN_JAB_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -423,8 +427,14 @@ BrutalSwingAnim:
 	db -1 ; end
 
 DarkPulseAnim:
+	; Mental image: rippling pulses of dark energy — not ONE beam, but
+	; MULTIPLE pulses washing over the target. Each pulse warps reality
+	; (wavy). Distinct from PSYBEAM (single beam) and SHADOW_BALL
+	; (single hurled mass).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim DARK_PULSE, SUBANIM_0_BEAM, 0, 4
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -445,8 +455,14 @@ ThrashAnim:
 	db -1 ; end
 
 DeepSleepAnim:
+	; Mental image: ominous dark induction — sinister whisper that drags
+	; consciousness DOWN into deep slumber. Distinct from HYPNOSIS by
+	; darkness + slow envelope + downward delay. Dark-type signature.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim DEEP_SLEEP, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -670,8 +686,13 @@ SeismicTossAnim:
 	db -1 ; end
 
 CometPunchAnim:
-	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
-	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
+	; Mental image: rapid streak of fists — comet trail. 2-5 hits sold
+	; by very fast repeated stars, NOT sustained ones (a comet is over
+	; before you blink). Distinct from FURY_ATTACK (horn jabs) and
+	; DOUBLESLAP (wide slaps).
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 3
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 3
+	battle_anim COMET_PUNCH, SUBANIM_0_STAR_THRICE, 0, 3
 	db -1 ; end
 
 LowKickAnim:
@@ -702,7 +723,12 @@ MachPunchAnim:
 	db -1 ; end
 
 KarateChopAnim:
+	; Mental image: focused martial-arts chop — measured stance, then
+	; one SHARP downward strike. High-crit signature deserves crit-flash
+	; framing + impact shake. Distinct from MACH_PUNCH (priority blur).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 DoubleKickAnim:
@@ -956,7 +982,14 @@ ParasiteAnim:
 	db -1 ; end
 
 SporeAnim:
+	; Mental image: concentrated, suffocating spore release — not the
+	; gentle drift of SLEEP_POWDER. Layered powder + darken to sell the
+	; density. (Spore is signature high-acc sleep; the visual should
+	; out-promise its grass cousin.)
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -1052,9 +1085,11 @@ WillOWispAnim:
 ; ============================================================
 
 AbsorbAnim:
+	; Mental image: gentle sap-feeding — the weakest of the drains.
+	; Shorter delays than MEGA_DRAIN/GIGA_DRAIN sell the small payload.
 	battle_anim ABSORB, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1118,15 +1153,29 @@ LeechSeedAnim:
 	db -1 ; end
 
 PoisonPowderAnim:
+	; Mental image: purple toxic dust drifting down. Darken palette
+	; sells the sickly tone. Distinct from STUN_SPORE (yellow + spark)
+	; and SLEEP_POWDER (light, dreamy).
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim POISONPOWDER, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 StunSporeAnim:
+	; Mental image: yellow paralysing dust + faint static crackle as
+	; the powder reaches the target. Distinct from POISONPOWDER (no
+	; spark) and SLEEP_POWDER (no spark).
 	battle_anim STUN_SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	db -1 ; end
 
 SleepPowderAnim:
+	; Mental image: soft dreamy dust drifting down — light palette
+	; sells the gentle sleep. Distinct from POISONPOWDER (dim) and
+	; STUN_SPORE (spark) and SPORE (denser, two layers).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim SLEEP_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -1205,10 +1254,14 @@ IcyWindAnim:
 	db -1 ; end
 
 AuroraBeamAnim:
+	; Mental image: shimmering rainbow beam — beautiful but cold, and
+	; cuts on contact. Multiple flashes during the beam sell the colour
+	; play. Distinct from ICE_BEAM (which has freezing spikes rising).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 4
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1241,8 +1294,14 @@ BlizzardAnim:
 ; ============================================================
 
 MagmaPunchAnim:
-	battle_anim MAGMA_PUNCH, SUBANIM_0_STAR_THRICE, 0, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 6
+	; Mental image: lava-encased fist — punch lands and erupts molten
+	; flame around the impact point. Distinct from ROCK_PUNCH (rocks
+	; tumble), KARATE_CHOP (no payload), FIRE moves (no fist).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim MAGMA_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
+	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LavaPlumeAnim:
@@ -1275,7 +1334,11 @@ ScratchAnim:
 	db -1 ; end
 
 TackleAnim:
+	; Mental image: full-body ram into the target. The original had no
+	; impact visual at all — just slide-in/slide-out, missing the hit.
+	; Now: charge + brief flash on contact + retreat.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -1305,6 +1368,9 @@ HornAttackAnim:
 	db -1 ; end
 
 SlashAnim:
+	; Mental image: precise slashing strike — one decisive cut. High-
+	; crit, so crit-flash framing marks the deliberateness.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim SLASH, SUBANIM_0_SCRATCHES, 0, 8
 	db -1 ; end
 
@@ -1362,13 +1428,24 @@ ExtremeSpeedAnim:
 	db -1 ; end
 
 SuperFangAnim:
+	; Mental image: precision fang strike at a vital point — halves the
+	; target's HP regardless of defenses. Dark dip + decisive single
+	; strike + double-flash to mark the brutal "snap". Distinct from
+	; HYPER_FANG (rage, sustained) — this is surgical.
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim SUPER_FANG, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HyperFangAnim:
+	; Mental image: aggressive over-extended fang strike — bigger,
+	; bloodier than BITE. Sustained chomp + crit-flash + screen shake.
+	; Distinct from BITE (smaller), POISON_FANG (no poison drip here).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HYPER_FANG, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 ; ============================================================
@@ -1462,8 +1539,12 @@ ExtrasensoryAnim:
 	db -1 ; end
 
 PsybeamAnim:
+	; Mental image: psychic beam that warps the target's perception —
+	; reality itself bends around the beam path. Beam + sustained flash
+	; + wavy distortion.
 	battle_anim PSYBEAM, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	db -1 ; end
 
 PsychicAnim:
@@ -1486,7 +1567,16 @@ MindBreakAnim:
 	db -1 ; end
 
 HypnosisAnim:
+	; Mental image: hypnotic pendulum / spiralling eyes drawing the
+	; target into trance. Light palette + spiral inward (focusing the
+	; gaze) + wavy distortion + flash. Distinct from DEEP_SLEEP (dark,
+	; ominous), SING (musical), LOVELY_KISS (affectionate),
+	; SLEEP_POWDER (powder), SPORE (denser powder).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim HYPNOSIS, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -1494,8 +1584,13 @@ HypnosisAnim:
 ; ============================================================
 
 RockPunchAnim:
-	battle_anim ROCK_PUNCH, SUBANIM_0_STAR_THRICE, 0, 6
+	; Mental image: stone-fist that cracks rocks loose on impact —
+	; punch hits, debris tumbles down on the target. Earthy, no flame.
+	; Distinct from MAGMA_PUNCH (lava aftermath) and ROCK_THROW
+	; (no fist, just falling rocks).
+	battle_anim ROCK_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
 	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 RockThrowAnim:
@@ -1594,10 +1689,12 @@ IronHeadAnim:
 	db -1 ; end
 
 SonicBoomAnim:
-	battle_anim GROWL, SUBANIM_1_SHOUT, 1, 5
-	battle_anim GROWL, SUBANIM_1_SHOUT, 1, 5
+	; Mental image: directed concussive sound wave — a single sharp
+	; blast, not a series of growls. Sound wave + impact star + shake
+	; reads as the focused 20-fixed-damage hit it is.
 	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 5
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 BulletPunchAnim:
@@ -1633,7 +1730,13 @@ AquaJetAnim:
 	db -1 ; end
 
 BubbleBeamAnim:
+	; Mental image: stream of bubbles fired in a focused beam — pretty
+	; but stinging, slows the target on impact. Light palette frames it
+	; as friendly-looking; distinct from PSYBEAM (single line) and
+	; HYDRO_PUMP (raw force).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim BUBBLEBEAM, SUBANIM_0_WATER_BUBBLES, 0, 16
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 WaterPulseAnim:
@@ -1685,13 +1788,21 @@ TriAttackAnim:
 	db -1 ; end
 
 BulkUpAnim:
+	; Mental image: muscles tensing, body bulking up — physical, not
+	; mental. BIND subanim cues the muscle-clench feel. Distinct from
+	; CALM_MIND (pure spiral) and GROWTH (visible expansion).
 	battle_anim BULK_UP, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HoneClawsAnim:
+	; Mental image: claws being deliberately sharpened against each
+	; other — methodical, steel-on-steel. Crit-flash framing.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HONE_CLAWS, SUBANIM_0_SCRATCHES, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SwordsDanceAnim:
@@ -1717,14 +1828,22 @@ CoilAnim:
 	db -1 ; end
 
 DefenseCurlAnim:
+	; Mental image: user rolling tightly into a defensive ball — there
+	; should be a sense of WRAPPING IN, not just a generic close-square.
+	; BIND subanim cues the curling motion.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim DEFENSE_CURL, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 12
+	battle_anim DEFENSE_CURL, SUBANIM_0_BIND, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HardenAnim:
+	; Mental image: skin / shell stiffening — toughening up in place,
+	; NOT curling. Distinct from DEFENSE_CURL (rolls) and WITHDRAW
+	; (shell-pull). Blink mark sells the surface change.
 	battle_anim HARDEN, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_BLINK_MON
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -1744,13 +1863,22 @@ AmnesiaAnim:
 	db -1 ; end
 
 CalmMindAnim:
+	; Mental image: deep meditative focus — pure mental energy gathering
+	; in stillness. Pure spiral with sustained delay (no physical cue).
+	; Distinct from BULK_UP (muscle clench) and GROWTH (expansion).
 	battle_anim CALM_MIND, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 GrowthAnim:
+	; Mental image: visible physical growth — Pokemon literally getting
+	; bigger/stronger. Big star expanding outward, then spiral pull-in
+	; (the new mass settling). Distinct from BULK_UP (muscle clench)
+	; and CALM_MIND (purely mental).
 	battle_anim GROWTH, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1762,7 +1890,12 @@ NastyPlotAnim:
 	db -1 ; end
 
 QuiverDanceAnim:
+	; Mental image: delicate fluttering wing-beat dance — graceful,
+	; almost shimmering. Light + spiral (mental focus rising for spc) +
+	; soft shake. Distinct from AGILITY (raw speed shake) and TAILWIND
+	; (literal tornado wind).
 	battle_anim QUIVER_DANCE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1799,7 +1932,13 @@ TeleportAnim:
 	db -1 ; end
 
 CharmAnim:
+	; Mental image: cute eyes, pleading expression — target's guard
+	; melts (-2 atk). Sustained heart, framed by light palette.
+	; Distinct from TICKLE (poke-poke), LOVELY_KISS (sleep follow),
+	; FAKE_TEARS (sob).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim CHARM, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IntimidateAnim:
@@ -1843,11 +1982,22 @@ TauntAnim:
 	db -1 ; end
 
 TickleAnim:
-	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	; Mental image: poke + giggle + poke — playful brief contacts that
+	; weaken target's guard (-1 def). Two-beat with blink between for
+	; the giggle. Distinct from CHARM (sustained gaze).
+	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 0, 4
+	battle_anim NO_MOVE, SE_BLINK_MON
+	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 0, 4
 	db -1 ; end
 
 FakeTearsAnim:
-	battle_anim FAKE_TEARS, SUBANIM_0_HEART_1_MUSIC, 0, 6
+	; Mental image: dramatic theatrical sob — manipulative, makes the
+	; target lower their special defense out of pity. Drift-fall (drops
+	; ~ tears) + dimmed palette suggests the sob, NOT the heart-music
+	; which fits affectionate moves.
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim FAKE_TEARS, SUBANIM_0_CIRCLES_FALLING, 0, 5
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 MetalSoundAnim:
@@ -1936,7 +2086,14 @@ GlareAnim:
 	db -1 ; end
 
 LovelyKissAnim:
-	battle_anim LOVELY_KISS, SUBANIM_0_HEART_1_MUSIC, 0, 6
+	; Mental image: quick affectionate kiss + the target's mind goes
+	; fuzzy and dazes off. The heart is the kiss landing; the wavy
+	; aftermath is consciousness slipping. Distinct from CHARM (no
+	; sleep follow-through) and SING (musical, sustained).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim LOVELY_KISS, SUBANIM_0_HEART_1_MUSIC, 0, 4
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SingAnim:
