@@ -20,7 +20,7 @@ IF DEF(_DEBUG)
 	call RunDefaultPaletteCommand
 
 	hlcoord 5, 6
-	lb bc, 3, 9
+	lb bc, 5, 9 ; v0.7: was 3 inner rows (fit 2 entries); now 5 to fit ANIM as 3rd entry (menu uses 2-row spacing per item)
 	call TextBoxBorder
 
 	hlcoord 7, 7

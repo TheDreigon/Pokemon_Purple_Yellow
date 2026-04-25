@@ -11,32 +11,39 @@
 ;   * A during the pause: replay immediately.
 ;   * B during the pause: exit back to the debug menu.
 ;
-; Limitations / known artifacts:
-;   * No Pokémon sprites are loaded into VRAM. Animations that *overlay*
-;     the screen (most of them — Thunderbolt, Fire Blast, Solar Beam,
-;     particles, etc.) display correctly. Animations that animate the
-;     mon sprites themselves (Tackle, Body Slam, sprite slides) will
-;     animate blank/garbage tiles. For full-fidelity review of those
-;     specific moves, use the real battle (debug FIGHT mode).
-;   * Input is only sampled during the inter-loop pause, not during
-;     animation playback. Worst-case responsiveness for a long animation
-;     (Hyper Beam, Solar Beam) is ~3s before a d-pad press takes effect.
-;     Acceptable trade-off for keeping the implementation simple.
+; Layout (mirrors a real battle so the engine's mon-sprite animations
+; have something to animate):
+;   * Enemy front sprite (Rattata) at hlcoord (12, 0), top-right 7x7.
+;   * Player back sprite (Pikachu) at hlcoord (1, 5), mid-left 7x7.
+;   * Move ID + name on row 13 (bottom dialogue area).
+;   * Hints on rows 15-16.
 ;
 ; Implementation notes:
 ;   * wWhichPokemon is reused as the current move ID storage. It's
 ;     scratch in this debug context; the next thing to read it (a real
 ;     battle/menu) re-initialises it.
-;   * Animations require a few wBattle/wAnim* WRAM bytes set sanely
-;     before the predef call. We zero what matters and leave the rest.
-;   * After each play, Func_78e98 restores the screen tiles from a
-;     buffer it captures *after* the animation runs — meaning our
-;     header text gets clobbered. We just redraw it explicitly each
-;     iteration (cheap; ~1 frame of work).
+;   * Music is stopped on entry (otherwise the title-screen song keeps
+;     playing and drowns out move SFX). It's not restarted on exit —
+;     the debug menu doesn't expect music either.
+;   * Sprites are loaded once at entry. AnimTest_DrawHeader only
+;     redraws the bottom text rows so the sprites survive across
+;     animation iterations. Func_78e98 (the cleanup that runs after
+;     each MoveAnimation predef) saves/restores the tilemap so the
+;     sprites' tile IDs in wTileMap are preserved too.
 
 AnimationTestMenu::
 IF DEF(_DEBUG)
-	; --- Setup screen + palettes + battle context ---
+	; --- Stop title-screen music so move SFX is audible ---
+	xor a                         ; instant fade-out (0 frames)
+	ld [wAudioFadeOutControl], a
+	call StopAllMusic
+.waitMusicStop
+	ld a, [wAudioFadeOutControl]
+	and a
+	jr nz, .waitMusicStop
+	call StopAllSounds
+
+	; --- Setup screen + palettes + battle UI tiles ---
 	call ClearScreen
 	call ClearSprites
 	call LoadFontTilePatterns
@@ -50,6 +57,31 @@ IF DEF(_DEBUG)
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
+
+	; --- Load enemy front sprite (Rattata) into vFrontPic + tilemap ---
+	ld a, RATTATA
+	ld [wcf91], a
+	ld [wEnemyMonSpecies], a
+	ld [wEnemyMonSpecies2], a
+	call GetMonHeader
+	ld de, vFrontPic
+	call LoadMonFrontSprite
+	xor a
+	ldh [hStartTileID], a
+	hlcoord 12, 0
+	predef CopyUncompressedPicToTilemap
+
+	; --- Load player back sprite (Pikachu) into vBackPic + tilemap ---
+	ld a, PIKACHU
+	ld [wcf91], a
+	ld [wBattleMonSpecies], a
+	ld [wBattleMonSpecies2], a
+	call GetMonHeader
+	call LoadMonBackPic
+	ld a, $31
+	ldh [hStartTileID], a
+	hlcoord 1, 5
+	predef CopyUncompressedPicToTilemap
 
 	; Animation context: player attacks, no post-anim screen effect,
 	; clean any leftover sub-anim state from a prior battle.
@@ -74,7 +106,8 @@ IF DEF(_DEBUG)
 	callfar Func_78e98
 
 	; Func_78e98 captured the post-animation tilemap into buffer2 and
-	; replayed it — meaning our header is gone. Redraw it before pause.
+	; replayed it — so the sprite tilemap entries survive but the bottom
+	; text rows may have been clobbered by the animation. Redraw them.
 	call AnimTest_DrawHeader
 
 	; Inter-loop pause, ~120 frames (~2s) at 60Hz, polling input.
@@ -118,26 +151,24 @@ IF DEF(_DEBUG)
 
 
 AnimTest_DrawHeader:
-	call ClearScreen
+	; Clear ONLY the bottom text rows (rows 12-17) so the sprites survive.
+	hlcoord 0, 12
+	lb bc, 6, SCREEN_WIDTH
+	call ClearScreenArea
 
-	hlcoord 3, 1
-	ld de, .titleText
-	call PlaceString
-
-	hlcoord 1, 4
+	; Move ID + name on row 13
+	hlcoord 1, 13
 	ld de, .moveLabel
 	call PlaceString
 
-	; Move ID, 3 digits with leading zeros
-	hlcoord 6, 4
+	hlcoord 6, 13
 	ld a, [wWhichPokemon]
 	ld [wd11e], a
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 
-	; Move name (GetMoveName returns de = wcd6d)
-	hlcoord 10, 4
+	hlcoord 10, 13
 	ld a, [wWhichPokemon]
 	ld [wd11e], a
 	push hl
@@ -146,7 +177,7 @@ AnimTest_DrawHeader:
 	call PlaceString
 
 	; Footer hints
-	hlcoord 1, 14
+	hlcoord 1, 15
 	ld de, .footer1
 	call PlaceString
 	hlcoord 1, 16
@@ -154,8 +185,6 @@ AnimTest_DrawHeader:
 	call PlaceString
 	ret
 
-.titleText
-	db "ANIMATION TEST@"
 .moveLabel
 	db "MOVE@"
 .footer1
