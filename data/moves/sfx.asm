@@ -1,16 +1,6 @@
 MoveSoundTable:
 	table_width 3, MoveSoundTable
 	; ID, pitch mod, tempo mod
-	;
-	; PURPLE YELLOW v0.7: ported from an older project version
-	; (Notes/sfx_duplicate.asm) via tools/merge_sfx.py — 211 confident
-	; matches by name (incl. 3 renames: DAZE_GLEAM->DAZZLE_GLEAM,
-	; VOLT_ATTACK->VOLT_TACKLE, FLEX->BULK_UP) plus 9 hand-picked
-	; speculations for v0.5-new moves (Mach Punch, Sky Uppercut, Ignite,
-	; Spore Daze, Parasite, Will-O-Wisp, Toxic Fangs, Head Smash,
-	; Fierce Roar) modelled on the closest existing move's SFX.
-	; Each row is labelled with the move name so it stays trivial to
-	; tweak individually while reviewing animations in ANIM TEST.
 
 ; === BUG ===
 	db SFX_BATTLE_14,          $0f, $80 ; CONSTRICT
