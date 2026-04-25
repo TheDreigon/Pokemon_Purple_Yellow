@@ -20,17 +20,17 @@ MoveSoundTable:
 ; === DARK ===
 	db SFX_BATTLE_2B,          $00, $80 ; FAINT_ATTACK
 	db SFX_BATTLE_26,          $f0, $20 ; RAGE
-	db SFX_NOT_VERY_EFFECTIVE, $01, $ff ; NIGHT_SLASH
+	db SFX_BATTLE_0F,          $f0, $ff ; NIGHT_SLASH ; v0.7 reviewed: was NOT_VERY_EFFECTIVE (the "tink" miss sound — wrong for a connecting slash). Sharp cut at low pitch reads as a dark slashing strike.
 	db SFX_BATTLE_22,          $00, $80 ; BRUTAL_SWING
 	db SFX_PSYCHIC_M,          $20, $80 ; DARK_PULSE
 	db SFX_BATTLE_1E,          $30, $80 ; GORE_ATTACK
 	db SFX_SILPH_SCOPE,        $00, $ff ; PAY_DAY
 	db SFX_BATTLE_35,          $42, $01 ; DREAM_EATER
-	db SFX_NOT_VERY_EFFECTIVE, $09, $ff ; GLARE
+	db SFX_BATTLE_31,          $09, $ff ; GLARE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; eye-piercing tone fits the predatory stare that paralyzes.
 	db SFX_BATTLE_35,          $00, $60 ; DEEP_SLEEP
 ; === DRAGON ===
 	db SFX_BATTLE_29,          $f0, $80 ; DRAGON_RAGE
-	db SFX_NOT_VERY_EFFECTIVE, $10, $a0 ; DRAGON_CLAW
+	db SFX_BATTLE_0F,          $f0, $a0 ; DRAGON_CLAW ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; deep cut SFX matches a draconic raking slash.
 	db SFX_BATTLE_19,          $f0, $40 ; DRAGON_BREATH ; v0.7 reviewed: was BATTLE_29 (boom); fire breath sound at low pitch reads as exhaled flame, not explosion.
 	db SFX_BATTLE_22,          $20, $a0 ; DRAGON_SLAM
 	db SFX_BATTLE_22,          $30, $c0 ; OUTRAGE
@@ -143,9 +143,9 @@ MoveSoundTable:
 	db SFX_BATTLE_25,          $00, $10 ; QUICK_ATTACK
 	db SFX_BATTLE_18,          $00, $80 ; HEADBUTT
 	db SFX_BATTLE_1E,          $00, $60 ; HORN_ATTACK
-	db SFX_NOT_VERY_EFFECTIVE, $01, $ff ; SLASH
+	db SFX_BATTLE_0F,          $01, $ff ; SLASH ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; sharp cut SFX matches the actual slashing visual.
 	db SFX_BATTLE_20,          $00, $c0 ; BODY_SLAM
-	db SFX_BATTLE_26,          $00, $60 ; CRUNCH
+	db SFX_BATTLE_1E,          $f8, $60 ; CRUNCH ; v0.7 reviewed: was BATTLE_26 (generic crash); deep bite SFX matches "crunching" with jaws.
 	db SFX_BATTLE_1E,          $10, $80 ; HORN_CHARGE
 	db SFX_BATTLE_22,          $11, $c0 ; THRASH
 	db SFX_BATTLE_20,          $10, $e0 ; HEAVY_SLAM
@@ -184,7 +184,7 @@ MoveSoundTable:
 	db SFX_BATTLE_22,          $f0, $ff ; CRABHAMMER ; v0.7 reviewed: was SUPER_EFFECTIVE (clean BAM); slam SFX deep-pitched fits the high-crit hammer-down strike.
 	db SFX_HORN_DRILL,         $00, $a0 ; HORN_DRILL
 ; === STEEL ===
-	db SFX_NOT_VERY_EFFECTIVE, $00, $a0 ; CUT
+	db SFX_BATTLE_0F,          $10, $a0 ; CUT ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; sharp metallic cut SFX matches a STEEL-type slashing strike.
 	db SFX_BATTLE_26,          $10, $60 ; IRON_TAIL
 	db SFX_BATTLE_18,          $10, $80 ; IRON_HEAD
 	db SFX_BATTLE_27,          $00, $80 ; SONICBOOM
@@ -202,7 +202,7 @@ MoveSoundTable:
 	db SFX_BATTLE_29,          $f8, $ff ; TRI_ATTACK
 	db SFX_NOT_VERY_EFFECTIVE, $10, $c0 ; SWORDS_DANCE
 	db SFX_BATTLE_09,          $35, $c0 ; BULK_UP
-	db SFX_NOT_VERY_EFFECTIVE, $20, $a0 ; HONE_CLAWS
+	db SFX_BATTLE_0F,          $20, $a0 ; HONE_CLAWS ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; cut SFX at high pitch reads as claw-on-claw sharpening.
 	db SFX_BATTLE_0B,          $10, $a0 ; FIERCE_ROAR
 	db SFX_BATTLE_14,          $15, $80 ; COIL
 	db SFX_BATTLE_32,          $40, $c0 ; DEFENSE_CURL

@@ -1128,7 +1128,13 @@ GigaDrainAnim:
 	db -1 ; end
 
 PetalDanceAnim:
+	; Mental image: chaotic swirling dance of petals — user is locked
+	; in 2-3 turns of frenzy ending confused. Multiple layers + side-
+	; to-side shake sell the spinning chaos. Note: SE_PETALS_FALLING
+	; vs SE_LEAVES_FALLING — petals here, RAZOR_LEAF gets leaves.
 	battle_anim PETAL_DANCE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_PETALS_FALLING
+	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
 	battle_anim RAZOR_LEAF, SE_LEAVES_FALLING
 	battle_anim TACKLE, SUBANIM_1_LEAVES_TOSS, 1, 1
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2039,12 +2045,21 @@ EntangleAnim:
 	db -1 ; end
 
 PsychicBindAnim:
+	; Mental image: invisible psychic threads holding the target's
+	; muscles still — wavy distortion sells "you're being held by
+	; something you can't see". Distinct from ENTANGLE (physical
+	; netting) and HINDER (mundane obstruction).
 	battle_anim PSYCHIC_BIND, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	db -1 ; end
 
 HinderAnim:
+	; Mental image: subtle obstruction — caltrops, sticky floor, anything
+	; mundane that slows movement. Darken sells the dirty trick.
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim HINDER, SUBANIM_0_BIND, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FlashAnim:
