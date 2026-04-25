@@ -1734,8 +1734,26 @@ LoadBattleMonFromParty:
 	ld de, wPlayerMonUnmodifiedLevel ; block of memory used for unmodified stats
 	ld bc, 1 + NUM_STATS * 2
 	call CopyData
-	call ApplyBurnAndParalysisPenaltiesToPlayer
+	; v0.7 Badge Boost Glitch fix.
+	;
+	; Vanilla flow was: copy raw stats -> unmod, apply burn/para -> battle,
+	; apply badges -> battle. Then in effects.asm, every stat-mod re-applied
+	; ApplyBadgeStatBoosts on top of an already-boosted battle stat,
+	; compounding badges by 1.125x per stat-mod. Famous Gen 1 bug.
+	;
+	; New flow:
+	;   1. Apply badges -> battle (unmod still raw)
+	;   2. Copy battle -> unmod (so unmod NOW carries the badge boost)
+	;   3. Apply burn/para -> battle (unmod stays at raw+badge)
+	; Stat-mod recalcs use unmod * stage, naturally preserving badges.
+	; The two ApplyBadgeStatBoosts call sites in effects.asm are removed
+	; in the same commit; badges no longer compound.
 	call ApplyBadgeStatBoosts
+	ld hl, wBattleMonAttack
+	ld de, wPlayerMonUnmodifiedAttack
+	ld bc, 8 ; 4 stats (Atk/Def/Spd/Spc) x 2 bytes — skip MaxHP, no badge applies to it
+	call CopyData
+	call ApplyBurnAndParalysisPenaltiesToPlayer
 	ld a, $7 ; default stat modifier
 	ld b, NUM_STAT_MODS
 	ld hl, wPlayerMonAttackMod

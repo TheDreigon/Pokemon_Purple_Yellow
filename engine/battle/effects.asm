@@ -508,10 +508,11 @@ UpdateStatDone:
 	call PlayCurrentMoveAnimation
 .skipUpAnim
 .applyBadgeBoostsAndStatusPenalties
-	ldh a, [hWhoseTurn]
-	and a
-	call z, ApplyBadgeStatBoosts ; whenever the player uses a stat-up move, badge boosts get reapplied again to every stat,
-	                             ; even to those not affected by the stat-up move (will be boosted further)
+	; v0.7 Badge Boost Glitch fix: vanilla called ApplyBadgeStatBoosts here
+	; on every player stat-up, compounding badges by 1.125x each time.
+	; Badges are now baked into wPlayerMonUnmodifiedStats at LoadPlayerMon
+	; (see core.asm), so stat recalcs naturally preserve them — no need
+	; to re-apply on top.
 	ld hl, MonsStatsRoseText
 	call PrintText
 
@@ -695,10 +696,9 @@ UpdateLoweredStatDone:
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
 	call PlayCurrentMoveAnimation2
 .ApplyBadgeBoostsAndStatusPenalties
-	ldh a, [hWhoseTurn]
-	and a
-	call nz, ApplyBadgeStatBoosts ; whenever the player uses a stat-down move, badge boosts get reapplied again to every stat,
-	                              ; even to those not affected by the stat-up move (will be boosted further)
+	; v0.7 Badge Boost Glitch fix: removed ApplyBadgeStatBoosts call here
+	; (the enemy-stat-down counterpart of the bug above). Same reasoning:
+	; badges are baked into unmodified stats at LoadPlayerMon.
 	ld hl, MonsStatsFellText
 	call PrintText
 
