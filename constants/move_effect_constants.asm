@@ -96,4 +96,5 @@
 	const SPECIAL_SPEED_DOWN1_EFFECT ; $59  target Spc-1 & Speed-1 (new Eerie Impulse)
 	const ATTACK_UP1_DOWN1_EFFECT    ; $5A  user Atk+1 / target Atk-1 (Fierce Roar)
 	const SPECIAL_UP1_HEAL_EFFECT    ; $5B  user Spc+1 + heal 1/4 max HP (Growth)
+	const TRI_STATUS_SIDE_EFFECT     ; $5C  ~33% to inflict random {par/brn/frz}, ~11% each (Tri Attack)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

@@ -342,6 +342,150 @@ FrozenText:
 	text_far _FrozenText
 	text_end
 
+
+; v0.7: Tri Attack new effect.
+; ~33% total chance to inflict a random status on the target —
+; 11% paralyze, 11% burn, 11% freeze (33/256 first roll, 1/3 split second).
+; Standard Gen 1 same-type immunities apply: FIRE-types can't be burned,
+; ICE-types can't be frozen. Paralysis has no type immunity (vanilla
+; behaviour — Electric-types CAN be paralyzed in this hack).
+; Substitute blocks all status. Already-statused targets are skipped.
+TriStatusSideEffect:
+	xor a
+	ld [wAnimationType], a
+	call CheckTargetSubstitute
+	ret nz                                ; substitute blocks
+	; First roll: any status at all? (~33%)
+	call BattleRandom
+	cp 33 percent + 1
+	ret nc
+	; Second roll: which status? (1/3 split → ~11% each)
+	call BattleRandom
+	cp 33 percent + 1
+	jp c, .triParalyze
+	cp 67 percent
+	jp c, .triBurn
+	; else: freeze
+.triFreeze
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, .freezeEnemy
+	jp .freezeBattle
+.triBurn
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, .burnEnemy
+	jp .burnBattle
+.triParalyze
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, .paralyzeEnemy
+	jp .paralyzeBattle
+
+; ===== Player attacking enemy =====
+.paralyzeEnemy
+	ld a, [wEnemyMonStatus]
+	and a
+	ret nz
+	ld a, 1 << PAR
+	ld [wEnemyMonStatus], a
+	call QuarterSpeedDueToParalysis
+	ld a, ENEMY_HUD_SHAKE_ANIM
+	call PlayBattleAnimation
+	jp PrintMayNotAttackText
+
+.burnEnemy
+	ld a, [wEnemyMonStatus]
+	and a
+	ret nz
+	ld a, [wEnemyMonType1]
+	cp FIRE
+	ret z
+	ld a, [wEnemyMonType2]
+	cp FIRE
+	ret z
+	ld a, 1 << BRN
+	ld [wEnemyMonStatus], a
+	call HalveAttackDueToBurn
+	ld a, ENEMY_HUD_SHAKE_ANIM
+	call PlayBattleAnimation
+	ld hl, BurnedText
+	jp PrintText
+
+.freezeEnemy
+	ld a, [wEnemyMonStatus]
+	and a
+	jp nz, CheckDefrost
+	ld a, [wEnemyMonType1]
+	cp ICE
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ICE
+	ret z
+	call ClearHyperBeam
+	ld a, 1 << FRZ
+	ld [wEnemyMonStatus], a
+	call BattleRandom
+	and $3
+	add 3
+	ld [wEnemyFreezeCounter], a
+	ld a, ENEMY_HUD_SHAKE_ANIM
+	call PlayBattleAnimation
+	ld hl, FrozenText
+	jp PrintText
+
+; ===== Enemy attacking player =====
+.paralyzeBattle
+	ld a, [wBattleMonStatus]
+	and a
+	ret nz
+	ld a, 1 << PAR
+	ld [wBattleMonStatus], a
+	call QuarterSpeedDueToParalysis
+	ld a, SHAKE_SCREEN_ANIM
+	call PlayBattleAnimation2
+	jp PrintMayNotAttackText
+
+.burnBattle
+	ld a, [wBattleMonStatus]
+	and a
+	ret nz
+	ld a, [wBattleMonType1]
+	cp FIRE
+	ret z
+	ld a, [wBattleMonType2]
+	cp FIRE
+	ret z
+	ld a, 1 << BRN
+	ld [wBattleMonStatus], a
+	call HalveAttackDueToBurn
+	ld a, SHAKE_SCREEN_ANIM
+	call PlayBattleAnimation2
+	ld hl, BurnedText
+	jp PrintText
+
+.freezeBattle
+	ld a, [wBattleMonStatus]
+	and a
+	jp nz, CheckDefrost
+	ld a, [wBattleMonType1]
+	cp ICE
+	ret z
+	ld a, [wBattleMonType2]
+	cp ICE
+	ret z
+	call ClearHyperBeam
+	ld a, 1 << FRZ
+	ld [wBattleMonStatus], a
+	call BattleRandom
+	and $3
+	add 3
+	ld [wPlayerFreezeCounter], a
+	ld a, SHAKE_SCREEN_ANIM
+	call PlayBattleAnimation2
+	ld hl, FrozenText
+	jp PrintText
+
 CheckDefrost:
 ; any fire-type move that has a chance inflict burn (all but Fire Spin) will defrost a frozen target
 	and 1 << FRZ ; are they frozen?
