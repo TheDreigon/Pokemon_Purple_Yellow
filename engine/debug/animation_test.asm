@@ -43,20 +43,11 @@ IF DEF(_DEBUG)
 	jr nz, .waitMusicStop
 	call StopAllSounds
 
-	; --- Setup screen + palettes + battle UI tiles ---
+	; --- Setup screen + battle UI tiles ---
 	call ClearScreen
 	call ClearSprites
 	call LoadFontTilePatterns
 	call LoadHpBarAndStatusTilePatterns
-
-	; Standard 4-greys palette
-	ld a, %11100100
-	ldh [rBGP], a
-	ldh [rOBP0], a
-	ldh [rOBP1], a
-	call UpdateGBCPal_BGP
-	call UpdateGBCPal_OBP0
-	call UpdateGBCPal_OBP1
 
 	; --- Load enemy front sprite (Rattata) into vFrontPic + tilemap ---
 	ld a, RATTATA
@@ -86,6 +77,15 @@ IF DEF(_DEBUG)
 	ldh [hStartTileID], a
 	hlcoord 1, 5
 	predef CopyUncompressedPicToTilemap
+
+	; --- Set CGB battle palette (greys) ---
+	; pokeyellow is a CGB game; rBGP/rOBP* DMG regs are mostly ignored.
+	; The proper way to set a battle-context palette is via the high-level
+	; RunPaletteCommand, which sets up the CGB palette banks for both the
+	; mon sprites and the UI text. Without this, tiles render with the
+	; previous context's CGB palette (e.g. yellow/red title-screen).
+	ld b, SET_PAL_BATTLE
+	call RunPaletteCommand
 
 	; Animation context: player attacks, no post-anim screen effect,
 	; clean any leftover sub-anim state from a prior battle.
