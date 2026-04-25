@@ -10,7 +10,19 @@ ParalyzeEffect_:
 	ld a, [hl]
 	and a ; does the target already have a status ailment?
 	jr nz, .didntAffect
-; check if the target is immune due to types
+; v0.7: ELECTRIC defenders are immune to paralysis (any source).
+	ld b, h
+	ld c, l
+	inc bc
+	ld a, [bc]
+	cp ELECTRIC
+	jr z, .doesntAffect
+	inc bc
+	ld a, [bc]
+	cp ELECTRIC
+	jr z, .doesntAffect
+; check if the target is immune due to type-vs-move-type (e.g. Ground-types
+; are immune to ELECTRIC moves, including Thunder Wave)
 	ld a, [de]
 	cp ELECTRIC
 	jr nz, .hitTest

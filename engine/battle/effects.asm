@@ -198,6 +198,18 @@ ExplodeEffect:
 	ret
 
 FreezeBurnParalyzeEffect:
+; v0.7 type-immunity refactor:
+;   - Removed vanilla "if move type == defender type, status fails" check.
+;     That check was the famous Gen 1 bug that made Body Slam (Normal)
+;     unable to paralyze Normal-types, while ALSO failing to give Fire/
+;     Magma/Ice the immunities they should logically have to other-type
+;     burn/freeze sources.
+;   - Replaced with proper per-status defender-type immunity (checked
+;     inside each .burn/.freeze/.paralyze handler):
+;        Burn  immune: defender is FIRE or MAGMA
+;        Freeze immune: defender is ICE or MAGMA
+;        Paralyze immune: defender is ELECTRIC
+;   - Poison is unchanged (defender is POISON) (PoisonEffect already had the correct check).
 	xor a
 	ld [wAnimationType], a
 	call CheckTargetSubstitute ; test bit 4 of d063/d068 flags [target has substitute flag]
@@ -208,14 +220,6 @@ FreezeBurnParalyzeEffect:
 	ld a, [wEnemyMonStatus]
 	and a
 	jp nz, CheckDefrost ; can't inflict status if opponent is already statused
-	ld a, [wPlayerMoveType]
-	ld b, a
-	ld a, [wEnemyMonType1]
-	cp b ; do target type 1 and move type match?
-	ret z  ; return if they match (an ice move can't freeze an ice-type, body slam can't paralyze a normal-type, etc.)
-	ld a, [wEnemyMonType2]
-	cp b ; do target type 2 and move type match?
-	ret z  ; return if they match
 	ld a, [wPlayerMoveEffect]
 	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
 	jr nz, .asm_3f2c7
@@ -241,6 +245,13 @@ FreezeBurnParalyzeEffect:
 	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze1
 ; .paralyze1
+	; v0.7: ELECTRIC defenders are immune to paralysis.
+	ld a, [wEnemyMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ELECTRIC
+	ret z
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
 	call HalveSpeedDueToParalysis ; halve speed of affected mon
@@ -248,6 +259,17 @@ FreezeBurnParalyzeEffect:
 	call PlayBattleAnimation
 	jp PrintMayNotAttackText ; print paralysis text
 .burn1
+	; v0.7: FIRE and MAGMA defenders are immune to burn.
+	ld a, [wEnemyMonType1]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wEnemyMonType2]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
 	ld a, 1 << BRN
 	ld [wEnemyMonStatus], a
 	call HalveAttackDueToBurn ; halve attack of affected mon
@@ -256,6 +278,17 @@ FreezeBurnParalyzeEffect:
 	ld hl, BurnedText
 	jp PrintText
 .freeze1
+	; v0.7: ICE and MAGMA defenders are immune to freeze.
+	ld a, [wEnemyMonType1]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
 	call ClearHyperBeam ; resets hyper beam (recharge) condition from target
 	ld a, 1 << FRZ
 	ld [wEnemyMonStatus], a
@@ -272,14 +305,6 @@ FreezeBurnParalyzeEffect:
 	ld a, [wBattleMonStatus] ; mostly same as above with addresses swapped for opponent
 	and a
 	jp nz, CheckDefrost
-	ld a, [wEnemyMoveType]
-	ld b, a
-	ld a, [wBattleMonType1]
-	cp b
-	ret z
-	ld a, [wBattleMonType2]
-	cp b
-	ret z
 	ld a, [wEnemyMoveEffect]
 	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
 	jr nz, .asm_3f341
@@ -305,6 +330,13 @@ FreezeBurnParalyzeEffect:
 	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze2
 ; .paralyze2
+	; v0.7: ELECTRIC defenders are immune to paralysis (player side).
+	ld a, [wBattleMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wBattleMonType2]
+	cp ELECTRIC
+	ret z
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
 	call HalveSpeedDueToParalysis
@@ -312,6 +344,17 @@ FreezeBurnParalyzeEffect:
 	call PlayBattleAnimation2
 	jp PrintMayNotAttackText
 .burn2
+	; v0.7: FIRE and MAGMA defenders are immune to burn (player side).
+	ld a, [wBattleMonType1]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wBattleMonType2]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
 	ld a, 1 << BRN
 	ld [wBattleMonStatus], a
 	call HalveAttackDueToBurn
@@ -320,6 +363,17 @@ FreezeBurnParalyzeEffect:
 	ld hl, BurnedText
 	jp PrintText
 .freeze2
+	; v0.7: ICE and MAGMA defenders are immune to freeze (player side).
+	ld a, [wBattleMonType1]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wBattleMonType2]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
 ; hyper beam bits aren't reseted for opponent's side
 	call ClearHyperBeam
 	ld a, 1 << FRZ
@@ -387,6 +441,13 @@ TriStatusSideEffect:
 	ld a, [wEnemyMonStatus]
 	and a
 	ret nz
+	; v0.7: ELECTRIC defenders are immune to paralysis.
+	ld a, [wEnemyMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ELECTRIC
+	ret z
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
 	call HalveSpeedDueToParalysis
@@ -398,11 +459,16 @@ TriStatusSideEffect:
 	ld a, [wEnemyMonStatus]
 	and a
 	ret nz
+	; v0.7: FIRE and MAGMA defenders are immune to burn.
 	ld a, [wEnemyMonType1]
 	cp FIRE
 	ret z
+	cp MAGMA
+	ret z
 	ld a, [wEnemyMonType2]
 	cp FIRE
+	ret z
+	cp MAGMA
 	ret z
 	ld a, 1 << BRN
 	ld [wEnemyMonStatus], a
@@ -416,11 +482,16 @@ TriStatusSideEffect:
 	ld a, [wEnemyMonStatus]
 	and a
 	jp nz, CheckDefrost
+	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wEnemyMonType1]
 	cp ICE
 	ret z
+	cp MAGMA
+	ret z
 	ld a, [wEnemyMonType2]
 	cp ICE
+	ret z
+	cp MAGMA
 	ret z
 	call ClearHyperBeam
 	ld a, 1 << FRZ
@@ -439,6 +510,13 @@ TriStatusSideEffect:
 	ld a, [wBattleMonStatus]
 	and a
 	ret nz
+	; v0.7: ELECTRIC defenders are immune to paralysis.
+	ld a, [wBattleMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wBattleMonType2]
+	cp ELECTRIC
+	ret z
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
 	call HalveSpeedDueToParalysis
@@ -450,11 +528,16 @@ TriStatusSideEffect:
 	ld a, [wBattleMonStatus]
 	and a
 	ret nz
+	; v0.7: FIRE and MAGMA defenders are immune to burn.
 	ld a, [wBattleMonType1]
 	cp FIRE
 	ret z
+	cp MAGMA
+	ret z
 	ld a, [wBattleMonType2]
 	cp FIRE
+	ret z
+	cp MAGMA
 	ret z
 	ld a, 1 << BRN
 	ld [wBattleMonStatus], a
@@ -468,11 +551,16 @@ TriStatusSideEffect:
 	ld a, [wBattleMonStatus]
 	and a
 	jp nz, CheckDefrost
+	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wBattleMonType1]
 	cp ICE
 	ret z
+	cp MAGMA
+	ret z
 	ld a, [wBattleMonType2]
 	cp ICE
+	ret z
+	cp MAGMA
 	ret z
 	call ClearHyperBeam
 	ld a, 1 << FRZ
