@@ -1,18 +1,21 @@
 ; Debug-only Animation Test screen for Pokémon Purple Yellow.
 ;
-; Lets the developer cycle through every move animation with the d-pad
-; and watch them on auto-loop. Reached from the debug menu (ANIM entry).
+; Lets the developer pick a move from a scrollable LIST and watch its
+; animation auto-loop in PLAY view. Reached from the debug menu (ANIM
+; entry).
 ;
 ; UX:
-;   * Auto-loops the current move's animation, with a ~2s pause between
-;     plays.
-;   * LEFT/RIGHT during the pause: prev/next move (with wrap from
-;     NUM_ATTACKS back to 1 and vice-versa).
-;   * A during the pause: replay immediately.
-;   * B during the pause: exit back to the debug menu.
+;   * LIST view (entry point):
+;       UP/DOWN move cursor by 1, LEFT/RIGHT page by 10, A enters PLAY,
+;       B exits to debug menu. Window of 10 items visible at a time.
+;   * PLAY view:
+;       Auto-loops the current move's animation with a short (~1s)
+;       pause between plays. LEFT/RIGHT cycle prev/next move (with
+;       wrap from NUM_ATTACKS back to 1 and vice-versa) — re-enters
+;       PLAY for the new move. A replays immediately. B returns to LIST.
 ;
-; Layout (mirrors a real battle so the engine's mon-sprite animations
-; have something to animate):
+; Layout (PLAY view mirrors a real battle so the engine's mon-sprite
+; animations have something to animate):
 ;   * Enemy front sprite (Rattata) at hlcoord (12, 0), top-right 7x7.
 ;   * Player back sprite (Pikachu) at hlcoord (1, 5), mid-left 7x7.
 ;   * Move ID + name on row 13 (bottom dialogue area).
@@ -22,14 +25,21 @@
 ;   * wWhichPokemon is reused as the current move ID storage. It's
 ;     scratch in this debug context; the next thing to read it (a real
 ;     battle/menu) re-initialises it.
-;   * Music is stopped on entry (otherwise the title-screen song keeps
-;     playing and drowns out move SFX). It's not restarted on exit —
-;     the debug menu doesn't expect music either.
-;   * Sprites are loaded once at entry. AnimTest_DrawHeader only
-;     redraws the bottom text rows so the sprites survive across
-;     animation iterations. Func_78e98 (the cleanup that runs after
-;     each MoveAnimation predef) saves/restores the tilemap so the
-;     sprites' tile IDs in wTileMap are preserved too.
+;   * Music is stopped on entry and wAudioROMBank is forced to
+;     BANK(Audio2_PlaySound) so the SFX dispatcher routes battle SFX
+;     to SFX_Headers_2 (the only header table that actually contains
+;     the move SFX implementations).
+;   * Sprites are reloaded at the start of every PLAY iteration so
+;     animations like Transform (which copies the enemy pic over the
+;     player back-pic in VRAM) don't leave the player permanently
+;     stuck as the enemy. Cheap (a few frames per iteration).
+;   * AnimTest_DrawPlayHeader only redraws the bottom text rows so the
+;     sprite tilemap entries survive.
+
+DEF ANIM_TEST_VISIBLE_ITEMS    EQU 10
+DEF ANIM_TEST_LIST_FIRST_ROW   EQU 2
+DEF ANIM_TEST_LIST_CURSOR_COL  EQU 1
+DEF ANIM_TEST_LIST_TEXT_COL    EQU 2
 
 AnimationTestMenu::
 IF DEF(_DEBUG)
@@ -44,26 +54,305 @@ IF DEF(_DEBUG)
 	call StopAllSounds
 
 	; --- Point the audio engine at the battle SFX bank (Audio2) ---
-	; PlaySound dispatches to one of four audio engines based on
-	; wAudioROMBank. Battle SFX (SFX_Battle_*, SFX_Pound, etc.) only
-	; exist in audio bank 2's SFX_Headers_2. If wAudioROMBank still
-	; points at the title-screen music's bank when MoveAnimation calls
-	; PlaySound, the engine picks Audio1_PlaySound and looks up the
-	; SFX index in SFX_Headers_1 — which has zero battle SFX, so the
-	; index lands on instrument/music data and the wrong sound plays.
 	ld a, BANK(Audio2_PlaySound)
 	ld [wAudioROMBank], a
 
-	; --- Setup screen + battle UI tiles ---
+	; --- Setup screen + battle UI tiles + palette ---
 	call ClearScreen
 	call ClearSprites
 	call LoadFontTilePatterns
 	call LoadHpBarAndStatusTilePatterns
 
-	; --- Load enemy front sprite (Rattata) into vFrontPic + tilemap ---
-	; GetMonHeader reads the species ID from wd0b5 (NOT wcf91 — wcf91 is
-	; only used by UncompressMonSprite for bank dispatch). Both must be
-	; set before each call.
+	; Animation context defaults
+	xor a
+	ldh [hWhoseTurn], a
+	ld [wAnimationType], a
+	ld [wAnimSoundID], a
+	ld [wSubAnimSubEntryAddr], a
+	ld [wSubAnimTransform], a
+
+	; Default to first move
+	ld a, 1
+	ld [wWhichPokemon], a
+
+; ---------------------------------------------------------------
+; LIST view: scrollable list of all NUM_ATTACKS moves
+; ---------------------------------------------------------------
+.listView
+	call AnimTest_DrawList
+.listInputLoop
+	call DelayFrame
+	call JoypadLowSensitivity
+	ldh a, [hJoy5]
+	bit BIT_A_BUTTON, a
+	jp nz, .enterPlayView
+	bit BIT_B_BUTTON, a
+	jp nz, .exit
+	bit BIT_D_UP, a
+	jr nz, .listUp
+	bit BIT_D_DOWN, a
+	jr nz, .listDown
+	bit BIT_D_LEFT, a
+	jr nz, .listPageUp
+	bit BIT_D_RIGHT, a
+	jr nz, .listPageDown
+	jr .listInputLoop
+.listUp
+	ld a, [wWhichPokemon]
+	dec a
+	jr nz, .storeListMove
+	ld a, NUM_ATTACKS                 ; wrap from 1 to NUM_ATTACKS
+	jr .storeListMove
+.listDown
+	ld a, [wWhichPokemon]
+	inc a
+	cp NUM_ATTACKS + 1
+	jr c, .storeListMove
+	ld a, 1                            ; wrap from NUM_ATTACKS to 1
+	jr .storeListMove
+.listPageUp
+	ld a, [wWhichPokemon]
+	sub 10
+	jr c, .pageUnderflow
+	jr nz, .storeListMove
+.pageUnderflow
+	ld a, 1
+	jr .storeListMove
+.listPageDown
+	ld a, [wWhichPokemon]
+	add 10
+	jr c, .pageOverflow                ; carry from 8-bit add (move id > 255)
+	cp NUM_ATTACKS + 1
+	jr c, .storeListMove
+.pageOverflow
+	ld a, NUM_ATTACKS
+.storeListMove
+	ld [wWhichPokemon], a
+	jp .listView
+
+; ---------------------------------------------------------------
+; PLAY view: load sprites once, then auto-loop the animation
+; ---------------------------------------------------------------
+.enterPlayView
+	; Initial setup that's the same for every PLAY entry: clear screen,
+	; load both mon sprites with the proper CGB battle palette.
+	call AnimTest_LoadBattleSceneAndSprites
+
+.playAnim
+	; Re-load sprites BEFORE every play so anims like Transform that
+	; rewrite the back-pic VRAM area don't persist between iterations.
+	call AnimTest_ReloadSprites
+
+	; Play the current move's animation
+	ld a, [wWhichPokemon]
+	ld [wAnimationID], a
+	predef MoveAnimation
+	callfar Func_78e98
+
+	; Func_78e98 saved/restored the tilemap; the bottom text rows may
+	; have been clobbered by the animation so redraw them.
+	call AnimTest_DrawPlayHeader
+
+	; Inter-loop pause, ~60 frames (~1s) at 60Hz, polling input
+	ld c, 60
+.pauseFrame
+	push bc
+	call DelayFrame
+	call JoypadLowSensitivity
+	pop bc
+	ldh a, [hJoy5]
+	bit BIT_B_BUTTON, a
+	jp nz, .listView                   ; B in PLAY = back to LIST
+	bit BIT_D_LEFT, a
+	jr nz, .playPrev
+	bit BIT_D_RIGHT, a
+	jr nz, .playNext
+	bit BIT_A_BUTTON, a
+	jp nz, .playAnim                   ; A = replay now
+	dec c
+	jr nz, .pauseFrame
+	jp .playAnim                       ; auto-replay after pause
+.playNext
+	ld a, [wWhichPokemon]
+	inc a
+	cp NUM_ATTACKS + 1
+	jr c, .storePlayMove
+	ld a, 1
+	jr .storePlayMove
+.playPrev
+	ld a, [wWhichPokemon]
+	dec a
+	jr nz, .storePlayMove
+	ld a, NUM_ATTACKS
+.storePlayMove
+	ld [wWhichPokemon], a
+	jp .playAnim
+
+.exit
+	jp DebugMenu
+
+
+; ===============================================================
+; LIST view rendering
+; ===============================================================
+AnimTest_DrawList:
+	call ClearScreen
+
+	hlcoord 3, 0
+	ld de, .listTitle
+	call PlaceString
+
+	; Compute window_start = current - 4, clamped to [1, NUM_ATTACKS - 9]
+	ld a, [wWhichPokemon]
+	sub 4
+	jr nc, .startNotNeg
+	ld a, 1
+	jr .startClampLow
+.startNotNeg
+	or a
+	jr nz, .startClampLow
+	ld a, 1
+.startClampLow
+	cp NUM_ATTACKS - 9 + 1
+	jr c, .startOk
+	ld a, NUM_ATTACKS - 9
+.startOk
+	; b = window_start = first item to display
+	ld b, a
+
+	; Draw 10 items
+	ld c, ANIM_TEST_VISIBLE_ITEMS      ; remaining count
+	ld d, ANIM_TEST_LIST_FIRST_ROW     ; current row
+.drawLoop
+	push bc
+	push de
+	call AnimTest_DrawListItem         ; b = item ID, d = row
+	pop de
+	pop bc
+	inc b
+	inc d
+	dec c
+	jr nz, .drawLoop
+
+	; Draw cursor "▶" at the row of the current item
+	ld a, [wWhichPokemon]
+	sub b                              ; b is now (window_start + 10), too late
+	; ^ wrong, b mutated by loop. Recompute window_start instead.
+	; Cleanest: recompute from current.
+	ld a, [wWhichPokemon]
+	sub 4
+	jr nc, .cursorStartNotNeg
+	ld a, 1
+	jr .cursorStartClampLow
+.cursorStartNotNeg
+	or a
+	jr nz, .cursorStartClampLow
+	ld a, 1
+.cursorStartClampLow
+	cp NUM_ATTACKS - 9 + 1
+	jr c, .cursorStartOk
+	ld a, NUM_ATTACKS - 9
+.cursorStartOk
+	ld b, a                            ; b = window_start
+	ld a, [wWhichPokemon]
+	sub b                              ; a = offset within window (0..9)
+	add ANIM_TEST_LIST_FIRST_ROW       ; a = row of current item
+	; Compute hl for col CURSOR_COL, row a
+	push af
+	call AnimTest_RowToCoord
+	pop af
+	; hl now points to col 0 of row a; offset by cursor col
+	ld bc, ANIM_TEST_LIST_CURSOR_COL
+	add hl, bc
+	ld [hl], "▶"
+
+	; Footer hints
+	hlcoord 0, 13
+	ld de, .listHints1
+	call PlaceString
+	hlcoord 0, 14
+	ld de, .listHints2
+	call PlaceString
+	hlcoord 0, 15
+	ld de, .listHints3
+	call PlaceString
+	ret
+
+.listTitle
+	db "ANIMATION TEST@"
+.listHints1
+	db "UP/DN: select@"
+.listHints2
+	db "L/R:   page x10@"
+.listHints3
+	db "A: play  B: exit@"
+
+
+; In: b = move ID (1..NUM_ATTACKS), d = display row
+; Renders one list row: " NNN MOVENAME"
+AnimTest_DrawListItem:
+	; Compute hl for col TEXT_COL, row d
+	ld a, d
+	call AnimTest_RowToCoord
+	ld bc, ANIM_TEST_LIST_TEXT_COL
+	add hl, bc
+
+	; Print 3-digit ID
+	push hl
+	ld a, b
+	ld [wd11e], a
+	ld de, wd11e
+	lb bc, LEADING_ZEROES | 1, 3
+	call PrintNumber
+	pop hl
+	; PrintNumber advances hl past the digits; recompute & advance manually
+	ld bc, 4                            ; 3 digits + 1 space
+	add hl, bc
+
+	; Print move name
+	ld a, b                             ; (b is item ID, preserved)
+	ld [wd11e], a
+	push hl
+	call GetMoveName
+	pop hl
+	call PlaceString
+	ret
+
+
+; In: a = row (0..17)
+; Out: hl = wTileMap + row * SCREEN_WIDTH (col 0 of that row)
+; Trashes: bc
+AnimTest_RowToCoord:
+	ld h, 0
+	ld l, a
+	add hl, hl                          ; * 2
+	add hl, hl                          ; * 4
+	ld c, l
+	ld b, h                             ; bc = row * 4
+	add hl, hl                          ; * 8
+	add hl, hl                          ; * 16
+	add hl, bc                          ; * 20 = SCREEN_WIDTH
+	ld bc, wTileMap
+	add hl, bc
+	ret
+
+
+; ===============================================================
+; PLAY view rendering
+; ===============================================================
+AnimTest_LoadBattleSceneAndSprites:
+	call ClearScreen
+	call ClearSprites
+	call AnimTest_ReloadSprites
+
+	; CGB battle palette
+	ld b, SET_PAL_BATTLE
+	call RunPaletteCommand
+	ret
+
+
+AnimTest_ReloadSprites:
+	; --- Enemy front sprite (Rattata) ---
 	ld a, RATTATA
 	ld [wd0b5], a
 	ld [wcf91], a
@@ -77,101 +366,23 @@ IF DEF(_DEBUG)
 	hlcoord 12, 0
 	predef CopyUncompressedPicToTilemap
 
-	; --- Load player back sprite (Pikachu) into vBackPic + tilemap ---
+	; --- Player back sprite (Pikachu) ---
 	ld a, PIKACHU
 	ld [wd0b5], a
 	ld [wcf91], a
 	ld [wBattleMonSpecies], a
 	ld [wBattleMonSpecies2], a
 	call GetMonHeader
-	callfar LoadMonBackPic ; v0.7 fix: LoadMonBackPic lives in bank $3D
-	                       ; ("Battle Engine 9"); we are in bank $3F
-	                       ; ("Overworld Pikachu"). Plain `call` would
-	                       ; jump to whatever's at that offset in $3F
-	                       ; and freeze/crash.
+	callfar LoadMonBackPic              ; lives in bank $3D, needs farcall
 	ld a, $31
 	ldh [hStartTileID], a
 	hlcoord 1, 5
 	predef CopyUncompressedPicToTilemap
-
-	; --- Set CGB battle palette (greys) ---
-	; pokeyellow is a CGB game; rBGP/rOBP* DMG regs are mostly ignored.
-	; The proper way to set a battle-context palette is via the high-level
-	; RunPaletteCommand, which sets up the CGB palette banks for both the
-	; mon sprites and the UI text. Without this, tiles render with the
-	; previous context's CGB palette (e.g. yellow/red title-screen).
-	ld b, SET_PAL_BATTLE
-	call RunPaletteCommand
-
-	; Animation context: player attacks, no post-anim screen effect,
-	; clean any leftover sub-anim state from a prior battle.
-	xor a
-	ldh [hWhoseTurn], a
-	ld [wAnimationType], a
-	ld [wAnimSoundID], a
-	ld [wSubAnimSubEntryAddr], a
-	ld [wSubAnimTransform], a
-
-	; Start at move ID 1 (the first slot in move_constants.asm).
-	ld a, 1
-	ld [wWhichPokemon], a    ; reused as current animation move ID
-
-.redrawHeader
-	call AnimTest_DrawHeader
-
-.playAnim
-	ld a, [wWhichPokemon]
-	ld [wAnimationID], a
-	predef MoveAnimation
-	callfar Func_78e98
-
-	; Func_78e98 captured the post-animation tilemap into buffer2 and
-	; replayed it — so the sprite tilemap entries survive but the bottom
-	; text rows may have been clobbered by the animation. Redraw them.
-	call AnimTest_DrawHeader
-
-	; Inter-loop pause, ~120 frames (~2s) at 60Hz, polling input.
-	ld c, 120
-.pauseFrame
-	push bc
-	call DelayFrame
-	call JoypadLowSensitivity
-	pop bc
-	ldh a, [hJoy5]
-	bit BIT_B_BUTTON, a
-	jp nz, .exit
-	bit BIT_D_LEFT, a
-	jr nz, .prev
-	bit BIT_D_RIGHT, a
-	jr nz, .next
-	bit BIT_A_BUTTON, a
-	jp nz, .playAnim         ; replay immediately
-	dec c
-	jr nz, .pauseFrame
-	jp .playAnim             ; auto-replay after pause
-
-.next
-	ld a, [wWhichPokemon]
-	inc a
-	cp NUM_ATTACKS + 1
-	jr c, .storeMove
-	ld a, 1                  ; wrap from NUM_ATTACKS back to 1
-	jr .storeMove
-.prev
-	ld a, [wWhichPokemon]
-	dec a
-	jr nz, .storeMove
-	ld a, NUM_ATTACKS        ; wrap from 1 back to NUM_ATTACKS
-.storeMove
-	ld [wWhichPokemon], a
-	jp .redrawHeader
-
-.exit
-	jp DebugMenu
+	ret
 
 
-AnimTest_DrawHeader:
-	; Clear ONLY the bottom text rows (rows 12-17) so the sprites survive.
+AnimTest_DrawPlayHeader:
+	; Clear ONLY the bottom text rows (12-17) so the sprites survive.
 	hlcoord 0, 12
 	lb bc, 6, SCREEN_WIDTH
 	call ClearScreenArea
@@ -210,7 +421,7 @@ AnimTest_DrawHeader:
 .footer1
 	db "L/R: PREV/NEXT@"
 .footer2
-	db "A:REPLAY  B:EXIT@"
+	db "A:REPLAY  B:LIST@"
 
 ELSE
 	ret
