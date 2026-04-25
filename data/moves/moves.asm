@@ -108,7 +108,7 @@ Moves: ; Current total = 220
 	; === FUNGUS TYPE (3 moves) === ; new type
 	move SPORE_DAZE,     CONFUSION_SIDE_EFFECT2,           60, FUNGUS,       100, 20 ; new move. new effect.
 	move PARASITE,       SUPER_FANG_EFFECT,                 1, FUNGUS,        90, 15 ; new move. signature.
-	move SPORE,          SLEEP_EFFECT,                      0, FUNGUS,        95, 20 ; signature.
+	move SPORE,          SLEEP_EFFECT,                      0, FUNGUS,        90, 25 ; signature.
 
 
 	; === GAS TYPE (3 moves) === ; new type
