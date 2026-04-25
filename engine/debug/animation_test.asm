@@ -50,7 +50,11 @@ IF DEF(_DEBUG)
 	call LoadHpBarAndStatusTilePatterns
 
 	; --- Load enemy front sprite (Rattata) into vFrontPic + tilemap ---
+	; GetMonHeader reads the species ID from wd0b5 (NOT wcf91 — wcf91 is
+	; only used by UncompressMonSprite for bank dispatch). Both must be
+	; set before each call.
 	ld a, RATTATA
+	ld [wd0b5], a
 	ld [wcf91], a
 	ld [wEnemyMonSpecies], a
 	ld [wEnemyMonSpecies2], a
@@ -64,6 +68,7 @@ IF DEF(_DEBUG)
 
 	; --- Load player back sprite (Pikachu) into vBackPic + tilemap ---
 	ld a, PIKACHU
+	ld [wd0b5], a
 	ld [wcf91], a
 	ld [wBattleMonSpecies], a
 	ld [wBattleMonSpecies2], a
