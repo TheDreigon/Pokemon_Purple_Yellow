@@ -1007,9 +1007,14 @@ PoisonGasAnim:
 	db -1 ; end
 
 HazeAnim:
+	; Mental image: thick gaseous cloud obscuring vision — target's
+	; accuracy drops permanently (signature). Distinct from SMOG (single
+	; puff at low BP) and POISON_GAS (lighter, status only). Was using
+	; water droplets which was nonsensical for a gas attack.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim HYDRO_PUMP, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim HAZE, SUBANIM_1_CLOUD_TOSS, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_CLOUD_TOSS, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
