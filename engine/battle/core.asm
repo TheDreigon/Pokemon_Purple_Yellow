@@ -3178,7 +3178,7 @@ SelectEnemyMove:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	jr .done
+	jp .done                ; v0.7: was `jr` but .done moved further away with the PP-aware additions
 .noLinkBattle
 	ld a, [wEnemyBattleStatus2]
 	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; need to recharge or using rage
@@ -3200,6 +3200,21 @@ SelectEnemyMove:
 	ld a, $ff
 	jr .done
 .canSelectMove
+	; v0.7 (AI PP fix): if every enemy move slot has 0 PP, force Struggle.
+	; OR over the 4 PP bytes, mask out the 2 PP-up bits so we look only
+	; at remaining PP. Mirrors AnyMoveToSelect's logic for the player.
+	ld hl, wEnemyMonPP
+	ld a, [hli]
+	or [hl]
+	inc hl
+	or [hl]
+	inc hl
+	or [hl]
+	and $3f
+	jr nz, .atLeastOneMoveHasPP
+	ld a, STRUGGLE
+	jr .done
+.atLeastOneMoveHasPP
 	ld hl, wEnemyMonMoves+1 ; 2nd enemy move
 	ld a, [hld]
 	and a
@@ -3233,6 +3248,20 @@ SelectEnemyMove:
 	ld a, b
 	dec a
 	ld [wEnemyMoveListIndex], a
+	; v0.7 (AI PP fix): if the picked move has 0 PP, retry. The PP-empty
+	; pre-check above guarantees at least one move has PP, so the retry
+	; loop terminates.
+	push hl
+	push bc
+	ld c, a
+	ld b, 0
+	ld hl, wEnemyMonPP
+	add hl, bc
+	ld a, [hl]
+	and $3f
+	pop bc
+	pop hl
+	jr z, .chooseRandomMove ; out of PP, retry
 	ld a, [wEnemyDisabledMove]
 	swap a
 	and $f
@@ -5803,6 +5832,15 @@ EnemyCanExecuteMove:
 	xor a
 	ld [wMonIsDisobedient], a
 	call PrintMonName1Text
+	; v0.7: AI PP fix. Mirror the player's DecrementPP call in
+	; PlayerCanExecuteMove. Vanilla Yellow simply never decremented
+	; enemy PP (effectively infinite). Now the AI plays by the same
+	; rules — see DecrementEnemyPP in engine/battle/decrement_pp.asm
+	; and the PP-aware path in SelectEnemyMove.
+	ld hl, DecrementEnemyPP
+	ld de, wEnemySelectedMove
+	ld b, BANK(DecrementEnemyPP)
+	call Bankswitch
 	ld a, [wEnemyMoveEffect]
 	ld hl, ResidualEffects1
 	ld de, $1
