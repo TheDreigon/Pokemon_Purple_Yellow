@@ -245,7 +245,7 @@ Moves: ; Current total = 220
 
 
 	; === BIRD TYPE (51 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
-	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. v0.7: ~33% chance random {paralyze/burn/freeze}.
+	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~33% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
 	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
