@@ -43,6 +43,17 @@ IF DEF(_DEBUG)
 	jr nz, .waitMusicStop
 	call StopAllSounds
 
+	; --- Point the audio engine at the battle SFX bank (Audio2) ---
+	; PlaySound dispatches to one of four audio engines based on
+	; wAudioROMBank. Battle SFX (SFX_Battle_*, SFX_Pound, etc.) only
+	; exist in audio bank 2's SFX_Headers_2. If wAudioROMBank still
+	; points at the title-screen music's bank when MoveAnimation calls
+	; PlaySound, the engine picks Audio1_PlaySound and looks up the
+	; SFX index in SFX_Headers_1 — which has zero battle SFX, so the
+	; index lands on instrument/music data and the wrong sound plays.
+	ld a, BANK(Audio2_PlaySound)
+	ld [wAudioROMBank], a
+
 	; --- Setup screen + battle UI tiles ---
 	call ClearScreen
 	call ClearSprites
