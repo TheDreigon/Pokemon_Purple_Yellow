@@ -164,14 +164,25 @@ IF DEF(_DEBUG)
 	call AnimTest_DrawPlayHeader
 
 	; Inter-loop pause, ~30 frames (~0.5s) at 60Hz, polling input.
-	; Was 60 (~1s); shorter feels snappier when cycling moves with L/R.
+	; v0.7: switched from JoypadLowSensitivity/hJoy5 to plain Joypad/hJoyHeld.
+	; Reason: JoypadLowSensitivity reads hJoyPressed (edge-triggered, set
+	; only on the single frame a button transitions from released to held)
+	; AND has a 30-frame deadband after any registered press. During an
+	; animation (1s+), DelayFrame is called repeatedly inside MoveAnimation,
+	; refreshing Joypad each frame and clearing hJoyPressed the frame after
+	; it was set. So any tap that happens DURING the animation is lost
+	; before the pause loop runs — the user has to time their press exactly
+	; into the 30-frame pause window AND hit just on the first frame.
+	; Reading hJoyHeld instead means: any frame the button is being held
+	; during the pause window registers. Hold L/R briefly and the next
+	; move plays. Much more forgiving.
 	ld c, 30
 .pauseFrame
 	push bc
 	call DelayFrame
-	call JoypadLowSensitivity
+	call Joypad
 	pop bc
-	ldh a, [hJoy5]
+	ldh a, [hJoyHeld]
 	bit BIT_B_BUTTON, a
 	jp nz, .listView                   ; B in PLAY = back to LIST
 	bit BIT_D_LEFT, a
