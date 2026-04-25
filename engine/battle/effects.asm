@@ -245,13 +245,28 @@ FreezeBurnParalyzeEffect:
 	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze1
 ; .paralyze1
-	; v0.7: ELECTRIC defenders are immune to paralysis.
+	; v0.7: ELECTRIC defenders are immune to paralysis (any source).
 	ld a, [wEnemyMonType1]
 	cp ELECTRIC
 	ret z
 	ld a, [wEnemyMonType2]
 	cp ELECTRIC
 	ret z
+	; v0.7: GROUND defenders are immune to ELECTRIC moves entirely, so
+	; the paralyze side-effect of Electric attacks (Thundershock, etc.)
+	; doesn't apply to them. Non-Electric paralyze moves (Body Slam,
+	; Lick, ...) still affect Ground-types — they're only immune to
+	; Electric, not to paralysis in general.
+	ld a, [wPlayerMoveType]
+	cp ELECTRIC
+	jr nz, .applyParalyze1
+	ld a, [wEnemyMonType1]
+	cp GROUND
+	ret z
+	ld a, [wEnemyMonType2]
+	cp GROUND
+	ret z
+.applyParalyze1
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
 	call HalveSpeedDueToParalysis ; halve speed of affected mon
@@ -330,13 +345,25 @@ FreezeBurnParalyzeEffect:
 	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze2
 ; .paralyze2
-	; v0.7: ELECTRIC defenders are immune to paralysis (player side).
+	; v0.7: ELECTRIC defenders are immune to paralysis (any source).
 	ld a, [wBattleMonType1]
 	cp ELECTRIC
 	ret z
 	ld a, [wBattleMonType2]
 	cp ELECTRIC
 	ret z
+	; v0.7: GROUND defenders are immune to ELECTRIC moves entirely
+	; (player side; mirror of .paralyze1).
+	ld a, [wEnemyMoveType]
+	cp ELECTRIC
+	jr nz, .applyParalyze2
+	ld a, [wBattleMonType1]
+	cp GROUND
+	ret z
+	ld a, [wBattleMonType2]
+	cp GROUND
+	ret z
+.applyParalyze2
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
 	call HalveSpeedDueToParalysis
