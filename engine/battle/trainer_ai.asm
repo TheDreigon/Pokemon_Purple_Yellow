@@ -1099,6 +1099,9 @@ Rival3AI:
 
 ; ---- Bosses promoted in v0.6 / v0.7 (no vanilla AI body) ----
 
+; Prof Oak: ultimate post-game boss. Heals at HP < 1/2 (same earlier
+; threshold as Giovanni; gym/E4 use 1/3) — FR fully restores anyway, no
+; reason to wait until 1/3 and risk a one-shot crit.
 ProfOakAI:
 	farcall IsHardModeBossBattle
 	ret z
@@ -1589,6 +1592,11 @@ UndoBurnParStats:
 ; an uninitialised bag (e.g. wMiscBattleData zeroed but InitEnemyTrainerItem
 ; Bag never ran). Today every caller is gated by IsHardModeBossBattle and
 ; the init runs before any AI tick, but the bound is cheap insurance.
+;
+; Sentinel value -1 ($FF) for the item_id slot marks the end of the bag.
+; This collides numerically with TM55 ($C9 + 54 = $FF) but TMs are not
+; AI-usable items (no AIUse* handler exists for them), so adding a TM to
+; a boss bag would already be broken upstream. Don't.
 ;
 ; Input:   a = item_id to consume
 ; Output:  carry = 1 → item was available and is now consumed
