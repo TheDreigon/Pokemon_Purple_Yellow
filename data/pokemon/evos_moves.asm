@@ -730,7 +730,7 @@ TangelaEvosMoves:
 	db 22, GROWTH
 	db 28, MEGA_DRAIN
 	db 34, BIND
-	db 40, ENTANGLE
+	db 40, STRING_SHOT
 	db 47, GIGA_DRAIN
 	db 60, RECOVER
 	db 0

@@ -93,4 +93,6 @@ MoveEffectPointerTable:
 	dw AttackUp1Down1Effect      ; ATTACK_UP1_DOWN1_EFFECT
 	dw SpecialUp1HealEffect      ; SPECIAL_UP1_HEAL_EFFECT
 	dw TriStatusSideEffect       ; TRI_STATUS_SIDE_EFFECT
+	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT3
+	dw SpeedEvasionDown1Effect   ; SPEED_EVASION_DOWN1_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS

@@ -194,16 +194,16 @@ AttackAnimationPointers:
 	dw TriAttackAnim
 	dw SwordsDanceAnim
 	dw BulkUpAnim
-	dw HoneClawsAnim
-	dw FierceRoarAnim
 	dw CoilAnim
+	dw FierceRoarAnim
+	dw HoneClawsAnim
 	dw DefenseCurlAnim
 	dw HardenAnim
 	dw WithdrawAnim
-	dw CalmMindAnim
-	dw AmnesiaAnim
 	dw GrowthAnim
+	dw CalmMindAnim
 	dw NastyPlotAnim
+	dw AmnesiaAnim
 	dw QuiverDanceAnim
 	dw TailwindAnim
 	dw AgilityAnim
@@ -211,20 +211,20 @@ AttackAnimationPointers:
 	dw TeleportAnim
 	dw CharmAnim
 	dw IntimidateAnim
-	dw LeerAnim
 	dw GrowlAnim
+	dw LeerAnim
 	dw CorrodeAnim
-	dw TailWhipAnim
 	dw TauntAnim
 	dw TickleAnim
+	dw TailWhipAnim
 	dw FakeTearsAnim
 	dw MetalSoundAnim
 	dw ScreechAnim
 	dw EerieImpulseAnim
 	dw ScaryFaceAnim
-	dw EntangleAnim
-	dw PsychicBindAnim
 	dw HinderAnim
+	dw StringShotAnim
+	dw PsychicBindAnim
 	dw FlashAnim
 	dw SandAttackAnim
 	dw SmokescreenAnim
@@ -2044,16 +2044,19 @@ ScaryFaceAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-EntangleAnim:
-	battle_anim ENTANGLE, SUBANIM_0_BIND, 0, 6
-	battle_anim ENTANGLE, SUBANIM_0_BIND, 0, 6
+StringShotAnim:
+	; Mental image: sticky silk shot at the target's legs — single
+	; thread blast, target slows (-1 spd). Quick, NOT the sustained
+	; crush of BIND/CONSTRICT. Uses the engine's dedicated STRING_SHOT
+	; subanim that was sitting unused since the move was repurposed.
+	battle_anim STRING_SHOT, SUBANIM_0_STRING_SHOT, 0, 6
 	db -1 ; end
 
 PsychicBindAnim:
 	; Mental image: invisible psychic threads holding the target's
-	; muscles still — wavy distortion sells "you're being held by
-	; something you can't see". Distinct from ENTANGLE (physical
-	; netting) and HINDER (mundane obstruction).
+	; muscles still AND blurring its perception — wavy distortion plus
+	; the bind. -1 spd AND -1 evasion (v0.7 new effect). Distinct from
+	; STRING_SHOT (physical thread) and HINDER (mundane obstruction).
 	battle_anim PSYCHIC_BIND, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
 	battle_anim NO_MOVE, SE_WAVY_SCREEN

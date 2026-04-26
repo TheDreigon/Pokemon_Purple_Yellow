@@ -41,7 +41,7 @@ ExclamationPointMoveSets:
 	db PECK
 	db STRENGTH
 	db ABSORB
-	db ENTANGLE ; replaces removed STRING_SHOT
+	db STRING_SHOT
 	db EARTHQUAKE
 	db FISSURE
 	db DIG

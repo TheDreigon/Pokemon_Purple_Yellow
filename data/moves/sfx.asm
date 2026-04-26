@@ -202,16 +202,16 @@ MoveSoundTable:
 	db SFX_BATTLE_29,          $f8, $ff ; TRI_ATTACK
 	db SFX_NOT_VERY_EFFECTIVE, $10, $c0 ; SWORDS_DANCE
 	db SFX_BATTLE_09,          $35, $c0 ; BULK_UP
-	db SFX_BATTLE_0F,          $20, $a0 ; HONE_CLAWS ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; cut SFX at high pitch reads as claw-on-claw sharpening.
-	db SFX_BATTLE_0B,          $10, $a0 ; FIERCE_ROAR
 	db SFX_BATTLE_14,          $15, $80 ; COIL
+	db SFX_BATTLE_0B,          $10, $a0 ; FIERCE_ROAR
+	db SFX_BATTLE_0F,          $20, $a0 ; HONE_CLAWS ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; cut SFX at high pitch reads as claw-on-claw sharpening.
 	db SFX_BATTLE_32,          $40, $c0 ; DEFENSE_CURL
 	db SFX_BATTLE_14,          $11, $20 ; HARDEN
 	db SFX_BATTLE_14,          $33, $30 ; WITHDRAW
-	db SFX_BATTLE_25,          $20, $e0 ; CALM_MIND
-	db SFX_BATTLE_09,          $f8, $10 ; AMNESIA
 	db SFX_BATTLE_25,          $11, $e0 ; GROWTH
+	db SFX_BATTLE_25,          $20, $e0 ; CALM_MIND
 	db SFX_BATTLE_25,          $30, $e0 ; NASTY_PLOT
+	db SFX_BATTLE_09,          $f8, $10 ; AMNESIA
 	db SFX_BATTLE_09,          $50, $c0 ; QUIVER_DANCE ; v0.7 reviewed: was FAINT_FALL; sparkly tone fits the fluttery dance.
 	db SFX_BATTLE_12,          $30, $c0 ; TAILWIND ; v0.7 reviewed: was FAINT_FALL; literal wind SFX matches the tornado anim.
 	db SFX_BATTLE_25,          $20, $c0 ; AGILITY ; v0.7 reviewed: was FAINT_FALL; dash/zoom SFX fits the speed-shake anim.
@@ -219,20 +219,20 @@ MoveSoundTable:
 	db SFX_BATTLE_33,          $f0, $c0 ; TELEPORT
 	db SFX_BATTLE_09,          $20, $c0 ; CHARM ; v0.7 reviewed: was BATTLE_0B (growl-like); sparkle-tone SFX matches the heart-music visual.
 	db SFX_BATTLE_0B,          $30, $c0 ; INTIMIDATE
-	db SFX_BATTLE_31,          $ff, $40 ; LEER
 	db SFX_BATTLE_0B,          $00, $c0 ; GROWL
+	db SFX_BATTLE_31,          $ff, $40 ; LEER
 	db SFX_BATTLE_2A,          $90, $c0 ; CORRODE
-	db SFX_BATTLE_21,          $00, $80 ; TAIL_WHIP
 	db SFX_BATTLE_31,          $10, $80 ; TAUNT
 	db SFX_BATTLE_21,          $10, $80 ; TICKLE
+	db SFX_BATTLE_21,          $00, $80 ; TAIL_WHIP
 	db SFX_BATTLE_35,          $20, $40 ; FAKE_TEARS
 	db SFX_BATTLE_31,          $20, $80 ; METAL_SOUND
 	db SFX_BATTLE_31,          $00, $80 ; SCREECH
 	db SFX_BATTLE_2F,          $40, $60 ; EERIE_IMPULSE
 	db SFX_BATTLE_31,          $30, $80 ; SCARY_FACE
-	db SFX_BATTLE_1B,          $02, $a0 ; ENTANGLE
-	db SFX_PSYCHIC_M,          $30, $80 ; PSYCHIC_BIND
 	db SFX_BATTLE_14,          $20, $80 ; HINDER
+	db SFX_BATTLE_1B,          $02, $a0 ; STRING_SHOT ; v0.7: was ENTANGLE (-2 spd custom). Restored canon STRING_SHOT (-1 spd, 30 PP).
+	db SFX_PSYCHIC_M,          $30, $80 ; PSYCHIC_BIND
 	db SFX_BATTLE_13,          $f8, $ff ; FLASH
 	db SFX_BATTLE_1B,          $01, $a0 ; SAND_ATTACK
 	db SFX_BATTLE_1B,          $f1, $ff ; SMOKESCREEN

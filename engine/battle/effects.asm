@@ -1434,6 +1434,7 @@ ConfusionSideEffect:
 ; PURPLE YELLOW v0.5: tiered confusion side effect.
 ; CONFUSION_SIDE_EFFECT1 = 15% (default tier).
 ; CONFUSION_SIDE_EFFECT2 = 30% (Hurricane, Spore Daze).
+; CONFUSION_SIDE_EFFECT3 = 50% (v0.7 — new Psychic, heaviest tier).
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveEffect]
@@ -1443,7 +1444,10 @@ ConfusionSideEffect:
 	cp CONFUSION_SIDE_EFFECT1
 	ld b, 15 percent + 1
 	jr z, .rollChance
+	cp CONFUSION_SIDE_EFFECT2
 	ld b, 30 percent + 1
+	jr z, .rollChance
+	ld b, 50 percent + 1   ; CONFUSION_SIDE_EFFECT3
 .rollChance
 	call BattleRandom
 	cp b
@@ -1482,6 +1486,8 @@ ConfusionSideEffectSuccess:
 	cp CONFUSION_SIDE_EFFECT1
 	jr z, .skipAnim
 	cp CONFUSION_SIDE_EFFECT2
+	jr z, .skipAnim
+	cp CONFUSION_SIDE_EFFECT3
 	call nz, PlayCurrentMoveAnimation2
 .skipAnim
 	ld hl, BecameConfusedText
@@ -1492,9 +1498,14 @@ BecameConfusedText:
 	text_end
 
 ConfusionEffectFailed:
+	; Side-effect tiers (1/2/3) are silent on miss — only ConfusionEffect
+	; (the dedicated, never-side-effect move like Confuse Ray) prints
+	; "but it failed".
 	cp CONFUSION_SIDE_EFFECT1
 	ret z
 	cp CONFUSION_SIDE_EFFECT2
+	ret z
+	cp CONFUSION_SIDE_EFFECT3
 	ret z
 	ld c, 50
 	call DelayFrames
@@ -1980,6 +1991,36 @@ SpecialSpeedDown1Effect:
 	call StatModifierDownEffect
 	pop de
 	ld a, SPECIAL_SPEED_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpeedEvasionDown1Effect:
+; Dual-stat -1 on the target (Speed + Evasion). Used by PSYCHIC_BIND (v0.7).
+; Mirrors SpeedEvasionUp1Effect (Agility) but in the down direction —
+; same "spoof effect, call StatModifierDownEffect twice, restore" pattern
+; as SpecialSpeedDown1Effect / AccuracyEvasionDown1Effect above.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr7
+	ld de, wEnemyMoveEffect
+.gotEffectPtr7
+	push de
+	ld a, SPEED_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	xor a
+	ld [wMoveMissed], a ; reset miss flag between legs (each leg rolls independently)
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, EVASION_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	ld a, SPEED_EVASION_DOWN1_EFFECT
 	ld [de], a
 	ret
 

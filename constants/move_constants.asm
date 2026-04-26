@@ -223,19 +223,23 @@
 	const HYDRO_PUMP
 
 ; === BIRD (typeless / status moves) ===
+; v0.7 reorder: groups now flow ATK-buffs / DEF-buffs / SPC-buffs / SPD-buffs
+; / EVA-buffs / ATK-debuffs / DEF-debuffs / SPC-debuffs / SPD-debuffs / ACC-
+; debuffs / heals / screens / utility, in that intra-group order. Replaces
+; ENTANGLE (custom -2 spd, 15 PP) with STRING_SHOT (canon -1 spd, 30 PP).
 	const TRI_ATTACK
 	const SWORDS_DANCE
 	const BULK_UP
-	const HONE_CLAWS
-	const FIERCE_ROAR
 	const COIL
+	const FIERCE_ROAR
+	const HONE_CLAWS
 	const DEFENSE_CURL
 	const HARDEN
 	const WITHDRAW
-	const CALM_MIND
-	const AMNESIA
 	const GROWTH
+	const CALM_MIND
 	const NASTY_PLOT
+	const AMNESIA
 	const QUIVER_DANCE
 	const TAILWIND
 	const AGILITY
@@ -243,20 +247,20 @@
 	const TELEPORT
 	const CHARM
 	const INTIMIDATE
-	const LEER
 	const GROWL
+	const LEER
 	const CORRODE
-	const TAIL_WHIP
 	const TAUNT
 	const TICKLE
+	const TAIL_WHIP
 	const FAKE_TEARS
 	const METAL_SOUND
 	const SCREECH
 	const EERIE_IMPULSE
 	const SCARY_FACE
-	const ENTANGLE
-	const PSYCHIC_BIND
 	const HINDER
+	const STRING_SHOT
+	const PSYCHIC_BIND
 	const FLASH
 	const SAND_ATTACK
 	const SMOKESCREEN

@@ -97,4 +97,6 @@
 	const ATTACK_UP1_DOWN1_EFFECT    ; $5A  user Atk+1 / target Atk-1 (Fierce Roar)
 	const SPECIAL_UP1_HEAL_EFFECT    ; $5B  user Spc+1 + heal 1/4 max HP (Growth)
 	const TRI_STATUS_SIDE_EFFECT     ; $5C  ~33% to inflict random {par/brn/frz}, ~11% each (Tri Attack)
+	const CONFUSION_SIDE_EFFECT3     ; $5D  50% confusion (new Psychic). Heaviest tier of the 15/30/50 confusion ladder.
+	const SPEED_EVASION_DOWN1_EFFECT ; $5E  target Speed-1 & Evasion-1 (new Psychic Bind). Mirror of SPEED_EVASION_UP1_EFFECT.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

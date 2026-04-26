@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/metapod.pic", 0, 1 ; sprite dimensions
 	dw MetapodPicFront, MetapodPicBack
 
-	db TACKLE, HARDEN, ENTANGLE, NO_MOVE ; level 1 learnset
+	db TACKLE, HARDEN, STRING_SHOT, NO_MOVE ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset

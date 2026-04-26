@@ -159,8 +159,8 @@ Moves: ; Current total = 220
 	move ICY_WIND,       SPEED_DOWN_SIDE_EFFECT,           50, ICE,          100, 30 ; new move.
 	move AURORA_BEAM,    ATTACK_DOWN_SIDE_EFFECT,          65, ICE,          100, 25
 	move FROST_BREATH,   SPEED_DOWN1_EFFECT,               80, ICE,          100, 20 ; new move.
-	move ICE_BEAM,       FREEZE_SIDE_EFFECT1,              95, ICE,          100, 15
-	move BLIZZARD,       FREEZE_SIDE_EFFECT2,             115, ICE,           85, 10
+	move ICE_BEAM,       FREEZE_SIDE_EFFECT1,              95, ICE,          100, 15 ; new effect.
+	move BLIZZARD,       FREEZE_SIDE_EFFECT2,             115, ICE,           85, 10 ; new effect.
 
 
 	; === MAGMA TYPE (2 moves) === ; new type
@@ -175,7 +175,7 @@ Moves: ; Current total = 220
 	move TACKLE,         NO_ADDITIONAL_EFFECT,             40, NORMAL,       100, 30
 	move BITE,           FLINCH_SIDE_EFFECT1,              45, NORMAL,       100, 30
 	move QUICK_ATTACK,   NO_ADDITIONAL_EFFECT,             50, NORMAL,       100, 20 ; priority move.
-	move HEADBUTT,       CONFUSION_SIDE_EFFECT1,           55, NORMAL,       100, 25
+	move HEADBUTT,       CONFUSION_SIDE_EFFECT1,           55, NORMAL,       100, 25 ; new effect.
 	move HORN_ATTACK,    FLINCH_SIDE_EFFECT1,              60, NORMAL,       100, 25
 	move SLASH,          NO_ADDITIONAL_EFFECT,             65, NORMAL,       100, 20 ; high-crit.
 	move BODY_SLAM,      PARALYZE_SIDE_EFFECT1,            70, NORMAL,        95, 20
@@ -207,7 +207,7 @@ Moves: ; Current total = 220
 	move CONFUSION,      CONFUSION_SIDE_EFFECT1,           45, PSYCHIC_TYPE, 100, 30
 	move EXTRASENSORY,   SWIFT_EFFECT,                     60, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         75, PSYCHIC_TYPE, 100, 20
-	move PSYCHIC_M,      SPECIAL_DOWN1_EFFECT,             95, PSYCHIC_TYPE, 100, 15
+	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
 	move MIND_BREAK,     PARALYZE_EFFECT,                 125, PSYCHIC_TYPE,  90, 10 ; signature.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
@@ -238,7 +238,7 @@ Moves: ; Current total = 220
 	move WATER_GUN,      NO_ADDITIONAL_EFFECT,             35, WATER,        100, 35
 	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. almost-signature. priority move.
 	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           50, WATER,        100, 30
-	move WATER_PULSE,    CONFUSION_SIDE_EFFECT1,           65, WATER,        100, 25 ; new move.
+	move WATER_PULSE,    CONFUSION_SIDE_EFFECT1,           65, WATER,        100, 25 ; new move. new effect.
 	move WATERFALL,      FLINCH_SIDE_EFFECT1,              80, WATER,        100, 20
 	move SURF,           SPEED_DOWN_SIDE_EFFECT,           95, WATER,        100, 15
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
@@ -249,9 +249,9 @@ Moves: ; Current total = 220
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
 	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
-	move HONE_CLAWS,     ATTACK_ACCURACY_UP1_EFFECT,        0, BIRD,         100, 25 ; new move. new effect.
-	move FIERCE_ROAR,    ATTACK_UP1_DOWN1_EFFECT,           0, BIRD,         100, 25 ; new move. new effect.
 	move COIL,           ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
+	move FIERCE_ROAR,    ATTACK_UP1_DOWN1_EFFECT,           0, BIRD,         100, 25 ; new move. new effect.
+	move HONE_CLAWS,     ATTACK_ACCURACY_UP1_EFFECT,        0, BIRD,         100, 25 ; new move. new effect.
 
 	move DEFENSE_CURL,   DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
@@ -259,8 +259,8 @@ Moves: ; Current total = 220
 
 	move GROWTH,         SPECIAL_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect.
 	move CALM_MIND,      SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
-	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 
 	move QUIVER_DANCE,   SPEED_UP1_EFFECT,                  0, BIRD,         100, 35 ; new move.
 	move TAILWIND,       SPEED_UP1_EFFECT,                  0, BIRD,         100, 35 ; new move.
@@ -270,26 +270,27 @@ Moves: ; Current total = 220
 	move DOUBLE_TEAM,    EVASION_UP1_EFFECT,                0, BIRD,         100, 20
 	move TELEPORT,       EVASION_UP1_EFFECT,                0, BIRD,         100, 20
 
-	move CHARM,          ATTACK_DOWN2_EFFECT,               0, BIRD,         100, 20 ; new move.
-	move INTIMIDATE,     ATTACK_DOWN2_EFFECT,               0, BIRD,         100, 20 ; new move.
-	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
+	move CHARM,          ATTACK_DOWN2_EFFECT,               0, BIRD,          90, 20 ; new move.
+	move INTIMIDATE,     ATTACK_DOWN2_EFFECT,               0, BIRD,          90, 20 ; new move.
 	move GROWL,          ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
+	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
-	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,         100, 20 ; new move. signature.
-	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
+	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. signature.
 	move TAUNT,          DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
 	move TICKLE,         DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
+	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
-	move FAKE_TEARS,     SPECIAL_DOWN2_EFFECT,              0, BIRD,         100, 15 ; new move.
-	move METAL_SOUND,    SPECIAL_DOWN2_EFFECT,              0, BIRD,         100, 15 ; new move. signature.
+	move FAKE_TEARS,     SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move.
+	move METAL_SOUND,    SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move. signature.
 	move SCREECH,        SPECIAL_DOWN1_EFFECT,              0, BIRD,         100, 30
 
-	move EERIE_IMPULSE,  SPECIAL_SPEED_DOWN1_EFFECT,        0, BIRD,         100, 15 ; new move. new effect.
+	move EERIE_IMPULSE,  SPECIAL_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
 
-	move SCARY_FACE,     SPEED_DOWN2_EFFECT,                0, BIRD,         100, 15 ; new move.
-	move ENTANGLE,       SPEED_DOWN2_EFFECT,                0, BIRD,         100, 15 ; new move.
-	move PSYCHIC_BIND,   SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move SCARY_FACE,     SPEED_DOWN2_EFFECT,                0, BIRD,          90, 20 ; new move.
 	move HINDER,         SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move STRING_SHOT,    SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30
+
+	move PSYCHIC_BIND,   SPEED_EVASION_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
 
 	move FLASH,          ACCURACY_EVASION_DOWN1_EFFECT,     0, BIRD,         100, 15
 	move SAND_ATTACK,    ACCURACY_DOWN1_EFFECT,             0, BIRD,         100, 20
@@ -297,7 +298,7 @@ Moves: ; Current total = 220
 
 	move RECOVER,        HEAL_EFFECT,                       0, BIRD,         100, 20
 	move REST,           HEAL_EFFECT,                       0, BIRD,         100, 20
-	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 20 ; signature. also acts as Full Heal now.
+	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 20 ; signature.
 
 	move LIGHT_SCREEN,   LIGHT_SCREEN_EFFECT,               0, BIRD,         100, 30
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
