@@ -389,9 +389,9 @@ SilphCo11FScript11:
 	ld hl, SilphCo11FText_624c2
 	ld de, SilphCo11FText_624c2
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES ; v0.7: was OPP_ROCKET / party $2d — promoted to dedicated boss class
 	ld [wCurOpponent], a
-	ld a, $2d
+	ld a, $4
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a

@@ -332,9 +332,9 @@ MtMoonB2FScript12:
 	ld hl, MtMoonB2FJessieJamesEndBattleText
 	ld de, MtMoonB2FJessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES ; v0.7: was OPP_ROCKET / party $2a — promoted to dedicated boss class
 	ld [wCurOpponent], a
-	ld a, $2a
+	ld a, $1
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a

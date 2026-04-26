@@ -55,4 +55,5 @@ TrainerAIPointers:
 	dbw 3, GenericAI ; janine
 	dbw 3, GenericAI ; joy
 	dbw 3, GenericAI ; jenny
+	dbw 2, GenericAI ; Jessie & James (boss-tier; 4-layer AI applied via move_choices, item-use rate ~2/mon mirrors Bruno/Koga/Lorelei)
 	assert_table_length NUM_TRAINERS

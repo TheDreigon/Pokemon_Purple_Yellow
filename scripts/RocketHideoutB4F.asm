@@ -208,9 +208,9 @@ RocketHideoutB4FScript10:
 	ld hl, RocketHideoutB4FJessieJamesEndBattleText
 	ld de, RocketHideoutB4FJessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES ; v0.7: was OPP_ROCKET / party $2b — promoted to dedicated boss class
 	ld [wCurOpponent], a
-	ld a, $2b
+	ld a, $2
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a

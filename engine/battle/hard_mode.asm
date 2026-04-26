@@ -71,6 +71,7 @@ BossTrainerClasses::
 	db GIOVANNI
 	db JANINE
 	db JENNY
+	db JESSIE_AND_JAMES         ; Team Rocket duo (4 fights, mid-game)
 	db JOY
 	db KOGA
 	db LANCE
