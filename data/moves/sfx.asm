@@ -42,15 +42,15 @@ MoveSoundTable:
 	db SFX_BATTLE_2F,          $20, $80 ; THUNDERBOLT
 	db SFX_BATTLE_29,          $f0, $40 ; THUNDER ; v0.7 reviewed: was BATTLE_26; deep boom at low pitch sells the 115 BP thunder strike better than the generic crash.
 	db SFX_BATTLE_2E,          $12, $60 ; THUNDER_WAVE
-	db SFX_BATTLE_2F,          $30, $20 ; VOLT_TACKLE
+	db SFX_BATTLE_2F,          $50, $20 ; VOLT_TACKLE ; Forte feedback #13: "som um pouco menos grave". Pitch raised $30→$50.
 ; === FAIRY ===
 	db SFX_DOUBLESLAP,         $00, $80 ; DOUBLESLAP
 	db SFX_BATTLE_12,          $00, $80 ; FAIRY_WIND
 	db SFX_BATTLE_24,          $20, $80 ; DRAINING_KISS
 	db SFX_BATTLE_28,          $20, $60 ; DAZZLE_GLEAM
-	db SFX_BATTLE_26,          $10, $80 ; PLAY_ROUGH
+	db SFX_BATTLE_26,          $40, $80 ; PLAY_ROUGH ; Forte feedback #16: "som menos grave". Pitch raised $10→$40.
 	db SFX_BATTLE_28,          $f8, $40 ; MOONBLAST ; v0.7 reviewed: lowered pitch ($30→$f8 ~ -2 oct) + slower tempo for 180 BP charge weight.
-	db SFX_BATTLE_09,          $88, $10 ; LOVELY_KISS
+	db SFX_BATTLE_09,          $30, $80 ; LOVELY_KISS ; Forte feedback #18: "som mais cute". Higher pitch ($88→$30) + longer tempo ($10→$80) for the affectionate sparkle.
 	db SFX_BATTLE_35,          $00, $80 ; SING
 ; === FIGHTING ===
 	db SFX_BATTLE_26,          $01, $60 ; SEISMIC_TOSS

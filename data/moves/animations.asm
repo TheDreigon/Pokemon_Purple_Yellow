@@ -617,18 +617,25 @@ ThunderboltAnim:
 	db -1 ; end
 
 ThunderAnim:
+	; Forte feedback #11: "podia ter uma animação um toque mais duradoura".
+	; Added second lightning bolt + delay between flashes for sustained
+	; storm feel. 115 BP top-tier electric.
 	battle_anim THUNDER, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 4
 	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ThunderWaveAnim:
-	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 2
-	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 2
-	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 2
+	; Forte feedback #12: trovão (lightning ball) menos duradouro,
+	; constrict (bind) um pouco mais. Lightning delay 2→1, binds 2→6.
+	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 6
+	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 6
 	db -1 ; end
 
 VoltTackleAnim:
@@ -650,8 +657,14 @@ DoubleSlapAnim:
 	db -1 ; end
 
 FairyWindAnim:
+	; Forte feedback #14: "mais angelical, entre Gust e Sweet Scent".
+	; Tornado kept (it IS wind) but layered with sparkly stars + heart-
+	; music for the magical/affectionate undercurrent. Distinct now from
+	; GUST (just tornado, abrasive).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim FAIRY_WIND, SUBANIM_1_TORNADO, 1, 6
+	battle_anim NO_MOVE, SUBANIM_0_HEART_1_MUSIC, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -664,8 +677,14 @@ DrainingKissAnim:
 	db -1 ; end
 
 DazzleGleamAnim:
+	; Forte feedback #15: was "buggado" — after the beam, visual ended
+	; but SFX kept ringing in silence (~"som a repetir-se"). Now adds
+	; sustained flash + sparkly stars between beam and reset, so the
+	; long DAZZLE_GLEAM SFX always has visual to match.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim DAZZLE_GLEAM, SUBANIM_0_BEAM, 0, 4
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -681,15 +700,17 @@ PlayRoughAnim:
 	db -1 ; end
 
 MoonblastAnim:
-	; v0.7 reviewed (180 BP, CHARGE_EFFECT): added explicit charge phase
-	; — moon energy gathering — before payload. 180 BP needs buildup
-	; readability matching SOLARBEAM's pattern.
+	; Forte feedback #17: same "buggado" issue as Dazzle Gleam — visual
+	; gap mid-anim with SFX still ringing. Restructured: removed the
+	; orphan DARK_SCREEN_FLASH between beam and star, swapped order so
+	; the BIG star plays continuous against the beam tail, and added
+	; long flash before shake to fill the SFX.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim MOONBLAST, SUBANIM_0_BEAM, 0, 5
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
