@@ -63,7 +63,7 @@ MoveSoundTable:
 	db SFX_BATTLE_26,          $20, $40 ; STRENGTH
 	db SFX_BATTLE_18,          $00, $a0 ; TAKE_DOWN ; v0.7 reviewed: was SUPER_EFFECTIVE (clean BAM); heavy thud reads as the body-mass tackle that lowers user's def.
 	db SFX_BATTLE_17,          $10, $a0 ; LEEK_STRIKE
-	db SFX_BATTLE_09,          $ff, $04 ; DIZZY_PUNCH ; v0.7 reviewed: was FAINT_FALL; high-pitch sparkle reads as the dizzy/woozy effect.
+	db SFX_BATTLE_09,          $40, $40 ; DIZZY_PUNCH ; Forte feedback #26: irritante. Pitch lowered $ff→$40 + tempo $04→$40 for a less piercing dizzy tone.
 	db SFX_BATTLE_17,          $10, $80 ; ROLLING_KICK ; v0.7 reviewed: was BATTLE_21 (whip); proper kick SFX matches the visual + DOUBLE_KICK family.
 	db SFX_BATTLE_23,          $01, $c0 ; SUBMISSION
 	db SFX_BATTLE_0C,          $00, $a0 ; SKY_UPPERCUT

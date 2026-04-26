@@ -742,7 +742,10 @@ SingAnim:
 ; ============================================================
 
 SeismicTossAnim:
-	battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
+	; Forte feedback #19: pequeno som na fase em que o oponente pisca
+	; (the grab). WRAP plays the squeeze SFX (BATTLE_14) which fits a
+	; pickup-and-grapple. First line gains audio without changing visual.
+	battle_anim WRAP, SE_BLINK_ENEMY_MON
 	battle_anim FURY_ATTACK, SUBANIM_1_SPHERE_BIG, 1, 1
 	battle_anim NO_MOVE, SE_HIDE_ENEMY_MON_PIC
 	battle_anim NO_MOVE, SE_SLIDE_MON_OFF
@@ -766,9 +769,16 @@ CometPunchAnim:
 	db -1 ; end
 
 LowKickAnim:
+	; Forte feedback #20: more like a "rasteira vigarista" — sneaky
+	; sweep that drops the target. Engine has no leg-sweep primitive.
+	; Approximate: quick approach + SLIDE_MON_OFF (target loses
+	; footing) + descending star (the leg sweeping low) + return.
+	; would-want: dedicated leg-sweep subanim.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim LOW_KICK, SE_SLIDE_MON_OFF
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SUBANIM_0_STAR_DESCENDING, 0, 4
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 BindAnim:
@@ -793,11 +803,10 @@ MachPunchAnim:
 	db -1 ; end
 
 KarateChopAnim:
-	; Mental image: focused martial-arts chop — measured stance, then
-	; one SHARP downward strike. High-crit signature deserves crit-flash
-	; framing + impact shake. Distinct from MACH_PUNCH (priority blur).
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 6
+	; Forte feedback #22: dark flash inicial felt out of place; chop
+	; should be FASTER (real-life karate chop is a snap, not a wind-up).
+	; Removed the dark flash, dropped delay 6→3 for the snap feel.
+	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 3
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
@@ -807,85 +816,126 @@ DoubleKickAnim:
 	db -1 ; end
 
 StrengthAnim:
-	; v0.7 reviewed (65 BP): cut leading delay, kept slam impact pattern.
-	; Pre-slide buildup reads as charging; hit + flash + shake = impact.
+	; Forte feedback #23: needs to invoke power AND the atk-up effect.
+	; Now: buff-up phase (light + spiral inward — building strength)
+	; THEN the heavy slam (added second shake for weight). The buff
+	; phase visually cues the +1 atk before the impact.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim STRENGTH, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim MAGMA_PUNCH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 TakeDownAnim:
-	; v0.7 reviewed (80 BP): added shake on impact — body-tackle that
-	; lowers def needs felt mass. The slide-off + double flash already
-	; reads as charge-then-collide; shake completes it.
+	; Forte feedback #24: was too rapid; needs the impact star toward
+	; the opponent. Now: charge slide → delay → STAR_BIG_MOVING (the
+	; impact, visible) → flash → shake → flash → reset. Slower pacing
+	; lets the hit register.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
+	battle_anim TAKE_DOWN, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 DizzyPunchAnim:
-	; Sustained spinning birdies sell the dizzy effect; the slap at the
-	; end is the punch landing.
+	; Forte feedback #26: three fixes — punch FIRST then dizzy birdies
+	; (cause then effect), punch made stronger (added BIG star + flash
+	; + shake), and SFX softened (the high-pitch tone was irritating —
+	; lowered in sfx.asm).
+	battle_anim DOUBLESLAP, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
-	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_THRICE, 0, 6
 	db -1 ; end
 
 RollingKickAnim:
-	; v0.7 reviewed (80 BP): added slide-off motion to read as the kick
-	; rolling forward, not just a generic flash.
+	; Forte feedback #27: more "impacto rolante". Mental image (Forte):
+	; Hitmonlee's long leg extending from the side. Added back-and-
+	; forth shake (rotation/wind-up) before the strike + a follow-up
+	; second impact star + shake for the rolling continuation.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
 	battle_anim ROLLING_KICK, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 3
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LeekStrikeAnim:
-	; v0.7 reviewed (65 BP, high-crit signature): added crit-flash setup
-	; — NIGHT_SLASH-style dark dip frames the precision strike.
+	; Forte feedback #25: pequeno som extra de impacto no final.
+	; Added a final TACKLE-borrowed thud + shake before reset.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LEEK_STRIKE, SUBANIM_0_SLICE, 0, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim TACKLE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SubmissionAnim:
+	; Forte feedback #28: was too weak for Machamp's signature 95 BP
+	; wrestling slam. Mental image: Machamp grabs the opponent and
+	; slams them with all four arms. Now: dark dip → slide-off (lift)
+	; → multi-hit grapple stars → first shake → flash → big slam star
+	; → second shake → final flash. Reads as sustained brutal grapple.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim SUBMISSION, SE_SLIDE_MON_OFF
-	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 12
+	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 8
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SkyUppercutAnim:
-	; v0.7 reviewed (100 BP, high-crit, hits flying): replaces placeholder.
-	; Pattern: enemy is squished/lifted (uppercut throws them up), then a
-	; rising hit, then they crash back. Mirrors SeismicToss's "lift and
-	; drop" structure, but read as a single rising punch.
+	; Forte feedback #29: "ignora a parte sky" — it's just a strong
+	; uppercut. Removed the FLY squish + balls-upward (which read as
+	; the user lifting off — wrong). Now: dark dip → user lunges in
+	; → RISING impact star (bottom-to-top via SPHERE_BIG_RISE, like
+	; Megahorn) → flash + shake. Distinct from KARATE_CHOP (which is
+	; downward chop) by the rising motion.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim SKY_UPPERCUT, SE_SQUISH_MON_PIC
-	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim SKY_UPPERCUT, SUBANIM_1_SPHERE_BIG_RISE, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HiJumpKickAnim:
-	battle_anim NO_MOVE, SE_SLIDE_MON_OFF
+	; Forte feedback #29 (dup): "demasiado weak looking, de longe.
+	; relê o quão forte o ataque é" — 110 BP high-crit signature.
+	; Now: dark palette frame, user disappears (jump up via SQUISH +
+	; balls upward), brief delay (peak of jump), CRASHING-DOWN star
+	; via STAR_BIG_MOVING + multi-flash + shake-storm. Reads as the
+	; high-altitude descent kick.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SQUISH_MON_PIC
+	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 8
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
