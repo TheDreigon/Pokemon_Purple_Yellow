@@ -18,22 +18,22 @@ MoveSoundTable:
 	db SFX_BATTLE_0F,          $20, $40 ; VICEGRIP
 	db SFX_BATTLE_1B,          $20, $c0 ; TWINEEDLE
 ; === DARK ===
-	db SFX_BATTLE_2B,          $00, $80 ; FAINT_ATTACK
+	db SFX_BATTLE_25,          $f0, $a0 ; FAINT_ATTACK ; Forte feedback #3: was BATTLE_2B (whoosh — sounded too "flying"). Dash SFX deep-pitched reads as a sneaky deceptive lunge instead of a bird swooping.
 	db SFX_BATTLE_26,          $f0, $20 ; RAGE
-	db SFX_BATTLE_0F,          $f0, $ff ; NIGHT_SLASH ; v0.7 reviewed: was NOT_VERY_EFFECTIVE (the "tink" miss sound — wrong for a connecting slash). Sharp cut at low pitch reads as a dark slashing strike.
-	db SFX_BATTLE_22,          $00, $80 ; BRUTAL_SWING
+	db SFX_BATTLE_2B,          $f0, $a0 ; NIGHT_SLASH ; Forte feedback #4: my previous BATTLE_0F (sharp cut) sounded "esquisito, nada assustador ou fixe". Dark whoosh deep-pitched reads as the sinister night-strike.
+	db SFX_BATTLE_22,          $f8, $80 ; BRUTAL_SWING ; Forte feedback #5: deeper pitch ($00→$f8 ~ -1 oct) for grave/heavy feel.
 	db SFX_PSYCHIC_M,          $20, $80 ; DARK_PULSE
-	db SFX_BATTLE_1E,          $30, $80 ; GORE_ATTACK
+	db SFX_BATTLE_1E,          $f0, $a0 ; GORE_ATTACK ; Forte feedback #6: deeper pitch + longer tempo for the brutal goring impact (paired with the reworked anim).
 	db SFX_SILPH_SCOPE,        $00, $ff ; PAY_DAY
 	db SFX_BATTLE_35,          $42, $01 ; DREAM_EATER
 	db SFX_BATTLE_31,          $09, $ff ; GLARE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; eye-piercing tone fits the predatory stare that paralyzes.
 	db SFX_BATTLE_35,          $00, $60 ; DEEP_SLEEP
 ; === DRAGON ===
 	db SFX_BATTLE_29,          $f0, $80 ; DRAGON_RAGE
-	db SFX_BATTLE_0F,          $f0, $a0 ; DRAGON_CLAW ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; deep cut SFX matches a draconic raking slash.
-	db SFX_BATTLE_19,          $f0, $40 ; DRAGON_BREATH ; v0.7 reviewed: was BATTLE_29 (boom); fire breath sound at low pitch reads as exhaled flame, not explosion.
-	db SFX_BATTLE_22,          $20, $a0 ; DRAGON_SLAM
-	db SFX_BATTLE_22,          $30, $c0 ; OUTRAGE
+	db SFX_BATTLE_2B,          $f0, $a0 ; DRAGON_CLAW ; Forte feedback #7: same problem as NIGHT_SLASH (BATTLE_0F sounded esquisito). Dark whoosh deep-pitched reads as a draconic raking slash with weight.
+	db SFX_BATTLE_19,          $f0, $ff ; DRAGON_BREATH ; Forte feedback #8: longer tempo ($40→$ff) for a sustained continuous breath sound matching the longer anim.
+	db SFX_BATTLE_22,          $f0, $c0 ; DRAGON_SLAM ; Forte feedback #9: "podia soar mais pesado, grave". Pitch dropped ($20→$f0 ~ -1.5 oct) for the felt mass.
+	db SFX_BATTLE_22,          $f8, $ff ; OUTRAGE ; Forte feedback #10: "ligeiramente mais impactante". Deeper pitch + longer tempo for the locked-in 2-3 turn rage.
 	db SFX_BATTLE_36,          $00, $80 ; HYPER_BEAM
 ; === ELECTRIC ===
 	db SFX_BATTLE_2F,          $00, $40 ; NUZZLE

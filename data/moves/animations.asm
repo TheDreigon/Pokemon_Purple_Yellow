@@ -341,7 +341,11 @@ BugBiteAnim:
 	db -1 ; end
 
 LeechLifeAnim:
+	; Forte feedback #0: "podia ter um toque extra de dor". Added enemy
+	; HUD shake on the bite + extra dark flash on the drain so each
+	; bite&suck feels painful, not clinical.
 	battle_anim LEECH_LIFE, SUBANIM_0_STAR_THRICE, 0, 8
+	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
@@ -358,15 +362,17 @@ BugBuzzAnim:
 
 MegahornAnim:
 	; Mental image (Forte): like a beetle TOSSING its opponent with its
-	; horn — launching, not perforating. Distinct from HORN_DRILL
-	; (sustained boring through). Charge step + one big horn impact +
-	; enemy visibly thrown back (star_big_toss across screen) + HUD
-	; rattle + screen shake.
+	; horn — launching upward. Forte feedback #1: the impact star should
+	; rise bottom-to-top (the launch motion), not drift across.
+	; SUBANIM_1_SPHERE_BIG_RISE is the upward primitive (used in
+	; SeismicToss to lift the enemy). Charge step + horn jab + RISING
+	; impact + HUD rattle + shake. Distinct from HORN_DRILL (sustained
+	; boring through, no launch).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim MEGAHORN, SUBANIM_0_HORN_JAB_TWICE, 0, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_TOSS, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_SPHERE_BIG_RISE, 1, 3
 	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -374,12 +380,17 @@ MegahornAnim:
 	db -1 ; end
 
 GuillotineAnim:
-	; v0.7 reviewed (115 BP): heavy double slice with palette dip + shake.
+	; Forte feedback #2: "ser ligeiramente mais assustador". Added wavy
+	; screen between the dark dip and the slice (sense of dread building),
+	; plus a third dark flash post-slice. Reads as more menacing setup
+	; before the precision-cut.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -440,9 +451,19 @@ DarkPulseAnim:
 	db -1 ; end
 
 GoreAttackAnim:
+	; Forte feedback #6: "está mau, muito fraquinho, nao reflete o dano
+	; nem o nome 'gore'". Reworked: now a heavy charging gore — slide
+	; with delay, big-star impact (not 3 small ones), HUD shake + dark
+	; flash + screen shake to sell the brutal puncturing strike. 95 BP
+	; high-crit deserves visible carnage.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim GORE_ATTACK, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim GORE_ATTACK, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -509,12 +530,15 @@ DragonClawAnim:
 	db -1 ; end
 
 DragonBreathAnim:
-	; v0.7 reviewed (75 BP, can paralyze): single FLAME_BEAM was too thin;
-	; added breath-out columns + flash for spread-out feel.
-	battle_anim DRAGON_BREATH, SUBANIM_1_FLAME_BEAM, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
+	; Forte feedback #8: "som mais continuo/duradouro e animação tambem
+	; ligeiramente mais duradoura". Stretched the beam (4→6 each leg)
+	; and added a third column at the end. The SFX tempo is also
+	; lengthened in sfx.asm so the breath sustains.
+	battle_anim DRAGON_BREATH, SUBANIM_1_FLAME_BEAM, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 4
 	db -1 ; end
 
 DragonSlamAnim:
