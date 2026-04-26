@@ -159,9 +159,9 @@ MoveSoundTable:
 	db SFX_BATTLE_1B,          $10, $a0 ; POISON_FANG
 	db SFX_BATTLE_1B,          $20, $80 ; TOXIC_FANGS
 	db SFX_BATTLE_2A,          $80, $c0 ; ACID
-	db SFX_BATTLE_2A,          $20, $20 ; SLUDGE
+	db SFX_BATTLE_2A,          $20, $80 ; SLUDGE ; tempo $20→$80 to fit the longer anim (no SFX-cuts-short).
 	db SFX_BATTLE_2A,          $10, $80 ; SLUDGE_WAVE
-	db SFX_BATTLE_2A,          $40, $60 ; GUNK_SHOT
+	db SFX_BATTLE_2A,          $f0, $ff ; GUNK_SHOT ; deeper pitch + max tempo for the 115 BP launch-and-splat weight.
 	db SFX_BATTLE_2F,          $20, $a0 ; NEUROTOXIN ; v0.7 reviewed: was BATTLE_0F (cut); electric-crackle SFX fits the neuro-paralysis theme that the new lightning-ball anim ends on.
 	db SFX_BATTLE_2A,          $10, $c0 ; TOXIC ; v0.7 reviewed: was BATTLE_0F (cut); sludge SFX matches the BLOB_DRIP anim and the badly-poisoned theme.
 ; === PSYCHIC ===

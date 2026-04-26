@@ -1770,7 +1770,11 @@ SupersonicAnim:
 ; ============================================================
 
 PoisonStingAnim:
-	battle_anim POISON_STING, SUBANIM_0_STAR, 0, 6
+	; Pattern from feedback: physical contact moves need sprite charge
+	; in. Mental image: wasp/bee tail-stab — quick lunge with stinger.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim POISON_STING, SUBANIM_0_STAR_THRICE, 0, 4
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 PoisonFangAnim:
@@ -1796,17 +1800,23 @@ ToxicFangsAnim:
 	db -1 ; end
 
 AcidAnim:
+	; Mental image: caustic acid splash that eats through defense.
+	; Darken frame for the corrosive atmosphere; STATUS_POISONED at
+	; end visualises the def-down (target's body weakening).
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim ACID, SUBANIM_1_BLOB_TOSS, 1, 5
 	battle_anim ACID, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 7
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SludgeAnim:
+	; Pattern from feedback: shake on impact for medium-power moves.
+	; Trimmed redundant trailing delay; added shake on the splash.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1819,21 +1829,40 @@ SludgeWaveAnim:
 	db -1 ; end
 
 GunkShotAnim:
+	; Pattern from feedback: 100+ BP needs multi-shake/dual-flash.
+	; Mental image: huge sludge-bomb launched and SPLATS heavily.
+	; Added shake at impact + final flash for the toxic settling.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim GUNK_SHOT, SUBANIM_1_BLOB_TOSS, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ToxicAnim:
-	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim TOXIC, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	; Mental image: thick poisonous liquid spreading over the target.
+	; SE_WATER_DROPLETS reads as poison-mist coverage (per Forte's
+	; HAZE precedent — droplet sub doubles as fog/mist). End with
+	; STATUS_POISONED visual cementing the badly-poisoned tag.
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim TOXIC, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SUBANIM_0_STATUS_POISONED, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 NeurotoxinAnim:
+	; Mental image: nerve-poison spreading + paralysis crackle.
+	; Toxin drip + electric crackle (paralysis) + STATUS_PARALYZED at
+	; end. Distinct from THUNDER_WAVE (pure electric, no toxin) and
+	; TOXIC (no para).
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim NEUROTOXIN, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim NO_MOVE, SUBANIM_0_STATUS_PARALYZED, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
@@ -1841,18 +1870,30 @@ NeurotoxinAnim:
 ; ============================================================
 
 PsywaveAnim:
-	battle_anim CONFUSION, SUBANIM_0_SOUND_WAVE, 0, 10
-	battle_anim CONFUSION, SUBANIM_0_STAR_TWICE, 0, 15
+	; Mental image: psychic sound wave that dazes via mental impact.
+	; Switched SFX trigger CONFUSION → PSYWAVE so its own sound (psy-
+	; beam family) plays, not the squeeze SFX of CONFUSION.
+	battle_anim PSYWAVE, SUBANIM_0_SOUND_WAVE, 0, 8
+	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 ConfusionAnim:
+	; Mental image: psychic touch that disorients. Light frame +
+	; flash + wavy + reset. Distinct from PSYBEAM (focused beam) and
+	; CONFUSE_RAY (status, dark).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim CONFUSION, SE_FLASH_SCREEN_LONG
-	battle_anim CONFUSION, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ExtrasensoryAnim:
+	; Mental image: extra-sensory psychic probe — reaches into the
+	; target, sees through, snaps back. Flash + reaching circles
+	; (CENTERING_ENEMY) + wavy distortion as the probe withdraws.
 	battle_anim EXTRASENSORY, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	db -1 ; end
 
 PsybeamAnim:
@@ -1865,8 +1906,18 @@ PsybeamAnim:
 	db -1 ; end
 
 PsychicAnim:
+	; Mental image: a wave of pure psychic force warping reality
+	; around the target — sustained, mind-bending. 95 BP signature
+	; with new CONFUSION_SIDE_EFFECT3 (50%) — needs heavier framing
+	; than the old 2 lines. Layered flash/wavy/dark sells sustained
+	; mental violence.
 	battle_anim PSYCHIC_M, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 MindBreakAnim:
@@ -1920,12 +1971,20 @@ RockPunchAnim:
 	db -1 ; end
 
 RockThrowAnim:
+	; Pattern from feedback: shake on impact for hits.
 	battle_anim ROCK_THROW, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 RockTombAnim:
+	; Mental image: rocks ripped from the earth, slammed down to bury
+	; the target. Dark frame sells the "tomb" — sustained heavy
+	; weight closing in.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim ROCK_TOMB, SUBANIM_0_ROCKS_LIFT, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HeadSmashAnim:
@@ -1943,9 +2002,11 @@ HeadSmashAnim:
 	db -1 ; end
 
 RockSlideAnim:
+	; 95 BP, can paralyze. Pattern: shake on impact for power tier.
 	battle_anim ROCK_SLIDE, SUBANIM_0_ROCKS_LIFT, 0, 4
 	battle_anim ROCK_SLIDE, SUBANIM_0_ROCKS_TOSS, 0, 3
 	battle_anim HYPER_FANG, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 ClampAnim:
@@ -1994,8 +2055,12 @@ HornDrillAnim:
 ; ============================================================
 
 CutAnim:
-	battle_anim CUT, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_SLICE, 0, 4
+	; Mental image: clean metallic slice. Light palette frame for the
+	; steel glint, single decisive cut. Same "no dark flash" approach
+	; as SLASH per Forte feedback #78.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim CUT, SUBANIM_0_SLICE, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IronTailAnim:
@@ -2009,8 +2074,11 @@ IronTailAnim:
 	db -1 ; end
 
 IronHeadAnim:
+	; Mental image: helmet/head ramming with metal force. Charge in,
+	; iron impact, shake (the felt steel weight).
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim IRON_HEAD, SUBANIM_1_STAR_BIG, 1, 8
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -2032,9 +2100,13 @@ BulletPunchAnim:
 	db -1 ; end
 
 MagnetBombAnim:
+	; Mental image: magnetic bomb hurled, locks onto enemy, detonates.
+	; 100 BP swift needs felt impact — added flash + shake post-blast.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim MAGNET_BOMB, SUBANIM_1_STAR_BIG_TOSS, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2043,7 +2115,10 @@ MagnetBombAnim:
 ; ============================================================
 
 WaterGunAnim:
+	; Mental image: simple pressurised water spray. Light frame.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim WATER_GUN, SUBANIM_0_WATER_DROPLETS, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AquaJetAnim:
@@ -2066,15 +2141,23 @@ BubbleBeamAnim:
 	db -1 ; end
 
 WaterPulseAnim:
+	; Mental image: pulsing water ring — sonic-pulse + water spray.
+	; Conf side-effect; framed light for the gentle wave feel.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim WATER_PULSE, SUBANIM_0_WATER_DROPLETS, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 WaterfallAnim:
+	; Mental image: torrent crashing down on the target. Slide-down
+	; (user lifted by the cascade) + columns + slide-up + impact +
+	; shake.
 	battle_anim LEECH_SEED, SE_SLIDE_MON_DOWN
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 6
 	battle_anim NO_MOVE, SE_SLIDE_MON_UP
 	battle_anim KARATE_CHOP, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 SurfAnim:
