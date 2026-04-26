@@ -1123,34 +1123,36 @@ DrillPeckAnim:
 ; ============================================================
 
 SporeDazeAnim:
-	; v0.7 reviewed (60 BP, can confuse): replaces placeholder. Spore
-	; powder release + dizzy birdies on enemy reads as "powder that
-	; confuses". Distinct from SPORE (status, no birdies) and
-	; CONFUSION (no powder).
+	; Forte feedback #40: dark screen at some point would combine.
+	; Frame the powder + birdies in DARKEN_MON for the toxic-cloud
+	; atmosphere. Spore powder + dizzy birdies kept (= "powder that
+	; confuses").
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim SPORE_DAZE, SUBANIM_0_CIRCLES_FALLING, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ParasiteAnim:
-	; v0.7 reviewed (1 BP, halves HP — fungus version of SUPER_FANG):
-	; replaces placeholder. Drain pattern with dark palette to read as
-	; "something is feeding on you", not a friendly absorb.
+	; Forte feedback #41: add the diagonal-cut visual at the end (like
+	; Vicegrip) symbolising the HP being halved. Drain phase kept
+	; (parasitic feeding); SLICE_BOTH_SIDES seals the "cut in half"
+	; visualisation.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim PARASITE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SporeAnim:
-	; Mental image: concentrated, suffocating spore release — not the
-	; gentle drift of SLEEP_POWDER. Layered powder + darken to sell the
-	; density. (Spore is signature high-acc sleep; the visual should
-	; out-promise its grass cousin.)
+	; Forte feedback #42: um pouco mais lento. Delays 6→10 for the
+	; thick suffocating drift.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 10
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_FALLING, 0, 10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1159,24 +1161,32 @@ SporeAnim:
 ; ============================================================
 
 SmogAnim:
+	; Forte feedback #43: um pouco mais lento. Delay 6→10.
 	battle_anim LEECH_SEED, SE_DARKEN_MON_PALETTE
-	battle_anim SMOG, SUBANIM_1_CLOUD_TOSS, 1, 6
+	battle_anim SMOG, SUBANIM_1_CLOUD_TOSS, 1, 10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 PoisonGasAnim:
-	battle_anim POISON_GAS, SUBANIM_1_CLOUD_TOSS, 1, 6
+	; Forte feedback #44: was too similar to SMOG. Now: TWO sustained
+	; cloud tosses (longer release) + the target's status-poisoned
+	; visual at the end (the gas inhaled, target chokes).
+	battle_anim POISON_GAS, SUBANIM_1_CLOUD_TOSS, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_CLOUD_TOSS, 1, 8
+	battle_anim NO_MOVE, SUBANIM_0_STATUS_POISONED, 0, 6
 	db -1 ; end
 
 HazeAnim:
-	; Mental image: thick gaseous cloud obscuring vision — target's
-	; accuracy drops permanently (signature). Distinct from SMOG (single
-	; puff at low BP) and POISON_GAS (lighter, status only). Was using
-	; water droplets which was nonsensical for a gas attack.
+	; Forte feedback #45: more intense + better SFX + bring back the
+	; "ecrã de goticulas" (WATER_DROPLETS_EVERYWHERE) which actually
+	; reads as misty haze HERE (not water — a wet fog). Combined with
+	; cloud toss + shake for the choking-fog feel.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim HAZE, SUBANIM_1_CLOUD_TOSS, 1, 6
+	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_CLOUD_TOSS, 1, 6
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1185,23 +1195,44 @@ HazeAnim:
 ; ============================================================
 
 NightShadeAnim:
-	battle_anim CONFUSION, SE_FLASH_SCREEN_LONG
+	; Forte feedback #46: mais sombrio. Added dark palette frame +
+	; second wavy distortion + delay for the lingering ghost-shade
+	; feel. Switched the SFX trigger from CONFUSION to NIGHT_SHADE so
+	; the move's own (drain-family deep) sound plays.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NIGHT_SHADE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LickAnim:
-	battle_anim LEECH_SEED, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 4
+	; Forte feedback #47: devia ser mais lento. Delay 4→8 for the slow
+	; tongue-drag sensation.
+	battle_anim LEECH_SEED, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
 	db -1 ; end
 
 AstonishAnim:
+	; Forte feedback #48: more aggressive. Lunge in (slide horizontal),
+	; dark flash, hit, second flash + shake, return. Distinct from
+	; LICK (slow blob drip) by speed and impact.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim ASTONISH, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 ShadowSneakAnim:
+	; Forte feedback #49: small impact SFX would improve. Added a
+	; TACKLE-borrowed thud + shake before the show. Priority pattern
+	; otherwise unchanged.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim SHADOW_SNEAK, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 2
+	battle_anim TACKLE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1215,17 +1246,29 @@ ShadowPunchAnim:
 	db -1 ; end
 
 SpiritDrainAnim:
+	; Forte feedback #51: add sinister atmosphere — reference Deep
+	; Sleep / Dream Eater. Long flash + wavy distortion before the
+	; drain phase, dark flash mid-drain. The wavy + flash combo evokes
+	; the spirit being torn out.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim SPIRIT_DRAIN, SUBANIM_0_STAR_THRICE, 0, 8
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
+	battle_anim SPIRIT_DRAIN, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ShadowBallAnim:
+	; Forte feedback #52: was using PSYBEAM as the SFX trigger (sounded
+	; too psychic, not ghostly). Now uses SHADOW_BALL's own SFX (drain
+	; family deep-pitched in sfx.asm). Added impact thud at end via
+	; TACKLE-borrowed shake.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim PSYBEAM, SUBANIM_1_STAR_BIG_TOSS, 1, 5
+	battle_anim SHADOW_BALL, SUBANIM_1_STAR_BIG_TOSS, 1, 5
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim TACKLE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 

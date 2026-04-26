@@ -92,15 +92,15 @@ MoveSoundTable:
 ; === GAS ===
 	db SFX_BATTLE_2A,          $10, $ff ; SMOG ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; sludge-like wheeze fits the cloud-toss visual.
 	db SFX_BATTLE_1C,          $00, $ff ; POISON_GAS
-	db SFX_BATTLE_0F,          $f8, $10 ; HAZE
+	db SFX_BATTLE_2A,          $f0, $ff ; HAZE ; Forte feedback #45: was BATTLE_0F (cut), bad sound. Sludge family deep-pitched + max tempo for sustained gas-cloud feel.
 ; === GHOST ===
 	db SFX_BATTLE_24,          $f0, $80 ; NIGHT_SHADE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; drain SFX deep-pitched fits the spectral life-leech feel.
-	db SFX_BATTLE_09,          $00, $40 ; LICK
-	db SFX_BATTLE_09,          $10, $60 ; ASTONISH
+	db SFX_BATTLE_09,          $10, $60 ; LICK ; Forte feedback #48: swapped SFX values with ASTONISH.
+	db SFX_BATTLE_09,          $00, $40 ; ASTONISH ; Forte feedback #48: swapped SFX values with LICK.
 	db SFX_BATTLE_25,          $20, $10 ; SHADOW_SNEAK
-	db SFX_BATTLE_2B,          $00, $80 ; SHADOW_PUNCH
+	db SFX_BATTLE_0C,          $f0, $a0 ; SHADOW_PUNCH ; Forte feedback #50: was BATTLE_2B (whoosh — sounded like a gust). Punch SFX deep-pitched for proper imperceptible-fist feel.
 	db SFX_BATTLE_24,          $10, $80 ; SPIRIT_DRAIN
-	db SFX_PSYCHIC_M,          $10, $80 ; SHADOW_BALL
+	db SFX_BATTLE_24,          $f0, $a0 ; SHADOW_BALL ; Forte feedback #52: was PSYCHIC_M (sounded like Psybeam). Drain family deep-pitched for ghostly impact.
 	db SFX_BATTLE_13,          $f1, $ff ; CONFUSE_RAY
 	db SFX_BATTLE_19,          $40, $a0 ; WILL_O_WISP
 ; === GRASS ===
