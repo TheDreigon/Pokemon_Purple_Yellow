@@ -143,13 +143,13 @@ MoveSoundTable:
 	db SFX_BATTLE_25,          $00, $10 ; QUICK_ATTACK
 	db SFX_BATTLE_18,          $00, $80 ; HEADBUTT
 	db SFX_BATTLE_1E,          $00, $60 ; HORN_ATTACK
-	db SFX_BATTLE_0F,          $01, $ff ; SLASH ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; sharp cut SFX matches the actual slashing visual.
+	db SFX_BATTLE_0F,          $30, $ff ; SLASH ; Forte feedback #78: pitch raised $01→$30 for a sharper / more agudo cut.
 	db SFX_BATTLE_20,          $00, $c0 ; BODY_SLAM
-	db SFX_BATTLE_1E,          $f8, $60 ; CRUNCH ; v0.7 reviewed: was BATTLE_26 (generic crash); deep bite SFX matches "crunching" with jaws.
+	db SFX_BATTLE_22,          $f0, $a0 ; CRUNCH ; Forte feedback #80: was BATTLE_1E (sounded like Bug Bite / Poison Sting). Slam family deep-pitched gives the grinding crunch feel.
 	db SFX_BATTLE_1E,          $10, $80 ; HORN_CHARGE
 	db SFX_BATTLE_22,          $11, $c0 ; THRASH
 	db SFX_BATTLE_20,          $10, $e0 ; HEAVY_SLAM
-	db SFX_SUPER_EFFECTIVE,    $20, $c0 ; DOUBLE_EDGE
+	db SFX_BATTLE_18,          $f0, $ff ; DOUBLE_EDGE ; Forte feedback #84: was SUPER_EFFECTIVE (clean BAM). Heavy thud deep-pitched + max tempo for the crushing recoil-tier impact.
 	db SFX_BATTLE_25,          $10, $10 ; EXTREMESPEED
 	db SFX_BATTLE_27,          $40, $60 ; SUPERSONIC
 	db SFX_BATTLE_1E,          $f8, $ff ; SUPER_FANG ; v0.7 reviewed: was BATTLE_26 (heavy crash); proper bite SFX deep-pitched fits "fang" name + 50%-HP mechanic.

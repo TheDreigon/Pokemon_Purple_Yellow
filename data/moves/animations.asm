@@ -1596,17 +1596,19 @@ ScratchAnim:
 	db -1 ; end
 
 TackleAnim:
-	; Mental image: full-body ram into the target. The original had no
-	; impact visual at all — just slide-in/slide-out, missing the hit.
-	; Now: charge + brief flash on contact + retreat.
+	; Forte feedback #74: remove dark flash + add impact star toward
+	; opponent.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 BiteAnim:
+	; Forte feedback #75: um pouquinho mais impactante. Added shake
+	; on the bite.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim BITE, SUBANIM_0_STAR_TWICE, 0, 10
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -1619,63 +1621,91 @@ QuickAttackAnim:
 	db -1 ; end
 
 HeadButtAnim:
+	; Forte feedback #76: ecrã mais preto. Dark palette wrap added.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 8
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HornAttackAnim:
+	; Forte feedback #77: sprite has to charge in. Added MOVE_MON
+	; horizontal slide before the horn jab.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim HORN_ATTACK, SUBANIM_0_HORN_JAB_TWICE, 0, 6
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 SlashAnim:
-	; Mental image: precise slashing strike — one decisive cut. High-
-	; crit, so crit-flash framing marks the deliberateness.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	; Forte feedback #78: remove dark flash + SFX more agudo (raised
+	; in sfx.asm).
 	battle_anim SLASH, SUBANIM_0_SCRATCHES, 0, 8
 	db -1 ; end
 
 BodySlamAnim:
-	; v0.7 reviewed (70 BP, can paralyze even Normal types post-v0.7):
-	; added shake — body-SLAM needs felt mass on contact.
+	; Forte feedback #79: add impact star toward opponent.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 CrunchAnim:
+	; Forte feedback #80: was fraquissimo + SFX wrong. Now: dark
+	; palette frame, slide-in, jaw chomp (HORN_JAB_THRICE for the
+	; chomp pattern), big star impact, shake. SFX changed in sfx.asm.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim CRUNCH, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim CRUNCH, SUBANIM_0_HORN_JAB_THRICE, 0, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HornChargeAnim:
+	; Forte feedback #81: more potent + sprite charges in. Slide
+	; horizontal (run-up) + delay (the gallop) + horn jab + big
+	; impact star + shake.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HORN_CHARGE, SUBANIM_0_HORN_JAB_TWICE, 0, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
-	db -1 ; end
-
-ThrashAnim:
-	; v0.7: relocated from DARK section. THRASH was DARK in pre-v0.7 hack
-	; (Smith era); current type is NORMAL. Body unchanged here — Forte's
-	; mental-image rework lives in the upcoming feedback batch.
-	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim THRASH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
+ThrashAnim:
+	; Forte feedback #82: like Rage but stronger. LIGHT_SCREEN_PALETTE
+	; wrap (matches Rage's framing). Keep impact star + add multiple
+	; shakes for the sustained 2-3 turn frenzy.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim THRASH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
 HeavySlamAnim:
-	; v0.7 reviewed (100 BP, can paralyze): minimal slam wasn't reading
-	; as the heaviest 100 BP normal hit. Now: dark dip, slow charge,
-	; double shake on impact, palette reset.
+	; Forte feedback #83: was silencioso (only LEECH_SEED SFX, then
+	; quiet flashes). Now: dark + slide + LEEEENTA STAR_BIG (delay 10)
+	; + dual TAKE_DOWN-borrowed thuds + shakes. Audio fills the dark
+	; phase.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim HEAVY_SLAM, SUBANIM_1_STAR_BIG, 1, 10
+	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -1692,32 +1722,40 @@ DoubleEdgeAnim:
 	db -1 ; end
 
 ExtremeSpeedAnim:
+	; Forte feedback #85: must be a stronger version of QuickAttack
+	; (was identical pattern). Same priority template + impact shake
+	; + secondary star (the trail/blur).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim EXTREMESPEED, SE_SLIDE_MON_OFF
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 1
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 1
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SuperFangAnim:
-	; Mental image: precision fang strike at a vital point — halves the
-	; target's HP regardless of defenses. Dark dip + decisive single
-	; strike + double-flash to mark the brutal "snap". Distinct from
-	; HYPER_FANG (rage, sustained) — this is surgical.
+	; Forte feedback #86: add diagonal-cut visual (like Parasite)
+	; symbolising the HP halved.
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim SUPER_FANG, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HyperFangAnim:
-	; Mental image: aggressive over-extended fang strike — bigger,
-	; bloodier than BITE. Sustained chomp + crit-flash + screen shake.
-	; Distinct from BITE (smaller), POISON_FANG (no poison drip here).
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	; Forte feedback #87: too simple + weak. Now: dark dip + slide-
+	; in + jaw chomp + big star impact + double shake.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim HYPER_FANG, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SupersonicAnim:
