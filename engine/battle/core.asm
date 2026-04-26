@@ -2383,18 +2383,13 @@ BagWasSelected:
 	cp BATTLE_TYPE_PIKACHU ; is it the prof oak battle with pikachu?
 	jr z, .simulatedInputBattle
 
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	jr z, .NormalMode
-
-	ld a, [wIsInBattle] ; Check if this is a wild battle or trainer battle
-	dec a
-	jr z, .NormalMode ; Not a trainer battle
-
-	ld hl, ItemsCantBeUsedHereText ; items can't be used during trainer battles in hard mode
-	call PrintText
-	jp DisplayBattleMenu
-.NormalMode
+	; v0.7: items are baseline-allowed in every battle (wild/trainer/boss) in
+	; both Normal and Hard mode — symmetric with the Hard-mode boss item bag
+	; that ships alongside this. The 6 problem items (Revive, Max Revive,
+	; Ether, Max Ether, Elixer, Max Elixer) are gated per-item in
+	; engine/items/item_effects.asm: they're blocked only in Hard-mode
+	; trainer/boss battles, and never in wild battles. The block lives there
+	; (not here) so wild-vs-trainer + per-item routing stays in one place.
 	jr DisplayPlayerBag
 .simulatedInputBattle
 	ld hl, SimulatedInputBattleItemList

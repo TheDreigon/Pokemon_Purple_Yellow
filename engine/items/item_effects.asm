@@ -914,6 +914,27 @@ ItemUseVitamin:
 	jp nz, ItemUseNotTime
 
 ItemUseMedicine:
+	; v0.7 hard-mode trainer/boss policy: Revive/Max Revive blocked.
+	; Allowed in wild battles AND in any battle on Normal mode.
+	; Reason: revives are the other half of the boss PP-stall loop —
+	; without them, the player can't keep a sacrificial Chansey alive
+	; forever to drain boss PP into Struggle.
+	ld a, [wcf91]
+	cp REVIVE
+	jr c, .reviveCheckDone        ; below REVIVE: not gated
+	cp MAX_REVIVE + 1
+	jr nc, .reviveCheckDone       ; above MAX_REVIVE: not gated
+	ld a, [wIsInBattle]
+	and a
+	jr z, .reviveCheckDone        ; not in battle: allow
+	dec a
+	jr z, .reviveCheckDone        ; wild battle: allow
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .reviveCheckDone       ; trainer battle on Normal mode: allow
+	ld hl, ItemsCantBeUsedHereText
+	jp ItemUseFailed
+.reviveCheckDone
 	ld a, [wPartyCount]
 	and a
 	jp z, Func_e4bf
@@ -2191,23 +2212,28 @@ ItemUsePPUp:
 	jp nz, ItemUseNotTime
 
 ItemUsePPRestore:
-	; v0.7: Ether/Max Ether/Elixer/Max Elixer are out-of-battle only.
-	; PP is meant to be a strategic per-fight resource — letting the
-	; player recharge mid-battle defeats the purpose. PP_UP/PP_MAX
-	; (the bonus-PP items) also route through ItemUsePPRestore but
-	; they're stat-permanent items, not consumable PP refills, and
-	; they ARE allowed during battle (long-standing convention).
+	; v0.7 hard-mode trainer/boss policy: PP refills (Ether/Max Ether/
+	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
+	; battle on Normal mode, so the player still has emergency recovery.
+	; Reason: blocks the "Revive + Elixer" PP-stall loop against bosses
+	; while staying symmetric with the boss item bag (knob #10).
+	; PP_UP and PP_MAX route through here too but are stat-permanent
+	; items, not consumable refills, and stay always-allowed.
 	ld a, [wIsInBattle]
 	and a
-	jr z, .notInBattle
+	jr z, .notInBattle      ; not in battle: allow
+	dec a
+	jr z, .notInBattle      ; wild battle (wIsInBattle=1): allow
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .notInBattle     ; trainer battle on Normal mode: allow
 	ld a, [wcf91]
-	cp ETHER             ; ETHER, MAX_ETHER, ELIXER, MAX_ELIXER are
-	jr c, .notInBattle   ; > PP_UP < ETHER < ... < MAX_ELIXER
+	cp ETHER
+	jr c, .notInBattle      ; below ETHER (PP_UP): allow
 	cp MAX_ELIXER + 1
-	jr nc, .notInBattle  ; (above MAX_ELIXER → not a refill item)
+	jr nc, .notInBattle     ; above MAX_ELIXER (PP_MAX): allow
 	ld hl, ItemsCantBeUsedHereText
-	call PrintText
-	jp .itemNotUsed
+	jp ItemUseFailed
 .notInBattle
 	ld a, [wWhichPokemon]
 	push af
@@ -2662,6 +2688,14 @@ ItemUseFailed:
 
 ItemUseNotTimeText:
 	text_far _ItemUseNotTimeText
+	text_end
+
+; Local wrapper so item handlers in this bank can `ld hl,
+; ItemsCantBeUsedHereText / jp ItemUseFailed`. core.asm has its own
+; same-named file-local wrapper pointing at _ItemsCantBeUsedHereText —
+; both resolve to the same exported text in data/text/text_2.asm.
+ItemsCantBeUsedHereText:
+	text_far _ItemsCantBeUsedHereText
 	text_end
 
 ItemUseNotYoursToUseText:
