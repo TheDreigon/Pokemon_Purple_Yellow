@@ -5674,6 +5674,35 @@ MoveHitTest:
 	ld a, [wEnemyMoveAccuracy]
 	ld b, a
 .doAccuracyCheck
+	; v0.7 hard mode boss accuracy edge (~±5pp = ±13/256). Applied
+	; BEFORE the wDifficulty/.DontRemoveMiss check below, so the
+	; existing 1/256 fix (which only runs in normal mode) sees the
+	; ORIGINAL b in normal mode (we no-op there) and the boss-edged b
+	; in hard mode (where the 1/256 fix is skipped anyway).
+	; Player turn = player attacking boss → -5pp (harder to hit).
+	; Enemy turn  = boss attacking player → +5pp (boss hits more).
+	push bc                      ; preserve b (the accuracy value)
+	call IsHardModeBossBattle
+	pop bc
+	jr z, .skipBossAccEdge
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .bossAccPlayerTurn
+	; enemy turn: b += 13, cap at $ff
+	ld a, b
+	add 13
+	jr nc, .saveBossAcc
+	ld a, $ff
+	jr .saveBossAcc
+.bossAccPlayerTurn
+	; player turn: b -= 13, floor at 0
+	ld a, b
+	sub 13
+	jr nc, .saveBossAcc
+	xor a
+.saveBossAcc
+	ld b, a
+.skipBossAccEdge
 	ld a, [wDifficulty] ; Check if player is on hard mode
 	and a
 	jr nz, .DontRemoveMiss ; Keep 1/256 chance to miss on hard mode
