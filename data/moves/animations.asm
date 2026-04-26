@@ -447,13 +447,6 @@ GoreAttackAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-ThrashAnim:
-	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim THRASH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	db -1 ; end
-
 DeepSleepAnim:
 	; Mental image: ominous dark induction — sinister whisper that drags
 	; consciousness DOWN into deep slumber. Distinct from HYPNOSIS by
@@ -479,6 +472,16 @@ DreamEaterAnim:
 	battle_anim DREAM_EATER, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+GlareAnim:
+	; v0.7: relocated from BIRD section. GLARE was NORMAL in vanilla;
+	; current type is DARK. Body unchanged here — body rework lives in
+	; the upcoming feedback batch.
+	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
+	battle_anim GLARE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -665,6 +668,28 @@ MoonblastAnim:
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+LovelyKissAnim:
+	; v0.7: relocated from BIRD section. LOVELY_KISS was NORMAL in
+	; vanilla; current type is FAIRY (signature, sleep). Body kept from
+	; the earlier review pass.
+	; Mental image: quick affectionate kiss + the target's mind goes
+	; fuzzy and dazes off. The heart is the kiss landing; the wavy
+	; aftermath is consciousness slipping. Distinct from CHARM (no
+	; sleep follow-through) and SING (musical, sustained).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim LOVELY_KISS, SUBANIM_0_HEART_1_MUSIC, 0, 4
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+SingAnim:
+	; v0.7: relocated from BIRD section. SING was NORMAL in vanilla;
+	; current type is FAIRY (signature, sleep). Body unchanged.
+	battle_anim SING, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 16
+	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 16
 	db -1 ; end
 
 ; ============================================================
@@ -1405,6 +1430,16 @@ HornChargeAnim:
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	db -1 ; end
 
+ThrashAnim:
+	; v0.7: relocated from DARK section. THRASH was DARK in pre-v0.7 hack
+	; (Smith era); current type is NORMAL. Body unchanged here — Forte's
+	; mental-image rework lives in the upcoming feedback batch.
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim THRASH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	db -1 ; end
+
 HeavySlamAnim:
 	; v0.7 reviewed (100 BP, can paralyze): minimal slam wasn't reading
 	; as the heaviest 100 BP normal hit. Now: dark dip, slow charge,
@@ -1457,6 +1492,13 @@ HyperFangAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HYPER_FANG, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	db -1 ; end
+
+SupersonicAnim:
+	; v0.7: relocated from BIRD section. SUPERSONIC is NORMAL type
+	; (status, confuse). Body unchanged.
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
 	db -1 ; end
 
 ; ============================================================
@@ -1587,6 +1629,15 @@ HypnosisAnim:
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim HYPNOSIS, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+DisableAnim:
+	; v0.7: relocated from BIRD section. DISABLE is PSYCHIC type (status,
+	; pp-block). Body unchanged.
+	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2092,42 +2143,6 @@ SmokescreenAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	db -1 ; end
-
-DisableAnim:
-	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
-	battle_anim LEER, SE_DARK_SCREEN_FLASH
-	battle_anim LEER, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	db -1 ; end
-
-GlareAnim:
-	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
-	battle_anim GLARE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	db -1 ; end
-
-LovelyKissAnim:
-	; Mental image: quick affectionate kiss + the target's mind goes
-	; fuzzy and dazes off. The heart is the kiss landing; the wavy
-	; aftermath is consciousness slipping. Distinct from CHARM (no
-	; sleep follow-through) and SING (musical, sustained).
-	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim LOVELY_KISS, SUBANIM_0_HEART_1_MUSIC, 0, 4
-	battle_anim NO_MOVE, SE_WAVY_SCREEN
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	db -1 ; end
-
-SingAnim:
-	battle_anim SING, SUBANIM_0_HEART_1_MUSIC, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 16
-	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 16
-	db -1 ; end
-
-SupersonicAnim:
-	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
-	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
 	db -1 ; end
 
 RecoverAnim:
