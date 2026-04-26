@@ -2191,6 +2191,24 @@ ItemUsePPUp:
 	jp nz, ItemUseNotTime
 
 ItemUsePPRestore:
+	; v0.7: Ether/Max Ether/Elixer/Max Elixer are out-of-battle only.
+	; PP is meant to be a strategic per-fight resource — letting the
+	; player recharge mid-battle defeats the purpose. PP_UP/PP_MAX
+	; (the bonus-PP items) also route through ItemUsePPRestore but
+	; they're stat-permanent items, not consumable PP refills, and
+	; they ARE allowed during battle (long-standing convention).
+	ld a, [wIsInBattle]
+	and a
+	jr z, .notInBattle
+	ld a, [wcf91]
+	cp ETHER             ; ETHER, MAX_ETHER, ELIXER, MAX_ELIXER are
+	jr c, .notInBattle   ; > PP_UP < ETHER < ... < MAX_ELIXER
+	cp MAX_ELIXER + 1
+	jr nc, .notInBattle  ; (above MAX_ELIXER → not a refill item)
+	ld hl, ItemsCantBeUsedHereText
+	call PrintText
+	jp .itemNotUsed
+.notInBattle
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wcf91]
