@@ -349,18 +349,23 @@ IvysaurEvosMoves:
 	db EVOLVE_LEVEL, 36, VENUSAUR
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): Grass/Poison — bulb open, poison glands active.
+; Adds 3 Poison moves over Bulbasaur (POISONPOWDER, ACID, TOXIC). Sludge
+; dropped — plant biology doesn't fit "sludge/blob" framing (those are
+; Muk/Weezing-coded). Same powder rule: no STUN_SPORE.
 	db  4, VINE_WHIP
 	db  8, LEECH_SEED
-	db 12, POISONPOWDER
-	db 16, GROWTH
+	db 12, GROWTH
+	db 19, POISONPOWDER
 	db 20, ABSORB
-	db 24, SLEEP_POWDER
-	db 28, RAZOR_LEAF
-	db 32, MEGA_DRAIN
-	db 38, SLUDGE
+	db 25, SLEEP_POWDER
+	db 28, ACID
+	db 30, RAZOR_LEAF
+	db 36, MEGA_DRAIN
 	db 42, GIGA_DRAIN
-	db 48, PETAL_DANCE
-	db 50, RECOVER
+	db 48, RECOVER
+	db 52, TOXIC
+	db 55, PETAL_DANCE
 	db 0
 
 ExeggutorEvosMoves:
@@ -2509,37 +2514,45 @@ BulbasaurEvosMoves:
 	db EVOLVE_LEVEL, 18, IVYSAUR
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): pure Grass — no Poison moves (no glands yet,
+; bulb closed). No Stun Spore per Forte's powder table (Venusaur = Poison +
+; Sleep, NO Stun; uniform within line). Single signature SOLARBEAM kept on
+; Venusaur only (full bloom concentrates light).
 	db  4, VINE_WHIP
 	db  8, LEECH_SEED
-	db 12, POISONPOWDER
-	db 16, GROWTH
+	db 12, GROWTH
 	db 20, ABSORB
-	db 24, SLEEP_POWDER
-	db 28, RAZOR_LEAF
-	db 32, MEGA_DRAIN
-	db 38, SLUDGE
+	db 25, SLEEP_POWDER
+	db 30, RAZOR_LEAF
+	db 36, MEGA_DRAIN
 	db 42, GIGA_DRAIN
-	db 48, PETAL_DANCE
-	db 50, RECOVER
+	db 48, RECOVER
+	db 55, PETAL_DANCE
 	db 0
 
 VenusaurEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): same backbone as Ivysaur (uniformity rule),
+; adds SOLARBEAM as the line's single signature — full bloom of the flower
+; concentrates sunlight enough to fire a beam. GUNK_SHOT removed (signature
+; of Muk/Weezing). DAZZLE_GLEAM not added (Fairy-coded shimmer; Venusaur is
+; plant, not magical creature).
 	db  4, VINE_WHIP
 	db  8, LEECH_SEED
-	db 12, POISONPOWDER
-	db 16, GROWTH
+	db 12, GROWTH
+	db 19, POISONPOWDER
 	db 20, ABSORB
-	db 24, SLEEP_POWDER
-	db 28, RAZOR_LEAF
-	db 32, MEGA_DRAIN
-	db 38, SLUDGE
+	db 25, SLEEP_POWDER
+	db 28, ACID
+	db 30, RAZOR_LEAF
+	db 36, MEGA_DRAIN
 	db 42, GIGA_DRAIN
-	db 48, PETAL_DANCE
-	db 50, RECOVER
-	db 55, SOLARBEAM
+	db 48, RECOVER
+	db 52, TOXIC
+	db 55, PETAL_DANCE
+	db 60, SOLARBEAM
 	db 0
 
 TentacruelEvosMoves:

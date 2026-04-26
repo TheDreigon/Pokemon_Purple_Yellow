@@ -8,11 +8,17 @@
 	INCBIN "gfx/pokemon/front/venusaur.pic", 0, 1 ; sprite dimensions
 	dw VenusaurPicFront, VenusaurPicBack
 
-	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db VINE_WHIP, LEECH_SEED, RAZOR_LEAF, POISONPOWDER ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: full bloom — superset of Ivysaur. Adds Intimidate (massive
+	; presence at full bloom). DAZZLE_GLEAM was considered and rejected
+	; (Fairy-coded sparkle; Venusaur is plant, not magical creature).
+	tmhm MIMIC,        SUBSTITUTE,   METRONOME,    GIGA_DRAIN,   BIND,         \
+	     TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    REFLECT,      CUT,          \
+	     BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE,  EARTHQUAKE,   \
+	     STRENGTH,     FLASH,        INTIMIDATE
 	; end
 
 	db 0 ; padding

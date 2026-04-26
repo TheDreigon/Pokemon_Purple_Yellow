@@ -8,11 +8,19 @@
 	INCBIN "gfx/pokemon/front/ivysaur.pic", 0, 1 ; sprite dimensions
 	dw IvysaurPicFront, IvysaurPicBack
 
-	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, VINE_WHIP, LEECH_SEED ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: matured plant — superset of Bulbasaur. Bulky additions
+	; (Body Slam / Take Down stay shared / Double Edge — heavier frame),
+	; ground-shaking (Bulldoze / Earthquake — quadruped weight), Poison
+	; mature (Toxic — already Poison-type now), HM utility (Strength = push,
+	; Flash = bulb opening glow).
+	tmhm MIMIC,        SUBSTITUTE,   METRONOME,    GIGA_DRAIN,   BIND,         \
+	     TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    REFLECT,      CUT,          \
+	     BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE,  EARTHQUAKE,   \
+	     STRENGTH,     FLASH
 	; end
 
 	db 0 ; padding
