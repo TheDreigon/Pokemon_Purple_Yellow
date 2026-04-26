@@ -932,7 +932,7 @@ ItemUseMedicine:
 	ld a, [wDifficulty]
 	cp HARD_MODE
 	jr nz, .reviveCheckDone       ; trainer battle on Normal mode: allow
-	ld hl, ItemsCantBeUsedHereText
+	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .reviveCheckDone
 	ld a, [wPartyCount]
@@ -986,7 +986,8 @@ ItemUseMedicine:
 ; if using softboiled
 	ld a, [wWhichPokemon]
 	cp d ; is the pokemon trying to use softboiled on itself?
-	jr z, ItemUseMedicine ; if so, force another choice
+	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: c7e8127's
+	                      ; Revive/MaxRevive prologue pushed this past jr range)
 .checkItemType
 	ld a, [wcf91]
 	cp REVIVE
@@ -2235,7 +2236,7 @@ ItemUsePPRestore:
 	jr c, .allowItem        ; below ETHER (PP_UP): allow
 	cp MAX_ELIXER + 1
 	jr nc, .allowItem       ; above MAX_ELIXER (PP_MAX): allow
-	ld hl, ItemsCantBeUsedHereText
+	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem
 	ld a, [wWhichPokemon]
@@ -2693,11 +2694,12 @@ ItemUseNotTimeText:
 	text_far _ItemUseNotTimeText
 	text_end
 
-; Local wrapper so item handlers in this bank can `ld hl,
-; ItemsCantBeUsedHereText / jp ItemUseFailed`. core.asm has its own
-; same-named file-local wrapper pointing at _ItemsCantBeUsedHereText —
-; both resolve to the same exported text in data/text/text_2.asm.
-ItemsCantBeUsedHereText:
+; Local wrapper for item handlers in this bank to use with PrintText. We
+; can't share core.asm's `ItemsCantBeUsedHereText` wrapper directly (single-
+; colon labels in RGBDS are still globally exported, so reusing the name
+; would be a link conflict — see commit history). Both wrappers point at
+; the same exported `_ItemsCantBeUsedHereText::` in data/text/text_2.asm.
+BattleItemsCantBeUsedHereText:
 	text_far _ItemsCantBeUsedHereText
 	text_end
 
