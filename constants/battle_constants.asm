@@ -40,6 +40,14 @@ DEF MOVE_LENGTH EQU _RS
 ; D733 flags
 DEF BIT_TEST_BATTLE EQU 0
 
+; wDifficulty values (set in Oak's speech, persistent for the run).
+; Hard mode gates extra boss buffs in v0.7+ (see engine/battle/hard_mode.asm
+; for the boss class list and the IsHardModeBossBattle helper). Existing
+; non-boss-tied effects (level caps, forced Set mode, no items in trainer
+; battles, 1/256 miss preserved) gate on `wDifficulty != NORMAL_MODE`.
+DEF NORMAL_MODE EQU 0
+DEF HARD_MODE   EQU 1
+
 ; battle type constants (wBattleType values)
 	const_def
 	const BATTLE_TYPE_NORMAL  ; 0

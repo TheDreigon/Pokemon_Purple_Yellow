@@ -180,6 +180,7 @@ SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
 INCLUDE "engine/battle/effects.asm"
+INCLUDE "engine/battle/hard_mode.asm"
 
 
 SECTION "bank10", ROMX
