@@ -42,6 +42,15 @@ AIEnemyTrainerChooseMoves:
 	jr nz, .loopTrainerClassData
 	jr .loopTrainerClasses
 .readTrainerClassData
+	; v0.7 hard mode: boss trainers get all 4 AI modification layers,
+	; overriding their per-class list. So Brock (whose normal list is
+	; just [1]) becomes as smart as Lance ([1,2,3,4]) on Hard.
+	push hl
+	farcall IsHardModeBossBattle
+	pop hl
+	jr z, .skipBossAIOverride
+	ld hl, HardModeBossAIMods
+.skipBossAIOverride
 	ld a, [hl]
 	and a
 	jp z, .useOriginalMoveSet
@@ -131,6 +140,13 @@ AIMoveChoiceModificationFunctionPointers:
 	dw AIMoveChoiceModification2
 	dw AIMoveChoiceModification3
 	dw AIMoveChoiceModification4
+
+; v0.7 hard mode override list — bosses get all 4 modification layers
+; in Hard mode, regardless of their per-class default in
+; TrainerClassMoveChoiceModifications. See AIEnemyTrainerChooseMoves
+; (.readTrainerClassData) for the redirect.
+HardModeBossAIMods:
+	db 1, 2, 3, 4, 0
 
 ; PureRGBnote: CHANGED: AKA the "Dont do stupid things no player would ever do" AI subroutine, many new default AI restrictions added
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
