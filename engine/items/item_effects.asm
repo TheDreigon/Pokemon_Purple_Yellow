@@ -2214,27 +2214,30 @@ ItemUsePPUp:
 ItemUsePPRestore:
 	; v0.7 hard-mode trainer/boss policy: PP refills (Ether/Max Ether/
 	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
-	; battle on Normal mode, so the player still has emergency recovery.
-	; Reason: blocks the "Revive + Elixer" PP-stall loop against bosses
-	; while staying symmetric with the boss item bag (knob #10).
-	; PP_UP and PP_MAX route through here too but are stat-permanent
-	; items, not consumable refills, and stay always-allowed.
+	; battle on Normal mode. Reason: blocks the "Revive + Elixer"
+	; PP-stall loop against bosses while staying symmetric with the
+	; upcoming boss item bag (knob #10).
+	;
+	; PP_UP/PP_MAX dispatch to ItemUsePPUp (which blocks all in-battle
+	; use, then falls through here for out-of-battle handling). The
+	; ETHER..MAX_ELIXER range check below scopes the gate to refills
+	; only — defensive against future dispatch changes.
 	ld a, [wIsInBattle]
 	and a
-	jr z, .notInBattle      ; not in battle: allow
+	jr z, .allowItem        ; not in battle: allow
 	dec a
-	jr z, .notInBattle      ; wild battle (wIsInBattle=1): allow
+	jr z, .allowItem        ; wild battle (wIsInBattle=1): allow
 	ld a, [wDifficulty]
 	cp HARD_MODE
-	jr nz, .notInBattle     ; trainer battle on Normal mode: allow
+	jr nz, .allowItem       ; trainer battle on Normal mode: allow
 	ld a, [wcf91]
 	cp ETHER
-	jr c, .notInBattle      ; below ETHER (PP_UP): allow
+	jr c, .allowItem        ; below ETHER (PP_UP): allow
 	cp MAX_ELIXER + 1
-	jr nc, .notInBattle     ; above MAX_ELIXER (PP_MAX): allow
+	jr nc, .allowItem       ; above MAX_ELIXER (PP_MAX): allow
 	ld hl, ItemsCantBeUsedHereText
 	jp ItemUseFailed
-.notInBattle
+.allowItem
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wcf91]
