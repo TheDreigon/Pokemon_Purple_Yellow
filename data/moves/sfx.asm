@@ -125,12 +125,12 @@ MoveSoundTable:
 	db SFX_BATTLE_18,          $00, $80 ; BONE_CLUB ; v0.7 reviewed: was BATTLE_32 (squeak); thud SFX fits the club-bashing visual.
 	db SFX_BATTLE_29,          $f0, $40 ; DIG ; v0.7 reviewed: was DAMAGE (generic hit); deep boom for the underground emergence.
 ; === ICE ===
-	db SFX_BATTLE_28,          $00, $40 ; POWDER_SNOW
-	db SFX_BATTLE_12,          $30, $80 ; ICY_WIND
-	db SFX_BATTLE_28,          $00, $80 ; AURORA_BEAM
-	db SFX_BATTLE_28,          $20, $80 ; FROST_BREATH
-	db SFX_BATTLE_28,          $40, $80 ; ICE_BEAM
-	db SFX_BATTLE_29,          $f8, $ff ; BLIZZARD ; v0.7 reviewed: deeper pitch + longer tempo for 115 BP storm fury (matches new tornado intro in anim).
+	db SFX_BATTLE_28,          $20, $20 ; POWDER_SNOW ; Forte feedback #66: tempo $40→$20 to fit the visual (no more SFX-after-visual gap).
+	db SFX_BATTLE_12,          $50, $80 ; ICY_WIND ; Forte feedback #67: pitch $30→$50 (less pesado/grave).
+	db SFX_BATTLE_28,          $00, $ff ; AURORA_BEAM ; Forte feedback #68: tempo $80→$ff (more duradouro).
+	db SFX_BATTLE_28,          $20, $ff ; FROST_BREATH ; Forte feedback #69: tempo $80→$ff (more duradouro).
+	db SFX_BATTLE_28,          $40, $ff ; ICE_BEAM ; Forte feedback #70: tempo $80→$ff (more duradouro, paired with slower beam).
+	db SFX_BATTLE_29,          $f8, $80 ; BLIZZARD ; Forte feedback #71: tempo shortened $ff→$80 — was irritante.
 ; === MAGMA ===
 	db SFX_BATTLE_0D,          $20, $60 ; MAGMA_PUNCH
 	db SFX_BATTLE_29,          $20, $40 ; LAVA_PLUME

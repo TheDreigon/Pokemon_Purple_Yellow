@@ -1488,18 +1488,27 @@ DigAnim:
 ; ============================================================
 
 PowderSnowAnim:
+	; Forte feedback #66: was buggado (gap mid-anim, bad SFX). Now:
+	; light palette wrap + 2 ICE_FALL bursts so visual fills the SFX
+	; duration. SFX also tightened.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim POWDER_SNOW, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IcyWindAnim:
+	; Forte feedback #67: light palette wrap (consistent ICE family).
+	; SFX pitch raised in sfx.asm to be less pesado/grave.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim ICY_WIND, SUBANIM_1_TORNADO, 1, 6
 	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AuroraBeamAnim:
-	; Mental image: shimmering rainbow beam — beautiful but cold, and
-	; cuts on contact. Multiple flashes during the beam sell the colour
-	; play. Distinct from ICE_BEAM (which has freezing spikes rising).
+	; Forte feedback #68: SFX more duradouro (tempo $80→$ff in sfx.asm).
+	; Light palette + multi-flash kept (rainbow shimmer).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
@@ -1509,15 +1518,23 @@ AuroraBeamAnim:
 	db -1 ; end
 
 FrostBreathAnim:
+	; Forte feedback #69: SFX more duradouro (tempo extended in
+	; sfx.asm) + light palette wrap (consistent ICE family).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim FROST_BREATH, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 16
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IceBeamAnim:
+	; Forte feedback #70: beam mais lento (delay 5→8) + SFX duradouro
+	; (sfx.asm) + light palette wrap.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim ICE_BEAM, SUBANIM_0_BEAM, 0, 5
+	battle_anim ICE_BEAM, SUBANIM_0_BEAM, 0, 8
 	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 20
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 BlizzardAnim:
@@ -1537,24 +1554,26 @@ BlizzardAnim:
 ; ============================================================
 
 MagmaPunchAnim:
-	; Mental image: lava-encased fist — punch lands and erupts molten
-	; flame around the impact point. Distinct from ROCK_PUNCH (rocks
-	; tumble), KARATE_CHOP (no payload), FIRE moves (no fist).
+	; Forte feedback #72: um pouquinho mais lento. Delays 5→7.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim MAGMA_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
-	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 5
+	battle_anim MAGMA_PUNCH, SUBANIM_0_STAR_THRICE, 0, 7
+	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 7
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LavaPlumeAnim:
-	; v0.7 reviewed (90 BP): added third column + shake for the eruption
-	; payoff. Distinct now from MAGMA_PUNCH (small flame burst).
+	; Forte feedback #73: more "quente" sensation. Dark palette frame
+	; sells the heat haze; mid-flash adds the orange flicker. Final
+	; reset.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LAVA_PLUME, SUBANIM_1_FLAME_BEAM, 1, 5
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 5
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 5
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ; ============================================================
