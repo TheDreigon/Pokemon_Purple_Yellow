@@ -58,5 +58,5 @@ TrainerPicAndMoneyPointers::
 	pic_money JaninePic, 	   3500
 	pic_money JoyPic, 	   	   9900
 	pic_money JennyPic, 	   9900
-	pic_money RocketPic,       5000 ; Jessie & James — TODO: dedicated trainer pic; reusing RocketPic for now (overworld sprites are correct, only the battle-VS portrait shows generic Rocket)
+	pic_money JessieJamesPic,  5000 ; Jessie & James (battle pic already shipped in gfx/trainers/jessiejames.pic)
 	assert_table_length NUM_TRAINERS
