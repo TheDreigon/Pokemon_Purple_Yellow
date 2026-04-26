@@ -71,18 +71,18 @@ MoveSoundTable:
 ; === FIRE ===
 	db SFX_BATTLE_19,          $10, $a0 ; EMBER
 	db SFX_BATTLE_19,          $15, $c0 ; FLAME_CHARGE
-	db SFX_BATTLE_19,          $30, $e0 ; FLAME_BURST
-	db SFX_BATTLE_19,          $21, $e0 ; FLAMETHROWER
-	db SFX_BATTLE_29,          $1f, $20 ; FIRE_BLAST
+	db SFX_BATTLE_19,          $20, $80 ; FLAME_BURST ; Forte feedback #31: tightened pitch + tempo for the burst (paired with the reworked anim).
+	db SFX_BATTLE_19,          $f8, $ff ; FLAMETHROWER ; Forte feedback #32: lower pitch + max tempo for the deep "real fire" feel closer to Fire Blast.
+	db SFX_BATTLE_29,          $1f, $ff ; FIRE_BLAST ; Forte feedback #33: tempo $20→$ff for the longer roar matching the bigger anim.
 	db SFX_BATTLE_19,          $00, $80 ; IGNITE
 	db SFX_BATTLE_34,          $f0, $ff ; EXPLOSION ; v0.7 reviewed: lower pitch ($10→$f0) for catastrophic 200 BP feel matching the new multi-burst anim.
 ; === FLYING ===
 	db SFX_PECK,               $01, $a0 ; PECK
 	db SFX_BATTLE_12,          $00, $c0 ; GUST
 	db SFX_BATTLE_12,          $10, $a0 ; WING_ATTACK
-	db SFX_BATTLE_2B,          $10, $80 ; AERIAL_ACE
+	db SFX_BATTLE_25,          $30, $20 ; AERIAL_ACE ; Forte feedback #35: was BATTLE_2B (whoosh) — too pesado/duradouro. Dash SFX with mid pitch + short tempo for "rápido, preciso".
 	db SFX_BATTLE_12,          $20, $c0 ; FLY ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; wind whoosh fits the dive much better than a "tink".
-	db SFX_BATTLE_13,          $20, $c0 ; HURRICANE
+	db SFX_BATTLE_13,          $f0, $ff ; HURRICANE ; Forte feedback #37: deeper pitch + max tempo for the sustained storm sound matching the multi-tornado anim.
 	db SFX_BATTLE_2B,          $48, $ff ; SKY_ATTACK ; v0.7 reviewed: was BATTLE_25 (dash); deep whoosh sells the dive-bomb on the new charge anim.
 	db SFX_BATTLE_13,          $f0, $20 ; DRILL_PECK
 ; === FUNGUS ===

@@ -947,32 +947,60 @@ EmberAnim:
 	db -1 ; end
 
 FlameChargeAnim:
-	battle_anim FLAME_CHARGE, SUBANIM_1_FLAMES, 1, 6
+	; Forte feedback #30: name says CHARGE — needs visible charge
+	; phase. Now: light frame + user shakes (charging up speed),
+	; SLAMS forward (slide horizontal), flames burst on contact +
+	; flash. Reads as "speed up + flame contact" matching the +1 spd
+	; effect.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
+	battle_anim FLAME_CHARGE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FlameBurstAnim:
-	; v0.7 reviewed (75 BP): added shake on the burst — flames erupting
-	; outwards from the contact point need an impact beat.
+	; Forte feedback #31: not good enough. Reworked for proper burst:
+	; beam → big flash + shake → multiple flame columns spreading
+	; outward → final flames. 75 BP swift-effect needs visible "burst".
 	battle_anim FLAME_BURST, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 4
 	db -1 ; end
 
 FlamethrowerAnim:
+	; Forte feedback #32: more intense + dark screen + better fire
+	; sound (closer to Fire Blast). Added dark palette frame + flash
+	; mid-stream, kept the column sequence. SFX pitch lowered.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_BEAM, 1, 6
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_1, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_2, 1, 6
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FireBlastAnim:
+	; Forte feedback #33: a touch more intense — colour, longer SFX.
+	; Added dark palette framing + intermittent flashes for the
+	; furnace-roar feel. SFX tempo extended (sfx.asm).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim FIRE_BLAST, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IgniteAnim:
@@ -988,16 +1016,16 @@ IgniteAnim:
 	db -1 ; end
 
 ExplosionAnim:
-	; v0.7 reviewed (200 BP, suicide): a single SELFDESTRUCT subanim was
-	; way too brief for the highest-power move. Multi-flash + shake +
-	; second blast read as catastrophic. Player loses everything; the
-	; animation should match the cost.
+	; Forte feedback #34: extra impact SFX after the sprite explodes.
+	; TAKE_DOWN-borrowed thud + final shake seal it.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim EXPLOSION, SUBANIM_1_SELFDESTRUCT, 1, 3
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_SELFDESTRUCT, 1, 3
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1031,10 +1059,12 @@ AerialAceAnim:
 	db -1 ; end
 
 FlyAnim:
-	; v0.7 reviewed (80 BP, FLY_EFFECT semi-invuln charge): the charge
-	; turn already plays a "user disappears upward" sub-anim via
-	; FLY_EFFECT in the engine; this body handles the DIVE turn — user
-	; flying back in for the strike.
+	; Forte feedback #36: in ANIM TEST the user "voar para cima" looks
+	; missing. That's the CHARGE turn anim — FLY_EFFECT plays it in
+	; battle, but ANIM TEST only plays this body (the DIVE turn). In
+	; real gameplay the takeoff happens turn 1, dive turn 2.
+	; Body unchanged — adding the takeoff visual here would double up
+	; in real battle and look wrong.
 	battle_anim FLY, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -1042,21 +1072,24 @@ FlyAnim:
 	db -1 ; end
 
 HurricaneAnim:
-	; v0.7 reviewed (90 BP, can confuse): was identical to SkyAttack —
-	; just user lifts up + 1 hit. Now: multiple wind/tornado layers + a
-	; final shake to read as SUSTAINED storm, not a single dive.
-	battle_anim FLY, SE_SQUISH_MON_PIC
+	; Forte feedback #37: removed FLY squish (looked like teleport,
+	; wrong). Tornados ARE the move — multiple layered tornado bursts
+	; + dual shakes for sustained storm fury. Dark palette frame
+	; suggests the storm darkening the sky.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim HURRICANE, SUBANIM_1_TORNADO, 1, 5
+	battle_anim NO_MOVE, SUBANIM_1_TORNADO, 1, 5
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_TORNADO, 1, 5
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SkyAttackAnim:
-	; v0.7 reviewed (180 BP, CHARGE_EFFECT): explicit charge phase up
-	; (squish + balls) → delay → diving star + flash + shake. Now
-	; distinct from FLY (which is also charge but lands earlier).
+	; Forte feedback #38: heavier impact (180 BP, strongest flying).
+	; Charge phase preserved; added a follow-up STAR_BIG + dual flash
+	; + dual shake for the catastrophic landing.
 	battle_anim FLY, SE_SQUISH_MON_PIC
 	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -1064,16 +1097,25 @@ SkyAttackAnim:
 	battle_anim SKY_ATTACK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 DrillPeckAnim:
+	; Forte feedback #39: more dynamic. Mental image (Forte): Dodrio's
+	; 3 heads pecking alternately, or Zapdos's extending beak.
+	; Alternates between two SFX families (HORN_DRILL deep, PECK
+	; sharp) so each peck "sounds different" — 3-heads-different-
+	; pitches feel — accelerating pace + final shake.
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 5
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 3
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 ; ============================================================
