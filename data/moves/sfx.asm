@@ -108,7 +108,7 @@ MoveSoundTable:
 	db SFX_VINE_WHIP,          $01, $80 ; VINE_WHIP
 	db SFX_BATTLE_24,          $40, $c0 ; MEGA_DRAIN
 	db SFX_BATTLE_12,          $20, $e0 ; RAZOR_LEAF
-	db SFX_BATTLE_24,          $60, $e0 ; GIGA_DRAIN
+	db SFX_BATTLE_24,          $f0, $ff ; GIGA_DRAIN ; Forte feedback #54: deeper pitch + max tempo for more intensity.
 	db SFX_BATTLE_13,          $14, $c0 ; PETAL_DANCE
 	db SFX_BATTLE_2E,          $00, $80 ; SOLARBEAM
 	db SFX_BATTLE_1B,          $03, $60 ; LEECH_SEED
@@ -117,9 +117,9 @@ MoveSoundTable:
 	db SFX_BATTLE_1C,          $01, $c0 ; SLEEP_POWDER
 ; === GROUND ===
 	db SFX_BATTLE_20,          $00, $60 ; GROUND_STOMP
-	db SFX_BATTLE_2A,          $00, $60 ; MUD_SHOT
+	db SFX_BATTLE_1B,          $f0, $80 ; MUD_SHOT ; Forte feedback #59: was BATTLE_2A (sludge — too toxic). Sting family at low pitch reads as gritty mud particles.
 	db SFX_BATTLE_29,          $00, $80 ; BULLDOZE
-	db SFX_BATTLE_2A,          $10, $80 ; MUD_BOMB
+	db SFX_BATTLE_29,          $f0, $80 ; MUD_BOMB ; Forte feedback #61: was BATTLE_2A (toxic). Boom family deep-pitched matches "BOMB" + the new SAND-led anim.
 	db SFX_BATTLE_29,          $0f, $e0 ; EARTHQUAKE
 	db SFX_BATTLE_29,          $11, $20 ; FISSURE
 	db SFX_BATTLE_18,          $00, $80 ; BONE_CLUB ; v0.7 reviewed: was BATTLE_32 (squeak); thud SFX fits the club-bashing visual.

@@ -1309,28 +1309,37 @@ VineWhipAnim:
 	db -1 ; end
 
 MegaDrainAnim:
+	; Forte feedback #53: toquezinho mais lento (sensação de impacto).
+	; Drain delays 6→8.
 	battle_anim MEGA_DRAIN, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 8
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 RazorLeafAnim:
+	; Forte feedback #54: green-ish screen tone like PETAL_DANCE.
+	; LIGHT_SCREEN_PALETTE wrap is the closest the engine has to
+	; "green" (literally the same setup PETAL_DANCE uses).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim RAZOR_LEAF, SE_LEAVES_FALLING
 	battle_anim TACKLE, SUBANIM_1_LEAVES_TOSS, 1, 1
 	battle_anim GUST, SUBANIM_0_SLICE, 0, 1
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 GigaDrainAnim:
-	; v0.7 reviewed (75 BP): doubled the drain cycle so it reads as
-	; substantially bigger than MegaDrain (which has 1 cycle). Same
-	; pattern, more drain.
+	; Forte feedback #54 (dup): more intense (anim AND sound). Added
+	; dark palette frame + shake mid-drain + 3rd cycle. SFX retuned
+	; deeper + max tempo.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim GIGA_DRAIN, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
@@ -1351,46 +1360,45 @@ PetalDanceAnim:
 	db -1 ; end
 
 SolarBeamAnim:
-	; v0.7 reviewed (180 BP, CHARGE_EFFECT): bumped charge phase with
-	; spiral (sun energy gathering) + flash on impact + shake. Now
-	; clearly stronger-feeling than HYPER_BEAM (125 BP).
+	; Forte feedback #55: toquezinho mais duradouro. Added 2nd delay
+	; before beam + extended beam delay (5→6) + final dark flash for
+	; the lingering after-glow.
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LeechSeedAnim:
+	; Forte feedback #56: repeat the "plantinhas no chão" landing 1
+	; more time.
 	battle_anim LEECH_SEED, SUBANIM_1_SEED_TOSS, 1, 6
 	battle_anim STUN_SPORE, SUBANIM_1_SEED_LAND, 1, 21
+	battle_anim NO_MOVE, SUBANIM_1_SEED_LAND, 1, 21
 	db -1 ; end
 
 PoisonPowderAnim:
-	; Mental image: purple toxic dust drifting down. Darken palette
-	; sells the sickly tone. Distinct from STUN_SPORE (yellow + spark)
-	; and SLEEP_POWDER (light, dreamy).
+	; Forte feedback #57: powders um bocadinho mais lentos. Delay 6→9.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim POISONPOWDER, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim POISONPOWDER, SUBANIM_0_CIRCLES_FALLING, 0, 9
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 StunSporeAnim:
-	; Mental image: yellow paralysing dust + faint static crackle as
-	; the powder reaches the target. Distinct from POISONPOWDER (no
-	; spark) and SLEEP_POWDER (no spark).
-	battle_anim STUN_SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	; Forte feedback #57: powders um bocadinho mais lentos. Delay 6→9.
+	battle_anim STUN_SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 9
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	db -1 ; end
 
 SleepPowderAnim:
-	; Mental image: soft dreamy dust drifting down — light palette
-	; sells the gentle sleep. Distinct from POISONPOWDER (dim) and
-	; STUN_SPORE (spark) and SPORE (denser, two layers).
+	; Forte feedback #57: powders um bocadinho mais lentos. Delay 6→9.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim SLEEP_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim SLEEP_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 9
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1399,35 +1407,53 @@ SleepPowderAnim:
 ; ============================================================
 
 GroundStompAnim:
-	; Held star_big sells the planted stomp pressure even at low BP.
+	; Forte feedback #58: bom mas mais poderoso. Added shake between
+	; the two stomps + final shake. Bigger felt impact.
 	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 MudShotAnim:
-	battle_anim MUD_SHOT, SUBANIM_1_BLOB_TOSS, 1, 6
+	; Forte feedback #59: less "toxic" feel — more like SAND_ATTACK
+	; (mud particles flying). SAND subanim takes the lead, BLOB_TOSS
+	; chases as the wet payload. SFX also retuned to sting family.
+	battle_anim MUD_SHOT, SUBANIM_1_SAND, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 4
 	db -1 ; end
 
 BulldozeAnim:
+	; Forte feedback #60: estrela de impacto mais impactante.
+	; Switched to STAR_BIG_MOVING + final shake.
 	battle_anim BULLDOZE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 MudBombAnim:
-	; v0.7 reviewed (80 BP, can lower acc): added shake on impact —
-	; "BOMB" needs felt mass on landing.
-	battle_anim MUD_BOMB, SUBANIM_1_BLOB_TOSS, 1, 6
+	; Forte feedback #61: similar feedback to Mud Shot — less "toxic".
+	; SAND subanim leads, BLOB_TOSS chases, shake closes. SFX also
+	; switches to BATTLE_29 (boom) for the explosive bomb feel.
+	battle_anim MUD_BOMB, SUBANIM_1_SAND, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 4
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
 	db -1 ; end
 
 EarthquakeAnim:
+	; Forte feedback #62: 4 shakes (was 3).
+	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
 	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
 	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
 	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 FissureAnim:
+	; Forte feedback #63: same as Earthquake — one more flash+shake
+	; pair, keeping the dark screen flashes that distinguish from
+	; Earthquake.
+	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
@@ -1437,12 +1463,13 @@ FissureAnim:
 	db -1 ; end
 
 BoneClubAnim:
-	; v0.7 reviewed (75 BP, can flinch): added impact framing — bone
-	; club is a heavy thwack, not a multi-hit star burst. Flash + shake
-	; mark each clubbing motion.
+	; Forte feedback #64: try the green-ish (LIGHT_SCREEN palette)
+	; wrap to see how it reads on a club move (Forte's curiosity).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 DigAnim:
