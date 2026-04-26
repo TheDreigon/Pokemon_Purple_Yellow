@@ -4928,6 +4928,27 @@ CriticalHitTest:
 	ld a, $ff                    ; cap at 255/256
 .gotBase
 	ld b, a
+	; v0.7 hard mode boss crit bonus (~+10pp). Only fires on the
+	; boss's own attack turn (hWhoseTurn != 0). Doubles the boss's
+	; effective crit rate (normal moves 10%→20%, high-crit 20%→30%);
+	; Focus Energy multiplier still applies on top, so a boss with
+	; FE on a high-crit move would hit 90% crit.
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .noBossCritBonus
+	push bc                      ; preserve b (base+speed/4); helper trashes
+	push de                      ; preserve de (battle-status ptr)
+	call IsHardModeBossBattle
+	pop de
+	pop bc
+	jr z, .noBossCritBonus
+	ld a, b
+	add CRIT_BASE_NORMAL
+	jr nc, .bossCritNoCap
+	ld a, $ff
+.bossCritNoCap
+	ld b, a
+.noBossCritBonus
 	ld a, [de]
 	bit GETTING_PUMPED, a        ; test for focus energy
 	jr z, .noFocusEnergyUsed
