@@ -6383,6 +6383,19 @@ LoadEnemyMonData:
 	ld b, a
 	call BattleRandom
 .storeDVs
+	; v0.7 hard mode boss DV override. IsHardModeBossBattle gates on
+	; trainer-battle + boss class, so wild and transformed paths fall
+	; through unchanged. Boss enemies get $ff/$ff (DV=15 in all 5
+	; stats including HP, via the standard DV encoding).
+	ld c, a                ; cache atk/def DVs (helper preserves c)
+	push bc
+	call IsHardModeBossBattle
+	pop bc
+	ld a, c                ; restore atk/def DVs
+	jr z, .writeDVs
+	ld a, $ff              ; boss override
+	ld b, $ff
+.writeDVs
 	ld hl, wEnemyMonDVs
 	ld [hli], a
 	ld [hl], b
