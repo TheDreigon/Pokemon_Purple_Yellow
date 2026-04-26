@@ -2231,7 +2231,12 @@ FierceRoarAnim:
 	db -1 ; end
 
 CoilAnim:
+	; Mental image: snake winding tightly, building striking power.
+	; +1 atk AND +1 def (two-stat buff) — second BIND cycle reads
+	; as "two coils tighter". Distinct from BULK_UP (muscle clench,
+	; same effect but different feel).
 	battle_anim COIL, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2310,7 +2315,11 @@ QuiverDanceAnim:
 	db -1 ; end
 
 TailwindAnim:
+	; Mental image: tailwind boost — wind at the user's back. Light
+	; frame reads as positive-buff atmosphere.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim TAILWIND, SUBANIM_1_TORNADO, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AgilityAnim:
@@ -2351,7 +2360,13 @@ CharmAnim:
 	db -1 ; end
 
 IntimidateAnim:
+	; Mental image: roar that backs the target down hard. -2 atk
+	; deserves more than a single shout — added flash + shake for the
+	; menacing weight. Distinct from FIERCE_ROAR (atk +/- swing,
+	; sandwiched between dark flashes) and GROWL (mild, no framing).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim INTIMIDATE, SUBANIM_1_SHOUT, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 LeerAnim:
@@ -2370,7 +2385,13 @@ GrowlAnim:
 	db -1 ; end
 
 CorrodeAnim:
+	; Mental image: target's defenses literally rotting away under
+	; corrosive acid. -2 def signature; sustained drip + darken frame
+	; for the rotting atmosphere.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim CORRODE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 TailWhipAnim:
@@ -2469,14 +2490,20 @@ HinderAnim:
 	db -1 ; end
 
 FlashAnim:
-	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
-	battle_anim GLARE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	; Mental image: blinding bright burst — both accuracy AND evasion
+	; drop. Light frame + 2x bright FLASH_SCREEN_LONG (the dazzle).
+	; SFX trigger switched LEECH_SEED/GLARE → FLASH so its own sound
+	; plays.
+	battle_anim FLASH, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SandAttackAnim:
-	battle_anim SAND_ATTACK, SUBANIM_1_SAND, 1, 6
+	; Mental image: handful of sand thrown into the eyes — short,
+	; irritating. Slight delay extension (6→8) for the sting.
+	battle_anim SAND_ATTACK, SUBANIM_1_SAND, 1, 8
 	db -1 ; end
 
 SmokescreenAnim:
