@@ -49,6 +49,7 @@ ReadTrainer:
 	ld a, [hli]
 	cp $FF ; is the trainer special?
 	jr z, .SpecialTrainer ; if so, check for special moves
+	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +2 (cap MAX_LEVEL)
 	ld [wCurEnemyLVL], a
 .LoopTrainerData
 	ld a, [hli]
@@ -69,6 +70,7 @@ ReadTrainer:
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
 	jr z, .AddAdditionalMoveData
+	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +2 (cap MAX_LEVEL)
 	ld [wCurEnemyLVL], a
 	ld a, [hli]
 	ld [wcf91], a
@@ -142,4 +144,37 @@ ReadTrainer:
 	inc de
 	dec b
 	jr nz, .LastLoop ; repeat wCurEnemyLVL times
+	ret
+
+; v0.7 hard mode helper. Called from both .IterateTrainer (uniform-level
+; trainer) and .SpecialTrainer (per-mon level) just BEFORE writing to
+; wCurEnemyLVL. Adds 2 to A if Hard mode + boss class, capped at
+; MAX_LEVEL. No-op otherwise.
+;
+; Note: this also subtly bumps the prize money (wAmountMoneyWon is
+; computed from the bumped wCurEnemyLVL down at .FinishUp). That's
+; intentional — boss reward scales with the harder fight.
+;
+; Lives in bank $0E (Battle Engine 6) alongside ReadTrainer; uses
+; farcall to reach IsBossTrainerClass in bank $0F (Battle Core).
+;
+; Input:  a = unbumped level
+; Output: a = bumped level (or unchanged if not hard-mode boss)
+; Trashes: b, hl
+HardModeBossLevelBump:
+	push af
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .noBump
+	ld a, [wTrainerClass]
+	farcall IsBossTrainerClass
+	jr z, .noBump
+	pop af
+	add 2
+	cp MAX_LEVEL + 1
+	ret c
+	ld a, MAX_LEVEL
+	ret
+.noBump
+	pop af
 	ret
