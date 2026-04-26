@@ -48,6 +48,11 @@ DEF BIT_TEST_BATTLE EQU 0
 DEF NORMAL_MODE EQU 0
 DEF HARD_MODE   EQU 1
 
+; Hard mode boss item bag size (knob #10). 4 (item_id, count) pairs = 8 bytes.
+; Entries past the boss's actual item count are padded with -1 in the item_id
+; slot. wEnemyTrainerItemBag in wram is exactly this many bytes.
+DEF BOSS_BAG_SIZE EQU 8
+
 ; battle type constants (wBattleType values)
 	const_def
 	const BATTLE_TYPE_NORMAL  ; 0

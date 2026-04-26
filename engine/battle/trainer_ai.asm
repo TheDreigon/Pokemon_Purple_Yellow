@@ -779,12 +779,8 @@ BlackbeltAI:
 	ret nc
 	jp AIUseXAttack
 
-GiovanniAI:
-	and a
-	ret
-	; cp 25 percent + 1
-	; ret nc
-	; jp AIUseGuardSpec
+; Giovanni AI moved below CooltrainerFAI with the rest of the boss routines.
+; (Hard mode boss item bag — knob #10. See ; ===== HARD MODE BOSS AI ===== marker.)
 
 CooltrainerMAI:
 	cp 25 percent + 1
@@ -808,121 +804,397 @@ CooltrainerFAI:
 	ret nc
 	jp AISwitchIfEnoughMons
 
+; ===== HARD MODE BOSS AI =====
+;
+; v0.7 hard mode knob #10. Each boss AI routine is gated by
+; IsHardModeBossBattle (bank $0F farcall). In Normal mode, in wild battles,
+; or against a non-boss class the gate returns Z=1 and we early-out — same
+; behaviour as the previous "and a / ret" stubs.
+;
+; In Hard mode boss battles the routine consults wEnemyTrainerItemBag (a
+; per-battle inventory populated by InitEnemyTrainerItemBag from
+; data/trainers/boss_item_bags.asm) via CheckAndConsumeBossItem. Items are
+; only used when in the bag AND count > 0; once exhausted the AI silently
+; falls through.
+;
+; Standard 2-item pattern (most bosses):
+;   1. If HP below threshold, try heal item.
+;   2. Else, with X% probability, try buff item.
+; Per-battle item caps come from the bag data; per-mon caps still come from
+; wAICount/ai_pointers.asm (each AIUse* tail-calls DecrementAICount).
+
 BrockAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	; Heal at HP < 1/3 → Super Potion
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	; ~25% chance X Defend (rocks defensive)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_DEFEND
+	call CheckAndConsumeBossItem
+	jp c, AIUseXDefend
 	ret
-; ; if his active monster has a status condition, use a full heal
-; 	ld a, [wEnemyMonStatus]
-; 	and a
-; 	ret z
-; 	jp AIUseFullHeal
 
 MistyAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_DEFEND
+	call CheckAndConsumeBossItem
+	jp c, AIUseXDefend
 	ret
-	; cp 25 percent + 1
-	; ret nc
-	; jp AIUseXDefend
 
 LtSurgeAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	; ~25% chance X Speed (electric speed)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_SPEED
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpeed
 	ret
-	; cp 25 percent + 1
-	; ret nc
-	; jp AIUseXSpeed
 
 ErikaAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_DEFEND
+	call CheckAndConsumeBossItem
+	jp c, AIUseXDefend
 	ret
-	; cp 50 percent + 1
-	; ret nc
-	; ld a, 10
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUseSuperPotion
 
 KogaAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
 	ret
-	; cp 13 percent - 1
-	; ret nc
-	; jp AIUseXAttack
-
-BlaineAI:
-	and a
-	ret
-	; cp 25 percent + 1
-	; ret nc
-	; ld a, 10
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUseSuperPotion
 
 SabrinaAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+.skipHeal
+	; ~25% chance X Special (Psychic special attacker)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_SPECIAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpecial
 	ret
-	; cp 25 percent + 1
-	; ret nc
-	; jp AIUseXDefend
 
-Rival2AI:
-	and a
+BlaineAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+.skipHeal
+	; ~25% chance X Attack (fire aggressive)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
 	ret
-	; cp 13 percent - 1
-	; ret nc
-	; ld a, 5
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUsePotion
 
-Rival3AI:
-	and a
+; Giovanni: 3-item bag (Full Restore + X Attack + Guard Spec). Two
+; independent buff rolls so each item fires ~25% of un-healed turns.
+GiovanniAI:
+	farcall IsHardModeBossBattle
+	ret z
+	; Heal at HP < 1/2 (boss heals earlier than gym tier)
+	ld a, 2
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	; ~25% Guard Spec roll
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipGuardSpec
+	ld a, GUARD_SPEC
+	call CheckAndConsumeBossItem
+	jp c, AIUseGuardSpec
+.skipGuardSpec
+	; ~25% X Attack roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
 	ret
-	; cp 13 percent - 1
-	; ret nc
-	; ld a, 5
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUseFullRestore
+
+; ---- Elite Four + Champion ----
 
 LoreleiAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_DEFEND
+	call CheckAndConsumeBossItem
+	jp c, AIUseXDefend
 	ret
-	; cp 50 percent + 1
-	; ret nc
-	; ld a, 5
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUseSuperPotion
 
 BrunoAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
 	ret
-	; cp 25 percent + 1
-	; ret nc
-	; jp AIUseXDefend
 
 AgathaAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	; ~25% chance Dire Hit (sneaky crit setup — Ghost theme)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, DIRE_HIT
+	call CheckAndConsumeBossItem
+	jp c, AIUseDireHit
 	ret
-	; cp 8 percent
-	; jp c, AISwitchIfEnoughMons
-	; cp 50 percent + 1
-	; ret nc
-	; ld a, 4
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUseSuperPotion
 
 LanceAI:
-	and a
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
 	ret
-	; cp 50 percent + 1
-	; ret nc
-	; ld a, 5
-	; call AICheckIfHPBelowFraction
-	; ret nc
-	; jp AIUseHyperPotion
+
+; ---- Rivals 2 & 3 (Rival1 stays GenericAI — too early-game) ----
+
+Rival2AI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
+	ret
+
+Rival3AI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
+	ret
+
+; ---- Bosses promoted in v0.6 / v0.7 (no vanilla AI body) ----
+
+ProfOakAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 2
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
+	ret
+
+; Joy: nurse-themed heavy heal. 3-item bag: Full Restore (HP < 1/2) → Hyper
+; Potion (fallback if FR exhausted) → Full Heal (status priority).
+JoyAI:
+	farcall IsHardModeBossBattle
+	ret z
+	; Priority 1: status → Full Heal
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	; Priority 2/3: Full Restore at HP < 1/2; if exhausted, fall back to Hyper Potion
+	ld a, 2
+	call AICheckIfHPBelowFraction
+	ret nc
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+	ret
+
+JennyAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
+	ret
+
+JanineAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
+	ret
+
+JessieAndJamesAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, SUPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseSuperPotion
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_ATTACK
+	call CheckAndConsumeBossItem
+	jp c, AIUseXAttack
+	ret
 
 GenericAI:
 	and a ; clear carry
@@ -1298,4 +1570,105 @@ UndoBurnParStats:
 .return
 	xor a
 	ld [de], a	;reset the stat change bits
+	ret
+
+
+; ===== HARD MODE BOSS ITEM BAG HELPERS (knob #10) =====
+;
+; Per-battle item inventory for boss trainers. The bag (wEnemyTrainerItemBag,
+; BOSS_BAG_SIZE bytes in wMiscBattleData) holds (item_id, count) pairs
+; padded with -1. Populated once per battle by InitEnemyTrainerItemBag from
+; data/trainers/boss_item_bags.asm. Boss AI routines call
+; CheckAndConsumeBossItem before each AIUse*; if the bag is empty for that
+; item, the AI silently no-ops.
+
+; Walk the bag looking for item_id in `a`. If found AND count > 0,
+; decrement count and return carry. Otherwise clear carry.
+;
+; Loop is bounded by BOSS_BAG_SIZE / 2 pair iterations — defensive against
+; an uninitialised bag (e.g. wMiscBattleData zeroed but InitEnemyTrainerItem
+; Bag never ran). Today every caller is gated by IsHardModeBossBattle and
+; the init runs before any AI tick, but the bound is cheap insurance.
+;
+; Input:   a = item_id to consume
+; Output:  carry = 1 → item was available and is now consumed
+;          carry = 0 → item not in bag, or in bag with 0 count
+; Trashes: a, b, c, hl
+CheckAndConsumeBossItem:
+	ld b, a
+	ld hl, wEnemyTrainerItemBag
+	ld c, BOSS_BAG_SIZE / 2     ; max pair iterations
+.loop
+	ld a, [hl]
+	cp -1
+	jr z, .notFound             ; sentinel reached → item not in this bag
+	cp b
+	jr z, .foundItem
+	inc hl                      ; skip past item_id
+	inc hl                      ; skip past count
+	dec c
+	jr nz, .loop
+	jr .notFound                ; walked entire bag without match
+.foundItem
+	inc hl                      ; hl → count byte
+	ld a, [hl]
+	and a
+	jr z, .notFound             ; in bag but already exhausted
+	dec [hl]                    ; consume one
+	scf
+	ret
+.notFound
+	and a                       ; clear carry
+	ret
+
+; Initialise wEnemyTrainerItemBag for this battle. Called once at battle
+; start by init_battle.asm (after wTrainerClass + wAICount are set, before
+; any AI tick fires). If this is not a Hard-mode boss battle the bag stays
+; empty (-1 fill) and every CheckAndConsumeBossItem returns no-carry, so
+; boss AI routines no-op out cleanly.
+;
+; Trashes: a, b, c, d, e, hl
+InitEnemyTrainerItemBag::
+	; Step 1: clear bag to all -1 (sentinel)
+	ld hl, wEnemyTrainerItemBag
+	ld c, BOSS_BAG_SIZE
+	ld a, -1
+.clear
+	ld [hli], a
+	dec c
+	jr nz, .clear
+
+	; Step 2: bail if not Hard mode + boss
+	farcall IsHardModeBossBattle
+	ret z
+
+	; Step 3: linear scan BossItemBagPointers for this trainer class
+	ld a, [wTrainerClass]
+	ld b, a
+	ld hl, BossItemBagPointers
+.findBoss
+	ld a, [hl]
+	cp -1
+	ret z                       ; class missing from table → keep empty bag
+	cp b
+	jr z, .found
+	inc hl                      ; skip class byte
+	inc hl                      ; skip pointer low
+	inc hl                      ; skip pointer high
+	jr .findBoss
+.found
+	inc hl                      ; hl → bag pointer low
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a                     ; hl = bag pointer
+
+	; Step 4: copy BOSS_BAG_SIZE bytes from rom bag → wram bag
+	ld de, wEnemyTrainerItemBag
+	ld c, BOSS_BAG_SIZE
+.copy
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .copy
 	ret

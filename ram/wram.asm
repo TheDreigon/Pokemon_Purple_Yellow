@@ -663,7 +663,13 @@ wEnemyNumHits:: ; db
 ; the amount of damage accumulated by the enemy while biding
 wEnemyBideAccumulatedDamage:: dw
 
-	ds 8
+; v0.7 hard mode boss item bag (knob #10).
+; Per-battle item inventory for the enemy trainer. Populated at battle start
+; by InitEnemyTrainerItemBag (engine/battle/trainer_ai.asm) only when this
+; is a Hard-mode boss battle; otherwise filled with -1 (no items). Format:
+; pairs of (item_id, count_remaining). End marker -1 in item_id slot.
+; CheckAndConsumeBossItem walks this and decrements count on use.
+wEnemyTrainerItemBag:: ds BOSS_BAG_SIZE
 wMiscBattleDataEnd::
 NEXTU
 	ds 2

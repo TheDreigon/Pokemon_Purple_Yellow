@@ -47,6 +47,9 @@ InitBattleCommon:
 	ldh [hStartTileID], a
 	dec a
 	ld [wAICount], a
+	; v0.7 hard mode knob #10: populate the boss item bag (no-ops out
+	; in Normal mode, wild battles, or against non-boss classes).
+	farcall InitEnemyTrainerItemBag
 	hlcoord 12, 0
 	predef CopyUncompressedPicToTilemap
 	ld a, $ff
