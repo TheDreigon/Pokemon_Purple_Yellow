@@ -8,11 +8,14 @@
 	INCBIN "gfx/pokemon/front/ekans.pic", 0, 1 ; sprite dimensions
 	dw EkansPicFront, EkansPicBack
 
-	db LEER, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WRAP, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: snake. Levelup-doubles for many. TOXIC TM per Forte #6.
+	; HM01 Cut (fangs cut). NO HM02 Fly (no wings, snake).
+	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC,        \
+	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT
 	; end
 
 	db 0 ; padding

@@ -8,11 +8,15 @@
 	INCBIN "gfx/pokemon/front/zubat.pic", 0, 1 ; sprite dimensions
 	dw ZubatPicFront, ZubatPicBack
 
-	db LEECH_LIFE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BITE, SUPERSONIC, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: small bat. Levelup-doubles for several. TOXIC TM per
+	; Forte #6. NO FLY (Forte: Golbat-only natural — small wings can't
+	; carry rider).
+	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC,        \
+	     AGILITY,      CUT
 	; end
 
 	db 0 ; padding

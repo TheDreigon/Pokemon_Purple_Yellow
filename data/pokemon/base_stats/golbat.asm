@@ -8,11 +8,17 @@
 	INCBIN "gfx/pokemon/front/golbat.pic", 0, 1 ; sprite dimensions
 	dw GolbatPicFront, GolbatPicBack
 
-	db LEECH_LIFE, SCREECH, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BITE, SUPERSONIC, ABSORB, WING_ATTACK ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: matured vampire bat. Zubat's 7 + 4 apex additions:
+	; Hurricane TM (per Forte #16 — TM only, NOT levelup), Giga Drain TM
+	; (per Forte #17 — vampire-bat mass-drain via fangs), Intimidate (big
+	; bat scary), HM02 Fly (Forte's natural list — Golbat only).
+	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC,        \
+	     AGILITY,      CUT,          GIGA_DRAIN,   HURRICANE,    INTIMIDATE,   \
+	     FLY
 	; end
 
 	db 0 ; padding

@@ -7,11 +7,16 @@
 	INCBIN "gfx/pokemon/front/raticate.pic", 0, 1 ; sprite dimensions
 	dw RaticatePicFront, RaticatePicBack
 
-	db TACKLE, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, TAIL_WHIP, QUICK_ATTACK, BITE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: matured Normal/Dark rodent. Rattata's 9 + 3 apex
+	; additions: Bulk Up (warrior rat), Faint Attack (Dark levelup-double),
+	; Intimidate (matured rat presence).
+	tmhm QUICK_ATTACK, BODY_SLAM,    HONE_CLAWS,   POISON_FANG,  TOXIC,        \
+	     DOUBLE_EDGE,  TAKE_DOWN,    AGILITY,      CUT,          BULK_UP,      \
+	     FAINT_ATTACK, INTIMIDATE
 	; end
 
 	db 0 ; padding

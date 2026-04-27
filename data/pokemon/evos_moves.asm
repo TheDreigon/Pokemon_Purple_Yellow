@@ -498,7 +498,7 @@ NidoqueenEvosMoves:
 
 CuboneEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 25, MAROWAK
+	db EVOLVE_LEVEL, 28, MAROWAK
 	db 0
 ; Learnset
 	db  5, GROWL
@@ -849,7 +849,7 @@ PidgeyEvosMoves:
 
 SlowpokeEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 31, SLOWBRO
+	db EVOLVE_LEVEL, 35, SLOWBRO
 	db 0
 ; Learnset
 	db  6, TAIL_WHIP
@@ -987,18 +987,36 @@ ArbokEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, WRAP
-	db 10, BITE
-	db 14, POISON_STING
-	db 18, ACID
-	db 22, GLARE
-	db 28, POISON_FANG
-	db 34, SCREECH
-	db 40, TOXIC_FANGS
-	db 47, SLUDGE_WAVE
-	db 50, WRAP
-	db 54, GUNK_SHOT
-	db 60, CRUNCH
+; v0.7 Pass 3: Poison/Dark — matured cobra. Ekans's 20 + 4 anatomical
+; exclusives (cobra hood + Dark unlock + bigger jaw + heavy whip-tail):
+; SCARY_FACE (per Forte at L21 — evo level, hood reveal), CRUNCH (per
+; Forte — bigger jaw), IRON_TAIL (per Forte — high-level whip), INTIMIDATE
+; (full hood display). Removed prior duplicate WRAP (was vanilla bug),
+; GUNK_SHOT (Muk-only), SLUDGE_WAVE (Muk-only).
+	db  4, QUICK_ATTACK
+	db  7, CONSTRICT
+	db 10, WRAP
+	db 11, BIDE
+	db 13, BITE
+	db 16, LEER
+	db 19, POISON_STING
+	db 21, SCARY_FACE
+	db 22, BIND
+	db 25, ACID
+	db 28, GLARE
+	db 31, SUBSTITUTE
+	db 34, POISON_FANG
+	db 37, AGILITY
+	db 40, FAINT_ATTACK
+	db 43, HINDER
+	db 46, SHADOW_SNEAK
+	db 48, CRUNCH
+	db 50, TOXIC_FANGS
+	db 52, IRON_TAIL
+	db 54, TOXIC
+	db 55, INTIMIDATE
+	db 57, NEUROTOXIN
+	db 60, EXTREMESPEED
 	db 0
 
 ParasectEvosMoves:
@@ -1707,7 +1725,7 @@ MissingNo5FEvosMoves:
 
 SandshrewEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 21, SANDSLASH
+	db EVOLVE_LEVEL, 22, SANDSLASH
 	db 0
 ; Learnset
 	db  5, DEFENSE_CURL
@@ -1900,17 +1918,25 @@ ZubatEvosMoves:
 	db EVOLVE_LEVEL, 21, GOLBAT
 	db 0
 ; Learnset
-	db  5, LEECH_LIFE
-	db  9, SUPERSONIC
-	db 13, BITE
-	db 17, CONFUSE_RAY
-	db 22, WING_ATTACK
-	db 28, POISON_FANG
+; v0.7 Pass 3 (Forte review): vampire bat. Drain progression per Forte:
+; BITE → ABSORB → LEECH_LIFE. WING_ATTACK at L21 (evo level per Forte).
+; TOXIC after TOXIC_FANGS (progression per Forte). NO SLUDGE (Muk-only).
+; NO HURRICANE in levelup (Forte: Golbat TM only). Adds: ABSORB,
+; QUICK_ATTACK, POISON_STING, ASTONISH, AGILITY (Forte's natural list).
+	db  4, BITE
+	db  7, QUICK_ATTACK
+	db 11, ABSORB
+	db 14, SUPERSONIC
+	db 17, LEECH_LIFE
+	db 20, ASTONISH
+	db 21, WING_ATTACK
+	db 24, CONFUSE_RAY
+	db 27, POISON_STING
+	db 30, AGILITY
 	db 34, AERIAL_ACE
-	db 40, SLUDGE
-	db 47, DARK_PULSE
-	db 54, TOXIC
-	db 60, HURRICANE
+	db 40, POISON_FANG
+	db 46, TOXIC_FANGS
+	db 52, TOXIC
 	db 0
 
 EkansEvosMoves:
@@ -1918,22 +1944,40 @@ EkansEvosMoves:
 	db EVOLVE_LEVEL, 21, ARBOK
 	db 0
 ; Learnset
-	db  5, WRAP
-	db 10, BITE
-	db 14, POISON_STING
-	db 18, ACID
-	db 22, GLARE
-	db 28, POISON_FANG
-	db 34, SCREECH
-	db 40, TOXIC_FANGS
-	db 47, SLUDGE_WAVE
-	db 54, GUNK_SHOT
-	db 60, CRUNCH
+; v0.7 Pass 3 (Forte review): Poison snake. Forte loves snakes — gets the
+; deepest movepool of the trio. Adds: QUICK_ATTACK (very early), CONSTRICT
+; (basic squeeze), BIND (heavy strangle), BIDE (coil-and-counter),
+; SUBSTITUTE (snake shed-skin per Forte's natural list), AGILITY (Forte's
+; natural — fast strike), FAINT_ATTACK (Dark sneaky), HINDER (snake threat),
+; SHADOW_SNEAK (Ghost — snake hides in shadow), NEUROTOXIN (Forte added
+; Ekans to the prior Muk/Weezing/Tentacruel/Arbok list), EXTREMESPEED
+; (high-level peak strike). NO GUNK_SHOT (Muk/Weezing only). NO SLUDGE_WAVE
+; (also Muk-only). NO SCREECH (snakes hiss, not screech).
+	db  4, QUICK_ATTACK
+	db  7, CONSTRICT
+	db 10, WRAP
+	db 11, BIDE
+	db 13, BITE
+	db 16, LEER
+	db 19, POISON_STING
+	db 22, BIND
+	db 25, ACID
+	db 28, GLARE
+	db 31, SUBSTITUTE
+	db 34, POISON_FANG
+	db 37, AGILITY
+	db 40, FAINT_ATTACK
+	db 43, HINDER
+	db 46, SHADOW_SNEAK
+	db 50, TOXIC_FANGS
+	db 54, TOXIC
+	db 57, NEUROTOXIN
+	db 60, EXTREMESPEED
 	db 0
 
 ParasEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 21, PARASECT
+	db EVOLVE_LEVEL, 22, PARASECT
 	db 0
 ; Learnset
 	db  5, SCRATCH
@@ -2277,18 +2321,29 @@ GolbatEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, LEECH_LIFE
-	db  9, SUPERSONIC
-	db 13, BITE
-	db 17, CONFUSE_RAY
-	db 22, WING_ATTACK
-	db 28, POISON_FANG
+; v0.7 Pass 3: matured vampire bat. Zubat's 14 + 4 anatomical exclusives
+; (bigger wings + can carry rider + sinister vibe + eerie bat): SCREECH
+; (vanilla L1, moved to levelup L26), FLY (Forte's natural list — Golbat
+; only, Zubat too small), DARK_PULSE (vampire-bat sinister), EERIE_IMPULSE
+; (per Forte #19 — eerie bat). NO HURRICANE in levelup (Forte: TM only).
+	db  4, BITE
+	db  7, QUICK_ATTACK
+	db 11, ABSORB
+	db 14, SUPERSONIC
+	db 17, LEECH_LIFE
+	db 20, ASTONISH
+	db 21, WING_ATTACK
+	db 24, CONFUSE_RAY
+	db 26, SCREECH
+	db 27, POISON_STING
+	db 30, AGILITY
 	db 34, AERIAL_ACE
-	db 40, SLUDGE
-	db 47, DARK_PULSE
-	db 54, TOXIC
-	db 60, HURRICANE
-	db 60, DARK_PULSE
+	db 36, FLY
+	db 40, POISON_FANG
+	db 42, DARK_PULSE
+	db 46, TOXIC_FANGS
+	db 52, TOXIC
+	db 60, EERIE_IMPULSE
 	db 0
 
 MewtwoEvosMoves:
@@ -2783,31 +2838,56 @@ RattataEvosMoves:
 	db EVOLVE_LEVEL, 20, RATICATE
 	db 0
 ; Learnset
-	db  5, QUICK_ATTACK
-	db  9, BITE
-	db 13, FOCUS_ENERGY
-	db 18, HYPER_FANG
+; v0.7 Pass 3 (Forte review): Normal-type rodent, sharp-fanged. HYPER_FANG
+; at L20 (evo level — signature on graduation to Raticate per Forte). Adds
+; per Forte: RAGE (rodent rage), HONE_CLAWS (rodent claws sharpen),
+; POISON_FANG (rats carry disease — STAB-less but anatomically plausible),
+; CUT (sharp teeth/claws), FAINT_ATTACK (sneaky rat strike — Dark, no STAB
+; for Rattata but Raticate gets STAB).
+	db  4, QUICK_ATTACK
+	db  7, BITE
+	db 10, FOCUS_ENERGY
+	db 13, FAINT_ATTACK
+	db 16, RAGE
+	db 20, HYPER_FANG
 	db 23, HEADBUTT
-	db 28, SUPER_FANG
-	db 34, CRUNCH
-	db 40, BODY_SLAM
-	db 47, DOUBLE_EDGE
+	db 26, AGILITY
+	db 29, HONE_CLAWS
+	db 32, SUPER_FANG
+	db 36, CRUNCH
+	db 40, POISON_FANG
+	db 44, BODY_SLAM
+	db 48, CUT
+	db 52, DOUBLE_EDGE
 	db 0
 
 RaticateEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, QUICK_ATTACK
-	db  9, BITE
-	db 13, FOCUS_ENERGY
-	db 18, HYPER_FANG
+; v0.7 Pass 3: Normal/Dark — matured rodent. Rattata's 15 + 3 anatomical
+; exclusives (Dark unlock + matured claws): SLASH (per Forte — any mon with
+; NIGHT_SLASH also has SLASH), NIGHT_SLASH (Dark high-crit), BRUTAL_SWING
+; (Dark physical — replaces DARK_PULSE per Forte since Raticate is physical
+; attacker, not special).
+	db  4, QUICK_ATTACK
+	db  7, BITE
+	db 10, FOCUS_ENERGY
+	db 13, FAINT_ATTACK
+	db 16, RAGE
+	db 20, HYPER_FANG
 	db 23, HEADBUTT
-	db 28, SUPER_FANG
-	db 34, CRUNCH
-	db 40, BODY_SLAM
-	db 47, DOUBLE_EDGE
-	db 54, NIGHT_SLASH
+	db 26, AGILITY
+	db 29, HONE_CLAWS
+	db 32, SUPER_FANG
+	db 36, CRUNCH
+	db 37, SLASH
+	db 40, POISON_FANG
+	db 44, BODY_SLAM
+	db 45, NIGHT_SLASH
+	db 48, CUT
+	db 52, DOUBLE_EDGE
+	db 54, BRUTAL_SWING
 	db 0
 
 NidorinoEvosMoves:
