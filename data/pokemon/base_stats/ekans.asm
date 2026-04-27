@@ -13,9 +13,10 @@
 
 	; tm/hm learnset
 	; v0.7 Pass 3: snake. Levelup-doubles for many. TOXIC TM per Forte #6.
-	; HM01 Cut (fangs cut). NO HM02 Fly (no wings, snake).
+	; HM01 Cut (fangs cut). NO HM02 Fly (no wings, snake). IRON_TAIL TM per
+	; Forte (line gets IRON_TAIL via TM only — no longer levelup).
 	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC,        \
-	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT
+	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          IRON_TAIL
 	; end
 
 	db 0 ; padding

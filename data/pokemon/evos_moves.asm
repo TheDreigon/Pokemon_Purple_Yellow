@@ -999,21 +999,19 @@ ArbokEvosMoves:
 	db 11, BIDE
 	db 13, BITE
 	db 16, LEER
+	db 17, ASTONISH
 	db 19, POISON_STING
+	db 20, COIL
 	db 21, SCARY_FACE
 	db 22, BIND
-	db 25, ACID
-	db 26, COIL
 	db 28, GLARE
 	db 31, SUBSTITUTE
 	db 34, POISON_FANG
 	db 37, AGILITY
 	db 40, FAINT_ATTACK
-	db 43, HINDER
 	db 46, SHADOW_SNEAK
 	db 48, CRUNCH
 	db 50, TOXIC_FANGS
-	db 52, IRON_TAIL
 	db 54, TOXIC
 	db 55, INTIMIDATE
 	db 57, NEUROTOXIN
@@ -1927,16 +1925,18 @@ ZubatEvosMoves:
 	db  4, BITE
 	db  7, QUICK_ATTACK
 	db 11, ABSORB
+	db 13, POISON_STING
 	db 14, SUPERSONIC
 	db 17, LEECH_LIFE
 	db 20, ASTONISH
 	db 21, WING_ATTACK
-	db 27, POISON_STING
+	db 24, EERIE_IMPULSE
 	db 30, AGILITY
 	db 34, AERIAL_ACE
 	db 40, POISON_FANG
 	db 46, TOXIC_FANGS
 	db 52, TOXIC
+	db 60, EXTREMESPEED
 	db 0
 
 EkansEvosMoves:
@@ -1959,16 +1959,15 @@ EkansEvosMoves:
 	db 11, BIDE
 	db 13, BITE
 	db 16, LEER
+	db 17, ASTONISH
 	db 19, POISON_STING
+	db 20, COIL
 	db 22, BIND
-	db 25, ACID
-	db 26, COIL
 	db 28, GLARE
 	db 31, SUBSTITUTE
 	db 34, POISON_FANG
 	db 37, AGILITY
 	db 40, FAINT_ATTACK
-	db 43, HINDER
 	db 46, SHADOW_SNEAK
 	db 50, TOXIC_FANGS
 	db 54, TOXIC
@@ -2330,12 +2329,13 @@ GolbatEvosMoves:
 	db  4, BITE
 	db  7, QUICK_ATTACK
 	db 11, ABSORB
+	db 13, POISON_STING
 	db 14, SUPERSONIC
 	db 17, LEECH_LIFE
 	db 20, ASTONISH
 	db 21, WING_ATTACK
+	db 24, EERIE_IMPULSE
 	db 26, SCREECH
-	db 27, POISON_STING
 	db 30, AGILITY
 	db 34, AERIAL_ACE
 	db 36, FLY
@@ -2343,7 +2343,7 @@ GolbatEvosMoves:
 	db 42, DARK_PULSE
 	db 46, TOXIC_FANGS
 	db 52, TOXIC
-	db 60, EERIE_IMPULSE
+	db 60, EXTREMESPEED
 	db 0
 
 MewtwoEvosMoves:
@@ -2846,19 +2846,22 @@ RattataEvosMoves:
 ; for Rattata but Raticate gets STAB).
 	db  4, QUICK_ATTACK
 	db  7, BITE
+	db  8, ASTONISH
 	db 10, FOCUS_ENERGY
 	db 13, FAINT_ATTACK
 	db 16, RAGE
 	db 20, HYPER_FANG
 	db 23, HEADBUTT
+	db 25, CUT
 	db 26, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
 	db 36, CRUNCH
 	db 40, POISON_FANG
 	db 44, BODY_SLAM
-	db 48, CUT
 	db 52, DOUBLE_EDGE
+	db 55, TOXIC_FANGS
+	db 60, EXTREMESPEED
 	db 0
 
 RaticateEvosMoves:
@@ -2872,11 +2875,13 @@ RaticateEvosMoves:
 ; attacker, not special).
 	db  4, QUICK_ATTACK
 	db  7, BITE
+	db  8, ASTONISH
 	db 10, FOCUS_ENERGY
 	db 13, FAINT_ATTACK
 	db 16, RAGE
 	db 20, HYPER_FANG
 	db 23, HEADBUTT
+	db 25, CUT
 	db 26, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
@@ -2885,9 +2890,10 @@ RaticateEvosMoves:
 	db 40, POISON_FANG
 	db 44, BODY_SLAM
 	db 45, NIGHT_SLASH
-	db 48, CUT
 	db 52, DOUBLE_EDGE
 	db 54, BRUTAL_SWING
+	db 55, TOXIC_FANGS
+	db 60, EXTREMESPEED
 	db 0
 
 NidorinoEvosMoves:

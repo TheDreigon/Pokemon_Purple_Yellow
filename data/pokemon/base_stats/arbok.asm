@@ -11,13 +11,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cobra Poison/Dark. Ekans's 9 + 4 apex additions:
-	; Body Slam (bigger snake), Iron Tail (per Forte — heavy whip-tail),
-	; Intimidate (cobra hood — levelup-double), Scary Face (per Forte —
-	; cobra hood at evo level, levelup-double).
+	; v0.7 Pass 3: cobra Poison/Dark. Ekans's 10 + 4 apex additions:
+	; Body Slam (bigger snake), Intimidate (cobra hood — levelup-double),
+	; Scary Face (per Forte — cobra hood at evo level, levelup-double),
+	; Double Edge. IRON_TAIL inherited from Ekans (Forte: line gets it via
+	; TM only — no longer levelup).
 	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC,        \
-	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          BODY_SLAM,    \
-	     IRON_TAIL,    INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE
+	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          IRON_TAIL,    \
+	     BODY_SLAM,    INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE
 	; end
 
 	db 0 ; padding
