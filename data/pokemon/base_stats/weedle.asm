@@ -8,11 +8,13 @@
 	INCBIN "gfx/pokemon/front/weedle.pic", 0, 1 ; sprite dimensions
 	dw WeedlePicFront, WeedlePicBack
 
-	db POISON_STING, STRING_SHOT, NO_MOVE, NO_MOVE ; level 1 learnset
+	db POISON_STING, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: joke-tier baby spike-bug. STRING_SHOT moved to L7
+	; levelup (1 before evo) per Forte. 4 universals only.
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

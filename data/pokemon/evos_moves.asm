@@ -1254,16 +1254,23 @@ VenonatEvosMoves:
 	db EVOLVE_LEVEL, 21, VENOMOTH
 	db 0
 ; Learnset
-	db  5, TACKLE
-	db  9, POISONPOWDER
-	db 13, DISABLE
+; v0.7 Pass 3 (Forte review): pre-moth, Bug/Poison. NO powders here —
+; Forte made powders Venomoth-exclusive (anatomical: wings as powder
+; source, baby Venonat lacks them). Spore Daze is Venonat-only (Forte:
+; fuzzy baby body releases dazing spores; Venomoth replaces it with
+; proper powder kit). PSYWAVE early before CONFUSION per Forte. Removed
+; PSYBEAM. Added TOXIC and HAZE per Forte. STRING_SHOT skipped (no
+; spinneret anatomy on the fuzzy bug body).
+	db  4, POISON_STING
+	db  8, PSYWAVE
+	db 11, LEECH_LIFE
+	db 14, SUPERSONIC
 	db 17, CONFUSION
-	db 22, STUN_SPORE
-	db 28, PSYBEAM
-	db 34, SLEEP_POWDER
+	db 20, SPORE_DAZE
+	db 24, BUG_BUZZ
+	db 30, TOXIC
 	db 40, PSYCHIC_M
-	db 47, BUG_BUZZ
-	db 54, SLUDGE
+	db 48, HAZE
 	db 0
 
 DragoniteEvosMoves:
@@ -1961,9 +1968,14 @@ WeedleEvosMoves:
 	db EVOLVE_LEVEL, 8, KAKUNA
 	db 0
 ; Learnset
-	db  5, POISON_STING
-	db  9, FURY_ATTACK
-	db 13, BUG_BITE
+; v0.7 Pass 3 (Forte review): joke-tier baby spike-bug. Shared with the
+; whole line. STRING_SHOT moved L1 → L7 (1 level before evo at L8). L4
+; replaced with POISON_STING per Forte (FURY_ATTACK dropped from shared,
+; reserved for Beedrill's twin-needle frenzy at L15).
+	db  4, POISON_STING
+	db  7, STRING_SHOT
+	db  9, BUG_BITE
+	db 13, BIDE
 	db 0
 
 KakunaEvosMoves:
@@ -1971,26 +1983,46 @@ KakunaEvosMoves:
 	db EVOLVE_LEVEL, 11, BEEDRILL
 	db 0
 ; Learnset
-	db  5, POISON_STING
-	db  9, FURY_ATTACK
-	db 13, BUG_BITE
+; v0.7 Pass 3: cocoon. Same 4 shared entries as Weedle (uniformity rule).
+; All growth happens after evolving to Beedrill.
+	db  4, POISON_STING
+	db  7, STRING_SHOT
+	db  9, BUG_BITE
+	db 13, BIDE
 	db 0
 
 BeedrillEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, POISON_STING
-	db  9, FURY_ATTACK
+; v0.7 Pass 3 (Forte's favorite mon — gets the deepest movepool of the
+; line). Shared 4 + 16 exclusives. NO powders (Forte's powder table).
+; NO Sludge / Gunk Shot / Toxic Fangs / Megahorn (anatomical: stinger
+; bee, not blob/fanged/horned mon). Twin Needle = signature on evo.
+; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
+; one of the line's "small number of exceptions"). Drill Peck and
+; ExtremeSpeed are stretch-late peaks per Forte's "talvez". Neurotoxin
+; at L48 is real-world bee venom biology.
+	db  4, POISON_STING
+	db  7, STRING_SHOT
+	db  9, BUG_BITE
 	db 11, TWINEEDLE
-	db 13, BUG_BITE
+	db 13, BIDE
 	db 15, RAGE
+	db 15, FURY_ATTACK
+	db 18, HORN_ATTACK
 	db 20, LEECH_LIFE
-	db 25, BUG_BUZZ
-	db 30, SLUDGE
-	db 36, TOXIC_FANGS
-	db 42, GUNK_SHOT
-	db 48, MEGAHORN
+	db 22, HONE_CLAWS
+	db 25, FOCUS_ENERGY
+	db 27, QUICK_ATTACK
+	db 30, AGILITY
+	db 33, INTIMIDATE
+	db 36, BUG_BUZZ
+	db 40, AERIAL_ACE
+	db 42, DOUBLE_EDGE
+	db 48, NEUROTOXIN
+	db 52, DRILL_PECK
+	db 60, EXTREMESPEED
 	db 0
 
 MissingNo73EvosMoves:
@@ -2054,18 +2086,26 @@ VenomothEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, TACKLE
-	db  9, POISONPOWDER
-	db 13, DISABLE
+; v0.7 Pass 3: full moth. 9 shared with Venonat + 6 exclusives (wings +
+; powders + signature dance). Powders Venomoth-only per Forte (wings as
+; powder source). NO Spore Daze (Venonat baby exclusive — Venomoth
+; graduated to proper powders). NO PSYBEAM per Forte. Quiver Dance late
+; (new SPECIAL_SPEED_UP1_EFFECT). All entry levels unique (rule #7).
+	db  4, POISON_STING
+	db  8, PSYWAVE
+	db 11, LEECH_LIFE
+	db 14, SUPERSONIC
 	db 17, CONFUSION
-	db 22, STUN_SPORE
-	db 22, GUST
-	db 28, PSYBEAM
-	db 28, AERIAL_ACE
-	db 34, SLEEP_POWDER
+	db 18, POISONPOWDER
+	db 21, GUST
+	db 23, STUN_SPORE
+	db 24, BUG_BUZZ
+	db 25, SLEEP_POWDER
+	db 30, TOXIC
+	db 36, AERIAL_ACE
 	db 40, PSYCHIC_M
-	db 47, BUG_BUZZ
-	db 54, SLUDGE
+	db 42, QUIVER_DANCE
+	db 48, HAZE
 	db 0
 
 DewgongEvosMoves:
@@ -2103,8 +2143,13 @@ CaterpieEvosMoves:
 	db EVOLVE_LEVEL, 8, METAPOD
 	db 0
 ; Learnset
-	db  5, BUG_BITE
+; v0.7 Pass 3 (Forte review): joke-tier baby caterpillar. Shared with the
+; whole line. STRING_SHOT moved L1 → L7 (1 level before evo at L8 — earned
+; just before graduating to cocoon).
+	db  4, BUG_BITE
+	db  7, STRING_SHOT
 	db  9, LEECH_LIFE
+	db 13, BIDE
 	db 0
 
 MetapodEvosMoves:
@@ -2112,24 +2157,38 @@ MetapodEvosMoves:
 	db EVOLVE_LEVEL, 11, BUTTERFREE
 	db 0
 ; Learnset
-	db  5, BUG_BITE
+; v0.7 Pass 3: cocoon. Same 4 shared entries as Caterpie (uniformity rule).
+; All real growth happens after evolving to Butterfree.
+	db  4, BUG_BITE
+	db  7, STRING_SHOT
 	db  9, LEECH_LIFE
+	db 13, BIDE
 	db 0
 
 ButterfreeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, BUG_BITE
+; v0.7 Pass 3: butterfly with Bug/Psychic typing (antennae). Shared 4 +
+; 10 exclusives (wings, powders, psychic awakens). All 3 powders per
+; Forte's powder table. Hurricane reserved as final move (Forte: "as
+; last move"). Quiver Dance late game (signature moth/butterfly dance,
+; new SPECIAL_SPEED_UP1_EFFECT after engine update). Removed: SUPERSONIC
+; and PSYBEAM per Forte. Added FAIRY_WIND (Forte) and HURRICANE.
+	db  4, BUG_BITE
+	db  7, STRING_SHOT
 	db  9, LEECH_LIFE
 	db 11, GUST
+	db 13, BIDE
 	db 14, POISONPOWDER
-	db 18, STUN_SPORE
-	db 22, SLEEP_POWDER
-	db 28, SUPERSONIC
-	db 34, CONFUSION
-	db 40, PSYBEAM
-	db 48, PSYCHIC_M
+	db 17, STUN_SPORE
+	db 20, SLEEP_POWDER
+	db 22, CONFUSION
+	db 26, FAIRY_WIND
+	db 30, BUG_BUZZ
+	db 36, PSYCHIC_M
+	db 42, QUIVER_DANCE
+	db 48, HURRICANE
 	db 0
 
 MachampEvosMoves:

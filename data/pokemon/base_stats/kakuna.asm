@@ -12,7 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: cocoon. Same minimal kit as Weedle.
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

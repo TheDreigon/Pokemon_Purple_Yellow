@@ -12,7 +12,9 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: cocoon. Same TM kit as Caterpie — cocoon doesn't gain
+	; new techniques, just hardens.
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    LEECH_LIFE
 	; end
 
 	db 0 ; padding

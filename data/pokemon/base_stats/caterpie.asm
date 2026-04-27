@@ -8,11 +8,14 @@
 	INCBIN "gfx/pokemon/front/caterpie.pic", 0, 1 ; sprite dimensions
 	dw CaterpiePicFront, CaterpiePicBack
 
-	db TACKLE, STRING_SHOT, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: joke-tier baby caterpillar. 4 universals + LEECH_LIFE
+	; (also levelup). Cocoon basically can't fight; minimal kit reflects
+	; that. STRING_SHOT moved to L7 levelup (1 before evo) per Forte.
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    LEECH_LIFE
 	; end
 
 	db 0 ; padding
