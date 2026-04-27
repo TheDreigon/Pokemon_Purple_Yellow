@@ -277,17 +277,21 @@ SpearowEvosMoves:
 	db EVOLVE_LEVEL, 20, FEAROW
 	db 0
 ; Learnset
-	db  5, PECK
-	db  9, GROWL
-	db 13, LEER
-	db 17, FURY_ATTACK
-	db 22, AERIAL_ACE
-	db 28, FAINT_ATTACK
-	db 34, DRILL_PECK
-	db 40, AGILITY
-	db 47, HONE_CLAWS
-	db 53, SKY_ATTACK
-	db 60, BRUTAL_SWING
+; v0.7 Pass 3 (Forte review): honorary Dark/Flying — aggressive bird-of-
+; prey. Includes 3 Dark moves (FAINT_ATTACK, NIGHT_SLASH, BRUTAL_SWING).
+; NO HURRICANE per Forte (no GUST progression — keeps line distinct from
+; Pidgey). WING_ATTACK at L20 (evo level). BRUTAL_SWING moved much higher.
+	db  4, PECK
+	db  8, LEER
+	db 11, QUICK_ATTACK
+	db 15, FURY_ATTACK
+	db 20, WING_ATTACK
+	db 23, FAINT_ATTACK
+	db 27, AERIAL_ACE
+	db 31, NIGHT_SLASH
+	db 36, HONE_CLAWS
+	db 42, BRUTAL_SWING
+	db 52, SKY_ATTACK
 	db 0
 
 VoltorbEvosMoves:
@@ -800,18 +804,23 @@ FearowEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, PECK
-	db  9, GROWL
-	db 13, LEER
-	db 17, FURY_ATTACK
-	db 22, AERIAL_ACE
-	db 28, FAINT_ATTACK
-	db 34, DRILL_PECK
-	db 40, AGILITY
-	db 47, HONE_CLAWS
-	db 53, SKY_ATTACK
-	db 60, BRUTAL_SWING
-	db 60, HURRICANE
+; v0.7 Pass 3: apex predator. Spearow's 11 + 3 anatomical exclusives:
+; DRILL_PECK signature (long beak as drill), GORE_ATTACK (Dark — beak gore,
+; Fearow scarier), INTIMIDATE (massive raptor presence).
+	db  4, PECK
+	db  8, LEER
+	db 11, QUICK_ATTACK
+	db 15, FURY_ATTACK
+	db 20, WING_ATTACK
+	db 23, FAINT_ATTACK
+	db 27, AERIAL_ACE
+	db 31, NIGHT_SLASH
+	db 36, HONE_CLAWS
+	db 40, DRILL_PECK
+	db 42, BRUTAL_SWING
+	db 46, GORE_ATTACK
+	db 50, INTIMIDATE
+	db 52, SKY_ATTACK
 	db 0
 
 PidgeyEvosMoves:
@@ -819,18 +828,23 @@ PidgeyEvosMoves:
 	db EVOLVE_LEVEL, 17, PIDGEOTTO
 	db 0
 ; Learnset
-	db  5, SAND_ATTACK
-	db  9, QUICK_ATTACK
-	db 13, TAILWIND
-	db 17, WING_ATTACK
-	db 20, AERIAL_ACE
-	db 25, FAINT_ATTACK
-	db 30, HONE_CLAWS
+; v0.7 Pass 3 (Forte review): peaceful raptor line. PECK before GUST per
+; power-progression rule (35 BP < 45 BP). No FAINT_ATTACK / BRUTAL_SWING
+; / NIGHT_SLASH (those are Spearow line — honorary Dark). No AGILITY (not
+; on Forte's natural list — Pidgeot only via TM). No HONE_CLAWS / SLASH /
+; TAKE_DOWN / INTIMIDATE on Pidgey baby (anatomical: small talons, light
+; body, not menacing).
+	db  4, PECK
+	db  8, SAND_ATTACK
+	db 11, QUICK_ATTACK
+	db 14, GUST
+	db 18, LEER
+	db 22, WING_ATTACK
+	db 26, TAILWIND
+	db 30, AERIAL_ACE
 	db 35, FLY
-	db 42, BRUTAL_SWING
-	db 48, AGILITY
-	db 55, SKY_ATTACK
-	db 60, HURRICANE
+	db 42, HURRICANE
+	db 50, SKY_ATTACK
 	db 0
 
 SlowpokeEvosMoves:
@@ -1319,16 +1333,23 @@ DoduoEvosMoves:
 	db EVOLVE_LEVEL, 33, DODRIO
 	db 0
 ; Learnset
-	db  5, PECK
-	db  9, GROWL
-	db 13, QUICK_ATTACK
-	db 17, FURY_ATTACK
+; v0.7 Pass 3 (Forte review): flightless ratite. NO flying moves at all
+; (no GUST/WING_ATTACK/FLY/AERIAL_ACE/HURRICANE/SKY_ATTACK) — anatomical
+; exception per Forte despite Normal/Flying typing. NO TRI_ATTACK
+; (signature now Porygon/Magneton/Mew only, per Forte). DRILL_PECK at L33
+; (evo level — long beak fully developed). AGILITY natural per Forte's
+; list. GROUND_STOMP added (heavy ratite legs). SAND_ATTACK per Forte.
+	db  4, PECK
+	db  8, SAND_ATTACK
+	db 11, LEER
+	db 14, QUICK_ATTACK
+	db 18, FURY_ATTACK
 	db 22, RAGE
-	db 28, TRI_ATTACK
-	db 34, DRILL_PECK
-	db 40, AGILITY
-	db 48, HORN_CHARGE
-	db 55, DOUBLE_EDGE
+	db 26, GROUND_STOMP
+	db 30, AGILITY
+	db 33, DRILL_PECK
+	db 42, TAKE_DOWN
+	db 50, DOUBLE_EDGE
 	db 0
 
 PoliwagEvosMoves:
@@ -2034,17 +2055,22 @@ DodrioEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, PECK
-	db  9, GROWL
-	db 13, QUICK_ATTACK
-	db 17, FURY_ATTACK
+; v0.7 Pass 3: 3-headed ratite. Doduo's 11 + 2 exclusives: EXTREMESPEED
+; (Forte — high level, peak running speed) and HORN_DRILL (Forte — last
+; move, long beak as horn-drill). NO TRI_ATTACK (Porygon-only signature).
+	db  4, PECK
+	db  8, SAND_ATTACK
+	db 11, LEER
+	db 14, QUICK_ATTACK
+	db 18, FURY_ATTACK
 	db 22, RAGE
-	db 28, TRI_ATTACK
-	db 34, DRILL_PECK
-	db 40, AGILITY
-	db 48, HORN_CHARGE
-	db 55, DOUBLE_EDGE
-	db 60, TRI_ATTACK
+	db 26, GROUND_STOMP
+	db 30, AGILITY
+	db 33, DRILL_PECK
+	db 42, TAKE_DOWN
+	db 46, EXTREMESPEED
+	db 50, DOUBLE_EDGE
+	db 60, HORN_DRILL
 	db 0
 
 PrimeapeEvosMoves:
@@ -2528,36 +2554,45 @@ PidgeottoEvosMoves:
 	db EVOLVE_LEVEL, 35, PIDGEOT
 	db 0
 ; Learnset
-	db  5, SAND_ATTACK
-	db  9, QUICK_ATTACK
-	db 13, TAILWIND
-	db 17, WING_ATTACK
-	db 20, AERIAL_ACE
-	db 25, FAINT_ATTACK
-	db 30, HONE_CLAWS
+; v0.7 Pass 3: medium hawk. Same shared backbone as Pidgey + 2 anatomical
+; exclusives (HONE_CLAWS, SLASH) — medium-grown talons.
+	db  4, PECK
+	db  8, SAND_ATTACK
+	db 11, QUICK_ATTACK
+	db 14, GUST
+	db 18, LEER
+	db 22, WING_ATTACK
+	db 26, TAILWIND
+	db 30, AERIAL_ACE
+	db 34, HONE_CLAWS
 	db 35, FLY
-	db 42, BRUTAL_SWING
-	db 48, AGILITY
-	db 55, SKY_ATTACK
-	db 60, HURRICANE
+	db 38, SLASH
+	db 42, HURRICANE
+	db 50, SKY_ATTACK
 	db 0
 
 PidgeotEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, SAND_ATTACK
-	db  9, QUICK_ATTACK
-	db 13, TAILWIND
-	db 17, WING_ATTACK
-	db 20, AERIAL_ACE
-	db 25, FAINT_ATTACK
-	db 30, HONE_CLAWS
+; v0.7 Pass 3: apex eagle/falcon (mach-2 raptor per Pokédex). Pidgeotto's
+; learnset + 2 apex-only exclusives (TAKE_DOWN per Forte, INTIMIDATE — full-
+; grown menacing presence).
+	db  4, PECK
+	db  8, SAND_ATTACK
+	db 11, QUICK_ATTACK
+	db 14, GUST
+	db 18, LEER
+	db 22, WING_ATTACK
+	db 26, TAILWIND
+	db 30, AERIAL_ACE
+	db 34, HONE_CLAWS
 	db 35, FLY
-	db 42, BRUTAL_SWING
-	db 48, AGILITY
-	db 55, SKY_ATTACK
-	db 60, HURRICANE
+	db 38, SLASH
+	db 42, HURRICANE
+	db 44, TAKE_DOWN
+	db 46, INTIMIDATE
+	db 50, SKY_ATTACK
 	db 0
 
 StarmieEvosMoves:

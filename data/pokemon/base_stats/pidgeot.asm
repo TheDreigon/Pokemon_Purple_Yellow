@@ -8,11 +8,16 @@
 	INCBIN "gfx/pokemon/front/pidgeot.pic", 0, 1 ; sprite dimensions
 	dw PidgeotPicFront, PidgeotPicBack
 
-	db GUST, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WING_ATTACK, TAILWIND, AERIAL_ACE, FLY ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: apex eagle (mach-2 raptor). Pidgeotto's 8 + 3 apex
+	; additions: INTIMIDATE (also levelup), AGILITY (per Forte — Pidgeot-
+	; only TM access), DOUBLE_EDGE (per Forte — Pidgeot-only).
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HURRICANE, FLY,           \
+	     HONE_CLAWS,   TAKE_DOWN,    CUT,        INTIMIDATE, AGILITY,      \
+	     DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

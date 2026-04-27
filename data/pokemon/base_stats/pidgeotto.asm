@@ -8,11 +8,14 @@
 	INCBIN "gfx/pokemon/front/pidgeotto.pic", 0, 1 ; sprite dimensions
 	dw PidgeottoPicFront, PidgeottoPicBack
 
-	db GUST, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GUST, SAND_ATTACK, QUICK_ATTACK ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: medium hawk. Pidgey's 5 + 3 grown-talon additions:
+	; HONE_CLAWS (also levelup), TAKE_DOWN, HM01 CUT (sharper beak/talons).
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HURRICANE, FLY,           \
+	     HONE_CLAWS,   TAKE_DOWN,    CUT
 	; end
 
 	db 0 ; padding

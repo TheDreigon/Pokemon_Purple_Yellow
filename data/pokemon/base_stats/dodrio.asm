@@ -8,11 +8,15 @@
 	INCBIN "gfx/pokemon/front/dodrio.pic", 0, 1 ; sprite dimensions
 	dw DodrioPicFront, DodrioPicBack
 
-	db PECK, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db PECK, FURY_ATTACK, DRILL_PECK, AGILITY ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: 3-headed ratite. Doduo's 8 + 1 apex addition: INTIMIDATE
+	; (3 heads, scary). NO EARTHQUAKE per Forte (bird isn't heavy enough
+	; despite massive legs).
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,   AGILITY,    TAKE_DOWN,    \
+	     DOUBLE_EDGE,  CUT,          STRENGTH,   INTIMIDATE
 	; end
 
 	db 0 ; padding

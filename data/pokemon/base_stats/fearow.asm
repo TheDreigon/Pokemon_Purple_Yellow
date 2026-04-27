@@ -8,12 +8,15 @@
 	INCBIN "gfx/pokemon/front/fearow.pic", 0, 1 ; sprite dimensions
 	dw FearowPicFront, FearowPicBack
 
-	db PECK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db PECK, LEER, FURY_ATTACK, AERIAL_ACE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
-
+	; v0.7 Pass 3: apex predator. Spearow's 8 + 2 apex additions: INTIMIDATE
+	; (also levelup), SWORDS_DANCE (per Forte — talons-as-swords for the
+	; Fearow-only sword-dance).
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HONE_CLAWS, TAKE_DOWN,    \
+	     DOUBLE_EDGE,  FLY,          CUT,        INTIMIDATE, SWORDS_DANCE
 	; end
 
 	db 0 ; padding
