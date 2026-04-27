@@ -387,6 +387,28 @@ LearnMoveFromLevelUp:
 	ld [wd11e], a
 	ret
 
+; ============================================================
+; Debug-only "can this mon learn this move" checker.
+;
+; Func_3b079 is callfar'd from engine/debug/debug_menu.asm:1224 inside the
+; module-wide IF DEF(_DEBUG) block — there are no release-build callers.
+; The whole chain (Func_3b079, Func_3b0a2, Pointer_3b0ee, the included
+; unknown_list.asm) is dead code in the release ROM. Wrapped here to skip
+; ~100B of compilation in non-debug builds.
+;
+; Func_3b10f (right after the wrap) is intentionally outside — it has
+; non-debug callers in engine/menus/link_menu.asm (3 callfar sites).
+;
+; The vanilla disassembly used speculative names (Func_3b079 / Func_3b0a2 /
+; Pointer_3b0ee). Kept verbatim to preserve git blame; the function
+; semantics aren't fully reverse-engineered. Best guess: the routine
+; checks if a given move is reachable for a given mon (TM-learnable, not
+; already known unless the mon is in Pointer_3b0ee's special-case list,
+; or in the natural learnset at/below current level). debug_menu.asm
+; uses the carry-flag answer to decide whether to draw an "×" mark.
+; ============================================================
+IF DEF(_DEBUG)
+
 Func_3b079:
 	ld a, [wcf91]
 	push af
@@ -459,6 +481,8 @@ Func_3b0a2:
 	ret
 
 INCLUDE "data/pokemon/unknown_list.asm"
+
+ENDC ; debug-only block
 
 Func_3b10f:
 	ld c, $0
