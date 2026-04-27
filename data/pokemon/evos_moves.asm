@@ -1003,6 +1003,7 @@ ArbokEvosMoves:
 	db 21, SCARY_FACE
 	db 22, BIND
 	db 25, ACID
+	db 26, COIL
 	db 28, GLARE
 	db 31, SUBSTITUTE
 	db 34, POISON_FANG
@@ -1930,7 +1931,6 @@ ZubatEvosMoves:
 	db 17, LEECH_LIFE
 	db 20, ASTONISH
 	db 21, WING_ATTACK
-	db 24, CONFUSE_RAY
 	db 27, POISON_STING
 	db 30, AGILITY
 	db 34, AERIAL_ACE
@@ -1962,6 +1962,7 @@ EkansEvosMoves:
 	db 19, POISON_STING
 	db 22, BIND
 	db 25, ACID
+	db 26, COIL
 	db 28, GLARE
 	db 31, SUBSTITUTE
 	db 34, POISON_FANG
@@ -2333,7 +2334,6 @@ GolbatEvosMoves:
 	db 17, LEECH_LIFE
 	db 20, ASTONISH
 	db 21, WING_ATTACK
-	db 24, CONFUSE_RAY
 	db 26, SCREECH
 	db 27, POISON_STING
 	db 30, AGILITY
