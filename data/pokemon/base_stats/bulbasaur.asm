@@ -15,8 +15,9 @@
 	; signature Grass damage (Giga Drain, Solarbeam), vine-coded utility
 	; (Bind for trap, Cut for leaf-cutting), bulky basics (Take Down),
 	; defensive plant screens (Light Screen, Reflect — leaf canopy framing).
-	tmhm MIMIC,        SUBSTITUTE,   METRONOME,    GIGA_DRAIN,   BIND,         \
-	     TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    REFLECT,      CUT
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    GIGA_DRAIN,   \
+	     BIND,         TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    REFLECT,      \
+	     CUT
 	; end
 
 	db 0 ; padding
