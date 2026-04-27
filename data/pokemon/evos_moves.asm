@@ -2835,16 +2835,25 @@ CharmanderEvosMoves:
 	db EVOLVE_LEVEL, 18, CHARMELEON
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): pure FIRE baby. Shared backbone with the
+; whole line by uniformity rule. Anatomical exclusions: small teeth (no
+; CRUNCH — Charizard exclusive), no wings (no WING_ATTACK/FLY/AERIAL_ACE/
+; HURRICANE), throat too small for breath weapon (DRAGON_RAGE here, not
+; DRAGON_BREATH which is Charizard exclusive). FLAME_CHARGE reserved for
+; fast-fire quadrupeds (Growlithe/Ponyta lines per Forte). Outrage moved
+; to TM55 only.
 	db  5, EMBER
 	db  9, SMOKESCREEN
 	db 13, BITE
-	db 17, FLAME_BURST
-	db 22, SLASH
-	db 27, FLAMETHROWER
-	db 32, CRUNCH
-	db 37, DRAGON_BREATH
-	db 45, FIRE_BLAST
-	db 50, OUTRAGE
+	db 17, HEADBUTT
+	db 20, SLASH
+	db 24, FLAME_BURST
+	db 28, FOCUS_ENERGY
+	db 32, IGNITE
+	db 37, FLAMETHROWER
+	db 42, DRAGON_CLAW
+	db 48, DRAGON_RAGE
+	db 52, FIRE_BLAST
 	db 0
 
 SquirtleEvosMoves:
@@ -2869,16 +2878,21 @@ CharmeleonEvosMoves:
 	db EVOLVE_LEVEL, 36, CHARIZARD
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): same backbone as Charmander (uniformity rule).
+; Still no wings, no big jaw, no breath weapon — Charizard gets all those
+; via anatomical exception.
 	db  5, EMBER
 	db  9, SMOKESCREEN
 	db 13, BITE
-	db 17, FLAME_BURST
-	db 22, SLASH
-	db 27, FLAMETHROWER
-	db 32, CRUNCH
-	db 37, DRAGON_BREATH
-	db 45, FIRE_BLAST
-	db 50, OUTRAGE
+	db 17, HEADBUTT
+	db 20, SLASH
+	db 24, FLAME_BURST
+	db 28, FOCUS_ENERGY
+	db 32, IGNITE
+	db 37, FLAMETHROWER
+	db 42, DRAGON_CLAW
+	db 48, DRAGON_RAGE
+	db 52, FIRE_BLAST
 	db 0
 
 WartortleEvosMoves:
@@ -2902,19 +2916,29 @@ CharizardEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): full dragon-form. Adds 5 anatomical
+; exclusives over Char/Charme: WING_ATTACK / FLY / AERIAL_ACE / HURRICANE
+; (wings now developed; Forte's natural-FLY learner) and CRUNCH (big jaw).
+; L48 substitutes the line's DRAGON_RAGE with DRAGON_BREATH — Charizard's
+; throat capacity supports a full breath weapon, smaller Char/Charme don't.
+; All entry levels unique (rule #7).
 	db  5, EMBER
 	db  9, SMOKESCREEN
 	db 13, BITE
-	db 17, FLAME_BURST
-	db 22, SLASH
-	db 27, FLAMETHROWER
-	db 32, CRUNCH
+	db 17, HEADBUTT
+	db 20, SLASH
+	db 24, FLAME_BURST
+	db 28, FOCUS_ENERGY
+	db 32, IGNITE
 	db 36, WING_ATTACK
-	db 37, DRAGON_BREATH
-	db 41, AERIAL_ACE
-	db 45, FIRE_BLAST
-	db 50, OUTRAGE
-	db 55, HURRICANE
+	db 37, FLAMETHROWER
+	db 38, FLY
+	db 40, CRUNCH
+	db 42, DRAGON_CLAW
+	db 46, AERIAL_ACE
+	db 48, DRAGON_BREATH
+	db 52, FIRE_BLAST
+	db 60, HURRICANE
 	db 0
 
 MissingNoB5EvosMoves:

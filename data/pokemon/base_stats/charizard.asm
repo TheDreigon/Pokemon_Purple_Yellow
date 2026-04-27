@@ -8,11 +8,20 @@
 	INCBIN "gfx/pokemon/front/charizard.pic", 0, 1 ; sprite dimensions
 	dw CharizardPicFront, CharizardPicBack
 
-	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BITE, FLY, WING_ATTACK, FLAMETHROWER ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: dragon apex. Charmeleon's 20 + 6 dragon/wing/warrior:
+	; Aerial Ace + Hurricane (levelup-doubles), Intimidate (massive presence),
+	; Swords Dance (warrior peak), Earthquake (heavy descent stomp), HM Fly
+	; (in levelup too — Forte's natural-FLY learner).
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    QUICK_ATTACK, \
+	     HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  IGNITE,       \
+	     FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          FLASH,        \
+	     DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  STRENGTH,     \
+	     AERIAL_ACE,   HURRICANE,    INTIMIDATE,   SWORDS_DANCE, EARTHQUAKE,   \
+	     FLY
 	; end
 
 	db 0 ; padding
