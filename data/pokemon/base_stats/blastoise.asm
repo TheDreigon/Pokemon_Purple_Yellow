@@ -8,11 +8,20 @@
 	INCBIN "gfx/pokemon/front/blastoise.pic", 0, 1 ; sprite dimensions
 	dw BlastoisePicFront, BlastoisePicBack
 
-	db TACKLE, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BITE, WATERFALL, HEAD_SMASH, HYDRO_PUMP ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: full water tank. Wartortle's 16 + 5 cannon/massive-tier:
+	; Intimidate (massive presence), Ice Beam (cold cannon — supercooled
+	; water spray; modern canon stretch), Earthquake (levelup-double, only
+	; truly massive turtle), Hydro Pump (levelup-double, signature cannon),
+	; Blizzard (peak cold).
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    WATER_PULSE,  \
+	     BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  LIGHT_SCREEN, REFLECT,      \
+	     CUT,          SURF,         BULLDOZE,     BULK_UP,      HONE_CLAWS,   \
+	     STRENGTH,     INTIMIDATE,   ICE_BEAM,     EARTHQUAKE,   HYDRO_PUMP,   \
+	     BLIZZARD
 	; end
 
 	db 0 ; padding

@@ -694,17 +694,27 @@ BlastoiseEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): full tank apex. Adds 5 anatomical exclusives
+; over Squirtle/Wartortle: HYDRO_PUMP at L36 (signature on evolution —
+; cannons developed), CRUNCH (big jaw), HEAVY_SLAM (massive frame — needs
+; BODY_SLAM as prerequisite, which is shared at L42), HEAD_SMASH (signature
+; shell-head bash — vanilla Skull Bash equivalent), EARTHQUAKE (massive
+; footsteps shake earth). All entry levels unique (rule #7).
 	db  4, WATER_GUN
 	db  8, WITHDRAW
+	db 10, BIDE
 	db 12, BITE
-	db 16, BUBBLEBEAM
-	db 20, ICY_WIND
-	db 25, WATERFALL
-	db 30, HARDEN
-	db 35, SURF
-	db 45, HYDRO_PUMP
-	db 50, HEAD_SMASH
-	db 55, BIDE
+	db 18, BUBBLEBEAM
+	db 22, HEADBUTT
+	db 26, WATER_PULSE
+	db 32, WATERFALL
+	db 36, HYDRO_PUMP
+	db 40, CRUNCH
+	db 42, BODY_SLAM
+	db 46, HEAVY_SLAM
+	db 48, SURF
+	db 52, HEAD_SMASH
+	db 60, EARTHQUAKE
 	db 0
 
 PinsirEvosMoves:
@@ -2861,16 +2871,23 @@ SquirtleEvosMoves:
 	db EVOLVE_LEVEL, 18, WARTORTLE
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): pure WATER baby turtle. Shared backbone with
+; the whole line. No AQUA_JET (turtle slow), no HARDEN (Forte: weak +
+; redundant with WITHDRAW), no HYDRO_PUMP (anatomical: no shell-cannons
+; until Blastoise). BIDE moved early (Forte: bad move, get out of late
+; slot). HEADBUTT moved earlier per Forte. ICY_WIND replaced with WATER_
+; PULSE (turtles don't make wind). BODY_SLAM added — prerequisite for
+; HEAVY_SLAM that Blastoise gets exclusively.
 	db  4, WATER_GUN
 	db  8, WITHDRAW
+	db 10, BIDE
 	db 12, BITE
-	db 16, BUBBLEBEAM
-	db 20, ICY_WIND
-	db 25, WATERFALL
-	db 30, HARDEN
-	db 35, SURF
-	db 45, HYDRO_PUMP
-	db 55, BIDE
+	db 18, BUBBLEBEAM
+	db 22, HEADBUTT
+	db 26, WATER_PULSE
+	db 32, WATERFALL
+	db 42, BODY_SLAM
+	db 48, SURF
 	db 0
 
 CharmeleonEvosMoves:
@@ -2900,16 +2917,19 @@ WartortleEvosMoves:
 	db EVOLVE_LEVEL, 36, BLASTOISE
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): same backbone as Squirtle (uniformity rule).
+; Still no shell-cannons → no HYDRO_PUMP. Blastoise gets cannons + jaw
+; growth + massive size via anatomical exception.
 	db  4, WATER_GUN
 	db  8, WITHDRAW
+	db 10, BIDE
 	db 12, BITE
-	db 16, BUBBLEBEAM
-	db 20, ICY_WIND
-	db 25, WATERFALL
-	db 30, HARDEN
-	db 35, SURF
-	db 45, HYDRO_PUMP
-	db 55, BIDE
+	db 18, BUBBLEBEAM
+	db 22, HEADBUTT
+	db 26, WATER_PULSE
+	db 32, WATERFALL
+	db 42, BODY_SLAM
+	db 48, SURF
 	db 0
 
 CharizardEvosMoves:
