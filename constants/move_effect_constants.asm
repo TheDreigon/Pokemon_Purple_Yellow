@@ -99,4 +99,5 @@
 	const TRI_STATUS_SIDE_EFFECT     ; $5C  ~33% to inflict random {par/brn/frz}, ~11% each (Tri Attack)
 	const CONFUSION_SIDE_EFFECT3     ; $5D  50% confusion (new Psychic). Heaviest tier of the 15/30/50 confusion ladder.
 	const SPEED_EVASION_DOWN1_EFFECT ; $5E  target Speed-1 & Evasion-1 (new Psychic Bind). Mirror of SPEED_EVASION_UP1_EFFECT.
+	const SPECIAL_SPEED_UP1_EFFECT   ; $5F  user Spc+1 & Speed+1 (new Quiver Dance). Mirror of SPECIAL_SPEED_DOWN1_EFFECT.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

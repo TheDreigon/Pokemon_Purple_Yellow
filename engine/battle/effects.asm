@@ -2024,6 +2024,35 @@ SpeedEvasionDown1Effect:
 	ld [de], a
 	ret
 
+SpecialSpeedUp1Effect:
+; Dual-stat +1 for the user (Special + Speed). Used by QUIVER_DANCE (v0.7).
+; Mirrors SpecialSpeedDown1Effect in the up direction — same pattern as
+; AttackDefenseUp1Effect / SpeedEvasionUp1Effect above.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr8
+	ld de, wEnemyMoveEffect
+.gotEffectPtr8
+	push de
+	ld a, SPECIAL_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg (we only want one "used QUIVER
+	; DANCE" hit) by spoofing wMoveDidntMiss; the guard in StatModifierUp
+	; Effect reads this flag and skips PlayCurrentMoveAnimation.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, SPEED_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, SPECIAL_SPEED_UP1_EFFECT
+	ld [de], a
+	ret
+
 AttackUp1Down1Effect:
 ; Mixed-direction dual-stat: ATK+1 to user, ATK-1 to target. Used by FIERCE_ROAR.
 ; Up leg always succeeds; down leg has its own hit roll, so reset wMoveMissed

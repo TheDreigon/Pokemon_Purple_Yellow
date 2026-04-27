@@ -95,4 +95,5 @@ MoveEffectPointerTable:
 	dw TriStatusSideEffect       ; TRI_STATUS_SIDE_EFFECT
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT3
 	dw SpeedEvasionDown1Effect   ; SPEED_EVASION_DOWN1_EFFECT
+	dw SpecialSpeedUp1Effect     ; SPECIAL_SPEED_UP1_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS
