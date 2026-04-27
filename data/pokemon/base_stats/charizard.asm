@@ -16,12 +16,11 @@
 	; Aerial Ace + Hurricane (levelup-doubles), Intimidate (massive presence),
 	; Swords Dance (warrior peak), Earthquake (heavy descent stomp), HM Fly
 	; (in levelup too — Forte's natural-FLY learner).
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    QUICK_ATTACK, \
-	     HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  IGNITE,       \
-	     FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          FLASH,        \
-	     DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  STRENGTH,     \
-	     AERIAL_ACE,   HURRICANE,    INTIMIDATE,   SWORDS_DANCE, EARTHQUAKE,   \
-	     FLY
+	tmhm QUICK_ATTACK, HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  \
+	     IGNITE,       FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          \
+	     FLASH,        DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  \
+	     STRENGTH,     AERIAL_ACE,   HURRICANE,    INTIMIDATE,   SWORDS_DANCE, \
+	     EARTHQUAKE,   FLY
 	; end
 
 	db 0 ; padding

@@ -12,8 +12,10 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cocoon. Same minimal kit as Weedle.
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: cocoon. Only SUBSTITUTE (per Forte — silk-spinner cocoon
+	; can weave a fake stand-in decoy). The other 3 fun moves don't fit;
+	; Weedle baby doesn't get SUBSTITUTE either (too primitive).
+	tmhm SUBSTITUTE
 	; end
 
 	db 0 ; padding

@@ -16,10 +16,10 @@
 	; Double Team (more agile), Body Slam (bigger frame), Bulk Up (warrior
 	; buff), Double Edge (heavy charge with recoil), HM Strength (push
 	; heavy). No Agility — Char-line not on Forte's natural-or-TM list.
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    QUICK_ATTACK, \
-	     HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  IGNITE,       \
-	     FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          FLASH,        \
-	     DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  STRENGTH
+	tmhm QUICK_ATTACK, HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  \
+	     IGNITE,       FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          \
+	     FLASH,        DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

@@ -12,14 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte's favorite): Weedle/Kakuna's 4 universals + 11
-	; warrior-bee additions. Outrage TM per Forte. Levelup-doubles for
-	; Leech Life, Hone Claws, Agility, Quick Attack, Aerial Ace, Intimidate,
-	; Double Edge. HM02 Fly per Forte's HM-Fly list. Drill Peck and Extreme
-	; Speed are levelup-only (no TMs in this hack).
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    LEECH_LIFE,   \
-	     AGILITY,      TOXIC,        HONE_CLAWS,   DOUBLE_EDGE,  TAKE_DOWN,    \
-	     AERIAL_ACE,   INTIMIDATE,   QUICK_ATTACK, OUTRAGE,      FLY
+	; v0.7 Pass 3 (Forte's favorite): 11 warrior-bee additions. Outrage TM
+	; per Forte. Levelup-doubles for Leech Life, Hone Claws, Agility, Quick
+	; Attack, Aerial Ace, Intimidate, Double Edge. HM02 Fly per Forte's
+	; HM-Fly list. Drill Peck and Extreme Speed levelup-only (no TMs in
+	; this hack). NO fun moves (per Forte's revised rule — bee not a
+	; mind-mimic, no silk-decoy capability after metamorphosis, not magical).
+	tmhm LEECH_LIFE,   AGILITY,      TOXIC,        HONE_CLAWS,   DOUBLE_EDGE,  \
+	     TAKE_DOWN,    AERIAL_ACE,   INTIMIDATE,   QUICK_ATTACK, OUTRAGE,      \
+	     FLY
 	; end
 
 	db 0 ; padding

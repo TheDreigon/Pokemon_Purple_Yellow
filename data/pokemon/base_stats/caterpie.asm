@@ -12,10 +12,11 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: joke-tier baby caterpillar. 4 universals + LEECH_LIFE
-	; (also levelup). Cocoon basically can't fight; minimal kit reflects
-	; that. STRING_SHOT moved to L7 levelup (1 before evo) per Forte.
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    LEECH_LIFE
+	; v0.7 Pass 3: joke-tier baby caterpillar. Almost can't fight; minimal
+	; kit reflects that. STRING_SHOT moved to L7 levelup (1 before evo) per
+	; Forte. NO fun moves (per Forte's revised rule — Caterpie too small/
+	; primitive even for silk-substitute, which only Metapod gets).
+	tmhm LEECH_LIFE
 	; end
 
 	db 0 ; padding

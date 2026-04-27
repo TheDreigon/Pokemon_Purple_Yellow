@@ -15,10 +15,9 @@
 	; v0.7 Pass 3: full bloom — superset of Ivysaur. Adds Intimidate (massive
 	; presence at full bloom). DAZZLE_GLEAM was considered and rejected
 	; (Fairy-coded sparkle; Venusaur is plant, not magical creature).
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    GIGA_DRAIN,   \
-	     BIND,         TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    REFLECT,      \
-	     CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE,  \
-	     EARTHQUAKE,   STRENGTH,     FLASH,        INTIMIDATE
+	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    \
+	     REFLECT,      CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        \
+	     DOUBLE_EDGE,  EARTHQUAKE,   STRENGTH,     FLASH,        INTIMIDATE
 	; end
 
 	db 0 ; padding

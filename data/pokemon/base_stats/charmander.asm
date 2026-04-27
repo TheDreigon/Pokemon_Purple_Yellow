@@ -12,13 +12,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: baby fire reptile. 4 universals + 4 universal-exception
-	; "fun moves" (Mimic/Mirror Move/Substitute/Metronome — these break the
-	; realism rule by Forte's design). Levelup-doubles for fire/dragon TMs
+	; v0.7 Pass 3: baby fire reptile. Levelup-doubles for fire/dragon TMs
 	; the line learns naturally. HM05 Flash because fire pokes light caves.
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    QUICK_ATTACK, \
-	     HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  IGNITE,       \
-	     FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          FLASH
+	; NO fun moves (per Forte's revised rule — fire reptiles don't fit
+	; Mimic/Mirror Move/Substitute/Metronome anatomy/lore).
+	tmhm QUICK_ATTACK, HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  \
+	     IGNITE,       FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          \
+	     FLASH
 	; end
 
 	db 0 ; padding

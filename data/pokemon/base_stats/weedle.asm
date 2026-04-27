@@ -13,8 +13,10 @@
 
 	; tm/hm learnset
 	; v0.7 Pass 3: joke-tier baby spike-bug. STRING_SHOT moved to L7
-	; levelup (1 before evo) per Forte. 4 universals only.
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; levelup (1 before evo) per Forte. NO TMs at all (per Forte's revised
+	; rule — Weedle too small/primitive even for silk-substitute, which
+	; only Kakuna gets).
+	tmhm
 	; end
 
 	db 0 ; padding
