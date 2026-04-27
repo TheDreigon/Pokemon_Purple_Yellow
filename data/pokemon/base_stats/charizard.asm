@@ -20,7 +20,7 @@
 	     IGNITE,       FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          \
 	     FLASH,        DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  \
 	     STRENGTH,     AERIAL_ACE,   HURRICANE,    INTIMIDATE,   SWORDS_DANCE, \
-	     EARTHQUAKE,   FLY
+	     EARTHQUAKE,   FLY,          ROCK_THROW
 	; end
 
 	db 0 ; padding

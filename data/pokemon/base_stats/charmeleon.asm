@@ -19,7 +19,7 @@
 	tmhm QUICK_ATTACK, HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  \
 	     IGNITE,       FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          \
 	     FLASH,        DOUBLE_TEAM,  BODY_SLAM,    BULK_UP,      DOUBLE_EDGE,  \
-	     STRENGTH
+	     STRENGTH,     ROCK_THROW
 	; end
 
 	db 0 ; padding

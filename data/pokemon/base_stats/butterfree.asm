@@ -19,7 +19,7 @@
 	; fun move that fits (per Forte — Bug/PSYCHIC typing literal, antennae
 	; psychic-mirror); the other 3 fun moves don't fit Butterfree.
 	tmhm MIRROR_MOVE,  LEECH_LIFE,   EXTRASENSORY, PSYCHIC_M,    LIGHT_SCREEN, \
-	     REFLECT,      HURRICANE,    FLY,          FLASH
+	     REFLECT,      HURRICANE,    FLY,          FLASH,        DAZZLE_GLEAM
 	; end
 
 	db 0 ; padding

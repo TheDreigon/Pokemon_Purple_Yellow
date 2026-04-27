@@ -15,7 +15,7 @@
 	; v0.7 Pass 3: medium hawk. Pidgey's 5 + 3 grown-talon additions:
 	; HONE_CLAWS (also levelup), TAKE_DOWN, HM01 CUT (sharper beak/talons).
 	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HURRICANE, FLY,           \
-	     HONE_CLAWS,   TAKE_DOWN,    CUT
+	     HONE_CLAWS,   TAKE_DOWN,    CUT,        BODY_SLAM
 	; end
 
 	db 0 ; padding
