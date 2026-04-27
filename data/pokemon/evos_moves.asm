@@ -1995,13 +1995,12 @@ BeedrillEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte's favorite mon — gets the deepest movepool of the
+; v0.7 Pass 3 (one of Forte's favorite mon — gets the deepest movepool of the
 ; line). Shared 4 + 16 exclusives. NO powders (Forte's powder table).
 ; NO Sludge / Gunk Shot / Toxic Fangs / Megahorn (anatomical: stinger
 ; bee, not blob/fanged/horned mon). Twin Needle = signature on evo.
 ; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
-; one of the line's "small number of exceptions"). Drill Peck and
-; ExtremeSpeed are stretch-late peaks per Forte's "talvez". Neurotoxin
+; one of the line's "small number of exceptions"). Neurotoxin
 ; at L48 is real-world bee venom biology.
 	db  4, POISON_STING
 	db  7, STRING_SHOT
@@ -2173,8 +2172,7 @@ ButterfreeEvosMoves:
 ; 10 exclusives (wings, powders, psychic awakens). All 3 powders per
 ; Forte's powder table. Hurricane reserved as final move (Forte: "as
 ; last move"). Quiver Dance late game (signature moth/butterfly dance,
-; new SPECIAL_SPEED_UP1_EFFECT after engine update). Removed: SUPERSONIC
-; and PSYBEAM per Forte. Added FAIRY_WIND (Forte) and HURRICANE.
+; new SPECIAL_SPEED_UP1_EFFECT after engine update). Added FAIRY_WIND and HURRICANE.
 	db  4, BUG_BITE
 	db  7, STRING_SHOT
 	db  9, LEECH_LIFE
