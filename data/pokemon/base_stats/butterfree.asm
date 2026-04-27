@@ -11,13 +11,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: butterfly Bug/Psychic. Caterpie/Metapod's 5 + 6 wing/
-	; psychic additions. HM02 Fly per Forte's HM-Fly list. HURRICANE TM
-	; (also levelup-double). FAIRY_WIND and QUIVER_DANCE are levelup-only
-	; (not TMs in this hack). Powders are levelup-only too.
+	; v0.7 Pass 3: butterfly Bug/Psychic. Caterpie/Metapod's 5 + 7 wing/
+	; psychic/light additions. HM02 Fly per Forte's HM-Fly list. HM05 Flash
+	; per Forte (powdery wing scales bright enough for cave illumination —
+	; usual fire-type rule extended to bright-bodied bugs). HURRICANE TM
+	; (also levelup-double). FAIRY_WIND, QUIVER_DANCE, WING_ATTACK are
+	; levelup-only (not TMs in this hack).
 	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    LEECH_LIFE,   \
 	     EXTRASENSORY, PSYCHIC_M,    LIGHT_SCREEN, REFLECT,      HURRICANE,    \
-	     FLY
+	     FLY,          FLASH
 	; end
 
 	db 0 ; padding
