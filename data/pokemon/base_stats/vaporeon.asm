@@ -12,7 +12,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Water fox. Eevee's 6 + 7 water/utility additions:
+	; WATER_PULSE¹, ICE_BEAM¹, HYDRO_PUMP¹, BLIZZARD, HM03 SURF¹,
+	; LIGHT_SCREEN/REFLECT (Forte #9), TAKE_DOWN (per Forte #10 — Eevee
+	; loses, evolutions keep). NO HM05 FLASH (Forte #8 — water mons don't
+	; FLASH).
+	tmhm QUICK_ATTACK, BODY_SLAM,    DOUBLE_EDGE,  AGILITY,      HONE_CLAWS,   \
+	     FAKE_TEARS,   WATER_PULSE,  ICE_BEAM,     HYDRO_PUMP,   BLIZZARD,     \
+	     SURF,         LIGHT_SCREEN, REFLECT,      TAKE_DOWN
 	; end
 
 	db 0 ; padding

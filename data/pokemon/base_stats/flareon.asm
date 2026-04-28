@@ -12,7 +12,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Fire fox. Eevee's 6 + 6 fire/utility: IGNITE¹,
+	; FLAMETHROWER¹, FIRE_BLAST¹, HM05 FLASH (fire type), LIGHT_SCREEN/
+	; REFLECT (Forte #9), TAKE_DOWN.
+	tmhm QUICK_ATTACK, BODY_SLAM,    DOUBLE_EDGE,  AGILITY,      HONE_CLAWS,   \
+	     FAKE_TEARS,   IGNITE,       FLAMETHROWER, FIRE_BLAST,   FLASH,        \
+	     LIGHT_SCREEN, REFLECT,      TAKE_DOWN
 	; end
 
 	db 0 ; padding

@@ -8,11 +8,16 @@
 	INCBIN "gfx/pokemon/front/jolteon.pic", 0, 1 ; sprite dimensions
 	dw JolteonPicFront, JolteonPicBack
 
-	db TACKLE, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, TAIL_WHIP, THUNDERSHOCK, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Electric fox, fastest. Eevee's 6 + 6 electric/utility:
+	; THUNDERBOLT¹, THUNDER_WAVE¹, THUNDER¹, HM05 FLASH (electric flash),
+	; LIGHT_SCREEN/REFLECT (Forte #9), TAKE_DOWN.
+	tmhm QUICK_ATTACK, BODY_SLAM,    DOUBLE_EDGE,  AGILITY,      HONE_CLAWS,   \
+	     FAKE_TEARS,   THUNDERBOLT,  THUNDER_WAVE, THUNDER,      FLASH,        \
+	     LIGHT_SCREEN, REFLECT,      TAKE_DOWN
 	; end
 
 	db 0 ; padding

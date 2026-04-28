@@ -8,11 +8,16 @@
 	INCBIN "gfx/pokemon/front/raichu.pic", 0, 1 ; sprite dimensions
 	dw RaichuPicFront, RaichuPicBack
 
-	db THUNDERSHOCK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db NUZZLE, GROWL, QUICK_ATTACK, IRON_TAIL ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: bigger orange mouse. Pikachu's 11 + 3 apex additions:
+	; BULK_UP (warrior mouse), DOUBLE_EDGE (levelup-double — bigger reckless
+	; body), TAKE_DOWN.
+	tmhm QUICK_ATTACK, BODY_SLAM,    IRON_TAIL,    THUNDERBOLT,  THUNDER_WAVE, \
+	     AGILITY,      THUNDER,      REFLECT,      LIGHT_SCREEN, FAKE_TEARS,   \
+	     FLASH,        BULK_UP,      DOUBLE_EDGE,  TAKE_DOWN
 	; end
 
 	db 0 ; padding

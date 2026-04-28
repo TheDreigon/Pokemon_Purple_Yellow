@@ -1557,36 +1557,49 @@ PikachuEvosMoves:
 	db EVOLVE_ITEM, THUNDER_STONE, 1, RAICHU
 	db 0
 ; Learnset
-	db  6, TAIL_WHIP
-	db  8, QUICK_ATTACK
-	db 11, NUZZLE
-	db 15, DOUBLE_TEAM
-	db 20, THUNDER_WAVE
-	db 25, THUNDERBOLT
-	db 30, AGILITY
-	db 35, THUNDER
-	db 40, VOLT_TACKLE
-	db 45, IRON_TAIL
-	db 50, EXTREMESPEED
-	db 55, BODY_SLAM
+; v0.7 Pass 3 (Forte review): Electric mouse. Power-progression: NUZZLE
+; (35 BP) before THUNDERSHOCK (55 BP). CHARM mid (cute mouse). VOLT_TACKLE
+; signature at L23 (Pichu egg-move lore — both Pikachu/Raichu learn at
+; same level per Forte's simplification).
+	db  4, NUZZLE
+	db  7, TAIL_WHIP
+	db 10, QUICK_ATTACK
+	db 13, THUNDERSHOCK
+	db 15, CHARM
+	db 17, THUNDER_WAVE
+	db 21, DISCHARGE
+	db 23, VOLT_TACKLE
+	db 25, AGILITY
+	db 30, IRON_TAIL
+	db 36, THUNDERBOLT
+	db 42, BODY_SLAM
+	db 48, EXTREMESPEED
+	db 55, THUNDER
 	db 0
 
 RaichuEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  6, TAIL_WHIP
-	db  8, QUICK_ATTACK
-	db 11, NUZZLE
-	db 15, DOUBLE_TEAM
-	db 20, THUNDER_WAVE
-	db 25, THUNDERBOLT
-	db 30, AGILITY
-	db 35, THUNDER
-	db 40, VOLT_TACKLE
-	db 45, IRON_TAIL
-	db 50, EXTREMESPEED
-	db 55, BODY_SLAM
+; v0.7 Pass 3: bigger orange mouse. Same shared backbone as Pikachu (per
+; Forte: "raichu aprende-o ao mesmo lvl que o pikachu" for VOLT_TACKLE
+; — simpler than the L1-Move-Reminder trick). Adds DOUBLE_EDGE (bigger
+; reckless body — anatomical exclusive).
+	db  4, NUZZLE
+	db  7, TAIL_WHIP
+	db 10, QUICK_ATTACK
+	db 13, THUNDERSHOCK
+	db 15, CHARM
+	db 17, THUNDER_WAVE
+	db 21, DISCHARGE
+	db 23, VOLT_TACKLE
+	db 25, AGILITY
+	db 30, IRON_TAIL
+	db 36, THUNDERBOLT
+	db 42, BODY_SLAM
+	db 48, EXTREMESPEED
+	db 52, DOUBLE_EDGE
+	db 55, THUNDER
 	db 0
 
 MissingNo56EvosMoves:
@@ -1831,30 +1844,43 @@ EeveeEvosMoves:
 	db EVOLVE_ITEM, WATER_STONE, 1, VAPOREON
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
+; v0.7 Pass 3 (Forte review): Eevee Normal-only base. TAKE_DOWN removed
+; per Forte #10 (only Eevee loses; the 3 evolutions keep). CHARM added per
+; Forte #11 (cute fox charm — shared with all 4 forms).
+	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 12, GROWL
-	db 17, BITE
-	db 22, HEADBUTT
-	db 28, TAKE_DOWN
-	db 34, BODY_SLAM
-	db 40, DOUBLE_EDGE
+	db 11, GROWL
+	db 14, BITE
+	db 18, HEADBUTT
+	db 20, CHARM
+	db 30, BODY_SLAM
+	db 36, DOUBLE_EDGE
 	db 0
 
 FlareonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
+; v0.7 Pass 3: Fire fox. Eevee shared (CHARM included, TAKE_DOWN re-added
+; here per Forte — only Eevee loses TAKE_DOWN). IGNITE early per Forte
+; (was L54, now L26 — basic burn utility), SWORDS_DANCE late per Forte
+; (was L52, now L57 — peak claw-buff before final fire).
+	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 12, GROWL
-	db 17, BITE
+	db 11, GROWL
+	db 14, BITE
+	db 18, HEADBUTT
+	db 20, CHARM
 	db 22, EMBER
+	db 24, TAKE_DOWN
+	db 26, IGNITE
 	db 28, FLAME_CHARGE
+	db 30, BODY_SLAM
 	db 34, FAINT_ATTACK
+	db 36, DOUBLE_EDGE
 	db 40, FLAME_BURST
 	db 47, FLAMETHROWER
-	db 54, TAKE_DOWN
+	db 57, SWORDS_DANCE
 	db 60, FIRE_BLAST
 	db 0
 
@@ -1862,36 +1888,57 @@ JolteonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
+; v0.7 Pass 3: Electric fox, fastest Eeveelution. Eevee shared + electric
+; kit + METAL_SOUND per Forte #7 (electric sparks = metallic-sound debuff).
+; AGILITY natural per Forte's list. NO DOUBLE_TEAM (not on Forte's natural
+; list).
+	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 12, GROWL
-	db 17, BITE
+	db 11, GROWL
+	db 14, BITE
+	db 18, HEADBUTT
+	db 20, CHARM
 	db 22, THUNDERSHOCK
-	db 28, DOUBLE_TEAM
-	db 34, DISCHARGE
-	db 40, AGILITY
-	db 47, THUNDER_WAVE
-	db 54, THUNDERBOLT
-	db 60, EXTREMESPEED
-	db 65, THUNDER
+	db 24, TAKE_DOWN
+	db 26, THUNDER_WAVE
+	db 30, BODY_SLAM
+	db 32, DISCHARGE
+	db 36, DOUBLE_EDGE
+	db 38, AGILITY
+	db 44, THUNDERBOLT
+	db 46, METAL_SOUND
+	db 52, EXTREMESPEED
+	db 60, THUNDER
 	db 0
 
 VaporeonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
+; v0.7 Pass 3: Water fox, fluid body. Eevee shared + water/ice kit +
+; HARDEN (Forte #5 — fluid body solidifies to ice/scale armor) + RECOVER
+; (Forte #5 — animal regen pattern, fluid body reforms). Forte #3 said
+; both moves earlier and close together — placed L28/L30. ICY_WIND replaced
+; with ICE_BEAM (Vaporeon water-mastery deserves real ice attack, not
+; light wind). Removed ICY_WIND.
+	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 12, GROWL
-	db 17, BITE
+	db 11, GROWL
+	db 14, BITE
+	db 18, HEADBUTT
+	db 20, CHARM
 	db 22, WATER_GUN
-	db 28, BUBBLEBEAM
-	db 34, WATER_PULSE
-	db 40, AURORA_BEAM
-	db 47, ICY_WIND
-	db 54, SURF
-	db 60, RECOVER
-	db 65, HYDRO_PUMP
+	db 24, TAKE_DOWN
+	db 26, BUBBLEBEAM
+	db 28, HARDEN
+	db 30, BODY_SLAM
+	db 32, WATER_PULSE
+	db 34, RECOVER
+	db 36, DOUBLE_EDGE
+	db 38, AURORA_BEAM
+	db 44, SURF
+	db 48, ICE_BEAM
+	db 60, HYDRO_PUMP
 	db 0
 
 MachopEvosMoves:
