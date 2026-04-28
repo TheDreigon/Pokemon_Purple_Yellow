@@ -51,7 +51,7 @@ Moves: ; Current total = 220
 	move DISCHARGE,      SWIFT_EFFECT,                     75, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
-	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      95, 20
+	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      90, 20
 	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             55, ELECTRIC,     100, 20 ; new move. signature. priority move. high-crit.
 
 
