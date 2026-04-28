@@ -8,11 +8,16 @@
 	INCBIN "gfx/pokemon/front/nidorina.pic", 0, 1 ; sprite dimensions
 	dw NidorinaPicFront, NidorinaPicBack
 
-	db GROWL, TACKLE, SCRATCH, NO_MOVE ; level 1 learnset
+	db GROWL, TACKLE, POISON_STING, BITE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review F#2): mid-stage female. Inherits Nidoran♀'s
+	; 4 + 3 additions: HONE_CLAWS, FAINT_ATTACK (Forte F-old #8 — F-line
+	; Dark-coded), DOUBLE_EDGE (Forte F#2 — Nidorina+Nidoqueen). NO ROCK_
+	; SLIDE (Forte F-old #6 — Nidoqueen-only). Removed SCRATCH from L1.
+	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    HONE_CLAWS,   \
+	     FAINT_ATTACK, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

@@ -242,17 +242,22 @@ NidoranMEvosMoves:
 	db EVOLVE_LEVEL, 17, NIDORINO
 	db 0
 ; Learnset
-	db  5, LEER
-	db  8, POISON_STING
-	db 12, DOUBLE_KICK
-	db 17, HORN_ATTACK
-	db 23, POISON_FANG
-	db 28, FOCUS_ENERGY
-	db 34, TOXIC_FANGS
-	db 40, BULLDOZE
-	db 47, EARTHQUAKE
-	db 54, GUNK_SHOT
-	db 60, MEGAHORN
+; v0.7 Pass 3 (Forte review): aggressive male juvenile, single-horn. 11
+; shared moves Nidorino+Nidoking inherit. POISON_STING+SAND_ATTACK basic
+; toolkit; FURY_ATTACK early per Forte (#3) to match F line; POISON_FANG/
+; BODY_SLAM mid-tier; HORN_CHARGE late as adult-horn move; TOXIC_FANGS
+; capstone late per Forte (#12). NO DOUBLE_KICK.
+	db  4, LEER
+	db  7, POISON_STING
+	db 10, SAND_ATTACK
+	db 13, BITE
+	db 16, HORN_ATTACK
+	db 19, FURY_ATTACK
+	db 22, FOCUS_ENERGY
+	db 25, POISON_FANG
+	db 28, BODY_SLAM
+	db 37, HORN_CHARGE
+	db 44, TOXIC_FANGS
 	db 0
 
 ClefairyEvosMoves:
@@ -315,19 +320,36 @@ NidokingEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, LEER
-	db  8, POISON_STING
-	db 12, DOUBLE_KICK
+; v0.7 Pass 3 (Forte review): apex predator male, full kit. Inherits all
+; Nidoran♂+Nidorino entries; adds 8 Nidoking-only: BULLDOZE (Forte #2 —
+; Nidoking-only not shared, depois de GROUND_STOMP for power progression
+; 35→65 BP), CRUNCH antes de STRENGTH (Forte #1), EARTHQUAKE, THRASH
+; (swap from MEGAHORN per Forte #9 — MEGAHORN só TM agora), BRUTAL_SWING
+; + GORE_ATTACK (Forte #5 high-level apex), OUTRAGE final L65 per Forte
+; (#2 spacing 3-em-3 com gap final). NO HORN_DRILL (Forte #7).
+	db  4, LEER
+	db  7, POISON_STING
+	db 10, SAND_ATTACK
+	db 13, BITE
 	db 17, HORN_ATTACK
-	db 23, POISON_FANG
-	db 28, FOCUS_ENERGY
-	db 34, TOXIC_FANGS
-	db 40, BULLDOZE
-	db 47, EARTHQUAKE
-	db 54, GUNK_SHOT
-	db 54, MEGAHORN
-	db 60, MEGAHORN
-	db 60, OUTRAGE
+	db 19, FURY_ATTACK
+	db 22, FOCUS_ENERGY
+	db 25, POISON_FANG
+	db 28, BODY_SLAM
+	db 30, TAKE_DOWN
+	db 34, GROUND_STOMP
+	db 35, RAGE
+	db 36, FIERCE_ROAR
+	db 37, HORN_CHARGE
+	db 38, BULLDOZE
+	db 41, CRUNCH
+	db 43, STRENGTH
+	db 44, TOXIC_FANGS
+	db 46, EARTHQUAKE
+	db 49, THRASH
+	db 55, BRUTAL_SWING
+	db 58, GORE_ATTACK
+	db 65, OUTRAGE
 	db 0
 	
 SlowbroEvosMoves:
@@ -464,36 +486,56 @@ NidoranFEvosMoves:
 	db EVOLVE_LEVEL, 17, NIDORINA
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  8, POISON_STING
-	db 12, TAIL_WHIP
-	db 17, BITE
-	db 23, POISON_FANG
-	db 28, FURY_ATTACK
-	db 34, TOXIC_FANGS
-	db 40, BODY_SLAM
-	db 47, EARTHQUAKE
-	db 54, CRUNCH
-	db 60, SLUDGE_WAVE
+; v0.7 Pass 3 (Forte review): defensive female juvenile, fairy-tinged. 11
+; shared moves Nidorina+Nidoqueen inherit. SAND_ATTACK basic; BIDE (swap
+; from FURY_ATTACK per Forte F#5); HEADBUTT (Forte F-old); FAIRY_WIND at
+; L17 (= evo level per Forte F#1, fairy gift on evolution); TOXIC_FANGS
+; capstone late per Forte (F#4). NO SCRATCH (Forte F-old). NO BULLDOZE/
+; GROUND_STOMP/CRUNCH in shared (Forte F#3 — mid-evo + Queen exclusivity).
+	db  4, GROWL
+	db  7, POISON_STING
+	db 10, SAND_ATTACK
+	db 13, TAIL_WHIP
+	db 16, BITE
+	db 17, FAIRY_WIND
+	db 19, BIDE
+	db 22, HEADBUTT
+	db 25, POISON_FANG
+	db 28, BODY_SLAM
+	db 42, TOXIC_FANGS
 	db 0
 
 NidoqueenEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  8, POISON_STING
-	db 12, TAIL_WHIP
-	db 17, BITE
-	db 23, POISON_FANG
-	db 28, FURY_ATTACK
-	db 34, TOXIC_FANGS
-	db 40, BODY_SLAM
-	db 47, EARTHQUAKE
-	db 54, CRUNCH
-	db 54, BODY_SLAM
-	db 60, SLUDGE_WAVE
-	db 60, EARTHQUAKE
+; v0.7 Pass 3 (Forte review): matriarch, fairy + ground apex. Inherits
+; all Nidoran♀+Nidorina entries; adds 4 Nidoqueen-only: CHARM at L36
+; per Forte (F#3 — após L36 evo line ref), CRUNCH antes de STRENGTH
+; (Forte #1; CRUNCH Nidoqueen-exclusive per Forte F#1 — was F shared),
+; EARTHQUAKE at L52 (Forte F#3 — Nidoqueen-only third-evo; Forte F#6
+; — later than M's L46). NO MEGAHORN/OUTRAGE/THRASH/GORE_ATTACK/
+; BRUTAL_SWING (M-only apex moves). STRENGTH per Forte F#8.
+	db  4, GROWL
+	db  7, POISON_STING
+	db 10, SAND_ATTACK
+	db 13, TAIL_WHIP
+	db 16, BITE
+	db 17, FAIRY_WIND
+	db 19, BIDE
+	db 22, HEADBUTT
+	db 24, ACID
+	db 25, POISON_FANG
+	db 28, BODY_SLAM
+	db 30, TAKE_DOWN
+	db 34, GROUND_STOMP
+	db 35, PLAY_ROUGH
+	db 36, CHARM
+	db 40, BULLDOZE
+	db 42, TOXIC_FANGS
+	db 46, CRUNCH
+	db 49, STRENGTH
+	db 52, EARTHQUAKE
 	db 0
 
 CuboneEvosMoves:
@@ -2948,17 +2990,26 @@ NidorinoEvosMoves:
 	db EVOLVE_LEVEL, 35, NIDOKING
 	db 0
 ; Learnset
-	db  5, LEER
-	db  8, POISON_STING
-	db 12, DOUBLE_KICK
+; v0.7 Pass 3 (Forte review): mid-stage male, mature horn, learns
+; aggression primitives. Shared Nidoran♂ base + 4 exclusives shared with
+; Nidoking: TAKE_DOWN, GROUND_STOMP earlier per Forte (#1 — Nidorino+
+; Nidoking exclusive), RAGE at L35 (Forte #4 — = evo level), FIERCE_ROAR
+; at L36 (Forte #2 + Forte #6 — now Nidorino too, was Nidoking-only).
+	db  4, LEER
+	db  7, POISON_STING
+	db 10, SAND_ATTACK
+	db 13, BITE
 	db 17, HORN_ATTACK
-	db 23, POISON_FANG
-	db 28, FOCUS_ENERGY
-	db 34, TOXIC_FANGS
-	db 40, BULLDOZE
-	db 47, EARTHQUAKE
-	db 54, GUNK_SHOT
-	db 60, MEGAHORN
+	db 19, FURY_ATTACK
+	db 22, FOCUS_ENERGY
+	db 25, POISON_FANG
+	db 28, BODY_SLAM
+	db 30, TAKE_DOWN
+	db 34, GROUND_STOMP
+	db 35, RAGE
+	db 36, FIERCE_ROAR
+	db 37, HORN_CHARGE
+	db 44, TOXIC_FANGS
 	db 0
 
 NidorinaEvosMoves:
@@ -2966,17 +3017,29 @@ NidorinaEvosMoves:
 	db EVOLVE_LEVEL, 35, NIDOQUEEN
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  8, POISON_STING
-	db 12, TAIL_WHIP
-	db 17, BITE
-	db 23, POISON_FANG
-	db 28, FURY_ATTACK
-	db 34, TOXIC_FANGS
-	db 40, BODY_SLAM
-	db 47, EARTHQUAKE
-	db 54, CRUNCH
-	db 60, SLUDGE_WAVE
+; v0.7 Pass 3 (Forte review): mid-stage female, more chemical/protective.
+; Shared Nidoran♀ base + 5 exclusives shared with Nidoqueen (Forte F#3 —
+; mid-evo exclusivity for GS/BULLDOZE): ACID at L24 (Forte F#7 — F-only
+; balance, glandular chemistry), TAKE_DOWN, GROUND_STOMP at L34, PLAY_
+; ROUGH at L35 (= evo level per Forte F#2 — fairy gift on evolution),
+; BULLDOZE at L40 (Nidoqueen-natural; Nidorina via cancel-evo). NO CRUNCH
+; (Nidoqueen-only per Forte F#1).
+	db  4, GROWL
+	db  7, POISON_STING
+	db 10, SAND_ATTACK
+	db 13, TAIL_WHIP
+	db 16, BITE
+	db 17, FAIRY_WIND
+	db 19, BIDE
+	db 22, HEADBUTT
+	db 24, ACID
+	db 25, POISON_FANG
+	db 28, BODY_SLAM
+	db 30, TAKE_DOWN
+	db 34, GROUND_STOMP
+	db 35, PLAY_ROUGH
+	db 40, BULLDOZE
+	db 42, TOXIC_FANGS
 	db 0
 
 GeodudeEvosMoves:
