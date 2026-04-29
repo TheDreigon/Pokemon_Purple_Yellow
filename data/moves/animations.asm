@@ -105,7 +105,7 @@ AttackAnimationPointers:
 	dw SolarBeamAnim
 	dw LeechSeedAnim
 	dw PoisonPowderAnim
-	dw StunSporeAnim
+	dw StunPowderAnim
 	dw SleepPowderAnim
 ; === GROUND ===
 	dw GroundStompAnim
@@ -1380,7 +1380,7 @@ LeechSeedAnim:
 	; Forte feedback #56: repeat the "plantinhas no chão" landing 1
 	; more time.
 	battle_anim LEECH_SEED, SUBANIM_1_SEED_TOSS, 1, 6
-	battle_anim STUN_SPORE, SUBANIM_1_SEED_LAND, 1, 21
+	battle_anim STUN_POWDER, SUBANIM_1_SEED_LAND, 1, 21
 	battle_anim NO_MOVE, SUBANIM_1_SEED_LAND, 1, 21
 	db -1 ; end
 
@@ -1391,9 +1391,9 @@ PoisonPowderAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
-StunSporeAnim:
+StunPowderAnim:
 	; Forte feedback #57: powders um bocadinho mais lentos. Delay 6→9.
-	battle_anim STUN_SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 9
+	battle_anim STUN_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 9
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	db -1 ; end
 

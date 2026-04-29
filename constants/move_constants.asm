@@ -127,7 +127,7 @@
 	const SOLARBEAM
 	const LEECH_SEED
 	const POISONPOWDER
-	const STUN_SPORE
+	const STUN_POWDER
 	const SLEEP_POWDER
 
 ; === GROUND ===

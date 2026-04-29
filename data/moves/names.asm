@@ -105,7 +105,7 @@ MoveNames::
 	li "SOLARBEAM"
 	li "LEECH SEED"
 	li "POISONPOWDER"
-	li "STUN SPORE"
+	li "STUN POWDER"
 	li "SLEEP POWDER"
 ; === GROUND ===
 	li "GROUND STOMP"

@@ -113,7 +113,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2E,          $00, $80 ; SOLARBEAM
 	db SFX_BATTLE_1B,          $03, $60 ; LEECH_SEED
 	db SFX_BATTLE_1C,          $00, $80 ; POISONPOWDER
-	db SFX_BATTLE_1C,          $11, $a0 ; STUN_SPORE
+	db SFX_BATTLE_1C,          $11, $a0 ; STUN_POWDER
 	db SFX_BATTLE_1C,          $01, $c0 ; SLEEP_POWDER
 ; === GROUND ===
 	db SFX_BATTLE_20,          $00, $60 ; GROUND_STOMP

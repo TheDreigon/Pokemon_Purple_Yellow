@@ -77,7 +77,7 @@ SpecialTrainerMoves:
 	db 3, 3, LEECH_SEED
 	db 4, 1, ACID
 	db 4, 2, SOLARBEAM
-	db 4, 3, STUN_SPORE
+	db 4, 3, STUN_POWDER
 	db 4, 4, SLEEP_POWDER
 	db 0
 
@@ -93,7 +93,7 @@ SpecialTrainerMoves:
     db 0 
 
 	db ERIKA, 3 ; db $FF, 48, TANGELA, 49, VICTREEBEL, 48, VENUSAUR, 49, EXEGGUTOR, 50, VILEPLUME, 0
-	db 1, 2, STUN_SPORE
+	db 1, 2, STUN_POWDER
     db 1, 3, SOLARBEAM
     db 2, 4, SWORDS_DANCE
     db 3, 2, SOLARBEAM
@@ -103,7 +103,7 @@ SpecialTrainerMoves:
     db 0
 
 	db ERIKA, 4
-	db 1, 3, STUN_SPORE
+	db 1, 3, STUN_POWDER
 	db 2, 2, LEECH_SEED
 	db 2, 3, SLEEP_POWDER
 	db 2, 4, RAZOR_LEAF

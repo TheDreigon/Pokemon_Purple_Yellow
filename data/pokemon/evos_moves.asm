@@ -379,7 +379,7 @@ IvysaurEvosMoves:
 ; v0.7 Pass 3 (Forte review): Grass/Poison — bulb open, poison glands active.
 ; Adds 3 Poison moves over Bulbasaur (POISONPOWDER, ACID, TOXIC). Sludge
 ; dropped — plant biology doesn't fit "sludge/blob" framing (those are
-; Muk/Weezing-coded). Same powder rule: no STUN_SPORE.
+; Muk/Weezing-coded). Same powder rule: no STUN_POWDER.
 	db  4, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
@@ -404,7 +404,7 @@ ExeggutorEvosMoves:
 	db 13, REFLECT
 	db 17, LEECH_SEED
 	db 22, CONFUSION
-	db 28, STUN_SPORE
+	db 28, STUN_POWDER
 	db 34, POISONPOWDER
 	db 40, SLEEP_POWDER
 	db 47, PSYCHIC_M
@@ -439,7 +439,7 @@ ExeggcuteEvosMoves:
 	db 13, REFLECT
 	db 17, LEECH_SEED
 	db 22, CONFUSION
-	db 28, STUN_SPORE
+	db 28, STUN_POWDER
 	db 34, POISONPOWDER
 	db 40, SLEEP_POWDER
 	db 47, PSYCHIC_M
@@ -790,7 +790,7 @@ TangelaEvosMoves:
 	db  6, CONSTRICT
 	db 10, ABSORB
 	db 14, VINE_WHIP
-	db 18, STUN_SPORE
+	db 18, STUN_POWDER
 	db 22, GROWTH
 	db 28, MEGA_DRAIN
 	db 34, BIND
@@ -1070,7 +1070,7 @@ ParasectEvosMoves:
 	db  5, SCRATCH
 	db  9, POISONPOWDER
 	db 13, ABSORB
-	db 17, STUN_SPORE
+	db 17, STUN_POWDER
 	db 22, LEECH_LIFE
 	db 28, SLASH
 	db 28, SPORE
@@ -2075,7 +2075,7 @@ ParasEvosMoves:
 	db  5, SCRATCH
 	db  9, POISONPOWDER
 	db 13, ABSORB
-	db 17, STUN_SPORE
+	db 17, STUN_POWDER
 	db 22, LEECH_LIFE
 	db 28, SLASH
 	db 35, GROWTH
@@ -2260,7 +2260,7 @@ VenomothEvosMoves:
 	db 18, POISONPOWDER
 	db 21, GUST
 	db 22, WING_ATTACK
-	db 23, STUN_SPORE
+	db 23, STUN_POWDER
 	db 24, BUG_BUZZ
 	db 25, SLEEP_POWDER
 	db 30, TOXIC
@@ -2341,7 +2341,7 @@ ButterfreeEvosMoves:
 	db 11, GUST
 	db 13, CONFUSION
 	db 14, POISONPOWDER
-	db 17, STUN_SPORE
+	db 17, STUN_POWDER
 	db 20, SLEEP_POWDER
 	db 22, FAIRY_WIND
 	db 26, EXTRASENSORY
@@ -3285,7 +3285,7 @@ OddishEvosMoves:
 ; Learnset
 	db  5, ABSORB
 	db 10, POISONPOWDER
-	db 14, STUN_SPORE
+	db 14, STUN_POWDER
 	db 18, MEGA_DRAIN
 	db 22, ACID
 	db 28, GROWTH
@@ -3302,7 +3302,7 @@ GloomEvosMoves:
 ; Learnset
 	db  5, ABSORB
 	db 10, POISONPOWDER
-	db 14, STUN_SPORE
+	db 14, STUN_POWDER
 	db 18, MEGA_DRAIN
 	db 22, ACID
 	db 28, GROWTH
@@ -3318,7 +3318,7 @@ VileplumeEvosMoves:
 ; Learnset
 	db  5, ABSORB
 	db 10, POISONPOWDER
-	db 14, STUN_SPORE
+	db 14, STUN_POWDER
 	db 18, MEGA_DRAIN
 	db 22, ACID
 	db 28, GROWTH
@@ -3337,7 +3337,7 @@ BellsproutEvosMoves:
 ; Learnset
 	db  5, VINE_WHIP
 	db 10, POISONPOWDER
-	db 14, STUN_SPORE
+	db 14, STUN_POWDER
 	db 18, ACID
 	db 22, WRAP
 	db 28, GROWTH
@@ -3354,7 +3354,7 @@ WeepinbellEvosMoves:
 ; Learnset
 	db  5, VINE_WHIP
 	db 10, POISONPOWDER
-	db 14, STUN_SPORE
+	db 14, STUN_POWDER
 	db 18, ACID
 	db 22, WRAP
 	db 28, GROWTH
@@ -3370,7 +3370,7 @@ VictreebelEvosMoves:
 ; Learnset
 	db  5, VINE_WHIP
 	db 10, POISONPOWDER
-	db 14, STUN_SPORE
+	db 14, STUN_POWDER
 	db 18, ACID
 	db 22, WRAP
 	db 28, GROWTH
