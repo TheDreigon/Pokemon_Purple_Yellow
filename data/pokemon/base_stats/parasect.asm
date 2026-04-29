@@ -7,11 +7,20 @@
 	INCBIN "gfx/pokemon/front/parasect.pic", 0, 1 ; sprite dimensions
 	dw ParasectPicFront, ParasectPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SPORE, PARASITE, TOXIC_FANGS, NIGHT_SLASH ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): mushroom-dominated apex (Bug/Fungus).
+	; Paras' 3 + 8 Parasect additions: SCARY_FACE¹ (creepy fungal-zombie
+	; — Forte add to levelup, also TM), SWORDS_DANCE (claws warrior),
+	; HONE_CLAWS (sharp claws), BODY_SLAM (heavy fungal-bug), TAKE_DOWN
+	; (apex), DOUBLE_EDGE¹ (recoil — Forte swap from BODY_SLAM in
+	; levelup), POISON_FANG (mandibular toxin TM, sister to TOXIC_FANGS¹
+	; levelup), HM01 CUT (per Forte's HM list).
+	tmhm LEECH_LIFE,   GIGA_DRAIN,   TOXIC,        SCARY_FACE,   SWORDS_DANCE, \
+	     HONE_CLAWS,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  POISON_FANG,  \
+	     CUT
 	; end
 
 	db 0 ; padding

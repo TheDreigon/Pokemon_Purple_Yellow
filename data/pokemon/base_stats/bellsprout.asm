@@ -8,11 +8,15 @@
 	INCBIN "gfx/pokemon/front/bellsprout.pic", 0, 1 ; sprite dimensions
 	dw BellsproutPicFront, BellsproutPicBack
 
-	db GROWTH, VINE_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db ABSORB, WRAP, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): basic carnivorous plant. 4 TMs:
+	; GIGA_DRAIN¹ (drain plant), TOXIC (poison-type tendency),
+	; SOLARBEAM (plant TM apex — not levelup per Forte),
+	; FAINT_ATTACK (Forte add — sneak vine strike).
+	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    FAINT_ATTACK
 	; end
 
 	db 0 ; padding

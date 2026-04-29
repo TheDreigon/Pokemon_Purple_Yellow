@@ -8,11 +8,15 @@
 	INCBIN "gfx/pokemon/front/weepinbell.pic", 0, 1 ; sprite dimensions
 	dw WeepinbellPicFront, WeepinbellPicBack
 
-	db GROWTH, POISONPOWDER, VINE_WHIP, NO_MOVE ; level 1 learnset
+	db VINE_WHIP, GROWTH, ABSORB, ACID ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): mid-stage carnivore. Bellsprout's 4 +
+	; 3 additions: BODY_SLAM¹ (pitcher mass — levelup), LEECH_LIFE¹
+	; (insect drain — levelup), HM01 CUT (per Forte's natural CUT list).
+	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    FAINT_ATTACK, BODY_SLAM,    \
+	     LEECH_LIFE,   CUT
 	; end
 
 	db 0 ; padding

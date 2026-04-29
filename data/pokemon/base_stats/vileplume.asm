@@ -7,11 +7,17 @@
 	INCBIN "gfx/pokemon/front/vileplume.pic", 0, 1 ; sprite dimensions
 	dw VileplumePicFront, VileplumePicBack
 
-	db TACKLE, STUN_POWDER, SLEEP_POWDER, ACID ; level 1 learnset
+	db POISONPOWDER, STUN_POWDER, SLEEP_POWDER, PETAL_DANCE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): apex Rafflesia bloom — powder warfare
+	; specialist. Gloom's 3 + 6 Vileplume additions: BODY_SLAM (mass —
+	; not in levelup but anatomical), LEECH_LIFE¹ (insect drain levelup),
+	; TAKE_DOWN, DOUBLE_EDGE (apex slams), DOUBLE_TEAM (powder cloud
+	; cover), EXTRASENSORY (Forte add).
+	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    BODY_SLAM,    LEECH_LIFE,   \
+	     TAKE_DOWN,    DOUBLE_EDGE,  DOUBLE_TEAM,  EXTRASENSORY
 	; end
 
 	db 0 ; padding

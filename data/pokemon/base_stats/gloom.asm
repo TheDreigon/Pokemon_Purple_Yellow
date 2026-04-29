@@ -7,11 +7,14 @@
 	INCBIN "gfx/pokemon/front/gloom.pic", 0, 1 ; sprite dimensions
 	dw GloomPicFront, GloomPicBack
 
-	db TACKLE, STUN_POWDER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db ABSORB, GROWL, ACID, STUN_POWDER ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): mid-stage flower bud (Grass/Fungus).
+	; Inherits Oddish's 3. No additions (SCREECH/TOXIC are levelup-only,
+	; no separate TM; TOXIC TM34 already inherited).
+	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM
 	; end
 
 	db 0 ; padding

@@ -1067,17 +1067,34 @@ ParasectEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, SCRATCH
-	db  9, POISONPOWDER
-	db 13, ABSORB
-	db 17, STUN_POWDER
-	db 22, LEECH_LIFE
-	db 28, SLASH
-	db 28, SPORE
-	db 35, GROWTH
-	db 35, PARASITE
-	db 42, MEGA_DRAIN
-	db 50, GIGA_DRAIN
+; v0.7 Pass 3 (Forte review): mushroom-dominated apex (Bug/Fungus). Paras'
+; 10 + 9 Parasect-only exclusives (per Forte feedback). SPORE at L22 (=
+; evo level — mushroom takes over signature). PARASITE (Parasect-only
+; super-fang). SPORE_DAZE (fungal confusion). SCARY_FACE (creepy fungal-
+; zombie). EERIE_IMPULSE (mind-affecting spores per Forte). NIGHT_SLASH
+; (dark sharp claws). DOUBLE_EDGE (apex recoil — swap from BODY_SLAM per
+; Forte). TOXIC_FANGS (fungal mandibular toxin — Forte agreed). TOXIC at
+; L60 last move (per Forte). NO BUG_BUZZ (per Forte — removed). Spaced
+; out post-evo per Forte's feedback.
+	db  4, BUG_BITE
+	db  7, SCRATCH
+	db 10, ABSORB
+	db 13, GROWTH
+	db 16, STUN_POWDER
+	db 19, POISONPOWDER
+	db 22, SPORE
+	db 25, MEGA_DRAIN
+	db 26, PARASITE
+	db 29, SPORE_DAZE
+	db 31, LEECH_LIFE
+	db 34, SCARY_FACE
+	db 37, SLASH
+	db 40, EERIE_IMPULSE
+	db 44, NIGHT_SLASH
+	db 46, GIGA_DRAIN
+	db 50, DOUBLE_EDGE
+	db 55, TOXIC_FANGS
+	db 60, TOXIC
 	db 0
 
 PsyduckEvosMoves:
@@ -2072,15 +2089,21 @@ ParasEvosMoves:
 	db EVOLVE_LEVEL, 22, PARASECT
 	db 0
 ; Learnset
-	db  5, SCRATCH
-	db  9, POISONPOWDER
-	db 13, ABSORB
-	db 17, STUN_POWDER
-	db 22, LEECH_LIFE
-	db 28, SLASH
-	db 35, GROWTH
-	db 42, MEGA_DRAIN
-	db 50, GIGA_DRAIN
+; v0.7 Pass 3 (Forte review): cordyceps-controlled bug (Bug/Grass; Parasect
+; → Bug/Fungus per typing revision). 10 shared (Forte's order). Powder
+; profile: POISONPOWDER + STUN_POWDER + (SPORE = Parasect signature, only
+; in Parasect learnset). LEECH_LIFE early bug-drain; SLASH mid-stage claws;
+; drain progression (ABSORB→MEGA→GIGA).
+	db  4, BUG_BITE
+	db  7, SCRATCH
+	db 10, ABSORB
+	db 13, GROWTH
+	db 16, STUN_POWDER
+	db 19, POISONPOWDER
+	db 25, MEGA_DRAIN
+	db 31, LEECH_LIFE
+	db 37, SLASH
+	db 46, GIGA_DRAIN
 	db 0
 
 PoliwhirlEvosMoves:
@@ -3283,16 +3306,23 @@ OddishEvosMoves:
 	db EVOLVE_LEVEL, 22, GLOOM
 	db 0
 ; Learnset
-	db  5, ABSORB
-	db 10, POISONPOWDER
-	db 14, STUN_POWDER
-	db 18, MEGA_DRAIN
-	db 22, ACID
-	db 28, GROWTH
-	db 34, GIGA_DRAIN
-	db 40, SLUDGE
-	db 48, PETAL_DANCE
-	db 55, MOONBLAST
+; v0.7 Pass 3 (Forte review): basic radish/turnip plant (Grass/Poison). 11
+; shared (Forte's order). STUN_POWDER+SLEEP_POWDER+POISONPOWDER triad
+; emerges before/at evo (POISONPOWDER at L22 = evo level, signature na evo
+; — full powder kit complete by Gloom). LEECH_SEED + drain + apex PETAL_
+; DANCE. NO MOONBLAST (per Forte: Clefairy/Mew only). NO TOXIC (Gloom-
+; tier per Forte). NO BODY_SLAM/HEAVY_SLAM/SOLARBEAM in levelup.
+	db  4, ABSORB
+	db  7, GROWL
+	db 10, GROWTH
+	db 13, TACKLE
+	db 16, STUN_POWDER
+	db 19, SLEEP_POWDER
+	db 22, POISONPOWDER
+	db 25, ACID
+	db 28, LEECH_SEED
+	db 34, MEGA_DRAIN
+	db 46, PETAL_DANCE
 	db 0
 
 GloomEvosMoves:
@@ -3300,34 +3330,53 @@ GloomEvosMoves:
 	db EVOLVE_ITEM, LEAF_STONE, 1, VILEPLUME
 	db 0
 ; Learnset
-	db  5, ABSORB
-	db 10, POISONPOWDER
-	db 14, STUN_POWDER
-	db 18, MEGA_DRAIN
-	db 22, ACID
-	db 28, GROWTH
-	db 34, GIGA_DRAIN
-	db 40, SLUDGE
-	db 48, PETAL_DANCE
-	db 55, MOONBLAST
+; v0.7 Pass 3 (Forte review): mid-stage flower bud (Grass/Fungus per typing
+; revision). Oddish's 11 + 2 Gloom-tier exclusives (per Forte): SCREECH
+; (drooly mouth resonance), TOXIC (mature poison glands).
+	db  4, ABSORB
+	db  7, GROWL
+	db 10, GROWTH
+	db 13, TACKLE
+	db 16, STUN_POWDER
+	db 19, SLEEP_POWDER
+	db 22, POISONPOWDER
+	db 25, ACID
+	db 28, LEECH_SEED
+	db 31, SCREECH
+	db 34, MEGA_DRAIN
+	db 37, TOXIC
+	db 46, PETAL_DANCE
 	db 0
 
 VileplumeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, ABSORB
-	db 10, POISONPOWDER
-	db 14, STUN_POWDER
-	db 18, MEGA_DRAIN
-	db 22, ACID
-	db 28, GROWTH
-	db 34, GIGA_DRAIN
-	db 40, SLUDGE
-	db 40, POISONPOWDER
-	db 47, SPORE
-	db 48, PETAL_DANCE
-	db 55, MOONBLAST
+; v0.7 Pass 3 (Forte review): apex Rafflesia bloom (Grass/Fungus). Powder
+; warfare specialist — full powder triad in shared. Gloom's 13 + 5
+; Vileplume-only exclusives (per Forte's reshuffle): SPORE_DAZE (fungal
+; confusion — moved from Gloom to Vileplume per Forte), EERIE_IMPULSE
+; (mature spore mind-effect), LEECH_LIFE (insect drain — high level),
+; HAZE (gas/spore cloud apex), DARK_PULSE (dark fungal apex peak per
+; Forte). NO BODY_SLAM/HEAVY_SLAM/SOLARBEAM in levelup (per Forte).
+	db  4, ABSORB
+	db  7, GROWL
+	db 10, GROWTH
+	db 13, TACKLE
+	db 16, STUN_POWDER
+	db 19, SLEEP_POWDER
+	db 22, POISONPOWDER
+	db 25, ACID
+	db 28, LEECH_SEED
+	db 31, SCREECH
+	db 34, MEGA_DRAIN
+	db 37, TOXIC
+	db 40, SPORE_DAZE
+	db 43, EERIE_IMPULSE
+	db 46, PETAL_DANCE
+	db 48, LEECH_LIFE
+	db 52, HAZE
+	db 58, DARK_PULSE
 	db 0
 
 BellsproutEvosMoves:
@@ -3335,16 +3384,24 @@ BellsproutEvosMoves:
 	db EVOLVE_LEVEL, 22, WEEPINBELL
 	db 0
 ; Learnset
-	db  5, VINE_WHIP
-	db 10, POISONPOWDER
-	db 14, STUN_POWDER
-	db 18, ACID
-	db 22, WRAP
-	db 28, GROWTH
-	db 34, MEGA_DRAIN
-	db 40, RAZOR_LEAF
-	db 46, SLUDGE
-	db 52, GIGA_DRAIN
+; v0.7 Pass 3 (Forte review): carnivorous pitcher predator (Grass/Poison).
+; 12 shared. Powder rule: ONLY SLEEP_POWDER (per powder table — predator,
+; só adormece presa; NO Poison Powder, NO Stun Powder). CONSTRICT/WRAP +
+; vine kit; BIDE; SLEEP_POWDER at evo level (signature na evo); ACID +
+; RAZOR_LEAF + drain progression (ABSORB→MEGA→GIGA); TICKLE for debuff
+; (per Forte). NO SLUDGE/CORRODE in shared (Forte: Weep+Vict-tier).
+	db  4, ABSORB
+	db  7, WRAP
+	db 10, GROWTH
+	db 13, CONSTRICT
+	db 16, VINE_WHIP
+	db 19, BIDE
+	db 22, SLEEP_POWDER
+	db 25, ACID
+	db 28, TICKLE
+	db 31, RAZOR_LEAF
+	db 37, MEGA_DRAIN
+	db 43, GIGA_DRAIN
 	db 0
 
 WeepinbellEvosMoves:
@@ -3352,31 +3409,58 @@ WeepinbellEvosMoves:
 	db EVOLVE_ITEM, LEAF_STONE, 1, VICTREEBEL
 	db 0
 ; Learnset
-	db  5, VINE_WHIP
-	db 10, POISONPOWDER
-	db 14, STUN_POWDER
-	db 18, ACID
-	db 22, WRAP
-	db 28, GROWTH
-	db 34, MEGA_DRAIN
-	db 40, RAZOR_LEAF
-	db 46, SLUDGE
-	db 52, GIGA_DRAIN
+; v0.7 Pass 3 (Forte review): mid-stage carnivore (Grass/Poison). Bellsprout's
+; 12 shared + 6 Weepinbell+Victreebel exclusives (per Forte): BODY_SLAM
+; (pitcher slam), TAKE_DOWN (vine grapple), SLUDGE (digestive), LEECH_LIFE
+; (insect drain), CORRODE (predator -2 def signature), SLUDGE_WAVE high-
+; level apex poison.
+	db  4, ABSORB
+	db  7, WRAP
+	db 10, GROWTH
+	db 13, CONSTRICT
+	db 16, VINE_WHIP
+	db 19, BIDE
+	db 22, SLEEP_POWDER
+	db 25, ACID
+	db 28, TICKLE
+	db 31, RAZOR_LEAF
+	db 33, BODY_SLAM
+	db 36, TAKE_DOWN
+	db 37, MEGA_DRAIN
+	db 40, SLUDGE
+	db 43, GIGA_DRAIN
+	db 46, LEECH_LIFE
+	db 52, CORRODE
+	db 58, SLUDGE_WAVE
 	db 0
 
 VictreebelEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, VINE_WHIP
-	db 10, POISONPOWDER
-	db 14, STUN_POWDER
-	db 18, ACID
-	db 22, WRAP
-	db 28, GROWTH
-	db 34, MEGA_DRAIN
-	db 40, RAZOR_LEAF
-	db 46, SLUDGE
-	db 47, SLEEP_POWDER
-	db 52, GIGA_DRAIN
+; v0.7 Pass 3 (Forte review): apex carnivore (Grass/Poison). Weepinbell's
+; 18 + 3 Victreebel-only exclusives (per Forte): SLASH (sharp leaves
+; matured), SCARY_FACE (giant trap mouth — eerie/sinister), DOUBLE_EDGE
+; (apex predator overcommit recoil).
+	db  4, ABSORB
+	db  7, WRAP
+	db 10, GROWTH
+	db 13, CONSTRICT
+	db 16, VINE_WHIP
+	db 19, BIDE
+	db 22, SLEEP_POWDER
+	db 25, ACID
+	db 28, TICKLE
+	db 31, RAZOR_LEAF
+	db 33, BODY_SLAM
+	db 36, TAKE_DOWN
+	db 37, MEGA_DRAIN
+	db 40, SLUDGE
+	db 41, SCARY_FACE
+	db 43, GIGA_DRAIN
+	db 46, LEECH_LIFE
+	db 48, SLASH
+	db 52, CORRODE
+	db 58, SLUDGE_WAVE
+	db 60, DOUBLE_EDGE
 	db 0

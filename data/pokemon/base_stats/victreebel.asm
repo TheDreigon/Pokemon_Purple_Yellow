@@ -8,11 +8,19 @@
 	INCBIN "gfx/pokemon/front/victreebel.pic", 0, 1 ; sprite dimensions
 	dw VictreebelPicFront, VictreebelPicBack
 
-	db STUN_POWDER, SLEEP_POWDER, ACID, RAZOR_LEAF ; level 1 learnset
+	db SLEEP_POWDER, ACID, RAZOR_LEAF, CORRODE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): apex carnivore. Weepinbell's 7 + 5
+	; Victreebel additions: TAKE_DOWN¹ (vine grapple — levelup), DOUBLE_
+	; EDGE¹ (apex predator overcommit — levelup), SWORDS_DANCE (Forte
+	; filter: aggressive carnivore + iniciativa), SCARY_FACE¹ (giant
+	; trap mouth — levelup), INTIMIDATE (Forte add). NO AGILITY (Forte
+	; removed). NO DOUBLE_TEAM (Forte removed).
+	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    FAINT_ATTACK, BODY_SLAM,    \
+	     LEECH_LIFE,   CUT,          TAKE_DOWN,    DOUBLE_EDGE,  SWORDS_DANCE, \
+	     SCARY_FACE,   INTIMIDATE
 	; end
 
 	db 0 ; padding

@@ -8,11 +8,14 @@
 	INCBIN "gfx/pokemon/front/paras.pic", 0, 1 ; sprite dimensions
 	dw ParasPicFront, ParasPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BUG_BITE, SCRATCH, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): cordyceps-controlled bug. 3 TMs:
+	; LEECH_LIFE¹ (Parasect levelup; bug-drain), GIGA_DRAIN¹ (plant
+	; drain levelup), TOXIC (fungal toxins).
+	tmhm LEECH_LIFE,   GIGA_DRAIN,   TOXIC
 	; end
 
 	db 0 ; padding
