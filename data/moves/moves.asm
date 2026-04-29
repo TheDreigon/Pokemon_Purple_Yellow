@@ -262,7 +262,7 @@ Moves: ; Current total = 220
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 
-	move QUIVER_DANCE,   SPECIAL_SPEED_UP1_EFFECT,          0, BIRD,         100, 20 ; new move. new effect.
+	move QUIVER_DANCE,   SPECIAL_SPEED_UP1_EFFECT,          0, BIRD,         100, 20 ; new move. new effect - spc + 1/4 heal.
 
 	move TAILWIND,       SPEED_UP1_EFFECT,                  0, BIRD,         100, 35 ; new move.
 
