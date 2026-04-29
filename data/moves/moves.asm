@@ -61,12 +61,12 @@ Moves: ; Current total = 220
 	move DRAINING_KISS,  DRAIN_HP_EFFECT,                  50, FAIRY,        100, 20 ; new move.
 	move DAZZLE_GLEAM,   FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              80, FAIRY,        100, 20 ; new move.
+	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; almost-signature.
+	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; almost-signature.
 	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. signature. (use solarbeam's animation)
-	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; signature. v0.7: SLEEP_EFFECT → CONFUSION_EFFECT (kiss leaves opponent dazed, not asleep). PP 15 → 25.
-	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; signature.
 
 
-	; === FIGHTING TYPE (15 moves) ===
+	; === FIGHTING TYPE (15 moves) === ; TODO: maybe remove Double Kick.
 	move SEISMIC_TOSS,   SPECIAL_DAMAGE_EFFECT,             1, FIGHTING,     100, 20
 	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       18, FIGHTING,      90, 20
 	move LOW_KICK,       FLINCH_SIDE_EFFECT2,              35, FIGHTING,      90, 35

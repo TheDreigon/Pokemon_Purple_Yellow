@@ -503,7 +503,8 @@ NidoranFEvosMoves:
 	db 22, HEADBUTT
 	db 25, POISON_FANG
 	db 28, BODY_SLAM
-	db 42, TOXIC_FANGS
+	db 40, TOXIC_FANGS
+	db 50, TOXIC
 	db 0
 
 NidoqueenEvosMoves:
@@ -529,16 +530,15 @@ NidoqueenEvosMoves:
 	db 25, POISON_FANG
 	db 28, BODY_SLAM
 	db 30, TAKE_DOWN
-	db 34, GROUND_STOMP
+	db 33, MUD_SHOT
 	db 35, PLAY_ROUGH
 	db 36, CHARM
-	db 40, BULLDOZE
-	db 42, TOXIC_FANGS
-	db 46, CRUNCH
-	db 49, STRENGTH
-	db 51, TOXIC
-	db 53, NEUROTOXIN
-	db 55, EARTHQUAKE
+	db 40, TOXIC_FANGS
+	db 42, BULLDOZE
+	db 46, MUD_BOMB
+	db 50, TOXIC
+	db 52, STRENGTH
+	db 55, NEUROTOXIN
 	db 0
 
 CuboneEvosMoves:
@@ -3063,10 +3063,12 @@ NidorinaEvosMoves:
 	db 25, POISON_FANG
 	db 28, BODY_SLAM
 	db 30, TAKE_DOWN
-	db 34, GROUND_STOMP
+	db 33, MUD_SHOT
 	db 35, PLAY_ROUGH
-	db 40, BULLDOZE
-	db 42, TOXIC_FANGS
+	db 40, TOXIC_FANGS
+	db 46, MUD_BOMB
+	db 50, TOXIC
+	db 55, NEUROTOXIN
 	db 0
 
 GeodudeEvosMoves:
