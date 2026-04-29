@@ -138,7 +138,7 @@ Moves: ; Current total = 220
 	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        90, GRASS,        100, 10
 	move SOLARBEAM,      CHARGE_EFFECT,                   180, GRASS,        100, 10
 	move LEECH_SEED,     LEECH_SEED_EFFECT,                 0, GRASS,         90, 20
-	move POISONPOWDER,   POISON_EFFECT,                     0, POISON,        85, 25
+	move POISONPOWDER,   POISON_EFFECT,                     0, POISON,        85, 25 ; change to GRASS type and validate if it's okay. 
 	move STUN_SPORE,     PARALYZE_EFFECT,                   0, GRASS,         80, 20
 	move SLEEP_POWDER,   SLEEP_EFFECT,                      0, GRASS,         75, 15
 
