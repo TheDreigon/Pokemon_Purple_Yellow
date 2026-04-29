@@ -62,7 +62,7 @@ Moves: ; Current total = 220
 	move DAZZLE_GLEAM,   FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              80, FAIRY,        100, 20 ; new move.
 	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. signature. (use solarbeam's animation)
-	move LOVELY_KISS,    SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; signature.
+	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; signature. v0.7: SLEEP_EFFECT → CONFUSION_EFFECT (kiss leaves opponent dazed, not asleep). PP 15 → 25.
 	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; signature.
 
 

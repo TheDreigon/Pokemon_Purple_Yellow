@@ -717,12 +717,14 @@ MoonblastAnim:
 
 LovelyKissAnim:
 	; v0.7: relocated from BIRD section. LOVELY_KISS was NORMAL in
-	; vanilla; current type is FAIRY (signature, sleep). Body kept from
-	; the earlier review pass.
+	; vanilla; current type is FAIRY. Effect changed SLEEP_EFFECT →
+	; CONFUSION_EFFECT (per Forte) — kiss leaves opponent dazed/dizzy,
+	; not asleep. Body retained: heart + wavy already evokes confusion
+	; better than sleep, no rework needed.
 	; Mental image: quick affectionate kiss + the target's mind goes
-	; fuzzy and dazes off. The heart is the kiss landing; the wavy
-	; aftermath is consciousness slipping. Distinct from CHARM (no
-	; sleep follow-through) and SING (musical, sustained).
+	; fuzzy and confused. The heart is the kiss landing; the wavy
+	; aftermath is the confusion setting in. Distinct from CHARM (atk
+	; debuff, no confusion) and SING (musical sleep).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim LOVELY_KISS, SUBANIM_0_HEART_1_MUSIC, 0, 4
 	battle_anim NO_MOVE, SE_WAVY_SCREEN

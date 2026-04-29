@@ -347,6 +347,7 @@ NidokingEvosMoves:
 	db 44, TOXIC_FANGS
 	db 46, EARTHQUAKE
 	db 49, THRASH
+	db 52, TOXIC
 	db 55, BRUTAL_SWING
 	db 58, GORE_ATTACK
 	db 65, OUTRAGE
@@ -535,7 +536,9 @@ NidoqueenEvosMoves:
 	db 42, TOXIC_FANGS
 	db 46, CRUNCH
 	db 49, STRENGTH
-	db 52, EARTHQUAKE
+	db 51, TOXIC
+	db 53, NEUROTOXIN
+	db 55, EARTHQUAKE
 	db 0
 
 CuboneEvosMoves:
@@ -1676,7 +1679,7 @@ DratiniEvosMoves:
 
 DragonairEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 48, DRAGONITE
+	db EVOLVE_LEVEL, 46, DRAGONITE
 	db 0
 ; Learnset
 	db  5, BIND
@@ -2344,6 +2347,7 @@ ButterfreeEvosMoves:
 	db 26, EXTRASENSORY
 	db 28, WING_ATTACK
 	db 30, BUG_BUZZ
+	db 33, PSYCHIC_BIND
 	db 36, PSYCHIC_M
 	db 42, QUIVER_DANCE
 	db 48, HURRICANE
