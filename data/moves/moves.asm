@@ -24,8 +24,8 @@ Moves: ; Current total = 220
 
 
 	; === DARK TYPE (10 moves) === ; new type
-	move FAINT_ATTACK,   SWIFT_EFFECT,                     45, DARK,         100, 30 ; new move.
-	move RAGE,           RAGE_EFFECT,                      60, DARK,          95, 25
+	move FAINT_ATTACK,   SWIFT_EFFECT,                     60, DARK,         100, 25 ; new move.
+	move RAGE,           RAGE_EFFECT,                      60, DARK,         100, 20
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
 	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             85, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
@@ -41,18 +41,18 @@ Moves: ; Current total = 220
 	move DRAGON_CLAW,    NO_ADDITIONAL_EFFECT,             60, DRAGON,       100, 25 ; new move. high-crit.
 	move DRAGON_BREATH,  PARALYZE_SIDE_EFFECT2,            75, DRAGON,       100, 20 ; new move.
 	move DRAGON_SLAM,    RECOIL_EFFECT,                    95, DRAGON,        95, 15 ; new move.
-	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       100, DRAGON,       100, 10 ; new move.
-	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        75,  5
+	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       100, DRAGON,       100, 10 ; new move. high-crit.
+	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        80,  5 ; high-crit. almost-signature.
 
 
 	; === ELECTRIC TYPE (7 moves) ===
 	move NUZZLE,         PARALYZE_SIDE_EFFECT2,            35, ELECTRIC,     100, 30 ; new move.
 	move THUNDERSHOCK,   PARALYZE_SIDE_EFFECT1,            55, ELECTRIC,     100, 25
-	move DISCHARGE,      SWIFT_EFFECT,                     75, ELECTRIC,     100, 20 ; new move.
+	move SHOCK_WAVE,      SWIFT_EFFECT,                     75, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
 	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      90, 20
-	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             55, ELECTRIC,     100, 20 ; new move. signature. priority move. high-crit.
+	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             60, ELECTRIC,     100, 20 ; new move. signature. priority move. high-crit.
 
 
 	; === FAIRY TYPE (8 moves) === ; new type
@@ -86,7 +86,7 @@ Moves: ; Current total = 220
 	; === FIRE TYPE (7 moves) ===
 	move EMBER,          BURN_SIDE_EFFECT1,                35, FIRE,         100, 30
 	move FLAME_CHARGE,   SPEED_UP1_EFFECT,                 55, FIRE,         100, 20 ; new move. almost-signature.
-	move FLAME_BURST,    SWIFT_EFFECT,                     75, FIRE,         100, 20 ; new move.
+	move FLAME_BURST,    SWIFT_EFFECT,                     70, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
 	move IGNITE,         BURN_EFFECT,                       0, FIRE,          90, 20
@@ -97,7 +97,7 @@ Moves: ; Current total = 220
 	move PECK,           NO_ADDITIONAL_EFFECT,             35, FLYING,       100, 35
 	move GUST,           SPEED_DOWN_SIDE_EFFECT,           45, FLYING,       100, 30
 	move WING_ATTACK,    NO_ADDITIONAL_EFFECT,             60, FLYING,       100, 25
-	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 20 ; new move.
+	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 25 ; new move.
 	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
 	move SKY_ATTACK,     CHARGE_EFFECT,                   180, FLYING,       100, 10
@@ -112,8 +112,8 @@ Moves: ; Current total = 220
 
 	; === GAS TYPE (3 moves) === ; new type
 	move SMOG,           ACCURACY_DOWN1_EFFECT,            40, GAS,           90, 30
+	move HAZE,           ACCURACY_DOWN1_EFFECT,            80, GAS,           90, 20
 	move POISON_GAS,     POISON_EFFECT,                     0, GAS,           85, 25
-	move HAZE,           ACCURACY_DOWN1_EFFECT,            80, GAS,           90, 20 ; signature.
 
 
 	; === GHOST TYPE (9 moves) ===
@@ -121,7 +121,7 @@ Moves: ; Current total = 220
 	move LICK,           PARALYZE_SIDE_EFFECT2,            20, GHOST,        100, 30
 	move ASTONISH,       FLINCH_SIDE_EFFECT2,              40, GHOST,        100, 30 ; new move.
 	move SHADOW_SNEAK,   NO_ADDITIONAL_EFFECT,             45, GHOST,        100, 20 ; new move. priority move.
-	move SHADOW_PUNCH,   SWIFT_EFFECT,                     55, GHOST,        100, 25 ; new move.
+	move SHADOW_PUNCH,   SWIFT_EFFECT,                     60, GHOST,        100, 25 ; new move.
 	move SPIRIT_DRAIN,   DRAIN_HP_EFFECT,                  70, GHOST,        100, 20 ; new move.
 	move SHADOW_BALL,    PARALYZE_SIDE_EFFECT2,            90, GHOST,        100, 15 ; new move.
 	move CONFUSE_RAY,    CONFUSION_EFFECT,                  0, GHOST,         90, 20
@@ -143,7 +143,7 @@ Moves: ; Current total = 220
 
 
 	; === GROUND TYPE (8 moves) ===
-	move GROUND_STOMP,   SPEED_DOWN_SIDE_EFFECT,           35, GROUND,       100, 35 ; new move.
+	move GROUND_STOMP,   SPEED_DOWN_SIDE_EFFECT,           35, GROUND,       100, 30 ; new move.
 	move MUD_SHOT,       FLINCH_SIDE_EFFECT1,              50, GROUND,       100, 30 ; new move.
 	move BULLDOZE,       SPEED_DOWN1_EFFECT,               65, GROUND,       100, 25 ; new move.
 	move MUD_BOMB,       ACCURACY_DOWN1_EFFECT,            80, GROUND,       100, 20 ; new move.
@@ -153,11 +153,12 @@ Moves: ; Current total = 220
 	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; signature.
 
 
-	; === ICE TYPE (6 moves) ===
-	move POWDER_SNOW,    NO_ADDITIONAL_EFFECT,             35, ICE,          100, 35 ; new move.
-	move ICY_WIND,       SPEED_DOWN_SIDE_EFFECT,           50, ICE,          100, 30 ; new move.
-	move AURORA_BEAM,    ATTACK_DOWN_SIDE_EFFECT,          65, ICE,          100, 25
-	move FROST_BREATH,   SPEED_DOWN1_EFFECT,               80, ICE,          100, 20 ; new move.
+	; === ICE TYPE (7 moves) ===
+	move POWDER_SNOW,    SPEED_DOWN_SIDE_EFFECT,           30, ICE,          100, 35 ; new move.
+	move ICY_WIND,       SPEED_DOWN1_EFFECT,               45, ICE,          100, 30 ; new move.
+	move FROST_BREATH,   FREEZE_SIDE_EFFECT2,              50, ICE,          100, 25 ; new move.
+	move ICY_PULSE,      SWIFT_EFFECT,                     65, ICE,          100, 25 ; new move.
+	move AURORA_BEAM,    ATTACK_DOWN_SIDE_EFFECT,          80, ICE,          100, 20
 	move ICE_BEAM,       FREEZE_SIDE_EFFECT1,              95, ICE,          100, 15 ; new effect.
 	move BLIZZARD,       FREEZE_SIDE_EFFECT2,             115, ICE,           85, 10 ; new effect.
 
@@ -202,12 +203,12 @@ Moves: ; Current total = 220
 
 
 	; === PSYCHIC_TYPE (8 moves) ===
-	move PSYWAVE,        FLINCH_SIDE_EFFECT2,              30, PSYCHIC_TYPE, 100, 30
-	move CONFUSION,      CONFUSION_SIDE_EFFECT1,           45, PSYCHIC_TYPE, 100, 30
-	move EXTRASENSORY,   SWIFT_EFFECT,                     60, PSYCHIC_TYPE, 100, 25 ; new move.
-	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         75, PSYCHIC_TYPE, 100, 20
+	move PSYWAVE,        FLINCH_SIDE_EFFECT2,              35, PSYCHIC_TYPE, 100, 30
+	move CONFUSION,      CONFUSION_SIDE_EFFECT2,           50, PSYCHIC_TYPE, 100, 30
+	move EXTRASENSORY,   SWIFT_EFFECT,                     65, PSYCHIC_TYPE, 100, 25 ; new move.
+	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
-	move MIND_BREAK,     PARALYZE_EFFECT,                 125, PSYCHIC_TYPE,  90, 10 ; signature.
+	move MIND_BREAK,     PARALYZE_EFFECT,                 125, PSYCHIC_TYPE,  90, 10 ; signature. high-crit.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
 
@@ -237,13 +238,13 @@ Moves: ; Current total = 220
 	move WATER_GUN,      NO_ADDITIONAL_EFFECT,             35, WATER,        100, 35
 	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. almost-signature. priority move.
 	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           50, WATER,        100, 30
-	move WATER_PULSE,    CONFUSION_SIDE_EFFECT1,           65, WATER,        100, 25 ; new move. new effect.
+	move WATER_PULSE,    SWIFT_EFFECT,                     65, WATER,        100, 25 ; new move.
 	move WATERFALL,      FLINCH_SIDE_EFFECT1,              80, WATER,        100, 20
 	move SURF,           SPEED_DOWN_SIDE_EFFECT,           95, WATER,        100, 15
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
 
-	; === BIRD TYPE (52 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	; === BIRD TYPE (51 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~33% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
@@ -310,7 +311,6 @@ Moves: ; Current total = 220
 	move MIRROR_MOVE,    MIRROR_MOVE_EFFECT,                0, BIRD,         100, 20
 	move SUBSTITUTE,     SUBSTITUTE_EFFECT,                 0, BIRD,         100, 15
 	move TRANSFORM,      TRANSFORM_EFFECT,                  0, BIRD,         100, 40 ; signature. priority move.
-	move SPLASH,         SPLASH_EFFECT,                     0, BIRD,         100, 40 ; signature.
 	move METRONOME,      METRONOME_EFFECT,                  0, BIRD,         100, 20
 
 	move STRUGGLE,       RECOIL_EFFECT,                    50, BIRD,         100, 10 ; has to be last in list.

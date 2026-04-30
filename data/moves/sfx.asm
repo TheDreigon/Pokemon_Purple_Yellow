@@ -38,7 +38,7 @@ MoveSoundTable:
 ; === ELECTRIC ===
 	db SFX_BATTLE_2F,          $00, $40 ; NUZZLE
 	db SFX_BATTLE_2F,          $00, $20 ; THUNDERSHOCK
-	db SFX_BATTLE_2F,          $10, $60 ; DISCHARGE
+	db SFX_BATTLE_2F,          $10, $60 ; SHOCK_WAVE
 	db SFX_BATTLE_2F,          $20, $80 ; THUNDERBOLT
 	db SFX_BATTLE_29,          $f0, $40 ; THUNDER ; v0.7 reviewed: was BATTLE_26; deep boom at low pitch sells the 115 BP thunder strike better than the generic crash.
 	db SFX_BATTLE_2E,          $12, $60 ; THUNDER_WAVE
@@ -126,8 +126,9 @@ MoveSoundTable:
 ; === ICE ===
 	db SFX_BATTLE_28,          $20, $20 ; POWDER_SNOW ; Forte feedback #66: tempo $40→$20 to fit the visual (no more SFX-after-visual gap).
 	db SFX_BATTLE_12,          $50, $80 ; ICY_WIND ; Forte feedback #67: pitch $30→$50 (less pesado/grave).
-	db SFX_BATTLE_28,          $00, $ff ; AURORA_BEAM ; Forte feedback #68: tempo $80→$ff (more duradouro).
 	db SFX_BATTLE_28,          $20, $ff ; FROST_BREATH ; Forte feedback #69: tempo $80→$ff (more duradouro).
+	db SFX_BATTLE_28,          $30, $a0 ; ICY_PULSE ; new move v0.7. ICE family SFX, mid pitch, mid tempo. Pulse-like.
+	db SFX_BATTLE_28,          $00, $ff ; AURORA_BEAM ; Forte feedback #68: tempo $80→$ff (more duradouro).
 	db SFX_BATTLE_28,          $40, $ff ; ICE_BEAM ; Forte feedback #70: tempo $80→$ff (more duradouro, paired with slower beam).
 	db SFX_BATTLE_29,          $f8, $80 ; BLIZZARD ; Forte feedback #71: tempo shortened $ff→$80 — was irritante.
 ; === MAGMA ===
@@ -247,7 +248,6 @@ MoveSoundTable:
 	db SFX_BATTLE_09,          $f2, $20 ; MIRROR_MOVE
 	db SFX_BATTLE_33,          $d8, $04 ; SUBSTITUTE ; v0.7 reviewed: was BATTLE_2C (water!); poof SFX matches the smoke-and-puppet visual.
 	db SFX_BATTLE_09,          $ff, $ff ; TRANSFORM ; v0.7 reviewed: was FAINT_FALL; sparkle for the morph effect, same family as DITTO's identity move.
-	db SFX_BATTLE_2C,          $08, $10 ; SPLASH ; v0.7 reviewed: was BATTLE_0F (cut!); literal water-splash SFX. The move is doing nothing, but at least the sound matches the name.
 	db SFX_BATTLE_32,          $c0, $ff ; METRONOME
 	db SFX_BATTLE_0B,          $00, $80 ; STRUGGLE
 	assert_table_length NUM_ATTACKS

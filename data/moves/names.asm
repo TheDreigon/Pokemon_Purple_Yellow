@@ -30,7 +30,7 @@ MoveNames::
 ; === ELECTRIC ===
 	li "NUZZLE"
 	li "THUNDERSHOCK"
-	li "DISCHARGE"
+	li "SHOCK WAVE"
 	li "THUNDERBOLT"
 	li "THUNDER"
 	li "THUNDER WAVE"
@@ -118,8 +118,9 @@ MoveNames::
 ; === ICE ===
 	li "POWDER SNOW"
 	li "ICY WIND"
-	li "AURORA BEAM"
 	li "FROST BREATH"
+	li "ICY PULSE"
+	li "AURORA BEAM"
 	li "ICE BEAM"
 	li "BLIZZARD"
 ; === MAGMA ===
@@ -239,7 +240,6 @@ MoveNames::
 	li "MIRROR MOVE"
 	li "SUBSTITUTE"
 	li "TRANSFORM"
-	li "SPLASH"
 	li "METRONOME"
 	li "STRUGGLE"
 	assert_list_length NUM_ATTACKS

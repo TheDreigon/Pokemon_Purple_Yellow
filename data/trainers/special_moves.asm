@@ -178,7 +178,7 @@ SpecialTrainerMoves:
 	db 5, 1, FIRE_BLAST
 	db 5, 2, PSYCHIC_M
 	db 5, 3, CONFUSE_RAY
-	db 5, 4, DISCHARGE
+	db 5, 4, SHOCK_WAVE
 	db 0
 
 	db BLAINE, 2
@@ -194,7 +194,7 @@ SpecialTrainerMoves:
 	db 5, 1, FIRE_BLAST
 	db 5, 2, DIG
 	db 5, 3, DOUBLE_EDGE
-	db 6, 1, DISCHARGE
+	db 6, 1, SHOCK_WAVE
 	db 6, 2, PSYCHIC_M
 	db 6, 3, CONFUSE_RAY
 	db 0
@@ -307,7 +307,7 @@ SpecialTrainerMoves:
 
 	db BRUNO, 1 ; 57, HITMONCHAN, 56, POLIWRATH, 57, HITMONLEE, 56, ONIX, 58, MACHAMP
 	db 1, 3, ICY_WIND
-	db 1, 4, DISCHARGE
+	db 1, 4, SHOCK_WAVE
 	db 2, 1, ICE_BEAM
 	db 3, 1, BODY_SLAM
 	db 4, 1, EXPLOSION

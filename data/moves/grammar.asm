@@ -57,7 +57,6 @@ ExclamationPointMoveSets:
 	db LEECH_LIFE
 	db WATER_GUN ; replaces removed BUBBLE
 	db FLASH
-	db SPLASH
 	db DEFENSE_CURL
 	db FURY_ATTACK ; replaces removed FURY_SWIPES
 	db REST

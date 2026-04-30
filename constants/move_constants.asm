@@ -44,7 +44,7 @@
 ; === ELECTRIC ===
 	const NUZZLE
 	const THUNDERSHOCK
-	const DISCHARGE
+	const SHOCK_WAVE
 	const THUNDERBOLT
 	const THUNDER
 	const THUNDER_WAVE
@@ -142,8 +142,9 @@
 ; === ICE ===
 	const POWDER_SNOW
 	const ICY_WIND
-	const AURORA_BEAM
 	const FROST_BREATH
+	const ICY_PULSE
+	const AURORA_BEAM
 	const ICE_BEAM
 	const BLIZZARD
 
@@ -275,7 +276,6 @@
 	const MIRROR_MOVE
 	const SUBSTITUTE
 	const TRANSFORM
-	const SPLASH
 	const METRONOME
 	const STRUGGLE
 

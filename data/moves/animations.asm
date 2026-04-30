@@ -30,7 +30,7 @@ AttackAnimationPointers:
 ; === ELECTRIC ===
 	dw NuzzleAnim
 	dw ThundershockAnim
-	dw DischargeAnim
+	dw ShockWaveAnim
 	dw ThunderboltAnim
 	dw ThunderAnim
 	dw ThunderWaveAnim
@@ -118,8 +118,9 @@ AttackAnimationPointers:
 ; === ICE ===
 	dw PowderSnowAnim
 	dw IcyWindAnim
-	dw AuroraBeamAnim
 	dw FrostBreathAnim
+	dw IcyPulseAnim
+	dw AuroraBeamAnim
 	dw IceBeamAnim
 	dw BlizzardAnim
 ; === MAGMA ===
@@ -239,7 +240,6 @@ AttackAnimationPointers:
 	dw MirrorMoveAnim
 	dw SubstituteAnim
 	dw TransformAnim
-	dw SplashAnim
 	dw MetronomeAnim
 	dw StruggleAnim
 	assert_table_length NUM_ATTACKS
@@ -595,13 +595,13 @@ ThundershockAnim:
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	db -1 ; end
 
-DischargeAnim:
+ShockWaveAnim:
 	; v0.7 reviewed (75 BP, hits all): added a real lightning bolt + flash
 	; — two ball flickers alone read as weaker than Thundershock.
-	battle_anim DISCHARGE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim SHOCK_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim DISCHARGE, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim SHOCK_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	db -1 ; end
 
 ThunderboltAnim:
@@ -1520,6 +1520,17 @@ FrostBreathAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim FROST_BREATH, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 16
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+IcyPulseAnim:
+	; v0.7 new move: Icy Pulse — ICE 65 BP SWIFT_EFFECT (never miss).
+	; Mental image: pulsing ice waves, sister to WATER_PULSE (also SWIFT
+	; in v0.7). Light palette wrap consistent ICE family + circular wave
+	; visual via BUBBLEBEAM-style impact.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim ICY_PULSE, SUBANIM_0_CIRCLES_FALLING, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 8
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2607,10 +2618,6 @@ TransformAnim:
 	battle_anim TRANSFORM, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 1, 4
 	battle_anim NO_MOVE, SUBANIM_0_BALL_POOF, 0, 8
 	battle_anim NO_MOVE, SE_TRANSFORM_MON
-	db -1 ; end
-
-SplashAnim:
-	battle_anim SPLASH, SE_BOUNCE_UP_AND_DOWN
 	db -1 ; end
 
 MetronomeAnim:
