@@ -206,18 +206,35 @@ RhydonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, HORN_ATTACK
-	db 10, TAIL_WHIP
-	db 14, GROUND_STOMP
-	db 18, FURY_ATTACK
-	db 24, ROCK_THROW
-	db 30, BULLDOZE
-	db 36, DIG
-	db 42, TAKE_DOWN
+; v0.7 Pass 3 (Forte review): apex rhinoceros (Ground/Rock). Rhyhorn's
+; 13 + 8 Rhydon-only exclusives (per Forte): HORN_CHARGE (matured horn
+; just after evo), EARTHQUAKE (Rhydon-only per Forte), FIERCE_ROAR,
+; STRENGTH (HM), BRUTAL_SWING, THRASH (primal force), HORN_DRILL
+; (signature per Forte's Dodrio+Rhydon list), FISSURE (Forte's optional
+; high level — included). NO DRAGON_SLAM (Rhydon is rhino, not dragon
+; — Forte questioned, my call: skip; no extreme-pressure justification
+; like Onix). NO MEGAHORN (Bug type, Rhydon not bug).
+	db  4, TACKLE
+	db  7, LEER
+	db 10, HORN_ATTACK
+	db 13, SAND_ATTACK
+	db 13, GROUND_STOMP
+	db 16, ROCK_TOMB
+	db 19, BODY_SLAM
+	db 22, FOCUS_ENERGY
+	db 22, RAGE
+	db 28, BULLDOZE
+	db 40, HEAD_SMASH
+	db 42, HORN_CHARGE
+	db 43, TAKE_DOWN
+	db 46, IRON_HEAD
 	db 48, EARTHQUAKE
-	db 54, ROCK_SLIDE
-	db 60, HORN_DRILL
-	db 65, MEGAHORN
+	db 52, FIERCE_ROAR
+	db 55, STRENGTH
+	db 58, BRUTAL_SWING
+	db 61, THRASH
+	db 64, HORN_DRILL
+	db 67, FISSURE
 	db 0
 
 KangaskhanEvosMoves:
@@ -562,17 +579,24 @@ RhyhornEvosMoves:
 	db EVOLVE_LEVEL, 40, RHYDON
 	db 0
 ; Learnset
-	db  5, HORN_ATTACK
-	db 10, TAIL_WHIP
-	db 14, GROUND_STOMP
-	db 18, FURY_ATTACK
-	db 24, ROCK_THROW
-	db 30, BULLDOZE
-	db 36, DIG
-	db 42, TAKE_DOWN
-	db 48, EARTHQUAKE
-	db 54, ROCK_SLIDE
-	db 60, HORN_DRILL
+; v0.7 Pass 3 (Forte review): rhinoceros charger (Ground/Rock). 11 shared
+; per Forte's order. HEAD_SMASH at L40 (= evo level, signature na evo).
+; Pairs at same level (per Forte): SAND_ATTACK+GROUND_STOMP (L13), FOCUS_
+; ENERGY+RAGE (L22). NO HORN_DRILL/FISSURE/EARTHQUAKE in shared (Rhydon-
+; only per Forte).
+	db  4, TACKLE
+	db  7, LEER
+	db 10, HORN_ATTACK
+	db 13, SAND_ATTACK
+	db 13, GROUND_STOMP
+	db 16, ROCK_TOMB
+	db 19, BODY_SLAM
+	db 22, FOCUS_ENERGY
+	db 22, RAGE
+	db 28, BULLDOZE
+	db 40, HEAD_SMASH
+	db 43, TAKE_DOWN
+	db 46, IRON_HEAD
 	db 65, MEGAHORN
 	db 0
 
@@ -831,17 +855,43 @@ OnixEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, BIND
-	db 10, HARDEN
-	db 14, ROCK_THROW
-	db 18, MUD_SHOT
+; v0.7 Pass 3 (Forte review): colossal rock-snake tunneler. Single mon —
+; deepest movepool in this batch (29 moves). Per Forte: HAS JAW (eats
+; earth to tunnel) → CRUNCH; metallic core → IRON_TAIL/IRON_HEAD/IRON_
+; DEFENSE; snake form → COIL/BIND; extreme deep-earth pressure → DRAGON_
+; BREATH/DRAGON_SLAM (+HYPER_BEAM L70 last move). NO GORE_ATTACK/OUTRAGE
+; (sem fogo selvagem, gentle giant under all that defense). Pairs at same
+; level (per Forte): COIL+BIND, BIDE+LEER, CRUNCH+DIG, IRON_TAIL+BRUTAL_
+; SWING, IRON_DEFENSE+IRON_HEAD. FISSURE signature (Forte's list).
+	db  4, TACKLE
+	db  7, GROUND_STOMP
+	db 10, COIL
+	db 10, BIND
+	db 13, BIDE
+	db 13, LEER
+	db 16, HEADBUTT
+	db 19, ROCK_THROW
 	db 22, BULLDOZE
-	db 28, ROCK_TOMB
-	db 34, DIG
-	db 40, IRON_TAIL
-	db 47, EARTHQUAKE
-	db 54, ROCK_SLIDE
-	db 60, HEAD_SMASH
+	db 25, BODY_SLAM
+	db 28, TAKE_DOWN
+	db 31, ROCK_TOMB
+	db 34, FIERCE_ROAR
+	db 37, CRUNCH
+	db 37, DIG
+	db 40, STRENGTH
+	db 43, HEAD_SMASH
+	db 46, IRON_TAIL
+	db 46, BRUTAL_SWING
+	db 49, EARTHQUAKE
+	db 52, ROCK_SLIDE
+	db 55, IRON_DEFENSE
+	db 55, IRON_HEAD
+	db 58, INTIMIDATE
+	db 61, DRAGON_BREATH
+	db 63, HEAVY_SLAM
+	db 65, DRAGON_SLAM
+	db 67, FISSURE
+	db 70, HYPER_BEAM
 	db 0
 
 FearowEvosMoves:
@@ -928,20 +978,32 @@ KadabraEvosMoves:
 
 GravelerEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 38, GOLEM
+	db EVOLVE_LEVEL, 42, GOLEM
 	db 0
 ; Learnset
-	db  5, DEFENSE_CURL
+; v0.7 Pass 3 (Forte review): mid-stage rolling rock (Rock/Ground).
+; Geodude's 11 + 6 Graveler+Golem exclusives (per Forte): TAKE_DOWN
+; (charge), EARTHQUAKE, IRON_HEAD (rock-iron), STRENGTH (HM), ROCK_SLIDE
+; (apex rock — after HEAD_SMASH per Forte's progression), DOUBLE_EDGE
+; (apex recoil). NO BULK_UP per Forte (rock not muscle). NO DIG/
+; EXPLOSION (Forte removed). Evo level 38 → 42 per Forte's biblia.
+	db  4, TACKLE
+	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
-	db 14, MUD_SHOT
-	db 18, ROCK_PUNCH
-	db 22, BULLDOZE
-	db 28, ROCK_TOMB
-	db 34, DIG
+	db 13, SAND_ATTACK
+	db 16, GROUND_STOMP
+	db 19, BIDE
+	db 22, BODY_SLAM
+	db 26, ROCK_PUNCH
+	db 30, BULLDOZE
+	db 34, TAKE_DOWN
+	db 36, ROCK_TOMB
 	db 40, EARTHQUAKE
-	db 47, ROCK_SLIDE
-	db 54, HEAD_SMASH
-	db 60, EXPLOSION
+	db 46, IRON_HEAD
+	db 50, HEAD_SMASH
+	db 54, STRENGTH
+	db 58, ROCK_SLIDE
+	db 62, DOUBLE_EDGE
 	db 0
 
 ChanseyEvosMoves:
@@ -1133,17 +1195,30 @@ GolemEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, DEFENSE_CURL
+; v0.7 Pass 3 (Forte review): apex turtle-shell rock (Rock/Ground).
+; Graveler's 17 + 2 Golem-only exclusives (per Forte): IRON_DEFENSE (DEF
+; +2 — new BIRD move v0.7), HEAVY_SLAM (apex Normal heavy frame). NO
+; EXPLOSION (Forte: Koffing/Voltorb/Magmar signature only). NO HORN
+; moves (no horn anatomy). NO OUTRAGE (gentle giant under heft).
+	db  4, TACKLE
+	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
-	db 14, MUD_SHOT
-	db 18, ROCK_PUNCH
-	db 22, BULLDOZE
-	db 28, ROCK_TOMB
-	db 34, DIG
+	db 13, SAND_ATTACK
+	db 16, GROUND_STOMP
+	db 19, BIDE
+	db 22, BODY_SLAM
+	db 26, ROCK_PUNCH
+	db 30, BULLDOZE
+	db 34, TAKE_DOWN
+	db 36, ROCK_TOMB
 	db 40, EARTHQUAKE
-	db 47, ROCK_SLIDE
-	db 54, HEAD_SMASH
-	db 60, EXPLOSION
+	db 46, IRON_HEAD
+	db 48, IRON_DEFENSE
+	db 50, HEAD_SMASH
+	db 54, STRENGTH
+	db 58, ROCK_SLIDE
+	db 62, DOUBLE_EDGE
+	db 65, HEAVY_SLAM
 	db 0
 
 MissingNo32EvosMoves:
@@ -3072,18 +3147,22 @@ GeodudeEvosMoves:
 ; Evolutions
 	db EVOLVE_LEVEL, 26, GRAVELER
 	db 0
-	; Learnset
-	db  5, DEFENSE_CURL
+; Learnset
+; v0.7 Pass 3 (Forte review): basic rolling rock with arms (Rock/Ground).
+; 11 shared (Forte's order). ROCK_PUNCH at evo level (signature na evo).
+; HEAD_SMASH high level. NO DIG (Forte removed). NO EXPLOSION (Forte:
+; signature of Koffing/Voltorb/Magmar only).
+	db  4, TACKLE
+	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
-	db 14, MUD_SHOT
-	db 18, ROCK_PUNCH
-	db 22, BULLDOZE
-	db 28, ROCK_TOMB
-	db 34, DIG
-	db 40, EARTHQUAKE
-	db 47, ROCK_SLIDE
-	db 54, HEAD_SMASH
-	db 60, EXPLOSION
+	db 13, SAND_ATTACK
+	db 16, GROUND_STOMP
+	db 19, BIDE
+	db 22, BODY_SLAM
+	db 26, ROCK_PUNCH
+	db 30, BULLDOZE
+	db 36, ROCK_TOMB
+	db 50, HEAD_SMASH
 	db 0
 
 PorygonEvosMoves:

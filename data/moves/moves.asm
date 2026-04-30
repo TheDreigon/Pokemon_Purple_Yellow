@@ -66,7 +66,7 @@ Moves: ; Current total = 220
 	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. signature. (use solarbeam's animation)
 
 
-	; === FIGHTING TYPE (15 moves) === ; TODO: maybe remove Double Kick.
+	; === FIGHTING TYPE (14 moves) ===
 	move SEISMIC_TOSS,   SPECIAL_DAMAGE_EFFECT,             1, FIGHTING,     100, 20
 	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       18, FIGHTING,      90, 20
 	move LOW_KICK,       FLINCH_SIDE_EFFECT2,              35, FIGHTING,      90, 35
@@ -243,7 +243,7 @@ Moves: ; Current total = 220
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
 
-	; === BIRD TYPE (51 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	; === BIRD TYPE (52 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~33% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20

@@ -8,11 +8,15 @@
 	INCBIN "gfx/pokemon/front/golem.pic", 0, 1 ; sprite dimensions
 	dw GolemPicFront, GolemPicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db HEAVY_SLAM, IRON_DEFENSE, ROCK_SLIDE, EARTHQUAKE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): apex turtle-shell rock. Graveler's 9 +
+	; 1 Golem-only addition (per Forte's via-TM list): SCARY_FACE
+	; (massive rock-shell intimidating).
+	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    STRENGTH,     TAKE_DOWN,    \
+	     EARTHQUAKE,   IRON_HEAD,    ROCK_SLIDE,   DOUBLE_EDGE,  SCARY_FACE
 	; end
 
 	db 0 ; padding

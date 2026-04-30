@@ -8,11 +8,15 @@
 	INCBIN "gfx/pokemon/front/rhyhorn.pic", 0, 1 ; sprite dimensions
 	dw RhyhornPicFront, RhyhornPicBack
 
-	db HORN_ATTACK, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db HORN_ATTACK, LEER, GROUND_STOMP, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3 (Forte review): rhinoceros charger. 8 TMs. ROCK_THROW
+	; (rock-type basic), DOUBLE_EDGE (recoil charge — rhino canonical),
+	; IRON_HEAD¹ (shared L46). HM04 STRENGTH per Forte's list.
+	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_HEAD,    DOUBLE_EDGE,  \
+	     TAKE_DOWN,    EARTHQUAKE,   STRENGTH
 	; end
 
 	db 0 ; padding
