@@ -40,8 +40,8 @@ EvosMovesPointerTable:
 	dw BlastoiseEvosMoves
 	dw PinsirEvosMoves
 	dw TangelaEvosMoves
-	dw MissingNo1FEvosMoves
-	dw MissingNo20EvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw GrowlitheEvosMoves
 	dw OnixEvosMoves
 	dw FearowEvosMoves
@@ -59,26 +59,26 @@ EvosMovesPointerTable:
 	dw PsyduckEvosMoves
 	dw DrowzeeEvosMoves
 	dw GolemEvosMoves
-	dw MissingNo32EvosMoves
+	dw NoEvosMoves
 	dw MagmarEvosMoves
-	dw MissingNo34EvosMoves
+	dw NoEvosMoves
 	dw ElectabuzzEvosMoves
 	dw MagnetonEvosMoves
 	dw KoffingEvosMoves
-	dw MissingNo38EvosMoves
+	dw NoEvosMoves
 	dw MankeyEvosMoves
 	dw SeelEvosMoves
 	dw DiglettEvosMoves
 	dw TaurosEvosMoves
-	dw MissingNo3DEvosMoves
-	dw MissingNo3EEvosMoves
-	dw MissingNo3FEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw FarfetchdEvosMoves
 	dw VenonatEvosMoves
 	dw DragoniteEvosMoves
-	dw MissingNo43EvosMoves
-	dw MissingNo44EvosMoves
-	dw MissingNo45EvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw DoduoEvosMoves
 	dw PoliwagEvosMoves
 	dw JynxEvosMoves
@@ -88,23 +88,23 @@ EvosMovesPointerTable:
 	dw DittoEvosMoves
 	dw MeowthEvosMoves
 	dw KrabbyEvosMoves
-	dw MissingNo4FEvosMoves
-	dw MissingNo50EvosMoves
-	dw MissingNo51EvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw VulpixEvosMoves
 	dw NinetalesEvosMoves
 	dw PikachuEvosMoves
 	dw RaichuEvosMoves
-	dw MissingNo56EvosMoves
-	dw MissingNo57EvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw DratiniEvosMoves
 	dw DragonairEvosMoves
 	dw KabutoEvosMoves
 	dw KabutopsEvosMoves
 	dw HorseaEvosMoves
 	dw SeadraEvosMoves
-	dw MissingNo5EEvosMoves
-	dw MissingNo5FEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw SandshrewEvosMoves
 	dw SandslashEvosMoves
 	dw OmanyteEvosMoves
@@ -124,38 +124,38 @@ EvosMovesPointerTable:
 	dw WeedleEvosMoves
 	dw KakunaEvosMoves
 	dw BeedrillEvosMoves
-	dw MissingNo73EvosMoves
+	dw NoEvosMoves
 	dw DodrioEvosMoves
 	dw PrimeapeEvosMoves
 	dw DugtrioEvosMoves
 	dw VenomothEvosMoves
 	dw DewgongEvosMoves
-	dw MissingNo79EvosMoves
-	dw MissingNo7AEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw CaterpieEvosMoves
 	dw MetapodEvosMoves
 	dw ButterfreeEvosMoves
 	dw MachampEvosMoves
-	dw MissingNo7FEvosMoves
+	dw NoEvosMoves
 	dw GolduckEvosMoves
 	dw HypnoEvosMoves
 	dw GolbatEvosMoves
 	dw MewtwoEvosMoves
 	dw SnorlaxEvosMoves
 	dw MagikarpEvosMoves
-	dw MissingNo86EvosMoves
-	dw MissingNo87EvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw MukEvosMoves
-	dw MissingNo8AEvosMoves
+	dw NoEvosMoves
 	dw KinglerEvosMoves
 	dw CloysterEvosMoves
-	dw MissingNo8CEvosMoves
+	dw NoEvosMoves
 	dw ElectrodeEvosMoves
 	dw ClefableEvosMoves
 	dw WeezingEvosMoves
 	dw PersianEvosMoves
 	dw MarowakEvosMoves
-	dw MissingNo92EvosMoves
+	dw NoEvosMoves
 	dw HaunterEvosMoves
 	dw AbraEvosMoves
 	dw AlakazamEvosMoves
@@ -165,13 +165,13 @@ EvosMovesPointerTable:
 	dw BulbasaurEvosMoves
 	dw VenusaurEvosMoves
 	dw TentacruelEvosMoves
-	dw MissingNo9CEvosMoves
+	dw NoEvosMoves
 	dw GoldeenEvosMoves
 	dw SeakingEvosMoves
-	dw MissingNo9FEvosMoves
-	dw MissingNoA0EvosMoves
-	dw MissingNoA1EvosMoves
-	dw MissingNoA2EvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw PonytaEvosMoves
 	dw RapidashEvosMoves
 	dw RattataEvosMoves
@@ -181,16 +181,16 @@ EvosMovesPointerTable:
 	dw GeodudeEvosMoves
 	dw PorygonEvosMoves
 	dw AerodactylEvosMoves
-	dw MissingNoACEvosMoves
+	dw NoEvosMoves
 	dw MagnemiteEvosMoves
-	dw MissingNoAEEvosMoves
-	dw MissingNoAFEvosMoves
+	dw NoEvosMoves
+	dw NoEvosMoves
 	dw CharmanderEvosMoves
 	dw SquirtleEvosMoves
 	dw CharmeleonEvosMoves
 	dw WartortleEvosMoves
 	dw CharizardEvosMoves
-	dw MissingNoB5EvosMoves
+	dw NoEvosMoves
 	dw FossilKabutopsEvosMoves
 	dw FossilAerodactylEvosMoves
 	dw MonGhostEvosMoves
@@ -3308,217 +3308,15 @@ MewEvosMoves:
 	db 70, HYPER_BEAM
 	db 0
 
-MissingNo1FEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo20EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo32EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo34EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo38EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo3DEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo3EEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo3FEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo43EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo44EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo45EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo4FEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo50EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo51EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo56EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo57EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo5EEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo5FEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo73EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo79EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo7AEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo7FEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo86EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo87EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo8AEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo8CEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo92EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo9CEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNo9FEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoA0EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoA1EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoA2EvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoACEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoAEEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoAFEvosMoves:
-; Evolutions
-	db 0
-; Learnset
-	db 0
-
-MissingNoB5EvosMoves:
+NoEvosMoves:
+; Shared placeholder for the 36 internal-index gaps (the slots that
+; manifest as MISSINGNO. when reached via the Cinnabar coast wild-encounter
+; bug). The pointer table is positional and must have NUM_POKEMON_INDEXES
+; entries, so every gap-index points here. Engine reads `db 0`/`db 0` =
+; no evolutions, no learnset. ROM-identical to the 36 separate-but-identical
+; placeholder blocks that used to exist. Fossil Kabutops/Aerodactyl/MonGhost
+; are kept as named separate blocks (real gameplay entities, may get
+; learnsets in future).
 ; Evolutions
 	db 0
 ; Learnset
