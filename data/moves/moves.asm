@@ -48,7 +48,7 @@ Moves: ; Current total = 220
 	; === ELECTRIC TYPE (7 moves) ===
 	move NUZZLE,         PARALYZE_SIDE_EFFECT2,            35, ELECTRIC,     100, 30 ; new move.
 	move THUNDERSHOCK,   PARALYZE_SIDE_EFFECT1,            55, ELECTRIC,     100, 25
-	move SHOCK_WAVE,      SWIFT_EFFECT,                     75, ELECTRIC,     100, 20 ; new move.
+	move SHOCK_WAVE,     SWIFT_EFFECT,                     70, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
 	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      90, 20

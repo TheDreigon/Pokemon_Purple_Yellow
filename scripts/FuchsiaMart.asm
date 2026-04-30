@@ -23,4 +23,4 @@ FuchsiaMartClerkText::
 	; so the player isn't blocked if they miss the gift / want extras.
 	; Regular items now come from the global tiered mart inventory; the
 	; TMs below are appended as fixed extras.
-	script_tiered_mart TM_CONFUSE_RAY, TM_THUNDER_WAVE, TM_IGNITE, TM_TOXIC
+	script_tiered_mart TM_THUNDER_WAVE, TM_IGNITE, TM_CONFUSE_RAY, TM_TOXIC
