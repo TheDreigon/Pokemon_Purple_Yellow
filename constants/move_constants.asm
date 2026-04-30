@@ -67,7 +67,6 @@
 	const BIND
 	const MACH_PUNCH
 	const KARATE_CHOP
-	const DOUBLE_KICK
 	const STRENGTH
 	const TAKE_DOWN
 	const LEEK_STRIKE
@@ -233,6 +232,7 @@
 	const COIL
 	const FIERCE_ROAR
 	const HONE_CLAWS
+	const IRON_DEFENSE
 	const DEFENSE_CURL
 	const HARDEN
 	const WITHDRAW

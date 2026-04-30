@@ -51,7 +51,6 @@ AttackAnimationPointers:
 	dw BindAnim
 	dw MachPunchAnim
 	dw KarateChopAnim
-	dw DoubleKickAnim
 	dw StrengthAnim
 	dw TakeDownAnim
 	dw LeekStrikeAnim
@@ -197,6 +196,7 @@ AttackAnimationPointers:
 	dw CoilAnim
 	dw FierceRoarAnim
 	dw HoneClawsAnim
+	dw IronDefenseAnim
 	dw DefenseCurlAnim
 	dw HardenAnim
 	dw WithdrawAnim
@@ -810,11 +810,6 @@ KarateChopAnim:
 	; Removed the dark flash, dropped delay 6→3 for the snap feel.
 	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 3
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	db -1 ; end
-
-DoubleKickAnim:
-	battle_anim DOUBLE_KICK, SUBANIM_0_STAR_TWICE, 0, 8
-	battle_anim DOUBLE_KICK, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 StrengthAnim:
@@ -2213,6 +2208,18 @@ HoneClawsAnim:
 	; other — methodical, steel-on-steel. Crit-flash framing.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HONE_CLAWS, SUBANIM_0_SCRATCHES, 0, 6
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+IronDefenseAnim:
+	; v0.7 new move: Iron Defense (DEF +2). Mental image: skin/scales
+	; hardening into iron sheen — stronger than HARDEN (DEF +1). Mirror
+	; HARDEN body but with metallic-clang SFX (deeper pitch in sfx.asm).
+	; Distinct from DEFENSE_CURL (rolls) and WITHDRAW (shell-pull).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_BLINK_MON
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 

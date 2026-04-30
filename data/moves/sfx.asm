@@ -59,7 +59,6 @@ MoveSoundTable:
 	db SFX_BATTLE_14,          $00, $80 ; BIND
 	db SFX_BATTLE_0C,          $20, $40 ; MACH_PUNCH
 	db SFX_BATTLE_0C,          $10, $80 ; KARATE_CHOP
-	db SFX_BATTLE_17,          $f0, $40 ; DOUBLE_KICK
 	db SFX_BATTLE_26,          $20, $40 ; STRENGTH
 	db SFX_BATTLE_18,          $00, $a0 ; TAKE_DOWN ; v0.7 reviewed: was SUPER_EFFECTIVE (clean BAM); heavy thud reads as the body-mass tackle that lowers user's def.
 	db SFX_BATTLE_17,          $10, $a0 ; LEEK_STRIKE
@@ -205,6 +204,7 @@ MoveSoundTable:
 	db SFX_BATTLE_14,          $15, $80 ; COIL
 	db SFX_BATTLE_0B,          $10, $a0 ; FIERCE_ROAR
 	db SFX_BATTLE_0F,          $20, $a0 ; HONE_CLAWS ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; cut SFX at high pitch reads as claw-on-claw sharpening.
+	db SFX_BATTLE_14,          $f0, $40 ; IRON_DEFENSE ; new move v0.7. Same family as HARDEN/WITHDRAW/COIL but deeper pitch ($f0 grave) for iron-clang feel.
 	db SFX_BATTLE_32,          $40, $c0 ; DEFENSE_CURL
 	db SFX_BATTLE_14,          $11, $20 ; HARDEN
 	db SFX_BATTLE_14,          $33, $30 ; WITHDRAW

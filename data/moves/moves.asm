@@ -73,7 +73,6 @@ Moves: ; Current total = 220
 	move BIND,           PARALYZE_SIDE_EFFECT2,            45, FIGHTING,      90, 30
 	move MACH_PUNCH,     NO_ADDITIONAL_EFFECT,             45, FIGHTING,     100, 20 ; priority move.
 	move KARATE_CHOP,    NO_ADDITIONAL_EFFECT,             50, FIGHTING,     100, 30 ; high-crit.
-	move DOUBLE_KICK,    ATTACK_TWICE_EFFECT,              30, FIGHTING,     100, 25
 	move STRENGTH,       ATTACK_UP1_EFFECT,                65, FIGHTING,     100, 20
 	move TAKE_DOWN,      DEFENSE_DOWN1_EFFECT,             80, FIGHTING,      90, 20
 	move LEEK_STRIKE,    FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25 ; new move. signature. high-crit.
@@ -252,6 +251,7 @@ Moves: ; Current total = 220
 	move COIL,           ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
 	move FIERCE_ROAR,    ATTACK_UP1_DOWN1_EFFECT,           0, BIRD,         100, 25 ; new move. new effect.
 	move HONE_CLAWS,     ATTACK_ACCURACY_UP1_EFFECT,        0, BIRD,         100, 25 ; new move. new effect.
+	move IRON_DEFENSE,   DEFENSE_UP2_EFFECT,                0, BIRD,         100, 25 ; new move. almost-signature.
 
 	move DEFENSE_CURL,   DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35

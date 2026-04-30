@@ -226,7 +226,6 @@ KangaskhanEvosMoves:
 ; Learnset
 	db  5, TAIL_WHIP
 	db 10, BITE
-	db 14, DOUBLE_KICK
 	db 18, RAGE
 	db 22, DIZZY_PUNCH
 	db 28, MACH_PUNCH
@@ -1000,7 +999,6 @@ HitmonleeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, DOUBLE_KICK
 	db 10, FOCUS_ENERGY
 	db 14, ROLLING_KICK
 	db 18, LOW_KICK
@@ -2922,7 +2920,6 @@ PonytaEvosMoves:
 	db 14, GROUND_STOMP
 	db 18, FLAME_CHARGE
 	db 22, AGILITY
-	db 28, DOUBLE_KICK
 	db 34, FIRE_BLAST
 	db 34, TAKE_DOWN
 	db 40, FLAMETHROWER
@@ -2939,7 +2936,6 @@ RapidashEvosMoves:
 	db 14, GROUND_STOMP
 	db 18, FLAME_CHARGE
 	db 22, AGILITY
-	db 28, DOUBLE_KICK
 	db 34, FIRE_BLAST
 	db 34, TAKE_DOWN
 	db 40, FLAMETHROWER
