@@ -16,8 +16,8 @@
 	; 4 + 3 additions: HONE_CLAWS, FAINT_ATTACK (Forte F-old #8 — F-line
 	; Dark-coded), DOUBLE_EDGE (Forte F#2 — Nidorina+Nidoqueen). NO ROCK_
 	; SLIDE (Forte F-old #6 — Nidoqueen-only). Removed SCRATCH from L1.
-	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    HONE_CLAWS,   \
-	     FAINT_ATTACK, DOUBLE_EDGE
+	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    FAINT_ATTACK, \
+	     DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

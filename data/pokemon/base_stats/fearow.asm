@@ -15,8 +15,8 @@
 	; v0.7 Pass 3: apex predator. Spearow's 8 + 2 apex additions: INTIMIDATE
 	; (also levelup), SWORDS_DANCE (per Forte — talons-as-swords for the
 	; Fearow-only sword-dance).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HONE_CLAWS, TAKE_DOWN,    \
-	     DOUBLE_EDGE,  FLY,          CUT,        INTIMIDATE, SWORDS_DANCE
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   TAKE_DOWN,    DOUBLE_EDGE, \
+	     FLY,          CUT,          INTIMIDATE,   SWORDS_DANCE
 	; end
 
 	db 0 ; padding

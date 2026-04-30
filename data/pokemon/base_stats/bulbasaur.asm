@@ -17,8 +17,8 @@
 	; Reflect — leaf canopy framing). NO fun moves (per Forte's revised
 	; rule — Mimic/Mirror Move/Substitute/Metronome are anatomy/lore-gated,
 	; not universal; plants don't fit any of the four).
-	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    \
-	     REFLECT,      CUT
+	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, REFLECT, \
+	     CUT
 	; end
 
 	db 0 ; padding

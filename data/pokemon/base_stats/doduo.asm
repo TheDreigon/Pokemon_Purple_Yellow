@@ -17,8 +17,8 @@
 	; legs). FAINT_ATTACK TM per Forte (all 3 bird lines). AGILITY natural
 	; per Forte's list. HM01 Cut (sharp beak). HM04 Strength (powerful legs
 	; to push).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,   AGILITY,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  CUT,          STRENGTH,   BODY_SLAM
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,     AGILITY,      TAKE_DOWN, \
+	     DOUBLE_EDGE,  CUT,          STRENGTH,     BODY_SLAM
 	; end
 
 	db 0 ; padding

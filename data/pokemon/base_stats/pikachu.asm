@@ -16,8 +16,7 @@
 	; SCREEN/FAKE_TEARS added (#3); TOXIC removed (#3); HM05 FLASH (electric
 	; can flash). NO fun moves (anatomy/lore-gated).
 	tmhm QUICK_ATTACK, BODY_SLAM,    IRON_TAIL,    THUNDERBOLT,  THUNDER_WAVE, \
-	     AGILITY,      THUNDER,      REFLECT,      LIGHT_SCREEN, FAKE_TEARS,   \
-	     FLASH
+	     AGILITY,      REFLECT,      LIGHT_SCREEN, FAKE_TEARS,   FLASH
 	; end
 
 	db 0 ; padding

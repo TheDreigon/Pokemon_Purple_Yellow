@@ -15,9 +15,9 @@
 	; v0.7 Pass 3: apex eagle (mach-2 raptor). Pidgeotto's 8 + 3 apex
 	; additions: INTIMIDATE (also levelup), AGILITY (per Forte — Pidgeot-
 	; only TM access), DOUBLE_EDGE (per Forte — Pidgeot-only).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HURRICANE, FLY,           \
-	     HONE_CLAWS,   TAKE_DOWN,    CUT,        INTIMIDATE, AGILITY,      \
-	     DOUBLE_EDGE,  BODY_SLAM
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   HURRICANE,    FLY, \
+	     TAKE_DOWN,    CUT,          INTIMIDATE,   AGILITY,      DOUBLE_EDGE, \
+	     BODY_SLAM
 	; end
 
 	db 0 ; padding

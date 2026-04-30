@@ -18,8 +18,8 @@
 	; No Earthquake (saved for Blastoise — only fully-massive frame). No
 	; HYDRO_PUMP — still no shell-cannons.
 	tmhm WATER_PULSE,  BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  LIGHT_SCREEN, \
-	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP,      \
-	     HONE_CLAWS,   STRENGTH
+	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

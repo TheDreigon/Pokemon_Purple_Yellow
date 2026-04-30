@@ -16,8 +16,8 @@
 	; Hurricane TM (per Forte #16 — TM only, NOT levelup), Giga Drain TM
 	; (per Forte #17 — vampire-bat mass-drain via fangs), Intimidate (big
 	; bat scary), HM02 Fly (Forte's natural list — Golbat only).
-	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC,        \
-	     AGILITY,      CUT,          GIGA_DRAIN,   HURRICANE,    INTIMIDATE,   \
+	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC, \
+	     AGILITY,      CUT,          GIGA_DRAIN,   HURRICANE,    INTIMIDATE, \
 	     FLY
 	; end
 

@@ -15,7 +15,7 @@
 	; v0.7 Pass 3: small bat. Levelup-doubles for several. TOXIC TM per
 	; Forte #6. NO FLY (Forte: Golbat-only natural — small wings can't
 	; carry rider).
-	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC,        \
+	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC, \
 	     AGILITY,      CUT
 	; end
 

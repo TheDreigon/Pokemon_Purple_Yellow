@@ -17,8 +17,8 @@
 	; intimidating presence), INTIMIDATE¹ (matches levelup-tier presence),
 	; SWORDS_DANCE (Forte's filter: aggressive+iniciativa charger),
 	; IRON_TAIL (Forte explicit add).
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_HEAD,    DOUBLE_EDGE,  \
-	     TAKE_DOWN,    EARTHQUAKE,   STRENGTH,     SCARY_FACE,   INTIMIDATE,   \
+	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_HEAD,    DOUBLE_EDGE, \
+	     TAKE_DOWN,    EARTHQUAKE,   STRENGTH,     SCARY_FACE,   INTIMIDATE, \
 	     SWORDS_DANCE, IRON_TAIL
 	; end
 

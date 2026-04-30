@@ -24,7 +24,7 @@ CeladonMart5FCurrentFloorSignText:
 
 CeladonMart5FClerk1Text::
 	; v0.5 TM rework (rev8 spec): utility/setup. 11 TMs per spec.
-	script_mart TM_SWORDS_DANCE, TM_BULK_UP, TM_HONE_CLAWS, TM_CALM_MIND, TM_AGILITY, TM_DOUBLE_TEAM, TM_INTIMIDATE, TM_FAKE_TEARS, TM_SCARY_FACE, TM_REFLECT, TM_LIGHT_SCREEN
+	script_mart TM_SWORDS_DANCE, TM_BULK_UP, TM_CHARM, TM_CALM_MIND, TM_AGILITY, TM_ICY_PULSE, TM_INTIMIDATE, TM_FAKE_TEARS, TM_SCARY_FACE, TM_REFLECT, TM_LIGHT_SCREEN
 
 CeladonMart5FClerk2Text::
 	; v0.5 mart rework: vitamins reordered (CALCIUM before CARBOS so the

@@ -19,8 +19,7 @@
 	; levelup), POISON_FANG (mandibular toxin TM, sister to TOXIC_FANGS¹
 	; levelup), HM01 CUT (per Forte's HM list).
 	tmhm LEECH_LIFE,   GIGA_DRAIN,   TOXIC,        SCARY_FACE,   SWORDS_DANCE, \
-	     HONE_CLAWS,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  POISON_FANG,  \
-	     CUT
+	     BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  POISON_FANG,  CUT
 	; end
 
 	db 0 ; padding

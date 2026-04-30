@@ -16,8 +16,8 @@
 	; not in levelup but anatomical), LEECH_LIFE¹ (insect drain levelup),
 	; TAKE_DOWN, DOUBLE_EDGE (apex slams), DOUBLE_TEAM (powder cloud
 	; cover), EXTRASENSORY (Forte add).
-	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    BODY_SLAM,    LEECH_LIFE,   \
-	     TAKE_DOWN,    DOUBLE_EDGE,  DOUBLE_TEAM,  EXTRASENSORY
+	tmhm GIGA_DRAIN,   TOXIC,        BODY_SLAM,    LEECH_LIFE,   TAKE_DOWN, \
+	     DOUBLE_EDGE,  EXTRASENSORY
 	; end
 
 	db 0 ; padding

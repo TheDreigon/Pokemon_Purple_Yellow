@@ -18,9 +18,9 @@
 	; filter: aggressive carnivore + iniciativa), SCARY_FACE¹ (giant
 	; trap mouth — levelup), INTIMIDATE (Forte add). NO AGILITY (Forte
 	; removed). NO DOUBLE_TEAM (Forte removed).
-	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    FAINT_ATTACK, BODY_SLAM,    \
-	     LEECH_LIFE,   CUT,          TAKE_DOWN,    DOUBLE_EDGE,  SWORDS_DANCE, \
-	     SCARY_FACE,   INTIMIDATE
+	tmhm GIGA_DRAIN,   TOXIC,        FAINT_ATTACK, BODY_SLAM,    LEECH_LIFE, \
+	     CUT,          TAKE_DOWN,    DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE, \
+	     INTIMIDATE
 	; end
 
 	db 0 ; padding

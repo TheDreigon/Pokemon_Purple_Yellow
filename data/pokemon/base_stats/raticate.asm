@@ -14,9 +14,9 @@
 	; v0.7 Pass 3: matured Normal/Dark rodent. Rattata's 9 + 3 apex
 	; additions: Bulk Up (warrior rat), Faint Attack (Dark levelup-double),
 	; Intimidate (matured rat presence).
-	tmhm QUICK_ATTACK, BODY_SLAM,    HONE_CLAWS,   POISON_FANG,  TOXIC,        \
-	     DOUBLE_EDGE,  TAKE_DOWN,    AGILITY,      CUT,          BULK_UP,      \
-	     FAINT_ATTACK, INTIMIDATE
+	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        DOUBLE_EDGE, \
+	     TAKE_DOWN,    AGILITY,      CUT,          BULK_UP,      FAINT_ATTACK, \
+	     INTIMIDATE
 	; end
 
 	db 0 ; padding

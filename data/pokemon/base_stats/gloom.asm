@@ -14,7 +14,7 @@
 	; v0.7 Pass 3 (Forte review): mid-stage flower bud (Grass/Fungus).
 	; Inherits Oddish's 3. No additions (SCREECH/TOXIC are levelup-only,
 	; no separate TM; TOXIC TM34 already inherited).
-	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM
+	tmhm GIGA_DRAIN,   TOXIC
 	; end
 
 	db 0 ; padding

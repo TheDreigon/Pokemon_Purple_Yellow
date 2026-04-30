@@ -16,7 +16,7 @@
 	; GIGA_DRAIN¹ (drain plant), TOXIC (poison-type tendency),
 	; SOLARBEAM (plant TM apex — not levelup per Forte),
 	; FAINT_ATTACK (Forte add — sneak vine strike).
-	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM,    FAINT_ATTACK
+	tmhm GIGA_DRAIN,   TOXIC,        FAINT_ATTACK
 	; end
 
 	db 0 ; padding

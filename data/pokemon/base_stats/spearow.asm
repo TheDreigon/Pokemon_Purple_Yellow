@@ -16,8 +16,8 @@
 	; standard bird kit + FAINT_ATTACK¹ (Dark — also levelup), HONE_CLAWS¹
 	; (sharpens beak/talons). NO HURRICANE TM either (no GUST progression
 	; per Forte — keeps line distinct from Pidgey).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HONE_CLAWS, TAKE_DOWN,    \
-	     DOUBLE_EDGE,  FLY,          CUT
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   TAKE_DOWN,    DOUBLE_EDGE, \
+	     FLY,          CUT
 	; end
 
 	db 0 ; padding

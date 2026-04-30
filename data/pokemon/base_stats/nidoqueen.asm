@@ -18,10 +18,9 @@
 	; (apex presence), ROCK_SLIDE (Forte F-old — Nidoqueen-only), EARTH-
 	; QUAKE¹ (matches levelup), HM01 CUT (royal claws), HM04 STRENGTH¹.
 	; Egg moves: CHARM/HEADBUTT/TOXIC_FANGS/SAND_ATTACK per Forte F#3.
-	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    HONE_CLAWS,   \
-	     FAINT_ATTACK, DOUBLE_EDGE,  BULK_UP,      FAKE_TEARS,   INTIMIDATE,   \
-	     ROCK_SLIDE,   SWORDS_DANCE, CALM_MIND,    EARTHQUAKE,   CUT,          \
-	     STRENGTH
+	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    FAINT_ATTACK, \
+	     DOUBLE_EDGE,  BULK_UP,      FAKE_TEARS,   INTIMIDATE,   ROCK_SLIDE, \
+	     SWORDS_DANCE, CALM_MIND,    EARTHQUAKE,   CUT,          STRENGTH
 	; end
 
 	db 0 ; padding

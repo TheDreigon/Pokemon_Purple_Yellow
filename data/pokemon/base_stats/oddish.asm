@@ -15,7 +15,7 @@
 	; v0.7 Pass 3 (Forte review): basic radish/turnip plant. 3 TMs:
 	; GIGA_DRAIN (drain plant), TOXIC¹ (Gloom-tier levelup; Oddish has
 	; TM access), SOLARBEAM (plant TM apex).
-	tmhm GIGA_DRAIN,   TOXIC,        SOLARBEAM
+	tmhm GIGA_DRAIN,   TOXIC
 	; end
 
 	db 0 ; padding

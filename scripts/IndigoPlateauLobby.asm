@@ -54,4 +54,4 @@ IndigoPlateauLobbyClerkText::
 
 IndigoPlateauLobbyPostGameClerkText::
 	; v0.5 TM rework (rev8 spec): post-E4 top tier / endgame. 7 TMs + PP Up.
-	script_mart TM_OUTRAGE, TM_THUNDER, TM_FIRE_BLAST, TM_SOLARBEAM, TM_BLIZZARD, TM_DOUBLE_EDGE, TM_HYDRO_PUMP, PP_UP
+	script_mart TM_OUTRAGE, TM_ROCK_SLIDE, TM_PETAL_DANCE, TM_DARK_PULSE, TM_THRASH, TM_DOUBLE_EDGE, TM_DOUBLE_EDGE, PP_UP

@@ -16,8 +16,8 @@
 	; BULK_UP (warrior mouse), DOUBLE_EDGE (levelup-double — bigger reckless
 	; body), TAKE_DOWN.
 	tmhm QUICK_ATTACK, BODY_SLAM,    IRON_TAIL,    THUNDERBOLT,  THUNDER_WAVE, \
-	     AGILITY,      THUNDER,      REFLECT,      LIGHT_SCREEN, FAKE_TEARS,   \
-	     FLASH,        BULK_UP,      DOUBLE_EDGE,  TAKE_DOWN
+	     AGILITY,      REFLECT,      LIGHT_SCREEN, FAKE_TEARS,   FLASH, \
+	     BULK_UP,      DOUBLE_EDGE,  TAKE_DOWN
 	; end
 
 	db 0 ; padding

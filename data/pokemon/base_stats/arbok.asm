@@ -16,8 +16,8 @@
 	; Scary Face (per Forte — cobra hood at evo level, levelup-double),
 	; Double Edge. IRON_TAIL inherited from Ekans (Forte: line gets it via
 	; TM only — no longer levelup).
-	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC,        \
-	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          IRON_TAIL,    \
+	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC, \
+	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          IRON_TAIL, \
 	     BODY_SLAM,    INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE
 	; end
 

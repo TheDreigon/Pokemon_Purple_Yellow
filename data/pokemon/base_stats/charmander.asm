@@ -16,9 +16,8 @@
 	; the line learns naturally. HM05 Flash because fire pokes light caves.
 	; NO fun moves (per Forte's revised rule — fire reptiles don't fit
 	; Mimic/Mirror Move/Substitute/Metronome anatomy/lore).
-	tmhm QUICK_ATTACK, HONE_CLAWS,   TAKE_DOWN,    DRAGON_CLAW,  DRAGON_RAGE,  \
-	     IGNITE,       FLAMETHROWER, FIRE_BLAST,   OUTRAGE,      CUT,          \
-	     FLASH
+	tmhm QUICK_ATTACK, TAKE_DOWN,    DRAGON_CLAW,  IGNITE,       FLAMETHROWER, \
+	     OUTRAGE,      CUT,          FLASH
 	; end
 
 	db 0 ; padding

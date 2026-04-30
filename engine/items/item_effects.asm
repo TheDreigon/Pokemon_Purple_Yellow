@@ -2598,7 +2598,7 @@ ItemUseTMHM:
 	ld a, [wcf91]
 	cp TM_THUNDERBOLT ; are we teaching thunderbolt to the player pikachu?
 	jr z, .teachingThunderboltOrThunderToPlayerPikachu
-	cp TM_THUNDER ; are we teaching thunder then?
+	cp TM_ROCK_SLIDE ; are we teaching thunder then?
 	jr nz, .notTeachingThunderboltOrThunderToPikachu
 .teachingThunderboltOrThunderToPlayerPikachu
 	ld a, $5

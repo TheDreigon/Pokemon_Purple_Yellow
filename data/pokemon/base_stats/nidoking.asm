@@ -18,10 +18,10 @@
 	; presence), EARTHQUAKE¹/OUTRAGE¹ (capstone TMs matching levelup),
 	; ROCK_SLIDE (Forte #5 add — Nidoking-only), BIND (Forte #5 add),
 	; HM01 CUT (horn), HM04 STRENGTH¹.
-	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    \
-	     BULK_UP,      DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE,   HONE_CLAWS,   \
-	     FAINT_ATTACK, ROCK_THROW,   MEGAHORN,     INTIMIDATE,   EARTHQUAKE,   \
-	     OUTRAGE,      ROCK_SLIDE,   BIND,         CUT,          STRENGTH
+	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN, \
+	     BULK_UP,      DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE,   FAINT_ATTACK, \
+	     ROCK_THROW,   MEGAHORN,     INTIMIDATE,   EARTHQUAKE,   OUTRAGE, \
+	     ROCK_SLIDE,   BIND,         CUT,          STRENGTH
 	; end
 
 	db 0 ; padding

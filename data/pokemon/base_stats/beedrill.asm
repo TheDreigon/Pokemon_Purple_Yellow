@@ -18,9 +18,8 @@
 	; HM-Fly list. Drill Peck and Extreme Speed levelup-only (no TMs in
 	; this hack). NO fun moves (per Forte's revised rule — bee not a
 	; mind-mimic, no silk-decoy capability after metamorphosis, not magical).
-	tmhm LEECH_LIFE,   AGILITY,      TOXIC,        HONE_CLAWS,   DOUBLE_EDGE,  \
-	     TAKE_DOWN,    AERIAL_ACE,   INTIMIDATE,   QUICK_ATTACK, OUTRAGE,      \
-	     FLY
+	tmhm LEECH_LIFE,   AGILITY,      TOXIC,        DOUBLE_EDGE,  TAKE_DOWN, \
+	     AERIAL_ACE,   INTIMIDATE,   QUICK_ATTACK, OUTRAGE,      FLY
 	; end
 
 	db 0 ; padding

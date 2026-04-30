@@ -16,7 +16,7 @@
 	; Forte's anatomy/lore-gated fun-move rule — birds don't fit MIMIC/
 	; MIRROR_MOVE/SUBSTITUTE/METRONOME). FAINT_ATTACK TM per Forte (all 3
 	; bird lines). HM02 Fly per Forte's natural-FLY list.
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, HURRICANE, FLY
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   HURRICANE,    FLY
 	; end
 
 	db 0 ; padding

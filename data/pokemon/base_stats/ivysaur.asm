@@ -17,9 +17,9 @@
 	; ground-shaking (Bulldoze / Earthquake — quadruped weight), Poison
 	; mature (Toxic — already Poison-type now), HM utility (Strength = push,
 	; Flash = bulb opening glow).
-	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, SOLARBEAM,    \
-	     REFLECT,      CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        \
-	     DOUBLE_EDGE,  EARTHQUAKE,   STRENGTH,     FLASH
+	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, REFLECT, \
+	     CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE, \
+	     EARTHQUAKE,   STRENGTH,     FLASH
 	; end
 
 	db 0 ; padding

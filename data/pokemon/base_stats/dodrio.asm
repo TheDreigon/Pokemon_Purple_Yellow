@@ -15,8 +15,8 @@
 	; v0.7 Pass 3: 3-headed ratite. Doduo's 8 + 1 apex addition: INTIMIDATE
 	; (3 heads, scary). NO EARTHQUAKE per Forte (bird isn't heavy enough
 	; despite massive legs).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,   AGILITY,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  CUT,          STRENGTH,   INTIMIDATE, BODY_SLAM
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,     AGILITY,      TAKE_DOWN, \
+	     DOUBLE_EDGE,  CUT,          STRENGTH,     INTIMIDATE,   BODY_SLAM
 	; end
 
 	db 0 ; padding

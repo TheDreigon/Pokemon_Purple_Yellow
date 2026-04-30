@@ -18,9 +18,8 @@
 	; truly massive turtle), Hydro Pump (levelup-double, signature cannon),
 	; Blizzard (peak cold).
 	tmhm WATER_PULSE,  BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  LIGHT_SCREEN, \
-	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP,      \
-	     HONE_CLAWS,   STRENGTH,     INTIMIDATE,   ICE_BEAM,     EARTHQUAKE,   \
-	     HYDRO_PUMP,   BLIZZARD,     IRON_HEAD
+	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP, \
+	     STRENGTH,     INTIMIDATE,   ICE_BEAM,     EARTHQUAKE,   IRON_HEAD
 	; end
 
 	db 0 ; padding
