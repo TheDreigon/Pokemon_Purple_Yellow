@@ -16,7 +16,7 @@ CinnabarMartScientistText:
 	text_end
 
 CinnabarMartClerkText::
-	; v0.5 TM rework (rev8 spec): mid-tier damage. 8 TMs per spec.
+	; v0.7 TM rework (Forte spec): mid-tier damage. 6 TMs.
 	; Regular items now come from the global tiered mart inventory; the
 	; TMs below are appended as fixed extras.
-	script_tiered_mart TM_LEECH_LIFE, TM_DRAGON_CLAW, TM_DAZZLE_GLEAM, TM_TAKE_DOWN, TM_BULLDOZE, TM_POISON_FANG, TM_EXTRASENSORY, TM_IRON_HEAD
+	script_tiered_mart TM_LEECH_LIFE, TM_DAZZLE_GLEAM, TM_TAKE_DOWN, TM_BULLDOZE, TM_POISON_FANG, TM_IRON_HEAD

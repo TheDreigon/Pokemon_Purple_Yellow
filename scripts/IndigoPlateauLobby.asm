@@ -48,10 +48,12 @@ IndigoPlateauLobbyClerkText::
 	; plus post-E4 elite items (ETHER, ELIXER, PP_UP, MAX_REVIVE) once the
 	; player has beaten the Elite Four, plus post-rematch elite items
 	; (MAX_ETHER, MAX_ELIXER, PP_MAX, RARE_CANDY) after the first E4 rematch.
-	; v0.5 TM rework (rev8 spec): 9 TMs appended as fixed extras (pre-E4
-	; strong damage; NIGHT_SHADE moved to Celadon 2F).
-	script_tiered_mart_elite TM_MEGAHORN, TM_THUNDERBOLT, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
+	; v0.7 TM rework (Forte spec): 12 TMs appended as fixed extras (pre-E4
+	; strong damage). Now includes DARK_PULSE/SHADOW_BALL/PETAL_DANCE
+	; (added TMs per Forte's swap-in).
+	script_tiered_mart_elite TM_MEGAHORN, TM_DARK_PULSE, TM_THUNDERBOLT, TM_SHADOW_BALL, TM_PETAL_DANCE, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
 
 IndigoPlateauLobbyPostGameClerkText::
-	; v0.5 TM rework (rev8 spec): post-E4 top tier / endgame. 7 TMs + PP Up.
-	script_mart TM_OUTRAGE, TM_ROCK_SLIDE, TM_PETAL_DANCE, TM_DARK_PULSE, TM_THRASH, TM_DOUBLE_EDGE, TM_DOUBLE_EDGE, PP_UP
+	; v0.7 TM rework (Forte spec): post-E4 top tier / endgame. 3 TMs + PP Up.
+	; (Other apex TMs like ROCK_SLIDE/PETAL_DANCE/DARK_PULSE now sold pre-E4.)
+	script_mart TM_OUTRAGE, TM_THRASH, TM_DOUBLE_EDGE, PP_UP
