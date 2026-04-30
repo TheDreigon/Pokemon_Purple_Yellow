@@ -17,7 +17,7 @@
 	; only TM access), DOUBLE_EDGE (per Forte — Pidgeot-only).
 	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   HURRICANE,    FLY, \
 	     TAKE_DOWN,    CUT,          INTIMIDATE,   AGILITY,      DOUBLE_EDGE, \
-	     BODY_SLAM
+	     BODY_SLAM,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

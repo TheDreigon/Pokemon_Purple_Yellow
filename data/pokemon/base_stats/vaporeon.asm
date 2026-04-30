@@ -19,7 +19,7 @@
 	; FLASH).
 	tmhm QUICK_ATTACK, BODY_SLAM,    DOUBLE_EDGE,  AGILITY,      FAKE_TEARS, \
 	     WATER_PULSE,  ICE_BEAM,     SURF,         LIGHT_SCREEN, REFLECT, \
-	     TAKE_DOWN
+	     TAKE_DOWN,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

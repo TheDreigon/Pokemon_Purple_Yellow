@@ -16,7 +16,8 @@
 	; (levelup-double), HM02 Fly (Forte's HM-Fly list), Reflect. No fun
 	; moves (same logic as Venonat).
 	tmhm LEECH_LIFE,   TOXIC,        EXTRASENSORY, PSYCHIC_M,    LIGHT_SCREEN, \
-	     AERIAL_ACE,   REFLECT,      FLY
+	     AERIAL_ACE,   REFLECT,      FLY,          MIMIC,        MIRROR_MOVE, \
+	     SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

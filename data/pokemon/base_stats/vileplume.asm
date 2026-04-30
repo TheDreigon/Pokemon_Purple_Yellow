@@ -17,7 +17,8 @@
 	; TAKE_DOWN, DOUBLE_EDGE (apex slams), DOUBLE_TEAM (powder cloud
 	; cover), EXTRASENSORY (Forte add).
 	tmhm GIGA_DRAIN,   TOXIC,        BODY_SLAM,    LEECH_LIFE,   TAKE_DOWN, \
-	     DOUBLE_EDGE,  EXTRASENSORY
+	     DOUBLE_EDGE,  EXTRASENSORY, MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
+	     METRONOME
 	; end
 
 	db 0 ; padding

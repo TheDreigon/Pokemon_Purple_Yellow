@@ -17,7 +17,8 @@
 	; (Fairy-coded sparkle; Venusaur is plant, not magical creature).
 	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, REFLECT, \
 	     CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE, \
-	     EARTHQUAKE,   STRENGTH,     FLASH,        INTIMIDATE
+	     EARTHQUAKE,   STRENGTH,     FLASH,        INTIMIDATE,   MIMIC, \
+	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

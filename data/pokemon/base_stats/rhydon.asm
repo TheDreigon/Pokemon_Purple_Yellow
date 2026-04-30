@@ -19,7 +19,8 @@
 	; IRON_TAIL (Forte explicit add).
 	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_HEAD,    DOUBLE_EDGE, \
 	     TAKE_DOWN,    EARTHQUAKE,   STRENGTH,     SCARY_FACE,   INTIMIDATE, \
-	     SWORDS_DANCE, IRON_TAIL
+	     SWORDS_DANCE, IRON_TAIL,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
+	     METRONOME
 	; end
 
 	db 0 ; padding

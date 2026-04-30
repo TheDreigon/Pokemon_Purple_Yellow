@@ -17,7 +17,7 @@
 	; REFLECT (Forte #9), TAKE_DOWN.
 	tmhm QUICK_ATTACK, BODY_SLAM,    DOUBLE_EDGE,  AGILITY,      FAKE_TEARS, \
 	     IGNITE,       FLAMETHROWER, FLASH,        LIGHT_SCREEN, REFLECT, \
-	     TAKE_DOWN
+	     TAKE_DOWN,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

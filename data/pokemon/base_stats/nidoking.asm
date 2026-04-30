@@ -21,7 +21,8 @@
 	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN, \
 	     BULK_UP,      DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE,   FAINT_ATTACK, \
 	     ROCK_THROW,   MEGAHORN,     INTIMIDATE,   EARTHQUAKE,   OUTRAGE, \
-	     ROCK_SLIDE,   BIND,         CUT,          STRENGTH
+	     ROCK_SLIDE,   BIND,         CUT,          STRENGTH,     MIMIC, \
+	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

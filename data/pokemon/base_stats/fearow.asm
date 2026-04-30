@@ -16,7 +16,8 @@
 	; (also levelup), SWORDS_DANCE (per Forte — talons-as-swords for the
 	; Fearow-only sword-dance).
 	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   TAKE_DOWN,    DOUBLE_EDGE, \
-	     FLY,          CUT,          INTIMIDATE,   SWORDS_DANCE
+	     FLY,          CUT,          INTIMIDATE,   SWORDS_DANCE, MIMIC, \
+	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

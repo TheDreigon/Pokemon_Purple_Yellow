@@ -20,7 +20,7 @@
 	; removed). NO DOUBLE_TEAM (Forte removed).
 	tmhm GIGA_DRAIN,   TOXIC,        FAINT_ATTACK, BODY_SLAM,    LEECH_LIFE, \
 	     CUT,          TAKE_DOWN,    DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE, \
-	     INTIMIDATE
+	     INTIMIDATE,   MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

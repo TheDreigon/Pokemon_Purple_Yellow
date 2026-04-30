@@ -16,7 +16,8 @@
 	; 1 Golem-only addition (per Forte's via-TM list): SCARY_FACE
 	; (massive rock-shell intimidating).
 	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    STRENGTH,     TAKE_DOWN, \
-	     EARTHQUAKE,   IRON_HEAD,    ROCK_SLIDE,   DOUBLE_EDGE,  SCARY_FACE
+	     EARTHQUAKE,   IRON_HEAD,    ROCK_SLIDE,   DOUBLE_EDGE,  SCARY_FACE, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

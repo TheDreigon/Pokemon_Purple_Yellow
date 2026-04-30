@@ -17,7 +17,8 @@
 	; Forte (rock not muscle). NO HORN_DRILL (Forte: Dodrio+Rhydon only).
 	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_TAIL,    IRON_HEAD, \
 	     INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE,  TAKE_DOWN,    ROCK_SLIDE, \
-	     EARTHQUAKE,   STRENGTH
+	     EARTHQUAKE,   STRENGTH,     MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
+	     METRONOME
 	; end
 
 	db 0 ; padding

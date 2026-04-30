@@ -17,7 +17,8 @@
 	; body), TAKE_DOWN.
 	tmhm QUICK_ATTACK, BODY_SLAM,    IRON_TAIL,    THUNDERBOLT,  THUNDER_WAVE, \
 	     AGILITY,      REFLECT,      LIGHT_SCREEN, FAKE_TEARS,   FLASH, \
-	     BULK_UP,      DOUBLE_EDGE,  TAKE_DOWN
+	     BULK_UP,      DOUBLE_EDGE,  TAKE_DOWN,    MIMIC,        MIRROR_MOVE, \
+	     SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

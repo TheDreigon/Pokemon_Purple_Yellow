@@ -18,7 +18,8 @@
 	; TM only — no longer levelup).
 	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC, \
 	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          IRON_TAIL, \
-	     BODY_SLAM,    INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE
+	     BODY_SLAM,    INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE,  MIMIC, \
+	     MIRROR_MOVE,  METRONOME
 	; end
 
 	db 0 ; padding

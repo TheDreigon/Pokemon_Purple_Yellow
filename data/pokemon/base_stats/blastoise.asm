@@ -19,7 +19,8 @@
 	; Blizzard (peak cold).
 	tmhm WATER_PULSE,  BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  LIGHT_SCREEN, \
 	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP, \
-	     STRENGTH,     INTIMIDATE,   ICE_BEAM,     EARTHQUAKE,   IRON_HEAD
+	     STRENGTH,     INTIMIDATE,   ICE_BEAM,     EARTHQUAKE,   IRON_HEAD, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

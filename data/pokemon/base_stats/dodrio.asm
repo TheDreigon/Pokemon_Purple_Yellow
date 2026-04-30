@@ -16,7 +16,8 @@
 	; (3 heads, scary). NO EARTHQUAKE per Forte (bird isn't heavy enough
 	; despite massive legs).
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,     AGILITY,      TAKE_DOWN, \
-	     DOUBLE_EDGE,  CUT,          STRENGTH,     INTIMIDATE,   BODY_SLAM
+	     DOUBLE_EDGE,  CUT,          STRENGTH,     INTIMIDATE,   BODY_SLAM, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

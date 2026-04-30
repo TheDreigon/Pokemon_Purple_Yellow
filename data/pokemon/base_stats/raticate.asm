@@ -16,7 +16,7 @@
 	; Intimidate (matured rat presence).
 	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        DOUBLE_EDGE, \
 	     TAKE_DOWN,    AGILITY,      CUT,          BULK_UP,      FAINT_ATTACK, \
-	     INTIMIDATE
+	     INTIMIDATE,   MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding
