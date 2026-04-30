@@ -511,13 +511,13 @@ NidoqueenEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): matriarch, fairy + ground apex. Inherits
-; all Nidoran♀+Nidorina entries; adds 4 Nidoqueen-only: CHARM at L36
-; per Forte (F#3 — após L36 evo line ref), CRUNCH antes de STRENGTH
-; (Forte #1; CRUNCH Nidoqueen-exclusive per Forte F#1 — was F shared),
-; EARTHQUAKE at L52 (Forte F#3 — Nidoqueen-only third-evo; Forte F#6
-; — later than M's L46). NO MEGAHORN/OUTRAGE/THRASH/GORE_ATTACK/
-; BRUTAL_SWING (M-only apex moves). STRENGTH per Forte F#8.
+; v0.7 Pass 3 (Forte review + ba9e751 polish): matriarch, fairy + ground
+; apex. Inherits all Nidoran♀+Nidorina entries; adds Nidoqueen-only:
+; CHARM at L36 (Forte F#3 — após L36 evo line ref), BULLDOZE at L42
+; (Forte ba9e751 — Nidoqueen-only ground move), TOXIC, STRENGTH (Forte
+; F#8). EARTHQUAKE removed from levelup (Forte ba9e751 — accessible via
+; TM50 only). CRUNCH removed from levelup (Forte ba9e751 cleanup). NO
+; MEGAHORN/OUTRAGE/THRASH/GORE_ATTACK/BRUTAL_SWING (M-only apex moves).
 	db  4, GROWL
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
@@ -2855,7 +2855,7 @@ MissingNo9CEvosMoves:
 
 GoldeenEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 20, SEAKING
+	db EVOLVE_LEVEL, 24, SEAKING
 	db 0
 ; Learnset
 	db  5, WATER_GUN
@@ -3044,13 +3044,14 @@ NidorinaEvosMoves:
 	db EVOLVE_LEVEL, 35, NIDOQUEEN
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): mid-stage female, more chemical/protective.
-; Shared Nidoran♀ base + 5 exclusives shared with Nidoqueen (Forte F#3 —
-; mid-evo exclusivity for GS/BULLDOZE): ACID at L24 (Forte F#7 — F-only
-; balance, glandular chemistry), TAKE_DOWN, GROUND_STOMP at L34, PLAY_
-; ROUGH at L35 (= evo level per Forte F#2 — fairy gift on evolution),
-; BULLDOZE at L40 (Nidoqueen-natural; Nidorina via cancel-evo). NO CRUNCH
-; (Nidoqueen-only per Forte F#1).
+; v0.7 Pass 3 (Forte review + ba9e751 polish): mid-stage female, chemical
+; ground attacker. Shared Nidoran♀ base + Nidorina+Nidoqueen exclusives:
+; ACID at L24 (Forte F#7 — F-only balance, glandular chemistry), TAKE_
+; DOWN, MUD_SHOT at L33 (Forte ba9e751: replaced GROUND_STOMP — F-line
+; mud-thrower instead of stomp), PLAY_ROUGH at L35 (= evo level, fairy
+; gift on evolution), TOXIC_FANGS, MUD_BOMB (Forte ba9e751 add), TOXIC,
+; NEUROTOXIN (per Forte's neurotoxin list — F-line gets it). NO BULLDOZE/
+; EARTHQUAKE/CRUNCH/STRENGTH (Nidoqueen-only per Forte).
 	db  4, GROWL
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
