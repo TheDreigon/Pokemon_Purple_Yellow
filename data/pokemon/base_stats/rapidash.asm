@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

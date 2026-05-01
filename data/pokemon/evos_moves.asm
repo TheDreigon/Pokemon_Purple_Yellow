@@ -1084,35 +1084,49 @@ VulpixEvosMoves:
 	db EVOLVE_ITEM, MOON_STONE, 1, NINETALES
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
-	db 10, EMBER
-	db 15, QUICK_ATTACK
-	db 20, CONFUSE_RAY
-	db 25, FAIRY_WIND
-	db 30, FLAME_CHARGE
-	db 35, WILL_O_WISP
-	db 42, FLAMETHROWER
-	db 48, DAZZLE_GLEAM
-	db 55, FIRE_BLAST
-	db 62, MOONBLAST
+; v0.7 Pass 3 (Forte review): kitsune raposa Fire-Fairy-coded. WILL_O_WISP
+; (Ghost) preferido sobre IGNITE (Fire) por anatomia — Vulpix não tem chama
+; "aberta" como Charmander/Magmar; sua Fire é spectral kitsune. NIGHT_SHADE/
+; FAINT_ATTACK/AGILITY adicionados (Forte). FLAME_CHARGE removido (muito
+; físico para ser sensível/elegante de ataque à distância). DAZZLE_GLEAM
+; reservado para Ninetales-only.
+	db  4, TAIL_WHIP
+	db  7, EMBER
+	db 11, QUICK_ATTACK
+	db 14, CONFUSE_RAY
+	db 17, FAIRY_WIND
+	db 20, NIGHT_SHADE
+	db 24, FAINT_ATTACK
+	db 28, AGILITY
+	db 32, WILL_O_WISP
+	db 40, FLAMETHROWER
+	db 48, FIRE_BLAST
 	db 0
 
 NinetalesEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
-	db 10, EMBER
-	db 15, QUICK_ATTACK
-	db 20, CONFUSE_RAY
-	db 25, FAIRY_WIND
-	db 30, FLAME_CHARGE
-	db 35, WILL_O_WISP
-	db 42, FLAMETHROWER
-	db 48, DAZZLE_GLEAM
-	db 55, FIRE_BLAST
-	db 62, MOONBLAST
-	db 62, FIRE_BLAST
+; v0.7 Pass 3 (Forte review): apex kitsune. 11 shared backbone + 4 exclusives:
+; EERIE_IMPULSE (uncanny mature kitsune), DAZZLE_GLEAM (Fairy mid-apex),
+; SHADOW_BALL (Ghost-coded — many tails channel spectral), MOONBLAST (lunar
+; signature). Sem FLASH (Forte: removido — não necessário com EERIE_IMPULSE
+; já a cobrir o slot de mid-game utility).
+	db  4, TAIL_WHIP
+	db  7, EMBER
+	db 11, QUICK_ATTACK
+	db 14, CONFUSE_RAY
+	db 17, FAIRY_WIND
+	db 20, NIGHT_SHADE
+	db 24, FAINT_ATTACK
+	db 28, AGILITY
+	db 32, WILL_O_WISP
+	db 36, EERIE_IMPULSE
+	db 40, FLAMETHROWER
+	db 44, DAZZLE_GLEAM
+	db 48, FIRE_BLAST
+	db 52, SHADOW_BALL
+	db 60, MOONBLAST
 	db 0
 
 JigglypuffEvosMoves:
@@ -1530,34 +1544,54 @@ GrowlitheEvosMoves:
 	db EVOLVE_ITEM, FIRE_STONE, 1, ARCANINE
 	db 0
 ; Learnset
-	db  5, BITE
-	db 10, EMBER
-	db 15, INTIMIDATE
-	db 20, FLAME_CHARGE
-	db 26, FAINT_ATTACK
+; v0.7 Pass 3 (Forte review): alpha canine puppy. HONE_CLAWS+FOCUS_ENERGY
+; foundation predator (Forte add). FIERCE_ROAR substitui INTIMIDATE
+; (Forte). CRUNCH movido para lower level (era L52; CRUNCH=Normal type
+; neste hack, não cobre Dark). PLAY_ROUGH como Fairy bite/claw rough
+; (Forte question: yes — anatomia canina perfeita; SUBMISSION rejeitado
+; porque canine não wrestla). Sem rock move (Forte question: not — sem
+; affinity earth). AGILITY movido para Arcanine-only. FAINT_ATTACK
+; removido (Forte: redundante).
+	db  4, BITE
+	db  7, LEER
+	db 11, HONE_CLAWS
+	db 14, EMBER
+	db 15, FIERCE_ROAR
+	db 18, FOCUS_ENERGY
+	db 22, FLAME_CHARGE
+	db 26, CRUNCH
 	db 32, FLAMETHROWER
-	db 38, TAKE_DOWN
-	db 45, AGILITY
-	db 52, CRUNCH
-	db 60, FIRE_BLAST
+	db 40, TAKE_DOWN
+	db 48, PLAY_ROUGH
+	db 55, FIRE_BLAST
 	db 0
 
 ArcanineEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, BITE
-	db 10, EMBER
-	db 15, INTIMIDATE
-	db 20, FLAME_CHARGE
-	db 26, FAINT_ATTACK
+; v0.7 Pass 3 (Forte review): apex alpha canine. 12 shared backbone + 4
+; Arcanine-exclusives: CUT (HM01 natural — claws sharp), AGILITY (Forte:
+; higher level que Growlithe original), STRENGTH (HM04 natural),
+; SWORDS_DANCE (Forte explicit "essenciais que tem MESMO"). Removido:
+; EXTREMESPEED (Forte: canine não está na lista YES — só Pikachu/Raichu/
+; Raticate/Arbok/Persian/Hitmonchan), OUTRAGE (Arcanine não é Dragon-coded).
+	db  4, BITE
+	db  7, LEER
+	db 11, HONE_CLAWS
+	db 14, EMBER
+	db 15, FIERCE_ROAR
+	db 18, FOCUS_ENERGY
+	db 22, FLAME_CHARGE
+	db 26, CRUNCH
 	db 32, FLAMETHROWER
-	db 38, TAKE_DOWN
-	db 45, AGILITY
-	db 52, CRUNCH
-	db 54, EXTREMESPEED
-	db 60, FIRE_BLAST
-	db 60, OUTRAGE
+	db 36, CUT
+	db 40, TAKE_DOWN
+	db 42, AGILITY
+	db 44, STRENGTH
+	db 48, PLAY_ROUGH
+	db 52, SWORDS_DANCE
+	db 55, FIRE_BLAST
 	db 0
 
 PoliwagEvosMoves:
@@ -1927,34 +1961,54 @@ PonytaEvosMoves:
 	db EVOLVE_LEVEL, 30, RAPIDASH
 	db 0
 ; Learnset
-	db  5, EMBER
-	db 10, TAIL_WHIP
-	db 14, GROUND_STOMP
-	db 18, FLAME_CHARGE
-	db 22, AGILITY
-	db 34, FIRE_BLAST
-	db 34, TAKE_DOWN
-	db 40, FLAMETHROWER
-	db 47, DOUBLE_EDGE
-	db 54, FIRE_BLAST
+; v0.7 Pass 3 (Forte review): equino jovem com mane Fire aberta. IGNITE
+; (Fire — não Ghost) anatomy-correct: chama da mane é literal/aberta.
+; BODY_SLAM (Forte: sim — equino rear-up + body-down). FAIRY_WIND
+; adicionado à base (Forte: shared com Vulpix-line, basal Fairy
+; presence). AGILITY a L30 coincidente com a evolução (Forte: ironia
+; "Rapid"-ash unlock no momento certo). GROUND_STOMP via hooves (anatomia).
+	db  4, EMBER
+	db  7, TAIL_WHIP
+	db 11, GROUND_STOMP
+	db 13, FAIRY_WIND
+	db 17, FLAME_CHARGE
+	db 20, IGNITE
+	db 23, BODY_SLAM
+	db 28, TAKE_DOWN
+	db 30, AGILITY
+	db 34, FLAMETHROWER
+	db 42, DOUBLE_EDGE
+	db 50, FIRE_BLAST
 	db 0
 
 RapidashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, EMBER
-	db 10, TAIL_WHIP
-	db 14, GROUND_STOMP
-	db 18, FLAME_CHARGE
-	db 22, AGILITY
-	db 34, FIRE_BLAST
-	db 34, TAKE_DOWN
-	db 40, FLAMETHROWER
-	db 47, DOUBLE_EDGE
-	db 54, FIRE_BLAST
-	db 54, EXTREMESPEED
-	db 60, FIRE_BLAST
+; v0.7 Pass 3 (Forte review): apex equino unicórnio. 12 shared backbone +
+; 5 Rapidash-exclusives: HORN_ATTACK (horn aparece com a evo, mesmo level
+; que AGILITY — same-level apex pair), FLASH (HM05 natural — mane
+; brilhante), HORN_CHARGE (Forte add — mid-tier horn), DAZZLE_GLEAM
+; (Forte: sim — unicorn glow Fairy apex), HORN_DRILL (Forte explicit
+; signature, last move L60). Removido: EXTREMESPEED (Forte explicit
+; "Rapidash NÃO — rápido mas não ágil").
+	db  4, EMBER
+	db  7, TAIL_WHIP
+	db 11, GROUND_STOMP
+	db 13, FAIRY_WIND
+	db 17, FLAME_CHARGE
+	db 20, IGNITE
+	db 23, BODY_SLAM
+	db 28, TAKE_DOWN
+	db 30, AGILITY
+	db 30, HORN_ATTACK
+	db 34, FLAMETHROWER
+	db 38, FLASH
+	db 42, DOUBLE_EDGE
+	db 46, HORN_CHARGE
+	db 50, FIRE_BLAST
+	db 55, DAZZLE_GLEAM
+	db 60, HORN_DRILL
 	db 0
 
 SlowpokeEvosMoves:
