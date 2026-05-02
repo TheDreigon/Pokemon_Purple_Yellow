@@ -12,7 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BIND,         BODY_SLAM,    DRAGON_CLAW,  ICY_PULSE,    IRON_TAIL, \
+	     SHOCK_WAVE,   TAKE_DOWN,    WATER_PULSE
 	; end
 
 	db 0 ; padding

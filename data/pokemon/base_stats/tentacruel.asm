@@ -12,7 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm AGILITY,      BIND,         ICE_BEAM,     LEECH_LIFE,   SHOCK_WAVE, \
+	     TOXIC,        WATER_PULSE,  MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
+	     METRONOME,    CUT,          SURF
 	; end
 
 	db 0 ; padding

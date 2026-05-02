@@ -12,7 +12,7 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm RAGE
 	; end
 
 	db 0 ; padding

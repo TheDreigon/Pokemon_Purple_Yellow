@@ -12,7 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BODY_SLAM,    DARK_PULSE,   DOUBLE_EDGE,  EARTHQUAKE,   PETAL_DANCE, \
+	     PSYCHIC_M,    TAKE_DOWN,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
+	     METRONOME
 	; end
 
 	db 0 ; padding

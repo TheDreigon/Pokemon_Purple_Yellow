@@ -11,7 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm DARK_PULSE,   FLAMETHROWER, LIGHT_SCREEN, NIGHT_SHADE,  SCARY_FACE, \
+	     TOXIC,        MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
 	; end
 
 	db 0 ; padding

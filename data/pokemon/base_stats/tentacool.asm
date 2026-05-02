@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm AGILITY,      ICE_BEAM,     LEECH_LIFE,   WATER_PULSE
 	; end
 
 	db 0 ; padding

@@ -11,7 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BODY_SLAM,    ICE_BEAM,     ICY_PULSE,    LEECH_LIFE,   ROCK_THROW, \
+	     TAKE_DOWN,    WATER_PULSE
 	; end
 
 	db 0 ; padding

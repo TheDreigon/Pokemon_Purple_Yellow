@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm DARK_PULSE,   DOUBLE_EDGE,  PETAL_DANCE,  PSYCHIC_M,    TAKE_DOWN
 	; end
 
 	db 0 ; padding

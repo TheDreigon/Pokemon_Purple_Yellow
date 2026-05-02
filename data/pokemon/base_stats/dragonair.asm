@@ -12,7 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm AERIAL_ACE,   AGILITY,      BIND,         BODY_SLAM,    DRAGON_CLAW, \
+	     ICE_BEAM,     ICY_PULSE,    IRON_TAIL,    OUTRAGE,      SHOCK_WAVE, \
+	     TAKE_DOWN,    WATER_PULSE,  SURF,         STRENGTH,     FLY
 	; end
 
 	db 0 ; padding

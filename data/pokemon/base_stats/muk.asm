@@ -11,7 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BIND,         BODY_SLAM,    BULLDOZE,     DOUBLE_EDGE,  EARTHQUAKE, \
+	     ROCK_SLIDE,   SCARY_FACE,   TAKE_DOWN,    THRASH,       TOXIC, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    STRENGTH
 	; end
 
 	db 0 ; padding

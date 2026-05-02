@@ -12,7 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BIND,         BODY_SLAM,    DOUBLE_EDGE,  ICE_BEAM,     ICY_PULSE, \
+	     IRON_HEAD,    ROCK_SLIDE,   ROCK_THROW,   TAKE_DOWN,    WATER_PULSE, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    STRENGTH, \
+	     SURF
 	; end
 
 	db 0 ; padding

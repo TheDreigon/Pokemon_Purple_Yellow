@@ -12,7 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm AERIAL_ACE,   AGILITY,      DOUBLE_EDGE,  DRAGON_CLAW,  FAINT_ATTACK, \
+	     INTIMIDATE,   QUICK_ATTACK, ROCK_SLIDE,   ROCK_THROW,   SCARY_FACE, \
+	     SWORDS_DANCE, TAKE_DOWN,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
+	     METRONOME,    CUT,          FLY,          STRENGTH
 	; end
 
 	db 0 ; padding

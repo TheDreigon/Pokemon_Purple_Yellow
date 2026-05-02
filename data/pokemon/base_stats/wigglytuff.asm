@@ -11,7 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BODY_SLAM,    CHARM,        DAZZLE_GLEAM, DOUBLE_EDGE,  EXTRASENSORY, \
+	     FAKE_TEARS,   MIRROR_MOVE,  PSYCHIC_M,    RAGE,         MIMIC, \
+	     SUBSTITUTE,   METRONOME,    FLY
 	; end
 
 	db 0 ; padding

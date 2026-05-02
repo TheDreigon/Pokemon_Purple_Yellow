@@ -11,7 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BODY_SLAM,    CHARM,        DAZZLE_GLEAM, DOUBLE_EDGE,  FAKE_TEARS, \
+	     RAGE
 	; end
 
 	db 0 ; padding

@@ -12,7 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm AGILITY,      CALM_MIND,    DAZZLE_GLEAM, EXTRASENSORY, LIGHT_SCREEN, \
+	     PSYCHIC_M,    REFLECT,      SHADOW_BALL,  SHOCK_WAVE,   FLASH
 	; end
 
 	db 0 ; padding

@@ -11,7 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm FLAMETHROWER, LIGHT_SCREEN, NIGHT_SHADE,  TOXIC
 	; end
 
 	db 0 ; padding

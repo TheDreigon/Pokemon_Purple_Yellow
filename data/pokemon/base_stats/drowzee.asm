@@ -11,7 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BODY_SLAM,    DARK_PULSE,   DOUBLE_EDGE,  EXTRASENSORY, FAKE_TEARS, \
+	     NIGHT_SHADE,  PSYCHIC_M,    TAKE_DOWN
 	; end
 
 	db 0 ; padding
