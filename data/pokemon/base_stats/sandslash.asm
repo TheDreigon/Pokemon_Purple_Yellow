@@ -15,7 +15,7 @@
 	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_TAIL,    DRAGON_CLAW, \
 	     IRON_HEAD,    TAKE_DOWN,    SWORDS_DANCE, EARTHQUAKE,   ROCK_SLIDE, \
 	     DOUBLE_EDGE,  MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME, \
-	     CUT
+	     CUT,          STRENGTH
 	; end
 
 	db 0 ; padding

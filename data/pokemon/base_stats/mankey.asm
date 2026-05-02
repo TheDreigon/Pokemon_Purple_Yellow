@@ -12,7 +12,8 @@
 
 	; tm/hm learnset
 	tmhm ROCK_THROW,   QUICK_ATTACK, BIND,         SEISMIC_TOSS, RAGE, \
-	     BODY_SLAM,    BULK_UP,      TAKE_DOWN,    DOUBLE_EDGE,  THRASH
+	     BODY_SLAM,    BULK_UP,      TAKE_DOWN,    DOUBLE_EDGE,  THRASH, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

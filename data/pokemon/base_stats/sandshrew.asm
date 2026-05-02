@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_TAIL,    IRON_HEAD, \
-	     TAKE_DOWN,    EARTHQUAKE,   ROCK_SLIDE,   DOUBLE_EDGE
+	     TAKE_DOWN,    EARTHQUAKE,   ROCK_SLIDE,   DOUBLE_EDGE,  STRENGTH
 	; end
 
 	db 0 ; padding

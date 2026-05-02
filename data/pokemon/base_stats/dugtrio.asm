@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    AGILITY,      IRON_HEAD, \
 	     TAKE_DOWN,    EARTHQUAKE,   MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
-	     METRONOME,    STRENGTH
+	     METRONOME,    CUT,          STRENGTH
 	; end
 
 	db 0 ; padding
