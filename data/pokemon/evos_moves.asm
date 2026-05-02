@@ -1073,22 +1073,22 @@ ClefairyEvosMoves:
 ; (Forte sec C). MIMIC/METRONOME fun naturals (Forte sec A).
 ; CHARM (Forte sec F). RECOVER (Forte RECOVER list — Clefairy-line).
 ; LIGHT_SCREEN/REFLECT/CALM_MIND reservados Clefable.
-	db  3, GROWL
-	db  6, DOUBLESLAP
-	db  9, FAIRY_WIND
-	db 12, POWDER_SNOW
-	db 15, CALM_MIND
-	db 18, CHARM
-	db 21, DRAINING_KISS
-	db 24, TICKLE
-	db 27, RECOVER
-	db 30, LIGHT_SCREEN
-	db 33, MIMIC
-	db 36, SING
-	db 39, TELEPORT
-	db 42, METRONOME
-	db 45, DAZZLE_GLEAM
-	db 51, REFLECT
+	db  1, GROWL
+	db  4, DOUBLESLAP
+	db  7, FAIRY_WIND
+	db 10, POWDER_SNOW
+	db 13, CALM_MIND
+	db 16, CHARM
+	db 19, DRAINING_KISS
+	db 22, TICKLE
+	db 25, RECOVER
+	db 28, LIGHT_SCREEN
+	db 32, MIMIC
+	db 35, SING
+	db 38, TELEPORT
+	db 41, METRONOME
+	db 44, DAZZLE_GLEAM
+	db 50, REFLECT
 	db 60, MOONBLAST
 	db 0
 
@@ -1099,25 +1099,25 @@ ClefableEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex mystical Fairy. 12 backbone
 ; (Clefairy) + 3 Clefable-exclusives: LIGHT_SCREEN (Forte sec F),
 ; REFLECT (Forte sec F), CALM_MIND (Forte sec E).
-	db  3, GROWL
-	db  6, DOUBLESLAP
-	db  9, FAIRY_WIND
-	db 12, POWDER_SNOW
-	db 15, CALM_MIND
-	db 18, CHARM
-	db 21, DRAINING_KISS
-	db 24, TICKLE
-	db 27, RECOVER
-	db 30, LIGHT_SCREEN
-	db 33, MIMIC
-	db 36, SING
-	db 39, TELEPORT
-	db 42, METRONOME
-	db 45, DAZZLE_GLEAM
-	db 48, ICY_WIND
-	db 51, REFLECT
-	db 54, PLAY_ROUGH
-	db 57, PETAL_DANCE
+	db  1, GROWL
+	db  4, DOUBLESLAP
+	db  7, FAIRY_WIND
+	db 10, POWDER_SNOW
+	db 13, CALM_MIND
+	db 16, CHARM
+	db 19, DRAINING_KISS
+	db 22, TICKLE
+	db 25, RECOVER
+	db 28, LIGHT_SCREEN
+	db 32, MIMIC
+	db 35, SING
+	db 38, TELEPORT
+	db 41, METRONOME
+	db 44, DAZZLE_GLEAM
+	db 47, ICY_WIND
+	db 50, REFLECT
+	db 53, PLAY_ROUGH
+	db 56, PETAL_DANCE
 	db 60, MOONBLAST
 	db 0
 
@@ -1180,22 +1180,22 @@ JigglypuffEvosMoves:
 ; (Forte sec C — starts with SING). LOVELY_KISS (Forte sec C).
 ; CHARM (Forte sec F). METRONOME/SUBSTITUTE fun moves natural
 ; (Forte sec A). MOONBLAST apex Fairy.
-	db  2, GROWL
-	db  4, SING
+	db  1, GROWL
+	db  3, SING
 	db  6, HINDER
-	db  8, TACKLE
-	db 10, DOUBLESLAP
-	db 12, CHARM
-	db 15, TAUNT
-	db 18, GROWTH
-	db 21, ASTONISH
-	db 24, BIDE
-	db 27, FAIRY_WIND
-	db 30, BUBBLEBEAM
-	db 33, SCREECH
-	db 36, AMNESIA
-	db 39, LOVELY_KISS
-	db 42, DRAINING_KISS
+	db  9, TACKLE
+	db 12, DOUBLESLAP
+	db 15, CHARM
+	db 17, TAUNT
+	db 20, GROWTH
+	db 23, ASTONISH
+	db 26, BIDE
+	db 29, FAIRY_WIND
+	db 31, BUBBLEBEAM
+	db 34, SCREECH
+	db 37, AMNESIA
+	db 40, LOVELY_KISS
+	db 43, DRAINING_KISS
 	db 45, BODY_SLAM
 	db 48, FAKE_TEARS
 	db 51, RAGE
@@ -1209,22 +1209,22 @@ WigglytuffEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex balloon singer. 12 backbone
 ; (Jigglypuff) + 1 Wigglytuff-exclusive: FLY HM02 natural (Forte
 ; sec B Jigglypuff/Wigglytuff YES — balloon floats).
-	db  2, GROWL
-	db  4, SING
+	db  1, GROWL
+	db  3, SING
 	db  6, HINDER
-	db  8, TACKLE
-	db 10, DOUBLESLAP
-	db 12, CHARM
-	db 15, TAUNT
-	db 18, GROWTH
-	db 21, ASTONISH
-	db 24, BIDE
-	db 27, FAIRY_WIND
-	db 30, BUBBLEBEAM
-	db 33, SCREECH
-	db 36, AMNESIA
-	db 39, LOVELY_KISS
-	db 42, DRAINING_KISS
+	db  9, TACKLE
+	db 12, DOUBLESLAP
+	db 15, CHARM
+	db 17, TAUNT
+	db 20, GROWTH
+	db 23, ASTONISH
+	db 26, BIDE
+	db 29, FAIRY_WIND
+	db 31, BUBBLEBEAM
+	db 34, SCREECH
+	db 37, AMNESIA
+	db 40, LOVELY_KISS
+	db 43, DRAINING_KISS
 	db 45, BODY_SLAM
 	db 48, FAKE_TEARS
 	db 51, RAGE
@@ -1774,12 +1774,12 @@ AbraEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): minimalist baby psychic. Apenas
 ; TELEPORT pre-evo — fiel ao canon Abra-only-Teleport.
-	db  3, TELEPORT
-	db  6, PSYWAVE
-	db  9, DISABLE
-	db 12, CONFUSION
-	db 15, PSYCHIC_BIND
-	db 26, CALM_MIND  ; (EVO LVL)
+	db  1, TELEPORT
+	db 11, PSYWAVE
+	db 21, DISABLE
+	db 31, CONFUSION
+	db 41, PSYCHIC_BIND
+	db 42, CALM_MIND  ; (EVO LVL)
 	db 0
 
 KadabraEvosMoves:
@@ -1791,22 +1791,22 @@ KadabraEvosMoves:
 ; Kadabra-line ownership (Forte sec G). RECOVER (Forte RECOVER
 ; list). LIGHT_SCREEN/REFLECT (Forte sec F). CALM_MIND (Forte sec E).
 ; MIND_BREAK reservado para Alakazam apex.
-	db  3, TELEPORT
-	db  6, PSYWAVE
-	db  9, DISABLE
-	db 12, CONFUSION
-	db 15, PSYCHIC_BIND
-	db 26, CALM_MIND  ; (EVO LVL)
-	db 28, FOCUS_ENERGY
-	db 30, RECOVER
-	db 32, EXTRASENSORY
-	db 34, LIGHT_SCREEN
-	db 36, SHOCK_WAVE
-	db 38, REFLECT
-	db 40, PSYBEAM
-	db 42, AGILITY
-	db 45, PSYCHIC_M
-	db 48, TRI_ATTACK
+	db  1, TELEPORT
+	db 11, PSYWAVE
+	db 21, DISABLE
+	db 31, CONFUSION
+	db 41, PSYCHIC_BIND
+	db 42, CALM_MIND  ; (EVO LVL)
+	db 43, FOCUS_ENERGY
+	db 45, RECOVER
+	db 47, EXTRASENSORY
+	db 49, LIGHT_SCREEN
+	db 51, SHOCK_WAVE
+	db 53, REFLECT
+	db 55, PSYBEAM
+	db 57, AGILITY
+	db 59, PSYCHIC_M
+	db 61, TRI_ATTACK
 	db 0
 
 AlakazamEvosMoves:
@@ -1817,26 +1817,26 @@ AlakazamEvosMoves:
 ; (Kadabra) + 2 Alakazam-exclusives: FLASH HM05 natural (Forte sec
 ; B Kadabra/Alakazam YES), MIND_BREAK very-high last move L70
 ; (Forte sec G).
-	db  3, TELEPORT
-	db  6, PSYWAVE
-	db  9, DISABLE
-	db 12, CONFUSION
-	db 15, PSYCHIC_BIND
-	db 26, CALM_MIND  ; (EVO LVL)
-	db 28, FOCUS_ENERGY
-	db 30, RECOVER
-	db 32, EXTRASENSORY
-	db 34, LIGHT_SCREEN
-	db 36, SHOCK_WAVE
-	db 38, REFLECT
-	db 40, PSYBEAM
-	db 42, AGILITY
-	db 45, PSYCHIC_M
-	db 48, TRI_ATTACK
-	db 51, METRONOME
-	db 54, EERIE_IMPULSE
-	db 57, DARK_PULSE
-	db 60, MIND_BREAK
+	db  1, TELEPORT
+	db 11, PSYWAVE
+	db 21, DISABLE
+	db 31, CONFUSION
+	db 41, PSYCHIC_BIND
+	db 42, CALM_MIND  ; (EVO LVL)
+	db 43, FOCUS_ENERGY
+	db 45, RECOVER
+	db 47, EXTRASENSORY
+	db 49, LIGHT_SCREEN
+	db 51, SHOCK_WAVE
+	db 53, REFLECT
+	db 55, PSYBEAM
+	db 57, AGILITY
+	db 59, PSYCHIC_M
+	db 61, TRI_ATTACK
+	db 63, METRONOME
+	db 65, EERIE_IMPULSE
+	db 67, DARK_PULSE
+	db 70, MIND_BREAK
 	db 0
 
 MachopEvosMoves:
@@ -2016,21 +2016,21 @@ TentacoolEvosMoves:
 ; Tentacool-line ownership (Forte sec G). NEUROTOXIN Tentacruel-
 ; line signature (Forte sec G). Removido POISON_FANG (sem fangs
 ; — jellyfish).
-	db  2, POISON_STING
-	db  4, WATER_GUN
+	db  1, POISON_STING
+	db  3, WATER_GUN
 	db  6, HINDER
-	db  8, WRAP
-	db 10, CONSTRICT
-	db 12, NUZZLE
-	db 15, ACID
-	db 18, BUBBLEBEAM
-	db 21, SMOKESCREEN
-	db 24, SLUDGE
-	db 27, WATER_PULSE
+	db  9, WRAP
+	db 12, CONSTRICT
+	db 15, NUZZLE
+	db 17, ACID
+	db 20, BUBBLEBEAM
+	db 23, SMOKESCREEN
+	db 26, SLUDGE
+	db 29, WATER_PULSE
 	db 30, GROWTH  ; (EVO LVL)
 	db 39, SLUDGE_WAVE
-	db 42, SURF
-	db 45, NEUROTOXIN
+	db 44, SURF
+	db 48, NEUROTOXIN
 	db 0
 
 TentacruelEvosMoves:
@@ -2041,28 +2041,28 @@ TentacruelEvosMoves:
 ; + 3 Tentacruel-exclusives: CUT HM01 natural (Forte sec B), SURF
 ; HM03 natural, CORRODE (Forte sec F Claude decide: yes, jellyfish
 ; acid corrodes).
-	db  2, POISON_STING
-	db  4, WATER_GUN
+	db  1, POISON_STING
+	db  3, WATER_GUN
 	db  6, HINDER
-	db  8, WRAP
-	db 10, CONSTRICT
-	db 12, NUZZLE
-	db 15, ACID
-	db 18, BUBBLEBEAM
-	db 21, SMOKESCREEN
-	db 24, SLUDGE
-	db 27, WATER_PULSE
+	db  9, WRAP
+	db 12, CONSTRICT
+	db 15, NUZZLE
+	db 17, ACID
+	db 20, BUBBLEBEAM
+	db 23, SMOKESCREEN
+	db 26, SLUDGE
+	db 29, WATER_PULSE
 	db 30, GROWTH  ; (EVO LVL)
-	db 33, BIND
-	db 36, SHOCK_WAVE
+	db 31, BIND
+	db 35, SHOCK_WAVE
 	db 39, SLUDGE_WAVE
-	db 42, SURF
-	db 45, NEUROTOXIN
-	db 48, EERIE_IMPULSE
-	db 51, TOXIC
-	db 54, CORRODE
-	db 57, HYDRO_PUMP
-	db 60, GUNK_SHOT
+	db 44, SURF
+	db 48, NEUROTOXIN
+	db 52, EERIE_IMPULSE
+	db 57, TOXIC
+	db 61, CORRODE
+	db 65, HYDRO_PUMP
+	db 70, GUNK_SHOT
 	db 0
 
 GeodudeEvosMoves:
@@ -2396,23 +2396,23 @@ GrimerEvosMoves:
 ; ownership (Forte sec G). GUNK_SHOT signature very-high (Forte
 ; sec G). RECOVER (Forte RECOVER list — Grimer-line). Removido
 ; POISON_FANG/TOXIC_FANGS (sem fangs — anatomia sludge).
-	db  2, ASTONISH
+	db  1, ASTONISH
 	db  4, LICK
-	db  6, HARDEN
-	db  8, GROWTH
-	db 10, WATER_GUN
-	db 12, MUD_SHOT
-	db 14, ACID
-	db 16, DISABLE
-	db 18, TAUNT
-	db 20, BIND
-	db 22, SMOG
-	db 24, BODY_SLAM
-	db 27, SLUDGE
-	db 30, RECOVER
-	db 33, TOXIC
-	db 36, MUD_BOMB
-	db 39, SLUDGE_WAVE
+	db  7, HARDEN
+	db 10, GROWTH
+	db 13, WATER_GUN
+	db 16, MUD_SHOT
+	db 19, ACID
+	db 22, DISABLE
+	db 25, TAUNT
+	db 28, BIND
+	db 31, SMOG
+	db 34, BODY_SLAM
+	db 37, SLUDGE
+	db 40, RECOVER
+	db 43, TOXIC
+	db 46, MUD_BOMB
+	db 49, SLUDGE_WAVE
 	db 0
 
 MukEvosMoves:
@@ -2422,30 +2422,30 @@ MukEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex sludge. 12 backbone (Grimer) + 3
 ; Muk-exclusives: STRENGTH HM04 natural (Forte sec B), CORRODE
 ; Muk signature (Forte sec F), EXPLOSION sludge bomb apex.
-	db  2, ASTONISH
+	db  1, ASTONISH
 	db  4, LICK
-	db  6, HARDEN
-	db  8, GROWTH
-	db 10, WATER_GUN
-	db 12, MUD_SHOT
-	db 14, ACID
-	db 16, DISABLE
-	db 18, TAUNT
-	db 20, BIND
-	db 22, SMOG
-	db 24, BODY_SLAM
-	db 27, SLUDGE
-	db 30, RECOVER
-	db 33, TOXIC
-	db 36, MUD_BOMB
-	db 39, SLUDGE_WAVE
-	db 42, TAKE_DOWN
-	db 45, ROCK_TOMB
-	db 48, CORRODE
-	db 51, IRON_DEFENSE
-	db 54, GUNK_SHOT
-	db 57, SCARY_FACE
-	db 60, HEAVY_SLAM
+	db  7, HARDEN
+	db 10, GROWTH
+	db 13, WATER_GUN
+	db 16, MUD_SHOT
+	db 19, ACID
+	db 22, DISABLE
+	db 25, TAUNT
+	db 28, BIND
+	db 31, SMOG
+	db 34, BODY_SLAM
+	db 37, SLUDGE
+	db 40, RECOVER
+	db 43, TOXIC
+	db 46, MUD_BOMB
+	db 49, SLUDGE_WAVE
+	db 52, TAKE_DOWN
+	db 55, ROCK_TOMB
+	db 58, CORRODE
+	db 61, IRON_DEFENSE
+	db 64, GUNK_SHOT
+	db 67, SCARY_FACE
+	db 70, HEAVY_SLAM
 	db 0
 
 ShellderEvosMoves:
@@ -2586,24 +2586,24 @@ DrowzeeEvosMoves:
 ; sec C low). DEEP_SLEEP signature (Forte sec C Drowzee-line).
 ; DREAM_EATER signature (Forte sec G). EERIE_IMPULSE (Forte sec F).
 ; AMNESIA (Forte sec E). DARK_PULSE (Forte sec G).
-	db  2, HYPNOSIS
+	db  1, HYPNOSIS
 	db  4, PSYWAVE
-	db  6, DISABLE
-	db  8, HEADBUTT
-	db 10, LICK
-	db 12, POISON_GAS
-	db 15, CONFUSION
-	db 18, NASTY_PLOT
-	db 21, EERIE_IMPULSE
-	db 24, NIGHT_SHADE
-	db 27, EXTRASENSORY
-	db 30, SMOG
-	db 33, PSYCHIC_BIND
-	db 36, DEEP_SLEEP
-	db 39, DREAM_EATER
-	db 45, DARK_PULSE
-	db 48, PSYBEAM
-	db 57, PSYCHIC_M
+	db  7, DISABLE
+	db 10, HEADBUTT
+	db 14, LICK
+	db 17, POISON_GAS
+	db 20, CONFUSION
+	db 24, NASTY_PLOT
+	db 27, EERIE_IMPULSE
+	db 30, NIGHT_SHADE
+	db 33, EXTRASENSORY
+	db 37, SMOG
+	db 40, PSYCHIC_BIND
+	db 43, DEEP_SLEEP
+	db 47, DREAM_EATER
+	db 53, DARK_PULSE
+	db 56, PSYBEAM
+	db 66, PSYCHIC_M
 	db 0
 
 HypnoEvosMoves:
@@ -2613,28 +2613,28 @@ HypnoEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex hypnotist. 12 backbone (Drowzee)
 ; + 2 Hypno-exclusives: SCARY_FACE (Forte sec F via levelup list),
 ; CALM_MIND (Forte sec E).
-	db  2, HYPNOSIS
+	db  1, HYPNOSIS
 	db  4, PSYWAVE
-	db  6, DISABLE
-	db  8, HEADBUTT
-	db 10, LICK
-	db 12, POISON_GAS
-	db 15, CONFUSION
-	db 18, NASTY_PLOT
-	db 21, EERIE_IMPULSE
-	db 24, NIGHT_SHADE
-	db 27, EXTRASENSORY
-	db 30, SMOG
-	db 33, PSYCHIC_BIND
-	db 36, DEEP_SLEEP
-	db 39, DREAM_EATER
-	db 42, SCARY_FACE
-	db 45, DARK_PULSE
-	db 48, PSYBEAM
-	db 51, SHADOW_PUNCH
-	db 54, REFLECT
-	db 57, PSYCHIC_M
-	db 60, SHADOW_BALL
+	db  7, DISABLE
+	db 10, HEADBUTT
+	db 14, LICK
+	db 17, POISON_GAS
+	db 20, CONFUSION
+	db 24, NASTY_PLOT
+	db 27, EERIE_IMPULSE
+	db 30, NIGHT_SHADE
+	db 33, EXTRASENSORY
+	db 37, SMOG
+	db 40, PSYCHIC_BIND
+	db 43, DEEP_SLEEP
+	db 47, DREAM_EATER
+	db 50, SCARY_FACE
+	db 53, DARK_PULSE
+	db 56, PSYBEAM
+	db 60, SHADOW_PUNCH
+	db 63, REFLECT
+	db 66, PSYCHIC_M
+	db 70, SHADOW_BALL
 	db 0
 
 KrabbyEvosMoves:
@@ -2716,18 +2716,18 @@ ExeggcuteEvosMoves:
 ; GROWTH (Forte plant list). EXPLOSION (eggs explodem literal).
 ; Removido STUN_POWDER/POISONPOWDER/SLEEP_POWDER (Forte powder
 ; table NÃO), REFLECT (Exeggcute não em Forte F LIGHT_SCREEN list).
-	db  3, SOFTBOILED
-	db  6, AMNESIA
-	db  9, BIDE
-	db 12, LEECH_SEED
-	db 15, MEGA_DRAIN
-	db 18, CONFUSION
-	db 21, GROWTH
+	db  1, SOFTBOILED
+	db  4, AMNESIA
+	db  7, BIDE
+	db 10, LEECH_SEED
+	db 14, MEGA_DRAIN
+	db 17, CONFUSION
+	db 20, GROWTH
 	db 27, EERIE_IMPULSE
 	db 30, DISABLE
 	db 33, HYPNOSIS
-	db 42, PETAL_DANCE
-	db 45, PSYBEAM
+	db 43, PETAL_DANCE
+	db 46, PSYBEAM
 	db 56, PSYCHIC_M
 	db 60, DARK_PULSE
 	db 0
@@ -2739,23 +2739,23 @@ ExeggutorEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex egg-tree. 13 backbone (Exeggcute)
 ; + 2 Exeggutor-exclusives: DEEP_SLEEP (Forte sec C signature deep
 ; hypnosis após HYPNOSIS), HEAVY_SLAM (giant tree slam).
-	db  3, SOFTBOILED
-	db  6, AMNESIA
-	db  9, BIDE
-	db 12, LEECH_SEED
-	db 15, MEGA_DRAIN
-	db 18, CONFUSION
-	db 21, GROWTH
-	db 24, HEADBUTT
+	db  1, SOFTBOILED
+	db  4, AMNESIA
+	db  7, BIDE
+	db 10, LEECH_SEED
+	db 14, MEGA_DRAIN
+	db 17, CONFUSION
+	db 20, GROWTH
+	db 23, HEADBUTT
 	db 27, EERIE_IMPULSE
 	db 30, DISABLE
 	db 33, HYPNOSIS
-	db 36, GROUND_STOMP
-	db 39, BODY_SLAM
-	db 42, PETAL_DANCE
-	db 45, PSYBEAM
-	db 48, DOUBLE_EDGE
-	db 52, SOLARBEAM
+	db 37, GROUND_STOMP
+	db 40, BODY_SLAM
+	db 43, PETAL_DANCE
+	db 46, PSYBEAM
+	db 50, DOUBLE_EDGE
+	db 53, SOLARBEAM
 	db 56, PSYCHIC_M
 	db 60, DARK_PULSE
 	db 0
@@ -2933,24 +2933,24 @@ KoffingEvosMoves:
 ; Weezing kit: acid/sludge/toxic + Gas type only. EXPLOSION apex.
 ; Removido SLUDGE_WAVE (só Grimer/Tentacool lines), GUNK_SHOT
 ; (Grimer-only signature).
-	db  2, POISON_GAS
+	db  1, POISON_GAS
 	db  4, SMOG
-	db  6, SMOKESCREEN
-	db  8, TAUNT
-	db 10, DISABLE
-	db 12, ACID
-	db 15, EMBER
-	db 18, BIDE
-	db 21, GROWTH
-	db 24, EERIE_IMPULSE
-	db 27, NIGHT_SHADE
-	db 30, SLUDGE
-	db 33, HAZE
-	db 36, LIGHT_SCREEN
-	db 39, TOXIC
-	db 42, SLUDGE_WAVE
-	db 45, FLAMETHROWER
-	db 51, EXPLOSION
+	db  7, SMOKESCREEN
+	db 10, TAUNT
+	db 14, DISABLE
+	db 17, ACID
+	db 20, EMBER
+	db 24, BIDE
+	db 27, GROWTH
+	db 30, EERIE_IMPULSE
+	db 33, NIGHT_SHADE
+	db 37, SLUDGE
+	db 40, HAZE
+	db 43, LIGHT_SCREEN
+	db 47, TOXIC
+	db 50, SLUDGE_WAVE
+	db 53, FLAMETHROWER
+	db 60, EXPLOSION
 	db 0
 
 WeezingEvosMoves:
@@ -2960,28 +2960,28 @@ WeezingEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex gas balloon. 9 backbone (Koffing)
 ; + 1 Weezing-exclusive: CORRODE (Forte sec F Claude decide: yes,
 ; gas+sludge melts things). EXPLOSION apex shared no L60.
-	db  2, POISON_GAS
+	db  1, POISON_GAS
 	db  4, SMOG
-	db  6, SMOKESCREEN
-	db  8, TAUNT
-	db 10, DISABLE
-	db 12, ACID
-	db 15, EMBER
-	db 18, BIDE
-	db 21, GROWTH
-	db 24, EERIE_IMPULSE
-	db 27, NIGHT_SHADE
-	db 30, SLUDGE
-	db 33, HAZE
-	db 36, LIGHT_SCREEN
-	db 39, TOXIC
-	db 42, SLUDGE_WAVE
-	db 45, FLAMETHROWER
-	db 48, SCARY_FACE
-	db 51, EXPLOSION
-	db 54, CORRODE
-	db 57, GUNK_SHOT
-	db 60, DARK_PULSE
+	db  7, SMOKESCREEN
+	db 10, TAUNT
+	db 14, DISABLE
+	db 17, ACID
+	db 20, EMBER
+	db 24, BIDE
+	db 27, GROWTH
+	db 30, EERIE_IMPULSE
+	db 33, NIGHT_SHADE
+	db 37, SLUDGE
+	db 40, HAZE
+	db 43, LIGHT_SCREEN
+	db 47, TOXIC
+	db 50, SLUDGE_WAVE
+	db 53, FLAMETHROWER
+	db 56, SCARY_FACE
+	db 60, EXPLOSION
+	db 63, CORRODE
+	db 66, GUNK_SHOT
+	db 70, DARK_PULSE
 	db 0
 
 RhyhornEvosMoves:
@@ -3053,22 +3053,22 @@ ChanseyEvosMoves:
 ; SOFTBOILED signature (Chansey ONLY), SING após L30, CHARM/
 ; FAIRY_WIND/GROWL. NÃO TAIL_WHIP (cauda pequena), NÃO DEFENSE_CURL
 ; (não ball-shape). Heal-tank kit + LIGHT_SCREEN/REFLECT support.
-	db  2, SOFTBOILED
-	db  4, GROWL
+	db  1, SOFTBOILED
+	db  3, GROWL
 	db  6, DOUBLESLAP
-	db  8, FAIRY_WIND
-	db 10, CALM_MIND
-	db 12, CHARM
-	db 15, SING
-	db 18, TICKLE
-	db 21, DRAINING_KISS
-	db 24, DISABLE
-	db 27, EXTRASENSORY
-	db 30, LIGHT_SCREEN
-	db 33, HEADBUTT
-	db 36, BIDE
-	db 39, PAY_DAY
-	db 42, SEISMIC_TOSS
+	db  9, FAIRY_WIND
+	db 12, CALM_MIND
+	db 15, CHARM
+	db 17, SING
+	db 20, TICKLE
+	db 23, DRAINING_KISS
+	db 26, DISABLE
+	db 29, EXTRASENSORY
+	db 31, LIGHT_SCREEN
+	db 34, HEADBUTT
+	db 37, BIDE
+	db 40, PAY_DAY
+	db 43, SEISMIC_TOSS
 	db 45, REFLECT
 	db 48, DAZZLE_GLEAM
 	db 51, FAKE_TEARS
@@ -3086,22 +3086,22 @@ TangelaEvosMoves:
 ; VINE_WHIP/MEGA_DRAIN/GIGA_DRAIN/WRAP/CONSTRICT/GROWTH/SOLARBEAM.
 ; CUT HM01 natural (Forte sec B). Removido STRING_SHOT (não
 ; existe), RECOVER (Tangela não em RECOVER list).
-	db  2, ABSORB
-	db  4, GROWTH
+	db  1, ABSORB
+	db  3, GROWTH
 	db  6, WRAP
-	db  8, TICKLE
-	db 10, DEFENSE_CURL
-	db 12, CONSTRICT
-	db 15, LICK
-	db 18, VINE_WHIP
-	db 21, WATER_GUN
-	db 24, TACKLE
-	db 27, LEECH_SEED
-	db 30, STUN_POWDER
-	db 33, BIND
-	db 36, BUBBLEBEAM
-	db 39, ASTONISH
-	db 42, MEGA_DRAIN
+	db  9, TICKLE
+	db 12, DEFENSE_CURL
+	db 15, CONSTRICT
+	db 17, LICK
+	db 20, VINE_WHIP
+	db 23, WATER_GUN
+	db 26, TACKLE
+	db 29, LEECH_SEED
+	db 31, STUN_POWDER
+	db 34, BIND
+	db 37, BUBBLEBEAM
+	db 40, ASTONISH
+	db 43, MEGA_DRAIN
 	db 45, RECOVER
 	db 48, BODY_SLAM
 	db 51, WATER_PULSE
@@ -3239,25 +3239,25 @@ MrMimeEvosMoves:
 ; 4 fun moves via NATURAL levelup (Forte sec A — MrMime explicit).
 ; Forte sec J kit: LIGHT_SCREEN/REFLECT canonical, DAZZLE_GLEAM,
 ; FAIRY_WIND, CHARM, PSYCHIC_BIND. NÃO MOONBLAST (Forte sec J).
-	db  3, CHARM
-	db  6, FAIRY_WIND
-	db  9, HINDER
-	db 12, CONFUSION
-	db 15, FAKE_TEARS
-	db 18, MIRROR_MOVE
-	db 21, MIMIC
-	db 24, PSYCHIC_BIND
-	db 27, LIGHT_SCREEN
-	db 30, REFLECT
-	db 33, AMNESIA
-	db 36, DISABLE
-	db 39, EXTRASENSORY
-	db 42, HYPNOSIS
-	db 45, DAZZLE_GLEAM
-	db 48, DOUBLE_TEAM
-	db 51, SUBSTITUTE
-	db 54, PETAL_DANCE
-	db 57, PSYCHIC_M
+	db  1, CHARM
+	db  4, FAIRY_WIND
+	db  7, HINDER
+	db 10, CONFUSION
+	db 13, FAKE_TEARS
+	db 16, MIRROR_MOVE
+	db 19, MIMIC
+	db 22, PSYCHIC_BIND
+	db 25, LIGHT_SCREEN
+	db 28, REFLECT
+	db 32, AMNESIA
+	db 35, DISABLE
+	db 38, EXTRASENSORY
+	db 41, HYPNOSIS
+	db 44, DAZZLE_GLEAM
+	db 47, DOUBLE_TEAM
+	db 50, SUBSTITUTE
+	db 53, PETAL_DANCE
+	db 56, PSYCHIC_M
 	db 60, METRONOME
 	db 0
 
@@ -3433,9 +3433,9 @@ MagikarpEvosMoves:
 ; v0.7 Pass 3 (Forte review): minimalist Water (canon weakest).
 ; GROWL L1 (SPLASH removido em v0.7). 5 moves total — fiel ao canon.
 ; RAGE L26 = at evo (signature anger explosion ao evoluir).
-	db  2, GROWL
-	db  4, TACKLE
-	db  6, WATER_GUN
+	db  1, GROWL
+	db  3, TACKLE
+	db  5, WATER_GUN
 	db  8, BIDE
 	db 10, RAGE
 	db 0
@@ -3450,29 +3450,29 @@ GyaradosEvosMoves:
 ; exclusives: BITE evo, INTIMIDATE/SCARY_FACE, COIL (Forte sec E
 ; snake-coil), DRAGON_BREATH/THRASH/OUTRAGE Dragon-coded, SURF/
 ; STRENGTH HMs.
-	db  2, GROWL
-	db  4, TACKLE
-	db  6, WATER_GUN
+	db  1, GROWL
+	db  3, TACKLE
+	db  5, WATER_GUN
 	db  8, BIDE
 	db 10, RAGE
-	db 12, BITE
-	db 14, WATER_PULSE
-	db 16, COIL
-	db 18, BODY_SLAM
-	db 20, WATERFALL
-	db 22, FIERCE_ROAR
-	db 24, CRUNCH
-	db 26, SURF
-	db 28, DRAGON_RAGE
-	db 30, TAKE_DOWN
-	db 33, INTIMIDATE
-	db 36, DRAGON_BREATH
-	db 39, HYDRO_PUMP
-	db 42, HEAVY_SLAM
-	db 45, DRAGON_SLAM
-	db 48, BRUTAL_SWING
-	db 51, THRASH
-	db 54, OUTRAGE
+	db 13, BITE
+	db 15, WATER_PULSE
+	db 18, COIL
+	db 20, BODY_SLAM
+	db 23, WATERFALL
+	db 25, FIERCE_ROAR
+	db 28, CRUNCH
+	db 30, SURF
+	db 32, DRAGON_RAGE
+	db 35, TAKE_DOWN
+	db 37, INTIMIDATE
+	db 40, DRAGON_BREATH
+	db 42, HYDRO_PUMP
+	db 45, HEAVY_SLAM
+	db 47, DRAGON_SLAM
+	db 50, BRUTAL_SWING
+	db 52, THRASH
+	db 55, OUTRAGE
 	db 57, EARTHQUAKE
 	db 60, HYPER_BEAM
 	db 0
@@ -3630,18 +3630,18 @@ OmanyteEvosMoves:
 ; v0.7 Pass 3 (Forte review): ammonite spiral shell Water/Rock.
 ; WITHDRAW shell (Forte sec F). Water+Rock physical kit. SURF
 ; HM03 natural (water type).
-	db  3, WATER_GUN
-	db  6, WITHDRAW
-	db  9, HEADBUTT
-	db 12, TICKLE
-	db 16, CONSTRICT
-	db 20, BIND
-	db 24, AQUA_JET
-	db 28, ROCK_THROW
-	db 32, ICY_PULSE
-	db 36, WATER_PULSE
-	db 40, ROCK_TOMB
-	db 52, HEAD_SMASH
+	db  1, WATER_GUN
+	db  5, WITHDRAW
+	db 10, HEADBUTT
+	db 14, TICKLE
+	db 19, CONSTRICT
+	db 24, BIND
+	db 28, AQUA_JET
+	db 33, ROCK_THROW
+	db 37, ICY_PULSE
+	db 42, WATER_PULSE
+	db 47, ROCK_TOMB
+	db 60, HEAD_SMASH
 	db 0
 
 OmastarEvosMoves:
@@ -3651,22 +3651,22 @@ OmastarEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex ammonite. 11 backbone (Omanyte)
 ; + 2 Omastar-exclusives: STRENGTH HM04 natural (Forte sec B),
 ; ICE_BEAM apex (cold-water ammonite).
-	db  3, WATER_GUN
-	db  6, WITHDRAW
-	db  9, HEADBUTT
-	db 12, TICKLE
-	db 16, CONSTRICT
-	db 20, BIND
-	db 24, AQUA_JET
-	db 28, ROCK_THROW
-	db 32, ICY_PULSE
-	db 36, WATER_PULSE
-	db 40, ROCK_TOMB
-	db 44, IRON_DEFENSE
-	db 48, HYDRO_PUMP
-	db 52, HEAD_SMASH
-	db 56, IRON_HEAD
-	db 60, ICE_BEAM
+	db  1, WATER_GUN
+	db  5, WITHDRAW
+	db 10, HEADBUTT
+	db 14, TICKLE
+	db 19, CONSTRICT
+	db 24, BIND
+	db 28, AQUA_JET
+	db 33, ROCK_THROW
+	db 37, ICY_PULSE
+	db 42, WATER_PULSE
+	db 47, ROCK_TOMB
+	db 51, IRON_DEFENSE
+	db 56, HYDRO_PUMP
+	db 60, HEAD_SMASH
+	db 65, IRON_HEAD
+	db 70, ICE_BEAM
 	db 0
 
 KabutoEvosMoves:
@@ -3676,18 +3676,18 @@ KabutoEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): trilobite-crab Water/Rock. WITHDRAW
 ; (Forte sec F). ABSORB parasitic feed. Water+Rock physical kit.
-	db  3, WATER_GUN
-	db  6, WITHDRAW
-	db  9, SCRATCH
-	db 12, LEER
-	db 16, ROCK_THROW
-	db 20, BUBBLEBEAM
-	db 24, ICY_PULSE
-	db 28, SLASH
-	db 32, MEGA_DRAIN
-	db 36, CUT
-	db 40, LEECH_LIFE
-	db 44, ROCK_TOMB
+	db  1, WATER_GUN
+	db  5, WITHDRAW
+	db 10, SCRATCH
+	db 14, LEER
+	db 19, ROCK_THROW
+	db 24, BUBBLEBEAM
+	db 28, ICY_PULSE
+	db 33, SLASH
+	db 37, MEGA_DRAIN
+	db 42, CUT
+	db 47, LEECH_LIFE
+	db 51, ROCK_TOMB
 	db 0
 
 KabutopsEvosMoves:
@@ -3698,22 +3698,22 @@ KabutopsEvosMoves:
 ; (Kabuto) + 5 Kabutops-exclusives: CUT HM01 natural (Forte sec B),
 ; SURF HM03 natural, STRENGTH HM04 natural, SWORDS_DANCE (Forte
 ; sec E TM list — apex predator), NIGHT_SLASH (Dark slash claws).
-	db  3, WATER_GUN
-	db  6, WITHDRAW
-	db  9, SCRATCH
-	db 12, LEER
-	db 16, ROCK_THROW
-	db 20, BUBBLEBEAM
-	db 24, ICY_PULSE
-	db 28, SLASH
-	db 32, MEGA_DRAIN
-	db 36, CUT
-	db 40, LEECH_LIFE
-	db 44, ROCK_TOMB
-	db 48, NIGHT_SLASH
-	db 52, SWORDS_DANCE
-	db 56, HEAD_SMASH
-	db 60, GUILLOTINE
+	db  1, WATER_GUN
+	db  5, WITHDRAW
+	db 10, SCRATCH
+	db 14, LEER
+	db 19, ROCK_THROW
+	db 24, BUBBLEBEAM
+	db 28, ICY_PULSE
+	db 33, SLASH
+	db 37, MEGA_DRAIN
+	db 42, CUT
+	db 47, LEECH_LIFE
+	db 51, ROCK_TOMB
+	db 56, NIGHT_SLASH
+	db 60, SWORDS_DANCE
+	db 65, HEAD_SMASH
+	db 70, GUILLOTINE
 	db 0
 
 AerodactylEvosMoves:
@@ -3724,22 +3724,22 @@ AerodactylEvosMoves:
 ; single-stage. Forte sec J: NÃO HYPER_BEAM, FLY/SKY_ATTACK/AGILITY/
 ; INTIMIDATE. CUT/FLY/STRENGTH HMs naturais (Forte sec B). NÃO
 ; EXTREMESPEED (Forte sec G explicit).
-	db  3, BITE
-	db  6, LEER
-	db  9, TAILWIND
-	db 12, WING_ATTACK
-	db 15, FIERCE_ROAR
+	db  1, BITE
+	db  4, LEER
+	db  7, TAILWIND
+	db 11, WING_ATTACK
+	db 14, FIERCE_ROAR
 	db 18, ROCK_THROW
 	db 21, AERIAL_ACE
-	db 24, SCREECH
-	db 27, FAINT_ATTACK
-	db 30, FLY
-	db 33, ROCK_TOMB
-	db 36, CRUNCH
-	db 40, AGILITY
-	db 44, DRAGON_BREATH
-	db 48, INTIMIDATE
-	db 52, ROCK_SLIDE
+	db 25, SCREECH
+	db 28, FAINT_ATTACK
+	db 32, FLY
+	db 35, ROCK_TOMB
+	db 39, CRUNCH
+	db 42, AGILITY
+	db 46, DRAGON_BREATH
+	db 49, INTIMIDATE
+	db 53, ROCK_SLIDE
 	db 56, SWORDS_DANCE
 	db 60, SKY_ATTACK
 	db 0
@@ -3821,19 +3821,19 @@ DratiniEvosMoves:
 ; v0.7 Pass 3 (Forte review): Dragon sea-snake baby. WRAP canon
 ; start. COIL (Forte sec E snake-coil). DRAGON_BREATH first Dragon
 ; move pre-evo.
-	db  2, TACKLE
+	db  1, TACKLE
 	db  4, LEER
-	db  6, COIL
-	db  8, CONSTRICT
-	db 10, BIND
-	db 12, BODY_SLAM
-	db 14, IRON_TAIL
-	db 16, DRAGON_SLAM
-	db 18, WATER_PULSE
-	db 20, SHOCK_WAVE
-	db 22, ICY_PULSE
-	db 24, SURF
-	db 61, DRAGON_BREATH
+	db  8, COIL
+	db 12, CONSTRICT
+	db 15, BIND
+	db 19, BODY_SLAM
+	db 23, IRON_TAIL
+	db 26, DRAGON_SLAM
+	db 30, WATER_PULSE
+	db 34, SHOCK_WAVE
+	db 37, ICY_PULSE
+	db 41, SURF
+	db 52, DRAGON_BREATH
 	db 0
 
 DragonairEvosMoves:
@@ -3845,21 +3845,21 @@ DragonairEvosMoves:
 ; (Dratini) + 4 Dragonair-exclusives: DRAGON_SLAM (mid-tier Dragon),
 ; SURF (HM03 sea-snake natural), SHOCK_WAVE (Electric coverage),
 ; DRAGON_RAGE L46 = at evo (Forte sec I signature).
-	db  2, TACKLE
+	db  1, TACKLE
 	db  4, LEER
-	db  6, COIL
-	db  8, CONSTRICT
-	db 10, BIND
-	db 12, BODY_SLAM
-	db 14, IRON_TAIL
-	db 16, DRAGON_SLAM
-	db 18, WATER_PULSE
-	db 20, SHOCK_WAVE
-	db 22, ICY_PULSE
-	db 24, SURF
-	db 27, DRAGON_RAGE
-	db 58, FLY  ; (Evo lvl)
-	db 61, DRAGON_BREATH
+	db  8, COIL
+	db 12, CONSTRICT
+	db 15, BIND
+	db 19, BODY_SLAM
+	db 23, IRON_TAIL
+	db 26, DRAGON_SLAM
+	db 30, WATER_PULSE
+	db 34, SHOCK_WAVE
+	db 37, ICY_PULSE
+	db 41, SURF
+	db 45, DRAGON_RAGE
+	db 46, FLY  ; (Evo lvl)
+	db 52, DRAGON_BREATH
 	db 0
 
 DragoniteEvosMoves:
@@ -3870,30 +3870,30 @@ DragoniteEvosMoves:
 ; + 7 Dragonite-exclusives: WING_ATTACK/AGILITY (wings appear evo),
 ; CUT/STRENGTH/FLY HMs naturais (Forte sec B), OUTRAGE L60 (Forte
 ; sec I), HYPER_BEAM L65 last move (Forte sec G).
-	db  2, TACKLE
+	db  1, TACKLE
 	db  4, LEER
-	db  6, COIL
-	db  8, CONSTRICT
-	db 10, BIND
-	db 12, BODY_SLAM
-	db 14, IRON_TAIL
-	db 16, DRAGON_SLAM
-	db 18, WATER_PULSE
-	db 20, SHOCK_WAVE
-	db 22, ICY_PULSE
-	db 24, SURF
-	db 27, DRAGON_RAGE
-	db 58, FLY  ; (Evo lvl)
-	db 59, TAKE_DOWN
-	db 60, EXTRASENSORY
-	db 61, DRAGON_BREATH
-	db 62, STRENGTH
-	db 63, BULLDOZE
-	db 64, ROCK_TOMB
-	db 65, INTIMIDATE
-	db 66, BRUTAL_SWING
+	db  8, COIL
+	db 12, CONSTRICT
+	db 15, BIND
+	db 19, BODY_SLAM
+	db 23, IRON_TAIL
+	db 26, DRAGON_SLAM
+	db 30, WATER_PULSE
+	db 34, SHOCK_WAVE
+	db 37, ICY_PULSE
+	db 41, SURF
+	db 45, DRAGON_RAGE
+	db 46, FLY  ; (Evo lvl)
+	db 47, TAKE_DOWN
+	db 49, EXTRASENSORY
+	db 52, DRAGON_BREATH
+	db 54, STRENGTH
+	db 57, BULLDOZE
+	db 59, ROCK_TOMB
+	db 62, INTIMIDATE
+	db 64, BRUTAL_SWING
 	db 67, OUTRAGE
-	db 68, HYPER_BEAM
+	db 70, HYPER_BEAM
 	db 0
 
 MewtwoEvosMoves:
