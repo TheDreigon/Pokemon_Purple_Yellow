@@ -1846,8 +1846,8 @@ MachampEvosMoves:
 	db 46, MACH_PUNCH
 	db 48, TAKE_DOWN
 	db 50, BULLET_PUNCH
-	db 54, IRON_DEFENSE
-	db 58, SWORDS_DANCE
+	db 55, SWORDS_DANCE
+	db 60, IRON_DEFENSE
 	db 0
 
 BellsproutEvosMoves:
@@ -2635,7 +2635,8 @@ HitmonleeEvosMoves:
 	db 26, ROLLING_KICK
 	db 30, BULK_UP
 	db 34, SEISMIC_TOSS
-	db 38, AGILITY
+	db 36, BULLDOZE
+	db 40, AGILITY
 	db 42, FAINT_ATTACK
 	db 46, TAKE_DOWN
 	db 50, SWORDS_DANCE
@@ -2666,8 +2667,9 @@ HitmonchanEvosMoves:
 	db 26, COMET_PUNCH
 	db 30, AGILITY
 	db 34, ROCK_PUNCH
-	db 38, BULK_UP
-	db 42, FAINT_ATTACK
+	db 36, BULLET_PUNCH
+	db 40, BULK_UP
+	db 44, FAINT_ATTACK
 	db 46, SHADOW_PUNCH
 	db 50, RECOVER
 	db 52, SKY_UPPERCUT
