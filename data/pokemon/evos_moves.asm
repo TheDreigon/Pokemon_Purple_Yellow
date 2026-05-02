@@ -2588,13 +2588,16 @@ HitmonleeEvosMoves:
 	db  8, GROUND_STOMP
 	db 14, FOCUS_ENERGY
 	db 18, CALM_MIND
-	db 22, ROLLING_KICK
-	db 26, AGILITY
-	db 30, SEISMIC_TOSS
-	db 36, BRUTAL_SWING
-	db 42, TAKE_DOWN
-	db 48, FAINT_ATTACK
-	db 60, HI_JUMP_KICK
+	db 22, QUICK_ATTACK
+	db 26, ROLLING_KICK
+	db 30, BULK_UP
+	db 34, SEISMIC_TOSS
+	db 38, AGILITY
+	db 42, FAINT_ATTACK
+	db 46, TAKE_DOWN
+	db 50, SWORDS_DANCE
+	db 52, HI_JUMP_KICK
+	db 55, BRUTAL_SWING
 	db 0
 
 HitmonchanEvosMoves:
@@ -2618,15 +2621,15 @@ HitmonchanEvosMoves:
 	db 18, CALM_MIND
 	db 22, DIZZY_PUNCH
 	db 26, COMET_PUNCH
-	db 30, ROCK_PUNCH
-	db 34, BULK_UP
-	db 38, AGILITY
-	db 42, SHADOW_PUNCH
-	db 46, FAINT_ATTACK
+	db 30, AGILITY
+	db 34, ROCK_PUNCH
+	db 38, BULK_UP
+	db 42, FAINT_ATTACK
+	db 46, SHADOW_PUNCH
 	db 50, RECOVER
 	db 52, SKY_UPPERCUT
-	db 58, EXTREMESPEED
-	db 60, MAGMA_PUNCH
+	db 55, MAGMA_PUNCH
+	db 60, EXTREMESPEED
 	db 0
 
 LickitungEvosMoves:
@@ -3474,4 +3477,3 @@ MonGhostEvosMoves:
 	db 0
 ; Learnset
 	db 0
-
