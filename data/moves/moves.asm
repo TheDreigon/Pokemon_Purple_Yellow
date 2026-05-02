@@ -68,15 +68,15 @@ Moves: ; Current total = 220
 
 	; === FIGHTING TYPE (14 moves) ===
 	move SEISMIC_TOSS,   SPECIAL_DAMAGE_EFFECT,             1, FIGHTING,     100, 20
-	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       18, FIGHTING,      90, 20
 	move LOW_KICK,       FLINCH_SIDE_EFFECT2,              35, FIGHTING,      90, 35
+	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       20, FIGHTING,      90, 20
 	move BIND,           PARALYZE_SIDE_EFFECT2,            45, FIGHTING,      90, 30
 	move MACH_PUNCH,     NO_ADDITIONAL_EFFECT,             45, FIGHTING,     100, 20 ; priority move.
 	move KARATE_CHOP,    NO_ADDITIONAL_EFFECT,             50, FIGHTING,     100, 30 ; high-crit.
 	move STRENGTH,       ATTACK_UP1_EFFECT,                65, FIGHTING,     100, 20
 	move TAKE_DOWN,      DEFENSE_DOWN1_EFFECT,             80, FIGHTING,      90, 20
 	move LEEK_STRIKE,    FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25 ; new move. signature. high-crit.
-	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           80, FIGHTING,     100, 20 ; signature. new effect.
+	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           75, FIGHTING,     100, 20 ; signature. new effect.
 	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,     100, 20 ; signature.
 	move SUBMISSION,     ATTACK_DOWN1_EFFECT,              95, FIGHTING,     100, 15 ; signature.
 	move SKY_UPPERCUT,   NO_ADDITIONAL_EFFECT,            100, FIGHTING,      95, 10 ; new move. signature. high-crit.
