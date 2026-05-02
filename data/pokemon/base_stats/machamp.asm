@@ -12,7 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	tmhm ROCK_THROW,   QUICK_ATTACK, BIND,         BULLDOZE,     SEISMIC_TOSS, \
+	     RAGE,         BODY_SLAM,    BULK_UP,      IRON_HEAD,    TAKE_DOWN, \
+	     SWORDS_DANCE, EARTHQUAKE,   DOUBLE_EDGE,  THRASH,       MIMIC, \
+	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    STRENGTH
 	; end
 
 	db 0 ; padding

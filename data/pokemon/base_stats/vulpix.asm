@@ -11,7 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm QUICK_ATTACK, BODY_SLAM,    FLAME_BURST,  NIGHT_SHADE,  CONFUSE_RAY, \
+	     IGNITE,       AGILITY,      FAKE_TEARS,   CHARM,        EXTRASENSORY, \
+	     PSYCHIC_M,    LIGHT_SCREEN, FLAMETHROWER, REFLECT,      CALM_MIND
 	; end
 
 	db 0 ; padding

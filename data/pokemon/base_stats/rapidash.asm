@@ -12,7 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	tmhm QUICK_ATTACK, BULLDOZE,     BODY_SLAM,    FLAME_BURST,  IGNITE, \
+	     AGILITY,      DAZZLE_GLEAM, TAKE_DOWN,    FLAMETHROWER, DOUBLE_EDGE, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    FLASH
 	; end
 
 	db 0 ; padding

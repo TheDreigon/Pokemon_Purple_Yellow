@@ -11,7 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm ROCK_THROW,   QUICK_ATTACK, BIND,         SEISMIC_TOSS, RAGE, \
+	     BODY_SLAM,    BULK_UP,      TAKE_DOWN,    DOUBLE_EDGE,  THRASH
 	; end
 
 	db 0 ; padding
