@@ -1508,35 +1508,60 @@ MankeyEvosMoves:
 	db EVOLVE_LEVEL, 29, PRIMEAPE
 	db 0
 ; Learnset
-	db  5, SCRATCH
-	db  9, LEER
-	db 13, LOW_KICK
-	db 17, KARATE_CHOP
+; v0.7 Pass 3 (Forte review): macaco selvagem rage-fueled. BITE/SAND_ATTACK/
+; QUICK_ATTACK adicionados ao base (Forte). FIERCE_ROAR como battle roar
+; ape (Forte: optional yes). ROCK_THROW + TAKE_DOWN (Forte add). THRASH a
+; L28 simbólico — 1 lvl pre-evo (Forte). Removido: DIZZY_PUNCH/SUBMISSION
+; (técnica reservada para Machamp/Poliwrath, não força bruta)/SKY_UPPERCUT
+; (Hitmons exclusive)/FAINT_ATTACK (ape não sneak)/CRUNCH (não biter).
+; STRENGTH via HM only (não levelup — Forte note 1).
+	db  4, SCRATCH
+	db  7, LEER
+	db  9, BITE
+	db 11, LOW_KICK
+	db 13, SAND_ATTACK
+	db 15, KARATE_CHOP
+	db 18, QUICK_ATTACK
+	db 20, FOCUS_ENERGY
 	db 22, RAGE
-	db 28, FOCUS_ENERGY
-	db 34, DIZZY_PUNCH
-	db 40, FAINT_ATTACK
-	db 47, SUBMISSION
-	db 54, CRUNCH
-	db 60, SKY_UPPERCUT
+	db 25, ROCK_THROW
+	db 27, FIERCE_ROAR
+	db 28, THRASH
+	db 36, TAKE_DOWN
 	db 0
 
 PrimeapeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, SCRATCH
-	db  9, LEER
-	db 13, LOW_KICK
-	db 17, KARATE_CHOP
+; v0.7 Pass 3 (Forte review): apex rage-monkey. 13 backbone + 9 Primeape-
+; exclusives: INTIMIDATE (Forte: EARLIER, era L48), BODY_SLAM, GROUND_STOMP,
+; BULK_UP (muscle-based per Forte), COMET_PUNCH, BRUTAL_SWING (rage swing),
+; OUTRAGE (Forte: LATER), SWORDS_DANCE high lvl (Forte), GORE_ATTACK high
+; lvl (Forte). Skip ROCK_PUNCH (sem rock affinity; ROCK_THROW backbone já
+; cobre rock). STRENGTH via HM only.
+	db  4, SCRATCH
+	db  7, LEER
+	db  9, BITE
+	db 11, LOW_KICK
+	db 13, SAND_ATTACK
+	db 15, KARATE_CHOP
+	db 18, QUICK_ATTACK
+	db 20, FOCUS_ENERGY
 	db 22, RAGE
-	db 28, FOCUS_ENERGY
-	db 34, DIZZY_PUNCH
-	db 40, FAINT_ATTACK
-	db 47, SUBMISSION
-	db 54, CRUNCH
-	db 60, SKY_UPPERCUT
-	db 60, OUTRAGE
+	db 25, ROCK_THROW
+	db 26, INTIMIDATE
+	db 27, FIERCE_ROAR
+	db 28, THRASH
+	db 30, BODY_SLAM
+	db 32, GROUND_STOMP
+	db 34, BULK_UP
+	db 36, TAKE_DOWN
+	db 38, COMET_PUNCH
+	db 42, BRUTAL_SWING
+	db 48, OUTRAGE
+	db 52, SWORDS_DANCE
+	db 60, GORE_ATTACK
 	db 0
 
 GrowlitheEvosMoves:
@@ -1704,53 +1729,82 @@ MachopEvosMoves:
 	db EVOLVE_LEVEL, 26, MACHOKE
 	db 0
 ; Learnset
-	db  5, LOW_KICK
-	db  9, LEER
-	db 13, FOCUS_ENERGY
-	db 17, KARATE_CHOP
-	db 22, ROLLING_KICK
-	db 28, STRENGTH
-	db 34, BULK_UP
-	db 40, TAKE_DOWN
-	db 47, SUBMISSION
-	db 54, DIZZY_PUNCH
-	db 60, SKY_UPPERCUT
+; v0.7 Pass 3 (Forte review): humanoid disciplined fighter. TACKLE starter
+; (Forte). BULK_UP early L16 (Forte). DIZZY_PUNCH em vez de ROLLING_KICK
+; (Forte: ROLLING_KICK Hitmonlee-only). BIND/SEISMIC_TOSS/ROCK_THROW
+; adicionados (Forte). STRENGTH a L26 = evo level "em cima" (Forte).
+; GROUND_STOMP fits humanoid stomping. SUBMISSION higher level (Forte:
+; "um pouco mais alto"). Removido SKY_UPPERCUT (Hitmons exclusive).
+	db  1, TACKLE
+	db  4, LOW_KICK
+	db  7, LEER
+	db 11, KARATE_CHOP
+	db 14, FOCUS_ENERGY
+	db 16, BULK_UP
+	db 18, DIZZY_PUNCH
+	db 20, BIND
+	db 22, SEISMIC_TOSS
+	db 25, ROCK_THROW
+	db 26, STRENGTH
+	db 30, GROUND_STOMP
+	db 42, SUBMISSION
+	db 48, TAKE_DOWN
 	db 0
 
 MachokeEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 38, MACHAMP
+	db EVOLVE_LEVEL, 42, MACHAMP
 	db 0
 ; Learnset
-	db  5, LOW_KICK
-	db  9, LEER
-	db 13, FOCUS_ENERGY
-	db 17, KARATE_CHOP
-	db 22, ROLLING_KICK
-	db 28, STRENGTH
-	db 34, BULK_UP
-	db 40, TAKE_DOWN
-	db 47, SUBMISSION
-	db 54, DIZZY_PUNCH
-	db 60, SKY_UPPERCUT
+; v0.7 Pass 3 (Forte review): mid-evo. 14 backbone (Machop) + BODY_SLAM
+; Machoke-and-up exclusive (Forte: "dar body slam ao machoke").
+	db  1, TACKLE
+	db  4, LOW_KICK
+	db  7, LEER
+	db 11, KARATE_CHOP
+	db 14, FOCUS_ENERGY
+	db 16, BULK_UP
+	db 18, DIZZY_PUNCH
+	db 20, BIND
+	db 22, SEISMIC_TOSS
+	db 25, ROCK_THROW
+	db 26, STRENGTH
+	db 30, GROUND_STOMP
+	db 36, BODY_SLAM
+	db 42, SUBMISSION
+	db 48, TAKE_DOWN
 	db 0
 
 MachampEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, LOW_KICK
-	db  9, LEER
-	db 13, FOCUS_ENERGY
-	db 17, KARATE_CHOP
-	db 22, ROLLING_KICK
-	db 28, STRENGTH
-	db 34, BULK_UP
-	db 40, TAKE_DOWN
-	db 47, SUBMISSION
-	db 54, DIZZY_PUNCH
-	db 60, SKY_UPPERCUT
-	db 60, SUBMISSION
+; v0.7 Pass 3 (Forte review): apex 4-arm humanoid fighter. 15 Machoke
+; backbone + 5 Machamp-exclusives high-level (all Forte): COMET_PUNCH L42
+; (4 arms = rapid combo punches), MACH_PUNCH (priority hand), BULLET_PUNCH
+; (steel fast punch), IRON_DEFENSE (disciplined defense), SWORDS_DANCE
+; (apex setup). SUBMISSION shared (Forte: signature de Machamp + Poliwrath
+; — fica em backbone). Removido SUBMISSION duplicado L60.
+	db  1, TACKLE
+	db  4, LOW_KICK
+	db  7, LEER
+	db 11, KARATE_CHOP
+	db 14, FOCUS_ENERGY
+	db 16, BULK_UP
+	db 18, DIZZY_PUNCH
+	db 20, BIND
+	db 22, SEISMIC_TOSS
+	db 25, ROCK_THROW
+	db 26, STRENGTH
+	db 30, GROUND_STOMP
+	db 36, BODY_SLAM
+	db 42, SUBMISSION
+	db 42, COMET_PUNCH
+	db 46, MACH_PUNCH
+	db 48, TAKE_DOWN
+	db 50, BULLET_PUNCH
+	db 54, IRON_DEFENSE
+	db 58, SWORDS_DANCE
 	db 0
 
 BellsproutEvosMoves:
@@ -2521,31 +2575,58 @@ HitmonleeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 10, FOCUS_ENERGY
-	db 14, ROLLING_KICK
-	db 18, LOW_KICK
-	db 22, DIZZY_PUNCH
-	db 28, BULK_UP
-	db 34, MIND_BREAK
-	db 40, STRENGTH
-	db 47, SUBMISSION
-	db 54, HI_JUMP_KICK
+; v0.7 Pass 3 (Forte review): pure leg-only kicker, single-stage. Order
+; per Forte: starters LOW_KICK+LEER -> GROUND_STOMP -> FOCUS_ENERGY+
+; CALM_MIND -> ROLLING_KICK -> mid-late. BRUTAL_SWING como leg swing
+; (Forte interpretation). SEISMIC_TOSS (Forte add). FAINT_ATTACK no
+; high-level (Forte: maybe — included). HI_JUMP_KICK signature apex.
+; Removido: SUBMISSION (Forte: técnica de Machamp/Poliwrath, não
+; Hitmonlee), MIND_BREAK BUG (era Mewtwo signature). STRENGTH via HM
+; only (não levelup — Forte note 1).
+	db  1, LOW_KICK
+	db  1, LEER
+	db  8, GROUND_STOMP
+	db 14, FOCUS_ENERGY
+	db 18, CALM_MIND
+	db 22, ROLLING_KICK
+	db 26, AGILITY
+	db 30, SEISMIC_TOSS
+	db 36, BRUTAL_SWING
+	db 42, TAKE_DOWN
+	db 48, FAINT_ATTACK
+	db 60, HI_JUMP_KICK
 	db 0
 
 HitmonchanEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, COMET_PUNCH
-	db 10, AGILITY
-	db 14, MACH_PUNCH
-	db 18, FLAME_BURST
-	db 22, ICY_WIND
-	db 28, SHOCK_WAVE
+; v0.7 Pass 3 (Forte review): pure fist-only puncher, single-stage. Order
+; per Forte: starters QUICK_ATTACK+DEFENSE_CURL (DEFENSE_CURL agora L1
+; em vez de L30 — boxer-guard inicial faz mais sentido) -> MACH_PUNCH ->
+; FOCUS_ENERGY+CALM_MIND -> DIZZY_PUNCH+COMET_PUNCH -> mid-late punches.
+; Elemental coverage agora 100% punches: ROCK_PUNCH/SHADOW_PUNCH/
+; MAGMA_PUNCH (Forte: removido FLAME_BURST/SHOCK_WAVE/ICY_WIND porque já
+; nao são punches, apenas special attacks). FAINT_ATTACK + RECOVER
+; (Forte: stamina de boxer — exception). EXTREMESPEED Forte explicit
+; "Hitmonchan in YES list". MAGMA_PUNCH signature exception (Forte).
+; STRENGTH via HM only.
+	db  1, QUICK_ATTACK
+	db  1, DEFENSE_CURL
+	db  8, MACH_PUNCH
+	db 14, FOCUS_ENERGY
+	db 18, CALM_MIND
+	db 22, DIZZY_PUNCH
+	db 26, COMET_PUNCH
+	db 30, ROCK_PUNCH
 	db 34, BULK_UP
-	db 40, DIZZY_PUNCH
-	db 47, SKY_UPPERCUT
-	db 54, FOCUS_ENERGY
+	db 38, AGILITY
+	db 42, SHADOW_PUNCH
+	db 46, FAINT_ATTACK
+	db 50, RECOVER
+	db 52, SKY_UPPERCUT
+	db 58, EXTREMESPEED
+	db 60, MAGMA_PUNCH
 	db 0
 
 LickitungEvosMoves:
