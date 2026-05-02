@@ -2737,25 +2737,25 @@ LickitungEvosMoves:
 ; HYPER_FANG (Raticate-coded), NEUROTOXIN (kit Poison reduzido), SLUDGE
 ; (Tentacool/Grimer-only).
 	db  1, LICK
+	db 17, DEFENSE_CURL
 	db  4, SCREECH
-	db  7, HINDER
 	db  9, SUPERSONIC
-	db 11, ACID
-	db 14, HEADBUTT
-	db 17, CONSTRICT
-	db 18, GROUND_STOMP
-	db 20, ASTONISH
-	db 22, DEFENSE_CURL
-	db 26, BODY_SLAM
-	db 28, DISABLE
-	db 30, TOXIC
-	db 32, BIDE
-	db 34, EERIE_IMPULSE
-	db 36, TAUNT
-	db 40, BRUTAL_SWING
-	db 44, SEISMIC_TOSS
-	db 48, BIND
+	db 11, CONSTRICT
+	db  7, HINDER
+	db 28, HEADBUTT
+	db 22, ASTONISH
+	db 34, BIDE
+	db 40, TAUNT
+	db 20, ACID
+	db 26, BIND
+	db 38, EERIE_IMPULSE
+	db 30, DISABLE
+	db 14, GROUND_STOMP
+	db 36, BODY_SLAM
+	db 52, SEISMIC_TOSS
+	db 32, TOXIC
 	db 60, DOUBLE_EDGE
+	db 46, BRUTAL_SWING
 	db 0
 
 KoffingEvosMoves:
