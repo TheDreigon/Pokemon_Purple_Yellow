@@ -839,31 +839,50 @@ SandshrewEvosMoves:
 	db EVOLVE_LEVEL, 22, SANDSLASH
 	db 0
 ; Learnset
-	db  5, DEFENSE_CURL
-	db 10, SAND_ATTACK
-	db 14, GROUND_STOMP
+; v0.7 Pass 3 (Forte review): armadillo armoured Ground digger. DEFENSE_CURL
+; (Forte sec F list — ball-shape). MUD_SHOT em vez de GROUND_STOMP (Forte:
+; "GROUND_STOMP demasiado pequeno"). SLASH a L22 = ao evo (claws apex
+; aparecem); HONE_CLAWS imediatamente depois (Forte). Removido FISSURE
+; (Forte sec G — só Diglett-line + Onix; reservado para Sandslash apex).
+; STRENGTH NÃO (Sandshrew/Sandslash não estão na HM04 list).
+	db  4, SCRATCH
+	db  7, DEFENSE_CURL
+	db 10, MUD_SHOT
+	db 13, SAND_ATTACK
 	db 18, BULLDOZE
-	db 24, SLASH
+	db 22, SLASH
+	db 23, HONE_CLAWS
 	db 30, DIG
 	db 36, MUD_BOMB
-	db 42, EARTHQUAKE
-	db 50, FISSURE
+	db 44, EARTHQUAKE
 	db 0
 
 SandslashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, DEFENSE_CURL
-	db 10, SAND_ATTACK
-	db 14, GROUND_STOMP
+; v0.7 Pass 3 (Forte review): apex armoured digger. 10 backbone + 6 Sandslash-
+; exclusives: CUT (HM01 natural), IRON_DEFENSE (Forte: substitui SWORDS_DANCE
+; — Sandslash defensive armoured não setup attacker), ROCK_TOMB (Forte add
+; — armoured digger Rock affinity), NIGHT_SLASH (Forte: high-level claws
+; apex), GORE_ATTACK (Forte explicit L55-56), FISSURE (Forte: substitui
+; BRUTAL_SWING como last move; reavaliação — apex deep-dig finisher).
+	db  4, SCRATCH
+	db  7, DEFENSE_CURL
+	db 10, MUD_SHOT
+	db 13, SAND_ATTACK
 	db 18, BULLDOZE
-	db 24, SLASH
+	db 22, SLASH
+	db 23, HONE_CLAWS
 	db 30, DIG
+	db 36, CUT
 	db 36, MUD_BOMB
-	db 42, EARTHQUAKE
-	db 50, FISSURE
-	db 54, BRUTAL_SWING
+	db 42, IRON_DEFENSE
+	db 44, EARTHQUAKE
+	db 48, ROCK_TOMB
+	db 52, NIGHT_SLASH
+	db 56, GORE_ATTACK
+	db 60, FISSURE
 	db 0
 
 NidoranFEvosMoves:
@@ -1408,31 +1427,55 @@ DiglettEvosMoves:
 	db EVOLVE_LEVEL, 33, DUGTRIO
 	db 0
 ; Learnset
-	db  5, GROUND_STOMP
-	db 10, GROWL
-	db 14, MUD_SHOT
-	db 18, DIG
-	db 24, BULLDOZE
-	db 30, SAND_ATTACK
-	db 36, MUD_BOMB
-	db 42, EARTHQUAKE
-	db 50, FISSURE
+; v0.7 Pass 3 (Forte review): mole subterrâneo. DIG L1 (Forte: physically
+; essential — toda a anatomia Diglett é "live in dig"). GROWL como hinder
+; vocal mole (mole quase-cego, vocal makes sense). Quick attack/agility
+; speed. EARTHQUAKE a L33 = ao evo. EXTREMESPEED Forte explicit override
+; (apex mole speed). FISSURE signature Forte sec G last move L60.
+	db  1, DIG
+	db  1, SCRATCH
+	db  4, SAND_ATTACK
+	db  8, GROWL
+	db 12, QUICK_ATTACK
+	db 17, BULLDOZE
+	db 22, AGILITY
+	db 26, MUD_BOMB
+	db 33, EARTHQUAKE
+	db 36, HONE_CLAWS
+	db 40, SLASH
+	db 46, ROCK_TOMB
+	db 52, EXTREMESPEED
+	db 60, FISSURE
 	db 0
 
 DugtrioEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, GROUND_STOMP
-	db 10, GROWL
-	db 14, MUD_SHOT
-	db 18, DIG
-	db 24, BULLDOZE
-	db 30, SAND_ATTACK
-	db 36, MUD_BOMB
-	db 42, EARTHQUAKE
-	db 50, FISSURE
-	db 54, TRI_ATTACK
+; v0.7 Pass 3 (Forte review): apex 3-headed mole. 14 backbone (Diglett) +
+; 4 Dugtrio-exclusives (Forte): SCREECH (after HONE_CLAWS, não tarde),
+; NIGHT_SLASH, TAKE_DOWN, RECOVER (esconde-se debaixo de terra a
+; descansar). Removido: TRI_ATTACK (Forte sec G — só Porygon/Mew/
+; Magneton; Forte explicit "nada de tri attack aqui"). STRENGTH via HM
+; only (não levelup — Forte explicit).
+	db  1, DIG
+	db  1, SCRATCH
+	db  4, SAND_ATTACK
+	db  8, GROWL
+	db 12, QUICK_ATTACK
+	db 17, BULLDOZE
+	db 22, AGILITY
+	db 26, MUD_BOMB
+	db 33, EARTHQUAKE
+	db 36, HONE_CLAWS
+	db 38, SCREECH
+	db 40, SLASH
+	db 46, ROCK_TOMB
+	db 48, NIGHT_SLASH
+	db 52, EXTREMESPEED
+	db 54, TAKE_DOWN
+	db 58, RECOVER
+	db 60, FISSURE
 	db 0
 
 MeowthEvosMoves:
