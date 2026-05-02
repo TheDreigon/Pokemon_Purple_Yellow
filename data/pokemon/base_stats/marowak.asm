@@ -11,7 +11,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm ROCK_THROW,   BULLDOZE,     RAGE,         BODY_SLAM,    BULK_UP, \
+	     FAINT_ATTACK, CHARM,        TAKE_DOWN,    SWORDS_DANCE, ROCK_SLIDE, \
+	     DOUBLE_EDGE,  QUICK_ATTACK, NIGHT_SHADE,  IRON_HEAD,    EXTRASENSORY, \
+	     INTIMIDATE,   SCARY_FACE,   DARK_PULSE,   PSYCHIC_M,    EARTHQUAKE, \
+	     SHADOW_BALL,  THRASH,       OUTRAGE,      MIMIC,        MIRROR_MOVE, \
+	     SUBSTITUTE,   METRONOME,    STRENGTH
 	; end
 
 	db 0 ; padding

@@ -11,7 +11,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm BULLDOZE,     BODY_SLAM,    FLAME_BURST,  IGNITE,       TAKE_DOWN, \
+	     LIGHT_SCREEN, FLAMETHROWER, REFLECT,      EARTHQUAKE,   ROCK_SLIDE, \
+	     DOUBLE_EDGE,  MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME, \
+	     CUT,          STRENGTH,     FLASH
 	; end
 
 	db 0 ; padding

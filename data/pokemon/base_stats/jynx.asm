@@ -11,7 +11,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	tmhm ICY_PULSE,    NIGHT_SHADE,  CONFUSE_RAY,  DAZZLE_GLEAM, FAKE_TEARS, \
+	     CHARM,        EXTRASENSORY, SCARY_FACE,   PSYCHIC_M,    LIGHT_SCREEN, \
+	     ICE_BEAM,     DARK_PULSE,   SHADOW_BALL,  REFLECT,      CALM_MIND, \
+	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    FLASH
 	; end
 
 	db 0 ; padding

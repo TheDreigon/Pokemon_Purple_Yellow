@@ -2182,16 +2182,31 @@ FarfetchdEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, PECK
-	db  8, SAND_ATTACK
-	db 12, FURY_ATTACK
-	db 17, LEEK_STRIKE
-	db 22, FOCUS_ENERGY
-	db 28, AERIAL_ACE
-	db 34, SLASH
-	db 40, AGILITY
-	db 47, HONE_CLAWS
-	db 54, SKY_ATTACK
+; v0.7 Pass 3 (Forte review): duck samurai-bird with leek. TACKLE em vez de
+; PECK (Forte). Karate/leek combat style: KARATE_CHOP antes de LEEK_STRIKE
+; (Forte: trocar order). NIGHT_SLASH/CUT/QUICK_ATTACK/RECOVER/PETAL_DANCE
+; (Forte adds — leek-magic Grass move). FAINT_ATTACK low (samurai sneak),
+; SMOKESCREEN truques ninja (Forte). EXTREMESPEED imediatamente antes de
+; BRUTAL_SWING (Forte: high level). Removido AERIAL_ACE/FLY do levelup
+; (Forte; FLY continua via HM02). HONE_CLAWS/FURY_ATTACK/SKY_ATTACK
+; removidos.
+	db  1, TACKLE
+	db  4, SAND_ATTACK
+	db  7, LEER
+	db  8, FAINT_ATTACK
+	db 11, GUST
+	db 13, QUICK_ATTACK
+	db 15, SMOKESCREEN
+	db 18, KARATE_CHOP
+	db 22, LEEK_STRIKE
+	db 26, NIGHT_SLASH
+	db 30, SLASH
+	db 34, CUT
+	db 38, AGILITY
+	db 42, RECOVER
+	db 48, SWORDS_DANCE
+	db 52, PETAL_DANCE
+	db 58, EXTREMESPEED
 	db 60, BRUTAL_SWING
 	db 0
 
@@ -2584,34 +2599,66 @@ CuboneEvosMoves:
 	db EVOLVE_LEVEL, 28, MAROWAK
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  9, TAIL_WHIP
+; v0.7 Pass 3 (Forte review): bone-wielder small reptile-mammal, sad lonely
+; lore. FAIRY_WIND Cubone-only (Forte: baby Fairy presence pre-evo). TACKLE
+; L10/BONE_CLUB L13 (Forte explicit). FIERCE_ROAR L13 junto a BONE_CLUB
+; (Forte). HEADBUTT L18, FAINT_ATTACK L20 (Forte). BULK_UP L28 junto a RAGE
+; (Forte). HEAD_SMASH/DOUBLE_EDGE muito mais cedo (Forte: era L54/L60, agora
+; L36/L44). GROWTH Cubone-only (Forte add). FOCUS_ENERGY removido (Forte).
+; TAIL_WHIP removido (Forte).
+	db  1, GROWL
+	db  4, FAIRY_WIND
+	db 10, TACKLE
 	db 13, BONE_CLUB
-	db 17, HEADBUTT
-	db 22, FOCUS_ENERGY
-	db 28, BONEMERANG
-	db 34, RAGE
-	db 40, BULK_UP
-	db 46, EARTHQUAKE
-	db 54, DOUBLE_EDGE
+	db 13, FIERCE_ROAR
+	db 18, HEADBUTT
+	db 20, FAINT_ATTACK
+	db 22, RECOVER
+	db 26, BONEMERANG
+	db 28, RAGE
+	db 28, BULK_UP
+	db 34, BULLDOZE
+	db 36, HEAD_SMASH
+	db 40, GROWTH
+	db 44, DOUBLE_EDGE
 	db 0
 
 MarowakEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  9, TAIL_WHIP
+; v0.7 Pass 3 (Forte review): apex bone-wielder, ghost-mother lore unlocked.
+; 12 backbone (Cubone sem FAIRY_WIND/RECOVER/GROWTH per Forte) + 14
+; Marowak-exclusives: DARK_PULSE (gains on evolving, L28), BIDE+EERIE_IMPULSE
+; pouco depois evo (Forte add), DISABLE (Forte add), SPIRIT_DRAIN muito mais
+; cedo (Forte: L36 not late), INTIMIDATE/SCARY_FACE/NIGHT_SHADE/THRASH/
+; OUTRAGE/GORE_ATTACK/FISSURE/STRENGTH (HM)/EXPLOSION apex L65 (Forte:
+; "estender até L65"). Removido GLARE/RECOVER/GROWTH (Forte explicit).
+	db  1, GROWL
+	db 10, TACKLE
 	db 13, BONE_CLUB
-	db 17, HEADBUTT
-	db 22, FOCUS_ENERGY
-	db 28, BONEMERANG
-	db 34, RAGE
-	db 40, BULK_UP
-	db 46, EARTHQUAKE
-	db 47, FAINT_ATTACK
-	db 54, DOUBLE_EDGE
-	db 54, NIGHT_SLASH
+	db 13, FIERCE_ROAR
+	db 18, HEADBUTT
+	db 20, FAINT_ATTACK
+	db 26, BONEMERANG
+	db 28, RAGE
+	db 28, BULK_UP
+	db 28, DARK_PULSE
+	db 30, BIDE
+	db 32, EERIE_IMPULSE
+	db 34, BULLDOZE
+	db 36, NIGHT_SHADE
+	db 36, SPIRIT_DRAIN
+	db 38, INTIMIDATE
+	db 40, SCARY_FACE
+	db 44, HEAD_SMASH
+	db 44, DOUBLE_EDGE
+	db 46, DISABLE
+	db 50, THRASH
+	db 54, GORE_ATTACK
+	db 58, OUTRAGE
+	db 60, FISSURE
+	db 65, EXPLOSION
 	db 0
 
 HitmonleeEvosMoves:
@@ -2681,17 +2728,34 @@ LickitungEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, DEFENSE_CURL
-	db 10, WRAP
-	db 14, DISABLE
-	db 18, NEUROTOXIN
-	db 22, BODY_SLAM
-	db 28, ACID
-	db 34, SLUDGE
-	db 40, TOXIC
-	db 47, TAKE_DOWN
-	db 54, GUNK_SHOT
-	db 60, HYPER_FANG
+; v0.7 Pass 3 (Forte review): Normal/Poison reptile-camaleao tongue. LICK
+; signature. SCREECH antes do SUPERSONIC, HEADBUTT depois (Forte). HINDER
+; low (Forte add). ASTONISH/DEFENSE_CURL/BIDE/EERIE_IMPULSE/TAUNT/DISABLE/
+; SEISMIC_TOSS adicionados (Forte). CONSTRICT em vez de BIND, BIND mais
+; tarde (Forte). Removido: SLAM (Forte: já não existe; só DRAGON_SLAM que
+; não queremos), THRASH (Forte), GUNK_SHOT (Grimer-only signature),
+; HYPER_FANG (Raticate-coded), NEUROTOXIN (kit Poison reduzido), SLUDGE
+; (Tentacool/Grimer-only).
+	db  1, LICK
+	db  4, SCREECH
+	db  7, HINDER
+	db  9, SUPERSONIC
+	db 11, ACID
+	db 14, HEADBUTT
+	db 17, CONSTRICT
+	db 18, GROUND_STOMP
+	db 20, ASTONISH
+	db 22, DEFENSE_CURL
+	db 26, BODY_SLAM
+	db 28, DISABLE
+	db 30, TOXIC
+	db 32, BIDE
+	db 34, EERIE_IMPULSE
+	db 36, TAUNT
+	db 40, BRUTAL_SWING
+	db 44, SEISMIC_TOSS
+	db 48, BIND
+	db 60, DOUBLE_EDGE
 	db 0
 
 KoffingEvosMoves:
@@ -2980,50 +3044,108 @@ JynxEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, LICK
-	db 10, LOVELY_KISS
-	db 14, POWDER_SNOW
-	db 18, DRAINING_KISS
-	db 22, SING
-	db 28, ICY_WIND
-	db 34, BODY_SLAM
-	db 40, ICE_BEAM
-	db 47, PSYCHIC_M
-	db 54, BLIZZARD
-	db 60, DREAM_EATER
+; v0.7 Pass 3 (Forte review): Ice/Psychic Fairy-coded singer. 26 moves big
+; movepool. POWDER_SNOW antes de ICY_WIND (Forte). DOUBLESLAP cedo (Forte).
+; TICKLE low (Forte add). NASTY_PLOT replaces CALM_MIND mais cedo (Forte).
+; SING após L30 (Forte sec C). DRAINING_KISS/CHARM/FAIRY_WIND/PSYCHIC_BIND/
+; NIGHT_SHADE/DOUBLE_TEAM/SPIRIT_DRAIN/SHADOW_BALL/DISABLE/EERIE_IMPULSE/
+; CONFUSE_RAY/FROST_BREATH/LIGHT_SCREEN adicionados (Forte). DREAM_EATER
+; high (Forte sec G Jynx YES, apex). POUND removido (já não existe). PSYBEAM
+; removido (Forte). DARK_PULSE só TM (Forte). ICY_PULSE/SCARY_FACE só TM
+; (Forte). SMOKESCREEN/FAKE_TEARS/SCREECH/CONFUSE_RAY removidos (Forte
+; slim; CONFUSE_RAY redundante com LOVELY_KISS que já dá confusion). Total
+; 25 moves. PLAY_ROUGH NÃO (Claude: singer elegante, não rough biter).
+	db  1, LICK
+	db  4, TICKLE
+	db  7, LOVELY_KISS
+	db  9, DOUBLESLAP
+	db 11, POWDER_SNOW
+	db 14, ICY_WIND
+	db 16, FAIRY_WIND
+	db 18, NASTY_PLOT
+	db 20, CONFUSION
+	db 22, EERIE_IMPULSE
+	db 28, FROST_BREATH
+	db 30, SING
+	db 32, DRAINING_KISS
+	db 34, CHARM
+	db 36, ICE_BEAM
+	db 40, LIGHT_SCREEN
+	db 42, PSYCHIC_BIND
+	db 46, PSYCHIC_M
+	db 48, NIGHT_SHADE
+	db 50, DOUBLE_TEAM
+	db 52, SPIRIT_DRAIN
+	db 54, SHADOW_BALL
+	db 58, DISABLE
+	db 60, BLIZZARD
+	db 65, DREAM_EATER
 	db 0
 
 ElectabuzzEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, QUICK_ATTACK
-	db 10, LEER
-	db 14, THUNDERSHOCK
+; v0.7 Pass 3 (Forte review): boxer Electric counterpart de Magmar. NUZZLE
+; L1 (Forte). SCREECH/THUNDER_WAVE muito mais cedo (Forte). MACH_PUNCH um
+; pouco mais tarde (Forte). DIZZY_PUNCH em vez de KARATE_CHOP (Forte).
+; FAINT_ATTACK adicionado. STRENGTH apenas via HM (Forte). FLASH por
+; levelup (Forte: era HM only). FLAME_CHARGE/MAGNET_BOMB high (Forte add).
+; BULK_UP talvez yes (Forte). EXTREMESPEED/AGILITY very high (Forte). SEM
+; SOLARBEAM (Forte question — não, boxer Electric não é solar-coded).
+	db  1, NUZZLE
+	db  1, LEER
+	db  4, QUICK_ATTACK
+	db  4, THUNDERSHOCK
+	db  7, LOW_KICK
+	db  9, SCREECH
+	db 11, DIZZY_PUNCH
+	db 13, THUNDER_WAVE
+	db 14, SHOCK_WAVE
 	db 18, LIGHT_SCREEN
-	db 22, SHOCK_WAVE
-	db 28, THUNDER_WAVE
-	db 34, AGILITY
-	db 40, SCREECH
-	db 47, THUNDERBOLT
-	db 54, DIZZY_PUNCH
+	db 22, FAINT_ATTACK
+	db 26, MACH_PUNCH
+	db 30, BULK_UP
+	db 34, FLASH
+	db 40, METAL_SOUND
+	db 42, FLAME_CHARGE
+	db 48, THUNDERBOLT
+	db 55, AGILITY
+	db 58, EXTREMESPEED
 	db 60, THUNDER
+	db 65, MAGNET_BOMB
 	db 0
 
 MagmarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, EMBER
-	db 10, LEER
-	db 14, SMOKESCREEN
-	db 18, FAINT_ATTACK
-	db 22, FLAME_BURST
-	db 28, CONFUSE_RAY
-	db 34, MAGMA_PUNCH
-	db 40, FLAMETHROWER
-	db 47, LAVA_PLUME
-	db 54, DIZZY_PUNCH
+; v0.7 Pass 3 (Forte review): Fire/MAGMA boxer counterpart de Electabuzz.
+; IGNITE L1 egg-move (Forte). POISON_GAS L4 (Forte add — vent toxic gas).
+; ROCK_PUNCH depois de MAGMA_PUNCH (Forte). SEISMIC_TOSS/FLAME_BURST/
+; CORRODE/SOLARBEAM/EXPLOSION adicionados (Forte). ROCK_TOMB + GROWTH
+; via levelup (Forte: questions answered yes). HM CUT (Forte add).
+; FLAME_CHARGE removido (Forte). SEM DRAGON_RAGE/DRAGON_BREATH
+; (Forte question — não, Magmar é Fire/MAGMA não Dragon).
+	db  1, EMBER
+	db  1, LEER
+	db  1, IGNITE
+	db  4, POISON_GAS
+	db  7, SMOKESCREEN
+	db 11, CONFUSE_RAY
+	db 14, MAGMA_PUNCH
+	db 16, ROCK_PUNCH
+	db 18, SEISMIC_TOSS
+	db 22, FOCUS_ENERGY
+	db 25, ROCK_TOMB
+	db 26, LAVA_PLUME
+	db 30, FLAME_BURST
+	db 34, FLAMETHROWER
+	db 38, CORRODE
+	db 40, LIGHT_SCREEN
+	db 44, GROWTH
+	db 48, SOLARBEAM
+	db 55, EXPLOSION
 	db 60, FIRE_BLAST
 	db 0
 
