@@ -1,5 +1,5 @@
 	db DEX_SHELLDER ; pokedex id
-	base_stat_row 30, 65, 100, 45, 40 ; hp atk def spc spd
+	base_stat_row 30, 50, 100, 45, 30 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 190 ; catch rate
