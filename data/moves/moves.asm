@@ -60,7 +60,7 @@ Moves: ; Current total = 220
 	move FAIRY_WIND,     ATTACK_DOWN_SIDE_EFFECT,          35, FAIRY,        100, 30 ; new move.
 	move DRAINING_KISS,  DRAIN_HP_EFFECT,                  50, FAIRY,        100, 20 ; new move.
 	move DAZZLE_GLEAM,   FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
-	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              80, FAIRY,        100, 20 ; new move.
+	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              75, FAIRY,        100, 20 ; new move.
 	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; almost-signature.
 	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; almost-signature.
 	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. signature. (use solarbeam's animation)
