@@ -26,7 +26,6 @@ MoveSoundTable:
 	db SFX_BATTLE_1E,          $f0, $a0 ; GORE_ATTACK ; Forte feedback #6: deeper pitch + longer tempo for the brutal goring impact (paired with the reworked anim).
 	db SFX_SILPH_SCOPE,        $00, $ff ; PAY_DAY
 	db SFX_BATTLE_35,          $42, $01 ; DREAM_EATER
-	db SFX_BATTLE_31,          $09, $ff ; GLARE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; eye-piercing tone fits the predatory stare that paralyzes.
 	db SFX_BATTLE_35,          $00, $60 ; DEEP_SLEEP
 ; === DRAGON ===
 	db SFX_BATTLE_29,          $f0, $80 ; DRAGON_RAGE
@@ -180,6 +179,7 @@ MoveSoundTable:
 	db SFX_BATTLE_18,          $20, $a0 ; HEAD_SMASH
 	db SFX_BATTLE_36,          $f0, $20 ; ROCK_SLIDE
 	db SFX_BATTLE_0F,          $1f, $ff ; CLAMP
+	db SFX_BATTLE_29,          $20, $80 ; ROLLOUT ; v0.7 new: rolling rock multi-hit, similar tone to ROCK_TOMB
 	db SFX_BATTLE_2B,          $f0, $60 ; BONEMERANG
 	db SFX_BATTLE_22,          $f0, $ff ; CRABHAMMER ; v0.7 reviewed: was SUPER_EFFECTIVE (clean BAM); slam SFX deep-pitched fits the high-crit hammer-down strike.
 	db SFX_HORN_DRILL,         $00, $a0 ; HORN_DRILL

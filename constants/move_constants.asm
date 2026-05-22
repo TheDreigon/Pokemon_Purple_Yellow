@@ -30,7 +30,6 @@
 	const GORE_ATTACK
 	const PAY_DAY
 	const DREAM_EATER
-	const GLARE
 	const DEEP_SLEEP
 
 ; === DRAGON ===
@@ -201,6 +200,7 @@
 	const HEAD_SMASH
 	const ROCK_SLIDE
 	const CLAMP
+	const ROLLOUT
 	const BONEMERANG
 	const CRABHAMMER
 	const HORN_DRILL

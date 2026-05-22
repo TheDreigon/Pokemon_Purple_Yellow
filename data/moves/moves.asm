@@ -32,7 +32,6 @@ Moves: ; Current total = 220
 	move GORE_ATTACK,    PARALYZE_SIDE_EFFECT2,            95, DARK,          95, 15 ; new move. high-crit.
 	move PAY_DAY,        PAY_DAY_EFFECT,                   60, DARK,         100, 25 ; signature. high-crit.
 	move DREAM_EATER,    DREAM_EATER_EFFECT,              110, DARK,         100, 20 ; signature.
-	move GLARE,          PARALYZE_EFFECT,                   0, DARK,          90, 20 ; signature.
 	move DEEP_SLEEP,     SLEEP_EFFECT,                      0, DARK,          85, 20 ; signature.
 
 
@@ -69,7 +68,7 @@ Moves: ; Current total = 220
 	; === FIGHTING TYPE (14 moves) ===
 	move SEISMIC_TOSS,   SPECIAL_DAMAGE_EFFECT,             1, FIGHTING,     100, 20
 	move LOW_KICK,       FLINCH_SIDE_EFFECT2,              35, FIGHTING,      90, 35
-	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       20, FIGHTING,      90, 20
+	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       19, FIGHTING,      90, 20
 	move BIND,           PARALYZE_SIDE_EFFECT2,            45, FIGHTING,      90, 30
 	move MACH_PUNCH,     NO_ADDITIONAL_EFFECT,             45, FIGHTING,     100, 20 ; priority move.
 	move KARATE_CHOP,    NO_ADDITIONAL_EFFECT,             50, FIGHTING,     100, 30 ; high-crit.
@@ -219,7 +218,8 @@ Moves: ; Current total = 220
 	move ROCK_TOMB,      SPEED_DOWN1_EFFECT,               75, ROCK,          95, 20 ; new move.
 	move HEAD_SMASH,     RECOIL_EFFECT,                    85, ROCK,          95, 20 ; new move.
 	move ROCK_SLIDE,     PARALYZE_SIDE_EFFECT2,            95, ROCK,         100, 15
-	move CLAMP,          TRAPPING_EFFECT,                  20, ROCK,          80, 25 ; signature.
+	move CLAMP,          TRAPPING_EFFECT,                  19, ROCK,          80, 25 ; signature.
+	move ROLLOUT,        TWO_TO_FIVE_ATTACKS_EFFECT,       20, ROCK,          90, 20 ; signature.
 	move BONEMERANG,     ATTACK_TWICE_EFFECT,              45, ROCK,          90, 20 ; signature.
 	move CRABHAMMER,     FLINCH_SIDE_EFFECT2,              90, ROCK,          90, 15 ; signature.
 	move HORN_DRILL,     DEFENSE_DOWN_SIDE_EFFECT,        100, ROCK,          90, 15 ; signature. high-crit.

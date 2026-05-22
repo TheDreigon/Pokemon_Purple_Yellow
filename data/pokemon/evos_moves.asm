@@ -737,7 +737,7 @@ EkansEvosMoves:
 	db 19, POISON_STING
 	db 20, COIL
 	db 22, BIND
-	db 28, GLARE
+	db 28, SCARY_FACE
 	db 31, SUBSTITUTE
 	db 34, POISON_FANG
 	db 37, AGILITY
@@ -770,7 +770,6 @@ ArbokEvosMoves:
 	db 20, COIL
 	db 21, SCARY_FACE
 	db 22, BIND
-	db 28, GLARE
 	db 31, SUBSTITUTE
 	db 34, POISON_FANG
 	db 37, AGILITY
@@ -2121,9 +2120,9 @@ GeodudeEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): basic rolling rock with arms (Rock/Ground).
-; 11 shared (Forte's order). ROCK_PUNCH at evo level (signature na evo).
-; HEAD_SMASH high level. NO DIG (Forte removed). NO EXPLOSION (Forte:
-; signature of Koffing/Voltorb/Magmar only).
+; 11 shared (Forte's order) + ROLLOUT L42 (Forte new signature 2026-05-23).
+; ROCK_PUNCH at evo level. HEAD_SMASH high level. NO DIG (Forte removed).
+; NO EXPLOSION (Forte: Koffing/Voltorb/Magmar signature only).
 	db  4, TACKLE
 	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
@@ -2134,6 +2133,7 @@ GeodudeEvosMoves:
 	db 26, ROCK_PUNCH
 	db 30, BULLDOZE
 	db 36, ROCK_TOMB
+	db 42, ROLLOUT
 	db 50, HEAD_SMASH
 	db 0
 
@@ -2160,6 +2160,7 @@ GravelerEvosMoves:
 	db 34, TAKE_DOWN
 	db 36, ROCK_TOMB
 	db 40, EARTHQUAKE
+	db 42, ROLLOUT
 	db 46, IRON_HEAD
 	db 50, HEAD_SMASH
 	db 54, STRENGTH
@@ -2188,6 +2189,7 @@ GolemEvosMoves:
 	db 34, TAKE_DOWN
 	db 36, ROCK_TOMB
 	db 40, EARTHQUAKE
+	db 42, ROLLOUT
 	db 46, IRON_HEAD
 	db 48, IRON_DEFENSE
 	db 50, HEAD_SMASH
@@ -2669,7 +2671,6 @@ HaunterEvosMoves:
 	db 60, GROWTH
 	db 58, DARK_PULSE
 	db 60, INTIMIDATE  ; (same lvl as dark pulse)
-	db 60, GLARE
 	db 0
 
 GengarEvosMoves:
@@ -2704,7 +2705,6 @@ GengarEvosMoves:
 	db 58, DARK_PULSE
 	db 60, INTIMIDATE  ; (same lvl as dark pulse)
 	db 60, ICY_PULSE
-	db 60, GLARE
 	db 60, HAZE
 	db 60, RECOVER
 	db 60, EXPLOSION  ; (same lvl as recover)

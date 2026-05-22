@@ -18,7 +18,6 @@ AttackAnimationPointers:
 	dw GoreAttackAnim
 	dw PayDayAnim
 	dw DreamEaterAnim
-	dw GlareAnim
 	dw DeepSleepAnim
 ; === DRAGON ===
 	dw DragonRageAnim
@@ -172,6 +171,7 @@ AttackAnimationPointers:
 	dw HeadSmashAnim
 	dw RockSlideAnim
 	dw ClampAnim
+	dw RolloutAnim
 	dw BonemerangAnim
 	dw CrabhammerAnim
 	dw HornDrillAnim
@@ -493,16 +493,6 @@ DreamEaterAnim:
 	battle_anim DREAM_EATER, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	db -1 ; end
-
-GlareAnim:
-	; v0.7: relocated from BIRD section. GLARE was NORMAL in vanilla;
-	; current type is DARK. Body unchanged here — body rework lives in
-	; the upcoming feedback batch.
-	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
-	battle_anim GLARE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2023,6 +2013,14 @@ ClampAnim:
 	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 6
 	db -1 ; end
 
+RolloutAnim:
+	; v0.7 new move (Geodude-line signature). Multi-hit rolling rock —
+	; same TWO_TO_FIVE_ATTACKS_EFFECT pattern as DOUBLESLAP/COMET_PUNCH/
+	; FURY_ATTACK. Reuses CLAMP/CONSTRICT sub-anims for the spinning slam.
+	battle_anim ROLLOUT, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
+	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 4
+	db -1 ; end
+
 BonemerangAnim:
 	; v0.7 reviewed (45 BP, hits twice): now reads as a throw + return.
 	; Was just generic stars between two delays.
@@ -2034,7 +2032,8 @@ BonemerangAnim:
 CrabhammerAnim:
 	; Long pre-strike pause + held star sells the calculated, heavy
 	; crit-tier hammer drop. Slowness reads as inevitability.
-	battle_anim GLARE, SE_DARK_SCREEN_FLASH
+	; (v0.7: GLARE removed, sub-anim replaced with NO_MOVE — SFX preserved.)
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10

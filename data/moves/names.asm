@@ -18,7 +18,6 @@ MoveNames::
 	li "GORE ATTACK"
 	li "PAY DAY"
 	li "DREAM EATER"
-	li "GLARE"
 	li "DEEP SLEEP"
 ; === DRAGON ===
 	li "DRAGON RAGE"
@@ -172,6 +171,7 @@ MoveNames::
 	li "HEAD SMASH"
 	li "ROCK SLIDE"
 	li "CLAMP"
+	li "ROLLOUT"
 	li "BONEMERANG"
 	li "CRABHAMMER"
 	li "HORN DRILL"
