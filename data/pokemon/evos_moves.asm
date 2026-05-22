@@ -1534,33 +1534,50 @@ MeowthEvosMoves:
 	db EVOLVE_LEVEL, 28, PERSIAN
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  9, BITE
-	db 13, PAY_DAY
-	db 17, FURY_ATTACK
-	db 22, FAINT_ATTACK
-	db 28, HONE_CLAWS
-	db 34, SLASH
-	db 40, TAUNT
-	db 47, NIGHT_SLASH
-	db 54, BRUTAL_SWING
+; v0.7 Pass 3 (Forte review): feline cat, claws + coin. PAY_DAY
+; signature. HONE_CLAWS/SLASH/NIGHT_SLASH (claws). FAINT_ATTACK
+; (cat sneak). TAUNT (cat playful).
+	db  4, GROWL
+	db  1, SCRATCH
+	db 34, TAIL_WHIP
+	db 34, ASTONISH
+	db 30, CHARM
+	db  7, BITE
+	db 11, PAY_DAY
+	db 26, HONE_CLAWS
+	db 14, FURY_ATTACK
+	db 54, FOCUS_ENERGY
+	db 18, FAINT_ATTACK
+	db 54, AGILITY
+	db 22, SLASH
+	db 40, NASTY_PLOT
 	db 0
 
 PersianEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, GROWL
-	db  9, BITE
-	db 13, PAY_DAY
-	db 17, FURY_ATTACK
-	db 22, FAINT_ATTACK
-	db 28, HONE_CLAWS
-	db 34, SLASH
-	db 40, TAUNT
-	db 47, NIGHT_SLASH
-	db 54, BRUTAL_SWING
-	db 60, BRUTAL_SWING
+; v0.7 Pass 3 (Forte review): apex feline. INTIMIDATE (Forte F apex
+; predator). NASTY_PLOT (Forte E sneaky special). EXTREMESPEED
+; (Forte G YES list). BRUTAL_SWING apex.
+	db  4, GROWL
+	db  1, SCRATCH
+	db 34, TAIL_WHIP
+	db 34, ASTONISH
+	db 30, CHARM
+	db  7, BITE
+	db 11, PAY_DAY
+	db 26, HONE_CLAWS
+	db 14, FURY_ATTACK
+	db 54, FOCUS_ENERGY
+	db 18, FAINT_ATTACK
+	db 54, AGILITY
+	db 22, SLASH
+	db 40, NASTY_PLOT
+	db 60, RAGE
+	db 30, INTIMIDATE
+	db 46, NIGHT_SLASH
+	db 54, EXTREMESPEED
 	db 0
 
 PsyduckEvosMoves:
@@ -1568,33 +1585,49 @@ PsyduckEvosMoves:
 	db EVOLVE_LEVEL, 30, GOLDUCK
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db 10, TAIL_WHIP
+; v0.7 Pass 3 (Forte review): Water/Psychic confused duck. DISABLE
+; (canon — confused mind blocks moves). AMNESIA (Forte E Psyduck
+; list). PSYCHIC_BIND (Forte G Psyduck-line YES).
+	db  1, SCRATCH
+	db  5, GROWL
+	db 10, WATER_GUN
+	db 60, PSYWAVE
 	db 14, DISABLE
-	db 18, CONFUSION
+	db 26, HEADBUTT
 	db 22, BUBBLEBEAM
-	db 28, WATER_PULSE
-	db 34, PSYBEAM
-	db 40, SURF
-	db 46, PSYCHIC_M
-	db 54, HYDRO_PUMP
+	db 18, CONFUSION
+	db 42, AMNESIA
+	db 30, WATER_PULSE
+	db 36, EXTRASENSORY
+	db 46, PSYCHIC_BIND
 	db 0
 
 GolduckEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db 10, TAIL_WHIP
+; v0.7 Pass 3 (Forte review): apex psychic duck. CALM_MIND clearer
+; mind. SURF/CUT HMs naturais (Forte sec B). HYDRO_PUMP apex.
+	db  1, SCRATCH
+	db  5, GROWL
+	db 10, WATER_GUN
+	db 60, PSYWAVE
 	db 14, DISABLE
-	db 18, CONFUSION
+	db 26, HEADBUTT
 	db 22, BUBBLEBEAM
-	db 28, WATER_PULSE
-	db 34, PSYBEAM
+	db 18, CONFUSION
+	db 42, AMNESIA
+	db 30, WATER_PULSE
+	db 36, EXTRASENSORY
+	db 46, PSYCHIC_BIND
+	db 60, ICY_PULSE
 	db 40, SURF
-	db 46, PSYCHIC_M
-	db 54, HYDRO_PUMP
-	db 60, PSYCHIC_M
+	db 56, AQUA_JET
+	db 60, DOUBLE_TEAM
+	db 60, NIGHT_SHADE
+	db 50, PSYCHIC_M
+	db 60, ICE_BEAM
+	db 60, HYDRO_PUMP
 	db 0
 
 MankeyEvosMoves:
@@ -1718,16 +1751,17 @@ PoliwagEvosMoves:
 	db EVOLVE_LEVEL, 18, POLIWHIRL
 	db 0
 ; Learnset
-	db  5, BUBBLEBEAM
-	db  9, DOUBLESLAP
+; v0.7 Pass 3 (Forte review): tadpole Water. BUBBLEBEAM/HYPNOSIS/
+; DOUBLESLAP basic kit.
+	db  5, DOUBLESLAP
+	db  9, WATER_GUN
+	db  9, HINDER
 	db 13, HYPNOSIS
-	db 17, WATER_GUN
+	db 17, BUBBLEBEAM  ; (Evo lvl)
+	db 22, TACKLE
+	db 60, AQUA_JET
 	db 22, BODY_SLAM
 	db 28, WATER_PULSE
-	db 34, MIND_BREAK
-	db 40, SURF
-	db 47, BIDE
-	db 54, HYDRO_PUMP
 	db 0
 
 PoliwhirlEvosMoves:
@@ -1735,36 +1769,53 @@ PoliwhirlEvosMoves:
 	db EVOLVE_ITEM, WATER_STONE, 1, POLIWRATH
 	db 0
 ; Learnset
-	db  5, BUBBLEBEAM
-	db  9, DOUBLESLAP
+; v0.7 Pass 3 (Forte review): mid-evo. STRENGTH HM04 natural
+; (Forte B). BULK_UP (Forte E muscle list).
+	db  5, DOUBLESLAP
+	db  9, WATER_GUN
+	db  9, HINDER
 	db 13, HYPNOSIS
-	db 17, WATER_GUN
+	db 17, BUBBLEBEAM  ; (Evo lvl)
+	db 22, TACKLE
+	db 60, FOCUS_ENERGY
+	db 60, LOW_KICK
+	db 60, AQUA_JET
 	db 22, BODY_SLAM
 	db 28, WATER_PULSE
-	db 34, MIND_BREAK
-	db 40, SURF
-	db 47, BIDE
-	db 54, HYDRO_PUMP
+	db 40, DIZZY_PUNCH
+	db 36, BULK_UP
+	db 60, WATERFALL
+	db 44, SURF
 	db 0
 
 PoliwrathEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, BUBBLEBEAM
-	db  9, DOUBLESLAP
+; v0.7 Pass 3 (Forte review): apex Water/Fighting. SUBMISSION
+; signature (Forte: signature de Machamp + Poliwrath). DIZZY_PUNCH
+; boxer-frog. SURF HM03.
+	db  5, DOUBLESLAP
+	db  9, WATER_GUN
+	db  9, HINDER
 	db 13, HYPNOSIS
-	db 17, WATER_GUN
+	db 17, TACKLE  ; (Evo lvl)
+	db 22, BUBBLEBEAM
+	db 60, FOCUS_ENERGY
+	db 60, LOW_KICK
+	db 60, AQUA_JET
 	db 22, BODY_SLAM
 	db 28, WATER_PULSE
-	db 34, MIND_BREAK
-	db 40, SURF
-	db 40, SUBMISSION
-	db 47, BIDE
-	db 47, DIZZY_PUNCH
-	db 54, HYDRO_PUMP
-	db 54, MIND_BREAK
-	db 60, SKY_UPPERCUT
+	db 40, DIZZY_PUNCH
+	db 36, BULK_UP
+	db 32, STRENGTH
+	db 60, SEISMIC_TOSS
+	db 60, WATERFALL
+	db 44, SURF
+	db 60, TAKE_DOWN
+	db 54, SUBMISSION
+	db 60, DOUBLE_EDGE
+	db 60, HYDRO_PUMP
 	db 0
 
 AbraEvosMoves:
@@ -1798,15 +1849,15 @@ KadabraEvosMoves:
 	db 41, PSYCHIC_BIND
 	db 42, CALM_MIND  ; (EVO LVL)
 	db 43, FOCUS_ENERGY
-	db 45, RECOVER
-	db 47, EXTRASENSORY
-	db 49, LIGHT_SCREEN
-	db 51, SHOCK_WAVE
-	db 53, REFLECT
-	db 55, PSYBEAM
-	db 57, AGILITY
-	db 59, PSYCHIC_M
-	db 61, TRI_ATTACK
+	db 44, RECOVER
+	db 46, EXTRASENSORY
+	db 48, LIGHT_SCREEN
+	db 49, SHOCK_WAVE
+	db 51, REFLECT
+	db 53, PSYBEAM
+	db 54, AGILITY
+	db 56, PSYCHIC_M
+	db 58, TRI_ATTACK
 	db 0
 
 AlakazamEvosMoves:
@@ -1824,18 +1875,18 @@ AlakazamEvosMoves:
 	db 41, PSYCHIC_BIND
 	db 42, CALM_MIND  ; (EVO LVL)
 	db 43, FOCUS_ENERGY
-	db 45, RECOVER
-	db 47, EXTRASENSORY
-	db 49, LIGHT_SCREEN
-	db 51, SHOCK_WAVE
-	db 53, REFLECT
-	db 55, PSYBEAM
-	db 57, AGILITY
-	db 59, PSYCHIC_M
-	db 61, TRI_ATTACK
-	db 63, METRONOME
-	db 65, EERIE_IMPULSE
-	db 67, DARK_PULSE
+	db 44, RECOVER
+	db 46, EXTRASENSORY
+	db 48, LIGHT_SCREEN
+	db 49, SHOCK_WAVE
+	db 51, REFLECT
+	db 53, PSYBEAM
+	db 54, AGILITY
+	db 56, PSYCHIC_M
+	db 58, TRI_ATTACK
+	db 60, METRONOME
+	db 63, EERIE_IMPULSE
+	db 66, DARK_PULSE
 	db 70, MIND_BREAK
 	db 0
 
@@ -2021,16 +2072,16 @@ TentacoolEvosMoves:
 	db  6, HINDER
 	db  9, WRAP
 	db 12, CONSTRICT
-	db 15, NUZZLE
+	db 15, NEUROTOXIN
 	db 17, ACID
 	db 20, BUBBLEBEAM
 	db 23, SMOKESCREEN
 	db 26, SLUDGE
 	db 29, WATER_PULSE
 	db 30, GROWTH  ; (EVO LVL)
-	db 39, SLUDGE_WAVE
-	db 44, SURF
-	db 48, NEUROTOXIN
+	db 32, BIND
+	db 34, NUZZLE
+	db 40, SURF
 	db 0
 
 TentacruelEvosMoves:
@@ -2046,23 +2097,22 @@ TentacruelEvosMoves:
 	db  6, HINDER
 	db  9, WRAP
 	db 12, CONSTRICT
-	db 15, NUZZLE
+	db 15, NEUROTOXIN
 	db 17, ACID
 	db 20, BUBBLEBEAM
 	db 23, SMOKESCREEN
 	db 26, SLUDGE
 	db 29, WATER_PULSE
 	db 30, GROWTH  ; (EVO LVL)
-	db 31, BIND
-	db 35, SHOCK_WAVE
-	db 39, SLUDGE_WAVE
-	db 44, SURF
-	db 48, NEUROTOXIN
-	db 52, EERIE_IMPULSE
-	db 57, TOXIC
-	db 61, CORRODE
-	db 65, HYDRO_PUMP
-	db 70, GUNK_SHOT
+	db 32, BIND
+	db 34, NUZZLE
+	db 40, SURF
+	db 42, SLUDGE_WAVE
+	db 45, SHOCK_WAVE
+	db 48, EERIE_IMPULSE
+	db 52, TOXIC
+	db 56, CORRODE
+	db 60, HYDRO_PUMP
 	db 0
 
 GeodudeEvosMoves:
@@ -2207,35 +2257,47 @@ SlowpokeEvosMoves:
 	db EVOLVE_LEVEL, 35, SLOWBRO
 	db 0
 ; Learnset
-	db  6, TAIL_WHIP
-	db 10, WATER_GUN
-	db 14, CONFUSION
-	db 18, DISABLE
-	db 22, HEADBUTT
-	db 28, WATER_PULSE
-	db 34, PSYBEAM
-	db 40, AMNESIA
-	db 47, SURF
-	db 54, PSYCHIC_M
-	db 60, HYDRO_PUMP
+; v0.7 Pass 3 (Forte review): slow Water/Psychic. AMNESIA (Forte E
+; Slowpoke-line YES — only AMNESIA, NÃO CALM_MIND).
+	db  1, TAIL_WHIP
+	db 10, REST
+	db 10, PSYWAVE
+	db 28, AMNESIA
+	db 14, DISABLE
+	db  5, WATER_GUN
+	db 10, CONFUSION
+	db 18, HEADBUTT
+	db 22, WATER_PULSE
+	db 44, BIDE
+	db 34, EXTRASENSORY
+	db 48, RECOVER
 	db 0
 
 SlowbroEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  6, TAIL_WHIP
-	db 10, WATER_GUN
-	db 14, CONFUSION
-	db 18, DISABLE
-	db 22, HEADBUTT
-	db 28, WATER_PULSE
-	db 34, PSYBEAM
-	db 40, AMNESIA
-	db 47, SURF
-	db 54, PSYCHIC_M
-	db 54, BODY_SLAM
-	db 60, HYDRO_PUMP
+; v0.7 Pass 3 (Forte review): apex slow Water/Psychic. WITHDRAW
+; (shellder bite as makeshift shield). SURF/STRENGTH HMs.
+	db  1, TAIL_WHIP
+	db 10, REST
+	db 10, PSYWAVE
+	db 28, AMNESIA
+	db 14, DISABLE
+	db  5, WATER_GUN
+	db 10, CONFUSION
+	db 18, HEADBUTT
+	db 22, WATER_PULSE
+	db 38, WITHDRAW
+	db 44, BIDE
+	db 40, BODY_SLAM
+	db 34, EXTRASENSORY
+	db 44, WATERFALL
+	db 48, ICY_PULSE
+	db 34, REFLECT
+	db 48, RECOVER
+	db 48, PSYCHIC_M
+	db 48, ICE_BEAM
 	db 0
 
 MagnemiteEvosMoves:
@@ -2243,33 +2305,47 @@ MagnemiteEvosMoves:
 	db EVOLVE_LEVEL, 33, MAGNETON
 	db 0
 ; Learnset
-	db  6, THUNDERSHOCK
-	db 10, SUPERSONIC
-	db 14, SONICBOOM
+; v0.7 Pass 3 (Forte review): Electric/Steel. METAL_SOUND (Forte F
+; Steel-types). SONICBOOM signature. SHOCK_WAVE/THUNDERBOLT.
+; TRI_ATTACK reservado para Magneton (Forte G).
+	db  1, HEADBUTT
+	db 38, SCREECH
+	db  9, THUNDERSHOCK
 	db 18, THUNDER_WAVE
+	db 14, SUPERSONIC
+	db  5, SONICBOOM
+	db 60, BODY_SLAM
+	db 60, IRON_HEAD
+	db 26, METAL_SOUND
 	db 22, SHOCK_WAVE
-	db 28, SCREECH
-	db 34, BULLET_PUNCH
-	db 40, MAGNET_BOMB
-	db 46, THUNDERBOLT
-	db 54, THUNDER
+	db 60, IRON_DEFENSE
+	db 40, THUNDERBOLT
 	db 0
 
 MagnetonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  6, THUNDERSHOCK
-	db 10, SUPERSONIC
-	db 14, SONICBOOM
+; v0.7 Pass 3 (Forte review): apex Electric/Steel. TRI_ATTACK
+; (Forte G — Magneton YES, NÃO Magnemite). SCREECH metal-on-metal.
+	db  1, HEADBUTT
+	db 38, SCREECH
+	db  9, THUNDERSHOCK
 	db 18, THUNDER_WAVE
+	db 14, SUPERSONIC
+	db  5, SONICBOOM
+	db 60, BODY_SLAM
+	db 60, IRON_HEAD
+	db 26, METAL_SOUND
 	db 22, SHOCK_WAVE
-	db 28, SCREECH
-	db 34, BULLET_PUNCH
-	db 40, MAGNET_BOMB
-	db 46, THUNDERBOLT
-	db 54, THUNDER
-	db 54, TRI_ATTACK
+	db 60, IRON_DEFENSE
+	db 46, LIGHT_SCREEN
+	db 60, FOCUS_ENERGY
+	db 60, TRI_ATTACK
+	db 40, THUNDERBOLT
+	db 50, HEAVY_SLAM
+	db 32, MAGNET_BOMB
+	db 50, THUNDER
 	db 0
 
 FarfetchdEvosMoves:
@@ -2355,35 +2431,62 @@ SeelEvosMoves:
 	db EVOLVE_LEVEL, 35, DEWGONG
 	db 0
 ; Learnset
-	db  5, HEADBUTT
-	db 10, GROWL
+; v0.7 Pass 3 (Forte review): Water/Ice seal. HEADBUTT canon. REST
+; (seal naps).
+	db  5, GROWL
+	db  5, TAIL_WHIP
+	db  5, DOUBLESLAP
+	db  1, HEADBUTT
+	db 14, POWDER_SNOW
+	db 10, WATER_GUN
+	db  5, CHARM
+	db 60, BODY_SLAM
 	db 14, ICY_WIND
-	db 18, AURORA_BEAM
-	db 22, REST
 	db 28, BUBBLEBEAM
+	db 54, BIDE
+	db  5, FAKE_TEARS
+	db  5, FROST_BREATH
+	db  5, AQUA_JET
 	db 34, WATER_PULSE
+	db 44, ICY_PULSE
+	db 60, TAKE_DOWN
+	db 60, PLAY_ROUGH
+	db 52, WATERFALL
+	db 18, AURORA_BEAM
+	db 54, MIRROR_MOVE
 	db 40, ICE_BEAM
-	db 47, TAKE_DOWN
-	db 54, SURF
-	db 60, BLIZZARD
 	db 0
 
 DewgongEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, HEADBUTT
-	db 10, GROWL
-	db 14, ICY_WIND
-	db 18, AURORA_BEAM
-	db 22, REST
-	db 28, BUBBLEBEAM
-	db 34, WATER_PULSE
-	db 40, ICE_BEAM
-	db 47, TAKE_DOWN
-	db 54, SURF
-	db 60, BLIZZARD
+; v0.7 Pass 3 (Forte review): apex Water/Ice. SURF HM03 natural.
+; ICY_PULSE (Forte: NO Lorelei quirk in v0.7).
+	db  5, GROWL
+	db  5, TAIL_WHIP
+	db  5, DOUBLESLAP
+	db  1, HEADBUTT
+	db 14, POWDER_SNOW
+	db 10, WATER_GUN
+	db  5, CHARM
 	db 60, BODY_SLAM
+	db 14, ICY_WIND
+	db 28, BUBBLEBEAM
+	db 54, BIDE
+	db  5, FAKE_TEARS
+	db 60, FROST_BREATH
+	db  5, AQUA_JET
+	db 34, WATER_PULSE
+	db 44, ICY_PULSE
+	db 60, TAKE_DOWN
+	db 60, PLAY_ROUGH
+	db 52, WATERFALL
+	db 18, AURORA_BEAM
+	db 54, MIRROR_MOVE
+	db 40, ICE_BEAM
+	db 60, HYDRO_PUMP
+	db 54, BLIZZARD
 	db 0
 
 GrimerEvosMoves:
@@ -2397,22 +2500,22 @@ GrimerEvosMoves:
 ; sec G). RECOVER (Forte RECOVER list — Grimer-line). Removido
 ; POISON_FANG/TOXIC_FANGS (sem fangs — anatomia sludge).
 	db  1, ASTONISH
-	db  4, LICK
-	db  7, HARDEN
-	db 10, GROWTH
-	db 13, WATER_GUN
-	db 16, MUD_SHOT
-	db 19, ACID
-	db 22, DISABLE
-	db 25, TAUNT
-	db 28, BIND
-	db 31, SMOG
-	db 34, BODY_SLAM
-	db 37, SLUDGE
-	db 40, RECOVER
-	db 43, TOXIC
-	db 46, MUD_BOMB
-	db 49, SLUDGE_WAVE
+	db  3, LICK
+	db  6, HARDEN
+	db  9, GROWTH
+	db 12, WATER_GUN
+	db 14, MUD_SHOT
+	db 17, ACID
+	db 20, DISABLE
+	db 23, TAUNT
+	db 26, BIND
+	db 28, SMOG
+	db 31, BODY_SLAM
+	db 34, SLUDGE
+	db 37, RECOVER
+	db 39, TOXIC
+	db 42, MUD_BOMB
+	db 45, SLUDGE_WAVE
 	db 0
 
 MukEvosMoves:
@@ -2423,29 +2526,29 @@ MukEvosMoves:
 ; Muk-exclusives: STRENGTH HM04 natural (Forte sec B), CORRODE
 ; Muk signature (Forte sec F), EXPLOSION sludge bomb apex.
 	db  1, ASTONISH
-	db  4, LICK
-	db  7, HARDEN
-	db 10, GROWTH
-	db 13, WATER_GUN
-	db 16, MUD_SHOT
-	db 19, ACID
-	db 22, DISABLE
-	db 25, TAUNT
-	db 28, BIND
-	db 31, SMOG
-	db 34, BODY_SLAM
-	db 37, SLUDGE
-	db 40, RECOVER
-	db 43, TOXIC
-	db 46, MUD_BOMB
-	db 49, SLUDGE_WAVE
-	db 52, TAKE_DOWN
-	db 55, ROCK_TOMB
-	db 58, CORRODE
-	db 61, IRON_DEFENSE
-	db 64, GUNK_SHOT
-	db 67, SCARY_FACE
-	db 70, HEAVY_SLAM
+	db  3, LICK
+	db  6, HARDEN
+	db  9, GROWTH
+	db 12, WATER_GUN
+	db 14, MUD_SHOT
+	db 17, ACID
+	db 20, DISABLE
+	db 23, TAUNT
+	db 26, BIND
+	db 28, SMOG
+	db 31, BODY_SLAM
+	db 34, SLUDGE
+	db 37, RECOVER
+	db 39, TOXIC
+	db 42, MUD_BOMB
+	db 45, SLUDGE_WAVE
+	db 48, TAKE_DOWN
+	db 51, ROCK_TOMB
+	db 53, CORRODE
+	db 56, IRON_DEFENSE
+	db 59, GUNK_SHOT
+	db 62, SCARY_FACE
+	db 65, HEAVY_SLAM
 	db 0
 
 ShellderEvosMoves:
@@ -2453,32 +2556,61 @@ ShellderEvosMoves:
 	db EVOLVE_ITEM, WATER_STONE, 1, CLOYSTER
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): clam Water/Water. WITHDRAW (Forte F).
+; CLAMP signature (Forte G — Shellder/Cloyster ONLY). SUPERSONIC.
 	db  5, WITHDRAW
-	db 10, AURORA_BEAM
-	db 14, ICY_WIND
+	db 40, RECOVER
+	db  1, TACKLE
 	db 18, CLAMP
+	db 18, WATER_GUN
+	db 60, BIND
+	db 18, ICY_WIND
+	db 10, SUPERSONIC
 	db 22, BUBBLEBEAM
+	db 60, FROST_BREATH
+	db 60, AQUA_JET
+	db 60, BODY_SLAM
+	db 40, GROWTH
+	db 44, WATER_PULSE
+	db 34, ICY_PULSE
+	db 60, IRON_DEFENSE
+	db 14, AURORA_BEAM
+	db 52, NEUROTOXIN
 	db 28, ICE_BEAM
-	db 34, HARDEN
-	db 40, BLIZZARD
-	db 47, HYDRO_PUMP
-	db 54, EXPLOSION
 	db 0
 
 CloysterEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): apex Water/Ice fortress. NEUROTOXIN
+; (Forte G Shellder-line high). SPIKE_CANNON via SONICBOOM.
+; EXPLOSION (clam shells crack).
 	db  5, WITHDRAW
-	db 10, AURORA_BEAM
-	db 14, ICY_WIND
+	db 40, RECOVER
+	db  1, TACKLE
 	db 18, CLAMP
+	db 18, WATER_GUN
+	db 60, BIND
+	db 18, ICY_WIND
+	db 10, SUPERSONIC
 	db 22, BUBBLEBEAM
+	db 60, FROST_BREATH
+	db 60, AQUA_JET
+	db 60, BODY_SLAM
+	db 40, GROWTH
+	db 44, WATER_PULSE
+	db 34, ICY_PULSE
+	db 60, ROCK_TOMB
+	db 60, IRON_DEFENSE
+	db 14, AURORA_BEAM
+	db 52, NEUROTOXIN
 	db 28, ICE_BEAM
-	db 34, HARDEN
-	db 40, BLIZZARD
+	db 40, HEAVY_SLAM
+	db 60, EXPLOSION
 	db 47, HYDRO_PUMP
-	db 54, EXPLOSION
+	db 40, BLIZZARD
+	db 40, ROCK_SLIDE
 	db 0
 
 GastlyEvosMoves:
@@ -2486,17 +2618,24 @@ GastlyEvosMoves:
 	db EVOLVE_LEVEL, 26, HAUNTER
 	db 0
 ; Learnset
-	db  5, LICK
-	db  9, SMOG
-	db 13, ASTONISH
-	db 17, CONFUSE_RAY
-	db 22, NIGHT_SHADE
-	db 28, SHADOW_SNEAK
-	db 34, WILL_O_WISP
-	db 40, SHADOW_BALL
-	db 47, DARK_PULSE
-	db 54, SHADOW_PUNCH
-	db 60, DREAM_EATER
+; v0.7 Pass 3 (Forte review): Ghost/Poison gas. LICK/ASTONISH/
+; NIGHT_SHADE Ghost basics. SMOG (Poison-coded gas).
+	db  5, SMOG
+	db 13, CONFUSE_RAY
+	db  9, ASTONISH
+	db 60, LEER
+	db  1, LICK
+	db 22, POISON_GAS
+	db 34, SHADOW_SNEAK
+	db 60, FAINT_ATTACK  ; (same lvl as shadow sneak)
+	db 17, NIGHT_SHADE
+	db 28, WILL_O_WISP  ; (same lvl as night shade)
+	db 34, PSYWAVE
+	db 38, NASTY_PLOT
+	db 60, DISABLE  ; (same lvl as nasty plot)
+	db 60, SPIRIT_DRAIN
+	db 50, SCARY_FACE
+	db 40, SHADOW_BALL  ; (Evo lvl)
 	db 0
 
 HaunterEvosMoves:
@@ -2504,34 +2643,74 @@ HaunterEvosMoves:
 	db EVOLVE_LEVEL, 42, GENGAR
 	db 0
 ; Learnset
-	db  5, LICK
-	db  9, SMOG
-	db 13, ASTONISH
-	db 17, CONFUSE_RAY
-	db 22, NIGHT_SHADE
-	db 28, SHADOW_SNEAK
-	db 34, WILL_O_WISP
-	db 40, SHADOW_BALL
-	db 47, DARK_PULSE
-	db 54, SHADOW_PUNCH
-	db 60, DREAM_EATER
+; v0.7 Pass 3 (Forte review): mid-evo. SHADOW_PUNCH (Ghost fist
+; appears). DREAM_EATER (Ghost-coded — Forte G Gengar YES via line).
+	db  5, SMOG
+	db 13, CONFUSE_RAY
+	db  9, ASTONISH
+	db 60, LEER
+	db  1, LICK
+	db 22, POISON_GAS
+	db 34, SHADOW_SNEAK
+	db 60, FAINT_ATTACK  ; (same lvl as shadow sneak)
+	db 17, NIGHT_SHADE
+	db 28, WILL_O_WISP  ; (same lvl as night shade)
+	db 34, PSYWAVE
+	db 38, NASTY_PLOT
+	db 60, DISABLE  ; (same lvl as nasty plot)
+	db 46, SHADOW_PUNCH
+	db 60, EXTRASENSORY  ; (same lvl as shadow punch)
+	db 60, SLUDGE
+	db 60, SPIRIT_DRAIN
+	db 60, ICY_WIND
+	db 50, SCARY_FACE
+	db 40, SHADOW_BALL  ; (Evo lvl)
+	db 60, TOXIC
+	db 60, GROWTH
+	db 58, DARK_PULSE
+	db 60, INTIMIDATE  ; (same lvl as dark pulse)
+	db 60, GLARE
 	db 0
 
 GengarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, LICK
-	db  9, SMOG
-	db 13, ASTONISH
-	db 17, CONFUSE_RAY
-	db 22, NIGHT_SHADE
-	db 28, SHADOW_SNEAK
-	db 34, WILL_O_WISP
-	db 40, SHADOW_BALL
-	db 47, DARK_PULSE
-	db 54, SHADOW_PUNCH
-	db 60, DREAM_EATER
+; v0.7 Pass 3 (Forte review): apex Ghost/Poison. SCARY_FACE (Forte
+; F via levelup list). DARK_PULSE (Forte G Gengar YES). NASTY_PLOT
+; (Forte E sneaky). HYPNOSIS+DEEP_SLEEP via Forte sec C? Not Gengar.
+	db  5, SMOG
+	db 13, CONFUSE_RAY
+	db  9, ASTONISH
+	db 60, LEER
+	db  1, LICK
+	db 22, POISON_GAS
+	db 34, SHADOW_SNEAK
+	db 60, FAINT_ATTACK  ; (same lvl as shadow sneak)
+	db 17, NIGHT_SHADE
+	db 28, WILL_O_WISP  ; (same lvl as night shade)
+	db 34, PSYWAVE
+	db 38, NASTY_PLOT
+	db 60, DISABLE  ; (same lvl as nasty plot)
+	db 46, SHADOW_PUNCH
+	db 60, EXTRASENSORY  ; (same lvl as shadow punch)
+	db 60, SLUDGE
+	db 60, SPIRIT_DRAIN
+	db 60, ICY_WIND
+	db 50, SCARY_FACE
+	db 40, SHADOW_BALL  ; (Evo lvl)
+	db 60, TOXIC
+	db 60, GROWTH
+	db 58, DARK_PULSE
+	db 60, INTIMIDATE  ; (same lvl as dark pulse)
+	db 60, ICY_PULSE
+	db 60, GLARE
+	db 60, HAZE
+	db 60, RECOVER
+	db 60, EXPLOSION  ; (same lvl as recover)
+	db 60, DEEP_SLEEP
+	db 52, DREAM_EATER
+	db 60, PSYCHIC_M  ; (lvl 70)
 	db 0
 
 OnixEvosMoves:
@@ -2590,20 +2769,20 @@ DrowzeeEvosMoves:
 	db  4, PSYWAVE
 	db  7, DISABLE
 	db 10, HEADBUTT
-	db 14, LICK
-	db 17, POISON_GAS
-	db 20, CONFUSION
-	db 24, NASTY_PLOT
-	db 27, EERIE_IMPULSE
-	db 30, NIGHT_SHADE
-	db 33, EXTRASENSORY
-	db 37, SMOG
-	db 40, PSYCHIC_BIND
-	db 43, DEEP_SLEEP
-	db 47, DREAM_EATER
-	db 53, DARK_PULSE
-	db 56, PSYBEAM
-	db 66, PSYCHIC_M
+	db 13, LICK
+	db 16, POISON_GAS
+	db 19, CONFUSION
+	db 22, NASTY_PLOT
+	db 25, EERIE_IMPULSE
+	db 28, NIGHT_SHADE
+	db 31, EXTRASENSORY
+	db 34, SMOG
+	db 37, PSYCHIC_BIND
+	db 40, DEEP_SLEEP
+	db 43, DREAM_EATER
+	db 49, DARK_PULSE
+	db 52, PSYBEAM
+	db 61, PSYCHIC_M
 	db 0
 
 HypnoEvosMoves:
@@ -2617,24 +2796,24 @@ HypnoEvosMoves:
 	db  4, PSYWAVE
 	db  7, DISABLE
 	db 10, HEADBUTT
-	db 14, LICK
-	db 17, POISON_GAS
-	db 20, CONFUSION
-	db 24, NASTY_PLOT
-	db 27, EERIE_IMPULSE
-	db 30, NIGHT_SHADE
-	db 33, EXTRASENSORY
-	db 37, SMOG
-	db 40, PSYCHIC_BIND
-	db 43, DEEP_SLEEP
-	db 47, DREAM_EATER
-	db 50, SCARY_FACE
-	db 53, DARK_PULSE
-	db 56, PSYBEAM
-	db 60, SHADOW_PUNCH
-	db 63, REFLECT
-	db 66, PSYCHIC_M
-	db 70, SHADOW_BALL
+	db 13, LICK
+	db 16, POISON_GAS
+	db 19, CONFUSION
+	db 22, NASTY_PLOT
+	db 25, EERIE_IMPULSE
+	db 28, NIGHT_SHADE
+	db 31, EXTRASENSORY
+	db 34, SMOG
+	db 37, PSYCHIC_BIND
+	db 40, DEEP_SLEEP
+	db 43, DREAM_EATER
+	db 46, SCARY_FACE
+	db 49, DARK_PULSE
+	db 52, PSYBEAM
+	db 55, SHADOW_PUNCH
+	db 58, REFLECT
+	db 61, PSYCHIC_M
+	db 65, SHADOW_BALL
 	db 0
 
 KrabbyEvosMoves:
@@ -2642,34 +2821,40 @@ KrabbyEvosMoves:
 	db EVOLVE_LEVEL, 28, KINGLER
 	db 0
 ; Learnset
-	db  5, VICEGRIP
-	db  9, LEER
-	db 13, BUBBLEBEAM
-	db 17, MUD_SHOT
-	db 22, BIND
-	db 28, WATER_PULSE
-	db 34, BULK_UP
-	db 40, CRABHAMMER
-	db 47, SURF
-	db 54, GUILLOTINE
-	db 60, HYDRO_PUMP
+; v0.7 Pass 3 (Forte review): crab Water. VICEGRIP signature.
+; CRABHAMMER (Forte G — Krabby/Kingler ONLY). HARDEN shell.
+	db  5, LEER
+	db  9, VICEGRIP
+	db 14, HARDEN
+	db 18, WATER_GUN
+	db 22, BUBBLEBEAM
+	db 28, GROUND_STOMP
+	db 32, CRABHAMMER
+	db 40, GUILLOTINE
 	db 0
 
 KinglerEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, VICEGRIP
-	db  9, LEER
-	db 13, BUBBLEBEAM
-	db 17, MUD_SHOT
-	db 22, BIND
-	db 28, WATER_PULSE
-	db 34, BULK_UP
-	db 40, CRABHAMMER
-	db 47, SURF
-	db 54, GUILLOTINE
-	db 60, HYDRO_PUMP
+; v0.7 Pass 3 (Forte review): apex crab. CUT/SURF/STRENGTH HMs
+; (Forte B Kingler YES all 3). SWORDS_DANCE (Forte E TM list).
+	db  5, LEER
+	db  9, VICEGRIP
+	db 14, HARDEN
+	db 18, WATER_GUN
+	db 22, BUBBLEBEAM
+	db 28, FURY_ATTACK
+	db 32, CRABHAMMER
+	db 36, CUT
+	db 40, GUILLOTINE
+	db 44, SURF
+	db 48, STRENGTH
+	db 54, SWORDS_DANCE
+	db 60, BRUTAL_SWING
+	db 60, WATERFALL
+	db 60, BULLDOZE
+	db 60, ROCK_PUNCH
 	db 0
 
 VoltorbEvosMoves:
@@ -2677,33 +2862,39 @@ VoltorbEvosMoves:
 	db EVOLVE_LEVEL, 30, ELECTRODE
 	db 0
 ; Learnset
-	db  5, SONICBOOM
-	db 10, THUNDERSHOCK
-	db 14, SCREECH
-	db 18, SHOCK_WAVE
-	db 22, MAGNET_BOMB
-	db 28, THUNDER_WAVE
-	db 34, EXPLOSION
+; v0.7 Pass 3 (Forte review): pokeball-shaped Electric. TACKLE/
+; SCREECH/SHOCK_WAVE/THUNDERBOLT. EXPLOSION canon.
+	db  1, TACKLE
+	db  5, SCREECH
+	db 10, SONICBOOM
+	db 14, THUNDERSHOCK
+	db 18, DEFENSE_CURL
+	db 22, THUNDER_WAVE
+	db 28, SHOCK_WAVE
+	db 34, LIGHT_SCREEN
 	db 40, THUNDERBOLT
-	db 47, MIRROR_MOVE
-	db 54, THUNDER
+	db 47, EXPLOSION
 	db 0
 
 ElectrodeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, SONICBOOM
-	db 10, THUNDERSHOCK
-	db 14, SCREECH
-	db 18, SHOCK_WAVE
-	db 22, MAGNET_BOMB
-	db 28, THUNDER_WAVE
-	db 34, EXPLOSION
+; v0.7 Pass 3 (Forte review): apex pokeball. AGILITY (fast spin).
+; MIRROR_COAT? Skip. THUNDER apex.
+	db  1, TACKLE
+	db  5, SCREECH
+	db 10, SONICBOOM
+	db 14, THUNDERSHOCK
+	db 18, DEFENSE_CURL
+	db 22, THUNDER_WAVE
+	db 28, SHOCK_WAVE
+	db 32, AGILITY
+	db 34, LIGHT_SCREEN
 	db 40, THUNDERBOLT
-	db 47, MIRROR_MOVE
-	db 54, THUNDER
-	db 54, EXPLOSION
+	db 47, EXPLOSION
+	db 54, REFLECT
+	db 60, THUNDER
 	db 0
 
 ExeggcuteEvosMoves:
@@ -2937,20 +3128,20 @@ KoffingEvosMoves:
 	db  4, SMOG
 	db  7, SMOKESCREEN
 	db 10, TAUNT
-	db 14, DISABLE
-	db 17, ACID
-	db 20, EMBER
-	db 24, BIDE
-	db 27, GROWTH
-	db 30, EERIE_IMPULSE
-	db 33, NIGHT_SHADE
-	db 37, SLUDGE
-	db 40, HAZE
-	db 43, LIGHT_SCREEN
-	db 47, TOXIC
-	db 50, SLUDGE_WAVE
-	db 53, FLAMETHROWER
-	db 60, EXPLOSION
+	db 13, DISABLE
+	db 16, ACID
+	db 19, EMBER
+	db 22, BIDE
+	db 25, GROWTH
+	db 28, EERIE_IMPULSE
+	db 31, NIGHT_SHADE
+	db 34, SLUDGE
+	db 37, HAZE
+	db 40, LIGHT_SCREEN
+	db 43, TOXIC
+	db 46, SLUDGE_WAVE
+	db 49, FLAMETHROWER
+	db 55, EXPLOSION
 	db 0
 
 WeezingEvosMoves:
@@ -2964,24 +3155,24 @@ WeezingEvosMoves:
 	db  4, SMOG
 	db  7, SMOKESCREEN
 	db 10, TAUNT
-	db 14, DISABLE
-	db 17, ACID
-	db 20, EMBER
-	db 24, BIDE
-	db 27, GROWTH
-	db 30, EERIE_IMPULSE
-	db 33, NIGHT_SHADE
-	db 37, SLUDGE
-	db 40, HAZE
-	db 43, LIGHT_SCREEN
-	db 47, TOXIC
-	db 50, SLUDGE_WAVE
-	db 53, FLAMETHROWER
-	db 56, SCARY_FACE
-	db 60, EXPLOSION
-	db 63, CORRODE
-	db 66, GUNK_SHOT
-	db 70, DARK_PULSE
+	db 13, DISABLE
+	db 16, ACID
+	db 19, EMBER
+	db 22, BIDE
+	db 25, GROWTH
+	db 28, EERIE_IMPULSE
+	db 31, NIGHT_SHADE
+	db 34, SLUDGE
+	db 37, HAZE
+	db 40, LIGHT_SCREEN
+	db 43, TOXIC
+	db 46, SLUDGE_WAVE
+	db 49, FLAMETHROWER
+	db 52, SCARY_FACE
+	db 55, EXPLOSION
+	db 58, CORRODE
+	db 61, GUNK_SHOT
+	db 65, DARK_PULSE
 	db 0
 
 RhyhornEvosMoves:
@@ -3114,15 +3305,21 @@ KangaskhanEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, TAIL_WHIP
-	db 10, BITE
+; v0.7 Pass 3 (Forte review): mãe protetora savana (Forte H).
+; Forte mas não maliciosa nem desnecessariamente bruta. BULK_UP
+; (Forte E muscle). STRENGTH HM04 (Forte B).
+	db  1, TAIL_WHIP
+	db  5, BITE
+	db 10, LEER
+	db 14, DIZZY_PUNCH
 	db 18, RAGE
-	db 22, DIZZY_PUNCH
-	db 28, MACH_PUNCH
-	db 34, BODY_SLAM
+	db 22, FOCUS_ENERGY
+	db 26, COMET_PUNCH
+	db 32, BULK_UP
+	db 36, BODY_SLAM
 	db 40, STRENGTH
 	db 47, TAKE_DOWN
-	db 54, DIZZY_PUNCH
+	db 54, OUTRAGE
 	db 60, DOUBLE_EDGE
 	db 0
 
@@ -3131,34 +3328,37 @@ HorseaEvosMoves:
 	db EVOLVE_LEVEL, 26, SEADRA
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db  9, SMOKESCREEN
-	db 13, BUBBLEBEAM
-	db 17, LEER
+; v0.7 Pass 3 (Forte review): seahorse Water. SMOKESCREEN (ink).
+; DRAGON_RAGE (proto-dragon).
+	db  5, SMOKESCREEN
+	db  9, WATER_GUN
+	db 14, LEER
+	db 18, BUBBLEBEAM
 	db 22, WATER_PULSE
 	db 28, AGILITY
-	db 34, DRAGON_BREATH
-	db 40, DRAGON_RAGE
-	db 47, SURF
-	db 54, DRAGON_CLAW
-	db 60, HYDRO_PUMP
+	db 34, DRAGON_RAGE
+	db 40, ICE_BEAM
+	db 47, HYDRO_PUMP
 	db 0
 
 SeadraEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db  9, SMOKESCREEN
-	db 13, BUBBLEBEAM
-	db 17, LEER
+; v0.7 Pass 3 (Forte review): apex Water dragon. DRAGON_BREATH.
+; DRAGON_CLAW.
+	db  5, SMOKESCREEN
+	db  9, WATER_GUN
+	db 14, LEER
+	db 18, BUBBLEBEAM
 	db 22, WATER_PULSE
 	db 28, AGILITY
-	db 34, DRAGON_BREATH
-	db 40, DRAGON_RAGE
-	db 47, SURF
-	db 54, DRAGON_CLAW
-	db 60, HYDRO_PUMP
+	db 34, DRAGON_RAGE
+	db 40, ICE_BEAM
+	db 44, DRAGON_CLAW
+	db 47, HYDRO_PUMP
+	db 52, DRAGON_BREATH
+	db 60, DRAGON_SLAM
 	db 0
 
 GoldeenEvosMoves:
@@ -3166,69 +3366,79 @@ GoldeenEvosMoves:
 	db EVOLVE_LEVEL, 24, SEAKING
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db  9, SUPERSONIC
-	db 13, HORN_ATTACK
-	db 17, BUBBLEBEAM
+; v0.7 Pass 3 (Forte review): goldfish Water with horn. PECK/
+; TAIL_WHIP/HORN_ATTACK. AGILITY (fast fish).
+	db  1, PECK
+	db  5, TAIL_WHIP
+	db 10, SUPERSONIC
+	db 14, HORN_ATTACK
+	db 18, WATER_GUN
 	db 22, FURY_ATTACK
-	db 28, WATER_PULSE
-	db 34, WATERFALL
+	db 28, BUBBLEBEAM
+	db 34, WATER_PULSE
 	db 40, AGILITY
-	db 47, SURF
-	db 54, HORN_DRILL
-	db 60, MEGAHORN
 	db 0
 
 SeakingEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db  9, SUPERSONIC
-	db 13, HORN_ATTACK
-	db 17, BUBBLEBEAM
+; v0.7 Pass 3 (Forte review): apex goldfish. HORN_DRILL apex.
+; WATERFALL apex.
+	db  1, PECK
+	db  5, TAIL_WHIP
+	db 10, SUPERSONIC
+	db 14, HORN_ATTACK
+	db 18, WATER_GUN
 	db 22, FURY_ATTACK
-	db 28, WATER_PULSE
-	db 34, WATERFALL
+	db 28, BUBBLEBEAM
+	db 34, WATER_PULSE
 	db 40, AGILITY
-	db 47, SURF
-	db 54, HORN_DRILL
-	db 60, MEGAHORN
+	db 44, WATERFALL
+	db 50, SURF
+	db 54, MEGAHORN
+	db 60, HORN_DRILL
 	db 0
 
 StaryuEvosMoves:
 ; Evolutions
-	db EVOLVE_ITEM, MOON_STONE, 1, STARMIE
+	db EVOLVE_ITEM, WATER_STONE, 1, STARMIE
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db 10, HARDEN
-	db 14, BUBBLEBEAM
-	db 18, FAINT_ATTACK
+; v0.7 Pass 3 (Forte review): star Water. RECOVER (Forte F Staryu-
+; line YES). HARDEN. FLASH HM05 natural (Forte B Staryu-line).
+	db  1, TACKLE
+	db  5, HARDEN
+	db 10, WATER_GUN
+	db 18, BUBBLEBEAM
 	db 22, RECOVER
 	db 28, WATER_PULSE
 	db 34, PSYBEAM
-	db 40, ICY_WIND
-	db 47, SURF
-	db 54, PSYCHIC_M
-	db 60, HYDRO_PUMP
+	db 40, FLASH
+	db 47, HYDRO_PUMP
 	db 0
 
 StarmieEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, WATER_GUN
-	db 10, HARDEN
-	db 14, BUBBLEBEAM
-	db 18, FAINT_ATTACK
+; v0.7 Pass 3 (Forte review): apex star. CALM_MIND (Forte E).
+; LIGHT_SCREEN/REFLECT (Forte F). PSYCHIC_M apex.
+	db  1, TACKLE
+	db  5, HARDEN
+	db 10, WATER_GUN
+	db 18, BUBBLEBEAM
 	db 22, RECOVER
 	db 28, WATER_PULSE
+	db 32, CONFUSION
 	db 34, PSYBEAM
-	db 40, ICY_WIND
-	db 47, SURF
-	db 54, PSYCHIC_M
-	db 60, HYDRO_PUMP
+	db 38, LIGHT_SCREEN
+	db 40, FLASH
+	db 44, REFLECT
+	db 47, HYDRO_PUMP
+	db 52, SURF
+	db 56, CALM_MIND
+	db 60, PSYCHIC_M
 	db 0
 
 MrMimeEvosMoves:
@@ -3265,17 +3475,23 @@ ScytherEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, QUICK_ATTACK
-	db  9, LEER
+; v0.7 Pass 3 (Forte review): mantis Bug/Flying single-stage.
+; FOCUS_ENERGY (Forte E warriors). CUT/FLY HMs naturais (Forte B).
+; SWORDS_DANCE (Forte E TM list YES).
+	db  1, QUICK_ATTACK
+	db  5, LEER
+	db  9, FOCUS_ENERGY
 	db 13, FURY_ATTACK
-	db 17, FOCUS_ENERGY
-	db 22, WING_ATTACK
-	db 28, SLASH
-	db 34, AERIAL_ACE
-	db 40, AGILITY
-	db 47, NIGHT_SLASH
-	db 54, BRUTAL_SWING
-	db 60, GUILLOTINE
+	db 18, WING_ATTACK
+	db 22, SLASH
+	db 26, AGILITY
+	db 32, AERIAL_ACE
+	db 36, CUT
+	db 40, BUG_BUZZ
+	db 44, FLY
+	db 48, NIGHT_SLASH
+	db 54, SWORDS_DANCE
+	db 60, BRUTAL_SWING
 	db 0
 
 JynxEvosMoves:
@@ -3292,32 +3508,33 @@ JynxEvosMoves:
 ; removido (Forte). DARK_PULSE só TM (Forte). ICY_PULSE/SCARY_FACE só TM
 ; (Forte). SMOKESCREEN/FAKE_TEARS/SCREECH/CONFUSE_RAY removidos (Forte
 ; slim; CONFUSE_RAY redundante com LOVELY_KISS que já dá confusion). Total
-; 25 moves. PLAY_ROUGH NÃO (Claude: singer elegante, não rough biter).
+; 26 moves. PLAY_ROUGH NÃO (Claude: singer elegante, não rough biter).
 	db  1, LICK
 	db  4, TICKLE
-	db  7, LOVELY_KISS
 	db  9, DOUBLESLAP
 	db 11, POWDER_SNOW
-	db 14, ICY_WIND
 	db 16, FAIRY_WIND
-	db 18, NASTY_PLOT
-	db 20, CONFUSION
-	db 22, EERIE_IMPULSE
-	db 28, FROST_BREATH
 	db 30, SING
-	db 32, DRAINING_KISS
+	db 22, EERIE_IMPULSE
+	db 20, PSYWAVE
+	db 18, NASTY_PLOT
+	db 14, ICY_WIND
+	db  7, LOVELY_KISS
 	db 34, CHARM
-	db 36, ICE_BEAM
-	db 40, LIGHT_SCREEN
-	db 42, PSYCHIC_BIND
-	db 46, PSYCHIC_M
-	db 48, NIGHT_SHADE
-	db 50, DOUBLE_TEAM
-	db 52, SPIRIT_DRAIN
-	db 54, SHADOW_BALL
-	db 58, DISABLE
-	db 60, BLIZZARD
-	db 65, DREAM_EATER
+	db 38, DISABLE
+	db 28, FROST_BREATH
+	db 50, NIGHT_SHADE
+	db 32, DRAINING_KISS
+	db 65, ICY_PULSE
+	db 52, DOUBLE_TEAM
+	db 48, EXTRASENSORY
+	db 65, AURORA_BEAM
+	db 46, LIGHT_SCREEN
+	db 55, SPIRIT_DRAIN
+	db 44, ICE_BEAM
+	db 60, SHADOW_BALL
+	db 58, BLIZZARD
+	db 65, DARK_PULSE
 	db 0
 
 ElectabuzzEvosMoves:
@@ -3391,38 +3608,50 @@ PinsirEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, VICEGRIP
-	db 10, FOCUS_ENERGY
-	db 14, BIND
-	db 18, BUG_BITE
-	db 22, SEISMIC_TOSS
-	db 28, GORE_ATTACK
-	db 34, BULK_UP
-	db 40, BRUTAL_SWING
-	db 47, MEGAHORN
-	db 54, GUILLOTINE
-	db 60, SUBMISSION
+; v0.7 Pass 3 (Forte review): stag-beetle Bug single-stage.
+; VICEGRIP signature. GUILLOTINE apex. CUT/STRENGTH HMs (Forte B).
+; SWORDS_DANCE (Forte E TM list).
+	db  1, VICEGRIP
+	db  5, LEER
+	db  9, FOCUS_ENERGY
+	db 13, BIND
+	db 18, SEISMIC_TOSS
+	db 22, BUG_BITE
+	db 26, SLASH
+	db 32, BULK_UP
+	db 36, CUT
+	db 40, STRENGTH
+	db 44, BUG_BUZZ
+	db 48, SUBMISSION
+	db 52, SWORDS_DANCE
+	db 56, BRUTAL_SWING
+	db 60, GUILLOTINE
 	db 0
 
 TaurosEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  6, TAIL_WHIP
+; v0.7 Pass 3 (Forte review): touro selvagem fortíssimo (Forte H).
+; Charge/rage/wild physical. BULK_UP (Forte E). HORN_DRILL last
+; move (Forte G — Tauros high lvl).
+	db  1, TACKLE
+	db  5, TAIL_WHIP
 	db 10, HORN_ATTACK
-	db 14, FOCUS_ENERGY
-	db 18, GROUND_STOMP
-	db 22, INTIMIDATE
-	db 28, RAGE
-	db 32, HORN_CHARGE
-	db 36, SCARY_FACE
-	db 40, TAKE_DOWN
-	db 45, STRENGTH
-	db 50, BODY_SLAM
-	db 54, GORE_ATTACK
-	db 58, MEGAHORN
-	db 62, OUTRAGE
-	db 66, HEAD_SMASH
+	db 14, LEER
+	db 18, RAGE
+	db 22, FOCUS_ENERGY
+	db 28, HORN_CHARGE
+	db 32, INTIMIDATE
+	db 36, GROUND_STOMP
+	db 40, STRENGTH
+	db 44, BULK_UP
+	db 48, TAKE_DOWN
+	db 52, SCARY_FACE
+	db 54, THRASH
+	db 58, OUTRAGE
+	db 60, DOUBLE_EDGE
+	db 65, HORN_DRILL
 	db 0
 
 MagikarpEvosMoves:
@@ -3481,24 +3710,33 @@ LaprasEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  6, SING
-	db 12, WATER_PULSE
-	db 16, ICY_WIND
-	db 22, CONFUSE_RAY
-	db 25, CHARM
-	db 28, BODY_SLAM
-	db 32, BIDE
-	db 36, ICE_BEAM
-	db 42, SURF
-	db 48, BLIZZARD
-	db 55, HYDRO_PUMP
-	db 60, RECOVER
+; v0.7 Pass 3 (Forte review): gentle Water/Ice giant. SING (Forte
+; C YES). SURF/STRENGTH HMs (Forte B). PSYCHIC_M canon learn.
+	db  1, WATER_GUN
+	db  5, GROWL
+	db 10, TAIL_WHIP
+	db 14, ICY_WIND
+	db 18, BODY_SLAM
+	db 22, AURORA_BEAM
+	db 28, BUBBLEBEAM
+	db 32, SING
+	db 34, WATER_PULSE
+	db 38, ICY_PULSE
+	db 40, ICE_BEAM
+	db 44, STRENGTH
+	db 48, SURF
+	db 52, BLIZZARD
+	db 56, PSYCHIC_M
+	db 60, HYDRO_PUMP
 	db 0
 
 DittoEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+; v0.7 Pass 3 (Forte review): TRANSFORM ONLY single move (Forte:
+; Ditto exception - no other moves, no TMs).
+	db  1, TRANSFORM
 	db 0
 
 EeveeEvosMoves:
@@ -3609,17 +3847,23 @@ PorygonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, AGILITY
+; v0.7 Pass 3 (Forte review): Normal/Electric digital (Forte J:
+; TRI_ATTACK signature, NÃO CONVERSION). All 4 fun moves natural
+; (Forte A). RECOVER (Forte F). HYPER_BEAM L65 (Forte G).
+	db  1, TACKLE
+	db  5, HONE_CLAWS
 	db 10, PSYBEAM
-	db 14, RECOVER
-	db 18, PSYCHIC_BIND
-	db 22, SONICBOOM
-	db 28, TRI_ATTACK
-	db 34, SHOCK_WAVE
-	db 40, MAGNET_BOMB
-	db 47, THUNDERBOLT
-	db 54, MIRROR_MOVE
-	db 60, HYPER_BEAM
+	db 14, AGILITY
+	db 18, RECOVER
+	db 26, MIMIC
+	db 30, PSYCHIC_M
+	db 34, MIRROR_MOVE
+	db 40, SHOCK_WAVE
+	db 44, METRONOME
+	db 48, TRI_ATTACK
+	db 52, SUBSTITUTE
+	db 56, THUNDERBOLT
+	db 65, HYPER_BEAM
 	db 0
 
 OmanyteEvosMoves:
@@ -3632,16 +3876,16 @@ OmanyteEvosMoves:
 ; HM03 natural (water type).
 	db  1, WATER_GUN
 	db  5, WITHDRAW
-	db 10, HEADBUTT
-	db 14, TICKLE
-	db 19, CONSTRICT
-	db 24, BIND
-	db 28, AQUA_JET
-	db 33, ROCK_THROW
-	db 37, ICY_PULSE
-	db 42, WATER_PULSE
-	db 47, ROCK_TOMB
-	db 60, HEAD_SMASH
+	db  9, HEADBUTT
+	db 13, TICKLE
+	db 18, CONSTRICT
+	db 22, BIND
+	db 26, AQUA_JET
+	db 30, ROCK_THROW
+	db 35, ICY_PULSE
+	db 39, WATER_PULSE
+	db 43, ROCK_TOMB
+	db 56, HEAD_SMASH
 	db 0
 
 OmastarEvosMoves:
@@ -3653,20 +3897,20 @@ OmastarEvosMoves:
 ; ICE_BEAM apex (cold-water ammonite).
 	db  1, WATER_GUN
 	db  5, WITHDRAW
-	db 10, HEADBUTT
-	db 14, TICKLE
-	db 19, CONSTRICT
-	db 24, BIND
-	db 28, AQUA_JET
-	db 33, ROCK_THROW
-	db 37, ICY_PULSE
-	db 42, WATER_PULSE
-	db 47, ROCK_TOMB
-	db 51, IRON_DEFENSE
-	db 56, HYDRO_PUMP
-	db 60, HEAD_SMASH
-	db 65, IRON_HEAD
-	db 70, ICE_BEAM
+	db  9, HEADBUTT
+	db 13, TICKLE
+	db 18, CONSTRICT
+	db 22, BIND
+	db 26, AQUA_JET
+	db 30, ROCK_THROW
+	db 35, ICY_PULSE
+	db 39, WATER_PULSE
+	db 43, ROCK_TOMB
+	db 47, IRON_DEFENSE
+	db 52, HYDRO_PUMP
+	db 56, HEAD_SMASH
+	db 60, IRON_HEAD
+	db 65, ICE_BEAM
 	db 0
 
 KabutoEvosMoves:
@@ -3678,16 +3922,16 @@ KabutoEvosMoves:
 ; (Forte sec F). ABSORB parasitic feed. Water+Rock physical kit.
 	db  1, WATER_GUN
 	db  5, WITHDRAW
-	db 10, SCRATCH
-	db 14, LEER
-	db 19, ROCK_THROW
-	db 24, BUBBLEBEAM
-	db 28, ICY_PULSE
-	db 33, SLASH
-	db 37, MEGA_DRAIN
-	db 42, CUT
-	db 47, LEECH_LIFE
-	db 51, ROCK_TOMB
+	db  9, SCRATCH
+	db 13, LEER
+	db 18, ROCK_THROW
+	db 22, BUBBLEBEAM
+	db 26, ICY_PULSE
+	db 30, SLASH
+	db 35, MEGA_DRAIN
+	db 39, CUT
+	db 43, LEECH_LIFE
+	db 47, ROCK_TOMB
 	db 0
 
 KabutopsEvosMoves:
@@ -3700,20 +3944,20 @@ KabutopsEvosMoves:
 ; sec E TM list — apex predator), NIGHT_SLASH (Dark slash claws).
 	db  1, WATER_GUN
 	db  5, WITHDRAW
-	db 10, SCRATCH
-	db 14, LEER
-	db 19, ROCK_THROW
-	db 24, BUBBLEBEAM
-	db 28, ICY_PULSE
-	db 33, SLASH
-	db 37, MEGA_DRAIN
-	db 42, CUT
-	db 47, LEECH_LIFE
-	db 51, ROCK_TOMB
-	db 56, NIGHT_SLASH
-	db 60, SWORDS_DANCE
-	db 65, HEAD_SMASH
-	db 70, GUILLOTINE
+	db  9, SCRATCH
+	db 13, LEER
+	db 18, ROCK_THROW
+	db 22, BUBBLEBEAM
+	db 26, ICY_PULSE
+	db 30, SLASH
+	db 35, MEGA_DRAIN
+	db 39, CUT
+	db 43, LEECH_LIFE
+	db 47, ROCK_TOMB
+	db 52, NIGHT_SLASH
+	db 56, SWORDS_DANCE
+	db 60, HEAD_SMASH
+	db 65, GUILLOTINE
 	db 0
 
 AerodactylEvosMoves:
@@ -3748,69 +3992,96 @@ SnorlaxEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  6, HEADBUTT
-	db 12, BITE
+; v0.7 Pass 3 (Forte review): gigante gentil/preguiçoso (Forte H).
+; BRUTAL_SWING SIM, NÃO GORE_ATTACK/THRASH/OUTRAGE (preguiça).
+; REST canon. AMNESIA. BODY_SLAM. HEAVY_SLAM. STRENGTH HM04.
+	db  1, TACKLE
+	db  5, GROWL
+	db 10, LICK
+	db 14, DEFENSE_CURL
 	db 18, BODY_SLAM
-	db 22, HARDEN
+	db 22, HEADBUTT
 	db 28, REST
-	db 33, TAKE_DOWN
-	db 38, BIDE
-	db 50, HEAVY_SLAM
-	db 58, CRUNCH
+	db 32, AMNESIA
+	db 36, BULK_UP
+	db 40, STRENGTH
+	db 44, BRUTAL_SWING
+	db 48, TAKE_DOWN
+	db 54, HEAVY_SLAM
+	db 60, DOUBLE_EDGE
 	db 0
 
 ArticunoEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, POWDER_SNOW
-	db 10, GUST
-	db 15, ICY_WIND
-	db 22, AGILITY
+; v0.7 Pass 3 (Forte review): Ice/Flying legendary bird. Parallel
+; design (Forte sec I): shared bird kit + Ice element. CUT/FLY/
+; STRENGTH/FLASH HMs (Forte B). FOCUS_ENERGY/AGILITY/SKY_ATTACK
+; shared with Zapdos/Moltres.
+	db  1, PECK
+	db  5, GUST
+	db 10, POWDER_SNOW
+	db 14, LEER
+	db 18, FROST_BREATH
+	db 22, WING_ATTACK
 	db 28, AURORA_BEAM
-	db 34, WING_ATTACK
+	db 32, AGILITY
+	db 36, AERIAL_ACE
 	db 40, ICE_BEAM
-	db 47, REFLECT
-	db 54, FAINT_ATTACK
-	db 60, BLIZZARD
-	db 66, HURRICANE
-	db 72, SKY_ATTACK
+	db 44, ICY_PULSE
+	db 48, FOCUS_ENERGY
+	db 52, BLIZZARD
+	db 56, SKY_ATTACK
+	db 60, FLY
 	db 0
 
 ZapdosEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, PECK
+; v0.7 Pass 3 (Forte review): Electric/Flying legendary bird.
+; Parallel design (Forte sec I): shared bird kit + Electric. CUT/
+; FLY/STRENGTH/FLASH HMs (Forte B). DRILL_PECK signature.
+	db  1, PECK
+	db  5, GUST
 	db 10, THUNDERSHOCK
-	db 15, AGILITY
-	db 22, SHOCK_WAVE
-	db 28, WING_ATTACK
-	db 34, DOUBLE_TEAM
-	db 40, THUNDER_WAVE
-	db 47, DRILL_PECK
-	db 54, THUNDERBOLT
-	db 60, SKY_ATTACK
-	db 66, THUNDER
-	db 72, HURRICANE
+	db 14, LEER
+	db 18, SHOCK_WAVE
+	db 22, WING_ATTACK
+	db 28, THUNDER_WAVE
+	db 32, AGILITY
+	db 36, AERIAL_ACE
+	db 40, THUNDERBOLT
+	db 44, DRILL_PECK
+	db 48, FOCUS_ENERGY
+	db 52, THUNDER
+	db 56, SKY_ATTACK
+	db 60, FLY
 	db 0
 
 MoltresEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db  5, PECK
+; v0.7 Pass 3 (Forte review): Fire/Flying legendary bird. Parallel
+; design (Forte sec I): shared bird kit + Fire. CUT/FLY/STRENGTH/
+; FLASH HMs (Forte B). FLAME_CHARGE/FIRE_BLAST.
+	db  1, PECK
+	db  5, GUST
 	db 10, EMBER
-	db 15, FLAME_CHARGE
-	db 22, AGILITY
-	db 28, FLAMETHROWER
-	db 34, WING_ATTACK
-	db 40, WILL_O_WISP
-	db 47, DRILL_PECK
-	db 54, FLAME_BURST
-	db 60, SKY_ATTACK
-	db 66, FIRE_BLAST
-	db 72, HURRICANE
+	db 14, LEER
+	db 18, FLAME_BURST
+	db 22, WING_ATTACK
+	db 28, FLAME_CHARGE
+	db 32, AGILITY
+	db 36, AERIAL_ACE
+	db 40, FLAMETHROWER
+	db 44, IGNITE
+	db 48, FOCUS_ENERGY
+	db 52, FIRE_BLAST
+	db 56, SKY_ATTACK
+	db 60, FLY
 	db 0
 
 DratiniEvosMoves:
@@ -3822,18 +4093,17 @@ DratiniEvosMoves:
 ; start. COIL (Forte sec E snake-coil). DRAGON_BREATH first Dragon
 ; move pre-evo.
 	db  1, TACKLE
-	db  4, LEER
-	db  8, COIL
-	db 12, CONSTRICT
-	db 15, BIND
-	db 19, BODY_SLAM
-	db 23, IRON_TAIL
-	db 26, DRAGON_SLAM
-	db 30, WATER_PULSE
-	db 34, SHOCK_WAVE
+	db  5, LEER
+	db  9, COIL
+	db 13, CONSTRICT
+	db 17, BIND
+	db 21, BODY_SLAM
+	db 25, DRAGON_SLAM
+	db 29, WATER_PULSE
+	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
 	db 41, SURF
-	db 52, DRAGON_BREATH
+	db 51, DRAGON_BREATH
 	db 0
 
 DragonairEvosMoves:
@@ -3846,20 +4116,19 @@ DragonairEvosMoves:
 ; SURF (HM03 sea-snake natural), SHOCK_WAVE (Electric coverage),
 ; DRAGON_RAGE L46 = at evo (Forte sec I signature).
 	db  1, TACKLE
-	db  4, LEER
-	db  8, COIL
-	db 12, CONSTRICT
-	db 15, BIND
-	db 19, BODY_SLAM
-	db 23, IRON_TAIL
-	db 26, DRAGON_SLAM
-	db 30, WATER_PULSE
-	db 34, SHOCK_WAVE
+	db  5, LEER
+	db  9, COIL
+	db 13, CONSTRICT
+	db 17, BIND
+	db 21, BODY_SLAM
+	db 25, DRAGON_SLAM
+	db 29, WATER_PULSE
+	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
 	db 41, SURF
 	db 45, DRAGON_RAGE
 	db 46, FLY  ; (Evo lvl)
-	db 52, DRAGON_BREATH
+	db 51, DRAGON_BREATH
 	db 0
 
 DragoniteEvosMoves:
@@ -3871,64 +4140,84 @@ DragoniteEvosMoves:
 ; CUT/STRENGTH/FLY HMs naturais (Forte sec B), OUTRAGE L60 (Forte
 ; sec I), HYPER_BEAM L65 last move (Forte sec G).
 	db  1, TACKLE
-	db  4, LEER
-	db  8, COIL
-	db 12, CONSTRICT
-	db 15, BIND
-	db 19, BODY_SLAM
-	db 23, IRON_TAIL
-	db 26, DRAGON_SLAM
-	db 30, WATER_PULSE
-	db 34, SHOCK_WAVE
+	db  5, LEER
+	db  9, COIL
+	db 13, CONSTRICT
+	db 17, BIND
+	db 21, BODY_SLAM
+	db 25, DRAGON_SLAM
+	db 29, WATER_PULSE
+	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
 	db 41, SURF
 	db 45, DRAGON_RAGE
 	db 46, FLY  ; (Evo lvl)
 	db 47, TAKE_DOWN
 	db 49, EXTRASENSORY
-	db 52, DRAGON_BREATH
-	db 54, STRENGTH
-	db 57, BULLDOZE
-	db 59, ROCK_TOMB
-	db 62, INTIMIDATE
-	db 64, BRUTAL_SWING
-	db 67, OUTRAGE
-	db 70, HYPER_BEAM
+	db 51, DRAGON_BREATH
+	db 53, BULLDOZE
+	db 56, ROCK_TOMB
+	db 58, STRENGTH
+	db 60, BRUTAL_SWING
+	db 62, OUTRAGE
+	db 65, HYPER_BEAM
 	db 0
 
 MewtwoEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 10, RECOVER
-	db 18, CALM_MIND
-	db 25, PSYBEAM
-	db 32, SHADOW_BALL
-	db 38, PSYCHIC_M
-	db 40, DARK_PULSE
-	db 48, AGILITY
-	db 55, BULK_UP
-	db 62, MIND_BREAK
-	db 70, HYPER_BEAM
+; v0.7 Pass 3 (Forte review): Psychic apex + honorary Dark (Forte
+; I). NÃO CHARM/FAKE_TEARS/jogos psicológicos. TELEPORT/all psychic
+; + secondarily DARK. MIND_BREAK signature. INTIMIDATE/SCARY_FACE
+; plausível. HYPER_BEAM L65 last move (Forte G).
+	db  1, TELEPORT
+	db  5, CONFUSION
+	db 10, DISABLE
+	db 14, PSYBEAM
+	db 18, PSYCHIC_BIND
+	db 22, RECOVER
+	db 26, LIGHT_SCREEN
+	db 30, REFLECT
+	db 34, EXTRASENSORY
+	db 38, FAINT_ATTACK
+	db 40, PSYCHIC_M
+	db 44, AMNESIA
+	db 48, INTIMIDATE
+	db 52, NIGHT_SHADE
+	db 54, SCARY_FACE
+	db 56, DARK_PULSE
+	db 58, SHADOW_BALL
+	db 60, CALM_MIND
+	db 65, HYPER_BEAM
+	db 70, MIND_BREAK
 	db 0
 
 MewEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 10, PSYCHIC_BIND
-	db 15, TRANSFORM
-	db 20, RECOVER
-	db 25, PSYBEAM
-	db 30, CALM_MIND
-	db 35, DRAINING_KISS
-	db 40, SHADOW_BALL
-	db 45, MIRROR_MOVE
-	db 50, PSYCHIC_M
-	db 55, MIND_BREAK
+; v0.7 Pass 3 (Forte review): Psychic/Fairy curious/gentle (Forte
+; I). TELEPORT/all psychic + secondarily FAIRY. All 4 fun moves
+; (Forte A). RECOVER/MOONBLAST. TRANSFORM (canon Mew). HYPER_BEAM
+; L65 last move.
+	db  1, TELEPORT
+	db  5, CONFUSION
+	db 10, TRANSFORM
+	db 14, PSYBEAM
+	db 18, PSYCHIC_BIND
+	db 22, RECOVER
+	db 26, MIMIC
+	db 30, FAIRY_WIND
+	db 34, DRAINING_KISS
+	db 38, MIRROR_MOVE
+	db 40, PSYCHIC_M
+	db 44, DAZZLE_GLEAM
+	db 48, METRONOME
+	db 52, CALM_MIND
+	db 56, SUBSTITUTE
 	db 60, MOONBLAST
-	db 65, METRONOME
-	db 70, HYPER_BEAM
+	db 65, HYPER_BEAM
 	db 0
 
 NoEvosMoves:
