@@ -727,26 +727,25 @@ EkansEvosMoves:
 ; Ekans to the prior Muk/Weezing/Tentacruel/Arbok list), EXTREMESPEED
 ; (high-level peak strike). NO GUNK_SHOT (Muk/Weezing only). NO SLUDGE_WAVE
 ; (also Muk-only). NO SCREECH (snakes hiss, not screech).
-	db  4, QUICK_ATTACK
-	db  7, CONSTRICT
-	db 10, WRAP
-	db 11, BIDE
-	db 13, BITE
-	db 16, LEER
+	db  1, QUICK_ATTACK
+	db  3, CONSTRICT
+	db  6, WRAP
+	db  9, BIDE
+	db 12, BITE
+	db 15, LEER
 	db 17, ASTONISH
-	db 19, POISON_STING
-	db 20, COIL
-	db 22, BIND
-	db 28, SCARY_FACE
-	db 31, SUBSTITUTE
-	db 34, POISON_FANG
-	db 37, AGILITY
-	db 40, FAINT_ATTACK
-	db 46, SHADOW_SNEAK
-	db 50, TOXIC_FANGS
+	db 20, POISON_STING
+	db 23, COIL
+	db 29, BIND
+	db 31, POISON_FANG
+	db 34, AGILITY
+	db 37, FAINT_ATTACK
+	db 40, SHADOW_SNEAK
+	db 43, SUBSTITUTE
+	db 48, TOXIC_FANGS
+	db 51, EXTREMESPEED
 	db 54, TOXIC
 	db 57, NEUROTOXIN
-	db 60, EXTREMESPEED
 	db 0
 
 ArbokEvosMoves:
@@ -759,28 +758,28 @@ ArbokEvosMoves:
 ; Forte — bigger jaw), IRON_TAIL (per Forte — high-level whip), INTIMIDATE
 ; (full hood display). Removed prior duplicate WRAP (was vanilla bug),
 ; GUNK_SHOT (Muk-only), SLUDGE_WAVE (Muk-only).
-	db  4, QUICK_ATTACK
-	db  7, CONSTRICT
-	db 10, WRAP
-	db 11, BIDE
-	db 13, BITE
-	db 16, LEER
+	db  1, QUICK_ATTACK
+	db  3, CONSTRICT
+	db  6, WRAP
+	db  9, BIDE
+	db 12, BITE
+	db 15, LEER
 	db 17, ASTONISH
-	db 19, POISON_STING
-	db 20, COIL
-	db 21, SCARY_FACE
-	db 22, BIND
-	db 31, SUBSTITUTE
-	db 34, POISON_FANG
-	db 37, AGILITY
-	db 40, FAINT_ATTACK
-	db 46, SHADOW_SNEAK
-	db 48, CRUNCH
-	db 50, TOXIC_FANGS
+	db 20, POISON_STING
+	db 23, COIL
+	db 26, SCARY_FACE
+	db 29, BIND
+	db 31, POISON_FANG
+	db 34, AGILITY
+	db 37, FAINT_ATTACK
+	db 40, SHADOW_SNEAK
+	db 43, SUBSTITUTE
+	db 45, IRON_TAIL
+	db 48, TOXIC_FANGS
+	db 51, EXTREMESPEED
 	db 54, TOXIC
-	db 55, INTIMIDATE
 	db 57, NEUROTOXIN
-	db 60, EXTREMESPEED
+	db 60, INTIMIDATE
 	db 0
 
 PikachuEvosMoves:
@@ -1883,10 +1882,10 @@ AlakazamEvosMoves:
 	db 54, AGILITY
 	db 56, PSYCHIC_M
 	db 58, TRI_ATTACK
-	db 60, METRONOME
-	db 63, EERIE_IMPULSE
-	db 66, DARK_PULSE
-	db 70, MIND_BREAK
+	db 59, METRONOME
+	db 61, EERIE_IMPULSE
+	db 63, DARK_PULSE
+	db 65, MIND_BREAK
 	db 0
 
 MachopEvosMoves:
@@ -2078,9 +2077,9 @@ TentacoolEvosMoves:
 	db 26, SLUDGE
 	db 29, WATER_PULSE
 	db 30, GROWTH  ; (EVO LVL)
-	db 32, BIND
-	db 34, NUZZLE
-	db 40, SURF
+	db 31, BIND
+	db 35, NUZZLE
+	db 39, SURF
 	db 0
 
 TentacruelEvosMoves:
@@ -2103,15 +2102,15 @@ TentacruelEvosMoves:
 	db 26, SLUDGE
 	db 29, WATER_PULSE
 	db 30, GROWTH  ; (EVO LVL)
-	db 32, BIND
-	db 34, NUZZLE
-	db 40, SURF
-	db 42, SLUDGE_WAVE
-	db 45, SHOCK_WAVE
-	db 48, EERIE_IMPULSE
-	db 52, TOXIC
-	db 56, CORRODE
-	db 60, HYDRO_PUMP
+	db 31, BIND
+	db 35, NUZZLE
+	db 39, SURF
+	db 43, SLUDGE_WAVE
+	db 48, SHOCK_WAVE
+	db 52, EERIE_IMPULSE
+	db 56, TOXIC
+	db 60, CORRODE
+	db 65, HYDRO_PUMP
 	db 0
 
 GeodudeEvosMoves:
