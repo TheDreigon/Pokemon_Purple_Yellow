@@ -2816,7 +2816,7 @@ HypnoEvosMoves:
 	db 65, SHADOW_BALL
 	db 0
 
-KrabbyEvosMoves:
+KrabbyEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 28, KINGLER
 	db 0
@@ -2833,7 +2833,7 @@ KrabbyEvosMoves:
 	db 40, GUILLOTINE
 	db 0
 
-KinglerEvosMoves:
+KinglerEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -2857,7 +2857,7 @@ KinglerEvosMoves:
 	db 60, ROCK_PUNCH
 	db 0
 
-VoltorbEvosMoves:
+VoltorbEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 30, ELECTRODE
 	db 0
@@ -2876,7 +2876,7 @@ VoltorbEvosMoves:
 	db 47, EXPLOSION
 	db 0
 
-ElectrodeEvosMoves:
+ElectrodeEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3301,7 +3301,7 @@ TangelaEvosMoves:
 	db 60, PETAL_DANCE
 	db 0
 
-KangaskhanEvosMoves:
+KangaskhanEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3323,7 +3323,7 @@ KangaskhanEvosMoves:
 	db 60, DOUBLE_EDGE
 	db 0
 
-HorseaEvosMoves:
+HorseaEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 26, SEADRA
 	db 0
@@ -3341,7 +3341,7 @@ HorseaEvosMoves:
 	db 47, HYDRO_PUMP
 	db 0
 
-SeadraEvosMoves:
+SeadraEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3361,7 +3361,7 @@ SeadraEvosMoves:
 	db 60, DRAGON_SLAM
 	db 0
 
-GoldeenEvosMoves:
+GoldeenEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 24, SEAKING
 	db 0
@@ -3379,7 +3379,7 @@ GoldeenEvosMoves:
 	db 40, AGILITY
 	db 0
 
-SeakingEvosMoves:
+SeakingEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3400,7 +3400,7 @@ SeakingEvosMoves:
 	db 60, HORN_DRILL
 	db 0
 
-StaryuEvosMoves:
+StaryuEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_ITEM, WATER_STONE, 1, STARMIE
 	db 0
@@ -3418,7 +3418,7 @@ StaryuEvosMoves:
 	db 47, HYDRO_PUMP
 	db 0
 
-StarmieEvosMoves:
+StarmieEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3471,7 +3471,7 @@ MrMimeEvosMoves:
 	db 60, METRONOME
 	db 0
 
-ScytherEvosMoves:
+ScytherEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3604,7 +3604,7 @@ MagmarEvosMoves:
 	db 60, FIRE_BLAST
 	db 0
 
-PinsirEvosMoves:
+PinsirEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3628,7 +3628,7 @@ PinsirEvosMoves:
 	db 60, GUILLOTINE
 	db 0
 
-TaurosEvosMoves:
+TaurosEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3706,7 +3706,7 @@ GyaradosEvosMoves:
 	db 60, HYPER_BEAM
 	db 0
 
-LaprasEvosMoves:
+LaprasEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3730,7 +3730,7 @@ LaprasEvosMoves:
 	db 60, HYDRO_PUMP
 	db 0
 
-DittoEvosMoves:
+DittoEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3843,7 +3843,7 @@ FlareonEvosMoves:
 	db 60, FIRE_BLAST
 	db 0
 
-PorygonEvosMoves:
+PorygonEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -3988,7 +3988,7 @@ AerodactylEvosMoves:
 	db 60, SKY_ATTACK
 	db 0
 
-SnorlaxEvosMoves:
+SnorlaxEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -4011,7 +4011,7 @@ SnorlaxEvosMoves:
 	db 60, DOUBLE_EDGE
 	db 0
 
-ArticunoEvosMoves:
+ArticunoEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -4036,7 +4036,7 @@ ArticunoEvosMoves:
 	db 60, FLY
 	db 0
 
-ZapdosEvosMoves:
+ZapdosEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -4060,7 +4060,7 @@ ZapdosEvosMoves:
 	db 60, FLY
 	db 0
 
-MoltresEvosMoves:
+MoltresEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -4163,7 +4163,7 @@ DragoniteEvosMoves:
 	db 65, HYPER_BEAM
 	db 0
 
-MewtwoEvosMoves:
+MewtwoEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
@@ -4193,7 +4193,7 @@ MewtwoEvosMoves:
 	db 70, MIND_BREAK
 	db 0
 
-MewEvosMoves:
+MewEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
