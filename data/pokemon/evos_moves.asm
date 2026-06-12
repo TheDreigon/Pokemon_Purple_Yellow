@@ -2834,6 +2834,7 @@ KrabbyEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 17, VICEGRIP
 	db 21, BUBBLEBEAM
 	db 24, FURY_ATTACK
+	db 26, BIND
 	db 28, CRABHAMMER
 	db 34, WATER_PULSE
 	db 44, GUILLOTINE
@@ -2844,25 +2845,25 @@ KinglerEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 0
 ; Learnset
 ; v0.7 Pass 3 v2 (+ Forte corrections): apex crusher crab (110 Atk /
-; 110 Def). Shared Krabby backbone at the same levels; adds the
-; heavy-claw kit: STRENGTH/CUT (shear claw), IRON_DEFENSE (armoured
-; shell), WATERFALL, BIND high-level (the giant-claw clamp — Forte),
-; BRUTAL_SWING (massive claw sweep). SURF is HM-only (Forte);
-; SWORDS_DANCE stays TM-only.
+; 110 Def). Shared Krabby backbone at the same levels (BIND medium-level
+; before CRABHAMMER, per Forte); adds the heavy-claw kit: STRENGTH/CUT
+; (shear claw), WATERFALL, BRUTAL_SWING (massive claw sweep).
+; No IRON_DEFENSE (organic chitin hardens via HARDEN; steel flavor is
+; for mineral/metal bodies — no reviewed mon has both). SURF is HM-only
+; (Forte); SWORDS_DANCE stays TM-only.
 	db 11, WATER_GUN
 	db 13, HARDEN
 	db 15, MUD_SHOT
 	db 17, VICEGRIP
 	db 21, BUBBLEBEAM
 	db 24, FURY_ATTACK
+	db 26, BIND
 	db 28, CRABHAMMER
 	db 30, STRENGTH
 	db 33, CUT
 	db 34, WATER_PULSE
-	db 37, IRON_DEFENSE
 	db 41, WATERFALL
 	db 44, GUILLOTINE
-	db 46, BIND
 	db 52, BRUTAL_SWING
 	db 0
 
