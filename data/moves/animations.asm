@@ -40,13 +40,13 @@ AttackAnimationPointers:
 	dw DrainingKissAnim
 	dw DazzleGleamAnim
 	dw PlayRoughAnim
-	dw MoonblastAnim
 	dw LovelyKissAnim
 	dw SingAnim
+	dw MoonblastAnim
 ; === FIGHTING ===
 	dw SeismicTossAnim
-	dw CometPunchAnim
 	dw LowKickAnim
+	dw CometPunchAnim
 	dw BindAnim
 	dw MachPunchAnim
 	dw KarateChopAnim
@@ -81,8 +81,8 @@ AttackAnimationPointers:
 	dw SporeAnim
 ; === GAS ===
 	dw SmogAnim
-	dw PoisonGasAnim
 	dw HazeAnim
+	dw PoisonGasAnim
 ; === GHOST ===
 	dw NightShadeAnim
 	dw LickAnim

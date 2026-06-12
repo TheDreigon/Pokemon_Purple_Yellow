@@ -23,7 +23,7 @@ Moves: ; Current total = 220
 	move TWINEEDLE,      TWINEEDLE_EFFECT,                 40, BUG,          100, 20 ; signature.
 
 
-	; === DARK TYPE (10 moves) === ; new type
+	; === DARK TYPE (9 moves) === ; new type
 	move FAINT_ATTACK,   SWIFT_EFFECT,                     60, DARK,         100, 25 ; new move.
 	move RAGE,           RAGE_EFFECT,                      60, DARK,         100, 20
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
@@ -192,7 +192,7 @@ Moves: ; Current total = 220
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
 	move POISON_STING,   POISON_SIDE_EFFECT1,              35, POISON,       100, 30
 	move POISON_FANG,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
-	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 50% chance.
+	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 60% chance.
 	move ACID,           DEFENSE_DOWN1_EFFECT,             40, POISON,       100, 25
 	move SLUDGE,         POISON_SIDE_EFFECT2,              65, POISON,       100, 20
 	move SLUDGE_WAVE,    SPEED_DOWN1_EFFECT,               90, POISON,       100, 15 ; new move.
@@ -212,7 +212,7 @@ Moves: ; Current total = 220
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
 
 
-	; === ROCK TYPE (9 moves) ===
+	; === ROCK TYPE (10 moves) ===
 	move ROCK_THROW,     FLINCH_SIDE_EFFECT2,              45, ROCK,          90, 30
 	move ROCK_PUNCH,     NO_ADDITIONAL_EFFECT,             60, ROCK,         100, 25 ; new move.
 	move ROCK_TOMB,      SPEED_DOWN1_EFFECT,               75, ROCK,          95, 20 ; new move.

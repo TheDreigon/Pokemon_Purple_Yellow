@@ -40,13 +40,13 @@ MoveNames::
 	li "DRAINING KISS"
 	li "DAZZLE GLEAM"
 	li "PLAY ROUGH"
-	li "MOONBLAST"
 	li "LOVELY KISS"
 	li "SING"
+	li "MOONBLAST"
 ; === FIGHTING ===
 	li "SEISMIC TOSS"
-	li "COMET PUNCH"
 	li "LOW KICK"
+	li "COMET PUNCH"
 	li "BIND"
 	li "MACH PUNCH"
 	li "KARATE CHOP"
@@ -81,8 +81,8 @@ MoveNames::
 	li "SPORE"
 ; === GAS ===
 	li "SMOG"
-	li "POISON GAS"
 	li "HAZE"
+	li "POISON GAS"
 ; === GHOST ===
 	li "NIGHT SHADE"
 	li "LICK"

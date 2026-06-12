@@ -48,13 +48,13 @@ MoveSoundTable:
 	db SFX_BATTLE_24,          $20, $80 ; DRAINING_KISS
 	db SFX_BATTLE_28,          $20, $60 ; DAZZLE_GLEAM
 	db SFX_BATTLE_26,          $40, $80 ; PLAY_ROUGH ; Forte feedback #16: "som menos grave". Pitch raised $10→$40.
-	db SFX_BATTLE_28,          $f8, $40 ; MOONBLAST ; v0.7 reviewed: lowered pitch ($30→$f8 ~ -2 oct) + slower tempo for 180 BP charge weight.
 	db SFX_BATTLE_09,          $30, $80 ; LOVELY_KISS ; Forte feedback #18: "som mais cute". Higher pitch ($88→$30) + longer tempo ($10→$80) for the affectionate sparkle.
 	db SFX_BATTLE_35,          $00, $80 ; SING
+	db SFX_BATTLE_28,          $f8, $40 ; MOONBLAST ; v0.7 reviewed: lowered pitch ($30→$f8 ~ -2 oct) + slower tempo for 180 BP charge weight.
 ; === FIGHTING ===
 	db SFX_BATTLE_26,          $01, $60 ; SEISMIC_TOSS
-	db SFX_BATTLE_0C,          $01, $80 ; COMET_PUNCH ; v0.7 reviewed: was BATTLE_0B (cry); proper punch sound for a punch.
 	db SFX_BATTLE_23,          $00, $80 ; LOW_KICK
+	db SFX_BATTLE_0C,          $01, $80 ; COMET_PUNCH ; v0.7 reviewed: was BATTLE_0B (cry); proper punch sound for a punch.
 	db SFX_BATTLE_14,          $00, $80 ; BIND
 	db SFX_BATTLE_0C,          $20, $40 ; MACH_PUNCH
 	db SFX_BATTLE_0C,          $10, $80 ; KARATE_CHOP
@@ -89,8 +89,8 @@ MoveSoundTable:
 	db SFX_BATTLE_1C,          $01, $ff ; SPORE
 ; === GAS ===
 	db SFX_BATTLE_2A,          $10, $ff ; SMOG ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; sludge-like wheeze fits the cloud-toss visual.
-	db SFX_BATTLE_1C,          $00, $ff ; POISON_GAS
 	db SFX_BATTLE_2A,          $f0, $ff ; HAZE ; Forte feedback #45: was BATTLE_0F (cut), bad sound. Sludge family deep-pitched + max tempo for sustained gas-cloud feel.
+	db SFX_BATTLE_1C,          $00, $ff ; POISON_GAS
 ; === GHOST ===
 	db SFX_BATTLE_24,          $f0, $80 ; NIGHT_SHADE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; drain SFX deep-pitched fits the spectral life-leech feel.
 	db SFX_BATTLE_09,          $10, $60 ; LICK ; Forte feedback #48: swapped SFX values with ASTONISH.

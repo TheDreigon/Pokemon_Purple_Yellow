@@ -8,6 +8,13 @@
 ; Order: alphabetical by TYPE, ascending POWER within type, status moves last
 ; within type (BIRD = typeless/status group at the end).
 ; STRUGGLE must remain the last move (engine asserts NUM_ATTACKS == STRUGGLE).
+;
+; WARNING — ORDER IS LOAD-BEARING: the engine indexes all four tables above
+; by (move id - 1), so the row order in moves.asm, names.asm, the
+; AttackAnimationPointers table, and sfx.asm must EXACTLY match the const
+; order here. Reordering rows in only one file silently gives moves another
+; move's data in-game (the build still passes — the length asserts can't see
+; it). Run `python .claude/check_move_alignment.py` after any reorder.
 	const_def
 	const NO_MOVE      ; 00
 
@@ -55,14 +62,14 @@
 	const DRAINING_KISS
 	const DAZZLE_GLEAM
 	const PLAY_ROUGH
-	const MOONBLAST
 	const LOVELY_KISS
 	const SING
+	const MOONBLAST
 
 ; === FIGHTING ===
 	const SEISMIC_TOSS
-	const COMET_PUNCH
 	const LOW_KICK
+	const COMET_PUNCH
 	const BIND
 	const MACH_PUNCH
 	const KARATE_CHOP
@@ -101,8 +108,8 @@
 
 ; === GAS ===
 	const SMOG
-	const POISON_GAS
 	const HAZE
+	const POISON_GAS
 
 ; === GHOST ===
 	const NIGHT_SHADE
