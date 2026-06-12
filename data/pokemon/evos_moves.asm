@@ -4117,10 +4117,10 @@ ZapdosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (+ Forte r4 density): parallel trio kit + ELECTRIC
-; ladder. One slot lighter than its sisters (L36): the Electric
-; damaging pool is thinner — elemental limitation, not an oversight.
-; No DRILL_PECK (Dodrio signature).
+; v0.7 Pass 3 (+ Forte r5): parallel trio kit + ELECTRIC ladder.
+; DRILL_PECK L44 (Forte: "Zapdos tambem merece" — the electric dive-
+; drill; ownership now Dodrio line + Fearow + Zapdos). Placed after
+; FLY per the FLYING ladder (45<60<70<80<90). Trio symmetric 16/16/16.
 	db 10, PECK
 	db 12, GUST
 	db 14, LEER
@@ -4132,6 +4132,7 @@ ZapdosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 34, AERIAL_ACE
 	db 38, FLY
 	db 42, THUNDERBOLT
+	db 44, DRILL_PECK
 	db 46, FOCUS_ENERGY
 	db 50, HURRICANE
 	db 55, THUNDER
