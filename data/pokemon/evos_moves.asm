@@ -4093,11 +4093,13 @@ ArticunoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte
 ; v0.7 Pass 3 (+ Forte r4 density): parallel legendary-bird kit
 ; (PECK/GUST/LEER/WING_ATTACK/TAILWIND/AGILITY/AERIAL_ACE/FLY/
 ; FOCUS_ENERGY/HURRICANE/SKY_ATTACK at identical levels across the
-; trio) + full ICE ladder. Catch set @L50: FLY/ICE_BEAM/FOCUS/
-; HURRICANE.
+; trio) + full ICE ladder. FOCUS_ENERGY early L16 (raptor fixing its
+; prey — Forte r6: too weak for a high slot). Catch set @L50:
+; AURORA_BEAM/FLY/ICE_BEAM/HURRICANE.
 	db 10, PECK
 	db 12, GUST
 	db 14, LEER
+	db 16, FOCUS_ENERGY
 	db 18, ICY_WIND
 	db 22, WING_ATTACK
 	db 26, TAILWIND
@@ -4107,7 +4109,6 @@ ArticunoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte
 	db 36, AURORA_BEAM
 	db 38, FLY
 	db 42, ICE_BEAM
-	db 46, FOCUS_ENERGY
 	db 50, HURRICANE
 	db 55, BLIZZARD
 	db 60, SKY_ATTACK
@@ -4121,9 +4122,12 @@ ZapdosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; DRILL_PECK L44 (Forte: "Zapdos tambem merece" — the electric dive-
 ; drill; ownership now Dodrio line + Fearow + Zapdos). Placed after
 ; FLY per the FLYING ladder (45<60<70<80<90). Trio symmetric 16/16/16.
+; FOCUS_ENERGY early L16 (Forte r6). Catch set @L50: FLY/THUNDERBOLT/
+; DRILL_PECK/HURRICANE.
 	db 10, PECK
 	db 12, GUST
 	db 14, LEER
+	db 16, FOCUS_ENERGY
 	db 18, THUNDER_WAVE
 	db 22, WING_ATTACK
 	db 26, TAILWIND
@@ -4133,7 +4137,6 @@ ZapdosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 38, FLY
 	db 42, THUNDERBOLT
 	db 44, DRILL_PECK
-	db 46, FOCUS_ENERGY
 	db 50, HURRICANE
 	db 55, THUNDER
 	db 60, SKY_ATTACK
@@ -4145,10 +4148,12 @@ MoltresEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Learnset
 ; v0.7 Pass 3 (+ Forte r4 density): parallel trio kit + FIRE ladder
 ; (FLAME_CHARGE early — a flying flame; IGNITE = sets the sky on
-; fire). Catch set @L50: FLY/FLAMETHROWER/FOCUS/HURRICANE.
+; fire). FOCUS_ENERGY early L16 (Forte r6). Catch set @L50:
+; FLAME_BURST/FLY/FLAMETHROWER/HURRICANE.
 	db 10, PECK
 	db 12, GUST
 	db 14, LEER
+	db 16, FOCUS_ENERGY
 	db 18, FLAME_CHARGE
 	db 22, WING_ATTACK
 	db 26, TAILWIND
@@ -4158,7 +4163,6 @@ MoltresEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 36, FLAME_BURST
 	db 38, FLY
 	db 42, FLAMETHROWER
-	db 46, FOCUS_ENERGY
 	db 50, HURRICANE
 	db 55, FIRE_BLAST
 	db 60, SKY_ATTACK
