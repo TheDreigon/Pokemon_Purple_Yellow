@@ -4720,10 +4720,6 @@ CalculateDamage:
 	cp $1e
 	jr z, .skipbp
 
-; Calculate OHKO damage based on remaining HP.
-	cp OHKO_EFFECT
-	jp z, JumpToOHKOMoveEffect
-
 ; Don't calculate damage for moves that don't do any.
 	ld a, d ; base power
 	and a
@@ -4860,12 +4856,6 @@ CalculateDamage:
 	and a
 	ret
 
-JumpToOHKOMoveEffect:
-	call JumpMoveEffect
-	ld a, [wMoveMissed]
-	dec a
-	ret
-
 ; determines if attack is a critical hit
 ; Azure Heights claims "the fastest pokémon (who are, not coincidentally,
 ; among the most popular) tend to CH about 20 to 25% of the time."
@@ -4984,8 +4974,6 @@ HandleCounterMove:
 
 ApplyAttackToEnemyPokemon:
 	ld a, [wPlayerMoveEffect]
-	cp OHKO_EFFECT
-	jr z, ApplyDamageToEnemyPokemon
 	cp SUPER_FANG_EFFECT
 	jr z, .superFangEffect
 	cp SPECIAL_DAMAGE_EFFECT
@@ -5107,8 +5095,6 @@ ApplyAttackToEnemyPokemonDone:
 
 ApplyAttackToPlayerPokemon:
 	ld a, [wEnemyMoveEffect]
-	cp OHKO_EFFECT
-	jr z, ApplyDamageToPlayerPokemon
 	cp SUPER_FANG_EFFECT
 	jr z, .superFangEffect
 	cp SPECIAL_DAMAGE_EFFECT

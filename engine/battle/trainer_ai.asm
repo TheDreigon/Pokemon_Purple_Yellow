@@ -168,8 +168,6 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]
 	cp DREAM_EATER_EFFECT
 	jp z, .checkAsleep
-	cp OHKO_EFFECT
-	jr z, .ohko
 	ld a, [wEnemyMovePower]
 	and a
 	jr nz, .nextMove
@@ -222,10 +220,6 @@ AIMoveChoiceModification1:
 	add $5 ; heavily discourage move
 	ld [hl], a
 	jr .nextMove
-.ohko
-	call WillOHKOMoveAlwaysFail
-	jp nc, .nextMove
-	jr .discourage
 .checkDisabled
 	ld a, [wPlayerDisabledMove] ; non-zero if the player has a disabled move
 	and a
@@ -404,17 +398,6 @@ CheckStatusImmunity:
 .discourage
 	pop hl
 	pop bc
-	scf
-	ret
-;;;;;;;;;;
-
-;;;;;;;;;; PureRGBnote: ADDED: function that allows AI to avoid OHKO moves if they will never do anything to the player's pokemon due to speed differences
-WillOHKOMoveAlwaysFail:
-	call CompareSpeed
-	jr c, .userIsSlower
-	and a
-	ret
-.userIsSlower
 	scf
 	ret
 ;;;;;;;;;;

@@ -83,7 +83,6 @@ SECTION "Battle Engine 1", ROMX
 INCLUDE "engine/battle/end_of_battle.asm"
 INCLUDE "engine/battle/wild_encounters.asm"
 INCLUDE "engine/battle/move_effects/recoil.asm"
-INCLUDE "engine/battle/move_effects/conversion.asm"
 INCLUDE "engine/battle/move_effects/haze.asm"
 
 
@@ -431,7 +430,6 @@ INCLUDE "engine/battle/init_battle.asm"
 INCLUDE "engine/battle/init_battle_variables.asm"
 INCLUDE "engine/battle/move_effects/focus_energy.asm"
 INCLUDE "engine/battle/move_effects/mist.asm"
-INCLUDE "engine/battle/move_effects/one_hit_ko.asm"
 INCLUDE "engine/battle/move_effects/pay_day.asm"
 INCLUDE "engine/battle/move_effects/paralyze.asm"
 INCLUDE "engine/math/multiply_divide.asm"

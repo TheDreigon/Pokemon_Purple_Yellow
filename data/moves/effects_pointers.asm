@@ -24,11 +24,11 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; SPECIAL_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; ACCURACY_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; EVASION_DOWN1_EFFECT
-	dw ConversionEffect          ; CONVERSION_EFFECT
+	dw RemovedMoveEffect         ; CONVERSION_EFFECT (Conversion removed in v0.5)
 	dw HazeEffect                ; HAZE_EFFECT
 	dw BideEffect                ; BIDE_EFFECT
 	dw ThrashPetalDanceEffect    ; THRASH_PETAL_DANCE_EFFECT
-	dw SwitchAndTeleportEffect   ; SWITCH_AND_TELEPORT_EFFECT
+	dw RemovedMoveEffect         ; SWITCH_AND_TELEPORT_EFFECT (Roar/Whirlwind removed; Teleport repurposed in v0.5)
 	dw TwoToFiveAttacksEffect    ; TWO_TO_FIVE_ATTACKS_EFFECT
 	dw TwoToFiveAttacksEffect    ; EFFECT_1E
 	dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT1
@@ -38,7 +38,7 @@ MoveEffectPointerTable:
 	dw FreezeBurnParalyzeEffect  ; FREEZE_SIDE_EFFECT2
 	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT2
 	dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT2
-	dw OneHitKOEffect            ; OHKO_EFFECT
+	dw RemovedMoveEffect         ; OHKO_EFFECT (Horn Drill/Fissure/Guillotine repurposed in v0.5)
 	dw ChargeEffect              ; CHARGE_EFFECT
 	dw NULL                      ; SUPER_FANG_EFFECT
 	dw NULL                      ; SPECIAL_DAMAGE_EFFECT
@@ -85,7 +85,7 @@ MoveEffectPointerTable:
 	dw MimicEffect               ; MIMIC_EFFECT
 	dw NULL                      ; METRONOME_EFFECT
 	dw LeechSeedEffect           ; LEECH_SEED_EFFECT
-	dw SplashEffect              ; SPLASH_EFFECT
+	dw RemovedMoveEffect         ; SPLASH_EFFECT (Splash removed in v0.5)
 	dw DisableEffect             ; DISABLE_EFFECT
 	dw SpeedEvasionUp1Effect     ; SPEED_EVASION_UP1_EFFECT
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT2

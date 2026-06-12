@@ -1,10 +1,10 @@
 ; These are move effects (second value from the Moves table in bank $E).
 ResidualEffects1:
 ; most non-side effects
-	db CONVERSION_EFFECT
-	db HAZE_EFFECT
-	db SWITCH_AND_TELEPORT_EFFECT
-	db MIST_EFFECT
+	; v0.7 cleanup: CONVERSION / SWITCH_AND_TELEPORT / SPLASH entries removed
+	; (their handlers were deleted — see RemovedMoveEffect in effects.asm).
+	db HAZE_EFFECT ; handler kept although no current move uses it (future restore)
+	db MIST_EFFECT ; handler kept; PROTECTED_BY_MIST infra is live via Guard Spec
 	db FOCUS_ENERGY_EFFECT
 	db CONFUSION_EFFECT
 	db HEAL_EFFECT
@@ -17,5 +17,4 @@ ResidualEffects1:
 	db SUBSTITUTE_EFFECT
 	db MIMIC_EFFECT
 	db LEECH_SEED_EFFECT
-	db SPLASH_EFFECT
 	db -1 ; end

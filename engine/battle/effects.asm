@@ -1128,118 +1128,15 @@ ThrashPetalDanceEffect:
 	add SHRINKING_SQUARE_ANIM
 	jp PlayBattleAnimation2
 
-SwitchAndTeleportEffect:
-	ldh a, [hWhoseTurn]
-	and a
-	jr nz, .handleEnemy
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .notWildBattle1
-	ld a, [wCurEnemyLVL]
-	ld b, a
-	ld a, [wBattleMonLevel]
-	cp b ; is the player's level greater than the enemy's level?
-	jr nc, .playerMoveWasSuccessful ; if so, teleport will always succeed
-	add b
-	ld c, a
-	inc c ; c = playerLevel + enemyLevel + 1
-.rejectionSampleLoop1
-	call BattleRandom
-	cp c ; get a random number between 0 and c
-	jr nc, .rejectionSampleLoop1
-	srl b
-	srl b  ; b = enemyLevel / 4
-	cp b ; is rand[0, playerLevel + enemyLevel] >= (enemyLevel / 4)?
-	jr nc, .playerMoveWasSuccessful ; if so, allow teleporting
-	ld c, 50
-	call DelayFrames
-	ld a, [wPlayerMoveNum]
-	cp TELEPORT
-	jp nz, PrintDidntAffectText
-	jp PrintButItFailedText_
-.playerMoveWasSuccessful
-	call ReadPlayerMonCurHPAndStatus
-	xor a
-	ld [wAnimationType], a
-	inc a
-	ld [wEscapedFromBattle], a
-	ld a, [wPlayerMoveNum]
-	jr .playAnimAndPrintText
-.notWildBattle1
-	ld c, 50
-	call DelayFrames
-	ld hl, IsUnaffectedText
-	ld a, [wPlayerMoveNum]
-	cp TELEPORT
-	jp nz, PrintText
-	jp PrintButItFailedText_
-.handleEnemy
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .notWildBattle2
-	ld a, [wBattleMonLevel]
-	ld b, a
-	ld a, [wCurEnemyLVL]
-	cp b
-	jr nc, .enemyMoveWasSuccessful
-	add b
-	ld c, a
-	inc c
-.rejectionSampleLoop2
-	call BattleRandom
-	cp c
-	jr nc, .rejectionSampleLoop2
-	srl b
-	srl b
-	cp b
-	jr nc, .enemyMoveWasSuccessful
-	ld c, 50
-	call DelayFrames
-	ld a, [wEnemyMoveNum]
-	cp TELEPORT
-	jp nz, PrintDidntAffectText
-	jp PrintButItFailedText_
-.enemyMoveWasSuccessful
-	call ReadPlayerMonCurHPAndStatus
-	xor a
-	ld [wAnimationType], a
-	inc a
-	ld [wEscapedFromBattle], a
-	ld a, [wEnemyMoveNum]
-	jr .playAnimAndPrintText
-.notWildBattle2
-	ld c, 50
-	call DelayFrames
-	ld hl, IsUnaffectedText
-	ld a, [wEnemyMoveNum]
-	cp TELEPORT
-	jp nz, PrintText
-	jp ConditionalPrintButItFailed
-.playAnimAndPrintText
-	push af
-	call PlayBattleAnimation
-	ld c, 20
-	call DelayFrames
-	pop af
-	ld hl, RanFromBattleText
-	cp TELEPORT
-	jr z, .printText
-	; ROAR was removed in v0.5; "scared away" text path is unreachable.
-	ld hl, WasBlownAwayText
-.printText
-	jp PrintText
-
-RanFromBattleText:
-	text_far _RanFromBattleText
-	text_end
-
-RanAwayScaredText:
-	text_far _RanAwayScaredText
-	text_end
-
-WasBlownAwayText:
-	text_far _WasBlownAwayText
-	text_end
+; v0.7 cleanup: shared no-op target for effect-pointer-table slots whose
+; moves were removed in the v0.5 overhaul (Conversion; Roar/Whirlwind +
+; old Teleport via SWITCH_AND_TELEPORT; the OHKO trio; Splash). The table
+; is positional, so each slot must keep a valid bank-$0F target — but the
+; effects are unreachable (no move row uses them, and Metronome / Mirror
+; Move can only invoke effects of existing moves). Restore the original
+; handlers from git history if one of these moves ever returns.
+RemovedMoveEffect:
+	ret
 
 TwoToFiveAttacksEffect:
 	ld hl, wPlayerBattleStatus1
@@ -1313,9 +1210,6 @@ FlinchSideEffect:
 	set FLINCHED, [hl] ; set mon's status to flinching
 	call ClearHyperBeam
 	ret
-
-OneHitKOEffect:
-	jpfar OneHitKOEffect_
 
 ChargeEffect:
 	ld hl, wPlayerBattleStatus1
@@ -1644,10 +1538,6 @@ MimicLearnedMoveText:
 LeechSeedEffect:
 	jpfar LeechSeedEffect_
 
-SplashEffect:
-	call PlayCurrentMoveAnimation
-	jp PrintNoEffectText
-
 DisableEffect:
 	call MoveHitTest
 	ld a, [wMoveMissed]
@@ -1737,9 +1627,6 @@ MoveWasDisabledText:
 
 PayDayEffect:
 	jpfar PayDayEffect_
-
-ConversionEffect:
-	jpfar ConversionEffect_
 
 HazeEffect:
 	jpfar HazeEffect_

@@ -70,21 +70,6 @@ _FellText::
 	text " fell!"
 	prompt
 
-_RanFromBattleText::
-	text "<USER>"
-	line "ran from battle!"
-	prompt
-
-_RanAwayScaredText::
-	text "<TARGET>"
-	line "ran away scared!"
-	prompt
-
-_WasBlownAwayText::
-	text "<TARGET>"
-	line "was blown away!"
-	prompt
-
 _ChargeMoveEffectText::
 	text "<USER>@"
 	text_end
@@ -196,11 +181,6 @@ _EvadedAttackText::
 _HitWithRecoilText::
 	text "<USER>'s"
 	line "hit with recoil!"
-	prompt
-
-_ConvertedTypeText::
-	text "Converted type to"
-	line "<TARGET>'s!"
 	prompt
 
 _StatusChangesEliminatedText::
