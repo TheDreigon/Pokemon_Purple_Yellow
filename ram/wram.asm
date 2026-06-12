@@ -1265,16 +1265,19 @@ wGymCityName:: ds 17
 
 wGymLeaderName:: ds NAME_LENGTH
 
-wItemList:: ds 40 ; sized for the worst-case tiered mart at full unlock:
-                  ; T0..T8 (~17 items) + post-E4 elite addons + post-rematch
-                  ; elite addons + Indigo TM extras + count + $ff terminator.
+wItemList:: ds 41 ; sized for the worst-case tiered mart at full unlock:
+                  ; count + T0..T8 (19 items) + elite addons (4 post-E4 +
+                  ; 4 post-rematch) + Indigo TM extras (12) + $ff terminator.
 
 ; Scratch buffer for the per-mart TM extras passed via `script_tiered_mart`.
 ; Layout: [count, item0, item1, ..., itemN]. No $ff terminator.
+; Sized for count byte + up to 12 items; the script_tiered_mart macros
+; assert _NARG <= 12 so a larger list fails at build time instead of
+; overflowing into wMartType.
 ; Populated in home before TieredMartHandler runs in another bank, since
 ; the script payload lives in the map's ROM bank and is otherwise unreachable
 ; once the bank has switched.
-wMartExtras:: ds 12
+wMartExtras:: ds 13
 
 ; Mart variant flag, written by the home dispatcher and read by the bank1
 ; TieredMartHandler. See macros/scripts/text.asm for TIERED_MART_TYPE_*
@@ -2664,7 +2667,10 @@ SECTION "Stack", WRAM0
 ; v0.5 mart rework: shrunk a further 28 bytes (233 -> 205) to absorb
 ; wItemList expansion (16 -> 32) and the new wMartExtras (12 bytes).
 ; v0.5 elite tiered mart rework: another 9-byte shrink (205 -> 196) for
-; wItemList 32 -> 40 (+8) and the new wMartType variant flag (+1). See
-; layout.link "Stack" org $df3c.
-	ds $c4 - 1
+; wItemList 32 -> 40 (+8) and the new wMartType variant flag (+1).
+; v0.7 tiered mart overflow fix: 2 more bytes (196 -> 194) for
+; wMartExtras 12 -> 13 (count byte + 12 Indigo TM extras was overflowing
+; into wMartType) and wItemList 40 -> 41 (true full-unlock worst case).
+; See layout.link "Stack" org $df3e.
+	ds $c2 - 1
 wStack:: db

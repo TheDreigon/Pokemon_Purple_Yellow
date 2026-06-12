@@ -207,6 +207,7 @@ DEF TIERED_MART_TYPE_ELITE   EQU 1
 MACRO script_tiered_mart
 	db TX_SCRIPT_TIERED_MART
 	db TIERED_MART_TYPE_REGULAR
+	assert _NARG <= 12, "script_tiered_mart: at most 12 extras fit in wMartExtras"
 	db _NARG ; number of extra fixed items (0 if pure tiered)
 	IF _NARG
 		db \# ; the extra items (e.g. TMs)
@@ -220,6 +221,7 @@ ENDM
 MACRO script_tiered_mart_elite
 	db TX_SCRIPT_TIERED_MART
 	db TIERED_MART_TYPE_ELITE
+	assert _NARG <= 12, "script_tiered_mart_elite: at most 12 extras fit in wMartExtras"
 	db _NARG
 	IF _NARG
 		db \#
