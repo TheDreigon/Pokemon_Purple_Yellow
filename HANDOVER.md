@@ -136,8 +136,8 @@ Era um Thunder Wave disfarçado (`PARALYZE_EFFECT` está em `ResidualEffects1` �
 ### Gunk Shot: RESOLVIDO (2026-06-12, decisão do Forte)
 Tinha a mesma doença do Mind Break (`POISON_EFFECT` em ResidualEffects1 = status puro). Forte decidiu: GUNK_SHOT → `POISON_SIDE_EFFECT2` (30% poison, lógica zoológica: lodo atirado envenena por contacto, menos certo que presas que injectam) + accuracy 80→85 (em linha com Fire Blast/Blizzard/Thunder a 115/85). Na mesma decisão, SLUDGE desceu para `POISON_SIDE_EFFECT1` (15%). Com isto, `POISON_EFFECT` só resta em moves 0 BP (Toxic/Poison Gas/Poisonpowder) — o problema da R1 dispatch deixou de ter vítimas; não é preciso power-gate.
 
-### ⚠️ BANK $0F (Battle Core) NO LIMITE ABSOLUTO
-Depois do PARALYZE_SIDE_EFFECT3, o debug build tem **1 byte livre** no bank $0F (release: 24B). Qualquer adição ao Battle Core estoura o build debug. Remediações possíveis quando acontecer: apagar o dead code do Counter (HandleCounterMove short-circuita em core.asm:4995-4998, o corpo vanilla abaixo é unreachable — ~100B), ou mover mais dados para o bank $30 (7.8KB livres).
+### Bank $0F (Battle Core): pressão aliviada (2026-06-12)
+Depois do PARALYZE_SIDE_EFFECT3 o debug build chegou a estar com 1 byte livre. O dead code do Counter (corpo vanilla unreachable do HandleCounterMove) foi apagado — substituído por stub de 2 bytes que mantém o contrato dos callers (sempre NZ). **Debug agora tem ~72 bytes livres** no $0F. Se voltar a apertar: mover dados para o bank $30 (7.8KB livres). FLY e DIG foram adicionados à HighCriticalMoves nesta janela (lógica de emboscada dos charge moves, decisão do Forte).
 
 ### PITFALL NOVO (crítico): ordem das move tables é load-bearing
 `moves.asm`, `names.asm`, `AttackAnimationPointers` e `sfx.asm` são indexadas por (move id − 1) dos constants. **Nunca trocar rows num ficheiro só** — o build passa mas os moves trocam de dados em jogo. Depois de qualquer reorder: `python .claude/check_move_alignment.py` (0 misalignments = OK). Foi assim que o commit `59ed008` partiu Comet Punch/Low Kick sem ninguém notar.
