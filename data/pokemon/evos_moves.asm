@@ -513,6 +513,7 @@ BeedrillEvosMoves:
 ; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
 ; one of the line's "small number of exceptions"). Neurotoxin
 ; at L48 is real-world bee venom biology.
+; BUG_BUZZ removed (Forte r2: Butterfree/Venomoth lines only).
 	db  4, POISON_STING
 	db  7, STRING_SHOT
 	db  9, BUG_BITE
@@ -527,7 +528,6 @@ BeedrillEvosMoves:
 	db 27, QUICK_ATTACK
 	db 30, AGILITY
 	db 33, INTIMIDATE
-	db 36, BUG_BUZZ
 	db 40, AERIAL_ACE
 	db 42, DOUBLE_EDGE
 	db 48, NEUROTOXIN
@@ -3522,7 +3522,6 @@ ScytherEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 32, CUT
 	db 36, AERIAL_ACE
 	db 40, NIGHT_SLASH
-	db 44, BUG_BUZZ
 	db 47, FLY
 	db 52, SWORDS_DANCE
 	db 58, GUILLOTINE
@@ -3642,14 +3641,13 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2 (+ Forte r1): stag-beetle grappler (Bug/Fighting).
-; VICEGRIP at L1 — SHARED signature with the Krabby line (Forte).
-; SUBMISSION restored HIGH-LEVEL per Forte r1 (overrides the old
-; Machamp/Poliwrath-only note), after TAKE_DOWN per power scaling.
-; GORE_ATTACK L46 kept for review (impaling horns). Wrestler kit:
-; BIND (horn grip), SEISMIC_TOSS (lifts and throws), LOW_KICK.
-; No SLASH (no claws). BUG_BUZZ: wingless stridulation (Venonat
-; precedent) — flag if undesired.
+; v0.7 Pass 3 v2 (+ Forte r2): stag-beetle grappler (Bug/Fighting).
+; VICEGRIP at L1 — SHARED almost-signature with the Krabby line.
+; Wrestler kit: BIND (horn grip), SEISMIC_TOSS (lifts and throws),
+; LOW_KICK, GORE_ATTACK (impaling horns), MEGAHORN, GUILLOTINE last.
+; No SLASH (no claws). No SUBMISSION (Forte r2: Machamp/Poliwrath
+; signature — trained technique, not wild instinct). No BUG_BUZZ
+; (Forte r2: Butterfree/Venomoth lines only).
 	db 10, FOCUS_ENERGY
 	db 13, LOW_KICK
 	db 17, SEISMIC_TOSS
@@ -3657,10 +3655,8 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 25, BIND
 	db 29, STRENGTH
 	db 33, BULK_UP
-	db 38, BUG_BUZZ
 	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
-	db 50, SUBMISSION
 	db 54, MEGAHORN
 	db 58, GUILLOTINE
 	db 0
