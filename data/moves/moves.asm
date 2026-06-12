@@ -192,7 +192,7 @@ Moves: ; Current total = 220
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
 	move POISON_STING,   POISON_SIDE_EFFECT1,              35, POISON,       100, 30
 	move POISON_FANG,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
-	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 60% chance.
+	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 45% chance.
 	move ACID,           DEFENSE_DOWN1_EFFECT,             40, POISON,       100, 25
 	move SLUDGE,         POISON_SIDE_EFFECT2,              65, POISON,       100, 20
 	move SLUDGE_WAVE,    SPEED_DOWN1_EFFECT,               90, POISON,       100, 15 ; new move.
@@ -207,7 +207,7 @@ Moves: ; Current total = 220
 	move EXTRASENSORY,   SWIFT_EFFECT,                     65, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
-	move MIND_BREAK,     PARALYZE_EFFECT,                 125, PSYCHIC_TYPE,  90, 10 ; signature. high-crit.
+	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90, 10 ; signature. high-crit. new effect - 45% paralyze.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
 

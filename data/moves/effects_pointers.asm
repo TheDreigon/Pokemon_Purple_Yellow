@@ -96,4 +96,5 @@ MoveEffectPointerTable:
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT3
 	dw SpeedEvasionDown1Effect   ; SPEED_EVASION_DOWN1_EFFECT
 	dw SpecialSpeedUp1Effect     ; SPECIAL_SPEED_UP1_EFFECT
+	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT3
 	assert_table_length NUM_MOVE_EFFECTS

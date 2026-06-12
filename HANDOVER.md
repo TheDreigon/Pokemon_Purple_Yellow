@@ -130,8 +130,14 @@ Workflow de 18 agentes validou o CHANGELIST contra o código e reviu os 198 comm
 11. Em-dashes fora do charmap em diálogos Blaine/Brock → `-`.
 12. **Vending machine**: o gate de dinheiro era um Y200 hardcoded (vanilla) — Soda/Lemonade podiam ser "compradas" com menos dinheiro e o BCD clampava a carteira a Y0. Agora verifica o preço real da bebida seleccionada.
 
-### DESCOBERTA PENDENTE DE DECISÃO DO FORTE: Mind Break nunca causa dano
-`MIND_BREAK` (signature do Mewtwo, 125 BP no spec, "high-crit") usa `PARALYZE_EFFECT`, que está em `ResidualEffects1` → o engine salta o cálculo de dano por completo (core.asm `jp c, JumpMoveEffect`). Em jogo é um Thunder Wave de 90% acc / 10 PP. Para o intent do spec (dano + paralisa) é preciso um effect novo (ex.: `PARALYZE_SIDE_EFFECT3` a 100%) ou mudar o design do move. Mewtwo está nos 23 TODO do Pass 3 — decidir quando esse capítulo reabrir. A entrada na HighCriticalMoves está lá mas inerte até isto ser resolvido.
+### Mind Break: RESOLVIDO (2026-06-12, decisão do Forte)
+Era um Thunder Wave disfarçado (`PARALYZE_EFFECT` está em `ResidualEffects1` → engine saltava o damage calc). Forte decidiu: novo `PARALYZE_SIDE_EFFECT3` ($60, 45%, heaviest tier do ladder 15/30/45) atribuído ao MIND_BREAK — agora é um move de dano 125 BP / 90 acc / high-crit com 45% de paralisia. Na mesma decisão: POISON tiers 20/40/60 → **15/30/45**, CONFUSION tier 3 50% → **45%**, TRI_STATUS 33% → **30%** total (~10% cada).
+
+### DESCOBERTA AINDA PENDENTE: Gunk Shot nunca causa dano
+`GUNK_SHOT` (115 BP) usa `POISON_EFFECT` — mesma causa (ResidualEffects1, status puro em jogo). Forte ainda não decidiu (opções: POISON_SIDE_EFFECT3 45%, tier novo, ou power-gate na R1 dispatch como foi feito na R2 em core.asm:3498-3511).
+
+### ⚠️ BANK $0F (Battle Core) NO LIMITE ABSOLUTO
+Depois do PARALYZE_SIDE_EFFECT3, o debug build tem **1 byte livre** no bank $0F (release: 24B). Qualquer adição ao Battle Core estoura o build debug. Remediações possíveis quando acontecer: apagar o dead code do Counter (HandleCounterMove short-circuita em core.asm:4995-4998, o corpo vanilla abaixo é unreachable — ~100B), ou mover mais dados para o bank $30 (7.8KB livres).
 
 ### PITFALL NOVO (crítico): ordem das move tables é load-bearing
 `moves.asm`, `names.asm`, `AttackAnimationPointers` e `sfx.asm` são indexadas por (move id − 1) dos constants. **Nunca trocar rows num ficheiro só** — o build passa mas os moves trocam de dados em jogo. Depois de qualquer reorder: `python .claude/check_move_alignment.py` (0 misalignments = OK). Foi assim que o commit `59ed008` partiu Comet Punch/Low Kick sem ninguém notar.

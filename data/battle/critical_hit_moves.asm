@@ -24,10 +24,8 @@ HighCriticalMoves:
 	db DOUBLE_EDGE
 	db HYPER_FANG
 	; PSYCHIC
-	db MIND_BREAK ; NOTE: currently inert — MIND_BREAK uses PARALYZE_EFFECT,
-	              ; which is in ResidualEffects1 (pure status path: skips
-	              ; damage calc AND CriticalHitTest entirely). Kept here for
-	              ; when the move gets a damaging effect. See HANDOVER audit.
+	db MIND_BREAK ; live since the move switched to PARALYZE_SIDE_EFFECT3
+	              ; (damaging effect — goes through CriticalHitTest normally)
 	; ROCK
 	db HORN_DRILL
 	; STEEL

@@ -105,13 +105,13 @@ PoisonEffect:
 	jr z, .noEffect
 	ld a, [de]
 	cp POISON_SIDE_EFFECT1
-	ld b, 20 percent + 1 ; chance of poisoning
+	ld b, 15 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	cp POISON_SIDE_EFFECT2
-	ld b, 40 percent + 1 ; chance of poisoning
+	ld b, 30 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	cp POISON_SIDE_EFFECT3
-	ld b, 60 percent + 1 ; chance of poisoning
+	ld b, 45 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	push hl
 	push de
@@ -231,6 +231,12 @@ FreezeBurnParalyzeEffect:
 	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .asm_3f2c7
+	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
+	jr nz, .tierLadder
+	ld b, 45 percent + 1
+	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness
+.tierLadder
 	cp PARALYZE_SIDE_EFFECT1 + 1
 	ld b, 15 percent + 1 ; _SIDE_EFFECT1 tier: 15%
 	jr c, .regular_effectiveness
@@ -331,6 +337,12 @@ FreezeBurnParalyzeEffect:
 	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .asm_3f341
+	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
+	jr nz, .tierLadder2
+	ld b, 45 percent + 1
+	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness2
+.tierLadder2
 	cp PARALYZE_SIDE_EFFECT1 + 1
 	ld b, 15 percent + 1 ; _SIDE_EFFECT1 tier: 15%
 	jr c, .regular_effectiveness2
@@ -429,8 +441,8 @@ FrozenText:
 
 
 ; v0.7: Tri Attack new effect.
-; ~33% total chance to inflict a random status on the target —
-; 11% paralyze, 11% burn, 11% freeze (33/256 first roll, 1/3 split second).
+; ~30% total chance to inflict a random status on the target —
+; 10% paralyze, 10% burn, 10% freeze (30% first roll, 1/3 split second).
 ; v0.7 type-status immunities apply (same set as FreezeBurnParalyzeEffect):
 ; burn -> FIRE/MAGMA immune; freeze -> ICE/MAGMA immune;
 ; paralyze -> ELECTRIC immune.
@@ -440,11 +452,11 @@ TriStatusSideEffect:
 	ld [wAnimationType], a
 	call CheckTargetSubstitute
 	ret nz                                ; substitute blocks
-	; First roll: any status at all? (~33%)
+	; First roll: any status at all? (~30%)
 	call BattleRandom
-	cp 33 percent + 1
+	cp 30 percent + 1
 	ret nc
-	; Second roll: which status? (1/3 split → ~11% each)
+	; Second roll: which status? (1/3 split → ~10% each)
 	call BattleRandom
 	cp 33 percent + 1
 	jp c, .triParalyze
@@ -1451,7 +1463,7 @@ ConfusionSideEffect:
 	cp CONFUSION_SIDE_EFFECT2
 	ld b, 30 percent + 1
 	jr z, .rollChance
-	ld b, 50 percent + 1   ; CONFUSION_SIDE_EFFECT3
+	ld b, 45 percent + 1   ; CONFUSION_SIDE_EFFECT3
 .rollChance
 	call BattleRandom
 	cp b
