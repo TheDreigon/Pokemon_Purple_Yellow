@@ -2818,85 +2818,88 @@ HypnoEvosMoves:
 	db 65, SHADOW_BALL
 	db 0
 
-KrabbyEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+KrabbyEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 28, KINGLER
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): crab Water. VICEGRIP signature.
-; CRABHAMMER (Forte G — Krabby/Kingler ONLY). HARDEN shell.
-	db  5, LEER
-	db  9, VICEGRIP
-	db 14, HARDEN
-	db 18, WATER_GUN
-	db 22, BUBBLEBEAM
-	db 28, GROUND_STOMP
-	db 32, CRABHAMMER
-	db 40, GUILLOTINE
+; v0.7 Pass 3 v2: scrappy pincer crab. CRABHAMMER signature at evo L28.
+; VICEGRIP removed (signature belongs to Pinsir); the grip is BIND now.
+; HARDEN carapace; MUD_SHOT beach burrower; FURY_ATTACK pincer jabs.
+; GUILLOTINE apex pincer (vanilla canon, shared with Kingler).
+	db 11, HARDEN
+	db 14, MUD_SHOT
+	db 17, BIND
+	db 21, BUBBLEBEAM
+	db 24, FURY_ATTACK
+	db 28, CRABHAMMER
+	db 34, WATER_PULSE
+	db 44, GUILLOTINE
 	db 0
 
-KinglerEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+KinglerEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex crab. CUT/SURF/STRENGTH HMs
-; (Forte B Kingler YES all 3). SWORDS_DANCE (Forte E TM list).
-	db  5, LEER
-	db  9, VICEGRIP
-	db 14, HARDEN
-	db 18, WATER_GUN
-	db 22, BUBBLEBEAM
-	db 28, FURY_ATTACK
-	db 32, CRABHAMMER
-	db 36, CUT
-	db 40, GUILLOTINE
-	db 44, SURF
-	db 48, STRENGTH
-	db 54, SWORDS_DANCE
-	db 60, BRUTAL_SWING
-	db 60, WATERFALL
-	db 60, BULLDOZE
-	db 60, ROCK_PUNCH
+; v0.7 Pass 3 v2: apex crusher crab (110 Atk / 110 Def). Shared backbone
+; with Krabby at the same levels; adds the heavy-claw kit: STRENGTH/CUT
+; (shear claw), IRON_DEFENSE (armoured shell), WATERFALL/SURF,
+; BRUTAL_SWING (massive claw sweep). SWORDS_DANCE stays TM-only.
+	db 11, HARDEN
+	db 14, MUD_SHOT
+	db 17, BIND
+	db 21, BUBBLEBEAM
+	db 24, FURY_ATTACK
+	db 28, CRABHAMMER
+	db 30, STRENGTH
+	db 33, CUT
+	db 34, WATER_PULSE
+	db 37, IRON_DEFENSE
+	db 41, WATERFALL
+	db 44, GUILLOTINE
+	db 47, SURF
+	db 52, BRUTAL_SWING
 	db 0
 
-VoltorbEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+VoltorbEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 30, ELECTRODE
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): pokeball-shaped Electric. TACKLE/
-; SCREECH/SHOCK_WAVE/THUNDERBOLT. EXPLOSION canon.
-	db  1, TACKLE
-	db  5, SCREECH
-	db 10, SONICBOOM
-	db 14, THUNDERSHOCK
-	db 18, DEFENSE_CURL
-	db 22, THUNDER_WAVE
-	db 28, SHOCK_WAVE
-	db 34, LIGHT_SCREEN
-	db 40, THUNDERBOLT
-	db 47, EXPLOSION
+; v0.7 Pass 3 v2: living pokeball — sphere, no limbs, no bites/punches.
+; DEFENSE_CURL (ball-shape list), METAL_SOUND (Steel typing, Forte F),
+; EXPLOSION owner (Forte N: Koffing/Voltorb/Magmar only), shared L44.
+; EERIE_IMPULSE deliberately NOT here (Forte F: not Voltorb).
+	db  9, SONICBOOM
+	db 12, THUNDERSHOCK
+	db 16, DEFENSE_CURL
+	db 19, THUNDER_WAVE
+	db 23, METAL_SOUND
+	db 26, SHOCK_WAVE
+	db 33, LIGHT_SCREEN
+	db 38, THUNDERBOLT
+	db 44, EXPLOSION
 	db 0
 
-ElectrodeEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+ElectrodeEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex pokeball. AGILITY (fast spin).
-; MIRROR_COAT? Skip. THUNDER apex.
-	db  1, TACKLE
-	db  5, SCREECH
-	db 10, SONICBOOM
-	db 14, THUNDERSHOCK
-	db 18, DEFENSE_CURL
-	db 22, THUNDER_WAVE
-	db 28, SHOCK_WAVE
-	db 32, AGILITY
-	db 34, LIGHT_SCREEN
-	db 40, THUNDERBOLT
-	db 47, EXPLOSION
-	db 54, REFLECT
-	db 60, THUNDER
+; v0.7 Pass 3 v2: apex sphere (130 Spd). AGILITY at evo L30 (full-speed
+; roll = the line-defining moment). Screens pair (LIGHT_SCREEN shared,
+; REFLECT apex-only), THUNDER apex top. EXPLOSION shared with Voltorb.
+	db  9, SONICBOOM
+	db 12, THUNDERSHOCK
+	db 16, DEFENSE_CURL
+	db 19, THUNDER_WAVE
+	db 23, METAL_SOUND
+	db 26, SHOCK_WAVE
+	db 30, AGILITY
+	db 33, LIGHT_SCREEN
+	db 38, THUNDERBOLT
+	db 41, REFLECT
+	db 44, EXPLOSION
+	db 50, THUNDER
 	db 0
 
 ExeggcuteEvosMoves:
@@ -3303,144 +3306,151 @@ TangelaEvosMoves:
 	db 60, PETAL_DANCE
 	db 0
 
-KangaskhanEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+KangaskhanEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): mãe protetora savana (Forte H).
-; Forte mas não maliciosa nem desnecessariamente bruta. BULK_UP
-; (Forte E muscle). STRENGTH HM04 (Forte B).
-	db  1, TAIL_WHIP
-	db  5, BITE
-	db 10, LEER
-	db 14, DIZZY_PUNCH
-	db 18, RAGE
-	db 22, FOCUS_ENERGY
-	db 26, COMET_PUNCH
-	db 32, BULK_UP
+; v0.7 Pass 3 v2: protective savanna mother (Normal/Fighting). Strong
+; but never malicious (Forte H). FIERCE_ROAR = warning roar guarding
+; the cub; OUTRAGE L52 = a mother's fury when the cub is threatened.
+; BULK_UP (muscle list). No THRASH (not wild), no GORE (no horns).
+	db 10, TAIL_WHIP
+	db 13, BITE
+	db 16, DIZZY_PUNCH
+	db 19, GROUND_STOMP
+	db 23, SEISMIC_TOSS
+	db 27, FIERCE_ROAR
+	db 31, BULK_UP
 	db 36, BODY_SLAM
 	db 40, STRENGTH
-	db 47, TAKE_DOWN
-	db 54, OUTRAGE
-	db 60, DOUBLE_EDGE
+	db 45, TAKE_DOWN
+	db 52, OUTRAGE
+	db 58, DOUBLE_EDGE
 	db 0
 
-HorseaEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+HorseaEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 26, SEADRA
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): seahorse Water. SMOKESCREEN (ink).
-; DRAGON_RAGE (proto-dragon).
-	db  5, SMOKESCREEN
-	db  9, WATER_GUN
+; v0.7 Pass 3 v2: ink-spitting seahorse. SMOKESCREEN restored (iconic
+; ink jet — was missing). DRAGON_RAGE at evo L26 = the dragon blood
+; awakening (signature-at-evo, shared like Pikachu VOLT_TACKLE).
+; ICY_PULSE cold currents (mirrors Dratini's aquatic-dragon kit).
+	db 10, SMOKESCREEN
 	db 14, LEER
 	db 18, BUBBLEBEAM
-	db 22, WATER_PULSE
-	db 28, AGILITY
-	db 34, DRAGON_RAGE
-	db 40, ICE_BEAM
+	db 22, AGILITY
+	db 26, DRAGON_RAGE
+	db 31, WATER_PULSE
+	db 36, ICY_PULSE
 	db 47, HYDRO_PUMP
 	db 0
 
-SeadraEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+SeadraEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex Water dragon. DRAGON_BREATH.
-; DRAGON_CLAW.
-	db  5, SMOKESCREEN
-	db  9, WATER_GUN
+; v0.7 Pass 3 v2: Water/DRAGON now. Shared Horsea backbone + dragon kit:
+; DRAGON_BREATH right after evo, ICE_BEAM (cold deep water), DRAGON_SLAM
+; apex (reckless body slam — serpentine body, Dratini precedent).
+; DRAGON_CLAW removed from old draft: Seadra has NO claws (anatomy gate).
+	db 10, SMOKESCREEN
 	db 14, LEER
 	db 18, BUBBLEBEAM
-	db 22, WATER_PULSE
-	db 28, AGILITY
-	db 34, DRAGON_RAGE
-	db 40, ICE_BEAM
-	db 44, DRAGON_CLAW
+	db 22, AGILITY
+	db 26, DRAGON_RAGE
+	db 28, DRAGON_BREATH
+	db 31, WATER_PULSE
+	db 36, ICY_PULSE
+	db 42, ICE_BEAM
 	db 47, HYDRO_PUMP
-	db 52, DRAGON_BREATH
-	db 60, DRAGON_SLAM
+	db 52, DRAGON_SLAM
 	db 0
 
-GoldeenEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+GoldeenEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db EVOLVE_LEVEL, 24, SEAKING
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): goldfish Water with horn. PECK/
-; TAIL_WHIP/HORN_ATTACK. AGILITY (fast fish).
-	db  1, PECK
-	db  5, TAIL_WHIP
-	db 10, SUPERSONIC
-	db 14, HORN_ATTACK
-	db 18, WATER_GUN
-	db 22, FURY_ATTACK
-	db 28, BUBBLEBEAM
-	db 34, WATER_PULSE
-	db 40, AGILITY
+; v0.7 Pass 3 v2: horned river fish. WATERFALL at evo L24 = the salmon
+; climb (line-defining, shared). Horn ladder: HORN_ATTACK -> FURY_ATTACK
+; (jabs) -> HORN_CHARGE (ramming run, shared high).
+	db 10, HORN_ATTACK
+	db 14, SUPERSONIC
+	db 18, BUBBLEBEAM
+	db 21, FURY_ATTACK
+	db 24, WATERFALL
+	db 30, AGILITY
+	db 36, WATER_PULSE
+	db 44, HORN_CHARGE
 	db 0
 
-SeakingEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+SeakingEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex goldfish. HORN_DRILL apex.
-; WATERFALL apex.
-	db  1, PECK
-	db  5, TAIL_WHIP
-	db 10, SUPERSONIC
-	db 14, HORN_ATTACK
-	db 18, WATER_GUN
-	db 22, FURY_ATTACK
-	db 28, BUBBLEBEAM
-	db 34, WATER_PULSE
-	db 40, AGILITY
-	db 44, WATERFALL
-	db 50, SURF
+; v0.7 Pass 3 v2: apex river guardian. Shared Goldeen backbone +
+; ICY_PULSE (cold streams), SURF, MEGAHORN (that horn is huge), and
+; HORN_DRILL L60 last — drill-horn fish is the perfect anatomy, but it
+; is OUTSIDE Forte's confirmed G list (Dodrio/Rhydon/Rapidash/Tauros).
+; FLAG: Forte to confirm HORN_DRILL here.
+	db 10, HORN_ATTACK
+	db 14, SUPERSONIC
+	db 18, BUBBLEBEAM
+	db 21, FURY_ATTACK
+	db 24, WATERFALL
+	db 30, AGILITY
+	db 33, ICY_PULSE
+	db 36, WATER_PULSE
+	db 44, HORN_CHARGE
+	db 48, SURF
 	db 54, MEGAHORN
 	db 60, HORN_DRILL
 	db 0
 
-StaryuEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+StaryuEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
-	db EVOLVE_ITEM, WATER_STONE, 1, STARMIE
+	db EVOLVE_ITEM, MOON_STONE, 1, STARMIE
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): star Water. RECOVER (Forte F Staryu-
-; line YES). HARDEN. FLASH HM05 natural (Forte B Staryu-line).
-	db  1, TACKLE
-	db  5, HARDEN
-	db 10, WATER_GUN
-	db 18, BUBBLEBEAM
-	db 22, RECOVER
-	db 28, WATER_PULSE
-	db 34, PSYBEAM
-	db 40, FLASH
+; v0.7 Pass 3 v2: star with a regenerating gem core. Evolution FIXED to
+; MOON_STONE per Forte's spec (types_evolutions_stats: Moonstone =
+; Clefairy/Vulpix/Staryu — repo had WATER_STONE). RECOVER L25 (core
+; regen, Forte F list), FLASH L29 (gem light), HARDEN (crystal body).
+	db 10, HARDEN
+	db 13, WATER_GUN
+	db 17, PSYWAVE
+	db 21, BUBBLEBEAM
+	db 25, RECOVER
+	db 29, FLASH
+	db 33, WATER_PULSE
+	db 37, PSYBEAM
+	db 42, LIGHT_SCREEN
 	db 47, HYDRO_PUMP
 	db 0
 
-StarmieEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+StarmieEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex star. CALM_MIND (Forte E).
-; LIGHT_SCREEN/REFLECT (Forte F). PSYCHIC_M apex.
-	db  1, TACKLE
-	db  5, HARDEN
-	db 10, WATER_GUN
-	db 18, BUBBLEBEAM
-	db 22, RECOVER
-	db 28, WATER_PULSE
-	db 32, CONFUSION
-	db 34, PSYBEAM
-	db 38, LIGHT_SCREEN
-	db 40, FLASH
-	db 44, REFLECT
+; v0.7 Pass 3 v2: Water/Psychic mystic star. Staryu backbone + screens
+; pair, CALM_MIND (Forte E list: Starmie), SURF, PSYCHIC_M apex.
+; No TRI_ATTACK (Porygon/Mew/Magneton only).
+	db 10, HARDEN
+	db 13, WATER_GUN
+	db 17, PSYWAVE
+	db 21, BUBBLEBEAM
+	db 25, RECOVER
+	db 29, FLASH
+	db 33, WATER_PULSE
+	db 37, PSYBEAM
+	db 39, REFLECT
+	db 42, LIGHT_SCREEN
+	db 44, CALM_MIND
 	db 47, HYDRO_PUMP
 	db 52, SURF
-	db 56, CALM_MIND
-	db 60, PSYCHIC_M
+	db 56, PSYCHIC_M
 	db 0
 
 MrMimeEvosMoves:
@@ -3473,27 +3483,27 @@ MrMimeEvosMoves:
 	db 60, METRONOME
 	db 0
 
-ScytherEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+ScytherEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): mantis Bug/Flying single-stage.
-; FOCUS_ENERGY (Forte E warriors). CUT/FLY HMs naturais (Forte B).
-; SWORDS_DANCE (Forte E TM list YES).
-	db  1, QUICK_ATTACK
-	db  5, LEER
-	db  9, FOCUS_ENERGY
-	db 13, FURY_ATTACK
-	db 18, WING_ATTACK
-	db 22, SLASH
-	db 26, AGILITY
-	db 32, AERIAL_ACE
-	db 36, CUT
-	db 40, BUG_BUZZ
-	db 44, FLY
-	db 48, NIGHT_SLASH
-	db 54, SWORDS_DANCE
-	db 60, BRUTAL_SWING
+; v0.7 Pass 3 v2: mantis blade-master. FOCUS_ENERGY opener (sniper
+; stare, Forte F), HONE_CLAWS = sharpening the scythes, blade ladder
+; SLASH -> CUT -> NIGHT_SLASH, GUILLOTINE last (mantises decapitate
+; prey — precise, not brutal: no BRUTAL_SWING). SD L52 (blade dancer).
+	db 10, FOCUS_ENERGY
+	db 13, BUG_BITE
+	db 16, WING_ATTACK
+	db 20, SLASH
+	db 24, HONE_CLAWS
+	db 28, AGILITY
+	db 32, CUT
+	db 36, AERIAL_ACE
+	db 40, NIGHT_SLASH
+	db 44, BUG_BUZZ
+	db 47, FLY
+	db 52, SWORDS_DANCE
+	db 58, GUILLOTINE
 	db 0
 
 JynxEvosMoves:
@@ -3606,53 +3616,52 @@ MagmarEvosMoves:
 	db 60, FIRE_BLAST
 	db 0
 
-PinsirEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): stag-beetle Bug single-stage.
-; VICEGRIP signature. GUILLOTINE apex. CUT/STRENGTH HMs (Forte B).
-; SWORDS_DANCE (Forte E TM list).
-	db  1, VICEGRIP
-	db  5, LEER
-	db  9, FOCUS_ENERGY
+; v0.7 Pass 3 v2: stag-beetle grappler (Bug/Fighting). VICEGRIP is its
+; L1 signature (BUG-type vice = these horns; removed from Krabby).
+; Wrestler kit: BIND (horn grip), SEISMIC_TOSS (lifts and throws,
+; canon), LOW_KICK, SUBMISSION, MEGAHORN, GUILLOTINE last (horn shear).
+; SLASH removed from old draft (no claws — anatomy gate).
+	db 10, FOCUS_ENERGY
 	db 13, BIND
-	db 18, SEISMIC_TOSS
-	db 22, BUG_BITE
-	db 26, SLASH
-	db 32, BULK_UP
-	db 36, CUT
-	db 40, STRENGTH
-	db 44, BUG_BUZZ
-	db 48, SUBMISSION
-	db 52, SWORDS_DANCE
-	db 56, BRUTAL_SWING
-	db 60, GUILLOTINE
+	db 17, SEISMIC_TOSS
+	db 21, BUG_BITE
+	db 25, LOW_KICK
+	db 29, STRENGTH
+	db 33, BULK_UP
+	db 38, BUG_BUZZ
+	db 42, SUBMISSION
+	db 47, TAKE_DOWN
+	db 52, MEGAHORN
+	db 58, GUILLOTINE
 	db 0
 
-TaurosEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+TaurosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): touro selvagem fortíssimo (Forte H).
-; Charge/rage/wild physical. BULK_UP (Forte E). HORN_DRILL last
-; move (Forte G — Tauros high lvl).
-	db  1, TACKLE
-	db  5, TAIL_WHIP
-	db 10, HORN_ATTACK
-	db 14, LEER
-	db 18, RAGE
-	db 22, FOCUS_ENERGY
-	db 28, HORN_CHARGE
-	db 32, INTIMIDATE
-	db 36, GROUND_STOMP
+; v0.7 Pass 3 v2: potente touro selvagem — kit built literally from
+; Forte's identity line: Charge/Horn Charge/Thrash/Outrage/Take Down/
+; Gore Attack/Intimidate/Scary Face/Bide/Strength. HORN_DRILL L65 last
+; (Forte G: Tauros high-level approved). No EXTREMESPEED (fast, not
+; agile — Forte G).
+	db 10, LEER
+	db 13, HORN_ATTACK
+	db 17, RAGE
+	db 20, GROUND_STOMP
+	db 24, FOCUS_ENERGY
+	db 28, BIDE
+	db 32, HORN_CHARGE
+	db 36, INTIMIDATE
 	db 40, STRENGTH
-	db 44, BULK_UP
-	db 48, TAKE_DOWN
-	db 52, SCARY_FACE
-	db 54, THRASH
-	db 58, OUTRAGE
-	db 60, DOUBLE_EDGE
+	db 44, TAKE_DOWN
+	db 48, SCARY_FACE
+	db 52, THRASH
+	db 56, GORE_ATTACK
+	db 60, OUTRAGE
 	db 65, HORN_DRILL
 	db 0
 
@@ -3708,37 +3717,36 @@ GyaradosEvosMoves:
 	db 60, HYPER_BEAM
 	db 0
 
-LaprasEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+LaprasEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): gentle Water/Ice giant. SING (Forte
-; C YES). SURF/STRENGTH HMs (Forte B). PSYCHIC_M canon learn.
-	db  1, WATER_GUN
-	db  5, GROWL
-	db 10, TAIL_WHIP
-	db 14, ICY_WIND
+; v0.7 Pass 3 v2: gentle singing ferry. SING L30 (Forte C: after L30),
+; CONFUSE_RAY (vanilla canon mystic), STRENGTH L46 (hauls passengers),
+; SURF L50 (THE ferry move), PSYCHIC_M L58 (telepathy lore),
+; HYDRO_PUMP last. No THRASH/OUTRAGE (docile).
+	db 10, ICY_WIND
+	db 14, BUBBLEBEAM
 	db 18, BODY_SLAM
 	db 22, AURORA_BEAM
-	db 28, BUBBLEBEAM
-	db 32, SING
+	db 26, CONFUSE_RAY
+	db 30, SING
 	db 34, WATER_PULSE
 	db 38, ICY_PULSE
-	db 40, ICE_BEAM
-	db 44, STRENGTH
-	db 48, SURF
-	db 52, BLIZZARD
-	db 56, PSYCHIC_M
-	db 60, HYDRO_PUMP
+	db 42, ICE_BEAM
+	db 46, STRENGTH
+	db 50, SURF
+	db 54, BLIZZARD
+	db 58, PSYCHIC_M
+	db 62, HYDRO_PUMP
 	db 0
 
-DittoEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+DittoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): TRANSFORM ONLY single move (Forte:
-; Ditto exception - no other moves, no TMs).
-	db  1, TRANSFORM
+; v0.7 Pass 3 v2: TRANSFORM only, by design (Forte J: no TMs, no other
+; moves — Transform IS Ditto). Nothing to add; kept empty on purpose.
 	db 0
 
 EeveeEvosMoves:
@@ -3845,26 +3853,28 @@ FlareonEvosMoves:
 	db 60, FIRE_BLAST
 	db 0
 
-PorygonEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+PorygonEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Normal/Electric digital (Forte J:
-; TRI_ATTACK signature, NÃO CONVERSION). All 4 fun moves natural
-; (Forte A). RECOVER (Forte F). HYPER_BEAM L65 (Forte G).
-	db  1, TACKLE
-	db  5, HONE_CLAWS
-	db 10, PSYBEAM
+; v0.7 Pass 3 v2: digital construct. Fun moves are NATURAL levelup here
+; (Forte A: copy.exe/mirror.exe/decoy.exe/random.exe). TRI_ATTACK L46
+; signature, RECOVER (file restore), MAGNET_BOMB L58 (shared signature
+; with Magneton), HYPER_BEAM L65 last (Forte G owner list).
+; No NASTY_PLOT (Forte E), no TRANSFORM (Ditto), no CONVERSION (gone).
+	db 10, CONFUSION
 	db 14, AGILITY
 	db 18, RECOVER
+	db 22, SHOCK_WAVE
 	db 26, MIMIC
-	db 30, PSYCHIC_M
+	db 30, PSYBEAM
 	db 34, MIRROR_MOVE
-	db 40, SHOCK_WAVE
-	db 44, METRONOME
-	db 48, TRI_ATTACK
-	db 52, SUBSTITUTE
-	db 56, THUNDERBOLT
+	db 38, LIGHT_SCREEN
+	db 42, METRONOME
+	db 46, TRI_ATTACK
+	db 50, SUBSTITUTE
+	db 54, THUNDERBOLT
+	db 58, MAGNET_BOMB
 	db 65, HYPER_BEAM
 	db 0
 
@@ -3990,100 +4000,96 @@ AerodactylEvosMoves:
 	db 60, SKY_ATTACK
 	db 0
 
-SnorlaxEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+SnorlaxEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): gigante gentil/preguiçoso (Forte H).
-; BRUTAL_SWING SIM, NÃO GORE_ATTACK/THRASH/OUTRAGE (preguiça).
-; REST canon. AMNESIA. BODY_SLAM. HEAVY_SLAM. STRENGTH HM04.
-	db  1, TACKLE
-	db  5, GROWL
+; v0.7 Pass 3 v2: gentle lazy giant (Forte H: BRUTAL_SWING yes,
+; GORE/THRASH/OUTRAGE no — too much initiative for a napper).
+; L1 = HEADBUTT + AMNESIA (wakes up, forgets why). BIDE = the tank
+; that absorbs and retaliates. REST canonical mid-set. BULK_UP
+; (muscle list). HEAVY_SLAM L52 apex (it IS the heavy).
 	db 10, LICK
 	db 14, DEFENSE_CURL
-	db 18, BODY_SLAM
-	db 22, HEADBUTT
-	db 28, REST
-	db 32, AMNESIA
-	db 36, BULK_UP
-	db 40, STRENGTH
-	db 44, BRUTAL_SWING
-	db 48, TAKE_DOWN
-	db 54, HEAVY_SLAM
-	db 60, DOUBLE_EDGE
+	db 18, BIDE
+	db 22, BODY_SLAM
+	db 26, REST
+	db 31, BULK_UP
+	db 36, STRENGTH
+	db 41, CRUNCH
+	db 46, BRUTAL_SWING
+	db 52, HEAVY_SLAM
+	db 58, DOUBLE_EDGE
 	db 0
 
-ArticunoEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+ArticunoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Ice/Flying legendary bird. Parallel
-; design (Forte sec I): shared bird kit + Ice element. CUT/FLY/
-; STRENGTH/FLASH HMs (Forte B). FOCUS_ENERGY/AGILITY/SKY_ATTACK
-; shared with Zapdos/Moltres.
-	db  1, PECK
-	db  5, GUST
-	db 10, POWDER_SNOW
+; v0.7 Pass 3 v2: parallel legendary-bird kit (LEER/WING_ATTACK/
+; TAILWIND/AGILITY/AERIAL_ACE/FLY/FOCUS_ENERGY/HURRICANE/SKY_ATTACK at
+; the same levels across the trio) + the ICE ladder. FLY before
+; SKY_ATTACK (power progression — old draft had them inverted).
+; Catch set @L50: FLY / ICE_BEAM / FOCUS_ENERGY / HURRICANE.
 	db 14, LEER
-	db 18, FROST_BREATH
+	db 18, ICY_WIND
 	db 22, WING_ATTACK
-	db 28, AURORA_BEAM
-	db 32, AGILITY
-	db 36, AERIAL_ACE
-	db 40, ICE_BEAM
-	db 44, ICY_PULSE
-	db 48, FOCUS_ENERGY
-	db 52, BLIZZARD
-	db 56, SKY_ATTACK
-	db 60, FLY
+	db 26, TAILWIND
+	db 28, FROST_BREATH
+	db 30, AGILITY
+	db 34, AERIAL_ACE
+	db 36, AURORA_BEAM
+	db 38, FLY
+	db 42, ICE_BEAM
+	db 46, FOCUS_ENERGY
+	db 50, HURRICANE
+	db 55, BLIZZARD
+	db 60, SKY_ATTACK
 	db 0
 
-ZapdosEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+ZapdosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Electric/Flying legendary bird.
-; Parallel design (Forte sec I): shared bird kit + Electric. CUT/
-; FLY/STRENGTH/FLASH HMs (Forte B). DRILL_PECK signature.
-	db  1, PECK
-	db  5, GUST
-	db 10, THUNDERSHOCK
+; v0.7 Pass 3 v2: parallel trio kit + ELECTRIC ladder. DRILL_PECK
+; removed from old draft — it is Dodrio's signature (Forte G).
+; Catch set @L50: FLY / THUNDERBOLT / FOCUS_ENERGY / HURRICANE.
 	db 14, LEER
-	db 18, SHOCK_WAVE
+	db 18, THUNDER_WAVE
 	db 22, WING_ATTACK
-	db 28, THUNDER_WAVE
-	db 32, AGILITY
-	db 36, AERIAL_ACE
-	db 40, THUNDERBOLT
-	db 44, DRILL_PECK
-	db 48, FOCUS_ENERGY
-	db 52, THUNDER
-	db 56, SKY_ATTACK
-	db 60, FLY
+	db 26, TAILWIND
+	db 28, SHOCK_WAVE
+	db 30, AGILITY
+	db 34, AERIAL_ACE
+	db 38, FLY
+	db 42, THUNDERBOLT
+	db 46, FOCUS_ENERGY
+	db 50, HURRICANE
+	db 55, THUNDER
+	db 60, SKY_ATTACK
 	db 0
 
-MoltresEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+MoltresEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Fire/Flying legendary bird. Parallel
-; design (Forte sec I): shared bird kit + Fire. CUT/FLY/STRENGTH/
-; FLASH HMs (Forte B). FLAME_CHARGE/FIRE_BLAST.
-	db  1, PECK
-	db  5, GUST
-	db 10, EMBER
+; v0.7 Pass 3 v2: parallel trio kit + FIRE ladder (FLAME_CHARGE early
+; — it IS a flying flame; IGNITE = setting the sky on fire).
+; Catch set @L50: FLY / FLAMETHROWER / FOCUS_ENERGY / HURRICANE.
 	db 14, LEER
-	db 18, FLAME_BURST
+	db 18, FLAME_CHARGE
 	db 22, WING_ATTACK
-	db 28, FLAME_CHARGE
-	db 32, AGILITY
-	db 36, AERIAL_ACE
-	db 40, FLAMETHROWER
-	db 44, IGNITE
-	db 48, FOCUS_ENERGY
-	db 52, FIRE_BLAST
-	db 56, SKY_ATTACK
-	db 60, FLY
+	db 26, TAILWIND
+	db 28, IGNITE
+	db 30, AGILITY
+	db 34, AERIAL_ACE
+	db 36, FLAME_BURST
+	db 38, FLY
+	db 42, FLAMETHROWER
+	db 46, FOCUS_ENERGY
+	db 50, HURRICANE
+	db 55, FIRE_BLAST
+	db 60, SKY_ATTACK
 	db 0
 
 DratiniEvosMoves:
@@ -4165,59 +4171,59 @@ DragoniteEvosMoves:
 	db 65, HYPER_BEAM
 	db 0
 
-MewtwoEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+MewtwoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Psychic apex + honorary Dark (Forte
-; I). NÃO CHARM/FAKE_TEARS/jogos psicológicos. TELEPORT/all psychic
-; + secondarily DARK. MIND_BREAK signature. INTIMIDATE/SCARY_FACE
-; plausível. HYPER_BEAM L65 last move (Forte G).
-	db  1, TELEPORT
-	db  5, CONFUSION
-	db 10, DISABLE
-	db 14, PSYBEAM
-	db 18, PSYCHIC_BIND
-	db 22, RECOVER
-	db 26, LIGHT_SCREEN
-	db 30, REFLECT
-	db 34, EXTRASENSORY
-	db 38, FAINT_ATTACK
-	db 40, PSYCHIC_M
-	db 44, AMNESIA
-	db 48, INTIMIDATE
-	db 52, NIGHT_SHADE
-	db 54, SCARY_FACE
-	db 56, DARK_PULSE
+; v0.7 Pass 3 v2: psychic apex + honorary Dark (bitterness/trauma —
+; Forte I). L1 includes TELEPORT (Forte I). Full psychic ladder,
+; screens, CALM_MIND, AMNESIA; INTIMIDATE/SCARY_FACE (apex presence);
+; DARK kit late. MIND_BREAK L60 signature; HYPER_BEAM L65 LAST (Forte:
+; HB is always the final move — old draft had MIND_BREAK after it).
+; No CHARM/FAKE_TEARS (not a manipulator — Forte I).
+	db 12, RECOVER
+	db 16, EXTRASENSORY
+	db 20, PSYCHIC_BIND
+	db 24, AGILITY
+	db 28, LIGHT_SCREEN
+	db 32, PSYBEAM
+	db 36, REFLECT
+	db 40, CALM_MIND
+	db 44, PSYCHIC_M
+	db 48, AMNESIA
+	db 50, INTIMIDATE
+	db 52, DARK_PULSE
+	db 55, SCARY_FACE
 	db 58, SHADOW_BALL
-	db 60, CALM_MIND
+	db 60, MIND_BREAK
 	db 65, HYPER_BEAM
-	db 70, MIND_BREAK
 	db 0
 
-MewEvosMoves: ; TODO: review moveset (Claude initial draft, awaiting Forte).
+MewEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Psychic/Fairy curious/gentle (Forte
-; I). TELEPORT/all psychic + secondarily FAIRY. All 4 fun moves
-; (Forte A). RECOVER/MOONBLAST. TRANSFORM (canon Mew). HYPER_BEAM
-; L65 last move.
-	db  1, TELEPORT
-	db  5, CONFUSION
-	db 10, TRANSFORM
-	db 14, PSYBEAM
-	db 18, PSYCHIC_BIND
-	db 22, RECOVER
-	db 26, MIMIC
-	db 30, FAIRY_WIND
-	db 34, DRAINING_KISS
-	db 38, MIRROR_MOVE
-	db 40, PSYCHIC_M
-	db 44, DAZZLE_GLEAM
+; v0.7 Pass 3 v2: curious gentle ancestor (Psychic/FAIRY). All 4 fun
+; moves natural (Forte A). CHARM opener (playful), fairy kit
+; (FAIRY_WIND/DRAINING_KISS/DAZZLE_GLEAM/PLAY_ROUGH), psychic ladder,
+; RECOVER, MOONBLAST L60, HYPER_BEAM L65 last (Forte I).
+; TRANSFORM removed from old draft — it is Ditto's signature (FLAG
+; for Forte: canon Mew transforms, but signature ownership wins?).
+	db 10, CHARM
+	db 13, CONFUSION
+	db 16, FAIRY_WIND
+	db 19, RECOVER
+	db 22, MIMIC
+	db 26, DRAINING_KISS
+	db 30, EXTRASENSORY
+	db 34, MIRROR_MOVE
+	db 38, PSYBEAM
+	db 42, DAZZLE_GLEAM
+	db 45, CALM_MIND
 	db 48, METRONOME
-	db 52, CALM_MIND
-	db 56, SUBSTITUTE
+	db 51, PSYCHIC_M
+	db 54, SUBSTITUTE
+	db 57, PLAY_ROUGH
 	db 60, MOONBLAST
 	db 65, HYPER_BEAM
 	db 0
