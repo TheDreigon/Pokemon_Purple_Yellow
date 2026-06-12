@@ -3496,7 +3496,9 @@ ScytherEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; v0.7 Pass 3 v2: mantis blade-master. FOCUS_ENERGY opener (sniper
 ; stare, Forte F), HONE_CLAWS = sharpening the scythes, blade ladder
 ; SLASH -> CUT -> NIGHT_SLASH, GUILLOTINE last (mantises decapitate
-; prey — precise, not brutal: no BRUTAL_SWING). SD L52 (blade dancer).
+; prey — precise, not brutal: no BRUTAL_SWING). SD L52 via levelup:
+; THE blade dancer — precedent in Forte-reviewed sets (Farfetch'd L48,
+; Kabutops L56, Aerodactyl L56, Arcanine L52, Machamp L55).
 	db 10, FOCUS_ENERGY
 	db 13, BUG_BITE
 	db 16, WING_ATTACK
@@ -3629,8 +3631,11 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; v0.7 Pass 3 v2: stag-beetle grappler (Bug/Fighting). VICEGRIP at L1 —
 ; SHARED signature with the Krabby line (per Forte; horns = the vice).
 ; Wrestler kit: BIND (horn grip), SEISMIC_TOSS (lifts and throws,
-; canon), LOW_KICK, SUBMISSION, MEGAHORN, GUILLOTINE last (horn shear).
+; canon), LOW_KICK, GORE_ATTACK (impaling horns), MEGAHORN,
+; GUILLOTINE last (horn shear).
 ; SLASH removed from old draft (no claws — anatomy gate).
+; SUBMISSION removed: Forte's recorded ruling (Hitmonlee block) is that
+; it is a Machamp/Poliwrath technique — replaced with GORE_ATTACK.
 	db 10, FOCUS_ENERGY
 	db 13, BIND
 	db 17, SEISMIC_TOSS
@@ -3639,7 +3644,7 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 29, STRENGTH
 	db 33, BULK_UP
 	db 38, BUG_BUZZ
-	db 42, SUBMISSION
+	db 42, GORE_ATTACK
 	db 47, TAKE_DOWN
 	db 52, MEGAHORN
 	db 58, GUILLOTINE
