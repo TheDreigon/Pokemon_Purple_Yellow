@@ -467,6 +467,7 @@ ButterfreeEvosMoves:
 	db 22, FAIRY_WIND
 	db 26, EXTRASENSORY
 	db 28, WING_ATTACK
+	db 30, BUG_BUZZ ; restored (Forte r4: Butterfree + Venomoth own BUG_BUZZ)
 	db 33, PSYCHIC_BIND
 	db 36, PSYCHIC_M
 	db 42, QUIVER_DANCE
@@ -3317,24 +3318,27 @@ KangaskhanEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting For
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2 (+ Forte r1): protective savanna mother (Normal/
-; Fighting). Forte r1: +BIND (restraining grab) +BIDE (endures for
-; the cub); THRASH instead of OUTRAGE; no DOUBLE_EDGE (a mother with
-; a baby in the pouch is never reckless). FIERCE_ROAR = warning roar.
-; BULK_UP (muscle list).
+; v0.7 Pass 3 (+ Forte r4): protective savanna mother. SAND_ATTACK
+; early (kicks sand to cover the cub's retreat), COMET_PUNCH early
+; (L1 relearn pattern), DIZZY_PUNCH HIGH (her canon signature punch,
+; per Forte — placed before TAKE_DOWN to keep the FIGHTING ladder
+; 19<45<75<80). THRASH not OUTRAGE; no DOUBLE_EDGE (mother with a
+; baby is never reckless). BIND = restraining grab; BIDE = endures.
 	db 10, TAIL_WHIP
-	db 13, BITE
-	db 16, BIND
-	db 19, GROUND_STOMP
-	db 21, DIZZY_PUNCH
+	db 12, SAND_ATTACK
+	db 14, COMET_PUNCH
+	db 16, BITE
+	db 18, BIND
+	db 20, GROUND_STOMP
 	db 23, SEISMIC_TOSS
 	db 27, FIERCE_ROAR
 	db 29, BIDE
 	db 31, BULK_UP
 	db 36, BODY_SLAM
 	db 40, STRENGTH
-	db 45, TAKE_DOWN
-	db 52, THRASH
+	db 48, DIZZY_PUNCH
+	db 52, TAKE_DOWN
+	db 56, THRASH
 	db 0
 
 HorseaEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
@@ -3342,13 +3346,13 @@ HorseaEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db EVOLVE_LEVEL, 26, SEADRA
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2 (+ Forte r1): ink-spitting seahorse. WATER_GUN early
-; in the learnset (Forte r1). SMOKESCREEN = the ink jet. DRAGON_RAGE
-; at evo L26 = dragon blood awakening (shared, VOLT_TACKLE pattern).
-; ICY_PULSE cold currents (mirrors Dratini's aquatic-dragon kit).
+; v0.7 Pass 3 (+ Forte r4 density): ink-spitting seahorse. WATER_GUN
+; early (Forte). ICY_WIND added (cold-current rider, pre-ICY_PULSE).
+; DRAGON_RAGE at evo L26 = dragon blood awakening (key level).
 	db 10, SMOKESCREEN
 	db 12, WATER_GUN
 	db 14, LEER
+	db 16, ICY_WIND
 	db 18, BUBBLEBEAM
 	db 22, AGILITY
 	db 26, DRAGON_RAGE
@@ -3361,13 +3365,13 @@ SeadraEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2 (+ Forte r1): Water/DRAGON. Shared Horsea backbone +
-; dragon kit: DRAGON_BREATH post-evo, ICE_BEAM (cold deep water),
-; DRAGON_SLAM apex (serpentine slam, Dratini precedent).
-; No DRAGON_CLAW (no claws — anatomy gate).
+; v0.7 Pass 3 (+ Forte r4): Water/DRAGON. Horsea backbone + dragon
+; kit: DRAGON_BREATH post-evo, ICE_BEAM, DRAGON_SLAM apex.
+; No DRAGON_CLAW (no claws).
 	db 10, SMOKESCREEN
 	db 12, WATER_GUN
 	db 14, LEER
+	db 16, ICY_WIND
 	db 18, BUBBLEBEAM
 	db 22, AGILITY
 	db 26, DRAGON_RAGE
@@ -3384,15 +3388,18 @@ GoldeenEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db EVOLVE_LEVEL, 24, SEAKING
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: horned river fish. WATERFALL at evo L24 = the salmon
-; climb (line-defining, shared). Horn ladder: HORN_ATTACK -> FURY_ATTACK
-; (jabs) -> HORN_CHARGE (ramming run, shared high).
-	db 10, HORN_ATTACK
-	db 14, SUPERSONIC
+; v0.7 Pass 3 (+ Forte r4 density): horned river fish. WATERFALL at
+; evo L24 = the salmon climb (key level). TAIL_WHIP early (L1 relearn
+; pattern), BIDE (stubborn river fish), ICY_PULSE (cold streams).
+	db 10, TAIL_WHIP
+	db 13, HORN_ATTACK
+	db 15, SUPERSONIC
 	db 18, BUBBLEBEAM
 	db 21, FURY_ATTACK
 	db 24, WATERFALL
+	db 27, BIDE
 	db 30, AGILITY
+	db 33, ICY_PULSE
 	db 36, WATER_PULSE
 	db 44, HORN_CHARGE
 	db 0
@@ -3401,16 +3408,17 @@ SeakingEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: apex river guardian. Shared Goldeen backbone +
-; ICY_PULSE (cold streams), SURF, MEGAHORN (that horn is huge), and
-; HORN_DRILL L60 last — drill-horn fish is the perfect anatomy, but it
-; is OUTSIDE Forte's confirmed G list (Dodrio/Rhydon/Rapidash/Tauros).
-; FLAG: Forte to confirm HORN_DRILL here.
-	db 10, HORN_ATTACK
-	db 14, SUPERSONIC
+; v0.7 Pass 3 (+ Forte r4): apex river guardian. Goldeen backbone +
+; RAGE (territorial males duel), SURF, MEGAHORN, HORN_DRILL L60 last
+; (drill-horn fish — FLAG: outside the confirmed G list).
+	db 10, TAIL_WHIP
+	db 13, HORN_ATTACK
+	db 15, SUPERSONIC
 	db 18, BUBBLEBEAM
 	db 21, FURY_ATTACK
 	db 24, WATERFALL
+	db 26, RAGE
+	db 27, BIDE
 	db 30, AGILITY
 	db 33, ICY_PULSE
 	db 36, WATER_PULSE
@@ -3505,24 +3513,31 @@ ScytherEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: mantis blade-master. FOCUS_ENERGY opener (sniper
-; stare, Forte F), HONE_CLAWS = sharpening the scythes, blade ladder
-; SLASH -> CUT -> NIGHT_SLASH, GUILLOTINE last (mantises decapitate
-; prey — precise, not brutal: no BRUTAL_SWING). SD L52 via levelup:
-; THE blade dancer — precedent in Forte-reviewed sets (Farfetch'd L48,
-; Kabutops L56, Aerodactyl L56, Arcanine L52, Machamp L55).
-	db 10, FOCUS_ENERGY
-	db 13, BUG_BITE
-	db 16, WING_ATTACK
+; v0.7 Pass 3 (+ Forte r4): mantis blade-NINJA. Forte adds the speed/
+; stealth kit: QUICK_ATTACK, FAINT_ATTACK, SHADOW_SNEAK (ambush
+; phantom), ASTONISH (startle strike — Forte's '??' kept, flag if
+; undesired), EXTREMESPEED L56 (agile + superhuman reflexes — G
+; filter fits perfectly). L1 = SCRATCH (basic swipe) + LEER.
+; Blade ladder SLASH -> CUT -> NIGHT_SLASH; HONE_CLAWS = sharpening
+; the scythes; GUILLOTINE last (mantis decapitation). SD L52.
+; No BUG_BUZZ (Venomoth/Butterfree only).
+	db 10, QUICK_ATTACK
+	db 12, FOCUS_ENERGY
+	db 14, ASTONISH
+	db 16, BUG_BITE
+	db 18, WING_ATTACK
 	db 20, SLASH
-	db 24, HONE_CLAWS
-	db 28, AGILITY
-	db 32, CUT
-	db 36, AERIAL_ACE
-	db 40, NIGHT_SLASH
+	db 23, FAINT_ATTACK
+	db 26, HONE_CLAWS
+	db 29, AGILITY
+	db 32, SHADOW_SNEAK
+	db 35, CUT
+	db 38, AERIAL_ACE
+	db 42, NIGHT_SLASH
 	db 47, FLY
 	db 52, SWORDS_DANCE
-	db 58, GUILLOTINE
+	db 56, EXTREMESPEED
+	db 60, GUILLOTINE
 	db 0
 
 JynxEvosMoves:
@@ -3639,23 +3654,25 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2 (+ Forte r2): stag-beetle grappler (Bug/Fighting).
-; VICEGRIP at L1 — SHARED almost-signature with the Krabby line.
-; Wrestler kit: BIND (horn grip), SEISMIC_TOSS (lifts and throws),
-; LOW_KICK, GORE_ATTACK (impaling horns), MEGAHORN, GUILLOTINE last.
-; No SLASH (no claws). No SUBMISSION (Forte r2: Machamp/Poliwrath
-; signature — trained technique, not wild instinct). No BUG_BUZZ
-; (Forte r3: Venomoth only — buzz needs buzzing wings).
+; v0.7 Pass 3 (+ Forte r4): stag-beetle grappler. Egg moves = TACKLE,
+; CONSTRICT (Forte r4), VICEGRIP (shared almost-signature with the
+; Krabby line). LOW_KICK removed (Forte r4). DIG L36 (dex canon:
+; buries itself on cold nights; horns excavate) and DOUBLE_EDGE L54
+; (stag beetles ram full-body in duels) — both Forte-approved r4.
+; No SLASH (no claws), no SUBMISSION (Machamp/Poliwrath), no
+; BUG_BUZZ (silent — no buzzing wings).
 	db 10, FOCUS_ENERGY
-	db 13, LOW_KICK
+	db 13, BIDE
 	db 17, SEISMIC_TOSS
 	db 21, BUG_BITE
 	db 25, BIND
 	db 29, STRENGTH
 	db 33, BULK_UP
+	db 36, DIG
 	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
-	db 54, MEGAHORN
+	db 50, MEGAHORN
+	db 54, DOUBLE_EDGE
 	db 58, GUILLOTINE
 	db 0
 
@@ -4042,15 +4059,15 @@ SnorlaxEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2 (+ Forte r1): gentle lazy giant. Egg moves = TACKLE
-; (lying down — no HEADBUTT leverage) + AMNESIA + REST (Forte r1).
-; r1 adds: BITE (comilao), BIND (bear hug), GROWTH (it grows!),
-; ROLLOUT (rolls its bulk), ROCK_TOMB, GROUND_STOMP, THRASH (woken
-; fury — overrides the old no-THRASH note), SUBMISSION + RECOVER
-; high. STRENGTH removed from levelup (HM-only). BRUTAL_SWING per
-; Forte H. No GORE (no horns).
+; v0.7 Pass 3 (+ Forte r4): gentle lazy giant. Egg moves = TACKLE +
+; AMNESIA + REST. SMOG L13 early (post-banquet toxic belch — eats
+; anything, Forte-approved). PLAY_ROUGH L34 (giant roughhousing,
+; replaces ROCK_TOMB per Forte). TAKE_DOWN L54 replaces SUBMISSION
+; (Machamp/Poliwrath signature). GROWTH (it grows!), ROLLOUT (rolls
+; its bulk), BIND (bear hug), THRASH (woken fury). STRENGTH HM-only.
 	db 10, LICK
 	db 12, GROWTH
+	db 13, SMOG
 	db 14, DEFENSE_CURL
 	db 16, BITE
 	db 18, BIDE
@@ -4059,12 +4076,12 @@ SnorlaxEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 24, BIND
 	db 26, ROLLOUT
 	db 31, BULK_UP
-	db 34, ROCK_TOMB
+	db 34, PLAY_ROUGH
 	db 38, CRUNCH
 	db 44, BRUTAL_SWING
 	db 48, THRASH
 	db 52, HEAVY_SLAM
-	db 54, SUBMISSION
+	db 54, TAKE_DOWN
 	db 58, DOUBLE_EDGE
 	db 60, RECOVER
 	db 0
@@ -4073,11 +4090,13 @@ ArticunoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: parallel legendary-bird kit (LEER/WING_ATTACK/
-; TAILWIND/AGILITY/AERIAL_ACE/FLY/FOCUS_ENERGY/HURRICANE/SKY_ATTACK at
-; the same levels across the trio) + the ICE ladder. FLY before
-; SKY_ATTACK (power progression — old draft had them inverted).
-; Catch set @L50: FLY / ICE_BEAM / FOCUS_ENERGY / HURRICANE.
+; v0.7 Pass 3 (+ Forte r4 density): parallel legendary-bird kit
+; (PECK/GUST/LEER/WING_ATTACK/TAILWIND/AGILITY/AERIAL_ACE/FLY/
+; FOCUS_ENERGY/HURRICANE/SKY_ATTACK at identical levels across the
+; trio) + full ICE ladder. Catch set @L50: FLY/ICE_BEAM/FOCUS/
+; HURRICANE.
+	db 10, PECK
+	db 12, GUST
 	db 14, LEER
 	db 18, ICY_WIND
 	db 22, WING_ATTACK
@@ -4098,9 +4117,12 @@ ZapdosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: parallel trio kit + ELECTRIC ladder. DRILL_PECK
-; removed from old draft — it is Dodrio's signature (Forte G).
-; Catch set @L50: FLY / THUNDERBOLT / FOCUS_ENERGY / HURRICANE.
+; v0.7 Pass 3 (+ Forte r4 density): parallel trio kit + ELECTRIC
+; ladder. One slot lighter than its sisters (L36): the Electric
+; damaging pool is thinner — elemental limitation, not an oversight.
+; No DRILL_PECK (Dodrio signature).
+	db 10, PECK
+	db 12, GUST
 	db 14, LEER
 	db 18, THUNDER_WAVE
 	db 22, WING_ATTACK
@@ -4120,9 +4142,11 @@ MoltresEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: parallel trio kit + FIRE ladder (FLAME_CHARGE early
-; — it IS a flying flame; IGNITE = setting the sky on fire).
-; Catch set @L50: FLY / FLAMETHROWER / FOCUS_ENERGY / HURRICANE.
+; v0.7 Pass 3 (+ Forte r4 density): parallel trio kit + FIRE ladder
+; (FLAME_CHARGE early — a flying flame; IGNITE = sets the sky on
+; fire). Catch set @L50: FLY/FLAMETHROWER/FOCUS/HURRICANE.
+	db 10, PECK
+	db 12, GUST
 	db 14, LEER
 	db 18, FLAME_CHARGE
 	db 22, WING_ATTACK
