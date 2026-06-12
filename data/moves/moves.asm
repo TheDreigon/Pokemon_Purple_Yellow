@@ -16,10 +16,10 @@ Moves: ; Current total = 220
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
-	move BUG_BUZZ,       SPECIAL_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move.
+	move BUG_BUZZ,       SPECIAL_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature.
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              90, BUG,          100, 15 ; new move.
 	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10
-	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; signature.
+	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; almost-signature.
 	move TWINEEDLE,      TWINEEDLE_EFFECT,                 40, BUG,          100, 20 ; signature.
 
 
