@@ -131,7 +131,7 @@ _PewterGymReceivedCandyText::
 _PewterGymBrockCandyCommentText::
 	text_start
 
-	para "Feed them well —"
+	para "Feed them well -"
 	line "strength follows."
 	done
 

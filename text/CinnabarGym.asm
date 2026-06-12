@@ -89,7 +89,7 @@ _CinnabarGymBlaineTMExplanationText::
 	line "FLAMETHROWER!"
 
 	para "A scorching jet"
-	line "of flames — may"
+	line "of flames - may"
 	cont "burn the foe!"
 
 	para "Hot pick: VULPIX"
