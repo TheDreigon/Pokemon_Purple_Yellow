@@ -2873,12 +2873,13 @@ VoltorbEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 0
 ; Learnset
 ; v0.7 Pass 3 v2: living pokeball — sphere, no limbs, no bites/punches.
-; DEFENSE_CURL (ball-shape list), METAL_SOUND (Steel typing, Forte F),
+; HARDEN (a rigid metal sphere tightens its shell — it can't curl),
+; METAL_SOUND (Steel typing, Forte F),
 ; EXPLOSION owner (Forte N: Koffing/Voltorb/Magmar only), shared L44.
 ; EERIE_IMPULSE deliberately NOT here (Forte F: not Voltorb).
 	db  9, SONICBOOM
 	db 12, THUNDERSHOCK
-	db 16, DEFENSE_CURL
+	db 16, HARDEN
 	db 19, THUNDER_WAVE
 	db 23, METAL_SOUND
 	db 26, SHOCK_WAVE
@@ -2896,7 +2897,7 @@ ElectrodeEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Fort
 ; REFLECT apex-only), THUNDER apex top. EXPLOSION shared with Voltorb.
 	db  9, SONICBOOM
 	db 12, THUNDERSHOCK
-	db 16, DEFENSE_CURL
+	db 16, HARDEN
 	db 19, THUNDER_WAVE
 	db 23, METAL_SOUND
 	db 26, SHOCK_WAVE
@@ -3318,7 +3319,9 @@ KangaskhanEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting For
 ; Learnset
 ; v0.7 Pass 3 v2: protective savanna mother (Normal/Fighting). Strong
 ; but never malicious (Forte H). FIERCE_ROAR = warning roar guarding
-; the cub; OUTRAGE L52 = a mother's fury when the cub is threatened.
+; the cub; OUTRAGE L52 = a mother's fury when the cub is threatened
+; (Marowak OUTRAGE L58 is the Forte-approved mother-rage precedent).
+; FLAG: Forte to confirm OUTRAGE fits the not-malicious identity.
 ; BULK_UP (muscle list). No THRASH (not wild), no GORE (no horns).
 	db 10, TAIL_WHIP
 	db 13, BITE
@@ -3454,8 +3457,8 @@ StarmieEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 39, REFLECT
 	db 42, LIGHT_SCREEN
 	db 44, CALM_MIND
+	db 45, SURF
 	db 47, HYDRO_PUMP
-	db 52, SURF
 	db 56, PSYCHIC_M
 	db 0
 
@@ -3637,10 +3640,10 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; SUBMISSION removed: Forte's recorded ruling (Hitmonlee block) is that
 ; it is a Machamp/Poliwrath technique — replaced with GORE_ATTACK.
 	db 10, FOCUS_ENERGY
-	db 13, BIND
+	db 13, LOW_KICK
 	db 17, SEISMIC_TOSS
 	db 21, BUG_BITE
-	db 25, LOW_KICK
+	db 25, BIND
 	db 29, STRENGTH
 	db 33, BULK_UP
 	db 38, BUG_BUZZ
@@ -3739,11 +3742,11 @@ LaprasEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 10, ICY_WIND
 	db 14, BUBBLEBEAM
 	db 18, BODY_SLAM
-	db 22, AURORA_BEAM
+	db 22, ICY_PULSE
 	db 26, CONFUSE_RAY
 	db 30, SING
 	db 34, WATER_PULSE
-	db 38, ICY_PULSE
+	db 38, AURORA_BEAM
 	db 42, ICE_BEAM
 	db 46, STRENGTH
 	db 50, SURF
@@ -4205,7 +4208,6 @@ MewtwoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 50, INTIMIDATE
 	db 52, DARK_PULSE
 	db 55, SCARY_FACE
-	db 58, SHADOW_BALL
 	db 60, MIND_BREAK
 	db 65, HYPER_BEAM
 	db 0
@@ -4228,6 +4230,7 @@ MewEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 26, DRAINING_KISS
 	db 30, EXTRASENSORY
 	db 34, MIRROR_MOVE
+	db 36, TRI_ATTACK
 	db 38, PSYBEAM
 	db 42, DAZZLE_GLEAM
 	db 45, CALM_MIND
