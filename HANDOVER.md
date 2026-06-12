@@ -5,7 +5,7 @@
 ## Quick-start
 1. Working dir: `D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow`
 2. Branch: **`dev-claude-work`** (NÃO `master` nem `dev` — tagging só quando v0.7 fechar)
-3. Last commit (at handover): **`22739ad`**
+3. Last commit: vê `git log` (handover original era `22739ad`; a auditoria de 2026-06-12 acrescentou uma wave de bugfixes — vê secção "Auditoria 2026-06-12" abaixo)
 4. Build: `wsl bash -c 'cd "/mnt/d/Games/More Games/Pokemon/Pokemon Romhacks/Mine/Pokemon_Purple_Yellow" && make 2>&1 | tail -3'`
 5. Confirma build verde antes de qualquer trabalho.
 
@@ -34,24 +34,25 @@ Sessão de trabalho dura há ~6 meses, ~750 commits, branches `dev-claude-work`.
 - Bank reorganization (bank $1E 8× more headroom)
 - ANIM TEST debug feature
 - Pokedex-order refactor + Missingno consolidation
-- 130/151 Pokemon Pass 3 movepool reviewed e finalizados
+- 128/151 Pokemon Pass 3 movepool reviewed e finalizados
 - GLARE removed + ROLLOUT added (recente)
 
 ### ⏳ Pending
-1. **21 Pokemon Pass 3 reviews** — Forte ainda tem que rever (lista abaixo)
-2. **Hard mode knobs #13 + #14** — boss screens + per-boss quirks
-3. **Animation review batch 2** — Forte feedback POISON+PSYCHIC+ROCK+STEEL+WATER+BIRD post-Hyper-Fang
-4. **Balance calibration** — quando tudo estiver feito, playthrough completo
+1. **23 Pokemon Pass 3 reviews** — Forte ainda tem que rever (lista abaixo)
+2. **TM/HM catchup (~18 mons)** — o batch `906988e` (Meowth/Persian, Psyduck/Golduck, Poliwag-line, Slowpoke/Slowbro, Magnemite/Magneton, Seel/Dewgong, Shellder/Cloyster, Gastly/Haunter/Gengar) tem levels feitos mas `tm_from_learnset.py`/`add_fun_moves.py` nunca correram → tmhm vazio. **EM ESPERA por decisão do Forte** (2026-06-12: "este capítulo dos movesets e tms vemos a seguir").
+3. **Hard mode knobs #13 + #14** — boss screens + per-boss quirks
+4. **Animation review batch 2** — Forte feedback POISON+PSYCHIC+ROCK+STEEL+WATER+BIRD post-Hyper-Fang
+5. **Balance calibration** — quando tudo estiver feito, playthrough completo
 
-### 21 Pokemon que faltam reviewar (grep marker)
+### 23 Pokemon que faltam reviewar (grep marker)
 
 ```bash
 grep -nE 'TODO: review moveset' data/pokemon/evos_moves.asm
 ```
 
-Lista: Krabby, Kingler, Voltorb, Electrode, Kangaskhan, Tauros, Snorlax, Horsea, Seadra, Goldeen, Seaking, Staryu, Starmie, Scyther, Pinsir, Lapras, Ditto, Porygon, Articuno, Zapdos, Moltres, Mewtwo, Mew.
+Lista (23): Krabby, Kingler, Voltorb, Electrode, Kangaskhan, Tauros, Snorlax, Horsea, Seadra, Goldeen, Seaking, Staryu, Starmie, Scyther, Pinsir, Lapras, Ditto, Porygon, Articuno, Zapdos, Moltres, Mewtwo, Mew.
 
-(São 23 na lista mas 2 já foram editados — Ekans e Arbok foram feitos recentemente. Quando Forte editar mais, ele remove o `; TODO` da label.)
+(Quando Forte editar mais, ele remove o `; TODO` da label — confirma sempre a contagem com o grep, não confies em números escritos.)
 
 ## Workflow Pass 3 (como funciona)
 
@@ -111,6 +112,25 @@ Em `C:\Users\MiguelForte\.claude\projects\D--Games-More-Games-Pokemon-Pokemon-Ro
 - Outros files para referência específica
 
 Estes files são AUTO-LOADED no novo chat (Claude Code lê automaticamente o memory folder do projeto). **NÃO precisas de anexar.**
+
+## Auditoria 2026-06-12 (nova instância — onboarding audit)
+
+Workflow de 18 agentes validou o CHANGELIST contra o código e reviu os 198 commits. Detalhes completos no memory file `session_onboarding_audit.md`. Resumo do que foi corrigido em código:
+
+1. **Moves table desalinhada** — 7 move IDs entregavam dados de outro move em jogo (FAIRY: Moonblast/Lovely Kiss/Sing rodados; FIGHTING: Comet Punch↔Low Kick; GAS: Poison Gas↔Haze). Fix: constants+names+animations+sfx reordenados para a ordem do spec.
+2. **Boss item bags nunca carregavam** (knob #10 morto) — farcall corria antes de `wIsInBattle=2`; movido para depois.
+3. **UndoBurnParStats ×4 speed** — cura de paralisia pela AI deixava o mon a 2× speed real; agora duplica 1×.
+4. **Toxic/PoisonPowder/Poison Gas envenenavam Steel-types** — STEEL check adicionado ao PoisonEffect.
+5. **Will-O-Wisp/Ignite queimavam Magma-types** — MAGMA check adicionado ao BurnEffect.
+6. **Badge boost perdia-se após level-up mid-battle** — experience.asm agora espelha LoadBattleMonFromParty.
+7. **CheckStatusImmunity da AI** alinhado com o engine (FIRE/MAGMA, POISON/STEEL, ELECTRIC-para).
+8. **OUTRAGE/HYPER_BEAM/MIND_BREAK** adicionados à HighCriticalMoves (spec marcava-os high-crit).
+9. **Fresh Water vending 200→250** implementado (estava só no spec).
+10. **Tiered mart overflow** (wMartExtras 12→13; Indigo elite tier nunca aparecia) — fix da sessão paralela validado e commitado.
+11. Em-dashes fora do charmap em diálogos Blaine/Brock → `-`.
+
+### PITFALL NOVO (crítico): ordem das move tables é load-bearing
+`moves.asm`, `names.asm`, `AttackAnimationPointers` e `sfx.asm` são indexadas por (move id − 1) dos constants. **Nunca trocar rows num ficheiro só** — o build passa mas os moves trocam de dados em jogo. Depois de qualquer reorder: `python .claude/check_move_alignment.py` (0 misalignments = OK). Foi assim que o commit `59ed008` partiu Comet Punch/Low Kick sem ninguém notar.
 
 ## Pitfalls / armadilhas conhecidas
 
