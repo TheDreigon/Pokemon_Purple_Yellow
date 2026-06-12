@@ -35,17 +35,24 @@ VendingMachineMenu::
 	ld a, [wCurrentMenuItem]
 	cp 3 ; chose Cancel?
 	jr z, .notThirsty
-	xor a
+	; v0.7: check the SELECTED drink's real price instead of a hardcoded
+	; Y200. The vanilla gate only covered the cheapest drink, so Soda Pop
+	; (Y300) and Lemonade (Y350) could be "bought" with Y200-299 and the
+	; BCD subtract clamped the player's money to Y0 — a silent discount.
+	; The Fresh Water bump to Y250 would have extended that hole to all
+	; three drinks.
+	call LoadVendingMachineItem
+	ldh a, [hVendingMachinePrice]
 	ldh [hMoney], a
-	ldh [hMoney + 2], a
-	ld a, $2
+	ldh a, [hVendingMachinePrice + 1]
 	ldh [hMoney + 1], a
+	ldh a, [hVendingMachinePrice + 2]
+	ldh [hMoney + 2], a
 	call HasEnoughMoney
 	jr nc, .enoughMoney
 	ld hl, VendingMachineText4
 	jp PrintText
 .enoughMoney
-	call LoadVendingMachineItem
 	ldh a, [hVendingMachineItem]
 	ld b, a
 	ld c, 1

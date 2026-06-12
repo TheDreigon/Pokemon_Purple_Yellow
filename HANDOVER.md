@@ -128,6 +128,10 @@ Workflow de 18 agentes validou o CHANGELIST contra o código e reviu os 198 comm
 9. **Fresh Water vending 200→250** implementado (estava só no spec).
 10. **Tiered mart overflow** (wMartExtras 12→13; Indigo elite tier nunca aparecia) — fix da sessão paralela validado e commitado.
 11. Em-dashes fora do charmap em diálogos Blaine/Brock → `-`.
+12. **Vending machine**: o gate de dinheiro era um Y200 hardcoded (vanilla) — Soda/Lemonade podiam ser "compradas" com menos dinheiro e o BCD clampava a carteira a Y0. Agora verifica o preço real da bebida seleccionada.
+
+### DESCOBERTA PENDENTE DE DECISÃO DO FORTE: Mind Break nunca causa dano
+`MIND_BREAK` (signature do Mewtwo, 125 BP no spec, "high-crit") usa `PARALYZE_EFFECT`, que está em `ResidualEffects1` → o engine salta o cálculo de dano por completo (core.asm `jp c, JumpMoveEffect`). Em jogo é um Thunder Wave de 90% acc / 10 PP. Para o intent do spec (dano + paralisa) é preciso um effect novo (ex.: `PARALYZE_SIDE_EFFECT3` a 100%) ou mudar o design do move. Mewtwo está nos 23 TODO do Pass 3 — decidir quando esse capítulo reabrir. A entrada na HighCriticalMoves está lá mas inerte até isto ser resolvido.
 
 ### PITFALL NOVO (crítico): ordem das move tables é load-bearing
 `moves.asm`, `names.asm`, `AttackAnimationPointers` e `sfx.asm` são indexadas por (move id − 1) dos constants. **Nunca trocar rows num ficheiro só** — o build passa mas os moves trocam de dados em jogo. Depois de qualquer reorder: `python .claude/check_move_alignment.py` (0 misalignments = OK). Foi assim que o commit `59ed008` partiu Comet Punch/Low Kick sem ninguém notar.
@@ -205,11 +209,11 @@ A API Anthropic ocasionalmente faz **safety guardrails false-positive** em sess�
 
 ## Primeira mensagem para o novo chat (template)
 
-> Olá. Continuação do projeto Pokemon Purple Yellow romhack v0.7. Branch `dev-claude-work`, último commit `22739ad`. Working dir: `D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow`.
+> Olá. Continuação do projeto Pokemon Purple Yellow romhack v0.7. Branch `dev-claude-work` (último commit: vê `git log`). Working dir: `D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow`.
 > 
 > Lê `HANDOVER.md` (no working dir) e os memory files (auto-loaded). Anexo também os spec files das notes folder: @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\CHANGELIST.md" @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\Movelist - after.asm" @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\TMs_HMs_before-after.txt" @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\Type matchups Pokemon Purple Yellow.asm" @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\Poke Marts - before-after.txt" @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\types_evolutions_stats.asm" @"D:\Games\More Games\Pokemon\Pokemon Romhacks\Mine\Pokemon_Purple_Yellow - Notes\Changes - Purple Yellow.asm"
 > 
-> Resumo: estamos no meio do Pass 3 movepool review. 130/151 done, 21 mons ainda como Claude initial drafts à espera da minha revisão (grep `TODO: review moveset` para encontrar). Confirma que percebeste tudo (build, branch, workflow, regras) e diz-me que estás pronto.
+> Resumo: estamos no meio do Pass 3 movepool review. 128/151 done, 23 mons ainda como Claude initial drafts à espera da minha revisão (grep `TODO: review moveset` para encontrar — confirma a contagem com o grep). Confirma que percebeste tudo (build, branch, workflow, regras) e diz-me que estás pronto.
 
 ---
 

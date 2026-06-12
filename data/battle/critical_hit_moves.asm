@@ -20,11 +20,14 @@ HighCriticalMoves:
 	db RAZOR_LEAF
 	; NORMAL
 	db SLASH
-	; PSYCHIC
-	db MIND_BREAK
 	db HORN_CHARGE
 	db DOUBLE_EDGE
 	db HYPER_FANG
+	; PSYCHIC
+	db MIND_BREAK ; NOTE: currently inert — MIND_BREAK uses PARALYZE_EFFECT,
+	              ; which is in ResidualEffects1 (pure status path: skips
+	              ; damage calc AND CriticalHitTest entirely). Kept here for
+	              ; when the move gets a damaging effect. See HANDOVER audit.
 	; ROCK
 	db HORN_DRILL
 	; STEEL
