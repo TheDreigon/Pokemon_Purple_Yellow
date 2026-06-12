@@ -1776,7 +1776,7 @@ PoisonStingAnim:
 	db -1 ; end
 
 PoisonFangAnim:
-	; v0.7 reviewed (60 BP, ~30% bad poison): added bite-then-drip so
+	; v0.7 reviewed (60 BP, 30% poison): added bite-then-drip so
 	; the fang impact AND the poison transfer both read.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim POISON_FANG, SUBANIM_0_STAR_TWICE, 0, 6
@@ -1785,7 +1785,7 @@ PoisonFangAnim:
 	db -1 ; end
 
 ToxicFangsAnim:
-	; v0.7 reviewed (85 BP, ~50% bad poison): replaces placeholder.
+	; v0.7 reviewed (85 BP, 45% poison): replaces placeholder.
 	; Bigger version of POISON_FANG — darken (toxic atmosphere), bite,
 	; flash, sustained poison drip. Higher tier in the fang line.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
@@ -1906,7 +1906,7 @@ PsybeamAnim:
 PsychicAnim:
 	; Mental image: a wave of pure psychic force warping reality
 	; around the target — sustained, mind-bending. 95 BP signature
-	; with new CONFUSION_SIDE_EFFECT3 (50%) — needs heavier framing
+	; with new CONFUSION_SIDE_EFFECT3 (45%) — needs heavier framing
 	; than the old 2 lines. Layered flash/wavy/dark sells sustained
 	; mental violence.
 	battle_anim PSYCHIC_M, SE_FLASH_SCREEN_LONG

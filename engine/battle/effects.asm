@@ -1450,7 +1450,7 @@ ConfusionSideEffect:
 ; PURPLE YELLOW v0.5: tiered confusion side effect.
 ; CONFUSION_SIDE_EFFECT1 = 15% (default tier).
 ; CONFUSION_SIDE_EFFECT2 = 30% (Hurricane, Spore Daze).
-; CONFUSION_SIDE_EFFECT3 = 50% (v0.7 — new Psychic, heaviest tier).
+; CONFUSION_SIDE_EFFECT3 = 45% (v0.7 — new Psychic, heaviest tier).
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveEffect]

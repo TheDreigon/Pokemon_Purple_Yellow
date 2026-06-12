@@ -26,7 +26,7 @@ def parse_map_file(filepath):
     )
     if rom0_match:
         total = re.findall(
-            r"TOTAL EMPTY: \$([0-9a-fA-F]+) bytes", rom0_match.group(1)
+            r"TOTAL EMPTY: \$([0-9a-fA-F]+) bytes?", rom0_match.group(1)
         )
         empty = int(total[0], 16) if total else 0
         banks.append({"name": "ROM0", "num": 0, "empty": empty})
@@ -39,7 +39,7 @@ def parse_map_file(filepath):
     ):
         num = int(m.group(1))
         total = re.findall(
-            r"TOTAL EMPTY: \$([0-9a-fA-F]+) bytes", m.group(2)
+            r"TOTAL EMPTY: \$([0-9a-fA-F]+) bytes?", m.group(2)
         )
         empty = int(total[0], 16) if total else 0
         banks.append({"name": f"Bank {num}", "num": num, "empty": empty})
