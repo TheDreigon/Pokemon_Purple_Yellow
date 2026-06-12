@@ -9,7 +9,7 @@
 	const POISON_SIDE_EFFECT1        ; $02
 	const DRAIN_HP_EFFECT            ; $03
 	const BURN_SIDE_EFFECT1          ; $04
-	const FREEZE_SIDE_EFFECT1        ; $05  10% freeze chance (Ice Beam)
+	const FREEZE_SIDE_EFFECT1        ; $05  15% freeze chance (Ice Beam)
 	const PARALYZE_SIDE_EFFECT1      ; $06
 	const EXPLODE_EFFECT             ; $07 Explosion, Self Destruct
 	const DREAM_EATER_EFFECT         ; $08
@@ -39,7 +39,7 @@
 	const SLEEP_EFFECT               ; $20
 	const POISON_SIDE_EFFECT2        ; $21
 	const BURN_SIDE_EFFECT2          ; $22
-	const FREEZE_SIDE_EFFECT2        ; $23  20% freeze chance (Blizzard)
+	const FREEZE_SIDE_EFFECT2        ; $23  30% freeze chance (Blizzard)
 	const PARALYZE_SIDE_EFFECT2      ; $24
 	const FLINCH_SIDE_EFFECT2        ; $25
 	const OHKO_EFFECT                ; $26 moves like Horn Drill
@@ -79,7 +79,7 @@
 	const ATTACK_DEFENSE_UP1_EFFECT  ; $48  user Atk+1 & Def+1 (Bulk Up)
 	const ACCURACY_EVASION_DOWN1_EFFECT ; $49  target Acc-1 & Evasion-1 (Flash)
 	const BURN_EFFECT                ; $4A  always burn (Will-O-Wisp)
-	const POISON_SIDE_EFFECT3        ; $4B  50% poison chance (Toxic Fangs)
+	const POISON_SIDE_EFFECT3        ; $4B  60% poison chance (Toxic Fangs)
 	const CONFUSION_SIDE_EFFECT1     ; $4C
 	const TWINEEDLE_EFFECT           ; $4D
 	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)

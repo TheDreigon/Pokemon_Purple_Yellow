@@ -288,14 +288,25 @@ GainExperience:
 	ld de, wPlayerMonUnmodifiedLevel
 	ld bc, 1 + NUM_STATS * 2
 	call CopyData
+	; v0.7 Badge Boost Glitch fix (mirror of LoadBattleMonFromParty):
+	; bake badges into the battle stats, then refresh the unmodified
+	; Atk..Spc block from them so later stat-stage recalcs keep the
+	; boost. The vanilla order here left unmod raw and re-applied
+	; badges on top of the battle stats — any stat-mod recalc after a
+	; mid-battle level-up then silently dropped the badge boost (the
+	; effects.asm re-apply calls were removed by the v0.7 fix).
+	ld hl, ApplyBadgeStatBoosts
+	call CallBattleCore
+	ld hl, wBattleMonAttack
+	ld de, wPlayerMonUnmodifiedAttack
+	ld bc, 8 ; 4 stats (Atk/Def/Spd/Spc) x 2 bytes — badges don't boost MaxHP
+	call CopyData
 .recalcStatChanges
 	xor a ; battle mon
 	ld [wCalculateWhoseStats], a
 	ld hl, CalculateModifiedStats
 	call CallBattleCore
 	ld hl, ApplyBurnAndParalysisPenaltiesToPlayer
-	call CallBattleCore
-	ld hl, ApplyBadgeStatBoosts
 	call CallBattleCore
 	ld hl, DrawPlayerHUDAndHPBar
 	call CallBattleCore

@@ -5,6 +5,8 @@ HighCriticalMoves:
 	db PAY_DAY
 	; DRAGON
 	db DRAGON_CLAW
+	db OUTRAGE
+	db HYPER_BEAM
 	; ELECTRIC
 	db VOLT_TACKLE
 	; FIGHTING
@@ -18,6 +20,8 @@ HighCriticalMoves:
 	db RAZOR_LEAF
 	; NORMAL
 	db SLASH
+	; PSYCHIC
+	db MIND_BREAK
 	db HORN_CHARGE
 	db DOUBLE_EDGE
 	db HYPER_FANG

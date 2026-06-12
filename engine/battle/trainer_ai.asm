@@ -349,26 +349,33 @@ CheckSeeded:
 ;;;;;;;;;; PureRGBnote: ADDED: function for checking if the player's pokemon is unaffected by specific status moves.
 
 CheckStatusImmunity:
+; v0.7: statuses can have TWO immune defender types — checked via the b/c
+; pair (when only one applies, b == c). Mirrors the engine-side immunities
+; in effects.asm (burn: FIRE/MAGMA; poison: POISON/STEEL; paralyze:
+; ELECTRIC always, plus GROUND vs Electric-sourced paralysis).
 	push bc
 	push hl
 	ld a, [wEnemyMoveEffect]
 	cp POISON_EFFECT
 	ld b, POISON
+	ld c, STEEL ; v0.7: Steel-types can't be poisoned either
 	jr z, .getMonTypes
 	cp PARALYZE_EFFECT
 	jr z, .checkParalyze
 	cp BURN_SIDE_EFFECT2
 	ld b, FIRE
+	ld c, MAGMA ; v0.7: Magma-types are burn-immune too
 	jr z, .getMonTypes
-	cp BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp/Ignite vs Fire-type
-	ld b, FIRE
-	jr z, .getMonTypes
+	cp BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp/Ignite vs Fire/Magma-type
+	jr z, .getMonTypes ; b/c still hold FIRE/MAGMA from above
 	jr .done
 .checkParalyze
+	ld b, ELECTRIC ; v0.7: Electric-types can't be paralyzed at all
+	ld c, ELECTRIC
 	ld a, [wEnemyMoveType]
 	cp ELECTRIC
-	ld b, GROUND
-	jr nz, .done
+	jr nz, .getMonTypes
+	ld c, GROUND ; Ground is immune to the whole Electric move (incl. paralysis)
 .getMonTypes
 	ld a, [wAIMoveSpamAvoider] ; set if we healed status or switched out this turn
 	cp 2 ; it's 2 if we switched out
@@ -381,9 +388,13 @@ CheckStatusImmunity:
 	ld a, [hl]
 	cp b
 	jr z, .discourage
+	cp c ; v0.7: second immune type
+	jr z, .discourage
 	inc hl
 	ld a, [hl]
 	cp b
+	jr z, .discourage
+	cp c ; v0.7
 	jr z, .discourage
 .done
 	pop hl
@@ -394,7 +405,7 @@ CheckStatusImmunity:
 	pop hl
 	pop bc
 	scf
-	ret 
+	ret
 ;;;;;;;;;;
 
 ;;;;;;;;;; PureRGBnote: ADDED: function that allows AI to avoid OHKO moves if they will never do anything to the player's pokemon due to speed differences
@@ -1543,9 +1554,12 @@ StoreBattleMonTypes:
 	ret
 
 ; Used by the pureRGB AI
-;shinpokerednote: ADDED: doubles attack if burned or quadruples speed if paralyzed.
-;It's meant to be run right before healing paralysis or burn so as to 
+;shinpokerednote: ADDED: doubles attack if burned or doubles speed if paralyzed.
+;It's meant to be run right before healing paralysis or burn so as to
 ;undo the stat changes.
+;v0.7: paralysis speed penalty changed /4 -> /2 (HalveSpeedDueToParalysis),
+;so the undo doubles speed ONCE now. The old double-double restored 4x and
+;left a cured enemy at twice its real speed.
 UndoBurnParStats:
 	ld hl, wBattleMonStatus
 	ld de, wPlayerStatsToDouble
@@ -1567,8 +1581,7 @@ UndoBurnParStats:
 	and 1 << PAR	;test for paralyze 
 	jr z, .return
 	ld a, $04
-	ld [de], a	;set speed to be doubled (done twice) to undo the stat change of BRN
-	call DoubleSelectedStats
+	ld [de], a	;set speed to be doubled (once) to undo the /2 stat change of PAR
 	call DoubleSelectedStats
 .return
 	xor a
@@ -1630,10 +1643,11 @@ CheckAndConsumeBossItem:
 	ret
 
 ; Initialise wEnemyTrainerItemBag for this battle. Called once at battle
-; start by init_battle.asm (after wTrainerClass + wAICount are set, before
-; any AI tick fires). If this is not a Hard-mode boss battle the bag stays
-; empty (-1 fill) and every CheckAndConsumeBossItem returns no-carry, so
-; boss AI routines no-op out cleanly.
+; start by init_battle.asm (after wTrainerClass + wAICount are set AND
+; after wIsInBattle is set to 2 — IsHardModeBossBattle requires it — but
+; before any AI tick fires). If this is not a Hard-mode boss battle the
+; bag stays empty (-1 fill) and every CheckAndConsumeBossItem returns
+; no-carry, so boss AI routines no-op out cleanly.
 ;
 ; Trashes: a, b, c, d, e, hl
 InitEnemyTrainerItemBag::

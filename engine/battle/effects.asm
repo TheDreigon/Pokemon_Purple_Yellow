@@ -96,8 +96,12 @@ PoisonEffect:
 	ld a, [hli]
 	cp POISON ; can't poison a poison-type target
 	jr z, .noEffect
+	cp STEEL ; v0.7: can't poison a steel-type target either
+	jr z, .noEffect
 	ld a, [hld]
 	cp POISON ; can't poison a poison-type target
+	jr z, .noEffect
+	cp STEEL ; v0.7
 	jr z, .noEffect
 	ld a, [de]
 	cp POISON_SIDE_EFFECT1
@@ -209,7 +213,7 @@ FreezeBurnParalyzeEffect:
 ;        Burn  immune: defender is FIRE or MAGMA
 ;        Freeze immune: defender is ICE or MAGMA
 ;        Paralyze immune: defender is ELECTRIC
-;   - Poison is unchanged (defender is POISON) (PoisonEffect already had the correct check).
+;   - Poison immune: defender is POISON or STEEL (POISON was vanilla-correct in PoisonEffect; STEEL added in v0.7).
 	xor a
 	ld [wAnimationType], a
 	call CheckTargetSubstitute ; test bit 4 of d063/d068 flags [target has substitute flag]
@@ -427,9 +431,9 @@ FrozenText:
 ; v0.7: Tri Attack new effect.
 ; ~33% total chance to inflict a random status on the target —
 ; 11% paralyze, 11% burn, 11% freeze (33/256 first roll, 1/3 split second).
-; Standard Gen 1 same-type immunities apply: FIRE-types can't be burned,
-; ICE-types can't be frozen. Paralysis has no type immunity (vanilla
-; behaviour — Electric-types CAN be paralyzed in this hack).
+; v0.7 type-status immunities apply (same set as FreezeBurnParalyzeEffect):
+; burn -> FIRE/MAGMA immune; freeze -> ICE/MAGMA immune;
+; paralyze -> ELECTRIC immune.
 ; Substitute blocks all status. Already-statused targets are skipped.
 TriStatusSideEffect:
 	xor a
@@ -2128,8 +2132,12 @@ BurnEffect:
 	ld a, [hli]
 	cp FIRE ; can not burn a fire-type target
 	jr z, .didntAffect
+	cp MAGMA ; v0.7: nor a magma-type target (matches the side-effect paths)
+	jr z, .didntAffect
 	ld a, [hld]
 	cp FIRE
+	jr z, .didntAffect
+	cp MAGMA ; v0.7
 	jr z, .didntAffect
 	push hl
 	push de

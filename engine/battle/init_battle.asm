@@ -47,15 +47,18 @@ InitBattleCommon:
 	ldh [hStartTileID], a
 	dec a
 	ld [wAICount], a
-	; v0.7 hard mode knob #10: populate the boss item bag (no-ops out
-	; in Normal mode, wild battles, or against non-boss classes).
-	farcall InitEnemyTrainerItemBag
 	hlcoord 12, 0
 	predef CopyUncompressedPicToTilemap
 	ld a, $ff
 	ld [wEnemyMonPartyPos], a
 	ld a, $2
 	ld [wIsInBattle], a
+	; v0.7 hard mode knob #10: populate the boss item bag (no-ops out
+	; in Normal mode, wild battles, or against non-boss classes).
+	; Must run AFTER wIsInBattle is set to 2 — IsHardModeBossBattle
+	; checks it and treats anything else as "not a boss battle", which
+	; would silently leave the bag empty for the whole fight.
+	farcall InitEnemyTrainerItemBag
 
 ; Is this a major story battle?
 	ld a, [wLoneAttackNo]

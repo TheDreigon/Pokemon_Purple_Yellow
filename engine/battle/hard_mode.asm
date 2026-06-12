@@ -7,14 +7,15 @@
 ; only provides the shared definition of "boss" and the two helpers
 ; everyone calls.
 ;
-; Boss list (decided with Forte): all gym leaders + all Elite Four +
-; the Champion + all 3 rival classes + Prof Oak. SMITH/CRAIG/WEEBRA
-; (special trainer classes) are intentionally NOT bosses — they're
-; already calibrated by hand and shouldn't get the auto-buffs. Boss-
-; class identity automatically covers gym leader rematches (same
-; class), E4 rematches (same class), Giovanni's three appearances
-; (same class), and all rival fights regardless of starter (same
-; RIVALn class). 19 classes total.
+; Boss list (decided with Forte): all 8 gym leaders + all 4 Elite Four +
+; all 3 rival classes (RIVAL3 = Champion) + Prof Oak + Officer Jenny +
+; Nurse Joy + Janine + Jessie & James. SMITH/CRAIG/WEEBRA (special
+; trainer classes) are intentionally NOT bosses — they're already
+; calibrated by hand and shouldn't get the auto-buffs. Boss-class
+; identity automatically covers gym leader rematches (same class), E4
+; rematches (same class), Giovanni's three appearances (same class),
+; and all rival fights regardless of starter (same RIVALn class).
+; 20 classes total.
 ;
 ; Routines live in bank $0F (Battle Core) so most callers (CriticalHit
 ; Test, MoveHitTest, ExperienceCalc, LoadEnemyMon) can near-call. The

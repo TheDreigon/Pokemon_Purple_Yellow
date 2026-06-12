@@ -31,7 +31,7 @@ ItemPrices::
 	bcd3 0     ; VOLCANOBADGE
 	bcd3 0     ; EARTHBADGE
 	bcd3 1000  ; ESCAPE_ROPE (was 550; intentional bump - "get out of jail" tax)
-	bcd3 200   ; REPEL       (was 10; vanilla bug fix, restored to a sane floor)
+	bcd3 200   ; REPEL       (vanilla 350; an early PY commit dropped it to 10 by mistake — settled at a sane 200)
 	bcd3 0     ; OLD_AMBER
 	bcd3 3000  ; FIRE_STONE  (was 2100; uniform 3000 across all stones)
 	bcd3 3000  ; THUNDER_STONE
