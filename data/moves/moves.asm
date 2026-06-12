@@ -194,9 +194,9 @@ Moves: ; Current total = 220
 	move POISON_FANG,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
 	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 45% chance.
 	move ACID,           DEFENSE_DOWN1_EFFECT,             40, POISON,       100, 25
-	move SLUDGE,         POISON_SIDE_EFFECT2,              65, POISON,       100, 20
+	move SLUDGE,         POISON_SIDE_EFFECT1,              65, POISON,       100, 20
 	move SLUDGE_WAVE,    SPEED_DOWN1_EFFECT,               90, POISON,       100, 15 ; new move.
-	move GUNK_SHOT,      POISON_EFFECT,                   115, POISON,        80, 10 ; new move.
+	move GUNK_SHOT,      POISON_SIDE_EFFECT2,             115, POISON,        85, 10 ; new move. damage + 30% poison (acc 85 in line with Fire Blast/Blizzard/Thunder).
 	move NEUROTOXIN,     PARALYZE_EFFECT,                   0, POISON,        90, 20 ; new move.
 	move TOXIC,          POISON_EFFECT,                     0, POISON,        90, 20
 

@@ -133,8 +133,8 @@ Workflow de 18 agentes validou o CHANGELIST contra o código e reviu os 198 comm
 ### Mind Break: RESOLVIDO (2026-06-12, decisão do Forte)
 Era um Thunder Wave disfarçado (`PARALYZE_EFFECT` está em `ResidualEffects1` → engine saltava o damage calc). Forte decidiu: novo `PARALYZE_SIDE_EFFECT3` ($60, 45%, heaviest tier do ladder 15/30/45) atribuído ao MIND_BREAK — agora é um move de dano 125 BP / 90 acc / high-crit com 45% de paralisia. Na mesma decisão: POISON tiers 20/40/60 → **15/30/45**, CONFUSION tier 3 50% → **45%**, TRI_STATUS 33% → **30%** total (~10% cada).
 
-### DESCOBERTA AINDA PENDENTE: Gunk Shot nunca causa dano
-`GUNK_SHOT` (115 BP) usa `POISON_EFFECT` — mesma causa (ResidualEffects1, status puro em jogo). Forte ainda não decidiu (opções: POISON_SIDE_EFFECT3 45%, tier novo, ou power-gate na R1 dispatch como foi feito na R2 em core.asm:3498-3511).
+### Gunk Shot: RESOLVIDO (2026-06-12, decisão do Forte)
+Tinha a mesma doença do Mind Break (`POISON_EFFECT` em ResidualEffects1 = status puro). Forte decidiu: GUNK_SHOT → `POISON_SIDE_EFFECT2` (30% poison, lógica zoológica: lodo atirado envenena por contacto, menos certo que presas que injectam) + accuracy 80→85 (em linha com Fire Blast/Blizzard/Thunder a 115/85). Na mesma decisão, SLUDGE desceu para `POISON_SIDE_EFFECT1` (15%). Com isto, `POISON_EFFECT` só resta em moves 0 BP (Toxic/Poison Gas/Poisonpowder) — o problema da R1 dispatch deixou de ter vítimas; não é preciso power-gate.
 
 ### ⚠️ BANK $0F (Battle Core) NO LIMITE ABSOLUTO
 Depois do PARALYZE_SIDE_EFFECT3, o debug build tem **1 byte livre** no bank $0F (release: 24B). Qualquer adição ao Battle Core estoura o build debug. Remediações possíveis quando acontecer: apagar o dead code do Counter (HandleCounterMove short-circuita em core.asm:4995-4998, o corpo vanilla abaixo é unreachable — ~100B), ou mover mais dados para o bank $30 (7.8KB livres).
