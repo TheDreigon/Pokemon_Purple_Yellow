@@ -513,7 +513,7 @@ BeedrillEvosMoves:
 ; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
 ; one of the line's "small number of exceptions"). Neurotoxin
 ; at L48 is real-world bee venom biology.
-; BUG_BUZZ removed (Forte r3: Venomoth only — buzz needs buzzing wings).
+; BUG_BUZZ removed (Forte r4: Butterfree + Venomoth only — buzzing wings).
 	db  4, POISON_STING
 	db  7, STRING_SHOT
 	db  9, BUG_BITE
@@ -3520,7 +3520,7 @@ ScytherEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; filter fits perfectly). L1 = SCRATCH (basic swipe) + LEER.
 ; Blade ladder SLASH -> CUT -> NIGHT_SLASH; HONE_CLAWS = sharpening
 ; the scythes; GUILLOTINE last (mantis decapitation). SD L52.
-; No BUG_BUZZ (Venomoth/Butterfree only).
+; No BUG_BUZZ (Forte r4: Butterfree + Venomoth only).
 	db 10, QUICK_ATTACK
 	db 12, FOCUS_ENERGY
 	db 14, ASTONISH
