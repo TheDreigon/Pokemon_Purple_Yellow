@@ -172,6 +172,7 @@ Workflow de 18 agentes validou o CHANGELIST contra o código e reviu os 198 comm
 
 ## Forte's preferences (não esquecer!)
 
+- **NUNCA fazer `git push` — apenas commits locais.** O push é sempre o Forte que o faz.
 - Fala em **português (PT)** e usa **"tu"** informal
 - Stats múltiplos de 5 (ele odeia números não-redondos)
 - Feedback direto, sem softening
