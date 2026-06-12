@@ -2872,17 +2872,18 @@ VoltorbEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db EVOLVE_LEVEL, 30, ELECTRODE
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: living pokeball — sphere, no limbs, no bites/punches.
+; v0.7 Pass 3 v2 (+ Forte r1): living pokeball — sphere, no limbs.
 ; HARDEN (a rigid metal sphere tightens its shell — it can't curl),
-; METAL_SOUND (Steel typing, Forte F),
-; EXPLOSION owner (Forte N: Koffing/Voltorb/Magmar only), shared L44.
-; EERIE_IMPULSE deliberately NOT here (Forte F: not Voltorb).
+; METAL_SOUND (Steel typing, Forte F), ROLLOUT L29 (it IS a rolling
+; ball — Forte r1 grants it beyond the Geodude line).
+; EXPLOSION owner (Forte N), shared L44.
 	db  9, SONICBOOM
 	db 12, THUNDERSHOCK
 	db 16, HARDEN
 	db 19, THUNDER_WAVE
 	db 23, METAL_SOUND
 	db 26, SHOCK_WAVE
+	db 29, ROLLOUT
 	db 33, LIGHT_SCREEN
 	db 38, THUNDERBOLT
 	db 44, EXPLOSION
@@ -2892,15 +2893,16 @@ ElectrodeEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Fort
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: apex sphere (130 Spd). AGILITY at evo L30 (full-speed
-; roll = the line-defining moment). Screens pair (LIGHT_SCREEN shared,
-; REFLECT apex-only), THUNDER apex top. EXPLOSION shared with Voltorb.
+; v0.7 Pass 3 v2 (+ Forte r1): apex sphere (130 Spd). AGILITY at evo
+; L30 (full-speed roll). ROLLOUT shared (Forte r1). Screens pair,
+; THUNDER apex top. EXPLOSION shared with Voltorb.
 	db  9, SONICBOOM
 	db 12, THUNDERSHOCK
 	db 16, HARDEN
 	db 19, THUNDER_WAVE
 	db 23, METAL_SOUND
 	db 26, SHOCK_WAVE
+	db 29, ROLLOUT
 	db 30, AGILITY
 	db 33, LIGHT_SCREEN
 	db 38, THUNDERBOLT
@@ -3317,24 +3319,24 @@ KangaskhanEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting For
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: protective savanna mother (Normal/Fighting). Strong
-; but never malicious (Forte H). FIERCE_ROAR = warning roar guarding
-; the cub; OUTRAGE L52 = a mother's fury when the cub is threatened
-; (Marowak OUTRAGE L58 is the Forte-approved mother-rage precedent).
-; FLAG: Forte to confirm OUTRAGE fits the not-malicious identity.
-; BULK_UP (muscle list). No THRASH (not wild), no GORE (no horns).
+; v0.7 Pass 3 v2 (+ Forte r1): protective savanna mother (Normal/
+; Fighting). Forte r1: +BIND (restraining grab) +BIDE (endures for
+; the cub); THRASH instead of OUTRAGE; no DOUBLE_EDGE (a mother with
+; a baby in the pouch is never reckless). FIERCE_ROAR = warning roar.
+; BULK_UP (muscle list).
 	db 10, TAIL_WHIP
 	db 13, BITE
-	db 16, DIZZY_PUNCH
+	db 16, BIND
 	db 19, GROUND_STOMP
+	db 21, DIZZY_PUNCH
 	db 23, SEISMIC_TOSS
 	db 27, FIERCE_ROAR
+	db 29, BIDE
 	db 31, BULK_UP
 	db 36, BODY_SLAM
 	db 40, STRENGTH
 	db 45, TAKE_DOWN
-	db 52, OUTRAGE
-	db 58, DOUBLE_EDGE
+	db 52, THRASH
 	db 0
 
 HorseaEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
@@ -3342,11 +3344,12 @@ HorseaEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db EVOLVE_LEVEL, 26, SEADRA
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: ink-spitting seahorse. SMOKESCREEN restored (iconic
-; ink jet — was missing). DRAGON_RAGE at evo L26 = the dragon blood
-; awakening (signature-at-evo, shared like Pikachu VOLT_TACKLE).
+; v0.7 Pass 3 v2 (+ Forte r1): ink-spitting seahorse. WATER_GUN early
+; in the learnset (Forte r1). SMOKESCREEN = the ink jet. DRAGON_RAGE
+; at evo L26 = dragon blood awakening (shared, VOLT_TACKLE pattern).
 ; ICY_PULSE cold currents (mirrors Dratini's aquatic-dragon kit).
 	db 10, SMOKESCREEN
+	db 12, WATER_GUN
 	db 14, LEER
 	db 18, BUBBLEBEAM
 	db 22, AGILITY
@@ -3360,11 +3363,12 @@ SeadraEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: Water/DRAGON now. Shared Horsea backbone + dragon kit:
-; DRAGON_BREATH right after evo, ICE_BEAM (cold deep water), DRAGON_SLAM
-; apex (reckless body slam — serpentine body, Dratini precedent).
-; DRAGON_CLAW removed from old draft: Seadra has NO claws (anatomy gate).
+; v0.7 Pass 3 v2 (+ Forte r1): Water/DRAGON. Shared Horsea backbone +
+; dragon kit: DRAGON_BREATH post-evo, ICE_BEAM (cold deep water),
+; DRAGON_SLAM apex (serpentine slam, Dratini precedent).
+; No DRAGON_CLAW (no claws — anatomy gate).
 	db 10, SMOKESCREEN
+	db 12, WATER_GUN
 	db 14, LEER
 	db 18, BUBBLEBEAM
 	db 22, AGILITY
@@ -3423,17 +3427,20 @@ StaryuEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db EVOLVE_ITEM, MOON_STONE, 1, STARMIE
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: star with a regenerating gem core. Evolution FIXED to
-; MOON_STONE per Forte's spec (types_evolutions_stats: Moonstone =
-; Clefairy/Vulpix/Staryu — repo had WATER_STONE). RECOVER L25 (core
-; regen, Forte F list), FLASH L29 (gem light), HARDEN (crystal body).
+; v0.7 Pass 3 v2 (+ Forte r1): star with a regenerating gem core.
+; MOON_STONE evolution (Forte spec fix). r1 adds: EERIE_IMPULSE
+; (alien gem pulses) + DAZZLE_GLEAM (gem light burst). RECOVER L25
+; (core regen), FLASH L29 (gem light), HARDEN (crystal body).
+; Stone-evo line: pre-evo carries the full kit (Clefairy pattern).
 	db 10, HARDEN
 	db 13, WATER_GUN
 	db 17, PSYWAVE
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
 	db 29, FLASH
+	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
+	db 35, DAZZLE_GLEAM
 	db 37, PSYBEAM
 	db 42, LIGHT_SCREEN
 	db 47, HYDRO_PUMP
@@ -3443,16 +3450,19 @@ StarmieEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: Water/Psychic mystic star. Staryu backbone + screens
-; pair, CALM_MIND (Forte E list: Starmie), SURF, PSYCHIC_M apex.
-; No TRI_ATTACK (Porygon/Mew/Magneton only).
+; v0.7 Pass 3 v2 (+ Forte r1): Water/Psychic mystic star. Staryu
+; backbone + screens pair, CALM_MIND, SURF before the shared
+; HYDRO_PUMP, PSYCHIC_M apex, MOONBLAST high-level (Forte r1 —
+; the core IS a moon-gem).
 	db 10, HARDEN
 	db 13, WATER_GUN
 	db 17, PSYWAVE
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
 	db 29, FLASH
+	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
+	db 35, DAZZLE_GLEAM
 	db 37, PSYBEAM
 	db 39, REFLECT
 	db 42, LIGHT_SCREEN
@@ -3460,6 +3470,7 @@ StarmieEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 45, SURF
 	db 47, HYDRO_PUMP
 	db 56, PSYCHIC_M
+	db 60, MOONBLAST
 	db 0
 
 MrMimeEvosMoves:
@@ -3631,14 +3642,14 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: stag-beetle grappler (Bug/Fighting). VICEGRIP at L1 —
-; SHARED signature with the Krabby line (per Forte; horns = the vice).
-; Wrestler kit: BIND (horn grip), SEISMIC_TOSS (lifts and throws,
-; canon), LOW_KICK, GORE_ATTACK (impaling horns), MEGAHORN,
-; GUILLOTINE last (horn shear).
-; SLASH removed from old draft (no claws — anatomy gate).
-; SUBMISSION removed: Forte's recorded ruling (Hitmonlee block) is that
-; it is a Machamp/Poliwrath technique — replaced with GORE_ATTACK.
+; v0.7 Pass 3 v2 (+ Forte r1): stag-beetle grappler (Bug/Fighting).
+; VICEGRIP at L1 — SHARED signature with the Krabby line (Forte).
+; SUBMISSION restored HIGH-LEVEL per Forte r1 (overrides the old
+; Machamp/Poliwrath-only note), after TAKE_DOWN per power scaling.
+; GORE_ATTACK L46 kept for review (impaling horns). Wrestler kit:
+; BIND (horn grip), SEISMIC_TOSS (lifts and throws), LOW_KICK.
+; No SLASH (no claws). BUG_BUZZ: wingless stridulation (Venonat
+; precedent) — flag if undesired.
 	db 10, FOCUS_ENERGY
 	db 13, LOW_KICK
 	db 17, SEISMIC_TOSS
@@ -3647,9 +3658,10 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 29, STRENGTH
 	db 33, BULK_UP
 	db 38, BUG_BUZZ
-	db 42, GORE_ATTACK
-	db 47, TAKE_DOWN
-	db 52, MEGAHORN
+	db 42, TAKE_DOWN
+	db 46, GORE_ATTACK
+	db 50, SUBMISSION
+	db 54, MEGAHORN
 	db 58, GUILLOTINE
 	db 0
 
@@ -3657,26 +3669,30 @@ TaurosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: potente touro selvagem — kit built literally from
-; Forte's identity line: Charge/Horn Charge/Thrash/Outrage/Take Down/
-; Gore Attack/Intimidate/Scary Face/Bide/Strength. HORN_DRILL L65 last
-; (Forte G: Tauros high-level approved). No EXTREMESPEED (fast, not
-; agile — Forte G).
+; v0.7 Pass 3 v2 (+ Forte r1): potente touro selvagem — Forte's
+; identity kit (Charge/Horn Charge/Thrash/Outrage/Take Down/Gore/
+; Intimidate/Scary Face/Bide/Strength) + r1 adds: BULLDOZE,
+; SWORDS_DANCE, DOUBLE_EDGE; SCARY_FACE later; OUTRAGE is the LAST
+; move, after HORN_DRILL (Forte r1). No EXTREMESPEED (fast, not
+; agile).
 	db 10, LEER
 	db 13, HORN_ATTACK
 	db 17, RAGE
 	db 20, GROUND_STOMP
 	db 24, FOCUS_ENERGY
 	db 28, BIDE
+	db 30, BULLDOZE
 	db 32, HORN_CHARGE
 	db 36, INTIMIDATE
 	db 40, STRENGTH
 	db 44, TAKE_DOWN
-	db 48, SCARY_FACE
-	db 52, THRASH
+	db 46, SWORDS_DANCE
+	db 50, THRASH
+	db 54, SCARY_FACE
 	db 56, GORE_ATTACK
-	db 60, OUTRAGE
-	db 65, HORN_DRILL
+	db 58, DOUBLE_EDGE
+	db 60, HORN_DRILL
+	db 65, OUTRAGE
 	db 0
 
 MagikarpEvosMoves:
@@ -3735,32 +3751,41 @@ LaprasEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: gentle singing ferry. SING L30 (Forte C: after L30),
-; CONFUSE_RAY (vanilla canon mystic), STRENGTH L46 (hauls passengers),
-; SURF L50 (THE ferry move), PSYCHIC_M L58 (telepathy lore),
-; HYDRO_PUMP last. No THRASH/OUTRAGE (docile).
-	db 10, ICY_WIND
+; v0.7 Pass 3 v2 (+ Forte r1): gentle singing ferry. r1 adds: GROWL
+; (also L1), FAIRY_WIND, FROST_BREATH, CHARM, BIDE, RECOVER high.
+; PSYCHIC_M removed — Psychic damage (and the rest of the Fairy
+; arsenal: Draining Kiss/Dazzle Gleam/Moonblast) is TM-only here.
+; ICE ladder strictly scaled: ICY_WIND 45 < FROST_BREATH 50 <
+; ICY_PULSE 65 < AURORA_BEAM 80 < ICE_BEAM 95 < BLIZZARD 115.
+; SING after L30 (Forte C). STRENGTH = hauls passengers; SURF = THE
+; ferry move. No THRASH/OUTRAGE (docile).
+	db 10, GROWL
+	db 12, ICY_WIND
 	db 14, BUBBLEBEAM
+	db 16, FAIRY_WIND
 	db 18, BODY_SLAM
+	db 20, FROST_BREATH
 	db 22, ICY_PULSE
 	db 26, CONFUSE_RAY
+	db 28, CHARM
 	db 30, SING
+	db 32, BIDE
 	db 34, WATER_PULSE
 	db 38, AURORA_BEAM
 	db 42, ICE_BEAM
 	db 46, STRENGTH
 	db 50, SURF
 	db 54, BLIZZARD
-	db 58, PSYCHIC_M
+	db 58, RECOVER
 	db 62, HYDRO_PUMP
 	db 0
 
-DittoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
+DittoEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: TRANSFORM only, by design (Forte J: no TMs, no other
-; moves — Transform IS Ditto). Nothing to add; kept empty on purpose.
+; v0.7 Pass 3 (Forte-approved): TRANSFORM only, by design — no TMs,
+; no other moves. Transform IS Ditto.
 	db 0
 
 EeveeEvosMoves:
@@ -3871,19 +3896,24 @@ PorygonEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: digital construct. Fun moves are NATURAL levelup here
-; (Forte A: copy.exe/mirror.exe/decoy.exe/random.exe). TRI_ATTACK L46
-; signature, RECOVER (file restore), MAGNET_BOMB L58 (shared signature
-; with Magneton), HYPER_BEAM L65 last (Forte G owner list).
-; No NASTY_PLOT (Forte E), no TRANSFORM (Ditto), no CONVERSION (gone).
+; v0.7 Pass 3 v2 (+ Forte r1): digital construct. Fun moves are
+; NATURAL levelup here (Forte A: copy.exe/mirror.exe/decoy.exe/
+; random.exe). r1 adds: DISABLE, THUNDER_WAVE, FLASH, REFLECT.
+; TRI_ATTACK L46 signature, RECOVER (file restore), MAGNET_BOMB L58
+; (shared signature with Magneton), HYPER_BEAM L65 last (Forte G).
+; No NASTY_PLOT, no TRANSFORM (Ditto), no CONVERSION (gone).
 	db 10, CONFUSION
+	db 12, DISABLE
 	db 14, AGILITY
 	db 18, RECOVER
+	db 20, THUNDER_WAVE
 	db 22, SHOCK_WAVE
 	db 26, MIMIC
+	db 28, FLASH
 	db 30, PSYBEAM
 	db 34, MIRROR_MOVE
 	db 38, LIGHT_SCREEN
+	db 40, REFLECT
 	db 42, METRONOME
 	db 46, TRI_ATTACK
 	db 50, SUBSTITUTE
@@ -4018,22 +4048,31 @@ SnorlaxEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: gentle lazy giant (Forte H: BRUTAL_SWING yes,
-; GORE/THRASH/OUTRAGE no — too much initiative for a napper).
-; L1 = HEADBUTT + AMNESIA (wakes up, forgets why). BIDE = the tank
-; that absorbs and retaliates. REST canonical mid-set. BULK_UP
-; (muscle list). HEAVY_SLAM L52 apex (it IS the heavy).
+; v0.7 Pass 3 v2 (+ Forte r1): gentle lazy giant. Egg moves = TACKLE
+; (lying down — no HEADBUTT leverage) + AMNESIA + REST (Forte r1).
+; r1 adds: BITE (comilao), BIND (bear hug), GROWTH (it grows!),
+; ROLLOUT (rolls its bulk), ROCK_TOMB, GROUND_STOMP, THRASH (woken
+; fury — overrides the old no-THRASH note), SUBMISSION + RECOVER
+; high. STRENGTH removed from levelup (HM-only). BRUTAL_SWING per
+; Forte H. No GORE (no horns).
 	db 10, LICK
+	db 12, GROWTH
 	db 14, DEFENSE_CURL
+	db 16, BITE
 	db 18, BIDE
+	db 20, GROUND_STOMP
 	db 22, BODY_SLAM
-	db 26, REST
+	db 24, BIND
+	db 26, ROLLOUT
 	db 31, BULK_UP
-	db 36, STRENGTH
-	db 41, CRUNCH
-	db 46, BRUTAL_SWING
+	db 34, ROCK_TOMB
+	db 38, CRUNCH
+	db 44, BRUTAL_SWING
+	db 48, THRASH
 	db 52, HEAVY_SLAM
+	db 54, SUBMISSION
 	db 58, DOUBLE_EDGE
+	db 60, RECOVER
 	db 0
 
 ArticunoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
@@ -4189,17 +4228,19 @@ MewtwoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: psychic apex + honorary Dark (bitterness/trauma —
-; Forte I). L1 includes TELEPORT (Forte I). Full psychic ladder,
-; screens, CALM_MIND, AMNESIA; INTIMIDATE/SCARY_FACE (apex presence);
-; DARK kit late. MIND_BREAK L60 signature; HYPER_BEAM L65 LAST (Forte:
-; HB is always the final move — old draft had MIND_BREAK after it).
-; No CHARM/FAKE_TEARS (not a manipulator — Forte I).
+; v0.7 Pass 3 v2 (+ Forte r1): psychic apex + honorary Dark. Egg
+; moves = TACKLE, TELEPORT, CONFUSION, DISABLE (Forte r1; shared
+; with Mew). FAINT_ATTACK now learned at L30 instead. Full psychic
+; ladder, screens, CALM_MIND, AMNESIA; INTIMIDATE/SCARY_FACE (apex
+; presence); DARK kit late. MIND_BREAK L60 signature; HYPER_BEAM
+; L65 LAST. No CHARM/FAKE_TEARS (not a manipulator — Forte I).
+; No SHADOW_BALL (scope: psychic + secondarily dark).
 	db 12, RECOVER
 	db 16, EXTRASENSORY
 	db 20, PSYCHIC_BIND
 	db 24, AGILITY
 	db 28, LIGHT_SCREEN
+	db 30, FAINT_ATTACK
 	db 32, PSYBEAM
 	db 36, REFLECT
 	db 40, CALM_MIND
@@ -4216,14 +4257,13 @@ MewEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: curious gentle ancestor (Psychic/FAIRY). All 4 fun
-; moves natural (Forte A). CHARM opener (playful), fairy kit
-; (FAIRY_WIND/DRAINING_KISS/DAZZLE_GLEAM/PLAY_ROUGH), psychic ladder,
-; RECOVER, MOONBLAST L60, HYPER_BEAM L65 last (Forte I).
-; TRANSFORM removed from old draft — it is Ditto's signature (FLAG
-; for Forte: canon Mew transforms, but signature ownership wins?).
+; v0.7 Pass 3 v2 (+ Forte r1): curious gentle ancestor (Psychic/
+; FAIRY). Egg moves = TACKLE, TELEPORT, CONFUSION, DISABLE (Forte
+; r1; shared with Mewtwo). All 4 fun moves natural (Forte A). CHARM
+; opener (playful), fairy kit, psychic ladder, RECOVER, TRI_ATTACK
+; (Forte G owner), MOONBLAST L60, HYPER_BEAM L65 last.
+; TRANSFORM removed — Ditto's signature (FLAG: canon vs ownership).
 	db 10, CHARM
-	db 13, CONFUSION
 	db 16, FAIRY_WIND
 	db 19, RECOVER
 	db 22, MIMIC
