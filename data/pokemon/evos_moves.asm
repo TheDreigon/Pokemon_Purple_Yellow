@@ -467,7 +467,6 @@ ButterfreeEvosMoves:
 	db 22, FAIRY_WIND
 	db 26, EXTRASENSORY
 	db 28, WING_ATTACK
-	db 30, BUG_BUZZ
 	db 33, PSYCHIC_BIND
 	db 36, PSYCHIC_M
 	db 42, QUIVER_DANCE
@@ -513,7 +512,7 @@ BeedrillEvosMoves:
 ; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
 ; one of the line's "small number of exceptions"). Neurotoxin
 ; at L48 is real-world bee venom biology.
-; BUG_BUZZ removed (Forte r2: Butterfree/Venomoth lines only).
+; BUG_BUZZ removed (Forte r3: Venomoth only — buzz needs buzzing wings).
 	db  4, POISON_STING
 	db  7, STRING_SHOT
 	db  9, BUG_BITE
@@ -1442,7 +1441,6 @@ VenonatEvosMoves:
 	db 14, SUPERSONIC
 	db 17, CONFUSION
 	db 20, SPORE_DAZE
-	db 24, BUG_BUZZ
 	db 30, TOXIC
 	db 40, PSYCHIC_M
 	db 48, HAZE
@@ -3647,7 +3645,7 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; LOW_KICK, GORE_ATTACK (impaling horns), MEGAHORN, GUILLOTINE last.
 ; No SLASH (no claws). No SUBMISSION (Forte r2: Machamp/Poliwrath
 ; signature — trained technique, not wild instinct). No BUG_BUZZ
-; (Forte r2: Butterfree/Venomoth lines only).
+; (Forte r3: Venomoth only — buzz needs buzzing wings).
 	db 10, FOCUS_ENERGY
 	db 13, LOW_KICK
 	db 17, SEISMIC_TOSS
