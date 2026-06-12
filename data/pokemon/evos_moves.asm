@@ -2823,13 +2823,15 @@ KrabbyEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db EVOLVE_LEVEL, 28, KINGLER
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: scrappy pincer crab. CRABHAMMER signature at evo L28.
-; VICEGRIP removed (signature belongs to Pinsir); the grip is BIND now.
-; HARDEN carapace; MUD_SHOT beach burrower; FURY_ATTACK pincer jabs.
-; GUILLOTINE apex pincer (vanilla canon, shared with Kingler).
-	db 11, HARDEN
-	db 14, MUD_SHOT
-	db 17, BIND
+; v0.7 Pass 3 v2 (+ Forte corrections): scrappy pincer crab. VICEGRIP is
+; a SHARED signature (Krabby-line + Pinsir, per Forte). CRABHAMMER
+; signature at evo L28. WATER_GUN early (Forte). HARDEN carapace;
+; MUD_SHOT beach burrower; FURY_ATTACK pincer jabs; GUILLOTINE apex
+; pincer (vanilla canon, shared with Kingler).
+	db 11, WATER_GUN
+	db 13, HARDEN
+	db 15, MUD_SHOT
+	db 17, VICEGRIP
 	db 21, BUBBLEBEAM
 	db 24, FURY_ATTACK
 	db 28, CRABHAMMER
@@ -2841,13 +2843,16 @@ KinglerEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: apex crusher crab (110 Atk / 110 Def). Shared backbone
-; with Krabby at the same levels; adds the heavy-claw kit: STRENGTH/CUT
-; (shear claw), IRON_DEFENSE (armoured shell), WATERFALL/SURF,
-; BRUTAL_SWING (massive claw sweep). SWORDS_DANCE stays TM-only.
-	db 11, HARDEN
-	db 14, MUD_SHOT
-	db 17, BIND
+; v0.7 Pass 3 v2 (+ Forte corrections): apex crusher crab (110 Atk /
+; 110 Def). Shared Krabby backbone at the same levels; adds the
+; heavy-claw kit: STRENGTH/CUT (shear claw), IRON_DEFENSE (armoured
+; shell), WATERFALL, BIND high-level (the giant-claw clamp — Forte),
+; BRUTAL_SWING (massive claw sweep). SURF is HM-only (Forte);
+; SWORDS_DANCE stays TM-only.
+	db 11, WATER_GUN
+	db 13, HARDEN
+	db 15, MUD_SHOT
+	db 17, VICEGRIP
 	db 21, BUBBLEBEAM
 	db 24, FURY_ATTACK
 	db 28, CRABHAMMER
@@ -2857,7 +2862,7 @@ KinglerEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 37, IRON_DEFENSE
 	db 41, WATERFALL
 	db 44, GUILLOTINE
-	db 47, SURF
+	db 46, BIND
 	db 52, BRUTAL_SWING
 	db 0
 
@@ -3620,8 +3625,8 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 v2: stag-beetle grappler (Bug/Fighting). VICEGRIP is its
-; L1 signature (BUG-type vice = these horns; removed from Krabby).
+; v0.7 Pass 3 v2: stag-beetle grappler (Bug/Fighting). VICEGRIP at L1 —
+; SHARED signature with the Krabby line (per Forte; horns = the vice).
 ; Wrestler kit: BIND (horn grip), SEISMIC_TOSS (lifts and throws,
 ; canon), LOW_KICK, SUBMISSION, MEGAHORN, GUILLOTINE last (horn shear).
 ; SLASH removed from old draft (no claws — anatomy gate).
