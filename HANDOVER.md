@@ -137,7 +137,12 @@ Era um Thunder Wave disfarçado (`PARALYZE_EFFECT` está em `ResidualEffects1` �
 Tinha a mesma doença do Mind Break (`POISON_EFFECT` em ResidualEffects1 = status puro). Forte decidiu: GUNK_SHOT → `POISON_SIDE_EFFECT2` (30% poison, lógica zoológica: lodo atirado envenena por contacto, menos certo que presas que injectam) + accuracy 80→85 (em linha com Fire Blast/Blizzard/Thunder a 115/85). Na mesma decisão, SLUDGE desceu para `POISON_SIDE_EFFECT1` (15%). Com isto, `POISON_EFFECT` só resta em moves 0 BP (Toxic/Poison Gas/Poisonpowder) — o problema da R1 dispatch deixou de ter vítimas; não é preciso power-gate.
 
 ### Bank $0F (Battle Core): pressão aliviada (2026-06-12)
-Depois do PARALYZE_SIDE_EFFECT3 o debug build chegou a estar com 1 byte livre. O dead code do Counter (corpo vanilla unreachable do HandleCounterMove) foi apagado — substituído por stub de 2 bytes que mantém o contrato dos callers (sempre NZ). **Debug agora tem ~72 bytes livres** no $0F. Se voltar a apertar: mover dados para o bank $30 (7.8KB livres). FLY e DIG foram adicionados à HighCriticalMoves nesta janela (lógica de emboscada dos charge moves, decisão do Forte).
+Depois do PARALYZE_SIDE_EFFECT3 o debug build chegou a estar com 1 byte livre. Duas limpezas resolveram:
+1. **Counter dead code** apagado (corpo vanilla unreachable do HandleCounterMove → stub 2 bytes, contrato NZ mantido).
+2. **Dead-code harvest** (e4b0550, decisão do Forte: remover 4, manter Haze+Mist): SwitchAndTeleportEffect (corpo inteiro no $0F!), OneHitKOEffect (+3 cp dead branches no core + .ohko/WillOHKOMoveAlwaysFail na AI), ConversionEffect (CallBankF mudou-se para haze.asm — único user), SplashEffect. Slots da pointer table → stub partilhado `RemovedMoveEffect`. Textos órfãos apagados (Text 5). −257 linhas.
+
+**Debug agora tem ~326 bytes livres no $0F.** Se voltar a apertar: mover dados para o bank $30 (7.8KB livres).
+**MANTIDOS deliberadamente**: HazeEffect_ (restauro hipotético futuro do move original) e MistEffect_ + toda a infra PROTECTED_BY_MIST (o Guard Spec usa o mesmo flag — incluindo o do Giovanni na boss bag). FLY e DIG foram adicionados à HighCriticalMoves nesta janela (lógica de emboscada dos charge moves).
 
 ### PITFALL NOVO (crítico): ordem das move tables é load-bearing
 `moves.asm`, `names.asm`, `AttackAnimationPointers` e `sfx.asm` são indexadas por (move id − 1) dos constants. **Nunca trocar rows num ficheiro só** — o build passa mas os moves trocam de dados em jogo. Depois de qualquer reorder: `python .claude/check_move_alignment.py` (0 misalignments = OK). Foi assim que o commit `59ed008` partiu Comet Punch/Low Kick sem ninguém notar.
