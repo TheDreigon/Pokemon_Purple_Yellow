@@ -1462,8 +1462,10 @@ wTrainerNo:: db
 
 ; $00 = normal attack
 ; $01 = critical hit
-; $02 = successful OHKO
-; $ff = failed OHKO
+; $02 = successful OHKO (unwritten since the v0.7 dead-code harvest removed
+;       OneHitKOEffect; the reader scaffolding in core.asm is kept in case
+;       an OHKO move ever returns)
+; $ff = failed OHKO (same)
 wCriticalHitOrOHKO:: db
 
 wMoveMissed:: db

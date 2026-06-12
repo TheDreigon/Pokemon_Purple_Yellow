@@ -570,30 +570,6 @@ AIMoveChoiceModification3:
 	ld [wAITargetMonType2], a
 	ret
 
-;;;;;;;;;; PureRGBnote: ADDED: function that allows AI to be aware if they are slower than the opponent. Allows them to prefer priority moves.
-CompareSpeed:
-	push hl
-	push de
-	push bc
-	ld hl, wEnemyMonSpeed + 1
-	ld de, wBattleMonSpeed + 1
-.compareSpeed
-; check if current speed is higher than the target's
-	ld a, [de]
-	dec de
-	ld b, a
-	ld a, [hld]
-	sub b
-	ld a, [de]
-	ld b, a
-	ld a, [hl]
-	sbc b
-	pop bc
-	pop de
-	pop hl
-	ret
-;;;;;;;;;;
-
 ; PureRGBnote: ADDED: if the opponent has less than 1/2 health they will prefer healing moves if they use AI subroutine 3
 EncourageDrainingMoveIfLowHealth:
 	ld a, [wEnemyMoveEffect]
