@@ -97,7 +97,7 @@ Moves: ; Current total = 220
 	move GUST,           SPEED_DOWN_SIDE_EFFECT,           45, FLYING,       100, 30
 	move WING_ATTACK,    NO_ADDITIONAL_EFFECT,             60, FLYING,       100, 25
 	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 25 ; new move.
-	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20
+	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20 ; high-crit. (ambush dive — charge-turn payoff)
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
 	move SKY_ATTACK,     CHARGE_EFFECT,                   180, FLYING,       100, 10
 	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; signature.
@@ -149,7 +149,7 @@ Moves: ; Current total = 220
 	move EARTHQUAKE,     SPEED_DOWN_SIDE_EFFECT,           95, GROUND,       100, 15
 	move FISSURE,        SPEED_DOWN1_EFFECT,              115, GROUND,        85, 10
 	move BONE_CLUB,      FLINCH_SIDE_EFFECT1,              75, GROUND,       100, 20 ; signature.
-	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; signature.
+	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; signature. high-crit. (ambush from below — charge-turn payoff)
 
 
 	; === ICE TYPE (7 moves) ===
@@ -245,7 +245,7 @@ Moves: ; Current total = 220
 
 
 	; === BIRD TYPE (51 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
-	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~33% chance random {paralyze/burn/freeze}.
+	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~30% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
 	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.

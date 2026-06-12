@@ -16,8 +16,12 @@ HighCriticalMoves:
 	db HI_JUMP_KICK
 	; FIRE
 	db EXPLOSION
+	; FLYING
+	db FLY ; ambush dive from the sky — the 2-turn telegraph pays off in crits
 	; GRASS
 	db RAZOR_LEAF
+	; GROUND
+	db DIG ; ambush strike from below — same charge-move payoff as FLY
 	; NORMAL
 	db SLASH
 	db HORN_CHARGE
