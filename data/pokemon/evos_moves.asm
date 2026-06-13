@@ -1661,6 +1661,7 @@ MankeyEvosMoves:
 	db 22, RAGE
 	db 25, ROCK_THROW
 	db 29, FIERCE_ROAR
+	db 29, ROLLING_KICK
 	db 31, THRASH
 	db 39, TAKE_DOWN
 	db 0
@@ -1687,6 +1688,7 @@ PrimeapeEvosMoves:
 	db 25, ROCK_THROW
 	db 27, INTIMIDATE
 	db 29, FIERCE_ROAR
+	db 29, ROLLING_KICK
 	db 31, THRASH
 	db 33, BODY_SLAM
 	db 35, GROUND_STOMP
