@@ -1083,7 +1083,7 @@ ClefairyEvosMoves:
 	db 13, CALM_MIND
 	db 16, CHARM
 	db 19, DRAINING_KISS
-	db 22, TICKLE
+	db 19, TICKLE
 	db 25, RECOVER
 	db 28, LIGHT_SCREEN
 	db 32, MIMIC
@@ -1109,7 +1109,7 @@ ClefableEvosMoves:
 	db 13, CALM_MIND
 	db 16, CHARM
 	db 19, DRAINING_KISS
-	db 22, TICKLE
+	db 19, TICKLE
 	db 25, RECOVER
 	db 28, LIGHT_SCREEN
 	db 32, MIMIC
@@ -1190,7 +1190,7 @@ JigglypuffEvosMoves:
 	db  9, FAIRY_WIND
 	db 12, DOUBLESLAP
 	db 15, CHARM
-	db 17, TAUNT
+	db 17, TICKLE
 	db 20, GROWTH
 	db 23, ASTONISH
 	db 26, BIDE
@@ -1219,7 +1219,7 @@ WigglytuffEvosMoves:
 	db  9, FAIRY_WIND
 	db 12, DOUBLESLAP
 	db 15, CHARM
-	db 17, TAUNT
+	db 17, TICKLE
 	db 20, GROWTH
 	db 23, ASTONISH
 	db 26, BIDE
@@ -2001,9 +2001,9 @@ BellsproutEvosMoves:
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
 	db 19, BIDE
+	db 19, TICKLE
 	db 22, SLEEP_POWDER
 	db 25, ACID
-	db 28, TICKLE
 	db 31, RAZOR_LEAF
 	db 38, MEGA_DRAIN
 	db 44, GIGA_DRAIN
@@ -2026,9 +2026,9 @@ WeepinbellEvosMoves:
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
 	db 19, BIDE
+	db 19, TICKLE
 	db 22, SLEEP_POWDER
 	db 25, ACID
-	db 28, TICKLE
 	db 31, RAZOR_LEAF
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
@@ -2055,9 +2055,9 @@ VictreebelEvosMoves:
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
 	db 19, BIDE
+	db 19, TICKLE
 	db 22, SLEEP_POWDER
 	db 25, ACID
-	db 28, TICKLE
 	db 31, RAZOR_LEAF
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
@@ -2285,7 +2285,7 @@ SlowpokeEvosMoves:
 	db 18, HEADBUTT
 	db 22, WATER_PULSE
 	db 28, AMNESIA
-	db 34, EXTRASENSORY
+	db 33, EXTRASENSORY
 	db 44, BIDE
 	db 51, RECOVER
 	db 0
@@ -2305,9 +2305,9 @@ SlowbroEvosMoves:
 	db 18, HEADBUTT
 	db 22, WATER_PULSE
 	db 28, AMNESIA
-	db 34, EXTRASENSORY
-	db 36, REFLECT
-	db 38, WITHDRAW
+	db 33, EXTRASENSORY
+	db 35, WITHDRAW
+	db 37, REFLECT
 	db 40, BODY_SLAM
 	db 44, BIDE
 	db 46, WATERFALL
@@ -2522,7 +2522,7 @@ GrimerEvosMoves:
 	db 14, MUD_SHOT
 	db 17, ACID
 	db 20, DISABLE
-	db 23, TAUNT
+	db 22, CORRODE
 	db 26, BIND
 	db 28, SMOG
 	db 31, BODY_SLAM
@@ -2548,7 +2548,7 @@ MukEvosMoves:
 	db 14, MUD_SHOT
 	db 17, ACID
 	db 20, DISABLE
-	db 23, TAUNT
+	db 22, CORRODE
 	db 26, BIND
 	db 28, SMOG
 	db 31, BODY_SLAM
@@ -2559,7 +2559,6 @@ MukEvosMoves:
 	db 45, SLUDGE_WAVE
 	db 48, TAKE_DOWN
 	db 51, ROCK_TOMB
-	db 53, CORRODE
 	db 56, IRON_DEFENSE
 	db 59, GUNK_SHOT
 	db 62, SCARY_FACE
@@ -2638,6 +2637,7 @@ GastlyEvosMoves:
 ; Gastly carries the shared backbone (14 moves, pre-evo).
 	db  1, LICK
 	db  5, SMOG
+	db  7, LEER
 	db  9, ASTONISH
 	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
@@ -2648,7 +2648,6 @@ GastlyEvosMoves:
 	db 30, PSYWAVE
 	db 34, DISABLE
 	db 34, NASTY_PLOT
-	db 38, LEER
 	db 38, SCARY_FACE
 	db 44, SPIRIT_DRAIN
 	db 0
@@ -2663,6 +2662,7 @@ HaunterEvosMoves:
 ; + SHADOW_BALL at its own evo L42.
 	db  1, LICK
 	db  5, SMOG
+	db  7, LEER
 	db  9, ASTONISH
 	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
@@ -2673,7 +2673,6 @@ HaunterEvosMoves:
 	db 30, PSYWAVE
 	db 34, DISABLE
 	db 34, NASTY_PLOT
-	db 38, LEER
 	db 38, SCARY_FACE
 	db 42, SHADOW_PUNCH
 	db 44, SHADOW_BALL
@@ -2700,6 +2699,7 @@ GengarEvosMoves:
 ; Gengar = 30 moves (R2 cap; ICY_PULSE cut — ICY_WIND covers ice).
 	db  1, LICK
 	db  5, SMOG
+	db  7, LEER
 	db  9, ASTONISH
 	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
@@ -2710,7 +2710,6 @@ GengarEvosMoves:
 	db 30, PSYWAVE
 	db 34, DISABLE
 	db 34, NASTY_PLOT
-	db 38, LEER
 	db 38, SCARY_FACE
 	db 42, SHADOW_PUNCH
 	db 44, SHADOW_BALL
@@ -3132,10 +3131,10 @@ LickitungEvosMoves:
 	db 10, HINDER
 	db 12, HEADBUTT
 	db 15, CONSTRICT
+	db 17, TAIL_WHIP
 	db 20, SUPERSONIC
 	db 23, ASTONISH
 	db 26, BIDE
-	db 29, TAUNT
 	db 32, ACID
 	db 35, BIND
 	db 38, EERIE_IMPULSE
@@ -3160,7 +3159,7 @@ KoffingEvosMoves:
 	db  1, POISON_GAS
 	db  4, SMOG
 	db  7, SMOKESCREEN
-	db 10, TAUNT
+	db 10, CORRODE
 	db 13, DISABLE
 	db 16, ACID
 	db 19, EMBER
@@ -3187,7 +3186,7 @@ WeezingEvosMoves:
 	db  1, POISON_GAS
 	db  4, SMOG
 	db  7, SMOKESCREEN
-	db 10, TAUNT
+	db 10, CORRODE
 	db 13, DISABLE
 	db 16, ACID
 	db 19, EMBER
@@ -3203,7 +3202,6 @@ WeezingEvosMoves:
 	db 49, FLAMETHROWER
 	db 52, SCARY_FACE
 	db 55, EXPLOSION
-	db 58, CORRODE
 	db 61, GUNK_SHOT
 	db 65, DARK_PULSE
 	db 0
@@ -3870,12 +3868,12 @@ VaporeonEvosMoves:
 	db  8, QUICK_ATTACK
 	db 11, GROWL
 	db 14, BITE
+	db 16, HARDEN
 	db 18, HEADBUTT
 	db 20, CHARM
 	db 22, WATER_GUN
 	db 24, TAKE_DOWN
 	db 26, BUBBLEBEAM
-	db 28, HARDEN
 	db 30, BODY_SLAM
 	db 32, WATER_PULSE
 	db 34, RECOVER
