@@ -979,6 +979,7 @@ NidoqueenEvosMoves:
 	db 46, MUD_BOMB
 	db 50, TOXIC
 	db 55, NEUROTOXIN
+	db 60, BRUTAL_SWING
 	db 0
 
 NidoranMEvosMoves:
