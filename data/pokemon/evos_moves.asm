@@ -416,7 +416,7 @@ BlastoiseEvosMoves:
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
 	db 32, WATERFALL
-	db 40, CRUNCH
+	db 36, CRUNCH
 	db 42, BODY_SLAM
 	db 46, HEAVY_SLAM
 	db 48, SURF
@@ -1474,7 +1474,7 @@ VenomothEvosMoves:
 	db 27, SLEEP_POWDER
 	db 29, WING_ATTACK
 	db 31, TOXIC
-	db 40, PSYCHIC_M
+	db 35, PSYCHIC_M
 	db 42, QUIVER_DANCE
 	db 48, HAZE
 	db 55, NIGHT_SHADE
@@ -2123,7 +2123,7 @@ TentacruelEvosMoves:
 	db 39, SURF
 	db 43, SLUDGE_WAVE
 	db 48, SHOCK_WAVE
-	db 56, TOXIC
+	db 53, TOXIC
 	db 60, CORRODE
 	db 65, HYDRO_PUMP
 	db 0
@@ -2208,7 +2208,7 @@ GolemEvosMoves:
 	db 46, IRON_HEAD
 	db 48, IRON_DEFENSE
 	db 50, HEAD_SMASH
-	db 58, ROCK_SLIDE
+	db 55, ROCK_SLIDE
 	db 62, HEAVY_SLAM
 	db 65, DOUBLE_EDGE
 	db 0
@@ -2262,7 +2262,7 @@ RapidashEvosMoves:
 	db 30, AGILITY
 	db 30, HORN_ATTACK
 	db 34, FLAMETHROWER
-	db 42, HORN_CHARGE
+	db 39, HORN_CHARGE
 	db 46, DOUBLE_EDGE
 	db 50, FIRE_BLAST
 	db 55, DAZZLE_GLEAM
@@ -2353,8 +2353,8 @@ MagnetonEvosMoves:
 	db 20, FOCUS_ENERGY
 	db 22, SHOCK_WAVE
 	db 26, SCREECH
+	db 32, THUNDERBOLT
 	db 38, METAL_SOUND
-	db 40, THUNDERBOLT
 	db 45, LIGHT_SCREEN
 	db 50, THUNDER
 	db 52, BODY_SLAM
@@ -2438,7 +2438,7 @@ DodrioEvosMoves:
 	db 26, GROUND_STOMP
 	db 30, AGILITY
 	db 33, DRILL_PECK
-	db 42, TAKE_DOWN
+	db 39, TAKE_DOWN
 	db 46, EXTREMESPEED
 	db 50, THRASH
 	db 54, DOUBLE_EDGE
@@ -3256,11 +3256,11 @@ RhydonEvosMoves:
 	db 22, FOCUS_ENERGY
 	db 22, RAGE
 	db 28, BULLDOZE
+	db 32, STRENGTH
+	db 36, IRON_HEAD
 	db 40, HEAD_SMASH
 	db 42, HORN_CHARGE
-	db 42, STRENGTH
 	db 44, TAKE_DOWN
-	db 46, IRON_HEAD
 	db 48, EARTHQUAKE
 	db 52, FIERCE_ROAR
 	db 58, BRUTAL_SWING
@@ -3356,7 +3356,7 @@ KangaskhanEvosMoves:
 	db 31, BULK_UP
 	db 36, BODY_SLAM
 	db 40, STRENGTH
-	db 48, DIZZY_PUNCH
+	db 45, DIZZY_PUNCH
 	db 52, TAKE_DOWN
 	db 56, THRASH
 	db 0
@@ -3470,10 +3470,10 @@ StaryuEvosMoves:
 	db 29, FLASH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
+	db 35, DAZZLE_GLEAM
 	db 37, PSYBEAM
 	db 42, LIGHT_SCREEN
 	db 44, AURORA_BEAM
-	db 46, DAZZLE_GLEAM
 	db 48, HYDRO_PUMP
 	db 0
 
@@ -3493,6 +3493,7 @@ StarmieEvosMoves:
 	db 29, FLASH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
+	db 35, DAZZLE_GLEAM
 	db 37, PSYBEAM
 	db 39, REFLECT
 	db 42, LIGHT_SCREEN
@@ -3500,7 +3501,6 @@ StarmieEvosMoves:
 	db 46, SURF
 	db 48, HYDRO_PUMP
 	db 50, AURORA_BEAM
-	db 52, DAZZLE_GLEAM
 	db 56, PSYCHIC_M
 	db 60, MOONBLAST
 	db 0
@@ -3933,7 +3933,7 @@ FlareonEvosMoves:
 	db 36, DOUBLE_EDGE
 	db 40, FLAME_BURST
 	db 47, FLAMETHROWER
-	db 57, SWORDS_DANCE
+	db 52, SWORDS_DANCE
 	db 60, FIRE_BLAST
 	db 0
 
@@ -4144,8 +4144,8 @@ ArticunoEvosMoves:
 	db 36, AURORA_BEAM
 	db 38, FLY
 	db 42, ICE_BEAM
-	db 50, HURRICANE
-	db 55, BLIZZARD
+	db 46, HURRICANE
+	db 51, BLIZZARD
 	db 60, SKY_ATTACK
 	db 0
 
@@ -4198,8 +4198,8 @@ MoltresEvosMoves:
 	db 36, FLAME_BURST
 	db 38, FLY
 	db 42, FLAMETHROWER
-	db 50, HURRICANE
-	db 55, FIRE_BLAST
+	db 46, HURRICANE
+	db 51, FIRE_BLAST
 	db 60, SKY_ATTACK
 	db 0
 
@@ -4349,7 +4349,7 @@ MewEvosMoves:
 	db 52, PSYCHIC_M
 	db 56, SUBSTITUTE
 	db 60, PLAY_ROUGH
-	db 70, TRANSFORM
+	db 66, TRANSFORM
 	db 75, HYPER_BEAM
 	db 0
 
