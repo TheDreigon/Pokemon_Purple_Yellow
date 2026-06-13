@@ -1253,11 +1253,11 @@ ZubatEvosMoves:
 	db 13, POISON_STING
 	db 15, SUPERSONIC
 	db 17, LEECH_LIFE
-	db 20, ASTONISH
+	db 20, LICK
 	db 22, WING_ATTACK
 	db 24, EERIE_IMPULSE
 	db 26, SCREECH
-	db 30, LICK
+	db 30, ASTONISH
 	db 34, AERIAL_ACE
 	db 36, FLY
 	db 40, POISON_FANG
@@ -1281,11 +1281,11 @@ GolbatEvosMoves:
 	db 13, POISON_STING
 	db 15, SUPERSONIC
 	db 17, LEECH_LIFE
-	db 20, ASTONISH
+	db 20, LICK
 	db 22, WING_ATTACK
 	db 24, EERIE_IMPULSE
 	db 26, SCREECH
-	db 30, LICK
+	db 30, ASTONISH
 	db 34, AERIAL_ACE
 	db 36, FLY
 	db 40, POISON_FANG
@@ -1792,11 +1792,11 @@ PoliwhirlEvosMoves:
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
 	db 36, BULK_UP
-	db 40, DIZZY_PUNCH
-	db 44, SURF
-	db 49, LOW_KICK
+	db 40, LOW_KICK
+	db 44, WATERFALL
+	db 49, DIZZY_PUNCH
 	db 51, AQUA_JET
-	db 55, WATERFALL
+	db 55, SURF
 	db 0
 
 PoliwrathEvosMoves:
@@ -1815,16 +1815,16 @@ PoliwrathEvosMoves:
 	db 22, BUBBLEBEAM
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
-	db 32, STRENGTH
+	db 32, LOW_KICK
 	db 36, BULK_UP
-	db 40, DIZZY_PUNCH
-	db 44, SURF
-	db 47, SUBMISSION
-	db 49, LOW_KICK
+	db 40, STRENGTH
+	db 44, WATERFALL
+	db 47, DIZZY_PUNCH
+	db 49, TAKE_DOWN
 	db 51, AQUA_JET
 	db 53, SEISMIC_TOSS
-	db 55, WATERFALL
-	db 57, TAKE_DOWN
+	db 55, SURF
+	db 57, SUBMISSION
 	db 59, DOUBLE_EDGE
 	db 61, HYDRO_PUMP
 	db 0
@@ -1915,17 +1915,17 @@ MachopEvosMoves:
 	db  1, TACKLE
 	db  4, LOW_KICK
 	db  7, LEER
-	db 11, KARATE_CHOP
+	db 11, BIND
 	db 14, FOCUS_ENERGY
 	db 16, BULK_UP
-	db 18, DIZZY_PUNCH
-	db 20, BIND
+	db 18, KARATE_CHOP
+	db 20, STRENGTH
 	db 22, SEISMIC_TOSS
 	db 25, ROCK_THROW
-	db 27, STRENGTH
+	db 27, DIZZY_PUNCH
 	db 30, GROUND_STOMP
-	db 42, SUBMISSION
-	db 48, TAKE_DOWN
+	db 42, TAKE_DOWN
+	db 48, SUBMISSION
 	db 0
 
 MachokeEvosMoves:
@@ -1938,18 +1938,18 @@ MachokeEvosMoves:
 	db  1, TACKLE
 	db  4, LOW_KICK
 	db  7, LEER
-	db 11, KARATE_CHOP
+	db 11, BIND
 	db 14, FOCUS_ENERGY
 	db 16, BULK_UP
-	db 18, DIZZY_PUNCH
-	db 20, BIND
+	db 18, KARATE_CHOP
+	db 20, STRENGTH
 	db 22, SEISMIC_TOSS
 	db 25, ROCK_THROW
-	db 27, STRENGTH
+	db 27, DIZZY_PUNCH
 	db 30, GROUND_STOMP
 	db 36, BODY_SLAM
-	db 42, SUBMISSION
-	db 48, TAKE_DOWN
+	db 42, TAKE_DOWN
+	db 48, SUBMISSION
 	db 0
 
 MachampEvosMoves:
@@ -1965,20 +1965,20 @@ MachampEvosMoves:
 	db  1, TACKLE
 	db  4, LOW_KICK
 	db  7, LEER
-	db 11, KARATE_CHOP
+	db 11, BIND
 	db 14, FOCUS_ENERGY
 	db 16, BULK_UP
-	db 18, DIZZY_PUNCH
-	db 20, BIND
+	db 18, KARATE_CHOP
+	db 20, STRENGTH
+	db 20, COMET_PUNCH
 	db 22, SEISMIC_TOSS
 	db 25, ROCK_THROW
-	db 27, STRENGTH
+	db 27, DIZZY_PUNCH
 	db 30, GROUND_STOMP
 	db 36, BODY_SLAM
-	db 42, COMET_PUNCH
-	db 42, SUBMISSION
+	db 42, TAKE_DOWN
 	db 46, MACH_PUNCH
-	db 48, TAKE_DOWN
+	db 48, SUBMISSION
 	db 50, BULLET_PUNCH
 	db 55, SWORDS_DANCE
 	db 60, IRON_DEFENSE
@@ -2519,8 +2519,8 @@ GrimerEvosMoves:
 ; ownership (Forte sec G). GUNK_SHOT signature very-high (Forte
 ; sec G). RECOVER (Forte RECOVER list — Grimer-line). Removido
 ; POISON_FANG/TOXIC_FANGS (sem fangs — anatomia sludge).
-	db  1, ASTONISH
-	db  3, LICK
+	db  1, LICK
+	db  3, ASTONISH
 	db  6, HARDEN
 	db  9, GROWTH
 	db 12, WATER_GUN
@@ -2545,8 +2545,8 @@ MukEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex sludge. 12 backbone (Grimer) + 3
 ; Muk-exclusives: STRENGTH HM04 natural (Forte sec B), CORRODE
 ; Muk signature (Forte sec F), EXPLOSION sludge bomb apex.
-	db  1, ASTONISH
-	db  3, LICK
+	db  1, LICK
+	db  3, ASTONISH
 	db  6, HARDEN
 	db  9, GROWTH
 	db 12, WATER_GUN
@@ -2680,10 +2680,10 @@ HaunterEvosMoves:
 	db 34, NASTY_PLOT
 	db 38, LEER
 	db 38, SCARY_FACE
-	db 42, SHADOW_BALL
+	db 42, SHADOW_PUNCH
 	db 44, SPIRIT_DRAIN
+	db 46, SHADOW_BALL
 	db 46, EXTRASENSORY
-	db 46, SHADOW_PUNCH
 	db 50, ICY_WIND
 	db 50, SLUDGE
 	db 54, DARK_PULSE
@@ -2717,10 +2717,10 @@ GengarEvosMoves:
 	db 34, NASTY_PLOT
 	db 38, LEER
 	db 38, SCARY_FACE
-	db 42, SHADOW_BALL
+	db 42, SHADOW_PUNCH
 	db 44, SPIRIT_DRAIN
+	db 46, SHADOW_BALL
 	db 46, EXTRASENSORY
-	db 46, SHADOW_PUNCH
 	db 50, ICY_WIND
 	db 50, SLUDGE
 	db 54, DARK_PULSE
@@ -3105,8 +3105,8 @@ HitmonchanEvosMoves:
 	db  8, MACH_PUNCH
 	db 14, FOCUS_ENERGY
 	db 18, CALM_MIND
-	db 22, DIZZY_PUNCH
-	db 26, COMET_PUNCH
+	db 22, COMET_PUNCH
+	db 26, DIZZY_PUNCH
 	db 30, AGILITY
 	db 34, ROCK_PUNCH
 	db 36, BULLET_PUNCH
@@ -3424,11 +3424,11 @@ GoldeenEvosMoves:
 	db 15, SUPERSONIC
 	db 18, BUBBLEBEAM
 	db 21, FURY_ATTACK
-	db 24, WATERFALL
+	db 24, WATER_PULSE
 	db 28, BIDE
 	db 30, AGILITY
 	db 33, ICY_PULSE
-	db 36, WATER_PULSE
+	db 36, WATERFALL
 	db 44, HORN_CHARGE
 	db 0
 
@@ -3445,12 +3445,12 @@ SeakingEvosMoves:
 	db 15, SUPERSONIC
 	db 18, BUBBLEBEAM
 	db 21, FURY_ATTACK
-	db 24, WATERFALL
+	db 24, WATER_PULSE
 	db 26, RAGE
 	db 28, BIDE
 	db 30, AGILITY
 	db 33, ICY_PULSE
-	db 36, WATER_PULSE
+	db 36, WATERFALL
 	db 40, ICE_BEAM
 	db 44, HORN_CHARGE
 	db 48, SURF
