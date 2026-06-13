@@ -1768,7 +1768,7 @@ PoliwagEvosMoves:
 	db 11, HINDER
 	db 13, HYPNOSIS
 	db 17, TACKLE
-	db 22, BUBBLEBEAM  ; (Evo lvl)
+	db 22, BUBBLEBEAM
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
 	db 51, AQUA_JET
@@ -1787,7 +1787,7 @@ PoliwhirlEvosMoves:
 	db 13, HYPNOSIS
 	db 17, TACKLE
 	db 20, FOCUS_ENERGY
-	db 22, BUBBLEBEAM  ; (Evo lvl)
+	db 22, BUBBLEBEAM
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
 	db 36, BULK_UP
@@ -1836,11 +1836,11 @@ AbraEvosMoves:
 ; v0.7 Pass 3 (Forte review): minimalist baby psychic. Apenas
 ; TELEPORT pre-evo — fiel ao canon Abra-only-Teleport.
 	db  1, TELEPORT
-	db 11, PSYWAVE
-	db 21, DISABLE
-	db 31, CONFUSION
-	db 41, PSYCHIC_BIND
-	db 43, CALM_MIND  ; (EVO LVL)
+	db  7, PSYWAVE
+	db 13, DISABLE
+	db 19, PSYCHIC_BIND
+	db 26, CONFUSION  ; (EVO LVL)
+	db 42, CALM_MIND
 	db 0
 
 KadabraEvosMoves:
@@ -1853,21 +1853,21 @@ KadabraEvosMoves:
 ; list). LIGHT_SCREEN/REFLECT (Forte sec F). CALM_MIND (Forte sec E).
 ; MIND_BREAK reservado para Alakazam apex.
 	db  1, TELEPORT
-	db 11, PSYWAVE
-	db 21, DISABLE
-	db 31, CONFUSION
-	db 41, PSYCHIC_BIND
-	db 43, CALM_MIND  ; (EVO LVL)
-	db 45, FOCUS_ENERGY
-	db 47, RECOVER
-	db 49, EXTRASENSORY
-	db 53, LIGHT_SCREEN
+	db  7, PSYWAVE
+	db 13, DISABLE
+	db 19, PSYCHIC_BIND
+	db 26, CONFUSION
+	db 31, RECOVER
+	db 36, EXTRASENSORY
+	db 42, CALM_MIND  ; (EVO LVL)
+	db 42, FOCUS_ENERGY
+	db 51, LIGHT_SCREEN
 	db 55, SHOCK_WAVE
-	db 57, REFLECT
-	db 59, PSYBEAM
-	db 61, AGILITY
-	db 63, PSYCHIC_M
-	db 65, TRI_ATTACK
+	db 58, REFLECT
+	db 61, PSYBEAM
+	db 64, AGILITY
+	db 67, PSYCHIC_M
+	db 69, TRI_ATTACK
 	db 0
 
 AlakazamEvosMoves:
@@ -1879,25 +1879,25 @@ AlakazamEvosMoves:
 ; B Kadabra/Alakazam YES), MIND_BREAK very-high last move L70
 ; (Forte sec G).
 	db  1, TELEPORT
-	db 11, PSYWAVE
-	db 21, DISABLE
-	db 31, CONFUSION
-	db 41, PSYCHIC_BIND
-	db 43, CALM_MIND  ; (EVO LVL)
-	db 45, FOCUS_ENERGY
-	db 47, RECOVER
-	db 49, EXTRASENSORY
-	db 51, EERIE_IMPULSE
-	db 53, LIGHT_SCREEN
+	db  7, PSYWAVE
+	db 13, DISABLE
+	db 19, PSYCHIC_BIND
+	db 26, CONFUSION
+	db 31, RECOVER
+	db 36, EXTRASENSORY
+	db 42, CALM_MIND  ; (EVO LVL)
+	db 42, FOCUS_ENERGY
+	db 47, EERIE_IMPULSE
+	db 51, LIGHT_SCREEN
 	db 55, SHOCK_WAVE
-	db 57, REFLECT
-	db 59, PSYBEAM
-	db 61, AGILITY
-	db 63, PSYCHIC_M
-	db 65, TRI_ATTACK
-	db 67, METRONOME
-	db 69, DARK_PULSE
-	db 71, MIND_BREAK
+	db 58, REFLECT
+	db 61, PSYBEAM
+	db 64, AGILITY
+	db 67, PSYCHIC_M
+	db 69, TRI_ATTACK
+	db 71, METRONOME
+	db 73, DARK_PULSE
+	db 75, MIND_BREAK
 	db 0
 
 MachopEvosMoves:
@@ -2091,7 +2091,7 @@ TentacoolEvosMoves:
 	db 23, SMOKESCREEN
 	db 26, SLUDGE
 	db 29, WATER_PULSE
-	db 31, GROWTH  ; (EVO LVL)
+	db 31, GROWTH
 	db 33, BIND
 	db 35, NUZZLE
 	db 39, SURF
@@ -2116,7 +2116,7 @@ TentacruelEvosMoves:
 	db 23, SMOKESCREEN
 	db 26, SLUDGE
 	db 29, WATER_PULSE
-	db 31, GROWTH  ; (EVO LVL)
+	db 31, GROWTH
 	db 33, BIND
 	db 35, NUZZLE
 	db 37, EERIE_IMPULSE
@@ -3464,7 +3464,9 @@ StaryuEvosMoves:
 ; Stone-evo line: pre-evo carries the full kit (Clefairy pattern).
 	db 10, HARDEN
 	db 13, WATER_GUN
+	db 15, QUICK_ATTACK
 	db 17, PSYWAVE
+	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
 	db 29, FLASH
@@ -3487,7 +3489,9 @@ StarmieEvosMoves:
 ; the core IS a moon-gem).
 	db 10, HARDEN
 	db 13, WATER_GUN
+	db 15, QUICK_ATTACK
 	db 17, PSYWAVE
+	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
 	db 29, FLASH
@@ -3495,7 +3499,6 @@ StarmieEvosMoves:
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
 	db 37, PSYBEAM
-	db 39, REFLECT
 	db 42, LIGHT_SCREEN
 	db 44, CALM_MIND
 	db 46, SURF
