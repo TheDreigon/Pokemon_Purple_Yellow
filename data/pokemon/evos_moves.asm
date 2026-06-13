@@ -683,6 +683,7 @@ SpearowEvosMoves:
 ; NO HURRICANE per Forte (no GUST progression — keeps line distinct from
 ; Pidgey). WING_ATTACK at L20 (evo level). BRUTAL_SWING moved much higher.
 	db  4, PECK
+	db  6, SAND_ATTACK
 	db  8, LEER
 	db 11, QUICK_ATTACK
 	db 15, FURY_ATTACK
@@ -690,7 +691,6 @@ SpearowEvosMoves:
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
-	db 34, AGILITY
 	db 36, HONE_CLAWS
 	db 42, BRUTAL_SWING
 	db 52, SKY_ATTACK
@@ -704,6 +704,7 @@ FearowEvosMoves:
 ; DRILL_PECK signature (long beak as drill), GORE_ATTACK (Dark — beak gore,
 ; Fearow scarier), INTIMIDATE (massive raptor presence).
 	db  4, PECK
+	db  6, SAND_ATTACK
 	db  8, LEER
 	db 11, QUICK_ATTACK
 	db 15, FURY_ATTACK
@@ -711,7 +712,6 @@ FearowEvosMoves:
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
-	db 34, AGILITY
 	db 36, HONE_CLAWS
 	db 40, DRILL_PECK
 	db 42, BRUTAL_SWING
