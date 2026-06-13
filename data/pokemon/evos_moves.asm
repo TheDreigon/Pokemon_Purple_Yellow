@@ -4110,7 +4110,7 @@ SnorlaxEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 52, HEAVY_SLAM
 	db 54, TAKE_DOWN
 	db 58, DOUBLE_EDGE
-	db 60, RECOVER
+	db 60, EARTHQUAKE
 	db 0
 
 ArticunoEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
