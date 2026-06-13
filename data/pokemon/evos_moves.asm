@@ -235,7 +235,7 @@ IvysaurEvosMoves:
 	db  4, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
-	db 19, POISONPOWDER
+	db 16, POISONPOWDER
 	db 20, ABSORB
 	db 25, SLEEP_POWDER
 	db 28, ACID
@@ -259,12 +259,14 @@ VenusaurEvosMoves:
 	db  4, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
-	db 19, POISONPOWDER
+	db 16, POISONPOWDER
 	db 20, ABSORB
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
 	db 36, MEGA_DRAIN
+	db 38, SLUDGE
+	db 40, BODY_SLAM
 	db 42, GIGA_DRAIN
 	db 48, RECOVER
 	db 52, TOXIC
@@ -365,6 +367,7 @@ SquirtleEvosMoves:
 	db  8, WITHDRAW
 	db 10, BIDE
 	db 12, BITE
+	db 15, AQUA_JET
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
@@ -385,6 +388,7 @@ WartortleEvosMoves:
 	db  8, WITHDRAW
 	db 10, BIDE
 	db 12, BITE
+	db 15, AQUA_JET
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
@@ -407,16 +411,17 @@ BlastoiseEvosMoves:
 	db  8, WITHDRAW
 	db 10, BIDE
 	db 12, BITE
+	db 15, AQUA_JET
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
 	db 32, WATERFALL
-	db 36, HYDRO_PUMP
 	db 40, CRUNCH
 	db 42, BODY_SLAM
 	db 46, HEAVY_SLAM
 	db 48, SURF
 	db 52, HEAD_SMASH
+	db 56, HYDRO_PUMP
 	db 60, EARTHQUAKE
 	db 0
 
@@ -685,6 +690,7 @@ SpearowEvosMoves:
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
+	db 34, AGILITY
 	db 36, HONE_CLAWS
 	db 42, BRUTAL_SWING
 	db 52, SKY_ATTACK
@@ -705,6 +711,7 @@ FearowEvosMoves:
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
+	db 34, AGILITY
 	db 36, HONE_CLAWS
 	db 40, DRILL_PECK
 	db 42, BRUTAL_SWING
@@ -2421,12 +2428,14 @@ DodrioEvosMoves:
 	db 14, QUICK_ATTACK
 	db 18, FURY_ATTACK
 	db 22, RAGE
+	db 24, FAINT_ATTACK
 	db 26, GROUND_STOMP
 	db 30, AGILITY
 	db 33, DRILL_PECK
 	db 42, TAKE_DOWN
 	db 46, EXTREMESPEED
 	db 50, DOUBLE_EDGE
+	db 54, THRASH
 	db 60, HORN_DRILL
 	db 0
 
@@ -2864,8 +2873,9 @@ KinglerEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 26, BIND
 	db 28, CRABHAMMER
 	db 30, STRENGTH
-	db 33, CUT
+	db 32, CUT
 	db 34, WATER_PULSE
+	db 37, MUD_BOMB
 	db 41, WATERFALL
 	db 44, GUILLOTINE
 	db 52, BRUTAL_SWING
@@ -2883,6 +2893,7 @@ VoltorbEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 ; EXPLOSION owner (Forte N), shared L44.
 	db  9, SONICBOOM
 	db 12, THUNDERSHOCK
+	db 14, FLASH
 	db 16, HARDEN
 	db 19, THUNDER_WAVE
 	db 23, METAL_SOUND
@@ -2902,6 +2913,7 @@ ElectrodeEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Fort
 ; THUNDER apex top. EXPLOSION shared with Voltorb.
 	db  9, SONICBOOM
 	db 12, THUNDERSHOCK
+	db 14, FLASH
 	db 16, HARDEN
 	db 19, THUNDER_WAVE
 	db 23, METAL_SOUND
@@ -2909,6 +2921,7 @@ ElectrodeEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Fort
 	db 29, ROLLOUT
 	db 30, AGILITY
 	db 33, LIGHT_SCREEN
+	db 36, DOUBLE_TEAM
 	db 38, THUNDERBOLT
 	db 41, REFLECT
 	db 44, EXPLOSION
@@ -3359,6 +3372,7 @@ HorseaEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 14, LEER
 	db 16, ICY_WIND
 	db 18, BUBBLEBEAM
+	db 20, AQUA_JET
 	db 22, AGILITY
 	db 26, DRAGON_RAGE
 	db 31, WATER_PULSE
@@ -3378,10 +3392,12 @@ SeadraEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 14, LEER
 	db 16, ICY_WIND
 	db 18, BUBBLEBEAM
+	db 20, AQUA_JET
 	db 22, AGILITY
 	db 26, DRAGON_RAGE
 	db 28, DRAGON_BREATH
 	db 31, WATER_PULSE
+	db 33, WATERFALL
 	db 36, ICY_PULSE
 	db 42, ICE_BEAM
 	db 47, HYDRO_PUMP
@@ -3428,6 +3444,7 @@ SeakingEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 30, AGILITY
 	db 33, ICY_PULSE
 	db 36, WATER_PULSE
+	db 40, ICE_BEAM
 	db 44, HORN_CHARGE
 	db 48, SURF
 	db 54, MEGAHORN
@@ -3666,6 +3683,7 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 ; (stag beetles ram full-body in duels) — both Forte-approved r4.
 ; No SLASH (no claws), no SUBMISSION (Machamp/Poliwrath), no
 ; BUG_BUZZ (silent — no buzzing wings).
+	db  8, HARDEN
 	db 10, FOCUS_ENERGY
 	db 13, BIDE
 	db 17, SEISMIC_TOSS
@@ -3677,6 +3695,7 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
 	db 50, MEGAHORN
+	db 52, THRASH
 	db 54, DOUBLE_EDGE
 	db 58, GUILLOTINE
 	db 0
