@@ -2215,6 +2215,7 @@ PonytaEvosMoves:
 	db  7, TAIL_WHIP
 	db 11, GROUND_STOMP
 	db 13, FAIRY_WIND
+	db 15, LOW_KICK
 	db 17, FLAME_CHARGE
 	db 20, IGNITE
 	db 23, BODY_SLAM
@@ -2240,6 +2241,7 @@ RapidashEvosMoves:
 	db  7, TAIL_WHIP
 	db 11, GROUND_STOMP
 	db 13, FAIRY_WIND
+	db 15, LOW_KICK
 	db 17, FLAME_CHARGE
 	db 20, IGNITE
 	db 23, BODY_SLAM
@@ -2247,7 +2249,6 @@ RapidashEvosMoves:
 	db 30, AGILITY
 	db 30, HORN_ATTACK
 	db 34, FLAMETHROWER
-	db 38, FLASH
 	db 42, DOUBLE_EDGE
 	db 46, HORN_CHARGE
 	db 50, FIRE_BLAST
