@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/mew.pic", 0, 1 ; sprite dimensions
 	dw MewPicFront, MewPicBack
 
-	db TACKLE, TELEPORT, CONFUSION, DISABLE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
