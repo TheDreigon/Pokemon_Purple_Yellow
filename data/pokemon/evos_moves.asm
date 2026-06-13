@@ -420,9 +420,9 @@ BlastoiseEvosMoves:
 	db 42, BODY_SLAM
 	db 46, HEAVY_SLAM
 	db 48, SURF
-	db 52, HEAD_SMASH
+	db 52, ICE_BEAM
 	db 56, HYDRO_PUMP
-	db 60, EARTHQUAKE
+	db 60, HEAD_SMASH
 	db 0
 
 CaterpieEvosMoves:
