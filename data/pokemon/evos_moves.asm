@@ -1896,8 +1896,8 @@ AlakazamEvosMoves:
 	db 52, AGILITY
 	db 54, TRI_ATTACK
 	db 56, METRONOME
-	db 58, DARK_PULSE
-	db 75, MIND_BREAK
+	db 60, DARK_PULSE
+	db 70, MIND_BREAK
 	db 0
 
 MachopEvosMoves:
