@@ -295,8 +295,8 @@ CharmanderEvosMoves:
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
 	db 38, FLAMETHROWER
-	db 44, DRAGON_CLAW
-	db 48, DRAGON_RAGE
+	db 42, DRAGON_CLAW
+	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
 	db 0
 
@@ -317,8 +317,8 @@ CharmeleonEvosMoves:
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
 	db 38, FLAMETHROWER
-	db 44, DRAGON_CLAW
-	db 48, DRAGON_RAGE
+	db 42, DRAGON_CLAW
+	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
 	db 0
 
@@ -343,8 +343,8 @@ CharizardEvosMoves:
 	db 36, WING_ATTACK
 	db 38, FLAMETHROWER
 	db 40, FLY
-	db 42, CRUNCH
-	db 44, DRAGON_CLAW
+	db 42, DRAGON_CLAW
+	db 44, CRUNCH
 	db 46, AERIAL_ACE
 	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
@@ -3636,8 +3636,8 @@ ElectabuzzEvosMoves:
 	db 42, FLAME_CHARGE
 	db 48, THUNDERBOLT
 	db 55, AGILITY
-	db 58, EXTREMESPEED
-	db 60, THUNDER
+	db 58, THUNDER
+	db 60, EXTREMESPEED
 	db 65, MAGNET_BOMB
 	db 0
 
@@ -3659,7 +3659,6 @@ MagmarEvosMoves:
 	db 14, MAGMA_PUNCH
 	db 16, ROCK_PUNCH
 	db 18, SEISMIC_TOSS
-	db 20, FLAME_CHARGE
 	db 22, FOCUS_ENERGY
 	db 25, ROCK_TOMB
 	db 27, LAVA_PLUME
@@ -3670,8 +3669,10 @@ MagmarEvosMoves:
 	db 40, LIGHT_SCREEN
 	db 44, GROWTH
 	db 48, SOLARBEAM
-	db 55, EXPLOSION
-	db 60, FIRE_BLAST
+	db 52, FIRE_BLAST
+	db 56, ROCK_SLIDE
+	db 60, HAZE
+	db 65, EXPLOSION
 	db 0
 
 PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
