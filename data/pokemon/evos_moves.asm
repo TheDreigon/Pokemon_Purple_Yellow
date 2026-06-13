@@ -211,16 +211,16 @@ BulbasaurEvosMoves:
 ; bulb closed). No Stun Spore per Forte's powder table (Venusaur = Poison +
 ; Sleep, NO Stun; uniform within line). Single signature SOLARBEAM kept on
 ; Venusaur only (full bloom concentrates light).
-	db  4, ABSORB
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
-	db 20, MEGA_DRAIN
+	db 20, ABSORB
 	db 25, SLEEP_POWDER
 	db 30, RAZOR_LEAF
-	db 42, GIGA_DRAIN
+	db 36, MEGA_DRAIN
+	db 42, PETAL_DANCE
 	db 48, RECOVER
-	db 55, PETAL_DANCE
+	db 55, GIGA_DRAIN
 	db 0
 
 IvysaurEvosMoves:
@@ -232,19 +232,19 @@ IvysaurEvosMoves:
 ; Adds 3 Poison moves over Bulbasaur (POISONPOWDER, ACID, TOXIC). Sludge
 ; dropped — plant biology doesn't fit "sludge/blob" framing (those are
 ; Muk/Weezing-coded). Same powder rule: no STUN_POWDER.
-	db  4, ABSORB
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 16, POISONPOWDER
-	db 20, MEGA_DRAIN
+	db 20, ABSORB
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
-	db 42, GIGA_DRAIN
+	db 36, MEGA_DRAIN
+	db 42, PETAL_DANCE
 	db 48, RECOVER
 	db 52, TOXIC
-	db 55, PETAL_DANCE
+	db 55, GIGA_DRAIN
 	db 0
 
 VenusaurEvosMoves:
@@ -256,21 +256,21 @@ VenusaurEvosMoves:
 ; concentrates sunlight enough to fire a beam. GUNK_SHOT removed (signature
 ; of Muk/Weezing). DAZZLE_GLEAM not added (Fairy-coded shimmer; Venusaur is
 ; plant, not magical creature).
-	db  4, ABSORB
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 16, POISONPOWDER
-	db 20, MEGA_DRAIN
+	db 20, ABSORB
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
+	db 36, MEGA_DRAIN
 	db 38, SLUDGE
 	db 40, BODY_SLAM
-	db 42, GIGA_DRAIN
+	db 42, PETAL_DANCE
 	db 48, RECOVER
 	db 52, TOXIC
-	db 55, PETAL_DANCE
+	db 55, GIGA_DRAIN
 	db 60, SOLARBEAM
 	db 0
 
@@ -797,8 +797,8 @@ PikachuEvosMoves:
 ; (35 BP) before THUNDERSHOCK (55 BP). CHARM mid (cute mouse). VOLT_TACKLE
 ; signature at L23 (Pichu egg-move lore — both Pikachu/Raichu learn at
 ; same level per Forte's simplification).
-	db  4, NUZZLE
-	db  7, TAIL_WHIP
+	db  4, TAIL_WHIP
+	db  7, NUZZLE
 	db 10, QUICK_ATTACK
 	db 13, THUNDERSHOCK
 	db 15, CHARM
@@ -821,8 +821,8 @@ RaichuEvosMoves:
 ; Forte: "raichu aprende-o ao mesmo lvl que o pikachu" for VOLT_TACKLE
 ; — simpler than the L1-Move-Reminder trick). Adds DOUBLE_EDGE (bigger
 ; reckless body — anatomical exclusive).
-	db  4, NUZZLE
-	db  7, TAIL_WHIP
+	db  4, TAIL_WHIP
+	db  7, NUZZLE
 	db 10, QUICK_ATTACK
 	db 13, THUNDERSHOCK
 	db 15, CHARM
@@ -1079,8 +1079,8 @@ ClefairyEvosMoves:
 ; CHARM (Forte sec F). RECOVER (Forte RECOVER list — Clefairy-line).
 ; LIGHT_SCREEN/REFLECT/CALM_MIND reservados Clefable.
 	db  1, GROWL
-	db  4, DOUBLESLAP
-	db  7, FAIRY_WIND
+	db  4, FAIRY_WIND
+	db  7, DOUBLESLAP
 	db 10, POWDER_SNOW
 	db 13, CALM_MIND
 	db 16, CHARM
@@ -1105,8 +1105,8 @@ ClefableEvosMoves:
 ; (Clefairy) + 3 Clefable-exclusives: LIGHT_SCREEN (Forte sec F),
 ; REFLECT (Forte sec F), CALM_MIND (Forte sec E).
 	db  1, GROWL
-	db  4, DOUBLESLAP
-	db  7, FAIRY_WIND
+	db  4, FAIRY_WIND
+	db  7, DOUBLESLAP
 	db 10, POWDER_SNOW
 	db 13, CALM_MIND
 	db 16, CHARM
@@ -1189,13 +1189,13 @@ JigglypuffEvosMoves:
 	db  3, SING
 	db  6, HINDER
 	db  9, TACKLE
+	db  9, FAIRY_WIND
 	db 12, DOUBLESLAP
 	db 15, CHARM
 	db 17, TAUNT
 	db 20, GROWTH
 	db 23, ASTONISH
 	db 26, BIDE
-	db 29, FAIRY_WIND
 	db 31, BUBBLEBEAM
 	db 34, SCREECH
 	db 37, AMNESIA
@@ -1218,13 +1218,13 @@ WigglytuffEvosMoves:
 	db  3, SING
 	db  6, HINDER
 	db  9, TACKLE
+	db  9, FAIRY_WIND
 	db 12, DOUBLESLAP
 	db 15, CHARM
 	db 17, TAUNT
 	db 20, GROWTH
 	db 23, ASTONISH
 	db 26, BIDE
-	db 29, FAIRY_WIND
 	db 31, BUBBLEBEAM
 	db 34, SCREECH
 	db 37, AMNESIA
@@ -2006,8 +2006,8 @@ BellsproutEvosMoves:
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 28, TICKLE
-	db 31, MEGA_DRAIN
-	db 38, RAZOR_LEAF
+	db 31, RAZOR_LEAF
+	db 38, MEGA_DRAIN
 	db 44, GIGA_DRAIN
 	db 0
 
@@ -2031,10 +2031,10 @@ WeepinbellEvosMoves:
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 28, TICKLE
-	db 31, MEGA_DRAIN
+	db 31, RAZOR_LEAF
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
-	db 38, RAZOR_LEAF
+	db 38, MEGA_DRAIN
 	db 40, SLUDGE
 	db 44, GIGA_DRAIN
 	db 46, LEECH_LIFE
@@ -2060,10 +2060,10 @@ VictreebelEvosMoves:
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 28, TICKLE
-	db 31, MEGA_DRAIN
+	db 31, RAZOR_LEAF
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
-	db 38, RAZOR_LEAF
+	db 38, MEGA_DRAIN
 	db 40, SLUDGE
 	db 42, SCARY_FACE
 	db 44, GIGA_DRAIN
@@ -2464,14 +2464,12 @@ SeelEvosMoves:
 	db 17, WATER_GUN
 	db 19, POWDER_SNOW
 	db 21, ICY_WIND
-	db 23, FROST_BREATH
-	db 28, BUBBLEBEAM
+	db 23, BUBBLEBEAM
+	db 28, FROST_BREATH
 	db 34, WATER_PULSE
 	db 40, ICY_PULSE
 	db 44, AURORA_BEAM
 	db 47, WATERFALL
-	db 49, BIDE
-	db 51, MIRROR_MOVE
 	db 53, ICE_BEAM
 	db 55, BODY_SLAM
 	db 59, TAKE_DOWN
@@ -2494,14 +2492,12 @@ DewgongEvosMoves:
 	db 17, WATER_GUN
 	db 19, POWDER_SNOW
 	db 21, ICY_WIND
-	db 23, FROST_BREATH
-	db 28, BUBBLEBEAM
+	db 23, BUBBLEBEAM
+	db 28, FROST_BREATH
 	db 34, WATER_PULSE
 	db 40, ICY_PULSE
 	db 44, AURORA_BEAM
 	db 47, WATERFALL
-	db 49, BIDE
-	db 51, MIRROR_MOVE
 	db 53, ICE_BEAM
 	db 55, BODY_SLAM
 	db 57, BLIZZARD
@@ -2585,8 +2581,8 @@ ShellderEvosMoves:
 	db 14, ICY_WIND
 	db 18, CLAMP
 	db 20, WATER_GUN
-	db 22, FROST_BREATH
-	db 24, BUBBLEBEAM
+	db 22, BUBBLEBEAM
+	db 24, FROST_BREATH
 	db 28, ICY_PULSE
 	db 34, AURORA_BEAM
 	db 40, RECOVER
@@ -2613,8 +2609,8 @@ CloysterEvosMoves:
 	db 14, ICY_WIND
 	db 18, CLAMP
 	db 20, WATER_GUN
-	db 22, FROST_BREATH
-	db 24, BUBBLEBEAM
+	db 22, BUBBLEBEAM
+	db 24, FROST_BREATH
 	db 28, ICY_PULSE
 	db 34, AURORA_BEAM
 	db 40, RECOVER
@@ -2682,8 +2678,8 @@ HaunterEvosMoves:
 	db 38, LEER
 	db 38, SCARY_FACE
 	db 42, SHADOW_PUNCH
-	db 44, SPIRIT_DRAIN
-	db 46, SHADOW_BALL
+	db 44, SHADOW_BALL
+	db 46, SPIRIT_DRAIN
 	db 46, EXTRASENSORY
 	db 50, ICY_WIND
 	db 50, SLUDGE
@@ -2719,8 +2715,8 @@ GengarEvosMoves:
 	db 38, LEER
 	db 38, SCARY_FACE
 	db 42, SHADOW_PUNCH
-	db 44, SPIRIT_DRAIN
-	db 46, SHADOW_BALL
+	db 44, SHADOW_BALL
+	db 46, SPIRIT_DRAIN
 	db 46, EXTRASENSORY
 	db 50, ICY_WIND
 	db 50, SLUDGE
@@ -3285,8 +3281,8 @@ ChanseyEvosMoves:
 ; (não ball-shape). Heal-tank kit + LIGHT_SCREEN/REFLECT support.
 	db  1, SOFTBOILED
 	db  3, GROWL
-	db  6, DOUBLESLAP
-	db  9, FAIRY_WIND
+	db  6, FAIRY_WIND
+	db  9, DOUBLESLAP
 	db 12, CALM_MIND
 	db 15, CHARM
 	db 17, SING
@@ -3335,9 +3331,9 @@ TangelaEvosMoves:
 	db 45, RECOVER
 	db 48, BODY_SLAM
 	db 51, WATER_PULSE
-	db 54, GIGA_DRAIN
+	db 54, PETAL_DANCE
 	db 57, LEECH_LIFE
-	db 60, PETAL_DANCE
+	db 60, GIGA_DRAIN
 	db 0
 
 KangaskhanEvosMoves:
@@ -3590,10 +3586,10 @@ JynxEvosMoves:
 	db  1, LICK
 	db  4, TICKLE
 	db  7, LOVELY_KISS
-	db  9, DOUBLESLAP
+	db  9, FAIRY_WIND
 	db 11, POWDER_SNOW
 	db 14, ICY_WIND
-	db 16, FAIRY_WIND
+	db 16, DOUBLESLAP
 	db 18, NASTY_PLOT
 	db 20, PSYWAVE
 	db 22, EERIE_IMPULSE
@@ -3607,9 +3603,9 @@ JynxEvosMoves:
 	db 49, EXTRASENSORY
 	db 51, NIGHT_SHADE
 	db 53, DOUBLE_TEAM
-	db 55, SPIRIT_DRAIN
+	db 55, SHADOW_BALL
 	db 57, AURORA_BEAM
-	db 59, SHADOW_BALL
+	db 59, SPIRIT_DRAIN
 	db 61, ICE_BEAM
 	db 63, BLIZZARD
 	db 65, DARK_PULSE
@@ -4249,8 +4245,8 @@ DragonairEvosMoves:
 	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
 	db 41, SURF
-	db 45, DRAGON_RAGE
-	db 47, FLY  ; (Evo lvl)
+	db 43, DRAGON_RAGE
+	db 46, FLY  ; (Evo lvl)
 	db 53, DRAGON_SLAM
 	db 0
 
@@ -4273,8 +4269,8 @@ DragoniteEvosMoves:
 	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
 	db 41, SURF
-	db 45, DRAGON_RAGE
-	db 47, FLY  ; (Evo lvl)
+	db 43, DRAGON_RAGE
+	db 46, FLY  ; (Evo lvl)
 	db 49, STRENGTH
 	db 51, EXTRASENSORY
 	db 53, DRAGON_SLAM
