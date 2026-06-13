@@ -3695,6 +3695,7 @@ PinsirEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 29, STRENGTH
 	db 33, BULK_UP
 	db 36, DIG
+	db 40, BODY_SLAM
 	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
 	db 50, MEGAHORN
@@ -3725,6 +3726,7 @@ TaurosEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte).
 	db 40, STRENGTH
 	db 44, TAKE_DOWN
 	db 46, SWORDS_DANCE
+	db 48, BODY_SLAM
 	db 50, THRASH
 	db 54, SCARY_FACE
 	db 56, GORE_ATTACK
@@ -4109,6 +4111,7 @@ SnorlaxEvosMoves: ; TODO: review moveset (Claude improved draft, awaiting Forte)
 	db 48, THRASH
 	db 52, HEAVY_SLAM
 	db 54, TAKE_DOWN
+	db 56, BULLDOZE
 	db 58, DOUBLE_EDGE
 	db 60, EARTHQUAKE
 	db 0
