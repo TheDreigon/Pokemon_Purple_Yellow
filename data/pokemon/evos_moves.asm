@@ -211,13 +211,13 @@ BulbasaurEvosMoves:
 ; bulb closed). No Stun Spore per Forte's powder table (Venusaur = Poison +
 ; Sleep, NO Stun; uniform within line). Single signature SOLARBEAM kept on
 ; Venusaur only (full bloom concentrates light).
+	db  4, ABSORB
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
-	db 20, ABSORB
+	db 20, MEGA_DRAIN
 	db 25, SLEEP_POWDER
 	db 30, RAZOR_LEAF
-	db 36, MEGA_DRAIN
 	db 42, GIGA_DRAIN
 	db 48, RECOVER
 	db 55, PETAL_DANCE
@@ -232,15 +232,15 @@ IvysaurEvosMoves:
 ; Adds 3 Poison moves over Bulbasaur (POISONPOWDER, ACID, TOXIC). Sludge
 ; dropped — plant biology doesn't fit "sludge/blob" framing (those are
 ; Muk/Weezing-coded). Same powder rule: no STUN_POWDER.
+	db  4, ABSORB
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 16, POISONPOWDER
-	db 20, ABSORB
+	db 20, MEGA_DRAIN
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
-	db 36, MEGA_DRAIN
 	db 42, GIGA_DRAIN
 	db 48, RECOVER
 	db 52, TOXIC
@@ -256,15 +256,15 @@ VenusaurEvosMoves:
 ; concentrates sunlight enough to fire a beam. GUNK_SHOT removed (signature
 ; of Muk/Weezing). DAZZLE_GLEAM not added (Fairy-coded shimmer; Venusaur is
 ; plant, not magical creature).
+	db  4, ABSORB
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 16, POISONPOWDER
-	db 20, ABSORB
+	db 20, MEGA_DRAIN
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
-	db 36, MEGA_DRAIN
 	db 38, SLUDGE
 	db 40, BODY_SLAM
 	db 42, GIGA_DRAIN
@@ -2005,8 +2005,8 @@ BellsproutEvosMoves:
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 28, TICKLE
-	db 31, RAZOR_LEAF
-	db 38, MEGA_DRAIN
+	db 31, MEGA_DRAIN
+	db 38, RAZOR_LEAF
 	db 44, GIGA_DRAIN
 	db 0
 
@@ -2030,10 +2030,10 @@ WeepinbellEvosMoves:
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 28, TICKLE
-	db 31, RAZOR_LEAF
+	db 31, MEGA_DRAIN
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
-	db 38, MEGA_DRAIN
+	db 38, RAZOR_LEAF
 	db 40, SLUDGE
 	db 44, GIGA_DRAIN
 	db 46, LEECH_LIFE
@@ -2059,10 +2059,10 @@ VictreebelEvosMoves:
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 28, TICKLE
-	db 31, RAZOR_LEAF
+	db 31, MEGA_DRAIN
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
-	db 38, MEGA_DRAIN
+	db 38, RAZOR_LEAF
 	db 40, SLUDGE
 	db 42, SCARY_FACE
 	db 44, GIGA_DRAIN
