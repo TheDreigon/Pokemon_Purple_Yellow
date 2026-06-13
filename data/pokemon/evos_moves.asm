@@ -2621,24 +2621,24 @@ GastlyEvosMoves:
 	db EVOLVE_LEVEL, 26, HAUNTER
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Ghost/Poison gas. LICK/ASTONISH/
-; NIGHT_SHADE Ghost basics. SMOG (Poison-coded gas).
+; v0.7 13-rules sweep: Onix strategy (pairs of 2 per level, wide
+; gaps) rebuilt from Forte's own pair annotations: NIGHT_SHADE+
+; Gastly carries the shared backbone (14 moves, pre-evo).
 	db  1, LICK
 	db  5, SMOG
 	db  9, ASTONISH
 	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
+	db 17, WILL_O_WISP
 	db 22, POISON_GAS
-	db 28, WILL_O_WISP  ; (same lvl as night shade)
-	db 34, SHADOW_SNEAK
-	db 36, PSYWAVE
-	db 38, NASTY_PLOT
-	db 40, SHADOW_BALL  ; (Evo lvl)
-	db 46, SCARY_FACE
-	db 49, LEER
-	db 50, FAINT_ATTACK  ; (same lvl as shadow sneak)
-	db 51, DISABLE  ; (same lvl as nasty plot)
-	db 54, SPIRIT_DRAIN
+	db 26, SHADOW_SNEAK
+	db 26, FAINT_ATTACK
+	db 30, PSYWAVE
+	db 34, NASTY_PLOT
+	db 34, DISABLE
+	db 38, SCARY_FACE
+	db 38, LEER
+	db 44, SPIRIT_DRAIN
 	db 0
 
 HaunterEvosMoves:
@@ -2646,72 +2646,76 @@ HaunterEvosMoves:
 	db EVOLVE_LEVEL, 42, GENGAR
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): mid-evo. SHADOW_PUNCH (Ghost fist
-; appears). DREAM_EATER (Ghost-coded — Forte G Gengar YES via line).
+; v0.7 13-rules sweep: Onix strategy (pairs of 2 per level, wide
+; gaps) rebuilt from Forte's own pair annotations: NIGHT_SHADE+
+; + SHADOW_BALL at its own evo L42.
 	db  1, LICK
 	db  5, SMOG
 	db  9, ASTONISH
 	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
+	db 17, WILL_O_WISP
 	db 22, POISON_GAS
-	db 28, WILL_O_WISP  ; (same lvl as night shade)
-	db 34, SHADOW_SNEAK
-	db 36, PSYWAVE
-	db 38, NASTY_PLOT
-	db 40, SHADOW_BALL  ; (Evo lvl)
-	db 45, SHADOW_PUNCH
-	db 46, SCARY_FACE
-	db 48, DARK_PULSE
-	db 49, LEER
-	db 50, FAINT_ATTACK  ; (same lvl as shadow sneak)
-	db 51, DISABLE  ; (same lvl as nasty plot)
-	db 52, EXTRASENSORY  ; (same lvl as shadow punch)
-	db 53, SLUDGE
-	db 54, SPIRIT_DRAIN
-	db 55, ICY_WIND
-	db 56, TOXIC
-	db 57, GROWTH
-	db 58, INTIMIDATE  ; (same lvl as dark pulse)
+	db 26, SHADOW_SNEAK
+	db 26, FAINT_ATTACK
+	db 30, PSYWAVE
+	db 34, NASTY_PLOT
+	db 34, DISABLE
+	db 38, SCARY_FACE
+	db 38, LEER
+	db 42, SHADOW_BALL
+	db 44, SPIRIT_DRAIN
+	db 46, SHADOW_PUNCH
+	db 46, EXTRASENSORY
+	db 50, SLUDGE
+	db 50, ICY_WIND
+	db 54, DARK_PULSE
+	db 54, INTIMIDATE
+	db 58, TOXIC
+	db 58, GROWTH
 	db 0
 
 GengarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex Ghost/Poison. SCARY_FACE (Forte
-; F via levelup list). DARK_PULSE (Forte G Gengar YES). NASTY_PLOT
-; (Forte E sneaky). HYPNOSIS+DEEP_SLEEP via Forte sec C? Not Gengar.
+; v0.7 13-rules sweep: Onix strategy (pairs of 2 per level, wide
+; gaps) rebuilt from Forte's own pair annotations: NIGHT_SHADE+
+; WILL_O_WISP, sneak-pair AT the Gastly evo L26, NASTY_PLOT+DISABLE,
+; SHADOW_BALL at the Haunter evo L42, SHADOW_PUNCH+EXTRASENSORY,
+; DARK_PULSE+INTIMIDATE, DEEP_SLEEP+DREAM_EATER (eats what it puts
+; to sleep), RECOVER+EXPLOSION, PSYCHIC_M at L70 (Forte note).
+; Gengar = 30 moves (R2 cap; ICY_PULSE cut — ICY_WIND covers ice).
 	db  1, LICK
 	db  5, SMOG
 	db  9, ASTONISH
 	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
+	db 17, WILL_O_WISP
 	db 22, POISON_GAS
-	db 28, WILL_O_WISP  ; (same lvl as night shade)
-	db 34, SHADOW_SNEAK
-	db 36, PSYWAVE
-	db 38, NASTY_PLOT
-	db 40, SHADOW_BALL  ; (Evo lvl)
-	db 45, SHADOW_PUNCH
-	db 46, SCARY_FACE
-	db 47, DREAM_EATER
-	db 48, DARK_PULSE
-	db 49, LEER
-	db 50, FAINT_ATTACK  ; (same lvl as shadow sneak)
-	db 51, DISABLE  ; (same lvl as nasty plot)
-	db 52, EXTRASENSORY  ; (same lvl as shadow punch)
-	db 53, SLUDGE
-	db 54, SPIRIT_DRAIN
-	db 55, ICY_WIND
-	db 56, TOXIC
-	db 57, GROWTH
-	db 58, INTIMIDATE  ; (same lvl as dark pulse)
-	db 59, ICY_PULSE
-	db 60, HAZE
-	db 61, RECOVER
-	db 62, EXPLOSION  ; (same lvl as recover)
-	db 63, DEEP_SLEEP
-	db 64, PSYCHIC_M  ; (lvl 70)
+	db 26, SHADOW_SNEAK
+	db 26, FAINT_ATTACK
+	db 30, PSYWAVE
+	db 34, NASTY_PLOT
+	db 34, DISABLE
+	db 38, SCARY_FACE
+	db 38, LEER
+	db 42, SHADOW_BALL
+	db 44, SPIRIT_DRAIN
+	db 46, SHADOW_PUNCH
+	db 46, EXTRASENSORY
+	db 50, SLUDGE
+	db 50, ICY_WIND
+	db 54, DARK_PULSE
+	db 54, INTIMIDATE
+	db 58, TOXIC
+	db 58, GROWTH
+	db 62, DEEP_SLEEP
+	db 62, DREAM_EATER
+	db 66, RECOVER
+	db 66, EXPLOSION
+	db 68, HAZE
+	db 70, PSYCHIC_M
 	db 0
 
 OnixEvosMoves:
@@ -3013,7 +3017,7 @@ MarowakEvosMoves:
 	db 26, BONEMERANG
 	db 28, RAGE
 	db 28, BULK_UP
-	db 28, DARK_PULSE
+	db 30, DARK_PULSE
 	db 30, BIDE
 	db 32, EERIE_IMPULSE
 	db 34, BULLDOZE
@@ -3630,11 +3634,9 @@ MagmarEvosMoves:
 ; via levelup (Forte: questions answered yes). HM CUT (Forte add).
 ; FLAME_CHARGE removido (Forte). SEM DRAGON_RAGE/DRAGON_BREATH
 ; (Forte question — não, Magmar é Fire/MAGMA não Dragon).
-	db  1, EMBER
-	db  1, LEER
-	db  1, IGNITE
 	db  4, POISON_GAS
 	db  7, SMOKESCREEN
+	db  9, IGNITE
 	db 11, CONFUSE_RAY
 	db 14, MAGMA_PUNCH
 	db 16, ROCK_PUNCH
