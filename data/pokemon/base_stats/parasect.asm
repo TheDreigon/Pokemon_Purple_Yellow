@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/parasect.pic", 0, 1 ; sprite dimensions
 	dw ParasectPicFront, ParasectPicBack
 
-	db SPORE, PARASITE, TOXIC_FANGS, NIGHT_SLASH ; level 1 learnset
+	db BUG_BITE, SCRATCH, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

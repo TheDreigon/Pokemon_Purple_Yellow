@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/graveler.pic", 0, 1 ; sprite dimensions
 	dw GravelerPicFront, GravelerPicBack
 
-	db BODY_SLAM, DEFENSE_CURL, ROCK_PUNCH, BULLDOZE ; level 1 learnset
+	db TACKLE, DEFENSE_CURL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

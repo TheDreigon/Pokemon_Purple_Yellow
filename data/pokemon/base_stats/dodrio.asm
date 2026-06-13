@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/dodrio.pic", 0, 1 ; sprite dimensions
 	dw DodrioPicFront, DodrioPicBack
 
-	db PECK, FURY_ATTACK, DRILL_PECK, AGILITY ; level 1 learnset
+	db PECK, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

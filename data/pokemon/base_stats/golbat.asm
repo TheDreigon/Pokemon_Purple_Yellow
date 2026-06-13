@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/golbat.pic", 0, 1 ; sprite dimensions
 	dw GolbatPicFront, GolbatPicBack
 
-	db BITE, SUPERSONIC, ABSORB, WING_ATTACK ; level 1 learnset
+	db BITE, SUPERSONIC, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

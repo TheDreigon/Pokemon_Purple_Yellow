@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/tentacruel.pic", 0, 1 ; sprite dimensions
 	dw TentacruelPicFront, TentacruelPicBack
 
-	db WRAP, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db POISON_STING, WATER_GUN, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

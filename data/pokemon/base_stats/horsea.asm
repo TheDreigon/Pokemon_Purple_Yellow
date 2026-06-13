@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/horsea.pic", 0, 1 ; sprite dimensions
 	dw HorseaPicFront, HorseaPicBack
 
-	db WATER_GUN, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WATER_GUN, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

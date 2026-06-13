@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/seadra.pic", 0, 1 ; sprite dimensions
 	dw SeadraPicFront, SeadraPicBack
 
-	db WATER_GUN, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WATER_GUN, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
