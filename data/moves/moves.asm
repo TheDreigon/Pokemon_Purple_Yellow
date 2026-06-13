@@ -27,7 +27,7 @@ Moves: ; Current total = 220
 	move FAINT_ATTACK,   SWIFT_EFFECT,                     60, DARK,         100, 25 ; new move.
 	move RAGE,           RAGE_EFFECT,                      60, DARK,         100, 20
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
-	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             85, DARK,          90, 20 ; new move.
+	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             80, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
 	move GORE_ATTACK,    PARALYZE_SIDE_EFFECT2,            95, DARK,          95, 15 ; new move. high-crit.
 	move PAY_DAY,        PAY_DAY_EFFECT,                   60, DARK,         100, 25 ; signature. high-crit.
