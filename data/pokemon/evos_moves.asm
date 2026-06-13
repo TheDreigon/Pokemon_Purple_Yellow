@@ -2278,15 +2278,15 @@ SlowpokeEvosMoves:
 ; Slowpoke-line YES — only AMNESIA, NÃO CALM_MIND).
 	db  1, TAIL_WHIP
 	db  5, WATER_GUN
+	db  8, PSYWAVE
 	db 10, REST
-	db 12, PSYWAVE
+	db 12, PSYCHIC_BIND
 	db 14, CONFUSION
 	db 16, DISABLE
 	db 18, HEADBUTT
 	db 22, WATER_PULSE
 	db 28, AMNESIA
 	db 33, EXTRASENSORY
-	db 44, BIDE
 	db 51, RECOVER
 	db 0
 
@@ -2298,23 +2298,22 @@ SlowbroEvosMoves:
 ; (shellder bite as makeshift shield). SURF/STRENGTH HMs.
 	db  1, TAIL_WHIP
 	db  5, WATER_GUN
+	db  8, PSYWAVE
 	db 10, REST
-	db 12, PSYWAVE
+	db 12, PSYCHIC_BIND
 	db 14, CONFUSION
 	db 16, DISABLE
 	db 18, HEADBUTT
 	db 22, WATER_PULSE
+	db 24, BIDE
 	db 28, AMNESIA
-	db 33, EXTRASENSORY
 	db 35, WITHDRAW
-	db 37, REFLECT
+	db 37, EXTRASENSORY
 	db 40, BODY_SLAM
-	db 44, BIDE
-	db 46, WATERFALL
-	db 49, ICY_PULSE
+	db 43, ICY_PULSE
+	db 46, PSYCHIC_M
 	db 51, RECOVER
-	db 53, PSYCHIC_M
-	db 55, ICE_BEAM
+	db 53, ICE_BEAM
 	db 0
 
 MagnemiteEvosMoves:
@@ -2522,9 +2521,9 @@ GrimerEvosMoves:
 	db 14, MUD_SHOT
 	db 17, ACID
 	db 20, DISABLE
-	db 22, CORRODE
 	db 26, BIND
 	db 28, SMOG
+	db 31, CORRODE
 	db 31, BODY_SLAM
 	db 34, SLUDGE
 	db 37, RECOVER
@@ -2548,9 +2547,9 @@ MukEvosMoves:
 	db 14, MUD_SHOT
 	db 17, ACID
 	db 20, DISABLE
-	db 22, CORRODE
 	db 26, BIND
 	db 28, SMOG
+	db 31, CORRODE
 	db 31, BODY_SLAM
 	db 34, SLUDGE
 	db 37, RECOVER
@@ -3159,13 +3158,13 @@ KoffingEvosMoves:
 	db  1, POISON_GAS
 	db  4, SMOG
 	db  7, SMOKESCREEN
-	db 10, CORRODE
 	db 13, DISABLE
 	db 16, ACID
 	db 19, EMBER
 	db 22, BIDE
 	db 25, GROWTH
 	db 28, EERIE_IMPULSE
+	db 31, CORRODE
 	db 31, NIGHT_SHADE
 	db 34, SLUDGE
 	db 37, HAZE
@@ -3186,13 +3185,13 @@ WeezingEvosMoves:
 	db  1, POISON_GAS
 	db  4, SMOG
 	db  7, SMOKESCREEN
-	db 10, CORRODE
 	db 13, DISABLE
 	db 16, ACID
 	db 19, EMBER
 	db 22, BIDE
 	db 25, GROWTH
 	db 28, EERIE_IMPULSE
+	db 31, CORRODE
 	db 31, NIGHT_SHADE
 	db 34, SLUDGE
 	db 37, HAZE
