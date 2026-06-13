@@ -1372,6 +1372,7 @@ VileplumeEvosMoves:
 	db 48, LEECH_LIFE
 	db 52, HAZE
 	db 58, DARK_PULSE
+	db 65, SPORE
 	db 0
 
 ParasEvosMoves:
@@ -1994,6 +1995,7 @@ BellsproutEvosMoves:
 	db  4, ABSORB
 	db  7, WRAP
 	db 10, GROWTH
+	db 13, BITE
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
 	db 19, BIDE
@@ -2018,6 +2020,7 @@ WeepinbellEvosMoves:
 	db  4, ABSORB
 	db  7, WRAP
 	db 10, GROWTH
+	db 13, BITE
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
 	db 19, BIDE
@@ -2046,6 +2049,7 @@ VictreebelEvosMoves:
 	db  4, ABSORB
 	db  7, WRAP
 	db 10, GROWTH
+	db 13, BITE
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
 	db 19, BIDE
@@ -2063,7 +2067,7 @@ VictreebelEvosMoves:
 	db 48, SLASH
 	db 52, CORRODE
 	db 58, SLUDGE_WAVE
-	db 60, DOUBLE_EDGE
+	db 65, TOXIC
 	db 0
 TentacoolEvosMoves:
 ; Evolutions
