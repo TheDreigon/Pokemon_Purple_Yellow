@@ -473,7 +473,8 @@ ButterfreeEvosMoves:
 	db 33, PSYCHIC_BIND
 	db 36, PSYCHIC_M
 	db 42, QUIVER_DANCE
-	db 48, HURRICANE
+	db 48, PETAL_DANCE
+	db 55, HURRICANE
 	db 0
 
 WeedleEvosMoves:
