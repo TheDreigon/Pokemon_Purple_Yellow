@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	tmhm QUICK_ATTACK, BIND,         BULLDOZE,     SEISMIC_TOSS, BULK_UP, \
-	     AGILITY,      TAKE_DOWN,    SWORDS_DANCE, CALM_MIND,    EARTHQUAKE, \
+	     AGILITY,      TAKE_DOWN,    SWORDS_DANCE, CALM_MIND, \
 	     THRASH,       MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME, \
 	     STRENGTH
 	; end
