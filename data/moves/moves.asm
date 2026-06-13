@@ -73,10 +73,10 @@ Moves: ; Current total = 220
 	move MACH_PUNCH,     NO_ADDITIONAL_EFFECT,             45, FIGHTING,     100, 20 ; priority move.
 	move KARATE_CHOP,    NO_ADDITIONAL_EFFECT,             50, FIGHTING,     100, 30 ; high-crit.
 	move STRENGTH,       ATTACK_UP1_EFFECT,                65, FIGHTING,     100, 20
-	move TAKE_DOWN,      DEFENSE_DOWN1_EFFECT,             80, FIGHTING,      90, 20
+	move TAKE_DOWN,      DEFENSE_DOWN1_EFFECT,             75, FIGHTING,      90, 20
 	move LEEK_STRIKE,    FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25 ; new move. signature. high-crit.
 	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           75, FIGHTING,     100, 20 ; signature. new effect.
-	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,     100, 20 ; signature.
+	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,      95, 20 ; signature.
 	move SUBMISSION,     ATTACK_DOWN1_EFFECT,              95, FIGHTING,     100, 15 ; signature.
 	move SKY_UPPERCUT,   NO_ADDITIONAL_EFFECT,            100, FIGHTING,      95, 10 ; new move. signature. high-crit.
 	move HI_JUMP_KICK,   JUMP_KICK_EFFECT,                110, FIGHTING,      90, 10 ; signature. high-crit.
