@@ -213,8 +213,8 @@ BulbasaurEvosMoves:
 ; Venusaur only (full bloom concentrates light).
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
-	db 12, GROWTH
-	db 20, ABSORB
+	db 13, ABSORB
+	db 18, GROWTH
 	db 25, SLEEP_POWDER
 	db 30, RAZOR_LEAF
 	db 36, MEGA_DRAIN
@@ -234,9 +234,9 @@ IvysaurEvosMoves:
 ; Muk/Weezing-coded). Same powder rule: no STUN_POWDER.
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
-	db 12, GROWTH
+	db 13, ABSORB
 	db 16, POISONPOWDER
-	db 20, ABSORB
+	db 18, GROWTH
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
@@ -258,9 +258,9 @@ VenusaurEvosMoves:
 ; plant, not magical creature).
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
-	db 12, GROWTH
+	db 13, ABSORB
 	db 16, POISONPOWDER
-	db 20, ABSORB
+	db 18, GROWTH
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
@@ -294,8 +294,8 @@ CharmanderEvosMoves:
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
+	db 36, DRAGON_CLAW
 	db 38, FLAMETHROWER
-	db 42, DRAGON_CLAW
 	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
 	db 0
@@ -316,8 +316,8 @@ CharmeleonEvosMoves:
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
+	db 36, DRAGON_CLAW
 	db 38, FLAMETHROWER
-	db 42, DRAGON_CLAW
 	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
 	db 0
@@ -340,10 +340,10 @@ CharizardEvosMoves:
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
-	db 36, WING_ATTACK
+	db 36, DRAGON_CLAW
 	db 38, FLAMETHROWER
 	db 40, FLY
-	db 42, DRAGON_CLAW
+	db 42, WING_ATTACK
 	db 44, CRUNCH
 	db 46, AERIAL_ACE
 	db 48, DRAGON_BREATH
@@ -371,9 +371,9 @@ SquirtleEvosMoves:
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
-	db 32, WATERFALL
-	db 42, BODY_SLAM
-	db 48, SURF
+	db 30, BODY_SLAM
+	db 36, WATERFALL  ; (EVO LVL Blastoise)
+	db 44, SURF
 	db 0
 
 WartortleEvosMoves:
@@ -392,9 +392,9 @@ WartortleEvosMoves:
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
-	db 32, WATERFALL
-	db 42, BODY_SLAM
-	db 48, SURF
+	db 30, BODY_SLAM
+	db 36, WATERFALL  ; (EVO LVL Blastoise)
+	db 44, SURF
 	db 0
 
 BlastoiseEvosMoves:
@@ -415,14 +415,14 @@ BlastoiseEvosMoves:
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
-	db 32, WATERFALL
-	db 36, CRUNCH
-	db 42, BODY_SLAM
-	db 46, HEAVY_SLAM
-	db 48, SURF
-	db 52, ICE_BEAM
+	db 30, BODY_SLAM
+	db 36, WATERFALL
+	db 40, HEAVY_SLAM
+	db 44, SURF
+	db 48, ICE_BEAM
+	db 52, HEAD_SMASH
 	db 56, HYDRO_PUMP
-	db 60, HEAD_SMASH
+	db 60, BLIZZARD
 	db 0
 
 CaterpieEvosMoves:
@@ -1390,6 +1390,7 @@ ParasEvosMoves:
 	db 13, GROWTH
 	db 16, STUN_POWDER
 	db 19, POISONPOWDER
+	db 22, SPORE
 	db 25, MEGA_DRAIN
 	db 31, LEECH_LIFE
 	db 37, SLASH
@@ -1545,19 +1546,19 @@ MeowthEvosMoves:
 ; signature. HONE_CLAWS/SLASH/NIGHT_SLASH (claws). FAINT_ATTACK
 ; (cat sneak). TAUNT (cat playful).
 	db  1, SCRATCH
-	db  4, GROWL
+	db  3, GROWL
+	db  5, TAIL_WHIP
 	db  7, BITE
-	db 11, PAY_DAY
-	db 14, FURY_ATTACK
+	db  9, ASTONISH
+	db 12, PAY_DAY
+	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
-	db 20, FOCUS_ENERGY
-	db 22, SLASH
-	db 26, HONE_CLAWS
-	db 30, CHARM
-	db 34, TAIL_WHIP
-	db 36, ASTONISH
-	db 40, NASTY_PLOT
-	db 50, AGILITY
+	db 21, HONE_CLAWS
+	db 24, FOCUS_ENERGY
+	db 28, SLASH  ; (EVO LVL)
+	db 32, INTIMIDATE
+	db 38, NASTY_PLOT
+	db 44, AGILITY
 	db 0
 
 PersianEvosMoves:
@@ -1568,23 +1569,22 @@ PersianEvosMoves:
 ; predator). NASTY_PLOT (Forte E sneaky special). EXTREMESPEED
 ; (Forte G YES list). BRUTAL_SWING apex.
 	db  1, SCRATCH
-	db  4, GROWL
+	db  3, GROWL
+	db  5, TAIL_WHIP
 	db  7, BITE
-	db 11, PAY_DAY
-	db 14, FURY_ATTACK
+	db  9, ASTONISH
+	db 12, PAY_DAY
+	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
-	db 20, FOCUS_ENERGY
-	db 22, SLASH
-	db 26, HONE_CLAWS
-	db 30, CHARM
+	db 21, HONE_CLAWS
+	db 24, FOCUS_ENERGY
+	db 28, SLASH
 	db 32, INTIMIDATE
-	db 34, TAIL_WHIP
-	db 36, ASTONISH
-	db 40, NASTY_PLOT
-	db 45, NIGHT_SLASH
-	db 50, AGILITY
-	db 55, EXTREMESPEED
-	db 60, RAGE
+	db 35, RAGE
+	db 38, NASTY_PLOT
+	db 41, NIGHT_SLASH
+	db 44, AGILITY
+	db 50, EXTREMESPEED
 	db 0
 
 PsyduckEvosMoves:
@@ -1758,7 +1758,7 @@ ArcanineEvosMoves:
 
 PoliwagEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 18, POLIWHIRL
+	db EVOLVE_LEVEL, 17, POLIWHIRL
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): tadpole Water. BUBBLEBEAM/HYPNOSIS/
@@ -1857,17 +1857,17 @@ KadabraEvosMoves:
 	db 13, DISABLE
 	db 19, PSYCHIC_BIND
 	db 26, CONFUSION
-	db 31, RECOVER
-	db 36, EXTRASENSORY
+	db 30, RECOVER
+	db 34, EXTRASENSORY
+	db 38, LIGHT_SCREEN
 	db 42, CALM_MIND  ; (EVO LVL)
 	db 42, FOCUS_ENERGY
-	db 51, LIGHT_SCREEN
-	db 55, SHOCK_WAVE
-	db 58, REFLECT
-	db 61, PSYBEAM
-	db 64, AGILITY
-	db 67, PSYCHIC_M
-	db 69, TRI_ATTACK
+	db 44, PSYBEAM
+	db 46, SHOCK_WAVE
+	db 48, REFLECT
+	db 50, PSYCHIC_M
+	db 52, AGILITY
+	db 54, TRI_ATTACK
 	db 0
 
 AlakazamEvosMoves:
@@ -1883,20 +1883,20 @@ AlakazamEvosMoves:
 	db 13, DISABLE
 	db 19, PSYCHIC_BIND
 	db 26, CONFUSION
-	db 31, RECOVER
-	db 36, EXTRASENSORY
+	db 30, RECOVER
+	db 34, EXTRASENSORY
+	db 38, LIGHT_SCREEN
+	db 40, EERIE_IMPULSE
 	db 42, CALM_MIND  ; (EVO LVL)
 	db 42, FOCUS_ENERGY
-	db 47, EERIE_IMPULSE
-	db 51, LIGHT_SCREEN
-	db 55, SHOCK_WAVE
-	db 58, REFLECT
-	db 61, PSYBEAM
-	db 64, AGILITY
-	db 67, PSYCHIC_M
-	db 69, TRI_ATTACK
-	db 71, METRONOME
-	db 73, DARK_PULSE
+	db 44, PSYBEAM
+	db 46, SHOCK_WAVE
+	db 48, REFLECT
+	db 50, PSYCHIC_M
+	db 52, AGILITY
+	db 54, TRI_ATTACK
+	db 56, METRONOME
+	db 58, DARK_PULSE
 	db 75, MIND_BREAK
 	db 0
 
@@ -2332,11 +2332,11 @@ MagnemiteEvosMoves:
 	db 18, THUNDER_WAVE
 	db 22, SHOCK_WAVE
 	db 26, SCREECH
-	db 38, METAL_SOUND
-	db 40, THUNDERBOLT
-	db 52, BODY_SLAM
-	db 55, IRON_HEAD
-	db 58, IRON_DEFENSE
+	db 33, BODY_SLAM  ; (EVO LVL)
+	db 36, THUNDERBOLT
+	db 39, METAL_SOUND
+	db 45, IRON_HEAD
+	db 57, IRON_DEFENSE
 	db 0
 
 MagnetonEvosMoves:
@@ -2353,16 +2353,16 @@ MagnetonEvosMoves:
 	db 20, FOCUS_ENERGY
 	db 22, SHOCK_WAVE
 	db 26, SCREECH
-	db 32, THUNDERBOLT
-	db 38, METAL_SOUND
-	db 45, LIGHT_SCREEN
-	db 50, THUNDER
-	db 52, BODY_SLAM
-	db 55, IRON_HEAD
-	db 58, IRON_DEFENSE
-	db 60, TRI_ATTACK
-	db 62, HEAVY_SLAM
-	db 64, MAGNET_BOMB
+	db 33, BODY_SLAM
+	db 36, THUNDERBOLT
+	db 39, METAL_SOUND
+	db 42, LIGHT_SCREEN
+	db 45, IRON_HEAD
+	db 48, THUNDER
+	db 51, TRI_ATTACK
+	db 54, HEAVY_SLAM
+	db 57, IRON_DEFENSE
+	db 60, MAGNET_BOMB
 	db 0
 
 FarfetchdEvosMoves:
