@@ -435,7 +435,6 @@ CaterpieEvosMoves:
 ; just before graduating to cocoon).
 	db  4, BUG_BITE
 	db  7, STRING_SHOT
-	db  9, LEECH_LIFE
 	db 13, BIDE
 	db 0
 
@@ -448,7 +447,6 @@ MetapodEvosMoves:
 ; All real growth happens after evolving to Butterfree.
 	db  4, BUG_BITE
 	db  7, STRING_SHOT
-	db  9, LEECH_LIFE
 	db 13, BIDE
 	db 0
 
@@ -463,7 +461,6 @@ ButterfreeEvosMoves:
 ; new SPECIAL_SPEED_UP1_EFFECT after engine update). Added FAIRY_WIND and HURRICANE.
 	db  4, BUG_BITE
 	db  7, STRING_SHOT
-	db  9, LEECH_LIFE
 	db 11, GUST
 	db 13, CONFUSION
 	db 15, POISONPOWDER
