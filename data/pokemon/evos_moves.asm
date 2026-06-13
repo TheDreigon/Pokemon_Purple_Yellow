@@ -211,7 +211,7 @@ BulbasaurEvosMoves:
 ; bulb closed). No Stun Spore per Forte's powder table (Venusaur = Poison +
 ; Sleep, NO Stun; uniform within line). Single signature SOLARBEAM kept on
 ; Venusaur only (full bloom concentrates light).
-	db  4, VINE_WHIP
+	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 20, ABSORB
@@ -232,7 +232,7 @@ IvysaurEvosMoves:
 ; Adds 3 Poison moves over Bulbasaur (POISONPOWDER, ACID, TOXIC). Sludge
 ; dropped — plant biology doesn't fit "sludge/blob" framing (those are
 ; Muk/Weezing-coded). Same powder rule: no STUN_POWDER.
-	db  4, VINE_WHIP
+	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 16, POISONPOWDER
@@ -256,7 +256,7 @@ VenusaurEvosMoves:
 ; concentrates sunlight enough to fire a beam. GUNK_SHOT removed (signature
 ; of Muk/Weezing). DAZZLE_GLEAM not added (Fairy-coded shimmer; Venusaur is
 ; plant, not magical creature).
-	db  4, VINE_WHIP
+	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 12, GROWTH
 	db 16, POISONPOWDER
@@ -286,7 +286,7 @@ CharmanderEvosMoves:
 ; DRAGON_BREATH which is Charizard exclusive). FLAME_CHARGE reserved for
 ; fast-fire quadrupeds (Growlithe/Ponyta lines per Forte). Outrage moved
 ; to TM55 only.
-	db  5, EMBER
+	db  6, EMBER
 	db  9, SMOKESCREEN
 	db 13, BITE
 	db 17, HEADBUTT
@@ -308,7 +308,7 @@ CharmeleonEvosMoves:
 ; v0.7 Pass 3 (Forte review): same backbone as Charmander (uniformity rule).
 ; Still no wings, no big jaw, no breath weapon — Charizard gets all those
 ; via anatomical exception.
-	db  5, EMBER
+	db  6, EMBER
 	db  9, SMOKESCREEN
 	db 13, BITE
 	db 17, HEADBUTT
@@ -332,7 +332,7 @@ CharizardEvosMoves:
 ; L48 substitutes the line's DRAGON_RAGE with DRAGON_BREATH — Charizard's
 ; throat capacity supports a full breath weapon, smaller Char/Charme don't.
 ; All entry levels unique (rule #7).
-	db  5, EMBER
+	db  6, EMBER
 	db  9, SMOKESCREEN
 	db 13, BITE
 	db 17, HEADBUTT
@@ -363,7 +363,7 @@ SquirtleEvosMoves:
 ; slot). HEADBUTT moved earlier per Forte. ICY_WIND replaced with WATER_
 ; PULSE (turtles don't make wind). BODY_SLAM added — prerequisite for
 ; HEAVY_SLAM that Blastoise gets exclusively.
-	db  4, WATER_GUN
+	db  6, WATER_GUN
 	db  8, WITHDRAW
 	db 10, BIDE
 	db 12, BITE
@@ -384,7 +384,7 @@ WartortleEvosMoves:
 ; v0.7 Pass 3 (Forte review): same backbone as Squirtle (uniformity rule).
 ; Still no shell-cannons → no HYDRO_PUMP. Blastoise gets cannons + jaw
 ; growth + massive size via anatomical exception.
-	db  4, WATER_GUN
+	db  6, WATER_GUN
 	db  8, WITHDRAW
 	db 10, BIDE
 	db 12, BITE
@@ -407,7 +407,7 @@ BlastoiseEvosMoves:
 ; BODY_SLAM as prerequisite, which is shared at L42), HEAD_SMASH (signature
 ; shell-head bash — vanilla Skull Bash equivalent), EARTHQUAKE (massive
 ; footsteps shake earth). All entry levels unique (rule #7).
-	db  4, WATER_GUN
+	db  6, WATER_GUN
 	db  8, WITHDRAW
 	db 10, BIDE
 	db 12, BITE
