@@ -1075,7 +1075,7 @@ ClefairyEvosMoves:
 ; v0.7 Pass 3 (Forte review): Normal/Fairy mystical. SING após L30
 ; (Forte sec C). MIMIC/METRONOME fun naturals (Forte sec A).
 ; CHARM (Forte sec F). RECOVER (Forte RECOVER list — Clefairy-line).
-; LIGHT_SCREEN/REFLECT/CALM_MIND reservados Clefable.
+; LIGHT_SCREEN/REFLECT/CALM_MIND partilhados com Clefable.
 	db  1, GROWL
 	db  4, FAIRY_WIND
 	db  7, DOUBLESLAP
@@ -3309,7 +3309,7 @@ TangelaEvosMoves:
 ; table: APENAS STUN_POWDER (Forte sec C). Forte sec J kit:
 ; VINE_WHIP/MEGA_DRAIN/GIGA_DRAIN/WRAP/CONSTRICT/GROWTH/SOLARBEAM.
 ; CUT HM01 natural (Forte sec B). Removido STRING_SHOT (não
-; existe), RECOVER (Tangela não em RECOVER list).
+; existe). RECOVER mantido (vinhas regeneram — mon semi-defensivo).
 	db  1, ABSORB
 	db  3, GROWTH
 	db  6, WRAP
@@ -3577,7 +3577,7 @@ JynxEvosMoves:
 ; NIGHT_SHADE/DOUBLE_TEAM/SPIRIT_DRAIN/SHADOW_BALL/DISABLE/EERIE_IMPULSE/
 ; CONFUSE_RAY/FROST_BREATH/LIGHT_SCREEN adicionados (Forte). DREAM_EATER
 ; high (Forte sec G Jynx YES, apex). POUND removido (já não existe). PSYBEAM
-; removido (Forte). DARK_PULSE só TM (Forte). ICY_PULSE/SCARY_FACE só TM
+; removido (Forte). DARK_PULSE só TM (Forte). SCARY_FACE só TM (ICY_PULSE fica no levelup)
 ; (Forte). SMOKESCREEN/FAKE_TEARS/SCREECH/CONFUSE_RAY removidos (Forte
 ; slim; CONFUSE_RAY redundante com LOVELY_KISS que já dá confusion). Total
 ; 26 moves. PLAY_ROUGH NÃO (Claude: singer elegante, não rough biter).
@@ -3591,16 +3591,16 @@ JynxEvosMoves:
 	db 18, NASTY_PLOT
 	db 20, PSYWAVE
 	db 22, EERIE_IMPULSE
+	db 22, DISABLE
 	db 28, FROST_BREATH
 	db 30, SING
 	db 32, DRAINING_KISS
 	db 34, CHARM
-	db 38, DISABLE
 	db 44, ICY_PULSE
 	db 47, LIGHT_SCREEN
-	db 49, EXTRASENSORY
+	db 47, EXTRASENSORY
 	db 51, NIGHT_SHADE
-	db 53, DOUBLE_TEAM
+	db 51, DOUBLE_TEAM
 	db 55, SHADOW_BALL
 	db 57, AURORA_BEAM
 	db 59, SPIRIT_DRAIN
