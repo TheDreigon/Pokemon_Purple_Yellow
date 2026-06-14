@@ -400,10 +400,9 @@ BlastoiseEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): full tank apex. Adds 5 anatomical exclusives
-; over Squirtle/Wartortle: WATERFALL at L36 (signature on evolution, cannons developed); HYDRO_PUMP L56, CRUNCH (big jaw), HEAVY_SLAM (massive frame — needs
+; over Squirtle/Wartortle: WATERFALL at L36 (signature on evolution, cannons developed); HYDRO_PUMP L56, HEAVY_SLAM (massive frame — needs
 ; BODY_SLAM as prerequisite, which is shared at L42), HEAD_SMASH (signature
-; shell-head bash — vanilla Skull Bash equivalent), EARTHQUAKE (massive
-; footsteps shake earth). All entry levels unique (rule #7).
+; shell-head bash — vanilla Skull Bash equivalent), ICE_BEAM/BLIZZARD (ice coverage). All entry levels unique (rule #7).
 	db  6, WATER_GUN
 	db  8, WITHDRAW
 	db 10, BIDE
@@ -753,11 +752,10 @@ ArbokEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3: Poison/Dark — matured cobra. Ekans's 20 + 4 anatomical
-; exclusives (cobra hood + Dark unlock + bigger jaw + heavy whip-tail):
-; SCARY_FACE (L26, hood reveal), CRUNCH (per
-; Forte — bigger jaw), IRON_TAIL (per Forte — high-level whip), INTIMIDATE
-; (full hood display). Removed prior duplicate WRAP (was vanilla bug),
+; v0.7 Pass 3: Poison/Dark — matured cobra. Ekans's 20 + 3 anatomical
+; exclusives (cobra hood + Dark unlock + heavy whip-tail):
+; SCARY_FACE (L26, hood reveal), IRON_TAIL (high-level whip), INTIMIDATE
+; (full hood display, L52). Removed prior duplicate WRAP (was vanilla bug),
 ; GUNK_SHOT (Muk-only), SLUDGE_WAVE (Muk-only).
 	db  1, QUICK_ATTACK
 	db  3, CONSTRICT
@@ -777,10 +775,10 @@ ArbokEvosMoves:
 	db 43, SUBSTITUTE
 	db 45, IRON_TAIL
 	db 48, TOXIC_FANGS
-	db 51, EXTREMESPEED
-	db 54, TOXIC
-	db 57, NEUROTOXIN
-	db 60, INTIMIDATE
+	db 52, INTIMIDATE
+	db 54, EXTREMESPEED
+	db 57, TOXIC
+	db 60, NEUROTOXIN
 	db 0
 
 PikachuEvosMoves:
@@ -1178,8 +1176,7 @@ JigglypuffEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): Normal/Fairy balloon singer. SING L1
 ; (Forte sec C — starts with SING). LOVELY_KISS (Forte sec C).
-; CHARM (Forte sec F). METRONOME/SUBSTITUTE fun moves natural
-; (Forte sec A). MOONBLAST apex Fairy.
+; CHARM (Forte sec F).
 	db  1, GROWL
 	db  3, SING
 	db  6, HINDER
@@ -1536,8 +1533,8 @@ MeowthEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): feline cat, claws + coin. PAY_DAY
-; signature. HONE_CLAWS/SLASH/NIGHT_SLASH (claws). FAINT_ATTACK
-; (cat sneak). TAUNT (cat playful).
+; signature. HONE_CLAWS/SLASH (claws). FAINT_ATTACK
+; (cat sneak). INTIMIDATE (predator, replaced CHARM).
 	db  1, SCRATCH
 	db  3, GROWL
 	db  5, TAIL_WHIP
@@ -1560,7 +1557,7 @@ PersianEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex feline. INTIMIDATE (Forte F apex
 ; predator). NASTY_PLOT (Forte E sneaky special). EXTREMESPEED
-; (Forte G YES list). BRUTAL_SWING apex.
+; (Forte G YES list, apex).
 	db  1, SCRATCH
 	db  3, GROWL
 	db  5, TAIL_WHIP
@@ -1606,8 +1603,7 @@ GolduckEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex psychic duck. CALM_MIND clearer
-; mind. SURF/CUT HMs naturais (Forte sec B). HYDRO_PUMP apex.
+; v0.7 Pass 3 (Forte review): apex psychic duck. AMNESIA clears the mind. SURF/CUT HMs naturais (Forte sec B). HYDRO_PUMP apex.
 	db  1, SCRATCH
 	db  5, GROWL
 	db 10, WATER_GUN
@@ -2069,8 +2065,7 @@ TentacoolEvosMoves:
 	db EVOLVE_LEVEL, 30, TENTACRUEL
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): jellyfish Water/Poison. SLUDGE_WAVE
-; Tentacool-line ownership (Forte sec G). NEUROTOXIN Tentacruel-
+; v0.7 Pass 3 (Forte review): jellyfish Water/Poison. SLUDGE_WAVE is the line signature (on Tentacruel; Forte sec G). NEUROTOXIN Tentacruel-
 ; line signature (Forte sec G). Removido POISON_FANG (sem fangs
 ; — jellyfish).
 	db  1, POISON_STING
@@ -2364,8 +2359,7 @@ FarfetchdEvosMoves:
 ; v0.7 Pass 3 (Forte review): duck samurai-bird with leek. TACKLE em vez de
 ; PECK (Forte). Karate/leek combat style: KARATE_CHOP antes de LEEK_STRIKE
 ; (Forte: trocar order). NIGHT_SLASH/CUT/QUICK_ATTACK/RECOVER/PETAL_DANCE
-; (Forte adds — leek-magic Grass move). FAINT_ATTACK low (samurai sneak),
-; SMOKESCREEN truques ninja (Forte). EXTREMESPEED imediatamente antes de
+; (Forte adds — leek-magic Grass move). FAINT_ATTACK low (samurai sneak). EXTREMESPEED imediatamente antes de
 ; BRUTAL_SWING (Forte: high level). Removido AERIAL_ACE/FLY do levelup
 ; (Forte; FLY continua via HM02). HONE_CLAWS/FURY_ATTACK/SKY_ATTACK
 ; removidos.
@@ -2441,8 +2435,7 @@ SeelEvosMoves:
 	db EVOLVE_LEVEL, 35, DEWGONG
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Water/Ice seal. HEADBUTT canon. REST
-; (seal naps).
+; v0.7 Pass 3 (Forte review): Water/Ice seal. HEADBUTT canon.
 	db  1, HEADBUTT
 	db  5, GROWL
 	db  7, TAIL_WHIP
@@ -2502,8 +2495,7 @@ GrimerEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): pure sludge blob Poison. HARDEN como
 ; 1-de-3 redundância (Forte sec F). SLUDGE_WAVE Grimer-line
-; ownership (Forte sec G). GUNK_SHOT signature very-high (Forte
-; sec G). RECOVER (Forte RECOVER list — Grimer-line). Removido
+; ownership (Forte sec G). RECOVER (Forte RECOVER list — Grimer-line). Removido
 ; POISON_FANG/TOXIC_FANGS (sem fangs — anatomia sludge).
 	db  1, LICK
 	db  3, ASTONISH
@@ -2528,9 +2520,9 @@ MukEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex sludge. 12 backbone (Grimer) + 3
-; Muk-exclusives: STRENGTH HM04 natural (Forte sec B), CORRODE
-; Muk signature (Forte sec F), EXPLOSION sludge bomb apex.
+; v0.7 Pass 3 (Forte review): apex sludge. Grimer backbone + Muk-exclusives: GUNK_SHOT signature very-high
+; (Forte sec G), TAKE_DOWN/ROCK_TOMB/IRON_DEFENSE/SCARY_FACE/HEAVY_SLAM.
+; CORRODE shared at L31. STRENGTH via HM.
 	db  1, LICK
 	db  3, ASTONISH
 	db  6, HARDEN
@@ -2589,8 +2581,7 @@ CloysterEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex Water/Ice fortress. NEUROTOXIN
-; (Forte G Shellder-line high). SPIKE_CANNON via SONICBOOM.
-; EXPLOSION (clam shells crack).
+; (Forte G Shellder-line high). EXPLOSION (clam shells crack).
 	db  1, TACKLE
 	db  5, WITHDRAW
 	db 10, SUPERSONIC
@@ -2771,7 +2762,7 @@ DrowzeeEvosMoves:
 ; v0.7 Pass 3 (Forte review): Psychic hypnotist. HYPNOSIS L1 (Forte
 ; sec C low). DEEP_SLEEP signature (Forte sec C Drowzee-line).
 ; DREAM_EATER signature (Forte sec G). EERIE_IMPULSE (Forte sec F).
-; AMNESIA (Forte sec E). DARK_PULSE (Forte sec G).
+; NASTY_PLOT (Forte sec E). DARK_PULSE (Forte sec G).
 	db  1, HYPNOSIS
 	db  4, PSYWAVE
 	db  7, DISABLE
@@ -2925,7 +2916,7 @@ ExeggcuteEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): egg cluster Grass/Psychic. Powder
 ; table: NÃO powders (Forte: usa Hypnosis psíquica em vez).
-; GROWTH (Forte plant list). EXPLOSION (eggs explodem literal).
+; GROWTH (Forte plant list).
 ; Removido STUN_POWDER/POISONPOWDER/SLEEP_POWDER (Forte powder
 ; table NÃO), REFLECT (Exeggcute não em Forte F LIGHT_SCREEN list).
 	db  1, SOFTBOILED
@@ -2949,8 +2940,8 @@ ExeggutorEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex egg-tree. 13 backbone (Exeggcute)
-; + 2 Exeggutor-exclusives: DEEP_SLEEP (Forte sec C signature deep
-; hypnosis após HYPNOSIS), HEAVY_SLAM (giant tree slam).
+; + Exeggutor-exclusives: HEADBUTT/GROUND_STOMP/BODY_SLAM/DOUBLE_EDGE/
+; SOLARBEAM (apex tree).
 	db  1, SOFTBOILED
 	db  4, AMNESIA
 	db  7, BIDE
@@ -3108,7 +3099,7 @@ LickitungEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): Normal/Poison reptile-camaleao tongue. LICK
 ; signature. SCREECH antes do SUPERSONIC, HEADBUTT depois (Forte). HINDER
-; low (Forte add). ASTONISH/DEFENSE_CURL/BIDE/EERIE_IMPULSE/TAUNT/DISABLE/
+; low (Forte add). ASTONISH/DEFENSE_CURL/BIDE/EERIE_IMPULSE/TAIL_WHIP/DISABLE/
 ; SEISMIC_TOSS adicionados (Forte). CONSTRICT em vez de BIND, BIND mais
 ; tarde (Forte). Removido: SLAM (Forte: já não existe; só DRAGON_SLAM que
 ; não queremos), THRASH (Forte), GUNK_SHOT (Grimer-only signature),
@@ -3293,7 +3284,8 @@ TangelaEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): Grass vines single-stage. Powder
 ; table: APENAS STUN_POWDER (Forte sec C). Forte sec J kit:
-; VINE_WHIP/MEGA_DRAIN/GIGA_DRAIN/WRAP/CONSTRICT/GROWTH/SOLARBEAM.
+; VINE_WHIP/MEGA_DRAIN/GIGA_DRAIN/WRAP/CONSTRICT/GROWTH + Water moves
+; (now Grass/Water).
 ; CUT HM01 natural (Forte sec B). Removido STRING_SHOT (não
 ; existe). RECOVER mantido (vinhas regeneram — mon semi-defensivo).
 	db  1, ABSORB
@@ -3563,10 +3555,9 @@ JynxEvosMoves:
 ; v0.7 Pass 3 (Forte review): Ice/Psychic Fairy-coded singer. 26 moves big
 ; movepool. POWDER_SNOW antes de ICY_WIND (Forte). DOUBLESLAP cedo (Forte).
 ; TICKLE low (Forte add). NASTY_PLOT replaces CALM_MIND mais cedo (Forte).
-; SING após L30 (Forte sec C). DRAINING_KISS/CHARM/FAIRY_WIND/PSYCHIC_BIND/
+; SING após L30 (Forte sec C). DRAINING_KISS/CHARM/FAIRY_WIND/
 ; NIGHT_SHADE/DOUBLE_TEAM/SPIRIT_DRAIN/SHADOW_BALL/DISABLE/EERIE_IMPULSE/
-; CONFUSE_RAY/FROST_BREATH/LIGHT_SCREEN adicionados (Forte). DREAM_EATER
-; high (Forte sec G Jynx YES, apex). POUND removido (já não existe). PSYBEAM
+; FROST_BREATH/LIGHT_SCREEN adicionados (Forte). POUND removido (já não existe). PSYBEAM
 ; removido (Forte). DARK_PULSE só TM (Forte). SCARY_FACE só TM (ICY_PULSE fica no levelup)
 ; (Forte). SMOKESCREEN/FAKE_TEARS/SCREECH/CONFUSE_RAY removidos (Forte
 ; slim; CONFUSE_RAY redundante com LOVELY_KISS que já dá confusion). Total
@@ -3749,10 +3740,10 @@ GyaradosEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): Water/Dragon-coded sea-serpent apex.
 ; Forte sec I: forte/bruto, mainly PHYSICAL, NÃO dócil. HYPER_BEAM
-; L65 last move (Forte sec G). 5 backbone (Magikarp) + 13 Gyarados-
-; exclusives: BITE evo, INTIMIDATE/SCARY_FACE, COIL (Forte sec E
-; snake-coil), DRAGON_BREATH/THRASH/OUTRAGE Dragon-coded, SURF/
-; STRENGTH HMs.
+; L65 last move (Forte sec G). 5 backbone (Magikarp) + 20 Gyarados-exclusives in a post-evo burst
+; @27-65: BITE, INTIMIDATE, COIL (Forte sec E snake-coil), DRAGON_BREATH/
+; DRAGON_SLAM/OUTRAGE Dragon-coded, SURF/HYDRO_PUMP/EARTHQUAKE/THRASH/
+; HEAVY_SLAM. SURF/STRENGTH HMs.
 	db  1, GROWL
 	db 10, TACKLE
 	db 15, WATER_GUN
@@ -4007,7 +3998,7 @@ KabutoEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): trilobite-crab Water/Rock. WITHDRAW
-; (Forte sec F). ABSORB parasitic feed. Water+Rock physical kit.
+; (Forte sec F). MEGA_DRAIN/LEECH_LIFE parasitic feed. Water+Rock physical kit.
 	db  1, WATER_GUN
 	db  5, WITHDRAW
 	db  9, SCRATCH
@@ -4195,8 +4186,7 @@ DratiniEvosMoves:
 	db EVOLVE_LEVEL, 26, DRAGONAIR
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Dragon sea-snake baby. WRAP canon
-; start. COIL (Forte sec E snake-coil). DRAGON_BREATH first Dragon
+; v0.7 Pass 3 (Forte review): Dragon sea-snake baby. CONSTRICT/BIND wrap kit. COIL (Forte sec E snake-coil). DRAGON_BREATH first Dragon
 ; move pre-evo.
 	db  1, TACKLE
 	db  5, LEER
