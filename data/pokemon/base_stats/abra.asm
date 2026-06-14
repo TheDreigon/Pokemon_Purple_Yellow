@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/abra.pic", 0, 1 ; sprite dimensions
 	dw AbraPicFront, AbraPicBack
 
-	db TELEPORT, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TELEPORT, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

@@ -2316,9 +2316,9 @@ MagnemiteEvosMoves:
 ; v0.7 Pass 3 (Forte review): Electric/Steel. METAL_SOUND (Forte F
 ; Steel-types). SONICBOOM signature. SHOCK_WAVE/THUNDERBOLT.
 ; TRI_ATTACK reservado para Magneton (Forte G).
-	db  1, HEADBUTT
 	db  5, SONICBOOM
 	db  9, THUNDERSHOCK
+	db 11, HEADBUTT
 	db 14, SUPERSONIC
 	db 18, THUNDER_WAVE
 	db 22, SHOCK_WAVE
@@ -2336,9 +2336,9 @@ MagnetonEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex Electric/Steel. TRI_ATTACK
 ; (Forte G — Magneton YES, NÃO Magnemite). SCREECH metal-on-metal.
-	db  1, HEADBUTT
 	db  5, SONICBOOM
 	db  9, THUNDERSHOCK
+	db 11, HEADBUTT
 	db 14, SUPERSONIC
 	db 18, THUNDER_WAVE
 	db 22, SHOCK_WAVE
@@ -2923,7 +2923,6 @@ ExeggcuteEvosMoves:
 ; GROWTH (Forte plant list).
 ; Removido STUN_POWDER/POISONPOWDER/SLEEP_POWDER (Forte powder
 ; table NÃO), REFLECT (Exeggcute não em Forte F LIGHT_SCREEN list).
-	db  1, SOFTBOILED
 	db  4, AMNESIA
 	db  7, BIDE
 	db 10, LEECH_SEED
@@ -2946,7 +2945,6 @@ ExeggutorEvosMoves:
 ; v0.7 Pass 3 (Forte review): apex egg-tree. 13 backbone (Exeggcute)
 ; + Exeggutor-exclusives: HEADBUTT/GROUND_STOMP/BODY_SLAM/DOUBLE_EDGE/
 ; SOLARBEAM (apex tree).
-	db  1, SOFTBOILED
 	db  4, AMNESIA
 	db  7, BIDE
 	db 10, LEECH_SEED
@@ -3828,7 +3826,6 @@ EeveeEvosMoves:
 ; Forte #11 (cute fox charm — shared with all 4 forms).
 	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 11, GROWL
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
@@ -3847,7 +3844,6 @@ VaporeonEvosMoves:
 ; light wind). Removed ICY_WIND.
 	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 11, GROWL
 	db 14, BITE
 	db 16, HARDEN
 	db 18, HEADBUTT
@@ -3875,7 +3871,6 @@ JolteonEvosMoves:
 ; list).
 	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 11, GROWL
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
@@ -3902,7 +3897,6 @@ FlareonEvosMoves:
 ; (L52 — peak claw-buff before final fire).
 	db  4, TAIL_WHIP
 	db  8, QUICK_ATTACK
-	db 11, GROWL
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
@@ -3935,6 +3929,7 @@ PorygonEvosMoves:
 	db 18, RECOVER
 	db 20, THUNDER_WAVE
 	db 22, SHOCK_WAVE
+	db 24, METAL_SOUND
 	db 26, MIMIC
 	db 28, FLASH
 	db 30, PSYBEAM
