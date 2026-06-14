@@ -4065,9 +4065,9 @@ AerodactylEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): pterodactyl Rock/Flying apex predator,
-; single-stage. Forte sec J: NÃO HYPER_BEAM, FLY/SKY_ATTACK/AGILITY/
-; INTIMIDATE. CUT/FLY/STRENGTH HMs naturais (Forte sec B). NÃO
-; EXTREMESPEED (Forte sec G explicit).
+; single-stage. FLY/SKY_ATTACK/AGILITY/INTIMIDATE fit the flying apex
+; predator (Forte 2026-06-14). CUT/FLY/STRENGTH HMs naturais (Forte sec B).
+; NÃO HYPER_BEAM, NÃO EXTREMESPEED (Forte sec G explicit).
 	db  1, BITE
 	db  4, LEER
 	db  7, TAILWIND
