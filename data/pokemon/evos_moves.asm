@@ -851,7 +851,6 @@ SandshrewEvosMoves:
 	db 24, HONE_CLAWS
 	db 30, DIG
 	db 36, MUD_BOMB
-	db 44, EARTHQUAKE
 	db 0
 
 SandslashEvosMoves:
