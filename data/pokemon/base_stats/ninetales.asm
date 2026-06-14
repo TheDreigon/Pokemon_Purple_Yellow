@@ -14,7 +14,7 @@
 	; Autos +FAINT_ATTACK (QUICK_ATTACK/CONFUSE_RAY/NIGHT_SHADE/AGILITY/FLAMETHROWER/
 	; DAZZLE_GLEAM). Bonus sinistro/espectral coerente com a kitsune mística
 	; (SHADOW_BALL/DARK_PULSE — caudas canalizam o espectral) + CALM_MIND apex setup.
-	; HM FLASH (fox-fire/olhos místicos). 4 fun moves (regra global last-stage).
+	; Sem HM FLASH (Forte: removido — EERIE_IMPULSE já cobre utility). 4 fun moves (regra global last-stage).
 	; tm/hm learnset
 	; v0.7 Pass 3: Ninetales - apex mistica kitsune Fire-Fairy,
 	; last-stage generosa (24 entries). auto
