@@ -215,7 +215,7 @@ BulbasaurEvosMoves:
 	db  8, LEECH_SEED
 	db 13, ABSORB
 	db 18, GROWTH
-	db 25, SLEEP_POWDER
+	db 24, SLEEP_POWDER
 	db 30, RAZOR_LEAF
 	db 36, MEGA_DRAIN
 	db 42, PETAL_DANCE
@@ -237,7 +237,7 @@ IvysaurEvosMoves:
 	db 13, ABSORB
 	db 18, GROWTH
 	db 20, POISONPOWDER
-	db 25, SLEEP_POWDER
+	db 24, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
 	db 36, MEGA_DRAIN
@@ -261,7 +261,7 @@ VenusaurEvosMoves:
 	db 13, ABSORB
 	db 18, GROWTH
 	db 20, POISONPOWDER
-	db 25, SLEEP_POWDER
+	db 24, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
 	db 36, MEGA_DRAIN
@@ -286,9 +286,9 @@ CharmanderEvosMoves:
 ; fast-fire quadrupeds (Growlithe/Ponyta lines per Forte). Outrage moved
 ; to TM55 only.
 	db  6, EMBER
-	db  9, SMOKESCREEN
-	db 13, BITE
-	db 17, HEADBUTT
+	db 10, BITE
+	db 14, SMOKESCREEN
+	db 18, HEADBUTT
 	db 20, SLASH
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
@@ -308,9 +308,9 @@ CharmeleonEvosMoves:
 ; Still no wings, no big jaw, no breath weapon — Charizard gets all those
 ; via anatomical exception.
 	db  6, EMBER
-	db  9, SMOKESCREEN
-	db 13, BITE
-	db 17, HEADBUTT
+	db 10, BITE
+	db 14, SMOKESCREEN
+	db 18, HEADBUTT
 	db 20, SLASH
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
@@ -331,9 +331,9 @@ CharizardEvosMoves:
 ; DRAGON_CLAW@36 / DRAGON_BREATH@48 shared across the line.
 ; All entry levels unique (rule #7).
 	db  6, EMBER
-	db  9, SMOKESCREEN
-	db 13, BITE
-	db 17, HEADBUTT
+	db 10, BITE
+	db 14, SMOKESCREEN
+	db 18, HEADBUTT
 	db 20, SLASH
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
@@ -363,9 +363,8 @@ SquirtleEvosMoves:
 ; HEAVY_SLAM that Blastoise gets exclusively.
 	db  6, WATER_GUN
 	db  8, WITHDRAW
-	db 10, BIDE
-	db 12, BITE
-	db 15, AQUA_JET
+	db 10, BITE
+	db 14, BIDE
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
@@ -384,15 +383,15 @@ WartortleEvosMoves:
 ; growth + massive size via anatomical exception.
 	db  6, WATER_GUN
 	db  8, WITHDRAW
-	db 10, BIDE
-	db 12, BITE
-	db 15, AQUA_JET
+	db 10, BITE
+	db 14, BIDE
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
 	db 30, BODY_SLAM
 	db 36, WATERFALL  ; (EVO LVL Blastoise)
 	db 44, SURF
+	db 56, HYDRO_PUMP
 	db 0
 
 BlastoiseEvosMoves:
@@ -405,15 +404,15 @@ BlastoiseEvosMoves:
 ; shell-head bash — vanilla Skull Bash equivalent), ICE_BEAM/BLIZZARD (ice coverage). All entry levels unique (rule #7).
 	db  6, WATER_GUN
 	db  8, WITHDRAW
-	db 10, BIDE
-	db 12, BITE
-	db 15, AQUA_JET
+	db 10, BITE
+	db 14, BIDE
 	db 18, BUBBLEBEAM
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
 	db 30, BODY_SLAM
 	db 36, WATERFALL
-	db 40, HEAVY_SLAM
+	db 39, BULLDOZE
+	db 41, HEAVY_SLAM
 	db 44, SURF
 	db 48, ICE_BEAM
 	db 52, HEAD_SMASH
