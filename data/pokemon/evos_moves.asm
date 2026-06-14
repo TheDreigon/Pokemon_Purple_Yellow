@@ -3494,11 +3494,10 @@ MrMimeEvosMoves:
 ; 4 fun moves via NATURAL levelup (Forte sec A — MrMime explicit).
 ; Forte sec J kit: LIGHT_SCREEN/REFLECT canonical, DAZZLE_GLEAM,
 ; FAIRY_WIND, CHARM, PSYCHIC_BIND. NÃO MOONBLAST (Forte sec J).
-	db  1, CHARM
-	db  4, FAIRY_WIND
-	db  7, HINDER
+	db  5, CHARM
+	db  8, FAIRY_WIND
 	db 10, CONFUSION
-	db 13, FAKE_TEARS
+	db 12, FAKE_TEARS
 	db 16, MIRROR_MOVE
 	db 18, MIMIC
 	db 22, DISABLE
