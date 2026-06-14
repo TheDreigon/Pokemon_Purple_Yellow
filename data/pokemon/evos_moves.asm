@@ -3350,15 +3350,15 @@ HorseaEvosMoves:
 ; DRAGON_RAGE at evo L26 = dragon blood awakening (key level).
 	db 10, SMOKESCREEN
 	db 12, WATER_GUN
-	db 14, LEER
-	db 16, ICY_WIND
+	db 15, ICY_WIND
 	db 18, BUBBLEBEAM
-	db 20, AQUA_JET
-	db 22, AGILITY
-	db 26, DRAGON_RAGE
-	db 31, WATER_PULSE
-	db 36, ICY_PULSE
-	db 47, HYDRO_PUMP
+	db 20, HARDEN
+	db 23, AQUA_JET
+	db 26, DRAGON_BREATH
+	db 29, WATER_PULSE
+	db 32, ICY_PULSE
+	db 35, WATERFALL
+	db 40, FOCUS_ENERGY
 	db 0
 
 SeadraEvosMoves:
@@ -3370,19 +3370,19 @@ SeadraEvosMoves:
 ; No DRAGON_CLAW (no claws).
 	db 10, SMOKESCREEN
 	db 12, WATER_GUN
-	db 14, LEER
-	db 16, ICY_WIND
+	db 15, ICY_WIND
 	db 18, BUBBLEBEAM
-	db 20, AQUA_JET
-	db 22, AGILITY
-	db 26, DRAGON_RAGE
-	db 28, DRAGON_BREATH
-	db 31, WATER_PULSE
-	db 33, WATERFALL
-	db 36, ICY_PULSE
-	db 42, ICE_BEAM
-	db 47, HYDRO_PUMP
-	db 52, DRAGON_SLAM
+	db 20, HARDEN
+	db 23, AQUA_JET
+	db 26, DRAGON_BREATH
+	db 29, WATER_PULSE
+	db 32, ICY_PULSE
+	db 35, WATERFALL
+	db 40, FOCUS_ENERGY
+	db 45, ICE_BEAM
+	db 50, HYDRO_PUMP
+	db 55, DRAGON_RAGE
+	db 60, DRAGON_SLAM
 	db 0
 
 GoldeenEvosMoves:
