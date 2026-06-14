@@ -2305,13 +2305,13 @@ SlowbroEvosMoves:
 	db 16, DISABLE
 	db 18, HEADBUTT
 	db 22, WATER_PULSE
-	db 24, BIDE
 	db 28, AMNESIA
 	db 35, WITHDRAW
 	db 37, EXTRASENSORY
 	db 40, BODY_SLAM
 	db 43, ICY_PULSE
 	db 46, PSYCHIC_M
+	db 48, BIDE
 	db 51, RECOVER
 	db 53, ICE_BEAM
 	db 0
