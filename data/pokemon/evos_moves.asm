@@ -858,12 +858,13 @@ SandslashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex armoured digger. 10 backbone + 6 Sandslash-
+; v0.7 Pass 3 (Forte review): apex armoured digger. 10 backbone + 7 Sandslash-
 ; exclusives: CUT (HM01 natural), IRON_DEFENSE (Forte: substitui SWORDS_DANCE
 ; — Sandslash defensive armoured não setup attacker), ROCK_TOMB (Forte add
 ; — armoured digger Rock affinity), NIGHT_SLASH (Forte: high-level claws
-; apex), GORE_ATTACK (Forte explicit L55-56), FISSURE (Forte: substitui
-; BRUTAL_SWING como last move; reavaliação — apex deep-dig finisher).
+; apex), FISSURE (apex deep-dig OHKO L56), GORE_ATTACK (Forte L60), ROCK_SLIDE
+; (Forte add — Sandslash-exclusive last move L65). Swaps per Forte: ROCK_TOMB
+; (44) <-> EARTHQUAKE (48), FISSURE (56) <-> GORE_ATTACK (60).
 	db  4, SCRATCH
 	db  7, DEFENSE_CURL
 	db 10, MUD_SHOT
@@ -875,11 +876,12 @@ SandslashEvosMoves:
 	db 36, CUT
 	db 36, MUD_BOMB
 	db 42, IRON_DEFENSE
-	db 44, EARTHQUAKE
-	db 48, ROCK_TOMB
+	db 44, ROCK_TOMB
+	db 48, EARTHQUAKE
 	db 52, NIGHT_SLASH
-	db 56, GORE_ATTACK
-	db 60, FISSURE
+	db 56, FISSURE
+	db 60, GORE_ATTACK
+	db 65, ROCK_SLIDE
 	db 0
 
 NidoranFEvosMoves:
