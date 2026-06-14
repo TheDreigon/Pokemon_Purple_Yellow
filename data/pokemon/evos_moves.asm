@@ -902,8 +902,8 @@ NidoranFEvosMoves:
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
-	db 16, BITE
-	db 18, FAIRY_WIND
+	db 15, BITE
+	db 17, FAIRY_WIND
 	db 20, BIDE
 	db 22, HEADBUTT
 	db 26, POISON_FANG
@@ -929,8 +929,8 @@ NidorinaEvosMoves:
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
-	db 16, BITE
-	db 18, FAIRY_WIND
+	db 15, BITE
+	db 17, FAIRY_WIND
 	db 20, BIDE
 	db 22, HEADBUTT
 	db 24, ACID
@@ -960,8 +960,8 @@ NidoqueenEvosMoves:
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
-	db 16, BITE
-	db 18, FAIRY_WIND
+	db 15, BITE
+	db 17, FAIRY_WIND
 	db 20, BIDE
 	db 22, HEADBUTT
 	db 24, ACID
@@ -1252,8 +1252,8 @@ ZubatEvosMoves:
 	db 13, POISON_STING
 	db 15, SUPERSONIC
 	db 17, LEECH_LIFE
-	db 20, LICK
-	db 22, WING_ATTACK
+	db 19, LICK
+	db 21, WING_ATTACK
 	db 24, EERIE_IMPULSE
 	db 26, SCREECH
 	db 30, ASTONISH
@@ -1280,8 +1280,8 @@ GolbatEvosMoves:
 	db 13, POISON_STING
 	db 15, SUPERSONIC
 	db 17, LEECH_LIFE
-	db 20, LICK
-	db 22, WING_ATTACK
+	db 19, LICK
+	db 21, WING_ATTACK
 	db 24, EERIE_IMPULSE
 	db 26, SCREECH
 	db 30, ASTONISH
@@ -2309,9 +2309,9 @@ SlowbroEvosMoves:
 	db 35, WITHDRAW
 	db 37, EXTRASENSORY
 	db 40, BODY_SLAM
+	db 40, BIDE
 	db 43, ICY_PULSE
 	db 46, PSYCHIC_M
-	db 48, BIDE
 	db 51, RECOVER
 	db 53, ICE_BEAM
 	db 0
