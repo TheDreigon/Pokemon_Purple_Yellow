@@ -235,8 +235,8 @@ IvysaurEvosMoves:
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 13, ABSORB
-	db 16, POISONPOWDER
 	db 18, GROWTH
+	db 20, POISONPOWDER
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
@@ -259,8 +259,8 @@ VenusaurEvosMoves:
 	db  6, VINE_WHIP
 	db  8, LEECH_SEED
 	db 13, ABSORB
-	db 16, POISONPOWDER
 	db 18, GROWTH
+	db 20, POISONPOWDER
 	db 25, SLEEP_POWDER
 	db 28, ACID
 	db 30, RAZOR_LEAF
@@ -372,7 +372,7 @@ SquirtleEvosMoves:
 	db 22, HEADBUTT
 	db 26, WATER_PULSE
 	db 30, BODY_SLAM
-	db 36, WATERFALL  ; (EVO LVL Blastoise)
+	db 36, WATERFALL
 	db 44, SURF
 	db 0
 
@@ -1468,7 +1468,7 @@ VenomothEvosMoves:
 	db 11, LEECH_LIFE
 	db 14, SUPERSONIC
 	db 17, CONFUSION
-	db 19, POISONPOWDER
+	db 21, POISONPOWDER
 	db 21, GUST
 	db 23, STUN_POWDER
 	db 25, BUG_BUZZ
@@ -1886,9 +1886,9 @@ AlakazamEvosMoves:
 	db 30, RECOVER
 	db 34, EXTRASENSORY
 	db 38, LIGHT_SCREEN
-	db 40, EERIE_IMPULSE
-	db 42, CALM_MIND  ; (EVO LVL)
 	db 42, FOCUS_ENERGY
+	db 42, CALM_MIND  ; (EVO LVL)
+	db 44, EERIE_IMPULSE
 	db 44, PSYBEAM
 	db 46, SHOCK_WAVE
 	db 48, REFLECT
@@ -1969,12 +1969,12 @@ MachampEvosMoves:
 	db 16, BULK_UP
 	db 18, KARATE_CHOP
 	db 20, STRENGTH
-	db 20, COMET_PUNCH
 	db 22, SEISMIC_TOSS
 	db 25, ROCK_THROW
 	db 27, DIZZY_PUNCH
 	db 30, GROUND_STOMP
 	db 36, BODY_SLAM
+	db 42, COMET_PUNCH
 	db 42, TAKE_DOWN
 	db 46, MACH_PUNCH
 	db 48, SUBMISSION
@@ -2349,9 +2349,9 @@ MagnetonEvosMoves:
 	db  9, THUNDERSHOCK
 	db 14, SUPERSONIC
 	db 18, THUNDER_WAVE
-	db 20, FOCUS_ENERGY
 	db 22, SHOCK_WAVE
 	db 26, SCREECH
+	db 33, FOCUS_ENERGY
 	db 33, BODY_SLAM
 	db 36, THUNDERBOLT
 	db 39, METAL_SOUND
@@ -2382,7 +2382,6 @@ FarfetchdEvosMoves:
 	db  9, FAINT_ATTACK
 	db 11, GUST
 	db 13, QUICK_ATTACK
-	db 15, SMOKESCREEN
 	db 18, KARATE_CHOP
 	db 22, LEEK_STRIKE
 	db 26, SLASH
@@ -2433,9 +2432,9 @@ DodrioEvosMoves:
 	db 14, QUICK_ATTACK
 	db 18, FURY_ATTACK
 	db 22, RAGE
-	db 24, FAINT_ATTACK
 	db 26, GROUND_STOMP
 	db 30, AGILITY
+	db 33, FAINT_ATTACK
 	db 33, DRILL_PECK
 	db 39, TAKE_DOWN
 	db 46, EXTREMESPEED
@@ -3749,10 +3748,10 @@ MagikarpEvosMoves:
 ; GROWL L1 (SPLASH removido em v0.7). 5 moves total — fiel ao canon.
 ; RAGE L26 = at evo (signature anger explosion ao evoluir).
 	db  1, GROWL
-	db  3, TACKLE
-	db  5, WATER_GUN
-	db  8, BIDE
-	db 10, RAGE
+	db 10, TACKLE
+	db 15, WATER_GUN
+	db 20, BIDE
+	db 25, RAGE
 	db 0
 
 GyaradosEvosMoves:
@@ -3766,30 +3765,30 @@ GyaradosEvosMoves:
 ; snake-coil), DRAGON_BREATH/THRASH/OUTRAGE Dragon-coded, SURF/
 ; STRENGTH HMs.
 	db  1, GROWL
-	db  3, TACKLE
-	db  5, WATER_GUN
-	db  8, BIDE
-	db 10, RAGE
-	db 13, BITE
-	db 15, WATER_PULSE
-	db 18, COIL
-	db 20, BODY_SLAM
-	db 23, WATERFALL
-	db 25, FIERCE_ROAR
-	db 28, CRUNCH
-	db 30, SURF
-	db 32, DRAGON_RAGE
-	db 35, TAKE_DOWN
-	db 37, INTIMIDATE
-	db 40, DRAGON_BREATH
-	db 42, HYDRO_PUMP
-	db 45, THRASH
-	db 47, DRAGON_SLAM
-	db 50, BRUTAL_SWING
-	db 52, HEAVY_SLAM
-	db 55, OUTRAGE
+	db 10, TACKLE
+	db 15, WATER_GUN
+	db 20, BIDE
+	db 25, RAGE
+	db 27, BITE
+	db 29, WATER_PULSE
+	db 31, INTIMIDATE
+	db 33, BODY_SLAM
+	db 35, WATERFALL
+	db 37, DRAGON_RAGE
+	db 39, CRUNCH
+	db 41, TAKE_DOWN
+	db 43, DRAGON_BREATH
+	db 45, FIERCE_ROAR
+	db 47, SURF
+	db 49, BRUTAL_SWING
+	db 51, COIL
+	db 53, THRASH
+	db 55, DRAGON_SLAM
 	db 57, EARTHQUAKE
-	db 60, HYPER_BEAM
+	db 59, HEAVY_SLAM
+	db 61, HYDRO_PUMP
+	db 63, OUTRAGE
+	db 65, HYPER_BEAM
 	db 0
 
 LaprasEvosMoves:
