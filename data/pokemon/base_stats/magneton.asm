@@ -11,7 +11,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: apex Electric/Steel magnet cluster. auto
+	; BODY_SLAM/SHOCK_WAVE/THUNDER_WAVE/IRON_HEAD/LIGHT_SCREEN/THUNDERBOLT.
+	; bonus REFLECT. fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, IRON_HEAD, LIGHT_SCREEN, REFLECT, \
+	     THUNDERBOLT
 	; end
 
 	db 0 ; padding

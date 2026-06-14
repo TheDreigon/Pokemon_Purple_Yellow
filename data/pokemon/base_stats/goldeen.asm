@@ -12,7 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: pre-evo horned river fish, backbone subset. auto
+	; WATER_PULSE/ICY_PULSE/AGILITY. bonus TAKE_DOWN/ICE_BEAM. HM SURF.
+	tmhm WATER_PULSE, ICY_PULSE, AGILITY, TAKE_DOWN, ICE_BEAM, \
+	     SURF
 	; end
 
 	db 0 ; padding

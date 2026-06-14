@@ -11,7 +11,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: protective canguru mother, Normal/Fighting bruiser
+	; with fists + tail. auto
+	; BIND/SEISMIC_TOSS/BODY_SLAM/BULK_UP/TAKE_DOWN/THRASH/STRENGTH.
+	; bonus IRON_TAIL/INTIMIDATE/EARTHQUAKE. HM STRENGTH. fun (4 via TM,
+	; regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BIND, SEISMIC_TOSS, BODY_SLAM, IRON_TAIL, BULK_UP, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, INTIMIDATE, \
+	     TAKE_DOWN, EARTHQUAKE, THRASH, STRENGTH
 	; end
 
 	db 0 ; padding

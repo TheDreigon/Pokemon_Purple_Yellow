@@ -12,7 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: mid-evo Water musculado. auto
+	; WATER_PULSE/BODY_SLAM/BULK_UP/SURF. bonus SEISMIC_TOSS/ICE_BEAM.
+	; HM SURF/STRENGTH.
+	tmhm WATER_PULSE, SEISMIC_TOSS, BODY_SLAM, BULK_UP, ICE_BEAM, \
+	     SURF, STRENGTH
 	; end
 
 	db 0 ; padding

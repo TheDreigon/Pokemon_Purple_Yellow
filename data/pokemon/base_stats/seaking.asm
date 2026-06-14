@@ -12,7 +12,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: apex horned river guardian. auto
+	; WATER_PULSE/ICY_PULSE/RAGE/AGILITY/MEGAHORN/ICE_BEAM/SURF. bonus
+	; BODY_SLAM/SCARY_FACE/TAKE_DOWN. HM SURF/STRENGTH. fun (4 via TM,
+	; regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm WATER_PULSE, ICY_PULSE, RAGE, BODY_SLAM, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, MEGAHORN, \
+	     SCARY_FACE, TAKE_DOWN, ICE_BEAM, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

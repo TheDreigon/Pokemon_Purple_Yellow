@@ -11,7 +11,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Haunter, handed sinister ghost, intermediate subset
+	; above Gastly. auto
+	; FAINT_ATTACK/NIGHT_SHADE/CONFUSE_RAY/TOXIC/EXTRASENSORY/INTIMIDATE/SCARY_FACE/DARK_PULSE/SHADOW_BALL.
+	; bonus POISON_FANG.
+	tmhm FAINT_ATTACK, NIGHT_SHADE, CONFUSE_RAY, POISON_FANG, TOXIC, \
+	     EXTRASENSORY, INTIMIDATE, SCARY_FACE, DARK_PULSE, SHADOW_BALL
 	; end
 
 	db 0 ; padding

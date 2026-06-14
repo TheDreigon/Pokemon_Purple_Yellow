@@ -11,7 +11,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: docile Water/Ice seal pre-evo. auto
+	; WATER_PULSE/ICY_PULSE/BODY_SLAM/FAKE_TEARS/CHARM/TAKE_DOWN/ICE_BEAM.
+	; HM SURF.
+	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, FAKE_TEARS, CHARM, \
+	     TAKE_DOWN, ICE_BEAM, SURF
 	; end
 
 	db 0 ; padding

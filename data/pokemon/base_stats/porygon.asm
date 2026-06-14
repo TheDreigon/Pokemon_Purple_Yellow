@@ -11,7 +11,13 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Porygon, single-stage digital construct (last). auto
+	; SHOCK_WAVE/THUNDER_WAVE/MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME/AGILITY/LIGHT_SCREEN/REFLECT/THUNDERBOLT/FLASH.
+	; bonus PSYCHIC_M. HM FLASH. fun (4 via TM, regra global last-stage
+	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
+	     THUNDERBOLT, FLASH
 	; end
 
 	db 0 ; padding

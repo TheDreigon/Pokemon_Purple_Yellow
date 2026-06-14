@@ -11,7 +11,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Water/Psychic gem-core star (pre-evo). auto
+	; QUICK_ATTACK/WATER_PULSE/DAZZLE_GLEAM/LIGHT_SCREEN/FLASH. bonus
+	; ICE_BEAM/REFLECT. HM SURF/FLASH.
+	tmhm QUICK_ATTACK, WATER_PULSE, DAZZLE_GLEAM, LIGHT_SCREEN, ICE_BEAM, \
+	     REFLECT, SURF, FLASH
 	; end
 
 	db 0 ; padding

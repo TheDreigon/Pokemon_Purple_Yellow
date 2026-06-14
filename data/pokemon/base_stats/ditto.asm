@@ -12,6 +12,9 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
+	; v0.7 Pass 3: Ditto. TRANSFORM only — sem TMs (Forte). A sua unica
+	; jogada e copiar; nao tem anatomia/gesto proprio para qualquer
+	; TM/HM.
 	tmhm
 	; end
 

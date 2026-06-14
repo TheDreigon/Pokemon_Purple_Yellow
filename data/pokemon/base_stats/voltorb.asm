@@ -11,7 +11,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: living Poke Ball, Electric/Steel sphere — no limbs or
+	; hands. auto
+	; SHOCK_WAVE/THUNDER_WAVE/LIGHT_SCREEN/THUNDERBOLT/FLASH. bonus
+	; IRON_HEAD. HM FLASH.
+	tmhm SHOCK_WAVE, THUNDER_WAVE, IRON_HEAD, LIGHT_SCREEN, THUNDERBOLT, \
+	     FLASH
 	; end
 
 	db 0 ; padding

@@ -11,7 +11,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm
+	; v0.7 Pass 3: Electric/Steel magnet pre-evo. auto
+	; BODY_SLAM/SHOCK_WAVE/THUNDER_WAVE/IRON_HEAD/THUNDERBOLT. bonus
+	; LIGHT_SCREEN/REFLECT.
+	tmhm BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, IRON_HEAD, LIGHT_SCREEN, \
+	     REFLECT, THUNDERBOLT
 	; end
 
 	db 0 ; padding
