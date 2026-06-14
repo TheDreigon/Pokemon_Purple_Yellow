@@ -11,16 +11,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: butterfly Bug/Psychic. HM02 Fly per Forte's HM-Fly list.
-	; HM05 Flash per Forte (powdery wing scales bright enough for cave
-	; illumination — fire-type rule extended to bright-bodied bugs).
-	; HURRICANE TM (also levelup-double). FAIRY_WIND, QUIVER_DANCE,
-	; WING_ATTACK levelup-only (not TMs in this hack). MIRROR_MOVE the only
-	; fun move that fits (per Forte — Bug/PSYCHIC typing literal, antennae
-	; psychic-mirror); the other 3 fun moves don't fit Butterfree.
-	tmhm MIRROR_MOVE,  LEECH_LIFE,   EXTRASENSORY, PSYCHIC_M,    LIGHT_SCREEN, \
-	     REFLECT,      HURRICANE,    FLY,          FLASH,        DAZZLE_GLEAM, \
-	     MIMIC,        SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: butterfly Bug/Psychic. auto
+	; HURRICANE/EXTRASENSORY/PSYCHIC_M/PETAL_DANCE. bonus
+	; DAZZLE_GLEAM/LIGHT_SCREEN/REFLECT. HM FLY/FLASH. fun (4 via TM,
+	; regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
+	     HURRICANE, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
+	     PETAL_DANCE, FLY, FLASH
 	; end
 
 	db 0 ; padding

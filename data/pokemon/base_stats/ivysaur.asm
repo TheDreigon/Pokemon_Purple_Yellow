@@ -12,14 +12,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: matured plant — superset of Bulbasaur. Bulky additions
-	; (Body Slam / Take Down stay shared / Double Edge — heavier frame),
-	; ground-shaking (Bulldoze / Earthquake — quadruped weight), Poison
-	; mature (Toxic — already Poison-type now), HM utility (Strength = push,
-	; Flash = bulb opening glow).
-	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, REFLECT, \
-	     CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE, \
-	     EARTHQUAKE,   STRENGTH,     FLASH
+	; v0.7 Pass 3: matured Grass/Poison — superset of Bulbasaur. auto
+	; GIGA_DRAIN/TOXIC/PETAL_DANCE. bonus
+	; BIND/BULLDOZE/BODY_SLAM/TAKE_DOWN/LIGHT_SCREEN/REFLECT/EARTHQUAKE/DOUBLE_EDGE.
+	; HM CUT/STRENGTH/FLASH.
+	tmhm BIND, BULLDOZE, BODY_SLAM, GIGA_DRAIN, TOXIC, \
+	     TAKE_DOWN, LIGHT_SCREEN, REFLECT, EARTHQUAKE, PETAL_DANCE, \
+	     DOUBLE_EDGE, CUT, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

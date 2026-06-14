@@ -12,11 +12,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: snake. Levelup-doubles for many. TOXIC TM per Forte #6.
-	; HM01 Cut (fangs cut). NO HM02 Fly (no wings, snake). IRON_TAIL TM per
-	; Forte (line gets IRON_TAIL via TM only — no longer levelup).
-	tmhm QUICK_ATTACK, SUBSTITUTE,   BIND,         POISON_FANG,  TOXIC, \
-	     AGILITY,      TAKE_DOWN,    FAINT_ATTACK, CUT,          IRON_TAIL
+	; v0.7 Pass 3: Poison snake (pre-evo backbone). auto
+	; QUICK_ATTACK/BIND/FAINT_ATTACK/SUBSTITUTE/AGILITY/POISON_FANG/TOXIC.
+	; bonus IRON_TAIL/TAKE_DOWN. HM CUT. fun (excecao pre-evo aprovada
+	; Forte) SUBSTITUTE.
+	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, IRON_TAIL, SUBSTITUTE, \
+	     AGILITY, POISON_FANG, TOXIC, TAKE_DOWN, CUT
 	; end
 
 	db 0 ; padding

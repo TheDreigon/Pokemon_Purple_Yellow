@@ -12,10 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): cordyceps-controlled bug. 3 TMs:
-	; LEECH_LIFE¹ (Parasect levelup; bug-drain), GIGA_DRAIN¹ (plant
-	; drain levelup), TOXIC (fungal toxins).
-	tmhm LEECH_LIFE,   GIGA_DRAIN,   TOXIC
+	; v0.7 Pass 3: bug cordyceps-controlado (Bug/Grass), pre-evo
+	; backbone curto. auto GIGA_DRAIN/LEECH_LIFE. bonus TOXIC.
+	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE
 	; end
 
 	db 0 ; padding

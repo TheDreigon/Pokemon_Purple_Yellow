@@ -12,13 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review #5): mid-stage male, mature. Inherits
-	; Nidoran♂'s 5 + 6 additions per Forte: BULK_UP/DOUBLE_EDGE/SWORDS_
-	; DANCE (training-tier — bulk muscular), SCARY_FACE (Forte #5 add),
-	; HONE_CLAWS (Forte #5 add), FAINT_ATTACK (Forte #5 add). NO ROCK_
-	; SLIDE (Forte #5 — Nidoking-only).
-	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN, \
-	     BULK_UP,      DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE,   FAINT_ATTACK
+	; v0.7 Pass 3: mid-stage mature male, learns aggression primitives.
+	; auto RAGE/BODY_SLAM/POISON_FANG/TAKE_DOWN. bonus
+	; QUICK_ATTACK/FAINT_ATTACK/BULK_UP/TOXIC/SCARY_FACE/DOUBLE_EDGE.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
+	     POISON_FANG, TOXIC, SCARY_FACE, TAKE_DOWN, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

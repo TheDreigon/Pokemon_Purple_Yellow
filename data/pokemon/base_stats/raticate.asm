@@ -11,12 +11,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: matured Normal/Dark rodent. Rattata's 9 + 3 apex
-	; additions: Bulk Up (warrior rat), Faint Attack (Dark levelup-double),
-	; Intimidate (matured rat presence).
-	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        DOUBLE_EDGE, \
-	     TAKE_DOWN,    AGILITY,      CUT,          BULK_UP,      FAINT_ATTACK, \
-	     INTIMIDATE,   MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: Normal/Dark matured rodent, physical bruiser. auto
+	; QUICK_ATTACK/FAINT_ATTACK/RAGE/BODY_SLAM/AGILITY/POISON_FANG/DOUBLE_EDGE/CUT.
+	; bonus BULK_UP/TOXIC/INTIMIDATE/TAKE_DOWN. HM CUT. fun (4 via TM,
+	; regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
+	     POISON_FANG, TOXIC, INTIMIDATE, TAKE_DOWN, DOUBLE_EDGE, \
+	     CUT
 	; end
 
 	db 0 ; padding

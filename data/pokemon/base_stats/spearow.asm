@@ -12,12 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: aggressive predator (honorary Dark/Flying). 8 TMs:
-	; standard bird kit + FAINT_ATTACK¹ (Dark — also levelup), HONE_CLAWS¹
-	; (sharpens beak/talons). NO HURRICANE TM either (no GUST progression
-	; per Forte — keeps line distinct from Pidgey).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   TAKE_DOWN,    DOUBLE_EDGE, \
-	     FLY,          CUT
+	; v0.7 Pass 3: aggressive bird-of-prey (honorary Dark/Flying),
+	; pre-evo backbone. auto QUICK_ATTACK/FAINT_ATTACK/AERIAL_ACE. bonus
+	; TAKE_DOWN/DOUBLE_EDGE. HM CUT/FLY.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, TAKE_DOWN, DOUBLE_EDGE, \
+	     CUT, FLY
 	; end
 
 	db 0 ; padding

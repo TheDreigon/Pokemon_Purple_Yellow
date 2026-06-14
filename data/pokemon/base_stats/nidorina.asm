@@ -12,11 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review F#2): mid-stage female. Inherits Nidoran♀'s
-	; 4 + 3 additions: HONE_CLAWS, FAINT_ATTACK (Forte F-old #8 — F-line
-	; Dark-coded), DOUBLE_EDGE (Forte F#2 — Nidorina+Nidoqueen). NO ROCK_
-	; SLIDE (Forte F-old #6 — Nidoqueen-only). Removed SCRATCH from L1.
-	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    FAINT_ATTACK, \
+	; v0.7 Pass 3: mid-stage female, growing chemical bruiser. auto
+	; BODY_SLAM/POISON_FANG/TOXIC/TAKE_DOWN. bonus
+	; FAINT_ATTACK/DOUBLE_EDGE.
+	tmhm FAINT_ATTACK, BODY_SLAM, POISON_FANG, TOXIC, TAKE_DOWN, \
 	     DOUBLE_EDGE
 	; end
 

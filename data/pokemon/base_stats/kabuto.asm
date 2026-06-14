@@ -11,8 +11,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm BODY_SLAM,    ICE_BEAM,     ICY_PULSE,    LEECH_LIFE,   ROCK_THROW, \
-	     TAKE_DOWN,    WATER_PULSE
+	; v0.7 Pass 3: armored trilobite-crab fossil (Rock/Bug here),
+	; aquatic pre-evo backbone. auto
+	; ROCK_THROW/ICY_PULSE/LEECH_LIFE/CUT. bonus
+	; WATER_PULSE/BODY_SLAM/TAKE_DOWN/ICE_BEAM. HM CUT.
+	tmhm ROCK_THROW, WATER_PULSE, ICY_PULSE, BODY_SLAM, LEECH_LIFE, \
+	     TAKE_DOWN, ICE_BEAM, CUT
 	; end
 
 	db 0 ; padding

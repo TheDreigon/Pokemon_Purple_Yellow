@@ -11,14 +11,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): apex Rafflesia bloom — powder warfare
-	; specialist. Gloom's 3 + 6 Vileplume additions: BODY_SLAM (mass —
-	; not in levelup but anatomical), LEECH_LIFE¹ (insect drain levelup),
-	; TAKE_DOWN, DOUBLE_EDGE (apex slams), DOUBLE_TEAM (powder cloud
-	; cover), EXTRASENSORY (Forte add).
-	tmhm GIGA_DRAIN,   TOXIC,        BODY_SLAM,    LEECH_LIFE,   TAKE_DOWN, \
-	     DOUBLE_EDGE,  EXTRASENSORY, MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
-	     METRONOME
+	; v0.7 Pass 3: apex Rafflesia bloom (Grass/Fungus) — powder warfare
+	; and dark-spore specialist. auto
+	; TOXIC/LEECH_LIFE/DARK_PULSE/PETAL_DANCE. bonus
+	; BODY_SLAM/GIGA_DRAIN/EXTRASENSORY/TAKE_DOWN/DOUBLE_EDGE. fun (4
+	; via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     GIGA_DRAIN, TOXIC, EXTRASENSORY, LEECH_LIFE, TAKE_DOWN, \
+	     DARK_PULSE, PETAL_DANCE, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

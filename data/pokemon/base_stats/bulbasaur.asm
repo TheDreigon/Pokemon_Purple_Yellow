@@ -11,14 +11,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pure Grass baby. Signature Grass damage (Giga Drain,
-	; Solarbeam), vine-coded utility (Bind for trap, Cut for leaf-cutting),
-	; bulky basics (Take Down), defensive plant screens (Light Screen,
-	; Reflect — leaf canopy framing). NO fun moves (per Forte's revised
-	; rule — Mimic/Mirror Move/Substitute/Metronome are anatomy/lore-gated,
-	; not universal; plants don't fit any of the four).
-	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, REFLECT, \
-	     CUT
+	; v0.7 Pass 3: pure Grass baby. auto GIGA_DRAIN/PETAL_DANCE. bonus
+	; BIND/TAKE_DOWN/LIGHT_SCREEN/REFLECT. HM CUT.
+	tmhm BIND, GIGA_DRAIN, TAKE_DOWN, LIGHT_SCREEN, REFLECT, \
+	     PETAL_DANCE, CUT
 	; end
 
 	db 0 ; padding

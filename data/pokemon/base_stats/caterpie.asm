@@ -12,10 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: joke-tier baby caterpillar. Almost can't fight; minimal
-	; kit reflects that. STRING_SHOT moved to L7 levelup (1 before evo) per
-	; Forte. NO fun moves (per Forte's revised rule — Caterpie too small/
-	; primitive even for silk-substitute, which only Metapod gets).
+	; v0.7 Pass 3: joke-tier baby caterpillar, almost cannot fight.
+	; bonus LEECH_LIFE.
 	tmhm LEECH_LIFE
 	; end
 

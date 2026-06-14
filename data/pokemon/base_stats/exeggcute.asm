@@ -12,7 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm DARK_PULSE,   DOUBLE_EDGE,  PETAL_DANCE,  PSYCHIC_M,    TAKE_DOWN
+	; v0.7 Pass 3: cacho de ovos Grass/Psychic imovel, backbone curto.
+	; auto PSYCHIC_M/DARK_PULSE/PETAL_DANCE.
+	tmhm PSYCHIC_M, DARK_PULSE, PETAL_DANCE
 	; end
 
 	db 0 ; padding

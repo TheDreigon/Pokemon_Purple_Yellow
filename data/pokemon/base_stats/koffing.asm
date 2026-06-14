@@ -11,7 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, LIGHT_SCREEN, NIGHT_SHADE,  TOXIC
+	; v0.7 Pass 3: pre-evo gas balloon Poison/Gas. auto
+	; NIGHT_SHADE/TOXIC/LIGHT_SCREEN/FLAMETHROWER.
+	tmhm NIGHT_SHADE, TOXIC, LIGHT_SCREEN, FLAMETHROWER
 	; end
 
 	db 0 ; padding

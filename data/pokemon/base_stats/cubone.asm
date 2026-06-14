@@ -12,9 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm ROCK_THROW,   BULLDOZE,     RAGE,         BODY_SLAM,    BULK_UP, \
-	     FAINT_ATTACK, CHARM,        TAKE_DOWN,    SWORDS_DANCE, ROCK_SLIDE, \
-	     DOUBLE_EDGE
+	; v0.7 Pass 3: Cubone, baby ground bone-wielder solitario. auto
+	; FAINT_ATTACK/BULLDOZE/RAGE/BULK_UP/DOUBLE_EDGE. bonus
+	; ROCK_THROW/BODY_SLAM/CHARM/TAKE_DOWN/ROCK_SLIDE.
+	tmhm ROCK_THROW, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
+	     BULK_UP, CHARM, TAKE_DOWN, ROCK_SLIDE, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

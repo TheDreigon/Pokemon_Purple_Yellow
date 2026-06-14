@@ -11,9 +11,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm BODY_SLAM,    CALM_MIND,    CHARM,        DAZZLE_GLEAM, EXTRASENSORY, \
-	     FAKE_TEARS,   LIGHT_SCREEN, METRONOME,    MIMIC,        PSYCHIC_M, \
-	     REFLECT
+	; v0.7 Pass 3: mystical moon-fairy pre-evo. auto
+	; MIMIC/METRONOME/DAZZLE_GLEAM/CHARM/LIGHT_SCREEN/REFLECT/CALM_MIND.
+	; bonus BODY_SLAM/FAKE_TEARS/EXTRASENSORY/PSYCHIC_M. fun (excecao
+	; pre-evo aprovada Forte) MIMIC/METRONOME.
+	tmhm BODY_SLAM, MIMIC, METRONOME, DAZZLE_GLEAM, FAKE_TEARS, \
+	     CHARM, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
+	     CALM_MIND
 	; end
 
 	db 0 ; padding

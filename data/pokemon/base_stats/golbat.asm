@@ -12,13 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: matured vampire bat. Zubat's 7 + 4 apex additions:
-	; Hurricane TM (per Forte #16 — TM only, NOT levelup), Giga Drain TM
-	; (per Forte #17 — vampire-bat mass-drain via fangs), Intimidate (big
-	; bat scary), HM02 Fly (Forte's natural list — Golbat only).
-	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC, \
-	     AGILITY,      CUT,          GIGA_DRAIN,   HURRICANE,    INTIMIDATE, \
-	     FLY,          MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: matured vampire bat (last-stage). auto
+	; QUICK_ATTACK/AGILITY/POISON_FANG/AERIAL_ACE/TOXIC/LEECH_LIFE/DARK_PULSE/FLY.
+	; bonus GIGA_DRAIN/HURRICANE/INTIMIDATE. HM CUT/FLY. fun (4 via TM,
+	; regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     GIGA_DRAIN, AGILITY, POISON_FANG, AERIAL_ACE, HURRICANE, \
+	     TOXIC, INTIMIDATE, LEECH_LIFE, DARK_PULSE, CUT, \
+	     FLY
 	; end
 
 	db 0 ; padding

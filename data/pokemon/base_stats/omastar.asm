@@ -12,10 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm BIND,         BODY_SLAM,    DOUBLE_EDGE,  ICE_BEAM,     ICY_PULSE, \
-	     IRON_HEAD,    ROCK_SLIDE,   ROCK_THROW,   TAKE_DOWN,    WATER_PULSE, \
-	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME,    STRENGTH, \
-	     SURF
+	; v0.7 Pass 3: apex spiral-shell ammonite Water/Rock. auto
+	; ROCK_THROW/BIND/WATER_PULSE/ICY_PULSE/IRON_HEAD/ICE_BEAM. bonus
+	; BODY_SLAM/TAKE_DOWN/ROCK_SLIDE/DOUBLE_EDGE. HM SURF/STRENGTH. fun
+	; (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
+	     TAKE_DOWN, ICE_BEAM, ROCK_SLIDE, DOUBLE_EDGE, SURF, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

@@ -12,15 +12,16 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): apex rhinoceros. Rhyhorn's 8 + 4
-	; Rhydon additions (per Forte's via-TM lists): SCARY_FACE (apex
-	; intimidating presence), INTIMIDATE¹ (matches levelup-tier presence),
-	; SWORDS_DANCE (Forte's filter: aggressive+iniciativa charger),
-	; IRON_TAIL (Forte explicit add).
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_HEAD,    DOUBLE_EDGE, \
-	     TAKE_DOWN,    EARTHQUAKE,   STRENGTH,     SCARY_FACE,   INTIMIDATE, \
-	     SWORDS_DANCE, IRON_TAIL,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
-	     METRONOME
+	; v0.7 Pass 3: apex rhinoceros (Ground/Rock) bruiser. auto
+	; BULLDOZE/RAGE/BODY_SLAM/IRON_HEAD/TAKE_DOWN/EARTHQUAKE/THRASH/STRENGTH.
+	; bonus
+	; ROCK_THROW/IRON_TAIL/MEGAHORN/INTIMIDATE/SCARY_FACE/SWORDS_DANCE/DOUBLE_EDGE.
+	; HM STRENGTH. fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, BULLDOZE, RAGE, BODY_SLAM, IRON_TAIL, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
+	     MEGAHORN, INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, \
+	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH
 	; end
 
 	db 0 ; padding

@@ -12,17 +12,19 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review #5): apex predator male. Inherits Nidorino's
-	; 11 + 9 apex additions: ROCK_THROW (poison/ground rock-thrower),
-	; MEGAHORN¹ (Forte #9 — TM only after THRASH swap), INTIMIDATE (apex
-	; presence), EARTHQUAKE¹/OUTRAGE¹ (capstone TMs matching levelup),
-	; ROCK_SLIDE (Forte #5 add — Nidoking-only), BIND (Forte #5 add),
-	; HM01 CUT (horn), HM04 STRENGTH¹.
-	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN, \
-	     BULK_UP,      DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE,   FAINT_ATTACK, \
-	     ROCK_THROW,   MEGAHORN,     INTIMIDATE,   EARTHQUAKE,   OUTRAGE, \
-	     ROCK_SLIDE,   BIND,         CUT,          STRENGTH,     MIMIC, \
-	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: apex predator male Poison/Ground bruiser, full kit.
+	; auto
+	; BULLDOZE/RAGE/BODY_SLAM/POISON_FANG/MEGAHORN/TAKE_DOWN/EARTHQUAKE/THRASH/OUTRAGE/STRENGTH.
+	; bonus
+	; ROCK_THROW/QUICK_ATTACK/BIND/FAINT_ATTACK/BULK_UP/TOXIC/INTIMIDATE/SCARY_FACE/SWORDS_DANCE/ROCK_SLIDE/DOUBLE_EDGE.
+	; HM CUT/STRENGTH. fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, QUICK_ATTACK, BIND, FAINT_ATTACK, BULLDOZE, \
+	     RAGE, BODY_SLAM, BULK_UP, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, POISON_FANG, MEGAHORN, TOXIC, \
+	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, EARTHQUAKE, \
+	     ROCK_SLIDE, DOUBLE_EDGE, THRASH, OUTRAGE, CUT, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

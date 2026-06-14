@@ -12,15 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte's favorite): 11 warrior-bee additions. Outrage TM
-	; per Forte. Levelup-doubles for Leech Life, Hone Claws, Agility, Quick
-	; Attack, Aerial Ace, Intimidate, Double Edge. HM02 Fly per Forte's
-	; HM-Fly list. Drill Peck and Extreme Speed levelup-only (no TMs in
-	; this hack). NO fun moves (per Forte's revised rule — bee not a
-	; mind-mimic, no silk-decoy capability after metamorphosis, not magical).
-	tmhm LEECH_LIFE,   AGILITY,      TOXIC,        DOUBLE_EDGE,  TAKE_DOWN, \
-	     AERIAL_ACE,   INTIMIDATE,   QUICK_ATTACK, OUTRAGE,      FLY, \
-	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: warrior drill-bee, deepest movepool of the line. auto
+	; QUICK_ATTACK/RAGE/AGILITY/AERIAL_ACE/INTIMIDATE/DOUBLE_EDGE. bonus
+	; POISON_FANG/TOXIC/LEECH_LIFE/TAKE_DOWN/OUTRAGE. HM FLY. fun (4 via
+	; TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, RAGE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, POISON_FANG, AERIAL_ACE, TOXIC, \
+	     INTIMIDATE, LEECH_LIFE, TAKE_DOWN, DOUBLE_EDGE, OUTRAGE, \
+	     FLY
 	; end
 
 	db 0 ; padding

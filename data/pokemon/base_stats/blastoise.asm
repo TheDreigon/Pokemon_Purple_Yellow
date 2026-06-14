@@ -12,15 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: full water tank. Wartortle's 16 + 5 cannon/massive-tier:
-	; Intimidate (massive presence), Ice Beam (cold cannon — supercooled
-	; water spray; modern canon stretch), Earthquake (levelup-double, only
-	; truly massive turtle), Hydro Pump (levelup-double, signature cannon),
-	; Blizzard (peak cold).
-	tmhm WATER_PULSE,  BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  LIGHT_SCREEN, \
-	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP, \
-	     STRENGTH,     INTIMIDATE,   ICE_BEAM,     EARTHQUAKE,   IRON_HEAD, \
-	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: full water-tank apex. auto
+	; WATER_PULSE/BODY_SLAM/ICE_BEAM/SURF. bonus
+	; BULLDOZE/BULK_UP/IRON_HEAD/INTIMIDATE/TAKE_DOWN/LIGHT_SCREEN/REFLECT/EARTHQUAKE/DOUBLE_EDGE.
+	; HM CUT/SURF/STRENGTH. fun (4 via TM, regra global last-stage
+	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BULLDOZE, WATER_PULSE, BODY_SLAM, BULK_UP, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, INTIMIDATE, \
+	     TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, EARTHQUAKE, \
+	     DOUBLE_EDGE, CUT, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

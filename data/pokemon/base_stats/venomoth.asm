@@ -12,12 +12,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: full moth. Venonat's 5 + 3 wing additions: Aerial Ace
-	; (levelup-double), HM02 Fly (Forte's HM-Fly list), Reflect. No fun
-	; moves (same logic as Venonat).
-	tmhm LEECH_LIFE,   TOXIC,        EXTRASENSORY, PSYCHIC_M,    LIGHT_SCREEN, \
-	     AERIAL_ACE,   REFLECT,      FLY,          MIMIC,        MIRROR_MOVE, \
-	     SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: full psychic moth, Bug/Poison flyer. auto
+	; NIGHT_SHADE/TOXIC/LEECH_LIFE/PSYCHIC_M. bonus
+	; CONFUSE_RAY/AERIAL_ACE/EXTRASENSORY/LIGHT_SCREEN/REFLECT. HM FLY.
+	; fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm NIGHT_SHADE, CONFUSE_RAY, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AERIAL_ACE, TOXIC, EXTRASENSORY, LEECH_LIFE, \
+	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, FLY
 	; end
 
 	db 0 ; padding

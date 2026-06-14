@@ -12,11 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: small bat. Levelup-doubles for several. TOXIC TM per
-	; Forte #6. NO FLY (Forte: Golbat-only natural — small wings can't
-	; carry rider).
-	tmhm QUICK_ATTACK, LEECH_LIFE,   POISON_FANG,  AERIAL_ACE,   TOXIC, \
-	     AGILITY,      CUT
+	; v0.7 Pass 3: small vampire bat (pre-evo backbone). auto
+	; QUICK_ATTACK/AGILITY/POISON_FANG/AERIAL_ACE/LEECH_LIFE/FLY. bonus
+	; TOXIC. HM CUT/FLY.
+	tmhm QUICK_ATTACK, AGILITY, POISON_FANG, AERIAL_ACE, TOXIC, \
+	     LEECH_LIFE, CUT, FLY
 	; end
 
 	db 0 ; padding

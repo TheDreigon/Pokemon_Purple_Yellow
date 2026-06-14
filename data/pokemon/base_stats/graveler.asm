@@ -12,11 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): mid-stage. Geodude's 4 + 5 mid-evo
-	; additions matching levelup: TAKE_DOWN¹, EARTHQUAKE¹, IRON_HEAD¹,
-	; ROCK_SLIDE¹ (post-HEAD_SMASH), DOUBLE_EDGE¹ (apex recoil).
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    STRENGTH,     TAKE_DOWN, \
-	     EARTHQUAKE,   IRON_HEAD,    ROCK_SLIDE,   DOUBLE_EDGE
+	; v0.7 Pass 3: mid-stage rolling rock (Rock/Ground). auto
+	; ROCK_THROW/BULLDOZE/BODY_SLAM/IRON_HEAD/TAKE_DOWN/EARTHQUAKE/ROCK_SLIDE/DOUBLE_EDGE/STRENGTH.
+	; HM STRENGTH.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, IRON_HEAD, TAKE_DOWN, \
+	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

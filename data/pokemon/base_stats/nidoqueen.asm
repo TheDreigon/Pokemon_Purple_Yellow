@@ -12,16 +12,17 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review F#2): matriarch, fairy + ground apex.
-	; Inherits Nidorina's 7 + 9 queen additions: BULK_UP/SWORDS_DANCE/
-	; CALM_MIND (training), FAKE_TEARS (queen emotional weapon), INTIMIDATE
-	; (apex presence), ROCK_SLIDE (Forte F-old — Nidoqueen-only), EARTH-
-	; QUAKE¹ (matches levelup), HM01 CUT (royal claws), HM04 STRENGTH¹.
-	; Egg moves: CHARM/HEADBUTT/TOXIC_FANGS/SAND_ATTACK per Forte F#3.
-	tmhm BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN,    FAINT_ATTACK, \
-	     DOUBLE_EDGE,  BULK_UP,      FAKE_TEARS,   INTIMIDATE,   ROCK_SLIDE, \
-	     SWORDS_DANCE, CALM_MIND,    EARTHQUAKE,   CUT,          STRENGTH, \
-	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: matriarch, fairy-tinged Poison/Ground apex. auto
+	; BULLDOZE/BODY_SLAM/POISON_FANG/CHARM/TOXIC/TAKE_DOWN/STRENGTH.
+	; bonus
+	; FAINT_ATTACK/BULK_UP/DAZZLE_GLEAM/FAKE_TEARS/INTIMIDATE/SWORDS_DANCE/CALM_MIND/EARTHQUAKE/ROCK_SLIDE/DOUBLE_EDGE.
+	; HM CUT/STRENGTH. fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm FAINT_ATTACK, BULLDOZE, BODY_SLAM, BULK_UP, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, POISON_FANG, \
+	     FAKE_TEARS, CHARM, TOXIC, INTIMIDATE, TAKE_DOWN, \
+	     SWORDS_DANCE, CALM_MIND, EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, \
+	     CUT, STRENGTH
 	; end
 
 	db 0 ; padding

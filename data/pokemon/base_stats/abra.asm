@@ -12,6 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
+	; v0.7 Pass 3: baby psychic minimalista (canon Abra-so-Teleport).
+	; auto CALM_MIND.
 	tmhm CALM_MIND
 	; end
 

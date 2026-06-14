@@ -11,9 +11,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm BIND,         BULLDOZE,     BODY_SLAM,    CONFUSE_RAY,  TOXIC, \
-	     LEECH_LIFE,   TAKE_DOWN,    DOUBLE_EDGE,  SHADOW_BALL,  MIMIC, \
-	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: Lickitung Normal/Poison single-stage, reptil bulky de
+	; lingua enorme. auto BIND/SEISMIC_TOSS/BODY_SLAM/TOXIC/DOUBLE_EDGE.
+	; bonus BULLDOZE/CONFUSE_RAY/LEECH_LIFE/TAKE_DOWN. HM STRENGTH. fun
+	; (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BIND, BULLDOZE, SEISMIC_TOSS, BODY_SLAM, CONFUSE_RAY, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, TOXIC, \
+	     LEECH_LIFE, TAKE_DOWN, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

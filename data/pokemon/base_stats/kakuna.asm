@@ -12,9 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cocoon. Only SUBSTITUTE (per Forte — silk-spinner cocoon
-	; can weave a fake stand-in decoy). The other 3 fun moves don't fit;
-	; Weedle baby doesn't get SUBSTITUTE either (too primitive).
+	; v0.7 Pass 3: silk cocoon, dormant pre-evo. fun (excecao pre-evo
+	; aprovada Forte) SUBSTITUTE.
 	tmhm SUBSTITUTE
 	; end
 

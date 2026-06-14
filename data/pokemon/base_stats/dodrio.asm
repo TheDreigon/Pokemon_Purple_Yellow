@@ -12,12 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: 3-headed ratite. Doduo's 8 + 1 apex addition: INTIMIDATE
-	; (3 heads, scary). NO EARTHQUAKE per Forte (bird isn't heavy enough
-	; despite massive legs).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,     AGILITY,      TAKE_DOWN, \
-	     DOUBLE_EDGE,  CUT,          STRENGTH,     INTIMIDATE,   BODY_SLAM, \
-	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: ratite de 3 cabecas, last-stage e apex da linha. auto
+	; QUICK_ATTACK/FAINT_ATTACK/RAGE/AGILITY/TAKE_DOWN/DOUBLE_EDGE/THRASH.
+	; bonus BULLDOZE/BODY_SLAM/INTIMIDATE. HM CUT/STRENGTH. fun (4 via
+	; TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
+	     INTIMIDATE, TAKE_DOWN, DOUBLE_EDGE, THRASH, CUT, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

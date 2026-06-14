@@ -12,10 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): basic rolling rock. 4 TMs. Conservative
-	; — Geodude small, doesn't get apex-tier TMs (those go Graveler+Golem).
-	; HM04 STRENGTH per Forte's natural list (Geodude-line included).
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    STRENGTH
+	; v0.7 Pass 3: basic rolling rock with arms (Rock/Ground). auto
+	; ROCK_THROW/BULLDOZE/BODY_SLAM. HM STRENGTH.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH
 	; end
 
 	db 0 ; padding

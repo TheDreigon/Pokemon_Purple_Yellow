@@ -12,15 +12,17 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: dragon apex. Charmeleon's 20 + 6 dragon/wing/warrior:
-	; Aerial Ace + Hurricane (levelup-doubles), Intimidate (massive presence),
-	; Swords Dance (warrior peak), Earthquake (heavy descent stomp), HM Fly
-	; (in levelup too — Forte's natural-FLY learner).
-	tmhm QUICK_ATTACK, TAKE_DOWN,    DRAGON_CLAW,  IGNITE,       FLAMETHROWER, \
-	     OUTRAGE,      CUT,          FLASH,        BODY_SLAM,    BULK_UP, \
-	     DOUBLE_EDGE,  STRENGTH,     AERIAL_ACE,   HURRICANE,    INTIMIDATE, \
-	     SWORDS_DANCE, EARTHQUAKE,   FLY,          ROCK_THROW,   MIMIC, \
-	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: dragon apex voador. auto
+	; FLAME_BURST/IGNITE/AERIAL_ACE/HURRICANE/DRAGON_CLAW/FLAMETHROWER/FLY.
+	; bonus
+	; ROCK_THROW/QUICK_ATTACK/BODY_SLAM/BULK_UP/INTIMIDATE/TAKE_DOWN/SWORDS_DANCE/EARTHQUAKE/DOUBLE_EDGE/OUTRAGE.
+	; HM CUT/FLY/STRENGTH/FLASH. fun (4 via TM, regra global last-stage
+	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, QUICK_ATTACK, BODY_SLAM, FLAME_BURST, IGNITE, \
+	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     AERIAL_ACE, HURRICANE, DRAGON_CLAW, INTIMIDATE, TAKE_DOWN, \
+	     FLAMETHROWER, SWORDS_DANCE, EARTHQUAKE, DOUBLE_EDGE, OUTRAGE, \
+	     CUT, FLY, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

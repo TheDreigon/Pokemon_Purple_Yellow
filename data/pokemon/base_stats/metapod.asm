@@ -12,11 +12,9 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cocoon. Caterpie's kit + SUBSTITUTE (per Forte — silk-
-	; spinner cocoon can weave a fake stand-in decoy). The other 3 fun
-	; moves don't fit; Caterpie also doesn't get SUBSTITUTE (too small/
-	; primitive).
-	tmhm LEECH_LIFE,   SUBSTITUTE
+	; v0.7 Pass 3: cocoon. bonus LEECH_LIFE. fun (excecao pre-evo
+	; aprovada Forte) SUBSTITUTE.
+	tmhm SUBSTITUTE, LEECH_LIFE
 	; end
 
 	db 0 ; padding

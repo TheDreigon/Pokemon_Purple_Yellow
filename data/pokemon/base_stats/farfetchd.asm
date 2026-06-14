@@ -11,10 +11,16 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm ROCK_THROW,   QUICK_ATTACK, BIND,         FAINT_ATTACK, BODY_SLAM, \
-	     AGILITY,      AERIAL_ACE,   TAKE_DOWN,    SWORDS_DANCE, PETAL_DANCE, \
-	     DOUBLE_EDGE,  MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME, \
-	     CUT,          FLY,          STRENGTH
+	; v0.7 Pass 3: pato-samurai Fighting/Flying com alho-lamina (slash +
+	; recklessness fisica). auto
+	; QUICK_ATTACK/FAINT_ATTACK/AGILITY/SWORDS_DANCE/PETAL_DANCE/CUT.
+	; bonus BODY_SLAM/BULK_UP/AERIAL_ACE/TAKE_DOWN/DOUBLE_EDGE. HM
+	; CUT/FLY/STRENGTH. fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, BULK_UP, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, AERIAL_ACE, \
+	     TAKE_DOWN, SWORDS_DANCE, PETAL_DANCE, DOUBLE_EDGE, CUT, \
+	     FLY, STRENGTH
 	; end
 
 	db 0 ; padding

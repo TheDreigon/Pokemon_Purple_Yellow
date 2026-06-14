@@ -12,7 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm AGILITY,      ICE_BEAM,     LEECH_LIFE,   WATER_PULSE
+	; v0.7 Pass 3: basic Water/Poison jellyfish (pre-evo backbone). auto
+	; BIND/WATER_PULSE/SURF. bonus AGILITY/LEECH_LIFE/ICE_BEAM. HM SURF.
+	tmhm BIND, WATER_PULSE, AGILITY, LEECH_LIFE, ICE_BEAM, \
+	     SURF
 	; end
 
 	db 0 ; padding

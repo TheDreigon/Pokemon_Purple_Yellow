@@ -12,13 +12,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: warrior teen. Charmander's 15 + 5 bulkier additions:
-	; Double Team (more agile), Body Slam (bigger frame), Bulk Up (warrior
-	; buff), Double Edge (heavy charge with recoil), HM Strength (push
-	; heavy). No Agility — Char-line not on Forte's natural-or-TM list.
-	tmhm QUICK_ATTACK, TAKE_DOWN,    DRAGON_CLAW,  IGNITE,       FLAMETHROWER, \
-	     OUTRAGE,      CUT,          FLASH,        BODY_SLAM,    BULK_UP, \
-	     DOUBLE_EDGE,  STRENGTH,     ROCK_THROW
+	; v0.7 Pass 3: warrior teen. auto
+	; FLAME_BURST/IGNITE/DRAGON_CLAW/FLAMETHROWER. bonus
+	; ROCK_THROW/QUICK_ATTACK/BODY_SLAM/BULK_UP/TAKE_DOWN/DOUBLE_EDGE/OUTRAGE.
+	; HM CUT/STRENGTH/FLASH.
+	tmhm ROCK_THROW, QUICK_ATTACK, BODY_SLAM, FLAME_BURST, IGNITE, \
+	     BULK_UP, DRAGON_CLAW, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE, \
+	     OUTRAGE, CUT, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

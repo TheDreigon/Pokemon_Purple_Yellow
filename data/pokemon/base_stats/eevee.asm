@@ -12,10 +12,11 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cute fox base. AGILITY TM per Forte's TM-agility list
-	; (Eevee included). FAKE_TEARS TM per Forte #11. NO TAKE_DOWN per Forte
-	; #10 (only Eevee loses; the 3 evolutions keep). NO fun moves.
-	tmhm QUICK_ATTACK, BODY_SLAM,    DOUBLE_EDGE,  AGILITY,      FAKE_TEARS
+	; v0.7 Pass 3: cute Normal fox base, backbone-only. auto
+	; QUICK_ATTACK/BODY_SLAM/CHARM/DOUBLE_EDGE. bonus
+	; AGILITY/FAKE_TEARS.
+	tmhm QUICK_ATTACK, BODY_SLAM, AGILITY, FAKE_TEARS, CHARM, \
+	     DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

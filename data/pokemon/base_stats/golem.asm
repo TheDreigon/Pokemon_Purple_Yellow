@@ -12,12 +12,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): apex turtle-shell rock. Graveler's 9 +
-	; 1 Golem-only addition (per Forte's via-TM list): SCARY_FACE
-	; (massive rock-shell intimidating).
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    STRENGTH,     TAKE_DOWN, \
-	     EARTHQUAKE,   IRON_HEAD,    ROCK_SLIDE,   DOUBLE_EDGE,  SCARY_FACE, \
-	     MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: apex turtle-shell rock (Rock/Ground). auto
+	; ROCK_THROW/BULLDOZE/BODY_SLAM/IRON_HEAD/TAKE_DOWN/EARTHQUAKE/ROCK_SLIDE/DOUBLE_EDGE/STRENGTH.
+	; bonus SCARY_FACE. HM STRENGTH. fun (4 via TM, regra global
+	; last-stage Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, IRON_HEAD, SCARY_FACE, TAKE_DOWN, \
+	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

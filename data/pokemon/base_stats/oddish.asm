@@ -12,10 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): basic radish/turnip plant. 3 TMs:
-	; GIGA_DRAIN (drain plant), TOXIC¹ (Gloom-tier levelup; Oddish has
-	; TM access), SOLARBEAM (plant TM apex).
-	tmhm GIGA_DRAIN,   TOXIC
+	; v0.7 Pass 3: basic radish/turnip plant (Grass/Poison). auto
+	; PETAL_DANCE. bonus GIGA_DRAIN/TOXIC.
+	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 
 	db 0 ; padding

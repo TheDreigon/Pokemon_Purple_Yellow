@@ -12,11 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: rodent. Levelup-doubles for Quick Attack, Body Slam,
-	; Hone Claws, Poison Fang, Agility, Double Edge, Cut. TOXIC TM per
-	; Forte #6 (rats carry disease).
-	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        DOUBLE_EDGE, \
-	     TAKE_DOWN,    AGILITY,      CUT
+	; v0.7 Pass 3: Normal rodent, sharp-fanged pre-evo. auto
+	; QUICK_ATTACK/FAINT_ATTACK/RAGE/BODY_SLAM/AGILITY/POISON_FANG/DOUBLE_EDGE/CUT.
+	; bonus TOXIC/TAKE_DOWN. HM CUT.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, AGILITY, \
+	     POISON_FANG, TOXIC, TAKE_DOWN, DOUBLE_EDGE, CUT
 	; end
 
 	db 0 ; padding

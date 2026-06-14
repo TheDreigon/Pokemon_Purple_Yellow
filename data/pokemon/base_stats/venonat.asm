@@ -12,12 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pre-moth Bug/Poison. Leech Life + Toxic (levelup-doubles),
-	; Extrasensory, Psychic_M (levelup-double), Light Screen. No FLY (no
-	; wings — Venomoth-only). No powder TMs (Venomoth-exclusive per Forte).
-	; NO fun moves (per Forte's revised rule — Bug/Poison typing not
-	; psychic-coded enough for Mimic/Mirror Move; not magical, not decoy).
-	tmhm LEECH_LIFE,   TOXIC,        EXTRASENSORY, PSYCHIC_M,    LIGHT_SCREEN
+	; v0.7 Pass 3: pre-moth fuzzy Bug/Poison drainer. auto
+	; TOXIC/LEECH_LIFE/PSYCHIC_M. bonus EXTRASENSORY/LIGHT_SCREEN.
+	tmhm TOXIC, EXTRASENSORY, LEECH_LIFE, PSYCHIC_M, LIGHT_SCREEN
 	; end
 
 	db 0 ; padding

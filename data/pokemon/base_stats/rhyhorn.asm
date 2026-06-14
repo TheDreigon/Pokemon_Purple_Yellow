@@ -12,11 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): rhinoceros charger. 8 TMs. ROCK_THROW
-	; (rock-type basic), DOUBLE_EDGE (recoil charge — rhino canonical),
-	; IRON_HEAD¹ (shared L46). HM04 STRENGTH per Forte's list.
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_HEAD,    DOUBLE_EDGE, \
-	     TAKE_DOWN,    EARTHQUAKE,   STRENGTH
+	; v0.7 Pass 3: pre-evo rhinoceros charger (Ground/Rock). auto
+	; BULLDOZE/RAGE/BODY_SLAM/IRON_HEAD/MEGAHORN/TAKE_DOWN. bonus
+	; ROCK_THROW/EARTHQUAKE/DOUBLE_EDGE. HM STRENGTH.
+	tmhm ROCK_THROW, BULLDOZE, RAGE, BODY_SLAM, IRON_HEAD, \
+	     MEGAHORN, TAKE_DOWN, EARTHQUAKE, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

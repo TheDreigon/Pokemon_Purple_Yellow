@@ -12,10 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: medium hawk. Pidgey's 5 + 3 grown-talon additions:
-	; HONE_CLAWS (also levelup), TAKE_DOWN, HM01 CUT (sharper beak/talons).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   HURRICANE,    FLY, \
-	     TAKE_DOWN,    CUT,          BODY_SLAM
+	; v0.7 Pass 3: hawk de tamanho medio. auto
+	; QUICK_ATTACK/AERIAL_ACE/HURRICANE/FLY. bonus BODY_SLAM. HM
+	; CUT/FLY.
+	tmhm QUICK_ATTACK, BODY_SLAM, AERIAL_ACE, HURRICANE, CUT, \
+	     FLY
 	; end
 
 	db 0 ; padding

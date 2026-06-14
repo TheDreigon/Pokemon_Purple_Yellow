@@ -12,9 +12,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm BODY_SLAM,    DARK_PULSE,   DOUBLE_EDGE,  EARTHQUAKE,   PETAL_DANCE, \
-	     PSYCHIC_M,    TAKE_DOWN,    MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
-	     METRONOME
+	; v0.7 Pass 3: apex egg-tree Grass/Psychic, arvore pesada. auto
+	; BODY_SLAM/PSYCHIC_M/DARK_PULSE/PETAL_DANCE/DOUBLE_EDGE. bonus
+	; TAKE_DOWN/EARTHQUAKE. fun (4 via TM, regra global last-stage
+	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     TAKE_DOWN, PSYCHIC_M, DARK_PULSE, EARTHQUAKE, PETAL_DANCE, \
+	     DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

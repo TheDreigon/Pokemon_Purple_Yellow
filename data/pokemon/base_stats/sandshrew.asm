@@ -12,8 +12,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_TAIL,    IRON_HEAD, \
-	     TAKE_DOWN,    EARTHQUAKE,   ROCK_SLIDE,   DOUBLE_EDGE,  STRENGTH
+	; v0.7 Pass 3: armoured Ground armadillo, defensive digger pre-evo.
+	; auto BULLDOZE. bonus
+	; ROCK_THROW/BODY_SLAM/IRON_TAIL/IRON_HEAD/TAKE_DOWN/EARTHQUAKE/ROCK_SLIDE/DOUBLE_EDGE.
+	; HM STRENGTH.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, IRON_TAIL, IRON_HEAD, \
+	     TAKE_DOWN, EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

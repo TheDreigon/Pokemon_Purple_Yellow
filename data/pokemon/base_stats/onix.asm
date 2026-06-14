@@ -12,13 +12,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): single-mon apex rock-snake. 12 TMs,
-	; mostly mirroring levelup. NO MEGAHORN (no horn). NO BULK_UP per
-	; Forte (rock not muscle). NO HORN_DRILL (Forte: Dodrio+Rhydon only).
-	tmhm ROCK_THROW,   BULLDOZE,     BODY_SLAM,    IRON_TAIL,    IRON_HEAD, \
-	     INTIMIDATE,   SCARY_FACE,   DOUBLE_EDGE,  TAKE_DOWN,    ROCK_SLIDE, \
-	     EARTHQUAKE,   STRENGTH,     MIMIC,        MIRROR_MOVE,  SUBSTITUTE, \
-	     METRONOME
+	; v0.7 Pass 3: colossal single-stage rock-snake apex. auto
+	; ROCK_THROW/BIND/BULLDOZE/BODY_SLAM/IRON_TAIL/IRON_HEAD/INTIMIDATE/TAKE_DOWN/EARTHQUAKE/ROCK_SLIDE/STRENGTH.
+	; bonus SCARY_FACE/DOUBLE_EDGE. HM STRENGTH. fun (4 via TM, regra
+	; global last-stage Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, BIND, BULLDOZE, BODY_SLAM, IRON_TAIL, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
+	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, EARTHQUAKE, ROCK_SLIDE, \
+	     DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

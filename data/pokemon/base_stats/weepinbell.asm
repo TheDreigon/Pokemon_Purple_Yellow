@@ -12,11 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): mid-stage carnivore. Bellsprout's 4 +
-	; 3 additions: BODY_SLAM¹ (pitcher mass — levelup), LEECH_LIFE¹
-	; (insect drain — levelup), HM01 CUT (per Forte's natural CUT list).
-	tmhm GIGA_DRAIN,   TOXIC,        FAINT_ATTACK, BODY_SLAM,    LEECH_LIFE, \
-	     CUT
+	; v0.7 Pass 3: mid-stage carnivore (Grass/Poison). auto
+	; BODY_SLAM/GIGA_DRAIN/LEECH_LIFE/TAKE_DOWN. bonus
+	; FAINT_ATTACK/TOXIC. HM CUT.
+	tmhm FAINT_ATTACK, BODY_SLAM, GIGA_DRAIN, TOXIC, LEECH_LIFE, \
+	     TAKE_DOWN, CUT
 	; end
 
 	db 0 ; padding

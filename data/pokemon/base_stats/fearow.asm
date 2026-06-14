@@ -12,12 +12,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex predator. Spearow's 8 + 2 apex additions: INTIMIDATE
-	; (also levelup), SWORDS_DANCE (per Forte — talons-as-swords for the
-	; Fearow-only sword-dance).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE,   TAKE_DOWN,    DOUBLE_EDGE, \
-	     FLY,          CUT,          INTIMIDATE,   SWORDS_DANCE, MIMIC, \
-	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: apex raptor (DRILL_PECK signature), honorary
+	; Dark/Flying. auto QUICK_ATTACK/FAINT_ATTACK/AERIAL_ACE/INTIMIDATE.
+	; bonus TAKE_DOWN/SWORDS_DANCE/DOUBLE_EDGE. HM CUT/FLY. fun (4 via
+	; TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AERIAL_ACE, INTIMIDATE, TAKE_DOWN, SWORDS_DANCE, \
+	     DOUBLE_EDGE, CUT, FLY
 	; end
 
 	db 0 ; padding

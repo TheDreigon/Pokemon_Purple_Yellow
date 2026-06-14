@@ -12,15 +12,14 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): apex carnivore. Weepinbell's 7 + 5
-	; Victreebel additions: TAKE_DOWN¹ (vine grapple — levelup), DOUBLE_
-	; EDGE¹ (apex predator overcommit — levelup), SWORDS_DANCE (Forte
-	; filter: aggressive carnivore + iniciativa), SCARY_FACE¹ (giant
-	; trap mouth — levelup), INTIMIDATE (Forte add). NO AGILITY (Forte
-	; removed). NO DOUBLE_TEAM (Forte removed).
-	tmhm GIGA_DRAIN,   TOXIC,        FAINT_ATTACK, BODY_SLAM,    LEECH_LIFE, \
-	     CUT,          TAKE_DOWN,    DOUBLE_EDGE,  SWORDS_DANCE, SCARY_FACE, \
-	     INTIMIDATE,   MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: apex carnivore (Grass/Poison). auto
+	; BODY_SLAM/GIGA_DRAIN/TOXIC/SCARY_FACE/LEECH_LIFE/TAKE_DOWN. bonus
+	; FAINT_ATTACK/INTIMIDATE/SWORDS_DANCE/DOUBLE_EDGE. HM CUT. fun (4
+	; via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm FAINT_ATTACK, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, GIGA_DRAIN, TOXIC, INTIMIDATE, SCARY_FACE, \
+	     LEECH_LIFE, TAKE_DOWN, SWORDS_DANCE, DOUBLE_EDGE, CUT
 	; end
 
 	db 0 ; padding

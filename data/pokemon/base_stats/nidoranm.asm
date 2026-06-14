@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review #5): juvenile aggressive male. 5 TMs:
-	; QUICK_ATTACK (Forte add), BODY_SLAM¹/POISON_FANG¹ (levelup TMs),
-	; TOXIC (all 3 nidos per Forte), TAKE_DOWN. NO SCARY_FACE/BULLDOZE
-	; (Forte #5 — Nidorino+ only).
-	tmhm QUICK_ATTACK, BODY_SLAM,    POISON_FANG,  TOXIC,        TAKE_DOWN
+	; v0.7 Pass 3: juvenile aggressive male single-horn. auto
+	; BODY_SLAM/POISON_FANG. bonus QUICK_ATTACK/TOXIC/TAKE_DOWN.
+	tmhm QUICK_ATTACK, BODY_SLAM, POISON_FANG, TOXIC, TAKE_DOWN
 	; end
 
 	db 0 ; padding

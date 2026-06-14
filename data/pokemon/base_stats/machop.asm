@@ -12,9 +12,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm ROCK_THROW,   QUICK_ATTACK, BIND,         BULLDOZE,     SEISMIC_TOSS, \
-	     RAGE,         BODY_SLAM,    BULK_UP,      TAKE_DOWN,    SWORDS_DANCE, \
-	     EARTHQUAKE,   DOUBLE_EDGE,  THRASH,       STRENGTH
+	; v0.7 Pass 3: Machop disciplined humanoid fighter-in-training. auto
+	; ROCK_THROW/BIND/SEISMIC_TOSS/BULK_UP/TAKE_DOWN/STRENGTH. bonus
+	; QUICK_ATTACK/BULLDOZE/RAGE/DOUBLE_EDGE/THRASH. HM STRENGTH.
+	tmhm ROCK_THROW, QUICK_ATTACK, BIND, BULLDOZE, SEISMIC_TOSS, \
+	     RAGE, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

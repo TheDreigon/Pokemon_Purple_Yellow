@@ -12,13 +12,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: full bloom — superset of Ivysaur. Adds Intimidate (massive
-	; presence at full bloom). DAZZLE_GLEAM was considered and rejected
-	; (Fairy-coded sparkle; Venusaur is plant, not magical creature).
-	tmhm GIGA_DRAIN,   BIND,         TAKE_DOWN,    LIGHT_SCREEN, REFLECT, \
-	     CUT,          BULLDOZE,     BODY_SLAM,    TOXIC,        DOUBLE_EDGE, \
-	     EARTHQUAKE,   STRENGTH,     FLASH,        INTIMIDATE,   MIMIC, \
-	     MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: full bloom Grass/Poison — superset of Ivysaur. auto
+	; BODY_SLAM/GIGA_DRAIN/TOXIC/PETAL_DANCE. bonus
+	; BIND/BULLDOZE/INTIMIDATE/TAKE_DOWN/LIGHT_SCREEN/REFLECT/EARTHQUAKE/DOUBLE_EDGE.
+	; HM CUT/STRENGTH/FLASH. fun (4 via TM, regra global last-stage
+	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BIND, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, GIGA_DRAIN, TOXIC, INTIMIDATE, \
+	     TAKE_DOWN, LIGHT_SCREEN, REFLECT, EARTHQUAKE, PETAL_DANCE, \
+	     DOUBLE_EDGE, CUT, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

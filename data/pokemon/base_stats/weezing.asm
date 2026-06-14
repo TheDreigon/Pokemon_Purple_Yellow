@@ -11,8 +11,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm DARK_PULSE,   FLAMETHROWER, LIGHT_SCREEN, NIGHT_SHADE,  SCARY_FACE, \
-	     TOXIC,        MIMIC,        MIRROR_MOVE,  SUBSTITUTE,   METRONOME
+	; v0.7 Pass 3: apex gas balloon Poison/Gas, conceito sinistro de
+	; nuvem toxica. auto
+	; NIGHT_SHADE/TOXIC/SCARY_FACE/LIGHT_SCREEN/DARK_PULSE/FLAMETHROWER.
+	; fun (4 via TM, regra global last-stage Forte)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm NIGHT_SHADE, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     TOXIC, SCARY_FACE, LIGHT_SCREEN, DARK_PULSE, FLAMETHROWER
 	; end
 
 	db 0 ; padding

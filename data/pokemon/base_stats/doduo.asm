@@ -12,13 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: 2-headed flightless ratite. NO flying TMs (no FLY/AERIAL_
-	; ACE/HURRICANE) — Forte's anatomical exception. BULLDOZE (heavy ratite
-	; legs). FAINT_ATTACK TM per Forte (all 3 bird lines). AGILITY natural
-	; per Forte's list. HM01 Cut (sharp beak). HM04 Strength (powerful legs
-	; to push).
-	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE,     AGILITY,      TAKE_DOWN, \
-	     DOUBLE_EDGE,  CUT,          STRENGTH,     BODY_SLAM
+	; v0.7 Pass 3: ratite bipede flightless de 2 cabecas, pre-evo
+	; backbone. auto QUICK_ATTACK/RAGE/AGILITY/TAKE_DOWN/DOUBLE_EDGE.
+	; bonus FAINT_ATTACK/BULLDOZE/BODY_SLAM. HM CUT/STRENGTH.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
+	     AGILITY, TAKE_DOWN, DOUBLE_EDGE, CUT, STRENGTH
 	; end
 
 	db 0 ; padding

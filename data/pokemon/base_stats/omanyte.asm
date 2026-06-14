@@ -12,8 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm BIND,         BODY_SLAM,    ICE_BEAM,     ICY_PULSE,    ROCK_SLIDE, \
-	     ROCK_THROW,   TAKE_DOWN,    WATER_PULSE
+	; v0.7 Pass 3: small spiral-shell ammonite Water/Rock pre-evo. auto
+	; ROCK_THROW/BIND/WATER_PULSE/ICY_PULSE. bonus
+	; BODY_SLAM/TAKE_DOWN/ROCK_SLIDE.
+	tmhm ROCK_THROW, BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, \
+	     TAKE_DOWN, ROCK_SLIDE
 	; end
 
 	db 0 ; padding

@@ -12,13 +12,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: warrior turtle mid-stage. Squirtle's 12 + 4 medium-tier
-	; additions: Bulldoze (medium-heavy stomp — not yet earthquake-tier),
-	; Bulk Up (warrior buff), Hone Claws (sharper turtle claws), HM Strength.
-	; No Earthquake (saved for Blastoise — only fully-massive frame). No
-	; HYDRO_PUMP — still no shell-cannons.
-	tmhm WATER_PULSE,  BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  LIGHT_SCREEN, \
-	     REFLECT,      CUT,          SURF,         BULLDOZE,     BULK_UP, \
+	; v0.7 Pass 3: warrior turtle mid-stage. auto
+	; WATER_PULSE/BODY_SLAM/SURF. bonus
+	; BULLDOZE/BULK_UP/TAKE_DOWN/LIGHT_SCREEN/REFLECT/DOUBLE_EDGE. HM
+	; CUT/SURF/STRENGTH.
+	tmhm BULLDOZE, WATER_PULSE, BODY_SLAM, BULK_UP, TAKE_DOWN, \
+	     LIGHT_SCREEN, REFLECT, DOUBLE_EDGE, CUT, SURF, \
 	     STRENGTH
 	; end
 

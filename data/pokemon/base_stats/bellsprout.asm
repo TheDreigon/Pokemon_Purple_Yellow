@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3 (Forte review): basic carnivorous plant. 4 TMs:
-	; GIGA_DRAIN¹ (drain plant), TOXIC (poison-type tendency),
-	; SOLARBEAM (plant TM apex — not levelup per Forte),
-	; FAINT_ATTACK (Forte add — sneak vine strike).
-	tmhm GIGA_DRAIN,   TOXIC,        FAINT_ATTACK
+	; v0.7 Pass 3: basic carnivorous pitcher plant (Grass/Poison). auto
+	; GIGA_DRAIN. bonus FAINT_ATTACK/TOXIC.
+	tmhm FAINT_ATTACK, GIGA_DRAIN, TOXIC
 	; end
 
 	db 0 ; padding

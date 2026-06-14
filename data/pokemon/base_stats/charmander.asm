@@ -12,12 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: baby fire reptile. Levelup-doubles for fire/dragon TMs
-	; the line learns naturally. HM05 Flash because fire pokes light caves.
-	; NO fun moves (per Forte's revised rule — fire reptiles don't fit
-	; Mimic/Mirror Move/Substitute/Metronome anatomy/lore).
-	tmhm QUICK_ATTACK, TAKE_DOWN,    DRAGON_CLAW,  IGNITE,       FLAMETHROWER, \
-	     OUTRAGE,      CUT,          FLASH
+	; v0.7 Pass 3: baby fire reptile. auto
+	; FLAME_BURST/IGNITE/DRAGON_CLAW/FLAMETHROWER. bonus
+	; QUICK_ATTACK/TAKE_DOWN/OUTRAGE. HM CUT/FLASH.
+	tmhm QUICK_ATTACK, FLAME_BURST, IGNITE, DRAGON_CLAW, TAKE_DOWN, \
+	     FLAMETHROWER, OUTRAGE, CUT, FLASH
 	; end
 
 	db 0 ; padding
