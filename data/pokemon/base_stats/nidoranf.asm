@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; v0.7 Pass 3: defensive female juvenile, poison glands. auto
 	; BODY_SLAM/POISON_FANG/TOXIC. bonus TAKE_DOWN.
-	tmhm BODY_SLAM, POISON_FANG, TOXIC, TAKE_DOWN
+	tmhm QUICK_ATTACK, BODY_SLAM, POISON_FANG, TOXIC, TAKE_DOWN
 	; end
 
 	db 0 ; padding

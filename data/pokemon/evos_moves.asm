@@ -379,8 +379,8 @@ WartortleEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): same backbone as Squirtle (uniformity rule).
-; Still no shell-cannons → no HYDRO_PUMP. Blastoise gets cannons + jaw
-; growth + massive size via anatomical exception.
+; Still no shell-cannons → no HYDRO_PUMP. Blastoise gets cannons + massive size via anatomical exception
+; (sem CRUNCH — mandibula fica BITE baby-tier).
 	db  6, WATER_GUN
 	db  8, WITHDRAW
 	db 10, BITE
@@ -442,6 +442,7 @@ MetapodEvosMoves:
 ; All real growth happens after evolving to Butterfree.
 	db  4, BUG_BITE
 	db  7, STRING_SHOT
+	db 11, HARDEN
 	db 13, BIDE
 	db 0
 
@@ -497,6 +498,7 @@ KakunaEvosMoves:
 	db  4, POISON_STING
 	db  7, STRING_SHOT
 	db  9, BUG_BITE
+	db 11, HARDEN
 	db 13, BIDE
 	db 0
 
@@ -619,12 +621,14 @@ RattataEvosMoves:
 ; for Rattata but Raticate gets STAB).
 	db  4, QUICK_ATTACK
 	db  7, BITE
+	db  7, POISON_STING
 	db  9, ASTONISH
 	db 11, FOCUS_ENERGY
 	db 13, FAINT_ATTACK
 	db 16, RAGE
+	db 18, HEADBUTT
 	db 20, HYPER_FANG
-	db 23, HEADBUTT
+	db 23, SCREECH
 	db 25, CUT
 	db 27, AGILITY
 	db 29, HONE_CLAWS
@@ -648,12 +652,14 @@ RaticateEvosMoves:
 ; attacker, not special).
 	db  4, QUICK_ATTACK
 	db  7, BITE
+	db  7, POISON_STING
 	db  9, ASTONISH
 	db 11, FOCUS_ENERGY
 	db 13, FAINT_ATTACK
 	db 16, RAGE
+	db 18, HEADBUTT
 	db 20, HYPER_FANG
-	db 23, HEADBUTT
+	db 23, SCREECH
 	db 25, CUT
 	db 27, AGILITY
 	db 29, HONE_CLAWS
@@ -675,20 +681,21 @@ SpearowEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): honorary Dark/Flying — aggressive bird-of-
-; prey. Includes 3 Dark moves (FAINT_ATTACK, NIGHT_SLASH, BRUTAL_SWING).
+; prey. Includes 2 Dark moves (FAINT_ATTACK, NIGHT_SLASH) + GORE_ATTACK.
 ; NO HURRICANE per Forte (no GUST progression — keeps line distinct from
-; Pidgey). WING_ATTACK at L20 (evo level). BRUTAL_SWING moved much higher.
+; Pidgey). WING_ATTACK at L20 (evo level). +TAILWIND/TAKE_DOWN; BRUTAL_SWING removido (Forte).
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
 	db 11, QUICK_ATTACK
+	db 13, TAILWIND
 	db 15, FURY_ATTACK
 	db 20, WING_ATTACK
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
 	db 36, HONE_CLAWS
-	db 42, BRUTAL_SWING
+	db 42, TAKE_DOWN
 	db 52, SKY_ATTACK
 	db 0
 
@@ -703,6 +710,7 @@ FearowEvosMoves:
 	db  6, SAND_ATTACK
 	db  8, LEER
 	db 11, QUICK_ATTACK
+	db 13, TAILWIND
 	db 15, FURY_ATTACK
 	db 20, WING_ATTACK
 	db 23, FAINT_ATTACK
@@ -710,7 +718,7 @@ FearowEvosMoves:
 	db 31, NIGHT_SLASH
 	db 36, HONE_CLAWS
 	db 40, DRILL_PECK
-	db 42, BRUTAL_SWING
+	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
 	db 50, INTIMIDATE
 	db 52, SKY_ATTACK
@@ -849,6 +857,7 @@ SandshrewEvosMoves:
 	db  7, DEFENSE_CURL
 	db 10, MUD_SHOT
 	db 13, SAND_ATTACK
+	db 16, ROLLOUT
 	db 18, BULLDOZE
 	db 22, SLASH
 	db 24, HONE_CLAWS
@@ -871,6 +880,7 @@ SandslashEvosMoves:
 	db  7, DEFENSE_CURL
 	db 10, MUD_SHOT
 	db 13, SAND_ATTACK
+	db 16, ROLLOUT
 	db 18, BULLDOZE
 	db 22, SLASH
 	db 24, HONE_CLAWS
@@ -902,6 +912,7 @@ NidoranFEvosMoves:
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
 	db 15, BITE
+	db 15, QUICK_ATTACK
 	db 17, FAIRY_WIND
 	db 20, BIDE
 	db 22, HEADBUTT
@@ -929,6 +940,7 @@ NidorinaEvosMoves:
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
 	db 15, BITE
+	db 15, QUICK_ATTACK
 	db 17, FAIRY_WIND
 	db 20, BIDE
 	db 22, HEADBUTT
@@ -993,6 +1005,7 @@ NidoranMEvosMoves:
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, BITE
+	db 15, QUICK_ATTACK
 	db 17, HORN_ATTACK
 	db 19, FURY_ATTACK
 	db 22, FOCUS_ENERGY
@@ -1016,6 +1029,7 @@ NidorinoEvosMoves:
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, BITE
+	db 15, QUICK_ATTACK
 	db 17, HORN_ATTACK
 	db 19, FURY_ATTACK
 	db 22, FOCUS_ENERGY
@@ -1109,6 +1123,7 @@ ClefableEvosMoves:
 	db 16, CHARM
 	db 19, DRAINING_KISS
 	db 19, TICKLE
+	db 22, BODY_SLAM
 	db 25, RECOVER
 	db 28, LIGHT_SCREEN
 	db 32, MIMIC
@@ -1184,6 +1199,7 @@ JigglypuffEvosMoves:
 	db  1, GROWL
 	db  3, SING
 	db  6, HINDER
+	db  6, DEFENSE_CURL
 	db  9, TACKLE
 	db  9, FAIRY_WIND
 	db 12, DOUBLESLAP
@@ -1192,6 +1208,7 @@ JigglypuffEvosMoves:
 	db 20, GROWTH
 	db 23, ASTONISH
 	db 26, BIDE
+	db 29, ROLLOUT
 	db 31, BUBBLEBEAM
 	db 34, SCREECH
 	db 37, AMNESIA
@@ -1213,6 +1230,7 @@ WigglytuffEvosMoves:
 	db  1, GROWL
 	db  3, SING
 	db  6, HINDER
+	db  6, DEFENSE_CURL
 	db  9, TACKLE
 	db  9, FAIRY_WIND
 	db 12, DOUBLESLAP
@@ -1221,6 +1239,7 @@ WigglytuffEvosMoves:
 	db 20, GROWTH
 	db 23, ASTONISH
 	db 26, BIDE
+	db 29, ROLLOUT
 	db 31, BUBBLEBEAM
 	db 34, SCREECH
 	db 37, AMNESIA
@@ -1382,11 +1401,13 @@ ParasEvosMoves:
 	db  7, SCRATCH
 	db 10, ABSORB
 	db 13, GROWTH
+	db 13, LEECH_SEED
 	db 16, STUN_POWDER
 	db 19, POISONPOWDER
 	db 22, SPORE
 	db 25, MEGA_DRAIN
 	db 31, LEECH_LIFE
+	db 34, DIG
 	db 37, SLASH
 	db 46, GIGA_DRAIN
 	db 0
@@ -1408,6 +1429,7 @@ ParasectEvosMoves:
 	db  7, SCRATCH
 	db 10, ABSORB
 	db 13, GROWTH
+	db 13, LEECH_SEED
 	db 16, STUN_POWDER
 	db 19, POISONPOWDER
 	db 22, SPORE
@@ -1416,6 +1438,7 @@ ParasectEvosMoves:
 	db 29, SPORE_DAZE
 	db 31, LEECH_LIFE
 	db 34, SCARY_FACE
+	db 34, DIG
 	db 37, SLASH
 	db 40, EERIE_IMPULSE
 	db 44, NIGHT_SLASH
@@ -1544,11 +1567,13 @@ MeowthEvosMoves:
 	db  5, TAIL_WHIP
 	db  7, BITE
 	db  9, ASTONISH
+	db  9, QUICK_ATTACK
 	db 12, PAY_DAY
 	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
 	db 21, HONE_CLAWS
 	db 24, FOCUS_ENERGY
+	db 26, TAKE_DOWN
 	db 28, SLASH  ; (EVO LVL)
 	db 32, INTIMIDATE
 	db 38, NASTY_PLOT
@@ -1567,11 +1592,13 @@ PersianEvosMoves:
 	db  5, TAIL_WHIP
 	db  7, BITE
 	db  9, ASTONISH
+	db  9, QUICK_ATTACK
 	db 12, PAY_DAY
 	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
 	db 21, HONE_CLAWS
 	db 24, FOCUS_ENERGY
+	db 26, TAKE_DOWN
 	db 28, SLASH
 	db 32, INTIMIDATE
 	db 35, RAGE
@@ -1690,6 +1717,7 @@ PrimeapeEvosMoves:
 	db 43, BRUTAL_SWING
 	db 46, INTIMIDATE
 	db 48, OUTRAGE
+	db 50, SEISMIC_TOSS
 	db 52, SWORDS_DANCE
 	db 60, GORE_ATTACK
 	db 0
@@ -1700,7 +1728,7 @@ GrowlitheEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): alpha canine puppy. HONE_CLAWS+FOCUS_ENERGY
-; foundation predator (Forte add). FIERCE_ROAR substitui INTIMIDATE
+; foundation predator (Forte add). FIERCE_ROAR + INTIMIDATE alto (ladder GROWL->FIERCE_ROAR->INTIMIDATE)
 ; (Forte). CRUNCH movido para lower level (era L52; CRUNCH=Normal type
 ; neste hack, não cobre Dark). PLAY_ROUGH como Fairy bite/claw rough
 ; (Forte question: yes — anatomia canina perfeita; SUBMISSION rejeitado
@@ -1709,6 +1737,7 @@ GrowlitheEvosMoves:
 ; removido (Forte: redundante).
 	db  4, BITE
 	db  7, LEER
+	db  9, QUICK_ATTACK
 	db 11, HONE_CLAWS
 	db 14, EMBER
 	db 16, FIERCE_ROAR
@@ -1717,6 +1746,7 @@ GrowlitheEvosMoves:
 	db 26, CRUNCH
 	db 32, FLAMETHROWER
 	db 40, TAKE_DOWN
+	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
 	db 55, FIRE_BLAST
 	db 0
@@ -1733,6 +1763,7 @@ ArcanineEvosMoves:
 ; Raticate/Arbok/Persian/Hitmonchan), OUTRAGE (Arcanine não é Dragon-coded).
 	db  4, BITE
 	db  7, LEER
+	db  9, QUICK_ATTACK
 	db 11, HONE_CLAWS
 	db 14, EMBER
 	db 16, FIERCE_ROAR
@@ -1744,6 +1775,7 @@ ArcanineEvosMoves:
 	db 38, STRENGTH
 	db 40, TAKE_DOWN
 	db 42, AGILITY
+	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
 	db 52, SWORDS_DANCE
 	db 55, FIRE_BLAST
@@ -2076,6 +2108,7 @@ TentacoolEvosMoves:
 	db  3, WATER_GUN
 	db  6, HINDER
 	db  9, WRAP
+	db  9, LEECH_LIFE
 	db 12, CONSTRICT
 	db 15, NEUROTOXIN
 	db 17, ACID
@@ -2102,6 +2135,7 @@ TentacruelEvosMoves:
 	db  3, WATER_GUN
 	db  6, HINDER
 	db  9, WRAP
+	db  9, LEECH_LIFE
 	db 12, CONSTRICT
 	db 15, NEUROTOXIN
 	db 17, ACID
@@ -2441,8 +2475,8 @@ SeelEvosMoves:
 	db EVOLVE_LEVEL, 35, DEWGONG
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Water/Ice seal. HEADBUTT canon.
-	db  1, HEADBUTT
+; v0.7 Pass 3 (Forte review): Water/Ice seal. HORN_ATTACK (chifre da cabeca, Forte).
+	db  1, HORN_ATTACK
 	db  5, GROWL
 	db  7, TAIL_WHIP
 	db  9, DOUBLESLAP
@@ -2470,7 +2504,7 @@ DewgongEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex Water/Ice. SURF HM03 natural.
 ; ICY_PULSE (Forte: NO Lorelei quirk in v0.7).
-	db  1, HEADBUTT
+	db  1, HORN_ATTACK
 	db  5, GROWL
 	db  7, TAIL_WHIP
 	db  9, DOUBLESLAP
@@ -2834,11 +2868,11 @@ KrabbyEvosMoves:
 	db 13, HARDEN
 	db 15, MUD_SHOT
 	db 17, VICEGRIP
-	db 21, BUBBLEBEAM
+	db 19, BUBBLEBEAM
 	db 24, FURY_ATTACK
 	db 26, BIND
 	db 28, CRABHAMMER
-	db 34, WATER_PULSE
+	db 30, WATER_PULSE
 	db 44, GUILLOTINE
 	db 0
 
@@ -2857,7 +2891,7 @@ KinglerEvosMoves:
 	db 13, HARDEN
 	db 15, MUD_SHOT
 	db 17, VICEGRIP
-	db 21, BUBBLEBEAM
+	db 19, BUBBLEBEAM
 	db 24, FURY_ATTACK
 	db 26, BIND
 	db 28, CRABHAMMER
@@ -3245,6 +3279,7 @@ RhydonEvosMoves:
 	db 44, TAKE_DOWN
 	db 48, EARTHQUAKE
 	db 52, FIERCE_ROAR
+	db 56, ROCK_SLIDE
 	db 58, BRUTAL_SWING
 	db 61, THRASH
 	db 64, HORN_DRILL
@@ -3541,6 +3576,7 @@ ScytherEvosMoves:
 	db 18, WING_ATTACK
 	db 20, SLASH
 	db 23, FAINT_ATTACK
+	db 23, TAKE_DOWN
 	db 26, HONE_CLAWS
 	db 29, AGILITY
 	db 32, SHADOW_SNEAK
@@ -3679,6 +3715,7 @@ PinsirEvosMoves:
 	db 13, BIDE
 	db 17, SEISMIC_TOSS
 	db 21, BUG_BITE
+	db 23, VICEGRIP
 	db 25, BIND
 	db 29, STRENGTH
 	db 33, BULK_UP
@@ -3690,6 +3727,7 @@ PinsirEvosMoves:
 	db 52, THRASH
 	db 54, DOUBLE_EDGE
 	db 56, CUT
+	db 58, SUBMISSION
 	db 60, GUILLOTINE
 	db 0
 
@@ -3771,6 +3809,7 @@ GyaradosEvosMoves:
 	db 55, DRAGON_SLAM
 	db 57, EARTHQUAKE
 	db 59, HEAVY_SLAM
+	db 59, IRON_TAIL
 	db 61, HYDRO_PUMP
 	db 63, OUTRAGE
 	db 65, HYPER_BEAM
@@ -4223,6 +4262,7 @@ DragonairEvosMoves:
 	db 29, WATER_PULSE
 	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
+	db 39, IRON_TAIL
 	db 41, SURF
 	db 43, DRAGON_RAGE
 	db 46, FLY  ; (Evo lvl)
@@ -4247,6 +4287,7 @@ DragoniteEvosMoves:
 	db 29, WATER_PULSE
 	db 33, SHOCK_WAVE
 	db 37, ICY_PULSE
+	db 39, IRON_TAIL
 	db 41, SURF
 	db 43, DRAGON_RAGE
 	db 46, FLY  ; (Evo lvl)
