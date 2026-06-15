@@ -879,10 +879,10 @@ SandslashEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROLLOUT
 	db 18, BULLDOZE
+	db 20, CUT
 	db 22, SLASH
 	db 24, HONE_CLAWS
 	db 30, DIG
-	db 36, CUT
 	db 36, MUD_BOMB
 	db 42, IRON_DEFENSE
 	db 44, ROCK_TOMB
@@ -4048,9 +4048,9 @@ KabutoEvosMoves:
 	db 18, ROCK_THROW
 	db 22, BUBBLEBEAM
 	db 26, ICY_PULSE
+	db 28, CUT
 	db 30, SLASH
 	db 35, MEGA_DRAIN
-	db 39, CUT
 	db 43, LEECH_LIFE
 	db 47, ROCK_TOMB
 	db 0
@@ -4070,9 +4070,9 @@ KabutopsEvosMoves:
 	db 18, ROCK_THROW
 	db 22, BUBBLEBEAM
 	db 26, ICY_PULSE
+	db 28, CUT
 	db 30, SLASH
 	db 35, MEGA_DRAIN
-	db 39, CUT
 	db 43, LEECH_LIFE
 	db 47, ROCK_TOMB
 	db 52, NIGHT_SLASH
