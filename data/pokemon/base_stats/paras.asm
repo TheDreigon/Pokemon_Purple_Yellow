@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; v0.7 Pass 3: bug cordyceps-controlado (Bug/Grass), pre-evo
 	; backbone curto. auto GIGA_DRAIN/LEECH_LIFE. bonus TOXIC.
-	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE
+	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE, CUT
 	; end
 
 	db 0 ; padding

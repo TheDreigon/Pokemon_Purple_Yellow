@@ -289,7 +289,8 @@ CharmanderEvosMoves:
 	db 10, BITE
 	db 14, SMOKESCREEN
 	db 18, HEADBUTT
-	db 20, SLASH
+	db 20, CUT
+	db 22, SLASH
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
@@ -311,7 +312,8 @@ CharmeleonEvosMoves:
 	db 10, BITE
 	db 14, SMOKESCREEN
 	db 18, HEADBUTT
-	db 20, SLASH
+	db 20, CUT
+	db 22, SLASH
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
@@ -334,7 +336,8 @@ CharizardEvosMoves:
 	db 10, BITE
 	db 14, SMOKESCREEN
 	db 18, HEADBUTT
-	db 20, SLASH
+	db 20, CUT
+	db 22, SLASH
 	db 24, FLAME_BURST
 	db 28, FOCUS_ENERGY
 	db 32, IGNITE
@@ -663,7 +666,6 @@ RaticateEvosMoves:
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
 	db 36, CRUNCH
-	db 38, SLASH
 	db 40, POISON_FANG
 	db 44, BODY_SLAM
 	db 46, NIGHT_SLASH
@@ -856,6 +858,7 @@ SandshrewEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROLLOUT
 	db 18, BULLDOZE
+	db 20, CUT
 	db 22, SLASH
 	db 24, HONE_CLAWS
 	db 30, DIG
@@ -1403,9 +1406,10 @@ ParasEvosMoves:
 	db 19, POISONPOWDER
 	db 22, SPORE
 	db 25, MEGA_DRAIN
+	db 27, CUT
+	db 29, SLASH
 	db 31, LEECH_LIFE
 	db 34, DIG
-	db 37, SLASH
 	db 46, GIGA_DRAIN
 	db 0
 
@@ -1432,11 +1436,12 @@ ParasectEvosMoves:
 	db 22, SPORE
 	db 25, MEGA_DRAIN
 	db 27, PARASITE
+	db 27, CUT
 	db 29, SPORE_DAZE
+	db 29, SLASH
 	db 31, LEECH_LIFE
 	db 34, SCARY_FACE
 	db 34, DIG
-	db 37, SLASH
 	db 40, EERIE_IMPULSE
 	db 44, NIGHT_SLASH
 	db 46, GIGA_DRAIN
@@ -1512,10 +1517,11 @@ DiglettEvosMoves:
 	db 12, QUICK_ATTACK
 	db 17, BULLDOZE
 	db 22, AGILITY
+	db 24, CUT
 	db 26, MUD_BOMB
+	db 28, SLASH
 	db 33, EARTHQUAKE
 	db 36, HONE_CLAWS
-	db 40, SLASH
 	db 46, ROCK_TOMB
 	db 52, EXTREMESPEED
 	db 60, FISSURE
@@ -1538,11 +1544,12 @@ DugtrioEvosMoves:
 	db 12, QUICK_ATTACK
 	db 17, BULLDOZE
 	db 22, AGILITY
+	db 24, CUT
 	db 26, MUD_BOMB
+	db 28, SLASH
 	db 33, EARTHQUAKE
 	db 36, HONE_CLAWS
 	db 38, SCREECH
-	db 40, SLASH
 	db 46, ROCK_TOMB
 	db 48, NIGHT_SLASH
 	db 52, EXTREMESPEED
@@ -1571,6 +1578,7 @@ MeowthEvosMoves:
 	db 21, HONE_CLAWS
 	db 24, FOCUS_ENERGY
 	db 26, TAKE_DOWN
+	db 26, CUT
 	db 28, SLASH  ; (EVO LVL)
 	db 32, INTIMIDATE
 	db 38, NASTY_PLOT
@@ -1596,6 +1604,7 @@ PersianEvosMoves:
 	db 21, HONE_CLAWS
 	db 24, FOCUS_ENERGY
 	db 26, TAKE_DOWN
+	db 26, CUT
 	db 28, SLASH
 	db 32, INTIMIDATE
 	db 35, RAGE
@@ -1740,7 +1749,9 @@ GrowlitheEvosMoves:
 	db 16, FIERCE_ROAR
 	db 18, FOCUS_ENERGY
 	db 22, FLAME_CHARGE
+	db 24, CUT
 	db 26, CRUNCH
+	db 28, SLASH
 	db 32, FLAMETHROWER
 	db 40, TAKE_DOWN
 	db 44, INTIMIDATE
@@ -1766,9 +1777,10 @@ ArcanineEvosMoves:
 	db 16, FIERCE_ROAR
 	db 18, FOCUS_ENERGY
 	db 22, FLAME_CHARGE
+	db 24, CUT
 	db 26, CRUNCH
+	db 28, SLASH
 	db 32, FLAMETHROWER
-	db 36, CUT
 	db 38, STRENGTH
 	db 40, TAKE_DOWN
 	db 42, AGILITY
@@ -2080,6 +2092,8 @@ VictreebelEvosMoves:
 	db 19, TICKLE
 	db 22, SLEEP_POWDER
 	db 25, ACID
+	db 27, CUT
+	db 29, SLASH
 	db 31, RAZOR_LEAF
 	db 33, BODY_SLAM
 	db 36, TAKE_DOWN
@@ -2088,7 +2102,6 @@ VictreebelEvosMoves:
 	db 42, SCARY_FACE
 	db 44, GIGA_DRAIN
 	db 46, LEECH_LIFE
-	db 48, SLASH
 	db 52, CORRODE
 	db 58, SLUDGE_WAVE
 	db 65, TOXIC
@@ -2892,8 +2905,8 @@ KinglerEvosMoves:
 	db 24, FURY_ATTACK
 	db 26, BIND
 	db 28, CRABHAMMER
+	db 28, CUT
 	db 30, STRENGTH
-	db 32, CUT
 	db 34, WATER_PULSE
 	db 37, MUD_BOMB
 	db 41, WATERFALL
@@ -3919,6 +3932,7 @@ JolteonEvosMoves:
 	db 24, TAKE_DOWN
 	db 26, THUNDER_WAVE
 	db 28, SHOCK_WAVE
+	db 28, CUT
 	db 30, SLASH
 	db 32, AGILITY
 	db 36, PLAY_ROUGH
@@ -3946,6 +3960,7 @@ FlareonEvosMoves:
 	db 24, TAKE_DOWN
 	db 26, IGNITE
 	db 28, FLAME_CHARGE
+	db 28, CUT
 	db 30, SLASH
 	db 32, FAINT_ATTACK
 	db 36, PLAY_ROUGH
