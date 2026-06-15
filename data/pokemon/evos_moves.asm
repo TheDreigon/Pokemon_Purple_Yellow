@@ -635,7 +635,6 @@ RattataEvosMoves:
 	db 27, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
-	db 36, CRUNCH
 	db 40, POISON_FANG
 	db 44, BODY_SLAM
 	db 52, DOUBLE_EDGE
@@ -665,14 +664,14 @@ RaticateEvosMoves:
 	db 27, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
-	db 36, CRUNCH
 	db 40, POISON_FANG
 	db 44, BODY_SLAM
 	db 46, NIGHT_SLASH
 	db 52, DOUBLE_EDGE
-	db 54, BRUTAL_SWING
 	db 56, TOXIC_FANGS
 	db 60, EXTREMESPEED
+	db 63, GORE_ATTACK
+	db 65, TOXIC
 	db 0
 
 SpearowEvosMoves:
@@ -2119,7 +2118,6 @@ TentacoolEvosMoves:
 	db  3, WATER_GUN
 	db  6, HINDER
 	db  9, WRAP
-	db  9, LEECH_LIFE
 	db 12, CONSTRICT
 	db 15, NEUROTOXIN
 	db 17, ACID
@@ -2129,6 +2127,7 @@ TentacoolEvosMoves:
 	db 29, WATER_PULSE
 	db 31, GROWTH
 	db 33, BIND
+	db 33, LEECH_LIFE
 	db 35, NUZZLE
 	db 39, SURF
 	db 0
@@ -2146,7 +2145,6 @@ TentacruelEvosMoves:
 	db  3, WATER_GUN
 	db  6, HINDER
 	db  9, WRAP
-	db  9, LEECH_LIFE
 	db 12, CONSTRICT
 	db 15, NEUROTOXIN
 	db 17, ACID
@@ -2156,6 +2154,7 @@ TentacruelEvosMoves:
 	db 29, WATER_PULSE
 	db 31, GROWTH
 	db 33, BIND
+	db 33, LEECH_LIFE
 	db 35, NUZZLE
 	db 37, EERIE_IMPULSE
 	db 39, SURF
