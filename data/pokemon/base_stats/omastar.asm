@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex spiral-shell ammonite Water/Rock. auto
+	; v0.7 Pass 3: apex spiral-shell ammonite Rock/Water. auto
 	; ROCK_THROW/BIND/WATER_PULSE/ICY_PULSE/IRON_HEAD/ICE_BEAM. bonus
 	; BODY_SLAM/TAKE_DOWN/ROCK_SLIDE/DOUBLE_EDGE. HM SURF/STRENGTH. fun
 	; (4 via TM, regra global last-stage Forte)

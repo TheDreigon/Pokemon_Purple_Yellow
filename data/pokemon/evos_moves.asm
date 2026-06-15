@@ -382,7 +382,8 @@ WartortleEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): same backbone as Squirtle (uniformity rule).
-; Still no shell-cannons → no HYDRO_PUMP. Blastoise gets cannons + massive size via anatomical exception
+; Cannons developing → HYDRO_PUMP at L56 (line evo signature, shared with
+; Blastoise). Blastoise gets cannons fully formed + massive size via anatomical exception
 ; (sem CRUNCH — mandibula fica BITE baby-tier).
 	db  6, WATER_GUN
 	db  8, WITHDRAW
@@ -510,7 +511,7 @@ BeedrillEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (one of Forte's favorite mon — gets the deepest movepool of the
-; line). Shared 4 + 16 exclusives. NO powders (Forte's powder table).
+; line). Shared 4 + 18 exclusives. NO powders (Forte's powder table).
 ; NO Sludge / Gunk Shot / Toxic Fangs / Megahorn (anatomical: stinger
 ; bee, not blob/fanged/horned mon). TWINEEDLE signature (L20).
 ; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
@@ -646,9 +647,8 @@ RaticateEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3: Normal/Dark — matured rodent. Rattata's 18 + 3 anatomical
-; exclusives (Dark unlock + matured claws): SLASH (per Forte — any mon with
-; NIGHT_SLASH also has SLASH), NIGHT_SLASH (Dark high-crit), BRUTAL_SWING
+; v0.7 Pass 3: Normal/Dark — matured rodent. Rattata's 20 + 2 anatomical
+; exclusives (Dark unlock + matured claws): NIGHT_SLASH (Dark high-crit), BRUTAL_SWING
 ; (Dark physical — replaces DARK_PULSE per Forte since Raticate is physical
 ; attacker, not special).
 	db  4, QUICK_ATTACK
@@ -681,7 +681,7 @@ SpearowEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): honorary Dark/Flying — aggressive bird-of-
-; prey. Includes 2 Dark moves (FAINT_ATTACK, NIGHT_SLASH) + GORE_ATTACK.
+; prey. Includes 2 Dark moves (FAINT_ATTACK, NIGHT_SLASH).
 ; NO HURRICANE per Forte (no GUST progression — keeps line distinct from
 ; Pidgey). WING_ATTACK at L20 (evo level). +TAILWIND/TAKE_DOWN; BRUTAL_SWING removido (Forte).
 	db  4, PECK
@@ -702,9 +702,9 @@ FearowEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3: apex predator. Spearow's 12 + 3 anatomical exclusives:
+; v0.7 Pass 3: apex predator. Spearow's 12 + 4 anatomical exclusives:
 ; DRILL_PECK signature (long beak as drill), GORE_ATTACK (Dark — beak gore,
-; Fearow scarier), INTIMIDATE (massive raptor presence).
+; Fearow scarier), INTIMIDATE (massive raptor presence), SKY_ATTACK (L52 peak).
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
@@ -869,8 +869,8 @@ SandslashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex armoured digger. 9 backbone + 8 Sandslash-
-; exclusives: CUT (HM01 natural), IRON_DEFENSE (Forte: substitui SWORDS_DANCE
+; v0.7 Pass 3 (Forte review): apex armoured digger. 11 backbone + 7 Sandslash-
+; exclusives: IRON_DEFENSE (Forte: substitui SWORDS_DANCE
 ; — Sandslash defensive armoured não setup attacker), ROCK_TOMB (Forte add
 ; — armoured digger Rock affinity), EARTHQUAKE (apex Ground), NIGHT_SLASH (Forte:
 ; high-level claws apex), FISSURE (apex deep-dig OHKO L56), GORE_ATTACK (Forte L60), ROCK_SLIDE
@@ -998,7 +998,7 @@ NidoranMEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): aggressive male juvenile, single-horn. 11
 ; shared moves Nidorino+Nidoking inherit. POISON_STING+SAND_ATTACK basic
-; toolkit; FURY_ATTACK early per Forte (#3) to match F line; POISON_FANG/
+; toolkit; FURY_ATTACK early per Forte (#3); POISON_FANG/
 ; BODY_SLAM mid-tier; HORN_CHARGE late as adult-horn move; TOXIC_FANGS
 ; capstone late per Forte (#12). NO DOUBLE_KICK.
 	db  4, LEER
@@ -1113,7 +1113,7 @@ ClefableEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex mystical Fairy. 17 backbone
-; (Clefairy) + 3 Clefable-exclusives: ICY_WIND (Forte sec C),
+; (Clefairy) + 4 Clefable-exclusives: BODY_SLAM, ICY_WIND (Forte sec C),
 ; PLAY_ROUGH (Forte sec F), PETAL_DANCE (Forte sec F).
 	db  1, GROWL
 	db  4, FAIRY_WIND
@@ -1224,7 +1224,7 @@ WigglytuffEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex balloon singer. 20 backbone
+; v0.7 Pass 3 (Forte review): apex balloon singer. 22 backbone
 ; (Jigglypuff, incl. FLY HM02 natural L54 — balloon floats, Forte
 ; sec B) + 2 Wigglytuff-exclusives: MIRROR_MOVE, PLAY_ROUGH.
 	db  1, GROWL
@@ -1394,7 +1394,7 @@ ParasEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): cordyceps-controlled bug (Bug/Grass; Parasect
-; → Bug/Fungus per typing revision). 11 shared (Forte's order). Powder
+; → Bug/Fungus per typing revision). 14 shared (Forte's order). Powder
 ; profile: POISONPOWDER + STUN_POWDER + (SPORE shared at L22, the evo-level move). LEECH_LIFE early bug-drain; SLASH mid-stage claws;
 ; drain progression (ABSORB→MEGA→GIGA).
 	db  4, BUG_BITE
@@ -1418,7 +1418,7 @@ ParasectEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): mushroom-dominated apex (Bug/Fungus). Paras'
-; 11 + 8 Parasect-only exclusives (per Forte feedback). SPORE at L22 (=
+; 14 + 8 Parasect-only exclusives (per Forte feedback). SPORE at L22 (=
 ; evo level — mushroom takes over signature). PARASITE (Parasect-only
 ; super-fang). SPORE_DAZE (fungal confusion). SCARY_FACE (creepy fungal-
 ; zombie). EERIE_IMPULSE (mind-affecting spores per Forte). NIGHT_SLASH
@@ -1531,7 +1531,7 @@ DugtrioEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex 3-headed mole. 14 backbone (Diglett) +
+; v0.7 Pass 3 (Forte review): apex 3-headed mole. 15 backbone (Diglett) +
 ; 4 Dugtrio-exclusives (Forte): SCREECH (after HONE_CLAWS, não tarde),
 ; NIGHT_SLASH, TAKE_DOWN, RECOVER (esconde-se debaixo de terra a
 ; descansar). Removido: TRI_ATTACK (Forte sec G — só Porygon/Mew/
@@ -1697,7 +1697,7 @@ PrimeapeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex rage-monkey. 16 backbone + 6 Primeape-
+; v0.7 Pass 3 (Forte review): apex rage-monkey. 16 backbone + 7 Primeape-
 ; exclusives: INTIMIDATE (Forte: EARLIER, era L48), GROUND_STOMP,
 ; BULK_UP (muscle-based per Forte), BRUTAL_SWING (rage swing),
 ; SWORDS_DANCE high lvl (Forte), GORE_ATTACK high
@@ -1763,8 +1763,8 @@ ArcanineEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex alpha canine. 12 shared backbone + 4
-; Arcanine-exclusives: CUT (HM01 natural — claws sharp), AGILITY (Forte:
+; v0.7 Pass 3 (Forte review): apex alpha canine. 16 shared backbone + 3
+; Arcanine-exclusives: AGILITY (Forte:
 ; higher level que Growlithe original), STRENGTH (HM04 natural),
 ; SWORDS_DANCE (Forte explicit "essenciais que tem MESMO"). Removido:
 ; EXTREMESPEED (Forte: canine não está na lista YES — só Pikachu/Raichu/
@@ -1867,8 +1867,9 @@ AbraEvosMoves:
 	db EVOLVE_LEVEL, 26, KADABRA
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): minimalist baby psychic. Apenas
-; TELEPORT pre-evo — fiel ao canon Abra-only-Teleport.
+; v0.7 Pass 3 (Forte review): minimalist baby psychic. TELEPORT
+; signature L1 — guina ao canon Abra-only-Teleport, depois kit
+; psychic (PSYWAVE/DISABLE/PSYCHIC_BIND) pre-evo.
 	db  1, TELEPORT
 	db  7, PSYWAVE
 	db 13, DISABLE
@@ -2079,7 +2080,7 @@ VictreebelEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex carnivore (Grass/Poison). Weepinbell's
-; 19 + 3 Victreebel-only exclusives (per Forte): SLASH (sharp leaves
+; 19 + 4 Victreebel-only exclusives (per Forte): CUT (HM natural matured), SLASH (sharp leaves
 ; matured), SCARY_FACE (giant trap mouth — eerie/sinister), TOXIC
 ; (apex predator finishing poison).
 	db  4, ABSORB
@@ -2136,7 +2137,7 @@ TentacruelEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex jellyfish. 15 backbone (Tentacool,
+; v0.7 Pass 3 (Forte review): apex jellyfish. 16 backbone (Tentacool,
 ; SURF L39 incl.) + 6 Tentacruel-exclusive levelup moves:
 ; EERIE_IMPULSE, SLUDGE_WAVE, SHOCK_WAVE, TOXIC, CORRODE (Forte sec F
 ; Claude decide: yes, jellyfish acid corrodes), HYDRO_PUMP. CUT HM01
@@ -2224,7 +2225,7 @@ GolemEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex turtle-shell rock (Rock/Ground).
-; Graveler's 17 + 2 Golem-only exclusives (per Forte): IRON_DEFENSE (DEF
+; Graveler's 18 + 2 Golem-only exclusives (per Forte): IRON_DEFENSE (DEF
 ; +2 — new BIRD move v0.7), HEAVY_SLAM (apex Normal heavy frame). NO
 ; EXPLOSION (Forte: Koffing/Voltorb/Magmar signature only). NO HORN
 ; moves (no horn anatomy). NO OUTRAGE (gentle giant under heft).
@@ -2280,10 +2281,10 @@ RapidashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex equino unicórnio. 12 shared backbone +
-; 5 Rapidash-exclusives: HORN_ATTACK (horn aparece com a evo, mesmo level
-; que AGILITY — same-level apex pair), FLASH (HM05 natural — mane
-; brilhante), HORN_CHARGE (Forte add — mid-tier horn), DAZZLE_GLEAM
+; v0.7 Pass 3 (Forte review): apex equino unicórnio. 13 shared backbone +
+; 4 Rapidash-exclusives: HORN_ATTACK (horn aparece com a evo, mesmo level
+; que AGILITY — same-level apex pair), HORN_CHARGE (Forte add — mid-tier
+; horn), DAZZLE_GLEAM
 ; (Forte: sim — unicorn glow Fairy apex), HORN_DRILL (Forte explicit
 ; signature, last move L60). Removido: EXTREMESPEED (Forte explicit
 ; "Rapidash NÃO — rápido mas não ágil").
@@ -3511,7 +3512,7 @@ StarmieEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 v2 (+ Forte r1): Water/Psychic mystic star. Staryu
-; backbone + LIGHT_SCREEN, CALM_MIND, SURF before the shared
+; backbone + CALM_MIND, SURF before the shared
 ; HYDRO_PUMP, PSYCHIC_M apex, MOONBLAST high-level (Forte r1 —
 ; the core IS a moon-gem).
 	db 10, HARDEN
@@ -3716,10 +3717,10 @@ PinsirEvosMoves:
 ; v0.7 Pass 3 (+ Forte r4): stag-beetle grappler. Egg moves = TACKLE,
 ; CONSTRICT (Forte r4), VICEGRIP (shared almost-signature with the
 ; Krabby line). LOW_KICK removed (Forte r4). DIG L36 (dex canon:
-; buries itself on cold nights; horns excavate) and DOUBLE_EDGE L54
+; buries itself on cold nights; horns excavate) and DOUBLE_EDGE L55
 ; (stag beetles ram full-body in duels) — both Forte-approved r4.
-; No SLASH (no claws), no SUBMISSION (Machamp/Poliwrath), no
-; BUG_BUZZ (silent — no buzzing wings).
+; No SLASH (no claws), no BUG_BUZZ (silent — no buzzing wings).
+; SUBMISSION L57 (full-body grappling slam — fits the brute).
 	db  8, HARDEN
 	db 10, FOCUS_ENERGY
 	db 13, BIDE
@@ -3793,7 +3794,7 @@ GyaradosEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): Water/Dragon-coded sea-serpent apex.
 ; Forte sec I: forte/bruto, mainly PHYSICAL, NÃO dócil. HYPER_BEAM
-; L65 last move (Forte sec G). 5 backbone (Magikarp) + 20 Gyarados-exclusives in a post-evo burst
+; L65 last move (Forte sec G). 5 backbone (Magikarp) + 21 Gyarados-exclusives in a post-evo burst
 ; @27-65: BITE, INTIMIDATE, COIL (Forte sec E snake-coil), DRAGON_BREATH/
 ; DRAGON_SLAM/OUTRAGE Dragon-coded, SURF/HYDRO_PUMP/EARTHQUAKE/THRASH/
 ; HEAVY_SLAM. SURF/STRENGTH HMs.
@@ -3892,7 +3893,7 @@ VaporeonEvosMoves:
 ; Learnset
 ; v0.7 Pass 3: Water fox, fluid body. Eevee shared + water/ice kit +
 ; HARDEN (Forte #5 — fluid body solidifies to ice/scale armor) + RECOVER
-; (Forte #5 — animal regen pattern, fluid body reforms). HARDEN L16 (weak-move guideline), RECOVER L34. ICY_WIND replaced
+; (Forte #5 — animal regen pattern, fluid body reforms). HARDEN L30 (weak-move guideline), RECOVER L32. ICY_WIND replaced
 ; with ICE_BEAM (Vaporeon water-mastery deserves real ice attack, not
 ; light wind). Removed ICY_WIND.
 	db  4, TAIL_WHIP
@@ -4007,7 +4008,7 @@ OmanyteEvosMoves:
 	db EVOLVE_LEVEL, 40, OMASTAR
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): ammonite spiral shell Water/Rock.
+; v0.7 Pass 3 (Forte review): ammonite spiral shell Rock/Water.
 ; WITHDRAW shell (Forte sec F). Water+Rock physical kit. No SURF/
 ; STRENGTH HM yet — those come at Omastar.
 	db  1, WATER_GUN
@@ -4265,8 +4266,8 @@ DragonairEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): Dragon sea-serpent mid-evo. 12 backbone
-; (Dratini) + 2 Dragonair-exclusives: DRAGON_RAGE L43 (Forte sec I
-; signature) and FLY L46 = evo level. (DRAGON_SLAM/SURF/SHOCK_WAVE are
+; (Dratini) + 3 Dragonair-exclusives: IRON_TAIL L39, DRAGON_RAGE L43
+; (Forte sec I signature) and FLY L46 = evo level. (DRAGON_SLAM/SURF/SHOCK_WAVE are
 ; already in the Dratini backbone.)
 	db  1, TACKLE
 	db  5, LEER
@@ -4289,7 +4290,7 @@ DragoniteEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): apex Dragon. 14 backbone (Dragonair)
+; v0.7 Pass 3 (Forte review): apex Dragon. 15 backbone (Dragonair)
 ; + 8 Dragonite-exclusives: STRENGTH L49 HM natural (Forte sec B),
 ; EXTRASENSORY, BULLDOZE, ROCK_TOMB, TAKE_DOWN, BRUTAL_SWING,
 ; OUTRAGE L63 (Forte sec I), HYPER_BEAM L65 last move (Forte sec G).

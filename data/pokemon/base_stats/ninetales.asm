@@ -17,7 +17,7 @@
 	; Sem HM FLASH (Forte: removido — EERIE_IMPULSE já cobre utility). 4 fun moves (regra global last-stage).
 	; tm/hm learnset
 	; v0.7 Pass 3: Ninetales - apex mistica kitsune Fire-Fairy,
-	; last-stage generosa (24 entries). auto
+	; last-stage generosa (23 entries). auto
 	; QUICK_ATTACK/FAINT_ATTACK/NIGHT_SHADE/CONFUSE_RAY/DAZZLE_GLEAM/AGILITY/SHADOW_BALL/FLAMETHROWER.
 	; bonus
 	; BODY_SLAM/FLAME_BURST/IGNITE/FAKE_TEARS/CHARM/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/DARK_PULSE/REFLECT/CALM_MIND.
