@@ -3244,7 +3244,6 @@ RhyhornEvosMoves:
 	db 36, IRON_HEAD
 	db 40, HEAD_SMASH
 	db 44, TAKE_DOWN
-	db 65, MEGAHORN
 	db 0
 
 RhydonEvosMoves:
@@ -3252,13 +3251,13 @@ RhydonEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): apex rhinoceros (Ground/Rock). Rhyhorn's
-; 13 + 8 Rhydon-only exclusives (per Forte): HORN_CHARGE (matured horn
+; 13 + 9 Rhydon-only exclusives (per Forte): MEGAHORN, HORN_CHARGE (matured horn
 ; just after evo), EARTHQUAKE (Rhydon-only per Forte), FIERCE_ROAR,
 ; STRENGTH (HM), BRUTAL_SWING, THRASH (primal force), HORN_DRILL
 ; (signature per Forte's Dodrio+Rhydon list), FISSURE (Forte's optional
 ; high level — included). NO DRAGON_SLAM (Rhydon is rhino, not dragon
 ; — Forte questioned, my call: skip; no extreme-pressure justification
-; like Onix). NO MEGAHORN (Bug type, Rhydon not bug).
+; like Onix). MEGAHORN (apex horn — Rhydon-exclusive, gesto>tipo: rhino horn).
 	db  4, TACKLE
 	db  7, LEER
 	db 10, HORN_ATTACK
@@ -3276,6 +3275,7 @@ RhydonEvosMoves:
 	db 44, TAKE_DOWN
 	db 48, EARTHQUAKE
 	db 52, FIERCE_ROAR
+	db 54, MEGAHORN
 	db 56, ROCK_SLIDE
 	db 58, BRUTAL_SWING
 	db 61, THRASH
