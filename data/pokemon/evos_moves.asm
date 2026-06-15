@@ -558,8 +558,6 @@ PidgeyEvosMoves:
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
 	db 36, FLY
-	db 42, HURRICANE
-	db 50, SKY_ATTACK
 	db 0
 
 PidgeottoEvosMoves:
@@ -696,7 +694,6 @@ SpearowEvosMoves:
 	db 31, NIGHT_SLASH
 	db 36, HONE_CLAWS
 	db 42, TAKE_DOWN
-	db 52, SKY_ATTACK
 	db 0
 
 FearowEvosMoves:
@@ -2410,9 +2407,9 @@ FarfetchdEvosMoves:
 	db 13, QUICK_ATTACK
 	db 18, KARATE_CHOP
 	db 22, LEEK_STRIKE
-	db 26, SLASH
+	db 25, CUT
+	db 27, SLASH
 	db 30, NIGHT_SLASH
-	db 34, CUT
 	db 38, AGILITY
 	db 42, RECOVER
 	db 48, SWORDS_DANCE
