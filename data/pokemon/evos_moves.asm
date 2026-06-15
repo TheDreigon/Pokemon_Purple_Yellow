@@ -3241,9 +3241,9 @@ RhyhornEvosMoves:
 	db 22, FOCUS_ENERGY
 	db 22, RAGE
 	db 28, BULLDOZE
+	db 36, IRON_HEAD
 	db 40, HEAD_SMASH
 	db 44, TAKE_DOWN
-	db 46, IRON_HEAD
 	db 65, MEGAHORN
 	db 0
 
@@ -3279,8 +3279,8 @@ RhydonEvosMoves:
 	db 56, ROCK_SLIDE
 	db 58, BRUTAL_SWING
 	db 61, THRASH
-	db 64, HORN_DRILL
-	db 67, FISSURE
+	db 63, HORN_DRILL
+	db 65, FISSURE
 	db 0
 
 ChanseyEvosMoves:
