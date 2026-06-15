@@ -15,7 +15,8 @@
 	; v0.7 Pass 3: pato aquatico de mente psiquica latente (pre-evo,
 	; backbone). auto WATER_PULSE/EXTRASENSORY. bonus ICE_BEAM. HM
 	; CUT/SURF.
-	tmhm WATER_PULSE, EXTRASENSORY, ICE_BEAM, CUT, SURF
+	tmhm WATER_PULSE, ICY_PULSE, EXTRASENSORY, ICE_BEAM, CUT, \
+	     SURF
 	; end
 
 	db 0 ; padding

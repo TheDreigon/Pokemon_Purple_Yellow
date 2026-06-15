@@ -13,7 +13,7 @@
 	; tm/hm learnset
 	; v0.7 Pass 3: pre-evo gas balloon Poison/Gas. auto
 	; NIGHT_SHADE/TOXIC/LIGHT_SCREEN/FLAMETHROWER.
-	tmhm NIGHT_SHADE, TOXIC, LIGHT_SCREEN, FLAMETHROWER
+	tmhm FLAME_BURST, NIGHT_SHADE, TOXIC, LIGHT_SCREEN, FLAMETHROWER
 	; end
 
 	db 0 ; padding

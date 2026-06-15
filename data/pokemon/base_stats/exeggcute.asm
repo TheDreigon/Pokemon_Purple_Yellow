@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; v0.7 Pass 3: cacho de ovos Grass/Psychic imovel, backbone curto.
 	; auto PSYCHIC_M/DARK_PULSE/PETAL_DANCE.
-	tmhm PSYCHIC_M, DARK_PULSE, PETAL_DANCE
+	tmhm EXTRASENSORY, PSYCHIC_M, DARK_PULSE, PETAL_DANCE
 	; end
 
 	db 0 ; padding
