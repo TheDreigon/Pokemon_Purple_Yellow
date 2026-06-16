@@ -29,7 +29,7 @@ PowerPlant_TextPointers:
 	; dw_const PickUpItemText,           TEXT_POWERPLANT_HP_UP
 	dw_const PickUpItemText,           TEXT_POWERPLANT_RARE_CANDY
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_REFLECT
-	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_AGILITY
+	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_THUNDERBOLT
 
 PowerPlantTrainerHeaders:
 	def_trainers

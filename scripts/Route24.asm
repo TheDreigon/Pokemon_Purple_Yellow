@@ -86,7 +86,7 @@ Route24_TextPointers:
 	dw_const Route24Youngster1Text,    TEXT_ROUTE24_YOUNGSTER1
 	dw_const Route24CooltrainerF2Text, TEXT_ROUTE24_COOLTRAINER_F2
 	dw_const Route24Youngster2Text,    TEXT_ROUTE24_YOUNGSTER2
-	dw_const PickUpItemText,           TEXT_ROUTE24_TM_DOUBLE_TEAM
+	dw_const PickUpItemText,           TEXT_ROUTE24_TM_ICY_PULSE
 	dw_const Route24CooltrainerM4Text, TEXT_ROUTE24_COOLTRAINER_M4
 
 Route24TrainerHeaders:
