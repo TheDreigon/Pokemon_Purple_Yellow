@@ -554,10 +554,10 @@ GiovanniData:
 	db $FF, 53, DUGTRIO, 54, NIDOQUEEN, 55, PERSIAN,  54, NIDOKING, 55, RHYDON, 0
 
 RocketData:
-; Mt. Moon B2F
-	db 13, RATICATE, 0 ; ROCKET3 — restored vanilla lone Raticate (was RATTATA/ZUBAT)
-	db 11, SANDSHREW, RATTATA, ZUBAT, 0
-	db 12, ZUBAT, EKANS, 0
+; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
+	db 14, RATICATE, 0 ; ROCKET3 (lone Raticate)
+	db 12, RATTATA, ZUBAT, 0 ; ROCKET1
+	db 12, EKANS, ZUBAT, 0 ; ROCKET2
 ; Unused
 	db 16, RATICATE, 0
 ; Cerulean City
