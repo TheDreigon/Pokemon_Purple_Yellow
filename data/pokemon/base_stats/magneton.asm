@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/magneton.pic", 0, 1 ; sprite dimensions
 	dw MagnetonPicFront, MagnetonPicBack
 
-	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (R19: silent magnet — GROWL->HARDEN)
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
