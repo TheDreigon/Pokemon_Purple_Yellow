@@ -93,11 +93,11 @@ _VermilionGymLTSurgeTMExplanationText::
 	text_start
 
 	para "TM12 packs"
-	line "THUNDERBOLT, kid!"
+	line "SHOCK WAVE, kid!"
 
-	para "Strong electric"
-	line "blast that might"
-	cont "leave 'em twitchin'!"
+	para "An electric jolt"
+	line "that NEVER misses"
+	cont "its target, kid!"
 	done
 
 _VermilionGymLTSurgeTMNoRoomText::

@@ -96,9 +96,9 @@ _SaffronGymSabrinaTMExplanationText::
 	para "TM40 is PSYCHIC."
 
 	para "A focused psychic"
-	line "strike that may"
-	cont "erode the target's"
-	cont "SPECIAL stat."
+	line "strike that often"
+	cont "leaves the target"
+	cont "confused!"
 	done
 
 _SaffronGymSabrinaTMNoRoomText::
