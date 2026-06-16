@@ -6858,7 +6858,7 @@ ApplyBadgeStatBoosts:
 	jr nz, .loop
 	ret
 
-; multiply stat at hl by 1.125
+; multiply stat at hl by 1.125 (Pikachu: x1.25 — the mascot gets a bigger badge boost)
 ; cap stat at MAX_STAT_VALUE
 .applyBoostToStat
 	ld a, [hli]
@@ -6870,7 +6870,7 @@ ApplyBadgeStatBoosts:
 	rr e
     ld a, [wBattleMonSpecies] ; Check if the species is Pikachu
     cp PIKACHU
-    jr nz, .continue ; times by 1.25 if its Pikachu
+    jr z, .continue ; Pikachu stops at de=stat/4 -> x1.25 (mascot boost); everyone else shifts once more (de=stat/8) -> x1.125
 	srl d
 	rr e
 .continue
