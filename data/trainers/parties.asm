@@ -555,7 +555,7 @@ GiovanniData:
 
 RocketData:
 ; Mt. Moon B2F
-	db 13, RATTATA, ZUBAT, 0
+	db 13, RATICATE, 0 ; ROCKET3 — restored vanilla lone Raticate (was RATTATA/ZUBAT)
 	db 11, SANDSHREW, RATTATA, ZUBAT, 0
 	db 12, ZUBAT, EKANS, 0
 ; Unused
