@@ -1,5 +1,5 @@
 	db DEX_MAGMAR ; pokedex id
-	base_stat_row 75, 95, 75, 95, 85 ; hp atk def spc spd
+	base_stat_row 75, 95, 80, 95, 85 ; hp atk def spc spd
 	db FIRE, MAGMA ; type
 	db 45 ; catch rate
 	db 167 ; base exp

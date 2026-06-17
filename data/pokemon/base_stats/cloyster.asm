@@ -1,5 +1,5 @@
 	db DEX_CLOYSTER ; pokedex id
-	base_stat_row 45, 90, 180, 90, 45 ; hp atk def spc spd
+	base_stat_row 45, 85, 180, 90, 40 ; hp atk def spc spd
 
 	db WATER, ICE ; type
 	db 60 ; catch rate
