@@ -17,7 +17,7 @@
 	; pre-evo aprovada Forte) MIMIC/METRONOME.
 	tmhm BODY_SLAM, MIMIC, METRONOME, DAZZLE_GLEAM, FAKE_TEARS, \
 	     CHARM, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
-	     CALM_MIND
+	     CALM_MIND, FLASH
 	; end
 
 	db 0 ; padding

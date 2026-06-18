@@ -805,6 +805,7 @@ PikachuEvosMoves:
 	db 21, SHOCK_WAVE
 	db 23, VOLT_TACKLE
 	db 25, AGILITY
+	db 28, FLASH
 	db 30, IRON_TAIL
 	db 36, THUNDERBOLT
 	db 42, BODY_SLAM
@@ -829,6 +830,7 @@ RaichuEvosMoves:
 	db 21, SHOCK_WAVE
 	db 23, VOLT_TACKLE
 	db 25, AGILITY
+	db 28, FLASH
 	db 30, IRON_TAIL
 	db 36, THUNDERBOLT
 	db 42, BODY_SLAM
@@ -3493,7 +3495,6 @@ StaryuEvosMoves:
 	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
-	db 29, FLASH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
@@ -3518,7 +3519,6 @@ StarmieEvosMoves:
 	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
-	db 29, FLASH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
