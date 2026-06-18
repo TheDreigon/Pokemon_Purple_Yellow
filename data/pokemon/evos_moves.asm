@@ -432,9 +432,6 @@ CaterpieEvosMoves:
 ; v0.7 Pass 3 (Forte review): joke-tier baby caterpillar. Shared with the
 ; whole line. STRING_SHOT moved L1 → L7 (1 level before evo at L8 — earned
 ; just before graduating to cocoon).
-	db  4, BUG_BITE
-	db  7, STRING_SHOT
-	db 13, BIDE
 	db 0
 
 MetapodEvosMoves:
@@ -444,10 +441,9 @@ MetapodEvosMoves:
 ; Learnset
 ; v0.7 Pass 3: cocoon. Same 3 shared entries as Caterpie (uniformity rule).
 ; All real growth happens after evolving to Butterfree.
-	db  4, BUG_BITE
-	db  7, STRING_SHOT
-	db 11, HARDEN
-	db 13, BIDE
+	db  8, HARDEN
+	db 16, IRON_DEFENSE
+	db 21, BIDE
 	db 0
 
 ButterfreeEvosMoves:
@@ -486,10 +482,6 @@ WeedleEvosMoves:
 ; whole line. STRING_SHOT moved L1 → L7 (1 level before evo at L8). L4
 ; replaced with POISON_STING per Forte (FURY_ATTACK dropped from shared,
 ; reserved for Beedrill's twin-needle frenzy at L15).
-	db  4, POISON_STING
-	db  7, STRING_SHOT
-	db  9, BUG_BITE
-	db 13, BIDE
 	db 0
 
 KakunaEvosMoves:
@@ -499,11 +491,9 @@ KakunaEvosMoves:
 ; Learnset
 ; v0.7 Pass 3: cocoon. Same 4 shared entries as Weedle (uniformity rule).
 ; All growth happens after evolving to Beedrill.
-	db  4, POISON_STING
-	db  7, STRING_SHOT
-	db  9, BUG_BITE
-	db 11, HARDEN
-	db 13, BIDE
+	db  8, HARDEN
+	db 16, IRON_DEFENSE
+	db 21, BIDE
 	db 0
 
 BeedrillEvosMoves:
