@@ -4175,6 +4175,7 @@ ArticunoEvosMoves:
 	db 46, HURRICANE
 	db 51, BLIZZARD
 	db 60, SKY_ATTACK
+	db 70, HYPER_BEAM
 	db 0
 
 ZapdosEvosMoves:
@@ -4203,6 +4204,7 @@ ZapdosEvosMoves:
 	db 50, HURRICANE
 	db 55, THUNDER
 	db 60, SKY_ATTACK
+	db 70, HYPER_BEAM
 	db 0
 
 MoltresEvosMoves:
@@ -4229,6 +4231,7 @@ MoltresEvosMoves:
 	db 46, HURRICANE
 	db 51, FIRE_BLAST
 	db 60, SKY_ATTACK
+	db 70, HYPER_BEAM
 	db 0
 
 DratiniEvosMoves:

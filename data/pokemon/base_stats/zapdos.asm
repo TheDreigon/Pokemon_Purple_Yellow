@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/zapdos.pic", 0, 1 ; sprite dimensions
 	dw ZapdosPicFront, ZapdosPicBack
 
-	db PECK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db PECK, NUZZLE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
@@ -21,7 +21,7 @@
 	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, AERIAL_ACE, HURRICANE, INTIMIDATE, \
 	     SCARY_FACE, TAKE_DOWN, THUNDERBOLT, SWORDS_DANCE, CALM_MIND, \
-	     ROCK_SLIDE, DOUBLE_EDGE, CUT, FLY, FLASH
+	     ROCK_SLIDE, DOUBLE_EDGE, LIGHT_SCREEN, REFLECT, CUT, FLY, FLASH
 	; end
 
 	db 0 ; padding
