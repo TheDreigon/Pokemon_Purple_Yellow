@@ -349,6 +349,7 @@ CharizardEvosMoves:
 	db 46, AERIAL_ACE
 	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
+	db 55, DRAGON_RAGE
 	db 60, HURRICANE
 	db 0
 
