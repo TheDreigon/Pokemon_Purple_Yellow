@@ -2612,8 +2612,7 @@ ShellderEvosMoves:
 ; CLAMP signature (Forte G — Shellder/Cloyster ONLY). SUPERSONIC.
 	db  1, TACKLE
 	db  5, WITHDRAW
-	db 10, SUPERSONIC
-	db 14, ICY_WIND
+	db 12, ICY_WIND
 	db 18, CLAMP
 	db 20, WATER_GUN
 	db 22, BUBBLEBEAM
@@ -2639,8 +2638,7 @@ CloysterEvosMoves:
 ; (Forte G Shellder-line high). EXPLOSION (clam shells crack).
 	db  1, TACKLE
 	db  5, WITHDRAW
-	db 10, SUPERSONIC
-	db 14, ICY_WIND
+	db 12, ICY_WIND
 	db 18, CLAMP
 	db 20, WATER_GUN
 	db 22, BUBBLEBEAM
@@ -2777,7 +2775,7 @@ OnixEvosMoves:
 ; BREATH/DRAGON_SLAM (+HYPER_BEAM L70 last move). NO GORE_ATTACK/OUTRAGE
 ; (sem fogo selvagem, gentle giant under all that defense). Pairs at same
 ; level (per Forte): COIL+BIND, BIDE+LEER, CRUNCH+DIG, IRON_TAIL+BRUTAL_
-; SWING. FISSURE signature (Forte's list).
+; SWING. FISSURE signature (Forte's list). ROCK_THROW@18 = excecao R21 (empurra a pedra com a cauda; serpente sem maos) — Forte.
 	db  4, TACKLE
 	db  6, GROUND_STOMP
 	db  8, BIND
