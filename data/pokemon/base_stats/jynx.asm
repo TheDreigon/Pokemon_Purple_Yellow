@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/jynx.pic", 0, 1 ; sprite dimensions
 	dw JynxPicFront, JynxPicBack
 
-	db TACKLE, LOVELY_KISS, NO_MOVE, NO_MOVE ; level 1 learnset
+	db DOUBLESLAP, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

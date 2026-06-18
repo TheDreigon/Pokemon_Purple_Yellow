@@ -1460,13 +1460,14 @@ VenonatEvosMoves:
 ; spinneret anatomy on the fuzzy bug body).
 	db  4, POISON_STING
 	db  8, PSYWAVE
-	db 11, LEECH_LIFE
+	db 11, BUG_BITE
 	db 14, SUPERSONIC
 	db 17, CONFUSION
 	db 20, SPORE_DAZE
-	db 31, TOXIC
-	db 40, PSYCHIC_M
-	db 48, HAZE
+	db 34, LEECH_LIFE
+	db 50, TOXIC
+	db 54, HAZE
+	db 58, PSYCHIC_M
 	db 0
 
 VenomothEvosMoves:
@@ -1480,7 +1481,7 @@ VenomothEvosMoves:
 ; (new SPECIAL_SPEED_UP1_EFFECT). POISONPOWDER+GUST pair at L21 (R1: max 2/level).
 	db  4, POISON_STING
 	db  8, PSYWAVE
-	db 11, LEECH_LIFE
+	db 11, BUG_BITE
 	db 14, SUPERSONIC
 	db 17, CONFUSION
 	db 21, POISONPOWDER
@@ -1489,11 +1490,14 @@ VenomothEvosMoves:
 	db 25, BUG_BUZZ
 	db 27, SLEEP_POWDER
 	db 29, WING_ATTACK
-	db 31, TOXIC
-	db 35, PSYCHIC_M
+	db 31, ACID
+	db 34, LEECH_LIFE
+	db 37, SPORE_DAZE
 	db 42, QUIVER_DANCE
-	db 48, HAZE
-	db 55, NIGHT_SHADE
+	db 46, NIGHT_SHADE
+	db 50, TOXIC
+	db 54, HAZE
+	db 58, PSYCHIC_M
 	db 0
 
 DiglettEvosMoves:
@@ -3608,12 +3612,10 @@ JynxEvosMoves:
 ; 26 moves. PLAY_ROUGH NÃO (Claude: singer elegante, não rough biter).
 	db  1, LICK
 	db  4, TICKLE
-	db  7, LOVELY_KISS
-	db  9, FAIRY_WIND
+	db  7, FAIRY_WIND
 	db 11, POWDER_SNOW
-	db 14, ICY_WIND
-	db 16, DOUBLESLAP
-	db 18, NASTY_PLOT
+	db 16, ICY_WIND
+	db 18, LOVELY_KISS
 	db 20, PSYWAVE
 	db 22, EERIE_IMPULSE
 	db 22, DISABLE
@@ -3623,7 +3625,6 @@ JynxEvosMoves:
 	db 33, CHARM
 	db 36, ICY_PULSE
 	db 39, EXTRASENSORY
-	db 42, LIGHT_SCREEN
 	db 45, NIGHT_SHADE
 	db 45, DOUBLE_TEAM
 	db 48, SHADOW_BALL
@@ -3631,7 +3632,7 @@ JynxEvosMoves:
 	db 54, SPIRIT_DRAIN
 	db 57, ICE_BEAM
 	db 60, DARK_PULSE
-	db 63, BLIZZARD
+	db 65, BLIZZARD
 	db 0
 
 ElectabuzzEvosMoves:
