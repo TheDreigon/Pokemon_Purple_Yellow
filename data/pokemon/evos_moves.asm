@@ -1822,15 +1822,17 @@ PoliwhirlEvosMoves:
 	db 13, HYPNOSIS
 	db 17, TACKLE
 	db 20, FOCUS_ENERGY
+	db 20, LOW_KICK
 	db 22, BUBBLEBEAM
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
-	db 32, LOW_KICK
+	db 32, BIDE
 	db 36, BULK_UP
-	db 44, WATERFALL
+	db 36, WATERFALL
+	db 40, SURF
+	db 42, PLAY_ROUGH
 	db 49, DIZZY_PUNCH
 	db 51, AQUA_JET
-	db 55, SURF
 	db 0
 
 PoliwrathEvosMoves:
@@ -1846,21 +1848,22 @@ PoliwrathEvosMoves:
 	db 13, HYPNOSIS
 	db 17, TACKLE  ; (Evo lvl)
 	db 20, FOCUS_ENERGY
+	db 20, LOW_KICK
 	db 22, BUBBLEBEAM
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
-	db 32, LOW_KICK
+	db 32, BIDE
 	db 36, BULK_UP
+	db 36, WATERFALL
 	db 40, STRENGTH
-	db 44, WATERFALL
+	db 40, SURF
+	db 42, PLAY_ROUGH
+	db 45, TAKE_DOWN
 	db 47, DIZZY_PUNCH
-	db 49, TAKE_DOWN
 	db 51, AQUA_JET
 	db 53, SEISMIC_TOSS
-	db 55, SURF
 	db 57, SUBMISSION
 	db 59, DOUBLE_EDGE
-	db 61, HYDRO_PUMP
 	db 0
 
 AbraEvosMoves:
