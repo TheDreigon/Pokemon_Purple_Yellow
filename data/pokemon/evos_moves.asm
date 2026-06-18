@@ -1519,6 +1519,7 @@ DiglettEvosMoves:
 	db 24, CUT
 	db 26, MUD_BOMB
 	db 28, SLASH
+	db 30, FAINT_ATTACK
 	db 33, EARTHQUAKE
 	db 36, HONE_CLAWS
 	db 46, ROCK_TOMB
@@ -1546,6 +1547,7 @@ DugtrioEvosMoves:
 	db 24, CUT
 	db 26, MUD_BOMB
 	db 28, SLASH
+	db 30, FAINT_ATTACK
 	db 33, EARTHQUAKE
 	db 36, HONE_CLAWS
 	db 38, SCREECH
@@ -1823,8 +1825,8 @@ PoliwhirlEvosMoves:
 	db 22, BUBBLEBEAM
 	db 24, BODY_SLAM
 	db 28, WATER_PULSE
+	db 32, LOW_KICK
 	db 36, BULK_UP
-	db 40, LOW_KICK
 	db 44, WATERFALL
 	db 49, DIZZY_PUNCH
 	db 51, AQUA_JET
@@ -3022,7 +3024,7 @@ CuboneEvosMoves:
 ; L10/BONE_CLUB L13 (Forte explicit). FIERCE_ROAR L13 junto a BONE_CLUB
 ; (Forte). HEADBUTT L18, FAINT_ATTACK L20 (Forte). BULK_UP L28 junto a RAGE
 ; (Forte). HEAD_SMASH/DOUBLE_EDGE muito mais cedo (Forte: era L54/L60, agora
-; L44/L44). GROWTH Cubone-only (Forte add). FOCUS_ENERGY removido (Forte).
+; L44/L44). RECOVER+GROWTH removidos (Forte: a crianca nao se cura nem cresce sozinha, so sofre e luta). FOCUS_ENERGY removido (Forte).
 ; TAIL_WHIP removido (Forte).
 	db  1, GROWL
 	db  4, FAIRY_WIND
@@ -3031,12 +3033,10 @@ CuboneEvosMoves:
 	db 13, FIERCE_ROAR
 	db 18, HEADBUTT
 	db 20, FAINT_ATTACK
-	db 22, RECOVER
 	db 26, BONEMERANG
 	db 28, BULK_UP
 	db 28, RAGE
 	db 34, BULLDOZE
-	db 40, GROWTH
 	db 44, DOUBLE_EDGE
 	db 44, HEAD_SMASH
 	db 0
