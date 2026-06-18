@@ -3144,34 +3144,29 @@ LickitungEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): Normal/Poison reptile-camaleao tongue. LICK
-; signature. SCREECH antes do SUPERSONIC, HEADBUTT depois (Forte). HINDER
-; low (Forte add). ASTONISH/DEFENSE_CURL/BIDE/EERIE_IMPULSE/TAIL_WHIP/DISABLE/
-; SEISMIC_TOSS adicionados (Forte). CONSTRICT em vez de BIND, BIND mais
-; tarde (Forte). Removido: SLAM (Forte: já não existe; só DRAGON_SLAM que
-; não queremos), THRASH (Forte), GUNK_SHOT (Grimer-only signature),
-; HYPER_FANG (Raticate-coded), NEUROTOXIN (kit Poison reduzido), SLUDGE
-; (Tentacool/Grimer-only).
+; v0.7 (Forte 2026): Normal/Poison tongue reptile. LICK signature; egg = LICK/TAIL_WHIP.
+; +WATER_GUN/ROLLOUT/PLAY_ROUGH/SLUDGE_WAVE; GROUND_STOMP early; SLUDGE_WAVE penult,
+; TOXIC last (L65). SCREECH kept; removed SUPERSONIC/EERIE_IMPULSE/DISABLE; TAIL_WHIP->egg.
 	db  1, LICK
 	db  4, DEFENSE_CURL
 	db  7, SCREECH
 	db 10, HINDER
 	db 12, HEADBUTT
 	db 15, CONSTRICT
-	db 17, TAIL_WHIP
-	db 20, SUPERSONIC
-	db 23, ASTONISH
-	db 26, BIDE
-	db 32, ACID
-	db 35, BIND
-	db 38, EERIE_IMPULSE
-	db 41, DISABLE
-	db 44, GROUND_STOMP
-	db 48, BODY_SLAM
-	db 52, SEISMIC_TOSS
-	db 56, TOXIC
-	db 60, DOUBLE_EDGE
-	db 65, BRUTAL_SWING
+	db 18, GROUND_STOMP
+	db 21, ASTONISH
+	db 24, WATER_GUN
+	db 27, BIDE
+	db 30, ROLLOUT
+	db 33, ACID
+	db 37, BIND
+	db 41, PLAY_ROUGH
+	db 45, BODY_SLAM
+	db 49, SEISMIC_TOSS
+	db 53, DOUBLE_EDGE
+	db 57, BRUTAL_SWING
+	db 61, SLUDGE_WAVE
+	db 65, TOXIC
 	db 0
 
 KoffingEvosMoves:

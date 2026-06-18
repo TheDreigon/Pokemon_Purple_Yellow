@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/lickitung.pic", 0, 1 ; sprite dimensions
 	dw LickitungPicFront, LickitungPicBack
 
-	db LICK, SUPERSONIC, NO_MOVE, NO_MOVE ; level 1 learnset
+	db LICK, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
