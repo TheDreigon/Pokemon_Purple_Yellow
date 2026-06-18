@@ -328,8 +328,10 @@ CharizardEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): full dragon-form. Adds 5 anatomical
-; exclusives over Char/Charme: WING_ATTACK / FLY / AERIAL_ACE / HURRICANE
+; exclusives over Char/Charme: WING_ATTACK / FLY / AERIAL_ACE / SKY_ATTACK
 ; (wings now developed; Forte's natural-FLY learner) and CRUNCH (big jaw).
+; SKY_ATTACK@60 capstone dive-bomb (180 BP charge; joins the flying-apex
+; club - birds/Aerodactyl/Fearow/Pidgeot). HURRICANE kept via TM.
 ; DRAGON_CLAW@36 / DRAGON_BREATH@48 shared across the line.
 ; All entry levels unique (rule #7).
 	db  6, EMBER
@@ -350,7 +352,7 @@ CharizardEvosMoves:
 	db 48, DRAGON_BREATH
 	db 52, FIRE_BLAST
 	db 55, DRAGON_RAGE
-	db 60, HURRICANE
+	db 60, SKY_ATTACK
 	db 0
 
 SquirtleEvosMoves:
@@ -430,9 +432,11 @@ CaterpieEvosMoves:
 	db EVOLVE_LEVEL, 8, METAPOD
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): joke-tier baby caterpillar. Shared with the
-; whole line. STRING_SHOT moved L1 → L7 (1 level before evo at L8 — earned
-; just before graduating to cocoon).
+; v0.7 Pass 3 (Forte review): joke-tier baby caterpillar. STRING_SHOT at L1
+; (base stats). TACKLE@11 per Forte - past the L8 evo, so reached only if the
+; evolution is cancelled (B), same as Metapod's IRON_DEFENSE@16/BIDE@21.
+; Line owns TACKLE (Metapod/Butterfree L1).
+	db 11, TACKLE
 	db 0
 
 MetapodEvosMoves:
@@ -479,10 +483,10 @@ WeedleEvosMoves:
 	db EVOLVE_LEVEL, 8, KAKUNA
 	db 0
 ; Learnset
-; v0.7 Pass 3 (Forte review): joke-tier baby spike-bug. Shared with the
-; whole line. STRING_SHOT moved L1 → L7 (1 level before evo at L8). L4
-; replaced with POISON_STING per Forte (FURY_ATTACK dropped from shared,
-; reserved for Beedrill's twin-needle frenzy at L15).
+; v0.7 Pass 3 (Forte review): joke-tier baby spike-bug. STRING_SHOT at L1
+; (base stats). TACKLE@11 per Forte - past the L8 evo, so reached only if the
+; evolution is cancelled (B), same as Kakuna's IRON_DEFENSE@16/BIDE@21.
+	db 11, TACKLE
 	db 0
 
 KakunaEvosMoves:
