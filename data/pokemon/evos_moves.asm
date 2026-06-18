@@ -624,7 +624,6 @@ RattataEvosMoves:
 	db  4, QUICK_ATTACK
 	db  7, BITE
 	db  7, POISON_STING
-	db  9, ASTONISH
 	db 11, FOCUS_ENERGY
 	db 13, FAINT_ATTACK
 	db 16, RAGE
@@ -635,11 +634,10 @@ RattataEvosMoves:
 	db 27, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
-	db 40, POISON_FANG
-	db 44, BODY_SLAM
-	db 52, DOUBLE_EDGE
-	db 56, TOXIC_FANGS
-	db 60, EXTREMESPEED
+	db 36, POISON_FANG
+	db 40, BODY_SLAM
+	db 48, TOXIC_FANGS
+	db 52, EXTREMESPEED
 	db 0
 
 RaticateEvosMoves:
@@ -664,14 +662,13 @@ RaticateEvosMoves:
 	db 27, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
-	db 40, POISON_FANG
-	db 44, BODY_SLAM
-	db 46, NIGHT_SLASH
-	db 52, DOUBLE_EDGE
-	db 56, TOXIC_FANGS
-	db 60, EXTREMESPEED
-	db 63, GORE_ATTACK
-	db 65, TOXIC
+	db 36, POISON_FANG
+	db 40, BODY_SLAM
+	db 44, NIGHT_SLASH
+	db 48, TOXIC_FANGS
+	db 52, EXTREMESPEED
+	db 56, GORE_ATTACK
+	db 60, TOXIC
 	db 0
 
 SpearowEvosMoves:
