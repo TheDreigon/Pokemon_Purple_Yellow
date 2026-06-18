@@ -13,8 +13,8 @@
 
 	; tm/hm learnset
 	; v0.7 Pass 3: juvenile aggressive male single-horn. auto
-	; BODY_SLAM/POISON_FANG. bonus QUICK_ATTACK/TOXIC/TAKE_DOWN.
-	tmhm QUICK_ATTACK, BODY_SLAM, POISON_FANG, TOXIC, TAKE_DOWN
+	; BODY_SLAM/POISON_BITE. bonus QUICK_ATTACK/TOXIC/TAKE_DOWN.
+	tmhm QUICK_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, TAKE_DOWN
 	; end
 
 	db 0 ; padding

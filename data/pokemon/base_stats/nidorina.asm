@@ -13,9 +13,9 @@
 
 	; tm/hm learnset
 	; v0.7 Pass 3: mid-stage female, growing chemical bruiser. auto
-	; BODY_SLAM/POISON_FANG/TOXIC/TAKE_DOWN. bonus
+	; BODY_SLAM/POISON_BITE/TOXIC/TAKE_DOWN. bonus
 	; FAINT_ATTACK/DOUBLE_EDGE.
-	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, POISON_FANG, TOXIC, \
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, \
 	     TAKE_DOWN, DOUBLE_EDGE
 	; end
 

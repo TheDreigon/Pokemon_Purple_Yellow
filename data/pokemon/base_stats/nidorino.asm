@@ -13,10 +13,10 @@
 
 	; tm/hm learnset
 	; v0.7 Pass 3: mid-stage mature male, learns aggression primitives.
-	; auto RAGE/BODY_SLAM/POISON_FANG/TAKE_DOWN. bonus
+	; auto RAGE/BODY_SLAM/POISON_BITE/TAKE_DOWN. bonus
 	; QUICK_ATTACK/FAINT_ATTACK/BULK_UP/TOXIC/SCARY_FACE/DOUBLE_EDGE.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
-	     POISON_FANG, TOXIC, SCARY_FACE, TAKE_DOWN, DOUBLE_EDGE
+	     POISON_BITE, TOXIC, SCARY_FACE, TAKE_DOWN, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

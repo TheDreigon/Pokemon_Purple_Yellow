@@ -147,7 +147,7 @@ MoveNames::
 	li "HYPER FANG"
 ; === POISON ===
 	li "POISON STING"
-	li "POISON FANG"
+	li "POISON BITE"
 	li "TOXIC FANGS"
 	li "ACID"
 	li "SLUDGE"

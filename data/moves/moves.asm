@@ -191,7 +191,7 @@ Moves: ; Current total = 220
 
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
 	move POISON_STING,   POISON_SIDE_EFFECT1,              35, POISON,       100, 30
-	move POISON_FANG,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
+	move POISON_BITE,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
 	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 45% chance.
 	move ACID,           DEFENSE_DOWN1_EFFECT,             40, POISON,       100, 25
 	move SLUDGE,         POISON_SIDE_EFFECT1,              65, POISON,       100, 20

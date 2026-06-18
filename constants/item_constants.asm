@@ -182,7 +182,7 @@ DEF TM01 EQU const_value
 	add_tm GIGA_DRAIN,    ; $DF  TM23
 	add_tm DAZZLE_GLEAM,  ; $E0  TM24  (was FAINT_ATTACK)
 	add_tm AGILITY,       ; $E1  TM25  (was BIND)
-	add_tm POISON_FANG,   ; $E2  TM26
+	add_tm POISON_BITE,   ; $E2  TM26
 	add_tm IRON_HEAD,     ; $E3  TM27  (was LEECH_LIFE)
 	add_tm FAKE_TEARS,    ; $E4  TM28
 	add_tm AERIAL_ACE,    ; $E5  TM29

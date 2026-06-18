@@ -155,7 +155,7 @@ MoveSoundTable:
 	db SFX_BATTLE_1E,          $12, $ff ; HYPER_FANG
 ; === POISON ===
 	db SFX_BATTLE_1B,          $00, $80 ; POISON_STING
-	db SFX_BATTLE_1B,          $10, $a0 ; POISON_FANG
+	db SFX_BATTLE_1B,          $10, $a0 ; POISON_BITE
 	db SFX_BATTLE_1B,          $20, $80 ; TOXIC_FANGS
 	db SFX_BATTLE_2A,          $80, $c0 ; ACID
 	db SFX_BATTLE_2A,          $20, $80 ; SLUDGE ; tempo $20→$80 to fit the longer anim (no SFX-cuts-short).

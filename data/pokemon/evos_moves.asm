@@ -609,7 +609,7 @@ RattataEvosMoves:
 ; v0.7 Pass 3 (Forte review): Normal-type rodent, sharp-fanged. HYPER_FANG
 ; at L20 (evo level — signature on graduation to Raticate per Forte). Adds
 ; per Forte: RAGE (rodent rage), HONE_CLAWS (rodent claws sharpen),
-; POISON_FANG (rats carry disease — STAB-less but anatomically plausible),
+; POISON_BITE (rats carry disease — STAB-less but anatomically plausible),
 ; CUT (sharp teeth/claws), FAINT_ATTACK (sneaky rat strike — Dark, no STAB
 ; for Rattata but Raticate gets STAB).
 	db  4, QUICK_ATTACK
@@ -625,7 +625,7 @@ RattataEvosMoves:
 	db 27, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
-	db 36, POISON_FANG
+	db 36, POISON_BITE
 	db 40, BODY_SLAM
 	db 48, TOXIC_FANGS
 	db 52, EXTREMESPEED
@@ -653,7 +653,7 @@ RaticateEvosMoves:
 	db 27, AGILITY
 	db 29, HONE_CLAWS
 	db 32, SUPER_FANG
-	db 36, POISON_FANG
+	db 36, POISON_BITE
 	db 40, BODY_SLAM
 	db 44, NIGHT_SLASH
 	db 48, TOXIC_FANGS
@@ -734,7 +734,7 @@ EkansEvosMoves:
 	db 20, POISON_STING
 	db 23, COIL
 	db 29, BIND
-	db 31, POISON_FANG
+	db 31, POISON_BITE
 	db 34, AGILITY
 	db 37, FAINT_ATTACK
 	db 40, SHADOW_SNEAK
@@ -765,7 +765,7 @@ ArbokEvosMoves:
 	db 23, COIL
 	db 26, SCARY_FACE
 	db 29, BIND
-	db 31, POISON_FANG
+	db 31, POISON_BITE
 	db 34, AGILITY
 	db 37, FAINT_ATTACK
 	db 40, SHADOW_SNEAK
@@ -905,7 +905,7 @@ NidoranFEvosMoves:
 	db 17, FAIRY_WIND
 	db 20, BIDE
 	db 22, HEADBUTT
-	db 26, POISON_FANG
+	db 26, POISON_BITE
 	db 28, BODY_SLAM
 	db 40, TOXIC_FANGS
 	db 50, TOXIC
@@ -934,7 +934,7 @@ NidorinaEvosMoves:
 	db 20, BIDE
 	db 22, HEADBUTT
 	db 24, ACID
-	db 26, POISON_FANG
+	db 26, POISON_BITE
 	db 28, BODY_SLAM
 	db 30, TAKE_DOWN
 	db 33, MUD_SHOT
@@ -965,7 +965,7 @@ NidoqueenEvosMoves:
 	db 20, BIDE
 	db 22, HEADBUTT
 	db 24, ACID
-	db 26, POISON_FANG
+	db 26, POISON_BITE
 	db 28, BODY_SLAM
 	db 28, STRENGTH
 	db 30, TAKE_DOWN
@@ -987,7 +987,7 @@ NidoranMEvosMoves:
 ; Learnset
 ; v0.7 Pass 3 (Forte review): aggressive male juvenile, single-horn. 11
 ; shared moves Nidorino+Nidoking inherit. POISON_STING+SAND_ATTACK basic
-; toolkit; FURY_ATTACK early per Forte (#3); POISON_FANG/
+; toolkit; FURY_ATTACK early per Forte (#3); POISON_BITE/
 ; BODY_SLAM mid-tier; HORN_CHARGE late as adult-horn move; TOXIC_FANGS
 ; capstone late per Forte (#12). NO DOUBLE_KICK.
 	db  4, LEER
@@ -998,7 +998,7 @@ NidoranMEvosMoves:
 	db 17, HORN_ATTACK
 	db 19, FURY_ATTACK
 	db 22, FOCUS_ENERGY
-	db 25, POISON_FANG
+	db 25, POISON_BITE
 	db 28, BODY_SLAM
 	db 39, HORN_CHARGE
 	db 47, TOXIC_FANGS
@@ -1022,7 +1022,7 @@ NidorinoEvosMoves:
 	db 17, HORN_ATTACK
 	db 19, FURY_ATTACK
 	db 22, FOCUS_ENERGY
-	db 25, POISON_FANG
+	db 25, POISON_BITE
 	db 28, BODY_SLAM
 	db 30, TAKE_DOWN
 	db 33, GROUND_STOMP
@@ -1050,7 +1050,7 @@ NidokingEvosMoves:
 	db 17, HORN_ATTACK
 	db 19, FURY_ATTACK
 	db 22, FOCUS_ENERGY
-	db 25, POISON_FANG
+	db 25, POISON_BITE
 	db 28, BODY_SLAM
 	db 28, STRENGTH
 	db 30, TAKE_DOWN
@@ -1265,7 +1265,7 @@ ZubatEvosMoves:
 	db 30, ASTONISH
 	db 34, AERIAL_ACE
 	db 36, FLY
-	db 40, POISON_FANG
+	db 40, POISON_BITE
 	db 44, AGILITY
 	db 48, TOXIC_FANGS
 	db 51, EXTREMESPEED
@@ -1290,7 +1290,7 @@ GolbatEvosMoves:
 	db 30, ASTONISH
 	db 34, AERIAL_ACE
 	db 36, FLY
-	db 40, POISON_FANG
+	db 40, POISON_BITE
 	db 44, AGILITY
 	db 48, TOXIC_FANGS
 	db 51, EXTREMESPEED
@@ -2111,7 +2111,7 @@ TentacoolEvosMoves:
 	db 0
 ; Learnset
 ; v0.7 Pass 3 (Forte review): jellyfish Water/Poison. SLUDGE_WAVE is the line signature (on Tentacruel; Forte sec G). NEUROTOXIN Tentacruel-
-; line signature (Forte sec G). Removido POISON_FANG (sem fangs
+; line signature (Forte sec G). Removido POISON_BITE (sem fangs
 ; — jellyfish).
 	db  1, POISON_STING
 	db  3, WATER_GUN
@@ -2545,7 +2545,7 @@ GrimerEvosMoves:
 ; v0.7 Pass 3 (Forte review): pure sludge blob Poison/Water. HARDEN como
 ; 1-de-3 redundância (Forte sec F). SLUDGE_WAVE Grimer-line
 ; ownership (Forte sec G). RECOVER (Forte RECOVER list — Grimer-line). Removido
-; POISON_FANG/TOXIC_FANGS (sem fangs — anatomia sludge).
+; POISON_BITE/TOXIC_FANGS (sem fangs — anatomia sludge).
 	db  1, LICK
 	db  3, ASTONISH
 	db  6, HARDEN

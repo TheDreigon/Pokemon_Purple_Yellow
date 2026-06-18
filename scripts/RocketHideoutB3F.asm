@@ -129,7 +129,7 @@ RocketHideoutB3F_TextPointers:
 	def_text_pointers
 	dw_const RocketHideoutB3FRocket1Text, TEXT_ROCKETHIDEOUTB3F_ROCKET1
 	dw_const RocketHideoutB3FRocket2Text, TEXT_ROCKETHIDEOUTB3F_ROCKET2
-	dw_const PickUpItemText,              TEXT_ROCKETHIDEOUTB3F_TM_POISON_FANG
+	dw_const PickUpItemText,              TEXT_ROCKETHIDEOUTB3F_TM_POISON_BITE
 	dw_const PickUpItemText,              TEXT_ROCKETHIDEOUTB3F_RARE_CANDY
 
 RocketHideout3TrainerHeaders:

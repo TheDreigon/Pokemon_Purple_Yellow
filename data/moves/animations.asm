@@ -147,7 +147,7 @@ AttackAnimationPointers:
 	dw HyperFangAnim
 ; === POISON ===
 	dw PoisonStingAnim
-	dw PoisonFangAnim
+	dw PoisonBiteAnim
 	dw ToxicFangsAnim
 	dw AcidAnim
 	dw SludgeAnim
@@ -1775,18 +1775,18 @@ PoisonStingAnim:
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
-PoisonFangAnim:
+PoisonBiteAnim:
 	; v0.7 reviewed (60 BP, 30% poison): added bite-then-drip so
 	; the fang impact AND the poison transfer both read.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim POISON_FANG, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim POISON_BITE, SUBANIM_0_STAR_TWICE, 0, 6
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 4
 	db -1 ; end
 
 ToxicFangsAnim:
 	; v0.7 reviewed (85 BP, 45% poison): replaces placeholder.
-	; Bigger version of POISON_FANG — darken (toxic atmosphere), bite,
+	; Bigger version of POISON_BITE — darken (toxic atmosphere), bite,
 	; flash, sustained poison drip. Higher tier in the fang line.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY

@@ -181,7 +181,7 @@
 
 ; === POISON ===
 	const POISON_STING
-	const POISON_FANG
+	const POISON_BITE
 	const TOXIC_FANGS
 	const ACID
 	const SLUDGE

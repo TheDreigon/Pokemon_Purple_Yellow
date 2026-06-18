@@ -30,7 +30,7 @@ TechnicalMachinePrices:
 	db $02, $00, $00 ; TM23 GIGA_DRAIN    =  20000  ; Indigo Pre-E4
 	db $01, $00, $00 ; TM24 DAZZLE_GLEAM  =  10000  ; Cinnabar
 	db $01, $75, $00 ; TM25 AGILITY       =  17500  ; Celadon 5F
-	db $01, $00, $00 ; TM26 POISON_FANG   =  10000  ; Cinnabar
+	db $01, $00, $00 ; TM26 POISON_BITE   =  10000  ; Cinnabar
 	db $01, $00, $00 ; TM27 IRON_HEAD     =  10000  ; Cinnabar
 	db $02, $50, $00 ; TM28 FAKE_TEARS    =  25000  ; Celadon 5F
 	db $01, $25, $00 ; TM29 AERIAL_ACE    =  12500  ; Celadon 2F
