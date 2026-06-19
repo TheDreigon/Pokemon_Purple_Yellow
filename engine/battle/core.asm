@@ -3274,7 +3274,7 @@ SelectEnemyMove:
 	and $3f
 	pop bc
 	pop hl
-	jr z, .chooseRandomMove ; out of PP, retry
+	jr z, .retryOutOfPP ; out of PP, retry (must rebalance stack first!)
 	ld a, [wEnemyDisabledMove]
 	swap a
 	and $f
@@ -3287,6 +3287,16 @@ SelectEnemyMove:
 .done
 	ld [wEnemySelectedMove], a
 	ret
+.retryOutOfPP
+; v0.7 FIX (stack-leak crash). The out-of-PP retry above is reached while
+; the `push hl` from .chooseRandomMove is still on the stack — its balancing
+; `pop hl` lives further down (after the disabled/exists checks), so jumping
+; straight back leaked 2 bytes of stack PER retry. The enemy's empty move
+; slots read as 0 PP, so this fired most turns and slowly overflowed the
+; (mart-shrunk, ~193B) WRAM stack into Main Data -> total crash after a
+; variable number of turns, in BOTH modes. Pop the orphan before retrying.
+	pop hl
+	jp .chooseRandomMove
 .linkedOpponentUsedStruggle
 	ld a, STRUGGLE
 	jr .done
