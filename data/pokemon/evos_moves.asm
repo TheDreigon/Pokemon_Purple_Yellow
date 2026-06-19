@@ -791,8 +791,8 @@ PikachuEvosMoves:
 ; (35 BP) before THUNDERSHOCK (55 BP). CHARM mid (cute mouse). VOLT_TACKLE
 ; signature at L23 (Pichu egg-move lore — both Pikachu/Raichu learn at
 ; same level per Forte's simplification).
-	db  4, TAIL_WHIP
-	db  7, NUZZLE
+	db  3, TAIL_WHIP
+	db  5, NUZZLE
 	db 10, QUICK_ATTACK
 	db 13, THUNDERSHOCK
 	db 15, CHARM
@@ -806,6 +806,7 @@ PikachuEvosMoves:
 	db 42, BODY_SLAM
 	db 48, EXTREMESPEED
 	db 55, THUNDER
+	db 60, PLAY_ROUGH
 	db 0
 
 RaichuEvosMoves:
@@ -816,8 +817,8 @@ RaichuEvosMoves:
 ; Forte: "raichu aprende-o ao mesmo lvl que o pikachu" for VOLT_TACKLE
 ; — simpler than the L1-Move-Reminder trick). Adds DOUBLE_EDGE (bigger
 ; reckless body — anatomical exclusive).
-	db  4, TAIL_WHIP
-	db  7, NUZZLE
+	db  3, TAIL_WHIP
+	db  5, NUZZLE
 	db 10, QUICK_ATTACK
 	db 13, THUNDERSHOCK
 	db 15, CHARM
@@ -832,6 +833,7 @@ RaichuEvosMoves:
 	db 48, EXTREMESPEED
 	db 52, DOUBLE_EDGE
 	db 55, THUNDER
+	db 60, PLAY_ROUGH
 	db 0
 
 SandshrewEvosMoves:
