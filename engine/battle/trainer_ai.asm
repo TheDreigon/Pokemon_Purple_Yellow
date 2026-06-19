@@ -787,22 +787,31 @@ CooltrainerFAI:
 ; only used when in the bag AND count > 0; once exhausted the AI silently
 ; falls through.
 ;
-; Standard 2-item pattern (most bosses):
-;   1. If HP below threshold, try heal item.
-;   2. Else, with X% probability, try buff item.
+; Pattern (every boss now also carries Full Heal):
+;   1. If statused, try Full Heal.
+;   2. Else if HP below threshold (1/3; 1/2 for Giovanni/Oak/Joy), heal item.
+;   3. Else, one ~25% roll per buff item (independent rolls).
 ; Per-battle item caps come from the bag data; per-mon caps still come from
 ; wAICount/ai_pointers.asm (each AIUse* tail-calls DecrementAICount).
 
 BrockAI:
 	farcall IsHardModeBossBattle
 	ret z
-	; Heal at HP < 1/3 → Super Potion
+	; Priority 1: status -> Full Heal (every boss carries it now)
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	; Heal at HP < 1/3 -> Potion
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
-	ld a, SUPER_POTION
+	ld a, POTION
 	call CheckAndConsumeBossItem
-	jp c, AIUseSuperPotion
+	jp c, AIUsePotion
 .skipHeal
 	; ~25% chance X Defend (rocks defensive)
 	call Random
@@ -816,6 +825,13 @@ BrockAI:
 MistyAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -823,17 +839,25 @@ MistyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
+	; ~25% chance X Special
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_DEFEND
+	ld a, X_SPECIAL
 	call CheckAndConsumeBossItem
-	jp c, AIUseXDefend
+	jp c, AIUseXSpecial
 	ret
 
 LtSurgeAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -853,13 +877,21 @@ LtSurgeAI:
 ErikaAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
-	ld a, SUPER_POTION
+	ld a, HYPER_POTION
 	call CheckAndConsumeBossItem
-	jp c, AIUseSuperPotion
+	jp c, AIUseHyperPotion
 .skipHeal
+	; ~25% chance X Defend
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -871,6 +903,13 @@ ErikaAI:
 KogaAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -878,17 +917,33 @@ KogaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	; ~25% chance X Speed
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipBuff1
+	ld a, X_SPEED
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpeed
+.skipBuff1
+	; ~25% chance Dire Hit (independent)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_ATTACK
+	ld a, DIRE_HIT
 	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
+	jp c, AIUseDireHit
 	ret
 
 SabrinaAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -908,28 +963,41 @@ SabrinaAI:
 BlaineAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
-	ld a, HYPER_POTION
+	ld a, MAX_POTION
 	call CheckAndConsumeBossItem
-	jp c, AIUseHyperPotion
+	jp c, AIUseMaxPotion
 .skipHeal
-	; ~25% chance X Attack (fire aggressive)
+	; ~25% chance X Special (fire special attacker)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_ATTACK
+	ld a, X_SPECIAL
 	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
+	jp c, AIUseXSpecial
 	ret
 
-; Giovanni: 3-item bag (Full Restore + X Attack + Guard Spec). Two
-; independent buff rolls so each item fires ~25% of un-healed turns.
+; Giovanni: heals at HP < 1/2 (boss tier). Two independent buff rolls
+; (X Attack + X Defend), each ~25% of un-healed turns.
 GiovanniAI:
 	farcall IsHardModeBossBattle
 	ret z
-	; Heal at HP < 1/2 (boss heals earlier than gym tier)
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 2
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -937,21 +1005,21 @@ GiovanniAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	; ~25% Guard Spec roll
+	; ~25% X Attack roll
 	call Random
 	cp 25 percent + 1
-	jr nc, .skipGuardSpec
-	ld a, GUARD_SPEC
-	call CheckAndConsumeBossItem
-	jp c, AIUseGuardSpec
-.skipGuardSpec
-	; ~25% X Attack roll (independent)
-	call Random
-	cp 25 percent + 1
-	ret nc
+	jr nc, .skipBuff1
 	ld a, X_ATTACK
 	call CheckAndConsumeBossItem
 	jp c, AIUseXAttack
+.skipBuff1
+	; ~25% X Defend roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_DEFEND
+	call CheckAndConsumeBossItem
+	jp c, AIUseXDefend
 	ret
 
 ; ---- Elite Four + Champion ----
@@ -959,6 +1027,13 @@ GiovanniAI:
 LoreleiAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -977,12 +1052,19 @@ LoreleiAI:
 BrunoAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
-	ld a, HYPER_POTION
+	ld a, FULL_RESTORE
 	call CheckAndConsumeBossItem
-	jp c, AIUseHyperPotion
+	jp c, AIUseFullRestore
 .skipHeal
 	call Random
 	cp 25 percent + 1
@@ -995,6 +1077,13 @@ BrunoAI:
 AgathaAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1002,18 +1091,25 @@ AgathaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	; ~25% chance Dire Hit (sneaky crit setup — Ghost theme)
+	; ~25% chance X Speed
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, DIRE_HIT
+	ld a, X_SPEED
 	call CheckAndConsumeBossItem
-	jp c, AIUseDireHit
+	jp c, AIUseXSpeed
 	ret
 
 LanceAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1021,19 +1117,35 @@ LanceAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	; ~25% X Special roll
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipBuff1
+	ld a, X_SPECIAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpecial
+.skipBuff1
+	; ~25% X Speed roll (independent)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_ATTACK
+	ld a, X_SPEED
 	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
+	jp c, AIUseXSpeed
 	ret
 
-; ---- Rivals 2 & 3 (Rival1 stays GenericAI — too early-game) ----
+; ---- Rivals 2 & 3 (Rival1 stays GenericAI -- too early-game) ----
 
 Rival2AI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1052,50 +1164,6 @@ Rival2AI:
 Rival3AI:
 	farcall IsHardModeBossBattle
 	ret z
-	ld a, 3
-	call AICheckIfHPBelowFraction
-	jr nc, .skipHeal
-	ld a, FULL_RESTORE
-	call CheckAndConsumeBossItem
-	jp c, AIUseFullRestore
-.skipHeal
-	call Random
-	cp 25 percent + 1
-	ret nc
-	ld a, X_ATTACK
-	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
-	ret
-
-; ---- Bosses promoted in v0.6 / v0.7 (no vanilla AI body) ----
-
-; Prof Oak: ultimate post-game boss. Heals at HP < 1/2 (same earlier
-; threshold as Giovanni; gym/E4 use 1/3) — FR fully restores anyway, no
-; reason to wait until 1/3 and risk a one-shot crit.
-ProfOakAI:
-	farcall IsHardModeBossBattle
-	ret z
-	ld a, 2
-	call AICheckIfHPBelowFraction
-	jr nc, .skipHeal
-	ld a, FULL_RESTORE
-	call CheckAndConsumeBossItem
-	jp c, AIUseFullRestore
-.skipHeal
-	call Random
-	cp 25 percent + 1
-	ret nc
-	ld a, X_ATTACK
-	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
-	ret
-
-; Joy: nurse-themed heavy heal. 3-item bag: Full Restore (HP < 1/2) → Hyper
-; Potion (fallback if FR exhausted) → Full Heal (status priority).
-JoyAI:
-	farcall IsHardModeBossBattle
-	ret z
-	; Priority 1: status → Full Heal
 	ld a, [wEnemyMonStatus]
 	and a
 	jr z, .noStatus
@@ -1103,39 +1171,138 @@ JoyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullHeal
 .noStatus
-	; Priority 2/3: Full Restore at HP < 1/2; if exhausted, fall back to Hyper Potion
-	ld a, 2
+	ld a, 3
 	call AICheckIfHPBelowFraction
-	ret nc
+	jr nc, .skipHeal
 	ld a, FULL_RESTORE
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
-	ld a, HYPER_POTION
+.skipHeal
+	; ~25% X Attack roll
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipBuff1
+	ld a, X_ATTACK
 	call CheckAndConsumeBossItem
-	jp c, AIUseHyperPotion
+	jp c, AIUseXAttack
+.skipBuff1
+	; ~25% X Speed roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_SPEED
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpeed
+	ret
+
+; ---- Bosses promoted in v0.6 / v0.7 (no vanilla AI body) ----
+
+; Prof Oak: ultimate post-game boss. Heals at HP < 1/2; two buff rolls
+; (Guard Spec + Dire Hit).
+ProfOakAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	ld a, 2
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	; ~25% Guard Spec roll
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipBuff1
+	ld a, GUARD_SPEC
+	call CheckAndConsumeBossItem
+	jp c, AIUseGuardSpec
+.skipBuff1
+	; ~25% Dire Hit roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, DIRE_HIT
+	call CheckAndConsumeBossItem
+	jp c, AIUseDireHit
+	ret
+
+; Joy: nurse-themed. Heals at HP < 1/2 with Full Restore; X Defend buff.
+JoyAI:
+	farcall IsHardModeBossBattle
+	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	ld a, 2
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_DEFEND
+	call CheckAndConsumeBossItem
+	jp c, AIUseXDefend
 	ret
 
 JennyAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
-	ld a, HYPER_POTION
+	ld a, FULL_RESTORE
 	call CheckAndConsumeBossItem
-	jp c, AIUseHyperPotion
+	jp c, AIUseFullRestore
 .skipHeal
+	; ~25% X Attack roll
 	call Random
 	cp 25 percent + 1
-	ret nc
+	jr nc, .skipBuff1
 	ld a, X_ATTACK
 	call CheckAndConsumeBossItem
 	jp c, AIUseXAttack
+.skipBuff1
+	; ~25% X Speed roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, X_SPEED
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpeed
 	ret
 
 JanineAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1143,30 +1310,39 @@ JanineAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
+	; ~25% X Speed roll
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipBuff1
+	ld a, X_SPEED
+	call CheckAndConsumeBossItem
+	jp c, AIUseXSpeed
+.skipBuff1
+	; ~25% Guard Spec roll (independent)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_ATTACK
+	ld a, GUARD_SPEC
 	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
+	jp c, AIUseGuardSpec
 	ret
 
 JessieAndJamesAI:
 	farcall IsHardModeBossBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
-	jr nc, .skipHeal
+	ret nc
 	ld a, SUPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
-.skipHeal
-	call Random
-	cp 25 percent + 1
-	ret nc
-	ld a, X_ATTACK
-	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
 	ret
 
 GenericAI:
@@ -1208,6 +1384,30 @@ AIUseFullRestore:
 	ld [wHPBarMaxHP+1], a
 	ld [wEnemyMonHP], a
 	jr AIPrintItemUseAndUpdateHPBar
+
+; Max Potion: fully restores HP but (unlike Full Restore) does NOT cure status.
+AIUseMaxPotion:
+	ld a, MAX_POTION
+	ld [wAIItem], a
+	ld de, wHPBarOldHP
+	ld hl, wEnemyMonHP + 1
+	ld a, [hld]
+	ld [de], a
+	inc de
+	ld a, [hl]
+	ld [de], a
+	inc de
+	ld hl, wEnemyMonMaxHP + 1
+	ld a, [hld]
+	ld [de], a
+	inc de
+	ld [wHPBarMaxHP], a
+	ld [wEnemyMonHP + 1], a
+	ld a, [hl]
+	ld [de], a
+	ld [wHPBarMaxHP+1], a
+	ld [wEnemyMonHP], a
+	jp AIPrintItemUseAndUpdateHPBar
 
 AIUsePotion:
 ; enemy trainer heals his monster with a potion
