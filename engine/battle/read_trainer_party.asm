@@ -160,8 +160,13 @@ ReadTrainer:
 ;
 ; Input:  a = unbumped level
 ; Output: a = bumped level (or unchanged if not hard-mode boss)
-; Trashes: b, hl
+; Trashes: b  (hl is preserved — see push/pop hl below)
 HardModeBossLevelBump:
+	; v0.7 FIX: the farcall to IsBossTrainerClass clobbers hl (the farcall
+	; macro does `ld hl, target`), but ReadTrainer's callers keep the live
+	; trainer-party data pointer in hl across this call. Preserve it, or
+	; every Hard-mode trainer battle would load a garbage enemy party.
+	push hl
 	push af
 	ld a, [wDifficulty]
 	cp HARD_MODE
@@ -172,9 +177,12 @@ HardModeBossLevelBump:
 	pop af
 	add 2
 	cp MAX_LEVEL + 1
-	ret c
+	jr c, .done
 	ld a, MAX_LEVEL
+.done
+	pop hl
 	ret
 .noBump
 	pop af
+	pop hl
 	ret
