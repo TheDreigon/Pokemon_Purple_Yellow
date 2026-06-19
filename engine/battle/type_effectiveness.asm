@@ -105,8 +105,8 @@ AIGetTypeEffectiveness::
 	inc hl
 	ld c, [hl]                 ; c = type 2 of player's pokemon
 	; initialize to neutral effectiveness
-	ld a, $10 ; bug: should be EFFECTIVE (10)
-	ld [wTypeEffectiveness], a
+	ld a, EFFECTIVE ; v0.7 fix: was $10 (=16), a vanilla Gen 1 bug that made
+	ld [wTypeEffectiveness], a ; the AI read untabled (neutral) matchups as super-effective
 	ld hl, TypeEffects
 .loop
 	ld a, [hli]
