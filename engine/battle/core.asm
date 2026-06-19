@@ -6360,7 +6360,7 @@ LoadEnemyMonData:
 	; trainer-battle + boss class, so wild and transformed paths fall
 	; through unchanged. Boss enemies get $ff/$ff (DV=15 in all 5
 	; stats including HP, via the standard DV encoding).
-	ld c, a                ; cache atk/def DVs (helper preserves c)
+	ld c, a                ; cache atk/def DVs (preserved by the push/pop bc below)
 	push bc
 	call IsHardModeBossBattle
 	pop bc

@@ -8,7 +8,6 @@ ENDM
 ; trainer class ids
 ; indexes for:
 ; - TrainerNames (see data/trainers/names.asm)
-; - TrainerNamePointers (see data/trainers/name_pointers.asm)
 ; - TrainerDataPointers (see data/trainers/parties.asm)
 ; - TrainerPicAndMoneyPointers (see data/trainers/pic_pointers_money.asm)
 ; - TrainerAIPointers (see data/trainers/ai_pointers.asm)
