@@ -64,8 +64,14 @@ HandleMenuInput_::
 	jr .checkOtherKeys
 .alreadyAtTop
 	ld a, [wMenuWrappingEnabled]
-	and a ; is wrapping around enabled?
-	jr z, .noWrappingAround
+	and a ; explicit wrap override (legacy: party menu)
+	jr nz, .wrapToBottom
+	; QoL: fixed menus wrap around by default. Scrollable menus set
+	; wMenuWatchMovingOutOfBounds, so leave their edge to the caller.
+	ld a, [wMenuWatchMovingOutOfBounds]
+	and a
+	jr nz, .noWrappingAround
+.wrapToBottom
 	ld a, [wMaxMenuItem]
 	ld [wCurrentMenuItem], a ; wrap to the bottom of the menu
 	jr .checkOtherKeys
@@ -81,8 +87,14 @@ HandleMenuInput_::
 	jr nc, .notAtBottom
 .alreadyAtBottom
 	ld a, [wMenuWrappingEnabled]
-	and a ; is wrapping around enabled?
-	jr z, .noWrappingAround
+	and a ; explicit wrap override (legacy: party menu)
+	jr nz, .wrapToTop
+	; QoL: fixed menus wrap around by default. Scrollable menus set
+	; wMenuWatchMovingOutOfBounds, so leave their edge to the caller.
+	ld a, [wMenuWatchMovingOutOfBounds]
+	and a
+	jr nz, .noWrappingAround
+.wrapToTop
 	ld c, $00 ; wrap from bottom to top
 .notAtBottom
 	ld a, c
