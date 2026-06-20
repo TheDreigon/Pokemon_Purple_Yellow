@@ -6,21 +6,20 @@ _ViridianCityOldManYouNeedToWeakenTheTargetText::
 
 _ViridianCityOldManHadMyCoffeeNowText::
 	text "Ahh, I've had my"
-	line "coffee now and I"
-	cont "feel great!"
+	line "coffee now..."
+
+	para "I'm sorry if I"
+	line "was rude to you!"
 
 	para "Sure, you can go"
 	line "through!"
 
-	para "I'm sorry I was"
-	line "so rude to you!"
+	para "As my apology,"
+	line "I'll give you some"
+	cont "#MON tips later."
 
-	para "I see you're using"
-	line "a #DEX."
-
-	para "I'll show you how"
-	line "to catch #MON"
-	cont "as my apology."
+	para "Find me again once"
+	line "I get my bearings."
 	done
 
 _ViridianCityOldManLosingMyTouchText::
@@ -46,6 +45,25 @@ _ViridianCityOldManLosingMyTouchText::
 
 	para "I have to get some"
 	line "at #MON MART."
+	done
+
+; v0.7: the catching tip moved here, from the (now removed) catching demo's
+; "losing my touch" text. Spoken by the old man's later street appearance.
+_ViridianCityOldManTipText::
+	text "Oh, I remember"
+	line "you!"
+
+	para "I was a #MON"
+	line "trainer back in"
+	cont "my day."
+
+	para "A tip: hold START"
+	line "while pressing A"
+	cont "on STATS..."
+
+	para "You can check a"
+	line "#MON's growth"
+	cont "potential!"
 	done
 
 _ViridianCityYoungster1Text::

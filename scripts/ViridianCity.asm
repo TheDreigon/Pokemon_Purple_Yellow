@@ -87,6 +87,14 @@ ViridianCityCheckSleepingOldMan:
 	ld [wViridianCityCurScript], a
 	ret
 
+; -- DISABLED catching demo (kept for possible future reuse) --
+; The *CatchTraining* phases (START/END/INITIAL/END_INITIAL) set up and run
+; the BATTLE_TYPE_OLD_MAN demo battle (Rattata L5). v0.7 no longer routes to
+; them (see ViridianCityOldMan2Text / ViridianCityPrintOldManText). They stay
+; wired into the pointer table so the table indices and symbols are intact.
+; NOTE: ViridianCityPostInitialCatchTraining and
+; ViridianCityOldManMovingDownScript further down are STILL USED -- the v0.7
+; "let through" flow reuses them to move the old man out of the way.
 ViridianCityOldManStartCatchTrainingScript:
 	call .SetupSprite
 	call .SetupBattle
@@ -314,27 +322,31 @@ ViridianCityOldManYouNeedToWeakenTheTargetText:
 	text_end
 
 ViridianCityOldMan2Text:
+; v0.7: the old man no longer runs the catching demo. He apologises, lets
+; you through, steps out of the way (reusing the POST_INITIAL movement +
+; MOVING_DOWN hide phases), and his catching tip is delivered later by his
+; street appearance (ViridianCityPrintOldManText), spawned by
+; ViridianMartScript2 once you've left and come back. EVENT_COMPLETED_CATCH_
+; TRAINING is reused here purely as the "let through / move along" flag.
+; The disabled demo path (the SCRIPT_*_CATCH_TRAINING phases and the
+; .LosingMyTouchText branch) is kept below for possible future reuse.
 	text_asm
-	CheckEvent EVENT_COMPLETED_CATCH_TRAINING
-	jr nz, .completed_training
 	ld hl, .HadMyCoffeeNowText
 	call PrintText
 	ld c, 2
 	call DelayFrames
-	ld a, SCRIPT_VIRIDIANCITY_OLD_MAN_INITIAL_CATCH_TRAINING
+	SetEvent EVENT_COMPLETED_CATCH_TRAINING
+	ld a, D_UP | D_DOWN | D_LEFT | D_RIGHT | START | SELECT
+	ld [wJoyIgnore], a
+	ld a, SCRIPT_VIRIDIANCITY_POST_INITIAL_CATCH_TRAINING
 	ld [wViridianCityCurScript], a
-	jr .done
-
-.completed_training
-	ld hl, .LosingMyTouchText
-	call PrintText
-.done
 	jp TextScriptEnd
 
 .HadMyCoffeeNowText:
 	text_far _ViridianCityOldManHadMyCoffeeNowText
 	text_end
 
+; DISABLED: shown after the old catching demo. No longer reached.
 .LosingMyTouchText:
 	text_far _ViridianCityOldManLosingMyTouchText
 	text_end

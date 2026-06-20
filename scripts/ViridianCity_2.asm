@@ -124,25 +124,20 @@ ViridianCityPrintFisherText::
 	text_end
 
 ViridianCityPrintOldManText::
-	ld hl, .WantMeToShowYouAgainText
+; v0.7: the old man's street appearance now just gives the catching tip
+; (the catching demo was removed -- see scripts/ViridianCity.asm). The old
+; "want me to show you again?" demo-replay path is preserved but unreachable
+; below; to restore it, route back to its YesNoChoice + the
+; SCRIPT_VIRIDIANCITY_OLD_MAN_START_CATCH_TRAINING phase.
+	ld hl, .TipText
 	call PrintText
-	ld c, 2
-	call DelayFrames
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
-	and a
-	jr nz, .refused
-	ld hl, .WatchCloselyText
-	call PrintText
-	ld a, SCRIPT_VIRIDIANCITY_OLD_MAN_START_CATCH_TRAINING
-	ld [wViridianCityCurScript], a
-	jr .done
-.refused
-	ld hl, .NotGoodEnoughForYouText
-	call PrintText
-.done
 	ret
 
+.TipText:
+	text_far _ViridianCityOldManTipText
+	text_end
+
+; -- DISABLED demo replay (kept for possible future reuse) --
 .WantMeToShowYouAgainText:
 	text_far _ViridianCityOldManWantMeToShowYouAgainText
 	text_end
