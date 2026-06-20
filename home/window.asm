@@ -42,8 +42,6 @@ HandleMenuInput_::
 	ldh [hDownArrowBlinkCount2], a
 	pop af
 	ldh [hDownArrowBlinkCount1], a ; restore previous values
-	xor a
-	ld [wMenuWrappingEnabled], a ; disable menu wrapping
 	ret
 .keyPressed
 	xor a
@@ -63,15 +61,11 @@ HandleMenuInput_::
 	ld [wCurrentMenuItem], a ; move selected menu item up one space
 	jr .checkOtherKeys
 .alreadyAtTop
-	ld a, [wMenuWrappingEnabled]
-	and a ; explicit wrap override (legacy: party menu)
-	jr nz, .wrapToBottom
-	; QoL: fixed menus wrap around by default. Scrollable menus set
+	; QoL: fixed menus wrap around. Scrollable menus set
 	; wMenuWatchMovingOutOfBounds, so leave their edge to the caller.
 	ld a, [wMenuWatchMovingOutOfBounds]
 	and a
 	jr nz, .noWrappingAround
-.wrapToBottom
 	ld a, [wMaxMenuItem]
 	ld [wCurrentMenuItem], a ; wrap to the bottom of the menu
 	jr .checkOtherKeys
@@ -86,15 +80,11 @@ HandleMenuInput_::
 	cp c
 	jr nc, .notAtBottom
 .alreadyAtBottom
-	ld a, [wMenuWrappingEnabled]
-	and a ; explicit wrap override (legacy: party menu)
-	jr nz, .wrapToTop
-	; QoL: fixed menus wrap around by default. Scrollable menus set
+	; QoL: fixed menus wrap around. Scrollable menus set
 	; wMenuWatchMovingOutOfBounds, so leave their edge to the caller.
 	ld a, [wMenuWatchMovingOutOfBounds]
 	and a
 	jr nz, .noWrappingAround
-.wrapToTop
 	ld c, $00 ; wrap from bottom to top
 .notAtBottom
 	ld a, c
@@ -120,8 +110,6 @@ HandleMenuInput_::
 	ldh [hDownArrowBlinkCount2], a
 	pop af
 	ldh [hDownArrowBlinkCount1], a ; restore previous values
-	xor a
-	ld [wMenuWrappingEnabled], a ; disable menu wrapping
 	ldh a, [hJoy5]
 	ret
 .noWrappingAround

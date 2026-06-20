@@ -230,8 +230,9 @@ PartyMenuInit::
 	ret
 
 HandlePartyMenuInput::
-	ld a, 1
-	ld [wMenuWrappingEnabled], a
+	; wrap-around is now automatic for fixed menus (wMenuWatchMovingOutOfBounds
+	; == 0, as set in PartyMenuInit), so the old wMenuWrappingEnabled set is
+	; no longer needed.
 	ld a, $40
 	ld [wPartyMenuAnimMonEnabled], a
 	call HandleMenuInput_
