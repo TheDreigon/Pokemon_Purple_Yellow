@@ -6421,7 +6421,22 @@ LoadEnemyMonData:
 	inc hl
 	ld a, [hl]
 	ld [wEnemyMonStatus], a
-	jr .copyTypes
+	; v0.7 hard-mode boss HP fix (knob #8 follow-up). The $ff DV override
+	; at .writeDVs raised this mon's freshly-CalcStats'd MaxHP, but the
+	; current HP just copied above was computed by AddPartyMon with the
+	; un-boosted trainer DVs — so a fresh boss mon (e.g. the rival's Eevee)
+	; would display below full HP. Top current HP up to the new MaxHP.
+	; Gated on IsHardModeBossBattle, so Normal mode / wild / non-boss
+	; trainers are bit-identical. Safe to overwrite current HP for a boss:
+	; Gen 1 trainers never switch, so a boss mon reaches this path only on
+	; a fresh send-out, always at full party HP.
+	call IsHardModeBossBattle
+	jr z, .copyTypes
+	ld a, [wEnemyMonMaxHP]
+	ld [wEnemyMonHP], a
+	ld a, [wEnemyMonMaxHP + 1]
+	ld [wEnemyMonHP + 1], a
+	; fall through to .copyTypes
 .copyTypes
 	ld hl, wMonHTypes
 	ld de, wEnemyMonType
