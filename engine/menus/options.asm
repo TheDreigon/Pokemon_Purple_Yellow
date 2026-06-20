@@ -414,6 +414,20 @@ InitOptionsMenu:
 	hlcoord 2, 16
 	ld de, OptionMenuCancelText
 	call PlaceString
+	; v0.7: read-only difficulty indicator (informational; it is NOT in
+	; OptionMenuJumpTable / the cursor path, so it can't be selected or
+	; changed here). Drawn once; wDifficulty is fixed for the run.
+	hlcoord 2, 13
+	ld de, OptionMenuDifficultyText
+	call PlaceString
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE == 0?
+	ld de, OptionDifficultyNormalText
+	jr z, .gotDifficultyValue
+	ld de, OptionDifficultyHardText
+.gotDifficultyValue
+	hlcoord 13, 13
+	call PlaceString
 	xor a
 	ld [wOptionsCursorLocation], a
 	ld c, 5 ; the number of options to loop through
@@ -441,3 +455,10 @@ AllOptionsText:
 
 OptionMenuCancelText:
 	db "CANCEL@"
+
+OptionMenuDifficultyText:
+	db "DIFFICULTY:@"
+OptionDifficultyNormalText:
+	db "NORMAL@"
+OptionDifficultyHardText:
+	db "HARD@"
