@@ -210,7 +210,7 @@ HandlePokedexListMenu:
 .upPressed ; scroll up one row
 	ld a, [wListScrollOffset]
 	and a
-	jp z, .loop
+	jp z, .wrapToBottom ; already at the very top: wrap to the bottom
 	dec a
 	ld [wListScrollOffset], a
 	jp .loop
@@ -221,12 +221,12 @@ HandlePokedexListMenu:
 .downPressed ; scroll down one row
 	ld a, [wDexMaxSeenMon]
 	cp 7
-	jp c, .loop ; can't if the list is shorter than 7
+	jp c, .wrapToTop ; whole list fits and we're at the bottom: wrap up
 	sub 7
 	ld b, a
 	ld a, [wListScrollOffset]
 	cp b
-	jp z, .loop
+	jp z, .wrapToTop ; at the last scroll position: wrap to the top
 	inc a
 	ld [wListScrollOffset], a
 	jp .loop
@@ -260,6 +260,32 @@ HandlePokedexListMenu:
 	jp nc, .loop
 	xor a
 	ld [wListScrollOffset], a
+	jp .loop
+
+.wrapToBottom
+	; QoL wrap: from the top of the dex list, jump to the very last entry.
+	ld a, [wDexMaxSeenMon]
+	and a
+	jp z, .loop ; empty list guard: nothing to wrap to
+	cp 7
+	jr c, .wrapBottomFits
+	sub 7 ; long list: scroll so the last 7 rows show...
+	ld [wListScrollOffset], a
+	ld a, 6 ; ...and put the cursor on the bottom row
+	ld [wCurrentMenuItem], a
+	jp .loop
+.wrapBottomFits
+	xor a ; short list (< 7): no scroll...
+	ld [wListScrollOffset], a
+	ld a, [wDexMaxSeenMon]
+	dec a ; ...cursor on the last seen entry
+	ld [wCurrentMenuItem], a
+	jp .loop
+.wrapToTop
+	; QoL wrap: from the bottom of the dex list, jump back to the top.
+	xor a
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
 	jp .loop
 
 .buttonAPressed
