@@ -451,10 +451,13 @@ _NormalModeText::
 
 _HardModeText::
 	text "Are you sure?"
-	
-	para "Set mode, no"
-	line "items in battle,"
-	cont "gym level caps."
+
+	para "Bosses hit harder"
+	line "and play smarter."
+
+	para "Set mode, level"
+	line "caps, fewer items"
+	cont "vs trainers."
 	done
 
 _OakSpeechText2A::
