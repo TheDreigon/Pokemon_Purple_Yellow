@@ -215,7 +215,6 @@ MoveNames::
 	li "GROWL"
 	li "LEER"
 	li "CORRODE"
-	li "TAUNT"
 	li "TICKLE"
 	li "TAIL WHIP"
 	li "FAKE TEARS"

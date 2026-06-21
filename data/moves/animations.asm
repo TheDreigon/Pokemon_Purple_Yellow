@@ -215,7 +215,6 @@ AttackAnimationPointers:
 	dw GrowlAnim
 	dw LeerAnim
 	dw CorrodeAnim
-	dw TauntAnim
 	dw TickleAnim
 	dw TailWhipAnim
 	dw FakeTearsAnim
@@ -2421,13 +2420,6 @@ TailWhipAnim:
 	battle_anim AMNESIA, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim AMNESIA, SE_RESET_MON_POSITION
-	db -1 ; end
-
-TauntAnim:
-	; v0.7 reviewed (def -1): SHOUT instead of HEART_MUSIC — taunting is
-	; antagonistic, not affectionate. (TICKLE keeps HEART since it IS
-	; playful.)
-	battle_anim TAUNT, SUBANIM_1_SHOUT, 1, 6
 	db -1 ; end
 
 TickleAnim:

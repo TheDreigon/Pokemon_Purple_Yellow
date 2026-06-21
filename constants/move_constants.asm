@@ -258,7 +258,6 @@
 	const GROWL
 	const LEER
 	const CORRODE
-	const TAUNT
 	const TICKLE
 	const TAIL_WHIP
 	const FAKE_TEARS

@@ -223,7 +223,6 @@ MoveSoundTable:
 	db SFX_BATTLE_0B,          $00, $c0 ; GROWL
 	db SFX_BATTLE_31,          $ff, $40 ; LEER
 	db SFX_BATTLE_2A,          $90, $c0 ; CORRODE
-	db SFX_BATTLE_31,          $10, $80 ; TAUNT
 	db SFX_BATTLE_21,          $10, $80 ; TICKLE
 	db SFX_BATTLE_21,          $00, $80 ; TAIL_WHIP
 	db SFX_BATTLE_35,          $20, $40 ; FAKE_TEARS

@@ -8,7 +8,7 @@ MACRO move
 	assert \6 <= 40, "PP must be 40 or less"
 ENDM
 
-Moves: ; Current total = 220
+Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -244,7 +244,7 @@ Moves: ; Current total = 220
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
 
-	; === BIRD TYPE (51 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	; === BIRD TYPE (50 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~30% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
@@ -278,7 +278,6 @@ Moves: ; Current total = 220
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
 	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. signature.
-	move TAUNT,          DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
 	move TICKLE,         DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
