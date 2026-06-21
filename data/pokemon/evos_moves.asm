@@ -2259,16 +2259,16 @@ MagnemiteEvosMoves:
 ; Learnset
 ; Electric/Steel. METAL_SOUND (Steel-type). SONICBOOM signature.
 ; SHOCK_WAVE/THUNDERBOLT. TRI_ATTACK reserved for Magneton.
-	db  5, SONICBOOM
+	db  6, HEADBUTT
 	db  9, THUNDERSHOCK
-	db 11, HEADBUTT
-	db 14, SUPERSONIC
-	db 18, THUNDER_WAVE
+	db 12, SUPERSONIC
+	db 16, THUNDER_WAVE
+	db 20, SONICBOOM
 	db 22, SHOCK_WAVE
 	db 26, SCREECH
 	db 33, BODY_SLAM  ; (EVO LVL)
-	db 36, THUNDERBOLT
-	db 39, METAL_SOUND
+	db 36, METAL_SOUND
+	db 39, THUNDERBOLT
 	db 45, IRON_HEAD
 	db 57, IRON_DEFENSE
 	db 0
@@ -2279,22 +2279,22 @@ MagnetonEvosMoves:
 ; Learnset
 ; Apex Electric/Steel. TRI_ATTACK (Magneton only, not Magnemite).
 ; SCREECH metal-on-metal.
-	db  5, SONICBOOM
+	db  6, HEADBUTT
 	db  9, THUNDERSHOCK
-	db 11, HEADBUTT
-	db 14, SUPERSONIC
-	db 18, THUNDER_WAVE
+	db 12, SUPERSONIC
+	db 16, THUNDER_WAVE
+	db 20, SONICBOOM
 	db 22, SHOCK_WAVE
 	db 26, SCREECH
 	db 33, FOCUS_ENERGY
 	db 33, BODY_SLAM
-	db 36, THUNDERBOLT
-	db 39, METAL_SOUND
+	db 36, METAL_SOUND
+	db 39, THUNDERBOLT
 	db 42, LIGHT_SCREEN
 	db 45, IRON_HEAD
-	db 48, THUNDER
-	db 51, TRI_ATTACK
-	db 54, HEAVY_SLAM
+	db 48, TRI_ATTACK
+	db 51, HEAVY_SLAM
+	db 54, THUNDER
 	db 57, IRON_DEFENSE
 	db 60, MAGNET_BOMB
 	db 0
@@ -2800,17 +2800,24 @@ VoltorbEvosMoves:
 ; Living pokeball — sphere, no limbs. HARDEN (a rigid metal sphere
 ; tightens its shell — it can't curl), METAL_SOUND (Steel typing),
 ; ROLLOUT L29 (it IS a rolling ball). EXPLOSION owner, shared L44.
-	db  9, SONICBOOM
-	db 12, THUNDERSHOCK
-	db 14, FLASH
-	db 16, HARDEN
-	db 19, THUNDER_WAVE
-	db 23, METAL_SOUND
-	db 26, SHOCK_WAVE
-	db 29, ROLLOUT
-	db 33, LIGHT_SCREEN
-	db 38, THUNDERBOLT
-	db 44, EXPLOSION
+	db  6, HEADBUTT
+	db 10, HARDEN
+	db 12, SUPERSONIC
+	db 15, QUICK_ATTACK
+	db 18, THUNDERSHOCK
+	db 20, SONICBOOM
+	db 22, SHOCK_WAVE
+	db 25, SCREECH
+	db 25, EERIE_IMPULSE
+	db 28, ROLLOUT
+	db 30, BODY_SLAM
+	db 33, AGILITY
+	db 33, VOLT_TACKLE
+	db 36, IRON_HEAD
+	db 39, METAL_SOUND
+	db 42, THUNDERBOLT
+	db 46, EXPLOSION
+	db 50, EXTREMESPEED
 	db 0
 
 ElectrodeEvosMoves:
@@ -2819,21 +2826,29 @@ ElectrodeEvosMoves:
 ; Learnset
 ; Apex sphere (130 Spd). AGILITY at L31 (full-speed roll). ROLLOUT
 ; shared. Screens pair, THUNDER apex top. EXPLOSION shared with Voltorb.
-	db  9, SONICBOOM
-	db 12, THUNDERSHOCK
-	db 14, FLASH
-	db 16, HARDEN
-	db 19, THUNDER_WAVE
-	db 23, METAL_SOUND
-	db 26, SHOCK_WAVE
-	db 29, ROLLOUT
-	db 31, AGILITY
-	db 33, LIGHT_SCREEN
-	db 36, DOUBLE_TEAM
-	db 38, THUNDERBOLT
-	db 41, REFLECT
-	db 44, EXPLOSION
-	db 50, THUNDER
+	db  6, HEADBUTT
+	db 10, HARDEN
+	db 12, SUPERSONIC
+	db 15, QUICK_ATTACK
+	db 18, THUNDERSHOCK
+	db 20, SONICBOOM
+	db 22, SHOCK_WAVE
+	db 25, SCREECH
+	db 25, EERIE_IMPULSE
+	db 28, ROLLOUT
+	db 30, BODY_SLAM
+	db 33, AGILITY
+	db 33, VOLT_TACKLE
+	db 36, IRON_HEAD
+	db 39, METAL_SOUND
+	db 42, THUNDERBOLT
+	db 46, EXPLOSION
+	db 46, HEAVY_SLAM
+	db 48, DOUBLE_EDGE
+	db 50, EXTREMESPEED
+	db 55, THUNDER
+	db 60, IRON_DEFENSE
+	db 65, MAGNET_BOMB
 	db 0
 
 ExeggcuteEvosMoves:
