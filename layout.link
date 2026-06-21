@@ -246,7 +246,7 @@ WRAM0
 	"Main Data"
 	"Current Box Data"
 	"GBC Palette Data"
-	org $df3e ; was $df3c; +2 more wram bytes for wMartExtras 12->13 and wItemList 40->41 (tiered mart buffer overflow fix); stack shrunk 196 -> 194.
+	org $df08 ; v0.7 stack hardening: lowered from $df3e (+54 bytes) by reclaiming the "ds 54 unused" padding in Main Data; stack 194 -> 248. (History: $df3c -> $df3e for the tiered mart buffer overflow fix.)
 	"Stack"
 VRAM $0
 	"VRAM"

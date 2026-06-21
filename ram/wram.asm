@@ -2361,7 +2361,9 @@ wPlayerGender::
 	; $01 = female
 		ds 1
 	
-	ds 54 ; unused
+	; v0.7 stack hardening: the 54-byte "unused" padding that used to sit
+	; here was reclaimed and handed to the Stack section (194 -> 248 bytes).
+	; See layout.link "Stack" (org lowered) + wram.asm "Stack" (ds grown).
 
 wObtainedHiddenItemsFlags:: flag_array 112
 
@@ -2673,6 +2675,9 @@ SECTION "Stack", WRAM0
 ; v0.7 tiered mart overflow fix: 2 more bytes (196 -> 194) for
 ; wMartExtras 12 -> 13 (count byte + 12 Indigo TM extras was overflowing
 ; into wMartType) and wItemList 40 -> 41 (true full-unlock worst case).
-; See layout.link "Stack" org $df3e.
-	ds $c2 - 1
+; v0.7 stack hardening: grown 54 bytes (194 -> 248, $c2 -> $f8) by reclaiming
+; the "ds 54 unused" padding from Main Data. Static worst-case stack use is
+; ~60-70 bytes, so 248 is generous headroom.
+; See layout.link "Stack" org $df08.
+	ds $f8 - 1
 wStack:: db
