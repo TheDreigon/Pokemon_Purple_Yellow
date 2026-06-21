@@ -11,8 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Gastly, gaseous ghost wisp, pre-evo backbone. auto
-	; FAINT_ATTACK/NIGHT_SHADE/CONFUSE_RAY/SCARY_FACE.
+	; Gaseous ghost wisp, pre-evo backbone.
 	tmhm FAINT_ATTACK, NIGHT_SHADE, CONFUSE_RAY, SCARY_FACE
 	; end
 

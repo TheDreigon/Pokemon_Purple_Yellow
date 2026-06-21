@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: bigger orange warrior-mouse final stage. auto
-	; QUICK_ATTACK/BODY_SLAM/SHOCK_WAVE/IRON_TAIL/THUNDER_WAVE/AGILITY/CHARM/THUNDERBOLT/DOUBLE_EDGE.
-	; bonus BULK_UP/FAKE_TEARS/TAKE_DOWN/LIGHT_SCREEN/REFLECT. HM FLASH.
-	; fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Final-stage Electric warrior-mouse. Full electric kit
+	; (SHOCK_WAVE/THUNDERBOLT/THUNDER_WAVE); cheek sparks learn HM FLASH.
 	tmhm QUICK_ATTACK, BODY_SLAM, SHOCK_WAVE, IRON_TAIL, THUNDER_WAVE, \
 	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     AGILITY, FAKE_TEARS, CHARM, TAKE_DOWN, LIGHT_SCREEN, \

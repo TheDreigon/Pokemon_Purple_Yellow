@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: basic carnivorous pitcher plant (Grass/Poison). auto
-	; GIGA_DRAIN. bonus FAINT_ATTACK/TOXIC.
+	; Basic carnivorous pitcher plant (Grass/Poison). Grass STAB
+	; GIGA_DRAIN, digestive TOXIC, ambush FAINT_ATTACK.
 	tmhm FAINT_ATTACK, GIGA_DRAIN, TOXIC
 	; end
 

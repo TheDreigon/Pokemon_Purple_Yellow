@@ -11,10 +11,10 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Chansey Normal/Fairy heal-tank single-stage. auto
-	; SEISMIC_TOSS/METRONOME/DAZZLE_GLEAM/FAKE_TEARS/CHARM/EXTRASENSORY/LIGHT_SCREEN/REFLECT/CALM_MIND/PETAL_DANCE.
-	; bonus BODY_SLAM/PSYCHIC_M. fun (4 via TM, regra global last-stage
-	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Normal/Fairy heal-tank, single stage. Fairy/support kit
+	; (DAZZLE_GLEAM/FAKE_TEARS/CHARM/EXTRASENSORY/PSYCHIC_M), screens
+	; (LIGHT_SCREEN/REFLECT/CALM_MIND), SEISMIC_TOSS for flat damage.
+	; 4 fun moves (last stage).
 	tmhm SEISMIC_TOSS, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, DAZZLE_GLEAM, FAKE_TEARS, CHARM, EXTRASENSORY, \
 	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, CALM_MIND, PETAL_DANCE

@@ -12,8 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: silk cocoon, dormant pre-evo. fun (excecao pre-evo
-	; aprovada Forte) SUBSTITUTE.
+	; Silk cocoon, dormant pre-evo. Only SUBSTITUTE: shed-skin decoy
+	; fits the hardened shell.
 	tmhm SUBSTITUTE
 	; end
 

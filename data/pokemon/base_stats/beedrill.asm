@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: warrior drill-bee, deepest movepool of the line. auto
-	; QUICK_ATTACK/RAGE/AGILITY/AERIAL_ACE/INTIMIDATE/DOUBLE_EDGE/OUTRAGE.
-	; bonus POISON_BITE/TOXIC/LEECH_LIFE/TAKE_DOWN. HM FLY. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Warrior drill-bee. Aggressive RAGE/THRASH/OUTRAGE/SWORDS_DANCE,
+	; agile QUICK_ATTACK/AGILITY/AERIAL_ACE. Stinger POISON_BITE/TOXIC,
+	; LEECH_LIFE drain. HM FLY. Fun moves: last-stage line.
 	tmhm QUICK_ATTACK, RAGE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, POISON_BITE, AERIAL_ACE, TOXIC, \
 	     INTIMIDATE, LEECH_LIFE, TAKE_DOWN, SWORDS_DANCE, DOUBLE_EDGE, \

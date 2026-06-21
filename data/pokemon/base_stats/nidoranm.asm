@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: juvenile aggressive male single-horn. auto
-	; BODY_SLAM/POISON_BITE. bonus QUICK_ATTACK/TOXIC/TAKE_DOWN.
+	; Juvenile aggressive male single-horn.
 	tmhm QUICK_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, TAKE_DOWN
 	; end
 

@@ -12,11 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Cloyster apex Water/Ice fortress, hard spiked shell.
-	; auto BIND/WATER_PULSE/ICY_PULSE/BODY_SLAM/ICE_BEAM/ROCK_SLIDE.
-	; bonus DAZZLE_GLEAM/TOXIC/LIGHT_SCREEN/REFLECT. HM SURF. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Water/Ice fortress with a hard spiked shell. Water/Ice offense
+	; (WATER_PULSE/ICY_PULSE/ICE_BEAM/SURF), shell defense
+	; (LIGHT_SCREEN/REFLECT), BIND clamp, ROCK_SLIDE, TOXIC. 4 fun moves
+	; (last stage).
 	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, TOXIC, \
 	     LIGHT_SCREEN, ICE_BEAM, REFLECT, ROCK_SLIDE, SURF

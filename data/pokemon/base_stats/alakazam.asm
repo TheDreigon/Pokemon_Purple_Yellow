@@ -12,12 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex mago psychic, movepool largo coerente com
-	; inteligencia maxima. auto
-	; SHOCK_WAVE/METRONOME/AGILITY/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/DARK_PULSE/REFLECT/CALM_MIND.
-	; bonus DAZZLE_GLEAM/FAKE_TEARS/SHADOW_BALL. HM FLASH. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex psychic mage; wide movepool matching its maximal intelligence.
 	tmhm SHOCK_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     DAZZLE_GLEAM, AGILITY, FAKE_TEARS, EXTRASENSORY, PSYCHIC_M, \
 	     LIGHT_SCREEN, DARK_PULSE, SHADOW_BALL, REFLECT, CALM_MIND, \

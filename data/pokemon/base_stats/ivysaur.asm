@@ -12,10 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: matured Grass/Poison — superset of Bulbasaur. auto
-	; GIGA_DRAIN/TOXIC/PETAL_DANCE. bonus
-	; BIND/BULLDOZE/BODY_SLAM/TAKE_DOWN/LIGHT_SCREEN/REFLECT/EARTHQUAKE/DOUBLE_EDGE.
-	; HM CUT/STRENGTH/FLASH.
+	; Matured Grass/Poison; superset of Bulbasaur. HM CUT/STRENGTH/FLASH.
 	tmhm BIND, BULLDOZE, BODY_SLAM, GIGA_DRAIN, TOXIC, \
 	     TAKE_DOWN, LIGHT_SCREEN, REFLECT, EARTHQUAKE, PETAL_DANCE, \
 	     DOUBLE_EDGE, CUT, STRENGTH, FLASH

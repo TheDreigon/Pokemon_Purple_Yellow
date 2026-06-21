@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: basic rolling rock with arms (Rock/Ground). auto
-	; ROCK_THROW/BULLDOZE/BODY_SLAM. HM STRENGTH.
+	; Basic rolling rock with arms (Rock/Ground). HM STRENGTH.
 	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH
 	; end
 

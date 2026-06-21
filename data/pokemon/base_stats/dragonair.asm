@@ -12,9 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Dragon sea-serpent mid-evo. auto
-	; BIND/WATER_PULSE/ICY_PULSE/BODY_SLAM/SHOCK_WAVE/FLY/SURF. bonus
-	; IRON_TAIL/DRAGON_CLAW/TAKE_DOWN/ICE_BEAM. HM FLY/SURF/STRENGTH.
+	; Dragon sea-serpent mid-evo. HM FLY/SURF/STRENGTH.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, SHOCK_WAVE, \
 	     IRON_TAIL, DRAGON_CLAW, TAKE_DOWN, ICE_BEAM, FLY, \
 	     SURF, STRENGTH

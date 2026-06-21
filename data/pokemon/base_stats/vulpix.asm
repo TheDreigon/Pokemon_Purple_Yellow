@@ -10,17 +10,11 @@
 	db EMBER, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
-	; v0.7 Pass 3: Vulpix — pre-evo kitsune raposa Fire-Fairy. Backbone subset.
-	; Autos QUICK_ATTACK/CONFUSE_RAY/NIGHT_SHADE/FAINT_ATTACK/AGILITY/FLAMETHROWER.
-	; Bonus fire (FLAME_BURST/IGNITE) + cute/mystical kitsune gestures (FAKE_TEARS/
-	; CHARM/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT). Sem fun moves nem apex
-	; setup (CALM_MIND/SHADOW_BALL/DARK_PULSE/DAZZLE_GLEAM reservados a Ninetales).
 	; tm/hm learnset
-	; v0.7 Pass 3: Vulpix - pre-evo kitsune raposa Fire-Fairy, backbone
-	; subset. auto
-	; QUICK_ATTACK/FAINT_ATTACK/NIGHT_SHADE/CONFUSE_RAY/AGILITY/FLAMETHROWER.
-	; bonus
-	; BODY_SLAM/FLAME_BURST/IGNITE/FAKE_TEARS/CHARM/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT.
+	; Pre-evo kitsune fox, Fire/Fairy backbone subset. Fire breath
+	; (FLAME_BURST/IGNITE/FLAMETHROWER) plus cute/mystical kitsune
+	; gestures (FAKE_TEARS/CHARM/EXTRASENSORY). Apex setup reserved to
+	; Ninetales.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, FLAME_BURST, NIGHT_SHADE, \
 	     CONFUSE_RAY, IGNITE, AGILITY, FAKE_TEARS, CHARM, \
 	     EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, FLAMETHROWER, REFLECT

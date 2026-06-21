@@ -12,8 +12,7 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cocoon. bonus LEECH_LIFE. fun (excecao pre-evo
-	; aprovada Forte) SUBSTITUTE.
+	; Cocoon; minimal pool, SUBSTITUTE as a rare pre-evo fun exception.
 	tmhm SUBSTITUTE, LEECH_LIFE
 	; end
 

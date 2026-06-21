@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: baby water turtle. auto WATER_PULSE/BODY_SLAM/SURF.
-	; bonus TAKE_DOWN/LIGHT_SCREEN/REFLECT/DOUBLE_EDGE. HM CUT/SURF.
+	; Baby water turtle.
 	tmhm WATER_PULSE, BODY_SLAM, TAKE_DOWN, LIGHT_SCREEN, REFLECT, \
 	     DOUBLE_EDGE, CUT, SURF
 	; end

@@ -12,12 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Machamp apex four-armed humanoid fighter. auto
-	; ROCK_THROW/BIND/SEISMIC_TOSS/BODY_SLAM/BULK_UP/TAKE_DOWN/SWORDS_DANCE/STRENGTH.
-	; bonus
-	; QUICK_ATTACK/BULLDOZE/RAGE/IRON_HEAD/EARTHQUAKE/DOUBLE_EDGE/THRASH.
-	; HM STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex four-armed humanoid fighter. Last-stage fun moves allowed.
 	tmhm ROCK_THROW, QUICK_ATTACK, BIND, BULLDOZE, SEISMIC_TOSS, \
 	     RAGE, BODY_SLAM, BULK_UP, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, IRON_HEAD, TAKE_DOWN, SWORDS_DANCE, \

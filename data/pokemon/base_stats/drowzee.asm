@@ -11,9 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pre-evo hipnotista Psychic/Dark, backbone tight. auto
-	; NIGHT_SHADE/EXTRASENSORY/PSYCHIC_M/DARK_PULSE. bonus
-	; BODY_SLAM/CONFUSE_RAY/FAKE_TEARS/TAKE_DOWN/DOUBLE_EDGE.
+	; Psychic/Dark hypnotist pre-evo.
 	tmhm BODY_SLAM, NIGHT_SHADE, CONFUSE_RAY, FAKE_TEARS, EXTRASENSORY, \
 	     TAKE_DOWN, PSYCHIC_M, DARK_PULSE, DOUBLE_EDGE
 	; end

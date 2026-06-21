@@ -11,11 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Poison/Dark matured cobra (last-stage). auto
-	; QUICK_ATTACK/BIND/FAINT_ATTACK/IRON_TAIL/SUBSTITUTE/AGILITY/POISON_BITE/TOXIC/INTIMIDATE/SCARY_FACE.
-	; bonus BODY_SLAM/TAKE_DOWN/DOUBLE_EDGE. HM CUT. fun (4 via TM,
-	; regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Poison/Dark matured cobra, last-stage.
 	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, BODY_SLAM, IRON_TAIL, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
 	     POISON_BITE, TOXIC, INTIMIDATE, SCARY_FACE, TAKE_DOWN, \

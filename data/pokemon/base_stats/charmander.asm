@@ -12,9 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: baby fire reptile. auto
-	; FLAME_BURST/IGNITE/DRAGON_CLAW/FLAMETHROWER. bonus
-	; QUICK_ATTACK/TAKE_DOWN/OUTRAGE. HM CUT/FLASH.
+	; Baby fire reptile. Fire offense (FLAME_BURST/IGNITE/FLAMETHROWER)
+	; plus its dragon heritage (DRAGON_CLAW/OUTRAGE). Claws enable CUT.
 	tmhm QUICK_ATTACK, FLAME_BURST, IGNITE, DRAGON_CLAW, TAKE_DOWN, \
 	     FLAMETHROWER, OUTRAGE, CUT, FLASH
 	; end

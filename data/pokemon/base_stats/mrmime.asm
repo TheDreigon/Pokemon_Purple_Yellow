@@ -11,10 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Mimo Psychic/Fairy single-stage (last). auto
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME/DAZZLE_GLEAM/FAKE_TEARS/CHARM/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT/PETAL_DANCE.
-	; fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Psychic/Fairy mime, single-stage (counts as last-stage for fun
+	; moves).
 	tmhm MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
 	     FAKE_TEARS, CHARM, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, \
 	     REFLECT, PETAL_DANCE

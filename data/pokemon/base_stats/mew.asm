@@ -11,12 +11,8 @@
 	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: ancestral curioso/transformista que aprende quase
-	; tudo — o mais generoso. auto
-	; QUICK_ATTACK/MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME/DAZZLE_GLEAM/AGILITY/CHARM/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT/CALM_MIND.
-	; bonus FAINT_ATTACK/FAKE_TEARS/ICE_BEAM/FLAMETHROWER/THUNDERBOLT.
-	; HM FLY/SURF/FLASH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Curious ancestral shapeshifter; learns nearly everything, the
+	; broadest pool. Last-stage fun moves allowed.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, WATER_PULSE, ICY_PULSE, FLAME_BURST, \
 	     SHOCK_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     DAZZLE_GLEAM, AGILITY, FAKE_TEARS, CHARM, EXTRASENSORY, \

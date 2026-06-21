@@ -12,12 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex rhinoceros (Ground/Rock) bruiser. auto
-	; BULLDOZE/RAGE/BODY_SLAM/IRON_HEAD/TAKE_DOWN/EARTHQUAKE/THRASH/STRENGTH/MEGAHORN.
-	; bonus
-	; ROCK_THROW/IRON_TAIL/INTIMIDATE/SCARY_FACE/SWORDS_DANCE/DOUBLE_EDGE.
-	; HM STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Ground/Rock rhinoceros bruiser. The horn justifies MEGAHORN.
+	; Massive frame learns HM STRENGTH; ROCK_THROW from forelimbs.
 	tmhm ROCK_THROW, BULLDOZE, RAGE, BODY_SLAM, IRON_TAIL, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
 	     MEGAHORN, INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, \

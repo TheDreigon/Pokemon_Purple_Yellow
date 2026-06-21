@@ -11,10 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: macaco selvagem rage-fueled, backbone de lutador
-	; grappler. auto
-	; ROCK_THROW/QUICK_ATTACK/RAGE/BODY_SLAM/TAKE_DOWN/THRASH/OUTRAGE.
-	; bonus BIND/SEISMIC_TOSS/BULK_UP/DOUBLE_EDGE. HM STRENGTH.
+	; Wild rage-fueled monkey, grappler-fighter backbone.
 	tmhm ROCK_THROW, QUICK_ATTACK, BIND, SEISMIC_TOSS, RAGE, \
 	     BODY_SLAM, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
 	     OUTRAGE, STRENGTH

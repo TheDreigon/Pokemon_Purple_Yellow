@@ -12,9 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: toupeira ground burrower (pre-evo backbone). auto
-	; QUICK_ATTACK/FAINT_ATTACK/BULLDOZE/AGILITY/EARTHQUAKE. bonus
-	; ROCK_THROW/BODY_SLAM/TAKE_DOWN. HM CUT.
+	; Ground mole burrower (pre-evo). HM CUT.
 	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, AGILITY, \
 	     TAKE_DOWN, EARTHQUAKE, CUT
 	; end

@@ -11,12 +11,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pato-samurai Fighting/Flying com alho-lamina (slash +
-	; recklessness fisica). auto
-	; QUICK_ATTACK/FAINT_ATTACK/AGILITY/SWORDS_DANCE/PETAL_DANCE/CUT.
-	; bonus BODY_SLAM/BULK_UP/AERIAL_ACE/TAKE_DOWN/DOUBLE_EDGE. HM
-	; CUT/FLY/STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Samurai-duck Fighting/Flying with a leek-blade (slash + physical
+	; recklessness). HM CUT/FLY/STRENGTH.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, BULK_UP, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, AERIAL_ACE, \
 	     TAKE_DOWN, SWORDS_DANCE, PETAL_DANCE, DOUBLE_EDGE, CUT, \

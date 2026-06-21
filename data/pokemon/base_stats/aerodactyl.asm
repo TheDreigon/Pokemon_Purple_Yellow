@@ -12,12 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Rock/Flying apex predator pterodactyl, single-stage
-	; last. auto
-	; ROCK_THROW/FAINT_ATTACK/AGILITY/AERIAL_ACE/INTIMIDATE/SWORDS_DANCE/ROCK_SLIDE/FLY.
-	; bonus QUICK_ATTACK/DRAGON_CLAW/SCARY_FACE/TAKE_DOWN/DOUBLE_EDGE.
-	; HM CUT/FLY/STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Rock/Flying apex predator pterodactyl, single-stage.
 	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, AGILITY, AERIAL_ACE, DRAGON_CLAW, \
 	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, ROCK_SLIDE, \

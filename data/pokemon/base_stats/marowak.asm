@@ -11,13 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Marowak, apex bone-wielder GROUND/DARK com lore
-	; ghost-mother. auto
-	; FAINT_ATTACK/BULLDOZE/RAGE/NIGHT_SHADE/BULK_UP/INTIMIDATE/SCARY_FACE/DARK_PULSE/DOUBLE_EDGE/THRASH/OUTRAGE.
-	; bonus
-	; ROCK_THROW/BODY_SLAM/IRON_HEAD/CHARM/TAKE_DOWN/SHADOW_BALL/SWORDS_DANCE/EARTHQUAKE/ROCK_SLIDE.
-	; HM STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex bone-wielder Ground/Dark; ghost-mother lore backs the dark
+	; and ghost moves. Last-stage fun moves allowed.
 	tmhm ROCK_THROW, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
 	     NIGHT_SHADE, BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, IRON_HEAD, CHARM, INTIMIDATE, SCARY_FACE, \

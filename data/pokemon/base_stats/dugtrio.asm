@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex toupeira de 3 cabecas, ground speedster. auto
-	; QUICK_ATTACK/FAINT_ATTACK/BULLDOZE/AGILITY/TAKE_DOWN/EARTHQUAKE. bonus
-	; ROCK_THROW/BODY_SLAM/IRON_HEAD. HM CUT/STRENGTH. fun (4 via TM,
-	; regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex three-headed mole, ground speedster. HM CUT/STRENGTH. Fun
+	; moves (last-stage) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, \
 	     TAKE_DOWN, EARTHQUAKE, CUT, STRENGTH

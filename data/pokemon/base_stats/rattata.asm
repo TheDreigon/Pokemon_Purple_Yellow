@@ -12,9 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Normal rodent, sharp-fanged pre-evo. auto
-	; QUICK_ATTACK/FAINT_ATTACK/RAGE/BODY_SLAM/AGILITY/POISON_BITE/DOUBLE_EDGE/CUT.
-	; bonus TOXIC/TAKE_DOWN. HM CUT.
+	; Sharp-fanged Normal rodent pre-evo. Fangs justify POISON_BITE/
+	; FAINT_ATTACK; gnawing incisors learn HM CUT.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, AGILITY, \
 	     POISON_BITE, TOXIC, TAKE_DOWN, DOUBLE_EDGE, CUT
 	; end

@@ -12,10 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: warrior turtle mid-stage. auto
-	; WATER_PULSE/BODY_SLAM/SURF. bonus
-	; BULLDOZE/BULK_UP/TAKE_DOWN/LIGHT_SCREEN/REFLECT/DOUBLE_EDGE. HM
-	; CUT/SURF/STRENGTH.
+	; Warrior turtle mid-stage. Water attacks, body-slam bulk and
+	; strength moves. Natural HM surfer/swimmer.
 	tmhm BULLDOZE, WATER_PULSE, BODY_SLAM, BULK_UP, TAKE_DOWN, \
 	     LIGHT_SCREEN, REFLECT, DOUBLE_EDGE, CUT, SURF, \
 	     STRENGTH

@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: defensive female juvenile, poison glands. auto
-	; BODY_SLAM/POISON_BITE/TOXIC. bonus TAKE_DOWN.
+	; Defensive female juvenile, poison glands.
 	tmhm QUICK_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, TAKE_DOWN
 	; end
 

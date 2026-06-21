@@ -12,12 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: raging horned bull, heavy physical bruiser (gold
-	; standard). auto
-	; BULLDOZE/RAGE/BODY_SLAM/INTIMIDATE/SCARY_FACE/TAKE_DOWN/SWORDS_DANCE/DOUBLE_EDGE/THRASH/OUTRAGE/STRENGTH.
-	; bonus BULK_UP/IRON_HEAD/MEGAHORN/EARTHQUAKE. HM STRENGTH. fun (4
-	; via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Raging horned bull, heavy physical bruiser. Horns drive
+	; MEGAHORN/IRON_HEAD. Powerful legs power BULLDOZE/EARTHQUAKE/STRENGTH.
+	; Last-stage fun moves via TM.
 	tmhm BULLDOZE, RAGE, BODY_SLAM, BULK_UP, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, MEGAHORN, \
 	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, EARTHQUAKE, \

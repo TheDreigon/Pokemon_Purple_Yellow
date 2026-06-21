@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pre-moth fuzzy Bug/Poison drainer. auto
-	; TOXIC/LEECH_LIFE/PSYCHIC_M. bonus EXTRASENSORY/LIGHT_SCREEN.
+	; Pre-moth fuzzy Bug/Poison drainer. Spreads venom (TOXIC), drains
+	; (LEECH_LIFE), and shows nascent psychic sense (PSYCHIC_M).
 	tmhm TOXIC, EXTRASENSORY, LEECH_LIFE, PSYCHIC_M, LIGHT_SCREEN
 	; end
 

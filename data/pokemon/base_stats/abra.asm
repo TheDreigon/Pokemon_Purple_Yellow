@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: baby psychic minimalista (canon Abra-so-Teleport).
-	; auto CALM_MIND.
+	; Baby psychic, minimalist movepool (canon Abra knows only Teleport).
 	tmhm CALM_MIND
 	; end
 

@@ -7,14 +7,14 @@
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions
 	dw PorygonPicFront, PorygonPicBack
 
-	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (R19: silent digital construct — GROWL->HARDEN)
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Porygon, single-stage digital construct (last). auto
-	; SHOCK_WAVE/THUNDER_WAVE/MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME/AGILITY/LIGHT_SCREEN/REFLECT/THUNDERBOLT/FLASH.
-	; bonus PSYCHIC_M. HM FLASH. fun (4 via TM, regra global last-stage
-	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Single-stage digital construct:
+	; SHOCK_WAVE/THUNDER_WAVE/AGILITY/LIGHT_SCREEN/REFLECT/
+	; THUNDERBOLT/FLASH plus PSYCHIC_M. HM FLASH.
+	; Last-stage fun: MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, \
 	     REFLECT, THUNDERBOLT, FLASH

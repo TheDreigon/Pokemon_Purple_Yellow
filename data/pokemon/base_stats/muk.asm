@@ -11,11 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Muk apex sludge blob, Poison/Water. auto
-	; BIND/BODY_SLAM/TOXIC/SCARY_FACE/TAKE_DOWN. bonus
-	; BULLDOZE/EARTHQUAKE/DOUBLE_EDGE/THRASH. HM STRENGTH. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex sludge blob, Poison/Water. Last-stage fun moves allowed.
 	tmhm BIND, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, TOXIC, SCARY_FACE, TAKE_DOWN, \
 	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH

@@ -12,10 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: gentle lazy giant of sheer mass. auto
-	; BIND/BULLDOZE/BODY_SLAM/BULK_UP/TAKE_DOWN/EARTHQUAKE/DOUBLE_EDGE/THRASH.
-	; HM STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Gentle lazy giant of sheer mass. Heavy body drives the ground
+	; moves (BULLDOZE/EARTHQUAKE) and DOUBLE_EDGE/THRASH.
 	tmhm BIND, BULLDOZE, BODY_SLAM, BULK_UP, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, TAKE_DOWN, EARTHQUAKE, \
 	     DOUBLE_EDGE, THRASH, STRENGTH

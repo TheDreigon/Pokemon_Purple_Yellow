@@ -12,9 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pato aquatico de mente psiquica latente (pre-evo,
-	; backbone). auto WATER_PULSE/EXTRASENSORY. bonus ICE_BEAM. HM
-	; CUT/SURF.
+	; Aquatic duck with a latent psychic mind (pre-evo backbone):
+	; WATER_PULSE/EXTRASENSORY plus ICE_BEAM. HM CUT/SURF.
 	tmhm WATER_PULSE, ICY_PULSE, EXTRASENSORY, ICE_BEAM, CUT, \
 	     SURF
 	; end

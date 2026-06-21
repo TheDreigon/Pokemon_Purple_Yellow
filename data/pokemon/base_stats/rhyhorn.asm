@@ -12,9 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pre-evo rhinoceros charger (Ground/Rock). auto
-	; BULLDOZE/RAGE/BODY_SLAM/IRON_HEAD/TAKE_DOWN. bonus
-	; ROCK_THROW/EARTHQUAKE/MEGAHORN/DOUBLE_EDGE. HM STRENGTH.
+	; Pre-evo Ground/Rock rhinoceros charger. The horn justifies MEGAHORN;
+	; ROCK_THROW from forelimbs. Heavy frame learns HM STRENGTH.
 	tmhm ROCK_THROW, BULLDOZE, RAGE, BODY_SLAM, IRON_HEAD, \
 	     MEGAHORN, TAKE_DOWN, EARTHQUAKE, DOUBLE_EDGE, STRENGTH
 	; end

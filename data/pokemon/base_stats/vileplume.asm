@@ -11,12 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex Rafflesia bloom (Grass/Fungus) — powder warfare
-	; and dark-spore specialist. auto
-	; TOXIC/LEECH_LIFE/DARK_PULSE/PETAL_DANCE. bonus
-	; BODY_SLAM/GIGA_DRAIN/EXTRASENSORY/TAKE_DOWN/DOUBLE_EDGE. fun (4
-	; via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Rafflesia bloom (Grass/Fungus) — powder warfare and dark-spore
+	; specialist. Spreads venom (TOXIC) and dark spores (DARK_PULSE);
+	; drains (GIGA_DRAIN/LEECH_LIFE). Last-stage fun moves via TM.
 	tmhm BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     GIGA_DRAIN, TOXIC, EXTRASENSORY, LEECH_LIFE, TAKE_DOWN, \
 	     DARK_PULSE, PETAL_DANCE, DOUBLE_EDGE

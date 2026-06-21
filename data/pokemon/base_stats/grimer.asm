@@ -11,8 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Grimer pre-evo Poison/Water sludge blob. auto
-	; BIND/BODY_SLAM/TOXIC. bonus BULLDOZE/TAKE_DOWN/DOUBLE_EDGE/THRASH.
+	; Pre-evo Poison/Water sludge blob.
 	tmhm BIND, BULLDOZE, BODY_SLAM, TOXIC, TAKE_DOWN, \
 	     DOUBLE_EDGE, THRASH
 	; end

@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: full psychic moth, Bug/Poison flyer. auto
-	; NIGHT_SHADE/TOXIC/LEECH_LIFE/PSYCHIC_M. bonus
-	; CONFUSE_RAY/AERIAL_ACE/EXTRASENSORY/LIGHT_SCREEN/REFLECT. HM FLY.
-	; fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Full psychic moth, Bug/Poison flyer. Spreads venom (TOXIC), drains
+	; (LEECH_LIFE), and wields psychic powers (PSYCHIC_M/CONFUSE_RAY).
+	; Flight enables AERIAL_ACE/FLY. Last-stage fun moves via TM.
 	tmhm NIGHT_SHADE, CONFUSE_RAY, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AERIAL_ACE, TOXIC, EXTRASENSORY, LEECH_LIFE, \
 	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, FLY

@@ -12,9 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Ditto. TRANSFORM only — sem TMs (Forte). A sua unica
-	; jogada e copiar; nao tem anatomia/gesto proprio para qualquer
-	; TM/HM.
+	; Ditto. TRANSFORM only, no TMs. Its only play is to copy; it has no
+	; anatomy or gesture of its own for any TM/HM.
 	tmhm
 	; end
 

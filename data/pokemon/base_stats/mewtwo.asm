@@ -12,13 +12,8 @@
 	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex psiquico + honorary Dark, arma genetica
-	; definitiva. auto
-	; QUICK_ATTACK/FAINT_ATTACK/AGILITY/EXTRASENSORY/INTIMIDATE/SCARY_FACE/PSYCHIC_M/LIGHT_SCREEN/DARK_PULSE/SHADOW_BALL/REFLECT/OUTRAGE.
-	; bonus
-	; NIGHT_SHADE/CONFUSE_RAY/TOXIC/ICE_BEAM/FLAMETHROWER/THUNDERBOLT.
-	; HM STRENGTH/FLASH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex psychic plus honorary Dark; ultimate genetic weapon backs the
+	; dark moves. Last-stage fun moves allowed.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, ICY_PULSE, FLAME_BURST, SHOCK_WAVE, \
 	     NIGHT_SHADE, CONFUSE_RAY, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, TOXIC, EXTRASENSORY, INTIMIDATE, \

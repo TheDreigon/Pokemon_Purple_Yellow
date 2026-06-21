@@ -11,8 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: slow docile Water/Normal pre-evo. auto
-	; WATER_PULSE/EXTRASENSORY. bonus CONFUSE_RAY. HM SURF/STRENGTH.
+	; Slow docile Water/Normal pre-evo.
 	tmhm WATER_PULSE, CONFUSE_RAY, EXTRASENSORY, SURF, STRENGTH
 	; end
 

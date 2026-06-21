@@ -11,11 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex Electric/Steel sphere (130 Spd), no limbs or
-	; hands. auto
-	; SHOCK_WAVE/THUNDER_WAVE/AGILITY/LIGHT_SCREEN/REFLECT/THUNDERBOLT/FLASH.
-	; bonus BULLDOZE/IRON_HEAD. HM FLASH. fun (4 via TM, regra global
-	; last-stage Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Electric/Steel sphere (130 Spd), no limbs or hands. HM FLASH.
 	tmhm BULLDOZE, SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, LIGHT_SCREEN, \
 	     REFLECT, THUNDERBOLT, FLASH

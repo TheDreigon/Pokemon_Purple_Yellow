@@ -12,11 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex raptor (DRILL_PECK signature), honorary
-	; Dark/Flying. auto QUICK_ATTACK/FAINT_ATTACK/AERIAL_ACE/INTIMIDATE.
-	; bonus TAKE_DOWN/SWORDS_DANCE/DOUBLE_EDGE. HM CUT/FLY. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex raptor, DRILL_PECK signature, honorary Dark/Flying. HM CUT/FLY.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AERIAL_ACE, INTIMIDATE, TAKE_DOWN, SWORDS_DANCE, \
 	     DOUBLE_EDGE, CUT, FLY

@@ -12,13 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: matriarch, fairy-tinged Poison/Ground apex. auto
-	; BULLDOZE/BODY_SLAM/POISON_BITE/CHARM/TOXIC/TAKE_DOWN/STRENGTH.
-	; bonus
-	; FAINT_ATTACK/BULK_UP/DAZZLE_GLEAM/FAKE_TEARS/INTIMIDATE/SWORDS_DANCE/CALM_MIND/EARTHQUAKE/ROCK_SLIDE/DOUBLE_EDGE.
-	; HM CUT/STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
-	; + QUICK_ATTACK (R20-superset: Nidorina aprende-o L15; Nidoqueen herda via TM02).
+	; Matriarch, fairy-tinged Poison/Ground apex. HM CUT/STRENGTH.
+	; Last-stage fun moves via TM.
 	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, BULK_UP, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
 	     POISON_BITE, FAKE_TEARS, CHARM, TOXIC, INTIMIDATE, \

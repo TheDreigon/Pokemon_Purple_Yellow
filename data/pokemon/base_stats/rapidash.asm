@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex equino unicornio Fire com chifre. auto
-	; BODY_SLAM/IGNITE/DAZZLE_GLEAM/AGILITY/TAKE_DOWN/FLAMETHROWER/DOUBLE_EDGE.
-	; bonus QUICK_ATTACK/BULLDOZE/FLAME_BURST/MEGAHORN. fun (4 via TM,
-	; regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Fire unicorn horse. The horn justifies MEGAHORN. Fire-line
+	; firepower (FLAME_BURST/IGNITE/FLAMETHROWER) plus equine charges.
 	tmhm QUICK_ATTACK, BULLDOZE, BODY_SLAM, FLAME_BURST, IGNITE, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
 	     AGILITY, MEGAHORN, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE

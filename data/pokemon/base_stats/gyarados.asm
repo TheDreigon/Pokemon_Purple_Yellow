@@ -11,13 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: brutal Water/Dragon sea-serpent apex, mostly
-	; physical, not docile. auto
-	; WATER_PULSE/RAGE/BODY_SLAM/INTIMIDATE/TAKE_DOWN/EARTHQUAKE/THRASH/OUTRAGE/SURF.
-	; bonus
-	; BIND/IRON_TAIL/AGILITY/IRON_HEAD/DRAGON_CLAW/SCARY_FACE/ICE_BEAM/ROCK_SLIDE/DOUBLE_EDGE.
-	; HM SURF/STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Brutal Water/Dragon sea-serpent apex, mostly physical, not
+	; docile. HM SURF/STRENGTH.
+	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm BIND, BULLDOZE, WATER_PULSE, ICY_PULSE, RAGE, \
 	     BODY_SLAM, IRON_TAIL, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, IRON_HEAD, DRAGON_CLAW, INTIMIDATE, \

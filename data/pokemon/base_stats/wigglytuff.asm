@@ -11,11 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex Normal/Fairy balloon singer. auto
-	; RAGE/BODY_SLAM/MIRROR_MOVE/FAKE_TEARS/CHARM/FLY. bonus
-	; DAZZLE_GLEAM/EXTRASENSORY/PSYCHIC_M/DOUBLE_EDGE. HM FLY. fun (4
-	; via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Normal/Fairy balloon singer. Sound and fairy moves, charm
+	; tricks and psychic flair. Buoyant enough to fly. Fun moves
+	; (last-stage).
 	tmhm RAGE, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, DAZZLE_GLEAM, FAKE_TEARS, CHARM, EXTRASENSORY, \
 	     PSYCHIC_M, DOUBLE_EDGE, FLY

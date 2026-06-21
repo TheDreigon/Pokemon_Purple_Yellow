@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: potro Fire com mane em chamas, ainda sem chifre. auto
-	; BODY_SLAM/IGNITE/AGILITY/TAKE_DOWN/FLAMETHROWER/DOUBLE_EDGE. bonus
+	; Fire colt with a flaming mane, no horn yet:
+	; BODY_SLAM/IGNITE/AGILITY/TAKE_DOWN/FLAMETHROWER/DOUBLE_EDGE plus
 	; QUICK_ATTACK/BULLDOZE/FLAME_BURST.
 	tmhm QUICK_ATTACK, BULLDOZE, BODY_SLAM, FLAME_BURST, IGNITE, \
 	     AGILITY, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE

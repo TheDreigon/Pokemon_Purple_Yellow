@@ -12,8 +12,7 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: canon-weakest flopping fish, intentionally
-	; minimalist. auto RAGE.
+	; Canon-weakest flopping fish, intentionally minimalist.
 	tmhm RAGE
 	; end
 

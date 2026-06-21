@@ -12,9 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: aggressive bird-of-prey (honorary Dark/Flying),
-	; pre-evo backbone. auto QUICK_ATTACK/FAINT_ATTACK/AERIAL_ACE. bonus
-	; TAKE_DOWN/DOUBLE_EDGE. HM CUT/FLY.
+	; Aggressive bird-of-prey (honorary Dark/Flying), pre-evo backbone.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, AERIAL_ACE, TAKE_DOWN, DOUBLE_EDGE, \
 	     CUT, FLY
 	; end

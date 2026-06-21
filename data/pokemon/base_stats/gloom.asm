@@ -11,8 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: mid-stage flower bud (Grass/Fungus). auto
-	; TOXIC/PETAL_DANCE. bonus GIGA_DRAIN.
+	; Mid-stage flower bud (Grass/Fungus).
 	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 

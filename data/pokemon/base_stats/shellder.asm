@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Shellder pre-evo clam, Water backbone subset. auto
-	; BIND/WATER_PULSE/ICY_PULSE/BODY_SLAM/ICE_BEAM. HM SURF.
+	; Pre-evo clam, Water backbone subset.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, \
 	     SURF
 	; end

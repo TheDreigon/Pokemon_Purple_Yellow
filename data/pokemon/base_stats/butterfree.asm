@@ -11,11 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: butterfly Bug/Psychic. auto
-	; HURRICANE/EXTRASENSORY/PSYCHIC_M/PETAL_DANCE. bonus
-	; DAZZLE_GLEAM/LIGHT_SCREEN/REFLECT. HM FLY/FLASH. fun (4 via TM,
-	; regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Butterfly Bug/Psychic. Psychic STAB EXTRASENSORY/PSYCHIC_M. Wing
+	; HURRICANE, scale-dust DAZZLE_GLEAM. HM FLY/FLASH (luminous wings).
+	; Fun moves: last-stage line.
 	tmhm MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
 	     HURRICANE, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
 	     PETAL_DANCE, FLY, FLASH

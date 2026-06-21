@@ -12,9 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: mid-evo mago psychic. auto
-	; SHOCK_WAVE/AGILITY/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT/CALM_MIND.
-	; bonus DAZZLE_GLEAM/SHADOW_BALL. HM FLASH.
+	; Mid-evo psychic conjurer. Full psychic suite:
+	; EXTRASENSORY/PSYCHIC_M/CALM_MIND/LIGHT_SCREEN/REFLECT/AGILITY.
+	; SHOCK_WAVE/DAZZLE_GLEAM as projected energy. FLASH from the spoon.
 	tmhm SHOCK_WAVE, DAZZLE_GLEAM, AGILITY, EXTRASENSORY, PSYCHIC_M, \
 	     LIGHT_SCREEN, SHADOW_BALL, REFLECT, CALM_MIND, FLASH
 	; end

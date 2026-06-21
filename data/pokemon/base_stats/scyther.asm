@@ -12,13 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: blade-NINJA mantis (R11 vs Pinsir — speed/blades
-	; identity). auto
-	; QUICK_ATTACK/FAINT_ATTACK/AGILITY/AERIAL_ACE/SWORDS_DANCE/CUT/FLY.
-	; bonus
-	; DRAGON_CLAW/SCARY_FACE/TAKE_DOWN/DARK_PULSE/DOUBLE_EDGE.
-	; HM CUT/FLY. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Blade-ninja mantis; speed/blades identity (vs Pinsir). Scythe
+	; arms drive SWORDS_DANCE/DRAGON_CLAW/CUT, wings AGILITY/AERIAL_ACE.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, AERIAL_ACE, DRAGON_CLAW, SCARY_FACE, \
 	     TAKE_DOWN, DARK_PULSE, SWORDS_DANCE, DOUBLE_EDGE, CUT, \

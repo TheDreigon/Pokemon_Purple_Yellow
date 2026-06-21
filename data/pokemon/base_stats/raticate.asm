@@ -11,11 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Normal/Dark matured rodent, physical bruiser. auto
-	; QUICK_ATTACK/FAINT_ATTACK/RAGE/BODY_SLAM/AGILITY/POISON_BITE/DOUBLE_EDGE/CUT.
-	; bonus BULK_UP/TOXIC/INTIMIDATE/TAKE_DOWN. HM CUT. fun (4 via TM,
-	; regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Matured Normal/Dark rodent, physical bruiser. Sharp fangs justify
+	; POISON_BITE/FAINT_ATTACK; gnawing incisors learn HM CUT.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
 	     POISON_BITE, TOXIC, INTIMIDATE, TAKE_DOWN, DOUBLE_EDGE, \

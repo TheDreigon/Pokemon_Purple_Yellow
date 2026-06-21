@@ -12,10 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Poison snake (pre-evo backbone). auto
-	; QUICK_ATTACK/BIND/FAINT_ATTACK/SUBSTITUTE/AGILITY/POISON_BITE/TOXIC.
-	; bonus IRON_TAIL/TAKE_DOWN. HM CUT. fun (excecao pre-evo aprovada
-	; Forte) SUBSTITUTE.
+	; Poison snake (pre-evo backbone). HM CUT.
 	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, IRON_TAIL, SUBSTITUTE, \
 	     AGILITY, POISON_BITE, TOXIC, TAKE_DOWN, CUT
 	; end

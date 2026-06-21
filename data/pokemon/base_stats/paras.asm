@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: bug cordyceps-controlado (Bug/Grass), pre-evo
-	; backbone curto. auto GIGA_DRAIN/LEECH_LIFE. bonus TOXIC.
+	; Cordyceps-controlled bug (Bug/Grass), short pre-evo backbone:
+	; GIGA_DRAIN/LEECH_LIFE plus TOXIC.
 	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE, CUT
 	; end
 

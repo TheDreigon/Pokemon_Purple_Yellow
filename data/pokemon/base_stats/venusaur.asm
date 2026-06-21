@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: full bloom Grass/Poison — superset of Ivysaur. auto
-	; BODY_SLAM/GIGA_DRAIN/TOXIC/PETAL_DANCE. bonus
-	; BIND/BULLDOZE/INTIMIDATE/TAKE_DOWN/LIGHT_SCREEN/REFLECT/EARTHQUAKE/DOUBLE_EDGE.
-	; HM CUT/STRENGTH/FLASH. fun (4 via TM, regra global last-stage
-	; Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Full-bloom Grass/Poison — superset of Ivysaur. Bloom drains
+	; (GIGA_DRAIN) and spreads venom (TOXIC); heavy body powers
+	; EARTHQUAKE/STRENGTH. Last-stage fun moves via TM.
 	tmhm BIND, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, GIGA_DRAIN, TOXIC, INTIMIDATE, \
 	     TAKE_DOWN, LIGHT_SCREEN, REFLECT, EARTHQUAKE, PETAL_DANCE, \

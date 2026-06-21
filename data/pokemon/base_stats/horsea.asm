@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: ink-spitting seahorse pre-evo, lean Water backbone.
-	; auto WATER_PULSE/ICY_PULSE/AGILITY. bonus ICE_BEAM. HM SURF.
+	; Ink-spitting seahorse pre-evo; lean Water backbone. HM SURF.
 	tmhm WATER_PULSE, ICY_PULSE, AGILITY, ICE_BEAM, SURF
 	; end
 

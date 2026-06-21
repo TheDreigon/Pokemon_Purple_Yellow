@@ -11,9 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Normal/Dark feline pre-evo, slim claw cat. auto
-	; FAINT_ATTACK/AGILITY/INTIMIDATE/QUICK_ATTACK. bonus SCARY_FACE. HM
-	; CUT/STRENGTH.
+	; Normal/Dark feline pre-evo, slim claw cat.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, AGILITY, INTIMIDATE, SCARY_FACE, \
 	     TAKE_DOWN, CUT, STRENGTH
 	; end

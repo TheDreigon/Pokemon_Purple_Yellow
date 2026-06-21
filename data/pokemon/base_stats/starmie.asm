@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Water/Psychic mystic gem-core star (last). auto
-	; QUICK_ATTACK/WATER_PULSE/DAZZLE_GLEAM/PSYCHIC_M/LIGHT_SCREEN/CALM_MIND/SURF/FLASH.
-	; bonus EXTRASENSORY/ICE_BEAM/REFLECT/THUNDERBOLT. HM SURF/FLASH.
-	; fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Water/Psychic mystic gem-core star (last). Glowing core drives
+	; DAZZLE_GLEAM/FLASH.
 	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, SHOCK_WAVE, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, EXTRASENSORY, \
 	     PSYCHIC_M, LIGHT_SCREEN, ICE_BEAM, REFLECT, THUNDERBOLT, \

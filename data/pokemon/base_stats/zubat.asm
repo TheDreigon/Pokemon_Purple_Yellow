@@ -12,9 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: small vampire bat (pre-evo backbone). auto
-	; QUICK_ATTACK/AGILITY/POISON_BITE/AERIAL_ACE/LEECH_LIFE/FLY. bonus
-	; TOXIC. HM CUT/FLY.
+	; Small vampire bat. Quick aerial strikes, life-draining bites and
+	; toxic moves. Natural HM flyer/cutter.
 	tmhm QUICK_ATTACK, AGILITY, POISON_BITE, AERIAL_ACE, TOXIC, \
 	     LEECH_LIFE, CUT, FLY
 	; end

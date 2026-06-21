@@ -12,10 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: leg-only kicker, single-stage last. auto
-	; QUICK_ATTACK/FAINT_ATTACK/BULLDOZE/SEISMIC_TOSS/BULK_UP/AGILITY/TAKE_DOWN/SWORDS_DANCE/CALM_MIND.
-	; bonus BIND/THRASH. HM STRENGTH. fun (4 via TM, regra global
-	; last-stage Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Leg-only kicker, single-stage. HM STRENGTH.
+	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, BULLDOZE, SEISMIC_TOSS, \
 	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     AGILITY, TAKE_DOWN, SWORDS_DANCE, CALM_MIND, THRASH, \

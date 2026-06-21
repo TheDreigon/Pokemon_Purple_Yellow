@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Tangela Grass/Water single-stage, blob de vinhas
-	; semi-defensivo que constringe e drena. auto
-	; BIND/WATER_PULSE/BODY_SLAM/GIGA_DRAIN/LEECH_LIFE/PETAL_DANCE. HM
-	; CUT/SURF. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Grass/Water single-stage, semi-defensive vine blob that constricts
+	; (BIND) and drains (GIGA_DRAIN/LEECH_LIFE). Last-stage fun moves via
+	; TM.
 	tmhm BIND, WATER_PULSE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, GIGA_DRAIN, LEECH_LIFE, PETAL_DANCE, \
 	     CUT, SURF

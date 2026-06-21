@@ -12,8 +12,8 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: joke-tier baby caterpillar, almost cannot fight.
-	; bonus LEECH_LIFE.
+	; Joke-tier baby caterpillar, almost cannot fight. Only LEECH_LIFE,
+	; befitting a tiny bug.
 	tmhm LEECH_LIFE
 	; end
 

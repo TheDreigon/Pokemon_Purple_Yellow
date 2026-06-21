@@ -12,9 +12,7 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Dragon sea-snake baby. auto
-	; BIND/WATER_PULSE/ICY_PULSE/BODY_SLAM/SHOCK_WAVE/SURF. bonus
-	; IRON_TAIL/DRAGON_CLAW/TAKE_DOWN. HM SURF.
+	; Dragon sea-snake baby. HM SURF.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, SHOCK_WAVE, \
 	     IRON_TAIL, DRAGON_CLAW, TAKE_DOWN, SURF
 	; end

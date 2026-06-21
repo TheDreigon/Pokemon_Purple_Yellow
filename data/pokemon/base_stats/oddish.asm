@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: basic radish/turnip plant (Grass/Poison). auto
-	; PETAL_DANCE. bonus GIGA_DRAIN/TOXIC.
+	; Basic radish/turnip plant (Grass/Poison).
 	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 

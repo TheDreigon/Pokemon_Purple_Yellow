@@ -12,9 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: mid-stage rolling rock (Rock/Ground). auto
-	; ROCK_THROW/BULLDOZE/BODY_SLAM/IRON_HEAD/TAKE_DOWN/EARTHQUAKE/ROCK_SLIDE/DOUBLE_EDGE/STRENGTH.
-	; HM STRENGTH.
+	; Mid-stage rolling rock (Rock/Ground). HM STRENGTH.
 	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, IRON_HEAD, TAKE_DOWN, \
 	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH
 	; end

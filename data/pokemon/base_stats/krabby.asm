@@ -12,9 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: scrappy pincer crab, pre-evo backbone (subset of
-	; Kingler). auto BIND/WATER_PULSE. bonus
-	; SEISMIC_TOSS/BODY_SLAM/ICE_BEAM. HM CUT/SURF/STRENGTH.
+	; Scrappy pincer crab, pre-evo backbone (subset of Kingler).
+	; Pincer drives BIND/SEISMIC_TOSS/CUT/STRENGTH; aquatic
+	; WATER_PULSE/SURF/ICE_BEAM.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, SEISMIC_TOSS, BODY_SLAM, \
 	     ICE_BEAM, CUT, SURF, STRENGTH
 	; end

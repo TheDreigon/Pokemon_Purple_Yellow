@@ -12,9 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: mid-stage mature male, learns aggression primitives.
-	; auto RAGE/BODY_SLAM/POISON_BITE/TAKE_DOWN. bonus
-	; QUICK_ATTACK/FAINT_ATTACK/BULK_UP/TOXIC/SCARY_FACE/DOUBLE_EDGE.
+	; Mid-stage mature male, learns aggression primitives.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
 	     POISON_BITE, TOXIC, SCARY_FACE, TAKE_DOWN, DOUBLE_EDGE
 	; end

@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: matured vampire bat (last-stage). auto
-	; QUICK_ATTACK/AGILITY/POISON_BITE/AERIAL_ACE/TOXIC/LEECH_LIFE/DARK_PULSE/FLY.
-	; bonus GIGA_DRAIN/HURRICANE/INTIMIDATE. HM CUT/FLY. fun (4 via TM,
-	; regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Matured vampire bat (last-stage). HM CUT/FLY.
+	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm QUICK_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     GIGA_DRAIN, AGILITY, POISON_BITE, AERIAL_ACE, HURRICANE, \
 	     TOXIC, INTIMIDATE, LEECH_LIFE, DARK_PULSE, CUT, \

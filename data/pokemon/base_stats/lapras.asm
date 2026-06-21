@@ -12,11 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: docile singing ferry, huge Water/Ice tank. auto
-	; WATER_PULSE/ICY_PULSE/BODY_SLAM/CONFUSE_RAY/CHARM/ICE_BEAM/SURF/STRENGTH.
-	; bonus
+	; Docile singing ferry, huge Water/Ice tank. Core
+	; WATER_PULSE/ICY_PULSE/BODY_SLAM/CONFUSE_RAY/CHARM/ICE_BEAM. Bonus
 	; DAZZLE_GLEAM/TOXIC/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT. HM
-	; SURF/STRENGTH. fun (4 via TM, regra global last-stage Forte)
+	; SURF/STRENGTH. Fun (last-stage)
 	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, CONFUSE_RAY, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, CHARM, \

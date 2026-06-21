@@ -12,10 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex Water/Poison jellyfish (13 TMs, Kingler-tier
-	; gold standard). auto BIND/WATER_PULSE/SHOCK_WAVE/TOXIC/SURF. bonus
-	; AGILITY/LEECH_LIFE/ICE_BEAM. HM CUT/SURF. fun (4 via TM, regra
-	; global last-stage Forte) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Water/Poison jellyfish. Tentacles bind and drain (LEECH_LIFE);
+	; venom enables TOXIC. Last-stage fun moves via TM.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, SHOCK_WAVE, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, TOXIC, \
 	     LEECH_LIFE, ICE_BEAM, CUT, SURF

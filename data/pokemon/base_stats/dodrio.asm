@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: ratite de 3 cabecas, last-stage e apex da linha. auto
-	; QUICK_ATTACK/FAINT_ATTACK/RAGE/AGILITY/TAKE_DOWN/DOUBLE_EDGE/THRASH.
-	; bonus BULLDOZE/BODY_SLAM/INTIMIDATE. HM CUT/STRENGTH. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Three-headed ratite, last-stage apex of the line. HM CUT/STRENGTH.
+	; Fun moves (last-stage) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
 	     INTIMIDATE, TAKE_DOWN, DOUBLE_EDGE, THRASH, CUT, \

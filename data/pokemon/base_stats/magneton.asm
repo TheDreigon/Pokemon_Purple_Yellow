@@ -7,14 +7,11 @@
 	INCBIN "gfx/pokemon/front/magneton.pic", 0, 1 ; sprite dimensions
 	dw MagnetonPicFront, MagnetonPicBack
 
-	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (R19: silent magnet — GROWL->HARDEN)
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (silent magnet, no growl)
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex Electric/Steel magnet cluster. auto
-	; BODY_SLAM/SHOCK_WAVE/THUNDER_WAVE/IRON_HEAD/LIGHT_SCREEN/THUNDERBOLT.
-	; bonus REFLECT. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex Electric/Steel magnet cluster. Last-stage fun moves allowed.
 	tmhm BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, IRON_HEAD, LIGHT_SCREEN, REFLECT, \
 	     THUNDERBOLT

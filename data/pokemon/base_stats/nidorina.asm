@@ -12,9 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: mid-stage female, growing chemical bruiser. auto
-	; BODY_SLAM/POISON_BITE/TOXIC/TAKE_DOWN. bonus
-	; FAINT_ATTACK/DOUBLE_EDGE.
+	; Mid-stage female, growing chemical bruiser.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, \
 	     TAKE_DOWN, DOUBLE_EDGE
 	; end

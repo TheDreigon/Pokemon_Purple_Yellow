@@ -12,8 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cacho de ovos Grass/Psychic imovel, backbone curto.
-	; auto PSYCHIC_M/DARK_PULSE/PETAL_DANCE.
+	; Immobile Grass/Psychic egg cluster, short backbone.
 	tmhm EXTRASENSORY, PSYCHIC_M, DARK_PULSE, PETAL_DANCE
 	; end
 

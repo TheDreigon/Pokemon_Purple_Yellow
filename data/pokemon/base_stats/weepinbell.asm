@@ -12,9 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: mid-stage carnivore (Grass/Poison). auto
-	; BODY_SLAM/GIGA_DRAIN/LEECH_LIFE/TAKE_DOWN. bonus
-	; FAINT_ATTACK/TOXIC. HM CUT.
+	; Mid-stage carnivore (Grass/Poison). Draining and toxic moves,
+	; body-slam bulk. Natural HM cutter.
 	tmhm FAINT_ATTACK, BODY_SLAM, GIGA_DRAIN, TOXIC, LEECH_LIFE, \
 	     TAKE_DOWN, CUT
 	; end

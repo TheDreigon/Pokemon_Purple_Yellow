@@ -12,11 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Water fox, fluid body that masters ice. auto
-	; QUICK_ATTACK/WATER_PULSE/BODY_SLAM/CHARM/TAKE_DOWN/ICE_BEAM/DOUBLE_EDGE/SURF.
-	; bonus AGILITY/FAKE_TEARS/LIGHT_SCREEN/REFLECT. HM SURF. fun (4 via
-	; TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Water fox with a fluid body that masters ice (WATER_PULSE/ICE_BEAM/
+	; SURF). Cute gestures (CHARM/FAKE_TEARS). Last-stage fun moves via
+	; TM.
 	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, BODY_SLAM, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, FAKE_TEARS, \
 	     CHARM, TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, \

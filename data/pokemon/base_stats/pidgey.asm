@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: baby raptor pacifico. auto
-	; QUICK_ATTACK/AERIAL_ACE/HURRICANE/FLY. HM FLY.
+	; Baby raptor. Flight kit: QUICK_ATTACK/AERIAL_ACE/HURRICANE.
+	; HM FLY.
 	tmhm QUICK_ATTACK, AERIAL_ACE, HURRICANE, FLY
 	; end
 

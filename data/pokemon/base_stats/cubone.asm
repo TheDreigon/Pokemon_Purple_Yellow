@@ -12,9 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Cubone, baby ground bone-wielder solitario. auto
-	; FAINT_ATTACK/BULLDOZE/RAGE/BULK_UP/DOUBLE_EDGE. bonus
-	; ROCK_THROW/BODY_SLAM/CHARM/TAKE_DOWN/ROCK_SLIDE.
+	; Solitary baby ground bone-wielder. Ground/rock attacks
+	; (BULLDOZE/ROCK_THROW/ROCK_SLIDE), bone-club melee
+	; (BODY_SLAM/DOUBLE_EDGE), grief-driven RAGE/FAINT_ATTACK, BULK_UP.
 	tmhm ROCK_THROW, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
 	     BULK_UP, CHARM, TAKE_DOWN, ROCK_SLIDE, DOUBLE_EDGE
 	; end

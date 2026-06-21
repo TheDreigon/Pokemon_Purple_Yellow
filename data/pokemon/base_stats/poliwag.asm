@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: girino Water basico. auto WATER_PULSE/BODY_SLAM.
-	; bonus ICE_BEAM. HM SURF.
+	; Basic Water tadpole: WATER_PULSE/BODY_SLAM plus ICE_BEAM.
+	; HM SURF.
 	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, SURF
 	; end
 

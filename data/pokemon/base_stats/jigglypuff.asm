@@ -11,9 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Normal/Fairy balloon-singer pre-evo. auto
-	; RAGE/BODY_SLAM/FAKE_TEARS/CHARM/FLY. bonus
-	; DAZZLE_GLEAM/DOUBLE_EDGE. HM FLY.
+	; Normal/Fairy balloon-singer pre-evo. HM FLY.
 	tmhm RAGE, BODY_SLAM, DAZZLE_GLEAM, FAKE_TEARS, CHARM, \
 	     DOUBLE_EDGE, FLY
 	; end

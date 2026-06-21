@@ -11,8 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: pure Grass baby. auto GIGA_DRAIN/PETAL_DANCE. bonus
-	; BIND/TAKE_DOWN/LIGHT_SCREEN/REFLECT. HM CUT.
+	; Pure Grass baby. Grass STAB GIGA_DRAIN/PETAL_DANCE. Vine BIND.
+	; HM CUT (vine).
 	tmhm BIND, GIGA_DRAIN, TAKE_DOWN, LIGHT_SCREEN, REFLECT, \
 	     PETAL_DANCE, CUT
 	; end

@@ -12,11 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: apex armoured spiked digger with long claws. auto
-	; BULLDOZE/EARTHQUAKE/ROCK_SLIDE/CUT. bonus
-	; ROCK_THROW/BODY_SLAM/IRON_TAIL/IRON_HEAD/DRAGON_CLAW/TAKE_DOWN/SWORDS_DANCE/DOUBLE_EDGE.
-	; HM CUT/STRENGTH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Apex armoured spiked digger with long claws; claws drive
+	; SWORDS_DANCE/DRAGON_CLAW/CUT, the digging body the ground moves.
 	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, IRON_TAIL, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, DRAGON_CLAW, \
 	     TAKE_DOWN, SWORDS_DANCE, EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, \

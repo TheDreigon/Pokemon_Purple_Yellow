@@ -12,9 +12,7 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: cute Normal fox base, backbone-only. auto
-	; QUICK_ATTACK/BODY_SLAM/CHARM/DOUBLE_EDGE. bonus
-	; AGILITY/FAKE_TEARS.
+	; Cute Normal fox base, backbone-only.
 	tmhm QUICK_ATTACK, BODY_SLAM, AGILITY, FAKE_TEARS, CHARM, \
 	     DOUBLE_EDGE
 	; end

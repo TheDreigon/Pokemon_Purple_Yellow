@@ -11,12 +11,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Magmar, boxer Fire/Magma vulcanico (counterpart de
-	; Electabuzz). auto
-	; SEISMIC_TOSS/BODY_SLAM/FLAME_BURST/CONFUSE_RAY/IGNITE/LIGHT_SCREEN/FLAMETHROWER/ROCK_SLIDE.
-	; bonus BULLDOZE/TAKE_DOWN/EARTHQUAKE/DOUBLE_EDGE. HM
-	; CUT/STRENGTH/FLASH. fun (4 via TM, regra global last-stage Forte)
-	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; Volcanic Fire/Magma boxer, counterpart to Electabuzz. Last-stage
+	; fun moves allowed.
 	tmhm ROCK_THROW, BULLDOZE, SEISMIC_TOSS, BODY_SLAM, FLAME_BURST, \
 	     CONFUSE_RAY, IGNITE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, TAKE_DOWN, LIGHT_SCREEN, FLAMETHROWER, EARTHQUAKE, \

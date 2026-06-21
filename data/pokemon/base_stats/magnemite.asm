@@ -7,13 +7,11 @@
 	INCBIN "gfx/pokemon/front/magnemite.pic", 0, 1 ; sprite dimensions
 	dw MagnemitePicFront, MagnemitePicBack
 
-	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (R19: silent magnet — GROWL->HARDEN)
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (silent magnet, no growl)
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; v0.7 Pass 3: Electric/Steel magnet pre-evo. auto
-	; BODY_SLAM/SHOCK_WAVE/THUNDER_WAVE/IRON_HEAD/THUNDERBOLT. bonus
-	; LIGHT_SCREEN/REFLECT.
+	; Electric/Steel magnet pre-evo.
 	tmhm BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, IRON_HEAD, LIGHT_SCREEN, \
 	     REFLECT, THUNDERBOLT
 	; end
