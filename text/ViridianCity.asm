@@ -15,11 +15,11 @@ _ViridianCityOldManHadMyCoffeeNowText::
 	line "through!"
 
 	para "As my apology,"
-	line "I'll give you some"
-	cont "#MON tips later."
+	line "I'll give you a"
+	cont "#MON tip soon."
 
-	para "Find me again once"
-	line "I get my bearings."
+	para "Come back once I"
+	line "get my bearings."
 	done
 
 _ViridianCityOldManLosingMyTouchText::
@@ -53,13 +53,13 @@ _ViridianCityOldManTipText::
 	text "Oh, I remember"
 	line "you!"
 
-	para "I was a #MON"
-	line "trainer back in"
-	cont "my day."
+	para "Here's the"
+	line "#MON tip I"
+	cont "promised!"
 
-	para "A tip: hold START"
-	line "while pressing A"
-	cont "on STATS..."
+	para "Hold START while"
+	line "pressing A on"
+	cont "STATS..."
 
 	para "You can check a"
 	line "#MON's growth"
