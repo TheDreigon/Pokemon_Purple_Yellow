@@ -537,9 +537,7 @@ PidgeyEvosMoves:
 ; TAKE_DOWN / INTIMIDATE on the baby (small talons, light body, not menacing).
 	db  4, PECK
 	db  8, SAND_ATTACK
-	db 11, QUICK_ATTACK
-	db 14, GUST
-	db 18, LEER
+	db 12, GUST
 	db 22, WING_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
@@ -554,9 +552,9 @@ PidgeottoEvosMoves:
 ; Medium hawk. Pidgey's backbone + HONE_CLAWS and SLASH (medium-grown talons).
 	db  4, PECK
 	db  8, SAND_ATTACK
-	db 11, QUICK_ATTACK
-	db 14, GUST
-	db 18, LEER
+	db 12, GUST
+	db 17, LEER
+	db 18, QUICK_ATTACK
 	db 22, WING_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
@@ -575,9 +573,9 @@ PidgeotEvosMoves:
 ; TAKE_DOWN and INTIMIDATE (full-grown menacing presence).
 	db  4, PECK
 	db  8, SAND_ATTACK
-	db 11, QUICK_ATTACK
-	db 14, GUST
-	db 18, LEER
+	db 12, GUST
+	db 17, LEER
+	db 18, QUICK_ATTACK
 	db 22, WING_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
@@ -658,10 +656,10 @@ SpearowEvosMoves:
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
-	db 11, QUICK_ATTACK
-	db 13, TAILWIND
-	db 15, FURY_ATTACK
-	db 20, WING_ATTACK
+	db 12, FURY_ATTACK
+	db 14, QUICK_ATTACK
+	db 16, TAILWIND
+	db 18, WING_ATTACK
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
@@ -679,10 +677,10 @@ FearowEvosMoves:
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
-	db 11, QUICK_ATTACK
-	db 13, TAILWIND
-	db 15, FURY_ATTACK
-	db 20, WING_ATTACK
+	db 12, FURY_ATTACK
+	db 14, QUICK_ATTACK
+	db 16, TAILWIND
+	db 18, WING_ATTACK
 	db 23, FAINT_ATTACK
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
@@ -691,7 +689,7 @@ FearowEvosMoves:
 	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
 	db 50, INTIMIDATE
-	db 52, SKY_ATTACK
+	db 55, SKY_ATTACK
 	db 0
 
 EkansEvosMoves:
@@ -2342,12 +2340,12 @@ DoduoEvosMoves:
 	db 11, LEER
 	db 14, QUICK_ATTACK
 	db 18, FURY_ATTACK
-	db 22, RAGE
+	db 22, FOCUS_ENERGY
 	db 26, GROUND_STOMP
 	db 30, AGILITY
 	db 33, DRILL_PECK
-	db 42, TAKE_DOWN
-	db 50, DOUBLE_EDGE
+	db 40, TAKE_DOWN
+	db 55, DOUBLE_EDGE
 	db 0
 
 DodrioEvosMoves:
@@ -2363,15 +2361,15 @@ DodrioEvosMoves:
 	db 11, LEER
 	db 14, QUICK_ATTACK
 	db 18, FURY_ATTACK
-	db 22, RAGE
+	db 22, FOCUS_ENERGY
 	db 26, GROUND_STOMP
 	db 30, AGILITY
-	db 33, FAINT_ATTACK
 	db 33, DRILL_PECK
-	db 39, TAKE_DOWN
+	db 36, FAINT_ATTACK
+	db 40, TAKE_DOWN
 	db 46, EXTREMESPEED
 	db 50, THRASH
-	db 54, DOUBLE_EDGE
+	db 55, DOUBLE_EDGE
 	db 60, HORN_DRILL
 	db 0
 

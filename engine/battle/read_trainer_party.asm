@@ -171,8 +171,22 @@ HardModeBossLevelBump:
 	ld a, [wDifficulty]
 	cp HARD_MODE
 	jr nz, .noBump
+	; The very first rival fight (RIVAL1 at Oak's Lab = trainer 1, the L5
+	; Eevee) is intentionally exempt: it stays at base level even in Hard
+	; mode. Every other rival fight and every other boss still gets +2.
 	ld a, [wTrainerClass]
-	farcall IsBossTrainerClass
+	cp RIVAL1
+	jr nz, .doBump
+	ld a, [wTrainerNo]
+	cp 1
+	jr z, .noBump
+.doBump
+	; v0.7 BUGFIX: was `farcall IsBossTrainerClass` with the class in a,
+	; but the farcall bank-switch (rst _Bankswitch) overwrites a with the
+	; destination bank id before the call lands, so the check always saw
+	; "$0F" and never matched — NO boss ever got the +2. IsBossTrainer
+	; ClassW reloads wTrainerClass inside bank $0F, dodging the clobber.
+	farcall IsBossTrainerClassW
 	jr z, .noBump
 	pop af
 	add 2

@@ -25,6 +25,16 @@
 ; Input:  a = trainer class ID (1..NUM_TRAINERS)
 ; Output: Z flag (Z=1 means NOT boss; Z=0 means boss)
 ; Trashes: a, b, hl
+;
+; IsBossTrainerClassW: same check, but loads wTrainerClass itself instead
+; of taking it in a. MUST be used when reaching this via farcall: the
+; rst _Bankswitch path overwrites a with the destination bank id before
+; the call lands, so a routine that expects its arg in a would see the
+; bank ($0F) and never match. Routines that read inputs from wram
+; (IsHardModeBossBattle) are immune; plain IsBossTrainerClass is not.
+IsBossTrainerClassW::
+	ld a, [wTrainerClass]
+	; fall through
 IsBossTrainerClass::
 	ld b, a
 	ld hl, BossTrainerClasses
