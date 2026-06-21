@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/beedrill.pic", 0, 1 ; sprite dimensions
 	dw BeedrillPicFront, BeedrillPicBack
 
-	db POISON_STING, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db POISON_STING, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

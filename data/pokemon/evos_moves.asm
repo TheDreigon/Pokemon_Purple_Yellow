@@ -436,7 +436,7 @@ CaterpieEvosMoves:
 ; (base stats). TACKLE@11 per Forte - past the L8 evo, so reached only if the
 ; evolution is cancelled (B), same as Metapod's IRON_DEFENSE@16/BIDE@21.
 ; Line owns TACKLE (Metapod/Butterfree L1).
-	db 11, TACKLE
+	db  4, TACKLE
 	db 0
 
 MetapodEvosMoves:
@@ -460,22 +460,25 @@ ButterfreeEvosMoves:
 ; Forte's powder table. Hurricane reserved as final move (Forte: "as
 ; last move"). Quiver Dance late game (signature moth/butterfly dance,
 ; new SPECIAL_SPEED_UP1_EFFECT after engine update). Added FAIRY_WIND and HURRICANE.
-	db  4, BUG_BITE
-	db  7, STRING_SHOT
+	db  1, BUG_BITE
+	db  4, TACKLE
 	db 11, GUST
-	db 13, CONFUSION
+	db 12, GROWL
+	db 14, CONFUSION
 	db 15, POISONPOWDER
-	db 17, STUN_POWDER
+	db 18, STUN_POWDER
 	db 20, SLEEP_POWDER
 	db 22, FAIRY_WIND
+	db 24, TAILWIND
 	db 26, EXTRASENSORY
 	db 28, WING_ATTACK
 	db 30, BUG_BUZZ ; restored (Forte r4: Butterfree + Venomoth own BUG_BUZZ)
 	db 33, PSYCHIC_BIND
-	db 36, PSYCHIC_M
+	db 36, PSYBEAM
 	db 42, QUIVER_DANCE
 	db 48, PETAL_DANCE
-	db 55, HURRICANE
+	db 54, PSYCHIC_M
+	db 58, HURRICANE
 	db 0
 
 WeedleEvosMoves:
@@ -486,7 +489,7 @@ WeedleEvosMoves:
 ; v0.7 Pass 3 (Forte review): joke-tier baby spike-bug. STRING_SHOT at L1
 ; (base stats). TACKLE@11 per Forte - past the L8 evo, so reached only if the
 ; evolution is cancelled (B), same as Kakuna's IRON_DEFENSE@16/BIDE@21.
-	db 11, TACKLE
+	db  4, POISON_STING
 	db 0
 
 KakunaEvosMoves:
@@ -513,11 +516,11 @@ BeedrillEvosMoves:
 ; one of the line's "small number of exceptions"). Neurotoxin
 ; at L50 is real-world bee venom biology.
 ; BUG_BUZZ removed (Forte r4: Butterfree + Venomoth only — buzzing wings).
+	db  1, BUG_BITE
 	db  4, POISON_STING
-	db  7, STRING_SHOT
-	db  9, BUG_BITE
-	db 13, BIDE
-	db 15, FURY_ATTACK
+	db 11, TACKLE
+	db 12, LEER
+	db 14, FURY_ATTACK
 	db 15, RAGE
 	db 18, HORN_ATTACK
 	db 20, TWINEEDLE
@@ -527,11 +530,12 @@ BeedrillEvosMoves:
 	db 28, AERIAL_ACE
 	db 30, AGILITY
 	db 35, SWORDS_DANCE
-	db 40, INTIMIDATE
-	db 42, THRASH
+	db 40, THRASH
+	db 42, INTIMIDATE
 	db 44, DOUBLE_EDGE
 	db 47, DRILL_PECK
 	db 50, NEUROTOXIN
+	db 50, POISON_FANGS
 	db 55, EXTREMESPEED
 	db 60, GORE_ATTACK
 	db 65, OUTRAGE
@@ -1461,12 +1465,11 @@ VenonatEvosMoves:
 	db  8, PSYWAVE
 	db 11, BUG_BITE
 	db 14, SUPERSONIC
-	db 17, CONFUSION
-	db 20, SPORE_DAZE
+	db 17, DISABLE
+	db 18, CONFUSION
 	db 34, LEECH_LIFE
+	db 37, SPORE_DAZE
 	db 50, TOXIC
-	db 54, HAZE
-	db 58, PSYCHIC_M
 	db 0
 
 VenomothEvosMoves:
@@ -1482,7 +1485,8 @@ VenomothEvosMoves:
 	db  8, PSYWAVE
 	db 11, BUG_BITE
 	db 14, SUPERSONIC
-	db 17, CONFUSION
+	db 17, DISABLE
+	db 18, CONFUSION
 	db 21, POISONPOWDER
 	db 21, GUST
 	db 23, STUN_POWDER
