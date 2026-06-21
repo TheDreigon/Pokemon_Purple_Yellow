@@ -508,14 +508,10 @@ BeedrillEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; v0.7 Pass 3 (one of Forte's favorite mon — gets the deepest movepool of the
-; line). Shared 4 + 18 exclusives. NO powders (Forte's powder table).
-; NO Sludge / Gunk Shot / Toxic Fangs / Megahorn (anatomical: stinger
-; bee, not blob/fanged/horned mon). TWINEEDLE signature (L20).
-; Fury Attack at L15 with RAGE (Forte explicit same-level exception —
-; one of the line's "small number of exceptions"). Neurotoxin
-; at L50 is real-world bee venom biology.
-; BUG_BUZZ removed (Forte r4: Butterfree + Venomoth only — buzzing wings).
+; Stinger bee. TWINEEDLE signature (L20). No powders. Its stingers are its
+; huge, aggressive primary weapon, so they double as "horns"/"fangs" in a few
+; exceptional cases (Horn Attack, Toxic Fangs L50) for a deeper movepool.
+; Neurotoxin at L50 = real-world bee venom.
 	db  1, BUG_BITE
 	db  4, POISON_STING
 	db 11, TACKLE
@@ -535,7 +531,7 @@ BeedrillEvosMoves:
 	db 44, DOUBLE_EDGE
 	db 47, DRILL_PECK
 	db 50, NEUROTOXIN
-	db 50, POISON_FANGS
+	db 50, TOXIC_FANGS
 	db 55, EXTREMESPEED
 	db 60, GORE_ATTACK
 	db 65, OUTRAGE
