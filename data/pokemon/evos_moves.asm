@@ -1943,8 +1943,9 @@ BellsproutEvosMoves:
 	db 13, BITE
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
+	db 16, TICKLE
 	db 19, BIDE
-	db 19, TICKLE
+	db 19, DOUBLESLAP
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 31, RAZOR_LEAF
@@ -1967,8 +1968,9 @@ WeepinbellEvosMoves:
 	db 13, BITE
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
+	db 16, TICKLE
 	db 19, BIDE
-	db 19, TICKLE
+	db 19, DOUBLESLAP
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 31, RAZOR_LEAF
@@ -1996,8 +1998,9 @@ VictreebelEvosMoves:
 	db 13, BITE
 	db 13, CONSTRICT
 	db 16, VINE_WHIP
+	db 16, TICKLE
 	db 19, BIDE
-	db 19, TICKLE
+	db 19, DOUBLESLAP
 	db 22, SLEEP_POWDER
 	db 25, ACID
 	db 27, CUT
@@ -3195,28 +3198,27 @@ TangelaEvosMoves:
 ; Grass/Water vines, single-stage. Powder table: STUN_POWDER only.
 ; Vine kit: VINE_WHIP/MEGA_DRAIN/GIGA_DRAIN/WRAP/CONSTRICT/GROWTH.
 ; CUT HM01 natural. RECOVER fits (vines regenerate; semi-defensive).
-	db  1, ABSORB
-	db  3, GROWTH
+	db  4, GROWTH
 	db  6, WRAP
-	db  9, TICKLE
-	db 12, DEFENSE_CURL
-	db 15, CONSTRICT
-	db 17, LICK
-	db 20, VINE_WHIP
-	db 23, WATER_GUN
-	db 26, TACKLE
-	db 29, LEECH_SEED
-	db 31, STUN_POWDER
-	db 34, BIND
-	db 37, BUBBLEBEAM
+	db  6, TICKLE
+	db 12, VINE_WHIP
+	db 14, DEFENSE_CURL
+	db 16, LICK
+	db 19, ABSORB
+	db 22, WATER_GUN
+	db 24, TACKLE
+	db 26, LEECH_SEED
+	db 30, STUN_POWDER
+	db 33, BIND
+	db 36, BUBBLEBEAM
 	db 40, ASTONISH
-	db 43, MEGA_DRAIN
+	db 42, MEGA_DRAIN
 	db 45, RECOVER
 	db 48, BODY_SLAM
-	db 51, WATER_PULSE
-	db 54, PETAL_DANCE
-	db 57, LEECH_LIFE
-	db 60, GIGA_DRAIN
+	db 50, WATER_PULSE
+	db 53, PETAL_DANCE
+	db 55, GIGA_DRAIN
+	db 60, LEECH_LIFE
 	db 0
 
 KangaskhanEvosMoves:
