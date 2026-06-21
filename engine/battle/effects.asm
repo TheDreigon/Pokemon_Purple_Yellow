@@ -1180,8 +1180,11 @@ TwoToFiveAttacksEffect:
 	ld [bc], a
 	ret
 .twineedle
-	ld a, POISON_SIDE_EFFECT1
-	ld [hl], a ; set Twineedle's effect to poison effect
+	ld a, POISON_SIDE_EFFECT2
+	ld [hl], a ; v0.7: Twineedle's poison side-effect is now 30% (tier 2; was
+	           ; POISON_SIDE_EFFECT1 = 15%). Rolled once, after both hits.
+	ld a, $2   ; always 2 hits (explicit now; previously this relied on
+	           ; POISON_SIDE_EFFECT1 happening to equal $02)
 	jr .saveNumberOfHits
 
 FlinchSideEffect:
