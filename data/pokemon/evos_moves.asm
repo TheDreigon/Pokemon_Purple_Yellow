@@ -2510,7 +2510,6 @@ ShellderEvosMoves:
 	db 34, AURORA_BEAM
 	db 40, RECOVER
 	db 42, GROWTH
-	db 44, BODY_SLAM
 	db 46, ICE_BEAM
 	db 50, WATER_PULSE
 	db 55, NEUROTOXIN
@@ -2550,6 +2549,10 @@ CloysterEvosMoves:
 	db 67, IRON_DEFENSE
 	db 69, EXPLOSION
 	db 0
+; coisas a melhorar no moveset acima: water pulse muito mais cedo, rock slide como last move, entre recover e growth apenas um?,
+; bind mais cedo, aqua jet um pouco mais cedo, alguns moves tem lvl gap de 2lvls mas o autora beam e recover têm 6,
+; rock tomb um pouco mais cedo, water gun mais cedo, dar bide, clamp um pouco mais tarde, remover heavy slam? (sim ela é grande,
+; mas não tem impulso, certo? e já tem muitos moves), talvez dar scary face como um dos last levels (cloyster exclusive).
 
 GastlyEvosMoves:
 ; Evolutions
