@@ -1,7 +1,5 @@
 	db DEX_VICTREEBEL ; pokedex id
-
-	db  80, 105,  65,  70, 100
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 95, 70, 95, 90 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate
@@ -10,14 +8,16 @@
 	INCBIN "gfx/pokemon/front/victreebel.pic", 0, 1 ; sprite dimensions
 	dw VictreebelPicFront, VictreebelPicBack
 
-	db STUN_SPORE, SLEEP_POWDER, ACID, RAZOR_LEAF ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db ABSORB, WRAP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MEGA_DRAIN,   SOLARBEAM,    MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         REST,         SUBSTITUTE,   \
-	     CUT
+	; Apex carnivorous pitcher plant (Grass/Poison). Drains prey
+	; (GIGA_DRAIN/LEECH_LIFE), spreads venom (TOXIC), and intimidates
+	; (SCARY_FACE/INTIMIDATE). Last-stage fun moves via TM.
+	tmhm FAINT_ATTACK, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, GIGA_DRAIN, TOXIC, INTIMIDATE, SCARY_FACE, \
+	     LEECH_LIFE, TAKE_DOWN, SWORDS_DANCE, DOUBLE_EDGE, CUT
 	; end
 
 	db 0 ; padding

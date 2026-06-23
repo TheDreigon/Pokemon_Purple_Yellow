@@ -1,7 +1,5 @@
 	db DEX_RATTATA ; pokedex id
-
-	db  30,  56,  35,  72,  25
-	;   hp  atk  def  spd  spc
+	base_stat_row 35, 60, 35, 25, 80 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 255 ; catch rate
@@ -14,10 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE,	TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    BLIZZARD,     RAGE,         THUNDERBOLT,  THUNDER,      \
-	     DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         SWIFT,        \
-	     SKULL_BASH,   REST,         SUBSTITUTE
+	; Sharp-fanged Normal rodent pre-evo. Fangs justify POISON_BITE/
+	; FAINT_ATTACK; gnawing incisors learn HM CUT.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, AGILITY, \
+	     POISON_BITE, TOXIC, TAKE_DOWN, DOUBLE_EDGE, CUT
 	; end
 
 	db 0 ; padding

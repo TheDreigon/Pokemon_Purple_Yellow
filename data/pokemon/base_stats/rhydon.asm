@@ -1,7 +1,5 @@
 	db DEX_RHYDON ; pokedex id
-
-	db 105, 130, 120,  40,  45
-	;   hp  atk  def  spd  spc
+	base_stat_row 95, 120, 110, 65, 50 ; hp atk def spc spd
 
 	db GROUND, ROCK ; type
 	db 60 ; catch rate
@@ -10,17 +8,16 @@
 	INCBIN "gfx/pokemon/front/rhydon.pic", 0, 1 ; sprite dimensions
 	dw RhydonPicFront, RhydonPicBack
 
-	db HORN_ATTACK, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db LEER, GROUND_STOMP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, HORN_DRILL, BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     \
-	     BLIZZARD,     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      \
-	     SEISMIC_TOSS, RAGE,         THUNDERBOLT,  THUNDER,      EARTHQUAKE,   \
-	     FISSURE,      DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         \
-	     FIRE_BLAST,   SKULL_BASH,   REST,         ROCK_SLIDE,   SUBSTITUTE,   \
-	     SURF,         STRENGTH
+	; Apex Ground/Rock rhinoceros bruiser. The horn justifies MEGAHORN.
+	; Massive frame learns HM STRENGTH; ROCK_THROW from forelimbs.
+	tmhm ROCK_THROW, BULLDOZE, RAGE, BODY_SLAM, IRON_TAIL, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
+	     MEGAHORN, INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, \
+	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, THRASH, STRENGTH, OUTRAGE
 	; end
 
 	db 0 ; padding

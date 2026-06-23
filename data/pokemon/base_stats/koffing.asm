@@ -1,9 +1,6 @@
 	db DEX_KOFFING ; pokedex id
-
-	db  40,  65,  95,  35,  60
-	;   hp  atk  def  spd  spc
-
-	db POISON, POISON ; type
+	base_stat_row 40, 65, 80, 65, 40 ; hp atk def spc spd
+	db POISON, GAS ; type
 	db 190 ; catch rate
 	db 114 ; base exp
 
@@ -14,9 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC,  RAGE,  THUNDERBOLT,  THUNDER,     MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         SELFDESTRUCT, FIRE_BLAST,   REST,         \
-	     EXPLOSION,    SUBSTITUTE
+	; Pre-evo gas balloon (Poison/Gas). TOXIC/NIGHT_SHADE from noxious
+	; fumes; volatile gas ignites into FLAME_BURST/FLAMETHROWER.
+	tmhm FLAME_BURST, NIGHT_SHADE, TOXIC, LIGHT_SCREEN, FLAMETHROWER
 	; end
 
 	db 0 ; padding

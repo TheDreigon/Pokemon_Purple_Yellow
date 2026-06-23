@@ -1,7 +1,5 @@
 	db DEX_DIGLETT ; pokedex id
-
-	db  10,  70,  25,  95,  45
-	;   hp  atk  def  spd  spc
+	base_stat_row 15, 60, 25, 40, 95 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 255 ; catch rate
@@ -10,13 +8,13 @@
 	INCBIN "gfx/pokemon/front/diglett.pic", 0, 1 ; sprite dimensions
 	dw DiglettPicFront, DiglettPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         \
-	     EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,         REST,         ROCK_SLIDE,   SUBSTITUTE,   CUT
+	; Ground mole burrower (pre-evo). HM CUT.
+	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, AGILITY, \
+	     TAKE_DOWN, EARTHQUAKE, CUT
 	; end
 
 	db 0 ; padding

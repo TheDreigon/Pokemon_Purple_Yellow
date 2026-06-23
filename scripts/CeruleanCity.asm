@@ -286,7 +286,7 @@ CeruleanCityRocketText:
 .beatRocketThief
 	ld hl, .IllReturnTheTMText
 	call PrintText
-	lb bc, TM_DIG, 1
+	lb bc, TM_BULLDOZE, 1
 	call GiveItem
 	jr c, .Success
 	ld hl, .TM28NoRoomText

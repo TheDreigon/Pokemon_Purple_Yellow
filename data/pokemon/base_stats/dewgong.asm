@@ -1,7 +1,5 @@
 	db DEX_DEWGONG ; pokedex id
-
-	db  90,  70,  80,  70,  95
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 70, 80, 90, 75 ; hp atk def spc spd
 
 	db WATER, ICE ; type
 	db 75 ; catch rate
@@ -10,14 +8,15 @@
 	INCBIN "gfx/pokemon/front/dewgong.pic", 0, 1 ; sprite dimensions
 	dw DewgongPicFront, DewgongPicBack
 
-	db HEADBUTT, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HORN_DRILL,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   \
-	     PAY_DAY,      RAGE,         MIMIC,        DOUBLE_TEAM,  BIDE,         \
-	     SKULL_BASH,   REST,         SUBSTITUTE,   SURF,         STRENGTH
+	; Apex Water/Ice seal. HM SURF/STRENGTH. Fun moves (last-stage)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, AGILITY, FAKE_TEARS, CHARM, \
+	     TAKE_DOWN, ICE_BEAM, DOUBLE_EDGE, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

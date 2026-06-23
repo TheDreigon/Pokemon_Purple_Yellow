@@ -40,6 +40,19 @@ DEF MOVE_LENGTH EQU _RS
 ; D733 flags
 DEF BIT_TEST_BATTLE EQU 0
 
+; wDifficulty values (set in Oak's speech, persistent for the run).
+; Hard mode gates extra boss buffs in v0.7+ (see engine/battle/hard_mode.asm
+; for the boss class list and the IsHardModeBossBattle helper). Existing
+; non-boss-tied effects (level caps, forced Set mode, no items in trainer
+; battles, 1/256 miss preserved) gate on `wDifficulty != NORMAL_MODE`.
+DEF NORMAL_MODE EQU 0
+DEF HARD_MODE   EQU 1
+
+; Hard mode boss item bag size (knob #10). 4 (item_id, count) pairs = 8 bytes.
+; Entries past the boss's actual item count are padded with -1 in the item_id
+; slot. wEnemyTrainerItemBag in wram is exactly this many bytes.
+DEF BOSS_BAG_SIZE EQU 8
+
 ; battle type constants (wBattleType values)
 	const_def
 	const BATTLE_TYPE_NORMAL  ; 0
@@ -53,8 +66,21 @@ DEF MIN_NEUTRAL_DAMAGE EQU 2
 DEF MAX_NEUTRAL_DAMAGE EQU 999
 
 ; fixed damage constants
-DEF SONICBOOM_DAMAGE   EQU 20
-DEF DRAGON_RAGE_DAMAGE EQU 40
+DEF SONICBOOM_DAMAGE   EQU 25 ; was 20 (vanilla); buffed per biblia
+DEF DRAGON_RAGE_DAMAGE EQU 50 ; was 40 (vanilla); buffed per biblia
+
+; v0.7 crit-rate formula constants. Replaces vanilla Gen 1's broken
+; "crit_rate = base_speed/2 (normal) or base_speed*8 capped (high-crit)"
+; with a sane base + small speed bonus:
+;   crit_rate (in /256 units) = base + base_speed/4
+; Memorable as percentage points: 10% + speed/10 for normal moves,
+; 20% + speed/10 for high-crit moves. Focus Energy then multiplies the
+; final value by 3 (capped at 255). See engine/battle/core.asm
+; CriticalHitTest. Vanilla's "guaranteed crit at 255 in normal mode"
+; hack was removed (it was compensation for the vanilla speed*8 bug).
+DEF CRIT_BASE_NORMAL       EQU 26 ; ~10.16% baseline (was: base_speed/2)
+DEF CRIT_BASE_HIGH         EQU 51 ; ~19.92% baseline (was: base_speed*8 cap)
+DEF FOCUS_ENERGY_CRIT_MULT EQU 3  ; was 4 in vanilla (the famous *4 not /4)
 
 ; type effectiveness factors, scaled by 10
 DEF SUPER_EFFECTIVE    EQU 20

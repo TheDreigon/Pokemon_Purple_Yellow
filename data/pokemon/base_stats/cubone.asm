@@ -1,7 +1,5 @@
 	db DEX_CUBONE ; pokedex id
-
-	db  50,  50,  95,  35,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 50, 80, 40, 40 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 190 ; catch rate
@@ -10,16 +8,15 @@
 	INCBIN "gfx/pokemon/front/cubone.pic", 0, 1 ; sprite dimensions
 	dw CubonePicFront, CubonePicBack
 
-	db GROWL, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, BODY_SLAM,  TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         EARTHQUAKE,   \
-	     FISSURE,      DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         \
-	     FIRE_BLAST,   SKULL_BASH,   REST, SUBSTITUTE,   CUT,  STRENGTH,	   \
-		 SWORDS_DANCE
+	; Solitary baby ground bone-wielder. Ground/rock attacks
+	; (BULLDOZE/ROCK_THROW/ROCK_SLIDE), bone-club melee
+	; (BODY_SLAM/DOUBLE_EDGE), grief-driven RAGE/FAINT_ATTACK, BULK_UP.
+	tmhm ROCK_THROW, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
+	     BULK_UP, CHARM, TAKE_DOWN, ROCK_SLIDE, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

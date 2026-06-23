@@ -4,173 +4,287 @@
 ; - MoveNames (see data/moves/names.asm)
 ; - AttackAnimationPointers (see data/moves/animations.asm)
 ; - MoveSoundTable (see data/moves/sfx.asm)
+;
+; Order: alphabetical by TYPE, ascending POWER within type, status moves last
+; within type (BIRD = typeless/status group at the end).
+; STRUGGLE must remain the last move (engine asserts NUM_ATTACKS == STRUGGLE).
+;
+; WARNING — ORDER IS LOAD-BEARING: the engine indexes all four tables above
+; by (move id - 1), so the row order in moves.asm, names.asm, the
+; AttackAnimationPointers table, and sfx.asm must EXACTLY match the const
+; order here. Reordering rows in only one file silently gives moves another
+; move's data in-game (the build still passes — the length asserts can't see
+; it). Run `python .claude/check_move_alignment.py` after any reorder.
 	const_def
 	const NO_MOVE      ; 00
-	const POUND        ; 01
-	const KARATE_CHOP  ; 02
-	const DOUBLESLAP   ; 03
-	const COMET_PUNCH  ; 04
-	const MEGA_PUNCH   ; 05
-	const PAY_DAY      ; 06
-	const FIRE_PUNCH   ; 07
-	const ICE_PUNCH    ; 08
-	const THUNDERPUNCH ; 09
-	const SCRATCH      ; 0a
-	const VICEGRIP     ; 0b
-	const GUILLOTINE   ; 0c
-	const RAZOR_WIND   ; 0d
-	const SWORDS_DANCE ; 0e
-	const CUT          ; 0f
-	const GUST         ; 10
-	const WING_ATTACK  ; 11
-	const WHIRLWIND    ; 12
-	const FLY          ; 13
-	const BIND         ; 14
-	const SLAM         ; 15
-	const VINE_WHIP    ; 16
-	const STOMP        ; 17
-	const DOUBLE_KICK  ; 18
-	const MEGA_KICK    ; 19
-	const JUMP_KICK    ; 1a
-	const ROLLING_KICK ; 1b
-	const SAND_ATTACK  ; 1c
-	const HEADBUTT     ; 1d
-	const HORN_ATTACK  ; 1e
-	const FURY_ATTACK  ; 1f
-	const HORN_DRILL   ; 20
-	const TACKLE       ; 21
-	const BODY_SLAM    ; 22
-	const WRAP         ; 23
-	const TAKE_DOWN    ; 24
-	const THRASH       ; 25
-	const DOUBLE_EDGE  ; 26
-	const TAIL_WHIP    ; 27
-	const POISON_STING ; 28
-	const TWINEEDLE    ; 29
-	const PIN_MISSILE  ; 2a
-	const LEER         ; 2b
-	const BITE         ; 2c
-	const GROWL        ; 2d
-	const ROAR         ; 2e
-	const SING         ; 2f
-	const SUPERSONIC   ; 30
-	const SONICBOOM    ; 31
-	const DISABLE      ; 32
-	const ACID         ; 33
-	const EMBER        ; 34
-	const FLAMETHROWER ; 35
-	const MIST         ; 36
-	const WATER_GUN    ; 37
-	const HYDRO_PUMP   ; 38
-	const SURF         ; 39
-	const ICE_BEAM     ; 3a
-	const BLIZZARD     ; 3b
-	const PSYBEAM      ; 3c
-	const BUBBLEBEAM   ; 3d
-	const AURORA_BEAM  ; 3e
-	const HYPER_BEAM   ; 3f
-	const PECK         ; 40
-	const DRILL_PECK   ; 41
-	const SUBMISSION   ; 42
-	const LOW_KICK     ; 43
-	const COUNTER      ; 44
-	const SEISMIC_TOSS ; 45
-	const STRENGTH     ; 46
-	const ABSORB       ; 47
-	const MEGA_DRAIN   ; 48
-	const LEECH_SEED   ; 49
-	const GROWTH       ; 4a
-	const RAZOR_LEAF   ; 4b
-	const SOLARBEAM    ; 4c
-	const POISONPOWDER ; 4d
-	const STUN_SPORE   ; 4e
-	const SLEEP_POWDER ; 4f
-	const PETAL_DANCE  ; 50
-	const STRING_SHOT  ; 51
-	const DRAGON_RAGE  ; 52
-	const FIRE_SPIN    ; 53
-	const THUNDERSHOCK ; 54
-	const THUNDERBOLT  ; 55
-	const THUNDER_WAVE ; 56
-	const THUNDER      ; 57
-	const ROCK_THROW   ; 58
-	const EARTHQUAKE   ; 59
-	const FISSURE      ; 5a
-	const DIG          ; 5b
-	const TOXIC        ; 5c
-	const CONFUSION    ; 5d
-	const PSYCHIC_M    ; 5e
-	const HYPNOSIS     ; 5f
-	const MEDITATE     ; 60
-	const AGILITY      ; 61
-	const QUICK_ATTACK ; 62
-	const RAGE         ; 63
-	const TELEPORT     ; 64
-	const NIGHT_SHADE  ; 65
-	const MIMIC        ; 66
-	const SCREECH      ; 67
-	const DOUBLE_TEAM  ; 68
-	const RECOVER      ; 69
-	const HARDEN       ; 6a
-	const MINIMIZE     ; 6b
-	const SMOKESCREEN  ; 6c
-	const CONFUSE_RAY  ; 6d
-	const WITHDRAW     ; 6e
-	const DEFENSE_CURL ; 6f
-	const BARRIER      ; 70
-	const LIGHT_SCREEN ; 71
-	const HAZE         ; 72
-	const REFLECT      ; 73
-	const FOCUS_ENERGY ; 74
-	const BIDE         ; 75
-	const METRONOME    ; 76
-	const MIRROR_MOVE  ; 77
-	const SELFDESTRUCT ; 78
-	const EGG_BOMB     ; 79
-	const LICK         ; 7a
-	const SMOG         ; 7b
-	const SLUDGE       ; 7c
-	const BONE_CLUB    ; 7d
-	const FIRE_BLAST   ; 7e
-	const WATERFALL    ; 7f
-	const CLAMP        ; 80
-	const SWIFT        ; 81
-	const SKULL_BASH   ; 82
-	const SPIKE_CANNON ; 83
-	const CONSTRICT    ; 84
-	const AMNESIA      ; 85
-	const KINESIS      ; 86
-	const SOFTBOILED   ; 87
-	const HI_JUMP_KICK ; 88
-	const GLARE        ; 89
-	const DREAM_EATER  ; 8a
-	const POISON_GAS   ; 8b
-	const BARRAGE      ; 8c
-	const LEECH_LIFE   ; 8d
-	const LOVELY_KISS  ; 8e
-	const SKY_ATTACK   ; 8f
-	const TRANSFORM    ; 90
-	const BUBBLE       ; 91
-	const DIZZY_PUNCH  ; 92
-	const SPORE        ; 93
-	const FLASH        ; 94
-	const PSYWAVE      ; 95
-	const SPLASH       ; 96
-	const ACID_ARMOR   ; 97
-	const CRABHAMMER   ; 98
-	const EXPLOSION    ; 99
-	const FURY_SWIPES  ; 9a
-	const BONEMERANG   ; 9b
-	const REST         ; 9c
-	const ROCK_SLIDE   ; 9d
-	const HYPER_FANG   ; 9e
-	const SHARPEN      ; 9f
-	const CONVERSION   ; a0
-	const TRI_ATTACK   ; a1
-	const SUPER_FANG   ; a2
-	const SLASH        ; a3
-	const SUBSTITUTE   ; a4
-	const STRUGGLE     ; a5
+
+; === BUG ===
+	const CONSTRICT
+	const BUG_BITE
+	const LEECH_LIFE
+	const BUG_BUZZ
+	const MEGAHORN
+	const GUILLOTINE
+	const VICEGRIP
+	const TWINEEDLE
+
+; === DARK ===
+	const FAINT_ATTACK
+	const RAGE
+	const NIGHT_SLASH
+	const BRUTAL_SWING
+	const DARK_PULSE
+	const GORE_ATTACK
+	const PAY_DAY
+	const DREAM_EATER
+	const DEEP_SLEEP
+
+; === DRAGON ===
+	const DRAGON_RAGE
+	const DRAGON_CLAW
+	const DRAGON_BREATH
+	const DRAGON_SLAM
+	const OUTRAGE
+	const HYPER_BEAM
+
+; === ELECTRIC ===
+	const NUZZLE
+	const THUNDERSHOCK
+	const SHOCK_WAVE
+	const THUNDERBOLT
+	const THUNDER
+	const THUNDER_WAVE
+	const VOLT_TACKLE
+
+; === FAIRY ===
+	const DOUBLESLAP
+	const FAIRY_WIND
+	const DRAINING_KISS
+	const DAZZLE_GLEAM
+	const PLAY_ROUGH
+	const LOVELY_KISS
+	const SING
+	const MOONBLAST
+
+; === FIGHTING ===
+	const SEISMIC_TOSS
+	const LOW_KICK
+	const COMET_PUNCH
+	const BIND
+	const MACH_PUNCH
+	const KARATE_CHOP
+	const STRENGTH
+	const TAKE_DOWN
+	const LEEK_STRIKE
+	const DIZZY_PUNCH
+	const ROLLING_KICK
+	const SUBMISSION
+	const SKY_UPPERCUT
+	const HI_JUMP_KICK
+
+; === FIRE ===
+	const EMBER
+	const FLAME_CHARGE
+	const FLAME_BURST
+	const FLAMETHROWER
+	const FIRE_BLAST
+	const IGNITE
+	const EXPLOSION
+
+; === FLYING ===
+	const PECK
+	const GUST
+	const WING_ATTACK
+	const AERIAL_ACE
+	const FLY
+	const HURRICANE
+	const SKY_ATTACK
+	const DRILL_PECK
+
+; === FUNGUS ===
+	const SPORE_DAZE
+	const PARASITE
+	const SPORE
+
+; === GAS ===
+	const SMOG
+	const HAZE
+	const POISON_GAS
+
+; === GHOST ===
+	const NIGHT_SHADE
+	const LICK
+	const ASTONISH
+	const SHADOW_SNEAK
+	const SHADOW_PUNCH
+	const SPIRIT_DRAIN
+	const SHADOW_BALL
+	const CONFUSE_RAY
+	const WILL_O_WISP
+
+; === GRASS ===
+	const ABSORB
+	const VINE_WHIP
+	const MEGA_DRAIN
+	const RAZOR_LEAF
+	const GIGA_DRAIN
+	const PETAL_DANCE
+	const SOLARBEAM
+	const LEECH_SEED
+	const POISONPOWDER
+	const STUN_POWDER
+	const SLEEP_POWDER
+
+; === GROUND ===
+	const GROUND_STOMP
+	const MUD_SHOT
+	const BULLDOZE
+	const MUD_BOMB
+	const EARTHQUAKE
+	const FISSURE
+	const BONE_CLUB
+	const DIG
+
+; === ICE ===
+	const POWDER_SNOW
+	const ICY_WIND
+	const FROST_BREATH
+	const ICY_PULSE
+	const AURORA_BEAM
+	const ICE_BEAM
+	const BLIZZARD
+
+; === MAGMA ===
+	const MAGMA_PUNCH
+	const LAVA_PLUME
+
+; === NORMAL ===
+	const WRAP
+	const FURY_ATTACK
+	const SCRATCH
+	const TACKLE
+	const BITE
+	const QUICK_ATTACK
+	const HEADBUTT
+	const HORN_ATTACK
+	const SLASH
+	const BODY_SLAM
+	const CRUNCH
+	const HORN_CHARGE
+	const THRASH
+	const HEAVY_SLAM
+	const DOUBLE_EDGE
+	const EXTREMESPEED
+	const SUPERSONIC
+	const SUPER_FANG
+	const HYPER_FANG
+
+; === POISON ===
+	const POISON_STING
+	const POISON_BITE
+	const TOXIC_FANGS
+	const ACID
+	const SLUDGE
+	const SLUDGE_WAVE
+	const GUNK_SHOT
+	const NEUROTOXIN
+	const TOXIC
+
+; === PSYCHIC ===
+	const PSYWAVE
+	const CONFUSION
+	const EXTRASENSORY
+	const PSYBEAM
+	const PSYCHIC_M
+	const MIND_BREAK
+	const DISABLE
+	const HYPNOSIS
+
+; === ROCK ===
+	const ROCK_THROW
+	const ROCK_PUNCH
+	const ROCK_TOMB
+	const HEAD_SMASH
+	const ROCK_SLIDE
+	const CLAMP
+	const ROLLOUT
+	const BONEMERANG
+	const CRABHAMMER
+	const HORN_DRILL
+
+; === STEEL ===
+	const CUT
+	const IRON_TAIL
+	const IRON_HEAD
+	const SONICBOOM
+	const BULLET_PUNCH
+	const MAGNET_BOMB
+
+; === WATER ===
+	const WATER_GUN
+	const AQUA_JET
+	const BUBBLEBEAM
+	const WATER_PULSE
+	const WATERFALL
+	const SURF
+	const HYDRO_PUMP
+
+; === BIRD (typeless / status moves) ===
+; v0.7 reorder: groups now flow ATK-buffs / DEF-buffs / SPC-buffs / SPD-buffs
+; / EVA-buffs / ATK-debuffs / DEF-debuffs / SPC-debuffs / SPD-debuffs / ACC-
+; debuffs / heals / screens / utility, in that intra-group order. Replaces
+; ENTANGLE (custom -2 spd, 15 PP) with STRING_SHOT (canon -1 spd, 30 PP).
+	const TRI_ATTACK
+	const SWORDS_DANCE
+	const BULK_UP
+	const COIL
+	const FIERCE_ROAR
+	const HONE_CLAWS
+	const IRON_DEFENSE
+	const DEFENSE_CURL
+	const HARDEN
+	const WITHDRAW
+	const GROWTH
+	const CALM_MIND
+	const NASTY_PLOT
+	const AMNESIA
+	const QUIVER_DANCE
+	const TAILWIND
+	const AGILITY
+	const DOUBLE_TEAM
+	const TELEPORT
+	const CHARM
+	const INTIMIDATE
+	const GROWL
+	const LEER
+	const CORRODE
+	const TICKLE
+	const TAIL_WHIP
+	const FAKE_TEARS
+	const METAL_SOUND
+	const SCREECH
+	const EERIE_IMPULSE
+	const SCARY_FACE
+	const HINDER
+	const STRING_SHOT
+	const PSYCHIC_BIND
+	const FLASH
+	const SAND_ATTACK
+	const SMOKESCREEN
+	const RECOVER
+	const REST
+	const SOFTBOILED
+	const LIGHT_SCREEN
+	const REFLECT
+	const BIDE
+	const FOCUS_ENERGY
+	const MIMIC
+	const MIRROR_MOVE
+	const SUBSTITUTE
+	const TRANSFORM
+	const METRONOME
+	const STRUGGLE
+
 DEF NUM_ATTACKS EQU const_value - 1
 
 	; Moves do double duty as animation identifiers.
@@ -191,8 +305,8 @@ DEF NUM_ATTACKS EQU const_value - 1
 	const ANIM_B3
 	const ANIM_B4
 	const ANIM_B5
-	const ANIM_B6
-	const ANIM_B7
+	; PURPLE YELLOW v0.5: removed ANIM_B6/ANIM_B7 (UnusedAnim placeholders)
+	; to free 2 slots, raising max NUM_ATTACKS from 218 to 220.
 	const ANIM_B8
 	const ANIM_B9
 	const BURN_PSN_ANIM ; Plays when a monster is burned or poisoned

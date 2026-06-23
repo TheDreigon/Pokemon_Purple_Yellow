@@ -1,7 +1,5 @@
 	db DEX_SHELLDER ; pokedex id
-
-	db  30,  65, 100,  40,  45
-	;   hp  atk  def  spd  spc
+	base_stat_row 30, 50, 100, 45, 30 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 190 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/shellder.pic", 0, 1 ; sprite dimensions
 	dw ShellderPicFront, ShellderPicBack
 
-	db TACKLE, WITHDRAW, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db BITE, WITHDRAW, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    \
-	     ICE_BEAM,     BLIZZARD,     RAGE,         TELEPORT,     MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         SELFDESTRUCT, SWIFT,        \
-	     REST,         EXPLOSION,    TRI_ATTACK,   SUBSTITUTE,   SURF
+	; Pre-evo clam, Water backbone subset.
+	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, \
+	     SURF
 	; end
 
 	db 0 ; padding

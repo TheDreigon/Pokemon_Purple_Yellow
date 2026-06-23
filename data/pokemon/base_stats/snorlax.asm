@@ -1,7 +1,5 @@
 	db DEX_SNORLAX ; pokedex id
-
-	db 160, 110,  65,  30,  65
-	;   hp  atk  def  spd  spc
+	base_stat_row 180, 110, 70, 70, 20 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 25 ; catch rate
@@ -10,18 +8,15 @@
 	INCBIN "gfx/pokemon/front/snorlax.pic", 0, 1 ; sprite dimensions
 	dw SnorlaxPicFront, SnorlaxPicBack
 
-	db AMNESIA, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, BODY_SLAM,  TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         SOLARBEAM,    THUNDERBOLT,  THUNDER,      EARTHQUAKE,   \
-	     FISSURE,      PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         METRONOME,    SELFDESTRUCT, FIRE_BLAST,   SKULL_BASH,   \
-	     REST,         PSYWAVE,      ROCK_SLIDE,   SUBSTITUTE,   SURF,         \
-	     STRENGTH
+	; Gentle lazy giant of sheer mass. Heavy body drives the ground
+	; moves (BULLDOZE/EARTHQUAKE) and DOUBLE_EDGE/THRASH.
+	tmhm BIND, BULLDOZE, BODY_SLAM, BULK_UP, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, TAKE_DOWN, EARTHQUAKE, \
+	     DOUBLE_EDGE, THRASH, STRENGTH
 	; end
 
 	db 0 ; padding

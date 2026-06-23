@@ -1,7 +1,5 @@
 	db DEX_SCYTHER ; pokedex id
-
-	db  70, 110,  80, 105,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 105, 80, 55, 110 ; hp atk def spc spd
 
 	db BUG, FLYING ; type
 	db 45 ; catch rate
@@ -10,13 +8,16 @@
 	INCBIN "gfx/pokemon/front/scyther.pic", 0, 1 ; sprite dimensions
 	dw ScytherPicFront, ScytherPicBack
 
-	db QUICK_ATTACK, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SCRATCH, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  HYPER_BEAM,   \
-	     RAGE,         MIMIC,        DOUBLE_TEAM,  BIDE,         SWIFT,        \
-	     SKULL_BASH,   REST,         SUBSTITUTE,   CUT
+	; Blade-ninja mantis; speed/blades identity (vs Pinsir). Scythe
+	; arms drive SWORDS_DANCE/DRAGON_CLAW/CUT, wings AGILITY/AERIAL_ACE.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, AERIAL_ACE, DRAGON_CLAW, SCARY_FACE, \
+	     TAKE_DOWN, DARK_PULSE, SWORDS_DANCE, DOUBLE_EDGE, CUT, \
+	     FLY
 	; end
 
 	db 0 ; padding

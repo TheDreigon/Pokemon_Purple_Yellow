@@ -1,7 +1,5 @@
 	db DEX_DODRIO ; pokedex id
-
-	db  60, 110,  70, 100,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 120, 60, 60, 110 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 45 ; catch rate
@@ -10,14 +8,16 @@
 	INCBIN "gfx/pokemon/front/dodrio.pic", 0, 1 ; sprite dimensions
 	dw DodrioPicFront, DodrioPicBack
 
-	db PECK, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         SKULL_BASH,   REST,         TRI_ATTACK,                 \
-	     SUBSTITUTE,   FLY
+	; Three-headed ratite, last-stage apex of the line. HM CUT/STRENGTH.
+	; Fun moves (last-stage) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
+	     INTIMIDATE, TAKE_DOWN, DOUBLE_EDGE, THRASH, CUT, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

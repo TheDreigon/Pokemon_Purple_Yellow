@@ -1,7 +1,5 @@
 	db DEX_DRATINI ; pokedex id
-
-	db  41,  64,  45,  50,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 60, 40, 50, 60 ; hp atk def spc spd
 
 	db DRAGON, DRAGON ; type
 	db 45 ; catch rate
@@ -11,14 +9,12 @@
 	dw DratiniPicFront, DratiniPicBack
 
 	db WRAP, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC, FLAMETHROWER, BODY_SLAM,  TAKE_DOWN,  DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         DRAGON_RAGE,  \
-	     THUNDERBOLT,  THUNDER,      MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         \
-	     THUNDER_WAVE, SUBSTITUTE,   SURF
+	; Dragon sea-snake baby. HM SURF.
+	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, SHOCK_WAVE, \
+	     IRON_TAIL, DRAGON_CLAW, TAKE_DOWN, SURF
 	; end
 
 	db 0 ; padding

@@ -1,7 +1,5 @@
 	db DEX_ZAPDOS ; pokedex id
-
-	db  90,  90,  85, 100, 125
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 100, 80, 130, 110 ; hp atk def spc spd
 
 	db ELECTRIC, FLYING ; type
 	db 3 ; catch rate
@@ -10,14 +8,17 @@
 	INCBIN "gfx/pokemon/front/zapdos.pic", 0, 1 ; sprite dimensions
 	dw ZapdosPicFront, ZapdosPicBack
 
-	db THUNDERSHOCK, WING_ATTACK, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db PECK, NUZZLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,    TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         THUNDERBOLT,  THUNDER,      MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         SWIFT,        SKY_ATTACK,   \
-	     REST,         THUNDER_WAVE, SUBSTITUTE,   FLY,          FLASH
+	; Legendary electric raptor. Electric and flying attacks, agility
+	; and intimidating presence, plus setup moves. Natural HM
+	; flyer/cutter. Fun moves (last-stage).
+	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, AERIAL_ACE, HURRICANE, INTIMIDATE, \
+	     SCARY_FACE, TAKE_DOWN, THUNDERBOLT, SWORDS_DANCE, CALM_MIND, \
+	     ROCK_SLIDE, DOUBLE_EDGE, LIGHT_SCREEN, REFLECT, CUT, FLY, FLASH
 	; end
 
 	db 0 ; padding

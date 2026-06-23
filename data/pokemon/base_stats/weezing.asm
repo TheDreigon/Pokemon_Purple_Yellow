@@ -1,9 +1,6 @@
 	db DEX_WEEZING ; pokedex id
-
-	db  65,  90, 120,  60,  85
-	;   hp  atk  def  spd  spc
-
-	db POISON, POISON ; type
+	base_stat_row 90, 95, 100, 95, 50 ; hp atk def spc spd
+	db POISON, GAS ; type
 	db 60 ; catch rate
 	db 173 ; base exp
 
@@ -14,9 +11,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC,        HYPER_BEAM,   RAGE,         THUNDERBOLT,  THUNDER,      \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         SELFDESTRUCT, FIRE_BLAST,   \
-	     REST,         EXPLOSION,    SUBSTITUTE
+	; Apex gas balloon (Poison/Gas), a sinister toxic-cloud concept.
+	; Toxic, dark and flame moves with intimidating scary-face.
+	; Fun moves (last-stage).
+	tmhm FLAME_BURST, NIGHT_SHADE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, TOXIC, SCARY_FACE, LIGHT_SCREEN, DARK_PULSE, \
+	     FLAMETHROWER
 	; end
 
 	db 0 ; padding

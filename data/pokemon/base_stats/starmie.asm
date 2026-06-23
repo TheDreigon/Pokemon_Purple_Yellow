@@ -1,7 +1,5 @@
 	db DEX_STARMIE ; pokedex id
-
-	db  60,  75,  85, 115, 100
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 75, 90, 100, 100 ; hp atk def spc spd
 
 	db WATER, PSYCHIC_TYPE ; type
 	db 60 ; catch rate
@@ -10,16 +8,16 @@
 	INCBIN "gfx/pokemon/front/starmie.pic", 0, 1 ; sprite dimensions
 	dw StarmiePicFront, StarmiePicBack
 
-	db CONFUSION, SWIFT, BUBBLEBEAM, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    \
-	     ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   RAGE,         THUNDERBOLT,  \
-	     THUNDER,      PSYCHIC_M,    TELEPORT,     MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         SWIFT,        SKULL_BASH,   REST,         \
-	     THUNDER_WAVE, PSYWAVE,      TRI_ATTACK,   SUBSTITUTE,   SURF,         \
-	     FLASH
+	; Water/Psychic mystic gem-core star (last). Glowing core drives
+	; DAZZLE_GLEAM/FLASH.
+	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, SHOCK_WAVE, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, EXTRASENSORY, \
+	     PSYCHIC_M, LIGHT_SCREEN, ICE_BEAM, REFLECT, THUNDERBOLT, \
+	     CALM_MIND, SURF, FLASH
 	; end
 
 	db 0 ; padding

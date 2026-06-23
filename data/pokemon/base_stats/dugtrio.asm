@@ -1,7 +1,5 @@
 	db DEX_DUGTRIO ; pokedex id
-
-	db  35,  90,  50, 120,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 45, 90, 50, 70, 120 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 50 ; catch rate
@@ -10,14 +8,15 @@
 	INCBIN "gfx/pokemon/front/dugtrio.pic", 0, 1 ; sprite dimensions
 	dw DugtrioPicFront, DugtrioPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  HYPER_BEAM,   \
-	     RAGE,         EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         REST,         ROCK_SLIDE,   SUBSTITUTE,   \
-	     CUT,      TRI_ATTACK
+	; Apex three-headed mole, ground speedster. HM CUT/STRENGTH. Fun
+	; moves (last-stage) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, \
+	     TAKE_DOWN, EARTHQUAKE, CUT, STRENGTH
 	; end
 
 	db 0 ; padding

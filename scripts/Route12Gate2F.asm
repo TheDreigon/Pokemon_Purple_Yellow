@@ -13,7 +13,7 @@ Route12Gate2FBrunetteGirlText:
 	jr c, .got_item
 	ld hl, .YouCanHaveThisText
 	call PrintText
-	lb bc, TM_SWIFT, 1
+	lb bc, TM_AERIAL_ACE, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .ReceivedTM39Text

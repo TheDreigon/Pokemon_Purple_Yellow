@@ -46,21 +46,33 @@ SaffronGymSabrinaPostBattle:
 	and a
 	jr nz, SabrinaRematchPostBattle
 ; fallthrough
-SaffronGymSabrinaReceiveTM46Script:
+SaffronGymSabrinaReceiveGiftsScript:
 	ld a, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_SABRINA
-	lb bc, TM_PSYWAVE, 1
+	CheckEvent EVENT_GOT_SABRINA_TM
+	jr nz, .tryCandy
+	lb bc, TM_PSYCHIC_M, 1
 	call GiveItem
-	jr nc, .BagFull
-	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM46
+	jr nc, .bagFull
+	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	SetEvent EVENT_GOT_TM46
+	SetEvent EVENT_GOT_SABRINA_TM
+.tryCandy
+	CheckEvent EVENT_GOT_SABRINA_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_SAFFRONGYM_SABRINA_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_SABRINA_CANDY
 	jr .gymVictory
-.BagFull
-	ld a, TEXT_SAFFRONGYM_SABRINA_TM46_NO_ROOM
+.bagFull
+	ld a, TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 .gymVictory
@@ -92,8 +104,9 @@ SaffronGym_TextPointers:
 	dw_const SaffronGymYoungster4Text,            TEXT_SAFFRONGYM_YOUNGSTER4
 	dw_const SaffronGymGymGuideText,              TEXT_SAFFRONGYM_GYM_GUIDE
 	dw_const SaffronGymSabrinaMarshBadgeInfoText, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
-	dw_const SaffronGymSabrinaReceivedTM46Text,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM46
-	dw_const SaffronGymSabrinaTM46NoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM46_NO_ROOM
+	dw_const SaffronGymSabrinaReceivedTMText,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
+	dw_const SaffronGymSabrinaTMNoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
+	dw_const SaffronGymSabrinaReceivedCandyText, TEXT_SAFFRONGYM_SABRINA_RECEIVED_CANDY
 	dw_const SaffronGymRematchPostBattleText,     TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
 
 SaffronGymTrainerHeaders:
@@ -118,9 +131,12 @@ SaffronGymSabrinaText:
 	text_asm
 	CheckEvent EVENT_BEAT_SABRINA
 	jr z, .beforeBeat
-	CheckEventReuseA EVENT_GOT_TM46
+	CheckEventReuseA EVENT_GOT_SABRINA_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_SABRINA_CANDY
 	jr nz, .afterBeat
-	call z, SaffronGymSabrinaReceiveTM46Script
+.needGifts
+	call SaffronGymSabrinaReceiveGiftsScript
 	call DisableWaitingAfterTextDisplay
 	jr .todone
 .afterBeat
@@ -226,14 +242,20 @@ SaffronGymSabrinaMarshBadgeInfoText:
 	text_far _SaffronGymSabrinaMarshBadgeInfoText
 	text_end
 
-SaffronGymSabrinaReceivedTM46Text:
-	text_far _SaffronGymSabrinaReceivedTM46Text
+SaffronGymSabrinaReceivedTMText:
+	text_far _SaffronGymSabrinaReceivedTMText
 	sound_get_item_1
-	text_far _TM46ExplanationText
+	text_far _SaffronGymSabrinaTMExplanationText
 	text_end
 
-SaffronGymSabrinaTM46NoRoomText:
-	text_far _SaffronGymSabrinaTM46NoRoomText
+SaffronGymSabrinaTMNoRoomText:
+	text_far _SaffronGymSabrinaTMNoRoomText
+	text_end
+
+SaffronGymSabrinaReceivedCandyText:
+	text_far _SaffronGymSabrinaReceivedCandyText
+	sound_get_item_1
+	text_far _SaffronGymSabrinaCandyCommentText
 	text_end
 
 SaffronGymChanneler1Text:

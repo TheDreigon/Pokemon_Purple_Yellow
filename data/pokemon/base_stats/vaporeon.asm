@@ -1,7 +1,5 @@
 	db DEX_VAPOREON ; pokedex id
-
-	db 130,  65,  60,  65, 110
-	;   hp  atk  def  spd  spc
+	base_stat_row 130, 65, 65, 110, 80 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 45 ; catch rate
@@ -10,14 +8,17 @@
 	INCBIN "gfx/pokemon/front/vaporeon.pic", 0, 1 ; sprite dimensions
 	dw VaporeonPicFront, VaporeonPicBack
 
-	db TACKLE, TAIL_WHIP, BUBBLE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   RAGE,         \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         SWIFT,        \
-	     SKULL_BASH,   REST,         SUBSTITUTE,   SURF
+	; Water fox with a fluid body that masters ice (WATER_PULSE/ICE_BEAM/
+	; SURF). Cute gestures (CHARM/FAKE_TEARS). Last-stage fun moves via
+	; TM.
+	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, BODY_SLAM, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, FAKE_TEARS, \
+	     CHARM, TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, \
+	     DOUBLE_EDGE, SURF
 	; end
 
 	db 0 ; padding

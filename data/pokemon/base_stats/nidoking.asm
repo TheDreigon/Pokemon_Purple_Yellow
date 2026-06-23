@@ -1,7 +1,5 @@
 	db DEX_NIDOKING ; pokedex id
-
-	db  81,  92,  77,  85,  75
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 100, 90, 75, 75 ; hp atk def spc spd
 
 	db POISON, GROUND ; type
 	db 45 ; catch rate
@@ -10,17 +8,18 @@
 	INCBIN "gfx/pokemon/front/nidoking.pic", 0, 1 ; sprite dimensions
 	dw NidokingPicFront, NidokingPicBack
 
-	db TACKLE, THRASH, DIG, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db LEER, TACKLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, HORN_DRILL, BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     \
-	     BLIZZARD,     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      \
-	     SEISMIC_TOSS, RAGE,         THUNDERBOLT,  THUNDER,      EARTHQUAKE,   \
-	     FISSURE,      MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     FIRE_BLAST,   SKULL_BASH,   REST,         ROCK_SLIDE,   SUBSTITUTE,   \
-	     SURF,         STRENGTH
+	; Apex predator male Poison/Ground bruiser, full kit.
+	; HM CUT/STRENGTH. Last-stage fun moves via TM.
+	tmhm ROCK_THROW, QUICK_ATTACK, BIND, FAINT_ATTACK, BULLDOZE, \
+	     RAGE, BODY_SLAM, BULK_UP, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, POISON_BITE, MEGAHORN, TOXIC, \
+	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, EARTHQUAKE, \
+	     ROCK_SLIDE, DOUBLE_EDGE, THRASH, OUTRAGE, CUT, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

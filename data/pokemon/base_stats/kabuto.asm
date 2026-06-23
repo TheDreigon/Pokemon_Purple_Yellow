@@ -1,9 +1,6 @@
 	db DEX_KABUTO ; pokedex id
-
-	db  30,  80,  90,  55,  45
-	;   hp  atk  def  spd  spc
-
-	db ROCK, WATER ; type
+	base_stat_row 35, 80, 90, 45, 40 ; hp atk def spc spd
+	db ROCK, BUG ; type
 	db 45 ; catch rate
 	db 119 ; base exp
 
@@ -14,10 +11,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         REST,         SUBSTITUTE,   \
-	     SURF,      ROCK_SLIDE
+	; Armored trilobite-crab fossil (Rock/Bug), aquatic pre-evo
+	; backbone. Pincers cut; ICY_PULSE/ICE_BEAM from cold-sea habitat.
+	tmhm ROCK_THROW, WATER_PULSE, ICY_PULSE, BODY_SLAM, LEECH_LIFE, \
+	     TAKE_DOWN, ICE_BEAM, CUT
 	; end
 
 	db 0 ; padding

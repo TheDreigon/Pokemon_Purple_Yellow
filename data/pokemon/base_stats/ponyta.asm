@@ -1,7 +1,5 @@
 	db DEX_PONYTA ; pokedex id
-
-	db  50,  85,  55, 100,  65
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 65, 50, 65, 80 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 190 ; catch rate
@@ -10,13 +8,15 @@
 	INCBIN "gfx/pokemon/front/ponyta.pic", 0, 1 ; sprite dimensions
 	dw PonytaPicFront, PonytaPicBack
 
-	db EMBER, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db EMBER, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC,  HORN_DRILL, BODY_SLAM, TAKE_DOWN, DOUBLE_EDGE,  \
-	     RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE
+	; Fire colt with a flaming mane, no horn yet:
+	; BODY_SLAM/IGNITE/AGILITY/TAKE_DOWN/FLAMETHROWER/DOUBLE_EDGE plus
+	; QUICK_ATTACK/BULLDOZE/FLAME_BURST.
+	tmhm QUICK_ATTACK, BULLDOZE, BODY_SLAM, FLAME_BURST, IGNITE, \
+	     AGILITY, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

@@ -1,7 +1,5 @@
 	db DEX_OMASTAR ; pokedex id
-
-	db  70,  60, 125,  55, 115
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 90, 120, 100, 60 ; hp atk def spc spd
 
 	db ROCK, WATER ; type
 	db 45 ; catch rate
@@ -14,11 +12,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HORN_DRILL,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   \
-	     SUBMISSION,   SEISMIC_TOSS, RAGE,         MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         SKULL_BASH,   REST,         SUBSTITUTE,   \
-	     SURF,   ROCK_SLIDE
+	; Apex spiral-shell ammonite Rock/Water. HM SURF/STRENGTH.
+	; Last-stage fun moves via TM.
+	tmhm ROCK_THROW, BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
+	     TAKE_DOWN, ICE_BEAM, ROCK_SLIDE, DOUBLE_EDGE, SURF, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

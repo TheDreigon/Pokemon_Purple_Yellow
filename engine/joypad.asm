@@ -27,6 +27,24 @@ ENDR
 
 	ldh [hJoyInput], a
 
+	; v0.7: Sticky rising-edge buffer for ANIM TEST.
+	; Runs every vblank. ORs (current AND NOT previous) into
+	; hStickyPressBuf so any tap is captured even if nothing else
+	; polls between vblanks (e.g. during MoveAnimation, which blocks
+	; for 1s+ and never calls _Joypad). Buffer is consumed and
+	; cleared by ANIM TEST; harmless and ignored everywhere else.
+	; Clobbers b, c — both safe (vblank handler push/pop's all regs).
+	ld b, a                         ; b = current input
+	ldh a, [hStickyPrevInput]
+	cpl
+	and b                           ; a = rising edges
+	ld c, a
+	ldh a, [hStickyPressBuf]
+	or c
+	ldh [hStickyPressBuf], a
+	ld a, b
+	ldh [hStickyPrevInput], a
+
 	ld a, 1 << 4 + 1 << 5 ; deselect keys
 	ldh [rJOYP], a
 	ret

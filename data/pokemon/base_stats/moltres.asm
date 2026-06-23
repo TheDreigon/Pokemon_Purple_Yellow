@@ -1,7 +1,5 @@
 	db DEX_MOLTRES ; pokedex id
-
-	db  90, 100,  90,  90, 125
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 100, 90, 130, 100 ; hp atk def spc spd
 
 	db FIRE, FLYING ; type
 	db 3 ; catch rate
@@ -11,13 +9,14 @@
 	dw MoltresPicFront, MoltresPicBack
 
 	db PECK, EMBER, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,  FLAMETHROWER,  TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         FIRE_BLAST,   SWIFT,        SKY_ATTACK,   REST,         \
-	     SUBSTITUTE,   FLY
+	; Legendary fire raptor. Last-stage fun moves allowed.
+	tmhm FLAME_BURST, IGNITE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, AERIAL_ACE, HURRICANE, INTIMIDATE, \
+	     SCARY_FACE, TAKE_DOWN, FLAMETHROWER, SWORDS_DANCE, CALM_MIND, \
+	     ROCK_SLIDE, DOUBLE_EDGE, LIGHT_SCREEN, REFLECT, CUT, FLY, FLASH
 	; end
 
 	db 0 ; padding

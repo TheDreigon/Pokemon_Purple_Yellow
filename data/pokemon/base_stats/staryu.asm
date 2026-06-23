@@ -1,24 +1,20 @@
 	db DEX_STARYU ; pokedex id
-
-	db  30,  45,  55,  85,  70
-	;   hp  atk  def  spd  spc
-
-	db WATER, WATER ; type
+	base_stat_row 30, 40, 50, 75, 75 ; hp atk def spc spd
+	db WATER, PSYCHIC_TYPE ; type
 	db 225 ; catch rate
 	db 106 ; base exp
 
 	INCBIN "gfx/pokemon/front/staryu.pic", 0, 1 ; sprite dimensions
 	dw StaryuPicFront, StaryuPicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    \
-	     ICE_BEAM,     BLIZZARD,     RAGE,         THUNDERBOLT,  THUNDER,      \
-	     PSYCHIC_M,    TELEPORT,     MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         SWIFT,        SKULL_BASH,   REST,         THUNDER_WAVE, \
-	     PSYWAVE,      TRI_ATTACK,   SUBSTITUTE,   SURF,         FLASH
+	; Water/Psychic gem-core star (pre-evo). Glowing core drives
+	; DAZZLE_GLEAM/FLASH.
+	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, DAZZLE_GLEAM, LIGHT_SCREEN, \
+	     ICE_BEAM, REFLECT, SURF, FLASH
 	; end
 
 	db 0 ; padding

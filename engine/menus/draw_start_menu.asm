@@ -19,7 +19,13 @@ DrawStartMenu::
 	ld a, [wBattleAndStartSavedMenuItem] ; remembered menu selection from last time
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
-	xor a
+	; The start menu does its own top/bottom wrap-around (see
+	; RedisplayStartMenu's .checkIfUpPressed/.checkIfDownPressed), and relies
+	; on wMaxMenuItem being the item COUNT (one past the last entry). Signal
+	; that the caller handles the edge (watch = 1) so HandleMenuInput's
+	; generic fixed-menu wrap stays out of the way; otherwise Up-at-top would
+	; jump to that phantom slot below EXIT instead of the manual wrap.
+	ld a, 1
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld hl, wd730
 	set 6, [hl] ; no pauses between printing each letter

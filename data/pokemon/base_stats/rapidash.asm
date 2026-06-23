@@ -1,7 +1,5 @@
 	db DEX_RAPIDASH ; pokedex id
-
-	db  65, 100,  70, 115,  80
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 100, 70, 85, 100 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 60 ; catch rate
@@ -10,14 +8,15 @@
 	INCBIN "gfx/pokemon/front/rapidash.pic", 0, 1 ; sprite dimensions
 	dw RapidashPicFront, RapidashPicBack
 
-	db EMBER, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db EMBER, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC, HORN_DRILL, BODY_SLAM, TAKE_DOWN,  DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         \
-	     SUBSTITUTE
+	; Apex Fire unicorn horse. The horn justifies MEGAHORN. Fire-line
+	; firepower (FLAME_BURST/IGNITE/FLAMETHROWER) plus equine charges.
+	tmhm QUICK_ATTACK, BULLDOZE, BODY_SLAM, FLAME_BURST, IGNITE, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
+	     AGILITY, MEGAHORN, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

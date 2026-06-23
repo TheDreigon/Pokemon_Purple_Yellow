@@ -41,3 +41,55 @@ DecrementPP:
 	                     ; based on the move chosen.
 	dec [hl]             ; Decrement PP
 	ret
+
+
+; v0.7: AI PP fix. Vanilla Pokemon Yellow never decrements enemy PP,
+; effectively giving the AI infinite PP. This is now called from
+; EnemyCanExecuteMove (in core.asm) to mirror the player's DecrementPP.
+; Combined with the PP-aware selection in SelectEnemyMove (also v0.7),
+; bosses run out of PP in long fights and end up using Struggle — same
+; rules as the player.
+;
+; Mirror of DecrementPP above, but with enemy WRAM:
+;   wPlayerBattleStatus*  -> wEnemyBattleStatus*
+;   wBattleMonPP          -> wEnemyMonPP
+;   wPlayerMoveListIndex  -> wEnemyMoveListIndex
+;   wPartyMon1PP          -> wEnemyMon1PP
+;   wPlayerMonNumber      -> wEnemyMonPartyPos
+DecrementEnemyPP::
+	ld a, [de]                 ; de = wEnemySelectedMove (set by caller)
+	cp STRUGGLE
+	ret z                      ; Struggle never costs PP
+	ld hl, wEnemyBattleStatus1
+	ld a, [hli]                ; advance to wEnemyBattleStatus2 for the bit test below
+	and (1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << ATTACKING_MULTIPLE_TIMES)
+	ret nz                     ; multi-turn lock or multi-hit: don't decrement per hit
+	bit USING_RAGE, [hl]
+	ret nz                     ; Rage: don't decrement
+	ld hl, wEnemyMonPP
+
+; decrement in the battle struct
+	call .decrementBoth
+
+; decrement in the party struct (skip if Transformed — separate PP scratch)
+	ld a, [wEnemyBattleStatus3]
+	bit TRANSFORMED, a
+	ret nz
+
+	ld hl, wEnemyMon1PP
+	ld a, [wEnemyMonPartyPos]
+	ld bc, wEnemyMon2 - wEnemyMon1
+	call AddNTimes
+.decrementBoth:
+	ld a, [wEnemyMoveListIndex]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	; safety: never underflow. SelectEnemyMove should already prevent
+	; picking a 0-PP move (it forces Struggle when all are 0 and retries
+	; otherwise), so this is a belt-and-braces guard.
+	ld a, [hl]
+	and $3f
+	ret z
+	dec [hl]
+	ret

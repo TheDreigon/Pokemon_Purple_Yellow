@@ -1,7 +1,5 @@
 	db DEX_CHARMELEON ; pokedex id
-
-	db  58,  64,  58,  80,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 70, 55, 70, 75 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 45 ; catch rate
@@ -11,14 +9,15 @@
 	dw CharmeleonPicFront, CharmeleonPicBack
 
 	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, SWORDS_DANCE, FLAMETHROWER, MEGA_KICK, TOXIC,  BODY_SLAM,  \
-	     TAKE_DOWN,    DOUBLE_EDGE,  SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         DRAGON_RAGE,  DIG,          MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         FIRE_BLAST,   SWIFT,        SKULL_BASH,   \
-	     REST,         SUBSTITUTE,   CUT,          STRENGTH
+	; Aggressive warrior teen. Fire offense
+	; (FLAME_BURST/IGNITE/FLAMETHROWER) plus dragon heritage
+	; (DRAGON_CLAW/OUTRAGE). Bulkier melee (BODY_SLAM/BULK_UP). Claws CUT.
+	tmhm ROCK_THROW, QUICK_ATTACK, BODY_SLAM, FLAME_BURST, IGNITE, \
+	     BULK_UP, DRAGON_CLAW, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE, \
+	     OUTRAGE, CUT, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

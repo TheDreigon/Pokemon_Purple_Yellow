@@ -1,7 +1,5 @@
 	db DEX_NIDORINA ; pokedex id
-
-	db  70,  62,  67,  56,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 75, 62, 67, 55, 70 ; hp atk def spc spd
 
 	db POISON, POISON ; type
 	db 120 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/nidorina.pic", 0, 1 ; sprite dimensions
 	dw NidorinaPicFront, NidorinaPicBack
 
-	db GROWL, TACKLE, SCRATCH, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWL, TACKLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HORN_DRILL,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         \
-	     THUNDERBOLT,  THUNDER,      MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         SKULL_BASH,   REST,         SUBSTITUTE
+	; Mid-stage female, growing chemical bruiser.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, \
+	     TAKE_DOWN, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

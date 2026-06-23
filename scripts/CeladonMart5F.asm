@@ -23,7 +23,11 @@ CeladonMart5FCurrentFloorSignText:
 	text_end
 
 CeladonMart5FClerk1Text::
-	script_mart TM_WATER_GUN, TM_PAY_DAY, TM_SEISMIC_TOSS, TM_TELEPORT, TM_BIDE, TM_SWIFT, TM_REST, TM_THUNDER_WAVE
+	; v0.7 TM rework (Forte spec): utility/setup. 10 TMs.
+	script_mart TM_SWORDS_DANCE, TM_BULK_UP, TM_CALM_MIND, TM_AGILITY, TM_INTIMIDATE, TM_CHARM, TM_FAKE_TEARS, TM_SCARY_FACE, TM_REFLECT, TM_LIGHT_SCREEN
 
 CeladonMart5FClerk2Text::
-	script_mart HP_UP, PROTEIN, IRON, CARBOS, CALCIUM, X_ACCURACY, X_ATTACK, X_DEFEND, X_SPEED, X_SPECIAL, DIRE_HIT, GUARD_SPEC
+	; v0.5 mart rework: vitamins reordered (CALCIUM before CARBOS so the
+	; Special vitamin sits ahead of Speed, matching the engine's stat
+	; order); X-items reordered to ATK/DEF/SPC/SPD then ACC/HIT/GUARD.
+	script_mart HP_UP, PROTEIN, IRON, CALCIUM, CARBOS, X_ATTACK, X_DEFEND, X_SPECIAL, X_SPEED, X_ACCURACY, DIRE_HIT, GUARD_SPEC

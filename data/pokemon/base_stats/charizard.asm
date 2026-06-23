@@ -1,7 +1,5 @@
 	db DEX_CHARIZARD ; pokedex id
-
-	db  78,  84,  78, 100,  95
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 100, 80, 100, 90 ; hp atk def spc spd
 
 	db FIRE, FLYING ; type
 	db 45 ; catch rate
@@ -11,15 +9,18 @@
 	dw CharizardPicFront, CharizardPicBack
 
 	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, SWORDS_DANCE, FLAMETHROWER, MEGA_KICK, TOXIC,  BODY_SLAM,   \
-	     TAKE_DOWN,    DOUBLE_EDGE,  HYPER_BEAM,   SUBMISSION,   COUNTER,      \
-	     SEISMIC_TOSS, RAGE,         DRAGON_RAGE,  EARTHQUAKE,   FISSURE,      \
-	     DIG,          MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE,   \
-	     CUT,          FLY,          STRENGTH
+	; Apex flying dragon. Fire offense (FLAME_BURST/IGNITE/FLAMETHROWER)
+	; plus dragon heritage (DRAGON_CLAW/OUTRAGE) and aerial moves
+	; (AERIAL_ACE/HURRICANE/FLY). Heavy melee (BODY_SLAM/EARTHQUAKE),
+	; setup (BULK_UP/SWORDS_DANCE), INTIMIDATE. 4 fun moves (last stage).
+	tmhm ROCK_THROW, QUICK_ATTACK, BULLDOZE, BODY_SLAM, FLAME_BURST, \
+	     IGNITE, BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AERIAL_ACE, HURRICANE, DRAGON_CLAW, INTIMIDATE, \
+	     TAKE_DOWN, FLAMETHROWER, SWORDS_DANCE, EARTHQUAKE, DOUBLE_EDGE, \
+	     OUTRAGE, CUT, FLY, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

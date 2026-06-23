@@ -1,7 +1,5 @@
 	db DEX_ARTICUNO ; pokedex id
-
-	db  90,  85, 100,  85, 125
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 90, 100, 130, 100 ; hp atk def spc spd
 
 	db ICE, FLYING ; type
 	db 3 ; catch rate
@@ -10,14 +8,16 @@
 	INCBIN "gfx/pokemon/front/articuno.pic", 0, 1 ; sprite dimensions
 	dw ArticunoPicFront, ArticunoPicBack
 
-	db PECK, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db PECK, POWDER_SNOW, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,    TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   \
-	     RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     SWIFT,        SKY_ATTACK,   REST,         SUBSTITUTE,   FLY
+	; Legendary ice raptor.
+	tmhm ICY_PULSE, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     AGILITY, AERIAL_ACE, HURRICANE, INTIMIDATE, SCARY_FACE, \
+	     TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, SWORDS_DANCE, \
+	     CALM_MIND, ROCK_SLIDE, DOUBLE_EDGE, CUT, FLY, \
+	     FLASH
 	; end
 
 	db 0 ; padding

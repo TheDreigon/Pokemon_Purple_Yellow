@@ -1,7 +1,5 @@
 	db DEX_NIDORAN_M ; pokedex id
-
-	db  46,  57,  40,  50,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 46, 57, 40, 40, 55 ; hp atk def spc spd
 
 	db POISON, POISON ; type
 	db 235 ; catch rate
@@ -11,13 +9,11 @@
 	dw NidoranMPicFront, NidoranMPicBack
 
 	db LEER, TACKLE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HORN_DRILL,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BLIZZARD,     RAGE,         THUNDERBOLT,  THUNDER,      MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         SKULL_BASH,   REST,         \
-	     SUBSTITUTE
+	; Juvenile aggressive male single-horn.
+	tmhm QUICK_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, TAKE_DOWN
 	; end
 
 	db 0 ; padding

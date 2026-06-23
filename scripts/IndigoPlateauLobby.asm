@@ -44,8 +44,16 @@ IndigoPlateauLobbyChanseyText:
 	jp TextScriptEnd
 
 IndigoPlateauLobbyClerkText::
-	script_mart  ULTRA_BALL, HYPER_POTION, FULL_RESTORE, REVIVE, FULL_HEAL, MAX_REPEL, TM_FLAMETHROWER, TM_ICE_BEAM, TM_SUBMISSION, TM_MEGA_DRAIN, TM_SOLARBEAM, TM_THUNDERBOLT, TM_DREAM_EATER, TM_ROCK_SLIDE
+	; v0.5 mart rework: elite tiered mart. T0..T8 from the global inventory,
+	; plus post-E4 elite items (ETHER, ELIXER, PP_UP, MAX_REVIVE) once the
+	; player has beaten the Elite Four, plus post-rematch elite items
+	; (MAX_ETHER, MAX_ELIXER, PP_MAX, RARE_CANDY) after the first E4 rematch.
+	; v0.7 TM rework (Forte spec): 12 TMs appended as fixed extras (pre-E4
+	; strong damage). Now includes DARK_PULSE/SHADOW_BALL/PETAL_DANCE
+	; (added TMs per Forte's swap-in).
+	script_tiered_mart_elite TM_MEGAHORN, TM_DARK_PULSE, TM_THUNDERBOLT, TM_SHADOW_BALL, TM_PETAL_DANCE, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
 
 IndigoPlateauLobbyPostGameClerkText::
-	script_mart TM_SWORDS_DANCE, TM_TOXIC, TM_HORN_DRILL, TM_BODY_SLAM, TM_DOUBLE_EDGE, TM_BLIZZARD, TM_THUNDER, TM_EARTHQUAKE, TM_FISSURE, TM_PSYCHIC_M, TM_FIRE_BLAST, TM_SKY_ATTACK, TM_EXPLOSION, PP_UP
-	
+	; v0.7 TM rework (Forte spec): post-E4 top tier / endgame. 3 TMs + PP Up.
+	; (Other apex TMs like ROCK_SLIDE/PETAL_DANCE/DARK_PULSE now sold pre-E4.)
+	script_mart TM_OUTRAGE, TM_THRASH, TM_DOUBLE_EDGE, PP_UP

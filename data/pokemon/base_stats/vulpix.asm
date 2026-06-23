@@ -1,9 +1,6 @@
 	db DEX_VULPIX ; pokedex id
-
-	db  45,  41,  45,  75,  70
-	;   hp  atk  def  spd  spc
-
-	db FIRE, FIRE ; type
+	base_stat_row 50, 40, 40, 70, 70 ; hp atk def spc spd
+	db FIRE, FAIRY ; type
 	db 190 ; catch rate
 	db 63 ; base exp
 
@@ -14,9 +11,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC, FLAMETHROWER, BODY_SLAM, TAKE_DOWN, DOUBLE_EDGE,  RAGE,        \
-	     DIG,          MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE
+	; Pre-evo kitsune fox, Fire/Fairy backbone subset. Fire breath
+	; (FLAME_BURST/IGNITE/FLAMETHROWER) plus cute/mystical kitsune
+	; gestures (FAKE_TEARS/CHARM/EXTRASENSORY). Apex setup reserved to
+	; Ninetales.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, FLAME_BURST, NIGHT_SHADE, \
+	     CONFUSE_RAY, IGNITE, AGILITY, FAKE_TEARS, CHARM, \
+	     EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, FLAMETHROWER, REFLECT
 	; end
 
 	db 0 ; padding

@@ -348,213 +348,213 @@ _HM05Description::
 	prompt
 
 _TM01Description::
-	text "A powerful punch"
-	next "thrown very hard."
+	text "ROCK throw, may"
+	next "cause flinching."
 	prompt
 
 _TM02Description::
-	text "1st turn: Attack"
-	next "2nd turn: Rest"
+	text "FIGHTING chop with"
+	next "high crit ratio."
 	prompt
 
 _TM03Description::
-	text "A dance that in-"
-	next "creases ATTACK."
+	text "A first-strike"
+	next "priority move."
 	prompt
 
 _TM04Description::
-	text "An attack that"
-	next "may cause a burn."
+	text "FAIRY gleam, may"
+	next "cause flinching."
 	prompt
 
 _TM05Description::
-	text "A powerful kicking"
-	next "attack."
+	text "A GROUND attack,"
+	next "lowers SPEED."
 	prompt
 
 _TM06Description::
-	text "A poison move with"
-	next "increasing damage."
+	text "A pulse that may"
+	next "confuse the foe."
 	prompt
 
 _TM07Description::
-	text "A one-hit KO,"
-	next "drill attack."
+	text "Creates copies to"
+	next "boost EVASION."
 	prompt
 
 _TM08Description::
-	text "An attack that may"
-	next "cause paralysis."
+	text "Damage equals the"
+	next "user's level."
 	prompt
 
 _TM09Description::
-	text "A tackle that also"
-	next "hurts the user."
+	text "DRAGON claw with a"
+	next "high crit ratio."
 	prompt
 
 _TM10Description::
-	text "A tackle that also"
-	next "hurts the user."
+	text "A slam that may"
+	next "cause paralysis."
 	prompt
 
 _TM11Description::
-	text "An attack that may"
-	next "lower SPEED."
+	text "STEEL tail, may"
+	next "lower DEFENSE."
 	prompt
 
 _TM12Description::
-	text "Squirts water to"
-	next "attack."
+	text "A shock that may"
+	next "cause paralysis."
 	prompt
 
 _TM13Description::
-	text "An attack that may"
-	next "freeze the foe."
+	text "STEEL ram that may"
+	next "cause flinching."
 	prompt
 
 _TM14Description::
-	text "An attack that may"
-	next "freeze the foe."
+	text "Damage equals the"
+	next "user's level."
 	prompt
 
 _TM15Description::
-	text "1st turn: Attack"
-	next "2nd turn: Rest"
+	text "Confuses the foe."
+	next "GHOST type."
 	prompt
 
 _TM16Description::
-	text "Throws coins. Gets"
-	next "them back later."
+	text "A FIRE move that"
+	next "always burns."
 	prompt
 
 _TM17Description::
-	text "An attack that al-"
-	next "so hurts the user."
+	text "A wave that always"
+	next "paralyzes."
 	prompt
 
 _TM18Description::
-	text "Returns a physical"
-	next "blow double."
+	text "Boosts ATTACK and"
+	next "DEFENSE."
 	prompt
 
 _TM19Description::
-	text "The user's level"
-	next "equals damage HP."
-	prompt
-
-_TM20Description::
-	text "Raises ATTACK if"
-	next "the user is hit."
-	prompt
-
-_TM21Description::
-	text "Steals 1/2 of the"
-	next "damage inflicted."
-	prompt
-
-_TM22Description::
-	text "1st turn: Prepare"
-	next "2nd turn: Attack"
-	prompt
-
-_TM23Description::
-	text "Always inflicts"
-	next "40HP damage."
-	prompt
-
-_TM24Description::
-	text "An attack that may"
-	next "cause paralysis."
-	prompt
-
-_TM25Description::
-	text "An attack that may"
-	next "cause paralysis."
-	prompt
-
-_TM26Description::
-	text "Tough but useless"
-	next "vs. flying foes."
-	prompt
-
-_TM27Description::
-	text "A ground-type,"
-	next "one-hit KO attack."
-	prompt
-
-_TM28Description::
-	text "1st turn: Burrow"
-	next "2nd turn: Attack"
-	prompt
-
-_TM29Description::
-	text "An attack that may"
-	next "lower SPECIAL."
-	prompt
-
-_TM30Description::
-	text "A move for fleeing"
-	next "from battle."
-	prompt
-
-_TM31Description::
 	text "Copies a move used"
 	next "by the foe."
 	prompt
 
-_TM32Description::
-	text "Heightens evasive-"
-	next "ness."
+_TM20Description::
+	text "Mirrors the foe's"
+	next "last move."
 	prompt
 
-_TM33Description::
-	text "Raises DEFENSE"
-	next "with a barrier."
+_TM21Description::
+	text "Decoy from 1/4 of"
+	next "user's max HP."
 	prompt
 
-_TM34Description::
-	text "Waits 2-3 turns to"
-	next "hit back double."
-	prompt
-
-_TM35Description::
+_TM22Description::
 	text "Randomly uses any"
 	next "#MON move."
 	prompt
 
-_TM36Description::
-	text "Powerful but makes"
-	next "the user faint."
+_TM23Description::
+	text "GRASS move that"
+	next "drains foe's HP."
 	prompt
 
-_TM37Description::
-	text "Eggs are hurled at"
-	next "the foe."
-	prompt
-
-_TM38Description::
-	text "An attack that"
-	next "may cause a burn."
-	prompt
-
-_TM39Description::
-	text "An attack that"
+_TM24Description::
+	text "DARK move that"
 	next "never misses."
 	prompt
 
+_TM25Description::
+	text "FIGHTING grip,"
+	next "may paralyze."
+	prompt
+
+_TM26Description::
+	text "A bite that may"
+	next "poison the foe."
+	prompt
+
+_TM27Description::
+	text "BUG bite, drains"
+	next "foe's HP."
+	prompt
+
+_TM28Description::
+	text "Drops the foe's"
+	next "SPECIAL sharply."
+	prompt
+
+_TM29Description::
+	text "FLYING attack that"
+	next "never misses."
+	prompt
+
+_TM30Description::
+	text "Boosts ATTACK and"
+	next "ACCURACY."
+	prompt
+
+_TM31Description::
+	text "Strong wind that"
+	next "may confuse."
+	prompt
+
+_TM32Description::
+	text "BUG horn ram that"
+	next "may flinch."
+	prompt
+
+_TM33Description::
+	text "Always inflicts"
+	next "50HP damage."
+	prompt
+
+_TM34Description::
+	text "Worsening poison"
+	next "each turn."
+	prompt
+
+_TM35Description::
+	text "PSYCHIC move that"
+	next "never misses."
+	prompt
+
+_TM36Description::
+	text "Drops the foe's"
+	next "ATTACK sharply."
+	prompt
+
+_TM37Description::
+	text "Drops the foe's"
+	next "SPEED sharply."
+	prompt
+
+_TM38Description::
+	text "Strong but user"
+	next "takes recoil."
+	prompt
+
+_TM39Description::
+	text "FIGHTING tackle,"
+	next "lowers DEFENSE."
+	prompt
+
 _TM40Description::
-	text "1st turn: Prepare"
-	next "2nd turn: Attack"
+	text "PSYCHIC blast,"
+	next "lowers SPECIAL."
 	prompt
 
 _TM41Description::
-	text "Restores HP by 1/2"
-	next "the user's max HP."
+	text "Barrier, boosts"
+	next "SPECIAL defense."
 	prompt
 
 _TM42Description::
-	text "Steals HP from a"
-	next "sleeping victim."
+	text "ICE beam that may"
+	next "freeze the foe."
 	prompt
 
 _TM43Description::
@@ -563,38 +563,63 @@ _TM43Description::
 	prompt
 
 _TM44Description::
-	text "Sleep for 2 turns"
-	next "to fully recover."
-	prompt
-
-_TM45Description::
-	text "A move that may"
+	text "ROCK slide, may"
 	next "cause paralysis."
 	prompt
 
+_TM45Description::
+	text "FIRE attack that"
+	next "may cause a burn."
+	prompt
+
 _TM46Description::
-	text "An attack with"
-	next "variable power."
+	text "Barrier, boosts"
+	next "DEFENSE."
 	prompt
 
 _TM47Description::
-	text "Very powerful but"
-	next "makes user faint."
+	text "Boosts SPEED and"
+	next "EVASION."
 	prompt
 
 _TM48Description::
-	text "An attack that may"
-	next "cause flinching."
+	text "A dance, boosts"
+	next "ATTACK sharply."
 	prompt
 
 _TM49Description::
-	text "Fires three kinds"
-	next "of beams at once."
+	text "Boosts the user's"
+	next "SPECIAL stat."
 	prompt
 
 _TM50Description::
-	text "Makes a decoy with"
-	next "1/4 user's max HP."
+	text "GROUND quake that"
+	next "may lower SPEED."
+	prompt
+
+_TM51Description::
+	text "Powerful thunder"
+	next "may paralyze."
+	prompt
+
+_TM52Description::
+	text "Powerful fire,"
+	next "may cause a burn."
+	prompt
+
+_TM53Description::
+	text "Powerful WATER jet"
+	next "that lowers SPEED."
+	prompt
+
+_TM54Description::
+	text "Powerful blizzard"
+	next "may freeze."
+	prompt
+
+_TM55Description::
+	text "DRAGON fury. The"
+	next "user locks in."
 	prompt
 
 _UnusedItemDescription::

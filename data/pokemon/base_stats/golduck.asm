@@ -1,25 +1,22 @@
 	db DEX_GOLDUCK ; pokedex id
-
-	db  80,  82,  78,  85,  80
-	;   hp  atk  def  spd  spc
-
-	db WATER, WATER ; type
+	base_stat_row 80, 80, 70, 90, 85 ; hp atk def spc spd
+	db WATER, PSYCHIC_TYPE ; type
 	db 75 ; catch rate
 	db 174 ; base exp
 
 	INCBIN "gfx/pokemon/front/golduck.pic", 0, 1 ; sprite dimensions
 	dw GolduckPicFront, GolduckPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         \
-	     SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE,   SURF,         \
-	     STRENGTH, PSYCHIC_M, PSYWAVE
+	; Apex psychic swimming duck. HM CUT/SURF/STRENGTH.
+	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm WATER_PULSE, ICY_PULSE, NIGHT_SHADE, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, DAZZLE_GLEAM, AGILITY, TOXIC, \
+	     EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, ICE_BEAM, REFLECT, \
+	     CUT, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

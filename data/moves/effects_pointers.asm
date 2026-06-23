@@ -5,7 +5,7 @@ MoveEffectPointerTable:
 	dw PoisonEffect              ; POISON_SIDE_EFFECT1
 	dw DrainHPEffect             ; DRAIN_HP_EFFECT
 	dw FreezeBurnParalyzeEffect  ; BURN_SIDE_EFFECT1
-	dw FreezeBurnParalyzeEffect  ; FREEZE_SIDE_EFFECT
+	dw FreezeBurnParalyzeEffect  ; FREEZE_SIDE_EFFECT1
 	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT1
 	dw ExplodeEffect             ; EXPLODE_EFFECT
 	dw DrainHPEffect             ; DREAM_EATER_EFFECT
@@ -24,21 +24,21 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; SPECIAL_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; ACCURACY_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; EVASION_DOWN1_EFFECT
-	dw ConversionEffect          ; CONVERSION_EFFECT
+	dw RemovedMoveEffect         ; CONVERSION_EFFECT (Conversion removed in v0.5)
 	dw HazeEffect                ; HAZE_EFFECT
 	dw BideEffect                ; BIDE_EFFECT
 	dw ThrashPetalDanceEffect    ; THRASH_PETAL_DANCE_EFFECT
-	dw SwitchAndTeleportEffect   ; SWITCH_AND_TELEPORT_EFFECT
+	dw RemovedMoveEffect         ; SWITCH_AND_TELEPORT_EFFECT (Roar/Whirlwind removed; Teleport repurposed in v0.5)
 	dw TwoToFiveAttacksEffect    ; TWO_TO_FIVE_ATTACKS_EFFECT
 	dw TwoToFiveAttacksEffect    ; EFFECT_1E
 	dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT1
 	dw SleepEffect               ; SLEEP_EFFECT
 	dw PoisonEffect              ; POISON_SIDE_EFFECT2
 	dw FreezeBurnParalyzeEffect  ; BURN_SIDE_EFFECT2
-	dw FreezeBurnParalyzeEffect  ; unused effect
+	dw FreezeBurnParalyzeEffect  ; FREEZE_SIDE_EFFECT2
 	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT2
 	dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT2
-	dw OneHitKOEffect            ; OHKO_EFFECT
+	dw RemovedMoveEffect         ; OHKO_EFFECT (Horn Drill/Fissure/Guillotine repurposed in v0.5)
 	dw ChargeEffect              ; CHARGE_EFFECT
 	dw NULL                      ; SUPER_FANG_EFFECT
 	dw NULL                      ; SPECIAL_DAMAGE_EFFECT
@@ -72,19 +72,29 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; DEFENSE_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; SPECIAL_DOWN_SIDE_EFFECT
-	dw StatModifierDownEffect    ; unused effect
-	dw StatModifierDownEffect    ; unused effect
-	dw StatModifierDownEffect    ; unused effect
-	dw StatModifierDownEffect    ; unused effect
-	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT
+	dw AttackDefenseUp1Effect    ; ATTACK_DEFENSE_UP1_EFFECT
+	dw AccuracyEvasionDown1Effect; ACCURACY_EVASION_DOWN1_EFFECT
+	dw BurnEffect                ; BURN_EFFECT
+	dw PoisonEffect              ; POISON_SIDE_EFFECT3
+	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT1
 	dw TwoToFiveAttacksEffect    ; TWINEEDLE_EFFECT
-	dw NULL                      ; unused effect
+	dw AttackAccuracyUp1Effect   ; ATTACK_ACCURACY_UP1_EFFECT
 	dw SubstituteEffect          ; SUBSTITUTE_EFFECT
 	dw HyperBeamEffect           ; HYPER_BEAM_EFFECT
 	dw RageEffect                ; RAGE_EFFECT
 	dw MimicEffect               ; MIMIC_EFFECT
 	dw NULL                      ; METRONOME_EFFECT
 	dw LeechSeedEffect           ; LEECH_SEED_EFFECT
-	dw SplashEffect              ; SPLASH_EFFECT
+	dw RemovedMoveEffect         ; SPLASH_EFFECT (Splash removed in v0.5)
 	dw DisableEffect             ; DISABLE_EFFECT
+	dw SpeedEvasionUp1Effect     ; SPEED_EVASION_UP1_EFFECT
+	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT2
+	dw SpecialSpeedDown1Effect   ; SPECIAL_SPEED_DOWN1_EFFECT
+	dw AttackUp1Down1Effect      ; ATTACK_UP1_DOWN1_EFFECT
+	dw SpecialUp1HealEffect      ; SPECIAL_UP1_HEAL_EFFECT
+	dw TriStatusSideEffect       ; TRI_STATUS_SIDE_EFFECT
+	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT3
+	dw SpeedEvasionDown1Effect   ; SPEED_EVASION_DOWN1_EFFECT
+	dw SpecialSpeedUp1Effect     ; SPECIAL_SPEED_UP1_EFFECT
+	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT3
 	assert_table_length NUM_MOVE_EFFECTS

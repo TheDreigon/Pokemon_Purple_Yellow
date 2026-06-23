@@ -338,9 +338,9 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonDefenseExp
 	call PrintStat
-	ld de, wLoadedMonSpeedExp
-	call PrintStat
 	ld de, wLoadedMonSpecialExp
+	call PrintStat
+	ld de, wLoadedMonSpeedExp
 	jp PrintNumber
 .checkstart	;joenote - print DVs if start is held
 	bit 3, a
@@ -350,9 +350,9 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wDVCalcVar2 + 1
 	call PrintStat
-	ld de, wDVCalcVar2 + 2
-	call PrintStat
 	ld de, wDVCalcVar2 + 3
+	call PrintStat
+	ld de, wDVCalcVar2 + 2
 	jp PrintNumber
 .doregular
 	ld de, wLoadedMonAttack
@@ -360,9 +360,9 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonDefense
 	call PrintStat
-	ld de, wLoadedMonSpeed
-	call PrintStat
 	ld de, wLoadedMonSpecial
+	call PrintStat
+	ld de, wLoadedMonSpeed
 	jp PrintNumber
 PrintStat:
 	push hl
@@ -375,8 +375,8 @@ PrintStat:
 StatsText:
 	db   "ATTACK"
 	next "DEFENSE"
-	next "SPEED"
-	next "SPECIAL@"
+	next "SPECIAL"
+	next "SPEED@"
 
 StatusScreen2:
 	ldh a, [hTileAnimations]

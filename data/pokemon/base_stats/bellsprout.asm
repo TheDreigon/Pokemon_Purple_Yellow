@@ -1,7 +1,5 @@
 	db DEX_BELLSPROUT ; pokedex id
-
-	db  50,  75,  35,  40,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 65, 35, 55, 40 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 255 ; catch rate
@@ -10,13 +8,13 @@
 	INCBIN "gfx/pokemon/front/bellsprout.pic", 0, 1 ; sprite dimensions
 	dw BellsproutPicFront, BellsproutPicBack
 
-	db GROWTH, VINE_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db ABSORB, WRAP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         \
-	     MEGA_DRAIN,   SOLARBEAM,    MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         REST,         SUBSTITUTE,   CUT
+	; Basic carnivorous pitcher plant (Grass/Poison). Grass STAB
+	; GIGA_DRAIN, digestive TOXIC, ambush FAINT_ATTACK.
+	tmhm FAINT_ATTACK, GIGA_DRAIN, TOXIC
 	; end
 
 	db 0 ; padding

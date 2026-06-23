@@ -208,9 +208,9 @@ RocketHideoutB4FScript10:
 	ld hl, RocketHideoutB4FJessieJamesEndBattleText
 	ld de, RocketHideoutB4FJessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES ; v0.7: was OPP_ROCKET / party $2b — promoted to dedicated boss class
 	ld [wCurOpponent], a
-	ld a, $2b
+	ld a, $2
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a
@@ -295,7 +295,7 @@ RocketHideoutB4F_TextPointers:
 	dw_const RocketHideoutB4FJessieJamesText,             TEXT_ROCKETHIDEOUTB4F_JESSIE
 	dw_const RocketHideoutB4FRocketText,                  TEXT_ROCKETHIDEOUTB4F_ROCKET
 	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_HP_UP
-	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_TM_FLAMETHROWER
+	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_TM_IRON_HEAD
 	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_IRON
 	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_SILPH_SCOPE
 	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_LIFT_KEY

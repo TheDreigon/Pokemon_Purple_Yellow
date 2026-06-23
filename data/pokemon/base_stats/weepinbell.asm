@@ -1,7 +1,5 @@
 	db DEX_WEEPINBELL ; pokedex id
-
-	db  65,  90,  50,  55,  85
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 85, 50, 75, 60 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 120 ; catch rate
@@ -10,13 +8,14 @@
 	INCBIN "gfx/pokemon/front/weepinbell.pic", 0, 1 ; sprite dimensions
 	dw WeepinbellPicFront, WeepinbellPicBack
 
-	db GROWTH, POISONPOWDER, VINE_WHIP, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db ABSORB, WRAP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         \
-	     MEGA_DRAIN,   SOLARBEAM,    MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         REST,         SUBSTITUTE,   CUT
+	; Mid-stage carnivore (Grass/Poison). Draining and toxic moves,
+	; body-slam bulk. Natural HM cutter.
+	tmhm FAINT_ATTACK, BODY_SLAM, GIGA_DRAIN, TOXIC, LEECH_LIFE, \
+	     TAKE_DOWN, CUT
 	; end
 
 	db 0 ; padding

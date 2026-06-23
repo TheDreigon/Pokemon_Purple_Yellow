@@ -1,7 +1,5 @@
 	db DEX_BLASTOISE ; pokedex id
-
-	db  79,  83, 100,  78,  85
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 85, 110, 95, 80 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 45 ; catch rate
@@ -11,15 +9,17 @@
 	dw BlastoisePicFront, BlastoisePicBack
 
 	db TACKLE, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         SKULL_BASH,   REST,         SUBSTITUTE,   \
-	     SURF,         STRENGTH
+	; Water-tank apex. Water STAB WATER_PULSE/SURF, pressure-cannon
+	; ICE_BEAM/ICY_PULSE. Heavy shell BODY_SLAM/BULK_UP/IRON_HEAD,
+	; weight EARTHQUAKE/BULLDOZE. HM CUT/SURF/STRENGTH. Fun moves:
+	; last-stage line.
+	tmhm BULLDOZE, WATER_PULSE, ICY_PULSE, BODY_SLAM, BULK_UP, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
+	     INTIMIDATE, TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, \
+	     EARTHQUAKE, DOUBLE_EDGE, CUT, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

@@ -1,23 +1,22 @@
 	db DEX_VILEPLUME ; pokedex id
-
-	db  90,  80,  85,  50, 100
-	;   hp  atk  def  spd  spc
-
-	db GRASS, POISON ; type
+	base_stat_row 110, 95, 85, 95, 45 ; hp atk def spc spd
+	db GRASS, FUNGUS ; type
 	db 45 ; catch rate
 	db 184 ; base exp
 
 	INCBIN "gfx/pokemon/front/vileplume.pic", 0, 1 ; sprite dimensions
 	dw VileplumePicFront, VileplumePicBack
 
-	db TACKLE, STUN_SPORE, SLEEP_POWDER, ACID ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db ABSORB, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MEGA_DRAIN,   SOLARBEAM,    MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         REST,         SUBSTITUTE,   \
-	     CUT
+	; Apex Rafflesia bloom (Grass/Fungus) — powder warfare and dark-spore
+	; specialist. Spreads venom (TOXIC) and dark spores (DARK_PULSE);
+	; drains (GIGA_DRAIN/LEECH_LIFE). Last-stage fun moves via TM.
+	tmhm BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     GIGA_DRAIN, TOXIC, EXTRASENSORY, LEECH_LIFE, TAKE_DOWN, \
+	     DARK_PULSE, PETAL_DANCE, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

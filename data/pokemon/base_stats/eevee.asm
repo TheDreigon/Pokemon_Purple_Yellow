@@ -1,7 +1,5 @@
 	db DEX_EEVEE ; pokedex id
-
-	db  70,  65,  65,  55,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 65, 65, 65, 65, 65 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 45 ; catch rate
@@ -10,13 +8,13 @@
 	INCBIN "gfx/pokemon/front/eevee.pic", 0, 1 ; sprite dimensions
 	dw EeveePicFront, EeveePicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         \
-	     DIG,          MIMIC,   DOUBLE_TEAM,  REFLECT,      BIDE,              \
-	     SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE
+	; Cute Normal fox base, backbone-only.
+	tmhm QUICK_ATTACK, BODY_SLAM, AGILITY, FAKE_TEARS, CHARM, \
+	     DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

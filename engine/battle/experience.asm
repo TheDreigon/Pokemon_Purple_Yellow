@@ -95,6 +95,13 @@ GainExperience:
 	inc hl
 	inc hl
 	inc hl
+; v0.7 hard mode: global EXP *0.9. Applied AFTER all standard boosts
+; (traded mon *1.5, trainer battle *1.5) and BEFORE adding to party
+; exp totals — so the reduction stacks multiplicatively with the
+; existing boosts (not replacing them).
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	call z, HardModeExpReduce
 ; add the gained exp to the party mon's exp
 	ld b, [hl]
 	ldh a, [hQuotient + 3]
@@ -281,14 +288,25 @@ GainExperience:
 	ld de, wPlayerMonUnmodifiedLevel
 	ld bc, 1 + NUM_STATS * 2
 	call CopyData
+	; v0.7 Badge Boost Glitch fix (mirror of LoadBattleMonFromParty):
+	; bake badges into the battle stats, then refresh the unmodified
+	; Atk..Spc block from them so later stat-stage recalcs keep the
+	; boost. The vanilla order here left unmod raw and re-applied
+	; badges on top of the battle stats — any stat-mod recalc after a
+	; mid-battle level-up then silently dropped the badge boost (the
+	; effects.asm re-apply calls were removed by the v0.7 fix).
+	ld hl, ApplyBadgeStatBoosts
+	call CallBattleCore
+	ld hl, wBattleMonAttack
+	ld de, wPlayerMonUnmodifiedAttack
+	ld bc, 8 ; 4 stats (Atk/Def/Spd/Spc) x 2 bytes — badges don't boost MaxHP
+	call CopyData
 .recalcStatChanges
 	xor a ; battle mon
 	ld [wCalculateWhoseStats], a
 	ld hl, CalculateModifiedStats
 	call CallBattleCore
 	ld hl, ApplyBurnAndParalysisPenaltiesToPlayer
-	call CallBattleCore
-	ld hl, ApplyBadgeStatBoosts
 	call CallBattleCore
 	ld hl, DrawPlayerHUDAndHPBar
 	call CallBattleCore
@@ -410,6 +428,33 @@ BoostExp:
 	ldh a, [hQuotient + 2]
 	adc b
 	ldh [hQuotient + 2], a
+	ret
+
+; v0.7 hard mode: multiply hQuotient (2-byte XP gain at offset 2..3)
+; by 0.9, via Multiply x9 then Divide /10. Preserves hl. Trashes a, b
+; and the Multiply/Divide HRAM scratch (hMultiplicand, hMultiplier,
+; hDivisor, hQuotient — the last is overwritten with the reduced
+; result, which is the desired output).
+;
+; The high bytes of hQuotient (offsets 0/1) are never set by the XP
+; calculation upstream, so we explicitly clear hMultiplicand[0] to
+; ensure the multiplication starts from a clean state.
+HardModeExpReduce:
+	push hl
+	xor a
+	ldh [hMultiplicand], a
+	ldh a, [hQuotient + 2]
+	ldh [hMultiplicand + 1], a
+	ldh a, [hQuotient + 3]
+	ldh [hMultiplicand + 2], a
+	ld a, 9
+	ldh [hMultiplier], a
+	call Multiply
+	ld a, 10
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+	pop hl
 	ret
 
 CallBattleCore:

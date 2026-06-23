@@ -1,7 +1,5 @@
 	db DEX_TAUROS ; pokedex id
-
-	db  75, 100,  95, 110,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 120, 90, 50, 100 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 45 ; catch rate
@@ -10,15 +8,17 @@
 	INCBIN "gfx/pokemon/front/tauros.pic", 0, 1 ; sprite dimensions
 	dw TaurosPicFront, TaurosPicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db TACKLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC, HORN_DRILL, BODY_SLAM, TAKE_DOWN,  DOUBLE_EDGE,  \
-	     ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   RAGE,         THUNDERBOLT,  \
-	     THUNDER,      EARTHQUAKE,   FISSURE,      MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,         FIRE_BLAST,   SKULL_BASH,   REST,         SUBSTITUTE,   \
-	     STRENGTH
+	; Raging horned bull, heavy physical bruiser. Horns drive
+	; MEGAHORN/IRON_HEAD. Powerful legs power BULLDOZE/EARTHQUAKE/STRENGTH.
+	; Last-stage fun moves via TM.
+	tmhm BULLDOZE, RAGE, BODY_SLAM, BULK_UP, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, MEGAHORN, \
+	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, EARTHQUAKE, \
+	     DOUBLE_EDGE, THRASH, OUTRAGE, STRENGTH
 	; end
 
 	db 0 ; padding

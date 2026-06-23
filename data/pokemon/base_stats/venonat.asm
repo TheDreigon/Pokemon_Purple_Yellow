@@ -1,7 +1,5 @@
 	db DEX_VENONAT ; pokedex id
-
-	db  60,  55,  50,  45,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 45, 50, 50, 50 ; hp atk def spc spd
 
 	db BUG, POISON ; type
 	db 190 ; catch rate
@@ -14,9 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         MEGA_DRAIN,   \
-	     SOLARBEAM,    PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         REST,         PSYWAVE,      SUBSTITUTE,   FLASH
+	; Pre-moth fuzzy Bug/Poison drainer. Spreads venom (TOXIC), drains
+	; (LEECH_LIFE), and shows nascent psychic sense (PSYCHIC_M).
+	tmhm TOXIC, EXTRASENSORY, LEECH_LIFE, PSYCHIC_M, LIGHT_SCREEN
 	; end
 
 	db 0 ; padding

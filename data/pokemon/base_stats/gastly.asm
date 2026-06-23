@@ -1,9 +1,6 @@
 	db DEX_GASTLY ; pokedex id
-
-	db  30,  35,  30,  80, 100
-	;   hp  atk  def  spd  spc
-
-	db GHOST, POISON ; type
+	base_stat_row 30, 40, 30, 90, 90 ; hp atk def spc spd
+	db GHOST, GAS ; type
 	db 190 ; catch rate
 	db 95 ; base exp
 
@@ -11,12 +8,11 @@
 	dw GastlyPicFront, GastlyPicBack
 
 	db LICK, CONFUSE_RAY, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        RAGE,         MEGA_DRAIN,   THUNDERBOLT,  THUNDER,      \
-	     PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  BIDE,         SELFDESTRUCT, \
-	     DREAM_EATER,  REST,         PSYWAVE,      EXPLOSION,    SUBSTITUTE
+	; Gaseous ghost wisp, pre-evo backbone.
+	tmhm FAINT_ATTACK, NIGHT_SHADE, CONFUSE_RAY, SCARY_FACE
 	; end
 
 	db 0 ; padding

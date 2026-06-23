@@ -6,7 +6,6 @@ INCLUDE "engine/movie/title.asm"
 INCLUDE "engine/pokemon/load_mon_data.asm"
 INCLUDE "data/items/prices.asm"
 INCLUDE "data/items/names.asm"
-;INCLUDE "data/text/unused_names.asm"
 INCLUDE "engine/gfx/sprite_oam.asm"
 INCLUDE "engine/link/print_waiting_text.asm"
 INCLUDE "engine/overworld/sprite_collisions.asm"
@@ -22,6 +21,7 @@ INCLUDE "engine/movie/oak_speech/oak_speech2.asm"
 INCLUDE "engine/items/subtract_paid_money.asm"
 INCLUDE "engine/menus/swap_items.asm"
 INCLUDE "engine/events/pokemart.asm"
+INCLUDE "engine/events/tiered_mart.asm"
 INCLUDE "engine/pokemon/learn_move.asm"
 INCLUDE "engine/events/pokecenter.asm"
 INCLUDE "engine/events/set_blackout_map.asm"
@@ -83,7 +83,6 @@ SECTION "Battle Engine 1", ROMX
 INCLUDE "engine/battle/end_of_battle.asm"
 INCLUDE "engine/battle/wild_encounters.asm"
 INCLUDE "engine/battle/move_effects/recoil.asm"
-INCLUDE "engine/battle/move_effects/conversion.asm"
 INCLUDE "engine/battle/move_effects/haze.asm"
 
 
@@ -162,6 +161,7 @@ SECTION "Battle Engine 6", ROMX
 INCLUDE "data/moves/moves.asm"
 INCLUDE "data/pokemon/cries.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
+INCLUDE "data/trainers/boss_item_bags.asm"
 INCLUDE "engine/battle/unused_stats_functions.asm"
 INCLUDE "engine/battle/scroll_draw_trainer_pic.asm"
 INCLUDE "engine/battle/move_effects/heal.asm"
@@ -172,13 +172,15 @@ INCLUDE "engine/battle/move_effects/reflect_light_screen.asm"
 SECTION "Battle Engine 10", ROMX
 
 INCLUDE "engine/pokemon/evos_moves.asm"
-INCLUDE "data/pokemon/base_stats.asm"
+; v0.6: base_stats.asm moved to bank30 to relieve bank $3B which overflowed
+; after Pass 2 added ~3KB of level-up learnset entries to evos_moves.asm.
 
 
 SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
 INCLUDE "engine/battle/effects.asm"
+INCLUDE "engine/battle/hard_mode.asm"
 
 
 SECTION "bank10", ROMX
@@ -315,11 +317,13 @@ INCLUDE "engine/events/hidden_items.asm"
 
 
 SECTION "bank1E", ROMX
+; v0.7: cut2.asm, dust_smoke.asm, and gfx/fishing.asm were moved out of
+; this bank into "bank30" (see below) to give data/moves/animations.asm
+; ample room to grow as the move animation pass progresses through v0.7.
+; All three moved-out routines are reached via farcall/callfar from
+; their callers, so the bank change is transparent.
 
 INCLUDE "engine/battle/animations.asm"
-INCLUDE "engine/overworld/cut2.asm"
-INCLUDE "engine/overworld/dust_smoke.asm"
-INCLUDE "gfx/fishing.asm"
 INCLUDE "data/moves/animations.asm"
 INCLUDE "data/battle_anims/subanimations.asm"
 INCLUDE "data/battle_anims/frame_blocks.asm"
@@ -341,7 +345,30 @@ ENDC
 
 
 SECTION "bank30", ROMX
-; Free bank - 16 KB available for Purple Yellow
+; v0.6: hosts Pokemon base_stats. Moved here from "Battle Engine 10" (bank $3B)
+; which overflowed when Pass 2 added ~3KB of level-up learnset data to
+; evos_moves.asm. base_stats.asm is ~4.7KB (151 mons x 32 bytes); plenty of
+; remaining headroom in this bank for future use.
+;
+; v0.7: also hosts the type-matchups table + lookup loops (moved from
+; "Battle Core" / bank $0F, which was 2 bytes over in debug after the
+; matchups expansion). See engine/battle/type_effectiveness.asm.
+;
+; v0.7: cut2 / dust_smoke / fishing GFX moved here from bank1E to free
+; space for the data/moves/animations.asm work. All three are reached
+; via farcall/callfar so the bank change is transparent.
+
+INCLUDE "data/pokemon/base_stats.asm"
+INCLUDE "engine/battle/type_effectiveness.asm"
+INCLUDE "engine/overworld/cut2.asm"
+INCLUDE "engine/overworld/dust_smoke.asm"
+INCLUDE "gfx/fishing.asm"
+INCLUDE "gfx/battle/move_animation_tiles.asm"
+
+
+SECTION "Move SFX Table", ROMX
+
+INCLUDE "data/moves/sfx.asm"
 
 
 SECTION "bank3A", ROMX
@@ -403,7 +430,6 @@ INCLUDE "engine/battle/init_battle.asm"
 INCLUDE "engine/battle/init_battle_variables.asm"
 INCLUDE "engine/battle/move_effects/focus_energy.asm"
 INCLUDE "engine/battle/move_effects/mist.asm"
-INCLUDE "engine/battle/move_effects/one_hit_ko.asm"
 INCLUDE "engine/battle/move_effects/pay_day.asm"
 INCLUDE "engine/battle/move_effects/paralyze.asm"
 INCLUDE "engine/math/multiply_divide.asm"
@@ -432,3 +458,4 @@ INCLUDE "engine/pikachu/pikachu_emotions.asm"
 INCLUDE "engine/pikachu/pikachu_movement.asm"
 INCLUDE "engine/pikachu/pikachu_pic_animation.asm"
 INCLUDE "engine/debug/debug_menu.asm"
+INCLUDE "engine/debug/animation_test.asm"

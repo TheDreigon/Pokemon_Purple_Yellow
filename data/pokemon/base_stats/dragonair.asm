@@ -1,7 +1,5 @@
 	db DEX_DRAGONAIR ; pokedex id
-
-	db  61,  84,  65,  70,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 80, 60, 80, 70 ; hp atk def spc spd
 
 	db DRAGON, DRAGON ; type
 	db 27 ; catch rate
@@ -11,14 +9,13 @@
 	dw DragonairPicFront, DragonairPicBack
 
 	db WRAP, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,  FLAMETHROWER, HORN_DRILL,   BODY_SLAM,    TAKE_DOWN,  DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         \
-	     DRAGON_RAGE,  THUNDERBOLT,  THUNDER,      MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         FIRE_BLAST,   SWIFT,        SKULL_BASH,   \
-	     REST,         THUNDER_WAVE, SUBSTITUTE,   SURF
+	; Dragon sea-serpent mid-evo. HM FLY/SURF/STRENGTH.
+	tmhm BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, SHOCK_WAVE, \
+	     IRON_TAIL, DRAGON_CLAW, TAKE_DOWN, ICE_BEAM, FLY, \
+	     SURF, STRENGTH
 	; end
 
 	db 0 ; padding

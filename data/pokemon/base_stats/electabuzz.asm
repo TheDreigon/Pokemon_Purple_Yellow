@@ -1,7 +1,5 @@
 	db DEX_ELECTABUZZ ; pokedex id
-
-	db  65,  83,  57, 105,  85
-	;   hp  atk  def  spd  spc
+	base_stat_row 75, 95, 70, 95, 95 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 45 ; catch rate
@@ -10,16 +8,17 @@
 	INCBIN "gfx/pokemon/front/electabuzz.pic", 0, 1 ; sprite dimensions
 	dw ElectabuzzPicFront, ElectabuzzPicBack
 
-	db QUICK_ATTACK, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         THUNDERBOLT,  THUNDER,      PSYCHIC_M,    TELEPORT,     \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         METRONOME,    \
-	     SWIFT,        SKULL_BASH,   REST,         THUNDER_WAVE, PSYWAVE,      \
-	     SUBSTITUTE,   STRENGTH,     FLASH
+	; Electric boxer from the power plant (Magmar counterpart).
+	; HM STRENGTH/FLASH.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, FLAME_BURST, \
+	     SHOCK_WAVE, THUNDER_WAVE, BULK_UP, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, TAKE_DOWN, \
+	     LIGHT_SCREEN, REFLECT, THUNDERBOLT, DOUBLE_EDGE, STRENGTH, \
+	     FLASH, THRASH
 	; end
 
 	db 0 ; padding

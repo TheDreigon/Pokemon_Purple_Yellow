@@ -1,7 +1,5 @@
 	db DEX_HITMONLEE ; pokedex id
-
-	db  65, 120,  70,  93,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 110, 70, 60, 100 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate
@@ -10,14 +8,16 @@
 	INCBIN "gfx/pokemon/front/hitmonlee.pic", 0, 1 ; sprite dimensions
 	dw HitmonleePicFront, HitmonleePicBack
 
-	db DOUBLE_KICK, MEDITATE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         METRONOME,    SWIFT,        \
-	     SKULL_BASH,   REST,         SUBSTITUTE,   STRENGTH, ROCK_SLIDE
+	; Leg-only kicker, single-stage. HM STRENGTH.
+	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, BULLDOZE, SEISMIC_TOSS, \
+	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     AGILITY, TAKE_DOWN, SWORDS_DANCE, CALM_MIND, THRASH, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

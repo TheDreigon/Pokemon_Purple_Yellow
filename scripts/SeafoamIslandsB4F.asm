@@ -141,6 +141,7 @@ SeafoamIslandsB4F_TextPointers:
 	dw_const BoulderText,                       TEXT_SEAFOAMISLANDSB4F_BOULDER2
 	dw_const SeafoamIslandsB4FArticunoText,     TEXT_SEAFOAMISLANDSB4F_ARTICUNO
 	dw_const SeafoamIslandsWeebraText1,      	TEXT_SEAFOAM_ISLANDS_WEEBRA
+	dw_const PickUpItemText,                    TEXT_SEAFOAMISLANDSB4F_TM_ICE_BEAM ; v0.5 Phase B.4 (must be before bg_event signs to satisfy def_warps_to assertion)
 	dw_const SeafoamIslandsB4FBouldersSignText, TEXT_SEAFOAMISLANDSB4F_BOULDERS_SIGN
 	dw_const SeafoamIslandsB4FDangerSignText,   TEXT_SEAFOAMISLANDSB4F_DANGER_SIGN
 	dw_const SeafoamIslandsWeebraEndBattleText1,TEXT_SEAFOAM_ISLANDS_WEEBRA_END_BATTLE

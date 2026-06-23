@@ -1734,8 +1734,26 @@ LoadBattleMonFromParty:
 	ld de, wPlayerMonUnmodifiedLevel ; block of memory used for unmodified stats
 	ld bc, 1 + NUM_STATS * 2
 	call CopyData
-	call ApplyBurnAndParalysisPenaltiesToPlayer
+	; v0.7 Badge Boost Glitch fix.
+	;
+	; Vanilla flow was: copy raw stats -> unmod, apply burn/para -> battle,
+	; apply badges -> battle. Then in effects.asm, every stat-mod re-applied
+	; ApplyBadgeStatBoosts on top of an already-boosted battle stat,
+	; compounding badges by 1.125x per stat-mod. Famous Gen 1 bug.
+	;
+	; New flow:
+	;   1. Apply badges -> battle (unmod still raw)
+	;   2. Copy battle -> unmod (so unmod NOW carries the badge boost)
+	;   3. Apply burn/para -> battle (unmod stays at raw+badge)
+	; Stat-mod recalcs use unmod * stage, naturally preserving badges.
+	; The two ApplyBadgeStatBoosts call sites in effects.asm are removed
+	; in the same commit; badges no longer compound.
 	call ApplyBadgeStatBoosts
+	ld hl, wBattleMonAttack
+	ld de, wPlayerMonUnmodifiedAttack
+	ld bc, 8 ; 4 stats (Atk/Def/Spd/Spc) x 2 bytes — skip MaxHP, no badge applies to it
+	call CopyData
+	call ApplyBurnAndParalysisPenaltiesToPlayer
 	ld a, $7 ; default stat modifier
 	ld b, NUM_STAT_MODS
 	ld hl, wPlayerMonAttackMod
@@ -2365,18 +2383,13 @@ BagWasSelected:
 	cp BATTLE_TYPE_PIKACHU ; is it the prof oak battle with pikachu?
 	jr z, .simulatedInputBattle
 
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	jr z, .NormalMode
-
-	ld a, [wIsInBattle] ; Check if this is a wild battle or trainer battle
-	dec a
-	jr z, .NormalMode ; Not a trainer battle
-
-	ld hl, ItemsCantBeUsedHereText ; items can't be used during trainer battles in hard mode
-	call PrintText
-	jp DisplayBattleMenu
-.NormalMode
+	; v0.7: items are baseline-allowed in every battle (wild/trainer/boss) in
+	; both Normal and Hard mode — symmetric with the Hard-mode boss item bag
+	; that ships alongside this. The 6 problem items (Revive, Max Revive,
+	; Ether, Max Ether, Elixer, Max Elixer) are gated per-item in
+	; engine/items/item_effects.asm: they're blocked only in Hard-mode
+	; trainer/boss battles, and never in wild battles. The block lives there
+	; (not here) so wild-vs-trainer + per-item routing stays in one place.
 	jr DisplayPlayerBag
 .simulatedInputBattle
 	ld hl, SimulatedInputBattleItemList
@@ -3178,7 +3191,7 @@ SelectEnemyMove:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	jr .done
+	jp .done                ; v0.7: was `jr` but .done moved further away with the PP-aware additions
 .noLinkBattle
 	ld a, [wEnemyBattleStatus2]
 	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; need to recharge or using rage
@@ -3200,6 +3213,21 @@ SelectEnemyMove:
 	ld a, $ff
 	jr .done
 .canSelectMove
+	; v0.7 (AI PP fix): if every enemy move slot has 0 PP, force Struggle.
+	; OR over the 4 PP bytes, mask out the 2 PP-up bits so we look only
+	; at remaining PP. Mirrors AnyMoveToSelect's logic for the player.
+	ld hl, wEnemyMonPP
+	ld a, [hli]
+	or [hl]
+	inc hl
+	or [hl]
+	inc hl
+	or [hl]
+	and $3f
+	jr nz, .atLeastOneMoveHasPP
+	ld a, STRUGGLE
+	jr .done
+.atLeastOneMoveHasPP
 	ld hl, wEnemyMonMoves+1 ; 2nd enemy move
 	ld a, [hld]
 	and a
@@ -3233,6 +3261,20 @@ SelectEnemyMove:
 	ld a, b
 	dec a
 	ld [wEnemyMoveListIndex], a
+	; v0.7 (AI PP fix): if the picked move has 0 PP, retry. The PP-empty
+	; pre-check above guarantees at least one move has PP, so the retry
+	; loop terminates.
+	push hl
+	push bc
+	ld c, a
+	ld b, 0
+	ld hl, wEnemyMonPP
+	add hl, bc
+	ld a, [hl]
+	and $3f
+	pop bc
+	pop hl
+	jr z, .retryOutOfPP ; out of PP, retry (must rebalance stack first!)
 	ld a, [wEnemyDisabledMove]
 	swap a
 	and $f
@@ -3245,6 +3287,16 @@ SelectEnemyMove:
 .done
 	ld [wEnemySelectedMove], a
 	ret
+.retryOutOfPP
+; v0.7 FIX (stack-leak crash). The out-of-PP retry above is reached while
+; the `push hl` from .chooseRandomMove is still on the stack — its balancing
+; `pop hl` lives further down (after the disabled/exists checks), so jumping
+; straight back leaked 2 bytes of stack PER retry. The enemy's empty move
+; slots read as 0 PP, so this fired most turns and slowly overflowed the
+; (mart-shrunk, ~193B) WRAM stack into Main Data -> total crash after a
+; variable number of turns, in BOTH modes. Pop the orphan before retrying.
+	pop hl
+	jp .chooseRandomMove
 .linkedOpponentUsedStruggle
 	ld a, STRUGGLE
 	jr .done
@@ -3453,11 +3505,20 @@ MirrorMoveCheck:
 	call MetronomePickMove
 	jp CheckIfPlayerNeedsToChargeUp ; Go back to damage calculation for the move picked by Metronome
 .next
+	; PURPLE YELLOW: only skip to a ResidualEffects2 effect if the move has no
+	; damaging power. Otherwise, the damage calc below runs and the stat-change
+	; effect is dispatched after damage via the SpecialEffects fallthrough at
+	; `.executeOtherEffects` below. This lets moves like MUD_BOMB deal damage
+	; AND lower a stat; status-only moves like GROWL / FLASH still dispatch here.
+	ld a, [wPlayerMovePower]
+	and a
+	jr nz, .skipResidualEffects2Dispatch
 	ld a, [wPlayerMoveEffect]
 	ld hl, ResidualEffects2
 	ld de, 1
 	call IsInArray
 	jp c, JumpMoveEffect ; done here after executing effects of ResidualEffects2
+.skipResidualEffects2Dispatch
 	ld a, [wMoveMissed]
 	and a
 	jr z, .moveDidNotMiss
@@ -3598,6 +3659,22 @@ CheckPlayerStatusConditions:
 .FrozenCheck
 	bit FRZ, [hl] ; frozen?
 	jr z, .HeldInPlaceCheck
+	; PURPLE YELLOW v0.5: decrement freeze-turn counter, thaw at 0.
+	push hl
+	ld hl, wPlayerFreezeCounter
+	ld a, [hl]
+	and a
+	jr z, .playerFreezeCounterUnderflow
+	dec [hl]
+	jr nz, .playerStillFrozen
+.playerFreezeCounterUnderflow
+	pop hl
+	res FRZ, [hl] ; thaw
+	ld hl, ThawedOutText
+	call PrintText
+	jr .HeldInPlaceCheck
+.playerStillFrozen
+	pop hl
 	ld hl, IsFrozenText
 	call PrintText
 	xor a
@@ -3839,6 +3916,10 @@ WokeUpText:
 
 IsFrozenText:
 	text_far _IsFrozenText
+	text_end
+
+ThawedOutText:
+	text_far _ThawedOutText
 	text_end
 
 FullyParalyzedText:
@@ -4649,10 +4730,6 @@ CalculateDamage:
 	cp $1e
 	jr z, .skipbp
 
-; Calculate OHKO damage based on remaining HP.
-	cp OHKO_EFFECT
-	jp z, JumpToOHKOMoveEffect
-
 ; Don't calculate damage for moves that don't do any.
 	ld a, d ; base power
 	and a
@@ -4789,14 +4866,6 @@ CalculateDamage:
 	and a
 	ret
 
-JumpToOHKOMoveEffect:
-	call JumpMoveEffect
-	ld a, [wMoveMissed]
-	dec a
-	ret
-
-INCLUDE "data/battle/unused_critical_hit_moves.asm"
-
 ; determines if attack is a critical hit
 ; Azure Heights claims "the fastest pokémon (who are, not coincidentally,
 ; among the most popular) tend to CH about 20 to 25% of the time."
@@ -4826,126 +4895,95 @@ CriticalHitTest:
 	ret z                        ; do nothing if zero
 	dec hl
 	ld c, [hl]                   ; read move id
+; v0.7: Purple Yellow crit-rate formula. Replaces vanilla Gen 1's broken
+; "speed/2 (normal) or speed*8 (high-crit)" with:
+;   crit_rate = base + base_speed/4
+;   where base = CRIT_BASE_NORMAL (~10%) or CRIT_BASE_HIGH (~20%).
+; Memorable in percentage points: 10 + speed/10 (normal); 20 + speed/10
+; (high-crit). Focus Energy then multiplies by FOCUS_ENERGY_CRIT_MULT
+; (= 3, capped at 255). The vanilla "guaranteed crit at 255 in normal
+; mode" hack is gone; it was compensation for the vanilla speed*8 bug
+; we just removed.
+	srl b                        ; b = base_speed / 4 (the speed bonus,
+	srl b                        ;     ≈ speed/10 in percentage points)
 	ld hl, HighCriticalMoves     ; table of high critical hit moves
 .Loop
 	ld a, [hli]                  ; read move from move table
 	cp c                         ; does it match the move about to be used?
-	jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
+	jr z, .HighCritical          ; if so, use the high-crit base
 	inc a                        ; move on to the next move, FF terminates loop
-	jr nz, .Loop                 ; check the next move in HighCriticalMoves
-	srl b                        ; /2 for regular move
-	jr .SkipHighCritical         ; continue as a normal move
+	jr nz, .Loop
+	ld a, CRIT_BASE_NORMAL       ; ~10%
+	jr .addBase
 .HighCritical
-	sla b                        ; *2 for high critical hit moves
-	jr nc, .noCarry
-	ld b, $ff                    ; cap at 255/256
-.noCarry
-	sla b                        ; *4 for high critical move
-	jr nc, .SkipHighCritical
-	ld b, $ff
-.SkipHighCritical
+	ld a, CRIT_BASE_HIGH         ; ~20%
+.addBase
+	add b                        ; a = base + speed/4
+	jr nc, .gotBase
+	ld a, $ff                    ; cap at 255/256
+.gotBase
+	ld b, a
+	; v0.7 hard mode boss crit bonus (~+10pp). Only fires on the
+	; boss's own attack turn (hWhoseTurn != 0). Doubles the boss's
+	; effective crit rate (normal moves 10%→20%, high-crit 20%→30%);
+	; Focus Energy multiplier still applies on top, so a boss with
+	; FE on a high-crit move would hit 90% crit.
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .noBossCritBonus
+	push bc                      ; preserve b (base+speed/4); helper trashes
+	push de                      ; preserve de (battle-status ptr)
+	call IsHardModeBossBattle
+	pop de
+	pop bc
+	jr z, .noBossCritBonus
+	ld a, b
+	add CRIT_BASE_NORMAL
+	jr nc, .bossCritNoCap
+	ld a, $ff
+.bossCritNoCap
+	ld b, a
+.noBossCritBonus
 	ld a, [de]
 	bit GETTING_PUMPED, a        ; test for focus energy
 	jr z, .noFocusEnergyUsed
-	sla b                        ; (effective (base speed*2))
-	jr nc, .focusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
-	jr .noFocusEnergyUsed
-.focusEnergyUsed
-	sla b                        ; (effective ((base speed*2)*2))
-	jr nc, .noFocusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
+	; Focus Energy: b = b * FOCUS_ENERGY_CRIT_MULT (= 3), cap at 255.
+	; Computed as b + (b * 2) with intermediate and final caps.
+	ld a, b                      ; save original
+	sla b                        ; b = orig * 2
+	jr nc, .feNoIntermediateCap
+	ld b, $ff                    ; cap intermediate at 255
+.feNoIntermediateCap
+	add b                        ; a = orig + (b after cap) = orig * 3 (or capped)
+	jr nc, .feNoFinalCap
+	ld a, $ff                    ; cap final at 255
+.feNoFinalCap
+	ld b, a                      ; b = orig * 3 (capped)
 .noFocusEnergyUsed
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	jr nz, .NotGuarenteedCrit ; keep 1/256 chance to not crit if on hard mode
-	ld a, b
-	inc a ; optimization of "cp $ff"
-	jr z, .guaranteedCriticalHit
-.NotGuarenteedCrit
-	call BattleRandom            ; generates a random value, in "a"
+	call BattleRandom            ; a = random byte 0-255
 	rlc a
 	rlc a
 	rlc a
-	cp b                         ; check a against calculated crit rate
-	ret nc                       ; no critical hit if no borrow
-.guaranteedCriticalHit
+	cp b                         ; crit if random < b (a < b → carry set)
+	ret nc                       ; no critical hit
 	ld a, $1
 	ld [wCriticalHitOrOHKO], a   ; set critical hit flag
 	ret
 
 INCLUDE "data/battle/critical_hit_moves.asm"
 
-; function to determine if Counter hits and if so, how much damage it does
+; v0.7 cleanup: Counter was removed in the v0.5 movelist overhaul, so the
+; vanilla handler body (~70 bytes, unreachable behind an always-taken guard)
+; was deleted to free bank $0F space. Caller contract (see the two
+; `call HandleCounterMove / jr z, handleIf*MoveMissed` sites): Z=1 means
+; "Counter was used and missed — skip straight to the move-missed handler";
+; NZ means proceed with the normal damage pipeline. Always NZ now.
 HandleCounterMove:
-; The variables checked by Counter are updated whenever the cursor points to a new move in the battle selection menu.
-; This is irrelevant for the opponent's side outside of link battles, since the move selection is controlled by the AI.
-; However, in the scenario where the player switches out and the opponent uses Counter,
-; the outcome may be affected by the player's actions in the move selection menu prior to switching the Pokemon.
-; This might also lead to desync glitches in link battles.
-
-	ldh a, [hWhoseTurn] ; whose turn
-	and a
-; player's turn
-	ld hl, wEnemySelectedMove
-	ld de, wEnemyMovePower
-	ld a, [wPlayerSelectedMove]
-	jr z, .next
-; enemy's turn
-	ld hl, wPlayerSelectedMove
-	ld de, wPlayerMovePower
-	ld a, [wEnemySelectedMove]
-.next
-	cp COUNTER
-	ret nz ; return if not using Counter
-	ld a, $01
-	ld [wMoveMissed], a ; initialize the move missed variable to true (it is set to false below if the move hits)
-	ld a, [hl]
-	cp COUNTER
-	ret z ; miss if the opponent's last selected move is Counter.
-	ld a, [de]
-	and a
-	ret z ; miss if the opponent's last selected move's Base Power is 0.
-; check if the move the target last selected was Normal or Fighting type
-	inc de
-	ld a, [de]
-	and a ; normal type
-	jr z, .counterableType
-	cp FIGHTING
-	jr z, .counterableType
-; if the move wasn't Normal or Fighting type, miss
-	xor a
-	ret
-.counterableType
-	ld hl, wDamage
-	ld a, [hli]
-	or [hl]
-	ret z ; If we made it here, Counter still misses if the last move used in battle did no damage to its target.
-	      ; wDamage is shared by both players, so Counter may strike back damage dealt by the Counter user itself
-	      ; if the conditions meet, even though 99% of the times damage will come from the target.
-; if it did damage, double it
-	ld a, [hl]
-	add a
-	ldd [hl], a
-	ld a, [hl]
-	adc a
-	ld [hl], a
-	jr nc, .noCarry
-; damage is capped at 0xFFFF
-	ld a, $ff
-	ld [hli], a
-	ld [hl], a
-.noCarry
-	xor a
-	ld [wMoveMissed], a
-	call MoveHitTest ; do the normal move hit test in addition to Counter's special rules
-	xor a
+	or 1
 	ret
 
 ApplyAttackToEnemyPokemon:
 	ld a, [wPlayerMoveEffect]
-	cp OHKO_EFFECT
-	jr z, ApplyDamageToEnemyPokemon
 	cp SUPER_FANG_EFFECT
 	jr z, .superFangEffect
 	cp SPECIAL_DAMAGE_EFFECT
@@ -4981,10 +5019,10 @@ ApplyAttackToEnemyPokemon:
 	jr z, .storeDamage
 	cp NIGHT_SHADE
 	jr z, .storeDamage
-	ld b, SONICBOOM_DAMAGE ; 20
+	ld b, SONICBOOM_DAMAGE ; 25
 	cp SONICBOOM
 	jr z, .storeDamage
-	ld b, DRAGON_RAGE_DAMAGE ; 40
+	ld b, DRAGON_RAGE_DAMAGE ; 50
 	cp DRAGON_RAGE
 	jr z, .storeDamage
 ; Psywave
@@ -5067,8 +5105,6 @@ ApplyAttackToEnemyPokemonDone:
 
 ApplyAttackToPlayerPokemon:
 	ld a, [wEnemyMoveEffect]
-	cp OHKO_EFFECT
-	jr z, ApplyDamageToPlayerPokemon
 	cp SUPER_FANG_EFFECT
 	jr z, .superFangEffect
 	cp SPECIAL_DAMAGE_EFFECT
@@ -5465,132 +5501,17 @@ AdjustDamageForMoveType:
 	ld hl, wDamageMultipliers
 	set 7, [hl]
 .skipSameTypeAttackBonus
-	ld a, [wMoveType]
-	ld b, a
-	ld hl, TypeEffects
-.loop
-	ld a, [hli] ; a = "attacking type" of the current type pair
-	cp $ff
-	jr z, .done
-	cp b ; does move type match "attacking type"?
-	jr nz, .nextTypePair
-	ld a, [hl] ; a = "defending type" of the current type pair
-	cp d ; does type 1 of defender match "defending type"?
-	jr z, .matchingPairFound
-	cp e ; does type 2 of defender match "defending type"?
-	jr z, .matchingPairFound
-	jr .nextTypePair
-.matchingPairFound
-; if the move type matches the "attacking type" and one of the defender's types matches the "defending type"
-	push hl
-	push bc
-	inc hl
-	ld a, [wDamageMultipliers]
-	and $80
-	ld b, a
-	ld a, [hl] ; a = damage multiplier
-	ldh [hMultiplier], a
-	and a  ; cp NO_EFFECT
-	jr z, .gotMultiplier
-	cp NOT_VERY_EFFECTIVE
-	jr nz, .nothalf
-	ld a, [wDamageMultipliers]
-	and $7f
-	srl a
-	jr .gotMultiplier
-.nothalf
-	cp SUPER_EFFECTIVE
-	jr nz, .gotMultiplier
-	ld a, [wDamageMultipliers]
-	and $7f
-	sla a
-.gotMultiplier
-	add b
-	ld [wDamageMultipliers], a
-	xor a
-	ldh [hMultiplicand], a
-	ld hl, wDamage
-	ld a, [hli]
-	ldh [hMultiplicand + 1], a
-	ld a, [hld]
-	ldh [hMultiplicand + 2], a
-	call Multiply
-	ld a, 10
-	ldh [hDivisor], a
-	ld b, 4
-	call Divide
-	ldh a, [hQuotient + 2]
-	ld [hli], a
-	ld b, a
-	ldh a, [hQuotient + 3]
-	ld [hl], a
-	or b ; is damage 0?
-	jr nz, .skipTypeImmunity
-.typeImmunity
-; if damage is 0, make the move miss
-; this only occurs if a move that would do 2 or 3 damage is 0.25x effective against the target
-	inc a
-	ld [wMoveMissed], a
-.skipTypeImmunity
-	pop bc
-	pop hl
-.nextTypePair
-	inc hl
-	inc hl
-	jp .loop
-.done
+; v0.7: the matchups table + walk loop moved to bank $30
+; (engine/battle/type_effectiveness.asm). Battle Core was 2 bytes
+; over budget in debug builds after the matchups expansion.
+	farcall ApplyTypeEffectivenessToDamage
 	ret
 
-; function to tell how effective the type of an enemy attack is on the player's current pokemon
-; this doesn't take into account the effects that dual types can have
-; (e.g. 4x weakness / resistance, weaknesses and resistances canceling)
-; the result is stored in [wTypeEffectiveness]
-; as far is can tell, this is only used once in some AI code to help decide which move to use
-AIGetTypeEffectiveness:
-	ld a, [wEnemyMoveType]
-	ld d, a                    ; d = type of enemy move
-	ld hl, wBattleMonType
-	ld b, [hl]                 ; b = type 1 of player's pokemon
-	inc hl
-	ld c, [hl]                 ; c = type 2 of player's pokemon
-	; initialize to neutral effectiveness
-	ld a, $10 ; bug: should be EFFECTIVE (10)
-	ld [wTypeEffectiveness], a
-	ld hl, TypeEffects
-.loop
-	ld a, [hli]
-	cp $ff
-	ret z
-	cp d                      ; match the type of the move
-	jr nz, .nextTypePair1
-	ld a, [hli]
-	cp b                      ; match with type 1 of pokemon
-	jr z, .done
-	cp c                      ; or match with type 2 of pokemon
-	jr z, .done
-	jr .nextTypePair2
-.nextTypePair1
-	inc hl
-.nextTypePair2
-	inc hl
-	jr .loop
-.done
-	; 40% chance for Lorelei's Dewgong to ignore type effectiveness?
-	ld a, [wTrainerClass]
-	cp LORELEI
-	jr nz, .ok
-	ld a, [wEnemyMonSpecies]
-	cp DEWGONG
-	jr nz, .ok
-	call BattleRandom
-	cp $66 ; 40 percent
-	ret c
-.ok
-	ld a, [hl]
-	ld [wTypeEffectiveness], a ; store damage multiplier
-	ret
-
-INCLUDE "data/types/type_matchups.asm"
+; v0.7: AIGetTypeEffectiveness moved to bank $30
+; (engine/battle/type_effectiveness.asm). It was the only remaining
+; in-bank consumer of TypeEffects after the damage walk moved out.
+; Callers (callfar AIGetTypeEffectiveness from trainer_ai.asm) are
+; unaffected.
 
 ; some tests that need to pass for a move to hit
 MoveHitTest:
@@ -5686,6 +5607,35 @@ MoveHitTest:
 	ld a, [wEnemyMoveAccuracy]
 	ld b, a
 .doAccuracyCheck
+	; v0.7 hard mode boss accuracy edge (~±5pp = ±13/256). Applied
+	; BEFORE the wDifficulty/.DontRemoveMiss check below, so the
+	; existing 1/256 fix (which only runs in normal mode) sees the
+	; ORIGINAL b in normal mode (we no-op there) and the boss-edged b
+	; in hard mode (where the 1/256 fix is skipped anyway).
+	; Player turn = player attacking boss → -5pp (harder to hit).
+	; Enemy turn  = boss attacking player → +5pp (boss hits more).
+	push bc                      ; preserve b (the accuracy value)
+	call IsHardModeBossBattle
+	pop bc
+	jr z, .skipBossAccEdge
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .bossAccPlayerTurn
+	; enemy turn: b += 13, cap at $ff
+	ld a, b
+	add 13
+	jr nc, .saveBossAcc
+	ld a, $ff
+	jr .saveBossAcc
+.bossAccPlayerTurn
+	; player turn: b -= 13, floor at 0
+	ld a, b
+	sub 13
+	jr nc, .saveBossAcc
+	xor a
+.saveBossAcc
+	ld b, a
+.skipBossAccEdge
 	ld a, [wDifficulty] ; Check if player is on hard mode
 	and a
 	jr nz, .DontRemoveMiss ; Keep 1/256 chance to miss on hard mode
@@ -5883,6 +5833,15 @@ EnemyCanExecuteMove:
 	xor a
 	ld [wMonIsDisobedient], a
 	call PrintMonName1Text
+	; v0.7: AI PP fix. Mirror the player's DecrementPP call in
+	; PlayerCanExecuteMove. Vanilla Yellow simply never decremented
+	; enemy PP (effectively infinite). Now the AI plays by the same
+	; rules — see DecrementEnemyPP in engine/battle/decrement_pp.asm
+	; and the PP-aware path in SelectEnemyMove.
+	ld hl, DecrementEnemyPP
+	ld de, wEnemySelectedMove
+	ld b, BANK(DecrementEnemyPP)
+	call Bankswitch
 	ld a, [wEnemyMoveEffect]
 	ld hl, ResidualEffects1
 	ld de, $1
@@ -5982,11 +5941,17 @@ EnemyCheckIfMirrorMoveEffect:
 	call MetronomePickMove
 	jp CheckIfEnemyNeedsToChargeUp
 .notMetronomeEffect
+	; PURPLE YELLOW: same guard as in ExecutePlayerMove (see the equivalent site
+	; above). Only skip to the ResidualEffects2 effect for zero-power moves.
+	ld a, [wEnemyMovePower]
+	and a
+	jr nz, .skipEnemyResidualEffects2Dispatch
 	ld a, [wEnemyMoveEffect]
 	ld hl, ResidualEffects2
 	ld de, $1
 	call IsInArray
 	jp c, JumpMoveEffect
+.skipEnemyResidualEffects2Dispatch
 	ld a, [wMoveMissed]
 	and a
 	jr z, .moveDidNotMiss
@@ -6073,6 +6038,22 @@ CheckEnemyStatusConditions:
 .checkIfFrozen
 	bit FRZ, [hl]
 	jr z, .checkIfTrapped
+	; PURPLE YELLOW v0.5: decrement enemy freeze-turn counter, thaw at 0.
+	push hl
+	ld hl, wEnemyFreezeCounter
+	ld a, [hl]
+	and a
+	jr z, .enemyFreezeCounterUnderflow
+	dec [hl]
+	jr nz, .enemyStillFrozen
+.enemyFreezeCounterUnderflow
+	pop hl
+	res FRZ, [hl] ; thaw
+	ld hl, ThawedOutText
+	call PrintText
+	jr .checkIfTrapped
+.enemyStillFrozen
+	pop hl
 	ld hl, IsFrozenText
 	call PrintText
 	xor a
@@ -6179,7 +6160,7 @@ CheckEnemyStatusConditions:
 	xor a
 	ld [wAnimationType], a
 	ldh [hWhoseTurn], a
-	ld a, POUND
+	ld a, BUG_BITE ; placeholder generic-impact animation (was POUND)
 	call PlayMoveAnimation
 	ld a, $1
 	ldh [hWhoseTurn], a
@@ -6385,6 +6366,19 @@ LoadEnemyMonData:
 	ld b, a
 	call BattleRandom
 .storeDVs
+	; v0.7 hard mode boss DV override. IsHardModeBossBattle gates on
+	; trainer-battle + boss class, so wild and transformed paths fall
+	; through unchanged. Boss enemies get $ff/$ff (DV=15 in all 5
+	; stats including HP, via the standard DV encoding).
+	ld c, a                ; cache atk/def DVs (preserved by the push/pop bc below)
+	push bc
+	call IsHardModeBossBattle
+	pop bc
+	ld a, c                ; restore atk/def DVs
+	jr z, .writeDVs
+	ld a, $ff              ; boss override
+	ld b, $ff
+.writeDVs
 	ld hl, wEnemyMonDVs
 	ld [hli], a
 	ld [hl], b
@@ -6427,7 +6421,22 @@ LoadEnemyMonData:
 	inc hl
 	ld a, [hl]
 	ld [wEnemyMonStatus], a
-	jr .copyTypes
+	; v0.7 hard-mode boss HP fix (knob #8 follow-up). The $ff DV override
+	; at .writeDVs raised this mon's freshly-CalcStats'd MaxHP, but the
+	; current HP just copied above was computed by AddPartyMon with the
+	; un-boosted trainer DVs — so a fresh boss mon (e.g. the rival's Eevee)
+	; would display below full HP. Top current HP up to the new MaxHP.
+	; Gated on IsHardModeBossBattle, so Normal mode / wild / non-boss
+	; trainers are bit-identical. Safe to overwrite current HP for a boss:
+	; Gen 1 trainers never switch, so a boss mon reaches this path only on
+	; a fresh send-out, always at full party HP.
+	call IsHardModeBossBattle
+	jr z, .copyTypes
+	ld a, [wEnemyMonMaxHP]
+	ld [wEnemyMonHP], a
+	ld a, [wEnemyMonMaxHP + 1]
+	ld [wEnemyMonHP + 1], a
+	; fall through to .copyTypes
 .copyTypes
 	ld hl, wMonHTypes
 	ld de, wEnemyMonType
@@ -6673,14 +6682,21 @@ ApplyBurnAndParalysisPenaltiesToEnemy:
 
 ApplyBurnAndParalysisPenalties:
 	ldh [hWhoseTurn], a
-	call QuarterSpeedDueToParalysis
+	call HalveSpeedDueToParalysis
 	jp HalveAttackDueToBurn
 
-QuarterSpeedDueToParalysis:
+HalveSpeedDueToParalysis:
+; v0.7: was HalveSpeedDueToParalysis (/ 4) — now halves (/ 2) per modern
+; Pokemon (Gen 7+ behavior) and project owner's call. Rename + one less
+; srl/rr pair per side. Behaviour: halve current speed if statused.
+; (Idempotency caveat: still halves whatever's there — must only be called
+; right after a recalc-from-unmodified, never on a stat that already had
+; the penalty applied. See UpdateStatDone / UpdateLoweredStatDone in
+; effects.asm and LoadPlayerMon for the v0.7-correct call sites.)
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .playerTurn
-.enemyTurn ; quarter the player's speed
+.enemyTurn ; halve the player's speed
 	ld a, [wBattleMonStatus]
 	and 1 << PAR
 	ret z ; return if player not paralysed
@@ -6690,8 +6706,6 @@ QuarterSpeedDueToParalysis:
 	ld a, [hl]
 	srl a
 	rr b
-	srl a
-	rr b
 	ld [hli], a
 	or b
 	jr nz, .storePlayerSpeed
@@ -6699,7 +6713,7 @@ QuarterSpeedDueToParalysis:
 .storePlayerSpeed
 	ld [hl], b
 	ret
-.playerTurn ; quarter the enemy's speed
+.playerTurn ; halve the enemy's speed
 	ld a, [wEnemyMonStatus]
 	and 1 << PAR
 	ret z ; return if enemy not paralysed
@@ -6707,8 +6721,6 @@ QuarterSpeedDueToParalysis:
 	ld a, [hld]
 	ld b, a
 	ld a, [hl]
-	srl a
-	rr b
 	srl a
 	rr b
 	ld [hli], a
@@ -6871,7 +6883,7 @@ ApplyBadgeStatBoosts:
 	jr nz, .loop
 	ret
 
-; multiply stat at hl by 1.125
+; multiply stat at hl by 1.125 (Pikachu: x1.25 — the mascot gets a bigger badge boost)
 ; cap stat at MAX_STAT_VALUE
 .applyBoostToStat
 	ld a, [hli]
@@ -6883,7 +6895,7 @@ ApplyBadgeStatBoosts:
 	rr e
     ld a, [wBattleMonSpecies] ; Check if the species is Pikachu
     cp PIKACHU
-    jr nz, .continue ; times by 1.25 if its Pikachu
+    jr z, .continue ; Pikachu stops at de=stat/4 -> x1.25 (mascot boost); everyone else shifts once more (de=stat/8) -> x1.125
 	srl d
 	rr e
 .continue
@@ -7010,8 +7022,8 @@ HandleExplodingAnimation:
 	ld de, wEnemyBattleStatus1
 	ld a, [wEnemyMoveNum]
 .player
-	cp SELFDESTRUCT
-	jr z, .isExplodingMove
+	; SELFDESTRUCT was removed in the v0.5 movelist overhaul; only EXPLOSION
+	; remains as an exploding move.
 	cp EXPLOSION
 	ret nz
 .isExplodingMove
@@ -7029,8 +7041,10 @@ HandleExplodingAnimation:
 	ret nz
 	ld a, ANIMATIONTYPE_SHAKE_SCREEN_HORIZONTALLY_LIGHT
 	ld [wAnimationType], a
-	assert ANIMATIONTYPE_SHAKE_SCREEN_HORIZONTALLY_LIGHT == MEGA_PUNCH
-	; ld a, MEGA_PUNCH
+	; The original code relied on MEGA_PUNCH having the same numeric ID as
+	; ANIMATIONTYPE_SHAKE_SCREEN_HORIZONTALLY_LIGHT (both were $05). The v0.5
+	; movelist reorder broke that coincidence, so load the move ID explicitly.
+	ld a, EXPLOSION
 ; fallthrough
 PlayMoveAnimation:
 	ld [wAnimationID], a

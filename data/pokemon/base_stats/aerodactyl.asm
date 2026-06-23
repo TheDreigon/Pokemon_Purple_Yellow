@@ -1,7 +1,5 @@
 	db DEX_AERODACTYL ; pokedex id
-
-	db  80, 105,  65, 130,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 110, 80, 75, 120 ; hp atk def spc spd
 
 	db ROCK, FLYING ; type
 	db 45 ; catch rate
@@ -10,14 +8,15 @@
 	INCBIN "gfx/pokemon/front/aerodactyl.pic", 0, 1 ; sprite dimensions
 	dw AerodactylPicFront, AerodactylPicBack
 
-	db WING_ATTACK, AGILITY, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db BITE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,   FLAMETHROWER,   TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         DRAGON_RAGE,  EARTHQUAKE, MIMIC,          \
-	     DOUBLE_TEAM, REFLECT,      BIDE,         FIRE_BLAST,   SWIFT,         \
-		 SKY_ATTACK,  REST,         SUBSTITUTE,   FLY,  ROCK_SLIDE
+	; Rock/Flying apex predator pterodactyl, single-stage.
+	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, AGILITY, AERIAL_ACE, DRAGON_CLAW, \
+	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, SWORDS_DANCE, ROCK_SLIDE, \
+	     DOUBLE_EDGE, CUT, FLY, STRENGTH
 	; end
 
 	db 0 ; padding

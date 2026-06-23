@@ -93,26 +93,41 @@ _FuchsiaGymKogaSoulBadgeInfoText::
 	line "too!"
 	done
 
-_FuchsiaGymKogaReceivedTM06Text::
+_FuchsiaGymKogaReceivedTMText::
 	text "<PLAYER> received"
 	line "@"
 	text_ram wStringBuffer
 	text "!@"
 	text_end
 
-_FuchsiaGymKogaTM06ExplanationText::
+_FuchsiaGymKogaTMExplanationText::
 	text_start
-	para "TM06 contains"
+	para "TM34 contains"
 	line "TOXIC!"
 
-	para "It is a secret"
-	line "technique over"
-	cont "400 years old!"
+	para "A poison that"
+	line "festers and grows"
+	cont "worse each turn..."
+
+	para "A secret over"
+	line "400 years old!"
 	done
 
-_FuchsiaGymKogaTM06NoRoomText::
+_FuchsiaGymKogaTMNoRoomText::
 	text "Make space for"
 	line "this, child!"
+	done
+
+_FuchsiaGymKogaReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_FuchsiaGymKogaCandyCommentText::
+	text_start
+
+	para "Sustenance for"
+	line "the path ahead."
 	done
 
 _FuchsiaGymRocker1BattleText::

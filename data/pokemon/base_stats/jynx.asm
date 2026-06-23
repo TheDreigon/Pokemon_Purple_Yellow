@@ -1,25 +1,23 @@
 	db DEX_JYNX ; pokedex id
-
-	db  65,  50,  35,  95,  95
-	;   hp  atk  def  spd  spc
-
-	db ICE, PSYCHIC_TYPE ; type
+	base_stat_row 65, 60, 50, 110, 95 ; hp atk def spc spd
+	db GHOST, ICE ; type
 	db 45 ; catch rate
 	db 137 ; base exp
 
 	INCBIN "gfx/pokemon/front/jynx.pic", 0, 1 ; sprite dimensions
 	dw JynxPicFront, JynxPicBack
 
-	db POUND, LOVELY_KISS, NO_MOVE, NO_MOVE ; level 1 learnset
+	db DOUBLESLAP, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     PSYCHIC_M,    TELEPORT,     MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         METRONOME,    SKULL_BASH,   REST,         PSYWAVE,      \
-	     SUBSTITUTE
+	; Ghost/Ice Fairy-coded singer; single-stage psychic special
+	; attacker. HM FLASH.
+	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ICY_PULSE, NIGHT_SHADE, CONFUSE_RAY, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, DAZZLE_GLEAM, FAKE_TEARS, CHARM, \
+	     EXTRASENSORY, SCARY_FACE, PSYCHIC_M, LIGHT_SCREEN, ICE_BEAM, \
+	     DARK_PULSE, SHADOW_BALL, REFLECT, CALM_MIND, FLASH
 	; end
 
 	db 0 ; padding

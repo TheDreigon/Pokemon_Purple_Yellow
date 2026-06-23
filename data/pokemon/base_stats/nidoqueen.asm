@@ -1,7 +1,5 @@
 	db DEX_NIDOQUEEN ; pokedex id
-
-	db  90,  82,  87,  76,  75
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 85, 85, 80, 80 ; hp atk def spc spd
 
 	db POISON, GROUND ; type
 	db 45 ; catch rate
@@ -10,17 +8,17 @@
 	INCBIN "gfx/pokemon/front/nidoqueen.pic", 0, 1 ; sprite dimensions
 	dw NidoqueenPicFront, NidoqueenPicBack
 
-	db TACKLE, SCRATCH, DIG, BODY_SLAM ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWL, TACKLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, HORN_DRILL, BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     \
-	     BLIZZARD,     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      \
-	     SEISMIC_TOSS, RAGE,         THUNDERBOLT,  THUNDER,      EARTHQUAKE,   \
-	     FISSURE,      MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     FIRE_BLAST,   SKULL_BASH,   REST,         ROCK_SLIDE,   SUBSTITUTE,   \
-	     SURF,         STRENGTH
+	; Matriarch, fairy-tinged Poison/Ground apex. HM CUT/STRENGTH.
+	; Last-stage fun moves via TM.
+	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, BULK_UP, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
+	     POISON_BITE, FAKE_TEARS, CHARM, TOXIC, INTIMIDATE, \
+	     TAKE_DOWN, SWORDS_DANCE, CALM_MIND, EARTHQUAKE, ROCK_SLIDE, \
+	     DOUBLE_EDGE, CUT, STRENGTH
 	; end
 
 	db 0 ; padding

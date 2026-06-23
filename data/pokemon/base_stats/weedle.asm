@@ -1,7 +1,5 @@
 	db DEX_WEEDLE ; pokedex id
-
-	db  40,  35,  30,  50,  20
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 35, 30, 20, 50 ; hp atk def spc spd
 
 	db BUG, POISON ; type
 	db 255 ; catch rate
@@ -10,10 +8,14 @@
 	INCBIN "gfx/pokemon/front/weedle.pic", 0, 1 ; sprite dimensions
 	dw WeedlePicFront, WeedlePicBack
 
-	db POISON_STING, STRING_SHOT, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db BUG_BITE, STRING_SHOT, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
+	; Joke-tier baby spike-bug. The larva is too small and primitive
+	; even for the silk-substitute trick that only Kakuna gets, so no
+	; TMs/HMs at all. Consistent with Kakuna (SUBSTITUTE only) and
+	; Beedrill (full warrior-bee set).
 	tmhm
 	; end
 

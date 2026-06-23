@@ -1,7 +1,3 @@
-UnknownText_2812:: ; unreferenced
-	text_far _PokemonText
-	text_end
-
 ; this function is used to display sign messages, sprite dialog, etc.
 ; INPUT: [hSpriteIndexOrTextID] = sprite ID or text ID
 DisplayTextID::
@@ -73,7 +69,24 @@ MACRO dict2
 .not\@
 ENDM
 
+; Inline body for the TX_SCRIPT_TIERED_MART dispatch. The script payload
+; carries:
+;   db TX_SCRIPT_TIERED_MART
+;   db TYPE        ; TIERED_MART_TYPE_REGULAR / _ELITE
+;   db count, items, ..., $ff   (the per-mart fixed extras, e.g. TMs)
+; We snapshot TYPE into wMartType (still in the map's ROM bank, before
+; the bank switch), then have LoadItemList copy the extras into wItemList,
+; and finally farcall the bank1 handler which does the heavy work.
+MACRO dispatch_tiered_mart
+	inc hl                       ; -> TYPE byte
+	ld a, [hli]                  ; load TYPE; hl now -> extras count
+	ld [wMartType], a
+	call LoadItemList            ; copies extras to wItemList
+	farcall TieredMartHandler
+ENDM
+
 	dict  TX_SCRIPT_MART,                    DisplayPokemartDialogue
+	dict2 TX_SCRIPT_TIERED_MART,             dispatch_tiered_mart
 	dict  TX_SCRIPT_POKECENTER_NURSE,        DisplayPokemonCenterDialogue
 	dict  TX_SCRIPT_PLAYERS_PC,              TextScript_ItemStoragePC
 	dict  TX_SCRIPT_BILLS_PC,                TextScript_BillsPC
@@ -143,6 +156,10 @@ DisplayPokemartDialogue::
 	ld [wListMenuID], a
 	homecall DisplayPokemartDialogue_
 	jp AfterDisplayingTextID
+
+; The TX_SCRIPT_TIERED_MART path is handled entirely via the
+; `dispatch_tiered_mart` macro inlined into the dict2 entry above
+; (see DisplayTextID). Real work lives in TieredMartHandler (bank1).
 
 PokemartGreetingText::
 	text_far _PokemartGreetingText

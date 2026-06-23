@@ -1,7 +1,5 @@
 	db DEX_HORSEA ; pokedex id
-
-	db  30,  40,  70,  60,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 30, 40, 70, 60, 60 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 225 ; catch rate
@@ -10,14 +8,12 @@
 	INCBIN "gfx/pokemon/front/horsea.pic", 0, 1 ; sprite dimensions
 	dw HorseaPicFront, HorseaPicBack
 
-	db BUBBLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WATER_GUN, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    \
-	     ICE_BEAM,     BLIZZARD,     RAGE,         MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,         SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE,   \
-	     SURF
+	; Ink-spitting seahorse pre-evo; lean Water backbone. HM SURF.
+	tmhm WATER_PULSE, ICY_PULSE, AGILITY, ICE_BEAM, SURF
 	; end
 
 	db 0 ; padding

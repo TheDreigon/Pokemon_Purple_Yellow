@@ -1,7 +1,5 @@
 	db DEX_PIKACHU ; pokedex id
-
-	db  60,  55,  50,  90,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 55, 50, 80, 95 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 190 ; catch rate
@@ -10,15 +8,17 @@
 	INCBIN "gfx/pokemon/front/pikachu.pic", 0, 1 ; sprite dimensions
 	dw PikachuPicFront, PikachuPicBack
 
-	db THUNDERSHOCK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  PAY_DAY,      SUBMISSION,   SEISMIC_TOSS, RAGE,         \
-	     THUNDERBOLT,  THUNDER,      MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         SWIFT,        SKULL_BASH,   REST,         THUNDER_WAVE, \
-	     SUBSTITUTE,   CUT,    FLY,    SURF,       STRENGTH,     FLASH
+	; Electric mouse pre-evo:
+	; QUICK_ATTACK/BODY_SLAM/SHOCK_WAVE/IRON_TAIL/THUNDER_WAVE/
+	; AGILITY/CHARM/THUNDERBOLT plus FAKE_TEARS/LIGHT_SCREEN/REFLECT.
+	; HM FLASH.
+	tmhm QUICK_ATTACK, BODY_SLAM, SHOCK_WAVE, IRON_TAIL, THUNDER_WAVE, \
+	     AGILITY, FAKE_TEARS, CHARM, LIGHT_SCREEN, REFLECT, \
+	     THUNDERBOLT, FLASH
 	; end
 
 	db 0 ; padding

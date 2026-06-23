@@ -1,9 +1,6 @@
 	db DEX_MAGNETON ; pokedex id
-
-	db  50,  60,  95,  70, 120
-	;   hp  atk  def  spd  spc
-
-	db ELECTRIC, ELECTRIC ; type
+	base_stat_row 60, 75, 100, 120, 65 ; hp atk def spc spd
+	db ELECTRIC, STEEL ; type
 	db 60 ; catch rate
 	db 161 ; base exp
 
@@ -14,10 +11,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  HYPER_BEAM,   RAGE,         \
-	     THUNDERBOLT,  THUNDER,      TELEPORT,     MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         SWIFT,        REST,         THUNDER_WAVE, \
-	     SUBSTITUTE,   FLASH,     TRI_ATTACK
+	; Apex Electric/Steel magnet cluster. Last-stage fun moves allowed.
+	tmhm BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, IRON_HEAD, LIGHT_SCREEN, REFLECT, \
+	     THUNDERBOLT
 	; end
 
 	db 0 ; padding

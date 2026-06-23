@@ -58,7 +58,7 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const LEAF_STONE    ; $2F
 	const CARD_KEY      ; $30
 	const NUGGET        ; $31
-	const ITEM_32       ; $32
+	const PP_MAX        ; $32 (formerly ITEM_32 ghost slot; repurposed in v0.5)
 	const POKE_DOLL     ; $33
 	const FULL_HEAL     ; $34
 	const REVIVE        ; $35
@@ -116,7 +116,7 @@ DEF NUM_FLOORS EQU const_value - 1 - NUM_ITEMS
 ; HMs are defined before TMs, so the actual number of TM definitions
 ; is not yet available. The TM quantity is hard-coded here and must
 ; match the actual number below.
-DEF NUM_TMS EQU 50
+DEF NUM_TMS EQU 55
 
 DEF __tmhm_value__ = NUM_TMS + 1
 
@@ -157,62 +157,67 @@ MACRO add_tm
 ENDM
 
 DEF TM01 EQU const_value
-	add_tm MEGA_PUNCH   ; $C9
-	add_tm RAZOR_WIND   ; $CA
-	add_tm SWORDS_DANCE ; $CB
-	add_tm FLAMETHROWER ; $CC
-	add_tm MEGA_KICK    ; $CD
-	add_tm TOXIC        ; $CE
-	add_tm HORN_DRILL   ; $CF
-	add_tm BODY_SLAM    ; $D0
-	add_tm TAKE_DOWN    ; $D1
-	add_tm DOUBLE_EDGE  ; $D2
-	add_tm BUBBLEBEAM   ; $D3
-	add_tm WATER_GUN    ; $D4
-	add_tm ICE_BEAM     ; $D5
-	add_tm BLIZZARD     ; $D6
-	add_tm HYPER_BEAM   ; $D7
-	add_tm PAY_DAY      ; $D8
-	add_tm SUBMISSION   ; $D9
-	add_tm COUNTER      ; $DA
-	add_tm SEISMIC_TOSS ; $DB
-	add_tm RAGE         ; $DC
-	add_tm MEGA_DRAIN   ; $DD
-	add_tm SOLARBEAM    ; $DE
-	add_tm DRAGON_RAGE  ; $DF
-	add_tm THUNDERBOLT  ; $E0
-	add_tm THUNDER      ; $E1
-	add_tm EARTHQUAKE   ; $E2
-	add_tm FISSURE      ; $E3
-	add_tm DIG          ; $E4
-	add_tm PSYCHIC_M    ; $E5
-	add_tm TELEPORT     ; $E6
-	add_tm MIMIC        ; $E7
-	add_tm DOUBLE_TEAM  ; $E8
-	add_tm REFLECT      ; $E9
-	add_tm BIDE         ; $EA
-	add_tm METRONOME    ; $EB
-	add_tm SELFDESTRUCT ; $EC
-	add_tm EGG_BOMB     ; $ED
-	add_tm FIRE_BLAST   ; $EE
-	add_tm SWIFT        ; $EF
-	add_tm SKULL_BASH   ; $F0
-	add_tm SOFTBOILED   ; $F1
-	add_tm DREAM_EATER  ; $F2
-	add_tm SKY_ATTACK   ; $F3
-	add_tm REST         ; $F4
-	add_tm THUNDER_WAVE ; $F5
-	add_tm PSYWAVE      ; $F6
-	add_tm EXPLOSION    ; $F7
-	add_tm ROCK_SLIDE   ; $F8
-	add_tm TRI_ATTACK   ; $F9
-	add_tm SUBSTITUTE   ; $FA
+	add_tm ROCK_THROW,    ; $C9  TM01
+	add_tm QUICK_ATTACK,  ; $CA  TM02  (was KARATE_CHOP)
+	add_tm BIND,          ; $CB  TM03  (was QUICK_ATTACK)
+	add_tm FAINT_ATTACK,  ; $CC  TM04  (was DAZZLE_GLEAM)
+	add_tm BULLDOZE,      ; $CD  TM05
+	add_tm WATER_PULSE,   ; $CE  TM06
+	add_tm ICY_PULSE,     ; $CF  TM07  (was DOUBLE_TEAM — new move v0.7)
+	add_tm SEISMIC_TOSS,  ; $D0  TM08
+	add_tm RAGE,          ; $D1  TM09  (was DRAGON_CLAW)
+	add_tm BODY_SLAM,     ; $D2  TM10
+	add_tm FLAME_BURST,   ; $D3  TM11  (was IRON_TAIL)
+	add_tm SHOCK_WAVE,    ; $D4  TM12  (was THUNDERBOLT — also renamed from DISCHARGE)
+	add_tm IRON_TAIL,     ; $D5  TM13  (was IRON_HEAD)
+	add_tm NIGHT_SHADE,   ; $D6  TM14
+	add_tm CONFUSE_RAY,   ; $D7  TM15
+	add_tm IGNITE,        ; $D8  TM16
+	add_tm THUNDER_WAVE,  ; $D9  TM17
+	add_tm BULK_UP,       ; $DA  TM18
+	add_tm MIMIC,         ; $DB  TM19
+	add_tm MIRROR_MOVE,   ; $DC  TM20
+	add_tm SUBSTITUTE,    ; $DD  TM21
+	add_tm METRONOME,     ; $DE  TM22
+	add_tm GIGA_DRAIN,    ; $DF  TM23
+	add_tm DAZZLE_GLEAM,  ; $E0  TM24  (was FAINT_ATTACK)
+	add_tm AGILITY,       ; $E1  TM25  (was BIND)
+	add_tm POISON_BITE,   ; $E2  TM26
+	add_tm IRON_HEAD,     ; $E3  TM27  (was LEECH_LIFE)
+	add_tm FAKE_TEARS,    ; $E4  TM28
+	add_tm AERIAL_ACE,    ; $E5  TM29
+	add_tm CHARM,         ; $E6  TM30  (was HONE_CLAWS)
+	add_tm HURRICANE,     ; $E7  TM31
+	add_tm MEGAHORN,      ; $E8  TM32
+	add_tm DRAGON_CLAW,   ; $E9  TM33  (was DRAGON_RAGE)
+	add_tm TOXIC,         ; $EA  TM34
+	add_tm EXTRASENSORY,  ; $EB  TM35
+	add_tm INTIMIDATE,    ; $EC  TM36
+	add_tm SCARY_FACE,    ; $ED  TM37
+	add_tm LEECH_LIFE,    ; $EE  TM38  (was DOUBLE_EDGE)
+	add_tm TAKE_DOWN,     ; $EF  TM39
+	add_tm PSYCHIC_M,     ; $F0  TM40
+	add_tm LIGHT_SCREEN,  ; $F1  TM41
+	add_tm ICE_BEAM,      ; $F2  TM42
+	add_tm DARK_PULSE,    ; $F3  TM43  (was SOLARBEAM)
+	add_tm SHADOW_BALL,   ; $F4  TM44  (was ROCK_SLIDE)
+	add_tm FLAMETHROWER,  ; $F5  TM45
+	add_tm REFLECT,       ; $F6  TM46
+	add_tm THUNDERBOLT,   ; $F7  TM47  (was AGILITY)
+	add_tm SWORDS_DANCE,  ; $F8  TM48
+	add_tm CALM_MIND,     ; $F9  TM49
+	add_tm EARTHQUAKE,    ; $FA  TM50
+	add_tm ROCK_SLIDE,    ; $FB  TM51  (was THUNDER)
+	add_tm PETAL_DANCE,   ; $FC  TM52  (was FIRE_BLAST)
+	add_tm DOUBLE_EDGE,   ; $FD  TM53  (was HYDRO_PUMP)
+	add_tm THRASH,        ; $FE  TM54  (was BLIZZARD)
+	add_tm OUTRAGE,       ; $FF  TM55
 ASSERT NUM_TMS == const_value - TM01, "NUM_TMS ({d:NUM_TMS}) does not match the number of add_tm definitions"
 
 DEF NUM_TM_HM EQU NUM_TMS + NUM_HMS
 
-; 50 TMs + 5 HMs = 55 learnable TM/HM flags per Pokémon.
-; These fit in 7 bytes, with one unused bit left over.
+; 55 TMs + 5 HMs = 60 learnable TM/HM flags per Pokémon.
+; These fit in 8 bytes, with 4 unused bits left over.
 DEF __tmhm_value__ = NUM_TM_HM + 1
 DEF UNUSED_TMNUM EQU __tmhm_value__
 

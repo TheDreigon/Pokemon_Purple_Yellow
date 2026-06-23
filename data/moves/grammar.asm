@@ -6,28 +6,28 @@ ExclamationPointMoveSets:
 
 ; set 1
 	db RECOVER
-	db SELFDESTRUCT
+	db EXPLOSION ; replaces removed SELFDESTRUCT
 	db AMNESIA
 	db 0 ; end set
 
 ; set 2
-	db MEDITATE
+	db CALM_MIND ; replaces removed MEDITATE
 	db AGILITY
 	db TELEPORT
 	db MIMIC
 	db DOUBLE_TEAM
 	db BIDE ; corrected JP grammar: moved from set 1 in pokered
-	db BARRAGE
+	db FURY_ATTACK ; replaces removed BARRAGE
 	db 0 ; end set
 
 ; set 3
-	db POUND
+	db TACKLE ; replaces removed POUND
 	db SCRATCH
 	db VICEGRIP
 	db WING_ATTACK
 	db FLY
 	db BIND
-	db SLAM
+	db HEAVY_SLAM ; replaces removed SLAM
 	db HORN_ATTACK
 	db BODY_SLAM
 	db WRAP
@@ -36,10 +36,9 @@ ExclamationPointMoveSets:
 	db LEER
 	db BITE
 	db GROWL
-	db ROAR
+	db SCARY_FACE ; replaces removed ROAR
 	db SING
 	db PECK
-	db COUNTER
 	db STRENGTH
 	db ABSORB
 	db STRING_SHOT
@@ -49,22 +48,19 @@ ExclamationPointMoveSets:
 	db TOXIC
 	db SCREECH
 	db HARDEN
-	db MINIMIZE
 	db WITHDRAW
-	db DEFENSE_CURL
 	db METRONOME
 	db LICK
 	db CLAMP
 	db CONSTRICT
 	db POISON_GAS
 	db LEECH_LIFE
-	db BUBBLE
+	db WATER_GUN ; replaces removed BUBBLE
 	db FLASH
-	db SPLASH
-	db ACID_ARMOR
-	db FURY_SWIPES
+	db DEFENSE_CURL
+	db FURY_ATTACK ; replaces removed FURY_SWIPES
 	db REST
-	db SHARPEN
+	db COIL ; replaces removed SHARPEN
 	db SLASH
 	db SUBSTITUTE
 	db 0 ; end set

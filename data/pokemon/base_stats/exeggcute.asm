@@ -1,7 +1,5 @@
 	db DEX_EXEGGCUTE ; pokedex id
-
-	db  60,  40,  80,  40,  60
-	;   hp  atk  def  spd  spc
+	base_stat_row 60, 35, 30, 80, 30 ; hp atk def spc spd
 
 	db GRASS, PSYCHIC_TYPE ; type
 	db 90 ; catch rate
@@ -10,14 +8,12 @@
 	INCBIN "gfx/pokemon/front/exeggcute.pic", 0, 1 ; sprite dimensions
 	dw ExeggcutePicFront, ExeggcutePicBack
 
-	db BARRAGE, HYPNOSIS, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db ABSORB, GROWTH, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         PSYCHIC_M,    \
-	     TELEPORT,     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     SELFDESTRUCT, EGG_BOMB,     REST,         PSYWAVE,      EXPLOSION,    \
-	     SUBSTITUTE,   SOFTBOILED,	 MEGA_DRAIN,   DREAM_EATER
+	; Immobile Grass/Psychic egg cluster, short backbone.
+	tmhm EXTRASENSORY, PSYCHIC_M, DARK_PULSE, PETAL_DANCE
 	; end
 
 	db 0 ; padding

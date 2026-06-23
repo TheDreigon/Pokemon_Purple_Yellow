@@ -1,9 +1,6 @@
 	db DEX_RATICATE ; pokedex id
-
-	db  55,  81,  60,  97,  50
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 70, 90, 65, 60, 90 ; hp atk def spc spd
+	db NORMAL, DARK ; type
 	db 90 ; catch rate
 	db 116 ; base exp
 
@@ -14,10 +11,12 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE,	TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   RAGE,         \
-	     THUNDERBOLT,  THUNDER,      DIG,          MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,         SWIFT,        SKULL_BASH,   REST,         SUBSTITUTE
+	; Matured Normal/Dark rodent, physical bruiser. Sharp fangs justify
+	; POISON_BITE/FAINT_ATTACK; gnawing incisors learn HM CUT.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
+	     POISON_BITE, TOXIC, INTIMIDATE, TAKE_DOWN, DOUBLE_EDGE, \
+	     CUT
 	; end
 
 	db 0 ; padding

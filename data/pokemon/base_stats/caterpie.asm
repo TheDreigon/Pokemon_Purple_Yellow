@@ -1,7 +1,5 @@
 	db DEX_CATERPIE ; pokedex id
-
-	db  45,  30,  35,  45,  20
-	;   hp  atk  def  spd  spc
+	base_stat_row 45, 30, 35, 20, 45 ; hp atk def spc spd
 
 	db BUG, BUG ; type
 	db 255 ; catch rate
@@ -10,11 +8,13 @@
 	INCBIN "gfx/pokemon/front/caterpie.pic", 0, 1 ; sprite dimensions
 	dw CaterpiePicFront, CaterpiePicBack
 
-	db TACKLE, STRING_SHOT, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db BUG_BITE, STRING_SHOT, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm CUT      
+	; Joke-tier baby caterpillar, almost cannot fight. Only LEECH_LIFE,
+	; befitting a tiny bug.
+	tmhm LEECH_LIFE
 	; end
 
 	db 0 ; padding

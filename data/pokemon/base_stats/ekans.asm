@@ -1,7 +1,5 @@
 	db DEX_EKANS ; pokedex id
-
-	db  35,  60,  44,  55,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 30, 60, 45, 40, 80 ; hp atk def spc spd
 
 	db POISON, POISON ; type
 	db 255 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/ekans.pic", 0, 1 ; sprite dimensions
 	dw EkansPicFront, EkansPicBack
 
-	db LEER, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db WRAP, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         \
-	     MEGA_DRAIN,   EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         SKULL_BASH,   REST,         ROCK_SLIDE,   \
-	     SUBSTITUTE,   STRENGTH
+	; Poison snake (pre-evo backbone). HM CUT.
+	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, IRON_TAIL, SUBSTITUTE, \
+	     AGILITY, POISON_BITE, TOXIC, TAKE_DOWN, CUT
 	; end
 
 	db 0 ; padding

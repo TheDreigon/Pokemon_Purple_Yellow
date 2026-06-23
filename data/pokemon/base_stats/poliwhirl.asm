@@ -1,7 +1,5 @@
 	db DEX_POLIWHIRL ; pokedex id
-
-	db  65,  65,  65,  90,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 65, 65, 65, 70, 60 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 120 ; catch rate
@@ -10,16 +8,15 @@
 	INCBIN "gfx/pokemon/front/poliwhirl.pic", 0, 1 ; sprite dimensions
 	dw PoliwhirlPicFront, PoliwhirlPicBack
 
-	db BUBBLE, HYPNOSIS, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db DOUBLESLAP, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         EARTHQUAKE,   \
-	     FISSURE,      PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  BIDE,         \
-	     METRONOME,    SKULL_BASH,   REST,         PSYWAVE,      SUBSTITUTE,   \
-	     SURF,         STRENGTH,   DREAM_EATER
+	; Muscled mid-evo Water:
+	; WATER_PULSE/BODY_SLAM/BULK_UP/SURF plus SEISMIC_TOSS/ICE_BEAM.
+	; HM SURF/STRENGTH.
+	tmhm WATER_PULSE, ICY_PULSE, SEISMIC_TOSS, BODY_SLAM, BULK_UP, \
+	     ICE_BEAM, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

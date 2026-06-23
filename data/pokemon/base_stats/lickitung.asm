@@ -1,25 +1,24 @@
 	db DEX_LICKITUNG ; pokedex id
-
-	db  95,  70,  85,  30,  75
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 95, 70, 75, 70, 40 ; hp atk def spc spd
+	db NORMAL, POISON ; type
 	db 45 ; catch rate
 	db 127 ; base exp
 
 	INCBIN "gfx/pokemon/front/lickitung.pic", 0, 1 ; sprite dimensions
 	dw LickitungPicFront, LickitungPicBack
 
-	db LICK, SUPERSONIC, NO_MOVE, NO_MOVE ; level 1 learnset
+	db LICK, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   SWORDS_DANCE, MEGA_KICK,    TOXIC,        BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     \
-	     BLIZZARD,     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         THUNDERBOLT,  THUNDER,      EARTHQUAKE,   FISSURE,      \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         FIRE_BLAST,   SKULL_BASH,   \
-	     REST,         SUBSTITUTE,   CUT,          SURF,         STRENGTH
+	; Normal/Poison single-stage, bulky reptile with a huge
+	; tongue. Core BIND/SEISMIC_TOSS/BODY_SLAM/TOXIC/DOUBLE_EDGE.
+	; Bonus BULLDOZE/CONFUSE_RAY/LEECH_LIFE/TAKE_DOWN. HM STRENGTH. Fun
+	; (last-stage)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BIND, BULLDOZE, SEISMIC_TOSS, BODY_SLAM, CONFUSE_RAY, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, TOXIC, \
+	     LEECH_LIFE, TAKE_DOWN, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

@@ -1,7 +1,5 @@
 	db DEX_VENUSAUR ; pokedex id
-
-	db  80,  82,  83,  80, 100
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 85, 90, 105, 80 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate
@@ -11,13 +9,16 @@
 	dw VenusaurPicFront, VenusaurPicBack
 
 	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     HYPER_BEAM,   RAGE,         MEGA_DRAIN,   SOLARBEAM,    MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         REST,         SUBSTITUTE,   \
-	     CUT,		   ROCK_SLIDE,   EARTHQUAKE
+	; Full-bloom Grass/Poison — superset of Ivysaur. Bloom drains
+	; (GIGA_DRAIN) and spreads venom (TOXIC); heavy body powers
+	; EARTHQUAKE/STRENGTH. Last-stage fun moves via TM.
+	tmhm BIND, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, GIGA_DRAIN, TOXIC, INTIMIDATE, \
+	     TAKE_DOWN, LIGHT_SCREEN, REFLECT, EARTHQUAKE, PETAL_DANCE, \
+	     DOUBLE_EDGE, CUT, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

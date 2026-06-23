@@ -1,7 +1,5 @@
 	db DEX_GOLEM ; pokedex id
-
-	db  80, 110, 130,  45,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 85, 110, 135, 65, 65 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate
@@ -10,15 +8,15 @@
 	INCBIN "gfx/pokemon/front/golem.pic", 0, 1 ; sprite dimensions
 	dw GolemPicFront, GolemPicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db TACKLE, DEFENSE_CURL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         METRONOME,    SELFDESTRUCT, FIRE_BLAST,   \
-	     REST,         EXPLOSION,    ROCK_SLIDE,   SUBSTITUTE,   STRENGTH
+	; Apex turtle-shell rock (Rock/Ground). HM STRENGTH.
+	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, IRON_HEAD, SCARY_FACE, TAKE_DOWN, \
+	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH
 	; end
 
 	db 0 ; padding

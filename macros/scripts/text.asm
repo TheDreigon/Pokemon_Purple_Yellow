@@ -137,10 +137,11 @@ MACRO sound_cry_pidgeot
 	db TX_SOUND_CRY_PIDGEOT
 ENDM
 
-	const TX_SOUND_CRY_DEWGONG ; $16
-MACRO sound_cry_dewgong
-	db TX_SOUND_CRY_DEWGONG
-ENDM
+	const_skip ; $16 - was TX_SOUND_CRY_DEWGONG; constant + macro removed in v0.5.
+	;        The handler that recognised this opcode lived in
+	;        TextCommand_SOUND.play and the table entry in TextCommandSounds
+	;        (both in home/text.asm); both are gone too. Slot kept skipped so
+	;        TX_FAR stays at $17 (used by every text_far call).
 
 	const TX_FAR ; $17
 MACRO text_far
@@ -185,7 +186,48 @@ MACRO script_players_pc
 	db TX_SCRIPT_PLAYERS_PC
 ENDM
 
-	const_skip ; $fb
+	const TX_SCRIPT_TIERED_MART ; $fb
+; A regular pokemart whose inventory is the global RegularMartTieredInventory
+; filtered by the player's badge count, optionally followed by a list of
+; extra fixed items (typically the TMs that a particular mart sells alongside
+; its regular goods, e.g. Fuchsia/Cinnabar).
+;
+; Three variants share a single TX opcode + dispatch path. They differ only
+; in a single TYPE byte the engine reads to decide whether to also append
+; the post-E4 / post-rematch elite addons (ETHER, MAX_ETHER, ELIXER,
+; MAX_ELIXER, PP_UP, PP_MAX, MAX_REVIVE, RARE_CANDY).
+;
+;   TIERED_MART_TYPE_REGULAR ($00) - T0..T8 only, every "real" mart.
+;   TIERED_MART_TYPE_ELITE   ($01) - T0..T8 + elite addons (Indigo Plateau
+;                                    pre-E4 clerk + Celadon Mart 2F regular
+;                                    clerk).
+DEF TIERED_MART_TYPE_REGULAR EQU 0
+DEF TIERED_MART_TYPE_ELITE   EQU 1
+
+MACRO script_tiered_mart
+	db TX_SCRIPT_TIERED_MART
+	db TIERED_MART_TYPE_REGULAR
+	assert _NARG <= 12, "script_tiered_mart: at most 12 extras fit in wMartExtras"
+	db _NARG ; number of extra fixed items (0 if pure tiered)
+	IF _NARG
+		db \# ; the extra items (e.g. TMs)
+	ENDC
+	db -1 ; end
+ENDM
+
+; Same as `script_tiered_mart`, but the engine appends the post-E4 elite
+; addons (and the post-rematch elite addons once the player has redone the
+; E4 once). Used by Indigo Plateau clerk and Celadon Mart 2F clerk.
+MACRO script_tiered_mart_elite
+	db TX_SCRIPT_TIERED_MART
+	db TIERED_MART_TYPE_ELITE
+	assert _NARG <= 12, "script_tiered_mart_elite: at most 12 extras fit in wMartExtras"
+	db _NARG
+	IF _NARG
+		db \#
+	ENDC
+	db -1
+ENDM
 
 	const_skip ; $fa
 

@@ -70,21 +70,6 @@ _FellText::
 	text " fell!"
 	prompt
 
-_RanFromBattleText::
-	text "<USER>"
-	line "ran from battle!"
-	prompt
-
-_RanAwayScaredText::
-	text "<TARGET>"
-	line "ran away scared!"
-	prompt
-
-_WasBlownAwayText::
-	text "<TARGET>"
-	line "was blown away!"
-	prompt
-
 _ChargeMoveEffectText::
 	text "<USER>@"
 	text_end
@@ -198,11 +183,6 @@ _HitWithRecoilText::
 	line "hit with recoil!"
 	prompt
 
-_ConvertedTypeText::
-	text "Converted type to"
-	line "<TARGET>'s!"
-	prompt
-
 _StatusChangesEliminatedText::
 	text "All STATUS changes"
 	line "are eliminated!"
@@ -227,6 +207,11 @@ _FellAsleepBecameHealthyText::
 _RegainedHealthText::
 	text "<USER>"
 	line "regained health!"
+	prompt
+
+_RegainedStatusText::
+	text "<USER>"
+	line "felt refreshed!"
 	prompt
 
 _TransformedText::

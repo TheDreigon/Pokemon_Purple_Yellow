@@ -66,13 +66,13 @@ ItemUsePtrTable:
 	dw ItemUseEvoStone   ; LEAF_STONE
 	dw UnusableItem      ; CARD_KEY
 	dw UnusableItem      ; NUGGET
-	dw UnusableItem      ; ??? PP_UP
+	dw ItemUsePPUp       ; PP_MAX (formerly the ITEM_32 ghost slot; v0.5)
 	dw ItemUsePokedoll   ; POKE_DOLL
 	dw ItemUseMedicine   ; FULL_HEAL
 	dw ItemUseMedicine   ; REVIVE
 	dw ItemUseMedicine   ; MAX_REVIVE
 	dw ItemUseGuardSpec  ; GUARD_SPEC
-	dw ItemUseSuperRepel ; SUPER_REPL
+	dw ItemUseSuperRepel ; SUPER_REPEL
 	dw ItemUseMaxRepel   ; MAX_REPEL
 	dw ItemUseDireHit    ; DIRE_HIT
 	dw UnusableItem      ; COIN
@@ -914,6 +914,27 @@ ItemUseVitamin:
 	jp nz, ItemUseNotTime
 
 ItemUseMedicine:
+	; v0.7 hard-mode trainer/boss policy: Revive/Max Revive blocked.
+	; Allowed in wild battles AND in any battle on Normal mode.
+	; Reason: revives are the other half of the boss PP-stall loop —
+	; without them, the player can't keep a sacrificial Chansey alive
+	; forever to drain boss PP into Struggle.
+	ld a, [wcf91]
+	cp REVIVE
+	jr c, .reviveCheckDone        ; below REVIVE: not gated
+	cp MAX_REVIVE + 1
+	jr nc, .reviveCheckDone       ; above MAX_REVIVE: not gated
+	ld a, [wIsInBattle]
+	and a
+	jr z, .reviveCheckDone        ; not in battle: allow
+	dec a
+	jr z, .reviveCheckDone        ; wild battle: allow
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .reviveCheckDone       ; trainer battle on Normal mode: allow
+	ld hl, BattleItemsCantBeUsedHereText
+	jp ItemUseFailed
+.reviveCheckDone
 	ld a, [wPartyCount]
 	and a
 	jp z, Func_e4bf
@@ -965,7 +986,8 @@ ItemUseMedicine:
 ; if using softboiled
 	ld a, [wWhichPokemon]
 	cp d ; is the pokemon trying to use softboiled on itself?
-	jr z, ItemUseMedicine ; if so, force another choice
+	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: c7e8127's
+	                      ; Revive/MaxRevive prologue pushed this past jr range)
 .checkItemType
 	ld a, [wcf91]
 	cp REVIVE
@@ -2191,6 +2213,32 @@ ItemUsePPUp:
 	jp nz, ItemUseNotTime
 
 ItemUsePPRestore:
+	; v0.7 hard-mode trainer/boss policy: PP refills (Ether/Max Ether/
+	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
+	; battle on Normal mode. Reason: blocks the "Revive + Elixer"
+	; PP-stall loop against bosses while staying symmetric with the
+	; upcoming boss item bag (knob #10).
+	;
+	; PP_UP/PP_MAX dispatch to ItemUsePPUp (which blocks all in-battle
+	; use, then falls through here for out-of-battle handling). The
+	; ETHER..MAX_ELIXER range check below scopes the gate to refills
+	; only — defensive against future dispatch changes.
+	ld a, [wIsInBattle]
+	and a
+	jr z, .allowItem        ; not in battle: allow
+	dec a
+	jr z, .allowItem        ; wild battle (wIsInBattle=1): allow
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .allowItem       ; trainer battle on Normal mode: allow
+	ld a, [wcf91]
+	cp ETHER
+	jr c, .allowItem        ; below ETHER (PP_UP): allow
+	cp MAX_ELIXER + 1
+	jr nc, .allowItem       ; above MAX_ELIXER (PP_MAX): allow
+	ld hl, BattleItemsCantBeUsedHereText
+	jp ItemUseFailed
+.allowItem
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wcf91]
@@ -2221,6 +2269,8 @@ ItemUsePPRestore:
 
 .usePPItem
 	ld a, [wPPRestoreItem]
+	cp PP_MAX
+	jp z, .usePPMax ; if PP Max (Gen 2 QoL: bumps move to max PP Ups in one go)
 	cp ELIXER
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02
@@ -2249,7 +2299,7 @@ ItemUsePPRestore:
 	pop hl
 	ld a, [wPPRestoreItem]
 	cp ETHER
-	jr nc, .useEther ; if Ether or Max Ether
+	jp nc, .useEther ; if Ether or Max Ether (jp not jr: PP_MAX expansion pushed .useEther out of jr range)
 .usePPUp
 	ld bc, wPartyMon1PP - wPartyMon1Moves
 	add hl, bc
@@ -2267,6 +2317,37 @@ ItemUsePPRestore:
 	ld a, 1 ; 1 PP Up used
 	ld [wd11e], a
 	call RestoreBonusPP ; add the bonus PP to current PP
+	ld a, SFX_HEAL_AILMENT
+	call PlaySound
+	ld hl, PPIncreasedText
+	call PrintText
+	jp .done
+
+; PP Max bumps the chosen move straight to the maximum 3 PP Ups in one use,
+; applying each missing bonus to the current PP. Functionally equivalent to
+; calling PP Up enough times to hit the cap, but in a single inventory action.
+.usePPMax
+	ld bc, wPartyMon1PP - wPartyMon1Moves
+	add hl, bc                 ; hl -> chosen move's PP byte
+	ld a, [hl]
+	cp 3 << 6                  ; already at 3 PP Ups?
+	jr c, .ppMaxLoop
+	ld hl, PPMaxedOutText
+	call PrintText
+	jp .chooseMove
+.ppMaxLoop
+	ld a, [hl]
+	cp 3 << 6
+	jr nc, .ppMaxFinish        ; reached the cap
+	add 1 << 6                 ; +1 PP Up
+	ld [hl], a
+	push hl
+	ld a, 1                    ; signal "1 PP Up used" so RestoreBonusPP
+	ld [wd11e], a              ; only adds one bonus per call
+	call RestoreBonusPP
+	pop hl
+	jr .ppMaxLoop
+.ppMaxFinish
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld hl, PPIncreasedText
@@ -2517,7 +2598,7 @@ ItemUseTMHM:
 	ld a, [wcf91]
 	cp TM_THUNDERBOLT ; are we teaching thunderbolt to the player pikachu?
 	jr z, .teachingThunderboltOrThunderToPlayerPikachu
-	cp TM_THUNDER ; are we teaching thunder then?
+	cp TM_ROCK_SLIDE ; are we teaching thunder then?
 	jr nz, .notTeachingThunderboltOrThunderToPikachu
 .teachingThunderboltOrThunderToPlayerPikachu
 	ld a, $5
@@ -2611,6 +2692,15 @@ ItemUseFailed:
 
 ItemUseNotTimeText:
 	text_far _ItemUseNotTimeText
+	text_end
+
+; Local wrapper for item handlers in this bank to use with PrintText. We
+; can't share core.asm's `ItemsCantBeUsedHereText` wrapper directly (single-
+; colon labels in RGBDS are still globally exported, so reusing the name
+; would be a link conflict — see commit history). Both wrappers point at
+; the same exported `_ItemsCantBeUsedHereText::` in data/text/text_2.asm.
+BattleItemsCantBeUsedHereText:
+	text_far _ItemsCantBeUsedHereText
 	text_end
 
 ItemUseNotYoursToUseText:

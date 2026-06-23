@@ -1,9 +1,6 @@
 	db DEX_KABUTOPS ; pokedex id
-
-	db  60, 115, 105,  80,  70
-	;   hp  atk  def  spd  spc
-
-	db ROCK, WATER ; type
+	base_stat_row 75, 115, 110, 80, 80 ; hp atk def spc spd
+	db ROCK, BUG ; type
 	db 45 ; catch rate
 	db 201 ; base exp
 
@@ -14,11 +11,13 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,   SWORDS_DANCE, MEGA_KICK,    TOXIC,        BODY_SLAM,    \
-	     TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     \
-	     BLIZZARD,     HYPER_BEAM,   SUBMISSION,   SEISMIC_TOSS, RAGE,         \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         SKULL_BASH,   \
-	     REST,         SUBSTITUTE,   CUT,      SURF,  ROCK_SLIDE
+	; Apex aquatic slasher fossil (Rock/Bug). Scythe arms power
+	; SWORDS_DANCE/CUT/DRAGON_CLAW. Cold-sea ICY_PULSE/ICE_BEAM.
+	; Last-stage fun moves MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm ROCK_THROW, WATER_PULSE, ICY_PULSE, BODY_SLAM, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DRAGON_CLAW, LEECH_LIFE, \
+	     TAKE_DOWN, ICE_BEAM, SWORDS_DANCE, ROCK_SLIDE, DOUBLE_EDGE, \
+	     CUT, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

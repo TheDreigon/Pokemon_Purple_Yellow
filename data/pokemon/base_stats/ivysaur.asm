@@ -1,7 +1,5 @@
 	db DEX_IVYSAUR ; pokedex id
-
-	db  60,  62,  63,  60,  80
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 60, 65, 75, 60 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate
@@ -11,12 +9,13 @@
 	dw IvysaurPicFront, IvysaurPicBack
 
 	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     RAGE,         MEGA_DRAIN,   SOLARBEAM,    MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         REST,         SUBSTITUTE,   CUT
+	; Matured Grass/Poison; superset of Bulbasaur. HM CUT/STRENGTH/FLASH.
+	tmhm BIND, BULLDOZE, BODY_SLAM, GIGA_DRAIN, TOXIC, \
+	     TAKE_DOWN, LIGHT_SCREEN, REFLECT, EARTHQUAKE, PETAL_DANCE, \
+	     DOUBLE_EDGE, CUT, STRENGTH, FLASH
 	; end
 
 	db 0 ; padding

@@ -1,7 +1,5 @@
 	db DEX_SANDSHREW ; pokedex id
-
-	db  50,  75,  85,  40,  30
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 70, 90, 30, 40 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
 	db 255 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/sandshrew.pic", 0, 1 ; sprite dimensions
 	dw SandshrewPicFront, SandshrewPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     SUBMISSION,   SEISMIC_TOSS, RAGE,         EARTHQUAKE,   FISSURE,      \
-	     DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         SWIFT,        \
-	     SKULL_BASH,   REST,         ROCK_SLIDE,   SUBSTITUTE,   CUT,          \
+	; Armoured Ground armadillo, defensive digger pre-evo.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, IRON_TAIL, IRON_HEAD, \
+	     TAKE_DOWN, EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, CUT, \
 	     STRENGTH
 	; end
 

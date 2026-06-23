@@ -1,9 +1,6 @@
 	db DEX_MANKEY ; pokedex id
-
-	db  40,  80,  35,  70,  35
-	;   hp  atk  def  spd  spc
-
-	db FIGHTING, FIGHTING ; type
+	base_stat_row 40, 80, 35, 30, 80 ; hp atk def spc spd
+	db FIGHTING, DARK ; type
 	db 190 ; catch rate
 	db 74 ; base exp
 
@@ -14,11 +11,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  PAY_DAY,      SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         THUNDERBOLT,  THUNDER,      DIG,          MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         METRONOME,    SWIFT,        SKULL_BASH,   \
-	     REST,         ROCK_SLIDE,   SUBSTITUTE,   STRENGTH
+	; Wild rage-fueled monkey, grappler-fighter backbone.
+	tmhm ROCK_THROW, QUICK_ATTACK, BIND, SEISMIC_TOSS, RAGE, \
+	     BODY_SLAM, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
+	     OUTRAGE, STRENGTH
 	; end
 
 	db 0 ; padding

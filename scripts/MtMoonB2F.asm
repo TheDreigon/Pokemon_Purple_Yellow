@@ -332,9 +332,9 @@ MtMoonB2FScript12:
 	ld hl, MtMoonB2FJessieJamesEndBattleText
 	ld de, MtMoonB2FJessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES ; v0.7: was OPP_ROCKET / party $2a — promoted to dedicated boss class
 	ld [wCurOpponent], a
-	ld a, $2a
+	ld a, $1
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a
@@ -424,7 +424,7 @@ MtMoonB2F_TextPointers:
 	dw_const MtMoonB2FDomeFossilText,               TEXT_MTMOONB2F_DOME_FOSSIL
 	dw_const MtMoonB2FHelixFossilText,              TEXT_MTMOONB2F_HELIX_FOSSIL
 	dw_const PickUpItemText,                        TEXT_MTMOONB2F_HP_UP
-	dw_const PickUpItemText,                        TEXT_MTMOONB2F_TM_MEGA_PUNCH
+	dw_const PickUpItemText,                        TEXT_MTMOONB2F_TM_FAINT_ATTACK
 	dw_const MtMoonB2FSuperNerdThenThisIsMineText,  TEXT_MTMOONB2F_SUPER_NERD_THEN_THIS_IS_MINE
 	dw_const MtMoonB2FText12,                       TEXT_MTMOONB2F_TEXT12
 	dw_const MtMoonB2FText13,                       TEXT_MTMOONB2F_TEXT13

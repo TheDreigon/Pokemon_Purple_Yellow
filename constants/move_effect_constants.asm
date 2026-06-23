@@ -9,7 +9,7 @@
 	const POISON_SIDE_EFFECT1        ; $02
 	const DRAIN_HP_EFFECT            ; $03
 	const BURN_SIDE_EFFECT1          ; $04
-	const FREEZE_SIDE_EFFECT         ; $05
+	const FREEZE_SIDE_EFFECT1        ; $05  15% freeze chance (Ice Beam)
 	const PARALYZE_SIDE_EFFECT1      ; $06
 	const EXPLODE_EFFECT             ; $07 Explosion, Self Destruct
 	const DREAM_EATER_EFFECT         ; $08
@@ -39,7 +39,7 @@
 	const SLEEP_EFFECT               ; $20
 	const POISON_SIDE_EFFECT2        ; $21
 	const BURN_SIDE_EFFECT2          ; $22
-	const UNUSED_EFFECT_23           ; $23
+	const FREEZE_SIDE_EFFECT2        ; $23  30% freeze chance (Blizzard)
 	const PARALYZE_SIDE_EFFECT2      ; $24
 	const FLINCH_SIDE_EFFECT2        ; $25
 	const OHKO_EFFECT                ; $26 moves like Horn Drill
@@ -76,13 +76,13 @@
 	const DEFENSE_DOWN_SIDE_EFFECT   ; $45
 	const SPEED_DOWN_SIDE_EFFECT     ; $46
 	const SPECIAL_DOWN_SIDE_EFFECT   ; $47
-	const_skip                       ; $48
-	const_skip                       ; $49
-	const_skip                       ; $4A
-	const_skip                       ; $4B
-	const CONFUSION_SIDE_EFFECT      ; $4C
+	const ATTACK_DEFENSE_UP1_EFFECT  ; $48  user Atk+1 & Def+1 (Bulk Up)
+	const ACCURACY_EVASION_DOWN1_EFFECT ; $49  target Acc-1 & Evasion-1 (Flash)
+	const BURN_EFFECT                ; $4A  always burn (Will-O-Wisp)
+	const POISON_SIDE_EFFECT3        ; $4B  45% poison chance (Toxic Fangs)
+	const CONFUSION_SIDE_EFFECT1     ; $4C
 	const TWINEEDLE_EFFECT           ; $4D
-	const_skip                       ; $4E
+	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)
 	const SUBSTITUTE_EFFECT          ; $4F
 	const HYPER_BEAM_EFFECT          ; $50
 	const RAGE_EFFECT                ; $51
@@ -91,4 +91,14 @@
 	const LEECH_SEED_EFFECT          ; $54
 	const SPLASH_EFFECT              ; $55
 	const DISABLE_EFFECT             ; $56
+	const SPEED_EVASION_UP1_EFFECT   ; $57  user Speed+1 & Evasion+1 (new Agility)
+	const CONFUSION_SIDE_EFFECT2     ; $58  30% confusion (Hurricane, Spore Daze)
+	const SPECIAL_SPEED_DOWN1_EFFECT ; $59  target Spc-1 & Speed-1 (new Eerie Impulse)
+	const ATTACK_UP1_DOWN1_EFFECT    ; $5A  user Atk+1 / target Atk-1 (Fierce Roar)
+	const SPECIAL_UP1_HEAL_EFFECT    ; $5B  user Spc+1 + heal 1/4 max HP (Growth)
+	const TRI_STATUS_SIDE_EFFECT     ; $5C  ~30% to inflict random {par/brn/frz}, ~10% each (Tri Attack)
+	const CONFUSION_SIDE_EFFECT3     ; $5D  45% confusion (new Psychic). Heaviest tier of the 15/30/45 confusion ladder.
+	const SPEED_EVASION_DOWN1_EFFECT ; $5E  target Speed-1 & Evasion-1 (new Psychic Bind). Mirror of SPEED_EVASION_UP1_EFFECT.
+	const SPECIAL_SPEED_UP1_EFFECT   ; $5F  user Spc+1 & Speed+1 (new Quiver Dance). Mirror of SPECIAL_SPEED_DOWN1_EFFECT.
+	const PARALYZE_SIDE_EFFECT3      ; $60  45% paralyze chance (Mind Break). Heaviest tier of the 15/30/45 paralysis ladder.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

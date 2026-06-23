@@ -1,24 +1,23 @@
 	db DEX_PORYGON ; pokedex id
-
-	db  75,  70,  70,  40,  95
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 75, 75, 75, 100, 75 ; hp atk def spc spd
+	db NORMAL, ELECTRIC ; type
 	db 45 ; catch rate
 	db 130 ; base exp
 
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions
 	dw PorygonPicFront, PorygonPicBack
 
-	db TACKLE, CONVERSION, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   RAGE,         THUNDERBOLT,  THUNDER,      PSYCHIC_M,    \
-	     TELEPORT,     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     SWIFT,        SKULL_BASH,   REST,         THUNDER_WAVE, PSYWAVE,      \
-	     TRI_ATTACK,   SUBSTITUTE,   FLASH
+	; Single-stage digital construct:
+	; SHOCK_WAVE/THUNDER_WAVE/AGILITY/LIGHT_SCREEN/REFLECT/
+	; THUNDERBOLT/FLASH plus PSYCHIC_M. HM FLASH.
+	; Last-stage fun: MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, \
+	     REFLECT, THUNDERBOLT, FLASH
 	; end
 
 	db 0 ; padding

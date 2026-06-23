@@ -51,6 +51,7 @@ TrainerDataPointers:
 	dw JanineData
 	dw JoyData
 	dw JennyData
+	dw JessieAndJamesData
 	assert_table_length NUM_TRAINERS
 
 ; if first byte != $FF, then
@@ -553,10 +554,10 @@ GiovanniData:
 	db $FF, 53, DUGTRIO, 54, NIDOQUEEN, 55, PERSIAN,  54, NIDOKING, 55, RHYDON, 0
 
 RocketData:
-; Mt. Moon B2F
-	db 13, RATTATA, ZUBAT, 0
-	db 11, SANDSHREW, RATTATA, ZUBAT, 0
-	db 12, ZUBAT, EKANS, 0
+; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
+	db 14, RATICATE, 0 ; ROCKET3 (lone Raticate)
+	db 12, RATTATA, ZUBAT, 0 ; ROCKET1
+	db 12, EKANS, ZUBAT, 0 ; ROCKET2
 ; Unused
 	db 16, RATICATE, 0
 ; Cerulean City
@@ -616,11 +617,14 @@ RocketData:
 	db 38, RATICATE, MUK, GOLBAT, MAROWAK, ARBOK, 0
 ; Unused
 	db 32, CUBONE, DROWZEE, MAROWAK, 0
-; Jessie & James
-	db $FF, 15, EKANS, 16, MEOWTH, 15, KOFFING, 0 ; Mt. Moon B2F
-	db $FF, 28, KOFFING, 29, MEOWTH, 28, ARBOK, 0 ; Rocket Hideout B4F
-	db $FF, 33, MEOWTH, 31, ARBOK, 30, LICKITUNG, 31, WEEZING, 0 ; Pokémon Tower 7F
-	db $FF, 42, WEEZING, 41, LICKITUNG, 42, ARBOK, 44, MEOWTH, 43, VICTREEBEL, 0 ; Silph Co. 11F
+; Jessie & James — MOVED to JessieAndJamesData (boss class, parties $01-$04).
+; These 4 parties (Rocket party $2a-$2d) are now orphans referenced by no
+; script. Kept here so the SUBSEQUENT party indices ($2e-$31, the unused
+; tail) don't shift. Safe to remove if those tail entries also go.
+	db $FF, 15, EKANS, 16, MEOWTH, 15, KOFFING, 0 ; Mt. Moon B2F (orphan)
+	db $FF, 28, KOFFING, 29, MEOWTH, 28, ARBOK, 0 ; Rocket Hideout B4F (orphan)
+	db $FF, 33, MEOWTH, 31, ARBOK, 30, LICKITUNG, 31, WEEZING, 0 ; Pokémon Tower 7F (orphan)
+	db $FF, 42, WEEZING, 41, LICKITUNG, 42, ARBOK, 44, MEOWTH, 43, VICTREEBEL, 0 ; Silph Co. 11F (orphan)
 ; Unused
 	db 16, KOFFING, 0
 	db 27, KOFFING, 0
@@ -807,3 +811,17 @@ JoyData:
 JennyData:
 ; Vermilion City
 	db 65, PIDGEOT, BLASTOISE, TANGELA, GENGAR, PARASECT, ARCANINE, 0
+
+JessieAndJamesData:
+; v0.7: promoted from OPP_ROCKET parties $2a-$2d to a dedicated boss
+; class so they receive the Hard mode boss buffs (+2 lvl, max DVs,
+; +crit, all-4-AI-layers, ±5 acc edge). Parties are copies of the
+; originals — see RocketData "; MOVED" comment for the orphan block.
+; Mt. Moon B2F (party $01)
+	db $FF, 15, EKANS, 16, MEOWTH, 15, KOFFING, 0
+; Rocket Hideout B4F (party $02)
+	db $FF, 28, KOFFING, 29, MEOWTH, 28, ARBOK, 0
+; Pokémon Tower 7F (party $03)
+	db $FF, 33, MEOWTH, 31, ARBOK, 30, LICKITUNG, 31, WEEZING, 0
+; Silph Co. 11F (party $04)
+	db $FF, 42, WEEZING, 41, LICKITUNG, 42, ARBOK, 44, MEOWTH, 43, VICTREEBEL, 0

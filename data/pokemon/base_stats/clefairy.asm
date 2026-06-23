@@ -1,26 +1,23 @@
 	db DEX_CLEFAIRY ; pokedex id
-
-	db  70,  45,  48,  35,  60
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 70, 45, 50, 70, 45 ; hp atk def spc spd
+	db FAIRY, FAIRY ; type
 	db 150 ; catch rate
 	db 68 ; base exp
 
 	INCBIN "gfx/pokemon/front/clefairy.pic", 0, 1 ; sprite dimensions
 	dw ClefairyPicFront, ClefairyPicBack
 
-	db POUND, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_FAST ; growth rate
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, BODY_SLAM,  TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         SOLARBEAM,    \
-	     THUNDERBOLT,  THUNDER,      PSYCHIC_M,    TELEPORT,     MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         METRONOME,    FIRE_BLAST,   \
-	     SKULL_BASH,   REST,         THUNDER_WAVE, PSYWAVE,      TRI_ATTACK,   \
-	     SUBSTITUTE,   STRENGTH,     FLASH,  SOFTBOILED
+	; Mystical moon-fairy pre-evo. Fairy/psychic kit
+	; (DAZZLE_GLEAM/CHARM/FAKE_TEARS/EXTRASENSORY/PSYCHIC_M), screens
+	; (LIGHT_SCREEN/REFLECT/CALM_MIND), BODY_SLAM. 2 fun moves
+	; (MIMIC/METRONOME).
+	tmhm BODY_SLAM, MIMIC, METRONOME, DAZZLE_GLEAM, FAKE_TEARS, \
+	     CHARM, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
+	     CALM_MIND, FLASH
 	; end
 
 	db 0 ; padding

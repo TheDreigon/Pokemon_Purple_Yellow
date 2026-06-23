@@ -1,9 +1,6 @@
 	db DEX_MAGNEMITE ; pokedex id
-
-	db  25,  35,  70,  45,  95
-	;   hp  atk  def  spd  spc
-
-	db ELECTRIC, ELECTRIC ; type
+	base_stat_row 20, 40, 75, 80, 40 ; hp atk def spc spd
+	db ELECTRIC, STEEL ; type
 	db 190 ; catch rate
 	db 89 ; base exp
 
@@ -14,10 +11,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         THUNDERBOLT,  \
-	     THUNDER,      TELEPORT,     MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         SWIFT,        REST,         THUNDER_WAVE, SUBSTITUTE,   \
-	     FLASH
+	; Electric/Steel magnet pre-evo.
+	tmhm BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, IRON_HEAD, LIGHT_SCREEN, \
+	     REFLECT, THUNDERBOLT
 	; end
 
 	db 0 ; padding

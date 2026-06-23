@@ -1,9 +1,6 @@
 	db DEX_BULBASAUR ; pokedex id
-
-	db  45,  49,  49,  45,  65
-	;   hp  atk  def  spd  spc
-
-	db GRASS, POISON ; type
+	base_stat_row 55, 50, 50, 65, 45 ; hp atk def spc spd
+	db GRASS, GRASS ; type
 	db 45 ; catch rate
 	db 64 ; base exp
 
@@ -11,12 +8,13 @@
 	dw BulbasaurPicFront, BulbasaurPicBack
 
 	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     RAGE,         MEGA_DRAIN,   SOLARBEAM,    MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         REST,         SUBSTITUTE,   CUT
+	; Pure Grass baby. Grass STAB GIGA_DRAIN/PETAL_DANCE. Vine BIND.
+	; HM CUT (vine).
+	tmhm BIND, GIGA_DRAIN, TAKE_DOWN, LIGHT_SCREEN, REFLECT, \
+	     PETAL_DANCE, CUT
 	; end
 
 	db 0 ; padding

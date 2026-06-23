@@ -32,6 +32,7 @@ UsableItems_PartyMenu:
 	db X_SPEED
 	db X_SPECIAL
 	db PP_UP
+	db PP_MAX
 	db ETHER
 	db MAX_ETHER
 	db ELIXER

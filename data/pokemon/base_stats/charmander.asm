@@ -1,7 +1,5 @@
 	db DEX_CHARMANDER ; pokedex id
-
-	db  39,  52,  43,  65,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 55, 40, 55, 65 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
 	db 45 ; catch rate
@@ -11,14 +9,13 @@
 	dw CharmanderPicFront, CharmanderPicBack
 
 	db SCRATCH, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, SWORDS_DANCE, FLAMETHROWER, MEGA_KICK, TOXIC,  BODY_SLAM,      \
-	     TAKE_DOWN,    DOUBLE_EDGE,  SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         DRAGON_RAGE,  DIG,          MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         FIRE_BLAST,   SWIFT,        SKULL_BASH,   \
-	     REST,         SUBSTITUTE,   CUT,          STRENGTH
+	; Baby fire reptile. Fire offense (FLAME_BURST/IGNITE/FLAMETHROWER)
+	; plus its dragon heritage (DRAGON_CLAW/OUTRAGE). Claws enable CUT.
+	tmhm QUICK_ATTACK, FLAME_BURST, IGNITE, DRAGON_CLAW, TAKE_DOWN, \
+	     FLAMETHROWER, OUTRAGE, CUT, FLASH
 	; end
 
 	db 0 ; padding

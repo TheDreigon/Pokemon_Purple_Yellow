@@ -1,7 +1,5 @@
 	db DEX_SQUIRTLE ; pokedex id
-
-	db  44,  48,  65,  43,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 50, 65, 55, 45 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 45 ; catch rate
@@ -11,14 +9,12 @@
 	dw SquirtlePicFront, SquirtlePicBack
 
 	db TACKLE, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         DIG,          \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         SKULL_BASH,   \
-	     REST,         SUBSTITUTE,   SURF,         STRENGTH
+	; Baby water turtle.
+	tmhm WATER_PULSE, BODY_SLAM, TAKE_DOWN, LIGHT_SCREEN, REFLECT, \
+	     DOUBLE_EDGE, CUT, SURF
 	; end
 
 	db 0 ; padding

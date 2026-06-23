@@ -1,7 +1,5 @@
 	db DEX_LAPRAS ; pokedex id
-
-	db 130,  85,  80,  60,  95
-	;   hp  atk  def  spd  spc
+	base_stat_row 130, 75, 95, 100, 60 ; hp atk def spc spd
 
 	db WATER, ICE ; type
 	db 45 ; catch rate
@@ -11,15 +9,18 @@
 	dw LaprasPicFront, LaprasPicBack
 
 	db WATER_GUN, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HORN_DRILL,   BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   \
-	     RAGE,         SOLARBEAM,    DRAGON_RAGE,  THUNDERBOLT,  THUNDER,      \
-	     PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     SKULL_BASH,   REST,         PSYWAVE,      SUBSTITUTE,   SURF,         \
-	     STRENGTH
+	; Docile singing ferry, huge Water/Ice tank. Core
+	; WATER_PULSE/ICY_PULSE/BODY_SLAM/CONFUSE_RAY/CHARM/ICE_BEAM. Bonus
+	; DAZZLE_GLEAM/TOXIC/EXTRASENSORY/PSYCHIC_M/LIGHT_SCREEN/REFLECT. HM
+	; SURF/STRENGTH. Fun (last-stage)
+	; MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, CONFUSE_RAY, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, CHARM, \
+	     TOXIC, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, ICE_BEAM, \
+	     REFLECT, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

@@ -6,21 +6,20 @@ _ViridianCityOldManYouNeedToWeakenTheTargetText::
 
 _ViridianCityOldManHadMyCoffeeNowText::
 	text "Ahh, I've had my"
-	line "coffee now and I"
-	cont "feel great!"
+	line "coffee now..."
+
+	para "I'm sorry if I"
+	line "was rude to you!"
 
 	para "Sure, you can go"
 	line "through!"
 
-	para "I'm sorry I was"
-	line "so rude to you!"
+	para "As my apology,"
+	line "I'll give you a"
+	cont "#MON tip soon."
 
-	para "I see you're using"
-	line "a #DEX."
-
-	para "I'll show you how"
-	line "to catch #MON"
-	cont "as my apology."
+	para "Come back once I"
+	line "get my bearings."
 	done
 
 _ViridianCityOldManLosingMyTouchText::
@@ -46,6 +45,25 @@ _ViridianCityOldManLosingMyTouchText::
 
 	para "I have to get some"
 	line "at #MON MART."
+	done
+
+; v0.7: the catching tip moved here, from the (now removed) catching demo's
+; "losing my touch" text. Spoken by the old man's later street appearance.
+_ViridianCityOldManTipText::
+	text "Oh, I remember"
+	line "you!"
+
+	para "Here's the"
+	line "#MON tip I"
+	cont "promised!"
+
+	para "Hold START while"
+	line "pressing A on"
+	cont "STATS..."
+
+	para "You can check a"
+	line "#MON's growth"
+	cont "potential!"
 	done
 
 _ViridianCityYoungster1Text::
@@ -145,31 +163,31 @@ _ViridianCityOldManSleepyPrivatePropertyText::
 	done
 
 ViridianCityFisherYouCanHaveThisText::
-	text "Yawn!"
-	line "I must have dozed"
-	cont "off in the sun."
+	text "Aaah... peaceful."
 
-	para "I had this dream"
-	line "about a DROWZEE"
-	cont "eating my dream."
-	cont "What's this?"
-	cont "Where did this TM"
-	cont "come from?"
+	para "I come here when"
+	line "I want to think."
 
-	para "This is spooky!"
-	line "Here, you can"
-	cont "have this TM."
+	para "No one bothers"
+	line "me in my garden."
+
+	para "Here, take this."
+	line "Helps clear the"
+	cont "head."
 	prompt
 
 _ViridianCityFisherReceivedTM42Text::
 	text "<PLAYER> received"
-	line "TM42 DRMEATR!@"
+	line "@"
+	text_ram wStringBuffer
+	text "!@"
 	text_end
 
 _ViridianCityFisherTM42ExplanationText::
-	text "TM42 contains"
-	line "DREAM EATER..."
-	cont "...Snore..."
+	text "TM42 is CALM MIND."
+
+	para "Steady the spirit"
+	line "to boost SPECIAL."
 	done
 
 _ViridianCityFisherTM42NoRoomText::

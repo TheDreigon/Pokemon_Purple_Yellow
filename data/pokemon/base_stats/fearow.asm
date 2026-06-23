@@ -1,7 +1,5 @@
 	db DEX_FEAROW ; pokedex id
-
-	db  65,  90,  65, 100,  61
-	;   hp  atk  def  spd  spc
+	base_stat_row 70, 95, 65, 65, 95 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 90 ; catch rate
@@ -10,15 +8,14 @@
 	INCBIN "gfx/pokemon/front/fearow.pic", 0, 1 ; sprite dimensions
 	dw FearowPicFront, FearowPicBack
 
-	db PECK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,     TOXIC,     TAKE_DOWN,     \
-		 DOUBLE_EDGE,	HYPER_BEAM,   RAGE,         MIMIC,       DOUBLE_TEAM,   \
-	     BIDE,		SWIFT,        SKY_ATTACK,      REST,         SUBSTITUTE,    \
-		 FLY
-
+	; Apex raptor, DRILL_PECK signature, honorary Dark/Flying. HM CUT/FLY.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AERIAL_ACE, INTIMIDATE, TAKE_DOWN, SWORDS_DANCE, \
+	     DOUBLE_EDGE, CUT, FLY
 	; end
 
 	db 0 ; padding

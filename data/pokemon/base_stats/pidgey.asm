@@ -1,7 +1,5 @@
 	db DEX_PIDGEY ; pokedex id
-
-	db  40,  45,  40,  56,  35
-	;   hp  atk  def  spd  spc
+	base_stat_row 45, 45, 40, 35, 55 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
 	db 255 ; catch rate
@@ -10,13 +8,13 @@
 	INCBIN "gfx/pokemon/front/pidgey.pic", 0, 1 ; sprite dimensions
 	dw PidgeyPicFront, PidgeyPicBack
 
-	db GUST, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,    TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     SWIFT,        SKY_ATTACK,   REST,         SUBSTITUTE,   FLY
+	; Baby raptor. Flight kit: QUICK_ATTACK/AERIAL_ACE/HURRICANE.
+	; HM FLY.
+	tmhm QUICK_ATTACK, AERIAL_ACE, HURRICANE, FLY
 	; end
 
 	db 0 ; padding

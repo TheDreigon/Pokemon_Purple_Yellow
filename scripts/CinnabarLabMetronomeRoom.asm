@@ -11,23 +11,23 @@ CinnabarLabMetronomeRoom_TextPointers:
 
 CinnabarLabMetronomeRoomScientist1Text:
 	text_asm
-	CheckEvent EVENT_GOT_TM35
+	CheckEvent EVENT_GOT_TM22
 	jr nz, .got_item
 	ld hl, .Text
 	call PrintText
 	lb bc, TM_METRONOME, 1
 	call GiveItem
 	jr nc, .bag_full
-	ld hl, .ReceivedTM35Text
+	ld hl, .ReceivedTM22Text
 	call PrintText
-	SetEvent EVENT_GOT_TM35
+	SetEvent EVENT_GOT_TM22
 	jr .done
 .bag_full
-	ld hl, .TM35NoRoomText
+	ld hl, .TM22NoRoomText
 	call PrintText
 	jr .done
 .got_item
-	ld hl, .TM35ExplanationText
+	ld hl, .TM22ExplanationText
 	call PrintText
 .done
 	jp TextScriptEnd
@@ -36,17 +36,17 @@ CinnabarLabMetronomeRoomScientist1Text:
 	text_far _CinnabarLabMetronomeRoomScientist1Text
 	text_end
 
-.ReceivedTM35Text:
-	text_far _CinnabarLabMetronomeRoomScientist1ReceivedTM35Text
+.ReceivedTM22Text:
+	text_far _CinnabarLabMetronomeRoomScientist1ReceivedTM22Text
 	sound_get_item_1
 	text_end
 
-.TM35ExplanationText:
-	text_far _CinnabarLabMetronomeRoomScientist1TM35ExplanationText
+.TM22ExplanationText:
+	text_far _CinnabarLabMetronomeRoomScientist1TM22ExplanationText
 	text_end
 
-.TM35NoRoomText:
-	text_far _CinnabarLabMetronomeRoomScientist1TM35NoRoomText
+.TM22NoRoomText:
+	text_far _CinnabarLabMetronomeRoomScientist1TM22NoRoomText
 	text_end
 
 CinnabarLabMetronomeRoomScientist2Text:

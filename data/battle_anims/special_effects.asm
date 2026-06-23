@@ -5,9 +5,8 @@ ENDM
 
 AnimationIdSpecialEffects:
 	; animation id, effect routine address
-	anim_special_effect MEGA_PUNCH,            AnimationFlashScreen
 	anim_special_effect GUILLOTINE,            AnimationFlashScreen
-	anim_special_effect MEGA_KICK,             AnimationFlashScreen
+	anim_special_effect HEAVY_SLAM,            AnimationFlashScreen
 	anim_special_effect HEADBUTT,              AnimationFlashScreen
 	anim_special_effect TAIL_WHIP,             TailWhipAnimationUnused
 	anim_special_effect GROWL,                 DoGrowlSpecialEffects
@@ -17,7 +16,6 @@ AnimationIdSpecialEffects:
 	anim_special_effect HYPER_BEAM,            FlashScreenEveryFourFrameBlocks
 	anim_special_effect THUNDERBOLT,           FlashScreenEveryEightFrameBlocks
 	anim_special_effect REFLECT,               AnimationFlashScreen
-	anim_special_effect SELFDESTRUCT,          DoExplodeSpecialEffects
 	anim_special_effect SPORE,                 FlashScreenEveryFourFrameBlocks
 	anim_special_effect EXPLOSION,             DoExplodeSpecialEffects
 	anim_special_effect ROCK_SLIDE,            DoRockSlideSpecialEffects

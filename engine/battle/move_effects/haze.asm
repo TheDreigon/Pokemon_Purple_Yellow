@@ -79,3 +79,11 @@ ResetStats:
 StatusChangesEliminatedText:
 	text_far _StatusChangesEliminatedText
 	text_end
+
+; Bank-$0F call helper (the battle-core bank hosts PlayCurrentMoveAnimation,
+; PrintButItFailedText_, etc.). Moved here from conversion.asm when
+; ConversionEffect_ was removed in the v0.7 dead-code harvest — HazeEffect_
+; is its only remaining user. Caller preloads hl with the target routine.
+CallBankF:
+	ld b, BANK(PrintButItFailedText_)
+	jp Bankswitch

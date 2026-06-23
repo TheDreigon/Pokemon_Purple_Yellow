@@ -62,7 +62,7 @@ SpecialTrainerMoves:
 	db 4, 1, THUNDER
 	db 4, 2, BLIZZARD
 	db 4, 3, RECOVER
-	db 5, 1, ICE_PUNCH
+	db 5, 1, ICY_WIND
 	db 5, 3, PSYCHIC_M
 	db 6, 1, SURF
 	db 6, 2, CUT
@@ -77,7 +77,7 @@ SpecialTrainerMoves:
 	db 3, 3, LEECH_SEED
 	db 4, 1, ACID
 	db 4, 2, SOLARBEAM
-	db 4, 3, STUN_SPORE
+	db 4, 3, STUN_POWDER
 	db 4, 4, SLEEP_POWDER
 	db 0
 
@@ -93,7 +93,7 @@ SpecialTrainerMoves:
     db 0 
 
 	db ERIKA, 3 ; db $FF, 48, TANGELA, 49, VICTREEBEL, 48, VENUSAUR, 49, EXEGGUTOR, 50, VILEPLUME, 0
-	db 1, 2, STUN_SPORE
+	db 1, 2, STUN_POWDER
     db 1, 3, SOLARBEAM
     db 2, 4, SWORDS_DANCE
     db 3, 2, SOLARBEAM
@@ -103,7 +103,7 @@ SpecialTrainerMoves:
     db 0
 
 	db ERIKA, 4
-	db 1, 3, STUN_SPORE
+	db 1, 3, STUN_POWDER
 	db 2, 2, LEECH_SEED
 	db 2, 3, SLEEP_POWDER
 	db 2, 4, RAZOR_LEAF
@@ -121,7 +121,7 @@ SpecialTrainerMoves:
 	db KOGA, 1 ; 42, GOLBAT, 42, MUK, 41, TENTACRUEL, 43, VENOMOTH, 0
 	db 1, 2, TOXIC
 	db 1, 3, BITE
-	db 2, 1, ACID_ARMOR
+	db 2, 1, DEFENSE_CURL
 	db 2, 3, MEGA_DRAIN
 	db 3, 1, SURF
 	db 3, 2, ICE_BEAM
@@ -136,7 +136,7 @@ SpecialTrainerMoves:
 	db 1, 2, CONFUSE_RAY
 	db 1, 4, BITE
 	db 2, 2, MEGA_DRAIN
-	db 2, 4, ACID_ARMOR
+	db 2, 4, DEFENSE_CURL
 	db 3, 2, SURF
 	db 3, 3, ICE_BEAM
 	db 4, 2, SLUDGE
@@ -152,7 +152,6 @@ SpecialTrainerMoves:
 	db 1, 3, DOUBLE_TEAM
 	db 1, 4, CONFUSE_RAY
 	db 2, 3, MEGA_DRAIN
-	db 2, 4, MINIMIZE
 	db 3, 1, SURF
 	db 3, 3, BLIZZARD
 	db 3, 4, REFLECT
@@ -179,7 +178,7 @@ SpecialTrainerMoves:
 	db 5, 1, FIRE_BLAST
 	db 5, 2, PSYCHIC_M
 	db 5, 3, CONFUSE_RAY
-	db 5, 4, THUNDERPUNCH
+	db 5, 4, SHOCK_WAVE
 	db 0
 
 	db BLAINE, 2
@@ -195,7 +194,7 @@ SpecialTrainerMoves:
 	db 5, 1, FIRE_BLAST
 	db 5, 2, DIG
 	db 5, 3, DOUBLE_EDGE
-	db 6, 1, THUNDERPUNCH
+	db 6, 1, SHOCK_WAVE
 	db 6, 2, PSYCHIC_M
 	db 6, 3, CONFUSE_RAY
 	db 0
@@ -243,7 +242,7 @@ SpecialTrainerMoves:
 	db 1, 2, DIG
 	db 1, 3, SCREECH
 	db 1, 4, TAKE_DOWN
-	db 2, 1, MEGA_PUNCH
+	db 2, 1, SKY_UPPERCUT
 	db 2, 2, SUBMISSION
 	db 3, 1, BONE_CLUB
 	db 3, 2, HEADBUTT
@@ -257,7 +256,7 @@ SpecialTrainerMoves:
 	db 1, 1, CRABHAMMER
 	db 1, 2, CUT 
 	db 1, 3, BODY_SLAM
-	db 2, 1, ICE_PUNCH
+	db 2, 1, ICY_WIND
 	db 2, 2, ROCK_SLIDE
 	db 2, 3, SUBMISSION
 	db 3, 1, DIG
@@ -307,8 +306,8 @@ SpecialTrainerMoves:
 	db 0
 
 	db BRUNO, 1 ; 57, HITMONCHAN, 56, POLIWRATH, 57, HITMONLEE, 56, ONIX, 58, MACHAMP
-	db 1, 3, ICE_PUNCH
-	db 1, 4, THUNDERPUNCH
+	db 1, 3, ICY_WIND
+	db 1, 4, SHOCK_WAVE
 	db 2, 1, ICE_BEAM
 	db 3, 1, BODY_SLAM
 	db 4, 1, EXPLOSION
@@ -336,7 +335,7 @@ SpecialTrainerMoves:
 	db 1, 3, THUNDER_WAVE
 	db 2, 1, FLY
 	db 2, 2, SURF
-	db 2, 3, SLAM
+	db 2, 3, HEAVY_SLAM
 	db 3, 3, HYPER_BEAM
 	db 3, 4, EARTHQUAKE
 	db 4, 3, EARTHQUAKE
@@ -363,7 +362,7 @@ SpecialTrainerMoves:
 	db RIVAL2, 6 ; Silph Co - 43, ELECTABUZZ, 44, CLOYSTER, 43, DODRIO , 44, ALAKAZAM, 46, FLAREON
 	db 1, 1, THUNDER_WAVE
 	db 1, 2, PSYCHIC_M
-	db 2, 1, SELFDESTRUCT
+	db 2, 1, EXPLOSION
 	db 2, 2, TOXIC
 	db 2, 3, SURF
 	db 3, 1, FLY
@@ -392,7 +391,7 @@ SpecialTrainerMoves:
 	db 1, 2, THUNDERBOLT
 	db 1, 4, HEADBUTT
 	db 2, 1, DOUBLE_EDGE
-	db 2, 2, SKY_ATTACK
+	db 2, 2, DRILL_PECK
 	db 2, 3, TOXIC
 	db 2, 4, DOUBLE_TEAM
 	db 3, 1, SOFTBOILED
@@ -410,7 +409,7 @@ SpecialTrainerMoves:
 	db 0
 
 	db RIVAL2, 9 ; Route 22 - 54, FEAROW, 52, MAGNETON, 53, GOLDUCK, 54, ALAKAZAM, 52, MAROWAK, 55, FLAREON, 0
-	db 1, 1, SKY_ATTACK
+	db 1, 1, DRILL_PECK
 	db 1, 2, DOUBLE_EDGE
 	db 1, 3, TOXIC
 	db 1, 4, DOUBLE_TEAM
@@ -531,7 +530,7 @@ SpecialTrainerMoves:
     db 0
 
 	db SMITH, 1
-	db 1, 1, SKY_ATTACK
+	db 1, 1, DRILL_PECK
 	db 1, 3, FIRE_BLAST
 	db 2, 1, MEGA_DRAIN
 	db 2, 3, PSYCHIC_M
@@ -551,7 +550,7 @@ SpecialTrainerMoves:
 	db CRAIG, 1; JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
 	db 1, 2, THUNDERBOLT
 	db 1, 4, DIG
-	db 2, 1, SKY_ATTACK
+	db 2, 1, DRILL_PECK
 	db 2, 3, EARTHQUAKE
 	db 3, 1, MEGA_DRAIN
 	db 3, 2, SOFTBOILED
@@ -602,7 +601,6 @@ SpecialTrainerMoves:
     db 5, 3, DREAM_EATER
     db 6, 1, SOFTBOILED
     db 6, 2, REFLECT
-    db 6, 3, EGG_BOMB
     db 6, 4, THUNDER_WAVE
 	db 0
 
@@ -643,7 +641,6 @@ SpecialTrainerMoves:
     db 1, 2, PSYCHIC_M
     db 1, 3, ICE_BEAM
     db 1, 4, THUNDERBOLT
-    db 2, 3, MINIMIZE
     db 2, 4, FIRE_BLAST
     db 3, 1, DOUBLE_TEAM
     db 3, 2, SURF
@@ -681,7 +678,7 @@ SpecialTrainerMoves:
     db 1, 4, DIG
     db 2, 1, THUNDER_WAVE
     db 2, 4, PSYCHIC_M
-    db 3, 1, SELFDESTRUCT
+    db 3, 1, EXPLOSION
     db 3, 2, EARTHQUAKE
     db 3, 3, REFLECT
     db 4, 1, SLASH

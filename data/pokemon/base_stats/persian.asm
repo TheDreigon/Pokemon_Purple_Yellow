@@ -1,9 +1,6 @@
 	db DEX_PERSIAN ; pokedex id
-
-	db  65,  70,  60, 115,  65
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 90, 80, 50, 60, 115 ; hp atk def spc spd
+	db NORMAL, DARK ; type
 	db 90 ; catch rate
 	db 148 ; base exp
 
@@ -14,10 +11,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    HYPER_BEAM,   PAY_DAY,      RAGE,         THUNDERBOLT,  \
-	     THUNDER,      MIMIC,        DOUBLE_TEAM,  BIDE,         SWIFT,        \
-	     SKULL_BASH,   REST,         SUBSTITUTE,   CUT
+	; Apex Normal/Dark feline, smart sleek cat:
+	; FAINT_ATTACK/RAGE/AGILITY/INTIMIDATE/QUICK_ATTACK plus
+	; IRON_TAIL/NIGHT_SHADE/SCARY_FACE/DARK_PULSE/SWORDS_DANCE.
+	; HM CUT/STRENGTH.
+	; Last-stage fun: MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, IRON_TAIL, NIGHT_SHADE, \
+	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
+	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, DARK_PULSE, SWORDS_DANCE, \
+	     CUT, STRENGTH
 	; end
 
 	db 0 ; padding

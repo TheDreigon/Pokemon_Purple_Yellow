@@ -1,24 +1,24 @@
 	db DEX_GYARADOS ; pokedex id
-
-	db  95, 125,  79,  81, 100
-	;   hp  atk  def  spd  spc
-
-	db WATER, FLYING ; type
+	base_stat_row 90, 130, 90, 90, 80 ; hp atk def spc spd
+	db WATER, DRAGON ; type
 	db 45 ; catch rate
 	db 214 ; base exp
 
 	INCBIN "gfx/pokemon/front/gyarados.pic", 0, 1 ; sprite dimensions
 	dw GyaradosPicFront, GyaradosPicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_SLOW ; growth rate
+	db TACKLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   RAGE,         \
-	     DRAGON_RAGE,  THUNDERBOLT,  THUNDER,      MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         FIRE_BLAST,   SKULL_BASH,   REST,         \
-	     SUBSTITUTE,   FLY,			 SURF,         STRENGTH
+	; Brutal Water/Dragon sea-serpent apex, mostly physical, not
+	; docile. HM SURF/STRENGTH.
+	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BIND, BULLDOZE, WATER_PULSE, ICY_PULSE, RAGE, \
+	     BODY_SLAM, IRON_TAIL, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, IRON_HEAD, DRAGON_CLAW, INTIMIDATE, \
+	     SCARY_FACE, TAKE_DOWN, ICE_BEAM, EARTHQUAKE, ROCK_SLIDE, \
+	     DOUBLE_EDGE, THRASH, OUTRAGE, SURF, STRENGTH
 	; end
 
 	db 0 ; padding

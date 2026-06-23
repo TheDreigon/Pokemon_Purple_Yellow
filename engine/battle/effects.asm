@@ -56,17 +56,10 @@ SleepEffect:
 	and a
 	jr nz, .didntAffect
 .setSleepCounter
-; set target's sleep counter to a random number between 1 and 7
+; PURPLE YELLOW v0.5: sleep lasts 2-5 turns (was 1-7 with Stadium override to 1-3).
 	call BattleRandom
-	and $7
-	jr z, .setSleepCounter
-	ld b, a
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	jr z, .asm_3f1ba ; XXX stadium stuff?
-	ld a, b
-	and $3
-	jr z, .setSleepCounter
+	and $3   ; 0-3
+	add 2    ; 2-5
 	ld b, a
 .asm_3f1ba
 	ld a, b
@@ -103,15 +96,22 @@ PoisonEffect:
 	ld a, [hli]
 	cp POISON ; can't poison a poison-type target
 	jr z, .noEffect
+	cp STEEL ; v0.7: can't poison a steel-type target either
+	jr z, .noEffect
 	ld a, [hld]
 	cp POISON ; can't poison a poison-type target
 	jr z, .noEffect
+	cp STEEL ; v0.7
+	jr z, .noEffect
 	ld a, [de]
 	cp POISON_SIDE_EFFECT1
-	ld b, 20 percent + 1 ; chance of poisoning
+	ld b, 15 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	cp POISON_SIDE_EFFECT2
-	ld b, 40 percent + 1 ; chance of poisoning
+	ld b, 30 percent + 1 ; chance of poisoning
+	jr z, .sideEffectTest
+	cp POISON_SIDE_EFFECT3
+	ld b, 45 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
 	push hl
 	push de
@@ -202,6 +202,18 @@ ExplodeEffect:
 	ret
 
 FreezeBurnParalyzeEffect:
+; v0.7 type-immunity refactor:
+;   - Removed vanilla "if move type == defender type, status fails" check.
+;     That check was the famous Gen 1 bug that made Body Slam (Normal)
+;     unable to paralyze Normal-types, while ALSO failing to give Fire/
+;     Magma/Ice the immunities they should logically have to other-type
+;     burn/freeze sources.
+;   - Replaced with proper per-status defender-type immunity (checked
+;     inside each .burn/.freeze/.paralyze handler):
+;        Burn  immune: defender is FIRE or MAGMA
+;        Freeze immune: defender is ICE or MAGMA
+;        Paralyze immune: defender is ELECTRIC
+;   - Poison immune: defender is POISON or STEEL (POISON was vanilla-correct in PoisonEffect; STEEL added in v0.7).
 	xor a
 	ld [wAnimationType], a
 	call CheckTargetSubstitute ; test bit 4 of d063/d068 flags [target has substitute flag]
@@ -212,27 +224,21 @@ FreezeBurnParalyzeEffect:
 	ld a, [wEnemyMonStatus]
 	and a
 	jp nz, CheckDefrost ; can't inflict status if opponent is already statused
-	ld a, [wPlayerMoveType]
-	ld b, a
-	ld a, [wEnemyMonType1]
-	cp b ; do target type 1 and move type match?
-	ret z  ; return if they match (an ice move can't freeze an ice-type, body slam can't paralyze a normal-type, etc.)
-	ld a, [wEnemyMonType2]
-	cp b ; do target type 2 and move type match?
-	ret z  ; return if they match
 	ld a, [wPlayerMoveEffect]
-	cp UNUSED_EFFECT_23 ; more stadium stuff
+	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
 	jr nz, .asm_3f2c7
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	ld a, FREEZE_SIDE_EFFECT
 	ld b, 30 percent + 1
-	jr z, .regular_effectiveness
-	ld b, 10 percent + 1
+	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .asm_3f2c7
+	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
+	jr nz, .tierLadder
+	ld b, 45 percent + 1
+	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness
+.tierLadder
 	cp PARALYZE_SIDE_EFFECT1 + 1
-	ld b, 10 percent + 1
+	ld b, 15 percent + 1 ; _SIDE_EFFECT1 tier: 15%
 	jr c, .regular_effectiveness
 ; extra effectiveness
 	ld b, 30 percent + 1
@@ -246,16 +252,49 @@ FreezeBurnParalyzeEffect:
 	ld a, b ; what type of effect is this?
 	cp BURN_SIDE_EFFECT1
 	jr z, .burn1
-	cp FREEZE_SIDE_EFFECT
+	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze1
 ; .paralyze1
+	; v0.7: ELECTRIC defenders are immune to paralysis (any source).
+	ld a, [wEnemyMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ELECTRIC
+	ret z
+	; v0.7: GROUND defenders are immune to ELECTRIC moves entirely, so
+	; the paralyze side-effect of Electric attacks (Thundershock, etc.)
+	; doesn't apply to them. Non-Electric paralyze moves (Body Slam,
+	; Lick, ...) still affect Ground-types — they're only immune to
+	; Electric, not to paralysis in general.
+	ld a, [wPlayerMoveType]
+	cp ELECTRIC
+	jr nz, .applyParalyze1
+	ld a, [wEnemyMonType1]
+	cp GROUND
+	ret z
+	ld a, [wEnemyMonType2]
+	cp GROUND
+	ret z
+.applyParalyze1
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
-	call QuarterSpeedDueToParalysis ; quarter speed of affected mon
+	call HalveSpeedDueToParalysis ; halve speed of affected mon
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlayBattleAnimation
 	jp PrintMayNotAttackText ; print paralysis text
 .burn1
+	; v0.7: FIRE and MAGMA defenders are immune to burn.
+	ld a, [wEnemyMonType1]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wEnemyMonType2]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
 	ld a, 1 << BRN
 	ld [wEnemyMonStatus], a
 	call HalveAttackDueToBurn ; halve attack of affected mon
@@ -264,9 +303,25 @@ FreezeBurnParalyzeEffect:
 	ld hl, BurnedText
 	jp PrintText
 .freeze1
+	; v0.7: ICE and MAGMA defenders are immune to freeze.
+	ld a, [wEnemyMonType1]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
 	call ClearHyperBeam ; resets hyper beam (recharge) condition from target
 	ld a, 1 << FRZ
 	ld [wEnemyMonStatus], a
+	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
+	call BattleRandom
+	and $3
+	add 3
+	ld [wEnemyFreezeCounter], a
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlayBattleAnimation
 	ld hl, FrozenText
@@ -275,27 +330,21 @@ FreezeBurnParalyzeEffect:
 	ld a, [wBattleMonStatus] ; mostly same as above with addresses swapped for opponent
 	and a
 	jp nz, CheckDefrost
-	ld a, [wEnemyMoveType]
-	ld b, a
-	ld a, [wBattleMonType1]
-	cp b
-	ret z
-	ld a, [wBattleMonType2]
-	cp b
-	ret z
 	ld a, [wEnemyMoveEffect]
-	cp UNUSED_EFFECT_23 ; more stadium stuff
+	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
 	jr nz, .asm_3f341
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	ld a, FREEZE_SIDE_EFFECT
 	ld b, 30 percent + 1
-	jr z, .regular_effectiveness2
-	ld b, 10 percent + 1
+	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .asm_3f341
+	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
+	jr nz, .tierLadder2
+	ld b, 45 percent + 1
+	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness2
+.tierLadder2
 	cp PARALYZE_SIDE_EFFECT1 + 1
-	ld b, 10 percent + 1
+	ld b, 15 percent + 1 ; _SIDE_EFFECT1 tier: 15%
 	jr c, .regular_effectiveness2
 ; extra effectiveness
 	ld b, 30 percent + 1
@@ -309,16 +358,46 @@ FreezeBurnParalyzeEffect:
 	ld a, b
 	cp BURN_SIDE_EFFECT1
 	jr z, .burn2
-	cp FREEZE_SIDE_EFFECT
+	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze2
 ; .paralyze2
+	; v0.7: ELECTRIC defenders are immune to paralysis (any source).
+	ld a, [wBattleMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wBattleMonType2]
+	cp ELECTRIC
+	ret z
+	; v0.7: GROUND defenders are immune to ELECTRIC moves entirely
+	; (player side; mirror of .paralyze1).
+	ld a, [wEnemyMoveType]
+	cp ELECTRIC
+	jr nz, .applyParalyze2
+	ld a, [wBattleMonType1]
+	cp GROUND
+	ret z
+	ld a, [wBattleMonType2]
+	cp GROUND
+	ret z
+.applyParalyze2
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
-	call QuarterSpeedDueToParalysis
+	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
 	call PlayBattleAnimation2
 	jp PrintMayNotAttackText
 .burn2
+	; v0.7: FIRE and MAGMA defenders are immune to burn (player side).
+	ld a, [wBattleMonType1]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wBattleMonType2]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
 	ld a, 1 << BRN
 	ld [wBattleMonStatus], a
 	call HalveAttackDueToBurn
@@ -327,10 +406,26 @@ FreezeBurnParalyzeEffect:
 	ld hl, BurnedText
 	jp PrintText
 .freeze2
+	; v0.7: ICE and MAGMA defenders are immune to freeze (player side).
+	ld a, [wBattleMonType1]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wBattleMonType2]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
 ; hyper beam bits aren't reseted for opponent's side
 	call ClearHyperBeam
 	ld a, 1 << FRZ
 	ld [wBattleMonStatus], a
+	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
+	call BattleRandom
+	and $3
+	add 3
+	ld [wPlayerFreezeCounter], a
 	ld a, SHAKE_SCREEN_ANIM
 	call PlayBattleAnimation2
 	ld hl, FrozenText
@@ -344,6 +439,184 @@ FrozenText:
 	text_far _FrozenText
 	text_end
 
+
+; v0.7: Tri Attack new effect.
+; ~30% total chance to inflict a random status on the target —
+; 10% paralyze, 10% burn, 10% freeze (30% first roll, 1/3 split second).
+; v0.7 type-status immunities apply (same set as FreezeBurnParalyzeEffect):
+; burn -> FIRE/MAGMA immune; freeze -> ICE/MAGMA immune;
+; paralyze -> ELECTRIC immune.
+; Substitute blocks all status. Already-statused targets are skipped.
+TriStatusSideEffect:
+	xor a
+	ld [wAnimationType], a
+	call CheckTargetSubstitute
+	ret nz                                ; substitute blocks
+	; First roll: any status at all? (~30%)
+	call BattleRandom
+	cp 30 percent + 1
+	ret nc
+	; Second roll: which status? (1/3 split → ~10% each)
+	call BattleRandom
+	cp 33 percent + 1
+	jp c, .triParalyze
+	cp 67 percent
+	jp c, .triBurn
+	; else: freeze
+.triFreeze
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, .freezeEnemy
+	jp .freezeBattle
+.triBurn
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, .burnEnemy
+	jp .burnBattle
+.triParalyze
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, .paralyzeEnemy
+	jp .paralyzeBattle
+
+; ===== Player attacking enemy =====
+.paralyzeEnemy
+	ld a, [wEnemyMonStatus]
+	and a
+	ret nz
+	; v0.7: ELECTRIC defenders are immune to paralysis.
+	ld a, [wEnemyMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ELECTRIC
+	ret z
+	ld a, 1 << PAR
+	ld [wEnemyMonStatus], a
+	call HalveSpeedDueToParalysis
+	ld a, ENEMY_HUD_SHAKE_ANIM
+	call PlayBattleAnimation
+	jp PrintMayNotAttackText
+
+.burnEnemy
+	ld a, [wEnemyMonStatus]
+	and a
+	ret nz
+	; v0.7: FIRE and MAGMA defenders are immune to burn.
+	ld a, [wEnemyMonType1]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wEnemyMonType2]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, 1 << BRN
+	ld [wEnemyMonStatus], a
+	call HalveAttackDueToBurn
+	ld a, ENEMY_HUD_SHAKE_ANIM
+	call PlayBattleAnimation
+	ld hl, BurnedText
+	jp PrintText
+
+.freezeEnemy
+	ld a, [wEnemyMonStatus]
+	and a
+	jp nz, CheckDefrost
+	; v0.7: ICE and MAGMA defenders are immune to freeze.
+	ld a, [wEnemyMonType1]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wEnemyMonType2]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	call ClearHyperBeam
+	ld a, 1 << FRZ
+	ld [wEnemyMonStatus], a
+	call BattleRandom
+	and $3
+	add 3
+	ld [wEnemyFreezeCounter], a
+	ld a, ENEMY_HUD_SHAKE_ANIM
+	call PlayBattleAnimation
+	ld hl, FrozenText
+	jp PrintText
+
+; ===== Enemy attacking player =====
+.paralyzeBattle
+	ld a, [wBattleMonStatus]
+	and a
+	ret nz
+	; v0.7: ELECTRIC defenders are immune to paralysis.
+	ld a, [wBattleMonType1]
+	cp ELECTRIC
+	ret z
+	ld a, [wBattleMonType2]
+	cp ELECTRIC
+	ret z
+	ld a, 1 << PAR
+	ld [wBattleMonStatus], a
+	call HalveSpeedDueToParalysis
+	ld a, SHAKE_SCREEN_ANIM
+	call PlayBattleAnimation2
+	jp PrintMayNotAttackText
+
+.burnBattle
+	ld a, [wBattleMonStatus]
+	and a
+	ret nz
+	; v0.7: FIRE and MAGMA defenders are immune to burn.
+	ld a, [wBattleMonType1]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wBattleMonType2]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, 1 << BRN
+	ld [wBattleMonStatus], a
+	call HalveAttackDueToBurn
+	ld a, SHAKE_SCREEN_ANIM
+	call PlayBattleAnimation2
+	ld hl, BurnedText
+	jp PrintText
+
+.freezeBattle
+	ld a, [wBattleMonStatus]
+	and a
+	jp nz, CheckDefrost
+	; v0.7: ICE and MAGMA defenders are immune to freeze.
+	ld a, [wBattleMonType1]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [wBattleMonType2]
+	cp ICE
+	ret z
+	cp MAGMA
+	ret z
+	call ClearHyperBeam
+	ld a, 1 << FRZ
+	ld [wBattleMonStatus], a
+	call BattleRandom
+	and $3
+	add 3
+	ld [wPlayerFreezeCounter], a
+	ld a, SHAKE_SCREEN_ANIM
+	call PlayBattleAnimation2
+	ld hl, FrozenText
+	jp PrintText
+
 CheckDefrost:
 ; any fire-type move that has a chance inflict burn (all but Fire Spin) will defrost a frozen target
 	and 1 << FRZ ; are they frozen?
@@ -353,8 +626,12 @@ CheckDefrost:
 	jr nz, .opponent
 	;player [attacker]
 	ld a, [wPlayerMoveType]
-	sub FIRE
-	ret nz ; return if type of move used isn't fire
+	cp FIRE
+	jr z, .playerDefrosts
+	cp MAGMA ; PURPLE YELLOW v0.5: Magma-type moves also defrost
+	ret nz
+.playerDefrosts
+	xor a
 	ld [wEnemyMonStatus], a ; set opponent status to 00 ["defrost" a frozen monster]
 	ld hl, wEnemyMon1Status
 	ld a, [wEnemyMonPartyPos]
@@ -366,8 +643,12 @@ CheckDefrost:
 	jr .common
 .opponent
 	ld a, [wEnemyMoveType] ; same as above with addresses swapped
-	sub FIRE
+	cp FIRE
+	jr z, .enemyDefrosts
+	cp MAGMA ; PURPLE YELLOW v0.5: Magma-type moves also defrost
 	ret nz
+.enemyDefrosts
+	xor a
 	ld [wBattleMonStatus], a
 	ld hl, wPartyMon1Status
 	ld a, [wPlayerMonNumber]
@@ -492,53 +773,50 @@ UpdateStat:
 UpdateStatDone:
 	ld b, c
 	inc b
+	; v0.7 burn/para reapplication fix: stash the recalc'd stat index so
+	; the post-PrintText block knows which stat (and therefore which
+	; status penalty, if any) to re-apply. wd11e is short-lived scratch.
+	ld a, c
+	ld [wd11e], a
 	call PrintStatText
-	ld hl, wPlayerBattleStatus2
-	ld de, wPlayerMoveNum
-	ld bc, wPlayerMonMinimized
-	ldh a, [hWhoseTurn]
+	; PURPLE YELLOW v0.5: MINIMIZE was removed from the movelist, so the
+	; substitute-handling special case below is dead code. Keep the post-animation
+	; flow (`.applyBadgeBoostsAndStatusPenalties`) but drop the MINIMIZE branch.
+	ld a, [wMoveDidntMiss]
 	and a
-	jr z, .playerTurn
-	ld hl, wEnemyBattleStatus2
-	ld de, wEnemyMoveNum
-	ld bc, wEnemyMonMinimized
-.playerTurn
-	ld a, [de]
-	cp MINIMIZE
-	jr nz, .notMinimize
- ; if a substitute is up, slide off the substitute and show the mon pic before
- ; playing the minimize animation
-	bit HAS_SUBSTITUTE_UP, [hl]
-	push af
-	push bc
-	push de
-	ld hl, HideSubstituteShowMonAnim
-	ld b, BANK(HideSubstituteShowMonAnim)
-	call nz, Bankswitch
-	pop de
-.notMinimize
+	jr nz, .skipUpAnim ; damage already played the animation, or dual-stat second leg
 	call PlayCurrentMoveAnimation
-	ld a, [de]
-	cp MINIMIZE
-	jr nz, .applyBadgeBoostsAndStatusPenalties
-	pop bc
-	ld a, $1
-	ld [bc], a
-	ld hl, ReshowSubstituteAnim
-	ld b, BANK(ReshowSubstituteAnim)
-	pop af
-	call nz, Bankswitch
+.skipUpAnim
 .applyBadgeBoostsAndStatusPenalties
-	ldh a, [hWhoseTurn]
-	and a
-	call z, ApplyBadgeStatBoosts ; whenever the player uses a stat-up move, badge boosts get reapplied again to every stat,
-	                             ; even to those not affected by the stat-up move (will be boosted further)
+	; v0.7 Badge Boost Glitch fix: vanilla called ApplyBadgeStatBoosts here
+	; on every player stat-up, compounding badges by 1.125x each time.
+	; Badges are now baked into wPlayerMonUnmodifiedStats at LoadPlayerMon
+	; (see core.asm), so stat recalcs naturally preserve them — no need
+	; to re-apply on top.
 	ld hl, MonsStatsRoseText
 	call PrintText
-
-; these shouldn't be here
-	call QuarterSpeedDueToParalysis ; apply speed penalty to the player whose turn is not, if it's paralyzed
-	jp HalveAttackDueToBurn ; apply attack penalty to the player whose turn is not, if it's burned
+	; v0.7 burn/para reapplication fix: vanilla called HalveSpeed +
+	; HalveAttack on the OPPOSITE side here, on stats that hadn't been
+	; recalc'd, causing penalty compounding (similar to badge glitch).
+	; Replaced with a selective reapply: only the stat just recalc'd, and
+	; only on the USER (whose stat changed during stat-up). Flip
+	; hWhoseTurn temporarily because Halve* dispatch targets opposite of
+	; hWhoseTurn (vanilla convention).
+	ld a, [wd11e]                       ; retrieve recalc'd stat index
+	ld c, a
+	ldh a, [hWhoseTurn]
+	push af
+	xor 1
+	ldh [hWhoseTurn], a
+	ld a, c
+	cp 0                                ; was attack the changed stat?
+	call z, HalveAttackDueToBurn        ; if so & user is burnt, halve it
+	ld a, c
+	cp 2                                ; was speed the changed stat?
+	call z, HalveSpeedDueToParalysis    ; if so & user is paralyzed, halve it
+	pop af
+	ldh [hWhoseTurn], a
+	ret
 
 RestoreOriginalStatModifier:
 	pop hl
@@ -705,26 +983,40 @@ UpdateLoweredStat:
 UpdateLoweredStatDone:
 	ld b, c
 	inc b
+	; v0.7 burn/para reapplication fix: stash the recalc'd stat index
+	; for the selective penalty re-apply below.
+	ld a, c
+	ld [wd11e], a
 	push de
 	call PrintStatText
 	pop de
+	ld a, [wMoveDidntMiss]
+	and a
+	jr nz, .ApplyBadgeBoostsAndStatusPenalties ; v0.5: damage already played anim, or dual-stat second leg
 	ld a, [de]
 	cp $44
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
 	call PlayCurrentMoveAnimation2
 .ApplyBadgeBoostsAndStatusPenalties
-	ldh a, [hWhoseTurn]
-	and a
-	call nz, ApplyBadgeStatBoosts ; whenever the player uses a stat-down move, badge boosts get reapplied again to every stat,
-	                              ; even to those not affected by the stat-up move (will be boosted further)
+	; v0.7 Badge Boost Glitch fix: removed ApplyBadgeStatBoosts call here
+	; (the enemy-stat-down counterpart of the bug above). Same reasoning:
+	; badges are baked into unmodified stats at LoadPlayerMon.
 	ld hl, MonsStatsFellText
 	call PrintText
-
-; These where probably added given that a stat-down move affecting speed or attack will override
-; the stat penalties from paralysis and burn respectively.
-; But they are always called regardless of the stat affected by the stat-down move.
-	call QuarterSpeedDueToParalysis
-	jp HalveAttackDueToBurn
+	; v0.7 burn/para reapplication fix: vanilla called HalveSpeed +
+	; HalveAttack here regardless of which stat was just modified, often
+	; on stats that hadn't been recalc'd, causing penalty compounding.
+	; The original code's own comment admits this. Replaced with a
+	; selective reapply: only the stat just recalc'd, on the TARGET (which
+	; is already opposite-of-hWhoseTurn — the existing dispatch direction).
+	ld a, [wd11e]                       ; retrieve recalc'd stat index
+	ld c, a
+	cp 0                                ; was attack the changed stat?
+	call z, HalveAttackDueToBurn        ; if so & target is burnt, halve it
+	ld a, c
+	cp 2                                ; was speed the changed stat?
+	call z, HalveSpeedDueToParalysis    ; if so & target is paralyzed, halve it
+	ret
 
 CantLowerAnymore_Pop:
 	pop de
@@ -836,120 +1128,15 @@ ThrashPetalDanceEffect:
 	add SHRINKING_SQUARE_ANIM
 	jp PlayBattleAnimation2
 
-SwitchAndTeleportEffect:
-	ldh a, [hWhoseTurn]
-	and a
-	jr nz, .handleEnemy
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .notWildBattle1
-	ld a, [wCurEnemyLVL]
-	ld b, a
-	ld a, [wBattleMonLevel]
-	cp b ; is the player's level greater than the enemy's level?
-	jr nc, .playerMoveWasSuccessful ; if so, teleport will always succeed
-	add b
-	ld c, a
-	inc c ; c = playerLevel + enemyLevel + 1
-.rejectionSampleLoop1
-	call BattleRandom
-	cp c ; get a random number between 0 and c
-	jr nc, .rejectionSampleLoop1
-	srl b
-	srl b  ; b = enemyLevel / 4
-	cp b ; is rand[0, playerLevel + enemyLevel] >= (enemyLevel / 4)?
-	jr nc, .playerMoveWasSuccessful ; if so, allow teleporting
-	ld c, 50
-	call DelayFrames
-	ld a, [wPlayerMoveNum]
-	cp TELEPORT
-	jp nz, PrintDidntAffectText
-	jp PrintButItFailedText_
-.playerMoveWasSuccessful
-	call ReadPlayerMonCurHPAndStatus
-	xor a
-	ld [wAnimationType], a
-	inc a
-	ld [wEscapedFromBattle], a
-	ld a, [wPlayerMoveNum]
-	jr .playAnimAndPrintText
-.notWildBattle1
-	ld c, 50
-	call DelayFrames
-	ld hl, IsUnaffectedText
-	ld a, [wPlayerMoveNum]
-	cp TELEPORT
-	jp nz, PrintText
-	jp PrintButItFailedText_
-.handleEnemy
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .notWildBattle2
-	ld a, [wBattleMonLevel]
-	ld b, a
-	ld a, [wCurEnemyLVL]
-	cp b
-	jr nc, .enemyMoveWasSuccessful
-	add b
-	ld c, a
-	inc c
-.rejectionSampleLoop2
-	call BattleRandom
-	cp c
-	jr nc, .rejectionSampleLoop2
-	srl b
-	srl b
-	cp b
-	jr nc, .enemyMoveWasSuccessful
-	ld c, 50
-	call DelayFrames
-	ld a, [wEnemyMoveNum]
-	cp TELEPORT
-	jp nz, PrintDidntAffectText
-	jp PrintButItFailedText_
-.enemyMoveWasSuccessful
-	call ReadPlayerMonCurHPAndStatus
-	xor a
-	ld [wAnimationType], a
-	inc a
-	ld [wEscapedFromBattle], a
-	ld a, [wEnemyMoveNum]
-	jr .playAnimAndPrintText
-.notWildBattle2
-	ld c, 50
-	call DelayFrames
-	ld hl, IsUnaffectedText
-	ld a, [wEnemyMoveNum]
-	cp TELEPORT
-	jp nz, PrintText
-	jp ConditionalPrintButItFailed
-.playAnimAndPrintText
-	push af
-	call PlayBattleAnimation
-	ld c, 20
-	call DelayFrames
-	pop af
-	ld hl, RanFromBattleText
-	cp TELEPORT
-	jr z, .printText
-	ld hl, RanAwayScaredText
-	cp ROAR
-	jr z, .printText
-	ld hl, WasBlownAwayText
-.printText
-	jp PrintText
-
-RanFromBattleText:
-	text_far _RanFromBattleText
-	text_end
-
-RanAwayScaredText:
-	text_far _RanAwayScaredText
-	text_end
-
-WasBlownAwayText:
-	text_far _WasBlownAwayText
-	text_end
+; v0.7 cleanup: shared no-op target for effect-pointer-table slots whose
+; moves were removed in the v0.5 overhaul (Conversion; Roar/Whirlwind +
+; old Teleport via SWITCH_AND_TELEPORT; the OHKO trio; Splash). The table
+; is positional, so each slot must keep a valid bank-$0F target — but the
+; effects are unreachable (no move row uses them, and Metronome / Mirror
+; Move can only invoke effects of existing moves). Restore the original
+; handlers from git history if one of these moves ever returns.
+RemovedMoveEffect:
+	ret
 
 TwoToFiveAttacksEffect:
 	ld hl, wPlayerBattleStatus1
@@ -993,8 +1180,11 @@ TwoToFiveAttacksEffect:
 	ld [bc], a
 	ret
 .twineedle
-	ld a, POISON_SIDE_EFFECT1
-	ld [hl], a ; set Twineedle's effect to poison effect
+	ld a, POISON_SIDE_EFFECT2
+	ld [hl], a ; v0.7: Twineedle's poison side-effect is now 30% (tier 2; was
+	           ; POISON_SIDE_EFFECT1 = 15%). Rolled once, after both hits.
+	ld a, $2   ; always 2 hits (explicit now; previously this relied on
+	           ; POISON_SIDE_EFFECT1 happening to equal $02)
 	jr .saveNumberOfHits
 
 FlinchSideEffect:
@@ -1013,7 +1203,7 @@ FlinchSideEffect:
 	call z, ClearHyperBeam
 	ld a, [de]
 	cp FLINCH_SIDE_EFFECT1
-	ld b, 10 percent + 1 ; chance of flinch (FLINCH_SIDE_EFFECT1)
+	ld b, 15 percent + 1 ; chance of flinch (FLINCH_SIDE_EFFECT1)
 	jr z, .gotEffectChance
 	ld b, 30 percent + 1 ; chance of flinch otherwise
 .gotEffectChance
@@ -1023,9 +1213,6 @@ FlinchSideEffect:
 	set FLINCHED, [hl] ; set mon's status to flinching
 	call ClearHyperBeam
 	ret
-
-OneHitKOEffect:
-	jpfar OneHitKOEffect_
 
 ChargeEffect:
 	ld hl, wPlayerBattleStatus1
@@ -1082,14 +1269,10 @@ ChargeMoveEffectText:
 	text_far _ChargeMoveEffectText
 	text_asm
 	ld a, [wChargeMoveNum]
-	cp RAZOR_WIND
-	ld hl, MadeWhirlwindText
-	jr z, .gotText
+	; PURPLE YELLOW v0.5: RAZOR_WIND and SKULL_BASH were removed. SKY_ATTACK was
+	; reintroduced in the later revision and still needs its charge flavour text.
 	cp SOLARBEAM
 	ld hl, TookInSunlightText
-	jr z, .gotText
-	cp SKULL_BASH
-	ld hl, LoweredItsHeadText
 	jr z, .gotText
 	cp SKY_ATTACK
 	ld hl, SkyAttackGlowingText
@@ -1161,8 +1344,26 @@ RecoilEffect:
 	jpfar RecoilEffect_
 
 ConfusionSideEffect:
+; PURPLE YELLOW v0.5: tiered confusion side effect.
+; CONFUSION_SIDE_EFFECT1 = 15% (default tier).
+; CONFUSION_SIDE_EFFECT2 = 30% (Hurricane, Spore Daze).
+; CONFUSION_SIDE_EFFECT3 = 45% (v0.7 — new Psychic, heaviest tier).
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveEffect]
+	jr z, .gotEffect
+	ld a, [wEnemyMoveEffect]
+.gotEffect
+	cp CONFUSION_SIDE_EFFECT1
+	ld b, 15 percent + 1
+	jr z, .rollChance
+	cp CONFUSION_SIDE_EFFECT2
+	ld b, 30 percent + 1
+	jr z, .rollChance
+	ld b, 45 percent + 1   ; CONFUSION_SIDE_EFFECT3
+.rollChance
 	call BattleRandom
-	cp 10 percent ; chance of confusion
+	cp b
 	ret nc
 	jr ConfusionSideEffectSuccess
 
@@ -1195,8 +1396,13 @@ ConfusionSideEffectSuccess:
 	inc a
 	ld [bc], a ; confusion status will last 2-5 turns
 	pop af
-	cp CONFUSION_SIDE_EFFECT
+	cp CONFUSION_SIDE_EFFECT1
+	jr z, .skipAnim
+	cp CONFUSION_SIDE_EFFECT2
+	jr z, .skipAnim
+	cp CONFUSION_SIDE_EFFECT3
 	call nz, PlayCurrentMoveAnimation2
+.skipAnim
 	ld hl, BecameConfusedText
 	jp PrintText
 
@@ -1205,7 +1411,14 @@ BecameConfusedText:
 	text_end
 
 ConfusionEffectFailed:
-	cp CONFUSION_SIDE_EFFECT
+	; Side-effect tiers (1/2/3) are silent on miss — only ConfusionEffect
+	; (the dedicated, never-side-effect move like Confuse Ray) prints
+	; "but it failed".
+	cp CONFUSION_SIDE_EFFECT1
+	ret z
+	cp CONFUSION_SIDE_EFFECT2
+	ret z
+	cp CONFUSION_SIDE_EFFECT3
 	ret z
 	ld c, 50
 	call DelayFrames
@@ -1328,10 +1541,6 @@ MimicLearnedMoveText:
 LeechSeedEffect:
 	jpfar LeechSeedEffect_
 
-SplashEffect:
-	call PlayCurrentMoveAnimation
-	jp PrintNoEffectText
-
 DisableEffect:
 	call MoveHitTest
 	ld a, [wMoveMissed]
@@ -1421,9 +1630,6 @@ MoveWasDisabledText:
 
 PayDayEffect:
 	jpfar PayDayEffect_
-
-ConversionEffect:
-	jpfar ConversionEffect_
 
 HazeEffect:
 	jpfar HazeEffect_
@@ -1547,3 +1753,308 @@ PlayBattleAnimationGotID:
 	pop de
 	pop hl
 	ret
+
+
+; ============================================================
+; === PURPLE YELLOW: dual-stat and burn effect handlers ===
+; ============================================================
+
+AttackDefenseUp1Effect:
+; Dual-stat +1 for the user (Attack + Defense). Used by BULK_UP.
+; Spoofs wPlayer/EnemyMoveEffect and calls StatModifierUpEffect twice.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr
+	ld de, wEnemyMoveEffect
+.gotEffectPtr
+	push de
+	ld a, ATTACK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg (we only want one "used BULK_UP"
+	; hit) by spoofing wMoveDidntMiss; the guard in StatModifierUpEffect
+	; reads this flag and skips PlayCurrentMoveAnimation.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, DEFENSE_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, ATTACK_DEFENSE_UP1_EFFECT
+	ld [de], a
+	ret
+
+AttackAccuracyUp1Effect:
+; Dual-stat +1 for the user (Attack + Accuracy). Used by HONE_CLAWS.
+; Same pattern as AttackDefenseUp1Effect.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr3
+	ld de, wEnemyMoveEffect
+.gotEffectPtr3
+	push de
+	ld a, ATTACK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, ACCURACY_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, ATTACK_ACCURACY_UP1_EFFECT
+	ld [de], a
+	ret
+
+SpeedEvasionUp1Effect:
+; Dual-stat +1 for the user (Speed + Evasion). Used by AGILITY (revised).
+; Same pattern as AttackAccuracyUp1Effect.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr4
+	ld de, wEnemyMoveEffect
+.gotEffectPtr4
+	push de
+	ld a, SPEED_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, EVASION_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, SPEED_EVASION_UP1_EFFECT
+	ld [de], a
+	ret
+
+AccuracyEvasionDown1Effect:
+; Dual-stat -1 on the target (Accuracy + Evasion). Used by FLASH.
+; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
+; its own accuracy check; for 100% accurate moves (FLASH) both always land.
+; For sub-100% users the two effects roll independently, which is a known
+; minor quirk.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr2
+	ld de, wEnemyMoveEffect
+.gotEffectPtr2
+	push de
+	ld a, ACCURACY_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	xor a
+	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
+	; Suppress animation on the second leg: the guard in StatModifierDownEffect
+	; reads wMoveDidntMiss and skips PlayCurrentMoveAnimation2 when set.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, EVASION_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	ld a, ACCURACY_EVASION_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpecialSpeedDown1Effect:
+; Dual-stat -1 on the target (Special + Speed). Used by EERIE_IMPULSE.
+; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
+; its own accuracy check; for 100% accurate moves both always land.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr5
+	ld de, wEnemyMoveEffect
+.gotEffectPtr5
+	push de
+	ld a, SPECIAL_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	xor a
+	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, SPEED_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	ld a, SPECIAL_SPEED_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpeedEvasionDown1Effect:
+; Dual-stat -1 on the target (Speed + Evasion). Used by PSYCHIC_BIND (v0.7).
+; Mirrors SpeedEvasionUp1Effect (Agility) but in the down direction —
+; same "spoof effect, call StatModifierDownEffect twice, restore" pattern
+; as SpecialSpeedDown1Effect / AccuracyEvasionDown1Effect above.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr7
+	ld de, wEnemyMoveEffect
+.gotEffectPtr7
+	push de
+	ld a, SPEED_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	xor a
+	ld [wMoveMissed], a ; reset miss flag between legs (each leg rolls independently)
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, EVASION_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	ld a, SPEED_EVASION_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpecialSpeedUp1Effect:
+; Dual-stat +1 for the user (Special + Speed). Used by QUIVER_DANCE (v0.7).
+; Mirrors SpecialSpeedDown1Effect in the up direction — same pattern as
+; AttackDefenseUp1Effect / SpeedEvasionUp1Effect above.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr8
+	ld de, wEnemyMoveEffect
+.gotEffectPtr8
+	push de
+	ld a, SPECIAL_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg (we only want one "used QUIVER
+	; DANCE" hit) by spoofing wMoveDidntMiss; the guard in StatModifierUp
+	; Effect reads this flag and skips PlayCurrentMoveAnimation.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, SPEED_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, SPECIAL_SPEED_UP1_EFFECT
+	ld [de], a
+	ret
+
+AttackUp1Down1Effect:
+; Mixed-direction dual-stat: ATK+1 to user, ATK-1 to target. Used by FIERCE_ROAR.
+; Up leg always succeeds; down leg has its own hit roll, so reset wMoveMissed
+; before invoking it (otherwise a miss carries over from somewhere upstream).
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr6
+	ld de, wEnemyMoveEffect
+.gotEffectPtr6
+	push de
+	ld a, ATTACK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect       ; targets user
+	pop de
+	; Reset miss flag for the down leg's independent hit test.
+	xor a
+	ld [wMoveMissed], a
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, ATTACK_DOWN1_EFFECT
+	ld [de], a
+	call StatModifierDownEffect     ; targets opponent
+	pop de
+	ld a, ATTACK_UP1_DOWN1_EFFECT
+	ld [de], a
+	ret
+
+SpecialUp1HealEffect:
+; Dual: SPC+1 to user + heal 1/4 max HP. Used by GROWTH (revised).
+; Phase 1 uses StatModifierUpEffect for animated SPC+1 + "rose!" text.
+; Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch that
+; divides max HP by 4 and honours wMoveDidntMiss to skip re-animating.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr7
+	ld de, wEnemyMoveEffect
+.gotEffectPtr7
+	push de
+	ld a, SPECIAL_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect       ; +1 SPC to user (anim + text)
+	pop de
+	; Suppress the move-anim replay inside HealEffect_'s .playAnim.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	callfar HealEffect_             ; /4 heal via Growth branch
+	pop de
+	ld a, SPECIAL_UP1_HEAL_EFFECT
+	ld [de], a
+	ret
+
+BurnEffect:
+; Always-burn status move (WILL_O_WISP). Mirrors PoisonEffect structure.
+	ld hl, wEnemyMonStatus
+	ld de, wPlayerMoveEffect
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .burnEffect
+	ld hl, wBattleMonStatus
+	ld de, wEnemyMoveEffect
+.burnEffect
+	call CheckTargetSubstitute
+	jr nz, .didntAffect
+	ld a, [hli]
+	ld b, a
+	and a
+	jr nz, .didntAffect ; already statused
+	ld a, [hli]
+	cp FIRE ; can not burn a fire-type target
+	jr z, .didntAffect
+	cp MAGMA ; v0.7: nor a magma-type target (matches the side-effect paths)
+	jr z, .didntAffect
+	ld a, [hld]
+	cp FIRE
+	jr z, .didntAffect
+	cp MAGMA ; v0.7
+	jr z, .didntAffect
+	push hl
+	push de
+	call MoveHitTest
+	pop de
+	pop hl
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .didntAffect
+	; apply burn
+	dec hl
+	set BRN, [hl]
+	call HalveAttackDueToBurn
+	call PlayCurrentMoveAnimation2
+	ld hl, BurnedText
+	jp PrintText
+.didntAffect
+	jp PrintDidntAffectText

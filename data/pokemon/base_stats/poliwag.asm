@@ -1,7 +1,5 @@
 	db DEX_POLIWAG ; pokedex id
-
-	db  40,  50,  40,  90,  40
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 40, 40, 40, 70 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 255 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/poliwag.pic", 0, 1 ; sprite dimensions
 	dw PoliwagPicFront, PoliwagPicBack
 
-	db DOUBLESLAP, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db DOUBLESLAP, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         PSYCHIC_M,    \
-	     MIMIC,        DOUBLE_TEAM,  BIDE,         SKULL_BASH,   REST,         \
-	     PSYWAVE,      SUBSTITUTE,   SURF,   DREAM_EATER
+	; Basic Water tadpole: WATER_PULSE/BODY_SLAM plus ICE_BEAM.
+	; HM SURF.
+	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, SURF
 	; end
 
 	db 0 ; padding

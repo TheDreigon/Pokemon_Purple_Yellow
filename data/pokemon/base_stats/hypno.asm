@@ -1,25 +1,22 @@
 	db DEX_HYPNO ; pokedex id
-
-	db  85,  73,  70,  67, 115
-	;   hp  atk  def  spd  spc
-
-	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
+	base_stat_row 85, 75, 70, 105, 65 ; hp atk def spc spd
+	db PSYCHIC_TYPE, DARK ; type
 	db 75 ; catch rate
 	db 165 ; base exp
 
 	INCBIN "gfx/pokemon/front/hypno.pic", 0, 1 ; sprite dimensions
 	dw HypnoPicFront, HypnoPicBack
 
-	db POUND, HYPNOSIS, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, HYPNOSIS, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         PSYCHIC_M,    TELEPORT,     MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         METRONOME,    SKULL_BASH,   DREAM_EATER,  \
-	     REST,         THUNDER_WAVE, PSYWAVE,      TRI_ATTACK,   SUBSTITUTE,   \
-	     FLASH
+	; Apex hypnotist Psychic/Dark.
+	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BODY_SLAM, NIGHT_SHADE, CONFUSE_RAY, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, FAKE_TEARS, EXTRASENSORY, SCARY_FACE, \
+	     TAKE_DOWN, PSYCHIC_M, DARK_PULSE, SHADOW_BALL, REFLECT, \
+	     CALM_MIND, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

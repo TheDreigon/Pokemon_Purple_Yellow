@@ -1,7 +1,5 @@
 	db DEX_MACHAMP ; pokedex id
-
-	db  90, 130,  80,  55,  65
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 130, 85, 65, 80 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate
@@ -10,15 +8,15 @@
 	INCBIN "gfx/pokemon/front/machamp.pic", 0, 1 ; sprite dimensions
 	dw MachampPicFront, MachampPicBack
 
-	db KARATE_CHOP, LOW_KICK, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db LOW_KICK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         METRONOME,    FIRE_BLAST,   SKULL_BASH,   \
-	     REST,         ROCK_SLIDE,   SUBSTITUTE,   STRENGTH
+	; Apex four-armed humanoid fighter. Last-stage fun moves allowed.
+	tmhm ROCK_THROW, QUICK_ATTACK, BIND, BULLDOZE, SEISMIC_TOSS, \
+	     RAGE, BODY_SLAM, BULK_UP, MIMIC, MIRROR_MOVE, \
+	     SUBSTITUTE, METRONOME, IRON_HEAD, TAKE_DOWN, SWORDS_DANCE, \
+	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH
 	; end
 
 	db 0 ; padding

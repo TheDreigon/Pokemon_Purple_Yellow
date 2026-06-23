@@ -10,7 +10,7 @@ CeruleanTrashedHouse_TextPointers:
 
 CeruleanTrashedHouseFishingGuruText:
 	text_asm
-	ld b, TM_DIG
+	ld b, TM_BULLDOZE
 	predef GetQuantityOfItemInBag
 	and b
 	jr z, .no_dig_tm

@@ -8,7 +8,6 @@ ENDM
 ; trainer class ids
 ; indexes for:
 ; - TrainerNames (see data/trainers/names.asm)
-; - TrainerNamePointers (see data/trainers/name_pointers.asm)
 ; - TrainerDataPointers (see data/trainers/parties.asm)
 ; - TrainerPicAndMoneyPointers (see data/trainers/pic_pointers_money.asm)
 ; - TrainerAIPointers (see data/trainers/ai_pointers.asm)
@@ -66,4 +65,5 @@ ENDM
 	trainer_const JANINE		 ; $31
 	trainer_const JOY		 	 ; $32
 	trainer_const JENNY		 	 ; $33
+	trainer_const JESSIE_AND_JAMES ; $34 — Team Rocket duo (4 fights, mid-game). Boss-class in Hard mode.
 DEF NUM_TRAINERS EQU const_value - 1

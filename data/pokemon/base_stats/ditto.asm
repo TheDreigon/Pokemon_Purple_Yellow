@@ -1,7 +1,5 @@
 	db DEX_DITTO ; pokedex id
-
-	db  48,  48,  48,  48,  48
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 50, 50, 50, 50 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
 	db 35 ; catch rate
@@ -11,9 +9,11 @@
 	dw DittoPicFront, DittoPicBack
 
 	db TRANSFORM, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_FAST ; growth rate
+	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
+	; Ditto. TRANSFORM only, no TMs. Its only play is to copy; it has no
+	; anatomy or gesture of its own for any TM/HM.
 	tmhm
 	; end
 

@@ -1,25 +1,23 @@
 	db DEX_MAROWAK ; pokedex id
-
-	db  60,  80, 110,  45,  80
-	;   hp  atk  def  spd  spc
-
-	db GROUND, GROUND ; type
+	base_stat_row 75, 90, 100, 80, 70 ; hp atk def spc spd
+	db GROUND, DARK ; type
 	db 75 ; catch rate
 	db 124 ; base exp
 
 	INCBIN "gfx/pokemon/front/marowak.pic", 0, 1 ; sprite dimensions
 	dw MarowakPicFront, MarowakPicBack
 
-	db GROWL, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC,  BODY_SLAM, TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     EARTHQUAKE,   FISSURE,      DIG,          MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,    	FIRE_BLAST,   	SKULL_BASH,   REST, ROCK_SLIDE,  SUBSTITUTE,   \
-	     CUT, 		STRENGTH, 		SWORDS_DANCE
+	; Apex bone-wielder Ground/Dark; ghost-mother lore backs the dark
+	; and ghost moves. Last-stage fun moves allowed.
+	tmhm ROCK_THROW, FAINT_ATTACK, BULLDOZE, RAGE, BODY_SLAM, \
+	     NIGHT_SHADE, BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, IRON_HEAD, CHARM, INTIMIDATE, SCARY_FACE, \
+	     TAKE_DOWN, DARK_PULSE, SHADOW_BALL, SWORDS_DANCE, EARTHQUAKE, \
+	     ROCK_SLIDE, DOUBLE_EDGE, THRASH, OUTRAGE, STRENGTH
 	; end
 
 	db 0 ; padding

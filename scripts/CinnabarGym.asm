@@ -220,21 +220,33 @@ CinnabarGymBlainePostBattleScript:
 	and a
 	jr nz, BlaineRematchPostBattle
 ; fallthrough
-CinnabarGymReceiveTM38:
+CinnabarGymReceiveGifts:
 	ld a, TEXT_CINNABARGYM_BLAINE_VOLCANO_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_BLAINE
-	lb bc, TM_FIRE_BLAST, 1
+	CheckEvent EVENT_GOT_BLAINE_TM
+	jr nz, .tryCandy
+	lb bc, TM_FLAMETHROWER, 1
 	call GiveItem
-	jr nc, .BagFull
-	ld a, TEXT_CINNABARGYM_BLAINE_RECEIVED_TM38
+	jr nc, .bagFull
+	ld a, TEXT_CINNABARGYM_BLAINE_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	SetEvent EVENT_GOT_TM38
+	SetEvent EVENT_GOT_BLAINE_TM
+.tryCandy
+	CheckEvent EVENT_GOT_BLAINE_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_CINNABARGYM_BLAINE_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_BLAINE_CANDY
 	jr .gymVictory
-.BagFull
-	ld a, TEXT_CINNABARGYM_BLAINE_TM38_NO_ROOM
+.bagFull
+	ld a, TEXT_CINNABARGYM_BLAINE_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 .gymVictory
@@ -269,8 +281,9 @@ CinnabarGym_TextPointers:
 	dw_const CinnabarGymSuperNerd7,                 TEXT_CINNABARGYM_SUPER_NERD7
 	dw_const CinnabarGymGymGuideText,               TEXT_CINNABARGYM_GYM_GUIDE
 	dw_const CinnabarGymBlaineVolcanoBadgeInfoText, TEXT_CINNABARGYM_BLAINE_VOLCANO_BADGE_INFO
-	dw_const CinnabarGymBlaineReceivedTM38Text,     TEXT_CINNABARGYM_BLAINE_RECEIVED_TM38
-	dw_const CinnabarGymBlaineTM38NoRoomText,       TEXT_CINNABARGYM_BLAINE_TM38_NO_ROOM
+	dw_const CinnabarGymBlaineReceivedTMText,     TEXT_CINNABARGYM_BLAINE_RECEIVED_TM
+	dw_const CinnabarGymBlaineTMNoRoomText,       TEXT_CINNABARGYM_BLAINE_TM_NO_ROOM
+	dw_const CinnabarGymBlaineReceivedCandyText,  TEXT_CINNABARGYM_BLAINE_RECEIVED_CANDY
 	dw_const CinnabarGymRematchPostBattleText, 	  	TEXT_CINNABARGYM_REMATCH_POST_BATTLE
 
 CinnabarGymStartBattleScript:
@@ -339,9 +352,12 @@ CinnabarGymBlaineText:
 	text_asm
 	CheckEvent EVENT_BEAT_BLAINE
 	jr z, .beforeBeat
-	CheckEventReuseA EVENT_GOT_TM38
+	CheckEventReuseA EVENT_GOT_BLAINE_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_BLAINE_CANDY
 	jr nz, .afterBeat
-	call z, CinnabarGymReceiveTM38
+.needGifts
+	call CinnabarGymReceiveGifts
 	call DisableWaitingAfterTextDisplay
 	jp TextScriptEnd
 .afterBeat
@@ -381,14 +397,20 @@ CinnabarGymBlaineVolcanoBadgeInfoText:
 	text_far _CinnabarGymBlaineVolcanoBadgeInfoText
 	text_end
 
-CinnabarGymBlaineReceivedTM38Text:
-	text_far _CinnabarGymBlaineReceivedTM38Text
+CinnabarGymBlaineReceivedTMText:
+	text_far _CinnabarGymBlaineReceivedTMText
 	sound_get_item_1
-	text_far _CinnabarGymBlaineTM38ExplanationText
+	text_far _CinnabarGymBlaineTMExplanationText
 	text_end
 
-CinnabarGymBlaineTM38NoRoomText:
-	text_far _CinnabarGymBlaineTM38NoRoomText
+CinnabarGymBlaineTMNoRoomText:
+	text_far _CinnabarGymBlaineTMNoRoomText
+	text_end
+
+CinnabarGymBlaineReceivedCandyText:
+	text_far _CinnabarGymBlaineReceivedCandyText
+	sound_get_item_1
+	text_far _CinnabarGymBlaineCandyCommentText
 	text_end
 
 CinnabarGymSuperNerd1:

@@ -9,21 +9,23 @@ CeladonPrizeMenu::
 	set 6, [hl] ; disable letter-printing delay
 	ld hl, ExchangeCoinsForPrizesTextPtr
 	call PrintText
-; the following are the menu settings
+; v0.5 Phase B.3: all 3 menus (Mon1, Mon2, TM) show 4 prizes. Layout is
+; uniform now; the only Mon-vs-TM branching left is GetMonName vs
+; GetItemName for the prize names (handled in GetPrizeMenuId).
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
 	ld a, A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
-	ld a, $03
-	ld [wMaxMenuItem], a
+	ld a, $04
+	ld [wMaxMenuItem], a ; 4 prizes + NO_THANKS = 5 items, max index = 4
 	ld a, $04
 	ld [wTopMenuItemY], a
 	ld a, $01
 	ld [wTopMenuItemX], a
 	call PrintPrizePrice
 	hlcoord 0, 2
-	lb bc, 8, 16
+	lb bc, 10, 16
 	call TextBoxBorder
 	call GetPrizeMenuId
 	call UpdateSprites
@@ -33,7 +35,7 @@ CeladonPrizeMenu::
 	bit BIT_B_BUTTON, a
 	jr nz, .noChoice
 	ld a, [wCurrentMenuItem]
-	cp 3 ; "NO,THANKS" choice
+	cp 4 ; "NO,THANKS" choice (always the last item)
 	jr z, .noChoice
 	call HandlePrizeChoice
 .noChoice
@@ -55,14 +57,10 @@ WhichPrizeTextPtr:
 	text_end
 
 GetPrizeMenuId:
-; determine which one among the three
-; prize-texts has been selected
-; using the text ID (stored in [hSpriteIndexOrTextID])
-; load the three prizes at wd13d-wd13f
-; load the three prices at wd141-wd146
-; display the three prizes' names
-; (distinguishing between Pokemon names
-; and Items (specifically TMs) names)
+; v0.5 Phase B.3: handles 4 prizes for all menus (Mon1, Mon2, TM).
+; Only difference between Mon and TM is GetMonName vs GetItemName for
+; rendering the prize names; everything else (textbox size, price
+; copy size, NO_THANKS row) is uniform.
 	ldh a, [hSpriteIndexOrTextID]
 	sub 4       ; prize-texts' id are 3, 4 and 5
 	ld [wWhichPrizeWindow], a    ; prize-texts' id (relative, i.e. 0, 1 or 2)
@@ -84,7 +82,7 @@ GetPrizeMenuId:
 	ld h, [hl]
 	ld l, a
 	ld de, wPrize1Price
-	ld bc, 6
+	ld bc, 8 ; 4 prices x 2 bytes each (BCD)
 	call CopyData
 	ld a, [wWhichPrizeWindow]
 	cp 2        ;is TM_menu?
@@ -104,6 +102,11 @@ GetPrizeMenuId:
 	call GetItemName
 	hlcoord 2, 8
 	call PlaceString
+	ld a, [wPrize4]
+	ld [wd11e], a
+	call GetItemName
+	hlcoord 2, 10
+	call PlaceString
 	jr .putNoThanksText
 .putMonName
 	ld a, [wPrize1]
@@ -121,16 +124,19 @@ GetPrizeMenuId:
 	call GetMonName
 	hlcoord 2, 8
 	call PlaceString
-.putNoThanksText
+	ld a, [wPrize4]
+	ld [wd11e], a
+	call GetMonName
 	hlcoord 2, 10
+	call PlaceString
+.putNoThanksText
+	hlcoord 2, 12
 	ld de, NoThanksText
 	call PlaceString
 ; put prices on the right side of the textbox
+; reg. c: [low nybble] number of bytes; [bits 765 = %100] space-padding
 	ld de, wPrize1Price
 	hlcoord 13, 5
-; reg. c:
-; [low nybble] number of bytes
-; [bits 765 = %100] space-padding (not zero-padding)
 	ld c, (1 << 7 | 2)
 	call PrintBCDNumber
 	ld de, wPrize2Price
@@ -139,6 +145,10 @@ GetPrizeMenuId:
 	call PrintBCDNumber
 	ld de, wPrize3Price
 	hlcoord 13, 9
+	ld c, (1 << 7 | 2)
+	call PrintBCDNumber
+	ld de, wPrize4Price
+	hlcoord 13, 11
 	ld c, (1 << 7 | 2)
 	jp PrintBCDNumber
 

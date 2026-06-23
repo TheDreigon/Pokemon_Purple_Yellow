@@ -52,12 +52,16 @@ _CeruleanGymRematchPostBattleText::
     cont "battle!"
 	done
 
-_CeruleanGymMistyTM11ExplanationText::
-	text "TM11 teaches"
-	line "BUBBLEBEAM!"
+_CeruleanGymMistyTMExplanationText::
+	text "TM06 teaches"
+	line "WATER PULSE!"
 
-	para "Use it on an"
-	line "aquatic #MON!"
+	para "A surging pulse"
+	line "of water that"
+	cont "sometimes confuses"
+	cont "the foe!"
+
+	para "Use it well!"
 	done
 
 _CeruleanGymMistyCascadeBadgeInfoText::
@@ -80,14 +84,29 @@ _CeruleanGymMistyCascadeBadgeInfoText::
 	line "my favorite TM!"
 	done
 
-_CeruleanGymMistyReceivedTM11Text::
+_CeruleanGymMistyReceivedTMText::
 	text "<PLAYER> received"
-	line "TM11 BBLBEAM!@"
+	line "@"
+	text_ram wStringBuffer
+	text "!@"
 	text_end
 
-_CeruleanGymMistyTM11NoRoomText::
+_CeruleanGymMistyTMNoRoomText::
 	text "You better make"
 	line "room for this!"
+	done
+
+_CeruleanGymMistyReceivedCandyText::
+	text "<PLAYER> received"
+	line "a RARE CANDY!@"
+	text_end
+
+_CeruleanGymMistyCandyCommentText::
+	text_start
+
+	para "Don't let sweets"
+	line "make you soft,"
+	cont "sweetie!"
 	done
 
 _CeruleanGymMistyReceivedCascadeBadgeText::

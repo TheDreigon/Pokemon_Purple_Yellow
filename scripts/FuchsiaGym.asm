@@ -48,21 +48,33 @@ FuchsiaGymKogaPostBattleScript:
 	and a
 	jr nz, KogaRematchPostBattle
 ; fallthrough
-FuchsiaGymReceiveTM06:
+FuchsiaGymReceiveGifts:
 	ld a, TEXT_FUCHSIAGYM_KOGA_SOUL_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_KOGA
+	CheckEvent EVENT_GOT_KOGA_TM
+	jr nz, .tryCandy
 	lb bc, TM_TOXIC, 1
 	call GiveItem
-	jr nc, .BagFull
-	ld a, TEXT_FUCHSIAGYM_KOGA_RECEIVED_TM06
+	jr nc, .bagFull
+	ld a, TEXT_FUCHSIAGYM_KOGA_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	SetEvent EVENT_GOT_TM06
+	SetEvent EVENT_GOT_KOGA_TM
+.tryCandy
+	CheckEvent EVENT_GOT_KOGA_CANDY
+	jr nz, .gymVictory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld a, TEXT_FUCHSIAGYM_KOGA_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_KOGA_CANDY
 	jr .gymVictory
-.BagFull
-	ld a, TEXT_FUCHSIAGYM_KOGA_TM06_NO_ROOM
+.bagFull
+	ld a, TEXT_FUCHSIAGYM_KOGA_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 .gymVictory
@@ -93,8 +105,9 @@ FuchsiaGym_TextPointers:
 	dw_const FuchsiaGymRocker6Text,           TEXT_FUCHSIAGYM_ROCKER6
 	dw_const FuchsiaGymGymGuideText,          TEXT_FUCHSIAGYM_GYM_GUIDE
 	dw_const FuchsiaGymKogaSoulBadgeInfoText, TEXT_FUCHSIAGYM_KOGA_SOUL_BADGE_INFO
-	dw_const FuchsiaGymKogaReceivedTM06Text,  TEXT_FUCHSIAGYM_KOGA_RECEIVED_TM06
-	dw_const FuchsiaGymKogaTM06NoRoomText,    TEXT_FUCHSIAGYM_KOGA_TM06_NO_ROOM
+	dw_const FuchsiaGymKogaReceivedTMText,  TEXT_FUCHSIAGYM_KOGA_RECEIVED_TM
+	dw_const FuchsiaGymKogaTMNoRoomText,    TEXT_FUCHSIAGYM_KOGA_TM_NO_ROOM
+	dw_const FuchsiaGymKogaReceivedCandyText, TEXT_FUCHSIAGYM_KOGA_RECEIVED_CANDY
 	dw_const FuchsiaGymRematchPostBattleText, TEXT_FUCHSIAGYM_REMATCH_POST_BATTLE
 
 FuchsiaGymTrainerHeaders:
@@ -117,9 +130,12 @@ FuchsiaGymKogaText:
 	text_asm
 	CheckEvent EVENT_BEAT_KOGA
 	jr z, .beforeBeat
-	CheckEventReuseA EVENT_GOT_TM06
+	CheckEventReuseA EVENT_GOT_KOGA_TM
+	jr z, .needGifts
+	CheckEvent EVENT_GOT_KOGA_CANDY
 	jr nz, .afterBeat
-	call z, FuchsiaGymReceiveTM06
+.needGifts
+	call FuchsiaGymReceiveGifts
 	call DisableWaitingAfterTextDisplay
 	jr .todone
 .afterBeat
@@ -225,14 +241,20 @@ FuchsiaGymKogaSoulBadgeInfoText:
 	text_far _FuchsiaGymKogaSoulBadgeInfoText
 	text_end
 
-FuchsiaGymKogaReceivedTM06Text:
-	text_far _FuchsiaGymKogaReceivedTM06Text
+FuchsiaGymKogaReceivedTMText:
+	text_far _FuchsiaGymKogaReceivedTMText
 	sound_get_key_item
-	text_far _FuchsiaGymKogaTM06ExplanationText
+	text_far _FuchsiaGymKogaTMExplanationText
 	text_end
 
-FuchsiaGymKogaTM06NoRoomText:
-	text_far _FuchsiaGymKogaTM06NoRoomText
+FuchsiaGymKogaTMNoRoomText:
+	text_far _FuchsiaGymKogaTMNoRoomText
+	text_end
+
+FuchsiaGymKogaReceivedCandyText:
+	text_far _FuchsiaGymKogaReceivedCandyText
+	sound_get_item_1
+	text_far _FuchsiaGymKogaCandyCommentText
 	text_end
 
 FuchsiaGymRocker1Text:

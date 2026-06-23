@@ -1,9 +1,6 @@
 	db DEX_HAUNTER ; pokedex id
-
-	db  45,  50,  45,  95, 115
-	;   hp  atk  def  spd  spc
-
-	db GHOST, POISON ; type
+	base_stat_row 45, 60, 45, 105, 100 ; hp atk def spc spd
+	db GHOST, GAS ; type
 	db 90 ; catch rate
 	db 126 ; base exp
 
@@ -11,12 +8,12 @@
 	dw HaunterPicFront, HaunterPicBack
 
 	db LICK, CONFUSE_RAY, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        RAGE,         MEGA_DRAIN,   THUNDERBOLT,  THUNDER,      \
-	     PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  BIDE,         SELFDESTRUCT, \
-	     DREAM_EATER,  REST,         PSYWAVE,      EXPLOSION,    SUBSTITUTE
+	; Handed sinister ghost; intermediate subset above Gastly.
+	tmhm FAINT_ATTACK, NIGHT_SHADE, CONFUSE_RAY, POISON_BITE, TOXIC, \
+	     EXTRASENSORY, INTIMIDATE, SCARY_FACE, DARK_PULSE, SHADOW_BALL
 	; end
 
 	db 0 ; padding

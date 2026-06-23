@@ -200,6 +200,7 @@ ROMX $33
 	"Pikachu Cries 8"
 ROMX $34
 	"Pikachu Cries 9"
+	"Move SFX Table"
 ROMX $35
 	"Pikachu Cries 10"
 ROMX $36
@@ -245,7 +246,7 @@ WRAM0
 	"Main Data"
 	"Current Box Data"
 	"GBC Palette Data"
-	org $df15
+	org $df08 ; v0.7 stack hardening: lowered from $df3e (+54 bytes) by reclaiming the "ds 54 unused" padding in Main Data; stack 194 -> 248. (History: $df3c -> $df3e for the tiered mart buffer overflow fix.)
 	"Stack"
 VRAM $0
 	"VRAM"

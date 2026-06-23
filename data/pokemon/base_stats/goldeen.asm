@@ -1,7 +1,5 @@
 	db DEX_GOLDEEN ; pokedex id
-
-	db  45,  67,  60,  63,  50
-	;   hp  atk  def  spd  spc
+	base_stat_row 45, 65, 60, 35, 60 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 225 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/goldeen.pic", 0, 1 ; sprite dimensions
 	dw GoldeenPicFront, GoldeenPicBack
 
-	db TAIL_WHIP, BUBBLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TAIL_WHIP, WATER_GUN, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        HORN_DRILL,   TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         MIMIC,        \
-	     DOUBLE_TEAM,  BIDE,         SWIFT,        SKULL_BASH,   REST,         \
-	     SUBSTITUTE,   SURF,     SWORDS_DANCE
+	; Pre-evo horned river fish, backbone subset. HM SURF.
+	tmhm WATER_PULSE, ICY_PULSE, AGILITY, TAKE_DOWN, ICE_BEAM, \
+	     SURF
 	; end
 
 	db 0 ; padding

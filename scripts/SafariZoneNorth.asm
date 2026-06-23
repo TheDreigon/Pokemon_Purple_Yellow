@@ -4,7 +4,7 @@ SafariZoneNorth_Script:
 SafariZoneNorth_TextPointers:
 	def_text_pointers
 	dw_const PickUpItemText,                   TEXT_SAFARIZONENORTH_PROTEIN
-	dw_const PickUpItemText,                   TEXT_SAFARIZONENORTH_TM_SKULL_BASH
+	dw_const PickUpItemText,                   TEXT_SAFARIZONENORTH_TM_DRAGON_CLAW
 	dw_const SafariZoneNorthRestHouseSignText, TEXT_SAFARIZONENORTH_REST_HOUSE_SIGN
 	dw_const SafariZoneNorthTrainerTips1Text,  TEXT_SAFARIZONENORTH_TRAINER_TIPS_1
 	dw_const SafariZoneNorthSignText,          TEXT_SAFARIZONENORTH_SIGN

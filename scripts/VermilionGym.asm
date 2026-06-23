@@ -65,21 +65,33 @@ VermilionGymLTSurgeAfterBattleScript:
 	and a
 	jr nz, SurgeRematchPostBattle
 ; fallthrough
-VermilionGymLTSurgeReceiveTM24Script:
+VermilionGymLTSurgeReceiveGiftsScript:
 	ld a, TEXT_VERMILIONGYM_LT_SURGE_THUNDER_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_LT_SURGE
-	lb bc, TM_THUNDERBOLT, 1
+	CheckEvent EVENT_GOT_SURGE_TM
+	jr nz, .try_candy
+	lb bc, TM_SHOCK_WAVE, 1
 	call GiveItem
 	jr nc, .bag_full
-	ld a, TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_TM24
+	ld a, TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_TM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	SetEvent EVENT_GOT_TM24
+	SetEvent EVENT_GOT_SURGE_TM
+.try_candy
+	CheckEvent EVENT_GOT_SURGE_CANDY
+	jr nz, .gym_victory
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bag_full
+	ld a, TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_CANDY
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_GOT_SURGE_CANDY
 	jr .gym_victory
 .bag_full
-	ld a, TEXT_VERMILIONGYM_LT_SURGE_TM24_NO_ROOM
+	ld a, TEXT_VERMILIONGYM_LT_SURGE_TM_NO_ROOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 .gym_victory
@@ -107,8 +119,9 @@ VermilionGym_TextPointers:
 	dw_const VermilionGymSailorText,                  TEXT_VERMILIONGYM_SAILOR
 	dw_const VermilionGymGymGuideText,                TEXT_VERMILIONGYM_GYM_GUIDE
 	dw_const VermilionGymLTSurgeThunderBadgeInfoText, TEXT_VERMILIONGYM_LT_SURGE_THUNDER_BADGE_INFO
-	dw_const VermilionGymLTSurgeReceivedTM24Text,     TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_TM24
-	dw_const VermilionGymLTSurgeTM24NoRoomText,       TEXT_VERMILIONGYM_LT_SURGE_TM24_NO_ROOM
+	dw_const VermilionGymLTSurgeReceivedTMText,     TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_TM
+	dw_const VermilionGymLTSurgeTMNoRoomText,       TEXT_VERMILIONGYM_LT_SURGE_TM_NO_ROOM
+	dw_const VermilionGymLTSurgeReceivedCandyText,  TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_CANDY
 	dw_const VermilionGymRematchPostBattleText, 	  TEXT_VERMILIONGYM_REMATCH_POST_BATTLE
 
 VermilionGymTrainerHeaders:
@@ -125,12 +138,15 @@ VermilionGymLTSurgeText:
 	text_asm
 	CheckEvent EVENT_BEAT_LT_SURGE
 	jr z, .before_beat
-	CheckEventReuseA EVENT_GOT_TM24
-	jr nz, .got_tm24_already
-	call z, VermilionGymLTSurgeReceiveTM24Script
+	CheckEventReuseA EVENT_GOT_SURGE_TM
+	jr z, .need_gifts
+	CheckEvent EVENT_GOT_SURGE_CANDY
+	jr nz, .gifts_done
+.need_gifts
+	call VermilionGymLTSurgeReceiveGiftsScript
 	call DisableWaitingAfterTextDisplay
 	jr .text_script_end
-.got_tm24_already
+.gifts_done
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr nz, .SurgeRematch
@@ -212,14 +228,20 @@ VermilionGymLTSurgeThunderBadgeInfoText:
 	text_far _VermilionGymLTSurgeThunderBadgeInfoText
 	text_end
 
-VermilionGymLTSurgeReceivedTM24Text:
-	text_far _VermilionGymLTSurgeReceivedTM24Text
+VermilionGymLTSurgeReceivedTMText:
+	text_far _VermilionGymLTSurgeReceivedTMText
 	sound_get_key_item
-	text_far _TM24ExplanationText
+	text_far _VermilionGymLTSurgeTMExplanationText
 	text_end
 
-VermilionGymLTSurgeTM24NoRoomText:
-	text_far _VermilionGymLTSurgeTM24NoRoomText
+VermilionGymLTSurgeTMNoRoomText:
+	text_far _VermilionGymLTSurgeTMNoRoomText
+	text_end
+
+VermilionGymLTSurgeReceivedCandyText:
+	text_far _VermilionGymLTSurgeReceivedCandyText
+	sound_get_item_1
+	text_far _VermilionGymLTSurgeCandyCommentText
 	text_end
 
 VermilionGymLTSurgeReceivedThunderBadgeText:

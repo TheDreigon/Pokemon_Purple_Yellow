@@ -1,23 +1,25 @@
 ItemPrices::
+; v0.5 mart rework: prices retuned to fit the badge-tiered global mart
+; system. See `Poke Marts - before-after.txt` notepad for the spec.
 	table_width 3, ItemPrices
 	bcd3 0     ; MASTER_BALL
-	bcd3 1200  ; ULTRA_BALL
-	bcd3 600   ; GREAT_BALL
-	bcd3 200   ; POKE_BALL
+	bcd3 600   ; ULTRA_BALL  (was 1200; halved)
+	bcd3 300   ; GREAT_BALL  (was 600;  halved)
+	bcd3 100   ; POKE_BALL   (was 200;  halved)
 	bcd3 0     ; TOWN_MAP
 	bcd3 0     ; BICYCLE
 	bcd3 0     ; SURFBOARD
-	bcd3 1000  ; SAFARI_BALL
+	bcd3 1000  ; SAFARI_BALL (unchanged; Safari Zone-only)
 	bcd3 0     ; POKEDEX
-	bcd3 0     ; MOON_STONE
-	bcd3 100   ; ANTIDOTE
+	bcd3 3000  ; MOON_STONE  (was 0; now sold in Celadon 4F shopping)
+	bcd3 250   ; ANTIDOTE    (was 100; uniform status-healer floor)
 	bcd3 250   ; BURN_HEAL
 	bcd3 250   ; ICE_HEAL
-	bcd3 200   ; AWAKENING
-	bcd3 200   ; PARLYZ_HEAL
+	bcd3 250   ; AWAKENING   (was 200)
+	bcd3 250   ; PARLYZ_HEAL (was 200)
 	bcd3 3000  ; FULL_RESTORE
-	bcd3 2500  ; MAX_POTION
-	bcd3 1200  ; HYPER_POTION
+	bcd3 2000  ; MAX_POTION  (was 2500; slight price drop)
+	bcd3 1500  ; HYPER_POTION (was 1200; slight bump to widen tier gap)
 	bcd3 500   ; SUPER_POTION
 	bcd3 200   ; POTION
 	bcd3 0     ; BOULDERBADGE
@@ -28,46 +30,46 @@ ItemPrices::
 	bcd3 0     ; MARSHBADGE
 	bcd3 0     ; VOLCANOBADGE
 	bcd3 0     ; EARTHBADGE
-	bcd3 550   ; ESCAPE_ROPE
-	bcd3 10    ; REPEL
+	bcd3 1000  ; ESCAPE_ROPE (was 550; intentional bump - "get out of jail" tax)
+	bcd3 200   ; REPEL       (vanilla 350; an early PY commit dropped it to 10 by mistake — settled at a sane 200)
 	bcd3 0     ; OLD_AMBER
-	bcd3 2100  ; FIRE_STONE
-	bcd3 2100  ; THUNDER_STONE
-	bcd3 2100  ; WATER_STONE
-	bcd3 9800  ; HP_UP
-	bcd3 9800  ; PROTEIN
-	bcd3 9800  ; IRON
-	bcd3 9800  ; CARBOS
-	bcd3 9800  ; CALCIUM
-	bcd3 4800  ; RARE_CANDY
+	bcd3 3000  ; FIRE_STONE  (was 2100; uniform 3000 across all stones)
+	bcd3 3000  ; THUNDER_STONE
+	bcd3 3000  ; WATER_STONE
+	bcd3 4900  ; HP_UP       (was 9800; vitamins halved to make them mid-game viable)
+	bcd3 4900  ; PROTEIN
+	bcd3 4900  ; IRON
+	bcd3 4900  ; CARBOS
+	bcd3 4900  ; CALCIUM
+	bcd3 4900  ; RARE_CANDY  (was 4800; rounded to match vitamin tier)
 	bcd3 0     ; DOME_FOSSIL
 	bcd3 0     ; HELIX_FOSSIL
 	bcd3 0     ; SECRET_KEY
 	bcd3 0     ; ITEM_2C
 	bcd3 0     ; BIKE_VOUCHER
-	bcd3 5000  ; X_ACCURACY
-	bcd3 2100  ; LEAF_STONE
+	bcd3 3000  ; X_ACCURACY  (was 5000)
+	bcd3 3000  ; LEAF_STONE  (was 2100; matches other stones)
 	bcd3 0     ; CARD_KEY
-	bcd3 10000 ; NUGGET
-	bcd3 9800  ; ITEM_32
+	bcd3 10000 ; NUGGET      (player sells; sale value = 1/2 price)
+	bcd3 19600 ; PP_MAX      (formerly ITEM_32 ghost; see commit 00631de)
 	bcd3 1000  ; POKE_DOLL
-	bcd3 600   ; FULL_HEAL
+	bcd3 500   ; FULL_HEAL   (was 600; small drop)
 	bcd3 1500  ; REVIVE
 	bcd3 4000  ; MAX_REVIVE
-	bcd3 3000  ; GUARD_SPEC
-	bcd3 500   ; SUPER_REPEL
-	bcd3 700   ; MAX_REPEL
-	bcd3 5000  ; DIRE_HIT
+	bcd3 2500  ; GUARD_SPEC  (was 3000)
+	bcd3 400   ; SUPER_REPEL (was 500)
+	bcd3 600   ; MAX_REPEL   (was 700)
+	bcd3 2000  ; DIRE_HIT    (was 5000)
 	bcd3 10    ; COIN
-	bcd3 200   ; FRESH_WATER
+	bcd3 250   ; FRESH_WATER (was 200; tweaked so $/HP no longer trivially beats SUPER_POTION)
 	bcd3 300   ; SODA_POP
 	bcd3 350   ; LEMONADE
 	bcd3 0     ; S_S_TICKET
 	bcd3 0     ; GOLD_TEETH
-	bcd3 4000   ; X_ATTACK
-	bcd3 4000   ; X_DEFEND
-	bcd3 4000   ; X_SPEED
-	bcd3 4000   ; X_SPECIAL
+	bcd3 1000  ; X_ATTACK    (was 4000; X-items made cheap so they're actually used)
+	bcd3 1000  ; X_DEFEND
+	bcd3 1500  ; X_SPEED
+	bcd3 1500  ; X_SPECIAL
 	bcd3 0     ; COIN_CASE
 	bcd3 0     ; OAKS_PARCEL
 	bcd3 0     ; ITEMFINDER
@@ -79,10 +81,10 @@ ItemPrices::
 	bcd3 0     ; GOOD_ROD
 	bcd3 0     ; SUPER_ROD
 	bcd3 9800  ; PP_UP
-	bcd3 0     ; ETHER
-	bcd3 0     ; MAX_ETHER
-	bcd3 0     ; ELIXER
-	bcd3 0     ; MAX_ELIXER
+	bcd3 1200  ; ETHER       (was 0; now sold post-E4 at Indigo + Celadon 2F)
+	bcd3 2000  ; MAX_ETHER   (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
+	bcd3 3200  ; ELIXER      (was 0; now sold post-E4 at Indigo + Celadon 2F)
+	bcd3 4500  ; MAX_ELIXER  (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
 	assert_table_length NUM_ITEMS
 	bcd3 0     ; FLOOR_B2F
 	bcd3 0     ; FLOOR_B1F

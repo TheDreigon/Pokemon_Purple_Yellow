@@ -16,4 +16,7 @@ CinnabarMartScientistText:
 	text_end
 
 CinnabarMartClerkText::
-	script_mart ULTRA_BALL, HYPER_POTION, MAX_REPEL, ESCAPE_ROPE, FULL_HEAL, REVIVE, TM_BUBBLEBEAM, TM_DIG, TM_MIMIC, TM_METRONOME, TM_SELFDESTRUCT, TM_SKULL_BASH, TM_PSYWAVE, TM_TRI_ATTACK
+	; v0.7 TM rework (Forte spec): mid-tier damage. 6 TMs.
+	; Regular items now come from the global tiered mart inventory; the
+	; TMs below are appended as fixed extras.
+	script_tiered_mart TM_LEECH_LIFE, TM_DAZZLE_GLEAM, TM_TAKE_DOWN, TM_BULLDOZE, TM_POISON_BITE, TM_IRON_HEAD

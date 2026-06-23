@@ -1,7 +1,5 @@
 	db DEX_RAICHU ; pokedex id
-
-	db  60,  90,  55, 100,  90
-	;   hp  atk  def  spd  spc
+	base_stat_row 80, 90, 70, 110, 90 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 75 ; catch rate
@@ -10,15 +8,16 @@
 	INCBIN "gfx/pokemon/front/raichu.pic", 0, 1 ; sprite dimensions
 	dw RaichuPicFront, RaichuPicBack
 
-	db THUNDERSHOCK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  HYPER_BEAM,   PAY_DAY,      SUBMISSION,   SEISMIC_TOSS, \
-	     RAGE,         THUNDERBOLT,  THUNDER,      MIMIC,        DOUBLE_TEAM,  \
-	     REFLECT,      BIDE,         SWIFT,        SKULL_BASH,   REST,         \
-	     THUNDER_WAVE, SUBSTITUTE,   FLASH
+	; Final-stage Electric warrior-mouse. Full electric kit
+	; (SHOCK_WAVE/THUNDERBOLT/THUNDER_WAVE); cheek sparks learn HM FLASH.
+	tmhm QUICK_ATTACK, BODY_SLAM, SHOCK_WAVE, IRON_TAIL, THUNDER_WAVE, \
+	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     AGILITY, FAKE_TEARS, CHARM, TAKE_DOWN, LIGHT_SCREEN, \
+	     REFLECT, THUNDERBOLT, DOUBLE_EDGE, FLASH
 	; end
 
 	db 0 ; padding

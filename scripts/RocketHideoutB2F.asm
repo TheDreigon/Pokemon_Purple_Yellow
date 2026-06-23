@@ -275,8 +275,8 @@ RocketHideoutB2F_TextPointers:
 	dw_const RocketHideoutB2FRocketText, TEXT_ROCKETHIDEOUTB2F_ROCKET
 	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_MOON_STONE
 	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_NUGGET
-	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_TM_HORN_DRILL
-	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_SUPER_POTION
+	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_TM_DAZZLE_GLEAM
+	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_TM_AGILITY
 
 RocketHideout2TrainerHeaders:
 	def_trainers

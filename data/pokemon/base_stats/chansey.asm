@@ -1,27 +1,23 @@
 	db DEX_CHANSEY ; pokedex id
-
-	db 250,   5,   5,  50, 105
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 250, 5, 5, 100, 70 ; hp atk def spc spd
+	db NORMAL, FAIRY ; type
 	db 30 ; catch rate
 	db 255 ; base exp
 
 	INCBIN "gfx/pokemon/front/chansey.pic", 0, 1 ; sprite dimensions
 	dw ChanseyPicFront, ChanseyPicBack
 
-	db POUND, TAIL_WHIP, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, BODY_SLAM,  TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     SOLARBEAM,    THUNDERBOLT,  THUNDER,      PSYCHIC_M,    TELEPORT,     \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         METRONOME,    \
-	     EGG_BOMB,     FIRE_BLAST,   SKULL_BASH,   SOFTBOILED,   REST,         \
-	     THUNDER_WAVE, PSYWAVE,      TRI_ATTACK,   SUBSTITUTE,   STRENGTH,     \
-	     FLASH
+	; Normal/Fairy heal-tank, single stage. Fairy/support kit
+	; (DAZZLE_GLEAM/FAKE_TEARS/CHARM/EXTRASENSORY/PSYCHIC_M), screens
+	; (LIGHT_SCREEN/REFLECT/CALM_MIND), SEISMIC_TOSS for flat damage.
+	; 4 fun moves (last stage).
+	tmhm SEISMIC_TOSS, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, DAZZLE_GLEAM, FAKE_TEARS, CHARM, EXTRASENSORY, \
+	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, CALM_MIND, PETAL_DANCE
 	; end
 
 	db 0 ; padding

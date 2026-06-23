@@ -1,26 +1,23 @@
 	db DEX_CLEFABLE ; pokedex id
-
-	db  95,  70,  73,  60,  95
-	;   hp  atk  def  spd  spc
-
-	db NORMAL, NORMAL ; type
+	base_stat_row 100, 70, 75, 100, 65 ; hp atk def spc spd
+	db FAIRY, FAIRY ; type
 	db 25 ; catch rate
 	db 129 ; base exp
 
 	INCBIN "gfx/pokemon/front/clefable.pic", 0, 1 ; sprite dimensions
 	dw ClefablePicFront, ClefablePicBack
 
-	db SING, METRONOME, GROWL, NO_MOVE ; level 1 learnset
-	db GROWTH_FAST ; growth rate
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH, FLAMETHROWER, MEGA_KICK, TOXIC, BODY_SLAM,  TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     SOLARBEAM,    THUNDERBOLT,  THUNDER,      PSYCHIC_M,    TELEPORT,     \
-	     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         METRONOME,    \
-	     FIRE_BLAST,   SKULL_BASH,   SOFTBOILED,   REST,   THUNDER_WAVE,       \
-	     PSYWAVE, TRI_ATTACK,   SUBSTITUTE,   STRENGTH,     FLASH
+	; Apex mystical moon-fairy. Fairy/psychic kit
+	; (DAZZLE_GLEAM/CHARM/FAKE_TEARS/EXTRASENSORY/PSYCHIC_M), screens
+	; (LIGHT_SCREEN/REFLECT/CALM_MIND), PETAL_DANCE, BODY_SLAM. 4 fun
+	; moves (last stage).
+	tmhm BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     DAZZLE_GLEAM, FAKE_TEARS, CHARM, EXTRASENSORY, PSYCHIC_M, \
+	     LIGHT_SCREEN, REFLECT, CALM_MIND, PETAL_DANCE, FLASH
 	; end
 
 	db 0 ; padding

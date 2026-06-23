@@ -1,7 +1,5 @@
 	db DEX_GEODUDE ; pokedex id
-
-	db  40,  80, 100,  20,  30
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 80, 100, 30, 20 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
 	db 255 ; catch rate
@@ -10,15 +8,12 @@
 	INCBIN "gfx/pokemon/front/geodude.pic", 0, 1 ; sprite dimensions
 	dw GeodudePicFront, GeodudePicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db TACKLE, DEFENSE_CURL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         EARTHQUAKE,   \
-	     FISSURE,      DIG,          MIMIC,        DOUBLE_TEAM,  BIDE,         \
-	     METRONOME,    SELFDESTRUCT, FIRE_BLAST,   REST,         EXPLOSION,    \
-	     ROCK_SLIDE,   SUBSTITUTE,   STRENGTH
+	; Basic rolling rock with arms (Rock/Ground). HM STRENGTH.
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH
 	; end
 
 	db 0 ; padding

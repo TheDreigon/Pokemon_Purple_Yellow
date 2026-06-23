@@ -1,7 +1,5 @@
 	db DEX_ODDISH ; pokedex id
-
-	db  50,  50,  55,  30,  75
-	;   hp  atk  def  spd  spc
+	base_stat_row 50, 50, 55, 60, 30 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
 	db 255 ; catch rate
@@ -10,13 +8,12 @@
 	INCBIN "gfx/pokemon/front/oddish.pic", 0, 1 ; sprite dimensions
 	dw OddishPicFront, OddishPicBack
 
-	db TACKLE, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db ABSORB, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  RAGE,         \
-	     MEGA_DRAIN,   SOLARBEAM,    MIMIC,        DOUBLE_TEAM,  REFLECT,      \
-	     BIDE,         REST,         SUBSTITUTE,   CUT
+	; Basic radish/turnip plant (Grass/Poison).
+	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 
 	db 0 ; padding

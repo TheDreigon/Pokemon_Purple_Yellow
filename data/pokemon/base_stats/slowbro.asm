@@ -1,7 +1,5 @@
 	db DEX_SLOWBRO ; pokedex id
-
-	db  95,  75, 110,  30,  80
-	;   hp  atk  def  spd  spc
+	base_stat_row 100, 75, 100, 85, 30 ; hp atk def spc spd
 
 	db WATER, PSYCHIC_TYPE ; type
 	db 75 ; catch rate
@@ -10,18 +8,15 @@
 	INCBIN "gfx/pokemon/front/slowbro.pic", 0, 1 ; sprite dimensions
 	dw SlowbroPicFront, SlowbroPicBack
 
-	db TACKLE, DISABLE, HEADBUTT, NO_MOVE ; level 1 learnset
+	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,  FLAMETHROWER, MEGA_KICK, TOXIC, BODY_SLAM, TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   PAY_DAY,      SUBMISSION,   COUNTER,      SEISMIC_TOSS, \
-	     RAGE,         EARTHQUAKE,   FISSURE,      DIG,          PSYCHIC_M,    \
-	     TELEPORT,     MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         THUNDER_WAVE, \
-	     PSYWAVE,      TRI_ATTACK,   SUBSTITUTE,   SURF,         STRENGTH,     \
-	     FLASH
+	; Apex slow Water/Psychic tank.
+	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, CONFUSE_RAY, MIMIC, \
+	     MIRROR_MOVE, SUBSTITUTE, METRONOME, TOXIC, EXTRASENSORY, \
+	     PSYCHIC_M, LIGHT_SCREEN, ICE_BEAM, REFLECT, SURF, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding

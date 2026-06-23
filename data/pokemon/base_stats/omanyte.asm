@@ -1,7 +1,5 @@
 	db DEX_OMANYTE ; pokedex id
-
-	db  35,  40, 100,  35,  90
-	;   hp  atk  def  spd  spc
+	base_stat_row 40, 40, 100, 80, 30 ; hp atk def spc spd
 
 	db ROCK, WATER ; type
 	db 45 ; catch rate
@@ -14,10 +12,9 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  BUBBLEBEAM,   \
-	     WATER_GUN,    ICE_BEAM,     BLIZZARD,     RAGE,         MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         REST,         SUBSTITUTE,   \
-	     SURF,   ROCK_SLIDE
+	; Small spiral-shell ammonite Rock/Water pre-evo.
+	tmhm ROCK_THROW, BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, \
+	     TAKE_DOWN, ROCK_SLIDE
 	; end
 
 	db 0 ; padding

@@ -6,4 +6,4 @@ CeruleanCave1F_TextPointers:
 	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_RARE_CANDY
 	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_MAX_ELIXER
 	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_MAX_REVIVE
-	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_ULTRA_BALL
+	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_TM_OUTRAGE

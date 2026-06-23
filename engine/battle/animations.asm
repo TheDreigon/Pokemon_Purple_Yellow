@@ -404,16 +404,11 @@ MoveAnimationTilesPointers:
 	anim_tileset 79, MoveAnimationTiles1
 	anim_tileset 64, MoveAnimationTiles2
 
-MoveAnimationTiles0:
-MoveAnimationTiles2:
-	INCBIN "gfx/battle/move_anim_0.2bpp"
-
-MoveAnimationTiles1:
-	INCBIN "gfx/battle/move_anim_1.2bpp"
-
-SlotMachineTiles2:
-	INCBIN "gfx/slots/slots_2.2bpp"
-SlotMachineTiles2End:
+; v0.7: MoveAnimationTiles0/1/2 + SlotMachineTiles2 GFX moved out of
+; this bank (bank $1E) into a separate bank — see
+; gfx/battle/move_animation_tiles.asm. They're loaded via Far/CopyVideoData
+; with BANK(label), so the bank change is transparent. Frees ~3.3 KB
+; in bank $1E for data/moves/animations.asm to grow during v0.7.
 
 MoveAnimation:
 	push hl
@@ -2356,13 +2351,15 @@ GetMoveSoundB:
 	ret
 
 GetMoveSound:
+; MoveSoundTable is in another bank; read entries via GetFarByte.
 	ld hl, MoveSoundTable
 	ld e, a
 	ld d, 0
 	add hl, de
 	add hl, de
 	add hl, de
-	ld a, [hli]
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
 	ld b, a
 	call IsCryMove
 	jr nc, .NotCryMove
@@ -2378,18 +2375,29 @@ GetMoveSound:
 	call GetCryData
 	ld b, a
 	pop hl
+	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
+	ld c, a
 	ld a, [wFrequencyModifier]
-	add [hl]
+	add c
 	ld [wFrequencyModifier], a
 	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
+	ld c, a
 	ld a, [wTempoModifier]
-	add [hl]
+	add c
 	ld [wTempoModifier], a
 	jr .done
 .NotCryMove
-	ld a, [hli]
+	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
 	ld [wFrequencyModifier], a
-	ld a, [hli]
+	inc hl
+	ld a, BANK(MoveSoundTable)
+	call GetFarByte
 	ld [wTempoModifier], a
 .done
 	ld a, b
@@ -2400,15 +2408,12 @@ IsCryMove:
 	ld a, [wAnimationID]
 	cp GROWL
 	jr z, .CryMove
-	cp ROAR
-	jr z, .CryMove
+	; ROAR was removed in the v0.5 movelist overhaul.
 	and a ; clear carry
 	ret
 .CryMove
 	scf
 	ret
-
-INCLUDE "data/moves/sfx.asm"
 
 CopyPicTiles:
 	ldh a, [hWhoseTurn]

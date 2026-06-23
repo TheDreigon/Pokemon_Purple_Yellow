@@ -208,14 +208,44 @@ DisplayListMenuIDLoop::
 	ld b, a
 	ld a, [wListCount]
 	cp b ; will going down scroll past the Cancel button?
-	jp c, DisplayListMenuIDLoop
+	jr c, .wrapToTop ; already at the bottom (Cancel): wrap to the top
 	inc [hl] ; if not, go down
 	jp DisplayListMenuIDLoop
 .upPressed
 	ld a, [hl]
 	and a
-	jp z, DisplayListMenuIDLoop
+	jr z, .wrapToBottom ; already at the very top: wrap to the bottom
 	dec [hl]
+	jp DisplayListMenuIDLoop
+.wrapToTop
+	; QoL wrap: from the bottom of a scrollable list, jump to the first
+	; entry (scroll offset 0, cursor 0).
+	xor a
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
+	jp DisplayListMenuIDLoop
+.wrapToBottom
+	; QoL wrap: from the top, jump to the last entry (Cancel, absolute
+	; index wListCount). cursor = min(wMaxMenuItem, wListCount),
+	; offset = wListCount - cursor.
+	ld a, [wListCount]
+	ld b, a
+	ld a, [wMaxMenuItem]
+	cp b ; wMaxMenuItem < wListCount? (list longer than the window)
+	jr c, .wrapBottomLongList
+	; list fits the window: cursor = wListCount, offset = 0
+	ld a, b
+	ld [wCurrentMenuItem], a
+	xor a
+	ld [wListScrollOffset], a
+	jp DisplayListMenuIDLoop
+.wrapBottomLongList
+	ld a, [wMaxMenuItem]
+	ld [wCurrentMenuItem], a
+	ld c, a
+	ld a, b ; wListCount
+	sub c ; offset = wListCount - wMaxMenuItem
+	ld [wListScrollOffset], a
 	jp DisplayListMenuIDLoop
 .sortItems
 	rra ; Sets the zero flag to 0 so the sorting function will happen

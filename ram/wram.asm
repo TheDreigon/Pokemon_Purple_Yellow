@@ -663,7 +663,13 @@ wEnemyNumHits:: ; db
 ; the amount of damage accumulated by the enemy while biding
 wEnemyBideAccumulatedDamage:: dw
 
-	ds 8
+; v0.7 hard mode boss item bag (knob #10).
+; Per-battle item inventory for the enemy trainer. Populated at battle start
+; by InitEnemyTrainerItemBag (engine/battle/trainer_ai.asm) only when this
+; is a Hard-mode boss battle; otherwise filled with -1 (no items). Format:
+; pairs of (item_id, count_remaining). End marker -1 in item_id slot.
+; CheckAndConsumeBossItem walks this and decrements count on use.
+wEnemyTrainerItemBag:: ds BOSS_BAG_SIZE
 wMiscBattleDataEnd::
 NEXTU
 	ds 2
@@ -1259,7 +1265,24 @@ wGymCityName:: ds 17
 
 wGymLeaderName:: ds NAME_LENGTH
 
-wItemList:: ds 16
+wItemList:: ds 41 ; sized for the worst-case tiered mart at full unlock:
+                  ; count + T0..T8 (19 items) + elite addons (4 post-E4 +
+                  ; 4 post-rematch) + Indigo TM extras (12) + $ff terminator.
+
+; Scratch buffer for the per-mart TM extras passed via `script_tiered_mart`.
+; Layout: [count, item0, item1, ..., itemN]. No $ff terminator.
+; Sized for count byte + up to 12 items; the script_tiered_mart macros
+; assert _NARG <= 12 so a larger list fails at build time instead of
+; overflowing into wMartType.
+; Populated in home before TieredMartHandler runs in another bank, since
+; the script payload lives in the map's ROM bank and is otherwise unreachable
+; once the bank has switched.
+wMartExtras:: ds 13
+
+; Mart variant flag, written by the home dispatcher and read by the bank1
+; TieredMartHandler. See macros/scripts/text.asm for TIERED_MART_TYPE_*
+; values.
+wMartType:: db
 
 wListPointer:: dw
 
@@ -1439,8 +1462,10 @@ wTrainerNo:: db
 
 ; $00 = normal attack
 ; $01 = critical hit
-; $02 = successful OHKO
-; $ff = failed OHKO
+; $02 = successful OHKO (unwritten since the v0.7 dead-code harvest removed
+;       OneHitKOEffect; the reader scaffolding in core.asm is kept in case
+;       an OHKO move ever returns)
+; $ff = failed OHKO (same)
 wCriticalHitOrOHKO:: db
 
 wMoveMissed:: db
@@ -1522,7 +1547,9 @@ NEXTU
 wPlayerNumHits:: db
 ENDU
 
-	ds 2
+; PURPLE YELLOW v0.5: repurposed from the 2-byte pad that lived here.
+wPlayerFreezeCounter:: db
+wEnemyFreezeCounter:: db
 
 ; non-zero when an item or move that allows escape from battle was used
 wEscapedFromBattle:: db
@@ -1731,7 +1758,9 @@ wMonHBackSprite:: dw
 wMonHMoves:: ds NUM_MOVES
 wMonHGrowthRate:: db
 wMonHLearnset:: flag_array NUM_TMS + NUM_HMS
-	ds 1
+	; v0.5 TM rework: removed `ds 1` padding. With NUM_TMS=55 + NUM_HMS=5 = 60 bits,
+	; the flag_array now occupies 8 bytes naturally, so the padding byte that kept the
+	; struct aligned with the previous 7-byte (55-bit) learnset is no longer needed.
 wMonHeaderEnd::
 
 ; saved at the start of a battle and then written back at the end of the battle
@@ -1862,6 +1891,7 @@ wNumberOfNoRandomBattleStepsLeft:: db
 wPrize1:: db
 wPrize2:: db
 wPrize3:: db
+wPrize4:: db ; v0.5 TM rework Phase B.3: 4-TM Game Corner menu
 
 wNoSprintSteps:: db
 
@@ -1872,8 +1902,7 @@ NEXTU
 wPrize1Price:: dw
 wPrize2Price:: dw
 wPrize3Price:: dw
-
-	ds 1
+wPrize4Price:: dw ; v0.5 TM rework Phase B.3: 4-TM Game Corner menu (replaced ds 1 padding)
 
 ; shared list of 9 random numbers, indexed by wLinkBattleRandomNumberListIndex
 wLinkBattleRandomNumberList:: ds 10
@@ -2332,7 +2361,9 @@ wPlayerGender::
 	; $01 = female
 		ds 1
 	
-	ds 54 ; unused
+	; v0.7 stack hardening: the 54-byte "unused" padding that used to sit
+	; here was reclaimed and handed to the Stack section (194 -> 248 bytes).
+	; See layout.link "Stack" (org lowered) + wram.asm "Stack" (ds grown).
 
 wObtainedHiddenItemsFlags:: flag_array 112
 
@@ -2635,5 +2666,18 @@ wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 SECTION "Stack", WRAM0
 
 ; the stack grows downward
-	ds $eb - 1
+; v0.5 TM rework Phase B.3: shrunk by 2 bytes (235 -> 233) to make room
+; for wPrize4 + wPrize4Price added for the 4-TM Game Corner menu.
+; v0.5 mart rework: shrunk a further 28 bytes (233 -> 205) to absorb
+; wItemList expansion (16 -> 32) and the new wMartExtras (12 bytes).
+; v0.5 elite tiered mart rework: another 9-byte shrink (205 -> 196) for
+; wItemList 32 -> 40 (+8) and the new wMartType variant flag (+1).
+; v0.7 tiered mart overflow fix: 2 more bytes (196 -> 194) for
+; wMartExtras 12 -> 13 (count byte + 12 Indigo TM extras was overflowing
+; into wMartType) and wItemList 40 -> 41 (true full-unlock worst case).
+; v0.7 stack hardening: grown 54 bytes (194 -> 248, $c2 -> $f8) by reclaiming
+; the "ds 54 unused" padding from Main Data. Static worst-case stack use is
+; ~60-70 bytes, so 248 is generous headroom.
+; See layout.link "Stack" org $df08.
+	ds $f8 - 1
 wStack:: db

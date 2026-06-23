@@ -1,9 +1,6 @@
 	db DEX_NINETALES ; pokedex id
-
-	db  73,  76,  75, 100, 100
-	;   hp  atk  def  spd  spc
-
-	db FIRE, FIRE ; type
+	base_stat_row 80, 70, 70, 110, 105 ; hp atk def spc spd
+	db FIRE, FAIRY ; type
 	db 75 ; catch rate
 	db 178 ; base exp
 
@@ -14,10 +11,15 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm FLAMETHROWER, TOXIC, BODY_SLAM, TAKE_DOWN, DOUBLE_EDGE, HYPER_BEAM,   \
-	     RAGE,   SOLARBEAM,    DIG,      MIMIC,   DOUBLE_TEAM,   REFLECT,      \
-	     BIDE,         FIRE_BLAST,   SWIFT,        SKULL_BASH,   REST,         \
-	     SUBSTITUTE
+	; Apex mystical kitsune Fire-Fairy, generous last-stage. Sinister/
+	; spectral moves fit the mystic kitsune (tails channel the spectral:
+	; SHADOW_BALL/DARK_PULSE) + CALM_MIND apex setup. Last-stage fun
+	; moves via TM.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, FLAME_BURST, NIGHT_SHADE, \
+	     CONFUSE_RAY, IGNITE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, DAZZLE_GLEAM, AGILITY, FAKE_TEARS, CHARM, \
+	     EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, DARK_PULSE, SHADOW_BALL, \
+	     FLAMETHROWER, REFLECT, CALM_MIND
 	; end
 
 	db 0 ; padding

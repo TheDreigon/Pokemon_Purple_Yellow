@@ -1,7 +1,5 @@
 	db DEX_PARAS ; pokedex id
-
-	db  35,  70,  55,  25,  55
-	;   hp  atk  def  spd  spc
+	base_stat_row 45, 70, 55, 45, 40 ; hp atk def spc spd
 
 	db BUG, GRASS ; type
 	db 190 ; catch rate
@@ -10,14 +8,13 @@
 	INCBIN "gfx/pokemon/front/paras.pic", 0, 1 ; sprite dimensions
 	dw ParasPicFront, ParasPicBack
 
-	db SCRATCH, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db BUG_BITE, SCRATCH, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm SWORDS_DANCE, TOXIC,        BODY_SLAM,    TAKE_DOWN,    DOUBLE_EDGE,  \
-	     RAGE,         MEGA_DRAIN,   SOLARBEAM,    DIG,          MIMIC,        \
-	     DOUBLE_TEAM,  REFLECT,      BIDE,         SKULL_BASH,   REST,         \
-	     SUBSTITUTE,   CUT
+	; Cordyceps-controlled bug (Bug/Grass), short pre-evo backbone:
+	; GIGA_DRAIN/LEECH_LIFE plus TOXIC.
+	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE, CUT
 	; end
 
 	db 0 ; padding

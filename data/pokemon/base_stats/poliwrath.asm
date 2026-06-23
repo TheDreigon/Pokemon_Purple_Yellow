@@ -1,7 +1,5 @@
 	db DEX_POLIWRATH ; pokedex id
-
-	db  90,  85,  95,  70,  70
-	;   hp  atk  def  spd  spc
+	base_stat_row 90, 95, 80, 85, 75 ; hp atk def spc spd
 
 	db WATER, FIGHTING ; type
 	db 45 ; catch rate
@@ -10,16 +8,18 @@
 	INCBIN "gfx/pokemon/front/poliwrath.pic", 0, 1 ; sprite dimensions
 	dw PoliwrathPicFront, PoliwrathPicBack
 
-	db HYPNOSIS, BODY_SLAM, NO_MOVE, NO_MOVE ; level 1 learnset
-	db GROWTH_MEDIUM_SLOW ; growth rate
+	db DOUBLESLAP, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	tmhm MEGA_PUNCH,   MEGA_KICK,    TOXIC,        BODY_SLAM,    TAKE_DOWN,    \
-	     DOUBLE_EDGE,  BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     \
-	     HYPER_BEAM,   SUBMISSION,   COUNTER,      SEISMIC_TOSS, RAGE,         \
-	     EARTHQUAKE,   FISSURE,      PSYCHIC_M,    MIMIC,        DOUBLE_TEAM,  \
-	     BIDE,         METRONOME,    SKULL_BASH,   DREAM_EATER,  REST,              \
-	     PSYWAVE,      SUBSTITUTE,   SURF,         STRENGTH
+	; Apex Water/Fighting boxer-frog:
+	; WATER_PULSE/SEISMIC_TOSS/BODY_SLAM/BULK_UP/TAKE_DOWN/
+	; DOUBLE_EDGE/SURF plus ICE_BEAM/EARTHQUAKE. HM SURF/STRENGTH.
+	; Last-stage fun: MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	tmhm BULLDOZE, WATER_PULSE, ICY_PULSE, SEISMIC_TOSS, BODY_SLAM, \
+	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
+	     TAKE_DOWN, ICE_BEAM, EARTHQUAKE, DOUBLE_EDGE, SURF, \
+	     STRENGTH
 	; end
 
 	db 0 ; padding
