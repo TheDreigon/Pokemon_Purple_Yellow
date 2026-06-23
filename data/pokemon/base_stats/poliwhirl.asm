@@ -1,5 +1,5 @@
 	db DEX_POLIWHIRL ; pokedex id
-	base_stat_row 65, 65, 65, 70, 60 ; hp atk def spc spd
+	base_stat_row 65, 65, 65, 70, 70 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 120 ; catch rate
