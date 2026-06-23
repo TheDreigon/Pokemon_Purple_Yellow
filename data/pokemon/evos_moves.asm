@@ -3473,12 +3473,12 @@ JynxEvosMoves:
 	db 33, CHARM
 	db 36, ICY_PULSE
 	db 39, EXTRASENSORY
+	db 42, DOUBLE_TEAM
 	db 45, NIGHT_SHADE
-	db 45, DOUBLE_TEAM
-	db 48, SHADOW_BALL
-	db 51, AURORA_BEAM
-	db 54, SPIRIT_DRAIN
-	db 57, ICE_BEAM
+	db 48, AURORA_BEAM
+	db 51, SHADOW_BALL
+	db 54, ICE_BEAM
+	db 57, SPIRIT_DRAIN
 	db 60, DARK_PULSE
 	db 65, BLIZZARD
 	db 0
@@ -3490,12 +3490,11 @@ ElectabuzzEvosMoves:
 ; Boxer Electric, counterpart of Magmar. NUZZLE L1, DIZZY_PUNCH and
 ; MACH_PUNCH for the boxer kit. EXTREMESPEED/AGILITY very high.
 ; No SOLARBEAM (a boxer Electric isn't solar-coded).
-	db  1, LEER
-	db  1, NUZZLE
-	db  4, QUICK_ATTACK
-	db  4, THUNDERSHOCK
+	db  5, NUZZLE
 	db  7, LOW_KICK
 	db  9, SCREECH
+	db 10, THUNDERSHOCK
+	db 11, QUICK_ATTACK
 	db 11, DIZZY_PUNCH
 	db 13, THUNDER_WAVE
 	db 15, SHOCK_WAVE
@@ -3504,12 +3503,12 @@ ElectabuzzEvosMoves:
 	db 26, MACH_PUNCH
 	db 30, BULK_UP
 	db 34, FLASH
+	db 38, THUNDERBOLT
 	db 40, METAL_SOUND
 	db 42, FLAME_CHARGE
-	db 48, THUNDERBOLT
+	db 46, THRASH
 	db 55, AGILITY
 	db 58, THUNDER
-	db 60, EXTREMESPEED
 	db 65, MAGNET_BOMB
 	db 0
 
@@ -3520,7 +3519,7 @@ MagmarEvosMoves:
 ; Fire/Magma boxer, counterpart of Electabuzz. POISON_GAS L4 (vents
 ; toxic gas), ROCK_PUNCH after MAGMA_PUNCH. HM CUT.
 ; No DRAGON_RAGE/DRAGON_BREATH (Magmar is Fire/Magma, not Dragon).
-	db  4, POISON_GAS
+	db  5, POISON_GAS
 	db  7, SMOKESCREEN
 	db  9, IGNITE
 	db 11, CONFUSE_RAY
@@ -3528,8 +3527,8 @@ MagmarEvosMoves:
 	db 16, ROCK_PUNCH
 	db 18, SEISMIC_TOSS
 	db 22, FOCUS_ENERGY
-	db 25, ROCK_TOMB
 	db 27, LAVA_PLUME
+	db 28, ROCK_TOMB
 	db 30, FLAME_BURST
 	db 32, BODY_SLAM
 	db 34, FLAMETHROWER
@@ -3538,7 +3537,6 @@ MagmarEvosMoves:
 	db 44, GROWTH
 	db 48, SOLARBEAM
 	db 52, FIRE_BLAST
-	db 56, ROCK_SLIDE
 	db 60, HAZE
 	db 65, EXPLOSION
 	db 0
