@@ -2501,23 +2501,23 @@ ShellderEvosMoves:
 ; Learnset
 ; Clam Water/Water. WITHDRAW (shell). CLAMP signature
 ; (Shellder/Cloyster ONLY).
-	db  1, TACKLE
-	db  5, WITHDRAW
-	db 12, ICY_WIND
-	db 18, CLAMP
-	db 20, WATER_GUN
-	db 22, BUBBLEBEAM
-	db 24, FROST_BREATH
+	db  6, WATER_GUN
+	db  9, BIDE
+	db 13, ICY_WIND
+	db 16, BUBBLEBEAM
+	db 19, FROST_BREATH
+	db 23, BIND
+	db 23, CLAMP
+	db 25, WATER_PULSE
 	db 28, ICY_PULSE
+	db 31, ROCK_TOMB
 	db 34, AURORA_BEAM
-	db 40, RECOVER
+	db 36, RECOVER
+	db 40, BODY_SLAM
 	db 42, GROWTH
-	db 46, ICE_BEAM
-	db 50, WATER_PULSE
-	db 55, NEUROTOXIN
-	db 57, BIND
-	db 61, AQUA_JET
-	db 67, IRON_DEFENSE
+	db 44, ICE_BEAM
+	db 59, AQUA_JET
+	db 50, IRON_DEFENSE
 	db 0
 
 CloysterEvosMoves:
@@ -2526,35 +2526,30 @@ CloysterEvosMoves:
 ; Learnset
 ; Apex Water/Ice fortress. NEUROTOXIN (Shellder-line high).
 ; EXPLOSION (clam shells crack).
-	db  1, TACKLE
-	db  5, WITHDRAW
-	db 12, ICY_WIND
-	db 18, CLAMP
-	db 20, WATER_GUN
-	db 22, BUBBLEBEAM
-	db 24, FROST_BREATH
+	db  6, WATER_GUN
+	db  9, BIDE
+	db 13, ICY_WIND
+	db 16, BUBBLEBEAM
+	db 19, FROST_BREATH
+	db 23, BIND
+	db 23, CLAMP
+	db 25, WATER_PULSE
 	db 28, ICY_PULSE
+	db 31, ROCK_TOMB
 	db 34, AURORA_BEAM
-	db 40, RECOVER
+	db 36, RECOVER
+	db 40, BODY_SLAM
 	db 42, GROWTH
-	db 44, BODY_SLAM
-	db 46, ICE_BEAM
-	db 48, ROCK_TOMB
-	db 50, WATER_PULSE
-	db 53, HYDRO_PUMP
-	db 55, NEUROTOXIN
-	db 57, BIND
-	db 59, BLIZZARD
-	db 61, AQUA_JET
-	db 63, HEAVY_SLAM
-	db 65, ROCK_SLIDE
-	db 67, IRON_DEFENSE
-	db 69, EXPLOSION
+	db 44, ICE_BEAM
+	db 46, NEUROTOXIN
+	db 59, AQUA_JET
+	db 50, IRON_DEFENSE
+	db 53, HEAD_SMASH
+	db 56, EXPLOSION
+	db 60, SCARY_FACE
+	db 62, HYDRO_PUMP
+	db 65, BLIZZARD
 	db 0
-; coisas a melhorar no moveset acima: water pulse muito mais cedo, rock slide como last move, entre recover e growth apenas um?,
-; bind mais cedo, aqua jet um pouco mais cedo, alguns moves tem lvl gap de 2lvls mas o autora beam e recover têm 6,
-; rock tomb um pouco mais cedo, water gun mais cedo, dar bide, clamp um pouco mais tarde, remover heavy slam? (sim ela é grande,
-; mas não tem impulso, certo? e já tem muitos moves), talvez dar scary face como um dos last levels (cloyster exclusive).
 
 GastlyEvosMoves:
 ; Evolutions
