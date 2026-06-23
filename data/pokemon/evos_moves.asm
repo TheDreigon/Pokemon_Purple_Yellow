@@ -718,9 +718,10 @@ EkansEvosMoves:
 	db 40, SHADOW_SNEAK
 	db 43, SUBSTITUTE
 	db 48, TOXIC_FANGS
-	db 51, EXTREMESPEED
-	db 54, TOXIC
-	db 57, NEUROTOXIN
+	db 54, EXTREMESPEED
+	db 57, TOXIC
+	db 60, NEUROTOXIN
+	db 65, RECOVER
 	db 0
 
 ArbokEvosMoves:
@@ -752,6 +753,7 @@ ArbokEvosMoves:
 	db 54, EXTREMESPEED
 	db 57, TOXIC
 	db 60, NEUROTOXIN
+	db 65, RECOVER
 	db 0
 
 PikachuEvosMoves:
