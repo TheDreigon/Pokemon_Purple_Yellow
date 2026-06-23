@@ -2455,10 +2455,10 @@ GrimerEvosMoves:
 	db 28, SMOG
 	db 31, CORRODE
 	db 31, BODY_SLAM
-	db 34, SLUDGE
-	db 37, RECOVER
-	db 39, TOXIC
-	db 42, MUD_BOMB
+	db 33, SLUDGE
+	db 36, RECOVER
+	db 36, TOXIC
+	db 40, MUD_BOMB
 	db 45, SLUDGE_WAVE
 	db 0
 
@@ -2481,17 +2481,17 @@ MukEvosMoves:
 	db 28, SMOG
 	db 31, CORRODE
 	db 31, BODY_SLAM
-	db 34, SLUDGE
-	db 37, RECOVER
-	db 39, TOXIC
-	db 42, MUD_BOMB
+	db 33, SLUDGE
+	db 36, RECOVER
+	db 36, TOXIC
+	db 40, MUD_BOMB
 	db 45, SLUDGE_WAVE
 	db 48, TAKE_DOWN
 	db 51, ROCK_TOMB
-	db 56, IRON_DEFENSE
-	db 59, GUNK_SHOT
-	db 62, SCARY_FACE
-	db 65, HEAVY_SLAM
+	db 54, IRON_DEFENSE
+	db 54, SCARY_FACE
+	db 57, GUNK_SHOT
+	db 60, HEAVY_SLAM
 	db 0
 
 ShellderEvosMoves:
@@ -3068,12 +3068,13 @@ KoffingEvosMoves:
 	db 31, CORRODE
 	db 31, NIGHT_SHADE
 	db 34, SLUDGE
-	db 37, HAZE
-	db 40, LIGHT_SCREEN
-	db 43, TOXIC
+	db 36, HAZE
+	db 40, TOXIC
+	db 42, LIGHT_SCREEN
 	db 46, SLUDGE_WAVE
 	db 49, FLAMETHROWER
 	db 55, EXPLOSION
+	db 60, RECOVER
 	db 0
 
 WeezingEvosMoves:
@@ -3095,14 +3096,15 @@ WeezingEvosMoves:
 	db 31, CORRODE
 	db 31, NIGHT_SHADE
 	db 34, SLUDGE
-	db 37, HAZE
-	db 40, LIGHT_SCREEN
-	db 43, TOXIC
+	db 36, HAZE
+	db 40, TOXIC
+	db 42, LIGHT_SCREEN
 	db 46, SLUDGE_WAVE
 	db 49, FLAMETHROWER
 	db 52, SCARY_FACE
 	db 55, EXPLOSION
-	db 61, GUNK_SHOT
+	db 60, RECOVER
+	db 62, GUNK_SHOT
 	db 65, DARK_PULSE
 	db 0
 
