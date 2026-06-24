@@ -13,11 +13,12 @@
 	; tm/hm learnset
 	; Normal/Fairy heal-tank, single stage. Fairy/support kit
 	; (DAZZLE_GLEAM/FAKE_TEARS/CHARM/EXTRASENSORY/PSYCHIC_M), screens
-	; (LIGHT_SCREEN/REFLECT/CALM_MIND), SEISMIC_TOSS for flat damage.
-	; 4 fun moves (last stage).
+	; (LIGHT_SCREEN/REFLECT/CALM_MIND), SEISMIC_TOSS for flat damage,
+	; TOXIC for stall. 4 fun moves (last stage).
 	tmhm SEISMIC_TOSS, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, DAZZLE_GLEAM, FAKE_TEARS, CHARM, EXTRASENSORY, \
-	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, CALM_MIND, PETAL_DANCE
+	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, CALM_MIND, PETAL_DANCE, \
+	     TOXIC
 	; end
 
 	db 0 ; padding
