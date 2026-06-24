@@ -1401,6 +1401,7 @@ VenonatEvosMoves:
 	db 18, CONFUSION
 	db 34, LEECH_LIFE
 	db 37, SPORE_DAZE
+	db 44, SMOG
 	db 50, TOXIC
 	db 0
 
@@ -1426,8 +1427,9 @@ VenomothEvosMoves:
 	db 31, ACID
 	db 34, LEECH_LIFE
 	db 37, SPORE_DAZE
-	db 42, QUIVER_DANCE
-	db 46, NIGHT_SHADE
+	db 40, QUIVER_DANCE
+	db 44, SMOG
+	db 47, NIGHT_SHADE
 	db 50, TOXIC
 	db 54, HAZE
 	db 58, PSYCHIC_M
