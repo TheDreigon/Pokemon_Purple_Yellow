@@ -214,7 +214,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 
 	; === ROCK TYPE (10 moves) ===
 	move ROCK_THROW,     FLINCH_SIDE_EFFECT2,              45, ROCK,          90, 30
-	move ROCK_PUNCH,     NO_ADDITIONAL_EFFECT,             60, ROCK,         100, 25 ; new move.
+	move ROCK_PUNCH,     DEFENSE_DOWN_SIDE_EFFECT,         60, ROCK,         100, 25 ; new move.
 	move ROCK_TOMB,      SPEED_DOWN1_EFFECT,               75, ROCK,          95, 20 ; new move.
 	move HEAD_SMASH,     RECOIL_EFFECT,                    85, ROCK,          95, 20 ; new move.
 	move ROCK_SLIDE,     PARALYZE_SIDE_EFFECT2,            95, ROCK,         100, 15
