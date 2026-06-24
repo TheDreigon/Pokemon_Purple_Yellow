@@ -1,5 +1,5 @@
 	db DEX_ONIX ; pokedex id
-	base_stat_row 60, 100, 160, 60, 40 ; hp atk def spc spd
+	base_stat_row 65, 100, 150, 60, 45 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate
@@ -17,7 +17,7 @@
 	tmhm ROCK_THROW, BIND, BULLDOZE, BODY_SLAM, IRON_TAIL, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
 	     INTIMIDATE, SCARY_FACE, TAKE_DOWN, EARTHQUAKE, ROCK_SLIDE, \
-	     DOUBLE_EDGE, STRENGTH
+	     DOUBLE_EDGE, STRENGTH, THRASH, OUTRAGE
 	; end
 
 	db 0 ; padding

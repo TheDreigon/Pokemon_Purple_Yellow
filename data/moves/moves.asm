@@ -45,12 +45,12 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 
 
 	; === ELECTRIC TYPE (7 moves) ===
-	move NUZZLE,         PARALYZE_SIDE_EFFECT2,            35, ELECTRIC,     100, 30 ; new move.
+	move NUZZLE,         PARALYZE_SIDE_EFFECT3,            35, ELECTRIC,     100, 30 ; new move.
 	move THUNDERSHOCK,   PARALYZE_SIDE_EFFECT1,            55, ELECTRIC,     100, 25
 	move SHOCK_WAVE,     SWIFT_EFFECT,                     70, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
-	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      90, 20
+	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      95, 20
 	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             60, ELECTRIC,     100, 20 ; new move. signature. priority move. high-crit.
 
 
@@ -88,7 +88,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move FLAME_BURST,    SWIFT_EFFECT,                     70, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
-	move IGNITE,         BURN_EFFECT,                       0, FIRE,          90, 20
+	move IGNITE,         BURN_EFFECT,                       0, FIRE,          95, 20
 	move EXPLOSION,      EXPLODE_EFFECT,                  200, FIRE,         100,  5 ; signature. high-crit.
 
 
@@ -228,7 +228,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	; === STEEL TYPE (6 moves) === ; new type
 	move CUT,            NO_ADDITIONAL_EFFECT,             55, STEEL,        100, 25 ; high-crit.
 	move IRON_TAIL,      DEFENSE_DOWN_SIDE_EFFECT,         65, STEEL,         90, 25 ; new move.
-	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,        100, 20 ; new move.
+	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,         95, 20 ; new move.
 	move SONICBOOM,      SPECIAL_DAMAGE_EFFECT,             1, STEEL,        100, 20 ; signature. set damage from 20 to 25.
 	move BULLET_PUNCH,   NO_ADDITIONAL_EFFECT,             45, STEEL,        100, 20 ; new move. signature. priority move.
 	move MAGNET_BOMB,    SWIFT_EFFECT,                    100, STEEL,        100, 10 ; new move. signature.
@@ -239,7 +239,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. almost-signature. priority move.
 	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           50, WATER,        100, 30
 	move WATER_PULSE,    SWIFT_EFFECT,                     65, WATER,        100, 25 ; new move.
-	move WATERFALL,      FLINCH_SIDE_EFFECT1,              80, WATER,        100, 20
+	move WATERFALL,      FLINCH_SIDE_EFFECT2,              80, WATER,        100, 20
 	move SURF,           SPEED_DOWN_SIDE_EFFECT,           95, WATER,        100, 15
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
