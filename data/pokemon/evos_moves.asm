@@ -1615,7 +1615,8 @@ MankeyEvosMoves:
 	db 33, BODY_SLAM
 	db 39, ROLLING_KICK
 	db 41, THRASH
-	db 48, OUTRAGE
+	db 50, OUTRAGE
+	db 60, GORE_ATTACK
 	db 0
 
 PrimeapeEvosMoves:
@@ -1624,8 +1625,7 @@ PrimeapeEvosMoves:
 ; Learnset
 ; Apex rage-monkey. Shares Mankey's backbone, plus exclusives: GROUND_STOMP,
 ; BULK_UP (muscle setup), BRUTAL_SWING (rage swing), high-level SWORDS_DANCE
-; and GORE_ATTACK, INTIMIDATE. No ROCK_PUNCH (no rock affinity; ROCK_THROW
-; already covers rock). STRENGTH via HM only.
+; and GORE_ATTACK, INTIMIDATE. STRENGTH via HM only.
 	db  4, SCRATCH
 	db  7, LEER
 	db  9, BITE
@@ -1641,12 +1641,13 @@ PrimeapeEvosMoves:
 	db 33, BODY_SLAM
 	db 35, GROUND_STOMP
 	db 37, BULK_UP
+	db 37, ROCK_PUNCH
 	db 39, ROLLING_KICK
 	db 41, THRASH
 	db 43, BRUTAL_SWING
 	db 46, INTIMIDATE
-	db 48, OUTRAGE
-	db 50, SEISMIC_TOSS
+	db 48, SEISMIC_TOSS
+	db 50, OUTRAGE
 	db 52, SWORDS_DANCE
 	db 60, GORE_ATTACK
 	db 0
@@ -3117,7 +3118,6 @@ RhyhornEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROCK_TOMB
 	db 19, BODY_SLAM
-	db 22, FOCUS_ENERGY
 	db 22, RAGE
 	db 28, BULLDOZE
 	db 36, IRON_HEAD
@@ -3142,7 +3142,6 @@ RhydonEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROCK_TOMB
 	db 19, BODY_SLAM
-	db 22, FOCUS_ENERGY
 	db 22, RAGE
 	db 28, BULLDOZE
 	db 32, STRENGTH
@@ -3150,8 +3149,8 @@ RhydonEvosMoves:
 	db 40, HEAD_SMASH
 	db 42, HORN_CHARGE
 	db 44, TAKE_DOWN
-	db 48, EARTHQUAKE
-	db 52, FIERCE_ROAR
+	db 48, FIERCE_ROAR
+	db 51, EARTHQUAKE
 	db 54, MEGAHORN
 	db 56, ROCK_SLIDE
 	db 58, BRUTAL_SWING
