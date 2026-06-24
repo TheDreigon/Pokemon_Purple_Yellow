@@ -13,8 +13,9 @@
 	; tm/hm learnset
 	; Living Poke Ball, Electric/Steel sphere — no limbs or hands.
 	; Steel shell drives IRON_HEAD; electric charge powers THUNDERBOLT.
+	; Limbless but rolls/slams its whole body: QUICK_ATTACK/BODY_SLAM/AGILITY.
 	tmhm SHOCK_WAVE, THUNDER_WAVE, IRON_HEAD, LIGHT_SCREEN, THUNDERBOLT, \
-	     FLASH
+	     FLASH, QUICK_ATTACK, BODY_SLAM, AGILITY
 	; end
 
 	db 0 ; padding

@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; Small spiral-shell ammonite Rock/Water pre-evo.
 	tmhm ROCK_THROW, BIND, WATER_PULSE, ICY_PULSE, BODY_SLAM, \
-	     TAKE_DOWN, ROCK_SLIDE
+	     TAKE_DOWN, ROCK_SLIDE, IRON_HEAD
 	; end
 
 	db 0 ; padding

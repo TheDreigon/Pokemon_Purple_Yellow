@@ -14,7 +14,7 @@
 	; Wild rage-fueled monkey, grappler-fighter backbone.
 	tmhm ROCK_THROW, QUICK_ATTACK, BIND, SEISMIC_TOSS, RAGE, \
 	     BODY_SLAM, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
-	     OUTRAGE, STRENGTH
+	     OUTRAGE, STRENGTH, CUT
 	; end
 
 	db 0 ; padding

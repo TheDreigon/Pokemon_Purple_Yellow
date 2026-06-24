@@ -14,7 +14,7 @@
 	; Armored trilobite-crab fossil (Rock/Bug), aquatic pre-evo
 	; backbone. Pincers cut; ICY_PULSE/ICE_BEAM from cold-sea habitat.
 	tmhm ROCK_THROW, WATER_PULSE, ICY_PULSE, BODY_SLAM, LEECH_LIFE, \
-	     TAKE_DOWN, ICE_BEAM, CUT
+	     TAKE_DOWN, ICE_BEAM, CUT, IRON_HEAD
 	; end
 
 	db 0 ; padding

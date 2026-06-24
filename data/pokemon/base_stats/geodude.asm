@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Basic rolling rock with arms (Rock/Ground). HM STRENGTH.
-	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH, ROCK_SLIDE
 	; end
 
 	db 0 ; padding

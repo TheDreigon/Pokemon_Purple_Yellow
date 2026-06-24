@@ -12,11 +12,11 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Fist-only puncher, single-stage. HM STRENGTH.
+	; Fist-only puncher, single-stage; hands grab/throw (ROCK_THROW). HM STRENGTH.
 	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, SEISMIC_TOSS, BODY_SLAM, \
-	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
-	     AGILITY, TAKE_DOWN, CALM_MIND, STRENGTH
+	     ROCK_THROW, BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, TAKE_DOWN, CALM_MIND, STRENGTH
 	; end
 
 	db 0 ; padding

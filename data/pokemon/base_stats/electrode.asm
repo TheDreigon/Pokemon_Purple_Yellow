@@ -12,9 +12,11 @@
 
 	; tm/hm learnset
 	; Apex Electric/Steel sphere (130 Spd), no limbs or hands. HM FLASH.
+	; Limbless but rolls/slams its whole body: QUICK_ATTACK/BODY_SLAM/DOUBLE_EDGE.
 	tmhm BULLDOZE, SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, LIGHT_SCREEN, \
-	     REFLECT, THUNDERBOLT, FLASH
+	     REFLECT, THUNDERBOLT, FLASH, QUICK_ATTACK, BODY_SLAM, \
+	     DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

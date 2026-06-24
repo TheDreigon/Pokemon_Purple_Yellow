@@ -14,7 +14,7 @@
 	; Apex sludge blob, Poison/Water. Last-stage fun moves allowed.
 	tmhm BIND, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, TOXIC, SCARY_FACE, TAKE_DOWN, \
-	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH
+	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH, ROCK_THROW
 	; end
 
 	db 0 ; padding

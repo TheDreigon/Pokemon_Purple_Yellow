@@ -15,7 +15,7 @@
 	; Disciplined humanoid fighter-in-training.
 	tmhm ROCK_THROW, QUICK_ATTACK, BIND, BULLDOZE, SEISMIC_TOSS, \
 	     RAGE, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
-	     STRENGTH
+	     STRENGTH, ROCK_SLIDE
 	; end
 
 	db 0 ; padding
