@@ -1042,8 +1042,8 @@ ClefairyEvosMoves:
 	db 10, POWDER_SNOW
 	db 13, CALM_MIND
 	db 16, CHARM
-	db 19, DRAINING_KISS
 	db 19, TICKLE
+	db 22, DRAINING_KISS
 	db 25, RECOVER
 	db 28, LIGHT_SCREEN
 	db 32, MIMIC
@@ -1067,8 +1067,8 @@ ClefableEvosMoves:
 	db 10, POWDER_SNOW
 	db 13, CALM_MIND
 	db 16, CHARM
-	db 19, DRAINING_KISS
 	db 19, TICKLE
+	db 22, DRAINING_KISS
 	db 22, BODY_SLAM
 	db 25, RECOVER
 	db 28, LIGHT_SCREEN
@@ -2972,8 +2972,8 @@ HitmonleeEvosMoves:
 	db  1, LEER
 	db  1, LOW_KICK
 	db  8, GROUND_STOMP
-	db 14, FOCUS_ENERGY
-	db 18, CALM_MIND
+	db 16, FOCUS_ENERGY
+	db 16, CALM_MIND
 	db 22, QUICK_ATTACK
 	db 26, TAKE_DOWN
 	db 30, BULK_UP
@@ -2985,6 +2985,7 @@ HitmonleeEvosMoves:
 	db 50, SWORDS_DANCE
 	db 52, HI_JUMP_KICK
 	db 55, BRUTAL_SWING
+	db 60, EXTREMESPEED
 	db 0
 
 HitmonchanEvosMoves:
@@ -2999,8 +3000,8 @@ HitmonchanEvosMoves:
 	db  1, DEFENSE_CURL
 	db  1, QUICK_ATTACK
 	db  8, MACH_PUNCH
-	db 14, FOCUS_ENERGY
-	db 18, CALM_MIND
+	db 16, FOCUS_ENERGY
+	db 16, CALM_MIND
 	db 22, COMET_PUNCH
 	db 26, DIZZY_PUNCH
 	db 30, AGILITY
@@ -3011,8 +3012,8 @@ HitmonchanEvosMoves:
 	db 46, SHADOW_PUNCH
 	db 50, RECOVER
 	db 52, SKY_UPPERCUT
-	db 55, MAGMA_PUNCH
-	db 60, EXTREMESPEED
+	db 55, EXTREMESPEED
+	db 60, MAGMA_PUNCH
 	db 0
 
 LickitungEvosMoves:
@@ -3173,12 +3174,12 @@ ChanseyEvosMoves:
 	db 12, CALM_MIND
 	db 15, CHARM
 	db 17, SING
-	db 20, TICKLE
+	db 19, TICKLE
+	db 21, HEADBUTT
 	db 23, DRAINING_KISS
 	db 26, DISABLE
 	db 29, EXTRASENSORY
 	db 31, LIGHT_SCREEN
-	db 34, HEADBUTT
 	db 37, BIDE
 	db 40, PAY_DAY
 	db 43, SEISMIC_TOSS
@@ -3303,10 +3304,11 @@ GoldeenEvosMoves:
 	db 21, FURY_ATTACK
 	db 24, WATER_PULSE
 	db 28, BIDE
-	db 30, AGILITY
+	db 30, AQUA_JET
 	db 33, ICY_PULSE
 	db 36, WATERFALL
-	db 44, HORN_CHARGE
+	db 40, HORN_CHARGE
+	db 60, AGILITY
 	db 0
 
 SeakingEvosMoves:
@@ -3324,13 +3326,14 @@ SeakingEvosMoves:
 	db 24, WATER_PULSE
 	db 26, RAGE
 	db 28, BIDE
-	db 30, AGILITY
+	db 30, AQUA_JET
 	db 33, ICY_PULSE
 	db 36, WATERFALL
-	db 40, ICE_BEAM
-	db 44, HORN_CHARGE
+	db 40, HORN_CHARGE
+	db 44, ICE_BEAM
 	db 48, SURF
 	db 54, MEGAHORN
+	db 60, AGILITY
 	db 0
 
 StaryuEvosMoves:
@@ -3349,6 +3352,7 @@ StaryuEvosMoves:
 	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
+	db 30, GROWTH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
@@ -3362,7 +3366,7 @@ StarmieEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Water/Psychic mystic star. Staryu backbone + CALM_MIND, SURF
+; Water/Psychic mystic star. Staryu backbone + GROWTH, SURF
 ; before the shared HYDRO_PUMP, PSYCHIC_M apex, MOONBLAST high-level
 ; (the core is a moon-gem).
 	db 10, HARDEN
@@ -3372,12 +3376,12 @@ StarmieEvosMoves:
 	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
+	db 30, GROWTH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
 	db 37, PSYBEAM
 	db 42, LIGHT_SCREEN
-	db 44, CALM_MIND
 	db 46, SURF
 	db 48, HYDRO_PUMP
 	db 50, AURORA_BEAM
@@ -3492,19 +3496,20 @@ ElectabuzzEvosMoves:
 	db 11, SCREECH
 	db 14, THUNDERSHOCK
 	db 17, QUICK_ATTACK
-	db 20, DIZZY_PUNCH
-	db 23, THUNDER_WAVE
-	db 26, SHOCK_WAVE
-	db 29, LIGHT_SCREEN
-	db 32, FAINT_ATTACK
-	db 35, MACH_PUNCH
-	db 38, BULK_UP
-	db 41, FLASH
+	db 20, THUNDER_WAVE
+	db 23, SHOCK_WAVE
+	db 26, LIGHT_SCREEN
+	db 26, FLASH
+	db 29, FAINT_ATTACK
+	db 32, MACH_PUNCH
+	db 35, BULK_UP
+	db 38, DIZZY_PUNCH
+	db 42, BULLET_PUNCH
 	db 44, THUNDERBOLT
 	db 47, METAL_SOUND
-	db 50, FLAME_CHARGE
+	db 50, AGILITY
 	db 53, THRASH
-	db 56, AGILITY
+	db 56, FLAME_CHARGE
 	db 60, THUNDER
 	db 65, MAGNET_BOMB
 	db 0
@@ -3525,11 +3530,12 @@ MagmarEvosMoves:
 	db 23, SEISMIC_TOSS
 	db 26, FOCUS_ENERGY
 	db 29, LAVA_PLUME
+	db 29, FLASH
 	db 32, ROCK_TOMB
 	db 35, FLAME_BURST
 	db 38, BODY_SLAM
-	db 41, FLAMETHROWER
-	db 44, CORRODE
+	db 42, CORRODE
+	db 44, FLAMETHROWER
 	db 47, LIGHT_SCREEN
 	db 50, GROWTH
 	db 53, SOLARBEAM
@@ -3987,14 +3993,16 @@ ArticunoEvosMoves:
 	db 26, TAILWIND
 	db 28, FROST_BREATH
 	db 30, AGILITY
-	db 34, AERIAL_ACE
+	db 32, AERIAL_ACE
+	db 34, QUIVER_DANCE
 	db 36, AURORA_BEAM
 	db 38, FLY
 	db 42, ICE_BEAM
 	db 46, HURRICANE
-	db 51, BLIZZARD
-	db 60, SKY_ATTACK
-	db 70, HYPER_BEAM
+	db 50, RECOVER
+	db 52, BLIZZARD
+	db 56, SKY_ATTACK
+	db 65, HYPER_BEAM
 	db 0
 
 ZapdosEvosMoves:
@@ -4014,14 +4022,16 @@ ZapdosEvosMoves:
 	db 26, TAILWIND
 	db 28, SHOCK_WAVE
 	db 30, AGILITY
-	db 34, AERIAL_ACE
+	db 32, AERIAL_ACE
+	db 34, QUIVER_DANCE
 	db 38, FLY
 	db 42, THUNDERBOLT
-	db 44, DRILL_PECK
-	db 50, HURRICANE
-	db 55, THUNDER
-	db 60, SKY_ATTACK
-	db 70, HYPER_BEAM
+	db 42, DRILL_PECK
+	db 46, HURRICANE
+	db 50, RECOVER
+	db 52, THUNDER
+	db 56, SKY_ATTACK
+	db 65, HYPER_BEAM
 	db 0
 
 MoltresEvosMoves:
@@ -4040,14 +4050,16 @@ MoltresEvosMoves:
 	db 26, TAILWIND
 	db 28, IGNITE
 	db 30, AGILITY
-	db 34, AERIAL_ACE
+	db 32, AERIAL_ACE
+	db 34, QUIVER_DANCE
 	db 36, FLAME_BURST
 	db 38, FLY
 	db 42, FLAMETHROWER
 	db 46, HURRICANE
-	db 51, FIRE_BLAST
-	db 60, SKY_ATTACK
-	db 70, HYPER_BEAM
+	db 50, RECOVER
+	db 52, FIRE_BLAST
+	db 56, SKY_ATTACK
+	db 65, HYPER_BEAM
 	db 0
 
 DratiniEvosMoves:
