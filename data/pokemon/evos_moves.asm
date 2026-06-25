@@ -339,8 +339,8 @@ CharizardEvosMoves:
 	db 32, IGNITE
 	db 36, DRAGON_CLAW
 	db 38, FLAMETHROWER
-	db 40, FLY
-	db 42, WING_ATTACK
+	db 40, WING_ATTACK
+	db 42, FLY
 	db 44, CRUNCH
 	db 46, AERIAL_ACE
 	db 48, DRAGON_BREATH
