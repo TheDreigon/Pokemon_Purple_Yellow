@@ -507,9 +507,11 @@ Rival1Data:
 	db $FF, 18, SPEAROW, 15, RATTATA, 15, BELLSPROUT, 19, EEVEE, 0
 
 ProfOakData:
-; Postgame Fight
-	db $FF, 69, TAUROS, 70, CHARIZARD, 70, VENUSAUR, 70, BLASTOISE, 69, SNORLAX, 70, NIDOKING, 0
-	db $FF, 78, TAUROS, 77, ZAPDOS, 77, ARTICUNO, 77, MOLTRES, 78, SNORLAX, 81, NIDOKING, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Hall of Fame
+	db $FF, 70, DRAGONITE, 70, SNORLAX, 70, TAUROS, 75, CHARIZARD, 75, VENUSAUR, 75, BLASTOISE, 0
+; 2: Rematch — Main sets +10 levels
+	db $FF, 80, DRAGONITE, 80, SNORLAX, 80, TAUROS, 85, CHARIZARD, 85, VENUSAUR, 85, BLASTOISE, 0
 
 SmithData:
     db 65, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
@@ -546,12 +548,13 @@ ScientistData:
 	db 46, PORYGON, ELECTRODE, 0
 
 GiovanniData:
-; Rocket Hideout B4F
-	db $FF, 29, ONIX, 31, KANGASKHAN, 30, MAROWAK, 32, PERSIAN, 0
-; Silph Co. 11F
-	db $FF, 44, KINGLER, 44, KANGASKHAN,  45, MACHOKE , 44, GOLEM, 47, PERSIAN, 0
-; Viridian Gym
-	db $FF, 53, DUGTRIO, 54, NIDOQUEEN, 55, PERSIAN,  54, NIDOKING, 55, RHYDON, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Rocket Hideout B4F
+	db $FF, 33, BEEDRILL, 34, RHYHORN, 34, DUGTRIO, 35, PERSIAN, 0
+; 2: Silph Co. 11F
+	db $FF, 43, KINGLER, 43, MACHAMP, 44, NIDOQUEEN, 45, NIDOKING, 45, PERSIAN, 0
+; 3: Viridian Gym
+	db $FF, 53, GOLEM, 53, MACHAMP, 54, RHYDON, 54, CLOYSTER, 55, PERSIAN, 55, NIDOKING, 0
 
 RocketData:
 ; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
@@ -665,49 +668,69 @@ CooltrainerFData:
 	db 43, PERSIAN, NINETALES, RAICHU, 0
 
 BrunoData:
-	db $FF, 57, HITMONCHAN, 56, POLIWRATH, 57, HITMONLEE, 56, ONIX, 58, MACHAMP, 0
-; Rematch
-	db $FF, 71, CLEFABLE, 71, MUK, 70, SLOWBRO, 72, HITMONLEE, 72, RHYDON, 73, MACHAMP, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: E4
+	db $FF, 58, ONIX, 58, NIDOKING, 59, HITMONCHAN, 59, HITMONLEE, 60, MACHAMP, 0
+; 2: Rematch
+	db $FF, 73, ONIX, 73, NIDOKING, 74, HITMONCHAN, 74, HITMONLEE, 75, MACHAMP, 0
 
 BrockData:
-	db $FF, 10, GEODUDE, 12, ONIX, 0
-; Rematch
-	db $FF, 64, OMASTAR, 65, ONIX, 64, KABUTOPS, 64, GOLEM, 64, NINETALES, 65, AERODACTYL, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Pewter Gym
+	db $FF, 12, GEODUDE, 14, ONIX, 0
+; 2: Rematch
+	db $FF, 63, KABUTOPS, 64, GOLBAT, 64, RHYDON, 65, ONIX, 65, GOLEM, 0
 
 MistyData:
-	db $FF, 19, PSYDUCK, 18, GOLDEEN, 21, STARMIE, 0
-; Rematch
-	db $FF, 64, SEADRA, 65, GOLDUCK, 64, LAPRAS, 64, BLASTOISE, 64, VAPOREON, 65, STARMIE, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Cerulean Gym
+	db $FF, 19, PSYDUCK, 20, GOLDEEN, 21, STARMIE, 0
+; 2: Rematch
+	db $FF, 63, BLASTOISE, 64, GYARADOS, 64, OMASTAR, 65, STARMIE, 65, GOLDUCK, 0
 
 LtSurgeData:
-	db $FF, 29, RAICHU, 0
-; Rematch
-	db $FF, 64, ELECTRODE, 65, MAGNETON, 64, JOLTEON, 64, PORYGON, 64, ELECTABUZZ, 65, RAICHU, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Vermilion Gym
+	db $FF, 31, ELECTRODE, 32, ELECTABUZZ, 33, MAGNETON, 34, RAICHU, 0
+; 2: Rematch
+	db $FF, 63, POLIWRATH, 64, ELECTRODE, 64, MAGNETON, 65, ELECTABUZZ, 65, RAICHU, 0
 
 ErikaData:
-	db $FF, 33, TANGELA, 34, VICTREEBEL, 31, IVYSAUR, 35, VILEPLUME, 0
-	db $FF, 41, TANGELA, 42, VICTREEBEL, 42, VENUSAUR, 43, VILEPLUME, 0
-	db $FF, 48, TANGELA, 49, VICTREEBEL, 48, VENUSAUR, 49, EXEGGUTOR, 50, VILEPLUME, 0
-; Rematch
-	db $FF, 64, TANGELA, 64, VENUSAUR, 64, PARASECT, 64, EXEGGUTOR, 65, VICTREEBEL, 65, VILEPLUME, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Celadon Gym (4th)
+	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
+; 2: copy of 1 — strict gym order, cleanup w/ badge-gating
+	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
+; 3: copy of 1 — strict gym order, cleanup w/ badge-gating
+	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
+; 4: Rematch
+	db $FF, 63, EXEGGUTOR, 64, TANGELA, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
 
 KogaData:
-	db $FF, 42, GOLBAT, 42, MUK, 41, TENTACRUEL, 43, VENOMOTH, 0
-	db $FF, 49, GOLBAT, 48, MUK, 49, TENTACRUEL, 48, WEEZING, 50, VENOMOTH, 0
-; Rematch
-	db $FF, 64, GOLBAT, 64, MUK, 64, TENTACRUEL, 65, WEEZING, 64, ARBOK, 65, VENOMOTH, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Fuchsia Gym (5th)
+	db $FF, 41, VENOMOTH, 42, WEEZING, 43, MUK, 44, GOLBAT, 45, ARBOK, 0
+; 2: copy of 1 — strict gym order, cleanup w/ badge-gating
+	db $FF, 41, VENOMOTH, 42, WEEZING, 43, MUK, 44, GOLBAT, 45, ARBOK, 0
+; 3: Rematch
+	db $FF, 63, TENTACRUEL, 64, MUK, 64, WEEZING, 65, GOLBAT, 65, ARBOK, 0
 
 BlaineData:
-	db $FF, 52, RAPIDASH, 51, CHARIZARD, 51, NINETALES, 52, ARCANINE, 53, MAGMAR, 0
-; Rematch
-	db $FF, 64, RAPIDASH, 64, FLAREON, 64, CHARIZARD, 64, NINETALES, 65, ARCANINE, 65, MAGMAR, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Cinnabar Gym
+	db $FF, 49, NINETALES, 49, RAPIDASH, 49, ARCANINE, 52, RHYDON, 55, MAGMAR, 0
+; 2: Rematch
+	db $FF, 63, NINETALES, 64, CHARIZARD, 64, ARCANINE, 65, RHYDON, 65, MAGMAR, 0
 
 SabrinaData:
-	db $FF, 50, ABRA,  48, HYPNO, 49, MR_MIME, 50, KADABRA,  50, ALAKAZAM, 0
-	db $FF, 43, ABRA,  42, MR_MIME, 43, KADABRA,  43, ALAKAZAM, 0
-; Rematch
-	db $FF, 65, MR_MIME, 64, HYPNO, 64, SLOWBRO, 64, JYNX, 64, GENGAR, 65, ALAKAZAM, 0
-	
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Saffron Gym (6th)
+	db $FF, 41, KADABRA, 43, HYPNO, 45, VENOMOTH, 47, MR_MIME, 49, ALAKAZAM, 0
+; 2: copy of 1 — strict gym order, cleanup w/ badge-gating
+	db $FF, 41, KADABRA, 43, HYPNO, 45, VENOMOTH, 47, MR_MIME, 49, ALAKAZAM, 0
+; 3: Rematch
+	db $FF, 63, HYPNO, 64, MR_MIME, 64, VENOMOTH, 65, ALAKAZAM, 65, GENGAR, 0
+
 GentlemanData:
 ; SS Anne 1F Rooms
 	db 18, GROWLITHE, GROWLITHE, 0
@@ -744,9 +767,11 @@ Rival3Data:
 	db $FF, 77, ALAKAZAM, 76, MACHAMP, 75, GYARADOS, 74, PIDGEOT, 75, EXEGGUTOR, 77, ARCANINE, 0
 
 LoreleiData:
-	db $FF, 56, SLOWBRO, 55, CLOYSTER, 55, DEWGONG,  56, JYNX, 57, LAPRAS, 0
-; Rematch
-	db $FF, 70, WIGGLYTUFF, 71, STARMIE, 71, CLOYSTER, 70, OMASTAR, 70, EXEGGUTOR, 72, LAPRAS, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: E4
+	db $FF, 57, SLOWBRO, 57, JYNX, 58, DEWGONG, 58, CLOYSTER, 59, LAPRAS, 0
+; 2: Rematch
+	db $FF, 72, SLOWBRO, 72, JYNX, 73, DEWGONG, 73, CLOYSTER, 74, LAPRAS, 0
 
 ChannelerData:
 ; Unused
@@ -788,40 +813,44 @@ ChannelerData:
 	db 43, HYPNO, HAUNTER, KADABRA, 0
 
 AgathaData:
-	db $FF, 57, GENGAR, 58, GOLBAT, 57, MAROWAK, 58, ARBOK, 59, GENGAR, 0
-; Rematch
-	db $FF, 71, JYNX, 71, GYARADOS, 72, ALAKAZAM, 71, VENUSAUR, 72, ARBOK, 73, GENGAR, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: E4
+	db $FF, 59, MAROWAK, 59, PARASECT, 60, GOLBAT, 60, ARBOK, 61, GENGAR, 0
+; 2: Rematch
+	db $FF, 74, MAROWAK, 74, PARASECT, 75, GOLBAT, 75, ARBOK, 76, GENGAR, 0
 
 LanceData:
-	db $FF, 61, DRAGONITE, 60, GYARADOS, 60, CHARIZARD, 61, AERODACTYL, 62, DRAGONITE, 0
-; Rematch
-	db $FF, 73, ARCANINE, 73, ELECTABUZZ, 74, SNORLAX, 74, CHARIZARD, 72, KANGASKHAN, 75, DRAGONITE, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: E4
+	db $FF, 60, CHARIZARD, 60, SEADRA, 61, GYARADOS, 61, AERODACTYL, 62, DRAGONITE, 62, DRAGONITE, 0
+; 2: Rematch — Main sets +15 levels
+	db $FF, 75, CHARIZARD, 75, SEADRA, 76, GYARADOS, 76, AERODACTYL, 77, DRAGONITE, 77, DRAGONITE, 0
 
 WeebraData:
 	db 55, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
 
 JanineData:
-; Fuchsia Gym
-	db 40, GOLBAT, VENOMOTH, NIDOQUEEN, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Fuchsia Gym (post-Koga)
+	db $FF, 39, WEEZING, 39, MUK, 40, GOLBAT, 41, VENOMOTH, 41, BEEDRILL, 0
 
 JoyData:
-; Fuchsia Pokecenter
-	db 65, KANGASKHAN, SNORLAX, STARMIE, PORYGON, EXEGGUTOR, CHANSEY, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Fuchsia Pokecenter
+	db $FF, 63, KANGASKHAN, 64, WIGGLYTUFF, 64, CLEFABLE, 65, CHANSEY, 65, MR_MIME, 0
 
 JennyData:
-; Vermilion City
-	db 65, PIDGEOT, BLASTOISE, TANGELA, GENGAR, PARASECT, ARCANINE, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Vermilion City
+	db $FF, 63, PARASECT, 64, BLASTOISE, 64, PIDGEOT, 65, ARCANINE, 65, GENGAR, 0
 
 JessieAndJamesData:
-; v0.7: promoted from OPP_ROCKET parties $2a-$2d to a dedicated boss
-; class so they receive the Hard mode boss buffs (+2 lvl, max DVs,
-; +crit, all-4-AI-layers, ±5 acc edge). Parties are copies of the
-; originals — see RocketData "; MOVED" comment for the orphan block.
-; Mt. Moon B2F (party $01)
-	db $FF, 15, EKANS, 16, MEOWTH, 15, KOFFING, 0
-; Rocket Hideout B4F (party $02)
-	db $FF, 28, KOFFING, 29, MEOWTH, 28, ARBOK, 0
-; Pokémon Tower 7F (party $03)
-	db $FF, 33, MEOWTH, 31, ARBOK, 30, LICKITUNG, 31, WEEZING, 0
-; Silph Co. 11F (party $04)
-	db $FF, 42, WEEZING, 41, LICKITUNG, 42, ARBOK, 44, MEOWTH, 43, VICTREEBEL, 0
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Mt. Moon B2F
+	db $FF, 15, EKANS, 15, KOFFING, 16, MEOWTH, 0
+; 2: Rocket Hideout (first encounter)
+	db $FF, 28, ARBOK, 28, KOFFING, 29, MEOWTH, 0
+; 3: Pokemon Tower 7F (second encounter)
+	db $FF, 31, LICKITUNG, 32, ARBOK, 32, WEEZING, 33, MEOWTH, 0
+; 4: Silph Co. 11F
+	db $FF, 41, LICKITUNG, 42, VICTREEBEL, 42, GYARADOS, 43, ARBOK, 43, WEEZING, 44, MEOWTH, 0

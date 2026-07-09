@@ -3,345 +3,852 @@
 ;	repeat { db partymon location, partymon move, move id }
 ;	db 0
 
+; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
+; Every boss mon has all 4 slots specified (hand-picked full sets).
+; Non-boss entries (Youngster/Smith/Craig/Weebra) and RIVAL2/RIVAL3 (until the
+; Phase-B rival engine lands) are preserved from the previous version.
+
 SpecialTrainerMoves:
 	db YOUNGSTER, 14
 	db 1, 4, FISSURE
 	db 0
 
-	db BROCK, 1
-	db 1, 3, ROCK_THROW
-	db 2, 1, CONSTRICT
-	db 2, 3, BIDE
-	db 2, 4, BIND
-	db 0
-
-	db BROCK, 2
-	db 1, 1, BLIZZARD
-	db 2, 1, FISSURE
-	db 4, 1, BODY_SLAM
-	db 5, 2, SOLARBEAM
-	db 5, 3, CONFUSE_RAY
-	db 6, 1, FLY
-	db 6, 3, EARTHQUAKE
-	db 6, 4, DOUBLE_EDGE
-	db 0
-
-	db MISTY, 1
-	db 2, 1, TAIL_WHIP
-	db 0
-
-	db MISTY, 2
-	db 1, 1, ICE_BEAM
-	db 1, 2, DOUBLE_TEAM
-	db 2, 1, BLIZZARD
-	db 3, 1, PSYCHIC_M
-	db 3, 2, THUNDER
-	db 4, 1, SURF
-	db 4, 2, EARTHQUAKE
-	db 4, 4, REFLECT
-	db 5, 1, SUBSTITUTE
-	db 5, 3, BLIZZARD
-	db 6, 1, SURF
-	db 6, 3, RECOVER
-	db 6, 4, THUNDERBOLT
-	db 0
-
-	db LT_SURGE, 1 ; db $FF, 29, RAICHU, 0
-	db 1, 1, THUNDERBOLT
-	db 1, 2, THUNDER_WAVE
-	db 1, 3, BODY_SLAM
-	db 1, 4, SURF
-	db 0
-
-	db LT_SURGE, 2 ; db $FF, 64, ELECTRODE, 65, MAGNETON, 64, JOLTEON, 64, PORYGON, 64, ELECTABUZZ, 65, RAICHU, 0
-	db 1, 2, THUNDER_WAVE
-	db 2, 1, THUNDER_WAVE
-	db 2, 3, REFLECT
-	db 3, 1, HEADBUTT
-	db 3, 2, DIG
-	db 4, 1, THUNDER
-	db 4, 2, BLIZZARD
-	db 4, 3, RECOVER
-	db 5, 1, ICY_WIND
-	db 5, 3, PSYCHIC_M
-	db 6, 1, SURF
-	db 6, 2, CUT
-	db 6, 3, THUNDER
-	db 6, 4, THUNDER_WAVE
-	db 0
-
-	db ERIKA, 1 ; db $FF, 33, TANGELA, 34, VICTREEBEL, 31, IVYSAUR, 35, VILEPLUME, 0
-	db 1, 1, BIND
-	db 3, 1, RAZOR_LEAF
-	db 3, 2, ACID
-	db 3, 3, LEECH_SEED
-	db 4, 1, ACID
-	db 4, 2, SOLARBEAM
-	db 4, 3, STUN_POWDER
-	db 4, 4, SLEEP_POWDER
-	db 0
-
-	db ERIKA, 2 ; db $FF, 41, TANGELA, 42, VICTREEBEL, 42, VENUSAUR, 43, VILEPLUME, 0
-	db 1, 1, BIND
-	db 1, 2, BODY_SLAM
-    db 2, 1, SWORDS_DANCE
-	db 2, 2, WRAP
-    db 3, 1, RAZOR_LEAF
-    db 3, 2, LEECH_SEED
-    db 3, 3, SLUDGE
-    db 4, 2, SLEEP_POWDER
-    db 0 
-
-	db ERIKA, 3 ; db $FF, 48, TANGELA, 49, VICTREEBEL, 48, VENUSAUR, 49, EXEGGUTOR, 50, VILEPLUME, 0
-	db 1, 2, STUN_POWDER
-    db 1, 3, SOLARBEAM
-    db 2, 4, SWORDS_DANCE
-    db 3, 2, SOLARBEAM
-    db 3, 3, LEECH_SEED
-    db 4, 1, REFLECT
-    db 5, 1, LEECH_SEED
-    db 0
-
-	db ERIKA, 4
-	db 1, 3, STUN_POWDER
-	db 2, 2, LEECH_SEED
-	db 2, 3, SLEEP_POWDER
-	db 2, 4, RAZOR_LEAF
-	db 3, 1, LEECH_LIFE
-	db 3, 3, SOLARBEAM
-	db 4, 1, MEGA_DRAIN
-	db 4, 2, SUBSTITUTE
-	db 5, 1, MEGA_DRAIN
-	db 5, 3, GROWTH
-	db 6, 2, LEECH_SEED
-	db 6, 3, SUBSTITUTE
-	db 6, 4, MEGA_DRAIN
-    db 0
-
-	db KOGA, 1 ; 42, GOLBAT, 42, MUK, 41, TENTACRUEL, 43, VENOMOTH, 0
-	db 1, 2, TOXIC
-	db 1, 3, BITE
-	db 2, 1, DEFENSE_CURL
-	db 2, 3, MEGA_DRAIN
-	db 3, 1, SURF
-	db 3, 2, ICE_BEAM
-	db 3, 4, SLUDGE
-	db 4, 1, SOLARBEAM
-	db 4, 2, DOUBLE_TEAM
-	db 4, 3, TOXIC
-	db 0
-
-	db KOGA, 2 ; 49, GOLBAT, 48, MUK, 49, TENTACRUEL, 48, WEEZING, 50, VENOMOTH, 0
-	db 1, 1, TOXIC
-	db 1, 2, CONFUSE_RAY
-	db 1, 4, BITE
-	db 2, 2, MEGA_DRAIN
-	db 2, 4, DEFENSE_CURL
-	db 3, 2, SURF
-	db 3, 3, ICE_BEAM
-	db 4, 2, SLUDGE
-	db 4, 3, THUNDERBOLT
-	db 5, 1, SOLARBEAM
-	db 5, 2, DOUBLE_TEAM
-	db 5, 3, TOXIC
-	db 0
-
-	db KOGA, 3
-	db 1, 1, FLY
-	db 1, 2, TOXIC
-	db 1, 3, DOUBLE_TEAM
-	db 1, 4, CONFUSE_RAY
-	db 2, 3, MEGA_DRAIN
-	db 3, 1, SURF
-	db 3, 3, BLIZZARD
-	db 3, 4, REFLECT
-	db 4, 2, FIRE_BLAST
-	db 4, 3, THUNDERBOLT
-	db 4, 4, SLUDGE
-	db 5, 2, EARTHQUAKE
-	db 5, 3, ROCK_SLIDE
-	db 6, 1, DOUBLE_TEAM
-	db 6, 4, LEECH_LIFE
-	db 0
-
-	db BLAINE, 1
-	db 2, 1, FIRE_BLAST
-	db 2, 2, WING_ATTACK
-	db 2, 3, SLASH
-	db 2, 4, SEISMIC_TOSS
-	db 3, 1, FIRE_BLAST
-	db 3, 2, CONFUSE_RAY
-	db 3, 3, SOLARBEAM
-	db 4, 1, FIRE_BLAST 
-	db 4, 2, DOUBLE_EDGE
-	db 4, 3, DIG
-	db 5, 1, FIRE_BLAST
-	db 5, 2, PSYCHIC_M
-	db 5, 3, CONFUSE_RAY
-	db 5, 4, SHOCK_WAVE
-	db 0
-
-	db BLAINE, 2
-	db 1, 2, AGILITY
-	db 1, 3, SOLARBEAM
-	db 1, 4, HORN_DRILL
-	db 2, 4, DIG
-	db 3, 2, FIRE_BLAST
-	db 3, 3, EARTHQUAKE
-	db 3, 4, SWORDS_DANCE
-	db 4, 2, CONFUSE_RAY
-	db 4, 3, SOLARBEAM
-	db 5, 1, FIRE_BLAST
-	db 5, 2, DIG
-	db 5, 3, DOUBLE_EDGE
-	db 6, 1, SHOCK_WAVE
-	db 6, 2, PSYCHIC_M
-	db 6, 3, CONFUSE_RAY
-	db 0
-
-	db SABRINA, 1 ; db $FF, 50, ABRA,  48, HYPNO, 49, MR_MIME, 50, KADABRA,  50, ALAKAZAM, 0
-	db 1, 1, PSYCHIC_M
-	db 2, 2, PSYWAVE
-	db 3, 1, LIGHT_SCREEN
-	db 3, 2, MIMIC
-	db 4, 1, REFLECT
-	db 4, 2, PSYWAVE
-	db 4, 3, PSYCHIC_M
-	db 4, 4, RECOVER 
-	db 5, 1, THUNDER_WAVE
-	db 0
-
-	db SABRINA, 2 ; db $FF, 43, ABRA,  42, MR_MIME, 43, KADABRA,  43, ALAKAZAM, 0
-	db 1, 1, PSYCHIC_M
-	db 2, 1, SUBSTITUTE
-	db 2, 2, MIMIC
-	db 2, 3, SUBSTITUTE
-	db 2, 4, PSYCHIC_M
-	db 3, 1, PSYWAVE
-	db 4, 1, THUNDER_WAVE
-	db 0
-
-	db SABRINA, 3 ; db $FF, 65, MR_MIME, 64, HYPNO, 64, SLOWBRO, 64, JYNX, 64, GENGAR, 65, ALAKAZAM, 0
-	db 1, 1, THUNDERBOLT
-	db 1, 4, THUNDER_WAVE
-	db 2, 1, SUBSTITUTE
-	db 2, 2, PSYWAVE
-	db 3, 1, SURF
-	db 3, 2, REFLECT
-	db 4, 1, LOVELY_KISS
-	db 4, 2, DREAM_EATER
-	db 4, 3, BUBBLEBEAM
-	db 5, 1, PSYCHIC_M
-	db 5, 3, DOUBLE_TEAM
-	db 5, 4, MEGA_DRAIN
-	db 6, 1, THUNDER_WAVE
-	db 0
-
-	db GIOVANNI, 1
+	db BROCK, 1 ; Pewter Gym — 12 GEODUDE, 14 ONIX
 	db 1, 1, ROCK_THROW
-	db 1, 2, DIG
-	db 1, 3, SCREECH
-	db 1, 4, TAKE_DOWN
-	db 2, 1, SKY_UPPERCUT
-	db 2, 2, SUBMISSION
-	db 3, 1, BONE_CLUB
-	db 3, 2, HEADBUTT
-	db 3, 3, CUT
-	db 4, 1, TAKE_DOWN
-	db 4, 2, BUBBLEBEAM
-	db 4, 3, THUNDERBOLT
+	db 1, 2, GROUND_STOMP
+	db 1, 3, TACKLE
+	db 1, 4, DEFENSE_CURL
+	db 2, 1, ROCK_THROW
+	db 2, 2, GROUND_STOMP
+	db 2, 3, BIND
+	db 2, 4, COIL
 	db 0
 
-	db GIOVANNI, 2
-	db 1, 1, CRABHAMMER
-	db 1, 2, CUT 
-	db 1, 3, BODY_SLAM
-	db 2, 1, ICY_WIND
-	db 2, 2, ROCK_SLIDE
-	db 2, 3, SUBMISSION
-	db 3, 1, DIG
-	db 3, 3, ROCK_SLIDE
+	db BROCK, 2 ; Rematch — 63 KABUTOPS, 64 GOLBAT, 64 RHYDON, 65 ONIX, 65 GOLEM
+	db 1, 1, ROCK_SLIDE
+	db 1, 2, SURF
+	db 1, 3, NIGHT_SLASH
+	db 1, 4, SWORDS_DANCE
+	db 2, 1, AERIAL_ACE
+	db 2, 2, EXTREMESPEED
+	db 2, 3, TOXIC_FANGS
+	db 2, 4, DARK_PULSE
+	db 3, 1, FISSURE
+	db 3, 2, HORN_DRILL
+	db 3, 3, MEGAHORN
+	db 3, 4, STRENGTH
 	db 4, 1, EARTHQUAKE
 	db 4, 2, ROCK_SLIDE
-	db 4, 3, EXPLOSION
-	db 5, 1, SLASH
-	db 5, 2, BUBBLEBEAM
-	db 5, 3, THUNDERBOLT
-	db 0
-
-	db GIOVANNI, 3 ; 53, DUGTRIO, 54, NIDOQUEEN, 55, PERSIAN,  54, NIDOKING, 55, RHYDON
-	db 1, 1, EARTHQUAKE
-	db 1, 2, SLASH
-	db 1, 3, FISSURE
-	db 1, 4, ROCK_SLIDE
-	db 2, 1, EARTHQUAKE
-	db 2, 2, ICE_BEAM
-	db 2, 3, THUNDERBOLT
-	db 2, 4, BODY_SLAM
-	db 3, 1, SLASH
-	db 3, 2, HYPER_BEAM
-	db 3, 3, BUBBLEBEAM
-	db 3, 4, THUNDERBOLT
-	db 4, 1, EARTHQUAKE
-	db 4, 2, BLIZZARD
-	db 4, 3, THUNDER
-	db 4, 4, SLUDGE
-	db 5, 1, ROCK_SLIDE
-	db 5, 2, EARTHQUAKE
-	db 5, 3, SUBMISSION
-	db 5, 4, THUNDERBOLT
-	db 0
-
-	db LORELEI, 1 ; 56, SLOWBRO, 55, CLOYSTER, 55, DEWGONG,  56, JYNX, 57, LAPRAS
-	db 1, 1, EARTHQUAKE
-	db 1, 2, BLIZZARD
-	db 2, 1, SURF
-	db 2, 3, EXPLOSION
-	db 3, 1, SURF
-	db 3, 2, REST
-	db 4, 2, BUBBLEBEAM
-	db 4, 3, LOVELY_KISS
-	db 5, 1, THUNDERBOLT
-	db 5, 3, SURF
-	db 0
-
-	db BRUNO, 1 ; 57, HITMONCHAN, 56, POLIWRATH, 57, HITMONLEE, 56, ONIX, 58, MACHAMP
-	db 1, 3, ICY_WIND
-	db 1, 4, SHOCK_WAVE
-	db 2, 1, ICE_BEAM
-	db 3, 1, BODY_SLAM
-	db 4, 1, EXPLOSION
-	db 5, 1, BODY_SLAM
+	db 4, 3, INTIMIDATE
+	db 4, 4, DRAGON_SLAM
+	db 5, 1, EARTHQUAKE
 	db 5, 2, ROCK_SLIDE
-	db 5, 3, EARTHQUAKE
+	db 5, 3, HEAVY_SLAM
+	db 5, 4, STRENGTH
 	db 0
 
-	db AGATHA, 1 ; 57, GENGAR, 58, GOLBAT, 57, MAROWAK, 58, ARBOK, 59, GENGAR
-	db 1, 1, MEGA_DRAIN
-	db 2, 1, FLY
-	db 2, 2, TOXIC
-	db 2, 4, DOUBLE_TEAM
-	db 3, 1, SWORDS_DANCE
+	db MISTY, 1 ; Cerulean Gym — 19 PSYDUCK, 20 GOLDEEN, 21 STARMIE
+	db 1, 1, WATER_PULSE
+	db 1, 2, CONFUSION
+	db 1, 3, DISABLE
+	db 1, 4, ICY_PULSE
+	db 2, 1, WATER_PULSE
+	db 2, 2, HORN_ATTACK
+	db 2, 3, SUPERSONIC
+	db 2, 4, ICY_PULSE
+	db 3, 1, WATER_PULSE
+	db 3, 2, EXTRASENSORY
+	db 3, 3, RECOVER
+	db 3, 4, ICY_PULSE
+	db 0
+
+	db MISTY, 2 ; Rematch — 63 BLASTOISE, 64 GYARADOS, 64 OMASTAR, 65 STARMIE, 65 GOLDUCK
+	db 1, 1, HYDRO_PUMP
+	db 1, 2, BLIZZARD
+	db 1, 3, HEAVY_SLAM
+	db 1, 4, EARTHQUAKE
+	db 2, 1, WATERFALL
+	db 2, 2, ICE_BEAM
+	db 2, 3, EARTHQUAKE
+	db 2, 4, DRAGON_BREATH
+	db 3, 1, HYDRO_PUMP
+	db 3, 2, ICE_BEAM
+	db 3, 3, ROCK_SLIDE
+	db 3, 4, IRON_HEAD
+	db 4, 1, HYDRO_PUMP
+	db 4, 2, PSYCHIC_M
+	db 4, 3, ICE_BEAM
+	db 4, 4, GROWTH
+	db 5, 1, SURF
+	db 5, 2, PSYCHIC_M
+	db 5, 3, ICE_BEAM
+	db 5, 4, DAZZLE_GLEAM
+	db 0
+
+	db LT_SURGE, 1 ; Vermilion Gym — 31 ELECTRODE, 32 ELECTABUZZ, 33 MAGNETON, 34 RAICHU
+	db 1, 1, SHOCK_WAVE
+	db 1, 2, AGILITY
+	db 1, 3, BODY_SLAM
+	db 1, 4, SCREECH
+	db 2, 1, SHOCK_WAVE
+	db 2, 2, FLAME_CHARGE
+	db 2, 3, NUZZLE
+	db 2, 4, FLASH
+	db 3, 1, SHOCK_WAVE
+	db 3, 2, IRON_HEAD
+	db 3, 3, BODY_SLAM
+	db 3, 4, THUNDER_WAVE
+	db 4, 1, SHOCK_WAVE
+	db 4, 2, VOLT_TACKLE
+	db 4, 3, IRON_TAIL
+	db 4, 4, BODY_SLAM
+	db 0
+
+	db LT_SURGE, 2 ; Rematch — 63 POLIWRATH, 64 ELECTRODE, 64 MAGNETON, 65 ELECTABUZZ, 65 RAICHU
+	db 1, 1, SURF
+	db 1, 2, SUBMISSION
+	db 1, 3, EARTHQUAKE
+	db 1, 4, ICE_BEAM
+	db 2, 1, THUNDER
+	db 2, 2, MAGNET_BOMB
+	db 2, 3, EXTREMESPEED
+	db 2, 4, BULLDOZE
+	db 3, 1, THUNDER
+	db 3, 2, MAGNET_BOMB
+	db 3, 3, TRI_ATTACK
+	db 3, 4, THUNDER_WAVE
+	db 4, 1, THUNDER
+	db 4, 2, MAGNET_BOMB
+	db 4, 3, FLAME_CHARGE
+	db 4, 4, MACH_PUNCH
+	db 5, 1, THUNDER
+	db 5, 2, VOLT_TACKLE
+	db 5, 3, IRON_TAIL
+	db 5, 4, EXTREMESPEED
+	db 0
+
+	db ERIKA, 1 ; Celadon Gym (4th) — 34 TANGELA, 35 VICTREEBEL, 37 VILEPLUME, 38 VENUSAUR
+	db 1, 1, WATER_GUN
+	db 1, 2, VINE_WHIP
+	db 1, 3, STUN_POWDER
+	db 1, 4, LEECH_SEED
+	db 2, 1, RAZOR_LEAF
+	db 2, 2, ACID
+	db 2, 3, SLEEP_POWDER
+	db 2, 4, BODY_SLAM
+	db 3, 1, GIGA_DRAIN
+	db 3, 2, ACID
+	db 3, 3, TOXIC
+	db 3, 4, LEECH_SEED
+	db 4, 1, GIGA_DRAIN
+	db 4, 2, SLUDGE
+	db 4, 3, SLEEP_POWDER
+	db 4, 4, BULLDOZE
+	db 0
+
+	db ERIKA, 2 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 34 TANGELA, 35 VICTREEBEL, 37 VILEPLUME, 38 VENUSAUR
+	db 1, 1, WATER_GUN
+	db 1, 2, VINE_WHIP
+	db 1, 3, STUN_POWDER
+	db 1, 4, LEECH_SEED
+	db 2, 1, RAZOR_LEAF
+	db 2, 2, ACID
+	db 2, 3, SLEEP_POWDER
+	db 2, 4, BODY_SLAM
+	db 3, 1, GIGA_DRAIN
+	db 3, 2, ACID
+	db 3, 3, TOXIC
+	db 3, 4, LEECH_SEED
+	db 4, 1, GIGA_DRAIN
+	db 4, 2, SLUDGE
+	db 4, 3, SLEEP_POWDER
+	db 4, 4, BULLDOZE
+	db 0
+
+	db ERIKA, 3 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 34 TANGELA, 35 VICTREEBEL, 37 VILEPLUME, 38 VENUSAUR
+	db 1, 1, WATER_GUN
+	db 1, 2, VINE_WHIP
+	db 1, 3, STUN_POWDER
+	db 1, 4, LEECH_SEED
+	db 2, 1, RAZOR_LEAF
+	db 2, 2, ACID
+	db 2, 3, SLEEP_POWDER
+	db 2, 4, BODY_SLAM
+	db 3, 1, GIGA_DRAIN
+	db 3, 2, ACID
+	db 3, 3, TOXIC
+	db 3, 4, LEECH_SEED
+	db 4, 1, GIGA_DRAIN
+	db 4, 2, SLUDGE
+	db 4, 3, SLEEP_POWDER
+	db 4, 4, BULLDOZE
+	db 0
+
+	db ERIKA, 4 ; Rematch — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
+	db 1, 1, PSYCHIC_M
+	db 1, 2, PETAL_DANCE
+	db 1, 3, HYPNOSIS
+	db 1, 4, BULLDOZE
+	db 2, 1, SURF
+	db 2, 2, PETAL_DANCE
+	db 2, 3, STUN_POWDER
+	db 2, 4, LEECH_LIFE
+	db 3, 1, GIGA_DRAIN
+	db 3, 2, SLUDGE
+	db 3, 3, SLEEP_POWDER
+	db 3, 4, SWORDS_DANCE
+	db 4, 1, PETAL_DANCE
+	db 4, 2, SPORE
+	db 4, 3, BODY_SLAM
+	db 4, 4, DARK_PULSE
+	db 5, 1, EARTHQUAKE
+	db 5, 2, GIGA_DRAIN
+	db 5, 3, SLUDGE
+	db 5, 4, SLEEP_POWDER
+	db 0
+
+	db KOGA, 1 ; Fuchsia Gym (5th) — 41 VENOMOTH, 42 WEEZING, 43 MUK, 44 GOLBAT, 45 ARBOK
+	db 1, 1, BUG_BUZZ
+	db 1, 2, SMOG
+	db 1, 3, SLEEP_POWDER
+	db 1, 4, LEECH_LIFE
+	db 2, 1, SLUDGE
+	db 2, 2, FLAMETHROWER
+	db 2, 3, SMOG
+	db 2, 4, TOXIC
+	db 3, 1, SLUDGE
 	db 3, 2, BODY_SLAM
-	db 3, 3, ROCK_SLIDE 
-	db 4, 2, SUBSTITUTE
-	db 5, 1, PSYCHIC_M
-	db 5, 3, MEGA_DRAIN
-	db 5, 4, THUNDER
+	db 3, 3, MUD_BOMB
+	db 3, 4, TOXIC
+	db 4, 1, AERIAL_ACE
+	db 4, 2, POISON_BITE
+	db 4, 3, LEECH_LIFE
+	db 4, 4, TOXIC
+	db 5, 1, POISON_BITE
+	db 5, 2, IRON_TAIL
+	db 5, 3, BIND
+	db 5, 4, TOXIC
 	db 0
 
-	db LANCE, 1 ; 61, DRAGONITE, 60, GYARADOS, 60, CHARIZARD, 61, AERODACTYL, 62, DRAGONITE
-	db 1, 1, WRAP
-	db 1, 3, THUNDER_WAVE
-	db 2, 1, FLY
-	db 2, 2, SURF
-	db 2, 3, HEAVY_SLAM
-	db 3, 3, HYPER_BEAM
-	db 3, 4, EARTHQUAKE
-	db 4, 3, EARTHQUAKE
-	db 5, 1, BLIZZARD
-	db 5, 2, FIRE_BLAST
-	db 5, 3, THUNDER
+	db KOGA, 2 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 41 VENOMOTH, 42 WEEZING, 43 MUK, 44 GOLBAT, 45 ARBOK
+	db 1, 1, BUG_BUZZ
+	db 1, 2, SMOG
+	db 1, 3, SLEEP_POWDER
+	db 1, 4, LEECH_LIFE
+	db 2, 1, SLUDGE
+	db 2, 2, FLAMETHROWER
+	db 2, 3, SMOG
+	db 2, 4, TOXIC
+	db 3, 1, SLUDGE
+	db 3, 2, BODY_SLAM
+	db 3, 3, MUD_BOMB
+	db 3, 4, TOXIC
+	db 4, 1, AERIAL_ACE
+	db 4, 2, POISON_BITE
+	db 4, 3, LEECH_LIFE
+	db 4, 4, TOXIC
+	db 5, 1, POISON_BITE
+	db 5, 2, IRON_TAIL
+	db 5, 3, BIND
+	db 5, 4, TOXIC
+	db 0
+
+	db KOGA, 3 ; Rematch — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
+	db 1, 1, SURF
+	db 1, 2, SLUDGE_WAVE
+	db 1, 3, ICE_BEAM
+	db 1, 4, TOXIC
+	db 2, 1, GUNK_SHOT
+	db 2, 2, EARTHQUAKE
+	db 2, 3, BODY_SLAM
+	db 2, 4, TOXIC
+	db 3, 1, GUNK_SHOT
+	db 3, 2, FLAMETHROWER
+	db 3, 3, DARK_PULSE
+	db 3, 4, TOXIC
+	db 4, 1, HURRICANE
+	db 4, 2, TOXIC_FANGS
+	db 4, 3, DARK_PULSE
+	db 4, 4, TOXIC
+	db 5, 1, TOXIC_FANGS
+	db 5, 2, IRON_TAIL
+	db 5, 3, FAINT_ATTACK
+	db 5, 4, TOXIC
+	db 0
+
+	db BLAINE, 1 ; Cinnabar Gym — 49 NINETALES, 49 RAPIDASH, 49 ARCANINE, 52 RHYDON, 55 MAGMAR
+	db 1, 1, FLAMETHROWER
+	db 1, 2, DARK_PULSE
+	db 1, 3, CONFUSE_RAY
+	db 1, 4, DAZZLE_GLEAM
+	db 2, 1, FLAMETHROWER
+	db 2, 2, MEGAHORN
+	db 2, 3, DOUBLE_EDGE
+	db 2, 4, BULLDOZE
+	db 3, 1, FLAMETHROWER
+	db 3, 2, CRUNCH
+	db 3, 3, TAKE_DOWN
+	db 3, 4, SWORDS_DANCE
+	db 4, 1, EARTHQUAKE
+	db 4, 2, ROCK_SLIDE
+	db 4, 3, MEGAHORN
+	db 4, 4, BODY_SLAM
+	db 5, 1, FIRE_BLAST
+	db 5, 2, LAVA_PLUME
+	db 5, 3, EARTHQUAKE
+	db 5, 4, BODY_SLAM
+	db 0
+
+	db BLAINE, 2 ; Rematch — 63 NINETALES, 64 CHARIZARD, 64 ARCANINE, 65 RHYDON, 65 MAGMAR
+	db 1, 1, FIRE_BLAST
+	db 1, 2, DARK_PULSE
+	db 1, 3, SHADOW_BALL
+	db 1, 4, MOONBLAST
+	db 2, 1, FIRE_BLAST
+	db 2, 2, SEISMIC_TOSS
+	db 2, 3, SKY_ATTACK
+	db 2, 4, DRAGON_BREATH
+	db 3, 1, FIRE_BLAST
+	db 3, 2, CRUNCH
+	db 3, 3, DOUBLE_EDGE
+	db 3, 4, TAKE_DOWN
+	db 4, 1, EARTHQUAKE
+	db 4, 2, OUTRAGE
+	db 4, 3, MEGAHORN
+	db 4, 4, HORN_DRILL
+	db 5, 1, FIRE_BLAST
+	db 5, 2, LAVA_PLUME
+	db 5, 3, EARTHQUAKE
+	db 5, 4, ROCK_SLIDE
+	db 0
+
+	db SABRINA, 1 ; Saffron Gym (6th) — 41 KADABRA, 43 HYPNO, 45 VENOMOTH, 47 MR_MIME, 49 ALAKAZAM
+	db 1, 1, PSYCHIC_M
+	db 1, 2, SHOCK_WAVE
+	db 1, 3, RECOVER
+	db 1, 4, CALM_MIND
+	db 2, 1, PSYCHIC_M
+	db 2, 2, HYPNOSIS
+	db 2, 3, DREAM_EATER
+	db 2, 4, SHADOW_BALL
+	db 3, 1, PSYCHIC_M
+	db 3, 2, BUG_BUZZ
+	db 3, 3, QUIVER_DANCE
+	db 3, 4, SLEEP_POWDER
+	db 4, 1, PSYCHIC_M
+	db 4, 2, DAZZLE_GLEAM
+	db 4, 3, PETAL_DANCE
+	db 4, 4, REFLECT
+	db 5, 1, PSYCHIC_M
+	db 5, 2, SHOCK_WAVE
+	db 5, 3, RECOVER
+	db 5, 4, CALM_MIND
+	db 0
+
+	db SABRINA, 2 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 41 KADABRA, 43 HYPNO, 45 VENOMOTH, 47 MR_MIME, 49 ALAKAZAM
+	db 1, 1, PSYCHIC_M
+	db 1, 2, SHOCK_WAVE
+	db 1, 3, RECOVER
+	db 1, 4, CALM_MIND
+	db 2, 1, PSYCHIC_M
+	db 2, 2, HYPNOSIS
+	db 2, 3, DREAM_EATER
+	db 2, 4, SHADOW_BALL
+	db 3, 1, PSYCHIC_M
+	db 3, 2, BUG_BUZZ
+	db 3, 3, QUIVER_DANCE
+	db 3, 4, SLEEP_POWDER
+	db 4, 1, PSYCHIC_M
+	db 4, 2, DAZZLE_GLEAM
+	db 4, 3, PETAL_DANCE
+	db 4, 4, REFLECT
+	db 5, 1, PSYCHIC_M
+	db 5, 2, SHOCK_WAVE
+	db 5, 3, RECOVER
+	db 5, 4, CALM_MIND
+	db 0
+
+	db SABRINA, 3 ; Rematch — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
+	db 1, 1, PSYCHIC_M
+	db 1, 2, HYPNOSIS
+	db 1, 3, DREAM_EATER
+	db 1, 4, SHADOW_BALL
+	db 2, 1, PSYCHIC_M
+	db 2, 2, DAZZLE_GLEAM
+	db 2, 3, PETAL_DANCE
+	db 2, 4, SUBSTITUTE
+	db 3, 1, QUIVER_DANCE
+	db 3, 2, PSYCHIC_M
+	db 3, 3, BUG_BUZZ
+	db 3, 4, SLEEP_POWDER
+	db 4, 1, PSYCHIC_M
+	db 4, 2, SHADOW_BALL
+	db 4, 3, RECOVER
+	db 4, 4, CALM_MIND
+	db 5, 1, SHADOW_BALL
+	db 5, 2, PSYCHIC_M
+	db 5, 3, DARK_PULSE
+	db 5, 4, ICE_BEAM
+	db 0
+
+	db GIOVANNI, 1 ; Rocket Hideout B4F — 33 BEEDRILL, 34 RHYHORN, 34 DUGTRIO, 35 PERSIAN
+	db 1, 1, TWINEEDLE
+	db 1, 2, AERIAL_ACE
+	db 1, 3, TOXIC
+	db 1, 4, SWORDS_DANCE
+	db 2, 1, EARTHQUAKE
+	db 2, 2, ROCK_SLIDE
+	db 2, 3, MEGAHORN
+	db 2, 4, BODY_SLAM
+	db 3, 1, EARTHQUAKE
+	db 3, 2, IRON_HEAD
+	db 3, 3, SLASH
+	db 3, 4, FAINT_ATTACK
+	db 4, 1, SLASH
+	db 4, 2, FAINT_ATTACK
+	db 4, 3, SWORDS_DANCE
+	db 4, 4, IRON_TAIL
+	db 0
+
+	db GIOVANNI, 2 ; Silph Co. 11F — 43 KINGLER, 43 MACHAMP, 44 NIDOQUEEN, 45 NIDOKING, 45 PERSIAN
+	db 1, 1, CRABHAMMER
+	db 1, 2, SURF
+	db 1, 3, BODY_SLAM
+	db 1, 4, SWORDS_DANCE
+	db 2, 1, DIZZY_PUNCH
+	db 2, 2, EARTHQUAKE
+	db 2, 3, ROCK_SLIDE
+	db 2, 4, BULK_UP
+	db 3, 1, EARTHQUAKE
+	db 3, 2, ROCK_SLIDE
+	db 3, 3, BODY_SLAM
+	db 3, 4, TOXIC
+	db 4, 1, EARTHQUAKE
+	db 4, 2, ROCK_SLIDE
+	db 4, 3, MEGAHORN
+	db 4, 4, BODY_SLAM
+	db 5, 1, NIGHT_SLASH
+	db 5, 2, SLASH
+	db 5, 3, SWORDS_DANCE
+	db 5, 4, IRON_TAIL
+	db 0
+
+	db GIOVANNI, 3 ; Viridian Gym — 53 GOLEM, 53 MACHAMP, 54 RHYDON, 54 CLOYSTER, 55 PERSIAN, 55 NIDOKING
+	db 1, 1, EARTHQUAKE
+	db 1, 2, ROCK_SLIDE
+	db 1, 3, BODY_SLAM
+	db 1, 4, IRON_HEAD
+	db 2, 1, SUBMISSION
+	db 2, 2, EARTHQUAKE
+	db 2, 3, ROCK_SLIDE
+	db 2, 4, BULK_UP
+	db 3, 1, EARTHQUAKE
+	db 3, 2, ROCK_SLIDE
+	db 3, 3, MEGAHORN
+	db 3, 4, BODY_SLAM
+	db 4, 1, SURF
+	db 4, 2, ICE_BEAM
+	db 4, 3, ROCK_SLIDE
+	db 4, 4, IRON_HEAD
+	db 5, 1, NIGHT_SLASH
+	db 5, 2, EXTREMESPEED
+	db 5, 3, IRON_TAIL
+	db 5, 4, SWORDS_DANCE
+	db 6, 1, EARTHQUAKE
+	db 6, 2, ROCK_SLIDE
+	db 6, 3, MEGAHORN
+	db 6, 4, CRUNCH
+	db 0
+
+	db LORELEI, 1 ; E4 — 57 SLOWBRO, 57 JYNX, 58 DEWGONG, 58 CLOYSTER, 59 LAPRAS
+	db 1, 1, SURF
+	db 1, 2, PSYCHIC_M
+	db 1, 3, ICE_BEAM
+	db 1, 4, AMNESIA
+	db 2, 1, ICE_BEAM
+	db 2, 2, SHADOW_BALL
+	db 2, 3, PSYCHIC_M
+	db 2, 4, LOVELY_KISS
+	db 3, 1, SURF
+	db 3, 2, BLIZZARD
+	db 3, 3, BODY_SLAM
+	db 3, 4, STRENGTH
+	db 4, 1, SURF
+	db 4, 2, ICE_BEAM
+	db 4, 3, ROCK_SLIDE
+	db 4, 4, TOXIC
+	db 5, 1, SURF
+	db 5, 2, BLIZZARD
+	db 5, 3, PSYCHIC_M
+	db 5, 4, SING
+	db 0
+
+	db LORELEI, 2 ; Rematch — 72 SLOWBRO, 72 JYNX, 73 DEWGONG, 73 CLOYSTER, 74 LAPRAS
+	db 1, 1, SURF
+	db 1, 2, PSYCHIC_M
+	db 1, 3, ICE_BEAM
+	db 1, 4, AMNESIA
+	db 2, 1, BLIZZARD
+	db 2, 2, SHADOW_BALL
+	db 2, 3, PSYCHIC_M
+	db 2, 4, LOVELY_KISS
+	db 3, 1, SURF
+	db 3, 2, BLIZZARD
+	db 3, 3, BODY_SLAM
+	db 3, 4, STRENGTH
+	db 4, 1, SURF
+	db 4, 2, ICE_BEAM
+	db 4, 3, ROCK_SLIDE
+	db 4, 4, TOXIC
+	db 5, 1, SURF
+	db 5, 2, ICE_BEAM
+	db 5, 3, SING
+	db 5, 4, RECOVER
+	db 0
+
+	db BRUNO, 1 ; E4 — 58 ONIX, 58 NIDOKING, 59 HITMONCHAN, 59 HITMONLEE, 60 MACHAMP
+	db 1, 1, EARTHQUAKE
+	db 1, 2, ROCK_SLIDE
+	db 1, 3, IRON_TAIL
+	db 1, 4, INTIMIDATE
+	db 2, 1, EARTHQUAKE
+	db 2, 2, TOXIC_FANGS
+	db 2, 3, MEGAHORN
+	db 2, 4, ROCK_SLIDE
+	db 3, 1, SKY_UPPERCUT
+	db 3, 2, MAGMA_PUNCH
+	db 3, 3, ROCK_PUNCH
+	db 3, 4, BULK_UP
+	db 4, 1, HI_JUMP_KICK
+	db 4, 2, BRUTAL_SWING
+	db 4, 3, BULLDOZE
+	db 4, 4, SWORDS_DANCE
+	db 5, 1, SUBMISSION
+	db 5, 2, EARTHQUAKE
+	db 5, 3, MACH_PUNCH
+	db 5, 4, BULK_UP
+	db 0
+
+	db BRUNO, 2 ; Rematch — 73 ONIX, 73 NIDOKING, 74 HITMONCHAN, 74 HITMONLEE, 75 MACHAMP
+	db 1, 1, EARTHQUAKE
+	db 1, 2, ROCK_SLIDE
+	db 1, 3, IRON_TAIL
+	db 1, 4, DRAGON_SLAM
+	db 2, 1, EARTHQUAKE
+	db 2, 2, TOXIC_FANGS
+	db 2, 3, MEGAHORN
+	db 2, 4, OUTRAGE
+	db 3, 1, SKY_UPPERCUT
+	db 3, 2, MAGMA_PUNCH
+	db 3, 3, ROCK_PUNCH
+	db 3, 4, BULK_UP
+	db 4, 1, HI_JUMP_KICK
+	db 4, 2, BRUTAL_SWING
+	db 4, 3, BULLDOZE
+	db 4, 4, SWORDS_DANCE
+	db 5, 1, SUBMISSION
+	db 5, 2, EARTHQUAKE
+	db 5, 3, BULLET_PUNCH
+	db 5, 4, SWORDS_DANCE
+	db 0
+
+	db AGATHA, 1 ; E4 — 59 MAROWAK, 59 PARASECT, 60 GOLBAT, 60 ARBOK, 61 GENGAR
+	db 1, 1, EARTHQUAKE
+	db 1, 2, GORE_ATTACK
+	db 1, 3, SHADOW_BALL
+	db 1, 4, SWORDS_DANCE
+	db 2, 1, SPORE
+	db 2, 2, GIGA_DRAIN
+	db 2, 3, LEECH_LIFE
+	db 2, 4, PARASITE
+	db 3, 1, HURRICANE
+	db 3, 2, TOXIC_FANGS
+	db 3, 3, DARK_PULSE
+	db 3, 4, TOXIC
+	db 4, 1, TOXIC_FANGS
+	db 4, 2, FAINT_ATTACK
+	db 4, 3, IRON_TAIL
+	db 4, 4, INTIMIDATE
+	db 5, 1, SHADOW_BALL
+	db 5, 2, PSYCHIC_M
+	db 5, 3, ICE_BEAM
+	db 5, 4, NASTY_PLOT
+	db 0
+
+	db AGATHA, 2 ; Rematch — 74 MAROWAK, 74 PARASECT, 75 GOLBAT, 75 ARBOK, 76 GENGAR
+	db 1, 1, EARTHQUAKE
+	db 1, 2, GORE_ATTACK
+	db 1, 3, SHADOW_BALL
+	db 1, 4, SWORDS_DANCE
+	db 2, 1, SPORE
+	db 2, 2, GIGA_DRAIN
+	db 2, 3, LEECH_LIFE
+	db 2, 4, PARASITE
+	db 3, 1, HURRICANE
+	db 3, 2, TOXIC_FANGS
+	db 3, 3, DARK_PULSE
+	db 3, 4, TOXIC
+	db 4, 1, TOXIC_FANGS
+	db 4, 2, FAINT_ATTACK
+	db 4, 3, IRON_TAIL
+	db 4, 4, NEUROTOXIN
+	db 5, 1, SHADOW_BALL
+	db 5, 2, PSYCHIC_M
+	db 5, 3, ICE_BEAM
+	db 5, 4, DEEP_SLEEP
+	db 0
+
+	db LANCE, 1 ; E4 — 60 CHARIZARD, 60 SEADRA, 61 GYARADOS, 61 AERODACTYL, 62 DRAGONITE, 62 DRAGONITE
+	db 1, 1, FLAMETHROWER
+	db 1, 2, DRAGON_RAGE
+	db 1, 3, AERIAL_ACE
+	db 1, 4, EARTHQUAKE
+	db 2, 1, HYDRO_PUMP
+	db 2, 2, ICE_BEAM
+	db 2, 3, DRAGON_BREATH
+	db 2, 4, AGILITY
+	db 3, 1, WATERFALL
+	db 3, 2, HYPER_BEAM
+	db 3, 3, BRUTAL_SWING
+	db 3, 4, DRAGON_BREATH
+	db 4, 1, ROCK_SLIDE
+	db 4, 2, FLY
+	db 4, 3, CRUNCH
+	db 4, 4, AGILITY
+	db 5, 1, OUTRAGE
+	db 5, 2, THUNDERBOLT
+	db 5, 3, FLAMETHROWER
+	db 5, 4, EARTHQUAKE
+	db 6, 1, OUTRAGE
+	db 6, 2, THUNDERBOLT
+	db 6, 3, ICE_BEAM
+	db 6, 4, SURF
+	db 0
+
+	db LANCE, 2 ; Rematch — Main sets +15 levels — 75 CHARIZARD, 75 SEADRA, 76 GYARADOS, 76 AERODACTYL, 77 DRAGONITE, 77 DRAGONITE
+	db 1, 1, FLAMETHROWER
+	db 1, 2, DRAGON_RAGE
+	db 1, 3, AERIAL_ACE
+	db 1, 4, EARTHQUAKE
+	db 2, 1, HYDRO_PUMP
+	db 2, 2, ICE_BEAM
+	db 2, 3, DRAGON_BREATH
+	db 2, 4, AGILITY
+	db 3, 1, WATERFALL
+	db 3, 2, HYPER_BEAM
+	db 3, 3, BRUTAL_SWING
+	db 3, 4, DRAGON_BREATH
+	db 4, 1, ROCK_SLIDE
+	db 4, 2, FLY
+	db 4, 3, CRUNCH
+	db 4, 4, AGILITY
+	db 5, 1, OUTRAGE
+	db 5, 2, THUNDERBOLT
+	db 5, 3, FLAMETHROWER
+	db 5, 4, EARTHQUAKE
+	db 6, 1, OUTRAGE
+	db 6, 2, THUNDERBOLT
+	db 6, 3, ICE_BEAM
+	db 6, 4, SURF
+	db 0
+
+	db PROF_OAK, 1 ; Hall of Fame — 70 DRAGONITE, 70 SNORLAX, 70 TAUROS, 75 CHARIZARD, 75 VENUSAUR, 75 BLASTOISE
+	db 1, 1, OUTRAGE
+	db 1, 2, ICE_BEAM
+	db 1, 3, FLAMETHROWER
+	db 1, 4, THUNDERBOLT
+	db 2, 1, BODY_SLAM
+	db 2, 2, EARTHQUAKE
+	db 2, 3, CRUNCH
+	db 2, 4, BULK_UP
+	db 3, 1, DOUBLE_EDGE
+	db 3, 2, HORN_DRILL
+	db 3, 3, OUTRAGE
+	db 3, 4, SWORDS_DANCE
+	db 4, 1, FLAMETHROWER
+	db 4, 2, HURRICANE
+	db 4, 3, DRAGON_CLAW
+	db 4, 4, EARTHQUAKE
+	db 5, 1, GIGA_DRAIN
+	db 5, 2, SLUDGE
+	db 5, 3, EARTHQUAKE
+	db 5, 4, TOXIC
+	db 6, 1, HYDRO_PUMP
+	db 6, 2, ICE_BEAM
+	db 6, 3, EARTHQUAKE
+	db 6, 4, BODY_SLAM
+	db 0
+
+	db PROF_OAK, 2 ; Rematch — Main sets +10 levels — 80 DRAGONITE, 80 SNORLAX, 80 TAUROS, 85 CHARIZARD, 85 VENUSAUR, 85 BLASTOISE
+	db 1, 1, OUTRAGE
+	db 1, 2, ICE_BEAM
+	db 1, 3, FLAMETHROWER
+	db 1, 4, THUNDERBOLT
+	db 2, 1, BODY_SLAM
+	db 2, 2, EARTHQUAKE
+	db 2, 3, CRUNCH
+	db 2, 4, BULK_UP
+	db 3, 1, DOUBLE_EDGE
+	db 3, 2, HORN_DRILL
+	db 3, 3, OUTRAGE
+	db 3, 4, SWORDS_DANCE
+	db 4, 1, FLAMETHROWER
+	db 4, 2, HURRICANE
+	db 4, 3, DRAGON_CLAW
+	db 4, 4, EARTHQUAKE
+	db 5, 1, GIGA_DRAIN
+	db 5, 2, SLUDGE
+	db 5, 3, EARTHQUAKE
+	db 5, 4, TOXIC
+	db 6, 1, HYDRO_PUMP
+	db 6, 2, ICE_BEAM
+	db 6, 3, EARTHQUAKE
+	db 6, 4, BODY_SLAM
+	db 0
+
+	db JESSIE_AND_JAMES, 1 ; Mt. Moon B2F — 15 EKANS, 15 KOFFING, 16 MEOWTH
+	db 1, 1, POISON_BITE
+	db 1, 2, BITE
+	db 1, 3, LEER
+	db 1, 4, BIDE
+	db 2, 1, SMOG
+	db 2, 2, ACID
+	db 2, 3, SMOKESCREEN
+	db 2, 4, TACKLE
+	db 3, 1, PAY_DAY
+	db 3, 2, BITE
+	db 3, 3, QUICK_ATTACK
+	db 3, 4, FURY_ATTACK
+	db 0
+
+	db JESSIE_AND_JAMES, 2 ; Rocket Hideout (first encounter) — 28 ARBOK, 28 KOFFING, 29 MEOWTH
+	db 1, 1, POISON_BITE
+	db 1, 2, BITE
+	db 1, 3, SCARY_FACE
+	db 1, 4, BIDE
+	db 2, 1, ACID
+	db 2, 2, SMOG
+	db 2, 3, SMOKESCREEN
+	db 2, 4, TACKLE
+	db 3, 1, SLASH
+	db 3, 2, PAY_DAY
+	db 3, 3, QUICK_ATTACK
+	db 3, 4, TAKE_DOWN
+	db 0
+
+	db JESSIE_AND_JAMES, 3 ; Pokemon Tower 7F (second encounter) — 31 LICKITUNG, 32 ARBOK, 32 WEEZING, 33 MEOWTH
+	db 1, 1, HEADBUTT
+	db 1, 2, ACID
+	db 1, 3, GROUND_STOMP
+	db 1, 4, ROLLOUT
+	db 2, 1, POISON_BITE
+	db 2, 2, FAINT_ATTACK
+	db 2, 3, BITE
+	db 2, 4, SCARY_FACE
+	db 3, 1, SLUDGE
+	db 3, 2, SMOG
+	db 3, 3, TACKLE
+	db 3, 4, TOXIC
+	db 4, 1, SLASH
+	db 4, 2, PAY_DAY
+	db 4, 3, TAKE_DOWN
+	db 4, 4, INTIMIDATE
+	db 0
+
+	db JESSIE_AND_JAMES, 4 ; Silph Co. 11F — 41 LICKITUNG, 42 VICTREEBEL, 42 GYARADOS, 43 ARBOK, 43 WEEZING, 44 MEOWTH
+	db 1, 1, BODY_SLAM
+	db 1, 2, PLAY_ROUGH
+	db 1, 3, ACID
+	db 1, 4, SEISMIC_TOSS
+	db 2, 1, GIGA_DRAIN
+	db 2, 2, SLUDGE
+	db 2, 3, SLEEP_POWDER
+	db 2, 4, TAKE_DOWN
+	db 3, 1, WATERFALL
+	db 3, 2, DRAGON_BREATH
+	db 3, 3, CRUNCH
+	db 3, 4, INTIMIDATE
+	db 4, 1, POISON_BITE
+	db 4, 2, FAINT_ATTACK
+	db 4, 3, IRON_TAIL
+	db 4, 4, SCARY_FACE
+	db 5, 1, SLUDGE
+	db 5, 2, TOXIC
+	db 5, 3, FLAMETHROWER
+	db 5, 4, LIGHT_SCREEN
+	db 6, 1, SLASH
+	db 6, 2, FAINT_ATTACK
+	db 6, 3, TAKE_DOWN
+	db 6, 4, AGILITY
+	db 0
+
+	db JANINE, 1 ; Fuchsia Gym (post-Koga) — 39 WEEZING, 39 MUK, 40 GOLBAT, 41 VENOMOTH, 41 BEEDRILL
+	db 1, 1, SLUDGE
+	db 1, 2, FLAMETHROWER
+	db 1, 3, HAZE
+	db 1, 4, TOXIC
+	db 2, 1, SLUDGE
+	db 2, 2, EARTHQUAKE
+	db 2, 3, BODY_SLAM
+	db 2, 4, TOXIC
+	db 3, 1, POISON_BITE
+	db 3, 2, AERIAL_ACE
+	db 3, 3, LEECH_LIFE
+	db 3, 4, TOXIC
+	db 4, 1, SLEEP_POWDER
+	db 4, 2, QUIVER_DANCE
+	db 4, 3, BUG_BUZZ
+	db 4, 4, EXTRASENSORY
+	db 5, 1, SWORDS_DANCE
+	db 5, 2, LEECH_LIFE
+	db 5, 3, AERIAL_ACE
+	db 5, 4, POISON_BITE
+	db 0
+
+	db JENNY, 1 ; Vermilion City — 63 PARASECT, 64 BLASTOISE, 64 PIDGEOT, 65 ARCANINE, 65 GENGAR
+	db 1, 1, SPORE
+	db 1, 2, SWORDS_DANCE
+	db 1, 3, NIGHT_SLASH
+	db 1, 4, LEECH_LIFE
+	db 2, 1, HYDRO_PUMP
+	db 2, 2, ICE_BEAM
+	db 2, 3, EARTHQUAKE
+	db 2, 4, BODY_SLAM
+	db 3, 1, HURRICANE
+	db 3, 2, AGILITY
+	db 3, 3, DOUBLE_EDGE
+	db 3, 4, INTIMIDATE
+	db 4, 1, FLAMETHROWER
+	db 4, 2, CRUNCH
+	db 4, 3, TAKE_DOWN
+	db 4, 4, PLAY_ROUGH
+	db 5, 1, NASTY_PLOT
+	db 5, 2, SHADOW_BALL
+	db 5, 3, PSYCHIC_M
+	db 5, 4, DARK_PULSE
+	db 0
+
+	db JOY, 1 ; Fuchsia Pokecenter — 63 KANGASKHAN, 64 WIGGLYTUFF, 64 CLEFABLE, 65 CHANSEY, 65 MR_MIME
+	db 1, 1, BULK_UP
+	db 1, 2, BODY_SLAM
+	db 1, 3, DIZZY_PUNCH
+	db 1, 4, EARTHQUAKE
+	db 2, 1, SING
+	db 2, 2, BODY_SLAM
+	db 2, 3, PLAY_ROUGH
+	db 2, 4, EXTRASENSORY
+	db 3, 1, CALM_MIND
+	db 3, 2, MOONBLAST
+	db 3, 3, PSYCHIC_M
+	db 3, 4, ICY_WIND
+	db 4, 1, SOFTBOILED
+	db 4, 2, SEISMIC_TOSS
+	db 4, 3, TOXIC
+	db 4, 4, REFLECT
+	db 5, 1, PSYCHIC_M
+	db 5, 2, DAZZLE_GLEAM
+	db 5, 3, HYPNOSIS
+	db 5, 4, REFLECT
 	db 0
 
 	db RIVAL2, 5 ; Silph Co - 43, PARASECT, 44, GYARADOS, 43, RHYDON, 44, ALAKAZAM, 46, JOLTEON
@@ -425,7 +932,7 @@ SpecialTrainerMoves:
 	db 6, 3, DIG
 	db 6, 4, SUBSTITUTE
 	db 0 
-	
+
 	db RIVAL2, 10 ; Route 22 - 53, PIDGEOT, 54, MACHAMP, 54, ALAKAZAM, 52, NINETALES, 52, SCYTHER, 55, VAPOREON, 0
 	db 1, 1, DOUBLE_EDGE
 	db 1, 2, TOXIC
@@ -487,48 +994,6 @@ SpecialTrainerMoves:
 	db 6, 2, REFLECT
 	db 0
 
-	db PROF_OAK, 1 ; 69, TAUROS, 70, CHARIZARD, 70, VENUSAUR, 70, BLASTOISE, 69, SNORLAX, 70, NIDOKING, 0
-    db 1, 1, HYPER_BEAM
-    db 1, 2, EARTHQUAKE
-    db 1, 3, BLIZZARD
-    db 1, 4, THUNDER
-    db 2, 1, FIRE_BLAST
-    db 2, 2, EARTHQUAKE
-    db 2, 3, SLASH
-    db 2, 4, DOUBLE_TEAM
-    db 3, 2, SWORDS_DANCE
-    db 3, 3, EARTHQUAKE
-	db 3, 4, SLEEP_POWDER
-    db 4, 1, REFLECT
-    db 4, 2, EARTHQUAKE
-	db 5, 2, REST
-    db 5, 2, AMNESIA
-    db 5, 3, PSYCHIC_M
-    db 6, 1, EARTHQUAKE
-    db 6, 2, ROCK_SLIDE
-    db 6, 3, SLUDGE
-    db 6, 4, BLIZZARD
-    db 0
-
-	db PROF_OAK, 2 ; 78, TAUROS, 77, ZAPDOS, 77, ARTICUNO, 77, MOLTRES, 78, SNORLAX, 81, NIDOKING, 0
-    db 1, 1, HYPER_BEAM
-    db 1, 2, EARTHQUAKE
-    db 1, 3, BLIZZARD
-    db 1, 4, THUNDER
-	db 2, 1, THUNDER_WAVE
-	db 3, 1, BUBBLEBEAM
-    db 3, 4, REFLECT
-    db 4, 1, FIRE_BLAST
-    db 4, 2, SOLARBEAM
-    db 5, 1, AMNESIA
-    db 5, 2, REFLECT
-    db 5, 3, REST
-	db 6, 1, EARTHQUAKE
-    db 6, 2, ROCK_SLIDE
-    db 6, 3, THUNDER
-    db 6, 4, SLUDGE
-    db 0
-
 	db SMITH, 1
 	db 1, 1, DRILL_PECK
 	db 1, 3, FIRE_BLAST
@@ -580,118 +1045,6 @@ SpecialTrainerMoves:
 	db 6, 2, HYPER_BEAM
 	db 6, 3, METRONOME
 	db 6, 4, EARTHQUAKE
-	db 0
-
-	db JOY, 1 ; db 62, KANGASKHAN, SNORLAX, STARMIE, PORYGON, EXEGGUTOR, CHANSEY, 0
-	db 1, 1, REST
-    db 1, 2, DOUBLE_TEAM
-    db 1, 3, FISSURE
-    db 2, 2, ICE_BEAM
-    db 2, 3, AMNESIA
-    db 2, 4, DOUBLE_TEAM
-    db 3, 1, RECOVER
-    db 3, 3, THUNDER_WAVE
-    db 3, 4, SUBSTITUTE
-    db 4, 1, REFLECT
-    db 4, 2, BLIZZARD
-    db 4, 3, RECOVER
-    db 4, 4, THUNDER_WAVE
-    db 5, 1, SOFTBOILED
-    db 5, 2, REFLECT
-    db 5, 3, DREAM_EATER
-    db 6, 1, SOFTBOILED
-    db 6, 2, REFLECT
-    db 6, 4, THUNDER_WAVE
-	db 0
-
-	db JENNY, 1 ; db 62, PIDGEOT, BLASTOISE, TANGELA, GENGAR, PARASECT, ARCANINE, 0
-	db 1, 1, TAKE_DOWN
-    db 1, 4, TOXIC
-    db 2, 1, SURF
-    db 2, 2, EARTHQUAKE
-    db 2, 4, BODY_SLAM
-    db 3, 2, SLEEP_POWDER
-    db 3, 3, MIMIC
-    db 4, 1, PSYCHIC_M
-    db 4, 4, THUNDERBOLT
-    db 5, 4, LEECH_LIFE
-    db 6, 1, REFLECT
-    db 6, 2, FIRE_BLAST
-    db 6, 3, BODY_SLAM
-    db 6, 4, DIG
-	db 0
-
-	db LORELEI, 2 ; db $FF, 70, WIGGLYTUFF, 71, STARMIE, 71, CLOYSTER, 70, OMASTAR, 70, EXEGGUTOR, 72, LAPRAS, 0
-    db 1, 4, BLIZZARD
-    db 2, 1, THUNDER_WAVE
-    db 2, 3, THUNDER
-    db 2, 4, SURF
-    db 3, 3, TOXIC
-    db 3, 4, EXPLOSION
-    db 4, 1, BLIZZARD
-    db 4, 3, HORN_DRILL
-    db 5, 1, LEECH_SEED
-    db 6, 1, CONFUSE_RAY
-    db 6, 2, PSYCHIC_M
-    db 6, 3, SURF
-	db 0
-
-	db BRUNO, 2 ; db $FF, 71, CLEFABLE, 71, MUK, 70, SLOWBRO, 72, HITMONLEE, 72, RHYDON, 73, MACHAMP, 0
-	db 1, 1, SOFTBOILED
-    db 1, 2, PSYCHIC_M
-    db 1, 3, ICE_BEAM
-    db 1, 4, THUNDERBOLT
-    db 2, 4, FIRE_BLAST
-    db 3, 1, DOUBLE_TEAM
-    db 3, 2, SURF
-    db 4, 1, BODY_SLAM
-    db 4, 2, DOUBLE_TEAM
-    db 4, 4, METRONOME
-    db 5, 3, BODY_SLAM
-    db 5, 4,SURF
-    db 6, 1, EARTHQUAKE
-    db 6, 2, HYPER_BEAM
-    db 6, 3, ROCK_SLIDE
-	db 0
-
-	db AGATHA, 2 ; db $FF, 71, JYNX, 71, GYARADOS, 72, ALAKAZAM, 71, VENUSAUR, 72, ARBOK, 73, GENGAR, 0
-    db 1, 2, LOVELY_KISS
-    db 1, 3, REFLECT
-    db 2, 1, FIRE_BLAST
-    db 2, 2, THUNDERBOLT
-    db 2, 3, SURF
-    db 3, 1, THUNDER_WAVE
-    db 3, 4, SUBSTITUTE
-    db 4, 1, SLEEP_POWDER
-    db 4, 2, DOUBLE_EDGE
-    db 4, 3, LEECH_SEED
-    db 5, 2, EARTHQUAKE
-    db 6, 1, CONFUSE_RAY
-    db 6, 3, EXPLOSION
-    db 6, 4, THUNDERBOLT
-	db 0
-
-	db LANCE, 2 ; db $FF, 73, ARCANINE, 73, ELECTABUZZ, 74, SNORLAX, 74, CHARIZARD, 72, KANHASKHAN, 75, DRAGONITE, 0
-	db 1, 1, DRAGON_RAGE
-    db 1, 2, FIRE_BLAST
-    db 1, 3, HYPER_BEAM
-    db 1, 4, DIG
-    db 2, 1, THUNDER_WAVE
-    db 2, 4, PSYCHIC_M
-    db 3, 1, EXPLOSION
-    db 3, 2, EARTHQUAKE
-    db 3, 3, REFLECT
-    db 4, 1, SLASH
-    db 4, 2, FIRE_BLAST
-    db 4, 3, EARTHQUAKE
-    db 4, 4, DOUBLE_TEAM
-    db 5, 1, HYPER_BEAM
-    db 5, 2, SUBMISSION
-    db 5, 3, EARTHQUAKE
-    db 5, 4, ROCK_SLIDE
-    db 6, 1, THUNDER
-    db 6, 2, THUNDER_WAVE
-    db 6, 3, BLIZZARD
 	db 0
 
 	db RIVAL3, 4 ; db $FF, 77, ALAKAZAM, 76, MACHAMP, 75, GYARADOS, 74, PIDGEOT, 75, EXEGGUTOR, 77, ARCANINE, 0
