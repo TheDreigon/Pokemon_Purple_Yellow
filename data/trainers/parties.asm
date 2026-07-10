@@ -670,9 +670,9 @@ CooltrainerFData:
 BrunoData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
-	db $FF, 58, ONIX, 58, NIDOKING, 59, HITMONCHAN, 59, HITMONLEE, 60, MACHAMP, 0
+	db $FF, 57, ONIX, 57, NIDOKING, 58, HITMONCHAN, 58, HITMONLEE, 59, MACHAMP, 0
 ; 2: Rematch
-	db $FF, 73, ONIX, 73, NIDOKING, 74, HITMONCHAN, 74, HITMONLEE, 75, MACHAMP, 0
+	db $FF, 72, ONIX, 72, NIDOKING, 73, HITMONCHAN, 73, HITMONLEE, 74, MACHAMP, 0
 
 BrockData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
@@ -769,9 +769,9 @@ Rival3Data:
 LoreleiData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
-	db $FF, 57, SLOWBRO, 57, JYNX, 58, DEWGONG, 58, CLOYSTER, 59, LAPRAS, 0
+	db $FF, 56, SLOWBRO, 56, JYNX, 57, DEWGONG, 57, CLOYSTER, 58, LAPRAS, 0
 ; 2: Rematch
-	db $FF, 72, SLOWBRO, 72, JYNX, 73, DEWGONG, 73, CLOYSTER, 74, LAPRAS, 0
+	db $FF, 71, SLOWBRO, 71, JYNX, 72, DEWGONG, 72, CLOYSTER, 73, LAPRAS, 0
 
 ChannelerData:
 ; Unused
@@ -815,9 +815,9 @@ ChannelerData:
 AgathaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
-	db $FF, 59, MAROWAK, 59, PARASECT, 60, GOLBAT, 60, ARBOK, 61, GENGAR, 0
+	db $FF, 58, MAROWAK, 58, PARASECT, 59, GOLBAT, 59, ARBOK, 60, GENGAR, 0
 ; 2: Rematch
-	db $FF, 74, MAROWAK, 74, PARASECT, 75, GOLBAT, 75, ARBOK, 76, GENGAR, 0
+	db $FF, 73, MAROWAK, 73, PARASECT, 74, GOLBAT, 74, ARBOK, 75, GENGAR, 0
 
 LanceData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
