@@ -5,14 +5,13 @@
 
 ; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
 ; Every boss mon has all 4 slots specified (hand-picked full sets).
-; Non-boss entries (Youngster/Smith/Craig/Weebra) and RIVAL2/RIVAL3 (until the
+; Non-boss entries (Smith/Craig/Weebra) and RIVAL2/RIVAL3 (until the
 ; Phase-B rival engine lands) are preserved from the previous version.
+; (Removed 2026-07-10 per Forte: Youngster 14's slot-4 FISSURE — the old
+; Route 9 Sandshrew surprise; with Fissure rebalanced to 115 BP it was a
+; mid-game nuke. The mon uses its natural level-up set now.)
 
 SpecialTrainerMoves:
-	db YOUNGSTER, 14
-	db 1, 4, FISSURE
-	db 0
-
 	db BROCK, 1 ; Pewter Gym — 12 GEODUDE, 14 ONIX
 	db 1, 1, ROCK_THROW
 	db 1, 2, GROUND_STOMP
