@@ -5,8 +5,9 @@
 
 ; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
 ; Every boss mon has all 4 slots specified (hand-picked full sets).
-; Non-boss entries (Smith/Craig/Weebra) and RIVAL2/RIVAL3 (until the
-; Phase-B rival engine lands) are preserved from the previous version.
+; Non-boss entries (Smith/Craig/Weebra) are preserved from the previous
+; version. RIVAL entries were removed in Phase B: the rival's moves come
+; from data/trainers/rival_pools.asm via GenerateRivalParty.
 ; (Removed 2026-07-10 per Forte: Youngster 14's slot-4 FISSURE — the old
 ; Route 9 Sandshrew surprise; with Fissure rebalanced to 115 BP it was a
 ; mid-game nuke. The mon uses its natural level-up set now.)
@@ -850,70 +851,6 @@ SpecialTrainerMoves:
 	db 5, 4, REFLECT
 	db 0
 
-	db RIVAL2, 5 ; Silph Co - 43, PARASECT, 44, GYARADOS, 43, RHYDON, 44, ALAKAZAM, 46, JOLTEON
-	db 1, 4, LEECH_LIFE
-	db 2, 1, SURF
-	db 2, 2, ICE_BEAM
-	db 2, 3, DOUBLE_EDGE
-	db 2, 4, FLY
-	db 3, 1, HORN_DRILL
-	db 3, 2, BODY_SLAM
-	db 3, 3, EARTHQUAKE
-	db 4, 1, THUNDER_WAVE
-	db 4, 4, TRI_ATTACK
-	db 5, 1, DIG
-	db 5, 4, THUNDER_WAVE
-	db 0
-
-	db RIVAL2, 6 ; Silph Co - 43, ELECTABUZZ, 44, CLOYSTER, 43, DODRIO , 44, ALAKAZAM, 46, FLAREON
-	db 1, 1, THUNDER_WAVE
-	db 1, 2, PSYCHIC_M
-	db 2, 1, EXPLOSION
-	db 2, 2, TOXIC
-	db 2, 3, SURF
-	db 3, 1, FLY
-	db 3, 3, SUBSTITUTE
-	db 4, 1, TRI_ATTACK
-	db 5, 1, DIG
-	db 5, 3, SAND_ATTACK
-	db 0
-
-	db RIVAL2, 7 ; Silph Co - 43, VICTREEBEL, 44, PORYGON, 43, PRIMEAPE, 44, ALAKAZAM, 46, VAPOREON
-	db 1, 1, SWORDS_DANCE
-	db 2, 1, THUNDERBOLT
-	db 2, 2, ICE_BEAM
-	db 2, 3, RECOVER
-	db 2, 4, REFLECT
-	db 3, 2, DIG
-	db 3, 3, ROCK_SLIDE 
-	db 3, 4, BODY_SLAM
-	db 4, 1, DOUBLE_TEAM
-	db 4, 4, TRI_ATTACK
-	db 5, 2, SURF
-	db 5, 4, REST
-	db 0
-
-	db RIVAL2, 8 ; Route 22 - 55, JOLTEON, 53, PIDGEOT, 52, EXEGGUTOR , 52, MAROWAK,  54, ARCANINE, 54, ALAKAZAM, 0
-	db 1, 2, THUNDERBOLT
-	db 1, 4, HEADBUTT
-	db 2, 1, DOUBLE_EDGE
-	db 2, 2, DRILL_PECK
-	db 2, 3, TOXIC
-	db 2, 4, DOUBLE_TEAM
-	db 3, 1, SOFTBOILED
-	db 3, 2, SOLARBEAM
-	db 3, 3, LEECH_SEED
-	db 3, 4, SLEEP_POWDER
-	db 4, 1, SWORDS_DANCE
-	db 4, 3, BLIZZARD
-	db 4, 4, ROCK_SLIDE
-	db 5, 1, HYPER_BEAM
-	db 5, 2, DIG
-	db 5, 4, REFLECT
-	db 6, 1, TRI_ATTACK
-	db 6, 4, THUNDER_WAVE
-	db 0
-
 	db RIVAL2, 9 ; Route 22 - 54, FEAROW, 52, MAGNETON, 53, GOLDUCK, 54, ALAKAZAM, 52, MAROWAK, 55, FLAREON, 0
 	db 1, 1, DRILL_PECK
 	db 1, 2, DOUBLE_EDGE
@@ -931,67 +868,6 @@ SpecialTrainerMoves:
 	db 6, 3, DIG
 	db 6, 4, SUBSTITUTE
 	db 0 
-
-	db RIVAL2, 10 ; Route 22 - 53, PIDGEOT, 54, MACHAMP, 54, ALAKAZAM, 52, NINETALES, 52, SCYTHER, 55, VAPOREON, 0
-	db 1, 1, DOUBLE_EDGE
-	db 1, 2, TOXIC
-	db 2, 2, BODY_SLAM
-	db 2, 4, EARTHQUAKE
-	db 3, 1, TRI_ATTACK
-	db 3, 4, THUNDER_WAVE
-	db 4, 1, SOLARBEAM
-	db 4, 4, CONFUSE_RAY
-	db 5, 4, SWORDS_DANCE
-	db 6, 1, SURF
-	db 6, 4, ICE_BEAM
-	db 0
-
-	db RIVAL3, 1 ; Champion - 63, ALAKAZAM, 60, RHYDON, 61, GYARADOS, 63, ARCANINE, 62, EXEGGUTOR, 65, JOLTEON
-	db 1, 1, THUNDER_WAVE
-	db 1, 4, DOUBLE_TEAM
-	db 2, 3, HORN_DRILL
-	db 2, 4, SUBMISSION
-	db 3, 1, BLIZZARD
-	db 3, 3, FLY
-	db 4, 1, FIRE_BLAST
-	db 4, 2, DIG
-	db 4, 3, REST
-	db 4, 4, HYPER_BEAM
-	db 5, 1, SOFTBOILED
-	db 5, 4, REFLECT
-	db 6, 1, DOUBLE_TEAM
-	db 6, 2, HEADBUTT
-	db 0
-
-	db RIVAL3, 2 ; Champion - 62, MAGNETON, 61, DODRIO, 63, ALAKAZAM, 60, SANDSLASH, 62, CLOYSTER, 65, FLAREON
-	db 1, 1, THUNDER_WAVE
-	db 1, 3, REFLECT
-	db 2, 1, DRILL_PECK
-	db 2, 2, HYPER_BEAM
-	db 2, 4, DOUBLE_TEAM
-	db 3, 1, THUNDER_WAVE
-	db 4, 1, ROCK_SLIDE
-	db 4, 2, CUT
-	db 5, 2, EXPLOSION
-	db 5, 3, DOUBLE_TEAM  
-	db 6, 1, REFLECT
-	db 6, 2, BODY_SLAM
-	db 6, 3, DIG
-	db 0
-
-	db RIVAL3, 3 ; Champion - 60, MACHAMP, 61, PIDGEOT, 62, NINETALES, 62, VICTREEBEL, 63, ALAKAZAM, 65, VAPOREON
-	db 1, 1, EARTHQUAKE
-	db 1, 2, ROCK_SLIDE
-	db 2, 1, TOXIC
-	db 2, 2, HYPER_BEAM
-	db 2, 4, DOUBLE_TEAM
-	db 3, 1, PSYWAVE
-	db 3, 2, SOLARBEAM
-	db 4, 1, MEGA_DRAIN
-	db 5, 1, DOUBLE_TEAM
-	db 6, 1, BLIZZARD
-	db 6, 2, REFLECT
-	db 0
 
 	db SMITH, 1
 	db 1, 1, DRILL_PECK

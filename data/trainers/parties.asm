@@ -64,6 +64,9 @@ TrainerDataPointers:
 	; null-terminated
 
 Rival1Data:
+; v0.7 Phase B: DEAD DATA — rival parties are now GENERATED from
+; data/trainers/rival_pools.asm (see GenerateRivalParty). Kept only as a
+; placeholder for the pointer table; remove in the Phase C cleanup.
 ; Oak's Lab
 	db 5, EEVEE, 0
 ; Route 22
@@ -405,6 +408,9 @@ FisherData:
 	db $FF, 27, MAGIKARP, 27, MAGIKARP, 32, GYARADOS,  0
 
 Rival2Data:
+; v0.7 Phase B: DEAD DATA — rival parties are now GENERATED from
+; data/trainers/rival_pools.asm (see GenerateRivalParty). Kept only as a
+; placeholder for the pointer table; remove in the Phase C cleanup.
 ; SS Anne 2F
 	db $FF, 20, RATICATE , 22, WEEPINBELL, 21, SANDSHREW, 24, EEVEE, 0
 ; Pokémon Tower 2F
@@ -820,7 +826,10 @@ LanceData:
 ; 2: Rematch — Main sets +15 levels
 	db $FF, 75, CHARIZARD, 75, SEADRA, 76, GYARADOS, 76, AERODACTYL, 77, DRAGONITE, 77, DRAGONITE, 0
 
-Rival3Data: 
+Rival3Data:
+; v0.7 Phase B: DEAD DATA — rival parties are now GENERATED from
+; data/trainers/rival_pools.asm (see GenerateRivalParty). Kept only as a
+; placeholder for the pointer table; remove in the Phase C cleanup. 
 ; Champion's Room
 	db $FF, 63, ALAKAZAM, 60, RHYDON, 61, GYARADOS, 63, ARCANINE, 62, EXEGGUTOR, 65, JOLTEON, 0
 	db $FF, 62, MAGNETON, 61, DODRIO, 63, ALAKAZAM, 60, SANDSLASH, 62, CLOYSTER, 65, FLAREON, 0

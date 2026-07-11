@@ -2424,7 +2424,10 @@ wDungeonWarpDestinationMap:: db
 ; which dungeon warp within the source map was used
 wWhichDungeonWarp:: db
 
-wUnusedD71F:: db
+; v0.7 Phase B: the rival's per-save eeveelution (VAPOREON/JOLTEON/FLAREON
+; species id; 0/garbage = not rolled yet -> lazy re-roll). Repurposed from
+; the unused byte wUnusedD71F — same address/size, save layout intact.
+wRivalEeveelution:: db
 
 	ds 8
 
