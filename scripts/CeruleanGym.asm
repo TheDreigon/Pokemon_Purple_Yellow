@@ -31,10 +31,46 @@ CeruleanGymResetScripts:
 
 CeruleanGym_ScriptPointers:
 	def_script_pointers
-	dw_const CheckFightingMapTrainers,              SCRIPT_CERULEANGYM_DEFAULT
+	dw_const CeruleanGymDefaultScript,              SCRIPT_CERULEANGYM_DEFAULT
 	dw_const DisplayEnemyTrainerTextAndStartBattle, SCRIPT_CERULEANGYM_START_BATTLE
 	dw_const EndTrainerBattle,                      SCRIPT_CERULEANGYM_END_BATTLE
 	dw_const CeruleanGymMistyPostBattleScript,      SCRIPT_CERULEANGYM_MISTY_POST_BATTLE
+	dw_const CeruleanGymGateKickoutScript,          SCRIPT_CERULEANGYM_GATE_KICKOUT
+
+; v0.7 badge-gating (strict gym order): Cerulean is gym #2 and requires the
+; BOULDER BADGE. Entering without it triggers the gym guide, who calls out
+; and shoves the player back out the door (Route 22 gate pattern) — the gym
+; trainers and Misty are unreachable until the badge is earned.
+CeruleanGymDefaultScript:
+	ld a, [wObtainedBadges]
+	bit BIT_BOULDERBADGE, a
+	jp nz, CheckFightingMapTrainers
+	ld hl, CeruleanGymGateCoords
+	call ArePlayerCoordsInArray
+	jp nc, CheckFightingMapTrainers
+	xor a
+	ldh [hJoyHeld], a
+	ld a, TEXT_CERULEANGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ret
+
+CeruleanGymGateCoords: ; the two door/warp tiles
+	dbmapcoord  4, 13
+	dbmapcoord  5, 13
+	db -1 ; end
+
+CeruleanGymGateKickoutScript:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	xor a
+	ld [wJoyIgnore], a
+	call Delay3
+	ld a, SCRIPT_CERULEANGYM_DEFAULT
+	ld [wCeruleanGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 CeruleanGymMistyPostBattleScript:
 	ld a, [wIsInBattle]
@@ -103,6 +139,29 @@ CeruleanGym_TextPointers:
 	dw_const CeruleanGymMistyTMNoRoomText,       TEXT_CERULEANGYM_MISTY_TM_NO_ROOM
 	dw_const CeruleanGymMistyReceivedCandyText,  TEXT_CERULEANGYM_MISTY_RECEIVED_CANDY
 	dw_const CeruleanGymRematchPostBattleText, 	   TEXT_CERULEANGYM_REMATCH_POST_BATTLE
+	dw_const CeruleanGymGateText,                  TEXT_CERULEANGYM_GATE
+
+; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; script when the player enters without the BOULDER BADGE).
+CeruleanGymGateText:
+	text_asm
+	ld hl, .NoBadgeText
+	call PrintText
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, D_DOWN | B_BUTTON
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wSpritePlayerStateData1FacingDirection], a
+	ld [wJoyIgnore], a
+	call StartSimulatingJoypadStates
+	ld a, SCRIPT_CERULEANGYM_GATE_KICKOUT
+	ld [wCeruleanGymCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+
+.NoBadgeText:
+	text_far _CeruleanGymGateNoBadgeText
+	text_end
 
 CeruleanGymTrainerHeaders:
 	def_trainers 2
@@ -123,7 +182,7 @@ CeruleanGymMistyText:
 .needGifts
 	call CeruleanGymReceiveGifts
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	jp .done ; jp: the badge-gate check pushed .done out of jr range
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
@@ -132,6 +191,15 @@ CeruleanGymMistyText:
 	call PrintText
 	jr .done
 .beforeBeat
+; v0.7 badge-gating: Misty herself also checks for the BOULDER BADGE
+; (belt-and-braces — the door gate normally fires first).
+	ld a, [wObtainedBadges]
+	bit BIT_BOULDERBADGE, a
+	jr nz, .hasPrevBadge
+	ld hl, .NoBadgeText
+	call PrintText
+	jr .done
+.hasPrevBadge
 	ld hl, .PreBattleText
 	call PrintText
 	ld hl, wd72d
@@ -179,6 +247,10 @@ CeruleanGymMistyText:
 
 .PreBattleText:
 	text_far _CeruleanGymMistyPreBattleText
+	text_end
+
+.NoBadgeText:
+	text_far _CeruleanGymMistyNoBadgeText
 	text_end
 
 .TMExplanationText:
