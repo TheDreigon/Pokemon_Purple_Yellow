@@ -50,10 +50,45 @@ VermilionGymResetScripts:
 
 VermilionGym_ScriptPointers:
 	def_script_pointers
-	dw_const CheckFightingMapTrainers,              SCRIPT_VERMILIONGYM_DEFAULT
+	dw_const VermilionGymDefaultScript,              SCRIPT_VERMILIONGYM_DEFAULT
 	dw_const DisplayEnemyTrainerTextAndStartBattle, SCRIPT_VERMILIONGYM_START_BATTLE
 	dw_const EndTrainerBattle,                      SCRIPT_VERMILIONGYM_END_BATTLE
 	dw_const VermilionGymLTSurgeAfterBattleScript,  SCRIPT_VERMILIONGYM_LT_SURGE_AFTER_BATTLE
+	dw_const VermilionGymGateKickoutScript,          SCRIPT_VERMILIONGYM_GATE_KICKOUT
+
+; v0.7 badge-gating (strict gym order): requires CASCADEBADGE.
+; Entering without it auto-triggers the gate text and the player is shoved
+; back out the door (Route 22 gate pattern).
+VermilionGymDefaultScript:
+	ld a, [wObtainedBadges]
+	bit BIT_CASCADEBADGE, a
+	jp nz, CheckFightingMapTrainers
+	ld hl, VermilionGymGateCoords
+	call ArePlayerCoordsInArray
+	jp nc, CheckFightingMapTrainers
+	xor a
+	ldh [hJoyHeld], a
+	ld a, TEXT_VERMILIONGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ret
+
+VermilionGymGateCoords: ; the two door/warp tiles
+	dbmapcoord  4, 17
+	dbmapcoord  5, 17
+	db -1 ; end
+
+VermilionGymGateKickoutScript:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	xor a
+	ld [wJoyIgnore], a
+	call Delay3
+	ld a, SCRIPT_VERMILIONGYM_DEFAULT
+	ld [wVermilionGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 VermilionGymLTSurgeAfterBattleScript:
 	ld a, [wIsInBattle]
@@ -107,6 +142,29 @@ VermilionGymLTSurgeReceiveGiftsScript:
 
 SurgeRematchPostBattle:
 	ld a, TEXT_VERMILIONGYM_REMATCH_POST_BATTLE
+	dw_const VermilionGymGateText,                  TEXT_VERMILIONGYM_GATE
+
+; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; script when the player enters without the required badge).
+VermilionGymGateText:
+	text_asm
+	ld hl, .NoBadgeText
+	call PrintText
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, D_DOWN | B_BUTTON
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wSpritePlayerStateData1FacingDirection], a
+	ld [wJoyIgnore], a
+	call StartSimulatingJoypadStates
+	ld a, SCRIPT_VERMILIONGYM_GATE_KICKOUT
+	ld [wVermilionGymCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+
+.NoBadgeText:
+	text_far _VermilionGymGateNoBadgeText
+	text_end
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	jp VermilionGymResetScripts
@@ -145,7 +203,7 @@ VermilionGymLTSurgeText:
 .need_gifts
 	call VermilionGymLTSurgeReceiveGiftsScript
 	call DisableWaitingAfterTextDisplay
-	jr .text_script_end
+	jp .text_script_end ; jp: badge-gate check pushed label out of jr range
 .gifts_done
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
@@ -154,6 +212,15 @@ VermilionGymLTSurgeText:
 	call PrintText
 	jr .text_script_end
 .before_beat
+; v0.7 badge-gating: the leader also refuses without the previous badge
+; (belt-and-braces - the door gate normally fires first).
+	ld a, [wObtainedBadges]
+	bit BIT_CASCADEBADGE, a
+	jr nz, .hasPrevBadge
+	ld hl, .NoBadgeText
+	call PrintText
+	jp TextScriptEnd
+.hasPrevBadge
 	ld hl, .PreBattleText
 	call PrintText
 	ld hl, wd72d
@@ -202,6 +269,10 @@ VermilionGymLTSurgeText:
 
 .PreBattleText:
 	text_far _VermilionGymLTSurgePreBattleText
+	text_end
+
+.NoBadgeText:
+	text_far _VermilionGymSurgeNoBadgeText
 	text_end
 
 .PostBattleAdviceText:

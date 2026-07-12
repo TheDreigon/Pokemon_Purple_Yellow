@@ -31,10 +31,45 @@ SaffronGymResetScripts:
 
 SaffronGym_ScriptPointers:
 	def_script_pointers
-	dw_const CheckFightingMapTrainers,              SCRIPT_SAFFRONGYM_DEFAULT
+	dw_const SaffronGymDefaultScript,              SCRIPT_SAFFRONGYM_DEFAULT
 	dw_const DisplayEnemyTrainerTextAndStartBattle, SCRIPT_SAFFRONGYM_START_BATTLE
 	dw_const EndTrainerBattle,                      SCRIPT_SAFFRONGYM_END_BATTLE
 	dw_const SaffronGymSabrinaPostBattle,           SCRIPT_SAFFRONGYM_SABRINA_POST_BATTLE
+	dw_const SaffronGymGateKickoutScript,          SCRIPT_SAFFRONGYM_GATE_KICKOUT
+
+; v0.7 badge-gating (strict gym order): requires SOULBADGE.
+; Entering without it auto-triggers the gate text and the player is shoved
+; back out the door (Route 22 gate pattern).
+SaffronGymDefaultScript:
+	ld a, [wObtainedBadges]
+	bit BIT_SOULBADGE, a
+	jp nz, CheckFightingMapTrainers
+	ld hl, SaffronGymGateCoords
+	call ArePlayerCoordsInArray
+	jp nc, CheckFightingMapTrainers
+	xor a
+	ldh [hJoyHeld], a
+	ld a, TEXT_SAFFRONGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ret
+
+SaffronGymGateCoords: ; the two door/warp tiles
+	dbmapcoord  8, 17
+	dbmapcoord  9, 17
+	db -1 ; end
+
+SaffronGymGateKickoutScript:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	xor a
+	ld [wJoyIgnore], a
+	call Delay3
+	ld a, SCRIPT_SAFFRONGYM_DEFAULT
+	ld [wSaffronGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 SaffronGymSabrinaPostBattle:
 	ld a, [wIsInBattle]
@@ -88,6 +123,29 @@ SaffronGymSabrinaReceiveGiftsScript:
 
 SabrinaRematchPostBattle:
 	ld a, TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
+	dw_const SaffronGymGateText,                  TEXT_SAFFRONGYM_GATE
+
+; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; script when the player enters without the required badge).
+SaffronGymGateText:
+	text_asm
+	ld hl, .NoBadgeText
+	call PrintText
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, D_DOWN | B_BUTTON
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wSpritePlayerStateData1FacingDirection], a
+	ld [wJoyIgnore], a
+	call StartSimulatingJoypadStates
+	ld a, SCRIPT_SAFFRONGYM_GATE_KICKOUT
+	ld [wSaffronGymCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+
+.NoBadgeText:
+	text_far _SaffronGymGateNoBadgeText
+	text_end
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	jp SaffronGymResetScripts
@@ -147,6 +205,15 @@ SaffronGymSabrinaText:
 	call PrintText
 	jr .todone
 .beforeBeat
+; v0.7 badge-gating: the leader also refuses without the previous badge
+; (belt-and-braces - the door gate normally fires first).
+	ld a, [wObtainedBadges]
+	bit BIT_SOULBADGE, a
+	jr nz, .hasPrevBadge
+	ld hl, .NoBadgeText
+	call PrintText
+	jp TextScriptEnd
+.hasPrevBadge
 	ld hl, .Text
 	call PrintText
 	ld hl, wd72d
@@ -210,6 +277,10 @@ SaffronGymSabrinaText:
 
 .Text:
 	text_far _SaffronGymSabrinaText
+	text_end
+
+.NoBadgeText:
+	text_far _SaffronGymSabrinaNoBadgeText
 	text_end
 
 .ReceivedMarshBadgeText:

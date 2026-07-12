@@ -33,10 +33,45 @@ FuchsiaGymResetScripts:
 
 FuchsiaGym_ScriptPointers:
 	def_script_pointers
-	dw_const CheckFightingMapTrainers,              SCRIPT_FUCHSIAGYM_DEFAULT
+	dw_const FuchsiaGymDefaultScript,              SCRIPT_FUCHSIAGYM_DEFAULT
 	dw_const DisplayEnemyTrainerTextAndStartBattle, SCRIPT_FUCHSIAGYM_START_BATTLE
 	dw_const EndTrainerBattle,                      SCRIPT_FUCHSIAGYM_END_BATTLE
 	dw_const FuchsiaGymKogaPostBattleScript,        SCRIPT_FUCHSIAGYM_KOGA_POST_BATTLE
+	dw_const FuchsiaGymGateKickoutScript,          SCRIPT_FUCHSIAGYM_GATE_KICKOUT
+
+; v0.7 badge-gating (strict gym order): requires RAINBOWBADGE.
+; Entering without it auto-triggers the gate text and the player is shoved
+; back out the door (Route 22 gate pattern).
+FuchsiaGymDefaultScript:
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jp nz, CheckFightingMapTrainers
+	ld hl, FuchsiaGymGateCoords
+	call ArePlayerCoordsInArray
+	jp nc, CheckFightingMapTrainers
+	xor a
+	ldh [hJoyHeld], a
+	ld a, TEXT_FUCHSIAGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ret
+
+FuchsiaGymGateCoords: ; the two door/warp tiles
+	dbmapcoord  4, 17
+	dbmapcoord  5, 17
+	db -1 ; end
+
+FuchsiaGymGateKickoutScript:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	xor a
+	ld [wJoyIgnore], a
+	call Delay3
+	ld a, SCRIPT_FUCHSIAGYM_DEFAULT
+	ld [wFuchsiaGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 FuchsiaGymKogaPostBattleScript:
 	ld a, [wIsInBattle]
@@ -90,6 +125,29 @@ FuchsiaGymReceiveGifts:
 
 KogaRematchPostBattle:
 	ld a, TEXT_FUCHSIAGYM_REMATCH_POST_BATTLE
+	dw_const FuchsiaGymGateText,                  TEXT_FUCHSIAGYM_GATE
+
+; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; script when the player enters without the required badge).
+FuchsiaGymGateText:
+	text_asm
+	ld hl, .NoBadgeText
+	call PrintText
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, D_DOWN | B_BUTTON
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wSpritePlayerStateData1FacingDirection], a
+	ld [wJoyIgnore], a
+	call StartSimulatingJoypadStates
+	ld a, SCRIPT_FUCHSIAGYM_GATE_KICKOUT
+	ld [wFuchsiaGymCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+
+.NoBadgeText:
+	text_far _FuchsiaGymGateNoBadgeText
+	text_end
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	jp FuchsiaGymResetScripts
@@ -146,6 +204,15 @@ FuchsiaGymKogaText:
 	call PrintText
 	jr .todone
 .beforeBeat
+; v0.7 badge-gating: the leader also refuses without the previous badge
+; (belt-and-braces - the door gate normally fires first).
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jr nz, .hasPrevBadge
+	ld hl, .NoBadgeText
+	call PrintText
+	jp TextScriptEnd
+.hasPrevBadge
 	ld hl, .BeforeBattleText
 	call PrintText
 	ld hl, wd72d
@@ -211,6 +278,10 @@ FuchsiaGymKogaText:
 
 .BeforeBattleText:
 	text_far _FuchsiaGymKogaBeforeBattleText
+	text_end
+
+.NoBadgeText:
+	text_far _FuchsiaGymKogaNoBadgeText
 	text_end
 
 .ReceivedSoulBadgeText:

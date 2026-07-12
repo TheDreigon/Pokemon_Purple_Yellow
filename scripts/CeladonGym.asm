@@ -31,10 +31,45 @@ CeladonGymResetScripts:
 
 CeladonGym_ScriptPointers:
 	def_script_pointers
-	dw_const CheckFightingMapTrainers,              SCRIPT_CELADONGYM_DEFAULT
+	dw_const CeladonGymDefaultScript,              SCRIPT_CELADONGYM_DEFAULT
 	dw_const DisplayEnemyTrainerTextAndStartBattle, SCRIPT_CELADONGYM_START_BATTLE
 	dw_const EndTrainerBattle,                      SCRIPT_CELADONGYM_END_BATTLE
 	dw_const CeladonGymErikaPostBattleScript,       SCRIPT_CELADONGYM_ERIKA_POST_BATTLE
+	dw_const CeladonGymGateKickoutScript,          SCRIPT_CELADONGYM_GATE_KICKOUT
+
+; v0.7 badge-gating (strict gym order): requires THUNDERBADGE.
+; Entering without it auto-triggers the gate text and the player is shoved
+; back out the door (Route 22 gate pattern).
+CeladonGymDefaultScript:
+	ld a, [wObtainedBadges]
+	bit BIT_THUNDERBADGE, a
+	jp nz, CheckFightingMapTrainers
+	ld hl, CeladonGymGateCoords
+	call ArePlayerCoordsInArray
+	jp nc, CheckFightingMapTrainers
+	xor a
+	ldh [hJoyHeld], a
+	ld a, TEXT_CELADONGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ret
+
+CeladonGymGateCoords: ; the two door/warp tiles
+	dbmapcoord  4, 17
+	dbmapcoord  5, 17
+	db -1 ; end
+
+CeladonGymGateKickoutScript:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	xor a
+	ld [wJoyIgnore], a
+	call Delay3
+	ld a, SCRIPT_CELADONGYM_DEFAULT
+	ld [wCeladonGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 CeladonGymErikaPostBattleScript:
 	ld a, [wIsInBattle]
@@ -91,6 +126,29 @@ CeladonGymReceiveGifts:
 
 ErikaRematchPostBattle:
 	ld a, TEXT_CELADONGYM_REMATCH_POST_BATTLE
+	dw_const CeladonGymGateText,                  TEXT_CELADONGYM_GATE
+
+; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; script when the player enters without the required badge).
+CeladonGymGateText:
+	text_asm
+	ld hl, .NoBadgeText
+	call PrintText
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, D_DOWN | B_BUTTON
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wSpritePlayerStateData1FacingDirection], a
+	ld [wJoyIgnore], a
+	call StartSimulatingJoypadStates
+	ld a, SCRIPT_CELADONGYM_GATE_KICKOUT
+	ld [wCeladonGymCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+
+.NoBadgeText:
+	text_far _CeladonGymGateNoBadgeText
+	text_end
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	jp CeladonGymResetScripts
@@ -149,6 +207,15 @@ CeladonGymErikaText:
 	call PrintText
 	jr .todone
 .beforeBeat
+; v0.7 badge-gating: the leader also refuses without the previous badge
+; (belt-and-braces - the door gate normally fires first).
+	ld a, [wObtainedBadges]
+	bit BIT_THUNDERBADGE, a
+	jr nz, .hasPrevBadge
+	ld hl, .NoBadgeText
+	call PrintText
+	jp TextScriptEnd
+.hasPrevBadge
 	ld hl, .PreBattleText
 	call PrintText
 	ld hl, wd72d
@@ -225,6 +292,10 @@ CeladonGymErikaText:
 
 .PreBattleText:
 	text_far _CeladonGymErikaPreBattleText
+	text_end
+
+.NoBadgeText:
+	text_far _CeladonGymErikaNoBadgeText
 	text_end
 
 .ReceivedRainbowBadgeText:
