@@ -6,8 +6,10 @@
 ; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
 ; Every boss mon has all 4 slots specified (hand-picked full sets).
 ; Non-boss entries (Smith/Craig/Weebra) are preserved from the previous
-; version. RIVAL entries were removed in Phase B: the rival's moves come
-; from data/trainers/rival_pools.asm via GenerateRivalParty.
+; version. The rival's moves come from data/trainers/rival_pools.asm via
+; GenerateRivalParty (Phase B); the RIVAL2,9 / RIVAL3,4 entries below are
+; DEAD leftovers pointing at the dead Rival2/3Data placeholders — remove
+; them in the post-playtest cleanup.
 ; (Removed 2026-07-10 per Forte: Youngster 14's slot-4 FISSURE — the old
 ; Route 9 Sandshrew surprise; with Fissure rebalanced to 115 BP it was a
 ; mid-game nuke. The mon uses its natural level-up set now.)
@@ -303,7 +305,7 @@ SpecialTrainerMoves:
 	db 1, 1, FIRE_BLAST
 	db 1, 2, DARK_PULSE
 	db 1, 3, SHADOW_BALL
-	db 1, 4, MOONBLAST
+	db 1, 4, DAZZLE_GLEAM
 	db 2, 1, FIRE_BLAST
 	db 2, 2, SEISMIC_TOSS
 	db 2, 3, SKY_ATTACK
