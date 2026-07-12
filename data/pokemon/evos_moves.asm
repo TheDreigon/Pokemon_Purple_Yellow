@@ -3705,7 +3705,8 @@ EeveeEvosMoves:
 ; Normal-only base. No TAKE_DOWN (only Eevee lacks it; the 3
 ; evolutions keep it). CHARM = cute fox charm, shared with all 4 forms.
 	db  4, TAIL_WHIP
-	db  8, QUICK_ATTACK
+	db  7, SAND_ATTACK
+	db 10, QUICK_ATTACK
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
@@ -3724,7 +3725,8 @@ VaporeonEvosMoves:
 ; ICE_BEAM, not light wind — its water-mastery deserves a real ice
 ; attack.
 	db  4, TAIL_WHIP
-	db  8, QUICK_ATTACK
+	db  7, SAND_ATTACK
+	db 10, QUICK_ATTACK
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
@@ -3751,7 +3753,8 @@ JolteonEvosMoves:
 ; METAL_SOUND (electric sparks = metallic-sound debuff). AGILITY
 ; natural. No DOUBLE_TEAM.
 	db  4, TAIL_WHIP
-	db  8, QUICK_ATTACK
+	db  7, SAND_ATTACK
+	db 10, QUICK_ATTACK
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
@@ -3778,7 +3781,8 @@ FlareonEvosMoves:
 ; lacks it). IGNITE early L26 (basic burn utility), SWORDS_DANCE late
 ; (peak claw-buff before final fire).
 	db  4, TAIL_WHIP
-	db  8, QUICK_ATTACK
+	db  7, SAND_ATTACK
+	db 10, QUICK_ATTACK
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
