@@ -125,7 +125,9 @@ FuchsiaGymReceiveGifts:
 
 KogaRematchPostBattle:
 	ld a, TEXT_FUCHSIAGYM_REMATCH_POST_BATTLE
-	dw_const FuchsiaGymGateText,                  TEXT_FUCHSIAGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jp FuchsiaGymResetScripts
 
 ; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
 ; script when the player enters without the required badge).
@@ -148,9 +150,6 @@ FuchsiaGymGateText:
 .NoBadgeText:
 	text_far _FuchsiaGymGateNoBadgeText
 	text_end
-	ldh [hSpriteIndexOrTextID], a
-	call DisplayTextID
-	jp FuchsiaGymResetScripts
 
 FuchsiaGym_TextPointers:
 	def_text_pointers
@@ -167,6 +166,7 @@ FuchsiaGym_TextPointers:
 	dw_const FuchsiaGymKogaTMNoRoomText,    TEXT_FUCHSIAGYM_KOGA_TM_NO_ROOM
 	dw_const FuchsiaGymKogaReceivedCandyText, TEXT_FUCHSIAGYM_KOGA_RECEIVED_CANDY
 	dw_const FuchsiaGymRematchPostBattleText, TEXT_FUCHSIAGYM_REMATCH_POST_BATTLE
+	dw_const FuchsiaGymGateText,              TEXT_FUCHSIAGYM_GATE
 
 FuchsiaGymTrainerHeaders:
 	def_trainers 2

@@ -142,7 +142,9 @@ VermilionGymLTSurgeReceiveGiftsScript:
 
 SurgeRematchPostBattle:
 	ld a, TEXT_VERMILIONGYM_REMATCH_POST_BATTLE
-	dw_const VermilionGymGateText,                  TEXT_VERMILIONGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jp VermilionGymResetScripts
 
 ; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
 ; script when the player enters without the required badge).
@@ -165,9 +167,6 @@ VermilionGymGateText:
 .NoBadgeText:
 	text_far _VermilionGymGateNoBadgeText
 	text_end
-	ldh [hSpriteIndexOrTextID], a
-	call DisplayTextID
-	jp VermilionGymResetScripts
 
 VermilionGym_TextPointers:
 	def_text_pointers
@@ -181,6 +180,7 @@ VermilionGym_TextPointers:
 	dw_const VermilionGymLTSurgeTMNoRoomText,       TEXT_VERMILIONGYM_LT_SURGE_TM_NO_ROOM
 	dw_const VermilionGymLTSurgeReceivedCandyText,  TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_CANDY
 	dw_const VermilionGymRematchPostBattleText, 	  TEXT_VERMILIONGYM_REMATCH_POST_BATTLE
+	dw_const VermilionGymGateText,                  TEXT_VERMILIONGYM_GATE
 
 VermilionGymTrainerHeaders:
 	def_trainers 2

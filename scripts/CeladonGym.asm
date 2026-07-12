@@ -126,7 +126,9 @@ CeladonGymReceiveGifts:
 
 ErikaRematchPostBattle:
 	ld a, TEXT_CELADONGYM_REMATCH_POST_BATTLE
-	dw_const CeladonGymGateText,                  TEXT_CELADONGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jp CeladonGymResetScripts
 
 ; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
 ; script when the player enters without the required badge).
@@ -149,9 +151,6 @@ CeladonGymGateText:
 .NoBadgeText:
 	text_far _CeladonGymGateNoBadgeText
 	text_end
-	ldh [hSpriteIndexOrTextID], a
-	call DisplayTextID
-	jp CeladonGymResetScripts
 
 CeladonGym_TextPointers:
 	def_text_pointers
@@ -168,6 +167,7 @@ CeladonGym_TextPointers:
 	dw_const CeladonGymTMNoRoomText,       TEXT_CELADONGYM_TM_NO_ROOM
 	dw_const CeladonGymReceivedCandyText,  TEXT_CELADONGYM_RECEIVED_CANDY
 	dw_const CeladonGymRematchPostBattleText,TEXT_CELADONGYM_REMATCH_POST_BATTLE
+	dw_const CeladonGymGateText,             TEXT_CELADONGYM_GATE
 
 CeladonGymTrainerHeaders:
 	def_trainers 2

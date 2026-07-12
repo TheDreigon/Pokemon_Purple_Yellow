@@ -123,7 +123,9 @@ SaffronGymSabrinaReceiveGiftsScript:
 
 SabrinaRematchPostBattle:
 	ld a, TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
-	dw_const SaffronGymGateText,                  TEXT_SAFFRONGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jp SaffronGymResetScripts
 
 ; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
 ; script when the player enters without the required badge).
@@ -146,9 +148,6 @@ SaffronGymGateText:
 .NoBadgeText:
 	text_far _SaffronGymGateNoBadgeText
 	text_end
-	ldh [hSpriteIndexOrTextID], a
-	call DisplayTextID
-	jp SaffronGymResetScripts
 
 SaffronGym_TextPointers:
 	def_text_pointers
@@ -166,6 +165,7 @@ SaffronGym_TextPointers:
 	dw_const SaffronGymSabrinaTMNoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
 	dw_const SaffronGymSabrinaReceivedCandyText, TEXT_SAFFRONGYM_SABRINA_RECEIVED_CANDY
 	dw_const SaffronGymRematchPostBattleText,     TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
+	dw_const SaffronGymGateText,                  TEXT_SAFFRONGYM_GATE
 
 SaffronGymTrainerHeaders:
 	def_trainers 2

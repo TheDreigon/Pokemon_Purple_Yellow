@@ -298,7 +298,9 @@ CinnabarGymReceiveGifts:
 
 BlaineRematchPostBattle:
 	ld a, TEXT_CINNABARGYM_REMATCH_POST_BATTLE
-	dw_const CinnabarGymGateText,                  TEXT_CINNABARGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jp CinnabarGymResetScripts
 
 ; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
 ; script when the player enters without the required badge).
@@ -321,9 +323,6 @@ CinnabarGymGateText:
 .NoBadgeText:
 	text_far _CinnabarGymGateNoBadgeText
 	text_end
-	ldh [hSpriteIndexOrTextID], a
-	call DisplayTextID
-	jp CinnabarGymResetScripts
 
 CinnabarGym_TextPointers:
 	def_text_pointers
@@ -341,6 +340,7 @@ CinnabarGym_TextPointers:
 	dw_const CinnabarGymBlaineTMNoRoomText,       TEXT_CINNABARGYM_BLAINE_TM_NO_ROOM
 	dw_const CinnabarGymBlaineReceivedCandyText,  TEXT_CINNABARGYM_BLAINE_RECEIVED_CANDY
 	dw_const CinnabarGymRematchPostBattleText, 	  	TEXT_CINNABARGYM_REMATCH_POST_BATTLE
+	dw_const CinnabarGymGateText,                   TEXT_CINNABARGYM_GATE
 
 CinnabarGymStartBattleScript:
 	ldh a, [hSpriteIndexOrTextID]
