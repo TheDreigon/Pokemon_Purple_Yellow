@@ -8,7 +8,7 @@
 	INCBIN "gfx/pokemon/front/slowbro.pic", 0, 1 ; sprite dimensions
 	dw SlowbroPicFront, SlowbroPicBack
 
-	db TACKLE, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db REST, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset. REST<->TACKLE swap w/ the L10 learnset slot (Forte 2026-07-13: born sleepy)
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

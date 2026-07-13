@@ -440,7 +440,6 @@ MetapodEvosMoves:
 ; Learnset
 ; Cocoon. HARDEN/IRON_DEFENSE/BIDE only (defensive shell). All real growth
 ; happens after evolving to Butterfree.
-	db  8, HARDEN
 	db 16, IRON_DEFENSE
 	db 21, BIDE
 	db 0
@@ -453,9 +452,7 @@ ButterfreeEvosMoves:
 ; awakening. All 3 powders per the powder table. QUIVER_DANCE late game
 ; (signature moth/butterfly dance). HURRICANE as the final move.
 	db  1, BUG_BITE
-	db  4, TACKLE
 	db 11, GUST
-	db 12, GROWL
 	db 14, CONFUSION
 	db 15, POISONPOWDER
 	db 18, STUN_POWDER
@@ -490,7 +487,6 @@ KakunaEvosMoves:
 ; Learnset
 ; Cocoon. HARDEN/IRON_DEFENSE/BIDE only (defensive shell). All growth happens
 ; after evolving to Beedrill.
-	db  8, HARDEN
 	db 16, IRON_DEFENSE
 	db 21, BIDE
 	db 0
@@ -504,9 +500,7 @@ BeedrillEvosMoves:
 ; exceptional cases (Horn Attack, Toxic Fangs L50) for a deeper movepool.
 ; Neurotoxin at L50 = real-world bee venom.
 	db  1, BUG_BITE
-	db  4, POISON_STING
 	db 11, TACKLE
-	db 12, LEER
 	db 14, FURY_ATTACK
 	db 15, RAGE
 	db 18, HORN_ATTACK
@@ -705,10 +699,8 @@ EkansEvosMoves:
 ; No GUNK_SHOT / SLUDGE_WAVE (Muk/Weezing only). No SCREECH (snakes hiss).
 	db  1, QUICK_ATTACK
 	db  3, CONSTRICT
-	db  6, WRAP
 	db  9, BIDE
 	db 12, BITE
-	db 15, LEER
 	db 17, ASTONISH
 	db 20, POISON_STING
 	db 23, COIL
@@ -734,10 +726,8 @@ ArbokEvosMoves:
 ; whip), INTIMIDATE (full hood display, L52).
 	db  1, QUICK_ATTACK
 	db  3, CONSTRICT
-	db  6, WRAP
 	db  9, BIDE
 	db 12, BITE
-	db 15, LEER
 	db 17, ASTONISH
 	db 20, POISON_STING
 	db 23, COIL
@@ -816,7 +806,6 @@ SandshrewEvosMoves:
 ; over GROUND_STOMP. SLASH at L22 = evo level (apex claws appear), then
 ; HONE_CLAWS. No FISSURE (reserved for the Sandslash apex). Learns
 ; STRENGTH (on the HM04 list).
-	db  4, SCRATCH
 	db  7, DEFENSE_CURL
 	db 10, MUD_SHOT
 	db 13, SAND_ATTACK
@@ -838,7 +827,6 @@ SandslashEvosMoves:
 ; (armoured-digger Rock affinity), EARTHQUAKE (apex Ground), NIGHT_SLASH
 ; (high-level claws apex), FISSURE (deep-dig OHKO L56), GORE_ATTACK,
 ; ROCK_SLIDE (last move L65).
-	db  4, SCRATCH
 	db  7, DEFENSE_CURL
 	db 10, MUD_SHOT
 	db 13, SAND_ATTACK
@@ -867,7 +855,6 @@ NidoranFEvosMoves:
 ; and Nidoqueen inherit. SAND_ATTACK basic; FAIRY_WIND at L17 = evo level
 ; (fairy gift on evolution); TOXIC_FANGS late capstone. No SCRATCH. No
 ; BULLDOZE/GROUND_STOMP/CRUNCH in shared (Queen exclusivity).
-	db  4, GROWL
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
@@ -892,7 +879,6 @@ NidorinaEvosMoves:
 ; (F-line mud-thrower, not stomp), PLAY_ROUGH at L35 = evo level (fairy
 ; gift on evolution), TOXIC_FANGS, MUD_BOMB, TOXIC, NEUROTOXIN. No
 ; BULLDOZE/EARTHQUAKE/CRUNCH/STRENGTH (Nidoqueen-only).
-	db  4, GROWL
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
@@ -921,7 +907,6 @@ NidoqueenEvosMoves:
 ; adds Nidoqueen-only: CHARM, BULLDOZE (her ground move), TOXIC, STRENGTH.
 ; EARTHQUAKE is TM50-only, not levelup. No MEGAHORN/OUTRAGE/THRASH/
 ; GORE_ATTACK (M-only apex moves).
-	db  4, GROWL
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, TAIL_WHIP
@@ -954,7 +939,6 @@ NidoranMEvosMoves:
 ; Nidoking inherit. POISON_STING + SAND_ATTACK basic toolkit; FURY_ATTACK
 ; early; POISON_BITE/BODY_SLAM mid-tier; HORN_CHARGE late as adult-horn
 ; move; TOXIC_FANGS late capstone. No DOUBLE_KICK.
-	db  4, LEER
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, BITE
@@ -976,7 +960,6 @@ NidorinoEvosMoves:
 ; Mid-stage male, mature horn, learns aggression primitives. Nidoran♂ base
 ; + exclusives shared with Nidoking: TAKE_DOWN, GROUND_STOMP, RAGE at L35
 ; (= evo level), FIERCE_ROAR.
-	db  4, LEER
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, BITE
@@ -1003,7 +986,6 @@ NidokingEvosMoves:
 ; 35->65 BP), STRENGTH then CRUNCH, EARTHQUAKE, THRASH, MEGAHORN at L49,
 ; BRUTAL_SWING, GORE_ATTACK (high-level apex), OUTRAGE (final L65). No
 ; HORN_DRILL.
-	db  4, LEER
 	db  7, POISON_STING
 	db 10, SAND_ATTACK
 	db 13, BITE
@@ -1037,7 +1019,6 @@ ClefairyEvosMoves:
 ; Mystical Fairy. SING after L30. MIMIC/METRONOME fun naturals. CHARM.
 ; RECOVER (Clefairy-line). LIGHT_SCREEN/REFLECT/CALM_MIND shared with
 ; Clefable.
-	db  1, GROWL
 	db  4, FAIRY_WIND
 	db  7, DOUBLESLAP
 	db 10, POWDER_SNOW
@@ -1062,7 +1043,6 @@ ClefableEvosMoves:
 ; Learnset
 ; Apex mystical Fairy. Clefairy backbone + Clefable-exclusives: BODY_SLAM,
 ; ICY_WIND, PLAY_ROUGH, PETAL_DANCE.
-	db  1, GROWL
 	db  4, FAIRY_WIND
 	db  7, DOUBLESLAP
 	db 10, POWDER_SNOW
@@ -1095,8 +1075,6 @@ VulpixEvosMoves:
 ; spectral kitsune. NIGHT_SHADE/FAINT_ATTACK/AGILITY for the ranged,
 ; graceful caster. No FLAME_CHARGE (too physical). DAZZLE_GLEAM reserved
 ; for Ninetales-only.
-	db  4, TAIL_WHIP
-	db  7, EMBER
 	db 11, QUICK_ATTACK
 	db 14, CONFUSE_RAY
 	db 17, FAIRY_WIND
@@ -1116,8 +1094,6 @@ NinetalesEvosMoves:
 ; kitsune), DAZZLE_GLEAM (Fairy mid-apex), SHADOW_BALL (Ghost-coded — many
 ; tails channel spectral), MOONBLAST (lunar signature). No FLASH —
 ; EERIE_IMPULSE covers the mid-game utility slot.
-	db  4, TAIL_WHIP
-	db  7, EMBER
 	db 11, QUICK_ATTACK
 	db 14, CONFUSE_RAY
 	db 17, FAIRY_WIND
@@ -1140,8 +1116,6 @@ JigglypuffEvosMoves:
 ; Learnset
 ; Normal/Fairy balloon singer. Voice kit: SING early, LOVELY_KISS,
 ; CHARM. DRAINING_KISS/BUBBLEBEAM round out the fairy pool.
-	db  1, GROWL
-	db  3, SING
 	db  6, HINDER
 	db  6, DEFENSE_CURL
 	db  9, TACKLE
@@ -1171,8 +1145,6 @@ WigglytuffEvosMoves:
 ; Apex balloon singer. Jigglypuff backbone (incl. FLY HM02 natural L54
 ; — the balloon body floats) plus two apex exclusives: MIRROR_MOVE,
 ; PLAY_ROUGH.
-	db  1, GROWL
-	db  3, SING
 	db  6, HINDER
 	db  6, DEFENSE_CURL
 	db  9, TACKLE
@@ -1205,11 +1177,9 @@ ZubatEvosMoves:
 ; Vampire bat. Drain progression BITE -> ABSORB -> LEECH_LIFE.
 ; WING_ATTACK at L21 (evo level). No SLUDGE (Muk signature). HURRICANE
 ; is TM only, not levelup.
-	db  4, BITE
 	db  7, QUICK_ATTACK
 	db 11, ABSORB
 	db 13, POISON_STING
-	db 15, SUPERSONIC
 	db 17, LEECH_LIFE
 	db 19, LICK
 	db 21, WING_ATTACK
@@ -1230,11 +1200,9 @@ GolbatEvosMoves:
 ; Learnset
 ; Matured vampire bat. Zubat backbone plus apex exclusives DARK_PULSE
 ; (L55) and TOXIC (L60). HURRICANE is TM only, not levelup.
-	db  4, BITE
 	db  7, QUICK_ATTACK
 	db 11, ABSORB
 	db 13, POISON_STING
-	db 15, SUPERSONIC
 	db 17, LEECH_LIFE
 	db 19, LICK
 	db 21, WING_ATTACK
@@ -1259,8 +1227,6 @@ OddishEvosMoves:
 ; Basic radish/turnip plant (Grass/Poison). Powder triad
 ; STUN_POWDER + SLEEP_POWDER + POISONPOWDER emerges by the evo level
 ; (POISONPOWDER at L22). LEECH_SEED + drain + apex PETAL_DANCE.
-	db  4, ABSORB
-	db  7, GROWL
 	db 10, GROWTH
 	db 13, TACKLE
 	db 16, STUN_POWDER
@@ -1280,8 +1246,6 @@ GloomEvosMoves:
 ; Mid-stage flower bud (Grass/Fungus). Oddish backbone plus two
 ; exclusives: SCREECH (drooly mouth resonance), TOXIC (mature poison
 ; glands).
-	db  4, ABSORB
-	db  7, GROWL
 	db 10, GROWTH
 	db 13, TACKLE
 	db 16, STUN_POWDER
@@ -1304,8 +1268,6 @@ VileplumeEvosMoves:
 ; confusion), EERIE_IMPULSE (mature spore mind-effect), LEECH_LIFE
 ; (insect drain, high level), HAZE (gas/spore cloud), DARK_PULSE (dark
 ; fungal peak), SPORE (true apex L65).
-	db  4, ABSORB
-	db  7, GROWL
 	db 10, GROWTH
 	db 13, TACKLE
 	db 16, STUN_POWDER
@@ -1334,8 +1296,6 @@ ParasEvosMoves:
 ; POISONPOWDER + STUN_POWDER + SPORE (at L22, the evo level).
 ; LEECH_LIFE bug-drain; SLASH claws; drain progression
 ; ABSORB -> MEGA_DRAIN -> GIGA_DRAIN.
-	db  4, BUG_BITE
-	db  7, SCRATCH
 	db 10, ABSORB
 	db 13, GROWTH
 	db 13, LEECH_SEED
@@ -1360,8 +1320,6 @@ ParasectEvosMoves:
 ; SCARY_FACE (fungal-zombie), EERIE_IMPULSE (mind-affecting spores),
 ; NIGHT_SLASH (dark sharp claws), DOUBLE_EDGE (apex recoil),
 ; TOXIC_FANGS (fungal mandibular toxin), TOXIC (L60 last move).
-	db  4, BUG_BITE
-	db  7, SCRATCH
 	db 10, ABSORB
 	db 13, GROWTH
 	db 13, LEECH_SEED
@@ -1398,7 +1356,6 @@ VenonatEvosMoves:
 	db  8, PSYWAVE
 	db 11, BUG_BITE
 	db 14, SUPERSONIC
-	db 17, DISABLE
 	db 18, CONFUSION
 	db 34, LEECH_LIFE
 	db 37, SPORE_DAZE
@@ -1417,8 +1374,6 @@ VenomothEvosMoves:
 	db  8, PSYWAVE
 	db 11, BUG_BITE
 	db 14, SUPERSONIC
-	db 17, DISABLE
-	db 18, CONFUSION
 	db 21, POISONPOWDER
 	db 21, GUST
 	db 23, STUN_POWDER
@@ -1496,8 +1451,6 @@ MeowthEvosMoves:
 ; Learnset
 ; Feline cat, claws + coin. PAY_DAY signature. HONE_CLAWS/SLASH
 ; (claws). FAINT_ATTACK (cat sneak). INTIMIDATE (predator).
-	db  1, SCRATCH
-	db  3, GROWL
 	db  5, TAIL_WHIP
 	db  7, BITE
 	db  9, ASTONISH
@@ -1521,8 +1474,6 @@ PersianEvosMoves:
 ; Learnset
 ; Apex feline. INTIMIDATE (apex predator). NASTY_PLOT (sneaky special).
 ; EXTREMESPEED (apex speed).
-	db  1, SCRATCH
-	db  3, GROWL
 	db  5, TAIL_WHIP
 	db  7, BITE
 	db  9, ASTONISH
@@ -1550,8 +1501,6 @@ PsyduckEvosMoves:
 ; Learnset
 ; Water duck with latent psychic power. DISABLE — its confused mind
 ; blocks the foe's moves. AMNESIA and PSYCHIC_BIND from the psychic side.
-	db  1, SCRATCH
-	db  5, GROWL
 	db 10, WATER_GUN
 	db 14, DISABLE
 	db 18, CONFUSION
@@ -1570,8 +1519,6 @@ GolduckEvosMoves:
 ; Learnset
 ; Apex psychic duck. AMNESIA clears the mind. SURF/CUT natural HM
 ; learners. HYDRO_PUMP as the apex move.
-	db  1, SCRATCH
-	db  5, GROWL
 	db 10, WATER_GUN
 	db 14, DISABLE
 	db 18, CONFUSION
@@ -1601,8 +1548,6 @@ MankeyEvosMoves:
 ; ape's kit. FIERCE_ROAR is its battle roar. No DIZZY_PUNCH/SUBMISSION
 ; (grappling technique, not brute force) and no FAINT_ATTACK (an ape
 ; doesn't sneak). STRENGTH via HM only.
-	db  4, SCRATCH
-	db  7, LEER
 	db  9, BITE
 	db 11, LOW_KICK
 	db 13, SAND_ATTACK
@@ -1627,8 +1572,6 @@ PrimeapeEvosMoves:
 ; Apex rage-monkey. Shares Mankey's backbone, plus exclusives: GROUND_STOMP,
 ; BULK_UP (muscle setup), BRUTAL_SWING (rage swing), high-level SWORDS_DANCE
 ; and GORE_ATTACK, INTIMIDATE. STRENGTH via HM only.
-	db  4, SCRATCH
-	db  7, LEER
 	db  9, BITE
 	db 11, LOW_KICK
 	db 13, SAND_ATTACK
@@ -1662,7 +1605,6 @@ GrowlitheEvosMoves:
 ; Intimidation ladder GROWL -> FIERCE_ROAR -> INTIMIDATE. PLAY_ROUGH fits
 ; a canine's rough bite/claw; no SUBMISSION (a canine doesn't wrestle) and
 ; no rock move (no earth affinity).
-	db  4, BITE
 	db  7, LEER
 	db  9, QUICK_ATTACK
 	db 11, HONE_CLAWS
@@ -1687,7 +1629,6 @@ ArcanineEvosMoves:
 ; Apex alpha canine. Shares Growlithe's backbone, plus exclusives: AGILITY,
 ; STRENGTH (natural HM04) and SWORDS_DANCE. No EXTREMESPEED (canine isn't on
 ; the signature list) and no OUTRAGE (not Dragon-coded).
-	db  4, BITE
 	db  7, LEER
 	db  9, QUICK_ATTACK
 	db 11, HONE_CLAWS
@@ -1714,7 +1655,6 @@ PoliwagEvosMoves:
 	db 0
 ; Learnset
 ; Water tadpole. BUBBLEBEAM, HYPNOSIS and DOUBLESLAP basic kit.
-	db  5, DOUBLESLAP
 	db  9, WATER_GUN
 	db 11, HINDER
 	db 13, HYPNOSIS
@@ -1731,7 +1671,6 @@ PoliwhirlEvosMoves:
 	db 0
 ; Learnset
 ; Mid-evo. STRENGTH natural HM04 learner. BULK_UP muscle setup.
-	db  5, DOUBLESLAP
 	db  9, WATER_GUN
 	db 11, HINDER
 	db 13, HYPNOSIS
@@ -1756,7 +1695,6 @@ PoliwrathEvosMoves:
 ; Learnset
 ; Apex Water/Fighting. SUBMISSION signature (shared with Machamp).
 ; DIZZY_PUNCH for the boxer-frog. SURF natural HM03 learner.
-	db  5, DOUBLESLAP
 	db  9, WATER_GUN
 	db 11, HINDER
 	db 13, HYPNOSIS
@@ -1787,7 +1725,6 @@ AbraEvosMoves:
 ; Learnset
 ; Minimalist baby psychic. TELEPORT signature at L1 (canon Abra-only-
 ; Teleport), then a basic psychic kit (PSYWAVE/DISABLE/PSYCHIC_BIND).
-	db  1, TELEPORT
 	db  7, PSYWAVE
 	db 13, DISABLE
 	db 19, PSYCHIC_BIND
@@ -1803,7 +1740,6 @@ KadabraEvosMoves:
 ; Psychic mage mid-evo. PSYCHIC_BIND owned by the Kadabra line. RECOVER,
 ; LIGHT_SCREEN/REFLECT and CALM_MIND round out the mage kit. MIND_BREAK is
 ; reserved for the Alakazam apex.
-	db  1, TELEPORT
 	db  7, PSYWAVE
 	db 13, DISABLE
 	db 19, PSYCHIC_BIND
@@ -1828,7 +1764,6 @@ AlakazamEvosMoves:
 ; Apex Psychic mage. Shares Kadabra's backbone, plus exclusives:
 ; EERIE_IMPULSE, METRONOME, DARK_PULSE, and MIND_BREAK as the very-high
 ; last move (L70). FLASH natural HM05 learner.
-	db  1, TELEPORT
 	db  7, PSYWAVE
 	db 13, DISABLE
 	db 19, PSYCHIC_BIND
@@ -1859,7 +1794,6 @@ MachopEvosMoves:
 ; instead of ROLLING_KICK (Hitmonlee-only). GROUND_STOMP fits humanoid
 ; stomping. SUBMISSION at higher level.
 	db  1, TACKLE
-	db  4, LOW_KICK
 	db  7, LEER
 	db 11, BIND
 	db 14, FOCUS_ENERGY
@@ -1882,7 +1816,6 @@ MachokeEvosMoves:
 ; Mid-evo. Shares Machop's backbone, plus BODY_SLAM as a Machoke-and-up
 ; exclusive.
 	db  1, TACKLE
-	db  4, LOW_KICK
 	db  7, LEER
 	db 11, BIND
 	db 14, FOCUS_ENERGY
@@ -1908,7 +1841,6 @@ MachampEvosMoves:
 ; (disciplined defense), SWORDS_DANCE (apex setup). SUBMISSION signature
 ; shared with Poliwrath.
 	db  1, TACKLE
-	db  4, LOW_KICK
 	db  7, LEER
 	db 11, BIND
 	db 14, FOCUS_ENERGY
@@ -1939,8 +1871,6 @@ BellsproutEvosMoves:
 ; CONSTRICT/WRAP + vine kit; SLEEP_POWDER at evo level (signature on evo);
 ; ACID + RAZOR_LEAF + drain progression (ABSORB->MEGA->GIGA); TICKLE for
 ; debuff. No SLUDGE/CORRODE here (Weepinbell/Victreebel tier).
-	db  4, ABSORB
-	db  7, WRAP
 	db 10, GROWTH
 	db 13, BITE
 	db 13, CONSTRICT
@@ -1964,8 +1894,6 @@ WeepinbellEvosMoves:
 ; Weepinbell/Victreebel exclusives: BODY_SLAM (pitcher slam), TAKE_DOWN
 ; (vine grapple), SLUDGE (digestive), LEECH_LIFE (insect drain), CORRODE
 ; (predator -2 def signature), SLUDGE_WAVE high-level apex poison.
-	db  4, ABSORB
-	db  7, WRAP
 	db 10, GROWTH
 	db 13, BITE
 	db 13, CONSTRICT
@@ -1994,8 +1922,6 @@ VictreebelEvosMoves:
 ; exclusives: CUT (HM, matured leaves), SLASH (sharp matured leaves),
 ; SCARY_FACE (giant trap mouth, eerie/sinister), TOXIC (apex predator
 ; finishing poison).
-	db  4, ABSORB
-	db  7, WRAP
 	db 10, GROWTH
 	db 13, BITE
 	db 13, CONSTRICT
@@ -2027,8 +1953,6 @@ TentacoolEvosMoves:
 ; Jellyfish Water/Poison. SLUDGE_WAVE is the line signature (on
 ; Tentacruel). NEUROTOXIN is the Tentacruel-line signature. No
 ; POISON_BITE (a jellyfish has no fangs).
-	db  1, POISON_STING
-	db  3, WATER_GUN
 	db  6, HINDER
 	db  9, WRAP
 	db 12, CONSTRICT
@@ -2053,8 +1977,6 @@ TentacruelEvosMoves:
 ; exclusive levelup moves: EERIE_IMPULSE, SLUDGE_WAVE, SHOCK_WAVE, TOXIC,
 ; CORRODE (jellyfish acid corrodes), HYDRO_PUMP. CUT (HM01) via TM/HM
 ; only, not in the levelset.
-	db  1, POISON_STING
-	db  3, WATER_GUN
 	db  6, HINDER
 	db  9, WRAP
 	db 12, CONSTRICT
@@ -2085,8 +2007,6 @@ GeodudeEvosMoves:
 ; Basic rolling rock with arms (Rock/Ground). ROLLOUT L36 line signature.
 ; ROCK_PUNCH at evo level (it has arms). HEAD_SMASH high level. No DIG.
 ; No EXPLOSION (Koffing/Voltorb/Magmar signature only).
-	db  4, TACKLE
-	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
 	db 13, SAND_ATTACK
 	db 16, GROUND_STOMP
@@ -2109,8 +2029,6 @@ GravelerEvosMoves:
 ; (rock-iron), STRENGTH (HM), ROCK_SLIDE (apex rock, after HEAD_SMASH),
 ; DOUBLE_EDGE (apex recoil). No BULK_UP (rock, not muscle). No DIG/
 ; EXPLOSION.
-	db  4, TACKLE
-	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
 	db 13, SAND_ATTACK
 	db 16, GROUND_STOMP
@@ -2137,8 +2055,6 @@ GolemEvosMoves:
 ; exclusives: IRON_DEFENSE (DEF +2), HEAVY_SLAM (apex Normal heavy frame).
 ; No EXPLOSION (Koffing/Voltorb/Magmar signature only). No HORN moves (no
 ; horn anatomy). No OUTRAGE (gentle giant under the heft).
-	db  4, TACKLE
-	db  7, DEFENSE_CURL
 	db 10, ROCK_THROW
 	db 13, SAND_ATTACK
 	db 16, GROUND_STOMP
@@ -2169,7 +2085,6 @@ PonytaEvosMoves:
 ; rear-up + body-down). FAIRY_WIND shared with the Vulpix line (basal
 ; Fairy presence). AGILITY at L30 coincides with the evolution. GROUND_STOMP
 ; via hooves.
-	db  4, EMBER
 	db  7, TAIL_WHIP
 	db 11, GROUND_STOMP
 	db 13, FAIRY_WIND
@@ -2192,7 +2107,6 @@ RapidashEvosMoves:
 ; (horn appears with the evo, same level as AGILITY), HORN_CHARGE (mid-tier
 ; horn), DAZZLE_GLEAM (unicorn glow, Fairy apex), HORN_DRILL (signature,
 ; last move L60). No EXTREMESPEED (fast but not agile).
-	db  4, EMBER
 	db  7, TAIL_WHIP
 	db 11, GROUND_STOMP
 	db 13, FAIRY_WIND
@@ -2220,7 +2134,7 @@ SlowpokeEvosMoves:
 	db  1, TAIL_WHIP
 	db  5, WATER_GUN
 	db  8, PSYWAVE
-	db 10, REST
+	db 10, TACKLE
 	db 12, PSYCHIC_BIND
 	db 14, CONFUSION
 	db 16, DISABLE
@@ -2240,7 +2154,7 @@ SlowbroEvosMoves:
 	db  1, TAIL_WHIP
 	db  5, WATER_GUN
 	db  8, PSYWAVE
-	db 10, REST
+	db 10, TACKLE
 	db 12, PSYCHIC_BIND
 	db 14, CONFUSION
 	db 16, DISABLE
@@ -2313,7 +2227,6 @@ FarfetchdEvosMoves:
 ; leek-magic Grass move. EXTREMESPEED just before BRUTAL_SWING (high
 ; level). FLY via HM02 only, not levelup.
 	db  1, TACKLE
-	db  4, SAND_ATTACK
 	db  7, LEER
 	db  9, FAINT_ATTACK
 	db 11, GUST
@@ -2385,7 +2298,6 @@ SeelEvosMoves:
 ; Learnset
 ; Water/Ice seal. HORN_ATTACK (horn on the head).
 	db  1, HORN_ATTACK
-	db  5, GROWL
 	db  7, TAIL_WHIP
 	db  9, DOUBLESLAP
 	db 11, CHARM
@@ -2412,7 +2324,6 @@ DewgongEvosMoves:
 ; Learnset
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
 	db  1, HORN_ATTACK
-	db  5, GROWL
 	db  7, TAIL_WHIP
 	db  9, DOUBLESLAP
 	db 11, CHARM
@@ -2450,7 +2361,6 @@ GrimerEvosMoves:
 	db 12, WATER_GUN
 	db 14, MUD_SHOT
 	db 17, ACID
-	db 20, DISABLE
 	db 26, BIND
 	db 28, SMOG
 	db 31, CORRODE
@@ -2476,7 +2386,6 @@ MukEvosMoves:
 	db 12, WATER_GUN
 	db 14, MUD_SHOT
 	db 17, ACID
-	db 20, DISABLE
 	db 26, BIND
 	db 28, SMOG
 	db 31, CORRODE
@@ -2558,11 +2467,9 @@ GastlyEvosMoves:
 ; Learnset
 ; Ghost/Poison gas wisp. Pairs of 2 per level with wide gaps.
 ; Gastly carries the shared backbone (15 moves, pre-evo).
-	db  1, LICK
 	db  5, SMOG
 	db  7, LEER
 	db  9, ASTONISH
-	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
 	db 17, WILL_O_WISP
 	db 22, POISON_GAS
@@ -2582,11 +2489,9 @@ HaunterEvosMoves:
 ; Learnset
 ; Ghost/Poison. Pairs of 2 per level with wide gaps. SHADOW_PUNCH at
 ; evo L42, SHADOW_BALL L44.
-	db  1, LICK
 	db  5, SMOG
 	db  7, LEER
 	db  9, ASTONISH
-	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
 	db 17, WILL_O_WISP
 	db 22, POISON_GAS
@@ -2616,11 +2521,9 @@ GengarEvosMoves:
 ; at Gastly evo L26, SHADOW_PUNCH at Haunter evo L42, SHADOW_BALL L44.
 ; DEEP_SLEEP+DREAM_EATER (eats what it puts to sleep). PSYCHIC_M last
 ; at L70. ICY_WIND covers ice.
-	db  1, LICK
 	db  5, SMOG
 	db  7, LEER
 	db  9, ASTONISH
-	db 13, CONFUSE_RAY
 	db 17, NIGHT_SHADE
 	db 17, WILL_O_WISP
 	db 22, POISON_GAS
@@ -2660,12 +2563,10 @@ OnixEvosMoves:
 ; same level: COIL+BIND, BIDE+LEER, CRUNCH+DIG, IRON_TAIL+BRUTAL_SWING.
 ; FISSURE signature. ROCK_THROW@18 = exception (pushes the rock with
 ; its tail; serpent has no hands).
-	db  4, TACKLE
 	db  6, GROUND_STOMP
 	db  8, BIND
 	db  8, COIL
 	db 12, BIDE
-	db 12, LEER
 	db 15, HEADBUTT
 	db 18, ROCK_THROW
 	db 22, BULLDOZE
@@ -2698,7 +2599,6 @@ DrowzeeEvosMoves:
 ; Learnset
 ; Psychic hypnotist. HYPNOSIS L1 (low). DEEP_SLEEP signature
 ; (Drowzee-line). DREAM_EATER signature.
-	db  1, HYPNOSIS
 	db  4, PSYWAVE
 	db  7, DISABLE
 	db 10, HEADBUTT
@@ -2724,7 +2624,6 @@ HypnoEvosMoves:
 ; Learnset
 ; Apex hypnotist. Drowzee backbone + Hypno-exclusives: SCARY_FACE
 ; (L46), SHADOW_PUNCH (L55), REFLECT (L58), SHADOW_BALL (L65).
-	db  1, HYPNOSIS
 	db  4, PSYWAVE
 	db  7, DISABLE
 	db 10, HEADBUTT
@@ -2757,7 +2656,6 @@ KrabbyEvosMoves:
 ; Pinsir). CRABHAMMER signature at evo L28. HARDEN carapace; MUD_SHOT
 ; beach burrower; FURY_ATTACK pincer jabs; GUILLOTINE apex pincer
 ; (shared with Kingler).
-	db 11, WATER_GUN
 	db 13, HARDEN
 	db 15, MUD_SHOT
 	db 17, VICEGRIP
@@ -2778,7 +2676,6 @@ KinglerEvosMoves:
 ; WATERFALL, BRUTAL_SWING (massive claw sweep). No IRON_DEFENSE
 ; (organic chitin hardens via HARDEN; steel flavor is for mineral/metal
 ; bodies). SURF is HM-only; SWORDS_DANCE stays TM-only.
-	db 11, WATER_GUN
 	db 13, HARDEN
 	db 15, MUD_SHOT
 	db 17, VICEGRIP
@@ -2866,7 +2763,6 @@ ExeggcuteEvosMoves:
 	db 10, LEECH_SEED
 	db 14, MEGA_DRAIN
 	db 17, CONFUSION
-	db 20, GROWTH
 	db 27, EERIE_IMPULSE
 	db 30, DISABLE
 	db 33, HYPNOSIS
@@ -2887,7 +2783,6 @@ ExeggutorEvosMoves:
 	db 10, LEECH_SEED
 	db 14, MEGA_DRAIN
 	db 17, CONFUSION
-	db 20, GROWTH
 	db 23, HEADBUTT
 	db 27, EERIE_IMPULSE
 	db 30, DISABLE
@@ -2912,9 +2807,7 @@ CuboneEvosMoves:
 ; FIERCE_ROAR L13 alongside BONE_CLUB. BULK_UP L28 alongside RAGE.
 ; No RECOVER/GROWTH: the child cannot heal or grow on its own, it only
 ; suffers and fights.
-	db  1, GROWL
 	db  4, FAIRY_WIND
-	db 10, TACKLE
 	db 13, BONE_CLUB
 	db 13, FIERCE_ROAR
 	db 18, HEADBUTT
@@ -2936,8 +2829,6 @@ MarowakEvosMoves:
 ; evolving, L32), BIDE+EERIE_IMPULSE just after evo, DISABLE,
 ; SPIRIT_DRAIN, INTIMIDATE/SCARY_FACE/NIGHT_SHADE/THRASH/OUTRAGE/
 ; GORE_ATTACK/FISSURE/STRENGTH (HM)/EXPLOSION apex L65.
-	db  1, GROWL
-	db 10, TACKLE
 	db 13, BONE_CLUB
 	db 13, FIERCE_ROAR
 	db 18, HEADBUTT
@@ -2970,7 +2861,6 @@ HitmonleeEvosMoves:
 ; Pure leg-only kicker, single-stage. BRUTAL_SWING as a leg swing.
 ; HI_JUMP_KICK signature apex. No SUBMISSION (a Machamp/Poliwrath
 ; technique, not a kicker). STRENGTH via HM only.
-	db  1, LEER
 	db  1, LOW_KICK
 	db  8, GROUND_STOMP
 	db 16, FOCUS_ENERGY
@@ -3023,7 +2913,6 @@ LickitungEvosMoves:
 ; Learnset
 ; Normal/Poison tongue reptile. LICK signature; egg = LICK/TAIL_WHIP.
 ; GROUND_STOMP early; SLUDGE_WAVE penultimate, TOXIC last (L65).
-	db  1, LICK
 	db  4, DEFENSE_CURL
 	db  7, SCREECH
 	db 10, HINDER
@@ -3053,7 +2942,6 @@ KoffingEvosMoves:
 ; Gas balloon Poison/Gas. Kit: acid/sludge/toxic + Gas type only.
 ; EXPLOSION apex. No GUNK_SHOT (Grimer-only signature).
 	db  1, POISON_GAS
-	db  4, SMOG
 	db  7, SMOKESCREEN
 	db 13, DISABLE
 	db 16, ACID
@@ -3081,7 +2969,6 @@ WeezingEvosMoves:
 ; Weezing-exclusives: SCARY_FACE (L52), GUNK_SHOT (L61), DARK_PULSE
 ; (L65). EXPLOSION shared at L55.
 	db  1, POISON_GAS
-	db  4, SMOG
 	db  7, SMOKESCREEN
 	db 13, DISABLE
 	db 16, ACID
@@ -3114,9 +3001,7 @@ RhyhornEvosMoves:
 ; (L13), FOCUS_ENERGY+RAGE (L22). No HORN_DRILL/FISSURE/EARTHQUAKE in
 ; shared (Rhydon-only).
 	db  4, TACKLE
-	db  7, LEER
 	db 10, HORN_ATTACK
-	db 13, GROUND_STOMP
 	db 13, SAND_ATTACK
 	db 16, ROCK_TOMB
 	db 19, BODY_SLAM
@@ -3138,9 +3023,7 @@ RhydonEvosMoves:
 ; DRAGON_SLAM (rhino, not dragon; no extreme-pressure justification like
 ; Onix). MEGAHORN apex horn — gesture over type: a rhino horn.
 	db  4, TACKLE
-	db  7, LEER
 	db 10, HORN_ATTACK
-	db 13, GROUND_STOMP
 	db 13, SAND_ATTACK
 	db 16, ROCK_TOMB
 	db 19, BODY_SLAM
@@ -3169,7 +3052,6 @@ ChanseyEvosMoves:
 ; No TAIL_WHIP (tail too small), no DEFENSE_CURL (not ball-shaped).
 ; Heal-tank kit + LIGHT_SCREEN/REFLECT support.
 	db  1, SOFTBOILED
-	db  3, GROWL
 	db  6, FAIRY_WIND
 	db  9, DOUBLESLAP
 	db 12, CALM_MIND
@@ -3256,7 +3138,6 @@ HorseaEvosMoves:
 ; Ink-spitting seahorse. ICY_WIND (cold-current rider, pre-ICY_PULSE).
 ; DRAGON_BREATH at evo L26 = dragon blood awakening (key level).
 	db 10, SMOKESCREEN
-	db 12, WATER_GUN
 	db 15, ICY_WIND
 	db 18, BUBBLEBEAM
 	db 20, HARDEN
@@ -3277,7 +3158,6 @@ SeadraEvosMoves:
 ; Water/Dragon. Horsea backbone + dragon kit: DRAGON_BREATH post-evo,
 ; ICE_BEAM, DRAGON_SLAM apex. No DRAGON_CLAW (no claws).
 	db 10, SMOKESCREEN
-	db 12, WATER_GUN
 	db 15, ICY_WIND
 	db 18, BUBBLEBEAM
 	db 20, HARDEN
@@ -3301,7 +3181,6 @@ GoldeenEvosMoves:
 ; Learnset
 ; Horned river fish. WATER_PULSE at evo L24 (key level); WATERFALL
 ; L36. BIDE (stubborn river fish), ICY_PULSE (cold streams).
-	db 10, TAIL_WHIP
 	db 13, HORN_ATTACK
 	db 15, SUPERSONIC
 	db 18, BUBBLEBEAM
@@ -3322,7 +3201,6 @@ SeakingEvosMoves:
 ; Apex river guardian. Goldeen backbone + RAGE (territorial males
 ; duel), SURF, MEGAHORN top. No HORN_DRILL: the horn identity is
 ; HORN_ATTACK -> HORN_CHARGE -> MEGAHORN.
-	db 10, TAIL_WHIP
 	db 13, HORN_ATTACK
 	db 15, SUPERSONIC
 	db 18, BUBBLEBEAM
@@ -3349,7 +3227,6 @@ StaryuEvosMoves:
 ; EERIE_IMPULSE (alien gem pulses), DAZZLE_GLEAM (gem light burst),
 ; RECOVER L25 (core regen), HARDEN (crystal body). Stone-evo line:
 ; pre-evo carries most of the kit (Starmie adds the top-end).
-	db 10, HARDEN
 	db 13, WATER_GUN
 	db 15, QUICK_ATTACK
 	db 17, PSYWAVE
@@ -3373,7 +3250,6 @@ StarmieEvosMoves:
 ; Water/Psychic mystic star. Staryu backbone + GROWTH, SURF
 ; before the shared HYDRO_PUMP, PSYCHIC_M apex, MOONBLAST high-level
 ; (the core is a moon-gem).
-	db 10, HARDEN
 	db 13, WATER_GUN
 	db 15, QUICK_ATTACK
 	db 17, PSYWAVE
@@ -3586,7 +3462,6 @@ TaurosEvosMoves:
 ; GORE_ATTACK/INTIMIDATE/SCARY_FACE/BIDE/STRENGTH + BULLDOZE,
 ; SWORDS_DANCE, DOUBLE_EDGE. OUTRAGE is the last move, after
 ; HORN_DRILL. No EXTREMESPEED (fast, not agile).
-	db 10, LEER
 	db 13, HORN_ATTACK
 	db 17, RAGE
 	db 20, GROUND_STOMP
@@ -3614,7 +3489,6 @@ MagikarpEvosMoves:
 ; Learnset
 ; Minimalist Water (canon weakest). 5 moves total, faithful to canon.
 ; RAGE L25 (one before the L26 evo).
-	db  1, GROWL
 	db 10, TACKLE
 	db 15, WATER_GUN
 	db 20, BIDE
@@ -3631,7 +3505,6 @@ GyaradosEvosMoves:
 ; coil), Dragon-coded DRAGON_BREATH/DRAGON_SLAM/OUTRAGE, SURF/HYDRO_PUMP/
 ; EARTHQUAKE/THRASH/HEAVY_SLAM. SURF/STRENGTH HMs.
 	db  1, GROWL
-	db 10, TACKLE
 	db 15, WATER_GUN
 	db 20, BIDE
 	db 25, RAGE
@@ -3666,7 +3539,6 @@ LaprasEvosMoves:
 ; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING after L30.
 ; STRENGTH = hauls passengers; SURF = THE ferry move. No THRASH/
 ; OUTRAGE (docile).
-	db 10, GROWL
 	db 12, ICY_WIND
 	db 14, BUBBLEBEAM
 	db 16, FAIRY_WIND
@@ -3838,8 +3710,6 @@ OmanyteEvosMoves:
 ; Learnset
 ; Ammonite spiral shell, Rock/Water. WITHDRAW into shell. Water+Rock
 ; physical kit. No SURF/STRENGTH HM yet — those come at Omastar.
-	db  1, WATER_GUN
-	db  5, WITHDRAW
 	db  9, HEADBUTT
 	db 13, TICKLE
 	db 18, CONSTRICT
@@ -3859,8 +3729,6 @@ OmastarEvosMoves:
 ; Apex ammonite. 12 backbone (Omanyte) + Omastar-exclusives:
 ; IRON_DEFENSE, HYDRO_PUMP, IRON_HEAD, ICE_BEAM apex (cold-water
 ; ammonite). SURF/STRENGTH HMs natural.
-	db  1, WATER_GUN
-	db  5, WITHDRAW
 	db  9, HEADBUTT
 	db 13, TICKLE
 	db 18, CONSTRICT
@@ -3886,7 +3754,6 @@ KabutoEvosMoves:
 ; parasitic feed. Water+Rock physical kit.
 	db  1, WATER_GUN
 	db  5, WITHDRAW
-	db  9, SCRATCH
 	db 13, LEER
 	db 18, ROCK_THROW
 	db 22, BUBBLEBEAM
@@ -3907,7 +3774,6 @@ KabutopsEvosMoves:
 ; HEAD_SMASH, GUILLOTINE. CUT/SURF/STRENGTH HMs natural.
 	db  1, WATER_GUN
 	db  5, WITHDRAW
-	db  9, SCRATCH
 	db 13, LEER
 	db 18, ROCK_THROW
 	db 22, BUBBLEBEAM
@@ -3930,8 +3796,6 @@ AerodactylEvosMoves:
 ; Pterodactyl, Rock/Flying apex predator, single-stage. FLY/SKY_ATTACK/
 ; AGILITY/INTIMIDATE fit the flying apex predator. CUT/FLY/STRENGTH HMs
 ; natural. No HYPER_BEAM, no EXTREMESPEED.
-	db  1, BITE
-	db  4, LEER
 	db  7, TAILWIND
 	db 11, WING_ATTACK
 	db 14, FIERCE_ROAR
@@ -3990,7 +3854,6 @@ ArticunoEvosMoves:
 ; levels across the trio) + full ICE ladder. FOCUS_ENERGY early L16
 ; (raptor fixing its prey — too weak for a high slot). Catch set @L50:
 ; AURORA_BEAM/FLY/ICE_BEAM/HURRICANE.
-	db 10, PECK
 	db 12, GUST
 	db 14, LEER
 	db 16, FOCUS_ENERGY
@@ -4019,7 +3882,6 @@ ZapdosEvosMoves:
 ; dive-drill; shared with Dodrio line + Fearow). Placed after FLY per
 ; the FLYING ladder. FOCUS_ENERGY early L16. Catch set @L50: FLY/
 ; THUNDERBOLT/DRILL_PECK/HURRICANE.
-	db 10, PECK
 	db 12, GUST
 	db 14, LEER
 	db 16, FOCUS_ENERGY
@@ -4047,7 +3909,6 @@ MoltresEvosMoves:
 ; Parallel trio kit + FIRE ladder (FLAME_CHARGE early — a flying
 ; flame; IGNITE = sets the sky on fire). FOCUS_ENERGY early L16.
 ; Catch set @L50: FLAME_BURST/FLY/FLAMETHROWER/HURRICANE.
-	db 10, PECK
 	db 12, GUST
 	db 14, LEER
 	db 16, FOCUS_ENERGY
@@ -4076,7 +3937,6 @@ DratiniEvosMoves:
 ; Dragon sea-snake baby. CONSTRICT/BIND wrap kit. COIL (snake-coil).
 ; DRAGON_BREATH first Dragon move pre-evo.
 	db  1, TACKLE
-	db  5, LEER
 	db  9, COIL
 	db 13, CONSTRICT
 	db 17, BIND
@@ -4098,7 +3958,6 @@ DragonairEvosMoves:
 ; exclusives: IRON_TAIL L39, DRAGON_RAGE L43 (signature) and FLY L46 =
 ; evo level.
 	db  1, TACKLE
-	db  5, LEER
 	db  9, COIL
 	db 13, CONSTRICT
 	db 17, BIND
@@ -4122,7 +3981,6 @@ DragoniteEvosMoves:
 ; STRENGTH L49 HM natural, EXTRASENSORY, BULLDOZE, ROCK_TOMB,
 ; TAKE_DOWN, BRUTAL_SWING, OUTRAGE L63, HYPER_BEAM L65 last move.
 	db  1, TACKLE
-	db  5, LEER
 	db  9, COIL
 	db 13, CONSTRICT
 	db 17, BIND
