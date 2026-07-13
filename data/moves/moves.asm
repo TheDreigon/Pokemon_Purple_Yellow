@@ -164,7 +164,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 
 	; === MAGMA TYPE (2 moves) === ; new type
 	move MAGMA_PUNCH,    BURN_SIDE_EFFECT1,                60, MAGMA,        100, 25 ; new move. signature.
-	move LAVA_PLUME,     BURN_SIDE_EFFECT2,                90, MAGMA,        100, 15 ; new move. signature.
+	move LAVA_PLUME,     BURN_SIDE_EFFECT3,                90, MAGMA,        100, 15 ; new move. signature. new effect. BURN_SIDE_EFFECT3 = new 45% chance.
 
 
 	; === NORMAL TYPE (19 moves) ===

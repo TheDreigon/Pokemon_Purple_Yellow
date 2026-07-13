@@ -232,9 +232,15 @@ FreezeBurnParalyzeEffect:
 	jr .regular_effectiveness
 .asm_3f2c7
 	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
-	jr nz, .tierLadder
+	jr nz, .burnTier3
 	ld b, 45 percent + 1
 	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness
+.burnTier3
+	cp BURN_SIDE_EFFECT3 ; v0.7: 45% burn tier (Lava Plume)
+	jr nz, .tierLadder
+	ld b, 45 percent + 1
+	ld a, BURN_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .tierLadder
 	cp PARALYZE_SIDE_EFFECT1 + 1
@@ -338,9 +344,15 @@ FreezeBurnParalyzeEffect:
 	jr .regular_effectiveness2
 .asm_3f341
 	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
-	jr nz, .tierLadder2
+	jr nz, .burnTier3_2
 	ld b, 45 percent + 1
 	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness2
+.burnTier3_2
+	cp BURN_SIDE_EFFECT3 ; v0.7: 45% burn tier (Lava Plume)
+	jr nz, .tierLadder2
+	ld b, 45 percent + 1
+	ld a, BURN_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .tierLadder2
 	cp PARALYZE_SIDE_EFFECT1 + 1

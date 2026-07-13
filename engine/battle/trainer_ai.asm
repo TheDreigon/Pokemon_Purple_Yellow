@@ -307,6 +307,7 @@ StatusAilmentMoveEffects:
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
 	db BURN_SIDE_EFFECT2 ; Fire Blast is often used as a burn spreading tool in comp RBY!
+	db BURN_SIDE_EFFECT3 ; v0.7: Lava Plume (45% burn)
 	db BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (pure-status burn moves)
 	db -1 ; end
 
@@ -362,6 +363,8 @@ CheckStatusImmunity:
 	jr z, .getMonTypes
 	cp BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp/Ignite vs Fire/Magma-type
 	jr z, .getMonTypes ; b/c still hold FIRE/MAGMA from above
+	cp BURN_SIDE_EFFECT3 ; v0.7: Lava Plume's 45% burn tier
+	jr z, .getMonTypes ; b/c still hold FIRE/MAGMA
 	jr .done
 .checkParalyze
 	ld b, ELECTRIC ; v0.7: Electric-types can't be paralyzed at all
@@ -664,6 +667,7 @@ Modifier4PreferredMoves:
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
 	db BURN_SIDE_EFFECT2
+	db BURN_SIDE_EFFECT3 ; v0.7: Lava Plume (45% burn)
 	db BURN_EFFECT       ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (always-burn status moves)
 	db CONFUSION_EFFECT
 	db -1 ; end
