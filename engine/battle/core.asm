@@ -5700,7 +5700,7 @@ CalcHitChance:
 ; the second iteration multiplies by the evasion ratio
 .loop
 	push bc
-	ld hl, StatModifierRatios  ; stat modifier ratios
+	ld hl, AccuracyModifierRatios ; v0.7: acc/eva stages use their own modern (Gen 5+) 3/(3+n) curve
 	dec b
 	sla b
 	ld c, b
