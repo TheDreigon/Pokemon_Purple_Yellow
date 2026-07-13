@@ -686,7 +686,7 @@ StatModifierUpEffect::
 	inc b ; increment corresponding stat mod
 	ld a, $d
 	cp b ; can't raise stat past +6 ($d or 13)
-	jp c, PrintNothingHappenedText
+	jp c, PrintStatWontGoHigherText ; v0.7: named text instead of "Nothing happened!"
 	ld a, [de]
 	cp ATTACK_UP1_EFFECT + $8 ; is it a +2 effect?
 	jr c, .ok
@@ -824,6 +824,16 @@ RestoreOriginalStatModifier:
 
 PrintNothingHappenedText:
 	ld hl, NothingHappenedText
+	jp PrintText
+
+; v0.7: stat capped at +6 — print "<USER>'s <STAT> won't go any higher!".
+; Expects c = 0-based stat index (live at the StatModifierUpEffect call site);
+; PrintStatText consumes b = c+1 and copies the stat name to wStringBuffer.
+PrintStatWontGoHigherText:
+	ld b, c
+	inc b
+	call PrintStatText
+	ld hl, StatWontGoHigherText
 	jp PrintText
 
 MonsStatsRoseText:
@@ -1027,7 +1037,13 @@ CantLowerAnymore:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	ret nc
-	ld hl, NothingHappenedText
+	; v0.7: named text instead of "Nothing happened!". c = 0-based stat
+	; index — live on both printing paths here (set at .decrementStatMod;
+	; restored by `pop bc` before the CantLowerAnymore_Pop path).
+	ld b, c
+	inc b
+	call PrintStatText
+	ld hl, StatWontGoLowerText
 	jp PrintText
 
 MoveMissed:
@@ -1645,6 +1661,14 @@ ReflectLightScreenEffect:
 
 NothingHappenedText:
 	text_far _NothingHappenedText
+	text_end
+
+StatWontGoHigherText:
+	text_far _StatWontGoHigherText
+	text_end
+
+StatWontGoLowerText:
+	text_far _StatWontGoLowerText
 	text_end
 
 PrintNoEffectText:

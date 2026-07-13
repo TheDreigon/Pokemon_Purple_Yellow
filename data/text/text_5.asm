@@ -48,11 +48,22 @@ _MonsStatsRoseText::
 	text_end
 
 _GreatlyRoseText::
-	text "<SCROLL>greatly@"
+	; v0.7: "greatly" (Gen 1) -> "sharply" (Gen 3+ wording, Forte)
+	text "<SCROLL>sharply@"
 	text_end
 
 _RoseText::
 	text " rose!"
+	prompt
+
+; v0.7: stat capped at +6 — replaces the shared "Nothing happened!"
+; (stat name is loaded into wStringBuffer by the caller)
+_StatWontGoHigherText::
+	text "<USER>'s"
+	line "@"
+	text_ram wStringBuffer
+	text " won't"
+	cont "go any higher!"
 	prompt
 
 _MonsStatsFellText::
@@ -63,11 +74,22 @@ _MonsStatsFellText::
 	text_end
 
 _GreatlyFellText::
-	text "<SCROLL>greatly@"
+	; v0.7: "greatly" (Gen 1) -> "sharply" (Gen 3+ wording, Forte)
+	text "<SCROLL>sharply@"
 	text_end
 
 _FellText::
 	text " fell!"
+	prompt
+
+; v0.7: stat floored at -6 — replaces the shared "Nothing happened!"
+; (stat name is loaded into wStringBuffer by the caller)
+_StatWontGoLowerText::
+	text "<TARGET>'s"
+	line "@"
+	text_ram wStringBuffer
+	text " won't"
+	cont "go any lower!"
 	prompt
 
 _ChargeMoveEffectText::
@@ -189,8 +211,17 @@ _StatusChangesEliminatedText::
 	prompt
 
 _GettingPumpedText::
+	; v0.7: describes the actual effect (x3 crit boost; Acc+1 follows, Forte)
 	text "<USER>'s"
-	line "getting pumped!"
+	line "critical hit rate"
+	cont "rose sharply!"
+	prompt
+
+; v0.7: Focus Energy-specific failure text (was the generic "But, it failed!")
+_FocusEnergyAlreadyText::
+	text "<USER>'s"
+	line "crit rate is"
+	cont "already boosted!"
 	prompt
 
 _StartedSleepingEffect::

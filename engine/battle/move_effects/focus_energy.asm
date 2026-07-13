@@ -35,9 +35,15 @@ FocusEnergyEffect_:
 .alreadyUsing
 	ld c, 50
 	call DelayFrames
-	jpfar PrintButItFailedText_
+	; v0.7: FE-specific failure text instead of the generic "But, it failed!"
+	ld hl, AlreadyBoostedText
+	jp PrintText
 
 GettingPumpedText:
 	text_pause
 	text_far _GettingPumpedText
+	text_end
+
+AlreadyBoostedText:
+	text_far _FocusEnergyAlreadyText
 	text_end
