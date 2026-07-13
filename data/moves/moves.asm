@@ -259,7 +259,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
 	move GROWTH,         SPECIAL_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect - spc + 1/4 heal.
-	move CALM_MIND,      SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move CALM_MIND,      SPECIAL_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 30 ; new move. new effect.
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 
@@ -305,7 +305,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
 
 	move BIDE,           BIDE_EFFECT,                       0, BIRD,         100, 20
-	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30
+	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30 ; v0.7: also raises user Accuracy +1 (on top of the x3 crit boost)
 	move MIMIC,          MIMIC_EFFECT,                      0, BIRD,         100, 15
 	move MIRROR_MOVE,    MIRROR_MOVE_EFFECT,                0, BIRD,         100, 20
 	move SUBSTITUTE,     SUBSTITUTE_EFFECT,                 0, BIRD,         100, 15

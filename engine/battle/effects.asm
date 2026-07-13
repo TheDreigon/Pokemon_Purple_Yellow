@@ -664,7 +664,7 @@ FireDefrostedText:
 	text_far _FireDefrostedText
 	text_end
 
-StatModifierUpEffect:
+StatModifierUpEffect::
 	ld hl, wPlayerMonStatMods
 	ld de, wPlayerMoveEffect
 	ldh a, [hWhoseTurn]
@@ -1836,6 +1836,32 @@ SpeedEvasionUp1Effect:
 	call StatModifierUpEffect
 	pop de
 	ld a, SPEED_EVASION_UP1_EFFECT
+	ld [de], a
+	ret
+
+SpecialAccuracyUp1Effect:
+; Dual-stat +1 for the user (Special + Accuracy). Used by CALM_MIND (revised).
+; Same pattern as AttackAccuracyUp1Effect.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtrCM
+	ld de, wEnemyMoveEffect
+.gotEffectPtrCM
+	push de
+	ld a, SPECIAL_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, ACCURACY_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, SPECIAL_ACCURACY_UP1_EFFECT
 	ld [de], a
 	ret
 

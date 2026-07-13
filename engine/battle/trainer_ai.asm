@@ -476,6 +476,7 @@ Modifier2PreferredMoves:
 	db SPECIAL_UP1_HEAL_EFFECT       ; Growth (revised: SPC up + heal 1/4)
 	db ACCURACY_EVASION_DOWN1_EFFECT ; Flash (target dual-down)
 	db SPECIAL_SPEED_DOWN1_EFFECT    ; Eerie Impulse (target dual-down)
+	db SPECIAL_ACCURACY_UP1_EFFECT   ; Calm Mind (revised: SPC + ACC up)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine

@@ -34,4 +34,5 @@ ResidualEffects2:
 	db ATTACK_ACCURACY_UP1_EFFECT    ; dual-stat
 	db SPEED_EVASION_UP1_EFFECT      ; dual-stat
 	db SPECIAL_SPEED_DOWN1_EFFECT    ; dual-stat
+	db SPECIAL_ACCURACY_UP1_EFFECT   ; dual-stat (Calm Mind revised)
 	db -1 ; end
