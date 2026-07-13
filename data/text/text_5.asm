@@ -214,7 +214,7 @@ _GettingPumpedText::
 	; v0.7: describes the actual effect (x3 crit boost; Acc+1 follows, Forte)
 	text "<USER>'s"
 	line "critical hit rate"
-	cont "rose sharply!"
+	cont "sharply rose!"
 	prompt
 
 ; v0.7: Focus Energy-specific failure text (was the generic "But, it failed!")
