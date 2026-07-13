@@ -754,6 +754,16 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	pop hl                        ; restore learnset pointer
 	; --- end v0.5 globals ---
 
+	; v0.7 (Forte): relearner menu order = REST -> egg moves -> level-up.
+	; The egg/header phase lives physically below (.eggPhase); run it FIRST,
+	; then come back to .loop for the level-up scan. It clobbers b (its loop
+	; counter), so save the mon level; hl (learnset ptr) is saved too and
+	; both are restored at .done2 before jumping back here.
+	push hl               ; save learnset pointer
+	ld a, b
+	push af               ; save mon_level
+	jp .eggPhase
+
 .loop
 	ld a, [hli]
 	and a
@@ -799,10 +809,23 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	pop de
 	pop bc
 	jr .loop
-.done	
-
+.done
+	; v0.7: list complete (the egg phase already ran before .loop) — write
+	; the terminator and the count.
+	ld b, 0
+	ld hl, wMoveBuffer + 1
+	add hl, bc
+	ld a, $ff
+	ld [hl], a
+	ld hl, wMoveBuffer
+	ld [hl], c
+	ret
 
 ;joenote - start checking for level-0 moves
+; v0.7: reached via `jp .eggPhase` above (egg moves are now listed BEFORE
+; the level-up moves, per Forte); exits through .done2, which restores the
+; level + learnset pointer and jumps back to .loop.
+.eggPhase
 	xor a
 	ld b, a	;b will act as a counter, as there can only be up to 4 level-0 moves
 	call GetMonHeader ;mon id already stored earlier in wd0b5
@@ -820,6 +843,13 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	push hl
 	;c = buffer length
 .buffer_loop
+	; v0.7 fix: buffer entries live at wMoveBuffer+1..+count, so index 0
+	; (the count byte — OAM-aliased scratch at this moment) must never be
+	; compared: it used to read as a phantom DREAM_EATER ($10) and could
+	; silently hide a matching egg move from the menu.
+	inc c
+	dec c
+	jr z, .end_buffer_loop	;c == 0: all buffer entries checked
 	ld hl, wMoveBuffer
 	ld b, 0
 	add hl, bc	;move to buffer at current c value
@@ -828,9 +858,6 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	cp b
 	ld a, b	;a = move id
 	jr z, .move_in_buffer
-	inc c
-	dec c
-	jr z, .end_buffer_loop	;jump out if start of buffer is reached
 	dec c	;else decrement c and loop again
 	jr .buffer_loop
 .move_in_buffer
@@ -888,14 +915,12 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	jr .loop2
 	
 .done2
-	ld b, 0
-	ld hl, wMoveBuffer + 1
-	add hl, bc
-	ld a, $ff
-	ld [hl], a
-	ld hl, wMoveBuffer
-	ld [hl], c
-	ret
+	; v0.7: egg phase done — restore the level + learnset pointer and run
+	; the level-up scan (the terminator is written at .done).
+	pop af
+	ld b, a               ; b = mon_level
+	pop hl                ; hl = learnset pointer
+	jp .loop
 
 GetMonLearnset:
 	ld hl, EvosMovesPointerTable
