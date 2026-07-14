@@ -2229,11 +2229,10 @@ FarfetchdEvosMoves:
 ; before LEEK_STRIKE. FAINT_ATTACK low (samurai sneak). PETAL_DANCE =
 ; leek-magic Grass move. EXTREMESPEED just before BRUTAL_SWING (high
 ; level). FLY via HM02 only, not levelup.
-	db  1, TACKLE
-	db  7, LEER
-	db  9, FAINT_ATTACK
-	db 11, GUST
-	db 13, QUICK_ATTACK
+	db  6, TACKLE
+	db  8, SAND_ATTACK
+	db 12, FAINT_ATTACK
+	db 15, QUICK_ATTACK
 	db 18, KARATE_CHOP
 	db 22, LEEK_STRIKE
 	db 25, CUT
@@ -2243,8 +2242,10 @@ FarfetchdEvosMoves:
 	db 42, RECOVER
 	db 48, SWORDS_DANCE
 	db 52, PETAL_DANCE
-	db 58, EXTREMESPEED
-	db 60, BRUTAL_SWING
+	db 55, BRUTAL_SWING
+	db 60, EXTREMESPEED
+	db 62, THRASH
+	db 65, OUTRAGE
 	db 0
 
 DoduoEvosMoves:
