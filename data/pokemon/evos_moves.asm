@@ -697,19 +697,19 @@ EkansEvosMoves:
 ; (fast strike), FAINT_ATTACK (Dark sneaky), SHADOW_SNEAK (Ghost — snake
 ; hides in shadow), NEUROTOXIN (snake venom), EXTREMESPEED (peak strike).
 ; No GUNK_SHOT / SLUDGE_WAVE (Muk/Weezing only). No SCREECH (snakes hiss).
-	db  1, QUICK_ATTACK
-	db  3, CONSTRICT
+	db  3, WRAP
+	db  6, BITE
 	db  9, BIDE
-	db 12, BITE
-	db 17, ASTONISH
-	db 20, POISON_STING
-	db 23, COIL
-	db 29, BIND
-	db 31, POISON_BITE
-	db 34, AGILITY
-	db 37, FAINT_ATTACK
+	db 12, QUICK_ATTACK
+	db 15, POISON_STING
+	db 18, ASTONISH
+	db 24, COIL
+	db 26, BIND
+	db 30, POISON_BITE
+	db 33, AGILITY
+	db 36, FAINT_ATTACK
 	db 40, SHADOW_SNEAK
-	db 43, SUBSTITUTE
+	db 42, SUBSTITUTE
 	db 48, TOXIC_FANGS
 	db 54, EXTREMESPEED
 	db 57, TOXIC
@@ -722,22 +722,22 @@ ArbokEvosMoves:
 	db 0
 ; Learnset
 ; Poison/Dark — matured cobra. Ekans's learnset + cobra hood, Dark unlock,
-; and heavy whip-tail: SCARY_FACE (L26, hood reveal), IRON_TAIL (high-level
+; and heavy whip-tail: SCARY_FACE (L21, EVO LVL), IRON_TAIL (high-level
 ; whip), INTIMIDATE (full hood display, L52).
-	db  1, QUICK_ATTACK
-	db  3, CONSTRICT
+	db  3, WRAP
+	db  6, BITE
 	db  9, BIDE
-	db 12, BITE
-	db 17, ASTONISH
-	db 20, POISON_STING
-	db 23, COIL
-	db 26, SCARY_FACE
-	db 29, BIND
-	db 31, POISON_BITE
-	db 34, AGILITY
-	db 37, FAINT_ATTACK
+	db 12, QUICK_ATTACK
+	db 15, POISON_STING
+	db 18, ASTONISH
+	db 21, SCARY_FACE  ; (EVO LVL)
+	db 24, COIL
+	db 26, BIND
+	db 30, POISON_BITE
+	db 33, AGILITY
+	db 36, FAINT_ATTACK
 	db 40, SHADOW_SNEAK
-	db 43, SUBSTITUTE
+	db 42, SUBSTITUTE
 	db 45, IRON_TAIL
 	db 48, TOXIC_FANGS
 	db 52, INTIMIDATE
