@@ -2944,9 +2944,8 @@ KoffingEvosMoves:
 ; Learnset
 ; Gas balloon Poison/Gas. Kit: acid/sludge/toxic + Gas type only.
 ; EXPLOSION apex. No GUNK_SHOT (Grimer-only signature).
-	db  1, POISON_GAS
-	db  7, SMOKESCREEN
-	db 13, DISABLE
+	db  6, TACKLE
+	db 12, DISABLE
 	db 16, ACID
 	db 19, EMBER
 	db 22, BIDE
@@ -2971,9 +2970,8 @@ WeezingEvosMoves:
 ; Apex gas balloon. Koffing backbone (incl. shared CORRODE L31) +
 ; Weezing-exclusives: SCARY_FACE (L52), GUNK_SHOT (L61), DARK_PULSE
 ; (L65). EXPLOSION shared at L55.
-	db  1, POISON_GAS
-	db  7, SMOKESCREEN
-	db 13, DISABLE
+	db  6, TACKLE
+	db 12, DISABLE
 	db 16, ACID
 	db 19, EMBER
 	db 22, BIDE
