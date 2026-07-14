@@ -1793,18 +1793,18 @@ MachopEvosMoves:
 ; Disciplined humanoid fighter. TACKLE starter, BULK_UP early. DIZZY_PUNCH
 ; instead of ROLLING_KICK (Hitmonlee-only). GROUND_STOMP fits humanoid
 ; stomping. SUBMISSION at higher level.
-	db  1, TACKLE
-	db  7, LEER
-	db 11, BIND
-	db 14, FOCUS_ENERGY
+	db 10, BIND
+	db 10, LOW_KICK
+	db 13, FOCUS_ENERGY
 	db 16, BULK_UP
 	db 18, KARATE_CHOP
-	db 20, STRENGTH
-	db 22, SEISMIC_TOSS
-	db 25, ROCK_THROW
-	db 27, DIZZY_PUNCH
+	db 21, SEISMIC_TOSS
+	db 23, ROCK_THROW
+	db 26, STRENGTH  ; (EVO LVL)
+	db 28, DIZZY_PUNCH
 	db 30, GROUND_STOMP
-	db 42, TAKE_DOWN
+	db 36, BODY_SLAM
+	db 38, TAKE_DOWN
 	db 48, SUBMISSION
 	db 0
 
@@ -1815,20 +1815,23 @@ MachokeEvosMoves:
 ; Learnset
 ; Mid-evo. Shares Machop's backbone, plus BODY_SLAM as a Machoke-and-up
 ; exclusive.
-	db  1, TACKLE
-	db  7, LEER
-	db 11, BIND
-	db 14, FOCUS_ENERGY
+	db 10, BIND
+	db 10, LOW_KICK
+	db 13, FOCUS_ENERGY
 	db 16, BULK_UP
 	db 18, KARATE_CHOP
-	db 20, STRENGTH
-	db 22, SEISMIC_TOSS
-	db 25, ROCK_THROW
-	db 27, DIZZY_PUNCH
+	db 21, SEISMIC_TOSS
+	db 23, ROCK_THROW
+	db 26, STRENGTH  ; (EVO LVL)
+	db 28, DIZZY_PUNCH
 	db 30, GROUND_STOMP
 	db 36, BODY_SLAM
-	db 42, TAKE_DOWN
+	db 38, TAKE_DOWN
+	db 46, MACH_PUNCH
 	db 48, SUBMISSION
+	db 50, BULLDOZE
+	db 55, SWORDS_DANCE
+	db 62, THRASH
 	db 0
 
 MachampEvosMoves:
@@ -1838,27 +1841,29 @@ MachampEvosMoves:
 ; Apex 4-arm humanoid fighter. Shares Machoke's backbone, plus high-level
 ; exclusives: COMET_PUNCH (4 arms = rapid combo punches), MACH_PUNCH
 ; (priority hand), BULLET_PUNCH (steel fast punch), IRON_DEFENSE
-; (disciplined defense), SWORDS_DANCE (apex setup). SUBMISSION signature
-; shared with Poliwrath.
-	db  1, TACKLE
-	db  7, LEER
-	db 11, BIND
-	db 14, FOCUS_ENERGY
+; (strong muscles and 4 arms defense), SWORDS_DANCE (apex setup).
+; SUBMISSION signature shared with Poliwrath.
+	db 10, BIND
+	db 10, LOW_KICK
+	db 13, FOCUS_ENERGY
 	db 16, BULK_UP
 	db 18, KARATE_CHOP
-	db 20, STRENGTH
-	db 22, SEISMIC_TOSS
-	db 25, ROCK_THROW
-	db 27, DIZZY_PUNCH
+	db 21, SEISMIC_TOSS
+	db 23, ROCK_THROW
+	db 26, STRENGTH  ; (EVO LVL)
+	db 28, DIZZY_PUNCH
 	db 30, GROUND_STOMP
 	db 36, BODY_SLAM
-	db 42, COMET_PUNCH
-	db 42, TAKE_DOWN
+	db 38, TAKE_DOWN
+	db 42, COMET_PUNCH  ; (EVO LVL)
 	db 46, MACH_PUNCH
 	db 48, SUBMISSION
-	db 50, BULLET_PUNCH
+	db 50, BULLDOZE
+	db 52, BULLET_PUNCH
 	db 55, SWORDS_DANCE
 	db 60, IRON_DEFENSE
+	db 62, THRASH
+	db 65, OUTRAGE
 	db 0
 
 BellsproutEvosMoves:
