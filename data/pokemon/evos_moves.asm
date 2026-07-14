@@ -3052,9 +3052,9 @@ ChanseyEvosMoves:
 ; Normal/Fairy heal-tank. SOFTBOILED signature (Chansey only).
 ; No TAIL_WHIP (tail too small), no DEFENSE_CURL (not ball-shaped).
 ; Heal-tank kit + LIGHT_SCREEN/REFLECT support.
-	db  1, SOFTBOILED
-	db  6, FAIRY_WIND
-	db  9, DOUBLESLAP
+	db  3, FAIRY_WIND
+	db  6, DOUBLESLAP
+	db  9, TACKLE
 	db 12, CALM_MIND
 	db 15, CHARM
 	db 17, SING
@@ -3062,15 +3062,15 @@ ChanseyEvosMoves:
 	db 21, HEADBUTT
 	db 23, DRAINING_KISS
 	db 26, DISABLE
-	db 29, EXTRASENSORY
+	db 28, EXTRASENSORY
 	db 31, LIGHT_SCREEN
-	db 37, BIDE
-	db 40, PAY_DAY
-	db 43, SEISMIC_TOSS
-	db 45, REFLECT
-	db 48, DAZZLE_GLEAM
-	db 51, FAKE_TEARS
-	db 54, PETAL_DANCE
+	db 34, BIDE
+	db 38, PAY_DAY
+	db 41, REFLECT
+	db 43, DAZZLE_GLEAM
+	db 45, FAKE_TEARS
+	db 50, SEISMIC_TOSS
+	db 53, PETAL_DANCE
 	db 57, MOONBLAST
 	db 60, METRONOME
 	db 0
