@@ -3710,7 +3710,7 @@ OmanyteEvosMoves:
 ; Learnset
 ; Ammonite spiral shell, Rock/Water. WITHDRAW into shell. Water+Rock
 ; physical kit. No SURF/STRENGTH HM yet — those come at Omastar.
-	db  9, HEADBUTT
+	db  8, HEADBUTT
 	db 13, TICKLE
 	db 18, CONSTRICT
 	db 22, BIND
@@ -3729,7 +3729,7 @@ OmastarEvosMoves:
 ; Apex ammonite. 12 backbone (Omanyte) + Omastar-exclusives:
 ; IRON_DEFENSE, HYDRO_PUMP, IRON_HEAD, ICE_BEAM apex (cold-water
 ; ammonite). SURF/STRENGTH HMs natural.
-	db  9, HEADBUTT
+	db  8, HEADBUTT
 	db 13, TICKLE
 	db 18, CONSTRICT
 	db 22, BIND
@@ -3752,8 +3752,7 @@ KabutoEvosMoves:
 ; Learnset
 ; Trilobite-crab, Rock/Bug. WITHDRAW into shell. MEGA_DRAIN/LEECH_LIFE
 ; parasitic feed. Water+Rock physical kit.
-	db  1, WATER_GUN
-	db  5, WITHDRAW
+	db  8, WATER_GUN
 	db 13, LEER
 	db 18, ROCK_THROW
 	db 22, BUBBLEBEAM
@@ -3772,8 +3771,7 @@ KabutopsEvosMoves:
 ; Apex trilobite-crab. 12 backbone (Kabuto) + Kabutops-exclusives:
 ; NIGHT_SLASH (Dark slash claws), SWORDS_DANCE (apex predator),
 ; HEAD_SMASH, GUILLOTINE. CUT/SURF/STRENGTH HMs natural.
-	db  1, WATER_GUN
-	db  5, WITHDRAW
+	db  8, WATER_GUN
 	db 13, LEER
 	db 18, ROCK_THROW
 	db 22, BUBBLEBEAM
@@ -3796,7 +3794,7 @@ AerodactylEvosMoves:
 ; Pterodactyl, Rock/Flying apex predator, single-stage. FLY/SKY_ATTACK/
 ; AGILITY/INTIMIDATE fit the flying apex predator. CUT/FLY/STRENGTH HMs
 ; natural. No HYPER_BEAM, no EXTREMESPEED.
-	db  7, TAILWIND
+	db  8, TAILWIND
 	db 11, WING_ATTACK
 	db 14, FIERCE_ROAR
 	db 18, ROCK_THROW
