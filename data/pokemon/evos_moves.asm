@@ -2866,8 +2866,8 @@ HitmonleeEvosMoves:
 ; Pure leg-only kicker, single-stage. BRUTAL_SWING as a leg swing.
 ; HI_JUMP_KICK signature apex. No SUBMISSION (a Machamp/Poliwrath
 ; technique, not a kicker). STRENGTH via HM only.
-	db  1, LOW_KICK
-	db  8, GROUND_STOMP
+	db  6, TACKLE
+	db 10, GROUND_STOMP
 	db 16, FOCUS_ENERGY
 	db 16, CALM_MIND
 	db 22, QUICK_ATTACK
@@ -2893,9 +2893,9 @@ HitmonchanEvosMoves:
 ; SHADOW_PUNCH/MAGMA_PUNCH (no FLAME_BURST/SHOCK_WAVE/ICY_WIND — those
 ; are special attacks, not punches). RECOVER for boxer stamina.
 ; MAGMA_PUNCH signature exception. STRENGTH via HM only.
-	db  1, DEFENSE_CURL
-	db  1, QUICK_ATTACK
-	db  8, MACH_PUNCH
+	db 6, DEFENSE_CURL
+	db 12, MACH_PUNCH
+	db 10, QUICK_ATTACK
 	db 16, FOCUS_ENERGY
 	db 16, CALM_MIND
 	db 22, COMET_PUNCH
