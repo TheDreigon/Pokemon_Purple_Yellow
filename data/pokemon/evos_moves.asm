@@ -2301,25 +2301,24 @@ SeelEvosMoves:
 	db 0
 ; Learnset
 ; Water/Ice seal. HORN_ATTACK (horn on the head).
-	db  1, HORN_ATTACK
-	db  7, TAIL_WHIP
-	db  9, DOUBLESLAP
-	db 11, CHARM
-	db 13, FAKE_TEARS
-	db 15, AQUA_JET
-	db 17, WATER_GUN
-	db 19, POWDER_SNOW
+	db  4, TAIL_WHIP
+	db  6, TACKLE
+	db  8, WATER_GUN
+	db 10, DOUBLESLAP
+	db 12, POWDER_SNOW
+	db 14, CHARM
+	db 16, HORN_ATTACK
+	db 18, BUBBLEBEAM
 	db 21, ICY_WIND
-	db 23, BUBBLEBEAM
+	db 24, FAKE_TEARS
 	db 28, FROST_BREATH
-	db 34, WATER_PULSE
-	db 40, ICY_PULSE
-	db 44, AURORA_BEAM
-	db 47, WATERFALL
-	db 53, ICE_BEAM
-	db 55, BODY_SLAM
-	db 59, TAKE_DOWN
-	db 61, PLAY_ROUGH
+	db 30, WATER_PULSE
+	db 33, BODY_SLAM
+	db 36, ICY_PULSE
+	db 40, AQUA_JET
+	db 42, AURORA_BEAM
+	db 46, WATERFALL
+	db 50, ICE_BEAM
 	db 0
 
 DewgongEvosMoves:
@@ -2327,27 +2326,27 @@ DewgongEvosMoves:
 	db 0
 ; Learnset
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
-	db  1, HORN_ATTACK
-	db  7, TAIL_WHIP
-	db  9, DOUBLESLAP
-	db 11, CHARM
-	db 13, FAKE_TEARS
-	db 15, AQUA_JET
-	db 17, WATER_GUN
-	db 19, POWDER_SNOW
+	db  4, TAIL_WHIP
+	db  6, TACKLE
+	db  8, WATER_GUN
+	db 10, DOUBLESLAP
+	db 12, POWDER_SNOW
+	db 14, CHARM
+	db 16, HORN_ATTACK
+	db 18, BUBBLEBEAM
 	db 21, ICY_WIND
-	db 23, BUBBLEBEAM
+	db 24, FAKE_TEARS
 	db 28, FROST_BREATH
-	db 34, WATER_PULSE
-	db 40, ICY_PULSE
-	db 44, AURORA_BEAM
-	db 47, WATERFALL
-	db 53, ICE_BEAM
-	db 55, BODY_SLAM
-	db 57, BLIZZARD
-	db 59, TAKE_DOWN
-	db 61, PLAY_ROUGH
-	db 63, HYDRO_PUMP
+	db 30, WATER_PULSE
+	db 33, BODY_SLAM
+	db 36, ICY_PULSE
+	db 40, AQUA_JET
+	db 42, AURORA_BEAM
+	db 46, WATERFALL
+	db 50, ICE_BEAM
+	db 55, PLAY_ROUGH
+	db 60, HYDRO_PUMP
+	db 62, BLIZZARD
 	db 0
 
 GrimerEvosMoves:
