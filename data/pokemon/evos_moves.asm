@@ -3340,11 +3340,11 @@ JynxEvosMoves:
 ; EERIE_IMPULSE, FROST_BREATH, DARK_PULSE L60. No CONFUSE_RAY
 ; (redundant with LOVELY_KISS, which already confuses). No PLAY_ROUGH
 ; (an elegant singer, not a rough biter).
-	db  1, LICK
-	db  4, TICKLE
-	db  7, FAIRY_WIND
+	db  5, TICKLE
+	db  8, FAIRY_WIND
 	db 11, POWDER_SNOW
-	db 16, ICY_WIND
+	db 13, ICY_WIND
+	db 16, LICK
 	db 18, LOVELY_KISS
 	db 20, PSYWAVE
 	db 22, EERIE_IMPULSE
