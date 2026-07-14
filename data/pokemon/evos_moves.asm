@@ -3493,7 +3493,6 @@ MagikarpEvosMoves:
 	db 10, TACKLE
 	db 15, WATER_GUN
 	db 20, BIDE
-	db 25, RAGE
 	db 0
 
 GyaradosEvosMoves:
@@ -3505,16 +3504,16 @@ GyaradosEvosMoves:
 ; exclusives in a post-evo burst @27-65: BITE, INTIMIDATE, COIL (snake-
 ; coil), Dragon-coded DRAGON_BREATH/DRAGON_SLAM/OUTRAGE, SURF/HYDRO_PUMP/
 ; EARTHQUAKE/THRASH/HEAVY_SLAM. SURF/STRENGTH HMs.
-	db  1, GROWL
+	db 10, TACKLE
 	db 15, WATER_GUN
 	db 20, BIDE
-	db 25, RAGE
 	db 26, BITE
+	db 26, RAGE
 	db 28, WATER_PULSE
 	db 30, COIL
 	db 33, BODY_SLAM
-	db 35, WATERFALL
-	db 35, FIERCE_ROAR
+	db 34, FIERCE_ROAR
+	db 36, WATERFALL
 	db 37, CRUNCH
 	db 40, INTIMIDATE
 	db 43, TAKE_DOWN
