@@ -3934,10 +3934,10 @@ DratiniEvosMoves:
 ; Learnset
 ; Dragon sea-snake baby. CONSTRICT/BIND wrap kit. COIL (snake-coil).
 ; DRAGON_BREATH first Dragon move pre-evo.
-	db  1, TACKLE
-	db  9, COIL
-	db 13, CONSTRICT
-	db 17, BIND
+	db  6, TACKLE
+	db  8, CONSTRICT
+	db 12, COIL
+	db 16, BIND
 	db 21, BODY_SLAM
 	db 25, DRAGON_BREATH
 	db 29, WATER_PULSE
@@ -3955,10 +3955,10 @@ DragonairEvosMoves:
 ; Dragon sea-serpent mid-evo. 12 backbone (Dratini) + Dragonair-
 ; exclusives: IRON_TAIL L39, DRAGON_RAGE L43 (signature) and FLY L46 =
 ; evo level.
-	db  1, TACKLE
-	db  9, COIL
-	db 13, CONSTRICT
-	db 17, BIND
+	db  6, TACKLE
+	db  8, CONSTRICT
+	db 12, COIL
+	db 16, BIND
 	db 21, BODY_SLAM
 	db 25, DRAGON_BREATH
 	db 29, WATER_PULSE
@@ -3978,10 +3978,10 @@ DragoniteEvosMoves:
 ; Apex Dragon. 15 backbone (Dragonair) + Dragonite-exclusives:
 ; STRENGTH L49 HM natural, EXTRASENSORY, BULLDOZE, ROCK_TOMB,
 ; TAKE_DOWN, BRUTAL_SWING, OUTRAGE L63, HYPER_BEAM L65 last move.
-	db  1, TACKLE
-	db  9, COIL
-	db 13, CONSTRICT
-	db 17, BIND
+	db  6, TACKLE
+	db  8, CONSTRICT
+	db 12, COIL
+	db 16, BIND
 	db 21, BODY_SLAM
 	db 25, DRAGON_BREATH
 	db 29, WATER_PULSE
