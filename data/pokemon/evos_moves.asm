@@ -2301,8 +2301,8 @@ SeelEvosMoves:
 	db 0
 ; Learnset
 ; Water/Ice seal. HORN_ATTACK (horn on the head).
+; (TACKLE lives in the egg field — R22, Forte 2026-07-15.)
 	db  4, TAIL_WHIP
-	db  6, TACKLE
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP
 	db 12, POWDER_SNOW
@@ -2326,8 +2326,8 @@ DewgongEvosMoves:
 	db 0
 ; Learnset
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
+; (TACKLE lives in the egg field — R22, Forte 2026-07-15.)
 	db  4, TAIL_WHIP
-	db  6, TACKLE
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP
 	db 12, POWDER_SNOW
@@ -2428,7 +2428,7 @@ ShellderEvosMoves:
 	db 40, BODY_SLAM
 	db 42, GROWTH
 	db 44, ICE_BEAM
-	db 59, AQUA_JET
+	db 48, AQUA_JET
 	db 50, IRON_DEFENSE
 	db 0
 
@@ -2454,7 +2454,7 @@ CloysterEvosMoves:
 	db 42, GROWTH
 	db 44, ICE_BEAM
 	db 46, NEUROTOXIN
-	db 59, AQUA_JET
+	db 48, AQUA_JET
 	db 50, IRON_DEFENSE
 	db 53, HEAD_SMASH
 	db 56, EXPLOSION
@@ -2892,8 +2892,8 @@ HitmonchanEvosMoves:
 ; are special attacks, not punches). RECOVER for boxer stamina.
 ; MAGMA_PUNCH signature exception. STRENGTH via HM only.
 	db 6, DEFENSE_CURL
-	db 12, MACH_PUNCH
 	db 10, QUICK_ATTACK
+	db 12, MACH_PUNCH
 	db 16, FOCUS_ENERGY
 	db 16, CALM_MIND
 	db 22, COMET_PUNCH
