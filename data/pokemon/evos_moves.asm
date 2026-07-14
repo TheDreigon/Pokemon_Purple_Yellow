@@ -2136,14 +2136,13 @@ SlowpokeEvosMoves:
 	db 0
 ; Learnset
 ; Slow Water/Normal. AMNESIA only, no CALM_MIND.
-	db  1, TAIL_WHIP
-	db  5, WATER_GUN
-	db  8, PSYWAVE
-	db 10, TACKLE
-	db 12, PSYCHIC_BIND
+	db  6, TAIL_WHIP
+	db  9, WATER_GUN
+	db 12, PSYWAVE
 	db 14, CONFUSION
 	db 16, DISABLE
-	db 18, HEADBUTT
+	db 18, PSYCHIC_BIND
+	db 20, HEADBUTT
 	db 22, WATER_PULSE
 	db 28, AMNESIA
 	db 33, EXTRASENSORY
@@ -2156,14 +2155,13 @@ SlowbroEvosMoves:
 ; Learnset
 ; Apex slow Water/Psychic. WITHDRAW (Shellder bite as a makeshift
 ; shield). SURF/STRENGTH HMs.
-	db  1, TAIL_WHIP
-	db  5, WATER_GUN
-	db  8, PSYWAVE
-	db 10, TACKLE
-	db 12, PSYCHIC_BIND
+	db  6, TAIL_WHIP
+	db  9, WATER_GUN
+	db 12, PSYWAVE
 	db 14, CONFUSION
 	db 16, DISABLE
-	db 18, HEADBUTT
+	db 18, PSYCHIC_BIND
+	db 20, HEADBUTT
 	db 22, WATER_PULSE
 	db 28, AMNESIA
 	db 35, WITHDRAW
