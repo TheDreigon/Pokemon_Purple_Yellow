@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/grimer.pic", 0, 1 ; sprite dimensions
 	dw GrimerPicFront, GrimerPicBack
 
-	db TACKLE, DISABLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db LICK, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

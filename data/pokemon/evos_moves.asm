@@ -2357,21 +2357,21 @@ GrimerEvosMoves:
 ; Pure sludge blob Poison/Water. SLUDGE_WAVE = Grimer-line signature.
 ; RECOVER (sludge re-forms). NO bite/fang moves — sludge anatomy has
 ; no fangs.
-	db  1, LICK
-	db  3, ASTONISH
-	db  6, HARDEN
-	db  9, GROWTH
+	db  6, ASTONISH
+	db  9, TACKLE
 	db 12, WATER_GUN
 	db 14, MUD_SHOT
 	db 17, ACID
+	db 21, RECOVER
+	db 22, GROWTH
 	db 26, BIND
 	db 28, SMOG
-	db 31, CORRODE
+	db 30, CORRODE
 	db 31, BODY_SLAM
 	db 33, SLUDGE
-	db 36, RECOVER
 	db 36, TOXIC
-	db 40, MUD_BOMB
+	db 38, MUD_BOMB
+	db 42, DISABLE
 	db 45, SLUDGE_WAVE
 	db 0
 
@@ -2382,26 +2382,26 @@ MukEvosMoves:
 ; Apex sludge. Grimer backbone + Muk-exclusives: GUNK_SHOT signature
 ; very-high, TAKE_DOWN/ROCK_TOMB/IRON_DEFENSE/SCARY_FACE/HEAVY_SLAM.
 ; STRENGTH via HM.
-	db  1, LICK
-	db  3, ASTONISH
-	db  6, HARDEN
-	db  9, GROWTH
+	db  6, ASTONISH
+	db  9, TACKLE
 	db 12, WATER_GUN
 	db 14, MUD_SHOT
 	db 17, ACID
+	db 21, RECOVER
+	db 22, GROWTH
 	db 26, BIND
 	db 28, SMOG
-	db 31, CORRODE
+	db 30, CORRODE
 	db 31, BODY_SLAM
 	db 33, SLUDGE
-	db 36, RECOVER
 	db 36, TOXIC
-	db 40, MUD_BOMB
+	db 38, MUD_BOMB
+	db 42, DISABLE
 	db 45, SLUDGE_WAVE
 	db 48, TAKE_DOWN
-	db 51, ROCK_TOMB
-	db 54, IRON_DEFENSE
-	db 54, SCARY_FACE
+	db 50, IRON_DEFENSE
+	db 52, ROCK_TOMB
+	db 55, SCARY_FACE
 	db 57, GUNK_SHOT
 	db 60, HEAVY_SLAM
 	db 0
