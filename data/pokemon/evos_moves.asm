@@ -536,7 +536,7 @@ PidgeyEvosMoves:
 	db 20, WING_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
-	db 36, FLY
+	db 35, FLY
 	db 0
 
 PidgeottoEvosMoves:
@@ -548,13 +548,13 @@ PidgeottoEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 17, LEER
+	db 17, LEER  ; (EVO LVL)
 	db 20, WING_ATTACK
 	db 22, QUICK_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
-	db 34, HONE_CLAWS
-	db 36, FLY
+	db 33, HONE_CLAWS
+	db 35, FLY  ; (EVO LVL)
 	db 38, SLASH
 	db 42, BODY_SLAM
 	db 46, TAKE_DOWN
@@ -570,13 +570,13 @@ PidgeotEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 17, LEER
+	db 17, LEER  ; (EVO LVL)
 	db 20, WING_ATTACK
 	db 22, QUICK_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
-	db 34, HONE_CLAWS
-	db 36, FLY
+	db 33, HONE_CLAWS
+	db 35, FLY  ; (EVO LVL)
 	db 38, SLASH
 	db 42, BODY_SLAM
 	db 46, TAKE_DOWN
