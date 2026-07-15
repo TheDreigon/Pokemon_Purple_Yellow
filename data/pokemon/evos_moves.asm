@@ -533,7 +533,7 @@ PidgeyEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 22, WING_ATTACK
+	db 20, WING_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
 	db 36, FLY
@@ -548,16 +548,17 @@ PidgeottoEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 16, LEER
-	db 18, QUICK_ATTACK
-	db 22, WING_ATTACK
+	db 17, LEER
+	db 20, WING_ATTACK
+	db 22, QUICK_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
 	db 34, HONE_CLAWS
 	db 36, FLY
 	db 38, SLASH
-	db 42, HURRICANE
-	db 50, SKY_ATTACK
+	db 42, BODY_SLAM
+	db 46, TAKE_DOWN
+	db 50, HURRICANE
 	db 0
 
 PidgeotEvosMoves:
@@ -569,18 +570,20 @@ PidgeotEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 16, LEER
-	db 18, QUICK_ATTACK
-	db 22, WING_ATTACK
+	db 17, LEER
+	db 20, WING_ATTACK
+	db 22, QUICK_ATTACK
 	db 26, TAILWIND
 	db 30, AERIAL_ACE
 	db 34, HONE_CLAWS
 	db 36, FLY
 	db 38, SLASH
-	db 42, HURRICANE
-	db 44, TAKE_DOWN
-	db 46, INTIMIDATE
-	db 50, SKY_ATTACK
+	db 42, BODY_SLAM
+	db 46, TAKE_DOWN
+	db 50, HURRICANE
+	db 55, SKY_ATTACK
+	db 60, SWORDS_DANCE
+	db 65, EXTREMESPEED
 	db 0
 
 RattataEvosMoves:
