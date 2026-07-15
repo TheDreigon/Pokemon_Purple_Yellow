@@ -454,7 +454,7 @@ ButterfreeEvosMoves:
 	db  1, BUG_BITE
 	db 11, GUST
 	db 14, CONFUSION
-	db 15, POISONPOWDER
+	db 16, POISONPOWDER
 	db 18, STUN_POWDER
 	db 20, SLEEP_POWDER
 	db 22, FAIRY_WIND
@@ -502,7 +502,7 @@ BeedrillEvosMoves:
 	db  1, BUG_BITE
 	db 11, TACKLE
 	db 14, FURY_ATTACK
-	db 15, RAGE
+	db 16, RAGE
 	db 18, HORN_ATTACK
 	db 20, TWINEEDLE
 	db 22, FOCUS_ENERGY
@@ -548,7 +548,7 @@ PidgeottoEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 17, LEER
+	db 16, LEER
 	db 18, QUICK_ATTACK
 	db 22, WING_ATTACK
 	db 26, TAILWIND
@@ -569,7 +569,7 @@ PidgeotEvosMoves:
 	db  4, PECK
 	db  8, SAND_ATTACK
 	db 12, GUST
-	db 17, LEER
+	db 16, LEER
 	db 18, QUICK_ATTACK
 	db 22, WING_ATTACK
 	db 26, TAILWIND
@@ -2362,13 +2362,13 @@ GrimerEvosMoves:
 	db 12, WATER_GUN
 	db 14, MUD_SHOT
 	db 17, ACID
-	db 21, RECOVER
+	db 20, RECOVER
 	db 22, GROWTH
 	db 26, BIND
 	db 28, SMOG
 	db 30, CORRODE
-	db 31, BODY_SLAM
-	db 33, SLUDGE
+	db 32, BODY_SLAM
+	db 34, SLUDGE
 	db 36, TOXIC
 	db 38, MUD_BOMB
 	db 42, DISABLE
@@ -2387,13 +2387,13 @@ MukEvosMoves:
 	db 12, WATER_GUN
 	db 14, MUD_SHOT
 	db 17, ACID
-	db 21, RECOVER
+	db 20, RECOVER
 	db 22, GROWTH
 	db 26, BIND
 	db 28, SMOG
 	db 30, CORRODE
-	db 31, BODY_SLAM
-	db 33, SLUDGE
+	db 32, BODY_SLAM
+	db 34, SLUDGE
 	db 36, TOXIC
 	db 38, MUD_BOMB
 	db 42, DISABLE
@@ -3234,7 +3234,7 @@ StaryuEvosMoves:
 	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
-	db 30, GROWTH
+	db 28, GROWTH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
@@ -3257,7 +3257,7 @@ StarmieEvosMoves:
 	db 19, AQUA_JET
 	db 21, BUBBLEBEAM
 	db 25, RECOVER
-	db 30, GROWTH
+	db 28, GROWTH
 	db 31, EERIE_IMPULSE
 	db 33, WATER_PULSE
 	db 35, DAZZLE_GLEAM
@@ -3511,10 +3511,10 @@ GyaradosEvosMoves:
 	db 26, RAGE
 	db 28, WATER_PULSE
 	db 30, COIL
-	db 33, BODY_SLAM
+	db 32, BODY_SLAM
 	db 34, FIERCE_ROAR
 	db 36, WATERFALL
-	db 37, CRUNCH
+	db 38, CRUNCH
 	db 40, INTIMIDATE
 	db 43, TAKE_DOWN
 	db 45, DRAGON_RAGE
