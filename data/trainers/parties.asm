@@ -173,7 +173,7 @@ JrTrainerMData:
 ; Unused
 	db 20, SQUIRTLE, 0
 ; Route 6
-	db 17, MANKEY, RATICATE, 0
+	db $FF, 17, MANKEY, 20, RATICATE, 0 ; mini-ace Raticate (Forte)
 ; Unused
 	db 18, DIGLETT, DIGLETT, SANDSHREW, 0
 	db 21, GROWLITHE, CHARMANDER, 0
@@ -227,7 +227,7 @@ JrTrainerFData:
 
 RocketData:
 ; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
-	db 14, RATICATE, 0 ; ROCKET3 (lone Raticate)
+	db $FF, 14, CUBONE, 16, RATTATA, 0 ; ROCKET3 — stolen Cubone (Lavender foreshadow) + ace Rattata (Forte)
 	db 12, RATTATA, ZUBAT, 0 ; ROCKET1
 	db 12, EKANS, ZUBAT, 0 ; ROCKET2
 ; Unused
@@ -345,7 +345,7 @@ HikerData:
 	db 22, GEODUDE, MACHOP, GEODUDE, 0
 ; Route 10
 	db 25, ZUBAT, ONIX, GOLBAT, 0
-	db 27, RHYHORN, DUGTRIO, 0
+	db 27, RHYHORN, TAUROS, 0 ; ride-pokemon duo (Forte)
 ; Rock Tunnel B1F
 	db $FF, 24, GEODUDE, 24, GEODUDE, 26, GRAVELER, 0
 	db 26, GRAVELER, 0
@@ -604,7 +604,7 @@ JugglerData:
 ; Victory Road 2F - Obelisk
 	db 51, POLIWRATH, RHYDON, FLAREON, JOLTEON, 0
 ; Fuchsia Gym
-	db 34, BEEDRILL, NIDOKING, GOLBAT, HAUNTER, 0
+	db 35, BEEDRILL, NIDOKING, GOLBAT, HAUNTER, 0
 	db 37, TENTACRUEL, MUK, 0
 ; Victory Road 2F - Alakadoof
 	db 53, OMASTAR, ALAKAZAM, RAICHU, MR_MIME, 0
