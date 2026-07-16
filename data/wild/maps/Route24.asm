@@ -8,8 +8,8 @@ Route24WildMons:
 	db 14, VENONAT
 	db 15, PIDGEY
 	db 17, PIDGEOTTO
-	db 14, BUTTERFREE
-	db 16, BUTTERFREE
+	db 14, TANGELA
+	db 16, TANGELA
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
