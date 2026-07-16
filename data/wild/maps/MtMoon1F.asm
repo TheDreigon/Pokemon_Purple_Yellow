@@ -7,7 +7,7 @@ MtMoon1FWildMons:
 	db 11, GEODUDE
 	db 12, SANDSHREW
 	db 11, GEODUDE
-	db 13, GEODUDE
+	db 12, CLEFAIRY
 	db 11, JIGGLYPUFF
 	db 12, ONIX
 	end_grass_wildmons
