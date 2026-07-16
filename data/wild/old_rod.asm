@@ -1,4 +1,4 @@
-; random choice of 2 good rod encounters
+; random choice of 2 old rod encounters
 OldRodMons:
 	; level, species
 	db 5, GOLDEEN
