@@ -2,14 +2,14 @@ SafariZoneEastWildMons:
 	def_grass_wildmons 30 ; encounter rate
 	db 32, TAUROS
 	db 33, RHYHORN
-	db 35, EXEGGCUTE
+	db 33, MANKEY
+	db 33, DODUO
 	db 34, TAUROS
-	db 36, CUBONE
-	db 36, MAROWAK
+	db 35, MANKEY
 	db 36, SCYTHER
-	db 37, PINSIR
-	db 35, CHANSEY
-	db 40, SCYTHER
+	db 36, PINSIR
+	db 35, ARBOK
+	db 38, KANGASKHAN
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

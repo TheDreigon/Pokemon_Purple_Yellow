@@ -1,15 +1,15 @@
 SafariZoneCenterWildMons:
 	def_grass_wildmons 30 ; encounter rate
-	db 32, NIDORINO
-	db 32, NIDORINA
-	db 35, EXEGGCUTE
-	db 34, RHYHORN
-	db 36, NIDOKING
-	db 36, NIDOQUEEN
+	db 33, NIDORINO
+	db 33, NIDORINA
+	db 34, EXEGGCUTE
+	db 35, WEEPINBELL
 	db 36, WEEPINBELL
-	db 37, WEEPINBELL
 	db 35, TANGELA
-	db 32, CHANSEY
+	db 36, EXEGGUTOR
+	db 34, LICKITUNG
+	db 38, VICTREEBEL
+	db 38, NIDOKING
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
