@@ -8,7 +8,7 @@ Route18WildMons:
 	db 27, GRIMER
 	db 24, SPEAROW
 	db 30, RATICATE
-	db 31, RATICATE
+	db 32, RATICATE
 	db 30, PERSIAN
 	end_grass_wildmons
 
