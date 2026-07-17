@@ -6,7 +6,7 @@ SafariZoneEastWildMons:
 	db 33, DODUO
 	db 34, TAUROS
 	db 35, MANKEY
-	db 36, SCYTHER
+	db 37, PRIMEAPE
 	db 36, PINSIR
 	db 35, ARBOK
 	db 38, KANGASKHAN
