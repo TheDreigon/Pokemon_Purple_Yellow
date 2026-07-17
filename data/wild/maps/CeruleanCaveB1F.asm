@@ -12,5 +12,15 @@ CeruleanCaveB1FWildMons:
 	db 65, ALAKAZAM
 	end_grass_wildmons
 
-	def_water_wildmons 0 ; encounter rate
+	def_water_wildmons 5 ; encounter rate
+	db 60, POLIWRATH
+	db 61, GOLDUCK
+	db 62, SLOWBRO
+	db 62, STARMIE
+	db 63, GOLDUCK
+	db 63, POLIWRATH
+	db 64, SLOWBRO
+	db 64, GOLDUCK
+	db 64, STARMIE
+	db 65, STARMIE
 	end_water_wildmons

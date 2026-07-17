@@ -22,5 +22,5 @@ SeafoamIslandsB4FWildMons:
 	db 42, DEWGONG
 	db 42, STARYU
 	db 40, TENTACRUEL
-	db 45, DEWGONG
+	db 46, LAPRAS
 	end_water_wildmons
