@@ -8,8 +8,8 @@ Route18WildMons:
 	db 27, GRIMER
 	db 24, SPEAROW
 	db 30, RATICATE
-	db 28, TAUROS
-	db 32, RATICATE
+	db 31, RATICATE
+	db 30, TAUROS
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
