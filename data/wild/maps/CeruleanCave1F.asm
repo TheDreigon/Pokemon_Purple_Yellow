@@ -3,8 +3,8 @@ CeruleanCave1FWildMons:
 	db 64, RHYDON
 	db 63, GOLEM
 	db 62, ELECTRODE
-	db 61, LICKITUNG
-	db 65, CHANSEY
+	db 63, ARBOK
+	db 63, ONIX
 	db 60, DITTO
 	db 64, VILEPLUME
 	db 63, VICTREEBEL
