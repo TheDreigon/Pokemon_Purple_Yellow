@@ -9,7 +9,7 @@ Route18WildMons:
 	db 24, SPEAROW
 	db 30, RATICATE
 	db 31, RATICATE
-	db 30, TAUROS
+	db 30, PERSIAN
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
