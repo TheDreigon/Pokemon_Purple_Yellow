@@ -501,7 +501,7 @@ _DiglettDexEntry::
 _DugtrioDexEntry::
 	text "A team of triplets"
 	next "that can burrow"
-	next "over 60 MPH."
+	next "at over 95 km/h."
 
 	page "Due to this, some"
 	next "people think it's"
@@ -813,9 +813,9 @@ _MagnetonDexEntry::
 	next "radio signals. It"
 	next "raises the tem-"
 
-	page "perature by 3.6F"
-	next "degrees within"
-	next "3,300 feet"
+	page "perature by 2"
+	next "degrees within a"
+	next "1km radius"
 	dex
 
 _FarfetchdDexEntry::
@@ -844,7 +844,7 @@ _DodrioDexEntry::
 	next "form a unique"
 
 	page "species. It runs"
-	next "close to 40 MPH"
+	next "close to 65 km/h"
 	next "in prairies"
 	dex
 
@@ -854,8 +854,8 @@ _SeelDexEntry::
 	next "Relishes swimming"
 
 	page "in a frigid cli-"
-	next "mate of around 14F"
-	next "degrees"
+	next "mate of around"
+	next "-10 degrees"
 	dex
 
 _DewgongDexEntry::
@@ -1070,7 +1070,7 @@ _HitmonchanDexEntry::
 
 _LickitungDexEntry::
 	text "Its tongue spans"
-	next "almost 7 feet and"
+	next "over 2 meters and"
 	next "moves more freely"
 
 	page "than its forelegs."
@@ -1354,7 +1354,7 @@ _FlareonDexEntry::
 
 	page "then blows out"
 	next "fire that is over"
-	next "3,000F degrees"
+	next "1,600 degrees"
 	dex
 
 _PorygonDexEntry::
