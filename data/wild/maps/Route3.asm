@@ -2,8 +2,8 @@ Route3WildMons:
 	def_grass_wildmons 20 ; encounter rate
 	db  8, SPEAROW
 	db  9, MANKEY
-	db 10, SANDSHREW
 	db 10, JIGGLYPUFF
+	db 10, SANDSHREW
 	db 10, EKANS
 	db 11, MANKEY
 	db 12, EKANS

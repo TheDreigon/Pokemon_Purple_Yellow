@@ -8,7 +8,7 @@ RockTunnelB1FWildMons:
 	db 19, ONIX
 	db 22, GOLBAT
 	db 22, MACHOP
-	db 23, GOLBAT
+	db 22, SANDSLASH
 	db 23, ONIX
 	end_grass_wildmons
 
