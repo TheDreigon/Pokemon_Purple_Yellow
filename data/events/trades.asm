@@ -9,7 +9,7 @@ TradeMons:
 	db LICKITUNG,  DUGTRIO,  TRADE_DIALOGSET_CASUAL,    "GURIO@@@@@@"
 	db CLEFAIRY,   MR_MIME,  TRADE_DIALOGSET_CASUAL,    "MILES@@@@@@"
 	db BUTTERFREE, BEEDRILL, TRADE_DIALOGSET_HAPPY,     "STINGER@@@@" ; unused
-	db KANGASKHAN, MUK,      TRADE_DIALOGSET_CASUAL,    "STICKY@@@@@"
+	db SCYTHER,    AERODACTYL, TRADE_DIALOGSET_CASUAL,  "PTERA@@@@@@"
 	db MEW,        MEW,      TRADE_DIALOGSET_HAPPY,     "BART@@@@@@@" ; unused — DO NOT ACTIVATE: Mew is the dex-150-gated postgame static (Mansion B1F); a tradeable BART would wreck that design
 	db TANGELA,    PARASECT, TRADE_DIALOGSET_CASUAL,    "SPIKE@@@@@@"
 	db POLIWHIRL,  JYNX,     TRADE_DIALOGSET_EVOLUTION, "LOLA@@@@@@@"

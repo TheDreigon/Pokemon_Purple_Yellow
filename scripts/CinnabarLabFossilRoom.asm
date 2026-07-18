@@ -103,7 +103,7 @@ CinnabarLabFossilRoomScientist1Text:
 
 CinnabarLabFossilRoomScientist2Text:
 	text_asm
-	ld a, TRADE_FOR_STICKY
+	ld a, TRADE_FOR_PTERA
 	ld [wWhichTrade], a
 	predef DoInGameTradeDialogue
 	jp TextScriptEnd
