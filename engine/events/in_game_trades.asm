@@ -103,6 +103,7 @@ InGameTrade_DoTrade:
 	ld [wCurEnemyLVL], a
 	ld b, FLAG_SET
 	call InGameTrade_FlagActionPredef
+	call InGameTrade_LatchSpecialMove
 	ld hl, ConnectCableText
 	call PrintText
 	ld a, [wWhichPokemon]
@@ -126,6 +127,7 @@ InGameTrade_DoTrade:
 	ld [wMonDataLocation], a
 	call AddPartyMon
 	call InGameTrade_CopyDataToReceivedMon
+	call InGameTrade_GiveSpecialMove
 	call InGameTrade_CheckForTradeEvo
 	call ClearScreen
 	call InGameTrade_RestoreScreen
@@ -138,6 +140,82 @@ InGameTrade_DoTrade:
 .tradeSucceeded
 	ld [wInGameTradeTextPointerTableIndex], a
 	ret
+
+InGameTrade_LatchSpecialMove:
+; Resolve this trade's signature move while wWhichTrade is still
+; vanilla-guaranteed. wWhichTrade is a heavily-unioned scratch byte
+; (wSavedY/wTempSCX/wNumShakes/... — see wram.asm); the trade-movie
+; window must not be trusted with it, so the move id is latched into
+; wMoveNum, which nothing in that window touches (verified: no writes
+; in engine/movie/trade.asm, add_mon.asm, remove_mon.asm).
+	ld a, [wWhichTrade]
+	ld e, a
+	ld d, 0
+	ld hl, TradeSpecialMoves
+	add hl, de
+	ld a, [hl]
+	ld [wMoveNum], a
+	ret
+
+InGameTrade_GiveSpecialMove:
+; Every NPC-traded mon arrives knowing its signature move (event-mon style;
+; see data/events/trade_special_moves.asm), latched in wMoveNum by
+; InGameTrade_LatchSpecialMove before the trade animation. The received mon
+; is the last party member at this point (AddPartyMon just appended it).
+; The move goes into the first empty move slot, or over slot 4 if the set
+; is full, with its max PP — mirroring the LearnMove write pattern.
+	ld a, [wMoveNum]
+	and a
+	ret z ; dormant rows carry no special move
+	ld e, a
+	ld a, [wPartyCount]
+	dec a
+	ld hl, wPartyMon1Moves
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	push hl
+	ld b, NUM_MOVES
+.alreadyKnowsCheck
+; future-proofing: if a learnset edit ever makes the signature move
+; natural to the received species, do not write a duplicate
+	ld a, [hli]
+	cp e
+	jr z, .alreadyKnows
+	dec b
+	jr nz, .alreadyKnowsCheck
+	pop hl
+	ld b, NUM_MOVES
+.findEmptySlot
+	ld a, [hl]
+	and a
+	jr z, .write
+	inc hl
+	dec b
+	jr nz, .findEmptySlot
+	dec hl ; four natural moves: the newest one gives way
+.write
+	ld a, e
+	ld [hl], a
+	ld bc, wPartyMon1PP - wPartyMon1Moves
+	add hl, bc
+	push hl
+	dec a
+	ld hl, Moves
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld de, wBuffer
+	ld a, BANK(Moves)
+	call FarCopyData
+	ld a, [wBuffer + 5] ; the move's max PP
+	pop hl
+	ld [hl], a
+	ret
+
+.alreadyKnows
+	pop hl
+	ret
+
+INCLUDE "data/events/trade_special_moves.asm"
 
 InGameTrade_RestoreScreen:
 	call GBPalWhiteOutWithDelay3

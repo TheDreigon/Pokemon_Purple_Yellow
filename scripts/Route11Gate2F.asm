@@ -10,7 +10,7 @@ Route11Gate2F_TextPointers:
 
 Route11Gate2FYoungsterText:
 	text_asm
-	ld a, TRADE_FOR_GURIO
+	ld a, TRADE_FOR_TREMOR
 	ld [wWhichTrade], a
 	predef DoInGameTradeDialogue
 Route11Gate2FScriptEnd:

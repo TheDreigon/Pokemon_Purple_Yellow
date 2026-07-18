@@ -13,7 +13,7 @@ CinnabarLabTradeRoomSuperNerdText:
 
 CinnabarLabTradeRoomGrampsText:
 	text_asm
-	ld a, TRADE_FOR_BUFFY
+	ld a, TRADE_FOR_BASALT
 	ld [wWhichTrade], a
 	jr CinnabarLabTradeRoomDoTrade
 
