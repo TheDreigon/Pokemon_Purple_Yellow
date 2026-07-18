@@ -354,7 +354,7 @@ FearowDexEntry:
 EkansDexEntry:
 	db "SNAKE@"
 	db 6,7
-	dw 150
+	dw 350 ; weight in 0.1 lb — v0.7 zoological fix: was 150 (6.8 kg for a 2 m snake)
 	text_far _EkansDexEntry
 	text_end
 
@@ -858,7 +858,7 @@ GengarDexEntry:
 OnixDexEntry:
 	db "ROCK SNAKE@"
 	db 28,10
-	dw 4630
+	dw 46300 ; weight in 0.1 lb — v0.7 zoological fix: was 4630 (210 kg for an 8.8 m rock serpent)
 	text_far _OnixDexEntry
 	text_end
 
@@ -998,7 +998,7 @@ TangelaDexEntry:
 KangaskhanDexEntry:
 	db "PARENT@"
 	db 7,3
-	dw 1760
+	dw 4400 ; weight in 0.1 lb — v0.7 zoological fix: was 1760 (80 kg for a 2.2 m bulk)
 	text_far _KangaskhanDexEntry
 	text_end
 
@@ -1089,7 +1089,7 @@ PinsirDexEntry:
 TaurosDexEntry:
 	db "WILD BULL@"
 	db 4,7
-	dw 1950
+	dw 11000 ; weight in 0.1 lb — v0.7 zoological fix: was 1949 (88 kg for a bull)
 	text_far _TaurosDexEntry
 	text_end
 
@@ -1103,7 +1103,7 @@ MagikarpDexEntry:
 GyaradosDexEntry:
 	db "ATROCIOUS@"
 	db 21,4
-	dw 5180
+	dw 15500 ; weight in 0.1 lb — v0.7 zoological fix: was 5180 (235 kg for a 6.5 m sea monster)
 	text_far _GyaradosDexEntry
 	text_end
 
@@ -1222,14 +1222,14 @@ MoltresDexEntry:
 DratiniDexEntry:
 	db "DRAGON@"
 	db 5,11
-	dw 70
+	dw 250 ; weight in 0.1 lb — v0.7 zoological fix: was 70 (3.2 kg)
 	text_far _DratiniDexEntry
 	text_end
 
 DragonairDexEntry:
 	db "DRAGON@"
 	db 13,1
-	dw 360
+	dw 1900 ; weight in 0.1 lb — v0.7 zoological fix: was 360 (16 kg for a 4 m serpent)
 	text_far _DragonairDexEntry
 	text_end
 
