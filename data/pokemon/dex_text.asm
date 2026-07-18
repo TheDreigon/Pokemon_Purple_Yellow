@@ -1,11 +1,11 @@
 _BulbasaurDexEntry::
 	text "It can go for days"
 	next "without eating a"
-	next "single morsel."
+	next "single bite of"
 
-	page "In the bulb on"
-	next "its back, it"
-	next "stores energy"
+	page "food. The bulb on"
+	next "its back stores"
+	next "its energy"
 	dex
 
 _IvysaurDexEntry::
@@ -69,13 +69,13 @@ _SquirtleDexEntry::
 	dex
 
 _WartortleDexEntry::
-	text "When tapped, this"
-	next "#MON will pull"
-	next "in its head, but"
+	text "A crafty fighter"
+	next "that hides in"
+	next "water to stalk"
 
-	page "its tail will"
-	next "still stick out a"
-	next "little bit"
+	page "unwary prey. Its"
+	next "furry tail is a"
+	next "mark of long life"
 	dex
 
 _BlastoiseDexEntry::
@@ -109,13 +109,13 @@ _MetapodDexEntry::
 	dex
 
 _ButterfreeDexEntry::
-	text "Its wings, covered"
-	next "with poisonous"
-	next "powders, repel"
+	text "Its wings repel"
+	next "rain, and its"
+	next "psychic power"
 
-	page "water. This"
-	next "allows it to fly"
-	next "in the rain"
+	page "repels attackers."
+	next "It finds flowers"
+	next "by mind alone"
 	dex
 
 _WeedleDexEntry::
@@ -169,13 +169,13 @@ _PidgeottoDexEntry::
 	dex
 
 _PidgeotDexEntry::
-	text "This #MON flies"
-	next "at Mach 2 speed,"
-	next "seeking prey."
+	text "Its keen eyes can"
+	next "spot a splashing"
+	next "MAGIKARP from"
 
-	page "Its large talons"
-	next "are feared as"
-	next "wicked weapons"
+	page "high in the sky."
+	next "It dives at Mach"
+	next "2 speed to strike"
 	dex
 
 _RattataDexEntry::
@@ -209,13 +209,13 @@ _SpearowDexEntry::
 	dex
 
 _FearowDexEntry::
-	text "A #MON that"
-	next "dates back many"
-	next "years. If it"
+	text "It circles high"
+	next "over its wide"
+	next "territory. Its"
 
-	page "senses danger, it"
-	next "flies high and"
-	next "away, instantly"
+	page "long, cruel beak"
+	next "plucks prey from"
+	next "soil and water"
 	dex
 
 _EkansDexEntry::
@@ -244,8 +244,8 @@ _PikachuDexEntry::
 	next "its surroundings."
 
 	page "If you yank its"
-	next "tail, it will try"
-	next "to bite you"
+	next "tail, it answers"
+	next "with high voltage"
 	dex
 
 _RaichuDexEntry::
