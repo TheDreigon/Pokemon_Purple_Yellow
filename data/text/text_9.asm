@@ -445,3 +445,267 @@ _UsedCutText::
 	text " hacked"
 	line "away with CUT!"
 	prompt
+
+_WannaTradeTremorText::
+	text "This gate rattles"
+	line "day and night!"
+
+	para "My DUGTRIO digs"
+	line "too much. Got a"
+	cont "lazy LICKITUNG?"
+	done
+
+_NoTradeTremorText::
+	text "Then the shaking"
+	line "goes on..."
+	done
+
+_WrongMonTremorText::
+	text "That's no"
+	line "LICKITUNG! My"
+	cont "floor still"
+	cont "shakes!"
+	done
+
+_ThanksTremorText::
+	text "Ahh. Peace and"
+	line "quiet at last!"
+	done
+
+_AfterTradeTremorText::
+	text "How's TREMOR?"
+	line "Still digging?"
+
+	para "My LICKITUNG"
+	line "just naps. Bliss!"
+	done
+
+_WannaTradeMilesText::
+	text "My MR.MIME"
+	line "copies all I do!"
+
+	para "I want a cutie"
+	line "instead. Your"
+	cont "CLEFAIRY for him?"
+	done
+
+_NoTradeMilesText::
+	text "MILES... stop"
+	line "copying my"
+	cont "tears."
+	done
+
+_WrongMonMilesText::
+	text "That's not a"
+	line "CLEFAIRY! MILES"
+	cont "mimics my anger!"
+	done
+
+_ThanksMilesText::
+	text "Wonderful! No"
+	line "more mirrors!"
+	done
+
+_AfterTradeMilesText::
+	text "Does MILES copy"
+	line "you too? Ha!"
+
+	para "My CLEFAIRY just"
+	line "smiles. Bliss!"
+	done
+
+_WannaTradePteraText::
+	text "I revived TWO"
+	line "ancient flyers!"
+
+	para "One's yours for"
+	line "a SCYTHER. A"
+	cont "living blade!"
+	done
+
+_NoTradePteraText::
+	text "Science waits"
+	line "for no one..."
+	done
+
+_WrongMonPteraText::
+	text "This is not a"
+	line "SCYTHER! The"
+	cont "edge is all"
+	cont "wrong!"
+	done
+
+_ThanksPteraText::
+	text "Magnificent!"
+	line "Such an edge!"
+	done
+
+_AfterTradePteraText::
+	text "Is PTERA loud?"
+	line "Prehistoric"
+	cont "lungs!"
+
+	para "My SCYTHER"
+	line "slices lovely!"
+	done
+
+_WannaTradeSporeText::
+	text "See my PARASECT?"
+	line "The mushroom"
+	cont "does the talking!"
+
+	para "Yours for a"
+	line "TANGELA?"
+	done
+
+_NoTradeSporeText::
+	text "The spores are"
+	line "disappointed..."
+	done
+
+_WrongMonSporeText::
+	text "No, no. That's"
+	line "not a TANGELA."
+	cont "No vines!"
+	done
+
+_ThanksSporeText::
+	text "The vines! They"
+	line "curl so nice!"
+	done
+
+_AfterTradeSporeText::
+	text "Water SPORE"
+	line "daily! Fungus"
+	cont "loves the damp!"
+	done
+
+_WannaTradeLolaText::
+	text "My JYNX dances"
+	line "like a dream!"
+
+	para "But that swirl!"
+	line "Your POLIWHIRL"
+	cont "for my dancer?"
+	done
+
+_NoTradeLolaText::
+	text "No encore,"
+	line "then..."
+	done
+
+_WrongMonLolaText::
+	text "That one has no"
+	line "rhythm! A"
+	cont "POLIWHIRL,"
+	cont "darling!"
+	done
+
+_ThanksLolaText::
+	text "That swirl!"
+	line "Hypnotic!"
+	done
+
+_AfterTradeLolaText::
+	text "Does LOLA still"
+	line "dance? Teach her"
+	cont "a new step!"
+	done
+
+_WannaTradeBasaltText::
+	text "My RHYDON naps"
+	line "on hot lava! I"
+
+	para "need a cool"
+	line "head. Your"
+	cont "GOLDUCK, maybe?"
+	done
+
+_NoTradeBasaltText::
+	text "The volcano"
+	line "grumbles..."
+	done
+
+_WrongMonBasaltText::
+	text "Not a GOLDUCK!"
+	line "It would boil"
+	cont "here!"
+	done
+
+_ThanksBasaltText::
+	text "So cool-headed!"
+	line "Literally!"
+	done
+
+_AfterTradeBasaltText::
+	text "BASALT fears no"
+	line "fire! A true"
+	cont "child of the"
+	cont "volcano!"
+	done
+
+_WannaTradeMobyText::
+	text "I caught the"
+	line "monster of the"
+	cont "strait... It"
+
+	para "scares me! Take"
+	line "it for a PINSIR!"
+	done
+
+_NoTradeMobyText::
+	text "Then I sleep"
+	line "with one eye"
+	cont "open..."
+	done
+
+_WrongMonMobyText::
+	text "That's no"
+	line "PINSIR! I need"
+	cont "strong pincers!"
+	done
+
+_ThanksMobyText::
+	text "Free at last!"
+	line "Mind the temper!"
+	done
+
+_AfterTradeMobyText::
+	text "MOBY obeys you?!"
+	line "Incredible!"
+
+	para "My PINSIR guards"
+	line "the door now!"
+	done
+
+_WannaTradeDuxText::
+	text "This old bird"
+	line "knows my secret"
+	cont "drills! Too keen"
+
+	para "for me now. A"
+	line "PIDGEY will do!"
+	done
+
+_NoTradeDuxText::
+	text "At ease,"
+	line "soldier..."
+	done
+
+_WrongMonDuxText::
+	text "That recruit is"
+	line "no PIDGEY!"
+	done
+
+_ThanksDuxText::
+	text "Dismissed! Treat"
+	line "DUX with honor!"
+	done
+
+_AfterTradeDuxText::
+	text "DUX showed you"
+	line "the drill?! Ha!"
+
+	para "My PIDGEY just"
+	line "coos. Restful!"
+	done
