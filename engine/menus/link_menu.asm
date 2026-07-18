@@ -360,23 +360,27 @@ PetitCup::
 	ld a, [hli]
 	cp "@"
 	jr nz, .loop2
+; v0.7 metric dex: dex entry height bytes are now (meters, decimeters) and
+; weight is tenths of KILOGRAMS. Petit Cup limits translated faithfully:
+; vanilla <= 80 inches (6'8") -> <= 2.0 m; vanilla <= 44.0 lb -> <= 20.0 kg.
 	ld a, [hli]
-	cp $7
+	cp 3 ; 3 m or taller can never fit
 	jp nc, asm_f5689
-	add a
-	add a
 	ld b, a
 	add a
+	add a
+	add a
 	add b
+	add b ; a = meters * 10
 	ld b, a
 	ld a, [hli]
-	add b
-	cp $51
+	add b ; a = total height in decimeters
+	cp 21 ; taller than 2.0 m -> rejected
 	jp nc, asm_f5689
 	ld a, [hli]
-	sub $b9
+	sub LOW(201) ; heavier than 20.0 kg (201+ tenths) -> rejected
 	ld a, [hl]
-	sbc $1
+	sbc HIGH(201)
 	jp nc, asm_f569b
 	pop af
 	pop bc
@@ -556,7 +560,7 @@ Text_f5728::
 Text_f575b::
 	db "3 Basic <PKMN>.LV25-30"
 	next "Sum of LVs:80 MAX"
-	next "6’8” and 44lb MAX@"
+	next "2.0m and 20kg MAX@" ; v0.7 metric dex
 
 Text_f5791::
 	db "View"
