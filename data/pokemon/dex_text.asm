@@ -319,63 +319,63 @@ _NidoranMDexEntry::
 	dex
 
 _NidorinoDexEntry::
-	text "Its horns contain"
-	next "venom. If they"
-	next "are stabbed into"
+	text "Its horn contains"
+	next "venom. If it is"
+	next "stabbed into an"
 
-	page "an enemy, the"
-	next "impact makes the"
-	next "poison leak out"
+	page "enemy, the impact"
+	next "makes the poison"
+	next "leak out"
 	dex
 
 _NidokingDexEntry::
-	text "Its steel-like"
+	text "Its rock-hard"
 	next "hide adds to its"
 	next "powerful tackle."
 
-	page "Its horns are so"
-	next "hard, they can"
-	next "pierce a diamond"
+	page "Its thick horn"
+	next "gores foes and"
+	next "injects venom"
 	dex
 
 _ClefairyDexEntry::
-	text "Adored for their"
-	next "cute looks and"
-	next "playfulness. They"
+	text "A shy moon fairy."
+	next "On nights of the"
+	next "full moon, bands"
 
-	page "are thought to be"
-	next "rare, as they do"
-	next "not appear often"
+	page "come out of the"
+	next "mountains to sing"
+	next "and dance"
 	dex
 
 _ClefableDexEntry::
-	text "They appear to be"
-	next "very protective of"
-	next "their own world."
+	text "A timid fairy."
+	next "Its keen ears can"
+	next "hear a pin drop"
 
-	page "It is a kind of"
-	next "fairy, rarely seen"
-	next "by people"
+	page "from nearly 1km"
+	next "away, so it flees"
+	next "from footsteps"
 	dex
 
 _VulpixDexEntry::
 	text "Both its fur and"
-	next "its tails are"
-	next "beautiful. As it"
+	next "tails are pretty."
+	next "As it grows, its"
 
-	page "grows, the tails"
-	next "split and form"
-	next "more tails"
+	page "tails split, each"
+	next "one holding a"
+	next "bewitching flame"
 	dex
 
 _NinetalesDexEntry::
-	text "According to an"
-	next "enduring legend,"
-	next "9 noble saints"
+	text "Very smart and"
+	next "very vengeful."
+	next "Grabbing one of"
 
-	page "were united and"
-	next "reincarnated as"
-	next "this #MON"
+	page "its 9 tails may"
+	next "bring a curse of"
+	next "1,000 years"
 	dex
 
 _JigglypuffDexEntry::
@@ -389,13 +389,13 @@ _JigglypuffDexEntry::
 	dex
 
 _WigglytuffDexEntry::
-	text "Its body is full"
-	next "of elasticity. By"
-	next "inhaling deeply,"
+	text "Its body swells"
+	next "like a balloon as"
+	next "it sings. The"
 
-	page "it can continue"
-	next "to inflate itself"
-	next "without limit"
+	page "soft, fairy-like"
+	next "voice charms all"
+	next "who hear it"
 	dex
 
 _ZubatDexEntry::
@@ -439,13 +439,13 @@ _GloomDexEntry::
 	dex
 
 _VileplumeDexEntry::
-	text "Flaps its broad"
-	next "flower petals to"
-	next "scatter its"
+	text "A huge, reeking"
+	next "bloom that lurks"
+	next "in dark caves."
 
-	page "poisonous pollen."
-	next "The flapping sound"
-	next "is very loud"
+	page "Each flap of its"
+	next "petals scatters"
+	next "clouds of spores"
 	dex
 
 _ParasDexEntry::
@@ -514,18 +514,18 @@ _MeowthDexEntry::
 	next "It loves round"
 
 	page "and shiny things."
-	next "It can't stop from"
+	next "It can't resist"
 	next "picking them up"
 	dex
 
 _PersianDexEntry::
 	text "The gem in its"
-	next "forehead glows on"
-	next "its own! It walks"
+	next "forehead glows as"
+	next "it stalks. Behind"
 
-	page "with all the grace"
-	next "and elegance of a"
-	next "proud queen"
+	page "its kingly grace"
+	next "hides a cruel and"
+	next "fickle temper"
 	dex
 
 _PsyduckDexEntry::
@@ -539,13 +539,13 @@ _PsyduckDexEntry::
 	dex
 
 _GolduckDexEntry::
-	text "Its slim and long"
-	next "limbs end in broad"
-	next "flippers. They"
+	text "Unlike PSYDUCK,"
+	next "it has mastered"
+	next "its psychic power."
 
-	page "are used for swim-"
-	next "ming gracefully"
-	next "in lakes"
+	page "Its forehead gem"
+	next "glows when the"
+	next "power surges"
 	dex
 
 _MankeyDexEntry::
