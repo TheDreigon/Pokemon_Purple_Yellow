@@ -649,13 +649,13 @@ _AlakazamDexEntry::
 	dex
 
 _MachopDexEntry::
-	text "Very powerful in"
-	next "spite of its small"
-	next "size. Its mastery"
+	text "Small but very"
+	next "strong. It grows"
+	next "tough by hauling"
 
-	page "of many types of"
-	next "martial arts makes"
-	next "it very tough"
+	page "rock through mine"
+	next "tunnels without"
+	next "ever tiring"
 	dex
 
 _MachokeDexEntry::
@@ -670,11 +670,11 @@ _MachokeDexEntry::
 
 _MachampDexEntry::
 	text "One arm alone can"
-	next "move mountains."
-	next "Using all four"
+	next "hurl a boulder."
+	next "Using all four,"
 
-	page "arms, this #MON"
-	next "fires off awesome"
+	page "it fires off a"
+	next "blinding storm of"
 	next "punches"
 	dex
 
@@ -730,8 +730,8 @@ _TentacruelDexEntry::
 
 _GeodudeDexEntry::
 	text "Commonly found"
-	next "near mountain"
-	next "trails, etc."
+	next "in fields and on"
+	next "mountain trails."
 
 	page "If you step on"
 	next "one by accident,"
@@ -779,13 +779,13 @@ _RapidashDexEntry::
 	dex
 
 _SlowpokeDexEntry::
-	text "Incredibly slow"
-	next "and sluggish. It"
-	next "is quite content"
+	text "It fishes by"
+	next "dangling its tail"
+	next "in the water. Too"
 
-	page "to loll about"
-	next "without worrying"
-	next "about the time"
+	page "dozy to notice a"
+	next "bite, it can loll"
+	next "about all day"
 	dex
 
 _SlowbroDexEntry::
@@ -819,13 +819,13 @@ _MagnetonDexEntry::
 	dex
 
 _FarfetchdDexEntry::
-	text "Lives where reedy"
-	next "plants grow. They"
-	next "are rarely seen,"
+	text "A duck that duels"
+	next "with the leek"
+	next "stalk it always"
 
-	page "so it's thought"
-	next "their numbers are"
-	next "decreasing"
+	page "carries. It cuts"
+	next "down any rival in"
+	next "the reeds"
 	dex
 
 _DoduoDexEntry::
@@ -835,7 +835,7 @@ _DoduoDexEntry::
 
 	page "this #MON runs"
 	next "at high speed on"
-	next "developed legs"
+	next "powerful legs"
 	dex
 
 _DodrioDexEntry::
@@ -860,7 +860,7 @@ _SeelDexEntry::
 
 _DewgongDexEntry::
 	text "Its entire body is"
-	next "a snowy-white."
+	next "a snowy white."
 	next "Unharmed by even"
 
 	page "intense cold, it"
@@ -869,29 +869,29 @@ _DewgongDexEntry::
 	dex
 
 _GrimerDexEntry::
-	text "Made of hardened"
-	next "sludge. It smells"
-	next "too putrid to"
+	text "A living ooze of"
+	next "filth, born in"
+	next "polluted water."
 
-	page "touch."
-	next "Even weeds won't"
-	next "grow in its path"
+	page "Weeds will never"
+	next "grow again where"
+	next "it has slithered"
 	dex
 
 _MukDexEntry::
-	text "Smells so awful,"
-	next "it can cause"
-	next "fainting. Through"
+	text "Its stench alone"
+	next "can cause"
+	next "fainting. A single"
 
-	page "degeneration, it"
-	next "lost its sense of"
-	next "smell"
+	page "drop of its fluid"
+	next "sludge can foul a"
+	next "whole pond"
 	dex
 
 _ShellderDexEntry::
 	text "The shell can"
-	next "withstand any"
-	next "attack. However,"
+	next "shrug off most"
+	next "attacks. However,"
 
 	page "when it is open,"
 	next "the tender body"
