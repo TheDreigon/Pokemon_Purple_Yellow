@@ -33,8 +33,8 @@ DEF SLOTS_SOMEONESKEYS EQU $ff
 	const TRADE_FOR_SPIKE
 	const TRADE_FOR_LOLA
 	const TRADE_FOR_BUFFY
-	const TRADE_FOR_CEZANNE
-	const TRADE_FOR_RICKY
+	const TRADE_FOR_MOBY
+	const TRADE_FOR_DUX
 DEF NUM_NPC_TRADES EQU const_value
 
 ; in game trade dialog sets

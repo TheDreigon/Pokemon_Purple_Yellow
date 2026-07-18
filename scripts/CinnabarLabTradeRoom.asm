@@ -19,7 +19,7 @@ CinnabarLabTradeRoomGrampsText:
 
 CinnabarLabTradeRoomBeautyText:
 	text_asm
-	ld a, TRADE_FOR_CEZANNE
+	ld a, TRADE_FOR_MOBY
 	ld [wWhichTrade], a
 CinnabarLabTradeRoomDoTrade:
 	predef DoInGameTradeDialogue
