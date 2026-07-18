@@ -1085,7 +1085,8 @@ _KoffingDexEntry::
 
 	page "explode without"
 	next "any warning. Be"
-	next "very careful!@@"
+	next "very careful!"
+	dex
 
 _WeezingDexEntry::
 	text "It lives and grows"
