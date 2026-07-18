@@ -525,8 +525,9 @@ ShowPokedexDataInternal:
 	ret
 
 HeightWeightText:
-	db   "HT  ?′??″"
-	next "WT   ???lb@"
+; v0.7 metric dex: height shown as M.D m, weight as ???.? kg
+	db   "HT   ?<DOT>?m"
+	next "WT   ???kg@"
 
 ; XXX does anything point to this?
 PokeText:
@@ -640,21 +641,19 @@ DrawDexEntryOnScreen:
 	and a
 	ret z ; if the pokemon has not been owned, don't print the height, weight, or description
 
-	inc de ; de = address of feet (height)
-	ld a, [de] ; reads feet, but a is overwritten without being used
-	hlcoord 12, 6
-	lb bc, 1, 2
-	call PrintNumber ; print feet (height)
-	ld a, "′"
-	ld [hl], a
+; v0.7 metric dex: the two height bytes now store meters, decimeters
+; (same layout the ft/in code used — flow unchanged, only coords/digits)
+	inc de ; de = address of meters (height)
+	ld a, [de] ; reads meters, but a is overwritten without being used
+	hlcoord 14, 6
+	lb bc, 1, 1
+	call PrintNumber ; print whole meters (the template supplies the dot)
 	inc de
-	inc de ; de = address of inches (height)
-	hlcoord 15, 6
-	lb bc, LEADING_ZEROES | 1, 2
-	call PrintNumber ; print inches (height)
-	ld a, "″"
-	ld [hl], a
-; now print the weight (note that weight is stored in tenths of pounds internally)
+	inc de ; de = address of decimeters (height)
+	hlcoord 16, 6
+	lb bc, 1, 1
+	call PrintNumber ; print decimeters (the template supplies the "m")
+; now print the weight (stored in tenths of KILOGRAMS since v0.7)
 	inc de
 	inc de
 	inc de ; de = address of upper byte of weight
