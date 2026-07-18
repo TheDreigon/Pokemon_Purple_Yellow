@@ -2,11 +2,11 @@ Route21WildMons:
 	def_grass_wildmons 25 ; encounter rate
 	db 23, TANGELA
 	db 22, PIDGEY
-	db 27, MR_MIME
+	db 27, KRABBY
 	db 24, RATTATA
 	db 26, PIDGEOTTO
 	db 26, RATICATE
-	db 27, KRABBY
+	db 27, MR_MIME
 	db 29, PIDGEOTTO
 	db 31, TANGELA
 	db 35, PIDGEOT
