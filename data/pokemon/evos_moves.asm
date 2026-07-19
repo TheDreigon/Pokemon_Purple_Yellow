@@ -699,7 +699,8 @@ EkansEvosMoves:
 ; strangle), BIDE (coil-and-counter), SUBSTITUTE (snake shed-skin), AGILITY
 ; (fast strike), FAINT_ATTACK (Dark sneaky), SHADOW_SNEAK (Ghost — snake
 ; hides in shadow), NEUROTOXIN (snake venom), EXTREMESPEED (peak strike).
-; No GUNK_SHOT / SLUDGE_WAVE (Muk/Weezing only). No SCREECH (snakes hiss).
+; No GUNK_SHOT / SLUDGE_WAVE (shared late poison capstone; snakes cap
+; with NEUROTOXIN instead). No SCREECH (snakes hiss).
 	db  3, WRAP
 	db  6, BITE
 	db  9, BIDE
@@ -1958,8 +1959,9 @@ TentacoolEvosMoves:
 	db EVOLVE_LEVEL, 30, TENTACRUEL
 	db 0
 ; Learnset
-; Jellyfish Water/Poison. SLUDGE_WAVE is the line signature (on
-; Tentacruel). NEUROTOXIN is the Tentacruel-line signature. No
+; Jellyfish Water/Poison. SLUDGE_WAVE = shared late poison capstone
+; (Tentacruel gets it earliest, L43). NEUROTOXIN: this line owns the
+; EARLY access (L15, paralytic sting); others learn it L50+. No
 ; POISON_BITE (a jellyfish has no fangs).
 	db  6, HINDER
 	db  9, WRAP
@@ -2357,7 +2359,8 @@ GrimerEvosMoves:
 	db EVOLVE_LEVEL, 31, MUK
 	db 0
 ; Learnset
-; Pure sludge blob Poison/Water. SLUDGE_WAVE = Grimer-line signature.
+; Pure sludge blob Poison/Water. SLUDGE_WAVE = shared late poison
+; capstone (5 lines). SLUDGE itself = the true Muk signature.
 ; RECOVER (sludge re-forms). NO bite/fang moves — sludge anatomy has
 ; no fangs.
 	db  6, ASTONISH
@@ -2918,8 +2921,8 @@ LickitungEvosMoves:
 	db 0
 ; Learnset
 ; Normal/Poison tongue reptile. LICK signature; egg = LICK/TAIL_WHIP.
-; GROUND_STOMP early; SLUDGE_WAVE L61, TOXIC L65, NEUROTOXIN capstone
-; (L69) — late venom-capstone pattern (cf. Nidorina/Nidoqueen L55,
+; GROUND_STOMP early; SLUDGE_WAVE L59, TOXIC L62, NEUROTOXIN capstone
+; (L65) — late venom-capstone pattern (cf. Nidorina/Nidoqueen L55,
 ; Ekans/Arbok L60); the dex's "toxin-laced licks numb prey".
 	db  4, DEFENSE_CURL
 	db  7, SCREECH
@@ -2937,10 +2940,10 @@ LickitungEvosMoves:
 	db 45, BODY_SLAM
 	db 49, SEISMIC_TOSS
 	db 53, DOUBLE_EDGE
-	db 57, BRUTAL_SWING
-	db 61, SLUDGE_WAVE
-	db 65, TOXIC
-	db 69, NEUROTOXIN
+	db 56, BRUTAL_SWING
+	db 59, SLUDGE_WAVE
+	db 62, TOXIC
+	db 65, NEUROTOXIN
 	db 0
 
 KoffingEvosMoves:
