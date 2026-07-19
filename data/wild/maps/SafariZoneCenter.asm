@@ -9,7 +9,7 @@ SafariZoneCenterWildMons:
 	db 36, EXEGGUTOR
 	db 34, LICKITUNG
 	db 38, VICTREEBEL
-	db 38, NIDOKING
+	db 15, BULBASAUR
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

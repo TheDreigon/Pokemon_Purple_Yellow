@@ -9,7 +9,7 @@ SafariZoneWestWildMons:
 	db 36, DODRIO
 	db 36, FEAROW
 	db 36, PIDGEOT
-	db 38, VICTREEBEL
+	db 15, EEVEE
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

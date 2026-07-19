@@ -6,10 +6,10 @@ Route5WildMons:
 	db 16, FARFETCHD
 	db 16, MEOWTH
 	db 13, ABRA
-	db 17, MEOWTH
+	db 16, MR_MIME
 	db 16, RATTATA
 	db 17, CHANSEY
-	db 17, EEVEE
+	db 19, CHANSEY
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

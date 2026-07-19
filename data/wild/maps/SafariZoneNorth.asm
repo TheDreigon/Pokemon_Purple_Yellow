@@ -9,7 +9,7 @@ SafariZoneNorthWildMons:
 	db 38, MAROWAK
 	db 33, RATICATE
 	db 35, NIDOQUEEN
-	db 40, KANGASKHAN
+	db 15, SQUIRTLE
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
