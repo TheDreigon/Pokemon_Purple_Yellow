@@ -2918,7 +2918,9 @@ LickitungEvosMoves:
 	db 0
 ; Learnset
 ; Normal/Poison tongue reptile. LICK signature; egg = LICK/TAIL_WHIP.
-; GROUND_STOMP early; SLUDGE_WAVE penultimate, TOXIC last (L65).
+; GROUND_STOMP early; SLUDGE_WAVE L61, TOXIC L65, NEUROTOXIN capstone
+; (L69) — late venom-capstone pattern (cf. Nidorina/Nidoqueen L55,
+; Ekans/Arbok L60); the dex's "toxin-laced licks numb prey".
 	db  4, DEFENSE_CURL
 	db  7, SCREECH
 	db 10, HINDER
@@ -2938,6 +2940,7 @@ LickitungEvosMoves:
 	db 57, BRUTAL_SWING
 	db 61, SLUDGE_WAVE
 	db 65, TOXIC
+	db 69, NEUROTOXIN
 	db 0
 
 KoffingEvosMoves:
