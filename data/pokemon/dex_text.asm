@@ -899,13 +899,13 @@ _ShellderDexEntry::
 	dex
 
 _CloysterDexEntry::
-	text "For protection, it"
-	next "uses its harder-"
-	next "than-diamonds"
+	text "Its thick shell"
+	next "clamps shut on"
+	next "any attacker. It"
 
-	page "shell. It also"
-	next "shoots spikes from"
-	next "the shell"
+	page "can also fire off"
+	next "the spikes ringing"
+	next "its shell"
 	dex
 
 _GastlyDexEntry::
@@ -980,32 +980,32 @@ _KrabbyDexEntry::
 
 _KinglerDexEntry::
 	text "One claw grew"
-	next "massively and as"
-	next "hard as steel."
+	next "huge and heavy."
+	next "Its crushing grip"
 
-	page "It has 10,000-HP"
-	next "strength. However,"
-	next "it is too heavy"
+	page "is immense, but"
+	next "the weight makes"
+	next "it slow to swing"
 	dex
 
 _VoltorbDexEntry::
 	text "It is said to"
 	next "camouflage itself"
-	next "as a # BALL. It"
+	next "as a # BALL."
 
-	page "will self-destruct"
-	next "with very little"
-	next "stimulus"
+	page "Its steel shell"
+	next "explodes at the"
+	next "slightest shock"
 	dex
 
 _ElectrodeDexEntry::
 	text "Stores electrical"
 	next "energy inside its"
-	next "body. Even the"
+	next "armored steel"
 
-	page "slightest shock"
-	next "could trigger a"
-	next "huge explosion"
+	page "shell. The"
+	next "slightest shock"
+	next "may set it off"
 	dex
 
 _ExeggcuteDexEntry::
@@ -1039,23 +1039,23 @@ _CuboneDexEntry::
 	dex
 
 _MarowakDexEntry::
-	text "Small and weak,"
-	next "this #MON is"
-	next "adept with its"
+	text "A CUBONE that"
+	next "overcame its"
+	next "grief. It wields"
 
-	page "bone club. It has"
-	next "grown more vicious"
-	next "over the ages"
+	page "its bone club"
+	next "with merciless,"
+	next "hardened skill"
 	dex
 
 _HitmonleeDexEntry::
-	text "When kicking, the"
-	next "sole of its foot"
-	next "turns as hard as"
+	text "Its springy legs"
+	next "extend to kick"
+	next "foes from afar."
 
-	page "a diamond on im-"
-	next "pact and destroys"
-	next "its enemy"
+	page "After a battle, it"
+	next "rubs down its"
+	next "tired legs"
 	dex
 
 _HitmonchanDexEntry::
@@ -1074,8 +1074,8 @@ _LickitungDexEntry::
 	next "moves more freely"
 
 	page "than its forelegs."
-	next "Its licks can"
-	next "cause paralysis"
+	next "Its toxin-laced"
+	next "licks numb prey"
 	dex
 
 _KoffingDexEntry::
@@ -1101,7 +1101,7 @@ _WeezingDexEntry::
 _RhyhornDexEntry::
 	text "A #MON with a"
 	next "one-track mind."
-	next "Once it charges, "
+	next "Once it charges,"
 
 	page "it won't stop"
 	next "running until it"
@@ -1119,9 +1119,9 @@ _RhydonDexEntry::
 	dex
 
 _ChanseyDexEntry::
-	text "A gentle and kind-"
-	next "hearted #MON"
-	next "that shares its"
+	text "Gentle and kind-"
+	next "hearted. It"
+	next "shares its"
 
 	page "nutritious eggs"
 	next "if it sees an"
@@ -1129,13 +1129,13 @@ _ChanseyDexEntry::
 	dex
 
 _TangelaDexEntry::
-	text "Its identity is"
-	next "obscured by masses"
-	next "of thick, blue"
+	text "Masses of damp"
+	next "blue vines hide"
+	next "its identity."
 
-	page "vines. The vines"
-	next "are said to never"
-	next "stop growing"
+	page "Like kelp, its"
+	next "vines never stop"
+	next "growing"
 	dex
 
 _KangaskhanDexEntry::
@@ -1170,10 +1170,10 @@ _SeadraDexEntry::
 
 _GoldeenDexEntry::
 	text "When it is time"
-	next "for them to lay"
-	next "eggs, they can be"
+	next "to lay eggs, it"
+	next "can be seen"
 
-	page "seen swimming up"
+	page "swimming up"
 	next "rivers and falls"
 	next "in large groups"
 	dex
@@ -1189,8 +1189,8 @@ _SeakingDexEntry::
 	dex
 
 _StaryuDexEntry::
-	text "As long as the"
-	next "center section is"
+	text "As long as its"
+	next "glowing core is"
 	next "unharmed, it can"
 
 	page "grow back fully"
