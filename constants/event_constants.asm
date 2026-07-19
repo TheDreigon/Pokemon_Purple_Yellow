@@ -821,6 +821,10 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_BEAT_ARTICUNO
 	const EVENT_BEAT_WEEBRA
 
+; Bill's Eevee quest (v0.7)
+	const EVENT_GOT_BILL_EEVEE
+	const EVENT_GOT_BILL_EEVEELUTION_STONE
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value

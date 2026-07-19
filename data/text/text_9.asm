@@ -709,3 +709,129 @@ _AfterTradeDuxText::
 	para "My PIDGEY just"
 	line "coos. Restful!"
 	done
+
+; --- Bill's Eevee quest (v0.7) ---
+
+_BillsHouseBillHeyWaitUpText::
+	text "BILL: Hey, wait"
+	line "up! I almost"
+	cont "forgot something!"
+
+	para "This is one of"
+	line "the EEVEEs that"
+	cont "have been keeping"
+	cont "me company."
+
+	para "I want you to"
+	line "have it as thanks"
+	cont "for saving me."
+	prompt
+
+_BillsHouseBillEeveeHookText::
+	text "Oh, one more"
+	line "thing! After you"
+	cont "beat MISTY at the"
+	cont "CERULEAN GYM,"
+	cont "come see me with"
+	cont "that EEVEE."
+
+	para "I'll have a"
+	line "present for you!"
+	done
+
+_BillsHouseBillNoRoomForEeveeText::
+	text "Whoa, you have no"
+	line "room for it!"
+
+	para "Make some space"
+	line "and come see me,"
+	cont "OK?"
+	done
+
+_BillsHouseBillGoBeatMistyText::
+	text "How's that EEVEE"
+	line "doing?"
+
+	para "Go challenge"
+	line "MISTY at the"
+	cont "CERULEAN GYM!"
+
+	para "Come back when"
+	line "you win!"
+	done
+
+_BillsHouseBillWheresEeveeText::
+	text "Hey, where's"
+	line "EEVEE? Go get it"
+	cont "and come right"
+	cont "back!"
+	done
+
+_BillsHouseBillYouBeatMistyText::
+	text "You beat MISTY!"
+	line "Nice going!"
+	prompt
+
+_BillsHouseBillWhichEvolutionText::
+	text "So tell me! Which"
+	line "of EEVEE's"
+	cont "evolutions is"
+	cont "your favorite?"
+	done
+
+_BillsHouseBillVaporeonText::
+	text "Ah, VAPOREON!"
+	line "Cells just like"
+	cont "water molecules!"
+
+	para "It melts clean"
+	line "out of sight!"
+	prompt
+
+_BillsHouseBillJolteonText::
+	text "JOLTEON! Every"
+	line "mood swing"
+	cont "charges it up!"
+
+	para "Shocking choice!"
+	prompt
+
+_BillsHouseBillFlareonText::
+	text "FLAREON! A flame"
+	line "chamber at 1,600"
+	cont "degrees! Toasty!"
+	prompt
+
+_BillsHouseWaterStoneReceivedText::
+	text "<PLAYER> received"
+	line "a WATER STONE!@"
+
+_BillsHouseThunderStoneReceivedText::
+	text "<PLAYER> received"
+	line "a THUNDERSTONE!@"
+
+_BillsHouseFireStoneReceivedText::
+	text "<PLAYER> received"
+	line "a FIRE STONE!@"
+
+_BillsHouseBillTakeYourTimeText::
+	text "No rush! Take"
+	line "your time to"
+	cont "think it over!"
+	done
+
+_BillsHouseBillStoneNoRoomText::
+	text "Your bag is full!"
+	line "Come back for it,"
+	cont "OK?"
+	done
+
+_BillsHouseBillHowsTheTeamText::
+	text "How's the team"
+	line "doing? I hope my"
+	cont "PC system is"
+	cont "serving you well."
+
+	para "I should get back"
+	line "to my research!"
+	done
