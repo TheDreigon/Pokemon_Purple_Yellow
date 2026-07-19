@@ -1179,7 +1179,8 @@ ZubatEvosMoves:
 	db 0
 ; Learnset
 ; Vampire bat. Drain progression BITE -> ABSORB -> LEECH_LIFE.
-; WING_ATTACK at L21 (evo level). No SLUDGE (Muk signature). HURRICANE
+; WING_ATTACK at L21 (evo level). No SLUDGE (sludge-bodied/digestive
+; lines only — a bat is neither). HURRICANE
 ; is TM only, not levelup.
 	db  7, QUICK_ATTACK
 	db 11, ABSORB
@@ -2360,7 +2361,9 @@ GrimerEvosMoves:
 	db 0
 ; Learnset
 ; Pure sludge blob Poison/Water. SLUDGE_WAVE = shared late poison
-; capstone (5 lines). SLUDGE itself = the true Muk signature.
+; capstone (5 lines); SLUDGE = shared mid-level poison staple (7
+; lines). The sludge-apex near-exclusive is GUNK_SHOT (Muk L57 +
+; Weezing L62 only).
 ; RECOVER (sludge re-forms). NO bite/fang moves — sludge anatomy has
 ; no fangs.
 	db  6, ASTONISH
