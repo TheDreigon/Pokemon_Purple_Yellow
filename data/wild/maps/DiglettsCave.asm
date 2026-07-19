@@ -7,9 +7,9 @@ DiglettsCaveWildMons:
 	db 15, SANDSHREW
 	db 16, GEODUDE
 	db 21, DIGLETT
-	db 22, DIGLETT
 	db 20, MACHOP
 	db 33, DUGTRIO
+	db 24, ONIX
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
