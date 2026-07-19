@@ -245,6 +245,9 @@ BillsHouseGiveEevee::
 	call PrintText
 	ret
 .no_room
+; let the engine's box-full line be read before Bill's own (same
+; pacing class as the sent-to-box wait above)
+	call WaitForTextScrollButtonPress
 	ld hl, .NoRoomText
 	call PrintText
 	ret
