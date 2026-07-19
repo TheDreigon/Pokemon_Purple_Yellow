@@ -1229,13 +1229,13 @@ _ScytherDexEntry::
 	dex
 
 _JynxDexEntry::
-	text "Appears to move"
-	next "to a rhythm of"
-	next "its own, as if it"
+	text "It sways and"
+	next "dances to an"
+	next "eerie song only"
 
-	page "were dancing. It"
-	next "wiggles its hips"
-	next "as it walks"
+	page "it can hear. Its"
+	next "feet never quite"
+	next "touch the ground"
 	dex
 
 _ElectabuzzDexEntry::
@@ -1269,13 +1269,13 @@ _PinsirDexEntry::
 	dex
 
 _TaurosDexEntry::
-	text "A rowdy #MON"
-	next "with a lot of"
-	next "stamina. Once"
+	text "It whips itself"
+	next "into a rage with"
+	next "its three tails,"
 
-	page "running, it won't"
-	next "stop until it hits"
-	next "something"
+	page "then charges."
+	next "Nothing alive can"
+	next "stop its rampage"
 	dex
 
 _MagikarpDexEntry::
@@ -1309,13 +1309,13 @@ _LaprasDexEntry::
 	dex
 
 _DittoDexEntry::
-	text "When it spots an"
-	next "enemy, its body"
-	next "transfigures into"
+	text "It transforms"
+	next "into an almost"
+	next "perfect copy of"
 
-	page "an almost perfect"
-	next "copy of its oppo-"
-	next "nent"
+	page "its foe. Oddly,"
+	next "its cry resembles"
+	next "MEW's"
 	dex
 
 _EeveeDexEntry::
@@ -1324,8 +1324,8 @@ _EeveeDexEntry::
 	next "could evolve in"
 
 	page "a variety of ways."
-	next "There are only a"
-	next "few alive"
+	next "It adapts to its"
+	next "surroundings"
 	dex
 
 _VaporeonDexEntry::
@@ -1339,13 +1339,13 @@ _VaporeonDexEntry::
 	dex
 
 _JolteonDexEntry::
-	text "A sensitive #-"
-	next "MON that easily"
-	next "becomes sad or"
+	text "A sensitive"
+	next "#MON that"
+	next "easily becomes"
 
-	page "angry. Every time"
-	next "its mood changes,"
-	next "it charges power"
+	page "sad or angry."
+	next "Every mood change"
+	next "charges its power"
 	dex
 
 _FlareonDexEntry::
@@ -1359,13 +1359,13 @@ _FlareonDexEntry::
 	dex
 
 _PorygonDexEntry::
-	text "The only #MON"
-	next "people anticipate"
-	next "can fly into"
+	text "A man-made #MON"
+	next "built from"
+	next "program code. It"
 
-	page "space. None has"
-	next "managed the feat"
-	next "yet, however"
+	page "is expected to"
+	next "fly into space"
+	next "one day"
 	dex
 
 _OmanyteDexEntry::
