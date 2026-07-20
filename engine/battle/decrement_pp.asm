@@ -49,7 +49,7 @@ DecrementPP:
 ; Combined with the PP-aware selection in SelectEnemyMove (also v0.7),
 ; bosses run out of PP in long fights and end up using Struggle — same
 ; rules as the player.
-; NORMAL MODE ONLY (Forte, 2026-07-13): hard mode keeps the vanilla
+; NORMAL MODE ONLY: hard mode keeps the vanilla
 ; infinite enemy PP as a difficulty knob — it kills the drain-the-boss-
 ; into-Struggle stall (see the gate at the top of the routine).
 ;

@@ -106,13 +106,13 @@ PikachuMoods:
 	; Increase
 	db $8a           ; Gained a level
 	db $83           ; HP restore
-	db $80           ; Teach TM/HM
+	db $80 ; db $80           ; Used X item
 	db $80           ; Challenged Gym Leader
-	db $94           ; Unknown (d = 5)
-	db $80           ; Unknown (d = 6)
+	db $94 ; db $94           ; Teach TM/HM
+	db $80 ; db $80           ; Walking around
 	; Decrease
 	db $62           ; Deposited
 	db $6c           ; Fainted
-	db $62           ; Unknown (d = 9)
-	db $6c           ; Unknown (d = 10)
-	db $00           ; Unknown (d = 11)
+	db $62 ; db $62           ; Fainted due to Poison outside of battle
+	db $6c ; db $6c           ; Fainted to opponent at least 30 levels higher
+	db $00 ; db $00           ; Traded away

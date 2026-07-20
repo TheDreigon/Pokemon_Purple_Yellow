@@ -66,7 +66,7 @@ DoInGameTradeDialogue:
 	ld l, a
 	jp PrintText
 
-; copies name of species a to hl
+; copies the name of species a to de
 InGameTrade_GetMonName:
 	push de
 	ld [wd11e], a

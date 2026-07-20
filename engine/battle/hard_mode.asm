@@ -2,8 +2,8 @@
 ;
 ; In v0.7 a series of "boss trainer" buffs are gated on (wDifficulty ==
 ; HARD_MODE) AND (current trainer is a boss). Each individual knob is
-; implemented next to its existing logic (CriticalHitTest, EXP calc,
-; trainer party load, AI move choice, accuracy roll, etc.) — this file
+; implemented next to its existing logic (CriticalHitTest, trainer party
+; load, AI move choice, accuracy roll, etc.) — this file
 ; only provides the shared definition of "boss" and the two helpers
 ; everyone calls.
 ;
@@ -17,9 +17,9 @@
 ; and all rival fights regardless of starter (same RIVALn class).
 ; 20 classes total.
 ;
-; Routines live in bank $0F (Battle Core) so most callers (CriticalHit
-; Test, MoveHitTest, ExperienceCalc, LoadEnemyMon) can near-call. The
-; trainer_ai.asm caller in bank $0E uses farcall.
+; Routines live in bank $0F (Battle Core) so the core.asm callers
+; (CriticalHitTest, MoveHitTest, LoadEnemyMon) can near-call;
+; trainer_ai.asm (bank $0E) and read_trainer_party.asm use farcall.
 
 ; Returns Z=0 (boss) / Z=1 (not a boss).
 ; Input:  a = trainer class ID (1..NUM_TRAINERS)

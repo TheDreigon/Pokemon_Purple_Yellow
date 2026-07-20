@@ -47,13 +47,7 @@ GymTrashScript:
 	cp b
 	jr z, .openSecondLock
 
-; ; Reset the cans.
-; 	ResetEvent EVENT_1ST_LOCK_OPENED
-; 	call Random
-
-; 	and $e
-; 	ld [wFirstLockTrashCanIndex], a
-
+; Legacy change: a wrong second can no longer resets the first lock (vanilla re-randomized wFirstLockTrashCanIndex here, restarting the puzzle).
 	tx_pre_id VermilionGymTrashFailText
 	jr .done
 
@@ -74,7 +68,7 @@ GymTrashCans:
 ; Note that the mask is simply the number of valid trash can indices that
 ; follow. The remaining bytes are filled with -1 to pad the length of each entry
 ; to 5 bytes.
-; This is functionally replaced with GymTrashCans3a but was never removed from source.
+; This is functionally replaced with GymTrashCans3c (vermilion_gym_trash2.asm) but was never removed from source.
 
 	db 2,  1,  3, -1, -1 ; 0
 	db 3,  0,  2,  4, -1 ; 1

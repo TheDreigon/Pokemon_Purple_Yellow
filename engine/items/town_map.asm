@@ -89,7 +89,7 @@ DisplayTownMap:
 .pressedUp
 	ld a, [wWhichTownMapLocation]
 	inc a
-	cp TownMapOrderEnd - TownMapOrder ; number of list items + 1
+	cp TownMapOrderEnd - TownMapOrder ; number of list items
 	jr nz, .noOverflow
 	xor a
 .noOverflow
@@ -100,7 +100,7 @@ DisplayTownMap:
 	dec a
 	cp -1
 	jr nz, .noUnderflow
-	ld a, TownMapOrderEnd - TownMapOrder - 1 ; number of list items
+	ld a, TownMapOrderEnd - TownMapOrder - 1 ; index of the last list item
 .noUnderflow
 	ld [wWhichTownMapLocation], a
 	jp .townMapLoop

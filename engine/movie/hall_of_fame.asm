@@ -129,7 +129,7 @@ HoFShowMonOrPlayer:
 	ld a, [wOnSGB]
 	and a
 	jr z, .next2
-	sla e ; scroll more slowly on SGB
+	sla e ; double the scroll step on SGB (coarser, completes in half the frames)
 .next2
 	call .ScrollPic ; scroll back pic left
 	xor a
@@ -198,15 +198,15 @@ HoFMonInfoText:
 
 HoFLoadPlayerPics:
 	ld a, [wPlayerGender] ; New gender check
-	and a      ; New gender check
+	and a
 	jr nz, .GirlStuff1
 	ld de, RedPicFront
 	ld a, BANK(RedPicFront)
-	jr .Routine ; skip the girl stuff and go to main routine
+	jr .Routine
 .GirlStuff1
 	ld de, GreenPicFront
 	ld a, BANK(GreenPicFront)
-.Routine ; resume original routine
+.Routine
 	call UncompressSpriteFromDE
 	ld a, $0
 	call SwitchSRAMBankAndLatchClockData
@@ -218,15 +218,15 @@ HoFLoadPlayerPics:
 	ld de, vFrontPic
 	call InterlaceMergeSpriteBuffers
 	ld a, [wPlayerGender] ; new gender check
-	and a      ; new gender check
+	and a
 	jr nz, .GirlStuff2
 	ld de, RedPicBack
 	ld a, BANK(RedPicBack)
-	jr .routine2 ; skip the girl stuff and continue original routine if guy
+	jr .routine2
 .GirlStuff2
 	ld de, GreenPicBack
 	ld a, BANK(GreenPicBack)
-.routine2 ; original routine
+.routine2
 	call UncompressSpriteFromDE
 	predef ScaleSpriteByTwo
 	ld de, vBackPic

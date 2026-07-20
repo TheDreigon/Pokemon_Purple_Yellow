@@ -41,7 +41,8 @@ TieredMartHandler::
 	ld [wListMenuID], a
 	; 4) Hand off to the shared mart UI. DisplayPokemartDialogue_ lives
 	;    in the same bank, so a plain jp tail-calls it cleanly: the
-	;    home-side `homecall` returns once its menu loop ends.
+	;    home-side `farcall` (dispatch_tiered_mart) returns once its menu
+	;    loop ends.
 	jp DisplayPokemartDialogue_
 
 ; Builds the regular-pokemart inventory at runtime by filtering the global

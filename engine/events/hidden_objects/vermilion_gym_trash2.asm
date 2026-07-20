@@ -58,7 +58,7 @@ Yellow_SampleSecondTrashCan:
 	ld b, 0
 	ld a, 9
 	call AddNTimes
-	call AddNTimes ; ????
+	call AddNTimes ; no-op: a is 0 after the first call (vanilla leftover)
 	ld a, [hli]
 	ldh [hGymTrashCanRandNumMask], a
 	ld e, a

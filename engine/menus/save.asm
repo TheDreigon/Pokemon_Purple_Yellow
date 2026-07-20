@@ -136,7 +136,6 @@ SaveSAV:
 	farcall PrintSaveScreenText
 	ld c, 10
 	call DelayFrames
-	; ld hl, WouldYouLikeToSaveText
 	; call SaveSAVConfirm
 	; and a   ;|0 = Yes|1 = No|
 	; ret nz
@@ -153,7 +152,6 @@ SaveSAV:
 	ret nz
 .save
 	call SaveSAVtoSRAM
-	; ld hl, SavingText
 	; call PrintText
 	; ld c, 128
 	; call DelayFrames
@@ -178,7 +176,6 @@ SaveSAVConfirm:
 	ld a, [wCurrentMenuItem]
 	ret
 
-; WouldYouLikeToSaveText:
 ; 	text_far _WouldYouLikeToSaveText
 ; 	text_end
 

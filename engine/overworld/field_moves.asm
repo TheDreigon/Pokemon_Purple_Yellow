@@ -133,7 +133,7 @@ HasPartyMove::
 .yes
 	ld a, c
 	ld [wWhichPokemon], a
-	xor a ; probably redundant
+	xor a ; xor a ; NOT redundant: zeroes wWhichTrade, which BoulderText (home/overworld_text.asm) reads after calling HasPartyMove
 	ld [wWhichTrade], a
 	jr .done
 .no

@@ -20,7 +20,7 @@ IF DEF(_DEBUG)
 	call RunDefaultPaletteCommand
 
 	hlcoord 5, 6
-	lb bc, 5, 9 ; v0.7: was 3 inner rows (fit 2 entries); now 5 to fit ANIM as 3rd entry (menu uses 2-row spacing per item)
+	lb bc, 5, 9 ; 5 inner rows: fits the 3 menu entries at 2-row spacing
 	call TextBoxBorder
 
 	hlcoord 7, 7
@@ -34,7 +34,7 @@ IF DEF(_DEBUG)
 	ld [wMenuWatchedKeys], a
 	xor a
 	ld [wMenuJoypadPollCount], a
-	ld a, 2 ; v0.7: now 3 entries (FIGHT/DEBUG/ANIM); was 1 (FIGHT/DEBUG)
+	ld a, 2 ; 3 entries: FIGHT/DEBUG/ANIM
 	ld [wMaxMenuItem], a
 	ld a, 7
 	ld [wTopMenuItemY], a
@@ -906,7 +906,7 @@ Text_fedb2:
 	db   "ディーラー    @" ; "TRAINER      @"
 
 Text_fedbc:
-	db   "№．  なまえ        レべル" ; "№．  NAME     LABEL"
+	db   "№．  なまえ        レべル" ; "№．  NAME     LEVEL"
 	next ""
 Text_fedcf:
 	db   "０００ ーーーーーーーーーー ０００@"

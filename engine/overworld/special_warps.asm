@@ -12,8 +12,7 @@ PrepareForSpecialWarp::
 	jr z, .setNewGameMatWarp ; apply to StartNewGameDebug only
 	call PrepareNewGameDebug
 .setNewGameMatWarp
-	; This is called by OakSpeech during StartNewGame and
-	; loads the first warp event for the specified map index.
+	; New game (reached via OakSpeech): the warp itself (NewGameWarp -> REDS_HOUSE_2F) was already loaded by LoadSpecialWarpData; here wLastMap is set to PALLET_TOWN so the house's LAST_MAP exit warp leads there.
 	ld a, PALLET_TOWN 
 .next
 	ld b, a

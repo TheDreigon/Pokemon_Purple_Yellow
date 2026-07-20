@@ -128,7 +128,7 @@ LoadMonPartySpriteGfx: ; nickname screen, etc
 
 	ld a, [hl] ; read the icon id
 	ld [wd11e], a
-	cp $80                      ; Compare the icon ID with $80
+	cp $80 ; icon IDs >= $80 live in MonIcons2 (icons are split across two banks)
     jr c, .useMonIcons1          ; If the icon ID is < $80, use MonIcons
 	; Handling icon IDs >= $80
     sub $80                     ; Subtract $80 from the icon ID
@@ -142,7 +142,7 @@ LoadMonPartySpriteGfx: ; nickname screen, etc
 	call AddNTimes ; hl now contains pointer to mon icon
 	
 	ld a, [wd11e]
-	cp $80                      ; Compare the icon ID with $80
+	cp $80
     jr c, .useMonIcons2          ; If the icon ID is < $80, use MonIcons
 	; Handling icon IDs >= $80
     sub $80                     ; Subtract $80 from the icon ID
@@ -172,7 +172,7 @@ LoadMonPartySpriteGfxWithLCDDisabled: ; party menu
 	push af
 	ld hl, wPartySpecies
 .loop
-	; load the correct mon icon into each subsequent OAM slot
+	; load each party mon's icon gfx into its $80-byte slot in vSprites
 	ld a, [hli] ; contains mon id
 	push hl
 	ld [wd11e], a
@@ -189,7 +189,7 @@ LoadMonPartySpriteGfxWithLCDDisabled: ; party menu
 	ld a, [hl] ; read the icon id
 	ld [wd11e], a
 
-	cp $80                      ; Compare the icon ID with $80
+	cp $80 ; icon IDs >= $80 live in MonIcons2 (icons are split across two banks)
     jr c, .useMonIcons1          ; If the icon ID is < $80, use MonIcons
 
 	; Handling icon IDs >= $80
@@ -220,7 +220,7 @@ LoadMonPartySpriteGfxWithLCDDisabled: ; party menu
 
 	ld a, [wd11e]
 
-	cp $80                      ; Compare the icon ID with $80
+	cp $80
     jr c, .useMonIcons2          ; If the icon ID is < $80, use MonIcons
 
 	; Handling icon IDs >= $80

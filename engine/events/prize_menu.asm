@@ -9,7 +9,11 @@ CeladonPrizeMenu::
 	set 6, [hl] ; disable letter-printing delay
 	ld hl, ExchangeCoinsForPrizesTextPtr
 	call PrintText
-; v0.5 Phase B.3: all 3 menus (Mon1, Mon2, TM) show 4 prizes. Layout is
+; All 3 prize menus (Mon1, Mon2, TM) show 4 prizes with a uniform
+; layout. In the menu-drawing path the only Mon-vs-TM difference is
+; GetMonName vs GetItemName for the prize names (see GetPrizeMenuId);
+; HandlePrizeChoice additionally branches on the give path
+; (GivePokemon vs GiveItem).
 ; uniform now; the only Mon-vs-TM branching left is GetMonName vs
 ; GetItemName for the prize names (handled in GetPrizeMenuId).
 	xor a
@@ -31,7 +35,7 @@ CeladonPrizeMenu::
 	call UpdateSprites
 	ld hl, WhichPrizeTextPtr
 	call PrintText
-	call HandleMenuInput ; menu choice handler
+	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .noChoice
 	ld a, [wCurrentMenuItem]
@@ -57,12 +61,12 @@ WhichPrizeTextPtr:
 	text_end
 
 GetPrizeMenuId:
-; v0.5 Phase B.3: handles 4 prizes for all menus (Mon1, Mon2, TM).
-; Only difference between Mon and TM is GetMonName vs GetItemName for
+; Handles 4 prizes for all three menus (Mon1, Mon2, TM). Only
+; difference between Mon and TM is GetMonName vs GetItemName for
 ; rendering the prize names; everything else (textbox size, price
 ; copy size, NO_THANKS row) is uniform.
 	ldh a, [hSpriteIndexOrTextID]
-	sub 4       ; prize-texts' id are 3, 4 and 5
+	sub 4 ; prize-texts' id are 4, 5 and 6
 	ld [wWhichPrizeWindow], a    ; prize-texts' id (relative, i.e. 0, 1 or 2)
 	add a
 	add a

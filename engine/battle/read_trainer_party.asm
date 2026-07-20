@@ -21,8 +21,6 @@ ReadTrainer:
 	jp z, GenerateRivalParty
 
 ; set [wEnemyPartyCount] to 0, [wEnemyPartySpecies] to FF
-; XXX first is total enemy pokemon?
-; XXX second is species of first pokemon?
 	ld hl, wEnemyPartyCount
 	xor a
 	ld [hli], a
@@ -70,7 +68,7 @@ ReadTrainer:
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
 	jp z, .AddAdditionalMoveData
-	ld [wcf91], a ; write species somewhere (XXX why?)
+	ld [wcf91], a ; ld [wcf91], a ; species input for AddPartyMon
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a
 	push hl
@@ -137,8 +135,7 @@ ReadTrainer:
 	and a
 	jr nz, .asm_39c46
 	jr .loopAdditionalMoveData
-; v0.7 Phase B: promoted from local .FinishUp so GenerateRivalParty can
-; join the common money-calculation tail.
+; shared money-calculation tail; also entered by GenerateRivalParty.
 ReadTrainerFinishUp:
 ; clear wAmountMoneyWon addresses
 	xor a
@@ -163,17 +160,17 @@ ReadTrainerFinishUp:
 	jr nz, .LastLoop ; repeat wCurEnemyLVL times
 	ret
 
-; v0.7 hard mode helper. Called from both .IterateTrainer (uniform-level
-; trainer) and .SpecialTrainer (per-mon level) just BEFORE writing to
-; wCurEnemyLVL. Adds 2 to A if Hard mode + boss class, capped at
-; MAX_LEVEL. No-op otherwise.
+; v0.7 hard mode helper. Called from .IterateTrainer (uniform-level
+; trainer), .SpecialTrainer (per-mon level), and AddRivalMon (rival pool
+; engine), just BEFORE writing to wCurEnemyLVL. Adds 2 to A if Hard
+; mode + boss class, capped at MAX_LEVEL. No-op otherwise.
 ;
 ; Note: this also subtly bumps the prize money (wAmountMoneyWon is
-; computed from the bumped wCurEnemyLVL down at .FinishUp). That's
+; computed from the bumped wCurEnemyLVL down at ReadTrainerFinishUp). That's
 ; intentional — boss reward scales with the harder fight.
 ;
 ; Lives in bank $0E (Battle Engine 6) alongside ReadTrainer; uses
-; farcall to reach IsBossTrainerClass in bank $0F (Battle Core).
+; farcall to reach IsBossTrainerClassW in bank $0F (Battle Core).
 ;
 ; Input:  a = unbumped level
 ; Output: a = bumped level (or unchanged if not hard-mode boss)

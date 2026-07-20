@@ -27,7 +27,7 @@ CanLearnTM:
 	ret
 
 ; converts TM/HM number in wd11e into move number
-; HMs start at 51
+; HMs start at NUM_TMS + 1 (currently 56)
 TMToMove:
 	ld a, [wd11e]
 	dec a

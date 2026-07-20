@@ -169,13 +169,12 @@ ENDC
 	ld b, 0
 	jr .exitSideMenu
 
-.chosePrint ; Changed this to print learnsets
+.chosePrint ; .chosePrint ; repurposed: MOVE menu item — shows the learnset instead of GB Printer printing
 	ld a, 1
 	ld [wMoveListCounter], a
 	call ShowPokedexDataInternal
 	ld b, 0
 	jr .exitSideMenu
-	; call Pokedex_PrintMovesText
 	; ret
 	; ldh a, [hTileAnimations]
 	; push af
@@ -724,7 +723,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 12
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -746,7 +745,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 13
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -768,7 +767,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 14
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -790,7 +789,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 15
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -812,7 +811,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 16
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]

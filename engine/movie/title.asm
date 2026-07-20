@@ -1,7 +1,5 @@
 PrepareTitleScreen::
-	; These debug names are already copied later in PrepareOakSpeech.
-	; Removing the unused copies below has no apparent impact.
-	; CopyDebugName can also be safely deleted afterwards.
+	; Redundant: PrepareOakSpeech (oak_speech.asm) copies these debug names again later.
 	ld hl, DebugNewGamePlayerName
 	ld de, wPlayerName
 	call CopyDebugName
@@ -33,7 +31,6 @@ DisplayTitleScreen:
 	call ClearScreen
 	call DisableLCD
 	call LoadFontTilePatterns
-; todo: fix hl pointers
 	ld hl, NintendoCopyrightLogoGraphics
 	ld de, vTitleLogo tile $60
 	ld bc, 5 tiles
@@ -138,7 +135,7 @@ DisplayTitleScreen:
 	ld a, SFX_INTRO_WHOOSH
 	call PlaySound
 
-; scroll game version in from the right
+; show Pikachu's speech bubble and play the "Pika!" voice clip
 	callfar TitleScreen_PlacePikaSpeechBubble
 	ld a, SCREEN_HEIGHT_PX
 	ldh [hWY], a

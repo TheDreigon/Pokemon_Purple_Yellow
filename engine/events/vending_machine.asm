@@ -97,7 +97,7 @@ DrinkText:
 	next "CANCEL@"
 
 DrinkPriceText:
-	db   "¥250" ; v0.7: Fresh Water 200 -> 250 (must match data/items/vending_prices.asm)
+	db   "¥250" ; must match data/items/vending_prices.asm (FRESH_WATER = 250)
 	next "¥300"
 	next "¥350"
 	next "@"

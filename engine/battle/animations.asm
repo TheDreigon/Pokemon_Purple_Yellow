@@ -404,11 +404,10 @@ MoveAnimationTilesPointers:
 	anim_tileset 79, MoveAnimationTiles1
 	anim_tileset 64, MoveAnimationTiles2
 
-; v0.7: MoveAnimationTiles0/1/2 + SlotMachineTiles2 GFX moved out of
-; this bank (bank $1E) into a separate bank — see
-; gfx/battle/move_animation_tiles.asm. They're loaded via Far/CopyVideoData
-; with BANK(label), so the bank change is transparent. Frees ~3.3 KB
-; in bank $1E for data/moves/animations.asm to grow during v0.7.
+; MoveAnimationTiles0/1/2 + SlotMachineTiles2 GFX live in a separate
+; bank — see gfx/battle/move_animation_tiles.asm. They're loaded via
+; Far/CopyVideoData with BANK(label), so the placement is transparent
+; and bank $1E stays free for data/moves/animations.asm to grow.
 
 MoveAnimation:
 	push hl
@@ -841,7 +840,7 @@ FlashScreenEveryFourFrameBlocks:
 	call z, AnimationFlashScreen
 	ret
 
-; used for Explosion and Selfdestruct
+; used for Explosion
 DoExplodeSpecialEffects:
 	ld a, [wSubAnimCounter]
 	cp 1 ; is it the end of the subanimation?
@@ -1151,7 +1150,7 @@ AnimationShakeScreenHorizontallyFast:
 AnimationWaterDropletsEverywhere:
 ; Draws water droplets all over the screen and makes them
 ; scroll. It's hard to describe, but it's the main animation
-; in Surf/Mist/Toxic.
+; in Surf/Toxic/Haze.
 	xor a
 	ld [wWhichBattleAnimTileset], a
 	call LoadMoveAnimationTiles
@@ -1799,8 +1798,10 @@ UpwardBallsAnimXCoordinatesEnemyTurn:
 	db -1 ; end
 
 AnimationMinimizeMon:
-; Changes the mon's sprite to a mini black sprite. Used by the
-; Minimize animation.
+; Changes the mon's sprite to a mini black sprite. (The Minimize move
+; was removed in the v0.5 movelist overhaul; this is still called by the
+; minimized-state paths in HideSubstituteShowMonAnim / Func_79929, whose
+; flags can no longer be set.)
 	ld hl, wTempPic
 	push hl
 	xor a
@@ -1835,7 +1836,7 @@ popo
 MinimizedMonSpriteEnd:
 
 AnimationSlideMonDownAndHide:
-; Slides the mon's sprite down and disappears. Used in Acid Armor.
+; Slides the mon's sprite down and disappears. (Former Acid Armor animation; currently unused by any move anim.)
 	ld a, TILEMAP_SLIDE_DOWN_MON_PIC_7X5
 	ld c, 2
 .loop
@@ -1949,7 +1950,7 @@ CopyTempPicToMonPic:
 	jp CopyVideoData
 
 AnimationWavyScreen:
-; used in Psywave/Psychic etc.
+; used in Psychic/Confusion etc.
 	ld hl, vBGMap0
 	call BattleAnimCopyTileMapToVRAM
 	call Delay3
@@ -2143,8 +2144,8 @@ ReshowSubstituteAnim:
 	jp AnimationShowMonPic
 
 AnimationBoundUpAndDown:
-; Bounces the mon's sprite up and down several times. It is used
-; by Splash's animation.
+; Bounces the mon's sprite up and down several times. (Former Splash
+; animation; currently unused by any move anim.)
 	ld c, 5
 .loop
 	push bc

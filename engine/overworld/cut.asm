@@ -169,7 +169,7 @@ CutAnimationOffsets:
 	db 24, 20 ; player is facing right
 
 BoulderDustAnimationOffsets:
-; Each pair represents the x and y pixels offsets from the player of where the cut tree animation should be drawn
+; Each pair represents the x and y pixels offsets from the player of where the boulder dust animation should be drawn
 ; These offsets represent 2 blocks away from the player
 	db  8,  52 ; player is facing down
 	db  8, -12 ; player is facing up

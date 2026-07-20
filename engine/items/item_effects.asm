@@ -986,8 +986,7 @@ ItemUseMedicine:
 ; if using softboiled
 	ld a, [wWhichPokemon]
 	cp d ; is the pokemon trying to use softboiled on itself?
-	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: c7e8127's
-	                      ; Revive/MaxRevive prologue pushed this past jr range)
+	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: the Revive/Max Revive gate prologue above pushed this past jr range)
 .checkItemType
 	ld a, [wcf91]
 	cp REVIVE
@@ -1538,7 +1537,7 @@ ItemUseMedicine:
 	pop hl
 	ld a, [hl] ; a = level
 	cp b ; MAX_LEVEL on normal mode, level cap on hard mode
-	jr z, .vitaminNoEffect ; can't raise level above 100
+	jr z, .vitaminNoEffect ; already at the cap (MAX_LEVEL, or badge-tiered cap on hard mode)
 	inc a
 	ld [hl], a ; store incremented level
 	ld [wCurEnemyLVL], a
@@ -1617,7 +1616,7 @@ ItemUseMedicine:
 	push af
 	ld a, [wUsedItemOnWhichPokemon]
 	ld [wWhichPokemon], a
-	callfar RespawnOverworldPikachu ; evolve pokemon, if appropriate
+	callfar RespawnOverworldPikachu ; Remove from line 1620 and attach '; evolve pokemon, if appropriate' to the `callfar TryEvolvingMon` on line 1624.
 	pop af
 	ld [wWhichPokemon], a
 
@@ -2217,7 +2216,7 @@ ItemUsePPRestore:
 	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
 	; battle on Normal mode. Reason: blocks the "Revive + Elixer"
 	; PP-stall loop against bosses while staying symmetric with the
-	; upcoming boss item bag (knob #10).
+	; boss item bag (knob #10).
 	;
 	; PP_UP/PP_MAX dispatch to ItemUsePPUp (which blocks all in-battle
 	; use, then falls through here for out-of-battle handling). The
@@ -2235,7 +2234,7 @@ ItemUsePPRestore:
 	cp ETHER
 	jr c, .allowItem        ; below ETHER (PP_UP): allow
 	cp MAX_ELIXER + 1
-	jr nc, .allowItem       ; above MAX_ELIXER (PP_MAX): allow
+	jr nc, .allowItem ; Line 2238: '; above MAX_ELIXER: allow (defensive; nothing above dispatches here)' and extend line 2236 to '; below ETHER (PP_UP, PP_MAX): allow'.
 	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem
@@ -2270,7 +2269,7 @@ ItemUsePPRestore:
 .usePPItem
 	ld a, [wPPRestoreItem]
 	cp PP_MAX
-	jp z, .usePPMax ; if PP Max (Gen 2 QoL: bumps move to max PP Ups in one go)
+	jp z, .usePPMax ; if PP Max (Gen 3 QoL: bumps move to max PP Ups in one go)
 	cp ELIXER
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02

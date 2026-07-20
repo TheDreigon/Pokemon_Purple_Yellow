@@ -188,7 +188,7 @@ SlotMachine_SetFlags:
 	jr c, .allowSevenAndBarMatches
 	ld a, 210
 	cp b
-	jr c, .allowMatches ; 55/256 (~21.5%) chance
+	jr c, .allowMatches ; 43/256 (~17%) chance (40/256 on the lucky machine)
 	ld [hl], 0
 	ret
 .allowMatches
@@ -298,8 +298,7 @@ SlotMachine_StopWheel1Early:
 	cp HIGH(SLOTSCHERRY)
 	jr nz, .stopWheel
 	ret
-; It looks like this was intended to make the wheel stop when a 7 symbol was
-; visible, but it has a bug and so the wheel stops randomly.
+; Stop the wheel when a 7 symbol is visible. (Vanilla's `jr c` here could never be true, so the wheel stopped randomly; fixed to `jr z` per the pret wiki bugfix.)
 .sevenAndBarMode
 	ld c, $3
 .loop

@@ -1,7 +1,7 @@
-; wUnusedD726 = wDVCalcVar
+; wUnusedD726 = wDVCalcVar1
 ; wUnusedD722 = wDVCalcVar2
 ; hFlags_0xFFF6 = hUILayoutFlags
-; hTilesetType = hTilesetAnimations
+; hTilesetType = hTileAnimations
 
 DrawHP:
 ; Draws the HP bar in the stats screen
@@ -67,7 +67,7 @@ DrawHP_:
 	ret
 
 
-; Predef 0x37
+; Predef 0x36
 StatusScreen:
 	call LoadMonData
 	ld a, [wMonDataLocation]
@@ -408,7 +408,7 @@ StatusScreen2:
 	ld c, a
 	ld a, $4
 	sub c
-	ld b, a ; Number of moves ?
+	ld b, a ; ld b, a ; number of empty move slots (4 - number of moves)
 	hlcoord 11, 10
 	ld de, SCREEN_WIDTH * 2
 	ld a, "<BOLD_P>"

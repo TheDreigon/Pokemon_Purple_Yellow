@@ -151,7 +151,7 @@ HardModeBossAIMods:
 ; PureRGBnote: CHANGED: AKA the "Dont do stupid things no player would ever do" AI subroutine, many new default AI restrictions added
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
 ; discourages moves that after being used once won't do anything when used again (mist, leech seed, etc.)
-; discourages moves that will fail due to the current enemy pokemon's state (recover at full health, one hit ko moves on faster pkmn)
+; discourages moves that will fail due to the current enemy pokemon's state (e.g. recover at full health)
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -488,7 +488,6 @@ Modifier2PreferredMoves:
 ; encourages moves that are effective against the player's mon if they do damage. 
 ; discourage damaging moves that are ineffective or not very effective against the player's mon,
 ; unless there's no damaging move that deals at least neutral damage
-; encourage effective or super effective priority moves if the pokemon is slower than the player's pokemon (but only after obtaining 5 badges)
 ; encourage effective or super effective draining moves to be used at low health
 ; PureRGBnote: FIXED: this subroutine won't cause the AI to prefer status moves 
 ;                     just because their type is super effective against the opponent. Like spamming agility on a poison pokemon.
@@ -523,8 +522,6 @@ AIMoveChoiceModification3:
 	cp EFFECTIVE
 	jr z, .checkSpecificEffects
 	jr c, .notEffectiveMove
-	;ld a, [wEnemyMoveEffect]
-	; check for reasons not to use a super effective move here
 	dec [hl] ; slightly encourage this super effective move
 .checkSpecificEffects ; we'll further encourage certain moves
 	call EncourageDrainingMoveIfLowHealth
@@ -756,7 +753,6 @@ BlackbeltAI:
 	ret nc
 	jp AIUseXAttack
 
-; Giovanni AI moved below CooltrainerFAI with the rest of the boss routines.
 ; (Hard mode boss item bag — knob #10. See ; ===== HARD MODE BOSS AI ===== marker.)
 
 CooltrainerMAI:
@@ -1589,7 +1585,7 @@ AIUseGuardSpec:
 	ld a, GUARD_SPEC
 	jp AIPrintItemUse
 
-AIUseDireHit: ; unused
+AIUseDireHit:
 	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
 	set 2, [hl]
@@ -1711,7 +1707,7 @@ AIBattleUseItemText:
 StoreBattleMonTypes:
 	push hl
 	ld hl, wBattleMonType
-	ld a, [hl]                 ; b = type 1 of player's pokemon
+	ld a, [hl] ; type 1 of player's pokemon -> wAITargetMonType1 (line 1717: type 2 -> wAITargetMonType2)
 	ld [wAITargetMonType1], a
 	inc hl
 	ld a, [hl]                 ; c = type 2 of player's pokemon

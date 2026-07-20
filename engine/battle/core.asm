@@ -417,7 +417,7 @@ MainInBattleLoop:
 	jr c, .AIActionUsedEnemyFirst
 	call ExecuteEnemyMove
 	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
+	and a ; and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
 	ret nz ; if so, return
 	ld a, b
 	and a
@@ -428,7 +428,7 @@ MainInBattleLoop:
 	call DrawHUDsAndHPBars
 	call ExecutePlayerMove
 	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
+	and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
 	ret nz ; if so, return
 	ld a, b
 	and a
@@ -441,7 +441,7 @@ MainInBattleLoop:
 .playerMovesFirst
 	call ExecutePlayerMove
 	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
+	and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
 	ret nz ; if so, return
 	ld a, b
 	and a
@@ -455,7 +455,7 @@ MainInBattleLoop:
 	jr c, .AIActionUsedPlayerFirst
 	call ExecuteEnemyMove
 	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
+	and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
 	ret nz ; if so, return
 	ld a, b
 	and a
@@ -587,7 +587,7 @@ HurtByLeechSeedText:
 	text_far _HurtByLeechSeedText
 	text_end
 
-; decreases the mon's current HP by 1/16 of the Max HP (multiplied by number of toxic ticks if active)
+; decreases the mon's current HP by 1/8 of the Max HP (multiplied by number of toxic ticks if active)
 ; note that the toxic ticks are considered even if the damage is not poison (hence the Leech Seed glitch)
 ; hl: HP pointer
 ; bc (out): total damage
@@ -2030,7 +2030,7 @@ DrawEnemyHUDAndHPBar:
 	and a
 	jr z, .notOwned
 	coord hl, 1, 1;horizontal/vertical
-	ld [hl], $D0 ;replace this with your Poké Ball icon or other character
+	ld [hl], $D0 ; ld [hl], $D0 ; Poké Ball icon: species already owned in the Pokédex
 .notOwned
 	pop hl
 	ld de, wEnemyMonNick
@@ -3191,7 +3191,7 @@ SelectEnemyMove:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	jp .done                ; v0.7: was `jr` but .done moved further away with the PP-aware additions
+	jp .done
 .noLinkBattle
 	ld a, [wEnemyBattleStatus2]
 	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; need to recharge or using rage
@@ -3293,7 +3293,7 @@ SelectEnemyMove:
 ; `pop hl` lives further down (after the disabled/exists checks), so jumping
 ; straight back leaked 2 bytes of stack PER retry. The enemy's empty move
 ; slots read as 0 PP, so this fired most turns and slowly overflowed the
-; (mart-shrunk, ~193B) WRAM stack into Main Data -> total crash after a
+; (then mart-shrunk to ~193B; since re-padded to ~248B) WRAM stack into Main Data -> total crash after a
 ; variable number of turns, in BOTH modes. Pop the orphan before retrying.
 	pop hl
 	jp .chooseRandomMove
@@ -3524,7 +3524,7 @@ MirrorMoveCheck:
 	jr z, .moveDidNotMiss
 	call PrintMoveFailureText
 	ld a, [wPlayerMoveEffect]
-	cp EXPLODE_EFFECT ; even if Explosion or Selfdestruct missed, its effect still needs to be activated
+	cp EXPLODE_EFFECT ; even if Explosion missed, its effect still needs to be activated
 	jr z, .notDone
 	jp ExecutePlayerMoveDone ; otherwise, we're done if the move missed
 .moveDidNotMiss
@@ -4114,7 +4114,7 @@ PrintMoveFailureText:
 	cp JUMP_KICK_EFFECT
 	ret nz
 
-	; if you get here, the mon used jump kick or hi jump kick and missed
+	; if you get here, the mon used Hi Jump Kick and missed
 	ld hl, wDamage ; since the move missed, wDamage will always contain 0 at this point.
 	                ; Thus, recoil damage will always be equal to 1
 	                ; even if it was intended to be potential damage/8.
@@ -4867,8 +4867,6 @@ CalculateDamage:
 	ret
 
 ; determines if attack is a critical hit
-; Azure Heights claims "the fastest pokémon (who are, not coincidentally,
-; among the most popular) tend to CH about 20 to 25% of the time."
 CriticalHitTest:
 	xor a
 	ld [wCriticalHitOrOHKO], a
@@ -5225,7 +5223,7 @@ ApplyAttackToPlayerPokemonDone:
 
 AttackSubstitute:
 ; Unlike the two ApplyAttackToPokemon functions, Attack Substitute is shared by player and enemy.
-; Self-confusion damage as well as Hi-Jump Kick and Jump Kick recoil cause a momentary turn swap before being applied.
+; Self-confusion damage as well as Hi Jump Kick crash recoil cause a momentary turn swap before being applied.
 ; If the user has a Substitute up and would take damage because of that,
 ; damage will be applied to the other player's Substitute.
 ; Normal recoil such as from Double-Edge isn't affected by this glitch,
@@ -5507,11 +5505,6 @@ AdjustDamageForMoveType:
 	farcall ApplyTypeEffectivenessToDamage
 	ret
 
-; v0.7: AIGetTypeEffectiveness moved to bank $30
-; (engine/battle/type_effectiveness.asm). It was the only remaining
-; in-bank consumer of TypeEffects after the damage walk moved out.
-; Callers (callfar AIGetTypeEffectiveness from trainer_ai.asm) are
-; unaffected.
 
 ; some tests that need to pass for a move to hit
 MoveHitTest:
@@ -5565,10 +5558,7 @@ MoveHitTest:
 .enemyMistCheck
 ; if move effect is from $12 to $19 inclusive or $3a to $41 inclusive
 ; i.e. the following moves
-; GROWL, TAIL WHIP, LEER, STRING SHOT, SAND-ATTACK, SMOKESCREEN, KINESIS,
-; FLASH, CONVERSION*, HAZE*, SCREECH, LIGHT SCREEN*, REFLECT*
-; the moves that are marked with an asterisk are not affected since this
-; function is not called when those moves are used
+; i.e. stat-lowering / status effects that Mist protection (Guard Spec.) blocks; effects handled via their own exclusive functions (Haze, Light Screen, Reflect, ...) never reach this check
 	ld a, [wEnemyBattleStatus2]
 	bit PROTECTED_BY_MIST, a ; is mon protected by mist?
 	jp nz, .moveMissed
@@ -6589,7 +6579,7 @@ SwapPlayerAndEnemyLevels:
 	pop bc
 	ret
 
-; loads either red back pic or old man back pic
+; loads the player's (Red/Green), old man's, or Prof. Oak's back pic
 ; also writes OAM data and loads tile patterns for the Red or Old Man back sprite's head
 ; (for use when scrolling the player sprite and enemy's silhouettes on screen)
 LoadPlayerBackPic:
@@ -6686,13 +6676,13 @@ ApplyBurnAndParalysisPenalties:
 	jp HalveAttackDueToBurn
 
 HalveSpeedDueToParalysis:
-; v0.7: was HalveSpeedDueToParalysis (/ 4) — now halves (/ 2) per modern
+; v0.7: was QuarterSpeedDueToParalysis (/ 4) — now halves (/ 2) per modern
 ; Pokemon (Gen 7+ behavior) and project owner's call. Rename + one less
 ; srl/rr pair per side. Behaviour: halve current speed if statused.
 ; (Idempotency caveat: still halves whatever's there — must only be called
 ; right after a recalc-from-unmodified, never on a stat that already had
 ; the penalty applied. See UpdateStatDone / UpdateLoweredStatDone in
-; effects.asm and LoadPlayerMon for the v0.7-correct call sites.)
+; effects.asm and LoadBattleMonFromParty for the v0.7-correct call sites.)
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .playerTurn

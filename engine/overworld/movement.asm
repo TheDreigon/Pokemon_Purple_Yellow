@@ -70,8 +70,6 @@ UpdatePlayerSprite:
 	ld a, [wd736]
 	bit 7, a ; is the player sprite spinning due to a spin tile?
 	jr nz, .skipSpriteAnim
-	; call Func_5274
-	; call Func_4e32
 	ld a, [hCurrentSpriteOffset]
 	add $7
 	ld l, a
@@ -80,7 +78,7 @@ UpdatePlayerSprite:
 	ld [hl], a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - If B is being held to go faster and full joypad is enabled (i.e. not in a cutscene),
-;Then increase player animation speed by 25%
+;Then advance the walk animation every 3 frames instead of 4 (25% shorter frame period, ~33% faster animation)
 	push bc
 	ld c, 4
 	ld b, a
@@ -96,8 +94,6 @@ UpdatePlayerSprite:
 	cp c
 	pop bc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	cp 4
-;	jr nz, .calcImageIndex
 	jr c, .calcImageIndex	;joenote - prevents interframe counter from increasing forever
 	xor a
 	ld [hl], a
@@ -885,7 +881,7 @@ AdvanceScriptedNPCAnimFrameCounter:
 	ldh a, [hCurrentSpriteOffset]
 	add $8
 	ld l, a
-	ld a, [hl] ; intra-animation frame counter
+	ld a, [hl] ; x#SPRITESTATEDATA1_ANIMFRAMECOUNTER (current walk animation frame)
 	and $3
 	ldh [hSpriteAnimFrameCounter], a
 	ret

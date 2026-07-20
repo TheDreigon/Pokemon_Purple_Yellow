@@ -57,7 +57,7 @@ EnterMapAnim::
 	ld [hli], a ; wFlyAnimUsingCoordList
 	ld a, 12
 	ld [hli], a ; wFlyAnimCounter
-	ld [hl], $8 ; wFlyAnimBirdSpriteImageIndex (facing right)
+	ld [hl], $8 ; wFlyAnimBirdSpriteImageIndex (facing left)
 	ld de, FlyAnimationEnterScreenCoords
 	call DoFlyAnimation
 	call LoadPlayerSpriteGraphics

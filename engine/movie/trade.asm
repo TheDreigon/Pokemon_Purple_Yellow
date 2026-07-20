@@ -66,7 +66,7 @@ MACRO tradefunc
 	db (\1TradeFunc - TradeFuncPointerTable) / 2
 ENDM
 
-; The functions in the sequences below are executed in order by TradeFuncCommon.
+; The functions in the sequences below are executed in order by TradeAnimCommon.
 ; They are from opposite perspectives. The external clock one makes use of
 ; Trade_SwapNames to swap the player and enemy names for some functions.
 

@@ -4,8 +4,8 @@ GainExperience:
 	ret z ; return if link battle
 	call DivideExpDataByNumMonsGainingExp
 	ld a, [wBoostExpByExpAll] ;load in a if the EXP All is being used
-	ld hl, WithExpAllText ; this is preparing the text to show
-	and a ;check wBoostExpByExpAll value
+	ld hl, WithExpAllText
+	and a
 	jr z, .skipExpAll ; if wBoostExpByExpAll is zero, we are not using it, so we don't show anything and keep going on
 	call PrintText ; if the code reaches this point it means we have the Exp.All, so show the message
 .skipExpAll
@@ -197,7 +197,7 @@ GainExperience:
 	ld hl, wPartyMonNicks
 	call GetPartyMonName
 	ld a, [wBoostExpByExpAll] ; get using ExpAll flag
-	and a ; check the flag
+	and a
 	jr nz, .skipExpText ; if there's EXP. all, skip showing any text
 	ld hl, GainedText ;there's no EXP. all, load the text to show
 	call PrintText
@@ -257,7 +257,7 @@ GainExperience:
 	ld a, [hl] ; wPartyMon1HP + 1
 	add c
 	ld [hld], a
-	ld a, [hl] ; wPartyMon1HP + 1
+	ld a, [hl] ; ld a, [hl] ; wPartyMon1HP
 	adc b
 	ld [hl], a ; wPartyMon1HP
 	ld a, [wPlayerMonNumber]

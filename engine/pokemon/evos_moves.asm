@@ -9,7 +9,7 @@ TryEvolvingMon:
 	call Evolution_FlagAction
 
 ; this is only called after battle
-; it is supposed to do level up evolutions, though there is a bug that allows item evolutions to occur
+; it is supposed to do level up evolutions only; the vanilla bug that allowed item evolutions after battle is fixed by the wIsInBattle guard in .checkItemEvo below
 EvolutionAfterBattle:
 	ldh a, [hTileAnimations]
 	push af
@@ -90,7 +90,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld b, a
 	ld a, [wLoadedMonLevel]
 	cp b ; is the mon's level greater than the evolution requirement?
-	jp c, Evolution_PartyMonLoop ; if so, go the next mon
+	jp c, Evolution_PartyMonLoop ; if not (level below requirement), go to the next mon
 	jr .doEvolution
 .checkItemEvo
 	ld a, [wIsInBattle] ; are we in battle?
@@ -107,7 +107,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld b, a
 	ld a, [wLoadedMonLevel]
 	cp b ; is the mon's level greater than the evolution requirement?
-	jp c, .nextEvoEntry2 ; if so, go the next evolution entry
+	jp c, .nextEvoEntry2 ; if not (level below requirement), go to the next evolution entry
 .doEvolution
 	ld [wCurEnemyLVL], a
 	ld a, 1
@@ -647,7 +647,7 @@ Evolution_FlagAction:
 
 ; From here, Move Relearner-related code -PvK
 ;joenote - custom function by Mateo for move relearner
-PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon in shin pokered but it sure as shit doesn't work here - PvK
+PrepareRelearnableMoveList::
 ; Loads relearnable move list to wRelearnableMoves.
 ; Input: party mon index = [wWhichPokemon]
 	; Get mon id.
@@ -939,9 +939,9 @@ GetMonLearnset:
 	jr nz, .skipEvolutionDataLoop ; if not, jump back up
 	ret
 
-PrepareLevelUpMoveList:: ; I don't know how the fuck you're a single colon in shin pokered but it sure as shit doesn't work here - PvK
-; Loads relearnable move list to wRelearnableMoves.
-; Input: party mon index = [wWhichPokemon]
+PrepareLevelUpMoveList::
+; Builds the full level-up move list as (level, move id) byte pairs at wRelearnableMoves, for the Pokedex moves page. Header (level-0/egg) moves are listed as level 1; no known-move filtering.
+; Input: mon SPECIES id = [wWhichPokemon] (the Pokedex caller stuffs the species in here — NOT a party index)
 	; Get mon id.
 	ld a, [wWhichPokemon]
 	ld [wd0b5], a	;joenote - put mon id into wram for potential later usage of GetMonHeader
@@ -995,8 +995,8 @@ PrepareLevelUpMoveList:: ; I don't know how the fuck you're a single colon in sh
 	ld a, [hli]
 	and a
 	jr nz, .skipEvoEntriesLoop
-	; Write list of relearnable moves, while keeping count along the way.
-	ld b, 100 ;  b = mon's level
+	; Write the level-up move list (level, move pairs), keeping count along the way.
+	ld b, 100 ; b = level cap (hardcoded 100 = include the entire learnset)
 
 .loop
 	ld a, [hli]
@@ -1023,7 +1023,7 @@ PrepareLevelUpMoveList:: ; I don't know how the fuck you're a single colon in sh
 	ret
 
 ; shinpokerednote: ADDED: Stores the player's pokemon levels into wStartBattleLevels. 
-; Used to track the levels at the beginning of battle so when evolving pokemon their learnsets can factor in multiple level-ups.
+; NOTE: currently write-only in this hack — the upstream (pureRGB) readers were not ported (see wStartBattleLevels in ram/wram.asm). Multi-level-up move learning is handled separately via wTempLevelStore in engine/battle/experience.asm.
 StorePKMNLevels:
 	push hl
 	push de
