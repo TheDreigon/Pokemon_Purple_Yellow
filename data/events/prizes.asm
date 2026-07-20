@@ -3,9 +3,9 @@ PrizeDifferentMenuPtrs:
 	dw PrizeMenuMon2Entries, PrizeMenuMon2Cost
 	dw PrizeMenuTMsEntries,  PrizeMenuTMsCost
 
-; Phase B.3: 4 prizes per Mon counter (matched to TM counter). All starters
-; on Counter 1 + Eevee, the 3 elemental "kid" mons + Porygon on Counter 2.
-; Flat 1000 coins each, all level 20.
+; 4 prizes per Mon counter: all starters + Eevee on Counter 1, the 3
+; elemental "kid" mons + Porygon on Counter 2. Flat 1000 coins each,
+; all level 20.
 PrizeMenuMon1Entries:
 	db BULBASAUR
 	db CHARMANDER
@@ -34,10 +34,9 @@ PrizeMenuMon2Cost:
 	bcd2 1000
 	db "@"
 
-; Phase B.3: Game Corner has 4 TMs (all 3 menus use a uniform 4-prize
-; layout now). The other 4 spec TMs (Confuse Ray, Thunder Wave, Ignite,
-; Toxic) are sold at Fuchsia Mart instead. Tier coverage: 2x500c,
-; 1x1000c, 1x1500c.
+; Game Corner sells 4 TMs (uniform 4-prize layout across all 3 menus).
+; The other 4 utility TMs (Confuse Ray, Thunder Wave, Ignite, Toxic) are
+; sold at Fuchsia Mart. Tier coverage: 2x500c, 1x1000c, 1x1500c.
 PrizeMenuTMsEntries:
 	db TM_MIRROR_MOVE
 	db TM_MIMIC

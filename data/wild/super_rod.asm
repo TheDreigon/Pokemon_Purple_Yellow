@@ -37,7 +37,7 @@ CheckMapForFishingMon:
 	push bc
 	ld hl, SuperRodFishingSlots
 .loop
-	ld a, [hl] ; current map idW
+	ld a, [hl] ; current map id
 	cp $ff
 	jr z, .done
 	ld c, a

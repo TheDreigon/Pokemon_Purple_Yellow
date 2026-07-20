@@ -181,7 +181,7 @@ MoveSoundTable:
 	db SFX_BATTLE_0F,          $1f, $ff ; CLAMP
 	db SFX_BATTLE_29,          $20, $80 ; ROLLOUT ; v0.7 new: rolling rock multi-hit, similar tone to ROCK_TOMB
 	db SFX_BATTLE_2B,          $f0, $60 ; BONEMERANG
-	db SFX_BATTLE_22,          $f0, $ff ; CRABHAMMER ; v0.7 reviewed: was SUPER_EFFECTIVE (clean BAM); slam SFX deep-pitched fits the high-crit hammer-down strike.
+	db SFX_BATTLE_22,          $f0, $ff ; CRABHAMMER ; slam SFX deep-pitched fits the hammer-down strike.
 	db SFX_HORN_DRILL,         $00, $a0 ; HORN_DRILL
 ; === STEEL ===
 	db SFX_BATTLE_0F,          $10, $a0 ; CUT ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; sharp metallic cut SFX matches a STEEL-type slashing strike.

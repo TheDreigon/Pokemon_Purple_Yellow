@@ -1,7 +1,7 @@
 ResidualEffects2:
 ; non-side effects not included in ResidualEffects1
 ; stat-affecting moves, sleep-inflicting moves, and Bide
-; e.g., Meditate, Bide, Hypnosis
+; e.g., Swords Dance, Bide, Hypnosis
 	db EFFECT_01
 	db ATTACK_UP1_EFFECT
 	db DEFENSE_UP1_EFFECT
@@ -35,10 +35,10 @@ ResidualEffects2:
 	db SPEED_EVASION_UP1_EFFECT      ; dual-stat
 	db SPECIAL_SPEED_DOWN1_EFFECT    ; dual-stat
 	db SPECIAL_ACCURACY_UP1_EFFECT   ; dual-stat (Calm Mind revised)
-	; v0.7 gap fix: these four 0-BP dual/mixed effects were added in v0.5/v0.6
-	; without a ResidualEffects2 entry, so they dispatched via the post-damage
-	; fallthrough instead — which pre-sets wMoveDidntMiss=1 and silenced their
-	; move animation (the anim guard in StatModifierUp/DownEffect saw it).
+	; NOTE: every 0-BP stat/heal effect MUST have an entry here. Otherwise it
+	; dispatches via the post-damage fallthrough, which pre-sets
+	; wMoveDidntMiss=1 and silences the move animation (the anim guard in
+	; StatModifierUp/DownEffect).
 	db SPECIAL_SPEED_UP1_EFFECT      ; dual-stat (Quiver Dance)
 	db SPEED_EVASION_DOWN1_EFFECT    ; dual-stat (Psychic Bind)
 	db ATTACK_UP1_DOWN1_EFFECT       ; mixed dual-stat (Fierce Roar)

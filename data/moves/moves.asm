@@ -8,7 +8,7 @@ MACRO move
 	assert \6 <= 40, "PP must be 40 or less"
 ENDM
 
-Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
+Moves: ; Current total = 219
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -62,7 +62,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              75, FAIRY,        100, 20 ; new move.
 	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; almost-signature.
 	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; singers' pool (5 lines).
-	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. moon-mons pool (4 lines). (use solarbeam's animation)
+	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. moon-mons pool (4 lines).
 
 
 	; === FIGHTING TYPE (14 moves) ===
@@ -305,7 +305,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
 
 	move BIDE,           BIDE_EFFECT,                       0, BIRD,         100, 20
-	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30 ; v0.7: also raises user Accuracy +1 (on top of the x3 crit boost)
+	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30 ; also raises user Accuracy +1 (on top of the x3 crit boost)
 	move MIMIC,          MIMIC_EFFECT,                      0, BIRD,         100, 15
 	move MIRROR_MOVE,    MIRROR_MOVE_EFFECT,                0, BIRD,         100, 20
 	move SUBSTITUTE,     SUBSTITUTE_EFFECT,                 0, BIRD,         100, 15

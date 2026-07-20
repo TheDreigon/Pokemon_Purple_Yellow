@@ -43,8 +43,9 @@ DEF BIT_TEST_BATTLE EQU 0
 ; wDifficulty values (set in Oak's speech, persistent for the run).
 ; Hard mode gates extra boss buffs in v0.7+ (see engine/battle/hard_mode.asm
 ; for the boss class list and the IsHardModeBossBattle helper). Existing
-; non-boss-tied effects (level caps, forced Set mode, no items in trainer
-; battles, 1/256 miss preserved) gate on `wDifficulty != NORMAL_MODE`.
+; non-boss-tied effects (level caps, forced Set mode, hard-mode ban on
+; Revive/Max Revive and the Ether/Elixer family in trainer battles, 1/256
+; miss preserved) gate on `wDifficulty != NORMAL_MODE`.
 DEF NORMAL_MODE EQU 0
 DEF HARD_MODE   EQU 1
 

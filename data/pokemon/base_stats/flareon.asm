@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Fire fox with strong claws. HM FLASH.
+	; Fire fox with strong claws. HM CUT/FLASH.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, FLAME_BURST, IGNITE, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, \
 	     FAKE_TEARS, CHARM, TAKE_DOWN, LIGHT_SCREEN, FLAMETHROWER, \

@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/slowpoke.pic", 0, 1 ; sprite dimensions
 	dw SlowpokePicFront, SlowpokePicBack
 
-	db REST, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset. REST<->TACKLE swap w/ the L10 learnset slot (Forte 2026-07-13: born sleepy)
+	db REST, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset (born sleepy: REST as the egg move)
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

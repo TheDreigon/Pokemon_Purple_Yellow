@@ -235,7 +235,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw RockTunnelB1FHS ; v0.5 Phase B.4 (was NoHS for ROCK_TUNNEL_B1F)
+	dw RockTunnelB1FHS
 	dw SilphCo9FHS
 	dw SilphCo10FHS
 	dw SilphCo11FHS
@@ -247,7 +247,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw NoHS ; was UnusedMapF4HS (removed in Phase B.4)
+	dw NoHS ; UNUSED_MAP_F4
 	dw LoreleisRoomHS
 	dw BrunosRoomHS
 	dw AgathasRoomHS
@@ -497,7 +497,6 @@ SilphCo7FHS:
 	db SILPH_CO_7F, SILPHCO7F_RIVAL,           SHOW
 	db SILPH_CO_7F, SILPHCO7F_CALCIUM,         SHOW
 	db SILPH_CO_7F, SILPHCO7F_TM_LEECH_LIFE, SHOW
-	; v0.5 Phase B.4: removed SILPHCO7F_UNUSED entry (no corresponding object_event).
 SilphCo8FHS:
 	db SILPH_CO_8F, SILPHCO8F_ROCKET1,   SHOW
 	db SILPH_CO_8F, SILPHCO8F_SCIENTIST, SHOW
@@ -518,8 +517,6 @@ SilphCo11FHS:
 	db SILPH_CO_11F, SILPHCO11F_JAMES,    SHOW
 	db SILPH_CO_11F, SILPHCO11F_ROCKET,   SHOW
 	db SILPH_CO_11F, SILPHCO11F_JESSIE,   SHOW
-; v0.5 Phase B.4: removed UnusedMapF4HS block (UNUSED_MAP_F4 doesn't exist as a map).
-; MapHSPointers entry for unused map redirected to NoHS.
 PokemonMansion2FHS:
 	db POKEMON_MANSION_2F, POKEMONMANSION2F_CALCIUM, SHOW
 	db POKEMON_MANSION_2F, POKEMONMANSION2F_OAK, HIDE
@@ -584,12 +581,12 @@ SeafoamIslandsB3FHS:
 	db SEAFOAM_ISLANDS_B3F, SEAFOAMISLANDSB3F_BOULDER3,        SHOW
 	db SEAFOAM_ISLANDS_B3F, SEAFOAMISLANDSB3F_BOULDER5,        HIDE
 	db SEAFOAM_ISLANDS_B3F, SEAFOAMISLANDSB3F_BOULDER6,        HIDE
-	db SEAFOAM_ISLANDS_B3F, SEAFOAMISLANDSB3F_TM_LIGHT_SCREEN, SHOW ; v0.5 Phase B.4
+	db SEAFOAM_ISLANDS_B3F, SEAFOAMISLANDSB3F_TM_LIGHT_SCREEN, SHOW
 SeafoamIslandsB4FHS:
 	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_BOULDER1,    HIDE
 	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_BOULDER2,    HIDE
 	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_ARTICUNO,    SHOW
-	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_TM_ICE_BEAM, SHOW ; v0.5 Phase B.4
+	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_TM_ICE_BEAM, SHOW
 BluesHouseHSCopy: ; unreferenced
 	db BLUES_HOUSE, BLUESHOUSE_DAISY1,   SHOW
 	db BLUES_HOUSE, BLUESHOUSE_DAISY2,   HIDE
@@ -603,7 +600,7 @@ BrunosRoomHS:
 AgathasRoomHS:
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA,   			SHOW
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA_REMATCH,   	HIDE
-RockTunnelB1FHS: ; v0.5 Phase B.4 (new block at end of file to avoid HS index cascade)
+RockTunnelB1FHS: ; must stay last: MissableObjects order must match HS_* constant order, and HS_ROCK_TUNNEL_B1F_ITEM_1 is the final constant (see constants/hide_show_constants.asm)
 	db ROCK_TUNNEL_B1F, ROCKTUNNELB1F_TM_IRON_TAIL, SHOW
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

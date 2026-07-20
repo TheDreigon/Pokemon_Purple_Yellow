@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Mid-size hawk. Flight kit: QUICK_ATTACK/AERIAL_ACE/HURRICANE
-	; plus BODY_SLAM. HM CUT/FLY.
+	; plus BODY_SLAM/TAKE_DOWN. HM CUT/FLY.
 	tmhm QUICK_ATTACK, BODY_SLAM, TAKE_DOWN, AERIAL_ACE, HURRICANE, CUT, \
 	     FLY
 	; end

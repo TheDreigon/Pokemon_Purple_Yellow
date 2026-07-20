@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/gyarados.pic", 0, 1 ; sprite dimensions
 	dw GyaradosPicFront, GyaradosPicBack
 
-	db LEER, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset. TACKLE moved to the L10 learnset slot (R22, Forte 2026-07-15)
+	db LEER, NO_MOVE, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset

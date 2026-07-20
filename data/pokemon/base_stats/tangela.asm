@@ -1,7 +1,7 @@
 	db DEX_TANGELA ; pokedex id
 	base_stat_row 80, 60, 100, 70, 50 ; hp atk def spc spd
 
-	db GRASS, WATER ; type — v0.7 Forte: Tangela now Grass/Water dual
+	db GRASS, WATER ; type
 	db 45 ; catch rate
 	db 166 ; base exp
 

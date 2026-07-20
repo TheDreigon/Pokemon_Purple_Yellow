@@ -85,7 +85,6 @@ _BillsHouseBillWhyDontYouGoInsteadOfMeText::
 	cont "instead of me?"
 	done
 
-; _BillsHouseBillCheckOutMyRarePokemonText removed (v0.7): BILL2's talk
 ; is now the Eevee-quest dispatch (scripts/BillsHouse_2.asm); the PC
 ; flavor lives on in the post-quest "PC system" line. Reclaims bytes in
 ; the tight Text 3 bank.

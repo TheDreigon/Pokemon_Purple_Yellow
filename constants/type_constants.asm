@@ -39,7 +39,7 @@ DEF UNUSED_TYPES_END EQU const_value
 	const ELECTRIC     ; $17
 	const PSYCHIC_TYPE ; $18
 	const ICE          ; $19
-	const FAIRY        ; $1A  ; new type (Purple Yellow; moved from $0A)
-	const GAS          ; $1B  ; new type (Purple Yellow; moved from $0C)
+	const FAIRY ; $1A  ; new type (Purple Yellow)
+	const GAS ; $1B  ; new type (Purple Yellow)
 
 DEF NUM_TYPES EQU const_value

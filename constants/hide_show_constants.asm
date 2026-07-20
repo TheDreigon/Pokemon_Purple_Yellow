@@ -3,7 +3,6 @@ DEF SHOW EQU $15
 
 ; MissableObjects indexes (see data/maps/hide_show_data.asm)
 ; this is a list of the sprites that can be enabled/disabled during the game
-; TODO: mark sprite constants with an X that are never used
 
 	const_def
 	const HS_PALLET_TOWN_OAK               ; 00
@@ -183,7 +182,6 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_7F_RIVAL             ; AB
 	const HS_SILPH_CO_7F_ITEM_1            ; AC
 	const HS_SILPH_CO_7F_ITEM_2            ; AD
-	; v0.5 Phase B.4: removed HS_SILPH_CO_7F_8 (sprite didn't exist; data entry was orphan).
 	; Frees one HS slot to compensate for new TM ball items added elsewhere.
 	const HS_SILPH_CO_8F_1                 ; AF
 	const HS_SILPH_CO_8F_2                 ; B0
@@ -201,7 +199,6 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_11F_JAMES            ; BC
 	const HS_SILPH_CO_11F_2                ; BD
 	const HS_SILPH_CO_11F_JESSIE           ; BE
-	; v0.5 Phase B.4: removed HS_UNUSED_MAP_F4_1 (UNUSED_MAP_F4 doesn't exist as a map).
 	; Frees one HS slot to compensate for new TM ball items added elsewhere.
 	const HS_POKEMON_MANSION_2F_ITEM       ; C0
 	const HS_POKEMON_MANSION_2F_OAK
@@ -251,10 +248,10 @@ DEF SHOW EQU $15
 	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_2 ; E6
 	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_3 ; E7
 	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_4 ; E8
-	const HS_SEAFOAM_ISLANDS_B3F_ITEM_1    ; v0.5 Phase B.4 (TM41 Light Screen)
+	const HS_SEAFOAM_ISLANDS_B3F_ITEM_1 ; TM41 Light Screen ball
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_1 ; E9
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; EA
-	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1    ; v0.5 Phase B.4 (TM42 Ice Beam)
+	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; TM42 Ice Beam ball
 	const HS_ARTICUNO                      ; EB
 	const HS_DAISY_SITTING_COPY            ; EC
 	const HS_DAISY_WALKING_COPY            ; ED
@@ -265,5 +262,5 @@ DEF SHOW EQU $15
 	const HS_BRUNOSROOM_BRUNO_REMATCH
 	const HS_AGATHASROOM_AGATHA
 	const HS_AGATHASROOM_AGATHA_REMATCH
-	const HS_ROCK_TUNNEL_B1F_ITEM_1 ; v0.5 Phase B.4 (TM13 Iron Head; appended at end to avoid cascade)
+	const HS_ROCK_TUNNEL_B1F_ITEM_1 ; TM13 Iron Tail ball (appended at list end to avoid renumbering earlier HS ids)
 DEF NUM_HS_OBJECTS EQU const_value

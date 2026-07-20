@@ -3,7 +3,7 @@
 	const_export SEAFOAMISLANDSB4F_BOULDER2
 	const_export SEAFOAMISLANDSB4F_ARTICUNO
 	const_export SEAFOAM_ISLANDS_WEEBRA
-	const_export SEAFOAMISLANDSB4F_TM_ICE_BEAM ; v0.5 Phase B.4
+	const_export SEAFOAMISLANDSB4F_TM_ICE_BEAM
 
 SeafoamIslandsB4F_Object:
 	db $7d ; border block

@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Aquatic duck with a latent psychic mind (pre-evo backbone):
-	; WATER_PULSE/EXTRASENSORY plus ICE_BEAM. HM CUT/SURF.
+	; WATER_PULSE/EXTRASENSORY plus ICY_PULSE/ICE_BEAM. HM CUT/SURF.
 	tmhm WATER_PULSE, ICY_PULSE, EXTRASENSORY, ICE_BEAM, CUT, \
 	     SURF
 	; end

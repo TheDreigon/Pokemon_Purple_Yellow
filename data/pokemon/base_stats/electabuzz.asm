@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Electric boxer from the power plant (Magmar counterpart).
-	; HM STRENGTH/FLASH.
+	; HM CUT/STRENGTH/FLASH.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, FLAME_BURST, \
 	     SHOCK_WAVE, THUNDER_WAVE, BULK_UP, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, TAKE_DOWN, \

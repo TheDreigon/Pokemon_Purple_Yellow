@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Basic Water tadpole: WATER_PULSE/BODY_SLAM plus ICE_BEAM.
+	; Basic Water tadpole: WATER_PULSE/BODY_SLAM plus ICY_PULSE/ICE_BEAM.
 	; HM SURF.
 	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, SURF
 	; end

@@ -1,9 +1,8 @@
 TechnicalMachinePrices:
 ; Each entry is a 3-byte packed BCD price (0..999999).
 ; Reading routine: engine/items/tm_prices.asm:GetMachinePrice.
-; Migrated from nybble_array (max 15000) to 3-byte BCD (max 999999)
 ; in the v0.5 TM rework to support prices up to 30000.
-; v0.7 TM rework (Forte spec): all 55 prices updated to match new TM
+; Sale sites (annotated per entry) follow TMs_HMs_before-after.txt (DEPOIS).
 ; mapping + new sale-site spec (TMs_HMs_before-after.txt DEPOIS).
 	db $00, $50, $00 ; TM01 ROCK_THROW    =   5000  ; Celadon 2F
 	db $00, $50, $00 ; TM02 QUICK_ATTACK  =   5000  ; Celadon 2F
@@ -23,7 +22,7 @@ TechnicalMachinePrices:
 	db $01, $50, $00 ; TM16 IGNITE        =  15000  ; Fuchsia
 	db $01, $50, $00 ; TM17 THUNDER_WAVE  =  15000  ; Fuchsia
 	db $01, $50, $00 ; TM18 BULK_UP       =  15000  ; Celadon 5F
-	db $00, $00, $00 ; TM19 MIMIC         =      0  ; Game Corner (1000 coins)
+	db $00, $00, $00 ; TM19 MIMIC         =      0  ; Game Corner (500 coins)
 	db $00, $00, $00 ; TM20 MIRROR_MOVE   =      0  ; Game Corner (500 coins)
 	db $00, $00, $00 ; TM21 SUBSTITUTE    =      0  ; Game Corner (1000 coins)
 	db $00, $00, $00 ; TM22 METRONOME     =      0  ; Game Corner (1500 coins) + Cinnabar Lab gift
