@@ -641,22 +641,25 @@ DrawDexEntryOnScreen:
 	and a
 	ret z ; if the pokemon has not been owned, don't print the height, weight, or description
 
-; v0.7 metric dex: the two height bytes now store meters, decimeters
-; (same layout the ft/in code used — flow unchanged, only coords/digits)
+; v0.7 metric dex: the two height bytes store meters, decimeters.
+; Both are single digits written directly to the tilemap — PrintNumber
+; only supports 2-7 digits (its 1-digit call falls through to a 7-tile
+; field; see home/print_num.asm).
 	inc de ; de = address of meters (height)
-	ld a, [de] ; reads meters, but a is overwritten without being used
+	ld a, [de]
+	add "0"
 	hlcoord 14, 6
-	lb bc, 1, 1
-	call PrintNumber ; print whole meters (the template supplies the dot)
-	inc de
+	ld [hl], a ; whole meters (the template supplies the dot)
 	inc de ; de = address of decimeters (height)
+	ld a, [de]
+	add "0"
 	hlcoord 16, 6
-	lb bc, 1, 1
-	call PrintNumber ; print decimeters (the template supplies the "m")
+	ld [hl], a ; decimeters (the template supplies the "m")
 ; now print the weight (stored in tenths of KILOGRAMS since v0.7)
 	inc de
-	inc de
-	inc de ; de = address of upper byte of weight
+	inc de ; de = address of upper byte of weight (PrintNumber used to
+	       ; leave de one byte behind; direct writes do not, hence one
+	       ; fewer inc than the vanilla ft/in flow)
 	push de
 ; put weight in big-endian order at hDexWeight
 	ld hl, hDexWeight
