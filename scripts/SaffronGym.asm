@@ -243,7 +243,7 @@ SaffronGymSabrinaText:
 	ld [wCurOpponent], a
 	ld a, 3
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wSaffronGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
@@ -257,7 +257,7 @@ SaffronGymSabrinaText:
 	ld [wCurOpponent], a
 	ld a, 2
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wSaffronGymCurScript], a
 	ld [wCurMapScript], a
 	jr .afterBatttle

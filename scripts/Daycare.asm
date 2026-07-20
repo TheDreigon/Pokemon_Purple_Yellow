@@ -264,7 +264,7 @@ DaycareGentlemanText:
 	ld a, $6
 	ld [wPikachuSpawnState], a
 
-	; GameFreak... TriHard
+	; dead vanilla leftover: hl is overwritten on the next line and Bankswitch is never called, so these 3 lines do nothing (Pikachu spawn is driven by wPikachuSpawnState above)
 	ld hl, SchedulePikachuSpawnForAfterText
 	ld b, BANK(SchedulePikachuSpawnForAfterText)
 	ld hl, Bankswitch

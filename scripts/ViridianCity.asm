@@ -322,9 +322,10 @@ ViridianCityOldManYouNeedToWeakenTheTargetText:
 	text_end
 
 ViridianCityOldMan2Text:
-; v0.7: the old man no longer runs the catching demo. He apologises, lets
+; The old man no longer runs the catching demo. He apologises, lets
 ; you through, steps out of the way (reusing the POST_INITIAL movement +
-; MOVING_DOWN hide phases), and his catching tip is delivered later by his
+; MOVING_DOWN hide phases), and his promised tip (the START+A-on-STATS
+; hidden-stats/growth-potential hint) is delivered later by his
 ; street appearance (ViridianCityPrintOldManText), spawned by
 ; ViridianMartScript2 once you've left and come back. EVENT_COMPLETED_CATCH_
 ; TRAINING is reused here purely as the "let through / move along" flag.

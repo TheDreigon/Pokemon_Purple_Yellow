@@ -6,7 +6,7 @@ ChampionsRoom_Script:
 	ret
 
 ResetRivalScript:
-	xor a ; SCENE_CHAMPIONSROOM_DEFAULT
+	xor a ; xor a ; SCRIPT_CHAMPIONSROOM_DEFAULT
 	ld [wJoyIgnore], a
 	ld [wChampionsRoomCurScript], a
 	ret
@@ -74,7 +74,7 @@ ChampionsRoomRivalReadyToBattleScript:
 
 	; select which team to use during the encounter
 	ld a, [wRivalStarter]
-	add $0 ; Wow GameFreak
+	add $0
 	ld [wTrainerNo], a
 .done
 	xor a

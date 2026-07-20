@@ -26,7 +26,6 @@ PowerPlant_TextPointers:
 	dw_const PowerPlantZapdosText,     TEXT_POWERPLANT_ZAPDOS
 	dw_const PowerPlantCraigText,      TEXT_POWERPLANT_CRAIG
 	dw_const PickUpItemText,           TEXT_POWERPLANT_CARBOS
-	; dw_const PickUpItemText,           TEXT_POWERPLANT_HP_UP
 	dw_const PickUpItemText,           TEXT_POWERPLANT_RARE_CANDY
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_REFLECT
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_THUNDERBOLT

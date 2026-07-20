@@ -207,7 +207,7 @@ PokemonMansion2FOakText:
 
 	ld a, $3
 	ld [wPokemonMansion2FCurScript], a
-	ld [wCurMapScript], a	;joenote - also set the value for current map script or you will have a bad time
+	ld [wCurMapScript], a ; ld [wCurMapScript], a ; keep wCurMapScript in sync with the map script index
 	
 	ld hl, PokemonMansion2F_OakDefeatedText
 	ld de, PokemonMansion2F_OakWonText
@@ -223,7 +223,7 @@ PokemonMansion2FOakText:
 
 PokemonMansion2FOakPostBattleScript:
 	ld a, [wIsInBattle]	;if wIsInBattle is -1, then the battle was lost
-	inc a	;if A holds -1, it will increment to 0 and set the z flag (but not the c flag, dec and inc cannot affect it).
+	inc a
 	jr z, .skip	;Kick out if the player lost.
 
 	ld a, TEXT_POKEMONMANSION2F_OAK_POST_BATTLE
@@ -251,7 +251,7 @@ PokemonMansion2FOakPostBattleScript:
 .skip
 	ld a, $0
 	ld [wPokemonMansion2FCurScript], a
-	ld [wCurMapScript], a	;joenote - also set the value for current map script or you will have a bad time
+	ld [wCurMapScript], a
 	ret
 
 PokemonMansion2F_OakBeforeBattleText1:

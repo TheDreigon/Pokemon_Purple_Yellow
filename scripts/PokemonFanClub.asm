@@ -52,7 +52,7 @@ PokemonFanClubScript_59a44:
 	predef EmotionBubble
 	ld hl, PokemonFanClubPikachuMovementData
 	call ApplyPikachuMovementData
-	ld a, $2 ; Seel
+	ld a, $2 ; ld a, $2 ; Clefairy
 	ld [wSprite03StateData1MovementStatus], a
 	xor a ; SPRITE_FACING_DOWN
 	ld [wSprite03StateData1FacingDirection], a

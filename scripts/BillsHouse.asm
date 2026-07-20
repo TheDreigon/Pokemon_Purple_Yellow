@@ -253,7 +253,7 @@ BillsHouseScript8:
 	ret
 
 BillsHouseScript9:
-; v0.7 Bill's Eevee: once the player is fully inside the room, arm
+; Bill's Eevee: once the player is fully inside the room, arm
 ; the door trigger that lets Bill catch them on the way out
 	CheckEvent EVENT_GOT_BILL_EEVEE
 	ret nz

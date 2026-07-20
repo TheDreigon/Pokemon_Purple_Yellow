@@ -2,7 +2,7 @@ VermilionCityPrintOfficerJennyText::
 	CheckEvent EVENT_GOT_SQUIRTLE_FROM_OFFICER_JENNY
 	jr nz, .asm_f1a69
 	ld a, [wBeatGymFlags]
-	bit 1, a ; CASCADEBADGE (v0.7: was THUNDERBADGE)
+	bit 1, a ; bit 1, a ; CASCADEBADGE
 	jr nz, .asm_f1a24
 	ld hl, OfficerJennyText1
 	call PrintText

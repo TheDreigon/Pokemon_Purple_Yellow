@@ -37,7 +37,7 @@ CeladonGym_ScriptPointers:
 	dw_const CeladonGymErikaPostBattleScript,       SCRIPT_CELADONGYM_ERIKA_POST_BATTLE
 	dw_const CeladonGymGateKickoutScript,          SCRIPT_CELADONGYM_GATE_KICKOUT
 
-; v0.7 badge-gating (strict gym order): requires THUNDERBADGE.
+; Badge-gating (strict gym order): requires THUNDERBADGE.
 ; Entering without it auto-triggers the gate text and the player is shoved
 ; back out the door (Route 22 gate pattern).
 CeladonGymDefaultScript:
@@ -130,7 +130,7 @@ ErikaRematchPostBattle:
 	call DisplayTextID
 	jp CeladonGymResetScripts
 
-; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; Badge-gating: refusal + shove-out (auto-triggered by the default
 ; script when the player enters without the required badge).
 CeladonGymGateText:
 	text_asm
@@ -207,7 +207,7 @@ CeladonGymErikaText:
 	call PrintText
 	jr .todone
 .beforeBeat
-; v0.7 badge-gating: the leader also refuses without the previous badge
+; Badge-gating: the leader also refuses without the previous badge
 ; (belt-and-braces - the door gate normally fires first).
 	ld a, [wObtainedBadges]
 	bit BIT_THUNDERBADGE, a
@@ -247,7 +247,7 @@ CeladonGymErikaText:
 	ld [wCurOpponent], a
 	ld a, 4
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
@@ -261,7 +261,7 @@ CeladonGymErikaText:
 	ld [wCurOpponent], a
 	ld a, 3
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
 	jr .afterBatttle
@@ -271,7 +271,7 @@ CeladonGymErikaText:
 	ld [wCurOpponent], a
 	ld a, 2
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
 	jr .afterBatttle

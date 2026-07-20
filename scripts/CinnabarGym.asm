@@ -376,7 +376,7 @@ CinnabarGymStartRematchScript:
 	ld [wCurOpponent], a
 	ld a, 2
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
 	ld a, SCRIPT_CINNABARGYM_BLAINE_POST_BATTLE

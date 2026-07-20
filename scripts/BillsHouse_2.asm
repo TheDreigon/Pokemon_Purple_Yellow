@@ -46,7 +46,7 @@ BillsHousePrintBillSSTicketText::
 	ld [wMissableObjectIndex], a
 	predef HideObject
 .got_ss_ticket
-; v0.7 Bill's Eevee quest — part 2 dispatch
+; Bill's Eevee quest — part 2 dispatch
 	CheckEvent EVENT_GOT_BILL_EEVEE
 	jr z, .default_chat
 	CheckEvent EVENT_GOT_BILL_EEVEELUTION_STONE
@@ -109,7 +109,7 @@ BillsHousePrintBillSSTicketText::
 	text_end
 
 BillsHousePrintBillCheckOutMyRarePokemonText::
-; v0.7 Bill's Eevee quest — BILL2 is the Bill of every RETURN visit
+; Bill's Eevee quest — BILL2 is the Bill of every RETURN visit
 ; (Route 25's script swaps BILL1 out after the first exit), so the
 ; quest must dispatch from here too.
 	CheckEvent EVENT_GOT_BILL_EEVEE
@@ -224,7 +224,7 @@ Data_f2521:
 	db $38
 	db $3f
 
-; v0.7 Bill's Eevee quest — part 1: Bill catches the player at the
+; Bill's Eevee quest — part 1: Bill catches the player at the
 ; door on the way out (fired by BillsHouseScript10)
 BillsHouseGiveEevee::
 	ld hl, .HeyWaitUpText
@@ -292,7 +292,7 @@ BillsHouseEeveelutionQuiz::
 	ld [wLastMenuItem], a
 ; the start-menu wrap QoL leaves wMenuWatchMovingOutOfBounds set;
 ; stale nonzero lets Up/Down at the menu edges bypass the A/B filter
-; and instantly lock in a stone — clear it (two-option-menu hygiene)
+; and instantly lock in a stone — clear it (fixed-menu hygiene)
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wMenuJoypadPollCount], a ; stale 1 (cable club) would auto-answer
 	ld a, A_BUTTON | B_BUTTON

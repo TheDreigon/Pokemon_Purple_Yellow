@@ -1,4 +1,4 @@
-; v0.7 — PURPLE the PROGRAMMER (Celadon Mansion roof house).
+; PURPLE the PROGRAMMER (Celadon Mansion roof house).
 ; The roof-house dev quizzes the player on THIS hack's canon (8
 ; questions, 3-way menus); a perfect score unlocks the prototype
 ; PORYGON L20 stored in the desk BALL (vanilla Eevee-ball plumbing

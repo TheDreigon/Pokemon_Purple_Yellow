@@ -1,6 +1,5 @@
 MoveRelearnerText1:
 	text_asm
-; Display the list of moves to the player.
 	ld hl, MoveRelearnerGreetingText
 	call PrintText
 	call YesNoChoice
@@ -8,7 +7,7 @@ MoveRelearnerText1:
 	and a
 	jp nz, .exit
 	xor a
-	;charge 1000 money
+	; check the player can afford the 1000 fee (the charge itself happens after a successful learn, below)
 	ld [hMoney], a	
 	ld [hMoney + 2], a	
 	ld a, $0A
@@ -73,7 +72,7 @@ MoveRelearnerText1:
 	ld [wMoveNum], a
 	ld [wd11e],a
 	call GetMoveName
-	call CopyToStringBuffer ; copy name to wcf4b
+	call CopyToStringBuffer ; copy name to wStringBuffer
 	pop bc
 	ld a, b
 	ld [wWhichPokemon], a

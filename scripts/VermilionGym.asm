@@ -252,7 +252,7 @@ VermilionGymLTSurgeText:
 	ld [wCurOpponent], a
 	ld a, 2
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wVermilionGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle

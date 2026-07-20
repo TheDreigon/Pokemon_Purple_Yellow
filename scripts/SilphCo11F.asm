@@ -157,7 +157,7 @@ SilphCo11FGiovanniAfterBattleScript:
 	cp $ff
 	jp z, SilphCo11FResetCurScript
 	ld a, [wSavedCoordIndex]
-	cp 1 ; index of second, upper-right entry in SilphCo11FDefaultScript.PlayerCoordsArray
+	cp 1 ; cp 1 ; index of first, lower-left entry (6,13) in SilphCo11FDefaultScript.PlayerCoordsArray (wCoordIndex is 1-based) — the tile directly below Giovanni's stopping point, hence face up
 	jr z, .face_player_up
 	ld a, PLAYER_DIR_LEFT
 	ld b, SPRITE_FACING_RIGHT
@@ -190,7 +190,7 @@ SilphCo11FGiovanniStartBattleScript:
 	ldh [hSpriteIndex], a
 	call SetSpriteMovementBytesToFF
 	ld a, [wSavedCoordIndex]
-	cp 1 ; index of second, upper-right entry in SilphCo11FDefaultScript.PlayerCoordsArray
+	cp 1 ; cp 1 ; index of first, lower-left entry (6,13) in SilphCo11FDefaultScript.PlayerCoordsArray (wCoordIndex is 1-based) — the tile directly below Giovanni's stopping point, hence face up
 	jr z, .face_player_up
 	ld a, PLAYER_DIR_LEFT
 	ld b, SPRITE_FACING_RIGHT
@@ -389,7 +389,7 @@ SilphCo11FScript11:
 	ld hl, SilphCo11FText_624c2
 	ld de, SilphCo11FText_624c2
 	call SaveEndBattleTextPointers
-	ld a, OPP_JESSIE_AND_JAMES ; v0.7: was OPP_ROCKET / party $2d — promoted to dedicated boss class
+	ld a, OPP_JESSIE_AND_JAMES
 	ld [wCurOpponent], a
 	ld a, $4
 	ld [wTrainerNo], a

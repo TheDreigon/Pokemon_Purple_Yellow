@@ -141,14 +141,11 @@ SeafoamIslandsB4F_TextPointers:
 	dw_const BoulderText,                       TEXT_SEAFOAMISLANDSB4F_BOULDER2
 	dw_const SeafoamIslandsB4FArticunoText,     TEXT_SEAFOAMISLANDSB4F_ARTICUNO
 	dw_const SeafoamIslandsWeebraText1,      	TEXT_SEAFOAM_ISLANDS_WEEBRA
-	dw_const PickUpItemText,                    TEXT_SEAFOAMISLANDSB4F_TM_ICE_BEAM ; v0.5 Phase B.4 (must be before bg_event signs to satisfy def_warps_to assertion)
+	dw_const PickUpItemText,                    TEXT_SEAFOAMISLANDSB4F_TM_ICE_BEAM ; must come before the bg_event sign texts — def_warps_to asserts object_event text IDs precede bg_event text IDs
 	dw_const SeafoamIslandsB4FBouldersSignText, TEXT_SEAFOAMISLANDSB4F_BOULDERS_SIGN
 	dw_const SeafoamIslandsB4FDangerSignText,   TEXT_SEAFOAMISLANDSB4F_DANGER_SIGN
 	dw_const SeafoamIslandsWeebraEndBattleText1,TEXT_SEAFOAM_ISLANDS_WEEBRA_END_BATTLE
 
-; Articuno is object 3, but its event flag is bit 2.
-; This is not a problem because its sight range is 0, and
-; trainer headers were not stored by ExecuteCurMapScriptInTable.
 SeafoamIslandsB4FTrainerHeaders:
 	def_trainers 3
 ArticunoTrainerHeader:
@@ -206,7 +203,6 @@ WeebraPostBattleScript:
 	ld a, SCRIPT_SEAFOAMISLANDSB4F_DEFAULT
 	ld [wSeafoamIslandsB4FCurScript], a
 	ld [wCurMapScript], a
-	; ResetEvent EVENT_INITIATED_WEEBRA_BATTLE
 	ret
 SeafoamIslandsWeebraAfterBattleText1:
 	text_far _SeafoamIslandsWeebraAfterBattleText1
