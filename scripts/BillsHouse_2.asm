@@ -294,6 +294,7 @@ BillsHouseEeveelutionQuiz::
 ; stale nonzero lets Up/Down at the menu edges bypass the A/B filter
 ; and instantly lock in a stone — clear it (two-option-menu hygiene)
 	ld [wMenuWatchMovingOutOfBounds], a
+	ld [wMenuJoypadPollCount], a ; stale 1 (cable club) would auto-answer
 	ld a, A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
 	ld a, 2

@@ -825,6 +825,10 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_GOT_BILL_EEVEE
 	const EVENT_GOT_BILL_EEVEELUTION_STONE
 
+; PURPLE's quiz — Celadon roof house (v0.7)
+	const EVENT_BEAT_PURPLES_QUIZ
+	const EVENT_GOT_ROOF_PORYGON
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value

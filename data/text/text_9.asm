@@ -835,3 +835,119 @@ _BillsHouseBillHowsTheTeamText::
 	para "I should get back"
 	line "to my research!"
 	done
+
+; --- PURPLE the PROGRAMMER, Celadon roof house (v0.7) ---
+
+_RoofHouseProgrammerIntroText::
+	text "I'm the"
+	line "PROGRAMMER! I"
+	cont "wrote this world,"
+	cont "bug by bug!"
+
+	para "The staff down-"
+	line "stairs? They call"
+	cont "me PURPLE!"
+
+	para "Think you know MY"
+	line "KANTO? Pop quiz!"
+	cont "8 questions!"
+	prompt
+
+_RoofQuizQ1Text::
+	text "Q1: What type is"
+	line "VILEPLUME?"
+	done
+
+_RoofQuizQ2Text::
+	text "Q2: Which stone"
+	line "evolves STARYU?"
+	done
+
+_RoofQuizQ3Text::
+	text "Q3: How long is"
+	line "ONIX?"
+	done
+
+_RoofQuizQ4Text::
+	text "Q4: KADABRA"
+	line "evolves at what L?"
+	done
+
+_RoofQuizQ5Text::
+	text "Q5: What type is"
+	line "GYARADOS?"
+	done
+
+_RoofQuizQ6Text::
+	text "Q6: Which stone"
+	line "evolves VULPIX?"
+	done
+
+_RoofQuizQ7Text::
+	text "Q7: Whose cry is"
+	line "DITTO's a copy of?"
+	done
+
+_RoofQuizQ8Text::
+	text "Q8: Where do wild"
+	line "TAUROS roam?"
+	done
+
+_RoofQuizPerfectText::
+	text "A perfect score!"
+	line "You actually read"
+	cont "my code!"
+
+	para "The prototype in"
+	line "that BALL is"
+	cont "yours! Go on!"
+	done
+
+_RoofQuizCloseText::
+	text "Ooh, so close!"
+	line "But the build"
+	cont "still crashes,"
+	cont "kid."
+
+	para "Study up and"
+	line "retry!"
+	done
+
+_RoofQuizFailText::
+	text "Did you even open"
+	line "the #DEX?"
+
+	para "Go read my patch"
+	line "notes and come"
+	cont "back!"
+	done
+
+_RoofHouseGoTakeBallText::
+	text "Well? The"
+	line "prototype's in"
+	cont "that BALL!"
+	done
+
+_RoofHouseAfterGiftText::
+	text "How's my"
+	line "prototype? Report"
+	cont "any bugs to..."
+
+	para "Ha! To ME, of"
+	line "course!"
+	done
+
+_RoofHousePrototypeBallLockedText::
+	text "It's a BALL with"
+	line "a label:"
+
+	para "PROPERTY OF"
+	line "PURPLE. PASS THE"
+	cont "QUIZ FIRST!"
+	done
+
+_RoofHousePrototypeBallOpenText::
+	text "The label now"
+	line "reads: QUIZ"
+	cont "PASSED. ENJOY!"
+	prompt

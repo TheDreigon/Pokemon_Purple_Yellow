@@ -4,20 +4,18 @@ CeladonMansionRoofHouse_Script:
 
 CeladonMansionRoofHouse_TextPointers:
 	def_text_pointers
-	dw_const CeladonMansionRoofHouseHikerText,         TEXT_CELADONMANSION_ROOF_HOUSE_HIKER
-	dw_const CeladonMansionRoofHouseEeveePokeballText, TEXT_CELADONMANSION_ROOF_HOUSE_EEVEE_POKEBALL
+	dw_const CeladonMansionRoofHouseProgrammerText,    TEXT_CELADONMANSION_ROOF_HOUSE_PROGRAMMER
+	dw_const CeladonMansionRoofHousePrototypeBallText, TEXT_CELADONMANSION_ROOF_HOUSE_PROTOTYPE_BALL
 
-CeladonMansionRoofHouseHikerText:
-	text_far _CeladonMansionRoofHouseHikerText
-	text_end
-
-CeladonMansionRoofHouseEeveePokeballText:
+; v0.7: the roof-house hiker is now PURPLE the PROGRAMMER, whose
+; 8-question canon quiz unlocks the prototype PORYGON in the ball
+; (replaces the free Eevee ball; logic in CeladonMansionRoofHouse_2.asm)
+CeladonMansionRoofHouseProgrammerText:
 	text_asm
-	lb bc, EEVEE, 25
-	call GivePokemon
-	jr nc, .party_full
-	ld a, HS_CELADON_MANSION_EEVEE_GIFT
-	ld [wMissableObjectIndex], a
-	predef HideObject
-.party_full
+	farcall RoofHouseProgrammerScript
+	jp TextScriptEnd
+
+CeladonMansionRoofHousePrototypeBallText:
+	text_asm
+	farcall RoofHousePrototypeBallScript
 	jp TextScriptEnd
