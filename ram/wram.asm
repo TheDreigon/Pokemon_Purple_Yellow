@@ -380,7 +380,7 @@ wPlayerMonNumber:: db
 ; the address of the menu cursor's current location within wTileMap
 wMenuCursorLocation:: dw
 
-; index in party of currently battling mon
+; daycare level cap: on hard mode (pre-Champion) daycare growth stops at this level (scales with badge count, 12..65); MAX_LEVEL otherwise. See scripts/Daycare.asm
 wMaxDaycareLevel:: db
 
 	ds 1
@@ -525,13 +525,10 @@ wSlotMachineSevenAndBarModeChance:: db
 ; ROM back to return to when the player is done with the slot machine
 wSlotMachineSavedROMBank:: db
 
-; Move Buffer stuff for Mateo's code
+; 164-byte scratch list shared by the move relearner, move deleter, TM/HM move list and Pokedex move list. Keep it this large: the relearn list needs the full space, and a too-small buffer reads garbage from adjacent RAM.
 wMoveBuffer::
 wRelearnableMoves::
 	ds 164
-; Try not to use this stack. 
-; A good amount of space is needed to store data for the move relearner.
-; If it's like, 2, it'll lag like crazy and show garbage from elsewhere.
 
 wLuckySlotHiddenObjectIndex:: db
 
@@ -1443,6 +1440,8 @@ wCurOpponent:: db
 ; in normal battle, this is 0
 ; in old man battle, this is 1
 ; in safari battle, this is 2
+; in the forced-run battle (escape always succeeds), this is 3
+; in Oak's starter Pikachu battle, this is 4
 wBattleType:: db
 
 ; bits 0-6: Effectiveness
@@ -1547,7 +1546,7 @@ NEXTU
 wPlayerNumHits:: db
 ENDU
 
-; PURPLE YELLOW v0.5: repurposed from the 2-byte pad that lived here.
+; freeze auto-thaw counters: set to 3-6 turns when freeze is inflicted (effects.asm), decremented each turn (core.asm), mon thaws at 0
 wPlayerFreezeCounter:: db
 wEnemyFreezeCounter:: db
 
@@ -1758,7 +1757,7 @@ wMonHBackSprite:: dw
 wMonHMoves:: ds NUM_MOVES
 wMonHGrowthRate:: db
 wMonHLearnset:: flag_array NUM_TMS + NUM_HMS
-	; v0.5 TM rework: removed `ds 1` padding. With NUM_TMS=55 + NUM_HMS=5 = 60 bits,
+	; 60 learnset flags (NUM_TMS 55 + NUM_HMS 5) fill 8 bytes exactly, so unlike vanilla's 55-flag (7 bytes + 1 pad) learnset there is NO trailing padding byte here — do not re-add one.
 	; the flag_array now occupies 8 bytes naturally, so the padding byte that kept the
 	; struct aligned with the previous 7-byte (55-bit) learnset is no longer needed.
 wMonHeaderEnd::
@@ -1891,7 +1890,7 @@ wNumberOfNoRandomBattleStepsLeft:: db
 wPrize1:: db
 wPrize2:: db
 wPrize3:: db
-wPrize4:: db ; v0.5 TM rework Phase B.3: 4-TM Game Corner menu
+wPrize4:: db ; 4th prize slot for the Game Corner TM prize menu (not in vanilla)
 
 wNoSprintSteps:: db
 
@@ -1902,7 +1901,7 @@ NEXTU
 wPrize1Price:: dw
 wPrize2Price:: dw
 wPrize3Price:: dw
-wPrize4Price:: dw ; v0.5 TM rework Phase B.3: 4-TM Game Corner menu (replaced ds 1 padding)
+wPrize4Price:: dw ; price for the 4th Game Corner prize slot
 
 ; shared list of 9 random numbers, indexed by wLinkBattleRandomNumberListIndex
 wLinkBattleRandomNumberList:: ds 10
@@ -2348,7 +2347,6 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	; ds 78
 wGameProgressFlagsEnd::
 
 wDifficulty::
@@ -2601,7 +2599,7 @@ wUnusedDA38:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-wStartBattleLevels:: ds PARTY_LENGTH ; pureRGBnote: ADDED: tracker for base stats of the player pokemon in battle, used for comparisons in opponent AI
+wStartBattleLevels:: ds PARTY_LENGTH ; player party levels snapshotted at battle start by StorePKMNLevels (init_battle.asm); currently write-only — the pureRGB AI comparisons that read it were not ported
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db
@@ -2669,7 +2667,10 @@ wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 SECTION "Stack", WRAM0
 
 ; the stack grows downward
-; v0.5 TM rework Phase B.3: shrunk by 2 bytes (235 -> 233) to make room
+; the stack grows downward
+; 248 bytes ($f8). Static worst-case stack use is ~60-70 bytes, so this is
+; generous headroom. Size must stay in sync with layout.link "Stack"
+; org $df08 ($df08 + $f8 = $e000).
 ; for wPrize4 + wPrize4Price added for the 4-TM Game Corner menu.
 ; v0.5 mart rework: shrunk a further 28 bytes (233 -> 205) to absorb
 ; wItemList expansion (16 -> 32) and the new wMartExtras (12 bytes).

@@ -19,7 +19,7 @@ GetName::
 	ld [wd11e], a
 
 	; TM names are separate from item names.
-	; BUG: This applies to all names instead of just items.
+	; TM/HM names are stored separately from item names. Only treat IDs >= HM01 as machines when the list type is items (fixes the vanilla bug where this applied to every name list).
 	;joenote - fixing the aforementioned bug
 	push bc
 	ld b, a
@@ -30,7 +30,7 @@ GetName::
 	jr nz, .notMachine	;if the list type is not items, then A cannot be referring to a machine
 	;At this line, definitely working with an item list. So see if it's a machine or item
 	cp HM01
-	;jp nc, GetMachineName	;joenote - function removed. Handle list-based tm & hm names here.
+	;joenote - call removed; TM/HM names are handled inline below (GetMachineName in names.asm is now unreferenced)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do some stuff if the item is a machine
 	jr c, .notMachine
@@ -98,10 +98,6 @@ GetName::
 	ld bc, NAME_BUFFER_LENGTH
 	call CopyData
 .gotPtr
-	; ld a, e
-	; ld [wUnusedCF8D], a
-	; ld a, d
-	; ld [wUnusedCF8D + 1], a
 	ld a, [wd11e]
 	cp HM01
 	jr c, .notMachine2

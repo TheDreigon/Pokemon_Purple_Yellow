@@ -113,7 +113,7 @@ CompareMapMusicBankWithCurrentBank::
 	and a
 	ret
 .differentBanks
-	ld a, c ; this is a fade-out counter value and it's always non-zero
+	ld a, c ; this is a fade-out counter value; it is 0 when no fade-out was requested (PlayDefaultMusic path), in which case the bank is switched immediately below
 	and a
 	ld a, e
 	jr nz, .next

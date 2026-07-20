@@ -1,4 +1,4 @@
-; rst vectors (unused)
+; rst vectors (rst0 = _Bankswitch trampoline used by farcall/callfar; rst8-rst38 unused)
 
 SECTION "rst0", ROM0[$0000]
 _Bankswitch::

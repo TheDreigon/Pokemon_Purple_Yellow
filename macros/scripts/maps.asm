@@ -72,7 +72,7 @@ ENDM
 
 ;\1 source map
 MACRO def_warps_to
-	; text ID values are significant (see DisplayTextID in home/text_scripts.asm)
+	; text ID values are significant (see DisplayTextID in home/text_script.asm)
 	FOR n, {_NUM_BG_EVENTS}
 		ASSERT {_BG_EVENT_{d:n}_TEXT_ID} > {_NUM_OBJECT_EVENTS}, \
 			"A bg_event has text ID {_BG_EVENT_{d:n}_TEXT_ID} expected for an object_event ({d:{_NUM_OBJECT_EVENTS}} or below)"

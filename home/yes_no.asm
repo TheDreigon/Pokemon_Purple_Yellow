@@ -1,5 +1,5 @@
 ; displays yes/no choice
-; yes -> set carry
+; result in [wCurrentMenuItem]: 0 = YES, 1 = NO (B button chooses NO)
 YesNoChoice::
 	call SaveScreenTilesToBuffer1
 	call InitYesNoTextBoxParameters

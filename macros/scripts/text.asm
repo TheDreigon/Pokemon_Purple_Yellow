@@ -192,7 +192,7 @@ ENDM
 ; extra fixed items (typically the TMs that a particular mart sells alongside
 ; its regular goods, e.g. Fuchsia/Cinnabar).
 ;
-; Three variants share a single TX opcode + dispatch path. They differ only
+; Two variants share a single TX opcode + dispatch path. They differ only
 ; in a single TYPE byte the engine reads to decide whether to also append
 ; the post-E4 / post-rematch elite addons (ETHER, MAX_ETHER, ELIXER,
 ; MAX_ELIXER, PP_UP, PP_MAX, MAX_REVIVE, RARE_CANDY).
