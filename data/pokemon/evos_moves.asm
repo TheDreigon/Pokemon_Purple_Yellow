@@ -650,7 +650,7 @@ SpearowEvosMoves:
 ; Learnset
 ; Honorary Dark/Flying — aggressive bird-of-prey with 2 Dark moves
 ; (FAINT_ATTACK, NIGHT_SLASH). No HURRICANE / GUST progression, which keeps
-; the line distinct from Pidgey. WING_ATTACK at L20 (evo level).
+; WING_ATTACK at L18.
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
@@ -1231,7 +1231,7 @@ OddishEvosMoves:
 ; Learnset
 ; Basic radish/turnip plant (Grass/Poison). Powder triad
 ; STUN_POWDER + SLEEP_POWDER + POISONPOWDER emerges by the evo level
-; (POISONPOWDER at L22). LEECH_SEED + drain + apex PETAL_DANCE.
+; (SLEEP_POWDER at L22). LEECH_SEED + drain + apex PETAL_DANCE.
 	db 10, GROWTH
 	db 13, TACKLE
 	db 16, STUN_POWDER
@@ -1401,7 +1401,7 @@ DiglettEvosMoves:
 	db EVOLVE_LEVEL, 33, DUGTRIO
 	db 0
 ; Learnset
-; Subterranean mole. DIG L1 (anatomically essential — the whole Diglett
+; DIG L5 (anatomically essential — the whole Diglett body is built to live in the dig).
 ; body is built to live in the dig). GROWL as a vocal hinder (near-blind
 ; mole). QUICK_ATTACK/AGILITY speed. EARTHQUAKE at L33 = evo level.
 ; EXTREMESPEED apex mole speed. FISSURE signature, last move L60.
@@ -2307,7 +2307,7 @@ SeelEvosMoves:
 	db 0
 ; Learnset
 ; Water/Ice seal. HORN_ATTACK (horn on the head).
-; (TACKLE lives in the egg field — R22, Forte 2026-07-15.)
+; (TACKLE lives in the egg field, not the levelup list.)
 	db  4, TAIL_WHIP
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP
@@ -2332,7 +2332,7 @@ DewgongEvosMoves:
 	db 0
 ; Learnset
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
-; (TACKLE lives in the egg field — R22, Forte 2026-07-15.)
+; (TACKLE lives in the egg field, not the levelup list.)
 	db  4, TAIL_WHIP
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP
@@ -2572,7 +2572,7 @@ OnixEvosMoves:
 ; HEAD/IRON_DEFENSE; snake form -> COIL/BIND; extreme deep-earth
 ; pressure -> DRAGON_BREATH/DRAGON_SLAM; HYPER_BEAM last at L70.
 ; No wild-fire moves (gentle giant under all that defense). Pairs at
-; same level: COIL+BIND, BIDE+LEER, CRUNCH+DIG, IRON_TAIL+BRUTAL_SWING.
+; same level: COIL+BIND, CRUNCH+DIG, IRON_TAIL+BRUTAL_SWING.
 ; FISSURE signature. ROCK_THROW@18 = exception (pushes the rock with
 ; its tail; serpent has no hands).
 	db  6, GROUND_STOMP
@@ -2711,7 +2711,7 @@ VoltorbEvosMoves:
 ; Learnset
 ; Living pokeball — sphere, no limbs. HARDEN (a rigid metal sphere
 ; tightens its shell — it can't curl), METAL_SOUND (Steel typing),
-; ROLLOUT L29 (it IS a rolling ball). EXPLOSION owner, shared L44.
+; ROLLOUT L28 (it IS a rolling ball). EXPLOSION owner, shared L46.
 	db  6, HEADBUTT
 	db 10, HARDEN
 	db 12, SUPERSONIC
@@ -2736,7 +2736,7 @@ ElectrodeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Apex sphere (130 Spd). AGILITY at L31 (full-speed roll). ROLLOUT
+; AGILITY at L33 (full-speed roll)
 ; shared. Screens pair, THUNDER apex top. EXPLOSION shared with Voltorb.
 	db  6, HEADBUTT
 	db 10, HARDEN
@@ -2895,7 +2895,7 @@ HitmonchanEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Pure fist-only puncher, single-stage. DEFENSE_CURL L1 (boxer's
+; DEFENSE_CURL L6 (boxer's initial guard).
 ; initial guard). Elemental coverage is 100% punches: ROCK_PUNCH/
 ; SHADOW_PUNCH/MAGMA_PUNCH (no FLAME_BURST/SHOCK_WAVE/ICY_WIND — those
 ; are special attacks, not punches). RECOVER for boxer stamina.
@@ -2980,7 +2980,7 @@ WeezingEvosMoves:
 	db 0
 ; Learnset
 ; Apex gas balloon. Koffing backbone (incl. shared CORRODE L31) +
-; Weezing-exclusives: SCARY_FACE (L52), GUNK_SHOT (L61), DARK_PULSE
+; SCARY_FACE (L52), GUNK_SHOT (L62), DARK_PULSE (L65).
 ; (L65). EXPLOSION shared at L55.
 	db  6, TACKLE
 	db 12, DISABLE
@@ -3149,7 +3149,7 @@ HorseaEvosMoves:
 	db 0
 ; Learnset
 ; Ink-spitting seahorse. ICY_WIND (cold-current rider, pre-ICY_PULSE).
-; DRAGON_BREATH at evo L26 = dragon blood awakening (key level).
+; WATER_PULSE at evo L26; dragon blood (DRAGON_BREATH) awakens post-evo on Seadra (L39).
 	db 10, SMOKESCREEN
 	db 15, ICY_WIND
 	db 18, BUBBLEBEAM
@@ -3381,7 +3381,7 @@ ElectabuzzEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Boxer Electric, counterpart of Magmar. NUZZLE L1, DIZZY_PUNCH and
+; NUZZLE L5, DIZZY_PUNCH and MACH_PUNCH for the boxer kit.
 ; MACH_PUNCH for the boxer kit. EXTREMESPEED/AGILITY very high.
 ; No SOLARBEAM (a boxer Electric isn't solar-coded).
 	db  5, NUZZLE
@@ -3411,7 +3411,7 @@ MagmarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Fire/Magma boxer, counterpart of Electabuzz. POISON_GAS L4 (vents
+; Fire/Magma boxer, counterpart of Electabuzz. POISON_GAS L5 (vents
 ; toxic gas), ROCK_PUNCH after MAGMA_PUNCH. HM CUT.
 ; No DRAGON_RAGE/DRAGON_BREATH (Magmar is Fire/Magma, not Dragon).
 	db  5, POISON_GAS
@@ -3501,7 +3501,6 @@ MagikarpEvosMoves:
 	db 0
 ; Learnset
 ; Minimalist Water (canon weakest). 5 moves total, faithful to canon.
-; RAGE L25 (one before the L26 evo).
 	db 10, TACKLE
 	db 15, WATER_GUN
 	db 20, BIDE
@@ -3888,7 +3887,7 @@ ZapdosEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Parallel trio kit + ELECTRIC ladder. DRILL_PECK L44 (the electric
+; Parallel trio kit + ELECTRIC ladder. DRILL_PECK L42 (the electric
 ; dive-drill; shared with Dodrio line + Fearow). Placed after FLY per
 ; the FLYING ladder. FOCUS_ENERGY early L16. Catch set @L50: FLY/
 ; THUNDERBOLT/DRILL_PECK/HURRICANE.

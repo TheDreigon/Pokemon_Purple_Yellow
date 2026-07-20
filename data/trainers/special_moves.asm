@@ -10,7 +10,6 @@
 ; GenerateRivalParty (Phase B); the RIVAL2,9 / RIVAL3,4 entries below are
 ; DEAD leftovers pointing at the dead Rival2/3Data placeholders — remove
 ; them in the post-playtest cleanup.
-; (Removed 2026-07-10 per Forte: Youngster 14's slot-4 FISSURE — the old
 ; Route 9 Sandshrew surprise; with Fissure rebalanced to 115 BP it was a
 ; mid-game nuke. The mon uses its natural level-up set now.)
 

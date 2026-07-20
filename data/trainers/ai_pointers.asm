@@ -32,12 +32,12 @@ TrainerAIPointers:
 	dbw 3, GenericAI ; Smith
 	dbw 1, GenericAI ; Craig
 	dbw 3, GenericAI
-	dbw 2, GiovanniAI ; giovanni — bumped 1→2 for 3-item bag (FR/XAtk/GuardSpec)
+	dbw 2, GiovanniAI ; giovanni — 2 AI item-uses/mon for its 4-item bag (FR/XAtk/XDef/FullHeal)
 	dbw 3, GenericAI
 	dbw 2, CooltrainerMAI ; cooltrainerm (non-boss; vanilla AI kept)
 	dbw 1, CooltrainerFAI ; cooltrainerf (non-boss; vanilla AI kept)
 	dbw 2, BrunoAI ; bruno
-	dbw 1, BrockAI ; brock — was 5 (vanilla over-allocation), now 1 per mon
+	dbw 1, BrockAI ; brock
 	dbw 1, MistyAI ; misty
 	dbw 1, LtSurgeAI ; surge
 	dbw 1, ErikaAI ; erika
