@@ -124,3 +124,30 @@ _VendingMachineText6::
 _VendingMachineText7::
 	text "Not thirsty!"
 	done
+
+_CeladonMartRoofLittleGirlTM13ExplanationText::
+	text_start
+	para "That TM holds"
+	line "CONFUSE RAY!"
+
+	para "It confuses the"
+	line "foe!@"
+	text_end
+
+_CeladonMartRoofLittleGirlTM48ExplanationText::
+	text_start
+	para "That TM holds"
+	line "IGNITE!"
+
+	para "It burns the"
+	line "foe!@"
+	text_end
+
+_CeladonMartRoofLittleGirlTM49ExplanationText::
+	text_start
+	para "That TM holds"
+	line "THUNDER WAVE!"
+
+	para "It paralyzes the"
+	line "foe!@"
+	text_end
