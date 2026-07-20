@@ -164,11 +164,11 @@ RoofQuizTable::
 	dw .Q3Text, .Q3A, .Q3B, .Q3C
 	db 0
 	dw .Q4Text, .Q4A, .Q4B, .Q4C
-	db 1
-	dw .Q5Text, .Q5A, .Q5B, .Q5C
 	db 2
-	dw .Q6Text, .Q6A, .Q6B, .Q6C
+	dw .Q5Text, .Q5A, .Q5B, .Q5C
 	db 0
+	dw .Q6Text, .Q6A, .Q6B, .Q6C
+	db 1
 	dw .Q7Text, .Q7A, .Q7B, .Q7C
 	db 1
 	dw .Q8Text, .Q8A, .Q8B, .Q8C
@@ -220,19 +220,19 @@ RoofQuizTable::
 .Q4A:
 	db "L36@"
 .Q4B:
-	db "L42@"
-.Q4C:
 	db "MUST BE TRADED!@"
+.Q4C:
+	db "L42@"
 .Q5A:
-	db "WATER/FLYING@"
-.Q5B:
-	db "WATER/DARK@"
-.Q5C:
 	db "WATER/DRAGON@"
+.Q5B:
+	db "WATER/FLYING@"
+.Q5C:
+	db "WATER/DARK@"
 .Q6A:
-	db "MOON STONE@"
-.Q6B:
 	db "FIRE STONE@"
+.Q6B:
+	db "MOON STONE@"
 .Q6C:
 	db "LEAF STONE@"
 .Q7A:

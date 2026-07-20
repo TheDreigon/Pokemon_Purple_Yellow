@@ -884,8 +884,8 @@ _RoofQuizQ6Text::
 	done
 
 _RoofQuizQ7Text::
-	text "Q7: Whose cry is"
-	line "DITTO's a copy of?"
+	text "Q7: DITTO's cry"
+	line "resembles whose?"
 	done
 
 _RoofQuizQ8Text::
