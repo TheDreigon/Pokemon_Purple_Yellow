@@ -357,14 +357,11 @@ CheckStatusImmunity:
 	jr z, .getMonTypes
 	cp PARALYZE_EFFECT
 	jr z, .checkParalyze
-	cp BURN_SIDE_EFFECT2
 	ld b, FIRE
-	ld c, MAGMA ; v0.7: Magma-types are burn-immune too
+	ld c, MAGMA ; burn immunity: Fire/Magma types
+	cp BURN_EFFECT ; only Will-O-Wisp/Ignite reach here — damaging burn moves
+	               ; (Fire Blast/Lava Plume) are power-gated out before this
 	jr z, .getMonTypes
-	cp BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp/Ignite vs Fire/Magma-type
-	jr z, .getMonTypes ; b/c still hold FIRE/MAGMA from above
-	cp BURN_SIDE_EFFECT3 ; v0.7: Lava Plume's 45% burn tier
-	jr z, .getMonTypes ; b/c still hold FIRE/MAGMA
 	jr .done
 .checkParalyze
 	ld b, ELECTRIC ; v0.7: Electric-types can't be paralyzed at all

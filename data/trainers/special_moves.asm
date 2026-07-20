@@ -7,9 +7,7 @@
 ; Every boss mon has all 4 slots specified (hand-picked full sets).
 ; Non-boss entries (Smith/Craig/Weebra) are preserved from the previous
 ; version. The rival's moves come from data/trainers/rival_pools.asm via
-; GenerateRivalParty (Phase B); the RIVAL2,9 / RIVAL3,4 entries below are
-; DEAD leftovers pointing at the dead Rival2/3Data placeholders — remove
-; them in the post-playtest cleanup.
+; GenerateRivalParty (Phase B), so no RIVALn entries live in this table.
 ; Route 9 Sandshrew surprise; with Fissure rebalanced to 115 BP it was a
 ; mid-game nuke. The mon uses its natural level-up set now.)
 
@@ -852,23 +850,6 @@ SpecialTrainerMoves:
 	db 5, 4, REFLECT
 	db 0
 
-	db RIVAL2, 9 ; Route 22 - 54, FEAROW, 52, MAGNETON, 53, GOLDUCK, 54, ALAKAZAM, 52, MAROWAK, 55, FLAREON, 0
-	db 1, 1, DRILL_PECK
-	db 1, 2, DOUBLE_EDGE
-	db 1, 3, TOXIC
-	db 1, 4, DOUBLE_TEAM
-	db 2, 4, THUNDER_WAVE
-	db 3, 1, ICE_BEAM
-	db 4, 1, TRI_ATTACK
-	db 4, 4, THUNDER_WAVE
-	db 5, 1, BLIZZARD
-	db 5, 2, FLAMETHROWER
-	db 5, 3, EARTHQUAKE
-	db 5, 4, ROCK_SLIDE
-	db 6, 2, FLAMETHROWER
-	db 6, 3, DIG
-	db 6, 4, SUBSTITUTE
-	db 0 
 
 	db SMITH, 1
 	db 1, 1, DRILL_PECK
@@ -923,24 +904,5 @@ SpecialTrainerMoves:
 	db 6, 4, EARTHQUAKE
 	db 0
 
-	db RIVAL3, 4 ; db $FF, 77, ALAKAZAM, 76, MACHAMP, 75, GYARADOS, 74, PIDGEOT, 75, EXEGGUTOR, 77, ARCANINE, 0
-	db 1, 1, THUNDER_WAVE
-    db 2, 1, ROCK_SLIDE
-    db 2, 2, EARTHQUAKE
-    db 2, 3, BODY_SLAM
-    db 3, 1, DOUBLE_TEAM
-    db 3, 3, BODY_SLAM
-    db 3, 4, BLIZZARD
-    db 4, 1, TOXIC
-    db 4, 2, HYPER_BEAM
-    db 4, 4, DOUBLE_TEAM
-    db 5, 1, REFLECT
-    db 5, 2, LEECH_SEED
-    db 5, 4, SOFTBOILED
-    db 6, 1, FIRE_BLAST
-    db 6, 2, BODY_SLAM
-    db 6, 3, REST
-    db 6, 4, DIG
-	db 0
 
 	db -1 ; end

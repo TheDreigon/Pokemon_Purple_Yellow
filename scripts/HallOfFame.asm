@@ -144,12 +144,15 @@ HallOfFameOakCongratulationsScript:
 	ld a, HS_LANCESROOM_LANCE_REMATCH
 	ld [wMissableObjectIndex], a
 	predef ShowObject
-	ld a, [wRivalStarter]
-	cp RIVAL_STARTER_FLAREON
+; v0.7: the rival's eeveelution is rolled once per save into
+; wRivalEeveelution (raw species id) — key the Champion's-Room trophy off
+; THAT, not the legacy wRivalStarter code, so it matches the mon fought
+	ld a, [wRivalEeveelution]
+	cp FLAREON
 	jr z, .UnhideFlareon
-	cp RIVAL_STARTER_VAPOREON
+	cp VAPOREON
 	jr z, .UnhideVaporeon
-	ld a, HS_CHAMPIONS_ROOM_JOLTEON
+	ld a, HS_CHAMPIONS_ROOM_JOLTEON ; JOLTEON (also the roll's default)
 	jr .done
 .UnhideFlareon
 	ld a, HS_CHAMPIONS_ROOM_FLAREON
