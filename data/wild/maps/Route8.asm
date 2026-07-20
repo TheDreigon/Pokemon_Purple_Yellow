@@ -3,7 +3,7 @@ Route8WildMons:
 	db 20, GROWLITHE
 	db 18, ABRA
 	db 21, PIDGEY
-	db 20, ABRA
+	db 21, VULPIX
 	db 20, RATTATA
 	db 24, PIDGEOTTO
 	db 24, JIGGLYPUFF
