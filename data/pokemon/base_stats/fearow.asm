@@ -12,7 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Apex raptor, DRILL_PECK signature, honorary Dark/Flying. HM CUT/FLY.
+	; Apex raptor, DRILL_PECK (shared with Dodrio line/Zapdos/Beedrill),
+	; honorary Dark/Flying. HM CUT/FLY.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AERIAL_ACE, INTIMIDATE, TAKE_DOWN, SWORDS_DANCE, \
 	     DOUBLE_EDGE, CUT, FLY
