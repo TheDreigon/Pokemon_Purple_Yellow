@@ -306,9 +306,9 @@ StatusAilmentMoveEffects:
 	db SLEEP_EFFECT
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
-	db BURN_SIDE_EFFECT2 ; Fire Blast is often used as a burn spreading tool in comp RBY!
-	db BURN_SIDE_EFFECT3 ; v0.7: Lava Plume (45% burn)
-	db BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (pure-status burn moves)
+	db BURN_EFFECT ; Will-O-Wisp & Ignite (pure-status burn moves; damaging burn
+	               ; moves are power-gated out before this lookup, so they are
+	               ; intentionally absent — discouraging a damage move here is wrong)
 	db -1 ; end
 
 ;;;;;;;;;; PureRGBnote: ADDED: function for checking if the player can have leech seed applied and whether they already have it applied
@@ -663,9 +663,8 @@ Modifier4PreferredMoves:
 	db SLEEP_EFFECT
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
-	db BURN_SIDE_EFFECT2
-	db BURN_SIDE_EFFECT3 ; v0.7: Lava Plume (45% burn)
-	db BURN_EFFECT       ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (always-burn status moves)
+	db BURN_EFFECT       ; Will-O-Wisp & Ignite (always-burn status moves; damaging
+	                     ; burn moves are power-gated out before this lookup)
 	db CONFUSION_EFFECT
 	db -1 ; end
 

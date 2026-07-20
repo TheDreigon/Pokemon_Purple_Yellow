@@ -1508,30 +1508,30 @@ ItemUseMedicine:
 	farcall GetBadgesObtained
 	ld a, [wNumSetBits]
 	cp 8
-	ld b, 65 ; Jolteon/Flareon/Vaporeon's level
+	ld b, 65 ; champion team (highest level in the game)
 	jr nc, .next1
 	cp 7
-	ld b, 55 ; Rhydon's level
+	ld b, 55 ; Giovanni's ace, 8th gym (heading to the league)
 	jr nc, .next1
 	cp 6
-	ld b, 53 ; Magmar's level
+	ld b, 55 ; Blaine's ace, 7th gym
 	jr nc, .next1
 	cp 5
-	ld b, 50 ; Alakazam's level
+	ld b, 49 ; Sabrina's ace, 6th gym
 	jr nc, .next1
     cp 4
-	ld b, 43 ; Venomoth's level
+	ld b, 45 ; Koga's ace, 5th gym
 	jr nc, .next1
 	cp 3
-	ld b, 35 ; Vileplume's level
+	ld b, 38 ; Erika's ace, 4th gym
 	jr nc, .next1
 	cp 2
-    ld b, 24 ; Bit below Raichu's level
+    ld b, 34 ; Surge's ace, 3rd gym
 	jr nc, .next1
 	cp 1
-	ld b, 21 ; Starmie's level
+	ld b, 21 ; Misty's ace, 2nd gym
 	jr nc, .next1
-	ld b, 12 ; Onix's level
+	ld b, 14 ; Brock's ace, 1st gym
 .next1
 
 	pop hl
@@ -2234,7 +2234,7 @@ ItemUsePPRestore:
 	cp ETHER
 	jr c, .allowItem        ; below ETHER (PP_UP): allow
 	cp MAX_ELIXER + 1
-	jr nc, .allowItem ; Line 2238: '; above MAX_ELIXER: allow (defensive; nothing above dispatches here)' and extend line 2236 to '; below ETHER (PP_UP, PP_MAX): allow'.
+	jr nc, .allowItem ; Line 2237: '; above MAX_ELIXER: allow (defensive; nothing above dispatches here)' and extend line 2235's comment to '; below ETHER (PP_UP, PP_MAX): allow'.
 	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem
@@ -2595,10 +2595,8 @@ ItemUseTMHM:
 	callfar IsThisPartymonStarterPikachu_Party
 	jr nc, .notTeachingThunderboltOrThunderToPikachu
 	ld a, [wcf91]
-	cp TM_THUNDERBOLT ; are we teaching thunderbolt to the player pikachu?
-	jr z, .teachingThunderboltOrThunderToPlayerPikachu
-	cp TM_ROCK_SLIDE ; are we teaching thunder then?
-	jr nz, .notTeachingThunderboltOrThunderToPikachu
+	cp TM_THUNDERBOLT ; teaching Thunderbolt to the player's Pikachu?
+	jr nz, .notTeachingThunderboltOrThunderToPikachu ; (Thunder is no longer a TM)
 .teachingThunderboltOrThunderToPlayerPikachu
 	ld a, $5
 	ld [wd49c], a

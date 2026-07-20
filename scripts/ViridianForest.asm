@@ -168,7 +168,7 @@ ViridianForestTrainerTips4Text:
 
 ViridianForestLeavingSignText:
 	text_asm
-	ld hl, ViridianForestPrintTrainerTips1Text ; supposed to be ViridianForestPrintLeavingSignText
+	ld hl, ViridianForestPrintLeavingSignText
 ViridianForestSign_Common:
 	ld b, BANK(ViridianForestPrintTrainerTips1Text)
 	call Bankswitch

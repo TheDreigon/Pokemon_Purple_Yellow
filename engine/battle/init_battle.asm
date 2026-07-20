@@ -169,6 +169,10 @@ _LoadTrainerPic:
 	and a
 	jr nz, .useRed
 	ld a, [wTrainerClass]
+	cp JESSIE_AND_JAMES ; exception: J&J's pic sits in "Trainer Pics 2", not 3
+	ld a, BANK("Trainer Pics 2")
+	jr z, .loadSprite
+	ld a, [wTrainerClass]
 	cp JANINE ; first trainer class in "Trainer Pics 3"
 	ld a, BANK("Trainer Pics 3")
 	jr nc, .loadSprite

@@ -315,6 +315,7 @@ ItemSortList::
 	db CARBOS
 	db CALCIUM
 	db PP_UP
+	db PP_MAX
 	; Stones
 	db LEAF_STONE
 	db FIRE_STONE

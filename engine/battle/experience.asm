@@ -142,30 +142,30 @@ GainExperience:
 	call GetBadgesObtained
 	ld a, [wNumSetBits]
 	cp 8
-	ld d, 65 ; Jolteon/Flareon/Vaporeon's level
+	ld d, 65 ; champion team (highest level in the game)
 	jr nc, .next1
 	cp 7
-	ld d, 55 ; Rhydon's level
+	ld d, 55 ; Giovanni's ace, 8th gym (heading to the league)
 	jr nc, .next1
 	cp 6
-	ld d, 53 ; Magmar's level
+	ld d, 55 ; Blaine's ace, 7th gym
 	jr nc, .next1
 	cp 5
-	ld d, 50 ; Alakazam's level
+	ld d, 49 ; Sabrina's ace, 6th gym
 	jr nc, .next1
     cp 4
-	ld d, 43 ; Venomoth's level
+	ld d, 45 ; Koga's ace, 5th gym
 	jr nc, .next1
 	cp 3
-	ld d, 35 ; Vileplume's level
+	ld d, 38 ; Erika's ace, 4th gym
 	jr nc, .next1
 	cp 2
-    ld d, 24 ; Bit below Raichu's level
+    ld d, 34 ; Surge's ace, 3rd gym
 	jr nc, .next1
 	cp 1
-	ld d, 21 ; Starmie's level
+	ld d, 21 ; Misty's ace, 2nd gym
 	jr nc, .next1
-	ld d, 12 ; Onix's level
+	ld d, 14 ; Brock's ace, 1st gym
 .next1
 	callfar CalcExperience ; get max exp
 ; compare max exp with current exp

@@ -42,6 +42,8 @@ HandleMenuInput_::
 	ldh [hDownArrowBlinkCount2], a
 	pop af
 	ldh [hDownArrowBlinkCount1], a ; restore previous values
+	xor a ; return a = 0 (no keys) — deterministic; the vanilla wMenuWrappingEnabled
+	      ; clear that used to leave a=0 here was dropped in the menu-wrap QoL (7dee9f9)
 	ret
 .keyPressed
 	xor a
