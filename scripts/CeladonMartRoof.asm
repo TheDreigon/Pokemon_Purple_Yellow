@@ -71,6 +71,10 @@ CeladonMartRoofScript_GiveDrinkToGirl:
 	call CeladonMartRoofScript_PrintDrinksInBag
 	ld hl, wd730
 	res 6, [hl]
+	xor a
+	ld [wLastMenuItem], a
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-give a drink
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	ret nz

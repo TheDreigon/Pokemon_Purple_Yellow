@@ -35,6 +35,9 @@ CeladonPrizeMenu::
 	call UpdateSprites
 	ld hl, WhichPrizeTextPtr
 	call PrintText
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-buy a prize
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .noChoice

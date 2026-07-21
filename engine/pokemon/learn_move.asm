@@ -145,6 +145,9 @@ TryingToLearn:
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; wMenuWatchedKeys
 	ld [hl], 0 ; wLastMenuItem
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-forget a move
 	ld hl, hUILayoutFlags
 	set 1, [hl]
 	call HandleMenuInput
