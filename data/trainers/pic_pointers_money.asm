@@ -59,4 +59,5 @@ TrainerPicAndMoneyPointers::
 	pic_money JoyPic, 	   	   9900
 	pic_money JennyPic, 	   9900
 	pic_money JessieJamesPic,  5000 ; Jessie & James (battle pic already shipped in gfx/trainers/jessiejames.pic)
+	pic_money PKMNTrainerMPic, 9900 ; Forte (Red avatar — reuses the male-protagonist trainer pic)
 	assert_table_length NUM_TRAINERS

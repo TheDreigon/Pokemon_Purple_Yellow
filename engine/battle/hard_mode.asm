@@ -79,6 +79,7 @@ BossTrainerClasses::
 	db BROCK
 	db BRUNO
 	db ERIKA
+	db FORTE
 	db GIOVANNI
 	db JANINE
 	db JENNY

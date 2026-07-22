@@ -52,6 +52,7 @@ TrainerDataPointers:
 	dw JoyData
 	dw JennyData
 	dw JessieAndJamesData
+	dw ForteData
 	assert_table_length NUM_TRAINERS
 
 ; if first byte != $FF, then
@@ -863,3 +864,8 @@ CraigData:
 
 WeebraData:
 	db 55, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
+
+ForteData:
+; "Forte / DREIGON" superboss — all L75. Per-mon movesets live in special_moves.asm
+; (drafted from Notes/Boss Movesets.md; Forte to finalize the moves).
+	db 75, GYARADOS, GOLEM, NIDOKING, MAGMAR, HITMONLEE, BEEDRILL, 0

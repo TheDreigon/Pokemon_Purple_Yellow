@@ -61,4 +61,5 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4 ; JOY
 	move_choices 1, 2, 3, 4 ; JENNY
 	move_choices 1, 2, 3, 4 ; JESSIE_AND_JAMES (boss-tier always, even in Normal mode)
+	move_choices 1, 2, 3, 4 ; FORTE
 	assert_list_length NUM_TRAINERS

@@ -52,4 +52,5 @@ TrainerNames::
 	li "NURSE JOY"
 	li "OFF.JENNY"
 	li "JESSIE,JAMES" ; '&' is not in the font charmap; comma reads cleanly and fits the 12-char band of COOLTRAINER♂/JR.TRAINER♂
+	li "FORTE"
 	assert_list_length NUM_TRAINERS

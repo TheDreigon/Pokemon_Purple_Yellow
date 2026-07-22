@@ -51,6 +51,7 @@ JoyBossBag::      db FULL_RESTORE, 3, X_DEFEND,   3, FULL_HEAL,  3, -1, -1
 JennyBossBag::    db FULL_RESTORE, 2, X_ATTACK,   1, X_SPEED,    1, FULL_HEAL, 2
 JanineBossBag::   db SUPER_POTION, 2, X_SPEED,    1, GUARD_SPEC, 1, FULL_HEAL, 2
 JessieAndJamesBossBag:: db SUPER_POTION, 2, FULL_HEAL, 2, -1, -1, -1, -1
+ForteBossBag::    db FULL_RESTORE, 6, -1, -1, -1, -1, -1, -1 ; Forte superboss (Hard mode) — 6x Full Restore
 
 
 ; Dispatch table: (trainer_class, bag_pointer) triplets, terminated by -1
@@ -95,4 +96,6 @@ BossItemBagPointers::
 	dw JanineBossBag
 	db JESSIE_AND_JAMES
 	dw JessieAndJamesBossBag
+	db FORTE
+	dw ForteBossBag
 	db -1                       ; terminator

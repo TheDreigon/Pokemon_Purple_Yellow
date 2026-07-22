@@ -56,4 +56,5 @@ TrainerAIPointers:
 	dbw 2, JoyAI ; joy (v0.7 hard mode boss item bag — nurse-tier heal)
 	dbw 1, JennyAI ; jenny (v0.7 hard mode boss item bag)
 	dbw 1, JessieAndJamesAI ; Jessie & James (boss-tier; v0.7 hard mode item bag)
+	dbw 3, GenericAI ; Forte (superboss; hard-mode boss buffs come from BossTrainerClasses)
 	assert_table_length NUM_TRAINERS
