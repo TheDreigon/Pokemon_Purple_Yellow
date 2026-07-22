@@ -30,7 +30,6 @@ DEF SHOW EQU $15
 	const HS_SAFFRON_CITY_C                ; 16
 	const HS_SAFFRON_CITY_D                ; 17
 	const HS_SAFFRON_CITY_E                ; 18
-	const HS_SAFFRON_CITY_F                ; 19
 	const HS_ROUTE_1_OAK				   ; 1A
 	const HS_ROUTE_2_ITEM_1                ; 1B
 	const HS_ROUTE_2_ITEM_2                ; 1C
