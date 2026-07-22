@@ -2,7 +2,7 @@
 	const_export FUCHSIAGYM_KOGA
 	const_export FUCHSIAGYM_ROCKER1
 	const_export FUCHSIAGYM_ROCKER2
-	const_export FUCHSIAGYM_ROCKER3
+	const_export FUCHSIAGYM_JANINE ; obj 4 is Janine (SPRITE_JANINE/OPP_JANINE), not a rocker; name kept sequential when she was added
 	const_export FUCHSIAGYM_ROCKER4
 	const_export FUCHSIAGYM_ROCKER5
 	const_export FUCHSIAGYM_ROCKER6

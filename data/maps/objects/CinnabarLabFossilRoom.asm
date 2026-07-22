@@ -1,6 +1,8 @@
 	object_const_def
 	const_export CINNABARLABFOSSILROOM_SCIENTIST1
 	const_export CINNABARLABFOSSILROOM_SCIENTIST2
+	const_export CINNABARLABFOSSILROOM_MOVE_DELETER
+	const_export CINNABARLABFOSSILROOM_MOVE_RELEARNER
 
 CinnabarLabFossilRoom_Object:
 	db $17 ; border block
