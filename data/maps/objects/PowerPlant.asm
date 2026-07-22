@@ -8,12 +8,12 @@
 	const_export POWERPLANT_ELECTRODE2
 	const_export POWERPLANT_VOLTORB6
 	const_export POWERPLANT_ZAPDOS
+	const_export POWERPLANT_CRAIG
 	const_export POWERPLANT_CARBOS
-	const_export POWERPLANT_HP_UP
 	const_export POWERPLANT_RARE_CANDY
 	const_export POWERPLANT_TM_REFLECT
 	const_export POWERPLANT_TM_THUNDERBOLT
-	const_export POWERPLANT_CRAIG
+	const_export POWERPLANT_HP_UP ; dead slot: HP_UP ball removed (its object_event below is commented out). Kept LAST so it indexes no live object; preserves HS_POWER_PLANT_ITEM_5 so later maps' HS ids are not renumbered.
 
 PowerPlant_Object:
 	db $2e ; border block
