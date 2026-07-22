@@ -1,5 +1,6 @@
 SeafoamIslandsB4F_Script:
 	call EnableAutoTextBoxDrawing
+	call SeafoamIslandsB4FShowWeebraIfEarned
 	ld a, [wSeafoamIslandsB4FCurScript]
 	ld hl, SeafoamIslandsB4F_ScriptPointers
 	jp CallFunctionInTable
@@ -10,6 +11,20 @@ SeafoamIslandsB4FResetScript:
 	ld [wJoyIgnore], a
 	ld [wSeafoamIslandsB4FCurScript], a
 	ld [wCurMapScript], a
+	ret
+
+; Show the relocated Weebra self-insert once Articuno is gone AND the League is beaten.
+; EndTrainerBattle sets EVENT_BEAT_ARTICUNO on WIN or CATCH; wGameStage is set at the
+; Hall of Fame. Idempotent (ShowObject just clears the hide flag).
+SeafoamIslandsB4FShowWeebraIfEarned:
+	CheckEvent EVENT_BEAT_ARTICUNO
+	ret z
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, HS_SEAFOAM_ISLANDS_B4F_WEEBRA
+	ld [wMissableObjectIndex], a
+	predef ShowObject
 	ret
 
 SeafoamIslandsB4F_ScriptPointers:
@@ -163,7 +178,6 @@ SeafoamIslandsWeebraText1:
 	ld [wCurOpponent], a
 	ld a, 1
 	ld [wTrainerNo], a
-.skip
 	ld a, SCRIPT_SEAFOAMISLANDSB4F_WEEBRA_POST_BATTLE
 	ld [wSeafoamIslandsB4FCurScript], a
 	ld [wCurMapScript], a
@@ -172,34 +186,17 @@ SeafoamIslandsWeebraText1:
 	ld hl, SeafoamIslandsWeebraAfterBattleText1
 	call PrintText
 	call Delay3
-	ld hl, WeebraFightCheckCoords
-	call ArePlayerCoordsInArray
-	jp nc, TextScriptEnd ; if weebra has already moved, don't move
-	jr .skip
+	jp TextScriptEnd
 	
 WeebraPostBattleScript:
 	ld a, [wIsInBattle]
 	inc a
-	jr z, .skip	; Kick out if the player lost.
-	ld hl, WeebraFightCheckCoords
-	call ArePlayerCoordsInArray
-	jr nc, .skip ; if weebra has already moved, don't move
-	CheckEvent EVENT_BEAT_WEEBRA
-	jr nz, .dontDoText
+	jr z, .done	; Kick out if the player lost.
 	ld a, TEXT_SEAFOAM_ISLANDS_WEEBRA_END_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_WEEBRA
-.dontDoText
-	ld a, SEAFOAM_ISLANDS_WEEBRA
-	ldh [hSpriteIndex], a
-	ld de, MovementData_Weebra
-	call MoveSprite
-	ld a, SPRITE_FACING_LEFT
-	ldh [hSpriteFacingDirection], a
-	xor a
-	ld [wJoyIgnore], a
-.skip
+.done
 	ld a, SCRIPT_SEAFOAMISLANDSB4F_DEFAULT
 	ld [wSeafoamIslandsB4FCurScript], a
 	ld [wCurMapScript], a
@@ -207,17 +204,6 @@ WeebraPostBattleScript:
 SeafoamIslandsWeebraAfterBattleText1:
 	text_far _SeafoamIslandsWeebraAfterBattleText1
 	text_end
-
-WeebraFightCheckCoords:
-	dbmapcoord 7, 2
-	dbmapcoord 7, 3
-	db -1 ; end
-
-MovementData_Weebra:
-	db NPC_MOVEMENT_RIGHT
-	db NPC_MOVEMENT_RIGHT
-	db NPC_MOVEMENT_RIGHT
-	db -1 ; end
 	
 SeafoamIslandsWeebraBattleText1:
 	text_far _SeafoamIslandsWeebraBattleText1

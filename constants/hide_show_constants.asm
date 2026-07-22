@@ -98,6 +98,7 @@ DEF SHOW EQU $15
 	const HS_POWER_PLANT_ITEM_2            ; 5A
 	const HS_POWER_PLANT_ITEM_3            ; 5B
 	const HS_POWER_PLANT_ITEM_4            ; 5C
+	const HS_POWER_PLANT_CRAIG ; Craig self-insert at Zapdos's tile (post-Zapdos + post-League)
 	const HS_MOLTRES                       ; 5E
 	const HS_VICTORY_ROAD_2F_ITEM_1        ; 5F
 	const HS_VICTORY_ROAD_2F_ITEM_2        ; 60
@@ -251,6 +252,7 @@ DEF SHOW EQU $15
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; F3
 	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; TM42 Ice Beam ball
 	const HS_ARTICUNO                      ; F5
+	const HS_SEAFOAM_ISLANDS_B4F_WEEBRA ; Weebra self-insert at Articuno's tile (post-Articuno + post-League)
 	const HS_DAISY_SITTING_COPY            ; F6
 	const HS_DAISY_WALKING_COPY            ; F7
 	const HS_TOWN_MAP_COPY                 ; F8

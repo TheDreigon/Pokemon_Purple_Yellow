@@ -1,10 +1,25 @@
 PowerPlant_Script:
 	call EnableAutoTextBoxDrawing
+	call PowerPlantShowCraigIfEarned
 	ld hl, PowerPlantTrainerHeaders
 	ld de, PowerPlant_ScriptPointers
 	ld a, [wPowerPlantCurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wPowerPlantCurScript], a
+	ret
+
+; Show the relocated Craig self-insert once Zapdos is gone AND the League is beaten.
+; EndTrainerBattle sets EVENT_BEAT_ZAPDOS on WIN or CATCH; wGameStage is set at the
+; Hall of Fame. Idempotent (ShowObject just clears the hide flag).
+PowerPlantShowCraigIfEarned:
+	CheckEvent EVENT_BEAT_ZAPDOS
+	ret z
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, HS_POWER_PLANT_CRAIG
+	ld [wMissableObjectIndex], a
+	predef ShowObject
 	ret
 
 PowerPlant_ScriptPointers:
