@@ -58,7 +58,7 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const LEAF_STONE    ; $2F
 	const CARD_KEY      ; $30
 	const NUGGET        ; $31
-	const PP_MAX        ; $32 (formerly ITEM_32 ghost slot; repurposed in v0.5)
+	const PP_MAX ; $32
 	const POKE_DOLL     ; $33
 	const FULL_HEAL     ; $34
 	const REVIVE        ; $35
@@ -90,8 +90,8 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const PP_UP         ; $4F
 	const ETHER         ; $50
 	const MAX_ETHER     ; $51
-	const ELIXER        ; $52
-	const MAX_ELIXER    ; $53
+	const ELIXIR        ; $52
+	const MAX_ELIXIR    ; $53
 DEF NUM_ITEMS EQU const_value - 1
 
 ; elevator floors use item IDs
@@ -158,18 +158,18 @@ ENDM
 
 DEF TM01 EQU const_value
 	add_tm ROCK_THROW,    ; $C9  TM01
-	add_tm QUICK_ATTACK,  ; $CA  TM02  (was KARATE_CHOP)
-	add_tm BIND,          ; $CB  TM03  (was QUICK_ATTACK)
-	add_tm FAINT_ATTACK,  ; $CC  TM04  (was DAZZLE_GLEAM)
+	add_tm QUICK_ATTACK,  ; $CA  TM02
+	add_tm BIND,          ; $CB  TM03
+	add_tm FAINT_ATTACK,  ; $CC  TM04
 	add_tm BULLDOZE,      ; $CD  TM05
 	add_tm WATER_PULSE,   ; $CE  TM06
-	add_tm ICY_PULSE,     ; $CF  TM07  (was DOUBLE_TEAM — new move v0.7)
+	add_tm ICY_PULSE,     ; $CF  TM07
 	add_tm SEISMIC_TOSS,  ; $D0  TM08
-	add_tm RAGE,          ; $D1  TM09  (was DRAGON_CLAW)
+	add_tm RAGE,          ; $D1  TM09
 	add_tm BODY_SLAM,     ; $D2  TM10
-	add_tm FLAME_BURST,   ; $D3  TM11  (was IRON_TAIL)
-	add_tm SHOCK_WAVE,    ; $D4  TM12  (was THUNDERBOLT — also renamed from DISCHARGE)
-	add_tm IRON_TAIL,     ; $D5  TM13  (was IRON_HEAD)
+	add_tm FLAME_BURST,   ; $D3  TM11
+	add_tm SHOCK_WAVE,    ; $D4  TM12
+	add_tm IRON_TAIL,     ; $D5  TM13
 	add_tm NIGHT_SHADE,   ; $D6  TM14
 	add_tm CONFUSE_RAY,   ; $D7  TM15
 	add_tm IGNITE,        ; $D8  TM16
@@ -180,37 +180,37 @@ DEF TM01 EQU const_value
 	add_tm SUBSTITUTE,    ; $DD  TM21
 	add_tm METRONOME,     ; $DE  TM22
 	add_tm GIGA_DRAIN,    ; $DF  TM23
-	add_tm DAZZLE_GLEAM,  ; $E0  TM24  (was FAINT_ATTACK)
-	add_tm AGILITY,       ; $E1  TM25  (was BIND)
+	add_tm DAZZLE_GLEAM,  ; $E0  TM24
+	add_tm AGILITY,       ; $E1  TM25
 	add_tm POISON_BITE,   ; $E2  TM26
-	add_tm IRON_HEAD,     ; $E3  TM27  (was LEECH_LIFE)
+	add_tm IRON_HEAD,     ; $E3  TM27
 	add_tm FAKE_TEARS,    ; $E4  TM28
 	add_tm AERIAL_ACE,    ; $E5  TM29
-	add_tm CHARM,         ; $E6  TM30  (was HONE_CLAWS)
+	add_tm CHARM,         ; $E6  TM30
 	add_tm HURRICANE,     ; $E7  TM31
 	add_tm MEGAHORN,      ; $E8  TM32
-	add_tm DRAGON_CLAW,   ; $E9  TM33  (was DRAGON_RAGE)
+	add_tm DRAGON_CLAW,   ; $E9  TM33
 	add_tm TOXIC,         ; $EA  TM34
 	add_tm EXTRASENSORY,  ; $EB  TM35
 	add_tm INTIMIDATE,    ; $EC  TM36
 	add_tm SCARY_FACE,    ; $ED  TM37
-	add_tm LEECH_LIFE,    ; $EE  TM38  (was DOUBLE_EDGE)
+	add_tm LEECH_LIFE,    ; $EE  TM38
 	add_tm TAKE_DOWN,     ; $EF  TM39
 	add_tm PSYCHIC_M,     ; $F0  TM40
 	add_tm LIGHT_SCREEN,  ; $F1  TM41
 	add_tm ICE_BEAM,      ; $F2  TM42
-	add_tm DARK_PULSE,    ; $F3  TM43  (was SOLARBEAM)
-	add_tm SHADOW_BALL,   ; $F4  TM44  (was ROCK_SLIDE)
+	add_tm DARK_PULSE,    ; $F3  TM43
+	add_tm SHADOW_BALL,   ; $F4  TM44
 	add_tm FLAMETHROWER,  ; $F5  TM45
 	add_tm REFLECT,       ; $F6  TM46
-	add_tm THUNDERBOLT,   ; $F7  TM47  (was AGILITY)
+	add_tm THUNDERBOLT,   ; $F7  TM47
 	add_tm SWORDS_DANCE,  ; $F8  TM48
 	add_tm CALM_MIND,     ; $F9  TM49
 	add_tm EARTHQUAKE,    ; $FA  TM50
-	add_tm ROCK_SLIDE,    ; $FB  TM51  (was THUNDER)
-	add_tm PETAL_DANCE,   ; $FC  TM52  (was FIRE_BLAST)
-	add_tm DOUBLE_EDGE,   ; $FD  TM53  (was HYDRO_PUMP)
-	add_tm THRASH,        ; $FE  TM54  (was BLIZZARD)
+	add_tm ROCK_SLIDE,    ; $FB  TM51
+	add_tm PETAL_DANCE,   ; $FC  TM52
+	add_tm DOUBLE_EDGE,   ; $FD  TM53
+	add_tm THRASH,        ; $FE  TM54
 	add_tm OUTRAGE,       ; $FF  TM55
 ASSERT NUM_TMS == const_value - TM01, "NUM_TMS ({d:NUM_TMS}) does not match the number of add_tm definitions"
 

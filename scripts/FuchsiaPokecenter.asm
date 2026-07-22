@@ -66,7 +66,7 @@ FuchsiaPokecenterNurseText:
 	ld [wCurOpponent], a
 	ld a, 1
 	ld [wTrainerNo], a
-	ld a, $1 ; new script
+	ld a, $1 ; SCRIPT_FUCHSIAPOKECENTER_POST_BATTLE
 	ld [wFuchsiaPokecenterCurScript], a
 	ld [wCurMapScript], a
 	jr .done

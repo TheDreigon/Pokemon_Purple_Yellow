@@ -29,6 +29,9 @@ VendingMachineMenu::
 	call PlaceString
 	ld hl, wd730
 	res 6, [hl]
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-pick a drink
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .notThirsty
@@ -97,7 +100,7 @@ DrinkText:
 	next "CANCEL@"
 
 DrinkPriceText:
-	db   "¥250" ; v0.7: Fresh Water 200 -> 250 (must match data/items/vending_prices.asm)
+	db   "¥250" ; must match data/items/vending_prices.asm (FRESH_WATER = 250)
 	next "¥300"
 	next "¥350"
 	next "@"

@@ -6,7 +6,7 @@ Route9WildMons:
 	db 18, LICKITUNG
 	db 18, NIDORINA
 	db 18, NIDORINO
-	db 18, SPEAROW
+	db 21, SCYTHER
 	db 20, FEAROW
 	db 21, PINSIR
 	db 23, PINSIR

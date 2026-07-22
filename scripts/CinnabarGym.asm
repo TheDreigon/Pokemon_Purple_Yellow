@@ -51,8 +51,41 @@ CinnabarGym_ScriptPointers:
 	dw_const CinnabarGymGetOpponentTextScript,  SCRIPT_CINNABARGYM_GET_OPPONENT_TEXT
 	dw_const CinnabarGymOpenGateScript,         SCRIPT_CINNABARGYM_OPEN_GATE
 	dw_const CinnabarGymBlainePostBattleScript, SCRIPT_CINNABARGYM_BLAINE_POST_BATTLE
+	dw_const CinnabarGymGateKickoutScript,          SCRIPT_CINNABARGYM_GATE_KICKOUT
+
+CinnabarGymGateCoords: ; the two door/warp tiles
+	dbmapcoord 16, 17
+	dbmapcoord 17, 17
+	db -1 ; end
+
+CinnabarGymGateKickoutScript:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	xor a
+	ld [wJoyIgnore], a
+	call Delay3
+	ld a, SCRIPT_CINNABARGYM_DEFAULT
+	ld [wCinnabarGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 CinnabarGymDefaultScript:
+; v0.7 badge-gating (strict gym order): requires MARSHBADGE. Without it the
+; gate text fires and the player is shoved back out (Route 22 gate pattern).
+	ld a, [wObtainedBadges]
+	bit BIT_MARSHBADGE, a
+	jr nz, .badgeGateDone
+	ld hl, CinnabarGymGateCoords
+	call ArePlayerCoordsInArray
+	jr nc, .badgeGateDone
+	xor a
+	ldh [hJoyHeld], a
+	ld a, TEXT_CINNABARGYM_GATE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ret
+.badgeGateDone
 	ld a, [wOpponentAfterWrongAnswer]
 	and a
 	ret z
@@ -269,6 +302,28 @@ BlaineRematchPostBattle:
 	call DisplayTextID
 	jp CinnabarGymResetScripts
 
+; v0.7 badge-gating: refusal + shove-out (auto-triggered by the default
+; script when the player enters without the required badge).
+CinnabarGymGateText:
+	text_asm
+	ld hl, .NoBadgeText
+	call PrintText
+	ld a, $1
+	ld [wSimulatedJoypadStatesIndex], a
+	ld a, D_DOWN | B_BUTTON
+	ld [wSimulatedJoypadStatesEnd], a
+	ld [wSpritePlayerStateData1FacingDirection], a
+	ld [wJoyIgnore], a
+	call StartSimulatingJoypadStates
+	ld a, SCRIPT_CINNABARGYM_GATE_KICKOUT
+	ld [wCinnabarGymCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+
+.NoBadgeText:
+	text_far _CinnabarGymGateNoBadgeText
+	text_end
+
 CinnabarGym_TextPointers:
 	def_text_pointers
 	dw_const CinnabarGymBlaineText,                 TEXT_CINNABARGYM_BLAINE
@@ -285,6 +340,7 @@ CinnabarGym_TextPointers:
 	dw_const CinnabarGymBlaineTMNoRoomText,       TEXT_CINNABARGYM_BLAINE_TM_NO_ROOM
 	dw_const CinnabarGymBlaineReceivedCandyText,  TEXT_CINNABARGYM_BLAINE_RECEIVED_CANDY
 	dw_const CinnabarGymRematchPostBattleText, 	  	TEXT_CINNABARGYM_REMATCH_POST_BATTLE
+	dw_const CinnabarGymGateText,                   TEXT_CINNABARGYM_GATE
 
 CinnabarGymStartBattleScript:
 	ldh a, [hSpriteIndexOrTextID]
@@ -320,7 +376,7 @@ CinnabarGymStartRematchScript:
 	ld [wCurOpponent], a
 	ld a, 2
 	ld [wTrainerNo], a
-	ld a, $4 ; new script
+	ld a, $4
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
 	ld a, SCRIPT_CINNABARGYM_BLAINE_POST_BATTLE
@@ -368,6 +424,15 @@ CinnabarGymBlaineText:
 	call PrintText
 	jp TextScriptEnd
 .beforeBeat
+; v0.7 badge-gating: the leader also refuses without the previous badge
+; (belt-and-braces - the door gate normally fires first).
+	ld a, [wObtainedBadges]
+	bit BIT_MARSHBADGE, a
+	jr nz, .hasPrevBadge
+	ld hl, .NoBadgeText
+	call PrintText
+	jp TextScriptEnd
+.hasPrevBadge
 	ld hl, .PreBattleText
 	call PrintText
 	ld hl, .ReceivedVolcanoBadgeText
@@ -381,6 +446,10 @@ CinnabarGymBlaineText:
 
 .PreBattleText:
 	text_far _CinnabarGymBlainePreBattleText
+	text_end
+
+.NoBadgeText:
+	text_far _CinnabarGymBlaineNoBadgeText
 	text_end
 
 .ReceivedVolcanoBadgeText:

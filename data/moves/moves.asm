@@ -8,7 +8,7 @@ MACRO move
 	assert \6 <= 40, "PP must be 40 or less"
 ENDM
 
-Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
+Moves: ; Current total = 219
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -16,7 +16,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
-	move BUG_BUZZ,       SPECIAL_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature.
+	move BUG_BUZZ,       SPECIAL_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
 	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10
 	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; almost-signature.
@@ -30,9 +30,9 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             80, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
 	move GORE_ATTACK,    PARALYZE_SIDE_EFFECT2,            95, DARK,          95, 15 ; new move. high-crit.
-	move PAY_DAY,        PAY_DAY_EFFECT,                   60, DARK,         100, 25 ; signature. high-crit.
-	move DREAM_EATER,    DREAM_EATER_EFFECT,              110, DARK,         100, 20 ; signature.
-	move DEEP_SLEEP,     SLEEP_EFFECT,                      0, DARK,          85, 20 ; signature.
+	move PAY_DAY,        PAY_DAY_EFFECT,                   60, DARK,         100, 25 ; almost-signature (Meowth-line + Chansey). high-crit.
+	move DREAM_EATER,    DREAM_EATER_EFFECT,              110, DARK,         100, 20 ; almost-signature (Gengar + Drowzee-line).
+	move DEEP_SLEEP,     SLEEP_EFFECT,                      0, DARK,          85, 20 ; almost-signature (Gengar + Drowzee-line).
 
 
 	; === DRAGON TYPE (6 moves) ===
@@ -41,17 +41,17 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move DRAGON_BREATH,  PARALYZE_SIDE_EFFECT2,            75, DRAGON,       100, 20 ; new move.
 	move DRAGON_SLAM,    RECOIL_EFFECT,                    95, DRAGON,        95, 15 ; new move.
 	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       100, DRAGON,       100, 10 ; new move. high-crit.
-	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        80,  5 ; high-crit. almost-signature.
+	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        80,  5 ; high-crit. apex/legendary pool (9 learners).
 
 
 	; === ELECTRIC TYPE (7 moves) ===
-	move NUZZLE,         PARALYZE_SIDE_EFFECT2,            35, ELECTRIC,     100, 30 ; new move.
+	move NUZZLE,         PARALYZE_SIDE_EFFECT3,            35, ELECTRIC,     100, 30 ; new move.
 	move THUNDERSHOCK,   PARALYZE_SIDE_EFFECT1,            55, ELECTRIC,     100, 25
 	move SHOCK_WAVE,     SWIFT_EFFECT,                     70, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
-	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      90, 20
-	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             60, ELECTRIC,     100, 20 ; new move. signature. priority move. high-crit.
+	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      95, 20
+	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             60, ELECTRIC,     100, 20 ; new move. almost-signature (Pika-line + ball-line). priority move. high-crit.
 
 
 	; === FAIRY TYPE (8 moves) === ; new type
@@ -61,8 +61,8 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move DAZZLE_GLEAM,   FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              75, FAIRY,        100, 20 ; new move.
 	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; almost-signature.
-	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; almost-signature.
-	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. signature. (use solarbeam's animation)
+	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; singers' pool (5 lines).
+	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. moon-mons pool (4 lines).
 
 
 	; === FIGHTING TYPE (14 moves) ===
@@ -75,21 +75,21 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move STRENGTH,       ATTACK_UP1_EFFECT,                65, FIGHTING,     100, 20
 	move TAKE_DOWN,      ATTACK_DOWN1_EFFECT,              75, FIGHTING,      90, 20
 	move LEEK_STRIKE,    FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25 ; new move. signature. high-crit.
-	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           75, FIGHTING,     100, 20 ; signature. new effect.
-	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,      95, 20 ; signature.
-	move SUBMISSION,     DEFENSE_DOWN1_EFFECT,             95, FIGHTING,     100, 15 ; signature.
+	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           75, FIGHTING,     100, 20 ; boxers' pool (5 lines). new effect.
+	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,      95, 20 ; almost-signature (Mankey-line + Hitmonlee).
+	move SUBMISSION,     DEFENSE_DOWN1_EFFECT,             95, FIGHTING,     100, 15 ; grappler capstone (Machop-line/Poliwrath/Pinsir).
 	move SKY_UPPERCUT,   NO_ADDITIONAL_EFFECT,            100, FIGHTING,      95, 10 ; new move. signature. high-crit.
 	move HI_JUMP_KICK,   JUMP_KICK_EFFECT,                110, FIGHTING,      90, 10 ; signature. high-crit.
 
 
 	; === FIRE TYPE (7 moves) ===
 	move EMBER,          BURN_SIDE_EFFECT1,                35, FIRE,         100, 30
-	move FLAME_CHARGE,   SPEED_UP1_EFFECT,                 55, FIRE,         100, 20 ; new move. almost-signature.
+	move FLAME_CHARGE,   SPEED_UP1_EFFECT,                 55, FIRE,         100, 20 ; new move. fire-runners' pool (5 lines).
 	move FLAME_BURST,    SWIFT_EFFECT,                     70, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
-	move IGNITE,         BURN_EFFECT,                       0, FIRE,          90, 20
-	move EXPLOSION,      EXPLODE_EFFECT,                  200, FIRE,         100,  5 ; signature. high-crit.
+	move IGNITE,         BURN_EFFECT,                       0, FIRE,          95, 20
+	move EXPLOSION,      EXPLODE_EFFECT,                  200, FIRE,         100,  5 ; kamikaze pool (6 lines). high-crit.
 
 
 	; === FLYING TYPE (8 moves) ===
@@ -100,13 +100,13 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20 ; high-crit. (ambush dive — charge-turn payoff)
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
 	move SKY_ATTACK,     CHARGE_EFFECT,                   180, FLYING,       100, 10
-	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; signature.
+	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; bird staple (4 lines + DUX trade).
 
 
 	; === FUNGUS TYPE (3 moves) === ; new type
 	move SPORE_DAZE,     CONFUSION_SIDE_EFFECT2,           60, FUNGUS,       100, 20 ; new move. new effect.
 	move PARASITE,       SUPER_FANG_EFFECT,                 1, FUNGUS,        90, 15 ; new move. signature.
-	move SPORE,          SLEEP_EFFECT,                      0, FUNGUS,        90, 25 ; signature.
+	move SPORE,          SLEEP_EFFECT,                      0, FUNGUS,        90, 25 ; almost-signature (Paras-line + Vileplume).
 
 
 	; === GAS TYPE (3 moves) === ; new type
@@ -149,7 +149,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move EARTHQUAKE,     SPEED_DOWN_SIDE_EFFECT,           95, GROUND,       100, 15
 	move FISSURE,        SPEED_DOWN1_EFFECT,              115, GROUND,        85, 10
 	move BONE_CLUB,      FLINCH_SIDE_EFFECT1,              75, GROUND,       100, 20 ; signature.
-	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; signature. high-crit. (ambush from below — charge-turn payoff)
+	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; burrowers' staple (5 lines). high-crit. (ambush from below — charge-turn payoff)
 
 
 	; === ICE TYPE (7 moves) ===
@@ -163,8 +163,8 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 
 
 	; === MAGMA TYPE (2 moves) === ; new type
-	move MAGMA_PUNCH,    BURN_SIDE_EFFECT1,                60, MAGMA,        100, 25 ; new move. signature.
-	move LAVA_PLUME,     BURN_SIDE_EFFECT2,                90, MAGMA,        100, 15 ; new move. signature.
+	move MAGMA_PUNCH,    BURN_SIDE_EFFECT1,                60, MAGMA,        100, 25 ; new move. almost-signature (Magmar + Hitmonchan).
+	move LAVA_PLUME,     BURN_SIDE_EFFECT3,                90, MAGMA,        100, 15 ; new move. signature. new effect. BURN_SIDE_EFFECT3 = new 45% chance.
 
 
 	; === NORMAL TYPE (19 moves) ===
@@ -183,7 +183,7 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move THRASH,         THRASH_PETAL_DANCE_EFFECT,        95, NORMAL,       100, 10
 	move HEAVY_SLAM,     PARALYZE_SIDE_EFFECT2,           100, NORMAL,        90, 10
 	move DOUBLE_EDGE,    RECOIL_EFFECT,                   120, NORMAL,        80, 10 ; high-crit.
-	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. almost-signature. priority move.
+	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. speedsters' staple (22 learners). priority move.
 	move SUPERSONIC,     CONFUSION_EFFECT,                  0, NORMAL,        80, 25
 	move SUPER_FANG,     SUPER_FANG_EFFECT,                 1, NORMAL,        90, 15 ; signature.
 	move HYPER_FANG,     DEFENSE_DOWN1_EFFECT,             75, NORMAL,       100, 20 ; signature. high-crit.
@@ -207,59 +207,59 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move EXTRASENSORY,   SWIFT_EFFECT,                     65, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
-	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90, 10 ; signature. high-crit. new effect - 45% paralyze.
+	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90, 10 ; almost-signature (Alakazam + Mewtwo). high-crit. new effect - 45% paralyze.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
 
 
 	; === ROCK TYPE (10 moves) ===
 	move ROCK_THROW,     FLINCH_SIDE_EFFECT2,              45, ROCK,          90, 30
-	move ROCK_PUNCH,     NO_ADDITIONAL_EFFECT,             60, ROCK,         100, 25 ; new move.
+	move ROCK_PUNCH,     DEFENSE_DOWN_SIDE_EFFECT,         60, ROCK,         100, 25 ; new move.
 	move ROCK_TOMB,      SPEED_DOWN1_EFFECT,               75, ROCK,          95, 20 ; new move.
 	move HEAD_SMASH,     RECOIL_EFFECT,                    85, ROCK,          95, 20 ; new move.
 	move ROCK_SLIDE,     PARALYZE_SIDE_EFFECT2,            95, ROCK,         100, 15
 	move CLAMP,          TRAPPING_EFFECT,                  19, ROCK,          80, 25 ; signature.
-	move ROLLOUT,        TWO_TO_FIVE_ATTACKS_EFFECT,       20, ROCK,          90, 20 ; signature.
+	move ROLLOUT,        TWO_TO_FIVE_ATTACKS_EFFECT,       20, ROCK,          90, 20 ; rollers' staple (6 lines).
 	move BONEMERANG,     ATTACK_TWICE_EFFECT,              45, ROCK,          90, 20 ; signature.
 	move CRABHAMMER,     FLINCH_SIDE_EFFECT2,              90, ROCK,          90, 15 ; signature.
-	move HORN_DRILL,     DEFENSE_DOWN_SIDE_EFFECT,        100, ROCK,          90, 15 ; signature. high-crit.
+	move HORN_DRILL,     DEFENSE_DOWN_SIDE_EFFECT,        100, ROCK,          90, 15 ; horned chargers (4 lines). high-crit.
 
 
 	; === STEEL TYPE (6 moves) === ; new type
 	move CUT,            NO_ADDITIONAL_EFFECT,             55, STEEL,        100, 25 ; high-crit.
 	move IRON_TAIL,      DEFENSE_DOWN_SIDE_EFFECT,         65, STEEL,         90, 25 ; new move.
-	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,        100, 20 ; new move.
-	move SONICBOOM,      SPECIAL_DAMAGE_EFFECT,             1, STEEL,        100, 20 ; signature. set damage from 20 to 25.
-	move BULLET_PUNCH,   NO_ADDITIONAL_EFFECT,             45, STEEL,        100, 20 ; new move. signature. priority move.
-	move MAGNET_BOMB,    SWIFT_EFFECT,                    100, STEEL,        100, 10 ; new move. signature.
+	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,         95, 20 ; new move.
+	move SONICBOOM,      SPECIAL_DAMAGE_EFFECT,             1, STEEL,        100, 20 ; almost-signature (Magnemite-line + ball-line). set damage from 20 to 25.
+	move BULLET_PUNCH,   NO_ADDITIONAL_EFFECT,             45, STEEL,        100, 20 ; new move. punchers' trio (Machamp/Hitmonchan/Electabuzz). priority move.
+	move MAGNET_BOMB,    SWIFT_EFFECT,                    100, STEEL,        100, 10 ; new move. magnetic circle (4 learners).
 
 
 	; === WATER TYPE (7 moves) ===
 	move WATER_GUN,      NO_ADDITIONAL_EFFECT,             35, WATER,        100, 35
-	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. almost-signature. priority move.
+	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. swimmers' staple (16 learners). priority move.
 	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           50, WATER,        100, 30
 	move WATER_PULSE,    SWIFT_EFFECT,                     65, WATER,        100, 25 ; new move.
-	move WATERFALL,      FLINCH_SIDE_EFFECT1,              80, WATER,        100, 20
+	move WATERFALL,      FLINCH_SIDE_EFFECT2,              80, WATER,        100, 20
 	move SURF,           SPEED_DOWN_SIDE_EFFECT,           95, WATER,        100, 15
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
 
 	; === BIRD TYPE (50 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
-	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; signature. new effect - ~30% chance random {paralyze/burn/freeze}.
+	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; machine-mind circle (5 learners). new effect - ~30% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
 	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
 	move COIL,           ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
 	move FIERCE_ROAR,    ATTACK_UP1_DOWN1_EFFECT,           0, BIRD,         100, 25 ; new move. new effect.
 	move HONE_CLAWS,     ATTACK_ACCURACY_UP1_EFFECT,        0, BIRD,         100, 25 ; new move. new effect.
-	move IRON_DEFENSE,   DEFENSE_UP2_EFFECT,                0, BIRD,         100, 25 ; new move. almost-signature.
+	move IRON_DEFENSE,   DEFENSE_UP2_EFFECT,                0, BIRD,         100, 25 ; new move. armored staple (13 learners).
 
 	move DEFENSE_CURL,   DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
 	move GROWTH,         SPECIAL_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect - spc + 1/4 heal.
-	move CALM_MIND,      SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move CALM_MIND,      SPECIAL_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 30 ; new move. new effect.
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 
@@ -277,12 +277,12 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move GROWL,          ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
-	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. signature.
+	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. acid pool (5 lines).
 	move TICKLE,         DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
 	move FAKE_TEARS,     SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move.
-	move METAL_SOUND,    SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move. signature.
+	move METAL_SOUND,    SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
 	move SCREECH,        SPECIAL_DOWN1_EFFECT,              0, BIRD,         100, 30
 
 	move EERIE_IMPULSE,  SPECIAL_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
@@ -305,11 +305,11 @@ Moves: ; Current total = 219 (TAUNT removed v0.7 — was an orphan, no learners)
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
 
 	move BIDE,           BIDE_EFFECT,                       0, BIRD,         100, 20
-	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30
+	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30 ; also raises user Accuracy +1 (on top of the x3 crit boost)
 	move MIMIC,          MIMIC_EFFECT,                      0, BIRD,         100, 15
 	move MIRROR_MOVE,    MIRROR_MOVE_EFFECT,                0, BIRD,         100, 20
 	move SUBSTITUTE,     SUBSTITUTE_EFFECT,                 0, BIRD,         100, 15
-	move TRANSFORM,      TRANSFORM_EFFECT,                  0, BIRD,         100, 40 ; signature. priority move.
+	move TRANSFORM,      TRANSFORM_EFFECT,                  0, BIRD,         100, 40 ; signature (Ditto egg + Mew, clone lore; MILES trade special). priority move.
 	move METRONOME,      METRONOME_EFFECT,                  0, BIRD,         100, 20
 
 	move STRUGGLE,       RECOIL_EFFECT,                    50, BIRD,         100, 10 ; has to be last in list.

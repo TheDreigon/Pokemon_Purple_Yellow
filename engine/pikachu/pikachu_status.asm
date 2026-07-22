@@ -54,7 +54,7 @@ IsStarterPikachuInOurParty::
 	add hl, bc
 	ld a, [hli]
 	or [hl]
-	jr z, .noPlayerPikachu ; XXX how is this determined?
+	jr z, .noPlayerPikachu ; jr z, .noPlayerPikachu ; OTID - NAME_LENGTH points at current HP; a fainted Pikachu doesn't count
 	pop hl
 	scf
 	ret
@@ -137,7 +137,7 @@ UpdatePikachuMoodAfterBattle::
 	ret
 
 CheckPikachuFaintedOrStatused::
-; function to test if Pikachu is alive?
+; sets carry if the starter Pikachu is in the party with a nonzero status condition; the HP read into d is never actually checked, so fainting alone does not set carry
 	xor a
 	ld [wWhichPokemon], a
 	ld hl, wPartyCount

@@ -1,15 +1,15 @@
 SafariZoneWestWildMons:
 	def_grass_wildmons 30 ; encounter rate
-	db 35, PARASECT
+	db 34, PARASECT
 	db 33, VENOMOTH
-	db 35, PINSIR
+	db 34, PINSIR
 	db 34, SCYTHER
-	db 36, BUTTERFREE
-	db 36, BEEDRILL
+	db 35, BUTTERFREE
+	db 35, BEEDRILL
 	db 36, DODRIO
 	db 36, FEAROW
 	db 36, PIDGEOT
-	db 40, PIDGEOT
+	db 15, EEVEE
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

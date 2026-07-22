@@ -379,7 +379,7 @@ StartMenu_Item::
 	bit BIT_B_BUTTON, a
 	jr z, .useOrTossItem
 	jp ItemMenuLoop
-.useOrTossItem ; if the player made the choice to use or toss the item
+.useOrTossItem ; .useOrTossItem ; the player chose USE, INFO, or TOSS
 	ld a, [wcf91]
 	ld [wd11e], a
 	call GetItemName

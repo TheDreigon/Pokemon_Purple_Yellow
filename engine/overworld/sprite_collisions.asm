@@ -55,7 +55,6 @@ UpdateNonPlayerSprite:
 ; The reason that 4 is added below to the coordinate is to make it align with a
 ; multiple of $10 to make comparisons easier.
 DetectCollisionBetweenSprites:
-	; nop
 
 	ld h, HIGH(wSpriteStateData1)
 	ldh a, [hCurrentSpriteOffset]
@@ -333,11 +332,8 @@ DetectCollisionBetweenSprites:
 	jp nz, .loop
 	ret
 
-; takes delta X or delta Y in a
-; b = delta X/Y
-; c = 0 if delta X/Y is 0
-; c = 7 if delta X/Y is 1
-; c = 9 if delta X/Y is -1
+; pikachu collision: stores a direction mask (%0011 = X axis,
+; %1100 = Y axis) in wd434
 Func_4d0a:
 	ldh a, [hCollidingSpriteTempXValue]
 	ld b, a
@@ -358,6 +354,11 @@ Func_4d0a:
 	inc l
 	ret
 
+; takes delta X or delta Y in a
+; b = $ff if delta is -1, else 0 (rounds the coordinate down before masking)
+; c = 0 if delta is 0
+; c = 7 if delta is 1
+; c = 9 if delta is -1
 SetSpriteCollisionValues:
 	and a
 	ld b, 0

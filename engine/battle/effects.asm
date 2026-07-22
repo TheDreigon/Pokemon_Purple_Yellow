@@ -216,7 +216,7 @@ FreezeBurnParalyzeEffect:
 ;   - Poison immune: defender is POISON or STEEL (POISON was vanilla-correct in PoisonEffect; STEEL added in v0.7).
 	xor a
 	ld [wAnimationType], a
-	call CheckTargetSubstitute ; test bit 4 of d063/d068 flags [target has substitute flag]
+	call CheckTargetSubstitute ; call CheckTargetSubstitute ; test the HAS_SUBSTITUTE_UP bit of the defender's BattleStatus2
 	ret nz ; return if they have a substitute, can't effect them
 	ldh a, [hWhoseTurn]
 	and a
@@ -225,16 +225,22 @@ FreezeBurnParalyzeEffect:
 	and a
 	jp nz, CheckDefrost ; can't inflict status if opponent is already statused
 	ld a, [wPlayerMoveEffect]
-	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
+	cp FREEZE_SIDE_EFFECT2 ; cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Frost Breath, Blizzard)
 	jr nz, .asm_3f2c7
 	ld b, 30 percent + 1
 	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .asm_3f2c7
-	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
-	jr nz, .tierLadder
+	cp PARALYZE_SIDE_EFFECT3 ; cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Nuzzle, Mind Break)
+	jr nz, .burnTier3
 	ld b, 45 percent + 1
 	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness
+.burnTier3
+	cp BURN_SIDE_EFFECT3 ; v0.7: 45% burn tier (Lava Plume)
+	jr nz, .tierLadder
+	ld b, 45 percent + 1
+	ld a, BURN_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness
 .tierLadder
 	cp PARALYZE_SIDE_EFFECT1 + 1
@@ -248,7 +254,7 @@ FreezeBurnParalyzeEffect:
 	call BattleRandom ; get random 8bit value for probability test
 	cp b
 	pop bc
-	ret nc ; do nothing if random value is >= 1A or 4D [no status applied]
+	ret nc ; ret nc ; no status if random value >= the tier threshold in b ($27/$4D/$73 for the 15/30/45% tiers)
 	ld a, b ; what type of effect is this?
 	cp BURN_SIDE_EFFECT1
 	jr z, .burn1
@@ -331,16 +337,22 @@ FreezeBurnParalyzeEffect:
 	and a
 	jp nz, CheckDefrost
 	ld a, [wEnemyMoveEffect]
-	cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Blizzard)
+	cp FREEZE_SIDE_EFFECT2 ; cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Frost Breath, Blizzard)
 	jr nz, .asm_3f341
 	ld b, 30 percent + 1
 	ld a, FREEZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .asm_3f341
-	cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Mind Break)
-	jr nz, .tierLadder2
+	cp PARALYZE_SIDE_EFFECT3 ; cp PARALYZE_SIDE_EFFECT3 ; v0.7: 45% paralyze tier (Nuzzle, Mind Break)
+	jr nz, .burnTier3_2
 	ld b, 45 percent + 1
 	ld a, PARALYZE_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
+	jr .regular_effectiveness2
+.burnTier3_2
+	cp BURN_SIDE_EFFECT3 ; v0.7: 45% burn tier (Lava Plume)
+	jr nz, .tierLadder2
+	ld b, 45 percent + 1
+	ld a, BURN_SIDE_EFFECT1 ; map to _1 variant for the dispatch below
 	jr .regular_effectiveness2
 .tierLadder2
 	cp PARALYZE_SIDE_EFFECT1 + 1
@@ -417,7 +429,6 @@ FreezeBurnParalyzeEffect:
 	ret z
 	cp MAGMA
 	ret z
-; hyper beam bits aren't reseted for opponent's side
 	call ClearHyperBeam
 	ld a, 1 << FRZ
 	ld [wBattleMonStatus], a
@@ -618,7 +629,7 @@ TriStatusSideEffect:
 	jp PrintText
 
 CheckDefrost:
-; any fire-type move that has a chance inflict burn (all but Fire Spin) will defrost a frozen target
+; a Fire- or Magma-type move with a burn/freeze/paralyze side effect defrosts a frozen target (pure-status IGNITE and other Fire/Magma effects never reach this path)
 	and 1 << FRZ ; are they frozen?
 	ret z ; return if so
 	ldh a, [hWhoseTurn]
@@ -664,7 +675,7 @@ FireDefrostedText:
 	text_far _FireDefrostedText
 	text_end
 
-StatModifierUpEffect:
+StatModifierUpEffect::
 	ld hl, wPlayerMonStatMods
 	ld de, wPlayerMoveEffect
 	ldh a, [hWhoseTurn]
@@ -686,7 +697,7 @@ StatModifierUpEffect:
 	inc b ; increment corresponding stat mod
 	ld a, $d
 	cp b ; can't raise stat past +6 ($d or 13)
-	jp c, PrintNothingHappenedText
+	jp c, PrintStatWontGoHigherText ; v0.7: named text instead of "Nothing happened!"
 	ld a, [de]
 	cp ATTACK_UP1_EFFECT + $8 ; is it a +2 effect?
 	jr c, .ok
@@ -728,7 +739,7 @@ StatModifierUpEffect:
 	sbc HIGH(MAX_STAT_VALUE)
 	jp z, RestoreOriginalStatModifier
 .recalculateStat ; recalculate affected stat
-                 ; paralysis and burn penalties, as well as badge boosts are ignored
+                 ; paralysis and burn penalties are ignored here (selectively re-applied after the text below); badge boosts are baked into the unmodified stats (v0.7) so they carry through
 	push hl
 	push bc
 	ld hl, StatModifierRatios
@@ -779,9 +790,8 @@ UpdateStatDone:
 	ld a, c
 	ld [wd11e], a
 	call PrintStatText
-	; PURPLE YELLOW v0.5: MINIMIZE was removed from the movelist, so the
-	; substitute-handling special case below is dead code. Keep the post-animation
-	; flow (`.applyBadgeBoostsAndStatusPenalties`) but drop the MINIMIZE branch.
+	; MINIMIZE was removed from the movelist; vanilla's substitute-hiding
+	; special case for it is gone.
 	ld a, [wMoveDidntMiss]
 	and a
 	jr nz, .skipUpAnim ; damage already played the animation, or dual-stat second leg
@@ -790,7 +800,7 @@ UpdateStatDone:
 .applyBadgeBoostsAndStatusPenalties
 	; v0.7 Badge Boost Glitch fix: vanilla called ApplyBadgeStatBoosts here
 	; on every player stat-up, compounding badges by 1.125x each time.
-	; Badges are now baked into wPlayerMonUnmodifiedStats at LoadPlayerMon
+	; Badges are now baked into wPlayerMonUnmodifiedStats at LoadBattleMonFromParty
 	; (see core.asm), so stat recalcs naturally preserve them — no need
 	; to re-apply on top.
 	ld hl, MonsStatsRoseText
@@ -824,6 +834,16 @@ RestoreOriginalStatModifier:
 
 PrintNothingHappenedText:
 	ld hl, NothingHappenedText
+	jp PrintText
+
+; v0.7: stat capped at +6 — print "<USER>'s <STAT> won't go any higher!".
+; Expects c = 0-based stat index (live at the StatModifierUpEffect call site);
+; PrintStatText consumes b = c+1 and copies the stat name to wStringBuffer.
+PrintStatWontGoHigherText:
+	ld b, c
+	inc b
+	call PrintStatText
+	ld hl, StatWontGoHigherText
 	jp PrintText
 
 MonsStatsRoseText:
@@ -939,7 +959,7 @@ StatModifierDownEffect:
 	jp z, CantLowerAnymore_Pop
 .recalculateStat
 ; recalculate affected stat
-; paralysis and burn penalties, as well as badge boosts are ignored
+; paralysis and burn penalties are ignored here (selectively re-applied after the text below); badge boosts are baked into the player's unmodified stats (v0.7) so they carry through
 	push hl
 	push bc
 	ld hl, StatModifierRatios
@@ -1000,13 +1020,13 @@ UpdateLoweredStatDone:
 .ApplyBadgeBoostsAndStatusPenalties
 	; v0.7 Badge Boost Glitch fix: removed ApplyBadgeStatBoosts call here
 	; (the enemy-stat-down counterpart of the bug above). Same reasoning:
-	; badges are baked into unmodified stats at LoadPlayerMon.
+	; badges are baked into unmodified stats at LoadBattleMonFromParty.
 	ld hl, MonsStatsFellText
 	call PrintText
 	; v0.7 burn/para reapplication fix: vanilla called HalveSpeed +
 	; HalveAttack here regardless of which stat was just modified, often
 	; on stats that hadn't been recalc'd, causing penalty compounding.
-	; The original code's own comment admits this. Replaced with a
+	; Remove just this sentence; keep the rest of the block.
 	; selective reapply: only the stat just recalc'd, on the TARGET (which
 	; is already opposite-of-hWhoseTurn — the existing dispatch direction).
 	ld a, [wd11e]                       ; retrieve recalc'd stat index
@@ -1027,7 +1047,13 @@ CantLowerAnymore:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	ret nc
-	ld hl, NothingHappenedText
+	; v0.7: named text instead of "Nothing happened!". c = 0-based stat
+	; index — live on both printing paths here (set at .decrementStatMod;
+	; restored by `pop bc` before the CantLowerAnymore_Pop path).
+	ld b, c
+	inc b
+	call PrintStatText
+	ld hl, StatWontGoLowerText
 	jp PrintText
 
 MoveMissed:
@@ -1346,7 +1372,7 @@ RecoilEffect:
 ConfusionSideEffect:
 ; PURPLE YELLOW v0.5: tiered confusion side effect.
 ; CONFUSION_SIDE_EFFECT1 = 15% (default tier).
-; CONFUSION_SIDE_EFFECT2 = 30% (Hurricane, Spore Daze).
+; CONFUSION_SIDE_EFFECT2 = 30% (Confusion, Dizzy Punch, Hurricane, Spore Daze).
 ; CONFUSION_SIDE_EFFECT3 = 45% (v0.7 — new Psychic, heaviest tier).
 	ldh a, [hWhoseTurn]
 	and a
@@ -1647,6 +1673,14 @@ NothingHappenedText:
 	text_far _NothingHappenedText
 	text_end
 
+StatWontGoHigherText:
+	text_far _StatWontGoHigherText
+	text_end
+
+StatWontGoLowerText:
+	text_far _StatWontGoLowerText
+	text_end
+
 PrintNoEffectText:
 	ld hl, NoEffectText
 	jp PrintText
@@ -1836,6 +1870,32 @@ SpeedEvasionUp1Effect:
 	call StatModifierUpEffect
 	pop de
 	ld a, SPEED_EVASION_UP1_EFFECT
+	ld [de], a
+	ret
+
+SpecialAccuracyUp1Effect:
+; Dual-stat +1 for the user (Special + Accuracy). Used by CALM_MIND (revised).
+; Same pattern as AttackAccuracyUp1Effect.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtrCM
+	ld de, wEnemyMoveEffect
+.gotEffectPtrCM
+	push de
+	ld a, SPECIAL_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	; Suppress animation on the second leg.
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push de
+	ld a, ACCURACY_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
+	ld a, SPECIAL_ACCURACY_UP1_EFFECT
 	ld [de], a
 	ret
 

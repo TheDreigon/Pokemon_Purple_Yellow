@@ -49,7 +49,7 @@ ItemNames::
 	li "LEAF STONE"
 	li "CARD KEY"
 	li "NUGGET"
-	li "PP MAX" ; PP_MAX (formerly ITEM_32 ghost; v0.5)
+	li "PP MAX" ; li "PP MAX" ; PP_MAX
 	li "POKé DOLL"
 	li "FULL HEAL"
 	li "REVIVE"
@@ -81,8 +81,8 @@ ItemNames::
 	li "PP UP"
 	li "ETHER"
 	li "MAX ETHER"
-	li "ELIXER"
-	li "MAX ELIXER"
+	li "ELIXIR"
+	li "MAX ELIXIR"
 	assert_list_length NUM_ITEMS
 	li "B2F"
 	li "B1F"

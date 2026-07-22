@@ -28,7 +28,7 @@ GameCornerPrizeRoomClerkText:
 	; - have room in the Coin Case for at least 9 coins
 	call Has9990Coins
 	jr nc, .coin_case_full
-	; - have at least 1000 yen
+	; - have at least 11000 yen
 	xor a
 	ldh [hMoney], a
 	ldh [hMoney + 2], a
@@ -53,7 +53,7 @@ GameCornerPrizeRoomClerkText:
 	ld de, wPlayerMoney + 2
 	ld c, $3
 	predef SubBCDPredef
-	; Receive 50 coins
+	; Receive 500 coins
 	xor a
 	ldh [hUnusedCoinsByte], a
 	ldh [hCoins], a

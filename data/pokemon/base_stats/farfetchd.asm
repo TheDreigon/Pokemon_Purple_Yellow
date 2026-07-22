@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/farfetchd.pic", 0, 1 ; sprite dimensions
 	dw FarfetchdPicFront, FarfetchdPicBack
 
-	db PECK, SAND_ATTACK, NO_MOVE, NO_MOVE ; level 1 learnset
+	db PECK, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
@@ -16,7 +16,7 @@
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, BULK_UP, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, AERIAL_ACE, \
 	     TAKE_DOWN, SWORDS_DANCE, PETAL_DANCE, DOUBLE_EDGE, CUT, \
-	     FLY, STRENGTH
+	     FLY, STRENGTH, THRASH, OUTRAGE
 	; end
 
 	db 0 ; padding

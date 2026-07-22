@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; Mid-stage rolling rock (Rock/Ground). HM STRENGTH.
 	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, IRON_HEAD, TAKE_DOWN, \
-	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH
+	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH, SEISMIC_TOSS
 	; end
 
 	db 0 ; padding

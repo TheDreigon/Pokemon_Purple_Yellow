@@ -81,6 +81,6 @@ KeyItemFlags:
 	dbit FALSE ; PP_UP
 	dbit FALSE ; ETHER
 	dbit FALSE ; MAX_ETHER
-	dbit FALSE ; ELIXER
-	dbit FALSE ; MAX_ELIXER
+	dbit FALSE ; ELIXIR
+	dbit FALSE ; MAX_ELIXIR
 	end_bit_array NUM_ITEMS

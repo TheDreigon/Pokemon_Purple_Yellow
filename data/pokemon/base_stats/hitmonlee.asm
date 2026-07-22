@@ -8,16 +8,16 @@
 	INCBIN "gfx/pokemon/front/hitmonlee.pic", 0, 1 ; sprite dimensions
 	dw HitmonleePicFront, HitmonleePicBack
 
-	db TACKLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
+	db LOW_KICK, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Leg-only kicker, single-stage. HM STRENGTH.
+	; Leg-only kicker, single-stage; hands still grab/throw (ROCK_THROW). HM STRENGTH.
 	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm QUICK_ATTACK, BIND, FAINT_ATTACK, BULLDOZE, SEISMIC_TOSS, \
-	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
-	     AGILITY, TAKE_DOWN, SWORDS_DANCE, CALM_MIND, THRASH, \
-	     STRENGTH
+	     ROCK_THROW, BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
+	     METRONOME, AGILITY, TAKE_DOWN, SWORDS_DANCE, CALM_MIND, \
+	     THRASH, STRENGTH
 	; end
 
 	db 0 ; padding

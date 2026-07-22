@@ -66,7 +66,7 @@ DoInGameTradeDialogue:
 	ld l, a
 	jp PrintText
 
-; copies name of species a to hl
+; copies the name of species a to de
 InGameTrade_GetMonName:
 	push de
 	ld [wd11e], a
@@ -103,6 +103,7 @@ InGameTrade_DoTrade:
 	ld [wCurEnemyLVL], a
 	ld b, FLAG_SET
 	call InGameTrade_FlagActionPredef
+	call InGameTrade_LatchSpecialMove
 	ld hl, ConnectCableText
 	call PrintText
 	ld a, [wWhichPokemon]
@@ -126,6 +127,7 @@ InGameTrade_DoTrade:
 	ld [wMonDataLocation], a
 	call AddPartyMon
 	call InGameTrade_CopyDataToReceivedMon
+	call InGameTrade_GiveSpecialMove
 	call InGameTrade_CheckForTradeEvo
 	call ClearScreen
 	call InGameTrade_RestoreScreen
@@ -138,6 +140,70 @@ InGameTrade_DoTrade:
 .tradeSucceeded
 	ld [wInGameTradeTextPointerTableIndex], a
 	ret
+
+InGameTrade_LatchSpecialMove:
+; Resolve this trade's signature move while wWhichTrade is still
+; vanilla-guaranteed. wWhichTrade is a heavily-unioned scratch byte
+; (wSavedY/wTempSCX/wNumShakes/... — see wram.asm); the trade-movie
+; window must not be trusted with it, so the move id is latched into
+; wMoveNum, which nothing in that window touches (verified: no writes
+; in engine/movie/trade.asm, add_mon.asm, remove_mon.asm).
+	ld a, [wWhichTrade]
+	ld e, a
+	ld d, 0
+	ld hl, TradeSpecialMoves
+	add hl, de
+	ld a, [hl]
+	ld [wMoveNum], a
+	ret
+
+InGameTrade_GiveSpecialMove:
+; Every NPC-traded mon arrives knowing its signature move (event-mon style;
+; see data/events/trade_special_moves.asm), latched in wMoveNum by
+; InGameTrade_LatchSpecialMove before the trade animation. The received mon
+; is the last party member at this point (AddPartyMon just appended it).
+; The move goes into the first empty move slot, or over slot 4 if the set
+; is full, with its max PP — mirroring the LearnMove write pattern.
+	ld a, [wMoveNum]
+	and a
+	ret z ; dormant rows carry no special move
+	ld e, a
+	ld a, [wPartyCount]
+	dec a
+	ld hl, wPartyMon1Moves
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+; NOTE: no runtime duplicate guard — the invariant "no TradeSpecialMoves
+; entry is naturally learnable by its receiver" is enforced statically by
+; .claude/check_trade_special_moves.py (bank1C is byte-tight).
+	ld b, NUM_MOVES
+.findEmptySlot
+	ld a, [hl]
+	and a
+	jr z, .write
+	inc hl
+	dec b
+	jr nz, .findEmptySlot
+	dec hl ; four natural moves: the newest one gives way
+.write
+	ld a, e
+	ld [hl], a
+	ld bc, wPartyMon1PP - wPartyMon1Moves
+	add hl, bc
+	push hl
+	dec a
+	ld hl, Moves
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld de, wBuffer
+	ld a, BANK(Moves)
+	call FarCopyData
+	ld a, [wBuffer + 5] ; the move's max PP
+	pop hl
+	ld [hl], a
+	ret
+
+INCLUDE "data/events/trade_special_moves.asm"
 
 InGameTrade_RestoreScreen:
 	call GBPalWhiteOutWithDelay3
@@ -257,6 +323,14 @@ InGameTradeTextPointers:
 	dw TradeTextPointers1
 	dw TradeTextPointers2
 	dw TradeTextPointers3
+	dw TradeTextPointersTremor
+	dw TradeTextPointersMiles
+	dw TradeTextPointersPtera
+	dw TradeTextPointersSpore
+	dw TradeTextPointersLola
+	dw TradeTextPointersBasalt
+	dw TradeTextPointersMoby
+	dw TradeTextPointersDux
 
 TradeTextPointers1:
 	dw WannaTrade1Text
@@ -278,6 +352,62 @@ TradeTextPointers3:
 	dw WrongMon3Text
 	dw Thanks3Text
 	dw AfterTrade3Text
+
+TradeTextPointersTremor:
+	dw WannaTradeTremorText
+	dw NoTradeTremorText
+	dw WrongMonTremorText
+	dw ThanksTremorText
+	dw AfterTradeTremorText
+
+TradeTextPointersMiles:
+	dw WannaTradeMilesText
+	dw NoTradeMilesText
+	dw WrongMonMilesText
+	dw ThanksMilesText
+	dw AfterTradeMilesText
+
+TradeTextPointersPtera:
+	dw WannaTradePteraText
+	dw NoTradePteraText
+	dw WrongMonPteraText
+	dw ThanksPteraText
+	dw AfterTradePteraText
+
+TradeTextPointersSpore:
+	dw WannaTradeSporeText
+	dw NoTradeSporeText
+	dw WrongMonSporeText
+	dw ThanksSporeText
+	dw AfterTradeSporeText
+
+TradeTextPointersLola:
+	dw WannaTradeLolaText
+	dw NoTradeLolaText
+	dw WrongMonLolaText
+	dw ThanksLolaText
+	dw AfterTradeLolaText
+
+TradeTextPointersBasalt:
+	dw WannaTradeBasaltText
+	dw NoTradeBasaltText
+	dw WrongMonBasaltText
+	dw ThanksBasaltText
+	dw AfterTradeBasaltText
+
+TradeTextPointersMoby:
+	dw WannaTradeMobyText
+	dw NoTradeMobyText
+	dw WrongMonMobyText
+	dw ThanksMobyText
+	dw AfterTradeMobyText
+
+TradeTextPointersDux:
+	dw WannaTradeDuxText
+	dw NoTradeDuxText
+	dw WrongMonDuxText
+	dw ThanksDuxText
+	dw AfterTradeDuxText
 
 ConnectCableText:
 	text_far _ConnectCableText
@@ -347,4 +477,164 @@ Thanks3Text:
 
 AfterTrade3Text:
 	text_far _AfterTrade3Text
+	text_end
+
+WannaTradeTremorText:
+	text_far _WannaTradeTremorText
+	text_end
+
+NoTradeTremorText:
+	text_far _NoTradeTremorText
+	text_end
+
+WrongMonTremorText:
+	text_far _WrongMonTremorText
+	text_end
+
+ThanksTremorText:
+	text_far _ThanksTremorText
+	text_end
+
+AfterTradeTremorText:
+	text_far _AfterTradeTremorText
+	text_end
+
+WannaTradeMilesText:
+	text_far _WannaTradeMilesText
+	text_end
+
+NoTradeMilesText:
+	text_far _NoTradeMilesText
+	text_end
+
+WrongMonMilesText:
+	text_far _WrongMonMilesText
+	text_end
+
+ThanksMilesText:
+	text_far _ThanksMilesText
+	text_end
+
+AfterTradeMilesText:
+	text_far _AfterTradeMilesText
+	text_end
+
+WannaTradePteraText:
+	text_far _WannaTradePteraText
+	text_end
+
+NoTradePteraText:
+	text_far _NoTradePteraText
+	text_end
+
+WrongMonPteraText:
+	text_far _WrongMonPteraText
+	text_end
+
+ThanksPteraText:
+	text_far _ThanksPteraText
+	text_end
+
+AfterTradePteraText:
+	text_far _AfterTradePteraText
+	text_end
+
+WannaTradeSporeText:
+	text_far _WannaTradeSporeText
+	text_end
+
+NoTradeSporeText:
+	text_far _NoTradeSporeText
+	text_end
+
+WrongMonSporeText:
+	text_far _WrongMonSporeText
+	text_end
+
+ThanksSporeText:
+	text_far _ThanksSporeText
+	text_end
+
+AfterTradeSporeText:
+	text_far _AfterTradeSporeText
+	text_end
+
+WannaTradeLolaText:
+	text_far _WannaTradeLolaText
+	text_end
+
+NoTradeLolaText:
+	text_far _NoTradeLolaText
+	text_end
+
+WrongMonLolaText:
+	text_far _WrongMonLolaText
+	text_end
+
+ThanksLolaText:
+	text_far _ThanksLolaText
+	text_end
+
+AfterTradeLolaText:
+	text_far _AfterTradeLolaText
+	text_end
+
+WannaTradeBasaltText:
+	text_far _WannaTradeBasaltText
+	text_end
+
+NoTradeBasaltText:
+	text_far _NoTradeBasaltText
+	text_end
+
+WrongMonBasaltText:
+	text_far _WrongMonBasaltText
+	text_end
+
+ThanksBasaltText:
+	text_far _ThanksBasaltText
+	text_end
+
+AfterTradeBasaltText:
+	text_far _AfterTradeBasaltText
+	text_end
+
+WannaTradeMobyText:
+	text_far _WannaTradeMobyText
+	text_end
+
+NoTradeMobyText:
+	text_far _NoTradeMobyText
+	text_end
+
+WrongMonMobyText:
+	text_far _WrongMonMobyText
+	text_end
+
+ThanksMobyText:
+	text_far _ThanksMobyText
+	text_end
+
+AfterTradeMobyText:
+	text_far _AfterTradeMobyText
+	text_end
+
+WannaTradeDuxText:
+	text_far _WannaTradeDuxText
+	text_end
+
+NoTradeDuxText:
+	text_far _NoTradeDuxText
+	text_end
+
+WrongMonDuxText:
+	text_far _WrongMonDuxText
+	text_end
+
+ThanksDuxText:
+	text_far _ThanksDuxText
+	text_end
+
+AfterTradeDuxText:
+	text_far _AfterTradeDuxText
 	text_end

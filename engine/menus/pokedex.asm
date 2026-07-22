@@ -169,13 +169,12 @@ ENDC
 	ld b, 0
 	jr .exitSideMenu
 
-.chosePrint ; Changed this to print learnsets
+.chosePrint ; .chosePrint ; repurposed: MOVE menu item — shows the learnset instead of GB Printer printing
 	ld a, 1
 	ld [wMoveListCounter], a
 	call ShowPokedexDataInternal
 	ld b, 0
 	jr .exitSideMenu
-	; call Pokedex_PrintMovesText
 	; ret
 	; ldh a, [hTileAnimations]
 	; push af
@@ -525,8 +524,9 @@ ShowPokedexDataInternal:
 	ret
 
 HeightWeightText:
-	db   "HT  ?′??″"
-	next "WT   ???lb@"
+; v0.7 metric dex: height shown as M.D m, weight as ???.? kg
+	db   "HT   ?<DOT>?m"
+	next "WT   ???kg@"
 
 ; XXX does anything point to this?
 PokeText:
@@ -640,24 +640,25 @@ DrawDexEntryOnScreen:
 	and a
 	ret z ; if the pokemon has not been owned, don't print the height, weight, or description
 
-	inc de ; de = address of feet (height)
-	ld a, [de] ; reads feet, but a is overwritten without being used
-	hlcoord 12, 6
-	lb bc, 1, 2
-	call PrintNumber ; print feet (height)
-	ld a, "′"
-	ld [hl], a
+; v0.7 metric dex: the two height bytes store meters, decimeters.
+; Both are single digits written directly to the tilemap — PrintNumber
+; only supports 2-7 digits (its 1-digit call falls through to a 7-tile
+; field; see home/print_num.asm).
+	inc de ; de = address of meters (height)
+	ld a, [de]
+	add "0"
+	hlcoord 14, 6
+	ld [hl], a ; whole meters (the template supplies the dot)
+	inc de ; de = address of decimeters (height)
+	ld a, [de]
+	add "0"
+	hlcoord 16, 6
+	ld [hl], a ; decimeters (the template supplies the "m")
+; now print the weight (stored in tenths of KILOGRAMS since v0.7)
 	inc de
-	inc de ; de = address of inches (height)
-	hlcoord 15, 6
-	lb bc, LEADING_ZEROES | 1, 2
-	call PrintNumber ; print inches (height)
-	ld a, "″"
-	ld [hl], a
-; now print the weight (note that weight is stored in tenths of pounds internally)
-	inc de
-	inc de
-	inc de ; de = address of upper byte of weight
+	inc de ; de = address of upper byte of weight (PrintNumber used to
+	       ; leave de one byte behind; direct writes do not, hence one
+	       ; fewer inc than the vanilla ft/in flow)
 	push de
 ; put weight in big-endian order at hDexWeight
 	ld hl, hDexWeight
@@ -722,7 +723,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 12
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -744,7 +745,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 13
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -766,7 +767,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 14
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -788,7 +789,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 15
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]
@@ -810,7 +811,7 @@ Pokedex_PrintMovesText:
 	ld a, [de]
 	hlcoord 1, 16
 	lb bc, 1, 3
-	call PrintNumber ; print number of seen pokemon
+	call PrintNumber ; print the move's learn level
 	inc de
 	inc de
 	ld a, [de]

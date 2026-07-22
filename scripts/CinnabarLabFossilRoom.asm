@@ -79,7 +79,7 @@ CinnabarLabFossilRoomScientist1Text:
 	SetEvent EVENT_LAB_HANDING_OVER_FOSSIL_MON
 	ld a, [wFossilMon]
 	ld b, a
-	ld c, 40
+	ld c, 35
 	call GivePokemon
 	jr nc, .done
 	ResetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL, EVENT_LAB_HANDING_OVER_FOSSIL_MON
@@ -103,7 +103,7 @@ CinnabarLabFossilRoomScientist1Text:
 
 CinnabarLabFossilRoomScientist2Text:
 	text_asm
-	ld a, TRADE_FOR_STICKY
+	ld a, TRADE_FOR_PTERA
 	ld [wWhichTrade], a
 	predef DoInGameTradeDialogue
 	jp TextScriptEnd

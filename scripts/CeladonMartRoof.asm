@@ -71,6 +71,10 @@ CeladonMartRoofScript_GiveDrinkToGirl:
 	call CeladonMartRoofScript_PrintDrinksInBag
 	ld hl, wd730
 	res 6, [hl]
+	xor a
+	ld [wLastMenuItem], a
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-give a drink
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	ret nz
@@ -149,7 +153,7 @@ CeladonMartRoofLittleGirlYayFreshWaterText:
 CeladonMartRoofLittleGirlReceivedTM13Text:
 	text_far _CeladonMartRoofLittleGirlReceivedTM13Text
 	sound_get_item_1
-	; text_far _CeladonMartRoofLittleGirlTM13ExplanationText
+	text_far _CeladonMartRoofLittleGirlTM13ExplanationText
 	text_waitbutton
 	text_end
 
@@ -161,7 +165,7 @@ CeladonMartRoofLittleGirlYaySodaPopText:
 CeladonMartRoofLittleGirlReceivedTM48Text:
 	text_far _CeladonMartRoofLittleGirlReceivedTM48Text
 	sound_get_item_1
-	; text_far _CeladonMartRoofLittleGirlTM48ExplanationText
+	text_far _CeladonMartRoofLittleGirlTM48ExplanationText
 	text_waitbutton
 	text_end
 
@@ -173,7 +177,7 @@ CeladonMartRoofLittleGirlYayLemonadeText:
 CeladonMartRoofLittleGirlReceivedTM49Text:
 	text_far _CeladonMartRoofLittleGirlReceivedTM49Text
 	sound_get_item_1
-	; text_far _CeladonMartRoofLittleGirlTM49ExplanationText
+	text_far _CeladonMartRoofLittleGirlTM49ExplanationText
 	text_waitbutton
 	text_end
 

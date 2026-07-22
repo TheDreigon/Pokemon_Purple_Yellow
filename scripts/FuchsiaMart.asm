@@ -17,7 +17,11 @@ FuchsiaMartCooltrainerFText:
 	text_end
 
 FuchsiaMartClerkText::
-	; Phase B.3: 4 status TMs from the Game Corner spec sold here too.
+	; Status/debuff-themed TM extras, fitting the poison theme of Koga's
+	; gym town. TM_TOXIC is also Koga's gym gift, but sold here too so the
+	; player isn't blocked if they miss the gift / want extras.
+	; Regular items come from the global tiered mart inventory; the TMs
+	; below are appended as fixed extras.
 	; Fuchsia is the "status / debuff" mart, fitting the poison theme
 	; (Koga's gym town). TM_TOXIC is also Koga's gift, but sold here too
 	; so the player isn't blocked if they miss the gift / want extras.

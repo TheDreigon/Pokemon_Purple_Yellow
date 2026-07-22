@@ -1,5 +1,5 @@
 PrizeMonLevelDictionary:
-	; Phase B.3: 4 mons per counter, all level 20.
+	; 4 mons per counter, all level 20.
 	db BULBASAUR,   20
 	db CHARMANDER,  20
 	db SQUIRTLE,    20

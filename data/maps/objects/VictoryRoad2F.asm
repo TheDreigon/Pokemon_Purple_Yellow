@@ -12,6 +12,7 @@
 	const_export VICTORYROAD2F_BOULDER1
 	const_export VICTORYROAD2F_BOULDER2
 	const_export VICTORYROAD2F_BOULDER3
+	const_export VICTORYROAD2F_SMITH
 
 VictoryRoad2F_Object:
 	db $7d ; border block
@@ -41,5 +42,6 @@ VictoryRoad2F_Object:
 	object_event  4, 14, SPRITE_BOULDER, STAY, BOULDER_MOVEMENT_BYTE_2, TEXT_VICTORYROAD2F_BOULDER1
 	object_event  5,  5, SPRITE_BOULDER, STAY, BOULDER_MOVEMENT_BYTE_2, TEXT_VICTORYROAD2F_BOULDER2
 	object_event 23, 16, SPRITE_BOULDER, STAY, BOULDER_MOVEMENT_BYTE_2, TEXT_VICTORYROAD2F_BOULDER3
+	object_event 11,  5, SPRITE_RED, STAY, DOWN, TEXT_VICTORYROAD2F_SMITH, OPP_SMITH, 1 ; Smith at Moltres's EXACT tile (11,5); missable HIDE, shown by script only after Moltres is gone (EVENT_BEAT_MOLTRES) + League beaten (wGameStage). Talk-triggered, no sight.
 
 	def_warps_to VICTORY_ROAD_2F

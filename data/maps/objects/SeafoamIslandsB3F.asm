@@ -5,7 +5,7 @@
 	const_export SEAFOAMISLANDSB3F_BOULDER4
 	const_export SEAFOAMISLANDSB3F_BOULDER5
 	const_export SEAFOAMISLANDSB3F_BOULDER6
-	const_export SEAFOAMISLANDSB3F_TM_LIGHT_SCREEN ; v0.5 Phase B.4
+	const_export SEAFOAMISLANDSB3F_TM_LIGHT_SCREEN
 
 SeafoamIslandsB3F_Object:
 	db $7d ; border block

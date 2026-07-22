@@ -61,7 +61,7 @@ MoveDeleterText1:
 	ld [wMoveNum], a
 	ld [wd11e],a
 	call GetMoveName
-	call CopyToStringBuffer ; copy name to wcf4b
+	call CopyToStringBuffer ; copy name to wStringBuffer
 	ld hl, MoveDeleterConfirmText
 	call PrintText
 	call YesNoChoice
@@ -76,7 +76,7 @@ MoveDeleterText1:
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
 	; hl = pointer to mon's moves
-	; Search for the move, and set it to 0.
+	; Find the move and remove it: shift later moves (and their PP) up one slot, zero the freed last slot.
 	pop de ; d = move id
 	call DeleteMove
 	ld hl, MoveDeleterForgotText

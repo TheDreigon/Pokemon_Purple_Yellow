@@ -298,7 +298,7 @@ Route24CooltrainerM4Text:
 	call GetMonName
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	lb bc, CHARMANDER, 13
+	lb bc, CHARMANDER, 10
 	call GivePokemon
 	jp nc, TextScriptEnd
 	ld a, [wAddedToParty]

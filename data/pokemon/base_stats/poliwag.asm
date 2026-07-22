@@ -1,5 +1,5 @@
 	db DEX_POLIWAG ; pokedex id
-	base_stat_row 40, 40, 40, 40, 70 ; hp atk def spc spd
+	base_stat_row 40, 40, 40, 40, 65 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 255 ; catch rate
@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Basic Water tadpole: WATER_PULSE/BODY_SLAM plus ICE_BEAM.
+	; Basic Water tadpole: WATER_PULSE/BODY_SLAM plus ICY_PULSE/ICE_BEAM.
 	; HM SURF.
 	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, SURF
 	; end

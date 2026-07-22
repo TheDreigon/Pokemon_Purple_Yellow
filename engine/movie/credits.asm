@@ -153,7 +153,7 @@ CreditsLoadFont:
 	ret
 
 ZeroMemory:
-; zero bc bytes at hl
+; zero every other byte in a 2*bc-byte region at hl (clears one bitplane per tile row; callers pass size/2)
 	ld [hl], 0
 	inc hl
 	inc hl

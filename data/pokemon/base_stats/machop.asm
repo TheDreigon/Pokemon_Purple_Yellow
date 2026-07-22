@@ -8,14 +8,14 @@
 	INCBIN "gfx/pokemon/front/machop.pic", 0, 1 ; sprite dimensions
 	dw MachopPicFront, MachopPicBack
 
-	db LOW_KICK, GROWL, NO_MOVE, NO_MOVE ; level 1 learnset
+	db TACKLE, LEER, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	; Disciplined humanoid fighter-in-training.
 	tmhm ROCK_THROW, QUICK_ATTACK, BIND, BULLDOZE, SEISMIC_TOSS, \
-	     RAGE, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
-	     STRENGTH
+	     RAGE, BODY_SLAM, BULK_UP, TAKE_DOWN, DOUBLE_EDGE, THRASH, \
+	     STRENGTH, ROCK_SLIDE
 	; end
 
 	db 0 ; padding

@@ -999,12 +999,12 @@ Pikachu_LoadCurrentMapViewUpdateSpritesAndDelay3:
 	call Delay3
 	ret
 
-Cosine_e: ; cosine?
+Cosine_e:
 	ld a, e
 	add $10
 	jr asm_fd908
 
-Sine_e: ; sine?
+Sine_e:
 	ld a, e
 asm_fd908:
 	and $3f

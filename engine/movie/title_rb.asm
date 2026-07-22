@@ -71,7 +71,7 @@ _TitleScroll:
 
 .ScrollBetween:
 .wait
-	ldh a, [rLY] ; rLY
+	ldh a, [rLY]
 	cp l
 	jr nz, .wait
 
@@ -79,7 +79,7 @@ _TitleScroll:
 	ldh [rSCX], a
 
 .wait2
-	ldh a, [rLY] ; rLY
+	ldh a, [rLY]
 	cp h
 	jr z, .wait2
 	ret

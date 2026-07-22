@@ -3,14 +3,14 @@ Route19WildMons:
 	end_grass_wildmons
 
 	def_water_wildmons 5 ; encounter rate
-	db 20, TENTACOOL
-	db 10, TENTACOOL
-	db 15, TENTACOOL
-	db  5, TENTACOOL
-	db 15, TENTACOOL
-	db 20, TENTACOOL
-	db 25, TENTACOOL
-	db 30, TENTACRUEL
-	db 35, TENTACRUEL
-	db 40, TENTACRUEL
+	db 27, TENTACOOL
+	db 30, TENTACOOL
+	db 28, HORSEA
+	db 30, HORSEA
+	db 27, KRABBY
+	db 33, TENTACOOL
+	db 31, TENTACRUEL
+	db 34, TENTACRUEL
+	db 30, KRABBY
+	db 35, SEADRA
 	end_water_wildmons

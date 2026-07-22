@@ -45,11 +45,11 @@ PrepareOakSpeech:
 	ld hl, DebugNewGameRivalName
 	ld de, wRivalName
 	ld bc, NAME_LENGTH
-	call CopyData ; rip optimizations
+	call CopyData
 	ret
 
 OakSpeech:
-	call StopAllMusic ; stop music
+	call StopAllMusic
 	ld a, BANK(Music_Routes2)
 	ld c, a
 	ld a, MUSIC_ROUTES2
@@ -100,9 +100,9 @@ OakSpeech:
    	call ClearScreen ; clear the screen before resuming normal intro
 
 	; Gender Menu
-	ld hl, BoyGirlText  ; added to the same file as the other oak text
-	call PrintText     ; show this text
-	call BoyGirlChoice ; added routine at the end of this file
+	ld hl, BoyGirlText
+	call PrintText
+	call BoyGirlChoice
 	ld a, [wCurrentMenuItem]
 	ld [wPlayerGender], a ; store player's gender. 00 for boy, 01 for girl
 	call ClearScreen ; clear the screen before resuming normal intro
@@ -129,7 +129,7 @@ OakSpeech:
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
 	ld a, [wPlayerGender] 	; check gender
-	and a      				; check gender
+	and a
 	jr z, .NotGreen1
 	ld de, GreenPicFront
 	lb bc, BANK(GreenPicFront), $00
@@ -154,7 +154,7 @@ OakSpeech:
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $00
 	ld a, [wPlayerGender] ; check gender
-	and a      ; check gender
+	and a
 	jr z, .NotGreen2
 	ld de, GreenPicFront
 	lb bc, Bank(GreenPicFront), $00
@@ -179,12 +179,11 @@ OakSpeech:
 	ld de, RedSprite
 	ld b, BANK(RedSprite)
 	ld c, $0C
-	; call CopyVideoData
 	; ld de, ShrinkPic1
 	; lb bc, BANK(ShrinkPic1), $00
 	; call IntroDisplayPicCenteredOrUpperRight
 	ld a, [wPlayerGender] ; check gender
-	and a      ; check gender
+	and a
 	jr z, .NotGreen3
 	ld de,GreenSprite
 	lb bc, BANK(GreenSprite), $0C
@@ -221,7 +220,7 @@ OakSpeech:
 	ld c, 50
 	call DelayFrames
 	call GBFadeOutToWhite
-	call ClearScreen ; rip more tail-end optimizations
+	call ClearScreen
 	ret
 
 OakSpeechText1:
@@ -350,7 +349,7 @@ YesNoNormalHardChoice::
 	jr DisplayYesNoNormalHardChoice
 
 InitYesNoNormalHardTextBoxParameters::
-  	ld a, $0 ; loads the value for the difficulty menu
+  	ld a, $0 ; YES_NO_MENU — yes/no confirmation box
 	ld [wTwoOptionMenuID], a
 	coord hl, 7, 5
 	ld bc, $608 ; Cursor Pos

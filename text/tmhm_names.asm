@@ -1,11 +1,10 @@
-;joenote - try to give TMs & HMs their moves in their names
 tmhmNames::
 	db "HM01 CUT@"
 	db "HM02 FLY@"
 	db "HM03 SURF@"
 	db "HM04 STRNGTH@"
 	db "HM05 FLASH@"
-	; v0.7 TM rework (Forte spec): TMs renamed/reslotted. See item_constants.asm.
+	; Positional: each name must match the move mapped to that slot in constants/item_constants.asm.
 	db "TM01 RKTHROW@"
 	db "TM02 QCKATCK@"
 	db "TM03 BIND@"
@@ -31,7 +30,7 @@ tmhmNames::
 	db "TM23 GIGDRAN@"
 	db "TM24 DZLGLEM@"
 	db "TM25 AGILITY@"
-	db "TM26 PSNFANG@"
+	db "TM26 PSNBITE@"
 	db "TM27 IRNHEAD@"
 	db "TM28 FKTEARS@"
 	db "TM29 AERLACE@"

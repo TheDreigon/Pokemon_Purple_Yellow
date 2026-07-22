@@ -230,7 +230,8 @@ PartyMenuInit::
 	ret
 
 HandlePartyMenuInput::
-	; wrap-around is now automatic for fixed menus (wMenuWatchMovingOutOfBounds
+	; fixed menus wrap around automatically when wMenuWatchMovingOutOfBounds == 0
+	; (set in PartyMenuInit); see HandleMenuInput_ in home/window.asm.
 	; == 0, as set in PartyMenuInit), so the old wMenuWrappingEnabled set is
 	; no longer needed.
 	ld a, $40

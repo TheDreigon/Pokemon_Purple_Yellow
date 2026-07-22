@@ -3,7 +3,7 @@
 	const_export SEAFOAMISLANDSB4F_BOULDER2
 	const_export SEAFOAMISLANDSB4F_ARTICUNO
 	const_export SEAFOAM_ISLANDS_WEEBRA
-	const_export SEAFOAMISLANDSB4F_TM_ICE_BEAM ; v0.5 Phase B.4
+	const_export SEAFOAMISLANDSB4F_TM_ICE_BEAM
 
 SeafoamIslandsB4F_Object:
 	db $7d ; border block
@@ -22,7 +22,7 @@ SeafoamIslandsB4F_Object:
 	object_event  4, 15, SPRITE_BOULDER, STAY, NONE, TEXT_SEAFOAMISLANDSB4F_BOULDER1
 	object_event  5, 15, SPRITE_BOULDER, STAY, NONE, TEXT_SEAFOAMISLANDSB4F_BOULDER2
 	object_event  6,  1, SPRITE_ARTICUNO, STAY, DOWN, TEXT_SEAFOAMISLANDSB4F_ARTICUNO, ARTICUNO, 50
-	object_event  7, 2, SPRITE_KRIS, STAY, DOWN, TEXT_SEAFOAM_ISLANDS_WEEBRA, OPP_WEEBRA, 1
-	object_event 15,  8, SPRITE_POKE_BALL, STAY, NONE, TEXT_SEAFOAMISLANDSB4F_TM_ICE_BEAM, TM_ICE_BEAM ; v0.5 Phase B.4 (placeholder coords)
+	object_event  6, 1, SPRITE_KRIS, STAY, DOWN, TEXT_SEAFOAM_ISLANDS_WEEBRA, OPP_WEEBRA, 1 ; at Articuno's EXACT tile (6,1); missable HIDE, shown by script only post-Articuno + post-League. Talk-triggered, headerless.
+	object_event 15,  8, SPRITE_POKE_BALL, STAY, NONE, TEXT_SEAFOAMISLANDSB4F_TM_ICE_BEAM, TM_ICE_BEAM
 
 	def_warps_to SEAFOAM_ISLANDS_B4F

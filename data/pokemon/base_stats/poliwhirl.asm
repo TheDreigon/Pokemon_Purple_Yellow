@@ -1,5 +1,5 @@
 	db DEX_POLIWHIRL ; pokedex id
-	base_stat_row 65, 65, 65, 70, 60 ; hp atk def spc spd
+	base_stat_row 65, 65, 65, 70, 70 ; hp atk def spc spd
 
 	db WATER, WATER ; type
 	db 120 ; catch rate
@@ -13,8 +13,8 @@
 
 	; tm/hm learnset
 	; Muscled mid-evo Water:
-	; WATER_PULSE/BODY_SLAM/BULK_UP/SURF plus SEISMIC_TOSS/ICE_BEAM.
-	; HM SURF/STRENGTH.
+	; WATER_PULSE/BODY_SLAM/BULK_UP/SURF plus SEISMIC_TOSS/ICY_PULSE/
+	; ICE_BEAM. HM SURF/STRENGTH.
 	tmhm WATER_PULSE, ICY_PULSE, SEISMIC_TOSS, BODY_SLAM, BULK_UP, \
 	     ICE_BEAM, SURF, STRENGTH
 	; end

@@ -16,7 +16,7 @@
 	; strength moves. Natural HM surfer/swimmer.
 	tmhm BULLDOZE, WATER_PULSE, BODY_SLAM, BULK_UP, TAKE_DOWN, \
 	     LIGHT_SCREEN, REFLECT, DOUBLE_EDGE, CUT, SURF, \
-	     STRENGTH
+	     STRENGTH, ROCK_THROW
 	; end
 
 	db 0 ; padding

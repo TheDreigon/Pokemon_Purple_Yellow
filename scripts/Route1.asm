@@ -19,10 +19,9 @@ Route1_TextPointers:
 	dw_const OakPostBattleText,    TEXT_ROUTE1_OAK_POST_BATTLE
 
 Route1Script0:
-	ret ; yeah it's just a switch-off. shush.
+	ret ; default state — no-op (the Oak battle is armed from Route1OakText)
 
 OakPostBattleScript:
-	;joenote - Notice how there is no check to see if the player actually lost.
 	;Let's go ahead and add that real quick.
 	ld a, [wIsInBattle]	;if wIsInBattle is -1, then the battle was lost
 	inc a	;if A holds -1, it will increment to 0 and set the z flag (but not the c flag, dec and inc cannot affect it).

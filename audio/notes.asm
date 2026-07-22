@@ -1,4 +1,4 @@
-; This file is INCLUDEd three times, once in each audio engine.
+; This file is INCLUDEd once, as Audio1_Pitches in the shared sound engine (audio/engine_1.asm).
 
 	table_width 2
 	dw $F82C ; C_

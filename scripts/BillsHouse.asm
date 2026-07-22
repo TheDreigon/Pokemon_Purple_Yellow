@@ -18,6 +18,7 @@ BillsHouse_ScriptPointers:
 	dw_const BillsHouseScript7, SCRIPT_BILLSHOUSE_SCRIPT7
 	dw_const BillsHouseScript8, SCRIPT_BILLSHOUSE_SCRIPT8
 	dw_const BillsHouseScript9, SCRIPT_BILLSHOUSE_SCRIPT9
+	dw_const BillsHouseScript10, SCRIPT_BILLSHOUSE_SCRIPT10
 
 BillsHouseScript_1e09e:
 	ld hl, wd492
@@ -252,6 +253,32 @@ BillsHouseScript8:
 	ret
 
 BillsHouseScript9:
+; Bill's Eevee: once the player is fully inside the room, arm
+; the door trigger that lets Bill catch them on the way out
+	CheckEvent EVENT_GOT_BILL_EEVEE
+	ret nz
+	ld a, [wYCoord]
+	cp 6
+	ret nc
+	ld a, SCRIPT_BILLSHOUSE_SCRIPT10
+	ld [wBillsHouseCurScript], a
+	ret
+
+BillsHouseScript10:
+; armed: fire once the player steps onto the door rows (y >= 6).
+; The event can be set while armed (talk-based retry give via BILL2),
+; so disarm on it — otherwise the trigger would hand out a second Eevee.
+	CheckEvent EVENT_GOT_BILL_EEVEE
+	jr nz, .disarm
+	ld a, [wYCoord]
+	cp 6
+	ret c
+	ld a, TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+.disarm
+	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
+	ld [wBillsHouseCurScript], a
 	ret
 
 BillsHouse_TextPointers:
@@ -260,6 +287,7 @@ BillsHouse_TextPointers:
 	dw_const BillsHouseBillSSTicketText,              TEXT_BILLSHOUSE_BILL_SS_TICKET
 	dw_const BillsHouseBillCheckOutMyRarePokemonText, TEXT_BILLSHOUSE_BILL_CHECK_OUT_MY_RARE_POKEMON
 	dw_const BillsHouseBillDontLeaveText,             TEXT_BILLSHOUSE_BILL_DONT_LEAVE
+	dw_const BillsHouseBillEeveeGiftText,             TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
 
 BillsHouseBillDontLeaveText:
 	text_far _BillsHouseBillDontLeaveText
@@ -278,4 +306,9 @@ BillsHouseBillSSTicketText:
 BillsHouseBillCheckOutMyRarePokemonText:
 	text_asm
 	farcall BillsHousePrintBillCheckOutMyRarePokemonText
+	jp TextScriptEnd
+
+BillsHouseBillEeveeGiftText:
+	text_asm
+	farcall BillsHouseGiveEevee
 	jp TextScriptEnd

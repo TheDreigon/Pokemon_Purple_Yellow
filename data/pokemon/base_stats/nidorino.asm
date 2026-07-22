@@ -14,7 +14,8 @@
 	; tm/hm learnset
 	; Mid-stage mature male, learns aggression primitives.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, BODY_SLAM, BULK_UP, \
-	     POISON_BITE, TOXIC, SCARY_FACE, TAKE_DOWN, DOUBLE_EDGE
+	     POISON_BITE, TOXIC, SCARY_FACE, TAKE_DOWN, DOUBLE_EDGE, \
+	     MEGAHORN
 	; end
 
 	db 0 ; padding

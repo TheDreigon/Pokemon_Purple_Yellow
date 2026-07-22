@@ -101,3 +101,30 @@ _VictoryRoad2FJuggler2AfterBattleText::
 	cont "#MON with big"
 	cont "teeth?"
 	done
+
+_VictoryRoad2FSmithBattleText::
+	text "Hey, what's up?"
+
+	para "Show me how much"
+	line "zest you've got!"
+	done
+
+_VictoryRoad2FSmithEndBattleText::
+	text "Wow!"
+
+	para "You've got zest!"
+
+	para "I love to see"
+	line "that."
+	prompt
+
+_VictoryRoad2FSmithAfterBattleText::
+	text "What zest!"
+
+	para "You should be"
+	line "able to handle"
+	cont "yourself in this"
+	cont "cave!"
+
+	para "Good luck, nerd!"
+	done

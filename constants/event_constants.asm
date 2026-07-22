@@ -778,7 +778,7 @@ DEF INDIGO_PLATEAU_EVENTS_START EQU const_value
 	const EVENT_LANCES_ROOM_LOCK_DOOR
 	const_skip
 	const EVENT_BEAT_CHAMPION_RIVAL
-	const EVENT_BEAT_E4_REMATCH ; v0.5 mart rework: gates the post-rematch elite items
+	const EVENT_BEAT_E4_REMATCH ; gates the tier-10 post-rematch elite mart items (engine/events/tiered_mart.asm)
 	const_skip 4
 	const_skip
 DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
@@ -820,6 +820,14 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_INITIATED_WEEBRA_BATTLE
 	const EVENT_BEAT_ARTICUNO
 	const EVENT_BEAT_WEEBRA
+
+; Bill's Eevee quest (v0.7)
+	const EVENT_GOT_BILL_EEVEE
+	const EVENT_GOT_BILL_EEVEELUTION_STONE
+
+; PURPLE's quiz — Celadon roof house (v0.7)
+	const EVENT_BEAT_PURPLES_QUIZ
+	const EVENT_GOT_ROOF_PORYGON
 
 ; End of events
 	const_next $A00

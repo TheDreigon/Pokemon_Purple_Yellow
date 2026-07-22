@@ -1,6 +1,6 @@
 ; divide hMoney by hDivideBCDDivisor
 ; return output in hDivideBCDQuotient (same as hDivideBCDDivisor)
-; used only to halve player money upon losing a fight
+; used to halve money after losing a fight (black_out), halve sell prices (list_menu), and compute low-cost Safari admission (SafariZoneGate_2, divides money by 23)
 DivideBCDPredef::
 DivideBCDPredef2::
 DivideBCDPredef3:: ; only used function

@@ -119,7 +119,7 @@ SurfingMinigame_UpdateMusicTempo:
 	cp [hl]
 	ret nz
 
-	; de = ([wSurfingMinigamePikachuSpeed] & 0x3f) * 2
+	; de = (16-bit speed & $3FF) / 128, i.e. the high byte of (speed * 2) — tempo index 0-4 into .Tempos
 	ld a, [wSurfingMinigamePikachuSpeed]
 	ld e, a
 	ld a, [wSurfingMinigamePikachuSpeed + 1]

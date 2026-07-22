@@ -66,6 +66,9 @@ BikeShopClerkText:
 	; This fixes the bike shop instatext glitch
 	ld hl, wd730
 	res 6, [hl]
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-answer
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel

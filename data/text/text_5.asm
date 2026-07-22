@@ -48,11 +48,21 @@ _MonsStatsRoseText::
 	text_end
 
 _GreatlyRoseText::
-	text "<SCROLL>greatly@"
+	text "<SCROLL>sharply@"
 	text_end
 
 _RoseText::
 	text " rose!"
+	prompt
+
+; Shown when a stat is already at +6 (stat name is loaded into
+; wStringBuffer by the caller).
+_StatWontGoHigherText::
+	text "<USER>'s"
+	line "@"
+	text_ram wStringBuffer
+	text " won't"
+	cont "go any higher!"
 	prompt
 
 _MonsStatsFellText::
@@ -63,11 +73,21 @@ _MonsStatsFellText::
 	text_end
 
 _GreatlyFellText::
-	text "<SCROLL>greatly@"
+	text "<SCROLL>sharply@"
 	text_end
 
 _FellText::
 	text " fell!"
+	prompt
+
+; Shown when a stat is already at -6 (stat name is loaded into
+; wStringBuffer by the caller).
+_StatWontGoLowerText::
+	text "<TARGET>'s"
+	line "@"
+	text_ram wStringBuffer
+	text " won't"
+	cont "go any lower!"
 	prompt
 
 _ChargeMoveEffectText::
@@ -190,7 +210,14 @@ _StatusChangesEliminatedText::
 
 _GettingPumpedText::
 	text "<USER>'s"
-	line "getting pumped!"
+	line "critical hit rate"
+	cont "sharply rose!"
+	prompt
+
+_FocusEnergyAlreadyText::
+	text "<USER>'s"
+	line "crit rate is"
+	cont "already boosted!"
 	prompt
 
 _StartedSleepingEffect::

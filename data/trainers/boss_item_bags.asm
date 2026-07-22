@@ -19,7 +19,7 @@
 ;   * Buff items are thematic per boss (X Defend for tanks, X Attack for
 ;     attackers, X Special for Sabrina, etc.).
 ;   * Quantities tuned for typical mon count: 2-3 heals + 1-2 buffs.
-;     Joy is the heaviest healer (NURSE class: 2 FR + 2 HP + 1 FH).
+; Joy is among the heaviest healers (NURSE class: 3 FR + 3 FH).
 
 ; ---- Gym leaders (Pewter -> Cinnabar) ----
 BrockBossBag::    db POTION,       2, X_DEFEND,   1, FULL_HEAL,  2, -1, -1

@@ -144,7 +144,7 @@ SilphCo7FDefaultScript:
 	ld de, .RivalMovementUp
 	ld a, [wCoordIndex]
 	ld [wSavedCoordIndex], a
-	cp 1 ; index of second, lower entry in .RivalEncounterCoordinates
+	cp 1 ; cp 1 ; index of first, upper entry in .RivalEncounterCoordinates (wCoordIndex is 1-based)
 	jr z, .full_rival_movement
 	inc de
 .full_rival_movement
@@ -212,7 +212,7 @@ SilphCo7FRivalAfterBattleScript:
 	farcall Music_RivalAlternateStart
 	ld de, .RivalWalkAroundPlayerMovement
 	ld a, [wSavedCoordIndex]
-	cp 1 ; index of second, lower entry in SilphCo7FDefaultScript.RivalEncounterCoordinates
+	cp 1 ; cp 1 ; index of first, upper entry in SilphCo7FDefaultScript.RivalEncounterCoordinates (wCoordIndex is 1-based)
 	jr nz, .walk_around_player
 	ld de, .RivalExitRightMovement
 .walk_around_player

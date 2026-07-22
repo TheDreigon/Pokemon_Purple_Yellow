@@ -272,7 +272,7 @@ DisplayNamingScreen:
 .pressedLeft
 	ld a, [wCurrentMenuItem]
 	cp $6
-	ret z ; can't scroll right on bottom row
+	ret z ; can't scroll left on bottom row
 	ld a, [wTopMenuItemX]
 	dec a
 	jp z, .wrapToLastColumn

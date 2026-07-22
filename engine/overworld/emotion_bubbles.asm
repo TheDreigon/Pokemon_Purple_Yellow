@@ -5,7 +5,7 @@ EmotionBubble:
 	ld c, a
 	ld b, 0
 	ld hl, EmotionBubbles
-	add hl, bc ; each emotion bubble is 16 bytes, so calculate the offset directly instead of with a pointer table
+	add hl, bc ; each emotion bubble is 4 tiles (64 bytes); bc = index * 16, added 4 times, so no pointer table is needed
 	add hl, bc
 	add hl, bc
 	add hl, bc

@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Cordyceps-controlled bug (Bug/Grass), short pre-evo backbone:
-	; GIGA_DRAIN/LEECH_LIFE plus TOXIC.
+	; GIGA_DRAIN/LEECH_LIFE plus TOXIC. HM CUT.
 	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE, CUT
 	; end
 

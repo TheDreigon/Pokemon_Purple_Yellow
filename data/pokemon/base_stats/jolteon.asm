@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Electric fox, fastest Eeveelution. HM FLASH.
+	; Electric fox, fastest Eeveelution. HM CUT/FLASH.
 	; Fun moves (global last-stage rule): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm QUICK_ATTACK, BODY_SLAM, SHOCK_WAVE, THUNDER_WAVE, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, FAKE_TEARS, \

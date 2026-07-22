@@ -17,10 +17,10 @@ FuchsiaGoodRodHouseFishingGuruText:
 	jr nz, .refused
 	CheckEvent EVENT_GOT_DOME_FOSSIL
 	jr nz, .giveOmanyte
-	lb bc, KABUTO, 10
+	lb bc, KABUTO, 25
 	jr .giveGiftMon
 .giveOmanyte
-	lb bc, OMANYTE, 10
+	lb bc, OMANYTE, 25
 .giveGiftMon
 	call GivePokemon
 	jp nc, TextScriptEnd

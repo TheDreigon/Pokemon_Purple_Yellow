@@ -50,7 +50,7 @@ FoundHiddenItemText::
 	ld [wAudioFadeOutControl], a
 	jp TextScriptEnd
 .bagFull
-	call WaitForTextScrollButtonPress ; wait for button press
+	call WaitForTextScrollButtonPress
 	xor a
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, HiddenItemBagFullText

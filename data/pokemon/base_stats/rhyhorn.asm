@@ -15,7 +15,8 @@
 	; Pre-evo Ground/Rock rhinoceros charger. The horn justifies MEGAHORN;
 	; ROCK_THROW from forelimbs. Heavy frame learns HM STRENGTH.
 	tmhm ROCK_THROW, BULLDOZE, RAGE, BODY_SLAM, IRON_HEAD, \
-	     MEGAHORN, TAKE_DOWN, EARTHQUAKE, DOUBLE_EDGE, STRENGTH
+	     MEGAHORN, TAKE_DOWN, EARTHQUAKE, DOUBLE_EDGE, STRENGTH, \
+	     ROCK_SLIDE
 	; end
 
 	db 0 ; padding

@@ -1,15 +1,15 @@
 Route25WildMons:
 	def_grass_wildmons 15 ; encounter rate
-	db 12, PIDGEY
-	db 12, BELLSPROUT
-	db 13, ABRA
-	db 14, ODDISH
-	db 14, BELLSPROUT
-	db 15, PIDGEY
 	db 13, VENONAT
-	db 16, VENONAT
-	db 17, PIDGEY
-	db 17, PIDGEOTTO
+	db 13, PARAS
+	db 14, KRABBY
+	db 15, VENONAT
+	db 15, SPEAROW
+	db 14, BELLSPROUT
+	db 16, KRABBY
+	db 15, SLOWPOKE
+	db 16, SLOWPOKE
+	db 16, EXEGGCUTE
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

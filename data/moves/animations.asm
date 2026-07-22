@@ -300,7 +300,7 @@ MACRO battle_anim
 	ENDC
 ENDM
 
-; PURPLE YELLOW v0.5: every move uses the same generic placeholder
+; Delete the v0.5 paragraph (lines 303-306); keep the v0.7 principles block (power-tier/priority/status/SFX rules), which is the live documentation of the animation design system.
 ; (STAR_TWICE, the original POUND animation). Each move has its own
 ; block so animations can be customised one at a time later.
 ;
@@ -317,7 +317,6 @@ ENDM
 ;   * SFX: status = subtle/musical, damage = impactful. SFX in sfx.asm
 ;     defines the *primary* sound; battle_anim's first arg references
 ;     another move's row to "borrow" its SFX entry as a sample.
-; Speculations from the v0.7 port pass that lacked sources have been
 ; replaced with proper bodies (look for ; v0.7 reviewed comments).
 
 ; ============================================================
@@ -340,7 +339,7 @@ BugBiteAnim:
 	db -1 ; end
 
 LeechLifeAnim:
-	; Forte feedback #0: "podia ter um toque extra de dor". Added enemy
+	; Per comment: drop the 'Forte feedback #N:'/quoted-feedback framing and the before→after change narration; keep only the present-tense design rationale (mental image, what the sequence depicts, distinctions from sibling moves). Example — line 1430 '; Forte feedback #62: 4 shakes (was 3).' deletes entirely; line 343-345 becomes '; Enemy HUD shake on the bite + dark flash on the drain so each bite&suck feels painful, not clinical.'
 	; HUD shake on the bite + extra dark flash on the drain so each
 	; bite&suck feels painful, not clinical.
 	battle_anim LEECH_LIFE, SUBANIM_0_STAR_THRICE, 0, 8
@@ -352,7 +351,7 @@ LeechLifeAnim:
 	db -1 ; end
 
 BugBuzzAnim:
-	; v0.7 reviewed (80 BP): added flash + double sound wave for buzz weight.
+	; Per comment: drop the 'v0.7 reviewed:'/'replaces placeholder'/'relocated from BIRD section'/'Body unchanged' narration; keep the move-fact parenthetical and the design rationale, e.g. line 355 becomes '; (80 BP) flash + double sound wave for buzz weight.'
 	battle_anim BUG_BUZZ, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 4
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
@@ -429,7 +428,7 @@ NightSlashAnim:
 	db -1 ; end
 
 BrutalSwingAnim:
-	; v0.7 reviewed (85 BP): added shake — "brutal" needs felt impact.
+	; v0.7 reviewed (80 BP): added shake — "brutal" needs felt impact.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim BRUTAL_SWING, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -585,7 +584,7 @@ ThundershockAnim:
 	db -1 ; end
 
 ShockWaveAnim:
-	; v0.7 reviewed (75 BP, hits all): added a real lightning bolt + flash
+	; v0.7 reviewed (70 BP, never misses): added a real lightning bolt + flash
 	; — two ball flickers alone read as weaker than Thundershock.
 	battle_anim SHOCK_WAVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 4
@@ -679,7 +678,7 @@ DazzleGleamAnim:
 	db -1 ; end
 
 PlayRoughAnim:
-	; v0.7 reviewed (80 BP): added shake + secondary scratch hits — a
+	; v0.7 reviewed (75 BP): added shake + secondary scratch hits — a
 	; "rough" play is repeated bashing, not one nice star.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim PLAY_ROUGH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
@@ -722,7 +721,7 @@ LovelyKissAnim:
 
 SingAnim:
 	; v0.7: relocated from BIRD section. SING was NORMAL in vanilla;
-	; current type is FAIRY (signature, sleep). Body unchanged.
+	; current type is FAIRY (singers' pool, sleep). Body unchanged.
 	battle_anim SING, SUBANIM_0_HEART_1_MUSIC, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 16
 	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 16
@@ -871,7 +870,7 @@ LeekStrikeAnim:
 	db -1 ; end
 
 SubmissionAnim:
-	; Forte feedback #28: was too weak for Machamp's signature 95 BP
+	; The grappler-capstone 95 BP wrestling slam (Machop-line/Poliwrath/Pinsir).
 	; wrestling slam. Mental image: Machamp grabs the opponent and
 	; slams them with all four arms. Now: dark dip → slide-off (lift)
 	; → multi-hit grapple stars → first shake → flash → big slam star
@@ -951,7 +950,7 @@ FlameChargeAnim:
 FlameBurstAnim:
 	; Forte feedback #31: not good enough. Reworked for proper burst:
 	; beam → big flash + shake → multiple flame columns spreading
-	; outward → final flames. 75 BP swift-effect needs visible "burst".
+	; outward → final flames. 70 BP swift-effect needs visible "burst".
 	battle_anim FLAME_BURST, SUBANIM_1_FLAME_BEAM, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -2013,7 +2012,7 @@ ClampAnim:
 	db -1 ; end
 
 RolloutAnim:
-	; v0.7 new move (Geodude-line signature). Multi-hit rolling rock —
+	; v0.7 new move (rollers' staple, 6 lines). Multi-hit rolling rock —
 	; same TWO_TO_FIVE_ATTACKS_EFFECT pattern as DOUBLESLAP/COMET_PUNCH/
 	; FURY_ATTACK. Reuses CLAMP/CONSTRICT sub-anims for the spinning slam.
 	battle_anim ROLLOUT, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
@@ -2091,7 +2090,7 @@ IronHeadAnim:
 SonicBoomAnim:
 	; Mental image: directed concussive sound wave — a single sharp
 	; blast, not a series of growls. Sound wave + impact star + shake
-	; reads as the focused 20-fixed-damage hit it is.
+	; reads as the focused 25-fixed-damage hit it is.
 	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 5
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -2148,7 +2147,7 @@ BubbleBeamAnim:
 
 WaterPulseAnim:
 	; Mental image: pulsing water ring — sonic-pulse + water spray.
-	; Conf side-effect; framed light for the gentle wave feel.
+	; Swift (never-miss); framed light for the gentle wave feel.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim WATER_PULSE, SUBANIM_0_WATER_DROPLETS, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 6
@@ -2167,7 +2166,7 @@ WaterfallAnim:
 	db -1 ; end
 
 SurfAnim:
-	; v0.7 reviewed (95 BP, hits all): added wave columns + shake on
+	; v0.7 reviewed (95 BP, 30% speed-down): added wave columns + shake on
 	; first impact. Two droplet bursts alone didn't sell the wave size.
 	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim HYDRO_PUMP, SUBANIM_0_WATER_COLUMNS, 0, 4
@@ -2404,7 +2403,7 @@ GrowlAnim:
 
 CorrodeAnim:
 	; Mental image: target's defenses literally rotting away under
-	; corrosive acid. -2 def signature; sustained drip + darken frame
+	; corrosive acid. -2 def (acid pool); sustained drip + darken frame
 	; for the rotting atmosphere.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim CORRODE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
@@ -2442,7 +2441,7 @@ FakeTearsAnim:
 	db -1 ; end
 
 MetalSoundAnim:
-	; v0.7 reviewed (spc -2, signature): SOUND_WAVE + SHOUT pair reads
+	; v0.7 reviewed (spc -2, metallic circle): SOUND_WAVE + SHOUT pair reads
 	; as a piercing screech. HEART_MUSIC was inappropriate (this is not
 	; a song, it's a horrible scraping noise).
 	battle_anim METAL_SOUND, SUBANIM_0_SOUND_WAVE, 0, 5

@@ -9,7 +9,7 @@ TryEvolvingMon:
 	call Evolution_FlagAction
 
 ; this is only called after battle
-; it is supposed to do level up evolutions, though there is a bug that allows item evolutions to occur
+; it is supposed to do level up evolutions only; the vanilla bug that allowed item evolutions after battle is fixed by the wIsInBattle guard in .checkItemEvo below
 EvolutionAfterBattle:
 	ldh a, [hTileAnimations]
 	push af
@@ -90,7 +90,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld b, a
 	ld a, [wLoadedMonLevel]
 	cp b ; is the mon's level greater than the evolution requirement?
-	jp c, Evolution_PartyMonLoop ; if so, go the next mon
+	jp c, Evolution_PartyMonLoop ; if not (level below requirement), go to the next mon
 	jr .doEvolution
 .checkItemEvo
 	ld a, [wIsInBattle] ; are we in battle?
@@ -107,7 +107,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld b, a
 	ld a, [wLoadedMonLevel]
 	cp b ; is the mon's level greater than the evolution requirement?
-	jp c, .nextEvoEntry2 ; if so, go the next evolution entry
+	jp c, .nextEvoEntry2 ; if not (level below requirement), go to the next evolution entry
 .doEvolution
 	ld [wCurEnemyLVL], a
 	ld a, 1
@@ -647,7 +647,7 @@ Evolution_FlagAction:
 
 ; From here, Move Relearner-related code -PvK
 ;joenote - custom function by Mateo for move relearner
-PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon in shin pokered but it sure as shit doesn't work here - PvK
+PrepareRelearnableMoveList::
 ; Loads relearnable move list to wRelearnableMoves.
 ; Input: party mon index = [wWhichPokemon]
 	; Get mon id.
@@ -754,6 +754,16 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	pop hl                        ; restore learnset pointer
 	; --- end v0.5 globals ---
 
+	; v0.7 (Forte): relearner menu order = REST -> egg moves -> level-up.
+	; The egg/header phase lives physically below (.eggPhase); run it FIRST,
+	; then come back to .loop for the level-up scan. It clobbers b (its loop
+	; counter), so save the mon level; hl (learnset ptr) is saved too and
+	; both are restored at .done2 before jumping back here.
+	push hl               ; save learnset pointer
+	ld a, b
+	push af               ; save mon_level
+	jp .eggPhase
+
 .loop
 	ld a, [hli]
 	and a
@@ -799,10 +809,23 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	pop de
 	pop bc
 	jr .loop
-.done	
-
+.done
+	; v0.7: list complete (the egg phase already ran before .loop) — write
+	; the terminator and the count.
+	ld b, 0
+	ld hl, wMoveBuffer + 1
+	add hl, bc
+	ld a, $ff
+	ld [hl], a
+	ld hl, wMoveBuffer
+	ld [hl], c
+	ret
 
 ;joenote - start checking for level-0 moves
+; v0.7: reached via `jp .eggPhase` above (egg moves are now listed BEFORE
+; the level-up moves, per Forte); exits through .done2, which restores the
+; level + learnset pointer and jumps back to .loop.
+.eggPhase
 	xor a
 	ld b, a	;b will act as a counter, as there can only be up to 4 level-0 moves
 	call GetMonHeader ;mon id already stored earlier in wd0b5
@@ -820,6 +843,13 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	push hl
 	;c = buffer length
 .buffer_loop
+	; v0.7 fix: buffer entries live at wMoveBuffer+1..+count, so index 0
+	; (the count byte — OAM-aliased scratch at this moment) must never be
+	; compared: it used to read as a phantom DREAM_EATER ($10) and could
+	; silently hide a matching egg move from the menu.
+	inc c
+	dec c
+	jr z, .end_buffer_loop	;c == 0: all buffer entries checked
 	ld hl, wMoveBuffer
 	ld b, 0
 	add hl, bc	;move to buffer at current c value
@@ -828,9 +858,6 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	cp b
 	ld a, b	;a = move id
 	jr z, .move_in_buffer
-	inc c
-	dec c
-	jr z, .end_buffer_loop	;jump out if start of buffer is reached
 	dec c	;else decrement c and loop again
 	jr .buffer_loop
 .move_in_buffer
@@ -888,14 +915,12 @@ PrepareRelearnableMoveList:: ; I don't know how the fuck you're a single colon i
 	jr .loop2
 	
 .done2
-	ld b, 0
-	ld hl, wMoveBuffer + 1
-	add hl, bc
-	ld a, $ff
-	ld [hl], a
-	ld hl, wMoveBuffer
-	ld [hl], c
-	ret
+	; v0.7: egg phase done — restore the level + learnset pointer and run
+	; the level-up scan (the terminator is written at .done).
+	pop af
+	ld b, a               ; b = mon_level
+	pop hl                ; hl = learnset pointer
+	jp .loop
 
 GetMonLearnset:
 	ld hl, EvosMovesPointerTable
@@ -914,9 +939,9 @@ GetMonLearnset:
 	jr nz, .skipEvolutionDataLoop ; if not, jump back up
 	ret
 
-PrepareLevelUpMoveList:: ; I don't know how the fuck you're a single colon in shin pokered but it sure as shit doesn't work here - PvK
-; Loads relearnable move list to wRelearnableMoves.
-; Input: party mon index = [wWhichPokemon]
+PrepareLevelUpMoveList::
+; Builds the full level-up move list as (level, move id) byte pairs at wRelearnableMoves, for the Pokedex moves page. Header (level-0/egg) moves are listed as level 1; no known-move filtering.
+; Input: mon SPECIES id = [wWhichPokemon] (the Pokedex caller stuffs the species in here — NOT a party index)
 	; Get mon id.
 	ld a, [wWhichPokemon]
 	ld [wd0b5], a	;joenote - put mon id into wram for potential later usage of GetMonHeader
@@ -970,8 +995,8 @@ PrepareLevelUpMoveList:: ; I don't know how the fuck you're a single colon in sh
 	ld a, [hli]
 	and a
 	jr nz, .skipEvoEntriesLoop
-	; Write list of relearnable moves, while keeping count along the way.
-	ld b, 100 ;  b = mon's level
+	; Write the level-up move list (level, move pairs), keeping count along the way.
+	ld b, 100 ; b = level cap (hardcoded 100 = include the entire learnset)
 
 .loop
 	ld a, [hli]
@@ -998,7 +1023,7 @@ PrepareLevelUpMoveList:: ; I don't know how the fuck you're a single colon in sh
 	ret
 
 ; shinpokerednote: ADDED: Stores the player's pokemon levels into wStartBattleLevels. 
-; Used to track the levels at the beginning of battle so when evolving pokemon their learnsets can factor in multiple level-ups.
+; NOTE: currently write-only in this hack — the upstream (pureRGB) readers were not ported (see wStartBattleLevels in ram/wram.asm). Multi-level-up move learning is handled separately via wTempLevelStore in engine/battle/experience.asm.
 StorePKMNLevels:
 	push hl
 	push de

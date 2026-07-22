@@ -98,8 +98,8 @@ ItemUsePtrTable:
 	dw ItemUsePPUp       ; PP_UP (real one)
 	dw ItemUsePPRestore  ; ETHER
 	dw ItemUsePPRestore  ; MAX_ETHER
-	dw ItemUsePPRestore  ; ELIXER
-	dw ItemUsePPRestore  ; MAX_ELIXER
+	dw ItemUsePPRestore  ; ELIXIR
+	dw ItemUsePPRestore  ; MAX_ELIXIR
 
 ItemUseBall:
 
@@ -986,8 +986,7 @@ ItemUseMedicine:
 ; if using softboiled
 	ld a, [wWhichPokemon]
 	cp d ; is the pokemon trying to use softboiled on itself?
-	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: c7e8127's
-	                      ; Revive/MaxRevive prologue pushed this past jr range)
+	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: the Revive/Max Revive gate prologue above pushed this past jr range)
 .checkItemType
 	ld a, [wcf91]
 	cp REVIVE
@@ -1509,36 +1508,36 @@ ItemUseMedicine:
 	farcall GetBadgesObtained
 	ld a, [wNumSetBits]
 	cp 8
-	ld b, 65 ; Jolteon/Flareon/Vaporeon's level
+	ld b, 65 ; champion team (highest level in the game)
 	jr nc, .next1
 	cp 7
-	ld b, 55 ; Rhydon's level
+	ld b, 55 ; Giovanni's ace, 8th gym (heading to the league)
 	jr nc, .next1
 	cp 6
-	ld b, 53 ; Magmar's level
+	ld b, 55 ; Blaine's ace, 7th gym
 	jr nc, .next1
 	cp 5
-	ld b, 50 ; Alakazam's level
+	ld b, 49 ; Sabrina's ace, 6th gym
 	jr nc, .next1
     cp 4
-	ld b, 43 ; Venomoth's level
+	ld b, 45 ; Koga's ace, 5th gym
 	jr nc, .next1
 	cp 3
-	ld b, 35 ; Vileplume's level
+	ld b, 38 ; Erika's ace, 4th gym
 	jr nc, .next1
 	cp 2
-    ld b, 24 ; Bit below Raichu's level
+    ld b, 34 ; Surge's ace, 3rd gym
 	jr nc, .next1
 	cp 1
-	ld b, 21 ; Starmie's level
+	ld b, 21 ; Misty's ace, 2nd gym
 	jr nc, .next1
-	ld b, 12 ; Onix's level
+	ld b, 14 ; Brock's ace, 1st gym
 .next1
 
 	pop hl
 	ld a, [hl] ; a = level
 	cp b ; MAX_LEVEL on normal mode, level cap on hard mode
-	jr z, .vitaminNoEffect ; can't raise level above 100
+	jr z, .vitaminNoEffect ; already at the cap (MAX_LEVEL, or badge-tiered cap on hard mode)
 	inc a
 	ld [hl], a ; store incremented level
 	ld [wCurEnemyLVL], a
@@ -1617,7 +1616,7 @@ ItemUseMedicine:
 	push af
 	ld a, [wUsedItemOnWhichPokemon]
 	ld [wWhichPokemon], a
-	callfar RespawnOverworldPikachu ; evolve pokemon, if appropriate
+	callfar RespawnOverworldPikachu ; Remove from line 1620 and attach '; evolve pokemon, if appropriate' to the `callfar TryEvolvingMon` on line 1624.
 	pop af
 	ld [wWhichPokemon], a
 
@@ -2217,11 +2216,11 @@ ItemUsePPRestore:
 	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
 	; battle on Normal mode. Reason: blocks the "Revive + Elixer"
 	; PP-stall loop against bosses while staying symmetric with the
-	; upcoming boss item bag (knob #10).
+	; boss item bag (knob #10).
 	;
 	; PP_UP/PP_MAX dispatch to ItemUsePPUp (which blocks all in-battle
 	; use, then falls through here for out-of-battle handling). The
-	; ETHER..MAX_ELIXER range check below scopes the gate to refills
+	; ETHER..MAX_ELIXIR range check below scopes the gate to refills
 	; only — defensive against future dispatch changes.
 	ld a, [wIsInBattle]
 	and a
@@ -2234,8 +2233,8 @@ ItemUsePPRestore:
 	ld a, [wcf91]
 	cp ETHER
 	jr c, .allowItem        ; below ETHER (PP_UP): allow
-	cp MAX_ELIXER + 1
-	jr nc, .allowItem       ; above MAX_ELIXER (PP_MAX): allow
+	cp MAX_ELIXIR + 1
+	jr nc, .allowItem ; Line 2237: '; above MAX_ELIXIR: allow (defensive; nothing above dispatches here)' and extend line 2235's comment to '; below ETHER (PP_UP, PP_MAX): allow'.
 	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem
@@ -2270,8 +2269,8 @@ ItemUsePPRestore:
 .usePPItem
 	ld a, [wPPRestoreItem]
 	cp PP_MAX
-	jp z, .usePPMax ; if PP Max (Gen 2 QoL: bumps move to max PP Ups in one go)
-	cp ELIXER
+	jp z, .usePPMax ; if PP Max (Gen 3 QoL: bumps move to max PP Ups in one go)
+	cp ELIXIR
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02
 	ld [wMoveMenuType], a
@@ -2425,7 +2424,7 @@ ItemUsePPRestore:
 	jr .storeNewAmount
 
 .useElixir
-; decrement the item ID so that ELIXER becomes ETHER and MAX_ELIXER becomes MAX_ETHER
+; decrement the item ID so that ELIXIR becomes ETHER and MAX_ELIXIR becomes MAX_ETHER
 	ld hl, wPPRestoreItem
 	dec [hl]
 	dec [hl]
@@ -2596,10 +2595,8 @@ ItemUseTMHM:
 	callfar IsThisPartymonStarterPikachu_Party
 	jr nc, .notTeachingThunderboltOrThunderToPikachu
 	ld a, [wcf91]
-	cp TM_THUNDERBOLT ; are we teaching thunderbolt to the player pikachu?
-	jr z, .teachingThunderboltOrThunderToPlayerPikachu
-	cp TM_ROCK_SLIDE ; are we teaching thunder then?
-	jr nz, .notTeachingThunderboltOrThunderToPikachu
+	cp TM_THUNDERBOLT ; teaching Thunderbolt to the player's Pikachu?
+	jr nz, .notTeachingThunderboltOrThunderToPikachu ; (Thunder is no longer a TM)
 .teachingThunderboltOrThunderToPlayerPikachu
 	ld a, $5
 	ld [wd49c], a

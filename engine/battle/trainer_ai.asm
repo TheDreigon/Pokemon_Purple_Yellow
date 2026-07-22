@@ -151,7 +151,7 @@ HardModeBossAIMods:
 ; PureRGBnote: CHANGED: AKA the "Dont do stupid things no player would ever do" AI subroutine, many new default AI restrictions added
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
 ; discourages moves that after being used once won't do anything when used again (mist, leech seed, etc.)
-; discourages moves that will fail due to the current enemy pokemon's state (recover at full health, one hit ko moves on faster pkmn)
+; discourages moves that will fail due to the current enemy pokemon's state (e.g. recover at full health)
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -306,8 +306,9 @@ StatusAilmentMoveEffects:
 	db SLEEP_EFFECT
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
-	db BURN_SIDE_EFFECT2 ; Fire Blast is often used as a burn spreading tool in comp RBY!
-	db BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (pure-status burn moves)
+	db BURN_EFFECT ; Will-O-Wisp & Ignite (pure-status burn moves; damaging burn
+	               ; moves are power-gated out before this lookup, so they are
+	               ; intentionally absent — discouraging a damage move here is wrong)
 	db -1 ; end
 
 ;;;;;;;;;; PureRGBnote: ADDED: function for checking if the player can have leech seed applied and whether they already have it applied
@@ -356,12 +357,11 @@ CheckStatusImmunity:
 	jr z, .getMonTypes
 	cp PARALYZE_EFFECT
 	jr z, .checkParalyze
-	cp BURN_SIDE_EFFECT2
 	ld b, FIRE
-	ld c, MAGMA ; v0.7: Magma-types are burn-immune too
+	ld c, MAGMA ; burn immunity: Fire/Magma types
+	cp BURN_EFFECT ; only Will-O-Wisp/Ignite reach here — damaging burn moves
+	               ; (Fire Blast/Lava Plume) are power-gated out before this
 	jr z, .getMonTypes
-	cp BURN_EFFECT ; PURPLE YELLOW v0.5: Will-O-Wisp/Ignite vs Fire/Magma-type
-	jr z, .getMonTypes ; b/c still hold FIRE/MAGMA from above
 	jr .done
 .checkParalyze
 	ld b, ELECTRIC ; v0.7: Electric-types can't be paralyzed at all
@@ -476,13 +476,15 @@ Modifier2PreferredMoves:
 	db SPECIAL_UP1_HEAL_EFFECT       ; Growth (revised: SPC up + heal 1/4)
 	db ACCURACY_EVASION_DOWN1_EFFECT ; Flash (target dual-down)
 	db SPECIAL_SPEED_DOWN1_EFFECT    ; Eerie Impulse (target dual-down)
+	db SPECIAL_ACCURACY_UP1_EFFECT   ; Calm Mind (revised: SPC + ACC up)
+	db SPECIAL_SPEED_UP1_EFFECT      ; Quiver Dance (user dual-up)
+	db SPEED_EVASION_DOWN1_EFFECT    ; Psychic Bind (target dual-down)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine
 ; encourages moves that are effective against the player's mon if they do damage. 
 ; discourage damaging moves that are ineffective or not very effective against the player's mon,
 ; unless there's no damaging move that deals at least neutral damage
-; encourage effective or super effective priority moves if the pokemon is slower than the player's pokemon (but only after obtaining 5 badges)
 ; encourage effective or super effective draining moves to be used at low health
 ; PureRGBnote: FIXED: this subroutine won't cause the AI to prefer status moves 
 ;                     just because their type is super effective against the opponent. Like spamming agility on a poison pokemon.
@@ -517,8 +519,6 @@ AIMoveChoiceModification3:
 	cp EFFECTIVE
 	jr z, .checkSpecificEffects
 	jr c, .notEffectiveMove
-	;ld a, [wEnemyMoveEffect]
-	; check for reasons not to use a super effective move here
 	dec [hl] ; slightly encourage this super effective move
 .checkSpecificEffects ; we'll further encourage certain moves
 	call EncourageDrainingMoveIfLowHealth
@@ -660,8 +660,8 @@ Modifier4PreferredMoves:
 	db SLEEP_EFFECT
 	db POISON_EFFECT
 	db PARALYZE_EFFECT
-	db BURN_SIDE_EFFECT2
-	db BURN_EFFECT       ; PURPLE YELLOW v0.5: Will-O-Wisp & Ignite (always-burn status moves)
+	db BURN_EFFECT       ; Will-O-Wisp & Ignite (always-burn status moves; damaging
+	                     ; burn moves are power-gated out before this lookup)
 	db CONFUSION_EFFECT
 	db -1 ; end
 
@@ -749,7 +749,6 @@ BlackbeltAI:
 	ret nc
 	jp AIUseXAttack
 
-; Giovanni AI moved below CooltrainerFAI with the rest of the boss routines.
 ; (Hard mode boss item bag — knob #10. See ; ===== HARD MODE BOSS AI ===== marker.)
 
 CooltrainerMAI:
@@ -1582,7 +1581,7 @@ AIUseGuardSpec:
 	ld a, GUARD_SPEC
 	jp AIPrintItemUse
 
-AIUseDireHit: ; unused
+AIUseDireHit:
 	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
 	set 2, [hl]
@@ -1704,7 +1703,7 @@ AIBattleUseItemText:
 StoreBattleMonTypes:
 	push hl
 	ld hl, wBattleMonType
-	ld a, [hl]                 ; b = type 1 of player's pokemon
+	ld a, [hl] ; type 1 of player's pokemon -> wAITargetMonType1 (line 1717: type 2 -> wAITargetMonType2)
 	ld [wAITargetMonType1], a
 	inc hl
 	ld a, [hl]                 ; c = type 2 of player's pokemon

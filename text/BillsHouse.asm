@@ -85,9 +85,6 @@ _BillsHouseBillWhyDontYouGoInsteadOfMeText::
 	cont "instead of me?"
 	done
 
-_BillsHouseBillCheckOutMyRarePokemonText::
-	text "BILL: Look, bud,"
-	line "just check out"
-	cont "some of my rare"
-	cont "#MON on my PC!"
-	done
+; is now the Eevee-quest dispatch (scripts/BillsHouse_2.asm); the PC
+; flavor lives on in the post-quest "PC system" line. Reclaims bytes in
+; the tight Text 3 bank.

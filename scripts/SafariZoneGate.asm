@@ -30,7 +30,7 @@ SafariZoneGateDefaultScript:
 	ld a, SPRITE_FACING_RIGHT
 	ld [wSpritePlayerStateData1FacingDirection], a
 	ld a, [wCoordIndex]
-	cp 1 ; index of second, lower entry in .PlayerNextToSafariZoneWorker1CoordsArray
+	cp 1 ; cp 1 ; wCoordIndex is 1-based: 1 = first entry (3,2) of .PlayerNextToSafariZoneWorker1CoordsArray — nudge that player one tile right into the x=4 lane before the join dialog
 	jr z, .player_not_next_to_worker
 	ld a, SCRIPT_SAFARIZONEGATE_WOULD_YOU_LIKE_TO_JOIN
 	ld [wSafariZoneGateCurScript], a
@@ -89,7 +89,7 @@ SafariZoneGateLeavingSafariScript:
 	xor a
 	ld [wNumSafariBalls], a
 	ld [wSafariSteps], a
-	ld [wSafariSteps], a ; ?????
+	ld [wSafariSteps], a ; ld [wSafariSteps], a ; Yellow quirk kept as-is: rewrites the high byte instead of clearing wSafariSteps + 1; harmless — both bytes are re-initialized on entry (SafariZoneGate_2) and cleared on blackout (home/text_script.asm)
 	ld a, D_DOWN
 	ld c, 3
 	call SafariZoneEntranceAutoWalk

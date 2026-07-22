@@ -26,20 +26,20 @@ ENDM
 	trainer_const BIKER          ; $0A
 	trainer_const BURGLAR        ; $0B
 	trainer_const ENGINEER       ; $0C
-	trainer_const FISHER         ; $0E
-	trainer_const SWIMMER        ; $0F
-	trainer_const CUE_BALL       ; $10
-	trainer_const GAMBLER        ; $11
-	trainer_const BEAUTY         ; $12
-	trainer_const PSYCHIC_TR     ; $13
-	trainer_const ROCKER         ; $14
-	trainer_const JUGGLER        ; $15
-	trainer_const TAMER          ; $16
-	trainer_const BIRD_KEEPER    ; $17
-	trainer_const BLACKBELT      ; $18
-	trainer_const RIVAL1         ; $19
-	trainer_const PROF_OAK       ; $1A
-	trainer_const SMITH 		 ; $0D
+	trainer_const FISHER         ; $0D
+	trainer_const SWIMMER        ; $0E
+	trainer_const CUE_BALL       ; $0F
+	trainer_const GAMBLER        ; $10
+	trainer_const BEAUTY         ; $11
+	trainer_const PSYCHIC_TR     ; $12
+	trainer_const ROCKER         ; $13
+	trainer_const JUGGLER        ; $14
+	trainer_const TAMER          ; $15
+	trainer_const BIRD_KEEPER    ; $16
+	trainer_const BLACKBELT      ; $17
+	trainer_const RIVAL1         ; $18
+	trainer_const PROF_OAK       ; $19
+	trainer_const SMITH ; $1A
 	trainer_const CRAIG          ; $1B
 	trainer_const SCIENTIST      ; $1C
 	trainer_const GIOVANNI       ; $1D

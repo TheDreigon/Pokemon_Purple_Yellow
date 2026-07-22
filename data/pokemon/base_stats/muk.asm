@@ -7,14 +7,14 @@
 	INCBIN "gfx/pokemon/front/muk.pic", 0, 1 ; sprite dimensions
 	dw MukPicFront, MukPicBack
 
-	db TACKLE, DISABLE, NO_MOVE, NO_MOVE ; level 1 learnset
+	db LICK, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	; Apex sludge blob, Poison/Water. Last-stage fun moves allowed.
 	tmhm BIND, BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
 	     SUBSTITUTE, METRONOME, TOXIC, SCARY_FACE, TAKE_DOWN, \
-	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH
+	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH, ROCK_THROW
 	; end
 
 	db 0 ; padding

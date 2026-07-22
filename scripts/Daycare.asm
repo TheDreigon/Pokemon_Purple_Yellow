@@ -90,30 +90,30 @@ DaycareGentlemanText:
 	farcall GetBadgesObtained
 	ld a, [wNumSetBits]
 	cp 8
-	ld b, 65 ; Jolteon/Flareon/Vaporeon's level
+	ld b, 65 ; champion team (highest level in the game)
 	jr nc, .next1
 	cp 7
-	ld b, 55 ; Rhydon's level
+	ld b, 55 ; Giovanni's ace, 8th gym (heading to the league)
 	jr nc, .next1
 	cp 6
-	ld b, 53 ; Magmar's level
+	ld b, 55 ; Blaine's ace, 7th gym
 	jr nc, .next1
 	cp 5
-	ld b, 50 ; Alakazam's level
+	ld b, 49 ; Sabrina's ace, 6th gym
 	jr nc, .next1
     cp 4
-	ld b, 43 ; Venomoth's level
+	ld b, 45 ; Koga's ace, 5th gym
 	jr nc, .next1
 	cp 3
-	ld b, 35 ; Vileplume's level
+	ld b, 38 ; Erika's ace, 4th gym
 	jr nc, .next1
 	cp 2
-    ld b, 24 ; Bit below Raichu's level
+    ld b, 34 ; Surge's ace, 3rd gym
 	jr nc, .next1
 	cp 1
-	ld b, 21 ; Starmie's level
+	ld b, 21 ; Misty's ace, 2nd gym
 	jr nc, .next1
-	ld b, 12 ; Onix's level
+	ld b, 14 ; Brock's ace, 1st gym
 .next1
 	ld a, b
 	ld [wMaxDaycareLevel], a
@@ -264,7 +264,7 @@ DaycareGentlemanText:
 	ld a, $6
 	ld [wPikachuSpawnState], a
 
-	; GameFreak... TriHard
+	; dead vanilla leftover: hl is overwritten on the next line and Bankswitch is never called, so these 3 lines do nothing (Pikachu spawn is driven by wPikachuSpawnState above)
 	ld hl, SchedulePikachuSpawnForAfterText
 	ld b, BANK(SchedulePikachuSpawnForAfterText)
 	ld hl, Bankswitch

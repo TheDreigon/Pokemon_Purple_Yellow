@@ -7,14 +7,14 @@
 	INCBIN "gfx/pokemon/front/kabuto.pic", 0, 1 ; sprite dimensions
 	dw KabutoPicFront, KabutoPicBack
 
-	db SCRATCH, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset
+	db SCRATCH, WITHDRAW, NO_MOVE, NO_MOVE ; level 1 learnset
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
 	; Armored trilobite-crab fossil (Rock/Bug), aquatic pre-evo
 	; backbone. Pincers cut; ICY_PULSE/ICE_BEAM from cold-sea habitat.
 	tmhm ROCK_THROW, WATER_PULSE, ICY_PULSE, BODY_SLAM, LEECH_LIFE, \
-	     TAKE_DOWN, ICE_BEAM, CUT
+	     TAKE_DOWN, ICE_BEAM, CUT, IRON_HEAD
 	; end
 
 	db 0 ; padding

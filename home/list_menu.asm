@@ -181,7 +181,7 @@ DisplayListMenuIDLoop::
 .storeChosenEntry ; store the menu entry that the player chose and return
 	ld de, wcd6d
 	call CopyToStringBuffer
-.skipStoringItemName	;skip here if skipping storing item name
+.skipStoringItemName
 	ld a, CHOSE_MENU_ITEM
 	ld [wMenuExitMethod], a
 	ld a, [wCurrentMenuItem]
@@ -197,7 +197,7 @@ DisplayListMenuIDLoop::
 	bit BIT_SELECT, a
 	jp nz, HandleItemListSwapping ; if so, allow the player to swap menu entries
 	bit 3,a ; was the start button pressed?
-	jp nz,.sortItems ; if so, allow the player to swap menu entries
+	jp nz,.sortItems ; if so, sort the items
 	ld b, a
 	bit BIT_D_DOWN, b
 	ld hl, wListScrollOffset
@@ -322,7 +322,7 @@ DisplayChooseQuantityMenu::
 	ld a, [hl]
 	sub 10
 	jr z, .setTo1 ; if quantity is 0, set to 1
-	jr nc, .storeNewQuantity ; if quantity goes below 1, set to 1
+	jr nc, .storeNewQuantity ; quantity still >= 1: store it (fall through to .setTo1 and clamp when it went below 1)
 .setTo1
 	ld a, 1
 	jr .storeNewQuantity

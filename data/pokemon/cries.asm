@@ -23,7 +23,7 @@ CryData::
 	mon_cry SFX_CRY_01, $00, $80 ; Nidoran♀
 	mon_cry SFX_CRY_0A, $00, $80 ; Nidoqueen
 	mon_cry SFX_CRY_19, $00, $80 ; Cubone
-	mon_cry SFX_CRY_04, $00, $80 ; Rhyhorn
+	mon_cry SFX_CRY_11, $60, $40
 	mon_cry SFX_CRY_1B, $00, $80 ; Lapras
 	mon_cry SFX_CRY_15, $00, $80 ; Arcanine
 	mon_cry SFX_CRY_1E, $EE, $FF ; Mew
@@ -81,7 +81,7 @@ CryData::
 	mon_cry SFX_CRY_09, $F8, $40 ; Moltres
 	mon_cry SFX_CRY_09, $80, $40 ; Articuno
 	mon_cry SFX_CRY_18, $FF, $80 ; Zapdos
-	mon_cry SFX_CRY_0E, $FF, $FF ; Ditto
+	mon_cry SFX_CRY_1E, $CC, $C0
 	mon_cry SFX_CRY_19, $77, $10 ; Meowth
 	mon_cry SFX_CRY_20, $20, $E0 ; Krabby
 	mon_cry SFX_CRY_22, $FF, $40 ; MissingNo.

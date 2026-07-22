@@ -169,7 +169,7 @@ SortItems::
 .printResultText
 	call PrintText
 .done
-	xor a ; Zeroes a
+	xor a
 	pop bc
 	pop hl
 	ret
@@ -182,7 +182,7 @@ SortItems::
 	ld hl, wBagItems
 	ld c, 0 ; Relative to wBagItems, this is where we'd like to begin swapping
 .loopCurrItemInBag
-	ld a, [hl] ; Load the value of hl to a (which is an item number) and Increments to the quantity
+	ld a, [hl] ; Load the item ID at [hl] (hl stays on the ID slot; needed by .hasItem)
 	cp -1 ; See if the item number is $ff, which is 'cancel'
 	jr z, .findNextItem ; If it is cancel, then move onto the next item
 	cp b
@@ -297,8 +297,8 @@ ItemSortList::
 	; PP
 	db ETHER
 	db MAX_ETHER
-	db ELIXER
-	db MAX_ELIXER
+	db ELIXIR
+	db MAX_ELIXIR
 	; Battle Raises
 	db X_ACCURACY
 	db X_ATTACK
@@ -315,6 +315,7 @@ ItemSortList::
 	db CARBOS
 	db CALCIUM
 	db PP_UP
+	db PP_MAX
 	; Stones
 	db LEAF_STONE
 	db FIRE_STONE
@@ -329,7 +330,7 @@ ItemSortList::
 	db DOME_FOSSIL
 	db HELIX_FOSSIL
 	db OLD_AMBER
-	; Maps and Items with No Use
+	; Items with No Use
 	db SAFARI_BAIT
 	db SAFARI_ROCK
 	db S_S_TICKET

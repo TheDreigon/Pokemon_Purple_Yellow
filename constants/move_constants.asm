@@ -6,7 +6,9 @@
 ; - MoveSoundTable (see data/moves/sfx.asm)
 ;
 ; Order: alphabetical by TYPE, ascending POWER within type, status moves last
-; within type (BIRD = typeless/status group at the end).
+; within type, signature/pool moves at the bottom of each type (POISON
+; deviates deliberately; BIRD = typeless/status group at the end). Mirrors
+; the authoritative header in data/moves/moves.asm.
 ; STRUGGLE must remain the last move (engine asserts NUM_ATTACKS == STRUGGLE).
 ;
 ; WARNING — ORDER IS LOAD-BEARING: the engine indexes all four tables above
@@ -230,10 +232,10 @@
 	const HYDRO_PUMP
 
 ; === BIRD (typeless / status moves) ===
-; v0.7 reorder: groups now flow ATK-buffs / DEF-buffs / SPC-buffs / SPD-buffs
-; / EVA-buffs / ATK-debuffs / DEF-debuffs / SPC-debuffs / SPD-debuffs / ACC-
-; debuffs / heals / screens / utility, in that intra-group order. Replaces
-; ENTANGLE (custom -2 spd, 15 PP) with STRING_SHOT (canon -1 spd, 30 PP).
+; Group order: ATK-buffs / DEF-buffs / SPC-buffs / SPD-buffs / EVA-buffs /
+; ATK-debuffs / DEF-debuffs / SPC-debuffs / SPD-debuffs / ACC-debuffs /
+; heals / screens / utility (Tri Attack, the lone damaging typeless move,
+; leads the group).
 	const TRI_ATTACK
 	const SWORDS_DANCE
 	const BULK_UP

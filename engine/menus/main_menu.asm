@@ -127,12 +127,12 @@ InitOptions:
 	ld [wLetterPrintingDelayFlags], a
 	ld a, TEXT_DELAY_MEDIUM
 	ld [wOptions], a
-	ld a, 64 ; audio?
+	ld a, 64 ; ld a, 64 ; default printer darkness (NORMAL; see options.asm PRINT row)
 	ld [wPrinterSettings], a
 	ret
 
 Func_5cc1:
-; unused?
+; leftover no-op: the compare below always takes the early return, so the NotEnoughMemoryText path is unreachable. Still called from SpecialEnterMap.
 	ld a, $6d
 	cp $80
 	ret c ; will always be executed

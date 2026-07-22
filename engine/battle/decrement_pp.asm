@@ -49,6 +49,9 @@ DecrementPP:
 ; Combined with the PP-aware selection in SelectEnemyMove (also v0.7),
 ; bosses run out of PP in long fights and end up using Struggle — same
 ; rules as the player.
+; NORMAL MODE ONLY: hard mode keeps the vanilla
+; infinite enemy PP as a difficulty knob — it kills the drain-the-boss-
+; into-Struggle stall (see the gate at the top of the routine).
 ;
 ; Mirror of DecrementPP above, but with enemy WRAM:
 ;   wPlayerBattleStatus*  -> wEnemyBattleStatus*
@@ -57,6 +60,11 @@ DecrementPP:
 ;   wPartyMon1PP          -> wEnemyMon1PP
 ;   wPlayerMonNumber      -> wEnemyMonPartyPos
 DecrementEnemyPP::
+	; v0.7 hard-mode knob: enemies don't consume PP in hard mode (vanilla
+	; behaviour); normal mode keeps the finite-PP bugfix.
+	ld a, [wDifficulty]
+	and a
+	ret nz
 	ld a, [de]                 ; de = wEnemySelectedMove (set by caller)
 	cp STRUGGLE
 	ret z                      ; Struggle never costs PP

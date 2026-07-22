@@ -47,8 +47,9 @@ _ViridianCityOldManLosingMyTouchText::
 	line "at #MON MART."
 	done
 
-; v0.7: the catching tip moved here, from the (now removed) catching demo's
-; "losing my touch" text. Spoken by the old man's later street appearance.
+; Spoken by the old man's later street appearance
+; (ViridianCityPrintOldManText, scripts/ViridianCity_2.asm). The catching-
+; demo texts above are retained but unreachable.
 _ViridianCityOldManTipText::
 	text "Oh, I remember"
 	line "you!"

@@ -41,7 +41,8 @@ TieredMartHandler::
 	ld [wListMenuID], a
 	; 4) Hand off to the shared mart UI. DisplayPokemartDialogue_ lives
 	;    in the same bank, so a plain jp tail-calls it cleanly: the
-	;    home-side `homecall` returns once its menu loop ends.
+	;    home-side `farcall` (dispatch_tiered_mart) returns once its menu
+	;    loop ends.
 	jp DisplayPokemartDialogue_
 
 ; Builds the regular-pokemart inventory at runtime by filtering the global
@@ -196,12 +197,12 @@ RegularMartTieredInventory::
 EliteMartAddons::
 	; T9 - Post E4
 	db 9, ETHER
-	db 9, ELIXER
+	db 9, ELIXIR
 	db 9, PP_UP
 	db 9, MAX_REVIVE
 	; T10 - Post E4 Rematch
 	db 10, MAX_ETHER
-	db 10, MAX_ELIXER
+	db 10, MAX_ELIXIR
 	db 10, PP_MAX
 	db 10, RARE_CANDY
 	db -1

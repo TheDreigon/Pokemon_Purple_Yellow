@@ -1,4 +1,4 @@
-; This file is INCLUDEd three times, once for each audio engine.
+; This file is INCLUDEd once, as Audio1_WavePointers (audio.asm, SECTION "Music 1"); the shared sound engine uses this single copy for all four audio banks.
 
 	dw .wave0
 	dw .wave1
@@ -28,5 +28,5 @@
 .wave4
 	dn  0,  1,  2,  3,  4,  5,  6,  7,  8, 10, 12, 13, 14, 14, 15,  7,  7, 15, 14, 14, 13, 12, 10,  8,  7,  6,  5,  4,  3,  2,  1,  0
 
-; duty 5 reads from sfx data
+; wave5 has no data of its own: the engine copies the 16 bytes that follow this label (currently the start of Music_PkmnHealed_Ch1 via audio.asm's include order). Lavender Town and Pokemon Tower Ch3 use instrument 5, so reordering what follows this file changes how they sound.
 .wave5

@@ -1,10 +1,25 @@
 PowerPlant_Script:
 	call EnableAutoTextBoxDrawing
+	call PowerPlantShowCraigIfEarned
 	ld hl, PowerPlantTrainerHeaders
 	ld de, PowerPlant_ScriptPointers
 	ld a, [wPowerPlantCurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wPowerPlantCurScript], a
+	ret
+
+; Show the relocated Craig self-insert once Zapdos is gone AND the League is beaten.
+; EndTrainerBattle sets EVENT_BEAT_ZAPDOS on WIN or CATCH; wGameStage is set at the
+; Hall of Fame. Idempotent (ShowObject just clears the hide flag).
+PowerPlantShowCraigIfEarned:
+	CheckEvent EVENT_BEAT_ZAPDOS
+	ret z
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, HS_POWER_PLANT_CRAIG
+	ld [wMissableObjectIndex], a
+	predef ShowObject
 	ret
 
 PowerPlant_ScriptPointers:
@@ -26,7 +41,6 @@ PowerPlant_TextPointers:
 	dw_const PowerPlantZapdosText,     TEXT_POWERPLANT_ZAPDOS
 	dw_const PowerPlantCraigText,      TEXT_POWERPLANT_CRAIG
 	dw_const PickUpItemText,           TEXT_POWERPLANT_CARBOS
-	; dw_const PickUpItemText,           TEXT_POWERPLANT_HP_UP
 	dw_const PickUpItemText,           TEXT_POWERPLANT_RARE_CANDY
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_REFLECT
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_THUNDERBOLT
@@ -52,7 +66,7 @@ Voltorb7TrainerHeader:
 ZapdosTrainerHeader:
 	trainer EVENT_BEAT_ZAPDOS, 0, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText
 CraigTrainerHeader:
-	trainer EVENT_BEAT_CRAIG, 5, PowerPlantCraigBattleText1, PowerPlantCraigEndBattleText1, PowerPlantCraigAfterBattleText1
+	trainer EVENT_BEAT_CRAIG, 0, PowerPlantCraigBattleText1, PowerPlantCraigEndBattleText1, PowerPlantCraigAfterBattleText1 ; range 0 = talk-only, no line-of-sight (Forte: Craig/Smith/Weebra are talk-to-battle)
 	db -1 ; end
 
 PowerPlantCraigText:
