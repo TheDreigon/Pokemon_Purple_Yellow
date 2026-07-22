@@ -1,9 +1,9 @@
 CeruleanCave2FWildMons:
 	def_grass_wildmons 15 ; encounter rate
 	db 64, GOLEM
-	db 63, SANDSLASH
-	db 63, HAUNTER
 	db 61, MAROWAK
+	db 63, HAUNTER
+	db 63, SANDSLASH
 	db 64, VENOMOTH
 	db 60, DITTO
 	db 64, MAGNETON

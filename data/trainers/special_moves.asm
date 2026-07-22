@@ -8,8 +8,6 @@
 ; Non-boss entries (Smith/Craig/Weebra) are preserved from the previous
 ; version. The rival's moves come from data/trainers/rival_pools.asm via
 ; GenerateRivalParty (Phase B), so no RIVALn entries live in this table.
-; Route 9 Sandshrew surprise; with Fissure rebalanced to 115 BP it was a
-; mid-game nuke. The mon uses its natural level-up set now.)
 
 SpecialTrainerMoves:
 	db BROCK, 1 ; Pewter Gym — 12 GEODUDE, 14 ONIX
