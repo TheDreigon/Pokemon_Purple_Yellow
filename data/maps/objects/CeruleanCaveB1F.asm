@@ -4,6 +4,7 @@
 	const_export CERULEANCAVEB1F_ULTRA_BALL2
 	const_export CERULEANCAVEB1F_MAX_REVIVE
 	const_export CERULEANCAVEB1F_MAX_ELIXIR
+	const_export CERULEANCAVEB1F_FORTE
 
 CeruleanCaveB1F_Object:
 	db $7d ; border block
@@ -19,5 +20,6 @@ CeruleanCaveB1F_Object:
 	object_event  2, 13, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVEB1F_ULTRA_BALL2, ULTRA_BALL
 	object_event  3, 13, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVEB1F_MAX_REVIVE, MAX_REVIVE
 	object_event 15,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVEB1F_MAX_ELIXIR, MAX_ELIXIR
+	object_event 27, 13, SPRITE_RED, STAY, DOWN, TEXT_CERULEANCAVEB1F_FORTE, OPP_FORTE, 1 ; Forte/DREIGON superboss on MEWTWO's exact tile (27,13); missable HIDE, shown by script post-MEWTWO + post-League; repeatable talk-battle
 
 	def_warps_to CERULEAN_CAVE_B1F

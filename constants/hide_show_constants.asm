@@ -228,6 +228,7 @@ DEF SHOW EQU $15
 	const HS_CERULEAN_CAVE_B1F_ITEM_2      ; DC
 	const HS_CERULEAN_CAVE_B1F_ITEM_3      ; DD
 	const HS_CERULEAN_CAVE_B1F_ITEM_4      ; DE
+	const HS_CERULEAN_CAVE_B1F_FORTE       ; Forte/DREIGON self-insert at MEWTWO's tile (post-MEWTWO + post-League; repeatable)
 	const HS_VICTORY_ROAD_1F_ITEM_1        ; DF
 	const HS_VICTORY_ROAD_1F_ITEM_2        ; E0
 	const HS_LANCESROOM_LANCE

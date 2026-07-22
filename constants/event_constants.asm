@@ -829,6 +829,10 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_BEAT_PURPLES_QUIZ
 	const EVENT_GOT_ROOF_PORYGON
 
+; Forte / DREIGON post-game superboss — Cerulean Cave B1F (v0.7)
+	const EVENT_FORTE_FOUGHT   ; battled Forte at least once (dialogue: first vs rematch)
+	const EVENT_FORTE_WON_LAST ; won the most recent Forte battle (dialogue: earns respect)
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value
