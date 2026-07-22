@@ -761,7 +761,7 @@ ScientistData:
 BlaineData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Cinnabar Gym
-	db $FF, 49, NINETALES, 49, RAPIDASH, 49, ARCANINE, 52, RHYDON, 55, MAGMAR, 0
+	db $FF, 49, NINETALES, 49, RAPIDASH, 49, ARCANINE, 51, RHYDON, 52, MAGMAR, 0
 ; 2: Rematch
 	db $FF, 63, NINETALES, 64, CHARIZARD, 64, ARCANINE, 65, RHYDON, 65, MAGMAR, 0
 
