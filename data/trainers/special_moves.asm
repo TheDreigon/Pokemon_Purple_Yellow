@@ -903,4 +903,31 @@ SpecialTrainerMoves:
 	db 0
 
 
+	db FORTE, 1 ; DREIGON superboss — all L75 (send-out order: Beedrill, Hitmonlee, Magmar, Golem, Gyarados, Nidoking)
+	db 1, 1, TWINEEDLE
+	db 1, 2, TOXIC_FANGS
+	db 1, 3, DRILL_PECK
+	db 1, 4, GORE_ATTACK
+	db 2, 1, HI_JUMP_KICK
+	db 2, 2, FAINT_ATTACK
+	db 2, 3, BULLDOZE
+	db 2, 4, SWORDS_DANCE
+	db 3, 1, FIRE_BLAST
+	db 3, 2, LAVA_PLUME
+	db 3, 3, EARTHQUAKE
+	db 3, 4, ROCK_SLIDE
+	db 4, 1, EARTHQUAKE
+	db 4, 2, ROCK_SLIDE
+	db 4, 3, HEAVY_SLAM
+	db 4, 4, STRENGTH
+	db 5, 1, HYDRO_PUMP
+	db 5, 2, ICE_BEAM
+	db 5, 3, DRAGON_BREATH
+	db 5, 4, EARTHQUAKE
+	db 6, 1, EARTHQUAKE
+	db 6, 2, TOXIC_FANGS
+	db 6, 3, MEGAHORN
+	db 6, 4, ROCK_SLIDE
+	db 0
+
 	db -1 ; end

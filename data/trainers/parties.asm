@@ -866,6 +866,6 @@ WeebraData:
 	db 55, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
 
 ForteData:
-; "Forte / DREIGON" superboss — all L75. Per-mon movesets live in special_moves.asm
-; (drafted from Notes/Boss Movesets.md; Forte to finalize the moves).
-	db 75, GYARADOS, GOLEM, NIDOKING, MAGMAR, HITMONLEE, BEEDRILL, 0
+; "Forte / DREIGON" superboss — all L75, in Forte's send-out order (Nidoking ace/last).
+; Per-mon movesets in special_moves.asm (finalized by Forte in Notes/Boss Movesets.md).
+	db 75, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
