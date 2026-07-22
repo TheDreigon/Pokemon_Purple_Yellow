@@ -104,6 +104,7 @@ DEF SHOW EQU $15
 	const HS_VICTORY_ROAD_2F_ITEM_3        ; 61
 	const HS_VICTORY_ROAD_2F_ITEM_4        ; 62
 	const HS_VICTORY_ROAD_2F_BOULDER       ; 63
+	const HS_VICTORY_ROAD_2F_SMITH ; Smith self-insert at Moltres's tile (post-Moltres + post-League)
 	const HS_BILL_POKEMON                  ; 64
 	const HS_BILL_1                        ; 65
 	const HS_BILL_2                        ; 66

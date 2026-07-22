@@ -8,6 +8,7 @@ VictoryRoad2F_Script:
 	res 5, [hl]
 	call nz, VictoryRoad2FCheckBoulderEventScript
 	call EnableAutoTextBoxDrawing
+	call VictoryRoad2FShowSmithIfEarned
 	ld hl, VictoryRoad2TrainerHeaders
 	ld de, VictoryRoad2F_ScriptPointers
 	ld a, [wVictoryRoad2FCurScript]
@@ -34,6 +35,20 @@ VictoryRoad2FCheckBoulderEventScript:
 VictoryRoad2FReplaceTileBlockScript:
 	ld [wNewTileBlockID], a
 	predef ReplaceTileBlock
+	ret
+
+; Show the relocated Smith self-insert once Moltres is gone AND the League is beaten.
+; EndTrainerBattle sets EVENT_BEAT_MOLTRES on WIN or CATCH (only a loss is skipped),
+; so "Moltres dealt with" covers both. Idempotent: ShowObject just clears the hide flag.
+VictoryRoad2FShowSmithIfEarned:
+	CheckEvent EVENT_BEAT_MOLTRES
+	ret z
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, HS_VICTORY_ROAD_2F_SMITH
+	ld [wMissableObjectIndex], a
+	predef ShowObject
 	ret
 
 VictoryRoad2F_ScriptPointers:
