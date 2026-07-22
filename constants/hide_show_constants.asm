@@ -98,7 +98,6 @@ DEF SHOW EQU $15
 	const HS_POWER_PLANT_ITEM_2            ; 5A
 	const HS_POWER_PLANT_ITEM_3            ; 5B
 	const HS_POWER_PLANT_ITEM_4            ; 5C
-	const HS_POWER_PLANT_ITEM_5            ; 5D
 	const HS_MOLTRES                       ; 5E
 	const HS_VICTORY_ROAD_2F_ITEM_1        ; 5F
 	const HS_VICTORY_ROAD_2F_ITEM_2        ; 60
@@ -149,7 +148,6 @@ DEF SHOW EQU $15
 	const HS_ROCKET_HIDEOUT_B4F_ITEM_3     ; 8D
 	const HS_ROCKET_HIDEOUT_B4F_ITEM_4     ; 8E
 	const HS_ROCKET_HIDEOUT_B4F_ITEM_5     ; 8F
-	const HS_SILPH_CO_2F_1                 ; 8D XXX never (de)activated?
 	const HS_SILPH_CO_2F_2                 ; 91
 	const HS_SILPH_CO_2F_3                 ; 92
 	const HS_SILPH_CO_2F_4                 ; 93
@@ -191,7 +189,6 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_9F_3                 ; B6
 	const HS_SILPH_CO_10F_1                ; B7
 	const HS_SILPH_CO_10F_2                ; B8
-	const HS_SILPH_CO_10F_3                ; B7 XXX never (de)activated?
 	const HS_SILPH_CO_10F_ITEM_1           ; BA
 	const HS_SILPH_CO_10F_ITEM_2           ; BB
 	const HS_SILPH_CO_10F_ITEM_3           ; BC
