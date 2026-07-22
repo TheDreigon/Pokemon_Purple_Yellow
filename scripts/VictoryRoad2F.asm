@@ -41,6 +41,7 @@ VictoryRoad2F_ScriptPointers:
 	dw_const VictoryRoad2FDefaultScript,            SCRIPT_VICTORYROAD2F_DEFAULT
 	dw_const DisplayEnemyTrainerTextAndStartBattle, SCRIPT_VICTORYROAD2F_START_BATTLE
 	dw_const EndTrainerBattle,                      SCRIPT_VICTORYROAD2F_END_BATTLE
+	dw_const VictoryRoad2FSmithPostBattleScript,    SCRIPT_VICTORYROAD2F_SMITH_POST_BATTLE
 
 VictoryRoad2FDefaultScript:
 	ld hl, .SwitchCoords
@@ -90,6 +91,8 @@ VictoryRoad2F_TextPointers:
 	dw_const BoulderText,                   TEXT_VICTORYROAD2F_BOULDER1
 	dw_const BoulderText,                   TEXT_VICTORYROAD2F_BOULDER2
 	dw_const BoulderText,                   TEXT_VICTORYROAD2F_BOULDER3
+	dw_const VictoryRoad2FSmithText,          TEXT_VICTORYROAD2F_SMITH
+	dw_const VictoryRoad2FSmithEndBattleText, TEXT_VICTORYROAD2F_SMITH_END_BATTLE
 
 VictoryRoad2TrainerHeaders:
 	def_trainers
@@ -142,6 +145,53 @@ VictoryRoad2FMoltresText:
 	ld hl, MoltresTrainerHeader
 	call TalkToTrainer
 	jp TextScriptEnd
+
+VictoryRoad2FSmithText:
+	text_asm
+	CheckEvent EVENT_BEAT_SMITH
+	jr nz, .AlreadyFought
+	ld hl, VictoryRoad2FSmithBattleText
+	call PrintText
+	call Delay3
+	ld a, OPP_SMITH
+	ld [wCurOpponent], a
+	ld a, 1
+	ld [wTrainerNo], a
+	ld a, SCRIPT_VICTORYROAD2F_SMITH_POST_BATTLE
+	ld [wVictoryRoad2FCurScript], a
+	ld [wCurMapScript], a
+	jp TextScriptEnd
+.AlreadyFought
+	ld hl, VictoryRoad2FSmithAfterBattleText
+	call PrintText
+	call Delay3
+	jp TextScriptEnd
+
+VictoryRoad2FSmithPostBattleScript:
+	ld a, [wIsInBattle]
+	inc a
+	jr z, .done ; player lost the battle -> kick out, don't set the beat flag
+	ld a, TEXT_VICTORYROAD2F_SMITH_END_BATTLE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	SetEvent EVENT_BEAT_SMITH
+.done
+	ld a, SCRIPT_VICTORYROAD2F_DEFAULT
+	ld [wVictoryRoad2FCurScript], a
+	ld [wCurMapScript], a
+	ret
+
+VictoryRoad2FSmithBattleText:
+	text_far _VictoryRoad2FSmithBattleText
+	text_end
+
+VictoryRoad2FSmithEndBattleText:
+	text_far _VictoryRoad2FSmithEndBattleText
+	text_end
+
+VictoryRoad2FSmithAfterBattleText:
+	text_far _VictoryRoad2FSmithAfterBattleText
+	text_end
 
 VictoryRoad2FMoltresBattleText:
 	text_far _VictoryRoad2FMoltresBattleText
