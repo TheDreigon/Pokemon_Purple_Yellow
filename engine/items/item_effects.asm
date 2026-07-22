@@ -98,8 +98,8 @@ ItemUsePtrTable:
 	dw ItemUsePPUp       ; PP_UP (real one)
 	dw ItemUsePPRestore  ; ETHER
 	dw ItemUsePPRestore  ; MAX_ETHER
-	dw ItemUsePPRestore  ; ELIXER
-	dw ItemUsePPRestore  ; MAX_ELIXER
+	dw ItemUsePPRestore  ; ELIXIR
+	dw ItemUsePPRestore  ; MAX_ELIXIR
 
 ItemUseBall:
 
@@ -2220,7 +2220,7 @@ ItemUsePPRestore:
 	;
 	; PP_UP/PP_MAX dispatch to ItemUsePPUp (which blocks all in-battle
 	; use, then falls through here for out-of-battle handling). The
-	; ETHER..MAX_ELIXER range check below scopes the gate to refills
+	; ETHER..MAX_ELIXIR range check below scopes the gate to refills
 	; only — defensive against future dispatch changes.
 	ld a, [wIsInBattle]
 	and a
@@ -2233,8 +2233,8 @@ ItemUsePPRestore:
 	ld a, [wcf91]
 	cp ETHER
 	jr c, .allowItem        ; below ETHER (PP_UP): allow
-	cp MAX_ELIXER + 1
-	jr nc, .allowItem ; Line 2237: '; above MAX_ELIXER: allow (defensive; nothing above dispatches here)' and extend line 2235's comment to '; below ETHER (PP_UP, PP_MAX): allow'.
+	cp MAX_ELIXIR + 1
+	jr nc, .allowItem ; Line 2237: '; above MAX_ELIXIR: allow (defensive; nothing above dispatches here)' and extend line 2235's comment to '; below ETHER (PP_UP, PP_MAX): allow'.
 	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem
@@ -2270,7 +2270,7 @@ ItemUsePPRestore:
 	ld a, [wPPRestoreItem]
 	cp PP_MAX
 	jp z, .usePPMax ; if PP Max (Gen 3 QoL: bumps move to max PP Ups in one go)
-	cp ELIXER
+	cp ELIXIR
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02
 	ld [wMoveMenuType], a
@@ -2424,7 +2424,7 @@ ItemUsePPRestore:
 	jr .storeNewAmount
 
 .useElixir
-; decrement the item ID so that ELIXER becomes ETHER and MAX_ELIXER becomes MAX_ETHER
+; decrement the item ID so that ELIXIR becomes ETHER and MAX_ELIXIR becomes MAX_ETHER
 	ld hl, wPPRestoreItem
 	dec [hl]
 	dec [hl]

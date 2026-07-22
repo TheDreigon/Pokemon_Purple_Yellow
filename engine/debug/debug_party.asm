@@ -134,8 +134,8 @@ DebugUnusedList:
 	db LIFT_KEY, 1
 	db ETHER, 99
 	db MAX_ETHER, 99
-	db ELIXER, 99
-	db MAX_ELIXER, 99
+	db ELIXIR, 99
+	db MAX_ELIXIR, 99
 	db TM_AERIAL_ACE, 10
 	db TM_FAINT_ATTACK, 10
 	db TM_TAKE_DOWN, 10

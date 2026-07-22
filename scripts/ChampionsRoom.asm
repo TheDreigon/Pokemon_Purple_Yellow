@@ -126,7 +126,7 @@ ChampionsRoomRivalDefeatedScript:
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 	; v0.5 mart rework: unlock the post-rematch elite tier (T10 items
-	; like PP_MAX, MAX_ETHER, MAX_ELIXER, RARE_CANDY) at the Indigo
+	; like PP_MAX, MAX_ETHER, MAX_ELIXIR, RARE_CANDY) at the Indigo
 	; Plateau pre-E4 clerk and the Celadon Mart 2F regular clerk.
 	SetEvent EVENT_BEAT_E4_REMATCH
 	ld a, TEXT_CHAMPIONSROOM_RIVAL_REMATCH_AFTER_BATTLE

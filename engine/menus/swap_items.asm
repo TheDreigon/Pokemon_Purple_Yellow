@@ -297,8 +297,8 @@ ItemSortList::
 	; PP
 	db ETHER
 	db MAX_ETHER
-	db ELIXER
-	db MAX_ELIXER
+	db ELIXIR
+	db MAX_ELIXIR
 	; Battle Raises
 	db X_ACCURACY
 	db X_ATTACK

@@ -197,12 +197,12 @@ RegularMartTieredInventory::
 EliteMartAddons::
 	; T9 - Post E4
 	db 9, ETHER
-	db 9, ELIXER
+	db 9, ELIXIR
 	db 9, PP_UP
 	db 9, MAX_REVIVE
 	; T10 - Post E4 Rematch
 	db 10, MAX_ETHER
-	db 10, MAX_ELIXER
+	db 10, MAX_ELIXIR
 	db 10, PP_MAX
 	db 10, RARE_CANDY
 	db -1

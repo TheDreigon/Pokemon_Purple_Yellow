@@ -24,9 +24,9 @@ CeladonMart2FCurrentFloorSignText:
 CeladonMart2FClerk1Text::
 	; One of the two "elite" tiered mart clerks (the other: Indigo
 	; Plateau). Sells T0..T8 like every regular mart, plus the post-E4
-	; elite items (ETHER, ELIXER, PP_UP, MAX_REVIVE) once the Elite Four
+	; elite items (ETHER, ELIXIR, PP_UP, MAX_REVIVE) once the Elite Four
 	; are beaten, plus the post-rematch elite items (MAX_ETHER,
-	; MAX_ELIXER, PP_MAX, RARE_CANDY) after the first E4 rematch.
+	; MAX_ELIXIR, PP_MAX, RARE_CANDY) after the first E4 rematch.
 	script_tiered_mart_elite
 
 CeladonMart2FClerk2Text::

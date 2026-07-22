@@ -83,8 +83,8 @@ ItemPrices::
 	bcd3 9800  ; PP_UP
 	bcd3 1200  ; ETHER       (was 0; now sold post-E4 at Indigo + Celadon 2F)
 	bcd3 2000  ; MAX_ETHER   (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
-	bcd3 3200  ; ELIXER      (was 0; now sold post-E4 at Indigo + Celadon 2F)
-	bcd3 4500  ; MAX_ELIXER  (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
+	bcd3 3200  ; ELIXIR      (was 0; now sold post-E4 at Indigo + Celadon 2F)
+	bcd3 4500  ; MAX_ELIXIR  (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
 	assert_table_length NUM_ITEMS
 	bcd3 0     ; FLOOR_B2F
 	bcd3 0     ; FLOOR_B1F

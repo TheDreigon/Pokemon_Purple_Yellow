@@ -194,8 +194,8 @@ ENDM
 ;
 ; Two variants share a single TX opcode + dispatch path. They differ only
 ; in a single TYPE byte the engine reads to decide whether to also append
-; the post-E4 / post-rematch elite addons (ETHER, MAX_ETHER, ELIXER,
-; MAX_ELIXER, PP_UP, PP_MAX, MAX_REVIVE, RARE_CANDY).
+; the post-E4 / post-rematch elite addons (ETHER, MAX_ETHER, ELIXIR,
+; MAX_ELIXIR, PP_UP, PP_MAX, MAX_REVIVE, RARE_CANDY).
 ;
 ;   TIERED_MART_TYPE_REGULAR ($00) - T0..T8 only, every "real" mart.
 ;   TIERED_MART_TYPE_ELITE   ($01) - T0..T8 + elite addons (Indigo Plateau

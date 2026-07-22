@@ -45,9 +45,9 @@ IndigoPlateauLobbyChanseyText:
 
 IndigoPlateauLobbyClerkText::
 	; Elite tiered mart: T0..T8 from the global inventory, plus post-E4
-	; elite items (ETHER, ELIXER, PP_UP, MAX_REVIVE) once the player has
+	; elite items (ETHER, ELIXIR, PP_UP, MAX_REVIVE) once the player has
 	; beaten the Elite Four, plus post-rematch elite items (MAX_ETHER,
-	; MAX_ELIXER, PP_MAX, RARE_CANDY) after the first E4 rematch.
+	; MAX_ELIXIR, PP_MAX, RARE_CANDY) after the first E4 rematch.
 	; The TMs below (pre-E4 strong damage) are appended as fixed extras.
 	script_tiered_mart_elite TM_MEGAHORN, TM_DARK_PULSE, TM_THUNDERBOLT, TM_SHADOW_BALL, TM_PETAL_DANCE, TM_FLAMETHROWER, TM_HURRICANE, TM_GIGA_DRAIN, TM_EARTHQUAKE, TM_ICE_BEAM, TM_PSYCHIC_M, TM_ROCK_SLIDE
 
