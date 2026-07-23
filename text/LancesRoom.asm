@@ -111,5 +111,13 @@ _LancesRoomLanceRematchAfterBattleText::
 	para "Keep honing"
 	line "your skills!"
 
+	para "They whisper of"
+	line "one who haunts"
+	cont "the deep caves..."
+
+	para "DREIGON. Even I"
+	line "have not faced"
+	cont "him. Have you?"
+
 	para "Until next time!"
 	done

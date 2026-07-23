@@ -126,11 +126,16 @@ _ChampionsRoomRivalRematchAfterBattleText::
 	line "You're the best," 
 	cont "<PLAYER>."
 
-	para "But I won't give"
-	line "up just yet!"
+	para "...The best but"
+	line "one, anyway."
 
-	para "Next time, I'll"
-	line "be CHAMPION."
+	para "They say DREIGON"
+	line "lurks in CERULEAN"
+	cont "CAVE's depths."
+
+	para "Beat him before"
+	line "I do, and stay"
+	cont "CHAMPION!"
 	done
 
 _ChampionsRoomOakText::
