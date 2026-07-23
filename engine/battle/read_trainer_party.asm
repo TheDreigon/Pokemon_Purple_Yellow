@@ -188,7 +188,7 @@ HardModeBossLevelBump:
 	jr nz, .noBump
 	; The very first rival fight (RIVAL1 at Oak's Lab = trainer 1, the L5
 	; Eevee) is intentionally exempt: it stays at base level even in Hard
-	; mode. Every other rival fight and every other boss still gets +2.
+	; mode. Every other rival fight and every other boss still gets +1.
 	ld a, [wTrainerClass]
 	cp RIVAL1
 	jr nz, .doBump
@@ -204,7 +204,7 @@ HardModeBossLevelBump:
 	farcall IsBossTrainerClassW
 	jr z, .noBump
 	pop af
-	add 2
+	add 1
 	cp MAX_LEVEL + 1
 	jr c, .done
 	ld a, MAX_LEVEL
