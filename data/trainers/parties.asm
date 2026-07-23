@@ -856,16 +856,16 @@ JoyData:
 	db $FF, 63, KANGASKHAN, 64, WIGGLYTUFF, 64, CLEFABLE, 65, CHANSEY, 65, MR_MIME, 0
 
 SmithData:
-    db 55, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
+    db 60, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
 
 CraigData:
 ; Zapdos Fight
-	db 55, JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
+	db 60, JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
 
 WeebraData:
-	db 55, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
+	db 60, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
 
 ForteData:
-; "Forte / DREIGON" superboss — all L75, in Forte's send-out order (Nidoking ace/last).
+; "Forte / DREIGON" superboss — all L80, in Forte's send-out order (Nidoking ace/last).
 ; Per-mon movesets in special_moves.asm (finalized by Forte in Notes/Boss Movesets.md).
-	db 75, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
+	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
