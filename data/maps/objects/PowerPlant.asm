@@ -35,7 +35,7 @@ PowerPlant_Object:
 	object_event 21, 14, SPRITE_POKE_BALL, STAY, NONE, TEXT_POWERPLANT_ELECTRODE2, ELECTRODE, 43
 	object_event 37, 32, SPRITE_POKE_BALL, STAY, NONE, TEXT_POWERPLANT_VOLTORB6, VOLTORB, 40
 	object_event  4,  9, SPRITE_ZAPDOS, STAY, UP, TEXT_POWERPLANT_ZAPDOS, ZAPDOS, 50
-	object_event  4,  9, SPRITE_RED, STAY, DOWN, TEXT_POWERPLANT_CRAIG, OPP_CRAIG, 1 ; at Zapdos's EXACT tile (4,9); missable HIDE, shown by script only post-Zapdos + post-League. Keeps its range-0 (talk-only) trainer header.
+	object_event  4,  9, SPRITE_RED, WALK, ANY_DIR, TEXT_POWERPLANT_CRAIG, OPP_CRAIG, 1 ; spawns on Zapdos's tile (4,9), then wanders (WALK); missable HIDE, shown by script only post-Zapdos + post-League. Keeps its range-0 (talk-only) trainer header.
 	object_event  7, 25, SPRITE_POKE_BALL, STAY, NONE, TEXT_POWERPLANT_CARBOS, CARBOS
 	; object_event 28,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_POWERPLANT_HP_UP, HP_UP
 	object_event 34,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_POWERPLANT_RARE_CANDY, RARE_CANDY
