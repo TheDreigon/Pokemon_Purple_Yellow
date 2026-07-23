@@ -62,7 +62,7 @@ ReadTrainer:
 	ld a, [hli]
 	cp $FF ; is the trainer special?
 	jr z, .SpecialTrainer ; if so, check for special moves
-	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +2 (cap MAX_LEVEL)
+	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +1 (cap MAX_LEVEL)
 	ld [wCurEnemyLVL], a
 .LoopTrainerData
 	ld a, [hli]
@@ -83,7 +83,7 @@ ReadTrainer:
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
 	jr z, .AddAdditionalMoveData
-	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +2 (cap MAX_LEVEL)
+	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +1 (cap MAX_LEVEL)
 	ld [wCurEnemyLVL], a
 	ld a, [hli]
 	ld [wcf91], a
@@ -375,7 +375,7 @@ AddRivalMon:
 	ld [wcf91], a ; species
 	ld a, [hli]
 	push hl
-	call HardModeBossLevelBump ; +2 in hard (Lab fight exempt inside)
+	call HardModeBossLevelBump ; +1 in hard (Lab fight exempt inside)
 	ld [wCurEnemyLVL], a
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a
