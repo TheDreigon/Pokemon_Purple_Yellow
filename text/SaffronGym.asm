@@ -56,7 +56,7 @@ _SaffronGymPreRematchBattle2Text::
     done
 
 _SaffronGymRematchPostBattleText::
-	text "I foresaw this."
+	text "As I envisioned."
     line "Your strength"
     cont "is the real deal!"
 
