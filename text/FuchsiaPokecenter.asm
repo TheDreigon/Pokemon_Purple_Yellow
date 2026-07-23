@@ -79,7 +79,7 @@ _NurseJoyAfterBattleText::
 
     para "Your strength and"
     line "bond with your"
-    cont "#MON is"
+    cont "#MON are"
 	cont "inspiring."
 
     para "This battle has"

@@ -15,11 +15,9 @@ _PowerPlantCraigBattleText1::
 	line "making based on"
 	cont "#MON."
 
-	para "How about this…"
-
-	para "We battle,"
-	line "winner gets the"
-	cont "bird."
+	para "So battle me!"
+	line "I need fresh"
+	cont "combat data."
 	done
 	
 _PowerPlantCraigEndBattleText1::
@@ -30,8 +28,7 @@ _PowerPlantCraigEndBattleText1::
 	prompt
 	
 _PowerPlantCraigAfterBattleText1::
-	text "Can I see the"
-	line "#DEX entry"
-	cont "once you catch"
-	cont "it?"
+	text "Mind if I copy"
+	line "your #DEX"
+	cont "data sometime?"
 	done

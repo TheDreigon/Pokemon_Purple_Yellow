@@ -67,7 +67,7 @@ _CeladonGymPreRematchBattle2Text::
 	done
 
 _CeladonGymRematchPostBattleText::
-	text "Incredible!"
+	text "How lovely."
 
 	para "Your strength"
 	line "surpasses even"

@@ -121,10 +121,9 @@ _VictoryRoad2FSmithEndBattleText::
 _VictoryRoad2FSmithAfterBattleText::
 	text "What zest!"
 
-	para "You should be"
-	line "able to handle"
-	cont "yourself in this"
-	cont "cave!"
+	para "A CHAMPION with"
+	line "zest like yours"
+	cont "handles anything!"
 
 	para "Good luck, nerd!"
 	done

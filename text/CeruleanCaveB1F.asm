@@ -7,7 +7,7 @@ _ForteFirstText::
 	line "throne is empty."
 
 	para "You took it. I am"
-	line "FORTE — the one"
+	line "FORTE ─ the one"
 	cont "known as DREIGON."
 
 	para "I have long"
