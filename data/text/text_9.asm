@@ -899,8 +899,8 @@ _RoofQuizQ9Text::
 	done
 
 _RoofQuizQ10Text::
-	text "Q10: Where do"
-	line "wild LAPRAS swim?"
+	text "Q10: What type is"
+	line "PERSIAN?"
 	done
 
 _RoofQuizPerfectText::

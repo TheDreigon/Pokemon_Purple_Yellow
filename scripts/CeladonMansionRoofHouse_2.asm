@@ -264,11 +264,11 @@ RoofQuizTable::
 .Q9C:
 	db "FIRE@"
 .Q10A:
-	db "MT. MOON@"
+	db "NORMAL/PSYCHIC@"
 .Q10B:
-	db "SEAFOAM IS.@"
+	db "NORMAL/DARK@"
 .Q10C:
-	db "ROCK TUNNEL@"
+	db "NORMAL/GHOST@"
 
 RoofHousePrototypeBallScript::
 	CheckEvent EVENT_BEAT_PURPLES_QUIZ
