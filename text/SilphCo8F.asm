@@ -25,19 +25,18 @@ _SilphCo8FRocket1AfterBattleText::
 	done
 
 _SilphCo8FScientistBattleText::
-	text "You're causing us"
-	line "problems!"
+	text "My PORYGON is"
+	line "pure SILPH code!"
 	done
 
 _SilphCo8FScientistEndBattleText::
-	text "Huh?"
-	line "I lost?"
+	text "My code"
+	line "crashed?!"
 	prompt
 
 _SilphCo8FScientistAfterBattleText::
-	text "So, what do you"
-	line "think of SILPH"
-	cont "BUILDING's maze?"
+	text "We MADE PORYGON"
+	line "here at SILPH!"
 	done
 
 _SilphCo8FRocket2BattleText::

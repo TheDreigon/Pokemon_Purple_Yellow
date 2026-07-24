@@ -748,8 +748,8 @@ ScientistData:
 	db 35, VOLTORB, STARYU, ELECTRODE, MAGNETON, STARMIE, 0
 ; Silph Co. 7F
 	db 39, ELECTRODE, MUK, 0
-; Silph Co. 8F
-	db 43, PORYGON, 0
+; Silph Co. 8F — prototype PORYGON ace (v0.7: was solo L43 PORYGON)
+	db $FF, 40, MAGNETON, 42, ELECTRODE, 45, PORYGON, 0
 ; Silph Co. 9F
 	db 40, MUK, KABUTOPS, 0
 ; Silph Co. 10F
