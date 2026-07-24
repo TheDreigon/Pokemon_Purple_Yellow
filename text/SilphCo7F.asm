@@ -1,12 +1,11 @@
 _SilphCo7FSilphWorkerM1HaveThisPokemonText::
-	text "Oh! Hi! You're"
-	line "not a ROCKET! You"
-	cont "came to save us?"
-	cont "Why, thank you!"
+	text "You drove TEAM"
+	line "ROCKET out! We're"
+	cont "saved! Thank you!"
 
-	para "I want you to"
-	line "have this #MON"
-	cont "for saving us."
+	para "Please, take this"
+	line "#MON as our"
+	cont "thanks."
 	prompt
 
 _SilphCo7FSilphWorkerM1LaprasDescriptionText::

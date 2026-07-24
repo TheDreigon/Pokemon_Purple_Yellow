@@ -282,15 +282,15 @@ SilphCo7TrainerHeader3:
 SilphCo7FSilphWorkerM1Text:
 ; lapras guy
 	text_asm
+; v0.7: re-gated so the LAPRAS is a post-liberation reward (mirrors the Silph 5F
+; Porygon giver) rather than handed out mid-raid. Only given after Giovanni is
+; beaten. Before that, the worker just frets about the president; after the gift,
+; the "saved at last" line.
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	jr z, .rocketStillHere
 	ld a, [wd72e]
 	bit 0, a ; got lapras?
-	jr z, .give_lapras
-	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	jr nz, .saved_silph
-	ld hl, .IsOurPresidentOkText
-	call PrintText
-	jr .done
-.give_lapras
 	ld hl, .HaveThisPokemonText
 	call PrintText
 	lb bc, LAPRAS, 35
@@ -304,6 +304,10 @@ SilphCo7FSilphWorkerM1Text:
 	call PrintText
 	ld hl, wd72e
 	set 0, [hl]
+	jr .done
+.rocketStillHere
+	ld hl, .IsOurPresidentOkText
+	call PrintText
 	jr .done
 .saved_silph
 	ld hl, .SavedText
