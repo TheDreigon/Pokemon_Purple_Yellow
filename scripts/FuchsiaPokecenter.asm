@@ -55,10 +55,18 @@ FuchsiaPokecenterNurseText:
 	ld hl, NurseJoyPreBattleText
 .continue
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L65 fight
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
+; she starts the battle by hand (no EngageMapTrainer), so the encounter jingle
+; has to be played explicitly — same idiom the Jessie & James scripts use
+	call StopAllMusic
+	ld c, BANK(Music_MeetFemaleTrainer)
+	ld a, MUSIC_MEET_FEMALE_TRAINER
+	call PlayMusic
 	ld hl, NurseJoyAcceptedText
 	call PrintText
 	call Delay3

@@ -171,6 +171,12 @@ SeafoamIslandsWeebraText1:
 	text_asm
 	CheckEvent EVENT_BEAT_WEEBRA
 	jr nz, .AlreadyFought
+; she starts the battle by hand (no EngageMapTrainer), so the encounter jingle
+; has to be played explicitly — same idiom the Jessie & James scripts use
+	call StopAllMusic
+	ld c, BANK(Music_MeetFemaleTrainer)
+	ld a, MUSIC_MEET_FEMALE_TRAINER
+	call PlayMusic
 	ld hl, SeafoamIslandsWeebraBattleText1
 	call PrintText
 	call Delay3

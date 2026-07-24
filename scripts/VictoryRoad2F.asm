@@ -165,6 +165,12 @@ VictoryRoad2FSmithText:
 	text_asm
 	CheckEvent EVENT_BEAT_SMITH
 	jr nz, .AlreadyFought
+; he starts the battle by hand (no EngageMapTrainer), so the encounter jingle
+; has to be played explicitly — same idiom the Jessie & James scripts use
+	call StopAllMusic
+	ld c, BANK(Music_MeetMaleTrainer)
+	ld a, MUSIC_MEET_MALE_TRAINER
+	call PlayMusic
 	ld hl, VictoryRoad2FSmithBattleText
 	call PrintText
 	call Delay3
