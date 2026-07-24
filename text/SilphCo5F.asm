@@ -11,6 +11,40 @@ _SilphCo5FSilphWorkerMYoureOurHeroText::
 	cont "hero! Thank you!"
 	done
 
+_SilphCo5FSilphWorkerMPorygonOfferText::
+	text "You drove the"
+	line "ROCKETs out!"
+
+	para "This floor's LAB"
+	line "made PORYGON,"
+
+	para "the first #MON"
+	line "born from human"
+	cont "hands, not caught"
+	cont "in the wild."
+
+	para "That makes it"
+	line "hard to raise..."
+
+	para "but a TRAINER"
+	line "strong enough to"
+	cont "clear this tower"
+	cont "can handle it."
+
+	para "Take our"
+	line "prototype!"
+	prompt
+
+_SilphCo5FSilphWorkerMPorygonDescText::
+	text "PORYGON is pure"
+	line "code: a program"
+	cont "that can battle."
+
+	para "Raise it well,"
+	line "and it may learn"
+	cont "to trust you."
+	done
+
 _SilphCo5FRocket1BattleText::
 	text "I heard a kid was"
 	line "wandering around."

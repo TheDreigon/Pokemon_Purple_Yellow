@@ -833,6 +833,9 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_FORTE_FOUGHT   ; battled Forte at least once (dialogue: first vs rematch)
 	const EVENT_FORTE_WON_LAST ; won the most recent Forte battle (dialogue: earns respect)
 
+; Silph Co 5F — Porygon reward for liberating Silph (v0.7, manga-flavored)
+	const EVENT_GOT_SILPH_PORYGON
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value
