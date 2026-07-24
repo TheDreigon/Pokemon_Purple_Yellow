@@ -421,7 +421,6 @@ SECTION "Battle Engine 9", ROMX
 
 INCLUDE "engine/movie/title_yellow.asm"
 INCLUDE "engine/menus/link_menu.asm"
-;INCLUDE "engine/menus/unused_input.asm"
 INCLUDE "engine/overworld/field_move_messages.asm"
 INCLUDE "engine/items/inventory.asm"
 INCLUDE "gfx/trainer_card.asm"
