@@ -6,7 +6,10 @@ ENDM
 TrainerPicAndMoneyPointers::
 	table_width 5, TrainerPicAndMoneyPointers
 	; pic pointer, base reward money
-	; money received after battle = base money × level of last enemy mon
+	; money received after battle = base money × level of last enemy mon.
+	; NOTE: only the top 4 digits of this bcd3 value are read (GetTrainerInformation
+	; copies 2 of 3 bytes), so the EFFECTIVE rate is value/100 per level:
+	; 1500 here = 15/level, 9900 = 99/level (the cap). Scale edits accordingly.
 	pic_money YoungsterPic,    1500
 	pic_money BugCatcherPic,   1000
 	pic_money LassPic,         1500
@@ -55,7 +58,7 @@ TrainerPicAndMoneyPointers::
 	pic_money AgathaPic,       9900
 	pic_money LancePic,        9900
 	pic_money PKMNTrainerFPic, 9900
-	pic_money JaninePic, 	   3500
+	pic_money JaninePic, 	   9900 ; boss-classed leader (post-Koga) — pays 99/lvl like every other boss (was 3500=35/lvl, a Cooltrainer-tier oversight)
 	pic_money JoyPic, 	   	   9900
 	pic_money JennyPic, 	   9900
 	pic_money JessieJamesPic,  5000 ; Jessie & James (battle pic already shipped in gfx/trainers/jessiejames.pic)
