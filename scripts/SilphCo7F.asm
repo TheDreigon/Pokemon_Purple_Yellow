@@ -293,7 +293,7 @@ SilphCo7FSilphWorkerM1Text:
 	jr nz, .saved_silph
 	ld hl, .HaveThisPokemonText
 	call PrintText
-	lb bc, LAPRAS, 35
+	lb bc, LAPRAS, 30
 	call GivePokemon
 	jr nc, .done
 	ld a, [wSimulatedJoypadStatesEnd]
