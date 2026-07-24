@@ -102,6 +102,8 @@ CeruleanCaveB1FForteText:
 	ld hl, ForteRematchWonText
 .prompt
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L80 fight with no input
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
