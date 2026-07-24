@@ -5,10 +5,10 @@ SeafoamIslands1FWildMons:
 	db 30, KRABBY
 	db 30, SLOWPOKE
 	db 31, GOLBAT
-	db 29, ZUBAT
+	db 28, SEEL
 	db 32, SLOWPOKE
 	db 33, GOLBAT
-	db 32, KRABBY
+	db 31, SEEL
 	db 35, JYNX
 	end_grass_wildmons
 

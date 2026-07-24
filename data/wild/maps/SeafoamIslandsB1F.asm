@@ -5,9 +5,9 @@ SeafoamIslandsB1FWildMons:
 	db 30, ZUBAT
 	db 32, SLOWPOKE
 	db 32, KINGLER
-	db 33, GOLBAT
+	db 32, SEEL
 	db 34, SLOWPOKE
-	db 34, KINGLER
+	db 34, SEEL
 	db 36, JYNX
 	db 36, SLOWBRO
 	end_grass_wildmons
