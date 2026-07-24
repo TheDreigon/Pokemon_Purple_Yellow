@@ -3333,9 +3333,6 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	cp MR_MIME
 	ld b, ROUTE_2
 	jr z, .addEncounter
-	cp MACHOKE
-	ld b, ROUTE_5
-	jr z, .addEncounter
 	cp DUGTRIO
 	ld b, ROUTE_11
 	jr z, .addEncounter
@@ -3344,22 +3341,12 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	jr z, .addEncounter
 	cp RHYDON
 	jr z, .addCinnabarIsland
-	cp DEWGONG
-	jr z, .addCinnabarIsland
-	cp MUK
-	jr z, .addCinnabarIsland
 	cp JYNX
 	jr z, .addSaffron
-	; game corner mons 
-	cp ABRA
-	jr z, .addCeladon
-	cp SEEL
-	jr z, .addCeladon
+	; game corner mons (current casino roster; starters/Eevee/Jynx pinned above)
 	cp MAGMAR
 	jr z, .addCeladon
 	cp ELECTABUZZ
-	jr z, .addCeladon
-	cp DRATINI
 	jr z, .addCeladon
 	cp PORYGON
 	jr z, .addCeladon
