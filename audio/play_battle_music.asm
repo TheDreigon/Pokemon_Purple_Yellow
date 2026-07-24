@@ -87,10 +87,16 @@ BattleMusicByOpponent:
 ;    GrandVictoryClasses); the asymmetry with Smith/Craig/Weebra is intended
 ;  - RIVAL1 / RIVAL2 — the rival's sound escalates; only RIVAL3 is special
 ;  - JESSIE_AND_JAMES — they SHOULD fight to their own looping Yellow theme,
-;    but Music_MeetJessieJames sits in the Audio-4 bank and battle music
-;    cannot (see the warning above). Their pre-battle jingle still plays.
-;    Giving them their theme in battle requires porting the track into the
-;    Audio-2 bank (~290 bytes; that bank has room) — pending Forte's call.
+;    but it CANNOT be done. Two walls, both verified: (1) Music_MeetJessieJames
+;    lives in the Audio-4 bank, and battle music must be in Audio-2 (see the
+;    warning above); (2) porting a copy into Audio-2 is impossible because that
+;    bank's SONG-ID SPACE IS EXACTLY FULL — song ids are (header-SFX_Headers_1)/3,
+;    the seven battle songs occupy ids 234-254 with no gap, and the next slot is
+;    255 = SFX_STOP_ALL_MUSIC, which PlaySound treats as "stop the music"
+;    (home/audio.asm). An 8th Audio-2 song would play as silence and corrupt
+;    wLastMusicSoundID. Freeing a slot means deleting a battle theme or a
+;    victory fanfare — all seven are load-bearing. Their pre-battle jingle
+;    (which IS their own theme) still plays; that is where their identity lives.
 	db -1 ; end
 	ASSERT OPP_ID_OFFSET + NUM_TRAINERS < $ff, \
 		"an OPP id would collide with this table's -1 terminator"
