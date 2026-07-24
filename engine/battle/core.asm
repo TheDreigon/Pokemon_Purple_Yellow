@@ -956,17 +956,19 @@ ReplaceFaintedEnemyMon:
 
 TrainerBattleVictory:
 	call EndLowHealthAlarm
+; v0.7: the fanfare is chosen from GrandVictoryClasses (a per-trainer music
+; list) instead of wGymLeaderNo, which only ever covered the 8 leaders' first
+; fights — the Elite Four, Oak, Forte, the semi-bosses and every leader
+; REMATCH were all falling through to the plain trainer jingle.
+	call IsGrandVictoryClass
+	ld b, MUSIC_DEFEATED_TRAINER ; ld doesn't touch the Z flag above
+	jr z, .fanfareChosen
 	ld b, MUSIC_DEFEATED_GYM_LEADER
-	ld a, [wGymLeaderNo]
-	and a
-	jr nz, .gymleader
-	ld b, MUSIC_DEFEATED_TRAINER
-.gymleader
+.fanfareChosen
 	ld a, [wTrainerClass]
 	cp RIVAL3 ; final battle against rival
 	jr nz, .notrival
-	ld b, MUSIC_DEFEATED_GYM_LEADER
-	ld hl, wFlags_D733
+	ld hl, wFlags_D733 ; RIVAL3's own fanfare comes from the list above
 	set 1, [hl]
 .notrival
 	ld a, [wLinkState]

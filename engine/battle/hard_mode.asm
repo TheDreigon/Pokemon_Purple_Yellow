@@ -9,13 +9,13 @@
 ;
 ; Boss list (decided with Forte): all 8 gym leaders + all 4 Elite Four +
 ; all 3 rival classes (RIVAL3 = Champion) + Prof Oak + Officer Jenny +
-; Nurse Joy + Janine + Jessie & James. SMITH/CRAIG/WEEBRA (special
+; Nurse Joy + Janine + Jessie & James + FORTE. SMITH/CRAIG/WEEBRA (special
 ; trainer classes) are intentionally NOT bosses — they're already
 ; calibrated by hand and shouldn't get the auto-buffs. Boss-class
 ; identity automatically covers gym leader rematches (same class), E4
 ; rematches (same class), Giovanni's three appearances (same class),
 ; and all rival fights regardless of starter (same RIVALn class).
-; 20 classes total.
+; 21 classes total.
 ;
 ; Routines live in bank $0F (Battle Core) so the core.asm callers
 ; (CriticalHitTest, MoveHitTest, LoadEnemyMon) can near-call;
@@ -96,3 +96,59 @@ BossTrainerClasses::
 	db RIVAL3
 	db SABRINA
 	db -1                       ; terminator
+
+
+; v0.7 music review: trainer classes that earn the "big" victory fanfare
+; (MUSIC_DEFEATED_GYM_LEADER) instead of the normal one. Read by
+; TrainerBattleVictory, which used to key on wGymLeaderNo alone — that gave
+; the grand fanfare only to the 8 leaders' FIRST fights and left the Elite
+; Four, Oak and the leader rematches on the plain trainer jingle.
+;
+; This is a MUSIC list, deliberately independent of BossTrainerClasses: it
+; includes the hand-calibrated semi-bosses (Jessie & James, Janine, Joy,
+; Jenny, Smith, Craig, Weebra) and excludes RIVAL1/RIVAL2, so the rival
+; fanfare escalates — only the Champion fight (RIVAL3) sounds grand.
+; Order doesn't matter (linear scan). Terminator is -1.
+GrandVictoryClasses::
+; the 8 badge holders (covers their rematches too, same class)
+	db BROCK
+	db MISTY
+	db LT_SURGE
+	db ERIKA
+	db KOGA
+	db SABRINA
+	db BLAINE
+	db GIOVANNI
+; the Elite Four and the Champion
+	db LORELEI
+	db BRUNO
+	db AGATHA
+	db LANCE
+	db RIVAL3
+; the post-game superbosses
+	db PROF_OAK
+	db FORTE
+; the semi-bosses
+	db JESSIE_AND_JAMES
+	db JANINE
+	db JOY
+	db JENNY
+	db SMITH
+	db CRAIG
+	db WEEBRA
+	db -1                       ; terminator
+
+; Returns Z=0 if the current trainer earns the grand victory fanfare, else
+; Z=1. Reads wTrainerClass. Trashes: a, b, hl.
+IsGrandVictoryClass::
+	ld a, [wTrainerClass]
+	ld b, a
+	ld hl, GrandVictoryClasses
+.loop
+	ld a, [hli]
+	cp -1
+	ret z                       ; reached terminator → Z=1, normal fanfare
+	cp b
+	jr nz, .loop
+	or a                        ; match: class ID is non-zero → Z=0
+	ret

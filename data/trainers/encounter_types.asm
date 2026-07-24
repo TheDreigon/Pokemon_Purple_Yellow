@@ -5,6 +5,15 @@ FemaleTrainerList::
 	db OPP_COOLTRAINER_F
 	db OPP_JOY
 	db OPP_JENNY
+; v0.7: the female bosses were getting the male encounter jingle — vanilla
+; only ever listed the generic classes here. (Joy/Jenny start their battles
+; without EngageMapTrainer, so their entries above never actually fire.)
+	db OPP_MISTY
+	db OPP_ERIKA
+	db OPP_SABRINA
+	db OPP_LORELEI
+	db OPP_AGATHA
+	db OPP_JANINE
 	db -1 ; end
 
 EvilTrainerList::
