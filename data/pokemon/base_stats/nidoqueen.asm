@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Matriarch, fairy-tinged Poison/Ground apex. HM CUT/STRENGTH.
-	; Last-stage fun moves via TM.
+	; Last-stage fun moves via TM. Ladder prereqs: ROCK_THROW, BULLDOZE.
 	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, \
 	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     DAZZLE_GLEAM, POISON_BITE, FAKE_TEARS, CHARM, TOXIC, \

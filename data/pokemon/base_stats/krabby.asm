@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; Scrappy pincer crab, pre-evo backbone (subset of Kingler).
 	; Pincer drives BIND/SEISMIC_TOSS/CUT/STRENGTH; aquatic
-	; WATER_PULSE/SURF/ICE_BEAM.
+	; WATER_PULSE/SURF/ICE_BEAM/ICY_PULSE.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, SEISMIC_TOSS, BODY_SLAM, \
 	     ICE_BEAM, CUT, SURF, STRENGTH
 	; end

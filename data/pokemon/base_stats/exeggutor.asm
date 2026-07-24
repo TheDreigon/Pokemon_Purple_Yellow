@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Apex egg-tree Grass/Psychic, a heavy tree.
+	; Apex egg-tree Grass/Psychic, a heavy tree. Ladder prereqs: BULLDOZE, EXTRASENSORY.
 	tmhm BULLDOZE, BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, EXTRASENSORY, TAKE_DOWN, PSYCHIC_M, DARK_PULSE, \
 	     EARTHQUAKE, PETAL_DANCE, DOUBLE_EDGE

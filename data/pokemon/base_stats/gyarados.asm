@@ -13,6 +13,7 @@
 	; tm/hm learnset
 	; Brutal Water/Dragon sea-serpent apex, mostly physical, not
 	; docile. HM SURF/STRENGTH.
+	; Ladder prereqs: WATER_PULSE, ICY_PULSE, BULLDOZE.
 	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm BIND, BULLDOZE, WATER_PULSE, ICY_PULSE, RAGE, \
 	     BODY_SLAM, IRON_TAIL, MIMIC, MIRROR_MOVE, SUBSTITUTE, \

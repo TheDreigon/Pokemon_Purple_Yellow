@@ -13,7 +13,8 @@
 	; tm/hm learnset
 	; Protective kangaroo mother, Normal/Fighting bruiser with fists +
 	; tail. BULK_UP/SEISMIC_TOSS/THRASH from raw power; IRON_TAIL and
-	; EARTHQUAKE/BULLDOZE from the heavy tail; INTIMIDATE as a mother.
+	; EARTHQUAKE/BULLDOZE from the heavy tail; ROCK_THROW too;
+	; INTIMIDATE as a mother.
 	; Last-stage fun moves MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm BIND, BULLDOZE, SEISMIC_TOSS, BODY_SLAM, IRON_TAIL, \
 	     BULK_UP, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \

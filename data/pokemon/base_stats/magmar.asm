@@ -13,6 +13,7 @@
 	; tm/hm learnset
 	; Volcanic Fire/Magma boxer, counterpart to Electabuzz. Last-stage
 	; fun moves allowed.
+	; Ladder prereqs: ROCK_THROW, BULLDOZE, FLAME_BURST.
 	tmhm ROCK_THROW, BULLDOZE, SEISMIC_TOSS, BODY_SLAM, FLAME_BURST, \
 	     CONFUSE_RAY, IGNITE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, TAKE_DOWN, LIGHT_SCREEN, FLAMETHROWER, EARTHQUAKE, \

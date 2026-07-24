@@ -12,7 +12,7 @@
 
 	; tm/hm learnset
 	; Water/Psychic gem-core star (pre-evo). Glowing core drives
-	; DAZZLE_GLEAM/FLASH.
+	; DAZZLE_GLEAM/FLASH. Ladder prereqs: WATER_PULSE, ICY_PULSE.
 	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, DAZZLE_GLEAM, LIGHT_SCREEN, \
 	     ICE_BEAM, REFLECT, SURF, FLASH
 	; end

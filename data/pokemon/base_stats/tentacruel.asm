@@ -13,7 +13,8 @@
 
 	; tm/hm learnset
 	; Apex Water/Poison jellyfish. Tentacles bind and drain (LEECH_LIFE);
-	; venom enables TOXIC. Last-stage fun moves via TM.
+	; venom enables TOXIC. Last-stage fun moves via TM. Ladder prereqs:
+	; WATER_PULSE, ICY_PULSE, SHOCK_WAVE.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, SHOCK_WAVE, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, TOXIC, \
 	     LEECH_LIFE, ICE_BEAM, CUT, SURF
