@@ -1567,13 +1567,6 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	res BADLY_POISONED, [hl]	;clear toxic bit
 	ret
 
-AIUseXAccuracy: ; unused
-	call AIPlayRestoringSFX
-	ld hl, wEnemyBattleStatus2
-	set 0, [hl]
-	ld a, X_ACCURACY
-	jp AIPrintItemUse
-
 AIUseGuardSpec:
 	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
