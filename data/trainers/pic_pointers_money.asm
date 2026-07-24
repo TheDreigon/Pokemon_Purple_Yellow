@@ -58,7 +58,7 @@ TrainerPicAndMoneyPointers::
 	pic_money AgathaPic,       9900
 	pic_money LancePic,        9900
 	pic_money PKMNTrainerFPic, 9900
-	pic_money JaninePic, 	   9900 ; boss-classed leader (post-Koga) — pays 99/lvl like every other boss (was 3500=35/lvl, a Cooltrainer-tier oversight)
+	pic_money JaninePic, 	   6600 ; 66/lvl — secondary post-Koga leader, a half-tier like Jessie & James (was 3500=35/lvl, a Cooltrainer-tier oversight)
 	pic_money JoyPic, 	   	   9900
 	pic_money JennyPic, 	   9900
 	pic_money JessieJamesPic,  6600 ; Jessie & James — 66/lvl (comedic recurring duo, above a regular Rocket; pic in gfx/trainers/jessiejames.pic)
