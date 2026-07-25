@@ -6384,10 +6384,14 @@ LoadEnemyMonData:
 	ld b, a
 	call BattleRandom
 .storeDVs
-	; v0.7 hard mode boss DV override. IsHardModeBossBattle gates on
-	; trainer-battle + boss class, so wild and transformed paths fall
-	; through unchanged. Boss enemies get $ff/$ff (DV=15 in all 5
-	; stats including HP, via the standard DV encoding).
+	; v0.7 hard mode boss DV override. Boss enemies get $ff/$ff (DV=15 in
+	; all 5 stats including HP, via the standard DV encoding).
+	; IsHardModeBossBattle gates on trainer-battle + boss class, so the WILD
+	; path falls through unchanged — but note the TRANSFORMED path does NOT:
+	; `bit TRANSFORMED / jr nz, .storeDVs` above lands right here, so a
+	; transformed boss mon has its restored wTransformedEnemyMonOriginalDVs
+	; overwritten with $ff/$ff too. That is harmless (it is still a boss
+	; buff), but it is not the "falls through unchanged" this used to claim.
 	ld c, a                ; cache atk/def DVs (preserved by the push/pop bc below)
 	push bc
 	call IsHardModeBossBattle

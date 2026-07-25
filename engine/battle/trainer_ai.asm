@@ -530,7 +530,13 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMoveType]
 	ld d, a
 	ld hl, wEnemyMonMoves  ; enemy moves
-	ld bc, NUM_MOVES + 1
+	; v0.7 FIX: this was `ld bc, NUM_MOVES + 1`, which loads the 16-bit value
+	; 5 — so b got the HIGH byte (0) and c the low byte, and the `ld c, $0`
+	; below then made both zero. The `dec b` at .loopMoves therefore wrapped
+	; b to $ff and the scan ran up to 255 entries instead of 4, reading clean
+	; past the 4-byte wEnemyMonMoves into the mon's DV and level bytes and
+	; calling ReadMove on whatever it found. Load b alone.
+	ld b, NUM_MOVES + 1
 	ld c, $0
 .loopMoves
 	dec b

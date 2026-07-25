@@ -162,8 +162,9 @@ ReadTrainerFinishUp:
 
 ; v0.7 hard mode helper. Called from .IterateTrainer (uniform-level
 ; trainer), .SpecialTrainer (per-mon level), and AddRivalMon (rival pool
-; engine), just BEFORE writing to wCurEnemyLVL. Adds 2 to A if Hard
+; engine), just BEFORE writing to wCurEnemyLVL. Adds 1 to A if Hard
 ; mode + boss class, capped at MAX_LEVEL. No-op otherwise.
+; (Was +2 originally; Forte lowered it to +1 on 2026-07-23.)
 ;
 ; Note: this also subtly bumps the prize money (wAmountMoneyWon is
 ; computed from the bumped wCurEnemyLVL down at ReadTrainerFinishUp). That's
@@ -199,7 +200,7 @@ HardModeBossLevelBump:
 	; v0.7 BUGFIX: was `farcall IsBossTrainerClass` with the class in a,
 	; but the farcall bank-switch (rst _Bankswitch) overwrites a with the
 	; destination bank id before the call lands, so the check always saw
-	; "$0F" and never matched — NO boss ever got the +2. IsBossTrainer
+	; "$0F" and never matched — NO boss ever got the bump. IsBossTrainer
 	; ClassW reloads wTrainerClass inside bank $0F, dodging the clobber.
 	farcall IsBossTrainerClassW
 	jr z, .noBump

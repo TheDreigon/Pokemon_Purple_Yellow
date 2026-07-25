@@ -1873,7 +1873,8 @@ wSavedSpriteScreenX:: db
 wSavedSpriteMapY:: db
 wSavedSpriteMapX:: db
 
-	ds 5
+	ds 4 ; v0.7: was 5 — one byte lent to the prize-list sentinel below, so the
+	     ; total WRAM size is unchanged and the hardened stack ORG stays put.
 
 wWhichPrize:: db
 
@@ -1891,6 +1892,12 @@ wPrize1:: db
 wPrize2:: db
 wPrize3:: db
 wPrize4:: db ; 4th prize slot for the Game Corner TM prize menu (not in vanilla)
+	ds 1 ; v0.7 FIX: room for the "@" sentinel. The prize list is filled with
+	     ; CopyString, which copies the terminator too, so 4 entries need 5
+	     ; bytes. Growing the menu from 3 to 4 prizes ate the pad that used to
+	     ; sit here and the sentinel then landed on wNoSprintSteps — merely
+	     ; opening a prize counter disabled the running shoes for 80 steps.
+	     ; This byte is borrowed from the anonymous pad above (net zero).
 
 wNoSprintSteps:: db
 

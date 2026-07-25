@@ -58,6 +58,15 @@ IsBossTrainerClass::
 ;
 ; Trashes: a, b, hl
 IsHardModeBossBattle::
+	; v0.7 FIX: never treat a LINK battle as a boss battle. cable_club.asm
+	; starts link fights with `ld a, OPP_RIVAL1 / ld [wCurOpponent], a`, so
+	; wTrainerClass becomes RIVAL1 — a boss class — and wIsInBattle is 2.
+	; Without this guard, a hard-mode player's link battles silently got the
+	; boss crit and accuracy edges, which both sides compute independently:
+	; guaranteed desync against the other Game Boy.
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .notHardModeBossBattle
 	ld a, [wDifficulty]
 	cp HARD_MODE
 	jr nz, .notHardModeBossBattle
