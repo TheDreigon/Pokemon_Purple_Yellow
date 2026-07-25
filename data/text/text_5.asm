@@ -124,6 +124,11 @@ _DugAHoleText::
 	line "dug a hole!"
 	prompt
 
+_GatheredMoonlightText::
+	text_start
+	line "gathered moonlight!"
+	prompt
+
 _BecameConfusedText::
 	text "<TARGET>"
 	line "became confused!"

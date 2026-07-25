@@ -1306,10 +1306,20 @@ ChargeMoveEffectText:
 	cp FLY
 	ld hl, FlewUpHighText
 	jr z, .gotText
+	; v0.7 FIX: MOONBLAST is a 5th charge move this hack added, and DIG is the
+	; unguarded fall-through default below — so Clefable charging Moonblast
+	; announced "dug a hole!". (Also reachable through Metronome.)
+	cp MOONBLAST
+	ld hl, GatheredMoonlightText
+	jr z, .gotText
 	cp DIG
 	ld hl, DugAHoleText
 .gotText
 	ret
+
+GatheredMoonlightText:
+	text_far _GatheredMoonlightText
+	text_end
 
 MadeWhirlwindText:
 	text_far _MadeWhirlwindText

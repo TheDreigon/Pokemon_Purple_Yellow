@@ -5492,7 +5492,31 @@ AdjustDamageForMoveType:
 	jr z, .sameTypeAttackBonus
 	cp c ; does the move type match type 2 of the attacker?
 	jr z, .sameTypeAttackBonus
+; v0.7: TRI_ATTACK is typed BIRD on purpose, so it is neutral against every
+; type (BIRD has no rows in the matchups table) — but that also means it can
+; never match Porygon's NORMAL/ELECTRIC and would never earn STAB. Grant it
+; here, keyed on move + species. Done this way rather than by giving Porygon
+; the BIRD type because a type is also DEFENSIVE: BIRD's blank matchup rows
+; would have flattened Porygon's own weaknesses and resistances.
+; Only `a` is touched — d/e still hold the defender's types for the
+; effectiveness walk below.
+	ldh a, [hWhoseTurn]
+	and a
+	jr nz, .triAttackEnemyTurn
+	ld a, [wPlayerMoveNum]
+	cp TRI_ATTACK
+	jr nz, .skipSameTypeAttackBonus
+	ld a, [wBattleMonSpecies2]
+	cp PORYGON
+	jr z, .sameTypeAttackBonus
 	jr .skipSameTypeAttackBonus
+.triAttackEnemyTurn
+	ld a, [wEnemyMoveNum]
+	cp TRI_ATTACK
+	jr nz, .skipSameTypeAttackBonus
+	ld a, [wEnemyMonSpecies2]
+	cp PORYGON
+	jr nz, .skipSameTypeAttackBonus
 .sameTypeAttackBonus
 ; if the move type matches one of the attacker's types
 	ld hl, wDamage + 1
@@ -5569,6 +5593,20 @@ MoveHitTest:
 	ld a, [wPlayerMovePower]
 	and a
 	jr nz, .skipEnemyMistCheck ; a damaging move is never Mist-blocked
+; v0.7 FIX: the chart says PSYCHIC_TYPE has NO_EFFECT against DARK, but a 0-BP
+; status move never reaches the damage path that applies the chart — so HYPNOSIS
+; and DISABLE were landing on Dark-types regardless. Enforced here, on the
+; 0-power path only, so damaging Psychic moves keep their own "doesn't affect".
+	ld a, [wPlayerMoveType]
+	cp PSYCHIC_TYPE
+	jr nz, .playerPsychicOk
+	ld a, [wEnemyMonType1]
+	cp DARK
+	jp z, .moveMissed
+	ld a, [wEnemyMonType2]
+	cp DARK
+	jp z, .moveMissed
+.playerPsychicOk
 ; this checks if the move effect is disallowed by mist
 	ld a, [wPlayerMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
@@ -5596,6 +5634,16 @@ MoveHitTest:
 	ld a, [wEnemyMovePower] ; same power gate as the player turn — see above
 	and a
 	jr nz, .skipPlayerMistCheck
+	ld a, [wEnemyMoveType] ; same PSYCHIC->DARK guard as the player turn
+	cp PSYCHIC_TYPE
+	jr nz, .enemyPsychicOk
+	ld a, [wBattleMonType1]
+	cp DARK
+	jp z, .moveMissed
+	ld a, [wBattleMonType2]
+	cp DARK
+	jp z, .moveMissed
+.enemyPsychicOk
 	ld a, [wEnemyMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
 	jr c, .skipPlayerMistCheck

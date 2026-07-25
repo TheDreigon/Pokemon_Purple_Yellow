@@ -18,7 +18,7 @@ PokemonMansion2F_Object:
 
 	def_object_events
 	object_event  3, 17, SPRITE_SUPER_NERD, WALK, LEFT_RIGHT, TEXT_POKEMONMANSION2F_SUPER_NERD, OPP_BURGLAR, 7
-	object_event 17,  2, SPRITE_OAK, STAY, RIGHT, TEXT_POKEMONMANSION2F_OAK, OPP_PROF_OAK, 8
+	object_event 17,  2, SPRITE_OAK, STAY, RIGHT, TEXT_POKEMONMANSION2F_OAK, OPP_PROF_OAK, 2 ; was 8, but ProfOakData only has 2 parties — the script sets wTrainerNo=2 itself, so this was dead metadata that would have loaded a garbage party if it ever reached wTrainerNo
 	object_event 28,  7, SPRITE_POKE_BALL, STAY, NONE, TEXT_POKEMONMANSION2F_CALCIUM, CALCIUM
 	object_event 18,  2, SPRITE_POKEDEX, STAY, NONE, TEXT_POKEMONMANSION2F_DIARY1
 	object_event  3, 22, SPRITE_POKEDEX, STAY, NONE, TEXT_POKEMONMANSION2F_DIARY2
