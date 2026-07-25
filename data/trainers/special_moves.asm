@@ -933,7 +933,9 @@ SpecialTrainerMoves:
 	db SCIENTIST, 9 ; Silph Co. 8F — prototype PORYGON ace (40 MAGNETON, 42 ELECTRODE, 45 PORYGON)
 	db 3, 1, TRI_ATTACK
 	db 3, 2, THUNDERBOLT
-	db 3, 3, ICE_BEAM
+	db 3, 3, PSYCHIC_M ; was ICE_BEAM — Porygon cannot learn it (not in its
+	                   ; levelup list nor its tmhm block); PSYCHIC_M is, and
+	                   ; still pairs with THUNDERBOLT for coverage
 	db 3, 4, RECOVER
 	db 0
 
