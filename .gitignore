@@ -32,6 +32,7 @@ pokeyellow_debug.map
 *.sgm
 *.srm
 *.sav
+*.ram
 *.rtc
 *.sn*
 *.sa*
