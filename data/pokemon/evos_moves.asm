@@ -3692,7 +3692,7 @@ PorygonEvosMoves:
 ; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L40 signature, RECOVER
 ; (file restore), MAGNET_BOMB L58 (shared signature with Magneton and Electabuzz),
 ; HYPER_BEAM L65 last. No NASTY_PLOT, no TRANSFORM (Ditto), no
-; CONVERSION (move no loner exists).
+; CONVERSION (move no longer exists).
 	db  6, HARDEN
 	db 10, CONFUSION
 	db 14, DISABLE
@@ -3706,15 +3706,16 @@ PorygonEvosMoves:
 	db 30, EXTRASENSORY
 	db 32, THUNDERBOLT
 	db 34, MIRROR_MOVE
+	db 35, ICY_PULSE
 	db 36, LIGHT_SCREEN
-	db 36, REFLECT
+	db 38, REFLECT
 	db 40, TRI_ATTACK
 	db 42, METRONOME
-	db 46, PSYBEAM
+	db 45, PSYBEAM
 	db 50, SUBSTITUTE
-	db 54, ICE_BEAM
+	db 55, ICE_BEAM
 	db 58, MAGNET_BOMB
-	db 60, PSYCHIC
+	db 60, PSYCHIC_M
 	db 62, THUNDER
 	db 65, HYPER_BEAM
 	db 0
