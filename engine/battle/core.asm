@@ -5557,6 +5557,18 @@ MoveHitTest:
 	and a
 	jr nz, .enemyTurn
 .playerTurn
+; v0.7 fix: Mist (Guard Spec.) may only block moves that do NOTHING but lower a
+; stat. This test keys on the effect id alone, and in vanilla every effect in
+; the blocked ranges belonged to a 0-BP status move — but the v0.5 "damage AND
+; lower a stat" redesign attached those same effect ids to 17 DAMAGING moves
+; (Hydro Pump, Fissure, Guillotine, Submission, Bulldoze, Sludge Wave, Acid,
+; Take Down, ...). Without this power gate, a mon behind Mist was flatly immune
+; to all of them: Prof. Oak carries Guard Spec. in his hard-mode bag, so once
+; he used it the player's Hydro Pump could never land again — and the player
+; could buy Guard Spec. in Celadon for the same free immunity.
+	ld a, [wPlayerMovePower]
+	and a
+	jr nz, .skipEnemyMistCheck ; a damaging move is never Mist-blocked
 ; this checks if the move effect is disallowed by mist
 	ld a, [wPlayerMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
@@ -5581,6 +5593,9 @@ MoveHitTest:
 	ret nz ; if so, always hit regardless of accuracy/evasion
 	jr .calcHitChance
 .enemyTurn
+	ld a, [wEnemyMovePower] ; same power gate as the player turn — see above
+	and a
+	jr nz, .skipPlayerMistCheck
 	ld a, [wEnemyMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
 	jr c, .skipPlayerMistCheck
