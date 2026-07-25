@@ -3689,28 +3689,33 @@ PorygonEvosMoves:
 	db 0
 ; Learnset
 ; Digital construct. Fun moves are natural levelup here (copy.exe/
-; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L46 signature, RECOVER
-; (file restore), MAGNET_BOMB L58 (shared signature with Magneton),
+; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L40 signature, RECOVER
+; (file restore), MAGNET_BOMB L58 (shared signature with Magneton and Electabuzz),
 ; HYPER_BEAM L65 last. No NASTY_PLOT, no TRANSFORM (Ditto), no
-; CONVERSION.
+; CONVERSION (move no loner exists).
+	db  6, HARDEN
 	db 10, CONFUSION
-	db 12, DISABLE
-	db 14, AGILITY
+	db 14, DISABLE
 	db 18, RECOVER
 	db 20, THUNDER_WAVE
 	db 22, SHOCK_WAVE
 	db 24, METAL_SOUND
 	db 26, MIMIC
 	db 28, FLASH
-	db 30, PSYBEAM
+	db 28, TELEPORT
+	db 30, EXTRASENSORY
+	db 32, THUNDERBOLT
 	db 34, MIRROR_MOVE
-	db 38, LIGHT_SCREEN
-	db 40, REFLECT
+	db 36, LIGHT_SCREEN
+	db 36, REFLECT
+	db 40, TRI_ATTACK
 	db 42, METRONOME
-	db 46, TRI_ATTACK
+	db 46, PSYBEAM
 	db 50, SUBSTITUTE
-	db 54, THUNDERBOLT
+	db 54, ICE_BEAM
 	db 58, MAGNET_BOMB
+	db 60, PSYCHIC
+	db 62, THUNDER
 	db 65, HYPER_BEAM
 	db 0
 
