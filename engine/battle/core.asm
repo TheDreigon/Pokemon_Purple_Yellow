@@ -4445,6 +4445,14 @@ GetDamageVarsForPlayerAttack:
 	and a
 	ld d, a ; d = move power
 	ret z ; return if move power is zero
+; v0.7: TRI_ATTACK is typed BIRD so that it is neutral against every type, but
+; BIRD sits in the physical half of the type table — which would resolve
+; Porygon's signature off its Attack (75) instead of its Special (100) and let
+; the opponent's Reflect halve it instead of Light Screen. Force it special.
+; This is a move-number override precisely so the type table stays untouched.
+	ld a, [wPlayerMoveNum]
+	cp TRI_ATTACK
+	jr z, .specialAttack
 	ld a, [hl] ; a = [wPlayerMoveType]
 	cp SPECIAL ; types >= SPECIAL are all special
 	jr nc, .specialAttack
@@ -4558,6 +4566,9 @@ GetDamageVarsForEnemyAttack:
 	ld d, a ; d = move power
 	and a
 	ret z ; return if move power is zero
+	ld a, [wEnemyMoveNum] ; TRI_ATTACK override — see the player-side note
+	cp TRI_ATTACK
+	jr z, .specialAttack
 	ld a, [hl] ; a = [wEnemyMoveType]
 	cp SPECIAL ; types >= SPECIAL are all special
 	jr nc, .specialAttack

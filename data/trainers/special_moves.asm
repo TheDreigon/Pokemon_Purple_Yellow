@@ -931,12 +931,13 @@ SpecialTrainerMoves:
 	db 0
 
 	db SCIENTIST, 9 ; Silph Co. 8F — prototype PORYGON ace (40 MAGNETON, 42 ELECTRODE, 45 PORYGON)
+	; Forte's set. All four are level-up moves the L45 Porygon already has
+	; naturally (TRI_ATTACK 40, SHOCK_WAVE 22, ICY_PULSE 35, EXTRASENSORY 30),
+	; so this is legal without relying on the learns-later allowance.
 	db 3, 1, TRI_ATTACK
-	db 3, 2, THUNDERBOLT
-	db 3, 3, PSYCHIC_M ; was ICE_BEAM — Porygon cannot learn it (not in its
-	                   ; levelup list nor its tmhm block); PSYCHIC_M is, and
-	                   ; still pairs with THUNDERBOLT for coverage
-	db 3, 4, RECOVER
+	db 3, 2, SHOCK_WAVE
+	db 3, 3, ICY_PULSE
+	db 3, 4, EXTRASENSORY
 	db 0
 
 	db -1 ; end
