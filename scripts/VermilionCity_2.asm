@@ -11,6 +11,8 @@ VermilionCityPrintOfficerJennyText::
 .asm_f1a24
 	ld hl, OfficerJennyText2
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would auto-accept the SQUIRTLE gift
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
