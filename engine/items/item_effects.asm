@@ -2268,8 +2268,13 @@ ItemUsePPRestore:
 
 .usePPItem
 	ld a, [wPPRestoreItem]
-	cp PP_MAX
-	jp z, .usePPMax ; if PP Max (Gen 3 QoL: bumps move to max PP Ups in one go)
+; v0.7 FIX: the PP_MAX check used to sit HERE, before the move-selection menu
+; below — but .usePPMax needs hl to point at the CHOSEN move, and hl only
+; becomes valid after GetSelectedMoveOffset. Intercepted this early it inherited
+; whatever DisplayPartyMenu had left in hl, so it wrote PP-Up bits into party
+; mon 1's experience/stat-exp and then hard-locked on the second use. The check
+; now lives just after `pop hl` further down. PP_MAX ($32) is below ELIXIR
+; ($52), so it correctly falls through to the move-selection path from here.
 	cp ELIXIR
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02
@@ -2297,6 +2302,8 @@ ItemUsePPRestore:
 	call CopyToStringBuffer
 	pop hl
 	ld a, [wPPRestoreItem]
+	cp PP_MAX
+	jp z, .usePPMax ; hl now points at the chosen move, which .usePPMax requires
 	cp ETHER
 	jp nc, .useEther ; if Ether or Max Ether (jp not jr: PP_MAX expansion pushed .useEther out of jr range)
 .usePPUp

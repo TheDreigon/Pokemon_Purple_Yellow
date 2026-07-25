@@ -2078,8 +2078,34 @@ SpecialUp1HealEffect:
 	; Suppress the move-anim replay inside HealEffect_'s .playAnim.
 	ld a, 1
 	ld [wMoveDidntMiss], a
+; v0.7 FIX: HealEffect_'s full-HP guard runs before its per-move dispatch and
+; lands on .failed, which prints "But, it failed!" UNCONDITIONALLY (it calls
+; PrintButItFailedText_, not the conditional variant, so the wMoveDidntMiss set
+; just above is ignored). At full HP that produced "<MON>'s SPECIAL rose!"
+; immediately followed by "But, it failed!" for the same move — even though the
+; stat really did go up. Skip the heal leg when the user is already at max HP.
+; Battle Core is at its size limit, so this stays deliberately compact: the
+; effect pointer rides the stack rather than being re-derived.
 	push de
+	ldh a, [hWhoseTurn]
+	and a
+	ld de, wBattleMonHP
+	ld hl, wBattleMonMaxHP
+	jr z, .growthGotHP
+	ld de, wEnemyMonHP
+	ld hl, wEnemyMonMaxHP
+.growthGotHP
+	ld a, [de]                      ; the same 16-bit compare HealEffect_ uses
+	cp [hl]
+	inc de
+	inc hl
+	jr nz, .growthDoHeal
+	ld a, [de]
+	sbc [hl]
+	jr z, .growthSkipHeal           ; already at max HP
+.growthDoHeal
 	callfar HealEffect_             ; /4 heal via Growth branch
+.growthSkipHeal
 	pop de
 	ld a, SPECIAL_UP1_HEAL_EFFECT
 	ld [de], a

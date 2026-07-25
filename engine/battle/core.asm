@@ -960,7 +960,7 @@ TrainerBattleVictory:
 ; list) instead of wGymLeaderNo, which only ever covered the 8 leaders' first
 ; fights — the Elite Four, Oak, Forte, the semi-bosses and every leader
 ; REMATCH were all falling through to the plain trainer jingle.
-	call IsGrandVictoryClass
+	farcall IsGrandVictoryClass
 	ld b, MUSIC_DEFEATED_TRAINER ; ld doesn't touch the Z flag above
 	jr z, .fanfareChosen
 	ld b, MUSIC_DEFEATED_GYM_LEADER
@@ -5602,7 +5602,7 @@ MoveHitTest:
 	jr nz, .playerPsychicOk
 	ld a, [wEnemyMonType1]
 	cp DARK
-	jp z, .moveMissed
+	jp z, .moveMissed ; jp, not jr: .moveMissed is ~160 bytes ahead from here
 	ld a, [wEnemyMonType2]
 	cp DARK
 	jp z, .moveMissed
@@ -5639,10 +5639,10 @@ MoveHitTest:
 	jr nz, .enemyPsychicOk
 	ld a, [wBattleMonType1]
 	cp DARK
-	jp z, .moveMissed
+	jr z, .moveMissed
 	ld a, [wBattleMonType2]
 	cp DARK
-	jp z, .moveMissed
+	jr z, .moveMissed
 .enemyPsychicOk
 	ld a, [wEnemyMoveEffect]
 	cp ATTACK_DOWN1_EFFECT

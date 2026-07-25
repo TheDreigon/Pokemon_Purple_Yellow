@@ -111,7 +111,15 @@ DEF NUM_ITEMS EQU const_value - 1
 	const FLOOR_B4F     ; $61
 DEF NUM_FLOORS EQU const_value - 1 - NUM_ITEMS
 
-	const_next $C4
+; v0.7 FIX: this was $C4, which put TM01 at $C9 (vanilla's value) and therefore
+; the 55th TM at $FF — the byte EVERY item list uses as its terminator. TM55
+; (OUTRAGE) was consequently unusable: the Indigo post-game mart truncated at
+; it, and it could not be held in the bag. Starting one byte lower puts the last
+; TM at $FE. The ids $62-$C3 are an unused gap, so this only consumes one of
+; them; every reference to an HM/TM is symbolic, so nothing else moves.
+; (Dev note: this shifts every HM/TM item id by one, so TMs in a pre-existing
+; save file will read as the neighbouring TM.)
+	const_next $C3
 
 ; HMs are defined before TMs, so the actual number of TM definitions
 ; is not yet available. The TM quantity is hard-coded here and must
@@ -211,8 +219,11 @@ DEF TM01 EQU const_value
 	add_tm PETAL_DANCE,   ; $FC  TM52
 	add_tm DOUBLE_EDGE,   ; $FD  TM53
 	add_tm THRASH,        ; $FE  TM54
-	add_tm OUTRAGE,       ; $FF  TM55
+	add_tm OUTRAGE,       ; $FE  TM55 (last usable id — see the ASSERT below)
 ASSERT NUM_TMS == const_value - TM01, "NUM_TMS ({d:NUM_TMS}) does not match the number of add_tm definitions"
+; Item lists are terminated with $ff, so no item may ever BE $ff — a TM sitting
+; there is silently unobtainable and truncates any mart/bag list containing it.
+ASSERT TM01 + NUM_TMS - 1 < $ff, "the last TM collides with the $ff item-list terminator: lower the const_next above"
 
 DEF NUM_TM_HM EQU NUM_TMS + NUM_HMS
 
