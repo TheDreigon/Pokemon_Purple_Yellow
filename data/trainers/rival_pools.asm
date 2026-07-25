@@ -29,7 +29,7 @@ RivalBattle0: ; Lab (Oak's Lab)
 
 RivalBattle1: ; Route 22-1
 	db 3, 1, 8, 0 ; team size, guaranteed, entries, flags
-	db EEVEE, 9, AGILITY, TACKLE, CHARM, SAND_ATTACK
+	db EEVEE, 9, QUICK_ATTACK, TACKLE, CHARM, SAND_ATTACK
 	db PIDGEY, 8, PECK, TACKLE, SAND_ATTACK, GROWL
 	db RATTATA, 8, QUICK_ATTACK, BITE, POISON_STING, AGILITY
 	db SPEAROW, 8, PECK, TACKLE, LEER, SAND_ATTACK

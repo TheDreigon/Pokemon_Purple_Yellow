@@ -3589,7 +3589,8 @@ EeveeEvosMoves:
 ; evolutions keep it). CHARM = cute fox charm, shared with all 4 forms.
 	db  4, TAIL_WHIP
 	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+	db  9, QUICK_ATTACK ; L10 -> L9 (Forte 2026-07-25): lets the rival's L9 Eevee
+	                    ; carry it legally, raising that level's power cap to 50
 	db 14, BITE
 	db 18, HEADBUTT
 	db 20, CHARM
