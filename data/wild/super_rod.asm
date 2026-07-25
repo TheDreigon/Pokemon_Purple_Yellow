@@ -66,6 +66,16 @@ CheckMapForFishingMon:
 	cp c
 	inc de
 	jr z, .notfound ; already added this to buffer
+; v0.7 fix: same 30-byte wBuffer guard as CheckMapForMon. The four shortcut
+; species above match on every one of the 31 rod maps, so without this the
+; Pokedex AREA page wrote past the buffer and corrupted engine state.
+	ld a, d
+	cp HIGH(wBuffer + 29)
+	jr c, .hasRoom
+	ld a, e
+	cp LOW(wBuffer + 29)
+	jr nc, .notfound
+.hasRoom
 	ld a, c ; found so add map id to list
 	ld [de], a
 	inc de

@@ -3272,6 +3272,20 @@ CheckMapForMon:
 	ld a, [wd11e]
 	cp [hl]
 	jr nz, .nextEntry
+; v0.7 fix: wBuffer is only 30 bytes and FindWildLocationsOfMon appends an $ff
+; terminator after us, so the last entry may not pass wBuffer+28. Krabby,
+; Poliwag, Horsea and Goldeen are matched on EVERY Super Rod map (see the
+; shortcut in data/wild/super_rod.asm), which overran the buffer by up to 13
+; bytes and silently clobbered live engine state from wAnimSoundID onward every
+; time their Pokedex AREA page was opened. Stop writing once it is full; the
+; AREA screen is sprite-limited anyway, so a truncated list looks identical.
+	ld a, d
+	cp HIGH(wBuffer + 29)
+	jr c, .hasRoom
+	ld a, e
+	cp LOW(wBuffer + 29)
+	jr nc, .nextEntry
+.hasRoom
 	ld a, c
 	ld [de], a
 	inc de
@@ -3372,15 +3386,20 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	ld [de], a
 	inc de
 	ret
+; These four were `jr z` in vanilla, which only worked because the Z flag from
+; the caller's `cp` was still set — making each one silently dependent on its
+; position in this chain. `.addCeladon` is the last, so a Z-clear entry there
+; would have fallen straight into DrawBadges. Unconditional `jr` is the same
+; two bytes and behaves identically today, but can't rot.
 .addSaffron
 	ld b, SAFFRON_CITY
-	jr z, .addEncounter
+	jr .addEncounter
 .addPowerPlant
 	ld b, POWER_PLANT
-	jr z, .addEncounter
+	jr .addEncounter
 .addCinnabarIsland
 	ld b, CINNABAR_ISLAND
-	jr z, .addEncounter
+	jr .addEncounter
 .addCeladon
 	ld b, CELADON_CITY
-	jr z, .addEncounter
+	jr .addEncounter
