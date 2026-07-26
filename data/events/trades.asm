@@ -8,12 +8,12 @@ TradeMons:
 	; from the Japanese Blue trades, which used species that evolve.
 	; Japanese Red and Green used TRADE_DIALOGSET_CASUAL, and had
 	; the same species as English Red and Blue.
-	db LICKITUNG,  DUGTRIO,  TRADE_DIALOGSET_TREMOR,    "TREMOR@@@@@"
+	db LICKITUNG,  DUGTRIO,  TRADE_DIALOGSET_TREMOR,   "TREMOR@@@@@"
 	db CLEFAIRY,   MR_MIME,  TRADE_DIALOGSET_MILES,    "MILES@@@@@@"
 	db SCYTHER,    AERODACTYL, TRADE_DIALOGSET_PTERA,  "PTERA@@@@@@"
 	db TANGELA,    PARASECT, TRADE_DIALOGSET_SPORE,    "SPORE@@@@@@"
-	db POLIWHIRL,  JYNX,     TRADE_DIALOGSET_LOLA, "LOLA@@@@@@@"
-	db GOLDUCK,    RHYDON,   TRADE_DIALOGSET_BASALT, "BASALT@@@@@"
+	db POLIWHIRL,  JYNX,     TRADE_DIALOGSET_LOLA,     "LOLA@@@@@@@"
+	db GOLDUCK,    RHYDON,   TRADE_DIALOGSET_BASALT,   "BASALT@@@@@"
 	db PINSIR,     GYARADOS, TRADE_DIALOGSET_MOBY,     "MOBY@@@@@@@"
-	db PIDGEOTTO,  FARFETCHD, TRADE_DIALOGSET_DUX,    "DUX@@@@@@@@"
+	db PIDGEOTTO,  FARFETCHD, TRADE_DIALOGSET_DUX,     "DUX@@@@@@@@"
 	assert_table_length NUM_NPC_TRADES

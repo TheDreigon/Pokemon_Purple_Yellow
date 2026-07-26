@@ -102,8 +102,8 @@ YoungsterData:
 BugCatcherData:
 ; Viridian Forest
 	db 6, CATERPIE, WEEDLE, CATERPIE, 0
-	db $FF, 8, METAPOD, 6, CATERPIE, 8, KAKUNA, 0
-	db $FF, 8, PINSIR, 9, METAPOD, 0
+	db $FF, 6, ODDISH, 8, KAKUNA, 8, METAPOD, 0
+	db $FF, 7, WEEDLE, 9, VENONAT, 0
 ; Route 3
 	db $FF, 8, METAPOD, 8, KAKUNA, 11, BUTTERFREE, 0
 	db 9, WEEDLE, KAKUNA, CATERPIE, METAPOD, 0
