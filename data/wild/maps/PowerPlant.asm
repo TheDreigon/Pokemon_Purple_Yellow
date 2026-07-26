@@ -8,7 +8,7 @@ PowerPlantWildMons:
 	db 33, GRIMER
 	db 37, MUK
 	db 38, ELECTABUZZ
-	db 39, ELECTABUZZ
+	db 30, PIKACHU
 	db 33, RAICHU
 	end_grass_wildmons
 
