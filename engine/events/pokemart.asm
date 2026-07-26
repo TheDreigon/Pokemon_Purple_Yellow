@@ -252,8 +252,11 @@ CapQuantityByPrice:
 	ldh a, [hItemPrice] ; top BCD byte of the 3-byte price
 	and a
 	ret z ; under 10000: 99 of them always fit, leave the cap alone
-	cp $10
-	jr nc, .singleUnitOnly ; 100000 or more: one at a time
+	cp $0a
+	jr nc, .singleUnitOnly ; 100000 or more: one at a time. $0a-$0f cannot come
+	                       ; out of a BCD price, but bounding here rather than
+	                       ; at $10 keeps the table lookup below provably
+	                       ; in-range for every possible byte value.
 	ld c, a
 	ld b, 0
 	ld hl, .capForTopDigit
