@@ -3556,26 +3556,28 @@ LaprasEvosMoves:
 ; ICE ladder strictly scaled by power: ICY_WIND < FROST_BREATH <
 ; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING after L30.
 ; STRENGTH = hauls passengers; SURF = THE ferry move. No THRASH/
-; OUTRAGE (docile).
+; OUTRAGE (docile) — DRAGON_BREATH L65 is the sea-dragon showing
+; through at the very top, and it is the last move it learns.
+	db 10, TACKLE
 	db 12, ICY_WIND
 	db 14, BUBBLEBEAM
 	db 16, FAIRY_WIND
-	db 18, BODY_SLAM
-	db 20, FROST_BREATH
-	db 22, ICY_PULSE
-	db 26, CONFUSE_RAY
-	db 28, CHARM
+	db 18, CHARM
+	db 20, BODY_SLAM
+	db 23, FROST_BREATH
+	db 26, ICY_PULSE
 	db 30, SING
-	db 32, BIDE
-	db 34, WATER_PULSE
-	db 38, AURORA_BEAM
-	db 42, ICE_BEAM
-	db 46, STRENGTH
-	db 50, SURF
-	db 54, BLIZZARD
-	db 58, RECOVER
-	db 62, HYDRO_PUMP
-	db 65, DRAGON_BREATH
+	db 30, WATER_PULSE
+	db 33, AURORA_BEAM
+	db 36, EXTRASENSORY
+	db 40, SURF
+	db 40, RECOVER
+	db 45, ICE_BEAM
+	db 50, HEAVY_SLAM
+	db 53, BLIZZARD
+	db 56, HYDRO_PUMP
+	db 60, DRAGON_BREATH
+	db 65, PSYCHIC_M
 	db 0
 
 DittoEvosMoves:
@@ -3623,7 +3625,7 @@ VaporeonEvosMoves:
 	db 18, FAIRY_WIND
 	db 20, CHARM
 	db 23, BUBBLEBEAM
-	db 24, HARDEN
+	db 23, HARDEN
 	db 26, WATER_PULSE
 	db 30, ICY_PULSE
 	db 33, BODY_SLAM
@@ -3669,9 +3671,11 @@ FlareonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Fire fox. Eevee shared (CHARM included, TAKE_DOWN kept — only Eevee
-; lacks it). IGNITE early L26 (basic burn utility), SWORDS_DANCE late
-; (peak claw-buff before final fire).
+; Fire fox. Eevee shared (CHARM included) and the only eeveelution that
+; still learns TAKE_DOWN (L40). IGNITE early L23 (basic burn utility),
+; SWORDS_DANCE late (peak claw-buff before the final fire). No SLASH in
+; the level-up any more; CUT stays reachable as an HM. LIGHT_SCREEN +
+; REFLECT paired at L60: shared eeveelution capstone (energy shields).
 	db  3, TAIL_WHIP
 	db  6, SAND_ATTACK
 	db  9, QUICK_ATTACK
