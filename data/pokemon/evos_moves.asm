@@ -1623,21 +1623,19 @@ GrowlitheEvosMoves:
 ; Intimidation ladder GROWL -> FIERCE_ROAR -> INTIMIDATE. PLAY_ROUGH fits
 ; a canine's rough bite/claw; no SUBMISSION (a canine doesn't wrestle) and
 ; no rock move (no earth affinity).
-	db  7, LEER
-	db  9, QUICK_ATTACK
+	db  8, QUICK_ATTACK
 	db 11, HONE_CLAWS
 	db 14, EMBER
 	db 16, FIERCE_ROAR
 	db 18, FOCUS_ENERGY
 	db 22, FLAME_CHARGE
 	db 24, CUT
-	db 26, CRUNCH
-	db 28, SLASH
-	db 32, FLAMETHROWER
-	db 40, TAKE_DOWN
+	db 26, SLASH
+	db 28, CRUNCH
+	db 36, FLAMETHROWER
 	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
-	db 55, FIRE_BLAST
+	db 60, FIRE_BLAST
 	db 0
 
 ArcanineEvosMoves:
@@ -1647,24 +1645,24 @@ ArcanineEvosMoves:
 ; Apex alpha canine. Shares Growlithe's backbone, plus exclusives: AGILITY,
 ; STRENGTH (natural HM04) and SWORDS_DANCE. No EXTREMESPEED (canine isn't on
 ; the signature list) and no OUTRAGE (not Dragon-coded).
-	db  7, LEER
-	db  9, QUICK_ATTACK
+	db  8, QUICK_ATTACK
 	db 11, HONE_CLAWS
 	db 14, EMBER
 	db 16, FIERCE_ROAR
 	db 18, FOCUS_ENERGY
 	db 22, FLAME_CHARGE
 	db 24, CUT
-	db 26, CRUNCH
-	db 28, SLASH
-	db 32, FLAMETHROWER
+	db 26, SLASH
+	db 28, CRUNCH
+	db 32, TAKE_DOWN
+	db 36, FLAMETHROWER
 	db 38, STRENGTH
-	db 40, TAKE_DOWN
-	db 42, AGILITY
+	db 41, AGILITY
 	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
 	db 52, SWORDS_DANCE
-	db 55, FIRE_BLAST
+	db 56, SEISMIC_TOSS
+	db 60, FIRE_BLAST
 	db 0
 
 PoliwagEvosMoves:
