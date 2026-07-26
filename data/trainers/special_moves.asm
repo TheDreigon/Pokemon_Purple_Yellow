@@ -850,39 +850,39 @@ SpecialTrainerMoves:
 
 
 	db SMITH, 1
-	db 1, 1, DRILL_PECK
-	db 1, 3, FIRE_BLAST
-	db 2, 1, MEGA_DRAIN
+	db 1, 1, AERIAL_ACE
+	db 1, 3, CRUNCH
+	db 2, 1, SPIRIT_DRAIN
 	db 2, 3, PSYCHIC_M
-	db 2, 4, THUNDERBOLT
+	db 2, 4, DARK_PULSE
 	db 3, 1, SURF
-	db 3, 4, SWORDS_DANCE
-	db 4, 1, THUNDER_WAVE
-	db 5, 1, BLIZZARD
-	db 5, 2, FIRE_BLAST
-	db 5, 3, HYPER_BEAM
+	db 3, 4, NEUROTOXIN
+	db 4, 1, PSYCHIC_BIND
+	db 5, 1, ROCK_SLIDE
+	db 5, 2, THRASH
+	db 5, 3, OUTRAGE
 	db 5, 4, EARTHQUAKE
 	db 6, 1, RECOVER
-	db 6, 3, SURF
+	db 6, 3, ICE_BEAM
 	db 6, 4, THUNDERBOLT
 	db 0
 
 	db CRAIG, 1; JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
 	db 1, 2, THUNDERBOLT
-	db 1, 4, DIG
-	db 2, 1, DRILL_PECK
-	db 2, 3, EARTHQUAKE
+	db 1, 4, EXTREMESPEED
+	db 2, 1, CRUNCH
+	db 2, 3, DRAGON_BREATH
 	db 3, 1, MEGA_DRAIN
-	db 3, 2, SOFTBOILED
-	db 3, 4, REFLECT
-	db 4, 1, SURF
-	db 4, 2, PSYCHIC_M
-	db 4, 4, AMNESIA
+	db 3, 2, LEECH_SEED
+	db 3, 4, EARTHQUAKE
+	db 4, 1, HEAVY_SLAM
+	db 4, 2, EARTHQUAKE
+	db 4, 4, BULK_UP
 	db 5, 2, EXPLOSION
 	db 5, 3, REFLECT
-	db 6, 1, HYPER_BEAM
-	db 6, 2, DIG
-	db 6, 4, REFLECT
+	db 6, 1, FIRE_BLAST
+	db 6, 2, CRUNCH
+	db 6, 4, PLAY_ROUGH
 	db 0
 
 	db WEEBRA, 1 ; SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
@@ -891,13 +891,13 @@ SpecialTrainerMoves:
 	db 2, 1, PSYCHIC_M
 	db 3, 1, FLY
 	db 3, 2, CUT
-	db 3, 4, HYPER_BEAM
-	db 4, 1, TOXIC
-	db 4, 2, REFLECT
+	db 3, 4, FIRE_BLAST
+	db 4, 1, HYDRO_PUMP
+	db 4, 2, RECOVER
 	db 4, 3, ICE_BEAM
 	db 5, 1, BODY_SLAM
 	db 6, 1, SEISMIC_TOSS
-	db 6, 2, HYPER_BEAM
+	db 6, 2, SUBMISSION
 	db 6, 3, METRONOME
 	db 6, 4, EARTHQUAKE
 	db 0
