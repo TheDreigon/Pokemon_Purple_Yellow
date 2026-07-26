@@ -761,19 +761,23 @@ PikachuEvosMoves:
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
 	db 10, QUICK_ATTACK
-	db 13, THUNDERSHOCK
-	db 15, CHARM
-	db 17, THUNDER_WAVE
-	db 21, SHOCK_WAVE
-	db 23, VOLT_TACKLE
-	db 25, AGILITY
+	db 12, THUNDERSHOCK
+	db 15, THUNDER_WAVE
+	db 18, FAIRY_WIND
+	db 20, CHARM
+	db 22, SHOCK_WAVE
+	db 24, AGILITY
+	db 26, VOLT_TACKLE
 	db 28, FLASH
-	db 30, IRON_TAIL
+	db 30, FAINT_ATTACK
+	db 33, IRON_TAIL
 	db 36, THUNDERBOLT
-	db 42, BODY_SLAM
-	db 48, EXTREMESPEED
-	db 55, THUNDER
-	db 60, PLAY_ROUGH
+	db 40, BODY_SLAM
+	db 45, EXTREMESPEED
+	db 50, PLAY_ROUGH
+	db 54, FLAME_CHARGE
+	db 56, THUNDER
+	db 60, DOUBLE_EDGE
 	db 0
 
 RaichuEvosMoves:
@@ -785,20 +789,23 @@ RaichuEvosMoves:
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
 	db 10, QUICK_ATTACK
-	db 13, THUNDERSHOCK
-	db 15, CHARM
-	db 17, THUNDER_WAVE
-	db 21, SHOCK_WAVE
-	db 23, VOLT_TACKLE
-	db 25, AGILITY
+	db 12, THUNDERSHOCK
+	db 15, THUNDER_WAVE
+	db 18, FAIRY_WIND
+	db 20, CHARM
+	db 22, SHOCK_WAVE
+	db 24, AGILITY
+	db 26, VOLT_TACKLE
 	db 28, FLASH
-	db 30, IRON_TAIL
+	db 30, FAINT_ATTACK
+	db 33, IRON_TAIL
 	db 36, THUNDERBOLT
-	db 42, BODY_SLAM
-	db 48, EXTREMESPEED
-	db 52, DOUBLE_EDGE
-	db 55, THUNDER
-	db 60, PLAY_ROUGH
+	db 40, BODY_SLAM
+	db 45, EXTREMESPEED
+	db 50, PLAY_ROUGH
+	db 54, FLAME_CHARGE
+	db 56, THUNDER
+	db 60, DOUBLE_EDGE
 	db 0
 
 SandshrewEvosMoves:
@@ -3568,6 +3575,7 @@ LaprasEvosMoves:
 	db 54, BLIZZARD
 	db 58, RECOVER
 	db 62, HYDRO_PUMP
+	db 65, DRAGON_BREATH
 	db 0
 
 DittoEvosMoves:
@@ -3587,16 +3595,15 @@ EeveeEvosMoves:
 ; Learnset
 ; Normal-only base. No TAKE_DOWN (only Eevee lacks it; the 3
 ; evolutions keep it). CHARM = cute fox charm, shared with all 4 forms.
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db  9, QUICK_ATTACK ; L10 -> L9 (Forte 2026-07-25): lets the rival's L9 Eevee
-	                    ; carry it legally, raising that level's power cap to 50
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 18, FAIRY_WIND
 	db 20, CHARM
 	db 30, BODY_SLAM
-	db 36, PLAY_ROUGH
-	db 40, DOUBLE_EDGE
+	db 40, PLAY_ROUGH
+	db 50, METRONOME
 	db 0
 
 VaporeonEvosMoves:
@@ -3608,25 +3615,26 @@ VaporeonEvosMoves:
 ; body reforms). HARDEN L30 (weak-move guideline), RECOVER L32.
 ; ICE_BEAM, not light wind — its water-mastery deserves a real ice
 ; attack.
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 16, WATER_GUN
+	db 18, FAIRY_WIND
 	db 20, CHARM
-	db 22, WATER_GUN
-	db 24, TAKE_DOWN
-	db 26, BUBBLEBEAM
-	db 28, WATER_PULSE
-	db 30, BODY_SLAM
-	db 30, HARDEN
-	db 32, RECOVER
-	db 36, PLAY_ROUGH
+	db 23, BUBBLEBEAM
+	db 24, HARDEN
+	db 26, WATER_PULSE
+	db 30, ICY_PULSE
+	db 33, BODY_SLAM
+	db 36, RECOVER
 	db 40, AURORA_BEAM
-	db 44, SURF
-	db 48, ICE_BEAM
-	db 54, DOUBLE_EDGE
-	db 60, HYDRO_PUMP
+	db 43, SURF
+	db 46, PLAY_ROUGH
+	db 50, ICE_BEAM
+	db 55, HYDRO_PUMP
+	db 60, LIGHT_SCREEN
+	db 60, REFLECT
 	db 0
 
 JolteonEvosMoves:
@@ -3636,25 +3644,25 @@ JolteonEvosMoves:
 ; Electric fox, fastest Eeveelution. Eevee shared + electric kit +
 ; METAL_SOUND (electric sparks = metallic-sound debuff). AGILITY
 ; natural. No DOUBLE_TEAM.
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 16, THUNDERSHOCK
+	db 18, FAIRY_WIND
 	db 20, CHARM
-	db 22, THUNDERSHOCK
-	db 24, TAKE_DOWN
-	db 26, THUNDER_WAVE
-	db 28, SHOCK_WAVE
-	db 28, CUT
-	db 30, SLASH
-	db 32, AGILITY
-	db 36, PLAY_ROUGH
-	db 40, METAL_SOUND
-	db 44, THUNDERBOLT
-	db 48, EXTREMESPEED
-	db 54, DOUBLE_EDGE
-	db 60, THUNDER
+	db 23, THUNDER_WAVE
+	db 26, SHOCK_WAVE
+	db 30, AGILITY
+	db 33, SLASH
+	db 36, METAL_SOUND
+	db 40, EXTREMESPEED
+	db 43, THUNDERBOLT
+	db 46, PLAY_ROUGH
+	db 50, VOLT_TACKLE
+	db 55, THUNDER
+	db 60, LIGHT_SCREEN
+	db 60, REFLECT
 	db 0
 
 FlareonEvosMoves:
@@ -3664,25 +3672,25 @@ FlareonEvosMoves:
 ; Fire fox. Eevee shared (CHARM included, TAKE_DOWN kept — only Eevee
 ; lacks it). IGNITE early L26 (basic burn utility), SWORDS_DANCE late
 ; (peak claw-buff before final fire).
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 16, EMBER
+	db 18, FAIRY_WIND
 	db 20, CHARM
-	db 22, EMBER
-	db 24, TAKE_DOWN
-	db 26, IGNITE
-	db 28, FLAME_CHARGE
-	db 28, CUT
-	db 30, SLASH
-	db 32, FAINT_ATTACK
-	db 36, PLAY_ROUGH
-	db 40, FLAME_BURST
-	db 44, FLAMETHROWER
-	db 48, SWORDS_DANCE
-	db 54, DOUBLE_EDGE
-	db 60, FIRE_BLAST
+	db 23, IGNITE
+	db 26, FLAME_BURST
+	db 30, FAINT_ATTACK
+	db 33, FLAME_CHARGE
+	db 36, BODY_SLAM
+	db 40, TAKE_DOWN
+	db 43, FLAMETHROWER
+	db 46, PLAY_ROUGH
+	db 50, SWORDS_DANCE
+	db 55, FIRE_BLAST
+	db 60, LIGHT_SCREEN
+	db 60, REFLECT
 	db 0
 
 PorygonEvosMoves:
