@@ -1,15 +1,15 @@
 PowerPlantWildMons:
 	def_grass_wildmons 10 ; encounter rate
 	db 30, MAGNEMITE
-	db 33, VOLTORB
-	db 35, MAGNETON
+	db 30, VOLTORB
 	db 33, MAGNETON
-	db 37, ELECTRODE
-	db 33, GRIMER
-	db 37, MUK
-	db 38, ELECTABUZZ
-	db 30, PIKACHU
-	db 33, RAICHU
+	db 33, ELECTRODE
+	db 36, ELECTABUZZ
+	db 31, GRIMER
+	db 34, MUK
+	db 35, KADABRA
+	db 31, PIKACHU
+	db 34, RAICHU
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
