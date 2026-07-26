@@ -1041,6 +1041,41 @@ OaksLabRivalTakesText5:
 	text_far _OaksLabRivalTakesText5
 	text_end
 
+; v0.7: the partner Pikachu is handed out with PERFECT DVs.
+;
+; Yellow forces Pikachu on you, it cannot evolve, and it is statistically the
+; weakest starter in the series - so a random DV roll on top of all that made
+; the one Pokemon you are stuck with for the whole game a lottery. It is the
+; only mon in the game that gets this.
+;
+; AddPartyMon has ALREADY rolled random DVs and computed the stats from them,
+; so overwriting the DVs alone would leave the mon carrying the old numbers -
+; exactly the desync the Hard-mode boss DV override had to fix. The stats are
+; therefore recomputed here with the same idiom _AddPartyMon uses
+; (.calcFreshStats), and current HP is set to the new max, because AddPartyMon
+; wrote current HP from the pre-override stats.
+;
+; Inputs it relies on, all still live at the call site: wCurEnemyLVL is 5 (set
+; just above) and wMonHeader still holds Pikachu's base stats from AddPartyMon.
+; b = 0 means "no stat experience", which is true for a fresh gift.
+MaxOutStarterPikachuDVs:
+	ld hl, wPartyMon1DVs
+	ld a, $ff
+	ld [hli], a
+	ld [hl], a
+	ld hl, wPartyMon1HPExp - 1   ; CalcStats derives the DV pointer from this
+	ld de, wPartyMon1Stats
+	ld b, $0
+	call CalcStats
+	ld hl, wPartyMon1MaxHP
+	ld de, wPartyMon1HP
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hl]
+	ld [de], a
+	ret
+
 OaksLabPlayerReceivedMonText:
 	text_asm
 	ld a, STARTER_PIKACHU
@@ -1063,6 +1098,7 @@ OaksLabPlayerReceivedMonText:
 	call AddPartyMon
 	ld a, LIGHT_BALL_GSC
 	ld [wPartyMon1CatchRate], a
+	call MaxOutStarterPikachuDVs
 	call DisablePikachuOverworldSpriteDrawing
 	SetEvent EVENT_GOT_STARTER
 	ld hl, wd72e
