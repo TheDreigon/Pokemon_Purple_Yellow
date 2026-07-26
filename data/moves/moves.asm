@@ -51,7 +51,7 @@ Moves: ; Current total = 219
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
 	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      95, 20
-	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             60, ELECTRIC,     100, 20 ; new move. almost-signature (Pika-line + ball-line). priority move. high-crit.
+	move VOLT_TACKLE,    NO_ADDITIONAL_EFFECT,             60, ELECTRIC,     100, 20 ; new move. almost-signature (Pika-line + ball-line + Jolteon). priority move. high-crit.
 
 
 	; === FAIRY TYPE (8 moves) === ; new type
