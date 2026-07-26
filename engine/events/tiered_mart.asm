@@ -186,6 +186,7 @@ RegularMartTieredInventory::
 	; T8 - 8 badges (Earth)
 	db 8, FULL_RESTORE
 	db -1
+.end
 
 ; Elite addons appended by `script_tiered_mart_elite` clerks (Indigo
 ; Plateau pre-E4 clerk + Celadon Mart 2F regular clerk). Format same as
@@ -206,3 +207,17 @@ EliteMartAddons::
 	db 10, PP_MAX
 	db 10, RARE_CANDY
 	db -1
+.end
+
+; wItemList has to hold the worst case a clerk can produce: the count byte, the
+; whole regular inventory (a player with 8 badges unlocks every tier at once),
+; every elite addon (post-E4-rematch unlocks both tiers), the largest fixed
+; extras list a script may carry, and the $ff terminator. It is EXACTLY full
+; today, so a single new row in either table would have written past the end of
+; the buffer with nothing to catch it - BuildTieredMartList does no bounds
+; checking, and the next WRAM bytes are live. Both tables are 2-byte entries
+; plus a 1-byte terminator, so their lengths are derivable here.
+DEF NUM_TIERED_REGULAR EQU (RegularMartTieredInventory.end - RegularMartTieredInventory - 1) / 2
+DEF NUM_TIERED_ELITE   EQU (EliteMartAddons.end - EliteMartAddons - 1) / 2
+ASSERT 1 + NUM_TIERED_REGULAR + NUM_TIERED_ELITE + MAX_MART_EXTRAS + 1 <= ITEM_LIST_SIZE, \
+	"the tiered mart's worst case no longer fits in wItemList: grow ITEM_LIST_SIZE"

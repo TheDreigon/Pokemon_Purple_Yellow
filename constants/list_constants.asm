@@ -1,3 +1,12 @@
+; wItemList capacity, and the largest fixed extras list a `script_tiered_mart`
+; clerk may carry. Both live here rather than as bare numbers so the tiered
+; mart builder can ASSERT at BUILD TIME that its worst case still fits -- the
+; buffer is exactly full at the moment (count + 19 tiered + 8 elite + 12 extras
+; + terminator = 41), so adding one row to either inventory table without
+; growing this would silently write past the end of wItemList.
+DEF ITEM_LIST_SIZE  EQU 41
+DEF MAX_MART_EXTRAS EQU 12
+
 ; list menu IDs
 	const_def
 	const PCPOKEMONLISTMENU  ; $00 ; PC pokemon withdraw/deposit lists

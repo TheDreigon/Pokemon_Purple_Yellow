@@ -1262,9 +1262,10 @@ wGymCityName:: ds 17
 
 wGymLeaderName:: ds NAME_LENGTH
 
-wItemList:: ds 41 ; sized for the worst-case tiered mart at full unlock:
-                  ; count + T0..T8 (19 items) + elite addons (4 post-E4 +
-                  ; 4 post-rematch) + Indigo TM extras (12) + $ff terminator.
+wItemList:: ds ITEM_LIST_SIZE ; sized for the worst-case tiered mart at full
+                  ; unlock: count + T0..T8 (19 items) + elite addons (4 post-E4
+                  ; + 4 post-rematch) + Indigo TM extras (12) + $ff terminator.
+                  ; engine/events/tiered_mart.asm ASSERTs that this still fits.
 
 ; Scratch buffer for the per-mart TM extras passed via `script_tiered_mart`.
 ; Layout: [count, item0, item1, ..., itemN]. No $ff terminator.
