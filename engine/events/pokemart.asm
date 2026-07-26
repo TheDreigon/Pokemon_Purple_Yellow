@@ -78,6 +78,7 @@ DisplayPokemartDialogue_::
 	ld a, PRICEDITEMLISTMENU
 	ld [wListMenuID], a
 	ldh [hHalveItemPrices], a ; halve prices when selling
+	call CapQuantityByPrice ; the sum is built from the FULL price, then halved
 	call DisplayChooseQuantityMenu
 	inc a
 	jr z, .sellMenuLoop ; if the player closed the choose quantity menu with the B button
@@ -151,6 +152,7 @@ DisplayPokemartDialogue_::
 	jr c, .returnToMainPokemartMenu ; if the player closed the menu
 	ld a, 99
 	ld [wMaxItemQuantity], a
+	call CapQuantityByPrice
 	xor a
 	ldh [hHalveItemPrices], a ; don't halve item prices when buying
 	call DisplayChooseQuantityMenu
@@ -226,6 +228,54 @@ DisplayPokemartDialogue_::
 	ld a, [wSavedListScrollOffset]
 	ld [wListScrollOffset], a
 	ret
+
+CapQuantityByPrice:
+; v0.7 FIX: the running total in DisplayChooseQuantityMenu's .printPrice is a
+; 3-byte BCD, so it tops out at 999999 - and AddBCD SATURATES there instead of
+; failing, filling the sum with $99s. Any quantity whose true total overflowed
+; was therefore charged the saturated value: 99 PP MAX (19600 each) really cost
+; 1940400 but rang up as 999999, and 99 of TM55 OUTRAGE (27500) should cost
+; 2722500. Selling had the mirror problem, because the loop sums the FULL price
+; and only halves afterwards, so a big stack paid out 499999 instead of its
+; real value.
+;
+; Fix: cap the quantity by the item's price so the product always fits. The top
+; BCD byte of the price is exactly the tier we need - $00 means under 10000,
+; where the existing 99 already fits (99 x 9999 = 989901); $0N means the price
+; is at most N9999, so the cap is 999999 / N9999; $10 or more means the price
+; is 100000+, where only one at a time can be represented. Deriving the cap
+; from the price means no future repricing can reintroduce the bug.
+;
+; Only lowers the cap, never raises it, so selling a stack of 3 still offers 3.
+; In: [wcf91] = item id, [wListMenuID] already set (GetItemPrice reads it).
+	call GetItemPrice
+	ldh a, [hItemPrice] ; top BCD byte of the 3-byte price
+	and a
+	ret z ; under 10000: 99 of them always fit, leave the cap alone
+	cp $10
+	jr nc, .singleUnitOnly ; 100000 or more: one at a time
+	ld c, a
+	ld b, 0
+	ld hl, .capForTopDigit
+	add hl, bc
+	ld a, [hl]
+	jr .clamp
+.singleUnitOnly
+	ld a, 1
+.clamp
+	ld b, a
+	ld a, [wMaxItemQuantity]
+	cp b
+	ret c ; the caller's cap is already lower (e.g. selling a short stack)
+	ld a, b
+	ld [wMaxItemQuantity], a
+	ret
+
+.capForTopDigit
+; index = top BCD byte of the price = floor(price / 10000); entry N is
+; 999999 / N9999, the largest quantity that cannot overflow the BCD total.
+; Index 0 is never read (handled by the early return above).
+	db 99, 50, 33, 25, 20, 16, 14, 12, 11, 10
 
 PokemartBuyingGreetingText:
 	text_far _PokemartBuyingGreetingText
