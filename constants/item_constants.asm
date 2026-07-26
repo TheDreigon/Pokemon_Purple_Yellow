@@ -135,7 +135,7 @@ ENDM
 
 MACRO add_hm
 ; Defines three constants:
-; - HM_\1: the item id, starting at $C4
+; - HM_\1: the item id, starting at $C3
 ; - \1_TMNUM: the learnable TM/HM flag, starting at 51
 ; - HM##_MOVE: alias for the move id, equal to the value of \1
 	const HM_\1
@@ -145,18 +145,18 @@ MACRO add_hm
 ENDM
 
 DEF HM01 EQU const_value
-	add_hm CUT          ; $C4
-	add_hm FLY          ; $C5
-	add_hm SURF         ; $C6
-	add_hm STRENGTH     ; $C7
-	add_hm FLASH        ; $C8
+	add_hm CUT          ; $C3
+	add_hm FLY          ; $C4
+	add_hm SURF         ; $C5
+	add_hm STRENGTH     ; $C6
+	add_hm FLASH        ; $C7
 DEF NUM_HMS EQU const_value - HM01
 
 DEF __tmhm_value__ = 1
 
 MACRO add_tm
 ; Defines three constants:
-; - TM_\1: the item id, starting at $C9
+; - TM_\1: the item id, starting at $C8
 ; - \1_TMNUM: the learnable TM/HM flag, starting at 1
 ; - TM##_MOVE: alias for the move id, equal to the value of \1
 	const TM_\1
@@ -165,60 +165,60 @@ MACRO add_tm
 ENDM
 
 DEF TM01 EQU const_value
-	add_tm ROCK_THROW,    ; $C9  TM01
-	add_tm QUICK_ATTACK,  ; $CA  TM02
-	add_tm BIND,          ; $CB  TM03
-	add_tm FAINT_ATTACK,  ; $CC  TM04
-	add_tm BULLDOZE,      ; $CD  TM05
-	add_tm WATER_PULSE,   ; $CE  TM06
-	add_tm ICY_PULSE,     ; $CF  TM07
-	add_tm SEISMIC_TOSS,  ; $D0  TM08
-	add_tm RAGE,          ; $D1  TM09
-	add_tm BODY_SLAM,     ; $D2  TM10
-	add_tm FLAME_BURST,   ; $D3  TM11
-	add_tm SHOCK_WAVE,    ; $D4  TM12
-	add_tm IRON_TAIL,     ; $D5  TM13
-	add_tm NIGHT_SHADE,   ; $D6  TM14
-	add_tm CONFUSE_RAY,   ; $D7  TM15
-	add_tm IGNITE,        ; $D8  TM16
-	add_tm THUNDER_WAVE,  ; $D9  TM17
-	add_tm BULK_UP,       ; $DA  TM18
-	add_tm MIMIC,         ; $DB  TM19
-	add_tm MIRROR_MOVE,   ; $DC  TM20
-	add_tm SUBSTITUTE,    ; $DD  TM21
-	add_tm METRONOME,     ; $DE  TM22
-	add_tm GIGA_DRAIN,    ; $DF  TM23
-	add_tm DAZZLE_GLEAM,  ; $E0  TM24
-	add_tm AGILITY,       ; $E1  TM25
-	add_tm POISON_BITE,   ; $E2  TM26
-	add_tm IRON_HEAD,     ; $E3  TM27
-	add_tm FAKE_TEARS,    ; $E4  TM28
-	add_tm AERIAL_ACE,    ; $E5  TM29
-	add_tm CHARM,         ; $E6  TM30
-	add_tm HURRICANE,     ; $E7  TM31
-	add_tm MEGAHORN,      ; $E8  TM32
-	add_tm DRAGON_CLAW,   ; $E9  TM33
-	add_tm TOXIC,         ; $EA  TM34
-	add_tm EXTRASENSORY,  ; $EB  TM35
-	add_tm INTIMIDATE,    ; $EC  TM36
-	add_tm SCARY_FACE,    ; $ED  TM37
-	add_tm LEECH_LIFE,    ; $EE  TM38
-	add_tm TAKE_DOWN,     ; $EF  TM39
-	add_tm PSYCHIC_M,     ; $F0  TM40
-	add_tm LIGHT_SCREEN,  ; $F1  TM41
-	add_tm ICE_BEAM,      ; $F2  TM42
-	add_tm DARK_PULSE,    ; $F3  TM43
-	add_tm SHADOW_BALL,   ; $F4  TM44
-	add_tm FLAMETHROWER,  ; $F5  TM45
-	add_tm REFLECT,       ; $F6  TM46
-	add_tm THUNDERBOLT,   ; $F7  TM47
-	add_tm SWORDS_DANCE,  ; $F8  TM48
-	add_tm CALM_MIND,     ; $F9  TM49
-	add_tm EARTHQUAKE,    ; $FA  TM50
-	add_tm ROCK_SLIDE,    ; $FB  TM51
-	add_tm PETAL_DANCE,   ; $FC  TM52
-	add_tm DOUBLE_EDGE,   ; $FD  TM53
-	add_tm THRASH,        ; $FE  TM54
+	add_tm ROCK_THROW,    ; $C8  TM01
+	add_tm QUICK_ATTACK,  ; $C9  TM02
+	add_tm BIND,          ; $CA  TM03
+	add_tm FAINT_ATTACK,  ; $CB  TM04
+	add_tm BULLDOZE,      ; $CC  TM05
+	add_tm WATER_PULSE,   ; $CD  TM06
+	add_tm ICY_PULSE,     ; $CE  TM07
+	add_tm SEISMIC_TOSS,  ; $CF  TM08
+	add_tm RAGE,          ; $D0  TM09
+	add_tm BODY_SLAM,     ; $D1  TM10
+	add_tm FLAME_BURST,   ; $D2  TM11
+	add_tm SHOCK_WAVE,    ; $D3  TM12
+	add_tm IRON_TAIL,     ; $D4  TM13
+	add_tm NIGHT_SHADE,   ; $D5  TM14
+	add_tm CONFUSE_RAY,   ; $D6  TM15
+	add_tm IGNITE,        ; $D7  TM16
+	add_tm THUNDER_WAVE,  ; $D8  TM17
+	add_tm BULK_UP,       ; $D9  TM18
+	add_tm MIMIC,         ; $DA  TM19
+	add_tm MIRROR_MOVE,   ; $DB  TM20
+	add_tm SUBSTITUTE,    ; $DC  TM21
+	add_tm METRONOME,     ; $DD  TM22
+	add_tm GIGA_DRAIN,    ; $DE  TM23
+	add_tm DAZZLE_GLEAM,  ; $DF  TM24
+	add_tm AGILITY,       ; $E0  TM25
+	add_tm POISON_BITE,   ; $E1  TM26
+	add_tm IRON_HEAD,     ; $E2  TM27
+	add_tm FAKE_TEARS,    ; $E3  TM28
+	add_tm AERIAL_ACE,    ; $E4  TM29
+	add_tm CHARM,         ; $E5  TM30
+	add_tm HURRICANE,     ; $E6  TM31
+	add_tm MEGAHORN,      ; $E7  TM32
+	add_tm DRAGON_CLAW,   ; $E8  TM33
+	add_tm TOXIC,         ; $E9  TM34
+	add_tm EXTRASENSORY,  ; $EA  TM35
+	add_tm INTIMIDATE,    ; $EB  TM36
+	add_tm SCARY_FACE,    ; $EC  TM37
+	add_tm LEECH_LIFE,    ; $ED  TM38
+	add_tm TAKE_DOWN,     ; $EE  TM39
+	add_tm PSYCHIC_M,     ; $EF  TM40
+	add_tm LIGHT_SCREEN,  ; $F0  TM41
+	add_tm ICE_BEAM,      ; $F1  TM42
+	add_tm DARK_PULSE,    ; $F2  TM43
+	add_tm SHADOW_BALL,   ; $F3  TM44
+	add_tm FLAMETHROWER,  ; $F4  TM45
+	add_tm REFLECT,       ; $F5  TM46
+	add_tm THUNDERBOLT,   ; $F6  TM47
+	add_tm SWORDS_DANCE,  ; $F7  TM48
+	add_tm CALM_MIND,     ; $F8  TM49
+	add_tm EARTHQUAKE,    ; $F9  TM50
+	add_tm ROCK_SLIDE,    ; $FA  TM51
+	add_tm PETAL_DANCE,   ; $FB  TM52
+	add_tm DOUBLE_EDGE,   ; $FC  TM53
+	add_tm THRASH,        ; $FD  TM54
 	add_tm OUTRAGE,       ; $FE  TM55 (last usable id — see the ASSERT below)
 ASSERT NUM_TMS == const_value - TM01, "NUM_TMS ({d:NUM_TMS}) does not match the number of add_tm definitions"
 ; Item lists are terminated with $ff, so no item may ever BE $ff — a TM sitting

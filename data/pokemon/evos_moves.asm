@@ -756,8 +756,12 @@ PikachuEvosMoves:
 	db EVOLVE_ITEM, THUNDER_STONE, 1, RAICHU
 	db 0
 ; Learnset
-; Electric mouse. Power-progression: NUZZLE (35 BP) before THUNDERSHOCK
-; (55 BP). CHARM mid (cute mouse). VOLT_TACKLE signature at L23.
+; Electric mouse. Electric ladder NUZZLE 35 -> THUNDERSHOCK 55 ->
+; SHOCK_WAVE 70 -> THUNDERBOLT 95 -> THUNDER 115. VOLT_TACKLE L26 is
+; the line signature; its 60 BP sits mid-ladder because it is a
+; priority high-crit move. CHARM/FAIRY_WIND -> PLAY_ROUGH = cute mouse.
+; FLAME_CHARGE L54 = sparks lighting a fire (Electabuzz ruling).
+; DOUBLE_EDGE L60 last.
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
 	db 10, QUICK_ATTACK
@@ -784,8 +788,10 @@ RaichuEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Bigger orange mouse. Shares Pikachu's backbone (VOLT_TACKLE at the same
-; level). Adds DOUBLE_EDGE (bigger reckless body — anatomical exclusive).
+; Bigger orange mouse. Level-up is move-for-move identical to Pikachu's
+; (shared backbone, stone evolution — no level-up exclusive of its own).
+; Raichu's edge lives in the stats and in the wider TM list: BULK_UP,
+; TAKE_DOWN and the four fun moves.
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
 	db 10, QUICK_ATTACK
@@ -3551,13 +3557,14 @@ LaprasEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Gentle singing ferry. Psychic damage and the rest of the Fairy
-; arsenal (Draining Kiss/Dazzle Gleam/Moonblast) are TM-only here.
+; Gentle singing ferry. The Fairy arsenal (Draining Kiss/Dazzle Gleam/
+; Moonblast) stays TM-only, but the Psychic side is natural now:
+; EXTRASENSORY L36 -> PSYCHIC_M L65, the last move it learns.
 ; ICE ladder strictly scaled by power: ICY_WIND < FROST_BREATH <
-; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING after L30.
-; STRENGTH = hauls passengers; SURF = THE ferry move. No THRASH/
-; OUTRAGE (docile) — DRAGON_BREATH L65 is the sea-dragon showing
-; through at the very top, and it is the last move it learns.
+; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING at L30.
+; SURF = THE ferry move; STRENGTH is HM-only (hauls passengers).
+; No THRASH/OUTRAGE (docile) — DRAGON_BREATH L60 is the sea-dragon
+; showing through near the top, without the rage moves.
 	db 10, TACKLE
 	db 12, ICY_WIND
 	db 14, BUBBLEBEAM
@@ -3595,8 +3602,11 @@ EeveeEvosMoves:
 	db EVOLVE_ITEM, WATER_STONE, 1, VAPOREON
 	db 0
 ; Learnset
-; Normal-only base. No TAKE_DOWN (only Eevee lacks it; the 3
-; evolutions keep it). CHARM = cute fox charm, shared with all 4 forms.
+; Normal-only base. CHARM + FAIRY_WIND = cute fox kit, shared by all 4
+; forms. No TAKE_DOWN: of the three evolutions only Flareon still keeps
+; it. METRONOME L50 = unstable genes rolling a random move — the only
+; fun move on a pre-evo besides Clefairy's (forced into the tmhm by the
+; levelup-subset-of-TM rule).
 	db  3, TAIL_WHIP
 	db  6, SAND_ATTACK
 	db  9, QUICK_ATTACK
@@ -3614,9 +3624,10 @@ VaporeonEvosMoves:
 ; Learnset
 ; Water fox, fluid body. Eevee shared + water/ice kit + HARDEN (fluid
 ; body solidifies to ice/scale armor) + RECOVER (regen pattern, fluid
-; body reforms). HARDEN L30 (weak-move guideline), RECOVER L32.
+; body reforms). HARDEN L23 (weak-move guideline), RECOVER L36.
 ; ICE_BEAM, not light wind — its water-mastery deserves a real ice
-; attack.
+; attack. LIGHT_SCREEN + REFLECT paired at L60: shared eeveelution
+; capstone (energy shields).
 	db  3, TAIL_WHIP
 	db  6, SAND_ATTACK
 	db  9, QUICK_ATTACK
@@ -3645,7 +3656,10 @@ JolteonEvosMoves:
 ; Learnset
 ; Electric fox, fastest Eeveelution. Eevee shared + electric kit +
 ; METAL_SOUND (electric sparks = metallic-sound debuff). AGILITY
-; natural. No DOUBLE_TEAM.
+; natural. No DOUBLE_TEAM. SLASH L33 with CUT via HM only (same ruling
+; as the birds of prey). VOLT_TACKLE L50 — third owner of the move,
+; after the Pikachu and Voltorb lines. LIGHT_SCREEN + REFLECT paired at
+; L60: shared eeveelution capstone (energy shields).
 	db  3, TAIL_WHIP
 	db  6, SAND_ATTACK
 	db  9, QUICK_ATTACK
