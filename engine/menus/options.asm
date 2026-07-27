@@ -152,6 +152,20 @@ AnimationOffText:
 	db "OFF@"
 
 OptionsMenu_BattleStyle:
+; v0.7: Hard mode is always SET, and the menu now says so instead of lying.
+; The switch prompt is skipped outright for a hard-mode battle (core.asm,
+; just before .DontForceSetMode), so the player could flip this row to SHIFT
+; and watch nothing change - the option read as broken rather than as locked.
+; Now the bit is forced on and left/right are ignored while Hard mode is
+; active, so the row shows SET and stays there. Normal mode is untouched.
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .styleIsSelectable
+	ld a, [wOptions]
+	set BIT_BATTLE_SHIFT, a ; bit set = SET (see the string table below)
+	ld [wOptions], a
+	jr .asm_41d73
+.styleIsSelectable
 	ldh a, [hJoy5]
 	and D_LEFT | D_RIGHT
 	jr nz, .asm_41d6b
