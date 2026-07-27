@@ -244,6 +244,8 @@ CeladonGymErikaText:
 	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L60+ rematch
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
