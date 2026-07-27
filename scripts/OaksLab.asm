@@ -1218,5 +1218,21 @@ OaksLabScientistText:
 	text_end
 
 OaksLabScientist2Text:
+; v0.7 FIX: this must use the same text_asm + PrintText shape its neighbour
+; uses, not a bare text_far. Oak's Lab forces wAutoTextBoxDrawingControl to
+; TRUE on every tick of its map script, and on that path the FIRST page of a
+; bare text pointer drew inverted and without a border - dark box, light
+; glyphs, the map's colours showing through - correcting itself only on the
+; second page. Reproduced side by side: this aide and the one at (2,10) print
+; the identical opening line, and only this one broke.
+; Vanilla never hit it because both scientists pointed at the same text_asm
+; routine; splitting them into two aides (FAIRY-vs-DRAGON for this one) made
+; this the map's only freely-talkable NPC on the bare path.
+	text_asm
+	ld hl, .Text
+	call PrintText
+	jp TextScriptEnd
+
+.Text:
 	text_far _OaksLabScientist2Text
 	text_end
