@@ -141,6 +141,9 @@ VermilionGymLTSurgeReceiveGiftsScript:
 	jp VermilionGymResetScripts
 
 SurgeRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_LT_SURGE
 	ld a, TEXT_VERMILIONGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -210,7 +213,7 @@ VermilionGymLTSurgeText:
 	jr nz, .SurgeRematch
 	ld hl, .PostBattleAdviceText
 	call PrintText
-	jr .text_script_end
+	jp .text_script_end ; jp: the rematch-cooldown check pushed the label out of jr range
 .before_beat
 ; v0.7 badge-gating: the leader also refuses without the previous badge
 ; (belt-and-braces - the door gate normally fires first).
@@ -238,7 +241,12 @@ VermilionGymLTSurgeText:
 	xor a
 	ldh [hJoyHeld], a
 	jr .endBattle
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; SurgeRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 .SurgeRematch
+	CheckEvent EVENT_REMATCHED_LT_SURGE
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
 	call YesNoChoice
@@ -256,6 +264,10 @@ VermilionGymLTSurgeText:
 	ld [wVermilionGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .text_script_end
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
@@ -285,6 +297,10 @@ VermilionGymLTSurgeText:
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

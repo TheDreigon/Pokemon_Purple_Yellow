@@ -836,6 +836,26 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 ; Silph Co 5F — Porygon reward for liberating Silph (v0.7, manga-flavored)
 	const EVENT_GOT_SILPH_PORYGON
 
+; Post-League rematch cooldown (v0.7) — one flag per rematchable opponent.
+; A flag is set when that opponent's rematch is WON, and the whole block is
+; cleared again by HallOfFameResetEventsAndSaveScript, so every League re-run
+; buys exactly one rematch from each of them. The flags are independent: using
+; up MISTY's rematch does not touch BROCK's.
+; Deliberately started on a byte boundary ($9E8 % 8 == 0) — ResetEventRange
+; over a byte-aligned block costs 10 bytes instead of 12.
+	const_next $9E8
+DEF REMATCH_COOLDOWN_EVENTS_START EQU const_value
+	const EVENT_REMATCHED_BROCK
+	const EVENT_REMATCHED_MISTY
+	const EVENT_REMATCHED_LT_SURGE
+	const EVENT_REMATCHED_ERIKA
+	const EVENT_REMATCHED_KOGA
+	const EVENT_REMATCHED_SABRINA
+	const EVENT_REMATCHED_BLAINE
+	const EVENT_REMATCHED_NURSE_JOY
+	const EVENT_REMATCHED_OFFICER_JENNY
+DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value

@@ -123,6 +123,9 @@ CeruleanGymReceiveGifts:
 	jp CeruleanGymResetScripts
 
 MistyRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_MISTY
 	ld a, TEXT_CERULEANGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -189,7 +192,7 @@ CeruleanGymMistyText:
 	jr nz, .MistyRematch
 	ld hl, .TMExplanationText
 	call PrintText
-	jr .done
+	jp .done ; jp: the rematch-cooldown check pushed .done out of jr range
 .beforeBeat
 ; v0.7 badge-gating: Misty herself also checks for the BOULDER BADGE
 ; (belt-and-braces — the door gate normally fires first).
@@ -217,7 +220,12 @@ CeruleanGymMistyText:
 	xor a
 	ldh [hJoyHeld], a
 	jr .endBattle
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; MistyRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 .MistyRematch
+	CheckEvent EVENT_REMATCHED_MISTY
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
 	call YesNoChoice
@@ -235,6 +243,10 @@ CeruleanGymMistyText:
 	ld [wCeruleanGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .done
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
@@ -263,6 +275,10 @@ CeruleanGymMistyText:
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

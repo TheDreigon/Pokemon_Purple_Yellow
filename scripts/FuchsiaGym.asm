@@ -124,6 +124,9 @@ FuchsiaGymReceiveGifts:
 	jp FuchsiaGymResetScripts
 
 KogaRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_KOGA
 	ld a, TEXT_FUCHSIAGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -228,7 +231,12 @@ FuchsiaGymKogaText:
 	jr .Koga5thGym
 .todone
 	jr .done
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; KogaRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 .KogaRematch
+	CheckEvent EVENT_REMATCHED_KOGA
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
 	call YesNoChoice
@@ -246,6 +254,10 @@ FuchsiaGymKogaText:
 	ld [wFuchsiaGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .done
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
@@ -298,6 +310,10 @@ FuchsiaGymKogaText:
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

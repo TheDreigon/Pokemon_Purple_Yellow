@@ -297,6 +297,9 @@ CinnabarGymReceiveGifts:
 	jp CinnabarGymResetScripts
 
 BlaineRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_BLAINE
 	ld a, TEXT_CINNABARGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -362,7 +365,12 @@ CinnabarGymStartBattleScript:
 	ld [wCurMapScript], a
 	jp TextScriptEnd
 
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; BlaineRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 CinnabarGymStartRematchScript:
+	CheckEvent EVENT_REMATCHED_BLAINE
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
 	call YesNoChoice
@@ -383,17 +391,25 @@ CinnabarGymStartRematchScript:
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
 	jp TextScriptEnd
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jp TextScriptEnd
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
 	jp TextScriptEnd
-	
+
 .PreBattleRematch1Text
 	text_far _CinnabarGymRematchPreBattle1Text
 	text_end
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

@@ -46,8 +46,11 @@ VermilionCityPrintOfficerJennyText::
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr z, .squirtleText
-	; CheckEvent EVENT_BEAT_JENNY ; uncomment if you don't want the ability to rematch
-	; jr nz, .squirtleText
+; v0.7 rematch cooldown: one battle per League run. This replaces the old
+; commented-out EVENT_BEAT_JENNY off-switch: instead of killing the rematch
+; forever, the flag is cleared again by HallOfFameResetEventsAndSaveScript.
+	CheckEvent EVENT_REMATCHED_OFFICER_JENNY
+	jr nz, .rematchSpent
 
 	ld hl, JennyPreBattleText
 	call PrintText
@@ -79,6 +82,10 @@ VermilionCityPrintOfficerJennyText::
 	ld hl, JennyRefusedText
 	call PrintText
 	jr .done
+.rematchSpent
+	ld hl, JennyRematchCooldownText
+	call PrintText
+	jr .done
 .squirtleText
 	ld hl, OfficerJennyText5
 	call PrintText
@@ -95,6 +102,10 @@ JennyRefusedText:
 
 JennyAcceptedText:
 	text_far _JennyAcceptedText
+	text_end
+
+JennyRematchCooldownText:
+	text_far _JennyRematchCooldownText
 	text_end
 
 OfficerJennyText1:

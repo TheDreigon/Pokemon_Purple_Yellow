@@ -42,6 +42,10 @@ HallOfFameResetEventsAndSaveScript:
 	ld [wHallOfFameCurScript], a
 	; Elite 4 events
 	ResetEventRange INDIGO_PLATEAU_EVENTS_START, INDIGO_PLATEAU_EVENTS_END, 1
+	; v0.7: re-arm the post-game rematches. Beating the League is what buys
+	; them, so clearing the block here gives the player one fresh rematch
+	; against every leader (plus JOY and JENNY) per League run.
+	ResetEventRange REMATCH_COOLDOWN_EVENTS_START, REMATCH_COOLDOWN_EVENTS_END
 	ld a, 1
 	ld [wGameStage], a
 	xor a
