@@ -2241,8 +2241,8 @@ ItemUsePPUp:
 
 ItemUsePPRestore:
 	; v0.7 hard-mode trainer/boss policy: PP refills (Ether/Max Ether/
-	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
-	; battle on Normal mode. Reason: blocks the "Revive + Elixer"
+	; Elixir/Max Elixir) blocked. Allowed in wild battles AND in any
+	; battle on Normal mode. Reason: blocks the "Revive + Elixir"
 	; PP-stall loop against bosses while staying symmetric with the
 	; boss item bag (knob #10).
 	;
@@ -2260,9 +2260,9 @@ ItemUsePPRestore:
 	jr nz, .allowItem       ; trainer battle on Normal mode: allow
 	ld a, [wcf91]
 	cp ETHER
-	jr c, .allowItem        ; below ETHER (PP_UP): allow
+	jr c, .allowItem        ; below ETHER (PP_UP, PP_MAX): allow
 	cp MAX_ELIXIR + 1
-	jr nc, .allowItem ; Line 2237: '; above MAX_ELIXIR: allow (defensive; nothing above dispatches here)' and extend line 2235's comment to '; below ETHER (PP_UP, PP_MAX): allow'.
+	jr nc, .allowItem       ; above MAX_ELIXIR: allow (defensive; nothing above dispatches here)
 	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem

@@ -2388,7 +2388,7 @@ BagWasSelected:
 	; v0.7: items are baseline-allowed in every battle (wild/trainer/boss) in
 	; both Normal and Hard mode — symmetric with the Hard-mode boss item bag
 	; that ships alongside this. The 6 problem items (Revive, Max Revive,
-	; Ether, Max Ether, Elixer, Max Elixer) are gated per-item in
+	; Ether, Max Ether, Elixir, Max Elixir) are gated per-item in
 	; engine/items/item_effects.asm: they're blocked only in Hard-mode
 	; trainer/boss battles, and never in wild battles. The block lives there
 	; (not here) so wild-vs-trainer + per-item routing stays in one place.
@@ -6496,8 +6496,10 @@ LoadEnemyMonData:
 	; current HP just copied above was computed by AddPartyMon with the
 	; un-boosted trainer DVs — so a fresh boss mon (e.g. the rival's Eevee)
 	; would display below full HP. Top current HP up to the new MaxHP.
-	; Gated on IsHardModeBossBattle, so Normal mode / wild / non-boss
-	; trainers are bit-identical. Safe to overwrite current HP for a boss:
+	; Gated on ShouldMaxEnemyDVs — the SAME predicate as the DV override, so
+	; the top-up can never apply to a mon that did not get the DVs (and vice
+	; versa). Wild battles and non-boss trainers stay bit-identical. Safe to
+	; overwrite current HP for a boss:
 	; Gen 1 trainers never switch, so a boss mon reaches this path only on
 	; a fresh send-out, always at full party HP.
 	farcall ShouldMaxEnemyDVs

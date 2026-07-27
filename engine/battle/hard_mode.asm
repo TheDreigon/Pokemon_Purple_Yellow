@@ -7,15 +7,18 @@
 ; only provides the shared definition of "boss" and the two helpers
 ; everyone calls.
 ;
-; Boss list (decided with Forte): all 8 gym leaders + all 4 Elite Four +
-; all 3 rival classes (RIVAL3 = Champion) + Prof Oak + Officer Jenny +
-; Nurse Joy + Janine + Jessie & James + FORTE. SMITH/CRAIG/WEEBRA (special
-; trainer classes) are intentionally NOT bosses — they're already
-; calibrated by hand and shouldn't get the auto-buffs. Boss-class
-; identity automatically covers gym leader rematches (same class), E4
-; rematches (same class), Giovanni's three appearances (same class),
-; and all rival fights regardless of starter (same RIVALn class).
-; 21 classes total.
+; Two tiers, defined at the bottom of this file (Forte, 2026-07-26):
+;   BOSS (17)  = all 8 gym leaders + all 4 Elite Four + all 3 rival classes
+;                (RIVAL3 = Champion) + Prof Oak + FORTE.
+;   SEMI (7)   = Nurse Joy, Officer Jenny, Janine, Jessie & James, and the
+;                three bird-chamber self-inserts SMITH / CRAIG / WEEBRA.
+; The semis get the AI override, maxed DVs (Hard only) and an item bag, but
+; never the crit bonus, the +1 level or the accuracy edge. Same split drives
+; prize money and battle music, so the three lists can no longer disagree.
+;
+; Class identity automatically covers gym leader rematches (same class), E4
+; rematches (same class), Giovanni's three appearances (same class), and all
+; rival fights regardless of starter (same RIVALn class).
 ;
 ; Routines live in bank $0F (Battle Core) so the core.asm callers
 ; (CriticalHitTest, MoveHitTest, LoadEnemyMon) can near-call;
