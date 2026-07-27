@@ -51,12 +51,12 @@ JoyBossBag::      db FULL_RESTORE, 3, X_DEFEND,   3, FULL_HEAL,  3, -1, -1
 JennyBossBag::    db FULL_RESTORE, 2, X_ATTACK,   1, X_SPEED,    1, FULL_HEAL, 2
 JanineBossBag::   db SUPER_POTION, 2, X_SPEED,    1, GUARD_SPEC, 1, FULL_HEAL, 2
 JessieAndJamesBossBag:: db SUPER_POTION, 2, FULL_HEAL, 2, -1, -1, -1, -1
-ForteBossBag::    db FULL_RESTORE, 6, -1, -1, -1, -1, -1, -1 ; Forte superboss (Hard mode) — 6x Full Restore
+ForteBossBag::    db FULL_RESTORE, 6, FULL_HEAL, 6, -1, -1, -1, -1 ; Forte superboss — 6x Full Restore, 6x Full Heal
 ; Shared by the three bird-chamber self-inserts. They are one tier below the
 ; bosses and behave identically to each other, so they share a bag as well as
 ; an AI routine. This is the bag the Hard Mode sheet promised them all along —
 ; until the semi-boss tier existed there was no path that could hand it out.
-SelfInsertBossBag:: db FULL_RESTORE, 3, -1, -1, -1, -1, -1, -1 ; Smith / Craig / Weebra — 3x Full Restore
+SelfInsertBossBag:: db FULL_RESTORE, 3, FULL_HEAL, 3, -1, -1, -1, -1 ; Smith / Craig / Weebra — 3x Full Restore, 3x Full Heal
 
 
 ; Dispatch table: (trainer_class, bag_pointer) triplets, terminated by -1

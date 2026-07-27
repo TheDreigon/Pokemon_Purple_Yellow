@@ -1272,6 +1272,13 @@ JoyAI:
 SelfInsertBossAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	ret nc
