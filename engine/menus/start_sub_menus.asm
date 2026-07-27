@@ -97,8 +97,44 @@ StartMenu_Pokemon::
 	call ClearSprites
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
+.statsScreenLoop
+; v0.7: Up and Down walk the party from inside the status screen, the way every
+; generation since does, instead of forcing a trip back out to the party menu
+; for each Pokemon. Opting in is the $ff below - only this caller does it, so
+; the same screen opened from a battle, Bill's PC or the cable club is
+; unchanged. The loop redraws both pages from scratch, which is what the two
+; predefs already do for a fresh mon, so there is no partial-redraw state to
+; get wrong.
+	ld a, $ff
+	ld [wStatusScreenPageChange], a
 	predef StatusScreen
 	predef StatusScreen2
+	ld a, [wStatusScreenPageChange]
+	and a
+	jr z, .statsScreenDone
+	dec a ; 1 = previous
+	jr nz, .statsNextMon
+.statsPrevMon
+	ld a, [wWhichPokemon]
+	and a
+	jr nz, .statsPrevNoWrap
+	ld a, [wPartyCount] ; wrap from the first mon round to the last
+.statsPrevNoWrap
+	dec a
+	jr .statsStoreMon
+.statsNextMon
+	ld a, [wWhichPokemon]
+	inc a
+	ld b, a
+	ld a, [wPartyCount]
+	cp b
+	ld a, b
+	jr nz, .statsStoreMon
+	xor a ; past the last mon, wrap to the first
+.statsStoreMon
+	ld [wWhichPokemon], a
+	jr .statsScreenLoop
+.statsScreenDone
 	call ReloadMapData
 	jp StartMenu_Pokemon
 .choseOutOfBattleMove
