@@ -186,9 +186,17 @@ SlotMachine_SetFlags:
 	ld a, [wSlotMachineSevenAndBarModeChance]
 	cp b
 	jr c, .allowSevenAndBarMatches
-	ld a, 210
+; v0.7: was 210, giving 43/256 (~16.8%). The machine spends the rest of the
+; time actively steering the reels AWAY from a match, so this threshold is
+; the single number that decides how often you are allowed to win at all.
+; Lowered to 200 to make the slots a little more fun without making them
+; generous: ~17% -> ~21% of spins. The 7/BAR window above (300 coins) is
+; deliberately untouched - that is where the coin economy lives, and keeping
+; the jackpot exactly as rare is what stops "more fun" turning into "more
+; TMs and Pokemon per hour".
+	ld a, 200
 	cp b
-	jr c, .allowMatches ; 43/256 (~17%) chance (40/256 on the lucky machine)
+	jr c, .allowMatches ; 53/256 (~20.7%) chance (50/256 on the lucky machine)
 	ld [hl], 0
 	ret
 .allowMatches
