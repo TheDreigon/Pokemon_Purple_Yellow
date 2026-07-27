@@ -1,6 +1,7 @@
 	object_const_def
 	const_export SEAFOAMISLANDS1F_BOULDER1
 	const_export SEAFOAMISLANDS1F_BOULDER2
+	const_export SEAFOAMISLANDS1F_ESCAPE_ROPE
 
 SeafoamIslands1F_Object:
 	db $7d ; border block
@@ -19,5 +20,9 @@ SeafoamIslands1F_Object:
 	def_object_events
 	object_event 18, 10, SPRITE_BOULDER, STAY, BOULDER_MOVEMENT_BYTE_2, TEXT_SEAFOAMISLANDS1F_BOULDER1
 	object_event 26,  7, SPRITE_BOULDER, STAY, BOULDER_MOVEMENT_BYTE_2, TEXT_SEAFOAMISLANDS1F_BOULDER2
+	; v0.7 ground-item redesign: rope quota, cave 3 of 5.5. Missable slot freed
+	; by the Cerulean Cave B1F Ultra Ball conversion. Kept away from the boulder
+	; push lines on purpose — a solid ball in a puzzle lane would block it.
+	object_event 24,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_SEAFOAMISLANDS1F_ESCAPE_ROPE, ESCAPE_ROPE ; TODO: placeholder coords, adjust in PolishedMap
 
 	def_warps_to SEAFOAM_ISLANDS_1F

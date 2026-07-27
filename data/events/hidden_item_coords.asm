@@ -11,7 +11,11 @@ HiddenItemCoords:
 	hidden_item SAFARI_ZONE_WEST,               6,   5
 	hidden_item CERULEAN_CAVE_2F,              16,  13
 	hidden_item CERULEAN_CAVE_B1F,              8,  14
-	hidden_item UNUSED_MAP_6F,                 14,  11
+	; v0.7 ground-item redesign: this ROW was the unreachable UNUSED_MAP_6F
+	; MAX_ELIXIR. Rewritten in place (not deleted) so every later row keeps its
+	; flag index — an unreachable item's obtained-flag is provably 0 on every
+	; save, so the replacement always spawns collectable.
+	hidden_item ROCK_TUNNEL_1F,                24,   8 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item SEAFOAM_ISLANDS_B2F,           15,  15
 	hidden_item SEAFOAM_ISLANDS_B3F,            9,  16
 	hidden_item SEAFOAM_ISLANDS_B4F,           25,  17
@@ -57,6 +61,15 @@ HiddenItemCoords:
 	hidden_item POKEMON_TOWER_5F,               4,  12
 	hidden_item VERMILION_CITY,                14,  11
 	hidden_item CELADON_CITY,                  48,  15
-	hidden_item SAFARI_ZONE_GATE,              10,   1 ; inaccessible
+	; v0.7 ground-item redesign: this ROW was the inaccessible SAFARI_ZONE_GATE
+	; NUGGET — same rewrite-in-place trick as the ROCK_TUNNEL_1F row above.
+	hidden_item DIGLETTS_CAVE,                  6,   5 ; the gag rope, one step from the ladder. TODO: provisional coords
 	hidden_item POKEMON_MANSION_1F,             8,  16
+	; v0.7 ground-item redesign: new entries append at the END so every
+	; pre-existing flag index stays put (index = row position in this table).
+	hidden_item POKEMON_TOWER_4F,              12,  10
+	hidden_item CERULEAN_CAVE_B1F,             26,   1
+	hidden_item ROCK_TUNNEL_B1F,               21,  21 ; TODO: provisional coords, adjust in PolishedMap
+	hidden_item ROCK_TUNNEL_B1F,               30,  11 ; TODO: provisional coords, adjust in PolishedMap
+	hidden_item SEAFOAM_ISLANDS_B1F,           18,   6 ; TODO: provisional coords, adjust in PolishedMap
 	db -1 ; end
