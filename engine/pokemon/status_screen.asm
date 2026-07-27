@@ -529,6 +529,16 @@ StatusScreen_WaitForButton:
 ; Writes back 0 (closed), 1 (previous mon) or 2 (next mon) for the caller,
 ; because a predef cannot return a value in a register.
 	ld a, [wStatusScreenPageChange]
+	cp $fe
+	jr nz, .notPassThrough
+; $fe means "draw this page but do not wait on it". The caller uses it to put
+; page 1 back on screen after stepping to another Pokemon, so it can return the
+; player to page 2 - page 2 draws OVER page 1 and reads data page 1 loads, so it
+; cannot be shown on its own.
+	xor a
+	ld [wStatusScreenPageChange], a
+	ret
+.notPassThrough
 	inc a ; was it $ff?
 	jp nz, WaitForTextScrollButtonPress ; not opted in: vanilla behaviour
 	                                    ; (jp, not jr - it lives in the home bank)
