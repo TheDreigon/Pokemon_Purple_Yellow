@@ -105,13 +105,23 @@ StartMenu_Pokemon::
 ; unchanged. The loop redraws both pages from scratch, which is what the two
 ; predefs already do for a fresh mon, so there is no partial-redraw state to
 ; get wrong.
+; Both pages accept Up/Down, otherwise stepping would only work on page 2 and
+; you would have to press A again on every mon to get back to it. If page 1
+; asks to move, page 2 must be skipped - it would otherwise draw the Pokemon
+; you just stepped away from.
 	ld a, $ff
 	ld [wStatusScreenPageChange], a
 	predef StatusScreen
+	ld a, [wStatusScreenPageChange]
+	and a
+	jr nz, .statsStepMon
+	ld a, $ff
+	ld [wStatusScreenPageChange], a
 	predef StatusScreen2
 	ld a, [wStatusScreenPageChange]
 	and a
 	jr z, .statsScreenDone
+.statsStepMon
 	dec a ; 1 = previous
 	jr nz, .statsNextMon
 .statsPrevMon

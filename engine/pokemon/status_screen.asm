@@ -229,7 +229,7 @@ StatusScreen:
 	ld a, [wcf91]
 	call PlayCry ; play Pokémon cry
 .continue
-	call WaitForTextScrollButtonPress ; wait for button
+	call StatusScreen_WaitForButton ; wait for button (Up/Down walk the party)
 	pop af
 	ld [hTileAnimations], a
 	ret
