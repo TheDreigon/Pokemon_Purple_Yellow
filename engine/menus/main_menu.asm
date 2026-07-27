@@ -105,6 +105,21 @@ MainMenu:
 .pressedA
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
+	; v0.7 SAVE-COMPAT HARDENING. SaveSAVtoSRAM sets bit 7 of wCurMapTileset on
+	; every save, and LoadMapHeader treats that bit as "the header mirror in
+	; WRAM is already correct — skip the copy" (see the `bit 7, b / ret nz` at
+	; its top). That was sound in 1996, when the ROM could never change between
+	; saving and continuing. In a hack it means CONTINUE runs the map through
+	; the header POINTERS STORED IN THE SAVE FILE — pointers into the ROM the
+	; game was SAVED on. The moment a later release moves anything in a maps
+	; bank (any resized .blk shifts every label after it), RunMapScript jumps
+	; through the stale wCurMapScriptPtr into shifted data: WRAM wiped, freeze.
+	; Clearing the bit here forces EnterMap's LoadMapHeader to do the full
+	; re-derivation against THIS ROM. Found when Cinnabar's world-design
+	; rework (+385 bytes in bank $07) moved OaksLab_Script out from under a
+	; save made inside the lab.
+	ld hl, wCurMapTileset
+	res 7, [hl]
 	ld a, PLAYER_DIR_DOWN
 	ld [wPlayerDirection], a
 	ld c, 10
