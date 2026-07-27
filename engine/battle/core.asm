@@ -4944,7 +4944,7 @@ CriticalHitTest:
 	jr z, .noBossCritBonus
 	push bc                      ; preserve b (base+speed/4); helper trashes
 	push de                      ; preserve de (battle-status ptr)
-	call IsHardModeBossBattle
+	farcall IsHardModeBossBattle
 	pop de
 	pop bc
 	jr z, .noBossCritBonus
@@ -5681,7 +5681,7 @@ MoveHitTest:
 	; Player turn = player attacking boss → -5pp (harder to hit).
 	; Enemy turn  = boss attacking player → +5pp (boss hits more).
 	push bc                      ; preserve b (the accuracy value)
-	call IsHardModeBossBattle
+	farcall IsHardModeBossBattle
 	pop bc
 	jr z, .skipBossAccEdge
 	ldh a, [hWhoseTurn]
@@ -6442,7 +6442,7 @@ LoadEnemyMonData:
 	; buff), but it is not the "falls through unchanged" this used to claim.
 	ld c, a                ; cache atk/def DVs (preserved by the push/pop bc below)
 	push bc
-	call IsHardModeBossBattle
+	farcall ShouldMaxEnemyDVs
 	pop bc
 	ld a, c                ; restore atk/def DVs
 	jr z, .writeDVs
@@ -6500,7 +6500,7 @@ LoadEnemyMonData:
 	; trainers are bit-identical. Safe to overwrite current HP for a boss:
 	; Gen 1 trainers never switch, so a boss mon reaches this path only on
 	; a fresh send-out, always at full party HP.
-	call IsHardModeBossBattle
+	farcall ShouldMaxEnemyDVs
 	jr z, .copyTypes
 	ld a, [wEnemyMonMaxHP]
 	ld [wEnemyMonHP], a

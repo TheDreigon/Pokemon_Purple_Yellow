@@ -161,6 +161,12 @@ INCLUDE "data/moves/moves.asm"
 INCLUDE "data/pokemon/cries.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
 INCLUDE "data/trainers/boss_item_bags.asm"
+; v0.7: moved out of Battle Core. The tier lists and their helpers are cold
+; code that was squatting in the fullest bank in the ROM, and the semi-boss
+; tier needed to scan a second list right next to the first - which has to be
+; in the same bank as the code reading it. Core.asm now farcalls in; that costs
+; 3 bytes per call site and gives Battle Core back far more than it takes.
+INCLUDE "engine/battle/hard_mode.asm"
 INCLUDE "engine/battle/unused_stats_functions.asm"
 INCLUDE "engine/battle/scroll_draw_trainer_pic.asm"
 INCLUDE "engine/battle/move_effects/heal.asm"
@@ -179,7 +185,6 @@ SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
 INCLUDE "engine/battle/effects.asm"
-INCLUDE "engine/battle/hard_mode.asm"
 
 
 SECTION "bank10", ROMX

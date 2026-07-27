@@ -79,6 +79,70 @@ IsHardModeBossBattle::
 	xor a                       ; Z=1
 	ret
 
+; Same shape as IsBossTrainerClassW, for the semi-boss tier.
+IsSemiBossTrainerClassW::
+	ld a, [wTrainerClass]
+	ld b, a
+	ld hl, SemiBossTrainerClasses
+.loop
+	ld a, [hli]
+	cp -1
+	ret z                       ; terminator → Z=1, not a semi-boss
+	cp b
+	jr nz, .loop
+	or a                        ; matched: a is a non-zero class id → Z=0
+	ret
+
+; Returns Z=0 when the enemy Pokemon should be given maxed DVs - and with them
+; the full-HP top-up, which is not a separate knob but a required part of the
+; same change (the DV override raises max HP after current HP was computed from
+; the un-boosted DVs, so without it the Pokemon shows up a sliver below full).
+;
+; Bosses get this in BOTH modes: perfect DVs are the least rule-bending knob
+; there is - no extra crits, no accuracy edge, just a Pokemon that was raised
+; properly - so a gym leader feels like a gym leader even on Normal. Semi-bosses
+; get it in Hard mode only.
+;
+; Trashes: a, b, hl
+ShouldMaxEnemyDVs::
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .noMaxDVs             ; never touch a link battle: guaranteed desync
+	ld a, [wIsInBattle]
+	cp 2                        ; 2 = trainer battle
+	jr nz, .noMaxDVs
+	call IsBossTrainerClassW
+	ret nz                      ; a boss, in either difficulty
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .noMaxDVs
+	jp IsSemiBossTrainerClassW  ; tail-call; semi-bosses, Hard mode only
+.noMaxDVs
+	xor a                       ; Z=1
+	ret
+
+; Returns Z=0 when the trainer may carry a Hard-mode item bag: bosses and
+; semi-bosses alike. The bag is the third thing a semi-boss inherits, after the
+; AI its class already carries and the maxed DVs above.
+;
+; Trashes: a, b, hl
+IsHardModeBossOrSemiBattle::
+	call IsHardModeBossBattle
+	ret nz                      ; already a hard-mode boss battle
+	ld a, [wLinkState]
+	cp LINK_STATE_BATTLING
+	jr z, .noBag
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	jr nz, .noBag
+	ld a, [wIsInBattle]
+	cp 2
+	jr nz, .noBag
+	jp IsSemiBossTrainerClassW
+.noBag
+	xor a                       ; Z=1
+	ret
+
 
 ; Boss trainer classes. Order doesn't matter (linear scan). Terminator
 ; is -1. Alphabetical for readability.
@@ -90,10 +154,6 @@ BossTrainerClasses::
 	db ERIKA
 	db FORTE
 	db GIOVANNI
-	db JANINE
-	db JENNY
-	db JESSIE_AND_JAMES         ; Team Rocket duo (4 fights, mid-game)
-	db JOY
 	db KOGA
 	db LANCE
 	db LORELEI
@@ -104,5 +164,30 @@ BossTrainerClasses::
 	db RIVAL2
 	db RIVAL3
 	db SABRINA
+	db -1                       ; terminator
+
+; The semi-boss tier (Forte, 2026-07-26). These get the AI their class already
+; carries, maxed DVs in Hard mode, and an item bag - but NOT the crit bonus,
+; the +1 level or the accuracy edge. Those three change the rules of the fight
+; against the player, and staying on the boss side of that line is what keeps a
+; real boss feeling categorically different.
+;
+; Janine, Officer Jenny, Nurse Joy and Jessie & James were full bosses until
+; now; this is a deliberate demotion, and it also aligns the buff list with the
+; prize-money and battle-music tiers, which already treated them as semis. Two
+; lists disagreeing about what a "boss" was is exactly the kind of drift that
+; makes a later change land in only half the places it should.
+;
+; Smith, Craig and Weebra were in neither list before - the note said they were
+; "already calibrated by hand", which was true of their teams but left their
+; documented item bags doing nothing at all.
+SemiBossTrainerClasses::
+	db CRAIG
+	db JANINE
+	db JENNY
+	db JESSIE_AND_JAMES         ; Team Rocket duo (4 fights, mid-game)
+	db JOY
+	db SMITH
+	db WEEBRA
 	db -1                       ; terminator
 

@@ -46,7 +46,7 @@ AIEnemyTrainerChooseMoves:
 	; overriding their per-class list. So Brock (whose normal list is
 	; just [1]) becomes as smart as Lance ([1,2,3,4]) on Hard.
 	push hl
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle ; semi-bosses think as hard as bosses do
 	pop hl
 	jr z, .skipBossAIOverride
 	ld hl, HardModeBossAIMods
@@ -800,7 +800,7 @@ CooltrainerFAI:
 ; wAICount/ai_pointers.asm (each AIUse* tail-calls DecrementAICount).
 
 BrockAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	; Priority 1: status -> Full Heal (every boss carries it now)
 	ld a, [wEnemyMonStatus]
@@ -828,7 +828,7 @@ BrockAI:
 	ret
 
 MistyAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -854,7 +854,7 @@ MistyAI:
 	ret
 
 LtSurgeAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -880,7 +880,7 @@ LtSurgeAI:
 	ret
 
 ErikaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -906,7 +906,7 @@ ErikaAI:
 	ret
 
 KogaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -940,7 +940,7 @@ KogaAI:
 	ret
 
 SabrinaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -966,7 +966,7 @@ SabrinaAI:
 	ret
 
 BlaineAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -994,7 +994,7 @@ BlaineAI:
 ; Giovanni: heals at HP < 1/2 (boss tier). Two independent buff rolls
 ; (X Attack + X Defend), each ~25% of un-healed turns.
 GiovanniAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1030,7 +1030,7 @@ GiovanniAI:
 ; ---- Elite Four + Champion ----
 
 LoreleiAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1055,7 +1055,7 @@ LoreleiAI:
 	ret
 
 BrunoAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1080,7 +1080,7 @@ BrunoAI:
 	ret
 
 AgathaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1106,7 +1106,7 @@ AgathaAI:
 	ret
 
 LanceAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1142,7 +1142,7 @@ LanceAI:
 ; ---- Rivals 2 & 3 (Rival1 stays GenericAI -- too early-game) ----
 
 Rival2AI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1167,7 +1167,7 @@ Rival2AI:
 	ret
 
 Rival3AI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1205,7 +1205,7 @@ Rival3AI:
 ; Prof Oak: ultimate post-game boss. Heals at HP < 1/2; two buff rolls
 ; (Guard Spec + Dire Hit).
 ProfOakAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1240,7 +1240,7 @@ ProfOakAI:
 
 ; Joy: nurse-themed. Heals at HP < 1/2 with Full Restore; X Defend buff.
 JoyAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1264,8 +1264,24 @@ JoyAI:
 	jp c, AIUseXDefend
 	ret
 
+; Smith, Craig and Weebra share this one. They are the three post-game
+; self-inserts guarding the bird chambers: same tier, same documented bag
+; (3x Full Restore), and no reason to behave differently from one another.
+; Semi-boss tier, so they heal but carry no stat-boost items - the swing of an
+; X Attack is the kind of thing that should stay on the boss side of the line.
+SelfInsertBossAI:
+	call IsHardModeBossOrSemiBattle
+	ret z
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	ret nc
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+	ret
+
 JennyAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1299,7 +1315,7 @@ JennyAI:
 	ret
 
 JanineAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1333,7 +1349,7 @@ JanineAI:
 	ret
 
 JessieAndJamesAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1817,8 +1833,8 @@ InitEnemyTrainerItemBag::
 	dec c
 	jr nz, .clear
 
-	; Step 2: bail if not Hard mode + boss
-	farcall IsHardModeBossBattle
+	; Step 2: bail unless this is a Hard-mode boss OR semi-boss battle
+	call IsHardModeBossOrSemiBattle
 	ret z
 
 	; Step 3: linear scan BossItemBagPointers for this trainer class
