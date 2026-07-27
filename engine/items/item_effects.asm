@@ -575,7 +575,7 @@ ItemUseBall:
 	ld hl, .emptyString
 	call PrintText
 	call AddPartyMon
-	jr .done
+	jr .caughtGainExp
 
 .sendToBox
 	call ClearSprites
@@ -587,7 +587,7 @@ ItemUseBall:
 .printTransferredToPCText
 	call PrintText
 	call .boxCheck
-	jr .done
+	jr .caughtGainExp
 
 .oldManCaughtMon
 	ld hl, ItemUseBallText05
@@ -595,6 +595,34 @@ ItemUseBall:
 .printMessage
 	call PrintText
 	call ClearSprites
+	jr .done ; a failed throw, and the old man's demo catch, earn nothing
+
+.caughtGainExp
+; v0.7: catching a Pokemon now pays experience, at HALF what defeating the
+; same Pokemon would have paid. Reached only from the two success paths (added
+; to the party, or sent to the PC) - a broken-free ball and the Viridian old
+; man's tutorial catch skip it via the jr above.
+;
+; The halving loop is the engine's own idiom, lifted from the Exp All path in
+; core.asm: it walks the enemy's base stats, catch rate and base exp and shifts
+; each right once. Halving the source rather than the result means the split
+; between participants stays exactly the arithmetic a knockout uses.
+;
+; WHO gains is deliberately not decided here. Handing off to the untouched
+; GainExperience guarantees a ball and a knockout reward the same Pokemon under
+; the same rules, which is the point - if that rule changes, it changes for
+; both at once.
+	ld hl, wEnemyMonBaseStats
+	ld b, NUM_STATS + 2
+.halveCaughtExpLoop
+	srl [hl]
+	inc hl
+	dec b
+	jr nz, .halveCaughtExpLoop
+	xor a
+	ld [wBoostExpByExpAll], a
+	callfar GainExperience
+	; fall through
 
 .done
 	ld a, [wBattleType]
