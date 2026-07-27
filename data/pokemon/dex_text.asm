@@ -825,7 +825,7 @@ _FarfetchdDexEntry::
 
 	page "carries. It cuts"
 	next "down any rival in"
-	next "the reeds"
+	next "the marshes"
 	dex
 
 _DoduoDexEntry::
