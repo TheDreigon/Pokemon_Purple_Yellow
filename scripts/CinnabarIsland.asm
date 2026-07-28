@@ -19,11 +19,17 @@ CinnabarIslandDefaultScript:
 	ld b, SECRET_KEY
 	call IsItemInBag
 	ret nz
+	; The tile directly below the gym door: the "door is locked" nudge fires
+	; here until the SECRET KEY is in the bag. These are RAW coordinates, so
+	; they must follow the door whenever the map is redrawn — the world-design
+	; rework moved the gym warp from (18,3) to (22,29) and left this check
+	; behind, firing the message in open ground on the other side of the
+	; island. Keep in lockstep with the CINNABAR_GYM warp_event.
 	ld a, [wYCoord]
-	cp 4
+	cp 30                 ; one tile below the gym warp at y=29
 	ret nz
 	ld a, [wXCoord]
-	cp 18
+	cp 22                 ; the gym warp's x
 	ret nz
 	ld a, PLAYER_DIR_UP
 	ld [wPlayerMovingDirection], a
