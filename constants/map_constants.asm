@@ -50,7 +50,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_18,                      25,  9 ; $1D
 	map_const ROUTE_19,                      10, 28 ; $1E (world-design: +1 row, follows Route 20)
 	map_const ROUTE_20,                      50, 12 ; $1F (world-design: 12 rows so its two shore corners meet Cinnabar's channel corners at island rows 8 and 19)
-	map_const ROUTE_21,                      11, 45 ; $20 (world-design: +1 column west, toward Cinnabar's new width)
+	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +1 column west, toward Cinnabar's new width)
 	map_const ROUTE_22,                      20,  9 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
 	map_const ROUTE_24,                      10, 18 ; $23
