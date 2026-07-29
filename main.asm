@@ -452,6 +452,8 @@ INCLUDE "engine/gfx/animated_objects.asm"
 SECTION "Overworld Pikachu", ROMX
 
 INCLUDE "data/maps/songs.asm"
+; Must stay in this SECTION: it is called with MapSongBanks' bank switched in.
+INCLUDE "engine/overworld/map_music_override.asm"
 INCLUDE "data/maps/map_header_pointers.asm"
 INCLUDE "data/maps/map_header_banks.asm"
 INCLUDE "engine/pikachu/pikachu_follow.asm"
