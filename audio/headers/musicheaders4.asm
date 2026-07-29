@@ -35,3 +35,28 @@ Music_CinnabarIsland::
 	channel 2, Music_CinnabarIsland_Ch2
 	channel 3, Music_CinnabarIsland_Ch3
 	channel 4, Music_CinnabarIsland_Ch4
+
+; Pewter City. AUDIO_4 for the same reason as Cinnabar Island above: AUDIO_1's
+; id space ends at 251 and a header needs one id per channel.
+Music_PewterCity::
+	channel_count 4
+	channel 1, Music_PewterCity_Ch1
+	channel 2, Music_PewterCity_Ch2
+	channel 3, Music_PewterCity_Ch3
+	channel 4, Music_PewterCity_Ch4
+
+; Saffron City once Silph Co is liberated.
+Music_SaffronLiberated::
+	channel_count 3
+	channel 1, Music_SaffronLiberated_Ch1
+	channel 2, Music_SaffronLiberated_Ch2
+	channel 3, Music_SaffronLiberated_Ch3
+
+; Saffron City after liberation, candidate B (Routes 2 based).
+Music_SaffronRoutes::
+	channel_count 4
+	channel 1, Music_SaffronRoutes_Ch1
+	channel 2, Music_SaffronRoutes_Ch2
+	channel 3, Music_SaffronRoutes_Ch3
+	channel 4, Music_SaffronRoutes_Ch4
+

@@ -11,9 +11,19 @@
 ; Anything added here must be cheap and must fall through to the table by
 ; default, so a map with no special case behaves exactly as before.
 
+; ⚠ TEMPORARY, 2026-07-29. Set back to 1 to arm the occupation music.
+;
+; Forte asked to audition the LIBERATED Saffron theme without having to beat
+; Giovanni first, so while this is 0 the override is skipped and Saffron plays
+; its table entry (Music_SaffronLiberated) from the moment you walk in. Once he
+; signs the track off, flip this to 1 and the occupation music is live again --
+; nothing else has to change.
+DEF SAFFRON_OCCUPATION_MUSIC_ARMED EQU 0
+
 ; Trashes: a, hl
 LoadMapMusicOverrides::
 
+IF SAFFRON_OCCUPATION_MUSIC_ARMED
 ; SAFFRON CITY, while Silph Co is still occupied, plays Silph Co's own theme.
 ; The company town sounds like the company. Beating Giovanni on the top floor
 ; lifts it and the city falls back to whatever the table says.
@@ -30,4 +40,5 @@ LoadMapMusicOverrides::
 	ld [wMapMusicSoundID], a
 	ld a, BANK(Music_SilphCo)
 	ld [wMapMusicROMBank], a
+ENDC
 	ret
