@@ -20,3 +20,18 @@ Music_YellowUnusedSong::
 Music_GBPrinter::
 	channel_count 1
 	channel 3, Music_GBPrinter_Ch3
+
+; Cinnabar Island, Cinnabar Lab.
+;
+; It lives in AUDIO_4 and not beside the other town themes for a hard reason:
+; song ids are (header - $4000) / 3 within the bank, AUDIO_1's table already
+; ends at id 251, and a 4-channel header needs four consecutive ids. 252-254
+; is three. Placed there it landed on 255 -- which is SFX_STOP_ALL_MUSIC, so
+; the island silenced itself instead of playing. The build cannot see that:
+; it was caught by recording the track and getting 22 seconds of nothing.
+Music_CinnabarIsland::
+	channel_count 4
+	channel 1, Music_CinnabarIsland_Ch1
+	channel 2, Music_CinnabarIsland_Ch2
+	channel 3, Music_CinnabarIsland_Ch3
+	channel 4, Music_CinnabarIsland_Ch4

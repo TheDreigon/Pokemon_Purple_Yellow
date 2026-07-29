@@ -530,6 +530,7 @@ SECTION "Music 4", ROMX
 INCLUDE "audio/music/surfingpikachu.asm"
 INCLUDE "audio/music/yellowunusedsong.asm"
 INCLUDE "audio/music/meetjessiejames.asm"
+INCLUDE "audio/music/cinnabarisland.asm"
 
 IF !DEF(_DEBUG)
 ;	INCBIN "garbage/bank20.bin"
