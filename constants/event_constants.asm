@@ -241,7 +241,8 @@
 	const_skip 46
 	const EVENT_SILPH_CO_RECEPTIONIST_AT_DESK
 	const_skip 24
-	const EVENT_GOT_TM29
+	const EVENT_GOT_TM35 ; Mr. Psychic's gift. Was named for vanilla's TM29;
+	                     ; TM29 is AERIAL_ACE here, a real and different TM.
 
 ; Route 1 events
 	const_next $3C0
