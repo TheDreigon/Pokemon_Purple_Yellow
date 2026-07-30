@@ -16,15 +16,15 @@ ENDM
 ; Each map also has associated data in maps.asm.
 ; Order: towns/cities, then routes, then indoor/dungeon maps
 	const_def
-	map_const PALLET_TOWN,                   10, 10 ; $00 (world-design: +1 row south)
+	map_const PALLET_TOWN,                   10, 10 ; $00
 	map_const VIRIDIAN_CITY,                 20, 18 ; $01
 	map_const PEWTER_CITY,                   20, 18 ; $02
 	map_const CERULEAN_CITY,                 20, 18 ; $03
-	map_const LAVENDER_TOWN,                 11,  9 ; $04 (world-design: +1 column east)
+	map_const LAVENDER_TOWN,                 13, 11 ; $04
 	map_const VERMILION_CITY,                20, 18 ; $05
 	map_const CELADON_CITY,                  25, 18 ; $06
 	map_const FUCHSIA_CITY,                  23, 19 ; $07 (world-design: redesign, larger)
-	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework - connecting-route borders still to retouch, per the April commit)
+	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework)
 	map_const INDIGO_PLATEAU,                10,  9 ; $09
 	map_const SAFFRON_CITY,                  20, 18 ; $0A
 DEF NUM_CITY_MAPS EQU const_value
@@ -39,18 +39,18 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_7,                       10,  9 ; $12
 	map_const ROUTE_8,                       30,  9 ; $13
 	map_const ROUTE_9,                       30,  9 ; $14
-	map_const ROUTE_10,                      11, 36 ; $15 (world-design: +1 column)
+	map_const ROUTE_10,                      11, 36 ; $15
 	map_const ROUTE_11,                      30,  9 ; $16
 	map_const ROUTE_12,                      10, 54 ; $17
 	map_const ROUTE_13,                      30,  9 ; $18
 	map_const ROUTE_14,                      10, 27 ; $19
-	map_const ROUTE_15,                      29,  9 ; $1A (world-design: one column trimmed at the Fuchsia seam)
+	map_const ROUTE_15,                      29,  9 ; $1A
 	map_const ROUTE_16,                      20,  9 ; $1B
 	map_const ROUTE_17,                      10, 72 ; $1C
 	map_const ROUTE_18,                      25,  9 ; $1D
-	map_const ROUTE_19,                      10, 28 ; $1E (world-design: +1 row, follows Route 20)
-	map_const ROUTE_20,                      50, 12 ; $1F (world-design: 12 rows so its two shore corners meet Cinnabar's channel corners at island rows 8 and 19)
-	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +1 column west, toward Cinnabar's new width)
+	map_const ROUTE_19,                      10, 28 ; $1E
+	map_const ROUTE_20,                      50, 12 ; $1F
+	map_const ROUTE_21,                      13, 45 ; $20
 	map_const ROUTE_22,                      20,  9 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
 	map_const ROUTE_24,                      10, 18 ; $23
