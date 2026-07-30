@@ -107,7 +107,7 @@ _CeruleanCityCooltrainerMText::
 	done
 
 _CeruleanCitySuperNerd1Text::
-	text "That bush in"
+	text "This bush in"
 	line "front of the shop"
 	cont "is in the way."
 
