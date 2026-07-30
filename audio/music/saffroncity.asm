@@ -1,5 +1,11 @@
 ; Saffron City -- an original piece, not derived from anything.
 ;
+; THIS IS THE OCCUPIED CITY. It is the plain data/maps/songs.asm entry, so it
+; is what plays until Giovanni is beaten on the top floor of Silph Co. From
+; that point LoadMapMusicOverrides swaps in Music_SaffronFree, which is this
+; same tune in A major, faster, and with a second half. If you change anything
+; structural here, that file is its twin and has to follow.
+;
 ; Two derivations failed the same way: Forte liked the music and said it did not
 ; fit. Celadon and Route 24/25 are fundamentally CHEERFUL and ADVENTUROUS, and
 ; slowing a tune down does not change what the tune is about. Saffron is
