@@ -8,26 +8,22 @@ _GameCornerPrizeRoomBaldingGuyText::
 
 _GameCornerPrizeRoomGamblerText::
 	text "I want to save"
-	line "up for HYPER"
-	cont "BEAM!"
+	line "up for"
+	cont "METRONOME!"
 
-	para "It does huge"
-	line "damage, but"
+	para "It picks a move"
+	line "at random and"
 	cont "your #MON"
-	cont "will need a turn"
-	cont "to recharge"
-	cont "when used."
+	cont "uses it that"
+	cont "turn."
 
-	para "If you faint your"
-	line "opponent though"
-	cont "that isn't"
-	cont "the case."
+	para "Could be anything."
+	line "That's the whole"
+	cont "point, isn't it?"
 
-	para "Your #MON"
-	line "will recharge"
-	cont "as your opponent"
-	cont "brings out their"
-	cont "next #MON."
+	para "Same reason I'm"
+	line "stood here and"
+	cont "not at a bank."
 	done
 
 _GameCornerPrizeRoomClerkDoYouNeedSomeGameCoinsText::

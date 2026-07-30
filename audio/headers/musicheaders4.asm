@@ -47,16 +47,10 @@ Music_PewterCity::
 
 ; Saffron City once Silph Co is liberated.
 Music_SaffronLiberated::
-	channel_count 3
+	channel_count 4
 	channel 1, Music_SaffronLiberated_Ch1
 	channel 2, Music_SaffronLiberated_Ch2
 	channel 3, Music_SaffronLiberated_Ch3
+	channel 4, Music_SaffronLiberated_Ch4
 
-; Saffron City after liberation, candidate B (Routes 2 based).
-Music_SaffronRoutes::
-	channel_count 4
-	channel 1, Music_SaffronRoutes_Ch1
-	channel 2, Music_SaffronRoutes_Ch2
-	channel 3, Music_SaffronRoutes_Ch3
-	channel 4, Music_SaffronRoutes_Ch4
 
