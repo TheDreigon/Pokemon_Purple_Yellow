@@ -56,10 +56,12 @@ Music_SaffronCity::
 ; The same tune in major and faster, once Giovanni is beaten. Reached through
 ; LoadMapMusicOverrides, never from the song table.
 Music_SaffronFree::
-	channel_count 4
+; Three channels, no drums -- see the note in audio/music/saffronfree.asm.
+; Celadon and Cities2 are three-channel too. This header is last in the bank,
+; so dropping a channel frees an id at the end and shifts nothing.
+	channel_count 3
 	channel 1, Music_SaffronFree_Ch1
 	channel 2, Music_SaffronFree_Ch2
 	channel 3, Music_SaffronFree_Ch3
-	channel 4, Music_SaffronFree_Ch4
 
 

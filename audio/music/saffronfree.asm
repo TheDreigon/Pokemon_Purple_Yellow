@@ -43,6 +43,25 @@
 ; everything at once would have muddled the one thing he asked for.
 ;
 ; Second-half harmony: D - A - F#m - E - D - A - E - E. The D is the lift.
+;
+; -- NO DRUM CHANNEL, from 2026-07-30 ----------------------------------------
+; Forte heard "a constant tum, tum, tum, tum in the background, always the
+; same" and asked for it gone. Two things in here fit that description and I
+; could not tell them apart by ear, so I described both and he picked: it was
+; Ch4. Four evenly spaced hits a bar, byte-identical across all sixteen bars,
+; never varying once. Over the old 8-bar loop it passed; stretched to 16 it is
+; a metronome.
+;
+; So this track has three channels, which is not a compromise: Celadon and
+; Cities2 (Cerulean and Fuchsia) are both three-channel with no noise channel
+; at all, and those are the two themes he keeps naming as the ones with life in
+; them.
+;
+; Removed from THIS track only, at his instruction. Music_SaffronCity, the
+; minor version, keeps its drums. Worth flagging that the two are meant to
+; differ only in key and tempo, so if the drums ever come out of one they
+; probably should come out of both -- but that is his call to make, not
+; something to do quietly on the way past.
 
 Music_SaffronFree_Ch1::
 	tempo 138
@@ -361,32 +380,4 @@ Music_SaffronFree_Ch3::
 	note D_, 2
 	note D_, 2
 	note D_, 2
-	sound_ret
-
-Music_SaffronFree_Ch4::
-	drum_speed 12
-.mainloop:
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_call .bar
-	sound_loop 0, .mainloop
-
-.bar:
-	drum_note 3, 4
-	drum_note 3, 4
-	drum_note 3, 4
-	drum_note 3, 4
 	sound_ret
