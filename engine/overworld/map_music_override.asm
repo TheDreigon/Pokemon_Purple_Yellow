@@ -11,34 +11,34 @@
 ; Anything added here must be cheap and must fall through to the table by
 ; default, so a map with no special case behaves exactly as before.
 
-; ⚠ TEMPORARY, 2026-07-29. Set back to 1 to arm the occupation music.
-;
-; Forte asked to audition the LIBERATED Saffron theme without having to beat
-; Giovanni first, so while this is 0 the override is skipped and Saffron plays
-; its table entry (Music_SaffronLiberated) from the moment you walk in. Once he
-; signs the track off, flip this to 1 and the occupation music is live again --
-; nothing else has to change.
-DEF SAFFRON_OCCUPATION_MUSIC_ARMED EQU 0
-
 ; Trashes: a, hl
 LoadMapMusicOverrides::
 
-IF SAFFRON_OCCUPATION_MUSIC_ARMED
-; SAFFRON CITY, while Silph Co is still occupied, plays Silph Co's own theme.
-; The company town sounds like the company. Beating Giovanni on the top floor
-; lifts it and the city falls back to whatever the table says.
+; SAFFRON CITY changes key when the city is freed.
 ;
-; Only the outdoor map is affected, which is what Forte asked for: the houses,
-; the gyms, the Dojo and the Silph floors are all separate map ids and never
-; match this compare, so stepping indoors still changes the music.
+; The table entry is Music_SaffronCity, which is the theme in A minor. That is
+; what plays while Silph Co is occupied. Beat Giovanni on the top floor and
+; this swaps in Music_SaffronFree: the SAME tune, transposed to A major and
+; about ten percent faster. Forte's design, and the reason it works is that
+; there is nothing new to learn -- the city still sounds like itself, it just
+; stops sounding grim.
+;
+; Note the direction. An earlier version of this had the override fire while
+; the city was OCCUPIED (playing Silph Co's own theme) and fall back to the
+; table afterwards. It now fires the other way round, so the table holds the
+; state you spend most of the game in and the override is the reward.
+;
+; Only the outdoor map is affected, which is what was asked for: the houses,
+; the gyms, the Dojo and the Silph Co floors are all separate map ids and never
+; match this compare, so stepping indoors still changes the music. The Dojo in
+; particular keeps MUSIC_YELLOW_UNUSED_SONG permanently.
 	ld a, [wCurMap]
 	cp SAFFRON_CITY
 	ret nz
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
-	ret nz
-	ld a, MUSIC_SILPH_CO
+	ret z
+	ld a, MUSIC_SAFFRON_FREE
 	ld [wMapMusicSoundID], a
-	ld a, BANK(Music_SilphCo)
+	ld a, BANK(Music_SaffronFree)
 	ld [wMapMusicROMBank], a
-ENDC
 	ret

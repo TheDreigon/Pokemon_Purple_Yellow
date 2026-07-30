@@ -532,7 +532,8 @@ INCLUDE "audio/music/yellowunusedsong.asm"
 INCLUDE "audio/music/meetjessiejames.asm"
 INCLUDE "audio/music/cinnabarisland.asm"
 INCLUDE "audio/music/pewtercity.asm"
-INCLUDE "audio/music/saffronliberated.asm"
+INCLUDE "audio/music/saffroncity.asm"
+INCLUDE "audio/music/saffronfree.asm"
 
 IF !DEF(_DEBUG)
 ;	INCBIN "garbage/bank20.bin"

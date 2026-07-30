@@ -45,12 +45,21 @@ Music_PewterCity::
 	channel 3, Music_PewterCity_Ch3
 	channel 4, Music_PewterCity_Ch4
 
-; Saffron City once Silph Co is liberated.
-Music_SaffronLiberated::
+; Saffron City while Silph Co is still occupied -- the plain table entry.
+Music_SaffronCity::
 	channel_count 4
-	channel 1, Music_SaffronLiberated_Ch1
-	channel 2, Music_SaffronLiberated_Ch2
-	channel 3, Music_SaffronLiberated_Ch3
-	channel 4, Music_SaffronLiberated_Ch4
+	channel 1, Music_SaffronCity_Ch1
+	channel 2, Music_SaffronCity_Ch2
+	channel 3, Music_SaffronCity_Ch3
+	channel 4, Music_SaffronCity_Ch4
+
+; The same tune in major and faster, once Giovanni is beaten. Reached through
+; LoadMapMusicOverrides, never from the song table.
+Music_SaffronFree::
+	channel_count 4
+	channel 1, Music_SaffronFree_Ch1
+	channel 2, Music_SaffronFree_Ch2
+	channel 3, Music_SaffronFree_Ch3
+	channel 4, Music_SaffronFree_Ch4
 
 

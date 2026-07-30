@@ -66,7 +66,7 @@
 ; v1, v2 and v3 are all archived as .wav under Notes/Music auditions/, and all
 ; three are in git (477daa8, b84789d, 7b798b5) if this is ever revisited.
 
-Music_SaffronLiberated_Ch1::
+Music_SaffronCity_Ch1::
 	tempo 152
 	volume 7, 7
 	duty_cycle 2
@@ -132,7 +132,7 @@ Music_SaffronLiberated_Ch1::
 	note G_, 8
 	sound_loop 0, .mainloop
 
-Music_SaffronLiberated_Ch2::
+Music_SaffronCity_Ch2::
 	duty_cycle 1
 .mainloop:
 	note_type 12, 8, 2
@@ -207,7 +207,7 @@ Music_SaffronLiberated_Ch2::
 	note B_, 2
 	sound_ret
 
-Music_SaffronLiberated_Ch3::
+Music_SaffronCity_Ch3::
 .mainloop:
 	note_type 12, 1, 1
 ; Root eighths, no ornament. A pump.
@@ -266,7 +266,7 @@ Music_SaffronLiberated_Ch3::
 	note G_, 2
 	sound_ret
 
-Music_SaffronLiberated_Ch4::
+Music_SaffronCity_Ch4::
 	drum_speed 12
 .mainloop:
 ; Four on the floor, eight bars, no fills. See the header.
