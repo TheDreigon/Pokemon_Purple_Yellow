@@ -40,10 +40,19 @@
 ; note_length * note_speed * TEMPO, so a bigger number is SLOWER.
 
 Music_SaffronLiberated_Ch1::
-	tempo 160
+	tempo 152
 	volume 7, 7
 	duty_cycle 2
 	vibrato 8, 1, 3
+	toggle_perfect_pitch
+	note_type 12, 11, 4
+; one-bar intro: a rising fourth that states the mode before the vamp starts.
+; The other three channels rest exactly 16 to stay in step.
+	rest 8
+	octave 4
+	note E_, 2
+	note G_, 2
+	note A_, 4
 .mainloop:
 	note_type 12, 11, 4
 ; -- phrase A: the statement -------------------------------------------------
@@ -107,6 +116,8 @@ Music_SaffronLiberated_Ch1::
 
 Music_SaffronLiberated_Ch2::
 	duty_cycle 1
+	note_type 12, 8, 2
+	rest 16                     ; matches Ch1's intro bar
 .mainloop:
 	note_type 12, 8, 2
 ; The traffic. Identical rhythm in all eight bars by design; only the chord
@@ -114,11 +125,11 @@ Music_SaffronLiberated_Ch2::
 	sound_call .amBar
 	sound_call .emBar
 	sound_call .fBar
-	sound_call .gBar
+	sound_call .gBarExhale
 	sound_call .amBar
 	sound_call .emBar
 	sound_call .fBar
-	sound_call .gBar
+	sound_call .gBarExhale
 	sound_loop 0, .mainloop
 
 .amBar:
@@ -164,7 +175,9 @@ Music_SaffronLiberated_Ch2::
 	note A_, 2
 	sound_ret
 
-.gBar:
+.gBarExhale:
+; The machine breathes here, every fourth bar. Without this the channel is
+; perfectly metronomic, which is the other thing that read as un-Pokemon.
 	octave 4
 	note G_, 2
 	note B_, 2
@@ -172,90 +185,100 @@ Music_SaffronLiberated_Ch2::
 	note D_, 2
 	octave 4
 	note B_, 2
-	note G_, 2
-	note B_, 2
-	octave 5
-	note D_, 2
-	octave 4
-	note B_, 2
+	note G_, 4
+	rest 4
 	sound_ret
 
 Music_SaffronLiberated_Ch3::
-.mainloop:
 	note_type 12, 1, 1
-; Root eighths, no ornament. A pump.
-	octave 2
-	sound_call .eightA
-	sound_call .eightE
-	sound_call .eightF
-	sound_call .eightG
-	sound_call .eightA
-	sound_call .eightE
-	sound_call .eightF
-	sound_call .eightG
+	toggle_perfect_pitch
+	rest 16                     ; matches Ch1's intro bar
+.mainloop:
+; A walking bass, Gen 1 style: root and fifth, a rest to breathe, then passing
+; notes that lead by step into the next chord. Octave 3, where Cities1 puts its
+; bass -- octave 2 was so low it turned into mud with no motion in it.
+	octave 3
+	sound_call .barAm
+	sound_call .barEm
+	sound_call .barF
+	sound_call .barG
+	sound_call .barAm
+	sound_call .barEm
+	sound_call .barF
+	sound_call .barG
 	sound_loop 0, .mainloop
 
-.eightA:
+.barAm:
 	note A_, 2
+	note E_, 2
 	note A_, 2
+	note E_, 2
 	note A_, 2
-	note A_, 2
-	note A_, 2
-	note A_, 2
-	note A_, 2
-	note A_, 2
+	rest 2
+	note G_, 2                  ; G-F# walks down into Em
+	note F#, 2
 	sound_ret
 
-.eightE:
+.barEm:
 	note E_, 2
+	note B_, 2
 	note E_, 2
+	note B_, 2
 	note E_, 2
+	rest 2
 	note E_, 2
-	note E_, 2
-	note E_, 2
-	note E_, 2
-	note E_, 2
+	note E_, 2                  ; holds, then steps up to F
 	sound_ret
 
-.eightF:
+.barF:
 	note F_, 2
+	note C_, 2
 	note F_, 2
+	note C_, 2
 	note F_, 2
-	note F_, 2
-	note F_, 2
-	note F_, 2
-	note F_, 2
-	note F_, 2
+	rest 2
+	note F#, 2                  ; F# walks into G
+	note F#, 2
 	sound_ret
 
-.eightG:
+.barG:
 	note G_, 2
+	note D_, 2
 	note G_, 2
+	note D_, 2
 	note G_, 2
-	note G_, 2
-	note G_, 2
-	note G_, 2
-	note G_, 2
-	note G_, 2
+	rest 2
+	note A_, 2                  ; back into Am
+	note A_, 2
 	sound_ret
 
 Music_SaffronLiberated_Ch4::
 	drum_speed 12
+	rest 16                     ; matches Ch1's intro bar
 .mainloop:
-; Four on the floor, eight bars, no fills. See the header.
+; The Gen 1 bar is 6+6+4 -- two long hits then a short one -- on instruments 6
+; and 7. Four-on-the-floor is what made the first version sound like modern
+; chiptune instead of Kanto; Cities1 builds its entire kit from this figure.
+; Still no showy fills: .barTurn every fourth bar is the whole variation.
 	sound_call .bar
 	sound_call .bar
 	sound_call .bar
+	sound_call .barTurn
 	sound_call .bar
 	sound_call .bar
 	sound_call .bar
-	sound_call .bar
-	sound_call .bar
+	sound_call .barTurn
 	sound_loop 0, .mainloop
 
 .bar:
-	drum_note 3, 4
-	drum_note 3, 4
-	drum_note 3, 4
-	drum_note 3, 4
+	drum_note 6, 6
+	drum_note 6, 6
+	drum_note 7, 4
+	sound_ret
+
+.barTurn:
+	drum_note 6, 6
+	drum_note 6, 6
+	drum_note 7, 2
+	drum_note 7, 2
 	sound_ret
