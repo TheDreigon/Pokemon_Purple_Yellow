@@ -22,7 +22,7 @@ ENDM
 	map_const CERULEAN_CITY,                 20, 18 ; $03
 	map_const LAVENDER_TOWN,                 13, 11 ; $04
 	map_const VERMILION_CITY,                20, 18 ; $05
-	map_const CELADON_CITY,                  25, 18 ; $06
+	map_const CELADON_CITY,                  26, 18 ; $06
 	map_const FUCHSIA_CITY,                  23, 19 ; $07 (world-design: redesign, larger)
 	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework)
 	map_const INDIGO_PLATEAU,                10,  9 ; $09
@@ -37,7 +37,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_5,                       10, 18 ; $10
 	map_const ROUTE_6,                       10, 18 ; $11
 	map_const ROUTE_7,                       10,  9 ; $12
-	map_const ROUTE_8,                       30,  9 ; $13
+	map_const ROUTE_8,                       30, 10 ; $13
 	map_const ROUTE_9,                       30,  9 ; $14
 	map_const ROUTE_10,                      11, 36 ; $15
 	map_const ROUTE_11,                      30,  9 ; $16
