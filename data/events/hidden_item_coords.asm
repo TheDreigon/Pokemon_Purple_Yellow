@@ -72,4 +72,5 @@ HiddenItemCoords:
 	hidden_item ROCK_TUNNEL_B1F,               21,  21 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item ROCK_TUNNEL_B1F,               30,  11 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item SEAFOAM_ISLANDS_B1F,           18,   6 ; TODO: provisional coords, adjust in PolishedMap
+	hidden_item ROUTE_11,                      22,   3 ; NEW 2026-07-30
 	db -1 ; end

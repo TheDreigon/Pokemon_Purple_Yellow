@@ -901,7 +901,6 @@ INCLUDE "data/maps/objects/Route18.asm"
 Route18_Blocks: INCBIN "maps/Route18.blk"
 	assert @ - Route18_Blocks == ROUTE_18_WIDTH * ROUTE_18_HEIGHT, "Route18.blk size does not match ROUTE_18 in map_constants.asm"
 
-	INCBIN "maps/UnusedPokecenterCopy.blk"
 
 
 SECTION "Maps 14", ROMX
@@ -1137,7 +1136,6 @@ UndergroundPathNorthSouth_Blocks: INCBIN "maps/UndergroundPathNorthSouth.blk"
 UndergroundPathWestEast_Blocks: INCBIN "maps/UndergroundPathWestEast.blk"
 	assert @ - UndergroundPathWestEast_Blocks == UNDERGROUND_PATH_WEST_EAST_WIDTH * UNDERGROUND_PATH_WEST_EAST_HEIGHT, "UndergroundPathWestEast.blk size does not match UNDERGROUND_PATH_WEST_EAST in map_constants.asm"
 
-	INCBIN "maps/UnusedDiglettsCaveCopy.blk"
 
 SSAnneB1FRooms_Blocks:
 SSAnne2FRooms_Blocks: INCBIN "maps/SSAnne2FRooms.blk"
@@ -1179,7 +1177,6 @@ INCLUDE "data/maps/objects/PokemonTower6F.asm"
 PokemonTower6F_Blocks: INCBIN "maps/PokemonTower6F.blk"
 	assert @ - PokemonTower6F_Blocks == POKEMON_TOWER_6F_WIDTH * POKEMON_TOWER_6F_HEIGHT, "PokemonTower6F.blk size does not match POKEMON_TOWER_6F in map_constants.asm"
 
-	INCBIN "maps/UnusedEmptyMap.blk"
 
 INCLUDE "data/maps/headers/PokemonTower7F.asm"
 INCLUDE "scripts/PokemonTower7F.asm"

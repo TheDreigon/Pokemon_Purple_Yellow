@@ -20,6 +20,7 @@ ViridianCity_Object:
 
 	def_bg_events
 	bg_event 19, 21, TEXT_VIRIDIANCITY_SIGN
+	bg_event 22, 15, TEXT_VIRIDIANCITY_SCHOOL_SIGN ; NEW 2026-07-30, beside the school door at (21,15)
 	bg_event  7, 17, TEXT_VIRIDIANCITY_TRAINER_TIPS1
 	bg_event 27, 13, TEXT_VIRIDIANCITY_TRAINER_TIPS2
 	bg_event 30, 19, TEXT_VIRIDIANCITY_MART_SIGN

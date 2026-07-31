@@ -251,6 +251,8 @@ INCLUDE "data/text/text_8.asm"
 
 SECTION "Text 9", ROMX
 
+INCLUDE "text/Signs.asm"
+
 INCLUDE "text/move_deleter.asm"
 INCLUDE "text/BadgeGates.asm"
 INCLUDE "text/RematchCooldown.asm"

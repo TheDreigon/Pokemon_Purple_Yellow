@@ -241,6 +241,7 @@ PowerPlantHiddenObjects:
 
 Route11HiddenObjects:
 	hidden_object 48,  5, GREAT_BALL, HiddenItems
+	hidden_object 22,  3, X_SPEED, HiddenItems ; NEW 2026-07-30, provisional coords -- Forte to place
 	db -1 ; end
 
 Route12HiddenObjects:
