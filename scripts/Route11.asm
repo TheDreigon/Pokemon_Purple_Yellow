@@ -25,6 +25,7 @@ Route11_TextPointers:
 	dw_const Route11Youngster3Text,       TEXT_ROUTE11_YOUNGSTER3
 	dw_const Route11SuperNerd2Text,       TEXT_ROUTE11_SUPER_NERD2
 	dw_const Route11Youngster4Text,       TEXT_ROUTE11_YOUNGSTER4
+	dw_const PickUpItemText,              TEXT_ROUTE11_CARBOS
 	dw_const Route11DiglettsCaveSignText, TEXT_ROUTE11_DIGLETTSCAVE_SIGN
 
 Route11TrainerHeaders:

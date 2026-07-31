@@ -16,8 +16,8 @@ Route2_Object:
 
 	def_bg_events
 	bg_event   7, 65, TEXT_ROUTE2_SIGN
-	bg_event   4, 11, TEXT_ROUTE2_FOREST_NORTH_SIGN ; NEW 2026-07-30, provisional -- beside the north gate warp
-	bg_event   4, 43, TEXT_ROUTE2_FOREST_SOUTH_SIGN ; NEW 2026-07-30, provisional -- beside the south gate warp
+	bg_event  5,  7, TEXT_ROUTE2_FOREST_NORTH_SIGN ; NEW 2026-07-30, provisional -- beside the north gate warp
+	bg_event  5, 47, TEXT_ROUTE2_FOREST_SOUTH_SIGN ; NEW 2026-07-30, provisional -- beside the south gate warp
 	bg_event 13, 11, TEXT_ROUTE2_DIGLETTS_CAVE_SIGN
 
 	def_object_events

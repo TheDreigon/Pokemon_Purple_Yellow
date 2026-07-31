@@ -159,7 +159,7 @@ RockTunnelB1FHiddenObjects:
 ; The gag rope: a dead-straight two-exit tunnel, and the Itemfinder will
 ; happily point the truly lost to the door. One step from the ladder.
 DiglettsCaveHiddenObjects:
-	hidden_object  6,  5, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
+	hidden_object 14, 15, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
 	db -1 ; end
 
 SeafoamIslandsB1FHiddenObjects:
@@ -241,7 +241,7 @@ PowerPlantHiddenObjects:
 
 Route11HiddenObjects:
 	hidden_object 48,  5, GREAT_BALL, HiddenItems
-	hidden_object 22,  3, X_SPEED, HiddenItems ; NEW 2026-07-30, provisional coords -- Forte to place
+	hidden_object 43,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was asked for but the GREAT_BALL already holds it.)
 	db -1 ; end
 
 Route12HiddenObjects:
@@ -278,7 +278,7 @@ VictoryRoad2HiddenObjects:
 
 Route25HiddenObjects:
 	hidden_object 38,  3, ETHER, HiddenItems
-	hidden_object 10,  1, X_ATTACK, HiddenItems
+	hidden_object 34,  7, X_ATTACK, HiddenItems
 	db -1 ; end
 
 BillsHouseHiddenObjects:
