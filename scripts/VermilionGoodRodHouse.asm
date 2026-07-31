@@ -1,11 +1,11 @@
-VermilionOldRodHouse_Script:
+VermilionGoodRodHouse_Script:
 	jp EnableAutoTextBoxDrawing
 
-VermilionOldRodHouse_TextPointers:
+VermilionGoodRodHouse_TextPointers:
 	def_text_pointers
-	dw_const VermilionOldRodHouseFishingGuruText, TEXT_VERMILIONOLDRODHOUSE_FISHING_GURU
+	dw_const VermilionGoodRodHouseFishingGuruText, TEXT_VERMILIONGOODRODHOUSE_FISHING_GURU
 
-VermilionOldRodHouseFishingGuruText:
+VermilionGoodRodHouseFishingGuruText:
 	text_asm
 	ld a, [wd728]
 	bit 4, a ; got good rod?

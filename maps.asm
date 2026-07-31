@@ -817,7 +817,7 @@ INCLUDE "data/maps/objects/Route21.asm"
 Route21_Blocks: INCBIN "maps/Route21.blk"
 	assert @ - Route21_Blocks == ROUTE_21_WIDTH * ROUTE_21_HEIGHT, "Route21.blk size does not match ROUTE_21 in map_constants.asm"
 
-VermilionOldRodHouse_Blocks:
+VermilionGoodRodHouse_Blocks:
 Route12SuperRodHouse_Blocks:
 Daycare_Blocks: INCBIN "maps/Daycare.blk"
 	assert @ - Daycare_Blocks == DAYCARE_WIDTH * DAYCARE_HEIGHT, "Daycare.blk size does not match DAYCARE in map_constants.asm"
@@ -839,9 +839,9 @@ INCLUDE "scripts/Route17.asm"
 INCLUDE "scripts/Route19.asm"
 INCLUDE "scripts/Route21.asm"
 
-INCLUDE "data/maps/headers/VermilionOldRodHouse.asm"
-INCLUDE "scripts/VermilionOldRodHouse.asm"
-INCLUDE "data/maps/objects/VermilionOldRodHouse.asm"
+INCLUDE "data/maps/headers/VermilionGoodRodHouse.asm"
+INCLUDE "scripts/VermilionGoodRodHouse.asm"
+INCLUDE "data/maps/objects/VermilionGoodRodHouse.asm"
 
 INCLUDE "data/maps/headers/CeladonMart2F.asm"
 INCLUDE "scripts/CeladonMart2F.asm"

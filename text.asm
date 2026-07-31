@@ -180,7 +180,7 @@ INCLUDE "text/VermilionDock.asm"
 
 INCLUDE "data/text/text_6.asm"
 
-INCLUDE "text/VermilionOldRodHouse.asm"
+INCLUDE "text/VermilionGoodRodHouse.asm"
 INCLUDE "text/CeladonMart1F.asm"
 INCLUDE "text/CeladonMart2F.asm"
 INCLUDE "text/CeladonMart3F.asm"
