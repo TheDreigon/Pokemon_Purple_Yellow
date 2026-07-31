@@ -126,7 +126,7 @@ _DugAHoleText::
 
 _GatheredMoonlightText::
 	text_start
-	line "gathered moonlight!"
+	line "took in moonlight!"
 	prompt
 
 _BecameConfusedText::
