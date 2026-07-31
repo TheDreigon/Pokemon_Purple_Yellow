@@ -36,7 +36,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_4,                       45,  9 ; $0F
 	map_const ROUTE_5,                       10, 18 ; $10
 	map_const ROUTE_6,                       10, 18 ; $11
-	map_const ROUTE_7,                       10,  9 ; $12
+	map_const ROUTE_7,                       13,  9 ; $12
 	map_const ROUTE_8,                       30, 10 ; $13
 	map_const ROUTE_9,                       30,  9 ; $14
 	map_const ROUTE_10,                      11, 36 ; $15 (world-design: +1 column)
@@ -45,7 +45,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_13,                      30,  9 ; $18
 	map_const ROUTE_14,                      10, 27 ; $19
 	map_const ROUTE_15,                      29,  9 ; $1A (world-design: one column trimmed at the Fuchsia seam; objects moved -2 tiles to match)
-	map_const ROUTE_16,                      20,  9 ; $1B
+	map_const ROUTE_16,                      21,  9 ; $1B
 	map_const ROUTE_17,                      10, 72 ; $1C
 	map_const ROUTE_18,                      25,  9 ; $1D
 	map_const ROUTE_19,                      10, 28 ; $1E (world-design: +1 row, follows Route 20)
@@ -216,7 +216,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const VICTORY_ROAD_2F,               15,  9 ; $C2
 	map_const ROUTE_12_GATE_2F,               4,  4 ; $C3
 	map_const VERMILION_TRADE_HOUSE,          4,  4 ; $C4
-	map_const DIGLETTS_CAVE,                 20, 18 ; $C5
+	map_const DIGLETTS_CAVE,                 21, 18 ; $C5
 	map_const VICTORY_ROAD_3F,               15,  9 ; $C6
 	map_const ROCKET_HIDEOUT_B1F,            15, 14 ; $C7
 	map_const ROCKET_HIDEOUT_B2F,            15, 14 ; $C8
