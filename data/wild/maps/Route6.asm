@@ -1,14 +1,14 @@
 Route6WildMons:
 	def_grass_wildmons 15 ; encounter rate
-	db 15, PSYDUCK
+	db 14, PSYDUCK
 	db 14, POLIWAG
 	db 15, LICKITUNG
 	db 16, POLIWAG
 	db 16, PSYDUCK
 	db 15, ABRA
 	db 17, MAGNEMITE
-	db 16, BUTTERFREE
-	db 17, POLIWHIRL
+	db 16, MACHOP
+	db 17, BUTTERFREE
 	db 19, POLIWHIRL
 	end_grass_wildmons
 

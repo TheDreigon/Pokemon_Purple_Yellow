@@ -4,10 +4,10 @@ Route11WildMons:
 	db 16, SPEAROW
 	db 18, SANDSHREW
 	db 18, EKANS
-	db 19, DROWZEE
+	db 18, DROWZEE
 	db 17, SANDSHREW
-	db 18, DIGLETT
-	db 20, DROWZEE
+	db 19, DROWZEE
+	db 18, MACHOP
 	db 19, BEEDRILL
 	db 20, FEAROW
 	end_grass_wildmons
