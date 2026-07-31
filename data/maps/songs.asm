@@ -249,4 +249,5 @@ MapSongBanks::
 	db MUSIC_DUNGEON1, BANK(Music_Dungeon1) ; BRUNOS_ROOM
 	db MUSIC_POKEMON_TOWER, BANK(Music_PokemonTower) ; AGATHAS_ROOM
 	db MUSIC_ROUTES3, BANK(Music_Routes3) ; SUMMER_BEACH_HOUSE
+	db MUSIC_CITIES1, BANK(Music_Cities1) ; VIRIDIAN_OLD_ROD_HOUSE
 	assert_table_length NUM_MAPS

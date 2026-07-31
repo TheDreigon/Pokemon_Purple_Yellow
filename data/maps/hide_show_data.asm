@@ -252,6 +252,7 @@ MapHSPointers:
 	dw BrunosRoomHS
 	dw AgathasRoomHS
 	dw NoHS
+	dw NoHS ; VIRIDIAN_OLD_ROD_HOUSE
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 

@@ -117,4 +117,5 @@ InternalMapEntries:
 	internal_map SILPH_CO_ELEVATOR,             10,  5, SilphCoName
 	internal_map AGATHAS_ROOM,                   0,  2, PokemonLeagueName
 	internal_map SUMMER_BEACH_HOUSE,             6, 15, Route19Name
+	internal_map VIRIDIAN_OLD_ROD_HOUSE,         2,  8, ViridianCityName
 	db -1 ; end

@@ -116,6 +116,11 @@ PewterSpeechHouse_Blocks:
 ViridianNicknameHouse_Blocks: INCBIN "maps/ViridianNicknameHouse.blk"
 	assert @ - ViridianNicknameHouse_Blocks == VIRIDIAN_NICKNAME_HOUSE_WIDTH * VIRIDIAN_NICKNAME_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match VIRIDIAN_NICKNAME_HOUSE in map_constants.asm"
 
+; Its own copy rather than another label on the stack above, so the interior can
+; be redrawn in PolishedMap without dragging every other small house with it.
+ViridianOldRodHouse_Blocks: INCBIN "maps/ViridianOldRodHouse.blk"
+	assert @ - ViridianOldRodHouse_Blocks == VIRIDIAN_OLD_ROD_HOUSE_WIDTH * VIRIDIAN_OLD_ROD_HOUSE_HEIGHT, "ViridianOldRodHouse.blk size does not match VIRIDIAN_OLD_ROD_HOUSE in map_constants.asm"
+
 CeladonMansionRoofHouse_Blocks:
 ViridianSchoolHouse_Blocks: INCBIN "maps/ViridianSchoolHouse.blk"
 	assert @ - ViridianSchoolHouse_Blocks == VIRIDIAN_SCHOOL_HOUSE_WIDTH * VIRIDIAN_SCHOOL_HOUSE_HEIGHT, "ViridianSchoolHouse.blk size does not match VIRIDIAN_SCHOOL_HOUSE in map_constants.asm"
@@ -152,6 +157,10 @@ INCLUDE "data/maps/headers/ViridianNicknameHouse.asm"
 	ds 1
 INCLUDE "scripts/ViridianNicknameHouse.asm"
 INCLUDE "data/maps/objects/ViridianNicknameHouse.asm"
+
+INCLUDE "data/maps/headers/ViridianOldRodHouse.asm"
+INCLUDE "scripts/ViridianOldRodHouse.asm"
+INCLUDE "data/maps/objects/ViridianOldRodHouse.asm"
 
 INCLUDE "data/maps/headers/PewterNidoranHouse.asm"
 INCLUDE "scripts/PewterNidoranHouse.asm"

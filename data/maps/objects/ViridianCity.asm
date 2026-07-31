@@ -17,6 +17,9 @@ ViridianCity_Object:
 	warp_event 21, 15, VIRIDIAN_SCHOOL_HOUSE, 1
 	warp_event 27, 13, VIRIDIAN_NICKNAME_HOUSE, 1
 	warp_event 32,  7, VIRIDIAN_GYM, 1
+	; Appended, never inserted: the warp array is positional and every indoor map
+	; comes back through its LAST_MAP, N index.
+	warp_event 11, 17, VIRIDIAN_OLD_ROD_HOUSE, 1
 
 	def_bg_events
 	bg_event 19, 21, TEXT_VIRIDIANCITY_SIGN

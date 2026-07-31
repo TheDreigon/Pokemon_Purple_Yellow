@@ -268,6 +268,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const BRUNOS_ROOM,                    5,  6 ; $F6
 	map_const AGATHAS_ROOM,                   5,  6 ; $F7
 	map_const SUMMER_BEACH_HOUSE,             7,  4 ; $F8
+	map_const VIRIDIAN_OLD_ROD_HOUSE,         4,  4 ; $F9 (the standard small-house interior; the FISHING GURU moved here out of the Viridian MART)
 DEF NUM_MAPS EQU const_value
 
 ; Indoor maps, such as houses, use this as the Map ID in their exit warps

@@ -263,6 +263,7 @@ INCLUDE "text/ViridianSchoolHouse.asm"
 INCLUDE "text/CeladonGym.asm"
 INCLUDE "text/CeruleanCaveB1F.asm"
 INCLUDE "text/ViridianNicknameHouse.asm"
+INCLUDE "text/ViridianOldRodHouse.asm" ; moved out of text/ViridianMart.asm (Text 5) when the guru got his own house
 
 INCLUDE "data/text/text_9.asm"
 
