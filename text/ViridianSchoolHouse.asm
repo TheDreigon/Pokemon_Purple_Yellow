@@ -45,13 +45,17 @@ _ViridianSchoolHouseTakeOneText::
 _ViridianSchoolHouseAlreadyHasMapText::
 	text_start
 
-	para "...Ah. Yours is"
-	line "right there in"
-	cont "your BAG."
+	para "...Ah. You have"
+	line "one already."
 
-	para "Good. Then read"
-	line "the blackboard"
-	cont "before you go."
+	para "Good to know!"
+	line "Preparation makes"
+	cont "all the"
+	cont "difference."
+
+	para "Then read the"
+	line "blackboard before"
+	cont "you go."
 	done
 
 _ViridianSchoolHouseMapBagFullText::
