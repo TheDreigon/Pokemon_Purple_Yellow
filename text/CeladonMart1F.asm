@@ -8,6 +8,29 @@ _CeladonMart1FReceptionistText::
 	cont "the store layout."
 	done
 
+_CeladonMart1FInfoClerkIntroText::
+	text "INFORMATION DESK."
+
+	para "Ask me about"
+	line "anything the"
+	cont "shops sell."
+	done
+
+_CeladonMart1FInfoClerkWhichText::
+	text "Which shelf?"
+	done
+
+_CeladonMart1FInfoClerkBadgeNoteText::
+	text "Do note that some"
+	line "of these need"
+	cont "more GYM BADGES"
+	cont "before any shop"
+	cont "may sell them!"
+
+	para "Come back as you"
+	line "collect them."
+	done
+
 _CeladonMart1FDirectorySignText::
 	text "1F: SERVICE"
 	line "    COUNTER"

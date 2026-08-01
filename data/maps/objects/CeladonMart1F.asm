@@ -1,5 +1,6 @@
 	object_const_def
 	const_export CELADONMART1F_RECEPTIONIST
+	const_export CELADONMART1F_INFO_CLERK
 
 CeladonMart1F_Object:
 	db $f ; border block
@@ -18,5 +19,9 @@ CeladonMart1F_Object:
 
 	def_object_events
 	object_event  9,  3, SPRITE_LINK_RECEPTIONIST, STAY, DOWN, TEXT_CELADONMART1F_RECEPTIONIST
+	; Information desk, sharing the counter with her. The whole run (7,4)-(11,4)
+	; is a Lobby counter tile, so the player talks across it exactly as they do
+	; to the receptionist.
+	object_event  8,  3, SPRITE_CLERK, STAY, DOWN, TEXT_CELADONMART1F_INFO_CLERK
 
 	def_warps_to CELADON_MART_1F

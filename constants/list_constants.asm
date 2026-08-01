@@ -5,6 +5,12 @@
 ; + terminator = 41), so adding one row to either inventory table without
 ; growing this would silently write past the end of wItemList.
 DEF ITEM_LIST_SIZE  EQU 41
+
+; The Celadon Dept. Store information desk: a two-column board of categories,
+; with the slot after the last one acting as QUIT. Its largest sublist is 12
+; entries, comfortably inside ITEM_LIST_SIZE above.
+DEF NUM_INFO_DESK_ROWS       EQU 5
+DEF NUM_INFO_DESK_CATEGORIES EQU 9
 DEF MAX_MART_EXTRAS EQU 12
 
 ; list menu IDs
