@@ -48,6 +48,15 @@ CeladonMart1FInfoClerkText:
 	call .leftColumn
 
 .categoryLoop
+	; Re-armed EVERY pass, not just on entry: DisplayListMenuID is a scrolling
+	; menu and leaves wMenuWatchMovingOutOfBounds set, which switches
+	; HandleMenuInput from "wrap around" to "return the direction key to the
+	; caller". This board wraps, so it must be clear -- otherwise Down on the
+	; bottom row returned D_DOWN, fell past the B/Left/Right tests, and got
+	; treated as a selection.
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a
+	ld [wMenuJoypadPollCount], a
 	ld hl, wd730
 	set 6, [hl]
 	hlcoord 0, 0
@@ -70,9 +79,15 @@ CeladonMart1FInfoClerkText:
 	jr .categoryLoop
 .didNotPressRight
 	bit BIT_D_LEFT, a
-	jr z, .chose
+	jr z, .checkA
 	call .leftColumn
 	jr .categoryLoop
+.checkA
+	; Test A rather than assuming "not B, not Left, not Right" means A. Anything
+	; else HandleMenuInput hands back -- a direction key, a spurious 0 -- must
+	; redraw, never select.
+	bit BIT_A_BUTTON, a
+	jr z, .categoryLoop
 
 .chose
 	ld a, [wMenuItemOffset]
