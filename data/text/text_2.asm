@@ -767,10 +767,10 @@ _ViridianBlackboardConfusionText::
 	cont "instead of the"
 	cont "foe!"
 
-	para "The confusion"
-	line "fades on its own"
-	cont "after a few"
-	cont "turns."
+	para "No item clears"
+	line "it. It fades on"
+	cont "its own after a"
+	cont "few turns."
 	prompt
 
 _VermilionGymTrashText::
