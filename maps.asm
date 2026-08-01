@@ -822,8 +822,8 @@ Route12SuperRodHouse_Blocks:
 Daycare_Blocks: INCBIN "maps/Daycare.blk"
 	assert @ - Daycare_Blocks == DAYCARE_WIDTH * DAYCARE_HEIGHT, "Daycare.blk size does not match DAYCARE in map_constants.asm"
 
-FuchsiaGoodRodHouse_Blocks: INCBIN "maps/FuchsiaGoodRodHouse.blk"
-	assert @ - FuchsiaGoodRodHouse_Blocks == FUCHSIA_GOOD_ROD_HOUSE_WIDTH * FUCHSIA_GOOD_ROD_HOUSE_HEIGHT, "FuchsiaGoodRodHouse.blk size does not match FUCHSIA_GOOD_ROD_HOUSE in map_constants.asm"
+FuchsiaFossilHouse_Blocks: INCBIN "maps/FuchsiaFossilHouse.blk"
+	assert @ - FuchsiaFossilHouse_Blocks == FUCHSIA_FOSSIL_HOUSE_WIDTH * FUCHSIA_FOSSIL_HOUSE_HEIGHT, "FuchsiaFossilHouse.blk size does not match FUCHSIA_FOSSIL_HOUSE in map_constants.asm"
 
 
 SECTION "Maps 12", ROMX
@@ -849,9 +849,9 @@ INCLUDE "data/maps/objects/CeladonMart2F.asm"
 CeladonMart2F_Blocks: INCBIN "maps/CeladonMart2F.blk"
 	assert @ - CeladonMart2F_Blocks == CELADON_MART_2F_WIDTH * CELADON_MART_2F_HEIGHT, "CeladonMart2F.blk size does not match CELADON_MART_2F in map_constants.asm"
 
-INCLUDE "data/maps/headers/FuchsiaGoodRodHouse.asm"
-INCLUDE "scripts/FuchsiaGoodRodHouse.asm"
-INCLUDE "data/maps/objects/FuchsiaGoodRodHouse.asm"
+INCLUDE "data/maps/headers/FuchsiaFossilHouse.asm"
+INCLUDE "scripts/FuchsiaFossilHouse.asm"
+INCLUDE "data/maps/objects/FuchsiaFossilHouse.asm"
 
 INCLUDE "data/maps/headers/Daycare.asm"
 INCLUDE "scripts/Daycare.asm"

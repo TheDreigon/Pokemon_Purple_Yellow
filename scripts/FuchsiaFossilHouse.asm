@@ -1,11 +1,11 @@
-FuchsiaGoodRodHouse_Script:
+FuchsiaFossilHouse_Script:
 	jp EnableAutoTextBoxDrawing
 
-FuchsiaGoodRodHouse_TextPointers:
+FuchsiaFossilHouse_TextPointers:
 	def_text_pointers
-	dw_const FuchsiaGoodRodHouseFishingGuruText, TEXT_FUCHSIAGOODRODHOUSE_FISHING_GURU
+	dw_const FuchsiaFossilHouseFishingGuruText, TEXT_FUCHSIAFOSSILHOUSE_FISHING_GURU
 
-FuchsiaGoodRodHouseFishingGuruText:
+FuchsiaFossilHouseFishingGuruText:
 	text_asm
 	CheckEvent EVENT_GOT_FUCHSIA_FOSSIL_GIFT
 	jr nz, .got_gift
@@ -37,11 +37,11 @@ FuchsiaGoodRodHouseFishingGuruText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaGoodRodHouseFishingGuruText
+	text_far _FuchsiaFossilHouseFishingGuruText
 	text_end
 
 .ReceivedGiftText:
-	text_far _FuchsiaGoodRodHouseFishingGuruReceivedGiftText
+	text_far _FuchsiaFossilHouseFishingGuruReceivedGiftText
 	sound_get_item_1
 	text_end
 
@@ -56,13 +56,13 @@ FuchsiaGoodRodHouseFishingGuruText:
 	done
 
 .ThatsSoDisappointingText:
-	text_far _FuchsiaGoodRodHouseFishingGuruThatsSoDisappointingText
+	text_far _FuchsiaFossilHouseFishingGuruThatsSoDisappointingText
 	text_end
 
 .HowAreTheFishText:
-	text_far _FuchsiaGoodRodHouseFishingGuruHowAreTheFishText
+	text_far _FuchsiaFossilHouseFishingGuruHowAreTheFishText
 	text_end
 
 .NoRoomText:
-	text_far _FuchsiaGoodRodHouseFishingGuruNoRoomText
+	text_far _FuchsiaFossilHouseFishingGuruNoRoomText
 	text_end

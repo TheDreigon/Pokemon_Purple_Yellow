@@ -165,7 +165,7 @@ MapHeaderBanks::
 	db BANK(SeafoamIslandsB3F_h)
 	db BANK(SeafoamIslandsB4F_h)
 	db BANK(VermilionGoodRodHouse_h)
-	db BANK(FuchsiaGoodRodHouse_h)
+	db BANK(FuchsiaFossilHouse_h)
 	db BANK(PokemonMansion1F_h)
 	db BANK(CinnabarGym_h)
 	db BANK(CinnabarLab_h)

@@ -165,7 +165,7 @@ MapHeaderPointers::
 	dw SeafoamIslandsB3F_h
 	dw SeafoamIslandsB4F_h
 	dw VermilionGoodRodHouse_h
-	dw FuchsiaGoodRodHouse_h
+	dw FuchsiaFossilHouse_h
 	dw PokemonMansion1F_h
 	dw CinnabarGym_h
 	dw CinnabarLab_h
