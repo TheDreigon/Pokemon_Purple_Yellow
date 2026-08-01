@@ -383,7 +383,12 @@ wMenuCursorLocation:: dw
 ; daycare level cap: on hard mode (pre-Champion) daycare growth stops at this level (scales with badge count, 12..65); MAX_LEVEL otherwise. See scripts/Daycare.asm
 wMaxDaycareLevel:: db
 
-	ds 1
+; v0.7: nonzero while the OPTION menu is being opened from INSIDE a running game.
+; The difficulty row is informational and only means anything once a difficulty
+; has actually been chosen, so the title-screen OPTION menu leaves this at 0 and
+; the row is not drawn. Default 0 is the safe one: a caller that forgets to set
+; it hides the row rather than showing a stale value.
+wOptionsShowDifficulty:: db
 
 ; how many times should HandleMenuInput poll the joypad state before it returns?
 wMenuJoypadPollCount:: db

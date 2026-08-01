@@ -745,6 +745,8 @@ StartMenu_Option::
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call UpdateSprites
+	ld a, 1
+	ld [wOptionsShowDifficulty], a ; in a running game: show the difficulty row
 	callfar DisplayOptionMenu
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call LoadTextBoxTilePatterns

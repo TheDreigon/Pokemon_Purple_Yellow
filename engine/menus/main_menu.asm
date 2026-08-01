@@ -82,6 +82,8 @@ MainMenu:
 	jr z, .choseContinue
 	cp 1
 	jp z, StartNewGame
+	xor a
+	ld [wOptionsShowDifficulty], a ; title screen: no difficulty chosen yet
 	call DisplayOptionMenu
 	ld a, 1
 	ld [wOptionsInitialized], a

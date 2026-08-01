@@ -431,6 +431,16 @@ InitOptionsMenu:
 	; v0.7: read-only difficulty indicator (informational; it is NOT in
 	; OptionMenuJumpTable / the cursor path, so it can't be selected or
 	; changed here). Drawn once; wDifficulty is fixed for the run.
+	;
+	; Skipped entirely on the title screen. wDifficulty lives inside the saved
+	; block and CONTINUE copies the save into WRAM while its menu is still up,
+	; so opening OPTION from the title used to report the OLD SAVE's difficulty
+	; to a player who might be about to start a new game — and on a fresh
+	; cartridge it asserted NORMAL before the choice existed at all. The value
+	; is only really decided during Oak's speech.
+	ld a, [wOptionsShowDifficulty]
+	and a
+	jr z, .skipDifficultyRow
 	hlcoord 2, 13
 	ld de, OptionMenuDifficultyText
 	call PlaceString
@@ -442,6 +452,7 @@ InitOptionsMenu:
 .gotDifficultyValue
 	hlcoord 13, 13
 	call PlaceString
+.skipDifficultyRow
 	xor a
 	ld [wOptionsCursorLocation], a
 	ld c, 5 ; the number of options to loop through
