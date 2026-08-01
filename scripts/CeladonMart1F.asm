@@ -43,8 +43,6 @@ CeladonMart1FInfoClerkText:
 	; reading any input and return its default -- a phantom accept. Zero it
 	; before every menu of consequence.
 	ld [wMenuJoypadPollCount], a
-	ld a, D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON
-	ld [wMenuWatchedKeys], a
 	call .leftColumn
 
 .categoryLoop
@@ -57,6 +55,12 @@ CeladonMart1FInfoClerkText:
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wMenuJoypadPollCount], a
+	; DisplayListMenuID rewrites this to A|B|SELECT for its own use, so Left and
+	; Right stopped being watched keys the moment the player had opened one
+	; category -- HandleMenuInput then just looped on them and the columns froze.
+	; Re-arm the whole menu contract every pass; assume nothing survives a submenu.
+	ld a, D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON
+	ld [wMenuWatchedKeys], a
 	ld hl, wd730
 	set 6, [hl]
 	hlcoord 0, 0
