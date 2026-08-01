@@ -169,12 +169,27 @@ ViridianCityPrintTrainerTips1Text::
 	text_end
 
 ViridianCityPrintTrainerTips2Text::
-	ld hl, .text
+; The second half of this sign is difficulty-dependent. Enemy trainers DO spend
+; PP in normal mode (the v0.7 AI PP fix in DecrementEnemyPP); hard mode returns
+; early from that routine and keeps vanilla's infinite enemy PP as a knob, so
+; only there is the old "not limited, however!" line true.
+	ld hl, .NormalText
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print_text
+	ld hl, .HardText
+.print_text
 	call PrintText
 	ret
 
-.text
+.NormalText
 	text_far _ViridianCityTrainerTips2Text
+	text_far _ViridianCityTrainerTips2NormalText
+	text_end
+
+.HardText
+	text_far _ViridianCityTrainerTips2Text
+	text_far _ViridianCityTrainerTips2HardText
 	text_end
 
 ViridianCityPrintGymSignText::

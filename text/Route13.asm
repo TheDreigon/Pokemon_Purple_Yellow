@@ -160,8 +160,12 @@ _Route13CooltrainerM3AfterBattleText::
 _Route13TrainerTips1Text::
 	text "TRAINER TIPS"
 
-	para "Look to the left"
-	line "of that post!"
+	para "PARALYSIS halves"
+	line "a foe's SPEED."
+
+	para "Even the fastest"
+	line "BIRD #MON can"
+	cont "be outsped!"
 	done
 
 _Route13TrainerTips2Text::

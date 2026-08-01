@@ -79,17 +79,12 @@ _PewterCityYoungsterGoTakeOnBrockText::
 _PewterCityTrainerTipsText::
 	text "TRAINER TIPS"
 
-	para "You can check a"
-	line "#MONs DVs in"
-	cont "the #MON"
-	cont "STATS menu."
+	para "On a #MON's"
+	line "STATS page:"
 
-	para "Before pressing"
-	line "A, hold START"
-	cont "and then press"
-	cont "A on STATS in"
-	cont "the #MON"
-	cont "menu."
+	para "hold START to see"
+	line "its DVs, SELECT"
+	cont "for its STAT EXP."
 	done
 
 _PewterCityPoliceNoticeSignText::

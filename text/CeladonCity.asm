@@ -114,9 +114,8 @@ _CeladonCityTrainerTips2Text::
 	text "TRAINER TIPS"
 
 	para "GUARD SPEC."
-	line "protects #MON"
-	cont "from status-"
-	cont "reduction moves"
+	line "stops #MON"
+	cont "stats being cut"
 	cont "during battle."
 
 	para "Get your items at"
