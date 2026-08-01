@@ -30,3 +30,20 @@ _ViridianSchoolHouseCooltrainerFText::
 	line "the blackboard"
 	cont "carefully!"
 	done
+
+_ViridianSchoolHouseOfferMapText::
+	text "A trainer with no"
+	line "map is a trainer"
+	cont "who goes home."
+
+	para "Every student"
+	line "leaves here with"
+	cont "one. Take it."
+	done
+
+_ViridianSchoolHouseMapBagFullText::
+	text "Your BAG is full!"
+
+	para "Come back when"
+	line "you have room."
+	done
