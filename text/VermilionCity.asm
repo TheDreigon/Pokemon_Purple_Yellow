@@ -100,7 +100,7 @@ _OfficerJennyText1::
 
 _OfficerJennyText2::
 	text "You have the"
-	line "THUNDERBADGE!?"
+	line "CASCADEBADGE!?"
 
 	para "You must be a"
 	line "good trainer!"

@@ -12,7 +12,7 @@
 	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	; Legendary ice raptor.
+	; Legendary ice raptor. Ladder prereq: ICY_PULSE.
 	tmhm ICY_PULSE, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     AGILITY, AERIAL_ACE, HURRICANE, INTIMIDATE, SCARY_FACE, \
 	     TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, SWORDS_DANCE, \

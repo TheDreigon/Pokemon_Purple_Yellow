@@ -956,17 +956,19 @@ ReplaceFaintedEnemyMon:
 
 TrainerBattleVictory:
 	call EndLowHealthAlarm
+; v0.7: the fanfare is chosen from GrandVictoryClasses (a per-trainer music
+; list) instead of wGymLeaderNo, which only ever covered the 8 leaders' first
+; fights — the Elite Four, Oak, Forte, the semi-bosses and every leader
+; REMATCH were all falling through to the plain trainer jingle.
+	farcall IsGrandVictoryClass
+	ld b, MUSIC_DEFEATED_TRAINER ; ld doesn't touch the Z flag above
+	jr z, .fanfareChosen
 	ld b, MUSIC_DEFEATED_GYM_LEADER
-	ld a, [wGymLeaderNo]
-	and a
-	jr nz, .gymleader
-	ld b, MUSIC_DEFEATED_TRAINER
-.gymleader
+.fanfareChosen
 	ld a, [wTrainerClass]
 	cp RIVAL3 ; final battle against rival
 	jr nz, .notrival
-	ld b, MUSIC_DEFEATED_GYM_LEADER
-	ld hl, wFlags_D733
+	ld hl, wFlags_D733 ; RIVAL3's own fanfare comes from the list above
 	set 1, [hl]
 .notrival
 	ld a, [wLinkState]
@@ -2386,7 +2388,7 @@ BagWasSelected:
 	; v0.7: items are baseline-allowed in every battle (wild/trainer/boss) in
 	; both Normal and Hard mode — symmetric with the Hard-mode boss item bag
 	; that ships alongside this. The 6 problem items (Revive, Max Revive,
-	; Ether, Max Ether, Elixer, Max Elixer) are gated per-item in
+	; Ether, Max Ether, Elixir, Max Elixir) are gated per-item in
 	; engine/items/item_effects.asm: they're blocked only in Hard-mode
 	; trainer/boss battles, and never in wild battles. The block lives there
 	; (not here) so wild-vs-trainer + per-item routing stays in one place.
@@ -3545,6 +3547,7 @@ MirrorMoveCheck:
 	or b
 	ret z ; don't do anything else if the enemy fainted
 	call HandleBuildingRage
+	call DefrostTargetIfFireOrMagma
 
 	ld hl, wPlayerBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl]
@@ -4443,6 +4446,14 @@ GetDamageVarsForPlayerAttack:
 	and a
 	ld d, a ; d = move power
 	ret z ; return if move power is zero
+; v0.7: TRI_ATTACK is typed BIRD so that it is neutral against every type, but
+; BIRD sits in the physical half of the type table — which would resolve
+; Porygon's signature off its Attack (75) instead of its Special (100) and let
+; the opponent's Reflect halve it instead of Light Screen. Force it special.
+; This is a move-number override precisely so the type table stays untouched.
+	ld a, [wPlayerMoveNum]
+	cp TRI_ATTACK
+	jr z, .specialAttack
 	ld a, [hl] ; a = [wPlayerMoveType]
 	cp SPECIAL ; types >= SPECIAL are all special
 	jr nc, .specialAttack
@@ -4556,6 +4567,9 @@ GetDamageVarsForEnemyAttack:
 	ld d, a ; d = move power
 	and a
 	ret z ; return if move power is zero
+	ld a, [wEnemyMoveNum] ; TRI_ATTACK override — see the player-side note
+	cp TRI_ATTACK
+	jr z, .specialAttack
 	ld a, [hl] ; a = [wEnemyMoveType]
 	cp SPECIAL ; types >= SPECIAL are all special
 	jr nc, .specialAttack
@@ -4931,7 +4945,7 @@ CriticalHitTest:
 	jr z, .noBossCritBonus
 	push bc                      ; preserve b (base+speed/4); helper trashes
 	push de                      ; preserve de (battle-status ptr)
-	call IsHardModeBossBattle
+	farcall IsHardModeBossBattle
 	pop de
 	pop bc
 	jr z, .noBossCritBonus
@@ -5479,7 +5493,31 @@ AdjustDamageForMoveType:
 	jr z, .sameTypeAttackBonus
 	cp c ; does the move type match type 2 of the attacker?
 	jr z, .sameTypeAttackBonus
+; v0.7: TRI_ATTACK is typed BIRD on purpose, so it is neutral against every
+; type (BIRD has no rows in the matchups table) — but that also means it can
+; never match Porygon's NORMAL/ELECTRIC and would never earn STAB. Grant it
+; here, keyed on move + species. Done this way rather than by giving Porygon
+; the BIRD type because a type is also DEFENSIVE: BIRD's blank matchup rows
+; would have flattened Porygon's own weaknesses and resistances.
+; Only `a` is touched — d/e still hold the defender's types for the
+; effectiveness walk below.
+	ldh a, [hWhoseTurn]
+	and a
+	jr nz, .triAttackEnemyTurn
+	ld a, [wPlayerMoveNum]
+	cp TRI_ATTACK
+	jr nz, .skipSameTypeAttackBonus
+	ld a, [wBattleMonSpecies2]
+	cp PORYGON
+	jr z, .sameTypeAttackBonus
 	jr .skipSameTypeAttackBonus
+.triAttackEnemyTurn
+	ld a, [wEnemyMoveNum]
+	cp TRI_ATTACK
+	jr nz, .skipSameTypeAttackBonus
+	ld a, [wEnemyMonSpecies2]
+	cp PORYGON
+	jr nz, .skipSameTypeAttackBonus
 .sameTypeAttackBonus
 ; if the move type matches one of the attacker's types
 	ld hl, wDamage + 1
@@ -5544,6 +5582,32 @@ MoveHitTest:
 	and a
 	jr nz, .enemyTurn
 .playerTurn
+; v0.7 fix: Mist (Guard Spec.) may only block moves that do NOTHING but lower a
+; stat. This test keys on the effect id alone, and in vanilla every effect in
+; the blocked ranges belonged to a 0-BP status move — but the v0.5 "damage AND
+; lower a stat" redesign attached those same effect ids to 17 DAMAGING moves
+; (Hydro Pump, Fissure, Guillotine, Submission, Bulldoze, Sludge Wave, Acid,
+; Take Down, ...). Without this power gate, a mon behind Mist was flatly immune
+; to all of them: Prof. Oak carries Guard Spec. in his hard-mode bag, so once
+; he used it the player's Hydro Pump could never land again — and the player
+; could buy Guard Spec. in Celadon for the same free immunity.
+	ld a, [wPlayerMovePower]
+	and a
+	jr nz, .skipEnemyMistCheck ; a damaging move is never Mist-blocked
+; v0.7 FIX: the chart says PSYCHIC_TYPE has NO_EFFECT against DARK, but a 0-BP
+; status move never reaches the damage path that applies the chart — so HYPNOSIS
+; and DISABLE were landing on Dark-types regardless. Enforced here, on the
+; 0-power path only, so damaging Psychic moves keep their own "doesn't affect".
+	ld a, [wPlayerMoveType]
+	cp PSYCHIC_TYPE
+	jr nz, .playerPsychicOk
+	ld a, [wEnemyMonType1]
+	cp DARK
+	jp z, .moveMissed ; jp, not jr: .moveMissed is ~160 bytes ahead from here
+	ld a, [wEnemyMonType2]
+	cp DARK
+	jp z, .moveMissed
+.playerPsychicOk
 ; this checks if the move effect is disallowed by mist
 	ld a, [wPlayerMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
@@ -5568,6 +5632,19 @@ MoveHitTest:
 	ret nz ; if so, always hit regardless of accuracy/evasion
 	jr .calcHitChance
 .enemyTurn
+	ld a, [wEnemyMovePower] ; same power gate as the player turn — see above
+	and a
+	jr nz, .skipPlayerMistCheck
+	ld a, [wEnemyMoveType] ; same PSYCHIC->DARK guard as the player turn
+	cp PSYCHIC_TYPE
+	jr nz, .enemyPsychicOk
+	ld a, [wBattleMonType1]
+	cp DARK
+	jr z, .moveMissed
+	ld a, [wBattleMonType2]
+	cp DARK
+	jr z, .moveMissed
+.enemyPsychicOk
 	ld a, [wEnemyMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
 	jr c, .skipPlayerMistCheck
@@ -5605,7 +5682,7 @@ MoveHitTest:
 	; Player turn = player attacking boss → -5pp (harder to hit).
 	; Enemy turn  = boss attacking player → +5pp (boss hits more).
 	push bc                      ; preserve b (the accuracy value)
-	call IsHardModeBossBattle
+	farcall IsHardModeBossBattle
 	pop bc
 	jr z, .skipBossAccEdge
 	ldh a, [hWhoseTurn]
@@ -5968,6 +6045,7 @@ EnemyCheckIfMirrorMoveEffect:
 	or b
 	ret z
 	call HandleBuildingRage
+	call DefrostTargetIfFireOrMagma
 	ld hl, wEnemyBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl] ; is mon hitting multiple times? (example: double kick)
 	jr z, .notMultiHitMove
@@ -6356,13 +6434,17 @@ LoadEnemyMonData:
 	ld b, a
 	call BattleRandom
 .storeDVs
-	; v0.7 hard mode boss DV override. IsHardModeBossBattle gates on
-	; trainer-battle + boss class, so wild and transformed paths fall
-	; through unchanged. Boss enemies get $ff/$ff (DV=15 in all 5
-	; stats including HP, via the standard DV encoding).
+	; v0.7 hard mode boss DV override. Boss enemies get $ff/$ff (DV=15 in
+	; all 5 stats including HP, via the standard DV encoding).
+	; IsHardModeBossBattle gates on trainer-battle + boss class, so the WILD
+	; path falls through unchanged — but note the TRANSFORMED path does NOT:
+	; `bit TRANSFORMED / jr nz, .storeDVs` above lands right here, so a
+	; transformed boss mon has its restored wTransformedEnemyMonOriginalDVs
+	; overwritten with $ff/$ff too. That is harmless (it is still a boss
+	; buff), but it is not the "falls through unchanged" this used to claim.
 	ld c, a                ; cache atk/def DVs (preserved by the push/pop bc below)
 	push bc
-	call IsHardModeBossBattle
+	farcall ShouldMaxEnemyDVs
 	pop bc
 	ld a, c                ; restore atk/def DVs
 	jr z, .writeDVs
@@ -6416,11 +6498,13 @@ LoadEnemyMonData:
 	; current HP just copied above was computed by AddPartyMon with the
 	; un-boosted trainer DVs — so a fresh boss mon (e.g. the rival's Eevee)
 	; would display below full HP. Top current HP up to the new MaxHP.
-	; Gated on IsHardModeBossBattle, so Normal mode / wild / non-boss
-	; trainers are bit-identical. Safe to overwrite current HP for a boss:
+	; Gated on ShouldMaxEnemyDVs — the SAME predicate as the DV override, so
+	; the top-up can never apply to a mon that did not get the DVs (and vice
+	; versa). Wild battles and non-boss trainers stay bit-identical. Safe to
+	; overwrite current HP for a boss:
 	; Gen 1 trainers never switch, so a boss mon reaches this path only on
 	; a fresh send-out, always at full party HP.
-	call IsHardModeBossBattle
+	farcall ShouldMaxEnemyDVs
 	jr z, .copyTypes
 	ld a, [wEnemyMonMaxHP]
 	ld [wEnemyMonHP], a

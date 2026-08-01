@@ -97,8 +97,65 @@ StartMenu_Pokemon::
 	call ClearSprites
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
+.statsScreenLoop
+; v0.7: Up and Down walk the party from inside the status screen, the way every
+; generation since does, instead of forcing a trip back out to the party menu
+; for each Pokemon. Opting in is the $ff below - only this caller does it, so
+; the same screen opened from a battle, Bill's PC or the cable club is
+; unchanged. The loop redraws both pages from scratch, which is what the two
+; predefs already do for a fresh mon, so there is no partial-redraw state to
+; get wrong.
+; Both pages accept Up and Down, and stepping keeps you on the page you were
+; already reading. Page 2 draws OVER page 1 and reads data that page 1 loads,
+; so it cannot be shown on its own - stepping from page 2 therefore redraws
+; page 1 in pass-through mode ($fe: draw, do not wait) and goes straight back
+; to page 2.
+	ld a, $ff
+	ld [wStatusScreenPageChange], a
 	predef StatusScreen
+	ld a, [wStatusScreenPageChange]
+	and a
+	jr z, .statsShowPage2 ; A or B on page 1 -> page 2, as in vanilla
+	call .statsStepMon
+	jr .statsScreenLoop ; stepped from page 1: stay on page 1
+.statsShowPage2
+	ld a, $ff
+	ld [wStatusScreenPageChange], a
 	predef StatusScreen2
+	ld a, [wStatusScreenPageChange]
+	and a
+	jr z, .statsScreenDone
+	call .statsStepMon
+	ld a, $fe ; redraw page 1 silently so page 2 has something to sit on
+	ld [wStatusScreenPageChange], a
+	predef StatusScreen
+	jr .statsShowPage2 ; stepped from page 2: stay on page 2
+
+.statsStepMon
+; In: a = 1 (previous) or 2 (next). Wraps both ways.
+	dec a ; 1 = previous
+	jr nz, .statsNextMon
+	ld a, [wWhichPokemon]
+	and a
+	jr nz, .statsPrevNoWrap
+	ld a, [wPartyCount] ; wrap from the first mon round to the last
+.statsPrevNoWrap
+	dec a
+	jr .statsStoreMon
+.statsNextMon
+	ld a, [wWhichPokemon]
+	inc a
+	ld b, a
+	ld a, [wPartyCount]
+	cp b
+	ld a, b
+	jr nz, .statsStoreMon
+	xor a ; past the last mon, wrap to the first
+.statsStoreMon
+	ld [wWhichPokemon], a
+	ret
+
+.statsScreenDone
 	call ReloadMapData
 	jp StartMenu_Pokemon
 .choseOutOfBattleMove
@@ -688,6 +745,8 @@ StartMenu_Option::
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call UpdateSprites
+	ld a, 1
+	ld [wOptionsShowDifficulty], a ; in a running game: show the difficulty row
 	callfar DisplayOptionMenu
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call LoadTextBoxTilePatterns

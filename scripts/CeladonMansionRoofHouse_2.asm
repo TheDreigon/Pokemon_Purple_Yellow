@@ -1,5 +1,5 @@
 ; PURPLE the PROGRAMMER (Celadon Mansion roof house).
-; The roof-house dev quizzes the player on THIS hack's canon (8
+; The roof-house dev quizzes the player on THIS hack's canon (10
 ; questions, 3-way menus); a perfect score unlocks the prototype
 ; PORYGON L20 stored in the desk BALL (vanilla Eevee-ball plumbing
 ; reused: HideObject persists the one-shot).
@@ -20,7 +20,7 @@ RoofHouseProgrammerScript::
 	call RoofQuizRun
 	and a
 	jr z, .perfect
-	cp 3
+	cp 4
 	jr c, .close
 	ld hl, .FailText
 	jp PrintText
@@ -56,12 +56,12 @@ RoofHouseProgrammerScript::
 	text_far _RoofHouseAfterGiftText
 	text_end
 
-; runs all 8 questions; returns a = number of wrong answers (0-8)
+; runs all 10 questions; returns a = number of wrong answers (0-10)
 RoofQuizRun::
-	lb bc, 8, 0 ; b = questions left, c = errors
+	lb bc, 10, 0 ; b = questions left, c = errors
 .loop
-	ld a, 8
-	sub b ; question index 0-7
+	ld a, 10
+	sub b ; question index 0-9
 	push bc
 	call RoofQuizAskQuestion
 	pop bc
@@ -73,7 +73,7 @@ RoofQuizRun::
 	ld a, c
 	ret
 
-; a = question index (0-7); returns carry set if answered wrong
+; a = question index (0-9); returns carry set if answered wrong
 RoofQuizAskQuestion::
 	ld l, a
 	ld h, 0
@@ -173,6 +173,10 @@ RoofQuizTable::
 	db 1
 	dw .Q8Text, .Q8A, .Q8B, .Q8C
 	db 2
+	dw .Q9Text, .Q9A, .Q9B, .Q9C
+	db 0
+	dw .Q10Text, .Q10A, .Q10B, .Q10C
+	db 1
 
 .Q1Text:
 	text_far _RoofQuizQ1Text
@@ -197,6 +201,12 @@ RoofQuizTable::
 	text_end
 .Q8Text:
 	text_far _RoofQuizQ8Text
+	text_end
+.Q9Text:
+	text_far _RoofQuizQ9Text
+	text_end
+.Q10Text:
+	text_far _RoofQuizQ10Text
 	text_end
 
 .Q1A:
@@ -247,6 +257,18 @@ RoofQuizTable::
 	db "ROUTE 23@"
 .Q8C:
 	db "THE SAFARI ZONE@"
+.Q9A:
+	db "DRAGON@"
+.Q9B:
+	db "STEEL@"
+.Q9C:
+	db "FIRE@"
+.Q10A:
+	db "NORMAL/PSYCHIC@"
+.Q10B:
+	db "NORMAL/DARK@"
+.Q10C:
+	db "NORMAL/GHOST@"
 
 RoofHousePrototypeBallScript::
 	CheckEvent EVENT_BEAT_PURPLES_QUIZ

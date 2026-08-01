@@ -34,7 +34,7 @@ _SeafoamIslandsWeebraEndBattleText1::
 
 _SeafoamIslandsWeebraAfterBattleText1::
 	text "Honestly I prefer"
-	line "my team fresh"
+	line "my team fresh,"
 	cont "never frozen,"
 
 	para "but you do you,"

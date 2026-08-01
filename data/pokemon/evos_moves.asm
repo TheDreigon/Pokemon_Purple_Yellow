@@ -756,49 +756,62 @@ PikachuEvosMoves:
 	db EVOLVE_ITEM, THUNDER_STONE, 1, RAICHU
 	db 0
 ; Learnset
-; Electric mouse. Power-progression: NUZZLE (35 BP) before THUNDERSHOCK
-; (55 BP). CHARM mid (cute mouse). VOLT_TACKLE signature at L23.
+; Electric mouse. Electric ladder NUZZLE 35 -> THUNDERSHOCK 55 ->
+; SHOCK_WAVE 70 -> THUNDERBOLT 95 -> THUNDER 115. VOLT_TACKLE L26 is
+; the line signature; its 60 BP sits mid-ladder because it is a
+; priority high-crit move. CHARM/FAIRY_WIND -> PLAY_ROUGH = cute mouse.
+; FLAME_CHARGE L54 = sparks lighting a fire (Electabuzz ruling).
+; DOUBLE_EDGE L60 last.
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
 	db 10, QUICK_ATTACK
-	db 13, THUNDERSHOCK
-	db 15, CHARM
-	db 17, THUNDER_WAVE
-	db 21, SHOCK_WAVE
-	db 23, VOLT_TACKLE
-	db 25, AGILITY
+	db 12, THUNDERSHOCK
+	db 15, THUNDER_WAVE
+	db 18, FAIRY_WIND
+	db 20, CHARM
+	db 22, SHOCK_WAVE
+	db 24, AGILITY
+	db 26, VOLT_TACKLE
 	db 28, FLASH
-	db 30, IRON_TAIL
+	db 30, FAINT_ATTACK
+	db 33, IRON_TAIL
 	db 36, THUNDERBOLT
-	db 42, BODY_SLAM
-	db 48, EXTREMESPEED
-	db 55, THUNDER
-	db 60, PLAY_ROUGH
+	db 40, BODY_SLAM
+	db 45, EXTREMESPEED
+	db 50, PLAY_ROUGH
+	db 54, FLAME_CHARGE
+	db 56, THUNDER
+	db 60, DOUBLE_EDGE
 	db 0
 
 RaichuEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Bigger orange mouse. Shares Pikachu's backbone (VOLT_TACKLE at the same
-; level). Adds DOUBLE_EDGE (bigger reckless body — anatomical exclusive).
+; Bigger orange mouse. Level-up is move-for-move identical to Pikachu's
+; (shared backbone, stone evolution — no level-up exclusive of its own).
+; Raichu's edge lives in the stats and in the wider TM list: BULK_UP,
+; TAKE_DOWN and the four fun moves.
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
 	db 10, QUICK_ATTACK
-	db 13, THUNDERSHOCK
-	db 15, CHARM
-	db 17, THUNDER_WAVE
-	db 21, SHOCK_WAVE
-	db 23, VOLT_TACKLE
-	db 25, AGILITY
+	db 12, THUNDERSHOCK
+	db 15, THUNDER_WAVE
+	db 18, FAIRY_WIND
+	db 20, CHARM
+	db 22, SHOCK_WAVE
+	db 24, AGILITY
+	db 26, VOLT_TACKLE
 	db 28, FLASH
-	db 30, IRON_TAIL
+	db 30, FAINT_ATTACK
+	db 33, IRON_TAIL
 	db 36, THUNDERBOLT
-	db 42, BODY_SLAM
-	db 48, EXTREMESPEED
-	db 52, DOUBLE_EDGE
-	db 55, THUNDER
-	db 60, PLAY_ROUGH
+	db 40, BODY_SLAM
+	db 45, EXTREMESPEED
+	db 50, PLAY_ROUGH
+	db 54, FLAME_CHARGE
+	db 56, THUNDER
+	db 60, DOUBLE_EDGE
 	db 0
 
 SandshrewEvosMoves:
@@ -1610,21 +1623,19 @@ GrowlitheEvosMoves:
 ; Intimidation ladder GROWL -> FIERCE_ROAR -> INTIMIDATE. PLAY_ROUGH fits
 ; a canine's rough bite/claw; no SUBMISSION (a canine doesn't wrestle) and
 ; no rock move (no earth affinity).
-	db  7, LEER
-	db  9, QUICK_ATTACK
+	db  8, QUICK_ATTACK
 	db 11, HONE_CLAWS
 	db 14, EMBER
 	db 16, FIERCE_ROAR
 	db 18, FOCUS_ENERGY
 	db 22, FLAME_CHARGE
 	db 24, CUT
-	db 26, CRUNCH
-	db 28, SLASH
-	db 32, FLAMETHROWER
-	db 40, TAKE_DOWN
+	db 26, SLASH
+	db 28, CRUNCH
+	db 36, FLAMETHROWER
 	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
-	db 55, FIRE_BLAST
+	db 60, FIRE_BLAST
 	db 0
 
 ArcanineEvosMoves:
@@ -1634,24 +1645,24 @@ ArcanineEvosMoves:
 ; Apex alpha canine. Shares Growlithe's backbone, plus exclusives: AGILITY,
 ; STRENGTH (natural HM04) and SWORDS_DANCE. No EXTREMESPEED (canine isn't on
 ; the signature list) and no OUTRAGE (not Dragon-coded).
-	db  7, LEER
-	db  9, QUICK_ATTACK
+	db  8, QUICK_ATTACK
 	db 11, HONE_CLAWS
 	db 14, EMBER
 	db 16, FIERCE_ROAR
 	db 18, FOCUS_ENERGY
 	db 22, FLAME_CHARGE
 	db 24, CUT
-	db 26, CRUNCH
-	db 28, SLASH
-	db 32, FLAMETHROWER
+	db 26, SLASH
+	db 28, CRUNCH
+	db 32, TAKE_DOWN
+	db 36, FLAMETHROWER
 	db 38, STRENGTH
-	db 40, TAKE_DOWN
-	db 42, AGILITY
+	db 41, AGILITY
 	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
 	db 52, SWORDS_DANCE
-	db 55, FIRE_BLAST
+	db 56, SEISMIC_TOSS
+	db 60, FIRE_BLAST
 	db 0
 
 PoliwagEvosMoves:
@@ -3544,30 +3555,34 @@ LaprasEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Gentle singing ferry. Psychic damage and the rest of the Fairy
-; arsenal (Draining Kiss/Dazzle Gleam/Moonblast) are TM-only here.
+; Gentle singing ferry. The Fairy arsenal (Draining Kiss/Dazzle Gleam/
+; Moonblast) stays TM-only, but the Psychic side is natural now:
+; EXTRASENSORY L36 -> PSYCHIC_M L65, the last move it learns.
 ; ICE ladder strictly scaled by power: ICY_WIND < FROST_BREATH <
-; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING after L30.
-; STRENGTH = hauls passengers; SURF = THE ferry move. No THRASH/
-; OUTRAGE (docile).
+; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING at L30.
+; SURF = THE ferry move; STRENGTH is HM-only (hauls passengers).
+; No THRASH/OUTRAGE (docile) — DRAGON_BREATH L60 is the sea-dragon
+; showing through near the top, without the rage moves.
+	db 10, TACKLE
 	db 12, ICY_WIND
 	db 14, BUBBLEBEAM
 	db 16, FAIRY_WIND
-	db 18, BODY_SLAM
-	db 20, FROST_BREATH
-	db 22, ICY_PULSE
-	db 26, CONFUSE_RAY
-	db 28, CHARM
+	db 18, CHARM
+	db 20, BODY_SLAM
+	db 23, FROST_BREATH
+	db 26, ICY_PULSE
 	db 30, SING
-	db 32, BIDE
-	db 34, WATER_PULSE
-	db 38, AURORA_BEAM
-	db 42, ICE_BEAM
-	db 46, STRENGTH
-	db 50, SURF
-	db 54, BLIZZARD
-	db 58, RECOVER
-	db 62, HYDRO_PUMP
+	db 30, WATER_PULSE
+	db 33, AURORA_BEAM
+	db 36, EXTRASENSORY
+	db 40, SURF
+	db 40, RECOVER
+	db 45, ICE_BEAM
+	db 50, HEAVY_SLAM
+	db 53, BLIZZARD
+	db 56, HYDRO_PUMP
+	db 60, DRAGON_BREATH
+	db 65, PSYCHIC_M
 	db 0
 
 DittoEvosMoves:
@@ -3585,17 +3600,20 @@ EeveeEvosMoves:
 	db EVOLVE_ITEM, WATER_STONE, 1, VAPOREON
 	db 0
 ; Learnset
-; Normal-only base. No TAKE_DOWN (only Eevee lacks it; the 3
-; evolutions keep it). CHARM = cute fox charm, shared with all 4 forms.
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+; Normal-only base. CHARM + FAIRY_WIND = cute fox kit, shared by all 4
+; forms. No TAKE_DOWN: of the three evolutions only Flareon still keeps
+; it. METRONOME L50 = unstable genes rolling a random move — the only
+; fun move on a pre-evo besides Clefairy's (forced into the tmhm by the
+; levelup-subset-of-TM rule).
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 18, FAIRY_WIND
 	db 20, CHARM
 	db 30, BODY_SLAM
-	db 36, PLAY_ROUGH
-	db 40, DOUBLE_EDGE
+	db 40, PLAY_ROUGH
+	db 50, METRONOME
 	db 0
 
 VaporeonEvosMoves:
@@ -3604,28 +3622,30 @@ VaporeonEvosMoves:
 ; Learnset
 ; Water fox, fluid body. Eevee shared + water/ice kit + HARDEN (fluid
 ; body solidifies to ice/scale armor) + RECOVER (regen pattern, fluid
-; body reforms). HARDEN L30 (weak-move guideline), RECOVER L32.
+; body reforms). HARDEN L23 (weak-move guideline), RECOVER L36.
 ; ICE_BEAM, not light wind — its water-mastery deserves a real ice
-; attack.
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+; attack. LIGHT_SCREEN + REFLECT paired at L60: shared eeveelution
+; capstone (energy shields).
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 16, WATER_GUN
+	db 18, FAIRY_WIND
 	db 20, CHARM
-	db 22, WATER_GUN
-	db 24, TAKE_DOWN
-	db 26, BUBBLEBEAM
-	db 28, WATER_PULSE
-	db 30, BODY_SLAM
-	db 30, HARDEN
-	db 32, RECOVER
-	db 36, PLAY_ROUGH
+	db 23, BUBBLEBEAM
+	db 23, HARDEN
+	db 26, WATER_PULSE
+	db 30, ICY_PULSE
+	db 33, BODY_SLAM
+	db 36, RECOVER
 	db 40, AURORA_BEAM
-	db 44, SURF
-	db 48, ICE_BEAM
-	db 54, DOUBLE_EDGE
-	db 60, HYDRO_PUMP
+	db 43, SURF
+	db 46, PLAY_ROUGH
+	db 50, ICE_BEAM
+	db 55, HYDRO_PUMP
+	db 60, LIGHT_SCREEN
+	db 60, REFLECT
 	db 0
 
 JolteonEvosMoves:
@@ -3634,54 +3654,59 @@ JolteonEvosMoves:
 ; Learnset
 ; Electric fox, fastest Eeveelution. Eevee shared + electric kit +
 ; METAL_SOUND (electric sparks = metallic-sound debuff). AGILITY
-; natural. No DOUBLE_TEAM.
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+; natural. No DOUBLE_TEAM. SLASH L33 with CUT via HM only (same ruling
+; as the birds of prey). VOLT_TACKLE L50 — third owner of the move,
+; after the Pikachu and Voltorb lines. LIGHT_SCREEN + REFLECT paired at
+; L60: shared eeveelution capstone (energy shields).
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 16, THUNDERSHOCK
+	db 18, FAIRY_WIND
 	db 20, CHARM
-	db 22, THUNDERSHOCK
-	db 24, TAKE_DOWN
-	db 26, THUNDER_WAVE
-	db 28, SHOCK_WAVE
-	db 28, CUT
-	db 30, SLASH
-	db 32, AGILITY
-	db 36, PLAY_ROUGH
-	db 40, METAL_SOUND
-	db 44, THUNDERBOLT
-	db 48, EXTREMESPEED
-	db 54, DOUBLE_EDGE
-	db 60, THUNDER
+	db 23, THUNDER_WAVE
+	db 26, SHOCK_WAVE
+	db 30, AGILITY
+	db 33, SLASH
+	db 36, METAL_SOUND
+	db 40, EXTREMESPEED
+	db 43, THUNDERBOLT
+	db 46, PLAY_ROUGH
+	db 50, VOLT_TACKLE
+	db 55, THUNDER
+	db 60, LIGHT_SCREEN
+	db 60, REFLECT
 	db 0
 
 FlareonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Fire fox. Eevee shared (CHARM included, TAKE_DOWN kept — only Eevee
-; lacks it). IGNITE early L26 (basic burn utility), SWORDS_DANCE late
-; (peak claw-buff before final fire).
-	db  4, TAIL_WHIP
-	db  7, SAND_ATTACK
-	db 10, QUICK_ATTACK
+; Fire fox. Eevee shared (CHARM included) and the only eeveelution that
+; still learns TAKE_DOWN (L40). IGNITE early L23 (basic burn utility),
+; SWORDS_DANCE late (peak claw-buff before the final fire). No SLASH in
+; the level-up any more; CUT stays reachable as an HM. LIGHT_SCREEN +
+; REFLECT paired at L60: shared eeveelution capstone (energy shields).
+	db  3, TAIL_WHIP
+	db  6, SAND_ATTACK
+	db  9, QUICK_ATTACK
 	db 14, BITE
-	db 18, HEADBUTT
+	db 16, EMBER
+	db 18, FAIRY_WIND
 	db 20, CHARM
-	db 22, EMBER
-	db 24, TAKE_DOWN
-	db 26, IGNITE
-	db 28, FLAME_CHARGE
-	db 28, CUT
-	db 30, SLASH
-	db 32, FAINT_ATTACK
-	db 36, PLAY_ROUGH
-	db 40, FLAME_BURST
-	db 44, FLAMETHROWER
-	db 48, SWORDS_DANCE
-	db 54, DOUBLE_EDGE
-	db 60, FIRE_BLAST
+	db 23, IGNITE
+	db 26, FLAME_BURST
+	db 30, FAINT_ATTACK
+	db 33, FLAME_CHARGE
+	db 36, BODY_SLAM
+	db 40, TAKE_DOWN
+	db 43, FLAMETHROWER
+	db 46, PLAY_ROUGH
+	db 50, SWORDS_DANCE
+	db 55, FIRE_BLAST
+	db 60, LIGHT_SCREEN
+	db 60, REFLECT
 	db 0
 
 PorygonEvosMoves:
@@ -3689,28 +3714,34 @@ PorygonEvosMoves:
 	db 0
 ; Learnset
 ; Digital construct. Fun moves are natural levelup here (copy.exe/
-; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L46 signature, RECOVER
-; (file restore), MAGNET_BOMB L58 (shared signature with Magneton),
+; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L40 signature, RECOVER
+; (file restore), MAGNET_BOMB L58 (shared signature with Magneton and Electabuzz),
 ; HYPER_BEAM L65 last. No NASTY_PLOT, no TRANSFORM (Ditto), no
-; CONVERSION.
+; CONVERSION (move no longer exists).
+	db  6, HARDEN
 	db 10, CONFUSION
-	db 12, DISABLE
-	db 14, AGILITY
+	db 14, DISABLE
 	db 18, RECOVER
 	db 20, THUNDER_WAVE
 	db 22, SHOCK_WAVE
 	db 24, METAL_SOUND
 	db 26, MIMIC
 	db 28, FLASH
-	db 30, PSYBEAM
-	db 34, MIRROR_MOVE
+	db 28, TELEPORT
+	db 30, EXTRASENSORY
+	db 32, THUNDERBOLT
+	db 32, ICY_PULSE
+	db 35, MIRROR_MOVE
 	db 38, LIGHT_SCREEN
-	db 40, REFLECT
+	db 38, REFLECT
+	db 40, TRI_ATTACK
 	db 42, METRONOME
-	db 46, TRI_ATTACK
+	db 45, PSYBEAM
 	db 50, SUBSTITUTE
-	db 54, THUNDERBOLT
+	db 55, ICE_BEAM
 	db 58, MAGNET_BOMB
+	db 60, PSYCHIC_M
+	db 62, THUNDER
 	db 65, HYPER_BEAM
 	db 0
 

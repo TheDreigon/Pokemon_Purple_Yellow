@@ -250,7 +250,7 @@ Pointer_fc653::
 	db VERMILION_DOCK
 	db CELADON_MANSION_1F
 	db ROUTE_2_GATE
-	db FUCHSIA_GOOD_ROD_HOUSE
+	db FUCHSIA_FOSSIL_HOUSE
 	db $ff
 
 SetPikachuSpawnWarpPad::

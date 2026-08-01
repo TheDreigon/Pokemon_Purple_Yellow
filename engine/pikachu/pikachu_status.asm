@@ -81,6 +81,26 @@ asm_fce21:
 	ld a, [hl]
 	cp STARTER_PIKACHU
 	jr nz, .notPlayerPikachu
+	; v0.7: STARTER_PIKACHU is only an alias for PIKACHU, and the OT id and
+	; OT name below match ANY Pokemon the player caught themselves -- so once
+	; wild PIKACHU exist (Route 1 / Power Plant), a caught one passed all
+	; three tests and the game treated it as the partner: it would refuse the
+	; Thunder Stone and pick up the follow/emotion behaviour. Vanilla Yellow
+	; never had to care, because the starter was the only Pikachu in the game.
+	; The starter already carries a unique marker for the GSC Time Capsule --
+	; OaksLab writes LIGHT_BALL_GSC into its catch-rate byte right after
+	; AddPartyMon -- so test that too. A wild Pikachu keeps its species catch
+	; rate, and Gen 1 has no way for the player to change the byte.
+	; The offset is the same in the box struct, which shares this code path
+	; (both structs are identical up to and including the PP bytes), exactly
+	; like the OTID offset used just below.
+	push hl
+	ld bc, wPartyMon1CatchRate - wPartyMon1
+	add hl, bc
+	ld a, [hl]
+	pop hl
+	cp LIGHT_BALL_GSC
+	jr nz, .notPlayerPikachu
 	ld bc, wPartyMon1OTID - wPartyMon1
 	add hl, bc
 	ld a, [wPlayerID]

@@ -44,7 +44,7 @@ DEF BIT_TEST_BATTLE EQU 0
 ; Hard mode gates extra boss buffs in v0.7+ (see engine/battle/hard_mode.asm
 ; for the boss class list and the IsHardModeBossBattle helper). Existing
 ; non-boss-tied effects (level caps, forced Set mode, hard-mode ban on
-; Revive/Max Revive and the Ether/Elixer family in trainer battles, 1/256
+; Revive/Max Revive and the Ether/Elixir family in trainer battles, 1/256
 ; miss preserved) gate on `wDifficulty != NORMAL_MODE`.
 DEF NORMAL_MODE EQU 0
 DEF HARD_MODE   EQU 1

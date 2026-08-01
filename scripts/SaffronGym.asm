@@ -122,6 +122,9 @@ SaffronGymSabrinaReceiveGiftsScript:
 	jp SaffronGymResetScripts
 
 SabrinaRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_SABRINA
 	ld a, TEXT_SAFFRONGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -229,9 +232,16 @@ SaffronGymSabrinaText:
 	jr .Sabrina5thGym
 .todone
 	jr .done
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; SabrinaRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 .SabrinaRematch
+	CheckEvent EVENT_REMATCHED_SABRINA
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L60+ rematch
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -247,6 +257,10 @@ SaffronGymSabrinaText:
 	ld [wSaffronGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .done
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
@@ -299,6 +313,10 @@ SaffronGymSabrinaText:
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

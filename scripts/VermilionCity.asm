@@ -303,6 +303,7 @@ VermilionCityJennyPostBattleScript:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_JENNY
+	SetEvent EVENT_REMATCHED_OFFICER_JENNY ; v0.7: spend this League run's battle (win only)
 .skip
 	ld a, $0
 	ld [wVermilionCityCurScript], a

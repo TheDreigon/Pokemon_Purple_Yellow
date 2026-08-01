@@ -93,10 +93,24 @@ ApplyTypeEffectivenessToDamage::
 
 
 ; function to tell how effective the type of an enemy attack is on the player's current pokemon
-; this doesn't take into account the effects that dual types can have
-; (e.g. 4x weakness / resistance, weaknesses and resistances canceling)
 ; the result is stored in [wTypeEffectiveness]
 ; as far is can tell, this is only used once in some AI code to help decide which move to use
+;
+; v0.7 FIX: this used to RETURN at the first matching row, so a dual-typed
+; defender was judged on one of its two types — whichever the table happened
+; to list first. Measured against the current 188-row table and the 151
+; base_stats, 317 (defender, attacking type) combinations disagreed with the
+; real damage result, and in 27 of them the move is actually a NO_EFFECT
+; immunity that the AI was reading as neutral or super effective: a boss with
+; EARTHQUAKE scored 20 (super effective) against a FIRE/FLYING Charizard,
+; ELECTRIC scored 5 instead of 0 against the ROCK/GROUND Geodude line, and
+; FIGHTING scored 20 instead of 0 against a GHOST/DARK Gengar. The AI would
+; then actively prefer a move that cannot deal a single point of damage.
+; Now every matching row is chained into the running multiplier, exactly like
+; ApplyTypeEffectivenessToDamage above, so an immunity anywhere in the chain
+; collapses the whole score to 0. Each (attacking type, defending type) pair
+; appears once in the table, so a single-typed defender - which stores its
+; type twice - still applies its row only once.
 AIGetTypeEffectiveness::
 	ld a, [wEnemyMoveType]
 	ld d, a                    ; d = type of enemy move
@@ -116,16 +130,16 @@ AIGetTypeEffectiveness::
 	jr nz, .nextTypePair1
 	ld a, [hli]
 	cp b                      ; match with type 1 of pokemon
-	jr z, .done
+	jr z, .matchingPairFound
 	cp c                      ; or match with type 2 of pokemon
-	jr z, .done
+	jr z, .matchingPairFound
 	jr .nextTypePair2
 .nextTypePair1
 	inc hl
 .nextTypePair2
 	inc hl
 	jr .loop
-.done
+.matchingPairFound
 	; v0.7: removed vanilla Yellow's "40% chance for Lorelei's Dewgong to
 	; ignore type effectiveness" quirk. It was the only trainer+species
 	; hardcoded AI special-case in the engine, was never properly
@@ -133,9 +147,35 @@ AIGetTypeEffectiveness::
 	; this hack's philosophy of explicit, controlled difficulty tuning.
 	; If softening is wanted for the first E4, do it via team / moveset /
 	; level — not via a hidden 40% random nerf on one specific Pokémon.
-	ld a, [hl]
-	ld [wTypeEffectiveness], a ; store damage multiplier
-	ret
+	;
+	; hl points at this row's multiplier; chain it in and keep scanning:
+	;   wTypeEffectiveness = wTypeEffectiveness * multiplier / 10
+	; The running value never exceeds 40 (20 * 20 / 10), so only the low
+	; quotient byte matters.
+	; home Multiply preserves only hl and bc, so d (the move type this loop
+	; compares against) is saved explicitly rather than relying on _Multiply
+	; happening to leave de alone.
+	push bc
+	push de
+	push hl
+	ld a, [hl]                 ; a = damage multiplier of this row
+	ldh [hMultiplier], a
+	xor a
+	ldh [hMultiplicand], a
+	ldh [hMultiplicand + 1], a
+	ld a, [wTypeEffectiveness]
+	ldh [hMultiplicand + 2], a
+	call Multiply
+	ld a, 10
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+	ldh a, [hQuotient + 3]
+	ld [wTypeEffectiveness], a
+	pop hl
+	pop de
+	pop bc
+	jr .nextTypePair2          ; a defender's OTHER type may still have a row
 
 
 INCLUDE "data/types/type_matchups.asm"

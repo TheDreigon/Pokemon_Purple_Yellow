@@ -717,7 +717,7 @@ OaksLab_TextPointers:
 	dw_const OaksLabOak2Text,                           TEXT_OAKSLAB_OAK2
 	dw_const OaksLabGirlText,                           TEXT_OAKSLAB_GIRL
 	dw_const OaksLabScientistText,                      TEXT_OAKSLAB_SCIENTIST1
-	dw_const OaksLabScientistText,                      TEXT_OAKSLAB_SCIENTIST2
+	dw_const OaksLabScientist2Text,                     TEXT_OAKSLAB_SCIENTIST2
 	dw_const OaksLabOakDontGoAwayYetText,               TEXT_OAKSLAB_OAK_DONT_GO_AWAY_YET
 	dw_const OaksLabRivalIllTakeYouOnText,              TEXT_OAKSLAB_RIVAL_ILL_TAKE_YOU_ON
 	dw_const OaksLabRivalSmellYouLaterText,             TEXT_OAKSLAB_RIVAL_SMELL_YOU_LATER
@@ -746,7 +746,7 @@ OaksLab_TextPointers2:
 	dw OaksLabOak2Text
 	dw OaksLabGirlText
 	dw OaksLabScientistText
-	dw OaksLabScientistText
+	dw OaksLabScientist2Text
 
 OaksLabRivalText:
 	text_asm
@@ -1041,6 +1041,41 @@ OaksLabRivalTakesText5:
 	text_far _OaksLabRivalTakesText5
 	text_end
 
+; v0.7: the partner Pikachu is handed out with PERFECT DVs.
+;
+; Yellow forces Pikachu on you, it cannot evolve, and it is statistically the
+; weakest starter in the series - so a random DV roll on top of all that made
+; the one Pokemon you are stuck with for the whole game a lottery. It is the
+; only mon in the game that gets this.
+;
+; AddPartyMon has ALREADY rolled random DVs and computed the stats from them,
+; so overwriting the DVs alone would leave the mon carrying the old numbers -
+; exactly the desync the Hard-mode boss DV override had to fix. The stats are
+; therefore recomputed here with the same idiom _AddPartyMon uses
+; (.calcFreshStats), and current HP is set to the new max, because AddPartyMon
+; wrote current HP from the pre-override stats.
+;
+; Inputs it relies on, all still live at the call site: wCurEnemyLVL is 5 (set
+; just above) and wMonHeader still holds Pikachu's base stats from AddPartyMon.
+; b = 0 means "no stat experience", which is true for a fresh gift.
+MaxOutStarterPikachuDVs:
+	ld hl, wPartyMon1DVs
+	ld a, $ff
+	ld [hli], a
+	ld [hl], a
+	ld hl, wPartyMon1HPExp - 1   ; CalcStats derives the DV pointer from this
+	ld de, wPartyMon1Stats
+	ld b, $0
+	call CalcStats
+	ld hl, wPartyMon1MaxHP
+	ld de, wPartyMon1HP
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hl]
+	ld [de], a
+	ret
+
 OaksLabPlayerReceivedMonText:
 	text_asm
 	ld a, STARTER_PIKACHU
@@ -1063,6 +1098,7 @@ OaksLabPlayerReceivedMonText:
 	call AddPartyMon
 	ld a, LIGHT_BALL_GSC
 	ld [wPartyMon1CatchRate], a
+	call MaxOutStarterPikachuDVs
 	call DisablePikachuOverworldSpriteDrawing
 	SetEvent EVENT_GOT_STARTER
 	ld hl, wd72e
@@ -1179,4 +1215,24 @@ OaksLabScientistText:
 
 .Text:
 	text_far _OaksLabScientistText
+	text_end
+
+OaksLabScientist2Text:
+; v0.7 FIX: this must use the same text_asm + PrintText shape its neighbour
+; uses, not a bare text_far. Oak's Lab forces wAutoTextBoxDrawingControl to
+; TRUE on every tick of its map script, and on that path the FIRST page of a
+; bare text pointer drew inverted and without a border - dark box, light
+; glyphs, the map's colours showing through - correcting itself only on the
+; second page. Reproduced side by side: this aide and the one at (2,10) print
+; the identical opening line, and only this one broke.
+; Vanilla never hit it because both scientists pointed at the same text_asm
+; routine; splitting them into two aides (FAIRY-vs-DRAGON for this one) made
+; this the map's only freely-talkable NPC on the bare path.
+	text_asm
+	ld hl, .Text
+	call PrintText
+	jp TextScriptEnd
+
+.Text:
+	text_far _OaksLabScientist2Text
 	text_end

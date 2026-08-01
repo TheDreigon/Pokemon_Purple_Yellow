@@ -12,7 +12,7 @@ ENDM
 	music_const MUSIC_CITIES1,             Music_Cities1
 	music_const MUSIC_CITIES2,             Music_Cities2
 	music_const MUSIC_CELADON,             Music_Celadon
-	music_const MUSIC_CINNABAR,            Music_Cinnabar
+	music_const MUSIC_CINNABAR,            Music_Cinnabar ; now the southern sea routes; see data/maps/songs.asm
 	music_const MUSIC_VERMILION,           Music_Vermilion
 	music_const MUSIC_LAVENDER,            Music_Lavender
 	music_const MUSIC_SS_ANNE,             Music_SSAnne
@@ -60,6 +60,10 @@ ENDM
 	music_const MUSIC_SURFING_PIKACHU,     Music_SurfingPikachu
 	music_const MUSIC_MEET_JESSIE_JAMES,   Music_MeetJessieJames
 	music_const MUSIC_YELLOW_UNUSED_SONG,  Music_YellowUnusedSong
+	music_const MUSIC_CINNABAR_ISLAND,     Music_CinnabarIsland
+	music_const MUSIC_PEWTER_CITY,         Music_PewterCity
+	music_const MUSIC_SAFFRON_CITY,        Music_SaffronCity
+	music_const MUSIC_SAFFRON_FREE,        Music_SaffronFree
 	music_const MUSIC_GB_PRINTER,          Music_GBPrinter
 
 	; AUDIO_1 AUDIO_2 AUDIO_3 AUDIO_4

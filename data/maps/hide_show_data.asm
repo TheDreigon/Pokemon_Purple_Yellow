@@ -25,7 +25,7 @@ MapHSPointers:
 	dw NoHS
 	dw Route9HS
 	dw NoHS
-	dw NoHS
+	dw Route11HS
 	dw Route12HS
 	dw NoHS
 	dw NoHS
@@ -85,7 +85,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw NoHS
+	dw RockTunnel1FHS ; v0.7: Rock Tunnel 1F's first missable (the rope ball)
 	dw PowerPlantHS
 	dw NoHS
 	dw NoHS
@@ -252,6 +252,7 @@ MapHSPointers:
 	dw BrunosRoomHS
 	dw AgathasRoomHS
 	dw NoHS
+	dw NoHS ; VIRIDIAN_OLD_ROD_HOUSE
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 
@@ -296,12 +297,14 @@ SaffronCityHS:
 Route1HS:
 	db ROUTE_1, ROUTE1_OAK, HIDE ; PROF OAK fight. To test, change to SHOW. - PvK
 Route2HS:
-	db ROUTE_2, ROUTE2_MOON_STONE, SHOW
-	db ROUTE_2, ROUTE2_HP_UP,      SHOW
+	db ROUTE_2, ROUTE2_LEAF_STONE, SHOW
+	db ROUTE_2, ROUTE2_ETHER,      SHOW
 Route4HS:
 	db ROUTE_4, ROUTE4_TM_QUICK_ATTACK, SHOW
 Route9HS:
 	db ROUTE_9, ROUTE9_TM_RAGE, SHOW
+Route11HS:
+	db ROUTE_11, ROUTE11_CARBOS,    SHOW
 Route12HS:
 	db ROUTE_12, ROUTE12_SNORLAX,    SHOW
 	db ROUTE_12, ROUTE12_TM_FAKE_TEARS, SHOW
@@ -348,7 +351,8 @@ PokemonTower2FHS:
 PokemonTower3FHS:
 	db POKEMON_TOWER_3F, POKEMONTOWER3F_ESCAPE_ROPE, SHOW
 PokemonTower4FHS:
-	db POKEMON_TOWER_4F, POKEMONTOWER4F_ELIXIR,    SHOW
+	; v0.7 ground-item redesign: the ELIXIR entry was removed (ball became a
+	; hidden item); its slot funds Rock Tunnel 1F's rope. Array stays 256/256.
 	db POKEMON_TOWER_4F, POKEMONTOWER4F_AWAKENING, SHOW
 	db POKEMON_TOWER_4F, POKEMONTOWER4F_HP_UP,     SHOW
 PokemonTower5FHS:
@@ -509,7 +513,6 @@ SilphCo10FHS:
 	db SILPH_CO_10F, SILPHCO10F_SCIENTIST,      SHOW
 	db SILPH_CO_10F, SILPHCO10F_TM_TAKE_DOWN,  SHOW
 	db SILPH_CO_10F, SILPHCO10F_RARE_CANDY,     SHOW
-	db SILPH_CO_10F, SILPHCO10F_CARBOS,         SHOW
 SilphCo11FHS:
 	db SILPH_CO_11F, SILPHCO11F_GIOVANNI, SHOW
 	db SILPH_CO_11F, SILPHCO11F_JAMES,    SHOW
@@ -549,11 +552,13 @@ CeruleanCave2FHS:
 	db CERULEAN_CAVE_2F, CERULEANCAVE2F_MAX_REVIVE,   SHOW
 	db CERULEAN_CAVE_2F, CERULEANCAVE2F_FULL_RESTORE, SHOW
 CeruleanCaveB1FHS:
+	; v0.7 ground-item redesign: ULTRA_BALL1 removed (ball became a hidden
+	; item); its slot funds Seafoam 1F's rope. Array stays 256/256.
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_MEWTWO,      SHOW
-	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_ULTRA_BALL1, SHOW
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_ULTRA_BALL2, SHOW
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_MAX_REVIVE,  SHOW
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_MAX_ELIXIR,  SHOW
+	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_FORTE,       HIDE
 VictoryRoad1FHS:
 	db VICTORY_ROAD_1F, VICTORYROAD1F_TM_ROCK_SLIDE, SHOW
 	db VICTORY_ROAD_1F, VICTORYROAD1F_RARE_CANDY,    SHOW
@@ -568,6 +573,7 @@ ChampionsRoomHS:
 SeafoamIslands1FHS:
 	db SEAFOAM_ISLANDS_1F, SEAFOAMISLANDS1F_BOULDER1, SHOW
 	db SEAFOAM_ISLANDS_1F, SEAFOAMISLANDS1F_BOULDER2, SHOW
+	db SEAFOAM_ISLANDS_1F, SEAFOAMISLANDS1F_ESCAPE_ROPE, SHOW ; v0.7 rope quota (slot from the CC B1F Ultra Ball conversion)
 SeafoamIslandsB1FHS:
 	db SEAFOAM_ISLANDS_B1F, SEAFOAMISLANDSB1F_BOULDER1, HIDE
 	db SEAFOAM_ISLANDS_B1F, SEAFOAMISLANDSB1F_BOULDER2, HIDE
@@ -599,6 +605,8 @@ BrunosRoomHS:
 AgathasRoomHS:
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA,   			SHOW
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA_REMATCH,   	HIDE
+RockTunnel1FHS: ; v0.7 rope quota (slot from the Tower 4F Elixir conversion)
+	db ROCK_TUNNEL_1F, ROCKTUNNEL1F_ESCAPE_ROPE, SHOW
 RockTunnelB1FHS: ; must stay last: MissableObjects order must match HS_* constant order, and HS_ROCK_TUNNEL_B1F_ITEM_1 is the final constant (see constants/hide_show_constants.asm)
 	db ROCK_TUNNEL_B1F, ROCKTUNNELB1F_TM_IRON_TAIL, SHOW
 	db $FF, $01, SHOW ; end

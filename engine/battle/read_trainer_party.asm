@@ -62,7 +62,7 @@ ReadTrainer:
 	ld a, [hli]
 	cp $FF ; is the trainer special?
 	jr z, .SpecialTrainer ; if so, check for special moves
-	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +2 (cap MAX_LEVEL)
+	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +1 (cap MAX_LEVEL)
 	ld [wCurEnemyLVL], a
 .LoopTrainerData
 	ld a, [hli]
@@ -83,7 +83,7 @@ ReadTrainer:
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
 	jr z, .AddAdditionalMoveData
-	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +2 (cap MAX_LEVEL)
+	call HardModeBossLevelBump ; v0.7 hard mode: bosses get +1 (cap MAX_LEVEL)
 	ld [wCurEnemyLVL], a
 	ld a, [hli]
 	ld [wcf91], a
@@ -162,8 +162,9 @@ ReadTrainerFinishUp:
 
 ; v0.7 hard mode helper. Called from .IterateTrainer (uniform-level
 ; trainer), .SpecialTrainer (per-mon level), and AddRivalMon (rival pool
-; engine), just BEFORE writing to wCurEnemyLVL. Adds 2 to A if Hard
+; engine), just BEFORE writing to wCurEnemyLVL. Adds 1 to A if Hard
 ; mode + boss class, capped at MAX_LEVEL. No-op otherwise.
+; (Was +2 originally; Forte lowered it to +1 on 2026-07-23.)
 ;
 ; Note: this also subtly bumps the prize money (wAmountMoneyWon is
 ; computed from the bumped wCurEnemyLVL down at ReadTrainerFinishUp). That's
@@ -188,7 +189,7 @@ HardModeBossLevelBump:
 	jr nz, .noBump
 	; The very first rival fight (RIVAL1 at Oak's Lab = trainer 1, the L5
 	; Eevee) is intentionally exempt: it stays at base level even in Hard
-	; mode. Every other rival fight and every other boss still gets +2.
+	; mode. Every other rival fight and every other boss still gets +1.
 	ld a, [wTrainerClass]
 	cp RIVAL1
 	jr nz, .doBump
@@ -199,12 +200,12 @@ HardModeBossLevelBump:
 	; v0.7 BUGFIX: was `farcall IsBossTrainerClass` with the class in a,
 	; but the farcall bank-switch (rst _Bankswitch) overwrites a with the
 	; destination bank id before the call lands, so the check always saw
-	; "$0F" and never matched — NO boss ever got the +2. IsBossTrainer
+	; "$0F" and never matched — NO boss ever got the bump. IsBossTrainer
 	; ClassW reloads wTrainerClass inside bank $0F, dodging the clobber.
 	farcall IsBossTrainerClassW
 	jr z, .noBump
 	pop af
-	add 2
+	add 1
 	cp MAX_LEVEL + 1
 	jr c, .done
 	ld a, MAX_LEVEL
@@ -375,7 +376,7 @@ AddRivalMon:
 	ld [wcf91], a ; species
 	ld a, [hli]
 	push hl
-	call HardModeBossLevelBump ; +2 in hard (Lab fight exempt inside)
+	call HardModeBossLevelBump ; +1 in hard (Lab fight exempt inside)
 	ld [wCurEnemyLVL], a
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a

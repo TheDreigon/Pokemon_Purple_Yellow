@@ -20,7 +20,7 @@ IF DEF(_DEBUG)
 	call RunDefaultPaletteCommand
 
 	hlcoord 5, 6
-	lb bc, 5, 9 ; 5 inner rows: fits the 3 menu entries at 2-row spacing
+	lb bc, 7, 9 ; 7 inner rows: fits the 4 menu entries at 2-row spacing
 	call TextBoxBorder
 
 	hlcoord 7, 7
@@ -34,7 +34,7 @@ IF DEF(_DEBUG)
 	ld [wMenuWatchedKeys], a
 	xor a
 	ld [wMenuJoypadPollCount], a
-	ld a, 2 ; 3 entries: FIGHT/DEBUG/ANIM
+	ld a, 3 ; 4 entries: FIGHT/DEBUG/ANIM/MON
 	ld [wMaxMenuItem], a
 	ld a, 7
 	ld [wTopMenuItemY], a
@@ -55,9 +55,11 @@ IF DEF(_DEBUG)
 	jp z, TestBattle
 	dec a ; DEBUG?
 	jr z, .debug
-	; ANIM (v0.7): jumps to AnimationTestMenu in this same bank.
-	; AnimationTestMenu's exit path is `jp DebugMenu`, so it loops back here.
-	jp AnimationTestMenu
+	dec a ; ANIM?
+	; Both test screens live in this same bank and exit with `jp DebugMenu`,
+	; so they loop back here and the hl-return contract is preserved.
+	jp z, AnimationTestMenu
+	jp MonTestMenu ; MON (v0.7): browse all 151, colored sprite + cry
 
 .debug
 	ld hl, wd732
@@ -74,7 +76,8 @@ DebugBattleRivalName:
 DebugMenuOptions:
 	db   "FIGHT"
 	next "DEBUG"
-	next "ANIM@"
+	next "ANIM"
+	next "MON@"
 
 TestBattle: ; unreferenced except in _DEBUG
 	ld a, 1

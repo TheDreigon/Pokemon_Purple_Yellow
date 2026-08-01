@@ -164,8 +164,8 @@ MapHeaderBanks::
 	db BANK(SeafoamIslandsB2F_h)
 	db BANK(SeafoamIslandsB3F_h)
 	db BANK(SeafoamIslandsB4F_h)
-	db BANK(VermilionOldRodHouse_h)
-	db BANK(FuchsiaGoodRodHouse_h)
+	db BANK(VermilionGoodRodHouse_h)
+	db BANK(FuchsiaFossilHouse_h)
 	db BANK(PokemonMansion1F_h)
 	db BANK(CinnabarGym_h)
 	db BANK(CinnabarLab_h)
@@ -250,4 +250,5 @@ MapHeaderBanks::
 	db BANK(BrunosRoom_h)
 	db BANK(AgathasRoom_h)
 	db BANK(SummerBeachHouse_h)
+	db BANK(ViridianOldRodHouse_h)
 	assert_table_length NUM_MAPS

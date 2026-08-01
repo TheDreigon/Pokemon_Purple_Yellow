@@ -229,7 +229,7 @@ StatusScreen:
 	ld a, [wcf91]
 	call PlayCry ; play Pokémon cry
 .continue
-	call WaitForTextScrollButtonPress ; wait for button
+	call StatusScreen_WaitForButton ; wait for button (Up/Down walk the party)
 	pop af
 	ld [hTileAnimations], a
 	ret
@@ -509,7 +509,7 @@ StatusScreen2:
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
-	call WaitForTextScrollButtonPress ; wait for button
+	call StatusScreen_WaitForButton ; wait for button (Up/Down walk the party)
 	pop af
 	ldh [hTileAnimations], a
 	ld hl, wd72c
@@ -518,6 +518,63 @@ StatusScreen2:
 	ldh [rNR50], a
 	call GBPalWhiteOut
 	jp ClearScreen
+
+StatusScreen_WaitForButton:
+; v0.7: A and B close the screen exactly as WaitForTextScrollButtonPress always
+; did. Up and Down additionally step through the party - but ONLY when the
+; caller opted in by writing $ff to wStatusScreenPageChange first. The party
+; menu opts in; battle, Bill's PC and the cable club do not, so pressing a
+; direction there still does nothing, as before.
+;
+; Writes back 0 (closed), 1 (previous mon) or 2 (next mon) for the caller,
+; because a predef cannot return a value in a register.
+	ld a, [wStatusScreenPageChange]
+	cp $fe
+	jr nz, .notPassThrough
+; $fe means "draw this page but do not wait on it". The caller uses it to put
+; page 1 back on screen after stepping to another Pokemon, so it can return the
+; player to page 2 - page 2 draws OVER page 1 and reads data page 1 loads, so it
+; cannot be shown on its own.
+	xor a
+	ld [wStatusScreenPageChange], a
+	ret
+.notPassThrough
+	inc a ; was it $ff?
+	jp nz, WaitForTextScrollButtonPress ; not opted in: vanilla behaviour
+	                                    ; (jp, not jr - it lives in the home bank)
+	ldh a, [hDownArrowBlinkCount1]
+	push af
+	ldh a, [hDownArrowBlinkCount2]
+	push af
+	xor a
+	ldh [hDownArrowBlinkCount1], a
+	ld a, $6
+	ldh [hDownArrowBlinkCount2], a
+.loop
+	push hl
+	hlcoord 18, 16
+	call HandleDownArrowBlinkTiming
+	pop hl
+	call JoypadLowSensitivity
+	ldh a, [hJoy5]
+	ld b, a
+	and A_BUTTON | B_BUTTON
+	ld c, 0 ; closed
+	jr nz, .done
+	bit BIT_D_UP, b
+	ld c, 1 ; previous mon
+	jr nz, .done
+	bit BIT_D_DOWN, b
+	ld c, 2 ; next mon
+	jr z, .loop
+.done
+	ld a, c
+	ld [wStatusScreenPageChange], a
+	pop af
+	ldh [hDownArrowBlinkCount2], a
+	pop af
+	ldh [hDownArrowBlinkCount1], a
+	ret
 
 CalcExpToLevelUp:
 	ld a, [wLoadedMonLevel]

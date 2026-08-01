@@ -125,6 +125,9 @@ CeladonGymReceiveGifts:
 	jp CeladonGymResetScripts
 
 ErikaRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_ERIKA
 	ld a, TEXT_CELADONGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -232,10 +235,17 @@ CeladonGymErikaText:
 	jr nc, .Erika5thGym
 	jr .Erika4thGym
 .todone
-	jr .done
+	jp .done ; jp: the rematch-cooldown check pushed .done out of jr range
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; ErikaRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 .ErikaRematch
+	CheckEvent EVENT_REMATCHED_ERIKA
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L60+ rematch
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -251,6 +261,10 @@ CeladonGymErikaText:
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .done
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
@@ -312,6 +326,10 @@ CeladonGymErikaText:
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

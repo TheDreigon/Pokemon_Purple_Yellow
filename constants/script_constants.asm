@@ -27,9 +27,7 @@ DEF SLOTS_SOMEONESKEYS EQU $ff
 	const_def
 	const TRADE_FOR_TREMOR
 	const TRADE_FOR_MILES
-	const TRADE_FOR_STINGER ; unused
 	const TRADE_FOR_PTERA
-	const TRADE_FOR_BART    ; unused — DO NOT ACTIVATE (Mew is the dex-150 postgame static; see data/events/trades.asm)
 	const TRADE_FOR_SPORE
 	const TRADE_FOR_LOLA
 	const TRADE_FOR_BASALT

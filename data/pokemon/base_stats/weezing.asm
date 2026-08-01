@@ -12,8 +12,8 @@
 
 	; tm/hm learnset
 	; Apex gas balloon (Poison/Gas), a sinister toxic-cloud concept.
-	; Toxic, dark and flame moves with intimidating scary-face.
-	; Fun moves (last-stage).
+	; Toxic, dark and flame moves (FLAME_BURST/FLAMETHROWER) with
+	; intimidating scary-face. Fun moves (last-stage).
 	tmhm FLAME_BURST, NIGHT_SHADE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, TOXIC, SCARY_FACE, LIGHT_SCREEN, DARK_PULSE, \
 	     FLAMETHROWER

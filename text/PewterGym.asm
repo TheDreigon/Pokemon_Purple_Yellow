@@ -65,7 +65,7 @@ _PewterGymPreRematchBattle2Text::
 	done
 
 _PewterGymRematchPostBattleText::
-	text "Incredible!"
+	text "Rock solid!"
 
 	para "Your strength"
 	line "is unmatched!"

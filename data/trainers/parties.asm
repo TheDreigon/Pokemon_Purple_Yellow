@@ -52,6 +52,7 @@ TrainerDataPointers:
 	dw JoyData
 	dw JennyData
 	dw JessieAndJamesData
+	dw ForteData
 	assert_table_length NUM_TRAINERS
 
 ; if first byte != $FF, then
@@ -101,8 +102,8 @@ YoungsterData:
 BugCatcherData:
 ; Viridian Forest
 	db 6, CATERPIE, WEEDLE, CATERPIE, 0
-	db $FF, 8, METAPOD, 6, CATERPIE, 8, KAKUNA, 0
-	db $FF, 8, PINSIR, 9, METAPOD, 0
+	db $FF, 6, ODDISH, 8, KAKUNA, 8, METAPOD, 0
+	db $FF, 7, WEEDLE, 9, VENONAT, 0
 ; Route 3
 	db $FF, 8, METAPOD, 8, KAKUNA, 11, BUTTERFREE, 0
 	db 9, WEEDLE, KAKUNA, CATERPIE, METAPOD, 0
@@ -747,8 +748,8 @@ ScientistData:
 	db 35, VOLTORB, STARYU, ELECTRODE, MAGNETON, STARMIE, 0
 ; Silph Co. 7F
 	db 39, ELECTRODE, MUK, 0
-; Silph Co. 8F
-	db 43, PORYGON, 0
+; Silph Co. 8F — prototype PORYGON ace (v0.7: was solo L43 PORYGON)
+	db $FF, 40, MAGNETON, 42, ELECTRODE, 45, PORYGON, 0
 ; Silph Co. 9F
 	db 40, MUK, KABUTOPS, 0
 ; Silph Co. 10F
@@ -855,11 +856,16 @@ JoyData:
 	db $FF, 63, KANGASKHAN, 64, WIGGLYTUFF, 64, CLEFABLE, 65, CHANSEY, 65, MR_MIME, 0
 
 SmithData:
-    db 55, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
+    db 60, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
 
 CraigData:
 ; Zapdos Fight
-	db 55, JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
+	db 60, JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
 
 WeebraData:
-	db 55, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
+	db 60, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
+
+ForteData:
+; "Forte / DREIGON" superboss — all L80, in Forte's send-out order (Nidoking ace/last).
+; Per-mon movesets in special_moves.asm (finalized by Forte in Notes/Boss Movesets.md).
+	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0

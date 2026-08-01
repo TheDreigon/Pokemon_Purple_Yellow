@@ -89,8 +89,8 @@ InternalMapEntries:
 	internal_map SAFARI_ZONE_GATE,               8, 12, SafariZoneName
 	internal_map FUCHSIA_MEETING_ROOM,           8, 13, FuchsiaCityName
 	internal_map SEAFOAM_ISLANDS_B4F,            5, 15, SeafoamIslandsName
-	internal_map VERMILION_OLD_ROD_HOUSE,       10,  9, VermilionCityName
-	internal_map FUCHSIA_GOOD_ROD_HOUSE,         8, 13, FuchsiaCityName
+	internal_map VERMILION_GOOD_ROD_HOUSE,       10,  9, VermilionCityName
+	internal_map FUCHSIA_FOSSIL_HOUSE,           8, 13, FuchsiaCityName
 	internal_map POKEMON_MANSION_1F,             2, 15, PokemonMansionName
 	internal_map CINNABAR_MART_COPY,             2, 15, CinnabarIslandName
 	internal_map INDIGO_PLATEAU_LOBBY,           0,  2, IndigoPlateauName
@@ -117,4 +117,5 @@ InternalMapEntries:
 	internal_map SILPH_CO_ELEVATOR,             10,  5, SilphCoName
 	internal_map AGATHAS_ROOM,                   0,  2, PokemonLeagueName
 	internal_map SUMMER_BEACH_HOUSE,             6, 15, Route19Name
+	internal_map VIRIDIAN_OLD_ROD_HOUSE,         2,  8, ViridianCityName
 	db -1 ; end

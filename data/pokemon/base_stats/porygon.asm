@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions
 	dw PorygonPicFront, PorygonPicBack
 
-	db TACKLE, HARDEN, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
+	db TACKLE, FOCUS_ENERGY, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
@@ -17,7 +17,7 @@
 	; Last-stage fun: MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, \
-	     REFLECT, THUNDERBOLT, FLASH
+	     REFLECT, THUNDERBOLT, FLASH, ICY_PULSE, ICE_BEAM
 	; end
 
 	db 0 ; padding

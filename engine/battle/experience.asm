@@ -16,7 +16,19 @@ GainExperience:
 	inc hl
 	ld a, [hli]
 	or [hl] ; is mon's HP 0?
-	jp z, .nextMon ; if so, go to next mon
+	jr nz, .participantIsConscious
+; v0.7: vanilla drops a fainted participant's share entirely, which punishes
+; exactly the pattern the early game invites - send the weak one in, let it
+; faint, finish with the starter - and leaves that Pokemon permanently behind.
+; Normal mode now pays it anyway, the way every generation since does. Hard
+; mode keeps the Gen 1 rule, so a Pokemon going down really costs you.
+; See .keepFaintedMonFainted below: paying a fainted mon means it can level up,
+; and the vanilla level-up adds the max-HP gain to CURRENT HP - which would
+; quietly revive it.
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jp nz, .nextMon
+.participantIsConscious
 	push hl
 	ld hl, wPartyGainExpFlags
 	ld a, [wWhichPokemon]
@@ -253,6 +265,17 @@ GainExperience:
 	ld b, a ; bc = difference between old max HP and new max HP after levelling
 	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
 	add hl, de
+; v0.7: in Normal mode a FAINTED participant can reach this point (see
+; .participantIsConscious above), and the line below adds the max-HP gain to
+; CURRENT HP - which on a mon at 0 HP would revive it with a few points, for
+; free, every time it levelled. This is why vanilla skipped fainted mons at
+; all. A fainted mon still gets the level, the stats and the moves; it just
+; stays fainted until you heal it.
+	ld a, [hl] ; wPartyMon1HP + 1
+	dec hl
+	or [hl] ; wPartyMon1HP - both bytes zero means fainted
+	inc hl
+	jr z, .keepFaintedMonFainted
 ; add to the current HP the amount of max HP gained when levelling
 	ld a, [hl] ; wPartyMon1HP + 1
 	add c
@@ -260,6 +283,10 @@ GainExperience:
 	ld a, [hl] ; ld a, [hl] ; wPartyMon1HP
 	adc b
 	ld [hl], a ; wPartyMon1HP
+	jr .hpAfterLevelUpDone
+.keepFaintedMonFainted
+	dec hl ; land on wPartyMon1HP, where the branch above ends up
+.hpAfterLevelUpDone
 	ld a, [wPlayerMonNumber]
 	ld b, a
 	ld a, [wWhichPokemon]

@@ -443,3 +443,17 @@ _OaksLabScientistText::
 	cont "effective to"
 	cont "psychic-types."
 	done
+
+_OaksLabScientist2Text::
+	text "I study #MON as"
+	line "PROF.OAK's AIDE."
+
+	para "This year we"
+	line "found a whole"
+	cont "new type!"
+
+	para "The FAIRY type"
+	line "laughs off DRAGON"
+	cont "moves, then hits"
+	cont "back hard!"
+	done

@@ -684,7 +684,7 @@ _WannaTradeDuxText::
 	cont "drills! Too keen"
 
 	para "for me now. A"
-	line "PIDGEY will do!"
+	line "PIDGEOTTO'll do!"
 	done
 
 _NoTradeDuxText::
@@ -694,7 +694,7 @@ _NoTradeDuxText::
 
 _WrongMonDuxText::
 	text "That recruit is"
-	line "no PIDGEY!"
+	line "no PIDGEOTTO!"
 	done
 
 _ThanksDuxText::
@@ -706,7 +706,7 @@ _AfterTradeDuxText::
 	text "DUX showed you"
 	line "the drill?! Ha!"
 
-	para "My PIDGEY just"
+	para "My PIDGEOTTO just"
 	line "coos. Restful!"
 	done
 
@@ -850,7 +850,7 @@ _RoofHouseProgrammerIntroText::
 
 	para "Think you know MY"
 	line "KANTO? Pop quiz!"
-	cont "8 questions!"
+	cont "10 questions!"
 	prompt
 
 _RoofQuizQ1Text::
@@ -891,6 +891,16 @@ _RoofQuizQ7Text::
 _RoofQuizQ8Text::
 	text "Q8: Where do wild"
 	line "TAUROS roam?"
+	done
+
+_RoofQuizQ9Text::
+	text "Q9: FAIRY moves"
+	line "crush which type?"
+	done
+
+_RoofQuizQ10Text::
+	text "Q10: What type is"
+	line "PERSIAN?"
 	done
 
 _RoofQuizPerfectText::

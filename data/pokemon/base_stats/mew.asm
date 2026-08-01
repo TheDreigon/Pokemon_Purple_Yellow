@@ -13,6 +13,8 @@
 	; tm/hm learnset
 	; Curious ancestral shapeshifter; learns nearly everything, the
 	; broadest pool. Last-stage fun moves allowed.
+	; Ladder prereqs: WATER_PULSE, ICY_PULSE, FLAME_BURST, SHOCK_WAVE,
+	; EXTRASENSORY.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, WATER_PULSE, ICY_PULSE, FLAME_BURST, \
 	     SHOCK_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     DAZZLE_GLEAM, AGILITY, FAKE_TEARS, CHARM, EXTRASENSORY, \

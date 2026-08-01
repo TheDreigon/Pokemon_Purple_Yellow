@@ -274,6 +274,7 @@ ViridianCity_TextPointers:
 	dw_const ViridianCityOldManText,                         TEXT_VIRIDIANCITY_OLD_MAN
 	dw_const ViridianCityOldMan2Text,                        TEXT_VIRIDIANCITY_OLD_MAN2
 	dw_const ViridianCitySignText,                           TEXT_VIRIDIANCITY_SIGN
+	dw_const ViridianCitySchoolSignText,                     TEXT_VIRIDIANCITY_SCHOOL_SIGN
 	dw_const ViridianCityTrainerTips1Text,                   TEXT_VIRIDIANCITY_TRAINER_TIPS1
 	dw_const ViridianCityTrainerTips2Text,                   TEXT_VIRIDIANCITY_TRAINER_TIPS2
 	dw_const MartSignText,                                   TEXT_VIRIDIANCITY_MART_SIGN
@@ -350,6 +351,10 @@ ViridianCityOldMan2Text:
 ; DISABLED: shown after the old catching demo. No longer reached.
 .LosingMyTouchText:
 	text_far _ViridianCityOldManLosingMyTouchText
+	text_end
+
+ViridianCitySchoolSignText:
+	text_far _ViridianCitySchoolSignText
 	text_end
 
 ViridianCitySignText:

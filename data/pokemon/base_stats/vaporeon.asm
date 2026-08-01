@@ -12,8 +12,8 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Water fox with a fluid body that masters ice (WATER_PULSE/ICE_BEAM/
-	; SURF). Cute gestures (CHARM/FAKE_TEARS). Last-stage fun moves via
+	; Water fox with a fluid body that masters ice (WATER_PULSE/ICY_PULSE/
+	; ICE_BEAM/SURF). Cute gestures (CHARM/FAKE_TEARS). Last-stage fun moves via
 	; TM.
 	tmhm QUICK_ATTACK, WATER_PULSE, ICY_PULSE, BODY_SLAM, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, FAKE_TEARS, \

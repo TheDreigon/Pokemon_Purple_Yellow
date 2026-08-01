@@ -383,7 +383,12 @@ wMenuCursorLocation:: dw
 ; daycare level cap: on hard mode (pre-Champion) daycare growth stops at this level (scales with badge count, 12..65); MAX_LEVEL otherwise. See scripts/Daycare.asm
 wMaxDaycareLevel:: db
 
-	ds 1
+; v0.7: nonzero while the OPTION menu is being opened from INSIDE a running game.
+; The difficulty row is informational and only means anything once a difficulty
+; has actually been chosen, so the title-screen OPTION menu leaves this at 0 and
+; the row is not drawn. Default 0 is the safe one: a caller that forgets to set
+; it hides the row rather than showing a stale value.
+wOptionsShowDifficulty:: db
 
 ; how many times should HandleMenuInput poll the joypad state before it returns?
 wMenuJoypadPollCount:: db
@@ -981,7 +986,15 @@ wTempFlag:: db
 wTempObtainedBadgesBooleans:: ds NUM_BADGES
 
 NEXTU
-wUnusedCD3D:: db
+; v0.7: the party status screen walks the party with Up/Down, and StatusScreen2
+; has to tell its caller which button ended it. A predef cannot answer in a
+; register - Predef ends in `pop af`, restoring both the flags and a - so the
+; answer travels here. Protocol: the caller writes $ff to opt in before calling
+; (only the party menu does; battle, Bill's PC and the cable club leave it 0 and
+; behave exactly as before), and reads back 0 = closed, 1 = previous mon,
+; 2 = next mon. Repurposed from wUnusedCD3D: same address, same size, and it
+; sits in menu scratch, nowhere near the saved block.
+wStatusScreenPageChange:: db
 ; the number of credits mons that have been displayed so far
 wNumCreditsMonsDisplayed:: db
 
@@ -1262,9 +1275,10 @@ wGymCityName:: ds 17
 
 wGymLeaderName:: ds NAME_LENGTH
 
-wItemList:: ds 41 ; sized for the worst-case tiered mart at full unlock:
-                  ; count + T0..T8 (19 items) + elite addons (4 post-E4 +
-                  ; 4 post-rematch) + Indigo TM extras (12) + $ff terminator.
+wItemList:: ds ITEM_LIST_SIZE ; sized for the worst-case tiered mart at full
+                  ; unlock: count + T0..T8 (19 items) + elite addons (4 post-E4
+                  ; + 4 post-rematch) + Indigo TM extras (12) + $ff terminator.
+                  ; engine/events/tiered_mart.asm ASSERTs that this still fits.
 
 ; Scratch buffer for the per-mart TM extras passed via `script_tiered_mart`.
 ; Layout: [count, item0, item1, ..., itemN]. No $ff terminator.
@@ -1873,7 +1887,8 @@ wSavedSpriteScreenX:: db
 wSavedSpriteMapY:: db
 wSavedSpriteMapX:: db
 
-	ds 5
+	ds 4 ; v0.7: was 5 — one byte lent to the prize-list sentinel below, so the
+	     ; total WRAM size is unchanged and the hardened stack ORG stays put.
 
 wWhichPrize:: db
 
@@ -1891,6 +1906,12 @@ wPrize1:: db
 wPrize2:: db
 wPrize3:: db
 wPrize4:: db ; 4th prize slot for the Game Corner TM prize menu (not in vanilla)
+	ds 1 ; v0.7 FIX: room for the "@" sentinel. The prize list is filled with
+	     ; CopyString, which copies the terminator too, so 4 entries need 5
+	     ; bytes. Growing the menu from 3 to 4 prizes ate the pad that used to
+	     ; sit here and the sentinel then landed on wNoSprintSteps — merely
+	     ; opening a prize counter disabled the running shoes for 80 steps.
+	     ; This byte is borrowed from the anonymous pad above (net zero).
 
 wNoSprintSteps:: db
 

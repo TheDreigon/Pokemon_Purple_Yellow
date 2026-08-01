@@ -23,17 +23,19 @@ HiddenItemNear:
 	ld e, [hl]
 	inc hl
 	jr nz, .loop ; if the item has already been obtained
-; check if the item is within 4-5 tiles (depending on the direction of item)
+; v0.7: detection box is 11x11 centered on the player (+-5 both axes; was
+; vanilla's off-center -4/+4 by -4/+5). The lower-bound checks are strict
+; (item coord must EXCEED player coord minus 6), hence sub 6 for a -5 reach.
 	ld a, [wYCoord]
-	call Sub5ClampTo0
+	call Sub6ClampTo0
 	cp d
 	jr nc, .loop
 	ld a, [wYCoord]
-	add 4
+	add 5
 	cp d
 	jr c, .loop
 	ld a, [wXCoord]
-	call Sub5ClampTo0
+	call Sub6ClampTo0
 	cp e
 	jr nc, .loop
 	ld a, [wXCoord]
@@ -43,9 +45,9 @@ HiddenItemNear:
 	scf
 	ret
 
-Sub5ClampTo0:
-; subtract 5 but clamp to 0
-	sub 5
+Sub6ClampTo0:
+; subtract 6 but clamp to 0
+	sub 6
 	cp $f0
 	ret c
 	xor a

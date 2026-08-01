@@ -13,7 +13,7 @@
 
 	; tm/hm learnset
 	; Basic Water/Poison jellyfish, pre-evo backbone. Tentacles bind and
-	; drain (LEECH_LIFE).
+	; drain (LEECH_LIFE). Ladder prereqs: WATER_PULSE, ICY_PULSE.
 	tmhm BIND, WATER_PULSE, ICY_PULSE, AGILITY, LEECH_LIFE, \
 	     ICE_BEAM, SURF
 	; end

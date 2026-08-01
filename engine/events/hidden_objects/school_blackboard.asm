@@ -100,7 +100,9 @@ ViridianSchoolBlackboard::
 	ld [wLastMenuItem], a
 	ld a, D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
-	ld a, 2
+	; v0.7: CONFUSION added, so the board is 4+3 instead of 3+3. The left column
+	; is the taller one, hence wMaxMenuItem 3 here and 2 on the right.
+	ld a, 3
 	ld [wMaxMenuItem], a
 	ld a, 2
 	ld [wTopMenuItemY], a
@@ -110,7 +112,7 @@ ViridianSchoolBlackboard::
 	ld hl, wd730
 	set 6, [hl]
 	hlcoord 0, 0
-	lb bc, 6, 10
+	lb bc, 8, 10 ; v0.7: one row taller, the left column now holds four headings
 	call TextBoxBorder
 	hlcoord 1, 2
 	ld de, StatusAilmentText1
@@ -132,14 +134,14 @@ ViridianSchoolBlackboard::
 	ld [wTopMenuItemY], a
 	ld a, 6
 	ld [wTopMenuItemX], a
-	ld a, 3 ; in the the right column, use an offset to prevent overlap
+	ld a, 4 ; in the right column, use an offset to prevent overlap
 	ld [wMenuItemOffset], a
 	jr .blackboardLoop
 .didNotPressRight
 	bit BIT_D_LEFT, a
 	jr z, .didNotPressLeftOrRight
 	; move cursor to left column
-	ld a, 2
+	ld a, 3
 	ld [wMaxMenuItem], a
 	ld a, 2
 	ld [wTopMenuItemY], a
@@ -153,7 +155,7 @@ ViridianSchoolBlackboard::
 	ld b, a
 	ld a, [wMenuItemOffset]
 	add b
-	cp 5 ; cursor is pointing to "QUIT"
+	cp 6 ; cursor is pointing to "QUIT"
 	jr z, .exitBlackboard
 	; we must have pressed a on a status condition
 	; so print the text
@@ -186,21 +188,24 @@ ViridianSchoolBlackboardText2:
 StatusAilmentText1:
 	db   " SLP"
 	next " PSN"
-	next " PAR@"
+	next " PAR"
+	next " BRN@"
 
 StatusAilmentText2:
-	db   " BRN"
-	next " FRZ"
+	db   " FRZ"
+	next " CNF"
 	next " QUIT@"
 
 	db "@" ; unused
 
 ViridianBlackboardStatusPointers:
+; order must match the headings: left column 0-3, right column 4-5
 	dw ViridianBlackboardSleepText
 	dw ViridianBlackboardPoisonText
 	dw ViridianBlackboardPrlzText
 	dw ViridianBlackboardBurnText
 	dw ViridianBlackboardFrozenText
+	dw ViridianBlackboardConfusionText
 
 ViridianBlackboardSleepText:
 	text_far _ViridianBlackboardSleepText
@@ -220,4 +225,8 @@ ViridianBlackboardBurnText:
 
 ViridianBlackboardFrozenText:
 	text_far _ViridianBlackboardFrozenText
+	text_end
+
+ViridianBlackboardConfusionText:
+	text_far _ViridianBlackboardConfusionText
 	text_end

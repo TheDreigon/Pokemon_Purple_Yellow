@@ -97,6 +97,9 @@ PewterGymScriptReceiveGifts:
 	jp PewterGymResetScripts
 
 BrockRematchPostBattle:
+	; reached only on a win (the post-battle script bails to ResetScripts when
+	; the player blacked out), so losing does not burn the rematch
+	SetEvent EVENT_REMATCHED_BROCK
 	ld a, TEXT_PEWTERGYM_REMATCH_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -130,7 +133,7 @@ PewterGymBrockText:
 .needGifts
 	call PewterGymScriptReceiveGifts
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	jp .done ; jp: the rematch-cooldown check pushed .done out of jr range
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
@@ -156,9 +159,16 @@ PewterGymBrockText:
 	xor a
 	ldh [hJoyHeld], a
 	jr .endBattle
+; v0.7 rematch cooldown: one rematch per League run. The flag is set by
+; BrockRematchPostBattle on a win and cleared again for every leader by
+; HallOfFameResetEventsAndSaveScript.
 .BrockRematch
+	CheckEvent EVENT_REMATCHED_BROCK
+	jr nz, .rematchSpent
 	ld hl, .PreBattleRematch1Text
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L60+ rematch
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -174,6 +184,10 @@ PewterGymBrockText:
 	ld [wPewterGymCurScript], a
 	ld [wCurMapScript], a
 	jr .endBattle
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .done
 .refused
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
@@ -199,6 +213,10 @@ PewterGymBrockText:
 
 .PreBattleRematchRefusedText
 	text_far _GymRematchRefusedText
+	text_end
+
+.RematchCooldownText
+	text_far _GymRematchCooldownText
 	text_end
 
 .PreBattleRematch2Text

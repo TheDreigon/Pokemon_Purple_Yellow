@@ -53,7 +53,7 @@ _CinnabarGymPreRematchBattle2Text::
     done
 
 _CinnabarGymRematchPostBattleText::
-	text "Incredible!"
+	text "Scorching!"
     
     para "Your strength"
     line "exceeds even the"

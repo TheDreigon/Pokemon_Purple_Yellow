@@ -29,6 +29,7 @@ JoyPostBattleScript:
 	inc a
 	jr z, .skip	; Kick out if the player lost.
 	SetEvent EVENT_BEAT_NURSE_JOY
+	SetEvent EVENT_REMATCHED_NURSE_JOY ; v0.7: spend this League run's battle (win only)
 	ld a, TEXT_FUCHSIAPOKECENTER_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -47,6 +48,11 @@ FuchsiaPokecenterNurseText:
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr z, .done
+; v0.7 rematch cooldown: one battle per League run. REMATCHED is set on every
+; win (including the first), BEAT only picks the "another battle?" wording, so
+; re-beating the League re-arms her without resetting the dialogue stage.
+	CheckEvent EVENT_REMATCHED_NURSE_JOY
+	jr nz, .rematchSpent
 	CheckEvent EVENT_BEAT_NURSE_JOY
 	jr nz, .NotFirstBattle
 	farcall NewPageButtonPressCheck
@@ -55,10 +61,18 @@ FuchsiaPokecenterNurseText:
 	ld hl, NurseJoyPreBattleText
 .continue
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L65 fight
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
+; she starts the battle by hand (no EngageMapTrainer), so the encounter jingle
+; has to be played explicitly — same idiom the Jessie & James scripts use
+	call StopAllMusic
+	ld c, BANK(Music_MeetFemaleTrainer)
+	ld a, MUSIC_MEET_FEMALE_TRAINER
+	call PlayMusic
 	ld hl, NurseJoyAcceptedText
 	call PrintText
 	call Delay3
@@ -81,6 +95,15 @@ FuchsiaPokecenterNurseText:
 	ld [wPlayerMovingDirection], a
 	ld hl, NurseJoyPreBattleText2
 	jr .continue
+.rematchSpent
+; same page-break handling as the two battle offers: the healing dialogue is
+; already on screen, so wait for the button before writing over it
+	farcall NewPageButtonPressCheck
+	ld a, PLAYER_DIR_UP
+	ld [wPlayerMovingDirection], a
+	ld hl, NurseJoyRematchCooldownText
+	call PrintText
+	jp TextScriptEnd
 NurseJoyPreBattleText:
 	text_far _NurseJoyBattleText
 	text_end
@@ -92,6 +115,9 @@ NurseJoyAcceptedText:
 	text_end
 NurseJoyPreBattleText2:
 	text_far _NurseJoyBattleText2
+	text_end
+NurseJoyRematchCooldownText:
+	text_far _NurseJoyRematchCooldownText
 	text_end
 
 FuchsiaPokecenterRockerText:

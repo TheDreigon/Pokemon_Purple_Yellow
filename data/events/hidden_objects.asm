@@ -8,7 +8,11 @@ HiddenObjectMaps:
 	dbw SAFARI_ZONE_WEST,             SafariZoneWestHiddenObjects
 	dbw CERULEAN_CAVE_2F,             CeruleanCave2HiddenObjects
 	dbw CERULEAN_CAVE_B1F,            CeruleanCave3HiddenObjects
-	dbw UNUSED_MAP_6F,                UnusedMap6FHiddenObjects
+	dbw ROCK_TUNNEL_1F,               RockTunnel1FHiddenObjects
+	dbw ROCK_TUNNEL_B1F,              RockTunnelB1FHiddenObjects
+	dbw DIGLETTS_CAVE,                DiglettsCaveHiddenObjects
+	dbw SEAFOAM_ISLANDS_B1F,          SeafoamIslandsB1FHiddenObjects
+	dbw POKEMON_TOWER_4F,             PokemonTower4FHiddenObjects
 	dbw SEAFOAM_ISLANDS_B2F,          SeafoamIslands3HiddenObjects
 	dbw SEAFOAM_ISLANDS_B3F,          SeafoamIslands4HiddenObjects
 	dbw SEAFOAM_ISLANDS_B4F,          SeafoamIslands5HiddenObjects
@@ -74,7 +78,6 @@ HiddenObjectMaps:
 	dbw CELADON_GYM,                  CeladonGymHiddenObjects
 	dbw GAME_CORNER,                  GameCornerHiddenObjects
 	dbw FUCHSIA_POKECENTER,           FuchsiaPokecenterHiddenObjects
-	dbw SAFARI_ZONE_GATE,             SafariZoneEntranceHiddenObjects
 	dbw FUCHSIA_GYM,                  FuchsiaGymHiddenObjects
 	dbw POKEMON_MANSION_1F,           Mansion1HiddenObjects
 	dbw CINNABAR_GYM,                 CinnabarGymHiddenObjects
@@ -110,7 +113,7 @@ SilphCo5FHiddenObjects:
 	db -1 ; end
 
 SilphCo9FHiddenObjects:
-	hidden_object  2, 15, MAX_POTION, HiddenItems
+	hidden_object  2, 15, CALCIUM, HiddenItems
 	db -1 ; end
 
 Mansion2HiddenObjects:
@@ -133,23 +136,46 @@ SafariZoneWestHiddenObjects:
 	db -1 ; end
 
 CeruleanCave2HiddenObjects:
-	hidden_object 16, 13, PP_UP, HiddenItems
+	hidden_object 16, 13, ESCAPE_ROPE, HiddenItems
 	db -1 ; end
 
 CeruleanCave3HiddenObjects:
 	hidden_object  8, 14, PP_UP, HiddenItems
+	hidden_object 26,  1, ULTRA_BALL, HiddenItems ; was a visible ball at these exact coords; its HS slot went to Seafoam's rope
 	db -1 ; end
 
-UnusedMap6FHiddenObjects:
-	hidden_object 14, 11, MAX_ELIXIR, HiddenItems
+; v0.7 ground-item redesign: Rock Tunnel gets its first items ever. The 1F
+; hidden rope reuses the flag row of the old unreachable UNUSED_MAP_6F entry
+; (see hidden_item_coords.asm); the B1F pair are appended flags.
+RockTunnel1FHiddenObjects:
+	hidden_object 24,  8, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
+	db -1 ; end
+
+RockTunnelB1FHiddenObjects:
+	hidden_object 21, 21, SUPER_REPEL, HiddenItems ; the dark cave where everyone wishes they had repels. TODO: provisional coords
+	hidden_object 30, 11, IRON, HiddenItems        ; iron in the rock, literally. TODO: provisional coords
+	db -1 ; end
+
+; The gag rope: a dead-straight two-exit tunnel, and the Itemfinder will
+; happily point the truly lost to the door. One step from the ladder.
+DiglettsCaveHiddenObjects:
+	hidden_object 14, 15, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
+	db -1 ; end
+
+SeafoamIslandsB1FHiddenObjects:
+	hidden_object 18,  6, ICE_HEAL, HiddenItems ; the frozen floors. TODO: provisional coords
+	db -1 ; end
+
+PokemonTower4FHiddenObjects:
+	hidden_object 12, 10, ELIXIR, HiddenItems ; was a visible ball at these exact coords; its HS slot went to Rock Tunnel's rope
 	db -1 ; end
 
 SeafoamIslands3HiddenObjects:
-	hidden_object 15, 15, NUGGET, HiddenItems
+	hidden_object 15, 15, ESCAPE_ROPE, HiddenItems
 	db -1 ; end
 
 SeafoamIslands4HiddenObjects:
-	hidden_object  9, 16, MAX_ELIXIR, HiddenItems
+	hidden_object  9, 16, WATER_STONE, HiddenItems
 	db -1 ; end
 
 SeafoamIslands5HiddenObjects:
@@ -157,13 +183,13 @@ SeafoamIslands5HiddenObjects:
 	db -1 ; end
 
 ViridianForestHiddenObjects:
-	hidden_object  1, 18, POTION, HiddenItems
-	hidden_object 16, 42, ANTIDOTE, HiddenItems
+	hidden_object  1, 18, LEAF_STONE, HiddenItems
+	hidden_object 16, 42, POTION, HiddenItems
 	db -1 ; end
 
 MtMoon3HiddenObjects:
 	hidden_object 18, 12, MOON_STONE, HiddenItems
-	hidden_object 33,  9, ETHER, HiddenItems
+	hidden_object 33,  9, ESCAPE_ROPE, HiddenItems
 	db -1 ; end
 
 SSAnne10HiddenObjects:
@@ -173,21 +199,21 @@ SSAnne10HiddenObjects:
 SSAnne6HiddenObjects:
 	hidden_object 13,  5, SPRITE_FACING_DOWN, PrintTrashText
 	hidden_object 13,  7, SPRITE_FACING_DOWN, PrintTrashText
-	hidden_object 13,  9, GREAT_BALL, HiddenItems
+	hidden_object 13,  9, RARE_CANDY, HiddenItems
 	db -1 ; end
 
 UndergroundPathNsHiddenObjects:
-	hidden_object  3,  4, FULL_RESTORE, HiddenItems
+	hidden_object  3,  4, HP_UP, HiddenItems
 	hidden_object  4, 34, X_SPECIAL, HiddenItems
 	db -1 ; end
 
 UndergroundPathWeHiddenObjects:
 	hidden_object 12,  2, NUGGET, HiddenItems
-	hidden_object 21,  5, ELIXIR, HiddenItems
+	hidden_object 21,  5, PROTEIN, HiddenItems
 	db -1 ; end
 
 RocketHideout1HiddenObjects:
-	hidden_object 21, 15, PP_UP, HiddenItems
+	hidden_object 21, 15, RARE_CANDY, HiddenItems
 	db -1 ; end
 
 RocketHideout3HiddenObjects:
@@ -195,12 +221,12 @@ RocketHideout3HiddenObjects:
 	db -1 ; end
 
 RocketHideout4HiddenObjects:
-	hidden_object 25,  1, SUPER_POTION, HiddenItems
+	hidden_object 25,  1, HYPER_POTION, HiddenItems
 	db -1 ; end
 
 Route10HiddenObjects:
 	hidden_object  9, 17, SUPER_POTION, HiddenItems
-	hidden_object 16, 53, MAX_ETHER, HiddenItems
+	hidden_object 16, 53, RARE_CANDY, HiddenItems
 	db -1 ; end
 
 RockTunnelPokecenterHiddenObjects:
@@ -209,12 +235,13 @@ RockTunnelPokecenterHiddenObjects:
 	db -1 ; end
 
 PowerPlantHiddenObjects:
-	hidden_object 17, 16, MAX_ELIXIR, HiddenItems
-	hidden_object 12,  1, PP_UP, HiddenItems
+	hidden_object 17, 16, THUNDER_STONE, HiddenItems
+	hidden_object 12,  1, PARLYZ_HEAL, HiddenItems
 	db -1 ; end
 
 Route11HiddenObjects:
-	hidden_object 48,  5, ESCAPE_ROPE, HiddenItems
+	hidden_object 48,  5, GREAT_BALL, HiddenItems
+	hidden_object 43,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was asked for but the GREAT_BALL already holds it.)
 	db -1 ; end
 
 Route12HiddenObjects:
@@ -222,7 +249,7 @@ Route12HiddenObjects:
 	db -1 ; end
 
 Route13HiddenObjects:
-	hidden_object  1, 14, PP_UP, HiddenItems
+	hidden_object  1, 14, RARE_CANDY, HiddenItems
 	hidden_object 16, 13, CALCIUM, HiddenItems
 	db -1 ; end
 
@@ -232,26 +259,26 @@ Route15Gate2FHiddenObjects:
 
 Route17HiddenObjects:
 	hidden_object 15,  14, RARE_CANDY, HiddenItems
-	hidden_object  8,  45, FULL_RESTORE, HiddenItems
-	hidden_object 17,  72, PP_UP, HiddenItems
-	hidden_object  4,  91, MAX_REVIVE, HiddenItems
-	hidden_object  8, 121, MAX_ELIXIR, HiddenItems
+	hidden_object  8,  45, CARBOS, HiddenItems
+	hidden_object 17,  72, CARBOS, HiddenItems
+	hidden_object  4,  91, PP_UP, HiddenItems
+	hidden_object  8, 121, NUGGET, HiddenItems
 	db -1 ; end
 
 Route23HiddenObjects:
 	hidden_object  9, 44, FULL_RESTORE, HiddenItems
-	hidden_object 19, 70, ULTRA_BALL, HiddenItems
+	hidden_object 19, 70, RARE_CANDY, HiddenItems
 	hidden_object  8, 90, MAX_ETHER, HiddenItems
 	db -1 ; end
 
 VictoryRoad2HiddenObjects:
-	hidden_object  5,  2, ULTRA_BALL, HiddenItems
-	hidden_object 26,  7, FULL_RESTORE, HiddenItems
+	hidden_object  5,  2, PROTEIN, HiddenItems
+	hidden_object 26,  7, ESCAPE_ROPE, HiddenItems
 	db -1 ; end
 
 Route25HiddenObjects:
 	hidden_object 38,  3, ETHER, HiddenItems
-	hidden_object 10,  1, ELIXIR, HiddenItems
+	hidden_object 34,  7, X_ATTACK, HiddenItems
 	db -1 ; end
 
 BillsHouseHiddenObjects:
@@ -395,7 +422,7 @@ LavenderPokecenterHiddenObjects:
 	db -1 ; end
 
 Pokemontower5HiddenObjects:
-	hidden_object  4, 12, ELIXIR, HiddenItems
+	hidden_object  4, 12, REVIVE, HiddenItems
 	db -1 ; end
 
 LavenderHouse1HiddenObjects:
@@ -405,7 +432,7 @@ LavenderHouse1HiddenObjects:
 	db -1 ; end
 
 VermilionCityHiddenObjects:
-	hidden_object 14, 11, MAX_ETHER, HiddenItems
+	hidden_object 14, 11, IRON, HiddenItems
 	db -1 ; end
 
 VermilionPokecenterHiddenObjects:
@@ -441,7 +468,7 @@ VermilionGymHiddenObjects:
 	db -1 ; end
 
 CeladonCityHiddenObjects:
-	hidden_object 48, 15, PP_UP, HiddenItems
+	hidden_object 48, 15, HP_UP, HiddenItems
 	db -1 ; end
 
 CeladonHotelHiddenObjects:
@@ -524,17 +551,13 @@ FuchsiaPokecenterHiddenObjects:
 	hidden_object  0,  4, SPRITE_FACING_UP, PrintBenchGuyText
 	db -1 ; end
 
-SafariZoneEntranceHiddenObjects:
-	hidden_object 10,  1, NUGGET, HiddenItems ; inaccessible
-	db -1 ; end
-
 FuchsiaGymHiddenObjects:
 	hidden_object  3, 15, SPRITE_FACING_UP, GymStatues
 	hidden_object  6, 15, SPRITE_FACING_UP, GymStatues
 	db -1 ; end
 
 Mansion1HiddenObjects:
-	hidden_object  8, 16, MOON_STONE, HiddenItems
+	hidden_object  8, 16, FIRE_STONE, HiddenItems
 	hidden_object  2,  5, SPRITE_FACING_UP, Mansion1Script_Switches
 	db -1 ; end
 

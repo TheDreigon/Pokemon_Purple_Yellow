@@ -99,9 +99,33 @@ SilphCo5TrainerHeader3:
 
 SilphCo5FSilphWorkerMText:
 	text_asm
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	jr z, .rocketStillHere
+	CheckEvent EVENT_GOT_SILPH_PORYGON
+	jr nz, .alreadyGave
+; Silph liberated, prototype not yet handed out -> give PORYGON L30 (manga: the
+; man-made mon is only trusted to a Trainer who just cleared the building).
+	ld hl, .PorygonOfferText
+	call PrintText
+	lb bc, PORYGON, 30
+	call GivePokemon
+	jr nc, .done ; party + box full -> bail, retry on next talk
+	ld a, [wSimulatedJoypadStatesEnd]
+	and a
+	call z, WaitForTextScrollButtonPress
+	call EnableAutoTextBoxDrawing
+	ld hl, .PorygonDescText
+	call PrintText
+	SetEvent EVENT_GOT_SILPH_PORYGON
+	jr .done
+.rocketStillHere
 	ld hl, .ThatsYouRightText
-	ld de, .YoureOurHeroText
-	call SilphCo6FBeatGiovanniPrintDEOrPrintHLScript
+	call PrintText
+	jr .done
+.alreadyGave
+	ld hl, .YoureOurHeroText
+	call PrintText
+.done
 	jp TextScriptEnd
 
 .ThatsYouRightText:
@@ -110,6 +134,14 @@ SilphCo5FSilphWorkerMText:
 
 .YoureOurHeroText:
 	text_far _SilphCo5FSilphWorkerMYoureOurHeroText
+	text_end
+
+.PorygonOfferText:
+	text_far _SilphCo5FSilphWorkerMPorygonOfferText
+	text_end
+
+.PorygonDescText:
+	text_far _SilphCo5FSilphWorkerMPorygonDescText
 	text_end
 
 SilphCo5FRocket1Text:

@@ -9,14 +9,14 @@ SuperRodFishingSlots::
 	db ROUTE_4, GOLDEEN, 25, POLIWAG, 24, SEAKING, 30, MAGIKARP, 20
 	db ROUTE_6, POLIWAG, 20, GOLDEEN, 28, SLOWPOKE, 30, SEAKING, 34
 	db ROUTE_24, POLIWAG, 25, GOLDEEN, 25, SEAKING, 30, GYARADOS, 30
-	db ROUTE_25, KRABBY, 25, HORSEA, 25, KINGLER, 35, DRATINI, 15
+	db ROUTE_25, KRABBY, 25, HORSEA, 25, KINGLER, 35, DRATINI, 18
 	db ROUTE_10, GOLDEEN, 25, POLIWAG, 25, KRABBY, 30, SEAKING, 33
 	db ROUTE_11, TENTACOOL, 25, HORSEA, 25, SHELLDER, 28, TENTACRUEL, 35
 	db ROUTE_12, HORSEA, 26, SHELLDER, 27, KRABBY, 28, SEADRA, 30
 	db ROUTE_13, HORSEA, 27, TENTACOOL, 28, SEADRA, 30, TENTACRUEL, 32
 	db ROUTE_17, TENTACOOL, 25, TENTACOOL, 30, SHELLDER, 30, SHELLDER, 35
 	db ROUTE_18, SHELLDER, 30, TENTACOOL, 28, SHELLDER, 32, STARYU, 30
-	db ROUTE_19, TENTACOOL, 25, STARYU, 30, HORSEA, 28, TENTACRUEL, 35
+	db ROUTE_19, TENTACOOL, 25, STARYU, 30, SEEL, 30, TENTACRUEL, 35
 	db ROUTE_20, TENTACOOL, 30, STARYU, 32, TENTACRUEL, 35, TENTACRUEL, 40
 	db ROUTE_21, TENTACOOL, 15, STARYU, 20, TENTACOOL, 30, TENTACRUEL, 30
 	db ROUTE_22, POLIWAG, 10, POLIWAG, 15, POLIWAG, 20, POLIWHIRL, 25
@@ -66,6 +66,16 @@ CheckMapForFishingMon:
 	cp c
 	inc de
 	jr z, .notfound ; already added this to buffer
+; v0.7 fix: same 30-byte wBuffer guard as CheckMapForMon. The four shortcut
+; species above match on every one of the 31 rod maps, so without this the
+; Pokedex AREA page wrote past the buffer and corrupted engine state.
+	ld a, d
+	cp HIGH(wBuffer + 29)
+	jr c, .hasRoom
+	ld a, e
+	cp LOW(wBuffer + 29)
+	jr nc, .notfound
+.hasRoom
 	ld a, c ; found so add map id to list
 	ld [de], a
 	inc de

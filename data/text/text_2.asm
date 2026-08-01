@@ -745,16 +745,32 @@ _ViridianBlackboardBurnText::
 	prompt
 
 _ViridianBlackboardFrozenText::
-	text "If frozen, a"
-	line "#MON becomes"
-	cont "totally immobile!"
+	text "A frozen #MON"
+	line "cannot move at"
+	cont "all!"
 
-	para "It stays frozen"
-	line "even after the"
-	cont "battle ends."
+	para "The ice melts on"
+	line "its own after a"
+	cont "few turns."
 
-	para "Use ICE HEAL to"
-	line "thaw out #MON!"
+	para "A FIRE or MAGMA"
+	line "hit melts it at"
+	cont "once!"
+
+	para "ICE HEAL works"
+	line "too."
+	prompt
+
+_ViridianBlackboardConfusionText::
+	text "A confused #MON"
+	line "may strike itself"
+	cont "instead of the"
+	cont "foe!"
+
+	para "No item clears"
+	line "it. It fades on"
+	cont "its own after a"
+	cont "few turns."
 	prompt
 
 _VermilionGymTrashText::

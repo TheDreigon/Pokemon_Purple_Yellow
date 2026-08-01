@@ -575,7 +575,7 @@ ItemUseBall:
 	ld hl, .emptyString
 	call PrintText
 	call AddPartyMon
-	jr .done
+	jr .caughtGainExp
 
 .sendToBox
 	call ClearSprites
@@ -587,7 +587,7 @@ ItemUseBall:
 .printTransferredToPCText
 	call PrintText
 	call .boxCheck
-	jr .done
+	jr .caughtGainExp
 
 .oldManCaughtMon
 	ld hl, ItemUseBallText05
@@ -595,6 +595,34 @@ ItemUseBall:
 .printMessage
 	call PrintText
 	call ClearSprites
+	jr .done ; a failed throw, and the old man's demo catch, earn nothing
+
+.caughtGainExp
+; v0.7: catching a Pokemon now pays experience, at HALF what defeating the
+; same Pokemon would have paid. Reached only from the two success paths (added
+; to the party, or sent to the PC) - a broken-free ball and the Viridian old
+; man's tutorial catch skip it via the jr above.
+;
+; The halving loop is the engine's own idiom, lifted from the Exp All path in
+; core.asm: it walks the enemy's base stats, catch rate and base exp and shifts
+; each right once. Halving the source rather than the result means the split
+; between participants stays exactly the arithmetic a knockout uses.
+;
+; WHO gains is deliberately not decided here. Handing off to the untouched
+; GainExperience guarantees a ball and a knockout reward the same Pokemon under
+; the same rules, which is the point - if that rule changes, it changes for
+; both at once.
+	ld hl, wEnemyMonBaseStats
+	ld b, NUM_STATS + 2
+.halveCaughtExpLoop
+	srl [hl]
+	inc hl
+	dec b
+	jr nz, .halveCaughtExpLoop
+	xor a
+	ld [wBoostExpByExpAll], a
+	callfar GainExperience
+	; fall through
 
 .done
 	ld a, [wBattleType]
@@ -2213,8 +2241,8 @@ ItemUsePPUp:
 
 ItemUsePPRestore:
 	; v0.7 hard-mode trainer/boss policy: PP refills (Ether/Max Ether/
-	; Elixer/Max Elixer) blocked. Allowed in wild battles AND in any
-	; battle on Normal mode. Reason: blocks the "Revive + Elixer"
+	; Elixir/Max Elixir) blocked. Allowed in wild battles AND in any
+	; battle on Normal mode. Reason: blocks the "Revive + Elixir"
 	; PP-stall loop against bosses while staying symmetric with the
 	; boss item bag (knob #10).
 	;
@@ -2232,9 +2260,9 @@ ItemUsePPRestore:
 	jr nz, .allowItem       ; trainer battle on Normal mode: allow
 	ld a, [wcf91]
 	cp ETHER
-	jr c, .allowItem        ; below ETHER (PP_UP): allow
+	jr c, .allowItem        ; below ETHER (PP_UP, PP_MAX): allow
 	cp MAX_ELIXIR + 1
-	jr nc, .allowItem ; Line 2237: '; above MAX_ELIXIR: allow (defensive; nothing above dispatches here)' and extend line 2235's comment to '; below ETHER (PP_UP, PP_MAX): allow'.
+	jr nc, .allowItem       ; above MAX_ELIXIR: allow (defensive; nothing above dispatches here)
 	ld hl, BattleItemsCantBeUsedHereText
 	jp ItemUseFailed
 .allowItem
@@ -2268,8 +2296,13 @@ ItemUsePPRestore:
 
 .usePPItem
 	ld a, [wPPRestoreItem]
-	cp PP_MAX
-	jp z, .usePPMax ; if PP Max (Gen 3 QoL: bumps move to max PP Ups in one go)
+; v0.7 FIX: the PP_MAX check used to sit HERE, before the move-selection menu
+; below — but .usePPMax needs hl to point at the CHOSEN move, and hl only
+; becomes valid after GetSelectedMoveOffset. Intercepted this early it inherited
+; whatever DisplayPartyMenu had left in hl, so it wrote PP-Up bits into party
+; mon 1's experience/stat-exp and then hard-locked on the second use. The check
+; now lives just after `pop hl` further down. PP_MAX ($32) is below ELIXIR
+; ($52), so it correctly falls through to the move-selection path from here.
 	cp ELIXIR
 	jp nc, .useElixir ; if Elixir or Max Elixir
 	ld a, $02
@@ -2297,6 +2330,8 @@ ItemUsePPRestore:
 	call CopyToStringBuffer
 	pop hl
 	ld a, [wPPRestoreItem]
+	cp PP_MAX
+	jp z, .usePPMax ; hl now points at the chosen move, which .usePPMax requires
 	cp ETHER
 	jp nc, .useEther ; if Ether or Max Ether (jp not jr: PP_MAX expansion pushed .useEther out of jr range)
 .usePPUp
@@ -3272,6 +3307,20 @@ CheckMapForMon:
 	ld a, [wd11e]
 	cp [hl]
 	jr nz, .nextEntry
+; v0.7 fix: wBuffer is only 30 bytes and FindWildLocationsOfMon appends an $ff
+; terminator after us, so the last entry may not pass wBuffer+28. Krabby,
+; Poliwag, Horsea and Goldeen are matched on EVERY Super Rod map (see the
+; shortcut in data/wild/super_rod.asm), which overran the buffer by up to 13
+; bytes and silently clobbered live engine state from wAnimSoundID onward every
+; time their Pokedex AREA page was opened. Stop writing once it is full; the
+; AREA screen is sprite-limited anyway, so a truncated list looks identical.
+	ld a, d
+	cp HIGH(wBuffer + 29)
+	jr c, .hasRoom
+	ld a, e
+	cp LOW(wBuffer + 29)
+	jr nc, .nextEntry
+.hasRoom
 	ld a, c
 	ld [de], a
 	inc de
@@ -3333,9 +3382,6 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	cp MR_MIME
 	ld b, ROUTE_2
 	jr z, .addEncounter
-	cp MACHOKE
-	ld b, ROUTE_5
-	jr z, .addEncounter
 	cp DUGTRIO
 	ld b, ROUTE_11
 	jr z, .addEncounter
@@ -3344,22 +3390,12 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	jr z, .addEncounter
 	cp RHYDON
 	jr z, .addCinnabarIsland
-	cp DEWGONG
-	jr z, .addCinnabarIsland
-	cp MUK
-	jr z, .addCinnabarIsland
 	cp JYNX
 	jr z, .addSaffron
-	; game corner mons 
-	cp ABRA
-	jr z, .addCeladon
-	cp SEEL
-	jr z, .addCeladon
+	; game corner mons (current casino roster; starters/Eevee/Jynx pinned above)
 	cp MAGMAR
 	jr z, .addCeladon
 	cp ELECTABUZZ
-	jr z, .addCeladon
-	cp DRATINI
 	jr z, .addCeladon
 	cp PORYGON
 	jr z, .addCeladon
@@ -3385,15 +3421,20 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	ld [de], a
 	inc de
 	ret
+; These four were `jr z` in vanilla, which only worked because the Z flag from
+; the caller's `cp` was still set — making each one silently dependent on its
+; position in this chain. `.addCeladon` is the last, so a Z-clear entry there
+; would have fallen straight into DrawBadges. Unconditional `jr` is the same
+; two bytes and behaves identically today, but can't rot.
 .addSaffron
 	ld b, SAFFRON_CITY
-	jr z, .addEncounter
+	jr .addEncounter
 .addPowerPlant
 	ld b, POWER_PLANT
-	jr z, .addEncounter
+	jr .addEncounter
 .addCinnabarIsland
 	ld b, CINNABAR_ISLAND
-	jr z, .addEncounter
+	jr .addEncounter
 .addCeladon
 	ld b, CELADON_CITY
-	jr z, .addEncounter
+	jr .addEncounter

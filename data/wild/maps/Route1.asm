@@ -8,8 +8,8 @@ Route1WildMons:
 	db  4, SPEAROW
 	db  5, SPEAROW
 	db  5, ODDISH
-	db  6, ODDISH
 	db  7, MEOWTH
+	db  5, PIKACHU
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

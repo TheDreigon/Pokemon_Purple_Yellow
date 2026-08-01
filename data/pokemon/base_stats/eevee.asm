@@ -12,9 +12,11 @@
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
-	; Cute Normal fox base, backbone-only.
-	tmhm QUICK_ATTACK, BODY_SLAM, AGILITY, FAKE_TEARS, CHARM, \
-	     DOUBLE_EDGE
+	; Cute Normal fox base, backbone-only. METRONOME is a level-up auto,
+	; not the fun-move package: Eevee is the 5th approved pre-evo fun
+	; exception (unstable genes = random move), like Clefairy's.
+	tmhm QUICK_ATTACK, BODY_SLAM, METRONOME, AGILITY, FAKE_TEARS, \
+	     CHARM, DOUBLE_EDGE
 	; end
 
 	db 0 ; padding

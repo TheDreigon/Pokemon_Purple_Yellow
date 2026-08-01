@@ -151,7 +151,6 @@ INCLUDE "engine/slots/game_corner_slots2.asm"
 
 SECTION "Slot Machines", ROMX
 
-INCLUDE "engine/movie/title_rb.asm"
 INCLUDE "engine/slots/slot_machine.asm"
 INCLUDE "engine/slots/game_corner_slots.asm"
 
@@ -162,6 +161,12 @@ INCLUDE "data/moves/moves.asm"
 INCLUDE "data/pokemon/cries.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
 INCLUDE "data/trainers/boss_item_bags.asm"
+; v0.7: moved out of Battle Core. The tier lists and their helpers are cold
+; code that was squatting in the fullest bank in the ROM, and the semi-boss
+; tier needed to scan a second list right next to the first - which has to be
+; in the same bank as the code reading it. Core.asm now farcalls in; that costs
+; 3 bytes per call site and gives Battle Core back far more than it takes.
+INCLUDE "engine/battle/hard_mode.asm"
 INCLUDE "engine/battle/unused_stats_functions.asm"
 INCLUDE "engine/battle/scroll_draw_trainer_pic.asm"
 INCLUDE "engine/battle/move_effects/heal.asm"
@@ -180,7 +185,6 @@ SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
 INCLUDE "engine/battle/effects.asm"
-INCLUDE "engine/battle/hard_mode.asm"
 
 
 SECTION "bank10", ROMX
@@ -392,7 +396,6 @@ INCLUDE "engine/overworld/specific_script_flags.asm"
 
 SECTION "Try Pikachu Movement", ROMX
 
-INCLUDE "engine/overworld/unused_load_missable_object_data.asm"
 INCLUDE "engine/events/try_pikachu_movement.asm"
 
 
@@ -421,7 +424,6 @@ SECTION "Battle Engine 9", ROMX
 
 INCLUDE "engine/movie/title_yellow.asm"
 INCLUDE "engine/menus/link_menu.asm"
-;INCLUDE "engine/menus/unused_input.asm"
 INCLUDE "engine/overworld/field_move_messages.asm"
 INCLUDE "engine/items/inventory.asm"
 INCLUDE "gfx/trainer_card.asm"
@@ -450,6 +452,8 @@ INCLUDE "engine/gfx/animated_objects.asm"
 SECTION "Overworld Pikachu", ROMX
 
 INCLUDE "data/maps/songs.asm"
+; Must stay in this SECTION: it is called with MapSongBanks' bank switched in.
+INCLUDE "engine/overworld/map_music_override.asm"
 INCLUDE "data/maps/map_header_pointers.asm"
 INCLUDE "data/maps/map_header_banks.asm"
 INCLUDE "engine/pikachu/pikachu_follow.asm"
@@ -459,3 +463,4 @@ INCLUDE "engine/pikachu/pikachu_movement.asm"
 INCLUDE "engine/pikachu/pikachu_pic_animation.asm"
 INCLUDE "engine/debug/debug_menu.asm"
 INCLUDE "engine/debug/animation_test.asm"
+INCLUDE "engine/debug/mon_test.asm"

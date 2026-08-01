@@ -1,4 +1,4 @@
-_FuchsiaGoodRodHouseFishingGuruText::
+_FuchsiaFossilHouseFishingGuruText::
 	text "I'm the FISHING"
 	line "GURU's brother!"
 
@@ -9,7 +9,7 @@ _FuchsiaGoodRodHouseFishingGuruText::
 	line "fish?"
 	done
 
-_FuchsiaGoodRodHouseFishingGuruReceivedGiftText::
+_FuchsiaFossilHouseFishingGuruReceivedGiftText::
 	text "Grand! I like"
 	line "your style!"
 
@@ -23,12 +23,12 @@ _FuchsiaGoodRodHouseFishingGuruReceivedGiftText::
 	cont "SEAFOAM ISLANDS!"
 	text_end
 
-_FuchsiaGoodRodHouseFishingGuruThatsSoDisappointingText::
+_FuchsiaFossilHouseFishingGuruThatsSoDisappointingText::
 	text "Oh... That's so"
 	line "disappointing..."
 	done
 
-_FuchsiaGoodRodHouseFishingGuruHowAreTheFishText::
+_FuchsiaFossilHouseFishingGuruHowAreTheFishText::
 	text "Hello there,"
 	line "<PLAYER>!"
 
@@ -36,7 +36,7 @@ _FuchsiaGoodRodHouseFishingGuruHowAreTheFishText::
 	line "biting?"
 	done
 
-_FuchsiaGoodRodHouseFishingGuruNoRoomText::
+_FuchsiaFossilHouseFishingGuruNoRoomText::
 	text "Oh no!"
 
 	para "You have no room"

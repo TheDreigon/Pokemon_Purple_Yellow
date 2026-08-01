@@ -14,6 +14,8 @@
 	; tm/hm learnset
 	; Apex psychic plus honorary Dark; ultimate genetic weapon backs the
 	; dark moves. Last-stage fun moves allowed.
+	; Ladder prereqs: ICY_PULSE, FLAME_BURST, SHOCK_WAVE, EXTRASENSORY,
+	; ROCK_THROW.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, ICY_PULSE, FLAME_BURST, SHOCK_WAVE, \
 	     NIGHT_SHADE, CONFUSE_RAY, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, TOXIC, EXTRASENSORY, INTIMIDATE, \

@@ -628,6 +628,27 @@ TriStatusSideEffect:
 	ld hl, FrozenText
 	jp PrintText
 
+DefrostTargetIfFireOrMagma::
+; v0.7: ANY damaging FIRE or MAGMA move thaws a frozen target.
+;
+; CheckDefrost below is only reached from the burn/freeze/paralyze side-effect
+; handlers, so before this only the five Fire/Magma moves carrying such an effect
+; defrosted (EMBER, FLAMETHROWER, FIRE_BLAST, MAGMA_PUNCH, LAVA_PLUME) while
+; FLAME_CHARGE, FLAME_BURST and EXPLOSION left the target frozen -- a rule with
+; four exceptions nobody could reasonably learn. Called from the post-hit path in
+; core.asm for both sides.
+;
+; CheckDefrost is safe to call blind: it returns immediately unless the defender
+; is frozen AND the move's type is FIRE or MAGMA. It just wants the defender's
+; status in a.
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyMonStatus] ; ld does not touch flags, so the jr below still
+	jr z, .gotStatus        ; tests hWhoseTurn: 0 = player attacking
+	ld a, [wBattleMonStatus]
+.gotStatus
+	; fallthrough
+
 CheckDefrost:
 ; a Fire- or Magma-type move with a burn/freeze/paralyze side effect defrosts a frozen target (pure-status IGNITE and other Fire/Magma effects never reach this path)
 	and 1 << FRZ ; are they frozen?
@@ -1306,10 +1327,20 @@ ChargeMoveEffectText:
 	cp FLY
 	ld hl, FlewUpHighText
 	jr z, .gotText
+	; v0.7 FIX: MOONBLAST is a 5th charge move this hack added, and DIG is the
+	; unguarded fall-through default below — so Clefable charging Moonblast
+	; announced "dug a hole!". (Also reachable through Metronome.)
+	cp MOONBLAST
+	ld hl, GatheredMoonlightText
+	jr z, .gotText
 	cp DIG
 	ld hl, DugAHoleText
 .gotText
 	ret
+
+GatheredMoonlightText:
+	text_far _GatheredMoonlightText
+	text_end
 
 MadeWhirlwindText:
 	text_far _MadeWhirlwindText
@@ -2068,8 +2099,34 @@ SpecialUp1HealEffect:
 	; Suppress the move-anim replay inside HealEffect_'s .playAnim.
 	ld a, 1
 	ld [wMoveDidntMiss], a
+; v0.7 FIX: HealEffect_'s full-HP guard runs before its per-move dispatch and
+; lands on .failed, which prints "But, it failed!" UNCONDITIONALLY (it calls
+; PrintButItFailedText_, not the conditional variant, so the wMoveDidntMiss set
+; just above is ignored). At full HP that produced "<MON>'s SPECIAL rose!"
+; immediately followed by "But, it failed!" for the same move — even though the
+; stat really did go up. Skip the heal leg when the user is already at max HP.
+; Battle Core is at its size limit, so this stays deliberately compact: the
+; effect pointer rides the stack rather than being re-derived.
 	push de
+	ldh a, [hWhoseTurn]
+	and a
+	ld de, wBattleMonHP
+	ld hl, wBattleMonMaxHP
+	jr z, .growthGotHP
+	ld de, wEnemyMonHP
+	ld hl, wEnemyMonMaxHP
+.growthGotHP
+	ld a, [de]                      ; the same 16-bit compare HealEffect_ uses
+	cp [hl]
+	inc de
+	inc hl
+	jr nz, .growthDoHeal
+	ld a, [de]
+	sbc [hl]
+	jr z, .growthSkipHeal           ; already at max HP
+.growthDoHeal
 	callfar HealEffect_             ; /4 heal via Growth branch
+.growthSkipHeal
 	pop de
 	ld a, SPECIAL_UP1_HEAL_EFFECT
 	ld [de], a
@@ -2090,7 +2147,7 @@ BurnEffect:
 	ld a, [hli]
 	ld b, a
 	and a
-	jr nz, .didntAffect ; already statused
+	jr nz, .alreadyStatused
 	ld a, [hli]
 	cp FIRE ; can not burn a fire-type target
 	jr z, .didntAffect
@@ -2116,5 +2173,24 @@ BurnEffect:
 	call PlayCurrentMoveAnimation2
 	ld hl, BurnedText
 	jp PrintText
+.alreadyStatused
+; v0.7: an always-burn move cannot burn a target that already has a status, but a
+; FIRE or MAGMA one must still THAW a frozen one -- "any fire move melts the ice",
+; with no exception for the one that happens to deal no damage (IGNITE). Any
+; status other than freeze fails exactly as before.
+;
+; MoveHitTest first: IGNITE is 95% accurate and a move that misses must not
+; defrost. CheckDefrost tests the move's own type, so it is what decides whether
+; this thaws at all.
+	bit FRZ, a
+	jr z, .didntAffect
+	push bc
+	call MoveHitTest
+	pop bc
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .didntAffect
+	ld a, b ; the defender's status, read above
+	jp CheckDefrost
 .didntAffect
 	jp PrintDidntAffectText

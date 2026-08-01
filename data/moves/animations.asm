@@ -2203,10 +2203,15 @@ TriAttackAnim:
 
 BulkUpAnim:
 	; Mental image: muscles tensing, body bulking up — physical, not
-	; mental. BIND subanim cues the muscle-clench feel. Distinct from
-	; CALM_MIND (pure spiral) and GROWTH (visible expansion).
+	; mental. Distinct from CALM_MIND (pure spiral) and GROWTH (visible
+	; expansion); the square close is the same "brace up" shape HARDEN
+	; and IRON_DEFENSE use, which is right for a physical clench.
+	; v0.7 FIX: was SUBANIM_0_BIND as a muscle-clench cue, which drew on
+	; the OPPONENT — BIND's base coordinates belong to the defender (see
+	; DefenseCurlAnim). Never reported, because it is the least-seen of
+	; the three, but it was the same bug.
 	battle_anim BULK_UP, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2249,22 +2254,31 @@ FierceRoarAnim:
 
 CoilAnim:
 	; Mental image: snake winding tightly, building striking power.
-	; +1 atk AND +1 def (two-stat buff) — second BIND cycle reads
-	; as "two coils tighter". Distinct from BULK_UP (muscle clench,
-	; same effect but different feel).
+	; +1 atk AND +1 def (two-stat buff) — two closing rings read as
+	; "two coils tighter".
+	; v0.7 FIX: was two SUBANIM_0_BIND cycles, which drew the coils around
+	; the OPPONENT — BIND's base coordinates belong to the defender (see
+	; DefenseCurlAnim). Two circle-closings on the user say the same thing
+	; from the right side of the screen.
 	battle_anim COIL, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 6
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 DefenseCurlAnim:
-	; Mental image: user rolling tightly into a defensive ball — there
-	; should be a sense of WRAPPING IN, not just a generic close-square.
-	; BIND subanim cues the curling motion.
+	; Mental image: user rolling tightly into a defensive ball — a sense
+	; of WRAPPING IN. The circle closing in on the user carries that on
+	; its own.
+	; v0.7 FIX: this used to open with SUBANIM_0_BIND as a "curling" cue,
+	; but every subanimation carries its own base-coordinate id, and BIND's
+	; is the DEFENDER's side (it is the trapping-move visual, shared with
+	; Bind/Wrap/Constrict/Leech Seed). So the curl drew itself around the
+	; OPPONENT while the circle correctly closed on the user. Dropped; the
+	; move's SFX moved onto the surviving line, since the first argument of
+	; battle_anim is the sound, not the graphic.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim DEFENSE_CURL, SUBANIM_0_BIND, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 8
+	battle_anim DEFENSE_CURL, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end

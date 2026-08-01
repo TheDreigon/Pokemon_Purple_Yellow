@@ -46,7 +46,7 @@ AIEnemyTrainerChooseMoves:
 	; overriding their per-class list. So Brock (whose normal list is
 	; just [1]) becomes as smart as Lance ([1,2,3,4]) on Hard.
 	push hl
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle ; semi-bosses think as hard as bosses do
 	pop hl
 	jr z, .skipBossAIOverride
 	ld hl, HardModeBossAIMods
@@ -530,7 +530,13 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMoveType]
 	ld d, a
 	ld hl, wEnemyMonMoves  ; enemy moves
-	ld bc, NUM_MOVES + 1
+	; v0.7 FIX: this was `ld bc, NUM_MOVES + 1`, which loads the 16-bit value
+	; 5 — so b got the HIGH byte (0) and c the low byte, and the `ld c, $0`
+	; below then made both zero. The `dec b` at .loopMoves therefore wrapped
+	; b to $ff and the scan ran up to 255 entries instead of 4, reading clean
+	; past the 4-byte wEnemyMonMoves into the mon's DV and level bytes and
+	; calling ReadMove on whatever it found. Load b alone.
+	ld b, NUM_MOVES + 1
 	ld c, $0
 .loopMoves
 	dec b
@@ -794,7 +800,7 @@ CooltrainerFAI:
 ; wAICount/ai_pointers.asm (each AIUse* tail-calls DecrementAICount).
 
 BrockAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	; Priority 1: status -> Full Heal (every boss carries it now)
 	ld a, [wEnemyMonStatus]
@@ -822,7 +828,7 @@ BrockAI:
 	ret
 
 MistyAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -848,7 +854,7 @@ MistyAI:
 	ret
 
 LtSurgeAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -874,7 +880,7 @@ LtSurgeAI:
 	ret
 
 ErikaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -900,7 +906,7 @@ ErikaAI:
 	ret
 
 KogaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -934,7 +940,7 @@ KogaAI:
 	ret
 
 SabrinaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -960,7 +966,7 @@ SabrinaAI:
 	ret
 
 BlaineAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -988,7 +994,7 @@ BlaineAI:
 ; Giovanni: heals at HP < 1/2 (boss tier). Two independent buff rolls
 ; (X Attack + X Defend), each ~25% of un-healed turns.
 GiovanniAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1024,7 +1030,7 @@ GiovanniAI:
 ; ---- Elite Four + Champion ----
 
 LoreleiAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1049,7 +1055,7 @@ LoreleiAI:
 	ret
 
 BrunoAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1074,7 +1080,7 @@ BrunoAI:
 	ret
 
 AgathaAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1100,7 +1106,7 @@ AgathaAI:
 	ret
 
 LanceAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1136,7 +1142,7 @@ LanceAI:
 ; ---- Rivals 2 & 3 (Rival1 stays GenericAI -- too early-game) ----
 
 Rival2AI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1161,7 +1167,7 @@ Rival2AI:
 	ret
 
 Rival3AI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1199,7 +1205,7 @@ Rival3AI:
 ; Prof Oak: ultimate post-game boss. Heals at HP < 1/2; two buff rolls
 ; (Guard Spec + Dire Hit).
 ProfOakAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1234,7 +1240,7 @@ ProfOakAI:
 
 ; Joy: nurse-themed. Heals at HP < 1/2 with Full Restore; X Defend buff.
 JoyAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1258,8 +1264,31 @@ JoyAI:
 	jp c, AIUseXDefend
 	ret
 
+; Smith, Craig and Weebra share this one. They are the three post-game
+; self-inserts guarding the bird chambers: same tier, same documented bag
+; (3x Full Restore), and no reason to behave differently from one another.
+; Semi-boss tier, so they heal but carry no stat-boost items - the swing of an
+; X Attack is the kind of thing that should stay on the boss side of the line.
+SelfInsertBossAI:
+	call IsHardModeBossOrSemiBattle
+	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	ret nc
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+	ret
+
 JennyAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1293,7 +1322,7 @@ JennyAI:
 	ret
 
 JanineAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1327,7 +1356,7 @@ JanineAI:
 	ret
 
 JessieAndJamesAI:
-	farcall IsHardModeBossBattle
+	call IsHardModeBossOrSemiBattle
 	ret z
 	ld a, [wEnemyMonStatus]
 	and a
@@ -1566,13 +1595,6 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	ld hl, wEnemyBattleStatus3
 	res BADLY_POISONED, [hl]	;clear toxic bit
 	ret
-
-AIUseXAccuracy: ; unused
-	call AIPlayRestoringSFX
-	ld hl, wEnemyBattleStatus2
-	set 0, [hl]
-	ld a, X_ACCURACY
-	jp AIPrintItemUse
 
 AIUseGuardSpec:
 	call AIPlayRestoringSFX
@@ -1818,8 +1840,8 @@ InitEnemyTrainerItemBag::
 	dec c
 	jr nz, .clear
 
-	; Step 2: bail if not Hard mode + boss
-	farcall IsHardModeBossBattle
+	; Step 2: bail unless this is a Hard-mode boss OR semi-boss battle
+	call IsHardModeBossOrSemiBattle
 	ret z
 
 	; Step 3: linear scan BossItemBagPointers for this trainer class
@@ -1851,4 +1873,67 @@ InitEnemyTrainerItemBag::
 	inc de
 	dec c
 	jr nz, .copy
+	ret
+
+; --- v0.7 victory-fanfare list (relocated out of Battle Core) ---
+; This lives HERE, in the Trainer AI bank, purely for space: Battle Core ($0F)
+; is at its 16 KB limit and this is cold code — it runs once, when a trainer is
+; defeated. TrainerBattleVictory reaches it with `farcall`. Safe across the
+; bankswitch because it takes no argument in `a` (it reads wTrainerClass
+; itself) and the caller only relies on the returned Z flag, the same contract
+; IsBossTrainerClassW already uses from read_trainer_party.asm.
+
+; v0.7 music review: trainer classes that earn the "big" victory fanfare
+; (MUSIC_DEFEATED_GYM_LEADER) instead of the normal one. Read by
+; TrainerBattleVictory, which used to key on wGymLeaderNo alone — that gave
+; the grand fanfare only to the 8 leaders' FIRST fights and left the Elite
+; Four, Oak and the leader rematches on the plain trainer jingle.
+;
+; This is a MUSIC list, deliberately independent of BossTrainerClasses: it
+; includes the hand-calibrated semi-bosses (Jessie & James, Janine, Joy,
+; Jenny, Smith, Craig, Weebra) and excludes RIVAL1/RIVAL2, so the rival
+; fanfare escalates — only the Champion fight (RIVAL3) sounds grand.
+; Order doesn't matter (linear scan). Terminator is -1.
+GrandVictoryClasses::
+; the 8 badge holders (covers their rematches too, same class)
+	db BROCK
+	db MISTY
+	db LT_SURGE
+	db ERIKA
+	db KOGA
+	db SABRINA
+	db BLAINE
+	db GIOVANNI
+; the Elite Four and the Champion
+	db LORELEI
+	db BRUNO
+	db AGATHA
+	db LANCE
+	db RIVAL3
+; the post-game superbosses
+	db PROF_OAK
+	db FORTE
+; the semi-bosses
+	db JESSIE_AND_JAMES
+	db JANINE
+	db JOY
+	db JENNY
+	db SMITH
+	db CRAIG
+	db WEEBRA
+	db -1                       ; terminator
+
+; Returns Z=0 if the current trainer earns the grand victory fanfare, else
+; Z=1. Reads wTrainerClass. Trashes: a, b, hl.
+IsGrandVictoryClass::
+	ld a, [wTrainerClass]
+	ld b, a
+	ld hl, GrandVictoryClasses
+.loop
+	ld a, [hli]
+	cp -1
+	ret z                       ; reached terminator → Z=1, normal fanfare
+	cp b
+	jr nz, .loop
+	or a                        ; match: class ID is non-zero → Z=0
 	ret

@@ -107,7 +107,7 @@ _CeruleanCityCooltrainerMText::
 	done
 
 _CeruleanCitySuperNerd1Text::
-	text "That bush in"
+	text "This bush in"
 	line "front of the shop"
 	cont "is in the way."
 
@@ -213,18 +213,15 @@ _CeruleanCitySignText::
 _CeruleanCityTrainerTipsText::
 	text "TRAINER TIPS"
 
-	para "Critical Hits"
-	line "are easier to"
-	cont "land if a"
-	cont "#MON"
-	cont "is fast."
+	para "Fast #MON land"
+	line "more critical"
+	cont "hits."
 
-	para "#MON with"
-	line "high base SPEED"
+	para "Some moves double"
+	line "those odds."
 
-	para "can land crits"
-	line "20 percent of "
-	cont "the time."
+	para "FOCUS ENERGY"
+	line "triples them!"
 	done
 
 _CeruleanCityBikeShopSign::

@@ -152,6 +152,20 @@ AnimationOffText:
 	db "OFF@"
 
 OptionsMenu_BattleStyle:
+; v0.7: Hard mode is always SET, and the menu now says so instead of lying.
+; The switch prompt is skipped outright for a hard-mode battle (core.asm,
+; just before .DontForceSetMode), so the player could flip this row to SHIFT
+; and watch nothing change - the option read as broken rather than as locked.
+; Now the bit is forced on and left/right are ignored while Hard mode is
+; active, so the row shows SET and stays there. Normal mode is untouched.
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .styleIsSelectable
+	ld a, [wOptions]
+	set BIT_BATTLE_SHIFT, a ; bit set = SET (see the string table below)
+	ld [wOptions], a
+	jr .asm_41d73
+.styleIsSelectable
 	ldh a, [hJoy5]
 	and D_LEFT | D_RIGHT
 	jr nz, .asm_41d6b
@@ -417,6 +431,16 @@ InitOptionsMenu:
 	; v0.7: read-only difficulty indicator (informational; it is NOT in
 	; OptionMenuJumpTable / the cursor path, so it can't be selected or
 	; changed here). Drawn once; wDifficulty is fixed for the run.
+	;
+	; Skipped entirely on the title screen. wDifficulty lives inside the saved
+	; block and CONTINUE copies the save into WRAM while its menu is still up,
+	; so opening OPTION from the title used to report the OLD SAVE's difficulty
+	; to a player who might be about to start a new game — and on a fresh
+	; cartridge it asserted NORMAL before the choice existed at all. The value
+	; is only really decided during Oak's speech.
+	ld a, [wOptionsShowDifficulty]
+	and a
+	jr z, .skipDifficultyRow
 	hlcoord 2, 13
 	ld de, OptionMenuDifficultyText
 	call PlaceString
@@ -428,6 +452,7 @@ InitOptionsMenu:
 .gotDifficultyValue
 	hlcoord 13, 13
 	call PlaceString
+.skipDifficultyRow
 	xor a
 	ld [wOptionsCursorLocation], a
 	ld c, 5 ; the number of options to loop through

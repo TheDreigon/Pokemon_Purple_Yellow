@@ -100,13 +100,15 @@ IF DEF(_DEBUG)
 	jp nz, .enterPlayView
 	bit BIT_B_BUTTON, a
 	jp nz, .exit
-	bit BIT_D_UP, a
-	jr nz, .listUp
-	bit BIT_D_DOWN, a
-	jr nz, .listDown
+; v0.7: LEFT/RIGHT step one and UP/DOWN jump ten, matching MON TEST so both
+; debug screens share one muscle memory. (This used to be the other way round.)
 	bit BIT_D_LEFT, a
-	jr nz, .listPageUp
+	jr nz, .listUp
 	bit BIT_D_RIGHT, a
+	jr nz, .listDown
+	bit BIT_D_UP, a
+	jr nz, .listPageUp
+	bit BIT_D_DOWN, a
 	jr nz, .listPageDown
 	jr .listInputLoop
 .listUp
@@ -290,9 +292,9 @@ AnimTest_DrawList:
 .listTitle
 	db "ANIMATION TEST@"
 .listHints1
-	db "UP/DN: select@"
+	db "L/R:   select@"
 .listHints2
-	db "L/R:   page x10@"
+	db "U/D:   jump x10@"
 .listHints3
 	db "A: play  B: exit@"
 

@@ -11,6 +11,8 @@ VermilionCityPrintOfficerJennyText::
 .asm_f1a24
 	ld hl, OfficerJennyText2
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would auto-accept the SQUIRTLE gift
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -44,16 +46,27 @@ VermilionCityPrintOfficerJennyText::
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr z, .squirtleText
-	; CheckEvent EVENT_BEAT_JENNY ; uncomment if you don't want the ability to rematch
-	; jr nz, .squirtleText
+; v0.7 rematch cooldown: one battle per League run. This replaces the old
+; commented-out EVENT_BEAT_JENNY off-switch: instead of killing the rematch
+; forever, the flag is cleared again by HallOfFameResetEventsAndSaveScript.
+	CheckEvent EVENT_REMATCHED_OFFICER_JENNY
+	jr nz, .rematchSpent
 
 	ld hl, JennyPreBattleText
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L65 fight
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
 
+; she starts the battle by hand (no EngageMapTrainer), so the encounter jingle
+; has to be played explicitly — same idiom the Jessie & James scripts use
+	call StopAllMusic
+	ld c, BANK(Music_MeetFemaleTrainer)
+	ld a, MUSIC_MEET_FEMALE_TRAINER
+	call PlayMusic
 	ld hl, JennyAcceptedText
 	call PrintText
 	call Delay3
@@ -67,6 +80,10 @@ VermilionCityPrintOfficerJennyText::
 	jr .done
 .refused
 	ld hl, JennyRefusedText
+	call PrintText
+	jr .done
+.rematchSpent
+	ld hl, JennyRematchCooldownText
 	call PrintText
 	jr .done
 .squirtleText
@@ -85,6 +102,10 @@ JennyRefusedText:
 
 JennyAcceptedText:
 	text_far _JennyAcceptedText
+	text_end
+
+JennyRematchCooldownText:
+	text_far _JennyRematchCooldownText
 	text_end
 
 OfficerJennyText1:

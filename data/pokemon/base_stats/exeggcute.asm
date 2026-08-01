@@ -12,7 +12,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Immobile Grass/Psychic egg cluster, short backbone.
+	; Immobile Grass/Psychic egg cluster, short backbone. Ladder prereq: EXTRASENSORY.
 	tmhm EXTRASENSORY, PSYCHIC_M, DARK_PULSE, PETAL_DANCE
 	; end
 

@@ -1,3 +1,18 @@
+; wItemList capacity, and the largest fixed extras list a `script_tiered_mart`
+; clerk may carry. Both live here rather than as bare numbers so the tiered
+; mart builder can ASSERT at BUILD TIME that its worst case still fits -- the
+; buffer is exactly full at the moment (count + 19 tiered + 8 elite + 12 extras
+; + terminator = 41), so adding one row to either inventory table without
+; growing this would silently write past the end of wItemList.
+DEF ITEM_LIST_SIZE  EQU 41
+
+; The Celadon Dept. Store information desk: a two-column board of categories,
+; with the slot after the last one acting as QUIT. Its largest sublist is 12
+; entries, comfortably inside ITEM_LIST_SIZE above.
+DEF NUM_INFO_DESK_ROWS       EQU 5
+DEF NUM_INFO_DESK_CATEGORIES EQU 9
+DEF MAX_MART_EXTRAS EQU 12
+
 ; list menu IDs
 	const_def
 	const PCPOKEMONLISTMENU  ; $00 ; PC pokemon withdraw/deposit lists

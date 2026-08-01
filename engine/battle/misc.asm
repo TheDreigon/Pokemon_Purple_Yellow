@@ -52,7 +52,9 @@ FormatMovesString:
 	ret
 
 ; XXX this is called in a few places, but it doesn't appear to do anything useful
-InitList:
+; exported: the Celadon information desk builds its own item list from maps.asm,
+; a different object file from the battle/menu engine that used to be its only caller
+InitList::
 	ld a, [wInitListType]
 	cp INIT_ENEMYOT_LIST
 	jr nz, .notEnemy

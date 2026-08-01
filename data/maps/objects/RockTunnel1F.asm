@@ -6,6 +6,7 @@
 	const_export ROCKTUNNEL1F_COOLTRAINER_F1
 	const_export ROCKTUNNEL1F_COOLTRAINER_F2
 	const_export ROCKTUNNEL1F_COOLTRAINER_F3
+	const_export ROCKTUNNEL1F_ESCAPE_ROPE
 
 RockTunnel1F_Object:
 	db $3 ; border block
@@ -31,5 +32,8 @@ RockTunnel1F_Object:
 	object_event 37, 21, SPRITE_COOLTRAINER_F, STAY, LEFT, TEXT_ROCKTUNNEL1F_COOLTRAINER_F1, OPP_JR_TRAINER_F, 17
 	object_event 22, 24, SPRITE_COOLTRAINER_F, STAY, DOWN, TEXT_ROCKTUNNEL1F_COOLTRAINER_F2, OPP_JR_TRAINER_F, 18
 	object_event 32, 24, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_ROCKTUNNEL1F_COOLTRAINER_F3, OPP_JR_TRAINER_F, 19
+	; v0.7 ground-item redesign: the cave people most want to escape finally
+	; carries a rope. Missable slot freed by the Tower 4F Elixir conversion.
+	object_event 36,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROCKTUNNEL1F_ESCAPE_ROPE, ESCAPE_ROPE ; TODO: placeholder coords, adjust in PolishedMap
 
 	def_warps_to ROCK_TUNNEL_1F

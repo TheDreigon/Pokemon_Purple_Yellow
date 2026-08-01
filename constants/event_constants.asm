@@ -241,7 +241,8 @@
 	const_skip 46
 	const EVENT_SILPH_CO_RECEPTIONIST_AT_DESK
 	const_skip 24
-	const EVENT_GOT_TM29
+	const EVENT_GOT_TM35 ; Mr. Psychic's gift. Was named for vanilla's TM29;
+	                     ; TM29 is AERIAL_ACE here, a real and different TM.
 
 ; Route 1 events
 	const_next $3C0
@@ -817,7 +818,12 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_SEAFOAM4_BOULDER1_DOWN_HOLE
 	const EVENT_SEAFOAM4_BOULDER2_DOWN_HOLE
 	const_skip 8
-	const EVENT_INITIATED_WEEBRA_BATTLE
+	; v0.7: was EVENT_INITIATED_WEEBRA_BATTLE, declared but never read or written
+	; by anything, so no save can have it set. Reclaimed for the Pewter MART
+	; clerk's one-time badge-tier explanation. NUM_EVENTS cannot grow -- WRAM has
+	; a hard ORG immediately after wEventFlags and the link fails -- so recycling
+	; a dead flag is the only way to add an event at all.
+	const EVENT_PEWTER_MART_BADGE_ADVICE
 	const EVENT_BEAT_ARTICUNO
 	const EVENT_BEAT_WEEBRA
 
@@ -828,6 +834,33 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 ; PURPLE's quiz — Celadon roof house (v0.7)
 	const EVENT_BEAT_PURPLES_QUIZ
 	const EVENT_GOT_ROOF_PORYGON
+
+; Forte / DREIGON post-game superboss — Cerulean Cave B1F (v0.7)
+	const EVENT_FORTE_FOUGHT   ; battled Forte at least once (dialogue: first vs rematch)
+	const EVENT_FORTE_WON_LAST ; won the most recent Forte battle (dialogue: earns respect)
+
+; Silph Co 5F — Porygon reward for liberating Silph (v0.7, manga-flavored)
+	const EVENT_GOT_SILPH_PORYGON
+
+; Post-League rematch cooldown (v0.7) — one flag per rematchable opponent.
+; A flag is set when that opponent's rematch is WON, and the whole block is
+; cleared again by HallOfFameResetEventsAndSaveScript, so every League re-run
+; buys exactly one rematch from each of them. The flags are independent: using
+; up MISTY's rematch does not touch BROCK's.
+; Deliberately started on a byte boundary ($9E8 % 8 == 0) — ResetEventRange
+; over a byte-aligned block costs 10 bytes instead of 12.
+	const_next $9E8
+DEF REMATCH_COOLDOWN_EVENTS_START EQU const_value
+	const EVENT_REMATCHED_BROCK
+	const EVENT_REMATCHED_MISTY
+	const EVENT_REMATCHED_LT_SURGE
+	const EVENT_REMATCHED_ERIKA
+	const EVENT_REMATCHED_KOGA
+	const EVENT_REMATCHED_SABRINA
+	const EVENT_REMATCHED_BLAINE
+	const EVENT_REMATCHED_NURSE_JOY
+	const EVENT_REMATCHED_OFFICER_JENNY
+DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 
 ; End of events
 	const_next $A00

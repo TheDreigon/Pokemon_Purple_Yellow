@@ -5,7 +5,7 @@ PrizeDifferentMenuPtrs:
 
 ; 4 prizes per Mon counter: all starters + Eevee on Counter 1, the 3
 ; elemental "kid" mons + Porygon on Counter 2. Flat 1000 coins each,
-; all level 20.
+; levels come from prize_mon_levels.asm.
 PrizeMenuMon1Entries:
 	db BULBASAUR
 	db CHARMANDER

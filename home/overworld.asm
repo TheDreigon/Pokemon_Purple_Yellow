@@ -1845,8 +1845,6 @@ LoadMapHeader::
 	farcall MarkTownVisitedAndLoadMissableObjects
 	jr asm_0dbd
 
-Func_0db5:: ; XXX
-	farcall LoadMissableObjectData
 asm_0dbd:
 	ld a, [wCurMapTileset]
 	ld [wUnusedD119], a
@@ -1967,6 +1965,7 @@ asm_0dbd:
 	ld [wMapMusicSoundID], a ; music 1
 	ld a, [hl]
 	ld [wMapMusicROMBank], a ; music 2
+	call LoadMapMusicOverrides ; may replace both; same bank, hence the plain call
 	pop af
 	call BankswitchCommon
 	ret

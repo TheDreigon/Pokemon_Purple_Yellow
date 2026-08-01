@@ -32,6 +32,7 @@ pokeyellow_debug.map
 *.sgm
 *.srm
 *.sav
+*.ram
 *.rtc
 *.sn*
 *.sa*
@@ -52,3 +53,4 @@ pokeyellow_debug.map
 .idea/
 .claude/
 rgbds/
+reference_repos/
