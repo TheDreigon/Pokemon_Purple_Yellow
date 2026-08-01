@@ -3,14 +3,14 @@ _ViridianSchoolHouseBrunetteGirlText::
 	line "to memorize all"
 	cont "my notes."
 
-	para "CUT is a bug-"
+	para "CUT is a STEEL-"
 	line "type move taught"
 	cont "by HM!"
 
 	para "What's this?"
 	line "I don't know"
-	cont "what type SLAM"
-	cont "is!"
+	cont "what type HEAVY"
+	cont "SLAM is!"
 	done
 
 _ViridianSchoolHouseLittleGirlText::
@@ -32,13 +32,15 @@ _ViridianSchoolHouseCooltrainerFText::
 	done
 
 _ViridianSchoolHouseOfferMapText::
-	text "A trainer with no"
-	line "map is a trainer"
-	cont "who goes home."
+	text "You can't learn"
+	line "KANTO by walking"
+	cont "into it blind."
 
 	para "Every student"
 	line "leaves here with"
-	cont "one. Take it."
+	cont "a TOWN MAP."
+
+	para "Take one."
 	done
 
 _ViridianSchoolHouseMapBagFullText::

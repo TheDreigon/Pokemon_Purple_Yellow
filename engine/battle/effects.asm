@@ -628,6 +628,27 @@ TriStatusSideEffect:
 	ld hl, FrozenText
 	jp PrintText
 
+DefrostTargetIfFireOrMagma::
+; v0.7: ANY damaging FIRE or MAGMA move thaws a frozen target.
+;
+; CheckDefrost below is only reached from the burn/freeze/paralyze side-effect
+; handlers, so before this only the five Fire/Magma moves carrying such an effect
+; defrosted (EMBER, FLAMETHROWER, FIRE_BLAST, MAGMA_PUNCH, LAVA_PLUME) while
+; FLAME_CHARGE, FLAME_BURST and EXPLOSION left the target frozen -- a rule with
+; four exceptions nobody could reasonably learn. Called from the post-hit path in
+; core.asm for both sides.
+;
+; CheckDefrost is safe to call blind: it returns immediately unless the defender
+; is frozen AND the move's type is FIRE or MAGMA. It just wants the defender's
+; status in a.
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyMonStatus] ; ld does not touch flags, so the jr below still
+	jr z, .gotStatus        ; tests hWhoseTurn: 0 = player attacking
+	ld a, [wBattleMonStatus]
+.gotStatus
+	; fallthrough
+
 CheckDefrost:
 ; a Fire- or Magma-type move with a burn/freeze/paralyze side effect defrosts a frozen target (pure-status IGNITE and other Fire/Magma effects never reach this path)
 	and 1 << FRZ ; are they frozen?
@@ -2126,7 +2147,7 @@ BurnEffect:
 	ld a, [hli]
 	ld b, a
 	and a
-	jr nz, .didntAffect ; already statused
+	jr nz, .alreadyStatused
 	ld a, [hli]
 	cp FIRE ; can not burn a fire-type target
 	jr z, .didntAffect
@@ -2152,5 +2173,24 @@ BurnEffect:
 	call PlayCurrentMoveAnimation2
 	ld hl, BurnedText
 	jp PrintText
+.alreadyStatused
+; v0.7: an always-burn move cannot burn a target that already has a status, but a
+; FIRE or MAGMA one must still THAW a frozen one -- "any fire move melts the ice",
+; with no exception for the one that happens to deal no damage (IGNITE). Any
+; status other than freeze fails exactly as before.
+;
+; MoveHitTest first: IGNITE is 95% accurate and a move that misses must not
+; defrost. CheckDefrost tests the move's own type, so it is what decides whether
+; this thaws at all.
+	bit FRZ, a
+	jr z, .didntAffect
+	push bc
+	call MoveHitTest
+	pop bc
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .didntAffect
+	ld a, b ; the defender's status, read above
+	jp CheckDefrost
 .didntAffect
 	jp PrintDidntAffectText

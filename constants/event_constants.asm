@@ -818,7 +818,12 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const EVENT_SEAFOAM4_BOULDER1_DOWN_HOLE
 	const EVENT_SEAFOAM4_BOULDER2_DOWN_HOLE
 	const_skip 8
-	const EVENT_INITIATED_WEEBRA_BATTLE
+	; v0.7: was EVENT_INITIATED_WEEBRA_BATTLE, declared but never read or written
+	; by anything, so no save can have it set. Reclaimed for the Pewter MART
+	; clerk's one-time badge-tier explanation. NUM_EVENTS cannot grow -- WRAM has
+	; a hard ORG immediately after wEventFlags and the link fails -- so recycling
+	; a dead flag is the only way to add an event at all.
+	const EVENT_PEWTER_MART_BADGE_ADVICE
 	const EVENT_BEAT_ARTICUNO
 	const EVENT_BEAT_WEEBRA
 

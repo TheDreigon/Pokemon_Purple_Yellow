@@ -3547,6 +3547,7 @@ MirrorMoveCheck:
 	or b
 	ret z ; don't do anything else if the enemy fainted
 	call HandleBuildingRage
+	call DefrostTargetIfFireOrMagma
 
 	ld hl, wPlayerBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl]
@@ -6044,6 +6045,7 @@ EnemyCheckIfMirrorMoveEffect:
 	or b
 	ret z
 	call HandleBuildingRage
+	call DefrostTargetIfFireOrMagma
 	ld hl, wEnemyBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl] ; is mon hitting multiple times? (example: double kick)
 	jr z, .notMultiHitMove
