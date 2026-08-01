@@ -20,9 +20,13 @@ ViridianSchoolHousePrintCooltrainerFText::
 ; Only one TOWN MAP can exist: both givers test EVENT_GOT_TOWN_MAP first, so
 ; whichever hands it over, the other stands down (Daisy falls through to her
 ; "use the TOWN MAP to find out where you are" line).
+; She starts the same way either way -- every student leaves here with a map --
+; and only notices at the moment of handing it over that you already have one.
+; The shared opening is one text block chained ahead of two different tails, so
+; the words are not duplicated in the ROM.
 	CheckEvent EVENT_GOT_TOWN_MAP
-	jr nz, .blackboard
-	ld hl, .OfferMapText
+	jr nz, .alreadyHasOne
+	ld hl, .OfferAndGiveText
 	call PrintText
 	lb bc, TOWN_MAP, 1
 	call GiveItem
@@ -36,14 +40,20 @@ ViridianSchoolHousePrintCooltrainerFText::
 .bag_full
 	ld hl, .BagFullText
 	jr .print
-.blackboard
-	ld hl, .text
+.alreadyHasOne
+	ld hl, .OfferAndNoticeText
 .print
 	call PrintText
 	ret
 
-.OfferMapText
+.OfferAndGiveText
 	text_far _ViridianSchoolHouseOfferMapText
+	text_far _ViridianSchoolHouseTakeOneText
+	text_end
+
+.OfferAndNoticeText
+	text_far _ViridianSchoolHouseOfferMapText
+	text_far _ViridianSchoolHouseAlreadyHasMapText
 	text_end
 
 .GotMapText
@@ -53,8 +63,4 @@ ViridianSchoolHousePrintCooltrainerFText::
 
 .BagFullText
 	text_far _ViridianSchoolHouseMapBagFullText
-	text_end
-
-.text
-	text_far _ViridianSchoolHouseCooltrainerFText
 	text_end

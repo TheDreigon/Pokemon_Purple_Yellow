@@ -23,32 +23,35 @@ _ViridianSchoolHouseLittleGirlText::
 	line "to trade them!"
 	done
 
-; What the teacher says once you already carry a TOWN MAP -- whether she handed
-; it over herself or Daisy did. Doubles as the pointer to the blackboard, which
-; is the other thing worth doing in this room.
-_ViridianSchoolHouseCooltrainerFText::
-	text "Got your TOWN MAP"
-	line "already? Good."
-
-	para "Then you know"
-	line "where you're"
-	cont "going."
-
-	para "Be sure to read"
-	line "the blackboard"
-	cont "carefully!"
-	done
-
+; The teacher's opening, shared by both branches -- ends in @ so a second
+; text_far can continue the same box (see scripts/ViridianSchoolHouse_2.asm).
 _ViridianSchoolHouseOfferMapText::
-	text "You can't learn"
+	text "Every student"
+	line "leaves this"
+	cont "school with a"
+	cont "TOWN MAP.@"
+	text_end
+
+_ViridianSchoolHouseTakeOneText::
+	text_start
+
+	para "You can't learn"
 	line "KANTO by walking"
 	cont "into it blind."
 
-	para "Every student"
-	line "leaves here with"
-	cont "a TOWN MAP."
+	para "Here. Take one."
+	done
 
-	para "Take one."
+_ViridianSchoolHouseAlreadyHasMapText::
+	text_start
+
+	para "...Ah. Yours is"
+	line "right there in"
+	cont "your BAG."
+
+	para "Good. Then read"
+	line "the blackboard"
+	cont "before you go."
 	done
 
 _ViridianSchoolHouseMapBagFullText::
