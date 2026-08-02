@@ -28,9 +28,14 @@ ShowPokedexMenu:
 	inc hl
 	ld a, 6
 	ld [hli], a ; max menu item ID
-	ld [hl], D_LEFT | D_RIGHT | B_BUTTON | A_BUTTON
+	; v0.7: START is watched here so it can open the MOVEDEX -- the same
+	; button that opens a move's card from the FIGHT menu.
+	ld [hl], D_LEFT | D_RIGHT | B_BUTTON | A_BUTTON | START
 	call HandlePokedexListMenu
 	jr c, .goToSideMenu ; if the player chose a pokemon from the list
+	ld a, b ; b = 1 when the list wants the MOVEDEX (see .startPressed)
+	and a
+	jr nz, .goToMovedex
 .exitPokedex
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a
@@ -54,6 +59,10 @@ ShowPokedexMenu:
 	dec b
 	jr z, .loop
 	jp .setUpGraphics ; if pokemon data or area was shown
+
+.goToMovedex
+	farcall ShowMovedexMenu
+	jp .setUpGraphics ; the movedex redrew the screen; rebuild the dex's
 
 ; handles the menu on the lower right in the pokedex screen
 ; OUTPUT:
@@ -203,6 +212,8 @@ HandlePokedexListMenu:
 	jp nz, .buttonBPressed
 	bit BIT_A_BUTTON, a ; was the A button pressed?
 	jp nz, .buttonAPressed
+	bit BIT_START, a ; v0.7: hand over to the MOVEDEX
+	jp nz, .startPressed
 .checkIfUpPressed
 	bit BIT_D_UP, a ; was Up pressed?
 	jr z, .checkIfDownPressed
@@ -292,7 +303,16 @@ HandlePokedexListMenu:
 	ret
 
 .buttonBPressed
+	ld b, 0
 	and a
+	ret
+
+.startPressed
+; Reported in b rather than acted on here: this routine's caller owns the
+; screen, and its carry already means "a Pokemon was chosen". b costs nothing,
+; and WRAM has no byte to spare -- it is full at 8192/8192.
+	ld b, 1
+	and a ; clear carry: no Pokemon was chosen
 	ret
 
 Pokedex_DrawInterface:

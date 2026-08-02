@@ -312,6 +312,13 @@ SECTION "Move Info", ROMX
 INCLUDE "engine/menus/move_info.asm"
 
 
+; v0.7: its own section -- the Move Info bank is nearly full, and this is the
+; half that will grow if the list ever gains features.
+SECTION "Movedex", ROMX
+
+INCLUDE "engine/menus/movedex.asm"
+
+
 SECTION "Itemfinder 1", ROMX
 
 INCLUDE "engine/items/itemfinder.asm"
