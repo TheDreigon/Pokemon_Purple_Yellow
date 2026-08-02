@@ -1975,11 +1975,12 @@ TentacoolEvosMoves:
 ; (Tentacruel gets it earliest, L43). NEUROTOXIN: this line owns the
 ; EARLY access (L15, paralytic sting); others learn it L50+. No
 ; POISON_BITE (a jellyfish has no fangs).
-	db  6, HINDER
-	db  9, WRAP
-	db 12, CONSTRICT
-	db 15, NEUROTOXIN
-	db 17, ACID
+	db  3, LICK
+	db  6, WRAP
+	db  9, CONSTRICT
+	db 12, WATER_GUN
+	db 15, ACID
+	db 17, NEUROTOXIN
 	db 20, BUBBLEBEAM
 	db 23, SMOKESCREEN
 	db 26, SLUDGE
@@ -1999,11 +2000,12 @@ TentacruelEvosMoves:
 ; exclusive levelup moves: EERIE_IMPULSE, SLUDGE_WAVE, SHOCK_WAVE, TOXIC,
 ; CORRODE (jellyfish acid corrodes), HYDRO_PUMP. CUT (HM01) via TM/HM
 ; only, not in the levelset.
-	db  6, HINDER
-	db  9, WRAP
-	db 12, CONSTRICT
-	db 15, NEUROTOXIN
-	db 17, ACID
+	db  3, LICK
+	db  6, WRAP
+	db  9, CONSTRICT
+	db 12, WATER_GUN
+	db 15, ACID
+	db 17, NEUROTOXIN
 	db 20, BUBBLEBEAM
 	db 23, SMOKESCREEN
 	db 26, SLUDGE
