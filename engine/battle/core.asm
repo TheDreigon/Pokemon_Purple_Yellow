@@ -2749,10 +2749,12 @@ MoveSelectionMenu:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr z, .matchedkeyspicked
-	; Disable left, right, and START buttons in regular battles.
+	; Disable left and right in regular battles; they were only ever debug
+	; hooks. v0.7: START is watched again, because it now opens the MOVE INFO
+	; card for the move under the cursor (see ShowMoveInfoInMenu below).
 	ld a, [wFlags_D733]
 	bit BIT_TEST_BATTLE, a
-	ld b, D_UP | D_DOWN | A_BUTTON | B_BUTTON | SELECT
+	ld b, D_UP | D_DOWN | A_BUTTON | B_BUTTON | SELECT | START
 	jr z, .matchedkeyspicked
 	ld b, D_UP | D_DOWN | D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON | SELECT | START
 .matchedkeyspicked
@@ -2807,12 +2809,25 @@ SelectMenuItem:
 	bit BIT_SELECT, a
 	jp nz, SwapMovesInMenu
 IF DEF(_DEBUG)
+	; In a debug build START still belongs to the TestBattle animation viewer
+	; while TestBattle is running; everywhere else it opens the MOVE INFO
+	; card, so the feature is testable in the debug ROM too.
 	bit BIT_START, a
+	jr z, .notStart
+	push af
+	ld a, [wFlags_D733]
+	bit BIT_TEST_BATTLE, a
+	pop af
 	jp nz, Func_3d4f5
+	jp ShowMoveInfoInMenu
+.notStart
 	bit BIT_D_RIGHT, a
 	jp nz, Func_3d529
 	bit BIT_D_LEFT, a
 	jp nz, Func_3d523
+ELSE
+	bit BIT_START, a
+	jp nz, ShowMoveInfoInMenu
 ENDC
 	bit BIT_B_BUTTON, a
 	push af
@@ -2885,6 +2900,33 @@ MoveDisabledText:
 
 WhichTechniqueString:
 	db "WHICH TECHNIQUE?@"
+
+; v0.7: START on the FIGHT menu opens the MOVE INFO card for the highlighted
+; move -- name, TYPE, physical or special, POWER, ACCURACY, PP and what the
+; effect does. Nothing in the game showed any of that before.
+;
+; wPlayerSelectedMove is normally kept in step with the cursor by PrintMenuItem,
+; but PrintMenuItem bails out early on a disabled move without setting it, so
+; the move is read from the cursor again here rather than trusted.
+;
+; wPlayerMoveListIndex is written for the same reason the A/B path writes it
+; (see .notB above): MoveSelectionMenu rebuilds the cursor from it, so without
+; this the cursor would jump back to the last chosen move every time the card
+; is closed.
+ShowMoveInfoInMenu:
+	ld a, [wCurrentMenuItem]
+	dec a ; the FIGHT menu keeps wCurrentMenuItem 1-based
+	ld [wPlayerMoveListIndex], a
+	ld c, a
+	ld b, 0
+	ld hl, wBattleMonMoves
+	add hl, bc
+	ld a, [hl]
+	ld [wPlayerSelectedMove], a
+	call SaveScreenTilesToBuffer2
+	farcall ShowMoveInfo
+	call LoadScreenTilesFromBuffer2
+	jp MoveSelectionMenu
 
 SelectMenuItem_CursorUp:
 	ld a, [wCurrentMenuItem]

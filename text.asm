@@ -280,3 +280,7 @@ INCLUDE "data/moves/names.asm"
 SECTION "Item Descriptions", ROMX
 
 INCLUDE "data/text/item_descriptions.asm"
+
+SECTION "Move Descriptions Text", ROMX
+
+INCLUDE "data/text/move_descriptions.asm"

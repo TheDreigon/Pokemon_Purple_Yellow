@@ -303,6 +303,15 @@ INCLUDE "engine/menus/item_descriptions.asm"
 INCLUDE "engine/gfx/animated_tiles_code.asm"
 
 
+; v0.7: the MOVE INFO card, reached with START on the battle FIGHT menu.
+; Floating section on purpose -- it carries the effect-description stub table,
+; and the linker has plenty of room to place it (see the free-space figures in
+; the Notes). The strings themselves live in "Move Descriptions Text".
+SECTION "Move Info", ROMX
+
+INCLUDE "engine/menus/move_info.asm"
+
+
 SECTION "Itemfinder 1", ROMX
 
 INCLUDE "engine/items/itemfinder.asm"

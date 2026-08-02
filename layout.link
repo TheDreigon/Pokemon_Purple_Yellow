@@ -162,6 +162,12 @@ ROMX $23
 	"Pikachu Cries 3"
 ROMX $24
 	"Pikachu Cries 4"
+	; v0.7: pinned here on purpose. Left floating, the linker first-fitted it
+	; into the "Maps 4" bank and took that bank from 2.4 KB free down to 676 B
+	; -- and the map banks are the ones that actually grow, every time a map is
+	; redrawn. The cry banks are frozen data, so this is space that was never
+	; going to be wanted by anything else.
+	"Move Info"
 ROMX $25
 	"Pikachu Cries 5"
 	"NPC Sprites 6"
@@ -201,6 +207,10 @@ ROMX $33
 ROMX $34
 	"Pikachu Cries 9"
 	"Move SFX Table"
+	; v0.7: same reasoning as "Move Info" in $24. This one gets the roomier
+	; bank of the two because it is the half that grows -- every per-move
+	; description override lands here.
+	"Move Descriptions Text"
 ROMX $35
 	"Pikachu Cries 10"
 ROMX $36
