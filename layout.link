@@ -83,6 +83,7 @@ ROMX $D
 	"Pics 5"
 	"Slot Machines"
 ROMX $E
+	"Move Flavor Text 5"
 	"Battle Engine 6"
 ROMX $F
 	"Battle Core"
@@ -156,11 +157,18 @@ ROMX $20
 	"Music 4"
 ROMX $21
 	"Pikachu Cries 1"
+	; v0.7: the four flavour sections are pinned across four stable banks. Left
+	; floating they land in whichever bank has room, and the ones with room are
+	; the map banks, which grow every time a map is redrawn. Four pieces rather
+	; than three because the debug build has less room in some banks.
+	"Move Flavor Text 1"
 ROMX $22
 	"Pikachu Cries 2"
+	"Move Flavor Text 2"
 ROMX $23
 	"Pikachu Cries 3"
 ROMX $24
+	"Move Flavor Text 4"
 	"Pikachu Cries 4"
 	; v0.7: pinned here on purpose. Left floating, the linker first-fitted it
 	; into the "Maps 4" bank and took that bank from 2.4 KB free down to 676 B
@@ -223,6 +231,7 @@ ROMX $39
 	"Pikachu Graphics 1"
 ROMX $3A
 	"bank3A"
+	"Move Flavor Text 3"
 ROMX $3B
 	"Battle Engine 10"
 	"Trainer Pics 3"

@@ -284,3 +284,26 @@ INCLUDE "data/text/item_descriptions.asm"
 SECTION "Move Descriptions Text", ROMX
 
 INCLUDE "data/text/move_descriptions.asm"
+
+; Its own section, not appended to the one above: that one is pinned to a bank
+; with little room left, and the flavour text is the half that grows -- it gains
+; an entry every time another batch of moves is written.
+SECTION "Move Flavor Text 1", ROMX
+
+INCLUDE "data/text/move_flavor_1.asm"
+
+SECTION "Move Flavor Text 2", ROMX
+
+INCLUDE "data/text/move_flavor_2.asm"
+
+SECTION "Move Flavor Text 3", ROMX
+
+INCLUDE "data/text/move_flavor_3.asm"
+
+SECTION "Move Flavor Text 4", ROMX
+
+INCLUDE "data/text/move_flavor_4.asm"
+
+SECTION "Move Flavor Text 5", ROMX
+
+INCLUDE "data/text/move_flavor_5.asm"

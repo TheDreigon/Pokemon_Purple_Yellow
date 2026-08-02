@@ -11,12 +11,12 @@
 ;
 ; TWO limits, both enforced by .claude/emu_test_moveinfo.py:
 ;   18 characters per line (the description box interior; `#` renders as 4)
-;   4 lines per description -- `<NEXT>` moves down 2 rows (home/text.asm:64),
-;   so the 8-row box holds 4 lines of text, not 8.
+;   5 lines per description -- `<NEXT>` moves down 2 rows (home/text.asm:64),
+;   so the 9-row box holds 5 lines of text, not 9.
 ;
-; The Gen 1 font has no `%` glyph (see constants/charmap.asm), so the tiers are
-; written as fractions of 20. That is exact, and it has the side benefit of
-; making the 3/6/9-in-20 ladder visible to a player who reads a few of them.
+; The Gen 1 font has no `%` glyph (see constants/charmap.asm), so chances are
+; written "N in 100" -- the same number a player would read off a percent sign,
+; with no arithmetic asked of them.
 ;
 ; Percentages here are read off engine/battle/effects.asm, not assumed:
 ;   _SIDE_EFFECT1 = 15%   _SIDE_EFFECT2 = 30%   _SIDE_EFFECT3 = 45%
@@ -35,17 +35,17 @@ _MoveDesc_Unused::
 	done
 
 _MoveDesc_PoisonSide1::
-	text "3 in 20 chance"
+	text "15 in 100 chance"
 	next "to POISON the foe."
 	done
 
 _MoveDesc_PoisonSide2::
-	text "6 in 20 chance"
+	text "30 in 100 chance"
 	next "to POISON the foe."
 	done
 
 _MoveDesc_PoisonSide3::
-	text "9 in 20 chance"
+	text "45 in 100 chance"
 	next "to POISON the foe."
 	done
 
@@ -57,48 +57,53 @@ _MoveDesc_DrainHP::
 	done
 
 _MoveDesc_BurnSide1::
-	text "3 in 20 chance"
+	text "15 in 100 chance"
 	next "to BURN the foe."
 	done
 
 _MoveDesc_BurnSide2::
-	text "6 in 20 chance"
+	text "30 in 100 chance"
 	next "to BURN the foe."
 	done
 
 _MoveDesc_BurnSide3::
-	text "9 in 20 chance"
+	text "45 in 100 chance"
 	next "to BURN the foe."
 	done
 
 _MoveDesc_FreezeSide1::
-	text "3 in 20 chance"
+	text "15 in 100 chance"
 	next "to FREEZE the foe."
 	done
 
 _MoveDesc_FreezeSide2::
-	text "6 in 20 chance"
+	text "30 in 100 chance"
 	next "to FREEZE the foe."
 	done
 
 _MoveDesc_ParalyzeSide1::
-	text "3 in 20 chance to"
-	next "PARALYZE the foe."
+	text "15 in 100 chance"
+	next "to PARALYZE the"
+	next "foe."
 	done
 
 _MoveDesc_ParalyzeSide2::
-	text "6 in 20 chance to"
-	next "PARALYZE the foe."
+	text "30 in 100 chance"
+	next "to PARALYZE the"
+	next "foe."
 	done
 
 _MoveDesc_ParalyzeSide3::
-	text "9 in 20 chance to"
-	next "PARALYZE the foe."
+	text "45 in 100 chance"
+	next "to PARALYZE the"
+	next "foe."
 	done
 
 _MoveDesc_Explode::
-	text "The user faints"
-	next "after striking."
+	text "The user faints,"
+	next "but the foe's"
+	next "DEFENSE is halved"
+	next "first."
 	done
 
 _MoveDesc_DreamEater::
@@ -229,13 +234,13 @@ _MoveDesc_TwoToFiveAttacks::
 	done
 
 _MoveDesc_FlinchSide1::
-	text "3 in 20 chance"
+	text "15 in 100 chance"
 	next "to make the foe"
 	next "flinch."
 	done
 
 _MoveDesc_FlinchSide2::
-	text "6 in 20 chance"
+	text "30 in 100 chance"
 	next "to make the foe"
 	next "flinch."
 	done
@@ -310,8 +315,8 @@ _MoveDesc_FocusEnergy::
 	done
 
 _MoveDesc_Recoil::
-	text "The user is hurt"
-	next "by part of the"
+	text "The user takes a"
+	next "quarter of the"
 	next "damage it deals."
 	done
 
@@ -401,17 +406,15 @@ _MoveDesc_EvasionDown2::
 	done
 
 _MoveDesc_LightScreen::
-	text "Halves the damage"
-	next "the user takes"
-	next "from SPECIAL"
-	next "attacks."
+	text "Doubles the user's"
+	next "SPECIAL against"
+	next "special attacks."
 	done
 
 _MoveDesc_Reflect::
-	text "Halves the damage"
-	next "the user takes"
-	next "from physical"
-	next "attacks."
+	text "Doubles the user's"
+	next "DEFENSE against"
+	next "physical attacks."
 	done
 
 _MoveDesc_Poison::
@@ -429,26 +432,26 @@ _MoveDesc_Paralyze::
 	done
 
 _MoveDesc_AttackDownSide::
-	text "1 in 3 chance to"
-	next "lower the foe's"
+	text "33 in 100 chance"
+	next "to lower the foe's"
 	next "ATTACK one step."
 	done
 
 _MoveDesc_DefenseDownSide::
-	text "1 in 3 chance to"
-	next "lower the foe's"
+	text "33 in 100 chance"
+	next "to lower the foe's"
 	next "DEFENSE one step."
 	done
 
 _MoveDesc_SpeedDownSide::
-	text "1 in 3 chance to"
-	next "lower the foe's"
+	text "33 in 100 chance"
+	next "to lower the foe's"
 	next "SPEED one step."
 	done
 
 _MoveDesc_SpecialDownSide::
-	text "1 in 3 chance to"
-	next "lower the foe's"
+	text "33 in 100 chance"
+	next "to lower the foe's"
 	next "SPECIAL one step."
 	done
 
@@ -474,19 +477,19 @@ _MoveDesc_Burn::
 	done
 
 _MoveDesc_ConfusionSide1::
-	text "3 in 20 chance"
+	text "15 in 100 chance"
 	next "to confuse the"
 	next "foe."
 	done
 
 _MoveDesc_ConfusionSide2::
-	text "6 in 20 chance"
+	text "30 in 100 chance"
 	next "to confuse the"
 	next "foe."
 	done
 
 _MoveDesc_ConfusionSide3::
-	text "9 in 20 chance"
+	text "45 in 100 chance"
 	next "to confuse the"
 	next "foe."
 	done
@@ -538,10 +541,10 @@ _MoveDesc_Metronome::
 	done
 
 _MoveDesc_LeechSeed::
-	text "Drains HP from"
-	next "the foe every"
-	next "turn and gives it"
-	next "to the user."
+	text "Steals an eighth"
+	next "of the foe's full"
+	next "HP each turn for"
+	next "the user."
 	done
 
 _MoveDesc_Splash::
@@ -576,10 +579,9 @@ _MoveDesc_AttackUp1Down1::
 	done
 
 _MoveDesc_SpecialUp1Heal::
-	text "Raises the user's"
-	next "SPECIAL one step"
-	next "and restores some"
-	next "HP."
+	text "Raises SPECIAL one"
+	next "step and heals a"
+	next "quarter of max HP."
 	done
 
 _MoveDesc_TriStatusSide::
@@ -606,3 +608,58 @@ _MoveDesc_SpecialAccuracyUp1::
 	next "ACCURACY one step"
 	next "each."
 	done
+
+_MoveDesc_LevelDamage::
+	text "Damage equals the"
+	next "user's own level."
+	done
+
+_MoveDesc_DragonRage::
+	text "Always deals 50"
+	next "damage, whatever"
+	next "the foe."
+	done
+
+_MoveDesc_Sonicboom::
+	text "Always deals 25"
+	next "damage, whatever"
+	next "the foe."
+	done
+
+_MoveDesc_Rest::
+	text "Sleeps 2 turns,"
+	next "restoring all HP"
+	next "and clearing any"
+	next "status."
+	done
+
+_MoveDesc_Softboiled::
+	text "Restores half of"
+	next "full HP and clears"
+	next "any status."
+	done
+
+_MoveDesc_HighCrit::
+	text "A critical hit is"
+	next "far more likely"
+	next "than usual."
+	done
+
+_MoveDesc_Priority::
+	text "Always strikes"
+	next "first, whatever"
+	next "the user's SPEED."
+	done
+
+_MoveDesc_HighCritPriority::
+	text "Strikes first, and"
+	next "criticals are far"
+	next "more likely."
+	done
+
+_MoveDesc_ExtremeSpeed::
+	text "Strikes first, and"
+	next "before even other"
+	next "quick moves."
+	done
+

@@ -9,6 +9,46 @@
 ; when the shared effect line would be wrong or would waste the move's
 ; character. Format: move id, pointer. Terminated by -1.
 MoveDescriptionOverrides:
+	db SEISMIC_TOSS, 
+	dw MoveDesc_LevelDamage
+	db NIGHT_SHADE,  
+	dw MoveDesc_LevelDamage
+	db DRAGON_RAGE,  
+	dw MoveDesc_DragonRage
+	db SONICBOOM,    
+	dw MoveDesc_Sonicboom
+	db REST,         
+	dw MoveDesc_Rest
+	db SOFTBOILED,   
+	dw MoveDesc_Softboiled
+	db NIGHT_SLASH,  
+	dw MoveDesc_HighCrit
+	db DRAGON_CLAW,  
+	dw MoveDesc_HighCrit
+	db VOLT_TACKLE,  
+	dw MoveDesc_HighCritPriority
+	db MACH_PUNCH,   
+	dw MoveDesc_Priority
+	db KARATE_CHOP,  
+	dw MoveDesc_HighCrit
+	db SKY_UPPERCUT, 
+	dw MoveDesc_HighCrit
+	db SHADOW_SNEAK, 
+	dw MoveDesc_Priority
+	db RAZOR_LEAF,   
+	dw MoveDesc_HighCrit
+	db QUICK_ATTACK, 
+	dw MoveDesc_Priority
+	db SLASH,        
+	dw MoveDesc_HighCrit
+	db EXTREMESPEED, 
+	dw MoveDesc_ExtremeSpeed
+	db CUT,          
+	dw MoveDesc_HighCrit
+	db BULLET_PUNCH, 
+	dw MoveDesc_Priority
+	db AQUA_JET,     
+	dw MoveDesc_Priority
 	db -1
 
 ; One entry per move effect, indexed by effect id. Must stay in constant order
@@ -507,4 +547,40 @@ MoveDesc_TwoToFiveAttacks:
 
 MoveDesc_Unused:
 	text_far _MoveDesc_Unused
+	text_end
+
+MoveDesc_DragonRage:
+	text_far _MoveDesc_DragonRage
+	text_end
+
+MoveDesc_ExtremeSpeed:
+	text_far _MoveDesc_ExtremeSpeed
+	text_end
+
+MoveDesc_HighCrit:
+	text_far _MoveDesc_HighCrit
+	text_end
+
+MoveDesc_HighCritPriority:
+	text_far _MoveDesc_HighCritPriority
+	text_end
+
+MoveDesc_LevelDamage:
+	text_far _MoveDesc_LevelDamage
+	text_end
+
+MoveDesc_Priority:
+	text_far _MoveDesc_Priority
+	text_end
+
+MoveDesc_Rest:
+	text_far _MoveDesc_Rest
+	text_end
+
+MoveDesc_Softboiled:
+	text_far _MoveDesc_Softboiled
+	text_end
+
+MoveDesc_Sonicboom:
+	text_far _MoveDesc_Sonicboom
 	text_end
