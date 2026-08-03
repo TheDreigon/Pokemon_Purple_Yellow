@@ -66,7 +66,19 @@ ShowMovedexMenu::
 	inc hl      ; wTileBehindCursor
 	ld a, MOVEDEX_ROWS - 1
 	ld [hli], a ; max menu item ID
-	ld [hl], D_UP | D_DOWN | D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON | START
+; 🔴 D_UP and D_DOWN are deliberately NOT watched, exactly as the Pokedex list
+; does it. A watched direction is returned to the caller *as well as* moving the
+; cursor, so every Down both stepped the cursor and scrolled the list and the
+; selection advanced by two. Unwatched, HandleMenuInput moves the cursor itself
+; and only hands Up/Down back at the ends of the window -- which is when .up and
+; .down should be scrolling and the only time they now run.
+	ld [hl], D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON | START
+; ...and that hand-back is what wMenuWatchMovingOutOfBounds buys. The Pokedex
+; sets it before calling here so the value is inherited today; set it anyway,
+; because inheriting a flag from the screen that happened to call you is not a
+; thing to rely on.
+	ld a, 1
+	ld [wMenuWatchMovingOutOfBounds], a
 	call HandleMenuInput
 
 	bit BIT_B_BUTTON, a
