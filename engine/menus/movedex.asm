@@ -18,13 +18,22 @@
 ; quiz -- has been a list with a second cursor beside it. There is one cursor
 ; here and two buttons, which removes the whole class.
 ;
-; Every move is listed, with no "seen" gate. Gating would need a 28-byte
-; bitfield that also had to survive a save, and WRAM is full at 8192/8192.
-; A reference that hides entries is working against itself anyway.
+; Moves are listed only once SEEN -- watched being used in a battle, or known by
+; one of the player's own party. Everything else reads as a dashed line, and the
+; count in the corner is how many of the 219 are open. See home/movedex_seen.asm
+; for the two ways a move becomes seen and why the party counts.
+;
+; (This file used to argue the opposite, on the grounds that the bitfield needed
+; 28 bytes of WRAM and WRAM is full at 8192/8192. It is: the 28 bytes came out of
+; dead padding INSIDE the saved block instead, so they cost no WRAM and save
+; themselves. See ram/wram.asm at wMovedexSeen.)
 
 DEF MOVEDEX_ROWS EQU 7
 
 ShowMovedexMenu::
+; Do this before anything is drawn: it is what makes the list non-empty on a
+; fresh save, and the SEEN count in the corner has to include it.
+	call MarkPartyMovesSeen
 ; The Pokedex owns the list-position variables. Borrow them and give them back,
 ; or backing out of the movedex would leave the Pokedex scrolled somewhere the
 ; player never put it.
@@ -92,9 +101,21 @@ ShowMovedexMenu::
 	ld a, [wCurrentMenuItem]
 	add b
 	inc a ; move ids are 1-based
+	push af
+	call IsMoveSeen
+	pop af
+	jr z, .notSeenYet
 	ld [wPlayerSelectedMove], a
 	farcall ShowMoveInfo
 	jp .redraw
+
+; A dashed line has no card behind it. Say so with the sound the game already
+; uses for "that does nothing" rather than swallowing the press, which reads as
+; a frozen menu.
+.notSeenYet
+	ld a, SFX_DENIED
+	call PlaySound
+	jp .loop
 
 .up
 	ld a, [wListScrollOffset]
@@ -158,9 +179,37 @@ Movedex_DrawInterface:
 	hlcoord 1, 1
 	ld de, MovedexContentsText
 	call PlaceString
+; v0.7 FIX: this hint used to read START / FOR / #DEX and it overran the box in
+; both directions. <NEXT> advances TWO rows by default, so the third line landed
+; on row 5 -- the box's own bottom border, not its interior -- and "#DEX" is
+; seven tiles ("#" is the POKé control code) in a five-tile-wide interior, so it
+; wrote over the right border and spilled its last character into column 0 of
+; the row below, eating the list box's left border. Single-spaced now, and
+; worded to fit: five tiles is the whole budget.
+	ldh a, [hUILayoutFlags]
+	set 2, a ; <NEXT> advances one line instead of two
+	ldh [hUILayoutFlags], a
 	hlcoord 14, 1
 	ld de, MovedexHintText
 	call PlaceString
+	ldh a, [hUILayoutFlags]
+	res 2, a
+	ldh [hUILayoutFlags], a
+; SEEN count, under the hint box in the right-hand column. It cannot change
+; while the list is open, so it is drawn with the interface rather than with the
+; list; .redraw comes back through here after the card closes.
+	hlcoord 13, 6
+	lb bc, 2, 5
+	call TextBoxBorder
+	hlcoord 14, 7
+	ld de, MovedexSeenText
+	call PlaceString
+	call CountMovedexSeen
+	ld [wd11e], a
+	hlcoord 15, 8
+	ld de, wd11e
+	lb bc, 1, 3
+	call PrintNumber
 	ret
 
 Movedex_PlaceMoveList:
@@ -188,7 +237,14 @@ Movedex_PlaceMoveList:
 	call PrintNumber
 	pop hl
 	push hl
+	ld a, [wd11e]
+	call IsMoveSeen
+	jr z, .unseen
 	call GetMoveName ; de = wcd6d
+	jr .placeName
+.unseen
+	ld de, MovedexUnseenText
+.placeName
 	call PlaceString
 	pop hl
 	ld bc, 2 * SCREEN_WIDTH
@@ -212,7 +268,16 @@ LoadPokedexTilePatterns_Movedex:
 MovedexContentsText:
 	db "MOVES:@"
 
+MovedexSeenText:
+	db "SEEN@"
+
+; Same dashes the POKéDEX list uses for an unseen species, for the same reason.
+MovedexUnseenText:
+	db "----------@"
+
+; Five tiles wide, no more: the interior of the box this sits in is columns
+; 14-18. START closes the list, and so does B.
 MovedexHintText:
 	db   "START"
-	next "FOR"
-	next "#DEX@"
+	next "  TO"
+	next "CLOSE@"

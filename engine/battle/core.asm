@@ -7164,6 +7164,7 @@ HandleExplodingAnimation:
 ; fallthrough
 PlayMoveAnimation:
 	ld [wAnimationID], a
+	call MarkMoveSeen ; v0.7: MOVEDEX. Home bank -- see home/movedex_seen.asm
 	call Delay3
 	predef MoveAnimation
 	callfar Func_78e98

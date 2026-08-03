@@ -317,6 +317,7 @@ INCLUDE "engine/menus/move_info.asm"
 SECTION "Movedex", ROMX
 
 INCLUDE "engine/menus/movedex.asm"
+INCLUDE "engine/menus/movedex_seen.asm"
 
 
 SECTION "Itemfinder 1", ROMX

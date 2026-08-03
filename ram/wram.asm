@@ -2105,23 +2105,33 @@ wd473:: db
 wd475:: db
 	ds 4
 wd47a:: db
-	ds 24
+
+; v0.7: $D4F1-$D525 used to be 53 bytes of which 47 were padding -- a vanilla
+; 24-byte run, a vanilla 19-byte run, and the three bytes the Game Boy Printer
+; gave back -- with five live bytes scattered through the middle of them. The
+; live bytes are packed up here so the free space is CONTIGUOUS, which is what
+; wMovedexSeen needed.
+;
+; This whole stretch is inside wMainDataStart..wMainDataEnd, so it is written to
+; SRAM by the ordinary save path: no new save region, no new WRAM (there is
+; none: WRAM0 is 8192/8192). The padding was proved dead by canary -- $A5 across
+; all 47 bytes, 4000 frames of play across a map change, nothing written.
+;
+; ⚠️ A save made before this commit has the OLD meanings here, so it will show a
+; scattering of moves as already seen and the beach-house flags / surf hi-score
+; will read as garbage. Nothing else in the save moves.
 wd492:: db
-	ds 1
 wSurfingMinigameHiScore:: dw ; little-endian BCD
-	ds 1
-; v0.7: wPrinterSettings, wPrinterConnectionOpen and wPrinterOpcode were here.
-; They sit INSIDE the saved block (wMainDataStart..wMainDataEnd), so they are
-; left as padding rather than reclaimed - deleting them would slide every byte
-; after them and invalidate every existing save for three bytes of WRAM.
-; Together with the 19-byte run below wd49c they are the free space a future
-; saved feature should take.
-	ds 1 ; free (was wPrinterSettings)
+	ds 1 ; PrepareOakSpeech clears wSurfingMinigameHiScore + 2; keep it padding
 wUnknownSerialFlag_d499:: db
-	ds 2 ; free (was wPrinterConnectionOpen, wPrinterOpcode)
 wd49c:: db
 
-	ds 19
+; One bit per move, set when the move's animation is played in battle and for
+; every move the player's own party knows. See home/movedex_seen.asm.
+wMovedexSeen:: ds (NUM_ATTACKS + 7) / 8
+wMovedexSeenEnd::
+
+	ds 19 ; free, and still contiguous
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db
