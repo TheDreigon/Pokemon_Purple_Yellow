@@ -2055,14 +2055,6 @@ ReloadMapAfterSurfingMinigame::
 	call BankswitchCommon
 	jr FinishReloadingMap
 
-ReloadMapAfterPrinter::
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, [wCurMap]
-	call SwitchToMapRomBank
-	call LoadTileBlockMap
-	pop af
-	call BankswitchCommon
 FinishReloadingMap:
 	jpfar SetMapSpecificScriptFlagsOnMapReload
 	ret ; useless

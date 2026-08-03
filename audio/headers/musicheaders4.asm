@@ -17,10 +17,6 @@ Music_YellowUnusedSong::
 	channel 3, Music_YellowUnusedSong_Ch3
 	channel 4, Music_YellowUnusedSong_Ch4
 
-Music_GBPrinter::
-	channel_count 1
-	channel 3, Music_GBPrinter_Ch3
-
 ; Cinnabar Island, Cinnabar Lab.
 ;
 ; It lives in AUDIO_4 and not beside the other town themes for a hard reason:

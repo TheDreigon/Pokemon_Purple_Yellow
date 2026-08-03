@@ -71,37 +71,17 @@ _SummerBeachHousePoster3Text2::
 	line "all in surfdom!"
 	done
 
-_SummerBeachHousePrinterText1::
-	text "It's some sort of"
-	line "a machine...@"
+_SummerBeachHouseScoreBoardText1::
+	text "A board covered in"
+	line "names and dates.@"
 	text_end
 
-_SummerBeachHousePrinterText2::
+_SummerBeachHouseScoreBoardText2::
 	text "SUMMER BEACH HOUSE"
-	line "PRINTER, it says.@"
+	line "SCOREBOARD.@"
 	text_end
 
-_SummerBeachHousePrinterText3::
+_SummerBeachHouseScoreBoardText3::
 	text "The Hi-Score is"
 	line "shown."
-
-	para "PRINT it out?"
 	done
-
-_SummerBeachHousePrinterText4::
-	text "SUMMER BEACH HOUSE"
-	line "PRINTER, it says."
-
-	para "The Hi-Score is"
-	line "shown."
-
-	para "PRINT it out?"
-	done
-
-_SummerBeachHousePrinterText5::
-	text "PRINT completed.@"
-	text_end
-
-_SummerBeachHousePrinterText6::
-	text "PRINT error!@"
-	text_end

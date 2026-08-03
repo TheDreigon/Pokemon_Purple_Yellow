@@ -120,13 +120,7 @@ HandlePokedexSideMenu:
 	dec a
 	jr z, .choseArea
 	dec a
-	vc_patch Forbid_printing_Pokedex
-IF DEF (_YELLOW_VC)
-	jr z, .handleMenuInput
-ELSE
-	jr z, .chosePrint
-ENDC
-	vc_patch_end
+	jr z, .choseMoves
 .choseQuit
 	ld b, 1
 .exitSideMenu
@@ -178,27 +172,15 @@ ENDC
 	ld b, 0
 	jr .exitSideMenu
 
-.chosePrint ; .chosePrint ; repurposed: MOVE menu item — shows the learnset instead of GB Printer printing
+; The MOVE side-menu item. It took over the slot the Game Boy Printer's PRINT
+; used to occupy; v0.7 removed the printer outright, so nothing is repurposed
+; here any more — this is just the fourth entry.
+.choseMoves
 	ld a, 1
 	ld [wMoveListCounter], a
 	call ShowPokedexDataInternal
 	ld b, 0
 	jr .exitSideMenu
-	; ret
-	; ldh a, [hTileAnimations]
-	; push af
-	; xor a
-	; ldh [hTileAnimations], a
-	; ld a, [wd11e]
-	; ld [wcf91], a
-	; callfar PrintPokedexEntry
-	; xor a
-	; ldh [hAutoBGTransferEnabled], a
-	; call ClearScreen
-	; pop af
-	; ldh [hTileAnimations], a
-	; ld b, $3
-	; jr .exitSideMenu
 
 ; handles the list of pokemon on the left of the pokedex screen
 ; sets carry flag if player presses A, unsets carry flag if player presses B
@@ -977,35 +959,9 @@ Pokedex_PrintFlavorTextAtBC:
 	ldh [hClearLetterPrintingDelayFlags], a
 	ret
 
-Pokedex_PrepareDexEntryForPrinting:
-	hlcoord 0, 0
-	ld de, SCREEN_WIDTH
-	lb bc, $66, $d
-	call DrawTileLine
-	hlcoord 19, 0
-	ld b, $67
-	call DrawTileLine
-	hlcoord 0, 13
-	ld de, $1
-	lb bc, $6f, SCREEN_WIDTH
-	call DrawTileLine
-	ld a, $6c
-	ldcoord_a 0, 13
-	ld a, $6e
-	ldcoord_a 19, 13
-	ld a, [wPrinterPokedexEntryTextPointer]
-	ld l, a
-	ld a, [wPrinterPokedexEntryTextPointer + 1]
-	ld h, a
-	bccoord 1, 1
-	ldh a, [hUILayoutFlags]
-	set 3, a
-	ldh [hUILayoutFlags], a
-	call Pokedex_PrintFlavorTextAtBC
-	ldh a, [hUILayoutFlags]
-	res 3, a
-	ldh [hUILayoutFlags], a
-	ret
+; v0.7: Pokedex_PrepareDexEntryForPrinting lived here. It laid a dex entry out
+; as a printer page, and only PrintPokedexEntry ever called it, so it went with
+; the Game Boy Printer.
 
 ; draws a line of tiles
 ; INPUT:

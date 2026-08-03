@@ -53,29 +53,16 @@ CeladonMansion3FGraphicArtistText:
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr nz, .declined_print
-	call SaveScreenTilesToBuffer2
-	xor a
-	ld [wUpdateSpritesEnabled], a
-	ld hl, wd730
-	set 6, [hl]
-	callfar PrintDiploma
-	ld hl, wd730
-	res 6, [hl]
-	call GBPalWhiteOutWithDelay3
-	call ReloadTilesetTilePatterns
-	call RestoreScreenTilesAndReloadTilePatterns
-	call LoadScreenTilesFromBuffer2
-	call Delay3
-	call GBPalNormal
-	ld hl, .Text5
-	ldh a, [hCanceledPrinting]
-	and a
-	jr nz, .print
+	jr nz, .declined
+	; v0.7: this used to be PrintDiploma, which drew the diploma and then sent
+	; it to a Game Boy Printer, with its own save/restore of the screen around
+	; the transmission loop. DisplayDiploma is the draw-and-wait half that the
+	; GAME DESIGNER already uses, so both NPCs now show the same screen.
+	callfar DisplayDiploma
 	ld hl, .Text4
 	jr .print
 
-.declined_print
+.declined
 	ld hl, .Text3
 .print
 	call PrintText
@@ -95,10 +82,6 @@ CeladonMansion3FGraphicArtistText:
 
 .Text4:
 	text_far _CeladonMansion3FGraphicArtistText4
-	text_end
-
-.Text5:
-	text_far _CeladonMansion3FGraphicArtistText5
 	text_end
 
 CeladonMansion3FWriterText:

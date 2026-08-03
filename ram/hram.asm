@@ -330,8 +330,6 @@ hGymTrashCanRandNumMask::
 hInteractedWithBookshelf::
 	db
 
-NEXTU
-hCanceledPrinting:: db
 ENDU
 
 	ds 1

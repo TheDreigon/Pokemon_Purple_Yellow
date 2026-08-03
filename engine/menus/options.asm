@@ -30,12 +30,15 @@ GetOptionPointer:
 	ld l, a
 	jp hl ; jump to the function for the current highlighted option
 
+; v0.7: entry 4 was PRINT (Game Boy Printer darkness). The printer is gone, so
+; the row is gone with it; the cursor now steps straight from SOUND (3) to
+; CANCEL (7) and 4-6 are unreachable. See OptionsControl below.
 OptionMenuJumpTable:
 	dw OptionsMenu_TextSpeed
 	dw OptionsMenu_BattleAnimations
 	dw OptionsMenu_BattleStyle
 	dw OptionsMenu_SpeakerSettings
-	dw OptionsMenu_GBPrinterBrightness
+	dw OptionsMenu_Dummy
 	dw OptionsMenu_Dummy
 	dw OptionsMenu_Dummy
 	dw OptionsMenu_Cancel
@@ -259,95 +262,6 @@ Earphone2SoundText:
 Earphone3SoundText:
 	db "EARPHONE3@"
 
-OptionsMenu_GBPrinterBrightness:
-	call Func_41e7b
-	ldh a, [hJoy5]
-	bit 4, a
-	jr nz, .pressedRight
-	bit 5, a
-	jr nz, .pressedLeft
-	jr .asm_41e32
-.pressedRight
-	ld a, c
-	cp $4
-	jr c, .asm_41e22
-	ld c, $ff
-.asm_41e22
-	inc c
-	ld a, e
-	jr .asm_41e2e
-.pressedLeft
-	ld a, c
-	and a
-	jr nz, .asm_41e2c
-	ld c, $5
-.asm_41e2c
-	dec c
-	ld a, d
-.asm_41e2e
-	ld b, a
-	ld [wPrinterSettings], a
-.asm_41e32
-	ld b, $0
-	ld hl, GBPrinterOptionStringsPointerTable
-	add hl, bc
-	add hl, bc
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	hlcoord 8, 10
-	call PlaceString
-	and a
-	ret
-
-GBPrinterOptionStringsPointerTable:
-	dw LightestPrintText
-	dw LighterPrintText
-	dw NormalPrintText
-	dw DarkerPrintText
-	dw DarkestPrintText
-
-LightestPrintText:
-	db "LIGHTEST@"
-LighterPrintText:
-	db "LIGHTER @"
-NormalPrintText:
-	db "NORMAL  @"
-DarkerPrintText:
-	db "DARKER  @"
-DarkestPrintText:
-	db "DARKEST @"
-
-Func_41e7b:
-	ld a, [wPrinterSettings]
-	and a
-	jr z, .asm_41e93
-	cp $20
-	jr z, .asm_41e99
-	cp $60
-	jr z, .asm_41e9f
-	cp $7f
-	jr z, .asm_41ea5
-	ld c, $2
-	lb de, $20, $60
-	ret
-.asm_41e93
-	ld c, $0
-	lb de, $7f, $20
-	ret
-.asm_41e99
-	ld c, $1
-	lb de, $0, $40
-	ret
-.asm_41e9f
-	ld c, $3
-	lb de, $40, $7f
-	ret
-.asm_41ea5
-	ld c, $4
-	lb de, $60, $0
-	ret
-
 OptionsMenu_Dummy:
 	and a
 	ret
@@ -379,7 +293,7 @@ OptionsControl:
 	scf
 	ret
 .doNotWrapAround
-	cp $4
+	cp $3 ; SOUND, the last selectable setting since PRINT was removed
 	jr c, .regularIncrement
 	ld [hl], $6
 .regularIncrement
@@ -389,11 +303,11 @@ OptionsControl:
 .pressedUp
 	ld a, [hl]
 	cp $7
-	jr nz, .doNotMoveCursorToPrintOption
-	ld [hl], $4
+	jr nz, .doNotJumpToLastSetting
+	ld [hl], $3
 	scf
 	ret
-.doNotMoveCursorToPrintOption
+.doNotJumpToLastSetting
 	and a
 	jr nz, .regularDecrement
 	ld [hl], $8
@@ -441,7 +355,9 @@ InitOptionsMenu:
 	ld a, [wOptionsShowDifficulty]
 	and a
 	jr z, .skipDifficultyRow
-	hlcoord 2, 13
+	; v0.7: row 11, not 13. It sat three rows under the last setting when that
+	; setting was PRINT on row 10; PRINT is gone, so it follows SOUND up.
+	hlcoord 2, 11
 	ld de, OptionMenuDifficultyText
 	call PlaceString
 	ld a, [wDifficulty]
@@ -450,12 +366,12 @@ InitOptionsMenu:
 	jr z, .gotDifficultyValue
 	ld de, OptionDifficultyHardText
 .gotDifficultyValue
-	hlcoord 13, 13
+	hlcoord 13, 11
 	call PlaceString
 .skipDifficultyRow
 	xor a
 	ld [wOptionsCursorLocation], a
-	ld c, 5 ; the number of options to loop through
+	ld c, 4 ; the number of options to loop through
 .loop
 	push bc
 	call GetOptionPointer ; updates the next option
@@ -475,8 +391,7 @@ AllOptionsText:
 	db "TEXT SPEED :"
 	next "ANIMATION  :"
 	next "BATTLESTYLE:"
-	next "SOUND:"
-	next "PRINT:@"
+	next "SOUND:@"
 
 OptionMenuCancelText:
 	db "CANCEL@"

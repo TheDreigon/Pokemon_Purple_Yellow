@@ -10,8 +10,6 @@ PrepareOakSpeech:
 	; In non-debug builds, the instructions can be removed.
 	ld a, [wd732]
 	push af
-	ld a, [wPrinterSettings]
-	push af
 	ld hl, wPlayerName
 	ld bc, wBoxDataEnd - wPlayerName
 	xor a
@@ -24,8 +22,6 @@ PrepareOakSpeech:
 	ld [wSurfingMinigameHiScore], a
 	ld [wSurfingMinigameHiScore + 1], a
 	ld [wSurfingMinigameHiScore + 2], a
-	pop af
-	ld [wPrinterSettings], a
 	pop af
 	ld [wd732], a
 	pop af

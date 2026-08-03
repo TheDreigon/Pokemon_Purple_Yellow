@@ -204,11 +204,6 @@ ELSE
 	jp MainMenu
 ENDC
 
-.asm_42f0
-; unreferenced
-	callfar PrinterDebug
-	jp .loop
-
 .asm_42fb
 ; unreferenced
 	ld a, [wTitleScreenScene + 4]

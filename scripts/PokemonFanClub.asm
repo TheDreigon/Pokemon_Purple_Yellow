@@ -181,7 +181,7 @@ PokemonFanClubChairmanText:
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr z, .select_mon_to_print
+	jr z, .select_mon_for_photo
 	ld hl, Text_59c24
 	jr .gbpals_print_text
 
@@ -220,7 +220,7 @@ PokemonFanClubChairmanText:
 	call PrintText
 	jp TextScriptEnd
 
-.select_mon_to_print
+.select_mon_for_photo
 	call GBPalWhiteOutWithDelay3
 	call LoadCurrentMapView
 	call SaveScreenTilesToBuffer2
@@ -229,18 +229,24 @@ PokemonFanClubChairmanText:
 	ld a, $00
 	ld [wTempTilesetNumTiles], a
 	call DisplayPartyMenu
-	jp nc, .print
+	jp nc, .take_photo
 	call GBPalWhiteOutWithDelay3
 	call RestoreScreenTilesAndReloadTilePatterns
 	ld hl, Text_59c24
 	jr .gbpals_print_text
 
-.print
+; v0.7: was PrintFanClubPortrait, which drew this screen and then shipped it to
+; a Game Boy Printer; the player looked at it for as long as the transmission
+; lasted. DisplayFanClubPhoto is the drawing half, so the wait is now an
+; explicit button press. The cancel branch went with the transmission - there
+; is nothing left to cancel.
+.take_photo
 	xor a
 	ld [wUpdateSpritesEnabled], a
 	ld hl, wd730
 	set 6, [hl]
-	callfar PrintFanClubPortrait
+	callfar DisplayFanClubPhoto
+	call WaitForTextScrollButtonPress
 	ld hl, wd730
 	res 6, [hl]
 	call GBPalWhiteOutWithDelay3
@@ -249,10 +255,6 @@ PokemonFanClubChairmanText:
 	call LoadScreenTilesFromBuffer2
 	call Delay3
 	call GBPalNormal
-	ld hl, Text_59c2e
-	ldh a, [hOaksAideResult]
-	and a
-	jr nz, .gbpals_print_text
 	ld hl, Text_59c29
 	jr .gbpals_print_text
 
@@ -292,10 +294,6 @@ Text_59c24:
 
 Text_59c29:
 	text_far FanClubChairPrintText3
-	text_end
-
-Text_59c2e:
-	text_far FanClubChairPrintText4
 	text_end
 
 PokemonFanClubReceptionistText:

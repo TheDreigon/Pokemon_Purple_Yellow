@@ -289,3 +289,12 @@ RepelWoreOffUseAnotherText::
 DisplayPikachuEmotion::
 	callfar TalkToPikachu
 	jp CloseTextDisplay
+
+; causes the text box to close without waiting for a button press after displaying text
+; v0.7: moved here from home/printer.asm, which was deleted with the Game Boy
+; Printer. It was only ever filed there because it shared a source file with
+; the printer's serial hooks; the flag it sets is read by DisplayTextID above.
+DisableWaitingAfterTextDisplay::
+	ld a, $01
+	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
+	ret

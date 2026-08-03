@@ -395,10 +395,9 @@ SECTION "bank3A", ROMX
 
 INCLUDE "data/pokemon/names.asm"
 INCLUDE "engine/overworld/is_player_just_outside_map.asm"
-INCLUDE "engine/printer/serial.asm"
-INCLUDE "engine/printer/printer.asm"
+INCLUDE "engine/events/surfing_hi_score.asm"
 INCLUDE "engine/events/diploma2.asm"
-INCLUDE "engine/printer/printer2.asm"
+INCLUDE "engine/events/fan_club_photo.asm"
 INCLUDE "engine/overworld/npc_movement_2.asm"
 
 

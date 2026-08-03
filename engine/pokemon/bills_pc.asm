@@ -120,7 +120,7 @@ BillsPCMenu:
 	lb bc, 4, 18
 	call TextBoxBorder
 	hlcoord 0, 0
-	lb bc, 12, 12
+	lb bc, 10, 12 ; v0.7: was 12 rows, for the six-entry menu that included PRINT BOX
 	call TextBoxBorder
 	call UpdateSprites
 	hlcoord 2, 2
@@ -133,7 +133,7 @@ BillsPCMenu:
 	ld [hli], a ; wTopMenuItemX
 	inc hl
 	inc hl
-	ld a, 5
+	ld a, 4
 	ld [hli], a ; wMaxMenuItem
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; wMenuWatchedKeys
@@ -181,8 +181,6 @@ BillsPCMenu:
 	jp z, BillsPCRelease ; release
 	cp $3
 	jp z, BillsPCChangeBox ; change box
-	cp $4
-	jp z, BillsPCPrintBox
 
 ExitBillsPC:
 	ld a, [wFlags_0xcd60]
@@ -202,10 +200,6 @@ ExitBillsPC:
 	ld hl, wd730
 	res 6, [hl]
 	ret
-
-BillsPCPrintBox:
-	callfar PrintPCBox
-	jp BillsPCMenu
 
 BillsPCDeposit:
 	ld a, [wPartyCount]
@@ -383,7 +377,6 @@ BillsPCMenuText:
 	next "DEPOSIT <PKMN>"
 	next "RELEASE <PKMN>"
 	next "CHANGE BOX"
-	next "PRINT BOX"
 	next "SEE YA!"
 	db "@"
 

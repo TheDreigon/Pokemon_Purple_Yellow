@@ -9,7 +9,7 @@ SummerBeachHouse_TextPointers:
 	dw_const SummerBeachHousePoster1Text,    TEXT_SUMMERBEACHHOUSE_POSTER1
 	dw_const SummerBeachHousePoster2Text,    TEXT_SUMMERBEACHHOUSE_POSTER2
 	dw_const SummerBeachHousePoster3Text,    TEXT_SUMMERBEACHHOUSE_POSTER3
-	dw_const SummerBeachHousePrinterText,    TEXT_SUMMERBEACHHOUSE_PRINTER
+	dw_const SummerBeachHouseScoreBoardText, TEXT_SUMMERBEACHHOUSE_SCOREBOARD
 
 SummerBeachHouseSurfinDudeText:
 	text_asm
@@ -132,7 +132,13 @@ SummerBeachHousePoster3Text:
 	text_far _SummerBeachHousePoster3Text2
 	text_end
 
-SummerBeachHousePrinterText:
+; The board on the wall that carries PIKACHU'S BEACH's hi-score.
+;
+; v0.7: this was a Game Boy Printer, and the board was its consolation prize -
+; answering "no" to "PRINT it out?" drew the hi-score screen and waited for a
+; button. With the printer gone the prompt goes too and the board is simply
+; read, so the object is a SCOREBOARD now rather than a printer.
+SummerBeachHouseScoreBoardText:
 	text_asm
 	ld a, 1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
@@ -144,34 +150,30 @@ ELSE
 	bit 6, a
 ENDC
 	vc_patch_end
-	jr z, .asm_f2369
+	jr z, .cannot_surf
 
 	ld hl, wd492
 	bit 1, [hl]
-	jr z, .next2
+	jr z, .no_score_yet
 	ld a, 0
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-.next2
-	ld hl, .SummerBeachHousePrinterText2
+.no_score_yet
+	ld hl, .ScoreBoardText2
 	call PrintText
 	ld a, [wd492]
 	bit 1, a
-	jr z, .asm_f236f
+	jr z, .done
 
 	ld a, 1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, .SummerBeachHousePrinterText3
+	ld hl, .ScoreBoardText3
 	call PrintText
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
-	and a
-	jp z, Func_f23d0
 	call SaveScreenTilesToBuffer2
 	ld hl, wd730
 	set 6, [hl]
 	xor a
 	ld [wUpdateSpritesEnabled], a
-	callfar Printer_PrepareSurfingMinigameHighScoreTileMap
+	callfar DisplaySurfingMinigameHighScore
 	call WaitForTextScrollButtonPress
 	ld hl, wd730
 	res 6, [hl]
@@ -183,27 +185,23 @@ ENDC
 	call GBPalNormal
 	ld a, 1
 	ld [wUpdateSpritesEnabled], a
-	jr .asm_f236f
-.asm_f2369
-	ld hl, .SummerBeachHousePrinterText1
+	jr .done
+.cannot_surf
+	ld hl, .ScoreBoardText1
 	call PrintText
-.asm_f236f
+.done
 	jp TextScriptEnd
 
-.SummerBeachHousePrinterText1
-	text_far _SummerBeachHousePrinterText1
+.ScoreBoardText1
+	text_far _SummerBeachHouseScoreBoardText1
 	text_waitbutton
 	text_end
 
-.SummerBeachHousePrinterText2
-	text_far _SummerBeachHousePrinterText2
+.ScoreBoardText2
+	text_far _SummerBeachHouseScoreBoardText2
 	text_waitbutton
 	text_end
 
-.SummerBeachHousePrinterText3
-	text_far _SummerBeachHousePrinterText3
-	text_end
-
-.SummerBeachHousePrinterText4
-	text_far _SummerBeachHousePrinterText4
+.ScoreBoardText3
+	text_far _SummerBeachHouseScoreBoardText3
 	text_end

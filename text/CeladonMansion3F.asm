@@ -25,24 +25,21 @@ _CeladonMansion3FGraphicArtistText2::
 
 	para "Wow, you finished"
 	line "your #DEX!"
-	cont "Want me to PRINT"
-	cont "out a DIPLOMA"
-	cont "as proof?"
+	cont "Want to see the"
+	cont "DIPLOMA I drew"
+	cont "for you?"
 	done
 
 _CeladonMansion3FGraphicArtistText3::
 	text "Just tell me if"
-	line "you want to PRINT"
-	cont "out a DIPLOMA."
+	line "you want another"
+	cont "look at your"
+	cont "DIPLOMA."
 	done
 
 _CeladonMansion3FGraphicArtistText4::
-	text "All done!"
-	done
-
-_CeladonMansion3FGraphicArtistText5::
-	text "OK, let's not"
-	line "PRINT."
+	text "My best work yet,"
+	line "if I say so."
 	done
 
 _CeladonMansion3FWriterText::

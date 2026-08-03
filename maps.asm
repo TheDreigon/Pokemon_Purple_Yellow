@@ -1449,7 +1449,6 @@ INCLUDE "scripts/SummerBeachHouse.asm"
 SummerBeachHouse_Blocks: INCBIN "maps/SummerBeachHouse.blk"
 	assert @ - SummerBeachHouse_Blocks == SUMMER_BEACH_HOUSE_WIDTH * SUMMER_BEACH_HOUSE_HEIGHT, "SummerBeachHouse.blk size does not match SUMMER_BEACH_HOUSE in map_constants.asm"
 INCLUDE "data/maps/objects/SummerBeachHouse.asm"
-INCLUDE "scripts/SummerBeachHouse_2.asm"
 
 INCLUDE "scripts/BillsHouse_2.asm"
 INCLUDE "scripts/CeladonMansionRoofHouse_2.asm"

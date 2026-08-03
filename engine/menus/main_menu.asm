@@ -144,8 +144,6 @@ InitOptions:
 	ld [wLetterPrintingDelayFlags], a
 	ld a, TEXT_DELAY_MEDIUM
 	ld [wOptions], a
-	ld a, 64 ; ld a, 64 ; default printer darkness (NORMAL; see options.asm PRINT row)
-	ld [wPrinterSettings], a
 	ret
 
 Func_5cc1:

@@ -165,12 +165,8 @@ FanClubChairPrintText2::
 	done
 
 FanClubChairPrintText3::
-	text "OK, I'm done."
-	done
-
-FanClubChairPrintText4::
-	text "Maybe we won't"
-	line "PRINT this now."
+	text "There! One for the"
+	line "wall."
 	done
 
 _PokemonFanClubReceptionistText::

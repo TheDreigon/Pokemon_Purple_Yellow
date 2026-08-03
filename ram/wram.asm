@@ -263,67 +263,23 @@ NEXTU
 wTempPic:: ds 7 * 7 tiles
 
 NEXTU
-wPrinterData::
-wPrinterSendState:: db
-wPrinterRowIndex:: db
-
-; Printer data header
-wPrinterDataHeader::
-wc6ea:: db
-wc6eb:: db
-wc6ec:: db
-wc6ed:: db
-wPrinterChecksum:: dw
-
-UNION
-wPrinterSerialReceived:: db
-; bit 7: set if error 1 (battery low)
-; bit 6: set if error 4 (too hot or cold)
-; bit 5: set if error 3 (paper jammed or empty)
-; if this and the previous byte are both $ff: error 2 (connection error)
-wPrinterStatusReceived:: db
-
-wc6f2:: db
-wc6f3:: db
-	ds 11
+; v0.7: the Game Boy Printer's 1300 bytes of send buffers, tile buffer and
+; state used to be this branch of the union, wrapped around the two LY override
+; buffers below. Removing the printer freed no WRAM at all: the branch was
+; exactly wOverworldMap's size, so the union - and therefore the section - is
+; still 1300 bytes wide. What it did buy is the home bank (see home/serial.asm
+; and home/vblank.asm) and ~8 KB of ROMX.
+;
+; The leading padding is load-bearing: wLYOverrides must start on a page
+; boundary ($C700), because home/lcdc.asm addresses it as
+; `ld h, HIGH(wLYOverrides)` and intro_yellow.asm does the same for
+; wLYOverridesBuffer at $C800.
+	ds 23
 wTempLevelStore:: db
 wLYOverrides:: ds $100
 wLYOverridesEnd::
 wLYOverridesBuffer:: ds $100
 wLYOverridesBufferEnd::
-
-NEXTU
-wPrinterSendDataSource1:: ds 20 tiles
-wPrinterSendDataSource2:: ds 20 tiles
-ENDU
-
-wPrinterSendDataSource1End::
-
-wPrinterHandshake:: db
-wPrinterStatusFlags:: db
-wHandshakeFrameDelay:: db
-wPrinterSerialFrameDelay:: db
-wPrinterSendByteOffset:: dw
-wPrinterDataSize:: dw
-wPrinterTileBuffer:: ds SCREEN_HEIGHT * SCREEN_WIDTH
-wPrinterStatusIndicator:: dw
-wcae2:: db
-wPrinterSettingsTempCopy:: db
-	ds 16
-wPrinterQueueLength:: db
-wPrinterDataEnd::
-
-wPrinterPokedexEntryTextPointer:: dw
-	ds 2
-wPrinterPokedexMonIsOwned:: db
-	ds 226
-UNION
-wcbdc:: ds 1 tiles
-NEXTU
-	ds 14
-wcbea:: dw
-ENDU
-wcbec:: ds 1 tiles
 ENDU
 
 
@@ -2154,10 +2110,15 @@ wd492:: db
 	ds 1
 wSurfingMinigameHiScore:: dw ; little-endian BCD
 	ds 1
-wPrinterSettings:: db
+; v0.7: wPrinterSettings, wPrinterConnectionOpen and wPrinterOpcode were here.
+; They sit INSIDE the saved block (wMainDataStart..wMainDataEnd), so they are
+; left as padding rather than reclaimed - deleting them would slide every byte
+; after them and invalidate every existing save for three bytes of WRAM.
+; Together with the 19-byte run below wd49c they are the free space a future
+; saved feature should take.
+	ds 1 ; free (was wPrinterSettings)
 wUnknownSerialFlag_d499:: db
-wPrinterConnectionOpen:: db
-wPrinterOpcode:: db
+	ds 2 ; free (was wPrinterConnectionOpen, wPrinterOpcode)
 wd49c:: db
 
 	ds 19

@@ -3,9 +3,6 @@ Serial::
 	push bc
 	push de
 	push hl
-	ld a, [wPrinterConnectionOpen]
-	bit 0, a
-	jp nz, PrinterSerial__
 	ldh a, [hSerialConnectionStatus]
 	inc a
 	jr z, .connectionNotYetEstablished
@@ -327,11 +324,3 @@ Serial_TryEstablishingExternallyClockedConnection::
 	ld a, START_TRANSFER_EXTERNAL_CLOCK
 	ldh [rSC], a
 	ret
-
-PrinterSerial__::
-	call PrinterSerial
-	pop hl
-	pop de
-	pop bc
-	pop af
-	reti

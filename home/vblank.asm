@@ -66,8 +66,6 @@ VBlank::
 	call BankswitchCommon
 	call Audio1_UpdateMusic
 
-	call SerialFunction
-
 	ld a, [wVBlankSavedROMBank]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
