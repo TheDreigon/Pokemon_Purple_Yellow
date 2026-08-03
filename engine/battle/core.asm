@@ -4098,6 +4098,17 @@ MonName1Text:
 .playerTurn
 	ld [hl], a
 	ld [wd11e], a
+	; v0.7: MOVEDEX. This is the moment the game says "<MON> used MOVE!", which
+	; is the honest definition of having seen one: it fires for both sides, for
+	; status moves as well as damaging ones, for whatever MIRROR MOVE and
+	; METRONOME turn into, and for moves that then miss -- and it does NOT fire
+	; when a sleeping or confused Pokemon never gets its move out.
+	;
+	; The first attempt hooked PlayMoveAnimation instead and only caught half
+	; the moves: status moves never reach it, they animate through
+	; PlayBattleAnimationGotID in effects.asm. Caught by fighting a real wild
+	; battle and watching GROWL fail to register.
+	call MarkMoveSeenByID ; home bank; a is the move id, hl and de survive
 	ld hl, UsedText
 	ret
 
@@ -7164,7 +7175,6 @@ HandleExplodingAnimation:
 ; fallthrough
 PlayMoveAnimation:
 	ld [wAnimationID], a
-	call MarkMoveSeen ; v0.7: MOVEDEX. Home bank -- see home/movedex_seen.asm
 	call Delay3
 	predef MoveAnimation
 	callfar Func_78e98

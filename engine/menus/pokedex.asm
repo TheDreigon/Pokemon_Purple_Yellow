@@ -99,7 +99,7 @@ HandlePokedexSideMenu:
 	xor a
 	ld [hli], a ; current menu item ID
 	inc hl
-	ld a, 4
+	ld a, 3 ; DATA, CRY, AREA, MOVE -- v0.7 dropped QUIT
 	ld [hli], a ; max menu item ID
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; menu watched keys (A button and B button)
@@ -121,8 +121,12 @@ HandlePokedexSideMenu:
 	jr z, .choseArea
 	dec a
 	jr z, .choseMoves
+; Unreachable since QUIT left the menu: wMaxMenuItem is 3 and all four items are
+; dispatched above. Kept as a landing pad, and it now behaves like B (back to
+; the list) rather than slamming the whole POKéDEX shut, which is the safer of
+; the two if a future edit ever lets the cursor out of range.
 .choseQuit
-	ld b, 1
+	ld b, 2
 .exitSideMenu
 	pop af
 	ld [wDexMaxSeenMon], a
@@ -380,12 +384,16 @@ PokedexOwnText:
 PokedexContentsText:
 	db "CONTENTS@"
 
+; v0.7: QUIT is gone. It only ever appeared once you had already opened a
+; Pokémon's side menu, so it never quit the POKéDEX -- it quit the side menu,
+; which is what B does from anywhere including the list itself. A menu entry
+; that duplicates B and names itself after something it does not do is worse
+; than no entry.
 PokedexMenuItemsText:
 	db   "DATA"
 	next "CRY"
 	next "AREA"
-	next "MOVE"
-	next "QUIT@"
+	next "MOVE@"
 
 Pokedex_PlacePokemonList:
 	xor a

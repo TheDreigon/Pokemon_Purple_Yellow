@@ -85,6 +85,11 @@ ShowMovedexMenu::
 	jp .loop
 
 .done
+; 🔴 Hand the screen back BLANK. Pokedex_DrawInterface writes its panel cell by
+; cell and never clears, so anything this list left in a cell the Pokedex does
+; not itself write survived the handover -- the SEEN box and the old hint box
+; came back interleaved with the dex's own SEEN/OWN counts and its side menu.
+	call ClearScreen
 	call LoadPokedexTilePatterns_Movedex
 	pop af
 	ld [wLastMenuItem], a
@@ -101,10 +106,14 @@ ShowMovedexMenu::
 	ld a, [wCurrentMenuItem]
 	add b
 	inc a ; move ids are 1-based
-	push af
+; 🔴 The move id is parked in b, NOT pushed. `push af` / `pop af` around the
+; call would restore F as well as A and throw away the answer -- which is
+; exactly the bug this line replaces: every dashed row still opened a card.
+; IsMoveSeen preserves bc.
+	ld b, a
 	call IsMoveSeen
-	pop af
 	jr z, .notSeenYet
+	ld a, b
 	ld [wPlayerSelectedMove], a
 	farcall ShowMoveInfo
 	jp .redraw
@@ -173,40 +182,25 @@ Movedex_DrawInterface:
 	hlcoord 0, 0
 	lb bc, 16, 12
 	call TextBoxBorder
-	hlcoord 13, 0
-	lb bc, 4, 5
-	call TextBoxBorder
 	hlcoord 1, 1
 	ld de, MovedexContentsText
 	call PlaceString
-; v0.7 FIX: this hint used to read START / FOR / #DEX and it overran the box in
-; both directions. <NEXT> advances TWO rows by default, so the third line landed
-; on row 5 -- the box's own bottom border, not its interior -- and "#DEX" is
-; seven tiles ("#" is the POKé control code) in a five-tile-wide interior, so it
-; wrote over the right border and spilled its last character into column 0 of
-; the row below, eating the list box's left border. Single-spaced now, and
-; worded to fit: five tiles is the whole budget.
-	ldh a, [hUILayoutFlags]
-	set 2, a ; <NEXT> advances one line instead of two
-	ldh [hUILayoutFlags], a
-	hlcoord 14, 1
-	ld de, MovedexHintText
-	call PlaceString
-	ldh a, [hUILayoutFlags]
-	res 2, a
-	ldh [hUILayoutFlags], a
-; SEEN count, under the hint box in the right-hand column. It cannot change
-; while the list is open, so it is drawn with the interface rather than with the
-; list; .redraw comes back through here after the card closes.
-	hlcoord 13, 6
+; SEEN count. It cannot change while the list is open, so it is drawn with the
+; interface rather than with the list; .redraw comes back through here after the
+; card closes.
+;
+; This is the whole right-hand column now. A START/TO/CLOSE hint used to sit
+; above it and is gone at Forte's call -- the button that opens the list closes
+; it, and so does B, which is true of every other list in the game.
+	hlcoord 13, 0
 	lb bc, 2, 5
 	call TextBoxBorder
-	hlcoord 14, 7
+	hlcoord 14, 1
 	ld de, MovedexSeenText
 	call PlaceString
 	call CountMovedexSeen
 	ld [wd11e], a
-	hlcoord 15, 8
+	hlcoord 15, 2
 	ld de, wd11e
 	lb bc, 1, 3
 	call PrintNumber
@@ -275,9 +269,3 @@ MovedexSeenText:
 MovedexUnseenText:
 	db "----------@"
 
-; Five tiles wide, no more: the interior of the box this sits in is columns
-; 14-18. START closes the list, and so does B.
-MovedexHintText:
-	db   "START"
-	next "  TO"
-	next "CLOSE@"
