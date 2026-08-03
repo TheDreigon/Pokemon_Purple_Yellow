@@ -381,8 +381,10 @@ PokedexSeenText:
 PokedexOwnText:
 	db "OWN@"
 
+; v0.7: was "CONTENTS". The MOVEDEX next door heads its list "MOVES:", and this
+; one names what is in it the same way. ("#" is the POKé control code.)
 PokedexContentsText:
-	db "CONTENTS@"
+	db "#MON:@"
 
 ; v0.7: QUIT is gone. It only ever appeared once you had already opened a
 ; Pokémon's side menu, so it never quit the POKéDEX -- it quit the side menu,

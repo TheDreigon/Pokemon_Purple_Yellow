@@ -48,9 +48,10 @@ ShowMovedexMenu::
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
 
-; The Pokedex swapped the text-box border tiles out for its own. Put them back,
-; because this list and the move card are both drawn with TextBoxBorder.
-	call LoadTextBoxTilePatterns
+; v0.7: the Pokedex's own tile patterns stay loaded, because this list is now
+; drawn in the Pokedex's style -- one vertical rule down column 14 rather than
+; text boxes. Only the move card needs the text-box border tiles, and .showCard
+; swaps them in and back out again.
 .redraw
 	call Movedex_DrawInterface
 .loop
@@ -115,7 +116,11 @@ ShowMovedexMenu::
 	jr z, .notSeenYet
 	ld a, b
 	ld [wPlayerSelectedMove], a
+; The card is drawn with TextBoxBorder, so it needs the text-box tiles; the list
+; behind it needs the Pokedex's. Swap either side of the call.
+	call LoadTextBoxTilePatterns
 	farcall ShowMoveInfo
+	call LoadPokedexTilePatterns_Movedex
 	jp .redraw
 
 ; A dashed line has no card behind it. Say so with the sound the game already
@@ -175,42 +180,63 @@ ShowMovedexMenu::
 	ld [wCurrentMenuItem], a
 	jp .loop
 
+; v0.7: drawn the way the POKéDEX draws itself, not with text boxes. The two
+; lists sit one button apart and used to look like screens from different games:
+; the dex rules its columns apart with a single alternating line down column 14
+; and puts its labels in the open, while this one was framed in boxes.
+;
+; Same geometry as Pokedex_DrawInterface, so the eye does not have to move when
+; START swaps them: rule down column 14, list heading at (1,1), the count in the
+; right-hand column at (16,1)-(16,2).
 Movedex_DrawInterface:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
-	hlcoord 0, 0
-	lb bc, 16, 12
-	call TextBoxBorder
+	hlcoord 14, 0
+	ld [hl], $71 ; vertical line tile
+	hlcoord 14, 1
+	call Movedex_DrawVerticalLine
+	hlcoord 14, 9
+	call Movedex_DrawVerticalLine
 	hlcoord 1, 1
 	ld de, MovedexContentsText
 	call PlaceString
 ; SEEN count. It cannot change while the list is open, so it is drawn with the
 ; interface rather than with the list; .redraw comes back through here after the
 ; card closes.
-;
-; This is the whole right-hand column now. A START/TO/CLOSE hint used to sit
-; above it and is gone at Forte's call -- the button that opens the list closes
-; it, and so does B, which is true of every other list in the game.
-	hlcoord 13, 0
-	lb bc, 2, 5
-	call TextBoxBorder
-	hlcoord 14, 1
+	hlcoord 16, 1
 	ld de, MovedexSeenText
 	call PlaceString
 	call CountMovedexSeen
 	ld [wd11e], a
-	hlcoord 15, 2
+	hlcoord 16, 2
 	ld de, wd11e
 	lb bc, 1, 3
 	call PrintNumber
 	ret
 
+; A copy of the Pokedex's DrawPokedexVerticalLine: nine tiles down from hl,
+; alternating between the two halves of the rule. It is copied rather than
+; called because the Pokedex lives in another bank and this is ten bytes.
+Movedex_DrawVerticalLine:
+	ld c, 9 ; height of line
+	ld de, SCREEN_WIDTH
+	ld a, $71 ; vertical line tile
+.loop
+	ld [hl], a
+	add hl, de
+	xor 1 ; toggle between vertical line tile and box tile
+	dec c
+	jr nz, .loop
+	ret
+
 Movedex_PlaceMoveList:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
+; Same window the Pokedex clears for its own list, one column wider: move names
+; run longer than species names and the rule is at column 14 either way.
 	hlcoord 1, 2
-	lb bc, 14, 11
+	lb bc, 14, 12
 	call ClearScreenArea
 	hlcoord 1, 3
 	ld a, [wListScrollOffset]
