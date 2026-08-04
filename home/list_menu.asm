@@ -48,7 +48,7 @@ DisplayListMenuID::
 	ld [wMaxMenuItem], a
 	ld a, 4
 	ld [wTopMenuItemY], a
-	ld a, 5
+	ld a, 4 ; v0.7: one left, with the box
 	ld [wTopMenuItemX], a
 	ld a, [wTempFlag]
 	cp 1
@@ -76,12 +76,12 @@ DisplayListMenuIDLoop::
 	jr z, .notOldManBattle
 .oldManBattle
 	ld a, "▶"
-	ldcoord_a 5, 4 ; place menu cursor in front of first menu entry
+	ldcoord_a 4, 4 ; place menu cursor in front of first menu entry
 	ld c, 20
 	call DelayFrames
 	xor a
 	ld [wCurrentMenuItem], a
-	hlcoord 5, 4
+	hlcoord 4, 4
 	ld a, l
 	ld [wMenuCursorLocation], a
 	ld a, h
@@ -419,8 +419,8 @@ ExitListMenu::
 	ret
 
 PrintListMenuEntries::
-	hlcoord 5, 3
-	lb bc, 9, 14
+	hlcoord 4, 3
+	lb bc, 9, 15
 	call ClearScreenArea
 	ld a, [wListPointer]
 	ld e, a
@@ -443,7 +443,7 @@ PrintListMenuEntries::
 	jr nc, .noCarry
 	inc d
 .noCarry
-	hlcoord 6, 4 ; coordinates of first list entry name
+	hlcoord 5, 4 ; coordinates of first list entry name
 	ld b, 4 ; print 4 names
 .loop
 	ld a, b

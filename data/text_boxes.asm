@@ -10,7 +10,10 @@ TextBoxCoordTable:
 	db MESSAGE_BOX,       0, 12, 19, 17
 	db MENU_TEMPLATE_03,  0,  0, 19, 14
 	db MENU_TEMPLATE_07,  0,  0, 11,  6
-	db LIST_MENU_BOX,     4,  2, 19, 12
+; v0.7: the left edge moved from column 4 to column 3, one tile. Entry names
+; used to run out at 13 characters and TRAINER MANUAL is 14, so it landed on
+; the frame. Everything inside moved with it (see home/list_menu.asm).
+	db LIST_MENU_BOX,     3,  2, 19, 12
 	db MENU_TEMPLATE_10,  7,  0, 19, 17
 	db MON_SPRITE_POPUP,  6,  4, 14, 13
 	db -1 ; end
