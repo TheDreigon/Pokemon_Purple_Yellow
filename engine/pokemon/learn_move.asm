@@ -116,14 +116,22 @@ TryingToLearn:
 	call CopyData
 	callfar FormatMovesString
 	pop hl
+; v0.7: the cursor is zeroed HERE rather than inside the loop, because the loop
+; is re-entered every time the player closes a MOVE INFO card and putting it
+; back on the top move each time would make comparing five of them a chore.
+	xor a
+	ld [wCurrentMenuItem], a
 .loop
 	push hl
 	ld hl, WhichMoveToForgetText
 	call PrintText
-	hlcoord 4, 7
-	lb bc, 4, 14
+; v0.7: five rows, not four, and the box starts a row higher so its foot still
+; lands on row 12 where the text box begins. The fifth row is the move being
+; learned: the choice is between five moves, so the player is shown five.
+	hlcoord 4, 6
+	lb bc, 5, 14
 	call TextBoxBorder
-	hlcoord 6, 8
+	hlcoord 6, 7
 	ld de, wMovesString
 	ldh a, [hUILayoutFlags]
 	set 2, a
@@ -132,19 +140,28 @@ TryingToLearn:
 	ldh a, [hUILayoutFlags]
 	res 2, a
 	ldh [hUILayoutFlags], a
+; the move being learned, placed on its own rather than appended to
+; wMovesString: that buffer is 56 bytes and four twelve-letter names already
+; fill 52 of them.
+	ld a, [wMoveNum]
+	ld [wd11e], a
+	call GetMoveName ; de = wcd6d
+	hlcoord 6, 11
+	call PlaceString
 	ld hl, wTopMenuItemY
-	ld a, 8
+	ld a, 7
 	ld [hli], a ; wTopMenuItemY
 	ld a, 5
 	ld [hli], a ; wTopMenuItemX
-	xor a
-	ld [hli], a ; wCurrentMenuItem
-	inc hl
+	inc hl ; leave wCurrentMenuItem where the player left it
+	inc hl ; wTileBehindCursor
 	ld a, [wNumMovesMinusOne]
+	inc a ; ...plus the move being learned
 	ld [hli], a ; wMaxMenuItem
-	ld a, A_BUTTON | B_BUTTON
+	ld a, A_BUTTON | B_BUTTON | START
 	ld [hli], a ; wMenuWatchedKeys
-	ld [hl], 0 ; wLastMenuItem
+	ld a, [wCurrentMenuItem]
+	ld [hl], a ; wLastMenuItem: the box is redrawn whole, so match the cursor
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
 	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-forget a move
@@ -156,11 +173,22 @@ TryingToLearn:
 	push af
 	call LoadScreenTilesFromBuffer1
 	pop af
-	pop hl
+	pop hl ; hl = the mon's four move bytes
+; v0.7: START opens the MOVE INFO card for whichever of the five is highlighted,
+; the same card START opens on the FIGHT menu and in the MOVEDEX. Deciding
+; which of five moves to drop was the one moment the game demanded the
+; comparison and gave you nothing but the names.
+	bit BIT_START, a
+	jr nz, .showCard
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel
-	push hl
+; The fifth entry is the move being learned, so choosing it means "forget that
+; one" -- which is giving up on it. Same exit as B: the caller asks whether to
+; stop learning and prints "did not learn".
 	ld a, [wCurrentMenuItem]
+	cp NUM_MOVES
+	jr z, .cancel
+	push hl
 	ld c, a
 	ld b, 0
 	add hl, bc
@@ -176,6 +204,28 @@ TryingToLearn:
 	add hl, bc
 	and a
 	ret
+
+.showCard
+	push hl
+	ld a, [wCurrentMenuItem]
+	cp NUM_MOVES
+	jr z, .cardForNewMove
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	jr .gotCardMove
+.cardForNewMove
+	ld a, [wMoveNum]
+.gotCardMove
+	ld [wPlayerSelectedMove], a
+; Buffer 1 still holds the screen LearnMove saved on the way in, and the card
+; does not touch it -- the FIGHT menu wraps it in buffer 2 -- so it can be laid
+; over the top and the screen pulled back afterwards.
+	farcall ShowMoveInfo
+	call LoadScreenTilesFromBuffer1
+	pop hl
+	jp .loop
 ; .hm
 ; 	ld hl, HMCantDeleteText
 ; 	call PrintText
