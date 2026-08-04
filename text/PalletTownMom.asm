@@ -48,3 +48,14 @@ _PalletTownMomGoodbyeText::
 
 	para "And eat something."
 	done
+
+; Indoors: she was waiting, so there is no "wait!" -- she is pleased instead.
+_RedsHouse1FMomGoodbyeManualText::
+	text "MOM: You came to"
+	line "say goodbye."
+
+	para "That's my <PLAYER>."
+
+	para "Then take this"
+	line "with you."
+	done
