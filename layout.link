@@ -258,6 +258,12 @@ ROMX $3D
 	"Battle Engine 8"
 	"Pics 7"
 	"Battle Engine 9"
+	; v0.7: the generated TYPE MATCHUPS pages, ~4 KB. Left floating they landed
+	; in $06 beside "Maps 1" and "Maps 2" and left that bank with 209 bytes --
+	; the fourth time a floating section has picked a map bank. This one holds
+	; no map data, and "Pics 7" does not grow with new species (the pic-bank
+	; ladder in home/pics.asm sends new indices to "Pics 5").
+	"Trainer Manual Types Text"
 ROMX $3E
 	"Surfing Minigame"
 ROMX $3F

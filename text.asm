@@ -313,3 +313,7 @@ INCLUDE "data/text/move_flavor_5.asm"
 SECTION "Trainer Manual Text", ROMX
 
 INCLUDE "data/text/trainer_manual.asm"
+
+SECTION "Trainer Manual Types Text", ROMX
+
+INCLUDE "data/text/trainer_manual_types.asm"
