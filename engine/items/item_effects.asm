@@ -60,7 +60,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; DOME_FOSSIL
 	dw UnusableItem      ; HELIX_FOSSIL
 	dw UnusableItem      ; SECRET_KEY
-	dw UnusableItem
+	dw ItemUseTrainerManual ; TRAINER_MANUAL (v0.7; item $2C, the phantom slot)
 	dw UnusableItem      ; BIKE_VOUCHER
 	dw ItemUseXAccuracy  ; X_ACCURACY
 	dw ItemUseEvoStone   ; LEAF_STONE
@@ -699,6 +699,19 @@ ItemUseTownMap:
 	and a
 	jp nz, ItemUseNotTime
 	farjp DisplayTownMap
+
+; v0.7: USE on the TRAINER MANUAL opens it. The item is in neither
+; UsableItems_CloseMenu nor UsableItems_PartyMenu, so the bag stays where it is
+; and redraws itself from its saved screen when this returns.
+;
+; Refused in battle, the way the TOWN MAP is. The manual is a full-screen
+; takeover and the battle screen is restored from a buffer this would not have
+; filled -- the same reason every other reading item in the game says no there.
+ItemUseTrainerManual:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	farjp ShowTrainerManual
 
 ItemUseBicycle:
 	ld a, [wIsInBattle]

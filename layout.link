@@ -206,6 +206,11 @@ ROMX $2f
 	"BG Map Attributes"
 ROMX $30
 	"bank30"
+	; v0.7: the TRAINER MANUAL's pages. Left floating, the linker put them in
+	; $07 -- next to "Maps 3" and "Maps 4", the banks that grow every time a map
+	; is redrawn. This is the roomiest bank that holds neither map data nor
+	; anything indexed by species, and the manual's text is what grows here.
+	"Trainer Manual Text"
 ROMX $31
 	"Pikachu Cries 6"
 ROMX $32
@@ -233,6 +238,10 @@ ROMX $39
 ROMX $3A
 	"bank3A"
 	"Move Flavor Text 3"
+	; v0.7: the TRAINER MANUAL's screen code, kept out of the map banks for the
+	; same reason its text is. Code and text are split across two banks so that
+	; neither has to be moved when the manual grows.
+	"Trainer Manual"
 ROMX $3B
 	"Battle Engine 10"
 	"Trainer Pics 3"

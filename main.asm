@@ -320,6 +320,14 @@ INCLUDE "engine/menus/movedex.asm"
 INCLUDE "engine/menus/movedex_seen.asm"
 
 
+; v0.7: the TRAINER MANUAL screen, reached with USE on the key item. Floating:
+; it is self-contained menu code with its own tables and has no reason to sit
+; beside anything in particular. Its pages live in "Trainer Manual Text".
+SECTION "Trainer Manual", ROMX
+
+INCLUDE "engine/menus/trainer_manual.asm"
+
+
 SECTION "Itemfinder 1", ROMX
 
 INCLUDE "engine/items/itemfinder.asm"
