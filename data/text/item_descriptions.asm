@@ -625,3 +625,8 @@ _TM55Description::
 _UnusedItemDescription::
 	text "?"
 	prompt
+
+_TrainerManualDescription::
+	text "A book of basics"
+	next "for new trainers."
+	prompt

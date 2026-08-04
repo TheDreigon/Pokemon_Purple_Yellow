@@ -97,7 +97,8 @@ ItemDescriptionPointers:
 	text_end
 	text_far _SecretKeyDescription
 	text_end
-	text_far _UnusedItemDescription
+; v0.7: item $2C, the phantom slot that became the TRAINER MANUAL.
+	text_far _TrainerManualDescription
 	text_end
 	text_far _BikeVoucherDescription
 	text_end

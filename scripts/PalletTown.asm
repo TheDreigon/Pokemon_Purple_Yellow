@@ -32,6 +32,8 @@ PalletTown_ScriptPointers:
 	dw_const PalletTownMomCallsScript,             SCRIPT_PALLETTOWN_MOM_CALLS
 	dw_const PalletTownMomWalksScript,             SCRIPT_PALLETTOWN_MOM_WALKS
 	dw_const PalletTownMomGivesScript,             SCRIPT_PALLETTOWN_MOM_GIVES
+	dw_const PalletTownMomLeavesScript,            SCRIPT_PALLETTOWN_MOM_LEAVES
+	dw_const PalletTownMomHidesScript,             SCRIPT_PALLETTOWN_MOM_HIDES
 
 PalletTownDefaultScript:
 	CheckEvent EVENT_FOLLOWED_OAK_INTO_LAB
@@ -103,15 +105,30 @@ PalletTownTrainerManualCheck:
 	ld [wPalletTownCurScript], a
 	ret
 
-; Put her on the map behind the player and point her at him. Same numbers as
-; Oak's entrance above, because it is the same problem: the sprite has to exist
-; somewhere sensible before FindPathToPlayer can walk it anywhere.
+; The north exit is TWO tiles wide -- columns 10 and 11, both walkable from the
+; edge down to y=4 -- and she comes up the one the player is NOT standing on.
+;
+; 🔴 That is the whole point. Walking her up the player's own column put her on
+; the tile directly behind him, which is where the follower PIKACHU stands: she
+; walked straight over it and it vanished. Beside him, there is nothing to walk
+; over and both of them are on screen for the conversation.
+;
+; SPRITESTATEDATA2_MAPY/MAPX are map coordinates plus four, so y=4 is 8 and the
+; two columns are 14 and 15.
 PalletTownMomCallsScript:
 	ld hl, wSprite04StateData2MapY
-	ld a, 8
-	ld [hli], a ; SPRITESTATEDATA2_MAPY
-	ld a, 14
-	ld [hl], a ; SPRITESTATEDATA2_MAPX
+; 🔴 Row 3, not row 4. Row 4 column 10 is PALLETTOWN_OAK's own tile (see
+; data/maps/objects/PalletTown.asm) -- spawning her there put two objects on
+; one tile and they flickered against each other.
+	ld a, 7 ; map row 3, three tiles below the exit
+	ld [hli], a
+	ld a, [wXCoord]
+	cp 10
+	ld a, 15 ; he is on the left tile, so she takes the right one
+	jr z, .placed
+	ld a, 14 ; and vice versa
+.placed
+	ld [hl], a
 	ld a, HS_PALLET_TOWN_MOM
 	ld [wMissableObjectIndex], a
 	predef ShowObject
@@ -125,20 +142,11 @@ PalletTownMomCallsScript:
 	ld [wPalletTownCurScript], a
 	ret
 
+; A written-out movement rather than FindPathToPlayer: pathfinding aims at the
+; player's tile, and the whole point here is to arrive next to him instead.
 PalletTownMomWalksScript:
 	call Delay3
-	ld a, 0
-	ld [wYCoord], a
-	ld a, 1
-	ldh [hNPCPlayerRelativePosPerspective], a
-	ld a, PALLETTOWN_MOM
-	swap a ; the offset is the sprite index times 16
-	ldh [hNPCSpriteOffset], a
-	predef CalcPositionOfPlayerRelativeToNPC
-	ld hl, hNPCPlayerYDistance
-	dec [hl] ; stop one tile short, or she would walk onto him
-	predef FindPathToPlayer ; into wNPCMovementDirections2
-	ld de, wNPCMovementDirections2
+	ld de, PalletTownMomWalkUpMovement
 	ld a, PALLETTOWN_MOM
 	ldh [hSpriteIndex], a
 	call MoveSprite
@@ -159,13 +167,43 @@ PalletTownMomGivesScript:
 	ld [wJoyIgnore], a
 	ld a, $2
 	ld [wSprite04StateData1MovementStatus], a
-	ld a, SPRITE_FACING_UP
+; She is beside him now, so she turns to face him rather than staring north.
+	ld a, [wXCoord]
+	cp 10
+	ld a, SPRITE_FACING_LEFT ; she is on his right
+	jr z, .facing
+	ld a, SPRITE_FACING_RIGHT
+.facing
 	ld [wSprite04StateData1FacingDirection], a
 	ld a, TEXT_PALLETTOWN_MOM
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID ; hands the manual over and sets the event
-; and she goes back inside, rather than standing in the street for the rest of
-; the game: the flag persists, so a shown object stays shown.
+
+	; trigger the next script
+	ld a, SCRIPT_PALLETTOWN_MOM_LEAVES
+	ld [wPalletTownCurScript], a
+	ret
+
+; She walks back the way she came instead of blinking out of existence. Only
+; then is the object hidden -- the flag persists, so leaving her shown would
+; leave her standing at the town gate for the rest of the game.
+PalletTownMomLeavesScript:
+	ld a, $2
+	ld [wSprite04StateData1MovementStatus], a
+	ld de, PalletTownMomWalkBackMovement
+	ld a, PALLETTOWN_MOM
+	ldh [hSpriteIndex], a
+	call MoveSprite
+
+	; trigger the next script
+	ld a, SCRIPT_PALLETTOWN_MOM_HIDES
+	ld [wPalletTownCurScript], a
+	ret
+
+PalletTownMomHidesScript:
+	ld a, [wd730]
+	bit 0, a
+	ret nz
 	ld a, HS_PALLET_TOWN_MOM
 	ld [wMissableObjectIndex], a
 	predef HideObject
@@ -175,6 +213,19 @@ PalletTownMomGivesScript:
 	ld a, SCRIPT_PALLETTOWN_DEFAULT
 	ld [wPalletTownCurScript], a
 	ret
+
+; Three tiles: from map row 3 up to row 0, which is the row the player is on.
+PalletTownMomWalkUpMovement:
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db -1 ; end
+
+PalletTownMomWalkBackMovement:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db -1 ; end
 
 PalletTownOakHeyWaitScript:
 	ld a, ~(A_BUTTON | B_BUTTON)
