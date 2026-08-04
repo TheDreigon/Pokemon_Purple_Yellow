@@ -406,11 +406,16 @@ StartMenu_Item::
 	jp RedisplayStartMenu
 .choseItem
 ; erase menu cursor (blank each tile in front of an item name)
+;
+; v0.7: column 4, not 5. The list box moved one column left when it was widened
+; for a fourteen-letter name (74cccfa), which took the cursor from column 5 to 4
+; and the names from 6 to 5 -- and this was missed, so opening USE/INFO/TOSS
+; blanked the first letter of every visible item instead of the cursor.
 	ld a, " "
-	ldcoord_a 5, 4
-	ldcoord_a 5, 6
-	ldcoord_a 5, 8
-	ldcoord_a 5, 10
+	ldcoord_a 4, 4
+	ldcoord_a 4, 6
+	ldcoord_a 4, 8
+	ldcoord_a 4, 10
 	call PlaceUnfilledArrowMenuCursor
 	xor a
 	ld [wMenuItemToSwap], a
