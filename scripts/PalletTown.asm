@@ -117,17 +117,18 @@ PalletTownTrainerManualCheck:
 ; two columns are 14 and 15.
 PalletTownMomCallsScript:
 	ld hl, wSprite04StateData2MapY
-; 🔴 Row 3, not row 4. Row 4 column 10 is PALLETTOWN_OAK's own tile (see
-; data/maps/objects/PalletTown.asm) -- spawning her there put two objects on
-; one tile and they flickered against each other.
-	ld a, 7 ; map row 3, three tiles below the exit
+; 🔴 Row SIX. She used to start on row 3, which is inside the visible screen --
+; she did not walk in from off-stage, she blinked into being two tiles from the
+; player. Row 6 is below the bottom edge with the player standing on row 0.
+; (SPRITESTATEDATA2_MAPY/MAPX are map coordinates plus four.)
+;
+; Always column 10: it is the only column walkable the whole way down (11 is
+; blocked at row 5), and it is not PALLETTOWN_OAK's tile, which is (10,4) -- two
+; objects on one square flicker against each other. She steps across into
+; column 11 higher up, where the passage widens, if the player is on 10.
+	ld a, 10 ; map row 6, below the bottom of the screen
 	ld [hli], a
-	ld a, [wXCoord]
-	cp 10
-	ld a, 15 ; he is on the left tile, so she takes the right one
-	jr z, .placed
-	ld a, 14 ; and vice versa
-.placed
+	ld a, 14 ; map column 10
 	ld [hl], a
 	ld a, HS_PALLET_TOWN_MOM
 	ld [wMissableObjectIndex], a
@@ -146,7 +147,14 @@ PalletTownMomCallsScript:
 ; player's tile, and the whole point here is to arrive next to him instead.
 PalletTownMomWalksScript:
 	call Delay3
+; Which lane she ends in decides the route: straight up if the player is on the
+; right tile, or up-across-up to reach the left-hand one if he is on 10.
 	ld de, PalletTownMomWalkUpMovement
+	ld a, [wXCoord]
+	cp 10
+	jr nz, .gotRoute
+	ld de, PalletTownMomWalkUpAcrossMovement
+.gotRoute
 	ld a, PALLETTOWN_MOM
 	ldh [hSpriteIndex], a
 	call MoveSprite
@@ -191,6 +199,11 @@ PalletTownMomLeavesScript:
 	ld a, $2
 	ld [wSprite04StateData1MovementStatus], a
 	ld de, PalletTownMomWalkBackMovement
+	ld a, [wXCoord]
+	cp 10
+	jr nz, .gotRoute
+	ld de, PalletTownMomWalkBackAcrossMovement
+.gotRoute
 	ld a, PALLETTOWN_MOM
 	ldh [hSpriteIndex], a
 	call MoveSprite
@@ -214,14 +227,43 @@ PalletTownMomHidesScript:
 	ld [wPalletTownCurScript], a
 	ret
 
-; Three tiles: from map row 3 up to row 0, which is the row the player is on.
+; From map row 6 up to row 0, in column 10, when the player is on column 11.
 PalletTownMomWalkUpMovement:
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
 	db NPC_MOVEMENT_UP
 	db NPC_MOVEMENT_UP
 	db NPC_MOVEMENT_UP
 	db -1 ; end
 
+; The same climb, stepping into column 11 at row 2 where the passage widens,
+; when the player is standing on column 10. Column 11 is a wall at row 5, which
+; is why the crossing happens up here and not at the bottom.
+PalletTownMomWalkUpAcrossMovement:
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db -1 ; end
+
 PalletTownMomWalkBackMovement:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db -1 ; end
+
+PalletTownMomWalkBackAcrossMovement:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_LEFT
+	db NPC_MOVEMENT_DOWN
 	db NPC_MOVEMENT_DOWN
 	db NPC_MOVEMENT_DOWN
 	db NPC_MOVEMENT_DOWN
