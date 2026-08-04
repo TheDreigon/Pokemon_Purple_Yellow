@@ -764,7 +764,7 @@ PikachuEvosMoves:
 ; DOUBLE_EDGE L60 last.
 	db  3, TAIL_WHIP
 	db  5, NUZZLE
-	db 10, QUICK_ATTACK
+	db  6, QUICK_ATTACK
 	db 12, THUNDERSHOCK
 	db 15, THUNDER_WAVE
 	db 18, FAIRY_WIND

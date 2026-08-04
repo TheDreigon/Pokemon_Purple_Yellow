@@ -188,6 +188,35 @@ TryingToLearn:
 	ld a, [wCurrentMenuItem]
 	cp NUM_MOVES
 	jr z, .cancel
+; v0.7: confirm before dropping it. The move went the instant the cursor was on
+; it and A was pressed, with no way back from a mis-press -- and this is the one
+; choice in the game that cannot be undone afterwards.
+	push hl
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ld [wd11e], a
+	pop hl
+	push hl ; the mon's four move bytes
+	push bc ; the row the player chose
+	call GetMoveName ; names the move being FORGOTTEN, into wcd6d
+	ld hl, ConfirmForgetMoveText
+	call PrintText
+	hlcoord 14, 7
+	lb bc, 8, 15
+	ld a, TWO_OPTION_MENU
+	ld [wTextBoxID], a
+	call DisplayTextBoxID ; yes/no menu -- it lands on wCurrentMenuItem
+	ld a, [wCurrentMenuItem] ; 0 = yes
+; 🔴 pop bc / pop hl and NOT pop af: popping af would restore F along with A and
+; throw the answer away. (The MOVEDEX shipped exactly that bug once.)
+	pop bc
+	pop hl
+	and a
+	jr nz, .keptMove
+	ld a, c
+	ld [wCurrentMenuItem], a ; the yes/no overwrote the row; put it back
 	push hl
 	ld c, a
 	ld b, 0
@@ -204,6 +233,12 @@ TryingToLearn:
 	add hl, bc
 	and a
 	ret
+
+; Said no: put the cursor back on the row they were looking at and redraw.
+.keptMove
+	ld a, c
+	ld [wCurrentMenuItem], a
+	jp .loop
 
 .showCard
 	push hl
@@ -243,6 +278,10 @@ LearnedMove1Text:
 
 WhichMoveToForgetText:
 	text_far _WhichMoveToForgetText
+	text_end
+
+ConfirmForgetMoveText:
+	text_far _ConfirmForgetMoveText
 	text_end
 
 AbandonLearningText:

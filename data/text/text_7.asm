@@ -106,6 +106,16 @@ _WhichMoveToForgetText::
 	next "be forgotten?"
 	done
 
+; v0.7: forgetting a move used to happen the instant it was chosen, with no way
+; back from a mis-press. wcd6d, not wStringBuffer: that one holds the move being
+; LEARNED all the way through, and this names the one being dropped.
+_ConfirmForgetMoveText::
+	text "Forget"
+	line "@"
+	text_ram wcd6d
+	text "?"
+	done
+
 _AbandonLearningText::
 	text "Abandon learning"
 	line "@"
