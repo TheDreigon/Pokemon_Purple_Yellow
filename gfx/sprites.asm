@@ -67,7 +67,6 @@ SilphWorkerFSprite::     INCBIN "gfx/sprites/silph_worker_f.2bpp"
 MiddleAgedWomanSprite::  INCBIN "gfx/sprites/middle_aged_woman.2bpp"
 BrunetteGirlSprite::     INCBIN "gfx/sprites/brunette_girl.2bpp"
 LanceSprite::            INCBIN "gfx/sprites/lance.2bpp"
-MomSprite::              INCBIN "gfx/sprites/mom.2bpp"
 GameboyKidSprite::       INCBIN "gfx/sprites/gameboy_kid.2bpp"
 FairySprite::            INCBIN "gfx/sprites/fairy.2bpp"
 AgathaSprite::           INCBIN "gfx/sprites/agatha.2bpp"
@@ -77,6 +76,11 @@ SeelSprite::             INCBIN "gfx/sprites/seel.2bpp"
 
 
 SECTION "NPC Sprites 3", ROMX
+
+; v0.7: MomSprite moved here from "NPC Sprites 2". She grew from 12 tiles to
+; 24 when she was given a walk cycle, and bank 5 had 19 bytes left. The sheet
+; table stores BANK() per sprite, so a sprite can live in any of these banks.
+MomSprite::              INCBIN "gfx/sprites/mom.2bpp"
 
 OfficerJennySprite::     INCBIN "gfx/sprites/officer_jenny.2bpp"
 PikachuSprite::          INCBIN "gfx/sprites/pikachu.2bpp"
