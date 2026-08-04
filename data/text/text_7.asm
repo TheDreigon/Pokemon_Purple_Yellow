@@ -107,11 +107,30 @@ _WhichMoveToForgetText::
 	done
 
 ; v0.7: forgetting a move used to happen the instant it was chosen, with no way
-; back from a mis-press. wcd6d, not wStringBuffer: that one holds the move being
-; LEARNED all the way through, and this names the one being dropped.
+; back from a mis-press. Both moves are named, because the whole point of the
+; five-move window is the comparison and the confirmation should not throw it
+; away.
+;
+; wStringBuffer holds the move being LEARNED for the length of the flow (the
+; callers fill it before predef LearnMove and the TM path saves it around the
+; party menu); GetMoveName writes the one being dropped into wcd6d and leaves
+; wStringBuffer alone -- which the shipped game already relies on, since
+; "<MON> learned X!" prints from wStringBuffer after "forgot Y!" printed from
+; wcd6d.
+;
+; ⚠️ Both lines land on EXACTLY 18 tiles at the longest move name (12), which is
+; the whole budget. "Forget <OLD> and learn <NEW>?" -- the phrasing this is
+; standing in for -- needs 19 on its first line alone.
+; 🔴 text_start before the line break is load-bearing. `line` is only the
+; newline CHARACTER (db "<LINE>"), and after a text_ram the processor reads the
+; next byte as a COMMAND -- so a bare `line` there is not a command id, the text
+; stops dead, and the second line never appears. text_start reopens a character
+; run, which is what _ForgotAndText does for the same reason.
 _ConfirmForgetMoveText::
-	text "Forget"
-	line "@"
+	text "Learn @"
+	text_ram wStringBuffer
+	text_start
+	line "over @"
 	text_ram wcd6d
 	text "?"
 	done
