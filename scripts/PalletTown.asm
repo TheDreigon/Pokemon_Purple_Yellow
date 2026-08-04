@@ -4,6 +4,12 @@ PalletTown_Script:
 	SetEvent EVENT_PALLET_AFTER_GETTING_POKEBALLS
 .next
 	call EnableAutoTextBoxDrawing
+; v0.7: checked HERE, before the dispatch, and not inside PalletTownDefaultScript.
+; After the intro this map does not sit on the DEFAULT state -- it rests on
+; SCRIPT_PALLETTOWN_DAISY -- so a check hidden inside DEFAULT never runs again
+; for the rest of the game. Found by walking a save out of the north exit and
+; watching nothing happen.
+	call PalletTownTrainerManualCheck
 	ld hl, PalletTown_ScriptPointers
 	ld a, [wPalletTownCurScript]
 	jp CallFunctionInTable
@@ -20,6 +26,12 @@ PalletTown_ScriptPointers:
 	dw_const PalletTownPlayerFollowsOakScript,     SCRIPT_PALLETTOWN_PLAYER_FOLLOWS_OAK
 	dw_const PalletTownDaisyScript,                SCRIPT_PALLETTOWN_DAISY
 	dw_const PalletTownNoopScript,                 SCRIPT_PALLETTOWN_NOOP
+; v0.7: the TRAINER MANUAL scene, appended so no existing state is renumbered
+; -- wPalletTownCurScript is inside the saved block and an old save can be
+; sitting on any of the ids above.
+	dw_const PalletTownMomCallsScript,             SCRIPT_PALLETTOWN_MOM_CALLS
+	dw_const PalletTownMomWalksScript,             SCRIPT_PALLETTOWN_MOM_WALKS
+	dw_const PalletTownMomGivesScript,             SCRIPT_PALLETTOWN_MOM_GIVES
 
 PalletTownDefaultScript:
 	CheckEvent EVENT_FOLLOWED_OAK_INTO_LAB
@@ -48,6 +60,110 @@ PalletTownDefaultScript:
 
 	; trigger the next script
 	ld a, SCRIPT_PALLETTOWN_OAK_HEY_WAIT
+	ld [wPalletTownCurScript], a
+	ret
+
+; v0.7: the TRAINER MANUAL. Once Oak is done with this map his intercept above
+; returns immediately, which leaves the north exit free -- and the north exit is
+; the right tile for it: it is the moment the player is walking out of town for
+; good, and it is the same tile Oak watches, so a player who never goes home
+; still cannot leave without the manual.
+;
+; The player's mother is hidden the rest of the time (HS_PALLET_TOWN_MOM), so
+; nothing here runs twice: the event is set by her text script when she hands it
+; over, and this returns on it.
+PalletTownTrainerManualCheck:
+	ld a, [wPalletTownCurScript]
+	cp SCRIPT_PALLETTOWN_MOM_CALLS
+	ret nc ; her scene is already running; do not restart it every step
+	CheckEvent EVENT_GOT_TRAINER_MANUAL
+	ret nz
+	CheckEvent EVENT_FOLLOWED_OAK_INTO_LAB
+	ret z ; the intro owns this tile until Oak has walked the player to the lab
+	CheckEvent EVENT_GOT_POKEDEX
+	ret z ; the manual is a POKéDEX-holder's book; it waits until Oak's errand
+	ld a, [wYCoord]
+	and a ; north exit?
+	ret nz
+	xor a
+	ldh [hJoyHeld], a
+	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld [wJoyIgnore], a
+	ld a, PLAYER_DIR_UP
+	ld [wPlayerMovingDirection], a
+	ld a, SCRIPT_PALLETTOWN_MOM_CALLS
+	ld [wPalletTownCurScript], a
+	ret
+
+; Put her on the map behind the player and point her at him. Same numbers as
+; Oak's entrance above, because it is the same problem: the sprite has to exist
+; somewhere sensible before FindPathToPlayer can walk it anywhere.
+PalletTownMomCallsScript:
+	ld hl, wSprite04StateData2MapY
+	ld a, 8
+	ld [hli], a ; SPRITESTATEDATA2_MAPY
+	ld a, 14
+	ld [hl], a ; SPRITESTATEDATA2_MAPX
+	ld a, HS_PALLET_TOWN_MOM
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+	ld a, $2
+	ld [wSprite04StateData1MovementStatus], a
+	ld a, SPRITE_FACING_UP
+	ld [wSprite04StateData1FacingDirection], a
+
+	; trigger the next script
+	ld a, SCRIPT_PALLETTOWN_MOM_WALKS
+	ld [wPalletTownCurScript], a
+	ret
+
+PalletTownMomWalksScript:
+	call Delay3
+	ld a, 0
+	ld [wYCoord], a
+	ld a, 1
+	ldh [hNPCPlayerRelativePosPerspective], a
+	ld a, PALLETTOWN_MOM
+	swap a ; the offset is the sprite index times 16
+	ldh [hNPCSpriteOffset], a
+	predef CalcPositionOfPlayerRelativeToNPC
+	ld hl, hNPCPlayerYDistance
+	dec [hl] ; stop one tile short, or she would walk onto him
+	predef FindPathToPlayer ; into wNPCMovementDirections2
+	ld de, wNPCMovementDirections2
+	ld a, PALLETTOWN_MOM
+	ldh [hSpriteIndex], a
+	call MoveSprite
+
+	; trigger the next script
+	ld a, SCRIPT_PALLETTOWN_MOM_GIVES
+	ld [wPalletTownCurScript], a
+	ret
+
+PalletTownMomGivesScript:
+; wd730 bit 0 is "a sprite is being walked by a script"; MoveSprite clears it
+; when she arrives. 🔴 Never talk before it clears -- a script that waits on a
+; sprite which cannot move is exactly the Oak's Lab soft-lock.
+	ld a, [wd730]
+	bit 0, a
+	ret nz
+	ld a, ~(A_BUTTON | B_BUTTON)
+	ld [wJoyIgnore], a
+	ld a, $2
+	ld [wSprite04StateData1MovementStatus], a
+	ld a, SPRITE_FACING_UP
+	ld [wSprite04StateData1FacingDirection], a
+	ld a, TEXT_PALLETTOWN_MOM
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID ; hands the manual over and sets the event
+; and she goes back inside, rather than standing in the street for the rest of
+; the game: the flag persists, so a shown object stays shown.
+	ld a, HS_PALLET_TOWN_MOM
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	xor a
+	ld [wJoyIgnore], a
+	ld a, SCRIPT_PALLETTOWN_DEFAULT
 	ld [wPalletTownCurScript], a
 	ret
 
@@ -265,7 +381,13 @@ PalletTownMomText:
 	call GiveItem
 	jr nc, .bagFull
 	SetEvent EVENT_GOT_TRAINER_MANUAL
+; Two PrintText calls, not one chained block. Chaining a `text_far` straight
+; into a second one ran the two together mid-box: the receive line's own
+; terminator ended the run, and the explanation started printing into whatever
+; was left on screen. text_promptbutton closes the first properly.
 	ld hl, .GotItText
+	call PrintText
+	ld hl, .ExplainText
 	jr .print
 .bagFull
 	ld hl, .BagFullText
@@ -283,6 +405,10 @@ PalletTownMomText:
 .GotItText
 	text_far _PalletTownMomGotManualText
 	sound_get_key_item
+	text_promptbutton
+	text_end
+
+.ExplainText
 	text_far _PalletTownMomExplainText
 	text_end
 
