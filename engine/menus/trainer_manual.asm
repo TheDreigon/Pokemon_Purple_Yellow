@@ -675,6 +675,39 @@ TrainerManual_GetPageText:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
+; fall through
+
+; INPUT: hl = a page. OUTPUT: hl, replaced by its hard-mode twin if it has one
+; and the game is being played on hard. Clobbers bc and de; every caller has
+; already put bc down.
+TrainerManual_SwapForDifficulty:
+	ld a, [wDifficulty]
+	and a
+	ret z
+	ld d, h
+	ld e, l
+	ld hl, TrainerManualHardPages
+.loop
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	or c
+	ret z ; the list ended without a match
+	ld a, c
+	cp e
+	jr nz, .next
+	ld a, b
+	cp d
+	jr z, .found
+.next
+	inc hl ; past the twin
+	inc hl
+	jr .loop
+.found
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
 	ret
 
 ; INPUT: b = page, c = chapter. OUTPUT: a = the section that owns it, which is
@@ -844,14 +877,16 @@ TrainerManualChapter1Pages:
 	dw ManualPage_1_4, ManualPage_1_5
 
 TrainerManualChapter2Sections:
-	db 4
+	db 5
 	manual_section TrainerManualSection2_1, 0
 	manual_section TrainerManualSection2_2, 1
 	manual_section TrainerManualSection2_3, 2
 	manual_section TrainerManualSection2_4, 3
+	manual_section TrainerManualSection2_5, 4
 TrainerManualChapter2Pages:
-	db 4
-	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
+	db 5
+	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3
+	dw ManualPage_2_4, ManualPage_2_5
 
 TrainerManualChapter3Sections:
 	db 4
@@ -889,30 +924,33 @@ TrainerManualChapter5Pages:
 	dw ManualPage_5_7, ManualPage_5_8, ManualPage_5_9
 
 TrainerManualChapter6Sections:
-	db 2
+	db 3
 	manual_section TrainerManualSection6_1, 0
 	manual_section TrainerManualSection6_2, 1
+	manual_section TrainerManualSection6_3, 2
 TrainerManualChapter6Pages:
-	db 2
-	dw ManualPage_6_1, ManualPage_6_2
+	db 3
+	dw ManualPage_6_1, ManualPage_6_2, ManualPage_6_3
 
 TrainerManualChapter7Sections:
-	db 3
+	db 4
 	manual_section TrainerManualSection7_1, 0
 	manual_section TrainerManualSection7_2, 1
 	manual_section TrainerManualSection7_3, 2
+	manual_section TrainerManualSection7_4, 3
 TrainerManualChapter7Pages:
-	db 3
-	dw ManualPage_7_1, ManualPage_7_2, ManualPage_7_3
+	db 4
+	dw ManualPage_7_1, ManualPage_7_2, ManualPage_7_3, ManualPage_7_4
 
 TrainerManualChapter9Sections:
-	db 3
+	db 4
 	manual_section TrainerManualSection9_1, 0
 	manual_section TrainerManualSection9_2, 1
 	manual_section TrainerManualSection9_3, 2
+	manual_section TrainerManualSection9_4, 3
 TrainerManualChapter9Pages:
-	db 3
-	dw ManualPage_9_1, ManualPage_9_2, ManualPage_9_3
+	db 4
+	dw ManualPage_9_1, ManualPage_9_2, ManualPage_9_3, ManualPage_9_4
 
 TrainerManualSection1_1:
 	db "ORDERING ITEMS@"
@@ -926,12 +964,14 @@ TrainerManualSection1_5:
 	db "THE MOVEDEX@"
 
 TrainerManualSection2_1:
-	db "WILD #MON@"
+	db "WHERE THEY LIVE@"
 TrainerManualSection2_2:
-	db "CATCHING@"
+	db "SAFE PATHS@"
 TrainerManualSection2_3:
-	db "#MON MARTS@"
+	db "CATCHING@"
 TrainerManualSection2_4:
+	db "#MON MARTS@"
+TrainerManualSection2_5:
 	db "REMEMBERING MOVES@"
 
 TrainerManualSection3_1:
@@ -971,19 +1011,25 @@ TrainerManualSection6_1:
 	db "ACCURACY@"
 TrainerManualSection6_2:
 	db "CRITICAL HITS@"
+TrainerManualSection6_3:
+	db "FOCUS ENERGY@"
 
 TrainerManualSection7_1:
 	db "THE ROSTER@"
 TrainerManualSection7_2:
 	db "BODY OR MIND@"
 TrainerManualSection7_3:
-	db "WHICH IS WHICH@"
+	db "PHYSICAL TYPES@"
+TrainerManualSection7_4:
+	db "SPECIAL TYPES@"
 
 TrainerManualSection9_1:
 	db "WHICH ARE YOU ON@"
 TrainerManualSection9_2:
-	db "THE RULES@"
+	db "TRAINER FIGHTS@"
 TrainerManualSection9_3:
+	db "EXPERIENCE@"
+TrainerManualSection9_4:
 	db "WHAT A BOSS GETS@"
 
 ; The text lives in its own bank; these are the near stubs that reach it, the
@@ -1004,6 +1050,7 @@ ENDM
 	manual_page ManualPage_2_2
 	manual_page ManualPage_2_3
 	manual_page ManualPage_2_4
+	manual_page ManualPage_2_5
 
 	manual_page ManualPage_3_1
 	manual_page ManualPage_3_2
@@ -1012,6 +1059,7 @@ ENDM
 
 	manual_page ManualPage_4_1
 	manual_page ManualPage_4_2
+	manual_page ManualPage_4_2_Hard
 
 	manual_page ManualPage_5_1
 	manual_page ManualPage_5_2
@@ -1025,14 +1073,25 @@ ENDM
 
 	manual_page ManualPage_6_1
 	manual_page ManualPage_6_2
+	manual_page ManualPage_6_3
 
 	manual_page ManualPage_7_1
 	manual_page ManualPage_7_2
 	manual_page ManualPage_7_3
+	manual_page ManualPage_7_4
 
 	manual_page ManualPage_9_1
 	manual_page ManualPage_9_2
 	manual_page ManualPage_9_3
+	manual_page ManualPage_9_4
+
+; A page with a hard-mode twin. The PP page is the second place in the game to
+; read the difficulty and tell the truth for each setting -- the Viridian PP
+; sign was the first. A table rather than a test on the page index, so nothing
+; here has to know which chapter it is.
+TrainerManualHardPages:
+	dw ManualPage_4_2, ManualPage_4_2_Hard
+	dw 0 ; end
 
 ; The TYPE MATCHUPS chapter: section table, page table and near stubs, all
 ; generated from data/types/type_matchups.asm by .claude/manual_types_build.py.
