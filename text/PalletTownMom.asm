@@ -32,6 +32,14 @@ _PalletTownMomExplainText::
 	para "But when you're"
 	line "stuck, it will"
 	cont "tell you why."
+
+	para "Stay safe out"
+	line "there, and come"
+	cont "home whenever you"
+	cont "like."
+
+	para "I love you,"
+	line "<PLAYER>."
 	done
 
 _PalletTownMomBagFullText::
