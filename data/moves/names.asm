@@ -22,7 +22,7 @@ MoveNames::
 ; === DRAGON ===
 	li "DRAGON RAGE"
 	li "DRAGON CLAW"
-	li "DRAGON BREATH"
+	li "DRAGONBREATH"
 	li "DRAGON SLAM"
 	li "OUTRAGE"
 	li "HYPER BEAM"
@@ -37,7 +37,7 @@ MoveNames::
 ; === FAIRY ===
 	li "DOUBLESLAP"
 	li "FAIRY WIND"
-	li "DRAINING KISS"
+	li "DRAININGKISS"
 	li "DAZZLE GLEAM"
 	li "PLAY ROUGH"
 	li "LOVELY KISS"
@@ -220,7 +220,7 @@ MoveNames::
 	li "FAKE TEARS"
 	li "METAL SOUND"
 	li "SCREECH"
-	li "EERIE IMPULSE"
+	li "EERIEIMPULSE"
 	li "SCARY FACE"
 	li "HINDER"
 	li "STRING SHOT"

@@ -56,9 +56,32 @@ ShowMoveInfo::
 	lb bc, 9, 18
 	call TextBoxBorder
 
-; name
+; name, centred over the card's 18-wide interior (columns 1-18)
+;
+; Everything else on the card is a labelled row read left to right; the name is
+; the heading, and left-aligning it left a 12-column hole beside the shortest
+; names. Centring costs the measuring loop below and no bytes of layout.
 	call GetMoveName ; de = wcd6d
-	hlcoord 1, 1
+	push de
+	ld h, d
+	ld l, e
+	ld c, 0
+.measure
+	ld a, [hli]
+	cp "@"
+	jr z, .measured
+	inc c
+	jr .measure
+.measured
+	ld a, 18
+	sub c
+	srl a ; (18 - length) / 2 columns of padding on the left
+	inc a ; the interior starts at column 1
+	ld c, a
+	ld b, 0
+	hlcoord 0, 1
+	add hl, bc
+	pop de
 	call PlaceString
 
 ; type
