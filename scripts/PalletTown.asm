@@ -239,11 +239,60 @@ PalletTown_TextPointers:
 	dw_const PalletTownOakText,              TEXT_PALLETTOWN_OAK
 	dw_const PalletTownGirlText,             TEXT_PALLETTOWN_GIRL
 	dw_const PalletTownFisherText,           TEXT_PALLETTOWN_FISHER
+; v0.7: the MOTHER goes here and not at the end. Text ids are positional and
+; the object_events must own the low ones -- def_warps_to asserts that a
+; bg_event never lands on an id an object could have used -- so a fourth object
+; takes id 4 and every sign below moves up one.
+	dw_const PalletTownMomText,              TEXT_PALLETTOWN_MOM
 	dw_const PalletTownOaksLabSignText,      TEXT_PALLETTOWN_OAKSLAB_SIGN
 	dw_const PalletTownSignText,             TEXT_PALLETTOWN_SIGN
 	dw_const PalletTownPlayersHouseSignText, TEXT_PALLETTOWN_PLAYERSHOUSE_SIGN
 	dw_const PalletTownRivalsHouseSignText,  TEXT_PALLETTOWN_RIVALSHOUSE_SIGN
 	dw_const PalletTownOakComeWithMe,        TEXT_PALLETTOWN_OAK_COME_WITH_ME
+
+; The player's MOTHER, out in the street. She is hidden until the TRAINER
+; MANUAL scene shows her, so this only ever runs during it.
+;
+; The give is guarded by the event and the event is only set on success, the
+; way the Trainer School's TOWN MAP is: a full bag must not consume the gift.
+PalletTownMomText:
+	text_asm
+	CheckEvent EVENT_GOT_TRAINER_MANUAL
+	jr nz, .alreadyGiven
+	ld hl, .CaughtYouText
+	call PrintText
+	lb bc, TRAINER_MANUAL, 1
+	call GiveItem
+	jr nc, .bagFull
+	SetEvent EVENT_GOT_TRAINER_MANUAL
+	ld hl, .GotItText
+	jr .print
+.bagFull
+	ld hl, .BagFullText
+	jr .print
+.alreadyGiven
+	ld hl, .GoodbyeText
+.print
+	call PrintText
+	jp TextScriptEnd
+
+.CaughtYouText
+	text_far _PalletTownMomCaughtYouText
+	text_end
+
+.GotItText
+	text_far _PalletTownMomGotManualText
+	sound_get_key_item
+	text_far _PalletTownMomExplainText
+	text_end
+
+.BagFullText
+	text_far _PalletTownMomBagFullText
+	text_end
+
+.GoodbyeText
+	text_far _PalletTownMomGoodbyeText
+	text_end
 
 PalletTownOakText:
 	text_asm

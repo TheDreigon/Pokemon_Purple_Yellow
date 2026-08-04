@@ -45,7 +45,7 @@ ItemPrices::
 	bcd3 0     ; DOME_FOSSIL
 	bcd3 0     ; HELIX_FOSSIL
 	bcd3 0     ; SECRET_KEY
-	bcd3 0     ; ITEM_2C
+	bcd3 0     ; TRAINER_MANUAL (not for sale)
 	bcd3 0     ; BIKE_VOUCHER
 	bcd3 3000 ; bcd3 3000  ; X_ACCURACY
 	bcd3 3000  ; LEAF_STONE  (was 2100; matches other stones)

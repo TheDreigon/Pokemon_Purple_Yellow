@@ -103,7 +103,11 @@
 	const_skip
 	const EVENT_BEAT_POKEMONTOWER_7_TRAINER_0
 	const EVENT_BEAT_POKEMONTOWER_7_TRAINER_1
-	const EVENT_BEAT_POKEMONTOWER_7_TRAINER_2
+; v0.7: recycled. NUM_EVENTS cannot grow -- there is a fixed ORG in WRAM right
+; after wEventFlags, so adding one fails the link -- and this slot was one of
+; only four never referenced anywhere: Pokemon Tower 7F has two trainers, not
+; three, so nothing has ever set it and no save can carry it as 1.
+	const EVENT_GOT_TRAINER_MANUAL
 	const_skip 3
 	const EVENT_RESCUED_MR_FUJI_2
 	const_skip 16

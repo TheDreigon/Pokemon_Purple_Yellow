@@ -6,6 +6,7 @@ DEF SHOW EQU $15
 
 	const_def
 	const HS_PALLET_TOWN_OAK               ; 00
+	const HS_PALLET_TOWN_MOM               ; 01
 	const HS_LYING_OLD_MAN                 ; 01
 	const HS_OLD_MAN_1                     ; 02
 	const HS_OLD_MAN_2                     ; 03
@@ -260,7 +261,10 @@ DEF SHOW EQU $15
 	const HS_SEAFOAM_ISLANDS_B4F_WEEBRA ; Weebra self-insert at Articuno's tile (post-Articuno + post-League)
 	const HS_DAISY_SITTING_COPY            ; F5
 	const HS_DAISY_WALKING_COPY            ; F6
-	const HS_TOWN_MAP_COPY                 ; F7
+; v0.7: HS_TOWN_MAP_COPY was here. These three name a vanilla DUPLICATE of the
+; Blue's House block that nothing points at (MapHSPointers sends BLUES_HOUSE to
+; the real one), so the third row was the array's only spare -- and it paid for
+; HS_PALLET_TOWN_MOM at index 01. The array is still exactly 256.
 	const HS_LORELEISROOM_LORELEI
 	const HS_LORELEISROOM_LORELEI_REMATCH
 	const HS_BRUNOSROOM_BRUNO

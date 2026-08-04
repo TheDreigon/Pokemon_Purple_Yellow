@@ -266,6 +266,13 @@ MissableObjects:
 
 PalletTownHS:
 	db PALLET_TOWN, PALLETTOWN_OAK, HIDE
+; v0.7: the player's MOTHER, for the TRAINER MANUAL scene. It has to live HERE,
+; inside Pallet's block, not in a spare row elsewhere: MarkTownVisitedAndLoad-
+; MissableObjects looks the map up in MapHSPointers and then walks forward until
+; the map changes, so a map's rows must be contiguous. Paid for by deleting a
+; row from the dead BluesHouseHSCopy block at the end of the array, which keeps
+; the total at 256 -- see hide_show_constants.asm.
+	db PALLET_TOWN, PALLETTOWN_MOM,  HIDE
 ViridianCityHS:
 	db VIRIDIAN_CITY, VIRIDIANCITY_OLD_MAN_SLEEPY, SHOW
 	db VIRIDIAN_CITY, VIRIDIANCITY_OLD_MAN,        HIDE
@@ -593,9 +600,13 @@ SeafoamIslandsB4FHS:
 	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_TM_ICE_BEAM, SHOW
 	db SEAFOAM_ISLANDS_B4F, SEAFOAM_ISLANDS_WEEBRA,     HIDE
 BluesHouseHSCopy: ; unreferenced
+; v0.7: this block is a vanilla duplicate -- MapHSPointers points BLUES_HOUSE at
+; the real BluesHouseHS above, and nothing points here. Its third row paid for
+; the mother's row in Pallet's block, so the array is still exactly 256 and no
+; live object lost its slot. The two remaining rows stay as inert padding rather
+; than being deleted too: every index after them would move for nothing.
 	db BLUES_HOUSE, BLUESHOUSE_DAISY1,   SHOW
 	db BLUES_HOUSE, BLUESHOUSE_DAISY2,   HIDE
-	db BLUES_HOUSE, BLUESHOUSE_TOWN_MAP, SHOW
 LoreleisRoomHS:
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI,   		SHOW
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI_REMATCH, HIDE
