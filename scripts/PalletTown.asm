@@ -91,6 +91,14 @@ PalletTownTrainerManualCheck:
 	ld [wJoyIgnore], a
 	ld a, PLAYER_DIR_UP
 	ld [wPlayerMovingDirection], a
+; The same sting Oak stops the player with at the start of the game. It is the
+; game's "someone is about to catch you" cue and this is the other time that
+; happens; PlayDefaultMusic puts the town back afterwards.
+	call StopAllMusic
+	ld a, BANK(Music_MeetProfOak)
+	ld c, a
+	ld a, MUSIC_MEET_PROF_OAK
+	call PlayMusic
 	ld a, SCRIPT_PALLETTOWN_MOM_CALLS
 	ld [wPalletTownCurScript], a
 	ret
@@ -161,6 +169,7 @@ PalletTownMomGivesScript:
 	ld a, HS_PALLET_TOWN_MOM
 	ld [wMissableObjectIndex], a
 	predef HideObject
+	call PlayDefaultMusic
 	xor a
 	ld [wJoyIgnore], a
 	ld a, SCRIPT_PALLETTOWN_DEFAULT

@@ -12,7 +12,7 @@ _PalletTownMomCaughtYouText::
 	line "Wait!"
 
 	para "You were going to"
-	line "walk out of KANTO"
+	line "go explore KANTO"
 	cont "without this."
 	done
 
