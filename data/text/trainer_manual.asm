@@ -198,9 +198,10 @@ _ManualPage_4_2::
 	next "full health each"
 	next "turn."
 	next ""
-	next "BURN HEAL or a"
-	next "FULL HEAL clears"
-	next "it."
+	next "It stays after the"
+	next "battle. BURN HEAL"
+	next "or a FULL HEAL"
+	next "clears it."
 	done
 
 _ManualPage_4_3::
@@ -222,7 +223,9 @@ _ManualPage_4_4::
 	next "#MON still for"
 	next "two to five turns."
 	next ""
-	next "An AWAKENING or a"
+	next "It stays after the"
+	next "battle. An"
+	next "AWAKENING or a"
 	next "FULL HEAL wakes"
 	next "them early."
 	done
