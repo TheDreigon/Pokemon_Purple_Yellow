@@ -473,6 +473,9 @@ CeladonCityHiddenObjects:
 
 CeladonHotelHiddenObjects:
 	hidden_object  0,  4, SPRITE_FACING_LEFT, PrintBenchGuyText
+; The hotel had no PC. It already uses the POKECENTER tileset, so the PC
+; block was there to be placed and only ever needed putting on the map.
+	hidden_object 11,  3, SPRITE_FACING_UP, OpenPokemonCenterPC
 	db -1 ; end
 
 CeladonMansion2HiddenObjects:

@@ -4489,6 +4489,7 @@ IgnoredOrdersText:
 	text_end
 
 ; sets b, c, d, and e for the CalculateDamage routine in the case of an attack by the player mon
+
 GetDamageVarsForPlayerAttack:
 	xor a
 	ld hl, wDamage ; damage to eventually inflict, initialise to zero
@@ -4519,8 +4520,7 @@ GetDamageVarsForPlayerAttack:
 	bit HAS_REFLECT_UP, a ; check for Reflect
 	jr z, .physicalAttackCritCheck
 ; if the enemy has used Reflect, double the enemy's defense
-	sla c
-	rl b
+	call DoubleStatCapped
 .physicalAttackCritCheck
 	ld hl, wBattleMonAttack
 	ld a, [wCriticalHitOrOHKO]
@@ -4549,10 +4549,7 @@ GetDamageVarsForPlayerAttack:
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
 	jr z, .specialAttackCritCheck
 ; if the enemy has used Light Screen, double the enemy's special
-	sla c
-	rl b
-; reflect and light screen boosts do not cap the stat at MAX_STAT_VALUE, so weird things will happen during stats scaling
-; if a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
+	call DoubleStatCapped
 .specialAttackCritCheck
 	ld hl, wBattleMonSpecial
 	ld a, [wCriticalHitOrOHKO]
@@ -4635,8 +4632,7 @@ GetDamageVarsForEnemyAttack:
 	bit HAS_REFLECT_UP, a ; check for Reflect
 	jr z, .physicalAttackCritCheck
 ; if the player has used Reflect, double the player's defense
-	sla c
-	rl b
+	call DoubleStatCapped
 .physicalAttackCritCheck
 	ld hl, wEnemyMonAttack
 	ld a, [wCriticalHitOrOHKO]
@@ -4665,10 +4661,7 @@ GetDamageVarsForEnemyAttack:
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
 	jr z, .specialAttackCritCheck
 ; if the player has used Light Screen, double the player's special
-	sla c
-	rl b
-; reflect and light screen boosts do not cap the stat at MAX_STAT_VALUE, so weird things will happen during stats scaling
-; if a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
+	call DoubleStatCapped
 .specialAttackCritCheck
 	ld hl, wEnemyMonSpecial
 	ld a, [wCriticalHitOrOHKO]

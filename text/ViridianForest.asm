@@ -119,9 +119,9 @@ _ViridianForestTrainerTips1Text::
 	done
 
 _ViridianForestUseAntidoteSignText::
-	text "For poison, use"
-	line "ANTIDOTE! Get it"
-	cont "at #MON MARTs!"
+	text "For poison, use a"
+	line "POISON HEAL! Get"
+	cont "one at a MART!"
 	done
 
 _ViridianForestTrainerTips2Text::

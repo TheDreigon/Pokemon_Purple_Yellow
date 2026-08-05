@@ -22,7 +22,7 @@ _ViridianMartClerkParcelQuestText::
 
 _ViridianMartYoungsterText::
 	text "This shop sells a"
-	line "lot of PARLYZ"
+	line "lot of POISON"
 	cont "HEALs."
 	done
 
