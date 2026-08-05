@@ -325,3 +325,9 @@ INCLUDE "data/text/trainer_manual_types.asm"
 SECTION "TM and HM Names", ROMX
 
 INCLUDE "text/tmhm_names.asm"
+
+; Cerulean's second TRAINER TIPS sign. Its own section because the pinned
+; Text banks had no room left, and text_far reaches it from anywhere.
+SECTION "Cerulean Trainer Tips 2", ROMX
+
+INCLUDE "text/cerulean_trainer_tips2.asm"

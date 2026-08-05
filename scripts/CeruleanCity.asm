@@ -236,6 +236,7 @@ CeruleanCity_TextPointers:
 	dw_const PokeCenterSignText,            TEXT_CERULEANCITY_POKECENTER_SIGN
 	dw_const CeruleanCityBikeShopSign,      TEXT_CERULEANCITY_BIKESHOP_SIGN
 	dw_const CeruleanCityGymSign,           TEXT_CERULEANCITY_GYM_SIGN
+	dw_const CeruleanCityTrainerTips2Text,  TEXT_CERULEANCITY_TRAINER_TIPS2
 
 CeruleanCityRivalText:
 	text_asm
@@ -434,6 +435,10 @@ CeruleanCitySignText:
 
 CeruleanCityTrainerTipsText:
 	text_far _CeruleanCityTrainerTipsText
+	text_end
+
+CeruleanCityTrainerTips2Text:
+	text_far _CeruleanCityTrainerTips2Text
 	text_end
 
 CeruleanCityBikeShopSign:
