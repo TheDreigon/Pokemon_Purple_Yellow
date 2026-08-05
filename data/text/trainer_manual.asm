@@ -328,9 +328,25 @@ _ManualPage_5_2_Hard::
 	done
 
 _ManualPage_5_3::
+	text "An X item or a"
+	next "move lifts a stat"
+	next "one step, or drops"
+	next "a foe's by one."
+	next ""
+	next "Six either way is"
+	next "the limit."
+	next ""
+	next "Calling a #MON"
+	next "back gives every"
+	next "step back, and a"
+	next "critical hit"
+	next "ignores them."
+	done
+
+_ManualPage_5_4::
 	text "ACCURACY and"
 	next "EVASION move in"
-	next "steps."
+	next "steps too."
 	next ""
 	next "One step is a"
 	next "small edge. Stack"
@@ -338,23 +354,22 @@ _ManualPage_5_3::
 	next "grows fast."
 	done
 
-_ManualPage_5_4::
+_ManualPage_5_5::
 	text "Any move may land"
 	next "a critical hit."
 	next ""
 	next "The chance is ten"
-	next "in a hundred, and"
-	next "one more for every"
-	next "ten points of the"
+	next "in a hundred, plus"
+	next "one for every ten"
+	next "points of the"
 	next "attacker's base"
 	next "SPEED."
 	next ""
-	next "A few sharp moves"
-	next "start at twenty"
-	next "instead."
+	next "Sharp moves start"
+	next "at twenty."
 	done
 
-_ManualPage_5_5::
+_ManualPage_5_6::
 	text "FOCUS ENERGY"
 	next "TRIPLES your"
 	next "chance of a"
@@ -397,6 +412,19 @@ _ManualPage_6_2::
 	done
 
 _ManualPage_6_3::
+	text "A #MON may"
+	next "carry two types."
+	next "Both of them count"
+	next "when a move lands"
+	next "on it."
+	next ""
+	next "And a move of"
+	next "either of its own"
+	next "types hits half"
+	next "again as hard."
+	done
+
+_ManualPage_6_4::
 	text "These strike with"
 	next "the body:"
 	next ""
@@ -407,7 +435,7 @@ _ManualPage_6_3::
 	next "MAGMA FUNGUS."
 	done
 
-_ManualPage_6_4::
+_ManualPage_6_5::
 	text "And these with the"
 	next "mind:"
 	next ""

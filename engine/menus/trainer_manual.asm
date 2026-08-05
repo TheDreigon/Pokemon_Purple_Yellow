@@ -926,30 +926,33 @@ TrainerManualChapter4Pages:
 	dw ManualPage_4_7, ManualPage_4_8, ManualPage_4_9
 
 TrainerManualChapter5Sections:
-	db 5
+	db 6
 	manual_section TrainerManualSection5_1, 0
 	manual_section TrainerManualSection5_2, 1
 	manual_section TrainerManualSection5_3, 2
 	manual_section TrainerManualSection5_4, 3
 	manual_section TrainerManualSection5_5, 4
+	manual_section TrainerManualSection5_6, 5
 TrainerManualChapter5Pages:
-	db 5
+	db 6
 	dw ManualPage_5_1, ManualPage_5_2, ManualPage_5_3
-	dw ManualPage_5_4, ManualPage_5_5
+	dw ManualPage_5_4, ManualPage_5_5, ManualPage_5_6
 
 ; THE TYPES: four written sections, then one per type. MANUAL_TYPE_FIRST_PAGE is
 ; where the written pages end, and is what the generated rows count from.
-DEF MANUAL_TYPE_FIRST_PAGE EQU 4
+DEF MANUAL_TYPE_FIRST_PAGE EQU 5
 TrainerManualChapter6Sections:
-	db 4 + MANUAL_NUM_TYPE_SECTIONS
+	db 5 + MANUAL_NUM_TYPE_SECTIONS
 	manual_section TrainerManualSection6_1, 0
 	manual_section TrainerManualSection6_2, 1
 	manual_section TrainerManualSection6_3, 2
 	manual_section TrainerManualSection6_4, 3
+	manual_section TrainerManualSection6_5, 4
 	manual_type_sections
 TrainerManualChapter6Pages:
 	db MANUAL_TYPE_FIRST_PAGE + MANUAL_NUM_TYPE_PAGES
-	dw ManualPage_6_1, ManualPage_6_2, ManualPage_6_3, ManualPage_6_4
+	dw ManualPage_6_1, ManualPage_6_2, ManualPage_6_3
+	dw ManualPage_6_4, ManualPage_6_5
 	manual_type_pages
 
 TrainerManualChapter7Sections:
@@ -1015,10 +1018,12 @@ TrainerManualSection5_1:
 TrainerManualSection5_2:
 	db "OUTLASTING A FOE@"
 TrainerManualSection5_3:
-	db "ACCURACY@"
+	db "RAISING A STAT@"
 TrainerManualSection5_4:
-	db "CRITICAL HITS@"
+	db "ACCURACY@"
 TrainerManualSection5_5:
+	db "CRITICAL HITS@"
+TrainerManualSection5_6:
 	db "FOCUS ENERGY@"
 
 TrainerManualSection6_1:
@@ -1026,8 +1031,10 @@ TrainerManualSection6_1:
 TrainerManualSection6_2:
 	db "BODY OR MIND@"
 TrainerManualSection6_3:
-	db "PHYSICAL TYPES@"
+	db "TWO TYPES AT ONCE@"
 TrainerManualSection6_4:
+	db "PHYSICAL TYPES@"
+TrainerManualSection6_5:
 	db "SPECIAL TYPES@"
 
 TrainerManualSection7_1:
@@ -1071,11 +1078,13 @@ TrainerManualSection7_4:
 	manual_page ManualPage_5_3
 	manual_page ManualPage_5_4
 	manual_page ManualPage_5_5
+	manual_page ManualPage_5_6
 
 	manual_page ManualPage_6_1
 	manual_page ManualPage_6_2
 	manual_page ManualPage_6_3
 	manual_page ManualPage_6_4
+	manual_page ManualPage_6_5
 
 	manual_page ManualPage_7_1
 	manual_page ManualPage_7_2
