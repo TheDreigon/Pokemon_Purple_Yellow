@@ -1418,10 +1418,10 @@ DiglettEvosMoves:
 ; body is built to live in the dig). GROWL as a vocal hinder (near-blind
 ; mole). QUICK_ATTACK/AGILITY speed. EARTHQUAKE at L33 = evo level.
 ; EXTREMESPEED apex mole speed. FISSURE signature, last move L60.
-	db  5, DIG
-	db 10, SAND_ATTACK
-	db 12, QUICK_ATTACK
-	db 17, BULLDOZE
+	db  3, DIG
+	db  6, SAND_ATTACK
+	db 10, QUICK_ATTACK
+	db 16, BULLDOZE
 	db 22, AGILITY
 	db 24, CUT
 	db 26, MUD_BOMB
@@ -1442,10 +1442,10 @@ DugtrioEvosMoves:
 ; NIGHT_SLASH, TAKE_DOWN, RECOVER (burrows underground to rest). No
 ; TRI_ATTACK (Porygon/Mew/Magneton signature). STRENGTH via HM only,
 ; not levelup.
-	db  5, DIG
-	db 10, SAND_ATTACK
-	db 12, QUICK_ATTACK
-	db 17, BULLDOZE
+	db  3, DIG
+	db  6, SAND_ATTACK
+	db 10, QUICK_ATTACK
+	db 16, BULLDOZE
 	db 22, AGILITY
 	db 24, CUT
 	db 26, MUD_BOMB
