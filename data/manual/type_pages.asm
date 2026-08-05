@@ -2,33 +2,40 @@
 ; data/types/type_matchups.asm. Do not hand-edit: the point of
 ; generating it is that the TRAINER MANUAL cannot disagree with the
 ; table the battle engine reads. Re-run after changing a matchup.
+;
+; The rows below are FRAGMENTS: they are included in the middle of
+; THE TYPES chapter's tables, after that chapter's own prose
+; sections. MANUAL_TYPE_FIRST_PAGE is where those prose pages end,
+; and is defined next to the tables that include this.
 
-TrainerManualTypeSections:
-	db 21
-	manual_section TrainerManualTypeNormalName, 0
-	manual_section TrainerManualTypeFightingName, 2
-	manual_section TrainerManualTypeFlyingName, 4
-	manual_section TrainerManualTypePoisonName, 6
-	manual_section TrainerManualTypeGroundName, 8
-	manual_section TrainerManualTypeRockName, 10
-	manual_section TrainerManualTypeBugName, 12
-	manual_section TrainerManualTypeDragonName, 14
-	manual_section TrainerManualTypeDarkName, 16
-	manual_section TrainerManualTypeSteelName, 18
-	manual_section TrainerManualTypeMagmaName, 20
-	manual_section TrainerManualTypeFungusName, 22
-	manual_section TrainerManualTypeGhostName, 24
-	manual_section TrainerManualTypeFireName, 26
-	manual_section TrainerManualTypeWaterName, 28
-	manual_section TrainerManualTypeGrassName, 30
-	manual_section TrainerManualTypeElectricName, 32
-	manual_section TrainerManualTypePsychic_typeName, 34
-	manual_section TrainerManualTypeIceName, 36
-	manual_section TrainerManualTypeFairyName, 38
-	manual_section TrainerManualTypeGasName, 40
+DEF MANUAL_NUM_TYPE_SECTIONS EQU 21
+DEF MANUAL_NUM_TYPE_PAGES EQU 42
 
-TrainerManualTypePages:
-	db 42
+MACRO manual_type_sections
+	manual_section TrainerManualTypeNormalName, MANUAL_TYPE_FIRST_PAGE + 0
+	manual_section TrainerManualTypeFightingName, MANUAL_TYPE_FIRST_PAGE + 2
+	manual_section TrainerManualTypeFlyingName, MANUAL_TYPE_FIRST_PAGE + 4
+	manual_section TrainerManualTypePoisonName, MANUAL_TYPE_FIRST_PAGE + 6
+	manual_section TrainerManualTypeGroundName, MANUAL_TYPE_FIRST_PAGE + 8
+	manual_section TrainerManualTypeRockName, MANUAL_TYPE_FIRST_PAGE + 10
+	manual_section TrainerManualTypeBugName, MANUAL_TYPE_FIRST_PAGE + 12
+	manual_section TrainerManualTypeDragonName, MANUAL_TYPE_FIRST_PAGE + 14
+	manual_section TrainerManualTypeDarkName, MANUAL_TYPE_FIRST_PAGE + 16
+	manual_section TrainerManualTypeSteelName, MANUAL_TYPE_FIRST_PAGE + 18
+	manual_section TrainerManualTypeMagmaName, MANUAL_TYPE_FIRST_PAGE + 20
+	manual_section TrainerManualTypeFungusName, MANUAL_TYPE_FIRST_PAGE + 22
+	manual_section TrainerManualTypeGhostName, MANUAL_TYPE_FIRST_PAGE + 24
+	manual_section TrainerManualTypeFireName, MANUAL_TYPE_FIRST_PAGE + 26
+	manual_section TrainerManualTypeWaterName, MANUAL_TYPE_FIRST_PAGE + 28
+	manual_section TrainerManualTypeGrassName, MANUAL_TYPE_FIRST_PAGE + 30
+	manual_section TrainerManualTypeElectricName, MANUAL_TYPE_FIRST_PAGE + 32
+	manual_section TrainerManualTypePsychic_typeName, MANUAL_TYPE_FIRST_PAGE + 34
+	manual_section TrainerManualTypeIceName, MANUAL_TYPE_FIRST_PAGE + 36
+	manual_section TrainerManualTypeFairyName, MANUAL_TYPE_FIRST_PAGE + 38
+	manual_section TrainerManualTypeGasName, MANUAL_TYPE_FIRST_PAGE + 40
+ENDM
+
+MACRO manual_type_pages
 	dw ManualType_NORMAL_ATK
 	dw ManualType_NORMAL_DEF
 	dw ManualType_FIGHTING_ATK
@@ -71,6 +78,7 @@ TrainerManualTypePages:
 	dw ManualType_FAIRY_DEF
 	dw ManualType_GAS_ATK
 	dw ManualType_GAS_DEF
+ENDM
 
 TrainerManualTypeNormalName:
 	db "NORMAL@"

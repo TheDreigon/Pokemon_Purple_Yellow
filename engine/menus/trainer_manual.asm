@@ -33,7 +33,7 @@
 ; type as a defender do not fit on one screen together (measured: 23 lines of a
 ; 13-line page; see .claude/type_page_fit.py).
 
-DEF MANUAL_NUM_CHAPTERS EQU 9
+DEF MANUAL_NUM_CHAPTERS EQU 7
 ; Every list routine below takes the chapter it is listing in c, and this
 ; sentinel means "the contents". It exists because WRAM is full at 8192/8192 --
 ; there is not one byte to remember which list is on screen, so it is carried in
@@ -800,8 +800,40 @@ TrainerManualIssuedText:
 TrainerManualLeagueText:
 	db "#MON LEAGUE@"
 
-; The chapter order is the one settled in the Notes, plus the two chapters the
-; content ponderation added: the whole type chart, and the difficulty modes.
+; A section is a name and the page it opens at. Every section below is one page,
+; except the per-type ones in chapter 6, which are two -- a type as an attacker
+; and the same type as a defender do not fit on one screen together.
+;
+; A section name is at most 17 tiles: the cursor takes column 1 and the
+; interior of the box ends at column 18.
+MACRO manual_section
+	dw \1
+	db \2
+ENDM
+
+; The text lives in its own bank; these are the near stubs that reach it, the
+; same arrangement the move flavour uses.
+MACRO manual_page
+\1:
+	text_far _\1
+	text_end
+ENDM
+
+; The per-type sections of THE TYPES: the rows, the names and the near stubs,
+; all generated from data/types/type_matchups.asm by
+; .claude/manual_types_build.py. Never hand-edit -- the point of generating it
+; is that the manual cannot disagree with the table the battle engine reads.
+;
+; Included HERE, above the tables, because it defines the macros those tables
+; expand and rgbasm needs a macro defined before it is used.
+INCLUDE "data/manual/type_pages.asm"
+
+; The chapter order is the one settled in the Notes. Two changes came out of
+; playtesting the written manual: POWER POINTS folded into LANDING HITS (chapter
+; 3 is what the STATS page shows you, and this one is what happens when you
+; press a move -- PP is the first thing that decides that), and the twenty-one
+; type matchup sections moved inside THE TYPES rather than standing as a
+; chapter of their own.
 TrainerManualChapters:
 	dw TrainerManualChapter1Name
 	dw TrainerManualChapter2Name
@@ -810,8 +842,6 @@ TrainerManualChapters:
 	dw TrainerManualChapter5Name
 	dw TrainerManualChapter6Name
 	dw TrainerManualChapter7Name
-	dw TrainerManualChapter8Name
-	dw TrainerManualChapter9Name
 
 TrainerManualChapter1Name:
 	db "BAG AND MENUS@"
@@ -820,16 +850,12 @@ TrainerManualChapter2Name:
 TrainerManualChapter3Name:
 	db "#MON NUMBERS@"
 TrainerManualChapter4Name:
-	db "POWER POINTS@"
-TrainerManualChapter5Name:
 	db "STATUS@"
-TrainerManualChapter6Name:
+TrainerManualChapter5Name:
 	db "LANDING HITS@"
-TrainerManualChapter7Name:
+TrainerManualChapter6Name:
 	db "THE TYPES@"
-TrainerManualChapter8Name:
-	db "TYPE MATCHUPS@"
-TrainerManualChapter9Name:
+TrainerManualChapter7Name:
 	db "THE TWO MODES@"
 
 TrainerManualChapterSections:
@@ -840,8 +866,6 @@ TrainerManualChapterSections:
 	dw TrainerManualChapter5Sections
 	dw TrainerManualChapter6Sections
 	dw TrainerManualChapter7Sections
-	dw TrainerManualTypeSections
-	dw TrainerManualChapter9Sections
 
 TrainerManualChapterPages:
 	dw TrainerManualChapter1Pages
@@ -851,18 +875,6 @@ TrainerManualChapterPages:
 	dw TrainerManualChapter5Pages
 	dw TrainerManualChapter6Pages
 	dw TrainerManualChapter7Pages
-	dw TrainerManualTypePages
-	dw TrainerManualChapter9Pages
-
-; A section is a name and the page it opens at. Every chapter below is one page
-; per section; TYPE MATCHUPS, which is generated, is two.
-;
-; A section name is at most 17 tiles: the cursor takes column 1 and the box's
-; interior ends at column 18.
-MACRO manual_section
-	dw \1
-	db \2
-ENDM
 
 TrainerManualChapter1Sections:
 	db 5
@@ -877,16 +889,14 @@ TrainerManualChapter1Pages:
 	dw ManualPage_1_4, ManualPage_1_5
 
 TrainerManualChapter2Sections:
-	db 5
+	db 4
 	manual_section TrainerManualSection2_1, 0
 	manual_section TrainerManualSection2_2, 1
 	manual_section TrainerManualSection2_3, 2
 	manual_section TrainerManualSection2_4, 3
-	manual_section TrainerManualSection2_5, 4
 TrainerManualChapter2Pages:
-	db 5
-	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3
-	dw ManualPage_2_4, ManualPage_2_5
+	db 4
+	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
 
 TrainerManualChapter3Sections:
 	db 4
@@ -899,38 +909,48 @@ TrainerManualChapter3Pages:
 	dw ManualPage_3_1, ManualPage_3_2, ManualPage_3_3, ManualPage_3_4
 
 TrainerManualChapter4Sections:
-	db 2
+	db 9
 	manual_section TrainerManualSection4_1, 0
 	manual_section TrainerManualSection4_2, 1
+	manual_section TrainerManualSection4_3, 2
+	manual_section TrainerManualSection4_4, 3
+	manual_section TrainerManualSection4_5, 4
+	manual_section TrainerManualSection4_6, 5
+	manual_section TrainerManualSection4_7, 6
+	manual_section TrainerManualSection4_8, 7
+	manual_section TrainerManualSection4_9, 8
 TrainerManualChapter4Pages:
-	db 2
-	dw ManualPage_4_1, ManualPage_4_2
+	db 9
+	dw ManualPage_4_1, ManualPage_4_2, ManualPage_4_3
+	dw ManualPage_4_4, ManualPage_4_5, ManualPage_4_6
+	dw ManualPage_4_7, ManualPage_4_8, ManualPage_4_9
 
 TrainerManualChapter5Sections:
-	db 9
+	db 5
 	manual_section TrainerManualSection5_1, 0
 	manual_section TrainerManualSection5_2, 1
 	manual_section TrainerManualSection5_3, 2
 	manual_section TrainerManualSection5_4, 3
 	manual_section TrainerManualSection5_5, 4
-	manual_section TrainerManualSection5_6, 5
-	manual_section TrainerManualSection5_7, 6
-	manual_section TrainerManualSection5_8, 7
-	manual_section TrainerManualSection5_9, 8
 TrainerManualChapter5Pages:
-	db 9
+	db 5
 	dw ManualPage_5_1, ManualPage_5_2, ManualPage_5_3
-	dw ManualPage_5_4, ManualPage_5_5, ManualPage_5_6
-	dw ManualPage_5_7, ManualPage_5_8, ManualPage_5_9
+	dw ManualPage_5_4, ManualPage_5_5
 
+; THE TYPES: four written sections, then one per type. MANUAL_TYPE_FIRST_PAGE is
+; where the written pages end, and is what the generated rows count from.
+DEF MANUAL_TYPE_FIRST_PAGE EQU 4
 TrainerManualChapter6Sections:
-	db 3
+	db 4 + MANUAL_NUM_TYPE_SECTIONS
 	manual_section TrainerManualSection6_1, 0
 	manual_section TrainerManualSection6_2, 1
 	manual_section TrainerManualSection6_3, 2
+	manual_section TrainerManualSection6_4, 3
+	manual_type_sections
 TrainerManualChapter6Pages:
-	db 3
-	dw ManualPage_6_1, ManualPage_6_2, ManualPage_6_3
+	db MANUAL_TYPE_FIRST_PAGE + MANUAL_NUM_TYPE_PAGES
+	dw ManualPage_6_1, ManualPage_6_2, ManualPage_6_3, ManualPage_6_4
+	manual_type_pages
 
 TrainerManualChapter7Sections:
 	db 4
@@ -941,16 +961,6 @@ TrainerManualChapter7Sections:
 TrainerManualChapter7Pages:
 	db 4
 	dw ManualPage_7_1, ManualPage_7_2, ManualPage_7_3, ManualPage_7_4
-
-TrainerManualChapter9Sections:
-	db 4
-	manual_section TrainerManualSection9_1, 0
-	manual_section TrainerManualSection9_2, 1
-	manual_section TrainerManualSection9_3, 2
-	manual_section TrainerManualSection9_4, 3
-TrainerManualChapter9Pages:
-	db 4
-	dw ManualPage_9_1, ManualPage_9_2, ManualPage_9_3, ManualPage_9_4
 
 TrainerManualSection1_1:
 	db "ORDERING ITEMS@"
@@ -966,12 +976,10 @@ TrainerManualSection1_5:
 TrainerManualSection2_1:
 	db "WHERE THEY LIVE@"
 TrainerManualSection2_2:
-	db "SAFE PATHS@"
-TrainerManualSection2_3:
 	db "CATCHING@"
-TrainerManualSection2_4:
+TrainerManualSection2_3:
 	db "#MON MARTS@"
-TrainerManualSection2_5:
+TrainerManualSection2_4:
 	db "REMEMBERING MOVES@"
 
 TrainerManualSection3_1:
@@ -984,61 +992,52 @@ TrainerManualSection3_4:
 	db "BADGES AND STATS@"
 
 TrainerManualSection4_1:
-	db "WHAT PP IS@"
-TrainerManualSection4_2:
-	db "OUTLASTING A FOE@"
-
-TrainerManualSection5_1:
 	db "PARALYSIS@"
-TrainerManualSection5_2:
+TrainerManualSection4_2:
 	db "BURN@"
-TrainerManualSection5_3:
+TrainerManualSection4_3:
 	db "FREEZE@"
-TrainerManualSection5_4:
+TrainerManualSection4_4:
 	db "SLEEP@"
-TrainerManualSection5_5:
+TrainerManualSection4_5:
 	db "POISON@"
-TrainerManualSection5_6:
+TrainerManualSection4_6:
 	db "CONFUSION@"
-TrainerManualSection5_7:
+TrainerManualSection4_7:
 	db "CALLING ONE BACK@"
-TrainerManualSection5_8:
+TrainerManualSection4_8:
 	db "WHO IS IMMUNE@"
-TrainerManualSection5_9:
+TrainerManualSection4_9:
 	db "GUARD SPEC.@"
 
-TrainerManualSection6_1:
+TrainerManualSection5_1:
+	db "WHAT PP IS@"
+TrainerManualSection5_2:
+	db "OUTLASTING A FOE@"
+TrainerManualSection5_3:
 	db "ACCURACY@"
-TrainerManualSection6_2:
+TrainerManualSection5_4:
 	db "CRITICAL HITS@"
-TrainerManualSection6_3:
+TrainerManualSection5_5:
 	db "FOCUS ENERGY@"
 
-TrainerManualSection7_1:
+TrainerManualSection6_1:
 	db "THE ROSTER@"
-TrainerManualSection7_2:
+TrainerManualSection6_2:
 	db "BODY OR MIND@"
-TrainerManualSection7_3:
+TrainerManualSection6_3:
 	db "PHYSICAL TYPES@"
-TrainerManualSection7_4:
+TrainerManualSection6_4:
 	db "SPECIAL TYPES@"
 
-TrainerManualSection9_1:
+TrainerManualSection7_1:
 	db "WHICH ARE YOU ON@"
-TrainerManualSection9_2:
+TrainerManualSection7_2:
 	db "TRAINER FIGHTS@"
-TrainerManualSection9_3:
+TrainerManualSection7_3:
 	db "EXPERIENCE@"
-TrainerManualSection9_4:
+TrainerManualSection7_4:
 	db "WHAT A BOSS GETS@"
-
-; The text lives in its own bank; these are the near stubs that reach it, the
-; same arrangement the move flavour uses.
-MACRO manual_page
-\1:
-	text_far _\1
-	text_end
-ENDM
 
 	manual_page ManualPage_1_1
 	manual_page ManualPage_1_2
@@ -1050,7 +1049,6 @@ ENDM
 	manual_page ManualPage_2_2
 	manual_page ManualPage_2_3
 	manual_page ManualPage_2_4
-	manual_page ManualPage_2_5
 
 	manual_page ManualPage_3_1
 	manual_page ManualPage_3_2
@@ -1059,42 +1057,36 @@ ENDM
 
 	manual_page ManualPage_4_1
 	manual_page ManualPage_4_2
-	manual_page ManualPage_4_2_Hard
+	manual_page ManualPage_4_3
+	manual_page ManualPage_4_4
+	manual_page ManualPage_4_5
+	manual_page ManualPage_4_6
+	manual_page ManualPage_4_7
+	manual_page ManualPage_4_8
+	manual_page ManualPage_4_9
 
 	manual_page ManualPage_5_1
 	manual_page ManualPage_5_2
+	manual_page ManualPage_5_2_Hard
 	manual_page ManualPage_5_3
 	manual_page ManualPage_5_4
 	manual_page ManualPage_5_5
-	manual_page ManualPage_5_6
-	manual_page ManualPage_5_7
-	manual_page ManualPage_5_8
-	manual_page ManualPage_5_9
 
 	manual_page ManualPage_6_1
 	manual_page ManualPage_6_2
 	manual_page ManualPage_6_3
+	manual_page ManualPage_6_4
 
 	manual_page ManualPage_7_1
 	manual_page ManualPage_7_2
 	manual_page ManualPage_7_3
 	manual_page ManualPage_7_4
 
-	manual_page ManualPage_9_1
-	manual_page ManualPage_9_2
-	manual_page ManualPage_9_3
-	manual_page ManualPage_9_4
-
 ; A page with a hard-mode twin. The PP page is the second place in the game to
 ; read the difficulty and tell the truth for each setting -- the Viridian PP
 ; sign was the first. A table rather than a test on the page index, so nothing
 ; here has to know which chapter it is.
 TrainerManualHardPages:
-	dw ManualPage_4_2, ManualPage_4_2_Hard
+	dw ManualPage_5_2, ManualPage_5_2_Hard
 	dw 0 ; end
 
-; The TYPE MATCHUPS chapter: section table, page table and near stubs, all
-; generated from data/types/type_matchups.asm by .claude/manual_types_build.py.
-; Never hand-edit -- the point of generating it is that the manual cannot
-; disagree with the table the battle engine reads.
-INCLUDE "data/manual/type_pages.asm"

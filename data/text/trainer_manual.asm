@@ -5,7 +5,7 @@
 ; characters of "POKé". Blank lines go between paragraphs while the
 ; page has room and are dropped from the bottom when it is full.
 ;
-; ManualPage_4_2 has a _Hard twin: the PP page is the second place in
+; ManualPage_5_2 has a _Hard twin: the PP page is the second place in
 ; the game to read wDifficulty and tell the truth for each setting.
 ; See TrainerManualHardPages in engine/menus/trainer_manual.asm.
 
@@ -73,7 +73,12 @@ _ManualPage_1_5::
 
 _ManualPage_2_1::
 	text "Wild #MON live"
-	next "in tall grass."
+	next "in tall grass, and"
+	next "in water while you"
+	next "SURF."
+	next ""
+	next "A ROD brings up"
+	next "what swims deeper."
 	next ""
 	next "Underground they"
 	next "are everywhere,"
@@ -83,16 +88,6 @@ _ManualPage_2_1::
 	done
 
 _ManualPage_2_2::
-	text "In VIRIDIAN FOREST"
-	next "and the SAFARI"
-	next "ZONE, only the"
-	next "grass holds them."
-	next ""
-	next "The paths there"
-	next "are safe."
-	done
-
-_ManualPage_2_3::
 	text "A #MON at full"
 	next "health shrugs off"
 	next "a BALL. Wear it"
@@ -107,17 +102,17 @@ _ManualPage_2_3::
 	next "would."
 	done
 
-_ManualPage_2_4::
+_ManualPage_2_3::
 	text "Every #MON MART"
 	next "stocks more as"
 	next "your badges pile"
 	next "up."
 	next ""
-	next "Call in again"
-	next "after every GYM."
+	next "Visit again after"
+	next "every GYM."
 	done
 
-_ManualPage_2_5::
+_ManualPage_2_4::
 	text "In the LAB on"
 	next "CINNABAR ISLAND"
 	next "one man will make"
@@ -182,36 +177,6 @@ _ManualPage_3_4::
 	done
 
 _ManualPage_4_1::
-	text "Every move has a"
-	next "limited number of"
-	next "uses, called PP."
-	next ""
-	next "Restore it at a"
-	next "#MON CENTER, or"
-	next "with an ETHER."
-	done
-
-_ManualPage_4_2::
-	text "Their team spends"
-	next "PP as yours does."
-	next ""
-	next "Outlast one and it"
-	next "must STRUGGLE, and"
-	next "hurt itself doing"
-	next "it."
-	done
-
-_ManualPage_4_2_Hard::
-	text "A trainer's team"
-	next "never runs dry."
-	next ""
-	next "Waiting one out"
-	next "will not work."
-	next "Carry the fight"
-	next "instead."
-	done
-
-_ManualPage_5_1::
 	text "PARALYSIS cuts"
 	next "SPEED in half,"
 	next "never below one"
@@ -222,22 +187,23 @@ _ManualPage_5_1::
 	next ""
 	next "It stays after the"
 	next "battle. PARLYZ"
+	next "HEAL or a FULL"
 	next "HEAL clears it."
 	done
 
-_ManualPage_5_2::
+_ManualPage_4_2::
 	text "A BURN cuts ATTACK"
 	next "in half and bites"
 	next "for an eighth of"
 	next "full health each"
 	next "turn."
 	next ""
-	next "It stays after the"
-	next "battle. BURN HEAL"
-	next "clears it."
+	next "BURN HEAL or a"
+	next "FULL HEAL clears"
+	next "it."
 	done
 
-_ManualPage_5_3::
+_ManualPage_4_3::
 	text "FREEZE holds a"
 	next "#MON still for"
 	next "three to six"
@@ -247,29 +213,37 @@ _ManualPage_5_3::
 	next "A FIRE or MAGMA"
 	next "hit thaws it at"
 	next "once. So does an"
-	next "ICE HEAL."
+	next "ICE HEAL or a FULL"
+	next "HEAL."
 	done
 
-_ManualPage_5_4::
-	text "SLEEP lasts two to"
-	next "five turns."
+_ManualPage_4_4::
+	text "SLEEP holds a"
+	next "#MON still for"
+	next "two to five turns."
 	next ""
-	next "An AWAKENING wakes"
+	next "An AWAKENING or a"
+	next "FULL HEAL wakes"
 	next "them early."
 	done
 
-_ManualPage_5_5::
+_ManualPage_4_5::
 	text "POISON bites for"
 	next "an eighth of full"
 	next "health each turn,"
-	next "in battle and on"
-	next "the road."
+	next "in battle and out."
 	next ""
-	next "ANTIDOTE clears"
-	next "it."
+	next "A bad POISON bites"
+	next "harder each turn."
+	next "Calling it back"
+	next "leaves ordinary"
+	next "POISON."
+	next ""
+	next "ANTIDOTE or FULL"
+	next "HEAL clears both."
 	done
 
-_ManualPage_5_6::
+_ManualPage_4_6::
 	text "CONFUSION lasts"
 	next "two to five turns."
 	next ""
@@ -277,12 +251,13 @@ _ManualPage_5_6::
 	next "#MON strikes"
 	next "itself instead."
 	next ""
-	next "No item clears it."
-	next "Calling it back"
-	next "does."
+	next "No item clears it,"
+	next "not even a FULL"
+	next "HEAL. Calling it"
+	next "back does."
 	done
 
-_ManualPage_5_7::
+_ManualPage_4_7::
 	text "Call one back and"
 	next "it forgets"
 	next "confusion, every"
@@ -296,7 +271,7 @@ _ManualPage_5_7::
 	next "with it."
 	done
 
-_ManualPage_5_8::
+_ManualPage_4_8::
 	text "Some #MON shrug"
 	next "off some ills."
 	next ""
@@ -311,7 +286,7 @@ _ManualPage_5_8::
 	next "never take POISON."
 	done
 
-_ManualPage_5_9::
+_ManualPage_4_9::
 	text "GUARD SPEC. keeps"
 	next "your STATS from"
 	next "being cut."
@@ -322,7 +297,37 @@ _ManualPage_5_9::
 	next "rest."
 	done
 
-_ManualPage_6_1::
+_ManualPage_5_1::
+	text "Every move has a"
+	next "limited number of"
+	next "uses, called PP."
+	next ""
+	next "Restore it at a"
+	next "#MON CENTER, or"
+	next "with an ETHER."
+	done
+
+_ManualPage_5_2::
+	text "Their team spends"
+	next "PP as yours does."
+	next ""
+	next "Outlast one and it"
+	next "must STRUGGLE, and"
+	next "hurt itself doing"
+	next "it."
+	done
+
+_ManualPage_5_2_Hard::
+	text "A trainer's team"
+	next "never runs dry."
+	next ""
+	next "Waiting one out"
+	next "will not work."
+	next "Carry the fight"
+	next "instead."
+	done
+
+_ManualPage_5_3::
 	text "ACCURACY and"
 	next "EVASION move in"
 	next "steps."
@@ -333,21 +338,23 @@ _ManualPage_6_1::
 	next "grows fast."
 	done
 
-_ManualPage_6_2::
+_ManualPage_5_4::
 	text "Any move may land"
 	next "a critical hit."
 	next ""
-	next "The chance is one"
-	next "in ten, plus a"
-	next "tenth of its base"
+	next "The chance is ten"
+	next "in a hundred, and"
+	next "one more for every"
+	next "ten points of the"
+	next "attacker's base"
 	next "SPEED."
 	next ""
 	next "A few sharp moves"
-	next "start at two in"
-	next "ten instead."
+	next "start at twenty"
+	next "instead."
 	done
 
-_ManualPage_6_3::
+_ManualPage_5_5::
 	text "FOCUS ENERGY"
 	next "TRIPLES your"
 	next "chance of a"
@@ -360,7 +367,7 @@ _ManualPage_6_3::
 	next "called back."
 	done
 
-_ManualPage_7_1::
+_ManualPage_6_1::
 	text "KANTO knows more"
 	next "types than a"
 	next "trainer may"
@@ -373,7 +380,7 @@ _ManualPage_7_1::
 	next "FAIRY and GAS."
 	done
 
-_ManualPage_7_2::
+_ManualPage_6_2::
 	text "A move strikes"
 	next "with the body or"
 	next "with the mind, and"
@@ -389,7 +396,7 @@ _ManualPage_7_2::
 	next "names which."
 	done
 
-_ManualPage_7_3::
+_ManualPage_6_3::
 	text "These strike with"
 	next "the body:"
 	next ""
@@ -400,7 +407,7 @@ _ManualPage_7_3::
 	next "MAGMA FUNGUS."
 	done
 
-_ManualPage_7_4::
+_ManualPage_6_4::
 	text "And these with the"
 	next "mind:"
 	next ""
@@ -410,7 +417,7 @@ _ManualPage_7_4::
 	next "GAS."
 	done
 
-_ManualPage_9_1::
+_ManualPage_7_1::
 	text "This journey is"
 	next "walked on one of"
 	next "two settings,"
@@ -423,7 +430,7 @@ _ManualPage_9_1::
 	next "on."
 	done
 
-_ManualPage_9_2::
+_ManualPage_7_2::
 	text "On the harder"
 	next "setting a"
 	next "trainer's team"
@@ -438,7 +445,7 @@ _ManualPage_9_2::
 	next "Wild ones are not."
 	done
 
-_ManualPage_9_3::
+_ManualPage_7_3::
 	text "On the harder"
 	next "setting a #MON"
 	next "that faints earns"
@@ -450,19 +457,19 @@ _ManualPage_9_3::
 	next "little smaller."
 	done
 
-_ManualPage_9_4::
+_ManualPage_7_4::
 	text "GYM LEADERS, the"
 	next "ELITE FOUR and"
 	next "your rival are"
-	next "harder still"
-	next "there."
+	next "even harder there."
+	next ""
 	next "They carry items"
-	next "into battle and"
-	next "spend them."
+	next "and spend them."
 	next "They stand a level"
-	next "above, land more"
-	next "critical hits, and"
-	next "both sides' aim"
-	next "tilts their way."
+	next "above and crit"
+	next "more often."
+	next "Their moves land"
+	next "more often, and"
+	next "yours less."
 	done
 
