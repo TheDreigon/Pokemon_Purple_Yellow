@@ -9,7 +9,7 @@ Route4WildMons:
 	db 15, PSYDUCK
 	db 13, MEOWTH
 	db 14, MEOWTH
-	db 13, CUBONE
+	db 14, CUBONE
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

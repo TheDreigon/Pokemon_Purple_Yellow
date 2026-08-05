@@ -9,7 +9,7 @@ MtMoonB2FWildMons:
 	db 14, ZUBAT
 	db 11, CLEFAIRY
 	db 14, ONIX
-	db 15, ONIX
+	db 14, ONIX
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

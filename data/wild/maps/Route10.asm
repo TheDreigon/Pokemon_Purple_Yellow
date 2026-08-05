@@ -7,9 +7,9 @@ Route10WildMons:
 	db 17, NIDORAN_F
 	db 18, MACHOP
 	db 18, EKANS
-	db 20, MACHOP
+	db 20, KRABBY
 	db 20, VOLTORB
-	db 22, VOLTORB
+	db 18, CUBONE
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

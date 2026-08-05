@@ -5,7 +5,7 @@ VictoryRoad1FWildMons:
 	db 43, RHYHORN
 	db 44, MACHOKE
 	db 44, ONIX
-	db 46, ONIX
+	db 44, ONIX
 	db 47, HITMONCHAN
 	db 47, HITMONLEE
 	db 45, GOLEM
