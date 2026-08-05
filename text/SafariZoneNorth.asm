@@ -16,12 +16,11 @@ _SafariZoneNorthSignText::
 _SafariZoneNorthTrainerTips2Text::
 	text "TRAINER TIPS"
 
-	para "#MON hide in"
-	line "tall grass!"
+	para "#MON here keep"
+	line "to the grass."
 
-	para "Zigzag through"
-	line "grassy areas to"
-	cont "flush them out."
+	para "The paths are"
+	line "safe to walk."
 	done
 
 _SafariZoneNorthTrainerTips3Text::
