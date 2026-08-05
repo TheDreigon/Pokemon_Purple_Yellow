@@ -38,7 +38,7 @@ _CeladonCityGramps3Text::
 	cont "the day!"
 
 	para "Take this, kid."
-	line "Sharpen your edge!"
+	line "Sharpen the edge!"
 	prompt
 
 _CeladonCityGramps3ReceivedTM41Text::

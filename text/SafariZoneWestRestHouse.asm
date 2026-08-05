@@ -9,7 +9,7 @@ _SafariZoneWestRestHouseScientistText::
 _SafariZoneWestRestHouseCooltrainerMText::
 	text "Using BAIT will"
 	line "stop #MON"
-	cont "from running away."
+	cont "from running off."
 	done
 
 _SafariZoneWestRestHouseSilphWorkerFText::

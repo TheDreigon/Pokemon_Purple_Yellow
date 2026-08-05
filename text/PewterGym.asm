@@ -113,7 +113,7 @@ _PewterGymTMExplanationText::
 	line "ROCK THROW!"
 
 	para "A heavy stone"
-	line "hurled at the foe."
+	line "hurled at a foe."
 	cont "May leave them"
 	cont "stunned mid-move!"
 	done

@@ -83,7 +83,7 @@ _ChampionsRoomRivalAfterBattleText::
 
 _ChampionsRoomRivalRematchIntroText::
 	text "Back again?"
-	line "I've been waiting,"
+	line "I've waited for"
 	cont "<PLAYER>!"
 
 	para "This time, my"
@@ -247,7 +247,7 @@ _ChampionsRoomRematchOakDisappointedWithRivalText::
 	cont "#MON."
 
 	para "Reflect on this,"
-	line "and grow stronger!"
+	line "and get stronger!"
 	done
 
 _ChampionsRoomRematchOakComeWithMeText::

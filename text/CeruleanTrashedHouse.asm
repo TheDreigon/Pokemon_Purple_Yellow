@@ -29,8 +29,8 @@ _CeruleanTrashedHouseFishingGuruWhatsLostIsLostText::
 _CeruleanTrashedHouseGirlText::
 	text "TEAM ROCKET must"
 	line "be trying to"
-	cont "BULLDOZE their way"
-	cont "into no good!"
+	cont "BULLDOZE their"
+	cont "way into no good!"
 	done
 
 _CeruleanTrashedHouseWallHoleText::

@@ -58,8 +58,8 @@ _CeruleanGymMistyTMExplanationText::
 
 	para "A surging pulse"
 	line "of water that"
-	cont "sometimes confuses"
-	cont "the foe!"
+	cont "sometimes leaves"
+	cont "the foe confused!"
 
 	para "Use it well!"
 	done

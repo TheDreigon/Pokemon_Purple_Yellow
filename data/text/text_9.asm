@@ -869,8 +869,8 @@ _RoofQuizQ3Text::
 	done
 
 _RoofQuizQ4Text::
-	text "Q4: KADABRA"
-	line "evolves at what L?"
+	text "Q4: At what L does"
+	line "KADABRA evolve?"
 	done
 
 _RoofQuizQ5Text::

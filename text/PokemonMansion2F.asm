@@ -90,8 +90,8 @@ _PokemonMansion2F_OakBeforeBattleText4::
 	prompt
 
 _PokemonMansion2F_OakBeforeBattleText5::
-	text "In learning of"
-	line "MEWTWO's creation,"
+	text "In learning how"
+	line "MEWTWO was made,"
 
 	para "it seems my fears"
 	line "were well placed."
@@ -167,7 +167,7 @@ _PokemonMansion2F_OakPostBattleText::
 
 	para "Keep your senses"
 	line "sharp. The world"
-	cont "is full of wonders"
+	cont "has wonders in it"
 	
 	para "waiting to reveal"
 	line "themselves to the"

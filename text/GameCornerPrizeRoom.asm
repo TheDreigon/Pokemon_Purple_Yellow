@@ -35,8 +35,8 @@ _GameCornerPrizeRoomClerkDoYouNeedSomeGameCoinsText::
 	line "profit selling"
 	cont "them in bulk."
 	
-	para "It's ¥11000 for 500"
-	line "coins."
+	para "It's ¥11000 for"
+	line "500 coins."
 	
 	para "Want some?"
 	done
