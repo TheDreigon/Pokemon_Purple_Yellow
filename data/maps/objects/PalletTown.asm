@@ -21,7 +21,7 @@ PalletTown_Object:
 	def_object_events
 	object_event 10,  4, SPRITE_OAK, STAY, NONE, TEXT_PALLETTOWN_OAK
 	object_event 13, 16, SPRITE_GIRL, WALK, ANY_DIR, TEXT_PALLETTOWN_GIRL
-	object_event  5, 14, SPRITE_FISHER, WALK, ANY_DIR, TEXT_PALLETTOWN_FISHER
+	object_event  4, 13, SPRITE_FISHER, WALK, ANY_DIR, TEXT_PALLETTOWN_FISHER
 ; v0.7: the player's MOTHER, hidden by default (HS_PALLET_TOWN_MOM) and shown
 ; only for the TRAINER MANUAL scene, the way PALLETTOWN_OAK is shown only for
 ; his. Appended last so no earlier object const shifts. These coordinates are

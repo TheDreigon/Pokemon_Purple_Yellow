@@ -19,7 +19,7 @@ ENDM
 	map_const PALLET_TOWN,                   10, 10 ; $00
 	map_const VIRIDIAN_CITY,                 20, 18 ; $01
 	map_const PEWTER_CITY,                   20, 18 ; $02
-	map_const CERULEAN_CITY,                 20, 18 ; $03
+	map_const CERULEAN_CITY,                 22, 20 ; $03
 	map_const LAVENDER_TOWN,                 13, 11 ; $04 (world-design: +2 columns WEST, which is why Route 10/12 connect at offset -2)
 	map_const VERMILION_CITY,                20, 18 ; $05
 	map_const CELADON_CITY,                  26, 18 ; $06 (world-design: +1 column EAST; content did not shift, so the Route 7/16 offsets still hold)

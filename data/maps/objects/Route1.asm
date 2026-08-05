@@ -9,7 +9,7 @@ Route1_Object:
 	def_warp_events
 
 	def_bg_events
-	bg_event  9, 27, 4
+	bg_event 11, 27, 4
 
 	def_object_events
 	object_event   6, 18, SPRITE_YOUNGSTER, WALK, UP_DOWN, 1
