@@ -954,6 +954,55 @@ ItemUseVitamin:
 	and a
 	jp nz, ItemUseNotTime
 
+; Confusion is not part of a #MON's status byte. It is a bit in
+; wPlayerBattleStatus1 with its own counter, which is why the $ff mask a FULL
+; HEAL carries has never touched it and why a FULL RESTORE never did either.
+; Forte's call is that it should behave like burn or sleep, so these two items
+; clear it. Nothing else does -- the single-ailment heals keep their own masks.
+;
+; Returns carry when there is confusion for them to clear: a battle is running,
+; the item is one of those two, and the #MON being treated is the one on the
+; field. Confusion only exists in battle, so everything else is a no.
+;
+; Trashes a and hl. Leaves d alone: that is the party index the caller holds.
+CheckCanCureConfusion:
+	ld a, [wIsInBattle]
+	and a
+	jr z, .nothingToCure
+	ld a, [wcf91]
+	cp FULL_HEAL
+	jr z, .rightItem
+	cp FULL_RESTORE
+	jr nz, .nothingToCure
+.rightItem
+	ld a, [wPlayerMonNumber]
+	cp d ; is the treated #MON the one that is out?
+	jr nz, .nothingToCure
+	ld hl, wPlayerBattleStatus1
+	bit CONFUSED, [hl]
+	jr z, .nothingToCure
+	scf
+	ret
+.nothingToCure
+	and a ; clear carry
+	ret
+
+; Called from the two places that already clear wBattleMonStatus, so it only has
+; to decide on the item. The counter is zeroed as well: leaving it set would
+; have the mon snap straight back to confused on the next hit.
+CureConfusionIfFullHealOrRestore:
+	ld a, [wcf91]
+	cp FULL_HEAL
+	jr z, .clearIt
+	cp FULL_RESTORE
+	ret nz
+.clearIt
+	ld hl, wPlayerBattleStatus1
+	res CONFUSED, [hl]
+	xor a
+	ld [wPlayerConfusedCounter], a
+	ret
+
 ItemUseMedicine:
 	; v0.7 hard-mode trainer/boss policy: Revive/Max Revive blocked.
 	; Allowed in wild battles AND in any battle on Normal mode.
@@ -1062,7 +1111,19 @@ ItemUseMedicine:
 .checkMonStatus
 	ld a, [hl] ; pokemon's status
 	and c ; does the pokemon have a status ailment the item can cure?
-	jp z, .healingItemNoEffect
+	jr nz, .curesSomething
+; The status BYTE is clear -- but confusion is not in it. It is a bit in
+; wPlayerBattleStatus1, which is why a FULL HEAL's $ff mask never reached it.
+; Forte's call is that confusion should behave like burn or sleep, so a FULL
+; HEAL used on a mon that is only confused has to count as doing something
+; rather than reporting no effect.
+	push hl
+	push bc
+	call CheckCanCureConfusion
+	pop bc
+	pop hl
+	jp nc, .healingItemNoEffect
+.curesSomething
 ; if the pokemon has a status the item can heal
 	xor a
 	ld [hl], a ; remove the status ailment in the party data
@@ -1077,6 +1138,7 @@ ItemUseMedicine:
 	push hl
 	ld hl, wPlayerBattleStatus3
 	res BADLY_POISONED, [hl] ; heal Toxic status
+	call CureConfusionIfFullHealOrRestore
 	pop hl
 	ld bc, wPartyMon1Stats - wPartyMon1Status
 	add hl, bc ; hl now points to party stats
@@ -1172,7 +1234,12 @@ ItemUseMedicine:
 	inc hl
 	ld a, [hld] ; status ailment
 	and a ; does the pokemon have a status ailment?
-	jp z, .healingItemNoEffect
+	jr nz, .fullRestoreHasWork
+	push hl
+	call CheckCanCureConfusion
+	pop hl
+	jp nc, .healingItemNoEffect
+.fullRestoreHasWork
 	ld a, FULL_HEAL
 	ld [wcf91], a
 	dec hl
@@ -1369,6 +1436,9 @@ ItemUseMedicine:
 	jr nz, .calculateHPBarCoords
 	xor a
 	ld [wBattleMonStatus], a ; remove the status ailment in the in-battle pokemon data
+	push hl
+	call CureConfusionIfFullHealOrRestore
+	pop hl
 .calculateHPBarCoords
 	hlcoord 4, -1
 	ld bc, 2 * SCREEN_WIDTH
@@ -1905,9 +1975,14 @@ ItemUseXStat:
 	ret
 
 ItemUsePokeflute:
+; The flute is the SNORLAX key and nothing else now. In battle it used to wake
+; every #MON on both sides for free and forever, which made a SLEEP HEAL and a
+; FULL HEAL pointless against sleep the moment you owned one. Forte's call: it
+; only works outside battle. The whole in-battle branch, and WakeUpEntireParty
+; which only that branch called, are gone rather than left unreachable.
 	ld a, [wIsInBattle]
 	and a
-	jr nz, .inBattle
+	jp nz, ItemUseNotTime
 ; if not in battle
 	call ItemUseReloadOverworldData
 	ld a, [wCurMap]
@@ -1956,80 +2031,6 @@ ItemUsePokeflute:
 	ld hl, PlayedFluteNoEffectText
 	jp PrintText
 
-.inBattle
-	xor a
-	ld [wWereAnyMonsAsleep], a
-	ld b, ~SLP_MASK
-	ld hl, wPartyMon1Status
-	call WakeUpEntireParty
-	ld a, [wIsInBattle]
-	dec a ; is it a trainer battle?
-	jr z, .skipWakingUpEnemyParty
-; if it's a trainer battle
-	ld hl, wEnemyMon1Status
-	call WakeUpEntireParty
-.skipWakingUpEnemyParty
-	ld hl, wBattleMonStatus
-	ld a, [hl]
-	and b ; remove Sleep status
-	ld [hl], a
-	ld hl, wEnemyMonStatus
-	ld a, [hl]
-	ld c, a
-	and b ; remove Sleep status
-	ld [hl], a
-	ld a, c
-	and SLP_MASK
-	jr z, .asm_e063
-	ld a, $1
-	ld [wWereAnyMonsAsleep], a
-.asm_e063
-	call LoadScreenTilesFromBuffer2 ; restore saved screen
-	ld a, [wWereAnyMonsAsleep]
-	and a ; were any pokemon asleep before playing the flute?
-	ld hl, PlayedFluteNoEffectText
-	jp z, PrintText ; if no pokemon were asleep
-; if some pokemon were asleep
-	ld hl, PlayedFluteHadEffectText
-	call PrintText
-	ld a, [wLowHealthAlarm]
-	and $80
-	jr nz, .skipMusic
-	call WaitForSoundToFinish ; wait for sound to end
-	farcall Music_PokeFluteInBattle ; play in-battle pokeflute music
-.musicWaitLoop ; wait for music to finish playing
-	ld a, [wChannelSoundIDs + CHAN7]
-	and a ; music off?
-	jr nz, .musicWaitLoop
-.skipMusic
-	ld hl, FluteWokeUpText
-	jp PrintText
-
-; wakes up all party pokemon
-; INPUT:
-; hl must point to status of first pokemon in party (player's or enemy's)
-; b must equal ~SLP
-; [wWereAnyMonsAsleep] should be initialized to 0
-; OUTPUT:
-; [wWereAnyMonsAsleep]: set to 1 if any pokemon were asleep
-WakeUpEntireParty:
-	ld de, 44
-	ld c, 6
-.loop
-	ld a, [hl]
-	push af
-	and SLP_MASK
-	jr z, .notAsleep
-	ld a, 1
-	ld [wWereAnyMonsAsleep], a ; indicate that a pokemon had to be woken up
-.notAsleep
-	pop af
-	and b ; remove Sleep status
-	ld [hl], a
-	add hl, de
-	dec c
-	jr nz, .loop
-	ret
 
 Route12SnorlaxFluteCoords:
 	dbmapcoord  9, 62 ; one space West of Snorlax

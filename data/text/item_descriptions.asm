@@ -63,8 +63,8 @@ _ParlyzHealDescription::
 	prompt
 
 _FullRestoreDescription::
-	text "Fully restores HP"
-	next "and status."
+	text "Restores HP, and"
+	next "any status at all."
 	prompt
 
 _MaxPotionDescription::
@@ -168,8 +168,8 @@ _PokeDollDescription::
 	prompt
 
 _FullHealDescription::
-	text "Eliminates all"
-	next "status problems."
+	text "Clears any status,"
+	next "confusion too."
 	prompt
 
 _ReviveDescription::
@@ -268,8 +268,8 @@ _SilphScopeDescription::
 	prompt
 
 _PokeFluteDescription::
-	text "Instantly awakens"
-	next "any #MON."
+	text "Wakes a SNORLAX"
+	next "blocking a road."
 	prompt
 
 _LiftKeyDescription::

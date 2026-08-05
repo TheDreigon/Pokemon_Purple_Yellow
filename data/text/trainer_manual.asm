@@ -186,9 +186,10 @@ _ManualPage_4_1::
 	next "is lost to it."
 	next ""
 	next "It stays after the"
-	next "battle. PARLYZ"
-	next "HEAL or a FULL"
-	next "HEAL clears it."
+	next "battle. A"
+	next "PARALYSIS HEAL or"
+	next "a FULL HEAL clears"
+	next "it."
 	done
 
 _ManualPage_4_2::
@@ -224,10 +225,10 @@ _ManualPage_4_4::
 	next "two to five turns."
 	next ""
 	next "It stays after the"
-	next "battle. An"
-	next "AWAKENING or a"
-	next "FULL HEAL wakes"
-	next "them early."
+	next "battle. A SLEEP"
+	next "HEAL or a FULL"
+	next "HEAL wakes them"
+	next "early."
 	done
 
 _ManualPage_4_5::
@@ -241,9 +242,9 @@ _ManualPage_4_5::
 	next "Calling it back"
 	next "leaves ordinary"
 	next "POISON."
-	next ""
-	next "ANTIDOTE or FULL"
-	next "HEAL clears both."
+	next "A POISON HEAL or a"
+	next "FULL HEAL clears"
+	next "both."
 	done
 
 _ManualPage_4_6::
@@ -254,10 +255,11 @@ _ManualPage_4_6::
 	next "#MON strikes"
 	next "itself instead."
 	next ""
-	next "No item clears it,"
-	next "not even a FULL"
-	next "HEAL. Calling it"
-	next "back does."
+	next "A FULL HEAL or a"
+	next "FULL RESTORE"
+	next "clears it, and so"
+	next "does calling it"
+	next "back."
 	done
 
 _ManualPage_4_7::
