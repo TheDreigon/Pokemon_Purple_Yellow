@@ -64,7 +64,7 @@ _SSAnneB1FRoomsSailor4EndBattleText::
 _SSAnneB1FRoomsSailor4AfterBattleText::
 	text "Sea #MON live"
 	line "in deep water."
-	cont "You'll need a ROD!"
+	cont "You need a ROD!"
 	done
 
 _SSAnneB1FRoomsSailor5BattleText::

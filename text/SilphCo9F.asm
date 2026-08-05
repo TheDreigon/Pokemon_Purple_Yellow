@@ -14,8 +14,8 @@ SilphCo9FNurseThankYouText::
 	done
 
 _SilphCo9FRocket1BattleText::
-	text "Your #MON seem"
-	line "to adore you, kid!"
+	text "Your #MON adore"
+	line "you, kid!"
 	done
 
 _SilphCo9FRocket1EndBattleText::

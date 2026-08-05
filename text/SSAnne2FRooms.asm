@@ -17,7 +17,7 @@ _SSAnne2FRoomsGentleman4Text::
 
 _SSAnne2FRoomsGrampsText::
 	text "#MON can CUT"
-	line "down small bushes."
+	line "bushes down."
 	done
 
 _SSAnne2FRoomsGentleman1BattleText::
@@ -92,7 +92,7 @@ _SSAnne2FRoomsGentleman5Text::
 	cont "in FUCHSIA CITY?"
 
 	para "It had many rare"
-	line "kinds of #MON!!"
+	line "rare #MON!!"
 	done
 
 _SSAnne2FRoomsLittleBoyText::

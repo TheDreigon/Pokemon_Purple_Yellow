@@ -254,8 +254,8 @@ _CinnabarGymGymGuideChampInMakingText::
 
 	para "He's got a lot"
 	line "of coverage moves"
-	cont "to check your"
-	cont "effective #MON."
+	cont "to check the"
+	cont "#MON you send."
 	done
 
 _CinnabarGymGymGuideBeatBlaineText::

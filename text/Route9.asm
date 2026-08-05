@@ -10,9 +10,9 @@ _Route9CooltrainerF1EndBattleText::
 	prompt
 
 _Route9CooltrainerF1AfterBattleText::
-	text "You need light to"
-	line "get through that"
-	cont "dark tunnel ahead."
+	text "You need light in"
+	line "that dark tunnel"
+	cont "up ahead."
 	done
 
 _Route9AJBattleText::

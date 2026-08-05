@@ -20,7 +20,7 @@ _SSAnneCaptainsRoomCaptainIFeelMuchBetterText::
 	line "my CUT technique?"
 
 	para "I could show you"
-	line "if I wasn't ill..."
+	line "if I was well..."
 
 	para "I know! You can"
 	line "have this!"

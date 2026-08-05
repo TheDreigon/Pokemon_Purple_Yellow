@@ -79,8 +79,8 @@ _DexRatingText_Own90To99::
 	done
 
 _DexRatingText_Own100To109::
-	text "You finally got at"
-	line "least 100 species!"
+	text "You finally have"
+	line "100 species!"
 
 	para "I can't believe"
 	line "how good you are!"

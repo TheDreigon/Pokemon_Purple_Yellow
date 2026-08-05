@@ -76,8 +76,8 @@ _RockTunnelB1FHiker2EndBattleText::
 
 _RockTunnelB1FHiker2AfterBattleText::
 	text "In mountains,"
-	line "you'll often find"
-	cont "rock-type #MON."
+	line "you often find"
+	cont "ROCK #MON."
 	done
 
 _RockTunnelB1FCooltrainerF2BattleText::

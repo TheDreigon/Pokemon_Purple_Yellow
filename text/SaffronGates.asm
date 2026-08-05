@@ -4,7 +4,7 @@ _SaffronGateGuardGeeImThirstyText::
 	cont "though!"
 
 	para "Oh, wait there,"
-	line "the road's closed."
+	line "the road is shut."
 	done
 
 _SaffronGateGuardImParchedText::
@@ -24,7 +24,7 @@ _SaffronGateGuardYouCanGoOnThroughText::
 	cont "..."
 	cont "Gulp..."
 	cont "If you want to go"
-	cont "to SAFFRON CITY..."
+	cont "to SAFFRON..."
 	cont "..."
 	cont "You can go on"
 	cont "through. I'll"

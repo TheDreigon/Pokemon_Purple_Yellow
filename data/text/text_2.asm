@@ -266,7 +266,7 @@ _CinnabarPokecenterGuyText::
 
 	para "Evolution can wait"
 	line "until new moves"
-	cont "have been learned."
+	cont "are learned."
 	done
 
 _SaffronCityPokecenterGuyText1::

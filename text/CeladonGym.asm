@@ -39,7 +39,7 @@ _CeladonGymErikaReceivedRainbowBadgeText::
 _CeladonGymErikaPostBattleAdviceText::
 	text "You are cataloging"
 	line "#MON? I must"
-	cont "say I'm impressed."
+	cont "say I'm amazed."
 
 	para "I would never"
 	line "collect #MON"
@@ -108,9 +108,9 @@ _CeladonGymTMExplanationText::
 	line "GIGA DRAIN."
 
 	para "Half the damage"
-	line "inflicted returns"
-	cont "to your #MON as"
-	cont "restored vigour."
+	line "inflicted comes"
+	cont "back as restored"
+	cont "vigour."
 	done
 
 _CeladonGymTMNoRoomText::

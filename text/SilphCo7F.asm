@@ -41,8 +41,8 @@ _SilphCo7FSilphWorkerM1SavedText::
 _SilphCo7FSilphWorkerM2AfterTheMasterBallText::
 	text "TEAM ROCKET was"
 	line "after the MASTER"
-	cont "BALL which will"
-	cont "catch any #MON!"
+	cont "BALL, which"
+	cont "catches any!"
 	done
 
 _SilphCo7FSilphWorkerM2CancelledMasterBallText::

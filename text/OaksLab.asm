@@ -204,8 +204,8 @@ _OaksLabRivalWhatAboutMeText::
 
 _OaksLabOakBePatientText::
 	text "OAK: Be patient,"
-	line "<RIVAL>, I'll give"
-	cont "you one later."
+	line "<RIVAL>. I will"
+	cont "give one later."
 	done
 
 _OaksLabRivalTakesText1::
