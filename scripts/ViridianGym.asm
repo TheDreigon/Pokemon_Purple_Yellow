@@ -191,7 +191,7 @@ ViridianGym_TextPointers:
 	dw_const ViridianGymRocker2Text,                TEXT_VIRIDIANGYM_ROCKER2
 	dw_const ViridianGymCooltrainerM3Text,          TEXT_VIRIDIANGYM_COOLTRAINER_M3
 	dw_const ViridianGymGymGuideText,               TEXT_VIRIDIANGYM_GYM_GUIDE
-	dw_const PickUpItemText,                        TEXT_VIRIDIANGYM_REVIVE
+	dw_const PickUpItemText,                        TEXT_VIRIDIANGYM_MAX_REVIVE
 	dw_const ViridianGymGiovanniEarthBadgeInfoText, TEXT_VIRIDIANGYM_GIOVANNI_EARTH_BADGE_INFO
 	dw_const ViridianGymGiovanniReceivedTMText,   TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_TM
 	dw_const ViridianGymGiovanniTMNoRoomText,     TEXT_VIRIDIANGYM_GIOVANNI_TM_NO_ROOM

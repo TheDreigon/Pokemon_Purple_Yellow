@@ -5,7 +5,7 @@ SafariZoneWest_TextPointers:
 	def_text_pointers
 	dw_const PickUpItemText,                         TEXT_SAFARIZONEWEST_MAX_POTION
 	dw_const PickUpItemText,                         TEXT_SAFARIZONEWEST_TM_HURRICANE
-	dw_const PickUpItemText,                         TEXT_SAFARIZONEWEST_MAX_REVIVE
+	dw_const PickUpItemText,                         TEXT_SAFARIZONEWEST_PROTEIN
 	dw_const PickUpItemText,                         TEXT_SAFARIZONEWEST_GOLD_TEETH
 	dw_const SafariZoneWestRestHouseSignText,        TEXT_SAFARIZONEWEST_REST_HOUSE_SIGN
 	dw_const SafariZoneWestFindWardensTeethSignText, TEXT_SAFARIZONEWEST_FIND_WARDENS_TEETH_SIGN

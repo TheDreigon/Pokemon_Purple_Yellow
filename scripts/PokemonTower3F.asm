@@ -18,7 +18,7 @@ PokemonTower3F_TextPointers:
 	dw_const PokemonTower3FChanneler1Text, TEXT_POKEMONTOWER3F_CHANNELER1
 	dw_const PokemonTower3FChanneler2Text, TEXT_POKEMONTOWER3F_CHANNELER2
 	dw_const PokemonTower3FChanneler3Text, TEXT_POKEMONTOWER3F_CHANNELER3
-	dw_const PickUpItemText,               TEXT_POKEMONTOWER3F_ESCAPE_ROPE
+	dw_const PickUpItemText,               TEXT_POKEMONTOWER3F_FULL_HEAL
 
 PokemonTower3TrainerHeaders:
 	def_trainers

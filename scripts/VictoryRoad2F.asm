@@ -100,7 +100,7 @@ VictoryRoad2F_TextPointers:
 	dw_const VictoryRoad2FJuggler2Text,   	TEXT_VICTORYROAD2F_JUGGLER2
 	dw_const VictoryRoad2FMoltresText,      TEXT_VICTORYROAD2F_MOLTRES
 	dw_const PickUpItemText,                TEXT_VICTORYROAD2F_TM_DOUBLE_EDGE
-	dw_const PickUpItemText,                TEXT_VICTORYROAD2F_FULL_HEAL
+	dw_const PickUpItemText,                TEXT_VICTORYROAD2F_ESCAPE_ROPE
 	dw_const PickUpItemText,                TEXT_VICTORYROAD2F_TM_PETAL_DANCE
 	dw_const PickUpItemText,                TEXT_VICTORYROAD2F_GUARD_SPEC
 	dw_const BoulderText,                   TEXT_VICTORYROAD2F_BOULDER1

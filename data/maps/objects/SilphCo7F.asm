@@ -8,7 +8,7 @@
 	const_export SILPHCO7F_ROCKET2
 	const_export SILPHCO7F_ROCKET3
 	const_export SILPHCO7F_RIVAL
-	const_export SILPHCO7F_CALCIUM
+	const_export SILPHCO7F_MAX_POTION
 	const_export SILPHCO7F_TM_LEECH_LIFE
 	const_export SILPHCO7F_UNUSED ; unused vanilla leftover: no corresponding object_event (its hide_show_data.asm entry was removed; const is now unreferenced)
 
@@ -35,7 +35,7 @@ SilphCo7F_Object:
 	object_event 20,  2, SPRITE_ROCKET, STAY, LEFT, TEXT_SILPHCO7F_ROCKET2, OPP_ROCKET, 33
 	object_event 19, 14, SPRITE_ROCKET, STAY, RIGHT, TEXT_SILPHCO7F_ROCKET3, OPP_ROCKET, 34
 	object_event  3,  7, SPRITE_BLUE, STAY, UP, TEXT_SILPHCO7F_RIVAL
-	object_event  1,  9, SPRITE_POKE_BALL, STAY, NONE, TEXT_SILPHCO7F_CALCIUM, MAX_POTION
+	object_event  1,  9, SPRITE_POKE_BALL, STAY, NONE, TEXT_SILPHCO7F_MAX_POTION, MAX_POTION
 	object_event 24, 11, SPRITE_POKE_BALL, STAY, NONE, TEXT_SILPHCO7F_TM_LEECH_LIFE, TM_LEECH_LIFE
 
 	def_warps_to SILPH_CO_7F

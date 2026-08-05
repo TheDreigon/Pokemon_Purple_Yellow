@@ -260,7 +260,7 @@ SilphCo7F_TextPointers:
 	dw_const SilphCo7FRocket2Text,            TEXT_SILPHCO7F_ROCKET2
 	dw_const SilphCo7FRocket3Text,            TEXT_SILPHCO7F_ROCKET3
 	dw_const SilphCo7FRivalText,              TEXT_SILPHCO7F_RIVAL
-	dw_const PickUpItemText,                  TEXT_SILPHCO7F_CALCIUM
+	dw_const PickUpItemText,                  TEXT_SILPHCO7F_MAX_POTION
 	dw_const PickUpItemText,                  TEXT_SILPHCO7F_TM_LEECH_LIFE
 	dw_const PickUpItemText,                  TEXT_SILPHCO7F_UNREFERENCED_ITEM ; unreferenced
 	dw_const SilphCo7FRivalWaitedHereText,    TEXT_SILPHCO7F_RIVAL_WAITED_HERE

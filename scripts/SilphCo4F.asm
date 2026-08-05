@@ -100,7 +100,7 @@ SilphCo4F_TextPointers:
 	dw_const SilphCo4FRocket2Text,      TEXT_SILPHCO4F_ROCKET2
 	dw_const PickUpItemText,            TEXT_SILPHCO4F_FULL_HEAL
 	dw_const PickUpItemText,            TEXT_SILPHCO4F_MAX_REVIVE
-	dw_const PickUpItemText,            TEXT_SILPHCO4F_ESCAPE_ROPE
+	dw_const PickUpItemText,            TEXT_SILPHCO4F_DIRE_HIT
 
 SilphCo4TrainerHeaders:
 	def_trainers 2

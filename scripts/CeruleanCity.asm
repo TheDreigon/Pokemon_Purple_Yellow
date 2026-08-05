@@ -100,8 +100,12 @@ ENDC
 	ret
 
 CeruleanCityCoords1:
-	dbmapcoord 30,  7
-	dbmapcoord 30,  9
+; The two tiles directly above and below the Rocket at (34, 8). ORDER MATTERS:
+; the script reads wCoordIndex and turns the player down for the first and up
+; for the second. These were left at x=30 when the Cerulean rework moved the
+; Rocket and the house four tiles east.
+	dbmapcoord 34,  7
+	dbmapcoord 34,  9
 	db -1 ; end
 
 CeruleanCityCoords2:
@@ -289,13 +293,13 @@ CeruleanCityRocketText:
 	lb bc, TM_BULLDOZE, 1
 	call GiveItem
 	jr c, .Success
-	ld hl, .TM28NoRoomText
+	ld hl, .TM05NoRoomText
 	call PrintText
 	jr .Done
 .Success
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, .ReceivedTM28Text
+	ld hl, .ReceivedTM05Text
 	call PrintText
 	farcall CeruleanHideRocket
 .Done
@@ -305,15 +309,15 @@ CeruleanCityRocketText:
 	text_far _CeruleanCityRocketText
 	text_end
 
-.ReceivedTM28Text:
-	text_far _CeruleanCityRocketReceivedTM28Text
+.ReceivedTM05Text:
+	text_far _CeruleanCityRocketReceivedTM05Text
 	sound_get_item_1
 	text_far _CeruleanCityRocketIBetterGetMovingText
 	text_waitbutton
 	text_end
 
-.TM28NoRoomText:
-	text_far _CeruleanCityRocketTM28NoRoomText
+.TM05NoRoomText:
+	text_far _CeruleanCityRocketTM05NoRoomText
 	text_end
 
 .IGiveUpText:

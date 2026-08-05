@@ -23,9 +23,9 @@ SSAnneB1FRooms_TextPointers:
 	dw_const SSAnneB1FRoomsFisherText,    TEXT_SSANNEB1FROOMS_FISHER
 	dw_const SSAnneB1FRoomsSuperNerdText, TEXT_SSANNEB1FROOMS_SUPER_NERD
 	dw_const SSAnneB1FRoomsMachokeText,   TEXT_SSANNEB1FROOMS_MACHOKE
-	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_ETHER
+	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_WATER_STONE
 	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_TM_FLAME_BURST
-	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_MAX_POTION
+	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_SUPER_POTION
 
 SSAnne10TrainerHeaders:
 	def_trainers

@@ -273,7 +273,7 @@ INCLUDE "engine/overworld/spinners.asm"
 RocketHideoutB2F_TextPointers:
 	def_text_pointers
 	dw_const RocketHideoutB2FRocketText, TEXT_ROCKETHIDEOUTB2F_ROCKET
-	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_MOON_STONE
+	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_FULL_HEAL
 	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_NUGGET
 	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_TM_DAZZLE_GLEAM
 	dw_const PickUpItemText,             TEXT_ROCKETHIDEOUTB2F_TM_AGILITY

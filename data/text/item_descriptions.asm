@@ -148,8 +148,8 @@ _BikeVoucherDescription::
 	prompt
 
 _XAccuracyDescription::
-	text "Raises accuracy."
-	next "(1 BTL)"
+	text "Ups accuracy one"
+	next "step this battle."
 	prompt
 
 _CardKeyDescription::
@@ -183,8 +183,8 @@ _MaxReviveDescription::
 	prompt
 
 _GuardSpecDescription::
-	text "Prevents stats"
-	next "reduction. (1 BTL)"
+	text "Blocks stat drops"
+	next "for the battle."
 	prompt
 
 _SuperRepelDescription::
@@ -199,7 +199,7 @@ _MaxRepelDescription::
 
 _DireHitDescription::
 	text "Ups critical hit"
-	next "ratio. (1 BTL)"
+	next "ratio this battle."
 	prompt
 
 _FreshWaterDescription::
@@ -228,23 +228,23 @@ _GoldTeethDescription::
 	prompt
 
 _XAttackDescription::
-	text "Raises ATTACK."
-	next "(1 BTL)"
+	text "Ups ATTACK a step"
+	next "for the battle."
 	prompt
 
 _XDefendDescription::
-	text "Raises DEFENSE."
-	next "(1 BTL)"
+	text "Ups DEFENSE a step"
+	next "for the battle."
 	prompt
 
 _XSpeedDescription::
-	text "Raises SPEED."
-	next "(1 BTL)"
+	text "Ups SPEED a step"
+	next "for the battle."
 	prompt
 
 _XSpecialDescription::
-	text "Raises SPECIAL."
-	next "(1 BTL)"
+	text "Ups SPECIAL a step"
+	next "for the battle."
 	prompt
 
 _CoinCaseDescription::

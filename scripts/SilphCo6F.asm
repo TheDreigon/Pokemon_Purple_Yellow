@@ -50,7 +50,7 @@ SilphCo6F_TextPointers:
 	dw_const SilphCo6FRocket1Text,       TEXT_SILPHCO6F_ROCKET1
 	dw_const SilphCo6FScientistText,     TEXT_SILPHCO6F_SCIENTIST
 	dw_const SilphCo6FRocket2Text,       TEXT_SILPHCO6F_ROCKET2
-	dw_const PickUpItemText,             TEXT_SILPHCO6F_HP_UP
+	dw_const PickUpItemText,             TEXT_SILPHCO6F_MAX_ETHER
 	dw_const PickUpItemText,             TEXT_SILPHCO6F_X_ACCURACY
 
 SilphCo6TrainerHeaders:

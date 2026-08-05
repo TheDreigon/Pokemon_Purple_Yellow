@@ -22,7 +22,7 @@ ViridianForest_TextPointers:
 	dw_const ViridianForestCooltrainerFText,    TEXT_VIRIDIANFOREST_COOLTRAINER_F
 	dw_const ViridianForestYoungster5Text,      TEXT_VIRIDIANFOREST_YOUNGSTER5
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POTION1
-	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POTION2
+	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_ANTIDOTE
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POKE_BALL
 	dw_const ViridianForestYoungster6Text,      TEXT_VIRIDIANFOREST_YOUNGSTER6
 	dw_const ViridianForestTrainerTips1Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS1

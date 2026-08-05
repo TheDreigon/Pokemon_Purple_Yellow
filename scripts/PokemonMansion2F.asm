@@ -62,7 +62,7 @@ PokemonMansion2F_TextPointers:
 	def_text_pointers
 	dw_const PokemonMansion2FSuperNerdText, TEXT_POKEMONMANSION2F_SUPER_NERD
 	dw_const PokemonMansion2FOakText,		TEXT_POKEMONMANSION2F_OAK
-	dw_const PickUpItemText,                TEXT_POKEMONMANSION2F_CALCIUM
+	dw_const PickUpItemText,                TEXT_POKEMONMANSION2F_FIRE_STONE
 	dw_const PokemonMansion2FDiary1Text,    TEXT_POKEMONMANSION2F_DIARY1
 	dw_const PokemonMansion2FDiary2Text,    TEXT_POKEMONMANSION2F_DIARY2
 	dw_const PokemonMansion2FSwitchText,    TEXT_POKEMONMANSION2F_SWITCH
