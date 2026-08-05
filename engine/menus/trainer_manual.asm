@@ -1009,7 +1009,7 @@ TrainerManualSection4_6:
 TrainerManualSection4_7:
 	db "CALLING ONE BACK@"
 TrainerManualSection4_8:
-	db "WHO IS IMMUNE@"
+	db "IMMUNE TO STATUS@"
 TrainerManualSection4_9:
 	db "GUARD SPEC.@"
 

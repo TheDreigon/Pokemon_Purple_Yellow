@@ -275,10 +275,7 @@ _ManualPage_4_7::
 	done
 
 _ManualPage_4_8::
-	text "Some #MON shrug"
-	next "off some ills."
-	next ""
-	next "FIRE and MAGMA"
+	text "FIRE and MAGMA"
 	next "never burn. ICE"
 	next "and MAGMA never"
 	next "freeze."
@@ -287,6 +284,10 @@ _ManualPage_4_8::
 	next "takes PARALYSIS."
 	next "POISON and STEEL"
 	next "never take POISON."
+	next ""
+	next "Types that cannot"
+	next "be hit at all are"
+	next "in THE TYPES."
 	done
 
 _ManualPage_4_9::
