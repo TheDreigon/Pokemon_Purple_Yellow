@@ -1,0 +1,314 @@
+; ARCHIVED -- Saffron City while Silph Co is occupied -- the first Saffron theme. NOT BUILT.
+;
+; This is the first version, kept because Forte asked for the originals to be
+; preserved before Saffron was rewritten (2026-08-05). The note data below is
+; byte-for-byte what shipped; only the labels are renamed, so that this file can
+; sit in the repo beside the live one without clashing. It is not referenced
+; from audio.asm and costs no ROM.
+;
+; git also has it, in every commit up to that date -- this copy exists so it is
+; findable without knowing which commit to look in.
+;
+; TO BRING IT BACK: rename Music_UnusedSaffronOccupied -> Music_SaffronCity throughout,
+; delete the live file, and nothing else changes -- the header, the constant,
+; the audio.asm INCLUDE and the songs.asm line all already name Music_SaffronCity.
+; Then check: python .claude/song_id_audit.py and .claude/music_analyze.py
+;
+; A minor on an Am-Em-F-G vamp, tempo 152, 8 bars, 31 notes in the lead.
+; Forte chose this over two later revisions; see the memory. Its twin is
+; unused_saffron_free.asm and the two must stay structurally identical.
+
+; Saffron City -- an original piece, not derived from anything.
+;
+; THIS IS THE OCCUPIED CITY. It is the plain data/maps/songs.asm entry, so it
+; is what plays until Giovanni is beaten on the top floor of Silph Co. From
+; that point LoadMapMusicOverrides swaps in Music_SaffronFree, which is this
+; same tune in A major, faster, and with a second half. If you change anything
+; structural here, that file is its twin and has to follow.
+;
+; Two derivations failed the same way: Forte liked the music and said it did not
+; fit. Celadon and Route 24/25 are fundamentally CHEERFUL and ADVENTUROUS, and
+; slowing a tune down does not change what the tune is about. Saffron is
+; neither. It is the biggest city in Kanto, it is Silph's company town, and
+; Forte's own note is that visually there is barely any room to move because it
+; is just a mass of buildings. So this is written for that on purpose.
+;
+; The decisions, stated so they can be argued with:
+;
+; MODE. A minor, on a i - v - VI - VII vamp (Am - Em - F - G). Every other town
+; theme in the game is major and reads as friendly. This progression is the
+; single biggest reason this should not sound cheerful: it never resolves
+; brightly, it just keeps circling -- which is what a city does.
+;
+; INTERVALS. The melody leans on fourths and on the minor third instead of
+; stepwise singable steps, and enters off the beat in most bars. Wide intervals
+; read architectural; stepwise reads folk song. Syncopation gives it a walk
+; rather than a march.
+;
+; VOICE. Lead on duty_cycle 2, the 50% square. This matters: 75% is the warm
+; round pulse that Celadon, Vermilion and Cities1 all share, and 25% is the
+; thin reedy one now used by Cinnabar and Route 24/25. 50% is clean and glassy
+; and NOTHING else in the game is on it, so Saffron has a timbre of its own
+; before a single note is played. Vibrato fast and shallow (8/1/3): modern is
+; tight, not wobbly.
+;
+; THE MACHINE. Ch2 is a four-note arpeggio in eighths whose rhythm never varies
+; across all eight bars -- only the chord under it moves. That is the traffic:
+; something mechanical running underneath, indifferent to the tune on top. Kept
+; at volume 8 so it stays texture and does not become a counter-melody.
+;
+; BASS AND DRUMS. Root eighths and four-on-the-floor, both completely plain. No
+; fills anywhere, because a fill is the fastest way to make this read as an
+; adventure again.
+;
+; TEMPO 152. Purposeful, and deliberately not slow: Cinnabar (200) and Pewter
+; (184) own the heavy end now. Direction reminder -- the note delay is
+; note_length * note_speed * TEMPO, so a bigger number is SLOWER. This is the
+; ONE thing carried back from the later attempts: Forte asked for "a touch
+; faster" while v2 was being made, which was a standing note about the track
+; and not part of the Kanto argument. Everything else here is v1 untouched.
+;
+; -- HOW THIS ENDED (2026-07-30) ---------------------------------------------
+; Three versions were made and Forte chose this one.
+;
+;   v1 (this)  original, "modern city". He scored it 9/10 and said he loved it,
+;              with one reservation: it does not sound like the rest of Kanto.
+;   v2         same melody, accompaniment rebuilt in Gen 1 idiom -- 6+6+4 drums
+;              instead of four-on-the-floor, a walking bass, perfect pitch. He
+;              still heard the difference and correctly identified that the
+;              cause was the MELODY, not the backing.
+;   v3         melody and harmony rewritten to Gen 1's measured profile
+;              (Am-Dm-E-Am, mostly stepwise with leaps at the phrase joins).
+;              His verdict: the worst of the three.
+;
+; The lesson is worth more than the track. v3 scored well against every metric
+; I could take off Cities1 and Celadon -- interval profile, range, cadential
+; harmony -- and it was the one he liked least. Matching a measured profile is
+; not the same as writing a good tune, and when the two disagree the ear wins.
+; The thing that made v1 worth keeping was never its idiom; it is that it is a
+; good piece of music, and that Saffron sounding unlike anywhere else in Kanto
+; turns out to suit the biggest, most built-up city in the game.
+;
+; v1, v2 and v3 are all archived as .wav under Notes/Music auditions/, and all
+; three are in git (477daa8, b84789d, 7b798b5) if this is ever revisited.
+
+Music_UnusedSaffronOccupied_Ch1::
+	tempo 152
+	volume 7, 7
+	duty_cycle 2
+	vibrato 8, 1, 3
+.mainloop:
+	note_type 12, 11, 4
+; -- phrase A: the statement -------------------------------------------------
+; bar 1 (Am) -- enters late, on the second eighth
+	rest 2
+	octave 4
+	note A_, 2
+	note B_, 2
+	octave 5
+	note C_, 4
+	octave 4
+	note A_, 4
+	rest 2
+; bar 2 (Em)
+	note B_, 2
+	rest 2
+	note G_, 4
+	note B_, 4
+	octave 5
+	note E_, 4
+; bar 3 (F)
+	note D_, 2
+	note C_, 2
+	octave 4
+	note A_, 4
+	note F_, 4
+	note A_, 4
+; bar 4 (G) -- the rising fourth that keeps the vamp turning over
+	note G_, 4
+	note B_, 4
+	octave 5
+	note D_, 6
+	rest 2
+; -- phrase B: the answer, same harmony, higher and more open ----------------
+; bar 5 (Am)
+	rest 4
+	note E_, 4
+	note C_, 4
+	octave 4
+	note A_, 4
+; bar 6 (Em)
+	note B_, 4
+	octave 5
+	note E_, 2
+	note D_, 2
+	octave 4
+	note B_, 4
+	note G_, 4
+; bar 7 (F) -- the highest point in the piece, then straight back down
+	note A_, 4
+	octave 5
+	note C_, 4
+	note F_, 4
+	note E_, 4
+; bar 8 (G) -- lands on G and holds, so the loop point is a step, not a stop
+	note D_, 4
+	octave 4
+	note B_, 4
+	note G_, 8
+	sound_loop 0, .mainloop
+
+Music_UnusedSaffronOccupied_Ch2::
+	duty_cycle 1
+.mainloop:
+	note_type 12, 8, 2
+; The traffic. Identical rhythm in all eight bars by design; only the chord
+; moves. Eighths, four notes to the bar, twice.
+	sound_call .amBar
+	sound_call .emBar
+	sound_call .fBar
+	sound_call .gBar
+	sound_call .amBar
+	sound_call .emBar
+	sound_call .fBar
+	sound_call .gBar
+	sound_loop 0, .mainloop
+
+.amBar:
+	octave 4
+	note A_, 2
+	octave 5
+	note C_, 2
+	note E_, 2
+	note C_, 2
+	octave 4
+	note A_, 2
+	octave 5
+	note C_, 2
+	note E_, 2
+	note C_, 2
+	sound_ret
+
+.emBar:
+	octave 4
+	note E_, 2
+	note G_, 2
+	note B_, 2
+	note G_, 2
+	note E_, 2
+	note G_, 2
+	note B_, 2
+	note G_, 2
+	sound_ret
+
+.fBar:
+	octave 4
+	note F_, 2
+	note A_, 2
+	octave 5
+	note C_, 2
+	octave 4
+	note A_, 2
+	note F_, 2
+	note A_, 2
+	octave 5
+	note C_, 2
+	octave 4
+	note A_, 2
+	sound_ret
+
+.gBar:
+	octave 4
+	note G_, 2
+	note B_, 2
+	octave 5
+	note D_, 2
+	octave 4
+	note B_, 2
+	note G_, 2
+	note B_, 2
+	octave 5
+	note D_, 2
+	octave 4
+	note B_, 2
+	sound_ret
+
+Music_UnusedSaffronOccupied_Ch3::
+.mainloop:
+	note_type 12, 1, 1
+; Root eighths, no ornament. A pump.
+	octave 2
+	sound_call .eightA
+	sound_call .eightE
+	sound_call .eightF
+	sound_call .eightG
+	sound_call .eightA
+	sound_call .eightE
+	sound_call .eightF
+	sound_call .eightG
+	sound_loop 0, .mainloop
+
+.eightA:
+	note A_, 2
+	note A_, 2
+	note A_, 2
+	note A_, 2
+	note A_, 2
+	note A_, 2
+	note A_, 2
+	note A_, 2
+	sound_ret
+
+.eightE:
+	note E_, 2
+	note E_, 2
+	note E_, 2
+	note E_, 2
+	note E_, 2
+	note E_, 2
+	note E_, 2
+	note E_, 2
+	sound_ret
+
+.eightF:
+	note F_, 2
+	note F_, 2
+	note F_, 2
+	note F_, 2
+	note F_, 2
+	note F_, 2
+	note F_, 2
+	note F_, 2
+	sound_ret
+
+.eightG:
+	note G_, 2
+	note G_, 2
+	note G_, 2
+	note G_, 2
+	note G_, 2
+	note G_, 2
+	note G_, 2
+	note G_, 2
+	sound_ret
+
+Music_UnusedSaffronOccupied_Ch4::
+	drum_speed 12
+.mainloop:
+; Four on the floor, eight bars, no fills. See the header.
+	sound_call .bar
+	sound_call .bar
+	sound_call .bar
+	sound_call .bar
+	sound_call .bar
+	sound_call .bar
+	sound_call .bar
+	sound_call .bar
+	sound_loop 0, .mainloop
+
+.bar:
+	drum_note 3, 4
+	drum_note 3, 4
+	drum_note 3, 4
+	drum_note 3, 4
+	sound_ret

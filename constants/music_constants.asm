@@ -64,6 +64,7 @@ ENDM
 	music_const MUSIC_PEWTER_CITY,         Music_PewterCity
 	music_const MUSIC_SAFFRON_CITY,        Music_SaffronCity
 	music_const MUSIC_SAFFRON_FREE,        Music_SaffronFree
+	music_const MUSIC_CERULEAN_CITY,       Music_CeruleanCity
 
 	; AUDIO_1 AUDIO_2 AUDIO_3 AUDIO_4
 DEF NOISE_INSTRUMENTS_START EQUS "SFX_NOISE_INSTRUMENT01"

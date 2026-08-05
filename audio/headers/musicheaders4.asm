@@ -53,11 +53,24 @@ Music_SaffronCity::
 ; LoadMapMusicOverrides, never from the song table.
 Music_SaffronFree::
 ; Three channels, no drums -- see the note in audio/music/saffronfree.asm.
-; Celadon and Cities2 are three-channel too. This header is last in the bank,
-; so dropping a channel frees an id at the end and shifts nothing.
+; Celadon and Cities2 are three-channel too.
 	channel_count 3
 	channel 1, Music_SaffronFree_Ch1
 	channel 2, Music_SaffronFree_Ch2
 	channel 3, Music_SaffronFree_Ch3
+
+; Cerulean City, which used to share Cities2 with Fuchsia. AUDIO_4 for the same
+; reason as the two above.
+;
+; This header is LAST on purpose, and anything added later has to go after it.
+; Song ids are (header - $4000) / 3 within the bank, so inserting a header
+; renumbers every song below it -- including ids that are already baked into
+; data/maps/songs.asm and into save files. Appending costs nothing.
+Music_CeruleanCity::
+	channel_count 4
+	channel 1, Music_CeruleanCity_Ch1
+	channel 2, Music_CeruleanCity_Ch2
+	channel 3, Music_CeruleanCity_Ch3
+	channel 4, Music_CeruleanCity_Ch4
 
 

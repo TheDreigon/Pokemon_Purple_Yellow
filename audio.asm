@@ -533,6 +533,7 @@ INCLUDE "audio/music/cinnabarisland.asm"
 INCLUDE "audio/music/pewtercity.asm"
 INCLUDE "audio/music/saffroncity.asm"
 INCLUDE "audio/music/saffronfree.asm"
+INCLUDE "audio/music/ceruleancity.asm"
 
 IF !DEF(_DEBUG)
 ;	INCBIN "garbage/bank20.bin"
