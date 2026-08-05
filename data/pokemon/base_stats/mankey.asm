@@ -1,6 +1,6 @@
 	db DEX_MANKEY ; pokedex id
 	base_stat_row 40, 80, 35, 30, 80 ; hp atk def spc spd
-	db FIGHTING, DARK ; type
+	db FIGHTING, FIGHTING ; type
 	db 190 ; catch rate
 	db 74 ; base exp
 

@@ -179,9 +179,9 @@ TryingToLearn:
 ; which of five moves to drop was the one moment the game demanded the
 ; comparison and gave you nothing but the names.
 	bit BIT_START, a
-	jr nz, .showCard
+	jp nz, .showCard
 	bit BIT_B_BUTTON, a
-	jr nz, .cancel
+	jp nz, .cancel
 ; The fifth entry is the move being learned, so choosing it means "forget that
 ; one" -- which is giving up on it. Same exit as B: the caller asks whether to
 ; stop learning and prints "did not learn".
@@ -257,6 +257,22 @@ TryingToLearn:
 ; Buffer 1 still holds the screen LearnMove saved on the way in, and the card
 ; does not touch it -- the FIGHT menu wraps it in buffer 2 -- so it can be laid
 ; over the top and the screen pulled back afterwards.
+;
+; The party's mini-icons are OAM, not tilemap, so restoring the screen does
+; nothing about them and they floated over the card whenever this was reached by
+; teaching a TM (the FIGHT menu never showed it, because in battle the Pokemon
+; are background tiles). Clear them going in and put them back coming out --
+; ClearSprites only zeroes the shadow buffer, so it takes a frame to reach the
+; screen.
+;
+; They are NOT put back: RedrawPartyMenu_ would do it, but it prints names
+; through the string buffers, and wStringBuffer is holding the move being
+; LEARNED for the whole of this flow -- calling it turned "Learn IRON TAIL /
+; over GROWL?" into garbage. The icons stay gone until the caller rebuilds the
+; party menu, which costs a little of the screen behind the window and is a much
+; smaller price than sprites sitting on top of the card.
+	call ClearSprites
+	call DelayFrame
 	farcall ShowMoveInfo
 	call LoadScreenTilesFromBuffer1
 	pop hl

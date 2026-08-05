@@ -702,8 +702,9 @@ _ViridianBlackboardSleepText::
 	line "asleep even after"
 	cont "battles."
 
-	para "Use AWAKENING to"
-	line "wake them up!"
+	para "Use AWAKENING or"
+	line "FULL HEAL to wake"
+	cont "them up!"
 	prompt
 
 _ViridianBlackboardPoisonText::
@@ -714,8 +715,9 @@ _ViridianBlackboardPoisonText::
 	para "Poison lingers"
 	line "after battles."
 
-	para "Use an ANTIDOTE"
-	line "to cure poison!"
+	para "Use an ANTIDOTE or"
+	line "a FULL HEAL to"
+	cont "cure poison!"
 	prompt
 
 _ViridianBlackboardPrlzText::
@@ -726,8 +728,9 @@ _ViridianBlackboardPrlzText::
 	para "Paralysis remains"
 	line "after battles."
 
-	para "Use PARLYZ HEAL"
-	line "for treatment!"
+	para "Use PARLYZ HEAL or"
+	line "a FULL HEAL for"
+	cont "treatment!"
 	prompt
 
 _ViridianBlackboardBurnText::
@@ -740,8 +743,9 @@ _ViridianBlackboardBurnText::
 	para "Burns remain"
 	line "after battles."
 
-	para "Use BURN HEAL to"
-	line "cure a burn!"
+	para "Use BURN HEAL or a"
+	line "FULL HEAL to cure"
+	cont "a burn!"
 	prompt
 
 _ViridianBlackboardFrozenText::
@@ -757,8 +761,8 @@ _ViridianBlackboardFrozenText::
 	line "hit melts it at"
 	cont "once!"
 
-	para "ICE HEAL works"
-	line "too."
+	para "ICE HEAL and FULL"
+	line "HEAL work too."
 	prompt
 
 _ViridianBlackboardConfusionText::
@@ -768,9 +772,9 @@ _ViridianBlackboardConfusionText::
 	cont "foe!"
 
 	para "No item clears"
-	line "it. It fades on"
-	cont "its own after a"
-	cont "few turns."
+	line "it, not even a"
+	cont "FULL HEAL. It"
+	cont "fades on its own."
 	prompt
 
 _VermilionGymTrashText::
