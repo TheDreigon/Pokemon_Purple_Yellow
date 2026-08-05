@@ -317,3 +317,11 @@ INCLUDE "data/text/trainer_manual.asm"
 SECTION "Trainer Manual Types Text", ROMX
 
 INCLUDE "data/text/trainer_manual_types.asm"
+
+; Moved out of main.asm's bank3 in favour of its own floating section:
+; the TM names got longer when the bag gained a column, and bank3 had no
+; room left. Every caller loads BANK(tmhmNames) first, so it can sit
+; anywhere the linker likes.
+SECTION "TM and HM Names", ROMX
+
+INCLUDE "text/tmhm_names.asm"

@@ -348,280 +348,279 @@ _HM05Description::
 	prompt
 
 _TM01Description::
-	text "ROCK throw, may"
-	next "cause flinching."
+	text "30 in 100 chance"
+	next "to make it flinch."
 	prompt
 
 _TM02Description::
-	text "FIGHTING chop with"
-	next "high crit ratio."
+	text "Always strikes"
+	next "first."
 	prompt
 
 _TM03Description::
-	text "A first-strike"
-	next "priority move."
+	text "30 in 100 chance"
+	next "to PARALYZE it."
 	prompt
 
 _TM04Description::
-	text "FAIRY gleam, may"
-	next "cause flinching."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM05Description::
-	text "A GROUND attack,"
-	next "lowers SPEED."
+	text "Lowers the foe's"
+	next "SPEED one step."
 	prompt
 
 _TM06Description::
-	text "A pulse that may"
-	next "confuse the foe."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM07Description::
-	text "Creates copies to"
-	next "boost EVASION."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM08Description::
 	text "Damage equals the"
-	next "user's level."
+	next "user's own level."
 	prompt
 
 _TM09Description::
-	text "DRAGON claw with a"
-	next "high crit ratio."
+	text "Grows stronger"
+	next "as it takes hits."
 	prompt
 
 _TM10Description::
-	text "A slam that may"
-	next "cause paralysis."
+	text "15 in 100 chance"
+	next "to PARALYZE it."
 	prompt
 
 _TM11Description::
-	text "STEEL tail, may"
-	next "lower DEFENSE."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM12Description::
-	text "A shock that may"
-	next "cause paralysis."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM13Description::
-	text "STEEL ram that may"
-	next "cause flinching."
+	text "33 in 100 chance"
+	next "to drop DEFENSE."
 	prompt
 
 _TM14Description::
 	text "Damage equals the"
-	next "user's level."
+	next "user's own level."
 	prompt
 
 _TM15Description::
-	text "Confuses the foe."
-	next "GHOST type."
+	text "Confuses the foe"
+	next "for 2 to 5 turns."
 	prompt
 
 _TM16Description::
-	text "A FIRE move that"
-	next "always burns."
+	text "BURNs the foe and"
+	next "halves its ATTACK."
 	prompt
 
 _TM17Description::
-	text "A wave that always"
-	next "paralyzes."
+	text "PARALYZEs it and"
+	next "halves its SPEED."
 	prompt
 
 _TM18Description::
-	text "Boosts ATTACK and"
-	next "DEFENSE."
+	text "Raises ATTACK and"
+	next "DEFENSE one step."
 	prompt
 
 _TM19Description::
-	text "Copies a move used"
-	next "by the foe."
+	text "Copies one of the"
+	next "foe's moves."
 	prompt
 
 _TM20Description::
-	text "Mirrors the foe's"
-	next "last move."
+	text "Uses the move the"
+	next "foe used last."
 	prompt
 
 _TM21Description::
-	text "Decoy from 1/4 of"
-	next "user's max HP."
+	text "Spends a quarter"
+	next "of HP for a decoy."
 	prompt
 
 _TM22Description::
-	text "Randomly uses any"
-	next "#MON move."
+	text "Uses any move at"
+	next "random."
 	prompt
 
 _TM23Description::
-	text "GRASS move that"
-	next "drains foe's HP."
+	text "Heals the user by"
+	next "half the damage."
 	prompt
 
 _TM24Description::
-	text "DARK move that"
-	next "never misses."
+	text "30 in 100 chance"
+	next "to make it flinch."
 	prompt
 
 _TM25Description::
-	text "FIGHTING grip,"
-	next "may paralyze."
+	text "Raises SPEED and"
+	next "EVASION one step."
 	prompt
 
 _TM26Description::
-	text "A bite that may"
-	next "poison the foe."
+	text "30 in 100 chance"
+	next "to POISON the foe."
 	prompt
 
 _TM27Description::
-	text "BUG bite, drains"
-	next "foe's HP."
+	text "30 in 100 chance"
+	next "to make it flinch."
 	prompt
 
 _TM28Description::
-	text "Drops the foe's"
-	next "SPECIAL sharply."
+	text "Lowers the foe's"
+	next "SPECIAL two steps."
 	prompt
 
 _TM29Description::
-	text "FLYING attack that"
-	next "never misses."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM30Description::
-	text "Boosts ATTACK and"
-	next "ACCURACY."
+	text "Lowers the foe's"
+	next "ATTACK two steps."
 	prompt
 
 _TM31Description::
-	text "Strong wind that"
-	next "may confuse."
+	text "30 in 100 chance"
+	next "to confuse it."
 	prompt
 
 _TM32Description::
-	text "BUG horn ram that"
-	next "may flinch."
+	text "30 in 100 chance"
+	next "to make it flinch."
 	prompt
 
 _TM33Description::
-	text "Always inflicts"
-	next "50HP damage."
+	text "A critical hit is"
+	next "far more likely."
 	prompt
 
 _TM34Description::
-	text "Worsening poison"
-	next "each turn."
+	text "POISONs the foe,"
+	next "which costs it HP."
 	prompt
 
 _TM35Description::
-	text "PSYCHIC move that"
-	next "never misses."
+	text "Never misses, no"
+	next "matter EVASION."
 	prompt
 
 _TM36Description::
-	text "Drops the foe's"
-	next "ATTACK sharply."
+	text "Lowers the foe's"
+	next "ATTACK two steps."
 	prompt
 
 _TM37Description::
-	text "Drops the foe's"
-	next "SPEED sharply."
+	text "Lowers the foe's"
+	next "SPEED two steps."
 	prompt
 
 _TM38Description::
-	text "Strong but user"
-	next "takes recoil."
+	text "Heals the user by"
+	next "half the damage."
 	prompt
 
 _TM39Description::
-	text "FIGHTING tackle,"
-	next "lowers DEFENSE."
+	text "Lowers the foe's"
+	next "ATTACK one step."
 	prompt
 
 _TM40Description::
-	text "PSYCHIC blast,"
-	next "lowers SPECIAL."
+	text "45 in 100 chance"
+	next "to confuse it."
 	prompt
 
 _TM41Description::
-	text "Barrier, boosts"
-	next "SPECIAL defense."
+	text "Doubles SPECIAL"
+	next "against specials."
 	prompt
 
 _TM42Description::
-	text "ICE beam that may"
-	next "freeze the foe."
+	text "15 in 100 chance"
+	next "to FREEZE the foe."
 	prompt
 
 _TM43Description::
-	text "1st turn: Prepare"
-	next "2nd turn: Attack"
+	text "30 in 100 chance"
+	next "to make it flinch."
 	prompt
 
 _TM44Description::
-	text "ROCK slide, may"
-	next "cause paralysis."
+	text "30 in 100 chance"
+	next "to PARALYZE it."
 	prompt
 
 _TM45Description::
-	text "FIRE attack that"
-	next "may cause a burn."
+	text "15 in 100 chance"
+	next "to BURN the foe."
 	prompt
 
 _TM46Description::
-	text "Barrier, boosts"
-	next "DEFENSE."
+	text "Doubles DEFENSE"
+	next "against physical."
 	prompt
 
 _TM47Description::
-	text "Boosts SPEED and"
-	next "EVASION."
+	text "15 in 100 chance"
+	next "to PARALYZE it."
 	prompt
 
 _TM48Description::
-	text "A dance, boosts"
-	next "ATTACK sharply."
+	text "Raises the user's"
+	next "ATTACK two steps."
 	prompt
 
 _TM49Description::
-	text "Boosts the user's"
-	next "SPECIAL stat."
+	text "Raises SPECIAL and"
+	next "ACCURACY a step."
 	prompt
 
 _TM50Description::
-	text "GROUND quake that"
-	next "may lower SPEED."
+	text "33 in 100 chance"
+	next "to drop SPEED."
 	prompt
 
 _TM51Description::
-	text "Powerful thunder"
-	next "may paralyze."
+	text "30 in 100 chance"
+	next "to PARALYZE it."
 	prompt
 
 _TM52Description::
-	text "Powerful fire,"
-	next "may cause a burn."
+	text "Attacks 2 to 3"
+	next "turns, then reels."
 	prompt
 
 _TM53Description::
-	text "Powerful WATER jet"
-	next "that lowers SPEED."
+	text "The user takes a"
+	next "quarter of damage."
 	prompt
 
 _TM54Description::
-	text "Powerful blizzard"
-	next "may freeze."
+	text "Attacks 2 to 3"
+	next "turns, then reels."
 	prompt
 
 _TM55Description::
-	text "DRAGON fury. The"
-	next "user locks in."
+	text "Attacks 2 to 3"
+	next "turns, then reels."
 	prompt
-
 _UnusedItemDescription::
 	text "?"
 	prompt
