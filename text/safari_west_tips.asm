@@ -22,10 +22,11 @@ _SafariZoneWestTrainerTipsText::
 	cont "it 1.5 times"
 	cont "likelier to run."
 
-	para "BAIT halves that"
-	line "chance, but makes"
-	cont "it 8 times less"
-	cont "likely to run."
+	para "BAIT does not"
+	line "change your odds,"
+	cont "but makes it 8"
+	cont "times less likely"
+	cont "to run."
 
 	para "Both wear off"
 	line "after a few turns"

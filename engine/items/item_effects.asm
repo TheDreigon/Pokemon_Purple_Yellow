@@ -1750,11 +1750,40 @@ VitaminNoEffectText:
 
 INCLUDE "data/battle/stat_names.asm"
 
+; Restore the species' own catch rate before either item changes it.
+;
+; Both items zero the OTHER one's factor outright, so that factor never ticks
+; down to zero in PrintSafariZoneBattleText and its restore never runs. A ROCK
+; followed by BAIT therefore kept the doubled catch rate for the rest of the
+; encounter. Vanilla never noticed because BAIT halved the rate straight back
+; again; with that penalty gone (see below) the pair would simply be the best
+; of both, permanently. Restoring first also stops two ROCKs stacking to x4.
+RestoreEnemyCatchRate:
+	push hl
+	push de
+	ld a, [wEnemyMonSpecies]
+	ld [wd0b5], a
+	call GetMonHeader
+	ld a, [wMonHCatchRate]
+	ld [wEnemyMonActualCatchRate], a
+	pop de
+	pop hl
+	ret
+
 ItemUseBait:
 	ld hl, ThrewBaitText
 	call PrintText
-	ld hl, wEnemyMonActualCatchRate ; catch rate
-	srl [hl] ; halve catch rate
+	call RestoreEnemyCatchRate
+; v0.7: BAIT no longer halves the catch rate.
+;
+; That halving was not a cost, it was a cancellation: it applied during exactly
+; the turns the eating protects you for, so the 8x fewer escapes and the half
+; odds nullified each other and the item did nothing but spend a turn.
+; Simulated over 40,000 encounters it was the worst of the three options --
+; worse than throwing nothing -- at three times the balls per catch. Without it
+; BAIT becomes the tool for a Pokemon you must not lose (the best odds of
+; landing THIS one), while ROCK stays the tool for volume (far fewer balls per
+; catch, but it may bolt). Two jobs, neither dominating the other.
 	ld a, BAIT_ANIM
 	ld hl, wSafariBaitFactor ; bait factor
 	ld de, wSafariEscapeFactor ; escape factor
@@ -1763,6 +1792,7 @@ ItemUseBait:
 ItemUseRock:
 	ld hl, ThrewRockText
 	call PrintText
+	call RestoreEnemyCatchRate
 	ld hl, wEnemyMonActualCatchRate ; catch rate
 	ld a, [hl]
 	add a ; double catch rate
