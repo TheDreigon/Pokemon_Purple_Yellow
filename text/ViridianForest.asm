@@ -154,8 +154,3 @@ _ViridianForestTrainerTips4Text::
 	line "they may escape!"
 	done
 
-_ViridianForestLeavingSignText::
-	text "LEAVING"
-	line "VIRIDIAN FOREST"
-	cont "PEWTER CITY AHEAD"
-	done

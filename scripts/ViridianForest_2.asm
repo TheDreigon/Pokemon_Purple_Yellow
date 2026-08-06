@@ -43,11 +43,3 @@ ViridianForestPrintTrainerTips4Text::
 	text_far _ViridianForestTrainerTips4Text
 	text_end
 
-ViridianForestPrintLeavingSignText:
-	ld hl, .text
-	call PrintText
-	ret
-
-.text
-	text_far _ViridianForestLeavingSignText
-	text_end

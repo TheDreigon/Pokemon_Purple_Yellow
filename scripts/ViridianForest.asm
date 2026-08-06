@@ -30,7 +30,6 @@ ViridianForest_TextPointers:
 	dw_const ViridianForestTrainerTips2Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS2
 	dw_const ViridianForestTrainerTips3Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS3
 	dw_const ViridianForestTrainerTips4Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS4
-	dw_const ViridianForestLeavingSignText,     TEXT_VIRIDIANFOREST_LEAVING_SIGN
 
 ViridianForestTrainerHeaders:
 	def_trainers 2
@@ -166,9 +165,9 @@ ViridianForestTrainerTips4Text:
 	ld hl, ViridianForestPrintTrainerTips4Text
 	jp ViridianForestSign_Common
 
-ViridianForestLeavingSignText:
-	text_asm
-	ld hl, ViridianForestPrintLeavingSignText
+; The LEAVING sign was removed at Forte's request (task list, 2026-08-06):
+; its bg_event, text-table entry, this stub and the far text are all gone.
+; ViridianForestSign_Common stays -- the other signs funnel through it.
 ViridianForestSign_Common:
 	ld b, BANK(ViridianForestPrintTrainerTips1Text)
 	call Bankswitch
