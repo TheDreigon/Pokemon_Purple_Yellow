@@ -4155,6 +4155,17 @@ PrintMoveFailureText:
 	ld a, [wDamageMultipliers]
 	and $7f
 	jr z, .gotTextToPrint
+; v0.7: wMoveMissed carries the reason, so three different failures stop
+; sharing one line. Immunity above still wins -- "it doesn't affect" is the
+; more informative message when the multiplier is zero. The `ld hl` sits
+; between the cp and the jr on purpose: ld does not touch the flags.
+	ld a, [wMoveMissed]
+	cp MOVE_FAILED_NO_SCRATCH
+	ld hl, NoScratchText
+	jr z, .gotTextToPrint
+	cp MOVE_FAILED_EVADED
+	ld hl, MoveEvadedText
+	jr z, .gotTextToPrint
 	ld hl, AttackMissedText
 	ld a, [wCriticalHitOrOHKO]
 	cp $ff
@@ -4205,17 +4216,16 @@ AttackMissedText:
 	text_far _AttackMissedText
 	text_end
 
+; MoveEvadedText and NoScratchText live in the home bank (home/battle_failure.asm)
+; because Battle Core has single-digit bytes left. The home bank is mapped at all
+; times, so PrintText reads them from there exactly as it would from here.
+
 KeptGoingAndCrashedText:
 	text_far _KeptGoingAndCrashedText
 	text_end
 
-PrintDoesntAffectText:
-	ld hl, DoesntAffectMonText
-	jp PrintText
-
-DoesntAffectMonText:
-	text_far _DoesntAffectMonText
-	text_end
+; PrintDoesntAffectText and DoesntAffectMonText moved to home/battle_failure.asm
+; to give this bank room. See there.
 
 ; if there was a critical hit or an OHKO was successful, print the corresponding text
 PrintCriticalOHKOText:
@@ -5766,7 +5776,19 @@ MoveHitTest:
 	ld hl, wDamage ; zero the damage
 	ld [hli], a
 	ld [hl], a
-	inc a
+; v0.7: say WHICH miss this was. b still holds the accuracy the roll was
+; compared against, so b = $FF means the move could only have failed on the
+; 1-in-256 -- the one Gen 1 quirk this game keeps on purpose, and only in hard
+; mode (normal mode returns before the roll when b is $FF). Reporting that as
+; "attack missed" told the player their 100%-accurate move was not.
+; Written tightly because Battle Core is within a handful of bytes of its bank:
+; a is already 0 here, b is dead after this point, and MOVE_FAILED/_EVADED are
+; 1 and 2, so two incs do it.
+	inc a ; a = MOVE_FAILED
+	inc b ; $FF + 1 = 0, so Z means the accuracy was $FF
+	jr nz, .gotFailureReason
+	inc a ; a = MOVE_FAILED_EVADED
+.gotFailureReason
 	ld [wMoveMissed], a
 	ldh a, [hWhoseTurn]
 	and a

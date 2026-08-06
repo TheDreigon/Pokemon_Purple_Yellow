@@ -81,7 +81,13 @@ ApplyTypeEffectivenessToDamage::
 .typeImmunity
 ; if damage is 0, make the move miss
 ; this only occurs if a move that would do 2 or 3 damage is 0.25x effective against the target
-	inc a
+;
+; v0.7: it did connect -- it just could not scratch the paint. Reporting that
+; as a miss is the one case where Gen 1 lies about what happened, and it is the
+; case a player is most likely to blame on bad luck rather than on the matchup.
+; The reason code makes PrintMoveFailureText say so; every other reader still
+; only asks whether the move landed.
+	ld a, MOVE_FAILED_NO_SCRATCH
 	ld [wMoveMissed], a
 .skipTypeImmunity
 	pop bc

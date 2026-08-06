@@ -1,5 +1,15 @@
 DEF MAX_LEVEL EQU 100
 
+; wMoveMissed values. It is a REASON, not a boolean: the box that reports a
+; failure can then say which failure it was, instead of calling everything a
+; miss. Every other reader tests it with `and a` and only cares whether the
+; move connected, so any non-zero value behaves exactly as 1 always did --
+; checked against all fifteen read sites before these were introduced.
+DEF MOVE_HIT               EQU 0
+DEF MOVE_FAILED            EQU 1 ; an ordinary accuracy miss
+DEF MOVE_FAILED_EVADED     EQU 2 ; the 1-in-256 roll on a 100%-accurate move
+DEF MOVE_FAILED_NO_SCRATCH EQU 3 ; it connected, and the damage rounded to zero
+
 ; maximum moves known per mon
 DEF NUM_MOVES EQU 4
 

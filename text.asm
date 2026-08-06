@@ -344,3 +344,9 @@ INCLUDE "text/route24_damian.asm"
 SECTION "Safari West Tips Text", ROMX
 
 INCLUDE "text/safari_west_tips.asm"
+
+; The evaded / no-scratch battle lines. Own section: "Text 2" is pinned and
+; full.
+SECTION "Battle Failure Text", ROMX
+
+INCLUDE "text/battle_failure.asm"

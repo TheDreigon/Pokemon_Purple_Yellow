@@ -56,4 +56,4 @@ ParalyzeEffect_:
 .doesntAffect
 	ld c, 50
 	call DelayFrames
-	jpfar PrintDoesntAffectText
+	jp PrintDoesntAffectText ; home bank: no farcall needed
