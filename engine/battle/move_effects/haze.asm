@@ -41,8 +41,11 @@ HazeEffect_:
 	call CureVolatileStatuses
 	ld hl, wEnemyBattleStatus1
 	call CureVolatileStatuses
-	ld hl, PlayCurrentMoveAnimation
-	call CallBankF
+; v0.7: was `ld hl / call CallBankF`. That wrapper computed its bank from
+; BANK(PrintButItFailedText_), so when the effects moved banks it kept
+; working -- but only because wrapper key and target moved TOGETHER. farcall
+; says what it means and cannot rot that way.
+	farcall PlayCurrentMoveAnimation
 	ld hl, StatusChangesEliminatedText
 	jp PrintText
 
@@ -83,6 +86,7 @@ StatusChangesEliminatedText:
 ; Bank-$0F call helper (the battle-core bank hosts PlayCurrentMoveAnimation,
 ; PrintButItFailedText_, etc.). HazeEffect_ is its only user; caller
 ; preloads hl with the target routine.
-CallBankF:
-	ld b, BANK(PrintButItFailedText_)
-	jp Bankswitch
+; CallBankF deleted: its name promised bank $0F but its body computed
+; BANK(PrintButItFailedText_), which now resolves elsewhere. Its one caller
+; uses farcall now. A wrapper whose bank is keyed to an unrelated symbol is
+; exactly the trap cross_bank_call_audit cannot see through.

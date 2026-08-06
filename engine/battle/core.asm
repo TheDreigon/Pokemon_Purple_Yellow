@@ -4216,6 +4216,13 @@ AttackMissedText:
 	text_far _AttackMissedText
 	text_end
 
+; v0.7: brought over from effects.asm when the effects moved to their own
+; bank. PrintMoveFailureText above passes this hl straight to PrintText with
+; THIS bank mapped, so the stub has to live where its reader lives.
+IsUnaffectedText:
+	text_far _IsUnaffectedText
+	text_end
+
 ; MoveEvadedText and NoScratchText live in the home bank (home/battle_failure.asm)
 ; because Battle Core has single-digit bytes left. The home bank is mapped at all
 ; times, so PrintText reads them from there exactly as it would from here.

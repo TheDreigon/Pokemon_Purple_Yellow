@@ -85,3 +85,4 @@ INCLUDE "home/predef_text.asm"
 INCLUDE "home/battle_failure.asm"
 
 INCLUDE "home/battle_random.asm"
+INCLUDE "home/stat_modifier_ratios.asm"

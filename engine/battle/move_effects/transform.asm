@@ -133,8 +133,10 @@ TransformEffect_:
 	jp CopyData
 
 .failed
-	ld hl, PrintButItFailedText_
-	jp EffectCallBattleCore
+; v0.7: PrintButItFailedText_ moved to the Battle Effects bank, and
+; EffectCallBattleCore switches to a HARDCODED BANK(BattleCore) before the
+; jump -- it would land on garbage. farjp recomputes the target's real bank.
+	farjp PrintButItFailedText_
 
 TransformedText:
 	text_far _TransformedText

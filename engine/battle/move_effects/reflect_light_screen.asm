@@ -22,15 +22,19 @@ ReflectLightScreenEffect_:
 	ld hl, ReflectGainedArmorText
 .playAnim
 	push hl
-	ld hl, PlayCurrentMoveAnimation
-	call EffectCallBattleCore
+; v0.7: PlayCurrentMoveAnimation moved to the Battle Effects bank; the fixed
+; BANK(BattleCore) dispatch would jump into garbage. farcall recomputes, and
+; the text pointer this routine is carrying survives in the push above.
+	farcall PlayCurrentMoveAnimation
 	pop hl
 	jp PrintText
 .moveFailed
 	ld c, 50
 	call DelayFrames
-	ld hl, PrintButItFailedText_
-	jp EffectCallBattleCore
+; v0.7: PrintButItFailedText_ moved to the Battle Effects bank, and
+; EffectCallBattleCore switches to a HARDCODED BANK(BattleCore) before the
+; jump -- it would land on garbage. farjp recomputes the target's real bank.
+	farjp PrintButItFailedText_
 
 LightScreenProtectedText:
 	text_far _LightScreenProtectedText

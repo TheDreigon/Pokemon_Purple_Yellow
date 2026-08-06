@@ -141,8 +141,10 @@ HealEffect_:
 	ld a, [wMoveDidntMiss]
 	and a
 	jr nz, .skipMoveAnim
-	ld hl, PlayCurrentMoveAnimation
-	call EffectCallBattleCore
+; v0.7: PlayCurrentMoveAnimation moved to the Battle Effects bank;
+; EffectCallBattleCore switches to the hardcoded BANK(BattleCore) and would
+; jump into garbage. farcall recomputes the real bank.
+	farcall PlayCurrentMoveAnimation
 .skipMoveAnim
 	ldh a, [hWhoseTurn]
 	and a
@@ -161,8 +163,10 @@ HealEffect_:
 .failed
 	ld c, 50
 	call DelayFrames
-	ld hl, PrintButItFailedText_
-	jp EffectCallBattleCore
+; v0.7: PrintButItFailedText_ moved to the Battle Effects bank, and
+; EffectCallBattleCore switches to a HARDCODED BANK(BattleCore) before the
+; jump -- it would land on garbage. farjp recomputes the target's real bank.
+	farjp PrintButItFailedText_
 
 StartedSleepingEffect:
 	text_far _StartedSleepingEffect

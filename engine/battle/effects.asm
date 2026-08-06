@@ -1736,9 +1736,10 @@ DidntAffectText:
 	text_far _DidntAffectText
 	text_end
 
-IsUnaffectedText:
-	text_far _IsUnaffectedText
-	text_end
+; IsUnaffectedText moved to core.asm: its only reader is PrintMoveFailureText,
+; which hands the address to PrintText with Battle Core's bank mapped. A text
+; stub is read by address, not through a farcall, so it must live beside its
+; reader. Found by cross_bank_call_audit after the effects left this bank.
 
 PrintMayNotAttackText:
 	ld hl, ParalyzedMayNotAttackText
