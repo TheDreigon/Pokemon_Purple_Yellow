@@ -2681,15 +2681,18 @@ KrabbyEvosMoves:
 ; Pinsir). CRABHAMMER signature at evo L28. HARDEN carapace; MUD_SHOT
 ; beach burrower; FURY_ATTACK pincer jabs; GUILLOTINE apex pincer
 ; (shared with Kingler).
-	db 13, HARDEN
+	db  6, LEER
+	db  9, HARDEN
+	db 12, VICEGRIP
 	db 15, MUD_SHOT
-	db 17, VICEGRIP
-	db 19, BUBBLEBEAM
-	db 24, FURY_ATTACK
-	db 26, BIND
-	db 28, CRABHAMMER
-	db 30, WATER_PULSE
-	db 44, GUILLOTINE
+	db 18, BUBBLEBEAM
+	db 21, FURY_ATTACK
+	db 24, CUT
+	db 27, WATER_PULSE
+	db 30, SLASH
+	db 33, BIND
+	db 36, ROCK_PUNCH
+	db 39, WATERFALL
 	db 0
 
 KinglerEvosMoves:
@@ -2701,20 +2704,23 @@ KinglerEvosMoves:
 ; WATERFALL, BRUTAL_SWING (massive claw sweep). No IRON_DEFENSE
 ; (organic chitin hardens via HARDEN; steel flavor is for mineral/metal
 ; bodies). SURF is HM-only; SWORDS_DANCE stays TM-only.
-	db 13, HARDEN
+	db  6, LEER
+	db  9, HARDEN
+	db 12, VICEGRIP
 	db 15, MUD_SHOT
-	db 17, VICEGRIP
-	db 19, BUBBLEBEAM
-	db 24, FURY_ATTACK
-	db 26, BIND
-	db 28, CRABHAMMER
-	db 28, CUT
-	db 30, STRENGTH
-	db 34, WATER_PULSE
-	db 37, MUD_BOMB
-	db 41, WATERFALL
-	db 44, GUILLOTINE
-	db 52, BRUTAL_SWING
+	db 18, BUBBLEBEAM
+	db 21, FURY_ATTACK
+	db 24, CUT
+	db 27, WATER_PULSE
+	db 30, SLASH
+	db 33, BIND
+	db 36, ROCK_PUNCH
+	db 39, WATERFALL
+	db 42, MUD_BOMB
+	db 46, CRABHAMMER
+	db 52, GUILLOTINE
+	db 56, BRUTAL_SWING
+	db 60, THRASH
 	db 0
 
 VoltorbEvosMoves:
