@@ -59,12 +59,14 @@ ENDM
 	; AUDIO_4
 	music_const MUSIC_SURFING_PIKACHU,     Music_SurfingPikachu
 	music_const MUSIC_MEET_JESSIE_JAMES,   Music_MeetJessieJames
-	music_const MUSIC_YELLOW_UNUSED_SONG,  Music_YellowUnusedSong
+
+	; AUDIO_5
 	music_const MUSIC_CINNABAR_ISLAND,     Music_CinnabarIsland
 	music_const MUSIC_PEWTER_CITY,         Music_PewterCity
 	music_const MUSIC_SAFFRON_CITY,        Music_SaffronCity
 	music_const MUSIC_SAFFRON_FREE,        Music_SaffronFree
 	music_const MUSIC_CERULEAN_CITY,       Music_CeruleanCity
+	music_const MUSIC_YELLOW_UNUSED_SONG,  Music_YellowUnusedSong
 
 	; AUDIO_1 AUDIO_2 AUDIO_3 AUDIO_4
 DEF NOISE_INSTRUMENTS_START EQUS "SFX_NOISE_INSTRUMENT01"
@@ -260,5 +262,11 @@ DEF MAX_SFX_ID_3 EQUS "SFX_SHOOTING_STAR"
 	music_const SFX_SURFING_LAND,       SFX_Surfing_Land
 	music_const SFX_GET_ITEM2_4_2,      SFX_Get_Item2_4_2
 DEF MAX_SFX_ID_4 EQUS "SFX_GET_ITEM2_4_2 + 2"
+
+	; AUDIO_5 mirrors the whole bank-1 table (audio/headers/sfxheaders5.asm),
+	; so its ceiling is computed from its own layout rather than assumed
+	; equal to MAX_SFX_ID_1 -- if the mirror ever drifted, this drifts with
+	; it and the ASSERTs in sfxheaders5.asm are what scream.
+DEF MAX_SFX_ID_5 EQUS "((SFX_Safari_Zone_PA_5 - SFX_Headers_5) / 3)"
 
 DEF SFX_STOP_ALL_MUSIC EQU $ff

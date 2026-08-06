@@ -278,10 +278,18 @@ DetermineAudioFunction::
 
 .checkForAudio3
 	cp BANK(Audio3_PlaySound)
-	jr nz, .audio4
+	jr nz, .checkForAudio5
 ; audio 3
 	ld a, b
 	call Audio3_PlaySound
+	jr .done
+
+.checkForAudio5
+	cp BANK(Audio5_PlaySound)
+	jr nz, .audio4
+; audio 5
+	ld a, b
+	call Audio5_PlaySound
 	jr .done
 
 .audio4

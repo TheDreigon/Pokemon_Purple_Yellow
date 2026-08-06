@@ -268,6 +268,17 @@ ROMX $3E
 	"Surfing Minigame"
 ROMX $3F
 	"Overworld Pikachu"
+ROMX $42
+	; AUDIO_5: the five city themes plus a full mirror of the bank-1 SFX+cry
+	; table. The headers MUST sit at the top of the bank: sound ids are
+	; (header - $4000) / 3, computed cross-bank against SFX_Headers_1, and
+	; that subtraction only works because every audio bank starts with its
+	; header tables at $4000 -- same layout as $02/$08/$1F/$20 above.
+	"Sound Effect Headers 5"
+	"Music Headers 5"
+	"Sound Effects 5"
+	"Audio Engine 5"
+	"Music 5"
 WRAM0
 	"Audio RAM"
 	org $c100

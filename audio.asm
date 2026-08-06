@@ -10,6 +10,9 @@ INCLUDE "audio/headers/sfxheaders3.asm"
 SECTION "Sound Effect Headers 4", ROMX
 INCLUDE "audio/headers/sfxheaders4.asm"
 
+SECTION "Sound Effect Headers 5", ROMX
+INCLUDE "audio/headers/sfxheaders5.asm"
+
 
 SECTION "Music Headers 1", ROMX
 INCLUDE "audio/headers/musicheaders1.asm"
@@ -22,6 +25,9 @@ INCLUDE "audio/headers/musicheaders3.asm"
 
 SECTION "Music Headers 4", ROMX
 INCLUDE "audio/headers/musicheaders4.asm"
+
+SECTION "Music Headers 5", ROMX
+INCLUDE "audio/headers/musicheaders5.asm"
 
 
 SECTION "Sound Effects 1", ROMX
@@ -423,6 +429,106 @@ INCLUDE "audio/sfx/get_item1_4_2.asm"
 INCLUDE "audio/sfx/get_item2_4.asm"
 
 
+SECTION "Sound Effects 5", ROMX
+
+INCLUDE "audio/sfx/noise_instrument01_5.asm"
+INCLUDE "audio/sfx/noise_instrument02_5.asm"
+INCLUDE "audio/sfx/noise_instrument03_5.asm"
+INCLUDE "audio/sfx/noise_instrument04_5.asm"
+INCLUDE "audio/sfx/noise_instrument05_5.asm"
+INCLUDE "audio/sfx/noise_instrument06_5.asm"
+INCLUDE "audio/sfx/noise_instrument07_5.asm"
+INCLUDE "audio/sfx/noise_instrument08_5.asm"
+INCLUDE "audio/sfx/noise_instrument09_5.asm"
+INCLUDE "audio/sfx/noise_instrument10_5.asm"
+INCLUDE "audio/sfx/noise_instrument11_5.asm"
+INCLUDE "audio/sfx/noise_instrument12_5.asm"
+INCLUDE "audio/sfx/noise_instrument13_5.asm"
+INCLUDE "audio/sfx/noise_instrument14_5.asm"
+INCLUDE "audio/sfx/noise_instrument15_5.asm"
+INCLUDE "audio/sfx/noise_instrument16_5.asm"
+INCLUDE "audio/sfx/noise_instrument17_5.asm"
+INCLUDE "audio/sfx/noise_instrument18_5.asm"
+INCLUDE "audio/sfx/noise_instrument19_5.asm"
+
+INCLUDE "audio/sfx/start_menu_5.asm"
+INCLUDE "audio/sfx/pokeflute_5.asm"
+INCLUDE "audio/sfx/cut_5.asm"
+INCLUDE "audio/sfx/go_inside_5.asm"
+INCLUDE "audio/sfx/swap_5.asm"
+INCLUDE "audio/sfx/tink_5.asm"
+INCLUDE "audio/sfx/59_5.asm"
+INCLUDE "audio/sfx/purchase_5.asm"
+INCLUDE "audio/sfx/collision_5.asm"
+INCLUDE "audio/sfx/go_outside_5.asm"
+INCLUDE "audio/sfx/press_ab_5.asm"
+INCLUDE "audio/sfx/save_5.asm"
+INCLUDE "audio/sfx/heal_hp_5.asm"
+INCLUDE "audio/sfx/poisoned_5.asm"
+INCLUDE "audio/sfx/heal_ailment_5.asm"
+INCLUDE "audio/sfx/trade_machine_5.asm"
+INCLUDE "audio/sfx/turn_on_pc_5.asm"
+INCLUDE "audio/sfx/turn_off_pc_5.asm"
+INCLUDE "audio/sfx/enter_pc_5.asm"
+INCLUDE "audio/sfx/shrink_5.asm"
+INCLUDE "audio/sfx/switch_5.asm"
+INCLUDE "audio/sfx/healing_machine_5.asm"
+INCLUDE "audio/sfx/teleport_exit1_5.asm"
+INCLUDE "audio/sfx/teleport_enter1_5.asm"
+INCLUDE "audio/sfx/teleport_exit2_5.asm"
+INCLUDE "audio/sfx/ledge_5.asm"
+INCLUDE "audio/sfx/teleport_enter2_5.asm"
+INCLUDE "audio/sfx/fly_5.asm"
+INCLUDE "audio/sfx/denied_5.asm"
+INCLUDE "audio/sfx/arrow_tiles_5.asm"
+INCLUDE "audio/sfx/push_boulder_5.asm"
+INCLUDE "audio/sfx/ss_anne_horn_5.asm"
+INCLUDE "audio/sfx/withdraw_deposit_5.asm"
+INCLUDE "audio/sfx/safari_zone_pa_5.asm"
+INCLUDE "audio/sfx/get_item1_5.asm"
+INCLUDE "audio/sfx/get_item2_5.asm"
+INCLUDE "audio/sfx/pokedex_rating_5.asm"
+INCLUDE "audio/sfx/get_key_item_5.asm"
+INCLUDE "audio/sfx/cry09_5.asm"
+INCLUDE "audio/sfx/cry23_5.asm"
+INCLUDE "audio/sfx/cry24_5.asm"
+INCLUDE "audio/sfx/cry11_5.asm"
+INCLUDE "audio/sfx/cry25_5.asm"
+INCLUDE "audio/sfx/cry03_5.asm"
+INCLUDE "audio/sfx/cry0f_5.asm"
+INCLUDE "audio/sfx/cry10_5.asm"
+INCLUDE "audio/sfx/cry00_5.asm"
+INCLUDE "audio/sfx/cry0e_5.asm"
+INCLUDE "audio/sfx/cry06_5.asm"
+INCLUDE "audio/sfx/cry07_5.asm"
+INCLUDE "audio/sfx/cry05_5.asm"
+INCLUDE "audio/sfx/cry0b_5.asm"
+INCLUDE "audio/sfx/cry0c_5.asm"
+INCLUDE "audio/sfx/cry02_5.asm"
+INCLUDE "audio/sfx/cry0d_5.asm"
+INCLUDE "audio/sfx/cry01_5.asm"
+INCLUDE "audio/sfx/cry0a_5.asm"
+INCLUDE "audio/sfx/cry08_5.asm"
+INCLUDE "audio/sfx/cry04_5.asm"
+INCLUDE "audio/sfx/cry19_5.asm"
+INCLUDE "audio/sfx/cry16_5.asm"
+INCLUDE "audio/sfx/cry1b_5.asm"
+INCLUDE "audio/sfx/cry12_5.asm"
+INCLUDE "audio/sfx/cry13_5.asm"
+INCLUDE "audio/sfx/cry14_5.asm"
+INCLUDE "audio/sfx/cry1e_5.asm"
+INCLUDE "audio/sfx/cry15_5.asm"
+INCLUDE "audio/sfx/cry17_5.asm"
+INCLUDE "audio/sfx/cry1c_5.asm"
+INCLUDE "audio/sfx/cry1a_5.asm"
+INCLUDE "audio/sfx/cry1d_5.asm"
+INCLUDE "audio/sfx/cry18_5.asm"
+INCLUDE "audio/sfx/cry1f_5.asm"
+INCLUDE "audio/sfx/cry20_5.asm"
+INCLUDE "audio/sfx/cry21_5.asm"
+INCLUDE "audio/sfx/cry22_5.asm"
+
+
 SECTION "Audio Engine 1", ROMX
 
 INCLUDE "audio/play_battle_music.asm"
@@ -450,6 +556,11 @@ SECTION "Audio Engine 4", ROMX
 
 INCLUDE "gfx/surfing_pikachu.asm"
 INCLUDE "audio/engine_4.asm"
+
+
+SECTION "Audio Engine 5", ROMX
+
+INCLUDE "audio/engine_5.asm"
 
 
 SECTION "Music 1", ROMX
@@ -527,17 +638,21 @@ INCLUDE "audio/music/yellowintro.asm"
 SECTION "Music 4", ROMX
 
 INCLUDE "audio/music/surfingpikachu.asm"
-INCLUDE "audio/music/yellowunusedsong.asm"
 INCLUDE "audio/music/meetjessiejames.asm"
+
+IF !DEF(_DEBUG)
+;	INCBIN "garbage/bank20.bin"
+ENDC
+
+
+SECTION "Music 5", ROMX
+
 INCLUDE "audio/music/cinnabarisland.asm"
 INCLUDE "audio/music/pewtercity.asm"
 INCLUDE "audio/music/saffroncity.asm"
 INCLUDE "audio/music/saffronfree.asm"
 INCLUDE "audio/music/ceruleancity.asm"
-
-IF !DEF(_DEBUG)
-;	INCBIN "garbage/bank20.bin"
-ENDC
+INCLUDE "audio/music/yellowunusedsong.asm"
 
 
 ; Pikachu cries are in different banks
