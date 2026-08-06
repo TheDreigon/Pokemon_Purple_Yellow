@@ -338,3 +338,9 @@ INCLUDE "text/cerulean_trainer_tips2.asm"
 SECTION "Route 24 Damian Text", ROMX
 
 INCLUDE "text/route24_damian.asm"
+
+; The SAFARI ZONE west BAIT/ROCK sign. Its own section because spelling out the
+; numbers pushed the pinned "Text 2" bank over.
+SECTION "Safari West Tips Text", ROMX
+
+INCLUDE "text/safari_west_tips.asm"

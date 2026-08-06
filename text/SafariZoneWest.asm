@@ -15,15 +15,9 @@ _SafariZoneWestFindWardensTeethSignText::
 	line "Contact: WARDEN"
 	done
 
-_SafariZoneWestTrainerTipsText::
-	text "TRAINER TIPS"
-
-	para "Zone Exploration"
-	line "Campaign!"
-
-	para "The Search for"
-	line "the SECRET HOUSE!"
-	done
+; The BAIT/ROCK TRAINER TIPS sign moved to text/safari_west_tips.asm and its own
+; floating section -- spelling out the real numbers pushed the pinned "Text 2"
+; bank 12 bytes over. See that file.
 
 _SafariZoneWestSignText::
 	text "AREA 3"
