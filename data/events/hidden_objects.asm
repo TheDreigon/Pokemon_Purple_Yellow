@@ -484,9 +484,14 @@ CeladonCityHiddenObjects:
 
 CeladonHotelHiddenObjects:
 	hidden_object  0,  4, SPRITE_FACING_LEFT, PrintBenchGuyText
-; The hotel had no PC. It already uses the POKECENTER tileset, so the PC
-; block was there to be placed and only ever needed putting on the map.
-	hidden_object 11,  3, SPRITE_FACING_UP, OpenPokemonCenterPC
+; The hotel had no PC. It already uses the POKECENTER tileset, so the PC block
+; was there to be placed and only ever needed putting on the map.
+;
+; It now sits on the right-hand wall, drawn across two cells: the screen at
+; (13,3), which is solid, and the keyboard at (13,4), which is walkable. You
+; use it from the keyboard tile facing up, so the object is the screen above
+; it -- the coordinate here is the cell being LOOKED AT, not the one stood on.
+	hidden_object 13,  3, SPRITE_FACING_UP, OpenPokemonCenterPC
 	db -1 ; end
 
 CeladonMansion2HiddenObjects:

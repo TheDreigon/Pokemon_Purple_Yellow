@@ -72,6 +72,26 @@ GainExperience:
 	inc de
 	jr .gainStatExpLoop
 .statExpDone
+; v0.7 FIX: a Pokemon already at or past the hard-mode level cap gains no exp.
+;
+; Without this the cap is applied by clamping the mon's exp DOWN to the cap
+; level's exp -- which is fine for a mon growing into the cap, and ruinous for
+; one that arrives above it. Gift Pokemon do exactly that: the roof-house
+; PORYGON is L20 and Silph's is L30, so on Hard with no badges (cap 14) the
+; PORYGON's 6400 exp was cut to 2195 and it *dropped* to level 14 off a single
+; Rattata. Everything else that went wrong followed from the drop: the
+; level-up path ran backwards (see the guard further down), the move-learn
+; loop counted 21, 22 ... 255, 0 ... 14 and taught it every move from L22 up,
+; and the max-HP delta went negative so current HP underflowed and drew an HP
+; bar across the whole screen.
+;
+; Compared as LEVELS, before any exp arithmetic, so nothing can be lost.
+	ld hl, wPartyMon1Level - (wPartyMon1DVs - 1)
+	add hl, de ; de is the mon's own wPartyMon1DVs - 1 by now (see below)
+	ld b, [hl] ; this mon's level
+	call GetLevelCap
+	cp b
+	jp c, .nextMon ; cap < level: already past it, so nothing to gain
 	xor a
 	ldh [hMultiplicand], a
 	ldh [hMultiplicand + 1], a
@@ -141,44 +161,8 @@ GainExperience:
 	ld a, [hl] ; species
 	ld [wd0b5], a
 	call GetMonHeader
-	ld d, MAX_LEVEL
-
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	jr z, .next1 ; no level caps if not on hard mode
-
-	ld a, [wGameStage] ; Check if player has beat the game
-	and a
-	ld d, 100
-	jr nz, .next1
-	call GetBadgesObtained
-	ld a, [wNumSetBits]
-	cp 8
-	ld d, 65 ; champion team (highest level in the game)
-	jr nc, .next1
-	cp 7
-	ld d, 55 ; Giovanni's ace, 8th gym (heading to the league)
-	jr nc, .next1
-	cp 6
-	ld d, 55 ; Blaine's ace, 7th gym
-	jr nc, .next1
-	cp 5
-	ld d, 49 ; Sabrina's ace, 6th gym
-	jr nc, .next1
-    cp 4
-	ld d, 45 ; Koga's ace, 5th gym
-	jr nc, .next1
-	cp 3
-	ld d, 38 ; Erika's ace, 4th gym
-	jr nc, .next1
-	cp 2
-    ld d, 34 ; Surge's ace, 3rd gym
-	jr nc, .next1
-	cp 1
-	ld d, 21 ; Misty's ace, 2nd gym
-	jr nc, .next1
-	ld d, 14 ; Brock's ace, 1st gym
-.next1
+	call GetLevelCap
+	ld d, a
 	callfar CalcExperience ; get max exp
 ; compare max exp with current exp
 	ldh a, [hExperience]
@@ -228,7 +212,14 @@ GainExperience:
 ;;;;;;;;;; PureRGBnote: FIXED: fixing skip move-learn glitch: need to store the current level in wram
 	ld [wTempLevelStore], a
 	cp d
-	jp z, .nextMon ; if level didn't change, go to next mon
+; v0.7 FIX: was `jp z` -- it only skipped when the level was UNCHANGED, so a
+; level that went DOWN fell straight into the level-up path. Nothing should
+; make that happen any more (see .statExpDone above), but the consequences of
+; it happening are severe enough to be worth one flag: the move-learn loop
+; below counts UP from the old level to the new one, so a new level below the
+; old one wraps it through 255 and teaches the mon the entire rest of its
+; learnset. `nc` covers unchanged and decreased alike.
+	jp nc, .nextMon ; level did not increase, so there is nothing to do
 ;;;;;;;;;;
 	ld a, [wCurEnemyLVL]
 	push af
@@ -586,6 +577,66 @@ IsCurrentMonBattleMon:
 	ld b, a
 	ld a, [wWhichPokemon]
 	cp b
+	ret
+
+; The highest level a Pokemon may currently reach, returned in a.
+;
+; MAX_LEVEL on Normal. On Hard it tracks the strongest Pokemon you could be
+; about to face, so the party cannot out-level the next gym; once the League is
+; beaten (wGameStage) the cap comes off.
+;
+; Two callers want this and they want it at different moments, which is why it
+; is a routine and not the block of `ld d` it used to be: once up front, to
+; refuse exp to a mon that is already past the cap, and once to work out the
+; exp ceiling to clamp a mon growing INTO the cap.
+;
+; Preserves bc, de and hl -- the up-front caller is holding a party pointer in
+; de and the mon's level in b.
+GetLevelCap::
+	push bc
+	push de
+	push hl
+	ld a, [wDifficulty]
+	and a
+	jr z, .uncapped ; Normal mode is never capped
+	ld a, [wGameStage]
+	and a
+	jr nz, .uncapped ; the League is beaten; the cap has done its job
+	call GetBadgesObtained
+	ld a, [wNumSetBits]
+	cp 8
+	ld b, 65 ; champion team (highest level in the game)
+	jr nc, .done
+	cp 7
+	ld b, 55 ; Giovanni's ace, 8th gym (heading to the league)
+	jr nc, .done
+	cp 6
+	ld b, 55 ; Blaine's ace, 7th gym
+	jr nc, .done
+	cp 5
+	ld b, 49 ; Sabrina's ace, 6th gym
+	jr nc, .done
+	cp 4
+	ld b, 45 ; Koga's ace, 5th gym
+	jr nc, .done
+	cp 3
+	ld b, 38 ; Erika's ace, 4th gym
+	jr nc, .done
+	cp 2
+	ld b, 34 ; Surge's ace, 3rd gym
+	jr nc, .done
+	cp 1
+	ld b, 21 ; Misty's ace, 2nd gym
+	jr nc, .done
+	ld b, 14 ; Brock's ace, 1st gym
+	jr .done
+.uncapped
+	ld b, MAX_LEVEL
+.done
+	ld a, b
+	pop hl
+	pop de
+	pop bc
 	ret
 
 ; function to count the set bits in wObtainedBadges
