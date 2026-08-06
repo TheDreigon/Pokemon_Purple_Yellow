@@ -621,7 +621,19 @@ ItemUseBall:
 	jr nz, .halveCaughtExpLoop
 	xor a
 	ld [wBoostExpByExpAll], a
+; v0.7 FIX: GainExperience walks the party with wWhichPokemon and leaves it at
+; the LAST party index -- and wWhichPokemon is ALSO the bag index this flow
+; uses at .done to remove the thrown ball (RemoveItemFromInventory_ reads it as
+; "index within the inventory"). So every successful catch removed one of
+; whatever bag slot number equalled the party size minus one, instead of a
+; ball: with the TRAINER MANUAL sitting in that slot it vanished outright, and
+; the ball count looked like it GREW because it was never spent. Found in
+; Forte's first fresh playthrough. Preserve the bag index across the exp pay.
+	ld a, [wWhichPokemon]
+	push af
 	callfar GainExperience
+	pop af
+	ld [wWhichPokemon], a
 	; fall through
 
 .done

@@ -526,6 +526,18 @@ AnimateEXPBarAgain:
 AnimateEXPBar:
 	call IsCurrentMonBattleMon
 	ret nz
+; v0.7 FIX: only animate when the EXP bar is actually on screen. The catch-exp
+; flow pays the active mon on the post-catch screen, where the battle HUD is
+; gone -- and the grow loop below works by INCREMENTING the tile under the
+; cursor, so on a blank $7F tile it writes $80, $81... which are the FONT's
+; letters. That is the stray "Q" (and friends) Forte saw in the corner during
+; "gained EXP" after a catch. The bar's fill states are tiles $c0-$c8; if the
+; tile at the bar's anchor is not one of them, there is no bar to animate.
+	coord hl, 17, 11
+	ld a, [hl]
+	sub $c0
+	cp 9
+	ret nc
 	ld a, SFX_HEAL_HP
 	call PlaySoundWaitForCurrent
 	ld hl, CalcEXPBarPixelLength
