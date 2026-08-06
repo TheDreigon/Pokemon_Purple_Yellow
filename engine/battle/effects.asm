@@ -1,8 +1,3 @@
-JumpMoveEffect:
-	call _JumpMoveEffect
-	ld b, $1
-	ret
-
 _JumpMoveEffect:
 	ldh a, [hWhoseTurn]
 	and a
@@ -1567,7 +1562,7 @@ MimicEffect:
 	push af
 	ld a, $1
 	ld [wMoveMenuType], a
-	call MoveSelectionMenu
+	farcall MoveSelectionMenu
 	call LoadScreenTilesFromBuffer1
 	ld hl, wEnemyMonMoves
 	ld a, [wCurrentMenuItem]

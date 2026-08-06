@@ -183,7 +183,16 @@ INCLUDE "engine/pokemon/evos_moves.asm"
 SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
+INCLUDE "engine/battle/effects_dispatch.asm"
+
+
+; v0.7: the move effects left Battle Core, which had reached its 16 KB
+; ceiling in debug builds. See engine/battle/effects_dispatch.asm for why
+; the dispatcher's doorway stayed behind.
+SECTION "Battle Effects", ROMX
+
 INCLUDE "engine/battle/effects.asm"
+INCLUDE "engine/battle/hit_and_penalties.asm"
 
 
 SECTION "bank10", ROMX
