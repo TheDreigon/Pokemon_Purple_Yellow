@@ -49,6 +49,7 @@ HiddenObjectMaps:
 	dbw SAFFRON_GYM,                  SaffronGymHiddenObjects
 	dbw SAFFRON_POKECENTER,           SaffronPokecenterHiddenObjects
 	dbw REDS_HOUSE_2F,                RedsHouse2FHiddenObjects
+	dbw DAYCARE,                      DaycareHiddenObjects
 	dbw BLUES_HOUSE,                  BluesHouseHiddenObjects
 	dbw OAKS_LAB,                     OaksLabHiddenObjects
 	dbw VIRIDIAN_CITY,                ViridianCityHiddenObjects
@@ -340,6 +341,16 @@ SaffronPokecenterHiddenObjects:
 RedsHouse2FHiddenObjects:
 	hidden_object  0,  1, SPRITE_FACING_UP, OpenRedsPC
 	hidden_object  3,  5, ANY_FACING, PrintRedSNESText
+	db -1 ; end
+
+; The daycare had no PC. The HOUSE tileset was thought to lack a PC block; it
+; does not. Block $10 is the same desk-and-computer the player has in their own
+; bedroom, and no HOUSE map was using it. The room now copies Red's bedroom
+; layout ($10 $11 across the back wall), so the PC sits at the same coordinate
+; the bedroom's does. It opens the pokecenter PC, not the player's: the point of
+; a PC beside the daycare is BILL'S PC, to shuffle the party against the boxes.
+DaycareHiddenObjects:
+	hidden_object  0,  1, SPRITE_FACING_UP, OpenPokemonCenterPC
 	db -1 ; end
 
 BluesHouseHiddenObjects:
