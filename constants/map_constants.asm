@@ -17,7 +17,7 @@ ENDM
 ; Order: towns/cities, then routes, then indoor/dungeon maps
 	const_def
 	map_const PALLET_TOWN,                   10, 10 ; $00
-	map_const VIRIDIAN_CITY,                 20, 18 ; $01
+	map_const VIRIDIAN_CITY,                 20, 19 ; $01
 	map_const PEWTER_CITY,                   20, 18 ; $02
 	map_const CERULEAN_CITY,                 22, 20 ; $03
 	map_const LAVENDER_TOWN,                 13, 11 ; $04 (world-design: +2 columns WEST, which is why Route 10/12 connect at offset -2)
@@ -51,7 +51,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_19,                      10, 28 ; $1E (world-design: +1 row, follows Route 20)
 	map_const ROUTE_20,                      50, 12 ; $1F (world-design: 12 rows so its two shore corners meet Cinnabar's channel corners at island rows 8 and 19)
 	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +2 columns WEST toward Cinnabar; Pallet connects at -3 because of it)
-	map_const ROUTE_22,                      22,  9 ; $21
+	map_const ROUTE_22,                      22, 11 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
 	map_const ROUTE_24,                      10, 18 ; $23
 	map_const ROUTE_25,                      30,  9 ; $24
