@@ -7,7 +7,7 @@
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions
 	dw PorygonPicFront, PorygonPicBack
 
-	db TACKLE, FOCUS_ENERGY, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
+	db THUNDERSHOCK, FOCUS_ENERGY, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
 	db GROWTH_FAST ; growth rate
 
 	; tm/hm learnset
