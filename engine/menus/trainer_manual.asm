@@ -693,7 +693,14 @@ TrainerManual_SwapForDifficulty:
 	ld a, [hli]
 	ld b, a
 	or c
-	ret z ; the list ended without a match
+; v0.7 FIX: was `ret z` -- returning with hl pointing at the END OF THIS TABLE
+; instead of the page. The page pointer is parked in de the whole time, so on
+; hard mode every page WITHOUT a hard twin (which is all of them but 5_2)
+; handed the table's tail to TextCommandProcessor, and the manual printed the
+; bytes after the terminator as prose. Normal mode returns before the walk,
+; which is why every reading of the manual until Forte's first hard-mode
+; playthrough -- including the test, whose save was on normal -- looked fine.
+	jr z, .keep ; the list ended without a match: keep the original page
 	ld a, c
 	cp e
 	jr nz, .next
@@ -704,6 +711,10 @@ TrainerManual_SwapForDifficulty:
 	inc hl ; past the twin
 	inc hl
 	jr .loop
+.keep
+	ld h, d
+	ld l, e
+	ret
 .found
 	ld a, [hli]
 	ld h, [hl]
