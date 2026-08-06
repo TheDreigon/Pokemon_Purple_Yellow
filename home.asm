@@ -83,3 +83,5 @@ INCLUDE "home/hidden_objects.asm"
 INCLUDE "home/predef_text.asm"
 
 INCLUDE "home/battle_failure.asm"
+
+INCLUDE "home/battle_random.asm"
