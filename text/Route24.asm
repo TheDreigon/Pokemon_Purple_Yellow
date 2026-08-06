@@ -157,28 +157,6 @@ _Route24Youngster2AfterBattleText::
 	line "have no regrets!"
 	done
 
-_Route24DamianText1::
-	text "I should release"
-	line "my CHARMANDER"
-	cont "because it's"
-	cont "weak!"
-
-	para "If you want it,"
-	line "it's yours."
-	done
-
-_Route24DamianText2::
-	text "Good luck with"
-	line "that.@"
-	text_end
-
-_Route24DamianText3::
-	text "Oh... I'd better"
-	line "release it then."
-	done
-
-_Route24DamianText4::
-	text "How's that weak"
-	line "old CHARMANDER"
-	cont "doing?"
-	done
+; DAMIAN's four lines moved to text/route24_damian.asm and its own floating
+; section -- rewriting them for the anime's version of him pushed the pinned
+; "Text 4" bank 2 bytes over. See that file.
