@@ -8,9 +8,9 @@ UndergroundPathEntranceRoute5_TextScriptEndingText:
 
 UndergroundPathRoute5_TextPointers:
 	def_text_pointers
-	dw_const UndergroundPathRoute5LittleGirlText, TEXT_UNDERGROUNDPATHROUTE5_LITTLE_GIRL
+	dw_const UndergroundPathRoute5KarateManText, TEXT_UNDERGROUNDPATHROUTE5_KARATE_MAN
 
-UndergroundPathRoute5LittleGirlText:
+UndergroundPathRoute5KarateManText:
 	text_asm
 	ld a, TRADE_FOR_DUX
 	ld [wWhichTrade], a

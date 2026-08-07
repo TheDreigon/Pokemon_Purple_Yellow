@@ -17,12 +17,15 @@ Route5_Object:
 	bg_event  9, 25, TEXT_ROUTE5_DAYCARE_SIGN
 
 	def_object_events
-; LEFT_RIGHT rather than ANY_DIR on purpose: Route 5 is a split-set map
-; (PEWTER_CERULEAN north of row 33, SAFFRON south of it) and only the north
-; set carries LITTLE_GIRL. Free to wander, she could drift south of row 28
-; and turn to garbage tiles for a player standing in the south half. Pinned
-; to her row she stays a day-care visitor and stays renderable.
-	object_event  8, 27, SPRITE_LITTLE_GIRL, WALK, LEFT_RIGHT, TEXT_ROUTE5_LITTLE_GIRL
+; COOLTRAINER_F rather than LITTLE_GIRL: Route 5 is a split-set map (PEWTER_
+; CERULEAN north of row 41, SAFFRON south) and neither set carries
+; LITTLE_GIRL -- the nine walking slots of both are full, and the two tail
+; slots only take four-tile sprites. Getting the actual little girl here
+; costs evicting a sprite some other map uses (Forte's call, not mine).
+; LEFT_RIGHT rather than ANY_DIR on purpose: her sprite is not in the
+; SAFFRON set either, so she must never wander into view of a player
+; standing in the southern strip.
+	object_event  8, 27, SPRITE_COOLTRAINER_F, WALK, LEFT_RIGHT, TEXT_ROUTE5_LITTLE_GIRL
 	object_event 12, 36, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_ROUTE5_YOUNGSTER
 
 	def_warps_to ROUTE_5

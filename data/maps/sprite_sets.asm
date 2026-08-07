@@ -56,7 +56,12 @@ SplitMapSpriteSets:
 	db EAST_WEST,   24, SPRITESET_CYCLING_ROAD,    SPRITESET_CELADON         ; SPLITSET_ROUTE_16
 	db EAST_WEST,   34, SPRITESET_CYCLING_ROAD,    SPRITESET_FUCHSIA         ; SPLITSET_ROUTE_18
 	db EAST_WEST,   53, SPRITESET_PALLET_VIRIDIAN, SPRITESET_FUCHSIA         ; SPLITSET_ROUTE_20
-	db NORTH_SOUTH, 33, SPRITESET_PEWTER_CERULEAN, SPRITESET_SAFFRON         ; SPLITSET_ROUTE_5
+; v0.7 (2026-08-07): boundary 33 -> 41. Vanilla's 33 put the Saffron-side set
+; on the last three rows of a 36-row map; the route rework grew the map to 44
+; rows and the boundary aged into mid-map, putting the whole gate area -- and
+; the new youngster there -- on the SAFFRON set, which has no YOUNGSTER. 41
+; restores vanilla's proportion: only the strip against Saffron swaps sets.
+	db NORTH_SOUTH, 41, SPRITESET_PEWTER_CERULEAN, SPRITESET_SAFFRON         ; SPLITSET_ROUTE_5
 	db NORTH_SOUTH,  2, SPRITESET_SAFFRON,         SPRITESET_VERMILION       ; SPLITSET_ROUTE_6
 	db EAST_WEST,   17, SPRITESET_CELADON,         SPRITESET_SAFFRON         ; SPLITSET_ROUTE_7
 	db EAST_WEST,    3, SPRITESET_SAFFRON,         SPRITESET_LAVENDER        ; SPLITSET_ROUTE_8
@@ -96,10 +101,13 @@ SpriteSets:
 	db SPRITE_COOLTRAINER_F
 	db SPRITE_COOLTRAINER_M
 	db SPRITE_POKE_BALL
-; v0.7: was SPRITE_UNUSED_GAMBLER_ASLEEP_2, which no map in the game places.
-; Freed for the day-care girl on Route 5's north half (same trade the
-; PALLET_VIRIDIAN set made for MOM).
-	db SPRITE_LITTLE_GIRL
+; The last two slots of a set are NOT ordinary slots: the loader
+; (engine/overworld/map_sprites.asm) reserves wSpriteSet+9..10 for FOUR-TILE
+; sprites -- single-pose things like the ball and the sleeping gambler. A
+; walking NPC placed here gets no walk frames and corrupts its VRAM slot;
+; measured 2026-08-07 as the day-care girl borrowing RED's sprite. Only
+; four-tile picture IDs may ever sit in these two slots.
+	db SPRITE_UNUSED_GAMBLER_ASLEEP_2
 
 ; SPRITESET_LAVENDER
 	db SPRITE_PIKACHU
@@ -164,10 +172,8 @@ SpriteSets:
 	db SPRITE_ROCKER
 	db SPRITE_COOLTRAINER_M
 	db SPRITE_POKE_BALL
-; v0.7: was SPRITE_UNUSED_GAMBLER_ASLEEP_2, which no map in the game places.
-; Freed for the youngster stuck at the Saffron gate on Route 5's south half --
-; he is visible from the north half too, whose set already carries YOUNGSTER.
-	db SPRITE_YOUNGSTER
+; Four-tile-only slot -- see the note in the PEWTER_CERULEAN set above.
+	db SPRITE_UNUSED_GAMBLER_ASLEEP_2
 
 ; SPRITESET_SILENCE_BRIDGE
 	db SPRITE_PIKACHU

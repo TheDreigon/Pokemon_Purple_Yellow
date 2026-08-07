@@ -23,6 +23,6 @@ _Route5YoungsterText::
 
 _Route5DaycareSignText::
 	text "POKéMON DAY CARE"
-	line "Raised with a"
+	line "- Raised with a"
 	cont "gentleman's care!"
 	done

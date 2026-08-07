@@ -1,5 +1,5 @@
 	object_const_def
-	const_export UNDERGROUNDPATHROUTE5_LITTLE_GIRL
+	const_export UNDERGROUNDPATHROUTE5_KARATE_MAN
 
 UndergroundPathRoute5_Object:
 	db $a ; border block
@@ -12,6 +12,6 @@ UndergroundPathRoute5_Object:
 	def_bg_events
 
 	def_object_events
-	object_event  2,  3, SPRITE_LITTLE_GIRL, STAY, NONE, TEXT_UNDERGROUNDPATHROUTE5_LITTLE_GIRL
+	object_event  2,  3, SPRITE_HIKER, STAY, NONE, TEXT_UNDERGROUNDPATHROUTE5_KARATE_MAN ; the DUX trader; HIKER is the karate-man sprite (same as the Dojo)
 
 	def_warps_to UNDERGROUND_PATH_ROUTE_5
