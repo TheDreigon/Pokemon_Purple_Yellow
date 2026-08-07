@@ -942,14 +942,16 @@ wTempFlag:: db
 wTempObtainedBadgesBooleans:: ds NUM_BADGES
 
 NEXTU
-; v0.7: the party status screen walks the party with Up/Down, and StatusScreen2
-; has to tell its caller which button ended it. A predef cannot answer in a
-; register - Predef ends in `pop af`, restoring both the flags and a - so the
-; answer travels here. Protocol: the caller writes $ff to opt in before calling
-; (only the party menu does; battle, Bill's PC and the cable club leave it 0 and
-; behave exactly as before), and reads back 0 = closed, 1 = previous mon,
-; 2 = next mon. Repurposed from wUnusedCD3D: same address, same size, and it
-; sits in menu scratch, nowhere near the saved block.
+; v0.7: the party status screen walks the party with Up/Down and swaps pages
+; with A/Left/Right, so each of its two predefs has to tell its caller which
+; button ended it. A predef cannot answer in a register - Predef ends in
+; `pop af`, restoring both the flags and a - so the answer travels here. The
+; caller writes a mode byte in (STATUS_OPTIN and friends) and reads an answer
+; back out (STATUS_CLOSED / PREV_MON / NEXT_MON / OTHER_PAGE); the full protocol
+; is documented in constants/menu_constants.asm. Callers that leave it alone
+; (battle, Bill's PC, the cable club) behave exactly as they always did.
+; Repurposed from wUnusedCD3D: same address, same size, and it sits in menu
+; scratch, nowhere near the saved block.
 wStatusScreenPageChange:: db
 ; the number of credits mons that have been displayed so far
 wNumCreditsMonsDisplayed:: db

@@ -97,39 +97,57 @@ StartMenu_Pokemon::
 	call ClearSprites
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
-.statsScreenLoop
-; v0.7: Up and Down walk the party from inside the status screen, the way every
-; generation since does, instead of forcing a trip back out to the party menu
-; for each Pokemon. Opting in is the $ff below - only this caller does it, so
-; the same screen opened from a battle, Bill's PC or the cable club is
-; unchanged. The loop redraws both pages from scratch, which is what the two
-; predefs already do for a fresh mon, so there is no partial-redraw state to
-; get wrong.
-; Both pages accept Up and Down, and stepping keeps you on the page you were
-; already reading. Page 2 draws OVER page 1 and reads data that page 1 loads,
-; so it cannot be shown on its own - stepping from page 2 therefore redraws
-; page 1 in pass-through mode ($fe: draw, do not wait) and goes straight back
-; to page 2.
-	ld a, $ff
+; v0.7: both pages of the status screen are navigated from here, without going
+; back out to the party menu for each Pokemon:
+;   A, Left, Right  swap between the stats page and the move page
+;   B               leaves the screen, from either page
+;   Up, Down        walk the party, staying on the page being read
+; Opting in is STATUS_OPTIN below, and only this caller does it - the same
+; screen opened from a battle, Bill's PC or the cable club is untouched.
+;
+; Page 2 draws OVER page 1 and reads data that page 1 loads, so it can never be
+; shown on its own: every route to it goes through a page 1 redraw first. Those
+; redraws carry STATUS_QUIET, which composes them behind whatever is on screen
+; instead of blanking it, so what the player sees is one instant swap.
+	ld a, STATUS_OPTIN
 	ld [wStatusScreenPageChange], a
+.statsPage1
 	predef StatusScreen
 	ld a, [wStatusScreenPageChange]
 	and a
-	jr z, .statsShowPage2 ; A or B on page 1 -> page 2, as in vanilla
-	call .statsStepMon
-	jr .statsScreenLoop ; stepped from page 1: stay on page 1
-.statsShowPage2
-	ld a, $ff
+	jr z, .statsScreenDone ; B
+	cp STATUS_OTHER_PAGE
+	jr z, .statsToMovePage
+	call .statsStepMon ; Up/Down: another mon, still on the stats page
+	ld a, STATUS_OPTIN | STATUS_QUIET
 	ld [wStatusScreenPageChange], a
+	jr .statsPage1
+.statsToMovePage
+	ld a, STATUS_OPTIN
+	ld [wStatusScreenPageChange], a
+.statsPage2
 	predef StatusScreen2
 	ld a, [wStatusScreenPageChange]
 	and a
-	jr z, .statsScreenDone
-	call .statsStepMon
-	ld a, $fe ; redraw page 1 silently so page 2 has something to sit on
+	jr z, .statsScreenDone ; B
+	cp STATUS_OTHER_PAGE
+	jr z, .statsToStatsPage
+	call .statsStepMon ; Up/Down: another mon, still on the move page
+; Compose the new mon's page 1 without ever showing it, then let page 2 draw
+; over it and play the cry. PlayCry waits for the sound to finish inside
+; itself, so a cry started during the page 1 redraw would hold page 1 on screen
+; for its whole length - which is exactly what used to happen here.
+	ld a, STATUS_OPTIN | STATUS_QUIET | STATUS_NOCRY | STATUS_NOWAIT
 	ld [wStatusScreenPageChange], a
 	predef StatusScreen
-	jr .statsShowPage2 ; stepped from page 2: stay on page 2
+	ld a, STATUS_OPTIN | STATUS_CRYAFTER
+	ld [wStatusScreenPageChange], a
+	jr .statsPage2
+.statsToStatsPage
+; Same mon, so its picture is still in VRAM from the page being left.
+	ld a, STATUS_OPTIN | STATUS_QUIET | STATUS_NOCRY | STATUS_KEEPPIC
+	ld [wStatusScreenPageChange], a
+	jr .statsPage1
 
 .statsStepMon
 ; In: a = 1 (previous) or 2 (next). Wraps both ways.

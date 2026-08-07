@@ -69,6 +69,7 @@ DrawHP_:
 
 ; Predef 0x36
 StatusScreen:
+	call StatusScreen_NormalizeMode
 	call LoadMonData
 	ld a, [wMonDataLocation]
 	cp BOX_DATA
@@ -86,7 +87,20 @@ StatusScreen:
 	set 1, [hl]
 	ld a, $33
 	ld [rNR50], a ; Reduce the volume
+; v0.7: STATUS_QUIET composes this page behind the one already on screen rather
+; than blanking the screen first. Every route back to the stats page is a full
+; redraw (page 2 draws over page 1 and reads what page 1 loads, so it can never
+; be shown on its own), and white-out / redraw / fade-in reads as "the screen
+; reopened" - wrong, when the player only changed page or stepped a mon.
+	ld a, [wStatusScreenPageChange]
+	and STATUS_QUIET
+	jr z, .whiteOutFirst
+	xor a
+	ldh [hAutoBGTransferEnabled], a ; nothing drawn below reaches VRAM yet
+	jr .screenBlanked
+.whiteOutFirst
 	call GBPalWhiteOutWithDelay3
+.screenBlanked
 	call ClearScreen
 	call UpdateSprites
 	call LoadHpBarAndStatusTilePatterns
@@ -207,9 +221,64 @@ StatusScreen:
 	ld d, $0
 	call PrintStatsBox
 	call Delay3
-	call GBPalNormal
+	ld a, [wStatusScreenPageChange]
+	and STATUS_QUIET
+	call z, GBPalNormal ; a quiet redraw never dimmed the palette to begin with
 	coord hl, 1, 0
+	ld a, [wStatusScreenPageChange]
+	and STATUS_KEEPPIC
+	jr nz, .pictureAlreadyInVRAM
 	call LoadFlippedFrontSpriteByMonIndex ; draw Pokémon picture
+	jr .pictureDone
+.pictureAlreadyInVRAM
+	call StatusScreen_PlacePicture
+.pictureDone
+	call StatusScreen_RevealQuietPage ; put the finished page up BEFORE the cry
+	ld a, [wStatusScreenPageChange]
+	and STATUS_NOCRY
+	jr nz, .continue
+	call StatusScreen_PlayMonCry
+.continue
+	ld a, [wStatusScreenPageChange]
+	ld b, a ; the mode: WaitForButton is about to overwrite it with the answer
+	and STATUS_NOWAIT
+	jr nz, .dontWait
+	push bc ; WaitForButton uses b for the joypad
+	call StatusScreen_WaitForButton ; A/Left/Right change page, Up/Down the mon
+	pop bc
+.dontWait
+	pop af
+	ld [hTileAnimations], a
+	bit 7, b ; STATUS_OPTIN
+	ret z ; vanilla caller: page 2 always follows and tears the screen down
+	ld a, [wStatusScreenPageChange]
+	and a
+	ret nz ; another page or another mon is coming; leave the screen standing
+	jp StatusScreen_TearDown ; B closed the screen from page 1
+
+.GetStringPointer
+; Stays inside StatusScreen's label scope - the routines below are global, and
+; a global label between here and the calls above would put this out of reach.
+	ld a, [wMonDataLocation]
+	add a
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld a, [wMonDataLocation]
+	cp DAYCARE_DATA
+	ret z
+	ld a, [wWhichPokemon]
+	jp SkipFixedLengthTextEntries
+
+StatusScreen_PlayMonCry:
+; Lifted out of StatusScreen so page 2 can play the cry as well. It has to be
+; page 2 that plays it when the player steps to another Pokémon from the move
+; list: PlayCry waits for the sound to finish inside itself, so a cry started
+; while page 1 is being composed pins page 1 on screen for the cry's whole
+; length. Draw first, cry second - the same shape the day care handlers use.
 	ld a, [wMonDataLocation]
 	cp ENEMY_PARTY_DATA
 	jr z, .playRegularCry
@@ -224,30 +293,76 @@ StatusScreen:
 .playPikachuSoundClip
 	ld e, 16
 	callfar PlayPikachuSoundClip
-	jr .continue
+	ret
 .playRegularCry
-	ld a, [wcf91]
-	call PlayCry ; play Pokémon cry
-.continue
-	call StatusScreen_WaitForButton ; wait for button (Up/Down walk the party)
-	pop af
-	ld [hTileAnimations], a
+	ld a, [wcf91] ; LoadMonData left the species here and page 2 never touches it
+	jp PlayCry
+
+StatusScreen_NormalizeMode:
+; The answers this screen writes back (1, 2, 3) reuse the same low bits as the
+; mode flags - STATUS_OTHER_PAGE is bit-for-bit STATUS_QUIET | STATUS_NOCRY. A
+; caller that does not speak the protocol never writes the byte at all, so it
+; would be reading whichever answer the party menu happened to leave there and
+; could silently pick up a mode it knows nothing about.
+;
+; The party menu always leaves 0 today, so this is a trap rather than a bug -
+; but it is the exact shape of trap that keeps costing this project days, so it
+; is closed here instead of documented. One test at the top: no opt-in, no
+; modes, and every `and STATUS_*` below can then be taken at face value.
+	ld a, [wStatusScreenPageChange]
+	bit 7, a ; STATUS_OPTIN
+	ret nz
+	xor a
+	ld [wStatusScreenPageChange], a
 	ret
 
-.GetStringPointer
-	ld a, [wMonDataLocation]
-	add a
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld a, [wMonDataLocation]
-	cp DAYCARE_DATA
+StatusScreen_PlacePicture:
+; in: hl = top left corner of the picture, the same as the full loader wants.
+;
+; The move page leaves the picture untouched in VRAM, so coming back to the
+; stats page for the SAME mon only needs the tile map entries that ClearScreen
+; wiped - not another decompression. This is the tail of
+; LoadFrontSpriteByMonIndex with the LoadMonFrontSprite call left out, and it
+; is worth having: the decompression measured 35 of the 60 frames a page swap
+; costs, so skipping it is most of the wait.
+; Goes through the predef rather than switching banks by hand: the loader this
+; was lifted from lives in the home bank and can switch freely, but this routine
+; does not - swapping the bank out from under itself would run the next
+; instruction from whatever landed at that address.
+	ld a, 1
+	ld [wSpriteFlipped], a ; the status screen shows the mirrored picture, and
+	                       ; the tile map has to be laid out to match
+	xor a
+	ldh [hStartTileID], a
+	predef CopyUncompressedPicToTilemap
+	xor a
+	ld [wSpriteFlipped], a
+	ret
+
+StatusScreen_RevealQuietPage:
+; A quiet page was composed with the BG transfer off, so VRAM still shows the
+; page the player was reading. Turning the transfer back on swaps the whole
+; page in at once, with no blank frame in between.
+	ld a, [wStatusScreenPageChange]
+	and STATUS_QUIET
 	ret z
-	ld a, [wWhichPokemon]
-	jp SkipFixedLengthTextEntries
+	ld a, [wStatusScreenPageChange]
+	and STATUS_NOWAIT
+	ret nz ; page 2 is about to draw over this one - stay hidden until it does
+	ld a, $1
+	ldh [hAutoBGTransferEnabled], a
+	jp Delay3
+
+StatusScreen_TearDown:
+; Undo what the way in did: the volume cut, the wd72c flag and the screen
+; itself. Page 2 has always done this on the way out; page 1 needs it too now
+; that B closes the screen from either page.
+	ld hl, wd72c
+	res 1, [hl]
+	ld a, $77
+	ldh [rNR50], a
+	call GBPalWhiteOut
+	jp ClearScreen
 
 OTPointers:
 	dw wPartyMonOT
@@ -379,6 +494,7 @@ StatsText:
 	next "SPEED@"
 
 StatusScreen2:
+	call StatusScreen_NormalizeMode
 	ldh a, [hTileAnimations]
 	push af
 	xor a
@@ -509,39 +625,38 @@ StatusScreen2:
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
-	call StatusScreen_WaitForButton ; wait for button (Up/Down walk the party)
+	ld a, [wStatusScreenPageChange]
+	and STATUS_CRYAFTER
+	call nz, StatusScreen_PlayMonCry ; the stepped-to mon's cry, over a page
+	                                 ; that is already up
+	call StatusScreen_WaitForButton ; A/Left/Right change page, Up/Down the mon
 	pop af
 	ldh [hTileAnimations], a
-	ld hl, wd72c
-	res 1, [hl]
-	ld a, $77
-	ldh [rNR50], a
-	call GBPalWhiteOut
-	jp ClearScreen
+	ld a, [wStatusScreenPageChange]
+	and a
+	ret nz ; another page or another mon is coming; leave the screen standing
+	jp StatusScreen_TearDown
 
 StatusScreen_WaitForButton:
-; v0.7: A and B close the screen exactly as WaitForTextScrollButtonPress always
-; did. Up and Down additionally step through the party - but ONLY when the
-; caller opted in by writing $ff to wStatusScreenPageChange first. The party
-; menu opts in; battle, Bill's PC and the cable club do not, so pressing a
-; direction there still does nothing, as before.
+; Answers the caller instead of merely returning, because the party menu drives
+; both pages of this screen from outside. The answer goes in
+; wStatusScreenPageChange - a predef cannot return one in a register.
 ;
-; Writes back 0 (closed), 1 (previous mon) or 2 (next mon) for the caller,
-; because a predef cannot return a value in a register.
+;   B               -> STATUS_CLOSED       leave the screen
+;   A, Left, Right  -> STATUS_OTHER_PAGE   the same mon's other page
+;   Up, Down        -> STATUS_PREV/NEXT_MON  walk the party in place
+;
+; A caller that did not set STATUS_OPTIN keeps vanilla behaviour exactly: A or
+; B ends the page and the d-pad does nothing. Battle, Bill's PC and the cable
+; club are all in that group.
 	ld a, [wStatusScreenPageChange]
-	cp $fe
-	jr nz, .notPassThrough
-; $fe means "draw this page but do not wait on it". The caller uses it to put
-; page 1 back on screen after stepping to another Pokemon, so it can return the
-; player to page 2 - page 2 draws OVER page 1 and reads data page 1 loads, so it
-; cannot be shown on its own.
+	bit 7, a ; STATUS_OPTIN
+	jr nz, .optedIn
 	xor a
-	ld [wStatusScreenPageChange], a
-	ret
-.notPassThrough
-	inc a ; was it $ff?
-	jp nz, WaitForTextScrollButtonPress ; not opted in: vanilla behaviour
-	                                    ; (jp, not jr - it lives in the home bank)
+	ld [wStatusScreenPageChange], a ; a defined STATUS_CLOSED, so the tear-down
+	                                ; check at the end of page 2 still fires
+	jp WaitForTextScrollButtonPress ; jp, not jr - it lives in the home bank
+.optedIn
 	ldh a, [hDownArrowBlinkCount1]
 	push af
 	ldh a, [hDownArrowBlinkCount2]
@@ -558,14 +673,21 @@ StatusScreen_WaitForButton:
 	call JoypadLowSensitivity
 	ldh a, [hJoy5]
 	ld b, a
-	and A_BUTTON | B_BUTTON
-	ld c, 0 ; closed
+	bit BIT_B_BUTTON, b
+	ld c, STATUS_CLOSED
+	jr nz, .done
+	ld c, STATUS_OTHER_PAGE
+	bit BIT_A_BUTTON, b
+	jr nz, .done
+	bit BIT_D_LEFT, b
+	jr nz, .done
+	bit BIT_D_RIGHT, b
 	jr nz, .done
 	bit BIT_D_UP, b
-	ld c, 1 ; previous mon
+	ld c, STATUS_PREV_MON
 	jr nz, .done
 	bit BIT_D_DOWN, b
-	ld c, 2 ; next mon
+	ld c, STATUS_NEXT_MON
 	jr z, .loop
 .done
 	ld a, c

@@ -88,3 +88,35 @@ DEF FIRST_PARTY_MENU_TEXT_ID EQU const_value
 	const NAME_PLAYER_SCREEN ; 0
 	const NAME_RIVAL_SCREEN  ; 1
 	const NAME_MON_SCREEN    ; 2
+
+; status screen protocol (see engine/pokemon/status_screen.asm)
+; The party menu drives the screen's two pages from outside, so each predef has
+; to say which button ended it - and a predef cannot answer in a register,
+; because Predef ends in `pop af` and restores both the flags and a. The answer
+; travels through wStatusScreenPageChange instead: the caller writes a mode
+; byte on the way in, the predef overwrites it with an answer on the way out.
+;
+; Mode byte, written by the caller. A caller that does not set STATUS_OPTIN
+; (battle, Bill's PC, the cable club) gets vanilla behaviour untouched: A or B
+; ends the page and the d-pad does nothing.
+DEF STATUS_OPTIN    EQU %10000000 ; "I drive the pages and read the answer back"
+DEF STATUS_QUIET    EQU %00000001 ; compose behind the page already on screen:
+                                  ; no white-out, BG transfer off until it is done
+DEF STATUS_NOCRY    EQU %00000010 ; do not play the mon's cry on this draw
+DEF STATUS_NOWAIT   EQU %00000100 ; draw and return; another page draws over it
+DEF STATUS_CRYAFTER EQU %00001000 ; page 2: play the cry once the page is up
+DEF STATUS_KEEPPIC  EQU %00010000 ; same mon as the page just left: its picture
+                                  ; is already in VRAM, so put the tile map
+                                  ; entries back instead of decompressing again
+
+; Answer, written by the predef. All have bit 7 clear, so a value left behind by
+; an earlier visit can never be mistaken for an opt-in - but note that they DO
+; share their low bits with the flags above (STATUS_OTHER_PAGE is bit-for-bit
+; STATUS_QUIET | STATUS_NOCRY). Both predefs therefore start by calling
+; StatusScreen_NormalizeMode, which zeroes the byte when bit 7 is clear, so no
+; flag test below the opt-in has to worry about a stale answer.
+	const_def
+	const STATUS_CLOSED     ; 0
+	const STATUS_PREV_MON   ; 1
+	const STATUS_NEXT_MON   ; 2
+	const STATUS_OTHER_PAGE ; 3
