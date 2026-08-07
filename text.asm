@@ -350,3 +350,11 @@ INCLUDE "text/safari_west_tips.asm"
 SECTION "Battle Failure Text", ROMX
 
 INCLUDE "text/battle_failure.asm"
+
+; Route 5's day-care girl, the youngster stuck at the Saffron gate, and the
+; DAY CARE sign. Own section for the same reason as the four above: the
+; pinned text banks have no room to grow, and text_far reaches a floating
+; section from any bank.
+SECTION "Route 5 Additions Text", ROMX
+
+INCLUDE "text/route5_additions.asm"

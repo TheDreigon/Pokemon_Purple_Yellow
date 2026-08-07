@@ -96,7 +96,10 @@ SpriteSets:
 	db SPRITE_COOLTRAINER_F
 	db SPRITE_COOLTRAINER_M
 	db SPRITE_POKE_BALL
-	db SPRITE_UNUSED_GAMBLER_ASLEEP_2
+; v0.7: was SPRITE_UNUSED_GAMBLER_ASLEEP_2, which no map in the game places.
+; Freed for the day-care girl on Route 5's north half (same trade the
+; PALLET_VIRIDIAN set made for MOM).
+	db SPRITE_LITTLE_GIRL
 
 ; SPRITESET_LAVENDER
 	db SPRITE_PIKACHU
@@ -161,7 +164,10 @@ SpriteSets:
 	db SPRITE_ROCKER
 	db SPRITE_COOLTRAINER_M
 	db SPRITE_POKE_BALL
-	db SPRITE_UNUSED_GAMBLER_ASLEEP_2
+; v0.7: was SPRITE_UNUSED_GAMBLER_ASLEEP_2, which no map in the game places.
+; Freed for the youngster stuck at the Saffron gate on Route 5's south half --
+; he is visible from the north half too, whose set already carries YOUNGSTER.
+	db SPRITE_YOUNGSTER
 
 ; SPRITESET_SILENCE_BRIDGE
 	db SPRITE_PIKACHU
