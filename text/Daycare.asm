@@ -1,7 +1,8 @@
 _DaycareGentlemanIntroText::
-	text "I run a DAYCARE."
-	line "Would you like me"
-	cont "to raise one of"
+; "I run a DAYCARE." dropped 2026-08-07: the teamwork line that now precedes
+; this says it better, and a pinned text bank can always SHRINK.
+	text "Would you like me"
+	line "to raise one of"
 	cont "your #MON?"
 	done
 

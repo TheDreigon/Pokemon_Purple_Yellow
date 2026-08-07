@@ -31,6 +31,25 @@ _Route5YoungsterAppeasedText::
 	cont "better mood!"
 	done
 
+_Route5CooltrainerMText::
+	text "I wasn't sure"
+	line "about leaving my"
+	cont "POKéMON at the"
+	cont "DAY CARE..."
+
+	para "Then I heard the"
+	line "gentleman running"
+	cont "it was once a"
+	cont "mighty trainer!"
+
+	para "And his daughter"
+	line "worked at a"
+	cont "POKéMON CENTER!"
+
+	para "They're in good"
+	line "hands there!"
+	done
+
 _Route5DaycareSignText::
 	text "POKéMON DAY CARE"
 	line "- Raised with a"

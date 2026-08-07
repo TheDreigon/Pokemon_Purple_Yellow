@@ -8,55 +8,63 @@ Daycare2F_TextPointers:
 	dw_const Daycare2FMrMimeText,   TEXT_DAYCARE2F_MR_MIME
 	dw_const Daycare2FNidoranFText, TEXT_DAYCARE2F_NIDORAN_F
 	dw_const Daycare2FCuboneText,   TEXT_DAYCARE2F_CUBONE
+	dw_const Daycare2FSeelText,     TEXT_DAYCARE2F_SEEL
+	dw_const Daycare2FClefairyText, TEXT_DAYCARE2F_CLEFAIRY
 
 Daycare2FNurseText:
 	text_far _Daycare2FNurseText
 	text_end
 
 Daycare2FChanseyText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _Daycare2FChanseyText
 	text_asm
 	ld a, CHANSEY
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
-
-.Text:
-	text_far _Daycare2FChanseyText
-	text_end
 
 Daycare2FMrMimeText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _Daycare2FMrMimeText
 	text_asm
 	ld a, MR_MIME
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
-
-.Text:
-	text_far _Daycare2FMrMimeText
-	text_end
 
 Daycare2FNidoranFText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _Daycare2FNidoranFText
 	text_asm
 	ld a, NIDORAN_F
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
-
-.Text:
-	text_far _Daycare2FNidoranFText
-	text_end
 
 Daycare2FCuboneText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _Daycare2FCuboneText
 	text_asm
 	ld a, CUBONE
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
 
-.Text:
-	text_far _Daycare2FCuboneText
-	text_end
+Daycare2FSeelText:
+	text_far _Daycare2FSeelText
+	text_asm
+	ld a, SEEL
+	call PlayCry
+	jp TextScriptEnd
+
+Daycare2FClefairyText:
+	text_far _Daycare2FClefairyText
+	text_asm
+	ld a, CLEFAIRY
+	call PlayCry
+	jp TextScriptEnd

@@ -4,6 +4,8 @@
 	const_export DAYCARE2F_MR_MIME
 	const_export DAYCARE2F_NIDORAN_F
 	const_export DAYCARE2F_CUBONE
+	const_export DAYCARE2F_SEEL
+	const_export DAYCARE2F_CLEFAIRY
 
 Daycare2F_Object:
 	db $a ; border block
@@ -23,5 +25,7 @@ Daycare2F_Object:
 	object_event  1,  2, SPRITE_MRMIME, STAY, NONE, TEXT_DAYCARE2F_MR_MIME
 	object_event  5,  5, SPRITE_NIDORANF, WALK, ANY_DIR, TEXT_DAYCARE2F_NIDORAN_F
 	object_event  3,  5, SPRITE_CUBONE, STAY, NONE, TEXT_DAYCARE2F_CUBONE
+	object_event  6,  3, SPRITE_SEEL, WALK, ANY_DIR, TEXT_DAYCARE2F_SEEL
+	object_event  5,  2, SPRITE_CLEFAIRY, STAY, NONE, TEXT_DAYCARE2F_CLEFAIRY
 
 	def_warps_to DAYCARE_2F

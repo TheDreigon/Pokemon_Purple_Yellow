@@ -1,7 +1,7 @@
 _DaycareGentlemanTeamworkText::
 	text "My daughter and"
-	line "I run this place"
-	cont "together."
+	line "I run this"
+	cont "DAYCARE together."
 
 	para "I keep them fed"
 	line "and disciplined,"
@@ -66,4 +66,20 @@ _Daycare2FNidoranFText::
 
 _Daycare2FCuboneText::
 	text "CUBONE: Kraa kraa!"
+	done
+
+_DaycareSlowpokeText::
+	text "SLOWPOKE: ...Slow?"
+	done
+
+_DaycareMeowthText::
+	text "MEOWTH: Meeeowth!"
+	done
+
+_Daycare2FSeelText::
+	text "SEEL: Kyuu kyuu!"
+	done
+
+_Daycare2FClefairyText::
+	text "CLEFAIRY: Pii pii!"
 	done

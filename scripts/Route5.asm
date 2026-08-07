@@ -2,11 +2,17 @@ Route5_Script:
 	jp EnableAutoTextBoxDrawing
 
 Route5_TextPointers:
+; Text ids are positional: objects first, in object order, then bg_events.
 	def_text_pointers
 	dw_const Route5LittleGirlText,          TEXT_ROUTE5_LITTLE_GIRL
 	dw_const Route5YoungsterText,           TEXT_ROUTE5_YOUNGSTER
+	dw_const Route5CooltrainerMText,        TEXT_ROUTE5_COOLTRAINER_M
 	dw_const Route5UndergroundPathSignText, TEXT_ROUTE5_UNDERGROUND_PATH_SIGN
 	dw_const Route5DaycareSignText,         TEXT_ROUTE5_DAYCARE_SIGN
+
+Route5CooltrainerMText:
+	text_far _Route5CooltrainerMText
+	text_end
 
 Route5LittleGirlText:
 	text_far _Route5LittleGirlText

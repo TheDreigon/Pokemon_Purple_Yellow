@@ -1,6 +1,7 @@
 	object_const_def
 	const_export ROUTE5_LITTLE_GIRL
 	const_export ROUTE5_YOUNGSTER
+	const_export ROUTE5_COOLTRAINER_M
 
 Route5_Object:
 	db $a ; border block
@@ -27,5 +28,8 @@ Route5_Object:
 ; standing in the southern strip.
 	object_event  8, 27, SPRITE_COOLTRAINER_F, WALK, LEFT_RIGHT, TEXT_ROUTE5_LITTLE_GIRL
 	object_event 12, 36, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_ROUTE5_YOUNGSTER
+; Vouches for the day care: the gentleman's trainer past, the daughter's
+; POKeMON CENTER past (Forte's lore, 2026-08-07).
+	object_event  4, 32, SPRITE_COOLTRAINER_M, WALK, UP_DOWN, TEXT_ROUTE5_COOLTRAINER_M
 
 	def_warps_to ROUTE_5

@@ -8,6 +8,8 @@ Daycare_TextPointers:
 	dw_const DaycareJigglypuffText, TEXT_DAYCARE_JIGGLYPUFF
 	dw_const DaycarePidgeyText,     TEXT_DAYCARE_PIDGEY
 	dw_const DaycarePsyduckText,    TEXT_DAYCARE_PSYDUCK
+	dw_const DaycareSlowpokeText,   TEXT_DAYCARE_SLOWPOKE
+	dw_const DaycareMeowthText,     TEXT_DAYCARE_MEOWTH
 
 ; The POKeMON CENTER's little ceremony, borrowed for the hand-over: the
 ; heal jingle shares the map music's audio bank ($02 -- MUSIC_PALLET_TOWN
@@ -24,52 +26,61 @@ PlayDaycareJingle:
 	jp PlayDefaultMusic
 
 DaycareOddishText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _DaycareOddishText
 	text_asm
 	ld a, ODDISH
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
-
-.Text:
-	text_far _DaycareOddishText
-	text_end
 
 DaycareJigglypuffText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _DaycareJigglypuffText
 	text_asm
 	ld a, JIGGLYPUFF
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
-
-.Text:
-	text_far _DaycareJigglypuffText
-	text_end
 
 DaycarePidgeyText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _DaycarePidgeyText
 	text_asm
 	ld a, PIDGEY
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
-
-.Text:
-	text_far _DaycarePidgeyText
-	text_end
 
 DaycarePsyduckText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _DaycarePsyduckText
 	text_asm
 	ld a, PSYDUCK
-	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
-	ld hl, .Text
-	call PrintText
+	call PlayCry
 	jp TextScriptEnd
 
-.Text:
-	text_far _DaycarePsyduckText
-	text_end
+DaycareSlowpokeText:
+; Melanie-house pattern: the text prints first and the cry rings over
+; the open box -- PlayCry itself waits for the sound to finish
+; (home/pokemon.asm), so a cry-first handler holds the text hostage.
+	text_far _DaycareSlowpokeText
+	text_asm
+	ld a, SLOWPOKE
+	call PlayCry
+	jp TextScriptEnd
+
+DaycareMeowthText:
+	text_far _DaycareMeowthText
+	text_asm
+	ld a, MEOWTH
+	call PlayCry
+	jp TextScriptEnd
 
 DaycareGentlemanText:
 	text_asm
