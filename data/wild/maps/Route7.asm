@@ -1,13 +1,13 @@
 Route7WildMons:
 	def_grass_wildmons 15 ; encounter rate
 	db 22, KOFFING
-	db 21, VULPIX
+	db 23, DROWZEE
 	db 20, RATTATA
 	db 21, PIDGEY
 	db 24, KOFFING
 	db 24, PIDGEOTTO
-	db 26, ABRA
-	db 26, KOFFING
+	db 23, ABRA
+	db 25, RATICATE
 	db 22, JIGGLYPUFF
 	db 31, WEEZING
 	end_grass_wildmons
