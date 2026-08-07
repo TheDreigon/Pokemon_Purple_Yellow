@@ -58,7 +58,9 @@ ENDM
 	warp_tiles $4A
 
 .HouseWarpTileIDs:
-	warp_tiles $54, $5C, $32
+; $17 is the staircase foot of block $23 (the Day Care's stairs) -- the same
+; tile REDS_HOUSE lists as $1C.
+	warp_tiles $54, $5C, $32, $17
 
 .ShipWarpTileIDs:
 	warp_tiles $37, $39, $1E, $4A

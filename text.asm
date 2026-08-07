@@ -358,3 +358,10 @@ INCLUDE "text/battle_failure.asm"
 SECTION "Route 5 Additions Text", ROMX
 
 INCLUDE "text/route5_additions.asm"
+
+; The Day Care family: the gentleman's teamwork and champion lines, the
+; daughter upstairs, and the boarders' voices on both floors. Own floating
+; section, same reason as its four siblings above.
+SECTION "Daycare Text", ROMX
+
+INCLUDE "text/daycare_additions.asm"

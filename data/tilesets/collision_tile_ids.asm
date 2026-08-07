@@ -27,7 +27,9 @@ Forest_Coll::
 	coll_tiles $1e, $20, $2e, $30, $34, $37, $39, $3a, $40, $51, $52, $5a, $5c, $5e, $5f
 
 House_Coll::
-	coll_tiles $01, $12, $14, $28, $32, $37, $44, $54, $5c
+; $17 is the foot of the staircase block ($23), tiles borrowed from
+; REDS_HOUSE for the Day Care's upper floor (2026-08-07).
+	coll_tiles $01, $12, $14, $17, $28, $32, $37, $44, $54, $5c
 
 ForestGate_Coll::
 Museum_Coll::

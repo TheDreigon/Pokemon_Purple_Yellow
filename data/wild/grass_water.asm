@@ -250,6 +250,7 @@ WildDataPointers:
 	dw NothingWildMons
 	dw NothingWildMons
 	dw NothingWildMons        ; VIRIDIAN_OLD_ROD_HOUSE
+	dw NothingWildMons        ; DAYCARE_2F
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 

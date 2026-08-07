@@ -3,7 +3,76 @@ Daycare_Script:
 
 Daycare_TextPointers:
 	def_text_pointers
-	dw_const DaycareGentlemanText, TEXT_DAYCARE_GENTLEMAN
+	dw_const DaycareGentlemanText,  TEXT_DAYCARE_GENTLEMAN
+	dw_const DaycareOddishText,     TEXT_DAYCARE_ODDISH
+	dw_const DaycareJigglypuffText, TEXT_DAYCARE_JIGGLYPUFF
+	dw_const DaycarePidgeyText,     TEXT_DAYCARE_PIDGEY
+	dw_const DaycarePsyduckText,    TEXT_DAYCARE_PSYDUCK
+
+; The POKeMON CENTER's little ceremony, borrowed for the hand-over: the
+; heal jingle shares the map music's audio bank ($02, MUSIC_CITIES1), so the
+; RedsHouse1F PlaySound idiom carries over unchanged.
+PlayDaycareJingle:
+	ld a, MUSIC_PKMN_HEALED
+	ld [wNewSoundID], a
+	call PlaySound
+.wait
+	ld a, [wChannelSoundIDs]
+	cp MUSIC_PKMN_HEALED
+	jr z, .wait
+	jp PlayDefaultMusic
+
+DaycareOddishText:
+	text_asm
+	ld a, ODDISH
+	call PlayCry
+	call WaitForSoundToFinish
+	ld hl, .Text
+	call PrintText
+	jp TextScriptEnd
+
+.Text:
+	text_far _DaycareOddishText
+	text_end
+
+DaycareJigglypuffText:
+	text_asm
+	ld a, JIGGLYPUFF
+	call PlayCry
+	call WaitForSoundToFinish
+	ld hl, .Text
+	call PrintText
+	jp TextScriptEnd
+
+.Text:
+	text_far _DaycareJigglypuffText
+	text_end
+
+DaycarePidgeyText:
+	text_asm
+	ld a, PIDGEY
+	call PlayCry
+	call WaitForSoundToFinish
+	ld hl, .Text
+	call PrintText
+	jp TextScriptEnd
+
+.Text:
+	text_far _DaycarePidgeyText
+	text_end
+
+DaycarePsyduckText:
+	text_asm
+	ld a, PSYDUCK
+	call PlayCry
+	call WaitForSoundToFinish
+	ld hl, .Text
+	call PrintText
+	jp TextScriptEnd
+
+.Text:
+	text_far _DaycarePsyduckText
+	text_end
 
 DaycareGentlemanText:
 	text_asm
@@ -13,6 +82,17 @@ DaycareGentlemanText:
 	jp nz, .daycareInUse
 	ld hl, .IntroText
 	call PrintText
+; Forte, 2026-08-07: the place is a family act now -- he is the rigor,
+; the daughter upstairs is the tenderness. And once the player is CHAMPION,
+; he brags about the doubled care (which IncrementDayCareMonExp delivers).
+	ld hl, .TeamworkText
+	call PrintText
+	ld a, [wGameStage]
+	and a
+	jr z, .noChampionBrag
+	ld hl, .ChampionCareText
+	call PrintText
+.noChampionBrag
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -46,6 +126,7 @@ DaycareGentlemanText:
 	call GetPartyMonName
 	ld hl, .WillLookAfterMonText
 	call PrintText
+	call PlayDaycareJingle
 	ld a, 1
 	ld [wDayCareInUse], a
 	ld a, PARTY_TO_DAYCARE
@@ -218,6 +299,7 @@ DaycareGentlemanText:
 	call DisplayTextBoxID
 	ld hl, .HeresYourMonText
 	call PrintText
+	call PlayDaycareJingle
 	ld a, DAYCARE_TO_PARTY
 	ld [wMoveMonType], a
 	call MoveMon
@@ -285,6 +367,14 @@ DaycareGentlemanText:
 
 .IntroText:
 	text_far _DaycareGentlemanIntroText
+	text_end
+
+.TeamworkText:
+	text_far _DaycareGentlemanTeamworkText
+	text_end
+
+.ChampionCareText:
+	text_far _DaycareGentlemanChampionCareText
 	text_end
 
 .WhichMonText:

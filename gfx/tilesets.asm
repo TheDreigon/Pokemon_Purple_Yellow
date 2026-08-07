@@ -17,8 +17,10 @@ ShipPort_GFX::      INCBIN "gfx/tilesets/ship_port.2bpp"
 ShipPort_Block::    INCBIN "gfx/blocksets/ship_port.bst"
 Interior_GFX::      INCBIN "gfx/tilesets/interior.2bpp"
 Interior_Block::    INCBIN "gfx/blocksets/interior.bst"
-Plateau_GFX::       INCBIN "gfx/tilesets/plateau.2bpp"
-Plateau_Block::     INCBIN "gfx/blocksets/plateau.bst"
+; Plateau moved to its own floating section (end of this file): the Day
+; Care staircase block (2026-08-07) pushed this pinned bank 16 bytes over,
+; and the tileset header derives banks with BANK(), so a tileset pair can
+; live anywhere -- as long as its GFX and Block stay together.
 
 
 SECTION "Tilesets 2", ROMX
@@ -69,3 +71,10 @@ SECTION "Tilesets 4", ROMX
 BeachHouse_GFX::    INCBIN "gfx/tilesets/beach_house.2bpp"
 	ds 384
 BeachHouse_Block::  INCBIN "gfx/blocksets/beach_house.bst"
+
+
+SECTION "Tilesets 5", ROMX
+
+; Floating on purpose -- see the note in "Tilesets 1".
+Plateau_GFX::       INCBIN "gfx/tilesets/plateau.2bpp"
+Plateau_Block::     INCBIN "gfx/blocksets/plateau.bst"

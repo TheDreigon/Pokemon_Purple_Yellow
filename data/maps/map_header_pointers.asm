@@ -251,4 +251,5 @@ MapHeaderPointers::
 	dw AgathasRoom_h
 	dw SummerBeachHouse_h
 	dw ViridianOldRodHouse_h
+	dw Daycare2F_h
 	assert_table_length NUM_MAPS

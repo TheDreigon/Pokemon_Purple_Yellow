@@ -817,8 +817,13 @@ INCLUDE "data/maps/objects/Route21.asm"
 Route21_Blocks: INCBIN "maps/Route21.blk"
 	assert @ - Route21_Blocks == ROUTE_21_WIDTH * ROUTE_21_HEIGHT, "Route21.blk size does not match ROUTE_21 in map_constants.asm"
 
+; The two rod houses still share one layout. The Daycare used to stack here
+; too, until it grew a staircase (2026-08-07) -- a stacked label means one
+; file IS the other maps, and the stairs would have appeared in all three.
 VermilionGoodRodHouse_Blocks:
-Route12SuperRodHouse_Blocks:
+Route12SuperRodHouse_Blocks: INCBIN "maps/VermilionGoodRodHouse.blk"
+	assert @ - VermilionGoodRodHouse_Blocks == VERMILION_GOOD_ROD_HOUSE_WIDTH * VERMILION_GOOD_ROD_HOUSE_HEIGHT, "VermilionGoodRodHouse.blk size does not match VERMILION_GOOD_ROD_HOUSE in map_constants.asm"
+
 Daycare_Blocks: INCBIN "maps/Daycare.blk"
 	assert @ - Daycare_Blocks == DAYCARE_WIDTH * DAYCARE_HEIGHT, "Daycare.blk size does not match DAYCARE in map_constants.asm"
 
@@ -856,6 +861,12 @@ INCLUDE "data/maps/objects/FuchsiaFossilHouse.asm"
 INCLUDE "data/maps/headers/Daycare.asm"
 INCLUDE "scripts/Daycare.asm"
 INCLUDE "data/maps/objects/Daycare.asm"
+
+INCLUDE "data/maps/headers/Daycare2F.asm"
+INCLUDE "scripts/Daycare2F.asm"
+INCLUDE "data/maps/objects/Daycare2F.asm"
+Daycare2F_Blocks: INCBIN "maps/Daycare2F.blk"
+	assert @ - Daycare2F_Blocks == DAYCARE_2F_WIDTH * DAYCARE_2F_HEIGHT, "Daycare2F.blk size does not match DAYCARE_2F in map_constants.asm"
 
 INCLUDE "data/maps/headers/Route12SuperRodHouse.asm"
 INCLUDE "scripts/Route12SuperRodHouse.asm"
