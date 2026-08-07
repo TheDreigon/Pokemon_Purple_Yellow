@@ -16,8 +16,7 @@ Daycare2FNurseText:
 Daycare2FChanseyText:
 	text_asm
 	ld a, CHANSEY
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -29,8 +28,7 @@ Daycare2FChanseyText:
 Daycare2FMrMimeText:
 	text_asm
 	ld a, MR_MIME
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -42,8 +40,7 @@ Daycare2FMrMimeText:
 Daycare2FNidoranFText:
 	text_asm
 	ld a, NIDORAN_F
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -55,8 +52,7 @@ Daycare2FNidoranFText:
 Daycare2FCuboneText:
 	text_asm
 	ld a, CUBONE
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd

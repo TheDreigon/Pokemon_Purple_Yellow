@@ -7,14 +7,14 @@ _DaycareGentlemanTeamworkText::
 	line "and disciplined,"
 	cont "she keeps them"
 	cont "loved!"
-	done
+	prompt
 
 _DaycareGentlemanChampionCareText::
 	text "With the CHAMPION"
 	line "as a customer, we"
 	cont "have doubled our"
 	cont "care!"
-	done
+	prompt
 
 _DaycareOddishText::
 	text "ODDISH: Odd dish?"
@@ -44,6 +44,11 @@ _Daycare2FNurseText::
 
 	para "CHANSEY and"
 	line "MR.MIME are mine."
+
+	para "They too have"
+	line "experience in"
+	cont "caring for other"
+	cont "POKéMON!"
 	done
 
 _Daycare2FChanseyText::

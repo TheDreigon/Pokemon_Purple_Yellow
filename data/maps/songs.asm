@@ -72,7 +72,7 @@ MapSongBanks::
 	db MUSIC_DUNGEON3, BANK(Music_Dungeon3) ; CERULEAN_TRASHED_HOUSE_COPY
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; ROUTE_5_GATE
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; UNDERGROUND_PATH_ROUTE_5
-	db MUSIC_CITIES1, BANK(Music_Cities1) ; DAYCARE
+	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE (Forte 2026-08-07: the homely tune fits the nursery)
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; ROUTE_6_GATE
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; UNDERGROUND_PATH_ROUTE_6
 	db MUSIC_VERMILION, BANK(Music_Vermilion) ; UNDERGROUND_PATH_ROUTE_6_COPY
@@ -250,5 +250,5 @@ MapSongBanks::
 	db MUSIC_POKEMON_TOWER, BANK(Music_PokemonTower) ; AGATHAS_ROOM
 	db MUSIC_ROUTES3, BANK(Music_Routes3) ; SUMMER_BEACH_HOUSE
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; VIRIDIAN_OLD_ROD_HOUSE
-	db MUSIC_CITIES1, BANK(Music_Cities1) ; DAYCARE_2F (same as the floor below)
+	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE_2F (same as the floor below)
 	assert_table_length NUM_MAPS

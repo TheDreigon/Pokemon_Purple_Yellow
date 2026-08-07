@@ -10,8 +10,9 @@ Daycare_TextPointers:
 	dw_const DaycarePsyduckText,    TEXT_DAYCARE_PSYDUCK
 
 ; The POKeMON CENTER's little ceremony, borrowed for the hand-over: the
-; heal jingle shares the map music's audio bank ($02, MUSIC_CITIES1), so the
-; RedsHouse1F PlaySound idiom carries over unchanged.
+; heal jingle shares the map music's audio bank ($02 -- MUSIC_PALLET_TOWN
+; since Forte's 2026-08-07 pick), so the RedsHouse1F PlaySound idiom
+; carries over unchanged.
 PlayDaycareJingle:
 	ld a, MUSIC_PKMN_HEALED
 	ld [wNewSoundID], a
@@ -25,8 +26,7 @@ PlayDaycareJingle:
 DaycareOddishText:
 	text_asm
 	ld a, ODDISH
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -38,8 +38,7 @@ DaycareOddishText:
 DaycareJigglypuffText:
 	text_asm
 	ld a, JIGGLYPUFF
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -51,8 +50,7 @@ DaycareJigglypuffText:
 DaycarePidgeyText:
 	text_asm
 	ld a, PIDGEY
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -64,8 +62,7 @@ DaycarePidgeyText:
 DaycarePsyduckText:
 	text_asm
 	ld a, PSYDUCK
-	call PlayCry
-	call WaitForSoundToFinish
+	call PlayCry ; ring out over the text box; waiting here delayed the text (Forte)
 	ld hl, .Text
 	call PrintText
 	jp TextScriptEnd
@@ -80,11 +77,12 @@ DaycareGentlemanText:
 	ld a, [wDayCareInUse]
 	and a
 	jp nz, .daycareInUse
-	ld hl, .IntroText
-	call PrintText
 ; Forte, 2026-08-07: the place is a family act now -- he is the rigor,
 ; the daughter upstairs is the tenderness. And once the player is CHAMPION,
 ; he brags about the doubled care (which IncrementDayCareMonExp delivers).
+; These come BEFORE the question: the question text is designed to flow
+; straight into the yes/no box, so anything printed after it barges in
+; with no button wait.
 	ld hl, .TeamworkText
 	call PrintText
 	ld a, [wGameStage]
@@ -93,6 +91,8 @@ DaycareGentlemanText:
 	ld hl, .ChampionCareText
 	call PrintText
 .noChampionBrag
+	ld hl, .IntroText
+	call PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

@@ -17,11 +17,13 @@ Daycare_Object:
 
 	def_object_events
 	object_event  2,  3, SPRITE_GENTLEMAN, STAY, RIGHT, TEXT_DAYCARE_GENTLEMAN
-; The current boarders, roaming the ground floor. Their sprites load from
-; this map's own object list (indoor maps have no sprite-set limits).
-	object_event  5,  4, SPRITE_ODDISH, WALK, ANY_DIR, TEXT_DAYCARE_ODDISH
-	object_event  1,  5, SPRITE_JIGGLYPUFF, WALK, ANY_DIR, TEXT_DAYCARE_JIGGLYPUFF
-	object_event  6,  5, SPRITE_PIDGEY, WALK, ANY_DIR, TEXT_DAYCARE_PIDGEY
-	object_event  4,  6, SPRITE_PSYDUCK, WALK, ANY_DIR, TEXT_DAYCARE_PSYDUCK
+; The current boarders. Only PIDGEY has a 24-tile sheet with walk frames;
+; the others are 12-tile stills -- a still sprite set to WALK animates with
+; whatever sprite sits NEXT in the ROM, which is the flicker Forte saw.
+; STAY sprites still turn to face the player when spoken to.
+	object_event  5,  3, SPRITE_ODDISH, STAY, NONE, TEXT_DAYCARE_ODDISH
+	object_event  0,  4, SPRITE_JIGGLYPUFF, STAY, NONE, TEXT_DAYCARE_JIGGLYPUFF
+	object_event  7,  5, SPRITE_PIDGEY, WALK, ANY_DIR, TEXT_DAYCARE_PIDGEY
+	object_event  4,  5, SPRITE_PSYDUCK, STAY, NONE, TEXT_DAYCARE_PSYDUCK
 
 	def_warps_to DAYCARE

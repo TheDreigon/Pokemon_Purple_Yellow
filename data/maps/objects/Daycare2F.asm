@@ -15,12 +15,13 @@ Daycare2F_Object:
 
 	def_object_events
 ; The gentleman's daughter and her own two POKeMON (CHANSEY and MR.MIME);
-; the other two up here are boarders. Five sprite images incl. hers -- an
-; indoor map loads its own list, nine walking slots, no sprite-set limits.
-	object_event  2,  3, SPRITE_NURSE, STAY, NONE, TEXT_DAYCARE2F_NURSE
-	object_event  5,  4, SPRITE_CHANSEY, WALK, ANY_DIR, TEXT_DAYCARE2F_CHANSEY
-	object_event  2,  6, SPRITE_MRMIME, WALK, ANY_DIR, TEXT_DAYCARE2F_MR_MIME
-	object_event  6,  6, SPRITE_NIDORANF, WALK, ANY_DIR, TEXT_DAYCARE2F_NIDORAN_F
-	object_event  1,  4, SPRITE_CUBONE, WALK, ANY_DIR, TEXT_DAYCARE2F_CUBONE
+; the other two up here are boarders. Only NIDORAN F has walk frames in its
+; sheet; the stills must STAY or they animate with the next sprite in the
+; ROM (the flicker Forte saw). STAY sprites still turn when spoken to.
+	object_event  2,  2, SPRITE_NURSE, STAY, NONE, TEXT_DAYCARE2F_NURSE
+	object_event  3,  2, SPRITE_CHANSEY, STAY, NONE, TEXT_DAYCARE2F_CHANSEY
+	object_event  1,  2, SPRITE_MRMIME, STAY, NONE, TEXT_DAYCARE2F_MR_MIME
+	object_event  5,  5, SPRITE_NIDORANF, WALK, ANY_DIR, TEXT_DAYCARE2F_NIDORAN_F
+	object_event  3,  5, SPRITE_CUBONE, STAY, NONE, TEXT_DAYCARE2F_CUBONE
 
 	def_warps_to DAYCARE_2F
