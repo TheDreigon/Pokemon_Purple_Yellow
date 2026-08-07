@@ -595,13 +595,12 @@ RattataEvosMoves:
 ; RAGE (rodent rage), HONE_CLAWS (claws sharpen), POISON_BITE (rats carry
 ; disease — STAB-less but plausible), CUT (sharp teeth/claws), FAINT_ATTACK
 ; (sneaky rat strike — Dark, no STAB here but Raticate gets STAB).
-	db  4, QUICK_ATTACK
-	db  7, BITE
-	db  7, POISON_STING
-	db 11, FOCUS_ENERGY
-	db 13, FAINT_ATTACK
-	db 16, RAGE
-	db 18, HEADBUTT
+	db  6, POISON_STING
+	db  9, QUICK_ATTACK
+	db 11, ASTONISH
+	db 13, FOCUS_ENERGY
+	db 15, FAINT_ATTACK
+	db 18, RAGE
 	db 20, HYPER_FANG
 	db 23, SCREECH
 	db 25, CUT
@@ -620,14 +619,12 @@ RaticateEvosMoves:
 ; Learnset
 ; Normal/Dark — matured rodent. Rattata's learnset + Dark unlock and matured
 ; claws: NIGHT_SLASH (Dark high-crit physical strike for a physical attacker).
-	db  4, QUICK_ATTACK
-	db  7, BITE
-	db  7, POISON_STING
-	db  9, ASTONISH
-	db 11, FOCUS_ENERGY
-	db 13, FAINT_ATTACK
-	db 16, RAGE
-	db 18, HEADBUTT
+	db  6, POISON_STING
+	db  9, QUICK_ATTACK
+	db 11, ASTONISH
+	db 13, FOCUS_ENERGY
+	db 15, FAINT_ATTACK
+	db 18, RAGE
 	db 20, HYPER_FANG
 	db 23, SCREECH
 	db 25, CUT
