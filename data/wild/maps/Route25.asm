@@ -1,15 +1,15 @@
 Route25WildMons:
-	def_grass_wildmons 15 ; encounter rate
-	db 13, VENONAT
-	db 13, PARAS
-	db 14, KRABBY
-	db 15, VENONAT
-	db 15, SPEAROW
-	db 14, BELLSPROUT
-	db 16, KRABBY
-	db 15, SLOWPOKE
-	db 16, SLOWPOKE
-	db 16, EXEGGCUTE
+	def_grass_wildmons 20 ; encounter rate
+	db 14, VENONAT
+	db 14, PARAS
+	db 13, CATERPIE
+	db 15, BELLSPROUT
+	db 14, EXEGGCUTE
+	db 13, WEEDLE
+	db 13, WEEDLE
+	db 15, ODDISH
+	db 16, SCYTHER
+	db 16, SCYTHER
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

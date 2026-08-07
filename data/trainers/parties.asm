@@ -119,7 +119,7 @@ BugCatcherData:
 ; Unused
 	db 18, METAPOD, CATERPIE, VENONAT, 0
 ; Route 9
-	db 23, VENONAT, PINSIR, 0
+	db 23, VENOMOTH, PINSIR, 0
 	db 21, BUTTERFREE, BEEDRILL, SCYTHER, 0
 ; Viridian Forest
 	db $FF, 6, CATERPIE, 8, METAPOD, 0
@@ -128,11 +128,11 @@ BugCatcherData:
 
 LassData:
 ; Route 3
-	db 9, PIDGEY, PIDGEY, 0
-	db 10, RATTATA, NIDORAN_M, 0
+	db 10, KRABBY, ODDISH, 0
+	db 10, NIDORAN_F, NIDORAN_M, 0
 	db 14, JIGGLYPUFF, 0
 ; Route 4
-	db 30, PARASECT, GLOOM, PARASECT, 0
+	db 35, PARASECT, VILEPLUME, 0
 ; Mt. Moon 1F
 	db 11, ODDISH, BELLSPROUT, 0
 	db 14, CLEFAIRY, 0
@@ -149,7 +149,7 @@ LassData:
 ; Route 8
 	db 26, WEEPINBELL, NIDORINA, 0
 	db 27, MEOWTH, LICKITUNG, NIDORINA, 0
-	db 24, PIDGEOTTO, RATICATE, NIDORINA, MEOWTH, NIDORINO, 0
+	db 25, PIDGEOTTO, RATICATE, MEOWTH, NIDORINO, 0
 	db 26, CLEFAIRY, CLEFABLE, 0
 ; Celadon Gym
 	db 28, GLOOM, WEEPINBELL, 0
@@ -228,15 +228,15 @@ JrTrainerFData:
 
 RocketData:
 ; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
-	db $FF, 14, CUBONE, 16, RATTATA, 0 ; ROCKET3 — stolen Cubone (Lavender foreshadow) + ace Rattata (Forte)
+	db 15, CUBONE, 0 ; ROCKET3 — stolen Cubone (Lavender foreshadow)
 	db 12, RATTATA, ZUBAT, 0 ; ROCKET1
 	db 12, EKANS, ZUBAT, 0 ; ROCKET2
 ; Unused
 	db 16, RATICATE, 0
 ; Cerulean City
-	db 17, MACHOP, DROWZEE, 0
+	db 18, MACHOP, DROWZEE, 0
 ; Route 24
-	db 15, EKANS, ZUBAT, 0
+	db 16, KOFFING, VOLTORB, EXEGGCUTE, 0
 ; Game Corner
 	db 23, RATICATE, GOLBAT, 0
 ; Rocket Hideout B1F
@@ -618,7 +618,7 @@ JugglerData:
 TamerData:
 ; Fuchsia Gym
 	db 36, SCYTHER, ARBOK, 0
-	db 35, ARBOK, NIDOQUEEN, ARBOK, 0
+	db 36, ARBOK, NIDOQUEEN, 0
 ; Viridian Gym
 	db 55, RHYDON, 0
 	db 53, ARBOK, TAUROS, 0

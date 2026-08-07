@@ -8,8 +8,8 @@ Route11WildMons:
 	db 17, SANDSHREW
 	db 19, DROWZEE
 	db 18, MACHOP
-	db 19, BEEDRILL
-	db 20, FEAROW
+	db 20, BEEDRILL
+	db 20, BEEDRILL
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

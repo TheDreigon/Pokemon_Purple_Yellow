@@ -34,7 +34,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_2,                       10, 36 ; $0D
 	map_const ROUTE_3,                       35,  9 ; $0E
 	map_const ROUTE_4,                       45,  9 ; $0F
-	map_const ROUTE_5,                       10, 18 ; $10
+	map_const ROUTE_5,                       10, 22 ; $10
 	map_const ROUTE_6,                       10, 18 ; $11
 	map_const ROUTE_7,                       13,  9 ; $12
 	map_const ROUTE_8,                       30, 10 ; $13
@@ -53,8 +53,8 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +2 columns WEST toward Cinnabar; Pallet connects at -3 because of it)
 	map_const ROUTE_22,                      22, 11 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
-	map_const ROUTE_24,                      10, 18 ; $23
-	map_const ROUTE_25,                      30,  9 ; $24
+	map_const ROUTE_24,                      13, 20 ; $23
+	map_const ROUTE_25,                      34, 10 ; $24
 DEF FIRST_INDOOR_MAP EQU const_value
 	map_const REDS_HOUSE_1F,                  4,  4 ; $25
 	map_const REDS_HOUSE_2F,                  4,  4 ; $26
