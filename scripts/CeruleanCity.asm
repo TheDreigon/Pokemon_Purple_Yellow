@@ -79,15 +79,17 @@ ENDC
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 	ld a, [wXCoord]
-	cp 20 ; is the player standing on the right side of the bridge?
-	jr z, .playerOnRightSideOfBridge
+	cp 24 ; is the player standing on the left column of the exit?
+	jr z, .playerOnLeftColumn
+; player is on x=25: shift the rival's spawn to that column so he walks down
+; onto the player. Sprite MAPX carries the +4 offset, so 25 + 4.
 	ld a, CERULEANCITY_RIVAL
 	ldh [hSpriteIndex], a
 	ld a, SPRITESTATEDATA2_MAPX
 	ldh [hSpriteDataOffset], a
 	call GetPointerWithinSpriteStateData2
-	ld [hl], 25
-.playerOnRightSideOfBridge
+	ld [hl], 29
+.playerOnLeftColumn
 	ld a, HS_CERULEAN_RIVAL
 	ld [wMissableObjectIndex], a
 	predef ShowObject
@@ -109,8 +111,11 @@ CeruleanCityCoords1:
 	db -1 ; end
 
 CeruleanCityCoords2:
-	dbmapcoord 20,  6
-	dbmapcoord 21,  6
+; The two columns of the north exit corridor, which the 2026-08-07 route
+; rework moved from x=20-21 to x=24-25. There is no way around them: the
+; corridor to Route 24 is exactly cells 24-25 from row 0 down to the plaza.
+	dbmapcoord 24,  6
+	dbmapcoord 25,  6
 	db -1 ; end
 
 CeruleanCityMovement1:
@@ -169,11 +174,11 @@ CeruleanCityRivalDefeatedScript:
 	ldh [hSpriteIndex], a
 	call SetSpriteMovementBytesToFF
 	ld a, [wXCoord]
-	cp 20 ; is the player standing on the right side of the bridge?
-	jr nz, .playerOnRightSideOfBridge
+	cp 24 ; player on the left column? rival sidesteps to the free one
+	jr nz, .playerOnRightColumn
 	ld de, CeruleanCityMovement4
 	jr .skip
-.playerOnRightSideOfBridge
+.playerOnRightColumn
 	ld de, CeruleanCityMovement3
 .skip
 	ld a, CERULEANCITY_RIVAL

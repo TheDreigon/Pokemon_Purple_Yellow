@@ -46,7 +46,12 @@ Route24DefaultScript:
 	ret
 
 .PlayerCoordsArray:
-	dbmapcoord 10, 15
+; The single cell in front of the nugget trainer at (13, 19) -- the bridge is
+; two cells wide there and he stands on the east one facing LEFT, so (12, 19)
+; is the only way past him. Was (10, 15) until the 2026-08-07 route rework
+; moved the bridge; the trigger then fired from a random spot of the western
+; junction and never at the bridge top.
+	dbmapcoord 12, 19
 	db -1 ; end
 
 Route24PlayerMovingScript:

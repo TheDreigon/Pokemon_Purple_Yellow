@@ -79,7 +79,11 @@ FlyWarpDataPtr:
 .PalletTown:     fly_warp PALLET_TOWN,      5,  6
 .ViridianCity:   fly_warp VIRIDIAN_CITY,   23, 26
 .PewterCity:     fly_warp PEWTER_CITY,     13, 26
-.CeruleanCity:   fly_warp CERULEAN_CITY,   19, 18
+; v0.7 (2026-08-07): was (19, 18). The city rework left that cell inside the
+; mart's fence line -- flying in stranded the player on a tile with no
+; walkable neighbour, a hard soft-lock. Now the plaza cell in front of the
+; POKeMON CENTER door at (21, 25), the same convention as the other cities.
+.CeruleanCity:   fly_warp CERULEAN_CITY,   21, 26
 .LavenderTown:   fly_warp LAVENDER_TOWN,    3,  6
 .VermilionCity:  fly_warp VERMILION_CITY,  11,  4
 .CeladonCity:    fly_warp CELADON_CITY,    41, 10
