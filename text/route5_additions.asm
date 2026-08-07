@@ -21,6 +21,16 @@ _Route5YoungsterText::
 	line "it?!"
 	done
 
+_Route5YoungsterAppeasedText::
+	text "Hey, the guards"
+	line "are waving people"
+	cont "through now!"
+
+	para "Guess something"
+	line "put them in a"
+	cont "better mood!"
+	done
+
 _Route5DaycareSignText::
 	text "POKéMON DAY CARE"
 	line "- Raised with a"
