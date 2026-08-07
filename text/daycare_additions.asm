@@ -60,8 +60,8 @@ _Daycare2FMrMimeText::
 	line "mime!"
 	done
 
-_Daycare2FNidoranFText::
-	text "NIDORAN♀: Kyuu!"
+_Daycare2FNidoranMText::
+	text "NIDORAN♂: Kyuu!"
 	done
 
 _Daycare2FCuboneText::
