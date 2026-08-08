@@ -39,8 +39,9 @@ _BillsHouseBillRematchAcceptedText::
 	done
 
 _BillsHouseBillRematchRefusedText::
-	text "Of course. The"
-	line "data will keep!"
+	text "No trouble! I'll"
+	line "be right here"
+	cont "with my machines."
 	done
 
 _BillsHouseBillRematchCooldownText::

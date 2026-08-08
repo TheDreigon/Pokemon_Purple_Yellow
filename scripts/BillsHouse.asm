@@ -291,13 +291,13 @@ BillsHouseScript10:
 	ret nz
 .onTheDoor
 	push af ; the column decides how far he walks
-; Which Bill is actually on the map: Route 25 hides BILL1 and shows BILL2 once
-; the player has left after helping him, so that event is the discriminator.
-	CheckEvent EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING
-	ld a, BILLSHOUSE_BILL1
-	jr z, .haveIndex
-	ld a, BILLSHOUSE_BILL2
-.haveIndex
+; Which Bill is actually on the map? ASK, do not infer. This used to guess from
+; EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING, and when the guess was wrong it ordered
+; a hidden sprite to walk - CheckSpriteAvailability refuses to move an invisible
+; sprite, so the movement never finished and the wait below never ended. Forte
+; froze on the doormat. Guessing was the bug; the engine already knows.
+	call BillsHouseVisibleBill
+	jr c, .nobodyToWalk
 	ldh [hSpriteIndex], a
 	pop af
 ; Both Bills stand at (4,4). Three steps down puts him on (4,7); from there he
@@ -309,12 +309,47 @@ BillsHouseScript10:
 	ld de, BillsHouseEeveeWalkToRightDoor
 .walk
 	call MoveSprite
+	ld hl, wd492
+	ld a, [hl]
+	and $c0 ; keep the two flag bits this byte already owns
+	or BILLSHOUSE_WALK_TIMEOUT
+	ld [hl], a
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT11
 	ld [wBillsHouseCurScript], a
 	ret
+.nobodyToWalk
+; Neither Bill is on the map. Nothing can walk, so say the line where he stands
+; rather than wait for a step that will never happen.
+	pop af
+	ld a, TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jr .disarm
 .disarm
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
 	ld [wBillsHouseCurScript], a
+	ret
+
+BillsHouseVisibleBill:
+; Returns the sprite index of whichever Bill is currently on the map, or carry
+; set if neither is. IsObjectHidden reads the sprite OFFSET (index * 16) out of
+; hCurrentSpriteOffset, and the overworld loop rewrites that every frame for
+; every sprite, so borrowing it here costs nothing.
+	ld a, BILLSHOUSE_BILL1 * $10
+	ldh [hCurrentSpriteOffset], a
+	predef IsObjectHidden
+	ldh a, [hIsHiddenMissableObject]
+	and a
+	ld a, BILLSHOUSE_BILL1
+	ret z
+	ld a, BILLSHOUSE_BILL2 * $10
+	ldh [hCurrentSpriteOffset], a
+	predef IsObjectHidden
+	ldh a, [hIsHiddenMissableObject]
+	and a
+	ld a, BILLSHOUSE_BILL2
+	ret z
+	scf
 	ret
 
 BillsHouseEeveeWalkToRightDoor:
@@ -334,18 +369,39 @@ BillsHouseScript11:
 ; He is walking over. Wait for it, then have the two of them look at each other
 ; before he says a word - he called the player back, so he is the one who closes
 ; the distance and he is the one who turns.
+;
+; The wait is BOUNDED. An earlier version waited on wd730 bit 0 alone, and when
+; the movement could not start it waited for ever with the player's input
+; ignored - a freeze on the doormat, which Forte hit. The cause below is fixed
+; too, but a scripted scene that CAN hang is not worth the six bytes saved: on
+; timeout the scene simply plays out from wherever he is standing.
 	ld a, [wd730]
 	bit 0, a
-	ret nz
-	CheckEvent EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING
-	ld a, BILLSHOUSE_BILL1
-	jr z, .haveIndex
-	ld a, BILLSHOUSE_BILL2
-.haveIndex
+	jr z, .arrived
+	ld hl, wd492
+	ld a, [hl]
+	and $3f ; the low six bits are this scene's countdown
+	jr z, .giveUp
+	dec a
+	ld b, a
+	ld a, [hl]
+	and $c0
+	or b
+	ld [hl], a
+	ret
+.giveUp
+	ld hl, wd730
+	res 0, [hl] ; release the scripted-movement hold...
+	xor a
+	ld [wJoyIgnore], a ; ...and the player's controls with it
+.arrived
+	call BillsHouseVisibleBill
+	jr c, .noTurn
 	ldh [hSpriteIndex], a
 	ld a, SPRITE_FACING_LEFT
 	ldh [hSpriteFacingDirection], a
 	call SetSpriteFacingDirectionAndDelay
+.noTurn
 	xor a
 	ld [wPlayerMovingDirection], a
 	ld a, SPRITE_FACING_RIGHT

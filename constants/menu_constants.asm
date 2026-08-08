@@ -120,3 +120,9 @@ DEF STATUS_KEEPPIC  EQU %00010000 ; same mon as the page just left: its picture
 	const STATUS_PREV_MON   ; 1
 	const STATUS_NEXT_MON   ; 2
 	const STATUS_OTHER_PAGE ; 3
+
+; How many frames Bill's doorway walk is allowed before the scene gives up and
+; plays out where he stands. Lives in the low six bits of wd492, whose top two
+; bits Bill's house already uses, so it costs no new WRAM. The walk itself is
+; four steps, well under this.
+DEF BILLSHOUSE_WALK_TIMEOUT EQU 60

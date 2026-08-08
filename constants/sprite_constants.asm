@@ -106,6 +106,11 @@
 	const SPRITE_SLOWPOKE
 	const SPRITE_DODUO
 	const SPRITE_VAPOREON
+; v0.7: Bill has to sit on THIS side of the line. Everything at or after
+; FIRST_STILL_SPRITE is treated as a four-tile still by CheckForFourTileSprite,
+; which loads one frame and no walking tiles - so a walker appended to the end
+; of the list slides without ever turning, however correct its sheet is.
+	const SPRITE_BILL
 DEF FIRST_STILL_SPRITE EQU const_value
 	const SPRITE_POKE_BALL               ; $69
 	const SPRITE_FOSSIL                  ; $6a
@@ -122,5 +127,4 @@ DEF FIRST_STILL_SPRITE EQU const_value
 	const SPRITE_JOLTEON
 	const SPRITE_FLAREON
 	const SPRITE_WIGGLYTUFF
-	const SPRITE_BILL ; v0.7: the scientist walking under the youngster's head
 DEF NUM_SPRITES EQU const_value - 1

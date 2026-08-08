@@ -111,6 +111,7 @@ SpriteSheetPointerTable:
 	overworld_sprite SlowpokeSprite, 12     	; SPRITE_SLOWPOKE
 	overworld_sprite DoduoSprite, 12    		; SPRITE_DODUO
 	overworld_sprite VaporeonSprite, 4    		; SPRITE_VAPOREON
+	overworld_sprite BillSprite, 12    		; SPRITE_BILL
 	overworld_sprite PokeBallSprite, 4          ; SPRITE_POKE_BALL
 	overworld_sprite FossilSprite, 4            ; SPRITE_FOSSIL
 	overworld_sprite BoulderSprite, 4           ; SPRITE_BOULDER
@@ -126,5 +127,4 @@ SpriteSheetPointerTable:
 	overworld_sprite JolteonSprite, 4     		; SPRITE_JOLTEON
 	overworld_sprite FlareonSprite, 4     		; SPRITE_FLAREON
 	overworld_sprite WigglytuffSprite, 4    	; SPRITE_WIGGLYTUFF
-	overworld_sprite BillSprite, 12         	; SPRITE_BILL
 	assert_table_length NUM_SPRITES
