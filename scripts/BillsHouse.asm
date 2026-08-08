@@ -20,6 +20,7 @@ BillsHouse_ScriptPointers:
 	dw_const BillsHouseScript9, SCRIPT_BILLSHOUSE_SCRIPT9
 	dw_const BillsHouseScript10, SCRIPT_BILLSHOUSE_SCRIPT10
 	dw_const BillsHouseScript11, SCRIPT_BILLSHOUSE_SCRIPT11
+	dw_const BillsHousePostBattleScript, SCRIPT_BILLSHOUSE_POST_BATTLE
 
 BillsHouseScript_1e09e:
 	ld hl, wd492
@@ -365,6 +366,7 @@ BillsHouse_TextPointers:
 	dw_const BillsHouseBillCheckOutMyRarePokemonText, TEXT_BILLSHOUSE_BILL_CHECK_OUT_MY_RARE_POKEMON
 	dw_const BillsHouseBillDontLeaveText,             TEXT_BILLSHOUSE_BILL_DONT_LEAVE
 	dw_const BillsHouseBillEeveeGiftText,             TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
+	dw_const BillsHouseBillPostBattleText,            TEXT_BILLSHOUSE_BILL_POST_BATTLE
 
 BillsHouseBillDontLeaveText:
 	text_far _BillsHouseBillDontLeaveText
@@ -389,3 +391,23 @@ BillsHouseBillEeveeGiftText:
 	text_asm
 	farcall BillsHouseGiveEevee
 	jp TextScriptEnd
+
+BillsHouseBillPostBattleText:
+	text_far _BillsHouseBillPostBattleText
+	text_end
+
+BillsHousePostBattleScript:
+; Mirrors the Nurse Joy and Officer Jenny post-battle scripts: the rematch is
+; only spent on a WIN, so losing costs the player nothing but the trip.
+	ld a, [wIsInBattle]
+	inc a
+	jr z, .lost
+	SetEvent EVENT_BEAT_BILL
+	SetEvent EVENT_REMATCHED_BILL ; spend this League run's battle
+	ld a, TEXT_BILLSHOUSE_BILL_POST_BATTLE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+.lost
+	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
+	ld [wBillsHouseCurScript], a
+	ret

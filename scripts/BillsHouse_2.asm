@@ -134,9 +134,7 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 	call PrintText
 	ret
 .after_quest
-	ld hl, .HowsTheTeamText
-	call PrintText
-	ret
+	jp BillsHouseOfferRematch
 
 .GoBeatMistyText:
 	text_far _BillsHouseBillGoBeatMistyText
@@ -149,6 +147,92 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 .HowsTheTeamText:
 	text_far _BillsHouseBillHowsTheTeamText
 	text_end
+
+BillsHouseOfferRematch::
+; Post-League, Bill offers a battle. He does not challenge - he asks, and what
+; he asks for is readings rather than a win.
+;
+; Same rematch shape as Nurse Joy and Officer Jenny: REMATCHED is set on every
+; win and cleared by the Hall of Fame, so each League run buys exactly one;
+; BEAT only picks the shorter wording, so re-winning the League re-arms him
+; without resetting what he says.
+;
+; It lives here, after the routine above has finished with its own local labels,
+; rather than inline where it is called from. A global label dropped into the
+; middle of a routine takes ownership of every local label after it - which is
+; exactly how this broke the first time.
+	ld a, [wGameStage]
+	and a
+	jr z, .notChampionYet
+	CheckEvent EVENT_REMATCHED_BILL
+	jr nz, .rematchSpent
+	CheckEvent EVENT_BEAT_BILL
+	ld hl, .ChallengeText
+	jr z, .offer
+	ld hl, .ChallengeAgainText
+.offer
+	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale poll count would
+	                             ; phantom-accept and force the fight
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+; He starts the battle by hand rather than through EngageMapTrainer, so the
+; encounter jingle has to be played explicitly - the same idiom Joy and Jenny use.
+	call StopAllMusic
+	ld c, BANK(Music_MeetMaleTrainer)
+	ld a, MUSIC_MEET_MALE_TRAINER
+	call PlayMusic
+	ld hl, .AcceptedText
+	call PrintText
+	call Delay3
+	ld a, OPP_BILL
+	ld [wCurOpponent], a
+	ld a, 1
+	ld [wTrainerNo], a
+	ld a, SCRIPT_BILLSHOUSE_POST_BATTLE
+	ld [wBillsHouseCurScript], a
+	ld [wCurMapScript], a
+	ret
+.refused
+	ld hl, .RefusedText
+	call PrintText
+	ret
+.rematchSpent
+	ld hl, .CooldownText
+	call PrintText
+	ret
+.notChampionYet
+	ld hl, .HowsTheTeamText
+	call PrintText
+	ret
+
+.ChallengeText:
+	text_far _BillsHouseBillRematchChallengeText
+	text_end
+
+.ChallengeAgainText:
+	text_far _BillsHouseBillRematchAgainText
+	text_end
+
+.AcceptedText:
+	text_far _BillsHouseBillRematchAcceptedText
+	text_end
+
+.RefusedText:
+	text_far _BillsHouseBillRematchRefusedText
+	text_end
+
+.CooldownText:
+	text_far _BillsHouseBillRematchCooldownText
+	text_end
+
+.HowsTheTeamText:
+	text_far _BillsHouseBillHowsTheTeamText
+	text_end
+
 
 Func_f24ae::
 	ld a, [wCurMap]

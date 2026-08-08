@@ -365,3 +365,11 @@ INCLUDE "text/route5_additions.asm"
 SECTION "Daycare Text", ROMX
 
 INCLUDE "text/daycare_additions.asm"
+
+; Bill's post-League battle: the challenge, the repeat, the two answers, the
+; cooldown line and what he says afterwards. Own floating section for the same
+; reason as its siblings above - the pinned text banks have no room to grow,
+; and text_far reaches a floating section from any bank.
+SECTION "Bill Rematch Text", ROMX
+
+INCLUDE "text/bill_rematch.asm"
