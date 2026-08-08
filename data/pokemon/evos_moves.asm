@@ -3519,7 +3519,8 @@ MagikarpEvosMoves:
 ; Minimalist Water (canon weakest). 5 moves total, faithful to canon.
 	db 10, TACKLE
 	db 15, WATER_GUN
-	db 20, BIDE
+	db 20, BUBBLEBEAM
+	db 25, BIDE
 	db 0
 
 GyaradosEvosMoves:
@@ -3533,7 +3534,8 @@ GyaradosEvosMoves:
 ; EARTHQUAKE/THRASH/HEAVY_SLAM. SURF/STRENGTH HMs.
 	db 10, TACKLE
 	db 15, WATER_GUN
-	db 20, BIDE
+	db 20, BUBBLEBEAM
+	db 25, BIDE
 	db 26, BITE
 	db 26, RAGE
 	db 28, WATER_PULSE
