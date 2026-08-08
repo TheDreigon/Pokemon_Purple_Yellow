@@ -825,7 +825,7 @@ SpecialTrainerMoves:
 	db 5, 4, DARK_PULSE
 	db 0
 
-	db JOY, 1 ; Fuchsia Pokecenter — 63 KANGASKHAN, 64 WIGGLYTUFF, 64 CLEFABLE, 65 CHANSEY, 65 MR_MIME
+	db JOY, 1 ; Fuchsia Pokecenter — 53 KANGASKHAN, 54 WIGGLYTUFF, 54 CLEFABLE, 55 CHANSEY, 55 MR_MIME
 	db 1, 1, BULK_UP
 	db 1, 2, BODY_SLAM
 	db 1, 3, DIZZY_PUNCH

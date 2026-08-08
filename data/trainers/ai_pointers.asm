@@ -62,4 +62,5 @@ TrainerAIPointers:
 	                 ; the only one that could not heal. The boss AI routines are
 	                 ; class-agnostic (they consume whichever bag was populated),
 	                 ; and Oak is the other L75+ superboss, so his profile fits.
+	dbw 1, BillAI ; bill — heals but never buffs; see the routine for why
 	assert_table_length NUM_TRAINERS

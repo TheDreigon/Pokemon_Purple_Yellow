@@ -52,6 +52,7 @@ JennyBossBag::    db FULL_RESTORE, 2, X_ATTACK,   1, X_SPEED,    1, FULL_HEAL, 2
 JanineBossBag::   db SUPER_POTION, 2, X_SPEED,    1, GUARD_SPEC, 1, FULL_HEAL, 2
 JessieAndJamesBossBag:: db SUPER_POTION, 2, FULL_HEAL, 2, -1, -1, -1, -1
 ForteBossBag::    db FULL_RESTORE, 6, FULL_HEAL, 6, -1, -1, -1, -1 ; Forte superboss — 6x Full Restore, 6x Full Heal
+BillBossBag::     db FULL_RESTORE, 3, GUARD_SPEC, 1, DIRE_HIT,   1, FULL_HEAL, 3 ; Bill — Oak's bag; BillAI spends all four
 ; Shared by the three bird-chamber self-inserts. They are one tier below the
 ; bosses and behave identically to each other, so they share a bag as well as
 ; an AI routine. This is the bag the Hard Mode sheet promised them all along —
@@ -99,6 +100,8 @@ BossItemBagPointers::
 	dw JennyBossBag
 	db JANINE
 	dw JanineBossBag
+	db BILL
+	dw BillBossBag
 	db JESSIE_AND_JAMES
 	dw JessieAndJamesBossBag
 	db FORTE

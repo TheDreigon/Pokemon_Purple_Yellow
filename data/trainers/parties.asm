@@ -53,6 +53,7 @@ TrainerDataPointers:
 	dw JennyData
 	dw JessieAndJamesData
 	dw ForteData
+	dw BillData
 	assert_table_length NUM_TRAINERS
 
 ; if first byte != $FF, then
@@ -853,7 +854,7 @@ JennyData:
 JoyData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Fuchsia Pokecenter
-	db $FF, 63, KANGASKHAN, 64, WIGGLYTUFF, 64, CLEFABLE, 65, CHANSEY, 65, MR_MIME, 0
+	db $FF, 53, KANGASKHAN, 54, WIGGLYTUFF, 54, CLEFABLE, 55, CHANSEY, 55, MR_MIME, 0
 
 SmithData:
     db 60, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
@@ -869,3 +870,11 @@ ForteData:
 ; "Forte / DREIGON" superboss — all L80, in Forte's send-out order (Nidoking ace/last).
 ; Per-mon movesets in special_moves.asm (finalized by Forte in Notes/Boss Movesets.md).
 	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
+
+BillData:
+; Post-League, in his house on Route 25. Not a trainer and not pretending to be:
+; the team is what he has studied rather than what he would pick to win. The
+; three eeveelutions are his research, Ditto lost its own shape the way he once
+; did, and Porygon - a Pokemon that is software - leads, because he is the man
+; who taught the world to keep Pokemon inside a machine.
+	db $FF, 73, VAPOREON, 73, JOLTEON, 74, FLAREON, 74, DITTO, 75, PORYGON, 0

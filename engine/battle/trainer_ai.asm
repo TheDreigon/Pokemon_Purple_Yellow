@@ -1287,6 +1287,47 @@ SelfInsertBossAI:
 	jp c, AIUseFullRestore
 	ret
 
+BillAI:
+; He is a researcher, not a competitor, and the items say so: he protects
+; (Guard Spec) and he takes his shot when he sees one (Dire Hit), but he never
+; drills his team with X Attack or X Speed the way a gym leader would.
+;
+; The rolls mirror ProfOakAI because Bill carries Oak's bag. That pairing is not
+; cosmetic: an item in the bag that no AI branch ever reaches for is dead
+; weight, which is precisely how ForteBossBag ended up stocked and never spent.
+	call IsHardModeBossOrSemiBattle
+	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	ld a, 2
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.skipHeal
+	; ~25% Guard Spec roll
+	call Random
+	cp 25 percent + 1
+	jr nc, .skipBuff1
+	ld a, GUARD_SPEC
+	call CheckAndConsumeBossItem
+	jp c, AIUseGuardSpec
+.skipBuff1
+	; ~25% Dire Hit roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, DIRE_HIT
+	call CheckAndConsumeBossItem
+	jp c, AIUseDireHit
+	ret
+
 JennyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
