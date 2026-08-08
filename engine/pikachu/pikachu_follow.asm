@@ -875,14 +875,19 @@ asm_fc9ee:
 Func_fca0a:
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
-	ld [hl], $8
+; v0.7: sixteen ticks, not the original eight. The crossing has to cover exactly
+; two cells - 32 pixels - and the two adds available move 4 or 2 pixels a tick,
+; so the only clean durations are 8 fast ticks or 16 at half speed. Forte tried
+; the fast one and said the hop was over before it read, especially head-on.
+	ld [hl], $10
 	ld hl, wSpritePikachuStateData1MovementStatus - wSpritePikachuStateData1
 	add hl, bc
 	ld [hl], $4
 	call AddPikachuStepVector
 	call AddPikachuStepVector
 asm_fca1c:
-	call DoubleAddPikachuStepVectorToScreenPixelCoords
+	call AddPikachuStepVectorToScreenPixelCoords ; 2px a tick, paired with the
+	                                             ; sixteen ticks set above
 	call GetPikachuWalkingAnimationSpeed
 	call UpdatePikachuWalkingSprite
 	call PikachuLedgeHopArc ; v0.7: bend the crossing into a hop
@@ -910,15 +915,19 @@ PikachuLedgeHopArc:
 ; at the end - which matters because his position feeds the follow logic, not
 ; just the screen.
 ;
-; Peak is 11 pixels. It started at 8 - the same height the player's own hop
-; reaches (PlayerJumpingYScreenCoords goes $38 -> $30) - and Forte asked for a
-; little more air after seeing it. He is a small, light thing next to the
-; player, so the same 8 pixels read as less on him.
+; Peak is 14 pixels, up from 8 and then 11 across Forte's playtests.
+;
+; Height alone was never going to fix the head-on view, which is what he
+; reported: jumping DOWN, the crossing is already dragging him down the screen
+; while the arc lifts him, so the two cancel and the visible rise was about a
+; pixel. Sideways the crossing is horizontal and the whole arc shows, which is
+; exactly why he said it looked nearly right from the side and wrong from the
+; front. Halving the crossing speed (see Func_fca0a) is what makes the arc win.
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
 	ld a, [hl]
-	dec a ; the counter runs 8 down to 1; the table is indexed 0-7
-	cp 8
+	dec a ; the counter runs 16 down to 1; the table is indexed 0-15
+	cp 16
 	ret nc ; anything else means this is not the hop we set up - leave him alone
 	ld e, a
 	ld d, 0
@@ -932,12 +941,13 @@ PikachuLedgeHopArc:
 	ret
 
 PikachuLedgeHopDeltas:
-; Indexed by (counter - 1), so this table reads BACKWARDS in time: entry 7 is
-; the first frame of the hop and entry 0 is the last.
-; In time order: -5, -3, -2, -1, 0, +3, +4, +4
-;   -> heights   -5  -8 -10 -11 -11  -8  -4  0
-; Up quickly, two frames hanging at the top, then down with gravity behind it.
-	db  4,  4,  3,  0, -1, -2, -3, -5
+; Indexed by (counter - 1), so this table reads BACKWARDS in time: the LAST
+; entry is the first tick of the hop and the first entry is the last tick.
+; In time order: -4 -3 -3 -2 -1 -1  0  0  0 +1 +1 +2 +2 +3 +3 +2
+;   -> heights   -4 -7-10-12-13-14-14-14-14-13-12-10 -8 -5 -2  0
+; Up hard, four ticks hanging at the top, then down with gravity behind it and
+; the last tick easing off so he settles rather than slams.
+	db  2,  3,  3,  2,  2,  1,  1,  0,  0,  0, -1, -1, -2, -3, -3, -4
 
 AddPikachuStepVector:
 	ld hl, wSpritePikachuStateData1YStepVector - wSpritePikachuStateData1
