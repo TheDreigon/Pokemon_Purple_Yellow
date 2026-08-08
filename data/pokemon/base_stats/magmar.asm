@@ -1,7 +1,7 @@
 	db DEX_MAGMAR ; pokedex id
 	base_stat_row 75, 95, 80, 95, 85 ; hp atk def spc spd
 	db FIRE, MAGMA ; type
-	db 45 ; catch rate
+	db 65 ; catch rate  ; solo stage, BST 430, harder to handle
 	db 167 ; base exp
 
 	INCBIN "gfx/pokemon/front/magmar.pic", 0, 1 ; sprite dimensions

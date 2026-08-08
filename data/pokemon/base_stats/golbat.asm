@@ -2,7 +2,7 @@
 	base_stat_row 65, 80, 65, 70, 110 ; hp atk def spc spd
 
 	db POISON, FLYING ; type
-	db 90 ; catch rate
+	db 80 ; catch rate  ; final stage, BST 390
 	db 171 ; base exp
 
 	INCBIN "gfx/pokemon/front/golbat.pic", 0, 1 ; sprite dimensions

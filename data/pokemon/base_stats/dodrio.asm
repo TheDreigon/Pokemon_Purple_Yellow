@@ -2,7 +2,7 @@
 	base_stat_row 60, 120, 60, 60, 110 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
-	db 45 ; catch rate
+	db 60 ; catch rate  ; final stage, BST 410, harder to handle
 	db 158 ; base exp
 
 	INCBIN "gfx/pokemon/front/dodrio.pic", 0, 1 ; sprite dimensions

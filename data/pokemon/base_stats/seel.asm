@@ -1,7 +1,7 @@
 	db DEX_SEEL ; pokedex id
 	base_stat_row 65, 45, 55, 65, 50 ; hp atk def spc spd
 	db WATER, ICE ; type
-	db 190 ; catch rate
+	db 230 ; catch rate  ; base stage, BST 280, easy to approach
 	db 100 ; base exp
 
 	INCBIN "gfx/pokemon/front/seel.pic", 0, 1 ; sprite dimensions

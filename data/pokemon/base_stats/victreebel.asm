@@ -2,7 +2,7 @@
 	base_stat_row 80, 95, 70, 95, 90 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 45 ; catch rate
+	db 65 ; catch rate  ; final stage, BST 430
 	db 191 ; base exp
 
 	INCBIN "gfx/pokemon/front/victreebel.pic", 0, 1 ; sprite dimensions

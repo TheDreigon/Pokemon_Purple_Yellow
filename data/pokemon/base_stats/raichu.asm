@@ -2,7 +2,7 @@
 	base_stat_row 80, 90, 70, 110, 90 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
-	db 75 ; catch rate
+	db 80 ; catch rate  ; final stage, BST 440, easy to approach
 	db 122 ; base exp
 
 	INCBIN "gfx/pokemon/front/raichu.pic", 0, 1 ; sprite dimensions

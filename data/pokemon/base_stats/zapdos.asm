@@ -2,7 +2,7 @@
 	base_stat_row 100, 100, 80, 130, 110 ; hp atk def spc spd
 
 	db ELECTRIC, FLYING ; type
-	db 3 ; catch rate
+	db 3 ; catch rate  ; exception: legendary: one in the world
 	db 216 ; base exp
 
 	INCBIN "gfx/pokemon/front/zapdos.pic", 0, 1 ; sprite dimensions

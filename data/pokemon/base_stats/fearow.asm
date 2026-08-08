@@ -2,7 +2,7 @@
 	base_stat_row 70, 95, 65, 65, 95 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
-	db 90 ; catch rate
+	db 65 ; catch rate  ; final stage, BST 390, harder to handle
 	db 162 ; base exp
 
 	INCBIN "gfx/pokemon/front/fearow.pic", 0, 1 ; sprite dimensions

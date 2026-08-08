@@ -2,7 +2,7 @@
 	base_stat_row 100, 85, 85, 80, 80 ; hp atk def spc spd
 
 	db POISON, GROUND ; type
-	db 45 ; catch rate
+	db 50 ; catch rate  ; final stage, BST 430, harder to handle
 	db 194 ; base exp
 
 	INCBIN "gfx/pokemon/front/nidoqueen.pic", 0, 1 ; sprite dimensions

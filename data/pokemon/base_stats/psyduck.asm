@@ -2,7 +2,7 @@
 	base_stat_row 50, 52, 48, 70, 55 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 190 ; catch rate
+	db 235 ; catch rate  ; base stage, BST 275, easy to approach
 	db 80 ; base exp
 
 	INCBIN "gfx/pokemon/front/psyduck.pic", 0, 1 ; sprite dimensions

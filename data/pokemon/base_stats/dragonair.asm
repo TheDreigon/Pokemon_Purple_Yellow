@@ -2,7 +2,7 @@
 	base_stat_row 80, 80, 60, 80, 70 ; hp atk def spc spd
 
 	db DRAGON, DRAGON ; type
-	db 27 ; catch rate
+	db 30 ; catch rate  ; exception: same line, tightening
 	db 144 ; base exp
 
 	INCBIN "gfx/pokemon/front/dragonair.pic", 0, 1 ; sprite dimensions

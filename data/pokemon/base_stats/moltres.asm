@@ -2,7 +2,7 @@
 	base_stat_row 100, 100, 90, 130, 100 ; hp atk def spc spd
 
 	db FIRE, FLYING ; type
-	db 3 ; catch rate
+	db 3 ; catch rate  ; exception: legendary: one in the world
 	db 217 ; base exp
 
 	INCBIN "gfx/pokemon/front/moltres.pic", 0, 1 ; sprite dimensions

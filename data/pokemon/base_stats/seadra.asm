@@ -1,7 +1,7 @@
 	db DEX_SEADRA ; pokedex id
 	base_stat_row 60, 70, 90, 80, 80 ; hp atk def spc spd
 	db WATER, DRAGON ; type
-	db 75 ; catch rate
+	db 80 ; catch rate  ; final stage, BST 380
 	db 155 ; base exp
 
 	INCBIN "gfx/pokemon/front/seadra.pic", 0, 1 ; sprite dimensions

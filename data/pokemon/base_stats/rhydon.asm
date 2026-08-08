@@ -2,7 +2,7 @@
 	base_stat_row 95, 120, 110, 65, 50 ; hp atk def spc spd
 
 	db GROUND, ROCK ; type
-	db 60 ; catch rate
+	db 50 ; catch rate  ; final stage, BST 440, harder to handle
 	db 204 ; base exp
 
 	INCBIN "gfx/pokemon/front/rhydon.pic", 0, 1 ; sprite dimensions

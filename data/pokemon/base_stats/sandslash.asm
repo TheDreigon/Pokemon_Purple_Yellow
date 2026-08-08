@@ -2,7 +2,7 @@
 	base_stat_row 70, 110, 110, 55, 65 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
-	db 90 ; catch rate
+	db 75 ; catch rate  ; final stage, BST 410
 	db 163 ; base exp
 
 	INCBIN "gfx/pokemon/front/sandslash.pic", 0, 1 ; sprite dimensions

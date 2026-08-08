@@ -1,7 +1,7 @@
 	db DEX_MUK ; pokedex id
 	base_stat_row 125, 95, 70, 95, 40 ; hp atk def spc spd
 	db POISON, WATER ; type
-	db 75 ; catch rate
+	db 55 ; catch rate  ; final stage, BST 425, harder to handle
 	db 157 ; base exp
 
 	INCBIN "gfx/pokemon/front/muk.pic", 0, 1 ; sprite dimensions

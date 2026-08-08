@@ -2,7 +2,7 @@
 	base_stat_row 70, 60, 65, 75, 60 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 45 ; catch rate
+	db 115 ; catch rate  ; mid stage, BST 330
 	db 141 ; base exp
 
 	INCBIN "gfx/pokemon/front/ivysaur.pic", 0, 1 ; sprite dimensions

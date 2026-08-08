@@ -2,7 +2,7 @@
 	base_stat_row 46, 57, 40, 40, 55 ; hp atk def spc spd
 
 	db POISON, POISON ; type
-	db 235 ; catch rate
+	db 230 ; catch rate  ; base stage, BST 238
 	db 60 ; base exp
 
 	INCBIN "gfx/pokemon/front/nidoranm.pic", 0, 1 ; sprite dimensions

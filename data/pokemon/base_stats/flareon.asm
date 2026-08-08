@@ -2,7 +2,7 @@
 	base_stat_row 65, 110, 80, 130, 65 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
-	db 45 ; catch rate
+	db 75 ; catch rate  ; final stage, BST 450, easy to approach
 	db 198 ; base exp
 
 	INCBIN "gfx/pokemon/front/flareon.pic", 0, 1 ; sprite dimensions

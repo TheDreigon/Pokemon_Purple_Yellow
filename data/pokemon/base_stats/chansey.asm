@@ -1,7 +1,7 @@
 	db DEX_CHANSEY ; pokedex id
 	base_stat_row 250, 5, 5, 100, 70 ; hp atk def spc spd
 	db NORMAL, FAIRY ; type
-	db 30 ; catch rate
+	db 95 ; catch rate  ; solo stage, BST 430, easy to approach
 	db 255 ; base exp
 
 	INCBIN "gfx/pokemon/front/chansey.pic", 0, 1 ; sprite dimensions

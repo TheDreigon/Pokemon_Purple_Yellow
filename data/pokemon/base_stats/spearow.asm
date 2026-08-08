@@ -2,7 +2,7 @@
 	base_stat_row 40, 65, 35, 30, 65 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
-	db 255 ; catch rate
+	db 235 ; catch rate  ; base stage, BST 235
 	db 58 ; base exp
 
 	INCBIN "gfx/pokemon/front/spearow.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 30, 40, 70, 60, 60 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 225 ; catch rate
+	db 225 ; catch rate  ; base stage, BST 260
 	db 83 ; base exp
 
 	INCBIN "gfx/pokemon/front/horsea.pic", 0, 1 ; sprite dimensions

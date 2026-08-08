@@ -1,7 +1,7 @@
 	db DEX_GRIMER ; pokedex id
 	base_stat_row 80, 60, 50, 65, 30 ; hp atk def spc spd
 	db POISON, WATER ; type
-	db 190 ; catch rate
+	db 200 ; catch rate  ; base stage, BST 285, harder to handle
 	db 90 ; base exp
 
 	INCBIN "gfx/pokemon/front/grimer.pic", 0, 1 ; sprite dimensions

@@ -1,7 +1,7 @@
 	db DEX_VILEPLUME ; pokedex id
 	base_stat_row 110, 95, 85, 95, 45 ; hp atk def spc spd
 	db GRASS, FUNGUS ; type
-	db 45 ; catch rate
+	db 65 ; catch rate  ; final stage, BST 430
 	db 184 ; base exp
 
 	INCBIN "gfx/pokemon/front/vileplume.pic", 0, 1 ; sprite dimensions

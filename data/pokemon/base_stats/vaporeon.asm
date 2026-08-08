@@ -2,7 +2,7 @@
 	base_stat_row 130, 65, 65, 110, 80 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 45 ; catch rate
+	db 75 ; catch rate  ; final stage, BST 450, easy to approach
 	db 196 ; base exp
 
 	INCBIN "gfx/pokemon/front/vaporeon.pic", 0, 1 ; sprite dimensions

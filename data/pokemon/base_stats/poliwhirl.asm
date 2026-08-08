@@ -2,7 +2,7 @@
 	base_stat_row 65, 65, 65, 70, 70 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 120 ; catch rate
+	db 110 ; catch rate  ; mid stage, BST 335
 	db 131 ; base exp
 
 	INCBIN "gfx/pokemon/front/poliwhirl.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 180, 110, 70, 70, 20 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
-	db 25 ; catch rate
+	db 25 ; catch rate  ; exception: one per game, and it is an event, not an encounter
 	db 154 ; base exp
 
 	INCBIN "gfx/pokemon/front/snorlax.pic", 0, 1 ; sprite dimensions

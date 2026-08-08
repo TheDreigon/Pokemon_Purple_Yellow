@@ -2,7 +2,7 @@
 	base_stat_row 60, 105, 80, 55, 110 ; hp atk def spc spd
 
 	db BUG, FLYING ; type
-	db 45 ; catch rate
+	db 70 ; catch rate  ; solo stage, BST 410, harder to handle
 	db 187 ; base exp
 
 	INCBIN "gfx/pokemon/front/scyther.pic", 0, 1 ; sprite dimensions

@@ -1,7 +1,7 @@
 	db DEX_HAUNTER ; pokedex id
 	base_stat_row 45, 60, 45, 105, 100 ; hp atk def spc spd
 	db GHOST, GAS ; type
-	db 90 ; catch rate
+	db 75 ; catch rate  ; exception: same line, less substance still
 	db 126 ; base exp
 
 	INCBIN "gfx/pokemon/front/haunter.pic", 0, 1 ; sprite dimensions

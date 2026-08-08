@@ -2,7 +2,7 @@
 	base_stat_row 60, 85, 50, 75, 60 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 120 ; catch rate
+	db 130 ; catch rate  ; mid stage, BST 330, easy to approach
 	db 151 ; base exp
 
 	INCBIN "gfx/pokemon/front/weepinbell.pic", 0, 1 ; sprite dimensions

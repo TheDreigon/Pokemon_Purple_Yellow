@@ -1,7 +1,7 @@
 	db DEX_MEOWTH ; pokedex id
 	base_stat_row 45, 50, 40, 40, 90 ; hp atk def spc spd
 	db NORMAL, DARK ; type
-	db 255 ; catch rate
+	db 220 ; catch rate  ; base stage, BST 265
 	db 69 ; base exp
 
 	INCBIN "gfx/pokemon/front/meowth.pic", 0, 1 ; sprite dimensions

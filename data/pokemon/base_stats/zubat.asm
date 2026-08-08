@@ -2,7 +2,7 @@
 	base_stat_row 40, 45, 35, 40, 90 ; hp atk def spc spd
 
 	db POISON, FLYING ; type
-	db 255 ; catch rate
+	db 230 ; catch rate  ; base stage, BST 250
 	db 54 ; base exp
 
 	INCBIN "gfx/pokemon/front/zubat.pic", 0, 1 ; sprite dimensions

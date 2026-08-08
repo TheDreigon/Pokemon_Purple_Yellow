@@ -2,7 +2,7 @@
 	base_stat_row 25, 20, 15, 105, 95 ; hp atk def spc spd
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
-	db 200 ; catch rate
+	db 225 ; catch rate  ; base stage, BST 260
 	db 73 ; base exp
 
 	INCBIN "gfx/pokemon/front/abra.pic", 0, 1 ; sprite dimensions

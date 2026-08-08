@@ -2,7 +2,7 @@
 	base_stat_row 55, 50, 45, 135, 125 ; hp atk def spc spd
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
-	db 50 ; catch rate
+	db 75 ; catch rate  ; final stage, BST 410
 	db 186 ; base exp
 
 	INCBIN "gfx/pokemon/front/alakazam.pic", 0, 1 ; sprite dimensions

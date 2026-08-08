@@ -2,7 +2,7 @@
 	base_stat_row 70, 80, 50, 35, 50 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
-	db 180 ; catch rate
+	db 215 ; catch rate  ; base stage, BST 285
 	db 88 ; base exp
 
 	INCBIN "gfx/pokemon/front/machop.pic", 0, 1 ; sprite dimensions

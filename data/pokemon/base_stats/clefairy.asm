@@ -1,7 +1,7 @@
 	db DEX_CLEFAIRY ; pokedex id
 	base_stat_row 70, 45, 50, 70, 45 ; hp atk def spc spd
 	db FAIRY, FAIRY ; type
-	db 150 ; catch rate
+	db 230 ; catch rate  ; base stage, BST 280, easy to approach
 	db 68 ; base exp
 
 	INCBIN "gfx/pokemon/front/clefairy.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 40, 40, 100, 80, 30 ; hp atk def spc spd
 
 	db ROCK, WATER ; type
-	db 45 ; catch rate
+	db 215 ; catch rate  ; base stage, BST 290
 	db 120 ; base exp
 
 	INCBIN "gfx/pokemon/front/omanyte.pic", 0, 1 ; sprite dimensions

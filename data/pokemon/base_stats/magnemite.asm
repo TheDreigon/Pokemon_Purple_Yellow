@@ -1,7 +1,7 @@
 	db DEX_MAGNEMITE ; pokedex id
 	base_stat_row 20, 40, 75, 80, 40 ; hp atk def spc spd
 	db ELECTRIC, STEEL ; type
-	db 190 ; catch rate
+	db 225 ; catch rate  ; base stage, BST 255
 	db 89 ; base exp
 
 	INCBIN "gfx/pokemon/front/magnemite.pic", 0, 1 ; sprite dimensions

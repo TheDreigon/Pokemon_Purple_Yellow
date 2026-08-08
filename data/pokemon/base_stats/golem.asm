@@ -2,7 +2,7 @@
 	base_stat_row 85, 110, 135, 65, 65 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
-	db 45 ; catch rate
+	db 45 ; catch rate  ; final stage, BST 460, harder to handle
 	db 177 ; base exp
 
 	INCBIN "gfx/pokemon/front/golem.pic", 0, 1 ; sprite dimensions

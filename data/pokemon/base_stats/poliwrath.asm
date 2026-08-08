@@ -2,7 +2,7 @@
 	base_stat_row 90, 95, 80, 85, 75 ; hp atk def spc spd
 
 	db WATER, FIGHTING ; type
-	db 45 ; catch rate
+	db 70 ; catch rate  ; final stage, BST 425
 	db 185 ; base exp
 
 	INCBIN "gfx/pokemon/front/poliwrath.pic", 0, 1 ; sprite dimensions

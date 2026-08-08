@@ -2,7 +2,7 @@
 	base_stat_row 75, 95, 70, 95, 95 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
-	db 45 ; catch rate
+	db 65 ; catch rate  ; solo stage, BST 430, harder to handle
 	db 156 ; base exp
 
 	INCBIN "gfx/pokemon/front/electabuzz.pic", 0, 1 ; sprite dimensions

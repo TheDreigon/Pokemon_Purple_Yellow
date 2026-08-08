@@ -2,7 +2,7 @@
 	base_stat_row 60, 35, 30, 80, 30 ; hp atk def spc spd
 
 	db GRASS, PSYCHIC_TYPE ; type
-	db 90 ; catch rate
+	db 250 ; catch rate  ; base stage, BST 235, easy to approach
 	db 98 ; base exp
 
 	INCBIN "gfx/pokemon/front/exeggcute.pic", 0, 1 ; sprite dimensions

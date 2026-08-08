@@ -2,7 +2,7 @@
 	base_stat_row 100, 85, 90, 105, 80 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 45 ; catch rate
+	db 55 ; catch rate  ; final stage, BST 460
 	db 208 ; base exp
 
 	INCBIN "gfx/pokemon/front/venusaur.pic", 0, 1 ; sprite dimensions

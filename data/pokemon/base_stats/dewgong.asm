@@ -2,7 +2,7 @@
 	base_stat_row 90, 70, 80, 90, 75 ; hp atk def spc spd
 
 	db WATER, ICE ; type
-	db 75 ; catch rate
+	db 90 ; catch rate  ; final stage, BST 405, easy to approach
 	db 176 ; base exp
 
 	INCBIN "gfx/pokemon/front/dewgong.pic", 0, 1 ; sprite dimensions

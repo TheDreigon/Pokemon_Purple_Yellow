@@ -2,7 +2,7 @@
 	base_stat_row 65, 60, 80, 70, 55 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 45 ; catch rate
+	db 115 ; catch rate  ; mid stage, BST 330
 	db 143 ; base exp
 
 	INCBIN "gfx/pokemon/front/wartortle.pic", 0, 1 ; sprite dimensions

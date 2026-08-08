@@ -1,7 +1,7 @@
 	db DEX_ELECTRODE ; pokedex id
 	base_stat_row 40, 90, 80, 90, 130 ; hp atk def spc spd
 	db ELECTRIC, STEEL ; type
-	db 60 ; catch rate
+	db 50 ; catch rate  ; final stage, BST 430, harder to handle
 	db 150 ; base exp
 
 	INCBIN "gfx/pokemon/front/electrode.pic", 0, 1 ; sprite dimensions

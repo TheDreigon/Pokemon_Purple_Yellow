@@ -2,7 +2,7 @@
 	base_stat_row 80, 60, 100, 70, 50 ; hp atk def spc spd
 
 	db GRASS, WATER ; type
-	db 45 ; catch rate
+	db 95 ; catch rate  ; solo stage, BST 360
 	db 166 ; base exp
 
 	INCBIN "gfx/pokemon/front/tangela.pic", 0, 1 ; sprite dimensions

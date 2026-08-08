@@ -2,7 +2,7 @@
 	base_stat_row 45, 45, 40, 35, 55 ; hp atk def spc spd
 
 	db NORMAL, FLYING ; type
-	db 255 ; catch rate
+	db 240 ; catch rate  ; base stage, BST 220
 	db 55 ; base exp
 
 	INCBIN "gfx/pokemon/front/pidgey.pic", 0, 1 ; sprite dimensions

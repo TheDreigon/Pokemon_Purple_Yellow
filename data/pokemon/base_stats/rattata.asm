@@ -2,7 +2,7 @@
 	base_stat_row 35, 60, 35, 25, 80 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
-	db 255 ; catch rate
+	db 235 ; catch rate  ; base stage, BST 235
 	db 57 ; base exp
 
 	INCBIN "gfx/pokemon/front/rattata.pic", 0, 1 ; sprite dimensions

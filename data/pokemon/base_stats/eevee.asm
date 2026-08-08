@@ -2,7 +2,7 @@
 	base_stat_row 65, 65, 65, 65, 65 ; hp atk def spc spd
 
 	db NORMAL, NORMAL ; type
-	db 45 ; catch rate
+	db 215 ; catch rate  ; base stage, BST 325, easy to approach
 	db 92 ; base exp
 
 	INCBIN "gfx/pokemon/front/eevee.pic", 0, 1 ; sprite dimensions

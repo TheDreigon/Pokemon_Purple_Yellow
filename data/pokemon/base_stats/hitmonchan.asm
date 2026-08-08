@@ -2,7 +2,7 @@
 	base_stat_row 90, 80, 90, 80, 80 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
-	db 45 ; catch rate
+	db 70 ; catch rate  ; solo stage, BST 420, harder to handle
 	db 140 ; base exp
 
 	INCBIN "gfx/pokemon/front/hitmonchan.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 100, 130, 85, 65, 80 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
-	db 45 ; catch rate
+	db 45 ; catch rate  ; final stage, BST 460, harder to handle
 	db 193 ; base exp
 
 	INCBIN "gfx/pokemon/front/machamp.pic", 0, 1 ; sprite dimensions

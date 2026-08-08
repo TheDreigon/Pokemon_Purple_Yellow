@@ -2,7 +2,7 @@
 	base_stat_row 90, 100, 70, 65, 60 ; hp atk def spc spd
 
 	db FIGHTING, FIGHTING ; type
-	db 90 ; catch rate
+	db 100 ; catch rate  ; mid stage, BST 385, harder to handle
 	db 146 ; base exp
 
 	INCBIN "gfx/pokemon/front/machoke.pic", 0, 1 ; sprite dimensions

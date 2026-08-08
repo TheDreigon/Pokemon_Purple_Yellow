@@ -2,7 +2,7 @@
 	base_stat_row 40, 40, 40, 40, 65 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 255 ; catch rate
+	db 235 ; catch rate  ; base stage, BST 225
 	db 77 ; base exp
 
 	INCBIN "gfx/pokemon/front/poliwag.pic", 0, 1 ; sprite dimensions

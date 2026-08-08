@@ -2,7 +2,7 @@
 	base_stat_row 50, 55, 40, 55, 65 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
-	db 45 ; catch rate
+	db 220 ; catch rate  ; base stage, BST 265
 	db 65 ; base exp
 
 	INCBIN "gfx/pokemon/front/charmander.pic", 0, 1 ; sprite dimensions

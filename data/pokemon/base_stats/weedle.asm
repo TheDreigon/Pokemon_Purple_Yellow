@@ -2,7 +2,7 @@
 	base_stat_row 40, 35, 30, 20, 50 ; hp atk def spc spd
 
 	db BUG, POISON ; type
-	db 255 ; catch rate
+	db 255 ; catch rate  ; base stage, BST 175
 	db 52 ; base exp
 
 	INCBIN "gfx/pokemon/front/weedle.pic", 0, 1 ; sprite dimensions
