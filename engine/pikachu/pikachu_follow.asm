@@ -885,6 +885,7 @@ asm_fca1c:
 	call DoubleAddPikachuStepVectorToScreenPixelCoords
 	call GetPikachuWalkingAnimationSpeed
 	call UpdatePikachuWalkingSprite
+	call PikachuLedgeHopArc ; v0.7: bend the crossing into a hop
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
 	dec [hl]
@@ -895,6 +896,44 @@ asm_fca1c:
 	add hl, bc
 	ld [hl], $1
 	ret
+
+PikachuLedgeHopArc:
+; v0.7: Pikachu crossed ledges by sliding flat across them. The crossing itself
+; was already right and is untouched - Func_fca0a moves him the same two cells
+; the player's jump covers, at double speed over eight frames. All this adds is
+; a vertical offset on top of that, so the ledge reads as something he jumps
+; rather than something he skims.
+;
+; The eight deltas sum to ZERO, so the last frame puts him exactly where the
+; slide had computed. That is the whole reason for storing deltas instead of
+; heights: no base position to remember between frames, and no drift to correct
+; at the end - which matters because his position feeds the follow logic, not
+; just the screen.
+;
+; Peak is 8 pixels, the same height the player's own hop reaches
+; (PlayerJumpingYScreenCoords goes $38 -> $30).
+	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
+	add hl, bc
+	ld a, [hl]
+	dec a ; the counter runs 8 down to 1; the table is indexed 0-7
+	cp 8
+	ret nc ; anything else means this is not the hop we set up - leave him alone
+	ld e, a
+	ld d, 0
+	ld hl, PikachuLedgeHopDeltas
+	add hl, de
+	ld a, [hl]
+	ld hl, wSpritePikachuStateData1YPixels - wSpritePikachuStateData1
+	add hl, bc
+	add [hl]
+	ld [hl], a
+	ret
+
+PikachuLedgeHopDeltas:
+; Indexed by (counter - 1), so this table reads BACKWARDS in time: entry 7 is
+; the first frame of the hop and entry 0 is the last.
+; In time order: -4, -3, -1, 0, +1, +2, +2, +3 -> heights -4 -7 -8 -8 -7 -5 -3 0
+	db  3,  2,  2,  1,  0, -1, -3, -4
 
 AddPikachuStepVector:
 	ld hl, wSpritePikachuStateData1YStepVector - wSpritePikachuStateData1
