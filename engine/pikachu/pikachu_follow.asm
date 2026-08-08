@@ -369,7 +369,7 @@ SpawnPikachu_::
 	jp nz, Func_fc76a
 	ld a, [hl]
 	and $7f
-	cp $a
+	cp $b ; v0.7: was $a, one short of the table, leaving its last entry dead
 	jr c, .valid
 	xor a
 .valid
@@ -394,10 +394,9 @@ PointerTable_fc710:
 	dw asm_fc904
 	dw asm_fc937
 	dw asm_fc969
-	dw .nop
-
-.nop:
-	ret
+	dw asm_fcCatchUp ; 10 - v0.7 catch-up. This slot held an unreachable `.nop`:
+	                 ; the dispatcher rejected anything >= $a, so entry 10 could
+	                 ; never be selected. Raising that bound to $b opens it.
 
 TrySpawnPikachu:
 	call ShouldPikachuSpawn
@@ -513,6 +512,8 @@ Func_fc7aa:
 	ld [hl], a
 	cp $4
 	jp z, Func_fca0a
+	call PikachuShouldCatchUp
+	jp c, CatchUpPikachuFollow
 	ld a,[hJoyHeld]
 	and B_BUTTON
 	jp nz, FastPikachuFollow
@@ -849,6 +850,84 @@ asm_fc9c3:
 	ld [hl], $1
 	ret
 
+PikachuShouldCatchUp:
+; Carry if it is both safe and useful to cover two cells in one movement.
+;
+; Why two cells and not more speed: Pikachu starts one movement per player step,
+; so however fast he moves he only arrives sooner and waits longer - measured,
+; a third more speed changed the gap by nothing at all. Ground per movement is
+; the only thing that closes a gap.
+;
+; SAFE is the harder half. He retraces cells the player has already walked, so
+; two queued steps in the SAME direction are guaranteed walkable - the player
+; walked them a moment ago. Two steps in different directions are a corner, and
+; covering a corner in one straight movement would send him through whatever the
+; corner is made of. So: same direction or nothing.
+;
+; The same test also throws out the ledge commands (5-8), which is deliberate -
+; those already move two cells and have their own arc.
+	ld a, [wPikachuFollowCommandBufferSize]
+	cp $ff ; the "buffer disabled" sentinel
+	jr z, .no
+	cp 2
+	jr c, .no ; one step behind is not behind; let him walk it off
+	ld a, [wPikachuFollowCommandBuffer + 1] ; the next command out of the queue
+	and a
+	jr z, .no
+	cp 5
+	jr nc, .no ; a ledge command, or something we do not understand
+	dec a
+	add a
+	add a ; four bytes an entry, facing first
+	ld e, a
+	ld d, 0
+	ld hl, Pointer_fc7e3
+	add hl, de
+	ld a, [hl] ; the facing that command would turn him to
+	ld hl, wSpritePikachuStateData1FacingDirection - wSpritePikachuStateData1
+	add hl, bc
+	cp [hl]
+	jr nz, .no ; a corner: take the single step and turn, as always
+	scf
+	ret
+
+.no
+	and a
+	ret
+
+CatchUpPikachuFollow:
+; Two cells in one movement, in the time the fast follow takes for one: four
+; ticks of 8 pixels is 32, exactly two cells. Both halves are needed - at the
+; fast follow's own pace two cells take 14 frames, in which a running player
+; covers 1.75, so he gained a quarter of a cell per movement and the gap sat
+; where it was. At four ticks he gains a whole cell per movement, and the gap is
+; gone in two or three of them - a dash that ends itself.
+; PikachuShouldCatchUp has already established that both steps are the same
+; direction, so this is a straight line over cells the player just walked.
+	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
+	add hl, bc
+	ld [hl], $4
+	ld hl, wSpritePikachuStateData1MovementStatus - wSpritePikachuStateData1
+	add hl, bc
+	ld [hl], $a
+	call AddPikachuStepVector
+	call AddPikachuStepVector ; the second cell
+	call Func_fcc92 ; and the queued command that paid for it
+asm_fcCatchUp:
+	call QuadAddPikachuStepVectorToScreenPixelCoords
+	call GetPikachuWalkingAnimationSpeed
+	call UpdatePikachuWalkingSprite
+	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
+	add hl, bc
+	dec [hl]
+	ret nz
+	call ResetPikachuStepVector
+	call ComputePikachuFacingDirection
+	ld hl, wSpritePikachuStateData1MovementStatus - wSpritePikachuStateData1
+	add hl, bc
+	ld [hl], $1
+	ret
+
 FastPikachuFollow:
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
@@ -973,6 +1052,29 @@ TryDoubleAddPikachuStepVectorToScreenPixelCoords:
 	ld a, [wd736]
 	bit 6, a
 	jr nz, AddPikachuStepVectorToScreenPixelCoords
+	jr DoubleAddPikachuStepVectorToScreenPixelCoords ; it used to fall straight
+	                                                 ; through to it; the routine
+	                                                 ; below sits in the way now
+
+QuadAddPikachuStepVectorToScreenPixelCoords:
+; Eight pixels a tick - one more doubling than DoubleAdd below. Only the
+; catch-up uses it, and only for its two-cell movement.
+	ld hl, wSpritePikachuStateData1YStepVector - wSpritePikachuStateData1
+	add hl, bc
+	ld a, [hli]
+	add a
+	add a
+	add a
+	add [hl]
+	ld [hli], a
+	ld a, [hli]
+	add a
+	add a
+	add a
+	add [hl]
+	ld [hl], a
+	ret
+
 DoubleAddPikachuStepVectorToScreenPixelCoords:
 	ld hl, wSpritePikachuStateData1YStepVector - wSpritePikachuStateData1
 	add hl, bc
