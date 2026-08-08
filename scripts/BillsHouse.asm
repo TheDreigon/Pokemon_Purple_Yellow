@@ -19,6 +19,7 @@ BillsHouse_ScriptPointers:
 	dw_const BillsHouseScript8, SCRIPT_BILLSHOUSE_SCRIPT8
 	dw_const BillsHouseScript9, SCRIPT_BILLSHOUSE_SCRIPT9
 	dw_const BillsHouseScript10, SCRIPT_BILLSHOUSE_SCRIPT10
+	dw_const BillsHouseScript11, SCRIPT_BILLSHOUSE_SCRIPT11
 
 BillsHouseScript_1e09e:
 	ld hl, wd492
@@ -270,10 +271,10 @@ BillsHouseScript10:
 ;
 ; It used to fire on the whole of row 6, one row short of the mat, for fear that
 ; standing on the warp would leave the room before Bill could speak. Forte
-; tested it: the warp only fires if you press Down while standing there, so the
-; mat itself is a safe place to be caught. The old rule cost two things - being
-; stopped a tile before the doorway for no visible reason, and being stopped
-; anywhere along that row, which could put half the room between the two of you.
+; tested it: the warp only fires if you press Down while standing there. The old
+; rule cost two things - being stopped a tile before the doorway for no visible
+; reason, and being stopped anywhere along that row, which could leave half the
+; room between the two of you while he handed over an Eevee.
 ;
 ; The event can be set while armed (talk-based retry give via BILL2),
 ; so disarm on it — otherwise the trigger would hand out a second Eevee.
@@ -284,14 +285,75 @@ BillsHouseScript10:
 	ret nz
 	ld a, [wXCoord]
 	cp 2
-	jr z, .atTheDoor
+	jr z, .onTheDoor
 	cp 3
 	ret nz
-.atTheDoor
+.onTheDoor
+	push af ; the column decides how far he walks
+; Which Bill is actually on the map: Route 25 hides BILL1 and shows BILL2 once
+; the player has left after helping him, so that event is the discriminator.
+	CheckEvent EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING
+	ld a, BILLSHOUSE_BILL1
+	jr z, .haveIndex
+	ld a, BILLSHOUSE_BILL2
+.haveIndex
+	ldh [hSpriteIndex], a
+	pop af
+; Both Bills stand at (4,4). Three steps down puts him on (4,7); from there he
+; is already beside a player on (3,7), and one step left reaches a player on
+; (2,7). A second left would put him on top of them.
+	cp 2
+	ld de, BillsHouseEeveeWalkToLeftDoor
+	jr z, .walk
+	ld de, BillsHouseEeveeWalkToRightDoor
+.walk
+	call MoveSprite
+	ld a, SCRIPT_BILLSHOUSE_SCRIPT11
+	ld [wBillsHouseCurScript], a
+	ret
+.disarm
+	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
+	ld [wBillsHouseCurScript], a
+	ret
+
+BillsHouseEeveeWalkToRightDoor:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db -1 ; end
+
+BillsHouseEeveeWalkToLeftDoor:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_LEFT
+	db -1 ; end
+
+BillsHouseScript11:
+; He is walking over. Wait for it, then have the two of them look at each other
+; before he says a word - he called the player back, so he is the one who closes
+; the distance and he is the one who turns.
+	ld a, [wd730]
+	bit 0, a
+	ret nz
+	CheckEvent EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING
+	ld a, BILLSHOUSE_BILL1
+	jr z, .haveIndex
+	ld a, BILLSHOUSE_BILL2
+.haveIndex
+	ldh [hSpriteIndex], a
+	ld a, SPRITE_FACING_LEFT
+	ldh [hSpriteFacingDirection], a
+	call SetSpriteFacingDirectionAndDelay
+	xor a
+	ld [wPlayerMovingDirection], a
+	ld a, SPRITE_FACING_RIGHT
+	ld [wSpritePlayerStateData1FacingDirection], a
+	xor a
+	ld [wJoyIgnore], a ; MoveSprite left this at $ff; the text needs the A button
 	ld a, TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-.disarm
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
 	ld [wBillsHouseCurScript], a
 	ret

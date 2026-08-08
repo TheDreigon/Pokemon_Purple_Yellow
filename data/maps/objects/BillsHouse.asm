@@ -15,6 +15,6 @@ BillsHouse_Object:
 	def_object_events
 	object_event  6,  5, SPRITE_KABUTO, STAY, NONE, TEXT_BILLSHOUSE_BILL_POKEMON
 	object_event  4,  4, SPRITE_YOUNGSTER, STAY, NONE, TEXT_BILLSHOUSE_BILL_SS_TICKET
-	object_event  6,  5, SPRITE_YOUNGSTER, STAY, NONE, TEXT_BILLSHOUSE_BILL_CHECK_OUT_MY_RARE_POKEMON
+	object_event  4,  4, SPRITE_YOUNGSTER, STAY, NONE, TEXT_BILLSHOUSE_BILL_CHECK_OUT_MY_RARE_POKEMON ; v0.7: was 6,5. This is where the rescue scene leaves him, so a returning player finds him where they left him - and the Eevee walk below only needs one starting point instead of two.
 
 	def_warps_to BILLS_HOUSE
