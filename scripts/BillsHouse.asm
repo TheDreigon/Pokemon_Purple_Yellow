@@ -258,21 +258,36 @@ BillsHouseScript9:
 	CheckEvent EVENT_GOT_BILL_EEVEE
 	ret nz
 	ld a, [wYCoord]
-	cp 6
+	cp 7
 	ret nc
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT10
 	ld [wBillsHouseCurScript], a
 	ret
 
 BillsHouseScript10:
-; armed: fire once the player steps onto the door rows (y >= 6).
+; Armed: fire when the player is actually standing ON the doorway - y 7, and
+; one of the two door columns.
+;
+; It used to fire on the whole of row 6, one row short of the mat, for fear that
+; standing on the warp would leave the room before Bill could speak. Forte
+; tested it: the warp only fires if you press Down while standing there, so the
+; mat itself is a safe place to be caught. The old rule cost two things - being
+; stopped a tile before the doorway for no visible reason, and being stopped
+; anywhere along that row, which could put half the room between the two of you.
+;
 ; The event can be set while armed (talk-based retry give via BILL2),
 ; so disarm on it — otherwise the trigger would hand out a second Eevee.
 	CheckEvent EVENT_GOT_BILL_EEVEE
 	jr nz, .disarm
 	ld a, [wYCoord]
-	cp 6
-	ret c
+	cp 7
+	ret nz
+	ld a, [wXCoord]
+	cp 2
+	jr z, .atTheDoor
+	cp 3
+	ret nz
+.atTheDoor
 	ld a, TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
