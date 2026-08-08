@@ -910,8 +910,10 @@ PikachuLedgeHopArc:
 ; at the end - which matters because his position feeds the follow logic, not
 ; just the screen.
 ;
-; Peak is 8 pixels, the same height the player's own hop reaches
-; (PlayerJumpingYScreenCoords goes $38 -> $30).
+; Peak is 11 pixels. It started at 8 - the same height the player's own hop
+; reaches (PlayerJumpingYScreenCoords goes $38 -> $30) - and Forte asked for a
+; little more air after seeing it. He is a small, light thing next to the
+; player, so the same 8 pixels read as less on him.
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
 	ld a, [hl]
@@ -932,8 +934,10 @@ PikachuLedgeHopArc:
 PikachuLedgeHopDeltas:
 ; Indexed by (counter - 1), so this table reads BACKWARDS in time: entry 7 is
 ; the first frame of the hop and entry 0 is the last.
-; In time order: -4, -3, -1, 0, +1, +2, +2, +3 -> heights -4 -7 -8 -8 -7 -5 -3 0
-	db  3,  2,  2,  1,  0, -1, -3, -4
+; In time order: -5, -3, -2, -1, 0, +3, +4, +4
+;   -> heights   -5  -8 -10 -11 -11  -8  -4  0
+; Up quickly, two frames hanging at the top, then down with gravity behind it.
+	db  4,  4,  3,  0, -1, -2, -3, -5
 
 AddPikachuStepVector:
 	ld hl, wSpritePikachuStateData1YStepVector - wSpritePikachuStateData1
