@@ -1,7 +1,7 @@
 	db DEX_LICKITUNG ; pokedex id
 	base_stat_row 95, 70, 75, 70, 40 ; hp atk def spc spd
 	db NORMAL, POISON ; type
-	db 115 ; catch rate  ; solo stage, BST 350, easy to approach
+	db 145 ; catch rate  ; set by hand
 	db 127 ; base exp
 
 	INCBIN "gfx/pokemon/front/lickitung.pic", 0, 1 ; sprite dimensions

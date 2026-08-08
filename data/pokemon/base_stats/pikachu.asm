@@ -2,7 +2,7 @@
 	base_stat_row 60, 55, 50, 80, 95 ; hp atk def spc spd
 
 	db ELECTRIC, ELECTRIC ; type
-	db 210 ; catch rate  ; base stage, BST 340, easy to approach
+	db 100 ; catch rate  ; set by hand: fast, skittish, and it shocks whoever grabs it
 	db 82 ; base exp
 
 	INCBIN "gfx/pokemon/front/pikachu.pic", 0, 1 ; sprite dimensions

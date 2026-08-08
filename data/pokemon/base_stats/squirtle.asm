@@ -2,7 +2,7 @@
 	base_stat_row 50, 50, 65, 55, 45 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 220 ; catch rate  ; base stage, BST 265
+	db 120 ; catch rate  ; set by hand: starter line
 	db 66 ; base exp
 
 	INCBIN "gfx/pokemon/front/squirtle.pic", 0, 1 ; sprite dimensions

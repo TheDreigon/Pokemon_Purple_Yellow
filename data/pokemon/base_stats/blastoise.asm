@@ -2,7 +2,7 @@
 	base_stat_row 90, 85, 110, 95, 80 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 55 ; catch rate  ; final stage, BST 460
+	db 45 ; catch rate  ; set by hand: starter line, fully grown
 	db 210 ; base exp
 
 	INCBIN "gfx/pokemon/front/blastoise.pic", 0, 1 ; sprite dimensions

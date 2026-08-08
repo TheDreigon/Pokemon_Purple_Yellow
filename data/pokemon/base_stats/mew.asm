@@ -1,7 +1,7 @@
 	db DEX_MEW ; pokedex id
 	base_stat_row 140, 80, 80, 120, 140 ; hp atk def spc spd
 	db PSYCHIC_TYPE, FAIRY ; type
-	db 3 ; catch rate  ; exception: legendary: rarer than the birds, not easier
+	db 1 ; catch rate  ; set by hand: legendary: the hardest thing in the game
 	db 64 ; base exp
 
 	INCBIN "gfx/pokemon/front/mew.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 15, 60, 25, 40, 95 ; hp atk def spc spd
 
 	db GROUND, GROUND ; type
-	db 235 ; catch rate  ; base stage, BST 235
+	db 190 ; catch rate  ; set by hand: it is underground before you finish reaching
 	db 81 ; base exp
 
 	INCBIN "gfx/pokemon/front/diglett.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 100, 75, 100, 85, 30 ; hp atk def spc spd
 
 	db WATER, PSYCHIC_TYPE ; type
-	db 90 ; catch rate  ; final stage, BST 390, easy to approach
+	db 100 ; catch rate  ; set by hand
 	db 164 ; base exp
 
 	INCBIN "gfx/pokemon/front/slowbro.pic", 0, 1 ; sprite dimensions

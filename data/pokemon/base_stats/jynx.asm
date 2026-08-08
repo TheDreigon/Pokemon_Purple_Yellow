@@ -1,7 +1,7 @@
 	db DEX_JYNX ; pokedex id
 	base_stat_row 65, 60, 50, 110, 95 ; hp atk def spc spd
 	db GHOST, ICE ; type
-	db 90 ; catch rate  ; solo stage, BST 380
+	db 65 ; catch rate  ; set by hand: same tier as Electabuzz and Magmar
 	db 137 ; base exp
 
 	INCBIN "gfx/pokemon/front/jynx.pic", 0, 1 ; sprite dimensions

@@ -1,7 +1,7 @@
 	db DEX_PORYGON ; pokedex id
 	base_stat_row 75, 75, 75, 100, 75 ; hp atk def spc spd
 	db NORMAL, ELECTRIC ; type
-	db 90 ; catch rate  ; solo stage, BST 400
+	db 25 ; catch rate  ; set by hand: not an animal: it is code, and it does not want holding
 	db 130 ; base exp
 
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions

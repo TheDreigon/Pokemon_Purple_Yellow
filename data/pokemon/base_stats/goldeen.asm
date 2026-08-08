@@ -2,7 +2,7 @@
 	base_stat_row 45, 65, 60, 35, 60 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 220 ; catch rate  ; base stage, BST 265
+	db 230 ; catch rate  ; set by hand
 	db 111 ; base exp
 
 	INCBIN "gfx/pokemon/front/goldeen.pic", 0, 1 ; sprite dimensions

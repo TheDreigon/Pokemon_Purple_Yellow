@@ -2,7 +2,7 @@
 	base_stat_row 65, 100, 150, 60, 45 ; hp atk def spc spd
 
 	db ROCK, GROUND ; type
-	db 70 ; catch rate  ; solo stage, BST 420, harder to handle
+	db 60 ; catch rate  ; set by hand: armoured, and enormous
 	db 108 ; base exp
 
 	INCBIN "gfx/pokemon/front/onix.pic", 0, 1 ; sprite dimensions

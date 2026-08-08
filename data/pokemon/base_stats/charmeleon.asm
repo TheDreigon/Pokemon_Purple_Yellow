@@ -2,7 +2,7 @@
 	base_stat_row 60, 70, 55, 70, 75 ; hp atk def spc spd
 
 	db FIRE, FIRE ; type
-	db 115 ; catch rate  ; mid stage, BST 330
+	db 75 ; catch rate  ; set by hand: starter line, middle
 	db 142 ; base exp
 
 	INCBIN "gfx/pokemon/front/charmeleon.pic", 0, 1 ; sprite dimensions

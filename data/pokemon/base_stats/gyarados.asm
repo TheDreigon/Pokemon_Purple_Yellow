@@ -1,7 +1,7 @@
 	db DEX_GYARADOS ; pokedex id
 	base_stat_row 90, 130, 90, 90, 80 ; hp atk def spc spd
 	db WATER, DRAGON ; type
-	db 45 ; catch rate  ; final stage, BST 480, harder to handle
+	db 20 ; catch rate  ; set by hand: enormous, furious, destructive - Dragonite tier
 	db 214 ; base exp
 
 	INCBIN "gfx/pokemon/front/gyarados.pic", 0, 1 ; sprite dimensions

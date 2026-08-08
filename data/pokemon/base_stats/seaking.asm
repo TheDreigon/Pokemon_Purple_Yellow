@@ -2,7 +2,7 @@
 	base_stat_row 90, 90, 70, 80, 75 ; hp atk def spc spd
 
 	db WATER, WATER ; type
-	db 75 ; catch rate  ; final stage, BST 405
+	db 85 ; catch rate  ; set by hand
 	db 170 ; base exp
 
 	INCBIN "gfx/pokemon/front/seaking.pic", 0, 1 ; sprite dimensions
