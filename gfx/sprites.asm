@@ -304,3 +304,10 @@ INCBIN "gfx/icons/dragonair.2bpp"
 INCBIN "gfx/icons/dragonite.2bpp"
 INCBIN "gfx/icons/mewtwo.2bpp"
 INCBIN "gfx/icons/mew.2bpp"
+
+; Bill's own overworld sprite: the scientist walking under the youngster's head.
+; Own floating section - "NPC Sprites 2", where he naturally belonged next to
+; the youngster, is pinned to bank $5 and had no room left for another walker.
+SECTION "NPC Sprites 7", ROMX
+
+BillSprite::             INCBIN "gfx/sprites/bill.2bpp"

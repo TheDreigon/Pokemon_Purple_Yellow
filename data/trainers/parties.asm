@@ -877,4 +877,4 @@ BillData:
 ; three eeveelutions are his research, Ditto lost its own shape the way he once
 ; did, and Porygon - a Pokemon that is software - leads, because he is the man
 ; who taught the world to keep Pokemon inside a machine.
-	db $FF, 73, VAPOREON, 73, JOLTEON, 74, FLAREON, 74, DITTO, 75, PORYGON, 0
+	db $FF, 73, VAPOREON, 73, JOLTEON, 73, FLAREON, 74, DITTO, 75, PORYGON, 0

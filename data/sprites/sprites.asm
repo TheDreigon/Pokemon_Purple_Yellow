@@ -126,4 +126,5 @@ SpriteSheetPointerTable:
 	overworld_sprite JolteonSprite, 4     		; SPRITE_JOLTEON
 	overworld_sprite FlareonSprite, 4     		; SPRITE_FLAREON
 	overworld_sprite WigglytuffSprite, 4    	; SPRITE_WIGGLYTUFF
+	overworld_sprite BillSprite, 12         	; SPRITE_BILL
 	assert_table_length NUM_SPRITES

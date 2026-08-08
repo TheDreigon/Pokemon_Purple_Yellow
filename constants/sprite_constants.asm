@@ -122,4 +122,5 @@ DEF FIRST_STILL_SPRITE EQU const_value
 	const SPRITE_JOLTEON
 	const SPRITE_FLAREON
 	const SPRITE_WIGGLYTUFF
+	const SPRITE_BILL ; v0.7: the scientist walking under the youngster's head
 DEF NUM_SPRITES EQU const_value - 1
