@@ -1,5 +1,5 @@
 	db DEX_TANGELA ; pokedex id
-	base_stat_row 80, 60, 100, 70, 50 ; hp atk def spc spd
+	base_stat_row 80, 60, 100, 80, 50 ; hp atk def spc spd
 
 	db GRASS, WATER ; type
 	db 150 ; catch rate  ; set by hand: vines and not much else; it does not fight back
