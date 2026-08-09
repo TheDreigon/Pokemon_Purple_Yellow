@@ -18,4 +18,6 @@
 	     DOUBLE_EDGE, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(ArbokPicFront) ; which bank this mon's pics live in
+	assert BANK(ArbokPicFront) == BANK(ArbokPicBack), \
+	    "Arbok: front and back pics must share a bank"

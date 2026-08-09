@@ -16,4 +16,6 @@
 	     TAKE_DOWN, ICE_BEAM, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(SeelPicFront) ; which bank this mon's pics live in
+	assert BANK(SeelPicFront) == BANK(SeelPicBack), \
+	    "Seel: front and back pics must share a bank"

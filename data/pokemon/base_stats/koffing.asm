@@ -16,4 +16,6 @@
 	tmhm FLAME_BURST, NIGHT_SHADE, TOXIC, LIGHT_SCREEN, FLAMETHROWER
 	; end
 
-	db 0 ; padding
+	db BANK(KoffingPicFront) ; which bank this mon's pics live in
+	assert BANK(KoffingPicFront) == BANK(KoffingPicBack), \
+	    "Koffing: front and back pics must share a bank"

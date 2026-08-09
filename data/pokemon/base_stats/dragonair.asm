@@ -18,4 +18,6 @@
 	     SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(DragonairPicFront) ; which bank this mon's pics live in
+	assert BANK(DragonairPicFront) == BANK(DragonairPicBack), \
+	    "Dragonair: front and back pics must share a bank"

@@ -17,4 +17,6 @@
 	     SURF
 	; end
 
-	db 0 ; padding
+	db BANK(GoldeenPicFront) ; which bank this mon's pics live in
+	assert BANK(GoldeenPicFront) == BANK(GoldeenPicBack), \
+	    "Goldeen: front and back pics must share a bank"

@@ -20,4 +20,6 @@
 	     DOUBLE_EDGE, STRENGTH, THRASH, OUTRAGE
 	; end
 
-	db 0 ; padding
+	db BANK(OnixPicFront) ; which bank this mon's pics live in
+	assert BANK(OnixPicFront) == BANK(OnixPicBack), \
+	    "Onix: front and back pics must share a bank"

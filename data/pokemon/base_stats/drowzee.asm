@@ -16,4 +16,6 @@
 	     TAKE_DOWN, PSYCHIC_M, DARK_PULSE, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(DrowzeePicFront) ; which bank this mon's pics live in
+	assert BANK(DrowzeePicFront) == BANK(DrowzeePicBack), \
+	    "Drowzee: front and back pics must share a bank"

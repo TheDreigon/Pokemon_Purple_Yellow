@@ -17,4 +17,6 @@
 	     DOUBLE_EDGE, CUT, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(SquirtlePicFront) ; which bank this mon's pics live in
+	assert BANK(SquirtlePicFront) == BANK(SquirtlePicBack), \
+	    "Squirtle: front and back pics must share a bank"

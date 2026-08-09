@@ -20,4 +20,6 @@
 	     CALM_MIND, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(ClefairyPicFront) ; which bank this mon's pics live in
+	assert BANK(ClefairyPicFront) == BANK(ClefairyPicBack), \
+	    "Clefairy: front and back pics must share a bank"

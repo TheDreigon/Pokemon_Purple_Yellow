@@ -19,4 +19,6 @@
 	     FLAMETHROWER
 	; end
 
-	db 0 ; padding
+	db BANK(WeezingPicFront) ; which bank this mon's pics live in
+	assert BANK(WeezingPicFront) == BANK(WeezingPicBack), \
+	    "Weezing: front and back pics must share a bank"

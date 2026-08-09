@@ -1729,15 +1729,24 @@ wMonHBackSprite:: dw
 wMonHMoves:: ds NUM_MOVES
 wMonHGrowthRate:: db
 wMonHLearnset:: flag_array NUM_TMS + NUM_HMS
-	; 60 learnset flags (NUM_TMS 55 + NUM_HMS 5) fill 8 bytes exactly, so unlike vanilla's 55-flag (7 bytes + 1 pad) learnset there is NO trailing padding byte here — do not re-add one.
-	; the flag_array now occupies 8 bytes naturally, so the padding byte that kept the
-	; struct aligned with the previous 7-byte (55-bit) learnset is no longer needed.
+	; 60 learnset flags (NUM_TMS 55 + NUM_HMS 5) fill 8 bytes exactly, so unlike
+	; vanilla's 55-flag (7 bytes + 1 pad) learnset, the flags themselves need no
+	; padding byte after them.
+; 2026-08-09: the byte that follows is the ROM struct's spare one (rb_skip in
+; BASE_DATA_SIZE), and it now carries the bank this mon's pics live in - see
+; home/pics.asm. It had no name here before, which was a real fault and not just
+; untidiness: GetMonHeader copies BASE_DATA_SIZE bytes into a header that was one
+; byte SHORTER, so every header read spilled a zero onto wSavedTileAnimations.
+; The ASSERT below stops the two structs from ever drifting apart again.
+wMonHPicBank:: db
 wMonHeaderEnd::
+ASSERT wMonHeaderEnd - wMonHeader == BASE_DATA_SIZE, \
+    "wMonHeader must be the same size as the ROM base-stats struct: GetMonHeader copies BASE_DATA_SIZE bytes into it"
 
 ; saved at the start of a battle and then written back at the end of the battle
 wSavedTileAnimations:: db
 
-	ds 2
+	ds 1
 
 wDamage:: dw
 

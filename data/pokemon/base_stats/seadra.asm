@@ -17,4 +17,6 @@
 	     OUTRAGE, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(SeadraPicFront) ; which bank this mon's pics live in
+	assert BANK(SeadraPicFront) == BANK(SeadraPicBack), \
+	    "Seadra: front and back pics must share a bank"

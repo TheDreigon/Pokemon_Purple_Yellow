@@ -20,4 +20,6 @@
 	     DOUBLE_EDGE, CUT, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(JolteonPicFront) ; which bank this mon's pics live in
+	assert BANK(JolteonPicFront) == BANK(JolteonPicBack), \
+	    "Jolteon: front and back pics must share a bank"

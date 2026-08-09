@@ -19,4 +19,6 @@
 	tmhm
 	; end
 
-	db 0 ; padding
+	db BANK(WeedlePicFront) ; which bank this mon's pics live in
+	assert BANK(WeedlePicFront) == BANK(WeedlePicBack), \
+	    "Weedle: front and back pics must share a bank"

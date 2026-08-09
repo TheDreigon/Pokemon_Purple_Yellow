@@ -16,4 +16,6 @@
 	     DOUBLE_EDGE, THRASH
 	; end
 
-	db 0 ; padding
+	db BANK(GrimerPicFront) ; which bank this mon's pics live in
+	assert BANK(GrimerPicFront) == BANK(GrimerPicBack), \
+	    "Grimer: front and back pics must share a bank"

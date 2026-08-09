@@ -19,4 +19,6 @@
 	     DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(ElectrodePicFront) ; which bank this mon's pics live in
+	assert BANK(ElectrodePicFront) == BANK(ElectrodePicBack), \
+	    "Electrode: front and back pics must share a bank"

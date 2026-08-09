@@ -17,4 +17,6 @@
 	     CUT, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(SpearowPicFront) ; which bank this mon's pics live in
+	assert BANK(SpearowPicFront) == BANK(SpearowPicBack), \
+	    "Spearow: front and back pics must share a bank"

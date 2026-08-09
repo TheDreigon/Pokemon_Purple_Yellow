@@ -18,4 +18,6 @@
 	     MEGAHORN
 	; end
 
-	db 0 ; padding
+	db BANK(NidorinoPicFront) ; which bank this mon's pics live in
+	assert BANK(NidorinoPicFront) == BANK(NidorinoPicBack), \
+	    "Nidorino: front and back pics must share a bank"

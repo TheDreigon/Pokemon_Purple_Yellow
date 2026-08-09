@@ -21,4 +21,6 @@
 	     SEISMIC_TOSS, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(MarowakPicFront) ; which bank this mon's pics live in
+	assert BANK(MarowakPicFront) == BANK(MarowakPicBack), \
+	    "Marowak: front and back pics must share a bank"

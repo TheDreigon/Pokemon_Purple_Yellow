@@ -21,4 +21,6 @@
 	     DOUBLE_EDGE, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(VaporeonPicFront) ; which bank this mon's pics live in
+	assert BANK(VaporeonPicFront) == BANK(VaporeonPicBack), \
+	    "Vaporeon: front and back pics must share a bank"

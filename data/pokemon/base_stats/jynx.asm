@@ -20,4 +20,6 @@
 	     DARK_PULSE, SHADOW_BALL, REFLECT, CALM_MIND, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(JynxPicFront) ; which bank this mon's pics live in
+	assert BANK(JynxPicFront) == BANK(JynxPicBack), \
+	    "Jynx: front and back pics must share a bank"

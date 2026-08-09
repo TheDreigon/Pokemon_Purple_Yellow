@@ -17,4 +17,6 @@
 	     AGILITY, POISON_BITE, TOXIC, TAKE_DOWN, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(EkansPicFront) ; which bank this mon's pics live in
+	assert BANK(EkansPicFront) == BANK(EkansPicBack), \
+	    "Ekans: front and back pics must share a bank"

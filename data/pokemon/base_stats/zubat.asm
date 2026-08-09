@@ -18,4 +18,6 @@
 	     LEECH_LIFE, CUT, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(ZubatPicFront) ; which bank this mon's pics live in
+	assert BANK(ZubatPicFront) == BANK(ZubatPicBack), \
+	    "Zubat: front and back pics must share a bank"

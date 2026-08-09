@@ -17,4 +17,6 @@
 	tmhm WATER_PULSE, ICY_PULSE, BODY_SLAM, ICE_BEAM, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(PoliwagPicFront) ; which bank this mon's pics live in
+	assert BANK(PoliwagPicFront) == BANK(PoliwagPicBack), \
+	    "Poliwag: front and back pics must share a bank"

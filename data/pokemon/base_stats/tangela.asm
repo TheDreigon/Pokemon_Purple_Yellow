@@ -20,4 +20,6 @@
 	     CUT, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(TangelaPicFront) ; which bank this mon's pics live in
+	assert BANK(TangelaPicFront) == BANK(TangelaPicBack), \
+	    "Tangela: front and back pics must share a bank"

@@ -18,4 +18,6 @@
 	     SCARY_FACE, TAKE_DOWN, ICE_BEAM, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(SeakingPicFront) ; which bank this mon's pics live in
+	assert BANK(SeakingPicFront) == BANK(SeakingPicBack), \
+	    "Seaking: front and back pics must share a bank"

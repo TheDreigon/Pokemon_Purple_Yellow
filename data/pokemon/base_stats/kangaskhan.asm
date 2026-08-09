@@ -22,4 +22,6 @@
 	     ROCK_THROW, CUT, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(KangaskhanPicFront) ; which bank this mon's pics live in
+	assert BANK(KangaskhanPicFront) == BANK(KangaskhanPicBack), \
+	    "Kangaskhan: front and back pics must share a bank"

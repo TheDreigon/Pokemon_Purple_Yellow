@@ -16,4 +16,6 @@
 	tmhm RAGE
 	; end
 
-	db 0 ; padding
+	db BANK(MagikarpPicFront) ; which bank this mon's pics live in
+	assert BANK(MagikarpPicFront) == BANK(MagikarpPicBack), \
+	    "Magikarp: front and back pics must share a bank"

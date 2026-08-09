@@ -19,4 +19,6 @@
 	     CHARM, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(EeveePicFront) ; which bank this mon's pics live in
+	assert BANK(EeveePicFront) == BANK(EeveePicBack), \
+	    "Eevee: front and back pics must share a bank"

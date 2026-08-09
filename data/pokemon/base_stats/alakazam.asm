@@ -19,4 +19,6 @@
 	     FLASH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(AlakazamPicFront) ; which bank this mon's pics live in
+	assert BANK(AlakazamPicFront) == BANK(AlakazamPicBack), \
+	    "Alakazam: front and back pics must share a bank"

@@ -20,4 +20,6 @@
 	     TAKE_DOWN, SWORDS_DANCE, DOUBLE_EDGE, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(ParasectPicFront) ; which bank this mon's pics live in
+	assert BANK(ParasectPicFront) == BANK(ParasectPicBack), \
+	    "Parasect: front and back pics must share a bank"

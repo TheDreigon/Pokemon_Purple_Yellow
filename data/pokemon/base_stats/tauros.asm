@@ -21,4 +21,6 @@
 	     DOUBLE_EDGE, THRASH, OUTRAGE, STRENGTH, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(TaurosPicFront) ; which bank this mon's pics live in
+	assert BANK(TaurosPicFront) == BANK(TaurosPicBack), \
+	    "Tauros: front and back pics must share a bank"

@@ -18,4 +18,6 @@
 	     ICE_BEAM, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(TentacoolPicFront) ; which bank this mon's pics live in
+	assert BANK(TentacoolPicFront) == BANK(TentacoolPicBack), \
+	    "Tentacool: front and back pics must share a bank"

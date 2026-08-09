@@ -23,4 +23,6 @@
 	     ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(PrimeapePicFront) ; which bank this mon's pics live in
+	assert BANK(PrimeapePicFront) == BANK(PrimeapePicBack), \
+	    "Primeape: front and back pics must share a bank"

@@ -19,4 +19,6 @@
 	     TAKE_DOWN, ICE_BEAM, DOUBLE_EDGE, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(DewgongPicFront) ; which bank this mon's pics live in
+	assert BANK(DewgongPicFront) == BANK(DewgongPicBack), \
+	    "Dewgong: front and back pics must share a bank"

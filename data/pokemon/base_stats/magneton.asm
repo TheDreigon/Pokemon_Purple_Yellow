@@ -17,4 +17,6 @@
 	     THUNDERBOLT
 	; end
 
-	db 0 ; padding
+	db BANK(MagnetonPicFront) ; which bank this mon's pics live in
+	assert BANK(MagnetonPicFront) == BANK(MagnetonPicBack), \
+	    "Magneton: front and back pics must share a bank"

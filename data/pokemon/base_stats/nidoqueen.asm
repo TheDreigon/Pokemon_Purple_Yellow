@@ -22,4 +22,6 @@
 	     IRON_TAIL, IRON_HEAD, MEGAHORN, DRAGON_CLAW
 	; end
 
-	db 0 ; padding
+	db BANK(NidoqueenPicFront) ; which bank this mon's pics live in
+	assert BANK(NidoqueenPicFront) == BANK(NidoqueenPicBack), \
+	    "Nidoqueen: front and back pics must share a bank"

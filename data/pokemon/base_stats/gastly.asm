@@ -15,4 +15,6 @@
 	tmhm FAINT_ATTACK, NIGHT_SHADE, CONFUSE_RAY, SCARY_FACE
 	; end
 
-	db 0 ; padding
+	db BANK(GastlyPicFront) ; which bank this mon's pics live in
+	assert BANK(GastlyPicFront) == BANK(GastlyPicBack), \
+	    "Gastly: front and back pics must share a bank"

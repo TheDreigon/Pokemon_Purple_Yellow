@@ -20,4 +20,6 @@
 	     FLY
 	; end
 
-	db 0 ; padding
+	db BANK(ScytherPicFront) ; which bank this mon's pics live in
+	assert BANK(ScytherPicFront) == BANK(ScytherPicBack), \
+	    "Scyther: front and back pics must share a bank"

@@ -21,4 +21,6 @@
 	     CUT
 	; end
 
-	db 0 ; padding
+	db BANK(VulpixPicFront) ; which bank this mon's pics live in
+	assert BANK(VulpixPicFront) == BANK(VulpixPicBack), \
+	    "Vulpix: front and back pics must share a bank"

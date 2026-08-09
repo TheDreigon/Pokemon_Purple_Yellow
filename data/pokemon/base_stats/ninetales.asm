@@ -22,4 +22,6 @@
 	     FLAMETHROWER, REFLECT, CALM_MIND, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(NinetalesPicFront) ; which bank this mon's pics live in
+	assert BANK(NinetalesPicFront) == BANK(NinetalesPicBack), \
+	    "Ninetales: front and back pics must share a bank"

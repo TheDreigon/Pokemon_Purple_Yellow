@@ -19,4 +19,6 @@
 	     DOUBLE_EDGE, THRASH, STRENGTH, ROCK_THROW, SEISMIC_TOSS
 	; end
 
-	db 0 ; padding
+	db BANK(SnorlaxPicFront) ; which bank this mon's pics live in
+	assert BANK(SnorlaxPicFront) == BANK(SnorlaxPicBack), \
+	    "Snorlax: front and back pics must share a bank"

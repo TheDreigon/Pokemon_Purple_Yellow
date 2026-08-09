@@ -24,4 +24,6 @@
 	     STRENGTH, FLASH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(MewtwoPicFront) ; which bank this mon's pics live in
+	assert BANK(MewtwoPicFront) == BANK(MewtwoPicBack), \
+	    "Mewtwo: front and back pics must share a bank"

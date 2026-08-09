@@ -20,4 +20,6 @@
 	     PSYCHIC_M, LIGHT_SCREEN, REFLECT, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(VenomothPicFront) ; which bank this mon's pics live in
+	assert BANK(VenomothPicFront) == BANK(VenomothPicBack), \
+	    "Venomoth: front and back pics must share a bank"

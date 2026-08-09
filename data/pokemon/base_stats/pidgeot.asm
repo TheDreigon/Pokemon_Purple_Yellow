@@ -22,4 +22,6 @@
 	     TAKE_DOWN, SWORDS_DANCE, DOUBLE_EDGE, CUT, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(PidgeotPicFront) ; which bank this mon's pics live in
+	assert BANK(PidgeotPicFront) == BANK(PidgeotPicBack), \
+	    "Pidgeot: front and back pics must share a bank"

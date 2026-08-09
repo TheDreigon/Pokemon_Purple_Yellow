@@ -19,4 +19,6 @@
 	     CALM_MIND, DOUBLE_EDGE, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(HypnoPicFront) ; which bank this mon's pics live in
+	assert BANK(HypnoPicFront) == BANK(HypnoPicBack), \
+	    "Hypno: front and back pics must share a bank"

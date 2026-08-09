@@ -21,4 +21,6 @@
 	     TOXIC
 	; end
 
-	db 0 ; padding
+	db BANK(ChanseyPicFront) ; which bank this mon's pics live in
+	assert BANK(ChanseyPicFront) == BANK(ChanseyPicBack), \
+	    "Chansey: front and back pics must share a bank"

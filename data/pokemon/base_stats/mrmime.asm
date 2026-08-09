@@ -18,4 +18,6 @@
 	     REFLECT, PETAL_DANCE
 	; end
 
-	db 0 ; padding
+	db BANK(MrMimePicFront) ; which bank this mon's pics live in
+	assert BANK(MrMimePicFront) == BANK(MrMimePicBack), \
+	    "MrMime: front and back pics must share a bank"

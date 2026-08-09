@@ -19,4 +19,6 @@
 	     STRENGTH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(WartortlePicFront) ; which bank this mon's pics live in
+	assert BANK(WartortlePicFront) == BANK(WartortlePicBack), \
+	    "Wartortle: front and back pics must share a bank"

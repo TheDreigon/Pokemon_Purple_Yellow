@@ -17,4 +17,6 @@
 	tmhm LEECH_LIFE
 	; end
 
-	db 0 ; padding
+	db BANK(CaterpiePicFront) ; which bank this mon's pics live in
+	assert BANK(CaterpiePicFront) == BANK(CaterpiePicBack), \
+	    "Caterpie: front and back pics must share a bank"

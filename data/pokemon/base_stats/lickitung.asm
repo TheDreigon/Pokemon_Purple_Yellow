@@ -21,4 +21,6 @@
 	     LEECH_LIFE, TAKE_DOWN, DOUBLE_EDGE, STRENGTH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(LickitungPicFront) ; which bank this mon's pics live in
+	assert BANK(LickitungPicFront) == BANK(LickitungPicBack), \
+	    "Lickitung: front and back pics must share a bank"

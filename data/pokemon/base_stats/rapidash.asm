@@ -19,4 +19,6 @@
 	     AGILITY, MEGAHORN, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(RapidashPicFront) ; which bank this mon's pics live in
+	assert BANK(RapidashPicFront) == BANK(RapidashPicBack), \
+	    "Rapidash: front and back pics must share a bank"

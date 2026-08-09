@@ -23,4 +23,6 @@
 	     REFLECT, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(LaprasPicFront) ; which bank this mon's pics live in
+	assert BANK(LaprasPicFront) == BANK(LaprasPicBack), \
+	    "Lapras: front and back pics must share a bank"

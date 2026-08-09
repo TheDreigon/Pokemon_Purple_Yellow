@@ -19,4 +19,6 @@
 	     LIGHT_SCREEN, SHADOW_BALL, REFLECT, CALM_MIND, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(KadabraPicFront) ; which bank this mon's pics live in
+	assert BANK(KadabraPicFront) == BANK(KadabraPicBack), \
+	    "Kadabra: front and back pics must share a bank"

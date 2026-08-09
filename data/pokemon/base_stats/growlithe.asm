@@ -17,4 +17,6 @@
 	     DOUBLE_EDGE, CUT, STRENGTH, DRAGON_CLAW
 	; end
 
-	db 0 ; padding
+	db BANK(GrowlithePicFront) ; which bank this mon's pics live in
+	assert BANK(GrowlithePicFront) == BANK(GrowlithePicBack), \
+	    "Growlithe: front and back pics must share a bank"

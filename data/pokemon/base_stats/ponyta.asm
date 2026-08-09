@@ -19,4 +19,6 @@
 	     AGILITY, TAKE_DOWN, FLAMETHROWER, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(PonytaPicFront) ; which bank this mon's pics live in
+	assert BANK(PonytaPicFront) == BANK(PonytaPicBack), \
+	    "Ponyta: front and back pics must share a bank"

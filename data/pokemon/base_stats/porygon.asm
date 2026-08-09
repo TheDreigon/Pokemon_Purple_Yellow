@@ -20,4 +20,6 @@
 	     REFLECT, THUNDERBOLT, FLASH, ICY_PULSE, ICE_BEAM
 	; end
 
-	db 0 ; padding
+	db BANK(PorygonPicFront) ; which bank this mon's pics live in
+	assert BANK(PorygonPicFront) == BANK(PorygonPicBack), \
+	    "Porygon: front and back pics must share a bank"

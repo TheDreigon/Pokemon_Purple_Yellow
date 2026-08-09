@@ -16,4 +16,6 @@
 	tmhm QUICK_ATTACK, BODY_SLAM, POISON_BITE, TOXIC, TAKE_DOWN
 	; end
 
-	db 0 ; padding
+	db BANK(NidoranMPicFront) ; which bank this mon's pics live in
+	assert BANK(NidoranMPicFront) == BANK(NidoranMPicBack), \
+	    "NidoranM: front and back pics must share a bank"

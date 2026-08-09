@@ -18,4 +18,6 @@
 	     DOUBLE_EDGE, CUT, STRENGTH, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(IvysaurPicFront) ; which bank this mon's pics live in
+	assert BANK(IvysaurPicFront) == BANK(IvysaurPicBack), \
+	    "Ivysaur: front and back pics must share a bank"

@@ -18,4 +18,6 @@
 	     DOUBLE_EDGE, THRASH, STRENGTH, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(MachokePicFront) ; which bank this mon's pics live in
+	assert BANK(MachokePicFront) == BANK(MachokePicBack), \
+	    "Machoke: front and back pics must share a bank"

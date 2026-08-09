@@ -21,4 +21,6 @@
 	     REFLECT, THUNDERBOLT, DOUBLE_EDGE, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(PikachuPicFront) ; which bank this mon's pics live in
+	assert BANK(PikachuPicFront) == BANK(PikachuPicBack), \
+	    "Pikachu: front and back pics must share a bank"

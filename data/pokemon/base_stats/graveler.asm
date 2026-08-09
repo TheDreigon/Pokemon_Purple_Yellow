@@ -17,4 +17,6 @@
 	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH, SEISMIC_TOSS
 	; end
 
-	db 0 ; padding
+	db BANK(GravelerPicFront) ; which bank this mon's pics live in
+	assert BANK(GravelerPicFront) == BANK(GravelerPicBack), \
+	    "Graveler: front and back pics must share a bank"

@@ -19,4 +19,6 @@
 	     ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(RhyhornPicFront) ; which bank this mon's pics live in
+	assert BANK(RhyhornPicFront) == BANK(RhyhornPicBack), \
+	    "Rhyhorn: front and back pics must share a bank"

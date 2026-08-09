@@ -25,4 +25,6 @@
 	     SEISMIC_TOSS, IRON_TAIL, BIND, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(CharizardPicFront) ; which bank this mon's pics live in
+	assert BANK(CharizardPicFront) == BANK(CharizardPicBack), \
+	    "Charizard: front and back pics must share a bank"

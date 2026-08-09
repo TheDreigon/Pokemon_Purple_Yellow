@@ -16,4 +16,6 @@
 	tmhm SUBSTITUTE, LEECH_LIFE
 	; end
 
-	db 0 ; padding
+	db BANK(MetapodPicFront) ; which bank this mon's pics live in
+	assert BANK(MetapodPicFront) == BANK(MetapodPicBack), \
+	    "Metapod: front and back pics must share a bank"

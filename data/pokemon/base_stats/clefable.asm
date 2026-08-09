@@ -20,4 +20,6 @@
 	     LIGHT_SCREEN, REFLECT, CALM_MIND, PETAL_DANCE, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(ClefablePicFront) ; which bank this mon's pics live in
+	assert BANK(ClefablePicFront) == BANK(ClefablePicBack), \
+	    "Clefable: front and back pics must share a bank"

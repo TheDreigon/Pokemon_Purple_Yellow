@@ -19,4 +19,6 @@
 	     STRENGTH, DRAGON_CLAW
 	; end
 
-	db 0 ; padding
+	db BANK(ArcaninePicFront) ; which bank this mon's pics live in
+	assert BANK(ArcaninePicFront) == BANK(ArcaninePicBack), \
+	    "Arcanine: front and back pics must share a bank"

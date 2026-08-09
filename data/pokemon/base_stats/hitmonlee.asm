@@ -20,4 +20,6 @@
 	     THRASH, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(HitmonleePicFront) ; which bank this mon's pics live in
+	assert BANK(HitmonleePicFront) == BANK(HitmonleePicBack), \
+	    "Hitmonlee: front and back pics must share a bank"

@@ -19,4 +19,6 @@
 	     DARK_PULSE, PETAL_DANCE, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(VileplumePicFront) ; which bank this mon's pics live in
+	assert BANK(VileplumePicFront) == BANK(VileplumePicBack), \
+	    "Vileplume: front and back pics must share a bank"

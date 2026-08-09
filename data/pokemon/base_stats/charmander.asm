@@ -18,4 +18,6 @@
 	     FLAMETHROWER, OUTRAGE, CUT, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(CharmanderPicFront) ; which bank this mon's pics live in
+	assert BANK(CharmanderPicFront) == BANK(CharmanderPicBack), \
+	    "Charmander: front and back pics must share a bank"

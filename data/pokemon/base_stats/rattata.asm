@@ -18,4 +18,6 @@
 	     POISON_BITE, TOXIC, TAKE_DOWN, DOUBLE_EDGE, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(RattataPicFront) ; which bank this mon's pics live in
+	assert BANK(RattataPicFront) == BANK(RattataPicBack), \
+	    "Rattata: front and back pics must share a bank"

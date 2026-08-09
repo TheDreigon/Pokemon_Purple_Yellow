@@ -23,4 +23,6 @@
 	     SURF, STRENGTH, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(PoliwrathPicFront) ; which bank this mon's pics live in
+	assert BANK(PoliwrathPicFront) == BANK(PoliwrathPicBack), \
+	    "Poliwrath: front and back pics must share a bank"

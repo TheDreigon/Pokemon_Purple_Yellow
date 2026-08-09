@@ -19,4 +19,6 @@
 	     TAKE_DOWN, EARTHQUAKE, CUT, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(DugtrioPicFront) ; which bank this mon's pics live in
+	assert BANK(DugtrioPicFront) == BANK(DugtrioPicBack), \
+	    "Dugtrio: front and back pics must share a bank"

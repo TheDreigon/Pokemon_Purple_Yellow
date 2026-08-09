@@ -22,4 +22,6 @@
 	     STRENGTH, SEISMIC_TOSS, IRON_TAIL, IRON_HEAD, DRAGON_CLAW
 	; end
 
-	db 0 ; padding
+	db BANK(NidokingPicFront) ; which bank this mon's pics live in
+	assert BANK(NidokingPicFront) == BANK(NidokingPicBack), \
+	    "Nidoking: front and back pics must share a bank"

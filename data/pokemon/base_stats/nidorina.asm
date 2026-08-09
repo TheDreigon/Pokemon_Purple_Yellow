@@ -17,4 +17,6 @@
 	     TAKE_DOWN, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(NidorinaPicFront) ; which bank this mon's pics live in
+	assert BANK(NidorinaPicFront) == BANK(NidorinaPicBack), \
+	    "Nidorina: front and back pics must share a bank"

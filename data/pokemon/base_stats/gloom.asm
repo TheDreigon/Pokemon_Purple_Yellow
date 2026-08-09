@@ -15,4 +15,6 @@
 	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 
-	db 0 ; padding
+	db BANK(GloomPicFront) ; which bank this mon's pics live in
+	assert BANK(GloomPicFront) == BANK(GloomPicBack), \
+	    "Gloom: front and back pics must share a bank"

@@ -17,4 +17,6 @@
 	     TAKE_DOWN, ICE_BEAM, CUT, IRON_HEAD
 	; end
 
-	db 0 ; padding
+	db BANK(KabutoPicFront) ; which bank this mon's pics live in
+	assert BANK(KabutoPicFront) == BANK(KabutoPicBack), \
+	    "Kabuto: front and back pics must share a bank"

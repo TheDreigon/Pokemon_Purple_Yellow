@@ -17,4 +17,6 @@
 	tmhm TOXIC, EXTRASENSORY, LEECH_LIFE, PSYCHIC_M, LIGHT_SCREEN
 	; end
 
-	db 0 ; padding
+	db BANK(VenonatPicFront) ; which bank this mon's pics live in
+	assert BANK(VenonatPicFront) == BANK(VenonatPicBack), \
+	    "Venonat: front and back pics must share a bank"

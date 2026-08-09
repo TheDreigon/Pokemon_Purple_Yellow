@@ -16,4 +16,6 @@
 	     REFLECT, THUNDERBOLT
 	; end
 
-	db 0 ; padding
+	db BANK(MagnemitePicFront) ; which bank this mon's pics live in
+	assert BANK(MagnemitePicFront) == BANK(MagnemitePicBack), \
+	    "Magnemite: front and back pics must share a bank"

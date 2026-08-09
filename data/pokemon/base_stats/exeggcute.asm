@@ -16,4 +16,6 @@
 	tmhm EXTRASENSORY, PSYCHIC_M, DARK_PULSE, PETAL_DANCE
 	; end
 
-	db 0 ; padding
+	db BANK(ExeggcutePicFront) ; which bank this mon's pics live in
+	assert BANK(ExeggcutePicFront) == BANK(ExeggcutePicBack), \
+	    "Exeggcute: front and back pics must share a bank"

@@ -19,4 +19,6 @@
 	     EARTHQUAKE, ROCK_SLIDE, DOUBLE_EDGE, STRENGTH, SEISMIC_TOSS
 	; end
 
-	db 0 ; padding
+	db BANK(GolemPicFront) ; which bank this mon's pics live in
+	assert BANK(GolemPicFront) == BANK(GolemPicBack), \
+	    "Golem: front and back pics must share a bank"

@@ -17,4 +17,6 @@
 	     TAKE_DOWN, ROCK_SLIDE, IRON_HEAD
 	; end
 
-	db 0 ; padding
+	db BANK(OmanytePicFront) ; which bank this mon's pics live in
+	assert BANK(OmanytePicFront) == BANK(OmanytePicBack), \
+	    "Omanyte: front and back pics must share a bank"

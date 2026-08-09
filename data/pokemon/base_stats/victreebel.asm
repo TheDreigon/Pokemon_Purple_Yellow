@@ -21,4 +21,6 @@
 	     BIND
 	; end
 
-	db 0 ; padding
+	db BANK(VictreebelPicFront) ; which bank this mon's pics live in
+	assert BANK(VictreebelPicFront) == BANK(VictreebelPicBack), \
+	    "Victreebel: front and back pics must share a bank"

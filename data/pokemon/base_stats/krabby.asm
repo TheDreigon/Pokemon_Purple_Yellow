@@ -19,4 +19,6 @@
 	     ICE_BEAM, CUT, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(KrabbyPicFront) ; which bank this mon's pics live in
+	assert BANK(KrabbyPicFront) == BANK(KrabbyPicBack), \
+	    "Krabby: front and back pics must share a bank"

@@ -24,4 +24,6 @@
 	     CUT, FLY, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(DragonitePicFront) ; which bank this mon's pics live in
+	assert BANK(DragonitePicFront) == BANK(DragonitePicBack), \
+	    "Dragonite: front and back pics must share a bank"

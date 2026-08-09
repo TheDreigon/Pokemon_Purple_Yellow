@@ -22,4 +22,6 @@
 	     DOUBLE_EDGE, THRASH, OUTRAGE, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(GyaradosPicFront) ; which bank this mon's pics live in
+	assert BANK(GyaradosPicFront) == BANK(GyaradosPicBack), \
+	    "Gyarados: front and back pics must share a bank"

@@ -17,4 +17,6 @@
 	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(ParasPicFront) ; which bank this mon's pics live in
+	assert BANK(ParasPicFront) == BANK(ParasPicBack), \
+	    "Paras: front and back pics must share a bank"

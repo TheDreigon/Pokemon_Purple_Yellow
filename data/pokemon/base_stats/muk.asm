@@ -17,4 +17,6 @@
 	     EARTHQUAKE, DOUBLE_EDGE, THRASH, STRENGTH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(MukPicFront) ; which bank this mon's pics live in
+	assert BANK(MukPicFront) == BANK(MukPicBack), \
+	    "Muk: front and back pics must share a bank"

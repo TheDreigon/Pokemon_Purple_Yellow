@@ -19,4 +19,6 @@
 	     PETAL_DANCE, FLY, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(ButterfreePicFront) ; which bank this mon's pics live in
+	assert BANK(ButterfreePicFront) == BANK(ButterfreePicBack), \
+	    "Butterfree: front and back pics must share a bank"

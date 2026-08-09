@@ -19,4 +19,6 @@
 	     STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(SlowbroPicFront) ; which bank this mon's pics live in
+	assert BANK(SlowbroPicFront) == BANK(SlowbroPicBack), \
+	    "Slowbro: front and back pics must share a bank"

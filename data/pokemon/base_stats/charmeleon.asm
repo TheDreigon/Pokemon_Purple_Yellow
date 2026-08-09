@@ -20,4 +20,6 @@
 	     OUTRAGE, CUT, STRENGTH, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(CharmeleonPicFront) ; which bank this mon's pics live in
+	assert BANK(CharmeleonPicFront) == BANK(CharmeleonPicBack), \
+	    "Charmeleon: front and back pics must share a bank"

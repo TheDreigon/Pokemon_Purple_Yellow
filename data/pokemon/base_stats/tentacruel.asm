@@ -20,4 +20,6 @@
 	     LEECH_LIFE, ICE_BEAM, CUT, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(TentacruelPicFront) ; which bank this mon's pics live in
+	assert BANK(TentacruelPicFront) == BANK(TentacruelPicBack), \
+	    "Tentacruel: front and back pics must share a bank"

@@ -17,4 +17,6 @@
 	     IRON_TAIL, DRAGON_CLAW, TAKE_DOWN, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(DratiniPicFront) ; which bank this mon's pics live in
+	assert BANK(DratiniPicFront) == BANK(DratiniPicBack), \
+	    "Dratini: front and back pics must share a bank"

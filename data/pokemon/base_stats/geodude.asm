@@ -16,4 +16,6 @@
 	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(GeodudePicFront) ; which bank this mon's pics live in
+	assert BANK(GeodudePicFront) == BANK(GeodudePicBack), \
+	    "Geodude: front and back pics must share a bank"

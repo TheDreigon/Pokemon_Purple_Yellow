@@ -17,4 +17,6 @@
 	     TAKE_DOWN, EARTHQUAKE, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(DiglettPicFront) ; which bank this mon's pics live in
+	assert BANK(DiglettPicFront) == BANK(DiglettPicBack), \
+	    "Diglett: front and back pics must share a bank"

@@ -18,4 +18,6 @@
 	     STRENGTH, ROCK_SLIDE
 	; end
 
-	db 0 ; padding
+	db BANK(MachopPicFront) ; which bank this mon's pics live in
+	assert BANK(MachopPicFront) == BANK(MachopPicBack), \
+	    "Machop: front and back pics must share a bank"

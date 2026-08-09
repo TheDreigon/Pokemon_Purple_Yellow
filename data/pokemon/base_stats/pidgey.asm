@@ -17,4 +17,6 @@
 	tmhm QUICK_ATTACK, AERIAL_ACE, HURRICANE, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(PidgeyPicFront) ; which bank this mon's pics live in
+	assert BANK(PidgeyPicFront) == BANK(PidgeyPicBack), \
+	    "Pidgey: front and back pics must share a bank"

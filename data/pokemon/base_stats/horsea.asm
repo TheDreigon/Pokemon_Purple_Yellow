@@ -16,4 +16,6 @@
 	tmhm WATER_PULSE, ICY_PULSE, AGILITY, ICE_BEAM, SURF
 	; end
 
-	db 0 ; padding
+	db BANK(HorseaPicFront) ; which bank this mon's pics live in
+	assert BANK(HorseaPicFront) == BANK(HorseaPicBack), \
+	    "Horsea: front and back pics must share a bank"

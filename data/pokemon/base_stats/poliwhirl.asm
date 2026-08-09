@@ -19,4 +19,6 @@
 	     ICE_BEAM, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(PoliwhirlPicFront) ; which bank this mon's pics live in
+	assert BANK(PoliwhirlPicFront) == BANK(PoliwhirlPicBack), \
+	    "Poliwhirl: front and back pics must share a bank"

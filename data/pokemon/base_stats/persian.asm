@@ -22,4 +22,6 @@
 	     CUT, STRENGTH, DRAGON_CLAW
 	; end
 
-	db 0 ; padding
+	db BANK(PersianPicFront) ; which bank this mon's pics live in
+	assert BANK(PersianPicFront) == BANK(PersianPicBack), \
+	    "Persian: front and back pics must share a bank"

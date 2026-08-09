@@ -19,4 +19,6 @@
 	     PSYCHIC_M, DOUBLE_EDGE, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(WigglytuffPicFront) ; which bank this mon's pics live in
+	assert BANK(WigglytuffPicFront) == BANK(WigglytuffPicBack), \
+	    "Wigglytuff: front and back pics must share a bank"

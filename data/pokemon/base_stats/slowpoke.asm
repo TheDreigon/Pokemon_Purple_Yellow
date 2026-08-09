@@ -15,4 +15,6 @@
 	tmhm WATER_PULSE, CONFUSE_RAY, EXTRASENSORY, SURF, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(SlowpokePicFront) ; which bank this mon's pics live in
+	assert BANK(SlowpokePicFront) == BANK(SlowpokePicBack), \
+	    "Slowpoke: front and back pics must share a bank"

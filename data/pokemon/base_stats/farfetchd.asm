@@ -19,4 +19,6 @@
 	     FLY, STRENGTH, THRASH, OUTRAGE
 	; end
 
-	db 0 ; padding
+	db BANK(FarfetchdPicFront) ; which bank this mon's pics live in
+	assert BANK(FarfetchdPicFront) == BANK(FarfetchdPicBack), \
+	    "Farfetchd: front and back pics must share a bank"

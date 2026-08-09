@@ -21,4 +21,6 @@
 	     ROCK_SLIDE, DOUBLE_EDGE, LIGHT_SCREEN, REFLECT, CUT, FLY, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(ZapdosPicFront) ; which bank this mon's pics live in
+	assert BANK(ZapdosPicFront) == BANK(ZapdosPicBack), \
+	    "Zapdos: front and back pics must share a bank"

@@ -20,4 +20,6 @@
 	     CUT, SURF, STRENGTH, IRON_HEAD
 	; end
 
-	db 0 ; padding
+	db BANK(KabutopsPicFront) ; which bank this mon's pics live in
+	assert BANK(KabutopsPicFront) == BANK(KabutopsPicBack), \
+	    "Kabutops: front and back pics must share a bank"

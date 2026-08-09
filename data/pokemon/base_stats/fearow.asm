@@ -19,4 +19,6 @@
 	     DOUBLE_EDGE, CUT, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(FearowPicFront) ; which bank this mon's pics live in
+	assert BANK(FearowPicFront) == BANK(FearowPicBack), \
+	    "Fearow: front and back pics must share a bank"

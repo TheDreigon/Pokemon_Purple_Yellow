@@ -21,4 +21,6 @@
 	     CALM_MIND, SURF, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(StarmiePicFront) ; which bank this mon's pics live in
+	assert BANK(StarmiePicFront) == BANK(StarmiePicBack), \
+	    "Starmie: front and back pics must share a bank"

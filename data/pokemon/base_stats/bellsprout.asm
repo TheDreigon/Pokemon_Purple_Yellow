@@ -17,4 +17,6 @@
 	tmhm FAINT_ATTACK, GIGA_DRAIN, TOXIC
 	; end
 
-	db 0 ; padding
+	db BANK(BellsproutPicFront) ; which bank this mon's pics live in
+	assert BANK(BellsproutPicFront) == BANK(BellsproutPicBack), \
+	    "Bellsprout: front and back pics must share a bank"

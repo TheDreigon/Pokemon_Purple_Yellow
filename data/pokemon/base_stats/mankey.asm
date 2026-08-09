@@ -17,4 +17,6 @@
 	     OUTRAGE, STRENGTH, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(MankeyPicFront) ; which bank this mon's pics live in
+	assert BANK(MankeyPicFront) == BANK(MankeyPicBack), \
+	    "Mankey: front and back pics must share a bank"

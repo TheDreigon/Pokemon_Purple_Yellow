@@ -16,4 +16,6 @@
 	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 
-	db 0 ; padding
+	db BANK(OddishPicFront) ; which bank this mon's pics live in
+	assert BANK(OddishPicFront) == BANK(OddishPicBack), \
+	    "Oddish: front and back pics must share a bank"

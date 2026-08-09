@@ -19,4 +19,6 @@
 	     CUT, SURF, STRENGTH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(GolduckPicFront) ; which bank this mon's pics live in
+	assert BANK(GolduckPicFront) == BANK(GolduckPicBack), \
+	    "Golduck: front and back pics must share a bank"

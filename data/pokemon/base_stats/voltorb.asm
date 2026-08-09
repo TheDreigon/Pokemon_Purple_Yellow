@@ -18,4 +18,6 @@
 	     FLASH, QUICK_ATTACK, BODY_SLAM, AGILITY
 	; end
 
-	db 0 ; padding
+	db BANK(VoltorbPicFront) ; which bank this mon's pics live in
+	assert BANK(VoltorbPicFront) == BANK(VoltorbPicBack), \
+	    "Voltorb: front and back pics must share a bank"

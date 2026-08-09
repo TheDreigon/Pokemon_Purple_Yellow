@@ -20,4 +20,6 @@
 	     THRASH
 	; end
 
-	db 0 ; padding
+	db BANK(HitmonchanPicFront) ; which bank this mon's pics live in
+	assert BANK(HitmonchanPicFront) == BANK(HitmonchanPicBack), \
+	    "Hitmonchan: front and back pics must share a bank"

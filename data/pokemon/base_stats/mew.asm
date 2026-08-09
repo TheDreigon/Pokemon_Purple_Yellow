@@ -22,4 +22,6 @@
 	     THUNDERBOLT, CALM_MIND, FLY, SURF, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(MewPicFront) ; which bank this mon's pics live in
+	assert BANK(MewPicFront) == BANK(MewPicBack), \
+	    "Mew: front and back pics must share a bank"

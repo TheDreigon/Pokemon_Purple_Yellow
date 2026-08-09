@@ -17,4 +17,6 @@
 	     AGILITY, TAKE_DOWN, DOUBLE_EDGE, CUT, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(DoduoPicFront) ; which bank this mon's pics live in
+	assert BANK(DoduoPicFront) == BANK(DoduoPicBack), \
+	    "Doduo: front and back pics must share a bank"

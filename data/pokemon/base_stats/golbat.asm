@@ -20,4 +20,6 @@
 	     FLY
 	; end
 
-	db 0 ; padding
+	db BANK(GolbatPicFront) ; which bank this mon's pics live in
+	assert BANK(GolbatPicFront) == BANK(GolbatPicBack), \
+	    "Golbat: front and back pics must share a bank"

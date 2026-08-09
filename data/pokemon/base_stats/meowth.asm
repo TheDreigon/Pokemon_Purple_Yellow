@@ -16,4 +16,6 @@
 	     TAKE_DOWN, CUT, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(MeowthPicFront) ; which bank this mon's pics live in
+	assert BANK(MeowthPicFront) == BANK(MeowthPicBack), \
+	    "Meowth: front and back pics must share a bank"

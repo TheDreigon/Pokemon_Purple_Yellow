@@ -21,4 +21,6 @@
 	     THRASH, OUTRAGE, FLY, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(BeedrillPicFront) ; which bank this mon's pics live in
+	assert BANK(BeedrillPicFront) == BANK(BeedrillPicBack), \
+	    "Beedrill: front and back pics must share a bank"

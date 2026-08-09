@@ -19,4 +19,6 @@
 	     CUT
 	; end
 
-	db 0 ; padding
+	db BANK(RaticatePicFront) ; which bank this mon's pics live in
+	assert BANK(RaticatePicFront) == BANK(RaticatePicBack), \
+	    "Raticate: front and back pics must share a bank"

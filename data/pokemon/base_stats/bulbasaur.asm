@@ -17,4 +17,6 @@
 	     PETAL_DANCE, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(BulbasaurPicFront) ; which bank this mon's pics live in
+	assert BANK(BulbasaurPicFront) == BANK(BulbasaurPicBack), \
+	    "Bulbasaur: front and back pics must share a bank"

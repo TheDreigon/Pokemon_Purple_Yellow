@@ -20,4 +20,6 @@
 	     ICE_BEAM, DARK_PULSE, SHADOW_BALL, REFLECT
 	; end
 
-	db 0 ; padding
+	db BANK(GengarPicFront) ; which bank this mon's pics live in
+	assert BANK(GengarPicFront) == BANK(GengarPicBack), \
+	    "Gengar: front and back pics must share a bank"

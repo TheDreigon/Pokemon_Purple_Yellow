@@ -20,4 +20,6 @@
 	     STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(DodrioPicFront) ; which bank this mon's pics live in
+	assert BANK(DodrioPicFront) == BANK(DodrioPicBack), \
+	    "Dodrio: front and back pics must share a bank"

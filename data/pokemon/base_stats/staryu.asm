@@ -17,4 +17,6 @@
 	     ICE_BEAM, REFLECT, SURF, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(StaryuPicFront) ; which bank this mon's pics live in
+	assert BANK(StaryuPicFront) == BANK(StaryuPicBack), \
+	    "Staryu: front and back pics must share a bank"

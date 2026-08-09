@@ -23,4 +23,6 @@
 	     ROCK_THROW, SEISMIC_TOSS
 	; end
 
-	db 0 ; padding
+	db BANK(BlastoisePicFront) ; which bank this mon's pics live in
+	assert BANK(BlastoisePicFront) == BANK(BlastoisePicBack), \
+	    "Blastoise: front and back pics must share a bank"

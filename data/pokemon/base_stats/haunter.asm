@@ -16,4 +16,6 @@
 	     EXTRASENSORY, INTIMIDATE, SCARY_FACE, DARK_PULSE, SHADOW_BALL
 	; end
 
-	db 0 ; padding
+	db BANK(HaunterPicFront) ; which bank this mon's pics live in
+	assert BANK(HaunterPicFront) == BANK(HaunterPicBack), \
+	    "Haunter: front and back pics must share a bank"

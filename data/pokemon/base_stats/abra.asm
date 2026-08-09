@@ -16,4 +16,6 @@
 	tmhm CALM_MIND
 	; end
 
-	db 0 ; padding
+	db BANK(AbraPicFront) ; which bank this mon's pics live in
+	assert BANK(AbraPicFront) == BANK(AbraPicBack), \
+	    "Abra: front and back pics must share a bank"

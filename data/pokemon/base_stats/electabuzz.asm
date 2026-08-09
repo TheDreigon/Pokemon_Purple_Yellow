@@ -21,4 +21,6 @@
 	     FLASH, THRASH, ROCK_THROW, SEISMIC_TOSS, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(ElectabuzzPicFront) ; which bank this mon's pics live in
+	assert BANK(ElectabuzzPicFront) == BANK(ElectabuzzPicBack), \
+	    "Electabuzz: front and back pics must share a bank"

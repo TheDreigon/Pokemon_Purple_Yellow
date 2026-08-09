@@ -20,4 +20,6 @@
 	     IRON_HEAD
 	; end
 
-	db 0 ; padding
+	db BANK(CubonePicFront) ; which bank this mon's pics live in
+	assert BANK(CubonePicFront) == BANK(CubonePicBack), \
+	    "Cubone: front and back pics must share a bank"

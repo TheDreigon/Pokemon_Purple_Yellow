@@ -18,4 +18,6 @@
 	     FLY
 	; end
 
-	db 0 ; padding
+	db BANK(PidgeottoPicFront) ; which bank this mon's pics live in
+	assert BANK(PidgeottoPicFront) == BANK(PidgeottoPicBack), \
+	    "Pidgeotto: front and back pics must share a bank"

@@ -22,4 +22,6 @@
 	     SURF, IRON_HEAD
 	; end
 
-	db 0 ; padding
+	db BANK(CloysterPicFront) ; which bank this mon's pics live in
+	assert BANK(CloysterPicFront) == BANK(CloysterPicBack), \
+	    "Cloyster: front and back pics must share a bank"

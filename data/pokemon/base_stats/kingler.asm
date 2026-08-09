@@ -21,4 +21,6 @@
 	     SWORDS_DANCE, CUT, SURF, STRENGTH, ROCK_THROW
 	; end
 
-	db 0 ; padding
+	db BANK(KinglerPicFront) ; which bank this mon's pics live in
+	assert BANK(KinglerPicFront) == BANK(KinglerPicBack), \
+	    "Kingler: front and back pics must share a bank"

@@ -20,4 +20,6 @@
 	     ROCK_SLIDE, DOUBLE_EDGE, CUT, STRENGTH, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(MagmarPicFront) ; which bank this mon's pics live in
+	assert BANK(MagmarPicFront) == BANK(MagmarPicBack), \
+	    "Magmar: front and back pics must share a bank"

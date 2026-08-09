@@ -20,4 +20,6 @@
 	     FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(ArticunoPicFront) ; which bank this mon's pics live in
+	assert BANK(ArticunoPicFront) == BANK(ArticunoPicBack), \
+	    "Articuno: front and back pics must share a bank"

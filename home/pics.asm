@@ -8,35 +8,37 @@ UncompressMonSprite::
 	ld [wSpriteInputPtr], a    ; fetch sprite input pointer
 	ld a, [hl]
 	ld [wSpriteInputPtr+1], a
-; define (by index number) the bank that a pokemon's image is in
-; index = FOSSIL_KABUTOPS: bank $B
-;       index < $1F:       bank $9 ("Pics 1")
-; $1F ≤ index < $4A:       bank $A ("Pics 2")
-; $4A ≤ index < $74:       bank $B ("Pics 3")
-; $74 ≤ index < $98:       bank $C ("Pics 4")
-; $98 ≤ index:             bank $D ("Pics 5")
+; Which bank a mon's pics live in is stored in the mon itself: the spare byte at
+; the end of its base-stats entry, copied into wMonHPicBank along with the rest of
+; the header. Pics can therefore live in ANY section, and new sections in any bank
+; that has room - which is what makes headroom for more species.
+;
+; This replaced a ladder of internal-index thresholds (index < TANGELA -> "Pics 1",
+; and so on). Under that scheme which section a pic belonged to was decided by the
+; mon's index rather than by where there was space, and a pic could only ever move
+; to the ADJACENT section. It broke the build on 2026-08-09, the first time a
+; sprite pass made a section overflow, and it could not have survived the jump to
+; 200 species. Taken from ExtremeYellow, which added several dozen mons this way.
+;
+; The two fossils and the Ghost are the exception: they have no base-stats entry,
+; so GetMonHeader never fills wMonHPicBank for them and it would still hold the
+; last mon's value. Their indices are consecutive and their pics share a section,
+; so a single range check covers all three. The ASSERTs keep both facts true.
+	ASSERT FOSSIL_AERODACTYL == FOSSIL_KABUTOPS + 1
+	ASSERT MON_GHOST == FOSSIL_KABUTOPS + 2
+	ASSERT BANK(FossilAerodactylPic) == BANK(FossilKabutopsPic), \
+	    "the three headerless pics must share a section"
+	ASSERT BANK(GhostPic) == BANK(FossilKabutopsPic), \
+	    "the three headerless pics must share a section"
 	ld a, [wcf91]
-	ld b, a
 	cp FOSSIL_KABUTOPS
+	jr c, .fromHeader
+	cp MON_GHOST + 1
+	jr nc, .fromHeader
 	ld a, BANK(FossilKabutopsPic)
-	jr z, .GotBank
-	ld a, b
-	cp TANGELA + 1
-	ld a, BANK("Pics 1")
-	jr c, .GotBank
-	ld a, b
-	cp MOLTRES + 1
-	ld a, BANK("Pics 2")
-	jr c, .GotBank
-	ld a, b
-	cp BEEDRILL + 2
-	ld a, BANK("Pics 3")
-	jr c, .GotBank
-	ld a, b
-	cp STARMIE          ; STARMIE itself now lives in "Pics 5"
-	ld a, BANK("Pics 4")
-	jr c, .GotBank
-	ld a, BANK("Pics 5")
+	jr .GotBank
+.fromHeader
+	ld a, [wMonHPicBank]
 .GotBank
 	jp UncompressSpriteData
 

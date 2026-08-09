@@ -16,4 +16,6 @@
 	     DOUBLE_EDGE, FLY
 	; end
 
-	db 0 ; padding
+	db BANK(JigglypuffPicFront) ; which bank this mon's pics live in
+	assert BANK(JigglypuffPicFront) == BANK(JigglypuffPicBack), \
+	    "Jigglypuff: front and back pics must share a bank"

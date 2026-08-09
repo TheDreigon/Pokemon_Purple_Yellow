@@ -18,4 +18,6 @@
 	     STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(SandshrewPicFront) ; which bank this mon's pics live in
+	assert BANK(SandshrewPicFront) == BANK(SandshrewPicBack), \
+	    "Sandshrew: front and back pics must share a bank"

@@ -17,4 +17,6 @@
 	tmhm SUBSTITUTE
 	; end
 
-	db 0 ; padding
+	db BANK(KakunaPicFront) ; which bank this mon's pics live in
+	assert BANK(KakunaPicFront) == BANK(KakunaPicBack), \
+	    "Kakuna: front and back pics must share a bank"

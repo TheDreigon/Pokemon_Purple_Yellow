@@ -19,4 +19,6 @@
 	     ROCK_SLIDE, DOUBLE_EDGE, LIGHT_SCREEN, REFLECT, CUT, FLY, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(MoltresPicFront) ; which bank this mon's pics live in
+	assert BANK(MoltresPicFront) == BANK(MoltresPicBack), \
+	    "Moltres: front and back pics must share a bank"

@@ -21,4 +21,6 @@
 	     LIGHT_SCREEN, REFLECT, THUNDERBOLT, DOUBLE_EDGE, FLASH
 	; end
 
-	db 0 ; padding
+	db BANK(RaichuPicFront) ; which bank this mon's pics live in
+	assert BANK(RaichuPicFront) == BANK(RaichuPicBack), \
+	    "Raichu: front and back pics must share a bank"

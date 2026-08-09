@@ -17,4 +17,6 @@
 	tmhm
 	; end
 
-	db 0 ; padding
+	db BANK(DittoPicFront) ; which bank this mon's pics live in
+	assert BANK(DittoPicFront) == BANK(DittoPicBack), \
+	    "Ditto: front and back pics must share a bank"

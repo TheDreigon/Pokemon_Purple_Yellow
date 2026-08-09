@@ -19,4 +19,6 @@
 	     DOUBLE_EDGE, CUT, FLY, STRENGTH, IRON_HEAD
 	; end
 
-	db 0 ; padding
+	db BANK(AerodactylPicFront) ; which bank this mon's pics live in
+	assert BANK(AerodactylPicFront) == BANK(AerodactylPicBack), \
+	    "Aerodactyl: front and back pics must share a bank"

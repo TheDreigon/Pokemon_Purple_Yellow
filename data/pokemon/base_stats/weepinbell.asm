@@ -18,4 +18,6 @@
 	     TAKE_DOWN, CUT
 	; end
 
-	db 0 ; padding
+	db BANK(WeepinbellPicFront) ; which bank this mon's pics live in
+	assert BANK(WeepinbellPicFront) == BANK(WeepinbellPicBack), \
+	    "Weepinbell: front and back pics must share a bank"

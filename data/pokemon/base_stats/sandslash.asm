@@ -20,4 +20,6 @@
 	     CUT, STRENGTH
 	; end
 
-	db 0 ; padding
+	db BANK(SandslashPicFront) ; which bank this mon's pics live in
+	assert BANK(SandslashPicFront) == BANK(SandslashPicBack), \
+	    "Sandslash: front and back pics must share a bank"

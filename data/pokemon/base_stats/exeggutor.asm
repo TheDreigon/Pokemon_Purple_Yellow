@@ -18,4 +18,6 @@
 	     EARTHQUAKE, PETAL_DANCE, DOUBLE_EDGE
 	; end
 
-	db 0 ; padding
+	db BANK(ExeggutorPicFront) ; which bank this mon's pics live in
+	assert BANK(ExeggutorPicFront) == BANK(ExeggutorPicBack), \
+	    "Exeggutor: front and back pics must share a bank"
