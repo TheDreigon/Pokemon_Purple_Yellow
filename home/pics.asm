@@ -13,8 +13,8 @@ UncompressMonSprite::
 ;       index < $1F:       bank $9 ("Pics 1")
 ; $1F ≤ index < $4A:       bank $A ("Pics 2")
 ; $4A ≤ index < $74:       bank $B ("Pics 3")
-; $74 ≤ index < $99:       bank $C ("Pics 4")
-; $99 ≤ index:             bank $D ("Pics 5")
+; $74 ≤ index < $98:       bank $C ("Pics 4")
+; $98 ≤ index:             bank $D ("Pics 5")
 	ld a, [wcf91]
 	ld b, a
 	cp FOSSIL_KABUTOPS
@@ -33,7 +33,7 @@ UncompressMonSprite::
 	ld a, BANK("Pics 3")
 	jr c, .GotBank
 	ld a, b
-	cp STARMIE + 1
+	cp STARMIE          ; STARMIE itself now lives in "Pics 5"
 	ld a, BANK("Pics 4")
 	jr c, .GotBank
 	ld a, BANK("Pics 5")

@@ -68,20 +68,23 @@ ROMX $8
 	"Bill's PC"
 	"Audio Engine 2"
 	"Music 2"
+; v0.7 2026-08-09: the pic banks now hold ONLY pics. Forte's big sprite pass
+; pushed "Pics 4" five bytes past a full bank and, once that was fixed, "Pics 1"
+; and "Pics 2" past theirs too - they were sharing their banks with Battle
+; Engine 3/4/5 (259+189+265 B) and Slot Machines (2562 B). Those four are all
+; reached through symbolic BANK(...), so nothing pins them here; they now float
+; and the linker puts them wherever there is room. This buys the artwork about
+; 3.2 KB of headroom across the five banks for the next round of swaps.
 ROMX $9
 	"Pics 1"
-	"Battle Engine 3"
 ROMX $A
 	"Pics 2"
-	"Battle Engine 4"
 ROMX $B
 	"Pics 3"
-	"Battle Engine 5"
 ROMX $C
 	"Pics 4"
 ROMX $D
 	"Pics 5"
-	"Slot Machines"
 ROMX $E
 	"Move Flavor Text 5"
 	"Battle Engine 6"
