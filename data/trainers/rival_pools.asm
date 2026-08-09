@@ -25,7 +25,7 @@ RivalBattlePointers:
 
 RivalBattle0: ; Lab (Oak's Lab)
 	db 1, 1, 1, 0 ; team size, guaranteed, entries, flags
-	db EEVEE, 5, 0, 0, 0, 0 ; natural level-up moves
+	db POLIWHIRL, 5, 0, 0, 0, 0 ; natural level-up moves
 
 RivalBattle1: ; Route 22-1
 	db 3, 1, 8, 0 ; team size, guaranteed, entries, flags
@@ -182,4 +182,3 @@ RivalBattle8: ; Champion rematch
 	db VAPOREON, 80, HYDRO_PUMP, ICE_BEAM, DOUBLE_EDGE, RECOVER
 	db JOLTEON, 80, THUNDER, DOUBLE_EDGE, PLAY_ROUGH, AGILITY
 	db FLAREON, 80, FIRE_BLAST, DOUBLE_EDGE, PLAY_ROUGH, SWORDS_DANCE
-
