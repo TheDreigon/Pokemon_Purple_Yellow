@@ -171,17 +171,17 @@ _SaffronGymChanneler1AfterBattleText::
 	cont "focus on winning!"
 	done
 
-_SaffronGymYoungster1BattleText::
+_SaffronGymPsychic1BattleText::
 	text "Does our unseen"
 	line "power scare you?"
 	done
 
-_SaffronGymYoungster1EndBattleText::
+_SaffronGymPsychic1EndBattleText::
 	text "I never"
 	line "foresaw this!"
 	prompt
 
-_SaffronGymYoungster1AfterBattleText::
+_SaffronGymPsychic1AfterBattleText::
 	text "Psychic #MON"
 	line "fear only bugs"
 	cont "and ghosts!"
@@ -207,18 +207,18 @@ _SaffronGymChanneler2AfterBattleText::
 	cont "to my #MON!"
 	done
 
-_SaffronGymYoungster2BattleText::
+_SaffronGymPsychic2BattleText::
 	text "You know that"
 	line "power alone isn't"
 	cont "enough!"
 	done
 
-_SaffronGymYoungster2EndBattleText::
+_SaffronGymPsychic2EndBattleText::
 	text "I don't"
 	line "believe this!"
 	prompt
 
-_SaffronGymYoungster2AfterBattleText::
+_SaffronGymPsychic2AfterBattleText::
 	text "SABRINA just wiped"
 	line "out the KARATE"
 	cont "MASTER next door!"
@@ -241,7 +241,7 @@ _SaffronGymChanneler3AfterBattleText::
 	cont "place."
 	done
 
-_SaffronGymYoungster3BattleText::
+_SaffronGymPsychic3BattleText::
 	text "SABRINA is young,"
 	line "but she's also"
 	cont "our LEADER!"
@@ -250,12 +250,12 @@ _SaffronGymYoungster3BattleText::
 	line "her easily!"
 	done
 
-_SaffronGymYoungster3EndBattleText::
+_SaffronGymPsychic3EndBattleText::
 	text "I lost"
 	line "my concentration!"
 	prompt
 
-_SaffronGymYoungster3AfterBattleText::
+_SaffronGymPsychic3AfterBattleText::
 	text "There used to be"
 	line "2 #MON GYMs in"
 	cont "SAFFRON."
@@ -267,7 +267,7 @@ _SaffronGymYoungster3AfterBattleText::
 	cont "creamed them!"
 	done
 
-_SaffronGymYoungster4BattleText::
+_SaffronGymPsychic4BattleText::
 	text "SAFFRON #MON"
 	line "GYM is famous for"
 	cont "its psychics!"
@@ -277,11 +277,11 @@ _SaffronGymYoungster4BattleText::
 	cont "I can tell!"
 	done
 
-_SaffronGymYoungster4EndBattleText::
+_SaffronGymPsychic4EndBattleText::
 	text "Arrrgh!"
 	prompt
 
-_SaffronGymYoungster4AfterBattleText::
+_SaffronGymPsychic4AfterBattleText::
 	text "That's right! I"
 	line "used telepathy to"
 	cont "read your mind!"

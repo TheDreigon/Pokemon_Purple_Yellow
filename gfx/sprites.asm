@@ -311,3 +311,10 @@ INCBIN "gfx/icons/mew.2bpp"
 SECTION "NPC Sprites 7", ROMX
 
 BillSprite::             INCBIN "gfx/sprites/bill.2bpp"
+
+; The PSYCHIC's own overworld sprite: Bill's sheet with the hair sunk to black,
+; so the Saffron Gym psychics stop borrowing the youngster's head. Floating
+; section for the same reason Bill needed one.
+SECTION "NPC Sprites 8", ROMX
+
+PsychicSprite::          INCBIN "gfx/sprites/psychic.2bpp"

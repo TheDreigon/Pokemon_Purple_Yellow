@@ -32,7 +32,11 @@
 	const SPRITE_MIDDLE_AGED_WOMAN       ; $1c
 	const SPRITE_BRUNETTE_GIRL           ; $1d
 	const SPRITE_LANCE                   ; $1e
-	const SPRITE_UNUSED_RED_1            ; $1f
+; v0.7: was SPRITE_UNUSED_RED_1, a dead alias that pointed at RedSprite and was
+; placed on no map. Reusing the slot keeps the id at $1f, so nothing after it
+; shifts - adding a constant before FIRST_STILL_SPRITE would have moved every
+; still-sprite id by one.
+	const SPRITE_PSYCHIC                 ; $1f
 	const SPRITE_SCIENTIST               ; $20
 	const SPRITE_ROCKER                  ; $21
 	const SPRITE_SWIMMER                 ; $22

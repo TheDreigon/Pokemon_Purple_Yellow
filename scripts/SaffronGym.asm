@@ -156,12 +156,12 @@ SaffronGym_TextPointers:
 	def_text_pointers
 	dw_const SaffronGymSabrinaText,               TEXT_SAFFRONGYM_SABRINA
 	dw_const SaffronGymChanneler1Text,            TEXT_SAFFRONGYM_CHANNELER1
-	dw_const SaffronGymYoungster1Text,            TEXT_SAFFRONGYM_YOUNGSTER1
+	dw_const SaffronGymPsychic1Text,            TEXT_SAFFRONGYM_PSYCHIC1
 	dw_const SaffronGymChanneler2Text,            TEXT_SAFFRONGYM_CHANNELER2
-	dw_const SaffronGymYoungster2Text,            TEXT_SAFFRONGYM_YOUNGSTER2
+	dw_const SaffronGymPsychic2Text,            TEXT_SAFFRONGYM_PSYCHIC2
 	dw_const SaffronGymChanneler3Text,            TEXT_SAFFRONGYM_CHANNELER3
-	dw_const SaffronGymYoungster3Text,            TEXT_SAFFRONGYM_YOUNGSTER3
-	dw_const SaffronGymYoungster4Text,            TEXT_SAFFRONGYM_YOUNGSTER4
+	dw_const SaffronGymPsychic3Text,            TEXT_SAFFRONGYM_PSYCHIC3
+	dw_const SaffronGymPsychic4Text,            TEXT_SAFFRONGYM_PSYCHIC4
 	dw_const SaffronGymGymGuideText,              TEXT_SAFFRONGYM_GYM_GUIDE
 	dw_const SaffronGymSabrinaMarshBadgeInfoText, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
 	dw_const SaffronGymSabrinaReceivedTMText,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
@@ -175,17 +175,17 @@ SaffronGymTrainerHeaders:
 SaffronGymTrainerHeader0:
 	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_0, 3, SaffronGymChanneler1BattleText, SaffronGymChanneler1EndBattleText, SaffronGymChanneler1AfterBattleText
 SaffronGymTrainerHeader1:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_1, 3, SaffronGymYoungster1BattleText, SaffronGymYoungster1EndBattleText, SaffronGymYoungster1AfterBattleText
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_1, 3, SaffronGymPsychic1BattleText, SaffronGymPsychic1EndBattleText, SaffronGymPsychic1AfterBattleText
 SaffronGymTrainerHeader2:
 	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_2, 3, SaffronGymChanneler2BattleText, SaffronGymChanneler2EndBattleText, SaffronGymChanneler2AfterBattleText
 SaffronGymTrainerHeader3:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_3, 3, SaffronGymYoungster2BattleText, SaffronGymYoungster2EndBattleText, SaffronGymYoungster2AfterBattleText
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_3, 3, SaffronGymPsychic2BattleText, SaffronGymPsychic2EndBattleText, SaffronGymPsychic2AfterBattleText
 SaffronGymTrainerHeader4:
 	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_4, 3, SaffronGymChanneler3BattleText, SaffronGymChanneler3EndBattleText, SaffronGymChanneler3AfterBattleText
 SaffronGymTrainerHeader5:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_5, 3, SaffronGymYoungster3BattleText, SaffronGymYoungster3EndBattleText, SaffronGymYoungster3AfterBattleText
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_5, 3, SaffronGymPsychic3BattleText, SaffronGymPsychic3EndBattleText, SaffronGymPsychic3AfterBattleText
 SaffronGymTrainerHeader6:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_6, 3, SaffronGymYoungster4BattleText, SaffronGymYoungster4EndBattleText, SaffronGymYoungster4AfterBattleText
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_6, 3, SaffronGymPsychic4BattleText, SaffronGymPsychic4EndBattleText, SaffronGymPsychic4AfterBattleText
 	db -1 ; end
 
 SaffronGymSabrinaText:
@@ -353,7 +353,7 @@ SaffronGymChanneler1Text:
 	call TalkToTrainer
 	jp TextScriptEnd
 
-SaffronGymYoungster1Text:
+SaffronGymPsychic1Text:
 	text_asm
 	ld hl, SaffronGymTrainerHeader1
 	call TalkToTrainer
@@ -365,7 +365,7 @@ SaffronGymChanneler2Text:
 	call TalkToTrainer
 	jp TextScriptEnd
 
-SaffronGymYoungster2Text:
+SaffronGymPsychic2Text:
 	text_asm
 	ld hl, SaffronGymTrainerHeader3
 	call TalkToTrainer
@@ -377,13 +377,13 @@ SaffronGymChanneler3Text:
 	call TalkToTrainer
 	jp TextScriptEnd
 
-SaffronGymYoungster3Text:
+SaffronGymPsychic3Text:
 	text_asm
 	ld hl, SaffronGymTrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
-SaffronGymYoungster4Text:
+SaffronGymPsychic4Text:
 	text_asm
 	ld hl, SaffronGymTrainerHeader6
 	call TalkToTrainer
@@ -422,16 +422,16 @@ SaffronGymChanneler1AfterBattleText:
 	text_far _SaffronGymChanneler1AfterBattleText
 	text_end
 
-SaffronGymYoungster1BattleText:
-	text_far _SaffronGymYoungster1BattleText
+SaffronGymPsychic1BattleText:
+	text_far _SaffronGymPsychic1BattleText
 	text_end
 
-SaffronGymYoungster1EndBattleText:
-	text_far _SaffronGymYoungster1EndBattleText
+SaffronGymPsychic1EndBattleText:
+	text_far _SaffronGymPsychic1EndBattleText
 	text_end
 
-SaffronGymYoungster1AfterBattleText:
-	text_far _SaffronGymYoungster1AfterBattleText
+SaffronGymPsychic1AfterBattleText:
+	text_far _SaffronGymPsychic1AfterBattleText
 	text_end
 
 SaffronGymChanneler2BattleText:
@@ -446,16 +446,16 @@ SaffronGymChanneler2AfterBattleText:
 	text_far _SaffronGymChanneler2AfterBattleText
 	text_end
 
-SaffronGymYoungster2BattleText:
-	text_far _SaffronGymYoungster2BattleText
+SaffronGymPsychic2BattleText:
+	text_far _SaffronGymPsychic2BattleText
 	text_end
 
-SaffronGymYoungster2EndBattleText:
-	text_far _SaffronGymYoungster2EndBattleText
+SaffronGymPsychic2EndBattleText:
+	text_far _SaffronGymPsychic2EndBattleText
 	text_end
 
-SaffronGymYoungster2AfterBattleText:
-	text_far _SaffronGymYoungster2AfterBattleText
+SaffronGymPsychic2AfterBattleText:
+	text_far _SaffronGymPsychic2AfterBattleText
 	text_end
 
 SaffronGymChanneler3BattleText:
@@ -470,26 +470,26 @@ SaffronGymChanneler3AfterBattleText:
 	text_far _SaffronGymChanneler3AfterBattleText
 	text_end
 
-SaffronGymYoungster3BattleText:
-	text_far _SaffronGymYoungster3BattleText
+SaffronGymPsychic3BattleText:
+	text_far _SaffronGymPsychic3BattleText
 	text_end
 
-SaffronGymYoungster3EndBattleText:
-	text_far _SaffronGymYoungster3EndBattleText
+SaffronGymPsychic3EndBattleText:
+	text_far _SaffronGymPsychic3EndBattleText
 	text_end
 
-SaffronGymYoungster3AfterBattleText:
-	text_far _SaffronGymYoungster3AfterBattleText
+SaffronGymPsychic3AfterBattleText:
+	text_far _SaffronGymPsychic3AfterBattleText
 	text_end
 
-SaffronGymYoungster4BattleText:
-	text_far _SaffronGymYoungster4BattleText
+SaffronGymPsychic4BattleText:
+	text_far _SaffronGymPsychic4BattleText
 	text_end
 
-SaffronGymYoungster4EndBattleText:
-	text_far _SaffronGymYoungster4EndBattleText
+SaffronGymPsychic4EndBattleText:
+	text_far _SaffronGymPsychic4EndBattleText
 	text_end
 
-SaffronGymYoungster4AfterBattleText:
-	text_far _SaffronGymYoungster4AfterBattleText
+SaffronGymPsychic4AfterBattleText:
+	text_far _SaffronGymPsychic4AfterBattleText
 	text_end
