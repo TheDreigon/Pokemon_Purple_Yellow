@@ -25,7 +25,7 @@ RivalBattlePointers:
 
 RivalBattle0: ; Lab (Oak's Lab)
 	db 1, 1, 1, 0 ; team size, guaranteed, entries, flags
-	db POLIWHIRL, 5, 0, 0, 0, 0 ; natural level-up moves
+	db EEVEE, 5, 0, 0, 0, 0 ; natural level-up moves
 
 RivalBattle1: ; Route 22-1
 	db 3, 1, 8, 0 ; team size, guaranteed, entries, flags
