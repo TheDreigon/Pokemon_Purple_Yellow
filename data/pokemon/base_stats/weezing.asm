@@ -1,7 +1,7 @@
 	db DEX_WEEZING ; pokedex id
 	base_stat_row 90, 95, 100, 95, 50 ; hp atk def spc spd
 	db POISON, GAS ; type
-	db 55 ; catch rate  ; set by hand: level with Muk
+	db 60 ; catch rate  ; set by hand: level with Muk
 	db 173 ; base exp
 
 	INCBIN "gfx/pokemon/front/weezing.pic", 0, 1 ; sprite dimensions
