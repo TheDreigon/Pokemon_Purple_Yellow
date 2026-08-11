@@ -2,7 +2,7 @@
 	base_stat_row 90, 80, 50, 60, 115 ; hp atk def spc spd
 	db NORMAL, DARK ; type
 	db 65 ; catch rate  ; final stage, BST 395, harder to handle
-	db 148 ; base exp
+	db 150 ; base exp  ; BST 395 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/persian.pic", 0, 1 ; sprite dimensions
 	dw PersianPicFront, PersianPicBack

@@ -3,7 +3,7 @@
 
 	db WATER, ICE ; type
 	db 60 ; catch rate  ; set by hand
-	db 203 ; base exp
+	db 175 ; base exp  ; BST 440 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/cloyster.pic", 0, 1 ; sprite dimensions
 	dw CloysterPicFront, CloysterPicBack

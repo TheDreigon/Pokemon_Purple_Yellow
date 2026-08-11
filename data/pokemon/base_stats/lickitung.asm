@@ -2,7 +2,7 @@
 	base_stat_row 95, 70, 75, 70, 40 ; hp atk def spc spd
 	db NORMAL, POISON ; type
 	db 145 ; catch rate  ; set by hand
-	db 127 ; base exp
+	db 130 ; base exp  ; BST 350 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/lickitung.pic", 0, 1 ; sprite dimensions
 	dw LickitungPicFront, LickitungPicBack

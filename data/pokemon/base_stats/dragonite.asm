@@ -2,7 +2,7 @@
 	base_stat_row 110, 115, 80, 110, 85 ; hp atk def spc spd
 	db DRAGON, DRAGON ; type
 	db 20 ; catch rate  ; exception: same line; vanilla 9 was near-impossible, this is hard
-	db 218 ; base exp
+	db 230 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/dragonite.pic", 0, 1 ; sprite dimensions
 	dw DragonitePicFront, DragonitePicBack

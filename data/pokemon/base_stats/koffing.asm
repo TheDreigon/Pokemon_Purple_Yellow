@@ -2,7 +2,7 @@
 	base_stat_row 40, 65, 80, 65, 40 ; hp atk def spc spd
 	db POISON, GAS ; type
 	db 180 ; catch rate  ; set by hand: a floating gas bag that would rather burst
-	db 114 ; base exp
+	db 90 ; base exp  ; BST 290 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/koffing.pic", 0, 1 ; sprite dimensions
 	dw KoffingPicFront, KoffingPicBack

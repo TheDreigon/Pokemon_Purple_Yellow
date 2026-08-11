@@ -3,7 +3,7 @@
 
 	db BUG, POISON ; type
 	db 200 ; catch rate  ; set by hand: an immobile cocoon whose only move is to harden
-	db 71 ; base exp
+	db 40 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/kakuna.pic", 0, 1 ; sprite dimensions
 	dw KakunaPicFront, KakunaPicBack

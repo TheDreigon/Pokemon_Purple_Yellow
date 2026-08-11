@@ -3,7 +3,7 @@
 
 	db BUG, POISON ; type
 	db 70 ; catch rate  ; final stage, BST 375, harder to handle
-	db 159 ; base exp
+	db 135 ; base exp  ; BST 375 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/beedrill.pic", 0, 1 ; sprite dimensions
 	dw BeedrillPicFront, BeedrillPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 80, 70, 70, 110, 105 ; hp atk def spc spd
 	db FIRE, FAIRY ; type
 	db 65 ; catch rate  ; final stage, BST 435
-	db 178 ; base exp
+	db 180 ; base exp  ; BST 435 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/ninetales.pic", 0, 1 ; sprite dimensions
 	dw NinetalesPicFront, NinetalesPicBack

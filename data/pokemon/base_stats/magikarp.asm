@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 255 ; catch rate  ; base stage, BST 180, easy to approach
-	db 20 ; base exp
+	db 30 ; base exp  ; a piada; sabor deliberado
 
 	INCBIN "gfx/pokemon/front/magikarp.pic", 0, 1 ; sprite dimensions
 	dw MagikarpPicFront, MagikarpPicBack

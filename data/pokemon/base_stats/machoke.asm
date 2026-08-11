@@ -3,7 +3,7 @@
 
 	db FIGHTING, FIGHTING ; type
 	db 100 ; catch rate  ; mid stage, BST 385, harder to handle
-	db 146 ; base exp
+	db 150 ; base exp  ; BST 385 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/machoke.pic", 0, 1 ; sprite dimensions
 	dw MachokePicFront, MachokePicBack

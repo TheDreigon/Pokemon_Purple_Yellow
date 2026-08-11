@@ -3,7 +3,7 @@
 
 	db GRASS, POISON ; type
 	db 130 ; catch rate  ; mid stage, BST 330, easy to approach
-	db 151 ; base exp
+	db 110 ; base exp  ; BST 330 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/weepinbell.pic", 0, 1 ; sprite dimensions
 	dw WeepinbellPicFront, WeepinbellPicBack

@@ -3,7 +3,7 @@
 
 	db ELECTRIC, ELECTRIC ; type
 	db 65 ; catch rate  ; solo stage, BST 430, harder to handle
-	db 156 ; base exp
+	db 175 ; base exp  ; BST 430 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/electabuzz.pic", 0, 1 ; sprite dimensions
 	dw ElectabuzzPicFront, ElectabuzzPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 65, 70, 45, 50, 70 ; hp atk def spc spd
 	db FIRE, NORMAL ; type
 	db 210 ; catch rate  ; base stage, BST 300
-	db 91 ; base exp
+	db 100 ; base exp  ; BST 300 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/growlithe.pic", 0, 1 ; sprite dimensions
 	dw GrowlithePicFront, GrowlithePicBack

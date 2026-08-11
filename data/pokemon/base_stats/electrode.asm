@@ -2,7 +2,7 @@
 	base_stat_row 40, 90, 80, 90, 130 ; hp atk def spc spd
 	db ELECTRIC, STEEL ; type
 	db 75 ; catch rate  ; set by hand
-	db 150 ; base exp
+	db 180 ; base exp  ; BST 430 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/electrode.pic", 0, 1 ; sprite dimensions
 	dw ElectrodePicFront, ElectrodePicBack

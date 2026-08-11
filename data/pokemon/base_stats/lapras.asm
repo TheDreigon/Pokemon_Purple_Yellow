@@ -3,7 +3,7 @@
 
 	db WATER, ICE ; type
 	db 90 ; catch rate  ; solo stage, BST 460, easy to approach
-	db 219 ; base exp
+	db 190 ; base exp  ; BST 460 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/lapras.pic", 0, 1 ; sprite dimensions
 	dw LaprasPicFront, LaprasPicBack

@@ -3,7 +3,7 @@
 
 	db DRAGON, DRAGON ; type
 	db 30 ; catch rate  ; exception: same line, tightening
-	db 144 ; base exp
+	db 135 ; base exp  ; BST 370 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/dragonair.pic", 0, 1 ; sprite dimensions
 	dw DragonairPicFront, DragonairPicBack

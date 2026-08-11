@@ -3,7 +3,7 @@
 
 	db ROCK, WATER ; type
 	db 60 ; catch rate  ; set by hand: level with Aerodactyl
-	db 199 ; base exp
+	db 200 ; base exp  ; fossil final
 
 	INCBIN "gfx/pokemon/front/omastar.pic", 0, 1 ; sprite dimensions
 	dw OmastarPicFront, OmastarPicBack

@@ -3,7 +3,7 @@
 
 	db ROCK, GROUND ; type
 	db 100 ; catch rate  ; mid stage, BST 365, harder to handle
-	db 134 ; base exp
+	db 135 ; base exp  ; BST 365 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/graveler.pic", 0, 1 ; sprite dimensions
 	dw GravelerPicFront, GravelerPicBack

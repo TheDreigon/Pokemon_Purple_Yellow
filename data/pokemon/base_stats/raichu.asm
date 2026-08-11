@@ -3,7 +3,7 @@
 
 	db ELECTRIC, ELECTRIC ; type
 	db 70 ; catch rate  ; set by hand: quick and it shocks you
-	db 122 ; base exp
+	db 175 ; base exp  ; escolha dele; deixa espaco para o gorochu
 
 	INCBIN "gfx/pokemon/front/raichu.pic", 0, 1 ; sprite dimensions
 	dw RaichuPicFront, RaichuPicBack

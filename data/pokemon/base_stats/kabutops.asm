@@ -2,7 +2,7 @@
 	base_stat_row 75, 115, 110, 80, 80 ; hp atk def spc spd
 	db ROCK, BUG ; type
 	db 60 ; catch rate  ; set by hand: level with Aerodactyl
-	db 201 ; base exp
+	db 200 ; base exp  ; fossil final
 
 	INCBIN "gfx/pokemon/front/kabutops.pic", 0, 1 ; sprite dimensions
 	dw KabutopsPicFront, KabutopsPicBack

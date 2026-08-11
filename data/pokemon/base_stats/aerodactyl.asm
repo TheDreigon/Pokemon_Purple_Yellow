@@ -3,7 +3,7 @@
 
 	db ROCK, FLYING ; type
 	db 60 ; catch rate  ; solo stage, BST 455, harder to handle
-	db 202 ; base exp
+	db 200 ; base exp  ; fossil final
 
 	INCBIN "gfx/pokemon/front/aerodactyl.pic", 0, 1 ; sprite dimensions
 	dw AerodactylPicFront, AerodactylPicBack

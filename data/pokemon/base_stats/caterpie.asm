@@ -3,7 +3,7 @@
 
 	db BUG, BUG ; type
 	db 255 ; catch rate  ; base stage, BST 175
-	db 53 ; base exp
+	db 35 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/caterpie.pic", 0, 1 ; sprite dimensions
 	dw CaterpiePicFront, CaterpiePicBack

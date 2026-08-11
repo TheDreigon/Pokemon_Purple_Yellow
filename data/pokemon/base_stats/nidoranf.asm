@@ -3,7 +3,7 @@
 
 	db POISON, POISON ; type
 	db 230 ; catch rate  ; base stage, BST 244
-	db 59 ; base exp
+	db 65 ; base exp  ; BST 244 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/nidoranf.pic", 0, 1 ; sprite dimensions
 	dw NidoranFPicFront, NidoranFPicBack

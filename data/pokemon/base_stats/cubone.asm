@@ -3,7 +3,7 @@
 
 	db GROUND, GROUND ; type
 	db 225 ; catch rate  ; base stage, BST 260
-	db 87 ; base exp
+	db 75 ; base exp  ; BST 260 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/cubone.pic", 0, 1 ; sprite dimensions
 	dw CubonePicFront, CubonePicBack

@@ -2,7 +2,7 @@
 	base_stat_row 70, 115, 100, 55, 70 ; hp atk def spc spd
 	db BUG, FIGHTING ; type
 	db 70 ; catch rate  ; solo stage, BST 410, harder to handle
-	db 200 ; base exp
+	db 155 ; base exp  ; BST 410 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/pinsir.pic", 0, 1 ; sprite dimensions
 	dw PinsirPicFront, PinsirPicBack

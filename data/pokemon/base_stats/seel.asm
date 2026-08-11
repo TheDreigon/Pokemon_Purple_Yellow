@@ -2,7 +2,7 @@
 	base_stat_row 65, 45, 55, 65, 50 ; hp atk def spc spd
 	db WATER, ICE ; type
 	db 230 ; catch rate  ; base stage, BST 280, easy to approach
-	db 100 ; base exp
+	db 80 ; base exp  ; BST 280 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/seel.pic", 0, 1 ; sprite dimensions
 	dw SeelPicFront, SeelPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 85, 60, 50, 65, 30 ; hp atk def spc spd
 	db POISON, WATER ; type
 	db 180 ; catch rate  ; set by hand: sludge: less to hold than it looks
-	db 90 ; base exp
+	db 90 ; base exp  ; BST 290 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/grimer.pic", 0, 1 ; sprite dimensions
 	dw GrimerPicFront, GrimerPicBack

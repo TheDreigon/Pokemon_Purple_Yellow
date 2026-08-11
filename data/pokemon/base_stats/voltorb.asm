@@ -2,7 +2,7 @@
 	base_stat_row 20, 50, 40, 50, 110 ; hp atk def spc spd
 	db ELECTRIC, STEEL ; type
 	db 205 ; catch rate  ; base stage, BST 270, harder to handle
-	db 103 ; base exp
+	db 85 ; base exp  ; BST 270 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/voltorb.pic", 0, 1 ; sprite dimensions
 	dw VoltorbPicFront, VoltorbPicBack

@@ -3,7 +3,7 @@
 
 	db GROUND, ROCK ; type
 	db 190 ; catch rate  ; base stage, BST 355, harder to handle
-	db 135 ; base exp
+	db 125 ; base exp  ; BST 355 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/rhyhorn.pic", 0, 1 ; sprite dimensions
 	dw RhyhornPicFront, RhyhornPicBack

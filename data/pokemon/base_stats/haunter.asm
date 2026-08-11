@@ -2,7 +2,7 @@
 	base_stat_row 45, 60, 45, 105, 100 ; hp atk def spc spd
 	db GHOST, GAS ; type
 	db 75 ; catch rate  ; exception: same line, less substance still
-	db 126 ; base exp
+	db 130 ; base exp  ; BST 355 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/haunter.pic", 0, 1 ; sprite dimensions
 	dw HaunterPicFront, HaunterPicBack

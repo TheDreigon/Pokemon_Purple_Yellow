@@ -3,7 +3,7 @@
 
 	db GRASS, POISON ; type
 	db 235 ; catch rate  ; base stage, BST 235
-	db 84 ; base exp
+	db 55 ; base exp  ; BST 235 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/bellsprout.pic", 0, 1 ; sprite dimensions
 	dw BellsproutPicFront, BellsproutPicBack

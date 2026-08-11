@@ -3,7 +3,7 @@
 
 	db BUG, FLYING ; type
 	db 70 ; catch rate  ; solo stage, BST 410, harder to handle
-	db 187 ; base exp
+	db 155 ; base exp  ; BST 410 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/scyther.pic", 0, 1 ; sprite dimensions
 	dw ScytherPicFront, ScytherPicBack

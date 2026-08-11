@@ -3,7 +3,7 @@
 
 	db FIRE, FIRE ; type
 	db 75 ; catch rate  ; set by hand: starter line, middle
-	db 142 ; base exp
+	db 115 ; base exp  ; BST 330 - grupo mantido igual
 
 	INCBIN "gfx/pokemon/front/charmeleon.pic", 0, 1 ; sprite dimensions
 	dw CharmeleonPicFront, CharmeleonPicBack

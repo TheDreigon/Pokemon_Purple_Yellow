@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 90 ; catch rate  ; set by hand
-	db 206 ; base exp
+	db 175 ; base exp  ; BST 430
 
 	INCBIN "gfx/pokemon/front/kingler.pic", 0, 1 ; sprite dimensions
 	dw KinglerPicFront, KinglerPicBack

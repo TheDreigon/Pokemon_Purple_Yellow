@@ -3,7 +3,7 @@
 
 	db FIRE, FIRE ; type
 	db 75 ; catch rate  ; final stage, BST 450, easy to approach
-	db 198 ; base exp
+	db 210 ; base exp  ; eeveelution
 
 	INCBIN "gfx/pokemon/front/flareon.pic", 0, 1 ; sprite dimensions
 	dw FlareonPicFront, FlareonPicBack

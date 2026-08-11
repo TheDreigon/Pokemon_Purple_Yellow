@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 240 ; catch rate  ; base stage, BST 220
-	db 55 ; base exp
+	db 45 ; base exp  ; BST 220 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/pidgey.pic", 0, 1 ; sprite dimensions
 	dw PidgeyPicFront, PidgeyPicBack

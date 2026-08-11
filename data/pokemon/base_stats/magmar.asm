@@ -2,7 +2,7 @@
 	base_stat_row 75, 95, 80, 95, 85 ; hp atk def spc spd
 	db FIRE, MAGMA ; type
 	db 65 ; catch rate  ; solo stage, BST 430, harder to handle
-	db 167 ; base exp
+	db 180 ; base exp  ; BST 430 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/magmar.pic", 0, 1 ; sprite dimensions
 	dw MagmarPicFront, MagmarPicBack

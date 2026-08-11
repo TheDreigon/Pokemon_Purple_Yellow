@@ -3,7 +3,7 @@
 
 	db FIRE, FIRE ; type
 	db 65 ; catch rate  ; set by hand
-	db 192 ; base exp
+	db 175 ; base exp  ; BST 425 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/rapidash.pic", 0, 1 ; sprite dimensions
 	dw RapidashPicFront, RapidashPicBack

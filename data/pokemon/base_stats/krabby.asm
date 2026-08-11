@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 220 ; catch rate  ; base stage, BST 275
-	db 115 ; base exp
+	db 80 ; base exp  ; BST 275
 
 	INCBIN "gfx/pokemon/front/krabby.pic", 0, 1 ; sprite dimensions
 	dw KrabbyPicFront, KrabbyPicBack

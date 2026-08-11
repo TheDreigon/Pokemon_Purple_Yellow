@@ -2,7 +2,7 @@
 	base_stat_row 60, 60, 55, 95, 85 ; hp atk def spc spd
 	db BUG, PSYCHIC_TYPE ; type
 	db 90 ; catch rate  ; final stage, BST 355
-	db 160 ; base exp
+	db 125 ; base exp  ; BST 355 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/butterfree.pic", 0, 1 ; sprite dimensions
 	dw ButterfreePicFront, ButterfreePicBack

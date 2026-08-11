@@ -3,7 +3,7 @@
 
 	db GRASS, PSYCHIC_TYPE ; type
 	db 250 ; catch rate  ; base stage, BST 235, easy to approach
-	db 98 ; base exp
+	db 50 ; base exp  ; BST 235 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/exeggcute.pic", 0, 1 ; sprite dimensions
 	dw ExeggcutePicFront, ExeggcutePicBack

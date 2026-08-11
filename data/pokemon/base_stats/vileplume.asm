@@ -2,7 +2,7 @@
 	base_stat_row 110, 95, 85, 95, 45 ; hp atk def spc spd
 	db GRASS, FUNGUS ; type
 	db 65 ; catch rate  ; final stage, BST 430
-	db 184 ; base exp
+	db 170 ; base exp  ; BST 430 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/vileplume.pic", 0, 1 ; sprite dimensions
 	dw VileplumePicFront, VileplumePicBack

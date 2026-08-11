@@ -2,7 +2,7 @@
 	base_stat_row 125, 95, 75, 95, 40 ; hp atk def spc spd
 	db POISON, WATER ; type
 	db 60 ; catch rate  ; set by hand: level with Weezing; his 2026-08-10 stat pass
-	db 157 ; base exp
+	db 175 ; base exp  ; BST 430 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/muk.pic", 0, 1 ; sprite dimensions
 	dw MukPicFront, MukPicBack

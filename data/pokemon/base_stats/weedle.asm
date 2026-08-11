@@ -3,7 +3,7 @@
 
 	db BUG, POISON ; type
 	db 255 ; catch rate  ; base stage, BST 175
-	db 52 ; base exp
+	db 35 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/weedle.pic", 0, 1 ; sprite dimensions
 	dw WeedlePicFront, WeedlePicBack

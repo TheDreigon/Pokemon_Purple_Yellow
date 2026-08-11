@@ -2,7 +2,7 @@
 	base_stat_row 95, 90, 90, 90, 20 ; hp atk def spc spd
 	db BUG, FUNGUS ; type
 	db 90 ; catch rate  ; final stage, BST 385, easy to approach
-	db 128 ; base exp
+	db 140 ; base exp  ; BST 385 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/parasect.pic", 0, 1 ; sprite dimensions
 	dw ParasectPicFront, ParasectPicBack

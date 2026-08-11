@@ -3,7 +3,7 @@
 
 	db GROUND, GROUND ; type
 	db 75 ; catch rate  ; final stage, BST 410
-	db 163 ; base exp
+	db 165 ; base exp  ; BST 410 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/sandslash.pic", 0, 1 ; sprite dimensions
 	dw SandslashPicFront, SandslashPicBack

@@ -3,7 +3,7 @@
 
 	db GRASS, POISON ; type
 	db 65 ; catch rate  ; final stage, BST 430
-	db 191 ; base exp
+	db 170 ; base exp  ; BST 430 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/victreebel.pic", 0, 1 ; sprite dimensions
 	dw VictreebelPicFront, VictreebelPicBack

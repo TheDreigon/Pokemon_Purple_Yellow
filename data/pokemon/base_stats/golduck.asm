@@ -2,7 +2,7 @@
 	base_stat_row 80, 80, 70, 90, 85 ; hp atk def spc spd
 	db WATER, PSYCHIC_TYPE ; type
 	db 75 ; catch rate  ; final stage, BST 405
-	db 174 ; base exp
+	db 155 ; base exp  ; BST 405 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/golduck.pic", 0, 1 ; sprite dimensions
 	dw GolduckPicFront, GolduckPicBack

@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 110 ; catch rate  ; mid stage, BST 335
-	db 131 ; base exp
+	db 115 ; base exp  ; BST 335
 
 	INCBIN "gfx/pokemon/front/poliwhirl.pic", 0, 1 ; sprite dimensions
 	dw PoliwhirlPicFront, PoliwhirlPicBack

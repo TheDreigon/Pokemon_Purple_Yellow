@@ -3,7 +3,7 @@
 
 	db FIRE, FIRE ; type
 	db 190 ; catch rate  ; base stage, BST 310, harder to handle
-	db 152 ; base exp
+	db 105 ; base exp  ; BST 310 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/ponyta.pic", 0, 1 ; sprite dimensions
 	dw PonytaPicFront, PonytaPicBack

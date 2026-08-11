@@ -3,7 +3,7 @@
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 1 ; catch rate  ; set by hand: legendary: the hardest thing in the game
-	db 220 ; base exp
+	db 255 ; base exp  ; topo absoluto
 
 	INCBIN "gfx/pokemon/front/mewtwo.pic", 0, 1 ; sprite dimensions
 	dw MewtwoPicFront, MewtwoPicBack

@@ -3,7 +3,7 @@
 
 	db BUG, GRASS ; type
 	db 240 ; catch rate  ; base stage, BST 255, easy to approach
-	db 70 ; base exp
+	db 65 ; base exp  ; BST 255 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/paras.pic", 0, 1 ; sprite dimensions
 	dw ParasPicFront, ParasPicBack

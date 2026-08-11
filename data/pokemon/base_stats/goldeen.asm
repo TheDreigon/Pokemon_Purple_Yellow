@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 230 ; catch rate  ; set by hand
-	db 111 ; base exp
+	db 75 ; base exp  ; BST 265
 
 	INCBIN "gfx/pokemon/front/goldeen.pic", 0, 1 ; sprite dimensions
 	dw GoldeenPicFront, GoldeenPicBack

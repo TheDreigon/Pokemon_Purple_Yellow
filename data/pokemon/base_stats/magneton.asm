@@ -2,7 +2,7 @@
 	base_stat_row 60, 75, 100, 120, 65 ; hp atk def spc spd
 	db ELECTRIC, STEEL ; type
 	db 80 ; catch rate  ; set by hand
-	db 161 ; base exp
+	db 175 ; base exp  ; BST 420 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/magneton.pic", 0, 1 ; sprite dimensions
 	dw MagnetonPicFront, MagnetonPicBack

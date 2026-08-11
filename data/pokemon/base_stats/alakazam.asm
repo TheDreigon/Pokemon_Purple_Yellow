@@ -3,7 +3,7 @@
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 45 ; catch rate  ; set by hand: reads the throw before it happens
-	db 186 ; base exp
+	db 190 ; base exp  ; escolha dele: luta acima do BST dele
 
 	INCBIN "gfx/pokemon/front/alakazam.pic", 0, 1 ; sprite dimensions
 	dw AlakazamPicFront, AlakazamPicBack

@@ -3,7 +3,7 @@
 
 	db GRASS, PSYCHIC_TYPE ; type
 	db 65 ; catch rate  ; final stage, BST 430
-	db 212 ; base exp
+	db 170 ; base exp  ; BST 430 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/exeggutor.pic", 0, 1 ; sprite dimensions
 	dw ExeggutorPicFront, ExeggutorPicBack

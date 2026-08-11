@@ -3,7 +3,7 @@
 
 	db BUG, POISON ; type
 	db 225 ; catch rate  ; base stage, BST 255
-	db 75 ; base exp
+	db 65 ; base exp  ; BST 255 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/venonat.pic", 0, 1 ; sprite dimensions
 	dw VenonatPicFront, VenonatPicBack

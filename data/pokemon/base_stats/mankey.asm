@@ -2,7 +2,7 @@
 	base_stat_row 40, 80, 35, 30, 80 ; hp atk def spc spd
 	db FIGHTING, FIGHTING ; type
 	db 220 ; catch rate  ; base stage, BST 265
-	db 74 ; base exp
+	db 75 ; base exp  ; BST 265 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/mankey.pic", 0, 1 ; sprite dimensions
 	dw MankeyPicFront, MankeyPicBack

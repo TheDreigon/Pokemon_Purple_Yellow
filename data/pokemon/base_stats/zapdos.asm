@@ -3,7 +3,7 @@
 
 	db ELECTRIC, FLYING ; type
 	db 3 ; catch rate  ; exception: legendary: one in the world
-	db 216 ; base exp
+	db 250 ; base exp  ; trio dos passaros lendarios
 
 	INCBIN "gfx/pokemon/front/zapdos.pic", 0, 1 ; sprite dimensions
 	dw ZapdosPicFront, ZapdosPicBack

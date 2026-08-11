@@ -2,7 +2,7 @@
 	base_stat_row 20, 40, 75, 80, 40 ; hp atk def spc spd
 	db ELECTRIC, STEEL ; type
 	db 225 ; catch rate  ; base stage, BST 255
-	db 89 ; base exp
+	db 75 ; base exp  ; BST 255 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/magnemite.pic", 0, 1 ; sprite dimensions
 	dw MagnemitePicFront, MagnemitePicBack

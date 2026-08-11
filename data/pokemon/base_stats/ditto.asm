@@ -3,7 +3,7 @@
 
 	db NORMAL, NORMAL ; type
 	db 155 ; catch rate  ; set by hand: harmless: it copies you rather than resisting you
-	db 61 ; base exp
+	db 240 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/ditto.pic", 0, 1 ; sprite dimensions
 	dw DittoPicFront, DittoPicBack

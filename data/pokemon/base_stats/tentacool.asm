@@ -3,7 +3,7 @@
 
 	db WATER, POISON ; type
 	db 240 ; catch rate  ; base stage, BST 260, easy to approach
-	db 105 ; base exp
+	db 75 ; base exp  ; BST 260 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/tentacool.pic", 0, 1 ; sprite dimensions
 	dw TentacoolPicFront, TentacoolPicBack

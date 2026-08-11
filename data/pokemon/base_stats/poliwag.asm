@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 235 ; catch rate  ; base stage, BST 225
-	db 77 ; base exp
+	db 50 ; base exp  ; BST 225
 
 	INCBIN "gfx/pokemon/front/poliwag.pic", 0, 1 ; sprite dimensions
 	dw PoliwagPicFront, PoliwagPicBack

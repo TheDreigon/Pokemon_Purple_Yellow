@@ -3,7 +3,7 @@
 
 	db FIRE, FLYING ; type
 	db 45 ; catch rate  ; set by hand: starter line, fully grown
-	db 209 ; base exp
+	db 220 ; base exp  ; starter final
 
 	INCBIN "gfx/pokemon/front/charizard.pic", 0, 1 ; sprite dimensions
 	dw CharizardPicFront, CharizardPicBack

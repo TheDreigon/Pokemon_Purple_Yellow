@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 60 ; catch rate  ; final stage, BST 410, harder to handle
-	db 158 ; base exp
+	db 160 ; base exp  ; BST 410 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/dodrio.pic", 0, 1 ; sprite dimensions
 	dw DodrioPicFront, DodrioPicBack

@@ -3,7 +3,7 @@
 
 	db GRASS, WATER ; type
 	db 150 ; catch rate  ; set by hand: vines and not much else; it does not fight back
-	db 166 ; base exp
+	db 135 ; base exp  ; BST 370 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/tangela.pic", 0, 1 ; sprite dimensions
 	dw TangelaPicFront, TangelaPicBack

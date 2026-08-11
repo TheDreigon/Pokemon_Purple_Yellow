@@ -3,7 +3,7 @@
 
 	db POISON, FLYING ; type
 	db 80 ; catch rate  ; final stage, BST 390
-	db 171 ; base exp
+	db 150 ; base exp  ; BST 390 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/golbat.pic", 0, 1 ; sprite dimensions
 	dw GolbatPicFront, GolbatPicBack

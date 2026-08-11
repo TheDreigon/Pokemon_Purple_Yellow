@@ -2,7 +2,7 @@
 	base_stat_row 120, 45, 20, 35, 55 ; hp atk def spc spd
 	db NORMAL, FAIRY ; type
 	db 235 ; catch rate  ; base stage, BST 275, easy to approach
-	db 76 ; base exp
+	db 80 ; base exp  ; BST 275 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/jigglypuff.pic", 0, 1 ; sprite dimensions
 	dw JigglypuffPicFront, JigglypuffPicBack

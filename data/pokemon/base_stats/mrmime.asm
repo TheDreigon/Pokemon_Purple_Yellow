@@ -2,7 +2,7 @@
 	base_stat_row 60, 50, 65, 110, 95 ; hp atk def spc spd
 	db PSYCHIC_TYPE, FAIRY ; type
 	db 65 ; catch rate  ; set by hand: it puts a wall between you and it
-	db 136 ; base exp
+	db 145 ; base exp  ; BST 380
 
 	INCBIN "gfx/pokemon/front/mr.mime.pic", 0, 1 ; sprite dimensions
 	dw MrMimePicFront, MrMimePicBack

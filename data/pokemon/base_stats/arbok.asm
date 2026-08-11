@@ -2,7 +2,7 @@
 	base_stat_row 60, 90, 90, 60, 100 ; hp atk def spc spd
 	db POISON, DARK ; type
 	db 60 ; catch rate  ; final stage, BST 400, harder to handle
-	db 147 ; base exp
+	db 160 ; base exp  ; BST 400 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/arbok.pic", 0, 1 ; sprite dimensions
 	dw ArbokPicFront, ArbokPicBack

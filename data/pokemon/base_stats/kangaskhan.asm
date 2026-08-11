@@ -2,7 +2,7 @@
 	base_stat_row 105, 85, 80, 50, 80 ; hp atk def spc spd
 	db NORMAL, FIGHTING ; type
 	db 75 ; catch rate  ; solo stage, BST 400, harder to handle
-	db 175 ; base exp
+	db 155 ; base exp  ; BST 400
 
 	INCBIN "gfx/pokemon/front/kangaskhan.pic", 0, 1 ; sprite dimensions
 	dw KangaskhanPicFront, KangaskhanPicBack

@@ -3,7 +3,7 @@
 
 	db NORMAL, NORMAL ; type
 	db 50 ; catch rate  ; set by hand: it charges
-	db 211 ; base exp
+	db 185 ; base exp  ; BST 450
 
 	INCBIN "gfx/pokemon/front/tauros.pic", 0, 1 ; sprite dimensions
 	dw TaurosPicFront, TaurosPicBack

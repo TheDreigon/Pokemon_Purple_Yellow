@@ -3,7 +3,7 @@
 
 	db GROUND, GROUND ; type
 	db 190 ; catch rate  ; set by hand: it is underground before you finish reaching
-	db 81 ; base exp
+	db 60 ; base exp  ; BST 235 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/diglett.pic", 0, 1 ; sprite dimensions
 	dw DiglettPicFront, DiglettPicBack

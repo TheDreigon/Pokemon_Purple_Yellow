@@ -2,7 +2,7 @@
 	base_stat_row 55, 50, 50, 65, 45 ; hp atk def spc spd
 	db GRASS, GRASS ; type
 	db 120 ; catch rate  ; set by hand: starter line: rarer than anything wild
-	db 64 ; base exp
+	db 75 ; base exp  ; BST 265 - grupo mantido igual
 
 	INCBIN "gfx/pokemon/front/bulbasaur.pic", 0, 1 ; sprite dimensions
 	dw BulbasaurPicFront, BulbasaurPicBack

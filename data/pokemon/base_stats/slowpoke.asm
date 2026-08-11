@@ -2,7 +2,7 @@
 	base_stat_row 90, 45, 65, 55, 15 ; hp atk def spc spd
 	db WATER, NORMAL ; type
 	db 235 ; catch rate  ; base stage, BST 270, easy to approach
-	db 99 ; base exp
+	db 75 ; base exp  ; BST 270 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/slowpoke.pic", 0, 1 ; sprite dimensions
 	dw SlowpokePicFront, SlowpokePicBack

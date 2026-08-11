@@ -2,7 +2,7 @@
 	base_stat_row 30, 40, 30, 90, 90 ; hp atk def spc spd
 	db GHOST, GAS ; type
 	db 120 ; catch rate  ; exception: a body of gas; the band cannot see there is nothing to hold
-	db 95 ; base exp
+	db 85 ; base exp  ; BST 280 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/gastly.pic", 0, 1 ; sprite dimensions
 	dw GastlyPicFront, GastlyPicBack
