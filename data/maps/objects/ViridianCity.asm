@@ -19,7 +19,7 @@ ViridianCity_Object:
 	warp_event 32,  7, VIRIDIAN_GYM, 1
 	; Appended, never inserted: the warp array is positional and every indoor map
 	; comes back through its LAST_MAP, N index.
-	warp_event 11, 17, VIRIDIAN_OLD_ROD_HOUSE, 1
+	warp_event 11, 15, VIRIDIAN_OLD_ROD_HOUSE, 1
 
 	def_bg_events
 	bg_event 19, 21, TEXT_VIRIDIANCITY_SIGN
@@ -31,7 +31,7 @@ ViridianCity_Object:
 	bg_event 27,  7, TEXT_VIRIDIANCITY_GYM_SIGN
 
 	def_object_events
-	object_event 12, 21, SPRITE_YOUNGSTER, WALK, ANY_DIR, TEXT_VIRIDIANCITY_YOUNGSTER1
+	object_event 12, 20, SPRITE_YOUNGSTER, WALK, ANY_DIR, TEXT_VIRIDIANCITY_YOUNGSTER1
 	object_event 30,  8, SPRITE_GAMBLER, STAY, NONE, TEXT_VIRIDIANCITY_GAMBLER1
 	object_event 25, 19, SPRITE_YOUNGSTER, WALK, ANY_DIR, TEXT_VIRIDIANCITY_YOUNGSTER2
 	object_event 17,  9, SPRITE_GIRL, STAY, RIGHT, TEXT_VIRIDIANCITY_GIRL

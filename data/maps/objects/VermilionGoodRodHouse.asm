@@ -2,7 +2,7 @@
 	const_export VERMILIONGOODRODHOUSE_FISHING_GURU
 
 VermilionGoodRodHouse_Object:
-	db $a ; border block
+	db $c ; border block
 
 	def_warp_events
 	warp_event  2,  7, LAST_MAP, 9
@@ -11,6 +11,6 @@ VermilionGoodRodHouse_Object:
 	def_bg_events
 
 	def_object_events
-	object_event  2,  4, SPRITE_FISHING_GURU, STAY, RIGHT, TEXT_VERMILIONGOODRODHOUSE_FISHING_GURU
+	object_event  5,  3, SPRITE_FISHING_GURU, STAY, RIGHT, TEXT_VERMILIONGOODRODHOUSE_FISHING_GURU
 
 	def_warps_to VERMILION_GOOD_ROD_HOUSE

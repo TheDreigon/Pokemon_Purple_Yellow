@@ -599,14 +599,14 @@ PrimeapeDexEntry:
 GrowlitheDexEntry:
 	db "LOYAL@"
 	db 0,7 ; height: meters, decimeters (v0.7 metric dex)
-	dw 190 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 200 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GrowlitheDexEntry
 	text_end
 
 ArcanineDexEntry:
 	db "MAJESTIC@"
 	db 1,9 ; height: meters, decimeters (v0.7 metric dex)
-	dw 780 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 800 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ArcanineDexEntry
 	text_end
 
