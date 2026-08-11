@@ -205,21 +205,21 @@ BulbasaurDexEntry:
 	text_end
 
 IvysaurDexEntry:
-	db "SEED@"
+	db "BUD@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 130 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _IvysaurDexEntry
 	text_end
 
 VenusaurDexEntry:
-	db "SEED@"
+	db "BLOOM@"
 	db 2,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1000 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VenusaurDexEntry
 	text_end
 
 CharmanderDexEntry:
-	db "LIZARD@"
+	db "EMBER TAIL@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 85 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CharmanderDexEntry
@@ -233,35 +233,35 @@ CharmeleonDexEntry:
 	text_end
 
 CharizardDexEntry:
-	db "FLAME@"
+	db "FLAME WING@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 905 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CharizardDexEntry
 	text_end
 
 SquirtleDexEntry:
-	db "TINYTURTLE@"
+	db "TINY SHELL@"
 	db 0,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 90 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SquirtleDexEntry
 	text_end
 
 WartortleDexEntry:
-	db "TURTLE@"
+	db "SHELL@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 225 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _WartortleDexEntry
 	text_end
 
 BlastoiseDexEntry:
-	db "SHELLFISH@"
+	db "CANNON@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 855 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _BlastoiseDexEntry
 	text_end
 
 CaterpieDexEntry:
-	db "WORM@"
+	db "NIBBLER@"
 	db 0,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 29 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CaterpieDexEntry
@@ -275,70 +275,70 @@ MetapodDexEntry:
 	text_end
 
 ButterfreeDexEntry:
-	db "BUTTERFLY@"
+	db "MINDWING@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
 	dw 320 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ButterfreeDexEntry
 	text_end
 
 WeedleDexEntry:
-	db "HAIRY BUG@"
+	db "TINY STING@"
 	db 0,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 32 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _WeedleDexEntry
 	text_end
 
 KakunaDexEntry:
-	db "COCOON@"
+	db "POISON POD@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 100 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KakunaDexEntry
 	text_end
 
 BeedrillDexEntry:
-	db "POISON BEE@"
+	db "LANCER@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 295 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _BeedrillDexEntry
 	text_end
 
 PidgeyDexEntry:
-	db "TINY BIRD@"
+	db "TINY WING@"
 	db 0,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 18 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PidgeyDexEntry
 	text_end
 
 PidgeottoDexEntry:
-	db "BIRD@"
+	db "GALE@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
 	dw 300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PidgeottoDexEntry
 	text_end
 
 PidgeotDexEntry:
-	db "BIRD@"
+	db "GALE WING@"
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 395 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PidgeotDexEntry
 	text_end
 
 RattataDexEntry:
-	db "RAT@"
+	db "GNAWING@"
 	db 0,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 35 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _RattataDexEntry
 	text_end
 
 RaticateDexEntry:
-	db "RAT@"
+	db "SAVAGE@"
 	db 0,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 185 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _RaticateDexEntry
 	text_end
 
 SpearowDexEntry:
-	db "TINY BIRD@"
+	db "SHRILL@"
 	db 0,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 20 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SpearowDexEntry
@@ -352,84 +352,84 @@ FearowDexEntry:
 	text_end
 
 EkansDexEntry:
-	db "SNAKE@"
+	db "COILING@"
 	db 2,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 160 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _EkansDexEntry
 	text_end
 
 ArbokDexEntry:
-	db "COBRA@"
+	db "HOODED@"
 	db 3,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 650 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ArbokDexEntry
 	text_end
 
 PikachuDexEntry:
-	db "MOUSE@"
+	db "SPARK@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 60 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PikachuDexEntry
 	text_end
 
 RaichuDexEntry:
-	db "MOUSE@"
+	db "SURGE@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _RaichuDexEntry
 	text_end
 
 SandshrewDexEntry:
-	db "MOUSE@"
+	db "SAND HIDE@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 120 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SandshrewDexEntry
 	text_end
 
 SandslashDexEntry:
-	db "MOUSE@"
+	db "SAND BLADE@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 295 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SandslashDexEntry
 	text_end
 
 NidoranFDexEntry:
-	db "POISON PIN@"
+	db "TINY BARB@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 70 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NidoranFDexEntry
 	text_end
 
 NidorinaDexEntry:
-	db "POISON PIN@"
+	db "BARBED@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 200 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NidorinaDexEntry
 	text_end
 
 NidoqueenDexEntry:
-	db "DRILL@"
+	db "ARMOURED@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 600 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NidoqueenDexEntry
 	text_end
 
 NidoranMDexEntry:
-	db "POISON PIN@"
+	db "TINY HORN@"
 	db 0,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 90 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NidoranMDexEntry
 	text_end
 
 NidorinoDexEntry:
-	db "POISON PIN@"
+	db "HORNED@"
 	db 0,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 195 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NidorinoDexEntry
 	text_end
 
 NidokingDexEntry:
-	db "DRILL@"
+	db "DRILL HORN@"
 	db 1,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 620 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NidokingDexEntry
@@ -443,28 +443,28 @@ ClefairyDexEntry:
 	text_end
 
 ClefableDexEntry:
-	db "FAIRY@"
+	db "MOONLIGHT@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 400 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ClefableDexEntry
 	text_end
 
 VulpixDexEntry:
-	db "FOX@"
+	db "SIXTAIL@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 99 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VulpixDexEntry
 	text_end
 
 NinetalesDexEntry:
-	db "FOX@"
+	db "NINETAIL@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
 	dw 199 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _NinetalesDexEntry
 	text_end
 
 JigglypuffDexEntry:
-	db "BALLOON@"
+	db "LULLABY@"
 	db 0,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 55 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _JigglypuffDexEntry
@@ -478,14 +478,14 @@ WigglytuffDexEntry:
 	text_end
 
 ZubatDexEntry:
-	db "BAT@"
+	db "ECHO@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 75 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ZubatDexEntry
 	text_end
 
 GolbatDexEntry:
-	db "BAT@"
+	db "GORGING@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 550 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GolbatDexEntry
@@ -499,14 +499,14 @@ OddishDexEntry:
 	text_end
 
 GloomDexEntry:
-	db "WEED@"
+	db "SPORE@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 86 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GloomDexEntry
 	text_end
 
 VileplumeDexEntry:
-	db "FLOWER@"
+	db "POLLEN@"
 	db 1,2 ; height: meters, decimeters (v0.7 metric dex)
 	dw 186 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VileplumeDexEntry
@@ -520,91 +520,91 @@ ParasDexEntry:
 	text_end
 
 ParasectDexEntry:
-	db "MUSHROOM@"
+	db "PARASITE@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 295 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ParasectDexEntry
 	text_end
 
 VenonatDexEntry:
-	db "INSECT@"
+	db "NIGHT EYE@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VenonatDexEntry
 	text_end
 
 VenomothDexEntry:
-	db "POISONMOTH@"
+	db "DUST WING@"
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 125 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VenomothDexEntry
 	text_end
 
 DiglettDexEntry:
-	db "MOLE@"
+	db "TUNNEL@"
 	db 0,2 ; height: meters, decimeters (v0.7 metric dex)
 	dw 8 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DiglettDexEntry
 	text_end
 
 DugtrioDexEntry:
-	db "MOLE@"
+	db "TRIPLE DIG@"
 	db 0,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 333 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DugtrioDexEntry
 	text_end
 
 MeowthDexEntry:
-	db "SCRATCHCAT@"
+	db "SCRATCHING@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 42 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MeowthDexEntry
 	text_end
 
 PersianDexEntry:
-	db "CLASSY CAT@"
+	db "PRIDEFUL@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 320 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PersianDexEntry
 	text_end
 
 PsyduckDexEntry:
-	db "DUCK@"
+	db "HEADACHE@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 196 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PsyduckDexEntry
 	text_end
 
 GolduckDexEntry:
-	db "DUCK@"
+	db "TRANCE@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 766 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GolduckDexEntry
 	text_end
 
 MankeyDexEntry:
-	db "PIG MONKEY@"
+	db "TANTRUM@"
 	db 0,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 280 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MankeyDexEntry
 	text_end
 
 PrimeapeDexEntry:
-	db "PIG MONKEY@"
+	db "FURY@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 320 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PrimeapeDexEntry
 	text_end
 
 GrowlitheDexEntry:
-	db "PUPPY@"
+	db "LOYAL@"
 	db 0,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 190 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GrowlitheDexEntry
 	text_end
 
 ArcanineDexEntry:
-	db "LEGENDARY@"
+	db "MAJESTIC@"
 	db 1,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1550 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ArcanineDexEntry
@@ -618,14 +618,14 @@ PoliwagDexEntry:
 	text_end
 
 PoliwhirlDexEntry:
-	db "TADPOLE@"
+	db "WHIRL@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 200 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PoliwhirlDexEntry
 	text_end
 
 PoliwrathDexEntry:
-	db "TADPOLE@"
+	db "BRAWLER@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 540 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PoliwrathDexEntry
@@ -639,21 +639,21 @@ AbraDexEntry:
 	text_end
 
 KadabraDexEntry:
-	db "PSI@"
+	db "PSI SPOON@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 565 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KadabraDexEntry
 	text_end
 
 AlakazamDexEntry:
-	db "PSI@"
+	db "GENIUS@"
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 480 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _AlakazamDexEntry
 	text_end
 
 MachopDexEntry:
-	db "SUPERPOWER@"
+	db "MUSCLE@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 195 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MachopDexEntry
@@ -667,7 +667,7 @@ MachokeDexEntry:
 	text_end
 
 MachampDexEntry:
-	db "SUPERPOWER@"
+	db "FOUR ARM@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MachampDexEntry
@@ -688,21 +688,21 @@ WeepinbellDexEntry:
 	text_end
 
 VictreebelDexEntry:
-	db "FLYCATCHER@"
+	db "PITCHER@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 155 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VictreebelDexEntry
 	text_end
 
 TentacoolDexEntry:
-	db "JELLYFISH@"
+	db "DRIFTER@"
 	db 0,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 455 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _TentacoolDexEntry
 	text_end
 
 TentacruelDexEntry:
-	db "JELLYFISH@"
+	db "STINGING@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 550 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _TentacruelDexEntry
@@ -716,7 +716,7 @@ GeodudeDexEntry:
 	text_end
 
 GravelerDexEntry:
-	db "ROCK@"
+	db "BOULDER@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1050 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GravelerDexEntry
@@ -730,14 +730,14 @@ GolemDexEntry:
 	text_end
 
 PonytaDexEntry:
-	db "FIRE HORSE@"
+	db "BLAZEHOOF@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PonytaDexEntry
 	text_end
 
 RapidashDexEntry:
-	db "FIRE HORSE@"
+	db "GALLOPING@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 950 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _RapidashDexEntry
@@ -751,7 +751,7 @@ SlowpokeDexEntry:
 	text_end
 
 SlowbroDexEntry:
-	db "HERMITCRAB@"
+	db "SHELLBOUND@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 785 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SlowbroDexEntry
@@ -765,42 +765,42 @@ MagnemiteDexEntry:
 	text_end
 
 MagnetonDexEntry:
-	db "MAGNET@"
+	db "TRIMAGNET@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 600 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MagnetonDexEntry
 	text_end
 
 FarfetchdDexEntry:
-	db "WILD DUCK@"
+	db "DUELLIST@"
 	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 150 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _FarfetchdDexEntry
 	text_end
 
 DoduoDexEntry:
-	db "TWIN BIRD@"
+	db "TWIN HEAD@"
 	db 1,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 392 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DoduoDexEntry
 	text_end
 
 DodrioDexEntry:
-	db "TRIPLEBIRD@"
+	db "TRIPLEHEAD@"
 	db 1,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 852 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DodrioDexEntry
 	text_end
 
 SeelDexEntry:
-	db "SEA LION@"
+	db "CLAPPING@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
 	dw 900 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SeelDexEntry
 	text_end
 
 DewgongDexEntry:
-	db "SEA LION@"
+	db "SEA IVORY@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1200 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DewgongDexEntry
@@ -814,7 +814,7 @@ GrimerDexEntry:
 	text_end
 
 MukDexEntry:
-	db "SLUDGE@"
+	db "TOXIC OOZE@"
 	db 1,2 ; height: meters, decimeters (v0.7 metric dex)
 	dw 300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MukDexEntry
@@ -828,21 +828,21 @@ ShellderDexEntry:
 	text_end
 
 CloysterDexEntry:
-	db "BIVALVE@"
+	db "SPIKESHELL@"
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1325 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CloysterDexEntry
 	text_end
 
 GastlyDexEntry:
-	db "GAS@"
+	db "DRIFTING@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GastlyDexEntry
 	text_end
 
 HaunterDexEntry:
-	db "GAS@"
+	db "LURKING@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _HaunterDexEntry
@@ -856,7 +856,7 @@ GengarDexEntry:
 	text_end
 
 OnixDexEntry:
-	db "ROCK SNAKE@"
+	db "ROCK CHAIN@"
 	db 8,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 21000 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _OnixDexEntry
@@ -870,14 +870,14 @@ DrowzeeDexEntry:
 	text_end
 
 HypnoDexEntry:
-	db "HYPNOSIS@"
+	db "PENDULUM@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 756 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _HypnoDexEntry
 	text_end
 
 KrabbyDexEntry:
-	db "RIVER CRAB@"
+	db "PINCHING@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 65 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KrabbyDexEntry
@@ -891,21 +891,21 @@ KinglerDexEntry:
 	text_end
 
 VoltorbDexEntry:
-	db "BALL@"
+	db "SPARK BALL@"
 	db 0,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 104 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VoltorbDexEntry
 	text_end
 
 ElectrodeDexEntry:
-	db "BALL@"
+	db "BOMB BALL@"
 	db 1,2 ; height: meters, decimeters (v0.7 metric dex)
 	dw 666 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ElectrodeDexEntry
 	text_end
 
 ExeggcuteDexEntry:
-	db "EGG@"
+	db "CLUSTER@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 25 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ExeggcuteDexEntry
@@ -954,14 +954,14 @@ LickitungDexEntry:
 	text_end
 
 KoffingDexEntry:
-	db "POISON GAS@"
+	db "BLOATED@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 10 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KoffingDexEntry
 	text_end
 
 WeezingDexEntry:
-	db "POISON GAS@"
+	db "TWIN FUMES@"
 	db 1,2 ; height: meters, decimeters (v0.7 metric dex)
 	dw 95 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _WeezingDexEntry
@@ -975,7 +975,7 @@ RhyhornDexEntry:
 	text_end
 
 RhydonDexEntry:
-	db "DRILL@"
+	db "ROCK DRILL@"
 	db 1,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1200 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _RhydonDexEntry
@@ -1003,28 +1003,28 @@ KangaskhanDexEntry:
 	text_end
 
 HorseaDexEntry:
-	db "DRAGON@"
+	db "INK JET@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 80 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _HorseaDexEntry
 	text_end
 
 SeadraDexEntry:
-	db "DRAGON@"
+	db "SEA DRAGON@"
 	db 1,2 ; height: meters, decimeters (v0.7 metric dex)
 	dw 250 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SeadraDexEntry
 	text_end
 
 GoldeenDexEntry:
-	db "GOLDFISH@"
+	db "FIN SPEAR@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 150 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GoldeenDexEntry
 	text_end
 
 SeakingDexEntry:
-	db "GOLDFISH@"
+	db "TORRENT@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 390 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SeakingDexEntry
@@ -1038,7 +1038,7 @@ StaryuDexEntry:
 	text_end
 
 StarmieDexEntry:
-	db "MYSTERIOUS@"
+	db "CORE@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
 	dw 800 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _StarmieDexEntry
@@ -1052,21 +1052,21 @@ MrMimeDexEntry:
 	text_end
 
 ScytherDexEntry:
-	db "MANTIS@"
+	db "BLADE ARM@"
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 560 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ScytherDexEntry
 	text_end
 
 JynxDexEntry:
-	db "HUMANSHAPE@"
+	db "FROST WAIL@"
 	db 1,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 406 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _JynxDexEntry
 	text_end
 
 ElectabuzzDexEntry:
-	db "ELECTRIC@"
+	db "DYNAMO@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
 	dw 300 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ElectabuzzDexEntry
@@ -1080,28 +1080,28 @@ MagmarDexEntry:
 	text_end
 
 PinsirDexEntry:
-	db "STAGBEETLE@"
+	db "GRAPPLER@"
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 550 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PinsirDexEntry
 	text_end
 
 TaurosDexEntry:
-	db "WILD BULL@"
+	db "STAMPEDE@"
 	db 1,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 4990 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _TaurosDexEntry
 	text_end
 
 MagikarpDexEntry:
-	db "FISH@"
+	db "FLOPPING@"
 	db 0,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 100 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MagikarpDexEntry
 	text_end
 
 GyaradosDexEntry:
-	db "ATROCIOUS@"
+	db "DESTROYER@"
 	db 6,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 7030 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _GyaradosDexEntry
@@ -1143,7 +1143,7 @@ JolteonDexEntry:
 	text_end
 
 FlareonDexEntry:
-	db "FLAME@"
+	db "EMBER@"
 	db 0,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 250 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _FlareonDexEntry
@@ -1164,21 +1164,21 @@ OmanyteDexEntry:
 	text_end
 
 OmastarDexEntry:
-	db "SPIRAL@"
+	db "SPIKE COIL@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 350 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _OmastarDexEntry
 	text_end
 
 KabutoDexEntry:
-	db "SHELLFISH@"
+	db "SHELLED@"
 	db 0,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 115 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KabutoDexEntry
 	text_end
 
 KabutopsDexEntry:
-	db "SHELLFISH@"
+	db "SICKLE@"
 	db 1,3 ; height: meters, decimeters (v0.7 metric dex)
 	dw 405 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KabutopsDexEntry
@@ -1206,28 +1206,28 @@ ArticunoDexEntry:
 	text_end
 
 ZapdosDexEntry:
-	db "ELECTRIC@"
+	db "THUNDER@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 526 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _ZapdosDexEntry
 	text_end
 
 MoltresDexEntry:
-	db "FLAME@"
+	db "WILDFIRE@"
 	db 2,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 600 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MoltresDexEntry
 	text_end
 
 DratiniDexEntry:
-	db "DRAGON@"
+	db "HATCHLING@"
 	db 1,8 ; height: meters, decimeters (v0.7 metric dex)
 	dw 110 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DratiniDexEntry
 	text_end
 
 DragonairDexEntry:
-	db "DRAGON@"
+	db "TEMPEST@"
 	db 4,0 ; height: meters, decimeters (v0.7 metric dex)
 	dw 860 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DragonairDexEntry
@@ -1248,7 +1248,7 @@ MewtwoDexEntry:
 	text_end
 
 MewDexEntry:
-	db "NEWSPECIES@"
+	db "ANCESTOR@"
 	db 0,4 ; height: meters, decimeters (v0.7 metric dex)
 	dw 40 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _MewDexEntry
