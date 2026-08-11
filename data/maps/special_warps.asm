@@ -84,12 +84,12 @@ FlyWarpDataPtr:
 ; walkable neighbour, a hard soft-lock. Now the plaza cell in front of the
 ; POKeMON CENTER door at (21, 25), the same convention as the other cities.
 .CeruleanCity:   fly_warp CERULEAN_CITY,   21, 26
-.LavenderTown:   fly_warp LAVENDER_TOWN,    3,  6
+.LavenderTown:   fly_warp LAVENDER_TOWN,    7,  8
 .VermilionCity:  fly_warp VERMILION_CITY,  11,  4
-.CeladonCity:    fly_warp CELADON_CITY,    41, 10
-.FuchsiaCity:    fly_warp FUCHSIA_CITY,    19, 28
-.CinnabarIsland: fly_warp CINNABAR_ISLAND, 11, 12
+.CeladonCity:    fly_warp CELADON_CITY,    35,  8
+.FuchsiaCity:    fly_warp FUCHSIA_CITY,    25, 28
+.CinnabarIsland: fly_warp CINNABAR_ISLAND, 13, 38
 .IndigoPlateau:  fly_warp INDIGO_PLATEAU,   9,  6
 .SaffronCity:    fly_warp SAFFRON_CITY,     9, 30
 .Route4:         fly_warp ROUTE_4,         11,  6
-.Route10:        fly_warp ROUTE_10,        11, 20
+.Route10:        fly_warp ROUTE_10,        11, 22
