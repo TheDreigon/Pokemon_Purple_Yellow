@@ -17,13 +17,13 @@ ENDM
 ; Order: towns/cities, then routes, then indoor/dungeon maps
 	const_def
 	map_const PALLET_TOWN,                   10, 10 ; $00
-	map_const VIRIDIAN_CITY,                 20, 19 ; $01
+	map_const VIRIDIAN_CITY,                 20, 19 ; $01 (world-design: redesign)
 	map_const PEWTER_CITY,                   20, 18 ; $02
-	map_const CERULEAN_CITY,                 22, 20 ; $03
-	map_const LAVENDER_TOWN,                 13, 11 ; $04 (world-design: +2 columns WEST, which is why Route 10/12 connect at offset -2)
+	map_const CERULEAN_CITY,                 22, 20 ; $03 (world-design: redesign)
+	map_const LAVENDER_TOWN,                 15, 13 ; $04 (world-design: redesign)
 	map_const VERMILION_CITY,                20, 18 ; $05
-	map_const CELADON_CITY,                  26, 18 ; $06 (world-design: +1 column EAST; content did not shift, so the Route 7/16 offsets still hold)
-	map_const FUCHSIA_CITY,                  23, 19 ; $07 (world-design: redesign, larger)
+	map_const CELADON_CITY,                  26, 18 ; $06 (world-design: redesign)
+	map_const FUCHSIA_CITY,                  23, 19 ; $07 (world-design: redesign)
 	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework)
 	map_const INDIGO_PLATEAU,                10,  9 ; $09
 	map_const SAFFRON_CITY,                  20, 18 ; $0A

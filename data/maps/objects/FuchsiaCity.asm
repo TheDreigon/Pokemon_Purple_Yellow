@@ -14,10 +14,10 @@ FuchsiaCity_Object:
 	db $f ; border block
 
 	def_warp_events
-	warp_event   9, 19, FUCHSIA_MART, 1
+	warp_event  7, 19, FUCHSIA_MART, 1
 	warp_event 17, 27, FUCHSIA_BILLS_GRANDPAS_HOUSE, 1
 	warp_event 25, 27, FUCHSIA_POKECENTER, 1
-	warp_event 15, 19, WARDENS_HOUSE, 1
+	warp_event 14, 19, WARDENS_HOUSE, 1
 	warp_event 18,  3, SAFARI_ZONE_GATE, 1
 	warp_event   7, 27, FUCHSIA_GYM, 1
 	warp_event 20, 13, FUCHSIA_MEETING_ROOM, 1
@@ -29,9 +29,9 @@ FuchsiaCity_Object:
 	; bg_event removed by the world-design Fuchsia redesign (its dw_const row in
 	; scripts/FuchsiaCity.asm is commented out to match, same as the branch did)
 	bg_event 17,  5, TEXT_FUCHSIACITY_SAFARI_GAME_SIGN
-	bg_event  10, 19, TEXT_FUCHSIACITY_MART_SIGN
+	bg_event  8, 19, TEXT_FUCHSIACITY_MART_SIGN
 	bg_event 26, 27, TEXT_FUCHSIACITY_POKECENTER_SIGN
-	bg_event 13, 19, TEXT_FUCHSIACITY_WARDENS_HOME_SIGN
+	bg_event 11, 19, TEXT_FUCHSIACITY_WARDENS_HOME_SIGN
 	bg_event 19, 15, TEXT_FUCHSIACITY_SAFARI_ZONE_SIGN
 	bg_event   7, 29, TEXT_FUCHSIACITY_GYM_SIGN
 	bg_event 13,  7, TEXT_FUCHSIACITY_CHANSEY_SIGN
