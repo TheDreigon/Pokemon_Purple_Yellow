@@ -647,7 +647,3 @@ _ContCharText::
 	text "<_CONT>@"
 	text_end
 
-_NoPokemonText::
-	text "There are no"
-	line "#MON here!"
-	prompt

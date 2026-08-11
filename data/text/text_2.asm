@@ -1182,11 +1182,6 @@ _KeptGoingAndCrashedText::
 	cont "crashed!"
 	prompt
 
-_UnaffectedText::
-	text "<TARGET>'s"
-	line "unaffected!"
-	prompt
-
 _DoesntAffectMonText::
 	text "It doesn't affect"
 	line "<TARGET>!"
