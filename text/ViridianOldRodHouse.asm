@@ -1,9 +1,12 @@
 _ViridianOldRodHouseFishingGuruDoYouLikeToFishText::
-	text "I'm the FISHING"
-	line "GURU!"
+	text "Our family taught"
+	line "KANTO to fish."
 
-	para "I simply Looove"
-	line "fishing!"
+	para "I'm the youngest"
+	line "of three sons."
+
+	para "They handed me"
+	line "the oldest rod."
 
 	para "Do you like to"
 	line "fish?"
@@ -13,8 +16,11 @@ _ViridianOldRodHouseFishingGuruTakeThisText::
 	text "Grand! I like"
 	line "your style!"
 
-	para "Take this and"
-	line "fish, young one!"
+	para "Then it is yours."
+
+	para "It caught my"
+	line "first one, and"
+	cont "my father's too."
 
 	para "<PLAYER> received"
 	line "an @"
@@ -28,10 +34,12 @@ _ViridianOldRodHouseFishingGuruFishingIsAWayOfLifeText::
 	para "Fishing is a way"
 	line "of life!"
 
-	para "From the seas to"
-	line "rivers, go out"
-	cont "and land the big"
-	cont "one, young one!"
+	para "My brother keeps"
+	line "a better rod in"
+	cont "the port town."
+
+	para "Go and land the"
+	line "big one!"
 	done
 
 _ViridianOldRodHouseFishingGuruThatsSoDisappointingText::

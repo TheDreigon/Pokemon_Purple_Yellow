@@ -1,9 +1,10 @@
 _Route12SuperRodHouseFishingGuruDoYouLikeToFishText::
-	text "I'm the FISHING"
-	line "GURU's brother!"
+	text "I'm the eldest of"
+	line "the three sons."
 
-	para "I simply Looove"
-	line "fishing!"
+	para "The rods are the"
+	line "family trade. I"
+	cont "carry the best."
 
 	para "Do you like to"
 	line "fish?"
@@ -13,8 +14,9 @@ _Route12SuperRodHouseFishingGuruReceivedSuperRodText::
 	text "Grand! I like"
 	line "your style!"
 
-	para "Take this and"
-	line "fish, young one!"
+	para "The SUPER ROD."
+	line "Deep water, deep"
+	cont "catches."
 
 	para "<PLAYER> received"
 	line "a @"
@@ -28,15 +30,24 @@ _Route12SuperRodHouseFishingGuruFishingWayOfLifeText::
 	para "Fishing is a way"
 	line "of life!"
 
-	para "From the seas to"
-	line "rivers, go out"
-	cont "and land the big"
-	cont "one!"
+	para "Fish where others"
+	line "will not, and you"
+	cont "will meet #MON"
+	cont "they never see."
+
+	para "Our father is in"
+	line "FUCHSIA. He no"
+	cont "longer fishes for"
+	cont "fish."
+
+	para "Go and land the"
+	line "big one!"
 	done
 
 _Route12SuperRodHouseFishingGuruThatsDisappointingText::
-	text "Oh... That's so"
-	line "disappointing..."
+	text "A pity. The deep"
+	line "keeps its secrets"
+	cont "either way."
 	done
 
 _Route12SuperRodHouseFishingGuruTryFishingText::

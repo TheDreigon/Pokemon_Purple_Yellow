@@ -1,10 +1,11 @@
 _VermilionGoodRodHouseFishingGuruText::
-	text "I'm the FISHING"
-	line "GURU's older"
-	cont "brother!"
+	text "I'm the middle"
+	line "son of the"
+	cont "fishing family."
 
-	para "I simply Looove"
-	line "fishing!"
+	para "Three brothers,"
+	line "three rods, one"
+	cont "name."
 
 	para "Do you like to"
 	line "fish?"
@@ -14,8 +15,14 @@ _VermilionGoodRodHouseFishingGuruReceivedGoodRodText::
 	text "Grand! I like"
 	line "your style!"
 
-	para "Take this and"
-	line "fish, young one!"
+	para "Take this one. It"
+	line "beats my little"
+	cont "brother's."
+
+	para "Not our eldest's."
+	line "He fishes the"
+	cont "long road below"
+	cont "LAVENDER."
 
 	para "<PLAYER> received"
 	line "a @"
@@ -24,8 +31,8 @@ _VermilionGoodRodHouseFishingGuruReceivedGoodRodText::
 	text_end
 
 _VermilionGoodRodHouseFishingGuruThatsSoDisappointingText::
-	text "Oh... That's so"
-	line "disappointing..."
+	text "A shame. The sea"
+	line "waits for nobody."
 	done
 
 _VermilionGoodRodHouseFishingGuruHowAreTheFishText::
@@ -34,6 +41,9 @@ _VermilionGoodRodHouseFishingGuruHowAreTheFishText::
 
 	para "How are the fish"
 	line "biting?"
+
+	para "Go and land the"
+	line "big one!"
 	done
 
 _VermilionGoodRodHouseFishingGuruNoRoomText::

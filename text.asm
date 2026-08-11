@@ -82,7 +82,6 @@ INCLUDE "text/Route11Gate2F.asm"
 INCLUDE "text/DiglettsCaveRoute11.asm"
 INCLUDE "text/Route12Gate1F.asm"
 INCLUDE "text/Route12Gate2F.asm"
-INCLUDE "text/Route12SuperRodHouse.asm"
 INCLUDE "text/Route15Gate1F.asm"
 INCLUDE "text/Route15Gate2F.asm"
 INCLUDE "text/Route16Gate1F.asm"
@@ -209,7 +208,6 @@ INCLUDE "text/WardensHouse.asm"
 INCLUDE "text/SafariZoneGate.asm"
 INCLUDE "text/FuchsiaGym.asm"
 INCLUDE "text/FuchsiaMeetingRoom.asm"
-INCLUDE "text/FuchsiaFossilHouse.asm"
 INCLUDE "text/PokemonMansion1F.asm"
 INCLUDE "text/CinnabarGym.asm"
 INCLUDE "text/CinnabarLab.asm"
@@ -373,3 +371,18 @@ INCLUDE "text/daycare_additions.asm"
 SECTION "Bill Rematch Text", ROMX
 
 INCLUDE "text/bill_rematch.asm"
+
+; The fishing family's father and mother, in Fuchsia. Moved out of the pinned
+; "Text 7" when the four gurus were rewritten as one family: his gift speech
+; and her line together pushed that bank ten bytes over its 16 KB. Own floating
+; section for the same reason as its siblings above.
+SECTION "Fuchsia Fossil House Text", ROMX
+
+INCLUDE "text/FuchsiaFossilHouse.asm"
+
+; The eldest son, on Route 12. Moved out of the pinned "Text 3" for the same
+; reason: his rewritten lines took that bank down to 160 free bytes, under the
+; floor the slack audit guards. The build stayed green - only the audit saw it.
+SECTION "Route 12 Super Rod House Text", ROMX
+
+INCLUDE "text/Route12SuperRodHouse.asm"

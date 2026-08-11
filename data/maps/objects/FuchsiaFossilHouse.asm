@@ -1,5 +1,6 @@
 	object_const_def
 	const_export FUCHSIAFOSSILHOUSE_FISHING_GURU
+	const_export FUCHSIAFOSSILHOUSE_OLD_WOMAN
 
 FuchsiaFossilHouse_Object:
 	db $c ; border block
@@ -13,5 +14,6 @@ FuchsiaFossilHouse_Object:
 
 	def_object_events
 	object_event  5,  3, SPRITE_FISHING_GURU, STAY, RIGHT, TEXT_FUCHSIAFOSSILHOUSE_FISHING_GURU
+	object_event  2,  3, SPRITE_GRANNY, STAY, RIGHT, TEXT_FUCHSIAFOSSILHOUSE_OLD_WOMAN
 
 	def_warps_to FUCHSIA_FOSSIL_HOUSE
