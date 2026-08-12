@@ -27,8 +27,17 @@ ENDM
 	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework)
 	map_const INDIGO_PLATEAU,                10,  9 ; $09
 	map_const SAFFRON_CITY,                  20, 18 ; $0A
-DEF NUM_CITY_MAPS EQU const_value
+; v0.7: NUM_CITY_MAPS moved down one line, from 11 to 12. It is the number of
+; FLY SLOTS, not the number of towns -- BuildFlyLocationsList walks 0..it-1 and
+; wTownVisitedFlag is a bit per slot. Moving the DEF past UNUSED_MAP_0B buys a
+; twelfth slot without renumbering a single map, because $0B already existed.
+; The slot is the SEA COTTAGE, and BuildFlyLocationsList turns it into ROUTE_25.
+;
+; It cost NO WRAM: wFlyLocationsList lives in a union whose largest branch is the
+; slot machine's, and there was slack inside it. Measured, not assumed.
 	map_const UNUSED_MAP_0B,                  0,  0 ; $0B
+DEF NUM_CITY_MAPS EQU const_value
+DEF SEA_COTTAGE_FLY_SLOT EQU NUM_CITY_MAPS - 1
 DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_1,                       10, 18 ; $0C
 	map_const ROUTE_2,                       10, 36 ; $0D

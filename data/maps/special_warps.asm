@@ -75,6 +75,7 @@ FlyWarpDataPtr:
 	fly_warp_spec SAFFRON_CITY,    .SaffronCity
 	fly_warp_spec ROUTE_4,         .Route4
 	fly_warp_spec ROUTE_10,        .Route10
+	fly_warp_spec ROUTE_25,        .Route25
 
 .PalletTown:     fly_warp PALLET_TOWN,      5,  6
 .ViridianCity:   fly_warp VIRIDIAN_CITY,   23, 26
@@ -93,3 +94,7 @@ FlyWarpDataPtr:
 .SaffronCity:    fly_warp SAFFRON_CITY,     9, 30
 .Route4:         fly_warp ROUTE_4,         11,  6
 .Route10:        fly_warp ROUTE_10,        11, 22
+; The SEA COTTAGE. ROUTE 25 has no POKeMON CENTER, so by the same rule as PALLET
+; and INDIGO it lands one cell below the map's first warp -- which here is BILL's
+; own front door at (53, 5).
+.Route25:        fly_warp ROUTE_25,        53,  6
