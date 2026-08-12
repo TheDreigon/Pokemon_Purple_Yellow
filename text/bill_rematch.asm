@@ -54,6 +54,29 @@ _BillsHouseBillRematchCooldownText::
 	cont "LEAGUE run."
 	done
 
+; He built the storage system, so he finds out the moment it is logged.
+_BillsHouseBillMewText::
+	text "Wait. WAIT!"
+
+	para "The system logged"
+	line "something new."
+
+	para "You caught a MEW?"
+	line "An actual MEW?"
+
+	para "I turned myself"
+	line "into a #MON to"
+	cont "understand them."
+
+	para "You went and"
+	line "found the one"
+	cont "that can be all"
+	cont "of them."
+
+	para "...I need to sit"
+	line "down."
+	done
+
 _BillsHouseBillComeWithMeText::
 	text "Ha! Nothing less"
 	line "from a CHAMPION."

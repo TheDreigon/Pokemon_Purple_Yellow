@@ -161,6 +161,30 @@ BillsHouseOfferRematch::
 ; rather than inline where it is called from. A global label dropped into the
 ; middle of a routine takes ownership of every local label after it - which is
 ; exactly how this broke the first time.
+; MEW comes before everything, League or no League. He built the storage system
+; the whole region catches into, so he does not need to be told -- and it is the
+; one thing that can stop this man mid-sentence.
+;
+; Keyed on the Pokedex OWNED flag rather than EVENT_BEAT_MEW, because that event
+; is set by knocking it out too, and there is nothing to marvel at in that.
+	CheckEvent EVENT_BILL_SAW_MEW
+	jr nz, .noMewNews
+	ld a, MEW
+	ld [wd11e], a
+	predef IndexToPokedex
+	ld a, [wd11e]
+	dec a
+	ld c, a
+	ld b, FLAG_TEST
+	ld hl, wPokedexOwned
+	predef FlagActionPredef
+	ld a, c
+	and a
+	jr z, .noMewNews
+	SetEvent EVENT_BILL_SAW_MEW
+	ld hl, .MewText
+	call PrintText
+.noMewNews
 	ld a, [wGameStage]
 	and a
 	jp z, .notChampionYet ; jp, not jr: the garden branch below pushed that label
@@ -250,6 +274,10 @@ BillsHouseOfferRematch::
 	ld hl, .HowsTheTeamText
 	call PrintText
 	ret
+
+.MewText:
+	text_far _BillsHouseBillMewText
+	text_end
 
 .ComeWithMeText:
 	text_far _BillsHouseBillComeWithMeText

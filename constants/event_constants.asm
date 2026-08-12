@@ -875,6 +875,8 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	                                 ; which is a different question and the one
 	                                 ; his follow-up line has to ask about
 	const EVENT_BILL_ASKED_ABOUT_GARDEN ; ...and he only asks it once
+	const EVENT_BILL_SAW_MEW            ; he reacts to a caught MEW exactly once;
+	                                    ; a repeated "WAIT!" is not astonishment
 
 ; End of events
 	const_next $A00
