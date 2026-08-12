@@ -9,6 +9,10 @@ BillsHouse_Object:
 	def_warp_events
 	warp_event  2,  7, LAST_MAP, 1
 	warp_event  3,  7, LAST_MAP, 1
+; Warp 3: the back door to BILL's garden. Walled off until he opens it -- the
+; block at (12,3)-(13,3) is swapped out by BillsHouseShowOrHideGardenWall below,
+; so this warp is simply unreachable until then and needs no guard of its own.
+	warp_event 11,  0, BILLS_GARDEN, 1
 
 	def_bg_events
 

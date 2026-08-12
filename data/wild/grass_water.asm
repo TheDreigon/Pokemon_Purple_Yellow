@@ -251,6 +251,7 @@ WildDataPointers:
 	dw NothingWildMons
 	dw NothingWildMons        ; VIRIDIAN_OLD_ROD_HOUSE
 	dw NothingWildMons        ; DAYCARE_2F
+	dw BillsGardenWildMons    ; BILLS_GARDEN
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 
@@ -325,3 +326,4 @@ INCLUDE "data/wild/maps/VictoryRoad2F.asm"
 INCLUDE "data/wild/maps/VictoryRoad3F.asm"
 INCLUDE "data/wild/maps/VictoryRoad1F.asm"
 INCLUDE "data/wild/maps/DiglettsCave.asm"
+INCLUDE "data/wild/maps/BillsGarden.asm"

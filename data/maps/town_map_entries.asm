@@ -119,4 +119,8 @@ InternalMapEntries:
 	internal_map SUMMER_BEACH_HOUSE,             6, 15, Route19Name
 	internal_map VIRIDIAN_OLD_ROD_HOUSE,         2,  8, ViridianCityName
 	internal_map DAYCARE_2F,                    10,  4, Route5Name
+; Must stay last, and must exist at all: InternalMapEntries is an ordered RANGE
+; lookup with no end check, so the highest map id needs a line or LoadTownMapEntry
+; reads straight past the -1 and treats whatever follows as coordinates.
+	internal_map BILLS_GARDEN,                  12,  0, SeaCottageName
 	db -1 ; end

@@ -1466,3 +1466,19 @@ INCLUDE "scripts/CeladonMansionRoofHouse_2.asm"
 INCLUDE "scripts/ViridianForest_2.asm"
 INCLUDE "scripts/SSAnne2FRooms_2.asm"
 INCLUDE "scripts/SilphCo11F_2.asm"
+
+; BILL's garden, behind the Sea Cottage. A FLOATING section on purpose: every
+; "Maps N" section is pinned to a bank in layout.link, so adding a map to one
+; eats that bank's slack. The header, script, objects and blocks must all live
+; in the SAME section, because map_header stores `dw BillsGarden_Blocks` -- a
+; 16-bit pointer that is read with the header's own bank.
+;
+; The map was seeded from kep-hack's BillsGarden.blk (see the credit note in
+; the CHANGELIST) and is meant to be redrawn.
+SECTION "Bills Garden Map", ROMX
+
+INCLUDE "data/maps/headers/BillsGarden.asm"
+INCLUDE "scripts/BillsGarden.asm"
+INCLUDE "data/maps/objects/BillsGarden.asm"
+BillsGarden_Blocks: INCBIN "maps/BillsGarden.blk"
+	assert @ - BillsGarden_Blocks == BILLS_GARDEN_WIDTH * BILLS_GARDEN_HEIGHT, "BillsGarden.blk size does not match BILLS_GARDEN in map_constants.asm"

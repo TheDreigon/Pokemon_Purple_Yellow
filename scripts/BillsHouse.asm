@@ -1,10 +1,39 @@
 BillsHouse_Script:
+	call BillsHouseShowOrHideGardenWall
 	call BillsHouseScript_1e09e
 	call EnableAutoTextBoxDrawing
 	ld a, [wBillsHouseCurScript]
 	ld hl, BillsHouse_ScriptPointers
 	call CallFunctionInTable
 	ret
+
+BillsHouseGardenWallBlock  EQU $20 ; the divider: floor on top, wall underneath
+BillsHouseGardenOpenBlock  EQU $0E ; the room's plain floor block
+BillsHouseGardenWallY      EQU 1   ; in BLOCKS, not cells
+BillsHouseGardenWallX      EQU 6
+
+BillsHouseShowOrHideGardenWall::
+; The wall that hides the back door to BILL's garden, put back on every entry to
+; the map so the state survives leaving and reloading -- the same shape as
+; BrunoShowOrHideExitBlock in scripts/BrunosRoom.asm.
+;
+; The two blocked cells (12,3) and (13,3) share ONE block, (6,1), so this is a
+; single replacement rather than two. Opening it also opens the path: (12,3) ->
+; (12,2) -> (11,2) -> (11,1) -> (11,0), which is the door.
+	ld hl, wCurrentMapScriptFlags
+	bit 5, [hl]
+	res 5, [hl]
+	ret z ; only on map entry, not on every script tick
+; CheckEvent leaves Z set when the event is CLEAR, and `ld a, n` does not touch
+; flags, so the two loads can sit between the test and the branch.
+	CheckEvent EVENT_BILL_OPENED_GARDEN
+	ld a, BillsHouseGardenWallBlock
+	jr z, .notOpenedYet
+	ld a, BillsHouseGardenOpenBlock
+.notOpenedYet
+	ld [wNewTileBlockID], a
+	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
+	predef_jump ReplaceTileBlock
 
 BillsHouse_ScriptPointers:
 	def_script_pointers

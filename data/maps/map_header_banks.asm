@@ -252,4 +252,5 @@ MapHeaderBanks::
 	db BANK(SummerBeachHouse_h)
 	db BANK(ViridianOldRodHouse_h)
 	db BANK(Daycare2F_h)
+	db BANK(BillsGarden_h)
 	assert_table_length NUM_MAPS

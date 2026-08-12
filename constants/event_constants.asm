@@ -867,6 +867,14 @@ DEF REMATCH_COOLDOWN_EVENTS_START EQU const_value
 	const EVENT_REMATCHED_BILL
 DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 
+; BILL's garden. Deliberately OUTSIDE the rematch-cooldown block above, whose
+; range is bounded by REMATCH_COOLDOWN_EVENTS_END -- inserting there would move
+; that boundary.
+	const EVENT_BILL_OPENED_GARDEN   ; he walked over and took the wall down
+	const EVENT_ENTERED_BILLS_GARDEN ; and the player actually went through it,
+	                                 ; which is a different question and the one
+	                                 ; his follow-up line has to ask about
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value

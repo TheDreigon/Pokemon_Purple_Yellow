@@ -270,6 +270,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const SUMMER_BEACH_HOUSE,             7,  4 ; $F8
 	map_const VIRIDIAN_OLD_ROD_HOUSE,         4,  4 ; $F9 (the standard small-house interior; the FISHING GURU moved here out of the Viridian MART)
 	map_const DAYCARE_2F,                     4,  4 ; $FA (the Day Care's upper floor: the gentleman's daughter and her wards)
+	map_const BILLS_GARDEN,                  12, 12 ; $FB (behind BILL's cottage; reached only through the house, and only after the League)
 DEF NUM_MAPS EQU const_value
 
 ; Indoor maps, such as houses, use this as the Map ID in their exit warps

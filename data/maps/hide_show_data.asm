@@ -254,6 +254,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS ; VIRIDIAN_OLD_ROD_HOUSE
 	dw NoHS ; DAYCARE_2F
+	dw NoHS ; BILLS_GARDEN
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 
