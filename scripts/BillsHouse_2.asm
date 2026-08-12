@@ -163,7 +163,38 @@ BillsHouseOfferRematch::
 ; exactly how this broke the first time.
 	ld a, [wGameStage]
 	and a
-	jr z, .notChampionYet
+	jp z, .notChampionYet ; jp, not jr: the garden branch below pushed that label
+	                      ; out of a jr's reach
+; The garden comes before anything else he might say, and only once he has
+; actually been beaten: it is a reward for the relationship, not for the League
+; on its own.
+	CheckEvent EVENT_BEAT_BILL
+	jr z, .rematch
+	CheckEvent EVENT_BILL_OPENED_GARDEN
+	jr nz, .gardenAlreadyOpen
+	ld hl, .ComeWithMeText
+	call PrintText
+	ld a, SCRIPT_BILLSHOUSE_GARDEN_WALK
+	ld [wBillsHouseCurScript], a
+	ld [wCurMapScript], a
+	ret
+.gardenAlreadyOpen
+	CheckEvent EVENT_BILL_ASKED_ABOUT_GARDEN
+	jr nz, .rematch
+; Opening the wall and walking through it are different things. He only asks how
+; it was of someone who went; the other branch is a nudge, and it repeats until
+; they do. SetEvent writes through hl, so it has to happen before the text
+; pointer is loaded.
+	CheckEvent EVENT_ENTERED_BILLS_GARDEN
+	jr z, .neverWentIn
+	SetEvent EVENT_BILL_ASKED_ABOUT_GARDEN
+	ld hl, .HowWasTheGardenText
+	call PrintText
+	jr .rematch
+.neverWentIn
+	ld hl, .GardenStillOutThereText
+	call PrintText
+.rematch
 	CheckEvent EVENT_REMATCHED_BILL
 	jr nz, .rematchSpent
 	CheckEvent EVENT_BEAT_BILL
@@ -208,6 +239,18 @@ BillsHouseOfferRematch::
 	ld hl, .HowsTheTeamText
 	call PrintText
 	ret
+
+.ComeWithMeText:
+	text_far _BillsHouseBillComeWithMeText
+	text_end
+
+.HowWasTheGardenText:
+	text_far _BillsHouseBillHowWasTheGardenText
+	text_end
+
+.GardenStillOutThereText:
+	text_far _BillsHouseBillGardenStillOutThereText
+	text_end
 
 .ChallengeText:
 	text_far _BillsHouseBillRematchChallengeText

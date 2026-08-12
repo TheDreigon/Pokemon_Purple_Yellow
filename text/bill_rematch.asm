@@ -54,6 +54,49 @@ _BillsHouseBillRematchCooldownText::
 	cont "LEAGUE run."
 	done
 
+_BillsHouseBillComeWithMeText::
+	text "Ha! Nothing less"
+	line "from a CHAMPION."
+
+	para "There's something"
+	line "I've wanted to"
+	cont "show you for a"
+	cont "long while."
+
+	para "My garden. Come"
+	line "with me!"
+	done
+
+; said at the wall, once he has crossed the room
+_BillsHouseGardenThisWayText::
+	text "It's through"
+	line "here."
+
+	para "Nobody goes in"
+	line "but me. Consider"
+	cont "it a CHAMPION's"
+	cont "privilege."
+	done
+
+; the once-only follow-up, and only for a player who actually went in
+_BillsHouseBillHowWasTheGardenText::
+	text "So! How did you"
+	line "find the garden?"
+
+	para "Don't tell a"
+	line "soul. It's a"
+	cont "secret."
+	done
+
+; ...and the nudge for one who opened it and never went, which repeats
+_BillsHouseBillGardenStillOutThereText::
+	text "Well? It's still"
+	line "out there."
+
+	para "Go on. The back"
+	line "way is open now."
+	done
+
 _BillsHouseBillPostBattleText::
 	text "Fascinating! They"
 	line "fight the way you"

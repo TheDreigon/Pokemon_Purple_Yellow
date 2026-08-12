@@ -35,6 +35,81 @@ BillsHouseShowOrHideGardenWall::
 	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
 	predef_jump ReplaceTileBlock
 
+BillsHouseGardenWalkScript:
+; BILL crosses the room to the wall he is about to take down. Started by
+; BillsHouseOfferRematch after he has said "come with me"; MoveSprite sets
+; wJoyIgnore to $FF itself, so from here until the wall is open the player
+; cannot walk off, open a menu, or leave the map. The scene is atomic on
+; purpose: EVENT_BILL_OPENED_GARDEN is only set at the very end, so even an
+; interrupted run just leaves him back at his desk on the next map load.
+	ld a, BILLSHOUSE_BILL2
+	ldh [hSpriteIndex], a
+; If the player is facing LEFT they are standing at (5,4), the one cell that is
+; in his way -- so he goes around by row 5, the way vanilla's own Bill walk
+; picks a detour off the player's facing a few routines above.
+	ld a, [wSpritePlayerStateData1FacingDirection]
+	cp SPRITE_FACING_LEFT
+	ld de, BillsHouseGardenWalkStraight
+	jr nz, .go
+	ld de, BillsHouseGardenWalkAround
+.go
+	call MoveSprite
+	ld a, SCRIPT_BILLSHOUSE_GARDEN_OPEN
+	ld [wBillsHouseCurScript], a
+	ret
+
+; (4,4) -> (13,4), nine steps along a row that is clear from x=3 to x=13.
+BillsHouseGardenWalkStraight:
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db -1 ; end
+
+; the same, one row lower, for when the player is standing on his first step
+BillsHouseGardenWalkAround:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_RIGHT
+	db NPC_MOVEMENT_UP
+	db -1 ; end
+
+BillsHouseGardenOpenScript:
+	ld a, [wd730]
+	bit 0, a
+	ret nz ; still walking
+	ld hl, BillsHouseGardenThisWayText
+	call PrintText
+	ld a, SFX_GO_INSIDE
+	call PlaySound
+	call WaitForSoundToFinish
+	ld a, BillsHouseGardenOpenBlock
+	ld [wNewTileBlockID], a
+	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
+	predef ReplaceTileBlock
+	SetEvent EVENT_BILL_OPENED_GARDEN
+	xor a
+	ld [wJoyIgnore], a
+	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
+	ld [wBillsHouseCurScript], a
+	ret
+
+BillsHouseGardenThisWayText:
+	text_far _BillsHouseGardenThisWayText
+	text_end
+
 BillsHouse_ScriptPointers:
 	def_script_pointers
 	dw_const BillsHouseScript0, SCRIPT_BILLSHOUSE_SCRIPT0
@@ -50,6 +125,8 @@ BillsHouse_ScriptPointers:
 	dw_const BillsHouseScript10, SCRIPT_BILLSHOUSE_SCRIPT10
 	dw_const BillsHouseScript11, SCRIPT_BILLSHOUSE_SCRIPT11
 	dw_const BillsHousePostBattleScript, SCRIPT_BILLSHOUSE_POST_BATTLE
+	dw_const BillsHouseGardenWalkScript, SCRIPT_BILLSHOUSE_GARDEN_WALK
+	dw_const BillsHouseGardenOpenScript, SCRIPT_BILLSHOUSE_GARDEN_OPEN
 
 BillsHouseScript_1e09e:
 	ld hl, wd492
