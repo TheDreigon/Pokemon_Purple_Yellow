@@ -80,8 +80,9 @@ _BillsHouseGardenThisWayText::
 
 ; the once-only follow-up, and only for a player who actually went in
 _BillsHouseBillHowWasTheGardenText::
-	text "So! How did you"
-	line "find the garden?"
+	text "So! What did you"
+	line "think of the"
+	cont "garden?"
 
 	para "Don't tell a"
 	line "soul. It's a"
