@@ -90,6 +90,15 @@ BillsHouseGardenOpenScript:
 	ld a, [wd730]
 	bit 0, a
 	ret nz ; still walking
+; 🔴 MoveSprite leaves wJoyIgnore at $FF (home/pathfinding.asm:41), and the text
+; below has a page break, which waits on WaitForTextScrollButtonPress -- and
+; _Joypad masks A and B out of hJoy5 while that flag is set. Printing first and
+; clearing after was a HARD FREEZE with no way out but a reset, and because
+; EVENT_BILL_OPENED_GARDEN is set further down, the reset landed the player back
+; before the scene to freeze again. Clear it BEFORE the text, the way
+; BillsHouseScript3 and BillsHouseScript11 in this same file already do.
+	xor a
+	ld [wJoyIgnore], a
 	ld hl, BillsHouseGardenThisWayText
 	call PrintText
 	ld a, SFX_GO_INSIDE
@@ -100,8 +109,6 @@ BillsHouseGardenOpenScript:
 	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
 	predef ReplaceTileBlock
 	SetEvent EVENT_BILL_OPENED_GARDEN
-	xor a
-	ld [wJoyIgnore], a
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
 	ld [wBillsHouseCurScript], a
 	ret

@@ -7,8 +7,14 @@ BillsHouse_Object:
 	db $d ; border block
 
 	def_warp_events
-	warp_event  2,  7, LAST_MAP, 1
-	warp_event  3,  7, LAST_MAP, 1
+; 🔴 ROUTE_25 explicitly, NOT LAST_MAP. BILLS_GARDEN uses the OVERWORLD tileset,
+; so it counts as an "outside" map: warping out of it makes WarpFound2 write
+; wLastMap = BILLS_GARDEN (home/overworld.asm:491-492). With LAST_MAP here, the
+; front door then led straight back into the garden, and the house had no exit
+; at all from the first garden visit onward. kep-hack hits the same thing and
+; solves it the same way.
+	warp_event  2,  7, ROUTE_25, 1
+	warp_event  3,  7, ROUTE_25, 1
 ; Warp 3: the back door to BILL's garden. Walled off until he opens it -- the
 ; block at (12,3)-(13,3) is swapped out by BillsHouseShowOrHideGardenWall below,
 ; so this warp is simply unreachable until then and needs no guard of its own.

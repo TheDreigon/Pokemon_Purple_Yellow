@@ -75,7 +75,10 @@ _BillsHouseBillMewText::
 
 	para "...I need to sit"
 	line "down."
-	done
+; prompt, not done: whatever he says next -- the garden offer, the rematch, the
+; cooldown line -- is printed immediately after this, and `done` would wipe this
+; last page before it could be read.
+	prompt
 
 _BillsHouseBillComeWithMeText::
 	text "Ha! Nothing less"
@@ -110,7 +113,7 @@ _BillsHouseBillHowWasTheGardenText::
 	para "Don't tell a"
 	line "soul. It's a"
 	cont "secret."
-	done
+	prompt ; falls through to the rematch offer, which prints straight after
 
 ; ...and the nudge for one who opened it and never went, which repeats
 _BillsHouseBillGardenStillOutThereText::
@@ -119,7 +122,7 @@ _BillsHouseBillGardenStillOutThereText::
 
 	para "Go on. The back"
 	line "way is open now."
-	done
+	prompt ; same -- the rematch offer follows immediately
 
 _BillsHouseBillPostBattleText::
 	text "Fascinating! They"

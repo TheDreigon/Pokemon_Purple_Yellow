@@ -3,14 +3,14 @@
 ; one. L10 is also exactly the level of the EEVEE BILL hands over in his own
 ; quest, which is where that Eevee came from -- he went out back and fetched it.
 ;
-; The slot odds are NOT the game's usual ones. This map uses its own chance
-; table (BillsGardenEncounterSlotChances, data/wild/probabilities.asm) so the
-; ten entries come out even instead of running 19.9% down to 1.2%.
+; ⏳ These use the GAME'S NORMAL slot odds, so they are NOT equally common:
+; 19.9 / 19.9 / 15.2 / 9.8 / 9.8 / 9.8 / 5.1 / 5.1 / 4.3 / 1.2 percent, in the
+; order below. The flat table this map is meant to have did not fit -- see the
+; note in data/wild/probabilities.asm, which needs room in bank $4 first.
+; Until then the last entry is a 1-in-85 rarity, which is nobody's design.
 ;
-; The three KANTO starters appear twice each and so sit at 19.9% while the
-; other four sit near 10%. That is TEMPORARY: the second entry of each is the
-; seat of a JOHTO starter, and swapping those three words puts all ten between
-; 9.8% and 10.2%.
+; The three KANTO starters appear twice each, so they are the two 19.9% slots
+; plus more. Their second entries are seats being kept for the JOHTO starters.
 BillsGardenWildMons:
 	def_grass_wildmons 20 ; encounter rate
 	db 10, BULBASAUR
