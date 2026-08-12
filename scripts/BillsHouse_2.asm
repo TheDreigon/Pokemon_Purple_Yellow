@@ -170,6 +170,17 @@ BillsHouseOfferRematch::
 ; on its own.
 	CheckEvent EVENT_BEAT_BILL
 	jr z, .rematch
+; ...and not before he has handed the EEVEE over, which is where it came from:
+; showing you the garden first would be showing you the shelf before the gift.
+;
+; It also closes the one hole an adversarial pass found. A player can reach the
+; post-game with the Eevee still outstanding (a full box at the door), and
+; BillsHouseScript9 then arms the doorway scene that hands it over -- a scene
+; whose movement assumes he is at his desk. Without this line the garden walk
+; could leave him at (13,4) with that armed, and he would set off from the wrong
+; side of the room for the rest of the visit.
+	CheckEvent EVENT_GOT_BILL_EEVEE
+	jr z, .rematch
 	CheckEvent EVENT_BILL_OPENED_GARDEN
 	jr nz, .gardenAlreadyOpen
 	ld hl, .ComeWithMeText
