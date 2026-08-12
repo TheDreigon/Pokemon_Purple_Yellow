@@ -54,7 +54,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_22,                      22, 11 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
 	map_const ROUTE_24,                      13, 20 ; $23
-	map_const ROUTE_25,                      34, 10 ; $24
+	map_const ROUTE_25,                      35, 10 ; $24
 DEF FIRST_INDOOR_MAP EQU const_value
 	map_const REDS_HOUSE_1F,                  4,  4 ; $25
 	map_const REDS_HOUSE_2F,                  4,  4 ; $26
@@ -107,7 +107,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const DIGLETTS_CAVE_ROUTE_11,         4,  4 ; $55
 	map_const ROUTE_11_GATE_2F,               4,  4 ; $56
 	map_const ROUTE_12_GATE_1F,               5,  4 ; $57
-	map_const BILLS_HOUSE,                    4,  4 ; $58
+	map_const BILLS_HOUSE,                    7,  4 ; $58
 	map_const VERMILION_POKECENTER,           7,  4 ; $59
 	map_const POKEMON_FAN_CLUB,               4,  4 ; $5A
 	map_const VERMILION_MART,                 4,  4 ; $5B

@@ -17,7 +17,7 @@ Route25_Object:
 	warp_event 53,  5, BILLS_HOUSE, 1
 
 	def_bg_events
-	bg_event 49,  7, TEXT_ROUTE25_BILL_SIGN
+	bg_event 51,  7, TEXT_ROUTE25_BILL_SIGN
 
 	def_object_events
 	object_event 19,  7, SPRITE_YOUNGSTER, STAY, DOWN, TEXT_ROUTE25_YOUNGSTER1, OPP_YOUNGSTER, 5
