@@ -2,8 +2,8 @@ BillsGarden_Object:
 	db $2c ; border block
 
 	def_warp_events
-	warp_event 11, 17, BILLS_HOUSE, 3
-	warp_event 12, 17, BILLS_HOUSE, 3
+	warp_event 11, 19, BILLS_HOUSE, 3
+	warp_event 12, 19, BILLS_HOUSE, 3
 
 	def_bg_events
 
