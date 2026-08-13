@@ -11,7 +11,11 @@ InitPlayerData2:
 
 	ld a, $ff
 	ld [wUnusedD71B], a
-	ld [wEscapeWarpMap], a ; v0.7 (#41): no cave mouth walked into yet
+; v0.7 (#41): zero is "no cave mouth walked into yet" -- see ram/wram.asm for why
+; it has to be zero and not $ff. Written explicitly even though the new-game
+; wipe already zeroes it, so that the sentinel has an owner to grep for.
+	xor a
+	ld [wEscapeWarpMap], a
 
 	ld a, 90 ; initialize happiness to 90
 	ld [wPikachuHappiness], a

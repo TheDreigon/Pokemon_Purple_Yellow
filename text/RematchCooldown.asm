@@ -21,9 +21,10 @@ _NurseJoyRematchCooldownText::
 	text "Thank you again"
 	line "for the battle!"
 
-	para "But duty calls."
-	line "My patients need"
-	cont "me."
+; v0.7 (#38): she has no patients any more -- she left the CENTER to help her
+; father, and says so two pages earlier in her own intro.
+	para "But the boarders"
+	line "need feeding."
 
 	para "Win the LEAGUE"
 	line "again and I'll"

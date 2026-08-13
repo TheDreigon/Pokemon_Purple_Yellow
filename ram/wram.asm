@@ -2444,8 +2444,14 @@ wRivalEeveelution:: db
 ; here ($d712 onwards), the same way wRivalEeveelution took wUnusedD71F: no new
 ; WRAM, and the save layout is byte for byte what it was.
 ;
-; wEscapeWarpMap is the OUTSIDE map ($ff = nothing remembered yet, set by
-; InitPlayerData), and wEscapeWarpID is which of THAT map's warps it was.
+; wEscapeWarpMap is the OUTSIDE map, stored as id PLUS ONE so that ZERO means
+; "nothing remembered". That is not cleverness, it is the only value a save made
+; before this feature can hold: these bytes were a bare `ds 8` with no writer, so
+; an old save restores $00 into them, and $00 is a perfectly good map id
+; (PALLET_TOWN) -- the rope's first use after loading such a save warped the
+; player to RED's front door. wRivalEeveelution, the label right above, got this
+; right for the same reason ("0/garbage = not rolled yet"); the first version of
+; this did not. wEscapeWarpID is which of THAT map's warps it was.
 ; WarpFound2 writes the two together, in its "outside" branch and nowhere else,
 ; and only when the id is below that map's warp count -- so the pair can never
 ; name a warp the map does not have.

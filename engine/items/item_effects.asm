@@ -1887,9 +1887,10 @@ ItemUseEscapeRope:
 ;
 ; With nothing remembered ($ff: a save that has never once walked in from the
 ; outside) it falls through to the vanilla fly warp, unchanged.
-	xor a
-	ld [wMapPalOffset], a ; ROCK TUNNEL leaves this at 6; the fly-warp path clears it, we must too
-	call Func_07c4 ; off the bike / out of the water (SEAFOAM and CERULEAN CAVE are surfable)
+; The bike/surf state and wMapPalOffset are NOT touched here. Both were, and both
+; were wrong: nothing warps until the next pass through OverworldLoop, and the
+; redraw that closes this menu happens in between. WarpFound2's .escapeWarp does
+; them at the right moment now.
 	ld hl, wd732
 	set 3, [hl]
 	set 6, [hl]
@@ -1900,7 +1901,7 @@ ItemUseEscapeRope:
 ; would survive the whole warp and hijack the next door the player walked into.
 	res 7, [hl]
 	ld a, [wEscapeWarpMap]
-	inc a ; $ff = no mouth remembered
+	and a ; 0 = no mouth remembered, which is also what a pre-#41 save holds
 	jr z, .noRememberedMouth
 	ld a, [wEscapeWarpID]
 	ld [wDestinationWarpID], a

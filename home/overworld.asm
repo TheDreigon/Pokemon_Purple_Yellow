@@ -108,7 +108,9 @@ OverworldLoopLessDelay::
 	jr nz, .displayDialogue
 	predef TryFieldMove
 	jp OverworldLoop
-	jp z, OverworldLoop
+; (a second `jp z, OverworldLoop` used to sit here, unreachable behind the
+; unconditional jump above with no label between them. Its three bytes paid for
+; part of the fix below in .escapeWarp -- the home bank had eleven left.)
 
 .displayDialogue
 	predef GetTileAndCoordsInFrontOfPlayer
@@ -510,6 +512,7 @@ WarpFound2::
 	jr nc, .escapeWarpNotWorthRemembering
 	ld [wEscapeWarpID], a
 	ld a, [wCurMap]
+	inc a ; stored as id+1: zero has to mean "nothing remembered", see wram.asm
 	ld [wEscapeWarpMap], a
 .escapeWarpNotWorthRemembering
 ; (the write of wCurMapWidth to wUnusedD366 that used to sit here was inherited
@@ -554,7 +557,18 @@ WarpFound2::
 	jr .skipMapChangeSound
 .escapeWarp
 	res 7, [hl]
+; Both of these used to sit in ItemUseEscapeRope and both were wrong there,
+; because the warp does not happen until the next pass through OverworldLoop and
+; the item menu redraws the screen in between.
+;   Func_07c4 zeroes wWalkBikeSurfState -- do it early and the redraw that closes
+;   the DIG menu paints the WALKING sprite standing on open water.
+;   wMapPalOffset is the darkness offset; clear it early and CloseTextDisplay's
+;   LoadGBPal lights an unlit ROCK TUNNEL up for the whole spin-out animation.
+	call Func_07c4 ; off the bike / out of the water (SEAFOAM and CERULEAN CAVE are surfable)
+	xor a
+	ld [wMapPalOffset], a ; ROCK TUNNEL leaves this at 6
 	ld a, [wEscapeWarpMap]
+	dec a ; stored as id+1, see wram.asm
 	ld [wCurMap], a
 .warpPad
 ; if the player is on a warp pad
