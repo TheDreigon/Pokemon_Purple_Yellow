@@ -6,7 +6,7 @@ MarkTownVisitedAndLoadMissableObjects::
 	ld b, FLAG_SET
 	ld hl, wTownVisitedFlag   ; mark town as visited (for flying)
 	predef FlagActionPredef
-; The SEA COTTAGE is a fly destination that is NOT a city map, so it cannot mark
+; BILL's LAB is a fly destination that is NOT a city map, so it cannot mark
 ; itself here. ROUTE 25 marks its own slot, in its own map script -- see
 ; Route25ShowHideBillScript. Keeping the oddity in the map that owns it also
 ; keeps it out of this routine, which every map in the game runs.

@@ -91,7 +91,7 @@ IF DEF(_DEBUG)
 	ld [hl], a
 
 	; BILL's whole thread, done, so his garden can be tested without playing to
-	; the League first: fly to the SEA COTTAGE (every fly point is set above),
+	; the League first: fly to BILL's LAB (every fly point is set above),
 	; walk in, talk to him.
 	;
 	; EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING is deliberately NOT set. It is the

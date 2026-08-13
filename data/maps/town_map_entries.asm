@@ -73,7 +73,7 @@ InternalMapEntries:
 	internal_map POWER_PLANT,                   15,  4, PowerPlantName
 	internal_map ROUTE_11_GATE_2F,              13,  9, Route11Name
 	internal_map ROUTE_12_GATE_1F,              14,  7, Route12Name
-	internal_map BILLS_HOUSE,                   12,  0, SeaCottageName
+	internal_map BILLS_HOUSE,                   12,  0, BillsLabName
 	internal_map VERMILION_DOCK,                10,  9, VermilionCityName
 	internal_map SS_ANNE_B1F_ROOMS,              9, 10, SSAnneName
 	internal_map VICTORY_ROAD_1F,                0,  4, VictoryRoadName
@@ -122,5 +122,5 @@ InternalMapEntries:
 ; Must stay last, and must exist at all: InternalMapEntries is an ordered RANGE
 ; lookup with no end check, so the highest map id needs a line or LoadTownMapEntry
 ; reads straight past the -1 and treats whatever follows as coordinates.
-	internal_map BILLS_GARDEN,                  12,  0, SeaCottageName
+	internal_map BILLS_GARDEN,                  12,  0, BillsLabName
 	db -1 ; end

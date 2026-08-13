@@ -267,9 +267,9 @@ BuildFlyLocationsList:
 	ld a, NOT_VISITED
 	jr nc, .notVisited
 	ld a, b ; store the map number of the town if it has been visited
-; ...except the last slot, which is not a town. It stands for the SEA COTTAGE,
+; ...except the last slot, which is not a town. It stands for BILL's LAB,
 ; and the map you actually fly to is ROUTE 25, outside BILL's front door.
-	cp SEA_COTTAGE_FLY_SLOT
+	cp BILLS_LAB_FLY_SLOT
 	jr nz, .notVisited
 	ld a, ROUTE_25
 .notVisited

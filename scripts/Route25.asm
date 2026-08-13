@@ -20,12 +20,12 @@ Route25ShowHideBillScript:
 	bit 6, [hl]
 	res 6, [hl]
 	ret z
-; The SEA COTTAGE is a FLY destination without being a city map, so the routine
+; BILL's LAB is a FLY destination without being a city map, so the routine
 ; that marks towns visited cannot reach it -- it only handles ids below
 ; FIRST_ROUTE_MAP. ROUTE 25 marks the twelfth slot itself, once per entry, and
 ; BuildFlyLocationsList turns that slot back into ROUTE_25.
 	push hl
-	ld c, SEA_COTTAGE_FLY_SLOT
+	ld c, BILLS_LAB_FLY_SLOT
 	ld b, FLAG_SET
 	ld hl, wTownVisitedFlag
 	predef FlagActionPredef
