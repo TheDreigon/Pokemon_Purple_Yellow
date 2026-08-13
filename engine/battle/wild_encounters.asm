@@ -46,6 +46,13 @@ TryDoWildEncounter:
 	cp FIRST_INDOOR_MAP ; is this an indoor map?
 	jr c, .CantEncounter2
 	ld a, [wCurMapTileset]
+; ...and an OUTDOOR tileset on an indoor map id means an outdoor map that simply
+; had to be appended, like BILL's garden. It should behave like grass, not like
+; a cave: encounters in the grass and nowhere else. Checked when this was added
+; -- the garden is the only map in the game with an indoor id and the OVERWORLD
+; tileset, so this changes nothing anywhere else.
+	and a ; OVERWORLD
+	jr z, .CantEncounter2
 	cp FOREST ; Viridian Forest/Safari Zone
 	jr z, .CantEncounter2
 	ld a, [wGrassRate]

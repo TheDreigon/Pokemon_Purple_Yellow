@@ -54,9 +54,71 @@ BillsHouseGardenWalkScript:
 	ld de, BillsHouseGardenWalkAround
 .go
 	call MoveSprite
+	ld a, SCRIPT_BILLSHOUSE_GARDEN_FOLLOW
+	ld [wBillsHouseCurScript], a
+	ret
+
+BillsHouseGardenFollowScript:
+; He has crossed the room; now the player is pulled after him, so that the
+; camera -- which follows the PLAYER, not BILL -- is looking at the wall when it
+; opens. Without this the whole scene played off-screen: BILL ends at x=13 and
+; the wall is at x=12-13, while the player stood at x=4 and saw an empty room.
+;
+; The route is chosen by the player's actual COORDINATES, the way PewterGuys
+; does it for the Pewter guides, rather than by their facing. Facing is only a
+; proxy for where they are, and the thing we need is where they are.
+	ld a, [wd730]
+	bit 0, a
+	ret nz ; BILL is still walking
+	call StartSimulatingJoypadStates
+	call BillsHouseGardenPlayerRoute ; de = the button list for this start cell
+	ld hl, wSimulatedJoypadStatesEnd
+	call DecodeRLEList
+	dec a
+	ld [wSimulatedJoypadStatesIndex], a
 	ld a, SCRIPT_BILLSHOUSE_GARDEN_OPEN
 	ld [wBillsHouseCurScript], a
 	ret
+
+BillsHouseGardenPlayerRoute:
+; To talk to BILL at (4,4) the player must be on one of four cells, and each
+; needs its own way east. All four end on (12,4), beside him and under the wall.
+; Row 4 is clear from x=3 to x=13 and he has vacated (4,4) by now, so every
+; route is a straight run once the player is on that row.
+	ld a, [wYCoord]
+	cp 3
+	jr z, .fromAbove
+	cp 5
+	jr z, .fromBelow
+	ld a, [wXCoord]
+	cp 3
+	jr z, .fromWest
+	ld de, BillsHouseGardenRouteFromEast
+	ret
+.fromWest
+	ld de, BillsHouseGardenRouteFromWest
+	ret
+.fromAbove
+	ld de, BillsHouseGardenRouteFromAbove
+	ret
+.fromBelow
+	ld de, BillsHouseGardenRouteFromBelow
+	ret
+
+BillsHouseGardenRouteFromWest:  ; (3,4)
+	db D_RIGHT, 9
+	db -1 ; end
+BillsHouseGardenRouteFromEast:  ; (5,4)
+	db D_RIGHT, 7
+	db -1 ; end
+BillsHouseGardenRouteFromAbove: ; (4,3)
+	db D_DOWN, 1
+	db D_RIGHT, 8
+	db -1 ; end
+BillsHouseGardenRouteFromBelow: ; (4,5)
+	db D_UP, 1
+	db D_RIGHT, 8
+	db -1 ; end
 
 ; (4,4) -> (13,4), nine steps along a row that is clear from x=3 to x=13.
 BillsHouseGardenWalkStraight:
@@ -87,9 +149,9 @@ BillsHouseGardenWalkAround:
 	db -1 ; end
 
 BillsHouseGardenOpenScript:
-	ld a, [wd730]
-	bit 0, a
-	ret nz ; still walking
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz ; the player is still being walked over
 ; 🔴 MoveSprite leaves wJoyIgnore at $FF (home/pathfinding.asm:41), and the text
 ; below has a page break, which waits on WaitForTextScrollButtonPress -- and
 ; _Joypad masks A and B out of hJoy5 while that flag is set. Printing first and
@@ -133,6 +195,7 @@ BillsHouse_ScriptPointers:
 	dw_const BillsHouseScript11, SCRIPT_BILLSHOUSE_SCRIPT11
 	dw_const BillsHousePostBattleScript, SCRIPT_BILLSHOUSE_POST_BATTLE
 	dw_const BillsHouseGardenWalkScript, SCRIPT_BILLSHOUSE_GARDEN_WALK
+	dw_const BillsHouseGardenFollowScript, SCRIPT_BILLSHOUSE_GARDEN_FOLLOW
 	dw_const BillsHouseGardenOpenScript, SCRIPT_BILLSHOUSE_GARDEN_OPEN
 
 BillsHouseScript_1e09e:
