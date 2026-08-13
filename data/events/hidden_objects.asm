@@ -40,8 +40,8 @@ HiddenObjectMaps:
 	dbw ROUTE_4,                      Route4HiddenObjects
 	dbw MT_MOON_POKECENTER,           MtMoonPokecenterHiddenObjects
 	dbw ROUTE_9,                      Route9HiddenObjects
-	dbw TRADE_CENTER,                 TradeCenterHiddenObjects
-	dbw COLOSSEUM,                    ColosseumHiddenObjects
+; v0.7: the TRADE CENTER and COLOSSEUM rows went with the link cable. This is a
+; searched list, not one indexed by map id, so dropping rows renumbers nothing.
 	dbw INDIGO_PLATEAU,               IndigoPlateauHiddenObjects
 	dbw INDIGO_PLATEAU_LOBBY,         IndigoPlateauLobbyHiddenObjects
 	dbw COPYCATS_HOUSE_2F,            CopycatsHouse2FHiddenObjects
@@ -297,16 +297,6 @@ MtMoonPokecenterHiddenObjects:
 
 Route9HiddenObjects:
 	hidden_object 14,  7, ETHER, HiddenItems
-	db -1 ; end
-
-TradeCenterHiddenObjects:
-	hidden_object  5,  4, ANY_FACING, CableClubRightGameboy
-	hidden_object  4,  4, ANY_FACING, CableClubLeftGameboy
-	db -1 ; end
-
-ColosseumHiddenObjects:
-	hidden_object  5,  4, ANY_FACING, CableClubRightGameboy
-	hidden_object  4,  4, ANY_FACING, CableClubLeftGameboy
 	db -1 ; end
 
 IndigoPlateauHiddenObjects:

@@ -28,25 +28,10 @@ PrepareForSpecialWarp::
 	ret
 
 LoadSpecialWarpData:
-	ld a, [wd72d]
-	cp TRADE_CENTER
-	jr nz, .notTradeCenter
-	ld hl, TradeCenterPlayerWarp
-	ldh a, [hSerialConnectionStatus]
-	cp USING_INTERNAL_CLOCK
-	jr z, .copyWarpData
-	ld hl, TradeCenterFriendWarp
-	jr .copyWarpData
-.notTradeCenter
-	cp COLOSSEUM
-	jr nz, .notColosseum
-	ld hl, ColosseumPlayerWarp
-	ldh a, [hSerialConnectionStatus]
-	cp USING_INTERNAL_CLOCK
-	jr z, .copyWarpData
-	ld hl, ColosseumFriendWarp
-	jr .copyWarpData
-.notColosseum
+; v0.7: the TRADE CENTER and COLOSSEUM branches went with the link cable. They
+; were the only readers of wd72d here and the only users of the four
+; special_warp_spec rows below, all of it in bank1, which the slack audit reports
+; as one hundred per cent full.
 	ld a, [wd732]
 	bit BIT_DEBUG_MODE, a
 	; warp to wLastMap (PALLET_TOWN) for StartNewGameDebug

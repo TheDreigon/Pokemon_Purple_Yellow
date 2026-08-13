@@ -46,14 +46,6 @@ ENDM
 
 NewGameWarp:
 	special_warp_spec REDS_HOUSE_2F, 3, 6, REDS_HOUSE_2
-TradeCenterPlayerWarp:
-	special_warp_spec TRADE_CENTER,  3, 4, CLUB
-TradeCenterFriendWarp:
-	special_warp_spec TRADE_CENTER,  6, 4, CLUB
-ColosseumPlayerWarp:
-	special_warp_spec COLOSSEUM,     3, 4, CLUB
-ColosseumFriendWarp:
-	special_warp_spec COLOSSEUM,     6, 4, CLUB
 
 
 MACRO fly_warp_spec

@@ -161,10 +161,6 @@ SetPal_Overworld:
 	jr z, .Lorelei
 	cp BRUNOS_ROOM
 	jr z, .caveOrBruno
-	cp TRADE_CENTER
-	jr z, .trade_center_colosseum
-	cp COLOSSEUM
-	jr z, .trade_center_colosseum
 .normalDungeonOrBuilding
 	ld a, [wLastMap] ; town or route that current dungeon or building is located
 .townOrRoute
@@ -422,10 +418,6 @@ GetPal_Pikachu::
 	jr z, .Lorelei
 	cp BRUNOS_ROOM
 	jr z, .caveOrBruno
-	cp TRADE_CENTER
-	jr z, .battleOrTradeCenter
-	cp COLOSSEUM
-	jr z, .battleOrTradeCenter
 .normalDungeonOrBuilding
 	ld a, [wLastMap] ; town or route that current dungeon or building is located
 .townOrRoute
