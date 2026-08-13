@@ -87,8 +87,13 @@ _VermilionCitySailor2Text::
 	line "once a year."
 	done
 
+; v0.7 (#38, his call): she gives her name in conversation, not only on the
+; battle screen. Both of these are a possible first meeting -- which one you get
+; depends on whether you already have the CASCADEBADGE -- so both introduce her.
 _OfficerJennyText1::
-	text "I just caught a"
+	text "I'm OFFICER JENNY."
+
+	para "I just caught a"
 	line "SQUIRTLE that was"
 	cont "always getting"
 	cont "into mischief."
@@ -104,6 +109,8 @@ _OfficerJennyText2::
 
 	para "You must be a"
 	line "good trainer!"
+
+	para "I'm OFFICER JENNY."
 
 	para "I just caught a"
 	line "SQUIRTLE that was"

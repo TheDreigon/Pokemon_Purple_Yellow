@@ -2333,10 +2333,18 @@ wLancesRoomCurScript:: db
 	ds 4
 wSilphCo10FCurScript:: db
 wSilphCo11FCurScript:: db
-wFuchsiaPokecenterCurScript:: db
+; v0.7 (#38): was wFuchsiaPokecenterCurScript. NURSE JOY moved to the DAYCARE,
+; so the FUCHSIA CENTER is an ordinary POKeMON CENTER again with no script
+; states of its own. The byte stays reserved rather than reclaimed: everything
+; from here to wGameProgressFlagsEnd is one block, and closing a hole in it
+; would shift every map script byte after it inside the SAVED data.
+	ds 1
 wFuchsiaGymCurScript:: db
 wSaffronGymCurScript:: db
-	ds 1
+; v0.7 (#38): JOY's battle lives up here now. This byte cost no WRAM -- it was
+; one of the several `ds 1` holes this block already had, and the whole block is
+; zeroed by InitPlayerData, so a new game starts on SCRIPT_DAYCARE2F_DEFAULT.
+wDaycare2FCurScript:: db
 wCinnabarGymCurScript:: db
 wGameCornerCurScript:: db
 wRoute16Gate1FCurScript:: db

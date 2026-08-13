@@ -1,6 +1,6 @@
 _DaycareGentlemanTeamworkText::
-	text "My daughter and"
-	line "I run this"
+	text "My daughter JOY"
+	line "and I run this"
 	cont "DAYCARE together."
 
 	para "I keep them fed"
@@ -32,24 +32,108 @@ _DaycarePsyduckText::
 	text "PSYDUCK: Psy psy?"
 	done
 
+; v0.7 (#38): she is NURSE JOY, and she says so. She used to be the nurse of the
+; FUCHSIA POKeMON CENTER; she moved up here to help her father, and the battle
+; she offers post-League moved with her. Kept short on purpose: post-League this
+; page prints every single time before the offer.
 _Daycare2FNurseText::
-	text "I help my father"
-	line "look after the"
-	cont "boarders."
+	text "I'm JOY. I nursed"
+	line "#MON at a"
+	cont "CENTER for years."
 
-	para "He is strict"
-	line "about their"
-	cont "training. Me? I"
-	cont "just love them!"
+	para "Then my father"
+	line "needed help here,"
+	cont "so I came home."
+
+	para "He keeps the"
+	line "boarders trained."
+	cont "Me? I just love"
+	cont "them!"
 
 	para "CHANSEY and"
 	line "MR.MIME are mine."
 
-	para "They too have"
-	line "experience in"
-	cont "caring for other"
-	cont "POKéMON!"
+	para "They learned to"
+	line "care for others"
+	cont "at the CENTER,"
+	cont "same as me."
 	done
+
+; v0.7 (#38): moved here from text/FuchsiaPokecenter.asm with her.
+_NurseJoyBattleText::
+	text "Actually..."
+    line "Before you go,"
+
+    para "I've always"
+    line "dreamed of"
+
+    para "becoming a"
+    line "#MON MASTER,"
+
+    para "but my duties"
+    line "here make it"
+
+	para "hard to travel"
+    line "and collect"
+    cont "badges."
+
+	para "It would be a"
+    line "great honor to"
+    cont "test my skills"
+
+    para "against the new"
+    line "CHAMPION."
+
+    para "Could I ask for"
+    line "a battle?"
+	done
+
+_NurseJoyBattleText2::
+    text "Actually..."
+    line "Before you go,"
+
+    para "Could I ask for"
+    line "another battle?"
+	done
+
+_NurseJoyRefusedText::
+	text "I understand."
+	line "Duty calls, and"
+	cont "so does yours."
+
+	para "Maybe another"
+	line "time, then."
+	done
+
+_NurseJoyAcceptedText::
+	text "Thank you!"
+
+	para "This means"
+	line "a lot to me."
+
+	para "Let's give it"
+    line "our best shot!"
+	done
+
+_NurseJoyAfterBattleText::
+    text "That was amazing!"
+
+    para "Your strength and"
+    line "bond with your"
+    cont "#MON are"
+	cont "inspiring."
+
+    para "This battle has"
+    line "taught me so"
+	cont "much."
+
+	para "Thank you for"
+    line "this opportunity!"
+
+	para "I hope we can"
+    line "battle again"
+    cont "sometime!"
+    done
 
 _Daycare2FChanseyText::
 	text "CHANSEY: Chaansey!"
