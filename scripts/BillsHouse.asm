@@ -42,7 +42,12 @@ BillsHouseGardenWalkScript:
 ; cannot walk off, open a menu, or leave the map. The scene is atomic on
 ; purpose: EVENT_BILL_OPENED_GARDEN is only set at the very end, so even an
 ; interrupted run just leaves him back at his desk on the next map load.
-	ld a, BILLSHOUSE_BILL2
+; Ask which BILL is on the map rather than naming one. Today the scene can only
+; start from BILL2's text so BILL2 is necessarily the visible one, but the two
+; other scenes in this file both needed this helper, and moving a hidden sprite
+; would hang the scene waiting for a walk nobody can see.
+	call BillsHouseVisibleBill
+	ret c ; neither is on the map: do nothing rather than move a ghost
 	ldh [hSpriteIndex], a
 ; If the player is facing LEFT they are standing at (5,4), the one cell that is
 ; in his way -- so he goes around by row 5, the way vanilla's own Bill walk

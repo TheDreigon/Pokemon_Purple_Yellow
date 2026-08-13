@@ -90,6 +90,30 @@ IF DEF(_DEBUG)
 	ld [hli], a
 	ld [hl], a
 
+	; BILL's whole thread, done, so his garden can be tested without playing to
+	; the League first: fly to the SEA COTTAGE (every fly point is set above),
+	; walk in, talk to him.
+	;
+	; EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING is deliberately NOT set. It is the
+	; one Route25ShowHideBillScript sets itself, and setting it is how that
+	; script knows to hide BILL1 and SHOW BILL2 -- do it here and BILL2 never
+	; appears, and there is nobody in the house to talk to.
+	; Grouped by flag BYTE and set with SetEventReuseHL, which only reloads hl
+	; when the byte changes: five of these live in byte 171 and two in 315, so
+	; this is 25 bytes instead of 45. Debug code still has to fit.
+	SetEvent EVENT_MET_BILL                          ; byte 170
+	SetEventReuseHL EVENT_BEAT_BILL                  ; byte 171, and the one
+	SetEventReuseHL EVENT_USED_CELL_SEPARATOR_ON_BILL ; that opens the garden
+	SetEventReuseHL EVENT_GOT_SS_TICKET
+	SetEventReuseHL EVENT_MET_BILL_2
+	SetEventReuseHL EVENT_BILL_SAID_USE_CELL_SEPARATOR
+	SetEventReuseHL EVENT_GOT_BILL_EEVEE             ; byte 315
+	SetEventReuseHL EVENT_GOT_BILL_EEVEELUTION_STONE
+
+	; ...and count as League Champion, which gates the rematch and the garden.
+	ld a, 1
+	ld [wGameStage], a
+
 	ret
 
 DebugSetPokedexEntries:
