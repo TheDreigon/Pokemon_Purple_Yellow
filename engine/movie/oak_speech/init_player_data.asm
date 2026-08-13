@@ -11,6 +11,7 @@ InitPlayerData2:
 
 	ld a, $ff
 	ld [wUnusedD71B], a
+	ld [wEscapeWarpMap], a ; v0.7 (#41): no cave mouth walked into yet
 
 	ld a, 90 ; initialize happiness to 90
 	ld [wPikachuHappiness], a

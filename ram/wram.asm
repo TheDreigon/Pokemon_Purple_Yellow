@@ -2430,7 +2430,21 @@ wWhichDungeonWarp:: db
 ; the unused byte wUnusedD71F — same address/size, save layout intact.
 wRivalEeveelution:: db
 
-	ds 8
+; v0.7 (#41): the mouth the player last walked into from the outside, so that an
+; ESCAPE ROPE or a DIG can put them back on it instead of at the last POKeMON
+; CENTER. Taken from the 8 bytes that were already reserved and never written
+; here ($d712 onwards), the same way wRivalEeveelution took wUnusedD71F: no new
+; WRAM, and the save layout is byte for byte what it was.
+;
+; wEscapeWarpMap is the OUTSIDE map ($ff = nothing remembered yet, set by
+; InitPlayerData), and wEscapeWarpID is which of THAT map's warps it was.
+; WarpFound2 writes the two together, in its "outside" branch and nowhere else,
+; and only when the id is below that map's warp count -- so the pair can never
+; name a warp the map does not have.
+wEscapeWarpMap:: db
+wEscapeWarpID:: db
+
+	ds 6
 
 ; bit 0: using Strength outside of battle
 ; bit 1: set by IsSurfingAllowed when surfing's allowed, but the caller resets it after checking the result

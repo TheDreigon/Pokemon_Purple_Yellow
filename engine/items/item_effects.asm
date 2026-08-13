@@ -1852,13 +1852,11 @@ ItemUseEscapeRope:
 	ld a, [wIsInBattle]
 	and a
 	jr nz, .notUsable
-	ld a, [wCurMap]
-	cp AGATHAS_ROOM
-	jr z, .notUsable
-	cp BILLS_HOUSE
-	jr z, .notUsable
-	cp POKEMON_FAN_CLUB
-	jr z, .notUsable
+; v0.7 (2026-08-13, his call): the rope and DIG are for the six caves and
+; nothing else, and EscapeRopeTilesets is now CAVERN alone, which IS those six.
+; The three maps that used to be excluded by name here -- AGATHAS_ROOM,
+; BILLS_HOUSE and POKEMON_FAN_CLUB -- were holes in the CEMETERY and INTERIOR
+; entries that no longer exist, so the checks went with them.
 	ld a, [wCurMapTileset]
 	ld b, a
 	ld hl, EscapeRopeTilesets
@@ -1868,9 +1866,48 @@ ItemUseEscapeRope:
 	jr z, .notUsable
 	cp b
 	jr nz, .loop
+; v0.7 (#41): ESCAPE ROPE and DIG come back out at the mouth the player walked
+; in by, not at the last POKeMON CENTER.
+;
+; Bit 6 of wd732 stays set whichever way this goes: it is not about the
+; destination here, it is what makes _LeaveMapAnim spin the player in place and
+; lift them instead of calling a bird (player_animations.asm). Bit 3 likewise
+; stays, so CloseTextDisplay and LoadMapData behave exactly as they always did.
+;
+; What changes is where we come out. With a mouth remembered, this becomes an
+; ORDINARY warp to that map's own warp -- scripted with bit 3 of wd72d, the same
+; signal POKeMON TOWER 7F uses -- and WarpFound2 puts us on the mouth tile and
+; steps us off it, which is the code that runs every time anyone walks out of a
+; cave. Bit 7 of wd732 is how WarpFound2 knows to leave the way a warp pad does
+; rather than play the door sound over an animation that already faded to white.
+;
+; Only the warp id is handed over here. The MAP is read at warp time, out of
+; wEscapeWarpMap, because hWarpDestinationMap shares its byte with hBaseTileID
+; and hOAMTile and would be overwritten by the redraw that closes this menu.
+;
+; With nothing remembered ($ff: a save that has never once walked in from the
+; outside) it falls through to the vanilla fly warp, unchanged.
+	xor a
+	ld [wMapPalOffset], a ; ROCK TUNNEL leaves this at 6; the fly-warp path clears it, we must too
+	call Func_07c4 ; off the bike / out of the water (SEAFOAM and CERULEAN CAVE are surfable)
 	ld hl, wd732
 	set 3, [hl]
 	set 6, [hl]
+	res 5, [hl] ; forced to ride bike, as the fly-warp path does
+; Bit 7 is cleared FIRST and only set again below when there is somewhere to go.
+; It is only ever consumed by WarpFound2, which the no-mouth path never reaches
+; -- it goes out through PrepareForSpecialWarp instead -- so a bit left set here
+; would survive the whole warp and hijack the next door the player walked into.
+	res 7, [hl]
+	ld a, [wEscapeWarpMap]
+	inc a ; $ff = no mouth remembered
+	jr z, .noRememberedMouth
+	ld a, [wEscapeWarpID]
+	ld [wDestinationWarpID], a
+	set 7, [hl] ; tell WarpFound2 that this is the escape-rope way out
+	ld hl, wd72d
+	set 3, [hl] ; do scripted warp
+.noRememberedMouth
 	call Func_1510
 	ld hl, wd72e
 	res 4, [hl]

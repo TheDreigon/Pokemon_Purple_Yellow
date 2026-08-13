@@ -23,6 +23,12 @@ EnterMap::
 	call UpdateSprites
 	ld hl, wd732
 	res 3, [hl]
+; v0.7 (#41): bit 6 says "the destination is wLastBlackoutMap". LoadSpecialWarpData
+; clears it for fly/teleport/blackout, but an ESCAPE ROPE / DIG return never goes
+; through there, and it sets bit 6 too (it is what picks the spin animation in
+; _LeaveMapAnim). Left set, the NEXT FLY would silently land at the last POKeMON
+; CENTER instead of the town you chose. Clearing it here covers every path.
+	res 6, [hl]
 	ld hl, wd72e
 	res 4, [hl]
 .didNotEnterUsingFlyWarpOrDungeonWarp
@@ -481,6 +487,7 @@ WarpFound1::
 
 WarpFound2::
 	ld a, [wNumberOfWarps]
+	ld b, a ; v0.7 (#41): kept as the bound the remembered warp id is checked against
 	sub c
 	ld [wWarpedFromWhichWarp], a ; save ID of used warp
 	ld a, [wCurMap]
@@ -490,8 +497,24 @@ WarpFound2::
 ; this is for handling "outside" maps that can't have the 0xFF destination map
 	ld a, [wCurMap]
 	ld [wLastMap], a
-	ld a, [wCurMapWidth]
-	ld [wUnusedD366], a ; not read
+; v0.7 (#41): remember the mouth we are stepping into, so an ESCAPE ROPE or a DIG
+; can put us back on it. This is the only place the pair is written, so the map
+; is always an outside one and the id always belongs to it.
+; The bound check is not decoration: the two scripted warps that jump straight
+; to WarpFound2 (wd72d bit 3, and the safari game-over) arrive with c holding
+; whatever the last loop left there, so the id above can be nonsense. It is
+; cheaper to refuse a nonsense id here than to survive one at warp time, where
+; it would index past the destination map's arrival table.
+	ld a, [wWarpedFromWhichWarp]
+	cp b
+	jr nc, .escapeWarpNotWorthRemembering
+	ld [wEscapeWarpID], a
+	ld a, [wCurMap]
+	ld [wEscapeWarpMap], a
+.escapeWarpNotWorthRemembering
+; (the write of wCurMapWidth to wUnusedD366 that used to sit here was inherited
+; dead code -- nothing in the game reads that byte -- and the home bank had 38
+; bytes left, so it paid for the six lines above.)
 	ldh a, [hWarpDestinationMap]
 	ld [wCurMap], a
 	cp ROCK_TUNNEL_1F
@@ -507,6 +530,17 @@ WarpFound2::
 ; for maps that can have the 0xFF destination map, which means to return to the outside map
 ; not all these maps are necessarily indoors, though
 .indoorMaps
+; v0.7 (#41): an ESCAPE ROPE / DIG return to the cave mouth. It is an ordinary
+; warp to a warp the player really walked through, so everything below this
+; label does the work; it only needs its destination read from WRAM instead of
+; hWarpDestinationMap (that byte shares a UNION with hBaseTileID and hOAMTile,
+; so it cannot survive the redraw between using the item and warping), and it
+; must leave the way a warp pad does -- spin out here, spin in over there --
+; because _LeaveMapAnim has already faded the screen to white and playing the
+; door sound and a fade to black on top of that would flash twice.
+	ld hl, wd732
+	bit 7, [hl]
+	jr nz, .escapeWarp
 	ldh a, [hWarpDestinationMap] ; destination map
 	cp LAST_MAP
 	jr z, .goBackOutside
@@ -515,14 +549,18 @@ WarpFound2::
 	farcall IsPlayerStandingOnWarpPadOrHole
 	ld a, [wStandingOnWarpPadOrHole]
 	dec a ; is the player on a warp pad?
-	jr nz, .notWarpPad
+	jr z, .warpPad
+	call PlayMapChangeSound
+	jr .skipMapChangeSound
+.escapeWarp
+	res 7, [hl]
+	ld a, [wEscapeWarpMap]
+	ld [wCurMap], a
+.warpPad
 ; if the player is on a warp pad
 	call LeaveMapAnim
 	ld hl, wd732
 	set 3, [hl]
-	jr .skipMapChangeSound
-.notWarpPad
-	call PlayMapChangeSound
 .skipMapChangeSound
 	ld hl, wd736
 	res 0, [hl]
