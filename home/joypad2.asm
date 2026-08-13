@@ -76,7 +76,6 @@ WaitForTextScrollButtonPress::
 	call HandleDownArrowBlinkTiming
 	pop hl
 	call JoypadLowSensitivity
-	predef CableClub_Run
 	ldh a, [hJoy5]
 	and A_BUTTON | B_BUTTON
 	jr z, .loop

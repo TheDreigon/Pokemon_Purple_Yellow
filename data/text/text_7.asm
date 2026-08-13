@@ -233,22 +233,3 @@ _LooksContentText::
 	line "content asleep."
 	done
 
-_CableClubNPCAreaReservedFor2FriendsLinkedByCableText::
-	text "This area is"
-	line "reserved for 2"
-	cont "friends who are"
-	cont "linked by cable."
-	done
-
-_CableClubNPCWelcomeText::
-	text "Welcome to the"
-	line "Cable Club!"
-	done
-
-_CableClubNPCPleaseApplyHereHaveToSaveText::
-	text "Please apply here."
-
-	para "Before opening"
-	line "the link, we have"
-	cont "to save the game."
-	done

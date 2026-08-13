@@ -253,14 +253,9 @@ DisplayTwoOptionMenu:
 	ld d, h
 	pop hl
 	push de
-	ld a, [wTwoOptionMenuID]
-	cp TRADE_CANCEL_MENU
-	jr nz, .notTradeCancelMenu
-	call CableClub_TextBoxBorder
-	jr .afterTextBoxBorder
-.notTradeCancelMenu
+; v0.7: TRADE_CANCEL_MENU was only ever set inside the cable club, so the
+; branch that gave it its own border went with the cable.
 	call TextBoxBorder
-.afterTextBoxBorder
 	call UpdateSprites
 	pop hl
 	ld a, [hli]

@@ -49,13 +49,11 @@ PredefPointers::
 	add_predef PredefShakeScreenHorizontally
 	add_predef UpdateHPBar
 	add_predef HPBarLength
-	add_predef Diploma_TextBoxBorder
 	add_predef DoubleOrHalveSelectedStats
 	add_predef ShowPokedexMenu
 	add_predef EvolutionAfterBattle
 	add_predef SaveSAVtoSRAM0
 	add_predef InitOpponent
-	add_predef CableClub_Run
 	add_predef DrawBadges
 	add_predef ExternalClockTradeAnim
 	add_predef BattleTransition
@@ -87,7 +85,6 @@ PredefPointers::
 	add_predef LoadTownMap_Nest
 	add_predef PrintMonType
 	add_predef EmotionBubble
-	add_predef EmptyFunc ; return immediately
 	add_predef AskName
 	add_predef PewterGuys
 	add_predef SaveSAVtoSRAM2

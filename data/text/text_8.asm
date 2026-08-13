@@ -1,37 +1,3 @@
-_CableClubNPCPleaseWaitText::
-	text "Please wait.@"
-	text_end
-
-_CableClubNPCLinkClosedBecauseOfInactivityText::
-	vc_patch Change_link_closed_inactivity_message
-IF DEF(_YELLOW_VC)
-	text "Please come again!"
-	done
-	text_start
-	text "sed because of"
-	cont "inactivity."
-ELSE
-	text "The link has been"
-	line "closed because of"
-	cont "inactivity."
-ENDC
-	vc_patch_end
-
-	para "Please contact"
-	line "your friend and"
-	cont "come again!"
-	done
-
-_CableClubNPCPleaseComeAgainText::
-	text "Please come again!"
-	done
-
-_CableClubNPCMakingPreparationsText::
-	text "We're making"
-	line "preparations."
-	cont "Please wait."
-	done
-
 _FlashLightsAreaText::
 	text "A blinding FLASH"
 	line "lights the area!"

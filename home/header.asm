@@ -60,7 +60,10 @@ SECTION "timer", ROM0[$0050]
 	ds $58 - @, 0 ; unused
 
 SECTION "serial", ROM0[$0058]
-	jp Serial
+; v0.7: the link cable is gone. Nothing arms a transfer any more, and the
+; SERIAL bit is off in rIE, but the vector still has to be safe if a stray
+; clock ever arrives on the port.
+	reti
 
 	ds $60 - @, 0 ; unused
 

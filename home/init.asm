@@ -72,7 +72,7 @@ DEF rLCDC_DEFAULT EQU %11100011
 	ldh [rIF], a
 	ld [wc0f3], a
 	ld [wc0f3 + 1], a
-	ld a, 1 << VBLANK + 1 << TIMER + 1 << SERIAL
+	ld a, 1 << VBLANK + 1 << TIMER ; v0.7: SERIAL dropped with the link cable
 	ldh [rIE], a
 
 	ld a, 144 ; move the window off-screen

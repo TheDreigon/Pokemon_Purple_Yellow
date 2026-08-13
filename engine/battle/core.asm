@@ -3347,67 +3347,16 @@ SelectEnemyMove:
 
 ; this appears to exchange data with the other gameboy during link battles
 LinkBattleExchangeData:
-	ld a, $ff
-	ld [wSerialExchangeNybbleReceiveData], a
-	ld a, [wPlayerMoveListIndex]
-	cp LINKBATTLE_RUN ; is the player running from battle?
-	jr z, .doExchange
-	ld a, [wActionResultOrTookBattleTurn]
-	and a ; is the player switching in another mon?
-	jr nz, .switching
-; the player used a move
-	ld a, [wPlayerSelectedMove]
-	cp STRUGGLE
-	ld b, LINKBATTLE_STRUGGLE
-	jr z, .next
-	dec b ; LINKBATTLE_NO_ACTION
-	inc a ; does move equal -1 (i.e. no action)?
-	jr z, .next
-	ld a, [wPlayerMoveListIndex]
-	jr .doExchange
-.switching
-	ld a, [wWhichPokemon]
-	add 4
-	ld b, a
-.next
-	ld a, b
-.doExchange
-	ld [wSerialExchangeNybbleSendData], a
-	vc_hook Wireless_start_exchange
-	callfar PrintWaitingText
-.syncLoop1
-	call Serial_ExchangeNybble
-	call DelayFrame
-	ld a, [wSerialExchangeNybbleReceiveData]
-	inc a
-	jr z, .syncLoop1
-	vc_hook Wireless_end_exchange
-	vc_patch Wireless_net_delay_1
-IF DEF(_YELLOW_VC)
-	ld b, 26
-ELSE
-	ld b, 10
-ENDC
-	vc_patch_end
-.syncLoop2
-	call DelayFrame
-	call Serial_ExchangeNybble
-	dec b
-	jr nz, .syncLoop2
-	vc_hook Wireless_start_send_zero_bytes
-	vc_patch Wireless_net_delay_2
-IF DEF(_YELLOW_VC)
-	ld b, 26
-ELSE
-	ld b, 10
-ENDC
-	vc_patch_end
-.syncLoop3
-	call DelayFrame
-	call Serial_SendZeroByte
-	dec b
-	jr nz, .syncLoop3
-	vc_hook Wireless_end_send_zero_bytes
+; v0.7: the link cable is gone, so there is nobody on the other side to exchange
+; anything with. The body -- the nybble handshake and the zero-byte drain -- was
+; the last caller of the Serial_* routines that used to live in home/serial.asm.
+;
+; The FOUR call sites are deliberately left where they are, in
+; ReplaceFaintedEnemyMon, the party menu, .canEscape and SelectEnemyMove. Every
+; one of them is already behind `ld a, [wLinkState] / cp LINK_STATE_BATTLING`,
+; and wLinkState can no longer be anything but LINK_STATE_NONE, so none of them
+; can reach this. Editing the battle engine to delete four unreachable calls
+; buys nothing and risks the one routine in the game that must not break.
 	ret
 
 ExecutePlayerMove:
