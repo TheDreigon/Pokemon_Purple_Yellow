@@ -1,5 +1,4 @@
 MtMoonPokecenter_Script:
-	call Serial_TryEstablishingExternallyClockedConnection
 	jp EnableAutoTextBoxDrawing
 
 MtMoonPokecenter_TextPointers:
@@ -9,7 +8,6 @@ MtMoonPokecenter_TextPointers:
 	dw_const MtMoonPokecenterGentlemanText,        TEXT_MTMOONPOKECENTER_GENTLEMAN
 	dw_const MtMoonPokecenterMagikarpSalesmanText, TEXT_MTMOONPOKECENTER_MAGIKARP_SALESMAN
 	dw_const MtMoonPokecenterClipboardText,        TEXT_MTMOONPOKECENTER_CLIPBOARD
-	dw_const MtMoonPokecenterLinkReceptionistText, TEXT_MTMOONPOKECENTER_LINK_RECEPTIONIST
 	dw_const MtMoonPokecenterChanseyText,          TEXT_MTMOONPOKECENTER_CHANSEY
 
 MtMoonPokecenterNurseText:
@@ -31,9 +29,6 @@ MtMoonPokecenterMagikarpSalesmanText:
 MtMoonPokecenterClipboardText:
 	text_far _MtMoonPokecenterClipboardText
 	text_end
-
-MtMoonPokecenterLinkReceptionistText:
-	script_cable_club_receptionist
 
 MtMoonPokecenterChanseyText:
 	text_asm

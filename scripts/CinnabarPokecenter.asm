@@ -1,5 +1,4 @@
 CinnabarPokecenter_Script:
-	call Serial_TryEstablishingExternallyClockedConnection
 	jp EnableAutoTextBoxDrawing
 
 CinnabarPokecenter_TextPointers:
@@ -7,7 +6,6 @@ CinnabarPokecenter_TextPointers:
 	dw_const CinnabarPokecenterNurseText,            TEXT_CINNABARPOKECENTER_NURSE
 	dw_const CinnabarPokecenterCooltrainerFText,     TEXT_CINNABARPOKECENTER_COOLTRAINER_F
 	dw_const CinnabarPokecenterGentlemanText,        TEXT_CINNABARPOKECENTER_GENTLEMAN
-	dw_const CinnabarPokecenterLinkReceptionistText, TEXT_CINNABARPOKECENTER_LINK_RECEPTIONIST
 	dw_const CinnabarPokecenterChanseyText,          TEXT_CINNABARPOKECENTER_CHANSEY
 
 CinnabarPokecenterNurseText:
@@ -20,9 +18,6 @@ CinnabarPokecenterCooltrainerFText:
 CinnabarPokecenterGentlemanText:
 	text_far _CinnabarPokecenterGentlemanText
 	text_end
-
-CinnabarPokecenterLinkReceptionistText:
-	script_cable_club_receptionist
 
 CinnabarPokecenterChanseyText:
 	text_asm

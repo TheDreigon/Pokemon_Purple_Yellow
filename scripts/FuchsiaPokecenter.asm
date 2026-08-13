@@ -5,7 +5,6 @@ FuchsiaPokecenter_Script:
 ; other CENTER has. The script pointer table, wFuchsiaPokecenterCurScript and
 ; the extra TEXT_FUCHSIAPOKECENTER_POST_BATTLE entry all went with her; the
 ; battle, its texts and both of its events live in scripts/Daycare2F.asm now.
-	call Serial_TryEstablishingExternallyClockedConnection
 	jp EnableAutoTextBoxDrawing
 
 FuchsiaPokecenter_TextPointers:
@@ -13,7 +12,6 @@ FuchsiaPokecenter_TextPointers:
 	dw_const FuchsiaPokecenterNurseText,            TEXT_FUCHSIAPOKECENTER_NURSE
 	dw_const FuchsiaPokecenterRockerText,           TEXT_FUCHSIAPOKECENTER_ROCKER
 	dw_const FuchsiaPokecenterCooltrainerFText,     TEXT_FUCHSIAPOKECENTER_COOLTRAINER_F
-	dw_const FuchsiaPokecenterLinkReceptionistText, TEXT_FUCHSIAPOKECENTER_LINK_RECEPTIONIST
 	dw_const FuchsiaPokecenterChanseyText,          TEXT_FUCHSIAPOKECENTER_CHANSEY
 
 FuchsiaPokecenterNurseText:
@@ -26,9 +24,6 @@ FuchsiaPokecenterRockerText:
 FuchsiaPokecenterCooltrainerFText:
 	text_far _FuchsiaPokecenterCooltrainerFText
 	text_end
-
-FuchsiaPokecenterLinkReceptionistText:
-	script_cable_club_receptionist
 
 FuchsiaPokecenterChanseyText:
 	text_asm

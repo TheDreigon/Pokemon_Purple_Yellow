@@ -1,5 +1,4 @@
 IndigoPlateauLobby_Script:
-	call Serial_TryEstablishingExternallyClockedConnection
 	call EnableAutoTextBoxDrawing
 	ld hl, wCurrentMapScriptFlags
 	bit 6, [hl]
@@ -21,7 +20,6 @@ IndigoPlateauLobby_TextPointers:
 	dw_const IndigoPlateauLobbyCooltrainerFText,     TEXT_INDIGOPLATEAULOBBY_COOLTRAINER_F
 	dw_const IndigoPlateauLobbyClerkText,            TEXT_INDIGOPLATEAULOBBY_CLERK
 	dw_const IndigoPlateauLobbyPostGameClerkText,    TEXT_INDIGOPLATEAULOBBY_POST_GAME_CLERK
-	dw_const IndigoPlateauLobbyLinkReceptionistText, TEXT_INDIGOPLATEAULOBBY_LINK_RECEPTIONIST
 	dw_const IndigoPlateauLobbyChanseyText,          TEXT_INDIGOPLATEAULOBBY_CHANSEY
 
 IndigoPlateauLobbyNurseText:
@@ -34,9 +32,6 @@ IndigoPlateauLobbyGymGuideText:
 IndigoPlateauLobbyCooltrainerFText:
 	text_far _IndigoPlateauLobbyCooltrainerFText
 	text_end
-
-IndigoPlateauLobbyLinkReceptionistText:
-	script_cable_club_receptionist
 
 IndigoPlateauLobbyChanseyText:
 	text_asm
