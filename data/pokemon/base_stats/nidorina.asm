@@ -1,9 +1,9 @@
 	db DEX_NIDORINA ; pokedex id
-	base_stat_row 75, 62, 67, 55, 70 ; hp atk def spc spd
+	base_stat_row 80, 65, 70, 60, 65 ; hp atk def spc spd
 
 	db POISON, POISON ; type
-	db 115 ; catch rate  ; mid stage, BST 329
-	db 120 ; base exp  ; BST 329 - poucas fraquezas (+5)
+	db 110 ; catch rate  ; mid stage, BST 340
+	db 125 ; base exp  ; BST 340 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/nidorina.pic", 0, 1 ; sprite dimensions
 	dw NidorinaPicFront, NidorinaPicBack

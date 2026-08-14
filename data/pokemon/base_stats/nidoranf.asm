@@ -1,9 +1,9 @@
 	db DEX_NIDORAN_F ; pokedex id
-	base_stat_row 55, 47, 52, 40, 50 ; hp atk def spc spd
+	base_stat_row 60, 45, 50, 40, 55 ; hp atk def spc spd
 
 	db POISON, POISON ; type
-	db 230 ; catch rate  ; base stage, BST 244
-	db 65 ; base exp  ; BST 244 - poucas fraquezas (+5)
+	db 230 ; catch rate  ; base stage, BST 250
+	db 70 ; base exp  ; BST 250 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/nidoranf.pic", 0, 1 ; sprite dimensions
 	dw NidoranFPicFront, NidoranFPicBack

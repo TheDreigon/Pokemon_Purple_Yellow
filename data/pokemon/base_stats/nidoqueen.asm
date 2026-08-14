@@ -1,5 +1,5 @@
 	db DEX_NIDOQUEEN ; pokedex id
-	base_stat_row 100, 85, 85, 80, 80 ; hp atk def spc spd
+	base_stat_row 100, 85, 90, 80, 75 ; hp atk def spc spd
 
 	db POISON, GROUND ; type
 	db 50 ; catch rate  ; final stage, BST 430, harder to handle
