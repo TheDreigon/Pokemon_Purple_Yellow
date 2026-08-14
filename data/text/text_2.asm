@@ -612,22 +612,25 @@ _IndigoPlateauHQText::
 	done
 
 ; v0.7: it used to narrate the player at themselves and then shoo them out of
-; their own bedroom. It is a games console, not a stage direction.
+; their own bedroom. It is a games console, not a stage direction. The boast
+; answers the rival's own SNES across the road, which reads "It's an SNES, just
+; like mine!" - the two bedrooms are the same room, so they should talk to each
+; other. <RIVAL> is at most seven characters, so line three is fourteen at worst.
 _RedBedroomSNESText::
 	text "My SNES."
-	line "Great fun!"
+	line "I always beat"
+	cont "<RIVAL> on it."
 	done
 
 _BluesBedroomSNESText::
-	text "It's an SNES like"
-	line "mine!"
+	text "It's an SNES,"
+	line "just like mine!"
 	done
 
-; <RIVAL> is his name at runtime, so the first line grows with it: five
-; characters, up to seven of name, then six more - eighteen at worst, which is
-; exactly the width of a line.
+; <RIVAL> is his name at runtime, so the first line grows with it: up to seven
+; characters of name plus six more - thirteen at worst, well inside a line.
 _BluesBedroomPCText::
-	text "It's <RIVAL>'s PC."
+	text "<RIVAL>'s PC."
 	line "Better leave it"
 	cont "alone."
 	done
