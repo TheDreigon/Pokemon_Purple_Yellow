@@ -647,40 +647,6 @@ _FanClubPicture2Text::
 	text "My beloved FEAROW."
 	done
 
-_LinkCableHelpText1::
-	text "TRAINER TIPS"
-
-	para "Using a Game Link"
-	line "Cable"
-	prompt
-
-_LinkCableHelpText2::
-	text "Which heading do"
-	line "you want to read?"
-	done
-
-_LinkCableInfoText1::
-	text "When you have"
-	line "linked your GAME"
-	cont "BOY with another"
-	cont "GAME BOY, talk to"
-	cont "the attendant on"
-	cont "the right in any"
-	cont "#MON CENTER."
-	prompt
-
-_LinkCableInfoText2::
-	text "COLOSSEUM lets"
-	line "you play against"
-	cont "a friend."
-	prompt
-
-_LinkCableInfoText3::
-	text "TRADE CENTER is"
-	line "used for trading"
-	cont "#MON."
-	prompt
-
 _ViridianSchoolBlackboardText1::
 	text "The blackboard"
 	line "describes #MON"

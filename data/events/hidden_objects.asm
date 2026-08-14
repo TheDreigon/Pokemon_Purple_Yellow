@@ -489,8 +489,9 @@ CeladonMansion2HiddenObjects:
 	db -1 ; end
 
 CeladonMansion5HiddenObjects:
-	hidden_text_predef  3,  0, LinkCableHelp, PrintBlackboardLinkCableText
-	hidden_text_predef  4,  0, LinkCableHelp, PrintBlackboardLinkCableText
+; v0.7: the board that taught the Game Link Cable is gone with the cable. It
+; still named the COLOSSEUM, the TRADE CENTER and an attendant in every POKeMON
+; CENTER, none of which exist any more. The TM notebook below stays.
 	hidden_text_predef  3,  4, TMNotebook, PrintNotebookText
 	db -1 ; end
 

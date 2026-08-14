@@ -57,7 +57,6 @@ TextPredefs::
 	add_tx_pre CinnabarGymQuiz                      ; 33
 	add_tx_pre GameCornerNoCoinsText                ; 34
 	add_tx_pre GameCornerCoinCaseText               ; 35
-	add_tx_pre LinkCableHelp                        ; 36
 	add_tx_pre TMNotebook                           ; 37
 	add_tx_pre FightingDojoText                     ; 38
 	add_tx_pre EnemiesOnEverySideText               ; 39
