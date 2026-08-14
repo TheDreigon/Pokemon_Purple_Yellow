@@ -462,15 +462,19 @@ BillsHouseScript10:
 ; so disarm on it — otherwise the trigger would hand out a second Eevee.
 	CheckEvent EVENT_GOT_BILL_EEVEE
 	jr nz, .disarm
-	ld a, [wYCoord]
-	cp 7
-	ret nz
 	ld a, [wXCoord]
 	cp 2
-	jr z, .onTheDoor
+	jr z, .onDoorColumn
 	cp 3
 	ret nz
-.onTheDoor
+.onDoorColumn
+	ld b, a ; the column, kept across the row check below
+	ld a, [wYCoord]
+	cp 6
+	jr z, .oneStepFromTheMat
+	cp 7
+	ret nz
+	ld a, b
 	push af ; the column decides how far he walks
 ; Which Bill is actually on the map? ASK, do not infer. This used to guess from
 ; EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING, and when the guess was wrong it ordered
@@ -498,6 +502,22 @@ BillsHouseScript10:
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT11
 	ld [wBillsHouseCurScript], a
 	ret
+.oneStepFromTheMat
+; The player is standing on a door column with the mat one step below, and BILL
+; still owes them an EEVEE. Ask the next warp to not happen.
+;
+; 2026-08-14, from Forte's playtest: a held Down walked STRAIGHT OUT of the
+; house while BILL was calling him back. CheckWarpsNoCollision decides the warp
+; at the END of the step that lands on the mat, and re-reads the joypad right
+; there -- before the overworld loop returns to the top and runs this script. A
+; map script gets one frame per completed step and that frame comes after the
+; warp, so it can never win the race by being fast. It has to close the door
+; one step early instead. The player still takes that step and still stops ON
+; the mat, which is where he wanted the scene to happen; only the door refuses,
+; once, and SCRIPT10 fires on the very next frame to freeze him properly.
+	ld a, 1
+	ld [wBlockNextWarp], a
+	ret
 .nobodyToWalk
 ; Neither Bill is on the map. Nothing can walk, so say the line where he stands
 ; rather than wait for a step that will never happen.
@@ -507,6 +527,8 @@ BillsHouseScript10:
 	call DisplayTextID
 	jr .disarm
 .disarm
+	xor a
+	ld [wBlockNextWarp], a ; nothing left holding the door
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
 	ld [wBillsHouseCurScript], a
 	ret

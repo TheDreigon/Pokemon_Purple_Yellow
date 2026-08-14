@@ -2476,7 +2476,13 @@ wMartShowInBag:: db
 ; address, not a register.
 wMartInBagCount:: db
 
-	ds 3
+; v0.7: a map script asking the next warp to not happen. ONE SHOT -- the warp
+; check clears it the moment it honours it -- so the worst a stuck value can
+; ever cost is one extra press, never a room you cannot leave. See
+; CheckWarpsNoCollision and BILL's Eevee scene.
+wBlockNextWarp:: db
+
+	ds 2
 
 ; bit 0: using Strength outside of battle
 ; bit 1: set by IsSurfingAllowed when surfing's allowed, but the caller resets it after checking the result

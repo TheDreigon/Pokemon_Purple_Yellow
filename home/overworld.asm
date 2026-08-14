@@ -438,7 +438,24 @@ CheckWarpsNoCollisionLoop::
 	ldh a, [hJoyHeld]
 	and D_DOWN | D_UP | D_LEFT | D_RIGHT
 	jr z, CheckWarpsNoCollisionRetry2 ; if directional buttons aren't being pressed, do not pass through the warp
-	jr WarpFound1
+; v0.7: a map script can hold the door shut for exactly one press.
+;
+; This branch is where a held direction walks the player out THROUGH a scene:
+; the warp is decided here, at the end of the step that lands on the tile, and
+; the engine re-reads the joypad on the spot -- all of it before the overworld
+; loop returns to the top and runs the map script. A script gets one frame per
+; completed step and that frame comes after this, so it cannot get in front of
+; the warp. BILL calling the player back for the EEVEE lost that race every time
+; the player kept Down held.
+;
+; ONE SHOT, cleared right here as it is honoured. A flag that stayed set could
+; wall a player into a room; this way the worst case is a second press.
+	ld a, [wBlockNextWarp]
+	and a
+	jr z, WarpFound1
+	xor a
+	ld [wBlockNextWarp], a
+	jr CheckWarpsNoCollisionRetry2
 
 CheckWarpsNoCollisionRetry1::
 	inc hl
