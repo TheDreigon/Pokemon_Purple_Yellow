@@ -226,9 +226,8 @@ StatusScreen:
 .doregular
 	pop de
 	ld hl, wStatusScreenHPBarColor
-	call GetHealthBarColor
-	ld b, SET_PAL_STATUS_SCREEN
-	call RunPaletteCommand
+	call GetHealthBarColor ; only computes a byte; the palette itself is set
+	                       ; down at .pictureDone, see the note there
 	coord hl, 16, 6
 	ld de, wLoadedMonStatus
 	call PrintStatusCondition
@@ -271,9 +270,6 @@ StatusScreen:
 	ld d, $0
 	call PrintStatsBox
 	call Delay3
-	ld a, [wStatusScreenPageChange]
-	and STATUS_QUIET
-	call z, GBPalNormal ; a quiet redraw never dimmed the palette to begin with
 	coord hl, 1, 0
 	ld a, [wStatusScreenPageChange]
 	and STATUS_KEEPPIC
@@ -283,6 +279,25 @@ StatusScreen:
 .pictureAlreadyInVRAM
 	call StatusScreen_PlacePicture
 .pictureDone
+; v0.7: the palette is set HERE, with the picture, and not thirty lines up
+; where it used to be.
+;
+; Stepping to another mon with Up or Down is a quiet redraw, so the mon the
+; player is still looking at stays on screen for the whole of it - and the
+; palette is not part of the tile map, so setting it early repainted THAT mon
+; in the NEXT one's colours and left it like that until the picture caught up.
+; Measured on the step: something visible changed at frame +4, then twenty-six
+; frames of nothing at all, then the picture arrived at +32. A green PIKACHU
+; for half a second, which is what Forte reported.
+;
+; Moved, not added - the two instructions come from further up, so this costs
+; nothing in a bank that has seven bytes left. GetHealthBarColor stays where it
+; was: it only computes wStatusScreenHPBarColor and paints nothing.
+	ld b, SET_PAL_STATUS_SCREEN
+	call RunPaletteCommand
+	ld a, [wStatusScreenPageChange]
+	and STATUS_QUIET
+	call z, GBPalNormal ; a quiet redraw never dimmed the palette to begin with
 	call StatusScreen_RevealQuietPage ; put the finished page up BEFORE the cry
 	ld a, [wStatusScreenPageChange]
 	and STATUS_NOCRY
