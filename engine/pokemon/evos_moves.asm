@@ -939,6 +939,146 @@ GetMonLearnset:
 	jr nz, .skipEvolutionDataLoop ; if not, jump back up
 	ret
 
+PrepareEvolutionList::
+; Task #24. Builds the mon's whole evolution FAMILY at wRelearnableMoves for the
+; POKeDEX EVO page. The walking lives here, in the bank the data is in, and the
+; dex screen only prints the result - the same division of labour
+; PrepareLevelUpMoveList already has with the MOVE page, and the only one that
+; fits, because bank $10 has no room to spare.
+;
+; Input:  [wWhichPokemon] = the mon's INTERNAL INDEX (what the dex holds in wd11e)
+; Output: wRelearnableMoves =
+;             db  root species
+;             then one record per step, in the order they are to be printed:
+;             db  method (EVOLVE_LEVEL / EVOLVE_ITEM / EVOLVE_TRADE)
+;             db  parameter - the level, or the item id (TRADE has none: 1)
+;             db  target species
+;             db  0
+;         A lone root byte followed by 0 means "this one does not evolve, and
+;         nothing evolves into it".
+;
+; Why the whole FAMILY and not just what this mon turns into. Measured on our
+; own data (.claude/evo_family_shape.py): 85 of 155 species have no evolution
+; of their own, and 72 have a PRE-evolution. Forward-only would therefore tell
+; roughly fifty FINAL FORMS "does not evolve" - true, and useless. BUTTERFREE
+; should say it came from CATERPIE.
+;
+; Three facts about the shape are what let two levels of walking be enough
+; instead of a real tree: no species has more than one pre-evolution, the
+; longest chain is two steps, and the only species that branches is EEVEE,
+; which is the root of its own family. The validator asserts all three, so if
+; the data ever stops being that shape it fails the build rather than this
+; quietly printing half a family.
+	ld a, [wWhichPokemon]
+	ld b, a
+	ld c, 4 ; climb guard: the longest family is three deep, so four climbs is
+	        ; already impossible. A cycle in the data would otherwise hang the
+	        ; game here, and a hang is not worth saving two bytes over.
+.climbToRoot
+	push bc ; FindPreEvolution answers in b and uses c for its own scan
+	call FindPreEvolution
+	ld a, b ; the pre-evolution it found, if any
+	pop bc  ; the guard, back into c
+	ld b, a ; neither of those three touches the carry
+	jr nc, .atRoot
+	dec c
+	jr nz, .climbToRoot
+.atRoot
+	ld de, wRelearnableMoves
+	ld a, b
+	ld [de], a ; the root of the family
+	inc de
+	ld b, 3 ; how many levels deep to walk, counting this one
+	call CopyEvolutionRecords
+	xor a
+	ld [de], a
+	ret
+
+CopyEvolutionRecords:
+; in:  a = species, de = where to write, b = levels of depth left
+; out: de advanced past everything written
+; Appends this species' evolutions, and after each one, that target's own -
+; depth first, which is exactly the order the page prints in.
+	dec b
+	ret z
+	call GetEvosMovesPointerForSpecies
+.loop
+	ld a, [hli]
+	and a
+	ret z ; the evolution list terminator
+	ld [de], a ; the method
+	inc de
+	cp EVOLVE_ITEM
+	jr nz, .parameter
+	ld a, [hli] ; the item...
+	ld [de], a
+	inc de
+	inc hl ; ...and skip the minimum level, which is always 1 and which the
+	       ; page has nothing to say about
+	jr .target
+.parameter
+	ld a, [hli] ; the level, or TRADE's unused minimum level
+	ld [de], a
+	inc de
+.target
+	ld a, [hli]
+	ld [de], a
+	inc de
+	push hl
+	push bc
+	call CopyEvolutionRecords ; a is still the target species
+	pop bc
+	pop hl
+	jr .loop
+
+FindPreEvolution:
+; in:  b = species internal index
+; out: carry set and b = the species that evolves into it, or carry clear
+; There is no reverse table, so this reads all of them. It costs a few thousand
+; cycles once, on a menu - cheaper than 190 bytes of table that could drift out
+; of step with the data it mirrors.
+	ld c, 1
+.candidate
+	push bc
+	ld a, c
+	call GetEvosMovesPointerForSpecies
+	pop bc
+.record
+	ld a, [hli] ; the method
+	and a
+	jr z, .nextCandidate
+	cp EVOLVE_ITEM
+	jr nz, .skipParameter
+	inc hl ; the item
+.skipParameter
+	inc hl ; the level
+	ld a, [hli] ; the target
+	cp b
+	jr nz, .record
+	ld b, c
+	scf
+	ret
+.nextCandidate
+	inc c
+	ld a, c
+	cp NUM_POKEMON_INDEXES + 1
+	jr nz, .candidate
+	and a ; no pre-evolution: clear carry
+	ret
+
+GetEvosMovesPointerForSpecies:
+; in: a = internal index; out: hl = that species' evos/moves data
+	dec a
+	ld c, a
+	ld b, 0
+	ld hl, EvosMovesPointerTable
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ret
+
 PrepareLevelUpMoveList::
 ; Builds the full level-up move list as (level, move id) byte pairs at wRelearnableMoves, for the Pokedex moves page. Header (level-0/egg) moves are listed as level 1; no known-move filtering.
 ; Input: mon SPECIES id = [wWhichPokemon] (the Pokedex caller stuffs the species in here — NOT a party index)

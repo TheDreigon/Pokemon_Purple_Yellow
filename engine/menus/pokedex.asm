@@ -99,7 +99,7 @@ HandlePokedexSideMenu:
 	xor a
 	ld [hli], a ; current menu item ID
 	inc hl
-	ld a, 3 ; DATA, CRY, AREA, MOVE -- v0.7 dropped QUIT
+	ld a, 4 ; DATA, CRY, AREA, EVO, MOVE -- v0.7 dropped QUIT, #24 added EVO
 	ld [hli], a ; max menu item ID
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; menu watched keys (A button and B button)
@@ -119,6 +119,8 @@ HandlePokedexSideMenu:
 	jr z, .choseCry
 	dec a
 	jr z, .choseArea
+	dec a
+	jr z, .choseEvo
 	dec a
 	jr z, .choseMoves
 ; Unreachable since QUIT left the menu: wMaxMenuItem is 3 and all four items are
@@ -176,9 +178,18 @@ HandlePokedexSideMenu:
 	ld b, 0
 	jr .exitSideMenu
 
+; The EVO side-menu item (#24). b = 0 on the way out like DATA and MOVE, so the
+; caller reloads the dex tile patterns and redraws the list.
+.choseEvo
+	ld a, 2
+	ld [wMoveListCounter], a
+	call ShowPokedexDataInternal
+	ld b, 0
+	jr .exitSideMenu
+
 ; The MOVE side-menu item. It took over the slot the Game Boy Printer's PRINT
 ; used to occupy; v0.7 removed the printer outright, so nothing is repurposed
-; here any more — this is just the fourth entry.
+; here any more.
 .choseMoves
 	ld a, 1
 	ld [wMoveListCounter], a
@@ -391,10 +402,16 @@ PokedexContentsText:
 ; which is what B does from anywhere including the list itself. A menu entry
 ; that duplicates B and names itself after something it does not do is worse
 ; than no entry.
+; #24: EVO sits between AREA and MOVE, which puts it on row 16 - the last row
+; the panel has. A sixth entry would need row 18 and there isn't one.
+; The cursor erase on the B path (lb bc, " ", 9 above) wants 2 * wMaxMenuItem + 1
+; and already said 9: it was left over from when this menu had five entries,
+; PRNT and QUIT among them. It is exactly right again now. Do not tidy it.
 PokedexMenuItemsText:
 	db   "DATA"
 	next "CRY"
 	next "AREA"
+	next "EVO"
 	next "MOVE@"
 
 Pokedex_PlacePokemonList:
@@ -507,6 +524,8 @@ ShowPokedexDataInternal:
 	ld a, [wMoveListCounter] ; using this as a temp variable
 	cp 1
 	jr z, .PrintMoves
+	cp 2
+	jr z, .PrintEvolutions
 	pop af
 	ld [wd11e], a
 	call DrawDexEntryOnScreen
@@ -525,6 +544,13 @@ ShowPokedexDataInternal:
 	call ClearScreenArea ; the same rectangle the move pages turn over
 	pop hl
 	call Pokedex_PrintFlavorTextAtRow11
+	jr .waitForButtonPress
+.PrintEvolutions
+	pop af
+	ld [wd11e], a
+	call DrawDexEntryOnScreen
+	call c, Pokedex_PrintEvolutions ; carry clear = only SEEN, and then nothing
+	                                ; goes below the divider, same as DATA
 	jr .waitForButtonPress
 .PrintMoves
 	pop af
@@ -972,6 +998,142 @@ LevelUpMovesText:
 
 TMHMMovesText:
 	db   "TM/HM MOVES:@"
+
+Pokedex_PrintEvolutions:
+; #24. The mon's evolution family, in the seven rows under the divider that
+; DrawDexEntryOnScreen already put on row 9, vertically centred, with the one
+; whose entry this is marked:
+;
+;   row11 | CATERPIE
+;   row12 |   LEVEL  8
+;   row13 |▶METAPOD
+;   row14 |   LEVEL 11
+;   row15 | BUTTERFREE
+;
+; The walking is not here. PrepareEvolutionList (engine/pokemon/evos_moves.asm,
+; in the bank the data lives in) has already flattened the family into
+; wRelearnableMoves as a root species byte, then a (method, parameter, target)
+; triple per step, then 0. Everything below is layout - which is the only way
+; this fits, bank $10 being what it is.
+	ld a, [wd11e]
+	ld [wWhichPokemon], a
+	farcall PrepareEvolutionList
+
+; One line for the root, two for every step after it.
+	ld hl, wRelearnableMoves + 1
+	ld c, 1
+.countLoop
+	ld a, [hl]
+	and a
+	jr z, .counted
+	inc hl
+	inc hl
+	inc hl
+	inc c
+	inc c
+	jr .countLoop
+.counted
+	ld a, c
+	cp 1
+	jr z, .doesNotEvolve
+
+; Centre the block in rows 10-16: the first line is 10 + (7 - lines) / 2.
+	ld a, 7
+	sub c
+	srl a
+	push af
+	hlcoord 1, 10
+	ld bc, SCREEN_WIDTH
+	pop af
+	call AddNTimes
+
+	ld de, wRelearnableMoves
+.familyLoop
+	ld a, [de] ; a species
+	inc de
+	push de
+	push hl
+	call Pokedex_PlaceEvoSpecies
+	pop hl
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	pop de
+	ld a, [de] ; the method that leads to the next one, or the terminator
+	and a
+	ret z
+	inc de ; de -> the parameter
+	push hl
+	push de
+	call Pokedex_PlaceEvoMethod
+	pop de
+	pop hl
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	inc de ; past the parameter, so de -> the target species
+	jr .familyLoop
+
+.doesNotEvolve
+; 85 of the 155 species land here, so it is not an edge case - it is the most
+; common page this menu entry draws.
+	hlcoord 2, 13
+	ld de, PokedexNoEvolutionText
+	jp PlaceString
+
+Pokedex_PlaceEvoSpecies:
+; in: a = species internal index, hl = the row's column 1
+; The marker goes in column 1 and the name in column 2, so a ten-letter name
+; still ends at column 11 with room to spare.
+	ld [wd11e], a
+	ld b, a
+	ld a, [wcf91] ; the mon whose POKeDEX entry this is - DrawDexEntryOnScreen
+	              ; does not touch wcf91, so it is still the right one here
+	cp b
+	ld a, " "
+	jr nz, .notThisOne
+	ld a, "▶"
+.notThisOne
+	ld [hli], a
+	call GetMonName
+	jp PlaceString
+
+Pokedex_PlaceEvoMethod:
+; in: a = EVOLVE_*, de -> the parameter byte, hl = the row's column 1
+	ld bc, 3
+	add hl, bc ; column 4, indented under the species above it
+	cp EVOLVE_ITEM
+	jr z, .item
+	cp EVOLVE_TRADE
+	jr z, .trade
+; A level. PlaceString hands back the screen address just past the text in bc,
+; so the number goes straight after it with no coordinate arithmetic.
+	push de
+	ld de, PokedexEvoLevelText
+	call PlaceString
+	ld h, b
+	ld l, c
+	pop de ; -> the level byte
+	lb bc, 1, 2
+	jp PrintNumber
+.item
+	ld a, [de]
+	ld [wd11e], a
+	call GetItemName
+	jp PlaceString
+.trade
+	ld de, PokedexEvoTradeText
+	jp PlaceString
+
+PokedexEvoLevelText:
+; The trailing space is load-bearing: PrintNumber right-aligns into two digits,
+; so a level below ten already brings its own space and one at or above ten
+; does not. Without this, "LEVEL 8" and "LEVEL11".
+	db "LEVEL @"
+
+PokedexEvoTradeText:
+	db "TRADE@"
+
+PokedexNoEvolutionText:
+	db "DOES NOT EVOLVE@"
 
 Pokedex_PrintBaseStats:
 ; The first page of DATA: what the word "DATA" ought to have meant all along.
