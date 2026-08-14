@@ -117,17 +117,34 @@ StatusScreen:
 ; redraw (page 2 draws over page 1 and reads what page 1 loads, so it can never
 ; be shown on its own), and white-out / redraw / fade-in reads as "the screen
 ; reopened" - wrong, when the player only changed page or stepped a mon.
+; v0.7: the tile pattern loads moved ONTO the white-out branch, and a quiet
+; redraw now skips them. Reordered, not added: this block is the same 60 bytes
+; it was, which matters because all three sections of bank $4 are pinned in
+; layout.link and it had six bytes left.
+;
+; Why they cannot run on a quiet redraw: they write the SAME VRAM TWICE.
+; HpBarAndStatusGraphics is 30 tiles at vChars2 tile $62 = $9620-$97ff, and all
+; three CopyVideoDataDouble destinations below - $96d0, $9760, $9780 - land
+; inside it. Vanilla does exactly the same and gets away with it because the
+; screen is white while it happens.
+;
+; Ours is not white. STATUS_QUIET leaves the previous page up, and the move
+; page draws its box out of those very tiles. Each CopyVideoData waits for a
+; VBlank, so for about six frames the move page sat on screen with pieces of
+; the HP bar where its border should be - the flicker Forte caught coming back
+; from the moves. Measured, not reasoned: tiles $96d0, $9760, $9770 and $9780
+; differed from the settled page for frames +4 to +10 of the flip, while the
+; tile map did not change at all in that window.
+;
+; Skipping is safe for the same reason STATUS_KEEPPIC is: QUIET is only ever
+; set when a status page is ALREADY on screen (start_sub_menus.asm is the only
+; writer of the byte), and a status page can only be up because a non-quiet
+; entry loaded these. Page 2 loads no tile patterns of its own at all. The flip
+; also comes out four VBlank waits shorter.
 	ld a, [wStatusScreenPageChange]
 	and STATUS_QUIET
-	jr z, .whiteOutFirst
-	xor a
-	ldh [hAutoBGTransferEnabled], a ; nothing drawn below reaches VRAM yet
-	jr .screenBlanked
-.whiteOutFirst
+	jr nz, .quietRedraw
 	call GBPalWhiteOutWithDelay3
-.screenBlanked
-	call ClearScreen
-	call UpdateSprites
 	call LoadHpBarAndStatusTilePatterns
 	ld de, BattleHudTiles1  ; source
 	ld hl, vChars2 + $6d0 ; dest
@@ -141,6 +158,18 @@ StatusScreen:
 	ld hl, vChars2 + $760
 	lb bc, BANK(BattleHudTiles3), $02
 	call CopyVideoDataDouble ; ─┘
+	jr .screenBlanked
+.quietRedraw
+; STATUS_QUIET composes this page behind the one already on screen rather than
+; blanking first. Every route back to the stats page is a full redraw (page 2
+; draws over page 1 and reads what page 1 loads, so it can never be shown on
+; its own), and white-out / redraw / fade-in reads as "the screen reopened" -
+; wrong, when the player only changed page or stepped a mon.
+	xor a
+	ldh [hAutoBGTransferEnabled], a ; nothing drawn below reaches VRAM yet
+.screenBlanked
+	call ClearScreen
+	call UpdateSprites
 	coord hl, 19, 1
 	lb bc, 6, 10
 	call DrawLineBox ; Draws the box around name, HP and status
@@ -370,6 +399,14 @@ StatusScreen_RevealQuietPage:
 	ld a, [wStatusScreenPageChange]
 	and STATUS_NOWAIT
 	ret nz ; page 2 is about to draw over this one - stay hidden until it does
+; NOT FIXED HERE, and it is the last thing left of the flicker Forte reported:
+; the transfer moves SIX ROWS per VBlank, so putting the page up takes three
+; frames whatever we do, and hAutoBGTransferPortion is wherever the last screen
+; left it - so the page arrives in a scrambled order rather than top to bottom.
+; Two frames of it are visible. `xor a / ldh [hAutoBGTransferPortion], a` here
+; and the same before page 2's reveal would make it a plain downward wipe, and
+; costs 6 bytes; bank $4 has exactly 6 left and all three of its sections are
+; pinned in layout.link. That is Forte's to spend, not mine.
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
