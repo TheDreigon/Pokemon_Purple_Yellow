@@ -279,7 +279,7 @@ _LiftKeyDescription::
 
 _ExpAllDescription::
 	text "Shares battle EXP."
-	next "USE to choose how."
+	next "USE to set it."
 	prompt
 
 _OldRodDescription::

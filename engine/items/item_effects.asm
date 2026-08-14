@@ -575,7 +575,7 @@ ItemUseBall:
 	ld hl, .emptyString
 	call PrintText
 	call AddPartyMon
-	jr .caughtGainExp
+	jr .caughtGainExpWithoutTheNewcomer
 
 .sendToBox
 	call ClearSprites
@@ -603,18 +603,47 @@ ItemUseBall:
 ; to the party, or sent to the PC) - a broken-free ball and the Viridian old
 ; man's tutorial catch skip it via the jr above.
 ;
-; The halving loop is the engine's own idiom - the same one HalveExpData uses
-; over in engine/battle/experience.asm: it walks the enemy's base stats, catch
-; rate and base exp and shifts each right once. It stays written out here
-; rather than becoming a farcall because ten bytes inline beat six bytes of
-; farcall plus the bank switch. Halving the SOURCE rather than the result means
-; the split downstream is exactly the arithmetic a knockout uses.
+; The halving loop in .payCaughtExp is the engine's own idiom - the same one
+; HalveExpData uses over in engine/battle/experience.asm: it walks the enemy's
+; base stats, catch rate and base exp and shifts each right once. It stays
+; written out here rather than becoming a farcall because ten bytes inline beat
+; six bytes of farcall plus the bank switch. Halving the SOURCE rather than the
+; result means the split downstream is exactly the arithmetic a knockout uses.
 ;
 ; WHO gains is deliberately not decided here, and now really is not: handing
 ; off to DistributeExperience is what makes a ball and a knockout reward the
 ; same Pokemon under the same rules. That sentence used to be here while the
-; code below called GainExperience directly, which skipped the EXP.SHARE
-; entirely - the comment was true of vanilla and had quietly stopped being true.
+; code called GainExperience directly, which skipped the EXP.SHARE entirely -
+; the comment was true of vanilla and had quietly stopped being true.
+;
+; The two entry points differ in one thing only: whether a Pokemon has just been
+; added to the party, and therefore has to be hidden from the payout.
+; The Pokemon went to the PC, so the party is exactly what it was in the battle.
+	call .payCaughtExp
+	jr .done
+
+.caughtGainExpWithoutTheNewcomer
+; ...whereas a Pokemon that JOINED THE PARTY is already in it by the time the
+; experience is paid, and it is in the LAST slot - the slot the EXP.SHARE's ONE
+; mode pays. Without this, every capture handed the share to the Pokemon that
+; had just arrived and was never in the battle, while the one the player had
+; deliberately parked there to be raised got nothing and the fighters were
+; still docked their half. TEAM had the milder version: the newcomer ate a
+; share of a battle it never saw.
+;
+; Hiding it for the length of the payout is enough, because wPartyCount is what
+; bounds both the share's choice of slot and GainExperience's own party walk
+; (.nextMon). Nothing else runs in between.
+	ld a, [wPartyCount]
+	dec a
+	ld [wPartyCount], a
+	call .payCaughtExp
+	ld a, [wPartyCount]
+	inc a
+	ld [wPartyCount], a
+	jr .done
+
+.payCaughtExp
 	ld hl, wEnemyMonBaseStats
 	ld b, NUM_STATS + 2
 .halveCaughtExpLoop
@@ -622,18 +651,6 @@ ItemUseBall:
 	inc hl
 	dec b
 	jr nz, .halveCaughtExpLoop
-; #10: a caught Pokemon pays through DistributeExperience, exactly like a
-; knocked out one. The ball's halving above is the ONLY difference between the
-; two - the EXP.SHARE then splits that half by whichever mode is set, so ONE
-; and TEAM mean the same thing whether you win by fighting or by catching.
-;
-; This used to call GainExperience directly with wBoostExpByExpAll cleared,
-; which meant a catch always paid the participants and nobody else. It went
-; unnoticed because that WAS the whole behaviour before the EXP.SHARE existed;
-; once the aide started promising that the item decides who gets the experience
-; you win, catching quietly stopped being covered by that promise. Forte's call
-; to make it consistent.
-;
 ; v0.7 FIX: GainExperience walks the party with wWhichPokemon and leaves it at
 ; the LAST party index -- and wWhichPokemon is ALSO the bag index this flow
 ; uses at .done to remove the thrown ball (RemoveItemFromInventory_ reads it as
@@ -647,7 +664,7 @@ ItemUseBall:
 	callfar DistributeExperience
 	pop af
 	ld [wWhichPokemon], a
-	; fall through
+	ret
 
 .done
 	ld a, [wBattleType]

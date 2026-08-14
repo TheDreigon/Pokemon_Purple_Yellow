@@ -14,6 +14,18 @@ DistributeExperience::
 ; Whether a fainted Pokemon may be paid is NOT a rule this invents. It is the
 ; one already written into .partyMonLoop below: Normal pays them, Hard does
 ; not. Both modes ask that same question rather than adding a second law.
+; NOBODY TOOK PART, NOTHING TO SHARE. The flags are zero when no Pokemon of the
+; player's was ever sent out, which is exactly what a SAFARI ZONE battle looks
+; like - and a Safari ball reaches this same code. Without this test, TEAM built
+; its own flag set from the party and paid everyone for a capture that cost no
+; turn, no HP and no Pokemon on the field: thirty balls an entry, repeatable, an
+; experience faucet out of nothing. ONE did the same to one Pokemon.
+;
+; It also covers the plain case of an empty flag byte, where ONE would otherwise
+; halve the block and hand the fighters' half to nobody.
+	ld a, [wPartyGainExpFlags]
+	and a
+	jr z, .noSharing
 	call GetExpShareMode
 	jr z, .noSharing
 	cp EXPSHARE_TEAM
@@ -120,7 +132,15 @@ ExpShareWillBePaid:
 	ld b, [hl] ; this Pokemon's level
 	call GetLevelCap ; a = the cap; preserves bc, de and hl
 	cp b
-	jr c, .no ; cap below its level: the party loop pays it nothing
+	jr c, .no ; cap below its level: the party loop refuses it outright
+	jr z, .no ; and AT the cap it gains nothing either, which is the case that
+	          ; matters, because it is the state a cap exists to produce. Such a
+	          ; Pokemon holds exactly CalcExperience(cap), so the exp is added
+	          ; and then clamped straight back off. Testing only "over the cap"
+	          ; mirrored the party loop's SKIP guard and missed the clamp below
+	          ; it. Note this is not a Hard-mode-only case: GetLevelCap returns
+	          ; MAX_LEVEL on Normal, so a level 100 Pokemon in the last slot
+	          ; hits the identical arithmetic.
 	pop de
 	scf
 	ret
@@ -178,6 +198,11 @@ SetExpShareTeamFlags:
 	dec c
 	jr nz, .loop
 	ld a, d
+	and a
+	ret z ; nobody: leave wPartyGainExpFlags ALONE. The caller's fallback is
+	      ; "let the normal path run", and the normal path's input is that very
+	      ; byte - writing a 0 here first destroyed it, so the fallback paid
+	      ; nobody at all, including the Pokemon that had actually fought.
 	ld [wPartyGainExpFlags], a
 	and a
 	ret
