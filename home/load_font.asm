@@ -50,7 +50,31 @@ LoadHpBarAndStatusTilePatterns::
 	ld hl, vChars2 tile $62
 	lb bc, BANK(HpBarAndStatusGraphics), (HpBarAndStatusGraphicsEnd - HpBarAndStatusGraphics) / $10
 	call CopyVideoData ; if LCD is on, transfer during V-blank
-	ld hl, EXPBarGraphics
-	ld de, vChars1 tile $40
+; v0.7: source and destination, the right way round.
+;
+; The two copiers take their operands in OPPOSITE orders - FarCopyData copies
+; from hl to de (home/copy.asm:1-2), CopyVideoData copies from de to hl
+; (home/copy2.asm:41-44) - and this block was written with FarCopyData's order
+; while calling CopyVideoData. The block for the HP bar four lines up has it
+; right, which is what makes the two readable side by side and still wrong.
+;
+; What it did: copied 144 bytes OUT of VRAM at $8c00 and INTO $4c00, where
+; EXPBarGraphics happens to live. ROM cannot be written, so on this cartridge -
+; MBC5, from the -m 0x1b in the Makefile - $4000-$5fff is the SRAM BANK NUMBER
+; register, and this performed 144 consecutive writes to it, leaving it holding
+; a byte of font graphics. Nothing has been corrupted by that, because every
+; SRAM user re-selects its bank before touching it and RAM enable is never on
+; here, but the EXP bar tiles were simply never loaded on this path and two
+; frames were spent not loading them.
+;
+; The bar itself has always been fine in battle: _InitBattleCommon goes through
+; SlidePlayerAndEnemySilhouettesOnScreen, which calls DisableLCD first and so
+; takes the .off branch above, where the same block IS correct.
+;
+; Inherited, and worth saying where from: pokeyellow has no EXP bar at all, and
+; Pokemon_Yellow_Legacy's copy of this file is byte-identical to ours, reversed
+; arguments included. kep-hack carries it too.
+	ld de, EXPBarGraphics
+	ld hl, vChars1 tile $40
 	lb bc, BANK(EXPBarGraphics), (EXPBarGraphicsEnd - EXPBarGraphics) / $10
 	jp CopyVideoData ; if LCD is on, transfer during V-blank
