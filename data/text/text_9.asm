@@ -969,16 +969,16 @@ _ExpShareSetToOffText::
 	text "EXP.SHARE is off."
 	line "Only those who"
 	cont "fight will gain."
-	done
+	prompt
 
 _ExpShareSetToOneText::
 	text "EXP.SHARE: ONE."
 	line "Half the EXP goes"
 	cont "to the last one."
-	done
+	prompt
 
 _ExpShareSetToTeamText::
 	text "EXP.SHARE: TEAM."
 	line "The whole team"
 	cont "splits the EXP."
-	done
+	prompt

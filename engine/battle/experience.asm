@@ -85,54 +85,88 @@ GetExpShareMode:
 	and a
 	ret
 
+ExpShareWillBePaid:
+; in:  a = party index
+; out: carry set if GainExperience would actually pay that Pokemon
+;
+; Both modes ask this and neither invents anything: these are the two questions
+; the party loop below already asks, and asking a THIRD question here would put
+; the two out of step the first time either changed.
+;
+;   fainted?          Normal pays it, Hard does not (.partyMonLoop)
+;   past the level cap? nobody pays it (the guard after .statExpDone)
+;
+; The level cap half is the one that bit. Without it, a Pokemon over the cap in
+; the last slot still counted as "payable", the fighters were still charged
+; half the battle for it, and then the guard threw that half away - so on Hard,
+; leaving the item on ONE was strictly worse than switching it off. Exactly the
+; thing the routine's own contract said could not happen.
+	push de
+	ld d, a
+	ld hl, wPartyMon1HP
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes ; a is the index; AddNTimes leaves it at 0
+	ld a, [hli]
+	or [hl]
+	jr nz, .conscious
+	ld a, [wDifficulty]
+	cp NORMAL_MODE
+	jr nz, .no ; fainted, and Hard does not pay the fainted
+.conscious
+	ld hl, wPartyMon1Level
+	ld bc, wPartyMon2 - wPartyMon1
+	ld a, d
+	call AddNTimes
+	ld b, [hl] ; this Pokemon's level
+	call GetLevelCap ; a = the cap; preserves bc, de and hl
+	cp b
+	jr c, .no ; cap below its level: the party loop pays it nothing
+	pop de
+	scf
+	ret
+.no
+	pop de
+	and a
+	ret
+
 GetExpShareTarget:
 ; out: carry set and a = the party index ONE mode pays, or carry clear if there
 ; is nobody to pay.
 ;
-; Asking this BEFORE halving is the whole point: if the last Pokemon cannot be
-; paid, the half must not be taken off the mons that fought. Carrying the item
+; Asking this BEFORE halving is the whole point: if the last Pokemon will not be
+; paid, the half must not be taken off the ones that fought. Carrying the item
 ; is never allowed to cost the player experience.
 	ld a, [wPartyCount]
 	and a
 	ret z ; no party at all; `and a` already cleared the carry
 	dec a
-	ld d, a ; the last slot, kept across AddNTimes
-	ld hl, wPartyMon1HP
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes ; hl -> that Pokemon's HP, a counts down to 0
-	ld a, [hli]
-	or [hl]
-	jr nz, .canBePaid
-	ld a, [wDifficulty]
-	cp NORMAL_MODE
-	jr nz, .nobody ; fainted, and Hard does not pay the fainted
-.canBePaid
+	ld d, a ; the last slot; ExpShareWillBePaid gives de back untouched
+	call ExpShareWillBePaid
+	ret nc
 	ld a, d
 	scf
-	ret
-.nobody
-	and a
 	ret
 
 SetExpShareTeamFlags:
 ; Flags every party member that will actually be paid. Returns with the zero
 ; flag set if that is nobody.
+;
+; Only the ones that will be paid, because the divisor is the number of flags:
+; counting a Pokemon that the party loop then refuses would divide the battle
+; by a share it never hands out. That is true of the fainted on Hard and just
+; as true of anything sitting over the level cap.
 	ld a, [wPartyCount]
 	and a
 	ret z
 	ld c, a ; how many are left to look at
 	ld d, 0 ; the flags being built
 	ld e, 0 ; the party index
-	ld hl, wPartyMon1HP
 .loop
-	ld a, [hli]
-	or [hl]
-	dec hl
-	jr nz, .payThisOne
-	ld a, [wDifficulty]
-	cp NORMAL_MODE
-	jr nz, .next
-.payThisOne
+	push bc
+	ld a, e
+	call ExpShareWillBePaid
+	pop bc ; pop does not touch the carry
+	jr nc, .next
 	push bc
 	ld a, e
 	call ExpShareBitMask
@@ -140,10 +174,6 @@ SetExpShareTeamFlags:
 	ld d, a
 	pop bc
 .next
-	push bc
-	ld bc, wPartyMon2 - wPartyMon1
-	add hl, bc
-	pop bc
 	inc e
 	dec c
 	jr nz, .loop
@@ -680,10 +710,16 @@ GainedText:
 	ret
 
 WithExpAllText:
+; #10: this used to chain into ExpPointsText, which prints wExpAmountGained -
+; and that byte pair is only written INSIDE the party loop, while this line is
+; printed BEFORE it. The old EXP.ALL got away with it because its shared pass
+; was always the SECOND one, so a previous pass had filled the number in. Both
+; new modes print this on a pass that runs first, so the number would have been
+; whatever the last Pokemon paid in the PREVIOUS battle - or 0000 on the first
+; battle after a boot. There is no honest number to show here anyway: TEAM pays
+; everyone and ONE pays somebody who is not on screen.
 	text_far _WithExpAllText
-	text_asm
-	ld hl, ExpPointsText
-	ret
+	text_end
 
 BoostedText:
 	text_far _BoostedText
