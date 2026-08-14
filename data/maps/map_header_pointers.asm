@@ -253,4 +253,5 @@ MapHeaderPointers::
 	dw ViridianOldRodHouse_h
 	dw Daycare2F_h
 	dw BillsGarden_h
+	dw BluesHouse2F_h
 	assert_table_length NUM_MAPS

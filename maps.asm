@@ -979,6 +979,11 @@ CeruleanMart_Blocks:
 VermilionMart_Blocks: INCBIN "maps/VermilionMart.blk"
 	assert @ - VermilionMart_Blocks == VERMILION_MART_WIDTH * VERMILION_MART_HEIGHT, "VermilionMart.blk size does not match VERMILION_MART in map_constants.asm"
 
+; Three maps, one file. Copycat's bedroom already shared Red's, and the rival's
+; is meant to be identical to Red's, so it stacks here too and costs 0 bytes.
+; The corollary is the usual one: editing maps/RedsHouse2F.blk now redraws
+; THREE bedrooms, not one.
+BluesHouse2F_Blocks:
 CopycatsHouse2F_Blocks:
 RedsHouse2F_Blocks: INCBIN "maps/RedsHouse2F.blk"
 	assert @ - RedsHouse2F_Blocks == REDS_HOUSE_2F_WIDTH * REDS_HOUSE_2F_HEIGHT, "RedsHouse2F.blk size does not match REDS_HOUSE_2F in map_constants.asm"
@@ -1009,6 +1014,12 @@ ViridianForestNorthGate_Blocks: INCBIN "maps/ViridianForestNorthGate.blk"
 INCLUDE "data/maps/headers/RedsHouse2F.asm"
 INCLUDE "scripts/RedsHouse2F.asm"
 INCLUDE "data/maps/objects/RedsHouse2F.asm"
+
+; Same SECTION as the blocks it shares: a map_header stores dw <name>_Blocks,
+; a 16-bit pointer read with the header's own bank.
+INCLUDE "data/maps/headers/BluesHouse2F.asm"
+INCLUDE "scripts/BluesHouse2F.asm"
+INCLUDE "data/maps/objects/BluesHouse2F.asm"
 
 
 SECTION "Maps 16", ROMX

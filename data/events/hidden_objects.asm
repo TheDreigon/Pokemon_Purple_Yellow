@@ -49,6 +49,7 @@ HiddenObjectMaps:
 	dbw SAFFRON_GYM,                  SaffronGymHiddenObjects
 	dbw SAFFRON_POKECENTER,           SaffronPokecenterHiddenObjects
 	dbw REDS_HOUSE_2F,                RedsHouse2FHiddenObjects
+	dbw BLUES_HOUSE_2F,               BluesHouse2FHiddenObjects
 	dbw DAYCARE,                      DaycareHiddenObjects
 	dbw BLUES_HOUSE,                  BluesHouseHiddenObjects
 	dbw OAKS_LAB,                     OaksLabHiddenObjects
@@ -331,6 +332,14 @@ SaffronPokecenterHiddenObjects:
 RedsHouse2FHiddenObjects:
 	hidden_object  0,  1, SPRITE_FACING_UP, OpenRedsPC
 	hidden_object  3,  5, ANY_FACING, PrintRedSNESText
+	db -1 ; end
+
+; The same two coordinates: it is the same room layout, so the furniture is in
+; the same places. His PC refuses instead of opening - it is not the player's to
+; rummage through.
+BluesHouse2FHiddenObjects:
+	hidden_object  0,  1, SPRITE_FACING_UP, RefuseBluesPC
+	hidden_object  3,  5, ANY_FACING, PrintBluesSNESText
 	db -1 ; end
 
 ; The daycare had no PC. The HOUSE tileset was thought to lack a PC block; it

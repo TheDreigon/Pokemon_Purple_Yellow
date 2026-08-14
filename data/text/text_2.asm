@@ -611,11 +611,25 @@ _IndigoPlateauHQText::
 	line "#MON LEAGUE HQ"
 	done
 
+; v0.7: it used to narrate the player at themselves and then shoo them out of
+; their own bedroom. It is a games console, not a stage direction.
 _RedBedroomSNESText::
-	text "<PLAYER> is"
-	line "playing the SNES!"
-	cont "...Okay!"
-	cont "It's time to go!"
+	text "My SNES."
+	line "Great fun!"
+	done
+
+_BluesBedroomSNESText::
+	text "It's an SNES like"
+	line "mine!"
+	done
+
+; <RIVAL> is his name at runtime, so the first line grows with it: five
+; characters, up to seven of name, then six more - eighteen at worst, which is
+; exactly the width of a line.
+_BluesBedroomPCText::
+	text "It's <RIVAL>'s PC."
+	line "Better leave it"
+	cont "alone."
 	done
 
 _Route15UpstairsBinocularsText::

@@ -9,6 +9,10 @@ BluesHouse_Object:
 	def_warp_events
 	warp_event  2,  7, LAST_MAP, 2
 	warp_event  3,  7, LAST_MAP, 2
+; APPENDED, never inserted: the array is positional and the two door tiles
+; above are warps 1 and 2. This is warp 3, which is what BluesHouse2F comes
+; down to - the same numbering REDS_HOUSE_1F uses for its own staircase.
+	warp_event  7,  1, BLUES_HOUSE_2F, 1
 
 	def_bg_events
 

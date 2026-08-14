@@ -123,4 +123,5 @@ InternalMapEntries:
 ; lookup with no end check, so the highest map id needs a line or LoadTownMapEntry
 ; reads straight past the -1 and treats whatever follows as coordinates.
 	internal_map BILLS_GARDEN,                  12,  0, BillsLabName
+	internal_map BLUES_HOUSE_2F,                 1, 12, PalletTownName
 	db -1 ; end

@@ -252,4 +252,5 @@ MapSongBanks::
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; VIRIDIAN_OLD_ROD_HOUSE
 	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE_2F (same as the floor below)
 	db MUSIC_ROUTES1, BANK(Music_Routes1) ; BILLS_GARDEN (ROUTE 1's theme, Forte's pick: the quiet one from the very start of the game, for a garden full of first partners)
+	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; BLUES_HOUSE_2F (same as the floor below, and as the player's own bedroom)
 	assert_table_length NUM_MAPS
