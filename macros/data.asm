@@ -20,6 +20,13 @@ ENDM
 ; battle engine untouched.
 ; Usage:  base_stat_row HP, ATK, DEF, SPC, SPD
 MACRO base_stat_row
+; v0.7: the POKeDEX DATA screen prints the sum of these five in a THREE digit
+; field, so a species whose total reached 1000 would print garbage with a green
+; build and no other warning. The highest today is MEWTWO at 600. This is the
+; cheapest possible place to keep that true, because every species passes
+; through here.
+	ASSERT (\1) + (\2) + (\3) + (\4) + (\5) < 1000, \
+	    "base stat total must stay under 1000: the POKeDEX prints it in 3 digits"
 	db \1, \2, \3, \5, \4
 ENDM
 

@@ -510,7 +510,21 @@ ShowPokedexDataInternal:
 	pop af
 	ld [wd11e], a
 	call DrawDexEntryOnScreen
-	call c, Pokedex_PrintFlavorTextAtRow11
+; v0.7: DATA opens on the typing and the base stats, and the description
+; follows it. Carry clear means the mon has only been SEEN, and then the whole
+; area below the divider stays empty exactly as before - no height, no weight,
+; no description, and now no stats either. Forte's call: you have to have
+; caught it.
+	jr nc, .waitForButtonPress
+	push hl ; DrawDexEntryOnScreen leaves the description pointer here, and
+	        ; everything below walks all over hl
+	call Pokedex_PrintBaseStats
+	call NewPageButtonPressCheck
+	hlcoord 1, 10
+	lb bc, 7, 18
+	call ClearScreenArea ; the same rectangle the move pages turn over
+	pop hl
+	call Pokedex_PrintFlavorTextAtRow11
 	jr .waitForButtonPress
 .PrintMoves
 	pop af
@@ -958,6 +972,138 @@ LevelUpMovesText:
 
 TMHMMovesText:
 	db   "TM/HM MOVES:@"
+
+Pokedex_PrintBaseStats:
+; The first page of DATA: what the word "DATA" ought to have meant all along.
+; Draws below the divider the entry screen already put on row 9, so everything
+; above it - picture, name, species word, height, weight, №. - simply stays.
+;
+;        0123456789012345678
+;   row9 ├─────────────────┤
+;  row10 |        BASE STATS|
+;  row11 |TYPE1/   HP    100|
+;  row12 | GRASS   ATK    85|
+;  row13 |TYPE2/   DEF    90|
+;  row14 | POISON  SPD    80|
+;  row15 |         SPC   105|
+;  row16 |    TOTAL      460|
+;
+; Nothing here has to go and FETCH anything. DrawDexEntryOnScreen already
+; called GetMonHeader with wd0b5 = the internal index, to find the front
+; sprite, so wMonHBaseStats and wMonHTypes are sitting in WRAM by the time this
+; runs. That is the same free ride pureRGB and kep-hack take, and it is why
+; this needs no dex→index conversion and no far call for the data.
+	hlcoord 9, 10
+	ld de, BaseStatsHeaderText
+	call PlaceString
+
+; The type labels go down BEFORE the names, because PrintMonType erases the
+; "TYPE2/" label itself for a single-typed mon - and it erases six tiles at
+; hl + $13, which is one row below and one column left of where it puts the
+; first name. Names at (2,12) therefore need the labels at (1,11) and (1,13).
+; That is the same relative shape the status screen uses, which is what makes
+; the stock predef fit here without an adapter.
+	hlcoord 1, 11
+	ld de, PokedexTypeLabelsText
+	call PlaceString
+	hlcoord 2, 12
+	predef PrintMonType
+
+; Six labels on six CONSECUTIVE rows. "next" moves two rows unless bit 2 of
+; hUILayoutFlags is set (home/text.asm), so it goes on here and comes straight
+; back off - the type labels above want the ordinary two-row spacing, and
+; TOTAL hangs one column left of the rest on purpose, so the sum does not read
+; as a sixth stat.
+	ldh a, [hUILayoutFlags]
+	push af
+	set 2, a
+	ldh [hUILayoutFlags], a
+	hlcoord 11, 11
+	ld de, BaseStatLabelsText
+	call PlaceString
+	pop af
+	ldh [hUILayoutFlags], a
+	hlcoord 9, 16
+	ld de, BaseStatTotalText
+	call PlaceString
+
+; The five stats, right-aligned into columns 16-18, one row apart. Three digits
+; is enough for every one of them and for the total; the assert in the
+; base_stat_row macro is what keeps that true.
+	ld de, wMonHBaseStats
+	hlcoord 16, 11
+	ld c, NUM_STATS
+.statLoop
+	push bc
+	push de
+	push hl
+	lb bc, 1, 3
+	call PrintNumber
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	pop de
+	inc de
+	pop bc
+	dec c
+	jr nz, .statLoop
+
+; The total, summed here rather than stored anywhere: there is no room in the
+; base stats struct for a byte that is only ever the sum of five others.
+	ld hl, 0
+	ld de, wMonHBaseStats
+	ld c, NUM_STATS
+.sumLoop
+	ld a, [de]
+	inc de
+	add l
+	ld l, a
+	ld a, 0 ; not xor a - the carry out of the low byte has to survive
+	adc h
+	ld h, a
+	dec c
+	jr nz, .sumLoop
+
+; PrintNumber reads its number big-endian out of memory, so it needs an
+; address. The two bytes are borrowed from hDexWeight and put back, which is
+; exactly what the weight printing in DrawDexEntryOnScreen does with the same
+; two bytes a few dozen lines above. Borrowing is not free there or here:
+; hDexWeight is a union member (it shares with hBaseTileID and hOAMTile) and
+; hDexWeight + 1 is hSpriteIndexOrTextID.
+	ldh a, [hDexWeight]
+	push af
+	ldh a, [hDexWeight + 1]
+	push af
+	ld a, h
+	ldh [hDexWeight], a
+	ld a, l
+	ldh [hDexWeight + 1], a
+	ld de, hDexWeight
+	hlcoord 16, 16
+	lb bc, 2, 3
+	call PrintNumber
+	pop af
+	ldh [hDexWeight + 1], a
+	pop af
+	ldh [hDexWeight], a
+	ret
+
+BaseStatsHeaderText:
+	db "BASE STATS@"
+
+BaseStatLabelsText:
+	db   "HP"
+	next "ATK"
+	next "DEF"
+	next "SPD"
+	next "SPC@"
+
+BaseStatTotalText:
+	db "TOTAL@"
+
+PokedexTypeLabelsText:
+	db   "TYPE1/"
+	next "TYPE2/@"
 
 Pokedex_PrintFlavorTextAtRow11:
 	bccoord 1, 11
