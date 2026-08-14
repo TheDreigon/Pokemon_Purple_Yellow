@@ -20,16 +20,38 @@ DistributeExperience::
 	jr z, .shareWithWholeTeam
 
 ; EXPSHARE_ONE.
+;
+; THE ORDER OF THE TWO PASSES IS LOAD-BEARING, and it is the opposite of what
+; the old EXP.ALL did. DivideExpDataByNumMonsGainingExp writes its results BACK
+; into wEnemyMonBaseStats, so two passes compound: measured, with the block at
+; [60,50,40,30,20,0,100] and two Pokemon having fought, the fighters' pass left
+; it at [30,25,20,15,10,0,50] and whatever ran next was handed THAT.
+;
+; So the single Pokemon goes first. Its pass has exactly one flag set, and the
+; divider returns early without writing when fewer than two are gaining - so it
+; receives the full half, and the fighters then divide the same half among
+; themselves. Two fighters now get a quarter each and the shared one gets a
+; half; before this order, the shared one got a quarter and a quarter of the
+; battle's experience simply vanished.
+;
+; The old code got away with the other order because vanilla never promised any
+; particular amount. This does.
 	call GetExpShareTarget
 	jr nc, .noSharing ; nobody to share with, so do not take the half away
-	push af ; the target's party index
-	call HalveExpData
-	xor a
-	ld [wBoostExpByExpAll], a ; no "with EXP.SHARE" line on the first pass
-	call GainExperience
-	pop af
+	ld b, a ; the target's index
+	ld a, [wPartyGainExpFlags]
+	push af ; who actually fought - about to be overwritten, and needed after
+	ld a, b
 	call SetSinglePartyGainExpFlag
+	call HalveExpData
 	ld a, 1
+	ld [wBoostExpByExpAll], a ; announces the share, and keeps this pass quiet
+	                          ; about the one Pokemon it pays
+	call GainExperience
+; and now the ones that actually fought, splitting the other half between them
+	pop af
+	ld [wPartyGainExpFlags], a
+	xor a
 	ld [wBoostExpByExpAll], a
 	jp GainExperience
 
