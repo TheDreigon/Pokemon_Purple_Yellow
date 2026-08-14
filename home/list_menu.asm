@@ -60,6 +60,17 @@ DisplayListMenuID::
 .noSort
 	ld a, A_BUTTON | B_BUTTON | SELECT
 .continue
+; v0.7 (#37): the POKeMART's buy list watches Up and Down as well, so that every
+; cursor move returns from HandleMenuInput and the loop can redraw the IN BAG
+; counter. Nothing else changes: the other list menus keep returning only at the
+; top and bottom edges, which is what wMenuWatchMovingOutOfBounds already does.
+	ld b, a
+	ld a, [wListMenuID]
+	cp PRICEDITEMLISTMENU
+	ld a, b
+	jr nz, .watchedKeysReady
+	or D_UP | D_DOWN
+.watchedKeysReady
 	ld [wMenuWatchedKeys], a
 	ld c, 10
 	call DelayFrames
@@ -68,6 +79,7 @@ DisplayListMenuIDLoop::
 	xor a
 	ldh [hAutoBGTransferEnabled], a ; disable transfer
 	call PrintListMenuEntries
+	farcall MartInBagCounter ; v0.7 (#37); returns at once unless the mart asked for it
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a ; enable transfer
 	call Delay3
@@ -89,6 +101,8 @@ DisplayListMenuIDLoop::
 	jr .buttonAPressed
 .notOldManBattle
 	call LoadGBPal
+	ld a, [wCurrentMenuItem]
+	ld [wPrevMenuItem], a ; v0.7 (#37): read back in .checkOtherKeys
 	call HandleMenuInput
 	push af
 	call PlaceMenuCursor
@@ -199,6 +213,16 @@ DisplayListMenuIDLoop::
 	bit 3,a ; was the start button pressed?
 	jp nz,.sortItems ; if so, sort the items
 	ld b, a
+; v0.7 (#37): with Up/Down watched, HandleMenuInput_ returns here having ALREADY
+; moved the cursor -- it moves it and only then looks at wMenuWatchedKeys. Only a
+; press against the edge leaves the cursor where it was, and only that should
+; scroll. Without this the cursor steps and the list scrolls on the same press,
+; two rows at a time.
+	ld a, [wCurrentMenuItem]
+	ld c, a
+	ld a, [wPrevMenuItem]
+	cp c
+	jp nz, DisplayListMenuIDLoop
 	bit BIT_D_DOWN, b
 	ld hl, wListScrollOffset
 	jr z, .upPressed

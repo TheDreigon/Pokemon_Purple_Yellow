@@ -148,7 +148,16 @@ DisplayPokemartDialogue_::
 	ld [wPrintItemPrices], a
 	inc a ; a = 2 (PRICEDITEMLISTMENU)
 	ld [wListMenuID], a
+; v0.7 (#37): the IN BAG counter is on for THIS list and nothing else. The
+; CELADON MART information desk uses PRICEDITEMLISTMENU too -- to put prices
+; beside names -- and it is a browse, not a purchase.
+	ld a, 1
+	ld [wMartShowInBag], a
 	call DisplayListMenuID
+	push af ; DisplayListMenuID answers in carry, and xor a would wipe it
+	xor a
+	ld [wMartShowInBag], a
+	pop af
 	jr c, .returnToMainPokemartMenu ; if the player closed the menu
 	ld a, 99
 	ld [wMaxItemQuantity], a
@@ -323,3 +332,60 @@ PokemartThankYouText:
 PokemartAnythingElseText:
 	text_far _PokemartAnythingElseText
 	text_end
+
+
+; v0.7 (#37): "IN BAG" for the item under the cursor, in a box that mirrors the
+; money box on the other side of the screen -- his layout, x0..10 y0..2 against
+; the money box's x11..19 y0..2. Only the buy list; the sell list already shows
+; a quantity on every row.
+;
+; Called from DisplayListMenuIDLoop, which redraws on every cursor move now, so
+; the number is never one row out of date. The cursor can sit on CANCEL, whose
+; entry byte is -1 and which owns nothing, so that case blanks the number rather
+; than looking a quantity up for item $FF.
+MartInBagCounter::
+	ld a, [wMartShowInBag]
+	and a
+	ret z
+	ld a, [wListPointer]
+	ld l, a
+	ld a, [wListPointer + 1]
+	ld h, a
+	inc hl ; past the entry count
+	ld a, [wListScrollOffset]
+	ld b, a
+	ld a, [wCurrentMenuItem]
+	add b
+	ld c, a
+	ld b, 0
+	add hl, bc ; priced-item entries are one byte each
+	ld a, [hl]
+	inc a ; the -1 that ends the list is the CANCEL row
+	jr z, .cancelRow
+	dec a
+	ld b, a
+	predef GetQuantityOfItemInBag ; b in, b out
+	ld a, b
+	jr .draw
+.cancelRow
+	xor a
+.draw
+	ld [wMartInBagCount], a
+	ld hl, wd730
+	set 6, [hl] ; no letter-by-letter delay inside a redraw
+	hlcoord 0, 0
+	lb bc, 1, 9
+	call TextBoxBorder
+	hlcoord 2, 0
+	ld de, InBagText
+	call PlaceString
+	hlcoord 5, 1
+	ld de, wMartInBagCount
+	lb bc, 1, 2 ; one byte, two digits; the bag caps a stack at 99
+	call PrintNumber
+	ld hl, wd730
+	res 6, [hl]
+	ret
+
+InBagText:
+	db "IN BAG@"

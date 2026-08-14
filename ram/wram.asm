@@ -2458,7 +2458,25 @@ wRivalEeveelution:: db
 wEscapeWarpMap:: db
 wEscapeWarpID:: db
 
-	ds 6
+; v0.7 (#37): the POKeMART's "IN BAG" counter, three more bytes out of the same
+; reserved hole, so it costs no WRAM either.
+;
+; wPrevMenuItem is where the list-menu cursor was before HandleMenuInput ran.
+; The buy list is the one list menu that watches Up and Down, so it returns from
+; HandleMenuInput_ with the cursor ALREADY moved; comparing against this is how
+; DisplayListMenuIDLoop tells "moved inside the window, just redraw" from
+; "pressed against the edge, scroll". Every other list menu only ever returns at
+; an edge, where the two are equal, so nothing else changes behaviour.
+wPrevMenuItem:: db
+; set by the mart around its buy list and cleared the moment it ends, so the
+; counter cannot appear on the CELADON MART information desk, which uses the
+; same PRICEDITEMLISTMENU to put prices beside names but is not a purchase.
+wMartShowInBag:: db
+; how many of the item under the cursor are in the bag; PrintNumber needs an
+; address, not a register.
+wMartInBagCount:: db
+
+	ds 3
 
 ; bit 0: using Strength outside of battle
 ; bit 1: set by IsSurfingAllowed when surfing's allowed, but the caller resets it after checking the result
