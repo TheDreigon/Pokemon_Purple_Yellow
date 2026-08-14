@@ -87,6 +87,31 @@ StatusScreen:
 	set 1, [hl]
 	ld a, $33
 	ld [rNR50], a ; Reduce the volume
+; v0.7: the tile animations go off HERE, before anything below waits a frame.
+;
+; They used to be switched off eleven lines further down, after ClearScreen
+; (which ends in Delay3) and after five more frame-waiting VRAM copies. Around
+; eleven VBlanks ran in that window, and VBlank's UpdateMovingBgTiles writes
+; the overworld's animated tiles straight into VRAM: the water tile is
+; vTileset tile $14 and the flower tile is vTileset tile $03. vTileset and
+; vFrontPic are the SAME $9000 - they are two members of the VRAM union - so
+; those two writes land on tiles $03 and $14 of the Pokemon picture.
+;
+; Vanilla never sees it, twice over: it whites the screen out first, and it
+; always reloads the picture afterwards, which paints over the damage. Our
+; STATUS_QUIET removed the white-out and STATUS_KEEPPIC removed the reload, so
+; on the way back from the move page the two scribbled tiles simply stayed -
+; a flower in the blank column beside PIKACHU and a one-pixel roll of the tile
+; under its foot. Measured on the CPU, not deduced: tile $14 went dirty
+; between the first and second CopyVideoDataDouble, tile $03 between the
+; second and third.
+;
+; StatusScreen2 has always done it in this order (see the top of it); page 1
+; now matches. Costs nothing - the same four instructions, moved.
+	ldh a, [hTileAnimations]
+	push af
+	xor a
+	ldh [hTileAnimations], a
 ; v0.7: STATUS_QUIET composes this page behind the one already on screen rather
 ; than blanking the screen first. Every route back to the stats page is a full
 ; redraw (page 2 draws over page 1 and reads what page 1 loads, so it can never
@@ -116,10 +141,6 @@ StatusScreen:
 	ld hl, vChars2 + $760
 	lb bc, BANK(BattleHudTiles3), $02
 	call CopyVideoDataDouble ; ─┘
-	ldh a, [hTileAnimations]
-	push af
-	xor a
-	ld [hTileAnimations], a
 	coord hl, 19, 1
 	lb bc, 6, 10
 	call DrawLineBox ; Draws the box around name, HP and status
