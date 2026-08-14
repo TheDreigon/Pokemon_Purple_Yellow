@@ -15,6 +15,11 @@
 *.wav binary
 *.blk binary
 *.pic binary
+# .bin was missing here until v0.7. The two files that lived under garbage/
+# survived the eol=lf rule on line 2 only because neither happened to contain a
+# CRLF pair; any future .bin that does would have been silently corrupted on
+# checkin, with a build that still passes and bytes that no longer match.
+*.bin binary
 
 # Declare files that will always have CRLF line endings on checkout.
 *.patch.template text eol=crlf linguist-language=INI
