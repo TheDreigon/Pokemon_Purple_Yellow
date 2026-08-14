@@ -1225,7 +1225,8 @@ _GainedText::
 	text_end
 
 _WithExpAllText::
-	text "Party gained"
+; #10: neutral, because ONE mode pays a single Pokemon and TEAM pays the lot.
+	text "Shared the EXP!"
 	line "@"
 	text_end
 

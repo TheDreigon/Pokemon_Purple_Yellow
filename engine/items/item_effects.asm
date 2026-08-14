@@ -91,7 +91,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; SILPH_SCOPE
 	dw ItemUsePokeflute  ; POKE_FLUTE
 	dw UnusableItem      ; LIFT_KEY
-	dw UnusableItem      ; EXP_ALL
+	dw ItemUseExpShare   ; EXP_ALL (the EXP.SHARE)
 	dw ItemUseOldRod     ; OLD_ROD
 	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD
@@ -724,6 +724,78 @@ ItemUseTrainerManual:
 	and a
 	jp nz, ItemUseNotTime
 	farjp ShowTrainerManual
+
+; #10: USE on the EXP.SHARE asks who this battle's experience should go to.
+; Three settings, one list, and OFF is one of them - which is why there is no
+; separate on/off switch to find.
+;
+; Like the TOWN MAP and the manual, it says no in battle: the menu is drawn at
+; the top-left corner over whatever is there, and the battle screen is restored
+; from a buffer this would not have filled. Outside battle the bag redraws
+; itself from its own saved screen when this returns, so nothing is put back
+; here (the item is in neither UsableItems_CloseMenu nor UsableItems_PartyMenu).
+;
+; The menu index IS the mode: OFF/ONE/TEAM are 0/1/2 in both.
+ItemUseExpShare:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	ld a, [wd730]
+	set 6, a ; no printing delay while the box goes up
+	ld [wd730], a
+	ld a, EXPSHARE_MENU_TEMPLATE
+	ld [wTextBoxID], a
+	call DisplayTextBoxID
+	ld a, A_BUTTON | B_BUTTON
+	ld [wMenuWatchedKeys], a
+	ld a, 2 ; OFF, ONE, TEAM
+	ld [wMaxMenuItem], a
+; The cursor steps TWO rows per entry unless bit 1 of hUILayoutFlags is set,
+; and `next` in the menu string moves two rows unless bit 2 is. Neither flag is
+; set while the bag is open, so 11 / 13 / 15 line up on their own. Do not set
+; them.
+	ld a, 11
+	ld [wTopMenuItemY], a
+	ld a, 14
+	ld [wTopMenuItemX], a
+; Open on the setting that is already in force, so the menu shows you where you
+; are instead of always claiming OFF.
+	ld a, [wExpShareMode]
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
+	xor a
+; BOTH of these, and neither is optional. DisplayListMenuID runs immediately
+; before this - it is the bag list you came from - and it leaves
+; wMenuWatchMovingOutOfBounds set to 1 or 2 (home/list_menu.asm), while a stale
+; wMenuJoypadPollCount makes HandleMenuInput pick an entry on its own without
+; the player pressing anything (home/window.asm:35-37). The vending machine
+; carries the same two lines for the same reason.
+	ld [wMenuWatchMovingOutOfBounds], a
+	ld [wMenuJoypadPollCount], a
+	ld a, [wd730]
+	res 6, a
+	ld [wd730], a
+	call HandleMenuInput
+	push af
+	call PlaceUnfilledArrowMenuCursor
+	pop af
+	bit BIT_B_BUTTON, a
+	jr nz, .cancelled ; B leaves the setting alone
+	ld a, [wCurrentMenuItem]
+	ld [wExpShareMode], a
+	ld hl, ExpShareSetToOffText
+	and a
+	jr z, .say
+	ld hl, ExpShareSetToOneText
+	dec a
+	jr z, .say
+	ld hl, ExpShareSetToTeamText
+.say
+	jp PrintText
+.cancelled
+	xor a
+	ld [wActionResultOrTookBattleTurn], a ; item not used
+	ret
 
 ItemUseBicycle:
 	ld a, [wIsInBattle]
@@ -1838,6 +1910,18 @@ BaitRockCommon:
 	predef MoveAnimation ; do animation
 	ld c, 70
 	jp DelayFrames
+
+ExpShareSetToOffText:
+	text_far _ExpShareSetToOffText
+	text_end
+
+ExpShareSetToOneText:
+	text_far _ExpShareSetToOneText
+	text_end
+
+ExpShareSetToTeamText:
+	text_far _ExpShareSetToTeamText
+	text_end
 
 ThrewBaitText:
 	text_far _ThrewBaitText

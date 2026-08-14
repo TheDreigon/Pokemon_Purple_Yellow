@@ -2142,7 +2142,20 @@ wd49c:: db
 wMovedexSeen:: ds (NUM_ATTACKS + 7) / 8
 wMovedexSeenEnd::
 
-	ds 19 ; free, and still contiguous
+; #10. Which way the EXP.SHARE is set, and it lives in the SAVED block because
+; it is a setting the player chose, not battle state:
+;   0 = EXPSHARE_OFF   nobody shares
+;   1 = EXPSHARE_ONE   half to the last Pokemon in the party
+;   2 = EXPSHARE_TEAM  divided evenly over the whole team
+;
+; 0 is the right value for a save made before this existed, so this byte does
+; NOT need the value+1 trick that a recycled `ds` usually does - an old save
+; reads 0 and gets OFF, which is a defined state and a safe one. The only
+; consequence is that a player who already had the item finds it switched off
+; and has to pick a mode, which is exactly what we want them to do anyway.
+wExpShareMode:: db
+
+	ds 18 ; free, and still contiguous
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db

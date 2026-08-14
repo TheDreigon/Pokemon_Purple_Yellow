@@ -235,3 +235,10 @@ DEF UNUSED_TMNUM EQU __tmhm_value__
 ; used for Time Capsule held item compatibility
 DEF TWISTEDSPOON_GSC EQU $60
 DEF LIGHT_BALL_GSC   EQU $a3
+
+; #10: the three settings of the EXP.SHARE, stored in wExpShareMode. The item
+; itself is still the EXP_ALL constant - only the name the player reads changed.
+; OFF is 0 so that a save made before this existed reads a defined state.
+DEF EXPSHARE_OFF  EQU 0
+DEF EXPSHARE_ONE  EQU 1 ; half to the last Pokemon in the party
+DEF EXPSHARE_TEAM EQU 2 ; the whole amount, split evenly over the team

@@ -961,3 +961,24 @@ _RoofHousePrototypeBallOpenText::
 	line "reads: QUIZ"
 	cont "PASSED. ENJOY!"
 	prompt
+
+; #10: what the EXP.SHARE was just set to. Three lines each, none over 17
+; characters, because a `cont` line loses its 18th tile under the "press A"
+; cursor (invariants_audit check C5).
+_ExpShareSetToOffText::
+	text "EXP.SHARE is off."
+	line "Only those who"
+	cont "fight will gain."
+	done
+
+_ExpShareSetToOneText::
+	text "EXP.SHARE: ONE."
+	line "Half the EXP goes"
+	cont "to the last one."
+	done
+
+_ExpShareSetToTeamText::
+	text "EXP.SHARE: TEAM."
+	line "The whole team"
+	cont "splits the EXP."
+	done

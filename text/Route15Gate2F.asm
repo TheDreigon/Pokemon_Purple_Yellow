@@ -5,36 +5,45 @@ _Route15Gate2FOaksAideHiText::
 
 	para "I'm supposed to"
 	line "give you an"
-	cont "EXP ALL!"
+	cont "EXP.SHARE!"
 	prompt
 
 _Route15Gate2FOaksAideGotItemText::
 	text "<PLAYER> got the"
-	line "EXP ALL!"
+	line "EXP.SHARE!"
 	prompt
 
 _Route15Gate2FOaksAideNoRoomText::
 	text "Oh! I see you"
 	line "don't have any"
 	cont "room for the"
-	cont "EXP ALL."
+	cont "EXP.SHARE."
 	done
 
 _Route15Gate2FOaksAideExpAllText::
-	text "EXP.ALL gives"
-	line "EXP points to all"
-	cont "the #MON with"
-	cont "you, even if they"
-	cont "don't fight."
+; v0.7 (#10): this used to describe the Gen 1 item -- everyone gains, and
+; everyone gains LESS. Neither half is true any more, so the whole speech was
+; rewritten rather than patched. `cont` lines stop at 17 characters; `#` is
+; four tiles, which is why none of these say #MON.
+	text "The EXP.SHARE"
+	line "decides who gets"
+	cont "the EXP you win."
 
-	para "It does, however,"
-	line "reduce the amount"
-	cont "of EXP for each"
-	cont "#MON."
+	para "USE it and pick:"
+	line "OFF shares with"
+	cont "nobody."
 
-	para "If you don't need"
-	line "it, you should "
-	cont "store it via PC."
+	para "ONE gives half to"
+	line "the LAST one in"
+	cont "your party."
+
+	para "TEAM splits it"
+	line "evenly over"
+	cont "everyone."
+
+	para "It never makes"
+	line "more EXP, mind."
+	cont "It only moves it."
 	done
 
 _Route15Gate2FBinocularsText::

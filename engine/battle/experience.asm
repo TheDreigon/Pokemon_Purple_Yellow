@@ -1,3 +1,167 @@
+DistributeExperience::
+; #10. Decides who gets this battle's experience, then hands off to
+; GainExperience. Called from engine/battle/core.asm the moment the enemy
+; faints; it used to be written inline there.
+;
+;   OFF   exactly what the game does with no item at all: the mons that fought
+;         split it between them.
+;   ONE   half to the mons that fought, half to the LAST Pokemon in the party.
+;   TEAM  no halving at all - the whole amount, divided evenly over the team.
+;
+; The total is CONSERVED in every mode. Nothing here creates experience, so no
+; trainer level, level cap or growth curve has to be looked at again.
+;
+; Whether a fainted Pokemon may be paid is NOT a rule this invents. It is the
+; one already written into .partyMonLoop below: Normal pays them, Hard does
+; not. Both modes ask that same question rather than adding a second law.
+	call GetExpShareMode
+	jr z, .noSharing
+	cp EXPSHARE_TEAM
+	jr z, .shareWithWholeTeam
+
+; EXPSHARE_ONE.
+	call GetExpShareTarget
+	jr nc, .noSharing ; nobody to share with, so do not take the half away
+	push af ; the target's party index
+	call HalveExpData
+	xor a
+	ld [wBoostExpByExpAll], a ; no "with EXP.SHARE" line on the first pass
+	call GainExperience
+	pop af
+	call SetSinglePartyGainExpFlag
+	ld a, 1
+	ld [wBoostExpByExpAll], a
+	jp GainExperience
+
+.shareWithWholeTeam
+; No halving: the flags decide the split, and DivideExpDataByNumMonsGainingExp
+; divides by however many are set. Setting them only for the mons that will
+; actually be paid is what keeps the total conserved on Hard - flagging the
+; whole party there would divide by six and then throw away the shares of
+; everyone who is down.
+	call SetExpShareTeamFlags
+	jr z, .noSharing ; nobody eligible at all; let the normal path run
+	ld a, 1
+	ld [wBoostExpByExpAll], a
+	jp GainExperience
+
+.noSharing
+	xor a
+	ld [wBoostExpByExpAll], a
+	jp GainExperience
+
+GetExpShareMode:
+; out: a = the mode in force right now, zero flag set if that is OFF.
+; The stored mode only counts while the item is really in the bag.
+	ld b, EXP_ALL ; the CONSTANT keeps its old name on purpose - only the name
+	              ; the player reads becomes EXP.SHARE, the same way ANTIDOTE
+	              ; still spells itself ANTIDOTE behind "POISON HEAL"
+	call IsItemInBag ; zero flag SET means NOT in the bag
+	ld a, EXPSHARE_OFF ; ld does not touch the flags
+	ret z
+	ld a, [wExpShareMode]
+	and a
+	ret
+
+GetExpShareTarget:
+; out: carry set and a = the party index ONE mode pays, or carry clear if there
+; is nobody to pay.
+;
+; Asking this BEFORE halving is the whole point: if the last Pokemon cannot be
+; paid, the half must not be taken off the mons that fought. Carrying the item
+; is never allowed to cost the player experience.
+	ld a, [wPartyCount]
+	and a
+	ret z ; no party at all; `and a` already cleared the carry
+	dec a
+	ld d, a ; the last slot, kept across AddNTimes
+	ld hl, wPartyMon1HP
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes ; hl -> that Pokemon's HP, a counts down to 0
+	ld a, [hli]
+	or [hl]
+	jr nz, .canBePaid
+	ld a, [wDifficulty]
+	cp NORMAL_MODE
+	jr nz, .nobody ; fainted, and Hard does not pay the fainted
+.canBePaid
+	ld a, d
+	scf
+	ret
+.nobody
+	and a
+	ret
+
+SetExpShareTeamFlags:
+; Flags every party member that will actually be paid. Returns with the zero
+; flag set if that is nobody.
+	ld a, [wPartyCount]
+	and a
+	ret z
+	ld c, a ; how many are left to look at
+	ld d, 0 ; the flags being built
+	ld e, 0 ; the party index
+	ld hl, wPartyMon1HP
+.loop
+	ld a, [hli]
+	or [hl]
+	dec hl
+	jr nz, .payThisOne
+	ld a, [wDifficulty]
+	cp NORMAL_MODE
+	jr nz, .next
+.payThisOne
+	push bc
+	ld a, e
+	call ExpShareBitMask
+	or d
+	ld d, a
+	pop bc
+.next
+	push bc
+	ld bc, wPartyMon2 - wPartyMon1
+	add hl, bc
+	pop bc
+	inc e
+	dec c
+	jr nz, .loop
+	ld a, d
+	ld [wPartyGainExpFlags], a
+	and a
+	ret
+
+SetSinglePartyGainExpFlag:
+; in: a = party index. Nobody else gains anything.
+	call ExpShareBitMask
+	ld [wPartyGainExpFlags], a
+	ret
+
+ExpShareBitMask:
+; in: a = party index; out: a = that slot's bit.
+; Bit 0 is party slot 0 - the same order .partyMonLoop reads them in, and the
+; same order the old `scf / rl b` loop built.
+	ld b, a
+	inc b
+	ld a, 1
+.loop
+	dec b
+	ret z
+	add a
+	jr .loop
+
+HalveExpData:
+; The enemy's base stats become stat exp and its base exp becomes experience,
+; so halving this block halves both at once. NUM_STATS + 2 covers the five
+; stats and the two bytes of base exp.
+	ld hl, wEnemyMonBaseStats
+	ld b, NUM_STATS + 2
+.loop
+	srl [hl]
+	inc hl
+	dec b
+	jr nz, .loop
+	ret
+
 GainExperience:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING

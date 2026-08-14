@@ -852,47 +852,14 @@ FaintEnemyPokemon:
 	call SaveScreenTilesToBuffer1
 	xor a
 	ld [wBattleResult], a
-	ld b, EXP_ALL
-	call IsItemInBag
-	push af
-	jr z, .giveExpToMonsThatFought ; if no exp all, then jump
-
-; the player has exp all
-; first, we halve the values that determine exp gain
-; the enemy mon base stats are added to stat exp, so they are halved
-; the base exp (which determines normal exp) is also halved
-	ld hl, wEnemyMonBaseStats
-	ld b, NUM_STATS + 2
-.halveExpDataLoop
-	srl [hl]
-	inc hl
-	dec b
-	jr nz, .halveExpDataLoop
-
-; give exp (divided evenly) to the mons that actually fought in battle against the enemy mon that has fainted
-; if exp all is in the bag, this will be only be half of the stat exp and normal exp, due to the above loop
-.giveExpToMonsThatFought
-	xor a
-	ld [wBoostExpByExpAll], a
-	callfar GainExperience
-	pop af
-	ret z ; return if no exp all
-
-; the player has exp all
-; now, set the gain exp flag for every party member
-; half of the total stat exp and normal exp will divided evenly amongst every party member
-	ld a, $1
-	ld [wBoostExpByExpAll], a
-	ld a, [wPartyCount]
-	ld b, 0
-.gainExpFlagsLoop
-	scf
-	rl b
-	dec a
-	jr nz, .gainExpFlagsLoop
-	ld a, b
-	ld [wPartyGainExpFlags], a
-	jpfar GainExperience
+; #10: who gets this battle's experience is decided by DistributeExperience,
+; which lives next to GainExperience in engine/battle/experience.asm. It moved
+; out of here for room - "Battle Core" has 26 bytes of its bank left, and the
+; bank the experience code is in has over 1400 - and it reads better there,
+; because every one of the three EXP.SHARE modes ends in a call to
+; GainExperience, which is a near call from that file and a farcall from this
+; one.
+	jpfar DistributeExperience
 
 EnemyMonFaintedText:
 	text_far _EnemyMonFaintedText

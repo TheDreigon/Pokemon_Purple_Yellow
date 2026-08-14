@@ -30,6 +30,11 @@ DEF PC_ITEM_CAPACITY  EQU 50
 	const_skip                              ; $19
 	const JP_POKEDEX_MENU_TEMPLATE          ; $1a
 	const SAFARI_BATTLE_MENU_TEMPLATE       ; $1b
+; #10: the EXP.SHARE's three settings. Appended, and safe to append: both
+; TextBoxCoordTable and the text_box_text table in data/text_boxes.asm are
+; tagged with the id and scanned to a -1 terminator, so nothing is indexed by
+; position and no existing id moves.
+	const EXPSHARE_MENU_TEMPLATE            ; $1c
 
 ; two option menu constants
 ; TwoOptionMenuStrings indexes (see data/yes_no_menu_strings.asm)
