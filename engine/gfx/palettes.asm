@@ -51,11 +51,15 @@ SetPal_Battle:
 ; is red, and it is why this is the only place one trainer can be told from
 ; another.
 ;
-; Guarded on wCurOpponent, deliberately NOT on wTrainerClass. wTrainerClass
-; keeps the value the last trainer battle left in it, so a guard there would
-; paint the next wild encounter purple. wCurOpponent is written fresh for every
-; battle by both paths, and InitWildBattle reads it straight back
-; (init_battle.asm:75) to spot the GHOST, which proves the wild path fills it.
+; Guarded on wCurOpponent, deliberately NOT on wTrainerClass, and the reason is
+; not that wCurOpponent is always written - it is not. TryDoWildEncounter never
+; touches it, and InitBattle only reaches DetermineWildOpponent when it is
+; ALREADY zero, so a wild encounter runs with wCurOpponent at 0 throughout.
+;
+; The property that makes it safe is that it is CLEARED: end_of_battle.asm:57,
+; in .resetVariables, which both branches reach. wTrainerClass is not cleared by
+; anything, so it still says FORTE during the next battle - and a guard written
+; on it would paint that battle purple.
 ;
 ; Only c moves. b is the player's half, and b is 0 during the intro too, because
 ; no Pokemon is out yet - touching the shared lookup instead of this one byte

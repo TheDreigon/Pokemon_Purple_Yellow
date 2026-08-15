@@ -391,8 +391,13 @@ JoyPic::           INCBIN "gfx/trainers/joy.pic"
 JennyPic::         INCBIN "gfx/trainers/jenny.pic"
 BillPic::          INCBIN "gfx/trainers/bill.pic"
 ; DREIGON is Forte himself, so he is built from the player's own front pic
-; rather than from a trainer class. He used to borrow PKMNTrainerMPic, which
-; is chris.pic and is also SMITH's and CRAIG's - three men, one portrait.
+; rather than from a trainer class. His row USED to name PKMNTrainerMPic -
+; chris.pic, which SMITH and CRAIG really do share - but he was never actually
+; drawn as them: _LoadTrainerPic picks the BANK from the trainer class with a
+; cp ladder, and FORTE ($35) is above JANINE ($31), so it always read from
+; BANK("Trainer Pics 3") while the pointer pointed into another bank. What he
+; decompressed was whatever lived at that offset here. Putting his pic in THIS
+; section is what makes the pointer and the bank agree.
 DreigonPic::       INCBIN "gfx/trainers/dreigon.pic"
     
 
