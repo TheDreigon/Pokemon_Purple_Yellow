@@ -44,6 +44,30 @@ SetPal_Battle:
 	ld hl, wEnemyMonSpecies2
 	call DeterminePaletteID
 	ld c, a
+; DREIGON is the one trainer in the game with a colour of his own. Every trainer
+; pic is drawn with wEnemyMonSpecies2 = 0 - init_battle.asm and
+; scroll_draw_trainer_pic.asm both xor a before the palette command - which
+; indexes MonsterPalettes[0], PAL_MEWMON. That is why every trainer in this game
+; is red, and it is why this is the only place one trainer can be told from
+; another.
+;
+; Guarded on wCurOpponent, deliberately NOT on wTrainerClass. wTrainerClass
+; keeps the value the last trainer battle left in it, so a guard there would
+; paint the next wild encounter purple. wCurOpponent is written fresh for every
+; battle by both paths, and InitWildBattle reads it straight back
+; (init_battle.asm:75) to spot the GHOST, which proves the wild path fills it.
+;
+; Only c moves. b is the player's half, and b is 0 during the intro too, because
+; no Pokemon is out yet - touching the shared lookup instead of this one byte
+; would have turned the player's own back sprite purple for those frames.
+	ld a, [wEnemyMonSpecies2]
+	and a
+	jr nz, .notDreigon ; a real Pokemon is on the field: never us
+	ld a, [wCurOpponent]
+	cp OPP_FORTE
+	jr nz, .notDreigon
+	ld c, PAL_DREIGON
+.notDreigon
 	ld hl, wPalPacket + 1
 	ld a, [wPlayerHPBarColor]
 	add PAL_GREENBAR
