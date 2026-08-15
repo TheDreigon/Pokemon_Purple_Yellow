@@ -55,7 +55,9 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_0F                   ; $0F
 	const PAL_MEWMON               ; $10
 	const PAL_BLUEMON              ; $11
-	const PAL_REDMON               ; $12
+	const PAL_ORANGEMON               ; $12 — era PAL_REDMON. O claro dele
+	                               ;       e' 31,17,00: laranja. So' o
+	                               ;       escuro e' vermelho.
 	const PAL_CYANMON              ; $13
 	const PAL_PURPLEMON            ; $14
 	const PAL_BROWNMON             ; $15
@@ -81,4 +83,10 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                               ;       never inserted: these ids index two
 	                               ;       fixed tables and a renumber repaints
 	                               ;       the whole game.
+	const PAL_OLIVEMON             ; $29 — o "cinzento" do vanilla, que nunca
+	                               ;       foi cinzento: 20,23,10 e' azeitona.
+	                               ;       Trazido de volta para as linhas
+	                               ;       MACHOP/GEODUDE + CUBONE + ONIX.
+	const PAL_AZUREMON             ; $2A — azul intermedio, o ponto medio exacto
+	                               ;       entre CYANMON e BLUEMON
 DEF NUM_SGB_PALS EQU const_value
