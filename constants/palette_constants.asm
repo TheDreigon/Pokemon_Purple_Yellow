@@ -89,4 +89,8 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                               ;       MACHOP/GEODUDE + CUBONE + ONIX.
 	const PAL_AZUREMON             ; $2A — azul intermedio, o ponto medio exacto
 	                               ;       entre CYANMON e BLUEMON
+	const PAL_ROSEMON                ; $2B — R1 rosa claro
+	const PAL_SAGEMON                ; $2C — G1 verde-seco
+	const PAL_VIOLETMON              ; $2D — D2 violeta-sujo
+	const PAL_LAVENDERMON            ; $2E — P2 lavanda
 DEF NUM_SGB_PALS EQU const_value
