@@ -62,6 +62,6 @@ TrainerPicAndMoneyPointers::
 	pic_money JoyPic, 	   	   6600 ; JOY — semi-boss (repeatable), 66/lvl
 	pic_money JennyPic, 	   6600 ; JENNY — semi-boss (repeatable), 66/lvl
 	pic_money JessieJamesPic,  6600 ; Jessie & James — 66/lvl (comedic recurring duo, above a regular Rocket; pic in gfx/trainers/jessiejames.pic)
-	pic_money PKMNTrainerMPic, 9900 ; Forte (Red avatar — reuses the male-protagonist trainer pic)
+	pic_money DreigonPic,      9900 ; Forte / DREIGON — his own portrait, grown out of the player's own front pic (gfx/trainers/dreigon.png)
 	pic_money BillPic, 	   7600 ; BILL — semi-boss (repeatable), 76/lvl
 	assert_table_length NUM_TRAINERS

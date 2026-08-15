@@ -390,6 +390,10 @@ JaninePic::        INCBIN "gfx/trainers/janine.pic"
 JoyPic::           INCBIN "gfx/trainers/joy.pic"
 JennyPic::         INCBIN "gfx/trainers/jenny.pic"
 BillPic::          INCBIN "gfx/trainers/bill.pic"
+; DREIGON is Forte himself, so he is built from the player's own front pic
+; rather than from a trainer class. He used to borrow PKMNTrainerMPic, which
+; is chris.pic and is also SMITH's and CRAIG's - three men, one portrait.
+DreigonPic::       INCBIN "gfx/trainers/dreigon.pic"
     
 
 SECTION "Pics 7", ROMX

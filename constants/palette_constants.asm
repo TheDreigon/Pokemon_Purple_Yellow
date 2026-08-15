@@ -77,4 +77,8 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_PIKACHUS_BEACH       ; $25
 	const PAL_PIKACHU_PORTRAIT     ; $26
 	const PAL_PIKACHUS_BEACH_TITLE ; $27
+	const PAL_DREIGON              ; $28 — Forte's superboss portrait. APPENDED,
+	                               ;       never inserted: these ids index two
+	                               ;       fixed tables and a renumber repaints
+	                               ;       the whole game.
 DEF NUM_SGB_PALS EQU const_value
