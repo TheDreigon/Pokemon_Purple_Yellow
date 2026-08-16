@@ -102,8 +102,8 @@ StartMenu_Pokemon::
 ;   A, Left, Right  swap between the stats page and the move page
 ;   B               leaves the screen, from either page
 ;   Up, Down        walk the party, staying on the page being read
-; Opting in is STATUS_OPTIN below, and only this caller does it - the same
-; screen opened from a battle, Bill's PC or the cable club is untouched.
+; Opting in is STATUS_OPTIN below. Battle has its own driver since v0.7
+; (battle/core.asm, no party-walking there); Bill's PC stays vanilla.
 ;
 ; Page 2 draws OVER page 1 and reads data that page 1 loads, so it can never be
 ; shown on its own: every route to it goes through a page 1 redraw first. Those

@@ -102,8 +102,8 @@ DEF FIRST_PARTY_MENU_TEXT_ID EQU const_value
 ; byte on the way in, the predef overwrites it with an answer on the way out.
 ;
 ; Mode byte, written by the caller. A caller that does not set STATUS_OPTIN
-; (battle, Bill's PC, the cable club) gets vanilla behaviour untouched: A or B
-; ends the page and the d-pad does nothing.
+; (Bill's PC) gets vanilla behaviour untouched: A or B ends the page and the
+; d-pad does nothing. The overworld party menu and battle both opt in.
 DEF STATUS_OPTIN    EQU %10000000 ; "I drive the pages and read the answer back"
 DEF STATUS_QUIET    EQU %00000001 ; compose behind the page already on screen:
                                   ; no white-out, BG transfer off until it is done

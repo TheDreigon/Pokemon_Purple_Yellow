@@ -720,8 +720,9 @@ StatusScreen_WaitForButton:
 ;   Up, Down        -> STATUS_PREV/NEXT_MON  walk the party in place
 ;
 ; A caller that did not set STATUS_OPTIN keeps vanilla behaviour exactly: A or
-; B ends the page and the d-pad does nothing. Battle, Bill's PC and the cable
-; club are all in that group.
+; B ends the page and the d-pad does nothing. Bill's PC is in that group.
+; Battle opts in since v0.7 (its driver is in battle/core.asm and answers the
+; step answers with a same-page redraw instead of walking the party).
 	ld a, [wStatusScreenPageChange]
 	bit 7, a ; STATUS_OPTIN
 	jr nz, .optedIn

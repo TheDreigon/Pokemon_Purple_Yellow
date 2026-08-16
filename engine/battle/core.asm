@@ -2527,8 +2527,42 @@ PartyMenuOrRockOrRun:
 	ld hl, wPartyMon1
 	call ClearSprites
 ; display the two status screens
+; v0.7: drive both pages the way the overworld party menu does
+; (start_sub_menus.asm), so A/Left/Right swap between the stats page and the
+; move page here too, and B leaves from either page. One difference, and it is
+; load-bearing: Up/Down must NOT walk the party in battle -- wWhichPokemon
+; feeds the switch-in that can follow this menu -- so a step answer redraws
+; the SAME page instead. The redraw composes behind the identical page already
+; on screen (QUIET, and page 2 always composes hidden), so a stray Up/Down
+; press shows nothing. Filtering Up/Down inside the wait loop itself was the
+; cleaner cut, but that loop lives in bank 4, which has 7 bytes free; this
+; costs it none.
+	ld a, STATUS_OPTIN
+	ld [wStatusScreenPageChange], a
+.statusPage1
 	predef StatusScreen
+	ld a, [wStatusScreenPageChange]
+	and a
+	jr z, .statusScreensDone ; B
+	cp STATUS_OTHER_PAGE
+	jr z, .statusToPage2
+.statusPage1Return
+; same mon, same page family: its picture is still in VRAM
+	ld a, STATUS_OPTIN | STATUS_QUIET | STATUS_NOCRY | STATUS_KEEPPIC
+	ld [wStatusScreenPageChange], a
+	jr .statusPage1
+.statusToPage2
+	ld a, STATUS_OPTIN
+	ld [wStatusScreenPageChange], a
+.statusPage2
 	predef StatusScreen2
+	ld a, [wStatusScreenPageChange]
+	and a
+	jr z, .statusScreensDone ; B
+	cp STATUS_OTHER_PAGE
+	jr z, .statusPage1Return ; back to the stats page, pic kept
+	jr .statusToPage2 ; Up/Down: the same move page, composed hidden
+.statusScreensDone
 ; now we need to reload the enemy mon pic
 	ld a, 1
 	ldh [hWhoseTurn], a
