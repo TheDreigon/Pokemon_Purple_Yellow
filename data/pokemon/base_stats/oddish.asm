@@ -1,9 +1,9 @@
 	db DEX_ODDISH ; pokedex id
-	base_stat_row 50, 50, 55, 60, 30 ; hp atk def spc spd
+	base_stat_row 60, 45, 50, 60, 35 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 245 ; catch rate  ; base stage, BST 245, easy to approach
-	db 60 ; base exp  ; BST 245 - muitas fraquezas (-2)
+	db 245 ; catch rate  ; base stage, BST 250, easy to approach
+	db 65 ; base exp  ; BST 250 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/oddish.pic", 0, 1 ; sprite dimensions
 	dw OddishPicFront, OddishPicBack

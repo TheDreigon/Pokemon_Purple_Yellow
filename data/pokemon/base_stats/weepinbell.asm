@@ -1,9 +1,9 @@
 	db DEX_WEEPINBELL ; pokedex id
-	base_stat_row 60, 85, 50, 75, 60 ; hp atk def spc spd
+	base_stat_row 60, 80, 55, 75, 70 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 130 ; catch rate  ; mid stage, BST 330, easy to approach
-	db 110 ; base exp  ; BST 330 - muitas fraquezas (-2)
+	db 125 ; catch rate  ; mid stage, BST 340, easy to approach
+	db 120 ; base exp  ; BST 340 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/weepinbell.pic", 0, 1 ; sprite dimensions
 	dw WeepinbellPicFront, WeepinbellPicBack

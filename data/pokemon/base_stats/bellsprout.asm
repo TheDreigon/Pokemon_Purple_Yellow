@@ -1,9 +1,9 @@
 	db DEX_BELLSPROUT ; pokedex id
-	base_stat_row 40, 65, 35, 55, 40 ; hp atk def spc spd
+	base_stat_row 40, 65, 40, 55, 50 ; hp atk def spc spd
 
 	db GRASS, POISON ; type
-	db 235 ; catch rate  ; base stage, BST 235
-	db 55 ; base exp  ; BST 235 - muitas fraquezas (-2)
+	db 230 ; catch rate  ; base stage, BST 250
+	db 65 ; base exp  ; BST 250 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/bellsprout.pic", 0, 1 ; sprite dimensions
 	dw BellsproutPicFront, BellsproutPicBack
