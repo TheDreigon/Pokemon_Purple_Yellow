@@ -12,6 +12,9 @@ UpdateGBCPal_BGP::
 	cp b
 	jr z, .noChangeInBGP
 	farcall _UpdateGBCPal_BGP
+; _UpdateGBCPal_BGP only rebuilds palettes 0-3 (NUM_ACTIVE_PALS); palette 4
+; is the EXP bar's and is rebuilt here so it follows every fade and whiteout
+	farcall LoadEXPBarPalette
 .noChangeInBGP
 	pop hl
 	pop de

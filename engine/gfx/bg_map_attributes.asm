@@ -92,7 +92,15 @@ LoadBGMapAttributes::
 	jr .done
 .checkIfHandlingPartyMenu
 	dec a
-	call z, HandlePartyHPBarAttributes
+	jr nz, .checkIfHandlingBattle
+	call HandlePartyHPBarAttributes
+	jr .done
+.checkIfHandlingBattle
+; the battle attributes (packet 11) point the EXP bar row at BG palette 4,
+; which nothing in the vanilla engine ever loads -- load it here so those
+; cells are never left pointing at an uninitialized palette
+	sub 11 - 5 ; a = packet - 5 here; the battle attributes are packet 11
+	call z, LoadEXPBarPalette
 .done
 	call Func_3082
 	ldh a, [rIF]
@@ -214,4 +222,84 @@ ENDR
 	pop bc
 	dec c
 	jr nz, .loop
+	ret
+
+ExpBarBluePalette:
+; a source-level copy of PAL_CYANMON (data/sgb/sgb_palettes.asm). The bar
+; tiles only use color indices 0, 2 and 3; colors 0 and 3 match the HP-bar
+; palettes (white frame, black outline), and color 2 is the blue fill.
+; Living here instead of GBCBasePalettes costs bank1C nothing (it has 1 byte).
+	RGB 31,31,31, 16,26,31, 00,17,31, 03,03,03
+
+LoadEXPBarPalette::
+; Rebuild BG palette 4 from ExpBarBluePalette, shaded through the current
+; rBGP value so the EXP bar whites out and fades with the rest of the screen.
+; Called from two places: the packet-11 hook above (battle attribute load),
+; and home's UpdateGBCPal_BGP right after _UpdateGBCPal_BGP, which only
+; rebuilds palettes 0-3 (NUM_ACTIVE_PALS).
+;
+; This mirrors DMGPalToGBCPal (CONVERT_BGP case) + TransferCurBGPData with
+; a = 4 rather than farcalling them: both take their argument in a, and a
+; does not survive rst _Bankswitch (Bankswitch does `ld a, b` to map the
+; callee's bank before dispatching). It deliberately does NOT write wLastBGP,
+; so it can never mask a pending palette 0-3 rebuild in UpdateGBCPal_BGP.
+	ldh a, [hGBC]
+	and a
+	ret z
+	ld de, ExpBarBluePalette
+	ldh a, [rBGP]
+	FOR color_index, NUM_PAL_COLORS
+		ld b, a
+		and %11
+		add a ; 2 bytes per color
+		ld l, a
+		xor a
+		ld h, a
+		add hl, de
+		ld a, [hli]
+		ld [wGBCPal + color_index * 2], a
+		ld a, [hl]
+		ld [wGBCPal + color_index * 2 + 1], a
+
+		IF color_index < NUM_PAL_COLORS - 1
+			ld a, b
+			rrca
+			rrca
+		ENDC
+	ENDR
+
+	ld a, (4 << 3) | $80 ; BG palette 4, color 0, auto-increment
+	ldh [rBGPI], a
+	ld de, rBGPD
+	ld hl, wGBCPal
+	ld b, %10 ; mask for non-V-blank/non-H-blank STAT mode
+	ldh a, [rLCDC]
+	and rLCDC_ENABLE_MASK
+	jr nz, .lcdEnabled
+	REPT NUM_PAL_COLORS
+		call .transferColorLCDDisabled
+	ENDR
+	ret
+.lcdEnabled
+	REPT NUM_PAL_COLORS
+		call .transferColorLCDEnabled
+	ENDR
+	ret
+
+.transferColorLCDEnabled
+; in case we're already in H-blank or V-blank, wait for it to end, so the
+; two writes below can't straddle the end of a blanking period
+	ldh a, [rSTAT]
+	and b
+	jr z, .transferColorLCDEnabled
+.notInBlankingPeriod
+	ldh a, [rSTAT]
+	and b
+	jr nz, .notInBlankingPeriod
+; fall through
+.transferColorLCDDisabled
+	ld a, [hli]
+	ld [de], a
+	ld a, [hli]
+	ld [de], a
 	ret
