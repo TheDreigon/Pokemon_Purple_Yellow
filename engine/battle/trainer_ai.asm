@@ -1959,6 +1959,7 @@ GrandVictoryClasses::
 	db JANINE
 	db JOY
 	db JENNY
+	db BILL
 	db SMITH
 	db CRAIG
 	db WEEBRA

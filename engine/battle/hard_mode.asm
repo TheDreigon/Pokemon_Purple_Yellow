@@ -185,6 +185,9 @@ BossTrainerClasses::
 ; "already calibrated by hand", which was true of their teams but left their
 ; documented item bags doing nothing at all.
 SemiBossTrainerClasses::
+	db BILL                     ; approved as a semi with Oak's bag (2026-08-09)
+	                            ; but never listed — BillBossBag and his Hard
+	                            ; DVs were dead until 2026-08-16
 	db CRAIG
 	db JANINE
 	db JENNY
