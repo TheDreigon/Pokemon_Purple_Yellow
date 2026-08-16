@@ -46,6 +46,12 @@ Rival3BossBag::   db FULL_RESTORE, 3, X_ATTACK,   2, X_SPEED,    1, FULL_HEAL, 3
 ; ---- Prof Oak (post-game) ----
 ProfOakBossBag::  db FULL_RESTORE, 3, GUARD_SPEC, 1, DIRE_HIT,   1, FULL_HEAL, 3
 
+; ---- Kiyo (Fighting Dojo / Viridian Gym, same class) ----
+; PROVISIONAL contents (Forte will tune): leader-tier heals + the fighting-
+; master theme (X Attack, Dire Hit). Applies to BOTH his fights — the bag
+; dispatch is per-class, so the L40 dojo fight opens the same bag in Hard.
+KiyoBossBag::     db FULL_RESTORE, 2, X_ATTACK,   1, DIRE_HIT,   1, FULL_HEAL, 2
+
 ; ---- Misc bosses promoted in v0.6/v0.7 ----
 JoyBossBag::      db FULL_RESTORE, 3, X_DEFEND,   3, FULL_HEAL,  3, -1, -1
 JennyBossBag::    db FULL_RESTORE, 2, X_ATTACK,   1, X_SPEED,    1, FULL_HEAL, 2
@@ -102,6 +108,8 @@ BossItemBagPointers::
 	dw JanineBossBag
 	db BILL
 	dw BillBossBag
+	db KIYO
+	dw KiyoBossBag
 	db JESSIE_AND_JAMES
 	dw JessieAndJamesBossBag
 	db FORTE

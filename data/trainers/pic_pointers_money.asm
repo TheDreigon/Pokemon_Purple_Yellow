@@ -21,7 +21,7 @@ TrainerPicAndMoneyPointers::
 	pic_money HikerPic,        3500
 	pic_money BikerPic,        2000
 	pic_money BurglarPic,      9000
-	pic_money EngineerPic,     5000
+	pic_money BlackbeltPic,    9900 ; KIYO (was ENGINEER) — badge-holder rate, 99/lvl; reuses the blackbelt portrait until he gets his own. Class $0C sits below PROF_OAK, so the pic-bank ladder already sends it to "Trainer Pics 1", where BlackbeltPic lives.
 	pic_money FisherPic,       3500
 	pic_money SwimmerPic,       500
 	pic_money CueBallPic,      2500

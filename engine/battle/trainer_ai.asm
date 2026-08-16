@@ -1936,7 +1936,8 @@ InitEnemyTrainerItemBag::
 ; fanfare escalates — only the Champion fight (RIVAL3) sounds grand.
 ; Order doesn't matter (linear scan). Terminator is -1.
 GrandVictoryClasses::
-; the 8 badge holders (covers their rematches too, same class)
+; the badge holders (covers their rematches too, same class); Kiyo holds
+; Viridian post-League, so his wins — dojo included — sound grand too
 	db BROCK
 	db MISTY
 	db LT_SURGE
@@ -1945,6 +1946,7 @@ GrandVictoryClasses::
 	db SABRINA
 	db BLAINE
 	db GIOVANNI
+	db KIYO
 ; the Elite Four and the Champion
 	db LORELEI
 	db BRUNO

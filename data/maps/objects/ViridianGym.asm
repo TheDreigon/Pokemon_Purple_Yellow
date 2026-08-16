@@ -10,6 +10,7 @@
 	const_export VIRIDIANGYM_COOLTRAINER_M3
 	const_export VIRIDIANGYM_GYM_GUIDE
 	const_export VIRIDIANGYM_MAX_REVIVE
+	const_export VIRIDIANGYM_KIYO
 
 ViridianGym_Object:
 	db $3 ; border block
@@ -32,5 +33,8 @@ ViridianGym_Object:
 	object_event  6,  5, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_VIRIDIANGYM_COOLTRAINER_M3, OPP_COOLTRAINER_M, 1
 	object_event 16, 15, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_VIRIDIANGYM_GYM_GUIDE
 	object_event 16,  9, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANGYM_MAX_REVIVE, MAX_REVIVE
+; KIYO stands where Giovanni stood. Hidden by default (hide_show_data row);
+; ViridianGymPostLeagueState swaps the two once wGameStage is set.
+	object_event  2,  1, SPRITE_HIKER, STAY, DOWN, TEXT_VIRIDIANGYM_KIYO, OPP_KIYO, 2
 
 	def_warps_to VIRIDIAN_GYM

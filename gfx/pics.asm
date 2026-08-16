@@ -343,7 +343,9 @@ SuperNerdPic::     INCBIN "gfx/trainers/supernerd.pic"
 HikerPic::         INCBIN "gfx/trainers/hiker.pic"
 BikerPic::         INCBIN "gfx/trainers/biker.pic"
 BurglarPic::       INCBIN "gfx/trainers/burglar.pic"
-EngineerPic::      INCBIN "gfx/trainers/engineer.pic"
+; v0.7: EngineerPic was here. The ENGINEER class slot became KIYO (who reuses
+; BlackbeltPic), so the engineer portrait had no remaining reference and its
+; bytes went back to "Trainer Pics 1". The .pic file stays in gfx/trainers/.
 FisherPic::        INCBIN "gfx/trainers/fisher.pic"
 SwimmerPic::       INCBIN "gfx/trainers/swimmer.pic"
 CueBallPic::       INCBIN "gfx/trainers/cueball.pic"

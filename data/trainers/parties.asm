@@ -11,7 +11,7 @@ TrainerDataPointers:
 	dw HikerData
 	dw BikerData
 	dw BurglarData
-	dw EngineerData
+	dw KiyoData ; slot $0C, was EngineerData
 	dw FisherData
 	dw SwimmerData
 	dw CueBallData
@@ -333,6 +333,10 @@ SuperNerdData:
 	db 49, VULPIX, NINETALES, 0
 	db 53, PONYTA, CHARMELEON, VULPIX, GROWLITHE, 0
 	db 52, RAPIDASH, 0
+; Route 11 — the two ex-ENGINEERs (12, 13); that class slot became KIYO, and
+; these two already wore the SUPER_NERD overworld sprite. Same teams.
+	db 21, MAGNEMITE, 0
+	db 18, MAGNEMITE, MACHOP, MAGNEMITE, 0
 	db 50, CHARMELEON, FLAREON, 0
 
 HikerData:
@@ -435,12 +439,16 @@ LtSurgeData:
 ; 2: Rematch
 	db $FF, 63, POLIWRATH, 64, ELECTRODE, 64, MAGNETON, 65, ELECTABUZZ, 65, RAICHU, 0
 
-EngineerData:
-; Unused
-	db 21, VOLTORB, MAGNEMITE, 0
-; Route 11
-	db 21, MAGNEMITE, 0
-	db 18, MAGNEMITE, MACHOP, MAGNEMITE, 0
+KiyoData: ; was EngineerData — its two Route 11 trainers moved to SUPER_NERD 12-13
+; 1: the Fighting Dojo (Saffron). His original prize pair, one of which the
+; player takes home. Same two mons the dojo always awarded, now with their
+; master's name over the fight.
+	db 40, HITMONLEE, HITMONCHAN, 0
+; 2: the Viridian Gym, post-League — the 8th rematch of the circuit, same
+; L63-65 band as the other seven leaders. Deliberately NOT Bruno's roster:
+; Kiyo fights with fighters. His two prize students stay on the team even
+; after one leaves with the player — that one is the honor reward.
+	db $FF, 63, PRIMEAPE, 63, HITMONLEE, 64, HITMONCHAN, 64, POLIWRATH, 65, MACHAMP, 0
 
 RockerData:
 ; Vermilion Gym

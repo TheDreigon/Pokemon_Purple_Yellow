@@ -1,10 +1,47 @@
 FightingDojo_Script:
+	call FightingDojoPostLeagueState
+	ld hl, wCurrentMapScriptFlags
+	bit 5, [hl]
+	res 5, [hl]
+	call nz, FightingDojoOnEntry
 	call EnableAutoTextBoxDrawing
 	ld hl, FightingDojoTrainerHeaders
 	ld de, FightingDojo_ScriptPointers
 	ld a, [wFightingDojoCurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wFightingDojoCurScript], a
+	ret
+
+; v0.7: the dojo-master takeover. Post-League the master holds the Viridian
+; Gym instead, and his senior student (the object at (3,4)) speaks for the
+; DOJO — his beat-event is set here so he stops charging at the player and
+; his after-battle text (which carries the new-master branch) becomes his
+; voice. Idempotent, runs every tick like its three show-if-earned siblings.
+FightingDojoPostLeagueState:
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, HS_FIGHTING_DOJO_MASTER
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	SetEvent EVENT_BEAT_FIGHTING_DOJO_TRAINER_0
+	ret
+
+; The unchosen prize ball vanishes once the player has LEFT with the other —
+; run once per map entry, so it still sits there while they stand in the hall
+; with their new partner, and is gone the next time they walk in.
+FightingDojoOnEntry:
+	CheckEvent EVENT_GOT_HITMONLEE
+	jr z, .notLee
+	ld a, HS_FIGHTING_DOJO_GIFT_2
+	jr .hide
+.notLee
+	CheckEvent EVENT_GOT_HITMONCHAN
+	ret z ; neither chosen yet: both balls stay
+	ld a, HS_FIGHTING_DOJO_GIFT_1
+.hide
+	ld [wMissableObjectIndex], a
+	predef HideObject
 	ret
 
 FightingDojoResetScripts:
@@ -30,6 +67,10 @@ FightingDojoDefaultScript:
 	ret nz
 	CheckEvent EVENT_BEAT_KARATE_MASTER
 	ret nz
+	ld a, [wGameStage]
+	and a
+	ret nz ; post-League the master is HIDDEN — auto-facing a hidden sprite
+	       ; is the freeze the Bill walk taught us to fear
 	xor a
 	ldh [hJoyHeld], a
 	ld [wSavedCoordIndex], a
@@ -166,7 +207,26 @@ FightingDojoBlackbelt1EndBattleText:
 	text_end
 
 FightingDojoBlackbelt1AfterBattleText:
+	text_asm
+; post-League this student runs the DOJO (the takeover, see
+; FightingDojoPostLeagueState above); before that, his vanilla line
+	ld a, [wGameStage]
+	and a
+	jr nz, .newMaster
+	ld hl, .Vanilla
+	call PrintText
+	jr .done
+.newMaster
+	ld hl, .NewMaster
+	call PrintText
+.done
+	jp TextScriptEnd
+
+.Vanilla:
 	text_far _FightingDojoBlackbelt1AfterBattleText
+	text_end
+.NewMaster:
+	text_far _FightingDojoNewMasterText
 	text_end
 
 FightingDojoBlackbelt2Text:

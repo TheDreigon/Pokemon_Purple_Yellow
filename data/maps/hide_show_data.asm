@@ -347,6 +347,7 @@ OaksLabHS:
 ViridianGymHS:
 	db VIRIDIAN_GYM, VIRIDIANGYM_GIOVANNI, SHOW
 	db VIRIDIAN_GYM, VIRIDIANGYM_MAX_REVIVE,   SHOW
+	db VIRIDIAN_GYM, VIRIDIANGYM_KIYO,         HIDE ; shown post-League by ViridianGymPostLeagueState
 Museum1FHS:
 	db MUSEUM_1F, MUSEUM1F_OLD_AMBER, SHOW
 CeruleanMelaniesHouseHS:
@@ -390,6 +391,7 @@ IndigoPlateauLobbyHS:
 FightingDojoHS:
 	db FIGHTING_DOJO, FIGHTINGDOJO_HITMONLEE_POKE_BALL,  SHOW
 	db FIGHTING_DOJO, FIGHTINGDOJO_HITMONCHAN_POKE_BALL, SHOW
+	db FIGHTING_DOJO, FIGHTINGDOJO_KARATE_MASTER,        SHOW ; hidden post-League by FightingDojoPostLeagueState
 SilphCo1FHS:
 	db SILPH_CO_1F, SILPHCO1F_LINK_RECEPTIONIST, HIDE
 PowerPlantHS:
@@ -602,14 +604,10 @@ SeafoamIslandsB4FHS:
 	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_ARTICUNO,    SHOW
 	db SEAFOAM_ISLANDS_B4F, SEAFOAMISLANDSB4F_TM_ICE_BEAM, SHOW
 	db SEAFOAM_ISLANDS_B4F, SEAFOAM_ISLANDS_WEEBRA,     HIDE
-BluesHouseHSCopy: ; unreferenced
-; v0.7: this block is a vanilla duplicate -- MapHSPointers points BLUES_HOUSE at
-; the real BluesHouseHS above, and nothing points here. Its third row paid for
-; the mother's row in Pallet's block, so the array is still exactly 256 and no
-; live object lost its slot. The two remaining rows stay as inert padding rather
-; than being deleted too: every index after them would move for nothing.
-	db BLUES_HOUSE, BLUESHOUSE_DAISY1,   SHOW
-	db BLUES_HOUSE, BLUESHOUSE_DAISY2,   HIDE
+; v0.7: BluesHouseHSCopy was here -- a vanilla duplicate block nothing pointed
+; at (MapHSPointers sends BLUES_HOUSE to the real BluesHouseHS above). Its
+; three rows paid, one each, for Pallet's mother, VIRIDIANGYM_KIYO and
+; FIGHTINGDOJO_KARATE_MASTER. The array is still exactly 256, with NO spares.
 LoreleisRoomHS:
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI,   		SHOW
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI_REMATCH, HIDE

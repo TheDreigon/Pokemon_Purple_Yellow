@@ -78,6 +78,7 @@ BattleMusicByOpponent:
 	battle_music OPP_BRUNO,    MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_AGATHA,   MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_LANCE,    MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
+	battle_music OPP_KIYO,     MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_SMITH,    MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_CRAIG,    MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_WEEBRA,   MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle

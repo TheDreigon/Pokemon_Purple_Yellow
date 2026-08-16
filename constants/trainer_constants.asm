@@ -25,7 +25,12 @@ ENDM
 	trainer_const HIKER          ; $09
 	trainer_const BIKER          ; $0A
 	trainer_const BURGLAR        ; $0B
-	trainer_const ENGINEER       ; $0C
+	trainer_const KIYO ; $0C — was ENGINEER (2 Route 11 trainers, reassigned to
+	                   ; SUPER_NERD parties 12-13, whose overworld sprite they
+	                   ; already wore). Now the Fighting Dojo master, and the
+	                   ; Viridian Gym's post-League leader. Full boss class,
+	                   ; badge-holder tier. Same recycling precedent as
+	                   ; CHIEF -> SMITH.       ; $0C
 	trainer_const FISHER         ; $0D
 	trainer_const SWIMMER        ; $0E
 	trainer_const CUE_BALL       ; $0F
@@ -69,3 +74,7 @@ ENDM
 	trainer_const FORTE ; $35 — "Forte / DREIGON", repeatable end-game superboss (Mewtwo's chamber). Boss class.
 	trainer_const BILL ; $36 — post-League rematch in his house, same category as Joy and Jenny.
 DEF NUM_TRAINERS EQU const_value - 1
+; $37 is FORBIDDEN: OPP id would be 200 + $37 = 255 = the -1 terminator every
+; OPP-keyed table scan stops on (play_battle_music asserts this). The class
+; space is FULL — the next class must recycle a dead slot, the way CHIEF
+; became SMITH and ENGINEER became KIYO.

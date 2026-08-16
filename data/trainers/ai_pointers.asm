@@ -15,7 +15,10 @@ TrainerAIPointers:
 	dbw 3, GenericAI
 	dbw 3, GenericAI
 	dbw 3, GenericAI
-	dbw 3, GenericAI
+	dbw 2, BrunoAI ; KIYO (was ENGINEER) — Bruno's profile fits the bag shape
+	               ; (FR / X Attack / Full Heal) and the fighting-master
+	               ; temperament; boss AI routines are class-agnostic and
+	               ; consume whichever bag was populated. Bag is provisional.
 	dbw 3, GenericAI
 	dbw 3, GenericAI
 	dbw 3, GenericAI

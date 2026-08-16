@@ -1,4 +1,5 @@
 ViridianGym_Script:
+	call ViridianGymPostLeagueState
 	ld hl, .CityName
 	ld de, .LeaderName
 	call LoadGymLeaderAndCityName
@@ -30,6 +31,38 @@ ViridianGym_ScriptPointers:
 	dw_const EndTrainerBattle,                      SCRIPT_VIRIDIANGYM_END_BATTLE
 	dw_const ViridianGymGiovanniPostBattle,         SCRIPT_VIRIDIANGYM_GIOVANNI_POST_BATTLE
 	dw_const ViridianGymPlayerSpinningScript,       SCRIPT_VIRIDIANGYM_PLAYER_SPINNING
+	dw_const ViridianGymKiyoPostBattle,             SCRIPT_VIRIDIANGYM_KIYO_POST_BATTLE
+
+; v0.7: the dojo-master takeover. Once the League is beaten, Giovanni's tile
+; belongs to KIYO — the Fighting Dojo master comes down from Saffron and the
+; 8th gym joins the rematch circuit. Idempotent and cheap pre-League (one
+; loads-and-test), it runs every tick like the Forte/Craig/Smith
+; show-if-earned helpers. Hiding Giovanni here also covers the player who
+; never returned for his farewell: two leaders cannot share the tile.
+ViridianGymPostLeagueState:
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, HS_VIRIDIAN_GYM_GIOVANNI
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	ld a, HS_VIRIDIAN_GYM_KIYO
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+	ret
+
+ViridianGymKiyoPostBattle:
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, ViridianGymResetScripts ; a blackout burns neither flag
+; BEAT_KIYO is durable (the honor-reward gate); REMATCHED_KIYO is the
+; cooldown flag the Hall of Fame wipe re-arms with the other ten
+	SetEvent EVENT_BEAT_KIYO
+	SetEvent EVENT_REMATCHED_KIYO
+	ld a, TEXT_VIRIDIANGYM_KIYO_POST_BATTLE
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	jp ViridianGymResetScripts
 
 ViridianGymDefaultScript:
 	ld a, [wYCoord]
@@ -196,6 +229,8 @@ ViridianGym_TextPointers:
 	dw_const ViridianGymGiovanniReceivedTMText,   TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_TM
 	dw_const ViridianGymGiovanniTMNoRoomText,     TEXT_VIRIDIANGYM_GIOVANNI_TM_NO_ROOM
 	dw_const ViridianGymGiovanniReceivedCandyText, TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_CANDY
+	dw_const ViridianGymKiyoText,                  TEXT_VIRIDIANGYM_KIYO
+	dw_const ViridianGymKiyoPostBattleText,        TEXT_VIRIDIANGYM_KIYO_POST_BATTLE
 
 ViridianGymTrainerHeaders:
 	def_trainers 2
@@ -464,4 +499,121 @@ ViridianGymGuidePreBattleText:
 
 ViridianGymGuidePostBattleText:
 	text_far _ViridianGymGuidePostBattleText
+	text_end
+
+; ---------------------------------------------------------------------------
+; KIYO, the post-League leader. Talk flow mirrors the other seven leaders'
+; rematch gates (Pewter is the template), with one extra branch in front:
+; the honor debt. After his first defeat he owes the player the dojo prize
+; student they did NOT take, at L60 — and while it is unpaid (party and box
+; full at every attempt), he refuses to battle. No wGameStage check here:
+; the object only exists on screen once ViridianGymPostLeagueState shows it.
+ViridianGymKiyoText:
+	text_asm
+	CheckEvent EVENT_BEAT_KIYO
+	jr z, .noDebt
+	CheckEvent EVENT_GOT_KIYO_HITMON
+	jr nz, .noDebt
+	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
+	jr z, .noDebt ; no prize was ever chosen at the dojo: nothing is owed
+	call ViridianGymKiyoTryHonorReward
+	jr .done
+.noDebt
+	CheckEvent EVENT_REMATCHED_KIYO
+	jr nz, .rematchSpent
+	CheckEvent EVENT_BEAT_KARATE_MASTER
+	jr nz, .knowsYou
+	ld hl, .IntroStrangerText
+	call PrintText
+	jr .challenge
+.knowsYou
+	ld hl, .IntroKnowsYouText
+	call PrintText
+.challenge
+	xor a
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept (Pewter's note)
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, .AcceptText
+	call PrintText
+	call Delay3
+	ld a, OPP_KIYO
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	ld a, SCRIPT_VIRIDIANGYM_KIYO_POST_BATTLE
+	ld [wViridianGymCurScript], a
+	ld [wCurMapScript], a
+	jr .done
+.rematchSpent
+	ld hl, .RematchCooldownText
+	call PrintText
+	jr .done
+.refused
+	ld hl, .RefusedText
+	call PrintText
+.done
+	jp TextScriptEnd
+
+.IntroKnowsYouText:
+	text_far _ViridianGymKiyoIntroKnowsYouText
+	text_end
+.IntroStrangerText:
+	text_far _ViridianGymKiyoIntroStrangerText
+	text_end
+.AcceptText:
+	text_far _ViridianGymKiyoAcceptText
+	text_end
+.RefusedText:
+	text_far _ViridianGymKiyoRefusedText
+	text_end
+.RematchCooldownText:
+	text_far _GymRematchCooldownText
+	text_end
+
+ViridianGymKiyoPostBattleText:
+	text_asm
+	ld hl, .WinText
+	call PrintText
+; the honor debt is paid on the spot when it can be — the map script set
+; EVENT_BEAT_KIYO before displaying this text
+	CheckEvent EVENT_GOT_KIYO_HITMON
+	jr nz, .done
+	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
+	jr z, .done
+	call ViridianGymKiyoTryHonorReward
+.done
+	jp TextScriptEnd
+
+.WinText:
+	text_far _ViridianGymKiyoWinText
+	text_end
+
+ViridianGymKiyoTryHonorReward:
+; Hand over the unchosen dojo Hitmon at L60. EVENT_GOT_KIYO_HITMON is set
+; only when GivePokemon reports the mon DELIVERED (party or box); on a full
+; house he says he will wait, and the talk gate above keeps refusing battles.
+	ld hl, .HonorSpeechText
+	call PrintText
+	CheckEvent EVENT_GOT_HITMONLEE
+	ld b, HITMONCHAN ; took LEE at the dojo -> CHAN is the one who stayed
+	jr nz, .give
+	ld b, HITMONLEE  ; took CHAN -> LEE stayed
+.give
+	ld c, 60
+	call GivePokemon
+	jr c, .delivered
+	ld hl, .NoRoomText ; party and box both full: he says he will wait
+	jp PrintText
+.delivered
+	SetEvent EVENT_GOT_KIYO_HITMON
+	ret
+
+.HonorSpeechText:
+	text_far _ViridianGymKiyoHonorSpeechText
+	text_end
+.NoRoomText:
+	text_far _ViridianGymKiyoNoRoomText
 	text_end

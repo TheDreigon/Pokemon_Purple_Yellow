@@ -157,6 +157,10 @@ BossTrainerClasses::
 	db ERIKA
 	db FORTE
 	db GIOVANNI
+	db KIYO                     ; the 8th gym's post-League leader — full
+	                            ; badge-holder tier, and his dojo fight in
+	                            ; Saffron is a boss fight for the same reason
+	                            ; Brock's first fight is one
 	db KOGA
 	db LANCE
 	db LORELEI

@@ -11,7 +11,7 @@ TrainerNames::
 	li "HIKER"
 	li "BIKER"
 	li "BURGLAR"
-	li "ENGINEER"
+	li "KIYO" ; was ENGINEER — slot recycled, see trainer_constants.asm
 	li "FISHERMAN"
 	li "SWIMMER"
 	li "CUE BALL"

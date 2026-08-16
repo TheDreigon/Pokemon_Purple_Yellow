@@ -372,6 +372,13 @@ SECTION "Bill Rematch Text", ROMX
 
 INCLUDE "text/bill_rematch.asm"
 
+; The dojo-master takeover: KIYO at the Viridian Gym post-League, and the
+; promoted student at the Fighting Dojo. Own floating section for the same
+; reason as its siblings above.
+SECTION "Kiyo Takeover Text", ROMX
+
+INCLUDE "text/kiyo_takeover.asm"
+
 ; The fishing family's father and mother, in Fuchsia. Moved out of the pinned
 ; "Text 7" when the four gurus were rewritten as one family: his gift speech
 ; and her line together pushed that bank ten bytes over its 16 KB. Own floating

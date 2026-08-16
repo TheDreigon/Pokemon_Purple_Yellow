@@ -59,6 +59,7 @@ DEF SHOW EQU $15
 	const HS_OAKS_LAB_OAK_2                ; 32
 	const HS_VIRIDIAN_GYM_GIOVANNI         ; 33
 	const HS_VIRIDIAN_GYM_ITEM             ; 34
+	const HS_VIRIDIAN_GYM_KIYO ; v0.7: the dojo master as post-League leader; slot funded by HS_DAISY_SITTING_COPY (ids between here and there shifted, new-game basis)
 	const HS_OLD_AMBER                     ; 35
 	const HS_CERULEAN_BULBASAUR            ; 36
 	const HS_CERULEAN_CAVE_1F_ITEM_1       ; 37
@@ -87,6 +88,7 @@ DEF SHOW EQU $15
 	const HS_INDIGO_PLATEAU_LOBBY_POST_GAME_CLERK
 	const HS_FIGHTING_DOJO_GIFT_1          ; 4C
 	const HS_FIGHTING_DOJO_GIFT_2          ; 4D
+	const HS_FIGHTING_DOJO_MASTER ; v0.7: hidden post-League (he holds Viridian now); slot funded by HS_DAISY_WALKING_COPY (ids between here and there shifted, new-game basis)
 	const HS_SILPH_CO_1F_RECEPTIONIST      ; 4E
 	const HS_VOLTORB_1                     ; 4F
 	const HS_VOLTORB_2                     ; 50
@@ -259,12 +261,12 @@ DEF SHOW EQU $15
 	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; TM42 Ice Beam ball
 	const HS_ARTICUNO                      ; F3
 	const HS_SEAFOAM_ISLANDS_B4F_WEEBRA ; Weebra self-insert at Articuno's tile (post-Articuno + post-League)
-	const HS_DAISY_SITTING_COPY            ; F5
-	const HS_DAISY_WALKING_COPY            ; F6
-; v0.7: HS_TOWN_MAP_COPY was here. These three name a vanilla DUPLICATE of the
-; Blue's House block that nothing points at (MapHSPointers sends BLUES_HOUSE to
-; the real one), so the third row was the array's only spare -- and it paid for
-; HS_PALLET_TOWN_MOM at index 01. The array is still exactly 256.
+; v0.7: HS_TOWN_MAP_COPY, HS_DAISY_SITTING_COPY and HS_DAISY_WALKING_COPY were
+; here. All three named a vanilla DUPLICATE of the Blue's House block that
+; nothing points at (MapHSPointers sends BLUES_HOUSE to the real one). The
+; first spare paid for HS_PALLET_TOWN_MOM at index 01; the last two paid for
+; HS_VIRIDIAN_GYM_KIYO and HS_FIGHTING_DOJO_MASTER (the dojo-master takeover).
+; The array is still exactly 256, and there are NO spare slots left.
 	const HS_LORELEISROOM_LORELEI
 	const HS_LORELEISROOM_LORELEI_REMATCH
 	const HS_BRUNOSROOM_BRUNO

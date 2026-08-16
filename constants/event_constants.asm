@@ -231,7 +231,15 @@
 	const EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
 	const EVENT_GOT_HITMONLEE
 	const EVENT_GOT_HITMONCHAN
-	const_skip 8
+; v0.7: two durable KIYO flags, carved out of what was `const_skip 8` so no
+; later event moves. BEAT_KIYO = he was beaten at the Viridian Gym at least
+; once (never cleared — EVENT_REMATCHED_KIYO in the cooldown block is wiped
+; every League run and cannot carry this). GOT_KIYO_HITMON = the honor-reward
+; Hitmon was actually DELIVERED; while BEAT_KIYO is set, exactly one dojo
+; Hitmon was chosen and this is clear, KIYO refuses to battle and waits.
+	const EVENT_BEAT_KIYO
+	const EVENT_GOT_KIYO_HITMON
+	const_skip 6
 	const EVENT_GOT_SABRINA_TM
 	const EVENT_BEAT_SABRINA
 	const EVENT_BEAT_SAFFRON_GYM_TRAINER_0
@@ -865,6 +873,10 @@ DEF REMATCH_COOLDOWN_EVENTS_START EQU const_value
 	const EVENT_REMATCHED_NURSE_JOY
 	const EVENT_REMATCHED_OFFICER_JENNY
 	const EVENT_REMATCHED_BILL
+	const EVENT_REMATCHED_KIYO ; v0.7: the 8th gym joins the circuit — appended
+	                           ; here so the Hall of Fame wipe re-arms him too;
+	                           ; the garden events below slid up by one (fine on
+	                           ; a new game; saved flags are positional)
 DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 
 ; BILL's garden. Deliberately OUTSIDE the rematch-cooldown block above, whose
