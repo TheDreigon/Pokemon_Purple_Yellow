@@ -176,6 +176,22 @@ _ManualPage_3_4::
 	next "twice that boost."
 	done
 
+_ManualPage_3_5::
+	text "The EXP.SHARE"
+	next "moves experience;"
+	next "it makes none."
+	next ""
+	next "ONE: half of every"
+	next "reward goes to"
+	next "your last #MON."
+	next ""
+	next "TEAM: it is split"
+	next "among all who can"
+	next "gain."
+	next ""
+	next "Catching pays too."
+	done
+
 _ManualPage_4_1::
 	text "PARALYSIS cuts"
 	next "SPEED in half,"

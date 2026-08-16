@@ -910,14 +910,16 @@ TrainerManualChapter2Pages:
 	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
 
 TrainerManualChapter3Sections:
-	db 4
+	db 5
 	manual_section TrainerManualSection3_1, 0
 	manual_section TrainerManualSection3_2, 1
 	manual_section TrainerManualSection3_3, 2
 	manual_section TrainerManualSection3_4, 3
+	manual_section TrainerManualSection3_5, 4
 TrainerManualChapter3Pages:
-	db 4
+	db 5
 	dw ManualPage_3_1, ManualPage_3_2, ManualPage_3_3, ManualPage_3_4
+	dw ManualPage_3_5
 
 TrainerManualChapter4Sections:
 	db 9
@@ -1004,6 +1006,8 @@ TrainerManualSection3_3:
 	db "GROWTH@"
 TrainerManualSection3_4:
 	db "BADGES AND STATS@"
+TrainerManualSection3_5:
+	db "THE EXP.SHARE@"
 
 TrainerManualSection4_1:
 	db "PARALYSIS@"
@@ -1072,6 +1076,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_3_2
 	manual_page ManualPage_3_3
 	manual_page ManualPage_3_4
+	manual_page ManualPage_3_5
 
 	manual_page ManualPage_4_1
 	manual_page ManualPage_4_2
