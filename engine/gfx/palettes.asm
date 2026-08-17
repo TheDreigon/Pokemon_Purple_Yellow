@@ -606,18 +606,12 @@ LoadSGB:
 	di
 	call PrepareSuperNintendoVRAMTransfer
 	ei
-	ld a, 1
-	ld [wCopyingSGBTileData], a
-	ld de, ChrTrnPacket
-	ld hl, SGBBorderGraphics
-	call CopyGfxToSuperNintendoVRAM
-	xor a
-	ld [wCopyingSGBTileData], a
-	ld de, PctTrnPacket
-	ld hl, BorderPalettes
-	call CopyGfxToSuperNintendoVRAM
-	xor a
-	ld [wCopyingSGBTileData], a
+; v0.7 "Patamar 1" (2026-08-17, Forte's call): the custom BORDER is gone —
+; the ChrTrn (border tiles) and PctTrn (border map+palettes) transfers that
+; sat here, plus their 3360 bytes of data, bought bank1C's palette space
+; back (~210 palette slots). SGB support itself is intact: the console shows
+; its own default frame, and the PalTrn below still delivers SuperPalettes,
+; so the game stays fully coloured on real Super Game Boy hardware.
 	ld de, PalTrnPacket
 	ld hl, SuperPalettes
 	call CopyGfxToSuperNintendoVRAM
@@ -716,15 +710,10 @@ CopyGfxToSuperNintendoVRAM:
 	ldh [rBGP], a
 	call _UpdateGBCPal_BGP_CheckDMG
 	ld de, vChars1
-	ld a, [wCopyingSGBTileData]
-	and a
-	jr z, .notCopyingTileData
-	call CopySGBBorderTiles
-	jr .next
-.notCopyingTileData
+; only the PalTrn path remains since the border left (Patamar 1); the
+; wCopyingSGBTileData branch and CopySGBBorderTiles went with it
 	ld bc, $1000
 	call CopyData
-.next
 	ld hl, vBGMap0
 	ld de, $c
 	ld a, $80
@@ -1110,40 +1099,13 @@ palPacketPointers:
 	dw UnknownPacket_72751
 palPacketPointersEnd:
 
-CopySGBBorderTiles:
-; SGB tile data is stored in a 4BPP planar format.
-; Each tile is 32 bytes. The first 16 bytes contain bit planes 1 and 2, while
-; the second 16 bytes contain bit planes 3 and 4.
-; This function converts 2BPP planar data into this format by mapping
-; 2BPP colors 0-3 to 4BPP colors 0-3. 4BPP colors 4-15 are not used.
-	ld b, 128
-.tileLoop
-; Copy bit planes 1 and 2 of the tile data.
-	ld c, 16
-.copyLoop
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec c
-	jr nz, .copyLoop
-
-; Zero bit planes 3 and 4.
-	ld c, 16
-	xor a
-.zeroLoop
-	ld [de], a
-	inc de
-	dec c
-	jr nz, .zeroLoop
-
-	dec b
-	jr nz, .tileLoop
-	ret
+; v0.7 "Patamar 1" (2026-08-17): CopySGBBorderTiles and the whole
+; data/sgb/sgb_border.asm (BorderPalettes + SGBBorderGraphics, 3360 bytes)
+; are gone with the custom border. SuperPalettes and every SGB packet the
+; game still uses live on below.
 
 INCLUDE "data/sgb/sgb_packets.asm"
 
 INCLUDE "data/pokemon/palettes.asm"
 
 INCLUDE "data/sgb/sgb_palettes.asm"
-
-INCLUDE "data/sgb/sgb_border.asm"

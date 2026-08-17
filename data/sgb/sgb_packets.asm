@@ -153,8 +153,8 @@ PalPacket_PikachusBeachTitle: PAL_SET PAL_PIKACHUS_BEACH, PAL_PIKACHUS_BEACH_TIT
 PalTrnPacket:  PAL_TRN
 MltReq1Packet: MLT_REQ 1
 MltReq2Packet: MLT_REQ 2
-ChrTrnPacket:  CHR_TRN 0, 0
-PctTrnPacket:  PCT_TRN
+; v0.7 "Patamar 1" (2026-08-17): ChrTrnPacket and PctTrnPacket deleted with
+; the custom border — they only ever carried it.
 
 MaskEnFreezePacket: MASK_EN 1
 MaskEnCancelPacket: MASK_EN 0
