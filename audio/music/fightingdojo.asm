@@ -1,4 +1,4 @@
-Music_YellowUnusedSong_Ch1::
+Music_FightingDojo_Ch1::
 	tempo 140
 	volume 7, 7
 	duty_cycle 3
@@ -73,7 +73,7 @@ Music_YellowUnusedSong_Ch1::
 	note A_, 12
 	sound_loop 0, .mainloop
 
-Music_YellowUnusedSong_Ch2::
+Music_FightingDojo_Ch2::
 	duty_cycle 2
 	note_type 8, 12, 2
 	octave 4
@@ -157,7 +157,7 @@ Music_YellowUnusedSong_Ch2::
 	note A_, 12
 	sound_loop 0, .mainloop
 
-Music_YellowUnusedSong_Ch3::
+Music_FightingDojo_Ch3::
 	note_type 12, 1, 0
 	vibrato 2, 1, 5
 	rest 16
@@ -196,7 +196,7 @@ Music_YellowUnusedSong_Ch3::
 	note A#, 8
 	sound_loop 0, .mainloop
 
-Music_YellowUnusedSong_Ch4::
+Music_FightingDojo_Ch4::
 	drum_speed 12
 	drum_note 3, 4
 	drum_speed 8

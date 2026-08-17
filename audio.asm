@@ -656,7 +656,7 @@ INCLUDE "audio/music/pewtercity.asm"
 INCLUDE "audio/music/saffroncity.asm"
 INCLUDE "audio/music/saffronfree.asm"
 INCLUDE "audio/music/ceruleancity.asm"
-INCLUDE "audio/music/yellowunusedsong.asm"
+INCLUDE "audio/music/fightingdojo.asm"
 
 
 ; Pikachu cries are in different banks

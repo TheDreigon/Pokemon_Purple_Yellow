@@ -58,9 +58,9 @@ Music_CeruleanCity::
 ; Moved from AUDIO_4 for the same reason as the cities: the Dojo is a walkable
 ; map, and a Pokedex cry, a save or a poison step under the short bank-$20
 ; table wedged channels 5-8. Appended last, as the rule above demands.
-Music_YellowUnusedSong::
+Music_FightingDojo:: ; vanilla's "YellowUnusedSong" — this hack made it the dojo's theme, so it earned a real name
 	channel_count 4
-	channel 1, Music_YellowUnusedSong_Ch1
-	channel 2, Music_YellowUnusedSong_Ch2
-	channel 3, Music_YellowUnusedSong_Ch3
-	channel 4, Music_YellowUnusedSong_Ch4
+	channel 1, Music_FightingDojo_Ch1
+	channel 2, Music_FightingDojo_Ch2
+	channel 3, Music_FightingDojo_Ch3
+	channel 4, Music_FightingDojo_Ch4

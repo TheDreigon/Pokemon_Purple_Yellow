@@ -31,7 +31,7 @@ LoadMapMusicOverrides::
 ; Only the outdoor map is affected, which is what was asked for: the houses,
 ; the gyms, the Dojo and the Silph Co floors are all separate map ids and never
 ; match this compare, so stepping indoors still changes the music. The Dojo in
-; particular keeps MUSIC_YELLOW_UNUSED_SONG permanently.
+; particular keeps MUSIC_FIGHTING_DOJO permanently.
 	ld a, [wCurMap]
 	cp SAFFRON_CITY
 	ret nz

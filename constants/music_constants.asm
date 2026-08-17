@@ -66,7 +66,7 @@ ENDM
 	music_const MUSIC_SAFFRON_CITY,        Music_SaffronCity
 	music_const MUSIC_SAFFRON_FREE,        Music_SaffronFree
 	music_const MUSIC_CERULEAN_CITY,       Music_CeruleanCity
-	music_const MUSIC_YELLOW_UNUSED_SONG,  Music_YellowUnusedSong
+	music_const MUSIC_FIGHTING_DOJO,       Music_FightingDojo ; vanilla's "unused song", renamed 2026-08-17: it is the FIGHTING DOJO's map theme and Giovanni's pre-battle sting (same header slot, so the id did not move)
 
 	; AUDIO_1 AUDIO_2 AUDIO_3 AUDIO_4
 DEF NOISE_INSTRUMENTS_START EQUS "SFX_NOISE_INSTRUMENT01"
