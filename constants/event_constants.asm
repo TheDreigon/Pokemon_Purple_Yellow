@@ -232,12 +232,16 @@
 	const EVENT_GOT_HITMONLEE
 	const EVENT_GOT_HITMONCHAN
 ; v0.7: two durable KIYO flags, carved out of what was `const_skip 8` so no
-; later event moves. BEAT_KIYO = he was beaten at the Viridian Gym at least
-; once (never cleared — EVENT_REMATCHED_KIYO in the cooldown block is wiped
-; every League run and cannot carry this). GOT_KIYO_HITMON = the honor-reward
-; Hitmon was actually DELIVERED; while BEAT_KIYO is set, exactly one dojo
-; Hitmon was chosen and this is clear, KIYO refuses to battle and waits.
-	const EVENT_BEAT_KIYO
+; later event moves. KIYO_REWARD_EARNED = the honor reward was EARNED: set at
+; the moment of a Viridian VICTORY while the player already owns exactly one
+; dojo Hitmon (Forte's rule, 2026-08-17: the Hitmon is a reward — a win
+; grants it, talking never does; claiming a dojo ball after a win earns
+; nothing until the NEXT win). Durable on purpose — EVENT_REMATCHED_KIYO in
+; the cooldown block is wiped every League run and cannot carry this.
+; GOT_KIYO_HITMON = the earned Hitmon was actually DELIVERED; while EARNED
+; is set and this is clear (party+box were full), KIYO refuses to battle
+; and hands it over on the next talk with room.
+	const EVENT_KIYO_REWARD_EARNED
 	const EVENT_GOT_KIYO_HITMON
 	const_skip 6
 	const EVENT_GOT_SABRINA_TM

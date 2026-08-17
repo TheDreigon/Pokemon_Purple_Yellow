@@ -54,10 +54,10 @@ ViridianGymPostLeagueState:
 ViridianGymKiyoPostBattle:
 	ld a, [wIsInBattle]
 	cp $ff
-	jp z, ViridianGymResetScripts ; a blackout burns neither flag
-; BEAT_KIYO is durable (the honor-reward gate); REMATCHED_KIYO is the
-; cooldown flag the Hall of Fame wipe re-arms with the other ten
-	SetEvent EVENT_BEAT_KIYO
+	jp z, ViridianGymResetScripts ; a blackout burns nothing
+; REMATCHED_KIYO is the cooldown flag the Hall of Fame wipe re-arms with the
+; other ten; the honor reward is earned inside the post-battle TEXT below,
+; because only a win may earn it
 	SetEvent EVENT_REMATCHED_KIYO
 	ld a, TEXT_VIRIDIANGYM_KIYO_POST_BATTLE
 	ldh [hSpriteIndexOrTextID], a
@@ -617,12 +617,14 @@ ViridianGymGuidePostBattleText:
 ; the object only exists on screen once ViridianGymPostLeagueState shows it.
 ViridianGymKiyoText:
 	text_asm
-	CheckEvent EVENT_BEAT_KIYO
+; the deferred delivery: only a WIN earns the reward (the post-battle text
+; sets EARNED); this branch exists solely for the player whose party and box
+; were full at that moment — KIYO holds the earned Hitmon and refuses to
+; battle until it is handed over
+	CheckEvent EVENT_KIYO_REWARD_EARNED
 	jr z, .noDebt
 	CheckEvent EVENT_GOT_KIYO_HITMON
 	jr nz, .noDebt
-	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
-	jr z, .noDebt ; no prize was ever chosen at the dojo: nothing is owed
 	call ViridianGymKiyoTryHonorReward
 	jr .done
 .noDebt
@@ -684,12 +686,14 @@ ViridianGymKiyoPostBattleText:
 	text_asm
 	ld hl, .WinText
 	call PrintText
-; the honor debt is paid on the spot when it can be — the map script set
-; EVENT_BEAT_KIYO before displaying this text
+; this is the ONLY place the honor reward can be earned — a victory, with
+; exactly one dojo Hitmon already owned (Forte: the Hitmon is a reward;
+; talking never grants it, and a ball claimed after a win waits for the next)
 	CheckEvent EVENT_GOT_KIYO_HITMON
 	jr nz, .done
 	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
 	jr z, .done
+	SetEvent EVENT_KIYO_REWARD_EARNED
 ; .WinText ends in `done`, which does not wait — without this the honor
 ; speech draws over the win text before it can be read (house rule)
 	farcall NewPageButtonPressCheck
