@@ -1713,19 +1713,9 @@ AIUseDireHit:
 	ld a, DIRE_HIT
 	jp AIPrintItemUse
 
-; PureRGBnote: ADDED: if enemy HP is below a 1/[wUnusedC000], store 1 in wUnusedC000.
-; used for checking whether the hyper ball item should guarantee success on use
-AICheckIfHPBelowFractionStore::
-	ld a, [wUnusedC000]
-	call AICheckIfHPBelowFraction
-	jr c, .below
-	xor a
-	jr .done
-.below
-	ld a, 1
-.done
-	ld [wUnusedC000], a 
-	ret
+; v0.7 space pass (2026-08-17): AICheckIfHPBelowFractionStore deleted — a
+; PureRGB import for a "hyper ball" item this hack never adopted; zero
+; callers, and Forte confirmed it is not his.
 
 AICheckIfHPBelowFractionWrapped:
 	push hl
