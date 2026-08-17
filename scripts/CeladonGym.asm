@@ -227,12 +227,10 @@ CeladonGymErikaText:
 	ld hl, .ReceivedRainbowBadgeText
 	ld de, .ReceivedRainbowBadgeText
 	call SaveEndBattleTextPointers
-	farcall GetBadgesObtained
-	ld a, [wNumSetBits]
-	cp 5
-	jr nc, .Erika6thGym
-	cp 4
-	jr nc, .Erika5thGym
+; v0.7 (2026-08-17): gym order is strictly linear in this hack — the badge
+; chain makes 3 badges the only possible count here, so the Yellow Legacy
+; free-order dispatch and its two ghost branches (parties 2-3, byte-for-byte
+; copies of 1) were removed. Erika is always the 4th.
 	jr .Erika4thGym
 .todone
 	jp .done ; jp: the rematch-cooldown check pushed .done out of jr range
@@ -255,7 +253,7 @@ CeladonGymErikaText:
 	call Delay3
 	ld a, OPP_ERIKA
 	ld [wCurOpponent], a
-	ld a, 4
+	ld a, 2 ; the rematch — party 2 since the ghost copies went (2026-08-17)
 	ld [wTrainerNo], a
 	ld a, $4
 	ld [wCeladonGymCurScript], a
@@ -269,26 +267,6 @@ CeladonGymErikaText:
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
 	jr .done
-.Erika6thGym
-	call Delay3
-	ld a, OPP_ERIKA
-	ld [wCurOpponent], a
-	ld a, 3
-	ld [wTrainerNo], a
-	ld a, $4
-	ld [wCeladonGymCurScript], a
-	ld [wCurMapScript], a
-	jr .afterBatttle
-.Erika5thGym
-	call Delay3
-	ld a, OPP_ERIKA
-	ld [wCurOpponent], a
-	ld a, 2
-	ld [wTrainerNo], a
-	ld a, $4
-	ld [wCeladonGymCurScript], a
-	ld [wCurMapScript], a
-	jr .afterBatttle
 .Erika4thGym
 	ldh a, [hSpriteIndex]
 	ld [wSpriteIndex], a

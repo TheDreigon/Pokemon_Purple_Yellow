@@ -224,10 +224,9 @@ FuchsiaGymKogaText:
 	ld hl, .ReceivedSoulBadgeText
 	ld de, .ReceivedSoulBadgeText
 	call SaveEndBattleTextPointers
-	farcall GetBadgesObtained
-	ld a, [wNumSetBits]
-	cp 5
-	jr nc, .Koga6thGym
+; v0.7 (2026-08-17): gym order is strictly linear in this hack — 4 badges is
+; the only possible count here, so the free-order dispatch and its ghost
+; branch (party 2, a copy of 1) were removed. Koga is always the 5th.
 	jr .Koga5thGym
 .todone
 	jr .done
@@ -250,7 +249,7 @@ FuchsiaGymKogaText:
 	call Delay3
 	ld a, OPP_KOGA
 	ld [wCurOpponent], a
-	ld a, 3
+	ld a, 2 ; the rematch — party 2 since the ghost copy went (2026-08-17)
 	ld [wTrainerNo], a
 	ld a, $4
 	ld [wFuchsiaGymCurScript], a
@@ -264,16 +263,6 @@ FuchsiaGymKogaText:
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
 	jr .done
-.Koga6thGym
-	call Delay3
-	ld a, OPP_KOGA
-	ld [wCurOpponent], a
-	ld a, 2
-	ld [wTrainerNo], a
-	ld a, $4
-	ld [wFuchsiaGymCurScript], a
-	ld [wCurMapScript], a
-	jr .afterBatttle
 .Koga5thGym
 	ldh a, [hSpriteIndex]
 	ld [wSpriteIndex], a

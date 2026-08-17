@@ -143,45 +143,7 @@ SpecialTrainerMoves:
 	db 4, 4, BULLDOZE
 	db 0
 
-	db ERIKA, 2 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 34 TANGELA, 35 VICTREEBEL, 37 VILEPLUME, 38 VENUSAUR
-	db 1, 1, WATER_GUN
-	db 1, 2, VINE_WHIP
-	db 1, 3, STUN_POWDER
-	db 1, 4, LEECH_SEED
-	db 2, 1, RAZOR_LEAF
-	db 2, 2, ACID
-	db 2, 3, SLEEP_POWDER
-	db 2, 4, BODY_SLAM
-	db 3, 1, GIGA_DRAIN
-	db 3, 2, ACID
-	db 3, 3, TOXIC
-	db 3, 4, LEECH_SEED
-	db 4, 1, GIGA_DRAIN
-	db 4, 2, SLUDGE
-	db 4, 3, SLEEP_POWDER
-	db 4, 4, BULLDOZE
-	db 0
-
-	db ERIKA, 3 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 34 TANGELA, 35 VICTREEBEL, 37 VILEPLUME, 38 VENUSAUR
-	db 1, 1, WATER_GUN
-	db 1, 2, VINE_WHIP
-	db 1, 3, STUN_POWDER
-	db 1, 4, LEECH_SEED
-	db 2, 1, RAZOR_LEAF
-	db 2, 2, ACID
-	db 2, 3, SLEEP_POWDER
-	db 2, 4, BODY_SLAM
-	db 3, 1, GIGA_DRAIN
-	db 3, 2, ACID
-	db 3, 3, TOXIC
-	db 3, 4, LEECH_SEED
-	db 4, 1, GIGA_DRAIN
-	db 4, 2, SLUDGE
-	db 4, 3, SLEEP_POWDER
-	db 4, 4, BULLDOZE
-	db 0
-
-	db ERIKA, 4 ; Rematch — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
+	db ERIKA, 2 ; Rematch (was 4 — the two ghost copies of party 1 went 2026-08-17) — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, PETAL_DANCE
 	db 1, 3, HYPNOSIS
@@ -227,30 +189,7 @@ SpecialTrainerMoves:
 	db 5, 4, TOXIC
 	db 0
 
-	db KOGA, 2 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 41 VENOMOTH, 42 WEEZING, 43 MUK, 44 GOLBAT, 45 ARBOK
-	db 1, 1, BUG_BUZZ
-	db 1, 2, SMOG
-	db 1, 3, SLEEP_POWDER
-	db 1, 4, LEECH_LIFE
-	db 2, 1, SLUDGE
-	db 2, 2, FLAMETHROWER
-	db 2, 3, SMOG
-	db 2, 4, TOXIC
-	db 3, 1, SLUDGE
-	db 3, 2, BODY_SLAM
-	db 3, 3, MUD_BOMB
-	db 3, 4, TOXIC
-	db 4, 1, AERIAL_ACE
-	db 4, 2, POISON_BITE
-	db 4, 3, LEECH_LIFE
-	db 4, 4, TOXIC
-	db 5, 1, POISON_BITE
-	db 5, 2, IRON_TAIL
-	db 5, 3, BIND
-	db 5, 4, TOXIC
-	db 0
-
-	db KOGA, 3 ; Rematch — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
+	db KOGA, 2 ; Rematch (was 3 — the ghost copy of party 1 went 2026-08-17) — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
 	db 1, 1, SURF
 	db 1, 2, SLUDGE_WAVE
 	db 1, 3, ICE_BEAM
@@ -342,30 +281,7 @@ SpecialTrainerMoves:
 	db 5, 4, CALM_MIND
 	db 0
 
-	db SABRINA, 2 ; copy of 1 — strict gym order, cleanup w/ badge-gating — 41 KADABRA, 43 HYPNO, 45 VENOMOTH, 47 MR_MIME, 49 ALAKAZAM
-	db 1, 1, PSYCHIC_M
-	db 1, 2, SHOCK_WAVE
-	db 1, 3, RECOVER
-	db 1, 4, CALM_MIND
-	db 2, 1, PSYCHIC_M
-	db 2, 2, HYPNOSIS
-	db 2, 3, DREAM_EATER
-	db 2, 4, SHADOW_BALL
-	db 3, 1, PSYCHIC_M
-	db 3, 2, BUG_BUZZ
-	db 3, 3, QUIVER_DANCE
-	db 3, 4, SLEEP_POWDER
-	db 4, 1, PSYCHIC_M
-	db 4, 2, DAZZLE_GLEAM
-	db 4, 3, PETAL_DANCE
-	db 4, 4, REFLECT
-	db 5, 1, PSYCHIC_M
-	db 5, 2, SHOCK_WAVE
-	db 5, 3, RECOVER
-	db 5, 4, CALM_MIND
-	db 0
-
-	db SABRINA, 3 ; Rematch — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
+	db SABRINA, 2 ; Rematch (was 3 — the ghost copy of party 1 went 2026-08-17) — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, HYPNOSIS
 	db 1, 3, DREAM_EATER

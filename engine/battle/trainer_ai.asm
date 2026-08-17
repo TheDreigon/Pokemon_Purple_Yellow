@@ -810,10 +810,15 @@ BrockAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullHeal
 .noStatus
-	; Heal at HP < 1/3 -> Potion
+	; Heal at HP < 1/3 — the rematch bag carries Full Restore, the first
+	; fight's carries Potion; try the better tier first (same both ways for
+	; every leader below)
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUsePotion
@@ -840,6 +845,9 @@ MistyAI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, SUPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
@@ -866,6 +874,9 @@ LtSurgeAI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, SUPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
@@ -892,17 +903,21 @@ ErikaAI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, HYPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	; ~25% chance X Defend
+	; ~25% chance X Special (2026-08-17 sheet correction: Erika buffs
+	; SPECIAL now, both bags — the X Defend branch matched her old bag)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_DEFEND
+	ld a, X_SPECIAL
 	call CheckAndConsumeBossItem
-	jp c, AIUseXDefend
+	jp c, AIUseXSpecial
 	ret
 
 KogaAI:
@@ -918,6 +933,9 @@ KogaAI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, HYPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
@@ -930,7 +948,7 @@ KogaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseXSpeed
 .skipBuff1
-	; ~25% chance Dire Hit (independent)
+	; ~25% chance Dire Hit (independent; the Dire Hit lives in his rematch bag now)
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -952,6 +970,9 @@ SabrinaAI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, HYPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
@@ -978,6 +999,9 @@ BlaineAI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
 	ld a, MAX_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseMaxPotion
@@ -1009,6 +1033,9 @@ GiovanniAI:
 	ld a, FULL_RESTORE
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
+	ld a, HYPER_POTION ; his early bag (Hideout/Silph) heals a tier below the gym's
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
 .skipHeal
 	; ~25% X Attack roll
 	call Random
@@ -1154,16 +1181,52 @@ Rival2AI:
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
-	ld a, SUPER_POTION
+	ld a, HYPER_POTION ; sheet correction 2026-08-17: his bag upgraded from Super
 	call CheckAndConsumeBossItem
-	jp c, AIUseSuperPotion
+	jp c, AIUseHyperPotion
 .skipHeal
+	; no buff roll: the same correction took his X Attacks away, and an AI
+	; branch with no item behind it is the mirror image of dead weight
+	ret
+
+KiyoAI:
+; The dojo master. Full Restore is his rematch tier, Hyper Potion the dojo's;
+; the two independent 25% rolls mirror Koga's shape, but his fists buff
+; ATTACK and his Dire Hit lives in the rematch bag.
+	call IsHardModeBossOrSemiBattle
+	ret z
+	ld a, [wEnemyMonStatus]
+	and a
+	jr z, .noStatus
+	ld a, FULL_HEAL
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+.noStatus
+	ld a, 3
+	call AICheckIfHPBelowFraction
+	jr nc, .skipHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+	ld a, HYPER_POTION
+	call CheckAndConsumeBossItem
+	jp c, AIUseHyperPotion
+.skipHeal
+	; ~25% X Attack roll
 	call Random
 	cp 25 percent + 1
-	ret nc
+	jr nc, .skipBuff1
 	ld a, X_ATTACK
 	call CheckAndConsumeBossItem
 	jp c, AIUseXAttack
+.skipBuff1
+	; ~25% Dire Hit roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, DIRE_HIT
+	call CheckAndConsumeBossItem
+	jp c, AIUseDireHit
 	ret
 
 Rival3AI:
@@ -1353,13 +1416,14 @@ JennyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseXAttack
 .skipBuff1
-	; ~25% X Speed roll (independent)
+	; ~25% Guard Spec roll (independent; sheet correction 2026-08-17 — her
+	; X Speed became a Guard Spec)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_SPEED
+	ld a, GUARD_SPEC
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpeed
+	jp c, AIUseGuardSpec
 	ret
 
 JanineAI:
@@ -1863,58 +1927,10 @@ CheckAndConsumeBossItem:
 	and a                       ; clear carry
 	ret
 
-; Initialise wEnemyTrainerItemBag for this battle. Called once at battle
-; start by init_battle.asm (after wTrainerClass + wAICount are set AND
-; after wIsInBattle is set to 2 — IsHardModeBossBattle requires it — but
-; before any AI tick fires). If this is not a Hard-mode boss battle the
-; bag stays empty (-1 fill) and every CheckAndConsumeBossItem returns
-; no-carry, so boss AI routines no-op out cleanly.
-;
-; Trashes: a, b, c, d, e, hl
-InitEnemyTrainerItemBag::
-	; Step 1: clear bag to all -1 (sentinel)
-	ld hl, wEnemyTrainerItemBag
-	ld c, BOSS_BAG_SIZE
-	ld a, -1
-.clear
-	ld [hli], a
-	dec c
-	jr nz, .clear
-
-	; Step 2: bail unless this is a Hard-mode boss OR semi-boss battle
-	call IsHardModeBossOrSemiBattle
-	ret z
-
-	; Step 3: linear scan BossItemBagPointers for this trainer class
-	ld a, [wTrainerClass]
-	ld b, a
-	ld hl, BossItemBagPointers
-.findBoss
-	ld a, [hl]
-	cp -1
-	ret z                       ; class missing from table → keep empty bag
-	cp b
-	jr z, .found
-	inc hl                      ; skip class byte
-	inc hl                      ; skip pointer low
-	inc hl                      ; skip pointer high
-	jr .findBoss
-.found
-	inc hl                      ; hl → bag pointer low
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a                     ; hl = bag pointer
-
-	; Step 4: copy BOSS_BAG_SIZE bytes from rom bag → wram bag
-	ld de, wEnemyTrainerItemBag
-	ld c, BOSS_BAG_SIZE
-.copy
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec c
-	jr nz, .copy
-	ret
+; InitEnemyTrainerItemBag moved to data/trainers/boss_item_bags.asm
+; (2026-08-17): the bags went per-FIGHT and the loader lives with the data it
+; scans, in its own floating section. CheckAndConsumeBossItem stays here —
+; the AI routines call it locally and it only reads the WRAM bag.
 
 ; --- v0.7 victory-fanfare list (relocated out of Battle Core) ---
 ; This lives HERE, in the Trainer AI bank, purely for space: Battle Core ($0F)

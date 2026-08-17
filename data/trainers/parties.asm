@@ -592,11 +592,7 @@ ErikaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Celadon Gym (4th)
 	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
-; 2: copy of 1 — strict gym order, cleanup w/ badge-gating
-	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
-; 3: copy of 1 — strict gym order, cleanup w/ badge-gating
-	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
-; 4: Rematch
+; 2: Rematch (was 4 — the two free-order ghost copies were removed 2026-08-17)
 	db $FF, 63, EXEGGUTOR, 64, TANGELA, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
 
 GiovanniData:
@@ -640,9 +636,7 @@ KogaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Fuchsia Gym (5th)
 	db $FF, 41, VENOMOTH, 42, WEEZING, 43, MUK, 44, GOLBAT, 45, ARBOK, 0
-; 2: copy of 1 — strict gym order, cleanup w/ badge-gating
-	db $FF, 41, VENOMOTH, 42, WEEZING, 43, MUK, 44, GOLBAT, 45, ARBOK, 0
-; 3: Rematch
+; 2: Rematch (was 3 — the free-order ghost copy was removed 2026-08-17)
 	db $FF, 63, TENTACRUEL, 64, MUK, 64, WEEZING, 65, GOLBAT, 65, ARBOK, 0
 
 JanineData:
@@ -736,9 +730,7 @@ SabrinaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Saffron Gym (6th)
 	db $FF, 41, KADABRA, 43, HYPNO, 45, VENOMOTH, 47, MR_MIME, 49, ALAKAZAM, 0
-; 2: copy of 1 — strict gym order, cleanup w/ badge-gating
-	db $FF, 41, KADABRA, 43, HYPNO, 45, VENOMOTH, 47, MR_MIME, 49, ALAKAZAM, 0
-; 3: Rematch
+; 2: Rematch (was 3 — the free-order ghost copy was removed 2026-08-17)
 	db $FF, 63, HYPNO, 64, MR_MIME, 64, VENOMOTH, 65, ALAKAZAM, 65, GENGAR, 0
 
 ScientistData:

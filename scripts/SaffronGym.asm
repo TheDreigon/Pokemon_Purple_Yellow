@@ -225,11 +225,10 @@ SaffronGymSabrinaText:
 	ld hl, .ReceivedMarshBadgeText
 	ld de, .ReceivedMarshBadgeText
 	call SaveEndBattleTextPointers
-	farcall GetBadgesObtained
-	ld a, [wNumSetBits]
-	cp 5
-	jr nc, .Sabrina6thGym
-	jr .Sabrina5thGym
+; v0.7 (2026-08-17): gym order is strictly linear in this hack — 5 badges is
+; the only possible count here, so the free-order dispatch and its ghost
+; branch (party 2, a copy of 1) were removed. Sabrina is always the 6th.
+	jr .Sabrina6thGym
 .todone
 	jr .done
 ; v0.7 rematch cooldown: one rematch per League run. The flag is set by
@@ -251,7 +250,7 @@ SaffronGymSabrinaText:
 	call Delay3
 	ld a, OPP_SABRINA
 	ld [wCurOpponent], a
-	ld a, 3
+	ld a, 2 ; the rematch — party 2 since the ghost copy went (2026-08-17)
 	ld [wTrainerNo], a
 	ld a, $4
 	ld [wSaffronGymCurScript], a
@@ -265,16 +264,6 @@ SaffronGymSabrinaText:
 	ld hl, .PreBattleRematchRefusedText
 	call PrintText
 	jr .done
-.Sabrina5thGym
-	call Delay3
-	ld a, OPP_SABRINA
-	ld [wCurOpponent], a
-	ld a, 2
-	ld [wTrainerNo], a
-	ld a, $4
-	ld [wSaffronGymCurScript], a
-	ld [wCurMapScript], a
-	jr .afterBatttle
 .Sabrina6thGym
 	ldh a, [hSpriteIndex]
 	ld [wSpriteIndex], a

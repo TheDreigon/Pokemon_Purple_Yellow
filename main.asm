@@ -151,12 +151,21 @@ INCLUDE "engine/slots/slot_machine.asm"
 INCLUDE "engine/slots/game_corner_slots.asm"
 
 
+; v0.7: the boss bags moved out of "Battle Engine 6" when they went per-FIGHT
+; (2026-08-17) — the expanded dispatch and the rematch bags did not fit the
+; ~80 bytes that bank had left. The loader moved WITH the data (it scans it
+; in-bank); init_battle already reached it by farcall, and the tier predicate
+; it needs became a farcall too.
+SECTION "Boss Item Bags", ROMX
+
+INCLUDE "data/trainers/boss_item_bags.asm"
+
+
 SECTION "Battle Engine 6", ROMX
 
 INCLUDE "data/moves/moves.asm"
 INCLUDE "data/pokemon/cries.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
-INCLUDE "data/trainers/boss_item_bags.asm"
 ; v0.7: moved out of Battle Core. The tier lists and their helpers are cold
 ; code that was squatting in the fullest bank in the ROM, and the semi-boss
 ; tier needed to scan a second list right next to the first - which has to be
