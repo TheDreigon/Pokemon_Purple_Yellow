@@ -60,6 +60,10 @@ ROMX $7
 	"bank7"
 	"Maps 4"
 	"Hidden Objects 1"
+	"Engine Spillover"
+	"TM and HM Names"
+	"Route 5 Additions Text"
+	"Route 24 Damian Text"
 ROMX $8
 	"Sound Effect Headers 2"
 	"Music Headers 2"
@@ -101,12 +105,26 @@ ROMX $11
 ROMX $12
 	"Maps 7"
 	"Maps 8"
+	"Battle Engine 5"
+	"Cerulean Trainer Tips 2"
+	"Battle Failure Text"
+	"Battle Engine 3"
+	"Battle Engine 4"
+	"Safari West Tips Text"
+	"Bills Garden Map"
 ROMX $13
 	"Trainer Pics 1"
 	"Maps 9"
+	; v0.7 rebalance (2026-08-17): floating sections were first-fitting into
+	; the tightest banks in the ROM (audio $02 at 5 B, Pics 3 at 7 B, the
+	; engine banks) and reshuffling on every link. The big ones are pinned
+	; from here on; the placement below leaves every host >1 KB in BOTH
+	; builds.
+	"Item Descriptions"
 ROMX $14
 	"Maps 10"
 	"Hidden Objects 2"
+	"Tilesets 5"
 ROMX $15
 	"Maps 11"
 	"Battle Engine 7"
@@ -118,16 +136,25 @@ ROMX $16
 	"bank16"
 	"Maps 14"
 	"Saffron Guards"
+	"Route 12 Super Rod House Text"
+	"Boss Item Bags"
+	"NPC Sprites 7"
+	"NPC Sprites 8"
 ROMX $17
 	"Maps 15"
 	"Starter Dex"
 	"Maps 16"
 	"Hidden Objects 3"
+	"Slot Machines"
+	"Kiyo Takeover Text"
 ROMX $18
 	"Maps 17"
 	"Cinnabar Lab Fossils"
 	"Maps 18"
 	"Hidden Objects 4"
+	"Bill Rematch Text"
+	"Daycare Text"
+	"Fuchsia Fossil House Text"
 ROMX $19
 	"Tilesets 1"
 ROMX $1A
@@ -142,6 +169,7 @@ ROMX $1D
 	"Maps 20"
 	"Vending Machine"
 	"Maps 21"
+	"Battle Effects"
 	"Itemfinder 2"
 ROMX $1E
 	"bank1E"
@@ -156,6 +184,9 @@ ROMX $20
 	"Music Headers 4"
 	"Sound Effects 4"
 	"Audio Engine 4"
+	; appended AFTER the audio machinery: the header-at-top org rule (see
+	; the $42 comment) only constrains what comes first in the bank
+	"Mon Icons 2"
 	"Music 4"
 ROMX $21
 	"Pikachu Cries 1"
