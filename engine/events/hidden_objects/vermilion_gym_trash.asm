@@ -62,29 +62,9 @@ GymTrashScript:
 .done
 	jp PrintPredefTextID
 
-GymTrashCans:
-; byte 0: mask for random number
-; bytes 1-4: indices of the trash cans that can have the second lock
-; Note that the mask is simply the number of valid trash can indices that
-; follow. The remaining bytes are filled with -1 to pad the length of each entry
-; to 5 bytes.
-; This is functionally replaced with GymTrashCans3c (vermilion_gym_trash2.asm) but was never removed from source.
-
-	db 2,  1,  3, -1, -1 ; 0
-	db 3,  0,  2,  4, -1 ; 1
-	db 2,  1,  5, -1, -1 ; 2
-	db 3,  0,  4,  6, -1 ; 3
-	db 4,  1,  3,  5,  7 ; 4
-	db 3,  2,  4,  8, -1 ; 5
-	db 3,  3,  7,  9, -1 ; 6
-	db 4,  4,  6,  8, 10 ; 7
-	db 3,  5,  7, 11, -1 ; 8
-	db 3,  6, 10, 12, -1 ; 9
-	db 4,  7,  9, 11, 13 ; 10
-	db 3,  8, 10, 14, -1 ; 11
-	db 2,  9, 13, -1, -1 ; 12
-	db 3, 10, 12, 14, -1 ; 13
-	db 2, 11, 13, -1, -1 ; 14
+; v0.7 space pass (2026-08-17): the vanilla GymTrashCans table (75 B, zero
+; references) is gone — GymTrashCans3c in vermilion_gym_trash2.asm is the
+; live table, as the old comment here already admitted.
 
 VermilionGymTrashSuccessText1::
 	text_far _VermilionGymTrashSuccessText1

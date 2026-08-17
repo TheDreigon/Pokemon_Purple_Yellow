@@ -249,18 +249,5 @@ PikachuMovementData_fd230:
 	db $3c, 16 - 1, (1 << 4) | (16 - 1)
 	db $3f
 
-PikachuMovementData_fd238:
-	db $00
-	db $05, 8 - 1
-	db $39, 1 - 1
-	db $05, 8 - 1
-	db $06, 8 - 1
-	db $39, 1 - 1
-	db $06, 8 - 1
-	db $08, 8 - 1
-	db $39, 1 - 1
-	db $08, 8 - 1
-	db $07, 8 - 1
-	db $39, 1 - 1
-	db $07, 8 - 1
-	db $3f
+; v0.7 space pass (2026-08-17): PikachuMovementData_fd238 deleted — a
+; movement blob no emotion or script ever pointed at.

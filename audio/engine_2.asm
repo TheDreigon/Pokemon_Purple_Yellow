@@ -192,7 +192,8 @@ Audio2_PlaySound::
 Audio2_CryRet:
 	sound_ret
 
-INCLUDE "audio/poke_flute.asm"
+; v0.7 space pass (2026-08-17): poke_flute.asm deleted — the in-battle flute
+; music routine lost its only caller when the flute became a key item.
 
 INCLUDE "audio/sfx/pokeflute_ch5_ch6.asm"
 

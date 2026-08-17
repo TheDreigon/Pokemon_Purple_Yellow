@@ -19,34 +19,8 @@ PlayIntro:
 	call DelayFrame
 	ret
 
-InitIntroNidorinoOAM:
-	ld hl, wShadowOAM
-	ld d, 0
-.loop
-	push bc
-	ld a, [wBaseCoordY]
-	ld e, a
-.innerLoop
-	ld a, e
-	add 8
-	ld e, a
-	ld [hli], a ; Y
-	ld a, [wBaseCoordX]
-	ld [hli], a ; X
-	ld a, d
-	ld [hli], a ; tile
-	ld a, OAM_BEHIND_BG
-	ld [hli], a ; attributes
-	inc d
-	dec c
-	jr nz, .innerLoop
-	ld a, [wBaseCoordX]
-	add 8
-	ld [wBaseCoordX], a
-	pop bc
-	dec b
-	jr nz, .loop
-	ret
+; v0.7 space pass (2026-08-17): InitIntroNidorinoOAM deleted — a Red/Blue
+; intro-scene helper Yellow's intro never calls.
 
 IntroClearScreen:
 	ld hl, vBGMap1

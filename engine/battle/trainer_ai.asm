@@ -750,10 +750,8 @@ JugglerAI:
 	ret nc
 	jp AISwitchIfEnoughMons
 
-BlackbeltAI:
-	cp 13 percent - 1
-	ret nc
-	jp AIUseXAttack
+; v0.7 space pass (2026-08-17): BlackbeltAI deleted — the blackbelt row of
+; the AI dispatch was repointed to GenericAI long ago, orphaning it.
 
 ; (Hard mode boss item bag — knob #10. See ; ===== HARD MODE BOSS AI ===== marker.)
 

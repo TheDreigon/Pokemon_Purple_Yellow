@@ -290,9 +290,8 @@ INCLUDE "engine/events/hidden_objects/blues_room.asm"
 INCLUDE "engine/events/hidden_objects/pokecenter_pc.asm"
 
 
-SECTION "Version Graphics", ROMX
-
-INCLUDE "gfx/version.asm"
+; v0.7 space pass (2026-08-17): "Version Graphics" section deleted — the
+; Blue-version "Version" title text, unused by Yellow's title screen.
 
 
 SECTION "bank1C", ROMX

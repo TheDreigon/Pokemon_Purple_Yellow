@@ -758,18 +758,8 @@ GrewLevelText:
 	sound_level_up
 	text_end
 
-AnimateEXPBarAgain:
-	call IsCurrentMonBattleMon
-	ret nz
-	xor a
-	ld [wEXPBarPixelLength], a
-	coord hl, 17, 11
-	ld a, $c0
-	ld c, $08
-.loop
-	ld [hld], a
-	dec c
-	jr nz, .loop
+; v0.7 space pass (2026-08-17): AnimateEXPBarAgain deleted — a caller-less
+; entry point that cleared the bar before re-animating; nothing ever used it.
 AnimateEXPBar:
 	call IsCurrentMonBattleMon
 	ret nz
@@ -823,13 +813,11 @@ AnimateEXPBar:
 	ld c, $20
 	jp DelayFrames
 
-KeepEXPBarFull:
-	call IsCurrentMonBattleMon
-	ret nz
-	ld a, [wEXPBarKeepFullFlag]
-	set 0, a
-	ld [wEXPBarKeepFullFlag], a
-	ret
+; v0.7 space pass (2026-08-17): KeepEXPBarFull deleted — it was the ONLY
+; writer that ever set bit 0 of wEXPBarKeepFullFlag, and nothing called it,
+; so the flag can never read set. The check of that flag at the top of
+; CalcEXPBarPixelLength is now provably constant but stays: it is live
+; Battle Core code and 15 bytes are not worth touching it for.
 
 IsCurrentMonBattleMon:
 	ld a, [wPlayerMonNumber]

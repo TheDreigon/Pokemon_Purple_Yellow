@@ -78,10 +78,6 @@ MoneyText:
 JapaneseMochimonoText:
 	db "もちもの@"
 
-JapaneseMainMenuText:
-	db   "つづきから"
-	next "さいしょから@"
-
 BattleMenuText:
 	db   "FIGHT <PK><MN>"
 	next "ITEM  RUN@"

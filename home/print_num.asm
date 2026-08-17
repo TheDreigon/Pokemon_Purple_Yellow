@@ -1,13 +1,5 @@
-FarPrintText::
-; print text b:hl at (1, 14)
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, b
-	call BankswitchCommon
-	call PrintText
-	pop af
-	call BankswitchCommon
-	ret
+; v0.7 space pass (2026-08-17): FarPrintText deleted — zero callers in this
+; tree, and home bytes are the scarcest kind.
 
 PrintNumber::
 ; Print the c-digit, b-byte value at de.

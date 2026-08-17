@@ -425,7 +425,8 @@ INCLUDE "audio/sfx/cry20_4.asm"
 INCLUDE "audio/sfx/cry21_4.asm"
 INCLUDE "audio/sfx/cry22_4.asm"
 INCLUDE "audio/sfx/get_item1_4.asm"
-INCLUDE "audio/sfx/get_item1_4_2.asm"
+; v0.7 space pass (2026-08-17): get_item1_4_2.asm deleted — an orphaned
+; duplicate of the get-item jingle no SFX header ever pointed at.
 INCLUDE "audio/sfx/get_item2_4.asm"
 
 
@@ -627,7 +628,8 @@ INCLUDE "audio/music/silphco.asm"
 INCLUDE "audio/music/meeteviltrainer.asm"
 INCLUDE "audio/music/meetfemaletrainer.asm"
 INCLUDE "audio/music/meetmaletrainer.asm"
-INCLUDE "audio/music/introbattle.asm"
+; v0.7 space pass (2026-08-17): introbattle.asm deleted — the Red/Blue intro
+; battle song; Yellow's intro never plays it and no header pointed at it.
 INCLUDE "audio/music/surfing.asm"
 INCLUDE "audio/music/jigglypuffsong.asm"
 INCLUDE "audio/music/halloffame.asm"

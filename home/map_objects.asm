@@ -278,16 +278,8 @@ DecodeRLEList::
 	inc a                        ; include sentinel in counting
 	ret
 
-; sets movement byte 1 for sprite [hSpriteIndex] to $FE and byte 2 to [hSpriteMovementByte2]
-SetSpriteMovementBytesToFE::
-	push hl
-	call GetSpriteMovementByte1Pointer
-	ld [hl], $fe
-	call GetSpriteMovementByte2Pointer
-	ldh a, [hSpriteMovementByte2]
-	ld [hl], a
-	pop hl
-	ret
+; v0.7 space pass (2026-08-17): SetSpriteMovementBytesToFE deleted — zero
+; callers in this tree (its $FF twin below is the one everything uses).
 
 ; sets both movement bytes for sprite [hSpriteIndex] to $FF
 SetSpriteMovementBytesToFF::

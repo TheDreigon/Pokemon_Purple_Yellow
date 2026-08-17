@@ -21,16 +21,8 @@ PikaPicAnimThunderboltPals:
 	db 4, %11100100
 	db -1 ; end
 
-Data_fe26b:
-	pikapic_loadgfx Pic_e4000
-	pikapic_loadgfx Pic_e49d1
-	pikapic_loadgfx PikachuSprite
-	pikapic_animation PikaPicAnimBGFrames_1, $80, $0, $0
-	pikapic_animation PikaPicAnimBGFrames_2, $b2, $5, $5
-	pikapic_animation PikaPicAnimBGFrames_3, $b6, $5, $5
-	pikapic_waitbgmap
-	pikapic_cry
-	pikapic_looptofinish
+; v0.7 space pass (2026-08-17): Data_fe26b deleted — a pikapic script absent
+; from every pointer table.
 
 PikaPicAnimScript0:
 PikaPicAnimScript1:

@@ -138,14 +138,8 @@ PlayMusic::
 	ld a, b
 	jr PlaySound
 
-Func_2223::
-	xor a
-	ld [wChannelSoundIDs + CHAN5], a
-	ld [wChannelSoundIDs + CHAN6], a
-	ld [wChannelSoundIDs + CHAN7], a
-	ld [wChannelSoundIDs + CHAN8], a
-	ldh [rNR10], a
-	ret
+; v0.7 space pass (2026-08-17): Func_2223 deleted — a caller-less vanilla
+; SFX-channel reset.
 
 StopAllMusic::
 	ld a, SFX_STOP_ALL_MUSIC

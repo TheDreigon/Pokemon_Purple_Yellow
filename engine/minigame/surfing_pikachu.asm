@@ -2523,16 +2523,8 @@ SurfingPikachuMinigame_BlankPals:
 	call UpdateGBCPal_OBP1
 	ret
 
-SurfingPikachuMinigame_NormalPals:
-	ld a, $e4
-	ldh [rBGP], a
-	ldh [rOBP0], a
-	ld a, $e0
-	ldh [rOBP1], a
-	call UpdateGBCPal_BGP
-	call UpdateGBCPal_OBP0
-	call UpdateGBCPal_OBP1
-	ret
+; v0.7 space pass (2026-08-17): SurfingPikachuMinigame_NormalPals deleted —
+; caller-less palette-restore twin of the BlankPals routine above.
 
 SurfingPikachu_ClearTileMap:
 	ld hl, wTileMap
