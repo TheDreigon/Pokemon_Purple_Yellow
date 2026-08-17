@@ -690,6 +690,9 @@ ViridianGymKiyoPostBattleText:
 	jr nz, .done
 	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
 	jr z, .done
+; .WinText ends in `done`, which does not wait — without this the honor
+; speech draws over the win text before it can be read (house rule)
+	farcall NewPageButtonPressCheck
 	call ViridianGymKiyoTryHonorReward
 .done
 	jp TextScriptEnd
@@ -704,6 +707,9 @@ ViridianGymKiyoTryHonorReward:
 ; house he says he will wait, and the talk gate above keeps refusing battles.
 	ld hl, .HonorSpeechText
 	call PrintText
+; the speech ends in `done`; GivePokemon (or the no-room line) prints next
+; and would replace its last page unread without a wait here
+	farcall NewPageButtonPressCheck
 	CheckEvent EVENT_GOT_HITMONLEE
 	ld b, HITMONCHAN ; took LEE at the dojo -> CHAN is the one who stayed
 	jr nz, .give

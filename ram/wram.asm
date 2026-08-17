@@ -949,8 +949,9 @@ NEXTU
 ; `pop af`, restoring both the flags and a - so the answer travels here. The
 ; caller writes a mode byte in (STATUS_OPTIN and friends) and reads an answer
 ; back out (STATUS_CLOSED / PREV_MON / NEXT_MON / OTHER_PAGE); the full protocol
-; is documented in constants/menu_constants.asm. Callers that leave it alone
-; (battle, Bill's PC, the cable club) behave exactly as they always did.
+; is documented in constants/menu_constants.asm. The overworld party menu and
+; battle (since v0.7) both opt in; Bill's PC leaves it alone and behaves as
+; it always did.
 ; Repurposed from wUnusedCD3D: same address, same size, and it sits in menu
 ; scratch, nowhere near the saved block.
 wStatusScreenPageChange:: db

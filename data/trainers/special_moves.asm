@@ -212,6 +212,33 @@ SpecialTrainerMoves:
 	db 5, 4, TOXIC
 	db 0
 
+	db KIYO, 2 ; Viridian rematch (post-League) — 63 PRIMEAPE, 63 HITMONLEE, 64 HITMONCHAN, 64 POLIWRATH, 65 MACHAMP
+	           ; DRAFT sets (2026-08-17, found missing by the review pass — every
+	           ; other leader rematch has curated moves): Forte to bless via a
+	           ; KIYO section in Notes/Boss Movesets.md. The dojo fight (KIYO, 1)
+	           ; keeps level-up movepools on purpose — vanilla did too.
+	db 1, 1, GORE_ATTACK ; his L60 signature — KARATE_CHOP is not in this hack's Mankey line (C3 caught the draft)
+	db 1, 2, ROCK_SLIDE
+	db 1, 3, BODY_SLAM
+	db 1, 4, FOCUS_ENERGY
+	db 2, 1, HI_JUMP_KICK
+	db 2, 2, ROLLING_KICK
+	db 2, 3, BULLDOZE
+	db 2, 4, FOCUS_ENERGY
+	db 3, 1, MACH_PUNCH
+	db 3, 2, DIZZY_PUNCH
+	db 3, 3, BODY_SLAM
+	db 3, 4, BULK_UP
+	db 4, 1, SURF
+	db 4, 2, SUBMISSION
+	db 4, 3, ICE_BEAM
+	db 4, 4, BULK_UP
+	db 5, 1, SUBMISSION
+	db 5, 2, EARTHQUAKE
+	db 5, 3, ROCK_SLIDE
+	db 5, 4, BULK_UP
+	db 0
+
 	db BLAINE, 1 ; Cinnabar Gym — 49 NINETALES, 49 RAPIDASH, 49 ARCANINE, 51 RHYDON, 52 MAGMAR
 	db 1, 1, FLAMETHROWER
 	db 1, 2, DARK_PULSE

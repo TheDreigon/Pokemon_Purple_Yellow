@@ -84,7 +84,7 @@ BattleMusicByOpponent:
 	battle_music OPP_WEEBRA,   MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 ; DELIBERATELY NOT LISTED (they keep the normal trainer theme):
 ;  - JANINE — the gym-leader theme stays reserved for badge holders
-;  - JOY / JENNY — they still earn the grand victory fanfare (see
+;  - JOY / JENNY / BILL — they still earn the grand victory fanfare (see
 ;    GrandVictoryClasses); the asymmetry with Smith/Craig/Weebra is intended
 ;  - RIVAL1 / RIVAL2 — the rival's sound escalates; only RIVAL3 is special
 ;  - JESSIE_AND_JAMES — they SHOULD fight to their own looping Yellow theme,

@@ -137,10 +137,11 @@ StatusScreen:
 ; tile map did not change at all in that window.
 ;
 ; Skipping is safe for the same reason STATUS_KEEPPIC is: QUIET is only ever
-; set when a status page is ALREADY on screen (start_sub_menus.asm is the only
-; writer of the byte), and a status page can only be up because a non-quiet
-; entry loaded these. Page 2 loads no tile patterns of its own at all. The flip
-; also comes out four VBlank waits shorter.
+; set when a status page is ALREADY on screen (start_sub_menus.asm and the
+; battle driver in battle/core.asm are the only writers of the byte, and both
+; only set QUIET on a page-return), and a status page can only be up because
+; a non-quiet entry loaded these. Page 2 loads no tile patterns of its own at
+; all. The flip also comes out four VBlank waits shorter.
 	ld a, [wStatusScreenPageChange]
 	and STATUS_QUIET
 	jr nz, .quietRedraw

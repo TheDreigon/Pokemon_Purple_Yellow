@@ -329,15 +329,17 @@ SuperNerdData:
 	db 22, KOFFING, MAGNEMITE, KOFFING, 0
 	db 20, MAGNEMITE, MAGNEMITE, KOFFING, MAGNEMITE, 0
 	db 24, MAGNEMITE, VOLTORB, 0
-; Cinnabar Gym
+; Cinnabar Gym (parties 9-12 — FOUR of them; the 12th has no comment of its
+; own and hid below RAPIDASH, which is how the 2026-08-17 insertion landed in
+; the middle and briefly gave the gym's 4th super nerd a L21 MAGNEMITE)
 	db 49, VULPIX, NINETALES, 0
 	db 53, PONYTA, CHARMELEON, VULPIX, GROWLITHE, 0
 	db 52, RAPIDASH, 0
-; Route 11 — the two ex-ENGINEERs (12, 13); that class slot became KIYO, and
+	db 50, CHARMELEON, FLAREON, 0
+; Route 11 — the two ex-ENGINEERs (13, 14); that class slot became KIYO, and
 ; these two already wore the SUPER_NERD overworld sprite. Same teams.
 	db 21, MAGNEMITE, 0
 	db 18, MAGNEMITE, MACHOP, MAGNEMITE, 0
-	db 50, CHARMELEON, FLAREON, 0
 
 HikerData:
 ; Mt. Moon 1F
