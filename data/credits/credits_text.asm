@@ -435,18 +435,9 @@ CreditsText_Nayru62:
 CreditsText_Jaas:
 	db -4, "JaaShooUhh@"
 
-; Sprite Artists
-; Backsprites
-CreditsText_ZuperZach2:
-	db -3, "ZUPERZACH@"
-CreditsText_Isona2:
-	db -1, "ISONA@"
-CreditsText_Karlos2:
-	db -2, "KARLOS@"
-CreditsText_ReaderDragon2:
-	db -13, "READER DRAGON@"
-CreditsText_Alakadoof2:
-	db -3, "ALAKADOOF@"
+; v0.7 space pass (2026-08-17): five orphaned "2" credit-string variants
+; (ZuperZach/Isona/Karlos/ReaderDragon/Alakadoof backsprite-artist copies)
+; deleted — none appeared in CreditsTextPointers; the originals all do.
 
 ; Green Sprite
 CreditsText_Longlostsoul:
