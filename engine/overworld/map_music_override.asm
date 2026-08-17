@@ -34,11 +34,30 @@ LoadMapMusicOverrides::
 ; particular keeps MUSIC_FIGHTING_DOJO permanently.
 	ld a, [wCurMap]
 	cp SAFFRON_CITY
-	ret nz
+	jr z, .saffron
+	cp VIRIDIAN_GYM
+	jr z, .viridianGym
+	ret
+.saffron
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	ret z
 	ld a, MUSIC_SAFFRON_FREE
 	ld [wMapMusicSoundID], a
 	ld a, BANK(Music_SaffronFree)
+	ld [wMapMusicROMBank], a
+	ret
+
+; THE VIRIDIAN GYM changes hands after the League: KIYO holds the floor and
+; brings the dojo's theme down from Saffron with him (Forte, 2026-08-17).
+; Same shape as Saffron's case — the table keeps the pre-League gym music,
+; the override is the post-game state, and it covers every visit including
+; just walking around talking to the gym trainers.
+.viridianGym
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld a, MUSIC_FIGHTING_DOJO
+	ld [wMapMusicSoundID], a
+	ld a, BANK(Music_FightingDojo)
 	ld [wMapMusicROMBank], a
 	ret

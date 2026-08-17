@@ -348,6 +348,11 @@ RocketHideoutB4FGiovanniText:
 	text_asm
 	CheckEvent EVENT_BEAT_ROCKET_HIDEOUT_GIOVANNI
 	jp nz, .beat_giovanni
+; his sting, all three appearances (Forte 2026-08-17): the dojo theme opens
+; every Giovanni confrontation — same pattern as the Viridian Gym's
+	ld c, BANK(Music_FightingDojo)
+	ld a, MUSIC_FIGHTING_DOJO
+	call PlayMusic
 	ld hl, .ImpressedYouGotHereText
 	call PrintText
 	ld hl, wd72d
