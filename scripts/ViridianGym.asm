@@ -350,8 +350,24 @@ ViridianGymCooltrainerM1EndBattleText:
 	text_far _ViridianGymCooltrainerM1EndBattleText
 	text_end
 
+; The eight gym trainers stay after the badge, and once KIYO holds the gym
+; their after-battle lines speak of the takeover (Forte's idea, approved
+; 2026-08-17). Same wGameStage branch shape as the dojo's promoted student.
 ViridianGymCooltrainerM1AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymCooltrainerM1AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymCooltrainerM1KiyoEraText
 	text_end
 
 ViridianGymHiker1Text:
@@ -369,7 +385,20 @@ ViridianGymHiker1EndBattleText:
 	text_end
 
 ViridianGymHiker1AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymHiker1AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymHiker1KiyoEraText
 	text_end
 
 ViridianGymRocker1Text:
@@ -387,7 +416,20 @@ ViridianGymRocker1EndBattleText:
 	text_end
 
 ViridianGymRocker1AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymRocker1AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymRocker1KiyoEraText
 	text_end
 
 ViridianGymHiker2Text:
@@ -405,7 +447,20 @@ ViridianGymHiker2EndBattleText:
 	text_end
 
 ViridianGymHiker2AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymHiker2AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymHiker2KiyoEraText
 	text_end
 
 ViridianGymCooltrainerM2Text:
@@ -423,7 +478,20 @@ ViridianGymCooltrainerM2EndBattleText:
 	text_end
 
 ViridianGymCooltrainerM2AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymCooltrainerM2AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymCooltrainerM2KiyoEraText
 	text_end
 
 ViridianGymHiker3Text:
@@ -441,7 +509,20 @@ ViridianGymHiker3EndBattleText:
 	text_end
 
 ViridianGymHiker3AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymHiker3AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymHiker3KiyoEraText
 	text_end
 
 ViridianGymRocker2Text:
@@ -459,7 +540,20 @@ ViridianGymRocker2EndBattleText:
 	text_end
 
 ViridianGymRocker2AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymRocker2AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymRocker2KiyoEraText
 	text_end
 
 ViridianGymCooltrainerM3Text:
@@ -477,7 +571,20 @@ ViridianGymCooltrainerM3EndBattleText:
 	text_end
 
 ViridianGymCooltrainerM3AfterBattleText:
+	text_asm
+	ld hl, .Vanilla
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.Vanilla:
 	text_far _ViridianGymCooltrainerM3AfterBattleText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymCooltrainerM3KiyoEraText
 	text_end
 
 ViridianGymGymGuideText:

@@ -120,3 +120,58 @@ _FightingDojoNewMasterText::
 	para "We train harder"
 	line "than ever! HYAH!"
 	done
+
+; The eight gym trainers, once KIYO holds the gym. One line each, approved
+; by Forte 2026-08-17 — including the Johto rumour.
+
+_ViridianGymCooltrainerM1KiyoEraText::
+	text "KIYO drills us"
+	line "twice as hard as"
+	cont "GIOVANNI did!"
+	done
+
+_ViridianGymHiker1KiyoEraText::
+	text "The new LEADER"
+	line "fights with his"
+	cont "fists. I respect"
+	cont "that!"
+	done
+
+_ViridianGymRocker1KiyoEraText::
+	text "At night I still"
+	line "hear GIOVANNI's"
+	cont "PERSIAN."
+	done
+
+_ViridianGymHiker2KiyoEraText::
+	text "A DOJO master,"
+	line "running a GYM!"
+	cont "What a time!"
+	done
+
+_ViridianGymCooltrainerM2KiyoEraText::
+	text "GIOVANNI? They"
+	line "say he fled to"
+	cont "JOHTO, alone."
+	done
+
+_ViridianGymHiker3KiyoEraText::
+	text "KIYO says a GYM"
+	line "is a promise to"
+	cont "the town."
+	done
+
+_ViridianGymRocker2KiyoEraText::
+	text "No TEAM ROCKET"
+	line "pin on my chest"
+	cont "anymore. Good"
+	cont "riddance!"
+	done
+
+_ViridianGymCooltrainerM3KiyoEraText::
+	text "I could not beat"
+	line "the old LEADER."
+
+	para "I cannot beat"
+	line "this one either!"
+	done
