@@ -170,8 +170,10 @@ ReadTrainerFinishUp:
 ; computed from the bumped wCurEnemyLVL down at ReadTrainerFinishUp). That's
 ; intentional — boss reward scales with the harder fight.
 ;
-; Lives in bank $0E (Battle Engine 6) alongside ReadTrainer; uses
-; farcall to reach IsBossTrainerClassW in bank $0F (Battle Core).
+; Lives in bank $0E (Battle Engine 6) alongside ReadTrainer. hard_mode.asm
+; moved into this same bank on 2026-08-17, so the farcall below is now a
+; same-bank one: harmless, and kept because the W entry point still has to
+; reload wTrainerClass (see below).
 ;
 ; Input:  a = unbumped level
 ; Output: a = bumped level (or unchanged if not hard-mode boss)
@@ -201,7 +203,7 @@ HardModeBossLevelBump:
 	; but the farcall bank-switch (rst _Bankswitch) overwrites a with the
 	; destination bank id before the call lands, so the check always saw
 	; "$0F" and never matched — NO boss ever got the bump. IsBossTrainer
-	; ClassW reloads wTrainerClass inside bank $0F, dodging the clobber.
+	; ClassW reloads wTrainerClass itself, dodging the clobber.
 	farcall IsBossTrainerClassW
 	jr z, .noBump
 	pop af

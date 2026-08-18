@@ -7,11 +7,21 @@
 ; only provides the shared definition of "boss" and the two helpers
 ; everyone calls.
 ;
-; Two tiers, defined at the bottom of this file (Forte, 2026-07-26):
+; Two tiers, defined at the bottom of this file (Forte, 2026-07-26; counts and
+; membership re-confirmed by him 2026-08-18):
 ;   BOSS (17)  = all 8 gym leaders + all 4 Elite Four + all 3 rival classes
-;                (RIVAL3 = Champion) + Prof Oak + FORTE.
-;   SEMI (7)   = Nurse Joy, Officer Jenny, Janine, Jessie & James, and the
-;                three bird-chamber self-inserts SMITH / CRAIG / WEEBRA.
+;                (RIVAL3 = Champion) + Prof Oak + FORTE. Giovanni's three
+;                appearances are all boss fights.
+;   SEMI (9)   = Bill, Nurse Joy, Officer Jenny, Janine, Jessie & James, the
+;                three bird-chamber self-inserts SMITH / CRAIG / WEEBRA, and
+;                KIYO in the Saffron dojo.
+; The lists below hold 17 and 9 db entries and those numbers are the truth:
+; they read "17" and "7" for weeks after KIYO and BILL were added, so treat a
+; count in a comment here as a claim to re-check, not a fact.
+;
+; KIYO is the one class whose tier is per-FIGHT, not per-class: the dojo master
+; is a semi, the post-League Viridian leader is a full boss. He lives in the
+; SEMI list and IsBossTrainerClass promotes fight 2 — see .byFight below.
 ; The semis get the AI override, maxed DVs (Hard only) and an item bag, but
 ; never the crit bonus, the +1 level or the accuracy edge. Same split drives
 ; prize money and battle music, so the three lists can no longer disagree.
@@ -20,9 +30,11 @@
 ; rematches (same class), Giovanni's three appearances (same class), and all
 ; rival fights regardless of starter (same RIVALn class).
 ;
-; Routines live in bank $0F (Battle Core) so the core.asm callers
-; (CriticalHitTest, MoveHitTest, LoadEnemyMon) can near-call;
-; trainer_ai.asm (bank $0E) and read_trainer_party.asm use farcall.
+; Routines live in bank $0E (Battle Engine 6) since the 2026-08-17 move,
+; NOT bank $0F as this comment claimed until 2026-08-18. So read_trainer_party
+; (same bank) reaches them near, while core.asm (CriticalHitTest, LoadEnemyMon,
+; bank $0F), hit_and_penalties (MoveHitTest, bank $1D) and boss_item_bags
+; (bank $16) all use farcall. Check pokeyellow.sym, not this line.
 
 ; Returns Z=0 (boss) / Z=1 (not a boss).
 ; Input:  a = trainer class ID (1..NUM_TRAINERS)
@@ -44,12 +56,44 @@ IsBossTrainerClass::
 .loop
 	ld a, [hli]
 	cp -1
-	ret z                       ; reached terminator → Z=1, not a boss
+	jr z, .byFight              ; end of the list — one class still qualifies
+	                            ; by FIGHT rather than by class
 	cp b
 	jr nz, .loop
 	; Match. a == b (the class ID, which is non-zero), so OR'ing a
 	; with itself yields Z=0 — "this is a boss" return convention.
 	or a
+	ret
+
+; KIYO is the one trainer whose tier is not decided by his class alone (Forte,
+; 2026-08-18): the KARATE MASTER of the Saffron dojo is a SEMI-boss, and the
+; same man holding the Viridian Gym after the League is a full boss. He is
+; listed in SemiBossTrainerClasses and NOT in BossTrainerClasses — the two
+; lists may never overlap, emu_test_bosstiers enforces it and boss_bag_coverage
+; needs him in exactly one — so the Viridian fight is PROMOTED here instead.
+;
+; This is the second per-fight exception in the ROM. The other is RIVAL1's
+; first fight skipping the +1 level (read_trainer_party.asm). That one is
+; knob-local; this one has to live in the tier itself, because a tier moves
+; five knobs at once (crit, accuracy, +1 level, DVs, item bag).
+;
+; Safe because wTrainerNo is written before the battle starts — by the map
+; script, or by InitBattleEnemyParameters via home/trainers.asm — and nothing
+; writes it again until the fight is over, so it is valid at every caller.
+; Non-boss classes never reach here: the terminator check above only falls
+; through after the whole list missed, and a wild battle zeroes wTrainerClass,
+; which matches no class.
+.byFight
+	ld a, b
+	cp KIYO
+	jr nz, .notBoss
+	ld a, [wTrainerNo]
+	cp 2                        ; 2 = the Viridian Gym; 1 = the Saffron dojo
+	jr nz, .notBoss
+	or a                        ; a = 2, non-zero → Z=0, "this is a boss"
+	ret
+.notBoss
+	xor a                       ; Z=1
 	ret
 
 ; Returns Z=0 if (Hard mode) AND (this is a trainer battle) AND
@@ -157,10 +201,9 @@ BossTrainerClasses::
 	db ERIKA
 	db FORTE
 	db GIOVANNI
-	db KIYO                     ; the 8th gym's post-League leader — full
-	                            ; badge-holder tier, and his dojo fight in
-	                            ; Saffron is a boss fight for the same reason
-	                            ; Brock's first fight is one
+	; KIYO is deliberately NOT here — he is in SemiBossTrainerClasses, and his
+	; Viridian fight (trainer_no 2) is promoted back to boss by .byFight above.
+	; Listing him in both lists is forbidden; see the comment on .byFight.
 	db KOGA
 	db LANCE
 	db LORELEI
@@ -197,6 +240,10 @@ SemiBossTrainerClasses::
 	db JENNY
 	db JESSIE_AND_JAMES         ; Team Rocket duo (4 fights, mid-game)
 	db JOY
+	db KIYO                     ; the KARATE MASTER of the Saffron dojo. His
+	                            ; Viridian Gym fight is a FULL boss and is
+	                            ; promoted per-fight in .byFight above; only
+	                            ; the dojo fight is really a semi
 	db SMITH
 	db WEEBRA
 	db -1                       ; terminator
