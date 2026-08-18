@@ -151,8 +151,9 @@ _FightingDojoNewMasterAfterText::
 ; The other three students' one-shot rebattles — each line echoes the
 ; student's own vanilla voice (the judge, the boulders, the trespassing).
 _FightingDojoBlackbelt2RebattleText::
-	text "I hear you're the"
-	line "CHAMPION! Show me!"
+	text "I hear you're"
+	line "the CHAMPION!"
+	cont "Show me!"
 
 	para "My POLIWRATH swims"
 	line "through punches"
