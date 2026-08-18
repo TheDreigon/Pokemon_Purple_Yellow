@@ -1,3 +1,17 @@
+; v0.7 (Forte, 2026-08-18): the dojo losing SAFFRON's gym to the psychics is
+; canon, but vanilla only ever gestures at it - the third student's line,
+; "The only thing that frightens us is psychic power!", is the whole hint and
+; it never says the word GYM. The master now says it outright, the first and
+; only time the player meets him: once he is beaten he switches to the
+; "stay and train" text below, so this fires exactly once per save.
+;
+; It also plants the post-League turn. "A GYM is not a building, it is
+; whoever can hold it" is the man who later takes VIRIDIAN explaining
+; himself in advance.
+;
+; Widths: this is a plain DisplayTextID box, NOT an end-battle text, so
+; there is no "<CLASS>: " prefix eating the first row - text/line/para get
+; all 18 tiles and cont gets 17.
 _FightingDojoKarateMasterText::
 	text "Grunt!"
 
@@ -5,9 +19,19 @@ _FightingDojoKarateMasterText::
 	line "MASTER! I am the"
 	cont "LEADER here!"
 
-	para "You wish to"
-	line "challenge us?"
-	cont "Expect no mercy!"
+	para "Here. Not out"
+	line "there. SAFFRON"
+	cont "had one GYM once,"
+	cont "and it was this"
+	cont "floor."
+
+	para "A GYM is not a"
+	line "building. It is"
+	cont "whoever can hold"
+	cont "it."
+
+	para "Show me you can."
+	line "Expect no mercy!"
 
 	para "Fwaaa!"
 	done
