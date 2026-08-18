@@ -52,12 +52,15 @@ KiyoRematchBag::    db FULL_RESTORE, 2, X_ATTACK,   2, DIRE_HIT,   1, FULL_HEAL,
 LoreleiBossBag::    db FULL_RESTORE, 2, X_DEFEND,   2, FULL_HEAL,  2, -1, -1
 BrunoBossBag::      db FULL_RESTORE, 2, X_ATTACK,   2, FULL_HEAL,  2, -1, -1
 AgathaBossBag::     db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
-LanceBossBag::      db FULL_RESTORE, 2, X_SPECIAL,  2, X_SPEED,    1, FULL_HEAL, 2
+; Lance sits a tier above his three colleagues (2026-08-18 sheet correction):
+; he had been left on the 2/2/2 Elite Four template above
+LanceBossBag::      db FULL_RESTORE, 3, X_SPECIAL,  2, X_SPEED,    2, FULL_HEAL, 3
 
 ; ---- Rivals (Rival1 has no bag -- too early-game) ----
 ; Rival2 lost his X Attacks and upgraded his potion (sheet correction)
 Rival2BossBag::     db HYPER_POTION, 2, FULL_HEAL,  2, -1, -1, -1, -1
-Rival3BossBag::     db FULL_RESTORE, 3, X_ATTACK,   2, X_SPEED,    1, FULL_HEAL, 3
+; Rival3's X Speed went 1 -> 2 with Lance's bump (2026-08-18 sheet correction)
+Rival3BossBag::     db FULL_RESTORE, 3, X_ATTACK,   2, X_SPEED,    2, FULL_HEAL, 3
 
 ; ---- Prof Oak (post-game) ----
 ProfOakBossBag::    db FULL_RESTORE, 3, GUARD_SPEC, 1, DIRE_HIT,   1, FULL_HEAL, 3
