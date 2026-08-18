@@ -93,4 +93,10 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_SAGEMON                ; $2C — G1 verde-seco
 	const PAL_VIOLETMON              ; $2D — D2 violeta-sujo
 	const PAL_LAVENDERMON            ; $2E — P2 lavanda
+	const PAL_STONEMON               ; $2F — MACHOP: pedra clara a puxar ao verde-marinho. APPENDADA,
+	                                 ;       nunca inserida.
+	const PAL_STEELMON               ; $30 — MACHOKE: cinza-aco frio, o meio da linha. APPENDADA,
+	                                 ;       nunca inserida.
+	const PAL_IRONMON                ; $31 — MACHAMP: aco escuro, o azul da artwork. APPENDADA,
+	                                 ;       nunca inserida.
 DEF NUM_SGB_PALS EQU const_value
