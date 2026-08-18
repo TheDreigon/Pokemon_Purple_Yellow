@@ -21,7 +21,13 @@ TrainerPicAndMoneyPointers::
 	pic_money HikerPic,        3500
 	pic_money BikerPic,        2000
 	pic_money BurglarPic,      9000
-	pic_money BlackbeltPic,    9900 ; KIYO (was ENGINEER) — badge-holder rate, 99/lvl; reuses the blackbelt portrait until he gets his own. Class $0C sits below PROF_OAK, so the pic-bank ladder already sends it to "Trainer Pics 1", where BlackbeltPic lives.
+	pic_money BlackbeltPic,    9900 ; KIYO — 99/lvl. He is a SEMI-boss in the Saffron
+	                                ; dojo and a full BOSS in the Viridian Gym, but prize
+	                                ; money is keyed to the CLASS, so one number covers
+	                                ; both fights. Forte chose the gym leader's 99 over
+	                                ; the flat semi 79 (2026-08-18). Do NOT "fix" this to
+	                                ; 7900 to match the other semis.
+	                                ; (was ENGINEER; reuses the blackbelt portrait until he gets his own. Class $0C sits below PROF_OAK, so the pic-bank ladder already sends it to "Trainer Pics 1", where BlackbeltPic lives.
 	pic_money FisherPic,       3500
 	pic_money SwimmerPic,       500
 	pic_money CueBallPic,      2500
@@ -35,8 +41,8 @@ TrainerPicAndMoneyPointers::
 	pic_money BlackbeltPic,    2500
 	pic_money Rival1Pic,       3500
 	pic_money ProfOakPic,      9900
-	pic_money PKMNTrainerMPic, 6600 ; SMITH — semi-boss self-insert, 66/lvl
-	pic_money PKMNTrainerMPic, 6600 ; CRAIG — semi-boss self-insert, 66/lvl
+	pic_money PKMNTrainerMPic, 7900 ; SMITH — semi-boss self-insert, 79/lvl
+	pic_money PKMNTrainerMPic, 7900 ; CRAIG — semi-boss self-insert, 79/lvl
 	pic_money ScientistPic,    5000
 	pic_money GiovanniPic,     9900
 	pic_money RocketPic,       3000
@@ -57,11 +63,11 @@ TrainerPicAndMoneyPointers::
 	pic_money ChannelerPic,    3000
 	pic_money AgathaPic,       9900
 	pic_money LancePic,        9900
-	pic_money PKMNTrainerFPic, 6600 ; WEEBRA — semi-boss self-insert, 66/lvl
-	pic_money JaninePic, 	   6600 ; 66/lvl — secondary post-Koga leader, a half-tier like Jessie & James (was 3500=35/lvl, a Cooltrainer-tier oversight)
-	pic_money JoyPic, 	   	   6600 ; JOY — semi-boss (repeatable), 66/lvl
-	pic_money JennyPic, 	   6600 ; JENNY — semi-boss (repeatable), 66/lvl
-	pic_money JessieJamesPic,  6600 ; Jessie & James — 66/lvl (comedic recurring duo, above a regular Rocket; pic in gfx/trainers/jessiejames.pic)
+	pic_money PKMNTrainerFPic, 7900 ; WEEBRA — semi-boss self-insert, 79/lvl
+	pic_money JaninePic, 	   7900 ; JANINE — 79/lvl, the flat semi-boss rate (was 6600; and 3500 before that, a Cooltrainer-tier oversight)
+	pic_money JoyPic, 	   	   7900 ; JOY — semi-boss (repeatable), 79/lvl
+	pic_money JennyPic, 	   7900 ; JENNY — semi-boss (repeatable), 79/lvl
+	pic_money JessieJamesPic,  7900 ; Jessie & James — 79/lvl, the flat semi-boss rate (comedic recurring duo; pic in gfx/trainers/jessiejames.pic)
 	pic_money DreigonPic,      9900 ; Forte / DREIGON — his own portrait, grown out of the player's own front pic (gfx/trainers/dreigon.png)
-	pic_money BillPic, 	   7600 ; BILL — semi-boss (repeatable), 76/lvl
+	pic_money BillPic, 	   7900 ; BILL — semi-boss (repeatable), 79/lvl (was 76: the semis are flat now)
 	assert_table_length NUM_TRAINERS
