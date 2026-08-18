@@ -21,13 +21,13 @@ TrainerPicAndMoneyPointers::
 	pic_money HikerPic,        3500
 	pic_money BikerPic,        2000
 	pic_money BurglarPic,      9000
-	pic_money BlackbeltPic,    9900 ; KIYO — 99/lvl. He is a SEMI-boss in the Saffron
-	                                ; dojo and a full BOSS in the Viridian Gym, but prize
-	                                ; money is keyed to the CLASS, so one number covers
-	                                ; both fights. Forte chose the gym leader's 99 over
-	                                ; the flat semi 79 (2026-08-18). Do NOT "fix" this to
-	                                ; 7900 to match the other semis.
-	                                ; (was ENGINEER; reuses the blackbelt portrait until he gets his own. Class $0C sits below PROF_OAK, so the pic-bank ladder already sends it to "Trainer Pics 1", where BlackbeltPic lives.
+	pic_money BlackbeltPic,    7900 ; KIYO — 79/lvl, the flat semi-boss rate. This
+	                                ; is his SAFFRON DOJO fight. His VIRIDIAN GYM
+	                                ; fight pays a leader's 99 instead, promoted at
+	                                ; run time by ApplyPerFightPrizeMoney below —
+	                                ; this table is indexed by CLASS and he is the
+	                                ; one trainer whose purse is per FIGHT.
+	                                ; (was ENGINEER; slot recycled)
 	pic_money FisherPic,       3500
 	pic_money SwimmerPic,       500
 	pic_money CueBallPic,      2500
@@ -71,3 +71,29 @@ TrainerPicAndMoneyPointers::
 	pic_money DreigonPic,      9900 ; Forte / DREIGON — his own portrait, grown out of the player's own front pic (gfx/trainers/dreigon.png)
 	pic_money BillPic, 	   7900 ; BILL — semi-boss (repeatable), 79/lvl (was 76: the semis are flat now)
 	assert_table_length NUM_TRAINERS
+
+; KIYO's purse is decided per FIGHT, not per class (Forte, 2026-08-18).
+;
+; TrainerPicAndMoneyPointers is indexed by trainer class, and KIYO is two
+; different opponents wearing one class: the KARATE MASTER of the Saffron dojo,
+; who is a semi-boss and pays the flat 79, and the post-League VIRIDIAN GYM
+; leader, who is a full boss and pays a leader's 99. The table above holds the
+; semi rate, and this promotes the gym fight - the same shape as the tier
+; itself, where hard_mode.asm lists him as a semi and promotes fight 2.
+;
+; Called from GetTrainerInformation (home) with this bank already mapped, right
+; after the two money bytes are copied, so it can just overwrite the low one.
+; Only the SECOND byte reaches the player: GetTrainerInformation copies 2 of the
+; 3 bcd3 bytes, so $99 here is 99 per level.
+;
+; Trashes: a
+ApplyPerFightPrizeMoney::
+	ld a, [wTrainerClass]
+	cp KIYO
+	ret nz
+	ld a, [wTrainerNo]
+	cp 2                        ; 2 = the Viridian Gym; 1 = the Saffron dojo
+	ret nz
+	ld a, $99                   ; BCD 99 per level, the gym leader rate
+	ld [wTrainerBaseMoney + 1], a
+	ret

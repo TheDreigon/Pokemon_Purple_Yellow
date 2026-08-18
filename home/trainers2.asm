@@ -22,6 +22,11 @@ GetTrainerInformation::
 	inc de
 	ld a, [hli]
 	ld [de], a
+	; KIYO is paid per FIGHT, not per class. The table above is indexed by
+	; class, so his Viridian Gym purse is promoted here instead - and it has
+	; to happen while THIS bank is still mapped, hence the call before the
+	; switch back. Three bytes of home; the logic lives with the table.
+	call ApplyPerFightPrizeMoney
 	jp BankswitchBack
 .linkBattle
 	ld hl, wTrainerPicPointer
