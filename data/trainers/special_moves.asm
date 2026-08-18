@@ -5,11 +5,11 @@
 
 ; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
 ; Every boss mon has all 4 slots specified (hand-picked full sets).
-; Non-boss entries (Smith/Craig/Weebra) are preserved from the previous
-; version. The rival's moves come from data/trainers/rival_pools.asm via
-; GenerateRivalParty (Phase B); the RIVAL2,9 / RIVAL3,4 entries below are
-; DEAD leftovers pointing at the dead Rival2/3Data placeholders — remove
-; them in the post-playtest cleanup.
+; Preserved verbatim below the generated bosses: SMITH, CRAIG, WEEBRA,
+; FORTE (the DREIGON superboss, synced by hand from the doc's FINAL
+; section) and SCIENTIST 9 (the Silph prototype-PORYGON ace). The rival's
+; moves come from data/trainers/rival_pools.asm via GenerateRivalParty
+; (Phase B); no RIVALn entries live in this table.
 
 SpecialTrainerMoves:
 	db BROCK, 1 ; Pewter Gym — 12 GEODUDE, 14 ONIX

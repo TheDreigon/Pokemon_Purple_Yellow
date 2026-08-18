@@ -128,11 +128,15 @@ _FightingDojoNewMasterChallengeText::
 	cont "sharp!"
 	done
 
+; End-battle texts render after an engine-prepended "BLACKBELT: " (11 tiles)
+; on the SAME row — the first line budget here is 7, which is why vanilla's
+; read "I give / up!". Caught by the 2026-08-18 adversarial pass; the width
+; auditor does not model the prefix (flagged as an instrument gap).
 _FightingDojoNewMasterDefeatText::
-	text "Hwa! Arrgh!"
-	line "Beaten, just like"
-	cont "the MASTER"
-	cont "before me!"
+	text "Hwa!"
+	line "Arrgh! Beaten,"
+	cont "just like the"
+	cont "MASTER before me!"
 	prompt
 
 _FightingDojoNewMasterAfterText::
@@ -187,9 +191,9 @@ _FightingDojoBlackbelt3RebattleText::
 	done
 
 _FightingDojoBlackbelt3RebattleEndText::
-	text "Yow! Four arms,"
-	line "and not one"
-	cont "landed!"
+	text "Yow!"
+	line "Four arms, and"
+	cont "not one landed!"
 	prompt
 
 _FightingDojoBlackbelt3RebattleAfterText::
@@ -212,8 +216,9 @@ _FightingDojoBlackbelt4RebattleText::
 	done
 
 _FightingDojoBlackbelt4RebattleEndText::
-	text "Oof! Evolved, and"
-	line "I still give up!"
+	text "Oof!"
+	line "Evolved, and I"
+	cont "still give up!"
 	prompt
 
 _FightingDojoBlackbelt4RebattleAfterText::
