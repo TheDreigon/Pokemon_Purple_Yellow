@@ -28,8 +28,11 @@ ENDM
 	trainer_const KIYO ; $0C — was ENGINEER (2 Route 11 trainers, reassigned to
 	                   ; SUPER_NERD parties 12-13, whose overworld sprite they
 	                   ; already wore). Now the Fighting Dojo master, and the
-	                   ; Viridian Gym's post-League leader. Full boss class,
-	                   ; badge-holder tier. Same recycling precedent as
+	                   ; Viridian Gym's post-League leader. His tier is per
+	                   ; FIGHT since 2026-08-18: the dojo is a SEMI-boss and the
+	                   ; Viridian Gym is a full boss, so the class sits in
+	                   ; SemiBossTrainerClasses and hard_mode.asm promotes fight
+	                   ; 2. Same recycling precedent as
 	                   ; CHIEF -> SMITH.       ; $0C
 	trainer_const FISHER         ; $0D
 	trainer_const SWIMMER        ; $0E

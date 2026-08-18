@@ -1,9 +1,14 @@
 ; v0.7 (Forte, 2026-08-18): the dojo losing SAFFRON's gym to the psychics is
-; canon, but vanilla only ever gestures at it - the third student's line,
-; "The only thing that frightens us is psychic power!", is the whole hint and
-; it never says the word GYM. The master now says it outright, the first and
-; only time the player meets him: once he is beaten he switches to the
-; "stay and train" text below, so this fires exactly once per save.
+; canon and the game already tells it - but only from the winners' side. The
+; Saffron Gym psychic says "There used to be 2 #MON GYMs in SAFFRON. The
+; FIGHTING DOJO next door lost its GYM status when we went and creamed them!"
+; (text/SaffronGym.asm), while the dojo itself never mentions it - its own
+; students only manage "the only thing that frightens us is psychic power".
+; The master now answers, in the one text every player who fights him reads.
+;
+; The COUNT here is load-bearing: SAFFRON had TWO gyms, not one, and this line
+; must keep agreeing with the psychic across town. An earlier draft said "one
+; GYM once" and contradicted him.
 ;
 ; It also plants the post-League turn. "A GYM is not a building, it is
 ; whoever can hold it" is the man who later takes VIRIDIAN explaining
@@ -19,11 +24,10 @@ _FightingDojoKarateMasterText::
 	line "MASTER! I am the"
 	cont "LEADER here!"
 
-	para "Here. Not out"
-	line "there. SAFFRON"
-	cont "had one GYM once,"
-	cont "and it was this"
-	cont "floor."
+	para "SAFFRON had two"
+	line "GYMs. They beat"
+	cont "us, so now it"
+	cont "has one."
 
 	para "A GYM is not a"
 	line "building. It is"

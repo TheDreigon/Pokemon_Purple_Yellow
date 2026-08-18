@@ -23,21 +23,30 @@
 ; is a semi, the post-League Viridian leader is a full boss. He lives in the
 ; SEMI list and IsBossTrainerClass promotes fight 2 — see .byFight below.
 ; The semis get the AI override, maxed DVs (Hard only) and an item bag, but
-; never the crit bonus, the +1 level or the accuracy edge. Same split drives
-; prize money and battle music, so the three lists can no longer disagree.
+; never the crit bonus, the +1 level or the accuracy edge.
+;
+; The split drives PRIZE MONEY but NOT battle music or the victory fanfare:
+; those are per-OPP lists (play_battle_music.asm, GrandVictoryClasses) keyed to
+; the CLASS, and they contain semis on purpose. KIYO is the clearest case - the
+; dojo fight is a semi that still gets the gym-leader theme and the grand
+; fanfare. This comment claimed all three followed the tiers until 2026-08-18.
 ;
 ; Class identity automatically covers gym leader rematches (same class), E4
 ; rematches (same class), Giovanni's three appearances (same class), and all
 ; rival fights regardless of starter (same RIVALn class).
 ;
 ; Routines live in bank $0E (Battle Engine 6) since the 2026-08-17 move,
-; NOT bank $0F as this comment claimed until 2026-08-18. So read_trainer_party
-; (same bank) reaches them near, while core.asm (CriticalHitTest, LoadEnemyMon,
-; bank $0F), hit_and_penalties (MoveHitTest, bank $1D) and boss_item_bags
-; (bank $16) all use farcall. Check pokeyellow.sym, not this line.
+; NOT bank $0F as this comment claimed until 2026-08-18. read_trainer_party is
+; in that same bank and still farcalls in - harmless, and kept because the W
+; entry point has to reload wTrainerClass anyway. core.asm (CriticalHitTest,
+; LoadEnemyMon, bank $0F), hit_and_penalties (MoveHitTest, bank $1D) and
+; boss_item_bags (bank $16) farcall from other banks. Check pokeyellow.sym,
+; not this line.
 
 ; Returns Z=0 (boss) / Z=1 (not a boss).
 ; Input:  a = trainer class ID (1..NUM_TRAINERS)
+;         wTrainerNo - read ONLY for KIYO, whose tier is per-fight. Every
+;         other class answers from the class alone. See .byFight below.
 ; Output: Z flag (Z=1 means NOT boss; Z=0 means boss)
 ; Trashes: a, b, hl
 ;
@@ -45,7 +54,7 @@
 ; of taking it in a. MUST be used when reaching this via farcall: the
 ; rst _Bankswitch path overwrites a with the destination bank id before
 ; the call lands, so a routine that expects its arg in a would see the
-; bank ($0F) and never match. Routines that read inputs from wram
+; bank ($0E) and never match. Routines that read inputs from wram
 ; (IsHardModeBossBattle) are immune; plain IsBossTrainerClass is not.
 IsBossTrainerClassW::
 	ld a, [wTrainerClass]
@@ -80,9 +89,14 @@ IsBossTrainerClass::
 ; Safe because wTrainerNo is written before the battle starts — by the map
 ; script, or by InitBattleEnemyParameters via home/trainers.asm — and nothing
 ; writes it again until the fight is over, so it is valid at every caller.
-; Non-boss classes never reach here: the terminator check above only falls
-; through after the whole list missed, and a wild battle zeroes wTrainerClass,
-; which matches no class.
+;
+;
+; EVERY class the boss list missed arrives here - that is what the terminator
+; jump means, and an earlier version of this comment claimed the opposite. They
+; are thrown out two instructions down by `cp KIYO`, which also rejects the 0
+; that init_battle writes to wTrainerClass for a wild battle. A class that IS
+; in the list returned above and never gets here. So only KIYO ever reaches
+; the wTrainerNo read.
 .byFight
 	ld a, b
 	cp KIYO

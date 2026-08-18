@@ -85,8 +85,11 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                               ;       the whole game.
 	const PAL_OLIVEMON             ; $29 — o "cinzento" do vanilla, que nunca
 	                               ;       foi cinzento: 20,23,10 e' azeitona.
-	                               ;       Trazido de volta para as linhas
-	                               ;       MACHOP/GEODUDE + CUBONE + ONIX.
+	                               ;       Trazido de volta para a linha GEODUDE
+	                               ;       + CUBONE + ONIX + AERODACTYL. A linha
+	                               ;       do MACHOP saiu daqui a 2026-08-18
+	                               ;       (STONE/STEEL/IRON), por isso o azeitona
+	                               ;       quer dizer ROCHA e mais nada.
 	const PAL_AZUREMON             ; $2A — azul intermedio, o ponto medio exacto
 	                               ;       entre CYANMON e BLUEMON
 	const PAL_ROSEMON                ; $2B — R1 rosa claro

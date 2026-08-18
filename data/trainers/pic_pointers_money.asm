@@ -83,8 +83,13 @@ TrainerPicAndMoneyPointers::
 ;
 ; Called from GetTrainerInformation (home) with this bank already mapped, right
 ; after the two money bytes are copied, so it can just overwrite the low one.
-; Only the SECOND byte reaches the player: GetTrainerInformation copies 2 of the
-; 3 bcd3 bytes, so $99 here is 99 per level.
+;
+; Why one byte is enough, stated carefully: GetTrainerInformation copies the
+; top 2 of the 3 bcd3 bytes, and BOTH are live - read_trainer_party hands
+; wTrainerBaseMoney+1 to AddBCD with c=2, which walks DOWNWARD over both. The
+; high byte is $00 only because no row in the table exceeds 9900, which
+; invariants_audit hard-fails. So $99 here is 99 per level, and the high byte
+; inherited from the row is already the $00 this needs.
 ;
 ; Trashes: a
 ApplyPerFightPrizeMoney::
