@@ -441,15 +441,11 @@ LtSurgeData:
 ; 2: Rematch
 	db $FF, 63, POLIWRATH, 64, ELECTRODE, 64, MAGNETON, 65, ELECTABUZZ, 65, RAICHU, 0
 
-KiyoData: ; was EngineerData — its two Route 11 trainers moved to SUPER_NERD 12-13
-; 1: the Fighting Dojo (Saffron). His original prize pair, one of which the
-; player takes home. Same two mons the dojo always awarded, now with their
-; master's name over the fight.
-	db 40, HITMONLEE, HITMONCHAN, 0
-; 2: the Viridian Gym, post-League — the 8th rematch of the circuit, same
-; L63-65 band as the other seven leaders. Deliberately NOT Bruno's roster:
-; Kiyo fights with fighters. His two prize students stay on the team even
-; after one leaves with the player — that one is the honor reward.
+KiyoData:
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Fighting Dojo (Saffron)
+	db $FF, 40, HITMONLEE, 40, HITMONCHAN, 40, MACHOKE, 0
+; 2: Viridian Gym rematch (post-League)
 	db $FF, 63, PRIMEAPE, 63, HITMONLEE, 64, HITMONCHAN, 64, POLIWRATH, 65, MACHAMP, 0
 
 RockerData:
@@ -594,7 +590,7 @@ ErikaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Celadon Gym (4th)
 	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
-; 2: Rematch (was 4 — the two free-order ghost copies were removed 2026-08-17)
+; 2: Rematch
 	db $FF, 63, EXEGGUTOR, 64, TANGELA, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
 
 GiovanniData:
@@ -638,7 +634,7 @@ KogaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Fuchsia Gym (5th)
 	db $FF, 41, VENOMOTH, 42, WEEZING, 43, MUK, 44, GOLBAT, 45, ARBOK, 0
-; 2: Rematch (was 3 — the free-order ghost copy was removed 2026-08-17)
+; 2: Rematch
 	db $FF, 63, TENTACRUEL, 64, MUK, 64, WEEZING, 65, GOLBAT, 65, ARBOK, 0
 
 JanineData:
@@ -708,18 +704,28 @@ CueBallData:
 	db 42, CLOYSTER, RHYDON, TENTACRUEL, 0
 
 BlackbeltData:
-; Fighting Dojo
-	db 40, HITMONLEE, HITMONCHAN, 0
-	db 31, MANKEY, MANKEY, PRIMEAPE, 0
-	db 31, MACHOP, MACHOP, MACHOKE, 0
-	db 33, FARFETCHD, PINSIR, POLIWHIRL, 0
-	db 35, MACHOKE, GRAVELER, 0
+; Fighting Dojo — Forte's 2026-08-18 redesign: four two-mon schools on a
+; 32->38 ladder under KIYO's L40 trio. Party 1 is DEAD data (the master
+; fights as KIYO 1 since a6dcf153), kept in place because party ids are
+; positional — never renumber.
+	db 40, HITMONLEE, HITMONCHAN, 0     ; 1: dead, position-load-bearing
+	db 38, GRAVELER, MACHOKE, 0         ; 2: (3,4) the senior — new master post-League
+	db 34, POLIWHIRL, PRIMEAPE, 0       ; 3: (3,6)
+	db 36, PINSIR, MACHOKE, 0           ; 4: (6,5)
+	db 32, MACHOP, MANKEY, 0            ; 5: (6,7) the junior
 ; Viridian Gym
 	db 52, POLIWRATH, GRAVELER, 0
 	db 52, MACHAMP, HITMONLEE, 0
 	db 52, PRIMEAPE, HITMONCHAN, 0
 ; Victory Road 2F - Brice
 	db 52, POLIWRATH, DODRIO, MACHAMP, PINSIR, 0
+; Post-League one-shot dojo rebattles (talk-scripted, scripts/FightingDojo.asm):
+; each student's own team, evolved — party N returns as party N+8, on a
+; 52->58 ladder under KIYO's Viridian 63-65.
+	db 58, FARFETCHD, GOLEM, MACHAMP, 0 ; 10: (3,4) the promoted master
+	db 54, POLIWRATH, PRIMEAPE, 0       ; 11: (3,6)
+	db 56, PINSIR, MACHAMP, 0           ; 12: (6,5)
+	db 52, MACHOKE, PRIMEAPE, 0         ; 13: (6,7)
 
 PsychicData:
 ; Saffron Gym
@@ -732,7 +738,7 @@ SabrinaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Saffron Gym (6th)
 	db $FF, 41, KADABRA, 43, HYPNO, 45, VENOMOTH, 47, MR_MIME, 49, ALAKAZAM, 0
-; 2: Rematch (was 3 — the free-order ghost copy was removed 2026-08-17)
+; 2: Rematch
 	db $FF, 63, HYPNO, 64, MR_MIME, 64, VENOMOTH, 65, ALAKAZAM, 65, GENGAR, 0
 
 ScientistData:

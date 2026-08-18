@@ -243,7 +243,14 @@
 ; and hands it over on the next talk with room.
 	const EVENT_KIYO_REWARD_EARNED
 	const EVENT_GOT_KIYO_HITMON
-	const_skip 6
+; v0.7 2026-08-18: the four one-shot student rebattles (Forte's design).
+; Durable on purpose — spent on a win, never re-armed by the Hall of Fame
+; wipe. Index = trainer/object order, 0 being the promoted master at (3,4).
+	const EVENT_DOJO_REBATTLE_SPENT_0
+	const EVENT_DOJO_REBATTLE_SPENT_1
+	const EVENT_DOJO_REBATTLE_SPENT_2
+	const EVENT_DOJO_REBATTLE_SPENT_3
+	const_skip 2
 	const EVENT_GOT_SABRINA_TM
 	const EVENT_BEAT_SABRINA
 	const EVENT_BEAT_SAFFRON_GYM_TRAINER_0

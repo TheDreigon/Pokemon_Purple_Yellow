@@ -7,7 +7,9 @@
 ; Every boss mon has all 4 slots specified (hand-picked full sets).
 ; Non-boss entries (Smith/Craig/Weebra) are preserved from the previous
 ; version. The rival's moves come from data/trainers/rival_pools.asm via
-; GenerateRivalParty (Phase B), so no RIVALn entries live in this table.
+; GenerateRivalParty (Phase B); the RIVAL2,9 / RIVAL3,4 entries below are
+; DEAD leftovers pointing at the dead Rival2/3Data placeholders — remove
+; them in the post-playtest cleanup.
 
 SpecialTrainerMoves:
 	db BROCK, 1 ; Pewter Gym — 12 GEODUDE, 14 ONIX
@@ -143,7 +145,7 @@ SpecialTrainerMoves:
 	db 4, 4, BULLDOZE
 	db 0
 
-	db ERIKA, 2 ; Rematch (was 4 — the two ghost copies of party 1 went 2026-08-17) — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
+	db ERIKA, 2 ; Rematch — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, PETAL_DANCE
 	db 1, 3, HYPNOSIS
@@ -189,7 +191,7 @@ SpecialTrainerMoves:
 	db 5, 4, TOXIC
 	db 0
 
-	db KOGA, 2 ; Rematch (was 3 — the ghost copy of party 1 went 2026-08-17) — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
+	db KOGA, 2 ; Rematch — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
 	db 1, 1, SURF
 	db 1, 2, SLUDGE_WAVE
 	db 1, 3, ICE_BEAM
@@ -210,33 +212,6 @@ SpecialTrainerMoves:
 	db 5, 2, IRON_TAIL
 	db 5, 3, FAINT_ATTACK
 	db 5, 4, TOXIC
-	db 0
-
-	db KIYO, 2 ; Viridian rematch (post-League) — 63 PRIMEAPE, 63 HITMONLEE, 64 HITMONCHAN, 64 POLIWRATH, 65 MACHAMP
-	           ; DRAFT sets (2026-08-17, found missing by the review pass — every
-	           ; other leader rematch has curated moves): Forte to bless via a
-	           ; KIYO section in Notes/Boss Movesets.md. The dojo fight (KIYO, 1)
-	           ; keeps level-up movepools on purpose — vanilla did too.
-	db 1, 1, GORE_ATTACK ; his L60 signature — KARATE_CHOP is not in this hack's Mankey line (C3 caught the draft)
-	db 1, 2, ROCK_SLIDE
-	db 1, 3, BODY_SLAM
-	db 1, 4, FOCUS_ENERGY
-	db 2, 1, HI_JUMP_KICK
-	db 2, 2, ROLLING_KICK
-	db 2, 3, BULLDOZE
-	db 2, 4, FOCUS_ENERGY
-	db 3, 1, MACH_PUNCH
-	db 3, 2, DIZZY_PUNCH
-	db 3, 3, BODY_SLAM
-	db 3, 4, BULK_UP
-	db 4, 1, SURF
-	db 4, 2, SUBMISSION
-	db 4, 3, ICE_BEAM
-	db 4, 4, BULK_UP
-	db 5, 1, SUBMISSION
-	db 5, 2, EARTHQUAKE
-	db 5, 3, ROCK_SLIDE
-	db 5, 4, BULK_UP
 	db 0
 
 	db BLAINE, 1 ; Cinnabar Gym — 49 NINETALES, 49 RAPIDASH, 49 ARCANINE, 51 RHYDON, 52 MAGMAR
@@ -308,7 +283,7 @@ SpecialTrainerMoves:
 	db 5, 4, CALM_MIND
 	db 0
 
-	db SABRINA, 2 ; Rematch (was 3 — the ghost copy of party 1 went 2026-08-17) — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
+	db SABRINA, 2 ; Rematch — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, HYPNOSIS
 	db 1, 3, DREAM_EATER
@@ -791,6 +766,43 @@ SpecialTrainerMoves:
 	db 5, 4, REFLECT
 	db 0
 
+	db KIYO, 1 ; Fighting Dojo (Saffron) — 40 HITMONLEE, 40 HITMONCHAN, 40 MACHOKE
+	db 1, 1, ROLLING_KICK
+	db 1, 2, SEISMIC_TOSS
+	db 1, 3, BULLDOZE
+	db 1, 4, FOCUS_ENERGY
+	db 2, 1, MACH_PUNCH
+	db 2, 2, COMET_PUNCH
+	db 2, 3, DIZZY_PUNCH
+	db 2, 4, BULK_UP
+	db 3, 1, MACH_PUNCH
+	db 3, 2, STRENGTH
+	db 3, 3, BODY_SLAM
+	db 3, 4, BULLDOZE
+	db 0
+
+	db KIYO, 2 ; Viridian Gym rematch (post-League) — 63 PRIMEAPE, 63 HITMONLEE, 64 HITMONCHAN, 64 POLIWRATH, 65 MACHAMP
+	db 1, 1, GORE_ATTACK
+	db 1, 2, ROCK_SLIDE
+	db 1, 3, BODY_SLAM
+	db 1, 4, FOCUS_ENERGY
+	db 2, 1, HI_JUMP_KICK
+	db 2, 2, EXTREMESPEED
+	db 2, 3, BULLDOZE
+	db 2, 4, FOCUS_ENERGY
+	db 3, 1, EXTREMESPEED
+	db 3, 2, SKY_UPPERCUT
+	db 3, 3, ROCK_PUNCH
+	db 3, 4, BULK_UP
+	db 4, 1, SURF
+	db 4, 2, SUBMISSION
+	db 4, 3, ICE_BEAM
+	db 4, 4, BULK_UP
+	db 5, 1, SUBMISSION
+	db 5, 2, EARTHQUAKE
+	db 5, 3, ROCK_SLIDE
+	db 5, 4, SWORDS_DANCE
+	db 0
 
 	db SMITH, 1
 	db 1, 1, AERIAL_ACE
@@ -844,7 +856,6 @@ SpecialTrainerMoves:
 	db 6, 3, METRONOME
 	db 6, 4, EARTHQUAKE
 	db 0
-
 
 	db FORTE, 1 ; DREIGON superboss — all L80 (send-out order: Beedrill, Hitmonlee, Magmar, Golem, Gyarados, Nidoking)
 	db 1, 1, TWINEEDLE

@@ -1,5 +1,6 @@
-; The dojo-master takeover: KIYO's voice at the Viridian Gym, and the promoted
-; student's at the Fighting Dojo. The cooldown line is the shared
+; The dojo-master takeover: KIYO's voice at the Viridian Gym, the promoted
+; student's at the Fighting Dojo, and the four one-shot student rebattles
+; (Forte approved the lines 2026-08-18). The cooldown line is the shared
 ; _GymRematchCooldownText — he queues with the other seven leaders.
 
 _ViridianGymKiyoIntroKnowsYouText::
@@ -106,7 +107,9 @@ _ViridianGymKiyoNoRoomText::
 	cont "with you."
 	done
 
-_FightingDojoNewMasterText::
+; The promoted student of (3,4): his takeover speech is now the challenge of
+; his one-shot fight as the new master.
+_FightingDojoNewMasterChallengeText::
 	text "MASTER KIYO went"
 	line "down to VIRIDIAN!"
 
@@ -119,6 +122,107 @@ _FightingDojoNewMasterText::
 
 	para "We train harder"
 	line "than ever! HYAH!"
+
+	para "Show me this"
+	line "floor stays"
+	cont "sharp!"
+	done
+
+_FightingDojoNewMasterDefeatText::
+	text "Hwa! Arrgh!"
+	line "Beaten, just like"
+	cont "the MASTER"
+	cont "before me!"
+	prompt
+
+_FightingDojoNewMasterAfterText::
+	text "A loss is one"
+	line "more stone in"
+	cont "our wall."
+
+	para "I study every"
+	line "art now, even the"
+	cont "way of the leek!"
+
+	para "Train with us"
+	line "anytime!"
+	done
+
+; The other three students' one-shot rebattles — each line echoes the
+; student's own vanilla voice (the judge, the boulders, the trespassing).
+_FightingDojoBlackbelt2RebattleText::
+	text "I hear you're the"
+	line "CHAMPION! Show me!"
+
+	para "My POLIWRATH swims"
+	line "through punches"
+	cont "now!"
+	done
+
+_FightingDojoBlackbelt2RebattleEndText::
+	text "Judge!"
+	line "Full marks..."
+	prompt
+
+_FightingDojoBlackbelt2RebattleAfterText::
+	text "Our new MASTER"
+	line "never lets us"
+	cont "slack."
+
+	para "Next bout, the"
+	line "judge raises MY"
+	cont "hand!"
+	done
+
+_FightingDojoBlackbelt3RebattleText::
+	text "Nothing tough"
+	line "frightens me. And"
+	cont "you're the"
+	cont "toughest of all!"
+
+	para "My MACHAMP splits"
+	line "boulders with any"
+	cont "of four arms!"
+	done
+
+_FightingDojoBlackbelt3RebattleEndText::
+	text "Yow! Four arms,"
+	line "and not one"
+	cont "landed!"
+	prompt
+
+_FightingDojoBlackbelt3RebattleAfterText::
+	text "Psychic power"
+	line "used to frighten"
+	cont "us."
+
+	para "After your team?"
+	line "Nothing does!"
+	done
+
+_FightingDojoBlackbelt4RebattleText::
+	text "Hoohah! The"
+	line "CHAMPION, back on"
+	cont "our floor!"
+
+	para "We evolved while"
+	line "you were away."
+	cont "One more bout!"
+	done
+
+_FightingDojoBlackbelt4RebattleEndText::
+	text "Oof! Evolved, and"
+	line "I still give up!"
+	prompt
+
+_FightingDojoBlackbelt4RebattleAfterText::
+	text "The prime fighters"
+	line "across the land"
+	cont "train here."
+
+	para "Today the primest"
+	line "one taught the"
+	cont "class!"
 	done
 
 ; The eight gym trainers, once KIYO holds the gym. One line each, approved

@@ -13,10 +13,11 @@ FightingDojo_Script:
 	ret
 
 ; v0.7: the dojo-master takeover. Post-League the master holds the Viridian
-; Gym instead, and his senior student (the object at (3,4)) speaks for the
-; DOJO — his beat-event is set here so he stops charging at the player and
-; his after-battle text (which carries the new-master branch) becomes his
-; voice. Idempotent, runs every tick like its three show-if-earned siblings.
+; Gym instead and all four students retire their pre-League teams: their
+; beat-events are set here so nobody charges, and each Text handler below
+; grows a wGameStage branch — the senior at (3,4) speaks (and fights, once)
+; as the new master, the other three offer their own one-shot rebattles.
+; Idempotent, runs every tick like its three show-if-earned siblings.
 FightingDojoPostLeagueState:
 	ld a, [wGameStage]
 	and a
@@ -24,7 +25,7 @@ FightingDojoPostLeagueState:
 	ld a, HS_FIGHTING_DOJO_MASTER
 	ld [wMissableObjectIndex], a
 	predef HideObject
-	SetEvent EVENT_BEAT_FIGHTING_DOJO_TRAINER_0
+	SetEventRange EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
 	ret
 
 ; The unchosen prize ball vanishes once the player has LEFT with the other —
@@ -57,6 +58,7 @@ FightingDojo_ScriptPointers:
 	dw_const DisplayEnemyTrainerTextAndStartBattle,    SCRIPT_FIGHTINGDOJO_START_BATTLE
 	dw_const EndTrainerBattle,                         SCRIPT_FIGHTINGDOJO_END_BATTLE
 	dw_const FightingDojoKarateMasterPostBattleScript, SCRIPT_FIGHTINGDOJO_KARATE_MASTER_POST_BATTLE
+	dw_const FightingDojoRebattlePostBattleScript,     SCRIPT_FIGHTINGDOJO_REBATTLE_POST_BATTLE
 
 FightingDojoDefaultScript:
 	CheckEvent EVENT_DEFEATED_FIGHTING_DOJO
@@ -117,6 +119,63 @@ FightingDojoKarateMasterPostBattleScript:
 	call DisplayTextID
 	xor a ; SCRIPT_FIGHTINGDOJO_DEFAULT
 	ld [wJoyIgnore], a
+	ld [wFightingDojoCurScript], a
+	ld [wCurMapScript], a
+	ret
+
+; The four one-shot rebattles share this state. The student index (1-4, in
+; object order) rides across the battle in wSavedCoordIndex — the same
+; in-map carrier the master's pre-League cutscene proves survives a fight —
+; and a blackout burns nothing, like every rematch in the house.
+FightingDojoRebattlePostBattleScript:
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, FightingDojoResetScripts
+	ld a, [wSavedCoordIndex]
+	dec a
+	jr z, .master
+	dec a
+	jr z, .student2
+	dec a
+	jr z, .student3
+	SetEvent EVENT_DOJO_REBATTLE_SPENT_3
+	jr .done
+.master
+	SetEvent EVENT_DOJO_REBATTLE_SPENT_0
+	jr .done
+.student2
+	SetEvent EVENT_DOJO_REBATTLE_SPENT_1
+	jr .done
+.student3
+	SetEvent EVENT_DOJO_REBATTLE_SPENT_2
+.done
+	jp FightingDojoResetScripts
+
+; Starts a one-shot student rebattle, dojo style — the challenge leads
+; straight into the fight, no Yes/No on this floor (Forte, 2026-08-18).
+; hl = challenge text · de = end-battle text (serves win and loss alike) ·
+; b = BLACKBELT party (10-13) · c = student index (1-4) for the shared
+; post-battle state above.
+FightingDojoStartRebattle:
+	push de
+	push bc
+	call PrintText
+	call Delay3
+	pop bc
+	pop hl
+	ld d, h
+	ld e, l
+	call SaveEndBattleTextPointers
+	ld hl, wd72d
+	set 6, [hl]
+	set 7, [hl]
+	ld a, OPP_BLACKBELT
+	ld [wCurOpponent], a
+	ld a, b
+	ld [wTrainerNo], a
+	ld a, c
+	ld [wSavedCoordIndex], a
+	ld a, SCRIPT_FIGHTINGDOJO_REBATTLE_POST_BATTLE
 	ld [wFightingDojoCurScript], a
 	ld [wCurMapScript], a
 	ret
@@ -194,9 +253,36 @@ FightingDojoKarateMasterText:
 
 FightingDojoBlackbelt1Text:
 	text_asm
+	ld a, [wGameStage]
+	and a
+	jr nz, .postLeague
 	ld hl, FightingDojoTrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
+.postLeague
+; the senior of (3,4) holds the DOJO now — his takeover speech is the
+; challenge, once ever
+	CheckEvent EVENT_DOJO_REBATTLE_SPENT_0
+	jr nz, .spent
+	ld hl, .ChallengeText
+	ld de, .DefeatText
+	lb bc, 10, 1
+	call FightingDojoStartRebattle
+	jp TextScriptEnd
+.spent
+	ld hl, .AfterText
+	call PrintText
+	jp TextScriptEnd
+
+.ChallengeText:
+	text_far _FightingDojoNewMasterChallengeText
+	text_end
+.DefeatText:
+	text_far _FightingDojoNewMasterDefeatText
+	text_end
+.AfterText:
+	text_far _FightingDojoNewMasterAfterText
+	text_end
 
 FightingDojoBlackbelt1BattleText:
 	text_far _FightingDojoBlackbelt1BattleText
@@ -207,33 +293,41 @@ FightingDojoBlackbelt1EndBattleText:
 	text_end
 
 FightingDojoBlackbelt1AfterBattleText:
-	text_asm
-; post-League this student runs the DOJO (the takeover, see
-; FightingDojoPostLeagueState above); before that, his vanilla line
-	ld a, [wGameStage]
-	and a
-	jr nz, .newMaster
-	ld hl, .Vanilla
-	call PrintText
-	jr .done
-.newMaster
-	ld hl, .NewMaster
-	call PrintText
-.done
-	jp TextScriptEnd
-
-.Vanilla:
+; pre-League only — post-League his Text handler above never reaches
+; TalkToTrainer (the takeover branch owns the talk)
 	text_far _FightingDojoBlackbelt1AfterBattleText
-	text_end
-.NewMaster:
-	text_far _FightingDojoNewMasterText
 	text_end
 
 FightingDojoBlackbelt2Text:
 	text_asm
+	ld a, [wGameStage]
+	and a
+	jr nz, .postLeague
 	ld hl, FightingDojoTrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
+.postLeague
+	CheckEvent EVENT_DOJO_REBATTLE_SPENT_1
+	jr nz, .spent
+	ld hl, .ChallengeText
+	ld de, .DefeatText
+	lb bc, 11, 2
+	call FightingDojoStartRebattle
+	jp TextScriptEnd
+.spent
+	ld hl, .AfterText
+	call PrintText
+	jp TextScriptEnd
+
+.ChallengeText:
+	text_far _FightingDojoBlackbelt2RebattleText
+	text_end
+.DefeatText:
+	text_far _FightingDojoBlackbelt2RebattleEndText
+	text_end
+.AfterText:
+	text_far _FightingDojoBlackbelt2RebattleAfterText
+	text_end
 
 FightingDojoBlackbelt2BattleText:
 	text_far _FightingDojoBlackbelt2BattleText
@@ -249,9 +343,34 @@ FightingDojoBlackbelt2AfterBattleText:
 
 FightingDojoBlackbelt3Text:
 	text_asm
+	ld a, [wGameStage]
+	and a
+	jr nz, .postLeague
 	ld hl, FightingDojoTrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
+.postLeague
+	CheckEvent EVENT_DOJO_REBATTLE_SPENT_2
+	jr nz, .spent
+	ld hl, .ChallengeText
+	ld de, .DefeatText
+	lb bc, 12, 3
+	call FightingDojoStartRebattle
+	jp TextScriptEnd
+.spent
+	ld hl, .AfterText
+	call PrintText
+	jp TextScriptEnd
+
+.ChallengeText:
+	text_far _FightingDojoBlackbelt3RebattleText
+	text_end
+.DefeatText:
+	text_far _FightingDojoBlackbelt3RebattleEndText
+	text_end
+.AfterText:
+	text_far _FightingDojoBlackbelt3RebattleAfterText
+	text_end
 
 FightingDojoBlackbelt3BattleText:
 	text_far _FightingDojoBlackbelt3BattleText
@@ -267,9 +386,34 @@ FightingDojoBlackbelt3AfterBattleText:
 
 FightingDojoBlackbelt4Text:
 	text_asm
+	ld a, [wGameStage]
+	and a
+	jr nz, .postLeague
 	ld hl, FightingDojoTrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
+.postLeague
+	CheckEvent EVENT_DOJO_REBATTLE_SPENT_3
+	jr nz, .spent
+	ld hl, .ChallengeText
+	ld de, .DefeatText
+	lb bc, 13, 4
+	call FightingDojoStartRebattle
+	jp TextScriptEnd
+.spent
+	ld hl, .AfterText
+	call PrintText
+	jp TextScriptEnd
+
+.ChallengeText:
+	text_far _FightingDojoBlackbelt4RebattleText
+	text_end
+.DefeatText:
+	text_far _FightingDojoBlackbelt4RebattleEndText
+	text_end
+.AfterText:
+	text_far _FightingDojoBlackbelt4RebattleAfterText
+	text_end
 
 FightingDojoBlackbelt4BattleText:
 	text_far _FightingDojoBlackbelt4BattleText
