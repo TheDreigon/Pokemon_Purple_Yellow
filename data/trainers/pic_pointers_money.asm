@@ -21,7 +21,7 @@ TrainerPicAndMoneyPointers::
 	pic_money HikerPic,        3500
 	pic_money BikerPic,        2000
 	pic_money BurglarPic,      9000
-	pic_money BlackbeltPic,    7900 ; KIYO — 79/lvl, the flat semi-boss rate. This
+	pic_money KiyoPic,         7900 ; KIYO — 79/lvl, the flat semi-boss rate. This
 	                                ; is his SAFFRON DOJO fight. His VIRIDIAN GYM
 	                                ; fight pays a leader's 99 instead, promoted at
 	                                ; run time by ApplyPerFightPrizeMoney below —

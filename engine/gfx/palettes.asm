@@ -57,9 +57,14 @@ SetPal_Battle:
 ; ALREADY zero, so a wild encounter runs with wCurOpponent at 0 throughout.
 ;
 ; The property that makes it safe is that it is CLEARED: end_of_battle.asm:57,
-; in .resetVariables, which both branches reach. wTrainerClass is not cleared by
-; anything, so it still says FORTE during the next battle - and a guard written
-; on it would paint that battle purple.
+; in .resetVariables, which both branches reach.
+;
+; wTrainerClass is NOT cleared at the end of a battle, so after a trainer fight
+; it still says FORTE - and a guard written on it would paint the next battle
+; purple. (This comment used to say it "is not cleared by anything", which is
+; too strong: init_battle.asm zeroes it when a WILD battle loads its front
+; sprite. That clear is what stops the stale value surviving a wild encounter;
+; it does nothing for the trainer-to-trainer case this guard is about.)
 ;
 ; Only c moves. b is the player's half, and b is 0 during the intro too, because
 ; no Pokemon is out yet - touching the shared lookup instead of this one byte

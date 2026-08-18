@@ -780,7 +780,13 @@ CooltrainerFAI:
 ; ===== HARD MODE BOSS AI =====
 ;
 ; v0.7 hard mode knob #10. Each boss AI routine is gated by
-; IsHardModeBossBattle (bank $0F farcall). In Normal mode, in wild battles,
+; IsHardModeBossOrSemiBattle - a plain same-bank `call`, since hard_mode.asm
+; shares bank $0E with this file. This comment said "IsHardModeBossBattle
+; (bank $0F farcall)" until 2026-08-18 and was wrong on all three counts: the
+; predicate is the boss-OR-SEMI one (all 22 routines call it, and semis carry
+; bags too), it is not a farcall, and the bank moved on 2026-08-17. The
+; distinction matters now that KIYO is a semi in the dojo and a boss in
+; Viridian. In Normal mode, in wild battles,
 ; or against a non-boss class the gate returns Z=1 and we early-out — same
 ; behaviour as the previous "and a / ret" stubs.
 ;

@@ -357,6 +357,12 @@ JugglerPic::       INCBIN "gfx/trainers/juggler.pic"
 TamerPic::         INCBIN "gfx/trainers/tamer.pic"
 BirdKeeperPic::    INCBIN "gfx/trainers/birdkeeper.pic"
 BlackbeltPic::     INCBIN "gfx/trainers/blackbelt.pic"
+; KIYO ($0C) shares the blackbelt's body on purpose - he is the dojo master,
+; not a different species of person - but he is his own trainer now, so he gets
+; his own pic rather than pointing at theirs. It MUST stay in this section:
+; _LoadTrainerPic picks the bank from the CLASS with a cp ladder, and $0C falls
+; below PROF_OAK into "Trainer Pics 1". pic_bank_audit guards that.
+KiyoPic::          INCBIN "gfx/trainers/kiyo.pic"
 Rival1Pic::        INCBIN "gfx/trainers/rival1.pic"
 
 SECTION "Trainer Pics 2", ROMX
