@@ -10,6 +10,14 @@ DisplayItemDescription::
 	call AddNTimes
 	jp PrintText
 
+; v0.7: the table is POSITIONAL and the stride above is 5 -- one text_far plus
+; its text_end. A single entry too many or too few does not fail to build, it
+; hands every item past the slip the NEXT item's text, or reads past the table.
+; PP MAX shipped from v0.5 to v0.7 reading the dead-id placeholder because
+; nothing here said how long this was supposed to be. The length is derived
+; from the same constants DisplayItemDescription folds with, so inserting an
+; ordinary item moves both sides together and only a real mistake trips it.
+	table_width 5, ItemDescriptionPointers
 ItemDescriptionPointers:
 	text_far _MasterBallDescription
 	text_end
@@ -110,7 +118,7 @@ ItemDescriptionPointers:
 	text_end
 	text_far _NuggetDescription
 	text_end
-	text_far _UnusedItemDescription
+	text_far _PPMaxDescription
 	text_end
 	text_far _PokeDollDescription
 	text_end
@@ -298,3 +306,4 @@ ItemDescriptionPointers:
 	text_end
 	text_far _TM55Description
 	text_end
+	assert_table_length TM01 + NUM_TMS - 1 - (HM01 - FLOOR_B2F)

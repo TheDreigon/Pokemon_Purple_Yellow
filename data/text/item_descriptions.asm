@@ -19,8 +19,8 @@ _PokeBallDescription::
 	prompt
 
 _TownMapDescription::
-	text "Shows your present"
-	next "location."
+	text "Shows all of KANTO"
+	next "and where you are."
 	prompt
 
 _BicycleDescription::
@@ -29,12 +29,28 @@ _BicycleDescription::
 	prompt
 
 _MoonStoneDescription::
+	text "Evolves CLEFAIRY,"
+	next "VULPIX and STARYU."
+	prompt
+
 _FireStoneDescription::
+	text "Evolves GROWLITHE"
+	next "and EEVEE."
+	prompt
+
 _ThunderStoneDescription::
+	text "Evolves EEVEE and"
+	next "wild PIKACHU."
+	prompt
+
 _WaterStoneDescription::
+	text "Evolves POLIWHIRL,"
+	next "SHELLDER, EEVEE."
+	prompt
+
 _LeafStoneDescription::
-	text "Evolves certain"
-	next "kinds of #MON."
+	text "GLOOM, WEEPINBELL,"
+	next "EXEGGCUTE evolve."
 	prompt
 
 _AntidoteDescription::
@@ -63,7 +79,7 @@ _ParlyzHealDescription::
 	prompt
 
 _FullRestoreDescription::
-	text "Restores HP, and"
+	text "Fully restores HP,"
 	next "any status at all."
 	prompt
 
@@ -88,8 +104,8 @@ _PotionDescription::
 	prompt
 
 _EscapeRopeDescription::
-	text "Use for escaping"
-	next "from caves, etc."
+	text "Leaves a cave the"
+	next "way you came in."
 	prompt
 
 _RepelDescription::
@@ -103,7 +119,7 @@ _OldAmberDescription::
 	prompt
 
 _HPUpDescription::
-	text "Raises the HP of"
+	text "Raises max HP of"
 	next "one #MON."
 	prompt
 
@@ -128,8 +144,8 @@ _CalciumDescription::
 	prompt
 
 _RareCandyDescription::
-	text "Raises level of a"
-	next "#MON by one."
+	text "Ups level by one,"
+	next "up to the limit."
 	prompt
 
 _DomeFossilDescription::
@@ -139,7 +155,8 @@ _HelixFossilDescription::
 	prompt
 
 _SecretKeyDescription::
-	text "Opens doors."
+	text "Opens the door to"
+	next "CINNABAR GYM."
 	prompt
 
 _BikeVoucherDescription::
@@ -148,12 +165,12 @@ _BikeVoucherDescription::
 	prompt
 
 _XAccuracyDescription::
-	text "Ups accuracy one"
-	next "step this battle."
+	text "No accuracy roll"
+	next "until you switch."
 	prompt
 
 _CardKeyDescription::
-	text "Opens shutters in"
+	text "Opens doors in"
 	next "SILPH CO."
 	prompt
 
@@ -183,8 +200,8 @@ _MaxReviveDescription::
 	prompt
 
 _GuardSpecDescription::
-	text "Blocks stat drops"
-	next "for the battle."
+	text "Guards stats from"
+	next "all status moves."
 	prompt
 
 _SuperRepelDescription::
@@ -302,6 +319,11 @@ _PPUpDescription::
 	next "a selected move."
 	prompt
 
+_PPMaxDescription::
+	text "Fully raises the"
+	next "max PP of a move."
+	prompt
+
 _EtherDescription::
 	text "Restores PP of one"
 	next "move by 10."
@@ -323,28 +345,28 @@ _MaxElixerDescription::
 	prompt
 
 _HM01Description::
-	text "Cuts using claws,"
-	next "scythes, etc."
+	text "A critical hit is"
+	next "far more likely."
 	prompt
 
 _HM02Description::
-	text "1st turn: Fly"
-	next "2nd turn: Attack"
+	text "Rises, then hits"
+	next "on the next turn."
 	prompt
 
 _HM03Description::
-	text "A strong water-"
-	next "type attack."
+	text "33 in 100 chance"
+	next "to drop SPEED."
 	prompt
 
 _HM04Description::
-	text "A powerful physi-"
-	next "cal attack."
+	text "Raises the user's"
+	next "ATTACK one step."
 	prompt
 
 _HM05Description::
-	text "Blinds the foe to"
-	next "reduce accuracy."
+	text "Lowers the foe's"
+	next "ACCURACY, EVASION."
 	prompt
 
 _TM01Description::
@@ -626,6 +648,6 @@ _UnusedItemDescription::
 	prompt
 
 _TrainerManualDescription::
-	text "A book of basics"
-	next "for new trainers."
+	text "This game's rules."
+	next "USE to read it."
 	prompt
