@@ -3885,6 +3885,12 @@ CheckPlayerStatusConditions:
 	jp z, .checkPlayerStatusConditionsDone ; if we made it this far, mon can move normally this turn
 	ld a, RAGE
 	ld [wd11e], a
+; v0.7: re-assert the move NUMBER too, like the Bide and Thrash continuations
+; above already do. Rage turns skip move selection, so wPlayerMoveNum is
+; whatever the last writer left -- since the confusion self-hit started
+; neutralising it to TACKLE, a confused rager would otherwise hand TACKLE to
+; Mirror Move, the MOVEDEX seen-mark and the attack animation.
+	ld [wPlayerMoveNum], a
 	call GetMoveName
 	call CopyToStringBuffer
 	xor a
@@ -6196,6 +6202,9 @@ CheckEnemyStatusConditions:
 	jp z, .checkEnemyStatusConditionsDone ; if we made it this far, mon can move normally this turn
 	ld a, RAGE
 	ld [wd11e], a
+; v0.7: re-assert the move number -- see the .RageCheck comment on the
+; player side
+	ld [wEnemyMoveNum], a
 	call GetMoveName
 	call CopyToStringBuffer
 	xor a
