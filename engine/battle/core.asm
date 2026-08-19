@@ -3999,6 +3999,15 @@ HandleSelfConfusionDamage:
 	ld [hli], a
 	ld a, [wBattleMonDefense + 1]
 	ld [hl], a
+; v0.7: neutralise the move NUMBER too, not just effect/power/type. It is
+; stale from the previously executed move (GetCurrentMove has not run this
+; turn), and GetDamageVarsForPlayerAttack tests it against TRI_ATTACK before
+; looking at the type -- a confused mon whose last move was TRI ATTACK
+; computed its self-hit off Special, ignoring the own-defense value poked
+; above. Left dirty on exit, same contract as the power/type forced below:
+; every later reader runs after a fresh GetCurrentMove.
+	ld a, TACKLE ; any plain physical id works; only the TRI_ATTACK test reads it here
+	ld [wPlayerMoveNum], a
 	ld hl, wPlayerMoveEffect
 	push hl
 	ld a, [hl]
@@ -6024,6 +6033,10 @@ CheckEnemyStatusConditions:
 	ld [hli], a
 	ld a, [wEnemyMonDefense + 1]
 	ld [hl], a
+; v0.7: neutralise the stale move NUMBER -- same TRI_ATTACK-override trap as
+; HandleSelfConfusionDamage, see the comment there
+	ld a, TACKLE
+	ld [wEnemyMoveNum], a
 	ld hl, wEnemyMoveEffect
 	push hl
 	ld a, [hl]
