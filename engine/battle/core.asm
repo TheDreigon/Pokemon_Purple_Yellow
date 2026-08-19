@@ -4479,62 +4479,102 @@ GetDamageVarsForPlayerAttack:
 	cp SPECIAL ; types >= SPECIAL are all special
 	jr nc, .specialAttack
 .physicalAttack
+; v0.7 crit rework. Vanilla reset BOTH stats on a crit -- the attacker's from
+; the party struct, the defender's through GetEnemyMonStat -- wiping stages,
+; badges, burn and screens on both sides at once. The rule now: ignore only
+; what works AGAINST the attacker, i.e. the defender's RAISED defense stages
+; and the attacker's own LOWERED attack stages. A lowered defense and a
+; raised attack still count. Badges and burn live in the battle stat and
+; keep counting; Reflect/Light Screen are pierced. The x1.5 sits at the end
+; of AdjustDamageForMoveType, after type effectiveness.
+	ld a, [wCriticalHitOrOHKO]
+	and a ; check for critical hit
+	jr nz, .physicalCrit
+; plain hit: battle stats as they stand, Reflect doubling included
 	ld hl, wEnemyMonDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = enemy defense
 	ld a, [wEnemyBattleStatus3]
 	bit HAS_REFLECT_UP, a ; check for Reflect
-	jr z, .physicalAttackCritCheck
+	jr z, .physicalPlainDone
 ; if the enemy has used Reflect, double the enemy's defense
 	call DoubleStatCapped
-.physicalAttackCritCheck
+.physicalPlainDone
 	ld hl, wBattleMonAttack
+	jp .scaleStats
+.physicalCrit
+; defense: a RAISED stage is ignored (unmodified copy), anything else counts.
+; Reflect is deliberately not applied on this path: it is a separate doubling,
+; not a stage, and skipping it here is exactly what pierces it on a crit.
+	ld hl, wEnemyMonDefense
+	ld a, [wEnemyMonDefenseMod]
+	cp BASE_STAT_LEVEL + 1 ; carry unless the stage is above neutral
+	jr c, .physicalCritGotDefense
+	ld hl, wEnemyMonUnmodifiedDefense
+.physicalCritGotDefense
+	ld a, [hli]
+	ld b, a
+	ld c, [hl] ; bc = enemy defense
+; attack: a LOWERED stage is ignored; neutral or raised reads the battle
+; stat, where the badge boost and the burn halving already live
+	ld hl, wBattleMonAttack
+	ld a, [wPlayerMonAttackMod]
+	cp BASE_STAT_LEVEL ; carry only when the stage is below neutral
+	jp nc, .scaleStats
+	ld hl, wPlayerMonUnmodifiedAttack
+; the unmodified copy is raw+badge and was taken BEFORE the burn penalty
+; (see LoadBattleMonFromParty), so a burned attacker gets the halving
+; re-applied here -- same floor of 1 as HalveAttackDueToBurn
+	ld a, [wBattleMonStatus]
+	and 1 << BRN
+	jp z, .scaleStats
+	ld a, [hli]
+	srl a
+	ldh [hProduct + 2], a
+	ld a, [hl]
+	rra
+	ldh [hProduct + 3], a
+	ld hl, hProduct + 2
+	or [hl] ; did the halving hit zero?
+	jp nz, .scaleStats
+	ld a, $1
+	ldh [hProduct + 3], a
+	jp .scaleStats
+.specialAttack
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
-	jr z, .scaleStats
-; in the case of a critical hit, reset the player's attack and the enemy's defense to their base values
-	ld c, STAT_DEFENSE
-	call GetEnemyMonStat
-	ldh a, [hProduct + 2]
-	ld b, a
-	ldh a, [hProduct + 3]
-	ld c, a
-	push bc
-	ld hl, wPartyMon1Attack
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	pop bc
-	jr .scaleStats
-.specialAttack
+	jr nz, .specialCrit
+; plain hit: battle stats as they stand, Light Screen doubling included
 	ld hl, wEnemyMonSpecial
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = enemy special
 	ld a, [wEnemyBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
-	jr z, .specialAttackCritCheck
+	jr z, .specialPlainDone
 ; if the enemy has used Light Screen, double the enemy's special
 	call DoubleStatCapped
-.specialAttackCritCheck
+.specialPlainDone
 	ld hl, wBattleMonSpecial
-	ld a, [wCriticalHitOrOHKO]
-	and a ; check for critical hit
-	jr z, .scaleStats
-; in the case of a critical hit, reset the player's and enemy's specials to their base values
-	ld c, STAT_SPECIAL
-	call GetEnemyMonStat
-	ldh a, [hProduct + 2]
+	jr .scaleStats
+.specialCrit
+; same rule as .physicalCrit; burn never touches Special, so no re-halving
+	ld hl, wEnemyMonSpecial
+	ld a, [wEnemyMonSpecialMod]
+	cp BASE_STAT_LEVEL + 1
+	jr c, .specialCritGotDefense
+	ld hl, wEnemyMonUnmodifiedSpecial
+.specialCritGotDefense
+	ld a, [hli]
 	ld b, a
-	ldh a, [hProduct + 3]
-	ld c, a
-	push bc
-	ld hl, wPartyMon1Special
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	pop bc
+	ld c, [hl] ; bc = enemy special
+	ld hl, wBattleMonSpecial
+	ld a, [wPlayerMonSpecialMod]
+	cp BASE_STAT_LEVEL
+	jr nc, .scaleStats
+	ld hl, wPlayerMonUnmodifiedSpecial
+	; falls through to .scaleStats
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
 ; this allows values with up to 10 bits (values up to 1023) to be handled
 ; anything larger will wrap around
@@ -4563,12 +4603,8 @@ GetDamageVarsForPlayerAttack:
 	ld b, l ; b = player's offensive stat (possibly scaled)
 	        ; (c already contains enemy's defensive stat (possibly scaled))
 	ld a, [wBattleMonLevel]
-	ld e, a ; e = level
-	ld a, [wCriticalHitOrOHKO]
-	and a ; check for critical hit
-	jr z, .done
-	sla e ; double level if it was a critical hit
-.done
+	ld e, a ; e = level -- a crit no longer doubles it (v0.7 crit rework:
+	        ; the flat x1.5 lives at the end of AdjustDamageForMoveType)
 	ld a, 1
 	and a
 	ret
@@ -4591,62 +4627,91 @@ GetDamageVarsForEnemyAttack:
 	cp SPECIAL ; types >= SPECIAL are all special
 	jr nc, .specialAttack
 .physicalAttack
+; v0.7 crit rework, mirror of the player-side rule -- see the comment at
+; GetDamageVarsForPlayerAttack.physicalAttack. Attacker is the enemy here.
+	ld a, [wCriticalHitOrOHKO]
+	and a ; check for critical hit
+	jr nz, .physicalCrit
+; plain hit: battle stats as they stand, Reflect doubling included
 	ld hl, wBattleMonDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = player defense
 	ld a, [wPlayerBattleStatus3]
 	bit HAS_REFLECT_UP, a ; check for Reflect
-	jr z, .physicalAttackCritCheck
+	jr z, .physicalPlainDone
 ; if the player has used Reflect, double the player's defense
 	call DoubleStatCapped
-.physicalAttackCritCheck
+.physicalPlainDone
 	ld hl, wEnemyMonAttack
-	ld a, [wCriticalHitOrOHKO]
-	and a ; check for critical hit
-	jr z, .scaleStats
-; in the case of a critical hit, reset the player's defense and the enemy's attack to their base values
-	ld hl, wPartyMon1Defense
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
+	jp .scaleStats
+.physicalCrit
+; defense: a RAISED stage is ignored, anything else counts; Reflect pierced
+	ld hl, wBattleMonDefense
+	ld a, [wPlayerMonDefenseMod]
+	cp BASE_STAT_LEVEL + 1 ; carry unless the stage is above neutral
+	jr c, .physicalCritGotDefense
+	ld hl, wPlayerMonUnmodifiedDefense
+.physicalCritGotDefense
 	ld a, [hli]
 	ld b, a
-	ld c, [hl]
-	push bc
-	ld c, STAT_ATTACK
-	call GetEnemyMonStat
+	ld c, [hl] ; bc = player defense
+; attack: a LOWERED stage is ignored; neutral or raised reads the battle stat
+	ld hl, wEnemyMonAttack
+	ld a, [wEnemyMonAttackMod]
+	cp BASE_STAT_LEVEL ; carry only when the stage is below neutral
+	jp nc, .scaleStats
+	ld hl, wEnemyMonUnmodifiedAttack
+; re-apply the burn halving on top of the unmodified copy, floor of 1
+	ld a, [wEnemyMonStatus]
+	and 1 << BRN
+	jp z, .scaleStats
+	ld a, [hli]
+	srl a
+	ldh [hProduct + 2], a
+	ld a, [hl]
+	rra
+	ldh [hProduct + 3], a
 	ld hl, hProduct + 2
-	pop bc
-	jr .scaleStats
+	or [hl] ; did the halving hit zero?
+	jp nz, .scaleStats
+	ld a, $1
+	ldh [hProduct + 3], a
+	jp .scaleStats
 .specialAttack
+	ld a, [wCriticalHitOrOHKO]
+	and a ; check for critical hit
+	jr nz, .specialCrit
+; plain hit: battle stats as they stand, Light Screen doubling included
 	ld hl, wBattleMonSpecial
 	ld a, [hli]
 	ld b, a
-	ld c, [hl]
+	ld c, [hl] ; bc = player special
 	ld a, [wPlayerBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
-	jr z, .specialAttackCritCheck
+	jr z, .specialPlainDone
 ; if the player has used Light Screen, double the player's special
 	call DoubleStatCapped
-.specialAttackCritCheck
+.specialPlainDone
 	ld hl, wEnemyMonSpecial
-	ld a, [wCriticalHitOrOHKO]
-	and a ; check for critical hit
-	jr z, .scaleStats
-; in the case of a critical hit, reset the player's and enemy's specials to their base values
-	ld hl, wPartyMon1Special
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
+	jr .scaleStats
+.specialCrit
+; same rule as .physicalCrit; burn never touches Special, so no re-halving
+	ld hl, wBattleMonSpecial
+	ld a, [wPlayerMonSpecialMod]
+	cp BASE_STAT_LEVEL + 1
+	jr c, .specialCritGotDefense
+	ld hl, wPlayerMonUnmodifiedSpecial
+.specialCritGotDefense
 	ld a, [hli]
 	ld b, a
-	ld c, [hl]
-	push bc
-	ld c, STAT_SPECIAL
-	call GetEnemyMonStat
-	ld hl, hProduct + 2
-	pop bc
+	ld c, [hl] ; bc = player special
+	ld hl, wEnemyMonSpecial
+	ld a, [wEnemyMonSpecialMod]
+	cp BASE_STAT_LEVEL
+	jr nc, .scaleStats
+	ld hl, wEnemyMonUnmodifiedSpecial
+	; falls through to .scaleStats
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
 ; this allows values with up to 10 bits (values up to 1023) to be handled
 ; anything larger will wrap around
@@ -4675,59 +4740,16 @@ GetDamageVarsForEnemyAttack:
 	ld b, l ; b = enemy's offensive stat (possibly scaled)
 	        ; (c already contains player's defensive stat (possibly scaled))
 	ld a, [wEnemyMonLevel]
-	ld e, a
-	ld a, [wCriticalHitOrOHKO]
-	and a ; check for critical hit
-	jr z, .done
-	sla e ; double level if it was a critical hit
-.done
+	ld e, a ; e = level -- a crit no longer doubles it (v0.7 crit rework)
 	ld a, $1
 	and a
 	and a
 	ret
 
-; get stat c of enemy mon
-; c: stat to get (STAT_* constant)
-GetEnemyMonStat:
-	push de
-	push bc
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .notLinkBattle
-	ld hl, wEnemyMon1Stats
-	dec c
-	sla c
-	ld b, $0
-	add hl, bc
-	ld a, [wEnemyMonPartyPos]
-	ld bc, wEnemyMon2 - wEnemyMon1
-	call AddNTimes
-	ld a, [hli]
-	ldh [hMultiplicand + 1], a
-	ld a, [hl]
-	ldh [hMultiplicand + 2], a
-	pop bc
-	pop de
-	ret
-.notLinkBattle
-	ld a, [wEnemyMonLevel]
-	ld [wCurEnemyLVL], a
-	ld a, [wEnemyMonSpecies]
-	ld [wd0b5], a
-	call GetMonHeader
-	ld hl, wEnemyMonDVs
-	ld de, wLoadedMonSpeedExp
-	ld a, [hli]
-	ld [de], a
-	inc de
-	ld a, [hl]
-	ld [de], a
-	pop bc
-	ld b, $0
-	ld hl, wLoadedMonSpeedExp - $b ; this base address makes CalcStat look in [wLoadedMonSpeedExp] for DVs
-	call CalcStat
-	pop de
-	ret
+; GetEnemyMonStat is gone (v0.7 crit rework): its only four callers were the
+; old critical-hit stat resets in the two GetDamageVars routines above, which
+; now read the w*MonUnmodified* copies instead -- the same base the stat-stage
+; recalc multiplies from, so link battles and Transform stop being special.
 
 CalculateDamage:
 ; input:
@@ -4953,6 +4975,10 @@ CriticalHitTest:
 	; effective crit rate (normal moves 10%→20%, high-crit 20%→30%);
 	; Focus Energy multiplier still applies on top, so a boss with
 	; FE on a high-crit move would hit 90% crit.
+	; Since the 2026-08-19 crit rework this FREQUENCY knob is the only
+	; boss crit lever there is: the damage side is a universal x1.5
+	; (never x2, never boss-special), and a crit no longer erases the
+	; boss's own X items — his bag now multiplies through it.
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .noBossCritBonus
@@ -5554,6 +5580,28 @@ AdjustDamageForMoveType:
 ; (engine/battle/type_effectiveness.asm). Battle Core was 2 bytes
 ; over budget in debug builds after the matchups expansion.
 	farcall ApplyTypeEffectivenessToDamage
+; v0.7 crit rework: a critical hit is a flat x1.5, applied AFTER type
+; effectiveness on purpose -- a resisted hit that collapses to 0 must reach
+; the "not even a scratch" message above, and 1.5x0 is still 0; putting the
+; bonus first would let a crit dodge that message. Same big-endian
+; d + (d >> 1) idiom as the STAB block above. Guarded on exactly 1: the OHKO
+; scaffolding values ($2/$ff) in wCriticalHitOrOHKO stay out.
+	ld a, [wCriticalHitOrOHKO]
+	dec a
+	ret nz
+	ld hl, wDamage + 1
+	ld a, [hld]
+	ld h, [hl]
+	ld l, a    ; hl = damage
+	ld b, h
+	ld c, l    ; bc = damage
+	srl b
+	rr c       ; bc = floor(0.5 * damage)
+	add hl, bc ; hl = floor(1.5 * damage)
+	ld a, h
+	ld [wDamage], a
+	ld a, l
+	ld [wDamage + 1], a
 	ret
 
 

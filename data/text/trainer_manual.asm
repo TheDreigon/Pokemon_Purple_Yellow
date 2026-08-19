@@ -357,12 +357,12 @@ _ManualPage_5_3::
 	next ""
 	next "Six either way is"
 	next "the limit."
-	next ""
 	next "Calling a #MON"
 	next "back gives every"
-	next "step back, and a"
+	next "step back. A"
 	next "critical hit"
-	next "ignores them."
+	next "ignores the steps"
+	next "set against it."
 	done
 
 _ManualPage_5_4::
@@ -378,7 +378,9 @@ _ManualPage_5_4::
 
 _ManualPage_5_5::
 	text "Any move may land"
-	next "a critical hit."
+	next "a critical hit,"
+	next "dealing half again"
+	next "its damage."
 	next ""
 	next "The chance is ten"
 	next "in a hundred, plus"
@@ -386,7 +388,6 @@ _ManualPage_5_5::
 	next "points of the"
 	next "attacker's base"
 	next "SPEED."
-	next ""
 	next "Sharp moves start"
 	next "at twenty."
 	done
