@@ -4589,7 +4589,18 @@ GetDamageVarsForPlayerAttack:
 	rr c
 	srl b
 	rr c
-; defensive stat can actually end up as 0, leading to a division by 0 freeze during damage calculation
+; v0.7 crit rework: floor the scaled defense at 1. Vanilla only WARNED here
+; ("defensive stat can actually end up as 0, leading to a division by 0
+; freeze during damage calculation") -- and its crit path could never reach
+; it, because the recalculated defense carried CalcStat's +5 floor. The new
+; crit path can pair a >=256 unmodified attack with a stage-lowered battle
+; defense of 1-3, which scales to 0 and hangs Divide; reproduced on the CPU
+; by the adversarial review. The floor closes the old plain-hit window too.
+	ld a, b
+	or c ; did the defensive stat scale to 0?
+	jr nz, .defenseNotZero
+	inc c ; floor of 1 -- Divide by 0 never returns
+.defenseNotZero
 ; hl /= 4 (scale player's offensive stat)
 	srl h
 	rr l
@@ -4726,7 +4737,13 @@ GetDamageVarsForEnemyAttack:
 	rr c
 	srl b
 	rr c
-; defensive stat can actually end up as 0, leading to a division by 0 freeze during damage calculation
+; v0.7 crit rework: floor the scaled defense at 1 -- same guard and same
+; reasoning as the player-side .scaleStats above.
+	ld a, b
+	or c ; did the defensive stat scale to 0?
+	jr nz, .defenseNotZero
+	inc c ; floor of 1 -- Divide by 0 never returns
+.defenseNotZero
 ; hl /= 4 (scale enemy's offensive stat)
 	srl h
 	rr l
