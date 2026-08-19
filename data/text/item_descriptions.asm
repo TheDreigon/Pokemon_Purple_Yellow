@@ -19,8 +19,8 @@ _PokeBallDescription::
 	prompt
 
 _TownMapDescription::
-	text "Shows all of KANTO"
-	next "and where you are."
+	text "All of KANTO, and"
+	next "where you are."
 	prompt
 
 _BicycleDescription::
@@ -30,7 +30,7 @@ _BicycleDescription::
 
 _MoonStoneDescription::
 	text "Evolves CLEFAIRY,"
-	next "VULPIX and STARYU."
+	next "VULPIX, STARYU."
 	prompt
 
 _FireStoneDescription::
@@ -366,7 +366,7 @@ _HM04Description::
 
 _HM05Description::
 	text "Lowers the foe's"
-	next "ACCURACY, EVASION."
+	next "ACCURACY, EVASION"
 	prompt
 
 _TM01Description::
