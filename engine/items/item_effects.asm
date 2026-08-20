@@ -1913,9 +1913,13 @@ ItemUseBait:
 ; odds nullified each other and the item did nothing but spend a turn.
 ; Simulated over 40,000 encounters it was the worst of the three options --
 ; worse than throwing nothing -- at three times the balls per catch. Without it
-; BAIT becomes the tool for a Pokemon you must not lose (the best odds of
-; landing THIS one), while ROCK stays the tool for volume (far fewer balls per
-; catch, but it may bolt). Two jobs, neither dominating the other.
+; BAIT becomes the tool for a Pokemon you must not lose (it stays put), while
+; ROCK trades a 1.5x flee roll for the SAFARI BALL's x5 becoming x6.
+;
+; v0.7 catch rework: the "far fewer balls per catch" figure was measured when
+; the ROCK DOUBLED the catch rate. It is a flat x1.2 on T now (divisor 48 -> 40),
+; so the two jobs are much closer together than that simulation said. The
+; CHANGELIST table written from this paragraph is v0.6 arithmetic.
 	ld a, BAIT_ANIM
 	ld hl, wSafariBaitFactor ; bait factor
 	ld de, wSafariEscapeFactor ; escape factor

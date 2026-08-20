@@ -1001,9 +1001,9 @@ TrainerManualSection2_3:
 TrainerManualSection2_4:
 	db "REMEMBERING MOVES@"
 TrainerManualSection2_5:
-	db "WHAT A BALL IS WORTH@"
+	db "HOW A BALL LANDS@"
 TrainerManualSection2_6:
-	db "WHAT COUNTS AS AILING@"
+	db "WHAT AILS IT@"
 
 TrainerManualSection3_1:
 	db "SPECIAL@"

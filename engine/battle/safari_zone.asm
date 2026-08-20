@@ -13,10 +13,11 @@ PrintSafariZoneBattleText:
 	ret z
 	dec [hl]
 	ld hl, SafariZoneAngryText
-	jr nz, .done
-; v0.7 catch rework: nothing to restore here any more. The ROCK stopped
-; touching wEnemyMonActualCatchRate -- it raises the SAFARI BALL's own
-; multiplier instead -- and this counter reaching zero is what ends that.
+; v0.7 catch rework: there is nothing to restore here any more, and the branch
+; that used to skip the restore is gone with it (it had become `jr nz` to the
+; very next instruction). The ROCK stopped touching wEnemyMonActualCatchRate --
+; it raises the SAFARI BALL's own multiplier instead, which GetCatchBallDivisor
+; reads off wSafariEscapeFactor -- so this counter reaching zero IS the expiry.
 .done
 	push hl
 	call LoadScreenTilesFromBuffer1

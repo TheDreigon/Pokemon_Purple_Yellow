@@ -1781,6 +1781,11 @@ wCapturedMonSpecies:: db
 ; which will be the first mon sent out.
 wFirstMonsNotOutYet:: db
 
+; v0.7 catch rework: orphaned. The old capture maths saved X here between
+; the throw and the wobble count; both now come from the same T, held in a
+; register. Left in place deliberately -- this is a union alias over the
+; single byte below, and giving it storage of its own would shift the whole
+; WRAM map after it.
 wPokeBallCaptureCalcTemp::
 ; lower nybble: number of shakes
 ; upper nybble: number of animations to play
