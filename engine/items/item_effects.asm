@@ -180,277 +180,101 @@ ItemUseBall:
 ; Pokémon can't be caught and skip the capture calculations.
 	ld a, [wCurMap]
 	cp POKEMON_TOWER_6F
-	jr nz, .loop
+	jr nz, .calculate
 	ld a, [wEnemyMonSpecies2]
 	cp RESTLESS_SOUL
 	ld b, $10 ; can't be caught value
 	jp z, .setAnimData
 
-; Get the first random number. Let it be called Rand1.
-; Rand1 must be within a certain range according the kind of ball being thrown.
-; The ranges are as follows.
-; Poké Ball:         [0, 255]
-; Great Ball:        [0, 200]
-; Ultra/Safari Ball: [0, 150]
-; Loop until an acceptable number is found.
+.calculate
+; v0.7 CATCH REWORK. Spec: "Catch rework - design and plan (2026-08-20)".
+;
+;   T = rate * H * S * B / 24000     every multiplier a whole number of 20ths
+;   caught if Random(0..255) < T     a T too big for a byte is a certain catch
+;
+; One chain, no hidden floors. The routine this replaces decided a throw in
+; four separate places -- a rejection loop over Rand1, a status SUBTRACTION
+; that silently guaranteed captures, a comparison against the catch rate, and a
+; second draw against an HP term -- and then computed the wobble count a fifth
+; time from different numbers, so the animation could, and did, disagree with
+; the odds it was animating.
+;
+; The ball is folded into the DIVISOR (24000 = D1 * 5) instead of multiplied
+; in. That saves a whole Multiply, holds the intermediate at 612,000 rather
+; than 36.7 million, and -- the reason that matters here -- makes every divisor
+; a CONSTANT out of a table, never a value derived from battle state. The
+; divide-by-zero hang the crit rework produced cannot be repeated on this path.
+; Proven over all 61,440 (rate, band, status, ball) states:
+;   floor(rate*H*S*B/24000) == floor(floor(rate*H*S/D1)/5), no divergences.
+;
+;   rate*H*S <= 255*60*40 = 612,000  20 bits, and hMultiplicand holds three
+;   T        <= 3,060                12 bits, which is why the ceiling below is
+;                                    a BRANCH: clamping T to 255 would lose one
+;                                    "guaranteed" throw in 256, and reading the
+;                                    low byte alone would turn a T of 256 into
+;                                    a flat zero.
 
-.loop
-	call Random
-	ld b, a
-
-; Get the item ID.
-	ld hl, wcf91
-	ld a, [hl]
-
-; The Master Ball always succeeds.
+; The Master Ball never fails. This test used to live inside the Rand1 loop.
+	ld a, [wcf91]
 	cp MASTER_BALL
 	jp z, .captured
 
-; Anything will do for the basic Poké Ball.
-	cp POKE_BALL
-	jr z, .checkForAilments
-
-; If it's a Great/Ultra/Safari Ball and Rand1 is greater than 200, try again.
-	ld a, 200
-	cp b
-	jr c, .loop
-
-; Less than or equal to 200 is good enough for a Great Ball.
-	ld a, [hl]
-	cp GREAT_BALL
-	jr z, .checkForAilments
-
-; If it's an Ultra/Safari Ball and Rand1 is greater than 150, try again.
-	ld a, 150
-	cp b
-	jr c, .loop
-
-.checkForAilments
-; Pokémon can be caught more easily with a status ailment.
-; Depending on the status ailment, a certain value will be subtracted from
-; Rand1. Let this value be called Status.
-; The larger Status is, the more easily the Pokémon can be caught.
-; no status ailment:     Status = 0
-; Burn/Paralysis/Poison: Status = 12
-; Freeze/Sleep:          Status = 25
-; If Status is greater than Rand1, the Pokémon will be caught for sure.
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .skipAilmentValueSubtraction ; no ailments
-	and (1 << FRZ) | SLP_MASK
-	ld c, 12
-	jr z, .notFrozenOrAsleep
-	ld c, 25
-.notFrozenOrAsleep
-	ld a, b
-	sub c
-	jp c, .captured
-	ld b, a
-
-.skipAilmentValueSubtraction
-	push bc ; save (Rand1 - Status)
-
-; Calculate MaxHP * 255.
 	xor a
 	ldh [hMultiplicand], a
-	ld hl, wEnemyMonMaxHP
-	ld a, [hli]
 	ldh [hMultiplicand + 1], a
-	ld a, [hl]
+	ld a, [wEnemyMonActualCatchRate]
 	ldh [hMultiplicand + 2], a
-	ld a, 255
+
+	call GetCatchHPMultiplier
 	ldh [hMultiplier], a
 	call Multiply
 
-; Determine BallFactor: 4 for Ultra and Safari Balls, 8 for Great Balls, 12 for
-; the others. A smaller divisor is a better ball.
-;
-; v0.7 FIX. This ladder was dead. Inherited byte for byte from Yellow Legacy,
-; it read:
-;
-;     cp GREAT_BALL / ld a, 12 / cp ULTRA_BALL / ld a, 4
-;     cp SAFARI_BALL / ld a, 4 / jr nz, .skip1 / ld a, 8
-;
-; `ld` does not touch the flags, so each `cp` overwrote the one before it
-; unread, and the `jr nz` was deciding on `cp SAFARI_BALL` performed with a = 4.
-; $04 - $08 is never zero, so the branch was ALWAYS taken and `ld a, 8` was
-; unreachable: BallFactor was 4 for every ball including the Poke Ball.
-;
-; That is not a rounding error. X = (255 / BallFactor) * 4, so a factor of 4
-; pins X at its 255 ceiling at FULL health, the Rand2 gate below can never
-; reject, and weakening a wild Pokemon was worth exactly nothing -- while the
-; Viridian Forest sign, the school notebook, the old man's tutorial and section
-; 2.2 of the trainer manual all tell the player to do it.
-;
-; Written the way BallFactor2 below already does it: the value lives in b,
-; which `cp` cannot disturb, and every `cp` is consumed by its own jump.
-	ld a, [wcf91]
-	ld b, 4
-	cp ULTRA_BALL
-	jr z, .skip1
-	cp SAFARI_BALL
-	jr z, .skip1
-	ld b, 8
-	cp GREAT_BALL
-	jr z, .skip1
-	ld b, 12
+	call GetCatchStatusMultiplier
+	ldh [hMultiplier], a
+	call Multiply
 
-.skip1
-	ld a, b
-; Note that the results of all division operations are floored.
+; A post-League catch bonus would multiply in HERE, before the first divide.
+; Folding it in after one introduces rounding divergences; before, there are
+; none -- checked the same exhaustive way as the identity above.
 
-; Calculate (MaxHP * 255) / BallFactor.
-	ldh [hDivisor], a
-	ld b, 4 ; number of bytes in dividend
-	call Divide
-
-; Divide the enemy's current HP by 4. HP is not supposed to exceed 999 so
-; the result should fit in a. If the division results in a quotient of 0,
-; change it to 1.
-	ld hl, wEnemyMonHP
-	ld a, [hli]
-	ld b, a
-	ld a, [hl]
-	srl b
-	rr a
-	srl b
-	rr a
-	and a
-	jr nz, .skip2
-	inc a
-
-.skip2
-
-; Let W = ((MaxHP * 255) / BallFactor) / max(HP / 4, 1). Calculate W.
+	call GetCatchBallDivisor
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide
 
-; If W > 255, store 255 in [hQuotient + 3].
-; Let X = min(W, 255) = [hQuotient + 3].
+	ld a, 5
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+
 	ldh a, [hQuotient + 2]
 	and a
-	jr z, .skip3
-	ld a, 255
-	ldh [hQuotient + 3], a
+	jr nz, .captured ; T ran past 255, so no roll can lose
 
-.skip3
-	pop bc ; b = Rand1 - Status
-
-; If Rand1 - Status > CatchRate, the ball fails to capture the Pokémon.
-	ld a, [wEnemyMonActualCatchRate]
-	cp b
-	jr c, .failedToCapture
-
-; If W > 255, the ball captures the Pokémon.
-	ldh a, [hQuotient + 2]
-	and a
-	jr nz, .captured
-
-	call Random ; Let this random number be called Rand2.
-
-; If Rand2 > X, the ball fails to capture the Pokémon.
-	ld b, a
 	ldh a, [hQuotient + 3]
-	cp b
-	jr c, .failedToCapture
+	ld c, a          ; c = T, and it stays there for the wobble count
+	call Random      ; preserves bc
+	cp c
+	jr nc, .failedToCapture ; caught when Random < T
 
 .captured
 	jr .skipShakeCalculations
 
 .failedToCapture
-	ldh a, [hQuotient + 3]
-	ld [wPokeBallCaptureCalcTemp], a ; Save X.
-
-; Calculate CatchRate * 100.
-	xor a
-	ldh [hMultiplicand], a
-	ldh [hMultiplicand + 1], a
-	ld a, [wEnemyMonActualCatchRate]
-	ldh [hMultiplicand + 2], a
-	ld a, 100
-	ldh [hMultiplier], a
-	call Multiply
-
-; Determine BallFactor2.
-; Poké Ball:         BallFactor2 = 255
-; Great Ball:        BallFactor2 = 200
-; Ultra/Safari Ball: BallFactor2 = 150
-	ld a, [wcf91]
-	ld b, 255
-	cp POKE_BALL
-	jr z, .skip4
-	ld b, 200
-	cp GREAT_BALL
-	jr z, .skip4
-	ld b, 150
-	cp ULTRA_BALL
-	jr z, .skip4
-
-.skip4
-
-; Let Y = (CatchRate * 100) / BallFactor2. Calculate Y.
-	ld a, b
-	ldh [hDivisor], a
-	ld b, 4
-	call Divide
-
-; If Y > 255, there are 3 shakes.
-; Note that this shouldn't be possible.
-; The maximum value of Y is (255 * 100) / 150 = 170.
-	ldh a, [hQuotient + 2]
-	and a
-	ld b, $63 ; 3 shakes
-	jr nz, .setAnimData
-
-; Calculate X * Y.
-	ld a, [wPokeBallCaptureCalcTemp]
-	ldh [hMultiplier], a
-	call Multiply
-
-; Calculate (X * Y) / 255.
-	ld a, 255
-	ldh [hDivisor], a
-	ld b, 4
-	call Divide
-
-; Determine Status2.
-; no status ailment:     Status2 = 0
-; Burn/Paralysis/Poison: Status2 = 5
-; Freeze/Sleep:          Status2 = 10
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .skip5
-	and (1 << FRZ) | SLP_MASK
-	ld b, 5
-	jr z, .addAilmentValue
-	ld b, 10
-
-.addAilmentValue
-; If the Pokémon has a status ailment, add Status2.
-	ldh a, [hQuotient + 3]
-	add b
-	ldh [hQuotient + 3], a
-
-.skip5
-; Finally determine the number of shakes.
-; Let Z = ((X * Y) / 255) + Status2 = [hQuotient + 3].
-; The number of shakes depend on the range Z is in.
-; 0  ≤ Z < 10: 0 shakes (the ball misses)
-; 10 ≤ Z < 30: 1 shake
-; 30 ≤ Z < 70: 2 shakes
-; 70 ≤ Z:      3 shakes
-	ldh a, [hQuotient + 3]
-	cp 10
-	ld b, $20
+; The wobble count comes out of the same T the throw was decided on, so the
+; animation cannot disagree with the odds any more. 26, 77 and 179 are 10%,
+; 30% and 70% of 256 -- the vanilla bands, on the new scale.
+	ld a, c
+	cp 26
+	ld b, $20 ; the ball misses
 	jr c, .setAnimData
-	cp 30
-	ld b, $61
+	cp 77
+	ld b, $61 ; one shake
 	jr c, .setAnimData
-	cp 70
-	ld b, $62
+	cp 179
+	ld b, $62 ; two shakes
 	jr c, .setAnimData
-	ld b, $63
+	ld b, $63 ; three shakes
 
 .setAnimData
 	ld a, b
@@ -758,6 +582,198 @@ ItemUseBallText06:
 	sound_dex_page_added
 	text_promptbutton
 	text_end
+
+; --- the three multipliers of the v0.7 catch rule --------------------------
+; Each returns its multiplier in a, as a whole number of twentieths, so that
+; the console never has to touch a fraction. See ItemUseBall for the chain.
+
+; HP: 20 22 26 32 44 60 for full / 75-99% / 50-74% / 25-49% / 10-24% / under
+; 10%. The bands are the SUPER FANG ladder -- halving from full health lands on
+; 50, 25, 12.5 and 6.25 percent, one boundary per use.
+;
+; Exact, and with no division: the engine's Divide takes a ONE BYTE divisor and
+; max HP runs to 999, so dividing by it is not available here. Every test is a
+; comparison of small multiples instead.
+;   cur >= 75% of max  <=>  4*cur >= 3*max
+;   cur >= 50% of max  <=>  2*cur >=   max
+;   cur >= 25% of max  <=>  4*cur >=   max
+;   cur >= 10% of max  <=> 10*cur >=   max
+; With HP capped at 999, 10*cur (9,990) and 3*max (2,997) both stay in 16 bits.
+GetCatchHPMultiplier:
+	ld hl, wEnemyMonHP
+	ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld c, a ; bc = current HP, big endian
+	ld hl, wEnemyMonMaxHP ; not adjacent to HP: 14 bytes further into the struct
+	ld a, [hli]
+	ld d, a
+	ld a, [hl]
+	ld e, a ; de = max HP
+
+	ld a, b
+	cp d
+	jr nz, .notFull
+	ld a, c
+	cp e
+	jr nz, .notFull
+	ld a, 20 ; untouched
+	ret
+
+.notFull
+	ld h, b
+	ld l, c
+	add hl, hl ; 2*cur
+	ld b, h
+	ld c, l
+	add hl, hl ; 4*cur
+	push hl
+	add hl, hl ; 8*cur
+	add hl, bc ; 10*cur
+	call .below
+	pop bc     ; bc = 4*cur; pop leaves the flags alone
+	jr c, .under10
+
+	ld h, b
+	ld l, c    ; 4*cur
+	call .below
+	jr c, .tier10
+
+	srl h
+	rr l       ; 2*cur, exact: 4*cur is even
+	call .below
+	jr c, .tier25
+
+	add hl, hl ; 4*cur again
+	push hl
+	ld h, d
+	ld l, e
+	add hl, hl ; 2*max
+	add hl, de ; 3*max
+	ld d, h
+	ld e, l
+	pop hl
+	call .below
+	jr c, .tier50
+	ld a, 22   ; 75-99%
+	ret
+.tier50
+	ld a, 26
+	ret
+.tier25
+	ld a, 32
+	ret
+.tier10
+	ld a, 44
+	ret
+.under10
+	ld a, 60
+	ret
+
+.below
+; carry set if hl < de
+	ld a, h
+	cp d
+	ret c
+	ret nz
+	ld a, l
+	cp e
+	ret
+
+; Status: only the BEST one the target has counts. They do not stack, and the
+; trainer manual says so.
+;   none 20 | confusion 22 | poison 24 | burn 26 | toxic 28
+;   paralysis 32 | sleep 36 | freeze 40
+;
+; Three different bytes hold these. Sleep, poison, burn, freeze and paralysis
+; live in the status byte; BADLY_POISONED sits in battle status 3 on top of the
+; poison bit; and CONFUSED is in battle status 1 and is the only one of the
+; eight the status screen never shows the player -- which is why the manual has
+; to say out loud that it counts.
+;
+; Freeze is one step above sleep and no more, because what it really buys is
+; one extra turn: 3-6 against 2-5 (both retuned in v0.5). The turns already pay
+; for themselves in throws; paying twice for them would be double counting.
+GetCatchStatusMultiplier:
+	ld a, [wEnemyMonStatus]
+	ld b, a
+	and a
+	jr z, .noStatusByte
+
+	bit FRZ, b
+	ld a, 40
+	ret nz
+
+	ld a, b
+	and SLP_MASK
+	ld a, 36
+	ret nz
+
+	bit PAR, b
+	ld a, 32
+	ret nz
+
+	bit BRN, b
+	ld a, 26
+	ret nz
+
+; whatever is left in the status byte is poison; toxic is a bit on top of it
+	ld a, [wEnemyBattleStatus3]
+	bit BADLY_POISONED, a
+	ld a, 28
+	ret nz
+	ld a, 24
+	ret
+
+.noStatusByte
+	ld a, [wEnemyBattleStatus1]
+	bit CONFUSED, a
+	ld a, 22
+	ret nz
+	ld a, 20
+	ret
+
+; Ball: the multiplier folded into the denominator (24000 = D1 * 5), so a
+; better ball is a SMALLER constant.
+;   POKE x1 -> 240   GREAT x2 -> 120   ULTRA x3 -> 80
+;   SAFARI x5 -> 48, and x6 -> 40 once a rock is in play
+;
+; The SAFARI BALL is deliberately out of step with the 1:2:3 ladder. Inside the
+; SAFARI ZONE the menu is BAIT / ROCK / BALL / RUN: there is no way to weaken a
+; target and no way to give it a status, so the HP and status multipliers are
+; pinned at x1.0 in there by construction and the ball has to do their work by
+; itself. x5 is what holds the zone where it stands today.
+;
+; "A rock is in play" is wSafariEscapeFactor being non-zero. That is the
+; counter the rock already sets and that already ticks itself back to zero, and
+; BAIT already clears it -- so the bonus expires, and cancels, for free, with
+; no new state anywhere.
+;
+; Each `cp` is re-loaded and consumed by its own `ret` on purpose. The ladder
+; this replaces chained four `cp`s separated by `ld a, n` and was therefore
+; dead code from Yellow Legacy onwards: `ld` does not touch the flags, so every
+; comparison but the last was thrown away unread.
+GetCatchBallDivisor:
+	ld a, [wcf91]
+	cp GREAT_BALL
+	ld a, 120
+	ret z
+	ld a, [wcf91]
+	cp ULTRA_BALL
+	ld a, 80
+	ret z
+	ld a, [wcf91]
+	cp SAFARI_BALL
+	jr z, .safari
+	ld a, 240 ; POKE BALL, and anything else that reaches here
+	ret
+.safari
+	ld a, [wSafariEscapeFactor]
+	and a
+	ld a, 40
+	ret nz
+	ld a, 48
+	ret
 
 ItemUseTownMap:
 	ld a, [wIsInBattle]
@@ -1887,30 +1903,9 @@ VitaminNoEffectText:
 
 INCLUDE "data/battle/stat_names.asm"
 
-; Restore the species' own catch rate before either item changes it.
-;
-; Both items zero the OTHER one's factor outright, so that factor never ticks
-; down to zero in PrintSafariZoneBattleText and its restore never runs. A ROCK
-; followed by BAIT therefore kept the doubled catch rate for the rest of the
-; encounter. Vanilla never noticed because BAIT halved the rate straight back
-; again; with that penalty gone (see below) the pair would simply be the best
-; of both, permanently. Restoring first also stops two ROCKs stacking to x4.
-RestoreEnemyCatchRate:
-	push hl
-	push de
-	ld a, [wEnemyMonSpecies]
-	ld [wd0b5], a
-	call GetMonHeader
-	ld a, [wMonHCatchRate]
-	ld [wEnemyMonActualCatchRate], a
-	pop de
-	pop hl
-	ret
-
 ItemUseBait:
 	ld hl, ThrewBaitText
 	call PrintText
-	call RestoreEnemyCatchRate
 ; v0.7: BAIT no longer halves the catch rate.
 ;
 ; That halving was not a cost, it was a cancellation: it applied during exactly
@@ -1929,14 +1924,10 @@ ItemUseBait:
 ItemUseRock:
 	ld hl, ThrewRockText
 	call PrintText
-	call RestoreEnemyCatchRate
-	ld hl, wEnemyMonActualCatchRate ; catch rate
-	ld a, [hl]
-	add a ; double catch rate
-	jr nc, .noCarry
-	ld a, $ff
-.noCarry
-	ld [hl], a
+; v0.7 catch rework: the ROCK no longer doubles the catch rate. It is now the
+; SAFARI BALL's own upgrade -- x5 becomes x6 -- read straight off
+; wSafariEscapeFactor in GetCatchBallDivisor. One rule instead of two, and the
+; bonus expires and cancels on the counter that was already there.
 	ld a, ROCK_ANIM
 	ld hl, wSafariEscapeFactor ; escape factor
 	ld de, wSafariBaitFactor ; bait factor

@@ -900,14 +900,17 @@ TrainerManualChapter1Pages:
 	dw ManualPage_1_4, ManualPage_1_5
 
 TrainerManualChapter2Sections:
-	db 4
+	db 6
 	manual_section TrainerManualSection2_1, 0
 	manual_section TrainerManualSection2_2, 1
 	manual_section TrainerManualSection2_3, 2
 	manual_section TrainerManualSection2_4, 3
+	manual_section TrainerManualSection2_5, 4
+	manual_section TrainerManualSection2_6, 5
 TrainerManualChapter2Pages:
-	db 4
+	db 6
 	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
+	dw ManualPage_2_5, ManualPage_2_6
 
 TrainerManualChapter3Sections:
 	db 5
@@ -997,6 +1000,10 @@ TrainerManualSection2_3:
 	db "#MON MARTS@"
 TrainerManualSection2_4:
 	db "REMEMBERING MOVES@"
+TrainerManualSection2_5:
+	db "WHAT A BALL IS WORTH@"
+TrainerManualSection2_6:
+	db "WHAT COUNTS AS AILING@"
 
 TrainerManualSection3_1:
 	db "SPECIAL@"
@@ -1071,6 +1078,8 @@ TrainerManualSection7_4:
 	manual_page ManualPage_2_2
 	manual_page ManualPage_2_3
 	manual_page ManualPage_2_4
+	manual_page ManualPage_2_5
+	manual_page ManualPage_2_6
 
 	manual_page ManualPage_3_1
 	manual_page ManualPage_3_2

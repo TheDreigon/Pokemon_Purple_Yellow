@@ -125,6 +125,38 @@ _ManualPage_2_4::
 	next "for good."
 	done
 
+_ManualPage_2_5::
+	text "Three things make"
+	next "a BALL land."
+	next ""
+	next "How hurt it is."
+	next "Under a tenth,"
+	next "three times as"
+	next "likely."
+	next "What ails it."
+	next "SLEEP nearly"
+	next "doubles it again."
+	next "Which BALL. A"
+	next "GREAT is two, an"
+	next "ULTRA three."
+	done
+
+_ManualPage_2_6::
+	text "Only the worst"
+	next "thing ailing it"
+	next "counts. They do"
+	next "not stack."
+	next ""
+	next "Confusion counts,"
+	next "though no screen"
+	next "shows it."
+	next ""
+	next "POISON and BURN"
+	next "keep working, and"
+	next "will finish the"
+	next "job."
+	done
+
 _ManualPage_3_1::
 	text "SPECIAL does two"
 	next "jobs at once."

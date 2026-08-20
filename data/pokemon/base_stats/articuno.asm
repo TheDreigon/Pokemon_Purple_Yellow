@@ -2,7 +2,7 @@
 	base_stat_row 100, 90, 100, 130, 100 ; hp atk def spc spd
 
 	db ICE, FLYING ; type
-	db 3 ; catch rate  ; exception: legendary: one in the world
+	db 11 ; catch rate  ; exception: legendary: one in the world, and ICE cannot be frozen
 	db 250 ; base exp  ; trio dos passaros lendarios
 
 	INCBIN "gfx/pokemon/front/articuno.pic", 0, 1 ; sprite dimensions

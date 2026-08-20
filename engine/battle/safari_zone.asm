@@ -14,13 +14,9 @@ PrintSafariZoneBattleText:
 	dec [hl]
 	ld hl, SafariZoneAngryText
 	jr nz, .done
-	push hl
-	ld a, [wEnemyMonSpecies]
-	ld [wd0b5], a
-	call GetMonHeader
-	ld a, [wMonHCatchRate]
-	ld [wEnemyMonActualCatchRate], a
-	pop hl
+; v0.7 catch rework: nothing to restore here any more. The ROCK stopped
+; touching wEnemyMonActualCatchRate -- it raises the SAFARI BALL's own
+; multiplier instead -- and this counter reaching zero is what ends that.
 .done
 	push hl
 	call LoadScreenTilesFromBuffer1

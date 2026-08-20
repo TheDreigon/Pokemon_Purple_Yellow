@@ -2,7 +2,7 @@
 	base_stat_row 120, 90, 90, 150, 150 ; hp atk def spc spd
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
-	db 1 ; catch rate  ; set by hand: legendary: the hardest thing in the game
+	db 8 ; catch rate  ; set by hand: legendary: the hardest thing in the game
 	db 255 ; base exp  ; topo absoluto
 
 	INCBIN "gfx/pokemon/front/mewtwo.pic", 0, 1 ; sprite dimensions
