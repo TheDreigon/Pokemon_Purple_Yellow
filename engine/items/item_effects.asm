@@ -262,18 +262,41 @@ ItemUseBall:
 	ldh [hMultiplier], a
 	call Multiply
 
-; Determine BallFactor. It's 8 for Great Balls and 12 for the others.
+; Determine BallFactor: 4 for Ultra and Safari Balls, 8 for Great Balls, 12 for
+; the others. A smaller divisor is a better ball.
+;
+; v0.7 FIX. This ladder was dead. Inherited byte for byte from Yellow Legacy,
+; it read:
+;
+;     cp GREAT_BALL / ld a, 12 / cp ULTRA_BALL / ld a, 4
+;     cp SAFARI_BALL / ld a, 4 / jr nz, .skip1 / ld a, 8
+;
+; `ld` does not touch the flags, so each `cp` overwrote the one before it
+; unread, and the `jr nz` was deciding on `cp SAFARI_BALL` performed with a = 4.
+; $04 - $08 is never zero, so the branch was ALWAYS taken and `ld a, 8` was
+; unreachable: BallFactor was 4 for every ball including the Poke Ball.
+;
+; That is not a rounding error. X = (255 / BallFactor) * 4, so a factor of 4
+; pins X at its 255 ceiling at FULL health, the Rand2 gate below can never
+; reject, and weakening a wild Pokemon was worth exactly nothing -- while the
+; Viridian Forest sign, the school notebook, the old man's tutorial and section
+; 2.2 of the trainer manual all tell the player to do it.
+;
+; Written the way BallFactor2 below already does it: the value lives in b,
+; which `cp` cannot disturb, and every `cp` is consumed by its own jump.
 	ld a, [wcf91]
-	cp GREAT_BALL
-	ld a, 12
+	ld b, 4
 	cp ULTRA_BALL
-	ld a, 4
-	cp SAFARI_BALL 
-	ld a, 4
-	jr nz, .skip1
-	ld a, 8
+	jr z, .skip1
+	cp SAFARI_BALL
+	jr z, .skip1
+	ld b, 8
+	cp GREAT_BALL
+	jr z, .skip1
+	ld b, 12
 
 .skip1
+	ld a, b
 ; Note that the results of all division operations are floored.
 
 ; Calculate (MaxHP * 255) / BallFactor.

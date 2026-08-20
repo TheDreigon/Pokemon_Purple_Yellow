@@ -215,8 +215,8 @@ _MaxRepelDescription::
 	prompt
 
 _DireHitDescription::
-	text "Ups critical hit"
-	next "ratio this battle."
+	text "More critical hits"
+	next "until you switch."
 	prompt
 
 _FreshWaterDescription::
@@ -246,22 +246,22 @@ _GoldTeethDescription::
 
 _XAttackDescription::
 	text "Ups ATTACK a step"
-	next "for the battle."
+	next "until you switch."
 	prompt
 
 _XDefendDescription::
 	text "Ups DEFENSE a step"
-	next "for the battle."
+	next "until you switch."
 	prompt
 
 _XSpeedDescription::
 	text "Ups SPEED a step"
-	next "for the battle."
+	next "until you switch."
 	prompt
 
 _XSpecialDescription::
 	text "Ups SPECIAL a step"
-	next "for the battle."
+	next "until you switch."
 	prompt
 
 _CoinCaseDescription::
