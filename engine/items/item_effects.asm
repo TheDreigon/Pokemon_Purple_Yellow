@@ -100,6 +100,7 @@ ItemUsePtrTable:
 	dw ItemUsePPRestore  ; MAX_ETHER
 	dw ItemUsePPRestore  ; ELIXIR
 	dw ItemUsePPRestore  ; MAX_ELIXIR
+	dw ItemUseBillsChip  ; BILLS_CHIP
 
 ItemUseBall:
 
@@ -221,6 +222,12 @@ ItemUseBall:
 	cp MASTER_BALL
 	jp z, .captured
 
+; Worked out FIRST and parked on the stack: IsItemInBag goes through a predef,
+; and a bankswitch part-way through the h-register chain is a hazard worth not
+; having. Nothing between this push and its pop can leave the routine.
+	call GetCatchCharmDivisor
+	push af
+
 	xor a
 	ldh [hMultiplicand], a
 	ldh [hMultiplicand + 1], a
@@ -235,16 +242,21 @@ ItemUseBall:
 	ldh [hMultiplier], a
 	call Multiply
 
-; A post-League catch bonus would multiply in HERE, before the first divide.
-; Folding it in after one introduces rounding divergences; before, there are
-; none -- checked the same exhaustive way as the identity above.
+; x6 here, and the second divisor below carries BILL's CHIP: 30 without it,
+; which is bit-for-bit the plain /5, and 24 with it, which is the exact x1.25.
+; Folding the bonus into a divisor rather than into a fourth multiplier costs
+; no extra divide and keeps every divisor a constant -- and it puts the item's
+; strength in ONE byte, so retuning it later touches nothing else.
+	ld a, 6
+	ldh [hMultiplier], a
+	call Multiply
 
 	call GetCatchBallDivisor
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide
 
-	ld a, 5
+	pop af ; the charm divisor, worked out before any of this started
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide
@@ -755,6 +767,20 @@ GetCatchStatusMultiplier:
 ; this replaces chained four `cp`s separated by `ld a, n` and was therefore
 ; dead code from Yellow Legacy onwards: `ld` does not touch the flags, so every
 ; comparison but the last was thrown away unread.
+; Returns the second divisor: 24 while BILL's CHIP is in the bag, 30 otherwise.
+; 30 is exactly the plain /5 once the x6 above is accounted for, so a player
+; without the chip gets the same numbers as before it existed.
+;
+; The chip works by being CARRIED -- there is no flag to read, no charge to
+; spend and nothing to switch on. Toss it and the bonus goes with it.
+GetCatchCharmDivisor:
+	ld b, BILLS_CHIP
+	call IsItemInBag
+	ld a, 30
+	ret z
+	ld a, 24
+	ret
+
 GetCatchBallDivisor:
 	ld a, [wcf91]
 	cp GREAT_BALL
@@ -790,6 +816,17 @@ ItemUseTownMap:
 ; Refused in battle, the way the TOWN MAP is. The manual is a full-screen
 ; takeover and the battle screen is restored from a buffer this would not have
 ; filled -- the same reason every other reading item in the game says no there.
+; BILL's CHIP does its work by being carried -- GetCatchCharmDivisor looks for
+; it in the bag on every throw. Pressing USE says so rather than failing with
+; "not the time", which would be true of every moment there is.
+ItemUseBillsChip:
+	ld hl, BillsChipText
+	jp ItemUseFailed
+
+BillsChipText:
+	text_far _BillsChipText
+	text_end
+
 ItemUseTrainerManual:
 	ld a, [wIsInBattle]
 	and a

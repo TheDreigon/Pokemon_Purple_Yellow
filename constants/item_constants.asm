@@ -92,30 +92,31 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const MAX_ETHER     ; $51
 	const ELIXIR        ; $52
 	const MAX_ELIXIR    ; $53
+	const BILLS_CHIP    ; $54
 DEF NUM_ITEMS EQU const_value - 1
 
 ; elevator floors use item IDs
-	const FLOOR_B2F     ; $54
-	const FLOOR_B1F     ; $55
-	const FLOOR_1F      ; $56
-	const FLOOR_2F      ; $57
-	const FLOOR_3F      ; $58
-	const FLOOR_4F      ; $59
-	const FLOOR_5F      ; $5A
-	const FLOOR_6F      ; $5B
-	const FLOOR_7F      ; $5C
-	const FLOOR_8F      ; $5D
-	const FLOOR_9F      ; $5E
-	const FLOOR_10F     ; $5F
-	const FLOOR_11F     ; $60
-	const FLOOR_B4F     ; $61
+	const FLOOR_B2F     ; $55
+	const FLOOR_B1F     ; $56
+	const FLOOR_1F      ; $57
+	const FLOOR_2F      ; $58
+	const FLOOR_3F      ; $59
+	const FLOOR_4F      ; $5A
+	const FLOOR_5F      ; $5B
+	const FLOOR_6F      ; $5C
+	const FLOOR_7F      ; $5D
+	const FLOOR_8F      ; $5E
+	const FLOOR_9F      ; $5F
+	const FLOOR_10F     ; $60
+	const FLOOR_11F     ; $61
+	const FLOOR_B4F     ; $62
 DEF NUM_FLOORS EQU const_value - 1 - NUM_ITEMS
 
 ; v0.7 FIX: this was $C4, which put TM01 at $C9 (vanilla's value) and therefore
 ; the 55th TM at $FF — the byte EVERY item list uses as its terminator. TM55
 ; (OUTRAGE) was consequently unusable: the Indigo post-game mart truncated at
 ; it, and it could not be held in the bag. Starting one byte lower puts the last
-; TM at $FE. The ids $62-$C3 are an unused gap, so this only consumes one of
+; TM at $FE. The ids $63-$C3 are an unused gap, so this only consumes one of
 ; them; every reference to an HM/TM is symbolic, so nothing else moves.
 ; (Dev note: this shifts every HM/TM item id by one, so TMs in a pre-existing
 ; save file will read as the neighbouring TM.)

@@ -186,6 +186,8 @@ ItemDescriptionPointers:
 	text_end
 	text_far _MaxElixerDescription
 	text_end
+	text_far _BillsChipDescription
+	text_end
 	text_far _HM01Description
 	text_end
 	text_far _HM02Description

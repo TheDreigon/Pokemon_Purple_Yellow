@@ -344,6 +344,11 @@ _MaxElixerDescription::
 	next "PP of one #MON."
 	prompt
 
+_BillsChipDescription::
+	text "Every BALL works"
+	next "a quarter better."
+	prompt
+
 _HM01Description::
 	text "A critical hit is"
 	next "far more likely."

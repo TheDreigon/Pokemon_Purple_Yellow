@@ -1,3 +1,37 @@
+; BILL's CHIP. Given once, as the garden opens, and offered again on any later
+; visit if the bag was full at the time -- losing it to a full bag would be
+; losing it for good, since the wall only comes down once.
+;
+; Exported and farcalled from BillsHouse.asm, which lives in another bank.
+BillsHouseGiveChip::
+	CheckEvent EVENT_GOT_BILLS_CHIP
+	ret nz ; CheckEvent leaves Z SET when the event is clear
+	ld hl, .ChipText
+	call PrintText
+	ld b, BILLS_CHIP
+	ld c, 1
+	call GiveItem
+	jr nc, .noRoom
+	ld hl, .GotChipText
+	call PrintText
+	SetEvent EVENT_GOT_BILLS_CHIP
+	ret
+.noRoom
+	ld hl, .NoRoomText
+	jp PrintText
+
+.ChipText:
+	text_far _BillsHouseChipText
+	text_end
+
+.GotChipText:
+	text_far _BillsHouseChipGotItText
+	text_end
+
+.NoRoomText:
+	text_far _BillsHouseChipNoRoomText
+	text_end
+
 BillsHousePrintBillPokemonText::
 	ld hl, .ImNotAPokemonText
 	call PrintText
@@ -214,6 +248,10 @@ BillsHouseOfferRematch::
 	ld [wCurMapScript], a
 	ret
 .gardenAlreadyOpen
+; The second door into the handover. It is here for exactly one case: a bag
+; that was full when the wall came down. The event flag makes the call
+; idempotent, so a player who had room already walks straight past it.
+	call BillsHouseGiveChip
 	CheckEvent EVENT_BILL_ASKED_ABOUT_GARDEN
 	jr nz, .rematch
 ; Opening the wall and walking through it are different things. He only asks how

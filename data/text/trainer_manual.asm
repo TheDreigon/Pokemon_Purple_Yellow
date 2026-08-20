@@ -126,8 +126,9 @@ _ManualPage_2_4::
 	done
 
 _ManualPage_2_5::
-	text "Three things make"
-	next "a BALL land."
+	text "Three things you"
+	next "do make a BALL"
+	next "land."
 	next ""
 	next "How hurt it is."
 	next "Under a tenth,"
@@ -135,10 +136,9 @@ _ManualPage_2_5::
 	next "likely."
 	next "What ails it."
 	next "SLEEP nearly"
-	next "doubles it again."
-	next "Which BALL. A"
-	next "GREAT is two, an"
-	next "ULTRA three."
+	next "doubles it."
+	next "Which BALL. GREAT"
+	next "two, ULTRA three."
 	done
 
 _ManualPage_2_6::

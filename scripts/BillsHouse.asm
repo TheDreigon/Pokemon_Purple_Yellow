@@ -175,6 +175,10 @@ BillsHouseGardenOpenScript:
 	ld [wNewTileBlockID], a
 	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
 	predef ReplaceTileBlock
+; The chip goes with the garden -- it is the same reward, for the same reason.
+; farcall because BillsHouse_2.asm is in another bank ("Maps 22" against this
+; file's "Maps 4"), which is how this file already reaches its other half.
+	farcall BillsHouseGiveChip
 	SetEvent EVENT_BILL_OPENED_GARDEN
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
 	ld [wBillsHouseCurScript], a

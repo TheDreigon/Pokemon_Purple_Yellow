@@ -900,6 +900,11 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	const EVENT_BILL_ASKED_ABOUT_GARDEN ; ...and he only asks it once
 	const EVENT_BILL_SAW_MEW            ; he reacts to a caught MEW exactly once;
 	                                    ; a repeated "WAIT!" is not astonishment
+	const EVENT_GOT_BILLS_CHIP          ; the chip is handed over as the garden
+	                                    ; wall comes down. The flag exists for
+	                                    ; the one case the moment cannot handle:
+	                                    ; a full bag. He offers it again on the
+	                                    ; next visit rather than losing it.
 
 ; End of events
 	const_next $A00

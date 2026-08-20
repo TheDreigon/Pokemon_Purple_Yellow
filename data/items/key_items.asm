@@ -83,4 +83,5 @@ KeyItemFlags:
 	dbit FALSE ; MAX_ETHER
 	dbit FALSE ; ELIXIR
 	dbit FALSE ; MAX_ELIXIR
+	dbit TRUE  ; BILLS_CHIP
 	end_bit_array NUM_ITEMS

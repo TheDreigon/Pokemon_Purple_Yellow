@@ -105,6 +105,37 @@ _BillsHouseGardenThisWayText::
 	done
 
 ; the once-only follow-up, and only for a player who actually went in
+_BillsHouseChipText::
+	text "Oh! And take"
+	line "this, will you?"
+
+	para "I built it while"
+	line "I was stuck in"
+	cont "that machine."
+
+	para "It nudges a BALL"
+	line "shut. A quarter"
+	cont "better, near as"
+	cont "I can measure."
+
+	para "Just keep it in"
+	line "your BAG. It does"
+	cont "the rest itself."
+	prompt
+
+_BillsHouseChipGotItText::
+	text "<PLAYER> got"
+	line "@"
+	text_ram wStringBuffer
+	text "!@"
+	text_end
+
+_BillsHouseChipNoRoomText::
+	text "Your BAG's full!"
+	line "I'll hold onto it"
+	cont "until you're back."
+	prompt
+
 _BillsHouseBillHowWasTheGardenText::
 	text "So! What did you"
 	line "think of the"

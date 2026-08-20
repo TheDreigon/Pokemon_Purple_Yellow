@@ -193,6 +193,12 @@ _MonCannotLearnMachineMoveText::
 	text "."
 	prompt
 
+_BillsChipText::
+	text "The CHIP hums in"
+	line "your BAG. It is"
+	cont "already working."
+	prompt
+
 _ItemUseNotTimeText::
 	text "OAK: <PLAYER>!"
 	line "This isn't the"

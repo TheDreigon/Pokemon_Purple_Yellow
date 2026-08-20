@@ -83,6 +83,7 @@ ItemNames::
 	li "MAX ETHER"
 	li "ELIXIR"
 	li "MAX ELIXIR"
+	li "BILL's CHIP"
 	assert_list_length NUM_ITEMS
 	li "B2F"
 	li "B1F"
