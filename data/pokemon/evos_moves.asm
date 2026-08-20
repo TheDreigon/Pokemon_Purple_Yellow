@@ -2916,7 +2916,7 @@ HitmonchanEvosMoves:
 ; SHADOW_PUNCH/MAGMA_PUNCH (no FLAME_BURST/SHOCK_WAVE/ICY_WIND — those
 ; are special attacks, not punches). RECOVER for boxer stamina.
 ; MAGMA_PUNCH signature exception. STRENGTH via HM only.
-	db 6, DEFENSE_CURL
+	db  6, DEFENSE_CURL
 	db 10, QUICK_ATTACK
 	db 12, MACH_PUNCH
 	db 16, FOCUS_ENERGY
