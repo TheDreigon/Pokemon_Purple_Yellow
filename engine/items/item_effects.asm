@@ -747,6 +747,28 @@ GetCatchStatusMultiplier:
 	ld a, 20
 	ret
 
+; Returns the second divisor: 24 while BILL's CHIP is in the bag, 30 otherwise.
+; 30 is exactly the plain /5 once the x6 above is accounted for, so a player
+; without the chip gets the same numbers as before it existed.
+;
+; The chip works by being CARRIED -- there is no flag to read, no charge to
+; spend and nothing to switch on. It cannot be thrown away (TossItem_ refuses
+; key items), so the only way to put the bonus down is to leave the chip in the
+; PC, which is deliberate: the bonus should be losable on purpose and not by
+; accident.
+;
+; It is unconditional, which means it applies inside the SAFARI ZONE too, on top
+; of the x5 that zone is tuned around. That is on purpose: the bag description
+; says every BALL, and a post-League player walking back into the Safari with
+; the chip should not find the one place it quietly does nothing.
+GetCatchCharmDivisor:
+	ld b, BILLS_CHIP
+	call IsItemInBag
+	ld a, 30
+	ret z
+	ld a, 24
+	ret
+
 ; Ball: the multiplier folded into the denominator -- 24000 = D1 * 5 * B, with B
 ; the ball's own twentieths -- so a better ball is a SMALLER constant.
 ;   POKE x1 -> 240   GREAT x2 -> 120   ULTRA x3 -> 80
@@ -767,20 +789,6 @@ GetCatchStatusMultiplier:
 ; this replaces chained four `cp`s separated by `ld a, n` and was therefore
 ; dead code from Yellow Legacy onwards: `ld` does not touch the flags, so every
 ; comparison but the last was thrown away unread.
-; Returns the second divisor: 24 while BILL's CHIP is in the bag, 30 otherwise.
-; 30 is exactly the plain /5 once the x6 above is accounted for, so a player
-; without the chip gets the same numbers as before it existed.
-;
-; The chip works by being CARRIED -- there is no flag to read, no charge to
-; spend and nothing to switch on. Toss it and the bonus goes with it.
-GetCatchCharmDivisor:
-	ld b, BILLS_CHIP
-	call IsItemInBag
-	ld a, 30
-	ret z
-	ld a, 24
-	ret
-
 GetCatchBallDivisor:
 	ld a, [wcf91]
 	cp GREAT_BALL
@@ -809,16 +817,13 @@ ItemUseTownMap:
 	jp nz, ItemUseNotTime
 	farjp DisplayTownMap
 
-; v0.7: USE on the TRAINER MANUAL opens it. The item is in neither
-; UsableItems_CloseMenu nor UsableItems_PartyMenu, so the bag stays where it is
-; and redraws itself from its saved screen when this returns.
-;
-; Refused in battle, the way the TOWN MAP is. The manual is a full-screen
-; takeover and the battle screen is restored from a buffer this would not have
-; filled -- the same reason every other reading item in the game says no there.
 ; BILL's CHIP does its work by being carried -- GetCatchCharmDivisor looks for
 ; it in the bag on every throw. Pressing USE says so rather than failing with
 ; "not the time", which would be true of every moment there is.
+;
+; Note it is NOT refused in battle: a key item that does nothing on USE is
+; indistinguishable from a broken one, and the one moment a player is most
+; likely to press USE on it is mid-throw.
 ItemUseBillsChip:
 	ld hl, BillsChipText
 	jp ItemUseFailed
@@ -827,6 +832,13 @@ BillsChipText:
 	text_far _BillsChipText
 	text_end
 
+; v0.7: USE on the TRAINER MANUAL opens it. The item is in neither
+; UsableItems_CloseMenu nor UsableItems_PartyMenu, so the bag stays where it is
+; and redraws itself from its saved screen when this returns.
+;
+; Refused in battle, the way the TOWN MAP is. The manual is a full-screen
+; takeover and the battle screen is restored from a buffer this would not have
+; filled -- the same reason every other reading item in the game says no there.
 ItemUseTrainerManual:
 	ld a, [wIsInBattle]
 	and a

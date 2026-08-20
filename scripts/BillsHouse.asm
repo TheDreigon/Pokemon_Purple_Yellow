@@ -176,8 +176,17 @@ BillsHouseGardenOpenScript:
 	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
 	predef ReplaceTileBlock
 ; The chip goes with the garden -- it is the same reward, for the same reason.
+;
+; 🔴 The wait is NOT optional. BillsHouseGardenThisWayText above ends in `done`,
+; and `done` does not wait -- so the PrintText inside BillsHouseGiveChip would
+; blank "Consider it a CHAMPION's privilege" a few frames after the door sound,
+; which is the payoff line of the whole scene. Same house rule as Daycare2F.asm
+; and ViridianGym.asm. It sits AFTER ReplaceTileBlock on purpose: the wall comes
+; down while his words are still on screen, and the press is what moves on.
+;
 ; farcall because BillsHouse_2.asm is in another bank ("Maps 22" against this
 ; file's "Maps 4"), which is how this file already reaches its other half.
+	farcall NewPageButtonPressCheck
 	farcall BillsHouseGiveChip
 	SetEvent EVENT_BILL_OPENED_GARDEN
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9

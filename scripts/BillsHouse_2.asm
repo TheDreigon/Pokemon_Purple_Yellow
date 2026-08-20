@@ -26,6 +26,14 @@ BillsHouseGiveChip::
 
 .GotChipText:
 	text_far _BillsHouseChipGotItText
+; Both of these are load-bearing, and the SS TICKET 100 lines below already
+; proves the shape. The jingle is what every other key item in the game plays.
+; The wait is what stops the retry path erasing this line unread: .gardenAlreadyOpen
+; calls us FIRST and then prints again unconditionally, so without the button
+; press the player who had a full bag -- the only player this path exists for --
+; would never be told the chip arrived.
+	sound_get_key_item
+	text_promptbutton
 	text_end
 
 .NoRoomText:

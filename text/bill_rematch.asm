@@ -104,7 +104,7 @@ _BillsHouseGardenThisWayText::
 	cont "privilege."
 	done
 
-; the once-only follow-up, and only for a player who actually went in
+; what he says as he hands the chip over, with the wall still coming down
 _BillsHouseChipText::
 	text "Oh! And take"
 	line "this, will you?"
@@ -136,6 +136,7 @@ _BillsHouseChipNoRoomText::
 	cont "until you're back."
 	prompt
 
+; the once-only follow-up, and only for a player who actually went in
 _BillsHouseBillHowWasTheGardenText::
 	text "So! What did you"
 	line "think of the"
