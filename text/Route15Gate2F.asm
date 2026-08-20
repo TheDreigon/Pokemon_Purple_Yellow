@@ -10,8 +10,8 @@ _Route15Gate2FOaksAideHiText::
 
 _Route15Gate2FOaksAideGotItemText::
 	text "<PLAYER> got the"
-	line "EXP.SHARE!"
-	prompt
+	line "EXP.SHARE!@"
+	text_end
 
 _Route15Gate2FOaksAideNoRoomText::
 	text "Oh! I see you"
