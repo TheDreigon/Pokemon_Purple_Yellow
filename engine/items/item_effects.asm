@@ -199,8 +199,10 @@ ItemUseBall:
 ; time from different numbers, so the animation could, and did, disagree with
 ; the odds it was animating.
 ;
-; The ball is folded into the DIVISOR (24000 = D1 * 5) instead of multiplied
-; in. That saves a whole Multiply, holds the intermediate at 612,000 rather
+; The ball is folded into the DIVISOR instead of multiplied in. The identity is
+; 24000 = D1 * 5 * B, with B the ball's own twentieths: 240*5*20, 120*5*40,
+; 80*5*60, 48*5*100 and 40*5*120 all come to 24000, so the ball never has to be
+; multiplied in at all. That saves a whole Multiply, holds the intermediate at 612,000 rather
 ; than 36.7 million, and -- the reason that matters here -- makes every divisor
 ; a CONSTANT out of a table, never a value derived from battle state. The
 ; divide-by-zero hang the crit rework produced cannot be repeated on this path.
@@ -733,8 +735,8 @@ GetCatchStatusMultiplier:
 	ld a, 20
 	ret
 
-; Ball: the multiplier folded into the denominator (24000 = D1 * 5), so a
-; better ball is a SMALLER constant.
+; Ball: the multiplier folded into the denominator -- 24000 = D1 * 5 * B, with B
+; the ball's own twentieths -- so a better ball is a SMALLER constant.
 ;   POKE x1 -> 240   GREAT x2 -> 120   ULTRA x3 -> 80
 ;   SAFARI x5 -> 48, and x6 -> 40 once a rock is in play
 ;

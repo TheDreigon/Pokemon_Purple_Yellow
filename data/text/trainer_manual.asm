@@ -143,18 +143,18 @@ _ManualPage_2_5::
 
 _ManualPage_2_6::
 	text "Only the worst"
-	next "thing ailing it"
-	next "counts. They do"
-	next "not stack."
+	next "thing counts. They"
+	next "do not stack."
 	next ""
 	next "Confusion counts,"
 	next "though no screen"
 	next "shows it."
 	next ""
-	next "POISON and BURN"
-	next "keep working, and"
-	next "will finish the"
-	next "job."
+	next "POISON, BURN,"
+	next "TOXIC and"
+	next "confusion all take"
+	next "health, and will"
+	next "finish the job."
 	done
 
 _ManualPage_3_1::
