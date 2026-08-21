@@ -9,6 +9,8 @@
 ;       UP/DOWN move cursor by 1, LEFT/RIGHT page by 10, A enters PLAY,
 ;       B exits to debug menu. Window of 10 items visible at a time.
 ;   * PLAY view:
+;       SELECT flips which SIDE is attacking -- see the note below, this
+;       is the whole reason the screen was worth extending.
 ;       Auto-loops the current move's animation with a 30-frame
 ;       (~0.5s) pause between plays. LEFT/RIGHT cycle prev/next move
 ;       (with wrap from NUM_ATTACKS back to 1 and vice-versa) —
@@ -24,6 +26,24 @@
 ;   * Player back sprite (Pikachu) at hlcoord (1, 5), mid-left 7x7.
 ;   * Move ID + name on row 13 (bottom dialogue area).
 ;   * Hints on rows 15-16.
+;
+; WHY THE SIDE TOGGLE EXISTS (2026-08-21)
+;   This screen used to pin hWhoseTurn to 0 and never flip it, so it could
+;   only ever render the PLAYER's half of an animation. That is a blind spot
+;   with teeth: TICKLE carried SE_BLINK_MON, which blinks whoever is ATTACKING,
+;   so a wild TANGELA tickling you made ITSELF giggle. On the player's turn it
+;   looked perfectly fine, and it sat in the tree for four months because the
+;   one screen built to inspect animations structurally could not show it.
+;   Forte caught it playing, and then asked for this.
+;
+;   No new state was needed: hWhoseTurn IS the toggle. CallWithTurnFlipped
+;   (engine/battle/animations.asm) is the only thing in the animation engine
+;   that writes it, and it restores what it found -- so the flag survives a
+;   MoveAnimation and can simply be left flipped between plays.
+;
+;   Note one real consequence, and it is vanilla, not a bug: ShareMoveAnimations
+;   swaps AMNESIA for CONF_ANIM and REST for SLP_ANIM when hWhoseTurn is set.
+;   Those two genuinely animate differently from the enemy's side.
 ;
 ; Implementation notes:
 ;   * wWhichPokemon is reused as the current move ID storage. It's
@@ -205,9 +225,22 @@ IF DEF(_DEBUG)
 	jr nz, .playNext
 	bit BIT_A_BUTTON, a
 	jp nz, .playAnim                   ; A = replay now
+	bit BIT_SELECT, a
+	jr nz, .flipSide
 	dec c
 	jr nz, .pauseFrame
 	jp .playAnim                       ; auto-replay after pause
+.flipSide
+	; The toggle is hWhoseTurn itself. Everything downstream -- the 27 reads in
+	; the animation engine, the subanimation coord flip, the base coords, every
+	; SE_* that picks a mon -- follows it, which is exactly what makes this
+	; screen worth trusting on the enemy side.
+	ldh a, [hWhoseTurn]
+	xor 1
+	ldh [hWhoseTurn], a
+	call AnimTest_DrawPlayHeader
+	jp .playAnim
+
 .playNext
 	ld a, [wWhichPokemon]
 	inc a
@@ -458,6 +491,18 @@ AnimTest_DrawPlayHeader:
 	pop hl
 	call PlaceString
 
+	; Which side is attacking. Without this the screen lies by omission: the
+	; two renderings of a move can be very different and nothing else on
+	; screen says which one you are looking at.
+	hlcoord 1, 14
+	ldh a, [hWhoseTurn]
+	and a
+	ld de, .sideYou
+	jr z, .placeSide
+	ld de, .sideFoe
+.placeSide
+	call PlaceString
+
 	; Footer hints
 	hlcoord 1, 15
 	ld de, .footer1
@@ -469,8 +514,12 @@ AnimTest_DrawPlayHeader:
 
 .moveLabel
 	db "MOVE@"
+.sideYou
+	db "SIDE: YOU ATTACK@"
+.sideFoe
+	db "SIDE: FOE ATTACKS@"
 .footer1
-	db "L/R: PREV/NEXT@"
+	db "L/R:MOVE  SEL:SIDE@"
 .footer2
 	db "A:REPLAY  B:LIST@"
 
