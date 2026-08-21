@@ -77,8 +77,19 @@ Route22DefaultScript:
 	ret
 
 .Route22RivalBattleCoords
-	dbmapcoord 29,  4
-	dbmapcoord 29,  5
+; 🔴 These followed the RIVAL down the map, they are not vanilla's any more.
+; Vanilla stands him at (25,5) and triggers at (29,4)/(29,5): one row above him
+; and his own row, four tiles east. Forte's map polish moved him to (25,7) and
+; left the coords behind -- and rows 4 and 5 became SOLID, so the trigger sat on
+; two tiles the player can never occupy and neither RIVAL1 nor RIVAL2 could ever
+; fire. Same relationship as vanilla, two rows down.
+;
+; The order still matters: entry 1 is the player standing ABOVE him (the scripts
+; below read wSavedCoordIndex == 1 to face the player down and the rival up, and
+; give the rival his extra step east so he lands directly underneath), entry 2
+; is the player on his own row.
+	dbmapcoord 29,  6
+	dbmapcoord 29,  7
 	db -1 ; end
 
 Route22FirstRivalBattleScript:
