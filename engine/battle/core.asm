@@ -1911,6 +1911,49 @@ DrawHUDsAndHPBars:
 	call DrawPlayerHUDAndHPBar
 	jp DrawEnemyHUDAndHPBar
 
+; The three-letter status in the HUD, plus CNF when the battler is confused and
+; has nothing worse wrong with it.
+;
+; Confusion cannot go through PrintStatusAilment, and this is the reason: that
+; routine reads a mon's STATUS BYTE, and confusion is not in it. Confusion is
+; volatile, it lives in wPlayerBattleStatus1 / wEnemyBattleStatus1, and it
+; belongs to the BATTLER rather than to the Pokemon. PrintStatusAilment is also
+; shared with the party menu and the stats screen, where the row being drawn is
+; usually not the mon that is confused -- widening it there would stamp CNF on
+; the wrong Pokemon, out of battle, permanently.
+;
+; A persistent status OUTRANKS confusion. There are three tiles and no more, and
+; a BRN still burns after the confusion has worn off.
+;
+; INPUT   a  = that battler's BattleStatus1
+;         de = its status byte
+;         hl = where to write
+; OUTPUT  NZ when something was written, which is the caller's cue to drop the
+;         level -- the same contract a real status already had.
+PrintStatusOrConfusion:
+	push af
+	call PrintStatusConditionNotFainted
+; homejp_sf pushes and pops its own bank byte, so the top of the stack here is
+; still our BattleStatus1 -- and `pop bc` leaves the flags the call returned
+; with, which is the whole reason that macro exists in the _sf form.
+	pop bc
+	ret nz ; a real status was drawn, and it wins the slot
+	bit CONFUSED, b
+	ret z
+	ld a, "C"
+	ld [hli], a
+	ld a, "N"
+	ld [hli], a
+	ld a, "F"
+	ld [hl], a
+; Belt and braces, and worth being honest about: the `bit` above already left NZ
+; and none of the loads touch the flags, so removing this changes nothing today
+; -- a sabotage run proved the test stays green without it. It is here so that
+; the NZ the caller depends on survives someone inserting a flag-touching
+; instruction into this tail later. One byte.
+	and a
+	ret
+
 DrawPlayerHUDAndHPBar:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
@@ -1937,7 +1980,8 @@ DrawPlayerHUDAndHPBar:
 	push hl
 	inc hl
 	ld de, wLoadedMonStatus
-	call PrintStatusConditionNotFainted
+	ld a, [wPlayerBattleStatus1]
+	call PrintStatusOrConfusion
 	pop hl
 	jr nz, .doNotPrintLevel
 	call PrintLevel
@@ -2010,7 +2054,8 @@ DrawEnemyHUDAndHPBar:
 	push hl
 	inc hl
 	ld de, wEnemyMonStatus
-	call PrintStatusConditionNotFainted
+	ld a, [wEnemyBattleStatus1]
+	call PrintStatusOrConfusion
 	pop hl
 	jr nz, .skipPrintLevel ; if the mon has a status condition, skip printing the level
 	ld a, [wEnemyMonLevel]
