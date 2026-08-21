@@ -213,7 +213,7 @@ IvysaurDexEntry:
 
 VenusaurDexEntry:
 	db "BLOOM@"
-	db 2,0 ; height: meters, decimeters (v0.7 metric dex)
+	db 1,9 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1120 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _VenusaurDexEntry
 	text_end
@@ -234,8 +234,8 @@ CharmeleonDexEntry:
 
 CharizardDexEntry:
 	db "FLAME WING@"
-	db 1,9 ; height: meters, decimeters (v0.7 metric dex)
-	dw 1080 ; weight in 0.1 kg (v0.7 metric dex)
+	db 1,8 ; height: meters, decimeters (v0.7 metric dex)
+	dw 960 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CharizardDexEntry
 	text_end
 
@@ -255,7 +255,7 @@ WartortleDexEntry:
 
 BlastoiseDexEntry:
 	db "CANNON@"
-	db 1,8 ; height: meters, decimeters (v0.7 metric dex)
+	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
 	dw 1080 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _BlastoiseDexEntry
 	text_end
