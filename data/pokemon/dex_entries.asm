@@ -228,14 +228,14 @@ CharmanderDexEntry:
 CharmeleonDexEntry:
 	db "FLAME@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
-	dw 240 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 260 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CharmeleonDexEntry
 	text_end
 
 CharizardDexEntry:
 	db "FLAME WING@"
 	db 1,8 ; height: meters, decimeters (v0.7 metric dex)
-	dw 960 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 780 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _CharizardDexEntry
 	text_end
 
@@ -732,14 +732,14 @@ GolemDexEntry:
 PonytaDexEntry:
 	db "BLAZEHOOF@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
-	dw 200 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 220 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _PonytaDexEntry
 	text_end
 
 RapidashDexEntry:
 	db "GALLOPING@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
-	dw 800 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 880 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _RapidashDexEntry
 	text_end
 
@@ -752,7 +752,7 @@ SlowpokeDexEntry:
 
 SlowbroDexEntry:
 	db "SHELLBOUND@"
-	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
+	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 500 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SlowbroDexEntry
 	text_end
@@ -795,14 +795,14 @@ DodrioDexEntry:
 SeelDexEntry:
 	db "CLAPPING@"
 	db 1,1 ; height: meters, decimeters (v0.7 metric dex)
-	dw 180 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 200 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _SeelDexEntry
 	text_end
 
 DewgongDexEntry:
 	db "SEA IVORY@"
 	db 1,7 ; height: meters, decimeters (v0.7 metric dex)
-	dw 720 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 800 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DewgongDexEntry
 	text_end
 
@@ -865,14 +865,14 @@ OnixDexEntry:
 DrowzeeDexEntry:
 	db "HYPNOSIS@"
 	db 1,0 ; height: meters, decimeters (v0.7 metric dex)
-	dw 140 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 160 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _DrowzeeDexEntry
 	text_end
 
 HypnoDexEntry:
 	db "PENDULUM@"
 	db 1,6 ; height: meters, decimeters (v0.7 metric dex)
-	dw 420 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 480 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _HypnoDexEntry
 	text_end
 
@@ -990,7 +990,7 @@ ChanseyDexEntry:
 
 TangelaDexEntry:
 	db "VINE@"
-	db 0,8 ; height: meters, decimeters (v0.7 metric dex)
+	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
 	dw 120 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _TangelaDexEntry
 	text_end
@@ -998,7 +998,7 @@ TangelaDexEntry:
 KangaskhanDexEntry:
 	db "PARENT@"
 	db 1,8 ; height: meters, decimeters (v0.7 metric dex)
-	dw 800 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 820 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _KangaskhanDexEntry
 	text_end
 
