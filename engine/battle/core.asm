@@ -1930,6 +1930,79 @@ DrawHUDsAndHPBars:
 ;         hl = where to write
 ; OUTPUT  NZ when something was written, which is the caller's cue to drop the
 ;         level -- the same contract a real status already had.
+; Alternates the HUD's three status tiles between the persistent status and CNF
+; for a battler that has BOTH, about every two seconds.
+;
+; Why it is needed: PrintStatusOrConfusion gives the slot to the persistent
+; status, because that is the one that outlives the battle. So a burned AND
+; confused #MON reads BRN and the confusion is invisible. Three tiles is all
+; there is, so the only way to show both is to take turns.
+;
+; Called once a frame from HandleMenuInput_ (home/window.asm), which every menu
+; in the game shares -- hence two gates, and both are load-bearing:
+;   hHUDStatusFlip           0 unless the battle menu deliberately set it;
+;                            HandleMenuInput clears it for everyone else.
+;   wPartyMenuAnimMonEnabled the party menu is the ONE caller that enters at
+;                            HandleMenuInput_ and so never clears the byte
+;                            above. Without this check, switching #MON mid
+;                            battle would stamp CNF into the party list.
+; HandleMenuInput with the HUD status alternation switched on. It has to enter
+; at HandleMenuInput_ because the outer entry is precisely what turns the flag
+; back off for every other menu in the game -- so it also has to do that entry's
+; own job of clearing wPartyMenuAnimMonEnabled by hand.
+BattleMenuInput:
+	xor a
+	ld [wPartyMenuAnimMonEnabled], a
+	inc a
+	ldh [hHUDStatusFlip], a
+	jp HandleMenuInput_
+
+AlternateHUDStatus::
+	ldh a, [hHUDStatusFlip]
+	and a
+	ret z
+	ld a, [wPartyMenuAnimMonEnabled]
+	and a
+	ret nz
+	ldh a, [hHUDStatusFlip]
+	inc a
+	jr nz, .stored
+	inc a ; never wrap onto 0 -- that value means "off"
+.stored
+	ldh [hHUDStatusFlip], a
+	ld a, [wPlayerBattleStatus1]
+	ld b, a
+	ld de, wBattleMonStatus
+	hlcoord 15, 8
+	call .side
+	ld a, [wEnemyBattleStatus1]
+	ld b, a
+	ld de, wEnemyMonStatus
+	hlcoord 5, 1
+	; falls through, and the ret at the end of .side is this routine's own
+.side
+; b = that battler's BattleStatus1, de = its status byte, hl = the three tiles
+	bit CONFUSED, b
+	ret z ; not confused, so the HUD is already showing the right thing
+	ld a, [de]
+	and a
+	ret z ; confused and nothing else -- the HUD already says CNF
+; 🔴 The phase is re-read here rather than carried in a register. It WAS carried
+; in c, and that was wrong: PrintStatusConditionNotFainted below goes through
+; homejp_sf, whose own `pop bc` destroys c. The phase therefore survived the
+; player's call and was gone by the enemy's, so the enemy alternated on garbage.
+; Caught by making the test assert the two sides with DIFFERENT statuses --
+; with the same status on both, swapping the source is invisible.
+	ldh a, [hHUDStatusFlip]
+	and $80 ; bit 7 flips every 128 frames, a shade over two seconds
+	jp z, PrintStatusConditionNotFainted ; phase 0: put the real status back
+	ld a, "C"
+	ld [hli], a
+	ld a, "N"
+	ld [hli], a
+	ld [hl], "F"
+	ret
+
 PrintStatusOrConfusion:
 	push af
 	call PrintStatusConditionNotFainted
@@ -2267,7 +2340,7 @@ DisplayBattleMenu::
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
 	ld [hl], D_RIGHT | A_BUTTON ; wMenuWatchedKeys
-	call HandleMenuInput
+	call BattleMenuInput
 	bit BIT_D_RIGHT, a
 	jr nz, .rightColumn
 	jr .AButtonPressed ; the A button was pressed
@@ -2301,7 +2374,7 @@ DisplayBattleMenu::
 	ld [hli], a ; wMaxMenuItem
 	ld a, D_LEFT | A_BUTTON
 	ld [hli], a ; wMenuWatchedKeys
-	call HandleMenuInput
+	call BattleMenuInput
 	bit 5, a ; check if left was pressed
 	jr nz, .leftColumn ; if left was pressed, jump
 	ld a, [wCurrentMenuItem]

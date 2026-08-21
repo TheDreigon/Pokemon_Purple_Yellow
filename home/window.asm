@@ -1,6 +1,7 @@
 HandleMenuInput::
 	xor a
 	ld [wPartyMenuAnimMonEnabled], a
+	ldh [hHUDStatusFlip], a ; off unless a caller deliberately turns it on
 
 HandleMenuInput_::
 	ldh a, [hDownArrowBlinkCount1]
@@ -31,6 +32,13 @@ HandleMenuInput_::
 	push hl
 	hlcoord 18, 11 ; coordinates of blinking down arrow in some menus
 	call HandleDownArrowBlinkTiming ; blink down arrow (if any)
+; The battle HUD has three tiles for a status and a #MON can have two at once
+; (a real one and confusion). This alternates them. It lives here because this
+; is the only loop that runs once a frame while the player is looking at the
+; HUD, and the down-arrow blink above is the proof that tilemap writes from
+; here reach the screen. It costs 6 bytes of home and returns immediately
+; unless hHUDStatusFlip says the battle menu is up.
+	farcall AlternateHUDStatus
 	pop hl
 	ld a, [wMenuJoypadPollCount]
 	dec a

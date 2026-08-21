@@ -409,7 +409,13 @@ hFieldMoveMonMenuTopMenuItemX:: db
 
 hPikachuSpriteVRAMOffset:: db
 
-	ds 1
+; Battle HUD: 0 = off, otherwise a free-running frame counter whose bit 7 is the
+; phase. It is BOTH the enable and the timer on purpose -- there was exactly one
+; spare byte here (this `ds 1`, which nothing ever wrote) and one is enough.
+; Cleared by HandleMenuInput, which every menu but the party menu goes through;
+; the battle menu sets it and enters at HandleMenuInput_ instead, the same way
+; the party menu already does with wPartyMenuAnimMonEnabled.
+hHUDStatusFlip:: db
 
 ; 0 if DMG, != 0 if GBC
 hGBC:: db
