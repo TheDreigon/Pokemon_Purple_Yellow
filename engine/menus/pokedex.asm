@@ -1192,9 +1192,17 @@ Pokedex_PrintBaseStats:
 ; The five stats, right-aligned into columns 16-18, one row apart. Three digits
 ; is enough for every one of them and for the total; the assert in the
 ; base_stat_row macro is what keeps that true.
+; 🔴 Only HP, ATK and DEF walk the struct in order. SPECIAL and SPEED are
+; printed by hand, in THAT order, because the struct stores them the other way
+; round (wMonHBaseSpeed then wMonHBaseSpecial) and this game shows SPECIAL
+; first -- see the party stats screen, engine/pokemon/status_screen.asm, which
+; prints ATTACK / DEFENSE / SPECIAL / SPEED. Vanilla has SPEED before SPECIAL in
+; both places; this hack swapped the stats screen and this page was left behind,
+; so the dex and the stats screen disagreed with each other. Forte caught it on
+; a NIDORAN.
 	ld de, wMonHBaseStats
 	hlcoord 16, 11
-	ld c, NUM_STATS
+	ld c, 3
 .statLoop
 	push bc
 	push de
@@ -1209,6 +1217,17 @@ Pokedex_PrintBaseStats:
 	pop bc
 	dec c
 	jr nz, .statLoop
+; hl is on the fourth row now, and the loop left it there
+	push hl
+	ld de, wMonHBaseSpecial
+	lb bc, 1, 3
+	call PrintNumber
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	ld de, wMonHBaseSpeed
+	lb bc, 1, 3
+	call PrintNumber
 
 ; The total, summed here rather than stored anywhere: there is no room in the
 ; base stats struct for a byte that is only ever the sum of five others.
@@ -1257,8 +1276,8 @@ BaseStatLabelsText:
 	db   "HP"
 	next "ATK"
 	next "DEF"
-	next "SPD"
-	next "SPC@"
+	next "SPC"
+	next "SPD@"
 
 BaseStatTotalText:
 	db "TOTAL@"
