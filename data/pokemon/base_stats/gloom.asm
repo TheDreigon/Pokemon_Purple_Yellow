@@ -1,8 +1,8 @@
 	db DEX_GLOOM ; pokedex id
 	base_stat_row 80, 70, 70, 80, 40 ; hp atk def spc spd
-	db GRASS, FUNGUS ; type
+	db GRASS, POISON ; type
 	db 125 ; catch rate  ; mid stage, BST 340, easy to approach
-	db 115 ; base exp  ; BST 340 - muitas fraquezas (-5)
+	db 120 ; base exp  ; BST 340 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/gloom.pic", 0, 1 ; sprite dimensions
 	dw GloomPicFront, GloomPicBack

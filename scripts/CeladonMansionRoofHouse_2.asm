@@ -158,7 +158,7 @@ RoofQuizAskQuestion::
 ; 9 bytes per entry: dw question wrapper, dw option x3, db correct
 RoofQuizTable::
 	dw .Q1Text, .Q1A, .Q1B, .Q1C
-	db 1
+	db 0 ; VILEPLUME went GRASS/FUNGUS -> GRASS/POISON, so the key moved B -> A
 	dw .Q2Text, .Q2A, .Q2B, .Q2C
 	db 2
 	dw .Q3Text, .Q3A, .Q3B, .Q3C
