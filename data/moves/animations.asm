@@ -2439,8 +2439,19 @@ TickleAnim:
 	; Mental image: poke + giggle + poke — playful brief contacts that
 	; weaken target's guard (-1 def). Two-beat with blink between for
 	; the giggle. Distinct from CHARM (sustained gaze).
+	;
+	; 🔴 The blink is SE_BLINK_ENEMY_MON, not SE_BLINK_MON, and the difference
+	; is not cosmetic. SE_BLINK_MON reads hWhoseTurn and blinks whoever is
+	; ATTACKING, so a wild mon tickling you made ITSELF giggle -- Forte caught
+	; exactly that with a TANGELA. The giggle belongs to the one being tickled.
+	; SE_BLINK_ENEMY_MON is the same routine wrapped in CallWithTurnFlipped, so
+	; it is one data byte ($F3 -> $DE) and the timing is identical.
+	;
+	; ANIM TEST cannot show this class of fault: engine/debug/animation_test.asm
+	; pins hWhoseTurn to 0 and never flips it, so every animation is only ever
+	; rendered from the player's side there.
 	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 0, 4
-	battle_anim NO_MOVE, SE_BLINK_MON
+	battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
 	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 0, 4
 	db -1 ; end
 
