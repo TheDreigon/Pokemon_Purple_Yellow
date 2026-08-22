@@ -120,15 +120,21 @@ IF DEF(_DEBUG)
 	jp nz, .enterPlayView
 	bit BIT_B_BUTTON, a
 	jp nz, .exit
-; v0.7: LEFT/RIGHT step one and UP/DOWN jump ten, matching MON TEST so both
-; debug screens share one muscle memory. (This used to be the other way round.)
-	bit BIT_D_LEFT, a
-	jr nz, .listUp
-	bit BIT_D_RIGHT, a
-	jr nz, .listDown
+; UP/DOWN step one, LEFT/RIGHT jump ten. This is a VERTICAL list with a
+; vertical cursor, so up-and-down moving one line is the mapping the hand
+; expects; sideways is the page. It was briefly the other way round to match
+; MON TEST -- MON TEST moved to this instead (2026-08-21, Forte).
+;
+; Note the deliberate mismatch with PLAY below, where LEFT/RIGHT step one move:
+; there is no list on screen there, nothing to page through, and prev/next on
+; the horizontal axis is the ordinary reading.
 	bit BIT_D_UP, a
-	jr nz, .listPageUp
+	jr nz, .listUp
 	bit BIT_D_DOWN, a
+	jr nz, .listDown
+	bit BIT_D_LEFT, a
+	jr nz, .listPageUp
+	bit BIT_D_RIGHT, a
 	jr nz, .listPageDown
 	jr .listInputLoop
 .listUp
@@ -325,9 +331,9 @@ AnimTest_DrawList:
 .listTitle
 	db "ANIMATION TEST@"
 .listHints1
-	db "L/R:   select@"
+	db "U/D:   select@"
 .listHints2
-	db "U/D:   jump x10@"
+	db "L/R:   jump x10@"
 .listHints3
 	db "A: play  B: exit@"
 

@@ -64,13 +64,15 @@ IF DEF(_DEBUG)
 	jp nz, .exit
 	bit BIT_A_BUTTON, a
 	jr nz, .replayCry
-	bit BIT_D_LEFT, a
-	jr nz, .prev
-	bit BIT_D_RIGHT, a
-	jr nz, .next
+; UP/DOWN step one, LEFT/RIGHT jump ten -- the same hand as ANIM TEST's list
+; (2026-08-21, Forte). Both screens are browsed the same way on purpose.
 	bit BIT_D_UP, a
-	jr nz, .back10
+	jr nz, .prev
 	bit BIT_D_DOWN, a
+	jr nz, .next
+	bit BIT_D_LEFT, a
+	jr nz, .back10
+	bit BIT_D_RIGHT, a
 	jr nz, .forward10
 	jr .inputLoop
 
@@ -192,9 +194,9 @@ MonTestNoText:
 ; Plain letters on purpose: the charmap has no left-arrow glyph (only "▲"/"▶"
 ; = $ed and "▼" = $ee), so an arrow pair would have emitted a garbage tile.
 MonTestHint1Text:
-	db "L/R PREV NEXT@"
+	db "U/D PREV NEXT@"
 MonTestHint2Text:
-	db "U/D JUMP 10@"
+	db "L/R JUMP 10@"
 MonTestHint3Text:
 	db "A:CRY  B:BACK@" ; ":" not "=" — the charmap has no equals sign
 
