@@ -343,7 +343,12 @@ LeechLifeAnim:
 	; HUD shake on the bite + extra dark flash on the drain so each
 	; bite&suck feels painful, not clinical.
 	battle_anim LEECH_LIFE, SUBANIM_0_STAR_THRICE, 0, 8
-	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
+; 🔴 NOT SE_SHAKE_ENEMY_HUD. That effect scrolls the whole BG and uses the
+; window to cover everything BELOW the enemy's HUD -- and the enemy's front pic
+; is in the BG above that line, so it shakes too. None of it is turn-aware, so
+; the enemy shook its own sprite when IT attacked. Forte saw it on GORE ATTACK
+; with the new enemy-side ANIM TEST. SE_SHAKE_SCREEN reads no turn at all.
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
@@ -371,7 +376,13 @@ MegahornAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim MEGAHORN, SUBANIM_0_HORN_JAB_TWICE, 0, 4
 	battle_anim NO_MOVE, SUBANIM_1_SPHERE_BIG_RISE, 1, 3
-	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
+; 🔴 NOT SE_SHAKE_ENEMY_HUD. That effect scrolls the whole BG and uses the
+; window to cover everything BELOW the enemy's HUD -- and the enemy's front pic
+; is in the BG above that line, so it shakes too. None of it is turn-aware, so
+; the enemy shook its own sprite when IT attacked. Forte saw it on GORE ATTACK
+; with the new enemy-side ANIM TEST. SE_SHAKE_SCREEN reads no turn at all.
+; Deleted here rather than swapped: the SE_SHAKE_SCREEN below already gives the
+; impact beat, so this line was two bytes of wrongness on top of a correct one.
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -459,7 +470,13 @@ GoreAttackAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim GORE_ATTACK, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_SHAKE_ENEMY_HUD
+; 🔴 NOT SE_SHAKE_ENEMY_HUD. That effect scrolls the whole BG and uses the
+; window to cover everything BELOW the enemy's HUD -- and the enemy's front pic
+; is in the BG above that line, so it shakes too. None of it is turn-aware, so
+; the enemy shook its own sprite when IT attacked. Forte saw it on GORE ATTACK
+; with the new enemy-side ANIM TEST. SE_SHAKE_SCREEN reads no turn at all.
+; Deleted rather than swapped, same as MEGAHORN: SE_SHAKE_SCREEN below already
+; carries the hit.
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
