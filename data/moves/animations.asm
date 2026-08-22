@@ -470,14 +470,16 @@ GoreAttackAnim:
 	db -1 ; end
 
 DeepSleepAnim:
-	; Forte feedback 2026-08-22 #7: "demasiado curto e simples. pelo menos coloca o ecra a dark background" -- the long flash BEFORE the dark palette (the flash restores the normal palette, which is why the old dark frame was never seen), then the target's sleep Zs twice.
+	; Forte feedback 2026-08-22 #7: "demasiado curto e simples. pelo menos coloca o ecra a dark background" -- the long flash BEFORE the dark palette (the flash restores the normal palette, which is why the old dark frame was never seen), then a slow, held darkness.
+	; No sleep Zs here on purpose: SUBANIM_0_STATUS_SLEEP_ENEMY is NORMAL-type on the enemy pic's raw coordinates, i.e. locked to that side of the screen -- right when you use it, on the FOE ITSELF when the foe uses it (PyBoy, 2026-08-22). And under the dark palette they could not be seen anyway.
 	battle_anim DEEP_SLEEP, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
-	battle_anim NO_MOVE, SUBANIM_0_STATUS_SLEEP_ENEMY, 0, 12
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_STATUS_SLEEP_ENEMY, 0, 12
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -770,7 +772,7 @@ LowKickAnim:
 	; Approximate: quick approach + SLIDE_MON_OFF (target loses
 	; footing) + descending star (the leg sweeping low) + return.
 	; would-want: dedicated leg-sweep subanim.
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	; Forte feedback 2026-08-22 #21: "vi um artefacto visual" -- real, and in battle too: SE_MOVE_MON_HORIZONTALLY redraws the pic at columns 2-8 and SE_SLIDE_MON_OFF only rewrites columns 0-7, so the rightmost column stayed behind as a 1-tile sliver until RESET_MON_POSITION (~50 frames). The approach beat is gone (vanilla has none); nothing else in the file pairs MOVE with SLIDE_OFF.
 	battle_anim LOW_KICK, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SUBANIM_0_STAR_DESCENDING, 0, 4
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
