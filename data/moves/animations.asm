@@ -972,7 +972,7 @@ FlameChargeAnim:
 	; Forte feedback 2026-08-22 #27: "falta, imediatamente depois da animacao side-to-side do atacante, uma animacao estilo Tackle, de ele a dar um encontrao".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
-	battle_anim FLAME_CHARGE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim EMBER, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
@@ -982,19 +982,27 @@ FlameChargeAnim:
 
 FlameBurstAnim:
 	; Forte feedback 2026-08-22 #28: "troca a animacao do meio atual (entre as 2 animacoes de chamas) por essa (o ecra pisca/ondula do thundershock)" -- SE_FLASH_SCREEN_LONG replaces flash+shake.
-	battle_anim FLAME_BURST, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim EMBER, SUBANIM_1_FLAME_BEAM, 1, 8
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
+	battle_anim IGNITE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim IGNITE, SUBANIM_1_FLAME_COLUMN_1, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 4
 	db -1 ; end
 
 FlamethrowerAnim:
 	; Forte feedback 2026-08-22 #29: "a animacao original de chama corrida, uma chama, duas chamas, tres chamas, com o som grave do fire blast" -- vanilla body (+ the third column); SFX in sfx.asm.
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_BEAM, 1, 8
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_BEAM, 1, 7
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_BEAM, 1, 6
-	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_1, 1, 6
-	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_2, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_1, 1, 8
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_2, 1, 7
 	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	db -1 ; end
 
 FireBlastAnim:
@@ -1002,14 +1010,24 @@ FireBlastAnim:
 	; Added dark palette framing + intermittent flashes for the
 	; furnace-roar feel. SFX tempo extended (sfx.asm).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim FIRE_BLAST, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_BEAM, 1, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_1, 1, 8
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 6
 	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim FIRE_BLAST, SUBANIM_1_FLAME_STAR, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_STAR, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1028,13 +1046,22 @@ IgniteAnim:
 ExplosionAnim:
 	; Forte feedback 2026-08-22 #30: "antes do som de impacto do fim coloca a animacao da chama corrida".
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim EXPLOSION, SUBANIM_1_SELFDESTRUCT, 1, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim EXPLOSION, SUBANIM_1_SELFDESTRUCT, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim EXPLOSION, SUBANIM_1_SELFDESTRUCT, 1, 3
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_SELFDESTRUCT, 1, 3
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_BEAM, 1, 4
+	battle_anim FIRE_BLAST, SUBANIM_1_FLAME_BEAM, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 5
+	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
