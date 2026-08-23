@@ -911,24 +911,28 @@ SubmissionAnim:
 	; slams them with all four arms. Now: dark dip → slide-off (lift)
 	; → multi-hit grapple stars → first shake → flash → big slam star
 	; → second shake → final flash. Reads as sustained brutal grapple.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 8
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim STRENGTH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim TAKE_DOWN, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SkyUppercutAnim:
 	; Forte feedback 2026-08-22 #26: "em vez de o background ser negro, ser light palette" (por curiosidade).
-	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	; 2026-08-22: Forte asked for kep-hack's rising star here ("parece otimo para o sky uppercut"); tileset 0, delay 6.
-	battle_anim SKY_UPPERCUT, SUBANIM_0_STAR_ASCENDING, 0, 6
+	battle_anim STRENGTH, SUBANIM_0_STAR_ASCENDING, 0, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -942,11 +946,11 @@ HiJumpKickAnim:
 	; balls upward), brief delay (peak of jump), CRASHING-DOWN star
 	; via STAR_BIG_MOVING + multi-flash + shake-storm. Reads as the
 	; high-altitude descent kick.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SQUISH_MON_PIC
 	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HI_JUMP_KICK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim STRENGTH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
