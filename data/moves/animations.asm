@@ -1218,8 +1218,12 @@ SporeDazeAnim:
 	; atmosphere. Spore powder + dizzy birdies kept (= "powder that
 	; confuses").
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim SPORE_DAZE, SUBANIM_0_CIRCLES_FALLING, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 5
+	battle_anim PSYBEAM, SUBANIM_0_CIRCLES_FALLING, 0, 8
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_FALLING, 0, 8
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1229,11 +1233,13 @@ ParasiteAnim:
 	; (parasitic feeding); SLICE_BOTH_SIDES seals the "cut in half"
 	; visualisation.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim PARASITE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
+	battle_anim PARASITE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 20
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim LEEK_STRIKE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim DOUBLESLAP, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1263,12 +1269,13 @@ HazeAnim:
 	; "ecrã de goticulas" (WATER_DROPLETS_EVERYWHERE) which actually
 	; reads as misty haze HERE (not water — a wet fog). Combined with
 	; cloud toss + shake for the choking-fog feel.
-	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim HAZE, SUBANIM_1_CLOUD_TOSS, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim HAZE, SUBANIM_1_CLOUD_TOSS, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_CLOUD_TOSS, 1, 6
+	battle_anim HAZE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_CLOUD_TOSS, 1, 6
-	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1286,8 +1293,11 @@ PoisonGasAnim:
 
 NightShadeAnim:
 	; Forte feedback 2026-08-22 #36: "esta fraco, troca pelo yellow legacy" -- Legacy (= vanilla): CONFUSION's sound, long flash, wavy.
-	battle_anim CONFUSION, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim PSYBEAM, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LickAnim:
@@ -1299,9 +1309,9 @@ AstonishAnim:
 	; Forte feedback #48: more aggressive. Lunge in (slide horizontal),
 	; dark flash, hit, second flash + shake, return. Distinct from
 	; LICK (slow blob drip) by speed and impact.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim ASTONISH, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim ASTONISH, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -1319,9 +1329,13 @@ ShadowSneakAnim:
 
 ShadowPunchAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SHADOW_PUNCH, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1335,6 +1349,9 @@ SpiritDrainAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 6
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1344,17 +1361,25 @@ ShadowBallAnim:
 	; family deep-pitched in sfx.asm). Added impact thud at end via
 	; TACKLE-borrowed shake.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim SHADOW_BALL, SUBANIM_1_STAR_BIG_TOSS, 1, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SHADOW_BALL, SUBANIM_1_STAR_BIG_TOSS, 1, 6
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim TACKLE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ConfuseRayAnim:
 	; Forte feedback 2026-08-22 #43: "no final adiciona os patinhos de confused que o dizzy punch tambem tem".
 	battle_anim CONFUSE_RAY, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_TOSS, 1, 6
-	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 8
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1367,6 +1392,7 @@ WillOWispAnim:
 	battle_anim WILL_O_WISP, SUBANIM_1_FLAMES, 1, 4
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_1_FLAMES, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1850,10 +1876,12 @@ SuperFangAnim:
 	; Forte feedback 2026-08-22 #62: "falta o nosso pokemon aproximar-se em direcao ao oponente"; SFX back to vanilla (sfx.asm).
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim SUPER_FANG, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim LEEK_STRIKE, SUBANIM_0_STAR_TWICE, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim LEEK_STRIKE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim DOUBLESLAP, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1863,14 +1891,16 @@ HyperFangAnim:
 	; in + jaw chomp + big star impact + double shake.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim HYPER_FANG, SUBANIM_0_STAR_THRICE, 0, 6
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim LEEK_STRIKE, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim DOUBLESLAP, SUBANIM_1_STAR_BIG, 1, 5
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
-
 
 ; ============================================================
 ; === POISON ===
