@@ -1653,8 +1653,9 @@ PowderSnowAnim:
 	; light palette wrap + 2 ICE_FALL bursts so visual fills the SFX
 	; duration. SFX also tightened.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim POWDER_SNOW, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim SPORE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1663,7 +1664,9 @@ IcyWindAnim:
 	; SFX pitch raised in sfx.asm to be less pesado/grave.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim ICY_WIND, SUBANIM_1_TORNADO, 1, 6
-	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1671,8 +1674,12 @@ FrostBreathAnim:
 	; Forte feedback #69: SFX more duradouro (tempo extended in
 	; sfx.asm) + light palette wrap (consistent ICE family).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim FROST_BREATH, SUBANIM_0_BEAM, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 16
+	battle_anim FROST_BREATH, SUBANIM_0_BEAM, 0, 12
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 24
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1682,16 +1689,37 @@ IcyPulseAnim:
 	; in v0.7). Light palette wrap consistent ICE family + circular wave
 	; visual via BUBBLEBEAM-style impact.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim ICY_PULSE, SUBANIM_0_CIRCLES_FALLING, 0, 6
-	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 8
+	battle_anim ICY_PULSE, SUBANIM_0_ICE_RISE, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim ICY_PULSE, SUBANIM_0_ICE_RISE, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim ICY_PULSE, SUBANIM_0_ICE_RISE, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AuroraBeamAnim:
 	; Forte feedback 2026-08-22 #52: "copia o vanilla" -- body and row are vanilla's.
-	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 3
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 6
+	battle_anim AURORA_BEAM, SUBANIM_0_BEAM, 0, 6
+	battle_anim SPORE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IceBeamAnim:
@@ -1699,8 +1727,14 @@ IceBeamAnim:
 	; (sfx.asm) + light palette wrap.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim ICE_BEAM, SUBANIM_0_BEAM, 0, 8
-	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 20
+	battle_anim BLIZZARD, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim ICE_BEAM, SUBANIM_0_BEAM, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim BUBBLEBEAM, SUBANIM_0_ICE_RISE, 0, 12
+	battle_anim NO_MOVE, SUBANIM_0_ICE_RISE, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1708,12 +1742,30 @@ IceBeamAnim:
 BlizzardAnim:
 	; Forte feedback 2026-08-22 #54: "repete mais 2 icicle shard animations no final, para ser mais potente"; SFX back to vanilla (sfx.asm).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim BLIZZARD, SUBANIM_1_TORNADO, 1, 4
-	battle_anim BLIZZARD, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim BLIZZARD, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim HYDRO_PUMP, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim BLIZZARD, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim ICY_WIND, SUBANIM_1_TORNADO, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_TORNADO, 1, 4
+	battle_anim BUBBLEBEAM, SUBANIM_0_ICE_FALL, 0, 3
 	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim BUBBLEBEAM, SUBANIM_0_ICE_FALL, 0, 3
 	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 3
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim ICY_PULSE, SUBANIM_0_ICE_RISE, 0, 12
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim BLIZZARD, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
