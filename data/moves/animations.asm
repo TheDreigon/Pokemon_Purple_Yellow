@@ -1556,36 +1556,51 @@ MudShotAnim:
 	; Forte feedback #59: less "toxic" feel — more like SAND_ATTACK
 	; (mud particles flying). SAND subanim takes the lead, BLOB_TOSS
 	; chases as the wet payload. SFX also retuned to sting family.
-	battle_anim MUD_SHOT, SUBANIM_1_SAND, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim MUD_SHOT, SUBANIM_1_SAND, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 6
+	battle_anim TACKLE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 BulldozeAnim:
 	; Forte feedback #60: estrela de impacto mais impactante.
 	; Switched to STAR_BIG_MOVING + final shake.
-	battle_anim BULLDOZE, SE_SHAKE_SCREEN
+	battle_anim BULLDOZE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
 MudBombAnim:
 	; Forte feedback 2026-08-22 #47: "faz com que a nodoa atirada seja um pouquinho mais lenta, e no final adiciona aquela nodoa estilo lick ao oponente".
-	battle_anim MUD_BOMB, SUBANIM_1_SAND, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim MUD_BOMB, SUBANIM_1_CIRCLE_BLACK_TOSS, 1, 14
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim MUD_BOMB, SUBANIM_1_EXPLOSION_SMALL_ENEMY, 1, 10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim TACKLE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	db -1 ; end
 
 EarthquakeAnim:
 	; Forte feedback #62: 4 shakes (was 3).
-	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
-	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
-	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
-	battle_anim EARTHQUAKE, SE_SHAKE_SCREEN
+	battle_anim EARTHQUAKE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim EARTHQUAKE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim EARTHQUAKE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim EARTHQUAKE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	db -1 ; end
 
 FissureAnim:
 	; Forte feedback 2026-08-22 #48: "vejo que tem 4 repeticoes. apenas adiciona uma 5a".
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
@@ -1596,6 +1611,12 @@ FissureAnim:
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim FISSURE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 BoneClubAnim:
@@ -1604,6 +1625,8 @@ BoneClubAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim DOUBLESLAP, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1613,6 +1636,7 @@ DigAnim:
 	; the user-disappears-down sub-anim during the charge turn via
 	; CHARGE_EFFECT; this body handles the EMERGENCE turn — surface
 	; rumble + user pops up from below + ground star + shake.
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim DIG, SE_SLIDE_MON_UP
 	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG_MOVING, 1, 4
