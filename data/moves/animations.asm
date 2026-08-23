@@ -389,8 +389,9 @@ GuillotineAnim:
 	; Forte feedback 2026-08-22 #3: "nao e suposto ser um corte rapido, como um slash, e suposto ser pesado, lento, assustador" -- wavy removed, a held breath, the slice at half speed, the SFX a slow deep boom (sfx.asm).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 16
+	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 14
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
@@ -625,6 +626,7 @@ ThunderboltAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 2
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -634,11 +636,17 @@ ThunderAnim:
 	; storm feel. 115 BP top-tier electric.
 	battle_anim THUNDER, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 4
-	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 2
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim THUNDERBOLT, SUBANIM_1_LIGHTNING_BALL, 1, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -705,20 +713,22 @@ DazzleGleamAnim:
 PlayRoughAnim:
 	; Forte feedback 2026-08-22 #19: "adiciona logo ao inicio aquela animacao em que o pokemon vai de lado-para-lado varias vezes... aqui fa-la lenta" -- the slow sway is the TAIL_WHIP pattern (SE_SHAKE_BACK_AND_FORTH has one fixed, fast speed).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SUBANIM_0_HEART_1_MUSIC, 0, 6
 	battle_anim PLAY_ROUGH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SUBANIM_0_SCRATCHES, 0, 4
@@ -773,6 +783,9 @@ SeismicTossAnim:
 	; Forte feedback #19: pequeno som na fase em que o oponente pisca
 	; (the grab). WRAP plays the squeeze SFX (BATTLE_14) which fits a
 	; pickup-and-grapple. First line gains audio without changing visual.
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim WRAP, SE_BLINK_ENEMY_MON
 	battle_anim FURY_ATTACK, SUBANIM_1_SPHERE_BIG, 1, 1
 	battle_anim NO_MOVE, SE_HIDE_ENEMY_MON_PIC
@@ -831,7 +844,7 @@ MachPunchAnim:
 
 KarateChopAnim:
 	; Forte feedback 2026-08-22 #24: "imediatamente ao inicio, adiciona aquela animacao do ecra piscar 2 vezes".
-	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 3
+	battle_anim KARATE_CHOP, SUBANIM_0_STAR_DESCENDING, 0, 2
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
@@ -858,12 +871,22 @@ TakeDownAnim:
 	; the opponent. Now: charge slide → delay → STAR_BIG_MOVING (the
 	; impact, visible) → flash → shake → flash → reset. Slower pacing
 	; lets the hit register.
+	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim TAKE_DOWN, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim STRENGTH, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim TAKE_DOWN, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
@@ -883,9 +906,17 @@ DizzyPunchAnim:
 	; (cause then effect), punch made stronger (added BIG star + flash
 	; + shake), and SFX softened (the high-pitch tone was irritating —
 	; lowered in sfx.asm).
-	battle_anim DOUBLESLAP, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_THRICE, 0, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim VICEGRIP, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
 	battle_anim DIZZY_PUNCH, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
 	db -1 ; end
@@ -896,10 +927,18 @@ RollingKickAnim:
 	; forth shake (rotation/wind-up) before the strike + a follow-up
 	; second impact star + shake for the rolling continuation.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim ROLLING_KICK, SE_SLIDE_MON_OFF
+	battle_anim VICEGRIP, SUBANIM_1_STAR_BIG_MOVING, 1, 20
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -920,6 +959,8 @@ SubmissionAnim:
 	battle_anim TAKE_DOWN, SUBANIM_0_STAR_THRICE, 0, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1091,7 +1132,7 @@ WingAttackAnim:
 AerialAceAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim AERIAL_ACE, SE_SLIDE_MON_OFF
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 3
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 2
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1112,10 +1153,14 @@ FlyAnim:
 HurricaneAnim:
 	; Forte feedback 2026-08-22 #32: "torna a palette light em vez de dark e repete o som" -- HURRICANE named on all three tornados.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim HURRICANE, SUBANIM_1_TORNADO, 1, 5
-	battle_anim HURRICANE, SUBANIM_1_TORNADO, 1, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim FLY, SUBANIM_1_TORNADO, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_TORNADO, 1, 5
+	battle_anim FLY, SUBANIM_1_TORNADO, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_TORNADO, 1, 3
+	battle_anim AERIAL_ACE, SUBANIM_0_STAR_THRICE, 0, 2
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim HURRICANE, SUBANIM_1_TORNADO, 1, 5
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -1127,11 +1172,12 @@ SkyAttackAnim:
 	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim SKY_ATTACK, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim AERIAL_ACE, SUBANIM_1_STAR_BIG_MOVING, 1, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SKY_ATTACK, SUBANIM_1_STAR_BIG, 1, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -1141,12 +1187,22 @@ SkyAttackAnim:
 DrillPeckAnim:
 	; Forte feedback 2026-08-22 #34: "torna a palette/background dark".
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 5
 	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
 	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 1
+	battle_anim VICEGRIP, SUBANIM_1_STAR_BIG, 1, 1
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
