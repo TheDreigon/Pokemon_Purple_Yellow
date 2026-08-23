@@ -135,6 +135,7 @@ DEF FIRST_SE_ID EQU const_value
 	const SUBANIM_0_SAFARI_ROCK
 	const SUBANIM_0_SAFARI_BAIT
 	const SUBANIM_0_STAR_HIGH
+	const SUBANIM_0_STAR_ASCENDING ; 2026-08-22, ported from kep-hack: STAR_DESCENDING with the four base coords reversed (a rising impact star for uppercuts)
 DEF NUM_SUBANIMS EQU const_value
 
 ; types of subanimations

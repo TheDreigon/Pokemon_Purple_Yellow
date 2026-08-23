@@ -86,6 +86,7 @@ SubanimationPointers:
 	dw Subanim_0SafariRock
 	dw Subanim_0SafariBait
 	dw Subanim_0StarHigh
+	dw Subanim_0StarAscending
 	assert_table_length NUM_SUBANIMS
 
 ; format:
@@ -254,6 +255,17 @@ Subanim_0StarDescending:
 	db FRAMEBLOCK_01, BASECOORD_11, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_01, BASECOORD_18, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_01, BASECOORD_1D, FRAMEBLOCKMODE_00
+
+; 2026-08-22, ported from kep-hack (Subanim_0StarAscending, "Uppercut"): the
+; same four frames as StarDescending in the opposite order, so the impact star
+; climbs from the target's feet to its head. HFLIP type like its twin, so it
+; lands on the DEFENDER on both turns.
+Subanim_0StarAscending:
+	subanim SUBANIMTYPE_HFLIP, 4
+	db FRAMEBLOCK_01, BASECOORD_1D, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_01, BASECOORD_18, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_01, BASECOORD_11, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_01, BASECOORD_0B, FRAMEBLOCKMODE_00
 
 Subanim_1FlameColumn1:
 	subanim SUBANIMTYPE_HFLIP, 3

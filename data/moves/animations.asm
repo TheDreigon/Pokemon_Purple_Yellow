@@ -927,7 +927,8 @@ SkyUppercutAnim:
 	; Forte feedback 2026-08-22 #26: "em vez de o background ser negro, ser light palette" (por curiosidade).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim SKY_UPPERCUT, SUBANIM_1_SPHERE_BIG_RISE, 1, 4
+	; 2026-08-22: Forte asked for kep-hack's rising star here ("parece otimo para o sky uppercut"); tileset 0, delay 6.
+	battle_anim SKY_UPPERCUT, SUBANIM_0_STAR_ASCENDING, 0, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
