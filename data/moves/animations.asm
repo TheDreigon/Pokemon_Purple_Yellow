@@ -1405,14 +1405,15 @@ AbsorbAnim:
 	; Mental image: gentle sap-feeding — the weakest of the drains.
 	; Shorter delays than MEGA_DRAIN/GIGA_DRAIN sell the small payload.
 	battle_anim ABSORB, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 4
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 VineWhipAnim:
 	battle_anim VINE_WHIP, SUBANIM_0_SLICE, 0, 1
 	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	db -1 ; end
 
 MegaDrainAnim:
@@ -1420,8 +1421,8 @@ MegaDrainAnim:
 	; Drain delays 6→8.
 	battle_anim MEGA_DRAIN, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 8
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 8
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 10
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1433,7 +1434,7 @@ RazorLeafAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim RAZOR_LEAF, SE_LEAVES_FALLING
 	battle_anim TACKLE, SUBANIM_1_LEAVES_TOSS, 1, 1
-	battle_anim GUST, SUBANIM_0_SLICE, 0, 1
+	battle_anim GUST, SUBANIM_0_SLICE, 0, 2
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1441,21 +1442,27 @@ GigaDrainAnim:
 	; Forte feedback #54 (dup): more intense (anim AND sound). Added
 	; dark palette frame + shake mid-drain + 3rd cycle. SFX retuned
 	; deeper + max tempo.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim GIGA_DRAIN, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 20
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim VICEGRIP, SUBANIM_1_STAR_BIG, 1, 1
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 PetalDanceAnim:
 	; Forte feedback 2026-08-22 #45: "a animacao side-to-side... coloca essa animacao especifica mais lenta" -- the slow sway pattern instead of SE_SHAKE_BACK_AND_FORTH.
-	battle_anim PETAL_DANCE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim PETAL_DANCE, SE_PETALS_FALLING
 	battle_anim NO_MOVE, SE_PETALS_FALLING
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -1464,8 +1471,15 @@ PetalDanceAnim:
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim RAZOR_LEAF, SE_LEAVES_FALLING
+	battle_anim NO_MOVE, SE_LEAVES_FALLING
 	battle_anim TACKLE, SUBANIM_1_LEAVES_TOSS, 1, 1
+	battle_anim NO_MOVE, SUBANIM_1_LEAVES_TOSS, 1, 1
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1474,13 +1488,16 @@ SolarBeamAnim:
 	; before beam + extended beam delay (5→6) + final dark flash for
 	; the lingering after-glow.
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1495,24 +1512,29 @@ LeechSeedAnim:
 PoisonPowderAnim:
 	; Forte feedback 2026-08-22 #46: "animacao atual do powder e no final a mancha de poison (a que o lick usa)... com light palette".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim POISONPOWDER, SUBANIM_0_CIRCLES_FALLING, 0, 9
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim POISONPOWDER, SUBANIM_0_CIRCLES_FALLING, 0, 10
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 StunPowderAnim:
 	; Forte feedback 2026-08-22 #46: "animacao atual do powder e no final a animacao do bind... com light palette".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim STUN_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 9
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
+	battle_anim STUN_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 10
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 12
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 12
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SleepPowderAnim:
 	; Forte feedback 2026-08-22 #46: "animacao atual do powder e no final o coracaozinho... com light palette".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim SLEEP_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 9
-	battle_anim NO_MOVE, SUBANIM_0_HEART_1_MUSIC, 0, 6
+	battle_anim SLEEP_POWDER, SUBANIM_0_CIRCLES_FALLING, 0, 10
+	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 10
+	battle_anim NO_MOVE, SUBANIM_1_MUSIC_CIRCLING_ENEMY, 1, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
