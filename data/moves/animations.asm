@@ -1788,12 +1788,23 @@ LavaPlumeAnim:
 	; sells the heat haze; mid-flash adds the orange flicker. Final
 	; reset.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim LAVA_PLUME, SUBANIM_1_FLAME_BEAM, 1, 5
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 5
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim DRAGON_RAGE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_2, 1, 5
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_3, 1, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_1, 1, 20
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_2, 1, 20
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim FLAMETHROWER, SUBANIM_1_FLAME_COLUMN_3, 1, 20
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim FIRE_BLAST, SUBANIM_1_FLAME_STAR, 1, 20
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 

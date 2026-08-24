@@ -164,7 +164,7 @@ Moves: ; Current total = 219
 
 	; === MAGMA TYPE (2 moves) === ; new type
 	move MAGMA_PUNCH,    BURN_SIDE_EFFECT1,                60, MAGMA,        100, 25 ; new move. almost-signature (Magmar + Hitmonchan).
-	move LAVA_PLUME,     BURN_SIDE_EFFECT3,                90, MAGMA,        100, 15 ; new move. signature. new effect. BURN_SIDE_EFFECT3 = new 45% chance.
+	move LAVA_PLUME,     BURN_SIDE_EFFECT3,               100, MAGMA,        100, 10 ; new move. signature. new effect. BURN_SIDE_EFFECT3 = new 45% chance.
 
 
 	; === NORMAL TYPE (19 moves) ===
