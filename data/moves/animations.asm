@@ -1832,7 +1832,7 @@ TackleAnim:
 	; Forte feedback #74: remove dark flash + add impact star toward
 	; opponent.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -1840,23 +1840,23 @@ BiteAnim:
 	; Forte feedback #75: um pouquinho mais impactante. Added shake
 	; on the bite.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim BITE, SUBANIM_0_STAR_TWICE, 0, 10
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim BITE, SUBANIM_0_STAR_TWICE, 0, 11
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 QuickAttackAnim:
 	battle_anim NO_MOVE, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG_MOVING, 1, 2
+	battle_anim LEECH_SEED, SUBANIM_1_STAR_BIG_MOVING, 1, 3
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 HeadButtAnim:
 	; Forte feedback #76: ecrã mais preto. Dark palette wrap added.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 8
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 9
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1864,9 +1864,9 @@ HeadButtAnim:
 HornAttackAnim:
 	; Forte feedback #77: sprite has to charge in. Added MOVE_MON
 	; horizontal slide before the horn jab.
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim HORN_ATTACK, SUBANIM_0_HORN_JAB_TWICE, 0, 6
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim HORN_ATTACK, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SUBANIM_0_HORN_JAB_TWICE, 0, 8
+	battle_anim DRILL_PECK, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
@@ -1874,13 +1874,14 @@ SlashAnim:
 	; Forte feedback 2026-08-22 #55: "scratch, so que com som mais fixe, e com a palette light"; SFX in sfx.asm.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim SLASH, SUBANIM_0_SCRATCHES, 0, 8
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 BodySlamAnim:
 	; Forte feedback #79: add impact star toward opponent.
-	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim HEAVY_SLAM, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -1890,7 +1891,7 @@ CrunchAnim:
 	; Forte feedback 2026-08-22 #56: "rework. bite, so que mais lento e pesado e com palette dark" -- BITE's body at delay 14 with two shakes; SFX in sfx.asm.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim CRUNCH, SUBANIM_0_STAR_TWICE, 0, 14
+	battle_anim CRUNCH, SUBANIM_0_STAR_TWICE, 0, 22
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -1904,13 +1905,14 @@ HornChargeAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim HORN_CHARGE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HORN_CHARGE, SUBANIM_0_HORN_JAB_TWICE, 0, 4
+	battle_anim VICEGRIP, SUBANIM_0_HORN_JAB_TWICE, 0, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
@@ -1938,11 +1940,13 @@ HeavySlamAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HEAVY_SLAM, SUBANIM_1_STAR_BIG, 1, 10
+	battle_anim HEAVY_SLAM, SUBANIM_1_STAR_BIG, 1, 20
 	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim TAKE_DOWN, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -1954,12 +1958,14 @@ DoubleEdgeAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim DOUBLE_EDGE, SUBANIM_1_STAR_BIG_MOVING, 1, 6
+	battle_anim STRENGTH, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1967,18 +1973,24 @@ ExtremeSpeedAnim:
 	; Forte feedback 2026-08-22 #60: "troca a segunda (estrela em direcao ao adversario) por uma estrela de impacto ja centrada e parada no adversario".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim EXTREMESPEED, SE_SLIDE_MON_OFF
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_MOVING, 1, 1
+	battle_anim LEECH_SEED, SUBANIM_1_STAR_BIG, 1, 2
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SupersonicAnim:
 	; Forte feedback 2026-08-22 #61: "no final adiciona os patinhos de confusion, estilo dizzy punch".
-	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
-	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 2
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 3
+	battle_anim SUPERSONIC, SUBANIM_0_SOUND_WAVE, 0, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	db -1 ; end
 
 SuperFangAnim:
@@ -2001,9 +2013,9 @@ HyperFangAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim LEEK_STRIKE, SUBANIM_0_STAR_TWICE, 0, 8
+	battle_anim LEEK_STRIKE, SUBANIM_0_STAR_TWICE, 0, 12
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim DOUBLESLAP, SUBANIM_1_STAR_BIG, 1, 5
+	battle_anim BITE, SUBANIM_1_STAR_BIG, 1, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
