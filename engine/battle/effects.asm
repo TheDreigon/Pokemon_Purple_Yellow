@@ -2177,8 +2177,7 @@ BurnEffect:
 ; status other than freeze fails exactly as before.
 ;
 ; MoveHitTest first: IGNITE is 95% accurate and a move that misses must not
-; defrost. CheckDefrost tests the move's own type, so it is what decides whether
-; this thaws at all.
+; defrost. The type gate below decides whether this thaws at all.
 	bit FRZ, a
 	jr z, .didntAffect
 	push bc
@@ -2187,6 +2186,22 @@ BurnEffect:
 	ld a, [wMoveMissed]
 	and a
 	jr nz, .didntAffect
+; v0.7 fix: only a FIRE or MAGMA always-burn move (IGNITE) thaws. For any
+; other type (WILL_O_WISP is GHOST) CheckDefrost would `ret` without printing,
+; leaving the whole turn silent after "used WILL O WISP!" -- fail loudly
+; instead. (Read the type via hWhoseTurn, not via de: MoveHitTest clobbers de
+; -- see the push de around it in the fresh-status path above.)
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveType] ; ld does not touch flags, the jr still tests hWhoseTurn
+	jr z, .gotBurnMoveType
+	ld a, [wEnemyMoveType]
+.gotBurnMoveType
+	cp FIRE
+	jr z, .thawFrozenTarget
+	cp MAGMA
+	jr nz, .didntAffect
+.thawFrozenTarget
 	ld a, b ; the defender's status, read above
 	jp CheckDefrost
 .didntAffect
