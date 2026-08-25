@@ -1793,6 +1793,9 @@ AIIncreaseStat:
 	ld a, XSTATITEM_DUPLICATE_ANIM
 	ld [hli], a
 	ld [hl], b
+	xor a
+	ld [wMoveDidntMiss], a ; v0.7: clear the stale flag so the anim guard
+	                       ; doesn't eat XSTATITEM_DUPLICATE_ANIM
 	callfar StatModifierUpEffect
 	pop hl
 	pop af

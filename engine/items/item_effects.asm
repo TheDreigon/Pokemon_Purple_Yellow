@@ -2221,6 +2221,9 @@ ItemUseXStat:
 	call Delay3
 	xor a
 	ldh [hWhoseTurn], a ; set turn to player's turn
+	ld [wMoveDidntMiss], a ; v0.7: clear the stale flag -- the anim guard in
+	                       ; StatModifierUpEffect read the PREVIOUS action's
+	                       ; hit flag and ate XSTATITEM_ANIM whenever it hit
 	farcall StatModifierUpEffect ; do stat increase move
 
 	ld a, [wWhichPokemon]
