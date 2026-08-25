@@ -41,7 +41,13 @@ HallOfFameResetEventsAndSaveScript:
 	ld [wLancesRoomCurScript], a
 	ld [wHallOfFameCurScript], a
 	; Elite 4 events
-	ResetEventRange INDIGO_PLATEAU_EVENTS_START, INDIGO_PLATEAU_EVENTS_END, 1
+	; v0.7: bounded at EVENT_BEAT_CHAMPION_RIVAL -- the next bit,
+	; EVENT_BEAT_E4_REMATCH ($902), is the permanent tier-10 elite-mart
+	; unlock set minutes earlier in ChampionsRoom.asm, and the wipe ran
+	; BEFORE SaveSAVtoSRAM, so the flag could never survive a single
+	; League run ($903..$907 are dead const_skip bits; everything the E4
+	; rematch needs re-armed still gets wiped).
+	ResetEventRange INDIGO_PLATEAU_EVENTS_START, EVENT_BEAT_CHAMPION_RIVAL, 1
 	; v0.7: re-arm the post-game rematches. Beating the League is what buys
 	; them, so clearing the block here gives the player one fresh rematch
 	; against every leader (plus JOY and JENNY) per League run.
