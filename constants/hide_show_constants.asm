@@ -258,8 +258,13 @@ DEF SHOW EQU $15
 	const HS_SEAFOAM_ISLANDS_B3F_ITEM_1 ; TM41 Light Screen ball
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_1 ; F3
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; F4
-	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; TM42 Ice Beam ball
-	const HS_ARTICUNO                      ; F6
+	; v0.7 fix: these two were swapped relative to the SeafoamIslandsB4FHS
+	; data rows (ARTICUNO row comes BEFORE the TM ball row there). Inert
+	; today -- nothing references either constant -- but the first future
+	; `ld a, HS_ARTICUNO / predef HideObject` would have deleted the TM42
+	; ball and left Articuno standing. ROM byte-identical.
+	const HS_ARTICUNO                      ; F5
+	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; F6, TM42 Ice Beam ball
 	const HS_SEAFOAM_ISLANDS_B4F_WEEBRA ; Weebra self-insert at Articuno's tile (post-Articuno + post-League)
 ; v0.7: HS_TOWN_MAP_COPY, HS_DAISY_SITTING_COPY and HS_DAISY_WALKING_COPY were
 ; here. All three named a vanilla DUPLICATE of the Blue's House block that

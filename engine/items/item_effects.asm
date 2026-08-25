@@ -1931,11 +1931,11 @@ ItemUseMedicine:
 	push af
 	ld a, [wUsedItemOnWhichPokemon]
 	ld [wWhichPokemon], a
-	callfar RespawnOverworldPikachu ; Remove from line 1620 and attach '; evolve pokemon, if appropriate' to the `callfar TryEvolvingMon` on line 1624.
+	callfar RespawnOverworldPikachu
 	pop af
 	ld [wWhichPokemon], a
 
-	callfar TryEvolvingMon
+	callfar TryEvolvingMon ; evolve pokemon, if appropriate
 	ld a, $01
 	ld [wUpdateSpritesEnabled], a
 	pop af
@@ -2068,8 +2068,9 @@ ItemUseEscapeRope:
 ; wEscapeWarpMap, because hWarpDestinationMap shares its byte with hBaseTileID
 ; and hOAMTile and would be overwritten by the redraw that closes this menu.
 ;
-; With nothing remembered ($ff: a save that has never once walked in from the
-; outside) it falls through to the vanilla fly warp, unchanged.
+; With nothing remembered (0: a save that has never once walked in from the
+; outside -- the sentinel is 0, NOT $ff, because recycled ds bytes read 0 on
+; an old save) it falls through to the vanilla fly warp, unchanged.
 ; The bike/surf state and wMapPalOffset are NOT touched here. Both were, and both
 ; were wrong: nothing warps until the next pass through OverworldLoop, and the
 ; redraw that closes this menu happens in between. WarpFound2's .escapeWarp does

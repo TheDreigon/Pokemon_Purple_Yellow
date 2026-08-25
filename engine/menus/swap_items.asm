@@ -258,6 +258,8 @@ ItemSortList::
 	db ITEMFINDER
 	db EXP_ALL
 	db TOWN_MAP
+	db TRAINER_MANUAL ; v0.7: the two new key items were missing from the
+	db BILLS_CHIP     ; sort order and got shoved below the TMs on every SORT
 	; Rods
 	db OLD_ROD
 	db GOOD_ROD
