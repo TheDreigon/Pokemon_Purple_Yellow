@@ -97,7 +97,7 @@ BillsHousePrintBillSSTicketText::
 	bit BIT_CASCADEBADGE, a
 	jr z, .no_badge_yet
 	call BillsHouseCheckEeveeInParty
-	jr nz, .no_eevee
+	jr nz, .maybe_evolved
 	jp BillsHouseEeveelutionQuiz
 .default_chat
 	ld hl, .WhyDontYouGoInsteadOfMeText
@@ -107,6 +107,11 @@ BillsHousePrintBillSSTicketText::
 	ld hl, .GoBeatMistyText
 	call PrintText
 	ret
+.maybe_evolved
+; v0.7: evolving the gift before the quiz used to dead-end the quest here
+	call BillsHouseCheckEeveelutionInParty
+	jr nz, .no_eevee
+	jp BillsHouseEeveelutionAlreadyChosen
 .no_eevee
 	ld hl, .WheresEeveeText
 	call PrintText
@@ -162,7 +167,7 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 	bit BIT_CASCADEBADGE, a
 	jr z, .no_badge_yet
 	call BillsHouseCheckEeveeInParty
-	jr nz, .no_eevee
+	jr nz, .maybe_evolved
 	jp BillsHouseEeveelutionQuiz
 .offer_eevee
 ; only reachable when the door gift failed on a full party+box
@@ -171,6 +176,11 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 	ld hl, .GoBeatMistyText
 	call PrintText
 	ret
+.maybe_evolved
+; v0.7: evolving the gift before the quiz used to dead-end the quest here
+	call BillsHouseCheckEeveelutionInParty
+	jr nz, .no_eevee
+	jp BillsHouseEeveelutionAlreadyChosen
 .no_eevee
 	ld hl, .WheresEeveeText
 	call PrintText
@@ -490,6 +500,52 @@ BillsHouseCheckEeveeInParty::
 .not_found
 	or 1
 	ret
+
+BillsHouseCheckEeveelutionInParty::
+; Option 1 of the early-evolve lockout fix (2026-08-25): the quiz gate
+; above matches only species == EEVEE, so evolving the gift BEFORE
+; answering dead-ended the quest forever (no garden, no BILL'S CHIP, no
+; rematch). There is exactly one EEVEE in the game and no NPC trade hands
+; out an eeveelution, so finding one in the party proves the player
+; already made the choice the quiz asks about.
+; Out: z with the species in b if a VAPOREON/JOLTEON/FLAREON is in the
+; party; nz otherwise. Same flag convention as the EEVEE check above.
+	ld hl, wPartySpecies
+.loop
+	ld a, [hli]
+	cp $ff
+	jr z, .not_found
+	cp VAPOREON
+	jr z, .found
+	cp JOLTEON
+	jr z, .found
+	cp FLAREON
+	jr z, .found
+	jr .loop
+.found
+	ld b, a
+	xor a
+	ret
+.not_found
+	or 1
+	ret
+
+BillsHouseEeveelutionAlreadyChosen::
+; In: b = the eeveelution found in the party. Bill recognises the choice,
+; the quiz is skipped, and the quest unlocks exactly as the quiz would --
+; the only thing the quiz's ending does is set this same event. No stone
+; is handed over: the player already owns the evolution it was for.
+	ld a, b
+	ld [wd11e], a
+	call GetMonName ; -> wcd6d, read by the text_ram in the text below
+	ld hl, .AlreadyChosenText
+	call PrintText
+	SetEvent EVENT_GOT_BILL_EEVEELUTION_STONE
+	ret
+
+.AlreadyChosenText:
+	text_far _BillsHouseBillAlreadyChosenText
+	text_end
 
 ; part 2 payoff: the favorite-eeveelution question -> matching stone
 BillsHouseEeveelutionQuiz::

@@ -842,6 +842,21 @@ _BillsHouseBillHowsTheTeamText::
 	line "to my research!"
 	done
 
+_BillsHouseBillAlreadyChosenText::
+	text "Hey, you went and"
+	line "evolved it!"
+
+	para "And what a fine"
+	line "@"
+	text_ram wcd6d
+	text "!"
+
+	para "You chose with"
+	line "your heart! Come"
+	cont "talk to me again,"
+	cont "OK?"
+	done
+
 ; --- PURPLE the PROGRAMMER, Celadon roof house (v0.7) ---
 
 _RoofHouseProgrammerIntroText::
