@@ -532,7 +532,6 @@ DragonClawAnim:
 	battle_anim DRAGON_CLAW, SUBANIM_0_SCRATCHES, 0, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim DRAGON_CLAW, SUBANIM_0_SCRATCHES, 0, 6
-	;battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim EMBER, SUBANIM_1_FLAMES, 1, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -1114,7 +1113,10 @@ ExplosionAnim:
 ; ============================================================
 
 PeckAnim:
-	battle_anim PECK, SUBANIM_0_STAR_TWICE, 0, 5
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim PECK, SUBANIM_0_STAR, 0, 6
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	db -1 ; end
 	db -1 ; end
 
 GustAnim:
@@ -1196,7 +1198,7 @@ DrillPeckAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 3
-	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 3
+	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 2
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 3
 	battle_anim PECK, SUBANIM_1_STAR_BIG, 1, 2
@@ -1855,7 +1857,7 @@ HeadButtAnim:
 	; Forte feedback #76: ecrã mais preto. Dark palette wrap added.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 9
+	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -1889,10 +1891,10 @@ BodySlamAnim:
 
 CrunchAnim:
 	; Forte feedback 2026-08-22 #56: "rework. bite, so que mais lento e pesado e com palette dark" -- BITE's body at delay 14 with two shakes; SFX in sfx.asm.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim CRUNCH, SUBANIM_0_STAR_TWICE, 0, 22
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 22
+	battle_anim CRUNCH, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -2030,7 +2032,7 @@ HyperFangAnim:
 PoisonStingAnim:
 	; Forte feedback 2026-08-22 #63: "adiciona um simples screen flicker/black" -- one flash; POISON_BITE gets two, TOXIC_FANGS three (the ladder).
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim POISON_STING, SUBANIM_0_STAR_THRICE, 0, 4
+	battle_anim POISON_STING, SUBANIM_0_STAR, 0, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
@@ -2038,24 +2040,27 @@ PoisonStingAnim:
 PoisonBiteAnim:
 	; Forte feedback 2026-08-22 #64: "como no poison sting, mas desta vez adiciona 2 flickers".
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim POISON_BITE, SUBANIM_0_STAR_TWICE, 0, 6
+	battle_anim POISON_BITE, SUBANIM_0_STAR_TWICE, 0, 11
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
 	db -1 ; end
 
 ToxicFangsAnim:
 	; Forte feedback 2026-08-22 #65: "ja tem 1 flicker. adiciona mais 2, para totalizar 3" (the shake from the 08-22 proposal stays: not mentioned = liked).
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim TOXIC_FANGS, SUBANIM_0_STAR_THRICE, 0, 6
+	battle_anim TOXIC_FANGS, SUBANIM_0_STAR_THRICE, 0, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim LEECH_SEED, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2064,8 +2069,8 @@ AcidAnim:
 	; Darken frame for the corrosive atmosphere; STATUS_POISONED at
 	; end visualises the def-down (target's body weakening).
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim ACID, SUBANIM_1_BLOB_TOSS, 1, 5
-	battle_anim ACID, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 7
+	battle_anim ACID, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim ACID, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2073,9 +2078,10 @@ SludgeAnim:
 	; Pattern from feedback: shake on impact for medium-power moves.
 	; Trimmed redundant trailing delay; added shake on the splash.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 10
+	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 9
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
+	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 12
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2083,33 +2089,45 @@ SludgeAnim:
 SludgeWaveAnim:
 	; Forte feedback 2026-08-22 #66: "adiciona aqui tambem (as wavy lines do thundershock) entre o atirar da nodoa e a nodoa no oponente" = SE_FLASH_SCREEN_LONG; the 08-22 flash before the shake stays.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim SLUDGE_WAVE, SUBANIM_1_BLOB_TOSS, 1, 6
-	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SLUDGE_WAVE, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim SLUDGE_WAVE, SUBANIM_0_WATER_COLUMNS, 0, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 GunkShotAnim:
 	; Forte feedback 2026-08-22 #67: "em vez de wavy lines e o background estilo toxic (water droplets), e prolonga muito mais a nodoa final no adversario".
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim GUNK_SHOT, SUBANIM_1_BLOB_TOSS, 1, 4
-	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 3
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 2
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 1
+	battle_anim GUNK_SHOT, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim SLUDGE_WAVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 24
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 14
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 NeurotoxinAnim:
 	; Forte feedback 2026-08-22 #68: "a animacao final estilo Bind se processou no meu pokemon, em vez do adversario" -- SUBANIM_0_STATUS_PARALYZED has the USER's base coordinates (ParalyzeAnim's). The bind on the defender replaces it.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim NEUROTOXIN, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 4
+	battle_anim NEUROTOXIN, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 7
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 7
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2117,8 +2135,10 @@ ToxicAnim:
 	; Forte feedback 2026-08-22 Same defect as POISON_GAS (#35): SUBANIM_0_STATUS_POISONED drew the skull on the attacker. Dropped; the drip already carries the poison.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim TOXIC, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
+	battle_anim TOXIC, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
