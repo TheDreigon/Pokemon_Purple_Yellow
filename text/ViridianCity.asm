@@ -185,7 +185,7 @@ _ViridianCityFisherReceivedTM42Text::
 	text_end
 
 _ViridianCityFisherTM42ExplanationText::
-	text "TM42 is CALM MIND."
+	text "TM49 is CALM MIND."
 
 	para "Steady the spirit"
 	line "to boost SPECIAL."

@@ -44,8 +44,11 @@ _ForteAcceptText::
 	done
 
 _ForteEndBattleText::
-	text "Beaten... at my"
-	line "own game."
+	; Rendered after "FORTE: " (7 tiles) on the SAME row -- the first line
+	; budget here is 11, like the dojo end-battle texts (kiyo_takeover.asm).
+	; "Beaten... at my" was 15 = 22 total, 4 tiles past the box.
+	text "Beaten..."
+	line "at my own game."
 	prompt
 
 _ForteWinText::
