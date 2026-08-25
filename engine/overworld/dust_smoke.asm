@@ -59,10 +59,29 @@ MACRO boulder_dust_adjust
 ENDM
 
 MoveBoulderDustFunctionPointerTable:
-	boulder_dust_adjust -1, 0, AdjustOAMBlockYPos ; down
-	boulder_dust_adjust  1, 0, AdjustOAMBlockYPos ; up
-	boulder_dust_adjust  1, 1, AdjustOAMBlockXPos ; left
-	boulder_dust_adjust -1, 1, AdjustOAMBlockXPos ; right
+	boulder_dust_adjust -1, 0, Dust_AdjustOAMBlockYPos ; down
+	boulder_dust_adjust  1, 0, Dust_AdjustOAMBlockYPos ; up
+	boulder_dust_adjust  1, 1, Dust_AdjustOAMBlockXPos ; left
+	boulder_dust_adjust -1, 1, Dust_AdjustOAMBlockXPos ; right
+
+; Same disease cut2.asm already documents: this file moved out of bank1E in the
+; v0.7 bank reorg, but the two `dw` entries above kept pointing at the
+; AdjustOAMBlock*Pos that stayed behind in bank1E — and AnimateBoulderDust's
+; `jp hl` runs with THIS bank mapped, so every STRENGTH boulder push executed
+; BaseStats data at those addresses. cross_bank_call_audit only scans call/jp
+; instructions, so a pointer TABLE slipped past it. The loop bodies already
+; live in this bank as cut2.asm's private copies; these two thunks just add
+; the `ld l, e / ld h, d` preamble the originals have (the caller passes the
+; OAM address in de).
+Dust_AdjustOAMBlockXPos:
+	ld l, e
+	ld h, d
+	jp Cut_AdjustOAMBlockXPos2
+
+Dust_AdjustOAMBlockYPos:
+	ld l, e
+	ld h, d
+	jp Cut_AdjustOAMBlockYPos2
 
 LoadSmokeTileFourTimes::
 	ld hl, vChars1 tile $7c
