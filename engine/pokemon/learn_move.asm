@@ -187,7 +187,7 @@ TryingToLearn:
 ; stop learning and prints "did not learn".
 	ld a, [wCurrentMenuItem]
 	cp NUM_MOVES
-	jr z, .cancel
+	jp z, .cancel ; jp, not jr: the .showCard restore block pushed .cancel out of jr reach
 ; v0.7: confirm before dropping it. The move went the instant the cursor was on
 ; it and A was pressed, with no way back from a mis-press -- and this is the one
 ; choice in the game that cannot be undone afterwards.
@@ -242,6 +242,15 @@ TryingToLearn:
 
 .showCard
 	push hl
+	; v0.7 fix: the card writes the inspected move into wPlayerSelectedMove
+	; (ShowMoveInfo's input) and clobbers the wPlayerMove* block. Mid-battle
+	; -- this menu runs on level-up after an enemy faint -- a mon locked
+	; into a charge/Thrash/Bide/Rage continuation reuses BOTH across turns,
+	; so it would execute the INSPECTED move as its charge release, or run
+	; the continuation with the inspected move's power/type/effect. Save
+	; the selection here; re-derive the block after the card.
+	ld a, [wPlayerSelectedMove]
+	push af
 	ld a, [wCurrentMenuItem]
 	cp NUM_MOVES
 	jr z, .cardForNewMove
@@ -275,6 +284,27 @@ TryingToLearn:
 	call DelayFrame
 	farcall ShowMoveInfo
 	call LoadScreenTilesFromBuffer1
+	pop af
+	ld [wPlayerSelectedMove], a
+; Mid-battle the Thrash/Bide/Rage/charge continuations skip move selection:
+; charge re-reads wPlayerSelectedMove in GetCurrentMove, the others reuse the
+; wPlayerMove* block without re-deriving it -- and the card clobbered both.
+; Restore the selection and re-derive the block from it (the same fetch
+; GetCurrentMove and the card itself perform). 0 = nothing selected
+; (out-of-battle learn); $ff = "player is trapped" -- nothing to re-derive.
+	and a
+	jr z, .cardDone
+	inc a
+	jr z, .cardDone
+	dec a
+	dec a
+	ld hl, Moves
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld de, wPlayerMoveNum
+	ld a, BANK(Moves)
+	call FarCopyData
+.cardDone
 	pop hl
 	jp .loop
 ; .hm
