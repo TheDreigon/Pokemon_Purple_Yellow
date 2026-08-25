@@ -767,13 +767,14 @@ SingAnim:
 MoonblastAnim:
 	; Forte feedback 2026-08-22 #20: "pode ser igual ao solarbeam" -- SOLARBEAM's body with MOONBLAST's own row (same bytes as HYPER_BEAM's, which SOLARBEAM borrows). The old BATTLE_28 row with tempo $40 was the ANIM TEST hang.
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim MOONBLAST, SUBANIM_0_BEAM, 0, 10
+	battle_anim MOONBLAST, SUBANIM_0_BEAM, 0, 9
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -1174,20 +1175,18 @@ HurricaneAnim:
 
 SkyAttackAnim:
 	; Forte feedback 2026-08-22 #33: "torna o impacto um pouco mais poderoso" -- held big star (4->6) and a third flash+shake.
-	battle_anim FLY, SE_SQUISH_MON_PIC
-	battle_anim NO_MOVE, SE_SHOOT_BALLS_UPWARD
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim AERIAL_ACE, SUBANIM_1_STAR_BIG_MOVING, 1, 12
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim AERIAL_ACE, SUBANIM_1_STAR_BIG_MOVING, 1, 9
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim SKY_ATTACK, SUBANIM_1_STAR_BIG, 1, 10
+	battle_anim SKY_ATTACK, SUBANIM_1_STAR_BIG, 1, 8
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 DrillPeckAnim:
@@ -1498,10 +1497,8 @@ SolarBeamAnim:
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 10
+	battle_anim HYPER_BEAM, SUBANIM_0_BEAM, 0, 9
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -2340,13 +2337,9 @@ RolloutAnim:
 BonemerangAnim:
 	; Forte feedback 2026-08-22 #77: "torna a palette light, para combinar com o boneclub".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 3
+	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 2
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 5
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 3
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 5
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2742,7 +2735,6 @@ TeleportAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
 
 CharmAnim:

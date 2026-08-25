@@ -99,7 +99,7 @@ Moves: ; Current total = 219
 	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 25 ; new move.
 	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20 ; high-crit. (ambush dive — charge-turn payoff)
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
-	move SKY_ATTACK,     CHARGE_EFFECT,                   180, FLYING,       100, 10
+	move SKY_ATTACK,     FLY_EFFECT,                      180, FLYING,       100, 10
 	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; bird staple (4 lines + DUX trade).
 
 
