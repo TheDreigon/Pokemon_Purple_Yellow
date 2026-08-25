@@ -869,9 +869,17 @@ PikachuShouldCatchUp:
 	ld a, [wPikachuFollowCommandBufferSize]
 	cp $ff ; the "buffer disabled" sentinel
 	jr z, .no
-	cp 2
+	; v0.7 fix: the dispatcher already popped the command being walked
+	; (Func_fcc92 is a pop-front FIFO -- it returns buf[0] and shifts the
+	; rest down), so the NEXT command out of the queue sits at +0, not +1.
+	; Reading +1 compared the command AFTER next, and the dash then
+	; consumed the unchecked one at +0: on staircase patterns Pikachu cut
+	; the corner through unwalked tiles and stayed path-shifted. Size >= 1
+	; is the right gate -- Func_fcc92 refuses to pop the last element at
+	; size 0, which is exactly the overshoot case to reject.
+	cp 1
 	jr c, .no ; one step behind is not behind; let him walk it off
-	ld a, [wPikachuFollowCommandBuffer + 1] ; the next command out of the queue
+	ld a, [wPikachuFollowCommandBuffer] ; the next command out of the queue
 	and a
 	jr z, .no
 	cp 5
