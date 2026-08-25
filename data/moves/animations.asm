@@ -388,15 +388,13 @@ MegahornAnim:
 GuillotineAnim:
 	; Forte feedback 2026-08-22 #3: "nao e suposto ser um corte rapido, como um slash, e suposto ser pesado, lento, assustador" -- wavy removed, a held breath, the slice at half speed, the SFX a slow deep boom (sfx.asm).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 15
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim GUILLOTINE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 14
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 10
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -707,7 +705,8 @@ DazzleGleamAnim:
 	; long DAZZLE_GLEAM SFX always has visual to match.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim DAZZLE_GLEAM, SUBANIM_0_BEAM, 0, 4
-	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
@@ -1301,8 +1300,10 @@ PoisonGasAnim:
 NightShadeAnim:
 	; Forte feedback 2026-08-22 #36: "esta fraco, troca pelo yellow legacy" -- Legacy (= vanilla): CONFUSION's sound, long flash, wavy.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim PSYBEAM, SE_FLASH_SCREEN_LONG
-	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim PSYBEAM, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2117,11 +2118,10 @@ GunkShotAnim:
 	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 2
 	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 1
 	battle_anim GUNK_SHOT, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim SLUDGE_WAVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 24
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2170,14 +2170,15 @@ ConfusionAnim:
 
 ExtrasensoryAnim:
 	; Forte feedback 2026-08-22 #70: "remove a animacao dos quadrados pretos no adversario. e compensa" -- a second wavy and two flashes in its place.
-	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim EXTRASENSORY, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim CONFUSION, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2185,12 +2186,13 @@ PsybeamAnim:
 	; Mental image: psychic beam that warps the target's perception —
 	; reality itself bends around the beam path. Beam + sustained flash
 	; + wavy distortion.
-	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim PSYBEAM, SUBANIM_0_BEAM, 0, 6
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim PSYBEAM, SUBANIM_0_BEAM, 0, 5
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2201,26 +2203,35 @@ PsychicAnim:
 	; with new CONFUSION_SIDE_EFFECT3 (45%) — needs heavier framing
 	; than the old 2 lines. Layered flash/wavy/dark sells sustained
 	; mental violence.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim PSYCHIC_M, SE_FLASH_SCREEN_LONG
-	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
-	battle_anim PSYBEAM, SE_WAVY_SCREEN
-	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim PSYBEAM, SUBANIM_0_BEAM, 0, 15
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 MindBreakAnim:
 	; Forte feedback 2026-08-22 #71: "no final, adiciona aquela animacao estilo vicegrip e torna essa animacao especifica muito lenta".
+	battle_anim MIND_BREAK, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim MIND_BREAK, SE_FLASH_SCREEN_LONG
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_WAVY_SCREEN
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim VICEGRIP, SUBANIM_0_SLICE_BOTH_SIDES, 0, 15
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
-	battle_anim VICEGRIP, SUBANIM_0_SLICE_BOTH_SIDES, 0, 16
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2232,6 +2243,7 @@ DisableAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim LEER, SE_DARK_SCREEN_FLASH
 	battle_anim LEER, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2829,7 +2841,9 @@ StringShotAnim:
 PsychicBindAnim:
 	; Forte feedback 2026-08-22 #108: his script, verbatim.
 	battle_anim FLASH, SE_LIGHT_SCREEN_PALETTE
-	battle_anim PSYCHIC_BIND, SE_FLASH_SCREEN_LONG
+	battle_anim PSYCHIC_BIND, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
