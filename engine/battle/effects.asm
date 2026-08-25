@@ -1312,7 +1312,8 @@ ChargeMoveEffectText:
 	text_asm
 	ld a, [wChargeMoveNum]
 	; PURPLE YELLOW v0.5: RAZOR_WIND and SKULL_BASH were removed. SKY_ATTACK was
-	; reintroduced in the later revision and still needs its charge flavour text.
+	; reintroduced in the later revision; its charge line is "soared sky-high!"
+	; (Forte, 2026-08-25: Sky Attack is a stronger Fly, not a glow).
 	cp SOLARBEAM
 	ld hl, TookInSunlightText
 	jr z, .gotText

@@ -111,7 +111,7 @@ _LoweredItsHeadText::
 
 _SkyAttackGlowingText::
 	text_start
-	line "is glowing!"
+	line "soared sky-high!"
 	prompt
 
 _FlewUpHighText::
