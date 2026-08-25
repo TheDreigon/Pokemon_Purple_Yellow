@@ -79,7 +79,9 @@ SpriteSets:
 ; v0.7: was SPRITE_COOLTRAINER_M. The set is eleven slots, full, and shared by
 ; seven maps (Pallet, Viridian, Cinnabar Island, Routes 1/21/22 and unused 0B,
 ; plus half of Route 2 and Route 20 through the split sets) -- and none of them
-; placed a male cooltrainer, so this was the only slot that could be given away
+; placed a male cooltrainer (Route 20's west-half bird keeper WAS the one user,
+; and rendered as a RED clone until he became SPRITE_YOUNGSTER, which both of
+; Route 20's sets carry), so this was the only slot that could be given away
 ; without taking a sprite off a map that uses it. The cost, accepted: none of
 ; those seven can ever have one. What it buys is the player's MOTHER outdoors
 ; in Pallet, for the TRAINER MANUAL hand-over.
