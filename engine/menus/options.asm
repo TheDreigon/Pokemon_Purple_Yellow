@@ -161,6 +161,15 @@ OptionsMenu_BattleStyle:
 ; and watch nothing change - the option read as broken rather than as locked.
 ; Now the bit is forced on and left/right are ignored while Hard mode is
 ; active, so the row shows SET and stays there. Normal mode is untouched.
+	; v0.7 fix: the lock only means anything inside a running game. From
+	; the title screen (wOptionsShowDifficulty = 0) LoadSAV has already
+	; copied the OLD save's wDifficulty into WRAM, the forced bit survived
+	; PrepareOakSpeech's push/pop of wOptions, and a NEW normal-mode game
+	; started with BATTLE STYLE silently forced to SET. Same guard as the
+	; DIFFICULTY row below.
+	ld a, [wOptionsShowDifficulty]
+	and a ; opened from the title screen?
+	jr z, .styleIsSelectable
 	ld a, [wDifficulty]
 	and a ; NORMAL_MODE?
 	jr z, .styleIsSelectable
