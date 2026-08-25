@@ -1863,7 +1863,7 @@ HeadButtAnim:
 	; Forte feedback #76: ecrã mais preto. Dark palette wrap added.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 10
+	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 9
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2273,8 +2273,9 @@ RockPunchAnim:
 	; punch hits, debris tumbles down on the target. Earthy, no flame.
 	; Distinct from MAGMA_PUNCH (lava aftermath) and ROCK_THROW
 	; (no fist, just falling rocks).
-	battle_anim ROCK_PUNCH, SUBANIM_0_STAR_THRICE, 0, 5
-	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4
+	battle_anim ROCK_PUNCH, SUBANIM_0_STAR_THRICE, 0, 7
+	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 3
+	battle_anim LEER, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
@@ -2284,43 +2285,53 @@ RockTombAnim:
 	; weight closing in.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim ROCK_TOMB, SUBANIM_0_ROCKS_LIFT, 0, 4
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_0_ROCKS_FALL_ENEMY, 0, 4
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 HeadSmashAnim:
 	; Forte feedback 2026-08-22 #74: "adiciona um NO_MOVE, SE_DELAY_ANIMATION_10 no final, enquanto o ecra ainda esta dark".
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim HEAD_SMASH, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 RockSlideAnim:
 	; Forte feedback 2026-08-22 #75: his script, verbatim.
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim ROCK_SLIDE, SUBANIM_0_ROCKS_LIFT, 0, 6
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim ROCK_SLIDE, SUBANIM_0_ROCKS_TOSS, 0, 4
 	battle_anim HYPER_FANG, SUBANIM_1_STAR_BIG_MOVING, 1, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 ClampAnim:
-	battle_anim CLAMP, SUBANIM_0_SLICE_BOTH_SIDES, 0, 8
-	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 6
-	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 6
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim CLAMP, SUBANIM_0_SLICE_BOTH_SIDES, 0, 10
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim CONSTRICT, SUBANIM_0_BIND, 0, 8
+	battle_anim WATER_GUN, SUBANIM_0_WATER_DROPLETS, 0, 8
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 RolloutAnim:
 	; Forte feedback 2026-08-22 #76: "atualmente nao faz sentido" -- his script, verbatim.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_MOVING, 1, 8
+	battle_anim TAKE_DOWN, SUBANIM_1_STAR_BIG_MOVING, 1, 15
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -2329,9 +2340,14 @@ RolloutAnim:
 BonemerangAnim:
 	; Forte feedback 2026-08-22 #77: "torna a palette light, para combinar com o boneclub".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 4
-	battle_anim NO_MOVE, SUBANIM_0_STAR_THRICE, 0, 4
-	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 4
+	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 3
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2339,8 +2355,9 @@ CrabhammerAnim:
 	; Forte feedback 2026-08-22 #78: "em dark palette, uma versao muito mais lenta e pesada do karate chop" -- the descending chop held four times longer, two shakes.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim CRABHAMMER, SUBANIM_0_STAR_DESCENDING, 0, 12
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim STRENGTH, SUBANIM_0_STAR_DESCENDING, 0, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
@@ -2349,6 +2366,7 @@ CrabhammerAnim:
 
 HornDrillAnim:
 	; Forte feedback 2026-08-22 #79: "adiciona um NO_MOVE, SE_DARK_SCREEN_FLASH entre cada ronda (das 5 existentes) de par de stars" (the closing shake from 08-22 stays).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
@@ -2365,7 +2383,14 @@ HornDrillAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 2
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 
@@ -2375,31 +2400,34 @@ HornDrillAnim:
 
 CutAnim:
 	; Forte feedback 2026-08-22 #80: "adiciona um battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY ao inicio, e torna o som mais agudo".
-	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim CUT, SUBANIM_0_SLICE, 0, 4
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IronTailAnim:
 	; Forte feedback 2026-08-22 #81: "torna mais lento e palette light" -- delays 4->8 and 3->6.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim IRON_TAIL, SUBANIM_1_STAR_BIG_MOVING, 1, 8
+	battle_anim IRON_TAIL, SUBANIM_1_STAR_BIG_MOVING, 1, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_SLICE, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 IronHeadAnim:
 	; Forte feedback 2026-08-22 #82: "adiciona palete light e de alguma maneira torna mais pesado. o ataque esta muito simples" -- a held charge, the star held longer, flash and two shakes.
-	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim IRON_HEAD, SUBANIM_1_STAR_BIG, 1, 10
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim HEADBUTT, SUBANIM_1_STAR_BIG, 1, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2416,22 +2444,25 @@ SonicBoomAnim:
 BulletPunchAnim:
 	; Forte feedback 2026-08-22 #84: his script, verbatim.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim BULLET_PUNCH, SE_SLIDE_MON_OFF
-	battle_anim NO_MOVE, SE_SHOW_MON_PIC
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 1
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 1
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 MagnetBombAnim:
 	; Forte feedback 2026-08-22 #85: his script, verbatim.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim MAGNET_BOMB, SUBANIM_1_STAR_BIG_TOSS, 1, 4
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim MAGNET_BOMB, SUBANIM_1_STAR_BIG_TOSS, 1, 5
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim EXPLOSION, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim HORN_DRILL, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2445,7 +2476,7 @@ MagnetBombAnim:
 WaterGunAnim:
 	; Mental image: simple pressurised water spray. Light frame.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim WATER_GUN, SUBANIM_0_WATER_DROPLETS, 0, 6
+	battle_anim WATER_GUN, SUBANIM_0_WATER_DROPLETS, 0, 8
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2462,17 +2493,17 @@ AquaJetAnim:
 BubbleBeamAnim:
 	; Forte feedback 2026-08-22 #88: "um toquezinho de nada mais lento e no final - ainda dentro da palette light - adiciona as water droplets".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim BUBBLEBEAM, SUBANIM_0_WATER_BUBBLES, 0, 18
-	battle_anim NO_MOVE, SUBANIM_0_WATER_DROPLETS, 0, 4
+	battle_anim BUBBLEBEAM, SUBANIM_0_WATER_BUBBLES, 0, 20
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 WaterPulseAnim:
 	; Forte feedback 2026-08-22 #89: "beam (estilo aurora beam), wave (a atual, estilo supersonic), e depois as water droplets. em light palette".
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim WATER_PULSE, SUBANIM_0_BEAM, 0, 4
-	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 6
+	battle_anim WATER_PULSE, SUBANIM_0_BEAM, 0, 10
+	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 3
 	battle_anim NO_MOVE, SUBANIM_0_WATER_DROPLETS, 0, 4
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2483,8 +2514,9 @@ WaterfallAnim:
 	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 5
 	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 5
 	battle_anim NO_MOVE, SE_SLIDE_MON_UP
-	battle_anim KARATE_CHOP, SUBANIM_1_STAR_BIG_MOVING, 1, 5
+	battle_anim KARATE_CHOP, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2492,11 +2524,12 @@ SurfAnim:
 	; Forte feedback 2026-08-22 #91: his script, verbatim.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
+	battle_anim NO_MOVE, SE_WATER_DROPLETS_EVERYWHERE
 	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 6
 	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 6
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim SPORE_DAZE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2504,14 +2537,21 @@ HydroPumpAnim:
 	; Forte feedback 2026-08-22 #92: his script, verbatim.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim SURF, SE_WATER_DROPLETS_EVERYWHERE
-	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 4
-	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 4
-	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 4
-	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 4
-	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 4
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 3
+	battle_anim NO_MOVE, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 3
+	battle_anim NO_MOVE, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 3
+	battle_anim NO_MOVE, SUBANIM_0_WATER_COLUMNS, 0, 2
+	battle_anim SURF, SUBANIM_0_WATER_COLUMNS, 0, 3
+	battle_anim NO_MOVE, SUBANIM_0_WATER_COLUMNS, 0, 2
 	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim SPORE_DAZE, SE_WAVY_SCREEN
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2527,8 +2567,8 @@ TriAttackAnim:
 	battle_anim NO_MOVE, SUBANIM_1_TRIANGLE_TOSS, 1, 6
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SUBANIM_0_ICE_FALL, 0, 3
-	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 2
-	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 3
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim NO_MOVE, SUBANIM_1_FLAME_COLUMN_1, 1, 5
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2543,16 +2583,17 @@ SwordsDanceAnim:
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 6
-	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 6
-	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 6
+	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 5
+	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 5
+	battle_anim SWORDS_DANCE, SUBANIM_1_SWORDS_CIRCLING, 1, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 BulkUpAnim:
 	; Forte feedback 2026-08-22 #95: "torna um pouco mais lento e com som mais grave" -- closing 4->8; SFX in sfx.asm.
 	battle_anim BULK_UP, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 8
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2561,16 +2602,16 @@ CoilAnim:
 	; Forte feedback 2026-08-22 #96: "torna muito mais lento" -- closings 6->14.
 	battle_anim COIL, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 14
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 14
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 12
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FierceRoarAnim:
 	; Forte feedback 2026-08-22 #97: "o ataque esta demasiado curto/rapido" -- two shouts, the first held, a shake.
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim FIERCE_ROAR, SUBANIM_1_SHOUT, 1, 10
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim FIERCE_ROAR, SUBANIM_1_SHOUT, 1, 8
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	db -1 ; end
 
@@ -2580,6 +2621,7 @@ HoneClawsAnim:
 	battle_anim HONE_CLAWS, SUBANIM_1_SWORDS_CIRCLING, 1, 6
 	battle_anim HONE_CLAWS, SUBANIM_1_SWORDS_CIRCLING, 1, 6
 	battle_anim HONE_CLAWS, SUBANIM_1_SWORDS_CIRCLING, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2587,7 +2629,7 @@ IronDefenseAnim:
 	; Forte feedback 2026-08-22 test ROM of 2026-08-22, approved: the row is finally named (every line was NO_MOVE: the move had been silent since v0.7). Mirrors HARDEN, heavier.
 	battle_anim IRON_DEFENSE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_BLINK_MON
-	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 6
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 1, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2595,7 +2637,7 @@ IronDefenseAnim:
 DefenseCurlAnim:
 	; Forte feedback 2026-08-22 #99: "faz mais lento" -- closing 8->14. (The curl draws on the user: BIND's base coords belong to the defender, so it was dropped in v0.7.)
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim DEFENSE_CURL, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 14
+	battle_anim DEFENSE_CURL, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING, 0, 12
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2614,7 +2656,8 @@ HardenAnim:
 WithdrawAnim:
 	battle_anim DEFENSE_CURL, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SLIDE_MON_DOWN
-	battle_anim NO_MOVE, SUBANIM_0_SHELL, 0, 6
+	battle_anim NO_MOVE, SUBANIM_0_SHELL, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
@@ -2625,8 +2668,9 @@ GrowthAnim:
 	; (the new mass settling). Distinct from BULK_UP (muscle clench)
 	; and CALM_MIND (purely mental).
 	battle_anim GROWTH, SE_LIGHT_SCREEN_PALETTE
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2643,11 +2687,12 @@ CalmMindAnim:
 NastyPlotAnim:
 	battle_anim NASTY_PLOT, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AmnesiaAnim:
-	battle_anim AMNESIA, SUBANIM_0_STATUS_CONFUSED, 0, 8
+	battle_anim AMNESIA, SUBANIM_0_STATUS_CONFUSED, 0, 10
 	battle_anim AMNESIA, SUBANIM_0_STATUS_CONFUSED, 0, 8
 	db -1 ; end
 
@@ -2659,6 +2704,7 @@ QuiverDanceAnim:
 	battle_anim QUIVER_DANCE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_SHAKE_BACK_AND_FORTH
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2666,12 +2712,15 @@ TailwindAnim:
 	; Mental image: tailwind boost — wind at the user's back. Light
 	; frame reads as positive-buff atmosphere.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim TAILWIND, SUBANIM_1_TORNADO, 1, 6
+	battle_anim FAINT_ATTACK, SUBANIM_1_TORNADO, 1, 5
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 AgilityAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim AGILITY, SE_SHAKE_BACK_AND_FORTH
+	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim AGILITY, SE_SHAKE_BACK_AND_FORTH
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2692,7 +2741,6 @@ TeleportAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
 	db -1 ; end
@@ -2704,6 +2752,7 @@ CharmAnim:
 	; FAKE_TEARS (sob).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim CHARM, SUBANIM_0_HEART_1_MUSIC, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2714,6 +2763,9 @@ IntimidateAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SCARY_FACE, SE_DARK_SCREEN_FLASH
 	battle_anim SCARY_FACE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
@@ -2738,8 +2790,10 @@ CorrodeAnim:
 	; corrosive acid. -2 def (acid pool); sustained drip + darken frame
 	; for the rotting atmosphere.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
-	battle_anim CORRODE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
-	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 6
+	battle_anim CORRODE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2758,9 +2812,16 @@ TickleAnim:
 	; ANIM TEST cannot show this class of fault: engine/debug/animation_test.asm
 	; pins hWhoseTurn to 0 and never flips it, so every animation is only ever
 	; rendered from the player's side there.
-	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 0, 4
+	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim AMNESIA, SUBANIM_0_HEART_1_MUSIC, 0, 4
 	battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
-	battle_anim TICKLE, SUBANIM_0_HEART_1_MUSIC, 0, 4
+	battle_anim AMNESIA, SUBANIM_0_HEART_1_MUSIC, 0, 4
 	db -1 ; end
 
 TailWhipAnim:
@@ -2779,7 +2840,9 @@ FakeTearsAnim:
 	; ~ tears) + dimmed palette suggests the sob, NOT the heart-music
 	; which fits affectionate moves.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
-	battle_anim FAKE_TEARS, SUBANIM_0_CIRCLES_FALLING, 0, 5
+	battle_anim FAKE_TEARS, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_FALLING, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2788,7 +2851,7 @@ MetalSoundAnim:
 	; as a piercing screech. HEART_MUSIC was inappropriate (this is not
 	; a song, it's a horrible scraping noise).
 	battle_anim METAL_SOUND, SUBANIM_0_SOUND_WAVE, 0, 5
-	battle_anim NO_MOVE, SUBANIM_1_SHOUT, 1, 5
+	battle_anim NO_MOVE, SUBANIM_1_SHOUT, 1, 6
 	db -1 ; end
 
 ScreechAnim:
@@ -2800,6 +2863,7 @@ ScreechAnim:
 EerieImpulseAnim:
 	; Forte feedback 2026-08-22 #104: his script, verbatim (DARK_PULSE's sound; the EERIE_IMPULSE row is no longer read).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim DARK_PULSE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2810,9 +2874,10 @@ ScaryFaceAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SCARY_FACE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim DARK_PULSE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -2826,16 +2891,16 @@ HinderAnim:
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim HINDER, SUBANIM_0_BIND, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 StringShotAnim:
 	; Forte feedback 2026-08-22 #107: "faz mais lento" -- delay 6->12.
-	battle_anim STRING_SHOT, SUBANIM_0_STRING_SHOT, 0, 12
+	battle_anim STRING_SHOT, SUBANIM_0_STRING_SHOT, 0, 15
 	db -1 ; end
 
 PsychicBindAnim:
@@ -2844,26 +2909,37 @@ PsychicBindAnim:
 	battle_anim PSYCHIC_BIND, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FlashAnim:
 	; Forte feedback 2026-08-22 #109: "um flash e um imenso clarao instantaneo" -- the vanilla body (two dark flashes in the light frame) with FLASH's own sound where vanilla had GLARE's.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim FLASH, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 SandAttackAnim:
 	; Mental image: handful of sand thrown into the eyes — short,
 	; irritating. Slight delay extension (6→8) for the sting.
-	battle_anim SAND_ATTACK, SUBANIM_1_SAND, 1, 8
+	battle_anim SAND_ATTACK, SUBANIM_1_SAND, 1, 7
 	db -1 ; end
 
 SmokescreenAnim:
-	battle_anim SMOKESCREEN, SUBANIM_1_SAND, 1, 10
+	battle_anim SMOKESCREEN, SUBANIM_1_SAND, 1, 11
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SMOKESCREEN, SE_DARK_SCREEN_PALETTE
@@ -2884,7 +2960,9 @@ RecoverAnim:
 
 RestAnim:
 	battle_anim REST, SUBANIM_0_STATUS_SLEEP, 0, 16
+	battle_anim NO_MOVE, SUBANIM_0_STATUS_SLEEP, 0, 14
 	battle_anim REST, SUBANIM_0_STATUS_SLEEP, 0, 16
+	battle_anim NO_MOVE, SUBANIM_0_STATUS_SLEEP, 0, 14
 	db -1 ; end
 
 SoftboiledAnim:
@@ -2900,6 +2978,8 @@ LightScreenAnim:
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim LIGHT_SCREEN, SUBANIM_1_BARRIER, 1, 6
 	battle_anim LIGHT_SCREEN, SUBANIM_1_BARRIER, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2907,6 +2987,8 @@ ReflectAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim REFLECT, SUBANIM_1_BARRIER, 1, 6
 	battle_anim REFLECT, SUBANIM_1_BARRIER, 1, 6
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2915,13 +2997,15 @@ BideAnim:
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim BIDE, SUBANIM_1_STAR_BIG_MOVING, 1, 4
+	battle_anim TAKE_DOWN, SUBANIM_1_STAR_BIG_MOVING, 1, 4
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 FocusEnergyAnim:
 	battle_anim FOCUS_ENERGY, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_SPIRAL_BALLS_INWARD
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2968,10 +3052,10 @@ StruggleAnim:
 	; framing — slide + 2 stars + slide back, NOT the clean star_twice
 	; that resembled TACKLE. Player should feel the desperation.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 6
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 6
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
