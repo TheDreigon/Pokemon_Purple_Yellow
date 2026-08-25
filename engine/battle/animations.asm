@@ -1939,24 +1939,34 @@ AnimationWavyScreen:
 	ldh [hAutoBGTransferEnabled], a
 	ld a, SCREEN_HEIGHT_PX
 	ldh [hWY], a
-	ld d, $80 ; terminator
+; Rewritten 2026-08-25 (Forte). Two fixes over vanilla:
+;  * SPEED. Vanilla re-tested rLY so soon after stepping the phase that it was
+;    still inside line 143's H-blank and stepped TWICE every frame (measured
+;    2.01/frame). One step per frame (and 1.5) felt too slow to Forte, so the phase now
+;    advances +2 per frame -- vanilla's measured speed, now deliberate.
+;  * STABILITY. The wave used to be drawn from a walking pointer, starting at
+;    whatever scanline the VBlank handler released the CPU on. With a SFX
+;    playing, the audio work makes that start line jitter by up to ~30 lines
+;    per frame (measured on PSYCHIC's `PSYBEAM, SE_WAVY_SCREEN`), which
+;    vertically bounced the whole ripple -- Forte saw it as "ondula mais
+;    depressa quando associado ao sfx". Each line now reads
+;    offsets[(LY + phase) & 31], so the pattern is pinned to the scanline and
+;    a late start only leaves the top lines flat for that frame.
 	ld e, SCREEN_HEIGHT_PX - 1
-	ld c, $ff
-	ld hl, WavyScreenLineOffsets
+	ld b, 0   ; phase
+	ld c, $80 ; frames (~2.1 s)
 .loop
-	push hl
 .innerLoop
 	call WavyScreen_SetSCX
 	ldh a, [rLY]
 	cp e ; is it the last visible line in the frame?
 	jr nz, .innerLoop ; keep going if not
-	pop hl
-	inc hl
-	ld a, [hl]
-	cp d ; have we reached the end?
-	jr nz, .next
-	ld hl, WavyScreenLineOffsets ; go back to the beginning if so
-.next
+.waitNextFrame
+	ldh a, [rLY]
+	cp e
+	jr z, .waitNextFrame
+	inc b ; phase: +2 per frame = vanilla's measured speed (2.0/frame),
+	inc b ; now deliberate instead of an accident of H-blank timing
 	dec c
 	jr nz, .loop
 	xor a
@@ -1972,16 +1982,22 @@ AnimationWavyScreen:
 	ret
 
 WavyScreen_SetSCX:
+; SCX for the current scanline = offsets[(LY + b) & 31]. Rewriting the same
+; value inside one line is harmless, so no cursor to keep in sync.
 	ldh a, [rSTAT]
 	and $3 ; is it H-blank?
 	jr nz, WavyScreen_SetSCX ; wait until it's H-blank
+	ldh a, [rLY]
+	add b
+	and $1f
+	ld hl, WavyScreenLineOffsets
+	add l
+	ld l, a
+	jr nc, .noCarry
+	inc h
+.noCarry
 	ld a, [hl]
 	ldh [rSCX], a
-	inc hl
-	ld a, [hl]
-	cp d ; have we reached the end?
-	ret nz
-	ld hl, WavyScreenLineOffsets ; go back to the beginning if so
 	ret
 
 WavyScreenLineOffsets:
