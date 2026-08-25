@@ -3405,6 +3405,18 @@ SelectEnemyMove:
 	jr z, .chooseRandomMove ; wild encounter
 	callfar AIEnemyTrainerChooseMoves
 .chooseRandomMove
+	; v0.7 fix (pp-freeze): the list in hl (wBuffer for trainers,
+	; wEnemyMonMoves for wild) can contain ONLY 0-PP and/or disabled slots
+	; while other raw PP remains -- the AI's minimal-score filter and
+	; DISABLE are both PP-blind -- which made the retry loop below spin
+	; forever (normal mode drains enemy PP; vanilla never could hang here
+	; because enemy PP was infinite). If no slot is simultaneously listed,
+	; holding PP, and not disabled, Struggle instead.
+	call .anySelectableMoveInList
+	jr nz, .pickFromList
+	ld a, STRUGGLE
+	jp .done
+.pickFromList
 	push hl
 	call BattleRandom
 	ld b, 1 ; 25% chance to select move 1
@@ -3424,9 +3436,9 @@ SelectEnemyMove:
 	ld a, b
 	dec a
 	ld [wEnemyMoveListIndex], a
-	; v0.7 (AI PP fix): if the picked move has 0 PP, retry. The PP-empty
-	; pre-check above guarantees at least one move has PP, so the retry
-	; loop terminates.
+	; v0.7 (AI PP fix): if the picked move has 0 PP, retry. Termination is
+	; guaranteed by .anySelectableMoveInList at .chooseRandomMove, NOT by
+	; the raw-PP pre-check (the AI list can exclude every PP-holding slot).
 	push hl
 	push bc
 	ld c, a
@@ -3463,6 +3475,39 @@ SelectEnemyMove:
 .linkedOpponentUsedStruggle
 	ld a, STRUGGLE
 	jr .done
+.anySelectableMoveInList
+; In: hl = enemy move list being picked from. Out: nz if some slot is
+; listed (nonzero move), has PP left, and is not the disabled slot;
+; z otherwise. Preserves hl; clobbers a, bc, d, e (dead here -- caller
+; MainInBattleLoop sets c/e via HandleMovePriority before reading them).
+	push hl
+	ld a, [wEnemyDisabledMove]
+	swap a
+	and $f
+	ld d, a ; d = disabled slot 1-4, or 0 = none
+	ld e, 1 ; e = slot counter, 1-based to match d
+	ld bc, wEnemyMonPP
+.selectableLoop
+	ld a, [bc]
+	and $3f ; remaining PP only (mask the PP Up bits)
+	jr z, .selectableNext
+	ld a, [hl]
+	and a ; slot empty / filtered out by the AI?
+	jr z, .selectableNext
+	ld a, e
+	cp d
+	jr nz, .selectableFound ; nz = a usable slot exists
+.selectableNext
+	inc hl
+	inc bc
+	inc e
+	ld a, e
+	cp NUM_MOVES + 1
+	jr nz, .selectableLoop
+	xor a ; z = nothing selectable -> Struggle
+.selectableFound
+	pop hl
+	ret
 
 ; this appears to exchange data with the other gameboy during link battles
 LinkBattleExchangeData:
