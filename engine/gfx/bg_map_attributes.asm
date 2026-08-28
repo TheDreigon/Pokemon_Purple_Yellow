@@ -225,11 +225,13 @@ ENDR
 	ret
 
 ExpBarBluePalette:
-; a source-level copy of PAL_CYANMON (data/sgb/sgb_palettes.asm). The bar
-; tiles only use color indices 0, 2 and 3; colors 0 and 3 match the HP-bar
-; palettes (white frame, black outline), and color 2 is the blue fill.
+; started as a source-level copy of PAL_CYANMON (data/sgb/sgb_palettes.asm).
+; The bar tiles only use color indices 0, 2 and 3; colors 0 and 3 match the
+; HP-bar palettes (white frame, black outline), and color 2 is the fill.
+; v0.7 (his playtest, 2026-08-28): fill went from blue 00,17,31 to a lighter
+; cyan per his request ("cor passar a ser cyan, mais claro do que é agora").
 ; Living here instead of GBCBasePalettes costs bank1C nothing (it has 1 byte).
-	RGB 31,31,31, 16,26,31, 00,17,31, 03,03,03
+	RGB 31,31,31, 16,26,31, 06,28,31, 03,03,03
 
 LoadEXPBarPalette::
 ; Rebuild BG palette 4 from ExpBarBluePalette, shaded through the current
