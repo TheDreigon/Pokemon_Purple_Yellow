@@ -2638,7 +2638,7 @@ PartyMenuOrRockOrRun:
 	cp $2 ; was Cancel selected?
 	jr z, .quitPartyMenu ; if so, quit the party menu entirely
 	and a ; was Switch selected?
-	jr z, .switchMon ; if so, jump
+	jp z, .switchMon ; if so, jump (jp: the status-driver walk block pushed it past jr reach)
 ; Stats was selected
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
@@ -2646,15 +2646,15 @@ PartyMenuOrRockOrRun:
 	call ClearSprites
 ; display the two status screens
 ; v0.7: drive both pages the way the overworld party menu does
-; (start_sub_menus.asm), so A/Left/Right swap between the stats page and the
-; move page here too, and B leaves from either page. One difference, and it is
-; load-bearing: Up/Down must NOT walk the party in battle -- wWhichPokemon
-; feeds the switch-in that can follow this menu -- so a step answer redraws
-; the SAME page instead. The redraw composes behind the identical page already
-; on screen (QUIET, and page 2 always composes hidden), so a stray Up/Down
-; press shows nothing. Filtering Up/Down inside the wait loop itself was the
-; cleaner cut, but that loop lives in bank 4, which has 7 bytes free; this
-; costs it none.
+; (start_sub_menus.asm): A/Left/Right swap pages, B leaves from either page,
+; and -- since his 2026-08-28 playtest -- Up/Down walks the party here too,
+; wrapping both ways, mirroring the overworld driver verbatim. The old
+; battle-only exclusion ("wWhichPokemon feeds the switch-in") was disproved
+; by tracing: leaving the status screens always returns through the FULL
+; party menu (.partyMenuWasSelected), and .switchMon reads the wWhichPokemon
+; that HandlePartyMenuInput rewrites from the cursor -- a walked value can
+; never leak into a switch. The step routine is a local copy of
+; .statsStepMon (bank 4 is at its floor; a farcall would cost more here).
 	ld a, STATUS_OPTIN
 	ld [wStatusScreenPageChange], a
 .statusPage1
@@ -2664,9 +2664,8 @@ PartyMenuOrRockOrRun:
 	jr z, .statusScreensDone ; B
 	cp STATUS_OTHER_PAGE
 	jr z, .statusToPage2
-.statusPage1Return
-; same mon, same page family: its picture is still in VRAM
-	ld a, STATUS_OPTIN | STATUS_QUIET | STATUS_NOCRY | STATUS_KEEPPIC
+	call .statusStepMon ; Up/Down: another mon, still on the stats page
+	ld a, STATUS_OPTIN | STATUS_QUIET
 	ld [wStatusScreenPageChange], a
 	jr .statusPage1
 .statusToPage2
@@ -2678,8 +2677,46 @@ PartyMenuOrRockOrRun:
 	and a
 	jr z, .statusScreensDone ; B
 	cp STATUS_OTHER_PAGE
-	jr z, .statusPage1Return ; back to the stats page, pic kept
-	jr .statusToPage2 ; Up/Down: the same move page, composed hidden
+	jr z, .statusToStatsPage
+	call .statusStepMon ; Up/Down: another mon, still on the move page
+; Compose the new mon's page 1 without ever showing it, then let page 2 draw
+; over it and play the cry -- same sequencing as the overworld driver, and
+; for the same reason (PlayCry waits inside itself).
+	ld a, STATUS_OPTIN | STATUS_QUIET | STATUS_NOCRY | STATUS_NOWAIT
+	ld [wStatusScreenPageChange], a
+	predef StatusScreen
+	ld a, STATUS_OPTIN | STATUS_CRYAFTER
+	ld [wStatusScreenPageChange], a
+	jr .statusPage2
+.statusToStatsPage
+; Same mon, so its picture is still in VRAM from the page being left.
+	ld a, STATUS_OPTIN | STATUS_QUIET | STATUS_NOCRY | STATUS_KEEPPIC
+	ld [wStatusScreenPageChange], a
+	jr .statusPage1
+.statusStepMon
+; In: a = 1 (previous) or 2 (next). Wraps both ways.
+; Byte-for-byte copy of start_sub_menus.asm .statsStepMon.
+	dec a ; 1 = previous
+	jr nz, .statusNextMon
+	ld a, [wWhichPokemon]
+	and a
+	jr nz, .statusPrevNoWrap
+	ld a, [wPartyCount] ; wrap from the first mon round to the last
+.statusPrevNoWrap
+	dec a
+	jr .statusStoreMon
+.statusNextMon
+	ld a, [wWhichPokemon]
+	inc a
+	ld b, a
+	ld a, [wPartyCount]
+	cp b
+	ld a, b
+	jr nz, .statusStoreMon
+	xor a ; past the last mon, wrap to the first
+.statusStoreMon
+	ld [wWhichPokemon], a
+	ret
 .statusScreensDone
 ; now we need to reload the enemy mon pic
 	ld a, 1
