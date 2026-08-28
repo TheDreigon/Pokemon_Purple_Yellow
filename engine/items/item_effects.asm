@@ -3559,6 +3559,17 @@ FindWildLocationsOfMon:
 	ld a, [hld]
 	inc a
 	jr z, .done
+; v0.7 (his playtest 2026-08-28): BILL's garden is a secret map, absent from
+; the town map on purpose -- but its wild table was scanned like any public
+; map, and its town-map row (which exists only to terminate the interval
+; lookup in LoadTownMapEntry) rendered its habitats as a nest on BILL's LAB
+; at the east end of ROUTE 25. Skip it here, at the source, so no consumer
+; of the nest list ever sees it. Every garden species is wild or pinned
+; somewhere public, so nothing loses its AREA page (checked 2026-08-28);
+; a future garden-ONLY species would show AREA UNKNOWN, the Mewtwo path.
+	ld a, c
+	cp BILLS_GARDEN
+	jr z, .next
 	push hl
 	ld a, [hli]
 	ld h, [hl]
@@ -3570,6 +3581,7 @@ FindWildLocationsOfMon:
 	and a
 	call nz, CheckMapForMon ; water
 	pop hl
+.next
 	inc hl
 	inc hl
 	inc c

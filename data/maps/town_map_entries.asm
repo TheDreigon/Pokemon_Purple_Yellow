@@ -119,9 +119,14 @@ InternalMapEntries:
 	internal_map SUMMER_BEACH_HOUSE,             6, 15, Route19Name
 	internal_map VIRIDIAN_OLD_ROD_HOUSE,         2,  8, ViridianCityName
 	internal_map DAYCARE_2F,                    10,  4, Route5Name
-; Must stay last, and must exist at all: InternalMapEntries is an ordered RANGE
-; lookup with no end check, so the highest map id needs a line or LoadTownMapEntry
-; reads straight past the -1 and treats whatever follows as coordinates.
 	internal_map BILLS_GARDEN,                  12,  0, BillsLabName
+; Must stay last, and must exist at all: InternalMapEntries is an ordered RANGE
+; lookup with no end check, so the HIGHEST map id needs a line or LoadTownMapEntry
+; reads straight past the -1 and treats whatever follows as coordinates.
+; (v0.7 note: this invariant is carried by whichever row is last -- it sat on
+; the BILLS_GARDEN line above until BLUES_HOUSE_2F, the higher id, was appended
+; after it. The garden row itself is also load-bearing for the range walk, but
+; its habitats no longer reach the AREA page: FindWildLocationsOfMon skips the
+; garden at the source -- the map is secret.)
 	internal_map BLUES_HOUSE_2F,                 1, 12, PalletTownName
 	db -1 ; end
