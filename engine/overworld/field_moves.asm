@@ -170,3 +170,83 @@ ExplainCutText:
 PromptToCutText:
 	text "Would you like to"
 	line "use CUT?@@"
+
+; --- v0.7 "registered item" (his 2026-08-28 request) ------------------------
+; SELECT in the overworld uses the key item bound via the bag's
+; USE/INFO/TOSS box (RegisterKeyItem below). The overworld hook is in
+; home/overworld.asm (predef TryUseRegisteredItem); registration rides the
+; submenu in engine/menus/start_sub_menus.asm.
+
+TryUseRegisteredItem::
+	ld a, [wd730]
+	bit 7, a ; simulated joypad input running?
+	ret nz
+	ld a, [wRegisteredItem]
+	and a
+	ret z ; nothing registered: SELECT stays silent
+	ld b, a
+	call IsItemInBag
+	jr nz, .haveIt
+; it was deposited (key items can live in the PC) -- unbind quietly
+	xor a
+	ld [wRegisteredItem], a
+	ret
+.haveIt
+	ld a, [wRegisteredItem]
+	cp BICYCLE
+	jr nz, .use
+; The "can't get off here" rule lives in the bag UI
+; (start_sub_menus.asm), NOT in ItemUseBicycle -- without this copy,
+; SELECT would dismount the player on Cycling Road. Same check, both
+; sites commented (the family-of-the-value-left-behind pattern).
+	ld a, [wd732]
+	bit 5, a
+	ret nz
+	ld a, BICYCLE
+.use
+	ld [wcf91], a
+	xor a
+	ld [wPseudoItemID], a ; a real bag item, not a pseudo item
+	call InitializeFieldMoveTextBox
+	call UseItem
+	jp CloseFieldMoveTextBox
+
+RegisterKeyItem::
+; In: wcf91 = the item the USE/INFO/TOSS box is open on.
+	ld a, [wcf91]
+	ld hl, RegistrableItems
+	ld de, 1
+	call IsInArray
+	jr nc, .notRegistrable
+	ld a, [wcf91]
+	ld [wRegisteredItem], a
+	ld [wd11e], a
+	call GetItemName ; -> wcd6d, read by the text below
+	ld hl, RegisteredItemText
+	jp PrintText
+.notRegistrable
+	ld hl, CantRegisterItemText
+	jp PrintText
+
+RegistrableItems:
+; field-usable key items whose UseItem handlers self-guard from a bare
+; overworld frame (the bike gets the extra Cycling-Road copy above)
+	db BICYCLE
+	db OLD_ROD
+	db GOOD_ROD
+	db SUPER_ROD
+	db ITEMFINDER
+	db -1 ; end
+
+RegisteredItemText:
+	text "Registered the"
+	line "@"
+	text_ram wcd6d
+	text "!"
+
+	para "Press SELECT to"
+	line "use it.@@"
+
+CantRegisterItemText:
+	text "Can't register"
+	line "that.@@"

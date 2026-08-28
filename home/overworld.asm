@@ -86,6 +86,14 @@ OverworldLoopLessDelay::
 	ldh [hSpriteIndexOrTextID], a
 	jp .displayDialogue
 .startButtonNotPressed
+; v0.7: SELECT uses the registered key item (bike, rod...). Only this loop
+; can reach the test -- menus, battles and scripts never run it -- and
+; wJoyIgnore already masks scripted input upstream in _Joypad.
+	bit BIT_SELECT, a
+	jr z, .selectButtonNotPressed
+	predef TryUseRegisteredItem
+	jp OverworldLoop
+.selectButtonNotPressed
 	bit BIT_A_BUTTON, a
 	jp z, .checkIfDownButtonIsPressed
 ; if A is pressed

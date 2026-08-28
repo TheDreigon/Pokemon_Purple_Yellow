@@ -450,14 +450,22 @@ StartMenu_Item::
 	inc hl
 	ld a, 2
 	ld [hli], a ; max menu item ID
-	ld a, A_BUTTON | B_BUTTON
-	ld [hli], a ; menu watched keys
+	ld a, A_BUTTON | B_BUTTON | SELECT
+	ld [hli], a ; menu watched keys (v0.7: SELECT registers a key item)
 	xor a
 	ld [hl], a ; old menu item id
 	call HandleMenuInput
 	call PlaceUnfilledArrowMenuCursor
+	bit BIT_SELECT, a
+	jr nz, .registerItem
 	bit BIT_B_BUTTON, a
 	jr z, .useOrTossItem
+	jp ItemMenuLoop
+.registerItem
+; v0.7 "registered item": SELECT on this box binds the item (if it is one
+; of RegistrableItems) to SELECT in the overworld. Logic + texts live in
+; field_moves.asm to keep this bank's cost to the gesture itself.
+	farcall RegisterKeyItem
 	jp ItemMenuLoop
 .useOrTossItem ; .useOrTossItem ; the player chose USE, INFO, or TOSS
 	ld a, [wcf91]

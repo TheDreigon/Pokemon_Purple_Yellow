@@ -2162,7 +2162,13 @@ wMovedexSeenEnd::
 ; and has to pick a mode, which is exactly what we want them to do anyway.
 wExpShareMode:: db
 
-	ds 18 ; free, and still contiguous
+; v0.7 "registered item" (his 2026-08-28 request): the key item bound to
+; SELECT in the overworld. 0 = nothing registered -- which is also what an
+; old save's recycled byte reads, the same safe-sentinel precedent as
+; wExpShareMode above.
+wRegisteredItem:: db
+
+	ds 17 ; free, and still contiguous
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db

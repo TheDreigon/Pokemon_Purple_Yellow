@@ -107,3 +107,4 @@ PredefPointers::
 	add_predef DisplayElevatorFloorMenu
 	add_predef OaksAideScript
 	add_predef TryFieldMove
+	add_predef TryUseRegisteredItem ; v0.7: SELECT in the overworld (appended -- predef ids are positional)
