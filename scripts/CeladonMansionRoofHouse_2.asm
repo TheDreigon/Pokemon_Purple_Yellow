@@ -95,7 +95,7 @@ RoofQuizAskQuestion::
 	ld l, e
 	ld h, d
 	call PrintText
-; menu shell (same hygiene as the Bill quiz: stale
+; menu shell (same hygiene as Bill's stone menu: stale
 ; wMenuWatchMovingOutOfBounds would let a d-pad press answer)
 	xor a
 	ld [wCurrentMenuItem], a
