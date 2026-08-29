@@ -189,6 +189,9 @@ INCLUDE "engine/pokemon/evos_moves.asm"
 SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
+; v0.7 T18: the flee temperament table MUST share core.asm's bank -- the
+; lookup in TryRunningFromBattle reads it with a plain ld, no bankswitch.
+INCLUDE "data/pokemon/flee_tiers.asm"
 INCLUDE "engine/battle/effects_dispatch.asm"
 
 

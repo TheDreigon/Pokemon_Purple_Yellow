@@ -1596,6 +1596,11 @@ TryRunningFromBattle:
 	ldh a, [hQuotient + 2]
 	and a ; is the quotient greater than 256?
 	jr nz, .canEscape ; if so, the player can escape
+; v0.7 T18 ("Can't get away!" realism): the wild mon's temperament shifts
+; the roll before the attempt bonus stacks -- a HUNTER blocks hard on the
+; first try, a VERY DOCILE one barely ever does. Table and tier values in
+; data/pokemon/flee_tiers.asm; source of truth is his Notes table.
+	call .applyFleeTierDelta
 	ld a, [wNumRunAttempts]
 	ld c, a
 ; add 30 to the quotient for each run attempt
@@ -1656,6 +1661,42 @@ TryRunningFromBattle:
 	call WaitForSoundToFinish
 	call SaveScreenTilesToBuffer1
 	scf ; set carry
+	ret
+.applyFleeTierDelta
+; v0.7 T18. In/out: hQuotient+3 = the escape quotient X. Adds the wild
+; mon's signed temperament delta (FleeTierDeltas, dex-ordered, same bank)
+; with two-sided clamping: a positive overflow means guaranteed escape
+; ($FF); a negative underflow floors at 0 (only a 0 roll escapes) -- it
+; NEVER wraps. NEUTRAL (0) returns untouched. Only wild battles reach
+; this routine's caller, so wEnemyMonSpecies is always a real species
+; (a Transformed wild Ditto reads the copied species' tier -- cosmetic,
+; known). The player-faster shortcut fired long before this: a genuinely
+; faster player never rolls, whatever the tier.
+	ld a, [wEnemyMonSpecies]
+	ld [wd11e], a
+	predef IndexToPokedex
+	ld a, [wd11e] ; now the dex number, 1-151
+	dec a
+	ld c, a
+	ld b, 0
+	ld hl, FleeTierDeltas
+	add hl, bc
+	ld a, [hl]
+	and a
+	ret z ; T2 NEUTRAL: vanilla roll
+	ld b, a
+	ldh a, [hQuotient + 3]
+	add b
+	bit 7, b ; bit preserves carry; which way was the delta pointing?
+	jr nz, .negativeDelta
+	jr nc, .storeDelta ; positive delta, no overflow
+	ld a, $ff ; past the top: escape is certain
+	jr .storeDelta
+.negativeDelta
+	jr c, .storeDelta ; carry after adding a negative = no borrow
+	xor a ; borrowed below zero: floor, never wrap
+.storeDelta
+	ldh [hQuotient + 3], a
 	ret
 
 CantEscapeText:
