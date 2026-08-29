@@ -119,7 +119,7 @@ SilphCo11FScript_621c5:
 	ld [wSavedCoordIndex], a
 	xor a
 	ldh [hJoyHeld], a
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN | START | SELECT ; v0.7: no START menu (no SAVING!) mid-scene -- the facing/movement forks read an UNSAVED byte after a reload
 	ld [wJoyIgnore], a
 	ld a, TEXT_SILPHCO11F_GIOVANNI
 	ldh [hSpriteIndexOrTextID], a
@@ -167,7 +167,7 @@ SilphCo11FGiovanniAfterBattleScript:
 	ld b, SPRITE_FACING_DOWN
 .continue
 	call SilphCo11FScript_621ff
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN | START | SELECT ; v0.7: no START menu (no SAVING!) mid-scene -- the facing/movement forks read an UNSAVED byte after a reload
 	ld [wJoyIgnore], a
 	ld a, TEXT_SILPHCO11F_GIOVANNI_YOU_RUINED_OUR_PLANS
 	ldh [hSpriteIndexOrTextID], a
@@ -222,6 +222,14 @@ SilphCo11FGiovanniStartBattleScript:
 	jp SilphCo11FSetCurScript
 
 SilphCo11FScript_6229c:
+; v0.7 fix (decision-tree audit 2026-08-29): after GIOVANNI 2 falls, J&J are
+; HIDDEN by the TeamRocketLeaves script -- but this ambush zone stayed armed
+; for a player who reached him by the stairs or elevator without crossing it.
+; Stepping in afterwards (the 7F teleporter pad lands INSIDE the zone) ran
+; MoveSprite on a hidden sprite, whose scripted walk never finishes: a hard
+; softlock under full wJoyIgnore. The pair is gone; so is the ambush.
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	ret nz
 	ld a, [wYCoord]
 	cp $3
 	ret nz
