@@ -19,10 +19,17 @@ SSAnneCaptainsRoomCaptainText:
 	text_asm
 	CheckEvent EVENT_GOT_HM01
 	jr nz, .got_item
+; v0.7 fix (decision-tree audit 2026-08-29): a full-bag retry replayed the
+; whole back-rub -- rub text, healing jingle wait, "much better" -- before
+; failing again. The rub already latches its own event at the end of the
+; jingle; a rubbed captain goes straight to handing the HM over.
+	CheckEvent EVENT_RUBBED_CAPTAINS_BACK
+	jr nz, .giveHM
 	ld hl, SSAnneCaptainsRoomRubCaptainsBackText
 	call PrintText
 	ld hl, SSAnneCaptainsRoomCaptainIFeelMuchBetterText
 	call PrintText
+.giveHM
 	lb bc, HM_CUT, 1
 	call GiveItem
 	jr nc, .bag_full

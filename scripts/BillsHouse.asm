@@ -594,6 +594,16 @@ BillsHouseScript11:
 	ld a, [wd730]
 	bit 0, a
 	jr z, .arrived
+; v0.7 fix (decision-tree audit 2026-08-29): the LEFT door column's walk is
+; four steps ~ 68 frames, but this countdown lives in six bits (max 63) --
+; it expired ~8 frames early on every left-column trigger, opening the
+; textbox before BILL's last step finished. The walk provably terminates on
+; its own (scripted steps are consumed even when blocked), so the watchdog
+; only needs headroom: tick it every OTHER frame (play-time parity),
+; doubling the budget to ~126 frames without touching the six-bit home.
+	ld a, [wPlayTimeFrames]
+	rrca
+	ret c ; odd frame: the countdown sits this tick out
 	ld hl, wd492
 	ld a, [hl]
 	and $3f ; the low six bits are this scene's countdown

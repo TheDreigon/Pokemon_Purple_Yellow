@@ -169,6 +169,11 @@
 	const_next $238
 	const EVENT_GOT_HM04
 	const EVENT_GAVE_GOLD_TEETH
+; ⚠️ Do NOT allocate the last 6 skipped indices ($248-$24D): blacking out
+; inside the Safari clears the WHOLE byte holding the two safari flags
+; (DisplayPlayerBlackedOutText writes 0 via EventFlagAddressA, home/
+; text_script.asm) -- any event placed in that byte would be silently wiped
+; on every in-safari blackout. (Decision-tree audit, 2026-08-29.)
 	const_skip 20
 	const EVENT_SAFARI_GAME_OVER
 	const EVENT_IN_SAFARI_ZONE

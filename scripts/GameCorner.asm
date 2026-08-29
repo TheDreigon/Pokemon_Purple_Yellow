@@ -380,7 +380,7 @@ GameCornerFishingGuru2Text:
 	call IsItemInBag
 	jr z, .dontHaveCoinCase
 	call Has9990Coins
-	jr z, .coinCaseFull
+	jr nc, .coinCaseFull ; v0.7 fix: was jr z -- 9991-9999 coins still paid out (and saturated); the other three givers already use nc
 	xor a
 	ldh [hUnusedCoinsByte], a
 	ldh [hCoins], a

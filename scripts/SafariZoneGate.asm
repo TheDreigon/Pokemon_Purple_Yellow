@@ -168,6 +168,14 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	ld c, 3
 	call SafariZoneEntranceAutoWalk
 	ResetEvents EVENT_SAFARI_GAME_OVER, EVENT_IN_SAFARI_ZONE
+; v0.7 fix (decision-tree audit 2026-08-29): only the game-over exit cleared
+; the counters; leaving EARLY kept them, and the broke-player free-entry
+; counter reuses wSafariSteps' high byte -- a stale >=256-steps remainder
+; skipped the first beg line. Zero both, like the game-over path does.
+	xor a
+	ld [wSafariSteps], a
+	ld [wSafariSteps + 1], a
+	ld [wNumSafariBalls], a
 	ld a, SCRIPT_SAFARIZONEGATE_DEFAULT
 	ld [wNextSafariZoneGateScript], a
 	jr .set_current_script

@@ -5,6 +5,18 @@ PokemonTower7F_Script:
 	call CallFunctionInTable
 	ret
 
+PokemonTower7FJnJLossCleanup:
+; v0.7 fix (decision-tree audit 2026-08-29): unlike B4F's loss path, losing
+; to J&J here never re-hid the pair the scene had shown -- after the
+; blackout they stood on 7F in plain sight until the next trigger re-ran.
+; Mirror the win cleanup's hides, then the normal reset.
+	ld a, HS_POKEMON_TOWER_7F_JESSIE
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	ld a, HS_POKEMON_TOWER_7F_JAMES
+	ld [wMissableObjectIndex], a
+	predef HideObject
+; fallthrough
 PokemonTower7FSetDefaultScript:
 	xor a
 	ld [wJoyIgnore], a
@@ -171,7 +183,7 @@ PokemonTower7FScript8:
 	ld [wJoyIgnore], a
 	ld a, [wIsInBattle]
 	cp $ff
-	jp z, PokemonTower7FSetDefaultScript
+	jp z, PokemonTower7FJnJLossCleanup
 	ld a, $2
 	ld [wSprite01StateData1MovementStatus], a
 	ld [wSprite02StateData1MovementStatus], a

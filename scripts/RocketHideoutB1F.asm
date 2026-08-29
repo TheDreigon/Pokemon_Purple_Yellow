@@ -22,7 +22,12 @@ RocketHideoutB1FDoorCallbackScript:
 .play_sound_door_open
 	ld a, SFX_GO_INSIDE
 	call PlaySound
-	CheckEventHL EVENT_677
+; v0.7 fix (decision-tree audit 2026-08-29): this said CheckEventHL where it
+; meant SET -- the one-shot never latched, so the door-open sound replayed on
+; every single B1F entry for the rest of the game. Plain SetEvent, not the
+; ReuseHL form: the PlaySound above sits between the earlier check and here,
+; and hl's survival through it is not a contract worth leaning on.
+	SetEvent EVENT_677
 .door_open
 	ld a, $e ; Floor Block
 .set_door_block
