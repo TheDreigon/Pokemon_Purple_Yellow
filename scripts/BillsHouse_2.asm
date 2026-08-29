@@ -96,24 +96,16 @@ BillsHousePrintBillSSTicketText::
 	ld a, [wObtainedBadges]
 	bit BIT_CASCADEBADGE, a
 	jr z, .no_badge_yet
-	call BillsHouseCheckEeveeInParty
-	jr nz, .maybe_evolved
-	jp BillsHouseEeveelutionQuiz
+; 2026-08-29 (Forte): the reward asks only that the gift was handed over
+; and MISTY fell — no party scan. Boxing, evolving, even releasing the
+; EEVEE no longer matters; the stone is a thank-you, not a custody check.
+	jp BillsHouseStoneReward
 .default_chat
 	ld hl, .WhyDontYouGoInsteadOfMeText
 	call PrintText
 	ret
 .no_badge_yet
 	ld hl, .GoBeatMistyText
-	call PrintText
-	ret
-.maybe_evolved
-; v0.7: evolving the gift before the quiz used to dead-end the quest here
-	call BillsHouseCheckEeveelutionInParty
-	jr nz, .no_eevee
-	jp BillsHouseEeveelutionAlreadyChosen
-.no_eevee
-	ld hl, .WheresEeveeText
 	call PrintText
 	ret
 .after_quest
@@ -127,10 +119,6 @@ BillsHousePrintBillSSTicketText::
 
 .GoBeatMistyText:
 	text_far _BillsHouseBillGoBeatMistyText
-	text_end
-
-.WheresEeveeText:
-	text_far _BillsHouseBillWheresEeveeText
 	text_end
 
 .HowsTheTeamText:
@@ -166,9 +154,8 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 	ld a, [wObtainedBadges]
 	bit BIT_CASCADEBADGE, a
 	jr z, .no_badge_yet
-	call BillsHouseCheckEeveeInParty
-	jr nz, .maybe_evolved
-	jp BillsHouseEeveelutionQuiz
+; same 2026-08-29 reshape as the BILL1 dispatch above: no party scan
+	jp BillsHouseStoneReward
 .offer_eevee
 ; only reachable when the door gift failed on a full party+box
 	jp BillsHouseGiveEevee
@@ -176,24 +163,11 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 	ld hl, .GoBeatMistyText
 	call PrintText
 	ret
-.maybe_evolved
-; v0.7: evolving the gift before the quiz used to dead-end the quest here
-	call BillsHouseCheckEeveelutionInParty
-	jr nz, .no_eevee
-	jp BillsHouseEeveelutionAlreadyChosen
-.no_eevee
-	ld hl, .WheresEeveeText
-	call PrintText
-	ret
 .after_quest
 	jp BillsHouseOfferRematch
 
 .GoBeatMistyText:
 	text_far _BillsHouseBillGoBeatMistyText
-	text_end
-
-.WheresEeveeText:
-	text_far _BillsHouseBillWheresEeveeText
 	text_end
 
 .HowsTheTeamText:
@@ -486,74 +460,17 @@ BillsHouseGiveEevee::
 	text_far _BillsHouseBillNoRoomForEeveeText
 	text_end
 
-; returns z if an unevolved EEVEE is in the party
-BillsHouseCheckEeveeInParty::
-	ld hl, wPartySpecies
-.loop
-	ld a, [hli]
-	cp $ff
-	jr z, .not_found
-	cp EEVEE
-	jr nz, .loop
-	xor a
-	ret
-.not_found
-	or 1
-	ret
-
-BillsHouseCheckEeveelutionInParty::
-; Option 1 of the early-evolve lockout fix (2026-08-25): the quiz gate
-; above matches only species == EEVEE, so evolving the gift BEFORE
-; answering dead-ended the quest forever (no garden, no BILL'S CHIP, no
-; rematch). There is exactly one EEVEE in the game and no NPC trade hands
-; out an eeveelution, so finding one in the party proves the player
-; already made the choice the quiz asks about.
-; Out: z with the species in b if a VAPOREON/JOLTEON/FLAREON is in the
-; party; nz otherwise. Same flag convention as the EEVEE check above.
-	ld hl, wPartySpecies
-.loop
-	ld a, [hli]
-	cp $ff
-	jr z, .not_found
-	cp VAPOREON
-	jr z, .found
-	cp JOLTEON
-	jr z, .found
-	cp FLAREON
-	jr z, .found
-	jr .loop
-.found
-	ld b, a
-	xor a
-	ret
-.not_found
-	or 1
-	ret
-
-BillsHouseEeveelutionAlreadyChosen::
-; In: b = the eeveelution found in the party. Bill recognises the choice,
-; the quiz is skipped, and the quest unlocks exactly as the quiz would --
-; the only thing the quiz's ending does is set this same event. No stone
-; is handed over: the player already owns the evolution it was for.
-	ld a, b
-	ld [wd11e], a
-	call GetMonName ; -> wcd6d, read by the text_ram in the text below
-	ld hl, .AlreadyChosenText
-	call PrintText
-	SetEvent EVENT_GOT_BILL_EEVEELUTION_STONE
-	ret
-
-.AlreadyChosenText:
-	text_far _BillsHouseBillAlreadyChosenText
-	text_end
-
-; part 2 payoff: the favorite-eeveelution question -> matching stone
-BillsHouseEeveelutionQuiz::
-	ld hl, .YouBeatMistyText
+; part 2 payoff (reshaped 2026-08-29, Forte): beat MISTY with the EEVEE
+; handed over and Bill pays the promised reward — a free pick of the
+; three evolution stones, tied to nothing but the two events. The old
+; favorite-eeveelution quiz, its party scan, and the 08-25 evolved-EEVEE
+; recognition all left with the custody requirement they served.
+BillsHouseStoneReward::
+	ld hl, .RisingStarText
 	call PrintText
 	ld hl, wd730
 	set 6, [hl]
-	ld hl, .WhichEvolutionText
+	ld hl, .WhichStoneText
 	call PrintText
 	xor a
 	ld [wCurrentMenuItem], a
@@ -573,17 +490,17 @@ BillsHouseEeveelutionQuiz::
 	ld [wTopMenuItemX], a
 	hlcoord 0, 0
 	ld b, 6
-	ld c, 12
+	ld c, 13 ; interior width — "THUNDERSTONE" is 12 plus the cursor column
 	call TextBoxBorder
 	call UpdateSprites
 	hlcoord 2, 2
-	ld de, .VaporeonName
+	ld de, .WaterStoneName
 	call PlaceString
 	hlcoord 2, 4
-	ld de, .JolteonName
+	ld de, .ThunderStoneName
 	call PlaceString
 	hlcoord 2, 6
-	ld de, .FlareonName
+	ld de, .FireStoneName
 	call PlaceString
 	ld hl, wd730
 	res 6, [hl]
@@ -592,30 +509,24 @@ BillsHouseEeveelutionQuiz::
 	jr nz, .take_your_time
 	ld a, [wCurrentMenuItem]
 	and a
-	jr z, .vaporeon
+	jr z, .water_stone
 	cp 1
-	jr z, .jolteon
-; flareon
-	ld hl, .FlareonNerdText
-	call PrintText
+	jr z, .thunder_stone
+; fire stone
 	lb bc, FIRE_STONE, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .FireStoneReceivedText
 	call PrintText
 	jr .done
-.vaporeon
-	ld hl, .VaporeonNerdText
-	call PrintText
+.water_stone
 	lb bc, WATER_STONE, 1
 	call GiveItem
 	jr nc, .bag_full
 	ld hl, .WaterStoneReceivedText
 	call PrintText
 	jr .done
-.jolteon
-	ld hl, .JolteonNerdText
-	call PrintText
+.thunder_stone
 	lb bc, THUNDER_STONE, 1
 	call GiveItem
 	jr nc, .bag_full
@@ -633,31 +544,19 @@ BillsHouseEeveelutionQuiz::
 	call PrintText
 	ret
 
-.VaporeonName:
-	db "VAPOREON@"
-.JolteonName:
-	db "JOLTEON@"
-.FlareonName:
-	db "FLAREON@"
+.WaterStoneName:
+	db "WATER STONE@"
+.ThunderStoneName:
+	db "THUNDERSTONE@"
+.FireStoneName:
+	db "FIRE STONE@"
 
-.YouBeatMistyText:
+.RisingStarText:
 	text_far _BillsHouseBillYouBeatMistyText
 	text_end
 
-.WhichEvolutionText:
-	text_far _BillsHouseBillWhichEvolutionText
-	text_end
-
-.VaporeonNerdText:
-	text_far _BillsHouseBillVaporeonText
-	text_end
-
-.JolteonNerdText:
-	text_far _BillsHouseBillJolteonText
-	text_end
-
-.FlareonNerdText:
-	text_far _BillsHouseBillFlareonText
+.WhichStoneText:
+	text_far _BillsHouseBillWhichStoneText
 	text_end
 
 .WaterStoneReceivedText:

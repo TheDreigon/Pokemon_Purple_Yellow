@@ -735,11 +735,10 @@ _BillsHouseBillHeyWaitUpText::
 
 _BillsHouseBillEeveeHookText::
 	text "Oh, one more"
-	line "thing! After you"
+	line "thing! Come see"
+	cont "me after you"
 	cont "beat MISTY at the"
-	cont "CERULEAN GYM,"
-	cont "come see me with"
-	cont "that EEVEE."
+	cont "CERULEAN GYM."
 
 	para "I'll have a"
 	line "present for you!"
@@ -766,47 +765,39 @@ _BillsHouseBillGoBeatMistyText::
 	line "you win!"
 	done
 
-_BillsHouseBillWheresEeveeText::
-	text "Hey, where's"
-	line "EEVEE? Go get it"
-	cont "and come right"
-	cont "back!"
-	done
-
 _BillsHouseBillYouBeatMistyText::
-	text "You beat MISTY!"
-	line "Nice going!"
+	text "You beat MISTY?!"
+	line "I knew you were"
+	cont "a rising star!"
+
+	para "PROF.OAK told me"
+	line "all about you"
+	cont "and <RIVAL>."
+
+	para "He sounds mighty"
+	line "proud of you"
+	cont "two."
+
+	para "Anyway, a promise"
+	line "is a promise!"
+
+	para "Here, pick one of"
+	line "these three"
+	cont "evolution stones!"
+
+	para "Use it on EEVEE,"
+	line "or save it for"
+	cont "another #MON."
+
+	para "EEVEE is plenty"
+	line "strong as it is,"
+	cont "too!"
 	prompt
 
-_BillsHouseBillWhichEvolutionText::
-	text "So tell me! Which"
-	line "of EEVEE's"
-	cont "evolutions is"
-	cont "your favorite?"
+_BillsHouseBillWhichStoneText::
+	text "Which stone will"
+	line "it be?"
 	done
-
-_BillsHouseBillVaporeonText::
-	text "Ah, VAPOREON!"
-	line "Cells just like"
-	cont "water molecules!"
-
-	para "It melts clean"
-	line "out of sight!"
-	prompt
-
-_BillsHouseBillJolteonText::
-	text "JOLTEON! Every"
-	line "mood swing"
-	cont "charges it up!"
-
-	para "Shocking choice!"
-	prompt
-
-_BillsHouseBillFlareonText::
-	text "FLAREON! A flame"
-	line "chamber at 1,600"
-	cont "degrees! Toasty!"
-	prompt
 
 _BillsHouseWaterStoneReceivedText::
 	text "<PLAYER> received"
@@ -840,21 +831,6 @@ _BillsHouseBillHowsTheTeamText::
 
 	para "I should get back"
 	line "to my research!"
-	done
-
-_BillsHouseBillAlreadyChosenText::
-	text "Hey, you went and"
-	line "evolved it!"
-
-	para "And what a fine"
-	line "@"
-	text_ram wcd6d
-	text "!"
-
-	para "You chose with"
-	line "your heart! Come"
-	cont "talk to me again,"
-	cont "OK?"
 	done
 
 _GymGuideFreshWaterText::
