@@ -855,6 +855,12 @@ HandleBlackOut::
 	call StopMusic
 	ld hl, wd72e
 	res 5, [hl]
+; v0.7 fix: blacking out of BILL's house (his rematch can be lost there)
+; skipped the three maps that clear the "inside BILL's house" bit, and
+; overworld poison stayed paused world-wide until the player crossed one.
+; A blackout never respawns inside his house, so clearing is always right.
+	ld hl, wd492
+	res 7, [hl]
 	ld a, BANK(PrepareForSpecialWarp) ; also BANK(SpecialEnterMap)
 	call BankswitchCommon
 	callfar ResetStatusAndHalveMoneyOnBlackout
