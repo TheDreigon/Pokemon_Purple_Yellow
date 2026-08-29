@@ -2147,6 +2147,14 @@ ItemUsePokedoll:
 	jp nz, ItemUseNotTime
 	ld a, $01
 	ld [wEscapedFromBattle], a
+; v0.7 fix (decision-tree audit 2026-08-29): fleeing by POKE DOLL left
+; wBattleResult at 0 = "won", which is how the vanilla ghost-Marowak skip
+; worked -- doll the ghost, and the tower opens without the SILPH SCOPE,
+; sequence-breaking Fuji, the FLUTE and Silph. Record the escape the same
+; way TryRunningFromBattle does, and every script that asks "did the
+; player WIN?" gets the true answer. Fixes the class, not just the ghost.
+	ld a, $2
+	ld [wBattleResult], a
 	jp PrintItemUseTextAndRemoveItem
 
 ItemUseGuardSpec:
