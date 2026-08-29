@@ -430,7 +430,6 @@ CaterpieEvosMoves:
 ; Joke-tier baby caterpillar. STRING_SHOT at L1 (base stats). TACKLE@4 is the
 ; only learned move; real growth happens after evolving. Line owns TACKLE
 ; (Metapod/Butterfree L1).
-	db  4, TACKLE
 	db 0
 
 MetapodEvosMoves:
@@ -440,6 +439,7 @@ MetapodEvosMoves:
 ; Learnset
 ; Cocoon. HARDEN/IRON_DEFENSE/BIDE only (defensive shell). All real growth
 ; happens after evolving to Butterfree.
+	db  8, HARDEN
 	db 16, IRON_DEFENSE
 	db 21, BIDE
 	db 0
@@ -452,6 +452,7 @@ ButterfreeEvosMoves:
 ; awakening. All 3 powders per the powder table. QUIVER_DANCE late game
 ; (signature moth/butterfly dance). HURRICANE as the final move.
 	db  1, BUG_BITE
+	db 11, GROWL
 	db 11, GUST
 	db 14, CONFUSION
 	db 16, POISONPOWDER
@@ -487,6 +488,7 @@ KakunaEvosMoves:
 ; Learnset
 ; Cocoon. HARDEN/IRON_DEFENSE/BIDE only (defensive shell). All growth happens
 ; after evolving to Beedrill.
+	db  8, HARDEN
 	db 16, IRON_DEFENSE
 	db 21, BIDE
 	db 0
@@ -500,6 +502,7 @@ BeedrillEvosMoves:
 ; exceptional cases (Horn Attack, Toxic Fangs L50) for a deeper movepool.
 ; Neurotoxin at L50 = real-world bee venom.
 	db  1, BUG_BITE
+	db 11, LEER
 	db 11, TACKLE
 	db 14, FURY_ATTACK
 	db 16, RAGE
@@ -1367,14 +1370,17 @@ VenonatEvosMoves:
 ; baby body releases dazing spores; Venomoth replaces it with a proper
 ; powder kit). PSYWAVE early before CONFUSION. No STRING_SHOT (no
 ; spinneret anatomy on the fuzzy bug body).
-	db  4, POISON_STING
-	db  8, PSYWAVE
-	db 11, BUG_BITE
+	db  6, POISON_STING
+	db  8, TACKLE
+	db 10, PSYWAVE
+	db 12, POISONPOWDER
 	db 14, SUPERSONIC
 	db 18, CONFUSION
+	db 22, STUN_POWDER
+	db 29, ACID
 	db 34, LEECH_LIFE
 	db 37, SPORE_DAZE
-	db 44, SMOG
+	db 40, SMOG
 	db 50, TOXIC
 	db 0
 
@@ -1385,22 +1391,23 @@ VenomothEvosMoves:
 ; Full moth. Venonat backbone plus wing exclusives: full powder kit
 ; (wing-sourced), GUST/WING_ATTACK, QUIVER_DANCE signature (late),
 ; BUG_BUZZ. SPORE_DAZE here is graduated into the proper powders.
-	db  4, POISON_STING
-	db  8, PSYWAVE
-	db 11, BUG_BITE
+	db  6, POISON_STING
+	db  8, TACKLE
+	db 10, PSYWAVE
+	db 12, POISONPOWDER
 	db 14, SUPERSONIC
-	db 21, POISONPOWDER
+	db 18, CONFUSION
 	db 21, GUST
-	db 23, STUN_POWDER
+	db 22, STUN_POWDER
 	db 25, BUG_BUZZ
 	db 27, SLEEP_POWDER
-	db 29, WING_ATTACK
-	db 31, ACID
+	db 29, ACID
+	db 31, WING_ATTACK
 	db 34, LEECH_LIFE
 	db 37, SPORE_DAZE
-	db 40, QUIVER_DANCE
-	db 44, SMOG
-	db 47, NIGHT_SHADE
+	db 40, SMOG
+	db 42, QUIVER_DANCE
+	db 46, NIGHT_SHADE
 	db 50, TOXIC
 	db 54, HAZE
 	db 58, PSYCHIC_M
@@ -1467,9 +1474,9 @@ MeowthEvosMoves:
 ; Feline cat, claws + coin. PAY_DAY signature. HONE_CLAWS/SLASH
 ; (claws). FAINT_ATTACK (cat sneak). INTIMIDATE (predator).
 	db  5, TAIL_WHIP
-	db  7, BITE
-	db  9, ASTONISH
-	db  9, QUICK_ATTACK
+	db  6, BITE
+	db  8, ASTONISH
+	db 10, QUICK_ATTACK
 	db 12, PAY_DAY
 	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
@@ -1490,9 +1497,9 @@ PersianEvosMoves:
 ; Apex feline. INTIMIDATE (apex predator). NASTY_PLOT (sneaky special).
 ; EXTREMESPEED (apex speed).
 	db  5, TAIL_WHIP
-	db  7, BITE
-	db  9, ASTONISH
-	db  9, QUICK_ATTACK
+	db  6, BITE
+	db  8, ASTONISH
+	db 10, QUICK_ATTACK
 	db 12, PAY_DAY
 	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
@@ -3380,10 +3387,11 @@ JynxEvosMoves:
 	db 24, FROST_BREATH
 	db 27, SING
 	db 30, DRAINING_KISS
+	db 30, DOUBLE_TEAM
 	db 33, CHARM
 	db 36, ICY_PULSE
 	db 39, EXTRASENSORY
-	db 42, DOUBLE_TEAM
+	db 42, QUIVER_DANCE
 	db 45, NIGHT_SHADE
 	db 48, AURORA_BEAM
 	db 51, SHADOW_BALL
