@@ -51,8 +51,14 @@ VermilionCityPrintOfficerJennyText::
 ; forever, the flag is cleared again by HallOfFameResetEventsAndSaveScript.
 	CheckEvent EVENT_REMATCHED_OFFICER_JENNY
 	jr nz, .rematchSpent
-
+; BEAT_JENNY only picks the wording — the same veteran split JOY and BILL
+; already carry; she was the one of the three whose offer never noticed a
+; loss (the flag was written and never read, 2026-08-29)
+	CheckEvent EVENT_BEAT_JENNY
 	ld hl, JennyPreBattleText
+	jr z, .offer
+	ld hl, JennyPreBattleText2
+.offer
 	call PrintText
 	xor a
 	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L65 fight
@@ -94,6 +100,9 @@ VermilionCityPrintOfficerJennyText::
 
 JennyPreBattleText:
 	text_far _JennyBattleText
+	text_end
+JennyPreBattleText2:
+	text_far _JennyBattleText2
 	text_end
 
 JennyRefusedText:

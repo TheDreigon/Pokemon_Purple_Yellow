@@ -153,6 +153,20 @@ _JennyBattleText::
 	cont "battle?"
 	done
 
+; the veteran offer, once she has lost at least once (2026-08-29)
+_JennyBattleText2::
+	text "Back on patrol,"
+	line "CHAMPION?"
+
+	para "I've drilled hard"
+	line "since our last"
+	cont "battle."
+
+	para "One more test,"
+	line "in the line of"
+	cont "duty?"
+	done
+
 _JennyRefusedText::
 	text "Oh, that's too"
 	line "bad. Maybe"
