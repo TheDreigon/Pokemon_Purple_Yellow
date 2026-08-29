@@ -231,6 +231,36 @@ _FightingDojoBlackbelt4RebattleAfterText::
 	cont "class!"
 	done
 
+; The rebattle loss lines (2026-08-29): the four end-battle lines above are
+; for a player WIN — these four go to the other SaveEndBattleTextPointers
+; slot, so a losing challenger no longer hears "Judge! Full marks...".
+; Prose approved by Forte 2026-08-29. Same motif per student on purpose:
+; the judge, the four arms, the evolution.
+
+_FightingDojoNewMasterLossText::
+	text "Hwa!"
+	line "This dojo has"
+	cont "a new MASTER!"
+	prompt
+
+_FightingDojoBlackbelt2RebattleLossText::
+	text "Judge!"
+	line "A flawless round"
+	cont "for me!"
+	prompt
+
+_FightingDojoBlackbelt3RebattleLossText::
+	text "Hyah!"
+	line "All four arms"
+	cont "found their mark!"
+	prompt
+
+_FightingDojoBlackbelt4RebattleLossText::
+	text "Ha!"
+	line "Evolution pays"
+	cont "its dues!"
+	prompt
+
 ; The eight gym trainers, once KIYO holds the gym. One line each, approved
 ; by Forte 2026-08-17 — including the Johto rumour.
 

@@ -156,3 +156,13 @@ _FightingDojoBetterNotGetGreedyText::
 	text "Better not get"
 	line "greedy..."
 	done
+
+_FightingDojoPrizeNotEarnedText::
+	text "A prize #MON"
+	line "sleeps in this"
+	cont "BALL."
+
+	para "Only those who"
+	line "beat our MASTER"
+	cont "may choose!"
+	done

@@ -153,19 +153,29 @@ FightingDojoRebattlePostBattleScript:
 
 ; Starts a one-shot student rebattle, dojo style — the challenge leads
 ; straight into the fight, no Yes/No on this floor (Forte, 2026-08-18).
-; hl = challenge text · de = end-battle text (serves win and loss alike) ·
-; b = BLACKBELT party (10-13) · c = student index (1-4) for the shared
-; post-battle state above.
+; hl = challenge text · de = end-battle text on a WIN · b = BLACKBELT party
+; (10-13) · c = student index (1-4) for the shared post-battle state above,
+; doubling as the row into the loss-line table below (2026-08-29: one line
+; used to serve both results, and all four were written as the student
+; losing — "Judge! Full marks..." after beating the challenger read wrong).
 FightingDojoStartRebattle:
 	push de
 	push bc
 	call PrintText
 	call Delay3
 	pop bc
-	pop hl
-	ld d, h
-	ld e, l
-	call SaveEndBattleTextPointers
+	ld a, c
+	dec a
+	add a
+	ld e, a
+	ld d, 0
+	ld hl, FightingDojoRebattleLossTexts
+	add hl, de
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	pop hl ; the win line pushed above
+	call SaveEndBattleTextPointers ; hl = win line · de = loss line
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -179,6 +189,29 @@ FightingDojoStartRebattle:
 	ld [wFightingDojoCurScript], a
 	ld [wCurMapScript], a
 	ret
+
+FightingDojoRebattleLossTexts:
+; student index 1-4 → the line for when the CHALLENGER goes down
+	dw FightingDojoNewMasterLossText
+	dw FightingDojoBlackbelt2RebattleLossText
+	dw FightingDojoBlackbelt3RebattleLossText
+	dw FightingDojoBlackbelt4RebattleLossText
+
+FightingDojoNewMasterLossText:
+	text_far _FightingDojoNewMasterLossText
+	text_end
+
+FightingDojoBlackbelt2RebattleLossText:
+	text_far _FightingDojoBlackbelt2RebattleLossText
+	text_end
+
+FightingDojoBlackbelt3RebattleLossText:
+	text_far _FightingDojoBlackbelt3RebattleLossText
+	text_end
+
+FightingDojoBlackbelt4RebattleLossText:
+	text_far _FightingDojoBlackbelt4RebattleLossText
+	text_end
 
 FightingDojo_TextPointers:
 	def_text_pointers
@@ -430,8 +463,19 @@ FightingDojoBlackbelt4AfterBattleText:
 FightingDojoHitmonleePokeBallText:
 	text_asm
 	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
-	jr z, .GetMon
+	jr z, .PrizeStillHere
 	ld hl, FightingDojoBetterNotGetGreedyText
+	call PrintText
+	jr .done
+.PrizeStillHere
+; 2026-08-29 (Forte): the prize is earned, never found — post-League the
+; master is gone and the hall stands open, so without this gate a player
+; who skipped the dojo could walk in and lift a ball for free. The
+; Viridian honor reward chains off the GOT_* flags, so this one check
+; gates that too; the never-won player catches his in VICTORY ROAD.
+	CheckEvent EVENT_BEAT_KARATE_MASTER
+	jr nz, .GetMon
+	ld hl, FightingDojoPrizeNotEarnedText
 	call PrintText
 	jr .done
 .GetMon
@@ -464,8 +508,15 @@ FightingDojoHitmonleePokeBallText:
 FightingDojoHitmonchanPokeBallText:
 	text_asm
 	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
-	jr z, .GetMon
+	jr z, .PrizeStillHere
 	ld hl, FightingDojoBetterNotGetGreedyText
+	call PrintText
+	jr .done
+.PrizeStillHere
+; same earned-not-found gate as the LEE ball above (2026-08-29)
+	CheckEvent EVENT_BEAT_KARATE_MASTER
+	jr nz, .GetMon
+	ld hl, FightingDojoPrizeNotEarnedText
 	call PrintText
 	jr .done
 .GetMon
@@ -497,4 +548,8 @@ FightingDojoHitmonchanPokeBallText:
 
 FightingDojoBetterNotGetGreedyText:
 	text_far _FightingDojoBetterNotGetGreedyText
+	text_end
+
+FightingDojoPrizeNotEarnedText:
+	text_far _FightingDojoPrizeNotEarnedText
 	text_end
