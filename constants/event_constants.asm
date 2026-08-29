@@ -906,6 +906,18 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	                                    ; a full bag. He offers it again on the
 	                                    ; next visit rather than losing it.
 
+; v0.7 (2026-08-29, his request): the gym guide at the door hands a FRESH
+; WATER to a challenger who is ELIGIBLE (previous badge in hand) but has
+; not yet won THIS gym's badge. One per gym, ever; a full bag defers the
+; gift to the next talk, so the flag is only set when the bottle lands.
+	const EVENT_GOT_GYM_GUIDE_WATER_PEWTER
+	const EVENT_GOT_GYM_GUIDE_WATER_CERULEAN
+	const EVENT_GOT_GYM_GUIDE_WATER_VERMILION
+	const EVENT_GOT_GYM_GUIDE_WATER_FUCHSIA
+	const EVENT_GOT_GYM_GUIDE_WATER_SAFFRON
+	const EVENT_GOT_GYM_GUIDE_WATER_CINNABAR
+	const EVENT_GOT_GYM_GUIDE_WATER_VIRIDIAN
+
 ; End of events
 	const_next $A00
 DEF NUM_EVENTS EQU const_value

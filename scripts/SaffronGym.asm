@@ -380,6 +380,24 @@ SaffronGymPsychic4Text:
 
 SaffronGymGymGuideText:
 	text_asm
+; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
+; FRESH WATER. Eligible = previous badge in hand; once per gym,
+; and a full bag defers the gift to the next talk (flag set only on success).
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_SAFFRON
+	jr nz, .noFreshWater
+	ld a, [wObtainedBadges]
+	bit BIT_SOULBADGE, a
+	jr z, .noFreshWater ; not yet eligible for this gym
+	ld a, [wObtainedBadges]
+	bit BIT_MARSHBADGE, a
+	jr nz, .noFreshWater ; already holds THIS gym's badge
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .noFreshWater ; bag full: defer
+	ld hl, SaffronGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_SAFFRON
+.noFreshWater
 	CheckEvent EVENT_BEAT_SABRINA
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
@@ -481,4 +499,11 @@ SaffronGymPsychic4EndBattleText:
 
 SaffronGymPsychic4AfterBattleText:
 	text_far _SaffronGymPsychic4AfterBattleText
+	text_end
+
+
+SaffronGymGuideFreshWaterText:
+	text_far _GymGuideFreshWaterText
+	sound_get_item_1
+	text_promptbutton
 	text_end

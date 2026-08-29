@@ -352,6 +352,24 @@ CeruleanGymAfterBattleText2:
 
 CeruleanGymGymGuideText:
 	text_asm
+; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
+; FRESH WATER. Eligible = previous badge in hand; once per gym,
+; and a full bag defers the gift to the next talk (flag set only on success).
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_CERULEAN
+	jr nz, .noFreshWater
+	ld a, [wObtainedBadges]
+	bit BIT_BOULDERBADGE, a
+	jr z, .noFreshWater ; not yet eligible for this gym
+	ld a, [wObtainedBadges]
+	bit BIT_CASCADEBADGE, a
+	jr nz, .noFreshWater ; already holds THIS gym's badge
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .noFreshWater ; bag full: defer
+	ld hl, CeruleanGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_CERULEAN
+.noFreshWater
 	CheckEvent EVENT_BEAT_MISTY
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
@@ -369,4 +387,11 @@ CeruleanGymGymGuideText:
 
 .BeatMistyText:
 	text_far _CeruleanGymGymGuideBeatMistyText
+	text_end
+
+
+CeruleanGymGuideFreshWaterText:
+	text_far _GymGuideFreshWaterText
+	sound_get_item_1
+	text_promptbutton
 	text_end

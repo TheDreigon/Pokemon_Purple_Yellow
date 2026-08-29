@@ -273,6 +273,21 @@ PewterGymCooltrainerMAfterBattleText:
 
 PewterGymGuideText:
 	text_asm
+; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
+; FRESH WATER. Eligible = previous badge in hand (none for the first gym); once per gym,
+; and a full bag defers the gift to the next talk (flag set only on success).
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_PEWTER
+	jr nz, .noFreshWater
+	ld a, [wObtainedBadges]
+	bit BIT_BOULDERBADGE, a
+	jr nz, .noFreshWater ; already holds THIS gym's badge
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .noFreshWater ; bag full: defer
+	ld hl, PewterGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_PEWTER
+.noFreshWater
 	ld a, [wBeatGymFlags]
 	bit BIT_BOULDERBADGE, a
 	jr nz, .afterBeat
@@ -327,4 +342,11 @@ PewterGymGuidePostBattleText:
 
 PewterGymText_5c41c:
 	text_far _PewterGymGuyText
+	text_end
+
+
+PewterGymGuideFreshWaterText:
+	text_far _GymGuideFreshWaterText
+	sound_get_item_1
+	text_promptbutton
 	text_end

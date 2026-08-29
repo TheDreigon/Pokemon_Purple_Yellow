@@ -445,6 +445,24 @@ FuchsiaGymRocker6AfterBattleText:
 
 FuchsiaGymGymGuideText:
 	text_asm
+; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
+; FRESH WATER. Eligible = previous badge in hand; once per gym,
+; and a full bag defers the gift to the next talk (flag set only on success).
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_FUCHSIA
+	jr nz, .noFreshWater
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jr z, .noFreshWater ; not yet eligible for this gym
+	ld a, [wObtainedBadges]
+	bit BIT_SOULBADGE, a
+	jr nz, .noFreshWater ; already holds THIS gym's badge
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .noFreshWater ; bag full: defer
+	ld hl, FuchsiaGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_FUCHSIA
+.noFreshWater
 	CheckEvent EVENT_BEAT_KOGA
 	ld hl, .BeatKogaText
 	jr nz, .afterBeat
@@ -459,4 +477,11 @@ FuchsiaGymGymGuideText:
 
 .BeatKogaText:
 	text_far _FuchsiaGymGymGuideBeatKogaText
+	text_end
+
+
+FuchsiaGymGuideFreshWaterText:
+	text_far _GymGuideFreshWaterText
+	sound_get_item_1
+	text_promptbutton
 	text_end

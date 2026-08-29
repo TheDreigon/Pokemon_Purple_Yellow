@@ -1,4 +1,22 @@
 CinnabarGymPrintGymGuideText::
+; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
+; FRESH WATER. Eligible = previous badge in hand; once per gym,
+; and a full bag defers the gift to the next talk (flag set only on success).
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_CINNABAR
+	jr nz, .noFreshWater
+	ld a, [wObtainedBadges]
+	bit BIT_MARSHBADGE, a
+	jr z, .noFreshWater ; not yet eligible for this gym
+	ld a, [wObtainedBadges]
+	bit BIT_VOLCANOBADGE, a
+	jr nz, .noFreshWater ; already holds THIS gym's badge
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .noFreshWater ; bag full: defer
+	ld hl, CinnabarGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_CINNABAR
+.noFreshWater
 	CheckEvent EVENT_BEAT_BLAINE
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
@@ -61,4 +79,11 @@ CinnabarGymText_f2182:
 
 CinnabarGymText_f2187:
 	text_far _CinnabarGymText_7 ; unused
+	text_end
+
+
+CinnabarGymGuideFreshWaterText:
+	text_far _GymGuideFreshWaterText
+	sound_get_item_1
+	text_promptbutton
 	text_end

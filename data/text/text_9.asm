@@ -857,6 +857,18 @@ _BillsHouseBillAlreadyChosenText::
 	cont "OK?"
 	done
 
+_GymGuideFreshWaterText::
+	text "Hiya! You've come"
+	line "ready this time!"
+
+	para "Here, champ in"
+	line "making - a FRESH"
+	cont "WATER, on me!"
+
+	para "<PLAYER> received"
+	line "a FRESH WATER!@"
+	text_end
+
 ; --- PURPLE the PROGRAMMER, Celadon roof house (v0.7) ---
 
 _RoofHouseProgrammerIntroText::
