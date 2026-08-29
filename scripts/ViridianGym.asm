@@ -646,6 +646,22 @@ ViridianGymKiyoText:
 	call ViridianGymKiyoTryHonorReward
 	jr .done
 .noDebt
+; v0.7 fix (decision-tree audit 2026-08-29): GIOVANNI's deferred gifts
+; (TM26 + RARE CANDY, skipped when the bag was full at the badge win) could
+; only be re-claimed by talking to GIOVANNI himself -- and the takeover
+; hides him forever once the League falls. Viridian was the only gym that
+; could eat a leader's gift permanently. KIYO settles his predecessor's
+; debt: same items, same receipt texts, same full-bag retry.
+	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
+	jr z, .noGiovanniDebt
+	CheckEventReuseA EVENT_GOT_GIOVANNI_TM
+	jr z, .giovanniDebt
+	CheckEvent EVENT_GOT_GIOVANNI_CANDY
+	jr nz, .noGiovanniDebt
+.giovanniDebt
+	call ViridianGymKiyoSettleGiovanniDebt
+	jr .done
+.noGiovanniDebt
 	CheckEvent EVENT_REMATCHED_KIYO
 	jr nz, .rematchSpent
 	CheckEvent EVENT_BEAT_KARATE_MASTER
@@ -721,6 +737,39 @@ ViridianGymKiyoPostBattleText:
 
 .WinText:
 	text_far _ViridianGymKiyoWinText
+	text_end
+
+ViridianGymKiyoSettleGiovanniDebt:
+; Same give/receipt/no-room plumbing GIOVANNI used, driven from KIYO's talk.
+; Each event is set only when its GiveItem lands, so a full bag defers and
+; the next talk retries -- exactly the contract the badge-win flow had.
+	ld hl, .DebtSpeechText
+	call PrintText
+	farcall NewPageButtonPressCheck ; the speech ends in `done` -- see below
+	CheckEvent EVENT_GOT_GIOVANNI_TM
+	jr nz, .tryCandy
+	lb bc, TM_EARTHQUAKE, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld hl, ViridianGymGiovanniReceivedTMText
+	call PrintText
+	SetEvent EVENT_GOT_GIOVANNI_TM
+.tryCandy
+	CheckEvent EVENT_GOT_GIOVANNI_CANDY
+	ret nz
+	lb bc, RARE_CANDY, 1
+	call GiveItem
+	jr nc, .bagFull
+	ld hl, ViridianGymGiovanniReceivedCandyText
+	call PrintText
+	SetEvent EVENT_GOT_GIOVANNI_CANDY
+	ret
+.bagFull
+	ld hl, ViridianGymGiovanniTMNoRoomText
+	jp PrintText
+
+.DebtSpeechText:
+	text_far _ViridianGymKiyoGiovanniDebtText
 	text_end
 
 ViridianGymKiyoTryHonorReward:

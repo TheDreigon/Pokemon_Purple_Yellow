@@ -285,3 +285,14 @@ _ViridianGymCooltrainerM3KiyoEraText::
 	para "I cannot beat"
 	line "this one either!"
 	done
+
+_ViridianGymKiyoGiovanniDebtText::
+	text "Hold. The old"
+	line "leader left these"
+	cont "for the one who"
+	cont "beat him."
+
+	para "A debt of the"
+	line "gym is a debt of"
+	cont "mine."
+	done
