@@ -103,10 +103,10 @@
 	const_skip
 	const EVENT_BEAT_POKEMONTOWER_7_TRAINER_0
 	const EVENT_BEAT_POKEMONTOWER_7_TRAINER_1
-; v0.7: recycled. NUM_EVENTS cannot grow -- there is a fixed ORG in WRAM right
-; after wEventFlags, so adding one fails the link -- and this slot was one of
-; only four never referenced anywhere: Pokemon Tower 7F has two trainers, not
-; three, so nothing has ever set it and no save can carry it as 1.
+; v0.7: recycled back when NUM_EVENTS could not grow (a fixed Stack ORG sat
+; right after wEventFlags; since 2026-08-29 the ceiling is $A80 and the ORG
+; moved with it). This slot was one of only four never referenced anywhere:
+; Pokemon Tower 7F has two trainers, not three, so nothing ever set it.
 	const EVENT_GOT_TRAINER_MANUAL
 	const_skip 3
 	const EVENT_RESCUED_MR_FUJI_2
@@ -924,5 +924,13 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	const EVENT_GOT_GYM_GUIDE_WATER_VIRIDIAN
 
 ; End of events
-	const_next $A00
+; v0.7 (2026-08-29, his call): the ceiling grew $A00 -> $A80 -- the gym-guide
+; water flags had filled the old space to the last slot. This adds 16 bytes
+; of SAVED WRAM and shifts everything after it: A SAVE-FORMAT CHANGE,
+; blessed by him (new game only). The Stack org in layout.link moved
+; $df08 -> $df18 to make room (stack 248 -> 232 -- still 38 bytes above
+; the pre-hardening size, and the stack-leak bug that motivated the
+; cushion died with the 08-25 pp-freeze fix). 128 fresh slots.
+
+	const_next $A80
 DEF NUM_EVENTS EQU const_value

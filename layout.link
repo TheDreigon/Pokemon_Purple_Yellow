@@ -325,7 +325,7 @@ WRAM0
 	"Main Data"
 	"Current Box Data"
 	"GBC Palette Data"
-	org $df08 ; v0.7 stack hardening: lowered from $df3e (+54 bytes) by reclaiming the "ds 54 unused" padding in Main Data; stack 194 -> 248. (History: $df3c -> $df3e for the tiered mart buffer overflow fix.)
+	org $df18 ; v0.7: raised from $df08 on 2026-08-29 -- wEventFlags grew 16 bytes (NUM_EVENTS $A00 -> $A80, his call, save-format change). Stack 248 -> 232: still 38 above the pre-hardening 194, and the stack-leak bug behind the cushion died with the 08-25 pp-freeze fix. (History: $df3c -> $df3e mart fix; -> $df08 hardening +54; -> $df18 event growth.)
 	"Stack"
 VRAM $0
 	"VRAM"

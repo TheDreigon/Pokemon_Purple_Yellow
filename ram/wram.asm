@@ -2763,6 +2763,10 @@ SECTION "Stack", WRAM0
 ; v0.7 stack hardening: grown 54 bytes (194 -> 248, $c2 -> $f8) by reclaiming
 ; the "ds 54 unused" padding from Main Data. Static worst-case stack use is
 ; ~60-70 bytes, so 248 is generous headroom.
-; See layout.link "Stack" org $df08.
-	ds $f8 - 1
+; v0.7 event growth (2026-08-29, his call): gave 16 bytes back (248 -> 232,
+; $f8 -> $e8) so wEventFlags could grow NUM_EVENTS $A00 -> $A80. Still 38
+; above the pre-hardening 194, and the stack-leak bug that motivated the
+; cushion died with the 08-25 pp-freeze fix.
+; See layout.link "Stack" org $df18.
+	ds $e8 - 1
 wStack:: db
