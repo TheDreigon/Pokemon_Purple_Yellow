@@ -792,6 +792,8 @@ CooltrainerMData:
 ; Viridian Gym
 	db 53, SANDSLASH, MAROWAK, 0
 	db 51, GOLEM, ELECTRODE, VICTREEBEL, 0
+; Viridian Forest toll gate (2026-08-30) - party 11, appended
+	db 10, SCYTHER, PINSIR, 0
 
 CooltrainerFData:
 ; Celadon Gym

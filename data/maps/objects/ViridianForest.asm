@@ -9,6 +9,7 @@
 	const_export VIRIDIANFOREST_ANTIDOTE
 	const_export VIRIDIANFOREST_POKE_BALL
 	const_export VIRIDIANFOREST_YOUNGSTER6
+	const_export VIRIDIANFOREST_COOLTRAINER_M
 
 ViridianForest_Object:
 	db $3 ; border block
@@ -39,5 +40,9 @@ ViridianForest_Object:
 	object_event 32, 43, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_ANTIDOTE, ANTIDOTE
 	object_event  1, 30, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POKE_BALL, POKE_BALL
 	object_event 24,  9, SPRITE_YOUNGSTER, STAY, NONE, TEXT_VIRIDIANFOREST_YOUNGSTER6
+; v0.7 (2026-08-30, Forte): the toll gate on the way to PEWTER - he cleared
+; (2,18) himself by moving the bug catcher to (19,19). SCYTHER+PINSIR L10,
+; sight 2 down the western corridor.
+	object_event  2, 18, SPRITE_COOLTRAINER_M, STAY, LEFT, TEXT_VIRIDIANFOREST_COOLTRAINER_M, OPP_COOLTRAINER_M, 11
 
 	def_warps_to VIRIDIAN_FOREST

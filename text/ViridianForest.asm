@@ -154,3 +154,36 @@ _ViridianForestTrainerTips4Text::
 	line "they may escape!"
 	done
 
+
+; v0.7 (2026-08-30, Forte): the western-corridor toll gate. His class tag
+; renders "COOLTRAINER(m): " (12 tiles), so the end-battle first row gets 4.
+_ViridianForestCooltrainerMBattleText::
+	text "Check out my"
+	line "SCYTHER and my"
+	cont "PINSIR! So cool,"
+	cont "so strong!"
+
+	para "Planning to reach"
+	line "PEWTER CITY to"
+	cont "challenge BROCK?"
+
+	para "Hah! You'll have"
+	line "to get past me"
+	cont "first!"
+	done
+
+_ViridianForestCooltrainerMEndBattleText::
+	text "Ugh!"
+	line "Cool isn't"
+	cont "enough..."
+	prompt
+
+_ViridianForestCooltrainerMAfterBattleText::
+	text "Fine, they're"
+	line "cool AND you're"
+	cont "strong."
+
+	para "BROCK's rock-hard"
+	line "team is next."
+	cont "Good luck!"
+	done

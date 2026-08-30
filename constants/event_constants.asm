@@ -589,6 +589,11 @@
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_2
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_3
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_4
+; v0.7 (2026-08-30, Forte): the COOLTRAINER toll gate at (2,18). MUST sit
+; right here - the `trainer` header macro requires consecutive bits within
+; the map's flag byte (bit 7 of $560's byte, carved from free padding; Mt.
+; Moon's const_next $570 anchors the next block, so nothing shifts).
+	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_5
 
 ; Mt. Moon events
 	const_next $570

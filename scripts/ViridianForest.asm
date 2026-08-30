@@ -25,6 +25,7 @@ ViridianForest_TextPointers:
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_ANTIDOTE
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POKE_BALL
 	dw_const ViridianForestYoungster6Text,      TEXT_VIRIDIANFOREST_YOUNGSTER6
+	dw_const ViridianForestCooltrainerMText,    TEXT_VIRIDIANFOREST_COOLTRAINER_M
 	dw_const ViridianForestTrainerTips1Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS1
 	dw_const ViridianForestUseAntidoteSignText, TEXT_VIRIDIANFOREST_USE_ANTIDOTE_SIGN
 	dw_const ViridianForestTrainerTips2Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS2
@@ -43,6 +44,8 @@ ViridianForestTrainerHeader3:
 	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_3, 0, ViridianForestCooltrainerFBattleText, ViridianForestCooltrainerFEndBattleText, ViridianForestCooltrainerFAfterBattleText
 ViridianForestTrainerHeader4:
 	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_4, 4, ViridianForestYoungster5BattleText, ViridianForestYoungster5EndBattleText, ViridianForestYoungster5AfterBattleText
+ViridianForestTrainerHeader5:
+	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_5, 2, ViridianForestCooltrainerMBattleText, ViridianForestCooltrainerMEndBattleText, ViridianForestCooltrainerMAfterBattleText
 	db -1 ; end
 
 ViridianForestYoungster1Text:
@@ -62,6 +65,11 @@ ViridianForestYoungster3Text:
 ViridianForestYoungster4Text:
 	text_asm
 	ld hl, ViridianForestTrainerHeader2
+	jr ViridianForestTalkToTrainer
+
+ViridianForestCooltrainerMText:
+	text_asm
+	ld hl, ViridianForestTrainerHeader5
 	jr ViridianForestTalkToTrainer
 
 ViridianForestCooltrainerFText:
@@ -110,6 +118,18 @@ ViridianForestYoungster4EndBattleText:
 
 ViridianForestYoungster4AfterBattleText:
 	text_far _ViridianForestYoungster4AfterBattleText
+	text_end
+
+ViridianForestCooltrainerMBattleText:
+	text_far _ViridianForestCooltrainerMBattleText
+	text_end
+
+ViridianForestCooltrainerMEndBattleText:
+	text_far _ViridianForestCooltrainerMEndBattleText
+	text_end
+
+ViridianForestCooltrainerMAfterBattleText:
+	text_far _ViridianForestCooltrainerMAfterBattleText
 	text_end
 
 ViridianForestCooltrainerFBattleText:
