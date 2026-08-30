@@ -926,10 +926,11 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 ; water round -- she is the eighth, a new NPC by the door (girls-only gym,
 ; so the usher is a woman).
 	const EVENT_GOT_GYM_GUIDE_WATER_CELADON
-; v0.7 (2026-08-30, his design): the two Oak's aides wait in the SAFFRON
-; Pokecenter with the ITEMFINDER and EXP.SHARE. This one-shot marks the
-; forced greeting at the nurse spot (3,3), so a full-bag player can never
-; be text-locked at the counter - retries come from talking to them.
+; v0.7 (2026-08-30, his design, v3): the two Oak's aides wait in the
+; SAFFRON Pokecenter with the ITEMFINDER and EXP.SHARE. This latch marks
+; "the entry cutscene already ran this visit"; the map's on-entry script
+; CLEARS it again while a parcel is still owed, so the scene repeats once
+; per visit until both land - and a full-bag player is never text-locked.
 	const EVENT_SAFFRON_AIDES_AMBUSHED
 
 ; End of events

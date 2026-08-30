@@ -185,7 +185,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw SilphCo1FHS
-	dw NoHS
+	dw SaffronPokecenterHS ; v0.7 2026-08-30: the two aides
 	dw NoHS
 	dw NoHS
 	dw NoHS
@@ -353,9 +353,11 @@ Museum1FHS:
 CeruleanMelaniesHouseHS:
 	db CERULEAN_MELANIES_HOUSE, CERULEANMELANIESHOUSE_BULBASAUR, SHOW
 CeruleanCaveHS:
-	; index 39: was the 1F ULTRA BALL (now a hidden item) - the row is
-	; rewritten in place for the SAFFRON aides so nothing renumbers
-	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE1, SHOW
+; v0.7 (2026-08-30): the 1F ULTRA BALL row that led this block became a
+; hidden item; its slot moved to the SaffronPokecenterHS block at the END
+; of the array (a map's rows must be CONTIGUOUS and start at the map's
+; MapHSPointers target - see the PalletTownHS comment; splicing a foreign
+; row in here emptied this map's whole missable list).
 	db CERULEAN_CAVE_1F, CERULEANCAVE1F_MAX_ELIXIR, SHOW
 	db CERULEAN_CAVE_1F, CERULEANCAVE1F_MAX_REVIVE, SHOW
 	db CERULEAN_CAVE_1F, CERULEANCAVE1F_TM_OUTRAGE, SHOW
@@ -562,8 +564,8 @@ SafariZoneCenterHS:
 	db SAFARI_ZONE_CENTER, SAFARIZONECENTER_NUGGET, SHOW
 CeruleanCave2FHS:
 	db CERULEAN_CAVE_2F, CERULEANCAVE2F_PP_MAX,   SHOW
-	; index D7: was the 2F ULTRA BALL (now a hidden item) - see index 39
-	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE2, SHOW
+	; v0.7 (2026-08-30): the 2F ULTRA BALL row moved out - see the
+	; CeruleanCaveHS comment above
 	db CERULEAN_CAVE_2F, CERULEANCAVE2F_MAX_REVIVE,   SHOW
 	db CERULEAN_CAVE_2F, CERULEANCAVE2F_FULL_RESTORE, SHOW
 CeruleanCaveB1FHS:
@@ -622,7 +624,13 @@ AgathasRoomHS:
 	db AGATHAS_ROOM, AGATHASROOM_AGATHA_REMATCH,   	HIDE
 RockTunnel1FHS: ; v0.7 rope quota (slot from the Tower 4F Elixir conversion)
 	db ROCK_TUNNEL_1F, ROCKTUNNEL1F_ESCAPE_ROPE, SHOW
-RockTunnelB1FHS: ; must stay last: MissableObjects order must match HS_* constant order, and HS_ROCK_TUNNEL_B1F_ITEM_1 is the final constant (see constants/hide_show_constants.asm)
+RockTunnelB1FHS:
 	db ROCK_TUNNEL_B1F, ROCKTUNNELB1F_TM_IRON_TAIL, SHOW
+SaffronPokecenterHS: ; must stay last: MissableObjects order must match HS_* constant order, and HS_SAFFRON_POKECENTER_AIDE_2 is the final constant (see constants/hide_show_constants.asm)
+; v0.7 (2026-08-30): Oak's two aides - their exit fires once both parcels
+; are delivered and TEAM ROCKET falls (scripts/SaffronPokecenter.asm).
+; Slots funded by the two CERULEAN CAVE ULTRA BALL conversions.
+	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE1, SHOW
+	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE2, SHOW
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

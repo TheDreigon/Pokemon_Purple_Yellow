@@ -27,13 +27,15 @@ _SaffronAidesGreetingText::
 
 _SaffronAidesMakeRoomText::
 	text "Whoa, your BAG"
-	line "is packed! We"
-	cont "need room for"
-	cont "BOTH parcels."
+	line "is packed!"
 
 	para "Two free slots,"
-	line "<PLAYER> - then"
-	cont "we talk!"
+	line "please, <PLAYER> -"
+	cont "we have to hand"
+	cont "these over and"
+	cont "get back to our"
+	cont "research with"
+	cont "PROF.OAK!"
 	prompt
 
 _SaffronAideItemfinderReceivedText::

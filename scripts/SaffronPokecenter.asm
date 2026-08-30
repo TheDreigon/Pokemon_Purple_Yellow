@@ -170,10 +170,10 @@ SaffronPokecenterChanseyText:
 
 ; Each aide runs the shared delivery, then signs off in his own voice:
 ; afraid of TEAM ROCKET while they hold the town, packing for the lab once
-; they are gone. (Forte wanted them to physically leave at liberation, but
-; the missable array is at its hard 256-slot cap - byte-indexed, so it
-; cannot grow like the event array did. Until an HS-slot audit frees two
-; slots, the farewell line stands in for the exit.)
+; they are gone - and once they are gone AND both parcels are delivered,
+; the on-entry branch above really does hide them (the two HS slots were
+; funded by the CERULEAN CAVE ULTRA BALL conversions and live as the
+; contiguous SaffronPokecenterHS block at the array's end).
 SaffronPokecenterAide1Text:
 	text_asm
 	call SaffronAidesDeliverParcels
