@@ -167,7 +167,7 @@ BrockData:
 
 JrTrainerMData:
 ; Pewter Gym
-	db 9, DIGLETT, SANDSHREW, 0
+	db 9, GEODUDE, SANDSHREW, 0
 ; Route 24/Route 25
 	db 15, DIGLETT, PSYDUCK, 0
 ; Route 24
