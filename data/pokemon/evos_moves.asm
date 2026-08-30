@@ -828,8 +828,6 @@ SandshrewEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROLLOUT
 	db 18, BULLDOZE
-	db 20, CUT
-	db 22, SLASH
 	db 24, HONE_CLAWS
 	db 30, DIG
 	db 36, MUD_BOMB
@@ -852,6 +850,7 @@ SandslashEvosMoves:
 	db 20, CUT
 	db 22, SLASH
 	db 24, HONE_CLAWS
+	db 26, FALSE_SWIPE
 	db 30, DIG
 	db 36, MUD_BOMB
 	db 42, IRON_DEFENSE
@@ -1349,6 +1348,7 @@ ParasectEvosMoves:
 	db 27, CUT
 	db 29, SPORE_DAZE
 	db 29, SLASH
+	db 29, FALSE_SWIPE
 	db 31, LEECH_LIFE
 	db 34, SCARY_FACE
 	db 34, DIG
@@ -1457,6 +1457,7 @@ DugtrioEvosMoves:
 	db 30, FAINT_ATTACK
 	db 33, EARTHQUAKE
 	db 36, HONE_CLAWS
+	db 36, FALSE_SWIPE
 	db 38, SCREECH
 	db 46, ROCK_TOMB
 	db 48, NIGHT_SLASH
@@ -1481,6 +1482,7 @@ MeowthEvosMoves:
 	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
 	db 21, HONE_CLAWS
+	db 21, FALSE_SWIPE
 	db 24, FOCUS_ENERGY
 	db 26, TAKE_DOWN
 	db 26, CUT
@@ -1504,6 +1506,7 @@ PersianEvosMoves:
 	db 15, FURY_ATTACK
 	db 18, FAINT_ATTACK
 	db 21, HONE_CLAWS
+	db 21, FALSE_SWIPE
 	db 24, FOCUS_ENERGY
 	db 26, TAKE_DOWN
 	db 26, CUT
@@ -1636,6 +1639,7 @@ GrowlitheEvosMoves:
 	db 24, CUT
 	db 26, SLASH
 	db 28, CRUNCH
+	db 30, FALSE_SWIPE
 	db 36, FLAMETHROWER
 	db 44, INTIMIDATE
 	db 48, PLAY_ROUGH
@@ -1658,6 +1662,7 @@ ArcanineEvosMoves:
 	db 24, CUT
 	db 26, SLASH
 	db 28, CRUNCH
+	db 30, FALSE_SWIPE
 	db 32, TAKE_DOWN
 	db 36, FLAMETHROWER
 	db 38, STRENGTH
@@ -1847,6 +1852,8 @@ MachokeEvosMoves:
 	db 30, GROUND_STOMP
 	db 36, BODY_SLAM
 	db 38, TAKE_DOWN
+	db 42, COMET_PUNCH  ; (EVO LVL)
+	db 42, FALSE_SWIPE  ; (EVO LVL)
 	db 46, MACH_PUNCH
 	db 48, SUBMISSION
 	db 50, BULLDOZE
@@ -1876,6 +1883,7 @@ MachampEvosMoves:
 	db 36, BODY_SLAM
 	db 38, TAKE_DOWN
 	db 42, COMET_PUNCH  ; (EVO LVL)
+	db 42, FALSE_SWIPE  ; (EVO LVL)
 	db 46, MACH_PUNCH
 	db 48, SUBMISSION
 	db 50, BULLDOZE
@@ -1968,6 +1976,7 @@ VictreebelEvosMoves:
 	db 42, LEECH_LIFE
 	db 45, GIGA_DRAIN
 	db 50, CORRODE
+	db 50, FALSE_SWIPE
 	db 55, SLUDGE_WAVE
 	db 60, GUNK_SHOT
 	db 0
@@ -2261,9 +2270,10 @@ FarfetchdEvosMoves:
 	db 22, LEEK_STRIKE
 	db 25, CUT
 	db 27, SLASH
-	db 30, NIGHT_SLASH
-	db 38, AGILITY
-	db 42, RECOVER
+	db 30, FALSE_SWIPE
+	db 34, NIGHT_SLASH
+	db 38, RECOVER
+	db 42, AGILITY
 	db 48, SWORDS_DANCE
 	db 52, PETAL_DANCE
 	db 55, BRUTAL_SWING
@@ -2693,7 +2703,7 @@ KrabbyEvosMoves:
 	db 18, BUBBLEBEAM
 	db 21, FURY_ATTACK
 	db 24, CUT
-	db 27, WATER_PULSE
+	db 26, WATER_PULSE
 	db 30, SLASH
 	db 33, BIND
 	db 36, ROCK_PUNCH
@@ -2716,8 +2726,9 @@ KinglerEvosMoves:
 	db 18, BUBBLEBEAM
 	db 21, FURY_ATTACK
 	db 24, CUT
-	db 27, WATER_PULSE
-	db 30, SLASH
+	db 26, WATER_PULSE
+	db 28, SLASH
+	db 30, FALSE_SWIPE
 	db 33, BIND
 	db 36, ROCK_PUNCH
 	db 39, WATERFALL
@@ -2865,6 +2876,7 @@ MarowakEvosMoves:
 ; evolving, L32), BIDE+EERIE_IMPULSE just after evo, DISABLE,
 ; SPIRIT_DRAIN, INTIMIDATE/SCARY_FACE/NIGHT_SHADE/THRASH/OUTRAGE/
 ; GORE_ATTACK/FISSURE/STRENGTH (HM)/EXPLOSION apex L65.
+	db  4, FAIRY_WIND
 	db 13, BONE_CLUB
 	db 13, FIERCE_ROAR
 	db 18, HEADBUTT
@@ -2875,6 +2887,7 @@ MarowakEvosMoves:
 	db 30, BIDE
 	db 30, EERIE_IMPULSE
 	db 32, DARK_PULSE
+	db 32, FALSE_SWIPE
 	db 34, BULLDOZE
 	db 36, NIGHT_SHADE
 	db 36, SPIRIT_DRAIN
@@ -2908,6 +2921,7 @@ HitmonleeEvosMoves:
 	db 36, BULLDOZE
 	db 40, AGILITY
 	db 42, FAINT_ATTACK
+	db 42, FALSE_SWIPE
 	db 46, ROLLING_KICK
 	db 50, SWORDS_DANCE
 	db 52, HI_JUMP_KICK
@@ -2935,7 +2949,8 @@ HitmonchanEvosMoves:
 	db 34, ROCK_PUNCH
 	db 36, BULLET_PUNCH
 	db 40, BULK_UP
-	db 44, FAINT_ATTACK
+	db 42, FAINT_ATTACK
+	db 42, FALSE_SWIPE
 	db 46, SHADOW_PUNCH
 	db 50, RECOVER
 	db 52, SKY_UPPERCUT
@@ -3354,6 +3369,7 @@ ScytherEvosMoves:
 	db 20, CUT
 	db 22, SLASH
 	db 24, HONE_CLAWS
+	db 26, FALSE_SWIPE
 	db 28, FAINT_ATTACK
 	db 30, AGILITY
 	db 32, SHADOW_SNEAK
@@ -3479,6 +3495,7 @@ PinsirEvosMoves:
 	db 21, VICEGRIP
 	db 23, CUT
 	db 25, BIND
+	db 26, FALSE_SWIPE
 	db 29, STRENGTH
 	db 33, BULK_UP
 	db 36, DIG
@@ -3737,6 +3754,7 @@ PorygonEvosMoves:
 	db  6, HARDEN
 	db 10, CONFUSION
 	db 14, DISABLE
+	db 16, FALSE_SWIPE
 	db 18, RECOVER
 	db 20, THUNDER_WAVE
 	db 22, SHOCK_WAVE
@@ -3793,8 +3811,9 @@ OmastarEvosMoves:
 	db 22, BIND
 	db 26, AQUA_JET
 	db 30, ROCK_THROW
-	db 35, ICY_PULSE
-	db 39, WATER_PULSE
+	db 33, WATER_PULSE
+	db 36, ICY_PULSE
+	db 40, ROLLOUT
 	db 43, ROCK_TOMB
 	db 47, IRON_DEFENSE
 	db 52, HYDRO_PUMP
@@ -3837,6 +3856,7 @@ KabutopsEvosMoves:
 	db 28, CUT
 	db 30, SLASH
 	db 35, MEGA_DRAIN
+	db 40, FALSE_SWIPE
 	db 43, LEECH_LIFE
 	db 47, ROCK_TOMB
 	db 52, NIGHT_SLASH
@@ -4074,6 +4094,7 @@ MewtwoEvosMoves:
 	db 14, DISABLE
 	db 16, EXTRASENSORY
 	db 18, FOCUS_ENERGY
+	db 18, FALSE_SWIPE
 	db 20, PSYCHIC_BIND
 	db 24, AGILITY
 	db 26, EERIE_IMPULSE

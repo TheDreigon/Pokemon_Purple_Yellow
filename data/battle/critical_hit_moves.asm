@@ -1,4 +1,6 @@
 HighCriticalMoves:
+    ; BUG
+    db GUILLOTINE
 	; DARK
 	db NIGHT_SLASH
 	db GORE_ATTACK
@@ -24,10 +26,10 @@ HighCriticalMoves:
 	db SLASH
 	db HORN_CHARGE
 	db DOUBLE_EDGE
+	db EXTREMESPEED
 	db HYPER_FANG
 	; PSYCHIC
-	db MIND_BREAK ; live since the move switched to PARALYZE_SIDE_EFFECT3
-	              ; (damaging effect — goes through CriticalHitTest normally)
+	db MIND_BREAK ; live since the move switched to PARALYZE_SIDE_EFFECT3 (damaging effect — goes through CriticalHitTest normally)
 	; ROCK
 	db HORN_DRILL
 	; STEEL

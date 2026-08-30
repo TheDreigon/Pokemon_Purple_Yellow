@@ -18,7 +18,7 @@ Moves: ; Current total = 219
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
 	move BUG_BUZZ,       SPECIAL_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
-	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10
+	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10 ; high-crit.
 	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; almost-signature.
 	move TWINEEDLE,      TWINEEDLE_EFFECT,                 40, BUG,          100, 20 ; signature.
 
@@ -173,7 +173,7 @@ Moves: ; Current total = 219
 	move SCRATCH,        NO_ADDITIONAL_EFFECT,             35, NORMAL,       100, 30
 	move TACKLE,         NO_ADDITIONAL_EFFECT,             40, NORMAL,       100, 30
 	move BITE,           FLINCH_SIDE_EFFECT1,              45, NORMAL,       100, 30
-	move QUICK_ATTACK,   NO_ADDITIONAL_EFFECT,             50, NORMAL,       100, 20 ; priority move.
+	move QUICK_ATTACK,   NO_ADDITIONAL_EFFECT,             50, NORMAL,       100, 25 ; priority move.
 	move HEADBUTT,       CONFUSION_SIDE_EFFECT1,           55, NORMAL,       100, 25 ; new effect.
 	move HORN_ATTACK,    FLINCH_SIDE_EFFECT1,              60, NORMAL,       100, 25
 	move SLASH,          NO_ADDITIONAL_EFFECT,             65, NORMAL,       100, 20 ; high-crit.
@@ -183,11 +183,11 @@ Moves: ; Current total = 219
 	move THRASH,         THRASH_PETAL_DANCE_EFFECT,        95, NORMAL,       100, 10
 	move HEAVY_SLAM,     PARALYZE_SIDE_EFFECT2,           100, NORMAL,        90, 10
 	move DOUBLE_EDGE,    RECOIL_EFFECT,                   120, NORMAL,        80, 10 ; high-crit.
-	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. speedsters' staple (22 learners). priority move.
+	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. speedsters' staple (22 learners). priority move. high-crit.
 	move SUPERSONIC,     CONFUSION_EFFECT,                  0, NORMAL,        80, 25
 	move SUPER_FANG,     SUPER_FANG_EFFECT,                 1, NORMAL,        90, 15 ; signature.
 	move HYPER_FANG,     DEFENSE_DOWN1_EFFECT,             75, NORMAL,       100, 20 ; signature. high-crit.
-	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               60, NORMAL,       100, 30 ; v0.7 new move (2026-08-30). never KOs - always leaves the target at 1 HP.
+	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               60, NORMAL,       100, 30 ; new move. never KOs - always leaves the target at 1 HP.
 
 
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
@@ -227,7 +227,7 @@ Moves: ; Current total = 219
 
 
 	; === STEEL TYPE (6 moves) === ; new type
-	move CUT,            NO_ADDITIONAL_EFFECT,             55, STEEL,        100, 25 ; high-crit.
+	move CUT,            NO_ADDITIONAL_EFFECT,             60, STEEL,        100, 25 ; high-crit.
 	move IRON_TAIL,      DEFENSE_DOWN_SIDE_EFFECT,         65, STEEL,         90, 25 ; new move.
 	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,         95, 20 ; new move.
 	move SONICBOOM,      SPECIAL_DAMAGE_EFFECT,             1, STEEL,        100, 20 ; almost-signature (Magnemite-line + ball-line). set damage from 20 to 25.
