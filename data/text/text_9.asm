@@ -845,6 +845,32 @@ _GymGuideFreshWaterText::
 	line "a FRESH WATER!@"
 	text_end
 
+; the CELADON guide (2026-08-30) — the eighth, and the only woman: her gym
+; is girls-only, so her base chat says so where the seven men say "champ in
+; making". The water hand-over above is shared with all eight.
+_CeladonGymGuideGirlsOnlyText::
+	text "Welcome to"
+	line "CELADON GYM!"
+
+	para "It's girls only"
+	line "in this GYM -"
+	cont "but challengers"
+	cont "of any kind are"
+	cont "welcome!"
+
+	para "ERIKA and her"
+	line "girls fight with"
+	cont "grace. Show them"
+	cont "your best!"
+	done
+
+_CeladonGymGuideBeatErikaText::
+	text "You beat ERIKA?!"
+	line "Poise, power and"
+	cont "petals - you had"
+	cont "it all!"
+	done
+
 ; --- PURPLE the PROGRAMMER, Celadon roof house (v0.7) ---
 
 _RoofHouseProgrammerIntroText::

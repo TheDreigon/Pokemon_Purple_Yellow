@@ -165,6 +165,7 @@ CeladonGym_TextPointers:
 	dw_const CeladonGymCooltrainerF3Text,    TEXT_CELADONGYM_COOLTRAINER_F3
 	dw_const CeladonGymBeauty3Text,          TEXT_CELADONGYM_BEAUTY3
 	dw_const CeladonGymCooltrainerF4Text,    TEXT_CELADONGYM_COOLTRAINER_F4
+	dw_const CeladonGymGymGuideText,         TEXT_CELADONGYM_GYM_GUIDE
 	dw_const CeladonGymRainbowBadgeInfoText, TEXT_CELADONGYM_RAINBOWBADGE_INFO
 	dw_const CeladonGymReceivedTMText,     TEXT_CELADONGYM_RECEIVED_TM
 	dw_const CeladonGymTMNoRoomText,       TEXT_CELADONGYM_TM_NO_ROOM
@@ -462,4 +463,52 @@ CeladonGymEndBattleText8:
 
 CeladonGymAfterBattleText8:
 	text_far _CeladonGymAfterBattleText8
+	text_end
+
+CeladonGymGymGuideText:
+	text_asm
+; v0.7 (his 2026-08-30 request): CELADON had no in-gym guide, so the FRESH
+; WATER round (573d76b4) skipped it. She is the eighth — a woman, because
+; this gym is girls-only — under the same contract as the seven: the first
+; ELIGIBLE pre-badge visit earns the bottle, once per gym ever, and a full
+; bag defers the gift to the next talk (flag set only when it lands).
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_CELADON
+	jr nz, .noFreshWater
+	ld a, [wObtainedBadges]
+	bit BIT_THUNDERBADGE, a
+	jr z, .noFreshWater ; not yet eligible for this gym
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jr nz, .noFreshWater ; already holds THIS gym's badge
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .noFreshWater ; bag full: defer
+	ld hl, CeladonGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_CELADON
+.noFreshWater
+	ld a, [wBeatGymFlags]
+	bit BIT_RAINBOWBADGE, a
+	jr nz, .beatErika
+	ld hl, .GirlsOnlyText
+	call PrintText
+	jr .done
+.beatErika
+	ld hl, .BeatErikaText
+	call PrintText
+.done
+	jp TextScriptEnd
+
+.GirlsOnlyText:
+	text_far _CeladonGymGuideGirlsOnlyText
+	text_end
+
+.BeatErikaText:
+	text_far _CeladonGymGuideBeatErikaText
+	text_end
+
+CeladonGymGuideFreshWaterText:
+	text_far _GymGuideFreshWaterText
+	sound_get_item_1
+	text_promptbutton
 	text_end

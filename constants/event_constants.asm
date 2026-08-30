@@ -922,6 +922,10 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	const EVENT_GOT_GYM_GUIDE_WATER_SAFFRON
 	const EVENT_GOT_GYM_GUIDE_WATER_CINNABAR
 	const EVENT_GOT_GYM_GUIDE_WATER_VIRIDIAN
+; v0.7 (2026-08-30, his call): CELADON had no in-gym guide and sat out the
+; water round -- she is the eighth, a new NPC by the door (girls-only gym,
+; so the usher is a woman).
+	const EVENT_GOT_GYM_GUIDE_WATER_CELADON
 
 ; End of events
 ; v0.7 (2026-08-29, his call): the ceiling grew $A00 -> $A80 -- the gym-guide
