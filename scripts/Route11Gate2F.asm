@@ -4,7 +4,7 @@ Route11Gate2F_Script:
 Route11Gate2F_TextPointers:
 	def_text_pointers
 	dw_const Route11Gate2FYoungsterText,       TEXT_ROUTE11GATE2F_YOUNGSTER
-	dw_const Route11Gate2FOaksAideText,        TEXT_ROUTE11GATE2F_OAKS_AIDE
+	dw_const Route11Gate2FGentlemanText,       TEXT_ROUTE11GATE2F_GENTLEMAN
 	dw_const Route11Gate2FLeftBinocularsText,  TEXT_ROUTE11GATE2F_LEFT_BINOCULARS
 	dw_const Route11Gate2FRightBinocularsText, TEXT_ROUTE11GATE2F_RIGHT_BINOCULARS
 
@@ -16,34 +16,20 @@ Route11Gate2FYoungsterText:
 Route11Gate2FScriptEnd:
 	jp TextScriptEnd
 
-Route11Gate2FOaksAideText:
+; v0.7 (2026-08-30, his aide redesign): the ITEMFINDER aide moved to the
+; SAFFRON Pokecenter (both parcels, no dex quota - see SaffronPokecenter).
+; His slot became a tunnel-watching GENTLEMAN so the floor keeps its
+; people; reusing the object slot dodges any sprite-index renumbering.
+; (The ITEMFINDER description far text stays in this map's text file,
+; borrowed from Saffron's script.)
+Route11Gate2FGentlemanText:
 	text_asm
-	CheckEvent EVENT_GOT_ITEMFINDER, 1
-	jr c, .got_item
-	ld a, 30
-	ldh [hOaksAideRequirement], a
-	ld a, ITEMFINDER
-	ldh [hOaksAideRewardItem], a
-	ld [wd11e], a
-	call GetItemName
-	ld h, d
-	ld l, e
-	ld de, wOaksAideRewardItemName
-	ld bc, ITEM_NAME_LENGTH
-	call CopyData
-	predef OaksAideScript
-	ldh a, [hOaksAideResult]
-	dec a ; OAKS_AIDE_GOT_ITEM?
-	jr nz, .no_item
-	SetEvent EVENT_GOT_ITEMFINDER
-.got_item
-	ld hl, .ItemfinderDescriptionText
+	ld hl, .Text
 	call PrintText
-.no_item
 	jr Route11Gate2FScriptEnd
 
-.ItemfinderDescriptionText:
-	text_far _Route11Gate2FOaksAideItemfinderDescriptionText
+.Text:
+	text_far _Route11Gate2FGentlemanText
 	text_end
 
 Route11Gate2FLeftBinocularsText:

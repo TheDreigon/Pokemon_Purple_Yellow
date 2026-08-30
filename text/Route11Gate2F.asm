@@ -38,3 +38,16 @@ _Route11Gate2FRightBinocularsText::
 	cont "is by way of the"
 	cont "ROCK TUNNEL."
 	done
+
+; v0.7 (2026-08-30): the ITEMFINDER aide moved to the SAFFRON Pokecenter;
+; the description above stays here, borrowed by Saffron's script. His old
+; spot now holds a tunnel-watching GENTLEMAN.
+_Route11Gate2FGentlemanText::
+	text "I love watching"
+	line "the DIGLETT pop"
+	cont "in and out of"
+	cont "their tunnel."
+
+	para "Hard workers,"
+	line "every one!"
+	done

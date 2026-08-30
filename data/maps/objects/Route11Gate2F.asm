@@ -1,6 +1,6 @@
 	object_const_def
 	const_export ROUTE11GATE2F_YOUNGSTER
-	const_export ROUTE11GATE2F_OAKS_AIDE
+	const_export ROUTE11GATE2F_GENTLEMAN ; was the ITEMFINDER aide (moved to Saffron 2026-08-30)
 
 Route11Gate2F_Object:
 	db $a ; border block
@@ -14,6 +14,6 @@ Route11Gate2F_Object:
 
 	def_object_events
 	object_event  4,  2, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_ROUTE11GATE2F_YOUNGSTER
-	object_event  2,  6, SPRITE_SCIENTIST, STAY, NONE, TEXT_ROUTE11GATE2F_OAKS_AIDE
+	object_event  2,  6, SPRITE_GENTLEMAN, STAY, NONE, TEXT_ROUTE11GATE2F_GENTLEMAN
 
 	def_warps_to ROUTE_11_GATE_2F

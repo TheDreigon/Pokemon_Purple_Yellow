@@ -1,23 +1,16 @@
-_Route15Gate2FOaksAideHiText::
-	text "Hi! Remember me?"
-	line "I'm PROF.OAK's"
-	cont "AIDE!"
+; v0.7 (2026-08-30): the EXP.SHARE aide moved to the SAFFRON Pokecenter;
+; his hi/receipt/no-room lines went with him. The description below stays
+; here and is borrowed by Saffron's script (text_far reaches any bank).
+; His old spot now holds a bird-counting YOUNGSTER.
 
-	para "I'm supposed to"
-	line "give you an"
-	cont "EXP.SHARE!"
-	prompt
+_Route15Gate2FWatcherText::
+	text "From up here I"
+	line "can count the"
+	cont "BIRD KEEPERS on"
+	cont "the route."
 
-_Route15Gate2FOaksAideGotItemText::
-	text "<PLAYER> got the"
-	line "EXP.SHARE!@"
-	text_end
-
-_Route15Gate2FOaksAideNoRoomText::
-	text "Oh! I see you"
-	line "don't have any"
-	cont "room for the"
-	cont "EXP.SHARE."
+	para "Nine! No, wait."
+	line "Ten!"
 	done
 
 _Route15Gate2FOaksAideExpAllText::
