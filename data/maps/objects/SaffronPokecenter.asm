@@ -18,7 +18,7 @@ SaffronPokecenter_Object:
 	def_object_events
 	object_event  3,  1, SPRITE_NURSE, STAY, DOWN, TEXT_SAFFRONPOKECENTER_NURSE
 	object_event  7,  1, SPRITE_BEAUTY, STAY, NONE, TEXT_SAFFRONPOKECENTER_BEAUTY
-	object_event  8,  5, SPRITE_GENTLEMAN, WALK, LEFT_RIGHT, TEXT_SAFFRONPOKECENTER_GENTLEMAN
+	object_event  9,  5, SPRITE_GENTLEMAN, WALK, LEFT_RIGHT, TEXT_SAFFRONPOKECENTER_GENTLEMAN
 	object_event  4,  1, SPRITE_CHANSEY, STAY, DOWN, TEXT_SAFFRONPOKECENTER_CHANSEY
 ; v0.7 (2026-08-30, Forte's design, v3): Oak's two aides wait beside the
 ; counter. On every entry while a parcel is owed, the scene script walks
