@@ -14,6 +14,13 @@
 
 ; Part 5 of 5.
 
+_MoveFlavor_IRON_DEFENSE::
+	text "The user hardens"
+	next "itself until very"
+	next "little will get"
+	next "through."
+	done
+
 _MoveFlavor_DEFENSE_CURL::
 	text "The user tucks"
 	next "everything soft"

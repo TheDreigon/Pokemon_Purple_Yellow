@@ -99,4 +99,5 @@ MoveEffectPointerTable:
 	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT3
 	dw SpecialAccuracyUp1Effect  ; SPECIAL_ACCURACY_UP1_EFFECT
 	dw FreezeBurnParalyzeEffect  ; BURN_SIDE_EFFECT3
+	dw NULL                      ; FALSE_SWIPE_EFFECT (the 1 HP clamp lives at the damage-apply hook in core.asm, not here)
 	assert_table_length NUM_MOVE_EFFECTS

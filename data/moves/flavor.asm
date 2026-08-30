@@ -137,6 +137,7 @@ MoveFlavorPointers::
 	dw MoveFlavor_SUPERSONIC
 	dw MoveFlavor_SUPER_FANG
 	dw MoveFlavor_HYPER_FANG
+	dw MoveFlavor_FALSE_SWIPE
 	dw MoveFlavor_POISON_STING
 	dw MoveFlavor_POISON_BITE
 	dw MoveFlavor_TOXIC_FANGS
@@ -359,6 +360,7 @@ MoveFlavorLines::
 	db 4
 	db 3
 	db 4
+	db 3
 	db 3
 	db 3
 	db 3
@@ -966,6 +968,10 @@ MoveFlavor_SUPER_FANG:
 
 MoveFlavor_HYPER_FANG:
 	text_far _MoveFlavor_HYPER_FANG
+	text_end
+
+MoveFlavor_FALSE_SWIPE:
+	text_far _MoveFlavor_FALSE_SWIPE
 	text_end
 
 MoveFlavor_POISON_STING:

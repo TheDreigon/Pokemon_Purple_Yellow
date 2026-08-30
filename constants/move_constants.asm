@@ -180,6 +180,7 @@
 	const SUPERSONIC
 	const SUPER_FANG
 	const HYPER_FANG
+	const FALSE_SWIPE ; v0.7 new move (2026-08-30)
 
 ; === POISON ===
 	const POISON_STING

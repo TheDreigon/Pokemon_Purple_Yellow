@@ -29,6 +29,12 @@ _MoveDesc_NoAdditionalEffect::
 	next "effect."
 	done
 
+_MoveDesc_FalseSwipe::
+	text "Never KOs: the"
+	next "target is always"
+	next "left with 1HP."
+	done
+
 _MoveDesc_Unused::
 	text "Nothing is known"
 	next "of this move."

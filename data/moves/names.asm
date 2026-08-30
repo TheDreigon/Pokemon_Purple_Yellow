@@ -145,6 +145,7 @@ MoveNames::
 	li "SUPERSONIC"
 	li "SUPER FANG"
 	li "HYPER FANG"
+	li "FALSE SWIPE"
 ; === POISON ===
 	li "POISON STING"
 	li "POISON BITE"

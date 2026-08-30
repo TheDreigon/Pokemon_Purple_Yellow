@@ -200,6 +200,7 @@ MoveSoundTable:
 	db SFX_BATTLE_27,          $40, $60 ; SUPERSONIC
 	db SFX_BATTLE_26,            $f0, $80 ; SUPER_FANG ; Forte feedback 2026-08-22 #62: "ve como esta o som no vanilla" -- MEASURED: noise 1 oct UP; tempo byte inert (noise-only SFX)
 	db SFX_BATTLE_1E,          $12, $ff ; HYPER_FANG
+	db SFX_BATTLE_0F,          $20, $80 ; FALSE_SWIPE ; borrows VICEGRIP's slice sound (anim is a VICEGRIP variant)
 ; === POISON ===
 	db SFX_BATTLE_1B,          $00, $80 ; POISON_STING
 	db SFX_BATTLE_1B,          $10, $80 ; POISON_BITE ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)

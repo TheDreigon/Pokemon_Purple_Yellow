@@ -187,6 +187,7 @@ Moves: ; Current total = 219
 	move SUPERSONIC,     CONFUSION_EFFECT,                  0, NORMAL,        80, 25
 	move SUPER_FANG,     SUPER_FANG_EFFECT,                 1, NORMAL,        90, 15 ; signature.
 	move HYPER_FANG,     DEFENSE_DOWN1_EFFECT,             75, NORMAL,       100, 20 ; signature. high-crit.
+	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               40, NORMAL,       100, 40 ; v0.7 new move (2026-08-30). never KOs - always leaves the target at 1 HP.
 
 
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)

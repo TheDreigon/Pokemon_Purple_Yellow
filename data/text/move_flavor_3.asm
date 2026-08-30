@@ -311,14 +311,14 @@ _MoveFlavor_HYPER_FANG::
 	next "matter most."
 	done
 
+_MoveFlavor_FALSE_SWIPE::
+	text "The blow is pulled"
+	next "just short of the"
+	next "kill."
+	done
+
 _MoveFlavor_POISON_STING::
 	text "A small, sharp"
 	next "jab, and the venom"
 	next "does the rest."
-	done
-
-_MoveFlavor_POISON_BITE::
-	text "A bite that leaves"
-	next "more behind it"
-	next "than the wound."
 	done

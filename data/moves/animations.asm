@@ -145,6 +145,7 @@ AttackAnimationPointers:
 	dw SupersonicAnim
 	dw SuperFangAnim
 	dw HyperFangAnim
+	dw FalseSwipeAnim
 ; === POISON ===
 	dw PoisonStingAnim
 	dw PoisonBiteAnim
@@ -403,6 +404,11 @@ GuillotineAnim:
 
 VicegripAnim:
 	battle_anim VICEGRIP, SUBANIM_0_SLICE_BOTH_SIDES, 0, 8
+	db -1 ; end
+
+FalseSwipeAnim:
+; v0.7 new move (2026-08-30): a single restrained slice - VICEGRIP's cut.
+	battle_anim FALSE_SWIPE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 8
 	db -1 ; end
 
 TwineedleAnim:

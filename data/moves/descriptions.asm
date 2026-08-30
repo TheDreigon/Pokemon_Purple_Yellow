@@ -155,6 +155,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_ParalyzeSide3 ; PARALYZE_SIDE_EFFECT3
 	dw MoveDesc_SpecialAccuracyUp1 ; SPECIAL_ACCURACY_UP1_EFFECT
 	dw MoveDesc_BurnSide3 ; BURN_SIDE_EFFECT3
+	dw MoveDesc_FalseSwipe ; FALSE_SWIPE_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -375,6 +376,10 @@ MoveDesc_Mist:
 
 MoveDesc_NoAdditionalEffect:
 	text_far _MoveDesc_NoAdditionalEffect
+	text_end
+
+MoveDesc_FalseSwipe:
+	text_far _MoveDesc_FalseSwipe
 	text_end
 
 MoveDesc_OHKO:

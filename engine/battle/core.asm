@@ -5375,6 +5375,7 @@ ApplyAttackToEnemyPokemon:
 	ld [hl], a
 
 ApplyDamageToEnemyPokemon:
+	callfar CheckFalseSwipeEnemy ; v0.7 FALSE SWIPE: the damage may never KO
 	ld hl, wDamage
 	ld a, [hli]
 	ld b, a
@@ -5496,6 +5497,7 @@ ApplyAttackToPlayerPokemon:
 	ld [hl], a
 
 ApplyDamageToPlayerPokemon:
+	callfar CheckFalseSwipePlayer ; v0.7 FALSE SWIPE: the damage may never KO
 	ld hl, wDamage
 	ld a, [hli]
 	ld b, a
