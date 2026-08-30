@@ -29,6 +29,6 @@ CeladonGym_Object:
 	object_event  5,  3, SPRITE_COOLTRAINER_F, STAY, DOWN, TEXT_CELADONGYM_COOLTRAINER_F4, OPP_COOLTRAINER_F, 1
 ; v0.7 (2026-08-30): the eighth gym guide — a woman, per the gym's rule.
 ; (7,16) is open floor beside the door, clear of the hedge corridor.
-	object_event  7, 16, SPRITE_BRUNETTE_GIRL, STAY, LEFT, TEXT_CELADONGYM_GYM_GUIDE
+	object_event  7, 15, SPRITE_BRUNETTE_GIRL, STAY, LEFT, TEXT_CELADONGYM_GYM_GUIDE
 
 	def_warps_to CELADON_GYM
