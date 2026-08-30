@@ -62,7 +62,10 @@ DEF SHOW EQU $15
 	const HS_VIRIDIAN_GYM_KIYO ; v0.7: the dojo master as post-League leader; slot funded by HS_DAISY_SITTING_COPY (ids between here and there shifted, new-game basis)
 	const HS_OLD_AMBER                     ; 37
 	const HS_CERULEAN_BULBASAUR            ; 38
-	const HS_CERULEAN_CAVE_1F_ITEM_1       ; 39
+; v0.7 (2026-08-30): was HS_CERULEAN_CAVE_1F_ITEM_1 (the ULTRA BALL, now a
+; hidden item at the same tile). In-place rename, same recycle as the rope
+; slot - index 39 keeps its position, nothing renumbers.
+	const HS_SAFFRON_POKECENTER_AIDE_1     ; 39
 	const HS_CERULEAN_CAVE_1F_ITEM_2       ; 3A
 	const HS_CERULEAN_CAVE_1F_ITEM_3       ; 3B
 	const HS_CERULEAN_CAVE_1F_ITEM_4       ; 3C
@@ -225,7 +228,9 @@ DEF SHOW EQU $15
 	const HS_SAFARI_ZONE_WEST_ITEM_4       ; D4
 	const HS_SAFARI_ZONE_CENTER_ITEM       ; D5
 	const HS_CERULEAN_CAVE_2F_ITEM_1       ; D6
-	const HS_CERULEAN_CAVE_2F_ITEM_2       ; D7
+; v0.7 (2026-08-30): was HS_CERULEAN_CAVE_2F_ITEM_2 (the ULTRA BALL, now a
+; hidden item at the same tile) - the second aide's exit slot.
+	const HS_SAFFRON_POKECENTER_AIDE_2     ; D7
 	const HS_CERULEAN_CAVE_2F_ITEM_3       ; D8
 	const HS_CERULEAN_CAVE_2F_ITEM_4       ; D9
 	const HS_MEWTWO                        ; DA

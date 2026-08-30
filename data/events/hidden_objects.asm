@@ -139,6 +139,7 @@ SafariZoneWestHiddenObjects:
 
 CeruleanCave2HiddenObjects:
 	hidden_object 16, 13, ESCAPE_ROPE, HiddenItems
+	hidden_object 16,  7, ULTRA_BALL, HiddenItems ; was a visible ball at these exact coords; its HS slot went to the SAFFRON aides (2026-08-30)
 	db -1 ; end
 
 CeruleanCave3HiddenObjects:
@@ -424,6 +425,7 @@ BikeShopHiddenObjects:
 
 CeruleanCave1HiddenObjects:
 	hidden_object 18,  7, PP_UP, HiddenItems
+	hidden_object 29, 16, ULTRA_BALL, HiddenItems ; was a visible ball at these exact coords; its HS slot went to the SAFFRON aides (2026-08-30)
 	db -1 ; end
 
 LavenderPokecenterHiddenObjects:

@@ -1,6 +1,7 @@
 	object_const_def
 	const_export CERULEANCAVE2F_PP_MAX
-	const_export CERULEANCAVE2F_ULTRA_BALL
+; v0.7 (2026-08-30): the ULTRA BALL became a hidden item at the same tile
+; (16,7); its HS slot went to the SAFFRON Pokecenter aides' exit.
 	const_export CERULEANCAVE2F_MAX_REVIVE
 	const_export CERULEANCAVE2F_FULL_RESTORE
 
@@ -19,7 +20,6 @@ CeruleanCave2F_Object:
 
 	def_object_events
 	object_event  0, 11, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVE2F_PP_MAX, PP_MAX
-	object_event 16,  7, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVE2F_ULTRA_BALL, ULTRA_BALL
 	object_event 19, 11, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVE2F_MAX_REVIVE, MAX_REVIVE
 	object_event 27,  9, SPRITE_POKE_BALL, STAY, NONE, TEXT_CERULEANCAVE2F_FULL_RESTORE, FULL_RESTORE
 

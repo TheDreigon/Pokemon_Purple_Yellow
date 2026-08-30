@@ -1,39 +1,147 @@
 SaffronPokecenter_Script:
-	call SaffronPokecenterAidesAmbush
+	call SaffronPokecenterAidesScene
 	jp EnableAutoTextBoxDrawing
 
-; v0.7 (2026-08-30, Forte's design, v2): PROF.OAK's two aides wait here
+; v0.7 (2026-08-30, Forte's design, v3): PROF.OAK's two aides wait here
 ; with the ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek.
-; They pounce when the player reaches the counter strip (rows 3-4: the
-; nurse, the PC, anything up there), and per Forte's rule the delivery is
-; BOTH parcels or neither - a packed bag gets a direct "two free slots"
-; demand instead. The ambush event is set inside the delivery and
-; RE-ARMED on every map entry while a parcel is still owed, so the scene
-; repeats each visit until it lands, yet can never text-lock a player
-; standing at the counter. Talking to either aide retries any time.
-SaffronPokecenterAidesAmbush:
+; The moment the player walks in (spawn is (3,7), the city warp targets
+; warp 1), the scene freezes the pad and walks each aide three steps
+; down - the J&J idiom, one MoveSprite at a time - to (2,6) and (4,6),
+; the player's two diagonals. Delivery is BOTH parcels or neither (a
+; packed bag gets the direct "two free slots" demand), then they walk
+; back up. The scene re-arms on every map entry while a parcel is owed,
+; so it repeats each visit until it lands; talking to either aide also
+; retries. The stage rides wSavedCoordIndex, the dojo's own in-map
+; carrier - no new WRAM. Once both parcels are delivered AND
+; EVENT_BEAT_SILPH_CO_GIOVANNI is set, the on-entry branch hides both
+; aides for good: they went home to the lab (the two HS slots came from
+; the CERULEAN CAVE ULTRA BALL conversions).
+; Known cosmetic edge: if the wandering GENTLEMAN happens to stand in a
+; walk column, the blocked steps are consumed and the aide stops short -
+; the scene still completes (proven class, see the Bill walk notes).
+SaffronPokecenterAidesScene:
 	ld hl, wCurrentMapScriptFlags
 	bit 5, [hl]
 	res 5, [hl]
-	jr z, .armed
+	jp z, .runScene ; jp, not jr: the entry block below is ~130 bytes deep
+	xor a
+	ld [wSavedCoordIndex], a ; scene stage: idle
 	CheckEvent EVENT_GOT_ITEMFINDER
 	jr z, .rearm
 	CheckEvent EVENT_GOT_EXP_ALL
-	jr nz, .armed
+	jr z, .rearm
+; both delivered: once TEAM ROCKET is gone, so are they
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	ret z
+	ld a, HS_SAFFRON_POKECENTER_AIDE_1
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	ld a, HS_SAFFRON_POKECENTER_AIDE_2
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	ret
 .rearm
 	ResetEvent EVENT_SAFFRON_AIDES_AMBUSHED
-.armed
+	ret
+.runScene
+; jp, not jr: the later stage bodies sit past a jr's reach from here
+	ld a, [wSavedCoordIndex]
+	and a
+	jr z, .maybeStart
+	dec a
+	jp z, .waitAide1Down
+	dec a
+	jp z, .waitAide2Down
+	dec a
+	jp z, .waitAide1Up
+	dec a
+	jp z, .waitAide2Up
+	ret ; stage 5+: scene done this visit
+.maybeStart
 	CheckEvent EVENT_SAFFRON_AIDES_AMBUSHED
 	ret nz
-	ld a, [wYCoord]
-	cp 5
-	ret nc ; the ambush zone is the counter strip, rows 3-4
+	SetEvent EVENT_SAFFRON_AIDES_AMBUSHED
+	ld a, $ff
+	ld [wJoyIgnore], a
 	xor a
 	ldh [hJoyHeld], a
+	ld a, SAFFRONPOKECENTER_AIDE1
+	ldh [hSpriteIndex], a
+	call SetSpriteMovementBytesToFF
+	ld a, SAFFRONPOKECENTER_AIDE2
+	ldh [hSpriteIndex], a
+	call SetSpriteMovementBytesToFF
+	ld de, SaffronAidesWalkDown
+	ld a, SAFFRONPOKECENTER_AIDE1
+	ldh [hSpriteIndex], a
+	call MoveSprite
+	ld a, 1
+	ld [wSavedCoordIndex], a
+	ret
+.waitAide1Down
+	ld a, [wd730]
+	bit 0, a
+	ret nz
+	ld de, SaffronAidesWalkDown
+	ld a, SAFFRONPOKECENTER_AIDE2
+	ldh [hSpriteIndex], a
+	call MoveSprite
+	ld a, 2
+	ld [wSavedCoordIndex], a
+	ret
+.waitAide2Down
+	ld a, [wd730]
+	bit 0, a
+	ret nz
+; both in place at the player's diagonals: the talk, then the walk home
+	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld [wJoyIgnore], a
 	ld a, TEXT_SAFFRONPOKECENTER_AIDE1
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
+	ld a, $ff
+	ld [wJoyIgnore], a
+	ld de, SaffronAidesWalkUp
+	ld a, SAFFRONPOKECENTER_AIDE1
+	ldh [hSpriteIndex], a
+	call MoveSprite
+	ld a, 3
+	ld [wSavedCoordIndex], a
 	ret
+.waitAide1Up
+	ld a, [wd730]
+	bit 0, a
+	ret nz
+	ld de, SaffronAidesWalkUp
+	ld a, SAFFRONPOKECENTER_AIDE2
+	ldh [hSpriteIndex], a
+	call MoveSprite
+	ld a, 4
+	ld [wSavedCoordIndex], a
+	ret
+.waitAide2Up
+	ld a, [wd730]
+	bit 0, a
+	ret nz
+; back at their posts (facing UP at the counter until the next map load
+; resets them to DOWN - reads as chatting with the nurse, left alone)
+	xor a
+	ld [wJoyIgnore], a
+	ld a, 5
+	ld [wSavedCoordIndex], a
+	ret
+
+SaffronAidesWalkDown:
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_DOWN
+	db -1 ; end
+
+SaffronAidesWalkUp:
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db NPC_MOVEMENT_UP
+	db -1 ; end
 
 SaffronPokecenter_TextPointers:
 	def_text_pointers

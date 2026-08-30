@@ -3,7 +3,6 @@ CeruleanCave1F_Script:
 
 CeruleanCave1F_TextPointers:
 	def_text_pointers
-	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_ULTRA_BALL
 	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_MAX_ELIXIR
 	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_MAX_REVIVE
 	dw_const PickUpItemText, TEXT_CERULEANCAVE1F_TM_OUTRAGE

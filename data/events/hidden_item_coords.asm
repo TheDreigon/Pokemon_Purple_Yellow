@@ -73,4 +73,6 @@ HiddenItemCoords:
 	hidden_item ROCK_TUNNEL_B1F,               30,  11 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item SEAFOAM_ISLANDS_B1F,           18,   6 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item ROUTE_11,                      43,   7 ; NEW 2026-07-30
+	hidden_item CERULEAN_CAVE_1F,              29,  16 ; 2026-08-30: the converted 1F ULTRA BALL
+	hidden_item CERULEAN_CAVE_2F,              16,   7 ; 2026-08-30: the converted 2F ULTRA BALL
 	db -1 ; end
