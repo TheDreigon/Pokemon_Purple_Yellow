@@ -17,7 +17,7 @@ FightingDojo_Object:
 	def_bg_events
 
 	def_object_events
-	object_event  5,  3, SPRITE_KIYO, STAY, DOWN, TEXT_FIGHTINGDOJO_KARATE_MASTER, OPP_KIYO, 1 ; the master fights under his own class — this byte is what makes the dojo fight a KIYO boss fight (EngageMapTrainer reads it)
+	object_event  5,  3, SPRITE_HIKER, STAY, DOWN, TEXT_FIGHTINGDOJO_KARATE_MASTER, OPP_KIYO, 1 ; the master fights under his own class — this byte is what makes the dojo fight a KIYO boss fight (EngageMapTrainer reads it)
 	object_event  3,  4, SPRITE_HIKER, STAY, RIGHT, TEXT_FIGHTINGDOJO_BLACKBELT1, OPP_BLACKBELT, 2
 	object_event  3,  6, SPRITE_HIKER, STAY, RIGHT, TEXT_FIGHTINGDOJO_BLACKBELT2, OPP_BLACKBELT, 3
 	object_event  6,  5, SPRITE_HIKER, STAY, LEFT, TEXT_FIGHTINGDOJO_BLACKBELT3, OPP_BLACKBELT, 4
