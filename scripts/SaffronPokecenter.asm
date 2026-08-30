@@ -2,22 +2,32 @@ SaffronPokecenter_Script:
 	call SaffronPokecenterAidesAmbush
 	jp EnableAutoTextBoxDrawing
 
-; v0.7 (2026-08-30, Forte's design): PROF.OAK's two aides wait here with
-; the ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek. They
-; flank the nurse spot, and the first time the player steps onto (3,3)
-; they force the delivery before the nurse can even say hello. The
-; one-shot event is set inside the shared delivery routine, so a player
-; with a full bag is never text-locked at the counter - the retries come
-; from talking to either aide directly.
+; v0.7 (2026-08-30, Forte's design, v2): PROF.OAK's two aides wait here
+; with the ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek.
+; They pounce when the player reaches the counter strip (rows 3-4: the
+; nurse, the PC, anything up there), and per Forte's rule the delivery is
+; BOTH parcels or neither - a packed bag gets a direct "two free slots"
+; demand instead. The ambush event is set inside the delivery and
+; RE-ARMED on every map entry while a parcel is still owed, so the scene
+; repeats each visit until it lands, yet can never text-lock a player
+; standing at the counter. Talking to either aide retries any time.
 SaffronPokecenterAidesAmbush:
+	ld hl, wCurrentMapScriptFlags
+	bit 5, [hl]
+	res 5, [hl]
+	jr z, .armed
+	CheckEvent EVENT_GOT_ITEMFINDER
+	jr z, .rearm
+	CheckEvent EVENT_GOT_EXP_ALL
+	jr nz, .armed
+.rearm
+	ResetEvent EVENT_SAFFRON_AIDES_AMBUSHED
+.armed
 	CheckEvent EVENT_SAFFRON_AIDES_AMBUSHED
 	ret nz
 	ld a, [wYCoord]
-	cp 3
-	ret nz
-	ld a, [wXCoord]
-	cp 3
-	ret nz
+	cp 5
+	ret nc ; the ambush zone is the counter strip, rows 3-4
 	xor a
 	ldh [hJoyHeld], a
 	ld a, TEXT_SAFFRONPOKECENTER_AIDE1
@@ -94,26 +104,27 @@ SaffronAidesSafeText:
 	text_far _SaffronAidesSafeText
 	text_end
 
-; Shared by both aides and the ambush. Hands over whatever parcel is still
-; owed; each flag is set only when its GiveItem lands, so a full bag defers
-; that parcel to the next talk. Returns CARRY when there was nothing left
-; to deliver (the caller then prints his sign-off line).
+; Shared by both aides and the ambush. Forte's v2 rule: BOTH parcels at
+; once or neither - a bag without two free slots gets the direct
+; make-room line and nothing else. Returns CARRY when there was nothing
+; left to deliver (the caller then prints his sign-off line).
 SaffronAidesDeliverParcels:
 	SetEvent EVENT_SAFFRON_AIDES_AMBUSHED
 	CheckEvent EVENT_GOT_ITEMFINDER
 	jr nz, .expShare
 	CheckEvent EVENT_GOT_EXP_ALL ; different flag byte - no ReuseA here
-	jr nz, .shortGreet
+	jr nz, .parcelA ; degenerate half-state: hand the missing one quietly
+; the normal case: both owed. Two NEW key items = two bag slots, so the
+; capacity check up front GUARANTEES both GiveItems below land.
+	ld a, [wNumBagItems]
+	cp BAG_ITEM_CAPACITY - 1
+	jr nc, .makeRoom
 	ld hl, .GreetingText
-	call PrintText
-	jr .parcelA
-.shortGreet
-	ld hl, .StillYoursText
 	call PrintText
 .parcelA
 	lb bc, ITEMFINDER, 1
 	call GiveItem
-	jr nc, .bagFullA
+	jr nc, .expShare ; unreachable after the capacity check; defensive
 	ld hl, .ItemfinderReceivedText
 	call PrintText
 	SetEvent EVENT_GOT_ITEMFINDER
@@ -122,10 +133,6 @@ SaffronAidesDeliverParcels:
 ; the description ends in `done`, which does not wait - without this the
 ; second aide's line would replace its last page unread (house rule)
 	farcall NewPageButtonPressCheck
-	jr .expShare
-.bagFullA
-	ld hl, .NoRoomText
-	call PrintText
 .expShare
 	CheckEvent EVENT_GOT_EXP_ALL
 	jr nz, .nothingOwed
@@ -133,7 +140,7 @@ SaffronAidesDeliverParcels:
 	call PrintText
 	lb bc, EXP_ALL, 1
 	call GiveItem
-	jr nc, .bagFullB
+	jr nc, .deliveredSomething ; defensive, as above
 	ld hl, .ExpShareReceivedText
 	call PrintText
 	SetEvent EVENT_GOT_EXP_ALL
@@ -142,8 +149,8 @@ SaffronAidesDeliverParcels:
 .deliveredSomething
 	and a ; nc: this talk already said plenty
 	ret
-.bagFullB
-	ld hl, .NoRoomText
+.makeRoom
+	ld hl, .MakeRoomText
 	call PrintText
 	jr .deliveredSomething
 .nothingOwed
@@ -154,8 +161,8 @@ SaffronAidesDeliverParcels:
 	text_far _SaffronAidesGreetingText
 	text_end
 
-.StillYoursText:
-	text_far _SaffronAidesStillYoursText
+.MakeRoomText:
+	text_far _SaffronAidesMakeRoomText
 	text_end
 
 .ItemfinderReceivedText:
@@ -180,8 +187,4 @@ SaffronAidesDeliverParcels:
 
 .ExpShareDescText:
 	text_far _Route15Gate2FOaksAideExpAllText
-	text_end
-
-.NoRoomText:
-	text_far _SaffronAidesNoRoomText
 	text_end

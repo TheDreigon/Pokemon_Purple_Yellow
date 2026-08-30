@@ -25,9 +25,15 @@ _SaffronAidesGreetingText::
 	line "from my pack!"
 	prompt
 
-_SaffronAidesStillYoursText::
-	text "Your parcel is"
-	line "still right here!"
+_SaffronAidesMakeRoomText::
+	text "Whoa, your BAG"
+	line "is packed! We"
+	cont "need room for"
+	cont "BOTH parcels."
+
+	para "Two free slots,"
+	line "<PLAYER> - then"
+	cont "we talk!"
 	prompt
 
 _SaffronAideItemfinderReceivedText::
@@ -44,13 +50,6 @@ _SaffronAideExpShareReceivedText::
 	text "<PLAYER> received"
 	line "the EXP.SHARE!@"
 	text_end
-
-_SaffronAidesNoRoomText::
-	text "Whoa, your bag"
-	line "is stuffed! I'll"
-	cont "hold onto it -"
-	cont "come back!"
-	prompt
 
 _SaffronAide1FearText::
 	text "Parcels"
