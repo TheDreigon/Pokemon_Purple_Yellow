@@ -1907,7 +1907,8 @@ BellsproutEvosMoves:
 	db 25, ACID
 	db 31, RAZOR_LEAF
 	db 38, MEGA_DRAIN
-	db 44, GIGA_DRAIN
+	db 42, LEECH_LIFE
+	db 45, GIGA_DRAIN
 	db 0
 
 WeepinbellEvosMoves:
@@ -1933,10 +1934,10 @@ WeepinbellEvosMoves:
 	db 36, TAKE_DOWN
 	db 38, MEGA_DRAIN
 	db 40, SLUDGE
-	db 44, GIGA_DRAIN
-	db 46, LEECH_LIFE
-	db 52, CORRODE
-	db 58, SLUDGE_WAVE
+	db 42, LEECH_LIFE
+	db 45, GIGA_DRAIN
+	db 50, CORRODE
+	db 55, SLUDGE_WAVE
 	db 0
 
 VictreebelEvosMoves:
@@ -1964,11 +1965,11 @@ VictreebelEvosMoves:
 	db 38, MEGA_DRAIN
 	db 40, SLUDGE
 	db 42, SCARY_FACE
-	db 44, GIGA_DRAIN
-	db 46, LEECH_LIFE
-	db 52, CORRODE
-	db 58, SLUDGE_WAVE
-	db 65, TOXIC
+	db 42, LEECH_LIFE
+	db 45, GIGA_DRAIN
+	db 50, CORRODE
+	db 55, SLUDGE_WAVE
+	db 60, GUNK_SHOT
 	db 0
 TentacoolEvosMoves:
 ; Evolutions
