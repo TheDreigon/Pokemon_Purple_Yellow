@@ -47,7 +47,7 @@ Moves: ; Current total = 219
 	; === ELECTRIC TYPE (7 moves) ===
 	move NUZZLE,         PARALYZE_SIDE_EFFECT3,            35, ELECTRIC,     100, 30 ; new move.
 	move THUNDERSHOCK,   PARALYZE_SIDE_EFFECT1,            55, ELECTRIC,     100, 25
-	move SHOCK_WAVE,     SWIFT_EFFECT,                     70, ELECTRIC,     100, 20 ; new move.
+	move SHOCK_WAVE,     SWIFT_EFFECT,                     75, ELECTRIC,     100, 20 ; new move.
 	move THUNDERBOLT,    PARALYZE_SIDE_EFFECT1,            95, ELECTRIC,     100, 15
 	move THUNDER,        PARALYZE_SIDE_EFFECT2,           115, ELECTRIC,      85, 10
 	move THUNDER_WAVE,   PARALYZE_EFFECT,                   0, ELECTRIC,      95, 20
@@ -85,7 +85,7 @@ Moves: ; Current total = 219
 	; === FIRE TYPE (7 moves) ===
 	move EMBER,          BURN_SIDE_EFFECT1,                35, FIRE,         100, 30
 	move FLAME_CHARGE,   SPEED_UP1_EFFECT,                 55, FIRE,         100, 20 ; new move. fire-runners' pool (5 lines).
-	move FLAME_BURST,    SWIFT_EFFECT,                     70, FIRE,         100, 20 ; new move.
+	move FLAME_BURST,    SWIFT_EFFECT,                     75, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
 	move IGNITE,         BURN_EFFECT,                       0, FIRE,          95, 20
@@ -97,7 +97,7 @@ Moves: ; Current total = 219
 	move GUST,           SPEED_DOWN_SIDE_EFFECT,           45, FLYING,       100, 30
 	move WING_ATTACK,    NO_ADDITIONAL_EFFECT,             60, FLYING,       100, 25
 	move AERIAL_ACE,     SWIFT_EFFECT,                     70, FLYING,       100, 25 ; new move.
-	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20 ; high-crit. (ambush dive — charge-turn payoff)
+	move FLY,            FLY_EFFECT,                       80, FLYING,       100, 20
 	move HURRICANE,      CONFUSION_SIDE_EFFECT2,           90, FLYING,       100, 15 ; new move. new effect.
 	move SKY_ATTACK,     FLY_EFFECT,                      180, FLYING,       100, 10
 	move DRILL_PECK,     FLINCH_SIDE_EFFECT2,              90, FLYING,       100, 15 ; bird staple (4 lines + DUX trade).
@@ -155,9 +155,9 @@ Moves: ; Current total = 219
 	; === ICE TYPE (7 moves) ===
 	move POWDER_SNOW,    SPEED_DOWN_SIDE_EFFECT,           30, ICE,          100, 35 ; new move.
 	move ICY_WIND,       SPEED_DOWN1_EFFECT,               45, ICE,          100, 30 ; new move.
-	move FROST_BREATH,   FREEZE_SIDE_EFFECT2,              50, ICE,          100, 25 ; new move.
-	move ICY_PULSE,      SWIFT_EFFECT,                     65, ICE,          100, 25 ; new move.
-	move AURORA_BEAM,    ATTACK_DOWN_SIDE_EFFECT,          80, ICE,          100, 20
+	move FROST_BREATH,   FREEZE_SIDE_EFFECT2,              60, ICE,          100, 20 ; new move.
+	move ICY_PULSE,      SWIFT_EFFECT,                     70, ICE,          100, 25 ; new move.
+	move AURORA_BEAM,    SPECIAL_DOWN_SIDE_EFFECT,         80, ICE,          100, 20
 	move ICE_BEAM,       FREEZE_SIDE_EFFECT1,              95, ICE,          100, 15 ; new effect.
 	move BLIZZARD,       FREEZE_SIDE_EFFECT2,             115, ICE,           85, 10 ; new effect.
 
@@ -187,7 +187,7 @@ Moves: ; Current total = 219
 	move SUPERSONIC,     CONFUSION_EFFECT,                  0, NORMAL,        80, 25
 	move SUPER_FANG,     SUPER_FANG_EFFECT,                 1, NORMAL,        90, 15 ; signature.
 	move HYPER_FANG,     DEFENSE_DOWN1_EFFECT,             75, NORMAL,       100, 20 ; signature. high-crit.
-	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               40, NORMAL,       100, 40 ; v0.7 new move (2026-08-30). never KOs - always leaves the target at 1 HP.
+	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               60, NORMAL,       100, 30 ; v0.7 new move (2026-08-30). never KOs - always leaves the target at 1 HP.
 
 
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
@@ -238,7 +238,7 @@ Moves: ; Current total = 219
 	; === WATER TYPE (7 moves) ===
 	move WATER_GUN,      NO_ADDITIONAL_EFFECT,             35, WATER,        100, 35
 	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. swimmers' staple (16 learners). priority move.
-	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           50, WATER,        100, 30
+	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           55, WATER,        100, 30
 	move WATER_PULSE,    SWIFT_EFFECT,                     65, WATER,        100, 25 ; new move.
 	move WATERFALL,      FLINCH_SIDE_EFFECT2,              80, WATER,        100, 20
 	move SURF,           SPEED_DOWN_SIDE_EFFECT,           95, WATER,        100, 15
