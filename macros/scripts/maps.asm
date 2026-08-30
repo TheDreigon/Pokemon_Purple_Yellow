@@ -106,8 +106,20 @@ ENDM
 ;\1 event flag
 ;\2 view range
 ;\3 TextBeforeBattle
-;\4 TextAfterBattle
-;\5 TextEndBattle
+;\4 TextEndBattle (win and lose slots, +8/+A - only the win slot is ever read)
+;\5 TextAfterBattle (+6)
+; (the old comment had \4 and \5 swapped - the emit line `dw \3, \5, \4, \4`
+; puts \5 at +6, which ReadTrainerHeaderInfo reads as the after-battle text,
+; and \4 at +8/+A, the end-battle pointers. Call sites pass Battle/End/After.)
+;
+; 🔴 Byte +0 (CURRENT_TRAINER_BIT) is THREE things at once: the event-flag
+; bit, the header's identity, and the 1-BASED OBJECT_EVENT INDEX -
+; CheckForEngagingTrainers writes it into wSpriteIndex to do the sight
+; check. So a map's headered trainers MUST occupy exactly the object slots
+; def_trainers starts at, in order. Appending a trainer object anywhere
+; else silently breaks its sight-engage and aims the scan at whatever
+; object holds its slot (2026-08-30: Viridian Forest toll gate vs the
+; POTION ball). trainer_pairing_audit.py enforces the contract.
 MACRO trainer
 	DEF _ev_bit = \1 % 8
 	DEF _cur_bit = CURRENT_TRAINER_BIT % 8
