@@ -278,6 +278,17 @@ ViridianGymGiovanniText:
 	call GBFadeInFromBlack
 	jr .text_script_end
 .beforeBeat
+; v0.7 hard mode (2026-08-30): the badge match caps the challenger's party
+; at the leader's own count (Pewter's note). GIOVANNI's gym fight is his
+; THIRD party - the object_event says so.
+	ld a, OPP_GIOVANNI
+	ld [wCurOpponent], a
+	ld a, 3 ; the object_event's party id
+	ld [wTrainerNo], a
+	callfar HardModeGymPartyGate
+	ld a, [wCurOpponent]
+	and a
+	jp z, TextScriptEnd
 	ld c, BANK(Music_FightingDojo)
 	ld a, MUSIC_FIGHTING_DOJO
 	call PlayMusic

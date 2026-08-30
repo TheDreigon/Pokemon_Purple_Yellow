@@ -216,6 +216,16 @@ FuchsiaGymKogaText:
 	call PrintText
 	jp TextScriptEnd
 .hasPrevBadge
+; v0.7 hard mode (2026-08-30): the badge match caps the challenger's party
+; at the leader's own count (Pewter's note).
+	ld a, OPP_KOGA
+	ld [wCurOpponent], a
+	ld a, 1 ; the object_event's party id
+	ld [wTrainerNo], a
+	callfar HardModeGymPartyGate
+	ld a, [wCurOpponent]
+	and a
+	jp z, TextScriptEnd
 	ld hl, .BeforeBattleText
 	call PrintText
 	ld hl, wd72d

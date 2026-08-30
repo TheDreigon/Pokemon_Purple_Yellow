@@ -137,11 +137,22 @@ PewterGymBrockText:
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
-	jr nz, .BrockRematch
+	jp nz, .BrockRematch ; jp: the hard-mode party gate pushed it out of jr range
 	ld hl, .PostBattleAdviceText
 	call PrintText
-	jr .done
+	jp .done ; jp: the hard-mode party gate pushed it out of jr range
 .beforeBeat
+; v0.7 hard mode (2026-08-30): the badge match caps the challenger's party
+; at the leader's own count. Seed the opponent ids for the gate (the engage
+; path re-sets them); on refusal it zeroes wCurOpponent and prints the rule.
+	ld a, OPP_BROCK
+	ld [wCurOpponent], a
+	ld a, 1 ; the object_event's party id
+	ld [wTrainerNo], a
+	callfar HardModeGymPartyGate
+	ld a, [wCurOpponent]
+	and a
+	jp z, TextScriptEnd
 	ld hl, .PreBattleText
 	call PrintText
 	ld hl, wd72d

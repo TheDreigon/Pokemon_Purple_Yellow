@@ -262,3 +262,78 @@ SemiBossTrainerClasses::
 	db WEEBRA
 	db -1                       ; terminator
 
+
+; -------------------------------------------------------------------------
+; v0.7 hard mode (Forte, 2026-08-30): a BADGE match is refused unless the
+; challenger brings no more POKeMON than the leader fields (equal is fine).
+; Post-League rematches are exempt: their script branches never call this.
+;
+; Called via callfar from the badge branch of the eight gym scripts. The
+; caller seeds wCurOpponent (OPP_*) and wTrainerNo (the object_event's
+; party id) first - the engage path re-sets both later on the accepted
+; path, so the seeding is harmless. Inputs come from wram because the rst
+; _Bankswitch path lands with a = destination bank (see IsBossTrainerClassW
+; above).
+;
+; On refusal: prints the house rule and ZEROES wCurOpponent; the caller
+; tests it and ends the text script without the intro speech.
+; Trashes: a, b, d, e, hl. TrainerDataPointers is in this same bank.
+HardModeGymPartyGate::
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	ret nz
+	ld a, [wCurOpponent]
+	sub OPP_ID_OFFSET
+	dec a
+	ld e, a
+	ld d, 0
+	ld hl, TrainerDataPointers
+	add hl, de
+	add hl, de
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a ; hl -> the class's first party
+	ld a, [wTrainerNo]
+	ld d, a
+.findParty
+	dec d
+	jr z, .countParty
+.skipParty
+	ld a, [hli]
+	and a
+	jr nz, .skipParty
+	jr .findParty
+.countParty
+; two party formats: "$FF, lvl, mon, lvl, mon, ..., 0" (variable levels)
+; and "lvl, mon, mon, ..., 0" (one shared level)
+	ld b, 0
+	ld a, [hli]
+	cp $FF
+	jr z, .variableLevels
+.sharedLevel
+	ld a, [hli]
+	and a
+	jr z, .haveCount
+	inc b
+	jr .sharedLevel
+.variableLevels
+	ld a, [hli] ; level, 0 = end of party
+	and a
+	jr z, .haveCount
+	inc hl      ; the species byte
+	inc b
+	jr .variableLevels
+.haveCount
+	ld a, [wPartyCount]
+	cp b
+	ret z ; equal counts fight
+	ret c ; fewer than the leader fights
+	ld hl, HardModeGymPartyGateText
+	call PrintText
+	xor a
+	ld [wCurOpponent], a ; the veto the caller tests
+	ret
+
+HardModeGymPartyGateText:
+	text_far _HardModeGymPartyGateText
+	text_end

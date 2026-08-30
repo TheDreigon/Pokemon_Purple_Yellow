@@ -84,3 +84,16 @@ _SaffronAidesSafeText::
 	para "Thank you,"
 	line "<PLAYER>!"
 	done
+
+; v0.7 hard mode (2026-08-30): every gym leader's badge-match party cap
+; (engine/battle/hard_mode.asm, HardModeGymPartyGate). One shared voice for
+; all eight.
+_HardModeGymPartyGateText::
+	text "Whoa, hold it!"
+	line "In HARD MODE, I"
+	cont "only accept a"
+	cont "fair badge match:"
+	cont "bring no more"
+	cont "#MON than I"
+	cont "field!"
+	done
