@@ -328,6 +328,8 @@ HardModeGymPartyGate::
 	cp b
 	ret z ; equal counts fight
 	ret c ; fewer than the leader fights
+	ld a, b
+	ld [wd11e], a ; the refusal text prints the leader's count from here
 	ld hl, HardModeGymPartyGateText
 	call PrintText
 	xor a

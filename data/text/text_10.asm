@@ -87,13 +87,17 @@ _SaffronAidesSafeText::
 
 ; v0.7 hard mode (2026-08-30): every gym leader's badge-match party cap
 ; (engine/battle/hard_mode.asm, HardModeGymPartyGate). One shared voice for
-; all eight.
+; all eight. No HARD MODE name-drop (Forte: keep the 4th wall up), and the
+; leader says HOW MANY they field - the gate parks the count in wd11e just
+; before printing.
 _HardModeGymPartyGateText::
 	text "Whoa, hold it!"
-	line "In HARD MODE, I"
-	cont "only accept a"
+	line "I only accept a"
 	cont "fair badge match:"
 	cont "bring no more"
-	cont "#MON than I"
-	cont "field!"
+	cont "#MON than I!"
+
+	para "I field @"
+	text_decimal wd11e, 1, 1
+	text " #MON."
 	done
