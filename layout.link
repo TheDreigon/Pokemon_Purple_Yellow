@@ -302,6 +302,7 @@ ROMX $3E
 	"Surfing Minigame"
 ROMX $3F
 	"Overworld Pikachu"
+	"Text 10"
 ROMX $42
 	; AUDIO_5: the five city themes plus a full mirror of the bank-1 SFX+cry
 	; table. The headers MUST sit at the top of the bank: sound ids are

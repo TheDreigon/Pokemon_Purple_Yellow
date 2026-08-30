@@ -268,6 +268,11 @@ INCLUDE "text/ViridianOldRodHouse.asm" ; moved out of text/ViridianMart.asm (Tex
 INCLUDE "data/text/text_9.asm"
 
 
+SECTION "Text 10", ROMX
+
+INCLUDE "data/text/text_10.asm"
+
+
 SECTION "Pokédex Text", ROMX
 
 INCLUDE "data/pokemon/dex_text.asm"
