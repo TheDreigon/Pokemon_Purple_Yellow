@@ -26,6 +26,19 @@ FightingDojoPostLeagueState:
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	SetEventRange EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
+; 2026-08-30 (Forte): with the master gone the prize fight is gone too, so
+; a player who never beat him can never open the balls — leaving them
+; visible would be an unreachable tease. Hide both. A player who DID beat
+; him keeps the earned, still-claimable choice (and FightingDojoOnEntry
+; already retires the unchosen one after a pick).
+	CheckEvent EVENT_BEAT_KARATE_MASTER
+	ret nz
+	ld a, HS_FIGHTING_DOJO_GIFT_1
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	ld a, HS_FIGHTING_DOJO_GIFT_2
+	ld [wMissableObjectIndex], a
+	predef HideObject
 	ret
 
 ; The unchosen prize ball vanishes once the player has LEFT with the other —
@@ -153,29 +166,25 @@ FightingDojoRebattlePostBattleScript:
 
 ; Starts a one-shot student rebattle, dojo style — the challenge leads
 ; straight into the fight, no Yes/No on this floor (Forte, 2026-08-18).
-; hl = challenge text · de = end-battle text on a WIN · b = BLACKBELT party
-; (10-13) · c = student index (1-4) for the shared post-battle state above,
-; doubling as the row into the loss-line table below (2026-08-29: one line
-; used to serve both results, and all four were written as the student
-; losing — "Judge! Full marks..." after beating the challenger read wrong).
+; hl = challenge text · de = end-battle text · b = BLACKBELT party (10-13) ·
+; c = student index (1-4) for the shared post-battle state above.
+; The same de fills BOTH SaveEndBattleTextPointers slots ON PURPOSE: the
+; engine's loss slot is DEAD, vanilla-wide — its only reader sits behind
+; the victory path (core.asm:953 with wBattleResult forced 0 at :853), and
+; a defeated player just blacks out hearing nothing. A per-student loss
+; table lived here for one day (2026-08-29) and was reverted as unreachable
+; content; do not split these again without wiring HandlePlayerBlackOut
+; to print the loss slot first (idea parked in TASKS, Forte 2026-08-30).
 FightingDojoStartRebattle:
 	push de
 	push bc
 	call PrintText
 	call Delay3
 	pop bc
-	ld a, c
-	dec a
-	add a
-	ld e, a
-	ld d, 0
-	ld hl, FightingDojoRebattleLossTexts
-	add hl, de
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	pop hl ; the win line pushed above
-	call SaveEndBattleTextPointers ; hl = win line · de = loss line
+	pop hl
+	ld d, h
+	ld e, l
+	call SaveEndBattleTextPointers
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
@@ -189,29 +198,6 @@ FightingDojoStartRebattle:
 	ld [wFightingDojoCurScript], a
 	ld [wCurMapScript], a
 	ret
-
-FightingDojoRebattleLossTexts:
-; student index 1-4 → the line for when the CHALLENGER goes down
-	dw FightingDojoNewMasterLossText
-	dw FightingDojoBlackbelt2RebattleLossText
-	dw FightingDojoBlackbelt3RebattleLossText
-	dw FightingDojoBlackbelt4RebattleLossText
-
-FightingDojoNewMasterLossText:
-	text_far _FightingDojoNewMasterLossText
-	text_end
-
-FightingDojoBlackbelt2RebattleLossText:
-	text_far _FightingDojoBlackbelt2RebattleLossText
-	text_end
-
-FightingDojoBlackbelt3RebattleLossText:
-	text_far _FightingDojoBlackbelt3RebattleLossText
-	text_end
-
-FightingDojoBlackbelt4RebattleLossText:
-	text_far _FightingDojoBlackbelt4RebattleLossText
-	text_end
 
 FightingDojo_TextPointers:
 	def_text_pointers
