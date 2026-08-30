@@ -102,4 +102,8 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       nunca inserida.
 	const PAL_IRONMON                ; $31 — MACHAMP: aco escuro, o azul da artwork. APPENDADA,
 	                                 ;       nunca inserida.
+	const PAL_SLATEMON               ; $32 — o cinzento NEUTRO do kep-hack (GREYMON deles), a pedido
+	                                 ;       do Forte 2026-08-30: MAGNEMITE/MAGNETON/ONIX/RHYHORN/
+	                                 ;       RHYDON. O nosso PAL_GREYMON e o rosado vanilla (fica
+	                                 ;       para MAROWAK e para a Pokemon Tower). APPENDADA.
 DEF NUM_SGB_PALS EQU const_value
