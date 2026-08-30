@@ -317,3 +317,12 @@ BillSprite::             INCBIN "gfx/sprites/bill.2bpp"
 SECTION "NPC Sprites 8", ROMX
 
 PsychicSprite::          INCBIN "gfx/sprites/psychic.2bpp"
+
+; KIYO's own overworld sprite: the HIKER sheet with the hair on shade 2
+; instead of black (the DAISY/GIRL hair idiom), so the dojo master reads
+; apart from his four students. Pinned section for the same reason Bill
+; and the PSYCHIC needed one - "NPC Sprites 2" (bank $5) has ~200 bytes
+; left and a walker sheet is 384.
+SECTION "NPC Sprites 9", ROMX
+
+KiyoSprite::             INCBIN "gfx/sprites/kiyo.2bpp"

@@ -35,6 +35,6 @@ ViridianGym_Object:
 	object_event 16,  9, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANGYM_MAX_REVIVE, MAX_REVIVE
 ; KIYO stands where Giovanni stood. Hidden by default (hide_show_data row);
 ; ViridianGymPostLeagueState swaps the two once wGameStage is set.
-	object_event  2,  1, SPRITE_HIKER, STAY, DOWN, TEXT_VIRIDIANGYM_KIYO, OPP_KIYO, 2
+	object_event  2,  1, SPRITE_KIYO, STAY, DOWN, TEXT_VIRIDIANGYM_KIYO, OPP_KIYO, 2
 
 	def_warps_to VIRIDIAN_GYM

@@ -55,7 +55,11 @@
 	const SPRITE_FISHER                  ; $2f
 	const SPRITE_KOGA                    ; $30
 	const SPRITE_GUARD                   ; $31
-	const SPRITE_UNUSED_RED_2            ; $32
+; v0.7 (2026-08-30): was SPRITE_UNUSED_RED_2, a dead alias pointing at
+; RedSprite and placed on no map — the same recycle the PSYCHIC slot got.
+; KIYO is the HIKER sheet with the hair on shade 2 instead of black (the
+; DAISY/GIRL hair idiom), so the dojo master reads apart from his students.
+	const SPRITE_KIYO                    ; $32
 	const SPRITE_MOM                     ; $33
 	const SPRITE_BALDING_GUY             ; $34
 	const SPRITE_LITTLE_BOY              ; $35
