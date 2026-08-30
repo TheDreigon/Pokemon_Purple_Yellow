@@ -102,6 +102,15 @@ ShowMovedexMenu::
 ; cell and never clears, so anything this list left in a cell the Pokedex does
 ; not itself write survived the handover -- the SEEN box and the old hint box
 ; came back interleaved with the dex's own SEEN/OWN counts and its side menu.
+;
+; But blank in WRAM, not on the LCD (2026-08-30): with the transfer left on,
+; ClearScreen's wipe reached the screen and the player stared at white for 18
+; frames while the dex reloaded tiles and redrew (measured on the emulated
+; LCD; the forward handover shows 0). Auto-transfer stays off from here until
+; Pokedex_PlacePokemonList re-enables it, so the first frame that reaches the
+; LCD is the finished Pokedex - the same over-draw the forward direction does.
+	xor a
+	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call LoadPokedexTilePatterns_Movedex
 	pop af

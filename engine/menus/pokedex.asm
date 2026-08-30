@@ -62,7 +62,10 @@ ShowPokedexMenu:
 
 .goToMovedex
 	farcall ShowMovedexMenu
-	jp .setUpGraphics ; the movedex redrew the screen; rebuild the dex's
+; the movedex's .done already cleared the screen (in WRAM, transfer off) and
+; restored the dex tile patterns, so reloading them via .setUpGraphics only
+; lengthened the white handover (2026-08-30). Straight back to the list.
+	jp .loop
 
 ; handles the menu on the lower right in the pokedex screen
 ; OUTPUT:
