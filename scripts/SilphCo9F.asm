@@ -134,11 +134,11 @@ SilphCo9F_TextPointers:
 SilphCo9TrainerHeaders:
 	def_trainers 2
 SilphCo9TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_0, 4, SilphCo9FRocket1BattleText, SilphCo9FRocket1EndBattleText, SilphCo9FRocket1AfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_0, TEXT_SILPHCO9F_ROCKET1, SilphCo9FRocket1BattleText, SilphCo9FRocket1EndBattleText, SilphCo9FRocket1AfterBattleText
 SilphCo9TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_1, 2, SilphCo9FScientistBattleText, SilphCo9FScientistEndBattleText, SilphCo9FScientistAfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_1, TEXT_SILPHCO9F_SCIENTIST, SilphCo9FScientistBattleText, SilphCo9FScientistEndBattleText, SilphCo9FScientistAfterBattleText
 SilphCo9TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_2, 4, SilphCo9FRocket2BattleText, SilphCo9FRocket2EndBattleText, SilphCo9FRocket2AfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_2, TEXT_SILPHCO9F_ROCKET2, SilphCo9FRocket2BattleText, SilphCo9FRocket2EndBattleText, SilphCo9FRocket2AfterBattleText
 	db -1 ; end
 
 SilphCo9FNurseText:

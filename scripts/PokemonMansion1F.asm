@@ -71,7 +71,7 @@ PokemonMansion1F_TextPointers:
 Mansion1TrainerHeaders:
 	def_trainers
 Mansion1TrainerHeader0:
-	trainer EVENT_BEAT_MANSION_1_TRAINER_0, 3, PokemonMansion1FScientistBattleText, PokemonMansion1FScientistEndBattleText, PokemonMansion1FScientistAfterBattleText
+	trainer EVENT_BEAT_MANSION_1_TRAINER_0, TEXT_POKEMONMANSION1F_SCIENTIST, PokemonMansion1FScientistBattleText, PokemonMansion1FScientistEndBattleText, PokemonMansion1FScientistAfterBattleText
 	db -1 ; end
 
 PokemonMansion1FScientistText:

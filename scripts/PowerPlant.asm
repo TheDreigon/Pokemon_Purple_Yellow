@@ -48,25 +48,25 @@ PowerPlant_TextPointers:
 PowerPlantTrainerHeaders:
 	def_trainers
 Voltorb0TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_0, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_0, TEXT_POWERPLANT_VOLTORB1, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb1TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_1, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_1, TEXT_POWERPLANT_VOLTORB2, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb2TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_2, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_2, TEXT_POWERPLANT_VOLTORB3, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb3TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_3, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_3, TEXT_POWERPLANT_ELECTRODE1, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb4TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_4, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_4, TEXT_POWERPLANT_VOLTORB4, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb5TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_5, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_5, TEXT_POWERPLANT_VOLTORB5, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb6TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_6, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_6, TEXT_POWERPLANT_ELECTRODE2, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 Voltorb7TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_7, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
+	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_7, TEXT_POWERPLANT_VOLTORB6, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
 ZapdosTrainerHeader:
-	trainer EVENT_BEAT_ZAPDOS, 0, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText
+	trainer EVENT_BEAT_ZAPDOS, TEXT_POWERPLANT_ZAPDOS, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText
 CraigTrainerHeader:
-	trainer EVENT_BEAT_CRAIG, 0, PowerPlantCraigBattleText1, PowerPlantCraigEndBattleText1, PowerPlantCraigAfterBattleText1 ; range 0 = talk-only, no line-of-sight (Forte: Craig/Smith/Weebra are talk-to-battle)
+	trainer EVENT_BEAT_CRAIG, TEXT_POWERPLANT_CRAIG, PowerPlantCraigBattleText1, PowerPlantCraigEndBattleText1, PowerPlantCraigAfterBattleText1 ; range 0 = talk-only, no line-of-sight (Forte: Craig/Smith/Weebra are talk-to-battle)
 	db -1 ; end
 
 PowerPlantCraigText:

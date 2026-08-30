@@ -18,7 +18,7 @@ Route4_Object:
 
 	def_object_events
 	object_event  9,  8, SPRITE_COOLTRAINER_F, WALK, ANY_DIR, TEXT_ROUTE4_COOLTRAINER_F1
-	object_event 63,  3, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_ROUTE4_COOLTRAINER_F2, OPP_LASS, 4
+	object_event 63,  3, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_ROUTE4_COOLTRAINER_F2, OPP_LASS, 4, 3
 	object_event 49,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE4_TM_QUICK_ATTACK, TM_QUICK_ATTACK ; world-design reposition (was TM_RAZOR_WIND in April; TM renamed since, position is his)
 
 	def_warps_to ROUTE_4

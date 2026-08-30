@@ -25,9 +25,9 @@ SSAnneBow_TextPointers:
 SSAnne5TrainerHeaders:
 	def_trainers 4
 SSAnne5TrainerHeader0:
-	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_0, 3, SSAnneBowSailor2BattleText, SSAnneBowSailor2EndBattleText, SSAnneBowSailor2AfterBattleText
+	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_0, TEXT_SSANNEBOW_SAILOR2, SSAnneBowSailor2BattleText, SSAnneBowSailor2EndBattleText, SSAnneBowSailor2AfterBattleText
 SSAnne5TrainerHeader1:
-	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_1, 3, SSAnneBowSailor3BattleText, SSAnneBowSailor3EndBattleText, SSAnneBowSailor3AfterBattleText
+	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_1, TEXT_SSANNEBOW_SAILOR3, SSAnneBowSailor3BattleText, SSAnneBowSailor3EndBattleText, SSAnneBowSailor3AfterBattleText
 	db -1 ; end
 
 SSAnneBowSuperNerdText:

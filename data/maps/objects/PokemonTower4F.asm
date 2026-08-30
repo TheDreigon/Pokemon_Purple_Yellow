@@ -15,9 +15,9 @@ PokemonTower4F_Object:
 	def_bg_events
 
 	def_object_events
-	object_event  5, 10, SPRITE_CHANNELER, STAY, RIGHT, TEXT_POKEMONTOWER4F_CHANNELER1, OPP_CHANNELER, 9
-	object_event 15,  7, SPRITE_CHANNELER, STAY, DOWN, TEXT_POKEMONTOWER4F_CHANNELER2, OPP_CHANNELER, 10
-	object_event 14, 12, SPRITE_CHANNELER, STAY, LEFT, TEXT_POKEMONTOWER4F_CHANNELER3, OPP_CHANNELER, 12
+	object_event  5, 10, SPRITE_CHANNELER, STAY, RIGHT, TEXT_POKEMONTOWER4F_CHANNELER1, OPP_CHANNELER, 9, 2
+	object_event 15,  7, SPRITE_CHANNELER, STAY, DOWN, TEXT_POKEMONTOWER4F_CHANNELER2, OPP_CHANNELER, 10, 2
+	object_event 14, 12, SPRITE_CHANNELER, STAY, LEFT, TEXT_POKEMONTOWER4F_CHANNELER3, OPP_CHANNELER, 12, 2
 	; v0.7 ground-item redesign: the ELIXIR ball at (12,10) became a HIDDEN item
 	; at the same coords (data/events/hidden_objects.asm) — its freed missable
 	; slot pays for Rock Tunnel 1F's new visible ESCAPE_ROPE.

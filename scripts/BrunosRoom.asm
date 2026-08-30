@@ -138,9 +138,9 @@ BrunosRoom_TextPointers:
 BrunosRoomTrainerHeaders:
 	def_trainers
 BrunosRoomTrainerHeader0:
-	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_0, 0, BrunoBeforeBattleText, BrunoEndBattleText, BrunoAfterBattleText
+	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_0, TEXT_BRUNOSROOM_BRUNO, BrunoBeforeBattleText, BrunoEndBattleText, BrunoAfterBattleText
 BrunosRoomTrainerHeader1:
-	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_1, 0, BrunoRematchBeforeBattleText, BrunoRematchEndBattleText, BrunoRematchAfterBattleText
+	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_1, TEXT_BRUNOSROOM_BRUNO_REMATCH, BrunoRematchBeforeBattleText, BrunoRematchEndBattleText, BrunoRematchAfterBattleText
 	db -1 ; end
 
 BrunosRoomBrunoText:

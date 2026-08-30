@@ -148,9 +148,9 @@ LancesRoom_TextPointers:
 LancesRoomTrainerHeaders:
 	def_trainers
 LancesRoomTrainerHeader0:
-	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_0, 0, LancesRoomLanceBeforeBattleText, LancesRoomLanceEndBattleText, LancesRoomLanceAfterBattleText
+	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_0, TEXT_LANCESROOM_LANCE, LancesRoomLanceBeforeBattleText, LancesRoomLanceEndBattleText, LancesRoomLanceAfterBattleText
 LancesRoomTrainerHeader1:
-	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_1, 0, LancesRoomLanceRematchBeforeBattleText, LancesRoomLanceRematchEndBattleText, LancesRoomLanceRematchAfterBattleText
+	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_1, TEXT_LANCESROOM_LANCE_REMATCH, LancesRoomLanceRematchBeforeBattleText, LancesRoomLanceRematchEndBattleText, LancesRoomLanceRematchAfterBattleText
 	db -1 ; end
 
 LancesRoomLanceText:

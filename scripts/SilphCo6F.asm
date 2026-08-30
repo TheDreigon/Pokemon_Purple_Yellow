@@ -56,11 +56,11 @@ SilphCo6F_TextPointers:
 SilphCo6TrainerHeaders:
 	def_trainers 6
 SilphCo6TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_0, 2, SilphCo6FRocket1BattleText, SilphCo6Rocket1EndBattleText, SilphCo6Rocket1AfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_0, TEXT_SILPHCO6F_ROCKET1, SilphCo6FRocket1BattleText, SilphCo6Rocket1EndBattleText, SilphCo6Rocket1AfterBattleText
 SilphCo6TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_1, 3, SilphCo6FScientistBattleText, SilphCo6FScientistEndBattleText, SilphCo6FScientistAfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_1, TEXT_SILPHCO6F_SCIENTIST, SilphCo6FScientistBattleText, SilphCo6FScientistEndBattleText, SilphCo6FScientistAfterBattleText
 SilphCo6TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_2, 2, SilphCo6FRocket2BattleText, SilphCo6FRocket2EndBattleText, SilphCo6FRocket2AfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_2, TEXT_SILPHCO6F_ROCKET2, SilphCo6FRocket2BattleText, SilphCo6FRocket2EndBattleText, SilphCo6FRocket2AfterBattleText
 	db -1 ; end
 
 SilphCo6FBeatGiovanniPrintDEOrPrintHLScript:

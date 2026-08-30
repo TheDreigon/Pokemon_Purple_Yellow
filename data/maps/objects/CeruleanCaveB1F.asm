@@ -14,7 +14,7 @@ CeruleanCaveB1F_Object:
 	def_bg_events
 
 	def_object_events
-	object_event 27, 13, SPRITE_MEWTWO, STAY, DOWN, TEXT_CERULEANCAVEB1F_MEWTWO, MEWTWO, 70
+	object_event 27, 13, SPRITE_MEWTWO, STAY, DOWN, TEXT_CERULEANCAVEB1F_MEWTWO, MEWTWO, 70, 0
 	; v0.7 ground-item redesign: the ULTRA_BALL at (26,1) became a HIDDEN item
 	; at the same coords — its freed missable slot pays for Seafoam 1F's new
 	; visible ESCAPE_ROPE.

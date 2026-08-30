@@ -119,7 +119,7 @@ PewterGym_TextPointers:
 PewterGymTrainerHeaders:
 	def_trainers 2
 PewterGymTrainerHeader0:
-	trainer EVENT_BEAT_PEWTER_GYM_TRAINER_0, 5, PewterGymCooltrainerMBattleText, PewterGymCooltrainerMEndBattleText, PewterGymCooltrainerMAfterBattleText
+	trainer EVENT_BEAT_PEWTER_GYM_TRAINER_0, TEXT_PEWTERGYM_COOLTRAINER_M, PewterGymCooltrainerMBattleText, PewterGymCooltrainerMEndBattleText, PewterGymCooltrainerMAfterBattleText
 	db -1 ; end
 
 PewterGymBrockText:

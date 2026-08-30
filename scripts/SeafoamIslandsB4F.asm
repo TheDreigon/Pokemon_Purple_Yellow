@@ -164,7 +164,7 @@ SeafoamIslandsB4F_TextPointers:
 SeafoamIslandsB4FTrainerHeaders:
 	def_trainers 3
 ArticunoTrainerHeader:
-	trainer EVENT_BEAT_ARTICUNO, 0, SeafoamIslandsB4FArticunoBattleText, SeafoamIslandsB4FArticunoBattleText, SeafoamIslandsB4FArticunoBattleText
+	trainer EVENT_BEAT_ARTICUNO, TEXT_SEAFOAMISLANDSB4F_ARTICUNO, SeafoamIslandsB4FArticunoBattleText, SeafoamIslandsB4FArticunoBattleText, SeafoamIslandsB4FArticunoBattleText
 	db -1 ; end
 
 SeafoamIslandsWeebraText1:

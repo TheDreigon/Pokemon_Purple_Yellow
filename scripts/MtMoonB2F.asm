@@ -433,11 +433,11 @@ MtMoonB2F_TextPointers:
 MtMoon3TrainerHeaders:
 	def_trainers 3
 MtMoon3TrainerHeader0:
-	trainer EVENT_BEAT_MT_MOON_3_TRAINER_1, 4, MtMoonB2FRocket2BattleText, MtMoonB2FRocket2EndBattleText, MtMoonB2FRocket2AfterBattleText
+	trainer EVENT_BEAT_MT_MOON_3_TRAINER_1, TEXT_MTMOONB2F_ROCKET1, MtMoonB2FRocket2BattleText, MtMoonB2FRocket2EndBattleText, MtMoonB2FRocket2AfterBattleText
 MtMoon3TrainerHeader1:
-	trainer EVENT_BEAT_MT_MOON_3_TRAINER_2, 4, MtMoonB2FRocket3BattleText, MtMoonB2FRocket3EndBattleText, MtMoonB2FRocket3AfterBattleText
+	trainer EVENT_BEAT_MT_MOON_3_TRAINER_2, TEXT_MTMOONB2F_ROCKET2, MtMoonB2FRocket3BattleText, MtMoonB2FRocket3EndBattleText, MtMoonB2FRocket3AfterBattleText
 MtMoon3TrainerHeader2:
-	trainer EVENT_BEAT_MT_MOON_3_TRAINER_3, 4, MtMoonB2FRocket4BattleText, MtMoonB2FRocket4EndBattleText, MtMoonB2FRocket4AfterBattleText
+	trainer EVENT_BEAT_MT_MOON_3_TRAINER_3, TEXT_MTMOONB2F_ROCKET3, MtMoonB2FRocket4BattleText, MtMoonB2FRocket4EndBattleText, MtMoonB2FRocket4AfterBattleText
 	db -1 ; end
 
 MtMoonB2FJessieJamesText:

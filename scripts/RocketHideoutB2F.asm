@@ -281,7 +281,7 @@ RocketHideoutB2F_TextPointers:
 RocketHideout2TrainerHeaders:
 	def_trainers
 RocketHideout2TrainerHeader0:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_2_TRAINER_0, 4, RocketHideoutB1FRocketBattleText, RocketHideoutB1FRocketEndBattleText, RocketHideoutB1FRocketAfterBattleText
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_2_TRAINER_0, TEXT_ROCKETHIDEOUTB2F_ROCKET, RocketHideoutB1FRocketBattleText, RocketHideoutB1FRocketEndBattleText, RocketHideoutB1FRocketAfterBattleText
 	db -1 ; end
 
 RocketHideoutB2FRocketText:

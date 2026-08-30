@@ -13,6 +13,13 @@ ENDM
 ;\7 items only: item id
 ;\7 trainers only: trainer class/pokemon id
 ;\8 trainers only: trainer number/pokemon level
+;\9 trainers only, OPTIONAL: sight range in tiles (0-15). Forte's request
+;   (2026-08-31): author the range HERE, next to the trainer it belongs to.
+;   Emits NO bytes - it defines _SIGHT_<text id> and _OBJIDX_<text id>,
+;   which the `trainer` header macro consumes (range byte) and ASSERTs
+;   against (the ordinal contract: header byte +0 must equal this object's
+;   1-based slot). Headerless trainers (gym leaders, script-engaged bosses)
+;   take no 9th argument - their sight is never scanned.
 MACRO object_event
 	db \3
 	db \2 + 4
@@ -23,6 +30,10 @@ MACRO object_event
 		db TRAINER | \6
 		db \7
 		db \8
+		IF _NARG > 8
+			DEF _SIGHT_\6 EQU \9
+			DEF _OBJIDX_\6 EQU {_NUM_OBJECT_EVENTS} + 1
+		ENDC
 	ELIF _NARG > 6
 		db ITEM | \6
 		db \7
@@ -104,7 +115,9 @@ MACRO def_trainers
 ENDM
 
 ;\1 event flag
-;\2 view range
+;\2 the object's TEXT_* id (preferred: the view range is then authored on
+;   that object_event's trailing argument and the header<->object pairing
+;   is ASSERTed at build time) - or a bare view range in tiles (legacy)
 ;\3 TextBeforeBattle
 ;\4 TextEndBattle (win and lose slots, +8/+A - only the win slot is ever read)
 ;\5 TextAfterBattle (+6)
@@ -126,7 +139,18 @@ MACRO trainer
 	ASSERT _ev_bit == _cur_bit, \
 		"Expected \1 to be bit {d:_cur_bit}, got {d:_ev_bit}"
 	db CURRENT_TRAINER_BIT
-	db \2 << 4
+	IF STRIN("\2", "TEXT_") == 1
+; v0.7 (2026-08-31): the range is authored on the object_event line - the
+; header names its object's TEXT_* id and the range comes from that line's
+; trailing argument. The ASSERT (link-time: _OBJIDX resolves after the
+; objects file assembles) enforces the ordinal contract - a trainer object
+; parked at the wrong slot is now a build error, not a silent glitch.
+		db _SIGHT_\2 << 4
+		ASSERT _OBJIDX_\2 == CURRENT_TRAINER_BIT, \
+			"\2: its object_event is not at slot {d:CURRENT_TRAINER_BIT}"
+	ELSE
+		db \2 << 4
+	ENDC
 	dw wEventFlags + (\1 - CURRENT_TRAINER_BIT) / 8
 	dw \3, \5, \4, \4
 	DEF CURRENT_TRAINER_BIT += 1

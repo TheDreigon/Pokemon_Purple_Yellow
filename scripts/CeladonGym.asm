@@ -176,19 +176,19 @@ CeladonGym_TextPointers:
 CeladonGymTrainerHeaders:
 	def_trainers 2
 CeladonGymTrainerHeader0:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_0, 2, CeladonGymBattleText2, CeladonGymEndBattleText2, CeladonGymAfterBattleText2
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_0, TEXT_CELADONGYM_COOLTRAINER_F1, CeladonGymBattleText2, CeladonGymEndBattleText2, CeladonGymAfterBattleText2
 CeladonGymTrainerHeader1:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_1, 2, CeladonGymBattleText3, CeladonGymEndBattleText3, CeladonGymAfterBattleText3
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_1, TEXT_CELADONGYM_BEAUTY1, CeladonGymBattleText3, CeladonGymEndBattleText3, CeladonGymAfterBattleText3
 CeladonGymTrainerHeader2:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_2, 4, CeladonGymBattleText4, CeladonGymEndBattleText4, CeladonGymAfterBattleText4
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_2, TEXT_CELADONGYM_COOLTRAINER_F2, CeladonGymBattleText4, CeladonGymEndBattleText4, CeladonGymAfterBattleText4
 CeladonGymTrainerHeader3:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_3, 4, CeladonGymBattleText5, CeladonGymEndBattleText5, CeladonGymAfterBattleText5
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_3, TEXT_CELADONGYM_BEAUTY2, CeladonGymBattleText5, CeladonGymEndBattleText5, CeladonGymAfterBattleText5
 CeladonGymTrainerHeader4:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_4, 2, CeladonGymBattleText6, CeladonGymEndBattleText6, CeladonGymAfterBattleText6
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_4, TEXT_CELADONGYM_COOLTRAINER_F3, CeladonGymBattleText6, CeladonGymEndBattleText6, CeladonGymAfterBattleText6
 CeladonGymTrainerHeader5:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_5, 2, CeladonGymBattleText7, CeladonGymEndBattleText7, CeladonGymAfterBattleText7
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_5, TEXT_CELADONGYM_BEAUTY3, CeladonGymBattleText7, CeladonGymEndBattleText7, CeladonGymAfterBattleText7
 CeladonGymTrainerHeader6:
-	trainer EVENT_BEAT_CELADON_GYM_TRAINER_6, 3, CeladonGymBattleText8, CeladonGymEndBattleText8, CeladonGymAfterBattleText8
+	trainer EVENT_BEAT_CELADON_GYM_TRAINER_6, TEXT_CELADONGYM_COOLTRAINER_F4, CeladonGymBattleText8, CeladonGymEndBattleText8, CeladonGymAfterBattleText8
 	db -1 ; end
 
 CeladonGymErikaText:

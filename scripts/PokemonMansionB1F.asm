@@ -75,11 +75,11 @@ PokemonMansionB1F_TextPointers:
 Mansion4TrainerHeaders:
 	def_trainers
 Mansion4TrainerHeader0:
-	trainer EVENT_BEAT_MANSION_4_TRAINER_0, 0, PokemonMansionB1FBurglarBattleText, PokemonMansionB1FBurglarEndBattleText, PokemonMansionB1FBurglarAfterBattleText
+	trainer EVENT_BEAT_MANSION_4_TRAINER_0, TEXT_POKEMONMANSIONB1F_BURGLAR, PokemonMansionB1FBurglarBattleText, PokemonMansionB1FBurglarEndBattleText, PokemonMansionB1FBurglarAfterBattleText
 Mansion4TrainerHeader1:
-	trainer EVENT_BEAT_MANSION_4_TRAINER_1, 3, PokemonMansionB1FScientistBattleText, PokemonMansionB1FScientistEndBattleText, PokemonMansionB1FScientistAfterBattleText
+	trainer EVENT_BEAT_MANSION_4_TRAINER_1, TEXT_POKEMONMANSIONB1F_SCIENTIST, PokemonMansionB1FScientistBattleText, PokemonMansionB1FScientistEndBattleText, PokemonMansionB1FScientistAfterBattleText
 MewTrainerHeader:
-	trainer EVENT_BEAT_MEW, 0, MewBattleText, MewBattleText, MewBattleText
+	trainer EVENT_BEAT_MEW, TEXT_POKEMONMANSIONB1F_MEW, MewBattleText, MewBattleText, MewBattleText
 	db -1 ; end
 
 PokemonMansionB1FMewText:

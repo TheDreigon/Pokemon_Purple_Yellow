@@ -25,7 +25,7 @@ Route4_TextPointers:
 Route4TrainerHeaders:
 	def_trainers 2
 Route4TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_4_TRAINER_0, 3, Route4CooltrainerF2BattleText, Route4CooltrainerF2EndBattleText, Route4CooltrainerF2AfterBattleText
+	trainer EVENT_BEAT_ROUTE_4_TRAINER_0, TEXT_ROUTE4_COOLTRAINER_F2, Route4CooltrainerF2BattleText, Route4CooltrainerF2EndBattleText, Route4CooltrainerF2AfterBattleText
 	db -1 ; end
 
 Route4CooltrainerF1Text:

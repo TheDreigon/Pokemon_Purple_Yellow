@@ -307,7 +307,7 @@ RocketHideoutB4F_TextPointers:
 RocketHideout4TrainerHeaders:
 	def_trainers 4
 RocketHideout4TrainerHeader0:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_2, 1, RocketHideoutB4FRocketBattleText, RocketHideoutB4FRocketEndBattleText, RocketHideoutB4FRocketAfterBattleText
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_2, TEXT_ROCKETHIDEOUTB4F_ROCKET, RocketHideoutB4FRocketBattleText, RocketHideoutB4FRocketEndBattleText, RocketHideoutB4FRocketAfterBattleText
 	db -1 ; end
 
 RocketHideoutB4FJessieJamesText:

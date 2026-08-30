@@ -141,9 +141,9 @@ AgathasRoom_TextPointers:
 AgathasRoomTrainerHeaders:
 	def_trainers
 AgathasRoomTrainerHeader0:
-	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_0, 0, AgathaBeforeBattleText, AgathaEndBattleText, AgathaAfterBattleText
+	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_0, TEXT_AGATHASROOM_AGATHA, AgathaBeforeBattleText, AgathaEndBattleText, AgathaAfterBattleText
 AgathasRoomTrainerHeader1:
-	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_1, 0, AgathaRematchBeforeBattleText, AgathaRematchEndBattleText, AgathaRematchAfterBattleText
+	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_1, TEXT_AGATHASROOM_AGATHA_REMATCH, AgathaRematchBeforeBattleText, AgathaRematchEndBattleText, AgathaRematchAfterBattleText
 	db -1 ; end
 
 AgathasRoomAgathaText:

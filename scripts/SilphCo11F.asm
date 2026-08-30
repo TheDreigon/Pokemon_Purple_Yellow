@@ -498,7 +498,7 @@ SilphCo11F_TextPointers:
 SilphCo11TrainerHeaders:
 	def_trainers 5
 SilphCo11TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_11F_TRAINER_1, 3, SilphCo11FRocketBattleText, SilphCo11FRocketEndBattleText, SilphCo11FRocketAfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_11F_TRAINER_1, TEXT_SILPHCO11F_ROCKET, SilphCo11FRocketBattleText, SilphCo11FRocketEndBattleText, SilphCo11FRocketAfterBattleText
 	db -1 ; end
 
 SilphCo11FJessieJamesText:

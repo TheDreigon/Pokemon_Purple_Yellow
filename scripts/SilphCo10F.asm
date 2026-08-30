@@ -51,9 +51,9 @@ SilphCo10F_TextPointers:
 SilphCo10TrainerHeaders:
 	def_trainers
 SilphCo10TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_10F_TRAINER_0, 3, SilphCo10FRocketBattleText, SilphCo10FRocketEndBattleText, SilphCo10FRocketAfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_10F_TRAINER_0, TEXT_SILPHCO10F_ROCKET, SilphCo10FRocketBattleText, SilphCo10FRocketEndBattleText, SilphCo10FRocketAfterBattleText
 SilphCo10TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_10F_TRAINER_1, 4, SilphCo10FScientistBattleText, SilphCo10FScientistEndBattleText, SilphCo10FScientistAfterBattleText
+	trainer EVENT_BEAT_SILPH_CO_10F_TRAINER_1, TEXT_SILPHCO10F_SCIENTIST, SilphCo10FScientistBattleText, SilphCo10FScientistEndBattleText, SilphCo10FScientistAfterBattleText
 	db -1 ; end
 
 SilphCo10FRocketText:
