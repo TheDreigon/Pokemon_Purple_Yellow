@@ -12,18 +12,22 @@
 ; (Phase B); no RIVALn entries live in this table.
 
 SpecialTrainerMoves:
-	db BROCK, 1 ; Pewter Gym — 12 GEODUDE, 14 ONIX
-	db 1, 1, ROCK_THROW
+	db BROCK, 1 ; Pewter Gym — 10 RHYHORN, 12 GEODUDE, 14 ONIX
+	db 1, 1, HORN_ATTACK
 	db 1, 2, GROUND_STOMP
-	db 1, 3, TACKLE
-	db 1, 4, DEFENSE_CURL
+	db 1, 3, LEER
+	db 1, 4, SAND_ATTACK
 	db 2, 1, ROCK_THROW
 	db 2, 2, GROUND_STOMP
-	db 2, 3, BIND
-	db 2, 4, COIL
+	db 2, 3, TACKLE
+	db 2, 4, DEFENSE_CURL
+	db 3, 1, ROCK_THROW
+	db 3, 2, GROUND_STOMP
+	db 3, 3, BIND
+	db 3, 4, COIL
 	db 0
 
-	db BROCK, 2 ; Rematch — 63 KABUTOPS, 64 GOLBAT, 64 RHYDON, 65 ONIX, 65 GOLEM
+	db BROCK, 2 ; Rematch — 63 KABUTOPS, 64 GOLBAT, 64 RHYDON, 65 GOLEM, 65 ONIX
 	db 1, 1, ROCK_SLIDE
 	db 1, 2, SURF
 	db 1, 3, NIGHT_SLASH
@@ -38,12 +42,12 @@ SpecialTrainerMoves:
 	db 3, 4, STRENGTH
 	db 4, 1, EARTHQUAKE
 	db 4, 2, ROCK_SLIDE
-	db 4, 3, INTIMIDATE
-	db 4, 4, DRAGON_SLAM
+	db 4, 3, HEAVY_SLAM
+	db 4, 4, STRENGTH
 	db 5, 1, EARTHQUAKE
 	db 5, 2, ROCK_SLIDE
-	db 5, 3, HEAVY_SLAM
-	db 5, 4, STRENGTH
+	db 5, 3, INTIMIDATE
+	db 5, 4, DRAGON_SLAM
 	db 0
 
 	db MISTY, 1 ; Cerulean Gym — 19 PSYDUCK, 20 GOLDEEN, 21 STARMIE

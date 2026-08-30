@@ -161,9 +161,9 @@ LassData:
 BrockData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Pewter Gym
-	db $FF, 12, GEODUDE, 14, ONIX, 0
+	db $FF, 10, RHYHORN, 12, GEODUDE, 14, ONIX, 0
 ; 2: Rematch
-	db $FF, 63, KABUTOPS, 64, GOLBAT, 64, RHYDON, 65, ONIX, 65, GOLEM, 0
+	db $FF, 63, KABUTOPS, 64, GOLBAT, 64, RHYDON, 65, GOLEM, 65, ONIX, 0
 
 JrTrainerMData:
 ; Pewter Gym
