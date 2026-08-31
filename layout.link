@@ -90,7 +90,9 @@ ROMX $C
 ROMX $D
 	"Pics 5"
 ROMX $E
-	"Move Flavor Text 5"
+	; v0.7 (2026-08-31, expansion prep): "Move Flavor Text 5" moved out to
+	; bank $3A - it was pinning this bank at ~156 B free while moves.asm
+	; (Battle Engine 6) is the table that grows with every new move.
 	"Battle Engine 6"
 ROMX $F
 	"Battle Core"
@@ -195,13 +197,16 @@ ROMX $21
 	; the map banks, which grow every time a map is redrawn. Four pieces rather
 	; than three because the debug build has less room in some banks.
 	"Move Flavor Text 1"
+	"Move Flavor Text 4" ; v0.7 (2026-08-31, expansion prep): from bank $24
 ROMX $22
 	"Pikachu Cries 2"
 	"Move Flavor Text 2"
 ROMX $23
 	"Pikachu Cries 3"
 ROMX $24
-	"Move Flavor Text 4"
+	; v0.7 (2026-08-31, expansion prep): "Move Flavor Text 4" moved out to
+	; bank $21 - the flavor tables in "Move Info" below grow 8 B per new
+	; move and this bank was down to ~446 B.
 	"Pikachu Cries 4"
 	; v0.7: pinned here on purpose. Left floating, the linker first-fitted it
 	; into the "Maps 4" bank and took that bank from 2.4 KB free down to 676 B
@@ -271,6 +276,7 @@ ROMX $39
 ROMX $3A
 	"bank3A"
 	"Move Flavor Text 3"
+	"Move Flavor Text 5" ; v0.7 (2026-08-31, expansion prep): from bank $E
 	; v0.7: the TRAINER MANUAL's screen code, kept out of the map banks for the
 	; same reason its text is. Code and text are split across two banks so that
 	; neither has to be moved when the manual grows.
