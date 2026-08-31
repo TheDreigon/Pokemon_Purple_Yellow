@@ -261,7 +261,7 @@ PewterGymReceivedCandyText:
 PewterGymBrockReceivedBoulderBadgeText:
 	text_far _PewterGymBrockReceivedBoulderBadgeText
 	sound_get_item_1
-	text_far _PewterGymBrockBoulderBadgeInfoText ; Text to tell that the flash technique can be used
+	text_far _PewterGymBrockBoulderBadgeInfoText ; power-up spiel (FLASH moved to LT.SURGE's badge, v0.7 HM remap)
 	text_end
 
 PewterGymCooltrainerMText:

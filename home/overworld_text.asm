@@ -17,8 +17,11 @@ BoulderText::
 	text_far _BoulderText
 	text_asm
 	ld a, [wObtainedBadges]
-	bit 3, a ; RAINBOW BADGE
-	jr z, .done 
+; v0.7 HM remap (2026-08-31): STRENGTH is SABRINA's unlock now (was a
+; hard-coded `bit 3` for RAINBOW). Mirror gate: .strength in
+; engine/menus/start_sub_menus.asm.
+	bit BIT_MARSHBADGE, a
+	jr z, .done
 	ld d, STRENGTH
 	callfar HasPartyMove
 	ld a, [wWhichTrade]

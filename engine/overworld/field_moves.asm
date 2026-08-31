@@ -18,7 +18,7 @@ TrySurf:
 	call HasPartyMove
 	jr nz, .no
 	ld a, [wObtainedBadges]
-	bit 4, a ; SOUL BADGE
+	bit BIT_SOULBADGE, a ; was a hard-coded `bit 4` with only this comment naming it
 	jr z, .no
 	farcall IsSurfingAllowed
 	ld hl, wd728
@@ -60,7 +60,7 @@ TryCut:
 	call HasPartyMove
 	jr nz, TrySurf.no2
 	ld a, [wObtainedBadges]
-	bit 1, a ; CASCADE BADGE
+	bit BIT_CASCADEBADGE, a ; was a hard-coded `bit 1` with only this comment naming it
 	jr z, TrySurf.no2
 	ld hl, PromptToCutText
 	call PrintText

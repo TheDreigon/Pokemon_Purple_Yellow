@@ -76,8 +76,8 @@ _VermilionGymLTSurgeThunderBadgeInfoText::
 	cont "#MON!"
 
 	para "It also lets your"
-	line "#MON FLY any-"
-	cont "time, kid!"
+	line "#MON use FLASH"
+	cont "anytime, kid!"
 
 	para "You're special,"
 	line "kid! Take this!"

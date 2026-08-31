@@ -1,5 +1,6 @@
 _CeruleanBadgeHouseSoulBadgeText::
-	text "The DEFENSE of all"
+; v0.7 (2026-08-31): stat fixed DEFENSE -> SPEED (the swap's other half).
+	text "The SPEED of all"
 	line "#MON increases"
 	cont "a little bit."
 
@@ -14,6 +15,10 @@ _CeruleanBadgeHouseMarshBadgeText::
 
 	para "Any higher, they"
 	line "become unruly!"
+
+	para "It also lets you"
+	line "use STRENGTH out-"
+	cont "side of battle."
 	prompt
 
 _CeruleanBadgeHouseVolcanoBadgeText::

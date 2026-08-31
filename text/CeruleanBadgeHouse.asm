@@ -27,10 +27,6 @@ _CeruleanBadgeHouseBoulderBadgeText::
 	text "The ATTACK of all"
 	line "#MON increases"
 	cont "a little bit."
-
-	para "It also lets you"
-	line "use FLASH any-"
-	cont "time you desire."
 	prompt
 
 _CeruleanBadgeHouseCascadeBadgeText::
@@ -46,13 +42,16 @@ _CeruleanBadgeHouseCascadeBadgeText::
 	prompt
 
 _CeruleanBadgeHouseThunderBadgeText::
-	text "The SPEED of all"
-	line "#MON increases"
-	cont "a little bit."
+; v0.7 (2026-08-31): stat fixed SPEED -> DEFENSE (the badge house had
+; THUNDER and SOUL swapped vs the engine, the leaders and the manual),
+; and the HM claim follows the remap (FLY -> FLASH).
+	text "The DEFENSE of"
+	line "all #MON"
+	cont "increases a bit."
 
 	para "It also lets you"
-	line "use FLY outside"
-	cont "of battle."
+	line "use FLASH out-"
+	cont "side of battle."
 	prompt
 
 _CeruleanBadgeHouseRainbowBadgeText::
@@ -63,6 +62,6 @@ _CeruleanBadgeHouseRainbowBadgeText::
 	line "become unruly!"
 
 	para "It also lets you"
-	line "use STRENGTH out-"
-	cont "side of battle."
+	line "use FLY outside"
+	cont "of battle."
 	prompt

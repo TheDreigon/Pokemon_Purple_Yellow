@@ -85,10 +85,9 @@ _CeladonGymRainbowBadgeInfoText::
 	line "will make #MON"
 	cont "up to L50 obey."
 
-	para "It also allows"
-	line "#MON to use"
-	cont "STRENGTH in and"
-	cont "out of battle."
+	para "It also lets your"
+	line "#MON FLY any-"
+	cont "time you like."
 
 	para "Please also take"
 	line "this with you."
