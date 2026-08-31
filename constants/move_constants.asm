@@ -341,9 +341,10 @@ DEF SPECIAL_ANIM_MARKER EQU $FF
 	const HIDEPIC_ANIM ; monster disappears
 	const ROCK_ANIM ; throw rock
 	const BAIT_ANIM ; throw bait
+	const CONFUSION_HIT_ANIM ; the confusion self-hit (v0.7: vanilla POUND's stream, Forte 2026-08-31)
 
 DEF NUM_SPECIAL_ANIMS EQU const_value - 1
-ASSERT NUM_SPECIAL_ANIMS == 35, "the special-anim census (and its pointer table) is 35 entries"
+ASSERT NUM_SPECIAL_ANIMS == 36, "the special-anim census (and its pointer table) is 36 entries"
 ASSERT NUM_SPECIAL_ANIMS < SPECIAL_ANIM_MARKER, "special anim indexes must stay below the marker"
 ; structural pins the engine arithmetic depends on (hWhoseTurn `add` pairs
 ; and the trade-ball palette range test):

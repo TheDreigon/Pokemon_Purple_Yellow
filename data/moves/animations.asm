@@ -286,6 +286,7 @@ SpecialAnimationPointers:
 	dw HidePicAnim
 	dw ThrowRockAnim
 	dw ThrowBaitAnim
+	dw ConfusionHitAnim
 	assert_table_length NUM_SPECIAL_ANIMS
 
 ; each animation is a list of subanimations
@@ -415,6 +416,14 @@ VicegripAnim:
 FalseSwipeAnim:
 ; v0.7 new move (2026-08-30): a single restrained slice - VICEGRIP's cut.
 	battle_anim FALSE_SWIPE, SUBANIM_0_SLICE_BOTH_SIDES, 0, 8
+	db -1 ; end
+
+ConfusionHitAnim:
+; v0.7 (2026-08-31, Forte's playtest): the confusion self-hit's own
+; animation - a replica of vanilla POUND's stream, which "anim id 1"
+; stopped meaning in the v0.5 reorder (and BUG_BITE's chomp made no sense
+; here). Sound arg TACKLE: the plain thud, closest to vanilla POUND's.
+	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
 TwineedleAnim:

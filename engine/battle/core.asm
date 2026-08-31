@@ -2996,7 +2996,11 @@ SelectMenuItem:
 .select
 	ld hl, hUILayoutFlags
 	set 1, [hl]
-	call HandleMenuInput
+; v0.7 (2026-08-31, Forte's playtest): the FIGHT move-select menu now arms
+; the CNF/status HUD alternation too - plain HandleMenuInput's outer entry
+; clears the flip flag, so a confused+paralyzed mon read only PAR while
+; the player sat exactly here choosing a move.
+	call BattleMenuInput
 	ld hl, hUILayoutFlags
 	res 1, [hl]
 	bit BIT_D_UP, a
@@ -4281,13 +4285,12 @@ HandleSelfConfusionDamage:
 	ld [wAnimationType], a
 	inc a
 	ldh [hWhoseTurn], a
-; v0.7 (2026-08-31, review catch): vanilla played "anim 1" here via the
-; implicit a=1 from the inc - that was POUND until the v0.5 reorder made
-; id 1 CONSTRICT, so the player-side confusion self-hit squeezed itself
-; with tentacles. The enemy mirror was already retargeted to BUG_BITE
-; ("placeholder generic-impact animation") in v0.5; this finishes it.
-	ld a, BUG_BITE
-	call PlayMoveAnimation
+; v0.7 (2026-08-31, Forte's playtest): the self-hit has its own animation
+; now - CONFUSION_HIT_ANIM, a replica of vanilla POUND's stream. (History:
+; vanilla played "anim 1" via the implicit inc a - POUND until the v0.5
+; reorder made id 1 CONSTRICT; a brief BUG_BITE stand-in made no sense.)
+	ld a, CONFUSION_HIT_ANIM
+	call PlaySpecialAnimation
 	call DrawPlayerHUDAndHPBar
 	xor a
 	ldh [hWhoseTurn], a
@@ -6296,8 +6299,8 @@ CheckEnemyStatusConditions:
 	xor a
 	ld [wAnimationType], a
 	ldh [hWhoseTurn], a
-	ld a, BUG_BITE ; placeholder generic-impact animation (was POUND)
-	call PlayMoveAnimation
+	ld a, CONFUSION_HIT_ANIM ; v0.7: the self-hit's own anim (vanilla POUND replica)
+	call PlaySpecialAnimation
 	ld a, $1
 	ldh [hWhoseTurn], a
 	call ApplyDamageToEnemyPokemon
