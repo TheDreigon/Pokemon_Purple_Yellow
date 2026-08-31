@@ -3052,16 +3052,19 @@ RhyhornEvosMoves:
 ; signature on the evo). Pairs at same level: SAND_ATTACK+GROUND_STOMP
 ; (L13), FOCUS_ENERGY+RAGE (L22). No HORN_DRILL/FISSURE/EARTHQUAKE in
 ; shared (Rhydon-only).
-	db  4, TACKLE
+	db  6, GROUND_STOMP
 	db 10, HORN_ATTACK
 	db 13, SAND_ATTACK
 	db 16, ROCK_TOMB
 	db 19, BODY_SLAM
 	db 22, RAGE
 	db 28, BULLDOZE
+	db 30, TAKE_DOWN
+	db 34, STRENGTH
 	db 36, IRON_HEAD
-	db 40, HEAD_SMASH
-	db 44, TAKE_DOWN
+	db 38, HEAD_SMASH
+	db 40, HORN_CHARGE
+	db 50, MEGAHORN
 	db 0
 
 RhydonEvosMoves:
@@ -3074,25 +3077,26 @@ RhydonEvosMoves:
 ; force), HORN_DRILL (shared signature with Dodrio), FISSURE. No
 ; DRAGON_SLAM (rhino, not dragon; no extreme-pressure justification like
 ; Onix). MEGAHORN apex horn — gesture over type: a rhino horn.
-	db  4, TACKLE
+	db  6, GROUND_STOMP
 	db 10, HORN_ATTACK
 	db 13, SAND_ATTACK
 	db 16, ROCK_TOMB
 	db 19, BODY_SLAM
 	db 22, RAGE
 	db 28, BULLDOZE
-	db 32, STRENGTH
+	db 30, TAKE_DOWN
+	db 34, STRENGTH
 	db 36, IRON_HEAD
-	db 40, HEAD_SMASH
-	db 42, HORN_CHARGE
-	db 44, TAKE_DOWN
-	db 48, FIERCE_ROAR
-	db 51, EARTHQUAKE
-	db 54, MEGAHORN
-	db 56, ROCK_SLIDE
+	db 38, HEAD_SMASH
+	db 40, HORN_CHARGE
+	db 42, ROCK_THROW
+	db 46, FIERCE_ROAR
+	db 50, MEGAHORN
+	db 52, ROCK_SLIDE
+	db 54, EARTHQUAKE
+	db 56, THRASH
 	db 58, BRUTAL_SWING
-	db 61, THRASH
-	db 63, HORN_DRILL
+	db 60, HORN_DRILL
 	db 65, FISSURE
 	db 0
 
