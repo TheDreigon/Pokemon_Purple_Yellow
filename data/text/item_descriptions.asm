@@ -201,7 +201,7 @@ _MaxReviveDescription::
 
 _GuardSpecDescription::
 	text "Guards stats from"
-	next "all status moves."
+	next "all enemy drops."
 	prompt
 
 _SuperRepelDescription::

@@ -901,6 +901,18 @@ StatModifierDownEffect:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	jr c, .nonSideEffect
+; v0.7 T17 (Forte, 2026-08-31): MIST / GUARD SPEC. also shield against the
+; stat drops that ride on damaging moves (SURF, CRUNCH, ~31 moves). The
+; damage has already landed; a protected target just keeps its stage,
+; silently - CantLowerAnymore returns without text for side effects,
+; exactly like a failed 33% roll. Power-0 stat moves were already blocked
+; upstream in MoveHitTest (all 19, spoofed ids included - see the T17
+; note); this is the other half.
+	inc bc
+	ld a, [bc] ; the DEFENDER's w*BattleStatus2
+	dec bc
+	bit PROTECTED_BY_MIST, a
+	jp nz, CantLowerAnymore
 	call BattleRandom
 	cp 33 percent + 1 ; chance for side effects
 	jp nc, CantLowerAnymore
