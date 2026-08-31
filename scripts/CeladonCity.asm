@@ -24,13 +24,11 @@ CeladonCity_TextPointers:
 	dw_const CeladonCityPoliwrathText,         TEXT_CELADONCITY_POLIWRATH
 	dw_const CeladonCityRocket1Text,           TEXT_CELADONCITY_ROCKET1
 	dw_const CeladonCityRocket2Text,           TEXT_CELADONCITY_ROCKET2
-	dw_const CeladonCityTrainerTips1Text,      TEXT_CELADONCITY_TRAINER_TIPS1
 	dw_const CeladonCitySignText,              TEXT_CELADONCITY_SIGN
 	dw_const PokeCenterSignText,               TEXT_CELADONCITY_POKECENTER_SIGN
 	dw_const CeladonCityGymSignText,           TEXT_CELADONCITY_GYM_SIGN
 	dw_const CeladonCityMansionSignText,       TEXT_CELADONCITY_MANSION_SIGN
 	dw_const CeladonCityDeptStoreSignText,     TEXT_CELADONCITY_DEPTSTORE_SIGN
-	dw_const CeladonCityTrainerTips2Text,      TEXT_CELADONCITY_TRAINER_TIPS2
 	dw_const CeladonCityPrizeExchangeSignText, TEXT_CELADONCITY_PRIZEEXCHANGE_SIGN
 	dw_const CeladonCityGameCornerSignText,    TEXT_CELADONCITY_GAMECORNER_SIGN
 
@@ -109,11 +107,6 @@ CeladonCityRocket2Text:
 	text_far _CeladonCityRocket2Text
 	text_end
 
-CeladonCityTrainerTips1Text:
-	text_asm
-	farcall CeladonCityPrintTrainerTips1Text
-	jp TextScriptEnd
-
 CeladonCitySignText:
 	text_far _CeladonCitySignText
 	text_end
@@ -128,10 +121,6 @@ CeladonCityMansionSignText:
 
 CeladonCityDeptStoreSignText:
 	text_far _CeladonCityDeptStoreSignText
-	text_end
-
-CeladonCityTrainerTips2Text:
-	text_far _CeladonCityTrainerTips2Text
 	text_end
 
 CeladonCityPrizeExchangeSignText:

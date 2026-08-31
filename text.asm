@@ -329,12 +329,6 @@ SECTION "TM and HM Names", ROMX
 
 INCLUDE "text/tmhm_names.asm"
 
-; Cerulean's second TRAINER TIPS sign. Its own section because the pinned
-; Text banks had no room left, and text_far reaches it from anywhere.
-SECTION "Cerulean Trainer Tips 2", ROMX
-
-INCLUDE "text/cerulean_trainer_tips2.asm"
-
 ; DAMIAN's lines on Route 24. Its own section because rewriting them for the
 ; anime's version of him pushed the pinned "Text 4" bank over, and text_far
 ; reaches a floating section from any bank.

@@ -157,25 +157,6 @@ _Route13CooltrainerM3AfterBattleText::
 	cont "and PIDGEOTTO..."
 	done
 
-_Route13TrainerTips1Text::
-	text "TRAINER TIPS"
-
-	para "PARALYSIS halves"
-	line "a foe's SPEED."
-
-	para "Even the fastest"
-	line "BIRD #MON can"
-	cont "be outsped!"
-	done
-
-_Route13TrainerTips2Text::
-	text "TRAINER TIPS"
-
-	para "Use SELECT to"
-	line "switch items in"
-	cont "the ITEM window!"
-	done
-
 _Route13SignText::
 	text "ROUTE 13"
 	line "North to SILENCE"

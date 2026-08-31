@@ -110,19 +110,6 @@ _CeladonCityDeptStoreSignText::
 	cont "DEPT. STORE!"
 	done
 
-_CeladonCityTrainerTips2Text::
-	text "TRAINER TIPS"
-
-	para "GUARD SPEC."
-	line "stops #MON"
-	cont "stats being cut"
-	cont "during battle."
-
-	para "Get your items at"
-	line "CELADON DEPT."
-	cont "STORE!"
-	done
-
 _CeladonCityPrizeExchangeSignText::
 	text "Coins exchanged"
 	line "for prizes!"
@@ -133,23 +120,4 @@ _CeladonCityGameCornerSignText::
 	text "ROCKET GAME CORNER"
 	line "The playground"
 	cont "for grownups!"
-	done
-
-_CeladonCityTrainerTips1Text::
-	text "TRAINER TIPS"
-
-	para "The SPECIAL stat"
-	line "is both offense"
-	cont "and defense"
-	cont "based!"
-
-	para "This means a"
-	line "#MON with "
-	cont "high SPECIAL"
-
-	para "can both land"
-	line "big damage, and"
-	cont "often take non"
-	cont "physical attacks"
-	cont "quite well!"
 	done

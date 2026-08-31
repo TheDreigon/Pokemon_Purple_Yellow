@@ -1448,7 +1448,8 @@ SECTION "Maps 22", ROMX
 
 INCLUDE "scripts/ViridianCity_2.asm"
 INCLUDE "scripts/VermilionCity_2.asm"
-INCLUDE "scripts/CeladonCity_2.asm"
+; v0.7 T11: scripts/CeladonCity_2.asm deleted with the tips signs - its
+; only content was the far-text bridge for TRAINER TIPS 1
 INCLUDE "scripts/Route1_2.asm"
 INCLUDE "scripts/Route22_2.asm"
 INCLUDE "scripts/RedsHouse1F_2.asm"
@@ -1474,7 +1475,8 @@ INCLUDE "data/maps/objects/SummerBeachHouse.asm"
 
 INCLUDE "scripts/BillsHouse_2.asm"
 INCLUDE "scripts/CeladonMansionRoofHouse_2.asm"
-INCLUDE "scripts/ViridianForest_2.asm"
+; v0.7 T11: scripts/ViridianForest_2.asm deleted with the tips signs - its
+; only content was the five far-text bridges for the forest's signs
 INCLUDE "scripts/SSAnne2FRooms_2.asm"
 INCLUDE "scripts/SilphCo11F_2.asm"
 

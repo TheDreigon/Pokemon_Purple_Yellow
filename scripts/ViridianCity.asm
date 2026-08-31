@@ -275,8 +275,6 @@ ViridianCity_TextPointers:
 	dw_const ViridianCityOldMan2Text,                        TEXT_VIRIDIANCITY_OLD_MAN2
 	dw_const ViridianCitySignText,                           TEXT_VIRIDIANCITY_SIGN
 	dw_const ViridianCitySchoolSignText,                     TEXT_VIRIDIANCITY_SCHOOL_SIGN
-	dw_const ViridianCityTrainerTips1Text,                   TEXT_VIRIDIANCITY_TRAINER_TIPS1
-	dw_const ViridianCityTrainerTips2Text,                   TEXT_VIRIDIANCITY_TRAINER_TIPS2
 	dw_const MartSignText,                                   TEXT_VIRIDIANCITY_MART_SIGN
 	dw_const PokeCenterSignText,                             TEXT_VIRIDIANCITY_POKECENTER_SIGN
 	dw_const ViridianCityGymSignText,                        TEXT_VIRIDIANCITY_GYM_SIGN
@@ -360,16 +358,6 @@ ViridianCitySchoolSignText:
 ViridianCitySignText:
 	text_asm
 	farcall ViridianCityPrintSignText
-	jp TextScriptEnd
-
-ViridianCityTrainerTips1Text:
-	text_asm
-	farcall ViridianCityPrintTrainerTips1Text
-	jp TextScriptEnd
-
-ViridianCityTrainerTips2Text:
-	text_asm
-	farcall ViridianCityPrintTrainerTips2Text
 	jp TextScriptEnd
 
 ViridianCityGymSignText:

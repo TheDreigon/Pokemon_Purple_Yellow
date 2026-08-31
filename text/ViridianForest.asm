@@ -109,51 +109,6 @@ _ViridianForestYoungster6Text::
 	line "extras!"
 	done
 
-_ViridianForestTrainerTips1Text::
-	text "TRAINER TIPS"
-
-	para "If you want to"
-	line "avoid battles,"
-	cont "stay away from"
-	cont "grassy areas!"
-	done
-
-_ViridianForestUsePoisonHealSignText::
-	text "For poison, use a"
-	line "POISON HEAL! Get"
-	cont "one at a MART!"
-	done
-
-_ViridianForestTrainerTips2Text::
-	text "TRAINER TIPS"
-
-	para "Contact PROF.OAK"
-	line "via PC to get"
-	cont "your #DEX"
-	cont "evaluated!"
-	done
-
-_ViridianForestTrainerTips3Text::
-	text "TRAINER TIPS"
-
-	para "No stealing of"
-	line "#MON from"
-	cont "other trainers!"
-	cont "Catch only wild"
-	cont "#MON!"
-	done
-
-_ViridianForestTrainerTips4Text::
-	text "TRAINER TIPS"
-
-	para "Weaken #MON"
-	line "before attempting"
-	cont "capture!"
-
-	para "When healthy,"
-	line "they may escape!"
-	done
-
 
 ; v0.7 (2026-08-30, Forte): the western-corridor toll gate. His class tag
 ; renders "COOLTRAINER(m): " (12 tiles), so the end-battle first row gets 4.

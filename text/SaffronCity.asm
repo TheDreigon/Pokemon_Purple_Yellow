@@ -109,30 +109,6 @@ _SaffronCityGymSignText::
 	line "Psychic #MON!"
 	done
 
-_SaffronCityTrainerTips1Text::
-	text "TRAINER TIPS"
-
-	para "FULL HEAL cures"
-	line "all ailments like"
-	cont "sleep and burns."
-
-	para "It costs a bit"
-	line "more, but it's"
-	cont "more convenient."
-	done
-
-_SaffronCityTrainerTips2Text::
-	text "TRAINER TIPS"
-
-	para "New GREAT BALL"
-	line "offers improved"
-	cont "capture rates."
-
-	para "Try it on those"
-	line "hard-to-catch"
-	cont "#MON."
-	done
-
 _SaffronCitySilphCoSignText::
 	text "SILPH CO."
 	line "OFFICE BUILDING"

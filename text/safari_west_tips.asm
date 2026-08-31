@@ -5,8 +5,9 @@
 ;
 ; Its own floating section: writing the numbers out is longer than the advert
 ; was, and "Text 2" is pinned in layout.link, so it went 12 bytes over the
-; moment this landed in text/SafariZoneWest.asm. Fourth time the pinned Text
-; banks have forced this (tmhmNames, Cerulean's second tip, DAMIAN, this).
+; moment this landed in text/SafariZoneWest.asm. One of many floating text
+; sections the pinned Text banks have forced - text.asm lists them all
+; (the count in an older version of this comment went stale twice).
 
 ; The numbers here are the ones the engine actually uses, so they move with it.
 ; v0.7 catch rework: the ROCK no longer doubles wEnemyMonActualCatchRate. It

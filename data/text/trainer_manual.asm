@@ -71,6 +71,18 @@ _ManualPage_1_5::
 	next "watch them used."
 	done
 
+_ManualPage_1_6::
+	text "Any PC reaches"
+	next "PROF.OAK."
+	next ""
+	next "Choose his line"
+	next "and he will rate"
+	next "your #DEX, and"
+	next "say how far the"
+	next "collection still"
+	next "has to go."
+	done
+
 _ManualPage_2_1::
 	text "Wild #MON live"
 	next "in tall grass, and"
@@ -155,6 +167,17 @@ _ManualPage_2_6::
 	next "confusion all take"
 	next "health, and will"
 	next "finish the job."
+	done
+
+_ManualPage_2_7::
+	text "On the CYCLING"
+	next "ROAD the slope"
+	next "carries you south"
+	next "on its own."
+	next ""
+	next "Hold the A or B"
+	next "Button to stay"
+	next "put."
 	done
 
 _ManualPage_3_1::

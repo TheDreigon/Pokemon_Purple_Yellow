@@ -25,8 +25,6 @@ Route13_TextPointers:
 	dw_const Route13Beauty2Text,       TEXT_ROUTE13_BEAUTY2
 	dw_const Route13BikerText,         TEXT_ROUTE13_BIKER
 	dw_const Route13CooltrainerM3Text, TEXT_ROUTE13_COOLTRAINER_M3
-	dw_const Route13TrainerTips1Text,  TEXT_ROUTE13_TRAINER_TIPS1
-	dw_const Route13TrainerTips2Text,  TEXT_ROUTE13_TRAINER_TIPS2
 	dw_const Route13SignText,          TEXT_ROUTE13_SIGN
 
 Route13TrainerHeaders:
@@ -231,14 +229,6 @@ Route13CooltrainerM3EndBattleText:
 
 Route13CooltrainerM3AfterBattleText:
 	text_far _Route13CooltrainerM3AfterBattleText
-	text_end
-
-Route13TrainerTips1Text:
-	text_far _Route13TrainerTips1Text
-	text_end
-
-Route13TrainerTips2Text:
-	text_far _Route13TrainerTips2Text
 	text_end
 
 Route13SignText:

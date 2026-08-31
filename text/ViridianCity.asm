@@ -219,52 +219,6 @@ _ViridianCitySignText::
 	cont "Green Paradise"
 	done
 
-_ViridianCityTrainerTips1Text::
-	text "TRAINER TIPS"
-
-	para "Catch #MON"
-	line "and expand your"
-	cont "collection!"
-
-	para "Many #MON"
-	line "have recently"
-	cont "moved habitats."
-	
-	para "Keep an eye out"
-	line "on new routes"
-	cont "for unexpected"
-	cont "species!"
-	done
-
-_ViridianCityTrainerTips2Text::
-	text "TRAINER TIPS"
-
-	para "The battle moves"
-	line "of #MON are"
-	cont "limited by their"
-	cont "POWER POINTs, PP.@"
-	text_end
-
-; The tail depends on difficulty: DecrementEnemyPP returns early on hard mode,
-; so only there do enemy trainers keep vanilla's infinite PP.
-_ViridianCityTrainerTips2NormalText::
-	text_start
-
-	para "Enemy trainers"
-	line "run dry too."
-
-	para "Outlast one and"
-	line "it must STRUGGLE!"
-	done
-
-_ViridianCityTrainerTips2HardText::
-	text_start
-
-	para "Enemy trainers"
-	line "are not limited"
-	cont "by this, however!"
-	done
-
 _ViridianCityGymSignText::
 	text "VIRIDIAN CITY"
 	line "#MON GYM"

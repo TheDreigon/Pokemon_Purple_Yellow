@@ -76,17 +76,6 @@ _PewterCityYoungsterGoTakeOnBrockText::
 	cont "take on BROCK!"
 	done
 
-_PewterCityTrainerTipsText::
-	text "TRAINER TIPS"
-
-	para "On a #MON's"
-	line "STATS page:"
-
-	para "hold START to see"
-	line "its DVs, SELECT"
-	cont "for its STAT EXP."
-	done
-
 _PewterCityPoliceNoticeSignText::
 	text "NOTICE!"
 

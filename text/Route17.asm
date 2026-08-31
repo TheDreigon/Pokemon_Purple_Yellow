@@ -155,27 +155,6 @@ _Route17NoticeSign1Text::
 	line "discarded items!"
 	done
 
-_Route17TrainerTips1Text::
-	text "TRAINER TIPS"
-
-	para "All #MON are"
-	line "unique."
-
-	para "Even #MON of"
-	line "the same type and"
-	cont "level grow at"
-	cont "different rates."
-	done
-
-_Route17TrainerTips2Text::
-	text "TRAINER TIPS"
-
-	para "Press the A or B"
-	line "Button to stay in"
-	cont "place while on a"
-	cont "slope."
-	done
-
 _Route17SignText::
 	text "ROUTE 17"
 	line "CELADON CITY -"

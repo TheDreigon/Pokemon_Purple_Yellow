@@ -887,30 +887,36 @@ TrainerManualChapterPages:
 	dw TrainerManualChapter6Pages
 	dw TrainerManualChapter7Pages
 
+; v0.7 (2026-08-31): chapters 1 and 2 each grew a section when the TRAINER
+; TIPS signs came down (Forte's T11) - the two facts nothing else in the
+; game taught: the #DEX rating over a PC (was a Viridian Forest sign) and
+; the Cycling Road slope control (was a Route 17 sign).
 TrainerManualChapter1Sections:
-	db 5
+	db 6
 	manual_section TrainerManualSection1_1, 0
 	manual_section TrainerManualSection1_2, 1
 	manual_section TrainerManualSection1_3, 2
 	manual_section TrainerManualSection1_4, 3
 	manual_section TrainerManualSection1_5, 4
+	manual_section TrainerManualSection1_6, 5
 TrainerManualChapter1Pages:
-	db 5
+	db 6
 	dw ManualPage_1_1, ManualPage_1_2, ManualPage_1_3
-	dw ManualPage_1_4, ManualPage_1_5
+	dw ManualPage_1_4, ManualPage_1_5, ManualPage_1_6
 
 TrainerManualChapter2Sections:
-	db 6
+	db 7
 	manual_section TrainerManualSection2_1, 0
 	manual_section TrainerManualSection2_2, 1
 	manual_section TrainerManualSection2_3, 2
 	manual_section TrainerManualSection2_4, 3
 	manual_section TrainerManualSection2_5, 4
 	manual_section TrainerManualSection2_6, 5
+	manual_section TrainerManualSection2_7, 6
 TrainerManualChapter2Pages:
-	db 6
+	db 7
 	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
-	dw ManualPage_2_5, ManualPage_2_6
+	dw ManualPage_2_5, ManualPage_2_6, ManualPage_2_7
 
 TrainerManualChapter3Sections:
 	db 5
@@ -991,6 +997,8 @@ TrainerManualSection1_4:
 	db "THE MOVE CARD@"
 TrainerManualSection1_5:
 	db "THE MOVEDEX@"
+TrainerManualSection1_6:
+	db "#DEX RATING@"
 
 TrainerManualSection2_1:
 	db "WHERE THEY LIVE@"
@@ -1004,6 +1012,8 @@ TrainerManualSection2_5:
 	db "HOW A BALL LANDS@"
 TrainerManualSection2_6:
 	db "WHAT AILS IT@"
+TrainerManualSection2_7:
+	db "ON A SLOPE@"
 
 TrainerManualSection3_1:
 	db "SPECIAL@"
@@ -1073,6 +1083,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_1_3
 	manual_page ManualPage_1_4
 	manual_page ManualPage_1_5
+	manual_page ManualPage_1_6
 
 	manual_page ManualPage_2_1
 	manual_page ManualPage_2_2
@@ -1080,6 +1091,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_2_4
 	manual_page ManualPage_2_5
 	manual_page ManualPage_2_6
+	manual_page ManualPage_2_7
 
 	manual_page ManualPage_3_1
 	manual_page ManualPage_3_2
@@ -1116,10 +1128,11 @@ TrainerManualSection7_4:
 	manual_page ManualPage_7_3
 	manual_page ManualPage_7_4
 
-; A page with a hard-mode twin. The PP page is the second place in the game to
-; read the difficulty and tell the truth for each setting -- the Viridian PP
-; sign was the first. A table rather than a test on the page index, so nothing
-; here has to know which chapter it is.
+; A page with a hard-mode twin. The PP page is now the ONLY place in the game
+; to read the difficulty and tell the truth for each setting -- the Viridian
+; PP sign did it first, and came down with the rest of the tips signs (T11,
+; 2026-08-31). A table rather than a test on the page index, so nothing here
+; has to know which chapter it is.
 TrainerManualHardPages:
 	dw ManualPage_5_2, ManualPage_5_2_Hard
 	dw 0 ; end

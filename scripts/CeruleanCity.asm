@@ -236,12 +236,10 @@ CeruleanCity_TextPointers:
 	dw_const CeruleanCitySuperNerd3Text,    TEXT_CERULEANCITY_SUPER_NERD3
 	dw_const CeruleanCityGuardText,         TEXT_CERULEANCITY_GUARD2
 	dw_const CeruleanCitySignText,          TEXT_CERULEANCITY_SIGN
-	dw_const CeruleanCityTrainerTipsText,   TEXT_CERULEANCITY_TRAINER_TIPS
 	dw_const MartSignText,                  TEXT_CERULEANCITY_MART_SIGN
 	dw_const PokeCenterSignText,            TEXT_CERULEANCITY_POKECENTER_SIGN
 	dw_const CeruleanCityBikeShopSign,      TEXT_CERULEANCITY_BIKESHOP_SIGN
 	dw_const CeruleanCityGymSign,           TEXT_CERULEANCITY_GYM_SIGN
-	dw_const CeruleanCityTrainerTips2Text,  TEXT_CERULEANCITY_TRAINER_TIPS2
 
 CeruleanCityRivalText:
 	text_asm
@@ -436,14 +434,6 @@ CeruleanCitySuperNerd3Text:
 
 CeruleanCitySignText:
 	text_far _CeruleanCitySignText
-	text_end
-
-CeruleanCityTrainerTipsText:
-	text_far _CeruleanCityTrainerTipsText
-	text_end
-
-CeruleanCityTrainerTips2Text:
-	text_far _CeruleanCityTrainerTips2Text
 	text_end
 
 CeruleanCityBikeShopSign:

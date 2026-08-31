@@ -26,11 +26,6 @@ ViridianForest_TextPointers:
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POKE_BALL
 	dw_const ViridianForestYoungster6Text,      TEXT_VIRIDIANFOREST_YOUNGSTER6
 	dw_const ViridianForestCooltrainerMText,    TEXT_VIRIDIANFOREST_COOLTRAINER_M
-	dw_const ViridianForestTrainerTips1Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS1
-	dw_const ViridianForestUsePoisonHealSignText, TEXT_VIRIDIANFOREST_USE_POISON_HEAL_SIGN
-	dw_const ViridianForestTrainerTips2Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS2
-	dw_const ViridianForestTrainerTips3Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS3
-	dw_const ViridianForestTrainerTips4Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS4
 
 ViridianForestTrainerHeaders:
 	def_trainers 2
@@ -159,36 +154,3 @@ ViridianForestYoungster5AfterBattleText:
 ViridianForestYoungster6Text:
 	text_far _ViridianForestYoungster6Text
 	text_end
-
-ViridianForestTrainerTips1Text:
-	text_asm
-	ld hl, ViridianForestPrintTrainerTips1Text
-	jp ViridianForestSign_Common
-
-ViridianForestUsePoisonHealSignText:
-	text_asm
-	ld hl, ViridianForestPrintUsePoisonHealSignText
-	jp ViridianForestSign_Common
-
-ViridianForestTrainerTips2Text:
-	text_asm
-	ld hl, ViridianForestPrintTrainerTips2Text
-	jp ViridianForestSign_Common
-
-ViridianForestTrainerTips3Text:
-	text_asm
-	ld hl, ViridianForestPrintTrainerTips3Text
-	jp ViridianForestSign_Common
-
-ViridianForestTrainerTips4Text:
-	text_asm
-	ld hl, ViridianForestPrintTrainerTips4Text
-	jp ViridianForestSign_Common
-
-; The LEAVING sign was removed at Forte's request (task list, 2026-08-06):
-; its bg_event, text-table entry, this stub and the far text are all gone.
-; ViridianForestSign_Common stays -- the other signs funnel through it.
-ViridianForestSign_Common:
-	ld b, BANK(ViridianForestPrintTrainerTips1Text)
-	call Bankswitch
-	jp TextScriptEnd

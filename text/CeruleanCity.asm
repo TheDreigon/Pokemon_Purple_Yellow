@@ -210,20 +210,6 @@ _CeruleanCitySignText::
 	cont "Surrounds It"
 	done
 
-_CeruleanCityTrainerTipsText::
-	text "TRAINER TIPS"
-
-	para "Fast #MON land"
-	line "more critical"
-	cont "hits."
-
-	para "Some moves double"
-	line "those odds."
-
-	para "FOCUS ENERGY"
-	line "triples them!"
-	done
-
 _CeruleanCityBikeShopSign::
 	text "Grass and caves"
 	line "handled easily!"
