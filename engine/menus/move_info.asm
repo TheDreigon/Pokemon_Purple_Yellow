@@ -115,7 +115,7 @@ ShowMoveInfo::
 	and a
 	jr nz, .damaging
 	ld a, [wPlayerMoveEffect]
-	cp SPECIAL_DAMAGE_EFFECT ; NIGHT_SHADE, SEISMIC TOSS, DRAGON RAGE...
+	cp USER_LEVEL_DAMAGE_EFFECT ; NIGHT_SHADE is written with power 0
 	jr z, .damaging
 	cp SUPER_FANG_EFFECT
 	jr z, .damaging

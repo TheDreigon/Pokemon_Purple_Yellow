@@ -5310,10 +5310,12 @@ ApplyAttackToEnemyPokemon:
 	ld a, [wPlayerMoveEffect]
 	cp SUPER_FANG_EFFECT
 	jr z, .superFangEffect
-	cp SPECIAL_DAMAGE_EFFECT
-	jr z, .specialDamage
 	cp TARGET_LEVEL_DAMAGE_EFFECT
 	jr z, .targetLevelDamage
+	cp USER_LEVEL_DAMAGE_EFFECT
+	jr z, .userLevelDamage
+	cp SET_DAMAGE_EFFECT
+	jr z, .setDamage
 	ld a, [wPlayerMovePower]
 	and a
 	jp z, ApplyAttackToEnemyPokemonDone ; no attack to apply if base power is 0
@@ -5336,37 +5338,21 @@ ApplyAttackToEnemyPokemon:
 	ld a, $01
 	ld [de], a
 	jr ApplyDamageToEnemyPokemon
-.specialDamage
-	ld hl, wBattleMonLevel
-	ld a, [hl]
-	ld b, a ; Night Shade deals damage equal to the user's level
+; v0.7 clarity split (Forte, 2026-08-31): the old SPECIAL_DAMAGE black box
+; (with its unreachable Psywave random-damage tail - PSYWAVE is a flinch
+; move since v0.5) became three self-naming effects.
+.userLevelDamage
+; NIGHT SHADE hits for the USER's own level.
+	ld a, [wBattleMonLevel]
+	ld b, a
+	jr .storeDamage
+.setDamage
+; fixed damage by move: DRAGON RAGE 50, SONICBOOM 25.
+	ld b, DRAGON_RAGE_DAMAGE
 	ld a, [wPlayerMoveNum]
-	cp NIGHT_SHADE
-	jr z, .storeDamage
-	ld b, SONICBOOM_DAMAGE ; 25
-	cp SONICBOOM
-	jr z, .storeDamage
-	ld b, DRAGON_RAGE_DAMAGE ; 50
 	cp DRAGON_RAGE
 	jr z, .storeDamage
-; Psywave
-	push bc
-	ld a, [hl]
-	ld b, a
-	srl a
-	add b
-	ld b, a ; b = level * 1.5
-; loop until a random number in the range [level, b) is found
-.loop
-	call BattleRandom
-	ld c, a ; store the random number in 'c'
-	ld a, [wBattleMonLevel]
-	add c ; add the level to the random number
-	jr c, .loop ; if carry is set (overflow), generate a new random number
-	cp b
-	jr nc, .loop
-	pop bc
-	ld b, a
+	ld b, SONICBOOM_DAMAGE
 	jr .storeDamage
 .targetLevelDamage
 ; v0.7 T12 (Forte, 2026-08-31): SEISMIC TOSS hits for the TARGET's level.
@@ -5437,10 +5423,12 @@ ApplyAttackToPlayerPokemon:
 	ld a, [wEnemyMoveEffect]
 	cp SUPER_FANG_EFFECT
 	jr z, .superFangEffect
-	cp SPECIAL_DAMAGE_EFFECT
-	jr z, .specialDamage
 	cp TARGET_LEVEL_DAMAGE_EFFECT
 	jr z, .targetLevelDamage
+	cp USER_LEVEL_DAMAGE_EFFECT
+	jr z, .userLevelDamage
+	cp SET_DAMAGE_EFFECT
+	jr z, .setDamage
 	ld a, [wEnemyMovePower]
 	and a
 	jp z, ApplyAttackToPlayerPokemonDone
@@ -5463,37 +5451,19 @@ ApplyAttackToPlayerPokemon:
 	ld a, $01
 	ld [de], a
 	jr ApplyDamageToPlayerPokemon
-.specialDamage
-	ld hl, wEnemyMonLevel
-	ld a, [hl]
-	ld b, a ; Night Shade deals damage equal to the user's level
-	ld a, [wEnemyMoveNum]
-	cp NIGHT_SHADE
-	jr z, .storeDamage
-	ld b, SONICBOOM_DAMAGE
-	cp SONICBOOM
-	jr z, .storeDamage
+; v0.7 clarity split (Forte, 2026-08-31): mirror of the player side above.
+.userLevelDamage
+; NIGHT SHADE hits for the USER's own level.
+	ld a, [wEnemyMonLevel]
+	ld b, a
+	jr .storeDamage
+.setDamage
+; fixed damage by move: DRAGON RAGE 50, SONICBOOM 25.
 	ld b, DRAGON_RAGE_DAMAGE
+	ld a, [wEnemyMoveNum]
 	cp DRAGON_RAGE
 	jr z, .storeDamage
-; Psywave
-	push bc
-	ld a, [hl]
-	ld b, a
-	srl a
-	add b
-	ld b, a ; b = attacker's level * 1.5
-; loop until a random number in the range [level, b) is found
-.loop
-	call BattleRandom
-	ld c, a ; store the random number in 'c'
-	ld a, [wEnemyMonLevel]
-	add c ; add the level to the random number
-	jr c, .loop ; if carry is set (overflow), generate a new random number
-	cp b
-	jr nc, .loop
-	pop bc
-	ld b, a
+	ld b, SONICBOOM_DAMAGE
 	jr .storeDamage
 .targetLevelDamage
 ; v0.7 T12 (Forte, 2026-08-31): SEISMIC TOSS hits for the TARGET's level.

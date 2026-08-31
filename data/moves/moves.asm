@@ -36,7 +36,7 @@ Moves: ; Current total = 219
 
 
 	; === DRAGON TYPE (6 moves) ===
-	move DRAGON_RAGE,    SPECIAL_DAMAGE_EFFECT,             1, DRAGON,       100, 20 ; set damage from 40 to 50.
+	move DRAGON_RAGE,    SET_DAMAGE_EFFECT,                 1, DRAGON,       100, 20 ; set damage from 40 to 50.
 	move DRAGON_CLAW,    NO_ADDITIONAL_EFFECT,             60, DRAGON,       100, 25 ; new move. high-crit.
 	move DRAGON_BREATH,  PARALYZE_SIDE_EFFECT2,            75, DRAGON,       100, 20 ; new move.
 	move DRAGON_SLAM,    RECOIL_EFFECT,                    95, DRAGON,        95, 15 ; new move.
@@ -116,7 +116,7 @@ Moves: ; Current total = 219
 
 
 	; === GHOST TYPE (9 moves) ===
-	move NIGHT_SHADE,    SPECIAL_DAMAGE_EFFECT,             0, GHOST,        100, 20
+	move NIGHT_SHADE,    USER_LEVEL_DAMAGE_EFFECT,          0, GHOST,        100, 20
 	move LICK,           PARALYZE_SIDE_EFFECT2,            20, GHOST,        100, 30
 	move ASTONISH,       FLINCH_SIDE_EFFECT2,              40, GHOST,        100, 30 ; new move.
 	move SHADOW_SNEAK,   NO_ADDITIONAL_EFFECT,             45, GHOST,        100, 20 ; new move. priority move.
@@ -230,7 +230,7 @@ Moves: ; Current total = 219
 	move CUT,            NO_ADDITIONAL_EFFECT,             60, STEEL,        100, 25 ; high-crit.
 	move IRON_TAIL,      DEFENSE_DOWN_SIDE_EFFECT,         65, STEEL,         90, 25 ; new move.
 	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,         95, 20 ; new move.
-	move SONICBOOM,      SPECIAL_DAMAGE_EFFECT,             1, STEEL,        100, 20 ; almost-signature (Magnemite-line + ball-line). set damage from 20 to 25.
+	move SONICBOOM,      SET_DAMAGE_EFFECT,                 1, STEEL,        100, 20 ; almost-signature (Magnemite-line + ball-line). set damage from 20 to 25.
 	move BULLET_PUNCH,   NO_ADDITIONAL_EFFECT,             45, STEEL,        100, 20 ; new move. punchers' trio (Machamp/Hitmonchan/Electabuzz). priority move.
 	move MAGNET_BOMB,    SWIFT_EFFECT,                    100, STEEL,        100, 10 ; new move. magnetic circle (4 learners).
 

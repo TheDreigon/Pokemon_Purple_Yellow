@@ -41,7 +41,7 @@ MoveEffectPointerTable:
 	dw RemovedMoveEffect         ; OHKO_EFFECT (Horn Drill/Fissure/Guillotine repurposed in v0.5)
 	dw ChargeEffect              ; CHARGE_EFFECT
 	dw NULL                      ; SUPER_FANG_EFFECT
-	dw NULL                      ; SPECIAL_DAMAGE_EFFECT
+	dw NULL                      ; UNUSED_SPECIAL_DAMAGE_EFFECT (dead slot - see move_effect_constants.asm)
 	dw TrappingEffect            ; TRAPPING_EFFECT
 	dw ChargeEffect              ; FLY_EFFECT
 	dw TwoToFiveAttacksEffect    ; ATTACK_TWICE_EFFECT
@@ -100,5 +100,7 @@ MoveEffectPointerTable:
 	dw SpecialAccuracyUp1Effect  ; SPECIAL_ACCURACY_UP1_EFFECT
 	dw FreezeBurnParalyzeEffect  ; BURN_SIDE_EFFECT3
 	dw NULL                      ; FALSE_SWIPE_EFFECT (the 1 HP clamp lives at the damage-apply hook in core.asm, not here)
-	dw NULL                      ; TARGET_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon, like SPECIAL_DAMAGE)
+	dw NULL                      ; TARGET_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
+	dw NULL                      ; USER_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
+	dw NULL                      ; SET_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
 	assert_table_length NUM_MOVE_EFFECTS

@@ -45,7 +45,11 @@
 	const OHKO_EFFECT                ; $26 moves like Horn Drill
 	const CHARGE_EFFECT              ; $27 moves like Solar Beam
 	const SUPER_FANG_EFFECT          ; $28
-	const SPECIAL_DAMAGE_EFFECT      ; $29 Seismic Toss, Night Shade, Sonic Boom, Dragon Rage, Psywave
+	const UNUSED_SPECIAL_DAMAGE_EFFECT ; $29 DEAD SLOT (2026-08-31, Forte's clarity pass). Was the Gen 1 "special damage"
+	                                 ; black box (Seismic Toss, Night Shade, Sonic Boom, Dragon Rage, Psywave). v0.5
+	                                 ; reworked PSYWAVE into a flinch move; v0.7 split the rest into the self-naming
+	                                 ; TARGET_LEVEL_DAMAGE / USER_LEVEL_DAMAGE / SET_DAMAGE effects below. Kept so the
+	                                 ; ids that follow never renumber.
 	const TRAPPING_EFFECT            ; $2A moves like Wrap
 	const FLY_EFFECT                 ; $2B
 	const ATTACK_TWICE_EFFECT        ; $2C
@@ -104,5 +108,7 @@
 	const SPECIAL_ACCURACY_UP1_EFFECT ; $61  user Spc+1 & Acc+1 (new Calm Mind). Mirror pattern of ATTACK_ACCURACY_UP1_EFFECT.
 	const BURN_SIDE_EFFECT3          ; $62  45% burn chance (Lava Plume). Heaviest tier of the 15/30/45 burn ladder.
 	const FALSE_SWIPE_EFFECT         ; $63  damage that always leaves the target with at least 1 HP - never KOs (False Swipe).
-	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31). NIGHT SHADE keeps SPECIAL_DAMAGE_EFFECT = the user's level.
+	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31).
+	const USER_LEVEL_DAMAGE_EFFECT   ; $65  damage equals the USER's level (Night Shade; clarity split of $29, 2026-08-31).
+	const SET_DAMAGE_EFFECT          ; $66  fixed damage by move: DRAGON RAGE 50, SONICBOOM 25 (clarity split of $29, 2026-08-31).
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
