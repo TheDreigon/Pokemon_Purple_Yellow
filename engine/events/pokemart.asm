@@ -162,6 +162,7 @@ DisplayPokemartDialogue_::
 	ld a, 99
 	ld [wMaxItemQuantity], a
 	call CapQuantityByPrice
+	call CapQuantityByMoney
 	xor a
 	ldh [hHalveItemPrices], a ; don't halve item prices when buying
 	call DisplayChooseQuantityMenu
@@ -288,6 +289,62 @@ CapQuantityByPrice:
 ; 999999 / N9999, the largest quantity that cannot overflow the BCD total.
 ; Index 0 is never read (handled by the early return above).
 	db 99, 50, 33, 25, 20, 16, 14, 12, 11, 10
+
+CapQuantityByMoney:
+; v0.7 (2026-08-31, Forte's playtest): pressing Down on x01 wraps the buy
+; quantity to the menu maximum, which used to mean x99 no matter the
+; wallet. Cap the maximum at floor(money / price) instead, so the wrap
+; (and D-RIGHT's +10 clamp) lands on the most the player can actually
+; pay right now. Floored at 1: when even one is out of reach the player
+; still selects it and the NotEnoughMoney line keeps its job, exactly as
+; before. Buy path only - selling has no money constraint.
+; In: hItemPrice = unit price (BCD; GetItemPrice ran in CapQuantityByPrice).
+; Uses hMoney as scratch - the quantity menu rebuilds it from zero before
+; showing any total. Only ever lowers wMaxItemQuantity.
+	ld hl, wPlayerMoney
+	ld de, hMoney
+	ld bc, 3
+	call CopyData
+	ld b, 0 ; how many units the wallet covers
+.count
+	ld de, hMoney
+	ld hl, hItemPrice
+	ld c, 3
+	call StringCmp ; preserves b; carry set when remainder < price
+	jr c, .floor
+; remainder -= price: the same BCD chain as SubBCD, inlined because a
+; predef per iteration would bank-switch up to 99 times. No underflow is
+; possible - the compare above just proved remainder >= price.
+	ld de, hMoney + 2
+	ld hl, hItemPrice + 2
+	ld c, 3
+	and a
+.subtract
+	ld a, [de]
+	sbc [hl]
+	daa
+	ld [de], a
+	dec de
+	dec hl
+	dec c
+	jr nz, .subtract
+	inc b
+	ld a, b
+	cp 99 ; the two-digit widget can never offer more
+	jr c, .count
+	jr .clamp
+.floor
+	ld a, b
+	and a
+	jr nz, .clamp
+	inc b ; b = 1
+.clamp
+	ld a, [wMaxItemQuantity]
+	cp b
+	ret c ; the existing cap (price tier / caller) is already lower
+	ld a, b
+	ld [wMaxItemQuantity], a
+	ret
 
 PokemartBuyingGreetingText:
 	text_far _PokemartBuyingGreetingText
