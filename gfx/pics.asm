@@ -265,9 +265,11 @@ PidgeotPicBack::       INCBIN "gfx/pokemon/back/pidgeotb.pic"
 SECTION "Pics 5", ROMX
 
 ; STARMIE ($98) lives here, not in "Pics 4": Forte's sprite pass pushed that
-; section five bytes past a full bank. The threshold in home/pics.asm moved
-; with it - the bank a mon's pic is read from is decided there by INTERNAL
-; INDEX, so a pic can never be moved on its own.
+; section five bytes past a full bank.
+; (2026-08-31: the sentence that used to follow described the old
+; internal-index bank ladder - OBSOLETE since the v0.7 per-mon pic-bank
+; byte in base_stats. Pics can live in any section in any bank now; only
+; the fossil/ghost trio is still special-cased in home/pics.asm.)
 StarmiePicFront::      INCBIN "gfx/pokemon/front/starmie.pic"
 StarmiePicBack::       INCBIN "gfx/pokemon/back/starmieb.pic"
 

@@ -97,8 +97,10 @@ ROMX $E
 ROMX $F
 	"Battle Core"
 ROMX $10
+	; v0.7 (2026-08-31, expansion prep): "Trainer Pics 2" moved out to bank
+	; $44 - this bank holds the dex entry blobs, which grow ~18 B per new
+	; species, and was down to 80 B free.
 	"bank10"
-	"Trainer Pics 2"
 ROMX $11
 	"Maps 5"
 	"Pokédex Rating"
@@ -186,9 +188,6 @@ ROMX $20
 	"Music Headers 4"
 	"Sound Effects 4"
 	"Audio Engine 4"
-	; appended AFTER the audio machinery: the header-at-top org rule (see
-	; the $42 comment) only constrains what comes first in the bank
-	"Mon Icons 2"
 	"Music 4"
 ROMX $21
 	"Pikachu Cries 1"
@@ -282,8 +281,9 @@ ROMX $3A
 	; neither has to be moved when the manual grows.
 	"Trainer Manual"
 ROMX $3B
+	; v0.7 (2026-08-31, expansion prep): "Trainer Pics 3" moved out to bank
+	; $44 - evos_moves lives here and grows ~36 B per new species.
 	"Battle Engine 10"
-	"Trainer Pics 3"
 	"NPC Sprites 3"
 ROMX $3C
 	"Pikachu PCM"
@@ -319,6 +319,19 @@ ROMX $42
 	"Sound Effects 5"
 	"Audio Engine 5"
 	"Music 5"
+; v0.7 (2026-08-31, expansion prep): banks $43+ were virgin (the ROM is
+; 2 MB / MBC5, banks run to $7F). The species-growth tenants that were
+; wedged into full banks move here so the future ~196-species expansion
+; has room where it will actually be spent. Pic banks for new species
+; ("Pics 8", "Pics 9", ...) should also be opened here when the time comes.
+ROMX $43
+	; party icons for dex ids >= 128: grows 128 B per new species past
+	; dex 127 - at ~196 species this section wants ~9.3 KB.
+	"Mon Icons 2"
+ROMX $44
+	; frozen data (trainer pics never grow with species) - parked together.
+	"Trainer Pics 2"
+	"Trainer Pics 3"
 WRAM0
 	"Audio RAM"
 	org $c100

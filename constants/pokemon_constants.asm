@@ -199,6 +199,17 @@
 	const VICTREEBEL         ; $BE
 
 DEF NUM_POKEMON_INDEXES EQU const_value - 1
+; 🔴 Internal species indexes share one byte with trainer classes:
+; wCurOpponent / wEnemyMonSpecies2 >= OPP_ID_OFFSET (200) means TRAINER
+; (init_battle, battle_transitions, home/trainers, hard_mode all compare
+; against it). The class space is ALSO full at the top (OPP_BILL = 254;
+; $FF is the -1 terminator OPP-keyed scans stop on). So species indexes
+; are hard-capped at 199 - with the 3 pseudo-species (fossils + ghost)
+; kept, the real ceiling is 196 species: 151 today + the 36 MISSINGNO
+; const_skip holes + the 9 tail ids $BF-$C7. Expansion survey 2026-08-31:
+; Notes/"Especies 151-196 - levantamento".
+ASSERT NUM_POKEMON_INDEXES < OPP_ID_OFFSET, \
+	"species indexes ran into the trainer-class space at OPP_ID_OFFSET"
 
 ; player starter
 DEF STARTER_PIKACHU EQU PIKACHU

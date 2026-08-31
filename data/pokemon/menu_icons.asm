@@ -1,4 +1,8 @@
 MonPartyData:
+; one byte per DEX id. v0.7 (2026-08-31): this was the only per-species
+; table with no length guard - growing the dex without adding a row here
+; failed silently (garbage icon for the new species).
+	table_width 1, MonPartyData
 	db ICON_BULBASAUR     ; Bulbasaur
 	db ICON_IVYSAUR       ; Ivysaur
 	db ICON_VENUSAUR      ; Venusaur
@@ -150,3 +154,4 @@ MonPartyData:
 	db ICON_DRAGONITE     ; Dragonite
 	db ICON_MEWTWO        ; Mewtwo
 	db ICON_MEW           ; Mew
+	assert_table_length NUM_POKEMON

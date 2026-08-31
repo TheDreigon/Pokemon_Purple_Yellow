@@ -342,3 +342,7 @@ DEF NUM_ATTACK_ANIMS EQU const_value - 1
 ; absolute max for any id.
 ASSERT NUM_ATTACK_ANIMS <= 255, \
 	"anim-id space overflow: {d:NUM_ATTACK_ANIMS} ids for a 1-byte wAnimationID - free ANIM_* slots or split the special anims"
+; The blessed expansion ceiling (Forte, 2026-08-31): up to 254 moves - $FF
+; stays reserved (list terminators), and 248/256 are forbidden counts
+; (movedex_seen's % 8 assert). See Notes/"Tecto de moves 220-250".
+ASSERT NUM_ATTACKS <= 254, "the blessed move ceiling is 254 ($FF is reserved)"
