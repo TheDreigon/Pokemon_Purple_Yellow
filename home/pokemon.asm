@@ -84,6 +84,17 @@ LoadMonData::
 LoadFlippedFrontSpriteByMonIndex::
 	ld a, 1
 	ld [wSpriteFlipped], a
+; v0.7 (2026-08-31, Forte's request): the flipped entry serves exactly the
+; two screens that show a SPECIFIC individual the player owns - the status
+; screen and the evolution scene - so this is where a non-partner Pikachu
+; swaps to its own front pic (the G/S Silver import). wLoadedMon holds the
+; individual for the status screen; the evolution scene arms the swap
+; unconditionally in Evolution_LoadPic before it reaches here, and this
+; call can only repeat that swap, never undo it. hl is this routine's
+; screen destination, and callfar tramples hl.
+	push hl
+	callfar UseFakePikachuFrontPicUnlessStarter
+	pop hl
 
 LoadFrontSpriteByMonIndex::
 	push hl

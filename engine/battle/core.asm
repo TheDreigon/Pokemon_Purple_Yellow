@@ -1470,6 +1470,8 @@ EnemySendOutFirstMon:
 	ld [wcf91], a
 	ld [wd0b5], a
 	call GetMonHeader
+; v0.7: an enemy Pikachu is never the partner - show the fake's pic
+	callfar UseFakePikachuFrontPic
 	ld de, vFrontPic
 	call LoadMonFrontSprite
 	ld a, -$31
@@ -2776,6 +2778,8 @@ PartyMenuOrRockOrRun:
 	ld [wcf91], a
 	ld [wd0b5], a
 	call GetMonHeader
+; v0.7: an enemy Pikachu is never the partner - show the fake's pic
+	callfar UseFakePikachuFrontPic
 	ld de, vFrontPic
 	call LoadMonFrontSprite
 	jr .enemyMonPicReloaded

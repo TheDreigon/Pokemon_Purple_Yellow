@@ -107,6 +107,8 @@ InitWildBattle:
 	ld [wcf91], a
 	jr .spriteLoaded
 .isNoGhost
+; v0.7: a wild Pikachu is never the partner - show the fake's pic
+	callfar UseFakePikachuFrontPic
 	ld de, vFrontPic
 	call LoadMonFrontSprite ; load mon sprite
 .spriteLoaded

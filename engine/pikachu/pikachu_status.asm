@@ -149,6 +149,49 @@ asm_fce21:
 	scf
 	ret
 
+UseFakePikachuFrontPic::
+; v0.7 (2026-08-31, Forte's request): the second Pikachu. The partner
+; keeps the Yellow front pic; every OTHER Pikachu - the wild ones and
+; anything caught from them, the ones that CAN evolve - shows the G/S
+; Silver import instead. Call after GetMonHeader (or LoadMonData) and
+; before the front pic load: if the loaded header is Pikachu's, repoint
+; wMonHeader's front pointer and pic bank at PikachuFakePicFront. Both
+; pics are 5x5, so the dim byte needs no touch. The header is a scratch
+; copy - the next GetMonHeader rebuilds it from base stats.
+;
+; This entry is UNCONDITIONAL on purpose: it serves the battle-enemy
+; loads and the evolution scene, where a Pikachu can never be the
+; partner (the partner refuses to evolve and never fights for the
+; other side).
+;
+; wMonHIndex holds the INTERNAL species id, not the dex id: GetMonHeader
+; copies the base-stats row (whose byte 0 is the dex id) and then
+; overwrites wMonHIndex with [wd0b5] as its last act.
+	ld a, [wMonHIndex]
+	cp STARTER_PIKACHU
+	ret nz
+.repoint
+	ld a, LOW(PikachuFakePicFront)
+	ld [wMonHFrontSprite], a
+	ld a, HIGH(PikachuFakePicFront)
+	ld [wMonHFrontSprite + 1], a
+	ld a, BANK(PikachuFakePicFront)
+	ld [wMonHPicBank], a
+	ret
+
+UseFakePikachuFrontPicUnlessStarter::
+; the status-screen variant: here the individual under the cursor CAN be
+; the partner, and wLoadedMon holds it (LoadMonData ran). The partner is
+; the one Pikachu whose catch-rate byte is LIGHT_BALL_GSC - the same
+; marker the follower gate tests.
+	ld a, [wMonHIndex]
+	cp STARTER_PIKACHU ; internal id - see above
+	ret nz
+	ld a, [wLoadedMonCatchRate]
+	cp LIGHT_BALL_GSC
+	ret z ; the partner: Yellow pic stays
+	jr UseFakePikachuFrontPic.repoint
+
 UpdatePikachuMoodAfterBattle::
 ; because d is always $82 at this function, it serves to
 ; ensure Pikachu's mood is at least 130 after battle

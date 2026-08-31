@@ -95,6 +95,12 @@ EvolutionSetWholeScreenPalette:
 
 Evolution_LoadPic:
 	call GetMonHeader
+; v0.7: a Pikachu in the evolution scene is never the partner (the partner
+; refuses to evolve) - arm the fake pic swap here, unconditionally, because
+; wLoadedMon is not reliably this individual by the time the home hook in
+; LoadFlippedFrontSpriteByMonIndex reads it. That hook can only repeat the
+; swap, never undo it.
+	callfar UseFakePikachuFrontPic
 	hlcoord 7, 2
 	jp LoadFlippedFrontSpriteByMonIndex
 
