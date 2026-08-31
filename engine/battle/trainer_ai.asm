@@ -1794,7 +1794,11 @@ AIIncreaseStat:
 	ld a, [hl]
 	push af
 	push hl
+; v0.7 anim split: same borrow as the player's X item - the marker goes
+; into wEnemyMoveNum, the real index parks in hSpecialAnimIndex.
 	ld a, XSTATITEM_DUPLICATE_ANIM
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [hli], a
 	ld [hl], b
 	xor a

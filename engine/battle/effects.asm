@@ -151,8 +151,8 @@ PoisonEffect:
 	ld a, [de]
 	cp POISON_EFFECT
 	jr z, .regularPoisonEffect
-	ld a, b
-	call PlayBattleAnimation2
+	ld a, b ; SHAKE_SCREEN_ANIM or ENEMY_HUD_SHAKE_ANIM - both specials
+	call PlaySpecialBattleAnimation2
 	jp PrintText
 .regularPoisonEffect
 	call PlayCurrentMoveAnimation2
@@ -282,7 +282,7 @@ FreezeBurnParalyzeEffect:
 	ld [wEnemyMonStatus], a
 	call HalveSpeedDueToParalysis ; halve speed of affected mon
 	ld a, ENEMY_HUD_SHAKE_ANIM
-	call PlayBattleAnimation
+	call PlaySpecialBattleAnimation
 	jp PrintMayNotAttackText ; print paralysis text
 .burn1
 	; v0.7: FIRE and MAGMA defenders are immune to burn.
@@ -300,7 +300,7 @@ FreezeBurnParalyzeEffect:
 	ld [wEnemyMonStatus], a
 	call HalveAttackDueToBurn ; halve attack of affected mon
 	ld a, ENEMY_HUD_SHAKE_ANIM
-	call PlayBattleAnimation
+	call PlaySpecialBattleAnimation
 	ld hl, BurnedText
 	jp PrintText
 .freeze1
@@ -324,7 +324,7 @@ FreezeBurnParalyzeEffect:
 	add 3
 	ld [wEnemyFreezeCounter], a
 	ld a, ENEMY_HUD_SHAKE_ANIM
-	call PlayBattleAnimation
+	call PlaySpecialBattleAnimation
 	ld hl, FrozenText
 	jp PrintText
 .opponentAttacker
@@ -391,7 +391,7 @@ FreezeBurnParalyzeEffect:
 	ld [wBattleMonStatus], a
 	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
-	call PlayBattleAnimation2
+	call PlaySpecialBattleAnimation2
 	jp PrintMayNotAttackText
 .burn2
 	; v0.7: FIRE and MAGMA defenders are immune to burn (player side).
@@ -409,7 +409,7 @@ FreezeBurnParalyzeEffect:
 	ld [wBattleMonStatus], a
 	call HalveAttackDueToBurn
 	ld a, SHAKE_SCREEN_ANIM
-	call PlayBattleAnimation2
+	call PlaySpecialBattleAnimation2
 	ld hl, BurnedText
 	jp PrintText
 .freeze2
@@ -433,7 +433,7 @@ FreezeBurnParalyzeEffect:
 	add 3
 	ld [wPlayerFreezeCounter], a
 	ld a, SHAKE_SCREEN_ANIM
-	call PlayBattleAnimation2
+	call PlaySpecialBattleAnimation2
 	ld hl, FrozenText
 	jp PrintText
 
@@ -501,7 +501,7 @@ TriStatusSideEffect:
 	ld [wEnemyMonStatus], a
 	call HalveSpeedDueToParalysis
 	ld a, ENEMY_HUD_SHAKE_ANIM
-	call PlayBattleAnimation
+	call PlaySpecialBattleAnimation
 	jp PrintMayNotAttackText
 
 .burnEnemy
@@ -523,7 +523,7 @@ TriStatusSideEffect:
 	ld [wEnemyMonStatus], a
 	call HalveAttackDueToBurn
 	ld a, ENEMY_HUD_SHAKE_ANIM
-	call PlayBattleAnimation
+	call PlaySpecialBattleAnimation
 	ld hl, BurnedText
 	jp PrintText
 
@@ -550,7 +550,7 @@ TriStatusSideEffect:
 	add 3
 	ld [wEnemyFreezeCounter], a
 	ld a, ENEMY_HUD_SHAKE_ANIM
-	call PlayBattleAnimation
+	call PlaySpecialBattleAnimation
 	ld hl, FrozenText
 	jp PrintText
 
@@ -570,7 +570,7 @@ TriStatusSideEffect:
 	ld [wBattleMonStatus], a
 	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
-	call PlayBattleAnimation2
+	call PlaySpecialBattleAnimation2
 	jp PrintMayNotAttackText
 
 .burnBattle
@@ -592,7 +592,7 @@ TriStatusSideEffect:
 	ld [wBattleMonStatus], a
 	call HalveAttackDueToBurn
 	ld a, SHAKE_SCREEN_ANIM
-	call PlayBattleAnimation2
+	call PlaySpecialBattleAnimation2
 	ld hl, BurnedText
 	jp PrintText
 
@@ -619,7 +619,7 @@ TriStatusSideEffect:
 	add 3
 	ld [wPlayerFreezeCounter], a
 	ld a, SHAKE_SCREEN_ANIM
-	call PlayBattleAnimation2
+	call PlaySpecialBattleAnimation2
 	ld hl, FrozenText
 	jp PrintText
 
@@ -1160,8 +1160,8 @@ BideEffect:
 	inc a
 	ld [bc], a ; set Bide counter to 2 or 3 at random
 	ldh a, [hWhoseTurn]
-	add XSTATITEM_ANIM
-	jp PlayBattleAnimation2
+	add XSTATITEM_ANIM ; +turn picks the player/enemy twin
+	jp PlaySpecialBattleAnimation2
 
 ThrashPetalDanceEffect:
 	ld hl, wPlayerBattleStatus1
@@ -1179,8 +1179,8 @@ ThrashPetalDanceEffect:
 	inc a
 	ld [de], a ; set thrash/petal dance counter to 2 or 3 at random
 	ldh a, [hWhoseTurn]
-	add SHRINKING_SQUARE_ANIM
-	jp PlayBattleAnimation2
+	add SHRINKING_SQUARE_ANIM ; +turn picks the player/enemy twin
+	jp PlaySpecialBattleAnimation2
 
 ; v0.7 cleanup: shared no-op target for effect-pointer-table slots whose
 ; moves were removed in the v0.5 overhaul (Conversion; Roar/Whirlwind +
@@ -1273,12 +1273,18 @@ ChargeEffect:
 	ld de, wPlayerMoveEffect
 	ldh a, [hWhoseTurn]
 	and a
+; v0.7 anim split: b now carries EITHER a real move id (TELEPORT below) or
+; SPECIAL_ANIM_MARKER with the index parked in hSpecialAnimIndex - the play
+; site at the end stays a single PlayBattleAnimation call either way.
 	ld b, XSTATITEM_ANIM
 	jr z, .chargeEffect
 	ld hl, wEnemyBattleStatus1
 	ld de, wEnemyMoveEffect
 	ld b, XSTATITEM_DUPLICATE_ANIM
 .chargeEffect
+	ld a, b
+	ldh [hSpecialAnimIndex], a
+	ld b, SPECIAL_ANIM_MARKER
 	set CHARGING_UP, [hl]
 	ld a, [de]
 	dec de ; de contains enemy or player MOVENUM
@@ -1291,7 +1297,9 @@ ChargeEffect:
 	cp DIG
 	jr nz, .notDigOrFly
 	set INVULNERABLE, [hl] ; mon is now invulnerable to typical attacks (fly/dig)
-	ld b, SLIDE_DOWN_ANIM
+	ld a, SLIDE_DOWN_ANIM
+	ldh [hSpecialAnimIndex], a
+	ld b, SPECIAL_ANIM_MARKER
 .notDigOrFly
 	push de
 	push bc
@@ -1773,6 +1781,20 @@ CheckTargetSubstitute:
 	bit HAS_SUBSTITUTE_UP, [hl]
 	pop hl
 	ret
+
+; v0.7 anim split (2026-08-31): the special-index twins of the wrappers
+; below - park the index, raise the marker, and reuse the same machinery.
+PlaySpecialBattleAnimation2:
+; play SPECIAL animation index a, wAnimationType 3 or 6
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
+	jr PlayBattleAnimation2
+
+PlaySpecialBattleAnimation:
+; play SPECIAL animation index a, predefined animation type
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
+	jr PlayBattleAnimation
 
 PlayCurrentMoveAnimation2:
 ; animation at MOVENUM will be played unless MOVENUM is 0

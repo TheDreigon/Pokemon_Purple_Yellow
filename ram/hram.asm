@@ -182,7 +182,11 @@ hDivideBCDQuotient::
 hDivideBCDBuffer::
 	ds 3 ; BCD number
 
-	ds 1
+; v0.7 anim split (2026-08-31): which SPECIAL battle animation to play when
+; wAnimationID holds SPECIAL_ANIM_MARKER ($FF). Read repeatedly through a
+; playback (frame-block special effects re-check it), so it lives outside
+; every HRAM union - this was the file's one anonymous padding byte.
+hSpecialAnimIndex:: db
 
 hSerialReceivedNewData:: db
 ; $01 = using external clock

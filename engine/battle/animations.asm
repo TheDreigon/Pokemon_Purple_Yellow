@@ -190,14 +190,27 @@ DrawFrameBlock:
 
 PlayAnimation:
 	xor a
-	ldh [hROMBankTemp], a ; it looks like nothing reads this
 	ld [wSubAnimTransform], a
 	ld a, [wAnimationID] ; get animation number
+; v0.7 anim split (2026-08-31): SPECIAL_ANIM_MARKER routes to the special
+; table, indexed by hSpecialAnimIndex. (The dead hROMBankTemp write that
+; used to sit here is gone - that byte was a five-name HRAM union.)
+	cp SPECIAL_ANIM_MARKER
+	jr nz, .moveAnimation
+	ldh a, [hSpecialAnimIndex]
+	dec a
+	ld l, a
+	ld h, 0
+	add hl, hl
+	ld de, SpecialAnimationPointers
+	jr .gotPointerTable
+.moveAnimation
 	dec a
 	ld l, a
 	ld h, 0
 	add hl, hl
 	ld de, AttackAnimationPointers  ; animation command stream pointers
+.gotPointerTable
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -421,6 +434,10 @@ MoveAnimation:
 	jr z, .animationFinished
 
 	; if throwing a Poké Ball, skip the regular animation code
+	; (v0.7 anim split: the toss is a SPECIAL now - marker + index)
+	cp SPECIAL_ANIM_MARKER
+	jr nz, .moveAnimation
+	ldh a, [hSpecialAnimIndex]
 	cp TOSS_ANIM
 	jr nz, .moveAnimation
 	ld de, .animationFinished
@@ -475,7 +492,11 @@ ShareMoveAnimations:
 	ret nz
 
 .replaceAnim
+; v0.7 anim split: the replacement targets are SPECIALS now - write the
+; marker and park the index.
 	ld a, b
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	ret
 
@@ -564,7 +585,12 @@ SetAnimationPalette:
 	ld a, $f0
 	ld [wAnimPalette], a
 	ld b, $e4
+; v0.7 anim split: the trade-ball anims are specials - check the marker
+; first, then range-test the index.
 	ld a, [wAnimationID]
+	cp SPECIAL_ANIM_MARKER
+	jr nz, .next
+	ldh a, [hSpecialAnimIndex]
 	cp TRADE_BALL_DROP_ANIM
 	jr c, .next
 	cp TRADE_BALL_POOF_ANIM + 1
@@ -695,8 +721,17 @@ DoSpecialEffectByAnimationId:
 	push hl
 	push de
 	push bc
+; v0.7 anim split: specials and moves have separate effect tables now -
+; their id spaces overlap, so one shared lookup would collide.
 	ld a, [wAnimationID]
+	cp SPECIAL_ANIM_MARKER
+	jr nz, .moveTable
+	ldh a, [hSpecialAnimIndex]
+	ld hl, SpecialAnimIdSpecialEffects
+	jr .lookup
+.moveTable
 	ld hl, AnimationIdSpecialEffects
+.lookup
 	ld de, 3
 	call IsInArray
 	jr nc, .done
@@ -2807,6 +2842,11 @@ TossBallAnimation:
 .done
 	ld a, b
 .PlayNextAnimation
+; v0.7 anim split: every id in this sequence (and the toss ids above) is a
+; SPECIAL index - the .PokeBallAnimations list below stays a list of
+; indexes and each play goes through the marker.
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	push bc
 	push hl
@@ -2824,11 +2864,15 @@ TossBallAnimation:
 
 .BlockBall
 	ld a, TOSS_ANIM
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	call PlayAnimation
 	ld a, SFX_FAINT_THUD
 	call PlaySound
 	ld a, BLOCKBALL_ANIM
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	jp PlayAnimation
 

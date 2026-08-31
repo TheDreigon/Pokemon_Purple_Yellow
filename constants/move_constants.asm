@@ -290,8 +290,19 @@
 
 DEF NUM_ATTACKS EQU const_value - 1
 
-	; Moves do double duty as animation identifiers.
+; v0.7 anim split (2026-08-31, Forte's GO - the expansion prep): the 35
+; SPECIAL battle animations no longer share the move-id byte. They live in
+; their own 1-based id space, played through PlaySpecialAnimation (or by
+; writing SPECIAL_ANIM_MARKER into wAnimationID with the index in
+; hSpecialAnimIndex) and resolved via SpecialAnimationPointers. Moves now
+; own ids 1..254 outright. Before the split, 220 moves + these 35 filled
+; the byte at exactly 255 and the movelist could never grow again.
+;
+; $FF doubles as the marker AND stays reserved as the -1 list terminator -
+; a real move id can never be $FF (see the 254 assert below).
+DEF SPECIAL_ANIM_MARKER EQU $FF
 
+	const_def 1
 	const SHOWPIC_ANIM
 	const STATUS_AFFECTED_ANIM
 	const ANIM_A8
@@ -309,7 +320,8 @@ DEF NUM_ATTACKS EQU const_value - 1
 	const ANIM_B4
 	const ANIM_B5
 	; PURPLE YELLOW v0.5: removed ANIM_B6/ANIM_B7 (UnusedAnim placeholders)
-	; to free 2 slots, raising max NUM_ATTACKS from 218 to 220.
+	; back when these shared the move-id byte. Slots are cheap now (2
+	; pointer bytes each) - the placeholders stay to keep the order stable.
 	const ANIM_B8
 	const ANIM_B9
 	const BURN_PSN_ANIM ; Plays when a monster is burned or poisoned
@@ -330,18 +342,14 @@ DEF NUM_ATTACKS EQU const_value - 1
 	const ROCK_ANIM ; throw rock
 	const BAIT_ANIM ; throw bait
 
-DEF NUM_ATTACK_ANIMS EQU const_value - 1
-; 🔴 Anim ids are ONE byte and share this const stream with move ids -
-; wAnimationID is a db and PlayAnimation indexes (id-1)*2. At 220 moves +
-; 35 special anims the space is at 255, EXACTLY FULL: adding one more move
-; pushes BAIT_ANIM to 256 and rgbasm would only WARN (no -Werror). This
-; assert turns that silent truncation into a build error. To grow past it:
-; harvest the dead ANIM_* placeholders (~8 slots, max 228) or split the 35
-; specials into their own table+dispatch (the road to ~250; ceiling survey
-; 2026-08-31). $FF stays reserved (IsInArray terminator), so 254 is the
-; absolute max for any id.
-ASSERT NUM_ATTACK_ANIMS <= 255, \
-	"anim-id space overflow: {d:NUM_ATTACK_ANIMS} ids for a 1-byte wAnimationID - free ANIM_* slots or split the special anims"
+DEF NUM_SPECIAL_ANIMS EQU const_value - 1
+ASSERT NUM_SPECIAL_ANIMS == 35, "the special-anim census (and its pointer table) is 35 entries"
+ASSERT NUM_SPECIAL_ANIMS < SPECIAL_ANIM_MARKER, "special anim indexes must stay below the marker"
+; structural pins the engine arithmetic depends on (hWhoseTurn `add` pairs
+; and the trade-ball palette range test):
+ASSERT XSTATITEM_DUPLICATE_ANIM == XSTATITEM_ANIM + 1, "Bide/X-item +turn pair broke"
+ASSERT ANIM_B1 == SHRINKING_SQUARE_ANIM + 1, "Thrash +turn pair broke"
+ASSERT TRADE_BALL_POOF_ANIM == TRADE_BALL_DROP_ANIM + 3, "the trade-ball run of 4 broke"
 ; The blessed expansion ceiling (Forte, 2026-08-31): up to 254 moves - $FF
 ; stays reserved (list terminators), and 248/256 are forbidden counts
 ; (movedex_seen's % 8 assert). See Notes/"Tecto de moves 220-250".

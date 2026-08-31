@@ -299,7 +299,9 @@ ItemUseBall:
 	call DelayFrames
 
 ; Do the animation.
-	ld a, TOSS_ANIM
+	ld a, TOSS_ANIM ; v0.7 anim split: a SPECIAL - marker + parked index
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	xor a
 	ldh [hWhoseTurn], a
@@ -1988,6 +1990,9 @@ ItemUseRock:
 	ld de, wSafariBaitFactor ; bait factor
 
 BaitRockCommon:
+; v0.7 anim split: a arrives with BAIT_ANIM or ROCK_ANIM - both specials.
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	xor a
 	ld [wAnimationType], a
@@ -2223,7 +2228,12 @@ ItemUseXStat:
 	sub X_ATTACK - ATTACK_UP1_EFFECT
 	ld [hl], a ; store player move effect
 	call PrintItemUseTextAndRemoveItem
-	ld a, XSTATITEM_ANIM ; X stat item animation ID
+; v0.7 anim split: the X item borrows the move-anim channel - the marker
+; goes into wPlayerMoveNum so PlayCurrentMoveAnimation routes to the
+; special table, with the real index parked alongside.
+	ld a, XSTATITEM_ANIM
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wPlayerMoveNum], a
 	call LoadScreenTilesFromBuffer1 ; restore saved screen
 	call Delay3
@@ -2986,7 +2996,9 @@ ThrowBallAtTrainerMon:
 	call RunDefaultPaletteCommand
 	call LoadScreenTilesFromBuffer1 ; restore saved screen
 	call Delay3
-	ld a, TOSS_ANIM
+	ld a, TOSS_ANIM ; v0.7 anim split: a SPECIAL - marker + parked index
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	predef MoveAnimation ; do animation
 	ld hl, ThrowBallAtTrainerMonText1

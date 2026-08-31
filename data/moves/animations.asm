@@ -243,6 +243,14 @@ AttackAnimationPointers:
 	dw MetronomeAnim
 	dw StruggleAnim
 	assert_table_length NUM_ATTACKS
+
+; v0.7 anim split (2026-08-31): the 35 SPECIAL animations moved out of the
+; move-id table above into their own 1-based table, so the movelist can
+; grow to 254. Indexed by hSpecialAnimIndex when wAnimationID holds
+; SPECIAL_ANIM_MARKER; the order matches the const block in
+; constants/move_constants.asm exactly (asserts pin the pairs there).
+SpecialAnimationPointers:
+	table_width 2, SpecialAnimationPointers
 	dw ShowPicAnim
 	dw EnemyFlashAnim
 	dw PlayerFlashAnim
@@ -259,8 +267,6 @@ AttackAnimationPointers:
 	dw XStatItemBlackAnim
 	dw ShrinkingSquareBlackAnim
 	dw ShrinkingSquareBlackAnim
-	; PURPLE YELLOW v0.5: removed 2x "dw UnusedAnim" (ANIM_B6/ANIM_B7 slots)
-	; to raise max NUM_ATTACKS ceiling from 218 to 220.
 	dw ParalyzeAnim
 	dw ParalyzeAnim
 	dw PoisonAnim
@@ -280,7 +286,7 @@ AttackAnimationPointers:
 	dw HidePicAnim
 	dw ThrowRockAnim
 	dw ThrowBaitAnim
-	assert_table_length NUM_ATTACK_ANIMS
+	assert_table_length NUM_SPECIAL_ANIMS
 
 ; each animation is a list of subanimations
 ; and/or special effects, terminated by -1

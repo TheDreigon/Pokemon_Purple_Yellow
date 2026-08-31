@@ -19,6 +19,13 @@ AnimationIdSpecialEffects:
 	anim_special_effect SPORE,                 FlashScreenEveryFourFrameBlocks
 	anim_special_effect EXPLOSION,             DoExplodeSpecialEffects
 	anim_special_effect ROCK_SLIDE,            DoRockSlideSpecialEffects
+	db -1 ; end
+
+; v0.7 anim split (2026-08-31): the SPECIAL animations' effect rows live in
+; their own table now - their indexes (1..35) overlap move ids, so sharing
+; the move-keyed table above would collide. Looked up by hSpecialAnimIndex
+; when wAnimationID carries SPECIAL_ANIM_MARKER.
+SpecialAnimIdSpecialEffects:
 	anim_special_effect TRADE_BALL_DROP_ANIM,  TradeHidePokemon
 	anim_special_effect TRADE_BALL_SHAKE_ANIM, TradeShakePokeball
 	anim_special_effect TRADE_BALL_TILT_ANIM,  TradeJumpPokeball

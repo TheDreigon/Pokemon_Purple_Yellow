@@ -867,6 +867,10 @@ TradeforText:
 	text_end
 
 Trade_ShowAnimation:
+; v0.7 anim split: every trade animation is a SPECIAL - this shim is the
+; single funnel, so the call sites above stay untouched.
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	xor a
 	ld [wAnimationType], a
