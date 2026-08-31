@@ -9,9 +9,7 @@
 ; when the shared effect line would be wrong or would waste the move's
 ; character. Format: move id, pointer. Terminated by -1.
 MoveDescriptionOverrides:
-	db SEISMIC_TOSS, 
-	dw MoveDesc_LevelDamage
-	db NIGHT_SHADE,  
+	db NIGHT_SHADE,
 	dw MoveDesc_LevelDamage
 	db DRAGON_RAGE,  
 	dw MoveDesc_DragonRage
@@ -156,6 +154,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_SpecialAccuracyUp1 ; SPECIAL_ACCURACY_UP1_EFFECT
 	dw MoveDesc_BurnSide3 ; BURN_SIDE_EFFECT3
 	dw MoveDesc_FalseSwipe ; FALSE_SWIPE_EFFECT
+	dw MoveDesc_TargetLevelDamage ; TARGET_LEVEL_DAMAGE_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -380,6 +379,10 @@ MoveDesc_NoAdditionalEffect:
 
 MoveDesc_FalseSwipe:
 	text_far _MoveDesc_FalseSwipe
+	text_end
+
+MoveDesc_TargetLevelDamage:
+	text_far _MoveDesc_TargetLevelDamage
 	text_end
 
 MoveDesc_OHKO:

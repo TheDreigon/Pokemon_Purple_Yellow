@@ -620,6 +620,11 @@ _MoveDesc_LevelDamage::
 	next "user's own level."
 	done
 
+_MoveDesc_TargetLevelDamage::
+	text "Damage equals the"
+	next "target's level."
+	done
+
 _MoveDesc_DragonRage::
 	text "Always deals 50"
 	next "damage, whatever"

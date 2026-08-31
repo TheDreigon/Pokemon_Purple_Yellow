@@ -66,7 +66,7 @@ Moves: ; Current total = 219
 
 
 	; === FIGHTING TYPE (14 moves) ===
-	move SEISMIC_TOSS,   SPECIAL_DAMAGE_EFFECT,             1, FIGHTING,     100, 20
+	move SEISMIC_TOSS,   TARGET_LEVEL_DAMAGE_EFFECT,        1, FIGHTING,     100, 20 ; v0.7 T12 (2026-08-31): damage = the TARGET's level (was the user's, via SPECIAL_DAMAGE_EFFECT).
 	move LOW_KICK,       FLINCH_SIDE_EFFECT2,              35, FIGHTING,      90, 35
 	move COMET_PUNCH,    TWO_TO_FIVE_ATTACKS_EFFECT,       19, FIGHTING,      90, 20
 	move BIND,           PARALYZE_SIDE_EFFECT2,            45, FIGHTING,      90, 30
@@ -260,7 +260,7 @@ Moves: ; Current total = 219
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
 	move GROWTH,         SPECIAL_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect - spc + 1/4 heal.
-	move CALM_MIND,      SPECIAL_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 30 ; new move. new effect.
+	move CALM_MIND,      SPECIAL_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 25 ; new move. new effect.
 	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
 	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
 

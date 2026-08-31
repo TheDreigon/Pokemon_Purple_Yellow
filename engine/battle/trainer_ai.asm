@@ -550,6 +550,8 @@ AIMoveChoiceModification3:
 	jr z, .betterMoveFound ; Super Fang is considered to be a better move
 	cp SPECIAL_DAMAGE_EFFECT
 	jr z, .betterMoveFound ; any special damage moves are considered to be better moves
+	cp TARGET_LEVEL_DAMAGE_EFFECT
+	jr z, .betterMoveFound ; Seismic Toss's new effect keeps its old AI standing
 	cp FLY_EFFECT
 	jr z, .betterMoveFound ; Fly is considered to be a better move
 	ld a, [wEnemyMoveType]

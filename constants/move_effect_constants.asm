@@ -104,4 +104,5 @@
 	const SPECIAL_ACCURACY_UP1_EFFECT ; $61  user Spc+1 & Acc+1 (new Calm Mind). Mirror pattern of ATTACK_ACCURACY_UP1_EFFECT.
 	const BURN_SIDE_EFFECT3          ; $62  45% burn chance (Lava Plume). Heaviest tier of the 15/30/45 burn ladder.
 	const FALSE_SWIPE_EFFECT         ; $63  damage that always leaves the target with at least 1 HP - never KOs (False Swipe).
+	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31). NIGHT SHADE keeps SPECIAL_DAMAGE_EFFECT = the user's level.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

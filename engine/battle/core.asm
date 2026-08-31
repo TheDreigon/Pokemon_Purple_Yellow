@@ -5312,6 +5312,8 @@ ApplyAttackToEnemyPokemon:
 	jr z, .superFangEffect
 	cp SPECIAL_DAMAGE_EFFECT
 	jr z, .specialDamage
+	cp TARGET_LEVEL_DAMAGE_EFFECT
+	jr z, .targetLevelDamage
 	ld a, [wPlayerMovePower]
 	and a
 	jp z, ApplyAttackToEnemyPokemonDone ; no attack to apply if base power is 0
@@ -5337,10 +5339,8 @@ ApplyAttackToEnemyPokemon:
 .specialDamage
 	ld hl, wBattleMonLevel
 	ld a, [hl]
-	ld b, a ; Seismic Toss deals damage equal to the user's level
+	ld b, a ; Night Shade deals damage equal to the user's level
 	ld a, [wPlayerMoveNum]
-	cp SEISMIC_TOSS
-	jr z, .storeDamage
 	cp NIGHT_SHADE
 	jr z, .storeDamage
 	ld b, SONICBOOM_DAMAGE ; 25
@@ -5366,6 +5366,11 @@ ApplyAttackToEnemyPokemon:
 	cp b
 	jr nc, .loop
 	pop bc
+	ld b, a
+	jr .storeDamage
+.targetLevelDamage
+; v0.7 T12 (Forte, 2026-08-31): SEISMIC TOSS hits for the TARGET's level.
+	ld a, [wEnemyMonLevel]
 	ld b, a
 .storeDamage ; store damage value at b
 	ld hl, wDamage
@@ -5434,6 +5439,8 @@ ApplyAttackToPlayerPokemon:
 	jr z, .superFangEffect
 	cp SPECIAL_DAMAGE_EFFECT
 	jr z, .specialDamage
+	cp TARGET_LEVEL_DAMAGE_EFFECT
+	jr z, .targetLevelDamage
 	ld a, [wEnemyMovePower]
 	and a
 	jp z, ApplyAttackToPlayerPokemonDone
@@ -5459,10 +5466,8 @@ ApplyAttackToPlayerPokemon:
 .specialDamage
 	ld hl, wEnemyMonLevel
 	ld a, [hl]
-	ld b, a
+	ld b, a ; Night Shade deals damage equal to the user's level
 	ld a, [wEnemyMoveNum]
-	cp SEISMIC_TOSS
-	jr z, .storeDamage
 	cp NIGHT_SHADE
 	jr z, .storeDamage
 	ld b, SONICBOOM_DAMAGE
@@ -5488,6 +5493,11 @@ ApplyAttackToPlayerPokemon:
 	cp b
 	jr nc, .loop
 	pop bc
+	ld b, a
+	jr .storeDamage
+.targetLevelDamage
+; v0.7 T12 (Forte, 2026-08-31): SEISMIC TOSS hits for the TARGET's level.
+	ld a, [wBattleMonLevel]
 	ld b, a
 .storeDamage
 	ld hl, wDamage

@@ -3,4 +3,5 @@ SetDamageEffects:
 ; e.g., Super Fang, Seismic Toss
 	db SUPER_FANG_EFFECT
 	db SPECIAL_DAMAGE_EFFECT
+	db TARGET_LEVEL_DAMAGE_EFFECT
 	db -1 ; end
