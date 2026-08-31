@@ -331,3 +331,14 @@ DEF NUM_ATTACKS EQU const_value - 1
 	const BAIT_ANIM ; throw bait
 
 DEF NUM_ATTACK_ANIMS EQU const_value - 1
+; 🔴 Anim ids are ONE byte and share this const stream with move ids -
+; wAnimationID is a db and PlayAnimation indexes (id-1)*2. At 220 moves +
+; 35 special anims the space is at 255, EXACTLY FULL: adding one more move
+; pushes BAIT_ANIM to 256 and rgbasm would only WARN (no -Werror). This
+; assert turns that silent truncation into a build error. To grow past it:
+; harvest the dead ANIM_* placeholders (~8 slots, max 228) or split the 35
+; specials into their own table+dispatch (the road to ~250; ceiling survey
+; 2026-08-31). $FF stays reserved (IsInArray terminator), so 254 is the
+; absolute max for any id.
+ASSERT NUM_ATTACK_ANIMS <= 255, \
+	"anim-id space overflow: {d:NUM_ATTACK_ANIMS} ids for a 1-byte wAnimationID - free ANIM_* slots or split the special anims"
