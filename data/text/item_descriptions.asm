@@ -411,7 +411,7 @@ _TM07Description::
 
 _TM08Description::
 	text "Damage equals the"
-	next "user's own level."
+	next "target's level."
 	prompt
 
 _TM09Description::

@@ -245,11 +245,11 @@ GainExperience:
 	cp LINK_STATE_BATTLING
 	ret z ; return if link battle
 	call DivideExpDataByNumMonsGainingExp
-	ld a, [wBoostExpByExpShare] ;load in a if the EXP All is being used
+	ld a, [wBoostExpByExpShare] ;load in a if the EXP.SHARE is being used
 	ld hl, WithExpShareText
 	and a
 	jr z, .skipExpShare ; if wBoostExpByExpShare is zero, we are not using it, so we don't show anything and keep going on
-	call PrintText ; if the code reaches this point it means we have the Exp.All, so show the message
+	call PrintText ; if the code reaches this point it means we have the EXP.SHARE, so show the message
 .skipExpShare
 	ld hl, wPartyMon1
 	xor a

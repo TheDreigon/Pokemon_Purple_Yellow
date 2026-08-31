@@ -1308,7 +1308,7 @@ ItemUseMedicine:
 	lb bc, SLEEP_HEAL_MSG, SLP_MASK
 	cp SLEEP_HEAL
 	jr z, .checkMonStatus
-	lb bc, PARALYZ_HEAL_MSG, 1 << PAR
+	lb bc, PARALYSIS_HEAL_MSG, 1 << PAR
 	cp PARALYSIS_HEAL
 	jr z, .checkMonStatus
 	lb bc, FULL_HEAL_MSG, $ff ; Full Heal

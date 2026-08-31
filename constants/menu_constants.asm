@@ -82,7 +82,7 @@ DEF FIRST_PARTY_MENU_TEXT_ID EQU const_value
 	const BURN_HEAL_MSG        ; $F1
 	const ICE_HEAL_MSG         ; $F2
 	const SLEEP_HEAL_MSG        ; $F3
-	const PARALYZ_HEAL_MSG     ; $F4
+	const PARALYSIS_HEAL_MSG   ; $F4 (vanilla spelled this one PARALYZ, not PARLYZ - the 08-31 family sed missed it)
 	const POTION_MSG           ; $F5
 	const FULL_HEAL_MSG        ; $F6
 	const REVIVE_MSG           ; $F7
