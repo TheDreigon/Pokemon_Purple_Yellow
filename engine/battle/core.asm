@@ -4281,6 +4281,12 @@ HandleSelfConfusionDamage:
 	ld [wAnimationType], a
 	inc a
 	ldh [hWhoseTurn], a
+; v0.7 (2026-08-31, review catch): vanilla played "anim 1" here via the
+; implicit a=1 from the inc - that was POUND until the v0.5 reorder made
+; id 1 CONSTRICT, so the player-side confusion self-hit squeezed itself
+; with tentacles. The enemy mirror was already retargeted to BUG_BITE
+; ("placeholder generic-impact animation") in v0.5; this finishes it.
+	ld a, BUG_BITE
 	call PlayMoveAnimation
 	call DrawPlayerHUDAndHPBar
 	xor a

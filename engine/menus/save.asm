@@ -243,7 +243,12 @@ SaveSAVtoSRAM2:
 	ld bc, wPokedexSeenEnd - wPokedexOwned
 	call CopyData
 	ld hl, wPikachuHappiness
-	ld de, sMainData + $179
+; v0.7 (2026-08-31, review catch): this was a hardcoded `sMainData + $179`
+; that had silently drifted $5A behind the real offset across two saved-
+; block growths - the two bytes landed in the saved warp-entry mirror
+; (harmless today only because LoadMapHeader rebuilds warps from ROM, and
+; every save path runs the full copy first). Symbolic, like vanilla.
+	ld de, sMainData + (wPikachuHappiness - wMainDataStart)
 	ld a, [hli]
 	ld [de], a
 	inc de

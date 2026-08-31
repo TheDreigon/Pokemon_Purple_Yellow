@@ -93,7 +93,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_OHKO ; OHKO_EFFECT
 	dw MoveDesc_Charge ; CHARGE_EFFECT
 	dw MoveDesc_SuperFang ; SUPER_FANG_EFFECT
-	dw MoveDesc_SpecialDamage ; UNUSED_SPECIAL_DAMAGE_EFFECT (dead slot, never shown)
+	dw MoveDesc_SpecialDamage ; UNUSED_SPECIAL_DAMAGE_EFFECT
 	dw MoveDesc_Trapping ; TRAPPING_EFFECT
 	dw MoveDesc_Fly ; FLY_EFFECT
 	dw MoveDesc_AttackTwice ; ATTACK_TWICE_EFFECT
@@ -153,8 +153,8 @@ MoveEffectDescriptions:
 	dw MoveDesc_BurnSide3 ; BURN_SIDE_EFFECT3
 	dw MoveDesc_FalseSwipe ; FALSE_SWIPE_EFFECT
 	dw MoveDesc_TargetLevelDamage ; TARGET_LEVEL_DAMAGE_EFFECT
-	dw MoveDesc_LevelDamage ; USER_LEVEL_DAMAGE_EFFECT (Night Shade)
-	dw MoveDesc_SpecialDamage ; SET_DAMAGE_EFFECT (both members carry per-move overrides with the exact number)
+	dw MoveDesc_LevelDamage ; USER_LEVEL_DAMAGE_EFFECT
+	dw MoveDesc_SpecialDamage ; SET_DAMAGE_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:

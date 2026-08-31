@@ -117,13 +117,25 @@ IF DEF(_DEBUG)
 	ret
 
 DebugSetPokedexEntries:
-	ld b, wPokedexOwnedEnd - wPokedexOwned - 1
+; v0.7 (2026-08-31, review catch): fill exactly NUM_POKEMON bits, not the
+; array width - the bitfields are capacity-sized (POKEDEX_FLAG_CAPACITY)
+; now, and filling to the End label marked 199 phantom species in the
+; debug new game (48 glitch dex rows via the boundless PokedexToIndex).
+; The capacity padding is left zero, as everything downstream assumes.
+	ld b, NUM_POKEMON / 8
 	ld a, %11111111
 .loop
 	ld [hli], a
 	dec b
 	jr nz, .loop
-	ld [hl], %01111111
+	ld a, (1 << (NUM_POKEMON % 8)) - 1
+	ld [hli], a
+	xor a
+	ld b, (wPokedexOwnedEnd - wPokedexOwned) - (NUM_POKEMON / 8) - 1
+.padLoop
+	ld [hli], a
+	dec b
+	jr nz, .padLoop
 	ret
 
 DebugItemsList:

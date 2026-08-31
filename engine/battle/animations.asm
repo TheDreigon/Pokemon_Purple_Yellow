@@ -194,7 +194,8 @@ PlayAnimation:
 	ld a, [wAnimationID] ; get animation number
 ; v0.7 anim split (2026-08-31): SPECIAL_ANIM_MARKER routes to the special
 ; table, indexed by hSpecialAnimIndex. (The dead hROMBankTemp write that
-; used to sit here is gone - that byte was a five-name HRAM union.)
+; used to sit here is gone - that byte is a seven-name HRAM union that
+; pic decompression and OAM code write during playback.)
 	cp SPECIAL_ANIM_MARKER
 	jr nz, .moveAnimation
 	ldh a, [hSpecialAnimIndex]
