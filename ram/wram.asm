@@ -1954,10 +1954,16 @@ SECTION "Main Data", WRAM0
 
 wMainDataStart::
 
-wPokedexOwned:: flag_array NUM_POKEMON
+; v0.7 expansion prep (2026-08-31, save format break, Forte's GO): both dex
+; bitfields are pre-sized to POKEDEX_FLAG_CAPACITY (200 species / 25 bytes)
+; so future species additions stop moving every label after them. Trailing
+; bits are zero on a new game and in the migrated fixture; every consumer
+; derives its width from the End labels and counts/scans set bits, so the
+; padding is inert.
+wPokedexOwned:: ds POKEDEX_FLAG_CAPACITY / 8
 wPokedexOwnedEnd::
 
-wPokedexSeen:: flag_array NUM_POKEMON
+wPokedexSeen:: ds POKEDEX_FLAG_CAPACITY / 8
 wPokedexSeenEnd::
 
 wNumBagItems:: db
@@ -2146,7 +2152,10 @@ wd49c:: db
 
 ; One bit per move, set when the move's animation is played in battle and for
 ; every move the player's own party knows. See home/movedex_seen.asm.
-wMovedexSeen:: ds (NUM_ATTACKS + 7) / 8
+; v0.7 expansion prep (2026-08-31): pre-sized to MOVEDEX_FLAG_CAPACITY (32
+; bytes) - see the note on the dex bitfields above. CountMovedexSeen masks
+; the partial byte at its true position and counts only the live region.
+wMovedexSeen:: ds MOVEDEX_FLAG_CAPACITY / 8
 wMovedexSeenEnd::
 
 ; #10. Which way the EXP.SHARE is set, and it lives in the SAVED block because
@@ -2168,7 +2177,8 @@ wExpShareMode:: db
 ; wExpShareMode above.
 wRegisteredItem:: db
 
-	ds 17 ; free, and still contiguous
+	ds 1 ; free, and still contiguous (was 17 - the 2026-08-31 bitfield
+	     ; capacity pre-sizing ate 16 so the saved block kept its total size)
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db

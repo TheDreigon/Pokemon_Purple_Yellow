@@ -76,12 +76,15 @@ CountMovedexSeen::
 ; A save written before this feature had other things at these addresses, so the
 ; unused top bits of the last byte can carry junk that would count as moves which
 ; do not exist. Clear them once, here, where the number is about to be shown.
-	ld hl, wMovedexSeenEnd - 1
+; v0.7 (2026-08-31): the array is capacity-sized now (32 bytes), so the
+; partial byte is at NUM_ATTACKS / 8, not at the array's end, and only the
+; live region is counted - the capacity padding never enters the sum.
+	ld hl, wMovedexSeen + NUM_ATTACKS / 8
 	ld a, [hl]
 	and (1 << (NUM_ATTACKS % 8)) - 1
 	ld [hl], a
 	ld hl, wMovedexSeen
-	ld b, wMovedexSeenEnd - wMovedexSeen
+	ld b, (NUM_ATTACKS + 7) / 8
 	call CountSetBits
 	ld a, [wNumSetBits]
 	ret

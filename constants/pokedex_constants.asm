@@ -157,3 +157,13 @@
 	const DEX_MEW        ; 151
 
 DEF NUM_POKEMON EQU const_value - 1
+
+; v0.7 expansion prep (2026-08-31, Forte's GO): the SAVED dex bitfields are
+; pre-sized to this capacity so the save format breaks ONCE, now, instead of
+; on every future species addition. Forte's blessed species target is ~190
+; (keeping id headroom under OPP_ID_OFFSET for future trainer classes); the
+; capacity is 200 so the target itself has margin. Trailing bits stay zero -
+; every consumer counts set bits or scans for the highest set one.
+DEF POKEDEX_FLAG_CAPACITY EQU 200
+ASSERT NUM_POKEMON <= POKEDEX_FLAG_CAPACITY, \
+	"the dex outgrew its saved bitfields - raising POKEDEX_FLAG_CAPACITY is a SAVE FORMAT BREAK"

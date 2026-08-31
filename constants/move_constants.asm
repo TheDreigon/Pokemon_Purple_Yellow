@@ -346,3 +346,8 @@ ASSERT NUM_ATTACK_ANIMS <= 255, \
 ; stays reserved (list terminators), and 248/256 are forbidden counts
 ; (movedex_seen's % 8 assert). See Notes/"Tecto de moves 220-250".
 ASSERT NUM_ATTACKS <= 254, "the blessed move ceiling is 254 ($FF is reserved)"
+; v0.7 expansion prep (2026-08-31): the SAVED movedex bitfield is pre-sized
+; to this capacity (32 bytes) so move additions stop breaking the save
+; format - the ceiling above keeps NUM_ATTACKS inside it forever.
+DEF MOVEDEX_FLAG_CAPACITY EQU 256
+ASSERT NUM_ATTACKS < MOVEDEX_FLAG_CAPACITY, "the movedex outgrew its saved bitfield"
