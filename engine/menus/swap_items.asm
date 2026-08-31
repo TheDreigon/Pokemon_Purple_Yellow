@@ -256,7 +256,7 @@ ItemSortList::
 	; Used Key Items
 	db BICYCLE
 	db ITEMFINDER
-	db EXP_ALL
+	db EXP_SHARE
 	db TOWN_MAP
 	db TRAINER_MANUAL ; v0.7: the two new key items were missing from the
 	db BILLS_CHIP     ; sort order and got shoved below the TMs on every SORT
@@ -289,11 +289,11 @@ ItemSortList::
 	db REVIVE
 	db MAX_REVIVE
 	; Status
-	db ANTIDOTE
+	db POISON_HEAL
 	db BURN_HEAL
 	db ICE_HEAL
-	db AWAKENING
-	db PARLYZ_HEAL
+	db SLEEP_HEAL
+	db PARALYSIS_HEAL
 	db FULL_HEAL
 	db POKE_FLUTE
 	; PP

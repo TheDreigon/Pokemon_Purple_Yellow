@@ -244,7 +244,7 @@ CeladonMart1FInfoClerkText:
 	db 7, POTION, SUPER_POTION, HYPER_POTION, MAX_POTION, FULL_RESTORE, REVIVE, MAX_REVIVE
 
 .StatusList
-	db 6, ANTIDOTE, AWAKENING, PARLYZ_HEAL, BURN_HEAL, ICE_HEAL, FULL_HEAL
+	db 6, POISON_HEAL, SLEEP_HEAL, PARALYSIS_HEAL, BURN_HEAL, ICE_HEAL, FULL_HEAL
 
 ; ESCAPE ROPE rides with the repels: together they are the "get me out of here"
 ; shelf, and neither has enough friends for a category of its own.

@@ -513,7 +513,7 @@ NEXTU
 wSimulatedJoypadStatesEnd::
 
 NEXTU
-wBoostExpByExpAll::
+wBoostExpByExpShare::
 wUnusedCC5B:: db
 
 	ds 59

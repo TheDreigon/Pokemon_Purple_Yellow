@@ -10,11 +10,11 @@ KeyItemFlags:
 	dbit TRUE  ; SAFARI_BALL
 	dbit TRUE  ; POKEDEX
 	dbit FALSE ; MOON_STONE
-	dbit FALSE ; ANTIDOTE
+	dbit FALSE ; POISON_HEAL
 	dbit FALSE ; BURN_HEAL
 	dbit FALSE ; ICE_HEAL
-	dbit FALSE ; AWAKENING
-	dbit FALSE ; PARLYZ_HEAL
+	dbit FALSE ; SLEEP_HEAL
+	dbit FALSE ; PARALYSIS_HEAL
 	dbit FALSE ; FULL_RESTORE
 	dbit FALSE ; MAX_POTION
 	dbit FALSE ; HYPER_POTION
@@ -74,7 +74,7 @@ KeyItemFlags:
 	dbit TRUE  ; SILPH_SCOPE
 	dbit TRUE  ; POKE_FLUTE
 	dbit TRUE  ; LIFT_KEY
-	dbit TRUE  ; EXP_ALL (the EXP.SHARE: a setting, not stock)
+	dbit TRUE  ; EXP_SHARE (the EXP.SHARE: a setting, not stock)
 	dbit TRUE  ; OLD_ROD
 	dbit TRUE  ; GOOD_ROD
 	dbit TRUE  ; SUPER_ROD

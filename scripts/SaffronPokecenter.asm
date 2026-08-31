@@ -28,7 +28,7 @@ SaffronPokecenterAidesScene:
 	ld [wSavedCoordIndex], a ; scene stage: idle
 	CheckEvent EVENT_GOT_ITEMFINDER
 	jr z, .rearm
-	CheckEvent EVENT_GOT_EXP_ALL
+	CheckEvent EVENT_GOT_EXP_SHARE
 	jr z, .rearm
 ; both delivered: once TEAM ROCKET is gone, so are they
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
@@ -220,7 +220,7 @@ SaffronAidesDeliverParcels:
 	SetEvent EVENT_SAFFRON_AIDES_AMBUSHED
 	CheckEvent EVENT_GOT_ITEMFINDER
 	jr nz, .expShare
-	CheckEvent EVENT_GOT_EXP_ALL ; different flag byte - no ReuseA here
+	CheckEvent EVENT_GOT_EXP_SHARE ; different flag byte - no ReuseA here
 	jr nz, .parcelA ; degenerate half-state: hand the missing one quietly
 ; the normal case: both owed. Two NEW key items = two bag slots, so the
 ; capacity check up front GUARANTEES both GiveItems below land.
@@ -242,16 +242,16 @@ SaffronAidesDeliverParcels:
 ; second aide's line would replace its last page unread (house rule)
 	farcall NewPageButtonPressCheck
 .expShare
-	CheckEvent EVENT_GOT_EXP_ALL
+	CheckEvent EVENT_GOT_EXP_SHARE
 	jr nz, .nothingOwed
 	ld hl, .ExpShareIntroText
 	call PrintText
-	lb bc, EXP_ALL, 1
+	lb bc, EXP_SHARE, 1
 	call GiveItem
 	jr nc, .deliveredSomething ; defensive, as above
 	ld hl, .ExpShareReceivedText
 	call PrintText
-	SetEvent EVENT_GOT_EXP_ALL
+	SetEvent EVENT_GOT_EXP_SHARE
 	ld hl, .ExpShareDescText
 	call PrintText
 .deliveredSomething
@@ -294,5 +294,5 @@ SaffronAidesDeliverParcels:
 	text_end
 
 .ExpShareDescText:
-	text_far _Route15Gate2FOaksAideExpAllText
+	text_far _Route15Gate2FOaksAideExpShareText
 	text_end

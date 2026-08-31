@@ -27,11 +27,11 @@ ItemUsePtrTable:
 	dw ItemUseBall       ; SAFARI_BALL
 	dw ItemUsePokedex    ; POKEDEX
 	dw ItemUseEvoStone   ; MOON_STONE
-	dw ItemUseMedicine   ; ANTIDOTE
+	dw ItemUseMedicine   ; POISON_HEAL
 	dw ItemUseMedicine   ; BURN_HEAL
 	dw ItemUseMedicine   ; ICE_HEAL
-	dw ItemUseMedicine   ; AWAKENING
-	dw ItemUseMedicine   ; PARLYZ_HEAL
+	dw ItemUseMedicine   ; SLEEP_HEAL
+	dw ItemUseMedicine   ; PARALYSIS_HEAL
 	dw ItemUseMedicine   ; FULL_RESTORE
 	dw ItemUseMedicine   ; MAX_POTION
 	dw ItemUseMedicine   ; HYPER_POTION
@@ -91,7 +91,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; SILPH_SCOPE
 	dw ItemUsePokeflute  ; POKE_FLUTE
 	dw UnusableItem      ; LIFT_KEY
-	dw ItemUseExpShare   ; EXP_ALL (the EXP.SHARE)
+	dw ItemUseExpShare   ; EXP_SHARE (the EXP.SHARE)
 	dw ItemUseOldRod     ; OLD_ROD
 	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD
@@ -1296,8 +1296,8 @@ ItemUseMedicine:
 	ld bc, wPartyMon1Status - wPartyMon1
 	add hl, bc ; hl now points to status
 	ld a, [wcf91]
-	lb bc, ANTIDOTE_MSG, 1 << PSN
-	cp ANTIDOTE
+	lb bc, POISON_HEAL_MSG, 1 << PSN
+	cp POISON_HEAL
 	jr z, .checkMonStatus
 	lb bc, BURN_HEAL_MSG, 1 << BRN
 	cp BURN_HEAL
@@ -1305,11 +1305,11 @@ ItemUseMedicine:
 	lb bc, ICE_HEAL_MSG, 1 << FRZ
 	cp ICE_HEAL
 	jr z, .checkMonStatus
-	lb bc, AWAKENING_MSG, SLP_MASK
-	cp AWAKENING
+	lb bc, SLEEP_HEAL_MSG, SLP_MASK
+	cp SLEEP_HEAL
 	jr z, .checkMonStatus
 	lb bc, PARALYZ_HEAL_MSG, 1 << PAR
-	cp PARLYZ_HEAL
+	cp PARALYSIS_HEAL
 	jr z, .checkMonStatus
 	lb bc, FULL_HEAL_MSG, $ff ; Full Heal
 .checkMonStatus

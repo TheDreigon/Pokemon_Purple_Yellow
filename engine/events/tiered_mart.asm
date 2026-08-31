@@ -160,12 +160,12 @@ RegularMartTieredInventory::
 	; T0 - 0 badges
 	db 0, POKE_BALL
 	db 0, POTION
-	db 0, ANTIDOTE
+	db 0, POISON_HEAL
 	db 0, REPEL
 	db 0, ESCAPE_ROPE
 	; T1 - 1 badge (Boulder)
-	db 1, AWAKENING
-	db 1, PARLYZ_HEAL
+	db 1, SLEEP_HEAL
+	db 1, PARALYSIS_HEAL
 	; T2 - 2 badges (Cascade)
 	db 2, GREAT_BALL
 	db 2, SUPER_POTION

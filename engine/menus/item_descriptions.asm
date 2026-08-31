@@ -39,15 +39,15 @@ ItemDescriptionPointers:
 	text_end
 	text_far _MoonStoneDescription
 	text_end
-	text_far _AntidoteDescription
+	text_far _PoisonHealDescription
 	text_end
 	text_far _BurnHealDescription
 	text_end
 	text_far _IceHealDescription
 	text_end
-	text_far _AwakeningDescription
+	text_far _SleepHealDescription
 	text_end
-	text_far _ParlyzHealDescription
+	text_far _ParalysisHealDescription
 	text_end
 	text_far _FullRestoreDescription
 	text_end
@@ -168,7 +168,7 @@ ItemDescriptionPointers:
 	text_end
 	text_far _LiftKeyDescription
 	text_end
-	text_far _ExpAllDescription
+	text_far _ExpShareDescription
 	text_end
 	text_far _OldRodDescription
 	text_end
@@ -182,9 +182,9 @@ ItemDescriptionPointers:
 	text_end
 	text_far _MaxEtherDescription
 	text_end
-	text_far _ElixerDescription
+	text_far _ElixirDescription
 	text_end
-	text_far _MaxElixerDescription
+	text_far _MaxElixirDescription
 	text_end
 	text_far _BillsChipDescription
 	text_end

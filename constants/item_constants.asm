@@ -17,11 +17,11 @@
 	const SAFARI_BALL   ; $08
 	const POKEDEX       ; $09
 	const MOON_STONE    ; $0A
-	const ANTIDOTE      ; $0B
+	const POISON_HEAL      ; $0B
 	const BURN_HEAL     ; $0C
 	const ICE_HEAL      ; $0D
-	const AWAKENING     ; $0E
-	const PARLYZ_HEAL   ; $0F
+	const SLEEP_HEAL     ; $0E
+	const PARALYSIS_HEAL   ; $0F
 	const FULL_RESTORE  ; $10
 	const MAX_POTION    ; $11
 	const HYPER_POTION  ; $12
@@ -83,7 +83,7 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const SILPH_SCOPE   ; $48
 	const POKE_FLUTE    ; $49
 	const LIFT_KEY      ; $4A
-	const EXP_ALL       ; $4B
+	const EXP_SHARE       ; $4B
 	const OLD_ROD       ; $4C
 	const GOOD_ROD      ; $4D
 	const SUPER_ROD     ; $4E
@@ -237,8 +237,9 @@ DEF UNUSED_TMNUM EQU __tmhm_value__
 DEF TWISTEDSPOON_GSC EQU $60
 DEF LIGHT_BALL_GSC   EQU $a3
 
-; #10: the three settings of the EXP.SHARE, stored in wExpShareMode. The item
-; itself is still the EXP_ALL constant - only the name the player reads changed.
+; #10: the three settings of the EXP.SHARE, stored in wExpShareMode. (The item
+; constant is EXP_SHARE too - since 2026-08-31 identifiers match the names the
+; player reads, everywhere; the old keep-the-vanilla-constant rule is dead.)
 ; OFF is 0 so that a save made before this existed reads a defined state.
 DEF EXPSHARE_OFF  EQU 0
 DEF EXPSHARE_ONE  EQU 1 ; half to the last Pokemon in the party

@@ -120,13 +120,13 @@ _PotionText::
 	text "!"
 	done
 
-_AntidoteText::
+_PoisonHealText::
 	text_ram wcd6d
 	text " was"
 	line "cured of poison!"
 	done
 
-_ParlyzHealText::
+_ParalysisHealText::
 	text_ram wcd6d
 	text "'s"
 	line "rid of paralysis!"
@@ -144,7 +144,7 @@ _IceHealText::
 	line "defrosted!"
 	done
 
-_AwakeningText::
+_SleepHealText::
 	text_ram wcd6d
 	text_start
 	line "woke up!"

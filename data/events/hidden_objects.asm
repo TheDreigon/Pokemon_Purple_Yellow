@@ -239,7 +239,7 @@ RockTunnelPokecenterHiddenObjects:
 
 PowerPlantHiddenObjects:
 	hidden_object 17, 16, THUNDER_STONE, HiddenItems
-	hidden_object 12,  1, PARLYZ_HEAL, HiddenItems
+	hidden_object 12,  1, PARALYSIS_HEAL, HiddenItems
 	db -1 ; end
 
 Route11HiddenObjects:

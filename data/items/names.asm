@@ -49,7 +49,7 @@ ItemNames::
 	li "LEAF STONE"
 	li "CARD KEY"
 	li "NUGGET"
-	li "PP MAX" ; li "PP MAX" ; PP_MAX
+	li "PP MAX" ; PP_MAX
 	li "POKé DOLL"
 	li "FULL HEAL"
 	li "REVIVE"

@@ -70,7 +70,7 @@ DEF SHOW EQU $15
 	; v0.7 ground-item redesign: the old ITEM_1 (the Elixir ball) was removed —
 	; it became a hidden item at the same coords, and its slot funds Rock
 	; Tunnel 1F's rope. The two survivors renumber; nothing referenced them.
-	const HS_POKEMON_TOWER_4F_ITEM_1       ; 3E (Awakening)
+	const HS_POKEMON_TOWER_4F_ITEM_1       ; 3E (SleepHeal)
 	const HS_POKEMON_TOWER_4F_ITEM_2       ; 3F (Calcium)
 	const HS_POKEMON_TOWER_5F_ITEM         ; 40
 	const HS_POKEMON_TOWER_6F_ITEM_1       ; 41

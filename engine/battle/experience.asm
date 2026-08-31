@@ -57,14 +57,14 @@ DistributeExperience::
 	call SetSinglePartyGainExpFlag
 	call HalveExpData
 	ld a, 1
-	ld [wBoostExpByExpAll], a ; announces the share, and keeps this pass quiet
+	ld [wBoostExpByExpShare], a ; announces the share, and keeps this pass quiet
 	                          ; about the one Pokemon it pays
 	call GainExperience
 ; and now the ones that actually fought, splitting the other half between them
 	pop af
 	ld [wPartyGainExpFlags], a
 	xor a
-	ld [wBoostExpByExpAll], a
+	ld [wBoostExpByExpShare], a
 	jp GainExperience
 
 .shareWithWholeTeam
@@ -76,20 +76,21 @@ DistributeExperience::
 	call SetExpShareTeamFlags
 	jr z, .noSharing ; nobody eligible at all; let the normal path run
 	ld a, 1
-	ld [wBoostExpByExpAll], a
+	ld [wBoostExpByExpShare], a
 	jp GainExperience
 
 .noSharing
 	xor a
-	ld [wBoostExpByExpAll], a
+	ld [wBoostExpByExpShare], a
 	jp GainExperience
 
 GetExpShareMode:
 ; out: a = the mode in force right now, zero flag set if that is OFF.
 ; The stored mode only counts while the item is really in the bag.
-	ld b, EXP_ALL ; the CONSTANT keeps its old name on purpose - only the name
-	              ; the player reads becomes EXP.SHARE, the same way ANTIDOTE
-	              ; still spells itself ANTIDOTE behind "POISON HEAL"
+	ld b, EXP_SHARE ; v0.7 policy (Forte, 2026-08-31): identifiers match the
+	              ; name the player reads, everywhere. The old "constants keep
+	              ; their vanilla names" rule is dead - EXP_ALL, ANTIDOTE,
+	              ; AWAKENING and PARLYZ_HEAL were renamed across the tree.
 	call IsItemInBag ; zero flag SET means NOT in the bag
 	ld a, EXPSHARE_OFF ; ld does not touch the flags
 	ret z
@@ -244,12 +245,12 @@ GainExperience:
 	cp LINK_STATE_BATTLING
 	ret z ; return if link battle
 	call DivideExpDataByNumMonsGainingExp
-	ld a, [wBoostExpByExpAll] ;load in a if the EXP All is being used
-	ld hl, WithExpAllText
+	ld a, [wBoostExpByExpShare] ;load in a if the EXP All is being used
+	ld hl, WithExpShareText
 	and a
-	jr z, .skipExpAll ; if wBoostExpByExpAll is zero, we are not using it, so we don't show anything and keep going on
+	jr z, .skipExpShare ; if wBoostExpByExpShare is zero, we are not using it, so we don't show anything and keep going on
 	call PrintText ; if the code reaches this point it means we have the Exp.All, so show the message
-.skipExpAll
+.skipExpShare
 	ld hl, wPartyMon1
 	xor a
 	ld [wWhichPokemon], a
@@ -433,7 +434,7 @@ GainExperience:
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMonNicks
 	call GetPartyMonName
-	ld a, [wBoostExpByExpAll] ; get using ExpAll flag
+	ld a, [wBoostExpByExpShare] ; get using ExpShare flag
 	and a
 	jr nz, .skipExpText ; if there's EXP. all, skip showing any text
 	ld hl, GainedText ;there's no EXP. all, load the text to show
@@ -723,8 +724,8 @@ CallBattleCore:
 GainedText:
 	text_far _GainedText
 	text_asm
-	ld a, [wBoostExpByExpAll]
-	ld hl, WithExpAllText
+	ld a, [wBoostExpByExpShare]
+	ld hl, WithExpShareText
 	and a
 	ret nz
 	ld hl, ExpPointsText
@@ -734,7 +735,7 @@ GainedText:
 	ld hl, BoostedText
 	ret
 
-WithExpAllText:
+WithExpShareText:
 ; #10: this used to chain into ExpPointsText, which prints wExpAmountGained -
 ; and that byte pair is only written INSIDE the party loop, while this line is
 ; printed BEFORE it. The old EXP.ALL got away with it because its shared pass
@@ -743,7 +744,7 @@ WithExpAllText:
 ; whatever the last Pokemon paid in the PREVIOUS battle - or 0000 on the first
 ; battle after a boot. There is no honest number to show here anyway: TEAM pays
 ; everyone and ONE pays somebody who is not on screen.
-	text_far _WithExpAllText
+	text_far _WithExpShareText
 	text_end
 
 BoostedText:

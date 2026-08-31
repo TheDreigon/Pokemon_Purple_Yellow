@@ -118,7 +118,7 @@ _ViridianForestTrainerTips1Text::
 	cont "grassy areas!"
 	done
 
-_ViridianForestUseAntidoteSignText::
+_ViridianForestUsePoisonHealSignText::
 	text "For poison, use a"
 	line "POISON HEAL! Get"
 	cont "one at a MART!"

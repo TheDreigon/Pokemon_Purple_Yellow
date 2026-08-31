@@ -53,7 +53,7 @@ _LeafStoneDescription::
 	next "EXEGGCUTE evolve."
 	prompt
 
-_AntidoteDescription::
+_PoisonHealDescription::
 	text "Cures poisoned"
 	next "#MON."
 	prompt
@@ -68,12 +68,12 @@ _IceHealDescription::
 	next "#MON."
 	prompt
 
-_AwakeningDescription::
+_SleepHealDescription::
 	text "Awakens sleeping"
 	next "#MON."
 	prompt
 
-_ParlyzHealDescription::
+_ParalysisHealDescription::
 	text "Heals paralyzed"
 	next "#MON."
 	prompt
@@ -294,7 +294,7 @@ _LiftKeyDescription::
 	next "the ROCKET base."
 	prompt
 
-_ExpAllDescription::
+_ExpShareDescription::
 	text "Shares battle EXP."
 	next "USE to set it."
 	prompt
@@ -334,12 +334,12 @@ _MaxEtherDescription::
 	next "of one move."
 	prompt
 
-_ElixerDescription::
+_ElixirDescription::
 	text "Restores PP of all"
 	next "moves by 10."
 	prompt
 
-_MaxElixerDescription::
+_MaxElixirDescription::
 	text "Fully restores the"
 	next "PP of one #MON."
 	prompt

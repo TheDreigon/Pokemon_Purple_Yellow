@@ -226,11 +226,11 @@ RedrawPartyMenu_::
 	jr .done
 
 PartyMenuItemUseMessagePointers:
-	dw AntidoteText
+	dw PoisonHealText
 	dw BurnHealText
 	dw IceHealText
-	dw AwakeningText
-	dw ParlyzHealText
+	dw SleepHealText
+	dw ParalysisHealText
 	dw PotionText
 	dw FullHealText
 	dw ReviveText
@@ -268,12 +268,12 @@ PotionText:
 	text_far _PotionText
 	text_end
 
-AntidoteText:
-	text_far _AntidoteText
+PoisonHealText:
+	text_far _PoisonHealText
 	text_end
 
-ParlyzHealText:
-	text_far _ParlyzHealText
+ParalysisHealText:
+	text_far _ParalysisHealText
 	text_end
 
 BurnHealText:
@@ -284,8 +284,8 @@ IceHealText:
 	text_far _IceHealText
 	text_end
 
-AwakeningText:
-	text_far _AwakeningText
+SleepHealText:
+	text_far _SleepHealText
 	text_end
 
 FullHealText:

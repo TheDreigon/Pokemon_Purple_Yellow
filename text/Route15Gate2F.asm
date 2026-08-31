@@ -13,7 +13,7 @@ _Route15Gate2FWatcherText::
 	line "Ten!"
 	done
 
-_Route15Gate2FOaksAideExpAllText::
+_Route15Gate2FOaksAideExpShareText::
 ; v0.7 (#10): this used to describe the Gen 1 item -- everyone gains, and
 ; everyone gains LESS. Neither half is true any more, so the whole speech was
 ; rewritten rather than patched. `cont` lines stop at 17 characters; `#` is

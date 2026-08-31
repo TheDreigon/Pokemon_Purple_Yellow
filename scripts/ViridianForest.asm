@@ -22,12 +22,12 @@ ViridianForest_TextPointers:
 	dw_const ViridianForestCooltrainerFText,    TEXT_VIRIDIANFOREST_COOLTRAINER_F
 	dw_const ViridianForestYoungster5Text,      TEXT_VIRIDIANFOREST_YOUNGSTER5
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POTION1
-	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_ANTIDOTE
+	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POISON_HEAL
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POKE_BALL
 	dw_const ViridianForestYoungster6Text,      TEXT_VIRIDIANFOREST_YOUNGSTER6
 	dw_const ViridianForestCooltrainerMText,    TEXT_VIRIDIANFOREST_COOLTRAINER_M
 	dw_const ViridianForestTrainerTips1Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS1
-	dw_const ViridianForestUseAntidoteSignText, TEXT_VIRIDIANFOREST_USE_ANTIDOTE_SIGN
+	dw_const ViridianForestUsePoisonHealSignText, TEXT_VIRIDIANFOREST_USE_POISON_HEAL_SIGN
 	dw_const ViridianForestTrainerTips2Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS2
 	dw_const ViridianForestTrainerTips3Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS3
 	dw_const ViridianForestTrainerTips4Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS4
@@ -165,9 +165,9 @@ ViridianForestTrainerTips1Text:
 	ld hl, ViridianForestPrintTrainerTips1Text
 	jp ViridianForestSign_Common
 
-ViridianForestUseAntidoteSignText:
+ViridianForestUsePoisonHealSignText:
 	text_asm
-	ld hl, ViridianForestPrintUseAntidoteSignText
+	ld hl, ViridianForestPrintUsePoisonHealSignText
 	jp ViridianForestSign_Common
 
 ViridianForestTrainerTips2Text:

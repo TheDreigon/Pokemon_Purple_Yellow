@@ -3,22 +3,22 @@ ItemPrices::
 ; system. See `Poke Marts - before-after.txt` notepad for the spec.
 	table_width 3, ItemPrices
 	bcd3 0     ; MASTER_BALL
-	bcd3 600 ; bcd3 600   ; ULTRA_BALL
-	bcd3 300 ; bcd3 300   ; GREAT_BALL
-	bcd3 100 ; bcd3 100   ; POKE_BALL
+	bcd3 600 ; ULTRA_BALL
+	bcd3 300 ; GREAT_BALL
+	bcd3 100 ; POKE_BALL
 	bcd3 0     ; TOWN_MAP
 	bcd3 0     ; BICYCLE
 	bcd3 0     ; SURFBOARD
 	bcd3 1000  ; SAFARI_BALL (unchanged; Safari Zone-only)
 	bcd3 0     ; POKEDEX
 	bcd3 3000  ; MOON_STONE  (was 0; now sold in Celadon 4F shopping)
-	bcd3 250   ; ANTIDOTE    (was 100; uniform status-healer floor)
+	bcd3 250   ; POISON_HEAL    (was 100; uniform status-healer floor)
 	bcd3 250   ; BURN_HEAL
 	bcd3 250   ; ICE_HEAL
-	bcd3 250 ; bcd3 250   ; AWAKENING
-	bcd3 250 ; bcd3 250   ; PARLYZ_HEAL
+	bcd3 250 ; SLEEP_HEAL
+	bcd3 250 ; PARALYSIS_HEAL
 	bcd3 3000  ; FULL_RESTORE
-	bcd3 2000 ; bcd3 2000  ; MAX_POTION
+	bcd3 2000 ; MAX_POTION
 	bcd3 1500  ; HYPER_POTION (was 1200; slight bump to widen tier gap)
 	bcd3 500   ; SUPER_POTION
 	bcd3 200   ; POTION
@@ -31,7 +31,7 @@ ItemPrices::
 	bcd3 0     ; VOLCANOBADGE
 	bcd3 0     ; EARTHBADGE
 	bcd3 1000  ; ESCAPE_ROPE (was 550; intentional bump - "get out of jail" tax)
-	bcd3 200 ; bcd3 200   ; REPEL
+	bcd3 200 ; REPEL
 	bcd3 0     ; OLD_AMBER
 	bcd3 3000  ; FIRE_STONE  (was 2100; uniform 3000 across all stones)
 	bcd3 3000  ; THUNDER_STONE
@@ -47,19 +47,19 @@ ItemPrices::
 	bcd3 0     ; SECRET_KEY
 	bcd3 0     ; TRAINER_MANUAL (not for sale)
 	bcd3 0     ; BIKE_VOUCHER
-	bcd3 3000 ; bcd3 3000  ; X_ACCURACY
+	bcd3 3000 ; X_ACCURACY
 	bcd3 3000  ; LEAF_STONE  (was 2100; matches other stones)
 	bcd3 0     ; CARD_KEY
 	bcd3 10000 ; NUGGET      (player sells; sale value = 1/2 price)
-	bcd3 19600 ; bcd3 19600 ; PP_MAX
+	bcd3 19600 ; PP_MAX
 	bcd3 1000  ; POKE_DOLL
-	bcd3 500 ; bcd3 500   ; FULL_HEAL
+	bcd3 500 ; FULL_HEAL
 	bcd3 1500  ; REVIVE
 	bcd3 4000  ; MAX_REVIVE
-	bcd3 2500 ; bcd3 2500  ; GUARD_SPEC
-	bcd3 400 ; bcd3 400   ; SUPER_REPEL
-	bcd3 600 ; bcd3 600   ; MAX_REPEL
-	bcd3 2000 ; bcd3 2000  ; DIRE_HIT
+	bcd3 2500 ; GUARD_SPEC
+	bcd3 400 ; SUPER_REPEL
+	bcd3 600 ; MAX_REPEL
+	bcd3 2000 ; DIRE_HIT
 	bcd3 10    ; COIN
 	bcd3 250   ; FRESH_WATER (was 200; tweaked so $/HP no longer trivially beats SUPER_POTION)
 	bcd3 300   ; SODA_POP
@@ -76,7 +76,7 @@ ItemPrices::
 	bcd3 0     ; SILPH_SCOPE
 	bcd3 0     ; POKE_FLUTE
 	bcd3 0     ; LIFT_KEY
-	bcd3 0     ; EXP_ALL
+	bcd3 0     ; EXP_SHARE
 	bcd3 0     ; OLD_ROD
 	bcd3 0     ; GOOD_ROD
 	bcd3 0     ; SUPER_ROD
