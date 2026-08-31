@@ -11,6 +11,22 @@ IsStarterPikachuInOurParty::
 	jr z, .noPlayerPikachu
 	cp STARTER_PIKACHU + 1
 	jr nz, .curMonNotPlayerPikachu
+; v0.7 (2026-08-31, Forte's playtest): the same marker test the per-mon
+; IsThisPartymonStarterPikachu already does - species, OTID and OT name
+; ALL pass for a Pikachu the player catches in the wild (the player is
+; its OT), so depositing the starter left a caught Route 1 Pikachu
+; walking behind the player. Only the starter carries LIGHT_BALL_GSC in
+; its catch-rate byte (OaksLab writes it right after AddPartyMon), and
+; Gen 1 gives the player no way to change that byte.
+	ld h, d
+	ld l, e
+	push bc
+	ld bc, wPartyMon1CatchRate - wPartyMon1OTID
+	add hl, bc
+	pop bc
+	ld a, [hl]
+	cp LIGHT_BALL_GSC
+	jr nz, .curMonNotPlayerPikachu
 	ld h, d
 	ld l, e
 	ld a, [wPlayerID]
