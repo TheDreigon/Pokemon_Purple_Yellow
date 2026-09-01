@@ -208,6 +208,13 @@ BeedrillPicBack::     INCBIN "gfx/pokemon/back/beedrillb.pic"
 ; engine/pikachu/pikachu_status.asm). No back pic: only the player's own
 ; mon shows a back, and the fake's status/battle appearances are fronts.
 PikachuFakePicFront:: INCBIN "gfx/pokemon/front/pikachu_fake.pic"
+; LOAD-BEARING: the fake-pic repoint rewrites the header's single shared
+; pic-bank byte, and the Hall of Fame then loads the BACK pic through it
+; without a fresh GetMonHeader - so this pic must stay in the same bank
+; as Pikachu's own pics. Move it and this fails the build instead of
+; corrupting the HoF back sprite (2026-09-01 adversarial review).
+ASSERT BANK(PikachuFakePicFront) == BANK(PikachuPicBack), \
+    "PikachuFakePicFront must share Pikachu's pic bank (HoF back-pic path)"
 
 
 SECTION "Pics 4", ROMX

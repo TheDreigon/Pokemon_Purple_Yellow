@@ -2007,12 +2007,14 @@ AlternateHUDStatus::
 	ld a, [wPartyMenuAnimMonEnabled]
 	and a
 	ret nz
-	ldh a, [hHUDStatusFlip]
-	inc a
-	jr nz, .stored
-	inc a ; never wrap onto 0 -- that value means "off"
-.stored
-	ldh [hHUDStatusFlip], a
+; hHUDStatusFlip is a pure on/off switch now. It USED to double as the
+; phase counter, one inc per call - and this is called once per POLL of
+; HandleMenuInput_'s inner loop, which has no frame wait in it (the
+; Delay3 sits in the outer loop; wMenuJoypadPollCount is a mode flag,
+; not a counter, so the inner loop just spins). ~50-100 polls a frame
+; put the "two-second" flip north of ten a second - Forte clocked it in
+; the FIGHT menu, 2026-09-01. The phase now comes from the wall clock
+; instead (see .side), which no poll rate can hurry.
 	ld a, [wPlayerBattleStatus1]
 	ld b, a
 	ld de, wBattleMonStatus
@@ -2036,9 +2038,18 @@ AlternateHUDStatus::
 ; player's call and was gone by the enemy's, so the enemy alternated on garbage.
 ; Caught by making the test assert the two sides with DIFFERENT statuses --
 ; with the same status on both, swapping the source is invisible.
-	ldh a, [hHUDStatusFlip]
-	and $80 ; bit 7 flips every 128 frames, a shade over two seconds
-	jp z, PrintStatusConditionNotFainted ; phase 0: put the real status back
+;
+; The phase is the WALL CLOCK: TrackPlayTime advances wPlayTimeSeconds
+; (binary, 0-59) once a second in VBlank, so bit 1 alternates every two
+; seconds no matter how often this poll loop lands here. Known edge: a
+; play clock frozen at its 255:59 cap freezes the phase with it - and
+; the polarity below is chosen FOR that edge: the cap pins the seconds
+; at 59, whose bit 1 is SET, so nz must be the phase that shows the
+; PERSISTENT status (the honest, always-true label), never a CNF that
+; could then be stuck on screen for the rest of a maxed save.
+	ld a, [wPlayTimeSeconds]
+	and $02 ; bit 1 of the seconds: flips every two seconds
+	jp nz, PrintStatusConditionNotFainted ; put the real status back
 	ld a, "C"
 	ld [hli], a
 	ld a, "N"
@@ -2778,8 +2789,10 @@ PartyMenuOrRockOrRun:
 	ld [wcf91], a
 	ld [wd0b5], a
 	call GetMonHeader
-; v0.7: an enemy Pikachu is never the partner - show the fake's pic
-	callfar UseFakePikachuFrontPic
+; v0.7: an enemy Pikachu shows the fake's pic - except OAK's catch (the
+; Enemy variant tests BATTLE_TYPE_PIKACHU), so a mid-battle pic reload
+; there stays consistent with the load in init_battle
+	callfar UseFakePikachuFrontPicEnemy
 	ld de, vFrontPic
 	call LoadMonFrontSprite
 	jr .enemyMonPicReloaded

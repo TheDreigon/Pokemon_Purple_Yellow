@@ -171,6 +171,11 @@ UseFakePikachuFrontPic::
 	cp STARTER_PIKACHU
 	ret nz
 .repoint
+; wMonHPicBank is ONE byte shared by the front AND back pointers - a
+; consumer that draws the back pic after this repoint without a fresh
+; GetMonHeader (the Hall of Fame does exactly that) reads PikachuPicBack
+; through THIS bank. Works because the fake pic lives in Pikachu's own
+; section; the ASSERT beside its INCBIN in gfx/pics.asm pins that.
 	ld a, LOW(PikachuFakePicFront)
 	ld [wMonHFrontSprite], a
 	ld a, HIGH(PikachuFakePicFront)
@@ -179,14 +184,59 @@ UseFakePikachuFrontPic::
 	ld [wMonHPicBank], a
 	ret
 
+UseFakePikachuFrontPicEnemy::
+; the battle-enemy variant, with ONE exception (Forte, 2026-09-01): the
+; scripted catch on the way out of Pallet - the wild PIKACHU that OAK
+; catches IS the future partner, so that battle alone keeps the Yellow
+; pic. Every other enemy Pikachu (wild or trainer-owned) is a fake.
+	ld a, [wBattleType]
+	cp BATTLE_TYPE_PIKACHU
+	ret z
+; A TRANSFORMED enemy is drawing the PLAYER's mon, not its own species,
+; and the transform animation itself (ChangeMonPic) draws that copy in
+; the Yellow art - so the mid-battle pic reload must stand down here or
+; the same copy flips Yellow -> Silver across a party-menu open (the
+; 2026-09-01 adversarial review's find). If the transform-copy art is
+; ever redesigned, this gate and ChangeMonPic change together.
+	ld a, [wEnemyBattleStatus3]
+	bit TRANSFORMED, a
+	ret nz
+	jr UseFakePikachuFrontPic
+
+UseFakePikachuFrontPicHoF::
+; Hall of Fame INDUCTION: show the individual being inducted (Forte,
+; 2026-09-01: "depende - o pikachu que foi usado"). wHoFPartyMonIndex is
+; the party slot; the full partner test (marker + OTID + OT name) lives
+; two routines up in this same bank. The REPLAY from the League PC never
+; comes here - its records store species only, so it keeps the canonical
+; Yellow pic (there is nothing individual left to ask).
+; Clobbers wWhichPokemon; the HoF flow rewrites it with this same value
+; right after (HoFDisplayAndRecordMonInfo).
+	ld a, [wMonHIndex]
+	cp STARTER_PIKACHU
+	ret nz
+	ld a, [wHoFPartyMonIndex]
+	ld [wWhichPokemon], a
+	call IsThisPartymonStarterPikachu_Party
+	ret c ; the partner: Yellow stays
+	jr UseFakePikachuFrontPic.repoint
+
 UseFakePikachuFrontPicUnlessStarter::
-; the status-screen variant: here the individual under the cursor CAN be
-; the partner, and wLoadedMon holds it (LoadMonData ran). The partner is
-; the one Pikachu whose catch-rate byte is LIGHT_BALL_GSC - the same
-; marker the follower gate tests.
+; the individual-aware variant, used from home's flipped front-pic entry
+; (status screen and friends). The individual is whatever wLoadedMon
+; holds - so FIRST make sure wLoadedMon actually holds THIS Pikachu:
+; the flipped entry also serves screens that never ran LoadMonData (the
+; Oak intro, the Pokedex), where wLoadedMon is stale or zeroed, and
+; 2026-09-01's playtest caught the intro wearing the fake pic off the
+; back of exactly that garbage. Species mismatch = stale = keep Yellow;
+; the screens that WANT the fake regardless arm it themselves before
+; getting here (and this routine never undoes an armed swap).
 	ld a, [wMonHIndex]
 	cp STARTER_PIKACHU ; internal id - see above
 	ret nz
+	ld a, [wLoadedMonSpecies]
+	cp STARTER_PIKACHU
+	ret nz ; wLoadedMon is NOT this Pikachu - stale data, keep Yellow
 	ld a, [wLoadedMonCatchRate]
 	cp LIGHT_BALL_GSC
 	ret z ; the partner: Yellow pic stays

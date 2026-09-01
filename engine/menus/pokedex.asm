@@ -681,6 +681,11 @@ DrawDexEntryOnScreen:
 	call Delay3
 	call GBPalNormal
 	call GetMonHeader ; load pokemon picture location
+; v0.7 (2026-09-01, Forte's call): the Pokedex shows the FAKE Pikachu -
+; the species as found in the wild - deliberately and always. Armed here
+; because the flipped loader's own hook reads wLoadedMon, which this
+; screen never fills (and an armed swap is never undone by it).
+	callfar UseFakePikachuFrontPic
 	hlcoord 1, 1
 	call LoadFlippedFrontSpriteByMonIndex ; draw pokemon picture
 	ld a, [wcf91]

@@ -107,8 +107,9 @@ InitWildBattle:
 	ld [wcf91], a
 	jr .spriteLoaded
 .isNoGhost
-; v0.7: a wild Pikachu is never the partner - show the fake's pic
-	callfar UseFakePikachuFrontPic
+; v0.7: a wild Pikachu shows the fake's pic - except the one OAK catches
+; (the Enemy variant tests BATTLE_TYPE_PIKACHU: that one IS the partner)
+	callfar UseFakePikachuFrontPicEnemy
 	ld de, vFrontPic
 	call LoadMonFrontSprite ; load mon sprite
 .spriteLoaded
