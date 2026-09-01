@@ -4501,84 +4501,35 @@ OHKOText:
 	text_far _OHKOText
 	text_end
 
-; checks if a traded mon will disobey due to lack of badges
+; checks if the battle mon will disobey (hard mode: level above the cap)
 ; stores whether the mon will use a move in Z flag
 CheckForDisobedience:
 	xor a
 	ld [wMonIsDisobedient], a
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
-	jr nz, .checkIfMonIsTraded
+	jr nz, .notLinkBattle
 	ld a, $1
 	and a
 	ret
-; compare the mon's original trainer ID with the player's ID to see if it was traded
-.checkIfMonIsTraded
-	ld hl, wPartyMon1OTID
-	ld bc, wPartyMon2 - wPartyMon1
-	ld a, [wPlayerMonNumber]
-	call AddNTimes
-	ld a, [wPlayerID]
-	cp [hl]
-	jr nz, .monIsTraded
-
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	jr z, .NormalMode2
-; what level might disobey?
-	ld a, [wGameStage] ; Check if player has beat the game
-	and a
-	ld a, 101
-	jr nz, .next
-	farcall GetBadgesObtained
-	ld a, [wNumSetBits]
-	cp 8
-	ld a, 65 ; Jolteon/Flareon/Vaporeon's level
-	jr nc, .next
-	cp 7
-	ld a, 55 ; Rhydon's level
-	jr nc, .next
-	cp 6
-	ld a, 53 ; Magmar's level
-	jr nc, .next
-	cp 5
-	ld a, 50 ; Alakazam's level
-	jr nc, .next
-    cp 4
-	ld a, 43 ; Venomoth's level
-	jr nc, .next
-	cp 3
-	ld a, 35 ; Vileplume's level
-	jr nc, .next
-	cp 2
-    ld a, 24 ; Bit below Raichu's level
-	jr nc, .next
-	cp 1
-	ld a, 21 ; Starmie's level
-	jr nc, .next
-	ld a, 12 ; Onix's level
-	jp .next
-.NormalMode2
-	inc hl
-	ld a, [wPlayerID + 1]
-	cp [hl]
-	jp z, .canUseMove ; on normal mode non traded pokemon will always obey
-	; it was traded
-.monIsTraded
-	ld hl, wObtainedBadges
-	bit BIT_EARTHBADGE, [hl]
-	ld a, 101
-	jr nz, .next
-	bit BIT_MARSHBADGE, [hl]
-	ld a, 70
-	jr nz, .next
-	bit BIT_RAINBOWBADGE, [hl]
-	ld a, 50
-	jr nz, .next
-	bit BIT_CASCADEBADGE, [hl]
-	ld a, 30
-	jr nz, .next
-	ld a, 10
+.notLinkBattle
+; v0.7 (2026-09-01, Forte's redesign): obedience is the training ceiling
+; now, nothing else - and it applies to EVERY #MON the player commands,
+; own or traded alike:
+;   NORMAL: no caps, total obedience. The vanilla traded-mon badge tiers
+;   (CASCADE L30 / RAINBOW L50 / MARSH L70 / EARTH all) are GONE - the
+;   badge speeches and Badge House entries were reworded to match.
+;   HARD: a #MON above GetLevelCap's ceiling (the +1'd ace level the
+;   player SEES on the next leader) may disobey. Beating the League
+;   lifts everything at once: GetLevelCap returns MAX_LEVEL then, and no
+;   level can exceed it. One ladder for training AND obedience means a
+;   legally-trained #MON can never disobey - the audit's cap-vs-ladder
+;   windows are closed by construction.
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jp z, .canUseMove
+	callfar GetLevelCapFar
+	ld a, [wd11e]
 .next
 	ld b, a
 	ld c, a

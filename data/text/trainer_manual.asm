@@ -264,10 +264,10 @@ _ManualPage_3_4_Hard::
 	next "other setting."
 	next ""
 	next "Here a badge opens"
-	next "doors and commands"
-	next "obedience. The"
-	next "fighting strength"
-	next "is yours alone."
+	next "doors, nothing"
+	next "more. The fighting"
+	next "strength is yours"
+	next "alone."
 	done
 
 _ManualPage_3_5::
@@ -601,13 +601,13 @@ _ManualPage_7_3::
 	next "nothing from that"
 	next "fight."
 	next "Every other reward"
-	next "of experience is a"
-	next "little smaller."
-	next "None may grow past"
-	next "the GYM ahead."
-	next "Each badge lifts"
-	next "that ceiling; the"
-	next "League removes it."
+	next "is a little"
+	next "smaller."
+	next "None may grow or"
+	next "obey past the GYM"
+	next "ahead. Badges lift"
+	next "the ceiling; the"
+	next "League ends it."
 	done
 
 _ManualPage_7_4::

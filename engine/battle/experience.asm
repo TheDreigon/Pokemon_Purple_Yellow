@@ -850,33 +850,40 @@ GetLevelCap::
 	ld a, [wGameStage]
 	and a
 	jr nz, .uncapped ; the League is beaten; the cap has done its job
+; v0.7 (2026-09-01, Forte's redesign): the ceiling is the level the HARD
+; player actually SEES on the next leader's ace - base +1, because bosses
+; are +1 on hard (knob #12). It doubles as the OBEDIENCE threshold for
+; every #MON the player commands (CheckForDisobedience farcalls the
+; wrapper below), so training to the cap is always safe by construction.
+; 🔴 THIS IS THE ONLY COPY of the ladder - the Rare Candy and Day Care
+; inlines were deduped onto GetLevelCapFar the same day. Keep it that way.
 	call GetBadgesObtained
 	ld a, [wNumSetBits]
 	cp 8
-	ld b, 65 ; champion team (highest level in the game)
+	ld b, 66 ; champion's ace as seen on hard (65 + 1)
 	jr nc, .done
 	cp 7
-	ld b, 55 ; Giovanni's ace, 8th gym (heading to the league)
+	ld b, 56 ; Giovanni's ace, 8th gym (55 + 1)
 	jr nc, .done
 	cp 6
-	ld b, 55 ; Blaine's ace, 7th gym
+	ld b, 56 ; Blaine's ace, 7th gym (55 + 1)
 	jr nc, .done
 	cp 5
-	ld b, 49 ; Sabrina's ace, 6th gym
+	ld b, 50 ; Sabrina's ace, 6th gym (49 + 1)
 	jr nc, .done
 	cp 4
-	ld b, 45 ; Koga's ace, 5th gym
+	ld b, 46 ; Koga's ace, 5th gym (45 + 1)
 	jr nc, .done
 	cp 3
-	ld b, 38 ; Erika's ace, 4th gym
+	ld b, 39 ; Erika's ace, 4th gym (38 + 1)
 	jr nc, .done
 	cp 2
-	ld b, 34 ; Surge's ace, 3rd gym
+	ld b, 35 ; Surge's ace, 3rd gym (34 + 1)
 	jr nc, .done
 	cp 1
-	ld b, 21 ; Misty's ace, 2nd gym
+	ld b, 22 ; Misty's ace, 2nd gym (21 + 1)
 	jr nc, .done
-	ld b, 14 ; Brock's ace, 1st gym
+	ld b, 15 ; Brock's ace, 1st gym (14 + 1)
 	jr .done
 .uncapped
 	ld b, MAX_LEVEL
@@ -885,6 +892,15 @@ GetLevelCap::
 	pop hl
 	pop de
 	pop bc
+	ret
+
+GetLevelCapFar::
+; the farcall-able face of GetLevelCap: callfar cannot return in a (the
+; bankswitch trampoline clobbers it on the way back), so the cap is
+; parked in wd11e - the universal transient scratch - for the caller to
+; read immediately. Preserves bc/de/hl like GetLevelCap itself.
+	call GetLevelCap
+	ld [wd11e], a
 	ret
 
 ; function to count the set bits in wObtainedBadges

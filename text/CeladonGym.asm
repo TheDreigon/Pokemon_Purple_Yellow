@@ -82,8 +82,8 @@ _CeladonGymRematchPostBattleText::
 
 _CeladonGymRainbowBadgeInfoText::
 	text "The RAINBOWBADGE"
-	line "will make #MON"
-	cont "up to L50 obey."
+	line "blooms only for"
+	cont "nature's friends."
 
 	para "It also lets your"
 	line "#MON FLY any-"

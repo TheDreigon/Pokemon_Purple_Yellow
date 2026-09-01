@@ -10,15 +10,9 @@ _CeruleanBadgeHouseSoulBadgeText::
 	prompt
 
 _CeruleanBadgeHouseMarshBadgeText::
-	text "#MON up to L70"
-	line "will obey you."
-
-	para "Any higher, they"
-	line "become unruly!"
-
-	para "It also lets you"
-	line "use STRENGTH out-"
-	cont "side of battle."
+	text "It lets you use"
+	line "STRENGTH outside"
+	cont "of battle."
 	prompt
 
 _CeruleanBadgeHouseVolcanoBadgeText::
@@ -28,6 +22,7 @@ _CeruleanBadgeHouseVolcanoBadgeText::
 	prompt
 
 _CeruleanBadgeHouseEarthBadgeText::
-	text "All #MON will"
-	line "obey you!"
+	text "It is proof of"
+	line "victory over all"
+	cont "eight GYMs!"
 	prompt

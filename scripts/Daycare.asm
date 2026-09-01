@@ -171,41 +171,11 @@ DaycareGentlemanText:
 	callfar CalcLevelFromExperience
 
 	push bc
-	ld a, [wDifficulty] ; Check if player is on hard mode
-	and a
-	ld b, MAX_LEVEL
-	jr z, .next1 ; no level caps if not on hard mode
-
-	ld a, [wGameStage] ; Check if player has beat the game
-	and a
-	jr nz, .next1
-	farcall GetBadgesObtained
-	ld a, [wNumSetBits]
-	cp 8
-	ld b, 65 ; champion team (highest level in the game)
-	jr nc, .next1
-	cp 7
-	ld b, 55 ; Giovanni's ace, 8th gym (heading to the league)
-	jr nc, .next1
-	cp 6
-	ld b, 55 ; Blaine's ace, 7th gym
-	jr nc, .next1
-	cp 5
-	ld b, 49 ; Sabrina's ace, 6th gym
-	jr nc, .next1
-    cp 4
-	ld b, 45 ; Koga's ace, 5th gym
-	jr nc, .next1
-	cp 3
-	ld b, 38 ; Erika's ace, 4th gym
-	jr nc, .next1
-	cp 2
-    ld b, 34 ; Surge's ace, 3rd gym
-	jr nc, .next1
-	cp 1
-	ld b, 21 ; Misty's ace, 2nd gym
-	jr nc, .next1
-	ld b, 14 ; Brock's ace, 1st gym
+; v0.7 (2026-09-01): third inline copy of the cap ladder, deduped onto
+; GetLevelCapFar (see GetLevelCap for the family story).
+	callfar GetLevelCapFar
+	ld a, [wd11e]
+	ld b, a
 .next1
 	ld a, b
 	ld [wMaxDaycareLevel], a
