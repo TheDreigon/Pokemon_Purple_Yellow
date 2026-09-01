@@ -131,7 +131,11 @@ LassData:
 ; Route 3
 	db 10, KRABBY, ODDISH, 0
 	db 10, NIDORAN_F, NIDORAN_M, 0
-	db 14, JIGGLYPUFF, 0
+; v0.7 (2026-09-01, Forte): the first trainer-owned PIKACHU in the game -
+; unlocked by the fake-Pikachu sprite (it visibly is not the partner). His
+; tuning-saga rule kept Pikachu out of every party for Yellow lore; he
+; reversed it now that the two arts exist. Anime-Lass duo.
+	db 14, PIKACHU, JIGGLYPUFF, 0
 ; Route 4
 	db 35, PARASECT, VILEPLUME, 0
 ; Mt. Moon 1F
@@ -146,7 +150,7 @@ LassData:
 ; SS Anne 1F Rooms
 	db 18, PIDGEY, NIDORINA, 0
 ; SS Anne 2F Rooms
-	db 21, JIGGLYPUFF, 0
+	db 21, PIKACHU, JIGGLYPUFF, 0 ; v0.7: the second trainer PIKACHU (see Route 3)
 ; Route 8
 	db 26, WEEPINBELL, NIDORINA, 0
 	db 27, MEOWTH, LICKITUNG, NIDORINA, 0
