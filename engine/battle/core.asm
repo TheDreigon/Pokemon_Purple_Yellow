@@ -6947,7 +6947,7 @@ ApplyBadgeStatBoosts:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ret z ; return if link battle
-; v0.7 hard mode knob #16 (Forte, 2026-09-01): badges only strengthen
+; v0.7 hard mode knob #17 (Forte, 2026-09-01): badges only strengthen
 ; your #MON in NORMAL mode - hard mode fights on raw stats (the PIKACHU
 ; x1.25 mascot bonus below is part of the badge boost, so it dies with
 ; it). One gate covers both callers: the send-out bake
