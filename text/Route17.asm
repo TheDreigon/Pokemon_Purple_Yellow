@@ -148,28 +148,22 @@ _Route17Biker10AfterBattleText::
 	line "a few Zs!"
 	done
 
-_Route17NoticeSign1Text::
-	text "It's a notice!"
-
-	para "Watch out for"
-	line "discarded items!"
-	done
-
 _Route17SignText::
 	text "ROUTE 17"
 	line "CELADON CITY -"
 	cont "FUCHSIA CITY"
 	done
 
-_Route17NoticeSign2Text::
-	text "It's a notice!"
-
-	para "Don't throw the"
-	line "game, throw #"
-	cont "BALLs instead!"
-	done
-
 _Route17CyclingRoadEndsSignText::
 	text "CYCLING ROAD"
 	line "Slope ends here!"
+	done
+
+_Route17Route16SignText::
+; the ROUTE 16 label, relocated from Route 16 (its old home now teaches
+; the slope) - it stands just below the northern border, naming the road
+; the player is about to leave
+	text "ROUTE 16"
+	line "CELADON CITY -"
+	cont "FUCHSIA CITY"
 	done

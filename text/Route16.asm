@@ -114,7 +114,15 @@ _Route16CyclingRoadSignText::
 	done
 
 _Route16SignText::
-	text "ROUTE 16"
-	line "CELADON CITY -"
-	cont "FUCHSIA CITY"
+; v0.7 (2026-09-01, Forte): the route label moved to ROUTE 17 (7,5); this
+; sign at the CYCLING ROAD gate teaches the road's one local rule instead
+; (the manual's 2.7 is the global backup).
+	text "CYCLING ROAD"
+
+	para "The slope pulls"
+	line "you south!"
+
+	para "Hold the A or B"
+	line "Button to stand"
+	cont "still."
 	done

@@ -16,10 +16,12 @@ Route17_Object:
 	def_warp_events
 
 	def_bg_events
-	bg_event  9, 51, TEXT_ROUTE17_NOTICE_SIGN1
 	bg_event 11, 125, TEXT_ROUTE17_SIGN
-	bg_event   9, 109, TEXT_ROUTE17_NOTICE_SIGN2
 	bg_event  9, 141, TEXT_ROUTE17_CYCLING_ROAD_ENDS_SIGN
+; v0.7 (2026-09-01, Forte): the ROUTE 16 label sign relocated here from
+; Route 16 (5,17) - its old spot now teaches the slope rule. The two
+; NOTICE signs came down (his call; graphics already removed).
+	bg_event  7,  5, TEXT_ROUTE17_ROUTE16_SIGN
 
 	def_object_events
 	object_event 10, 25, SPRITE_BIKER, STAY, LEFT, TEXT_ROUTE17_BIKER1, OPP_CUE_BALL, 4, 3
