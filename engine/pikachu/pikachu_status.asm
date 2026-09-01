@@ -337,81 +337,22 @@ CheckPikachuFaintedOrStatused::
 	and a
 	ret
 
-IsSurfingPikachuInThePlayersParty::
+IsPikachuInThePlayersParty::
+; v0.7 (2026-09-01, Forte's call): the minigame's celebration cry follows
+; the entry gate - ANY Pikachu in the party counts, the SURF-move (and
+; OTID/OT-name) requirements died with the gate relax in
+; home/map_objects.asm IsPikachuInParty. Carry = found.
+; (Was IsSurfingPikachuInThePlayersParty, ~70 bytes of species+SURF+OT
+; matching; its only caller is the minigame's high-score cry.)
 	ld hl, wPartySpecies
-	ld de, wPartyMon1Moves
-	ld bc, wPartyMonOT
-	push hl
 .loop
-	pop hl
 	ld a, [hli]
-	push hl
-	inc a
-	jr z, .noSurfingPlayerPikachu
+	inc a ; $ff list terminator?
+	jr z, .no
 	cp STARTER_PIKACHU + 1
-	jr nz, .curMonNotSurfingPlayerPikachu
-	ld h, d
-	ld l, e
-	push hl
-	push bc
-	ld b, NUM_MOVES
-.moveSearchLoop
-	ld a, [hli]
-	cp SURF
-	jr z, .foundSurfingPikachu
-	dec b
-	jr nz, .moveSearchLoop
-	pop bc
-	pop hl
-	jr .curMonNotSurfingPlayerPikachu
-
-.foundSurfingPikachu
-	pop bc
-	pop hl
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	ld a, [wPlayerID]
-	cp [hl]
-	jr nz, .curMonNotSurfingPlayerPikachu
-	inc hl
-	ld a, [wPlayerID+1]
-	cp [hl]
-	jr nz, .curMonNotSurfingPlayerPikachu
-	push de
-	push bc
-	ld hl, wPlayerName
-	ld d, $6
-.nameCompareLoop
-	dec d
-	jr z, .foundSurfingPlayerPikachu
-	ld a, [bc]
-	inc bc
-	cp [hl]
-	inc hl
-	jr z, .nameCompareLoop
-	pop bc
-	pop de
-.curMonNotSurfingPlayerPikachu
-	ld hl, wPartyMon2 - wPartyMon1
-	add hl, de
-	ld d, h
-	ld e, l
-	ld hl, NAME_LENGTH
-	add hl, bc
-	ld b, h
-	ld c, l
-	jr .loop
-
-.foundSurfingPlayerPikachu
-	pop bc
-	pop de
-	pop hl
+	jr nz, .loop
 	scf
 	ret
-
-.noSurfingPlayerPikachu
-	pop hl
+.no
 	and a
 	ret

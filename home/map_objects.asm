@@ -70,45 +70,32 @@ IsItemInBag::
 	and a
 	ret
 
-IsSurfingPikachuInParty::
-; set bit 6 of wd472 if true
-; also calls Func_3467, which is a bankswitch to IsStarterPikachuInOurParty
+IsPikachuInParty::
+; v0.7 (2026-09-01, Forte's call): bit 6 of wd472 - the Summer Beach House
+; gate (the minigame, its posters and scoreboard) and the surf-along
+; player sprite - now asks only "is there a PIKACHU in the party?". The
+; old SURF-move requirement is gone: no Pikachu learns SURF in this hack,
+; which left the whole minigame unreachable. Any Pikachu counts, the
+; partner or a caught one.
+; (Was IsSurfingPikachuInParty. The vanilla loop also walked wPartyMon1
+; structs for PARTY_LENGTH slots regardless of the real count, so the
+; data remnants of a DEPOSITED mon in the tail slots could satisfy it;
+; this walks the $ff-terminated species list instead.)
+; Falls into Func_3467, which maintains bit 7 (the partner-in-party flag).
 	ld a, [wd472]
 	and $3f
 	ld [wd472], a
-	ld hl, wPartyMon1
-	ld c, PARTY_LENGTH
-	ld b, SURF
+	ld hl, wPartySpecies
 .loop
-	ld a, [hl]
-	cp STARTER_PIKACHU
-	jr nz, .notPikachu
-	push hl
-	ld de, $8
-	add hl, de
 	ld a, [hli]
-	cp b ; does pikachu have surf as one of its moves
-	jr z, .hasSurf
-	ld a, [hli]
-	cp b
-	jr z, .hasSurf
-	ld a, [hli]
-	cp b
-	jr z, .hasSurf
-	ld a, [hli]
-	cp b
-	jr nz, .noSurf
-.hasSurf
+	inc a ; $ff list terminator?
+	jr z, .done
+	cp STARTER_PIKACHU + 1 ; +1: o inc do teste de terminador ja passou por a
+	jr nz, .loop
 	ld a, [wd472]
 	set 6, a
 	ld [wd472], a
-.noSurf
-	pop hl
-.notPikachu
-	ld de, wPartyMon2 - wPartyMon1
-	add hl, de
-	dec c
-	jr nz, .loop
+.done
 	call Func_3467
 	ret
 

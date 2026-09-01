@@ -1723,7 +1723,7 @@ DidPlayerGetAHighScore:
 
 SurfingMinigame_PlayPikaCryIfSurfingPikaInParty:
 	push de
-	callfar IsSurfingPikachuInThePlayersParty
+	callfar IsPikachuInThePlayersParty
 	pop de
 	ret nc
 	callfar PlayPikachuSoundClip
