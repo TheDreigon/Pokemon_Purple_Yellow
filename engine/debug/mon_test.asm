@@ -203,6 +203,10 @@ MonTest_Draw:
 	call ClearScreen
 
 	hlcoord 1, 1                   ; MUST be 1,1 — see the palette note above
+; This viewer shows the canonical (Yellow partner) Pikachu art only — the
+; unflipped loader has no fake-pic hook, and Forte ruled either art is fine
+; here (2026-09-01). To review PikachuFakePicFront, use the status screen of
+; a caught Pikachu in-game.
 	call LoadFrontSpriteByMonIndex
 
 	hlcoord 1, 0

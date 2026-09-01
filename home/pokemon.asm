@@ -84,14 +84,19 @@ LoadMonData::
 LoadFlippedFrontSpriteByMonIndex::
 	ld a, 1
 	ld [wSpriteFlipped], a
-; v0.7 (2026-08-31, Forte's request): the flipped entry serves exactly the
-; two screens that show a SPECIFIC individual the player owns - the status
-; screen and the evolution scene - so this is where a non-partner Pikachu
-; swaps to its own front pic (the G/S Silver import). wLoadedMon holds the
-; individual for the status screen; the evolution scene arms the swap
-; unconditionally in Evolution_LoadPic before it reaches here, and this
-; call can only repeat that swap, never undo it. hl is this routine's
-; screen destination, and callfar tramples hl.
+; v0.7 (2026-08-31, Forte's request): the individual-aware fake-Pikachu
+; hook - a non-partner Pikachu swaps to its own front pic (the G/S Silver
+; import) here. SIX screens enter this flipped loader (grep before
+; trusting this list): the status screen (LoadMonData ran, wLoadedMon is
+; the individual - the case the hook reads), the evolution scene (arms
+; the swap unconditionally in Evolution_LoadPic first; this call can
+; only repeat a swap, never undo one), the Pokedex (arms the fake
+; deliberately in DrawDexEntryOnScreen), the Oak intro (invalidates
+; wLoadedMon so the hook stands down), the fan-club photo (LoadMonData
+; ran - individual-correct for free), and the trade scene (no Pikachu is
+; tradeable in-game today; the hook's wLoadedMonSpecies validity guard
+; is what keeps a stale byte from deciding anything there). hl is this
+; routine's screen destination, and callfar tramples hl.
 	push hl
 	callfar UseFakePikachuFrontPicUnlessStarter
 	pop hl

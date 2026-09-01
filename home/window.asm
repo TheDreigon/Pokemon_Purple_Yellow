@@ -34,9 +34,13 @@ HandleMenuInput_::
 	call HandleDownArrowBlinkTiming ; blink down arrow (if any)
 ; The battle HUD has three tiles for a status and a #MON can have two at once
 ; (a real one and confusion). This alternates them. It lives here because this
-; is the only loop that runs once a frame while the player is looking at the
-; HUD, and the down-arrow blink above is the proof that tilemap writes from
-; here reach the screen. It costs 6 bytes of home and returns immediately
+; is the only loop that runs continuously while the player is looking at the
+; HUD - NOT once a frame: this inner loop has no frame wait (the Delay3 is in
+; .loop1, and wMenuJoypadPollCount is a mode flag, not a counter), so it spins
+; ~50-100 polls a frame. That is why the alternation phase reads the wall
+; clock instead of counting calls (see AlternateHUDStatus). The down-arrow
+; blink above is the proof that tilemap writes from here reach the screen.
+; It costs 6 bytes of home and returns immediately
 ; unless hHUDStatusFlip says the battle menu is up.
 	farcall AlternateHUDStatus
 	pop hl

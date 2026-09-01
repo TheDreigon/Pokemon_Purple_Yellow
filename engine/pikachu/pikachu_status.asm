@@ -213,8 +213,11 @@ UseFakePikachuFrontPicChangeMonPic::
 ; the flash/redraw family draws the enemy's OWN current shape. Species
 ; tells them apart: equal to wEnemyMonSpecies = own shape, judge by the
 ; enemy's catch byte; different = the player's battler mid-transform,
-; judge by wBattleMon's. (An enemy PIKACHU using TRANSFORM would blur
-; the two, but no Pikachu learns it.)
+; judge by wBattleMon's. (The two cases only collide if the ENEMY's own
+; species is PIKACHU while it is the one mid-transform - i.e. an enemy
+; Pikachu executing TRANSFORM. No Pikachu learns it, none carries
+; METRONOME to roll it, and even then the miss would be one cosmetic
+; draw judged by the wrong side's byte.)
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_PIKACHU
 	ret z

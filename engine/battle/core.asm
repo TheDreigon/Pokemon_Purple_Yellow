@@ -1981,8 +1981,10 @@ DrawHUDsAndHPBars:
 ; confused #MON reads BRN and the confusion is invisible. Three tiles is all
 ; there is, so the only way to show both is to take turns.
 ;
-; Called once a frame from HandleMenuInput_ (home/window.asm), which every menu
-; in the game shares -- hence two gates, and both are load-bearing:
+; Called once per POLL of HandleMenuInput_'s inner loop (home/window.asm) --
+; ~50-100 times a frame, NOT once a frame; that loop has no frame wait, which
+; is why the phase reads the wall clock. Every menu in the game shares the
+; loop -- hence two gates, and both are load-bearing:
 ;   hHUDStatusFlip           0 unless the battle menu deliberately set it;
 ;                            HandleMenuInput clears it for everyone else.
 ;   wPartyMenuAnimMonEnabled the party menu is the ONE caller that enters at
