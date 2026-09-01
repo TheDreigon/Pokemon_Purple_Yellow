@@ -2149,6 +2149,9 @@ HideSubstituteShowMonAnim:
 	ld [wcf91], a
 	ld [wd0b5], a
 	call GetMonHeader
+; v0.7 (2026-09-01): this redraw is the enemy's OWN current shape - a
+; fake Pikachu (or a Ditto already wearing one) keeps its Silver art
+	callfar UseFakePikachuFrontPicEnemy
 	ld de, vFrontPic
 	jp LoadMonFrontSprite
 .monIsMinimized
@@ -2206,6 +2209,10 @@ ChangeMonPic:
 	xor a
 	ld [wSpriteFlipped], a
 	call GetMonHeader
+; v0.7 (2026-09-01, Forte): a Pikachu drawn on the enemy side wears the
+; art of the INDIVIDUAL being drawn - the variant sorts out whether that
+; is the enemy's own shape or the player's battler mid-transform
+	callfar UseFakePikachuFrontPicChangeMonPic
 	hlcoord 12, 0
 	call LoadFrontSpriteByMonIndex
 	jr .done

@@ -192,16 +192,43 @@ UseFakePikachuFrontPicEnemy::
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_PIKACHU
 	ret z
-; A TRANSFORMED enemy is drawing the PLAYER's mon, not its own species,
-; and the transform animation itself (ChangeMonPic) draws that copy in
-; the Yellow art - so the mid-battle pic reload must stand down here or
-; the same copy flips Yellow -> Silver across a party-menu open (the
-; 2026-09-01 adversarial review's find). If the transform-copy art is
-; ever redesigned, this gate and ChangeMonPic change together.
-	ld a, [wEnemyBattleStatus3]
-	bit TRANSFORMED, a
-	ret nz
+; The individual is wEnemyMonCatchRate. A wild or trainer-owned Pikachu
+; carries the species' base rate there; a TRANSFORMED enemy carries the
+; COPIED battler's byte (TransformEffect_ copies "type 1, type 2, catch
+; rate, and moves", and the player's send-out copies the party mon's
+; byte into wBattleMon first) - so a Ditto wearing the partner's shape
+; keeps the Yellow art and one wearing a caught Pikachu's shape wears
+; Silver, correct by IDENTITY even after the player switches out
+; (Forte, 2026-09-01: "ditto tem que se transformar no pikachu correto").
+	ld a, [wEnemyMonCatchRate]
+	cp LIGHT_BALL_GSC
+	ret z
 	jr UseFakePikachuFrontPic
+
+UseFakePikachuFrontPicChangeMonPic::
+; ChangeMonPic's enemy-turn branch serves TWO callers with different
+; individuals on the brush: the transform ANIMATION draws the PLAYER's
+; battler on the enemy side BEFORE TransformEffect_ has copied any data
+; (the enemy's own bytes still belong to the un-transformed Ditto), and
+; the flash/redraw family draws the enemy's OWN current shape. Species
+; tells them apart: equal to wEnemyMonSpecies = own shape, judge by the
+; enemy's catch byte; different = the player's battler mid-transform,
+; judge by wBattleMon's. (An enemy PIKACHU using TRANSFORM would blur
+; the two, but no Pikachu learns it.)
+	ld a, [wBattleType]
+	cp BATTLE_TYPE_PIKACHU
+	ret z
+	ld a, [wChangeMonPicEnemyTurnSpecies]
+	ld b, a
+	ld a, [wEnemyMonSpecies]
+	cp b
+	ld a, [wEnemyMonCatchRate]
+	jr z, .judge
+	ld a, [wBattleMonCatchRate]
+.judge
+	cp LIGHT_BALL_GSC
+	ret z
+	jp UseFakePikachuFrontPic
 
 UseFakePikachuFrontPicHoF::
 ; Hall of Fame INDUCTION: show the individual being inducted (Forte,
