@@ -231,6 +231,19 @@ _ManualPage_3_4::
 	next "twice that boost."
 	done
 
+_ManualPage_3_4_Hard::
+	text "Four badges"
+	next "strengthen your"
+	next "#MON - on the"
+	next "other setting."
+	next ""
+	next "Here a badge opens"
+	next "doors and commands"
+	next "obedience. The"
+	next "fighting strength"
+	next "is yours alone."
+	done
+
 _ManualPage_3_5::
 	text "The EXP.SHARE"
 	next "moves experience;"
@@ -529,11 +542,14 @@ _ManualPage_7_1::
 	next "two settings,"
 	next "chosen the day it"
 	next "begins."
-	next ""
 	next "The OPTION menu"
 	next "will tell you"
 	next "which one you are"
 	next "on."
+	next "On the harder one,"
+	next "badges lend no"
+	next "strength in"
+	next "battle."
 	done
 
 _ManualPage_7_2::

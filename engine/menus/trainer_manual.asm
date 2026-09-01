@@ -1097,6 +1097,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_3_2
 	manual_page ManualPage_3_3
 	manual_page ManualPage_3_4
+	manual_page ManualPage_3_4_Hard
 	manual_page ManualPage_3_5
 
 	manual_page ManualPage_4_1
@@ -1135,5 +1136,6 @@ TrainerManualSection7_4:
 ; has to know which chapter it is.
 TrainerManualHardPages:
 	dw ManualPage_5_2, ManualPage_5_2_Hard
+	dw ManualPage_3_4, ManualPage_3_4_Hard ; badges lend no strength on hard (knob #16)
 	dw 0 ; end
 
