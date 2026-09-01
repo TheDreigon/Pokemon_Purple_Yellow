@@ -52,6 +52,7 @@ SuperPalettes:
 	RGB 31,31,30, 19,22,24, 10,14,16, 06,06,06 ; PAL_STEELMON
 	RGB 31,31,30, 18,21,25, 09,12,17, 06,06,06 ; PAL_IRONMON
 	RGB 31,31,30, 18,18,19, 10,10,10, 06,06,06 ; PAL_SLATEMON
+	RGB 31,31,30, 31,31,19, 28,23,09, 06,06,06 ; PAL_PIKAMON (SGB: igual ao YELLOWMON - o claro de la ja e palido)
 	assert_table_length NUM_SGB_PALS
 
 GBCBasePalettes:
@@ -108,4 +109,5 @@ GBCBasePalettes:
 	RGB 31,31,31, 19,22,24, 10,14,16, 03,03,03 ; PAL_STEELMON
 	RGB 31,31,31, 18,21,25, 09,12,17, 03,03,03 ; PAL_IRONMON
 	RGB 31,31,31, 18,18,19, 10,10,10, 03,03,03 ; PAL_SLATEMON (kep-hack neutral grey, verbatim)
+	RGB 31,31,31, 31,31,14, 28,14,00, 03,03,03 ; PAL_PIKAMON (P2: YELLOWMON com o claro 31,31,0 -> 31,31,14)
 	assert_table_length NUM_SGB_PALS

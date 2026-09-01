@@ -106,4 +106,9 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       do Forte 2026-08-30: MAGNEMITE/MAGNETON/ONIX/RHYHORN/
 	                                 ;       RHYDON. O nosso PAL_GREYMON e o rosado vanilla (fica
 	                                 ;       para MAROWAK e para a Pokemon Tower). APPENDADA.
+	const PAL_PIKAMON                ; $33 — o amarelo do PIKACHU um toque mais claro que o puro
+	                                 ;       (P2, escolha do Forte 2026-09-01, com o re-shade dos
+	                                 ;       sprites). SO o PIKACHU (o real e o fake partilham a
+	                                 ;       paleta por serem a mesma especie); RAICHU/SANDSHREW/
+	                                 ;       WEEDLE continuam no PAL_YELLOWMON. APPENDADA.
 DEF NUM_SGB_PALS EQU const_value
