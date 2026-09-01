@@ -150,8 +150,8 @@ _Route17Biker10AfterBattleText::
 
 _Route17SignText::
 	text "ROUTE 17"
-	line "CELADON CITY -"
-	cont "FUCHSIA CITY"
+	line "FUCHSIA CITY -"
+	cont "CELADON CITY"
 	done
 
 _Route17CyclingRoadEndsSignText::
@@ -160,10 +160,9 @@ _Route17CyclingRoadEndsSignText::
 	done
 
 _Route17Route16SignText::
-; the ROUTE 16 label, relocated from Route 16 (its old home now teaches
-; the slope) - it stands just below the northern border, naming the road
-; the player is about to leave
-	text "ROUTE 16"
+; the ROUTE 17 label, relocated from Route 16 (its old home now teaches
+; the slope) - it stands just below the northern border.
+	text "ROUTE 17"
 	line "CELADON CITY -"
 	cont "FUCHSIA CITY"
 	done
