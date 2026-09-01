@@ -83,6 +83,18 @@ _ManualPage_1_6::
 	next "has to go."
 	done
 
+_ManualPage_1_7::
+	text "A KEY ITEM can be"
+	next "bound: press"
+	next "SELECT on its"
+	next "menu."
+	next ""
+	next "In the field,"
+	next "SELECT then uses"
+	next "it at once - no"
+	next "trip to the BAG."
+	done
+
 _ManualPage_2_1::
 	text "Wild #MON live"
 	next "in tall grass, and"
@@ -158,10 +170,10 @@ _ManualPage_2_6::
 	next "thing counts. They"
 	next "do not stack."
 	next ""
-	next "Confusion counts,"
-	next "though no screen"
-	next "shows it."
-	next ""
+	next "Confusion counts"
+	next "too. The HUD"
+	next "spells CNF over"
+	next "its level."
 	next "POISON, BURN,"
 	next "TOXIC and"
 	next "confusion all take"
@@ -178,6 +190,20 @@ _ManualPage_2_7::
 	next "Hold the A or B"
 	next "Button to stay"
 	next "put."
+	done
+
+_ManualPage_2_8::
+	text "Not every wild"
+	next "#MON lets you"
+	next "walk away."
+	next ""
+	next "The docile step"
+	next "aside. Hunters bar"
+	next "the road."
+	next ""
+	next "Outrun one and you"
+	next "are gone for"
+	next "certain."
 	done
 
 _ManualPage_3_1::
@@ -554,17 +580,18 @@ _ManualPage_7_1::
 
 _ManualPage_7_2::
 	text "On the harder"
-	next "setting a"
-	next "trainer's team"
-	next "never runs dry of"
+	next "setting trainers"
+	next "never run dry of"
 	next "PP."
 	next ""
-	next "REVIVE, ETHER and"
-	next "ELIXIR, and their"
-	next "greater forms, are"
-	next "refused in a"
-	next "trainer battle."
+	next "REVIVE, ETHER,"
+	next "ELIXIR and kin are"
+	next "refused there."
 	next "Wild ones are not."
+	next ""
+	next "No free switch"
+	next "when a foe falls:"
+	next "SET style."
 	done
 
 _ManualPage_7_3::
@@ -573,10 +600,14 @@ _ManualPage_7_3::
 	next "that faints earns"
 	next "nothing from that"
 	next "fight."
-	next ""
 	next "Every other reward"
 	next "of experience is a"
 	next "little smaller."
+	next "None may grow past"
+	next "the GYM ahead."
+	next "Each badge lifts"
+	next "that ceiling; the"
+	next "League removes it."
 	done
 
 _ManualPage_7_4::
@@ -585,7 +616,7 @@ _ManualPage_7_4::
 	next "your rival are"
 	next "even harder there."
 	next ""
-	next "They carry items"
+	next "Most carry items"
 	next "and spend them."
 	next "They stand a level"
 	next "above and crit"
@@ -593,5 +624,17 @@ _ManualPage_7_4::
 	next "Their moves land"
 	next "more often, and"
 	next "yours less."
+	done
+
+_ManualPage_7_4b::
+	text "And a GYM accepts"
+	next "only a fair badge"
+	next "match: bring no"
+	next "more #MON than"
+	next "the leader fields."
+	next ""
+	next "The leader tells"
+	next "you their count at"
+	next "the door."
 	done
 

@@ -703,9 +703,10 @@ GetCatchHPMultiplier:
 ;
 ; Three different bytes hold these. Sleep, poison, burn, freeze and paralysis
 ; live in the status byte; BADLY_POISONED sits in battle status 3 on top of the
-; poison bit; and CONFUSED is in battle status 1 and is the only one of the
-; eight the status screen never shows the player -- which is why the manual has
-; to say out loud that it counts.
+; poison bit; and CONFUSED is in battle status 1 -- the STATS screen never
+; shows it, but since 2026-08-21 the battle HUD spells CNF in the level slot
+; (and alternates it with a persistent status), so the player throwing the
+; ball can see it. The manual's catch page points at the HUD for it.
 ;
 ; Freeze is one step above sleep and no more, because what it really buys is
 ; one extra turn: 3-6 against 2-5 (both retuned in v0.5). The turns already pay

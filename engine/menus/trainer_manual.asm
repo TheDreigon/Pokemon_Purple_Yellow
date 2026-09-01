@@ -892,20 +892,21 @@ TrainerManualChapterPages:
 ; game taught: the #DEX rating over a PC (was a Viridian Forest sign) and
 ; the Cycling Road slope control (was a Route 17 sign).
 TrainerManualChapter1Sections:
-	db 6
+	db 7
 	manual_section TrainerManualSection1_1, 0
 	manual_section TrainerManualSection1_2, 1
 	manual_section TrainerManualSection1_3, 2
 	manual_section TrainerManualSection1_4, 3
 	manual_section TrainerManualSection1_5, 4
 	manual_section TrainerManualSection1_6, 5
+	manual_section TrainerManualSection1_7, 6
 TrainerManualChapter1Pages:
-	db 6
+	db 7
 	dw ManualPage_1_1, ManualPage_1_2, ManualPage_1_3
-	dw ManualPage_1_4, ManualPage_1_5, ManualPage_1_6
+	dw ManualPage_1_4, ManualPage_1_5, ManualPage_1_6, ManualPage_1_7
 
 TrainerManualChapter2Sections:
-	db 7
+	db 8
 	manual_section TrainerManualSection2_1, 0
 	manual_section TrainerManualSection2_2, 1
 	manual_section TrainerManualSection2_3, 2
@@ -913,10 +914,11 @@ TrainerManualChapter2Sections:
 	manual_section TrainerManualSection2_5, 4
 	manual_section TrainerManualSection2_6, 5
 	manual_section TrainerManualSection2_7, 6
+	manual_section TrainerManualSection2_8, 7
 TrainerManualChapter2Pages:
-	db 7
+	db 8
 	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
-	dw ManualPage_2_5, ManualPage_2_6, ManualPage_2_7
+	dw ManualPage_2_5, ManualPage_2_6, ManualPage_2_7, ManualPage_2_8
 
 TrainerManualChapter3Sections:
 	db 5
@@ -984,8 +986,9 @@ TrainerManualChapter7Sections:
 	manual_section TrainerManualSection7_3, 2
 	manual_section TrainerManualSection7_4, 3
 TrainerManualChapter7Pages:
-	db 4
+	db 5
 	dw ManualPage_7_1, ManualPage_7_2, ManualPage_7_3, ManualPage_7_4
+	dw ManualPage_7_4b ; 2nd page of WHAT A BOSS GETS (the badge-match rule)
 
 TrainerManualSection1_1:
 	db "ORDERING ITEMS@"
@@ -999,6 +1002,8 @@ TrainerManualSection1_5:
 	db "THE MOVEDEX@"
 TrainerManualSection1_6:
 	db "#DEX RATING@"
+TrainerManualSection1_7:
+	db "THE SELECT BIND@"
 
 TrainerManualSection2_1:
 	db "WHERE THEY LIVE@"
@@ -1014,6 +1019,8 @@ TrainerManualSection2_6:
 	db "WHAT AILS IT@"
 TrainerManualSection2_7:
 	db "ON A SLOPE@"
+TrainerManualSection2_8:
+	db "GETTING AWAY@"
 
 TrainerManualSection3_1:
 	db "SPECIAL@"
@@ -1084,6 +1091,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_1_4
 	manual_page ManualPage_1_5
 	manual_page ManualPage_1_6
+	manual_page ManualPage_1_7
 
 	manual_page ManualPage_2_1
 	manual_page ManualPage_2_2
@@ -1092,6 +1100,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_2_5
 	manual_page ManualPage_2_6
 	manual_page ManualPage_2_7
+	manual_page ManualPage_2_8
 
 	manual_page ManualPage_3_1
 	manual_page ManualPage_3_2
@@ -1128,6 +1137,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_7_2
 	manual_page ManualPage_7_3
 	manual_page ManualPage_7_4
+	manual_page ManualPage_7_4b
 
 ; A page with a hard-mode twin. The PP page is now the ONLY place in the game
 ; to read the difficulty and tell the truth for each setting -- the Viridian

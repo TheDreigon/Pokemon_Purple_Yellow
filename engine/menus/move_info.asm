@@ -124,6 +124,15 @@ ShowMoveInfo::
 	ld de, MoveInfoUtilityText
 	jr .gotCategory
 .damaging
+; v0.7 (2026-09-01, manual sanity audit): TRI ATTACK is typed BIRD (shows
+; NORMAL, physical range) but the damage engine force-routes it SPECIAL by
+; move number (core.asm, the same override on both sides). The card must
+; agree with the engine, not with the type table - chapter 6_2 of the
+; manual vouches that "a move's card names which".
+	ld a, [wPlayerMoveNum]
+	cp TRI_ATTACK
+	ld de, MoveInfoSpecialText
+	jr z, .gotCategory
 	ld a, [wPlayerMoveType]
 	cp SPECIAL
 	ld de, MoveInfoPhysicalText
