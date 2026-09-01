@@ -491,7 +491,21 @@ CinnabarGymBlaineText:
 	text_end
 
 CinnabarGymBlaineVolcanoBadgeInfoText:
+; v0.7 knob #17 (2026-09-01): no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CinnabarGymBlaineVolcanoBadgeInfoText
+	text_end
+.hard
+	text_far _CinnabarGymBlaineVolcanoBadgeInfoHardText
 	text_end
 
 CinnabarGymBlaineReceivedTMText:

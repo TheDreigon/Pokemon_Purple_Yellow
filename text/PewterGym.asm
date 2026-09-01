@@ -154,9 +154,9 @@ _PewterGymBrockBoulderBadgeInfoText::
 	line "#MON LEAGUE"
 	cont "BADGE!"
 
-	para "Its bearer's"
-	line "#MON become"
-	cont "more powerful!"
+	para "It raises the"
+	line "ATTACK of your"
+	cont "#MON!"
 	prompt
 
 _PewterGymCooltrainerMBattleText::

@@ -158,8 +158,16 @@ PewterGymBrockText:
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
+; v0.7 knob #17 (2026-09-01): on HARD the badge lends no boost, so the
+; victory spiel must not claim one - two chains, picked here
 	ld hl, PewterGymBrockReceivedBoulderBadgeText
 	ld de, PewterGymBrockReceivedBoulderBadgeText
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .badgeChainChosen
+	ld hl, PewterGymBrockReceivedBoulderBadgeTextHard
+	ld de, PewterGymBrockReceivedBoulderBadgeTextHard
+.badgeChainChosen
 	call SaveEndBattleTextPointers
 	ldh a, [hSpriteIndex]
 	ld [wSpriteIndex], a
@@ -262,6 +270,12 @@ PewterGymBrockReceivedBoulderBadgeText:
 	text_far _PewterGymBrockReceivedBoulderBadgeText
 	sound_get_item_1
 	text_far _PewterGymBrockBoulderBadgeInfoText ; power-up spiel (FLASH moved to LT.SURGE's badge, v0.7 HM remap)
+	text_end
+
+PewterGymBrockReceivedBoulderBadgeTextHard:
+	text_far _PewterGymBrockReceivedBoulderBadgeText
+	sound_get_item_1
+	text_far _PewterGymBrockBoulderBadgeInfoHardText ; knob #17: no boost claim on hard
 	text_end
 
 PewterGymCooltrainerMText:

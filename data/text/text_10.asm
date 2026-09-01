@@ -101,3 +101,71 @@ _HardModeGymPartyGateText::
 	text_decimal wd11e, 1, 1
 	text " #MON."
 	done
+
+; v0.7 knob #17 follow-up (Forte, 2026-09-01): the four boost-badge speeches
+; and the Badge House entries must not mislead a HARD player - on hard the
+; badges lend no stat boost. Same 4th-wall rule as the party-gate text above:
+; no mode name-drop; the leaders speak of the player's chosen road instead.
+_PewterGymBrockBoulderBadgeInfoHardText::
+	text_start
+
+	para "That's an official"
+	line "#MON LEAGUE"
+	cont "BADGE!"
+
+	para "On the road you"
+	line "chose, its power"
+	cont "must be your own!"
+	prompt
+
+_VermilionGymLTSurgeThunderBadgeInfoHardText::
+	text "The THUNDERBADGE"
+	line "lets your #MON"
+	cont "use FLASH any-"
+	cont "time, kid!"
+
+	para "You're special,"
+	line "kid! Take this!"
+	done
+
+_FuchsiaGymKogaSoulBadgeInfoHardText::
+	text "Now that you have"
+	line "the SOULBADGE,"
+	cont "you can SURF"
+	cont "outside of"
+	cont "battle!"
+
+	para "Ah! Take this"
+	line "too!"
+	done
+
+_CinnabarGymBlaineVolcanoBadgeInfoHardText::
+	text "Hah!"
+
+	para "The VOLCANOBADGE"
+	line "is the mark of"
+	cont "true skill!"
+
+	para "Here, you can"
+	line "have this too!"
+	done
+
+; shared by the BOULDER and VOLCANO Badge House entries on hard - those two
+; badges have nothing but the boost to describe
+_CeruleanBadgeHouseNoBoostHardText::
+	text "On the harder"
+	line "path, BADGEs lend"
+	cont "no strength."
+	prompt
+
+_CeruleanBadgeHouseThunderBadgeHardText::
+	text "It lets you use"
+	line "FLASH outside"
+	cont "of battle."
+	prompt
+
+_CeruleanBadgeHouseSoulBadgeHardText::
+	text "It lets you use"
+	line "SURF outside"
+	cont "of battle."
+	prompt

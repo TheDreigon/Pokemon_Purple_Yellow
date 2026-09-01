@@ -91,7 +91,21 @@ CeruleanBadgeHouseBadgeTextPointers:
 	assert_table_length NUM_BADGES
 
 CeruleanBadgeHouseBoulderBadgeText:
+; v0.7 knob #17 (2026-09-01): no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeruleanBadgeHouseBoulderBadgeText
+	text_end
+.hard
+	text_far _CeruleanBadgeHouseNoBoostHardText
 	text_end
 
 CeruleanBadgeHouseCascadeBadgeText:
@@ -99,7 +113,21 @@ CeruleanBadgeHouseCascadeBadgeText:
 	text_end
 
 CeruleanBadgeHouseThunderBadgeText:
+; v0.7 knob #17 (2026-09-01): no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeruleanBadgeHouseThunderBadgeText
+	text_end
+.hard
+	text_far _CeruleanBadgeHouseThunderBadgeHardText
 	text_end
 
 CeruleanBadgeHouseRainbowBadgeText:
@@ -107,7 +135,21 @@ CeruleanBadgeHouseRainbowBadgeText:
 	text_end
 
 CeruleanBadgeHouseSoulBadgeText:
+; v0.7 knob #17 (2026-09-01): no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeruleanBadgeHouseSoulBadgeText
+	text_end
+.hard
+	text_far _CeruleanBadgeHouseSoulBadgeHardText
 	text_end
 
 CeruleanBadgeHouseMarshBadgeText:
@@ -115,7 +157,21 @@ CeruleanBadgeHouseMarshBadgeText:
 	text_end
 
 CeruleanBadgeHouseVolcanoBadgeText:
+; v0.7 knob #17 (2026-09-01): no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeruleanBadgeHouseVolcanoBadgeText
+	text_end
+.hard
+	text_far _CeruleanBadgeHouseNoBoostHardText
 	text_end
 
 CeruleanBadgeHouseEarthBadgeText:
