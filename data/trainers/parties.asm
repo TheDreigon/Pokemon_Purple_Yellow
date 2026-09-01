@@ -373,7 +373,7 @@ HikerData:
 MistyData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Cerulean Gym
-	db $FF, 19, PSYDUCK, 20, GOLDEEN, 21, STARMIE, 0
+	db $FF, 18, PSYDUCK, 20, GOLDEEN, 22, STARMIE, 0
 ; 2: Rematch
 	db $FF, 63, BLASTOISE, 64, GYARADOS, 64, OMASTAR, 65, STARMIE, 65, GOLDUCK, 0
 
@@ -593,7 +593,7 @@ BeautyData:
 ErikaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Celadon Gym (4th)
-	db $FF, 34, TANGELA, 35, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
+	db $FF, 35, TANGELA, 36, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
 ; 2: Rematch
 	db $FF, 63, EXEGGUTOR, 64, TANGELA, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
 
@@ -604,7 +604,7 @@ GiovanniData:
 ; 2: Silph Co. 11F
 	db $FF, 43, KINGLER, 43, MACHAMP, 44, NIDOQUEEN, 45, NIDOKING, 45, PERSIAN, 0
 ; 3: Viridian Gym
-	db $FF, 53, GOLEM, 53, MACHAMP, 54, RHYDON, 54, CLOYSTER, 55, PERSIAN, 55, NIDOKING, 0
+	db $FF, 53, GOLEM, 53, MACHAMP, 54, RHYDON, 54, CLOYSTER, 55, NIDOKING, 55, PERSIAN, 0
 
 JugglerData:
 ; Silph Co. 5F
@@ -891,6 +891,6 @@ BillData:
 ; Post-League, in his house on Route 25. Not a trainer and not pretending to be:
 ; the team is what he has studied rather than what he would pick to win. The
 ; three eeveelutions are his research, Ditto lost its own shape the way he once
-; did, and Porygon - a Pokemon that is software - leads, because he is the man
-; who taught the world to keep Pokemon inside a machine.
+; did, and Porygon - a Pokemon that is software - closes, because he is the
+; man who taught the world to keep Pokemon inside a machine.
 	db $FF, 70, EEVEE, 70, VAPOREON, 70, JOLTEON, 70, FLAREON, 75, DITTO, 75, PORYGON, 0
