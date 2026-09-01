@@ -109,5 +109,5 @@ GBCBasePalettes:
 	RGB 31,31,31, 19,22,24, 10,14,16, 03,03,03 ; PAL_STEELMON
 	RGB 31,31,31, 18,21,25, 09,12,17, 03,03,03 ; PAL_IRONMON
 	RGB 31,31,31, 18,18,19, 10,10,10, 03,03,03 ; PAL_SLATEMON (kep-hack neutral grey, verbatim)
-	RGB 31,31,31, 31,31,14, 24,08,00, 03,03,03 ; PAL_PIKAMON (P2 + 09-01: escuro 28,14,0 -> 24,8,0, laranja mais vermelho e mais escuro, pedido do Forte)
+	RGB 31,31,31, 31,31,14, 22,06,01, 03,03,03 ; PAL_PIKAMON (P2 + 09-01: escuro 28,14,0 -> 22,6,1 - o C3 da folha de candidatos, escolha do Forte)
 	assert_table_length NUM_SGB_PALS
