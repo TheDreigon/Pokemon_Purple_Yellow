@@ -43,4 +43,6 @@ ResidualEffects2:
 	db SPEED_EVASION_DOWN1_EFFECT    ; dual-stat (Psychic Bind)
 	db ATTACK_UP1_DOWN1_EFFECT       ; mixed dual-stat (Fierce Roar)
 	db SPECIAL_UP1_HEAL_EFFECT       ; stat + heal (Growth revised)
+	db SPECIAL_DOWN2_FLINCH_EFFECT   ; stat + flinch (Metal Sound, 2026-09-01)
+	db SPECIAL_DOWN1_FLINCH_EFFECT   ; stat + flinch (Screech, 2026-09-01)
 	db -1 ; end

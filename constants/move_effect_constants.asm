@@ -111,4 +111,6 @@
 	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31).
 	const USER_LEVEL_DAMAGE_EFFECT   ; $65  damage equals the USER's level (Night Shade; clarity split of $29, 2026-08-31).
 	const SET_DAMAGE_EFFECT          ; $66  fixed damage by move: DRAGON RAGE 50, SONICBOOM 25 (clarity split of $29, 2026-08-31).
+	const SPECIAL_DOWN2_FLINCH_EFFECT ; $67  target Spc-2 + ~30% flinch (Metal Sound; Forte 2026-09-01. The stat leg turns SP.DEF at the 1.0 split.)
+	const SPECIAL_DOWN1_FLINCH_EFFECT ; $68  target Spc-1 + ~30% flinch (Screech; same family as $67).
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

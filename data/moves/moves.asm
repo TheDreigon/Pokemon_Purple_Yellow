@@ -283,8 +283,8 @@ Moves: ; Current total = 219
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
 	move FAKE_TEARS,     SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move.
-	move METAL_SOUND,    SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
-	move SCREECH,        SPECIAL_DOWN1_EFFECT,              0, BIRD,         100, 30
+	move METAL_SOUND,    SPECIAL_DOWN2_FLINCH_EFFECT,       0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
+	move SCREECH,        SPECIAL_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 30
 
 	move EERIE_IMPULSE,  SPECIAL_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
 

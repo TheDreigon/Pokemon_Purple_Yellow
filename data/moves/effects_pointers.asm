@@ -103,4 +103,6 @@ MoveEffectPointerTable:
 	dw NULL                      ; TARGET_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
 	dw NULL                      ; USER_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
 	dw NULL                      ; SET_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
+	dw SpecialDown2FlinchEffect  ; SPECIAL_DOWN2_FLINCH_EFFECT
+	dw SpecialDown1FlinchEffect  ; SPECIAL_DOWN1_FLINCH_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS

@@ -2022,6 +2022,53 @@ SpecialSpeedDown1Effect:
 	ld [de], a
 	ret
 
+SpecialDown2FlinchEffect:
+; Target Special -2 plus ~30% flinch. Used by METAL_SOUND (Forte's call,
+; 2026-09-01; the stat leg becomes SP.DEF when the 1.0 split lands).
+	ld b, SPECIAL_DOWN2_EFFECT
+	ld c, SPECIAL_DOWN2_FLINCH_EFFECT
+	jr DoStatDownFlinchEffect
+
+SpecialDown1FlinchEffect:
+; Target Special -1 plus ~30% flinch. Used by SCREECH (same day, same call).
+	ld b, SPECIAL_DOWN1_EFFECT
+	ld c, SPECIAL_DOWN1_FLINCH_EFFECT
+	; fallthrough
+DoStatDownFlinchEffect:
+; in: b = the stat-down leg to spoof, c = our own effect id to restore.
+; Same spoof pattern as SpecialSpeedDown1Effect above, but the second leg
+; is FlinchSideEffect (which re-derives its side from hWhoseTurn and reads
+; the chance tier from the move-effect byte: anything but tier 1 = 30%).
+; The flinch rolls ONLY when the stat leg landed - one accuracy roll for
+; the whole move, unlike the dual-stat pairs where each leg rolls its own.
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr
+	ld de, wEnemyMoveEffect
+.gotEffectPtr
+	push bc
+	push de
+	ld a, b
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	pop bc
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .restore ; the move whiffed: no flinch roll
+	push bc
+	push de
+	ld a, FLINCH_SIDE_EFFECT2 ; 30%
+	ld [de], a
+	call FlinchSideEffect
+	pop de
+	pop bc
+.restore
+	ld a, c
+	ld [de], a
+	ret
+
 SpeedEvasionDown1Effect:
 ; Dual-stat -1 on the target (Speed + Evasion). Used by PSYCHIC_BIND (v0.7).
 ; Mirrors SpeedEvasionUp1Effect (Agility) but in the down direction —

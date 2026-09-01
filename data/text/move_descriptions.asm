@@ -674,3 +674,15 @@ _MoveDesc_ExtremeSpeed::
 	next "quick moves."
 	done
 
+
+_MoveDesc_SpecialDown2Flinch::
+	text "Lowers SPECIAL two"
+	next "steps. 30 in 100"
+	next "to flinch the foe."
+	done
+
+_MoveDesc_SpecialDown1Flinch::
+	text "Lowers SPECIAL one"
+	next "step. 30 in 100 to"
+	next "flinch the foe."
+	done

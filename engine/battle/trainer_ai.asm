@@ -479,6 +479,8 @@ Modifier2PreferredMoves:
 	db SPECIAL_ACCURACY_UP1_EFFECT   ; Calm Mind (revised: SPC + ACC up)
 	db SPECIAL_SPEED_UP1_EFFECT      ; Quiver Dance (user dual-up)
 	db SPEED_EVASION_DOWN1_EFFECT    ; Psychic Bind (target dual-down)
+	db SPECIAL_DOWN2_FLINCH_EFFECT   ; Metal Sound (target down + flinch)
+	db SPECIAL_DOWN1_FLINCH_EFFECT   ; Screech (target down + flinch)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine

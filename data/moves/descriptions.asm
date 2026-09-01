@@ -155,6 +155,8 @@ MoveEffectDescriptions:
 	dw MoveDesc_TargetLevelDamage ; TARGET_LEVEL_DAMAGE_EFFECT
 	dw MoveDesc_LevelDamage ; USER_LEVEL_DAMAGE_EFFECT
 	dw MoveDesc_SpecialDamage ; SET_DAMAGE_EFFECT
+	dw MoveDesc_SpecialDown2Flinch ; SPECIAL_DOWN2_FLINCH_EFFECT
+	dw MoveDesc_SpecialDown1Flinch ; SPECIAL_DOWN1_FLINCH_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -591,4 +593,12 @@ MoveDesc_Softboiled:
 
 MoveDesc_Sonicboom:
 	text_far _MoveDesc_Sonicboom
+	text_end
+
+MoveDesc_SpecialDown2Flinch:
+	text_far _MoveDesc_SpecialDown2Flinch
+	text_end
+
+MoveDesc_SpecialDown1Flinch:
+	text_far _MoveDesc_SpecialDown1Flinch
 	text_end
