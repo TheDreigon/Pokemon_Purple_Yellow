@@ -17,7 +17,7 @@ Route17_Object:
 
 	def_bg_events
 	bg_event  9, 51, TEXT_ROUTE17_NOTICE_SIGN1
-	bg_event   9, 89, TEXT_ROUTE17_SIGN
+	bg_event 11, 125, TEXT_ROUTE17_SIGN
 	bg_event   9, 109, TEXT_ROUTE17_NOTICE_SIGN2
 	bg_event  9, 141, TEXT_ROUTE17_CYCLING_ROAD_ENDS_SIGN
 
