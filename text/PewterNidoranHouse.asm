@@ -16,10 +16,10 @@ _PewterNidoranHouseMiddleAgedManText::
 	cont "get in a trade."
 
 	para "It grows fast, but"
-	line "it may ignore an"
-	cont "unskilled trainer"
-	cont "in battle!"
+	line "it barely listens"
+	cont "to my heart..."
 
-	para "If only we had"
-	line "some BADGEs..."
+	para "Maybe it just"
+	line "misses its old"
+	cont "trainer."
 	done

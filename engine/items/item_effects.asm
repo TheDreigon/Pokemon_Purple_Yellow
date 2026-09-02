@@ -1838,7 +1838,11 @@ ItemUseMedicine:
 	pop hl
 	ld a, [hl] ; a = level
 	cp b ; MAX_LEVEL on normal mode, level cap on hard mode
-	jr z, .vitaminNoEffect ; already at the cap (MAX_LEVEL, or badge-tiered cap on hard mode)
+; 2026-09-02 sanity sweep: `jr z` refused only AT the cap, so a mon that
+; ARRIVED above it (catchable on hard: the Tower's L42 GENGAR vs cap 39)
+; leveled straight past the ceiling the exp path enforces. No-carry = at
+; or above = refused, matching the exp/daycare/obedience sisters.
+	jr nc, .vitaminNoEffect ; at or above the cap
 	inc a
 	ld [hl], a ; store incremented level
 	ld [wCurEnemyLVL], a

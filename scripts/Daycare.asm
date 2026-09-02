@@ -176,6 +176,16 @@ DaycareGentlemanText:
 	callfar GetLevelCapFar
 	ld a, [wd11e]
 	ld b, a
+; 2026-09-02 sanity sweep: a mon DEPOSITED above the cap must not be
+; clamped DOWN to it - the battle-exp path learned this first (the
+; roof-house PORYGON story). Without this guard the clamp cut the exp
+; before the yes/no prompt, the box level dropped to the cap, "grown by"
+; wrapped to 251 and the bill charged all 252 phantom levels, forever.
+; The ceiling is therefore max(cap, the level it arrived with).
+	ld a, [wDayCareMonBoxLevel]
+	cp b
+	jr c, .next1
+	ld b, a
 .next1
 	ld a, b
 	ld [wMaxDaycareLevel], a
