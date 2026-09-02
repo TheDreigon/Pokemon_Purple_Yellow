@@ -548,18 +548,17 @@ _ManualPage_6_4::
 	next "NORMAL FIGHTING"
 	next "FLYING POISON"
 	next "GROUND ROCK BUG"
-	next "DRAGON DARK STEEL"
-	next "MAGMA FUNGUS."
+	next "DRAGON DARK STEEL."
 	done
 
 _ManualPage_6_5::
 	text "And these with the"
 	next "mind:"
 	next ""
-	next "GHOST FIRE WATER"
-	next "GRASS ELECTRIC"
-	next "PSYCHIC ICE FAIRY"
-	next "GAS."
+	next "MAGMA FUNGUS GHOST"
+	next "FIRE WATER GRASS"
+	next "ELECTRIC PSYCHIC"
+	next "ICE FAIRY GAS."
 	done
 
 _ManualPage_7_1::

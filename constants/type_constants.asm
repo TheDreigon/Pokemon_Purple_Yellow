@@ -2,11 +2,14 @@
 ;
 ; PURPLE YELLOW: the physical/special split is TYPE-BASED (Gen 1 convention):
 ; types with ID < SPECIAL use Attack/Defense, types >= SPECIAL use Special.
-; We extended the PHYSICAL range to $00-$0C to fit the new physical types
-; (DRAGON moved down from $1A; DARK, STEEL, MAGMA, FUNGUS added). FAIRY and
-; GAS are in the SPECIAL range. GHOST moved from $08 to $0D so that the
-; SPECIAL constant sits just above the extended physical block. The gap
-; between SPECIAL/GHOST and FIRE is preserved to keep the trade slot layout.
+; We extended the PHYSICAL range to fit the new physical types (DRAGON moved
+; down from $1A; DARK, STEEL added). GHOST moved from $08 to $0D. FAIRY and
+; GAS are in the SPECIAL range. 2026-09-02 (Forte): MAGMA and FUNGUS turned
+; SPECIAL - the boundary moved from $0D down to $0B, NO id changed (a mon's
+; type bytes, the matchup table and the name table are all untouched; only
+; the three `cp SPECIAL` category checks and the generated manual pages see
+; the difference). The gap between GHOST and FIRE is preserved to keep the
+; trade slot layout ($14 alignment).
 	const_def
 
 DEF PHYSICAL EQU const_value
@@ -21,11 +24,11 @@ DEF PHYSICAL EQU const_value
 	const DRAGON       ; $08  ; new physical (Purple Yellow; moved from $1A)
 	const DARK         ; $09  ; new type (Purple Yellow)
 	const STEEL        ; $0A  ; new type (Purple Yellow)
-	const MAGMA        ; $0B  ; new type (Purple Yellow)
-	const FUNGUS       ; $0C  ; new type (Purple Yellow)
 
 DEF SPECIAL EQU const_value
-	const GHOST        ; $0D  ; moved from $08 so SPECIAL sits above the extended physical range
+	const MAGMA        ; $0B  ; new type (Purple Yellow; SPECIAL since 2026-09-02)
+	const FUNGUS       ; $0C  ; new type (Purple Yellow; SPECIAL since 2026-09-02)
+	const GHOST        ; $0D  ; moved from $08 (special since the day it moved)
 
 DEF UNUSED_TYPES EQU const_value
 	const_next 20
