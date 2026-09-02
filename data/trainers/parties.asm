@@ -108,7 +108,7 @@ BugCatcherData:
 ; Route 3
 	db $FF, 7, CATERPIE, 9, METAPOD, 11, BUTTERFREE, 0
 	db 8, WEEDLE, KAKUNA, CATERPIE, METAPOD, 0
-	db 7, CATERPIE, 7, WEEDLE, 9, PARAS, 0
+	db $FF, 7, CATERPIE, 7, WEEDLE, 9, PARAS, 0 ; v0.7 fix: per-level format needs the $FF lead (without it 7/9 read as SPECIES)
 ; Mt. Moon 1F
 	db 11, WEEDLE, BEEDRILL, 0
 	db 11, CATERPIE, BUTTERFREE, 0
@@ -161,6 +161,7 @@ LassData:
 	db 29, PARASECT, EXEGGUTOR, 0
 ; Viridian Forest
 	db 6, NIDORAN_F, NIDORAN_M, 0
+	db 7, ODDISH, BELLSPROUT, 0 ; v0.7 (2026-09-02, Forte): the shortcut LASS
 
 BrockData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)

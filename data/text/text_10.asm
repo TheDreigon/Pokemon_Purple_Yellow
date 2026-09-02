@@ -189,3 +189,28 @@ _ExpShareLonelyText::
 	para "There's no EXP"
 	line "to share."
 	prompt
+
+_ViridianForestCooltrainerF2BattleText::
+	text "I wish these"
+	line "bushes weren't"
+	cont "in the way."
+
+	para "It'd be such a"
+	line "nice shortcut."
+
+	para "Oh! You're a"
+	line "trainer too?"
+	cont "Let's fight!"
+	done
+
+_ViridianForestCooltrainerF2EndBattleText::
+	text "Aww, wilted!"
+	prompt
+
+_ViridianForestCooltrainerF2AfterBattleText::
+	text "My team won't"
+	line "CUT the bushes."
+
+	para "They say it'd be"
+	line "rude to family."
+	done

@@ -26,6 +26,7 @@ ViridianForest_TextPointers:
 	dw_const PickUpItemText,                    TEXT_VIRIDIANFOREST_POKE_BALL
 	dw_const ViridianForestYoungster6Text,      TEXT_VIRIDIANFOREST_YOUNGSTER6
 	dw_const ViridianForestCooltrainerMText,    TEXT_VIRIDIANFOREST_COOLTRAINER_M
+	dw_const ViridianForestCooltrainerF2Text,   TEXT_VIRIDIANFOREST_COOLTRAINER_F2
 
 ViridianForestTrainerHeaders:
 	def_trainers 2
@@ -41,6 +42,8 @@ ViridianForestTrainerHeader4:
 	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_4, TEXT_VIRIDIANFOREST_YOUNGSTER5, ViridianForestYoungster5BattleText, ViridianForestYoungster5EndBattleText, ViridianForestYoungster5AfterBattleText
 ViridianForestTrainerHeader5:
 	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_5, TEXT_VIRIDIANFOREST_COOLTRAINER_M, ViridianForestCooltrainerMBattleText, ViridianForestCooltrainerMEndBattleText, ViridianForestCooltrainerMAfterBattleText
+ViridianForestTrainerHeader6:
+	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_6, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, ViridianForestCooltrainerF2BattleText, ViridianForestCooltrainerF2EndBattleText, ViridianForestCooltrainerF2AfterBattleText
 	db -1 ; end
 
 ViridianForestYoungster1Text:
@@ -70,6 +73,11 @@ ViridianForestCooltrainerMText:
 ViridianForestCooltrainerFText:
 	text_asm
 	ld hl, ViridianForestTrainerHeader3
+	jr ViridianForestTalkToTrainer
+
+ViridianForestCooltrainerF2Text:
+	text_asm
+	ld hl, ViridianForestTrainerHeader6
 	jr ViridianForestTalkToTrainer
 
 ViridianForestYoungster5Text:
@@ -137,6 +145,18 @@ ViridianForestCooltrainerFEndBattleText:
 
 ViridianForestCooltrainerFAfterBattleText:
 	text_far _ViridianForestCooltrainerFAfterBattleText
+	text_end
+
+ViridianForestCooltrainerF2BattleText:
+	text_far _ViridianForestCooltrainerF2BattleText
+	text_end
+
+ViridianForestCooltrainerF2EndBattleText:
+	text_far _ViridianForestCooltrainerF2EndBattleText
+	text_end
+
+ViridianForestCooltrainerF2AfterBattleText:
+	text_far _ViridianForestCooltrainerF2AfterBattleText
 	text_end
 
 ViridianForestYoungster5BattleText:

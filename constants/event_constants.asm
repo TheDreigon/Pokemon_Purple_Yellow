@@ -594,6 +594,10 @@
 ; the map's flag byte (bit 7 of $560's byte, carved from free padding; Mt.
 ; Moon's const_next $570 anchors the next block, so nothing shifts).
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_5
+; v0.7 (2026-09-02, Forte): the shortcut LASS at (16,30). Object slot 8 needs
+; bit 8%8 = 0 - this lands at $568, bit 0 of the padding byte between this
+; block and Mt. Moon's const_next $570 anchor, so nothing shifts.
+	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_6
 
 ; Mt. Moon events
 	const_next $570
