@@ -23,6 +23,13 @@ DistributeExperience::
 ;
 ; It also covers the plain case of an empty flag byte, where ONE would otherwise
 ; halve the block and hand the fighters' half to nobody.
+; #10 follow-up (Forte 2026-09-02): the summary bookkeeping starts clean for
+; every distribution - the party loop below accumulates into these, and
+; PrintExpShareSummary reads them. Zeroed in all modes; OFF just never prints.
+	xor a
+	ld [wExpShareTotal], a
+	ld [wExpShareTotal + 1], a
+	ld [wExpSharePaidFlags], a
 	ld a, [wPartyGainExpFlags]
 	and a
 	jr z, .noSharing
@@ -60,12 +67,13 @@ DistributeExperience::
 	ld [wBoostExpByExpShare], a ; announces the share, and keeps this pass quiet
 	                          ; about the one Pokemon it pays
 	call GainExperience
-; and now the ones that actually fought, splitting the other half between them
+; and now the ones that actually fought, splitting the other half between them.
+; wBoostExpByExpShare STAYS set (2026-09-02): it silences the per-Pokemon
+; "gained X EXP" text, and both passes feed the single summary box instead.
 	pop af
 	ld [wPartyGainExpFlags], a
-	xor a
-	ld [wBoostExpByExpShare], a
-	jp GainExperience
+	call GainExperience
+	jp PrintExpShareSummary
 
 .shareWithWholeTeam
 ; No halving: the flags decide the split, and DivideExpDataByNumMonsGainingExp
@@ -77,12 +85,215 @@ DistributeExperience::
 	jr z, .noSharing ; nobody eligible at all; let the normal path run
 	ld a, 1
 	ld [wBoostExpByExpShare], a
-	jp GainExperience
+	call GainExperience
+	jp PrintExpShareSummary
 
 .noSharing
 	xor a
 	ld [wBoostExpByExpShare], a
 	jp GainExperience
+
+PrintExpShareSummary:
+; One box per battle instead of a text per Pokemon (Forte 2026-09-02):
+; "Shared X EXP / between A, B and C" - X is everything both passes handed
+; out, the names are everyone whose exp actually moved. If every candidate
+; was refused (at the cap, fainted on Hard) there is nothing to say. In a
+; link battle GainExperience returns without paying, the flags stay zero,
+; and this stays quiet with it.
+	xor a
+	ld [wBoostExpByExpShare], a ; do not leak the silence past this battle
+	ld a, [wExpSharePaidFlags]
+	and a
+	ret z
+	call BuildExpShareNames
+	ld hl, SharedExpText
+	jp PrintText
+
+BuildExpShareNames:
+; Composes the recipient list into wMoveBuffer as a PlaceString-ready run:
+; "between A, B and C" (or "with A" for one recipient), "@"-terminated, with
+; <CONT> breaks so no rendered row overflows. Budget is 17 tiles per row
+; (the first row could take 18, but <CONT> rows cannot - one rule is safer),
+; and every row reserves 1 tile: the last row takes the far text's "!" and
+; a wrapped row leaves its comma behind - the same spare tile covers both.
+; Wrap grammar: "A, B" breaks as "A,<CONT>B"; "A and B" as "A<CONT>and B".
+;
+; wMoveBuffer is the relearner/TM-list/dex-list scratch (164 bytes): none of
+; its owners can run between the enemy fainting and this box printing, and
+; the blob is consumed immediately by SharedExpText's text_ram.
+;
+; Index and names-written live in the two house transients - both are dead
+; between the exp loop finishing and the next screen: wWhichPokemon walks
+; the party, wd11e counts names already written (0 = no separator yet).
+	ld a, [wExpSharePaidFlags]
+	ld b, 0 ; popcount
+.count
+	srl a
+	jr nc, .counted
+	inc b
+.counted
+	and a
+	jr nz, .count
+	ld hl, ExpShareWithWord
+	ld c, 5 ; column after "with "
+	ld a, b
+	dec a
+	jr z, .header
+	ld hl, ExpShareBetweenWord
+	ld c, 8 ; column after "between "
+.header
+	ld de, wMoveBuffer
+.copyHeader
+	ld a, [hli]
+	cp "@"
+	jr z, .headerDone
+	ld [de], a
+	inc de
+	jr .copyHeader
+.headerDone
+	xor a
+	ld [wWhichPokemon], a
+	ld [wd11e], a
+.nameLoop
+	ld a, [wWhichPokemon]
+	cp PARTY_LENGTH
+	jp nc, .terminate
+; paid?
+	push bc
+	ld c, a
+	ld a, [wExpSharePaidFlags]
+	inc c
+.bitWalk
+	rra
+	dec c
+	jr nz, .bitWalk
+	pop bc
+	jp nc, .nextIndex ; this slot got nothing
+	push bc
+	push de
+	ld a, [wWhichPokemon]
+	ld hl, wPartyMonNicks
+	call GetPartyMonName ; the name lands at wcd6d, "@"-terminated
+	pop de
+	pop bc
+; l = name length
+	push bc
+	ld hl, wcd6d
+	ld b, 0
+.measure
+	ld a, [hli]
+	cp "@"
+	jr z, .measured
+	inc b
+	jr .measure
+.measured
+	ld a, b
+	pop bc
+	ld l, a
+; h = separator length: nothing before the first name, ", " usually,
+; " and " before the last
+	ld h, 0
+	ld a, [wd11e]
+	and a
+	jr z, .checkFit
+	ld h, 2
+	ld a, b
+	dec a
+	jr nz, .checkFit
+	ld h, 5
+.checkFit
+	ld a, c
+	add h
+	add l
+	inc a ; the reserved tile
+	cp 17 + 1
+	jr c, .emit
+; wrap. ", " leaves its comma on the old row; " and " moves whole
+	ld a, h
+	cp 2
+	jr nz, .breakRow
+	ld a, ","
+	ld [de], a
+	inc de
+.breakRow
+	ld a, "<CONT>"
+	ld [de], a
+	inc de
+	ld c, 0
+	ld a, h
+	cp 5
+	ld h, 0 ; either way the separator is spent
+	jr nz, .emit
+	ld a, "a" ; "and " opens the new row (no hl: l still holds the length)
+	ld [de], a
+	inc de
+	ld a, "n"
+	ld [de], a
+	inc de
+	ld a, "d"
+	ld [de], a
+	inc de
+	ld a, " "
+	ld [de], a
+	inc de
+	ld c, 4
+.emit
+	ld a, h
+	and a
+	jr z, .noSeparator
+	cp 5
+	jr z, .fullAnd
+	ld a, ","
+	ld [de], a
+	inc de
+	ld a, " "
+	ld [de], a
+	inc de
+	jr .noSeparator
+.fullAnd
+	push hl
+	ld hl, ExpShareAndWord
+.copySep
+	ld a, [hli]
+	cp "@"
+	jr z, .sepDone
+	ld [de], a
+	inc de
+	jr .copySep
+.sepDone
+	pop hl
+.noSeparator
+	ld a, c
+	add h
+	add l
+	ld c, a
+; copy the name itself
+	push hl
+	ld hl, wcd6d
+.copyName
+	ld a, [hli]
+	cp "@"
+	jr z, .nameDone
+	ld [de], a
+	inc de
+	jr .copyName
+.nameDone
+	pop hl
+	ld hl, wd11e
+	inc [hl]
+	dec b
+.nextIndex
+	ld hl, wWhichPokemon
+	inc [hl]
+	jp .nameLoop
+.terminate
+	ld a, "@"
+	ld [de], a
+	ret
+
+ExpShareWithWord:    db "with @"
+ExpShareBetweenWord: db "between @"
+ExpShareAndWord:     db " and @"
 
 GetExpShareMode:
 ; out: a = the mode in force right now, zero flag set if that is OFF.
@@ -245,12 +456,9 @@ GainExperience:
 	cp LINK_STATE_BATTLING
 	ret z ; return if link battle
 	call DivideExpDataByNumMonsGainingExp
-	ld a, [wBoostExpByExpShare] ;load in a if the EXP.SHARE is being used
-	ld hl, WithExpShareText
-	and a
-	jr z, .skipExpShare ; if wBoostExpByExpShare is zero, we are not using it, so we don't show anything and keep going on
-	call PrintText ; if the code reaches this point it means we have the EXP.SHARE, so show the message
-.skipExpShare
+; (2026-09-02: the "Shared the EXP!" banner that printed here died with the
+; per-battle summary - PrintExpShareSummary now says everything, once, with
+; the number and the names.)
 	ld hl, wPartyMon1
 	xor a
 	ld [wWhichPokemon], a
@@ -392,6 +600,26 @@ GainExperience:
 	inc [hl]
 	inc hl
 .noCarry
+; summary bookkeeping (2026-09-02): the amount this Pokemon just received and
+; its party bit - PrintExpShareSummary reads both. Display only; the clamp
+; below can shave what a mon at the edge of the cap keeps, so the number is
+; the amount handed out, not a promise of what stuck.
+	push hl
+	push bc
+	ld hl, wExpShareTotal + 1
+	ld a, [wExpAmountGained + 1]
+	add [hl]
+	ld [hld], a
+	ld a, [wExpAmountGained]
+	adc [hl]
+	ld [hl], a
+	ld a, [wWhichPokemon]
+	call ExpShareBitMask
+	ld hl, wExpSharePaidFlags
+	or [hl]
+	ld [hl], a
+	pop bc
+	pop hl
 ; calculate exp for the mon at max level, and cap the exp at that value
 	inc hl
 	push hl
@@ -722,12 +950,11 @@ CallBattleCore:
 	jp Bankswitch
 
 GainedText:
+; (2026-09-02: the wBoostExpByExpShare branch to a share banner is gone -
+; when the flag is set the per-Pokemon text is skipped wholesale upstream,
+; so this text only ever prints in OFF mode / with no item.)
 	text_far _GainedText
 	text_asm
-	ld a, [wBoostExpByExpShare]
-	ld hl, WithExpShareText
-	and a
-	ret nz
 	ld hl, ExpPointsText
 	ld a, [wGainBoostedExp]
 	and a
@@ -735,16 +962,8 @@ GainedText:
 	ld hl, BoostedText
 	ret
 
-WithExpShareText:
-; #10: this used to chain into ExpPointsText, which prints wExpAmountGained -
-; and that byte pair is only written INSIDE the party loop, while this line is
-; printed BEFORE it. The old EXP.ALL got away with it because its shared pass
-; was always the SECOND one, so a previous pass had filled the number in. Both
-; new modes print this on a pass that runs first, so the number would have been
-; whatever the last Pokemon paid in the PREVIOUS battle - or 0000 on the first
-; battle after a boot. There is no honest number to show here anyway: TEAM pays
-; everyone and ONE pays somebody who is not on screen.
-	text_far _WithExpShareText
+SharedExpText:
+	text_far _SharedExpText
 	text_end
 
 BoostedText:

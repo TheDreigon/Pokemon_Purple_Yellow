@@ -1241,11 +1241,6 @@ _GainedText::
 	line "@"
 	text_end
 
-_WithExpShareText::
-; #10: neutral, because ONE mode pays a single Pokemon and TEAM pays the lot.
-	text "Shared the EXP!"
-	prompt
-
 _BoostedText::
 	text "a boosted"
 	cont "@"

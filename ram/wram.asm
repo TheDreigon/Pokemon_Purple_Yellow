@@ -1910,9 +1910,11 @@ wSerialPlayerDataBlock:: ; ds $1a8
 ; that case, this would be ESCAPE_ROPE.
 wPseudoItemID:: db
 
-wUnusedD153:: db
-
-	ds 2
+; #10 EXP.SHARE summary scratch (2026-09-02): transient - written between the
+; enemy fainting and the summary box printing, then dead. Reclaimed the unused
+; db + ds 2; every address after this is unmoved.
+wExpShareTotal:: dw ; big-endian like wExpAmountGained (text_decimal reads it)
+wExpSharePaidFlags:: db ; bit n set = party slot n actually received exp
 
 wEvoStoneItemID:: db
 

@@ -905,6 +905,19 @@ ItemUseExpShare:
 	bit BIT_B_BUTTON, a
 	jr nz, .cancelled ; B leaves the setting alone
 	ld a, [wCurrentMenuItem]
+	and a ; OFF may always be chosen
+	jr z, .store
+; ONE and TEAM with a single Pokemon: there is nobody to share WITH, so the
+; menu refuses and explains (Forte 2026-09-02). The battle engine would cope
+; with the setting fine - this is purely the honest answer at the counter.
+	ld a, [wPartyCount]
+	dec a
+	jr nz, .store
+	ld hl, ExpShareLonelyText
+	call PrintText
+	jr .cancelled
+.store
+	ld a, [wCurrentMenuItem]
 	ld [wExpShareMode], a
 	ld hl, ExpShareSetToOffText
 	and a
@@ -1985,6 +1998,10 @@ BaitRockCommon:
 	predef MoveAnimation ; do animation
 	ld c, 70
 	jp DelayFrames
+
+ExpShareLonelyText:
+	text_far _ExpShareLonelyText
+	text_end
 
 ExpShareSetToOffText:
 	text_far _ExpShareSetToOffText

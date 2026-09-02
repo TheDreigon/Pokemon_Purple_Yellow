@@ -91,8 +91,8 @@ _AddPartyMon::
 	ld b, FLAG_TEST
 	ld hl, wPokedexOwned
 	call FlagAction
-	ld a, c ; whether the mon was already flagged as owned
-	ld [wUnusedD153], a ; not read
+	; (a dead `ld [wUnusedD153], a ; not read` lived here until 2026-09-02;
+	; the byte was reclaimed for the EXP.SHARE summary and the write with it)
 	ld a, [wd11e]
 	dec a
 	ld c, a
