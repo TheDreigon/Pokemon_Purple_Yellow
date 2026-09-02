@@ -44,7 +44,7 @@ ViridianForest_Object:
 	object_event  2, 18, SPRITE_COOLTRAINER_M, STAY, LEFT, TEXT_VIRIDIANFOREST_COOLTRAINER_M, OPP_COOLTRAINER_M, 11, 2
 ; v0.7 (2026-09-02, Forte): the shortcut LASS - she faces the bushes she
 ; wishes were gone. Slot 8 (the ordinal contract above applies to her too).
-	object_event 16, 30, SPRITE_COOLTRAINER_F, STAY, UP, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, OPP_LASS, 20, 2
+	object_event 16, 30, SPRITE_COOLTRAINER_F, STAY, UP, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, OPP_LASS, 20, 1
 	object_event  8,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POTION1, POTION
 	object_event 32, 43, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POISON_HEAL, POISON_HEAL
 	object_event  1, 30, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POKE_BALL, POKE_BALL ; v0.7 (2026-09-02): moved to (1,30) to match his Ground Items table
