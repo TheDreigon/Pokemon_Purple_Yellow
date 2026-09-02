@@ -111,7 +111,4 @@ ViridianMartCooltrainerMText:
 	text_end
 
 ViridianMartClerkText::
-; 🔴 TEMPORARY (2026-09-01, Forte): EXP_SHARE on sale here so he can grab
-; one on any save and playtest it NOW. Key item, price table says 0 - it
-; rings up at ¥0. REMOVE the extra before release.
-	script_tiered_mart EXP_SHARE
+	script_tiered_mart
