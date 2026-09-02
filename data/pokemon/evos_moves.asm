@@ -2607,29 +2607,24 @@ OnixEvosMoves:
 	db  8, BIND
 	db  8, COIL
 	db 12, BIDE
-	db 15, HEADBUTT
-	db 18, ROCK_THROW
-	db 22, BULLDOZE
-	db 25, BODY_SLAM
-	db 25, STRENGTH
-	db 28, TAKE_DOWN
-	db 31, ROCK_TOMB
-	db 34, FIERCE_ROAR
-	db 37, CRUNCH
-	db 37, DIG
-	db 43, HEAD_SMASH
-	db 46, BRUTAL_SWING
-	db 46, IRON_TAIL
-	db 49, EARTHQUAKE
-	db 51, ROCK_SLIDE
-	db 53, IRON_DEFENSE
-	db 55, IRON_HEAD
-	db 57, INTIMIDATE
-	db 60, DRAGON_BREATH
-	db 63, HEAVY_SLAM
-	db 65, DRAGON_SLAM
-	db 67, FISSURE
-	db 70, HYPER_BEAM
+	db 14, ROCK_THROW
+	db 16, HEADBUTT
+	db 18, BODY_SLAM
+	db 20, BULLDOZE
+	db 22, TAKE_DOWN
+	db 24, ROCK_TOMB
+	db 26, DIG
+	db 29, IRON_TAIL
+	db 32, HEAD_SMASH
+	db 35, IRON_HEAD
+	db 38, HEAVY_SLAM
+	db 42, BRUTAL_SWING
+	db 45, EARTHQUAKE
+	db 48, ROCK_SLIDE
+	db 50, IRON_DEFENSE
+	db 53, DRAGON_SLAM
+	db 56, INTIMIDATE
+	db 60, FISSURE
 	db 0
 
 DrowzeeEvosMoves:
@@ -3365,14 +3360,14 @@ ScytherEvosMoves:
 ; Blade ladder SLASH -> CUT -> NIGHT_SLASH; HONE_CLAWS = sharpening
 ; the scythes; GUILLOTINE last (mantis decapitation).
 ; No BUG_BUZZ (Butterfree + Venomoth only).
-	db 10, QUICK_ATTACK
+	db  6, QUICK_ATTACK
+	db  8, BUG_BITE
 	db 12, FOCUS_ENERGY
-	db 14, ASTONISH
-	db 16, BUG_BITE
-	db 18, WING_ATTACK
-	db 20, CUT
-	db 22, SLASH
-	db 24, HONE_CLAWS
+	db 16, WING_ATTACK
+	db 20, SLASH
+	db 22, CUT
+	db 24, ASTONISH
+	db 26, HONE_CLAWS
 	db 26, FALSE_SWIPE
 	db 28, FAINT_ATTACK
 	db 30, AGILITY
@@ -3381,8 +3376,8 @@ ScytherEvosMoves:
 	db 38, AERIAL_ACE
 	db 42, NIGHT_SLASH
 	db 47, FLY
-	db 52, SWORDS_DANCE
-	db 56, EXTREMESPEED
+	db 50, EXTREMESPEED
+	db 55, SWORDS_DANCE
 	db 60, GUILLOTINE
 	db 0
 
@@ -3491,25 +3486,26 @@ PinsirEvosMoves:
 ; horns excavate), DOUBLE_EDGE L55 (stag beetles ram full-body in
 ; duels), SUBMISSION L57 (full-body grappling slam fits the brute).
 ; No SLASH (no claws), no BUG_BUZZ (silent; no buzzing wings).
-	db  8, HARDEN
-	db 10, FOCUS_ENERGY
-	db 13, BIDE
-	db 16, BUG_BITE
-	db 19, SEISMIC_TOSS
-	db 21, VICEGRIP
-	db 23, CUT
-	db 25, BIND
-	db 26, FALSE_SWIPE
-	db 29, STRENGTH
-	db 33, BULK_UP
+	db  8, BUG_BITE
+	db 10, DEFENSE_CURL
+	db 12, BITE
+	db 14, BIDE
+	db 16, VICEGRIP
+	db 18, CUT
+	db 21, FOCUS_ENERGY
+	db 24, BIND
+	db 26, CRUNCH
+	db 28, FALSE_SWIPE
+	db 31, SEISMIC_TOSS
+	db 33, STRENGTH
 	db 36, DIG
 	db 40, BODY_SLAM
 	db 42, TAKE_DOWN
 	db 46, GORE_ATTACK
 	db 50, MEGAHORN
 	db 53, THRASH
-	db 55, DOUBLE_EDGE
-	db 57, SUBMISSION
+	db 55, SUBMISSION
+	db 57, DOUBLE_EDGE
 	db 60, GUILLOTINE
 	db 0
 
