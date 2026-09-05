@@ -14,7 +14,8 @@ _CeladonMart1FInfoClerkIntroText::
 	para "Ask me about"
 	line "anything the"
 	cont "shops sell."
-	done
+	prompt ; v0.7 (2026-09-05, Forte): `done` closed the box before anyone
+	       ; could read "sell." - this waits for A/B like every other clerk
 
 _CeladonMart1FInfoClerkWhichText::
 	text "Which shelf?"
