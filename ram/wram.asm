@@ -953,7 +953,9 @@ NEXTU
 ; battle (since v0.7) both opt in; Bill's PC leaves it alone and behaves as
 ; it always did.
 ; Repurposed from wUnusedCD3D: same address, same size, and it sits in menu
-; scratch, nowhere near the saved block.
+; scratch, nowhere near the saved block - BUT $cd3d is a ~40-way union
+; (wBoxNumString, wSwappedMenuItem, wPriceTemp...), so a caller must write it
+; right before the predef and never trust what it finds there (2026-09-05).
 wStatusScreenPageChange:: db
 ; the number of credits mons that have been displayed so far
 wNumCreditsMonsDisplayed:: db

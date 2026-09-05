@@ -104,6 +104,11 @@ DEF FIRST_PARTY_MENU_TEXT_ID EQU const_value
 ; Mode byte, written by the caller. A caller that does not set STATUS_OPTIN
 ; (Bill's PC) gets vanilla behaviour untouched: A or B ends the page and the
 ; d-pad does nothing. The overworld party menu and battle both opt in.
+; 🔴 EVERY caller must WRITE the byte before the predef, opt-in or not: it
+; sits at $cd3d, a huge WRAM union (wBoxNumString among ~40 others), so a
+; stale value with bit 7 set impersonates an opt-in - Bill's PC drew garbage
+; pictures for exactly that reason until 2026-09-05. NormalizeMode cannot
+; tell a stale $F7 from a real mode; only the writer can.
 DEF STATUS_OPTIN    EQU %10000000 ; "I drive the pages and read the answer back"
 DEF STATUS_QUIET    EQU %00000001 ; compose behind the page already on screen:
                                   ; no white-out, BG transfer off until it is done

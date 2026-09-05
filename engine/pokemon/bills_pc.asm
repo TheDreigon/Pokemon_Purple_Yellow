@@ -471,6 +471,14 @@ DisplayDepositWithdrawMenu:
 	ld a, BOX_DATA
 .next2
 	ld [wMonDataLocation], a
+; v0.7 (2026-09-05, Forte's playtest): the status screen's mode byte lives at
+; $cd3d - a ~40-way union that ALSO holds wBoxNumString, the "BOX n" digit
+; this very menu prints on a deposit. "1" is $F7 in the charmap, and $F7 read
+; as a mode is OPTIN|QUIET|NOCRY|NOWAIT|KEEPPIC: the page believed the
+; picture was already in VRAM and placed tiles over the PC's tileset. The PC
+; was the one caller that "left the byte alone" - it owns it now.
+	xor a
+	ld [wStatusScreenPageChange], a
 	predef StatusScreen
 	predef StatusScreen2
 	call LoadScreenTilesFromBuffer1
