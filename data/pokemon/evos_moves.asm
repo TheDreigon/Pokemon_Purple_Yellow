@@ -1899,7 +1899,7 @@ BellsproutEvosMoves:
 	db EVOLVE_LEVEL, 22, WEEPINBELL
 	db 0
 ; Learnset
-; Carnivorous pitcher predator (Grass/Poison). Powder rule: ONLY
+; Carnivorous pitcher predator (pure Grass). Powder rule: ONLY
 ; SLEEP_POWDER (predator just sleeps its prey; no Poison/Stun Powder).
 ; CONSTRICT/WRAP + vine kit; SLEEP_POWDER at evo level (signature on evo);
 ; ACID + RAZOR_LEAF + drain progression (ABSORB->MEGA->GIGA); TICKLE for
