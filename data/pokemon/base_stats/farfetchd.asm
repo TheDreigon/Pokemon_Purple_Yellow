@@ -1,7 +1,7 @@
 	db DEX_FARFETCHD ; pokedex id
 	base_stat_row 100, 75, 50, 50, 75 ; hp atk def spc spd
 	db FIGHTING, FLYING ; type
-	db 100 ; catch rate  ; solo stage, BST 350
+	db 115 ; catch rate  ; set by hand: run feedback 2026-09-05: a bit easier; one step off its 100
 	db 130 ; base exp  ; BST 350 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/farfetchd.pic", 0, 1 ; sprite dimensions
