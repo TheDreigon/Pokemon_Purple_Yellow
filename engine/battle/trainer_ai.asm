@@ -481,6 +481,8 @@ Modifier2PreferredMoves:
 	db SPEED_EVASION_DOWN1_EFFECT    ; Psychic Bind (target dual-down)
 	db SPECIAL_DOWN2_FLINCH_EFFECT   ; Metal Sound (target down + flinch)
 	db SPECIAL_DOWN1_FLINCH_EFFECT   ; Screech (target down + flinch)
+	db ATTACK_DOWN2_FLINCH_EFFECT    ; Intimidate (target down + flinch)
+	db SPEED_DOWN2_FLINCH_EFFECT     ; Scary Face (target down + flinch)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine

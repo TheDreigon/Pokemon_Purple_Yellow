@@ -274,7 +274,7 @@ Moves: ; Current total = 219
 	move TELEPORT,       EVASION_UP1_EFFECT,                0, BIRD,         100, 20
 
 	move CHARM,          ATTACK_DOWN2_EFFECT,               0, BIRD,          90, 20 ; new move.
-	move INTIMIDATE,     ATTACK_DOWN2_EFFECT,               0, BIRD,          90, 20 ; new move.
+	move INTIMIDATE,     ATTACK_DOWN2_FLINCH_EFFECT,        0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
 	move GROWL,          ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
@@ -288,7 +288,7 @@ Moves: ; Current total = 219
 
 	move EERIE_IMPULSE,  SPECIAL_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
 
-	move SCARY_FACE,     SPEED_DOWN2_EFFECT,                0, BIRD,          90, 20 ; new move.
+	move SCARY_FACE,     SPEED_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
 	move HINDER,         SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30 ; new move.
 	move STRING_SHOT,    SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30
 

@@ -45,4 +45,6 @@ ResidualEffects2:
 	db SPECIAL_UP1_HEAL_EFFECT       ; stat + heal (Growth revised)
 	db SPECIAL_DOWN2_FLINCH_EFFECT   ; stat + flinch (Metal Sound, 2026-09-01)
 	db SPECIAL_DOWN1_FLINCH_EFFECT   ; stat + flinch (Screech, 2026-09-01)
+	db ATTACK_DOWN2_FLINCH_EFFECT    ; stat + flinch (Intimidate, 2026-09-05)
+	db SPEED_DOWN2_FLINCH_EFFECT     ; stat + flinch (Scary Face, 2026-09-05)
 	db -1 ; end

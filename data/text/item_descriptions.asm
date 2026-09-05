@@ -419,8 +419,8 @@ _TM08Description::
 	prompt
 
 _TM09Description::
-	text "Grows stronger"
-	next "as it takes hits."
+	text "Attacks 2 to 3"
+	next "turns, then reels."
 	prompt
 
 _TM10Description::
@@ -554,13 +554,13 @@ _TM35Description::
 	prompt
 
 _TM36Description::
-	text "Lowers the foe's"
-	next "ATTACK two steps."
+	text "Lowers ATTACK two"
+	next "steps, may flinch"
 	prompt
 
 _TM37Description::
-	text "Lowers the foe's"
-	next "SPEED two steps."
+	text "Lowers SPEED two"
+	next "steps, may flinch"
 	prompt
 
 _TM38Description::

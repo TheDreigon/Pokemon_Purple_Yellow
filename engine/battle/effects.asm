@@ -2019,6 +2019,19 @@ SpecialDown2FlinchEffect:
 	ld c, SPECIAL_DOWN2_FLINCH_EFFECT
 	jr DoStatDownFlinchEffect
 
+AttackDown2FlinchEffect:
+; Target Attack -2 plus ~30% flinch. Used by INTIMIDATE (Forte 2026-09-05;
+; CHARM keeps the plain ATTACK_DOWN2_EFFECT).
+	ld b, ATTACK_DOWN2_EFFECT
+	ld c, ATTACK_DOWN2_FLINCH_EFFECT
+	jr DoStatDownFlinchEffect
+
+SpeedDown2FlinchEffect:
+; Target Speed -2 plus ~30% flinch. Used by SCARY_FACE (same call).
+	ld b, SPEED_DOWN2_EFFECT
+	ld c, SPEED_DOWN2_FLINCH_EFFECT
+	jr DoStatDownFlinchEffect
+
 SpecialDown1FlinchEffect:
 ; Target Special -1 plus ~30% flinch. Used by SCREECH (same day, same call).
 	ld b, SPECIAL_DOWN1_EFFECT
