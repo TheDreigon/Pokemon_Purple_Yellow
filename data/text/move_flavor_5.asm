@@ -132,10 +132,11 @@ _MoveFlavor_GROWL::
 	done
 
 _MoveFlavor_LEER::
-	text "A flat, unblinking"
-	next "stare that finds"
-	next "the gaps in the"
-	next "guard."
+	text "A quick, hard"
+	next "glare with real"
+	next "menace in it. The"
+	next "foe thinks better"
+	next "of hitting hard."
 	done
 
 _MoveFlavor_CORRODE::

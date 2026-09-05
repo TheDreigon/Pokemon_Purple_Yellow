@@ -424,7 +424,7 @@ MoveFlavorLines::
 	db 6
 	db 4
 	db 6
-	db 4
+	db 5
 	db 4
 	db 4
 	db 5
