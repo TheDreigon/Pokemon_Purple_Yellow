@@ -43,7 +43,7 @@ _CeladonMart1FDirectorySignText::
 
 	para "4F: WISEMAN GIFTS"
 
-	para "5F: POWER ZONE"
+	para "5F: TM CORNER"
 
 	para "ROOFTOP SQUARE:"
 	line "VENDING MACHINES"

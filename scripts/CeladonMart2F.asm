@@ -21,14 +21,19 @@ CeladonMart2FCurrentFloorSignText:
 	text_far _CeladonMart2FCurrentFloorSignText
 	text_end
 
+; v0.7 (2026-09-05, Forte): the counter was regular shop (left) + damage TMs
+; (right). The TMs moved up to 5F to sit beside the other TM clerk, the
+; vitamins came down in their place, and the two here swapped so that the
+; vitamins are on the LEFT and the regular shop on the RIGHT.
 CeladonMart2FClerk1Text::
+	; Item order follows the stats-screen stat order (ATK/DEF/SPC/SPD -
+	; see StatsText in engine/pokemon/status_screen.asm), then ACC/HIT/GUARD.
+	script_mart HP_UP, PROTEIN, IRON, CALCIUM, CARBOS, X_ATTACK, X_DEFEND, X_SPECIAL, X_SPEED, X_ACCURACY, DIRE_HIT, GUARD_SPEC
+
+CeladonMart2FClerk2Text::
 	; One of the two "elite" tiered mart clerks (the other: Indigo
 	; Plateau). Sells T0..T8 like every regular mart, plus the post-E4
 	; elite items (ETHER, ELIXIR, PP_UP, MAX_REVIVE) once the Elite Four
 	; are beaten, plus the post-rematch elite items (MAX_ETHER,
 	; MAX_ELIXIR, PP_MAX, RARE_CANDY) after the first E4 rematch.
 	script_tiered_mart_elite
-
-CeladonMart2FClerk2Text::
-	; TM clerk: early/mid damage TMs.
-	script_mart TM_FAINT_ATTACK, TM_RAGE, TM_DRAGON_CLAW, TM_SHOCK_WAVE, TM_BIND, TM_SEISMIC_TOSS, TM_FLAME_BURST, TM_AERIAL_ACE, TM_NIGHT_SHADE, TM_ICY_PULSE, TM_QUICK_ATTACK, TM_BODY_SLAM, TM_EXTRASENSORY, TM_ROCK_THROW, TM_IRON_TAIL, TM_WATER_PULSE

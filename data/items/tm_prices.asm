@@ -4,20 +4,20 @@ TechnicalMachinePrices:
 ; in the v0.5 TM rework to support prices up to 30000.
 ; Sale sites (annotated per entry) follow TMs_HMs_before-after.txt (DEPOIS).
 ; mapping + new sale-site spec (TMs_HMs_before-after.txt DEPOIS).
-	db $00, $50, $00 ; TM01 ROCK_THROW    =   5000  ; Celadon 2F
-	db $00, $50, $00 ; TM02 QUICK_ATTACK  =   5000  ; Celadon 2F
-	db $00, $75, $00 ; TM03 BIND          =   7500  ; Celadon 2F
-	db $00, $50, $00 ; TM04 FAINT_ATTACK  =   5000  ; Celadon 2F
+	db $00, $50, $00 ; TM01 ROCK_THROW    =   5000  ; Celadon 5F
+	db $00, $50, $00 ; TM02 QUICK_ATTACK  =   5000  ; Celadon 5F
+	db $00, $75, $00 ; TM03 BIND          =   7500  ; Celadon 5F
+	db $00, $50, $00 ; TM04 FAINT_ATTACK  =   5000  ; Celadon 5F
 	db $01, $50, $00 ; TM05 BULLDOZE      =  15000  ; Cinnabar
-	db $01, $00, $00 ; TM06 WATER_PULSE   =  10000  ; Celadon 2F
-	db $01, $25, $00 ; TM07 ICY_PULSE     =  12500  ; Celadon 2F
-	db $01, $00, $00 ; TM08 SEISMIC_TOSS  =  10000  ; Celadon 2F
-	db $00, $75, $00 ; TM09 RAGE          =   7500  ; Celadon 2F
-	db $00, $75, $00 ; TM10 BODY_SLAM     =   7500  ; Celadon 2F
-	db $01, $25, $00 ; TM11 FLAME_BURST   =  12500  ; Celadon 2F
-	db $01, $25, $00 ; TM12 SHOCK_WAVE    =  12500  ; Celadon 2F (also Surge gift)
-	db $00, $75, $00 ; TM13 IRON_TAIL     =   7500  ; Celadon 2F
-	db $01, $00, $00 ; TM14 NIGHT_SHADE   =  10000  ; Celadon 2F
+	db $01, $00, $00 ; TM06 WATER_PULSE   =  10000  ; Celadon 5F
+	db $01, $25, $00 ; TM07 ICY_PULSE     =  12500  ; Celadon 5F
+	db $01, $00, $00 ; TM08 SEISMIC_TOSS  =  10000  ; Celadon 5F
+	db $00, $75, $00 ; TM09 RAGE          =   7500  ; Celadon 5F
+	db $00, $75, $00 ; TM10 BODY_SLAM     =   7500  ; Celadon 5F
+	db $01, $25, $00 ; TM11 FLAME_BURST   =  12500  ; Celadon 5F
+	db $01, $25, $00 ; TM12 SHOCK_WAVE    =  12500  ; Celadon 5F (also Surge gift)
+	db $00, $75, $00 ; TM13 IRON_TAIL     =   7500  ; Celadon 5F
+	db $01, $00, $00 ; TM14 NIGHT_SHADE   =  10000  ; Celadon 5F
 	db $01, $00, $00 ; TM15 CONFUSE_RAY   =  10000  ; Fuchsia
 	db $01, $50, $00 ; TM16 IGNITE        =  15000  ; Fuchsia
 	db $01, $50, $00 ; TM17 THUNDER_WAVE  =  15000  ; Fuchsia
@@ -32,13 +32,13 @@ TechnicalMachinePrices:
 	db $01, $00, $00 ; TM26 POISON_BITE   =  10000  ; Cinnabar
 	db $01, $00, $00 ; TM27 IRON_HEAD     =  10000  ; Cinnabar
 	db $02, $50, $00 ; TM28 FAKE_TEARS    =  25000  ; Celadon 5F
-	db $01, $25, $00 ; TM29 AERIAL_ACE    =  12500  ; Celadon 2F
+	db $01, $25, $00 ; TM29 AERIAL_ACE    =  12500  ; Celadon 5F
 	db $02, $00, $00 ; TM30 CHARM         =  20000  ; Celadon 5F
 	db $02, $00, $00 ; TM31 HURRICANE     =  20000  ; Indigo Pre-E4
 	db $02, $00, $00 ; TM32 MEGAHORN      =  20000  ; Indigo Pre-E4
-	db $00, $75, $00 ; TM33 DRAGON_CLAW   =   7500  ; Celadon 2F
+	db $00, $75, $00 ; TM33 DRAGON_CLAW   =   7500  ; Celadon 5F
 	db $02, $00, $00 ; TM34 TOXIC         =  20000  ; Fuchsia (also Koga gift)
-	db $01, $25, $00 ; TM35 EXTRASENSORY  =  12500  ; Celadon 2F
+	db $01, $25, $00 ; TM35 EXTRASENSORY  =  12500  ; Celadon 5F
 	db $02, $00, $00 ; TM36 INTIMIDATE    =  20000  ; Celadon 5F
 	db $01, $50, $00 ; TM37 SCARY_FACE    =  15000  ; Celadon 5F
 	db $01, $50, $00 ; TM38 LEECH_LIFE    =  15000  ; Cinnabar
