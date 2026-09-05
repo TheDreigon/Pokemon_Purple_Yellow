@@ -51,7 +51,7 @@ HiddenItemCoords:
 	hidden_item VICTORY_ROAD_2F,                5,   2
 	hidden_item VICTORY_ROAD_2F,               26,   7
 	hidden_item ROUTE_25,                      38,   3
-	hidden_item ROUTE_25,                      34,   7 ; moved by Forte 2026-07-30
+	hidden_item ROUTE_25,                      34,   9 ; moved by Forte 2026-07-30; into the bush 2026-09-05
 	hidden_item ROUTE_4,                       40,   3
 	hidden_item ROUTE_9,                       14,   7
 	hidden_item COPYCATS_HOUSE_2F,              1,   1

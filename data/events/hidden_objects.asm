@@ -281,7 +281,7 @@ VictoryRoad2HiddenObjects:
 
 Route25HiddenObjects:
 	hidden_object 38,  3, ETHER, HiddenItems
-	hidden_object 34,  7, X_ATTACK, HiddenItems
+	hidden_object 34,  9, X_ATTACK, HiddenItems ; in the bush (Forte, run feedback 2026-09-05)
 	db -1 ; end
 
 BillsHouseHiddenObjects:
