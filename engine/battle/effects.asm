@@ -1525,16 +1525,6 @@ ClearHyperBeam:
 	pop hl
 	ret
 
-RageEffect:
-	ld hl, wPlayerBattleStatus2
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .player
-	ld hl, wEnemyBattleStatus2
-.player
-	set USING_RAGE, [hl] ; mon is now in "rage" mode
-	ret
-
 MimicEffect:
 	ld c, 50
 	call DelayFrames

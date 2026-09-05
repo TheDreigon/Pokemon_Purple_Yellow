@@ -245,7 +245,7 @@ TryingToLearn:
 	; v0.7 fix: the card writes the inspected move into wPlayerSelectedMove
 	; (ShowMoveInfo's input) and clobbers the wPlayerMove* block. Mid-battle
 	; -- this menu runs on level-up after an enemy faint -- a mon locked
-	; into a charge/Thrash/Bide/Rage continuation reuses BOTH across turns,
+	; into a charge/Thrash/Bide continuation reuses BOTH across turns,
 	; so it would execute the INSPECTED move as its charge release, or run
 	; the continuation with the inspected move's power/type/effect. Save
 	; the selection here; re-derive the block after the card.
@@ -286,7 +286,7 @@ TryingToLearn:
 	call LoadScreenTilesFromBuffer1
 	pop af
 	ld [wPlayerSelectedMove], a
-; Mid-battle the Thrash/Bide/Rage/charge continuations skip move selection:
+; Mid-battle the Thrash/Bide/charge continuations skip move selection:
 ; charge re-reads wPlayerSelectedMove in GetCurrentMove, the others reuse the
 ; wPlayerMove* block without re-deriving it -- and the card clobbered both.
 ; Restore the selection and re-derive the block from it (the same fetch

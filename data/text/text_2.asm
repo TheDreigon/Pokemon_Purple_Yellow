@@ -1223,11 +1223,6 @@ _SubstituteBrokeText::
 	line "SUBSTITUTE broke!"
 	prompt
 
-_BuildingRageText::
-	text "<USER>'s"
-	line "RAGE is building!"
-	prompt
-
 _MirrorMoveFailedText::
 	text "The MIRROR MOVE"
 	next "failed!"

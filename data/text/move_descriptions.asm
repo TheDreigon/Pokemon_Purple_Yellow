@@ -526,13 +526,6 @@ _MoveDesc_HyperBeam::
 	next "turn recharging."
 	done
 
-_MoveDesc_Rage::
-	text "The user keeps"
-	next "attacking, growing"
-	next "stronger each time"
-	next "it is hit."
-	done
-
 _MoveDesc_Mimic::
 	text "Copies one of the"
 	next "foe's moves for"

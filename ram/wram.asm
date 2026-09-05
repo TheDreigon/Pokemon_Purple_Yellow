@@ -1466,7 +1466,7 @@ wPlayerBattleStatus1:: db
 ; bit 2 - focus energy effect
 ; bit 4 - has a substitute
 ; bit 5 - need to recharge
-; bit 6 - rage
+; bit 6 - (dead since v0.7: was rage)
 ; bit 7 - leech seeded
 wPlayerBattleStatus2:: db
 

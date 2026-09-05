@@ -133,7 +133,7 @@ DEF SPDSPCDV_TRAINER EQU $88
 	const_skip                ; 3 ; unused
 	const HAS_SUBSTITUTE_UP   ; 4
 	const NEEDS_TO_RECHARGE   ; 5 ; Hyper Beam
-	const USING_RAGE          ; 6
+	const UNUSED_USING_RAGE   ; 6 DEAD BIT (2026-09-05, Forte): was "locked into RAGE"; nothing sets or reads it
 	const SEEDED              ; 7
 
 ; wPlayerBattleStatus3 or wEnemyBattleStatus3 bit flags

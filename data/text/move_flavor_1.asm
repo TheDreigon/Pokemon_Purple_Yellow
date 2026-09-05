@@ -81,9 +81,9 @@ _MoveFlavor_FAINT_ATTACK::
 
 _MoveFlavor_RAGE::
 	text "Temper takes over."
-	next "Every blow the"
-	next "user takes only"
-	next "feeds it."
+	next "The user cannot"
+	next "stop itself until"
+	next "it is spent."
 	done
 
 _MoveFlavor_NIGHT_SLASH::

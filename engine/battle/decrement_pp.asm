@@ -4,13 +4,9 @@ DecrementPP:
 	cp STRUGGLE
 	ret z                ; if the pokemon is using "struggle", there's nothing to do
 	                     ; we don't decrement PP for "struggle"
-	ld hl, wPlayerBattleStatus1
-	ld a, [hli]          ; load the wPlayerBattleStatus1 pokemon status flags and increment hl to load the
-	                     ; wPlayerBattleStatus2 status flags later
+	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << ATTACKING_MULTIPLE_TIMES)
 	ret nz               ; if any of these statuses are true, don't decrement PP
-	bit USING_RAGE, [hl]
-	ret nz               ; don't decrement PP either if Pokemon is using Rage
 	ld hl, wBattleMonPP  ; PP of first move (in battle)
 
 ; decrement PP in the battle struct
@@ -68,12 +64,9 @@ DecrementEnemyPP::
 	ld a, [de]                 ; de = wEnemySelectedMove (set by caller)
 	cp STRUGGLE
 	ret z                      ; Struggle never costs PP
-	ld hl, wEnemyBattleStatus1
-	ld a, [hli]                ; advance to wEnemyBattleStatus2 for the bit test below
+	ld a, [wEnemyBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << ATTACKING_MULTIPLE_TIMES)
 	ret nz                     ; multi-turn lock or multi-hit: don't decrement per hit
-	bit USING_RAGE, [hl]
-	ret nz                     ; Rage: don't decrement
 	ld hl, wEnemyMonPP
 
 ; decrement in the battle struct

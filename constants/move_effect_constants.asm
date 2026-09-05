@@ -89,7 +89,11 @@
 	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)
 	const SUBSTITUTE_EFFECT          ; $4F
 	const HYPER_BEAM_EFFECT          ; $50
-	const RAGE_EFFECT                ; $51
+	const UNUSED_RAGE_EFFECT         ; $51 DEAD SLOT (2026-09-05, Forte's playtest). Was the Gen 1 Rage: lock in,
+	                                 ; +1 ATTACK each time the user is hit, no PP, no move selection. The lock kept
+	                                 ; the previous turn's stage-scaled accuracy, so one stage change made every
+	                                 ; later turn miss. RAGE now carries THRASH_PETAL_DANCE_EFFECT; the handler,
+	                                 ; the status bit and the building text are gone. Kept so ids never renumber.
 	const MIMIC_EFFECT               ; $52
 	const METRONOME_EFFECT           ; $53
 	const LEECH_SEED_EFFECT          ; $54

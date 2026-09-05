@@ -133,7 +133,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackAccuracyUp1 ; ATTACK_ACCURACY_UP1_EFFECT
 	dw MoveDesc_Substitute ; SUBSTITUTE_EFFECT
 	dw MoveDesc_HyperBeam ; HYPER_BEAM_EFFECT
-	dw MoveDesc_Rage ; RAGE_EFFECT
+	dw MoveDesc_Unused ; UNUSED_RAGE_EFFECT
 	dw MoveDesc_Mimic ; MIMIC_EFFECT
 	dw MoveDesc_Metronome ; METRONOME_EFFECT
 	dw MoveDesc_LeechSeed ; LEECH_SEED_EFFECT
@@ -425,10 +425,6 @@ MoveDesc_PoisonSide2:
 
 MoveDesc_PoisonSide3:
 	text_far _MoveDesc_PoisonSide3
-	text_end
-
-MoveDesc_Rage:
-	text_far _MoveDesc_Rage
 	text_end
 
 MoveDesc_Recoil:

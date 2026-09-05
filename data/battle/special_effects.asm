@@ -1,5 +1,5 @@
 SpecialEffects:
-; Effects from arrays 2, 4, and 5B, minus Twineedle and Rage.
+; Effects from arrays 2, 4, and 5B, minus Twineedle.
 ; Includes all effects that do not need to be called at the end of
 ; ExecutePlayerMove (or ExecuteEnemyMove), because they have already been handled
 	db DRAIN_HP_EFFECT

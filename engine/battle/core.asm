@@ -306,9 +306,9 @@ MainInBattleLoop:
 	xor a
 	ld [wFirstMonsNotOutYet], a
 	ld a, [wPlayerBattleStatus2]
-	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; check if the player is using Rage or needs to recharge
+	and 1 << NEEDS_TO_RECHARGE ; check if the player needs to recharge
 	jr nz, .selectEnemyMove
-; the player is not using Rage and doesn't need to recharge
+; the player doesn't need to recharge
 	ld hl, wEnemyBattleStatus1
 	res FLINCHED, [hl] ; reset flinch bit
 	ld hl, wPlayerBattleStatus1
@@ -3458,7 +3458,7 @@ SelectEnemyMove:
 	jp .done
 .noLinkBattle
 	ld a, [wEnemyBattleStatus2]
-	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; need to recharge or using rage
+	and 1 << NEEDS_TO_RECHARGE ; need to recharge
 	ret nz
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
@@ -3802,7 +3802,6 @@ MirrorMoveCheck:
 	ld b, [hl]
 	or b
 	ret z ; don't do anything else if the enemy fainted
-	call HandleBuildingRage
 	farcall DefrostTargetIfFireOrMagma
 
 	ld hl, wPlayerBattleStatus1
@@ -3826,7 +3825,7 @@ MirrorMoveCheck:
 	ld de, 1
 	call IsInArray
 	call nc, JumpMoveEffect ; move effects not included in SpecialEffects or in either of the ResidualEffect arrays,
-	; which are the effects not covered yet. Rage effect will be executed for a second time (though it's irrelevant).
+	; which are the effects not covered yet.
 	; Includes side effects that only need to be called if the target didn't faint.
 	; Responsible for executing Twineedle's second side effect (poison).
 	jp ExecutePlayerMoveDone
@@ -4110,8 +4109,16 @@ CheckPlayerStatusConditions:
 .ThrashingAboutCheck
 	bit THRASHING_ABOUT, [hl] ; is mon using thrash or petal dance?
 	jr z, .MultiturnMoveCheck
-	ld a, THRASH
-	ld [wPlayerMoveNum], a
+; v0.7 (2026-09-05, Forte's RAGE): re-derive the whole wPlayerMove* block from
+; the selected move instead of stamping THRASH over the move number. Four moves
+; carry this effect now (THRASH, PETAL DANCE, OUTRAGE, RAGE), and the stamp gave
+; the other three THRASH's animation, MOVEDEX mark and Mirror Move copy from the
+; second turn on. Re-deriving also restores the move's ACCURACY: a continuation
+; skips move selection, CalcHitChance writes the stage-scaled accuracy back over
+; the byte it read, and a stage change while locked in compounded every turn -
+; the "one miss, then every miss" the old RAGE showed Forte. (The confusion
+; self-hit's TACKLE poke is covered too: the block comes back whole.)
+	call GetCurrentMove
 	ld hl, ThrashingAboutText
 	call PrintText
 	ld hl, wPlayerNumAttacksLeft
@@ -4132,7 +4139,7 @@ CheckPlayerStatusConditions:
 
 .MultiturnMoveCheck
 	bit USING_TRAPPING_MOVE, [hl] ; is mon using multi-turn move?
-	jp z, .RageCheck
+	jp z, .checkPlayerStatusConditionsDone ; if we made it this far, mon can move normally this turn
 	ld hl, AttackContinuesText
 	call PrintText
 	ld a, [wPlayerNumAttacksLeft]
@@ -4141,25 +4148,6 @@ CheckPlayerStatusConditions:
 	ld hl, getPlayerAnimationType ; if it didn't, skip damage calculation (deal damage equal to last hit),
 	                ; DecrementPP and MoveHitTest
 	jp nz, .returnToHL
-	jp .returnToHL
-
-.RageCheck
-	ld a, [wPlayerBattleStatus2]
-	bit USING_RAGE, a ; is mon using rage?
-	jp z, .checkPlayerStatusConditionsDone ; if we made it this far, mon can move normally this turn
-	ld a, RAGE
-	ld [wd11e], a
-; v0.7: re-assert the move NUMBER too, like the Bide and Thrash continuations
-; above already do. Rage turns skip move selection, so wPlayerMoveNum is
-; whatever the last writer left -- since the confusion self-hit started
-; neutralising it to TACKLE, a confused rager would otherwise hand TACKLE to
-; Mirror Move, the MOVEDEX seen-mark and the attack animation.
-	ld [wPlayerMoveNum], a
-	call GetMoveName
-	call CopyToStringBuffer
-	xor a
-	ld [wPlayerMoveEffect], a
-	ld hl, PlayerCanExecuteMove
 	jp .returnToHL
 
 .returnToHL
@@ -5571,53 +5559,6 @@ SubstituteBrokeText:
 	text_far _SubstituteBrokeText
 	text_end
 
-; this function raises the attack modifier of a pokemon using Rage when that pokemon is attacked
-HandleBuildingRage:
-; values for the player turn
-	ld hl, wEnemyBattleStatus2
-	ld de, wEnemyMonStatMods
-	ld bc, wEnemyMoveNum
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .next
-; values for the enemy turn
-	ld hl, wPlayerBattleStatus2
-	ld de, wPlayerMonStatMods
-	ld bc, wPlayerMoveNum
-.next
-	bit USING_RAGE, [hl] ; is the pokemon being attacked under the effect of Rage?
-	ret z ; return if not
-	ld a, [de]
-	cp $0d ; maximum stat modifier value
-	ret z ; return if attack modifier is already maxed
-	ldh a, [hWhoseTurn]
-	xor $01 ; flip turn for the stat modifier raising function
-	ldh [hWhoseTurn], a
-; temporarily change the target pokemon's move to $00 and the effect to the one
-; that causes the attack modifier to go up one stage
-	ld h, b
-	ld l, c
-	ld [hl], $00 ; null move number
-	inc hl
-	ld [hl], ATTACK_UP1_EFFECT
-	push hl
-	ld hl, BuildingRageText
-	call PrintText
-	farcall StatModifierUpEffect ; stat modifier raising function
-	pop hl
-	xor a
-	ldd [hl], a ; null move effect
-	ld a, RAGE
-	ld [hl], a ; restore the target pokemon's move number to Rage
-	ldh a, [hWhoseTurn]
-	xor $01 ; flip turn back to the way it was
-	ldh [hWhoseTurn], a
-	ret
-
-BuildingRageText:
-	text_far _BuildingRageText
-	text_end
-
 ; copy last move for Mirror Move
 ; sets zero flag on failure and unsets zero flag on success
 MirrorMoveCopyMove:
@@ -6081,7 +6022,6 @@ EnemyCheckIfMirrorMoveEffect:
 	ld b, [hl]
 	or b
 	ret z
-	call HandleBuildingRage
 	farcall DefrostTargetIfFireOrMagma
 	ld hl, wEnemyBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl] ; is mon hitting multiple times? (example: double kick)
@@ -6368,8 +6308,7 @@ CheckEnemyStatusConditions:
 .checkIfThrashingAbout
 	bit THRASHING_ABOUT, [hl] ; is mon using thrash or petal dance?
 	jr z, .checkIfUsingMultiturnMove
-	ld a, THRASH
-	ld [wEnemyMoveNum], a
+	call GetCurrentMove ; v0.7 (2026-09-05): whole block back, see the player side
 	ld hl, ThrashingAboutText
 	call PrintText
 	ld hl, wEnemyNumAttacksLeft
@@ -6389,7 +6328,7 @@ CheckEnemyStatusConditions:
 	jp .enemyReturnToHL
 .checkIfUsingMultiturnMove
 	bit USING_TRAPPING_MOVE, [hl] ; is mon using multi-turn move?
-	jp z, .checkIfUsingRage
+	jp z, .checkEnemyStatusConditionsDone ; if we made it this far, mon can move normally this turn
 	ld hl, AttackContinuesText
 	call PrintText
 	ld hl, wEnemyNumAttacksLeft
@@ -6397,21 +6336,6 @@ CheckEnemyStatusConditions:
 	ld hl, GetEnemyAnimationType ; if it didn't, skip damage calculation (deal damage equal to last hit),
 	                             ; DecrementPP and MoveHitTest
 	jp nz, .enemyReturnToHL
-	jp .enemyReturnToHL
-.checkIfUsingRage
-	ld a, [wEnemyBattleStatus2]
-	bit USING_RAGE, a ; is mon using rage?
-	jp z, .checkEnemyStatusConditionsDone ; if we made it this far, mon can move normally this turn
-	ld a, RAGE
-	ld [wd11e], a
-; v0.7: re-assert the move number -- see the .RageCheck comment on the
-; player side
-	ld [wEnemyMoveNum], a
-	call GetMoveName
-	call CopyToStringBuffer
-	xor a
-	ld [wEnemyMoveEffect], a
-	ld hl, EnemyCanExecuteMove
 	jp .enemyReturnToHL
 .enemyReturnToHL
 	xor a ; set Z flag

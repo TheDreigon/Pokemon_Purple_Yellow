@@ -25,7 +25,7 @@ Moves: ; Current total = 219
 
 	; === DARK TYPE (9 moves) === ; new type
 	move FAINT_ATTACK,   SWIFT_EFFECT,                     60, DARK,         100, 25 ; new move.
-	move RAGE,           RAGE_EFFECT,                      60, DARK,         100, 20
+	move RAGE,           THRASH_PETAL_DANCE_EFFECT,        60, DARK,         100, 20 ; v0.7 (2026-09-05, Forte): Thrash's lock; the Gen 1 Rage effect is dead
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
 	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             80, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
