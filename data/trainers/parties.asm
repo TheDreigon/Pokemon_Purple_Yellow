@@ -129,13 +129,9 @@ BugCatcherData:
 
 LassData:
 ; Route 3
-	db 10, KRABBY, ODDISH, 0
-	db 10, NIDORAN_F, NIDORAN_M, 0
-; v0.7 (2026-09-01, Forte): the first trainer-owned PIKACHU in the game -
-; unlocked by the fake-Pikachu sprite (it visibly is not the partner). His
-; tuning-saga rule kept Pikachu out of every party for Yellow lore; he
-; reversed it now that the two arts exist. Anime-Lass duo.
-	db 14, PIKACHU, JIGGLYPUFF, 0
+	db 10, KRABBY, NIDORAN_M, 0
+	db 10, NIDORAN_F, MEOWTH, 0
+	db 14, JIGGLYPUFF, 0
 ; Route 4
 	db 35, PARASECT, VILEPLUME, 0
 ; Mt. Moon 1F
@@ -143,19 +139,23 @@ LassData:
 	db 14, CLEFAIRY, 0
 ; Route 24
 	db 16, PIDGEY, NIDORAN_F, 0
-	db 15, JIGGLYPUFF, ODDISH, 0
+	db 16, JIGGLYPUFF, TANGELA, 0
 ; Route 25
-	db 16, JIGGLYPUFF, 0
-	db 16, ODDISH, PIDGEY, ODDISH, 0
+	db 16, MEOWTH, SLOWPOKE, 0
+	db 16, ODDISH, SHELLDER, 0
 ; SS Anne 1F Rooms
-	db 18, PIDGEY, NIDORINA, 0
+	db 18, PIDGEOTTO, NIDORINA, 0
 ; SS Anne 2F Rooms
-	db 21, PIKACHU, JIGGLYPUFF, 0 ; v0.7: the second trainer PIKACHU (see Route 3)
+; v0.7 (2026-09-01, Forte): the first trainer-owned PIKACHU in the game -
+; unlocked by the fake-Pikachu sprite (it visibly is not the partner). His
+; tuning-saga rule kept Pikachu out of every party for Yellow lore; he
+; reversed it now that the two arts exist.
+	db 20, JIGGLYPUFF, CLEFAIRY, PIKACHU, 0
 ; Route 8
-	db 26, WEEPINBELL, NIDORINA, 0
-	db 27, MEOWTH, LICKITUNG, NIDORINA, 0
+	db 27, WEEPINBELL, NIDORINA, 0
+	db 26, MEOWTH, LICKITUNG, NIDORINA, 0
 	db 25, PIDGEOTTO, RATICATE, MEOWTH, NIDORINO, 0
-	db 26, CLEFAIRY, CLEFABLE, 0
+	db 27, CLEFAIRY, CLEFABLE, 0
 ; Celadon Gym
 	db 28, GLOOM, WEEPINBELL, 0
 	db 29, PARASECT, EXEGGUTOR, 0
@@ -180,7 +180,7 @@ JrTrainerMData:
 ; Unused
 	db 20, SQUIRTLE, 0
 ; Route 6
-	db $FF, 17, MANKEY, 20, RATICATE, 0 ; mini-ace Raticate (Forte)
+	db $FF, 18, MANKEY, 20, RATICATE, 0 ; mini-ace Raticate (Forte)
 ; Unused
 	db 18, DIGLETT, DIGLETT, SANDSHREW, 0
 	db 21, GROWLITHE, CHARMANDER, 0
@@ -323,13 +323,13 @@ JessieAndJamesData:
 
 SuperNerdData:
 ; Mt. Moon 1F
-	db 11, MAGNEMITE, VOLTORB, 0
+	db 10, MAGNEMITE, VOLTORB, 0
 ; Mt. Moon B2F
 	db 12, GRIMER, KABUTO, OMANYTE, 0
 ; Route 8
-	db 26, VOLTORB, KOFFING, VOLTORB, MAGNEMITE, 0
-	db 27, GRIMER, PORYGON, GRIMER, 0
-	db 28, KOFFING, 0
+	db 26, VOLTORB, KOFFING, GRIMER, MAGNEMITE, 0
+	db 30, PORYGON, 0
+	db 28, KOFFING, MAGNEMITE, 0
 ; Unused
 	db 22, KOFFING, MAGNEMITE, KOFFING, 0
 	db 20, MAGNEMITE, MAGNEMITE, KOFFING, MAGNEMITE, 0
@@ -337,8 +337,8 @@ SuperNerdData:
 ; Cinnabar Gym (parties 9-12 — FOUR of them; the 12th has no comment of its
 ; own and hid below RAPIDASH, which is how the 2026-08-17 insertion landed in
 ; the middle and briefly gave the gym's 4th super nerd a L21 MAGNEMITE)
-	db 49, VULPIX, NINETALES, 0
-	db 53, PONYTA, CHARMELEON, VULPIX, GROWLITHE, 0
+	db 51, VULPIX, NINETALES, 0
+	db 50, PONYTA, VULPIX, GROWLITHE, 0
 	db 52, RAPIDASH, 0
 	db 50, CHARMELEON, FLAREON, 0
 ; Route 11 — the two ex-ENGINEERs (13, 14); that class slot became KIYO, and
@@ -348,7 +348,7 @@ SuperNerdData:
 
 HikerData:
 ; Mt. Moon 1F
-	db 10, GEODUDE, GEODUDE, ONIX, 0
+	db 10, GEODUDE, MACHOP, ONIX, 0
 ; Route 25
 	db 16, MACHOP, GEODUDE, 0
 	db 15, GEODUDE, ZUBAT, MACHOP, GEODUDE, 0
