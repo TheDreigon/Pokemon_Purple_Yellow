@@ -1097,7 +1097,7 @@ GetLevelCap::
 	ld b, 39 ; Erika's ace, 4th gym (38 + 1)
 	jr nc, .done
 	cp 2
-	ld b, 35 ; Surge's ace, 3rd gym (34 + 1)
+	ld b, 31 ; Surge's ace, 3rd gym (30 + 1; Forte's 2026-09-05 roster)
 	jr nc, .done
 	cp 1
 	ld b, 22 ; Misty's ace, 2nd gym (21 + 1)

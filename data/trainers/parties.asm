@@ -442,7 +442,7 @@ Rival2Data:
 LtSurgeData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Vermilion Gym
-	db $FF, 31, ELECTRODE, 32, ELECTABUZZ, 33, MAGNETON, 34, RAICHU, 0
+	db $FF, 27, VOLTORB, 28, MAGNEMITE, 29, ELECTABUZZ, 30, RAICHU, 0
 ; 2: Rematch
 	db $FF, 63, POLIWRATH, 64, ELECTRODE, 64, MAGNETON, 65, ELECTABUZZ, 65, RAICHU, 0
 

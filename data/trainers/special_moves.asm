@@ -88,19 +88,19 @@ SpecialTrainerMoves:
 	db 5, 4, DAZZLE_GLEAM
 	db 0
 
-	db LT_SURGE, 1 ; Vermilion Gym — 31 ELECTRODE, 32 ELECTABUZZ, 33 MAGNETON, 34 RAICHU
+	db LT_SURGE, 1 ; Vermilion Gym — 27 VOLTORB, 28 MAGNEMITE, 29 ELECTABUZZ, 30 RAICHU
 	db 1, 1, SHOCK_WAVE
 	db 1, 2, AGILITY
 	db 1, 3, BODY_SLAM
 	db 1, 4, SCREECH
 	db 2, 1, SHOCK_WAVE
-	db 2, 2, FLAME_CHARGE
-	db 2, 3, NUZZLE
-	db 2, 4, FLASH
+	db 2, 2, IRON_HEAD
+	db 2, 3, BODY_SLAM
+	db 2, 4, THUNDER_WAVE
 	db 3, 1, SHOCK_WAVE
-	db 3, 2, IRON_HEAD
-	db 3, 3, BODY_SLAM
-	db 3, 4, THUNDER_WAVE
+	db 3, 2, FLAME_CHARGE
+	db 3, 3, NUZZLE
+	db 3, 4, FLASH
 	db 4, 1, SHOCK_WAVE
 	db 4, 2, VOLT_TACKLE
 	db 4, 3, IRON_TAIL
