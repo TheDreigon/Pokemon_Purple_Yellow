@@ -28,6 +28,10 @@ _BicycleDescription::
 	next "for fast movement."
 	prompt
 
+; v0.7 (2026-09-05, Forte): one shape for the five stones - "Evolves" first,
+; species in dex order with EEVEE last, a comma list for three species (no
+; "and" fits in 18 tiles), "A and B." for two. LEAF STONE lists EXEGGCUTE
+; first: the only order of those three names that fits two lines.
 _MoonStoneDescription::
 	text "Evolves CLEFAIRY,"
 	next "VULPIX, STARYU."
@@ -39,8 +43,8 @@ _FireStoneDescription::
 	prompt
 
 _ThunderStoneDescription::
-	text "Evolves EEVEE and"
-	next "wild PIKACHU."
+	text "Evolves wild"
+	next "PIKACHU and EEVEE."
 	prompt
 
 _WaterStoneDescription::
@@ -49,8 +53,8 @@ _WaterStoneDescription::
 	prompt
 
 _LeafStoneDescription::
-	text "GLOOM, WEEPINBELL,"
-	next "EXEGGCUTE evolve."
+	text "Evolves EXEGGCUTE,"
+	next "GLOOM, WEEPINBELL."
 	prompt
 
 _PoisonHealDescription::
