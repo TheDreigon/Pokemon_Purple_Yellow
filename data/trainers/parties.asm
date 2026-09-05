@@ -189,7 +189,7 @@ JrTrainerMData:
 ; Route 12
 	db 29, NIDORINA, NIDORINO, 0
 ; Route 6
-	db 16, HORSEA, BELLSPROUT, 0
+	db 16, ONIX, 0 ; v0.7 (2026-09-05, Forte): the couple - his ONIX stands in until a fan-made ONIX pre-evolution exists (was HORSEA, BELLSPROUT)
 
 JrTrainerFData:
 ; Cerulean Gym
@@ -230,7 +230,7 @@ JrTrainerFData:
 ; Route 20
 	db 40, TENTACRUEL, SEADRA, DEWGONG, 0
 ; Route 6
-	db 19, CUBONE, 0
+	db 19, SHELLDER, 0 ; v0.7 (2026-09-05, Forte): the couple - her SHELLDER (was CUBONE)
 
 RocketData:
 ; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
