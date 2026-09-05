@@ -512,7 +512,11 @@ TMNotebookText::
 
 	para "..."
 
-	para "There are 50 TMs"
+; v0.7 (2026-09-05, Forte): it said 50 with NUM_TMS at 55. The two ASSERTs
+; below stop the build the day either count moves again.
+	ASSERT NUM_TMS == 55, "TMNotebookText says 55 TMs - update the pamphlet"
+	ASSERT NUM_HMS == 5, "TMNotebookText says 5 HMs - update the pamphlet"
+	para "There are 55 TMs"
 	line "in all."
 
 	para "There are also 5"
