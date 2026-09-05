@@ -15,5 +15,5 @@ TradeMons:
 	db POLIWHIRL,  JYNX,     TRADE_DIALOGSET_LOLA,     "LOLA@@@@@@@"
 	db GOLDUCK,    RHYDON,   TRADE_DIALOGSET_BASALT,   "BASALT@@@@@"
 	db PINSIR,     GYARADOS, TRADE_DIALOGSET_MOBY,     "MOBY@@@@@@@"
-	db PIDGEOTTO,  FARFETCHD, TRADE_DIALOGSET_DUX,     "DUX@@@@@@@@"
+	db MACHOP,     FARFETCHD, TRADE_DIALOGSET_DUX,     "DUX@@@@@@@@" ; v0.7 (2026-09-05, Forte): asks for a MACHOP, was PIDGEOTTO
 	assert_table_length NUM_NPC_TRADES

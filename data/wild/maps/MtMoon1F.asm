@@ -5,10 +5,10 @@ MtMoon1FWildMons:
 	db  9, GEODUDE
 	db 10, SANDSHREW
 	db 11, GEODUDE
-	db 12, JIGGLYPUFF
+	db 12, MACHOP ; v0.7 (2026-09-05, Forte): was JIGGLYPUFF
 	db 11, GEODUDE
 	db 12, CLEFAIRY
-	db 11, JIGGLYPUFF
+	db 11, MACHOP ; v0.7 (2026-09-05, Forte): was JIGGLYPUFF
 	db 12, ONIX
 	end_grass_wildmons
 

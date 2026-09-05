@@ -690,7 +690,7 @@ _WannaTradeDuxText::
 	cont "drills! Too keen"
 
 	para "for me now. A"
-	line "PIDGEOTTO'll do!"
+	line "MACHOP'll do!"
 	done
 
 _NoTradeDuxText::
@@ -700,7 +700,7 @@ _NoTradeDuxText::
 
 _WrongMonDuxText::
 	text "That recruit is"
-	line "no PIDGEOTTO!"
+	line "no MACHOP!"
 	done
 
 _ThanksDuxText::
@@ -712,8 +712,8 @@ _AfterTradeDuxText::
 	text "DUX showed you"
 	line "the drill?! Ha!"
 
-	para "My PIDGEOTTO just"
-	line "coos. Restful!"
+	para "My MACHOP just"
+	line "spars. Restful!"
 	done
 
 ; --- Bill's Eevee quest (v0.7) ---
