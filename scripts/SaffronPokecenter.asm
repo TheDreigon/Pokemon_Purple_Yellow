@@ -5,25 +5,38 @@ SaffronPokecenter_Script:
 ; v0.7 (2026-08-30, Forte's design, v3): PROF.OAK's two aides wait here
 ; with the ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek.
 ; The moment the player walks in (spawn is (3,7), the city warp targets
-; warp 1), the scene freezes the pad and walks each aide three steps
-; down - the J&J idiom, one MoveSprite at a time - to (2,6) and (4,6),
-; the player's two diagonals. Delivery is BOTH parcels or neither (a
-; packed bag gets the direct "two free slots" demand), then they walk
-; back up. The scene re-arms on every map entry while a parcel is owed,
-; so it repeats each visit until it lands; talking to either aide also
-; retries. The stage rides wSavedCoordIndex, the dojo's own in-map
-; carrier - no new WRAM. Once both parcels are delivered AND
-; EVENT_BEAT_SILPH_CO_GIOVANNI is set, the on-entry branch hides both
-; aides for good: they went home to the lab (the two HS slots came from
-; the CERULEAN CAVE ULTRA BALL conversions).
-; Known cosmetic edge: if the wandering GENTLEMAN happens to stand in a
-; walk column, the blocked steps are consumed and the aide stops short -
-; the scene still completes (proven class, see the Bill walk notes).
+; warp 1), the scene freezes the pad and walks both aides three steps
+; down, side by side, to (2,6) and (4,6), the player's two diagonals.
+; Delivery is BOTH parcels or neither (a packed bag gets the direct "two
+; free slots" demand), then they walk back up together. The scene re-arms
+; on every map entry while a parcel is owed, so it repeats each visit until
+; it lands; talking to either aide also retries. The stage rides
+; wSavedCoordIndex, the dojo's own in-map carrier - no new WRAM. Once both
+; parcels are delivered AND EVENT_BEAT_SILPH_CO_GIOVANNI is set, the
+; on-entry branch hides both aides for good: they went home to the lab (the
+; two HS slots came from the CERULEAN CAVE ULTRA BALL conversions).
+;
+; v0.7 (2026-09-05, Forte's playtest): the walks were one aide at a time
+; (the J&J idiom) and one aide talked with his back turned. Both had the
+; same root: MoveSprite leaves a sprite's movement byte 2 at $FF, and a
+; STAY sprite with $FF there turns to face a random way every so often -
+; so the aide who had finished walking stood turning at random while the
+; other walked, and the text froze him wherever he happened to look. Now
+; the two walk in lockstep (SaffronAidesWalkBoth) and their byte 2 holds
+; the facing the walk ends in. Scripted steps ignore collision
+; (CanWalkOntoTile), so a wandering GENTLEMAN in a column is walked
+; through, not around - cosmetic, one step. Two more cosmetic edges the
+; review noted, both pre-existing: the scene re-arms on ANY map entry while
+; a parcel is owed, so a save-and-reload inside the Center after a "make
+; room" refusal plays it with the player wherever they stand (the delivery
+; still lands); and about once in a hundred entries one aide happens to be
+; mid-refresh (movement status 2) when the walk starts and sets off one
+; frame after the other - one pixel, invisible.
 SaffronPokecenterAidesScene:
 	ld hl, wCurrentMapScriptFlags
 	bit 5, [hl]
 	res 5, [hl]
-	jp z, .runScene ; jp, not jr: the entry block below is ~130 bytes deep
+	jr z, .runScene
 	xor a
 	ld [wSavedCoordIndex], a ; scene stage: idle
 	CheckEvent EVENT_GOT_ITEMFINDER
@@ -44,19 +57,14 @@ SaffronPokecenterAidesScene:
 	ResetEvent EVENT_SAFFRON_AIDES_AMBUSHED
 	ret
 .runScene
-; jp, not jr: the later stage bodies sit past a jr's reach from here
 	ld a, [wSavedCoordIndex]
 	and a
 	jr z, .maybeStart
 	dec a
-	jp z, .waitAide1Down
+	jr z, .waitDown
 	dec a
-	jp z, .waitAide2Down
-	dec a
-	jp z, .waitAide1Up
-	dec a
-	jp z, .waitAide2Up
-	ret ; stage 5+: scene done this visit
+	jr z, .waitUp
+	ret ; stage 3: scene done this visit
 .maybeStart
 	CheckEvent EVENT_SAFFRON_AIDES_AMBUSHED
 	ret nz
@@ -65,35 +73,16 @@ SaffronPokecenterAidesScene:
 	ld [wJoyIgnore], a
 	xor a
 	ldh [hJoyHeld], a
-	ld a, SAFFRONPOKECENTER_AIDE1
-	ldh [hSpriteIndex], a
-	call SetSpriteMovementBytesToFF
-	ld a, SAFFRONPOKECENTER_AIDE2
-	ldh [hSpriteIndex], a
-	call SetSpriteMovementBytesToFF
 	ld de, SaffronAidesWalkDown
-	ld a, SAFFRONPOKECENTER_AIDE1
-	ldh [hSpriteIndex], a
-	call MoveSprite
+	ld b, DOWN
+	call SaffronAidesWalkBoth
 	ld a, 1
 	ld [wSavedCoordIndex], a
 	ret
-.waitAide1Down
-	ld a, [wd730]
-	bit 0, a
+.waitDown
+	call SaffronAidesStillWalking
 	ret nz
-	ld de, SaffronAidesWalkDown
-	ld a, SAFFRONPOKECENTER_AIDE2
-	ldh [hSpriteIndex], a
-	call MoveSprite
-	ld a, 2
-	ld [wSavedCoordIndex], a
-	ret
-.waitAide2Down
-	ld a, [wd730]
-	bit 0, a
-	ret nz
-; both in place at the player's diagonals: the talk, then the walk home
+; both at the player's diagonals, held facing DOWN: the talk, then the walk home
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 	ld a, TEXT_SAFFRONPOKECENTER_AIDE1
@@ -102,33 +91,65 @@ SaffronPokecenterAidesScene:
 	ld a, $ff
 	ld [wJoyIgnore], a
 	ld de, SaffronAidesWalkUp
-	ld a, SAFFRONPOKECENTER_AIDE1
-	ldh [hSpriteIndex], a
-	call MoveSprite
+	ld b, UP
+	call SaffronAidesWalkBoth
+	ld a, 2
+	ld [wSavedCoordIndex], a
+	ret
+.waitUp
+	call SaffronAidesStillWalking
+	ret nz
+; back at their posts, held facing UP at the counter (reads as chatting with
+; the nurse) until the next map load resets them to DOWN
+	xor a
+	ld [wJoyIgnore], a
 	ld a, 3
 	ld [wSavedCoordIndex], a
 	ret
-.waitAide1Up
-	ld a, [wd730]
-	bit 0, a
-	ret nz
-	ld de, SaffronAidesWalkUp
-	ld a, SAFFRONPOKECENTER_AIDE2
+
+; de = the walk, b = the STAY facing (DOWN or UP) the walk ends in.
+; MoveSprite copies the steps into wNPCMovementDirections - the engine's one
+; buffer - and starts AIDE1 down it; AIDE2 is then pointed at index 0 of the
+; same buffer. Each sprite keeps its own index in its movement byte 1 and the
+; walk is the same three steps for both, so they move in lockstep. Then each
+; aide's movement byte 2 gets the facing: during a scripted walk the engine
+; lets a DOWN/UP/LEFT/RIGHT there override the step (here it agrees with every
+; step), and once the walk has ended it is what the standing sprite holds -
+; written now, before the walk, so there is no frame in which the $FF that
+; MoveSprite leaves could let a finished aide turn at random.
+; (wNPCNumScriptedSteps gets decremented by BOTH sprites and ends below
+; zero; nothing in this map reads it - its only readers are Oak's Lab's own
+; scene, after its own MoveSprite - so leave it be.)
+SaffronAidesWalkBoth:
+	ld a, SAFFRONPOKECENTER_AIDE1
 	ldh [hSpriteIndex], a
 	call MoveSprite
-	ld a, 4
-	ld [wSavedCoordIndex], a
+	call GetSpriteMovementByte2Pointer
+	ld [hl], b
+	ld a, SAFFRONPOKECENTER_AIDE2
+	ldh [hSpriteIndex], a
+	call GetSpriteMovementByte1Pointer
+	ld [hl], 0 ; index 0: scripted, from the first step
+	call GetSpriteMovementByte2Pointer
+	ld [hl], b
 	ret
-.waitAide2Up
-	ld a, [wd730]
-	bit 0, a
+
+; nz while either aide is still on the walk: movement byte 1 is the step
+; index while walking and STAY once the engine has read the terminator.
+; (wd730 bit 0 is one flag for the whole engine - whichever sprite finishes
+; first clears it - so it cannot stand for "both done".)
+SaffronAidesStillWalking:
+	ld a, SAFFRONPOKECENTER_AIDE1
+	ldh [hSpriteIndex], a
+	call GetSpriteMovementByte1Pointer
+	ld a, [hl]
+	cp STAY
 	ret nz
-; back at their posts (facing UP at the counter until the next map load
-; resets them to DOWN - reads as chatting with the nurse, left alone)
-	xor a
-	ld [wJoyIgnore], a
-	ld a, 5
-	ld [wSavedCoordIndex], a
+	ld a, SAFFRONPOKECENTER_AIDE2
+	ldh [hSpriteIndex], a
+	call GetSpriteMovementByte1Pointer
+	ld a, [hl]
+	cp STAY
 	ret
 
 SaffronAidesWalkDown:
