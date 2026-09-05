@@ -178,8 +178,10 @@ PromptToCutText:
 ; submenu in engine/menus/start_sub_menus.asm.
 
 TryUseRegisteredItem::
-	ld a, [wd730]
-	bit 7, a ; simulated joypad input running?
+; v0.7 (2026-09-05, Forte's run): the same refusal the A button uses in
+; home/overworld.asm - NPC movement script, stepping out of a door, simulated
+; input (this subsumes the old wd730 bit 7 test).
+	call IsPlayerCharacterBeingControlledByGame
 	ret nz
 	ld a, [wRegisteredItem]
 	and a
@@ -205,8 +207,20 @@ TryUseRegisteredItem::
 	ld a, BICYCLE
 .use
 	ld [wcf91], a
+; v0.7 (2026-09-05, Forte's run): "<PLAYER> used" / "<name>!" prints the name
+; from wStringBuffer (text_ram, data/text/text_9.asm _ItemUseText002). The bag
+; fills it before UseItem; this path never did - and the buffer is a union the
+; party-menu palette packet and every exp gain overwrite. Hence "used <garbage>"
+; after a battle, "used !" after the party menu, or the last item bought.
+	ld [wd11e], a
+	call GetItemName ; -> wcd6d
+	call CopyToStringBuffer
 	xor a
 	ld [wPseudoItemID], a ; a real bag item, not a pseudo item
+; The rods judge water from wTileInFrontOfPlayer, which a turn in place leaves
+; stale (the collision checks are its only writers). The bag path inherits a
+; fresh read from .displayDialogue in home/overworld.asm; do the same here.
+	predef GetTileAndCoordsInFrontOfPlayer
 	call InitializeFieldMoveTextBox
 	call UseItem
 	jp CloseFieldMoveTextBox
