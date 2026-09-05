@@ -161,7 +161,6 @@ TypeEffects:
 	db BUG,          DARK,         SUPER_EFFECTIVE
 	db BUG,          GHOST,        SUPER_EFFECTIVE
 	db BUG,          FIRE,         NOT_VERY_EFFECTIVE
-	db BUG,          FIGHTING,     NOT_VERY_EFFECTIVE
 	db BUG,          FLYING,       NOT_VERY_EFFECTIVE
 	db BUG,          ROCK,         NOT_VERY_EFFECTIVE
 	db BUG,          STEEL,        NOT_VERY_EFFECTIVE

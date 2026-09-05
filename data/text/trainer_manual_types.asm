@@ -41,8 +41,8 @@ _ManualType_FIGHTING_DEF::
 	next "FAIRY"
 	next ""
 	next "RESISTS"
-	next "NORMAL POISON BUG"
-	next "ROCK DARK STEEL"
+	next "NORMAL POISON ROCK"
+	next "DARK STEEL"
 	done
 
 _ManualType_FLYING_ATK::
@@ -154,10 +154,9 @@ _ManualType_BUG_ATK::
 	next "GHOST"
 	next ""
 	next "WEAK AGAINST"
-	next "FIRE FIGHTING"
-	next "FLYING ROCK STEEL"
-	next "FAIRY GAS MAGMA"
-	next "FUNGUS"
+	next "FIRE FLYING ROCK"
+	next "STEEL FAIRY GAS"
+	next "MAGMA FUNGUS"
 	done
 
 _ManualType_BUG_DEF::
