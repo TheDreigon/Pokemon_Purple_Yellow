@@ -95,7 +95,7 @@ DistributeExperience::
 
 PrintExpShareSummary:
 ; One box per battle instead of a text per Pokemon (Forte 2026-09-02):
-; "Shared X EXP / between A, B and C" - X is everything both passes handed
+; "Shared X EXP / between A, B, and C" - X is everything both passes handed
 ; out, the names are everyone whose exp actually moved. If every candidate
 ; was refused (at the cap, fainted on Hard) there is nothing to say. In a
 ; link battle GainExperience returns without paying, the flags stay zero,
@@ -107,16 +107,42 @@ PrintExpShareSummary:
 	ret z
 	call BuildExpShareNames
 	ld hl, SharedExpText
-	jp PrintText
+	call PrintText
+; fall through: the level-ups both passes put off, in party order
+ExpShareLevelUps:
+; Every slot is visited; LevelUpPartyMon returns at once for one whose level
+; did not move. A slot paid in both of ONE's passes levels ONCE here, from its
+; final exp (the move-learn loop walks every level in between).
+	xor a
+	ld [wWhichPokemon], a
+.loop
+	ld a, [wWhichPokemon]
+	ld hl, wPartyMon1Exp
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	push hl
+	xor a ; PLAYER_PARTY_DATA
+	ld [wMonDataLocation], a
+	call LoadMonData
+	pop hl
+	call LevelUpPartyMon
+	ld a, [wWhichPokemon]
+	inc a
+	ld [wWhichPokemon], a
+	ld hl, wPartyCount
+	cp [hl]
+	jr c, .loop
+	ret
 
 BuildExpShareNames:
 ; Composes the recipient list into wMoveBuffer as a PlaceString-ready run:
-; "between A, B and C" (or "with A" for one recipient), "@"-terminated, with
+; "between A, B, and C" (or "with A" for one recipient), "@"-terminated, with
 ; <CONT> breaks so no rendered row overflows. Budget is 17 tiles per row
 ; (the first row could take 18, but <CONT> rows cannot - one rule is safer),
 ; and every row reserves 1 tile: the last row takes the far text's "!" and
 ; a wrapped row leaves its comma behind - the same spare tile covers both.
-; Wrap grammar: "A, B" breaks as "A,<CONT>B"; "A and B" as "A<CONT>and B".
+; Wrap grammar: "A, B" breaks as "A,<CONT>B"; "A and B" as "A<CONT>and B";
+; "A, and B" as "A,<CONT>and B".
 ;
 ; wMoveBuffer is the relearner/TM-list/dex-list scratch (164 bytes): none of
 ; its owners can run between the enemy fainting and this box printing, and
@@ -200,7 +226,11 @@ BuildExpShareNames:
 	ld a, b
 	dec a
 	jr nz, .checkFit
-	ld h, 5
+	ld h, 5 ; " and " before the last of two
+	ld a, [wd11e]
+	cp 2
+	jr c, .checkFit
+	ld h, 6 ; ", and " before the last of three or more - the Oxford comma (Forte 2026-09-05)
 .checkFit
 	ld a, c
 	add h
@@ -208,10 +238,12 @@ BuildExpShareNames:
 	inc a ; the reserved tile
 	cp 17 + 1
 	jr c, .emit
-; wrap. ", " leaves its comma on the old row; " and " moves whole
+; wrap. ", " and ", and " leave their comma on the old row; " and " moves whole
 	ld a, h
-	cp 2
-	jr nz, .breakRow
+	and a
+	jr z, .breakRow ; the first name: nothing to leave behind
+	cp 5
+	jr z, .breakRow ; " and " moves whole
 	ld a, ","
 	ld [de], a
 	inc de
@@ -223,7 +255,7 @@ BuildExpShareNames:
 	ld a, h
 	cp 5
 	ld h, 0 ; either way the separator is spent
-	jr nz, .emit
+	jr c, .emit ; nothing or ", " was spent; both "and" forms open the new row
 	ld a, "a" ; "and " opens the new row (no hl: l still holds the length)
 	ld [de], a
 	inc de
@@ -241,8 +273,8 @@ BuildExpShareNames:
 	ld a, h
 	and a
 	jr z, .noSeparator
-	cp 5
-	jr z, .fullAnd
+	cp 2
+	jr nz, .fullAnd
 	ld a, ","
 	ld [de], a
 	inc de
@@ -252,7 +284,10 @@ BuildExpShareNames:
 	jr .noSeparator
 .fullAnd
 	push hl
+	cp 6 ; a still holds h; push and ld leave the flags alone
 	ld hl, ExpShareAndWord
+	jr nz, .copySep
+	ld hl, ExpShareOxfordWord
 .copySep
 	ld a, [hli]
 	cp "@"
@@ -293,6 +328,7 @@ BuildExpShareNames:
 
 ExpShareWithWord:    db "with @"
 ExpShareBetweenWord: db "between @"
+ExpShareOxfordWord:  db "," ; falls through: ", and @"
 ExpShareAndWord:     db " and @"
 
 GetExpShareMode:
@@ -673,6 +709,48 @@ GainExperience:
 	call LoadMonData
 	call AnimateEXPBar
 	pop hl
+; v0.7 (2026-09-05, Forte's run): with the EXP.SHARE the level-up is put off
+; until the summary box has printed - otherwise a Pokemon at the back of the
+; party grew a level (stats box, new moves) BEFORE the player was told the
+; exp had been shared with it. The exp is already in the party struct;
+; LevelUpPartyMon re-derives the level from it, so it can run now or later.
+	ld a, [wBoostExpByExpShare]
+	and a
+	call z, LevelUpPartyMon
+
+.nextMon
+	ld a, [wPartyCount]
+	ld b, a
+	ld a, [wWhichPokemon]
+	inc a
+	cp b
+	jr z, .done
+	ld [wWhichPokemon], a
+	ld bc, wPartyMon2 - wPartyMon1
+	ld hl, wPartyMon1
+	call AddNTimes
+	jp .partyMonLoop
+.done
+	ld hl, wPartyGainExpFlags
+	xor a
+	ld [hl], a ; clear gain exp flags
+	ld a, [wPlayerMonNumber]
+	ld c, a
+	ld b, FLAG_SET
+	push bc
+	predef FlagActionPredef ; set the gain exp flag for the mon that is currently out
+	ld hl, wPartyFoughtCurrentEnemyFlags
+	xor a
+	ld [hl], a
+	pop bc
+	predef_jump FlagActionPredef ; set the fought current enemy flag for the mon that is currently out
+
+LevelUpPartyMon:
+; in: hl = the mon's wPartyMonNExp, wWhichPokemon = its index, wLoadedMon = it
+; (LoadMonData done). Grows it to the level its exp now says, with the vanilla
+; stats box, HUD refresh and move learns. Returns at once if the level did not
+; rise. Called inline by GainExperience when no EXP.SHARE is involved, and by
+; ExpShareLevelUps after the summary box when it is.
 	ld bc, wPartyMon1Level - wPartyMon1Exp
 	add hl, bc
 	push hl
@@ -689,7 +767,7 @@ GainExperience:
 ; below counts UP from the old level to the new one, so a new level below the
 ; old one wraps it through 255 and teaches the mon the entire rest of its
 ; learnset. `nc` covers unchanged and decreased alike.
-	jp nc, .nextMon ; level did not increase, so there is nothing to do
+	ret nc ; level did not increase, so there is nothing to do
 ;;;;;;;;;;
 	ld a, [wCurEnemyLVL]
 	push af
@@ -841,33 +919,7 @@ GainExperience:
 	pop hl
 	pop af
 	ld [wCurEnemyLVL], a
-
-.nextMon
-	ld a, [wPartyCount]
-	ld b, a
-	ld a, [wWhichPokemon]
-	inc a
-	cp b
-	jr z, .done
-	ld [wWhichPokemon], a
-	ld bc, wPartyMon2 - wPartyMon1
-	ld hl, wPartyMon1
-	call AddNTimes
-	jp .partyMonLoop
-.done
-	ld hl, wPartyGainExpFlags
-	xor a
-	ld [hl], a ; clear gain exp flags
-	ld a, [wPlayerMonNumber]
-	ld c, a
-	ld b, FLAG_SET
-	push bc
-	predef FlagActionPredef ; set the gain exp flag for the mon that is currently out
-	ld hl, wPartyFoughtCurrentEnemyFlags
-	xor a
-	ld [hl], a
-	pop bc
-	predef_jump FlagActionPredef ; set the fought current enemy flag for the mon that is currently out
+	ret
 
 ; divide enemy base stats, catch rate, and base exp by the number of mons gaining exp
 DivideExpDataByNumMonsGainingExp:

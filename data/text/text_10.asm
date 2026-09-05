@@ -173,7 +173,7 @@ _CeruleanBadgeHouseSoulBadgeHardText::
 _SharedExpText::
 ; #10 follow-up (2026-09-02): the one box the EXP.SHARE prints per battle.
 ; The number is the battle's whole handed-out total; the names come composed
-; in wMoveBuffer ("between A, B and C" / "with A"), wrapped by the engine.
+; in wMoveBuffer ("between A, B, and C" / "with A"), wrapped by the engine.
 	text "Shared @"
 	text_decimal wExpShareTotal, 2, 5
 	text " EXP"
