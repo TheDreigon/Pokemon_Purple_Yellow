@@ -1169,11 +1169,6 @@ RefusingText:
 	text_far _RefusingText
 	text_end
 
-ItemUseVitamin:
-	ld a, [wIsInBattle]
-	and a
-	jp nz, ItemUseNotTime
-
 ; Confusion is not part of a #MON's status byte. It is a bit in
 ; wPlayerBattleStatus1 with its own counter, which is why the $ff mask a FULL
 ; HEAL carries has never touched it and why a FULL RESTORE never did either.
@@ -1223,7 +1218,17 @@ CureConfusionIfFullHealOrRestore:
 	ld [wPlayerConfusedCounter], a
 	ret
 
+ItemUseVitamin:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+; FALLS THROUGH into ItemUseMedicine - put NOTHING between these two labels.
+; v0.7 bug (2026-08-05 -> 2026-09-05, Forte's run): the confusion helpers
+; landed here and every vitamin and RARE CANDY went dead out of battle (the
+; bag whited out and came back). The ASSERT below pins the two together.
+
 ItemUseMedicine:
+	ASSERT ItemUseMedicine - ItemUseVitamin == 7, "ItemUseVitamin must fall through into ItemUseMedicine"
 	; v0.7 hard-mode trainer/boss policy: Revive/Max Revive blocked.
 	; Allowed in wild battles AND in any battle on Normal mode.
 	; Reason: revives are the other half of the boss PP-stall loop —
