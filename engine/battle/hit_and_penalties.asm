@@ -246,7 +246,7 @@ CalcHitChance:
 ; the second iteration multiplies by the evasion ratio
 .loop
 	push bc
-	ld hl, AccuracyModifierRatios ; v0.7: acc/eva stages use their own modern (Gen 5+) 3/(3+n) curve
+	ld hl, AccuracyModifierRatios ; v0.7: acc/eva stages use their own 4/(4+n) curve (see data/battle/stat_modifiers.asm)
 	dec b
 	sla b
 	ld c, b
