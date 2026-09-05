@@ -56,7 +56,7 @@ HiddenItemCoords:
 	hidden_item ROUTE_9,                       14,   7
 	hidden_item COPYCATS_HOUSE_2F,              1,   1
 	hidden_item VIRIDIAN_CITY,                 14,   4
-	hidden_item CERULEAN_CITY,                 15,   8
+	hidden_item CERULEAN_CITY,                 19,   8 ; (15,8) -> (19,8), Forte 2026-09-05
 	hidden_item CERULEAN_CAVE_1F,              18,   7
 	hidden_item POKEMON_TOWER_5F,               4,  12
 	hidden_item VERMILION_CITY,                14,  11

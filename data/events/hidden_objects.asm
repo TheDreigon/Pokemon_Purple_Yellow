@@ -401,7 +401,7 @@ PewterPokecenterHiddenObjects:
 	db -1 ; end
 
 CeruleanCityHiddenObjects:
-	hidden_object 15,  8, RARE_CANDY, HiddenItems
+	hidden_object 19,  8, RARE_CANDY, HiddenItems ; (15,8) -> (19,8), Forte 2026-09-05
 	db -1 ; end
 
 CeruleanPokecenterHiddenObjects:
