@@ -179,7 +179,7 @@ RegularMartTieredInventory::
 	; T5 - 5 badges (Soul)
 	db 5, ULTRA_BALL
 	db 5, HYPER_POTION
-	; T6 - 6 badges (Marsh)
+	; T6 - 6 badges (Gold)
 	db 6, MAX_REPEL
 	; T7 - 7 badges (Volcano)
 	db 7, MAX_POTION

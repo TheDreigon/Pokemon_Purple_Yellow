@@ -333,7 +333,7 @@ BadgeBlkDataLengths:
 	db 6     ; Thunder Badge
 	db 6 * 3 ; Rainbow Badge
 	db 6     ; Soul Badge
-	db 6     ; Marsh Badge
+	db 6     ; Gold Badge
 	db 6     ; Volcano Badge
 	db 6     ; Earth Badge
 

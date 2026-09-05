@@ -27,7 +27,7 @@ ItemPrices::
 	bcd3 0     ; THUNDERBADGE
 	bcd3 0     ; RAINBOWBADGE
 	bcd3 0     ; SOULBADGE
-	bcd3 0     ; MARSHBADGE
+	bcd3 0     ; GOLDBADGE
 	bcd3 0     ; VOLCANOBADGE
 	bcd3 0     ; EARTHBADGE
 	bcd3 1000  ; ESCAPE_ROPE (was 550; intentional bump - "get out of jail" tax)

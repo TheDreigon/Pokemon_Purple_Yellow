@@ -71,10 +71,10 @@ CinnabarGymGateKickoutScript:
 	ret
 
 CinnabarGymDefaultScript:
-; v0.7 badge-gating (strict gym order): requires MARSHBADGE. Without it the
+; v0.7 badge-gating (strict gym order): requires GOLDBADGE. Without it the
 ; gate text fires and the player is shoved back out (Route 22 gate pattern).
 	ld a, [wObtainedBadges]
-	bit BIT_MARSHBADGE, a
+	bit BIT_GOLDBADGE, a
 	jr nz, .badgeGateDone
 	ld hl, CinnabarGymGateCoords
 	call ArePlayerCoordsInArray
@@ -445,7 +445,7 @@ CinnabarGymBlaineText:
 ; v0.7 badge-gating: the leader also refuses without the previous badge
 ; (belt-and-braces - the door gate normally fires first).
 	ld a, [wObtainedBadges]
-	bit BIT_MARSHBADGE, a
+	bit BIT_GOLDBADGE, a
 	jr nz, .hasPrevBadge
 	ld hl, .NoBadgeText
 	call PrintText

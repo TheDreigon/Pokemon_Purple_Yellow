@@ -158,7 +158,7 @@ HandleBadgeFaceAttributes:
 	ld a, [de]
 	and a
 	call z, ZeroOutCurrentBadgeAttributes
-; MARSHBADGE
+; GOLDBADGE
 	ld hl, vBGMap1 + $1e7
 	ld de, wTrainerCardBadgeAttributes + 6 * 7
 	ld a, [de]

@@ -16,7 +16,7 @@ _SaffronGymSabrinaText::
 	cont "you my powers!"
 	done
 
-_SaffronGymSabrinaReceivedMarshBadgeText::
+_SaffronGymSabrinaReceivedGoldBadgeText::
 	text "I'm"
 	line "shocked!"
 	cont "But, a loss is a"
@@ -27,7 +27,7 @@ _SaffronGymSabrinaReceivedMarshBadgeText::
 	cont "to win!"
 
 	para "You earned the"
-	line "MARSHBADGE!@"
+	line "GOLDBADGE!@"
 	text_end
 
 _SaffronGymSabrinaPostBattleAdviceText::
@@ -65,8 +65,8 @@ _SaffronGymRematchPostBattleText::
     cont "psychic sense."
 	done
 
-_SaffronGymSabrinaMarshBadgeInfoText::
-	text "The MARSHBADGE is"
+_SaffronGymSabrinaGoldBadgeInfoText::
+	text "The GOLDBADGE is"
 	line "a mark of psychic"
 	cont "acuity!"
 

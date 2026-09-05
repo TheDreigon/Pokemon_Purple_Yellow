@@ -82,7 +82,7 @@ SaffronGymSabrinaPostBattle:
 	jr nz, SabrinaRematchPostBattle
 ; fallthrough
 SaffronGymSabrinaReceiveGiftsScript:
-	ld a, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
+	ld a, TEXT_SAFFRONGYM_SABRINA_GOLD_BADGE_INFO
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_BEAT_SABRINA
@@ -112,9 +112,9 @@ SaffronGymSabrinaReceiveGiftsScript:
 	call DisplayTextID
 .gymVictory
 	ld hl, wObtainedBadges
-	set BIT_MARSHBADGE, [hl]
+	set BIT_GOLDBADGE, [hl]
 	ld hl, wBeatGymFlags
-	set BIT_MARSHBADGE, [hl]
+	set BIT_GOLDBADGE, [hl]
 
 	; deactivate gym trainers
 	SetEventRange EVENT_BEAT_SAFFRON_GYM_TRAINER_0, EVENT_BEAT_SAFFRON_GYM_TRAINER_6
@@ -163,7 +163,7 @@ SaffronGym_TextPointers:
 	dw_const SaffronGymPsychic3Text,            TEXT_SAFFRONGYM_PSYCHIC3
 	dw_const SaffronGymPsychic4Text,            TEXT_SAFFRONGYM_PSYCHIC4
 	dw_const SaffronGymGymGuideText,              TEXT_SAFFRONGYM_GYM_GUIDE
-	dw_const SaffronGymSabrinaMarshBadgeInfoText, TEXT_SAFFRONGYM_SABRINA_MARSH_BADGE_INFO
+	dw_const SaffronGymSabrinaGoldBadgeInfoText, TEXT_SAFFRONGYM_SABRINA_GOLD_BADGE_INFO
 	dw_const SaffronGymSabrinaReceivedTMText,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM
 	dw_const SaffronGymSabrinaTMNoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM_NO_ROOM
 	dw_const SaffronGymSabrinaReceivedCandyText, TEXT_SAFFRONGYM_SABRINA_RECEIVED_CANDY
@@ -232,8 +232,8 @@ SaffronGymSabrinaText:
 	ld hl, wd72d
 	set 6, [hl]
 	set 7, [hl]
-	ld hl, .ReceivedMarshBadgeText
-	ld de, .ReceivedMarshBadgeText
+	ld hl, .ReceivedGoldBadgeText
+	ld de, .ReceivedGoldBadgeText
 	call SaveEndBattleTextPointers
 ; v0.7 (2026-08-17): gym order is strictly linear in this hack — 5 badges is
 ; the only possible count here, so the free-order dispatch and its ghost
@@ -296,8 +296,8 @@ SaffronGymSabrinaText:
 	text_far _SaffronGymSabrinaNoBadgeText
 	text_end
 
-.ReceivedMarshBadgeText:
-	text_far _SaffronGymSabrinaReceivedMarshBadgeText
+.ReceivedGoldBadgeText:
+	text_far _SaffronGymSabrinaReceivedGoldBadgeText
 	sound_get_key_item ; actually plays the second channel of SFX_BALL_POOF due to the wrong music bank being loaded
 	text_promptbutton
 	text_end
@@ -326,8 +326,8 @@ SaffronGymRematchPostBattleText:
 	text_far _SaffronGymRematchPostBattleText
 	text_end
 
-SaffronGymSabrinaMarshBadgeInfoText:
-	text_far _SaffronGymSabrinaMarshBadgeInfoText
+SaffronGymSabrinaGoldBadgeInfoText:
+	text_far _SaffronGymSabrinaGoldBadgeInfoText
 	text_end
 
 SaffronGymSabrinaReceivedTMText:
@@ -399,7 +399,7 @@ SaffronGymGymGuideText:
 	bit BIT_SOULBADGE, a
 	jr z, .noFreshWater ; not yet eligible for this gym
 	ld a, [wObtainedBadges]
-	bit BIT_MARSHBADGE, a
+	bit BIT_GOLDBADGE, a
 	jr nz, .noFreshWater ; already holds THIS gym's badge
 	lb bc, FRESH_WATER, 1
 	call GiveItem

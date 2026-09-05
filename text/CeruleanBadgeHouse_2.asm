@@ -9,7 +9,7 @@ _CeruleanBadgeHouseSoulBadgeText::
 	cont "of battle."
 	prompt
 
-_CeruleanBadgeHouseMarshBadgeText::
+_CeruleanBadgeHouseGoldBadgeText::
 	text "It lets you use"
 	line "STRENGTH outside"
 	cont "of battle."

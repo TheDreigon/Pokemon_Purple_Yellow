@@ -20,7 +20,7 @@ BoulderText::
 ; v0.7 HM remap (2026-08-31): STRENGTH is SABRINA's unlock now (was a
 ; hard-coded `bit 3` for RAINBOW). Mirror gate: .strength in
 ; engine/menus/start_sub_menus.asm.
-	bit BIT_MARSHBADGE, a
+	bit BIT_GOLDBADGE, a
 	jr z, .done
 	ld d, STRENGTH
 	callfar HasPartyMove

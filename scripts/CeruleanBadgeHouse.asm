@@ -60,7 +60,7 @@ CeruleanBadgeHouseMiddleAgedManText:
 	db THUNDERBADGE
 	db RAINBOWBADGE
 	db SOULBADGE
-	db MARSHBADGE
+	db GOLDBADGE
 	db VOLCANOBADGE
 	db EARTHBADGE
 	db -1 ; end
@@ -85,7 +85,7 @@ CeruleanBadgeHouseBadgeTextPointers:
 	dw CeruleanBadgeHouseThunderBadgeText
 	dw CeruleanBadgeHouseRainbowBadgeText
 	dw CeruleanBadgeHouseSoulBadgeText
-	dw CeruleanBadgeHouseMarshBadgeText
+	dw CeruleanBadgeHouseGoldBadgeText
 	dw CeruleanBadgeHouseVolcanoBadgeText
 	dw CeruleanBadgeHouseEarthBadgeText
 	assert_table_length NUM_BADGES
@@ -152,8 +152,8 @@ CeruleanBadgeHouseSoulBadgeText:
 	text_far _CeruleanBadgeHouseSoulBadgeHardText
 	text_end
 
-CeruleanBadgeHouseMarshBadgeText:
-	text_far _CeruleanBadgeHouseMarshBadgeText
+CeruleanBadgeHouseGoldBadgeText:
+	text_far _CeruleanBadgeHouseGoldBadgeText
 	text_end
 
 CeruleanBadgeHouseVolcanoBadgeText:

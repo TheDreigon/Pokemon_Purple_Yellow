@@ -101,7 +101,7 @@ _CinnabarGymGateNoBadgeText::
 	text "Hold it, champ!"
 	line "BLAINE only takes"
 	cont "challengers with"
-	cont "the MARSHBADGE!"
+	cont "the GOLDBADGE!"
 
 	para "Go beat SABRINA"
 	line "in SAFFRON CITY!"
@@ -111,7 +111,7 @@ _CinnabarGymBlaineNoBadgeText::
 	text "My fire only"
 	line "burns for those"
 	cont "with the"
-	cont "MARSHBADGE!"
+	cont "GOLDBADGE!"
 
 	para "SABRINA's in"
 	line "SAFFRON CITY!"

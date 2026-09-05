@@ -58,7 +58,7 @@ DEF NUM_NPC_TRADES EQU const_value
 	const BIT_THUNDERBADGE ; 2
 	const BIT_RAINBOWBADGE ; 3
 	const BIT_SOULBADGE    ; 4
-	const BIT_MARSHBADGE   ; 5
+	const BIT_GOLDBADGE    ; 5
 	const BIT_VOLCANOBADGE ; 6
 	const BIT_EARTHBADGE   ; 7
 DEF NUM_BADGES EQU const_value

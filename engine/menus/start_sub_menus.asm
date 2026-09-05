@@ -271,7 +271,7 @@ StartMenu_Pokemon::
 ; v0.7 HM remap (2026-08-31, Forte): STRENGTH unlocks with SABRINA's badge
 ; (only truly needed at VICTORY ROAD; gives badge 6 a reward). Was
 ; RAINBOWBADGE. Mirror gate: BoulderText in home/overworld_text.asm.
-	bit BIT_MARSHBADGE, a
+	bit BIT_GOLDBADGE, a
 	jp z, .newBadgeRequired
 	predef PrintStrengthTxt
 	call GBPalWhiteOutWithDelay3

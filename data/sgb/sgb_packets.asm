@@ -118,7 +118,7 @@ BlkPacket_TrainerCard:
 	ATTR_BLK_DATA %010, 1,1,0, 14,13, 15,13 ; Rainbow Badge
 	ATTR_BLK_DATA %010, 3,3,0, 16,13, 17,13 ; Rainbow Badge
 	ATTR_BLK_DATA %010, 2,2,0, 03,15, 04,16 ; Soul Badge
-	ATTR_BLK_DATA %010, 3,3,0, 07,15, 08,16 ; Marsh Badge
+	ATTR_BLK_DATA %010, 3,3,0, 07,15, 08,16 ; Gold Badge
 	ATTR_BLK_DATA %010, 2,2,0, 11,15, 12,16 ; Volcano Badge
 	ATTR_BLK_DATA %010, 1,1,0, 15,15, 16,16 ; Earth Badge
 	ds 2, 0

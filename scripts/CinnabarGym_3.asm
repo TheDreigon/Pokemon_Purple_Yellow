@@ -5,7 +5,7 @@ CinnabarGymPrintGymGuideText::
 	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_CINNABAR
 	jr nz, .noFreshWater
 	ld a, [wObtainedBadges]
-	bit BIT_MARSHBADGE, a
+	bit BIT_GOLDBADGE, a
 	jr z, .noFreshWater ; not yet eligible for this gym
 	ld a, [wObtainedBadges]
 	bit BIT_VOLCANOBADGE, a
