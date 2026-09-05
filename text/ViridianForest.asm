@@ -41,25 +41,31 @@ _ViridianForestYoungster3AfterBattleText::
 	cont "stronger ones!"
 	done
 
+; v0.7 (2026-09-05, Forte): he guards the two-wide shortcut opened at
+; (18-19, 20-21) in eff99feb - sight 1 LEFT covers (18,19), the only other
+; entrance tile, so the gate is total. (Not the shortcut LASS, slot 8.)
 _ViridianForestYoungster4BattleText::
-	text "Hey, wait up!"
-	line "What's the hurry?"
+	text "This way is a bit"
+	line "of a shortcut..."
+
+	para "But I'm not going"
+	line "to let you pass!"
 	done
 
+; end-battle: "BUG CATCHER: " is 13 tiles, so the first row gets 5.
 _ViridianForestYoungster4EndBattleText::
-	text "I"
-	line "give! You're good"
-	cont "at this!"
+	text "Oh,"
+	line "you can pass..."
+	cont "You're strong."
 	prompt
 
 _ViridianForestYoungster4AfterBattleText::
-	text "Sometimes, you"
-	line "can find stuff on"
-	cont "the ground!"
+	text "Go on, take the"
+	line "shortcut."
 
-	para "I'm looking for"
-	line "the stuff I"
-	cont "dropped!"
+	para "Sometimes you can"
+	line "find stuff on the"
+	cont "ground in here!"
 	done
 
 _ViridianForestCooltrainerFBattleText::
