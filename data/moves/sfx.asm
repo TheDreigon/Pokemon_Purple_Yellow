@@ -139,7 +139,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2A,          $f0, $ff ; HAZE ; Forte feedback #45: was BATTLE_0F (cut), bad sound. Sludge family deep-pitched + max tempo for sustained gas-cloud feel. -- MEASURED: tone +6..+24 st; noise 1 oct UP; tempo 1.50x; OPPOSITE OF INTENT (went UP)
 	db SFX_BATTLE_1C,          $00, $80 ; POISON_GAS ; tempo $ff -> $80 (inert: noise-only SFX; 2026-08-22)
 ; === GHOST ===
-	db SFX_BATTLE_24,          $f0, $80 ; NIGHT_SHADE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; drain SFX deep-pitched fits the spectral life-leech feel. -- MEASURED: tone +48 st; noise 1 oct UP; tempo 1.00x; OPPOSITE OF INTENT (went UP) -- ROW NEVER READ: NightShadeAnim names CONFUSION as its sound
+	db SFX_BATTLE_24,          $f0, $80 ; NIGHT_SHADE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; drain SFX deep-pitched fits the spectral life-leech feel. -- MEASURED: tone +48 st; noise 1 oct UP; tempo 1.00x; OPPOSITE OF INTENT (went UP) -- ROW NEVER READ: NightShadeAnim names PSYBEAM as its sound
 	db SFX_BATTLE_09,          $10, $60 ; LICK ; Forte feedback #48: swapped SFX values with ASTONISH. -- MEASURED: tone +0 st; tempo 0.88x -- ROW NEVER READ: LickAnim names LEECH_SEED as its sound
 	db SFX_BATTLE_0B,            $00, $80 ; ASTONISH ; Forte feedback #48: swapped SFX values with LICK. -- Forte feedback 2026-08-22 #38: "som nao combina, nem e um bom som sequer" -- MEASURED: noise +0 st; tempo byte inert (noise-only SFX)
 	db SFX_BATTLE_25,            $10, $80 ; SHADOW_SNEAK ; Forte feedback 2026-08-22 #39: "um pouco grave demais... gostei que o som parece abafado" -- MEASURED: noise 1 oct DOWN; tempo byte inert (noise-only SFX)

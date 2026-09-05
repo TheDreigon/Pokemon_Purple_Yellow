@@ -1318,7 +1318,7 @@ PoisonGasAnim:
 ; ============================================================
 
 NightShadeAnim:
-	; Forte feedback 2026-08-22 #36: "esta fraco, troca pelo yellow legacy" -- Legacy (= vanilla): CONFUSION's sound, long flash, wavy.
+	; Forte feedback 2026-08-22 #36: "esta fraco, troca pelo yellow legacy" -- Legacy (= vanilla) body: long flash + wavy; the sound is PSYBEAM's row (switched 2026-08-23).
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim PSYBEAM, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
