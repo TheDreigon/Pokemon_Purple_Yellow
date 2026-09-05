@@ -1,4 +1,9 @@
 HandleItemListSwapping::
+; v0.7 (2026-09-05, Forte's run): SELECT picks an item UP and sets it DOWN at
+; the chosen slot, shifting the items in between - an insertion, not the
+; vanilla two-way swap (Gen 1 is the only generation that swapped; Gen 2 on
+; already insert). Same entry contract, same exits, same CANCEL guard, same
+; merge of two stacks of one item; only the different-items branch changed.
 	ld a, [wListMenuID]
 	cp ITEMLISTMENU
 	jp nz, DisplayListMenuIDLoop ; only rearrange item list menus
@@ -19,32 +24,32 @@ HandleItemListSwapping::
 	ld a, [hl]
 	pop hl
 	inc a
-	jp z, DisplayListMenuIDLoop ; ignore attempts to swap the Cancel menu item
-	ld a, [wMenuItemToSwap] ; ID of item chosen for swapping (counts from 1)
-	and a ; has the first item to swap already been chosen?
-	jr nz, .swapItems
-; if not, set the currently selected item as the first item
+	jp z, DisplayListMenuIDLoop ; ignore the Cancel row, as a pick and as a destination
+	ld a, [wMenuItemToSwap] ; ID of the item picked up (counts from 1)
+	and a ; is an item already picked up?
+	jr nz, .moveItem
+; if not, pick up the currently selected item
 	ld a, [wCurrentMenuItem]
 	inc a
 	ld b, a
 	ld a, [wListScrollOffset] ; index of top (visible) menu item within the list
 	add b
-	ld [wMenuItemToSwap], a ; ID of item chosen for swapping (counts from 1)
+	ld [wMenuItemToSwap], a ; ID of the item picked up (counts from 1)
 	ld c, 20
 	call DelayFrames
 	jp DisplayListMenuIDLoop
-.swapItems
+.moveItem
 	ld a, [wCurrentMenuItem]
 	inc a
 	ld b, a
 	ld a, [wListScrollOffset]
 	add b
 	ld b, a
-	ld a, [wMenuItemToSwap] ; ID of item chosen for swapping (counts from 1)
-	cp b ; is the currently selected item the same as the first item to swap?
-	jp z, DisplayListMenuIDLoop ; ignore attempts to swap an item with itself
+	ld a, [wMenuItemToSwap] ; ID of the item picked up (counts from 1)
+	cp b ; is the destination the slot the item was picked up from?
+	jp z, DisplayListMenuIDLoop ; if so, nothing to do (the item stays picked up)
 	dec a
-	ld [wMenuItemToSwap], a ; ID of item chosen for swapping (counts from 1)
+	ld [wMenuItemToSwap], a ; now the 0-based index of the picked-up item
 	ld c, 20
 	call DelayFrames
 	push hl
@@ -56,46 +61,92 @@ HandleItemListSwapping::
 	inc hl ; hl = beginning of list entries
 	ld d, h
 	ld e, l ; de = beginning of list entries
+	ld a, [wMenuItemToSwap]
+	ld c, a ; c = source index (0-based)
+	add a
+	add e
+	ld e, a
+	jr nc, .noCarry1
+	inc d
+.noCarry1 ; de = address of the picked-up entry (source)
 	ld a, [wCurrentMenuItem]
 	ld b, a
 	ld a, [wListScrollOffset]
 	add b
+	ld b, a ; b = destination index (0-based)
 	add a
-	ld c, a
-	ld b, 0
-	add hl, bc ; hl = address of currently selected item entry
-	ld a, [wMenuItemToSwap] ; ID of item chosen for swapping (counts from 1)
-	add a
-	add e
-	ld e, a
-	jr nc, .noCarry
-	inc d
-.noCarry ; de = address of first item to swap
+	add l
+	ld l, a
+	jr nc, .noCarry2
+	inc h
+.noCarry2 ; hl = address of the destination entry
 	ld a, [de]
-	ld b, a
-	ld a, [hli]
-	cp b
-	jr z, .swapSameItemType
-.swapDifferentItems
-	ldh [hSwapItemID], a ; save second item ID
-	ld a, [hld]
-	ldh [hSwapItemQuantity], a ; save second item quantity
+	cp [hl] ; same item in both slots?
+	jr nz, .differentItems
+	inc hl ; hl = destination quantity, as the combine code expects
+	jr .combineSameItemType
+.differentItems
+; Lift the picked-up entry out, close the gap by shifting every entry between
+; the two slots one slot towards the source, and set the entry down at the
+; destination. The cursor already sits on the destination row, so it lands on
+; the moved item without any cursor change. Entries are 2 bytes (id, qty);
+; the count byte and the $ff terminator are never reached.
 	ld a, [de]
-	ld [hli], a ; put first item ID in second item slot
+	ldh [hSwapItemID], a
 	inc de
 	ld a, [de]
-	ld [hl], a ; put first item quantity in second item slot
-	ldh a, [hSwapItemQuantity]
-	ld [de], a ; put second item quantity in first item slot
+	ldh [hSwapItemQuantity], a
+	dec de ; de = source entry
+	ld a, b
+	sub c ; a = destination - source
+	jr c, .moveUp
+.moveDown ; destination below the source: entries source+1..destination each move one slot up
+	ld c, a ; c = number of entries to shift
+	ld h, d
+	ld l, e
+	inc hl
+	inc hl ; hl = entry after the source
+.moveDownLoop
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .moveDownLoop
+	jr .placeItem ; de = destination entry
+.moveUp ; destination above the source: entries destination..source-1 each move one slot down
+	cpl
+	inc a ; a = source - destination
+	ld c, a ; c = number of entries to shift
+	inc de ; de = source quantity byte (the last byte of the block being vacated)
+	ld h, d
+	ld l, e
+	dec hl
+	dec hl ; hl = quantity byte of the entry above the source
+.moveUpLoop ; copy backwards so the overlapping region is never read after it is written
+	ld a, [hld]
+	ld [de], a
 	dec de
+	ld a, [hld]
+	ld [de], a
+	dec de
+	dec c
+	jr nz, .moveUpLoop
+	dec de ; de = destination entry
+.placeItem
 	ldh a, [hSwapItemID]
-	ld [de], a ; put second item ID in first item slot
+	ld [de], a
+	inc de
+	ldh a, [hSwapItemQuantity]
+	ld [de], a
 	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
+	ld [wMenuItemToSwap], a ; 0 means no item is currently picked up
 	pop de
 	pop hl
 	jp DisplayListMenuIDLoop
-.swapSameItemType
+.combineSameItemType ; unchanged from the swap: de = source item ID, hl = destination quantity
 	inc de
 	ld a, [hl]
 	ld b, a
@@ -103,14 +154,14 @@ HandleItemListSwapping::
 	add b ; a = sum of both item quantities
 	cp 100 ; is the sum too big for one item slot?
 	jr c, .combineItemSlots
-; swap enough items from the first slot to max out the second slot if they can't be combined
+; move enough items from the source slot to max out the destination slot if they can't be combined
 	sub 99
 	ld [de], a
 	ld a, 99
 	ld [hl], a
 	jr .done
 .combineItemSlots
-	ld [hl], a ; put the sum in the second item slot
+	ld [hl], a ; put the sum in the destination slot
 	ld hl, wListPointer
 	ld a, [hli]
 	ld h, [hl]
@@ -126,8 +177,8 @@ HandleItemListSwapping::
 	ld h, d
 	ld l, e
 	inc hl
-	inc hl ; hl = address of item after first item to swap
-.moveItemsUpLoop ; erase the first item slot and move up all the following item slots to fill the gap
+	inc hl ; hl = address of item after the source
+.moveItemsUpLoop ; erase the source slot and move up all the following item slots to fill the gap
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -143,7 +194,7 @@ HandleItemListSwapping::
 	ld [wCurrentMenuItem], a
 .done
 	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
+	ld [wMenuItemToSwap], a ; 0 means no item is currently picked up
 	pop de
 	pop hl
 	jp DisplayListMenuIDLoop
