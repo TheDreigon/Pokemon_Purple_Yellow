@@ -572,6 +572,16 @@ WarpFound2::
 	ldh a, [hWarpDestinationMap] ; destination map
 	cp LAST_MAP
 	jr z, .goBackOutside
+; v0.7 (2026-09-05, Forte's ROUTE 6 gate): an indoor map may name a town or a
+; route outright. Vanilla never does - every gate says LAST_MAP - and LAST_MAP
+; breaks for a gate whose back wall sits on the city's seam: that door is then
+; entered from the city, wLastMap is the city, and the far door's warp id gets
+; looked up in the city's table (ROUTE 6's south door would have opened onto
+; SAFFRON's 3rd warp, the GYM). Naming the map fixes it, and it must leave the
+; way LAST_MAP leaves - follower spawn, door sound and palette offset all live
+; on .goBackOutside - so the name is written into wLastMap and that path runs.
+	cp FIRST_INDOOR_MAP
+	jr c, .goOutsideByName
 ; if not going back to the previous map
 	ld [wCurMap], a
 	farcall IsPlayerStandingOnWarpPadOrHole
@@ -607,6 +617,8 @@ WarpFound2::
 	callfar SetPikachuSpawnWarpPad
 	jr .done
 
+.goOutsideByName
+	ld [wLastMap], a
 .goBackOutside
 	callfar SetPikachuSpawnBackOutside
 	ld a, [wLastMap]

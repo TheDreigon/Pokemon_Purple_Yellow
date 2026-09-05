@@ -27,6 +27,11 @@ SaffronCity_Object:
 	warp_event 18, 21, SILPH_CO_1F, 1
 	warp_event  9, 29, SAFFRON_POKECENTER, 1
 	warp_event 29, 29, MR_PSYCHICS_HOUSE, 1
+; v0.7 (2026-09-05, Forte): the ROUTE 6 gate's back wall sits right on this
+; city's south seam, so the bump that walks a player through that wall happens
+; from these two squares, not from ROUTE 6 (see data/maps/objects/Route6.asm).
+	warp_event 20, 35, ROUTE_6_GATE, 3
+	warp_event 21, 35, ROUTE_6_GATE, 4
 
 	def_bg_events
 	bg_event 17,  5, TEXT_SAFFRONCITY_SIGN
