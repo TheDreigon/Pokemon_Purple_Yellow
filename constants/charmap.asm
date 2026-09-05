@@ -166,7 +166,8 @@
 	charmap "!",         $e7
 	charmap ".",         $e8
 
-	charmap "ァ",         $e9 ; katakana small a, unused
+	charmap "&",         $e9 ; ampersand - Yellow Legacy redrew this tile in gfx/font/font.png (vanilla: katakana small a, unused). JESSIE&JAMES.
+	charmap "ァ",         $e9 ; alias kept for the one debug-menu string that still spells it
 	charmap "ゥ",         $ea ; katakana small u, unused
 	charmap "ェ",         $eb ; katakana small e, unused
 

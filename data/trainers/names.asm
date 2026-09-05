@@ -51,7 +51,7 @@ TrainerNames::
 	li "JANINE"
 	li "NURSE JOY"
 	li "OFF.JENNY"
-	li "JESSIE,JAMES" ; '&' is not in the font charmap; comma reads cleanly and fits the 12-char band of COOLTRAINER♂/JR.TRAINER♂
+	li "JESSIE&JAMES" ; '&' = font tile $e9 (glyph inherited from Yellow Legacy; charmap entry added 2026-09-05). 12 chars, the COOLTRAINER/JR.TRAINER band; "JESSIE&JAMES wants" is exactly 18.
 	li "FORTE"
 	li "BILL"
 	assert_list_length NUM_TRAINERS
