@@ -41,8 +41,8 @@ _ManualType_FIGHTING_DEF::
 	next "FAIRY"
 	next ""
 	next "RESISTS"
-	next "NORMAL POISON ROCK"
-	next "DARK STEEL"
+	next "NORMAL ICE POISON"
+	next "ROCK DARK"
 	done
 
 _ManualType_FLYING_ATK::
@@ -223,9 +223,8 @@ _ManualType_STEEL_ATK::
 	next "FAIRY FLYING"
 	next ""
 	next "WEAK AGAINST"
-	next "FIRE FIGHTING"
-	next "ELECTRIC STEEL"
-	next "MAGMA GAS"
+	next "FIRE ELECTRIC"
+	next "STEEL MAGMA GAS"
 	done
 
 _ManualType_STEEL_DEF::
@@ -438,7 +437,7 @@ _ManualType_ICE_ATK::
 	next ""
 	next "WEAK AGAINST"
 	next "FIRE ICE MAGMA"
-	next "STEEL"
+	next "STEEL FIGHTING"
 	done
 
 _ManualType_ICE_DEF::
