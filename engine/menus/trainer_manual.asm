@@ -547,6 +547,15 @@ TrainerManual_LastOffset:
 ; One box, the whole screen. Interior rows 1 to 16, columns 1 to 18.
 TrainerManual_DrawFrame:
 	call ClearScreen
+; v0.7 (2026-09-05, Forte's run): hide the overworld sprites. ClearScreen only
+; blanks the tilemap; the OAM is rebuilt every VBlank from each sprite's image
+; index, and nothing told the sprite engine the screen had changed - so every
+; NPC standing outside the bag's box stayed drawn over the manual. UpdateSprites
+; is that telling: with every tile now a text tile the player, each NPC and the
+; PIKACHU mark their image index $ff and the next VBlank clears them - the same
+; pair the OPTION screen and the POKeDEX open with. Nothing to undo on the way
+; out: the bag's redraw calls UpdateSprites again over the restored map.
+	call UpdateSprites
 	hlcoord 0, 0
 	lb bc, 16, 18
 	jp TextBoxBorder
