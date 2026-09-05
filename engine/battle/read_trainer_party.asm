@@ -229,7 +229,8 @@ HardModeBossLevelBump:
 ; onward the save's eeveelution is a rotating pool candidate (all three in
 ; the Champion rematch); every drawn mon gets its hand-picked 4-move set
 ; (move1 = 0 means natural level-up moves). Team is assembled in table
-; order, so the ace/eeveelution (last entries) is sent out last.
+; order, so the ace/eeveelution and the guaranteed EEVEE (the last entries;
+; the generator places them there) are sent out last.
 ;
 ; Scratch: wBuffer+0 team size, +1 guaranteed, +2 entry count, +3 flags,
 ; +4..+6 chosen-bitmask (up to 24 entries; tables cap at 22), +7 chosen
@@ -272,13 +273,19 @@ GenerateRivalParty:
 	ld [wBuffer + 4], a
 	ld [wBuffer + 5], a
 	ld [wBuffer + 6], a
-; pre-mark the guaranteed entries (bits 0..G-1)
+; pre-mark the guaranteed entries: they are the LAST G rows of the table
+; (bits N-G..N-1), so the add phase - which walks table order - sends them
+; out last. v0.7 (2026-09-05, Forte): EEVEE closes the early fights the way
+; the eeveelution closes the later ones; until now the guaranteed rows were
+; the FIRST G and EEVEE led at Route 22 and Cerulean.
 	ld a, [wBuffer + 1]
 	ld [wBuffer + 7], a ; chosen = guaranteed
 	and a
 	jr z, .selectLoop
 	ld b, a
-	ld c, 0
+	ld a, [wBuffer + 2] ; entry count
+	sub b               ; first guaranteed index = entries - guaranteed
+	ld c, a
 .markGuaranteed
 	ld a, c
 	call RivalSetChosenBit

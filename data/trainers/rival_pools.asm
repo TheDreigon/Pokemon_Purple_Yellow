@@ -6,7 +6,8 @@
 ;     flags bit0: all three eeveelutions eligible (Champion rematch)
 ;   entries (6 bytes): db SPECIES, LEVEL, move1..move4
 ;     move1 = 0 -> natural level-up moves (no override)
-;   The first guaranteed_count entries are ALWAYS on the team (Eevee early);
+;   The LAST guaranteed_count entries are ALWAYS on the team (Eevee early) and,
+;   being last in the table, are sent out last;
 ;   the rest are drawn at random, no duplicates. Entries are ordered so the
 ;   ace/eeveelution sits last (party build walks entries in table order).
 ;   Eeveelution entries (Vaporeon/Jolteon/Flareon) are only eligible when they
@@ -29,7 +30,6 @@ RivalBattle0: ; Lab (Oak's Lab)
 
 RivalBattle1: ; Route 22-1
 	db 3, 1, 8, 0 ; team size, guaranteed, entries, flags
-	db EEVEE, 9, QUICK_ATTACK, TACKLE, GROWL, SAND_ATTACK
 	db PIDGEY, 7, PECK, TACKLE, SAND_ATTACK, GROWL
 	db RATTATA, 7, QUICK_ATTACK, BITE, POISON_STING, TAIL_WHIP
 	db SPEAROW, 7, PECK, TACKLE, LEER, SAND_ATTACK
@@ -37,10 +37,10 @@ RivalBattle1: ; Route 22-1
 	db NIDORAN_F, 7, POISON_STING, TACKLE, GROWL, 0
 	db CHARMANDER, 8, EMBER, SCRATCH, TAIL_WHIP, 0
 	db SQUIRTLE, 8, WATER_GUN, TACKLE, TAIL_WHIP, WITHDRAW
+	db EEVEE, 9, QUICK_ATTACK, TACKLE, GROWL, SAND_ATTACK
 
 RivalBattle2: ; Cerulean
 	db 4, 1, 10, 0 ; team size, guaranteed, entries, flags
-	db EEVEE, 19, FAIRY_WIND, QUICK_ATTACK, BITE, AGILITY
 	db PIDGEOTTO, 18, GUST, PECK, TACKLE, SAND_ATTACK
 	db RATTATA, 18, RAGE, QUICK_ATTACK, FAINT_ATTACK, POISON_BITE
 	db SPEAROW, 18, WING_ATTACK, QUICK_ATTACK, FAINT_ATTACK, CUT
@@ -50,6 +50,7 @@ RivalBattle2: ; Cerulean
 	db WARTORTLE, 18, BUBBLEBEAM, BITE, ROCK_THROW, BULK_UP
 	db GEODUDE, 18, ROCK_THROW, GROUND_STOMP, TACKLE, DEFENSE_CURL
 	db VULPIX, 18, EMBER, FAIRY_WIND, QUICK_ATTACK, CONFUSE_RAY
+	db EEVEE, 19, FAIRY_WIND, QUICK_ATTACK, BITE, AGILITY
 
 RivalBattle3: ; SS Anne
 	db 5, 0, 15, 0 ; team size, guaranteed, entries, flags
@@ -182,3 +183,4 @@ RivalBattle8: ; Champion rematch
 	db VAPOREON, 80, HYDRO_PUMP, ICE_BEAM, DOUBLE_EDGE, RECOVER
 	db JOLTEON, 80, THUNDER, DOUBLE_EDGE, PLAY_ROUGH, AGILITY
 	db FLAREON, 80, FIRE_BLAST, DOUBLE_EDGE, PLAY_ROUGH, SWORDS_DANCE
+
