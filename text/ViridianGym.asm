@@ -242,17 +242,22 @@ _ViridianGymGuidePreBattleText::
 
 	para "This will be the"
 	line "toughest of all"
-	cont "GYMs!"
+	cont "GYMs - a full"
+	cont "team of 6!"
 
-	para "I did hear a"
-	line "rumor that"
-	cont "this LEADER"
-	cont "is quite wealthy."
-	
-	para "You should expect"
-	line "to see a lot"
-	cont "of TM moves if"
-	cont "that is true!"
+	para "Word is that"
+	line "half of them are"
+	cont "ground-types."
+
+	para "Water and grass"
+	line "moves will hit"
+	cont "those twice"
+	cont "over!"
+
+	para "Bring a fighting-"
+	line "type for the"
+	cont "rest, and watch"
+	cont "for EARTHQUAKE!"
 	done
 
 _ViridianGymGuidePostBattleText::

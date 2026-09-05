@@ -114,28 +114,6 @@ _SaffronGymSabrinaCandyCommentText::
 	line "gift. Take it."
 	done
 
-_SaffronGymGuideChampInMakingText::
-	text "Yo! Champ in"
-	line "making!"
-
-	para "SABRINA's pure"
-	line "psychic #MON"
-	cont "are incredibly"
-	cont "powerful!"
-
-	para "With high SPECIAL,"
-	line "they land huge"
-	cont "damage and take"
-	cont "non-physical"
-	cont "hits quite well."
-
-	para "If you don't have"
-	line "a ghost or bug-"
-	cont "type, bring a"
-	cont "#MON with"
-	cont "high ATTACK!"
-	done
-
 _SaffronGymGuideBeatSabrinaText::
 	text "Psychic power,"
 	line "huh?"

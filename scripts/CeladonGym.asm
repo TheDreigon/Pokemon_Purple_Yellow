@@ -478,30 +478,30 @@ CeladonGymAfterBattleText8:
 CeladonGymGymGuideText:
 	text_asm
 ; v0.7 (his 2026-08-30 request): CELADON had no in-gym guide, so the FRESH
-; WATER round (573d76b4) skipped it. She is the eighth — a woman, because
-; this gym is girls-only — under the same contract as the seven: the first
-; ELIGIBLE pre-badge visit earns the bottle, once per gym ever, and a full
-; bag defers the gift to the next talk (flag set only when it lands).
-	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_CELADON
-	jr nz, .noFreshWater
-	ld a, [wObtainedBadges]
-	bit BIT_THUNDERBADGE, a
-	jr z, .noFreshWater ; not yet eligible for this gym
-	ld a, [wObtainedBadges]
-	bit BIT_RAINBOWBADGE, a
-	jr nz, .noFreshWater ; already holds THIS gym's badge
-	lb bc, FRESH_WATER, 1
-	call GiveItem
-	jr nc, .noFreshWater ; bag full: defer
-	ld hl, CeladonGymGuideFreshWaterText
-	call PrintText
-	SetEvent EVENT_GOT_GYM_GUIDE_WATER_CELADON
-.noFreshWater
+; WATER round (573d76b4) skipped it. She is the eighth - a woman, because
+; this gym is girls-only - under the same contract as the seven.
 	ld a, [wBeatGymFlags]
 	bit BIT_RAINBOWBADGE, a
 	jr nz, .beatErika
 	ld hl, .GirlsOnlyText
 	call PrintText
+; v0.7 (his 2026-08-29 request; moved to the END of the advice 2026-09-05):
+; the first ELIGIBLE pre-badge visit earns a FRESH WATER. Eligible = previous
+; badge in hand; once per gym, and a full bag defers the gift to the next
+; talk (flag set only on success). The advice texts end in `done`, which does
+; not wait, so the receipt page is held back until the player presses.
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_CELADON
+	jr nz, .done
+	ld a, [wObtainedBadges]
+	bit BIT_THUNDERBADGE, a
+	jr z, .done ; not yet eligible for this gym
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .done ; bag full: defer
+	farcall NewPageButtonPressCheck
+	ld hl, CeladonGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_CELADON
 	jr .done
 .beatErika
 	ld hl, .BeatErikaText

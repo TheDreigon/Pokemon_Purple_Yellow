@@ -417,29 +417,28 @@ VermilionGymSailorAfterBattleText:
 
 VermilionGymGymGuideText:
 	text_asm
-; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
-; FRESH WATER. Eligible = previous badge in hand; once per gym,
-; and a full bag defers the gift to the next talk (flag set only on success).
-	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_VERMILION
-	jr nz, .noFreshWater
-	ld a, [wObtainedBadges]
-	bit BIT_CASCADEBADGE, a
-	jr z, .noFreshWater ; not yet eligible for this gym
-	ld a, [wObtainedBadges]
-	bit BIT_THUNDERBADGE, a
-	jr nz, .noFreshWater ; already holds THIS gym's badge
-	lb bc, FRESH_WATER, 1
-	call GiveItem
-	jr nc, .noFreshWater ; bag full: defer
-	ld hl, VermilionGymGuideFreshWaterText
-	call PrintText
-	SetEvent EVENT_GOT_GYM_GUIDE_WATER_VERMILION
-.noFreshWater
 	ld a, [wBeatGymFlags]
 	bit BIT_THUNDERBADGE, a
 	jr nz, .got_thunderbadge
 	ld hl, .ChampInMakingText
 	call PrintText
+; v0.7 (his 2026-08-29 request; moved to the END of the advice 2026-09-05):
+; the first ELIGIBLE pre-badge visit earns a FRESH WATER. Eligible = previous
+; badge in hand; once per gym, and a full bag defers the gift to the next
+; talk (flag set only on success). The advice texts end in `done`, which does
+; not wait, so the receipt page is held back until the player presses.
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_VERMILION
+	jr nz, .text_script_end
+	ld a, [wObtainedBadges]
+	bit BIT_CASCADEBADGE, a
+	jr z, .text_script_end ; not yet eligible for this gym
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .text_script_end ; bag full: defer
+	farcall NewPageButtonPressCheck
+	ld hl, VermilionGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_VERMILION
 	jr .text_script_end
 .got_thunderbadge
 	ld hl, .BeatLTSurgeText

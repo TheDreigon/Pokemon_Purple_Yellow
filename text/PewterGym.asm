@@ -202,18 +202,22 @@ _PewterGymGuideBeginAdviceText::
 	prompt
 
 _PewterGymGuideAdviceText::
-	text "BROCK's lead"
-	line "is GEODUDE!"
+	text "BROCK fields 3"
+	line "#MON, and his"
+	cont "lead is RHYHORN!"
 
-	para "Offense driven,"
-	line "it can throw"
-	cont "rocks with high"
-	cont "accuracy!"
-	
-	para "His ONIX is"
-	line "all defense!"
-	cont "Watch out for"
-	cont "its BIND!"
+	para "It stomps and"
+	line "throws sand in"
+	cont "your eyes!"
+
+	para "GEODUDE's ROCK"
+	line "THROW rarely"
+	cont "misses and can"
+	cont "stun you cold!"
+
+	para "His ONIX is all"
+	line "defense! Watch"
+	cont "out for BIND!"
 
 	para "It will be tough"
 	line "for your PIKACHU"
@@ -223,6 +227,11 @@ _PewterGymGuideAdviceText::
 	line "are harmless to"
 	cont "BROCK's ground-"
 	cont "type #MON."
+
+	para "Water and grass"
+	line "moves hit both"
+	cont "rock AND ground."
+	cont "Double whammy!"
 	done
 
 _PewterGymGuideFreeServiceText::
@@ -237,29 +246,3 @@ _PewterGymGuidePostBattleText::
 	cont "champ material!"
 	done
 
-_PewterGymGuyText::
-	text "All right! Let's"
-	line "get happening!"
-
-	para "BROCK's lead"
-	line "is GEODUDE!"
-
-	para "Offense driven,"
-	line "it can throw"
-	cont "rocks with high"
-	cont "accuracy!"
-	
-	para "His ONIX is"
-	line "all defense!"
-	cont "Watch out for"
-	cont "its BIND!"
-
-	para "It will be tough"
-	line "for your PIKACHU"
-	cont "at this GYM!"
-
-	para "Electric attacks"
-	line "are harmless to"
-	cont "BROCK's ground-"
-	cont "type #MON."
-	done

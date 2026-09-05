@@ -296,3 +296,26 @@ _ViridianGymKiyoGiovanniDebtText::
 	line "gym is a debt of"
 	cont "mine."
 	done
+
+; the gym guide after the League (2026-09-05): the roster is KIYO's rematch
+; set in Boss Movesets.md - five fighting-types past L60, PRIMEAPE leading.
+_ViridianGymGuideKiyoEraText::
+	text "Yo, CHAMPION!"
+
+	para "The KARATE MASTER"
+	line "KIYO runs this"
+	cont "GYM now - 5"
+	cont "fighting-types,"
+	cont "all past L60!"
+
+	para "His PRIMEAPE"
+	line "leads, and it's"
+	cont "part dark-type:"
+	cont "psychic moves"
+	cont "won't touch it!"
+
+	para "Flying and fairy"
+	line "moves hit all 5"
+	cont "hard. Bring a"
+	cont "bird!"
+	done

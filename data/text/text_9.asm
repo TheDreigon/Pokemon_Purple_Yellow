@@ -834,12 +834,13 @@ _BillsHouseBillHowsTheTeamText::
 	done
 
 _GymGuideFreshWaterText::
-	text "Hiya! You've come"
-	line "ready this time!"
+	text "Oh, and champ in"
+	line "making - you"
+	cont "look ready for"
+	cont "this one!"
 
-	para "Here, champ in"
-	line "making - a FRESH"
-	cont "WATER, on me!"
+	para "Here, a FRESH"
+	line "WATER, on me!"
 
 	para "<PLAYER> received"
 	line "a FRESH WATER!@"
@@ -857,6 +858,26 @@ _CeladonGymGuideGirlsOnlyText::
 	cont "but challengers"
 	cont "of any kind are"
 	cont "welcome!"
+
+	para "ERIKA fields 4"
+	line "grass-types, and"
+	cont "her lead TANGELA"
+	cont "is part water!"
+
+	para "So don't count"
+	line "on fire alone -"
+	cont "her VENUSAUR"
+	cont "stomps fire-"
+	cont "types too!"
+
+	para "Flying and ice"
+	line "moves hit all 4"
+	cont "hard."
+
+	para "And watch the"
+	line "powders - most"
+	cont "of them put you"
+	cont "to sleep!"
 
 	para "ERIKA and her"
 	line "girls fight with"

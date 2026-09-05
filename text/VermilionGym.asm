@@ -190,38 +190,136 @@ _VermilionGymGymGuideChampInMakingText::
 	text "Yo! Champ in"
 	line "making!"
 
-	para "LT.SURGE is"
-	line "most known for"
-	cont "only using a"
-	cont "single #MON"
-	cont "for his team!"
+	para "LT.SURGE runs a"
+	line "squad of 4, and"
+	cont "RAICHU is the"
+	cont "big gun at the"
+	cont "back!"
 
-	para "In doing so,"
-	line "his ace has"
-	cont "become extremely"
-	cont "powerful!"
+	para "His VOLTORB and"
+	line "MAGNEMITE are"
+	cont "part steel-type!"
+
+	para "Poison bounces"
+	line "right off them,"
+	cont "but ground moves"
+	cont "wreck them!"
 
 	para "Birds and water"
 	line "#MON are at"
-	cont "risk! But that"
-	cont "isn't all!"
+	cont "risk! And every"
+	cont "one of his 4 can"
+	cont "paralyze you!"
 
-	para "LT.SURGE has"
-	line "taught his"
-	cont "#MON a very"
-	cont "strong water"
-	cont "technique."
-
-	para "This makes it"
-	line "a hard fight for"
-	cont "any one #MON"
-	cont "to solo!"
-
-	para "Teamwork is the"
-	line "key to winning!"
+	para "Bring a ground-"
+	line "type and some"
+	cont "PARALYSIS HEAL!"
 	done
 
 _VermilionGymGymGuideBeatLTSurgeText::
 	text "Whew! That match"
 	line "was animated!"
+	done
+
+
+; v0.7 (2026-09-05): the three gym-guide advice texts rewritten on the run
+; feedback outgrew Text 7 (bank $2C, floor 162); they live here, in Text 6
+; (bank $2B, room in both builds; Text 10 is full in the debug build). The scripts' text_far pointers follow the labels.
+; from text/FuchsiaGym.asm
+_FuchsiaGymGymGuideChampInMakingText::
+	text "Yo! CHAMP in"
+	line "making!"
+
+	para "FUCHSIA GYM is"
+	line "riddled with"
+	cont "poison-types!"
+
+	para "That might appear"
+	line "easy, but KOGA"
+	cont "does well to"
+	cont "cover his ground-"
+	cont "type weakness."
+
+	para "Most of his 5"
+	line "#MON fly or"
+	cont "float over it."
+
+	para "Try electric"
+	line "moves instead -"
+	cont "they zap 4 of"
+	cont "his 5!"
+
+	para "And nearly all"
+	line "of them spread"
+	cont "TOXIC! Pack a"
+	cont "POISON HEAL or"
+	cont "two!"
+	done
+
+; from text/SaffronGym.asm
+_SaffronGymGuideChampInMakingText::
+	text "Yo! Champ in"
+	line "making!"
+
+	para "SABRINA's psychic"
+	line "#MON are"
+	cont "incredibly"
+	cont "powerful!"
+
+	para "With high SPECIAL,"
+	line "they land huge"
+	cont "damage and take"
+	cont "non-physical"
+	cont "hits quite well."
+
+	para "But not all 5"
+	line "are pure psychic:"
+	cont "HYPNO is part"
+	cont "dark, and her"
+	cont "VENOMOTH is a"
+	cont "bug!"
+
+	para "Bug and ghost"
+	line "moves hit most of"
+	cont "them hard - HYPNO"
+	cont "doubly so!"
+
+	para "No bug or ghost?"
+	line "Bring a #MON"
+	cont "with high ATTACK!"
+
+	para "And don't nod"
+	line "off - HYPNO and"
+	cont "VENOMOTH both"
+	cont "put you to sleep!"
+	done
+
+; from text/CinnabarGym.asm
+_CinnabarGymGymGuideChampInMakingText::
+	text "Yo! Champ in"
+	line "making!"
+
+	para "The hot-headed"
+	line "BLAINE is a fire"
+	cont "#MON pro!"
+
+	para "Douse his spirits"
+	line "with water! All"
+	cont "5 of his #MON"
+	cont "hate it - even"
+	cont "his RHYDON, who"
+	cont "isn't fire-type"
+	cont "at all!"
+
+	para "But be careful"
+	line "of his counters!"
+
+	para "EARTHQUAKE and"
+	line "MEGAHORN check"
+	cont "the #MON you"
+	cont "send, and MAGMAR"
+	cont "at the back is"
+	cont "part magma-type:"
+	cont "fire won't even"
+	cont "scratch it!"
 	done

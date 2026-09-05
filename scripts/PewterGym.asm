@@ -298,21 +298,6 @@ PewterGymCooltrainerMAfterBattleText:
 
 PewterGymGuideText:
 	text_asm
-; v0.7 (his 2026-08-29 request): the first ELIGIBLE pre-badge visit earns a
-; FRESH WATER. Eligible = previous badge in hand (none for the first gym); once per gym,
-; and a full bag defers the gift to the next talk (flag set only on success).
-	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_PEWTER
-	jr nz, .noFreshWater
-	ld a, [wObtainedBadges]
-	bit BIT_BOULDERBADGE, a
-	jr nz, .noFreshWater ; already holds THIS gym's badge
-	lb bc, FRESH_WATER, 1
-	call GiveItem
-	jr nc, .noFreshWater ; bag full: defer
-	ld hl, PewterGymGuideFreshWaterText
-	call PrintText
-	SetEvent EVENT_GOT_GYM_GUIDE_WATER_PEWTER
-.noFreshWater
 	ld a, [wBeatGymFlags]
 	bit BIT_BOULDERBADGE, a
 	jr nz, .afterBeat
@@ -321,28 +306,35 @@ PewterGymGuideText:
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr nz, .PewterGymGuideBeginAdviceText
-	ld a, [wd472]
-	bit 7, a
-	jp nz, .asm_5c3fa
+	jr nz, .freeService
 	ld hl, PewterGymGuideBeginAdviceText
 	call PrintText
-	jr .PewterGymGuideAdviceText
-.PewterGymGuideBeginAdviceText
+	jr .advice
+.freeService
 	ld hl, PewterGymGuideFreeServiceText
 	call PrintText
-.PewterGymGuideAdviceText
+.advice
 	ld hl, PewterGymGuideAdviceText
 	call PrintText
+; v0.7 (his 2026-08-29 request; moved to the END of the advice 2026-09-05):
+; the first pre-badge visit earns a FRESH WATER (no previous badge exists for
+; the first gym); once per gym, and a full bag defers the gift to the next
+; talk (flag set only on success). The advice ends in `done`, which does not
+; wait, so the receipt page is held back until the player presses.
+	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_PEWTER
+	jr nz, .done
+	lb bc, FRESH_WATER, 1
+	call GiveItem
+	jr nc, .done ; bag full: defer
+	farcall NewPageButtonPressCheck
+	ld hl, PewterGymGuideFreshWaterText
+	call PrintText
+	SetEvent EVENT_GOT_GYM_GUIDE_WATER_PEWTER
 	jr .done
 .afterBeat
 	ld hl, PewterGymGuidePostBattleText
 	call PrintText
 .done
-	jp TextScriptEnd
-.asm_5c3fa
-	ld hl, PewterGymText_5c41c
-	call PrintText
 	jp TextScriptEnd
 
 PewterGymGuidePreAdviceText:
@@ -365,9 +357,6 @@ PewterGymGuidePostBattleText:
 	text_far _PewterGymGuidePostBattleText
 	text_end
 
-PewterGymText_5c41c:
-	text_far _PewterGymGuyText
-	text_end
 
 
 PewterGymGuideFreshWaterText:

@@ -166,22 +166,23 @@ _CeruleanGymGymGuideChampInMakingText::
 	line "is offensively"
 	cont "focused!"
 
-	para "Not only do"
-	line "her water moves"
-	cont "hit hard, she"
-	cont "is very smart!"
+	para "Her WATER PULSE"
+	line "hits hard and"
+	cont "may leave you"
+	cont "confused!"
 
 	para "Her lead and ace"
 	line "know psychic-"
-	cont "type moves!"
+	cont "type moves, and"
+	cont "all 3 carry"
+	cont "ICY PULSE!"
 
-	para "This helps cover"
-	line "her weaknesses"
-	cont "from many dual"
-	cont "poison-types."
+	para "Grass-types won't"
+	line "get an easy ride"
+	cont "here!"
 
 	para "Electric-types"
-	line "seem to be the"
+	line "are still the"
 	cont "best counter to"
 	cont "this team of 3!"
 	done

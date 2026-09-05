@@ -267,25 +267,6 @@ _FuchsiaGymRocker6AfterBattleText::
 	cont "choose?"
 	done
 
-_FuchsiaGymGymGuideChampInMakingText::
-	text "Yo! CHAMP in"
-	line "making!"
-
-	para "FUCHSIA GYM is"
-	line "riddled with"
-	cont "poison-types!"
-
-	para "That might appear"
-	line "easy, but KOGA"
-	cont "does well to"
-	cont "cover his ground-"
-	cont "type weakness."
-
-	para "Psychic-type"
-	line "#MON should"
-	cont "do well here!"
-	done
-
 _FuchsiaGymGymGuideBeatKogaText::
 	text "It's amazing how"
 	line "ninja can terrify"
