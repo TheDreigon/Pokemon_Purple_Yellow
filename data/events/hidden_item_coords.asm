@@ -75,4 +75,5 @@ HiddenItemCoords:
 	hidden_item ROUTE_11,                      43,   7 ; NEW 2026-07-30
 	hidden_item CERULEAN_CAVE_1F,              29,  16 ; 2026-08-30: the converted 1F ULTRA BALL
 	hidden_item CERULEAN_CAVE_2F,              16,   7 ; 2026-08-30: the converted 2F ULTRA BALL
+	hidden_item VIRIDIAN_FOREST,                8,   4 ; 2026-09-06: the converted (8,3) POTION ball
 	db -1 ; end

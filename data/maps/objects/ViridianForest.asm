@@ -7,7 +7,7 @@
 	const_export VIRIDIANFOREST_YOUNGSTER5
 	const_export VIRIDIANFOREST_COOLTRAINER_M
 	const_export VIRIDIANFOREST_COOLTRAINER_F2
-	const_export VIRIDIANFOREST_POTION1
+	const_export VIRIDIANFOREST_REPEL
 	const_export VIRIDIANFOREST_POISON_HEAL
 	const_export VIRIDIANFOREST_POKE_BALL
 	const_export VIRIDIANFOREST_YOUNGSTER6
@@ -45,7 +45,9 @@ ViridianForest_Object:
 ; v0.7 (2026-09-02, Forte): the shortcut LASS - she faces the bushes she
 ; wishes were gone. Slot 8 (the ordinal contract above applies to her too).
 	object_event 16, 30, SPRITE_COOLTRAINER_F, STAY, UP, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, OPP_LASS, 20, 1
-	object_event  8,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POTION1, POTION
+; v0.7 (2026-09-06, Forte): the POTION ball that stood here at (8,3) is a hidden item at
+; (8,4) now (data/events/hidden_objects.asm); its missable slot pays for this REPEL.
+	object_event 32, 43, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_REPEL, REPEL
 	object_event 21, 27, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POISON_HEAL, POISON_HEAL ; v0.7 (2026-09-06, Forte): was (32,43)
 	object_event  4, 28, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POKE_BALL, POKE_BALL
 	object_event 24,  9, SPRITE_YOUNGSTER, STAY, NONE, TEXT_VIRIDIANFOREST_YOUNGSTER6

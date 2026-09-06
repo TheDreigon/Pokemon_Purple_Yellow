@@ -188,6 +188,7 @@ SeafoamIslands5HiddenObjects:
 ViridianForestHiddenObjects:
 	hidden_object  1, 18, LEAF_STONE, HiddenItems
 	hidden_object 16, 42, POTION, HiddenItems
+	hidden_object  8,  4, POTION, HiddenItems ; 2026-09-06 (Forte): the (8,3) ball, hidden one square down
 	db -1 ; end
 
 MtMoon3HiddenObjects:
