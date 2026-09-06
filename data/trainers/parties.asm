@@ -643,7 +643,7 @@ TamerData:
 	db 36, SCYTHER, ARBOK, 0
 	db 36, ARBOK, NIDOQUEEN, 0
 ; Viridian Gym
-	db 55, RHYDON, 0
+	db 53, RHYDON, 0 ; the gym rework (2026-09-06): 55 tied Giovanni's ace and out-levelled his own RHYDON
 	db 53, ARBOK, TAUROS, 0
 ; Victory Road 2F - Regi
 	db 53, TANGELA, SANDSLASH, LICKITUNG, ARBOK, 0
@@ -812,7 +812,7 @@ CooltrainerMData:
 	db 44, KINGLER, CLOYSTER, 0
 ; Viridian Gym
 	db 53, SANDSLASH, MAROWAK, 0
-	db 51, GOLEM, ELECTRODE, VICTREEBEL, 0
+	db 52, GOLEM, DUGTRIO, ONIX, 0 ; the gym rework (2026-09-06): the two off-type mons out, two absent Ground species in
 ; Viridian Forest toll gate (2026-08-30) - party 11, appended
 	db 10, SCYTHER, PINSIR, 0
 

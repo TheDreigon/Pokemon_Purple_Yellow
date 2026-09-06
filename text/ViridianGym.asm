@@ -119,9 +119,10 @@ _ViridianGymCooltrainerM1AfterBattleText::
 	done
 
 _ViridianGymHiker1BattleText::
-	text "Rrrroar! I'm"
-	line "working myself"
-	cont "into a rage!"
+; the gym rework (2026-09-06): the halberd guards of the anime's Viridian Gym (EP063)
+	text "Nobody walks in"
+	line "on the BOSS."
+	cont "Nobody!"
 	done
 
 _ViridianGymHiker1EndBattleText::
@@ -151,9 +152,10 @@ _ViridianGymRocker1AfterBattleText::
 	done
 
 _ViridianGymHiker2BattleText::
-	text "Karate is the"
-	line "ultimate form of"
-	cont "martial arts!"
+; the gym rework (2026-09-06): the other door guard (EP063)
+	text "The BOSS pays us"
+	line "to keep this hall"
+	cont "clear. Out!"
 	done
 
 _ViridianGymHiker2EndBattleText::
