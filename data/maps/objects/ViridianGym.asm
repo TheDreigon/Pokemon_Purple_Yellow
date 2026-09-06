@@ -23,6 +23,9 @@ ViridianGym_Object:
 	def_bg_events
 
 	def_object_events
+; The seven regulars fight twice (the gym rework, 9/9, 2026-09-06): as the Boss's muscle with
+; the party ids below and, once KIYO holds the gym, as his disciples - ViridianGymPostLeagueState
+; (scripts) swaps the ids in WRAM every tick: objects 2-6, 8, 9 -> 12, 14, 7, 15, 13, 8, 14.
 	object_event  2,  1, SPRITE_GIOVANNI, STAY, DOWN, TEXT_VIRIDIANGYM_GIOVANNI, OPP_GIOVANNI, 3
 	object_event 12,  7, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_VIRIDIANGYM_COOLTRAINER_M1, OPP_COOLTRAINER_M, 9, 4
 	object_event 11, 11, SPRITE_HIKER, STAY, UP, TEXT_VIRIDIANGYM_HIKER1, OPP_BLACKBELT, 6, 4

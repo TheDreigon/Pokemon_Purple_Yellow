@@ -301,6 +301,120 @@ _ViridianGymKiyoGiovanniDebtText::
 
 ; the gym guide after the League (2026-09-05): the roster is KIYO's rematch
 ; set in Boss Movesets.md - five fighting-types past L60, PRIMEAPE leading.
+; The seven disciples' battle and end lines (the gym rework, 9/9, 2026-09-06):
+; the Boss's old muscle, drilled by the dojo master and fighting his way now.
+; End lines print after the class name on the same row: "COOLTRAINER♂: "
+; leaves 4 tiles, "BLACKBELT: " 7, "TAMER: " 11.
+_ViridianGymCooltrainerM1KiyoBattleText::
+	text "The old LEADER"
+	line "paid us. The new"
+	cont "one trains us!"
+
+	para "PRIMEAPE! Show"
+	line "the CHAMPION our"
+	cont "new punch!"
+	done
+
+_ViridianGymCooltrainerM1KiyoEndBattleText::
+	text "Ugh!"
+	line "Punched out!"
+	prompt
+
+_ViridianGymHiker1KiyoBattleText::
+	text "No more halberds."
+	line "KIYO threw them"
+	cont "out and gave us"
+	cont "fists!"
+
+	para "My MACHOKE and I"
+	line "train till we"
+	cont "drop!"
+	done
+
+_ViridianGymHiker1KiyoEndBattleText::
+	text "Wargh!"
+	line "Dropped!"
+	prompt
+
+_ViridianGymRocker1KiyoBattleText::
+	text "The MASTER says a"
+	line "TAMER's whip is"
+	cont "just a bad kick."
+
+	para "So I taught my"
+	line "#MON to kick!"
+	done
+
+_ViridianGymRocker1KiyoEndBattleText::
+	text "Kicked!"
+	line "Way out of tune!"
+	prompt
+
+_ViridianGymHiker2KiyoBattleText::
+	text "Kicks and punches"
+	line "guard this door"
+	cont "now, not pay!"
+
+	para "HITMONLEE and"
+	line "HITMONCHAN, show"
+	cont "the MASTER's art!"
+	done
+
+_ViridianGymHiker2KiyoEndBattleText::
+	text "Ouch!"
+	line "Out-kicked and"
+	cont "out-punched!"
+	prompt
+
+_ViridianGymCooltrainerM2KiyoBattleText::
+	text "Style is gone."
+	line "KIYO wants"
+	cont "SPIRIT. Hyah!"
+
+	para "MACHAMP! Four"
+	line "arms, no style,"
+	cont "all spirit!"
+	done
+
+_ViridianGymCooltrainerM2KiyoEndBattleText::
+	text "Ugh!"
+	line "Out of spirit!"
+	prompt
+
+_ViridianGymRocker2KiyoBattleText::
+	text "I threw my whip"
+	line "away. PRIMEAPE"
+	cont "trains for the"
+	cont "MASTER now!"
+
+	para "And it hits"
+	line "harder than any"
+	cont "whip ever did!"
+	done
+
+_ViridianGymRocker2KiyoEndBattleText::
+	text "Yowch!"
+	line "No whip hits"
+	cont "like that!"
+	prompt
+
+_ViridianGymCooltrainerM3KiyoBattleText::
+	text "I hold the last"
+	line "room before the"
+	cont "MASTER, as the"
+	cont "best of his"
+	cont "students!"
+
+	para "Three fighters,"
+	line "one heart. Come!"
+	done
+
+_ViridianGymCooltrainerM3KiyoEndBattleText::
+	text "Hah!"
+	line "The MASTER will"
+	cont "hear of this!"
+	prompt
+
 _ViridianGymGuideKiyoEraText::
 	text "Yo, CHAMPION!"
 

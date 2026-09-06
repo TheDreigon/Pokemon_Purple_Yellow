@@ -33,6 +33,24 @@ HallOfFameResetEventsAndSaveScript:
 	res 1, [hl]
 	inc hl
 	set BIT_TEST_BATTLE, [hl] ; debug, unused?
+	call HallOfFameWipeEvents ; a routine of its own, so the emulator tests can run the wipe
+	xor a
+	ld [wHallOfFameCurScript], a
+	ld a, PALLET_TOWN
+	ld [wLastBlackoutMap], a
+	farcall SaveSAVtoSRAM
+	ld b, 5
+.delayLoop
+	ld c, 600 / 5
+	call DelayFrames
+	dec b
+	jr nz, .delayLoop
+	call WaitForTextScrollButtonPress
+	jp Init
+
+; The League-run wipe: the Elite Four's script slots and events, the rematch
+; cooldowns, KIYO's disciples, and the era flag.
+HallOfFameWipeEvents:
 	xor a ; SCRIPT_*_DEFAULT
 	ld hl, wLoreleisRoomCurScript
 	ld [hli], a ; wLoreleisRoomCurScript
@@ -52,21 +70,15 @@ HallOfFameResetEventsAndSaveScript:
 	; them, so clearing the block here gives the player one fresh rematch
 	; against every leader (plus JOY and JENNY) per League run.
 	ResetEventRange REMATCH_COOLDOWN_EVENTS_START, REMATCH_COOLDOWN_EVENTS_END
+	; v1.0 (the gym rework, 9/9, 2026-09-06): KIYO's seven disciples in the
+	; Viridian Gym fight again each League run, like the leaders - their
+	; BEAT bits go with the cooldowns. Bit 5 is JESSIE & JAMES: beaten for
+	; good, they sweep the floor in the KIYO era.
+	ResetEventRange EVENT_BEAT_VIRIDIAN_GYM_TRAINER_0, EVENT_BEAT_VIRIDIAN_GYM_TRAINER_4
+	ResetEventRange EVENT_BEAT_VIRIDIAN_GYM_TRAINER_6, EVENT_BEAT_VIRIDIAN_GYM_TRAINER_7
 	ld a, 1
 	ld [wGameStage], a
-	xor a
-	ld [wHallOfFameCurScript], a
-	ld a, PALLET_TOWN
-	ld [wLastBlackoutMap], a
-	farcall SaveSAVtoSRAM
-	ld b, 5
-.delayLoop
-	ld c, 600 / 5
-	call DelayFrames
-	dec b
-	jr nz, .delayLoop
-	call WaitForTextScrollButtonPress
-	jp Init
+	ret
 
 HallOfFameDefaultScript:
 	ld a, A_BUTTON | B_BUTTON | SELECT | START | D_RIGHT | D_LEFT | D_UP | D_DOWN

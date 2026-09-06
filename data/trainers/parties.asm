@@ -649,6 +649,10 @@ TamerData:
 	db 53, TANGELA, SANDSLASH, LICKITUNG, ARBOK, 0
 ; Unused
 	db 42, RHYHORN, PRIMEAPE, ARBOK, TAUROS, 0
+; KIYO-era Viridian Gym (the gym rework, 9/9, 2026-09-06): parties 7-8, swapped in by
+; ViridianGymPostLeagueState (PINSIR and FARFETCH'D are part Fighting in this hack)
+	db 60, PINSIR, FARFETCHD, 0 ; 7: (10,7)
+	db 59, PRIMEAPE, PINSIR, 0 ; 8: (2,16)
 
 KogaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
@@ -746,6 +750,11 @@ BlackbeltData:
 	db 54, POLIWRATH, PRIMEAPE, 0       ; 11: (3,6)
 	db 56, PINSIR, MACHAMP, 0           ; 12: (6,5)
 	db 52, MACHOKE, PRIMEAPE, 0         ; 13: (6,7)
+; KIYO-era Viridian Gym (the gym rework, 9/9, 2026-09-06): parties 14-15, swapped in by
+; ViridianGymPostLeagueState. 15 carries both Hitmons: the (10,1) BLACKBELT of the design
+; became JESSIE & JAMES's tile, so his HITMONCHAN joined the door guard's HITMONLEE.
+	db $FF, 58, MACHOKE, 58, MACHOKE, 60, MACHAMP, 0 ; 14: (11,11)
+	db 61, HITMONLEE, HITMONCHAN, 0 ; 15: (3,7)
 
 PsychicData:
 ; Saffron Gym (the gym rework, 2026-09-06: GOLDUCK for the second KADABRA of four,
@@ -815,6 +824,11 @@ CooltrainerMData:
 	db 52, GOLEM, DUGTRIO, ONIX, 0 ; the gym rework (2026-09-06): the two off-type mons out, two absent Ground species in
 ; Viridian Forest toll gate (2026-08-30) - party 11, appended
 	db 10, SCYTHER, PINSIR, 0
+; KIYO-era Viridian Gym (the gym rework, 9/9, 2026-09-06): the same men as KIYO's disciples -
+; parties 12-14, swapped in by ViridianGymPostLeagueState (scripts/ViridianGym.asm)
+	db 60, PRIMEAPE, KANGASKHAN, 0 ; 12: (12,7)
+	db 61, POLIWRATH, MACHAMP, 0 ; 13: (13,5)
+	db 62, MACHAMP, POLIWRATH, PRIMEAPE, 0 ; 14: (6,5) the head disciple, last before KIYO
 
 CooltrainerFData:
 ; Celadon Gym

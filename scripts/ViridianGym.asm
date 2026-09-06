@@ -5,6 +5,7 @@ ViridianGym_Script:
 	call LoadGymLeaderAndCityName
 	call EnableAutoTextBoxDrawing
 	ld hl, ViridianGymTrainerHeaders
+	call ViridianGymEraHeader ; the KIYO-era twin table after the League
 	ld de, ViridianGym_ScriptPointers
 	ld a, [wViridianGymCurScript]
 	call ExecuteCurMapScriptInTable
@@ -49,7 +50,40 @@ ViridianGymPostLeagueState:
 	ld a, HS_VIRIDIAN_GYM_KIYO
 	ld [wMissableObjectIndex], a
 	predef ShowObject
-	ret
+; fallthrough
+; v1.0 (the gym rework, 9/9, 2026-09-06): KIYO brought his dojo. The seven
+; regulars fight again as his disciples, with Fighting-era parties (58-62,
+; under his 63). Their party ids live in wMapSpriteExtraData - the pair
+; EngageMapTrainer reads, rebuilt only on map load - so the era ids are
+; written there every tick (idempotent, before any engagement: RunMapScript
+; precedes the joypad in every overworld tick). Their BEAT bits fall in the
+; Hall of Fame wipe, with the leader rematches. JESSIE & JAMES stay beaten.
+ViridianGymKiyoEraParties:
+	ld hl, .EraParties
+.loop
+	ld a, [hli] ; the object's offset in the table, or -1 = end
+	cp -1
+	ret z
+	ld c, a
+	ld b, 0
+	ld a, [hli] ; the era party id (the class is the object's own)
+	push hl
+	ld hl, wMapSpriteExtraData + 1
+	add hl, bc
+	ld [hl], a
+	pop hl
+	jr .loop
+
+.EraParties:
+; 2 * (object index - 1), the KIYO-era party id
+	db 2 * (VIRIDIANGYM_COOLTRAINER_M1 - 1), 12 ; PRIMEAPE 60, KANGASKHAN 60
+	db 2 * (VIRIDIANGYM_HIKER1 - 1), 14         ; MACHOKE 58, MACHOKE 58, MACHAMP 60
+	db 2 * (VIRIDIANGYM_ROCKER1 - 1), 7         ; PINSIR 60, FARFETCH'D 60
+	db 2 * (VIRIDIANGYM_HIKER2 - 1), 15         ; HITMONLEE 61, HITMONCHAN 61
+	db 2 * (VIRIDIANGYM_COOLTRAINER_M2 - 1), 13 ; POLIWRATH 61, MACHAMP 61
+	db 2 * (VIRIDIANGYM_ROCKER2 - 1), 8         ; PRIMEAPE 59, PINSIR 59
+	db 2 * (VIRIDIANGYM_COOLTRAINER_M3 - 1), 14 ; MACHAMP 62, POLIWRATH 62, PRIMEAPE 62
+	db -1 ; end
 
 ViridianGymKiyoPostBattle:
 	ld a, [wIsInBattle]
@@ -253,6 +287,38 @@ ViridianGymTrainerHeader7:
 	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_7, TEXT_VIRIDIANGYM_COOLTRAINER_M3, ViridianGymCooltrainerM3BattleText, ViridianGymCooltrainerM3EndBattleText, ViridianGymCooltrainerM3AfterBattleText
 	db -1 ; end
 
+; v1.0 (the gym rework, 9/9, 2026-09-06): the same seven once KIYO holds the
+; gym - same objects, same BEAT bits (re-armed by the Hall of Fame wipe), same
+; ranges; only the three texts differ. JESSIE's row is her Giovanni-era one:
+; her bit stays set, so it is only ever read for the after-line, which
+; branches on wGameStage itself. Byte-for-byte the shape of the table above,
+; so one offset (ViridianGymEraHeader) turns any header of it into its twin.
+ViridianGymKiyoEraTrainerHeaders:
+	def_trainers 2
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_0, TEXT_VIRIDIANGYM_COOLTRAINER_M1, ViridianGymCooltrainerM1KiyoBattleText, ViridianGymCooltrainerM1KiyoEndBattleText, ViridianGymCooltrainerM1KiyoAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_1, TEXT_VIRIDIANGYM_HIKER1, ViridianGymHiker1KiyoBattleText, ViridianGymHiker1KiyoEndBattleText, ViridianGymHiker1KiyoAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_2, TEXT_VIRIDIANGYM_ROCKER1, ViridianGymRocker1KiyoBattleText, ViridianGymRocker1KiyoEndBattleText, ViridianGymRocker1KiyoAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_3, TEXT_VIRIDIANGYM_HIKER2, ViridianGymHiker2KiyoBattleText, ViridianGymHiker2KiyoEndBattleText, ViridianGymHiker2KiyoAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_4, TEXT_VIRIDIANGYM_COOLTRAINER_M2, ViridianGymCooltrainerM2KiyoBattleText, ViridianGymCooltrainerM2KiyoEndBattleText, ViridianGymCooltrainerM2KiyoAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_5, TEXT_VIRIDIANGYM_JESSIE, ViridianGymJessieBattleText, ViridianGymJessieEndBattleText, ViridianGymJessieAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_6, TEXT_VIRIDIANGYM_ROCKER2, ViridianGymRocker2KiyoBattleText, ViridianGymRocker2KiyoEndBattleText, ViridianGymRocker2KiyoAfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_7, TEXT_VIRIDIANGYM_COOLTRAINER_M3, ViridianGymCooltrainerM3KiyoBattleText, ViridianGymCooltrainerM3KiyoEndBattleText, ViridianGymCooltrainerM3KiyoAfterBattleText
+	db -1 ; end
+
+; hl = a Giovanni-era header (or the table itself): once the League is beaten,
+; its KIYO-era twin. Every header pointer of this map passes through here.
+ViridianGymEraHeader:
+	ld a, [wGameStage]
+	and a
+	ret z
+	ld de, ViridianGymKiyoEraTrainerHeaders - ViridianGymTrainerHeaders
+	add hl, de
+	ret
+
+ViridianGymTalkToTrainer:
+	call ViridianGymEraHeader
+	jp TalkToTrainer
+
 ViridianGymGiovanniText:
 	text_asm
 	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
@@ -351,7 +417,7 @@ ViridianGymGiovanniReceivedCandyText:
 ViridianGymCooltrainerM1Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader0
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymCooltrainerM1BattleText:
@@ -362,30 +428,31 @@ ViridianGymCooltrainerM1EndBattleText:
 	text_far _ViridianGymCooltrainerM1EndBattleText
 	text_end
 
-; The eight gym trainers stay after the badge, and once KIYO holds the gym
-; their after-battle lines speak of the takeover (Forte's idea, approved
-; 2026-08-17). Same wGameStage branch shape as the dojo's promoted student.
+; The eight gym trainers stay after the badge; once KIYO holds the gym the
+; seven regulars fight again as his disciples (the gym rework, 9/9,
+; 2026-09-06) and ViridianGymKiyoEraTrainerHeaders carries their era texts -
+; the battle and end lines below, and the after-lines Forte approved
+; 2026-08-17 - so no stub here branches on wGameStage any more.
 ViridianGymCooltrainerM1AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymCooltrainerM1AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymCooltrainerM1KiyoBattleText:
+	text_far _ViridianGymCooltrainerM1KiyoBattleText
+	text_end
+
+ViridianGymCooltrainerM1KiyoEndBattleText:
+	text_far _ViridianGymCooltrainerM1KiyoEndBattleText
+	text_end
+
+ViridianGymCooltrainerM1KiyoAfterBattleText:
 	text_far _ViridianGymCooltrainerM1KiyoEraText
 	text_end
 
 ViridianGymHiker1Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader1
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymHiker1BattleText:
@@ -397,26 +464,25 @@ ViridianGymHiker1EndBattleText:
 	text_end
 
 ViridianGymHiker1AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymHiker1AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymHiker1KiyoBattleText:
+	text_far _ViridianGymHiker1KiyoBattleText
+	text_end
+
+ViridianGymHiker1KiyoEndBattleText:
+	text_far _ViridianGymHiker1KiyoEndBattleText
+	text_end
+
+ViridianGymHiker1KiyoAfterBattleText:
 	text_far _ViridianGymHiker1KiyoEraText
 	text_end
 
 ViridianGymRocker1Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader2
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymRocker1BattleText:
@@ -428,26 +494,25 @@ ViridianGymRocker1EndBattleText:
 	text_end
 
 ViridianGymRocker1AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymRocker1AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymRocker1KiyoBattleText:
+	text_far _ViridianGymRocker1KiyoBattleText
+	text_end
+
+ViridianGymRocker1KiyoEndBattleText:
+	text_far _ViridianGymRocker1KiyoEndBattleText
+	text_end
+
+ViridianGymRocker1KiyoAfterBattleText:
 	text_far _ViridianGymRocker1KiyoEraText
 	text_end
 
 ViridianGymHiker2Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader3
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymHiker2BattleText:
@@ -459,26 +524,25 @@ ViridianGymHiker2EndBattleText:
 	text_end
 
 ViridianGymHiker2AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymHiker2AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymHiker2KiyoBattleText:
+	text_far _ViridianGymHiker2KiyoBattleText
+	text_end
+
+ViridianGymHiker2KiyoEndBattleText:
+	text_far _ViridianGymHiker2KiyoEndBattleText
+	text_end
+
+ViridianGymHiker2KiyoAfterBattleText:
 	text_far _ViridianGymHiker2KiyoEraText
 	text_end
 
 ViridianGymCooltrainerM2Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader4
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymCooltrainerM2BattleText:
@@ -490,26 +554,25 @@ ViridianGymCooltrainerM2EndBattleText:
 	text_end
 
 ViridianGymCooltrainerM2AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymCooltrainerM2AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymCooltrainerM2KiyoBattleText:
+	text_far _ViridianGymCooltrainerM2KiyoBattleText
+	text_end
+
+ViridianGymCooltrainerM2KiyoEndBattleText:
+	text_far _ViridianGymCooltrainerM2KiyoEndBattleText
+	text_end
+
+ViridianGymCooltrainerM2KiyoAfterBattleText:
 	text_far _ViridianGymCooltrainerM2KiyoEraText
 	text_end
 
 ViridianGymJessieText:
 	text_asm
 	ld hl, ViridianGymTrainerHeader5
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymJessieBattleText:
@@ -566,7 +629,7 @@ ViridianGymJamesText:
 ViridianGymRocker2Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader6
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymRocker2BattleText:
@@ -578,26 +641,25 @@ ViridianGymRocker2EndBattleText:
 	text_end
 
 ViridianGymRocker2AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymRocker2AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymRocker2KiyoBattleText:
+	text_far _ViridianGymRocker2KiyoBattleText
+	text_end
+
+ViridianGymRocker2KiyoEndBattleText:
+	text_far _ViridianGymRocker2KiyoEndBattleText
+	text_end
+
+ViridianGymRocker2KiyoAfterBattleText:
 	text_far _ViridianGymRocker2KiyoEraText
 	text_end
 
 ViridianGymCooltrainerM3Text:
 	text_asm
 	ld hl, ViridianGymTrainerHeader7
-	call TalkToTrainer
+	call ViridianGymTalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymCooltrainerM3BattleText:
@@ -609,19 +671,18 @@ ViridianGymCooltrainerM3EndBattleText:
 	text_end
 
 ViridianGymCooltrainerM3AfterBattleText:
-	text_asm
-	ld hl, .Vanilla
-	ld a, [wGameStage]
-	and a
-	jr z, .print
-	ld hl, .KiyoEra
-.print
-	call PrintText
-	jp TextScriptEnd
-.Vanilla:
 	text_far _ViridianGymCooltrainerM3AfterBattleText
 	text_end
-.KiyoEra:
+
+ViridianGymCooltrainerM3KiyoBattleText:
+	text_far _ViridianGymCooltrainerM3KiyoBattleText
+	text_end
+
+ViridianGymCooltrainerM3KiyoEndBattleText:
+	text_far _ViridianGymCooltrainerM3KiyoEndBattleText
+	text_end
+
+ViridianGymCooltrainerM3KiyoAfterBattleText:
 	text_far _ViridianGymCooltrainerM3KiyoEraText
 	text_end
 
