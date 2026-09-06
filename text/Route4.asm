@@ -23,6 +23,37 @@ _Route4CooltrainerF2AfterBattleText::
 	line "them all."
 	done
 
+_Route4HikerBattleText::
+	text "Whew! MT.MOON was"
+	line "a good workout!"
+
+	para "Hahaha! But I"
+	line "still have energy"
+	cont "for more!"
+	done
+
+_Route4HikerEndBattleText::
+	text "Whew! I'm"
+	line "all worn out!"
+	prompt
+
+_Route4HikerAfterBattleText::
+	text "That was a good"
+	line "workout too!"
+
+	para "Time to go back"
+	line "in for more!"
+	done
+
+_Route4CooltrainerF3Text::
+	text "I want to go in"
+	line "and explore"
+	cont "MT.MOON..."
+
+	para "I'm still working"
+	line "up the courage."
+	done
+
 _Route4MtMoonSignText::
 	text "MT.MOON"
 	line "Tunnel Entrance"

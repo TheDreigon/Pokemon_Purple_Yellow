@@ -17,7 +17,9 @@ Route4_TextPointers:
 	def_text_pointers
 	dw_const Route4CooltrainerF1Text, TEXT_ROUTE4_COOLTRAINER_F1
 	dw_const Route4CooltrainerF2Text, TEXT_ROUTE4_COOLTRAINER_F2
+	dw_const Route4HikerText,         TEXT_ROUTE4_HIKER
 	dw_const PickUpItemText,          TEXT_ROUTE4_TM_QUICK_ATTACK
+	dw_const Route4CooltrainerF3Text, TEXT_ROUTE4_COOLTRAINER_F3
 	dw_const PokeCenterSignText,      TEXT_ROUTE4_POKECENTER_SIGN
 	dw_const Route4MtMoonSignText,    TEXT_ROUTE4_MT_MOON_SIGN
 	dw_const Route4SignText,          TEXT_ROUTE4_SIGN
@@ -26,6 +28,8 @@ Route4TrainerHeaders:
 	def_trainers 2
 Route4TrainerHeader0:
 	trainer EVENT_BEAT_ROUTE_4_TRAINER_0, TEXT_ROUTE4_COOLTRAINER_F2, Route4CooltrainerF2BattleText, Route4CooltrainerF2EndBattleText, Route4CooltrainerF2AfterBattleText
+Route4TrainerHeader1:
+	trainer EVENT_BEAT_ROUTE_4_TRAINER_1, TEXT_ROUTE4_HIKER, Route4HikerBattleText, Route4HikerEndBattleText, Route4HikerAfterBattleText
 	db -1 ; end
 
 Route4CooltrainerF1Text:
@@ -48,6 +52,28 @@ Route4CooltrainerF2EndBattleText:
 
 Route4CooltrainerF2AfterBattleText:
 	text_far _Route4CooltrainerF2AfterBattleText
+	text_end
+
+Route4HikerText:
+	text_asm
+	ld hl, Route4TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
+
+Route4HikerBattleText:
+	text_far _Route4HikerBattleText
+	text_end
+
+Route4HikerEndBattleText:
+	text_far _Route4HikerEndBattleText
+	text_end
+
+Route4HikerAfterBattleText:
+	text_far _Route4HikerAfterBattleText
+	text_end
+
+Route4CooltrainerF3Text:
+	text_far _Route4CooltrainerF3Text
 	text_end
 
 Route4MtMoonSignText:

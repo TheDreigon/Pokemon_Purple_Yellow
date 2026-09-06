@@ -370,6 +370,8 @@ HikerData:
 	db $FF, 24, GEODUDE, 26, GRAVELER, 0
 ; Victory Road - Sable
 	db 52, AERODACTYL, PARASECT, JOLTEON, ARCANINE, 0
+; Route 4, outside the MT.MOON exit (2026-09-06, Forte) - party 16
+	db 10, GEODUDE, SANDSHREW, MACHOP, DIGLETT, 0
 
 MistyData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
