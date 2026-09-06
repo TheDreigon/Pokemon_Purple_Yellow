@@ -176,9 +176,10 @@ _SaffronGymPsychic1EndBattleText::
 	prompt
 
 _SaffronGymPsychic1AfterBattleText::
+; 2026-09-06: the dark, too - Psychic hits nothing on DARK here
 	text "Psychic #MON"
-	line "fear only bugs"
-	cont "and ghosts!"
+	line "fear bugs, ghosts"
+	cont "and the dark!"
 	done
 
 _SaffronGymChanneler2BattleText::
@@ -196,9 +197,12 @@ _SaffronGymChanneler2EndBattleText::
 	prompt
 
 _SaffronGymChanneler2AfterBattleText::
-	text "I must teach"
-	line "better techniques"
-	cont "to my #MON!"
+; 2026-09-06 (the gym rework): the spoon-bending pupils of the anime (EP022)
+	text "I still can't"
+	line "bend a spoon."
+
+	para "SABRINA did it as"
+	line "a little girl!"
 	done
 
 _SaffronGymPsychic2BattleText::
@@ -230,9 +234,14 @@ _SaffronGymChanneler3EndBattleText::
 	prompt
 
 _SaffronGymChanneler3AfterBattleText::
-	text "I knew that this"
-	line "was going to take"
-	cont "place."
+; 2026-09-06 (the gym rework): Sabrina's father (anime EP022/EP024), who tells
+; challengers to bring a ghost - the medium with the gym's JYNX says it here
+	text "Her father has"
+	line "the power too."
+
+	para "He tells every"
+	line "challenger to"
+	cont "bring a ghost!"
 	done
 
 _SaffronGymPsychic3BattleText::

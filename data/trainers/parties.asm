@@ -527,10 +527,11 @@ ChannelerData:
 	db 32, GASTLY, DROWZEE, HAUNTER, 0
 	db 35, HAUNTER, 0
 	db 33, HYPNO, HAUNTER, NINETALES, 0
-; Saffron Gym
+; Saffron Gym (2026-09-06: the lone HYPNO 45 -> 43, Sabrina's own is 43; the medium's third mon
+; is the gym's JYNX - a ghost for a channeler - instead of a fourth KADABRA)
 	db 44, HAUNTER, NINETALES, 0
-	db 45, HYPNO, 0
-	db 43, HYPNO, HAUNTER, KADABRA, 0
+	db 43, HYPNO, 0
+	db 43, HYPNO, HAUNTER, JYNX, 0
 
 BikerData:
 ; Route 13
@@ -742,10 +743,11 @@ BlackbeltData:
 	db 52, MACHOKE, PRIMEAPE, 0         ; 13: (6,7)
 
 PsychicData:
-; Saffron Gym
-	db 42, KADABRA, SLOWBRO, HYPNO, KADABRA, 0
+; Saffron Gym (the gym rework, 2026-09-06: GOLDUCK for the second KADABRA of four,
+; BUTTERFREE - Bug/Psychic here - for the JYNX that is Ghost/Ice; the medium took the JYNX)
+	db 42, KADABRA, SLOWBRO, HYPNO, GOLDUCK, 0
 	db 43, MR_MIME, KADABRA, 0
-	db 41, VENOMOTH, JYNX, SLOWBRO, 0
+	db 41, VENOMOTH, BUTTERFREE, SLOWBRO, 0
 	db 45, STARMIE, 0
 
 SabrinaData:
@@ -823,12 +825,12 @@ CooltrainerFData:
 	db 45, IVYSAUR, VENUSAUR, 0
 	db 45, NIDORINA, NIDOQUEEN, 0
 	db 43, PERSIAN, NINETALES, RAICHU, 0
-
 ; 9: Vermilion Gym - VISQUEZ, Lt. Surge's second (2026-09-06); her Pikachu will be a Raichu like his
 	db $FF, 26, PIKACHU, 26, VOLTORB, 0
-LoreleiData:
 ; 10: Fuchsia Gym - AYA, Koga's younger sister (2026-09-06); VENONAT is her only known POKeMON
 	db $FF, 37, VENONAT, 39, VENOMOTH, 0
+
+LoreleiData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
 	db $FF, 56, SLOWBRO, 56, JYNX, 57, DEWGONG, 57, CLOYSTER, 58, LAPRAS, 0
