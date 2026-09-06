@@ -1,6 +1,6 @@
 	object_const_def
 	const_export FUCHSIAGYM_KOGA
-	const_export FUCHSIAGYM_ROCKER1
+	const_export FUCHSIAGYM_AYA ; Koga's sister (the gym rework, 2026-09-06); the slot was a HYPNO juggler
 	const_export FUCHSIAGYM_ROCKER2
 	const_export FUCHSIAGYM_JANINE ; obj 4 is Janine (SPRITE_JANINE/OPP_JANINE), not a rocker; name kept sequential when she was added
 	const_export FUCHSIAGYM_ROCKER4
@@ -19,7 +19,9 @@ FuchsiaGym_Object:
 
 	def_object_events
 	object_event  4, 10, SPRITE_KOGA, STAY, DOWN, TEXT_FUCHSIAGYM_KOGA, OPP_KOGA, 1
-	object_event  8, 13, SPRITE_ROCKER, STAY, DOWN, TEXT_FUCHSIAGYM_ROCKER1, OPP_JUGGLER, 7, 2
+; v1.0 (the gym rework, 2026-09-06): AYA, Koga's younger sister (anime EP032),
+; the first fight of the gym - the challenger meets her before her brother.
+	object_event  8, 13, SPRITE_COOLTRAINER_F, STAY, DOWN, TEXT_FUCHSIAGYM_AYA, OPP_COOLTRAINER_F, 10, 2
 	object_event  7,  8, SPRITE_ROCKER, STAY, RIGHT, TEXT_FUCHSIAGYM_ROCKER2, OPP_JUGGLER, 3, 2
 	object_event  1, 12, SPRITE_JANINE, STAY, DOWN, TEXT_FUCHSIAGYM_JANINE, OPP_JANINE, 1, 4
 	object_event  3,  5, SPRITE_ROCKER, STAY, UP, TEXT_FUCHSIAGYM_ROCKER4, OPP_TAMER, 1, 2

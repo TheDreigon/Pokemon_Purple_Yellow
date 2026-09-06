@@ -132,27 +132,30 @@ _FuchsiaGymKogaCandyCommentText::
 	line "the path ahead."
 	done
 
-_FuchsiaGymRocker1BattleText::
-	text "Strength isn't"
-	line "the key for"
-	cont "#MON!"
+; v1.0 (the gym rework, 2026-09-06): AYA, Koga's younger sister (anime EP032,
+; EP176). The end line keeps a 4-tile first row: "COOLTRAINER♀: " goes first.
+_FuchsiaGymAyaBattleText::
+	text "I'm AYA, KOGA's"
+	line "little sister!"
 
-	para "It's strategy!"
+	para "You'll face me"
+	line "before you face"
+	cont "my brother!"
 
-	para "I'll show you how"
-	line "strategy can beat"
-	cont "brute strength!"
+	para "VENONAT! Show"
+	line "them our poison!"
 	done
 
-_FuchsiaGymRocker1EndBattleText::
-	text "What?"
-	line "Extraordinary!"
+_FuchsiaGymAyaEndBattleText::
+	text "Oh!"
+	line "I lost..."
 	prompt
 
-_FuchsiaGymRocker1AfterBattleText::
-	text "So, you mix brawn"
-	line "with brains?"
-	cont "Good strategy!"
+_FuchsiaGymAyaAfterBattleText::
+	text "My brother is far"
+	line "stronger than me."
+	cont "Don't get"
+	cont "poisoned!"
 	done
 
 _FuchsiaGymRocker2BattleText::

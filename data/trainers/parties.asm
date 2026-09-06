@@ -629,9 +629,8 @@ JugglerData:
 	db 53, OMASTAR, ALAKAZAM, RAICHU, MR_MIME, 0
 ; Unused
 	db 33, HYPNO, 0
-; Fuchsia Gym
-	db 40, HYPNO, 0
-	db 36, WEEZING, HYPNO, 0
+; (2026-09-06: the Fuchsia Gym HYPNO juggler - id 7 - became AYA, COOLTRAINER_F 10; it and the
+; orphan id 8 were the last two parties, so both are gone and nothing shifted)
 
 TamerData:
 ; Fuchsia Gym
@@ -828,6 +827,8 @@ CooltrainerFData:
 ; 9: Vermilion Gym - VISQUEZ, Lt. Surge's second (2026-09-06); her Pikachu will be a Raichu like his
 	db $FF, 26, PIKACHU, 26, VOLTORB, 0
 LoreleiData:
+; 10: Fuchsia Gym - AYA, Koga's younger sister (2026-09-06); VENONAT is her only known POKeMON
+	db $FF, 37, VENONAT, 39, VENOMOTH, 0
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
 	db $FF, 56, SLOWBRO, 56, JYNX, 57, DEWGONG, 57, CLOYSTER, 58, LAPRAS, 0
