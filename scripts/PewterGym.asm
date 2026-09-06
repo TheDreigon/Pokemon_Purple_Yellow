@@ -108,7 +108,7 @@ BrockRematchPostBattle:
 PewterGym_TextPointers:
 	def_text_pointers
 	dw_const PewterGymBrockText,             TEXT_PEWTERGYM_BROCK
-	dw_const PewterGymCooltrainerMText,      TEXT_PEWTERGYM_COOLTRAINER_M
+	dw_const PewterGymForrestText,           TEXT_PEWTERGYM_FORREST
 	dw_const PewterGymGuideText,             TEXT_PEWTERGYM_GYM_GUIDE
 	dw_const PewterGymBrockWaitTakeThisText, TEXT_PEWTERGYM_BROCK_WAIT_TAKE_THIS
 	dw_const PewterGymReceivedTMText,        TEXT_PEWTERGYM_RECEIVED_TM
@@ -119,7 +119,7 @@ PewterGym_TextPointers:
 PewterGymTrainerHeaders:
 	def_trainers 2
 PewterGymTrainerHeader0:
-	trainer EVENT_BEAT_PEWTER_GYM_TRAINER_0, TEXT_PEWTERGYM_COOLTRAINER_M, PewterGymCooltrainerMBattleText, PewterGymCooltrainerMEndBattleText, PewterGymCooltrainerMAfterBattleText
+	trainer EVENT_BEAT_PEWTER_GYM_TRAINER_0, TEXT_PEWTERGYM_FORREST, PewterGymForrestBattleText, PewterGymForrestEndBattleText, PewterGymForrestAfterBattleText
 	db -1 ; end
 
 PewterGymBrockText:
@@ -264,22 +264,22 @@ PewterGymBrockReceivedBoulderBadgeText:
 	text_far _PewterGymBrockBoulderBadgeInfoText ; power-up spiel (FLASH moved to LT.SURGE's badge, v0.7 HM remap)
 	text_end
 
-PewterGymCooltrainerMText:
+PewterGymForrestText:
 	text_asm
 	ld hl, PewterGymTrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-PewterGymCooltrainerMBattleText:
-	text_far _PewterGymCooltrainerMBattleText
+PewterGymForrestBattleText:
+	text_far _PewterGymForrestBattleText
 	text_end
 
-PewterGymCooltrainerMEndBattleText:
-	text_far _PewterGymCooltrainerMEndBattleText
+PewterGymForrestEndBattleText:
+	text_far _PewterGymForrestEndBattleText
 	text_end
 
-PewterGymCooltrainerMAfterBattleText:
-	text_far _PewterGymCooltrainerMAfterBattleText
+PewterGymForrestAfterBattleText:
+	text_far _PewterGymForrestAfterBattleText
 	text_end
 
 PewterGymGuideText:

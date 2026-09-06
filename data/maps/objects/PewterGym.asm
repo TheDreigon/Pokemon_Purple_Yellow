@@ -1,6 +1,6 @@
 	object_const_def
 	const_export PEWTERGYM_BROCK
-	const_export PEWTERGYM_COOLTRAINER_M
+	const_export PEWTERGYM_FORREST ; Brock's brother (the gym rework, 2026-09-06)
 	const_export PEWTERGYM_GYM_GUIDE
 
 PewterGym_Object:
@@ -14,7 +14,9 @@ PewterGym_Object:
 
 	def_object_events
 	object_event  4,  1, SPRITE_BROCK, STAY, DOWN, TEXT_PEWTERGYM_BROCK, OPP_BROCK, 1
-	object_event  2,  6, SPRITE_COOLTRAINER_M, STAY, RIGHT, TEXT_PEWTERGYM_COOLTRAINER_M, OPP_JR_TRAINER_M, 1, 5
+; v1.0 (the gym rework, 2026-09-06): FORREST, Brock's younger brother (anime),
+; the gym's one regular - a kid guarding the door with his brother's POKeMON.
+	object_event  2,  6, SPRITE_YOUNGSTER, STAY, RIGHT, TEXT_PEWTERGYM_FORREST, OPP_JR_TRAINER_M, 1, 5
 	object_event  7, 10, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_PEWTERGYM_GYM_GUIDE
 
 	def_warps_to PEWTER_GYM

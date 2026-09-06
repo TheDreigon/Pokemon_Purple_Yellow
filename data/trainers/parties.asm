@@ -171,8 +171,8 @@ BrockData:
 	db $FF, 63, KABUTOPS, 64, GOLBAT, 64, RHYDON, 65, GOLEM, 65, ONIX, 0
 
 JrTrainerMData:
-; Pewter Gym
-	db 9, GEODUDE, SANDSHREW, 0
+; Pewter Gym: FORREST, Brock's brother, with his brother's GEODUDE and ONIX (2026-09-06)
+	db $FF, 10, GEODUDE, 12, ONIX, 0
 ; Route 24/Route 25
 	db 15, DIGLETT, PSYDUCK, 0
 ; Route 24

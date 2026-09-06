@@ -162,24 +162,30 @@ _PewterGymBrockBoulderBadgeInfoText::
 	cont "with pride!"
 	prompt
 
-_PewterGymCooltrainerMBattleText::
-	text "Stop right there,"
-	line "kid!"
+; v1.0 (the gym rework, 2026-09-06): FORREST, Brock's younger brother (anime
+; EP005; the Pewter leader himself, later). The vanilla "light years" junior
+; is gone. The end line keeps a 5-tile first row: "JR.TRAINER♂: " goes first.
+_PewterGymForrestBattleText::
+	text "Stop right there!"
 
-	para "You're still light"
-	line "years from facing"
-	cont "BROCK!"
+	para "I'm FORREST, and"
+	line "BROCK is my big"
+	cont "brother!"
+
+	para "He lent me his"
+	line "#MON to guard"
+	cont "the GYM door!"
 	done
 
-_PewterGymCooltrainerMEndBattleText::
+_PewterGymForrestEndBattleText::
 	text "Darn!"
 
-	para "Light years isn't"
-	line "time! It measures"
-	cont "distance!"
+	para "I lost with my"
+	line "brother's own"
+	cont "#MON!"
 	prompt
 
-_PewterGymCooltrainerMAfterBattleText::
+_PewterGymForrestAfterBattleText::
 	text "You're pretty hot,"
 	line "but not as hot"
 	cont "as BROCK!"
