@@ -61,7 +61,7 @@ ItemPrices::
 	bcd3 600 ; MAX_REPEL
 	bcd3 2000 ; DIRE_HIT
 	bcd3 10    ; COIN
-	bcd3 250   ; FRESH_WATER (was 200; tweaked so $/HP no longer trivially beats SUPER_POTION)
+	bcd3 250   ; FRESH_WATER (was 200; still the cheapest HP in the game at 5 yen per HP, half the potions' 10 - the roof machines are its only shop)
 	bcd3 300   ; SODA_POP
 	bcd3 350   ; LEMONADE
 	bcd3 0     ; S_S_TICKET

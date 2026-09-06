@@ -5,6 +5,6 @@ ENDM
 
 VendingPrices:
 	; item id, price
-	vend_item FRESH_WATER, 250 ; vend_item FRESH_WATER, 250 ; keeps drinks from trivially dominating Super Potion on ¥/HP
+	vend_item FRESH_WATER, 250 ; 5 yen per HP - the drinks are still half the potions' price per HP; the roof machines are their only shop
 	vend_item SODA_POP,    300
 	vend_item LEMONADE,    350
