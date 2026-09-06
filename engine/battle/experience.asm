@@ -1137,7 +1137,7 @@ GetLevelCap::
 	ld b, 56 ; Giovanni's ace, 8th gym (55 + 1)
 	jr nc, .done
 	cp 6
-	ld b, 56 ; Blaine's ace, 7th gym (55 + 1)
+	ld b, 53 ; Blaine's ace, 7th gym (52 + 1; MAGMAR L52 since 2026-07-22)
 	jr nc, .done
 	cp 5
 	ld b, 50 ; Sabrina's ace, 6th gym (49 + 1)
@@ -1152,7 +1152,7 @@ GetLevelCap::
 	ld b, 31 ; Surge's ace, 3rd gym (30 + 1; Forte's 2026-09-05 roster)
 	jr nc, .done
 	cp 1
-	ld b, 22 ; Misty's ace, 2nd gym (21 + 1)
+	ld b, 23 ; Misty's ace, 2nd gym (22 + 1; STARMIE L22 since Forte's 2026-09-01 touch-up)
 	jr nc, .done
 	ld b, 15 ; Brock's ace, 1st gym (14 + 1)
 	jr .done
