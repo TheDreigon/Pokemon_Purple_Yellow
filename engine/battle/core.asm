@@ -4772,30 +4772,31 @@ GetDamageVarsForPlayerAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr nz, .specialCrit
-; plain hit: battle stats as they stand, Light Screen doubling included
-	ld hl, wEnemyMonSpAtk
+; plain hit: battle stats as they stand, Light Screen doubling included.
+; The split (F2b, 2026-09-06): the defender's stat is SP.DEF, the attacker's SP.ATK.
+	ld hl, wEnemyMonSpDef
 	ld a, [hli]
 	ld b, a
-	ld c, [hl] ; bc = enemy special
+	ld c, [hl] ; bc = enemy SP.DEF
 	ld a, [wEnemyBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
 	jr z, .specialPlainDone
-; if the enemy has used Light Screen, double the enemy's special
+; if the enemy has used Light Screen, double the enemy's SP.DEF (only SP.DEF: Forte, 2026-09-06)
 	call DoubleStatCapped
 .specialPlainDone
 	ld hl, wBattleMonSpAtk
 	jr .scaleStats
 .specialCrit
-; same rule as .physicalCrit; burn never touches Special, so no re-halving
-	ld hl, wEnemyMonSpAtk
-	ld a, [wEnemyMonSpAtkMod]
+; same rule as .physicalCrit; burn never touches SP.ATK, so no re-halving
+	ld hl, wEnemyMonSpDef
+	ld a, [wEnemyMonSpDefMod]
 	cp BASE_STAT_LEVEL + 1
 	jr c, .specialCritGotDefense
-	ld hl, wEnemyMonUnmodifiedSpAtk
+	ld hl, wEnemyMonUnmodifiedSpDef
 .specialCritGotDefense
 	ld a, [hli]
 	ld b, a
-	ld c, [hl] ; bc = enemy special
+	ld c, [hl] ; bc = enemy SP.DEF
 	ld hl, wBattleMonSpAtk
 	ld a, [wPlayerMonSpAtkMod]
 	cp BASE_STAT_LEVEL
@@ -4920,30 +4921,31 @@ GetDamageVarsForEnemyAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr nz, .specialCrit
-; plain hit: battle stats as they stand, Light Screen doubling included
-	ld hl, wBattleMonSpAtk
+; plain hit: battle stats as they stand, Light Screen doubling included.
+; The split (F2b, 2026-09-06): the defender's stat is SP.DEF, the attacker's SP.ATK.
+	ld hl, wBattleMonSpDef
 	ld a, [hli]
 	ld b, a
-	ld c, [hl] ; bc = player special
+	ld c, [hl] ; bc = player SP.DEF
 	ld a, [wPlayerBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
 	jr z, .specialPlainDone
-; if the player has used Light Screen, double the player's special
+; if the player has used Light Screen, double the player's SP.DEF (only SP.DEF: Forte, 2026-09-06)
 	call DoubleStatCapped
 .specialPlainDone
 	ld hl, wEnemyMonSpAtk
 	jr .scaleStats
 .specialCrit
-; same rule as .physicalCrit; burn never touches Special, so no re-halving
-	ld hl, wBattleMonSpAtk
-	ld a, [wPlayerMonSpAtkMod]
+; same rule as .physicalCrit; burn never touches SP.ATK, so no re-halving
+	ld hl, wBattleMonSpDef
+	ld a, [wPlayerMonSpDefMod]
 	cp BASE_STAT_LEVEL + 1
 	jr c, .specialCritGotDefense
-	ld hl, wPlayerMonUnmodifiedSpAtk
+	ld hl, wPlayerMonUnmodifiedSpDef
 .specialCritGotDefense
 	ld a, [hli]
 	ld b, a
-	ld c, [hl] ; bc = player special
+	ld c, [hl] ; bc = player SP.DEF
 	ld hl, wEnemyMonSpAtk
 	ld a, [wEnemyMonSpAtkMod]
 	cp BASE_STAT_LEVEL
