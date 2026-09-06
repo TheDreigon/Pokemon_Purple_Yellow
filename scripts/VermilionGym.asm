@@ -174,9 +174,9 @@ VermilionGymGateText:
 VermilionGym_TextPointers:
 	def_text_pointers
 	dw_const VermilionGymLTSurgeText,                 TEXT_VERMILIONGYM_LT_SURGE
-	dw_const VermilionGymGentlemanText,               TEXT_VERMILIONGYM_GENTLEMAN
-	dw_const VermilionGymSuperNerdText,               TEXT_VERMILIONGYM_SUPER_NERD
-	dw_const VermilionGymSailorText,                  TEXT_VERMILIONGYM_SAILOR
+	dw_const VermilionGymVisquezText,                 TEXT_VERMILIONGYM_VISQUEZ
+	dw_const VermilionGymSailor1Text,                 TEXT_VERMILIONGYM_SAILOR1
+	dw_const VermilionGymSailor2Text,                 TEXT_VERMILIONGYM_SAILOR2
 	dw_const VermilionGymGymGuideText,                TEXT_VERMILIONGYM_GYM_GUIDE
 	dw_const VermilionGymLTSurgeThunderBadgeInfoText, TEXT_VERMILIONGYM_LT_SURGE_THUNDER_BADGE_INFO
 	dw_const VermilionGymLTSurgeReceivedTMText,     TEXT_VERMILIONGYM_LT_SURGE_RECEIVED_TM
@@ -188,11 +188,11 @@ VermilionGym_TextPointers:
 VermilionGymTrainerHeaders:
 	def_trainers 2
 VermilionGymTrainerHeader0:
-	trainer EVENT_BEAT_VERMILION_GYM_TRAINER_0, TEXT_VERMILIONGYM_GENTLEMAN, VermilionGymGentlemanBattleText, VermilionGymGentlemanEndBattleText, VermilionGymGentlemanAfterBattleText
+	trainer EVENT_BEAT_VERMILION_GYM_TRAINER_0, TEXT_VERMILIONGYM_VISQUEZ, VermilionGymVisquezBattleText, VermilionGymVisquezEndBattleText, VermilionGymVisquezAfterBattleText
 VermilionGymTrainerHeader1:
-	trainer EVENT_BEAT_VERMILION_GYM_TRAINER_1, TEXT_VERMILIONGYM_SUPER_NERD, VermilionGymSuperNerdBattleText, VermilionGymSuperNerdEndBattleText, VermilionGymSuperNerdAfterBattleText
+	trainer EVENT_BEAT_VERMILION_GYM_TRAINER_1, TEXT_VERMILIONGYM_SAILOR1, VermilionGymSailor1BattleText, VermilionGymSailor1EndBattleText, VermilionGymSailor1AfterBattleText
 VermilionGymTrainerHeader2:
-	trainer EVENT_BEAT_VERMILION_GYM_TRAINER_2, TEXT_VERMILIONGYM_SAILOR, VermilionGymSailorBattleText, VermilionGymSailorEndBattleText, VermilionGymSailorAfterBattleText
+	trainer EVENT_BEAT_VERMILION_GYM_TRAINER_2, TEXT_VERMILIONGYM_SAILOR2, VermilionGymSailor2BattleText, VermilionGymSailor2EndBattleText, VermilionGymSailor2AfterBattleText
 	db -1 ; end
 
 VermilionGymLTSurgeText:
@@ -361,58 +361,58 @@ VermilionGymLTSurgeReceivedThunderBadgeText:
 	text_far _VermilionGymLTSurgeReceivedThunderBadgeText
 	text_end
 
-VermilionGymGentlemanText:
+VermilionGymVisquezText:
 	text_asm
 	ld hl, VermilionGymTrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-VermilionGymGentlemanBattleText:
-	text_far _VermilionGymGentlemanBattleText
+VermilionGymVisquezBattleText:
+	text_far _VermilionGymVisquezBattleText
 	text_end
 
-VermilionGymGentlemanEndBattleText:
-	text_far _VermilionGymGentlemanEndBattleText
+VermilionGymVisquezEndBattleText:
+	text_far _VermilionGymVisquezEndBattleText
 	text_end
 
-VermilionGymGentlemanAfterBattleText:
-	text_far _VermilionGymGentlemanAfterBattleText
+VermilionGymVisquezAfterBattleText:
+	text_far _VermilionGymVisquezAfterBattleText
 	text_end
 
-VermilionGymSuperNerdText:
+VermilionGymSailor1Text:
 	text_asm
 	ld hl, VermilionGymTrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
-VermilionGymSuperNerdBattleText:
-	text_far _VermilionGymSuperNerdBattleText
+VermilionGymSailor1BattleText:
+	text_far _VermilionGymSailor1BattleText
 	text_end
 
-VermilionGymSuperNerdEndBattleText:
-	text_far _VermilionGymSuperNerdEndBattleText
+VermilionGymSailor1EndBattleText:
+	text_far _VermilionGymSailor1EndBattleText
 	text_end
 
-VermilionGymSuperNerdAfterBattleText:
-	text_far _VermilionGymSuperNerdAfterBattleText
+VermilionGymSailor1AfterBattleText:
+	text_far _VermilionGymSailor1AfterBattleText
 	text_end
 
-VermilionGymSailorText:
+VermilionGymSailor2Text:
 	text_asm
 	ld hl, VermilionGymTrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
-VermilionGymSailorBattleText:
-	text_far _VermilionGymSailorBattleText
+VermilionGymSailor2BattleText:
+	text_far _VermilionGymSailor2BattleText
 	text_end
 
-VermilionGymSailorEndBattleText:
-	text_far _VermilionGymSailorEndBattleText
+VermilionGymSailor2EndBattleText:
+	text_far _VermilionGymSailor2EndBattleText
 	text_end
 
-VermilionGymSailorAfterBattleText:
-	text_far _VermilionGymSailorAfterBattleText
+VermilionGymSailor2AfterBattleText:
+	text_far _VermilionGymSailor2AfterBattleText
 	text_end
 
 VermilionGymGymGuideText:

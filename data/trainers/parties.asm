@@ -394,8 +394,10 @@ SailorData:
 	db 19, KRABBY, STARYU, 0
 	db 18, HORSEA, STARYU, KRABBY, 0
 	db 20, MACHOP, 0
-; Vermilion Gym
-	db 24, MAGNEMITE, 0
+; Vermilion Gym: Surge's subordinate at (0,10), the double-lock hint (2026-09-06: was MAGNEMITE 24)
+	db 22, VOLTORB, MAGNEMITE, 0
+; 9: Vermilion Gym - Surge's subordinate at (3,8), the three VOLTORB among the cans (was ROCKER 1)
+	db 23, VOLTORB, VOLTORB, VOLTORB, 0
 
 GentlemanData:
 ; SS Anne 1F Rooms
@@ -460,7 +462,7 @@ KiyoData:
 	db $FF, 63, PRIMEAPE, 63, HITMONLEE, 64, HITMONCHAN, 64, POLIWRATH, 65, MACHAMP, 0
 
 RockerData:
-; Vermilion Gym
+; Unused since 2026-09-06 (was Vermilion Gym; the three VOLTORB are SAILOR 9 now)
 	db 21, VOLTORB, VOLTORB, VOLTORB, 0
 ; Route 12
 	db 30, VOLTORB, ELECTRODE, 0
@@ -823,6 +825,8 @@ CooltrainerFData:
 	db 45, NIDORINA, NIDOQUEEN, 0
 	db 43, PERSIAN, NINETALES, RAICHU, 0
 
+; 9: Vermilion Gym - VISQUEZ, Lt. Surge's second (2026-09-06); her Pikachu will be a Raichu like his
+	db $FF, 26, PIKACHU, 26, VOLTORB, 0
 LoreleiData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4

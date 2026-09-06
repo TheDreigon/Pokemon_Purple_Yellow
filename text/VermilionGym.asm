@@ -130,36 +130,45 @@ _VermilionGymLTSurgeReceivedThunderBadgeText::
 	line "the THUNDERBADGE!"
 	prompt
 
-_VermilionGymGentlemanBattleText::
-	text "When I was in the"
-	line "Army, LT.SURGE"
-	cont "was my strict CO!"
+; v1.0 (the gym rework, 2026-09-06): VISQUEZ (Pokemon Journeys, Surge's
+; trained stand-in leader) and his two subordinates (anime EP014, the men who
+; mock Pikachu - unnamed in the canon). End lines keep a short first row:
+; "COOLTRAINER♀: " (14) and "SAILOR: " (8) print before them.
+_VermilionGymVisquezBattleText::
+	text "I'm VISQUEZ, the"
+	line "Lieutenant's"
+	cont "second in command"
+
+	para "My PIKACHU will be"
+	line "a RAICHU like his"
+	cont "one day. Go!"
 	done
 
-_VermilionGymGentlemanEndBattleText::
-	text "Stop!"
-	line "You're very good!"
+_VermilionGymVisquezEndBattleText::
+	text "Oh!"
+	line "Outranked!"
 	prompt
 
-_VermilionGymGentlemanAfterBattleText::
-	text "The door won't"
-	line "open?"
-
-	para "LT.SURGE always"
-	line "was cautious!"
+_VermilionGymVisquezAfterBattleText::
+	text "The Lieutenant's"
+	line "door is past the"
+	cont "cans. Good luck."
 	done
 
-_VermilionGymSuperNerdBattleText::
-	text "I'm a lightweight,"
-	line "but I'm good with"
-	cont "electricity!"
+_VermilionGymSailor1BattleText::
+	text "A mouse that"
+	line "walks on foot?"
+
+	para "LT.SURGE's RAICHU"
+	line "eats those!"
 	done
 
-_VermilionGymSuperNerdEndBattleText::
-	text "Fried!"
+_VermilionGymSailor1EndBattleText::
+	text "Fried by a"
+	line "mouse!"
 	prompt
 
-_VermilionGymSuperNerdAfterBattleText::
+_VermilionGymSailor1AfterBattleText::
 	text "OK, I'll talk!"
 
 	para "LT.SURGE said he"
@@ -167,17 +176,21 @@ _VermilionGymSuperNerdAfterBattleText::
 	cont "inside something!"
 	done
 
-_VermilionGymSailorBattleText::
-	text "This is no place"
+_VermilionGymSailor2BattleText::
+	text "Ha! Is that puny"
+	line "yellow runt your"
+	cont "partner, kid?"
+
+	para "This is no place"
 	line "for kids!"
 	done
 
-_VermilionGymSailorEndBattleText::
+_VermilionGymSailor2EndBattleText::
 	text "Wow!"
-	line "Surprised me!"
+	line "The runt bites!"
 	prompt
 
-_VermilionGymSailorAfterBattleText::
+_VermilionGymSailor2AfterBattleText::
 	text "LT.SURGE set up"
 	line "double locks!"
 	cont "Here's a hint!"
