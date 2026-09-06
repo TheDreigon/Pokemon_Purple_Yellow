@@ -1,38 +1,41 @@
-_SaffronGateGuardGeeImThirstyText::
-	text "I'm on guard duty."
-	line "Gee, I'm thirsty,"
-	cont "though!"
+_SaffronGateGuardRoadShutText::
+	text "The road into"
+	line "SAFFRON is shut"
+	cont "for now."
 
-	para "Oh, wait there,"
-	line "the road is shut."
+	para "TEAM ROCKET is"
+	line "terrorizing the"
+	cont "city! Please keep"
+	cont "clear, for your"
+	cont "own safety."
 	done
 
-_SaffronGateGuardImParchedText::
-	text "Whoa, boy!"
-	line "I'm parched!"
-	cont "..."
-	cont "Huh? I can have"
-	cont "this drink?"
-	cont "Gee, thanks!@"
-	text_end
+_SaffronGateGuardFourBadgesText::
+	text "Oh, wait. Four"
+	line "BADGES? You must"
+	cont "be some trainer!"
 
-_SaffronGateGuardYouCanGoOnThroughText::
-	text_start
+	para "Go on through."
+	line "I'll tell the"
+	cont "other guards who"
+	cont "you are."
 
-	para "..."
-	line "Glug, glug..."
-	cont "..."
-	cont "Gulp..."
-	cont "If you want to go"
-	cont "to SAFFRON..."
-	cont "..."
-	cont "You can go on"
-	cont "through. I'll"
-	cont "share this with"
-	cont "the other guards!"
+	para "But watch out for"
+	line "TEAM ROCKET!"
 	done
 
-_SaffronGateGuardThanksForTheDrinkText::
-	text "Hi, thanks for"
-	line "the cool drinks!"
+_SaffronGateGuardGoOnThroughText::
+	text "Go on through."
+	line "The other guards"
+	cont "know who you are."
+
+	para "Watch out for"
+	line "TEAM ROCKET!"
+	done
+
+_SaffronGateGuardCitySafeText::
+	text "SAFFRON is safe"
+	line "again, thanks to"
+	cont "you! Go right on"
+	cont "through."
 	done

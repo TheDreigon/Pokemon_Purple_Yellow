@@ -19,9 +19,9 @@ Route5LittleGirlText:
 	text_end
 
 Route5YoungsterText:
-; Complains about the gate guard until one of the Saffron guards gets his
-; drink (wd728 bit 6, the same latch the gates themselves read), then
-; celebrates the mood swing.
+; Complains about the shut road until one of the Saffron guards lets a
+; four-badge trainer through (wd728 bit 6, the same latch the gates
+; themselves read - 2026-09-06: badges, not a drink), then celebrates.
 	text_asm
 	ld a, [wd728]
 	bit 6, a

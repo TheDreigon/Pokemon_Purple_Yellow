@@ -258,11 +258,6 @@ INCLUDE "engine/pokemon/status_ailments.asm"
 INCLUDE "engine/events/oaks_aide.asm"
 
 
-SECTION "Saffron Guards", ROMX
-
-INCLUDE "engine/events/saffron_guards.asm"
-
-
 SECTION "Starter Dex", ROMX
 
 INCLUDE "engine/events/starter_dex.asm"

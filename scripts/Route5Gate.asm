@@ -27,19 +27,20 @@ Route5GateDefaultScript:
 	ld [wPlayerMovingDirection], a
 	xor a
 	ldh [hJoyHeld], a
-	farcall RemoveGuardDrink
-	ldh a, [hItemToRemoveID]
-	and a
-	jr nz, .have_drink
-	ld a, TEXT_ROUTE5GATE_GUARD_GEE_IM_THIRSTY
+; v0.7 (2026-09-06, Forte): the guards ask for four BADGES, not a drink - TEAM
+; ROCKET has the city on edge. wd728 bit 6 (once "served") now means "let through".
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jr nz, .fourBadges
+	ld a, TEXT_ROUTE5GATE_GUARD_ROAD_SHUT
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	call Route5GateMovePlayerUpScript
 	ld a, SCRIPT_ROUTE5GATE_PLAYER_MOVING
 	ld [wRoute5GateCurScript], a
 	ret
-.have_drink
-	ld a, TEXT_ROUTE5GATE_GUARD_GIVE_DRINK
+.fourBadges
+	ld a, TEXT_ROUTE5GATE_GUARD_FOUR_BADGES
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	ld hl, wd728
@@ -64,47 +65,53 @@ Route5GatePlayerMovingScript:
 Route5Gate_TextPointers:
 	def_text_pointers
 	dw_const SaffronGateGuardText,             TEXT_ROUTE5GATE_GUARD
-	dw_const SaffronGateGuardGeeImThirstyText, TEXT_ROUTE5GATE_GUARD_GEE_IM_THIRSTY
-	dw_const SaffronGateGuardGiveDrinkText,    TEXT_ROUTE5GATE_GUARD_GIVE_DRINK
+	dw_const SaffronGateGuardRoadShutText,     TEXT_ROUTE5GATE_GUARD_ROAD_SHUT
+	dw_const SaffronGateGuardFourBadgesText,   TEXT_ROUTE5GATE_GUARD_FOUR_BADGES
 
 SaffronGateGuardText:
 	text_asm
 	ld a, [wd728]
 	bit 6, a
-	jr nz, .thanks_for_drink
-	farcall RemoveGuardDrink
-	ldh a, [hItemToRemoveID]
-	and a
-	jr nz, .have_drink
-	ld hl, SaffronGateGuardGeeImThirstyText
+	jr nz, .letThrough
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jr nz, .fourBadges
+	ld hl, SaffronGateGuardRoadShutText
 	call PrintText
 	call Route5GateMovePlayerUpScript
 	ld a, SCRIPT_ROUTE5GATE_PLAYER_MOVING
 	ld [wRoute5GateCurScript], a
 	jp TextScriptEnd
 
-.have_drink
-	ld hl, SaffronGateGuardGiveDrinkText
+.fourBadges
+	ld hl, SaffronGateGuardFourBadgesText
 	call PrintText
 	ld hl, wd728
 	set 6, [hl]
 	jp TextScriptEnd
 
-.thanks_for_drink
-	ld hl, SaffronGateGuardThanksForTheDrinkText
+.letThrough
+; once SILPH CO. is freed the guard stops warning about TEAM ROCKET
+	ld hl, SaffronGateGuardGoOnThroughText
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	jr z, .print
+	ld hl, SaffronGateGuardCitySafeText
+.print
 	call PrintText
 	jp TextScriptEnd
 
-SaffronGateGuardGeeImThirstyText:
-	text_far _SaffronGateGuardGeeImThirstyText
+SaffronGateGuardRoadShutText:
+	text_far _SaffronGateGuardRoadShutText
 	text_end
 
-SaffronGateGuardGiveDrinkText:
-	text_far _SaffronGateGuardImParchedText
-	sound_get_key_item
-	text_far _SaffronGateGuardYouCanGoOnThroughText
+SaffronGateGuardFourBadgesText:
+	text_far _SaffronGateGuardFourBadgesText
 	text_end
 
-SaffronGateGuardThanksForTheDrinkText:
-	text_far _SaffronGateGuardThanksForTheDrinkText
+SaffronGateGuardGoOnThroughText:
+	text_far _SaffronGateGuardGoOnThroughText
+	text_end
+
+SaffronGateGuardCitySafeText:
+	text_far _SaffronGateGuardCitySafeText
 	text_end

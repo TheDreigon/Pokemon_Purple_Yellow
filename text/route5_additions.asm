@@ -11,11 +11,11 @@ _Route5LittleGirlText::
 _Route5YoungsterText::
 	text "I'm trying to get"
 	line "to SAFFRON CITY,"
-	cont "but the gate"
-	cont "guard is in a"
-	cont "foul mood and"
-	cont "won't let me"
-	cont "through."
+	cont "but the guard"
+	cont "says the road is"
+	cont "shut. Something"
+	cont "about TEAM"
+	cont "ROCKET!"
 
 	para "Can you believe"
 	line "it?!"
@@ -26,9 +26,11 @@ _Route5YoungsterAppeasedText::
 	line "are waving people"
 	cont "through now!"
 
-	para "Guess something"
-	line "put them in a"
-	cont "better mood!"
+	para "They let some"
+	line "trainer with four"
+	cont "BADGES in, and"
+	cont "now they feel"
+	cont "a lot safer!"
 	done
 
 _Route5CooltrainerMText::
