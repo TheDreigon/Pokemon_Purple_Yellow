@@ -94,7 +94,7 @@ _MaxPotionDescription::
 
 _HyperPotionDescription::
 	text "Restores #MON"
-	next "HP by 200."
+	next "HP by 150."
 	prompt
 
 _SuperPotionDescription::

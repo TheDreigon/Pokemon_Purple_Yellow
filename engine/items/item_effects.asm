@@ -1568,7 +1568,7 @@ ItemUseMedicine:
 	ld b, 50 ; Fresh Water heal amount
 	jr z, .addHealAmount
 	cp SUPER_POTION
-	ld b, 200 ; Hyper Potion heal amount
+	ld b, 150 ; Hyper Potion heal amount (v0.7, 2026-09-06, Forte: 200 -> 150; a flat 10 yen per HP across the potion line)
 	jr c, .addHealAmount
 	ld b, 50 ; Super Potion heal amount
 	jr z, .addHealAmount

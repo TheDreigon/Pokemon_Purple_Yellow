@@ -1569,7 +1569,7 @@ AIUseSuperPotion:
 AIUseHyperPotion:
 ; enemy trainer heals his monster with a hyper potion
 	ld a, HYPER_POTION
-	ld b, 200
+	ld b, 150 ; v0.7 (2026-09-06): 200 -> 150, the same amount the player gets
 	; fallthrough
 
 AIRecoverHP:
