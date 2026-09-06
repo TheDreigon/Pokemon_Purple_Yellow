@@ -16,9 +16,6 @@ _Route5YoungsterText::
 	cont "shut. Something"
 	cont "about TEAM"
 	cont "ROCKET!"
-
-	para "Can you believe"
-	line "it?!"
 	done
 
 _Route5YoungsterAppeasedText::
@@ -26,11 +23,12 @@ _Route5YoungsterAppeasedText::
 	line "are waving people"
 	cont "through now!"
 
-	para "They let some"
-	line "trainer with four"
-	cont "BADGES in, and"
-	cont "now they feel"
-	cont "a lot safer!"
+	para "They say they got"
+	line "TEAM ROCKET under"
+	cont "control, with the"
+	cont "help of a strong,"
+	cont "mysterious"
+	cont "trainer!"
 	done
 
 _Route5CooltrainerMText::

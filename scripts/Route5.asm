@@ -19,12 +19,11 @@ Route5LittleGirlText:
 	text_end
 
 Route5YoungsterText:
-; Complains about the shut road until one of the Saffron guards lets a
-; four-badge trainer through (wd728 bit 6, the same latch the gates
-; themselves read - 2026-09-06: badges, not a drink), then celebrates.
+; Complains about the shut road until TEAM ROCKET is beaten at SILPH CO. -
+; the gates' third stage, SAFFRON open to everyone (2026-09-06, Forte); a
+; four-badge player passing at stage two is nothing he gets to see.
 	text_asm
-	ld a, [wd728]
-	bit 6, a
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	jr nz, .guardsAppeased
 	ld hl, .StuckText
 	call PrintText

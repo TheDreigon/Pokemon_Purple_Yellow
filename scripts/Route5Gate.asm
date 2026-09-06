@@ -20,6 +20,10 @@ Route5GateDefaultScript:
 	ld a, [wd728]
 	bit 6, a
 	ret nz
+; stage three (2026-09-06, Forte): TEAM ROCKET beaten at SILPH CO. - the road is
+; open to everyone, badges or not (the same event flips Saffron's music)
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	ret nz
 	ld hl, .PlayerInCoordsArray
 	call ArePlayerCoordsInArray
 	ret nc
@@ -70,6 +74,10 @@ Route5Gate_TextPointers:
 
 SaffronGateGuardText:
 	text_asm
+; three stages: SILPH CO. freed -> the city is safe; the four-badge latch ->
+; you may pass; four badges just shown -> set the latch; else the road is shut
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	jr nz, .citySafe
 	ld a, [wd728]
 	bit 6, a
 	jr nz, .letThrough
@@ -91,12 +99,12 @@ SaffronGateGuardText:
 	jp TextScriptEnd
 
 .letThrough
-; once SILPH CO. is freed the guard stops warning about TEAM ROCKET
 	ld hl, SaffronGateGuardGoOnThroughText
-	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
-	jr z, .print
+	call PrintText
+	jp TextScriptEnd
+
+.citySafe
 	ld hl, SaffronGateGuardCitySafeText
-.print
 	call PrintText
 	jp TextScriptEnd
 

@@ -30,14 +30,13 @@ _NewBadgeRequiredText::
 	line "is required."
 	prompt
 
-; v0.7 (2026-09-06, Forte): a level-up CUT is a battle move until the S.S.ANNE's
-; CAPTAIN hands over HM01 - the ship stays on the critical path.
-_CutNeedsCaptainsTechniqueText::
+; v0.7 (2026-09-06, Forte): a level-up CUT is a battle move until HM01 (the
+; S.S.ANNE captain's) is in hand - the ship stays on the critical path. The
+; text names neither: Forte wants no hand-holding.
+_CutNeedsTechniqueText::
 	text "It knows CUT, but"
-	line "the S.S.ANNE's"
-	cont "CAPTAIN has to"
-	cont "teach you the"
-	cont "technique first!"
+	line "it lacks the"
+	cont "right technique!"
 	prompt
 
 _CannotUseItemsHereText::

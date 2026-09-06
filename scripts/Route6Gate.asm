@@ -14,6 +14,10 @@ Route6GateDefaultScript:
 	ld a, [wd728]
 	bit 6, a
 	ret nz
+; stage three (2026-09-06, Forte): TEAM ROCKET beaten at SILPH CO. - the road is
+; open to everyone, badges or not (the same event flips Saffron's music)
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	ret nz
 	ld hl, .PlayerInCoordsArray
 	call ArePlayerCoordsInArray
 	ret nc

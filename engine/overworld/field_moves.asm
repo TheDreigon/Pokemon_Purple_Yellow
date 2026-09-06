@@ -65,7 +65,7 @@ TryCut:
 ; v0.7 (2026-09-06, Forte): and the CAPTAIN's HM01 - see the party-menu twin in
 ; engine/menus/start_sub_menus.asm
 	CheckEvent EVENT_GOT_HM01
-	jr z, .captainsTechnique
+	jr z, .noTechnique
 	ld hl, PromptToCutText
 	call PrintText
 	call YesNoChoice
@@ -76,8 +76,8 @@ TryCut:
 	farcall Cut2
 	call CloseFieldMoveTextBox
 	jr TrySurf.yes2
-.captainsTechnique
-	ld hl, CutNeedsCaptainsTechniqueText
+.noTechnique
+	ld hl, CutNeedsTechniqueText
 	call PrintText
 	jr TrySurf.no2
 
@@ -179,8 +179,8 @@ PromptToCutText:
 	text "Would you like to"
 	line "use CUT?@@"
 
-CutNeedsCaptainsTechniqueText:
-	text_far _CutNeedsCaptainsTechniqueText
+CutNeedsTechniqueText:
+	text_far _CutNeedsTechniqueText
 	text_end
 
 ; --- v0.7 "registered item" (his 2026-08-28 request) ------------------------
