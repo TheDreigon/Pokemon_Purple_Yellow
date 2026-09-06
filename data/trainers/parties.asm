@@ -240,9 +240,9 @@ RocketData:
 ; Unused
 	db 16, RATICATE, 0
 ; Cerulean City
-	db 18, MACHOP, DROWZEE, 0
+	db $FF, 18, MACHOP, 18, DROWZEE, 20, RATICATE, 0
 ; Route 24
-	db 16, KOFFING, VOLTORB, EXEGGCUTE, 0
+	db $FF, 16, KOFFING, 16, VOLTORB, 18, EXEGGCUTE, 0
 ; Game Corner
 	db 23, RATICATE, GOLBAT, 0
 ; Rocket Hideout B1F
