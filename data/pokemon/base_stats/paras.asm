@@ -1,5 +1,5 @@
 	db DEX_PARAS ; pokedex id
-	base_stat_row 45, 70, 55, 45, 40 ; hp atk def spc spd
+	base_stat_row 45, 70, 55, 45, 45, 40 ; hp atk def spatk spdef spd
 
 	db BUG, GRASS ; type
 	db 240 ; catch rate  ; base stage, BST 255, easy to approach

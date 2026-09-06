@@ -8,7 +8,7 @@ DoubleSelectedStats:
 	ld a, [wEnemyStatsToDouble]
 	ld hl, wEnemyMonAttack + 1
 .notEnemyTurn
-	ld c, NUM_BATTLE_STATS
+	ld c, NUM_STAGED_STATS
 	ld b, a
 .loop
 	srl b
@@ -38,7 +38,7 @@ HalveSelectedStats:
 	ld a, [wEnemyStatsToHalve]
 	ld hl, wEnemyMonAttack
 .notEnemyTurn
-	ld c, NUM_BATTLE_STATS
+	ld c, NUM_STAGED_STATS
 	ld b, a
 .loop
 	srl b

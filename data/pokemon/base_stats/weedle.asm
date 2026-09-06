@@ -1,5 +1,5 @@
 	db DEX_WEEDLE ; pokedex id
-	base_stat_row 40, 35, 30, 20, 50 ; hp atk def spc spd
+	base_stat_row 40, 35, 30, 20, 20, 50 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
 	db 255 ; catch rate  ; base stage, BST 175

@@ -1,5 +1,5 @@
 	db DEX_CHANSEY ; pokedex id
-	base_stat_row 250, 5, 5, 100, 70 ; hp atk def spc spd
+	base_stat_row 250, 5, 5, 100, 100, 70 ; hp atk def spatk spdef spd
 	db NORMAL, FAIRY ; type
 	db 95 ; catch rate  ; solo stage, BST 430, easy to approach
 	db 245 ; base exp  ; o alvo de grinding do jogo

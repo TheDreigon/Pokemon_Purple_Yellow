@@ -1,5 +1,5 @@
 	db DEX_VENONAT ; pokedex id
-	base_stat_row 60, 45, 50, 50, 50 ; hp atk def spc spd
+	base_stat_row 60, 45, 50, 50, 50, 50 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
 	db 225 ; catch rate  ; base stage, BST 255

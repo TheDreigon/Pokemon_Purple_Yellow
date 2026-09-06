@@ -1,5 +1,5 @@
 	db DEX_JIGGLYPUFF ; pokedex id
-	base_stat_row 120, 45, 20, 35, 55 ; hp atk def spc spd
+	base_stat_row 120, 45, 20, 35, 35, 55 ; hp atk def spatk spdef spd
 	db NORMAL, FAIRY ; type
 	db 235 ; catch rate  ; base stage, BST 275, easy to approach
 	db 80 ; base exp  ; BST 275 - muitas fraquezas (-2)

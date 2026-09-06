@@ -1,5 +1,5 @@
 	db DEX_DUGTRIO ; pokedex id
-	base_stat_row 45, 90, 50, 70, 120 ; hp atk def spc spd
+	base_stat_row 45, 90, 50, 70, 70, 120 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
 	db 70 ; catch rate  ; final stage, BST 375, harder to handle

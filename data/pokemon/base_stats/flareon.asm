@@ -1,5 +1,5 @@
 	db DEX_FLAREON ; pokedex id
-	base_stat_row 65, 110, 80, 130, 65 ; hp atk def spc spd
+	base_stat_row 65, 110, 80, 130, 130, 65 ; hp atk def spatk spdef spd
 
 	db FIRE, FIRE ; type
 	db 75 ; catch rate  ; final stage, BST 450, easy to approach

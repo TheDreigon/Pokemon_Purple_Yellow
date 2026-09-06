@@ -1,5 +1,5 @@
 	db DEX_DODUO ; pokedex id
-	base_stat_row 40, 80, 40, 40, 90 ; hp atk def spc spd
+	base_stat_row 40, 80, 40, 40, 40, 90 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
 	db 200 ; catch rate  ; base stage, BST 290, harder to handle

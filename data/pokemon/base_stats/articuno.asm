@@ -1,5 +1,5 @@
 	db DEX_ARTICUNO ; pokedex id
-	base_stat_row 100, 90, 100, 130, 100 ; hp atk def spc spd
+	base_stat_row 100, 90, 100, 130, 130, 100 ; hp atk def spatk spdef spd
 
 	db ICE, FLYING ; type
 	db 11 ; catch rate  ; exception: legendary: one in the world, and ICE cannot be frozen

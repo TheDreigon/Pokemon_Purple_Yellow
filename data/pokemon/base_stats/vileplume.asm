@@ -1,5 +1,5 @@
 	db DEX_VILEPLUME ; pokedex id
-	base_stat_row 110, 90, 90, 95, 45 ; hp atk def spc spd
+	base_stat_row 110, 90, 90, 95, 95, 45 ; hp atk def spatk spdef spd
 	db GRASS, POISON ; type
 	db 65 ; catch rate  ; final stage, BST 430
 	db 170 ; base exp  ; BST 430 - muitas fraquezas (-2)

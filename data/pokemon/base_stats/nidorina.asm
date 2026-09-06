@@ -1,5 +1,5 @@
 	db DEX_NIDORINA ; pokedex id
-	base_stat_row 80, 65, 70, 60, 65 ; hp atk def spc spd
+	base_stat_row 80, 65, 70, 60, 60, 65 ; hp atk def spatk spdef spd
 
 	db POISON, POISON ; type
 	db 110 ; catch rate  ; mid stage, BST 340

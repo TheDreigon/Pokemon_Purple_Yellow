@@ -1,5 +1,5 @@
 	db DEX_RATTATA ; pokedex id
-	base_stat_row 35, 60, 35, 25, 80 ; hp atk def spc spd
+	base_stat_row 35, 60, 35, 25, 25, 80 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
 	db 235 ; catch rate  ; base stage, BST 235

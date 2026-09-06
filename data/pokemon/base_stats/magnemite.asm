@@ -1,5 +1,5 @@
 	db DEX_MAGNEMITE ; pokedex id
-	base_stat_row 20, 40, 75, 80, 40 ; hp atk def spc spd
+	base_stat_row 20, 40, 75, 80, 80, 40 ; hp atk def spatk spdef spd
 	db ELECTRIC, STEEL ; type
 	db 225 ; catch rate  ; base stage, BST 255
 	db 75 ; base exp  ; BST 255 - poucas fraquezas (+5)

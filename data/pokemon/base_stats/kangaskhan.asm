@@ -1,5 +1,5 @@
 	db DEX_KANGASKHAN ; pokedex id
-	base_stat_row 105, 85, 80, 50, 80 ; hp atk def spc spd
+	base_stat_row 105, 85, 80, 50, 50, 80 ; hp atk def spatk spdef spd
 	db NORMAL, FIGHTING ; type
 	db 75 ; catch rate  ; solo stage, BST 400, harder to handle
 	db 155 ; base exp  ; BST 400

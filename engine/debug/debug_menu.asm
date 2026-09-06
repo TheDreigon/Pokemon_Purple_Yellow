@@ -1349,7 +1349,7 @@ Func_ff0c4:
 	call CalcStats
 	hlcoord 17, 1
 	ld de, wLoadedMonStats
-	ld b, 5
+	ld b, NUM_STATS
 .asm_ff0fd
 	push bc
 	push de

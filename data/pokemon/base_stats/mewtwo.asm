@@ -1,5 +1,5 @@
 	db DEX_MEWTWO ; pokedex id
-	base_stat_row 120, 90, 90, 150, 150 ; hp atk def spc spd
+	base_stat_row 120, 90, 90, 150, 150, 150 ; hp atk def spatk spdef spd
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 8 ; catch rate  ; set by hand: legendary: the hardest thing in the game

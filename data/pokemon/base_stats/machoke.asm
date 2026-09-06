@@ -1,5 +1,5 @@
 	db DEX_MACHOKE ; pokedex id
-	base_stat_row 90, 100, 70, 65, 60 ; hp atk def spc spd
+	base_stat_row 90, 100, 70, 65, 65, 60 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
 	db 100 ; catch rate  ; mid stage, BST 385, harder to handle

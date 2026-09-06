@@ -1,5 +1,5 @@
 	db DEX_GOLDUCK ; pokedex id
-	base_stat_row 80, 80, 70, 90, 85 ; hp atk def spc spd
+	base_stat_row 80, 80, 70, 90, 90, 85 ; hp atk def spatk spdef spd
 	db WATER, PSYCHIC_TYPE ; type
 	db 75 ; catch rate  ; final stage, BST 405
 	db 155 ; base exp  ; BST 405 - muitas fraquezas (-2)

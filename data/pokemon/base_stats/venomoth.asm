@@ -1,5 +1,5 @@
 	db DEX_VENOMOTH ; pokedex id
-	base_stat_row 70, 75, 60, 80, 80 ; hp atk def spc spd
+	base_stat_row 70, 75, 60, 80, 80, 80 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
 	db 85 ; catch rate  ; final stage, BST 365

@@ -1,5 +1,5 @@
 	db DEX_TAUROS ; pokedex id
-	base_stat_row 90, 120, 90, 50, 100 ; hp atk def spc spd
+	base_stat_row 90, 120, 90, 50, 50, 100 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
 	db 50 ; catch rate  ; set by hand: it charges

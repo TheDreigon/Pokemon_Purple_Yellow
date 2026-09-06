@@ -1238,7 +1238,7 @@ Pokedex_PrintBaseStats:
 	call PrintNumber
 
 ; The total, summed here rather than stored anywhere: there is no room in the
-; base stats struct for a byte that is only ever the sum of five others.
+; base stats struct for a byte that is only ever the sum of the six others.
 	ld hl, 0
 	ld de, wMonHBaseStats
 	ld c, NUM_STATS

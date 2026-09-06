@@ -1,5 +1,5 @@
 	db DEX_WIGGLYTUFF ; pokedex id
-	base_stat_row 140, 70, 40, 70, 70 ; hp atk def spc spd
+	base_stat_row 140, 70, 40, 70, 70, 70 ; hp atk def spatk spdef spd
 	db NORMAL, FAIRY ; type
 	db 90 ; catch rate  ; final stage, BST 390, easy to approach
 	db 150 ; base exp  ; BST 390 - muitas fraquezas (-2)

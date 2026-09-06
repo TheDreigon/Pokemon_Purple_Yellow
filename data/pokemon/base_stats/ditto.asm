@@ -1,5 +1,5 @@
 	db DEX_DITTO ; pokedex id
-	base_stat_row 50, 50, 50, 50, 50 ; hp atk def spc spd
+	base_stat_row 50, 50, 50, 50, 50, 50 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
 	db 155 ; catch rate  ; set by hand: harmless: it copies you rather than resisting you

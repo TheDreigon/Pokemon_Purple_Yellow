@@ -1,5 +1,5 @@
 	db DEX_SNORLAX ; pokedex id
-	base_stat_row 180, 110, 70, 70, 20 ; hp atk def spc spd
+	base_stat_row 180, 110, 70, 70, 70, 20 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
 	db 20 ; catch rate  ; set by hand: one per game, and it is an event

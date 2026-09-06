@@ -1,5 +1,5 @@
 	db DEX_BEEDRILL ; pokedex id
-	base_stat_row 65, 95, 65, 60, 90 ; hp atk def spc spd
+	base_stat_row 65, 95, 65, 60, 60, 90 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
 	db 70 ; catch rate  ; final stage, BST 375, harder to handle

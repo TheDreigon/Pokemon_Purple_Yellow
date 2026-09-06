@@ -15,19 +15,21 @@ ENDM
 
 ; used in data/pokemon/base_stats/*.asm
 ; PURPLE YELLOW v0.5: lets us write stat rows in the display order used by the
-; status screen (hp/atk/def/SPECIAL/SPEED) while still emitting the bytes in the
-; engine's struct order (hp/atk/def/SPEED/SPECIAL). Swap-on-emit keeps the
+; status screen while still emitting the bytes in the engine's struct order.
+; v1.0 (the SPECIAL split, 2026-09-06): six stats. The rows use the Gen 2
+; display order (hp/atk/def/SP.ATK/SP.DEF/SPEED); the struct keeps SPEED fourth
+; (core.asm reads wMonHBaseSpeed by name for the critical-hit rate) and appends
+; SP.DEF after SP.ATK (hp/atk/def/SPEED/SP.ATK/SP.DEF). Swap-on-emit keeps the
 ; battle engine untouched.
-; Usage:  base_stat_row HP, ATK, DEF, SPC, SPD
+; Usage:  base_stat_row HP, ATK, DEF, SPATK, SPDEF, SPD
 MACRO base_stat_row
-; v0.7: the POKeDEX DATA screen prints the sum of these five in a THREE digit
-; field, so a species whose total reached 1000 would print garbage with a green
-; build and no other warning. The highest today is MEWTWO at 600. This is the
-; cheapest possible place to keep that true, because every species passes
-; through here.
-	ASSERT (\1) + (\2) + (\3) + (\4) + (\5) < 1000, \
+; v0.7: the POKeDEX DATA screen prints the sum of these in a THREE digit field,
+; so a species whose total reached 1000 would print garbage with a green build
+; and no other warning (MEWTWO is the highest). This is the cheapest possible
+; place to keep that true, because every species passes through here.
+	ASSERT (\1) + (\2) + (\3) + (\4) + (\5) + (\6) < 1000, \
 	    "base stat total must stay under 1000: the POKeDEX prints it in 3 digits"
-	db \1, \2, \3, \5, \4
+	db \1, \2, \3, \6, \4, \5
 ENDM
 
 ; used in data/pokemon/base_stats/*.asm

@@ -1,5 +1,5 @@
 	db DEX_ALAKAZAM ; pokedex id
-	base_stat_row 55, 50, 45, 135, 125 ; hp atk def spc spd
+	base_stat_row 55, 50, 45, 135, 135, 125 ; hp atk def spatk spdef spd
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 45 ; catch rate  ; set by hand: reads the throw before it happens

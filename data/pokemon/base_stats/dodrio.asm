@@ -1,5 +1,5 @@
 	db DEX_DODRIO ; pokedex id
-	base_stat_row 60, 120, 60, 60, 110 ; hp atk def spc spd
+	base_stat_row 60, 120, 60, 60, 60, 110 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
 	db 60 ; catch rate  ; final stage, BST 410, harder to handle

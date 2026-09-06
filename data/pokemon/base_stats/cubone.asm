@@ -1,5 +1,5 @@
 	db DEX_CUBONE ; pokedex id
-	base_stat_row 50, 50, 80, 40, 40 ; hp atk def spc spd
+	base_stat_row 50, 50, 80, 40, 40, 40 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
 	db 225 ; catch rate  ; base stage, BST 260

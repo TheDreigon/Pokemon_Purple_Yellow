@@ -1,5 +1,5 @@
 	db DEX_CLEFAIRY ; pokedex id
-	base_stat_row 70, 45, 50, 70, 45 ; hp atk def spc spd
+	base_stat_row 70, 45, 50, 70, 70, 45 ; hp atk def spatk spdef spd
 	db FAIRY, FAIRY ; type
 	db 230 ; catch rate  ; base stage, BST 280, easy to approach
 	db 85 ; base exp  ; BST 280

@@ -1,5 +1,5 @@
 	db DEX_LICKITUNG ; pokedex id
-	base_stat_row 95, 70, 75, 70, 40 ; hp atk def spc spd
+	base_stat_row 95, 70, 75, 70, 70, 40 ; hp atk def spatk spdef spd
 	db NORMAL, POISON ; type
 	db 145 ; catch rate  ; set by hand
 	db 130 ; base exp  ; BST 350 - poucas fraquezas (+2)

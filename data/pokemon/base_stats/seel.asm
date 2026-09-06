@@ -1,5 +1,5 @@
 	db DEX_SEEL ; pokedex id
-	base_stat_row 65, 45, 55, 65, 50 ; hp atk def spc spd
+	base_stat_row 65, 45, 55, 65, 65, 50 ; hp atk def spatk spdef spd
 	db WATER, ICE ; type
 	db 230 ; catch rate  ; base stage, BST 280, easy to approach
 	db 80 ; base exp  ; BST 280 - muitas fraquezas (-5)

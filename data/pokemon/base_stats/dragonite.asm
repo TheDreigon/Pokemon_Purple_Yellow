@@ -1,5 +1,5 @@
 	db DEX_DRAGONITE ; pokedex id
-	base_stat_row 110, 115, 80, 110, 85 ; hp atk def spc spd
+	base_stat_row 110, 115, 80, 110, 110, 85 ; hp atk def spatk spdef spd
 	db DRAGON, DRAGON ; type
 	db 20 ; catch rate  ; exception: same line; vanilla 9 was near-impossible, this is hard
 	db 230 ; base exp  ; escolha dele

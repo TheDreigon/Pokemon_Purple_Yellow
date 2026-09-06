@@ -1,5 +1,5 @@
 	db DEX_ARCANINE ; pokedex id
-	base_stat_row 100, 100, 80, 80, 95 ; hp atk def spc spd
+	base_stat_row 100, 100, 80, 80, 80, 95 ; hp atk def spatk spdef spd
 	db FIRE, NORMAL ; type
 	db 60 ; catch rate  ; final stage, BST 455
 	db 190 ; base exp  ; BST 455 - poucas fraquezas (+2)

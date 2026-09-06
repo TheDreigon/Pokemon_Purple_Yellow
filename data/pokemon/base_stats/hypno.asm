@@ -1,5 +1,5 @@
 	db DEX_HYPNO ; pokedex id
-	base_stat_row 85, 75, 70, 105, 65 ; hp atk def spc spd
+	base_stat_row 85, 75, 70, 105, 105, 65 ; hp atk def spatk spdef spd
 	db PSYCHIC_TYPE, DARK ; type
 	db 75 ; catch rate  ; final stage, BST 400
 	db 155 ; base exp  ; BST 400 - muitas fraquezas (-2)

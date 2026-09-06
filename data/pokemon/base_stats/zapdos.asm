@@ -1,5 +1,5 @@
 	db DEX_ZAPDOS ; pokedex id
-	base_stat_row 100, 100, 80, 130, 110 ; hp atk def spc spd
+	base_stat_row 100, 100, 80, 130, 130, 110 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, FLYING ; type
 	db 10 ; catch rate  ; exception: legendary: one in the world

@@ -1,5 +1,5 @@
 	db DEX_CATERPIE ; pokedex id
-	base_stat_row 45, 30, 35, 20, 45 ; hp atk def spc spd
+	base_stat_row 45, 30, 35, 20, 20, 45 ; hp atk def spatk spdef spd
 
 	db BUG, BUG ; type
 	db 255 ; catch rate  ; base stage, BST 175

@@ -1,5 +1,5 @@
 	db DEX_EXEGGUTOR ; pokedex id
-	base_stat_row 90, 70, 90, 120, 60 ; hp atk def spc spd
+	base_stat_row 90, 70, 90, 120, 120, 60 ; hp atk def spatk spdef spd
 
 	db GRASS, PSYCHIC_TYPE ; type
 	db 65 ; catch rate  ; final stage, BST 430

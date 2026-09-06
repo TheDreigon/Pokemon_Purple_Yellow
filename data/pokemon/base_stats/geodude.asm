@@ -1,5 +1,5 @@
 	db DEX_GEODUDE ; pokedex id
-	base_stat_row 40, 80, 100, 30, 20 ; hp atk def spc spd
+	base_stat_row 40, 80, 100, 30, 30, 20 ; hp atk def spatk spdef spd
 
 	db ROCK, GROUND ; type
 	db 220 ; catch rate  ; base stage, BST 270

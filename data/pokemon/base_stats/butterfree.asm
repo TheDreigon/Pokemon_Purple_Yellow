@@ -1,5 +1,5 @@
 	db DEX_BUTTERFREE ; pokedex id
-	base_stat_row 60, 60, 55, 95, 85 ; hp atk def spc spd
+	base_stat_row 60, 60, 55, 95, 95, 85 ; hp atk def spatk spdef spd
 	db BUG, PSYCHIC_TYPE ; type
 	db 90 ; catch rate  ; final stage, BST 355
 	db 125 ; base exp  ; BST 355 - muitas fraquezas (-5)

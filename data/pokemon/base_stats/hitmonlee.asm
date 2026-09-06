@@ -1,5 +1,5 @@
 	db DEX_HITMONLEE ; pokedex id
-	base_stat_row 80, 110, 70, 60, 100 ; hp atk def spc spd
+	base_stat_row 80, 110, 70, 60, 60, 100 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
 	db 70 ; catch rate  ; solo stage, BST 420, harder to handle

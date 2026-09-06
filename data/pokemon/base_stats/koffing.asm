@@ -1,5 +1,5 @@
 	db DEX_KOFFING ; pokedex id
-	base_stat_row 40, 65, 80, 65, 40 ; hp atk def spc spd
+	base_stat_row 40, 65, 80, 65, 65, 40 ; hp atk def spatk spdef spd
 	db POISON, GAS ; type
 	db 180 ; catch rate  ; set by hand: a floating gas bag that would rather burst
 	db 90 ; base exp  ; BST 290 - poucas fraquezas (+2)

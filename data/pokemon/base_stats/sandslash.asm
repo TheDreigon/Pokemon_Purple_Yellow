@@ -1,5 +1,5 @@
 	db DEX_SANDSLASH ; pokedex id
-	base_stat_row 70, 110, 110, 55, 65 ; hp atk def spc spd
+	base_stat_row 70, 110, 110, 55, 55, 65 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
 	db 75 ; catch rate  ; final stage, BST 410

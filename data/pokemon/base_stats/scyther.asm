@@ -1,5 +1,5 @@
 	db DEX_SCYTHER ; pokedex id
-	base_stat_row 60, 105, 80, 55, 110 ; hp atk def spc spd
+	base_stat_row 60, 105, 80, 55, 55, 110 ; hp atk def spatk spdef spd
 
 	db BUG, FLYING ; type
 	db 70 ; catch rate  ; solo stage, BST 410, harder to handle

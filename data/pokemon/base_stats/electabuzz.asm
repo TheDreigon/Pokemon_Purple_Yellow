@@ -1,5 +1,5 @@
 	db DEX_ELECTABUZZ ; pokedex id
-	base_stat_row 75, 95, 70, 95, 95 ; hp atk def spc spd
+	base_stat_row 75, 95, 70, 95, 95, 95 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 65 ; catch rate  ; solo stage, BST 430, harder to handle

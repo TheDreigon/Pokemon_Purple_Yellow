@@ -1,5 +1,5 @@
 	db DEX_DEWGONG ; pokedex id
-	base_stat_row 90, 70, 80, 90, 75 ; hp atk def spc spd
+	base_stat_row 90, 70, 80, 90, 90, 75 ; hp atk def spatk spdef spd
 
 	db WATER, ICE ; type
 	db 90 ; catch rate  ; final stage, BST 405, easy to approach

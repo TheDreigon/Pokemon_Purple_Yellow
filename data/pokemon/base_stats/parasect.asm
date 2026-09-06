@@ -1,5 +1,5 @@
 	db DEX_PARASECT ; pokedex id
-	base_stat_row 95, 90, 90, 90, 20 ; hp atk def spc spd
+	base_stat_row 95, 90, 90, 90, 90, 20 ; hp atk def spatk spdef spd
 	db BUG, FUNGUS ; type
 	db 90 ; catch rate  ; final stage, BST 385, easy to approach
 	db 140 ; base exp  ; BST 385 - muitas fraquezas (-5)

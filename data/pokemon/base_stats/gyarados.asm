@@ -1,5 +1,5 @@
 	db DEX_GYARADOS ; pokedex id
-	base_stat_row 90, 130, 90, 90, 80 ; hp atk def spc spd
+	base_stat_row 90, 130, 90, 90, 90, 80 ; hp atk def spatk spdef spd
 	db WATER, DRAGON ; type
 	db 20 ; catch rate  ; set by hand: enormous, furious, destructive - Dragonite tier
 	db 230 ; base exp  ; escolha dele

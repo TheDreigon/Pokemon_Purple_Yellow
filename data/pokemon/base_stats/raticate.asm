@@ -1,5 +1,5 @@
 	db DEX_RATICATE ; pokedex id
-	base_stat_row 70, 90, 65, 60, 90 ; hp atk def spc spd
+	base_stat_row 70, 90, 65, 60, 60, 90 ; hp atk def spatk spdef spd
 	db NORMAL, DARK ; type
 	db 85 ; catch rate  ; final stage, BST 375
 	db 140 ; base exp  ; BST 375 - muitas fraquezas (-2)

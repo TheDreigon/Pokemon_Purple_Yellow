@@ -1,5 +1,5 @@
 	db DEX_ONIX ; pokedex id
-	base_stat_row 65, 100, 150, 60, 45 ; hp atk def spc spd
+	base_stat_row 65, 100, 150, 60, 60, 45 ; hp atk def spatk spdef spd
 
 	db ROCK, GROUND ; type
 	db 60 ; catch rate  ; set by hand: armoured, and enormous

@@ -1,5 +1,5 @@
 	db DEX_DRAGONAIR ; pokedex id
-	base_stat_row 80, 80, 60, 80, 70 ; hp atk def spc spd
+	base_stat_row 80, 80, 60, 80, 80, 70 ; hp atk def spatk spdef spd
 
 	db DRAGON, DRAGON ; type
 	db 30 ; catch rate  ; exception: same line, tightening

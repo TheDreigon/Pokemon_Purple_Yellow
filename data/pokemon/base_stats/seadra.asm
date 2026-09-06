@@ -1,5 +1,5 @@
 	db DEX_SEADRA ; pokedex id
-	base_stat_row 60, 70, 90, 80, 80 ; hp atk def spc spd
+	base_stat_row 60, 70, 90, 80, 80, 80 ; hp atk def spatk spdef spd
 	db WATER, DRAGON ; type
 	db 90 ; catch rate  ; set by hand
 	db 140 ; base exp  ; BST 380 - muitas fraquezas (-2)

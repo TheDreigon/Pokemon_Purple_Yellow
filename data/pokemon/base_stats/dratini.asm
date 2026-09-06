@@ -1,5 +1,5 @@
 	db DEX_DRATINI ; pokedex id
-	base_stat_row 60, 60, 40, 50, 60 ; hp atk def spc spd
+	base_stat_row 60, 60, 40, 50, 50, 60 ; hp atk def spatk spdef spd
 
 	db DRAGON, DRAGON ; type
 	db 40 ; catch rate  ; exception: precious, not strong: BST 270 would read as trivial

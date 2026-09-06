@@ -1,5 +1,5 @@
 	db DEX_KABUTO ; pokedex id
-	base_stat_row 35, 80, 90, 45, 40 ; hp atk def spc spd
+	base_stat_row 35, 80, 90, 45, 45, 40 ; hp atk def spatk spdef spd
 	db ROCK, BUG ; type
 	db 215 ; catch rate  ; base stage, BST 290
 	db 90 ; base exp  ; BST 290 - muitas fraquezas (-2)

@@ -1,5 +1,5 @@
 	db DEX_MACHAMP ; pokedex id
-	base_stat_row 100, 130, 85, 65, 80 ; hp atk def spc spd
+	base_stat_row 100, 130, 85, 65, 65, 80 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate  ; final stage, BST 460, harder to handle

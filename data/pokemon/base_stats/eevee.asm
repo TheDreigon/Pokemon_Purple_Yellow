@@ -1,5 +1,5 @@
 	db DEX_EEVEE ; pokedex id
-	base_stat_row 65, 65, 65, 65, 65 ; hp atk def spc spd
+	base_stat_row 65, 65, 65, 65, 65, 65 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
 	db 100 ; catch rate  ; set by hand: as scarce as a wild Pikachu

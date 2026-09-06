@@ -1,5 +1,5 @@
 	db DEX_CLEFABLE ; pokedex id
-	base_stat_row 100, 70, 75, 100, 65 ; hp atk def spc spd
+	base_stat_row 100, 70, 75, 100, 100, 65 ; hp atk def spatk spdef spd
 	db FAIRY, FAIRY ; type
 	db 90 ; catch rate  ; final stage, BST 410, easy to approach
 	db 160 ; base exp  ; BST 410

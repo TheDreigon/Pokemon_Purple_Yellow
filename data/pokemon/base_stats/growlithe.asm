@@ -1,5 +1,5 @@
 	db DEX_GROWLITHE ; pokedex id
-	base_stat_row 65, 70, 45, 50, 70 ; hp atk def spc spd
+	base_stat_row 65, 70, 45, 50, 50, 70 ; hp atk def spatk spdef spd
 	db FIRE, NORMAL ; type
 	db 210 ; catch rate  ; base stage, BST 300
 	db 100 ; base exp  ; BST 300 - poucas fraquezas (+2)

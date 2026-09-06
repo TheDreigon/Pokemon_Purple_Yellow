@@ -1,5 +1,5 @@
 	db DEX_SEAKING ; pokedex id
-	base_stat_row 90, 90, 70, 80, 75 ; hp atk def spc spd
+	base_stat_row 90, 90, 70, 80, 80, 75 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 85 ; catch rate  ; set by hand

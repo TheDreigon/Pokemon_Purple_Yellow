@@ -1,5 +1,5 @@
 	db DEX_MACHOP ; pokedex id
-	base_stat_row 70, 80, 50, 35, 50 ; hp atk def spc spd
+	base_stat_row 70, 80, 50, 35, 35, 50 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
 	db 215 ; catch rate  ; base stage, BST 285

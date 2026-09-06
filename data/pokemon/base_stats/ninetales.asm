@@ -1,5 +1,5 @@
 	db DEX_NINETALES ; pokedex id
-	base_stat_row 80, 70, 70, 110, 105 ; hp atk def spc spd
+	base_stat_row 80, 70, 70, 110, 110, 105 ; hp atk def spatk spdef spd
 	db FIRE, FAIRY ; type
 	db 65 ; catch rate  ; final stage, BST 435
 	db 180 ; base exp  ; BST 435 - poucas fraquezas (+5)

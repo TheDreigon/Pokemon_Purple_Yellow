@@ -1,5 +1,5 @@
 	db DEX_PRIMEAPE ; pokedex id
-	base_stat_row 80, 110, 65, 60, 95 ; hp atk def spc spd
+	base_stat_row 80, 110, 65, 60, 60, 95 ; hp atk def spatk spdef spd
 	db FIGHTING, DARK ; type
 	db 60 ; catch rate  ; final stage, BST 410, harder to handle
 	db 160 ; base exp  ; BST 410 - muitas fraquezas (-2)

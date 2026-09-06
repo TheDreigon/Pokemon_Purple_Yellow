@@ -1,5 +1,5 @@
 	db DEX_SLOWPOKE ; pokedex id
-	base_stat_row 90, 45, 65, 55, 15 ; hp atk def spc spd
+	base_stat_row 90, 45, 65, 55, 55, 15 ; hp atk def spatk spdef spd
 	db WATER, NORMAL ; type
 	db 235 ; catch rate  ; base stage, BST 270, easy to approach
 	db 75 ; base exp  ; BST 270 - muitas fraquezas (-2)

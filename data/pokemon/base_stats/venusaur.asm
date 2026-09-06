@@ -1,5 +1,5 @@
 	db DEX_VENUSAUR ; pokedex id
-	base_stat_row 100, 85, 90, 105, 80 ; hp atk def spc spd
+	base_stat_row 100, 85, 90, 105, 105, 80 ; hp atk def spatk spdef spd
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate  ; set by hand: starter line, fully grown

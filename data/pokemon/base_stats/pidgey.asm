@@ -1,5 +1,5 @@
 	db DEX_PIDGEY ; pokedex id
-	base_stat_row 45, 45, 40, 35, 55 ; hp atk def spc spd
+	base_stat_row 45, 45, 40, 35, 35, 55 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
 	db 240 ; catch rate  ; base stage, BST 220

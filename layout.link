@@ -343,7 +343,7 @@ WRAM0
 	"Main Data"
 	"Current Box Data"
 	"GBC Palette Data"
-	org $df18 ; v0.7: raised from $df08 on 2026-08-29 -- wEventFlags grew 16 bytes (NUM_EVENTS $A00 -> $A80, his call, save-format change). Stack 248 -> 232: still 38 above the pre-hardening 194, and the stack-leak bug behind the cushion died with the 08-25 pp-freeze fix. (History: $df3c -> $df3e mart fix; -> $df08 hardening +54; -> $df18 event growth.)
+	org $df80 ; v1.0: raised from $df18 on 2026-09-06 -- the SPECIAL split grew WRAM0 by 104 bytes (a sixth stat exp word and stat word per mon struct, a sixth base stat). Stack 232 -> 128. Measured with a sentinel fill (stack_survey / battle_survey, 2026-09-06): 115 bytes deepest on the overworld/text paths of the emulator suite, and the wild-battle figure is in the CHANGELIST entry. (An attempt to take 40 bytes out of the Tilemap union instead broke the map view: LoadCurrentMapView needs 480 bytes after wTileMapBackup - see wMapViewScratch.) (History: $df3c -> $df3e mart fix; -> $df08 hardening +54; -> $df18 event growth; -> $df80 the split.)
 	"Stack"
 VRAM $0
 	"VRAM"

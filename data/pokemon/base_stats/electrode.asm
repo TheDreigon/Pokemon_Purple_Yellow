@@ -1,5 +1,5 @@
 	db DEX_ELECTRODE ; pokedex id
-	base_stat_row 40, 90, 80, 90, 130 ; hp atk def spc spd
+	base_stat_row 40, 90, 80, 90, 90, 130 ; hp atk def spatk spdef spd
 	db ELECTRIC, STEEL ; type
 	db 75 ; catch rate  ; set by hand
 	db 180 ; base exp  ; BST 430 - poucas fraquezas (+5)

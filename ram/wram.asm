@@ -166,11 +166,17 @@ UNION
 wTileMapBackup:: ds SCREEN_WIDTH * SCREEN_HEIGHT
 
 NEXTU
-; list of indexes to patch with SERIAL_NO_DATA_BYTE after transfer
-wSerialPartyMonsPatchList:: ds 200
-
-; list of indexes to patch with SERIAL_NO_DATA_BYTE after transfer
-wSerialEnemyMonsPatchList:: ds 200
+; The map-view scratch. LoadCurrentMapView (home/overworld.asm) draws its
+; 6x5 block view - 24 tiles wide, 20 tall - into wTileMapBackup before
+; cropping the middle 20x18 into wTileMap, so the backup must be followed by
+; 120 free bytes: 480 in all. In vanilla those bytes were the tail of the two
+; 200-byte serial patch lists that shared this union plus the 80-byte pad
+; that followed it, which is why removing the (otherwise dead) lists on
+; 2026-09-06 made the map view write its last two rows into wOverworldMap and
+; broke every gate warp. The scratch is named now, and the link-time ASSERT
+; below keeps the map buffer out of it.
+wMapViewScratch:: ds (SCREEN_WIDTH + 4) * 20
+wMapViewScratchEnd::
 
 NEXTU
 ; this looks similar to the address structure for Gen 2 OAM animations.
@@ -249,8 +255,9 @@ wc635:: db
 wYellowIntroAnimatedObjectStructPointer:: db
 wSurfingMinigameDataEnd::
 ENDU
-
-	ds 80
+; (the 80-byte pad that used to sit here was the tail of the map-view scratch
+; above; it is part of wMapViewScratch now)
+ASSERT wOverworldMap >= wMapViewScratchEnd, "LoadCurrentMapView's 24x20 scratch (wMapViewScratch) must end before wOverworldMap"
 
 
 SECTION "Overworld Map", WRAM0
@@ -273,13 +280,20 @@ NEXTU
 ; The leading padding is load-bearing: wLYOverrides must start on a page
 ; boundary ($C700), because home/lcdc.asm addresses it as
 ; `ld h, HIGH(wLYOverrides)` and intro_yellow.asm does the same for
-; wLYOverridesBuffer at $C800.
+; wLYOverridesBuffer at $C800. The padding is what carries this section's
+; start ($C6E8) up to $C700, so it must move whenever the sections before it
+; change size. The two ASSERTs below are checked at link time and turn a
+; shifted section into a build error instead of a silently broken intro, wavy
+; animation and surfing game - which is exactly how the SPECIAL split's first
+; build (2026-09-06) failed when it took 40 bytes out of the Tilemap union.
 	ds 23
 wTempLevelStore:: db
 wLYOverrides:: ds $100
 wLYOverridesEnd::
 wLYOverridesBuffer:: ds $100
 wLYOverridesBufferEnd::
+ASSERT LOW(wLYOverrides) == 0, "wLYOverrides must start on a 256-byte page: home/lcdc.asm indexes it with ld h, HIGH(wLYOverrides)"
+ASSERT LOW(wLYOverridesBuffer) == 0, "wLYOverridesBuffer must start on a 256-byte page: intro_yellow.asm indexes it by HIGH()"
 ENDU
 
 
@@ -658,7 +672,7 @@ wPikaPicAnimObjectDataBuffer::
 wPikaPicAnimObjectDataBufferEnd::
 ENDU
 
-; This union spans 39 bytes.
+; This union spans 43 bytes.
 UNION
 wInGameTradeGiveMonSpecies:: db
 wInGameTradeTextPointerTablePointer:: dw
@@ -675,6 +689,7 @@ wPlayerMonUnmodifiedAttack:: dw
 wPlayerMonUnmodifiedDefense:: dw
 wPlayerMonUnmodifiedSpeed:: dw
 wPlayerMonUnmodifiedSpAtk:: dw
+wPlayerMonUnmodifiedSpDef:: dw
 
 ; stat modifiers for the player's current pokemon
 ; value can range from 1 - 13 ($1 to $D)
@@ -697,6 +712,7 @@ wEnemyMonUnmodifiedAttack:: dw
 wEnemyMonUnmodifiedDefense:: dw
 wEnemyMonUnmodifiedSpeed:: dw
 wEnemyMonUnmodifiedSpAtk:: dw
+wEnemyMonUnmodifiedSpDef:: dw
 
 ; stat modifiers for the enemy's current pokemon
 ; value can range from 1 - 13 ($1 to $D)
@@ -1740,6 +1756,7 @@ wMonHBaseAttack:: db
 wMonHBaseDefense:: db
 wMonHBaseSpeed:: db
 wMonHBaseSpAtk:: db
+wMonHBaseSpDef:: db
 wMonHTypes::
 ASSERT wMonHTypes - wMonHBaseStats == NUM_STATS, "wMonHeader carries one base-stat byte per stat (NUM_STATS)"
 wMonHType1:: db
@@ -1966,11 +1983,10 @@ ASSERT wPartyMon1Stats - wPartyMon1 == MON_STATS, "party_struct's stats must sit
 ASSERT wPartyMon1StatsEnd - wPartyMon1Stats == NUM_STATS * 2, "party_struct carries NUM_STATS stat words"
 ; field_moves.asm adds the stride to a low byte: it must fit in one byte.
 ASSERT wPartyMon2 - wPartyMon1 - NUM_MOVES < $100, "field_moves.asm adds (stride - NUM_MOVES) with an 8-bit add"
-; CalcStat's pointer pun (home/move_mon.asm): hl = stat exp - 1, and the DVs are
-; found by adding the same offset that turns wEnemyMonHP into wEnemyMonDVs, so
-; one CalcStat serves party mons (from their stat exp) and enemy mons (from
-; their HP, with b = 0). The two structs must keep that distance equal.
-ASSERT wPartyMon1DVs - (wPartyMon1HPExp - 1) == wEnemyMonDVs - wEnemyMonHP, "CalcStat's pun: (party stat exp - 1) -> DVs must equal wEnemyMonHP -> wEnemyMonDVs"
+; CalcStat finds the DVs at (stat exp - 1) + (wPartyMon1DVs - (wPartyMon1HPExp - 1)).
+; Until the split that distance also turned wEnemyMonHP into wEnemyMonDVs, so
+; LoadEnemyMonData could hand it wEnemyMonHP; the sixth stat exp word broke that
+; pun, and LoadEnemyMonData now hands it a synthetic base (see core.asm).
 
 wPartyMonOT::
 ; wPartyMon1OT - wPartyMon6OT
@@ -2798,26 +2814,13 @@ wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 
 SECTION "Stack", WRAM0
 
-; the stack grows downward
-; the stack grows downward
-; 248 bytes ($f8). Static worst-case stack use is ~60-70 bytes, so this is
-; generous headroom. Size must stay in sync with layout.link "Stack"
-; org $df08 ($df08 + $f8 = $e000).
-; for wPrize4 + wPrize4Price added for the 4-TM Game Corner menu.
-; v0.5 mart rework: shrunk a further 28 bytes (233 -> 205) to absorb
-; wItemList expansion (16 -> 32) and the new wMartExtras (12 bytes).
-; v0.5 elite tiered mart rework: another 9-byte shrink (205 -> 196) for
-; wItemList 32 -> 40 (+8) and the new wMartType variant flag (+1).
-; v0.7 tiered mart overflow fix: 2 more bytes (196 -> 194) for
-; wMartExtras 12 -> 13 (count byte + 12 Indigo TM extras was overflowing
-; into wMartType) and wItemList 40 -> 41 (true full-unlock worst case).
-; v0.7 stack hardening: grown 54 bytes (194 -> 248, $c2 -> $f8) by reclaiming
-; the "ds 54 unused" padding from Main Data. Static worst-case stack use is
-; ~60-70 bytes, so 248 is generous headroom.
-; v0.7 event growth (2026-08-29, his call): gave 16 bytes back (248 -> 232,
-; $f8 -> $e8) so wEventFlags could grow NUM_EVENTS $A00 -> $A80. Still 38
-; above the pre-hardening 194, and the stack-leak bug that motivated the
-; cushion died with the 08-25 pp-freeze fix.
-; See layout.link "Stack" org $df18.
-	ds $e8 - 1
+; the stack grows downward. 128 bytes ($80) since the SPECIAL split
+; (2026-09-06): WRAM0 grew 104 bytes (a sixth stat exp word and stat word in
+; every mon struct, a sixth base stat), so the org in layout.link moved
+; $df18 -> $df80 ($df80 + $80 = $e000). The deepest use the emulator suite
+; measured (stack_survey: sentinel fill, 2026-09-06) was 115 bytes of the old
+; 232 on overworld and text paths, and see the battle figure recorded in
+; layout.link. The v0.7 comment's "~60-70 static worst case" stays as the
+; design figure. Size must stay in sync with layout.link "Stack".
+	ds $80 - 1
 wStack:: db

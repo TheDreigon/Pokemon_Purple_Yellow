@@ -1,5 +1,5 @@
 	db DEX_AERODACTYL ; pokedex id
-	base_stat_row 70, 110, 80, 75, 120 ; hp atk def spc spd
+	base_stat_row 70, 110, 80, 75, 75, 120 ; hp atk def spatk spdef spd
 
 	db ROCK, FLYING ; type
 	db 60 ; catch rate  ; solo stage, BST 455, harder to handle

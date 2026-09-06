@@ -1,5 +1,5 @@
 	db DEX_PIDGEOT ; pokedex id
-	base_stat_row 95, 85, 75, 70, 100 ; hp atk def spc spd
+	base_stat_row 95, 85, 75, 70, 70, 100 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
 	db 55 ; catch rate  ; final stage, BST 425, harder to handle

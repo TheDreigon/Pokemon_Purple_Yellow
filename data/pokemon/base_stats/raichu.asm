@@ -1,5 +1,5 @@
 	db DEX_RAICHU ; pokedex id
-	base_stat_row 80, 90, 70, 110, 90 ; hp atk def spc spd
+	base_stat_row 80, 90, 70, 110, 110, 90 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 70 ; catch rate  ; set by hand: quick and it shocks you

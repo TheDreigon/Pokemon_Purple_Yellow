@@ -1,5 +1,5 @@
 	db DEX_ARBOK ; pokedex id
-	base_stat_row 60, 90, 90, 60, 100 ; hp atk def spc spd
+	base_stat_row 60, 90, 90, 60, 60, 100 ; hp atk def spatk spdef spd
 	db POISON, DARK ; type
 	db 60 ; catch rate  ; final stage, BST 400, harder to handle
 	db 160 ; base exp  ; BST 400 - poucas fraquezas (+2)

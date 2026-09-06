@@ -6403,7 +6403,8 @@ LoadEnemyMonData:
 	call BattleRandom
 .storeDVs
 	; v0.7 hard mode boss DV override. Boss enemies get $ff/$ff (DV=15 in
-	; all 5 stats including HP, via the standard DV encoding).
+	; every stat including HP, via the standard DV encoding; SP.DEF shares
+	; the Special DV).
 	; IsHardModeBossBattle gates on trainer-battle + boss class, so the WILD
 	; path falls through unchanged — but note the TRANSFORMED path does NOT:
 	; `bit TRANSFORMED / jr nz, .storeDVs` above lands right here, so a
@@ -6427,10 +6428,14 @@ LoadEnemyMonData:
 	ld [de], a
 	inc de
 	ld b, $0
-	ld hl, wEnemyMonHP
-	push hl
+; CalcStat finds the DVs at hl + (wPartyMon1DVs - (wPartyMon1HPExp - 1)), the
+; party-struct distance from "stat exp - 1". A battle struct has no stat exp, so
+; hand it a synthetic base that lands on wEnemyMonDVs (b = 0: nothing at hl is
+; read). Until the split (2026-09-06) wEnemyMonHP happened to sit at exactly
+; that distance and the pun did the work.
+	ld hl, wEnemyMonDVs - (wPartyMon1DVs - (wPartyMon1HPExp - 1))
 	call CalcStats
-	pop hl
+	ld hl, wEnemyMonHP
 	ld a, [wIsInBattle]
 	cp $2 ; is it a trainer battle?
 	jr z, .copyHPAndStatusFromPartyData
@@ -6735,7 +6740,7 @@ CalculateModifiedStats:
 	call CalculateModifiedStat
 	inc c
 	ld a, c
-	cp NUM_BATTLE_STATS
+	cp NUM_STAGED_STATS
 	jr nz, .loop
 	ret
 
@@ -6834,7 +6839,7 @@ ApplyBadgeStatBoosts:
 	ld a, [wObtainedBadges]
 	ld b, a
 	ld hl, wBattleMonAttack
-	ld c, NUM_BATTLE_STATS
+	ld c, NUM_STAGED_STATS
 ; the boost is applied for badges whose bit position is even
 ; the order of boosts matches the order they are laid out in RAM
 ; Boulder (bit 0) - attack

@@ -24,13 +24,16 @@ DEF MAX_STAT_LEVEL EQU 13
 	const STAT_DEFENSE
 	const STAT_SPEED
 	const STAT_SPATK
+	const STAT_SPDEF ; the split (2026-09-06): its own stat exp word and stat word; shares the Special DV
 DEF NUM_STATS EQU const_value - 1
-; The stats a battle stage byte, a badge boost and an "unmodified" copy cover:
-; every stat but HP. Written as a derivation so it is exactly the old literal 4
-; wherever the engine walked "NUM_STATS - 1" or hard-coded 4/8/$8. The SPECIAL
-; split (2026-09-06) pins it to 4 while NUM_STATS grows to 6 (F1) and restores
-; the derivation when SP.DEF gets its stage byte (F2a).
+; The stat words after MaxHP in a mon struct (Attack..SP.DEF): what the badge
+; bake, Haze and Transform copy, and what the "unmodified" blocks hold.
 DEF NUM_BATTLE_STATS EQU NUM_STATS - 1
+; The stats that have a stage byte (Attack, Defense, Speed, SP.ATK today): what
+; the stage recalc loop, the badge walk and the X-item doublers walk, and where
+; the ACCURACY byte starts. Pinned at 4 by the split's F1 (SP.DEF has no stage
+; byte yet); F2a inserts MOD_SPDEF and makes this NUM_BATTLE_STATS again.
+DEF NUM_STAGED_STATS EQU 4
 
 ; StatModTextStrings indexes (see data/battle/stat_mod_names.asm)
 	const_def
@@ -43,8 +46,9 @@ DEF NUM_BATTLE_STATS EQU NUM_STATS - 1
 	const_skip 2
 DEF NUM_STAT_MODS EQU const_value
 ; effects.asm gates the accuracy/evasion legs on "index >= MOD_ACCURACY", and the
-; stage-scaled stat copies walk NUM_BATTLE_STATS words: the two must agree.
-ASSERT MOD_ACCURACY == NUM_BATTLE_STATS, "the stat-stage bytes before ACCURACY must be exactly the NUM_BATTLE_STATS battle stats"
+; stage recalc walks NUM_STAGED_STATS stats: the two must agree.
+ASSERT MOD_ACCURACY == NUM_STAGED_STATS, "the stat-stage bytes before ACCURACY must be exactly the NUM_STAGED_STATS staged stats"
+ASSERT NUM_STAGED_STATS <= NUM_BATTLE_STATS, "a staged stat must exist as a stat word"
 
 ; Moves struct fields (see data/moves/moves.asm)
 rsreset

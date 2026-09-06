@@ -1,5 +1,5 @@
 	db DEX_PERSIAN ; pokedex id
-	base_stat_row 90, 80, 50, 60, 115 ; hp atk def spc spd
+	base_stat_row 90, 80, 50, 60, 60, 115 ; hp atk def spatk spdef spd
 	db NORMAL, DARK ; type
 	db 65 ; catch rate  ; final stage, BST 395, harder to handle
 	db 150 ; base exp  ; BST 395 - muitas fraquezas (-2)

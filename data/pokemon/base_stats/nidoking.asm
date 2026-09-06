@@ -1,5 +1,5 @@
 	db DEX_NIDOKING ; pokedex id
-	base_stat_row 90, 100, 90, 70, 80 ; hp atk def spc spd
+	base_stat_row 90, 100, 90, 70, 70, 80 ; hp atk def spatk spdef spd
 
 	db POISON, GROUND ; type
 	db 50 ; catch rate  ; final stage, BST 430, harder to handle

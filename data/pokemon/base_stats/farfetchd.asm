@@ -1,5 +1,5 @@
 	db DEX_FARFETCHD ; pokedex id
-	base_stat_row 100, 75, 50, 50, 75 ; hp atk def spc spd
+	base_stat_row 100, 75, 50, 50, 50, 75 ; hp atk def spatk spdef spd
 	db FIGHTING, FLYING ; type
 	db 115 ; catch rate  ; set by hand: run feedback 2026-09-05: a bit easier; one step off its 100
 	db 130 ; base exp  ; BST 350 - poucas fraquezas (+2)

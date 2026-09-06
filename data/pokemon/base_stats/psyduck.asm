@@ -1,5 +1,5 @@
 	db DEX_PSYDUCK ; pokedex id
-	base_stat_row 50, 50, 45, 75, 55 ; hp atk def spc spd
+	base_stat_row 50, 50, 45, 75, 75, 55 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 235 ; catch rate  ; base stage, BST 275, easy to approach

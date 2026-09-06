@@ -1,5 +1,5 @@
 	db DEX_ODDISH ; pokedex id
-	base_stat_row 60, 45, 50, 60, 35 ; hp atk def spc spd
+	base_stat_row 60, 45, 50, 60, 60, 35 ; hp atk def spatk spdef spd
 
 	db GRASS, POISON ; type
 	db 230 ; catch rate  ; base stage, BST 250

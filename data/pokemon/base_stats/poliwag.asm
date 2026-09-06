@@ -1,5 +1,5 @@
 	db DEX_POLIWAG ; pokedex id
-	base_stat_row 40, 40, 40, 40, 65 ; hp atk def spc spd
+	base_stat_row 40, 40, 40, 40, 40, 65 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 235 ; catch rate  ; base stage, BST 225
