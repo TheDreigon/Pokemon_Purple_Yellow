@@ -19,6 +19,7 @@ UsableItems_PartyMenu:
 	db IRON
 	db CARBOS
 	db CALCIUM
+	db ZINC
 	db RARE_CANDY
 	db LEAF_STONE
 	db FULL_HEAL
@@ -31,6 +32,7 @@ UsableItems_PartyMenu:
 	db X_DEFEND
 	db X_SPEED
 	db X_SPATK
+	db X_SPDEF
 	db PP_UP
 	db PP_MAX
 	db ETHER

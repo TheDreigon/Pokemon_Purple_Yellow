@@ -182,7 +182,7 @@ SeafoamIslands4HiddenObjects:
 	db -1 ; end
 
 SeafoamIslands5HiddenObjects:
-	hidden_object 25, 17, ULTRA_BALL, HiddenItems
+	hidden_object 25, 17, ZINC, HiddenItems ; was an ULTRA BALL: the split's SP.DEF vitamin (2026-09-06)
 	db -1 ; end
 
 ViridianForestHiddenObjects:
@@ -244,7 +244,7 @@ PowerPlantHiddenObjects:
 	db -1 ; end
 
 Route11HiddenObjects:
-	hidden_object 48,  5, GREAT_BALL, HiddenItems
+	hidden_object 48,  5, ZINC, HiddenItems ; was a GREAT BALL: the split's SP.DEF vitamin (2026-09-06; the visible pair waits for Forte's spots)
 	hidden_object 43,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was asked for but the GREAT_BALL already holds it.)
 	db -1 ; end
 

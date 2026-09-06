@@ -358,6 +358,7 @@ ItemSortList::
 	db X_DEFEND
 	db X_SPEED
 	db X_SPATK
+	db X_SPDEF
 	db GUARD_SPEC
 	db DIRE_HIT	
 	; Permanent Raises
@@ -367,6 +368,7 @@ ItemSortList::
 	db IRON
 	db CARBOS
 	db CALCIUM
+	db ZINC
 	db PP_UP
 	db PP_MAX
 	; Stones

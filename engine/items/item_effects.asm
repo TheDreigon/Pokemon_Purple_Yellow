@@ -17,6 +17,7 @@ UseItem_::
 
 ItemUsePtrTable:
 ; entries correspond to item ids
+	table_width 2, ItemUsePtrTable
 	dw ItemUseBall       ; MASTER_BALL
 	dw ItemUseBall       ; ULTRA_BALL
 	dw ItemUseBall       ; GREAT_BALL
@@ -101,6 +102,9 @@ ItemUsePtrTable:
 	dw ItemUsePPRestore  ; ELIXIR
 	dw ItemUsePPRestore  ; MAX_ELIXIR
 	dw ItemUseBillsChip  ; BILLS_CHIP
+	dw ItemUseVitamin    ; ZINC
+	dw ItemUseXStat      ; X_SPDEF
+	assert_table_length NUM_ITEMS
 
 ItemUseBall:
 
@@ -1283,8 +1287,11 @@ ItemUseMedicine:
 	ld [wd0b5], a
 	pop af
 	push af
+	cp ZINC ; the split: the SP.DEF vitamin sits above the CALCIUM + 1 window
+	jr z, .happinessBoost
 	cp CALCIUM + 1
 	jr nc, .noHappinessBoost
+.happinessBoost
 	push hl
 	push de
 	callabd_ModifyPikachuHappiness PIKAHAPPY_USEDITEM
@@ -1304,6 +1311,8 @@ ItemUseMedicine:
 	jp z, ItemUseMedicine ; if so, force another choice (jp not jr: the Revive/Max Revive gate prologue above pushed this past jr range)
 .checkItemType
 	ld a, [wcf91]
+	cp ZINC
+	jp z, .useVitamin ; the split: ZINC sits above REVIVE (and jp: .useVitamin is far)
 	cp REVIVE
 	jr nc, .healHP ; if it's a Revive or Max Revive
 	cp FULL_HEAL
@@ -1771,6 +1780,14 @@ ItemUseMedicine:
 ; the branch above peels off) right after the last one.
 ASSERT PROTEIN - HP_UP == STAT_ATTACK - STAT_HEALTH && IRON - HP_UP == STAT_DEFENSE - STAT_HEALTH && CARBOS - HP_UP == STAT_SPEED - STAT_HEALTH && CALCIUM - HP_UP == STAT_SPATK - STAT_HEALTH, "the vitamins must mirror the STAT_* order (ItemUseVitamin subtracts HP_UP)"
 ASSERT RARE_CANDY == CALCIUM + 1, "RARE_CANDY follows the last vitamin: the happiness gate above tests CALCIUM + 1"
+; ZINC (the split) is appended far above the window, so it borrows the id the
+; sixth vitamin WOULD have had for the arithmetic below (and for the stat-name
+; walk further down).
+ASSERT ZINC > RARE_CANDY, "ZINC is the appended SP.DEF vitamin; if it ever joins the HP_UP window, drop the special case"
+	cp ZINC
+	jr nz, .vitaminIndex
+	ld a, HP_UP + (STAT_SPDEF - STAT_HEALTH)
+.vitaminIndex
 	sub HP_UP
 	add a
 	ld bc, wPartyMon1HPExp - wPartyMon1
@@ -1794,6 +1811,10 @@ ASSERT RARE_CANDY == CALCIUM + 1, "RARE_CANDY follows the last vitamin: the happ
 	call .recalculateStats
 	ld hl, VitaminStats
 	ld a, [wcf91]
+	cp ZINC
+	jr nz, .vitaminNameIndex
+	ld a, HP_UP + (STAT_SPDEF - STAT_HEALTH)
+.vitaminNameIndex
 	sub HP_UP - 1
 	ld c, a
 .statNameLoop ; loop to get the address of the name of the stat the vitamin increases
@@ -2230,7 +2251,18 @@ ItemUseXStat:
 ; The X items map onto the +1 effect ladder by subtraction: X_ATTACK..X_SPATK
 ; must sit in the same order and spacing as ATTACK_UP1..SPECIAL_UP1.
 ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED - X_ATTACK == SPEED_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPATK - X_ATTACK == SPATK_UP1_EFFECT - ATTACK_UP1_EFFECT, "the X items must mirror the +1 effect ladder (ItemUseXStat subtracts)"
+	cp X_SPDEF
+	jr nz, .ladderItem
+; X SP.DEF (the split): SP.DEF has no ladder id, so the SP.ATK proxy goes into
+; the effect byte and the real index into wStatModIndexOverride; the up path
+; always consumes it.
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
+	ld a, SPATK_UP1_EFFECT
+	jr .gotEffect
+.ladderItem
 	sub X_ATTACK - ATTACK_UP1_EFFECT
+.gotEffect
 	ld [hl], a ; store player move effect
 	call PrintItemUseTextAndRemoveItem
 ; v0.7 anim split: the X item borrows the move-anim channel - the marker

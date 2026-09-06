@@ -6,9 +6,10 @@ _LavenderMartBaldingGuyText::
 	cont "single battle."
 
 	para "X ATTACK, X"
-	line "DEFEND, X SPEED"
-	cont "and X SPECIAL are"
-	cont "what I'm after."
+	line "DEFEND, X SPEED,"
+	cont "X SP.ATK and X"
+	cont "SP.DEF are what"
+	cont "I'm after."
 
 	para "Do you know where"
 	line "I can get them?"

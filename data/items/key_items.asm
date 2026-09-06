@@ -84,4 +84,6 @@ KeyItemFlags:
 	dbit FALSE ; ELIXIR
 	dbit FALSE ; MAX_ELIXIR
 	dbit TRUE  ; BILLS_CHIP
+	dbit FALSE ; ZINC
+	dbit FALSE ; X_SPDEF
 	end_bit_array NUM_ITEMS

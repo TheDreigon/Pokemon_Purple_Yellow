@@ -30,8 +30,8 @@ MistyRematchBag::   db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
 LtSurgeBossBag::    db SUPER_POTION, 2, X_SPEED,    1, FULL_HEAL,  2, -1, -1
 LtSurgeRematchBag:: db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
 ; Erika buffs SPECIAL now (2026-08-17 sheet correction; she was on X Defend)
-ErikaBossBag::      db HYPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
-ErikaRematchBag::   db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
+ErikaBossBag::      db HYPER_POTION, 2, X_SPDEF,  1, FULL_HEAL,  2, -1, -1
+ErikaRematchBag::   db FULL_RESTORE, 2, X_SPDEF,  2, FULL_HEAL,  2, -1, -1
 ; Koga carries a Dire Hit in both fights (2026-09-06 table; it had moved to the rematch on 08-17)
 KogaBossBag::       db HYPER_POTION, 2, X_SPEED,    1, DIRE_HIT,   1, FULL_HEAL, 2
 KogaRematchBag::    db FULL_RESTORE, 2, X_SPEED,    2, DIRE_HIT,   1, FULL_HEAL, 2

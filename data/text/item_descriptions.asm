@@ -143,7 +143,7 @@ _CarbosDescription::
 	prompt
 
 _CalciumDescription::
-	text "Raises SPECIAL"
+	text "Raises SP.ATK"
 	next "of one #MON."
 	prompt
 
@@ -264,7 +264,7 @@ _XSpeedDescription::
 	prompt
 
 _XSpAtkDescription::
-	text "Ups SPECIAL a step"
+	text "Ups SP.ATK a step"
 	next "until you switch."
 	prompt
 
@@ -351,6 +351,16 @@ _MaxElixirDescription::
 _BillsChipDescription::
 	text "Every BALL works"
 	next "a quarter better."
+	prompt
+
+_ZincDescription::
+	text "Raises SP.DEF"
+	next "of one #MON."
+	prompt
+
+_XSpDefDescription::
+	text "Ups SP.DEF a step"
+	next "until you switch."
 	prompt
 
 _HM01Description::

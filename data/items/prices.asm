@@ -69,7 +69,7 @@ ItemPrices::
 	bcd3 1000  ; X_ATTACK    (was 4000; X-items made cheap so they're actually used)
 	bcd3 1000  ; X_DEFEND
 	bcd3 1500  ; X_SPEED
-	bcd3 1500  ; X_SPATK
+	bcd3 1000  ; X_SPATK (1500 while it was the whole SPECIAL; Forte, 2026-09-06)
 	bcd3 0     ; COIN_CASE
 	bcd3 0     ; OAKS_PARCEL
 	bcd3 0     ; ITEMFINDER
@@ -86,6 +86,8 @@ ItemPrices::
 	bcd3 3200  ; ELIXIR      (was 0; now sold post-E4 at Indigo + Celadon 2F)
 	bcd3 4500  ; MAX_ELIXIR  (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
 	bcd3 0     ; BILLS_CHIP  (a gift; never sold, and worth nothing at a counter)
+	bcd3 4900  ; ZINC (CALCIUM's price)
+	bcd3 1000  ; X_SPDEF (Forte, 2026-09-06)
 	assert_table_length NUM_ITEMS
 	bcd3 0     ; FLOOR_B2F
 	bcd3 0     ; FLOOR_B1F

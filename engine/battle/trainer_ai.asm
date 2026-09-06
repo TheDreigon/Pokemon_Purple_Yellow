@@ -924,14 +924,14 @@ ErikaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	; ~25% chance X Special (2026-08-17 sheet correction: Erika buffs
-	; SPECIAL now, both bags — the X Defend branch matched her old bag)
+	; ~25% chance X SP.DEF (2026-09-06 table: Erika's bags carry X SP.DEF -
+	; her flowers take the hit rather than deal it)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_SPATK
+	ld a, X_SPDEF
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpAtk
+	jp c, AIUseXSpDef
 	ret
 
 KogaAI:
@@ -1775,6 +1775,16 @@ AIUseXSpeed:
 AIUseXSpAtk:
 	ld b, SPATK_UP1_EFFECT
 	ld a, X_SPATK
+	jr AIIncreaseStat
+
+AIUseXSpDef:
+; The split: SP.DEF has no ladder id. b carries the SP.ATK proxy (NEVER an
+; SP.DEF id: AIIncreaseStat writes b raw into wEnemyMoveEffect and the ladder
+; arithmetic would run off the mods array) and the override carries the index.
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
+	ld b, SPATK_UP1_EFFECT
+	ld a, X_SPDEF
 	; fallthrough
 
 AIIncreaseStat:

@@ -67,7 +67,7 @@ ItemNames::
 	li "X ATTACK"
 	li "X DEFEND"
 	li "X SPEED"
-	li "X SPECIAL"
+	li "X SP.ATK"
 	li "COIN CASE"
 	li "OAK's PARCEL"
 	li "ITEMFINDER"
@@ -84,6 +84,8 @@ ItemNames::
 	li "ELIXIR"
 	li "MAX ELIXIR"
 	li "BILL's CHIP"
+	li "ZINC"
+	li "X SP.DEF"
 	assert_list_length NUM_ITEMS
 	li "B2F"
 	li "B1F"
