@@ -256,9 +256,9 @@ _MoveFlavor_BUBBLEBEAM::
 
 _MoveFlavor_WATER_PULSE::
 	text "A ring of pressure"
-	next "that travels out"
-	next "and muddles what"
-	next "it meets."
+	next "that spreads out"
+	next "and cannot be"
+	next "dodged."
 	done
 
 _MoveFlavor_WATERFALL::
