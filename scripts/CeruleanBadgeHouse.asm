@@ -91,21 +91,9 @@ CeruleanBadgeHouseBadgeTextPointers:
 	assert_table_length NUM_BADGES
 
 CeruleanBadgeHouseBoulderBadgeText:
-; v0.7 knob #17 (2026-09-01): no boost claim on hard
-	text_asm
-	ld hl, .normal
-	ld a, [wDifficulty]
-	and a ; NORMAL_MODE?
-	jr z, .print
-	ld hl, .hard
-.print
-	call PrintText
-	jp TextScriptEnd
-.normal
+; v1.0 (the SPECIAL split, 2026-09-06): no boost on either road any more, so
+; the knob #17 twin is gone
 	text_far _CeruleanBadgeHouseBoulderBadgeText
-	text_end
-.hard
-	text_far _CeruleanBadgeHouseNoBoostHardText
 	text_end
 
 CeruleanBadgeHouseCascadeBadgeText:
@@ -131,7 +119,22 @@ CeruleanBadgeHouseThunderBadgeText:
 	text_end
 
 CeruleanBadgeHouseRainbowBadgeText:
+; v1.0 (the SPECIAL split, 2026-09-06): RAINBOW lends DEFENSE now, so the entry
+; gets the knob #17 twin - no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeruleanBadgeHouseRainbowBadgeText
+	text_end
+.hard
+	text_far _CeruleanBadgeHouseRainbowBadgeHardText
 	text_end
 
 CeruleanBadgeHouseSoulBadgeText:
@@ -153,7 +156,22 @@ CeruleanBadgeHouseSoulBadgeText:
 	text_end
 
 CeruleanBadgeHouseGoldBadgeText:
+; v1.0 (the SPECIAL split, 2026-09-06): GOLD lends SP.DEF now, so the entry
+; gets the knob #17 twin - no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeruleanBadgeHouseGoldBadgeText
+	text_end
+.hard
+	text_far _CeruleanBadgeHouseGoldBadgeHardText
 	text_end
 
 CeruleanBadgeHouseVolcanoBadgeText:

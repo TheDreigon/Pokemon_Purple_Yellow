@@ -66,10 +66,11 @@ _CinnabarGymRematchPostBattleText::
 _CinnabarGymBlaineVolcanoBadgeInfoText::
 	text "Hah!"
 
+; v1.0 (the SPECIAL split, 2026-09-06): VOLCANO lends SP.ATK.
 	para "The VOLCANOBADGE"
 	line "heightens the"
-	cont "SPECIAL abilities"
-	cont "of your #MON!"
+	cont "SP.ATK of your"
+	cont "#MON!"
 
 	para "Here, you can"
 	line "have this too!"

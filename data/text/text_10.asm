@@ -102,22 +102,14 @@ _HardModeGymPartyGateText::
 	text " #MON."
 	done
 
-; v0.7 knob #17 follow-up (Forte, 2026-09-01): the four boost-badge speeches
-; and the Badge House entries must not mislead a HARD player - on hard the
-; badges lend no stat boost. Same 4th-wall rule as the party-gate text above:
-; no mode name-drop; the leaders speak of the player's chosen road instead.
-_PewterGymBrockBoulderBadgeInfoHardText::
-	text_start
-
-	para "That's an official"
-	line "#MON LEAGUE"
-	cont "BADGE!"
-
-	para "On the road you"
-	line "chose, its power"
-	cont "must be your own!"
-	prompt
-
+; v0.7 knob #17 follow-up (Forte, 2026-09-01): the boost-badge speeches and
+; the Badge House entries must not mislead a HARD player - on hard the badges
+; lend no stat boost. Same 4th-wall rule as the party-gate text above: no mode
+; name-drop; the leaders speak of the player's chosen road instead.
+; v1.0 (the SPECIAL split, 2026-09-06): Forte's badge map moved the boosts to
+; THUNDER/RAINBOW/SOUL/GOLD/VOLCANO. Brock's hard twin died with his boost;
+; Erika's and Sabrina's new twins live next to their normal texts (Text 9 and
+; Text 7) - this bank is full in the debug build.
 _VermilionGymLTSurgeThunderBadgeInfoHardText::
 	text "The THUNDERBADGE"
 	line "lets your #MON"
@@ -150,8 +142,8 @@ _CinnabarGymBlaineVolcanoBadgeInfoHardText::
 	line "have this too!"
 	done
 
-; shared by the BOULDER and VOLCANO Badge House entries on hard - those two
-; badges have nothing but the boost to describe
+; the VOLCANO Badge House entry on hard - that badge has nothing but the boost
+; to describe (BOULDER shared this until the split took its boost away)
 _CeruleanBadgeHouseNoBoostHardText::
 	text "On the harder"
 	line "path, BADGEs lend"

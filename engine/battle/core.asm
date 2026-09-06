@@ -6847,22 +6847,37 @@ ApplyBadgeStatBoosts:
 	ld a, [wObtainedBadges]
 	ld b, a
 	ld hl, wBattleMonAttack
+	ld de, .badgeForStat
 	ld c, NUM_STAGED_STATS
-; the boost is applied for badges whose bit position is even
-; the order of boosts matches the order they are laid out in RAM
-; Boulder (bit 0) - attack
-; Thunder (bit 2) - defense
-; Soul (bit 4) - speed
-; Volcano (bit 6) - special
+; v1.0 (the SPECIAL split, Forte's map, 2026-09-06): one badge per staged
+; stat, from the table below, walked in the stats' RAM order. Vanilla walked
+; the even badge bits (Boulder/Thunder/Soul/Volcano = Attack/Defense/Speed/
+; Special); now the middle five gyms carry the boosts and the first, second
+; and last lend none. .applyBoostToStat clobbers a/d/e and returns with hl
+; back on the stat's high byte, hence the push/pop around it.
 .loop
-	srl b
-	call c, .applyBoostToStat
+	ld a, [de]
+	inc de
+	and b
+	jr z, .next
+	push de
+	call .applyBoostToStat
+	pop de
+.next
 	inc hl
 	inc hl
-	srl b
 	dec c
 	jr nz, .loop
 	ret
+
+.badgeForStat
+; the badge bit that boosts each staged stat, in wBattleMonAttack.. order
+	db 1 << BIT_SOULBADGE    ; ATTACK  - gym 5, Koga
+	db 1 << BIT_RAINBOWBADGE ; DEFENSE - gym 4, Erika
+	db 1 << BIT_THUNDERBADGE ; SPEED   - gym 3, Lt. Surge
+	db 1 << BIT_VOLCANOBADGE ; SP.ATK  - gym 7, Blaine
+	db 1 << BIT_GOLDBADGE    ; SP.DEF  - gym 6, Sabrina
+	ASSERT NUM_STAGED_STATS == 5, "the badge table above has one row per staged stat"
 
 ; multiply stat at hl by 1.125 (Pikachu: x1.25 — the mascot gets a bigger badge boost)
 ; cap stat at MAX_STAT_VALUE

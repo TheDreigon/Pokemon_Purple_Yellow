@@ -148,15 +148,18 @@ _PewterGymBrockReceivedBoulderBadgeText::
 	text_end
 
 _PewterGymBrockBoulderBadgeInfoText::
+; v1.0 (the SPECIAL split, 2026-09-06): Forte's badge map starts the stat
+; boosts at the THUNDERBADGE, so the BOULDERBADGE claims none - one text for
+; both roads (the knob #17 hard chain died with the boost).
 	text_start
 
 	para "That's an official"
 	line "#MON LEAGUE"
 	cont "BADGE!"
 
-	para "It raises the"
-	line "ATTACK of your"
-	cont "#MON!"
+	para "It's the first of"
+	line "eight. Wear it"
+	cont "with pride!"
 	prompt
 
 _PewterGymCooltrainerMBattleText::

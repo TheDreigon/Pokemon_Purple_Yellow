@@ -81,6 +81,25 @@ _CeladonGymRematchPostBattleText::
 	done
 
 _CeladonGymRainbowBadgeInfoText::
+; v1.0 (the SPECIAL split, 2026-09-06): Forte's badge map - the RAINBOWBADGE
+; lends DEFENSE (Normal only, knob #17: the hard twin below claims none).
+	text "The RAINBOWBADGE"
+	line "blooms only for"
+	cont "nature's friends."
+
+	para "It raises the"
+	line "DEFENSE of your"
+	cont "#MON."
+
+	para "It also lets your"
+	line "#MON FLY any-"
+	cont "time you like."
+
+	para "Please also take"
+	line "this with you."
+	done
+
+_CeladonGymRainbowBadgeInfoHardText::
 	text "The RAINBOWBADGE"
 	line "blooms only for"
 	cont "nature's friends."

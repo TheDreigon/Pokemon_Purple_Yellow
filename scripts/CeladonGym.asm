@@ -330,7 +330,22 @@ CeladonGymRematchPostBattleText:
 	text_end
 
 CeladonGymRainbowBadgeInfoText:
+; v1.0 (the SPECIAL split, 2026-09-06): the RAINBOWBADGE lends DEFENSE now,
+; so its speech gets the knob #17 twin - no boost claim on hard
+	text_asm
+	ld hl, .normal
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .print
+	ld hl, .hard
+.print
+	call PrintText
+	jp TextScriptEnd
+.normal
 	text_far _CeladonGymRainbowBadgeInfoText
+	text_end
+.hard
+	text_far _CeladonGymRainbowBadgeInfoHardText
 	text_end
 
 CeladonGymReceivedTMText:

@@ -79,9 +79,11 @@ _FuchsiaGymRematchPostBattleText::
 	done
 
 _FuchsiaGymKogaSoulBadgeInfoText::
+; v1.0 (the SPECIAL split, 2026-09-06): Forte's badge map - SOUL lends
+; ATTACK (it was SPEED).
 	text "Now that you have"
 	line "the SOULBADGE,"
-	cont "the SPEED of"
+	cont "the ATTACK of"
 	cont "your #MON"
 	cont "increases!"
 

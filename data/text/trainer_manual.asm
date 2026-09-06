@@ -242,23 +242,23 @@ _ManualPage_3_3::
 	done
 
 _ManualPage_3_4::
-	text "Four badges"
+	text "Five badges"
 	next "strengthen your"
 	next "#MON."
 	next ""
-	next "BOULDER lifts"
-	next "ATTACK. THUNDER"
+	next "THUNDER lifts"
+	next "SPEED. RAINBOW"
 	next "lifts DEFENSE."
-	next "SOUL lifts SPEED."
+	next "SOUL lifts ATTACK."
+	next "GOLD lifts SP.DEF."
 	next "VOLCANO lifts"
-	next "SPECIAL."
-	next ""
+	next "SP.ATK."
 	next "A PIKACHU takes"
 	next "twice that boost."
 	done
 
 _ManualPage_3_4_Hard::
-	text "Four badges"
+	text "Five badges"
 	next "strengthen your"
 	next "#MON - on the"
 	next "other setting."
