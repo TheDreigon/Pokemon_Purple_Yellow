@@ -114,24 +114,30 @@ _CinnabarGymBlaineCandyCommentText::
 	line "inside you!"
 	done
 
+; v1.0 (the gym rework, 2026-09-06): the first room is EVAN's (Pokemon
+; Adventures - the Camper who looked after the gym while Blaine was away).
+; The end line keeps a 5-tile first row: "JR.TRAINER♂: " goes first.
 _CinnabarGymSuperNerd1BattleText::
-	text "Do you know how"
-	line "hot #MON fire"
-	cont "breath can get?"
+	text "I'm EVAN! I mind"
+	line "the GYM while"
+	cont "BLAINE is away!"
+
+	para "My HAUNTER's not"
+	line "fire, but it will"
+	cont "give you chills!"
 	done
 
 _CinnabarGymSuperNerd1EndBattleText::
-	text "Yow!"
-	line "Hot, hot, hot!"
+	text "Aw,"
+	line "nuts!"
 	prompt
 
 _CinnabarGymSuperNerd1AfterBattleText::
-	text "Fire, or to be"
-	line "more precise,"
-	cont "combustion..."
+	text "Beat my HAUNTER?"
 
-	para "Blah, blah, blah,"
-	line "blah..."
+	para "Then go on, and"
+	line "get ready for"
+	cont "the quiz!"
 	done
 
 _CinnabarGymSuperNerd2BattleText::

@@ -1,6 +1,6 @@
 	object_const_def
 	const_export CINNABARGYM_BLAINE
-	const_export CINNABARGYM_SUPER_NERD1
+	const_export CINNABARGYM_SUPER_NERD1 ; the first room: EVAN since the gym rework (2026-09-06); the name stayed sequential
 	const_export CINNABARGYM_SUPER_NERD2
 	const_export CINNABARGYM_SUPER_NERD3
 	const_export CINNABARGYM_SUPER_NERD4
@@ -20,12 +20,15 @@ CinnabarGym_Object:
 
 	def_object_events
 	object_event  3,  3, SPRITE_BLAINE, STAY, DOWN, TEXT_CINNABARGYM_BLAINE, OPP_BLAINE, 1
-	object_event 17,  2, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD1, OPP_SUPER_NERD, 9
+; v1.0 (the gym rework, 2026-09-06): EVAN (Pokemon Adventures), the Camper who
+; minds the gym while Blaine is away, greets the challenger in the first room -
+; the one without a quiz. Then the six quiz gates, 46 -> 49 under Blaine's 49.
+	object_event 17,  2, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD1, OPP_JR_TRAINER_M, 11
 	object_event 17,  8, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD2, OPP_BURGLAR, 4
 	object_event 11,  4, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD3, OPP_SUPER_NERD, 10
 	object_event 11,  8, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD4, OPP_BURGLAR, 5
 	object_event 11, 14, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD5, OPP_SUPER_NERD, 11
-	object_event  3, 14, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD6, OPP_BURGLAR, 6
+	object_event  3, 14, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD6, OPP_SUPER_NERD, 9 ; quiz 5: the VULPIX/NINETALES nerd (was BURGLAR 6 at L54)
 	object_event  3,  8, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD7, OPP_SUPER_NERD, 12
 	object_event 16, 13, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_CINNABARGYM_GYM_GUIDE
 

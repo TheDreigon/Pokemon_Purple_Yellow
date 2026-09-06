@@ -192,6 +192,8 @@ JrTrainerMData:
 	db 29, NIDORINA, NIDORINO, 0
 ; Route 6
 	db 16, ONIX, 0 ; v0.7 (2026-09-05, Forte): the couple - his ONIX stands in until a fan-made ONIX pre-evolution exists (was HORSEA, BELLSPROUT)
+; 11: Cinnabar Gym - EVAN (Pokemon Adventures), the Camper who minds the gym for Blaine (2026-09-06)
+	db $FF, 46, HAUNTER, 47, ARCANINE, 0
 
 JrTrainerFData:
 ; Unused since 2026-09-06 (was Cerulean Gym's SEEL 19; DAISY is BEAUTY 17 now)
@@ -341,10 +343,12 @@ SuperNerdData:
 ; Cinnabar Gym (parties 9-12 — FOUR of them; the 12th has no comment of its
 ; own and hid below RAPIDASH, which is how the 2026-08-17 insertion landed in
 ; the middle and briefly gave the gym's 4th super nerd a L21 MAGNEMITE)
-	db 51, VULPIX, NINETALES, 0
-	db 50, PONYTA, VULPIX, GROWLITHE, 0
-	db 52, RAPIDASH, 0
-	db 50, CHARMELEON, FLAREON, 0
+; (the gym rework, 2026-09-06: the ladder runs 46 -> 49 along the quiz path, under Blaine's lowest 49;
+; 9 sits on quiz 5 now, 11 carries MAGMAR instead of the gym's second lone RAPIDASH)
+	db 48, VULPIX, NINETALES, 0
+	db 47, PONYTA, VULPIX, GROWLITHE, 0
+	db 48, MAGMAR, 0
+	db 49, CHARMELEON, FLAREON, 0
 ; Route 11 — the two ex-ENGINEERs (13, 14); that class slot became KIYO, and
 ; these two already wore the SUPER_NERD overworld sprite. Same teams.
 	db 21, MAGNEMITE, 0
@@ -561,10 +565,11 @@ BurglarData:
 	db 29, GROWLITHE, VULPIX, 0
 	db 33, GROWLITHE, 0
 	db 28, VULPIX, CHARMANDER, PONYTA, 0
-; Cinnabar Gym
-	db 48, FLAREON, NINETALES, 0
-	db 51, RAPIDASH, 0
-	db 54, VULPIX, GROWLITHE, 0
+; Cinnabar Gym (the gym rework, 2026-09-06: 46 / 47 on quiz 1 and 3; 6 is unused - its slot is the
+; VULPIX/NINETALES nerd, SUPER_NERD 9 - and cannot go, the Mansion burglars 7-9 follow)
+	db 46, FLAREON, GROWLITHE, 0
+	db 47, RAPIDASH, 0
+	db 54, VULPIX, GROWLITHE, 0 ; unused since 2026-09-06
 ; Mansion 2F
 	db 44, PRIMEAPE, MAGMAR, 0
 ; Mansion 3F
