@@ -1763,7 +1763,7 @@ LoadBattleMonFromParty:
 	call ApplyBadgeStatBoosts
 	ld hl, wBattleMonAttack
 	ld de, wPlayerMonUnmodifiedAttack
-	ld bc, 8 ; 4 stats (Atk/Def/Spd/Spc) x 2 bytes — skip MaxHP, no badge applies to it
+	ld bc, wBattleMonPP - wBattleMonAttack ; NUM_BATTLE_STATS words (Attack..last stat): skip MaxHP, no badge applies to it
 	call CopyData
 	call ApplyBurnAndParalysisPenaltiesToPlayer
 	ld a, $7 ; default stat modifier
@@ -2710,7 +2710,7 @@ PartyMenuOrRockOrRun:
 ; party menu (.partyMenuWasSelected), and .switchMon reads the wWhichPokemon
 ; that HandlePartyMenuInput rewrites from the cursor -- a walked value can
 ; never leak into a switch. The step routine is a local copy of
-; .statsStepMon (bank 4 is at its floor; a farcall would cost more here).
+; .statsStepMon (bank 4 is tight; a farcall would cost more here).
 	ld a, STATUS_OPTIN
 	ld [wStatusScreenPageChange], a
 .statusPage1
@@ -6735,7 +6735,7 @@ CalculateModifiedStats:
 	call CalculateModifiedStat
 	inc c
 	ld a, c
-	cp NUM_STATS - 1
+	cp NUM_BATTLE_STATS
 	jr nz, .loop
 	ret
 
@@ -6834,7 +6834,7 @@ ApplyBadgeStatBoosts:
 	ld a, [wObtainedBadges]
 	ld b, a
 	ld hl, wBattleMonAttack
-	ld c, $4
+	ld c, NUM_BATTLE_STATS
 ; the boost is applied for badges whose bit position is even
 ; the order of boosts matches the order they are laid out in RAM
 ; Boulder (bit 0) - attack

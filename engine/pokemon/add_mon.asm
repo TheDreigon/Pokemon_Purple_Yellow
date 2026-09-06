@@ -237,7 +237,7 @@ _AddPartyMon::
 	dec a
 	jr nz, .calcFreshStats
 	ld hl, wEnemyMonMaxHP
-	ld bc, $a
+	ld bc, wEnemyMonPP - wEnemyMonMaxHP ; NUM_STATS words, MaxHP..last stat
 	call CopyData          ; copy stats of cur enemy mon
 	pop hl
 	jr .done
@@ -385,12 +385,12 @@ _MoveMon::
 	ld a, [wMoveMonType]
 	dec a
 	ld hl, wPartyMons
-	ld bc, wPartyMon2 - wPartyMon1 ; $2c
+	ld bc, wPartyMon2 - wPartyMon1
 	ld a, [wPartyCount]
 	jr nz, .addMonOffset
 	; if it's PARTY_TO_BOX
 	ld hl, wBoxMons
-	ld bc, wBoxMon2 - wBoxMon1 ; $21
+	ld bc, wBoxMon2 - wBoxMon1
 	ld a, [wBoxCount]
 .addMonOffset
 	dec a
@@ -402,13 +402,13 @@ _MoveMon::
 	ld a, [wMoveMonType]
 	and a
 	ld hl, wBoxMons
-	ld bc, wBoxMon2 - wBoxMon1 ; $21
+	ld bc, wBoxMon2 - wBoxMon1
 	jr z, .addMonOffset2
 	cp DAYCARE_TO_PARTY
 	ld hl, wDayCareMon
 	jr z, .copyMonData
 	ld hl, wPartyMons
-	ld bc, wPartyMon2 - wPartyMon1 ; $2c
+	ld bc, wPartyMon2 - wPartyMon1
 .addMonOffset2
 	ld a, [wWhichPokemon]
 	call AddNTimes
@@ -513,7 +513,8 @@ _MoveMon::
 	ld [hli], a
 	ld d, h
 	ld e, l
-	ld bc, -18
+; de = the stats; hl walks back to (stat exp - 1), the base CalcStat expects
+	ld bc, (wPartyMon1HPExp - 1) - wPartyMon1Stats
 	add hl, bc
 	ld b, $1
 	call CalcStats

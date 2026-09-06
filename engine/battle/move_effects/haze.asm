@@ -62,7 +62,7 @@ CureVolatileStatuses:
 	ret
 
 ResetStatMods:
-	ld b, $8
+	ld b, NUM_STAT_MODS
 .loop
 	ld [hli], a
 	dec b
@@ -70,7 +70,7 @@ ResetStatMods:
 	ret
 
 ResetStats:
-	ld b, $8
+	ld b, NUM_BATTLE_STATS * 2 ; Attack..last stat, two bytes each
 .loop
 	ld a, [hli]
 	ld [de], a

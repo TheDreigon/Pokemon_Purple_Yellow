@@ -1332,7 +1332,7 @@ Func_ff0c4:
 	hlcoord 13, 1
 	ld de, Text_ff113
 	call PlaceString
-	ld b, 10
+	ld b, wLoadedMonDVs - wLoadedMonHPExp ; the whole stat exp block
 	ld hl, wLoadedMonHPExp
 	ld a, [wEnemyMonOT + 2]
 .asm_ff0de
@@ -1419,7 +1419,7 @@ Func_ff12c:
 	ld a, [wEnemyMonOT + 1]
 	ld [wEnemyMonDVs + 1], a
 	callfar SendNewMonToBox
-	ld b, 10
+	ld b, wBoxMon1DVs - wBoxMon1HPExp ; the whole stat exp block
 	ld hl, wBoxMon1HPExp
 	ld a, [wEnemyMonOT + 2]
 .asm_ff19e

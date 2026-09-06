@@ -732,7 +732,7 @@ ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start in
 .ok
 	ld [hl], b
 	ld a, c
-	cp $4
+	cp MOD_ACCURACY
 	jr nc, UpdateStatDone ; jump if mod affected is evasion/accuracy
 	push hl
 	ld hl, wBattleMonAttack + 1
@@ -969,7 +969,7 @@ ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must
 .ok
 	ld [hl], b ; save modified mod
 	ld a, c
-	cp $4
+	cp MOD_ACCURACY
 	jr nc, UpdateLoweredStatDone ; jump for evasion/accuracy
 	push hl
 	push de
@@ -1055,7 +1055,7 @@ UpdateLoweredStatDone:
 	and a
 	jr nz, .ApplyBadgeBoostsAndStatusPenalties ; v0.5: damage already played anim, or dual-stat second leg
 	ld a, [de]
-	cp $44
+	cp ATTACK_DOWN_SIDE_EFFECT ; a side effect rides on a damaging move: its animation already played
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
 	call PlayCurrentMoveAnimation2
 .ApplyBadgeBoostsAndStatusPenalties
@@ -1099,7 +1099,7 @@ CantLowerAnymore:
 
 MoveMissed:
 	ld a, [de]
-	cp $44
+	cp ATTACK_DOWN_SIDE_EFFECT ; a side effect that fails its roll says nothing
 	ret nc
 	jp ConditionalPrintButItFailed
 

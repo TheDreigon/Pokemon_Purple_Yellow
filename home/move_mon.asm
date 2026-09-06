@@ -30,7 +30,7 @@ AddPartyMon::
 	pop hl
 	ret
 
-; calculates all 5 stats of current mon and writes them to [de]
+; calculates all NUM_STATS stats of current mon and writes them to [de]
 CalcStats::
 	ld c, $0
 .statsLoop
@@ -48,7 +48,7 @@ CalcStats::
 	ret
 
 ; calculates stat c of current mon
-; c: stat to calc (HP=1,Atk=2,Def=3,Spd=4,Spc=5)
+; c: stat to calc (STAT_HEALTH..STAT_SPECIAL: HP=1,Atk=2,Def=3,Spd=4,Spc=5)
 ; b: consider stat exp?
 ; hl: base ptr to stat exp values ([hl + 2*c - 1] and [hl + 2*c])
 CalcStat::
@@ -94,17 +94,17 @@ CalcStat::
 	srl c
 	pop hl
 	push bc
-	ld bc, wPartyMon1DVs - (wPartyMon1HPExp - 1) ; also wEnemyMonDVs - wEnemyMonHP
+	ld bc, wPartyMon1DVs - (wPartyMon1HPExp - 1) ; also wEnemyMonDVs - wEnemyMonHP (the pun wram.asm asserts)
 	add hl, bc
 	pop bc
 	ld a, c
-	cp $2
+	cp STAT_ATTACK
 	jr z, .getAttackIV
-	cp $3
+	cp STAT_DEFENSE
 	jr z, .getDefenseIV
-	cp $4
+	cp STAT_SPEED
 	jr z, .getSpeedIV
-	cp $5
+	cp STAT_SPECIAL
 	jr z, .getSpecialIV
 .getHpIV
 	push bc

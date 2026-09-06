@@ -82,14 +82,14 @@ TransformEffect_:
 	ld a, [hli]
 	ld [de], a
 	inc de
-; Attack, Defense, Speed, and Special stats
+; the battle stats after MaxHP (Attack..last stat)
 	inc hl
 	inc hl
 	inc hl
 	inc de
 	inc de
 	inc de
-	ld bc, $8
+	ld bc, wBattleMonPP - wBattleMonAttack
 	call CopyData
 	ld bc, wBattleMonMoves - wBattleMonPP
 	add hl, bc ; ld hl, wBattleMonMoves

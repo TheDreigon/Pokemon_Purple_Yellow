@@ -476,8 +476,8 @@ ExpShareBitMask:
 
 HalveExpData:
 ; The enemy's base stats become stat exp and its base exp becomes experience,
-; so halving this block halves both at once. NUM_STATS + 2 covers the five
-; stats and the two bytes of base exp.
+; so halving this block halves both at once. NUM_STATS + 2 covers the base
+; stats and the two bytes of base exp (wram.asm asserts the block).
 	ld hl, wEnemyMonBaseStats
 	ld b, NUM_STATS + 2
 .loop
@@ -865,7 +865,7 @@ LevelUpPartyMon:
 	call CallBattleCore
 	ld hl, wBattleMonAttack
 	ld de, wPlayerMonUnmodifiedAttack
-	ld bc, 8 ; 4 stats (Atk/Def/Spd/Spc) x 2 bytes — badges don't boost MaxHP
+	ld bc, wBattleMonPP - wBattleMonAttack ; NUM_BATTLE_STATS words (Attack..last stat): badges don't boost MaxHP
 	call CopyData
 .recalcStatChanges
 	xor a ; battle mon
