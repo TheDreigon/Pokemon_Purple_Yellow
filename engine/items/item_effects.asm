@@ -84,7 +84,7 @@ ItemUsePtrTable:
 	dw ItemUseXStat      ; X_ATTACK
 	dw ItemUseXStat      ; X_DEFEND
 	dw ItemUseXStat      ; X_SPEED
-	dw ItemUseXStat      ; X_SPECIAL
+	dw ItemUseXStat      ; X_SPATK
 	dw ItemUseCoinCase   ; COIN_CASE
 	dw ItemUseOaksParcel ; OAKS_PARCEL
 	dw ItemUseItemfinder ; ITEMFINDER
@@ -1769,7 +1769,7 @@ ItemUseMedicine:
 ; A vitamin's stat exp word is found by (item - HP_UP) * 2 from the HP exp: the
 ; five vitamins must sit in stat order right after HP_UP, and RARE_CANDY (which
 ; the branch above peels off) right after the last one.
-ASSERT PROTEIN - HP_UP == STAT_ATTACK - STAT_HEALTH && IRON - HP_UP == STAT_DEFENSE - STAT_HEALTH && CARBOS - HP_UP == STAT_SPEED - STAT_HEALTH && CALCIUM - HP_UP == STAT_SPECIAL - STAT_HEALTH, "the vitamins must mirror the STAT_* order (ItemUseVitamin subtracts HP_UP)"
+ASSERT PROTEIN - HP_UP == STAT_ATTACK - STAT_HEALTH && IRON - HP_UP == STAT_DEFENSE - STAT_HEALTH && CARBOS - HP_UP == STAT_SPEED - STAT_HEALTH && CALCIUM - HP_UP == STAT_SPATK - STAT_HEALTH, "the vitamins must mirror the STAT_* order (ItemUseVitamin subtracts HP_UP)"
 ASSERT RARE_CANDY == CALCIUM + 1, "RARE_CANDY follows the last vitamin: the happiness gate above tests CALCIUM + 1"
 	sub HP_UP
 	add a
@@ -2227,9 +2227,9 @@ ItemUseXStat:
 	push af ; save [wPlayerMoveEffect]
 	push hl
 	ld a, [wcf91]
-; The X items map onto the +1 effect ladder by subtraction: X_ATTACK..X_SPECIAL
+; The X items map onto the +1 effect ladder by subtraction: X_ATTACK..X_SPATK
 ; must sit in the same order and spacing as ATTACK_UP1..SPECIAL_UP1.
-ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED - X_ATTACK == SPEED_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPECIAL - X_ATTACK == SPECIAL_UP1_EFFECT - ATTACK_UP1_EFFECT, "the X items must mirror the +1 effect ladder (ItemUseXStat subtracts)"
+ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED - X_ATTACK == SPEED_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPATK - X_ATTACK == SPATK_UP1_EFFECT - ATTACK_UP1_EFFECT, "the X items must mirror the +1 effect ladder (ItemUseXStat subtracts)"
 	sub X_ATTACK - ATTACK_UP1_EFFECT
 	ld [hl], a ; store player move effect
 	call PrintItemUseTextAndRemoveItem

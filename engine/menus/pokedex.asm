@@ -1202,7 +1202,7 @@ Pokedex_PrintBaseStats:
 ; base_stat_row macro is what keeps that true.
 ; 🔴 Only HP, ATK and DEF walk the struct in order. SPECIAL and SPEED are
 ; printed by hand, in THAT order, because the struct stores them the other way
-; round (wMonHBaseSpeed then wMonHBaseSpecial) and this game shows SPECIAL
+; round (wMonHBaseSpeed then wMonHBaseSpAtk) and this game shows SPECIAL
 ; first -- see the party stats screen, engine/pokemon/status_screen.asm, which
 ; prints ATTACK / DEFENSE / SPECIAL / SPEED. Vanilla has SPEED before SPECIAL in
 ; both places; this hack swapped the stats screen and this page was left behind,
@@ -1227,7 +1227,7 @@ Pokedex_PrintBaseStats:
 	jr nz, .statLoop
 ; hl is on the fourth row now, and the loop left it there
 	push hl
-	ld de, wMonHBaseSpecial
+	ld de, wMonHBaseSpAtk
 	lb bc, 1, 3
 	call PrintNumber
 	pop hl

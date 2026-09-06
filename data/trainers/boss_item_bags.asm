@@ -25,20 +25,20 @@
 ; ---- Gym leaders (Pewter -> Cinnabar): first fight, then rematch ----
 BrockBossBag::      db POTION,       2, X_DEFEND,   1, FULL_HEAL,  2, -1, -1
 BrockRematchBag::   db FULL_RESTORE, 2, X_DEFEND,   2, FULL_HEAL,  2, -1, -1
-MistyBossBag::      db SUPER_POTION, 2, X_SPECIAL,  1, FULL_HEAL,  2, -1, -1
-MistyRematchBag::   db FULL_RESTORE, 2, X_SPECIAL,  2, FULL_HEAL,  2, -1, -1
+MistyBossBag::      db SUPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
+MistyRematchBag::   db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
 LtSurgeBossBag::    db SUPER_POTION, 2, X_SPEED,    1, FULL_HEAL,  2, -1, -1
 LtSurgeRematchBag:: db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
 ; Erika buffs SPECIAL now (2026-08-17 sheet correction; she was on X Defend)
-ErikaBossBag::      db HYPER_POTION, 2, X_SPECIAL,  1, FULL_HEAL,  2, -1, -1
-ErikaRematchBag::   db FULL_RESTORE, 2, X_SPECIAL,  2, FULL_HEAL,  2, -1, -1
+ErikaBossBag::      db HYPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
+ErikaRematchBag::   db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
 ; Koga's Dire Hit moved to his rematch (sheet correction)
 KogaBossBag::       db HYPER_POTION, 2, X_SPEED,    1, FULL_HEAL,  2, -1, -1
 KogaRematchBag::    db FULL_RESTORE, 2, X_SPEED,    2, DIRE_HIT,   1, FULL_HEAL, 2
-SabrinaBossBag::    db HYPER_POTION, 2, X_SPECIAL,  1, FULL_HEAL,  2, -1, -1
-SabrinaRematchBag:: db FULL_RESTORE, 2, X_SPECIAL,  2, FULL_HEAL,  2, -1, -1
-BlaineBossBag::     db MAX_POTION,   2, X_SPECIAL,  1, FULL_HEAL,  2, -1, -1
-BlaineRematchBag::  db FULL_RESTORE, 2, X_SPECIAL,  2, FULL_HEAL,  2, -1, -1
+SabrinaBossBag::    db HYPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
+SabrinaRematchBag:: db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
+BlaineBossBag::     db MAX_POTION,   2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
+BlaineRematchBag::  db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
 
 ; ---- Giovanni: Rocket Hideout + Silph (fights 1-2), then the Viridian Gym ----
 GiovanniEarlyBag::  db HYPER_POTION, 2, X_ATTACK,   1, X_DEFEND,   1, FULL_HEAL, 2
@@ -54,7 +54,7 @@ BrunoBossBag::      db FULL_RESTORE, 2, X_ATTACK,   2, FULL_HEAL,  2, -1, -1
 AgathaBossBag::     db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
 ; Lance sits a tier above his three colleagues (2026-08-18 sheet correction):
 ; he had been left on the 2/2/2 Elite Four template above
-LanceBossBag::      db FULL_RESTORE, 3, X_SPECIAL,  2, X_SPEED,    2, FULL_HEAL, 3
+LanceBossBag::      db FULL_RESTORE, 3, X_SPATK,  2, X_SPEED,    2, FULL_HEAL, 3
 
 ; ---- Rivals (Rival1 has no bag -- too early-game) ----
 ; Rival2 lost his X Attacks and upgraded his potion (sheet correction)

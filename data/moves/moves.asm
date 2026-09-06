@@ -16,7 +16,7 @@ Moves: ; Current total = 219
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
-	move BUG_BUZZ,       SPECIAL_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
+	move BUG_BUZZ,       SPATK_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
 	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10 ; high-crit.
 	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; almost-signature.
@@ -157,7 +157,7 @@ Moves: ; Current total = 219
 	move ICY_WIND,       SPEED_DOWN1_EFFECT,               45, ICE,          100, 30 ; new move.
 	move FROST_BREATH,   FREEZE_SIDE_EFFECT2,              60, ICE,          100, 20 ; new move.
 	move ICY_PULSE,      SWIFT_EFFECT,                     70, ICE,          100, 25 ; new move.
-	move AURORA_BEAM,    SPECIAL_DOWN_SIDE_EFFECT,         80, ICE,          100, 20
+	move AURORA_BEAM,    SPATK_DOWN_SIDE_EFFECT,         80, ICE,          100, 20
 	move ICE_BEAM,       FREEZE_SIDE_EFFECT1,              95, ICE,          100, 15 ; new effect.
 	move BLIZZARD,       FREEZE_SIDE_EFFECT2,             115, ICE,           85, 10 ; new effect.
 
@@ -206,7 +206,7 @@ Moves: ; Current total = 219
 	move PSYWAVE,        FLINCH_SIDE_EFFECT2,              35, PSYCHIC_TYPE, 100, 30
 	move CONFUSION,      CONFUSION_SIDE_EFFECT2,           50, PSYCHIC_TYPE, 100, 30
 	move EXTRASENSORY,   SWIFT_EFFECT,                     65, PSYCHIC_TYPE, 100, 25 ; new move.
-	move PSYBEAM,        SPECIAL_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
+	move PSYBEAM,        SPATK_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
 	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90, 10 ; almost-signature (Alakazam + Mewtwo). high-crit. new effect - 45% paralyze.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
@@ -259,12 +259,12 @@ Moves: ; Current total = 219
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
-	move GROWTH,         SPECIAL_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect - spc + 1/4 heal.
-	move CALM_MIND,      SPECIAL_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 25 ; new move. new effect.
-	move NASTY_PLOT,     SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
-	move AMNESIA,        SPECIAL_UP1_EFFECT,                0, BIRD,         100, 30
+	move GROWTH,         ATTACK_SPATK_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; new effect - spc + 1/4 heal.
+	move CALM_MIND,      SPATK_SPDEF_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 25 ; new move. new effect.
+	move NASTY_PLOT,     SPATK_UP1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move AMNESIA,        SPATK_UP1_EFFECT,                0, BIRD,         100, 30
 
-	move QUIVER_DANCE,   SPECIAL_SPEED_UP1_EFFECT,          0, BIRD,         100, 20 ; new move. new effect.
+	move QUIVER_DANCE,   SPATK_SPEED_UP1_EFFECT,          0, BIRD,         100, 20 ; new move. new effect.
 
 	move TAILWIND,       SPEED_UP1_EFFECT,                  0, BIRD,         100, 35 ; new move.
 
@@ -282,11 +282,11 @@ Moves: ; Current total = 219
 	move TICKLE,         DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
-	move FAKE_TEARS,     SPECIAL_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move.
-	move METAL_SOUND,    SPECIAL_DOWN2_FLINCH_EFFECT,       0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
-	move SCREECH,        SPECIAL_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 30
+	move FAKE_TEARS,     SPATK_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move.
+	move METAL_SOUND,    SPDEF_DOWN2_FLINCH_EFFECT,       0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
+	move SCREECH,        SPDEF_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 30
 
-	move EERIE_IMPULSE,  SPECIAL_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
+	move EERIE_IMPULSE,  SPDEF_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
 
 	move SCARY_FACE,     SPEED_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
 	move HINDER,         SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30 ; new move.

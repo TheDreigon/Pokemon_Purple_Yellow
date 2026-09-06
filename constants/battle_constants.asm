@@ -23,7 +23,7 @@ DEF MAX_STAT_LEVEL EQU 13
 	const STAT_ATTACK
 	const STAT_DEFENSE
 	const STAT_SPEED
-	const STAT_SPECIAL
+	const STAT_SPATK
 DEF NUM_STATS EQU const_value - 1
 ; The stats a battle stage byte, a badge boost and an "unmodified" copy cover:
 ; every stat but HP. Written as a derivation so it is exactly the old literal 4
@@ -37,7 +37,7 @@ DEF NUM_BATTLE_STATS EQU NUM_STATS - 1
 	const MOD_ATTACK
 	const MOD_DEFENSE
 	const MOD_SPEED
-	const MOD_SPECIAL
+	const MOD_SPATK
 	const MOD_ACCURACY
 	const MOD_EVASION
 	const_skip 2

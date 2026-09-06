@@ -78,9 +78,9 @@ HealEffect_:
 	or 1 ; ensure NZ so .healHP runs the /2 divide
 	jr .healHP
 .growthDivide
-; v0.6: GROWTH (effect SPECIAL_UP1_HEAL_EFFECT) calls into HealEffect_ for the
+; v0.6: GROWTH (effect ATTACK_SPATK_UP1_HEAL_EFFECT) calls into HealEffect_ for the
 ; heal portion only, with a 1/4 max HP divisor. SPC+1 happens in the wrapper
-; handler (SpecialUp1HealEffect in effects.asm), which sets wMoveDidntMiss=1
+; handler (AttackSpAtkUp1HealEffect in effects.asm), which sets wMoveDidntMiss=1
 ; before this farcall to suppress the move-anim replay in .playAnim below.
 	ld a, [hld]
 	ld [wHPBarMaxHP], a
@@ -135,7 +135,7 @@ HealEffect_:
 	ld [de], a
 	ld [wHPBarNewHP], a
 .playAnim
-; v0.6: SpecialUp1HealEffect (Growth) sets wMoveDidntMiss=1 before farcalling
+; v0.6: AttackSpAtkUp1HealEffect (Growth) sets wMoveDidntMiss=1 before farcalling
 ; HealEffect_, so this skip avoids re-playing the move anim that the SPC+1 leg
 ; already played. Other callers (Recover/Rest/Softboiled) leave the flag at 0.
 	ld a, [wMoveDidntMiss]

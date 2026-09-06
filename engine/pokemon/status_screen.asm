@@ -527,7 +527,7 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonDefenseExp
 	call PrintStat
-	ld de, wLoadedMonSpecialExp
+	ld de, wLoadedMonSpAtkExp
 	call PrintStat
 	ld de, wLoadedMonSpeedExp
 	jp PrintNumber
@@ -549,7 +549,7 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonDefense
 	call PrintStat
-	ld de, wLoadedMonSpecial
+	ld de, wLoadedMonSpAtk
 	call PrintStat
 	ld de, wLoadedMonSpeed
 	jp PrintNumber

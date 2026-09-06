@@ -444,25 +444,25 @@ Modifier2PreferredMoves:
 	db ATTACK_UP1_EFFECT
 	db DEFENSE_UP1_EFFECT
 	db SPEED_UP1_EFFECT
-	db SPECIAL_UP1_EFFECT
+	db SPATK_UP1_EFFECT
 	db ACCURACY_UP1_EFFECT
 	db EVASION_UP1_EFFECT
 	db ATTACK_DOWN1_EFFECT
 	db DEFENSE_DOWN1_EFFECT
 	db SPEED_DOWN1_EFFECT
-	db SPECIAL_DOWN1_EFFECT
+	db SPATK_DOWN1_EFFECT
 	db ACCURACY_DOWN1_EFFECT
 	db EVASION_DOWN1_EFFECT
 	db ATTACK_UP2_EFFECT
 	db DEFENSE_UP2_EFFECT
 	db SPEED_UP2_EFFECT
-	db SPECIAL_UP2_EFFECT
+	db SPATK_UP2_EFFECT
 	db ACCURACY_UP2_EFFECT
 	db EVASION_UP2_EFFECT
 	db ATTACK_DOWN2_EFFECT
 	db DEFENSE_DOWN2_EFFECT
 	db SPEED_DOWN2_EFFECT
-	db SPECIAL_DOWN2_EFFECT
+	db SPATK_DOWN2_EFFECT
 	db ACCURACY_DOWN2_EFFECT
 	db EVASION_DOWN2_EFFECT
 	db SUBSTITUTE_EFFECT
@@ -473,14 +473,14 @@ Modifier2PreferredMoves:
 	db ATTACK_ACCURACY_UP1_EFFECT    ; Hone Claws
 	db SPEED_EVASION_UP1_EFFECT      ; Agility (revised)
 	db ATTACK_UP1_DOWN1_EFFECT       ; Fierce Roar (user up + target down)
-	db SPECIAL_UP1_HEAL_EFFECT       ; Growth (revised: SPC up + heal 1/4)
+	db ATTACK_SPATK_UP1_HEAL_EFFECT       ; Growth (revised: SPC up + heal 1/4)
 	db ACCURACY_EVASION_DOWN1_EFFECT ; Flash (target dual-down)
-	db SPECIAL_SPEED_DOWN1_EFFECT    ; Eerie Impulse (target dual-down)
-	db SPECIAL_ACCURACY_UP1_EFFECT   ; Calm Mind (revised: SPC + ACC up)
-	db SPECIAL_SPEED_UP1_EFFECT      ; Quiver Dance (user dual-up)
+	db SPDEF_SPEED_DOWN1_EFFECT    ; Eerie Impulse (target dual-down)
+	db SPATK_SPDEF_ACCURACY_UP1_EFFECT   ; Calm Mind (revised: SPC + ACC up)
+	db SPATK_SPEED_UP1_EFFECT      ; Quiver Dance (user dual-up)
 	db SPEED_EVASION_DOWN1_EFFECT    ; Psychic Bind (target dual-down)
-	db SPECIAL_DOWN2_FLINCH_EFFECT   ; Metal Sound (target down + flinch)
-	db SPECIAL_DOWN1_FLINCH_EFFECT   ; Screech (target down + flinch)
+	db SPDEF_DOWN2_FLINCH_EFFECT   ; Metal Sound (target down + flinch)
+	db SPDEF_DOWN1_FLINCH_EFFECT   ; Screech (target down + flinch)
 	db ATTACK_DOWN2_FLINCH_EFFECT    ; Intimidate (target down + flinch)
 	db SPEED_DOWN2_FLINCH_EFFECT     ; Scary Face (target down + flinch)
 	db -1 ; end
@@ -868,9 +868,9 @@ MistyAI:
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_SPECIAL
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpecial
+	jp c, AIUseXSpAtk
 	ret
 
 LtSurgeAI:
@@ -927,9 +927,9 @@ ErikaAI:
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_SPECIAL
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpecial
+	jp c, AIUseXSpAtk
 	ret
 
 KogaAI:
@@ -993,9 +993,9 @@ SabrinaAI:
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_SPECIAL
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpecial
+	jp c, AIUseXSpAtk
 	ret
 
 BlaineAI:
@@ -1022,9 +1022,9 @@ BlaineAI:
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_SPECIAL
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpecial
+	jp c, AIUseXSpAtk
 	ret
 
 ; Giovanni: heals at HP < 1/2 (boss tier). Two independent buff rolls
@@ -1165,9 +1165,9 @@ LanceAI:
 	call Random
 	cp 25 percent + 1
 	jr nc, .skipBuff1
-	ld a, X_SPECIAL
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseXSpecial
+	jp c, AIUseXSpAtk
 .skipBuff1
 	; ~25% X Speed roll (independent)
 	call Random
@@ -1782,9 +1782,9 @@ AIUseXSpeed:
 	ld a, X_SPEED
 	jr AIIncreaseStat
 
-AIUseXSpecial:
-	ld b, SPECIAL_UP1_EFFECT
-	ld a, X_SPECIAL
+AIUseXSpAtk:
+	ld b, SPATK_UP1_EFFECT
+	ld a, X_SPATK
 	; fallthrough
 
 AIIncreaseStat:

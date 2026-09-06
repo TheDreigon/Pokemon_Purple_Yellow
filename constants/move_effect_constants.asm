@@ -17,7 +17,7 @@
 	const ATTACK_UP1_EFFECT          ; $0A
 	const DEFENSE_UP1_EFFECT         ; $0B
 	const SPEED_UP1_EFFECT           ; $0C
-	const SPECIAL_UP1_EFFECT         ; $0D
+	const SPATK_UP1_EFFECT         ; $0D
 	const ACCURACY_UP1_EFFECT        ; $0E
 	const EVASION_UP1_EFFECT         ; $0F
 	const PAY_DAY_EFFECT             ; $10
@@ -25,7 +25,7 @@
 	const ATTACK_DOWN1_EFFECT        ; $12
 	const DEFENSE_DOWN1_EFFECT       ; $13
 	const SPEED_DOWN1_EFFECT         ; $14
-	const SPECIAL_DOWN1_EFFECT       ; $15
+	const SPATK_DOWN1_EFFECT       ; $15
 	const ACCURACY_DOWN1_EFFECT      ; $16
 	const EVASION_DOWN1_EFFECT       ; $17
 	const CONVERSION_EFFECT          ; $18
@@ -61,7 +61,7 @@
 	const ATTACK_UP2_EFFECT          ; $32
 	const DEFENSE_UP2_EFFECT         ; $33
 	const SPEED_UP2_EFFECT           ; $34
-	const SPECIAL_UP2_EFFECT         ; $35
+	const SPATK_UP2_EFFECT         ; $35
 	const ACCURACY_UP2_EFFECT        ; $36
 	const EVASION_UP2_EFFECT         ; $37
 	const HEAL_EFFECT                ; $38 Recover, Softboiled, Rest
@@ -69,7 +69,7 @@
 	const ATTACK_DOWN2_EFFECT        ; $3A
 	const DEFENSE_DOWN2_EFFECT       ; $3B
 	const SPEED_DOWN2_EFFECT         ; $3C
-	const SPECIAL_DOWN2_EFFECT       ; $3D
+	const SPATK_DOWN2_EFFECT       ; $3D
 	const ACCURACY_DOWN2_EFFECT      ; $3E
 	const EVASION_DOWN2_EFFECT       ; $3F
 	const LIGHT_SCREEN_EFFECT        ; $40
@@ -79,7 +79,7 @@
 	const ATTACK_DOWN_SIDE_EFFECT    ; $44
 	const DEFENSE_DOWN_SIDE_EFFECT   ; $45
 	const SPEED_DOWN_SIDE_EFFECT     ; $46
-	const SPECIAL_DOWN_SIDE_EFFECT   ; $47
+	const SPATK_DOWN_SIDE_EFFECT   ; $47
 	const ATTACK_DEFENSE_UP1_EFFECT  ; $48  user Atk+1 & Def+1 (Bulk Up)
 	const ACCURACY_EVASION_DOWN1_EFFECT ; $49  target Acc-1 & Evasion-1 (Flash)
 	const BURN_EFFECT                ; $4A  always burn (Will-O-Wisp)
@@ -101,22 +101,22 @@
 	const DISABLE_EFFECT             ; $56
 	const SPEED_EVASION_UP1_EFFECT   ; $57  user Speed+1 & Evasion+1 (new Agility)
 	const CONFUSION_SIDE_EFFECT2     ; $58  30% confusion (Hurricane, Spore Daze)
-	const SPECIAL_SPEED_DOWN1_EFFECT ; $59  target Spc-1 & Speed-1 (new Eerie Impulse)
+	const SPDEF_SPEED_DOWN1_EFFECT ; $59  target SP.DEF-1 & Speed-1 (Eerie Impulse). Named for the split (2026-09-06): the stat leg is the shared SPECIAL until F3.
 	const ATTACK_UP1_DOWN1_EFFECT    ; $5A  user Atk+1 / target Atk-1 (Fierce Roar)
-	const SPECIAL_UP1_HEAL_EFFECT    ; $5B  user Spc+1 + heal 1/4 max HP (Growth)
+	const ATTACK_SPATK_UP1_HEAL_EFFECT ; $5B  user ATTACK+1 & SP.ATK+1 + heal 1/4 max HP (Growth). Named for the split: SPECIAL+1 + heal until F3.
 	const TRI_STATUS_SIDE_EFFECT     ; $5C  ~30% to inflict random {par/brn/frz}, ~10% each (Tri Attack)
 	const CONFUSION_SIDE_EFFECT3     ; $5D  45% confusion (new Psychic). Heaviest tier of the 15/30/45 confusion ladder.
 	const SPEED_EVASION_DOWN1_EFFECT ; $5E  target Speed-1 & Evasion-1 (new Psychic Bind). Mirror of SPEED_EVASION_UP1_EFFECT.
-	const SPECIAL_SPEED_UP1_EFFECT   ; $5F  user Spc+1 & Speed+1 (new Quiver Dance). Mirror of SPECIAL_SPEED_DOWN1_EFFECT.
+	const SPATK_SPEED_UP1_EFFECT   ; $5F  user SP.ATK+1 & Speed+1 (Quiver Dance). Shared SPECIAL until F3.
 	const PARALYZE_SIDE_EFFECT3      ; $60  45% paralyze chance (Mind Break). Heaviest tier of the 15/30/45 paralysis ladder.
-	const SPECIAL_ACCURACY_UP1_EFFECT ; $61  user Spc+1 & Acc+1 (new Calm Mind). Mirror pattern of ATTACK_ACCURACY_UP1_EFFECT.
+	const SPATK_SPDEF_ACCURACY_UP1_EFFECT ; $61  user SP.ATK+1 & SP.DEF+1 & Acc+1 (Calm Mind). Named for the split: SPECIAL+1 & Acc+1 until F3.
 	const BURN_SIDE_EFFECT3          ; $62  45% burn chance (Lava Plume). Heaviest tier of the 15/30/45 burn ladder.
 	const FALSE_SWIPE_EFFECT         ; $63  damage that always leaves the target with at least 1 HP - never KOs (False Swipe).
 	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31).
 	const USER_LEVEL_DAMAGE_EFFECT   ; $65  damage equals the USER's level (Night Shade; clarity split of $29, 2026-08-31).
 	const SET_DAMAGE_EFFECT          ; $66  fixed damage by move: DRAGON RAGE 50, SONICBOOM 25 (clarity split of $29, 2026-08-31).
-	const SPECIAL_DOWN2_FLINCH_EFFECT ; $67  target Spc-2 + ~30% flinch (Metal Sound; Forte 2026-09-01. The stat leg turns SP.DEF at the 1.0 split.)
-	const SPECIAL_DOWN1_FLINCH_EFFECT ; $68  target Spc-1 + ~30% flinch (Screech; same family as $67).
+	const SPDEF_DOWN2_FLINCH_EFFECT ; $67  target SP.DEF-2 + ~30% flinch (Metal Sound; Forte 2026-09-01). Named for the split: the stat leg is the shared SPECIAL until F3.
+	const SPDEF_DOWN1_FLINCH_EFFECT ; $68  target SP.DEF-1 + ~30% flinch (Screech; same family as $67). Shared SPECIAL until F3.
 	const ATTACK_DOWN2_FLINCH_EFFECT  ; $69  target Atk-2 + ~30% flinch (Intimidate; Forte 2026-09-05, same family as $67. CHARM keeps the plain ATTACK_DOWN2.)
 	const SPEED_DOWN2_FLINCH_EFFECT   ; $6A  target Speed-2 + ~30% flinch (Scary Face; same day. Neither leg is touched by the 1.0 SPECIAL split.)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

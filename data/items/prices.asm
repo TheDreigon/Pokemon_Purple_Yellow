@@ -69,7 +69,7 @@ ItemPrices::
 	bcd3 1000  ; X_ATTACK    (was 4000; X-items made cheap so they're actually used)
 	bcd3 1000  ; X_DEFEND
 	bcd3 1500  ; X_SPEED
-	bcd3 1500  ; X_SPECIAL
+	bcd3 1500  ; X_SPATK
 	bcd3 0     ; COIN_CASE
 	bcd3 0     ; OAKS_PARCEL
 	bcd3 0     ; ITEMFINDER

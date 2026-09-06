@@ -674,7 +674,7 @@ wPlayerMonUnmodifiedMaxHP:: dw
 wPlayerMonUnmodifiedAttack:: dw
 wPlayerMonUnmodifiedDefense:: dw
 wPlayerMonUnmodifiedSpeed:: dw
-wPlayerMonUnmodifiedSpecial:: dw
+wPlayerMonUnmodifiedSpAtk:: dw
 
 ; stat modifiers for the player's current pokemon
 ; value can range from 1 - 13 ($1 to $D)
@@ -683,7 +683,7 @@ wPlayerMonStatMods::
 wPlayerMonAttackMod:: db
 wPlayerMonDefenseMod:: db
 wPlayerMonSpeedMod:: db
-wPlayerMonSpecialMod:: db
+wPlayerMonSpAtkMod:: db
 wPlayerMonAccuracyMod:: db
 wPlayerMonEvasionMod:: db
 	ds 2
@@ -696,7 +696,7 @@ wEnemyMonUnmodifiedMaxHP:: dw
 wEnemyMonUnmodifiedAttack:: dw
 wEnemyMonUnmodifiedDefense:: dw
 wEnemyMonUnmodifiedSpeed:: dw
-wEnemyMonUnmodifiedSpecial:: dw
+wEnemyMonUnmodifiedSpAtk:: dw
 
 ; stat modifiers for the enemy's current pokemon
 ; value can range from 1 - 13 ($1 to $D)
@@ -705,7 +705,7 @@ wEnemyMonStatMods::
 wEnemyMonAttackMod:: db
 wEnemyMonDefenseMod:: db
 wEnemyMonSpeedMod:: db
-wEnemyMonSpecialMod:: db
+wEnemyMonSpAtkMod:: db
 wEnemyMonAccuracyMod:: db
 wEnemyMonEvasionMod:: db
 	ds 2
@@ -1739,7 +1739,7 @@ wMonHBaseHP:: db
 wMonHBaseAttack:: db
 wMonHBaseDefense:: db
 wMonHBaseSpeed:: db
-wMonHBaseSpecial:: db
+wMonHBaseSpAtk:: db
 wMonHTypes::
 ASSERT wMonHTypes - wMonHBaseStats == NUM_STATS, "wMonHeader carries one base-stat byte per stat (NUM_STATS)"
 wMonHType1:: db

@@ -141,7 +141,7 @@ _MoveDesc_SpeedUp1::
 	next "SPEED one step."
 	done
 
-_MoveDesc_SpecialUp1::
+_MoveDesc_SpAtkUp1::
 	text "Raises the user's"
 	next "SPECIAL one step."
 	done
@@ -184,7 +184,7 @@ _MoveDesc_SpeedDown1::
 	next "SPEED one step."
 	done
 
-_MoveDesc_SpecialDown1::
+_MoveDesc_SpAtkDown1::
 	text "Lowers the foe's"
 	next "SPECIAL one step."
 	done
@@ -347,7 +347,7 @@ _MoveDesc_SpeedUp2::
 	next "SPEED two steps."
 	done
 
-_MoveDesc_SpecialUp2::
+_MoveDesc_SpAtkUp2::
 	text "Raises the user's"
 	next "SPECIAL two"
 	next "steps."
@@ -393,7 +393,7 @@ _MoveDesc_SpeedDown2::
 	next "SPEED two steps."
 	done
 
-_MoveDesc_SpecialDown2::
+_MoveDesc_SpAtkDown2::
 	text "Lowers the foe's"
 	next "SPECIAL two"
 	next "steps."
@@ -455,7 +455,7 @@ _MoveDesc_SpeedDownSide::
 	next "SPEED one step."
 	done
 
-_MoveDesc_SpecialDownSide::
+_MoveDesc_SpAtkDownSide::
 	text "33 in 100 chance"
 	next "to lower the foe's"
 	next "SPECIAL one step."
@@ -564,7 +564,7 @@ _MoveDesc_SpeedEvasionUp1::
 	next "one step each."
 	done
 
-_MoveDesc_SpecialSpeedDown1::
+_MoveDesc_SpDefSpeedDown1::
 	text "Lowers the foe's"
 	next "SPECIAL and SPEED"
 	next "one step each."
@@ -577,7 +577,7 @@ _MoveDesc_AttackUp1Down1::
 	next "foe's one step."
 	done
 
-_MoveDesc_SpecialUp1Heal::
+_MoveDesc_AttackSpAtkUp1Heal::
 	text "Raises SPECIAL one"
 	next "step and heals a"
 	next "quarter of max HP."
@@ -595,13 +595,13 @@ _MoveDesc_SpeedEvasionDown1::
 	next "one step each."
 	done
 
-_MoveDesc_SpecialSpeedUp1::
+_MoveDesc_SpAtkSpeedUp1::
 	text "Raises the user's"
 	next "SPECIAL and SPEED"
 	next "one step each."
 	done
 
-_MoveDesc_SpecialAccuracyUp1::
+_MoveDesc_SpAtkSpDefAccuracyUp1::
 	text "Raises the user's"
 	next "SPECIAL and"
 	next "ACCURACY one step"
@@ -668,13 +668,13 @@ _MoveDesc_ExtremeSpeed::
 	done
 
 
-_MoveDesc_SpecialDown2Flinch::
+_MoveDesc_SpDefDown2Flinch::
 	text "Lowers SPECIAL two"
 	next "steps. 30 in 100"
 	next "to flinch the foe."
 	done
 
-_MoveDesc_SpecialDown1Flinch::
+_MoveDesc_SpDefDown1Flinch::
 	text "Lowers SPECIAL one"
 	next "step. 30 in 100 to"
 	next "flinch the foe."

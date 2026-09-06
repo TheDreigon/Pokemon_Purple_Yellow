@@ -65,7 +65,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackUp1 ; ATTACK_UP1_EFFECT
 	dw MoveDesc_DefenseUp1 ; DEFENSE_UP1_EFFECT
 	dw MoveDesc_SpeedUp1 ; SPEED_UP1_EFFECT
-	dw MoveDesc_SpecialUp1 ; SPECIAL_UP1_EFFECT
+	dw MoveDesc_SpAtkUp1 ; SPATK_UP1_EFFECT
 	dw MoveDesc_AccuracyUp1 ; ACCURACY_UP1_EFFECT
 	dw MoveDesc_EvasionUp1 ; EVASION_UP1_EFFECT
 	dw MoveDesc_PayDay ; PAY_DAY_EFFECT
@@ -73,7 +73,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackDown1 ; ATTACK_DOWN1_EFFECT
 	dw MoveDesc_DefenseDown1 ; DEFENSE_DOWN1_EFFECT
 	dw MoveDesc_SpeedDown1 ; SPEED_DOWN1_EFFECT
-	dw MoveDesc_SpecialDown1 ; SPECIAL_DOWN1_EFFECT
+	dw MoveDesc_SpAtkDown1 ; SPATK_DOWN1_EFFECT
 	dw MoveDesc_AccuracyDown1 ; ACCURACY_DOWN1_EFFECT
 	dw MoveDesc_EvasionDown1 ; EVASION_DOWN1_EFFECT
 	dw MoveDesc_Conversion ; CONVERSION_EFFECT
@@ -105,7 +105,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackUp2 ; ATTACK_UP2_EFFECT
 	dw MoveDesc_DefenseUp2 ; DEFENSE_UP2_EFFECT
 	dw MoveDesc_SpeedUp2 ; SPEED_UP2_EFFECT
-	dw MoveDesc_SpecialUp2 ; SPECIAL_UP2_EFFECT
+	dw MoveDesc_SpAtkUp2 ; SPATK_UP2_EFFECT
 	dw MoveDesc_AccuracyUp2 ; ACCURACY_UP2_EFFECT
 	dw MoveDesc_EvasionUp2 ; EVASION_UP2_EFFECT
 	dw MoveDesc_Heal ; HEAL_EFFECT
@@ -113,7 +113,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackDown2 ; ATTACK_DOWN2_EFFECT
 	dw MoveDesc_DefenseDown2 ; DEFENSE_DOWN2_EFFECT
 	dw MoveDesc_SpeedDown2 ; SPEED_DOWN2_EFFECT
-	dw MoveDesc_SpecialDown2 ; SPECIAL_DOWN2_EFFECT
+	dw MoveDesc_SpAtkDown2 ; SPATK_DOWN2_EFFECT
 	dw MoveDesc_AccuracyDown2 ; ACCURACY_DOWN2_EFFECT
 	dw MoveDesc_EvasionDown2 ; EVASION_DOWN2_EFFECT
 	dw MoveDesc_LightScreen ; LIGHT_SCREEN_EFFECT
@@ -123,7 +123,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackDownSide ; ATTACK_DOWN_SIDE_EFFECT
 	dw MoveDesc_DefenseDownSide ; DEFENSE_DOWN_SIDE_EFFECT
 	dw MoveDesc_SpeedDownSide ; SPEED_DOWN_SIDE_EFFECT
-	dw MoveDesc_SpecialDownSide ; SPECIAL_DOWN_SIDE_EFFECT
+	dw MoveDesc_SpAtkDownSide ; SPATK_DOWN_SIDE_EFFECT
 	dw MoveDesc_AttackDefenseUp1 ; ATTACK_DEFENSE_UP1_EFFECT
 	dw MoveDesc_AccuracyEvasionDown1 ; ACCURACY_EVASION_DOWN1_EFFECT
 	dw MoveDesc_Burn ; BURN_EFFECT
@@ -141,22 +141,22 @@ MoveEffectDescriptions:
 	dw MoveDesc_Disable ; DISABLE_EFFECT
 	dw MoveDesc_SpeedEvasionUp1 ; SPEED_EVASION_UP1_EFFECT
 	dw MoveDesc_ConfusionSide2 ; CONFUSION_SIDE_EFFECT2
-	dw MoveDesc_SpecialSpeedDown1 ; SPECIAL_SPEED_DOWN1_EFFECT
+	dw MoveDesc_SpDefSpeedDown1 ; SPDEF_SPEED_DOWN1_EFFECT
 	dw MoveDesc_AttackUp1Down1 ; ATTACK_UP1_DOWN1_EFFECT
-	dw MoveDesc_SpecialUp1Heal ; SPECIAL_UP1_HEAL_EFFECT
+	dw MoveDesc_AttackSpAtkUp1Heal ; ATTACK_SPATK_UP1_HEAL_EFFECT
 	dw MoveDesc_TriStatusSide ; TRI_STATUS_SIDE_EFFECT
 	dw MoveDesc_ConfusionSide3 ; CONFUSION_SIDE_EFFECT3
 	dw MoveDesc_SpeedEvasionDown1 ; SPEED_EVASION_DOWN1_EFFECT
-	dw MoveDesc_SpecialSpeedUp1 ; SPECIAL_SPEED_UP1_EFFECT
+	dw MoveDesc_SpAtkSpeedUp1 ; SPATK_SPEED_UP1_EFFECT
 	dw MoveDesc_ParalyzeSide3 ; PARALYZE_SIDE_EFFECT3
-	dw MoveDesc_SpecialAccuracyUp1 ; SPECIAL_ACCURACY_UP1_EFFECT
+	dw MoveDesc_SpAtkSpDefAccuracyUp1 ; SPATK_SPDEF_ACCURACY_UP1_EFFECT
 	dw MoveDesc_BurnSide3 ; BURN_SIDE_EFFECT3
 	dw MoveDesc_FalseSwipe ; FALSE_SWIPE_EFFECT
 	dw MoveDesc_TargetLevelDamage ; TARGET_LEVEL_DAMAGE_EFFECT
 	dw MoveDesc_LevelDamage ; USER_LEVEL_DAMAGE_EFFECT
 	dw MoveDesc_SpecialDamage ; SET_DAMAGE_EFFECT
-	dw MoveDesc_SpecialDown2Flinch ; SPECIAL_DOWN2_FLINCH_EFFECT
-	dw MoveDesc_SpecialDown1Flinch ; SPECIAL_DOWN1_FLINCH_EFFECT
+	dw MoveDesc_SpDefDown2Flinch ; SPDEF_DOWN2_FLINCH_EFFECT
+	dw MoveDesc_SpDefDown1Flinch ; SPDEF_DOWN1_FLINCH_EFFECT
 	dw MoveDesc_AttackDown2Flinch ; ATTACK_DOWN2_FLINCH_EFFECT
 	dw MoveDesc_SpeedDown2Flinch ; SPEED_DOWN2_FLINCH_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
@@ -441,44 +441,44 @@ MoveDesc_Sleep:
 	text_far _MoveDesc_Sleep
 	text_end
 
-MoveDesc_SpecialAccuracyUp1:
-	text_far _MoveDesc_SpecialAccuracyUp1
+MoveDesc_SpAtkSpDefAccuracyUp1:
+	text_far _MoveDesc_SpAtkSpDefAccuracyUp1
 	text_end
 
 MoveDesc_SpecialDamage:
 	text_far _MoveDesc_SpecialDamage
 	text_end
 
-MoveDesc_SpecialDown1:
-	text_far _MoveDesc_SpecialDown1
+MoveDesc_SpAtkDown1:
+	text_far _MoveDesc_SpAtkDown1
 	text_end
 
-MoveDesc_SpecialDown2:
-	text_far _MoveDesc_SpecialDown2
+MoveDesc_SpAtkDown2:
+	text_far _MoveDesc_SpAtkDown2
 	text_end
 
-MoveDesc_SpecialDownSide:
-	text_far _MoveDesc_SpecialDownSide
+MoveDesc_SpAtkDownSide:
+	text_far _MoveDesc_SpAtkDownSide
 	text_end
 
-MoveDesc_SpecialSpeedDown1:
-	text_far _MoveDesc_SpecialSpeedDown1
+MoveDesc_SpDefSpeedDown1:
+	text_far _MoveDesc_SpDefSpeedDown1
 	text_end
 
-MoveDesc_SpecialSpeedUp1:
-	text_far _MoveDesc_SpecialSpeedUp1
+MoveDesc_SpAtkSpeedUp1:
+	text_far _MoveDesc_SpAtkSpeedUp1
 	text_end
 
-MoveDesc_SpecialUp1:
-	text_far _MoveDesc_SpecialUp1
+MoveDesc_SpAtkUp1:
+	text_far _MoveDesc_SpAtkUp1
 	text_end
 
-MoveDesc_SpecialUp1Heal:
-	text_far _MoveDesc_SpecialUp1Heal
+MoveDesc_AttackSpAtkUp1Heal:
+	text_far _MoveDesc_AttackSpAtkUp1Heal
 	text_end
 
-MoveDesc_SpecialUp2:
-	text_far _MoveDesc_SpecialUp2
+MoveDesc_SpAtkUp2:
+	text_far _MoveDesc_SpAtkUp2
 	text_end
 
 MoveDesc_SpeedDown1:
@@ -593,12 +593,12 @@ MoveDesc_Sonicboom:
 	text_far _MoveDesc_Sonicboom
 	text_end
 
-MoveDesc_SpecialDown2Flinch:
-	text_far _MoveDesc_SpecialDown2Flinch
+MoveDesc_SpDefDown2Flinch:
+	text_far _MoveDesc_SpDefDown2Flinch
 	text_end
 
-MoveDesc_SpecialDown1Flinch:
-	text_far _MoveDesc_SpecialDown1Flinch
+MoveDesc_SpDefDown1Flinch:
+	text_far _MoveDesc_SpDefDown1Flinch
 	text_end
 
 MoveDesc_AttackDown2Flinch:

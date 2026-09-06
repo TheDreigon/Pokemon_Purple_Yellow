@@ -4769,7 +4769,7 @@ GetDamageVarsForPlayerAttack:
 	and a ; check for critical hit
 	jr nz, .specialCrit
 ; plain hit: battle stats as they stand, Light Screen doubling included
-	ld hl, wEnemyMonSpecial
+	ld hl, wEnemyMonSpAtk
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = enemy special
@@ -4779,24 +4779,24 @@ GetDamageVarsForPlayerAttack:
 ; if the enemy has used Light Screen, double the enemy's special
 	call DoubleStatCapped
 .specialPlainDone
-	ld hl, wBattleMonSpecial
+	ld hl, wBattleMonSpAtk
 	jr .scaleStats
 .specialCrit
 ; same rule as .physicalCrit; burn never touches Special, so no re-halving
-	ld hl, wEnemyMonSpecial
-	ld a, [wEnemyMonSpecialMod]
+	ld hl, wEnemyMonSpAtk
+	ld a, [wEnemyMonSpAtkMod]
 	cp BASE_STAT_LEVEL + 1
 	jr c, .specialCritGotDefense
-	ld hl, wEnemyMonUnmodifiedSpecial
+	ld hl, wEnemyMonUnmodifiedSpAtk
 .specialCritGotDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = enemy special
-	ld hl, wBattleMonSpecial
-	ld a, [wPlayerMonSpecialMod]
+	ld hl, wBattleMonSpAtk
+	ld a, [wPlayerMonSpAtkMod]
 	cp BASE_STAT_LEVEL
 	jr nc, .scaleStats
-	ld hl, wPlayerMonUnmodifiedSpecial
+	ld hl, wPlayerMonUnmodifiedSpAtk
 	; falls through to .scaleStats
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
 ; this allows values with up to 10 bits (values up to 1023) to be handled
@@ -4917,7 +4917,7 @@ GetDamageVarsForEnemyAttack:
 	and a ; check for critical hit
 	jr nz, .specialCrit
 ; plain hit: battle stats as they stand, Light Screen doubling included
-	ld hl, wBattleMonSpecial
+	ld hl, wBattleMonSpAtk
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = player special
@@ -4927,24 +4927,24 @@ GetDamageVarsForEnemyAttack:
 ; if the player has used Light Screen, double the player's special
 	call DoubleStatCapped
 .specialPlainDone
-	ld hl, wEnemyMonSpecial
+	ld hl, wEnemyMonSpAtk
 	jr .scaleStats
 .specialCrit
 ; same rule as .physicalCrit; burn never touches Special, so no re-halving
-	ld hl, wBattleMonSpecial
-	ld a, [wPlayerMonSpecialMod]
+	ld hl, wBattleMonSpAtk
+	ld a, [wPlayerMonSpAtkMod]
 	cp BASE_STAT_LEVEL + 1
 	jr c, .specialCritGotDefense
-	ld hl, wPlayerMonUnmodifiedSpecial
+	ld hl, wPlayerMonUnmodifiedSpAtk
 .specialCritGotDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl] ; bc = player special
-	ld hl, wEnemyMonSpecial
-	ld a, [wEnemyMonSpecialMod]
+	ld hl, wEnemyMonSpAtk
+	ld a, [wEnemyMonSpAtkMod]
 	cp BASE_STAT_LEVEL
 	jr nc, .scaleStats
-	ld hl, wEnemyMonUnmodifiedSpecial
+	ld hl, wEnemyMonUnmodifiedSpAtk
 	; falls through to .scaleStats
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
 ; this allows values with up to 10 bits (values up to 1023) to be handled

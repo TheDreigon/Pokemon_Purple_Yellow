@@ -76,7 +76,7 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const X_ATTACK      ; $41
 	const X_DEFEND      ; $42
 	const X_SPEED       ; $43
-	const X_SPECIAL     ; $44
+	const X_SPATK     ; $44
 	const COIN_CASE     ; $45
 	const OAKS_PARCEL   ; $46
 	const ITEMFINDER    ; $47

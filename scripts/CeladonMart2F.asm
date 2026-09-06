@@ -28,7 +28,7 @@ CeladonMart2FCurrentFloorSignText:
 CeladonMart2FClerk1Text::
 	; Item order follows the stats-screen stat order (ATK/DEF/SPC/SPD -
 	; see StatsText in engine/pokemon/status_screen.asm), then ACC/HIT/GUARD.
-	script_mart HP_UP, PROTEIN, IRON, CALCIUM, CARBOS, X_ATTACK, X_DEFEND, X_SPECIAL, X_SPEED, X_ACCURACY, DIRE_HIT, GUARD_SPEC
+	script_mart HP_UP, PROTEIN, IRON, CALCIUM, CARBOS, X_ATTACK, X_DEFEND, X_SPATK, X_SPEED, X_ACCURACY, DIRE_HIT, GUARD_SPEC
 
 CeladonMart2FClerk2Text::
 	; One of the two "elite" tiered mart clerks (the other: Indigo

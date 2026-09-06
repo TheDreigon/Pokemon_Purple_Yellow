@@ -263,7 +263,7 @@ _XSpeedDescription::
 	next "until you switch."
 	prompt
 
-_XSpecialDescription::
+_XSpAtkDescription::
 	text "Ups SPECIAL a step"
 	next "until you switch."
 	prompt

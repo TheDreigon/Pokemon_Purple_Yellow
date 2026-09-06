@@ -154,7 +154,7 @@ ItemDescriptionPointers:
 	text_end
 	text_far _XSpeedDescription
 	text_end
-	text_far _XSpecialDescription
+	text_far _XSpAtkDescription
 	text_end
 	text_far _CoinCaseDescription
 	text_end

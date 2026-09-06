@@ -13,7 +13,7 @@ MoveEffectPointerTable:
 	dw StatModifierUpEffect      ; ATTACK_UP1_EFFECT
 	dw StatModifierUpEffect      ; DEFENSE_UP1_EFFECT
 	dw StatModifierUpEffect      ; SPEED_UP1_EFFECT
-	dw StatModifierUpEffect      ; SPECIAL_UP1_EFFECT
+	dw StatModifierUpEffect      ; SPATK_UP1_EFFECT
 	dw StatModifierUpEffect      ; ACCURACY_UP1_EFFECT
 	dw StatModifierUpEffect      ; EVASION_UP1_EFFECT
 	dw PayDayEffect              ; PAY_DAY_EFFECT
@@ -21,7 +21,7 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; ATTACK_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; DEFENSE_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN1_EFFECT
-	dw StatModifierDownEffect    ; SPECIAL_DOWN1_EFFECT
+	dw StatModifierDownEffect    ; SPATK_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; ACCURACY_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; EVASION_DOWN1_EFFECT
 	dw RemovedMoveEffect         ; CONVERSION_EFFECT (Conversion removed in v0.5)
@@ -53,7 +53,7 @@ MoveEffectPointerTable:
 	dw StatModifierUpEffect      ; ATTACK_UP2_EFFECT
 	dw StatModifierUpEffect      ; DEFENSE_UP2_EFFECT
 	dw StatModifierUpEffect      ; SPEED_UP2_EFFECT
-	dw StatModifierUpEffect      ; SPECIAL_UP2_EFFECT
+	dw StatModifierUpEffect      ; SPATK_UP2_EFFECT
 	dw StatModifierUpEffect      ; ACCURACY_UP2_EFFECT
 	dw StatModifierUpEffect      ; EVASION_UP2_EFFECT
 	dw HealEffect                ; HEAL_EFFECT
@@ -61,7 +61,7 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; ATTACK_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; DEFENSE_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN2_EFFECT
-	dw StatModifierDownEffect    ; SPECIAL_DOWN2_EFFECT
+	dw StatModifierDownEffect    ; SPATK_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; ACCURACY_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; EVASION_DOWN2_EFFECT
 	dw ReflectLightScreenEffect  ; LIGHT_SCREEN_EFFECT
@@ -71,7 +71,7 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; ATTACK_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; DEFENSE_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN_SIDE_EFFECT
-	dw StatModifierDownEffect    ; SPECIAL_DOWN_SIDE_EFFECT
+	dw StatModifierDownEffect    ; SPATK_DOWN_SIDE_EFFECT
 	dw AttackDefenseUp1Effect    ; ATTACK_DEFENSE_UP1_EFFECT
 	dw AccuracyEvasionDown1Effect; ACCURACY_EVASION_DOWN1_EFFECT
 	dw BurnEffect                ; BURN_EFFECT
@@ -89,22 +89,22 @@ MoveEffectPointerTable:
 	dw DisableEffect             ; DISABLE_EFFECT
 	dw SpeedEvasionUp1Effect     ; SPEED_EVASION_UP1_EFFECT
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT2
-	dw SpecialSpeedDown1Effect   ; SPECIAL_SPEED_DOWN1_EFFECT
+	dw SpDefSpeedDown1Effect   ; SPDEF_SPEED_DOWN1_EFFECT
 	dw AttackUp1Down1Effect      ; ATTACK_UP1_DOWN1_EFFECT
-	dw SpecialUp1HealEffect      ; SPECIAL_UP1_HEAL_EFFECT
+	dw AttackSpAtkUp1HealEffect      ; ATTACK_SPATK_UP1_HEAL_EFFECT
 	dw TriStatusSideEffect       ; TRI_STATUS_SIDE_EFFECT
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT3
 	dw SpeedEvasionDown1Effect   ; SPEED_EVASION_DOWN1_EFFECT
-	dw SpecialSpeedUp1Effect     ; SPECIAL_SPEED_UP1_EFFECT
+	dw SpAtkSpeedUp1Effect     ; SPATK_SPEED_UP1_EFFECT
 	dw FreezeBurnParalyzeEffect  ; PARALYZE_SIDE_EFFECT3
-	dw SpecialAccuracyUp1Effect  ; SPECIAL_ACCURACY_UP1_EFFECT
+	dw SpAtkSpDefAccuracyUp1Effect  ; SPATK_SPDEF_ACCURACY_UP1_EFFECT
 	dw FreezeBurnParalyzeEffect  ; BURN_SIDE_EFFECT3
 	dw NULL                      ; FALSE_SWIPE_EFFECT (the 1 HP clamp lives at the damage-apply hook in core.asm, not here)
 	dw NULL                      ; TARGET_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
 	dw NULL                      ; USER_LEVEL_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
 	dw NULL                      ; SET_DAMAGE_EFFECT (handled inline at ApplyAttackTo*Pokemon)
-	dw SpecialDown2FlinchEffect  ; SPECIAL_DOWN2_FLINCH_EFFECT
-	dw SpecialDown1FlinchEffect  ; SPECIAL_DOWN1_FLINCH_EFFECT
+	dw SpDefDown2FlinchEffect  ; SPDEF_DOWN2_FLINCH_EFFECT
+	dw SpDefDown1FlinchEffect  ; SPDEF_DOWN1_FLINCH_EFFECT
 	dw AttackDown2FlinchEffect   ; ATTACK_DOWN2_FLINCH_EFFECT
 	dw SpeedDown2FlinchEffect    ; SPEED_DOWN2_FLINCH_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS

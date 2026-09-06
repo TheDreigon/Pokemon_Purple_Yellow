@@ -1938,8 +1938,9 @@ SpeedEvasionUp1Effect:
 	ld [de], a
 	ret
 
-SpecialAccuracyUp1Effect:
+SpAtkSpDefAccuracyUp1Effect:
 ; Dual-stat +1 for the user (Special + Accuracy). Used by CALM_MIND (revised).
+; Named for the split (2026-09-06): SP.ATK+1 & SP.DEF+1 & Acc+1 from F3; the stat leg is the shared SPECIAL until then.
 ; Same pattern as AttackAccuracyUp1Effect.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
@@ -1948,7 +1949,7 @@ SpecialAccuracyUp1Effect:
 	ld de, wEnemyMoveEffect
 .gotEffectPtrCM
 	push de
-	ld a, SPECIAL_UP1_EFFECT
+	ld a, SPATK_UP1_EFFECT
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
@@ -1960,7 +1961,7 @@ SpecialAccuracyUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	ld a, SPECIAL_ACCURACY_UP1_EFFECT
+	ld a, SPATK_SPDEF_ACCURACY_UP1_EFFECT
 	ld [de], a
 	ret
 
@@ -1996,8 +1997,9 @@ AccuracyEvasionDown1Effect:
 	ld [de], a
 	ret
 
-SpecialSpeedDown1Effect:
+SpDefSpeedDown1Effect:
 ; Dual-stat -1 on the target (Special + Speed). Used by EERIE_IMPULSE.
+; Named for the split (2026-09-06): SP.DEF-1 & Speed-1 from F3; the stat leg is the shared SPECIAL until then.
 ; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
 ; its own accuracy check; for 100% accurate moves both always land.
 	ldh a, [hWhoseTurn]
@@ -2007,7 +2009,7 @@ SpecialSpeedDown1Effect:
 	ld de, wEnemyMoveEffect
 .gotEffectPtr5
 	push de
-	ld a, SPECIAL_DOWN1_EFFECT
+	ld a, SPATK_DOWN1_EFFECT
 	ld [de], a
 	call StatModifierDownEffect
 	pop de
@@ -2021,15 +2023,16 @@ SpecialSpeedDown1Effect:
 	ld [de], a
 	call StatModifierDownEffect
 	pop de
-	ld a, SPECIAL_SPEED_DOWN1_EFFECT
+	ld a, SPDEF_SPEED_DOWN1_EFFECT
 	ld [de], a
 	ret
 
-SpecialDown2FlinchEffect:
+SpDefDown2FlinchEffect:
 ; Target Special -2 plus ~30% flinch. Used by METAL_SOUND (Forte's call,
-; 2026-09-01; the stat leg becomes SP.DEF when the 1.0 split lands).
-	ld b, SPECIAL_DOWN2_EFFECT
-	ld c, SPECIAL_DOWN2_FLINCH_EFFECT
+; 2026-09-01). Named for the split (2026-09-06): SP.DEF-2 from F3; the stat leg
+; is the shared SPECIAL until then.
+	ld b, SPATK_DOWN2_EFFECT
+	ld c, SPDEF_DOWN2_FLINCH_EFFECT
 	jr DoStatDownFlinchEffect
 
 AttackDown2FlinchEffect:
@@ -2045,14 +2048,15 @@ SpeedDown2FlinchEffect:
 	ld c, SPEED_DOWN2_FLINCH_EFFECT
 	jr DoStatDownFlinchEffect
 
-SpecialDown1FlinchEffect:
+SpDefDown1FlinchEffect:
 ; Target Special -1 plus ~30% flinch. Used by SCREECH (same day, same call).
-	ld b, SPECIAL_DOWN1_EFFECT
-	ld c, SPECIAL_DOWN1_FLINCH_EFFECT
+; Named for the split (2026-09-06): SP.DEF-1 from F3; shared SPECIAL until then.
+	ld b, SPATK_DOWN1_EFFECT
+	ld c, SPDEF_DOWN1_FLINCH_EFFECT
 	; fallthrough
 DoStatDownFlinchEffect:
 ; in: b = the stat-down leg to spoof, c = our own effect id to restore.
-; Same spoof pattern as SpecialSpeedDown1Effect above, but the second leg
+; Same spoof pattern as SpDefSpeedDown1Effect above, but the second leg
 ; is FlinchSideEffect (which re-derives its side from hWhoseTurn and reads
 ; the chance tier from the move-effect byte: anything but tier 1 = 30%).
 ; The flinch rolls ONLY when the stat leg landed - one accuracy roll for
@@ -2089,7 +2093,7 @@ SpeedEvasionDown1Effect:
 ; Dual-stat -1 on the target (Speed + Evasion). Used by PSYCHIC_BIND (v0.7).
 ; Mirrors SpeedEvasionUp1Effect (Agility) but in the down direction —
 ; same "spoof effect, call StatModifierDownEffect twice, restore" pattern
-; as SpecialSpeedDown1Effect / AccuracyEvasionDown1Effect above.
+; as SpDefSpeedDown1Effect / AccuracyEvasionDown1Effect above.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2115,9 +2119,10 @@ SpeedEvasionDown1Effect:
 	ld [de], a
 	ret
 
-SpecialSpeedUp1Effect:
+SpAtkSpeedUp1Effect:
 ; Dual-stat +1 for the user (Special + Speed). Used by QUIVER_DANCE (v0.7).
-; Mirrors SpecialSpeedDown1Effect in the up direction — same pattern as
+; Named for the split (2026-09-06): SP.ATK+1 & Speed+1 from F3; shared SPECIAL until then.
+; Mirrors SpDefSpeedDown1Effect in the up direction — same pattern as
 ; AttackDefenseUp1Effect / SpeedEvasionUp1Effect above.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
@@ -2126,7 +2131,7 @@ SpecialSpeedUp1Effect:
 	ld de, wEnemyMoveEffect
 .gotEffectPtr8
 	push de
-	ld a, SPECIAL_UP1_EFFECT
+	ld a, SPATK_UP1_EFFECT
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
@@ -2140,7 +2145,7 @@ SpecialSpeedUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	ld a, SPECIAL_SPEED_UP1_EFFECT
+	ld a, SPATK_SPEED_UP1_EFFECT
 	ld [de], a
 	ret
 
@@ -2174,8 +2179,9 @@ AttackUp1Down1Effect:
 	ld [de], a
 	ret
 
-SpecialUp1HealEffect:
+AttackSpAtkUp1HealEffect:
 ; Dual: SPC+1 to user + heal 1/4 max HP. Used by GROWTH (revised).
+; Named for the split (2026-09-06): ATTACK+1 & SP.ATK+1 & heal from F3; the stat leg is the shared SPECIAL until then.
 ; Phase 1 uses StatModifierUpEffect for animated SPC+1 + "rose!" text.
 ; Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch that
 ; divides max HP by 4 and honours wMoveDidntMiss to skip re-animating.
@@ -2186,7 +2192,7 @@ SpecialUp1HealEffect:
 	ld de, wEnemyMoveEffect
 .gotEffectPtr7
 	push de
-	ld a, SPECIAL_UP1_EFFECT
+	ld a, SPATK_UP1_EFFECT
 	ld [de], a
 	call StatModifierUpEffect       ; +1 SPC to user (anim + text)
 	pop de
@@ -2222,7 +2228,7 @@ SpecialUp1HealEffect:
 	callfar HealEffect_             ; /4 heal via Growth branch
 .growthSkipHeal
 	pop de
-	ld a, SPECIAL_UP1_HEAL_EFFECT
+	ld a, ATTACK_SPATK_UP1_HEAL_EFFECT
 	ld [de], a
 	ret
 
