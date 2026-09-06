@@ -701,6 +701,33 @@ SpecialTrainerMoves:
 	db 6, 4, AGILITY
 	db 0
 
+	db JESSIE_AND_JAMES, 5 ; Viridian Gym (the Boss's bodyguards) — 51 KINGLER, 51 NIDOQUEEN, 52 GYARADOS, 52 ARBOK, 52 WEEZING, 52 MEOWTH
+	db 1, 1, CRABHAMMER
+	db 1, 2, WATERFALL
+	db 1, 3, MUD_BOMB
+	db 1, 4, VICEGRIP
+	db 2, 1, PLAY_ROUGH
+	db 2, 2, BULLDOZE
+	db 2, 3, MUD_BOMB
+	db 2, 4, TOXIC_FANGS
+	db 3, 1, DRAGON_SLAM
+	db 3, 2, THRASH
+	db 3, 3, BRUTAL_SWING
+	db 3, 4, DRAGON_RAGE
+	db 4, 1, IRON_TAIL
+	db 4, 2, TOXIC_FANGS
+	db 4, 3, INTIMIDATE
+	db 4, 4, SUBSTITUTE
+	db 5, 1, SLUDGE_WAVE
+	db 5, 2, FLAMETHROWER
+	db 5, 3, LIGHT_SCREEN
+	db 5, 4, SCARY_FACE
+	db 6, 1, SLASH
+	db 6, 2, NASTY_PLOT
+	db 6, 3, INTIMIDATE
+	db 6, 4, AGILITY
+	db 0
+
 	db JANINE, 1 ; Fuchsia Gym (post-Koga) — 39 WEEZING, 39 MUK, 40 GOLBAT, 41 VENOMOTH, 41 BEEDRILL
 	db 1, 1, SLUDGE
 	db 1, 2, FLAMETHROWER

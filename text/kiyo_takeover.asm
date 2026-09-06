@@ -265,10 +265,12 @@ _ViridianGymCooltrainerM2KiyoEraText::
 	cont "JOHTO, alone."
 	done
 
-_ViridianGymHiker3KiyoEraText::
-	text "KIYO says a GYM"
-	line "is a promise to"
-	cont "the town."
+_ViridianGymJessieKiyoEraText::
+; the bodyguards, still at their post after the takeover (both share this line)
+	text "The BOSS ran off"
+	line "to JOHTO without"
+	cont "us. The new guy"
+	cont "lets us sweep."
 	done
 
 _ViridianGymRocker2KiyoEraText::

@@ -252,7 +252,7 @@ SemiBossTrainerClasses::
 	db CRAIG
 	db JANINE
 	db JENNY
-	db JESSIE_AND_JAMES         ; Team Rocket duo (4 fights, mid-game)
+	db JESSIE_AND_JAMES         ; Team Rocket duo (5 fights: four mid-game, the Viridian Gym door)
 	db JOY
 	db KIYO                     ; the KARATE MASTER of the Saffron dojo. His
 	                            ; Viridian Gym fight is a FULL boss and is

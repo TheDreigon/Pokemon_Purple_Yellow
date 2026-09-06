@@ -220,11 +220,12 @@ ViridianGym_TextPointers:
 	dw_const ViridianGymRocker1Text,                TEXT_VIRIDIANGYM_ROCKER1
 	dw_const ViridianGymHiker2Text,                 TEXT_VIRIDIANGYM_HIKER2
 	dw_const ViridianGymCooltrainerM2Text,          TEXT_VIRIDIANGYM_COOLTRAINER_M2
-	dw_const ViridianGymHiker3Text,                 TEXT_VIRIDIANGYM_HIKER3
+	dw_const ViridianGymJessieText,                 TEXT_VIRIDIANGYM_JESSIE
 	dw_const ViridianGymRocker2Text,                TEXT_VIRIDIANGYM_ROCKER2
 	dw_const ViridianGymCooltrainerM3Text,          TEXT_VIRIDIANGYM_COOLTRAINER_M3
 	dw_const ViridianGymGymGuideText,               TEXT_VIRIDIANGYM_GYM_GUIDE
 	dw_const PickUpItemText,                        TEXT_VIRIDIANGYM_MAX_REVIVE
+	dw_const ViridianGymJamesText,                 TEXT_VIRIDIANGYM_JAMES ; a plain object: its id must sit within the first 13 (def_warps_to's rule)
 	dw_const ViridianGymGiovanniEarthBadgeInfoText, TEXT_VIRIDIANGYM_GIOVANNI_EARTH_BADGE_INFO
 	dw_const ViridianGymGiovanniReceivedTMText,   TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_TM
 	dw_const ViridianGymGiovanniTMNoRoomText,     TEXT_VIRIDIANGYM_GIOVANNI_TM_NO_ROOM
@@ -245,7 +246,7 @@ ViridianGymTrainerHeader3:
 ViridianGymTrainerHeader4:
 	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_4, TEXT_VIRIDIANGYM_COOLTRAINER_M2, ViridianGymCooltrainerM2BattleText, ViridianGymCooltrainerM2EndBattleText, ViridianGymCooltrainerM2AfterBattleText
 ViridianGymTrainerHeader5:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_5, TEXT_VIRIDIANGYM_HIKER3, ViridianGymHiker3BattleText, ViridianGymHiker3EndBattleText, ViridianGymHiker3AfterBattleText
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_5, TEXT_VIRIDIANGYM_JESSIE, ViridianGymJessieBattleText, ViridianGymJessieEndBattleText, ViridianGymJessieAfterBattleText
 ViridianGymTrainerHeader6:
 	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_6, TEXT_VIRIDIANGYM_ROCKER2, ViridianGymRocker2BattleText, ViridianGymRocker2EndBattleText, ViridianGymRocker2AfterBattleText
 ViridianGymTrainerHeader7:
@@ -505,21 +506,21 @@ ViridianGymCooltrainerM2AfterBattleText:
 	text_far _ViridianGymCooltrainerM2KiyoEraText
 	text_end
 
-ViridianGymHiker3Text:
+ViridianGymJessieText:
 	text_asm
 	ld hl, ViridianGymTrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
-ViridianGymHiker3BattleText:
-	text_far _ViridianGymHiker3BattleText
+ViridianGymJessieBattleText:
+	text_far _ViridianGymJessieBattleText
 	text_end
 
-ViridianGymHiker3EndBattleText:
-	text_far _ViridianGymHiker3EndBattleText
+ViridianGymJessieEndBattleText:
+	text_far _ViridianGymJessieEndBattleText
 	text_end
 
-ViridianGymHiker3AfterBattleText:
+ViridianGymJessieAfterBattleText:
 	text_asm
 	ld hl, .Vanilla
 	ld a, [wGameStage]
@@ -530,10 +531,36 @@ ViridianGymHiker3AfterBattleText:
 	call PrintText
 	jp TextScriptEnd
 .Vanilla:
-	text_far _ViridianGymHiker3AfterBattleText
+	text_far _ViridianGymJessieAfterBattleText
 	text_end
 .KiyoEra:
-	text_far _ViridianGymHiker3KiyoEraText
+	text_far _ViridianGymJessieKiyoEraText
+	text_end
+
+ViridianGymJamesText:
+; JESSIE's partner: no header of his own (one fight for the pair). Before the
+; fight he points at her; after it he sulks; post-League the pair share the
+; takeover line.
+	text_asm
+	ld hl, .BeforeText
+	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_TRAINER_5
+	jr z, .print
+	ld hl, .BeatenText
+	ld a, [wGameStage]
+	and a
+	jr z, .print
+	ld hl, .KiyoEra
+.print
+	call PrintText
+	jp TextScriptEnd
+.BeforeText:
+	text_far _ViridianGymJamesBeforeText
+	text_end
+.BeatenText:
+	text_far _ViridianGymJamesBeatenText
+	text_end
+.KiyoEra:
+	text_far _ViridianGymJessieKiyoEraText
 	text_end
 
 ViridianGymRocker2Text:

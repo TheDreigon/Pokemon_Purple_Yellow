@@ -320,6 +320,8 @@ JessieAndJamesData:
 	db $FF, 31, LICKITUNG, 32, ARBOK, 32, WEEZING, 33, MEOWTH, 0
 ; 4: Silph Co. 11F
 	db $FF, 41, LICKITUNG, 42, VICTREEBEL, 42, GYARADOS, 43, ARBOK, 43, WEEZING, 44, MEOWTH, 0
+; 5: Viridian Gym (the Boss's bodyguards)
+	db $FF, 51, KINGLER, 51, NIDOQUEEN, 52, GYARADOS, 52, ARBOK, 52, WEEZING, 52, MEOWTH, 0
 
 SuperNerdData:
 ; Mt. Moon 1F

@@ -181,20 +181,41 @@ _ViridianGymCooltrainerM2AfterBattleText::
 	line "scold me!"
 	done
 
-_ViridianGymHiker3BattleText::
-	text "I'm the KARATE"
-	line "KING! Your fate"
-	cont "rests with me!"
+; v1.0 (2026-09-06, Forte): JESSIE & JAMES at the door of Giovanni's room, the
+; duo's fifth fight. The end line keeps its one-letter first row: the battle
+; screen prints "JESSIE&JAMES: " (14 tiles) before it.
+_ViridianGymJessieBattleText::
+	text "Stop right there!"
+
+	para "Nobody sees the"
+	line "BOSS without"
+	cont "getting past us!"
+
+	para "Surrender now, or"
+	line "prepare to fight!"
 	done
 
-_ViridianGymHiker3EndBattleText::
-	text "Ayah!"
+_ViridianGymJessieEndBattleText::
+	text "A"
+	line "brat beat us?"
 	prompt
 
-_ViridianGymHiker3AfterBattleText::
-	text "#MON LEAGUE?"
-	line "You? Don't get"
-	cont "cocky!"
+_ViridianGymJessieAfterBattleText::
+	text "Fine, go in."
+
+	para "The BOSS will"
+	line "deal with you"
+	cont "himself!"
+	done
+
+_ViridianGymJamesBeforeText::
+	text "JESSIE does the"
+	line "talking. I do"
+	cont "the posing."
+	done
+
+_ViridianGymJamesBeatenText::
+	text "We had one job."
 	done
 
 _ViridianGymRocker2BattleText::

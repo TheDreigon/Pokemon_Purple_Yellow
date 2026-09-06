@@ -73,7 +73,7 @@ ENDM
 	trainer_const JANINE		 ; $31
 	trainer_const JOY		 	 ; $32
 	trainer_const JENNY		 	 ; $33
-	trainer_const JESSIE_AND_JAMES ; $34 — Team Rocket duo (4 fights, mid-game). Boss-class in Hard mode.
+	trainer_const JESSIE_AND_JAMES ; $34 — Team Rocket duo (5 fights: four mid-game, then the door of Giovanni's room in the Viridian Gym). Semi-boss in Hard mode.
 	trainer_const FORTE ; $35 — "Forte / DREIGON", repeatable end-game superboss (Mewtwo's chamber). Boss class.
 	trainer_const BILL ; $36 — post-League rematch in his house, same category as Joy and Jenny.
 DEF NUM_TRAINERS EQU const_value - 1

@@ -5,12 +5,13 @@
 	const_export VIRIDIANGYM_ROCKER1
 	const_export VIRIDIANGYM_HIKER2
 	const_export VIRIDIANGYM_COOLTRAINER_M2
-	const_export VIRIDIANGYM_HIKER3
+	const_export VIRIDIANGYM_JESSIE ; the Boss's bodyguards (2026-09-06): took the KARATE KING blackbelt's slot
 	const_export VIRIDIANGYM_ROCKER2
 	const_export VIRIDIANGYM_COOLTRAINER_M3
 	const_export VIRIDIANGYM_GYM_GUIDE
 	const_export VIRIDIANGYM_MAX_REVIVE
 	const_export VIRIDIANGYM_KIYO
+	const_export VIRIDIANGYM_JAMES
 
 ViridianGym_Object:
 	db $3 ; border block
@@ -28,7 +29,14 @@ ViridianGym_Object:
 	object_event 10,  7, SPRITE_ROCKER, STAY, DOWN, TEXT_VIRIDIANGYM_ROCKER1, OPP_TAMER, 3, 4
 	object_event  3,  7, SPRITE_HIKER, STAY, LEFT, TEXT_VIRIDIANGYM_HIKER2, OPP_BLACKBELT, 7, 2
 	object_event 13,  5, SPRITE_COOLTRAINER_M, STAY, RIGHT, TEXT_VIRIDIANGYM_COOLTRAINER_M2, OPP_COOLTRAINER_M, 10, 3
-	object_event 10,  1, SPRITE_HIKER, STAY, DOWN, TEXT_VIRIDIANGYM_HIKER3, OPP_BLACKBELT, 8, 4
+; v1.0 (2026-09-06, Forte): JESSIE & JAMES guard the door of Giovanni's room -
+; the fifth and last fight of the duo, the last fight before the Boss. JESSIE
+; carries the trainer header (class JESSIE_AND_JAMES, party 5); she faces the
+; room's only entry tile (4,4) at range 1, so nobody reaches Giovanni without
+; getting past them. JAMES stands beside her (a plain object, last in the list).
+; They stay after the fight: hide_show has no spare row, and beaten bodyguards
+; at their post are the joke.
+	object_event  4,  3, SPRITE_JESSIE, STAY, DOWN, TEXT_VIRIDIANGYM_JESSIE, OPP_JESSIE_AND_JAMES, 5, 1
 	object_event  2, 16, SPRITE_ROCKER, STAY, RIGHT, TEXT_VIRIDIANGYM_ROCKER2, OPP_TAMER, 4, 3
 	object_event  6,  5, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_VIRIDIANGYM_COOLTRAINER_M3, OPP_COOLTRAINER_M, 1, 4
 	object_event 19, 15, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_VIRIDIANGYM_GYM_GUIDE
@@ -36,5 +44,6 @@ ViridianGym_Object:
 ; KIYO stands where Giovanni stood. Hidden by default (hide_show_data row);
 ; ViridianGymPostLeagueState swaps the two once wGameStage is set.
 	object_event  2,  1, SPRITE_HIKER, STAY, DOWN, TEXT_VIRIDIANGYM_KIYO, OPP_KIYO, 2
+	object_event  3,  3, SPRITE_JAMES, STAY, DOWN, TEXT_VIRIDIANGYM_JAMES ; JESSIE's partner, no header: her fight is theirs
 
 	def_warps_to VIRIDIAN_GYM
