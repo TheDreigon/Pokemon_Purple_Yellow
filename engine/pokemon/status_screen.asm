@@ -160,6 +160,10 @@ StatusScreen:
 	ld hl, vChars2 + $760
 	lb bc, BANK(BattleHudTiles3), $02
 	call CopyVideoDataDouble ; ─┘
+	ld de, DexLabelTiles
+	ld hl, vChars2 + $600 ; tiles $60-$61: unused by both pages (the dex's ′ ″ live there elsewhere)
+	lb bc, BANK(DexLabelTiles), (DexLabelTilesEnd - DexLabelTiles) / 8
+	call CopyVideoDataDouble ; the condensed "DEX" of "DEX№."
 	jr .screenBlanked
 .quietRedraw
 ; STATUS_QUIET composes this page behind the one already on screen rather than
@@ -175,17 +179,19 @@ StatusScreen:
 	coord hl, 19, 1
 	lb bc, 6, 10
 	call DrawLineBox ; Draws the box around name, HP and status
-	ld de, -6
-	add hl, de
-	ld [hl], "<DOT>"
-	dec hl
-	ld [hl], "№"
+; v1.0 (2026-09-06, Forte): the dex number moved off row 7 into the lower-right
+; panel, above TYPE1/ (row 8, the one row that panel had free), so the left
+; half of row 7 is empty - a row of air between the picture and ATTACK.
+	coord hl, 10, 8
+	ld [hl], $60 ; "DE" - the condensed DEX glyph pair, same style as <ID>
+	inc hl
+	ld [hl], $61 ; "X"
+	inc hl
+	ld de, DexNoText
+	call PlaceString ; "№." - so the number reads apart from the DV page's ID№/ (Forte)
 	coord hl, 19, 9
 	lb bc, 8, 6
-	call DrawLineBox ; Draws the box around types, ID No. and OT
-	coord hl, 10, 9
-	ld de, Type1Text
-	call PlaceString ; "TYPE1/"
+	call DrawLineBox ; Draws the box around the types (or, with START, ID No. and OT)
 	coord hl, 11, 3
 	predef DrawHP
 
@@ -247,28 +253,45 @@ StatusScreen:
 	ld [wd11e], a
 	ld [wd0b5], a
 	predef IndexToPokedex
-	coord hl, 3, 7
+	coord hl, 14, 8
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
-	call PrintNumber ; Pokémon no.
-	coord hl, 11, 10
-	predef PrintMonType
+	call PrintNumber ; Pokémon no.: "DEX№.025" on cols 10-16 of row 8
 	ld hl, NamePointers2
 	call .GetStringPointer
 	ld d, h
 	ld e, l
 	coord hl, 9, 1
 	call PlaceString ; Pokémon name
+; v1.0 (2026-09-06, Forte): the lower-right panel holds the dex number (row
+; 8), a blank row, then the types on rows 10-13 - rows 14-15 stay free for a
+; possible third type. The ID number and the OT moved to the DV page: with
+; START held, rows 10-13 show IDNo/ and OT/ instead of the types.
+	call Joypad
+	ldh a, [hJoyHeld]
+	bit BIT_START, a
+	jr nz, .identityPanel
+	coord hl, 10, 10
+	ld de, TypesText
+	call PlaceString ; "TYPE1/" (row 10), "TYPE2/" (row 12)
+	coord hl, 11, 11
+	predef PrintMonType ; names on rows 11 and 13; its TYPE2/ erase lands on (10,12)
+	jr .panelDone
+.identityPanel
+	coord hl, 10, 10
+	ld de, IdentityText
+	call PlaceString ; "IDNo/" (row 10), "OT/" (row 12)
+	coord hl, 12, 11
+	ld de, wLoadedMonOTID
+	lb bc, LEADING_ZEROES | 2, 5
+	call PrintNumber ; ID Number
 	ld hl, OTPointers
 	call .GetStringPointer
 	ld d, h
 	ld e, l
-	coord hl, 12, 16
+	coord hl, 12, 13
 	call PlaceString ; OT
-	coord hl, 12, 14
-	ld de, wLoadedMonOTID
-	lb bc, LEADING_ZEROES | 2, 5
-	call PrintNumber ; ID Number
+.panelDone
 	ld d, $0
 	call PrintStatsBox
 	call Delay3
@@ -451,21 +474,16 @@ NamePointers2:
 	dw wBoxMonNicks
 	dw wDayCareMonName
 
-Type1Text:
+TypesText:
 	db   "TYPE1/"
-	next ""
-	; fallthrough
-Type2Text:
-	db   "TYPE2/"
-	next ""
-	; fallthrough
-IDNoText:
+	next "TYPE2/@" ; two rows down
+
+IdentityText: ; the DV page (START held) shows these where the types were
 	db   "<ID>№/"
-	next ""
-	; fallthrough
-OTText:
-	db   "OT/"
-	next "@"
+	next "OT/@"
+
+DexNoText: ; follows the two DexLabelTiles ("DEX") on row 8
+	db "№<DOT>@"
 
 StatusText:
 	db "STATUS/@"
@@ -526,6 +544,17 @@ PrintStatsBox:
 	call TextBoxBorder
 	hlcoord 11, 1
 	ld bc, $18
+	push bc
+	push hl
+	ld de, StatsText
+	call PlaceString
+	pop hl
+	pop bc
+	add hl, bc
+; The hold overlays below belong to the STATS page alone: only StatusScreen
+; runs DVParse, so a START held over a level-up / RARE CANDY box used to print
+; the DVs of whichever mon's page was opened last (review, 2026-09-06).
+	jr .doregular
 .PrintStats
 	push bc
 	push hl
