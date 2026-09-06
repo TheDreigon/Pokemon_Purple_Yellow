@@ -374,7 +374,7 @@ HikerData:
 MistyData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Cerulean Gym
-	db $FF, 18, PSYDUCK, 20, GOLDEEN, 22, STARMIE, 0
+	db $FF, 18, GOLDEEN, 20, PSYDUCK, 22, STARMIE, 0
 ; 2: Rematch
 	db $FF, 63, BLASTOISE, 64, GYARADOS, 64, OMASTAR, 65, STARMIE, 65, GOLDUCK, 0
 

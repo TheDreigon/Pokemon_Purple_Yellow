@@ -50,15 +50,15 @@ SpecialTrainerMoves:
 	db 5, 4, DRAGON_SLAM
 	db 0
 
-	db MISTY, 1 ; Cerulean Gym — 18 PSYDUCK, 20 GOLDEEN, 22 STARMIE
+	db MISTY, 1 ; Cerulean Gym — 18 GOLDEEN, 20 PSYDUCK, 22 STARMIE
 	db 1, 1, WATER_PULSE
-	db 1, 2, CONFUSION
-	db 1, 3, DISABLE
-	db 1, 4, ICY_PULSE
+	db 1, 2, HORN_ATTACK
+	db 1, 3, SUPERSONIC
+	db 1, 4, TAIL_WHIP
 	db 2, 1, WATER_PULSE
-	db 2, 2, HORN_ATTACK
-	db 2, 3, SUPERSONIC
-	db 2, 4, ICY_PULSE
+	db 2, 2, CONFUSION
+	db 2, 3, DISABLE
+	db 2, 4, GROWL
 	db 3, 1, WATER_PULSE
 	db 3, 2, EXTRASENSORY
 	db 3, 3, RECOVER
