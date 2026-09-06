@@ -4,8 +4,6 @@ MACRO flag_array
 	ds ((\1) + 7) / 8
 ENDM
 
-DEF BOX_STRUCT_LENGTH EQU 25 + NUM_MOVES * 2
-
 MACRO box_struct
 \1Species::    db
 \1HP::         dw
@@ -36,6 +34,7 @@ MACRO party_struct
 \1Defense::    dw
 \1Speed::      dw
 \1Special::    dw
+\1StatsEnd::
 ENDM
 
 MACRO battle_struct
@@ -57,6 +56,7 @@ MACRO battle_struct
 \1Defense::    dw
 \1Speed::      dw
 \1Special::    dw
+\1StatsEnd::
 \1PP::         ds NUM_MOVES
 ENDM
 

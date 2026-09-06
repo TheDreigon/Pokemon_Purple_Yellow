@@ -710,6 +710,15 @@ wEnemyMonAccuracyMod:: db
 wEnemyMonEvasionMod:: db
 	ds 2
 wEnemyMonStatModsEnd::
+; The battle arm is the widest one (the comment above counts it); the copies in
+; core.asm/experience.asm/haze.asm/transform.asm walk these blocks by count.
+ASSERT wEnemyMonStatModsEnd - wPlayerMonUnmodifiedLevel == 2 * (1 + NUM_STATS * 2 + NUM_STAT_MODS) + 1, "the unmodified-stats/stat-mods union arm is level + NUM_STATS words + NUM_STAT_MODS bytes per side, plus one spare byte"
+ASSERT wPlayerMonStatModsEnd - wPlayerMonStatMods == NUM_STAT_MODS, "wPlayerMonStatMods holds NUM_STAT_MODS bytes"
+ASSERT wEnemyMonStatModsEnd - wEnemyMonStatMods == NUM_STAT_MODS, "wEnemyMonStatMods holds NUM_STAT_MODS bytes"
+ASSERT wPlayerMonStatMods - wPlayerMonUnmodifiedLevel == 1 + NUM_STATS * 2, "the player's unmodified block is level + NUM_STATS words"
+ASSERT wEnemyMonStatMods - wEnemyMonUnmodifiedLevel == 1 + NUM_STATS * 2, "the enemy's unmodified block is level + NUM_STATS words"
+ASSERT wPlayerMonStatMods - wPlayerMonUnmodifiedAttack == NUM_BATTLE_STATS * 2, "the badge-bake copy (Attack..last stat) is NUM_BATTLE_STATS words"
+ASSERT wEnemyMonStatMods - wEnemyMonUnmodifiedAttack == NUM_BATTLE_STATS * 2, "the enemy's unmodified Attack..last stat block is NUM_BATTLE_STATS words"
 
 NEXTU
 wTempColCoords::
@@ -1363,9 +1372,18 @@ wEnemyMon:: battle_struct wEnemyMon
 wEnemyMonBaseStats:: ds NUM_STATS
 wEnemyMonActualCatchRate:: db
 wEnemyMonBaseExp:: db
+; HalveExpData (experience.asm) halves base stats and base exp as one block.
+ASSERT wEnemyMonBaseExp + 1 - wEnemyMonBaseStats == NUM_STATS + 2, "wEnemyMonBaseStats..wEnemyMonBaseExp must be one NUM_STATS + 2 block"
 
 wBattleMonNick:: ds NAME_LENGTH
 wBattleMon:: battle_struct wBattleMon
+; The stage-scaled copies (core.asm, experience.asm, transform.asm, haze.asm)
+; walk Attack..last stat as NUM_BATTLE_STATS words, and the whole stat block as
+; NUM_STATS words.
+ASSERT wBattleMonStatsEnd - wBattleMonStats == NUM_STATS * 2, "wBattleMon carries NUM_STATS stat words"
+ASSERT wEnemyMonStatsEnd - wEnemyMonStats == NUM_STATS * 2, "wEnemyMon carries NUM_STATS stat words"
+ASSERT wBattleMonPP - wBattleMonAttack == NUM_BATTLE_STATS * 2, "wBattleMonAttack..wBattleMonPP is the NUM_BATTLE_STATS-word block the badge bake copies"
+ASSERT wEnemyMonPP - wEnemyMonAttack == NUM_BATTLE_STATS * 2, "wEnemyMonAttack..wEnemyMonPP is the NUM_BATTLE_STATS-word block Transform copies"
 
 
 wTrainerClass:: db
@@ -1723,6 +1741,7 @@ wMonHBaseDefense:: db
 wMonHBaseSpeed:: db
 wMonHBaseSpecial:: db
 wMonHTypes::
+ASSERT wMonHTypes - wMonHBaseStats == NUM_STATS, "wMonHeader carries one base-stat byte per stat (NUM_STATS)"
 wMonHType1:: db
 wMonHType2:: db
 wMonHCatchRate:: db
@@ -1937,6 +1956,21 @@ wPartyMons::
 FOR n, 1, PARTY_LENGTH + 1
 wPartyMon{d:n}:: party_struct wPartyMon{d:n}
 ENDR
+; The party struct is walked by constant strides and by field offsets from
+; pokemon_data_constants.asm; keep the macro and the rs list in step.
+ASSERT wPartyMon2 - wPartyMon1 == PARTYMON_STRUCT_LENGTH, "party_struct must be PARTYMON_STRUCT_LENGTH bytes"
+ASSERT wPartyMon1HPExp - wPartyMon1 == MON_HP_EXP, "party_struct's stat exp must sit at MON_HP_EXP"
+ASSERT wPartyMon1DVs - wPartyMon1HPExp == NUM_STATS * 2, "party_struct's stat exp block is NUM_STATS words, ending at the DVs"
+ASSERT wPartyMon1Level - wPartyMon1 == MON_LEVEL, "party_struct's level must sit at MON_LEVEL"
+ASSERT wPartyMon1Stats - wPartyMon1 == MON_STATS, "party_struct's stats must sit at MON_STATS"
+ASSERT wPartyMon1StatsEnd - wPartyMon1Stats == NUM_STATS * 2, "party_struct carries NUM_STATS stat words"
+; field_moves.asm adds the stride to a low byte: it must fit in one byte.
+ASSERT wPartyMon2 - wPartyMon1 - NUM_MOVES < $100, "field_moves.asm adds (stride - NUM_MOVES) with an 8-bit add"
+; CalcStat's pointer pun (home/move_mon.asm): hl = stat exp - 1, and the DVs are
+; found by adding the same offset that turns wEnemyMonHP into wEnemyMonDVs, so
+; one CalcStat serves party mons (from their stat exp) and enemy mons (from
+; their HP, with b = 0). The two structs must keep that distance equal.
+ASSERT wPartyMon1DVs - (wPartyMon1HPExp - 1) == wEnemyMonDVs - wEnemyMonHP, "CalcStat's pun: (party stat exp - 1) -> DVs must equal wEnemyMonHP -> wEnemyMonDVs"
 
 wPartyMonOT::
 ; wPartyMon1OT - wPartyMon6OT
@@ -2715,6 +2749,7 @@ wDayCareMonName:: ds NAME_LENGTH
 wDayCareMonOT::   ds NAME_LENGTH
 
 wDayCareMon:: box_struct wDayCareMon
+ASSERT wMainDataEnd - wDayCareMon == BOXMON_STRUCT_LENGTH, "the day-care mon is one box_struct at the end of the main data"
 
 wMainDataEnd::
 
@@ -2731,6 +2766,8 @@ wBoxMons::
 FOR n, 1, MONS_PER_BOX + 1
 wBoxMon{d:n}:: box_struct wBoxMon{d:n}
 ENDR
+ASSERT wBoxMon2 - wBoxMon1 == BOXMON_STRUCT_LENGTH, "box_struct must be BOXMON_STRUCT_LENGTH bytes"
+ASSERT wBoxMon1DVs - wBoxMon1HPExp == NUM_STATS * 2, "box_struct's stat exp block is NUM_STATS words, ending at the DVs"
 
 wBoxMonOT::
 ; wBoxMon1OT - wBoxMon20OT

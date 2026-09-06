@@ -715,6 +715,13 @@ StatModifierUpEffect::
 	cp b ; can't raise stat past +6 ($d or 13)
 	jp c, PrintStatWontGoHigherText ; v0.7: named text instead of "Nothing happened!"
 	ld a, [de]
+; The "+2" test is a window on the raw effect id: everything at or above
+; ATTACK_UP1_EFFECT + 8 raises twice. The +1 ladder must end below it and the
+; +2 ladder must start at or above it; a spoofed id (the dual-stat and X-item
+; handlers write the effect byte before calling here) must land on the right
+; side of the line too.
+ASSERT EVASION_UP1_EFFECT < ATTACK_UP1_EFFECT + $8, "the +1 ladder must end below the +2 window"
+ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start inside the +2 window"
 	cp ATTACK_UP1_EFFECT + $8 ; is it a +2 effect?
 	jr c, .ok
 	inc b ; if so, increment stat mod again
@@ -946,6 +953,12 @@ StatModifierDownEffect:
 	dec b ; dec corresponding stat mod
 	jp z, CantLowerAnymore ; if stat mod is 1 (-6), can't lower anymore
 	ld a, [de]
+; The "-2" test is a window [$24, $44) on the raw effect id: the -1 ladder lies
+; below it, the -2 ladder inside it, and the side-effect ladder (ATTACK_DOWN_SIDE
+; upward, -1 by meaning) starts exactly where it ends. Any later id (>= $44)
+; that means "-2" must be spoofed to a -2 ladder id before reaching here.
+ASSERT EVASION_DOWN1_EFFECT < ATTACK_DOWN2_EFFECT - $16, "the -1 ladder must end below the -2 window"
+ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must end exactly where the side-effect ladder starts"
 	cp ATTACK_DOWN2_EFFECT - $16 ; $24
 	jr c, .ok
 	cp EVASION_DOWN2_EFFECT + $5 ; $44

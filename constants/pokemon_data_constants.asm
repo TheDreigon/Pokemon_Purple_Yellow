@@ -9,6 +9,7 @@ DEF BASE_DEF         rb
 DEF BASE_SPD         rb
 DEF BASE_SPC         rb
 DEF BASE_TYPES       rw
+ASSERT BASE_TYPES - BASE_STATS == NUM_STATS, "the named BASE_* stat list must have one byte per stat (NUM_STATS)"
 rsset BASE_TYPES
 DEF BASE_TYPE_1      rb
 DEF BASE_TYPE_2      rb
@@ -43,6 +44,7 @@ DEF MON_DEF_EXP    rw
 DEF MON_SPD_EXP    rw
 DEF MON_SPC_EXP    rw
 DEF MON_DVS        rw
+ASSERT MON_DVS - MON_HP_EXP == NUM_STATS * 2, "the named MON_*_EXP list must have one word per stat (NUM_STATS)"
 DEF MON_PP         rb NUM_MOVES
 DEF BOXMON_STRUCT_LENGTH EQU _RS
 DEF MON_LEVEL      rb
@@ -54,6 +56,7 @@ DEF MON_DEF        rw
 DEF MON_SPD        rw
 DEF MON_SPC        rw
 DEF PARTYMON_STRUCT_LENGTH EQU _RS
+ASSERT PARTYMON_STRUCT_LENGTH - MON_STATS == NUM_STATS * 2, "the named MON_* stat list must have one word per stat (NUM_STATS)"
 
 DEF PARTY_LENGTH EQU 6
 

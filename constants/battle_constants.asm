@@ -25,6 +25,12 @@ DEF MAX_STAT_LEVEL EQU 13
 	const STAT_SPEED
 	const STAT_SPECIAL
 DEF NUM_STATS EQU const_value - 1
+; The stats a battle stage byte, a badge boost and an "unmodified" copy cover:
+; every stat but HP. Written as a derivation so it is exactly the old literal 4
+; wherever the engine walked "NUM_STATS - 1" or hard-coded 4/8/$8. The SPECIAL
+; split (2026-09-06) pins it to 4 while NUM_STATS grows to 6 (F1) and restores
+; the derivation when SP.DEF gets its stage byte (F2a).
+DEF NUM_BATTLE_STATS EQU NUM_STATS - 1
 
 ; StatModTextStrings indexes (see data/battle/stat_mod_names.asm)
 	const_def
@@ -36,6 +42,9 @@ DEF NUM_STATS EQU const_value - 1
 	const MOD_EVASION
 	const_skip 2
 DEF NUM_STAT_MODS EQU const_value
+; effects.asm gates the accuracy/evasion legs on "index >= MOD_ACCURACY", and the
+; stage-scaled stat copies walk NUM_BATTLE_STATS words: the two must agree.
+ASSERT MOD_ACCURACY == NUM_BATTLE_STATS, "the stat-stage bytes before ACCURACY must be exactly the NUM_BATTLE_STATS battle stats"
 
 ; Moves struct fields (see data/moves/moves.asm)
 rsreset
