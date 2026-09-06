@@ -8,7 +8,7 @@
 	const_export ROUTE12_FISHER4
 	const_export ROUTE12_FISHER5
 	const_export ROUTE12_TM_FAKE_TEARS
-	const_export ROUTE12_IRON
+	const_export ROUTE12_PROTEIN ; was IRON - swapped with Safari West (2026-09-06)
 
 Route12_Object:
 	db $43 ; border block
@@ -33,6 +33,6 @@ Route12_Object:
 	object_event 12, 52, SPRITE_FISHER, STAY, RIGHT, TEXT_ROUTE12_FISHER4, OPP_FISHER, 6, 4
 	object_event 11, 89, SPRITE_FISHER, STAY, DOWN, TEXT_ROUTE12_FISHER5, OPP_FISHER, 11, 1
 	object_event 14, 35, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE12_TM_FAKE_TEARS, TM_FAKE_TEARS
-	object_event  6, 101, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE12_IRON, IRON
+	object_event  6, 101, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE12_PROTEIN, PROTEIN
 
 	def_warps_to ROUTE_12
