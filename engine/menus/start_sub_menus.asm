@@ -232,6 +232,10 @@ StartMenu_Pokemon::
 .cut
 	bit BIT_CASCADEBADGE, a
 	jp z, .newBadgeRequired
+; v0.7 (2026-09-06, Forte): the badge is the licence, the CAPTAIN's HM01 the
+; know-how - thirteen lines learn CUT by level, and the S.S.ANNE stays mandatory.
+	CheckEvent EVENT_GOT_HM01
+	jp z, .captainsTechniqueRequired
 	predef UsedCut
 	ld a, [wActionResultOrTookBattleTurn]
 	and a
@@ -381,6 +385,13 @@ StartMenu_Pokemon::
 	jp .loop
 .newBadgeRequiredText
 	text_far _NewBadgeRequiredText
+	text_end
+.captainsTechniqueRequired
+	ld hl, .captainsTechniqueRequiredText
+	call PrintText
+	jp .loop
+.captainsTechniqueRequiredText
+	text_far _CutNeedsCaptainsTechniqueText
 	text_end
 
 ; writes a blank tile to all possible menu cursor positions on the party menu

@@ -62,6 +62,10 @@ TryCut:
 	ld a, [wObtainedBadges]
 	bit BIT_CASCADEBADGE, a ; was a hard-coded `bit 1` with only this comment naming it
 	jr z, TrySurf.no2
+; v0.7 (2026-09-06, Forte): and the CAPTAIN's HM01 - see the party-menu twin in
+; engine/menus/start_sub_menus.asm
+	CheckEvent EVENT_GOT_HM01
+	jr z, .captainsTechnique
 	ld hl, PromptToCutText
 	call PrintText
 	call YesNoChoice
@@ -72,6 +76,10 @@ TryCut:
 	farcall Cut2
 	call CloseFieldMoveTextBox
 	jr TrySurf.yes2
+.captainsTechnique
+	ld hl, CutNeedsCaptainsTechniqueText
+	call PrintText
+	jr TrySurf.no2
 
 IsCutTile:
 ; partial copy from UsedCut
@@ -170,6 +178,10 @@ ExplainCutText:
 PromptToCutText:
 	text "Would you like to"
 	line "use CUT?@@"
+
+CutNeedsCaptainsTechniqueText:
+	text_far _CutNeedsCaptainsTechniqueText
+	text_end
 
 ; --- v0.7 "registered item" (his 2026-08-28 request) ------------------------
 ; SELECT in the overworld uses the key item bound via the bag's
