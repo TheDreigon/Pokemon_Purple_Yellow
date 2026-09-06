@@ -227,7 +227,7 @@ _CeladonGymAfterBattleText6::
 
 	para "You better"
 	line "watch out for"
-	cont "her SOLARBEAM!"
+	cont "her GIGA DRAIN!"
 	done
 
 _CeladonGymBattleText7::
