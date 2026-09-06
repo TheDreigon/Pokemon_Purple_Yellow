@@ -94,7 +94,9 @@ CalcStat::
 	srl c
 	pop hl
 	push bc
-	ld bc, wPartyMon1DVs - (wPartyMon1HPExp - 1) ; also wEnemyMonDVs - wEnemyMonHP (the pun wram.asm asserts)
+	ld bc, wPartyMon1DVs - (wPartyMon1HPExp - 1) ; the party layout (13 with six stat-exp words). The old
+	; "also wEnemyMonDVs - wEnemyMonHP" pun DIED with the split: LoadEnemyMonData hands CalcStats a
+	; synthetic base pointer instead - never point hl at wEnemyMonHP here again.
 	add hl, bc
 	pop bc
 	ld a, c
@@ -129,7 +131,7 @@ CalcStat::
 	sla a
 	add b
 	ld b, a
-	ld a, [hl] ; Spc IV
+	ld a, [hl] ; Special IV (one nibble serves SP.ATK and SP.DEF)
 	and $1
 	add b      ; HP IV: LSB of the other 4 IVs
 	pop bc

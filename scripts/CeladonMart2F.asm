@@ -26,7 +26,7 @@ CeladonMart2FCurrentFloorSignText:
 ; vitamins came down in their place, and the two here swapped so that the
 ; vitamins are on the LEFT and the regular shop on the RIGHT.
 CeladonMart2FClerk1Text::
-	; Item order follows the stats-screen stat order (ATK/DEF/SPC/SPD -
+	; Item order follows the stats-screen stat order (ATK/DEF/SP.ATK/SP.DEF/SPD -
 	; see StatsText in engine/pokemon/status_screen.asm), then ACC/HIT/GUARD.
 	script_mart HP_UP, PROTEIN, IRON, CALCIUM, ZINC, CARBOS, X_ATTACK, X_DEFEND, X_SPATK, X_SPDEF, X_SPEED, X_ACCURACY, DIRE_HIT, GUARD_SPEC
 

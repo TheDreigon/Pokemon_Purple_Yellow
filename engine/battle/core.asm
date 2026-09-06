@@ -6752,7 +6752,7 @@ CalculateModifiedStats:
 	jr nz, .loop
 	ret
 
-; calculate modified stat for stat c (0 = attack, 1 = defense, 2 = speed, 3 = special)
+; calculate modified stat for stat c (0 = attack, 1 = defense, 2 = speed, 3 = sp.atk, 4 = sp.def)
 CalculateModifiedStat:
 	push bc
 	push bc

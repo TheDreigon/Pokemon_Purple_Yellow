@@ -1032,7 +1032,7 @@ TrainerManualSection2_8:
 	db "GETTING AWAY@"
 
 TrainerManualSection3_1:
-	db "SPECIAL@"
+	db "SP.ATK AND SP.DEF@" ; 17 tiles = the section-list cap (the split, 2026-09-06)
 TrainerManualSection3_2:
 	db "HIDDEN NUMBERS@"
 TrainerManualSection3_3:

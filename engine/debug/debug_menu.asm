@@ -1372,7 +1372,8 @@ Text_ff113:
 	next "こうげき"  ; attack
 	next "ぼうぎょ"  ; defense
 	next "すばやさ"  ; speed
-	next "とくしゅ@" ; special
+	next "とくこう"  ; sp.atk (the split, 2026-09-06: NUM_STATS rows)
+	next "とくぼう@" ; sp.def
 
 Func_ff12c:
 	ld a, [wCurEnemyLVL]

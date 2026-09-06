@@ -1154,9 +1154,13 @@ Pokedex_PrintBaseStats:
 ;  row11 |TYPE1/   HP    100|
 ;  row12 | GRASS   ATK    85|
 ;  row13 |TYPE2/   DEF    90|
-;  row14 | POISON  SPD    80|
-;  row15 |         SPC   105|
-;  row16 |    TOTAL      460|
+;  row14 | POISON  SAT   105|
+;  row15 |TOTAL    SDF   105|
+;  row16 |   565   SPD    80|
+;
+; v1.0 (the SPECIAL split, 2026-09-06): six stat rows (SAT / SDF = SP.ATK /
+; SP.DEF) fill rows 11-16, so TOTAL moved to the left column under the types,
+; label over value like TYPE1/. TOTAL is the six-stat sum (Forte).
 ;
 ; Nothing here has to go and FETCH anything. DrawDexEntryOnScreen already
 ; called GetMonHeader with wd0b5 = the internal index, to find the front
@@ -1181,9 +1185,9 @@ Pokedex_PrintBaseStats:
 
 ; Six labels on six CONSECUTIVE rows. "next" moves two rows unless bit 2 of
 ; hUILayoutFlags is set (home/text.asm), so it goes on here and comes straight
-; back off - the type labels above want the ordinary two-row spacing, and
-; TOTAL hangs one column left of the rest on purpose, so the sum does not read
-; as a sixth stat.
+; back off - the type labels above want the ordinary two-row spacing. TOTAL
+; lives in the left column under the types, label over value like TYPE1/, so
+; it never reads as a seventh row of the stat table.
 	ldh a, [hUILayoutFlags]
 	push af
 	set 2, a
@@ -1193,21 +1197,20 @@ Pokedex_PrintBaseStats:
 	call PlaceString
 	pop af
 	ldh [hUILayoutFlags], a
-	hlcoord 9, 16
+	hlcoord 1, 15
 	ld de, BaseStatTotalText
 	call PlaceString
 
-; The five stats, right-aligned into columns 16-18, one row apart. Three digits
-; is enough for every one of them and for the total; the assert in the
-; base_stat_row macro is what keeps that true.
-; 🔴 Only HP, ATK and DEF walk the struct in order. SPECIAL and SPEED are
-; printed by hand, in THAT order, because the struct stores them the other way
-; round (wMonHBaseSpeed then wMonHBaseSpAtk) and this game shows SPECIAL
-; first -- see the party stats screen, engine/pokemon/status_screen.asm, which
-; prints ATTACK / DEFENSE / SPECIAL / SPEED. Vanilla has SPEED before SPECIAL in
-; both places; this hack swapped the stats screen and this page was left behind,
-; so the dex and the stats screen disagreed with each other. Forte caught it on
-; a NIDORAN.
+; The six stats, right-aligned into columns 16-18, one row apart. Three digits
+; is enough for every one of them and for the total (750 at most with the
+; six-stat sum, MEWTWO); the assert in the base_stat_row macro keeps that true.
+; 🔴 Only HP, ATK and DEF walk the struct in order. SP.ATK, SP.DEF and SPEED are
+; printed by name, in THAT order, because the struct stores SPEED before the
+; two SP stats (wMonHBaseSpeed, wMonHBaseSpAtk, wMonHBaseSpDef) and this game
+; shows the SP pair before SPEED everywhere - see the party stats screen,
+; engine/pokemon/status_screen.asm. Vanilla walked the struct here; this hack
+; reordered the stats screen and this page was left behind, so the dex and the
+; stats screen disagreed with each other. Forte caught it on a NIDORAN.
 	ld de, wMonHBaseStats
 	hlcoord 16, 11
 	ld c, 3
@@ -1233,9 +1236,18 @@ Pokedex_PrintBaseStats:
 	pop hl
 	ld de, SCREEN_WIDTH
 	add hl, de
+	push hl
+	ld de, wMonHBaseSpDef
+	lb bc, 1, 3
+	call PrintNumber
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
 	ld de, wMonHBaseSpeed
 	lb bc, 1, 3
 	call PrintNumber
+	ASSERT wMonHBaseSpDef - wMonHBaseStats == NUM_STATS - 1, "the TOTAL loop below sums NUM_STATS contiguous base bytes, ending in SP.DEF"
+	ASSERT 11 + NUM_STATS == 17, "six stat rows 11-16; row 17 is the dex border"
 
 ; The total, summed here rather than stored anywhere: there is no room in the
 ; base stats struct for a byte that is only ever the sum of the six others.
@@ -1268,7 +1280,7 @@ Pokedex_PrintBaseStats:
 	ld a, l
 	ldh [hDexWeight + 1], a
 	ld de, hDexWeight
-	hlcoord 16, 16
+	hlcoord 2, 16
 	lb bc, 2, 3
 	call PrintNumber
 	pop af
@@ -1284,7 +1296,8 @@ BaseStatLabelsText:
 	db   "HP"
 	next "ATK"
 	next "DEF"
-	next "SPC"
+	next "SAT"
+	next "SDF"
 	next "SPD@"
 
 BaseStatTotalText:

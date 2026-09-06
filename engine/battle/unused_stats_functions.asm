@@ -1,4 +1,4 @@
-; doubles each stat selected in w{Player,Enemy}StatsToDouble (bitmask: bit0=Atk, bit1=Def, bit2=Spd, bit3=Spc); used by UndoBurnParStats (trainer_ai.asm) to undo the burn Atk/2 and paralysis Spd/2 when a status is cured
+; doubles each stat selected in w{Player,Enemy}StatsToDouble (bitmask: bit0=Atk, bit1=Def, bit2=Spd, bit3=SpAtk, bit4=SpDef - NUM_STAGED_STATS bits); used by UndoBurnParStats (trainer_ai.asm) to undo the burn Atk/2 and paralysis Spd/2 when a status is cured
 DoubleSelectedStats:
 	ldh a, [hWhoseTurn]
 	and a

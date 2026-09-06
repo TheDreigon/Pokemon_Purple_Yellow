@@ -188,7 +188,8 @@ _ViridianCityFisherTM42ExplanationText::
 	text "TM49 is CALM MIND."
 
 	para "Steady the spirit"
-	line "to boost SPECIAL."
+	line "to lift SP.ATK,"
+	cont "SP.DEF and aim."
 	done
 
 _ViridianCityFisherTM42NoRoomText::

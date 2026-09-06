@@ -92,7 +92,7 @@ DisplayFanClubPhoto::
 	lb bc, $80 | 2, 5
 	call PrintNumber
 
-	hlcoord 9, 8
+	hlcoord 8, 7
 	ld de, .Stats
 	ldh a, [hUILayoutFlags]
 	set 2, a ; <NEXT> advances one line instead of two
@@ -102,26 +102,25 @@ DisplayFanClubPhoto::
 	res 2, a
 	ldh [hUILayoutFlags], a
 
-	hlcoord 16, 8
+; v1.0 (the SPECIAL split, 2026-09-06): five stats by name, in display order
+; (ATTACK / DEFENSE / SP.ATK / SP.DEF / SPEED) - the struct stores SPEED
+; before the two SP stats, and walking it raw under fixed labels is how the
+; dex once disagreed with the stats page (NIDORAN). Rows 7-11, labels at
+; col 8 (a gap before every number), numbers at cols 16-18, above the moves
+; box border on row 12.
+	hlcoord 16, 7
 	ld de, wLoadedMonAttack
-	ld a, 4
-.loop
-	push af
-	push de
-
-	push hl
+	call .stat
+	ld de, wLoadedMonDefense
+	call .stat
+	ld de, wLoadedMonSpAtk
+	call .stat
+	ld de, wLoadedMonSpDef
+	call .stat
+	ld de, wLoadedMonSpeed
 	lb bc, 2, 3
 	call PrintNumber
-	pop hl
-	ld bc, SCREEN_WIDTH
-	add hl, bc
-
-	pop de
-	inc de
-	inc de
-	pop af
-	dec a
-	jr nz, .loop
+	ASSERT 7 + (NUM_STATS - 1) == 12, "five stat rows 7-11 end on the moves box border"
 
 	hlcoord 1, 13
 	ld a, [wLoadedMonMoves]
@@ -177,11 +176,21 @@ DisplayFanClubPhoto::
 .IDNo:
 	db $73, "№/@"
 
+.stat
+	push hl
+	lb bc, 2, 3
+	call PrintNumber
+	pop hl
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	ret
+
 .Stats:
 	db   "ATTACK"
 	next "DEFENSE"
-	next "SPEED"
-	next "SPECIAL@"
+	next "SP.ATK"
+	next "SP.DEF"
+	next "SPEED@"
 
 .Blank:
 	db "--------------@"

@@ -856,7 +856,7 @@ LevelUpPartyMon:
 	call CopyData
 	; v0.7 Badge Boost Glitch fix (mirror of LoadBattleMonFromParty):
 	; bake badges into the battle stats, then refresh the unmodified
-	; Atk..Spc block from them so later stat-stage recalcs keep the
+	; Atk..SpDef block from them so later stat-stage recalcs keep the
 	; boost. The vanilla order here left unmod raw and re-applied
 	; badges on top of the battle stats — any stat-mod recalc after a
 	; mid-battle level-up then silently dropped the badge boost (the

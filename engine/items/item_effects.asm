@@ -2249,7 +2249,7 @@ ItemUseXStat:
 	push hl
 	ld a, [wcf91]
 ; The X items map onto the +1 effect ladder by subtraction: X_ATTACK..X_SPATK
-; must sit in the same order and spacing as ATTACK_UP1..SPECIAL_UP1.
+; must sit in the same order and spacing as ATTACK_UP1..SPATK_UP1.
 ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED - X_ATTACK == SPEED_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPATK - X_ATTACK == SPATK_UP1_EFFECT - ATTACK_UP1_EFFECT, "the X items must mirror the +1 effect ladder (ItemUseXStat subtracts)"
 	cp X_SPDEF
 	jr nz, .ladderItem

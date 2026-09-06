@@ -6,7 +6,7 @@ StatModTextStrings:
 	li "ATTACK"
 	li "DEFENSE"
 	li "SPEED"
-	li "SPECIAL"
+	li "SP.ATK" ; the split (2026-09-06)
 	assert_list_length SPATK_DOWN_SIDE_EFFECT - ATTACK_DOWN_SIDE_EFFECT + 1
 	li "SP.DEF" ; MOD_SPDEF (the split, F2a): no ladder id of its own, reached through wStatModIndexOverride
 	assert_list_length MOD_SPDEF + 1

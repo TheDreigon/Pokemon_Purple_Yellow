@@ -2712,7 +2712,7 @@ AmnesiaAnim:
 
 QuiverDanceAnim:
 	; Mental image: delicate fluttering wing-beat dance — graceful,
-	; almost shimmering. Light + spiral (mental focus rising for spc) +
+	; almost shimmering. Light + spiral (mental focus rising for SP.ATK) +
 	; soft shake. Distinct from AGILITY (raw speed shake) and TAILWIND
 	; (literal tornado wind).
 	battle_anim QUIVER_DANCE, SE_LIGHT_SCREEN_PALETTE
@@ -2860,7 +2860,7 @@ FakeTearsAnim:
 	db -1 ; end
 
 MetalSoundAnim:
-	; v0.7 reviewed (spc -2, metallic circle): SOUND_WAVE + SHOUT pair reads
+	; v0.7 reviewed (SP.DEF -2 since the split, metallic circle): SOUND_WAVE + SHOUT pair reads
 	; as a piercing screech. HEART_MUSIC was inappropriate (this is not
 	; a song, it's a horrible scraping noise).
 	battle_anim METAL_SOUND, SUBANIM_0_SOUND_WAVE, 0, 5
@@ -2868,7 +2868,7 @@ MetalSoundAnim:
 	db -1 ; end
 
 ScreechAnim:
-	; v0.7 reviewed (spc -1): SHOUT — same logic as METAL_SOUND but
+	; v0.7 reviewed (SP.DEF -1 since the split): SHOUT — same logic as METAL_SOUND but
 	; lower tier (-1 vs -2), so single SHOUT, no SOUND_WAVE.
 	battle_anim SCREECH, SUBANIM_1_SHOUT, 1, 6
 	db -1 ; end

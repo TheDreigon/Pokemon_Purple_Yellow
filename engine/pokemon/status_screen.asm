@@ -119,8 +119,9 @@ StatusScreen:
 ; reopened" - wrong, when the player only changed page or stepped a mon.
 ; v0.7: the tile pattern loads moved ONTO the white-out branch, and a quiet
 ; redraw now skips them. Reordered, not added: this block is the same 60 bytes
-; it was, which matters because all three sections of bank $4 are pinned in
-; layout.link and it had six bytes left.
+; it was, which mattered when bank $4 was believed full. (It is not: ~1.5 KB
+; free, measured 2026-09-06, and its three sections are ordered rather than
+; address-pinned in layout.link, so bank4 grows into the gap.)
 ;
 ; Why they cannot run on a quiet redraw: they write the SAME VRAM TWICE.
 ; HpBarAndStatusGraphics is 30 tiles at vChars2 tile $62 = $9620-$97ff, and all
@@ -292,7 +293,7 @@ StatusScreen:
 ; for half a second, which is what Forte reported.
 ;
 ; Moved, not added - the two instructions come from further up, so this costs
-; nothing in a bank that has seven bytes left. GetHealthBarColor stays where it
+; nothing (bank $4 has ~1.5 KB free, not the seven bytes once feared). GetHealthBarColor stays where it
 ; was: it only computes wStatusScreenHPBarColor and paints nothing.
 	ld b, SET_PAL_STATUS_SCREEN
 	call RunPaletteCommand
@@ -421,8 +422,8 @@ StatusScreen_RevealQuietPage:
 ; left it - so the page arrives in a scrambled order rather than top to bottom.
 ; Two frames of it are visible. `xor a / ldh [hAutoBGTransferPortion], a` here
 ; and the same before page 2's reveal would make it a plain downward wipe, and
-; costs 6 bytes; bank $4 has exactly 6 left and all three of its sections are
-; pinned in layout.link. That is Forte's to spend, not mine.
+; costs 6 bytes. Bank $4 has ~1.5 KB free (measured 2026-09-06); six of them
+; are reserved for exactly this, and that is Forte's to spend, not mine.
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
@@ -494,17 +495,36 @@ PrintStatsBox:
 	ld a, d
 	and a ; a is 0 from the status screen
 	jr nz, .DifferentBox
-	hlcoord 0, 8
-	lb bc, 8, 8
-	call TextBoxBorder ; Draws the box
-	hlcoord 1, 9 ; Start printing stats from here
-	ld bc, $19 ; Number offset
+; v1.0 (the SPECIAL split, 2026-09-06): five stats in two-row pairs need ten
+; rows. Rows 8-17 are exactly ten, so the box went and a divider took its
+; place on column 9 - the shape Gen 2's stats page uses (its col-9 divider is
+; ten rows too). $78 is the vertical DrawLineBox draws for the right panel, so
+; both rules match; it is in VRAM because every QUIET redraw follows a
+; non-quiet entry, which loads BattleHudTiles2. The right panel (cols 10-19)
+; is untouched, and both hold-overlays keep their shape: SELECT's five digits
+; land on cols 4-8, START's two on cols 6-7.
+	hlcoord 9, 8
+	ld de, SCREEN_WIDTH
+	ld b, 2 * (NUM_STATS - 1)
+.divider
+	ld [hl], $78 ; │
+	add hl, de
+	dec b
+	jr nz, .divider
+	hlcoord 0, 8 ; labels on rows 8, 10, .. 16, cols 0-6
+	ld bc, SCREEN_WIDTH + 6 ; numbers on the row below each label, cols 6-8
 	jr .PrintStats
 .DifferentBox
-	hlcoord 9, 2
-	lb bc, 8, 9
+; v1.0 (the SPECIAL split, 2026-09-06): Gen 2's level-up box - the top moves
+; to row 0 and the box grows to ten interior rows, so the five pairs sit on
+; rows 1-10 with the bottom border on row 11, above the message box (row 12).
+; Same columns as before (9-19). The battle caller brackets this with
+; Save/LoadScreenTilesToBuffer1, so the enemy HUD's tail under cols 9-11 of
+; rows 0-1 comes back, as rows 2-3 always did.
+	hlcoord 9, 0
+	lb bc, 2 * (NUM_STATS - 1), 9
 	call TextBoxBorder
-	hlcoord 11, 3
+	hlcoord 11, 1
 	ld bc, $18
 .PrintStats
 	push bc
@@ -529,6 +549,8 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonSpAtkExp
 	call PrintStat
+	ld de, wLoadedMonSpDefExp
+	call PrintStat
 	ld de, wLoadedMonSpeedExp
 	jp PrintNumber
 .checkstart	;joenote - print DVs if start is held
@@ -541,6 +563,8 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wDVCalcVar2 + 3
 	call PrintStat
+	ld de, wDVCalcVar2 + 3 ; one Special DV serves both SP stats (the split), so it shows on both rows
+	call PrintStat
 	ld de, wDVCalcVar2 + 2
 	jp PrintNumber
 .doregular
@@ -550,6 +574,8 @@ PrintStatsBox:
 	ld de, wLoadedMonDefense
 	call PrintStat
 	ld de, wLoadedMonSpAtk
+	call PrintStat
+	ld de, wLoadedMonSpDef
 	call PrintStat
 	ld de, wLoadedMonSpeed
 	jp PrintNumber
@@ -564,8 +590,12 @@ PrintStat:
 StatsText:
 	db   "ATTACK"
 	next "DEFENSE"
-	next "SPECIAL"
+	next "SP.ATK"
+	next "SP.DEF"
 	next "SPEED@"
+	ASSERT NUM_STATS - 1 == 5, "StatsText / PrintStatsBox lay out five two-row pairs"
+	ASSERT 8 + 2 * (NUM_STATS - 1) == SCREEN_HEIGHT, "status page: the last number row must be row 17"
+	ASSERT 2 * (NUM_STATS - 1) + 2 == 12, "level-up box: five pairs plus two borders end on row 11, above the message box"
 
 StatusScreen2:
 	call StatusScreen_NormalizeMode

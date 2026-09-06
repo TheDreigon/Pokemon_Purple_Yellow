@@ -6,6 +6,6 @@ VitaminStats:
 	li "ATTACK"
 	li "DEFENSE"
 	li "SPEED"
-	li "SPECIAL"
+	li "SP.ATK" ; the split (2026-09-06): CALCIUM's stat
 	li "SP.DEF"
 	assert_list_length NUM_STATS

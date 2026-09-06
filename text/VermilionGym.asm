@@ -268,10 +268,10 @@ _SaffronGymGuideChampInMakingText::
 	cont "incredibly"
 	cont "powerful!"
 
-	para "With high SPECIAL,"
-	line "they land huge"
-	cont "damage and take"
-	cont "non-physical"
+	para "With high SP.ATK"
+	line "and SP.DEF, they"
+	cont "land huge damage"
+	cont "and take special"
 	cont "hits quite well."
 
 	para "But not all 5"

@@ -866,7 +866,7 @@ MistyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
-	; ~25% chance X Special
+	; ~25% chance X SP.ATK
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -991,7 +991,7 @@ SabrinaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	; ~25% chance X Special (Psychic special attacker)
+	; ~25% chance X SP.ATK (Psychic special attacker)
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -1020,7 +1020,7 @@ BlaineAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseMaxPotion
 .skipHeal
-	; ~25% chance X Special (fire special attacker)
+	; ~25% chance X SP.ATK (fire special attacker)
 	call Random
 	cp 25 percent + 1
 	ret nc

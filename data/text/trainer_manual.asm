@@ -207,14 +207,16 @@ _ManualPage_2_8::
 	done
 
 _ManualPage_3_1::
-	text "SPECIAL does two"
-	next "jobs at once."
+	text "SP.ATK is the"
+	next "power behind your"
+	next "special moves."
 	next ""
-	next "It is the power"
-	next "behind your"
-	next "special moves and"
-	next "the wall against"
-	next "theirs."
+	next "SP.DEF is the wall"
+	next "against theirs."
+	next ""
+	next "CALCIUM trains the"
+	next "one, ZINC the"
+	next "other."
 	done
 
 _ManualPage_3_2::
@@ -224,7 +226,9 @@ _ManualPage_3_2::
 	next "On the STATS page,"
 	next "hold START to see"
 	next "what one was born"
-	next "with."
+	next "with. Both SP"
+	next "numbers share one"
+	next "such gift."
 	next ""
 	next "Hold SELECT to see"
 	next "what it has earned"
@@ -522,8 +526,8 @@ _ManualPage_6_2::
 	next "The body uses"
 	next "ATTACK against"
 	next "DEFENSE. The mind"
-	next "uses SPECIAL"
-	next "against SPECIAL."
+	next "uses SP.ATK"
+	next "against SP.DEF."
 	next "A move's card"
 	next "names which."
 	done
