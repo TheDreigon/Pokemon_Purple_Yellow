@@ -32,8 +32,8 @@ LtSurgeRematchBag:: db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
 ; Erika buffs SPECIAL now (2026-08-17 sheet correction; she was on X Defend)
 ErikaBossBag::      db HYPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
 ErikaRematchBag::   db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
-; Koga's Dire Hit moved to his rematch (sheet correction)
-KogaBossBag::       db HYPER_POTION, 2, X_SPEED,    1, FULL_HEAL,  2, -1, -1
+; Koga carries a Dire Hit in both fights (2026-09-06 table; it had moved to the rematch on 08-17)
+KogaBossBag::       db HYPER_POTION, 2, X_SPEED,    1, DIRE_HIT,   1, FULL_HEAL, 2
 KogaRematchBag::    db FULL_RESTORE, 2, X_SPEED,    2, DIRE_HIT,   1, FULL_HEAL, 2
 SabrinaBossBag::    db HYPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
 SabrinaRematchBag:: db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
@@ -49,29 +49,31 @@ KiyoDojoBag::       db HYPER_POTION, 2, X_ATTACK,   1, FULL_HEAL,  2, -1, -1
 KiyoRematchBag::    db FULL_RESTORE, 2, X_ATTACK,   2, DIRE_HIT,   1, FULL_HEAL, 2
 
 ; ---- Elite Four + Champion ----
-LoreleiBossBag::    db FULL_RESTORE, 2, X_DEFEND,   2, FULL_HEAL,  2, -1, -1
+; Lorelei buffs what she hits with (2026-09-06 table): X SP.ATK, not X Defend
+LoreleiBossBag::    db FULL_RESTORE, 2, X_SPATK,    2, FULL_HEAL,  2, -1, -1
 BrunoBossBag::      db FULL_RESTORE, 2, X_ATTACK,   2, FULL_HEAL,  2, -1, -1
 AgathaBossBag::     db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
-; Lance sits a tier above his three colleagues (2026-08-18 sheet correction):
-; he had been left on the 2/2/2 Elite Four template above
-LanceBossBag::      db FULL_RESTORE, 3, X_SPATK,  2, X_SPEED,    2, FULL_HEAL, 3
+; Lance sits a tier above his three colleagues: 4/4/4 and all speed since the
+; 2026-09-06 table (two uses per dragon, six dragons; the X Special is gone)
+LanceBossBag::      db FULL_RESTORE, 4, X_SPEED,    4, FULL_HEAL,  4, -1, -1
 
 ; ---- Rivals (Rival1 has no bag -- too early-game) ----
 ; Rival2 lost his X Attacks and upgraded his potion (sheet correction)
 Rival2BossBag::     db HYPER_POTION, 2, FULL_HEAL,  2, -1, -1, -1, -1
-; Rival3's X Speed went 1 -> 2 with Lance's bump (2026-08-18 sheet correction)
-Rival3BossBag::     db FULL_RESTORE, 3, X_ATTACK,   2, X_SPEED,    2, FULL_HEAL, 3
+; Rival3 (2026-09-06 table): Lance's 4/4/4 plus a Dire Hit; the X Attack is gone
+Rival3BossBag::     db FULL_RESTORE, 4, X_SPEED,    4, DIRE_HIT,   1, FULL_HEAL, 4
 
 ; ---- Prof Oak (post-game) ----
 ProfOakBossBag::    db FULL_RESTORE, 3, GUARD_SPEC, 1, DIRE_HIT,   1, FULL_HEAL, 3
 
 ; ---- Misc bosses promoted in v0.6/v0.7 ----
-JoyBossBag::        db FULL_RESTORE, 3, X_DEFEND,   3, FULL_HEAL,  3, -1, -1
-; Jenny trades her X Speed for a Guard Spec (sheet correction)
-JennyBossBag::      db FULL_RESTORE, 2, X_ATTACK,   1, GUARD_SPEC, 1, FULL_HEAL, 2
+; Joy heals and nothing else (2026-09-06 table): six of each, no X Defend
+JoyBossBag::        db FULL_RESTORE, 6, FULL_HEAL,  6, -1, -1, -1, -1
+; Jenny (2026-09-06 table): X Attack and X SP.ATK; the Guard Spec of 08-17 is gone
+JennyBossBag::      db FULL_RESTORE, 2, X_ATTACK,   1, X_SPATK,    1, FULL_HEAL, 2
 JanineBossBag::     db SUPER_POTION, 2, X_SPEED,    1, GUARD_SPEC, 1, FULL_HEAL, 2
 JessieAndJamesBossBag:: db SUPER_POTION, 2, FULL_HEAL, 2, -1, -1, -1, -1
-BillBossBag::       db FULL_RESTORE, 3, GUARD_SPEC, 1, DIRE_HIT,   1, FULL_HEAL, 3 ; Bill — Oak's bag; BillAI spends all four
+BillBossBag::       db FULL_RESTORE, 2, GUARD_SPEC, 1, DIRE_HIT,   1, FULL_HEAL, 2 ; Bill — Oak's rolls with a lighter bag (2026-09-06 table)
 ForteBossBag::      db FULL_RESTORE, 6, FULL_HEAL, 6, -1, -1, -1, -1 ; Forte superboss — 6x Full Restore, 6x Full Heal
 ; Shared by the three bird-chamber self-inserts — one tier below the bosses,
 ; identical behaviour, so they share a bag as well as an AI routine.

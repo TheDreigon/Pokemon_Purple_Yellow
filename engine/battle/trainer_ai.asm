@@ -960,7 +960,7 @@ KogaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseXSpeed
 .skipBuff1
-	; ~25% chance Dire Hit (independent; the Dire Hit lives in his rematch bag now)
+	; ~25% chance Dire Hit (independent; both of his bags carry one since the 2026-09-06 table)
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -1085,12 +1085,13 @@ LoreleiAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	; ~25% X SP.ATK roll (2026-09-06 table: she buffs her special attacks, not her Defense)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, X_DEFEND
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseXDefend
+	jp c, AIUseXSpAtk
 	ret
 
 BrunoAI:
@@ -1161,15 +1162,7 @@ LanceAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	; ~25% X Special roll
-	call Random
-	cp 25 percent + 1
-	jr nc, .skipBuff1
-	ld a, X_SPATK
-	call CheckAndConsumeBossItem
-	jp c, AIUseXSpAtk
-.skipBuff1
-	; ~25% X Speed roll (independent)
+	; ~25% X Speed roll (2026-09-06 table: his bag is all speed now; the X Special roll went with it)
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -1258,21 +1251,21 @@ Rival3AI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	; ~25% X Attack roll
+	; ~25% X Speed roll (2026-09-06 table: speed and a Dire Hit; the X Attack is gone)
 	call Random
 	cp 25 percent + 1
 	jr nc, .skipBuff1
-	ld a, X_ATTACK
-	call CheckAndConsumeBossItem
-	jp c, AIUseXAttack
-.skipBuff1
-	; ~25% X Speed roll (independent)
-	call Random
-	cp 25 percent + 1
-	ret nc
 	ld a, X_SPEED
 	call CheckAndConsumeBossItem
 	jp c, AIUseXSpeed
+.skipBuff1
+	; ~25% Dire Hit roll (independent)
+	call Random
+	cp 25 percent + 1
+	ret nc
+	ld a, DIRE_HIT
+	call CheckAndConsumeBossItem
+	jp c, AIUseDireHit
 	ret
 
 ; ---- Bosses promoted in v0.6 / v0.7 (no vanilla AI body) ----
@@ -1313,7 +1306,7 @@ ProfOakAI:
 	jp c, AIUseDireHit
 	ret
 
-; Joy: nurse-themed. Heals at HP < 1/2 with Full Restore; X Defend buff.
+; Joy: nurse-themed. Heals at HP < 1/2 with Full Restore; no buffs (2026-09-06 table).
 JoyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
@@ -1331,12 +1324,7 @@ JoyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call Random
-	cp 25 percent + 1
-	ret nc
-	ld a, X_DEFEND
-	call CheckAndConsumeBossItem
-	jp c, AIUseXDefend
+	; no buff roll (2026-09-06 table): the nurse heals and nothing else
 	ret
 
 ; Smith, Craig and Weebra share this one. They are the three post-game
@@ -1428,14 +1416,14 @@ JennyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseXAttack
 .skipBuff1
-	; ~25% Guard Spec roll (independent; sheet correction 2026-08-17 — her
-	; X Speed became a Guard Spec)
+	; ~25% X SP.ATK roll (independent; 2026-09-06 table: the Guard Spec of
+	; 08-17 became an X SP.ATK)
 	call Random
 	cp 25 percent + 1
 	ret nc
-	ld a, GUARD_SPEC
+	ld a, X_SPATK
 	call CheckAndConsumeBossItem
-	jp c, AIUseGuardSpec
+	jp c, AIUseXSpAtk
 	ret
 
 JanineAI:
