@@ -107,4 +107,7 @@ MoveEffectPointerTable:
 	dw SpDefDown1FlinchEffect  ; SPDEF_DOWN1_FLINCH_EFFECT
 	dw AttackDown2FlinchEffect   ; ATTACK_DOWN2_FLINCH_EFFECT
 	dw SpeedDown2FlinchEffect    ; SPEED_DOWN2_FLINCH_EFFECT
+	dw SpDefUp2Effect            ; SPDEF_UP2_EFFECT
+	dw SpDefDown2Effect          ; SPDEF_DOWN2_EFFECT
+	dw SpDefDownSideEffect       ; SPDEF_DOWN_SIDE_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS

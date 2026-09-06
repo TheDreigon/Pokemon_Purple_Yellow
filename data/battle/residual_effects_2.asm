@@ -47,4 +47,6 @@ ResidualEffects2:
 	db SPDEF_DOWN1_FLINCH_EFFECT   ; stat + flinch (Screech, 2026-09-01)
 	db ATTACK_DOWN2_FLINCH_EFFECT    ; stat + flinch (Intimidate, 2026-09-05)
 	db SPEED_DOWN2_FLINCH_EFFECT     ; stat + flinch (Scary Face, 2026-09-05)
+	db SPDEF_UP2_EFFECT              ; Amnesia (the split, 2026-09-06)
+	db SPDEF_DOWN2_EFFECT            ; Fake Tears (the split); NOT the side effect, which rides on a damaging move
 	db -1 ; end

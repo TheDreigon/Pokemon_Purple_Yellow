@@ -143,7 +143,7 @@ _MoveDesc_SpeedUp1::
 
 _MoveDesc_SpAtkUp1::
 	text "Raises the user's"
-	next "SPECIAL one step."
+	next "SP.ATK one step."
 	done
 
 _MoveDesc_AccuracyUp1::
@@ -186,7 +186,7 @@ _MoveDesc_SpeedDown1::
 
 _MoveDesc_SpAtkDown1::
 	text "Lowers the foe's"
-	next "SPECIAL one step."
+	next "SP.ATK one step."
 	done
 
 _MoveDesc_AccuracyDown1::
@@ -349,8 +349,7 @@ _MoveDesc_SpeedUp2::
 
 _MoveDesc_SpAtkUp2::
 	text "Raises the user's"
-	next "SPECIAL two"
-	next "steps."
+	next "SP.ATK two steps."
 	done
 
 _MoveDesc_AccuracyUp2::
@@ -395,8 +394,7 @@ _MoveDesc_SpeedDown2::
 
 _MoveDesc_SpAtkDown2::
 	text "Lowers the foe's"
-	next "SPECIAL two"
-	next "steps."
+	next "SP.ATK two steps."
 	done
 
 _MoveDesc_AccuracyDown2::
@@ -413,7 +411,7 @@ _MoveDesc_EvasionDown2::
 
 _MoveDesc_LightScreen::
 	text "Doubles the user's"
-	next "SPECIAL against"
+	next "SP.DEF against"
 	next "special attacks."
 	done
 
@@ -458,7 +456,7 @@ _MoveDesc_SpeedDownSide::
 _MoveDesc_SpAtkDownSide::
 	text "33 in 100 chance"
 	next "to lower the foe's"
-	next "SPECIAL one step."
+	next "SP.ATK one step."
 	done
 
 _MoveDesc_AttackDefenseUp1::
@@ -566,7 +564,7 @@ _MoveDesc_SpeedEvasionUp1::
 
 _MoveDesc_SpDefSpeedDown1::
 	text "Lowers the foe's"
-	next "SPECIAL and SPEED"
+	next "SP.DEF and SPEED"
 	next "one step each."
 	done
 
@@ -578,9 +576,10 @@ _MoveDesc_AttackUp1Down1::
 	done
 
 _MoveDesc_AttackSpAtkUp1Heal::
-	text "Raises SPECIAL one"
-	next "step and heals a"
-	next "quarter of max HP."
+	text "Raises ATTACK and"
+	next "SP.ATK a step and"
+	next "heals a quarter of"
+	next "max HP."
 	done
 
 _MoveDesc_TriStatusSide::
@@ -597,15 +596,14 @@ _MoveDesc_SpeedEvasionDown1::
 
 _MoveDesc_SpAtkSpeedUp1::
 	text "Raises the user's"
-	next "SPECIAL and SPEED"
+	next "SP.ATK and SPEED"
 	next "one step each."
 	done
 
 _MoveDesc_SpAtkSpDefAccuracyUp1::
 	text "Raises the user's"
-	next "SPECIAL and"
-	next "ACCURACY one step"
-	next "each."
+	next "SP.ATK, SP.DEF and"
+	next "ACCURACY a step."
 	done
 
 _MoveDesc_LevelDamage::
@@ -669,13 +667,13 @@ _MoveDesc_ExtremeSpeed::
 
 
 _MoveDesc_SpDefDown2Flinch::
-	text "Lowers SPECIAL two"
+	text "Lowers SP.DEF two"
 	next "steps. 30 in 100"
 	next "to flinch the foe."
 	done
 
 _MoveDesc_SpDefDown1Flinch::
-	text "Lowers SPECIAL one"
+	text "Lowers SP.DEF one"
 	next "step. 30 in 100 to"
 	next "flinch the foe."
 	done
@@ -690,4 +688,20 @@ _MoveDesc_SpeedDown2Flinch::
 	text "Lowers SPEED two"
 	next "steps. 30 in 100"
 	next "to flinch the foe."
+	done
+
+_MoveDesc_SpDefUp2::
+	text "Raises the user's"
+	next "SP.DEF two steps."
+	done
+
+_MoveDesc_SpDefDown2::
+	text "Lowers the foe's"
+	next "SP.DEF two steps."
+	done
+
+_MoveDesc_SpDefDownSide::
+	text "33 in 100 chance"
+	next "to lower the foe's"
+	next "SP.DEF one step."
 	done

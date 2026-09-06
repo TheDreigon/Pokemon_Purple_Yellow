@@ -515,7 +515,7 @@ _TM27Description::
 
 _TM28Description::
 	text "Lowers the foe's"
-	next "SPECIAL two steps."
+	next "SP.DEF two steps."
 	prompt
 
 _TM29Description::
@@ -579,7 +579,7 @@ _TM40Description::
 	prompt
 
 _TM41Description::
-	text "Doubles SPECIAL"
+	text "Doubles SP.DEF"
 	next "against specials."
 	prompt
 
@@ -619,8 +619,8 @@ _TM48Description::
 	prompt
 
 _TM49Description::
-	text "Raises SPECIAL and"
-	next "ACCURACY a step."
+	text "Raises SP.ATK,"
+	next "SP.DEF, ACCURACY."
 	prompt
 
 _TM50Description::

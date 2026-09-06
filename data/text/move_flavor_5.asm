@@ -42,11 +42,10 @@ _MoveFlavor_WITHDRAW::
 	done
 
 _MoveFlavor_GROWTH::
-	text "The user swells"
-	next "with a rush of"
-	next "vigour, healthier"
-	next "and stronger in"
-	next "mind."
+	text "A rush of vigour:"
+	next "healthier, and"
+	next "stronger in body"
+	next "and mind."
 	done
 
 _MoveFlavor_CALM_MIND::
@@ -184,9 +183,10 @@ _MoveFlavor_SCREECH::
 
 _MoveFlavor_EERIE_IMPULSE::
 	text "A pulse that"
-	next "leaves the foe's"
-	next "edge blunted and"
-	next "its aim off."
+	next "leaves the foe"
+	next "slower, its guard"
+	next "down against what"
+	next "it cannot see."
 	done
 
 _MoveFlavor_SCARY_FACE::

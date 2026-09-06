@@ -101,22 +101,30 @@
 	const DISABLE_EFFECT             ; $56
 	const SPEED_EVASION_UP1_EFFECT   ; $57  user Speed+1 & Evasion+1 (new Agility)
 	const CONFUSION_SIDE_EFFECT2     ; $58  30% confusion (Hurricane, Spore Daze)
-	const SPDEF_SPEED_DOWN1_EFFECT ; $59  target SP.DEF-1 & Speed-1 (Eerie Impulse). Named for the split (2026-09-06): the stat leg is the shared SPECIAL until F3.
+	const SPDEF_SPEED_DOWN1_EFFECT ; $59  target SP.DEF-1 & Speed-1 (Eerie Impulse). The SP.DEF leg goes through the proxy + wStatModIndexOverride (effects.asm).
 	const ATTACK_UP1_DOWN1_EFFECT    ; $5A  user Atk+1 / target Atk-1 (Fierce Roar)
-	const ATTACK_SPATK_UP1_HEAL_EFFECT ; $5B  user ATTACK+1 & SP.ATK+1 + heal 1/4 max HP (Growth). Named for the split: SPECIAL+1 + heal until F3.
+	const ATTACK_SPATK_UP1_HEAL_EFFECT ; $5B  user ATTACK+1 & SP.ATK+1 + heal 1/4 max HP (Growth; the split, 2026-09-06).
 	const TRI_STATUS_SIDE_EFFECT     ; $5C  ~30% to inflict random {par/brn/frz}, ~10% each (Tri Attack)
 	const CONFUSION_SIDE_EFFECT3     ; $5D  45% confusion (new Psychic). Heaviest tier of the 15/30/45 confusion ladder.
 	const SPEED_EVASION_DOWN1_EFFECT ; $5E  target Speed-1 & Evasion-1 (new Psychic Bind). Mirror of SPEED_EVASION_UP1_EFFECT.
 	const SPATK_SPEED_UP1_EFFECT   ; $5F  user SP.ATK+1 & Speed+1 (Quiver Dance). Shared SPECIAL until F3.
 	const PARALYZE_SIDE_EFFECT3      ; $60  45% paralyze chance (Mind Break). Heaviest tier of the 15/30/45 paralysis ladder.
-	const SPATK_SPDEF_ACCURACY_UP1_EFFECT ; $61  user SP.ATK+1 & SP.DEF+1 & Acc+1 (Calm Mind). Named for the split: SPECIAL+1 & Acc+1 until F3.
+	const SPATK_SPDEF_ACCURACY_UP1_EFFECT ; $61  user SP.ATK+1 & SP.DEF+1 & Acc+1 (Calm Mind; the split). The SP.DEF leg goes through the proxy + override.
 	const BURN_SIDE_EFFECT3          ; $62  45% burn chance (Lava Plume). Heaviest tier of the 15/30/45 burn ladder.
 	const FALSE_SWIPE_EFFECT         ; $63  damage that always leaves the target with at least 1 HP - never KOs (False Swipe).
 	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31).
 	const USER_LEVEL_DAMAGE_EFFECT   ; $65  damage equals the USER's level (Night Shade; clarity split of $29, 2026-08-31).
 	const SET_DAMAGE_EFFECT          ; $66  fixed damage by move: DRAGON RAGE 50, SONICBOOM 25 (clarity split of $29, 2026-08-31).
-	const SPDEF_DOWN2_FLINCH_EFFECT ; $67  target SP.DEF-2 + ~30% flinch (Metal Sound; Forte 2026-09-01). Named for the split: the stat leg is the shared SPECIAL until F3.
-	const SPDEF_DOWN1_FLINCH_EFFECT ; $68  target SP.DEF-1 + ~30% flinch (Screech; same family as $67). Shared SPECIAL until F3.
+	const SPDEF_DOWN2_FLINCH_EFFECT ; $67  target SP.DEF-2 + ~30% flinch (Metal Sound; Forte 2026-09-01). The stat leg goes through the proxy + override.
+	const SPDEF_DOWN1_FLINCH_EFFECT ; $68  target SP.DEF-1 + ~30% flinch (Screech; same family as $67).
 	const ATTACK_DOWN2_FLINCH_EFFECT  ; $69  target Atk-2 + ~30% flinch (Intimidate; Forte 2026-09-05, same family as $67. CHARM keeps the plain ATTACK_DOWN2.)
 	const SPEED_DOWN2_FLINCH_EFFECT   ; $6A  target Speed-2 + ~30% flinch (Scary Face; same day. Neither leg is touched by the 1.0 SPECIAL split.)
+; The SPECIAL split (2026-09-06). SP.DEF has no ladder of its own: each of these
+; is a handler that spoofs the SP.ATK id of the same sign and size into the move
+; effect byte (so every range check, MIST gate and animation guard reads a
+; known id) and hands MOD_SPDEF to StatModifierUp/DownEffect through
+; wStatModIndexOverride. Appended, never renumbered.
+	const SPDEF_UP2_EFFECT            ; $6B  user SP.DEF+2 (Amnesia). Proxy SPATK_UP2.
+	const SPDEF_DOWN2_EFFECT          ; $6C  target SP.DEF-2 (Fake Tears). Proxy SPATK_DOWN2.
+	const SPDEF_DOWN_SIDE_EFFECT      ; $6D  33% target SP.DEF-1 (Bug Buzz, Psybeam, Aurora Beam). Proxy SPATK_DOWN_SIDE.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

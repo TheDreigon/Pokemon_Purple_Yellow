@@ -473,16 +473,18 @@ Modifier2PreferredMoves:
 	db ATTACK_ACCURACY_UP1_EFFECT    ; Hone Claws
 	db SPEED_EVASION_UP1_EFFECT      ; Agility (revised)
 	db ATTACK_UP1_DOWN1_EFFECT       ; Fierce Roar (user up + target down)
-	db ATTACK_SPATK_UP1_HEAL_EFFECT       ; Growth (revised: SPC up + heal 1/4)
+	db ATTACK_SPATK_UP1_HEAL_EFFECT       ; Growth (ATK + SP.ATK up + heal 1/4)
 	db ACCURACY_EVASION_DOWN1_EFFECT ; Flash (target dual-down)
 	db SPDEF_SPEED_DOWN1_EFFECT    ; Eerie Impulse (target dual-down)
-	db SPATK_SPDEF_ACCURACY_UP1_EFFECT   ; Calm Mind (revised: SPC + ACC up)
+	db SPATK_SPDEF_ACCURACY_UP1_EFFECT   ; Calm Mind (SP.ATK + SP.DEF + ACC up)
 	db SPATK_SPEED_UP1_EFFECT      ; Quiver Dance (user dual-up)
 	db SPEED_EVASION_DOWN1_EFFECT    ; Psychic Bind (target dual-down)
 	db SPDEF_DOWN2_FLINCH_EFFECT   ; Metal Sound (target down + flinch)
 	db SPDEF_DOWN1_FLINCH_EFFECT   ; Screech (target down + flinch)
 	db ATTACK_DOWN2_FLINCH_EFFECT    ; Intimidate (target down + flinch)
 	db SPEED_DOWN2_FLINCH_EFFECT     ; Scary Face (target down + flinch)
+	db SPDEF_UP2_EFFECT              ; Amnesia (the split, 2026-09-06)
+	db SPDEF_DOWN2_EFFECT            ; Fake Tears (the split)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine

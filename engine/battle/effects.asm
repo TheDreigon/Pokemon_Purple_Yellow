@@ -1971,8 +1971,9 @@ SpeedEvasionUp1Effect:
 	ret
 
 SpAtkSpDefAccuracyUp1Effect:
-; Dual-stat +1 for the user (Special + Accuracy). Used by CALM_MIND (revised).
-; Named for the split (2026-09-06): SP.ATK+1 & SP.DEF+1 & Acc+1 from F3; the stat leg is the shared SPECIAL until then.
+; Triple-stat +1 for the user (SP.ATK, SP.DEF, ACCURACY). Used by CALM_MIND.
+; The split (2026-09-06): the SP.DEF leg spoofs the SP.ATK proxy and hands
+; MOD_SPDEF over in wStatModIndexOverride; the up path always consumes it.
 ; Same pattern as AttackAccuracyUp1Effect.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
@@ -1985,9 +1986,16 @@ SpAtkSpDefAccuracyUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	; Suppress animation on the second leg.
+	; Suppress animation on the later legs.
 	ld a, 1
 	ld [wMoveDidntMiss], a
+	push de
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
+	ld a, SPATK_UP1_EFFECT ; proxy: the SP.DEF leg
+	ld [de], a
+	call StatModifierUpEffect
+	pop de
 	push de
 	ld a, ACCURACY_UP1_EFFECT
 	ld [de], a
@@ -2030,8 +2038,10 @@ AccuracyEvasionDown1Effect:
 	ret
 
 SpDefSpeedDown1Effect:
-; Dual-stat -1 on the target (Special + Speed). Used by EERIE_IMPULSE.
-; Named for the split (2026-09-06): SP.DEF-1 & Speed-1 from F3; the stat leg is the shared SPECIAL until then.
+; Dual-stat -1 on the target (SP.DEF + Speed). Used by EERIE_IMPULSE.
+; The split (2026-09-06): the SP.DEF leg spoofs the SP.ATK proxy and hands
+; MOD_SPDEF over in wStatModIndexOverride. The down path can leave before it
+; consumes the override (substitute, miss, MIST), so it is cleared between legs.
 ; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
 ; its own accuracy check; for 100% accurate moves both always land.
 	ldh a, [hWhoseTurn]
@@ -2041,11 +2051,14 @@ SpDefSpeedDown1Effect:
 	ld de, wEnemyMoveEffect
 .gotEffectPtr5
 	push de
-	ld a, SPATK_DOWN1_EFFECT
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
+	ld a, SPATK_DOWN1_EFFECT ; proxy: the SP.DEF leg
 	ld [de], a
 	call StatModifierDownEffect
 	pop de
 	xor a
+	ld [wStatModIndexOverride], a ; not consumed if the leg left early
 	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
 	; Suppress animation on the second leg.
 	ld a, 1
@@ -2060,11 +2073,13 @@ SpDefSpeedDown1Effect:
 	ret
 
 SpDefDown2FlinchEffect:
-; Target Special -2 plus ~30% flinch. Used by METAL_SOUND (Forte's call,
-; 2026-09-01). Named for the split (2026-09-06): SP.DEF-2 from F3; the stat leg
-; is the shared SPECIAL until then.
+; Target SP.DEF -2 plus ~30% flinch. Used by METAL_SOUND (Forte's call,
+; 2026-09-01). The split (2026-09-06): b is the SP.ATK proxy, the override
+; carries MOD_SPDEF (emu_test_flinch_combo reads the first four bytes).
 	ld b, SPATK_DOWN2_EFFECT
 	ld c, SPDEF_DOWN2_FLINCH_EFFECT
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
 	jr DoStatDownFlinchEffect
 
 AttackDown2FlinchEffect:
@@ -2081,10 +2096,12 @@ SpeedDown2FlinchEffect:
 	jr DoStatDownFlinchEffect
 
 SpDefDown1FlinchEffect:
-; Target Special -1 plus ~30% flinch. Used by SCREECH (same day, same call).
-; Named for the split (2026-09-06): SP.DEF-1 from F3; shared SPECIAL until then.
+; Target SP.DEF -1 plus ~30% flinch. Used by SCREECH (same day, same call).
+; The split (2026-09-06): b is the SP.ATK proxy, the override carries MOD_SPDEF.
 	ld b, SPATK_DOWN1_EFFECT
 	ld c, SPDEF_DOWN1_FLINCH_EFFECT
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
 	; fallthrough
 DoStatDownFlinchEffect:
 ; in: b = the stat-down leg to spoof, c = our own effect id to restore.
@@ -2106,6 +2123,8 @@ DoStatDownFlinchEffect:
 	call StatModifierDownEffect
 	pop de
 	pop bc
+	xor a
+	ld [wStatModIndexOverride], a ; the SP.DEF variants set it; not consumed if the leg left early
 	ld a, [wMoveMissed]
 	and a
 	jr nz, .restore ; the move whiffed: no flinch roll
@@ -2117,6 +2136,54 @@ DoStatDownFlinchEffect:
 	pop de
 	pop bc
 .restore
+	ld a, c
+	ld [de], a
+	ret
+
+; The split (2026-09-06): SP.DEF has no effect-id ladder. These three spoof the
+; SP.ATK id of the same sign and size (so every range check, the MIST gate and
+; the animation guards read a known id), hand MOD_SPDEF to StatModifierUp/Down
+; Effect through wStatModIndexOverride, and restore their own id on the way out.
+SpDefUp2Effect:            ; AMNESIA: user SP.DEF +2
+	ld b, SPATK_UP2_EFFECT       ; proxy: +2, in-ladder
+	ld c, SPDEF_UP2_EFFECT       ; own id, restored on exit
+	jr DoSpDefStatEffect_Up
+SpDefDown2Effect:          ; FAKE TEARS: target SP.DEF -2
+	ld b, SPATK_DOWN2_EFFECT
+	ld c, SPDEF_DOWN2_EFFECT
+	jr DoSpDefStatEffect_Down
+SpDefDownSideEffect:       ; BUG BUZZ / PSYBEAM / AURORA BEAM: 33% target SP.DEF -1
+; (the 33% roll and the MIST guard live in StatModifierDownEffect's side path, keyed off the proxy)
+	ld b, SPATK_DOWN_SIDE_EFFECT
+	ld c, SPDEF_DOWN_SIDE_EFFECT
+	; fallthrough
+DoSpDefStatEffect_Down:
+	ld hl, StatModifierDownEffect
+	jr DoSpDefStatEffect
+DoSpDefStatEffect_Up:
+	ld hl, StatModifierUpEffect
+DoSpDefStatEffect:
+; in: b = proxy id, c = own id, hl = StatModifierUpEffect or StatModifierDownEffect
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr
+	ld de, wEnemyMoveEffect
+.gotEffectPtr
+	push bc
+	push de
+	ld a, b
+	ld [de], a
+	ld a, MOD_SPDEF + 1
+	ld [wStatModIndexOverride], a
+	ld de, .return
+	push de
+	jp hl
+.return
+	pop de
+	pop bc
+	xor a
+	ld [wStatModIndexOverride], a   ; the down path can leave before consuming it (substitute, miss, MIST, the 33% roll)
 	ld a, c
 	ld [de], a
 	ret
@@ -2152,8 +2219,7 @@ SpeedEvasionDown1Effect:
 	ret
 
 SpAtkSpeedUp1Effect:
-; Dual-stat +1 for the user (Special + Speed). Used by QUIVER_DANCE (v0.7).
-; Named for the split (2026-09-06): SP.ATK+1 & Speed+1 from F3; shared SPECIAL until then.
+; Dual-stat +1 for the user (SP.ATK + Speed). Used by QUIVER_DANCE (v0.7).
 ; Mirrors SpDefSpeedDown1Effect in the up direction — same pattern as
 ; AttackDefenseUp1Effect / SpeedEvasionUp1Effect above.
 	ldh a, [hWhoseTurn]
@@ -2212,11 +2278,11 @@ AttackUp1Down1Effect:
 	ret
 
 AttackSpAtkUp1HealEffect:
-; Dual: SPC+1 to user + heal 1/4 max HP. Used by GROWTH (revised).
-; Named for the split (2026-09-06): ATTACK+1 & SP.ATK+1 & heal from F3; the stat leg is the shared SPECIAL until then.
-; Phase 1 uses StatModifierUpEffect for animated SPC+1 + "rose!" text.
-; Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch that
-; divides max HP by 4 and honours wMoveDidntMiss to skip re-animating.
+; Triple: ATTACK+1 and SP.ATK+1 to the user + heal 1/4 max HP. Used by GROWTH
+; (the split, 2026-09-06: body and mind).
+; Phase 1 uses StatModifierUpEffect twice (the first leg animated, "rose!" text
+; on both). Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch
+; that divides max HP by 4 and honours wMoveDidntMiss to skip re-animating.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2224,13 +2290,18 @@ AttackSpAtkUp1HealEffect:
 	ld de, wEnemyMoveEffect
 .gotEffectPtr7
 	push de
-	ld a, SPATK_UP1_EFFECT
+	ld a, ATTACK_UP1_EFFECT
 	ld [de], a
-	call StatModifierUpEffect       ; +1 SPC to user (anim + text)
+	call StatModifierUpEffect       ; +1 ATTACK to user (anim + text)
 	pop de
-	; Suppress the move-anim replay inside HealEffect_'s .playAnim.
+	; Suppress the animation on the second leg and the replay inside HealEffect_'s .playAnim.
 	ld a, 1
 	ld [wMoveDidntMiss], a
+	push de
+	ld a, SPATK_UP1_EFFECT
+	ld [de], a
+	call StatModifierUpEffect       ; +1 SP.ATK to user (text)
+	pop de
 ; v0.7 FIX: HealEffect_'s full-HP guard runs before its per-move dispatch and
 ; lands on .failed, which prints "But, it failed!" UNCONDITIONALLY (it calls
 ; PrintButItFailedText_, not the conditional variant, so the wMoveDidntMiss set

@@ -412,7 +412,7 @@ MoveFlavorLines::
 	db 4
 	db 3
 	db 4
-	db 5
+	db 4
 	db 4
 	db 5
 	db 4
@@ -431,7 +431,7 @@ MoveFlavorLines::
 	db 5
 	db 4
 	db 3
-	db 4
+	db 5
 	db 5
 	db 4
 	db 4
