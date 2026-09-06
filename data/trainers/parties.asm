@@ -157,8 +157,8 @@ LassData:
 	db 25, PIDGEOTTO, RATICATE, MEOWTH, NIDORINO, 0
 	db 27, CLEFAIRY, CLEFABLE, 0
 ; Celadon Gym
-	db 28, GLOOM, WEEPINBELL, 0
-	db 29, PARASECT, EXEGGUTOR, 0
+	db 28, ODDISH, BELLSPROUT, 0 ; the gym rework (2026-09-06): the EP026 basics at the door
+	db 33, PARASECT, EXEGGUTOR, 0 ; 29 -> 33, the top row (taught SPORE, special_moves)
 ; Viridian Forest
 	db 6, NIDORAN_F, NIDORAN_M, 0
 	db 7, ODDISH, BELLSPROUT, 0 ; v0.7 (2026-09-02, Forte): the shortcut LASS
@@ -214,7 +214,7 @@ JrTrainerFData:
 	db 23, JIGGLYPUFF, PIDGEOTTO, MEOWTH, 0
 	db 24, GLOOM, IVYSAUR, 0
 ; Celadon Gym
-	db 29, BULBASAUR, IVYSAUR, 0
+	db 31, IVYSAUR, WEEPINBELL, 0 ; the gym rework (2026-09-06): the L29 BULBASAUR was 11 levels past its evolution
 ; Route 13
 	db 28, POLIWHIRL, CLEFAIRY, WEEPINBELL, POLIWHIRL, MEOWTH, 0
 	db 29, POLIWHIRL, SEAKING, 0
@@ -581,9 +581,9 @@ BurglarData:
 
 BeautyData:
 ; Celadon Gym
-	db 29, TANGELA, WEEPINBELL, EXEGGCUTE, 0
-	db 30, TANGELA, IVYSAUR, 0
-	db 32, VICTREEBEL, 0
+	db 30, TANGELA, EXEGGCUTE, 0 ; the gym rework (2026-09-06): two at 30 (STUN POWDER / DISABLE arrive there)
+	db 31, GLOOM, WEEPINBELL, 0 ; both Grass/Poison - her "dual poison-types" line is true again
+	db 32, VICTREEBEL, 0 ; the solo apex, taught SLEEP POWDER (special_moves)
 ; Route 13
 	db 28, VULPIX, NINETALES, GLOOM, 0
 	db 30, CLEFAIRY, PERSIAN, 0
@@ -818,7 +818,7 @@ CooltrainerMData:
 
 CooltrainerFData:
 ; Celadon Gym
-	db 29, WEEPINBELL, GLOOM, IVYSAUR, 0
+	db 33, IVYSAUR, VILEPLUME, 0 ; the gym rework (2026-09-06): the captain beside Erika, taught GIGA DRAIN
 ; Victory Road 3F -  Soul, Zach
 	db 53, DRAGONAIR, GENGAR, TAUROS, NIDOQUEEN, 0
 	db $FF, 54, WIGGLYTUFF, 54, CLEFABLE, 54, CHANSEY, 57, EEVEE, 0

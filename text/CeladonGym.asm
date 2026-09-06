@@ -149,10 +149,9 @@ _CeladonGymErikaCandyCommentText::
 	done
 
 _CeladonGymBattleText2::
-	text "Hey!"
-
-	para "You are not"
-	line "allowed in here!"
+; the gym rework (2026-09-06): EP026 - the gym banned the boy who sneered at its perfume
+	text "Here to sneer at"
+	line "our perfume too?"
 	done
 
 _CeladonGymEndBattleText2::
@@ -250,9 +249,10 @@ _CeladonGymAfterBattleText6::
 	done
 
 _CeladonGymBattleText7::
+; the gym rework (2026-09-06): the archery range of the Adventures manga's gym
 	text "Pleased to meet"
-	line "you. My hobby is"
-	cont "#MON training."
+	line "you. ERIKA also"
+	cont "teaches archery."
 	done
 
 _CeladonGymEndBattleText7::

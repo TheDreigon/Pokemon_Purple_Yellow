@@ -925,4 +925,16 @@ SpecialTrainerMoves:
 	db 3, 4, EXTRASENSORY
 	db 0
 
+	db LASS, 18 ; Celadon Gym - PARASECT 33, EXEGGUTOR 33
+	db 1, 3, SPORE ; over FALSE_SWIPE
+	db 0
+
+	db BEAUTY, 3 ; Celadon Gym - VICTREEBEL 32
+	db 1, 2, SLEEP_POWDER ; over CUT
+	db 0
+
+	db COOLTRAINER_F, 1 ; Celadon Gym - IVYSAUR 33, VILEPLUME 33
+	db 2, 4, GIGA_DRAIN ; over SCREECH (slot 4 - SLEEP_POWDER stays in slot 1)
+	db 0
+
 	db -1 ; end
