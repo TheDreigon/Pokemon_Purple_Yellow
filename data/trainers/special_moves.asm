@@ -4,7 +4,7 @@
 ;	db 0
 
 ; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
-; Every boss mon has all 4 slots specified (hand-picked full sets).
+; Every boss mon has all 4 slots specified (hand-picked full sets; a 3-move set pins slot 4 to NO_MOVE).
 ; Preserved verbatim below the generated bosses: SMITH, CRAIG, WEEBRA,
 ; FORTE (the DREIGON superboss, synced by hand from the doc's FINAL
 ; section) and SCIENTIST 9 (the Silph prototype-PORYGON ace). The rival's
@@ -54,11 +54,11 @@ SpecialTrainerMoves:
 	db 1, 1, WATER_PULSE
 	db 1, 2, HORN_ATTACK
 	db 1, 3, SUPERSONIC
-	db 1, 4, TAIL_WHIP
+	db 1, 4, NO_MOVE ; a 3-move set: slot 4 pinned empty
 	db 2, 1, WATER_PULSE
 	db 2, 2, CONFUSION
 	db 2, 3, DISABLE
-	db 2, 4, GROWL
+	db 2, 4, NO_MOVE ; a 3-move set: slot 4 pinned empty
 	db 3, 1, WATER_PULSE
 	db 3, 2, EXTRASENSORY
 	db 3, 3, RECOVER
