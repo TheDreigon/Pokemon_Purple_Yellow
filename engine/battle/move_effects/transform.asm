@@ -113,14 +113,18 @@ TransformEffect_:
 	call GetMonName
 	ld hl, wEnemyMonUnmodifiedAttack
 	ld de, wPlayerMonUnmodifiedAttack
+	ld bc, wPlayerMonStatMods - wPlayerMonUnmodifiedAttack ; NUM_BATTLE_STATS words
 	call .copyBasedOnTurn ; original (unmodified) stats
 	ld hl, wEnemyMonStatMods
 	ld de, wPlayerMonStatMods
+	ld bc, NUM_STAT_MODS
 	call .copyBasedOnTurn ; stat mods
 	ld hl, TransformedText
 	jp PrintText
 
 .copyBasedOnTurn
+; bc = length. The split (F2a): the unmodified block is NUM_BATTLE_STATS words
+; and the mods block NUM_STAT_MODS bytes - no longer the same eight.
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .gotStatsOrModsToCopy
@@ -129,7 +133,6 @@ TransformEffect_:
 	ld l, e
 	pop de
 .gotStatsOrModsToCopy
-	ld bc, $8
 	jp CopyData
 
 .failed

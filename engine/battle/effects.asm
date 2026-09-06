@@ -706,7 +706,25 @@ StatModifierUpEffect::
 	jr c, .incrementStatMod
 	sub ATTACK_UP2_EFFECT - ATTACK_UP1_EFFECT ; map +2 effects to equivalent +1 effect
 .incrementStatMod
+; The split (F2a): the ladder position becomes the stat-mod index. ACCURACY and
+; EVASION (positions 4 and 5) sit one past the SP.DEF stage byte inserted at
+; MOD_SPDEF, so positions at or above it move up by one.
+	cp MOD_SPDEF
+	jr c, .ladderIndexUp
+	inc a
+.ladderIndexUp
 	ld c, a
+; SP.DEF has no ladder id: its handlers spoof an in-ladder proxy of the same
+; sign and size (every range check here reads the proxy) and hand the real
+; index over in wStatModIndexOverride (index + 1; 0 = derive). Consumed once.
+	ld a, [wStatModIndexOverride]
+	and a
+	jr z, .gotIndexUp
+	dec a
+	ld c, a
+	xor a
+	ld [wStatModIndexOverride], a
+.gotIndexUp
 	ld b, $0
 	add hl, bc
 	ld b, [hl]
@@ -946,7 +964,21 @@ StatModifierDownEffect:
 	jr c, .decrementStatMod
 	sub ATTACK_DOWN2_EFFECT - ATTACK_DOWN1_EFFECT ; map -2 effects to corresponding -1 effect
 .decrementStatMod
+; The split (F2a): ladder position -> stat-mod index, as in StatModifierUpEffect
+; (the side-effect path arrives here with positions 0-3 and passes through).
+	cp MOD_SPDEF
+	jr c, .ladderIndexDown
+	inc a
+.ladderIndexDown
 	ld c, a
+	ld a, [wStatModIndexOverride]
+	and a
+	jr z, .gotIndexDown
+	dec a
+	ld c, a
+	xor a
+	ld [wStatModIndexOverride], a
+.gotIndexDown
 	ld b, $0
 	add hl, bc
 	ld b, [hl]

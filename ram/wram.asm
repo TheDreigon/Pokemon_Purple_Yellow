@@ -699,12 +699,21 @@ wPlayerMonAttackMod:: db
 wPlayerMonDefenseMod:: db
 wPlayerMonSpeedMod:: db
 wPlayerMonSpAtkMod:: db
+wPlayerMonSpDefMod:: db
 wPlayerMonAccuracyMod:: db
 wPlayerMonEvasionMod:: db
-	ds 2
-wPlayerMonStatModsEnd::
-
 	ds 1
+wPlayerMonStatModsEnd::
+ASSERT wPlayerMonSpDefMod - wPlayerMonStatMods == MOD_SPDEF && wPlayerMonAccuracyMod - wPlayerMonStatMods == MOD_ACCURACY, "the player's stage bytes must follow the MOD_* indexes"
+
+; The split (F2a): SP.DEF has no effect-id ladder of its own. A handler that
+; changes a SP.DEF stage spoofs an in-ladder proxy of the same sign and size
+; into w{Player,Enemy}MoveEffect and puts the real stat-mod index + 1 here;
+; StatModifierUp/DownEffect consume it once (0 = derive the index from the
+; ladder as always). It shares this union with overworld writers (the trade
+; scene, wTempColCoords), so every send-out zeroes it and every handler that
+; sets it clears it on the way out.
+wStatModIndexOverride:: db
 
 wEnemyMonUnmodifiedLevel:: db
 wEnemyMonUnmodifiedMaxHP:: dw
@@ -722,10 +731,12 @@ wEnemyMonAttackMod:: db
 wEnemyMonDefenseMod:: db
 wEnemyMonSpeedMod:: db
 wEnemyMonSpAtkMod:: db
+wEnemyMonSpDefMod:: db
 wEnemyMonAccuracyMod:: db
 wEnemyMonEvasionMod:: db
-	ds 2
+	ds 1
 wEnemyMonStatModsEnd::
+ASSERT wEnemyMonSpDefMod - wEnemyMonStatMods == MOD_SPDEF && wEnemyMonAccuracyMod - wEnemyMonStatMods == MOD_ACCURACY, "the enemy's stage bytes must follow the MOD_* indexes"
 ; The battle arm is the widest one (the comment above counts it); the copies in
 ; core.asm/experience.asm/haze.asm/transform.asm walk these blocks by count.
 ASSERT wEnemyMonStatModsEnd - wPlayerMonUnmodifiedLevel == 2 * (1 + NUM_STATS * 2 + NUM_STAT_MODS) + 1, "the unmodified-stats/stat-mods union arm is level + NUM_STATS words + NUM_STAT_MODS bytes per side, plus one spare byte"

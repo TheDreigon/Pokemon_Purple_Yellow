@@ -1773,6 +1773,8 @@ LoadBattleMonFromParty:
 	ld [hli], a
 	dec b
 	jr nz, .statModLoop
+	xor a
+	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
 	ret
 
 ; copies from enemy party data to current enemy mon data when sending out a new enemy mon
@@ -1825,6 +1827,8 @@ LoadEnemyMonFromParty:
 	ld [hli], a
 	dec b
 	jr nz, .statModLoop
+	xor a
+	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
 	ld a, [wWhichPokemon]
 	ld [wEnemyMonPartyPos], a
 	ret
@@ -6583,6 +6587,8 @@ LoadEnemyMonData:
 	ld [hli], a
 	dec b
 	jr nz, .statModLoop
+	xor a
+	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
 	ret
 
 .CraigMonsNicks

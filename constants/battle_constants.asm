@@ -29,11 +29,12 @@ DEF NUM_STATS EQU const_value - 1
 ; The stat words after MaxHP in a mon struct (Attack..SP.DEF): what the badge
 ; bake, Haze and Transform copy, and what the "unmodified" blocks hold.
 DEF NUM_BATTLE_STATS EQU NUM_STATS - 1
-; The stats that have a stage byte (Attack, Defense, Speed, SP.ATK today): what
-; the stage recalc loop, the badge walk and the X-item doublers walk, and where
-; the ACCURACY byte starts. Pinned at 4 by the split's F1 (SP.DEF has no stage
-; byte yet); F2a inserts MOD_SPDEF and makes this NUM_BATTLE_STATS again.
-DEF NUM_STAGED_STATS EQU 4
+; The stats that have a stage byte (Attack, Defense, Speed, SP.ATK, SP.DEF):
+; what the stage recalc loop, the badge walk and the X-item doublers walk, and
+; where the ACCURACY byte starts. Every battle stat has one since the split's
+; F2a (2026-09-06); the name survives for the places that mean "the staged
+; ones" rather than "the stat words".
+DEF NUM_STAGED_STATS EQU NUM_BATTLE_STATS
 
 ; StatModTextStrings indexes (see data/battle/stat_mod_names.asm)
 	const_def
@@ -41,10 +42,12 @@ DEF NUM_STAGED_STATS EQU 4
 	const MOD_DEFENSE
 	const MOD_SPEED
 	const MOD_SPATK
+	const MOD_SPDEF ; the split (F2a, 2026-09-06): its own stage byte, before ACCURACY (Gen 2 order); no ladder id, see effects.asm
 	const MOD_ACCURACY
 	const MOD_EVASION
-	const_skip 2
+	const_skip 1
 DEF NUM_STAT_MODS EQU const_value
+ASSERT MOD_SPDEF == MOD_SPATK + 1 && MOD_ACCURACY == MOD_SPDEF + 1 && MOD_EVASION == MOD_ACCURACY + 1, "the stage bytes follow the battle-stat order, then ACCURACY and EVASION"
 ; effects.asm gates the accuracy/evasion legs on "index >= MOD_ACCURACY", and the
 ; stage recalc walks NUM_STAGED_STATS stats: the two must agree.
 ASSERT MOD_ACCURACY == NUM_STAGED_STATS, "the stat-stage bytes before ACCURACY must be exactly the NUM_STAGED_STATS staged stats"
