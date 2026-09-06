@@ -1,7 +1,8 @@
 	object_const_def
 	const_export CERULEANGYM_MISTY
-	const_export CERULEANGYM_COOLTRAINER_F
-	const_export CERULEANGYM_SWIMMER
+	const_export CERULEANGYM_DAISY  ; the SENSATIONAL SISTERS (the gym rework, 2026-09-06)
+	const_export CERULEANGYM_VIOLET
+	const_export CERULEANGYM_LILY
 	const_export CERULEANGYM_GYM_GUIDE
 
 CeruleanGym_Object:
@@ -15,8 +16,15 @@ CeruleanGym_Object:
 
 	def_object_events
 	object_event  4,  2, SPRITE_MISTY, STAY, DOWN, TEXT_CERULEANGYM_MISTY, OPP_MISTY, 1
-	object_event  2,  3, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_CERULEANGYM_COOLTRAINER_F, OPP_JR_TRAINER_F, 1, 3
-	object_event  8,  7, SPRITE_SWIMMER, STAY, LEFT, TEXT_CERULEANGYM_SWIMMER, OPP_SWIMMER, 1, 3
+; v1.0 (the gym rework, 2026-09-06): Misty's three sisters, the SENSATIONAL
+; SISTERS (anime EP007 / EP061; Let's Go), youngest to eldest along the way in.
+; DAISY (BEAUTY, the eldest) watches the row-3 corridor every player crosses to
+; reach Misty; VIOLET (JR.TRAINER♀) the right-hand column; LILY (LASS) stands
+; beside the corridor mouth at (3,8) facing RIGHT, so she sees (4,8)/(5,8) - the
+; tiles every player steps onto from the entrance corridor - without blocking.
+	object_event  2,  3, SPRITE_BEAUTY, STAY, RIGHT, TEXT_CERULEANGYM_DAISY, OPP_BEAUTY, 17, 3
+	object_event  8,  7, SPRITE_COOLTRAINER_F, STAY, LEFT, TEXT_CERULEANGYM_VIOLET, OPP_JR_TRAINER_F, 2, 3
+	object_event  3,  8, SPRITE_LITTLE_GIRL, STAY, RIGHT, TEXT_CERULEANGYM_LILY, OPP_LASS, 21, 2 ; the little-girl sprite: the youngest
 	object_event  7, 11, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_CERULEANGYM_GYM_GUIDE
 
 	def_warps_to CERULEAN_GYM

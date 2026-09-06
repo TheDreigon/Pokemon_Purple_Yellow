@@ -117,43 +117,73 @@ _CeruleanGymMistyReceivedCascadeBadgeText::
 	cont "show you beat me!"
 	prompt
 
-_CeruleanGymBattleText1::
-	text "I'm more than good"
-	line "enough for you!"
+; v1.0 (the gym rework, 2026-09-06): the SENSATIONAL SISTERS, Misty's sisters
+; (anime EP007 / EP061; the gym's own trainers in Let's Go). Each says her
+; name - the battle screen only prints the class. End lines keep their short
+; first row: "BEAUTY: " (8), "JR.TRAINER♀: " (13), "LASS: " (6) go first.
+_CeruleanGymDaisyBattleText::
+	text "I'm DAISY, the"
+	line "eldest of the"
+	cont "SENSATIONAL"
+	cont "SISTERS!"
 
 	para "MISTY can wait!"
 	done
 
-_CeruleanGymEndBattleText1::
+_CeruleanGymDaisyEndBattleText::
 	text "You"
 	line "overwhelmed me!"
 	prompt
 
-_CeruleanGymAfterBattleText1::
-	text "You have to face"
-	line "other trainers to"
-	cont "find out how good"
-	cont "you really are."
+_CeruleanGymDaisyAfterBattleText::
+	text "We three used to"
+	line "run this GYM."
+
+	para "Some PALLET kids"
+	line "beat us all. Now"
+	cont "MISTY fights."
 	done
 
-_CeruleanGymBattleText2::
-	text "Splash!"
+_CeruleanGymVioletBattleText::
+	text "I'm VIOLET, one of"
+	line "the SENSATIONAL"
+	cont "SISTERS!"
 
-	para "I'm first up!"
-	line "Let's do it!"
+	para "Splash! I'm first"
+	line "up! Let's do it!"
 	done
 
-_CeruleanGymEndBattleText2::
-	text "That"
-	line "can't be!"
+_CeruleanGymVioletEndBattleText::
+	text "I'm"
+	line "soaked!"
 	prompt
 
-_CeruleanGymAfterBattleText2::
-	text "MISTY is going to"
-	line "keep improving!"
+_CeruleanGymVioletAfterBattleText::
+	text "Our little sister"
+	line "won't lose to"
+	cont "someone like you!"
+	done
 
-	para "She won't lose to"
-	line "someone like you!"
+_CeruleanGymLilyBattleText::
+	text "I'm LILY, the"
+	line "youngest of the"
+	cont "SENSATIONAL"
+	cont "SISTERS!"
+
+	para "GOLDEEN is the"
+	line "only one I have"
+	cont "left! Go, GOLDEEN"
+	done
+
+_CeruleanGymLilyEndBattleText::
+	text "Like, no"
+	line "way!"
+	prompt
+
+_CeruleanGymLilyAfterBattleText::
+	text "You, like, beat"
+	line "all three of us?"
+	cont "MISTY's next!"
 	done
 
 _CeruleanGymGymGuideChampInMakingText::

@@ -162,6 +162,8 @@ LassData:
 ; Viridian Forest
 	db 6, NIDORAN_F, NIDORAN_M, 0
 	db 7, ODDISH, BELLSPROUT, 0 ; v0.7 (2026-09-02, Forte): the shortcut LASS
+; 21: Cerulean Gym - LILY, the youngest SENSATIONAL SISTER (2026-09-06)
+	db 16, GOLDEEN, 0
 
 BrockData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
@@ -192,10 +194,10 @@ JrTrainerMData:
 	db 16, ONIX, 0 ; v0.7 (2026-09-05, Forte): the couple - his ONIX stands in until a fan-made ONIX pre-evolution exists (was HORSEA, BELLSPROUT)
 
 JrTrainerFData:
-; Cerulean Gym
+; Unused since 2026-09-06 (was Cerulean Gym's SEEL 19; DAISY is BEAUTY 17 now)
 	db 19, SEEL, 0
-; Unused
-	db 16, ODDISH, BELLSPROUT, 0
+; Cerulean Gym: VIOLET, the middle SENSATIONAL SISTER (2026-09-06; the id was Unused)
+	db 17, SHELLDER, HORSEA, 0
 ; Route 6
 	db 16, PIDGEY, SPEAROW, PIDGEY, 0
 ; Unused
@@ -594,6 +596,8 @@ BeautyData:
 	db 43, BLASTOISE, DEWGONG, SLOWBRO, 0
 ; Victory Road - ReaderDragon
 	db 53, RAICHU, HYPNO, PERSIAN, TAUROS, 0
+; 17: Cerulean Gym - DAISY, the eldest SENSATIONAL SISTER (2026-09-06)
+	db 18, SEEL, 0
 
 ErikaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
@@ -678,7 +682,7 @@ BirdKeeperData:
 	db 32, PIDGEOTTO, DODUO, FEAROW, 0
 
 SwimmerData:
-; Cerulean Gym
+; Unused since 2026-09-06 (was Cerulean Gym; VIOLET is JR_TRAINER_F 2 now)
 	db 16, HORSEA, SHELLDER, 0
 ; Route 19
 	db 43, TENTACRUEL, CLOYSTER, 0
