@@ -58,8 +58,8 @@ _CeruleanGymMistyTMExplanationText::
 
 	para "A surging pulse"
 	line "of water that"
-	cont "sometimes leaves"
-	cont "the foe confused!"
+	cont "never misses"
+	cont "its mark!"
 
 	para "Use it well!"
 	done
@@ -168,18 +168,18 @@ _CeruleanGymGymGuideChampInMakingText::
 
 	para "Her WATER PULSE"
 	line "hits hard and"
-	cont "may leave you"
-	cont "confused!"
+	cont "never misses!"
 
-	para "Her lead and ace"
-	line "know psychic-"
-	cont "type moves, and"
-	cont "all 3 carry"
+	para "Her PSYDUCK and"
+	line "STARMIE know"
+	cont "psychic-type"
+	cont "moves, and her"
+	cont "ace also packs"
 	cont "ICY PULSE!"
 
 	para "Grass-types won't"
 	line "get an easy ride"
-	cont "here!"
+	cont "from her ace!"
 
 	para "Electric-types"
 	line "are still the"
