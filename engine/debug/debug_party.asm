@@ -109,6 +109,7 @@ IF DEF(_DEBUG)
 	SetEventReuseHL EVENT_BILL_SAID_USE_CELL_SEPARATOR
 	SetEventReuseHL EVENT_GOT_BILL_EEVEE             ; byte 315
 	SetEventReuseHL EVENT_GOT_BILL_EEVEELUTION_STONE
+	SetEvent EVENT_GOT_HM01                          ; byte 78 (2026-09-06): field CUT needs the CAPTAIN's HM01 as well as the badge
 
 	; ...and count as League Champion, which gates the rematch and the garden.
 	ld a, 1

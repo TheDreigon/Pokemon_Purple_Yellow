@@ -2529,7 +2529,7 @@ wBlockNextWarp:: db
 ; bit 3: received Old Rod
 ; bit 4: received Good Rod
 ; bit 5: received Super Rod
-; bit 6: gave one of the Saffron guards a drink
+; bit 6: a Saffron gate guard let the player through (four BADGES since 2026-09-06; was "gave a guard a drink") - shared by the four gates and the Route 5 youngster
 ; bit 7: set by ItemUseCardKey, which is leftover code from a previous implementation of the Card Key
 wd728:: db
 

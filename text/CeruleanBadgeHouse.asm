@@ -31,7 +31,7 @@ _CeruleanBadgeHouseBoulderBadgeText::
 
 _CeruleanBadgeHouseCascadeBadgeText::
 	text "It lets you use"
-	line "CUT outside of"
+	line "HM01's CUT out of"
 	cont "battle."
 	prompt
 

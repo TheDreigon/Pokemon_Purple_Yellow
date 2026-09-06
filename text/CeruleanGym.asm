@@ -69,7 +69,7 @@ _CeruleanGymMistyCascadeBadgeInfoText::
 	line "is proof that you"
 	cont "tamed the waves!"
 
-	para "There's more, you"
+	para "And with HM01, you"
 	line "can now use CUT"
 	cont "anytime!"
 
