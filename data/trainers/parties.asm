@@ -272,7 +272,7 @@ RocketData:
 	db 26, DROWZEE, KOFFING, 0
 ; Silph Co. 2F
 	db 39, MAROWAK, GOLBAT, 0
-	db 35, GOLBAT, RATICATE, GOLBAT, PINSIR, 0
+	db 35, GOLBAT, RATICATE, SANDSLASH, PINSIR, 0 ; variety (2026-09-07, Forte): was GOLBAT, RATICATE, GOLBAT, PINSIR
 ; Silph Co. 3F
 	db 38, RATICATE, HYPNO, MUK, 0
 ; Silph Co. 4F
@@ -289,7 +289,7 @@ RocketData:
 	db 39, MAROWAK, MAGMAR, 0
 	db 39, SANDSLASH, VILEPLUME, 0
 ; Silph Co. 8F
-	db 37, RATICATE, TENTACRUEL, GOLBAT, RATICATE, 0
+	db 37, RATICATE, TENTACRUEL, GOLBAT, MAROWAK, 0 ; variety (2026-09-07, Forte): was RATICATE, TENTACRUEL, GOLBAT, RATICATE
 	db 39, VICTREEBEL, GOLBAT, WEEZING , 0
 ; Silph Co. 9F
 	db 38, HYPNO, MUK, MACHOKE, 0
@@ -374,7 +374,7 @@ HikerData:
 	db 23, MACHOP, ONIX, 0
 ; Rock Tunnel 1F
 	db $FF, 24, MACHOP, 26, MACHOKE, 0
-	db 24, ONIX, SANDSHREW, ONIX, 0
+	db 24, ONIX, SANDSLASH, GEODUDE, 0 ; variety (2026-09-07, Forte): was ONIX, SANDSHREW, ONIX (Sandshrew evolves at 22 here)
 	db $FF, 24, GEODUDE, 26, GRAVELER, 0
 ; Victory Road - Sable
 	db 52, AERODACTYL, PARASECT, JOLTEON, ARCANINE, 0
@@ -405,7 +405,7 @@ SailorData:
 
 GentlemanData:
 ; SS Anne 1F Rooms
-	db 18, GROWLITHE, GROWLITHE, 0
+	db 18, GROWLITHE, SEEL, 0 ; variety (2026-09-07, Forte): was GROWLITHE, GROWLITHE (a pet of the crossing; GROWLITHE + VULPIX is the Route 11 gambler's pair)
 	db 19, NIDORAN_M, NIDORAN_F, 0
 ; SS Anne 2F Rooms/Vermilion Gym
 	db 22, VOLTORB, MAGNEMITE, 0
@@ -416,7 +416,7 @@ GentlemanData:
 
 FisherData:
 ; SS Anne 2F Rooms
-	db 18, GOLDEEN, TENTACOOL, GOLDEEN, 0
+	db 18, GOLDEEN, TENTACOOL, HORSEA, 0 ; variety (2026-09-07, Forte): was GOLDEEN, TENTACOOL, GOLDEEN (Vermilion's rod fish)
 ; SS Anne B1F Rooms
 	db 18, TENTACOOL, STARYU, SHELLDER, 0
 ; Route 12
@@ -476,7 +476,7 @@ PokemaniacData:
 	db 43, MAGMAR, JYNX, LAPRAS, 0
 	db 27, KANGASKHAN, 0
 ; Rock Tunnel B1F
-	db 23, SLOWPOKE, LICKITUNG, SLOWPOKE, 0
+	db 23, SLOWPOKE, LICKITUNG, RHYHORN, 0 ; variety (2026-09-07, Forte): was SLOWPOKE, LICKITUNG, SLOWPOKE (vanilla's maniac species; Cubone is on both neighbours, Route 10's KANGASKHAN stays the corridor's one reveal)
 	db 26, CHARMELEON, CUBONE, 0
 	db 25, SLOWPOKE, 0
 ; Victory Road 2F
@@ -775,8 +775,8 @@ ScientistData:
 ; Unused
 	db 34, KOFFING, VOLTORB, 0
 ; Silph Co. 2F
-	db 37, MUK, WEEZING, PORYGON, WEEZING, 0
-	db 38, MAGNETON, ELECTRODE, MAGNETON, 0
+	db 37, MUK, WEEZING, PORYGON, DITTO, 0 ; variety (2026-09-07, Forte): was MUK, WEEZING, PORYGON, WEEZING (the lab's own experiment; a MAGNETON at 37 has no Electric attack here)
+	db 38, MAGNETON, ELECTRODE, ELECTABUZZ, 0 ; variety (2026-09-07, Forte): was MAGNETON, ELECTRODE, MAGNETON (the electric chemist stays electric; nothing shared with the poison one)
 ; Silph Co. 3F/Mansion 1F
 	db 39, ELECTRODE, WEEZING, 0
 ; Silph Co. 4F
