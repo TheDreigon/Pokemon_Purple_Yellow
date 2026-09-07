@@ -40,7 +40,8 @@ _Route8SuperNerd2EndBattleText::
 	prompt
 
 _Route8SuperNerd2AfterBattleText::
-	text "Go with GRIMER"
+; v1.0 (2026-09-07): he fights with PORYGON (party 4), not vanilla's GRIMER - the plan names his own
+	text "Go with PORYGON"
 	line "first...and..."
 	cont "...and...then..."
 	done

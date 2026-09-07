@@ -225,8 +225,9 @@ _CinnabarGymSuperNerd6EndBattleText::
 	prompt
 
 _CinnabarGymSuperNerd6AfterBattleText::
+; v1.0 (2026-09-07): his own pair (VULPIX, NINETALES), not PONYTA - the audit's catch
 	text "Us fire #MON"
-	line "fans like PONYTA"
+	line "fans like VULPIX"
 	cont "and NINETALES!"
 	done
 
