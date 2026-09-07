@@ -143,9 +143,9 @@ _FuchsiaGymAyaBattleText::
 	cont "my brother!"
 
 	para "I love my VENONAT"
-	line "just as it is. I"
-	cont "will never let it"
-	cont "evolve!"
+	line "just as it is,"
+	cont "and I will never"
+	cont "let it evolve!"
 
 	para "VENONAT! Show"
 	line "them our poison!"

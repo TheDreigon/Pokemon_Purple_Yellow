@@ -847,7 +847,7 @@ CooltrainerFData:
 ; 9: Vermilion Gym - VISQUEZ, Lt. Surge's second (2026-09-06); her Pikachu will be a Raichu like his
 	db $FF, 26, PIKACHU, 26, VOLTORB, 0
 ; 10: Fuchsia Gym - AYA, Koga's younger sister (2026-09-06); VENONAT is her only known POKeMON
-	db 39, VENONAT, 0 ; AYA (2026-09-07, Forte): her one anime Pokemon, alone and never evolved; 39 = the phase cap, under Koga's 41 (was VENONAT 37 + VENOMOTH 39)
+	db 40, VENONAT, 0 ; AYA (2026-09-07, Forte): her one anime Pokemon, alone and never evolved, at 40 - one under Koga's lowest (was VENONAT 37 + VENOMOTH 39); her STUN_POWDER back in special_moves
 
 LoreleiData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)

@@ -937,4 +937,8 @@ SpecialTrainerMoves:
 	db 2, 4, GIGA_DRAIN ; over SCREECH (slot 4 - SLEEP_POWDER stays in slot 1)
 	db 0
 
+	db COOLTRAINER_F, 10 ; Fuchsia Gym - AYA's VENONAT 40 (her Venonat's Stun Spore, EP176; learnt at 22, pushed out by 40)
+	db 1, 2, STUN_POWDER ; over LEECH_LIFE
+	db 0
+
 	db -1 ; end
