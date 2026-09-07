@@ -21,6 +21,7 @@ Route6_TextPointers:
 	dw_const Route6CooltrainerM2Text,       TEXT_ROUTE6_COOLTRAINER_M2
 	dw_const Route6CooltrainerF2Text,       TEXT_ROUTE6_COOLTRAINER_F2
 	dw_const Route6Youngster2Text,          TEXT_ROUTE6_YOUNGSTER2
+	dw_const Route6GardenerText,            TEXT_ROUTE6_GARDENER ; a plain object: id 7 of 7 objects (def_warps_to's rule)
 	dw_const Route6UndergroundPathSignText, TEXT_ROUTE6_UNDERGROUND_PATH_SIGN
 
 Route6TrainerHeaders:
@@ -145,6 +146,11 @@ Route6Youngster2EndBattleText:
 
 Route6Youngster2AfterBattleText:
 	text_far _Route6Youngster2AfterBattleText
+	text_end
+
+; v1.0 (2026-09-07, Forte): the gardener
+Route6GardenerText:
+	text_far _Route6GardenerText
 	text_end
 
 Route6UndergroundPathSignText:

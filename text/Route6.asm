@@ -97,6 +97,25 @@ _Route6Youngster2AfterBattleText::
 	cont "just bad?"
 	done
 
+; v1.0 (2026-09-07, Forte): the gardener of the beds below the SAFFRON gate. ROUTE 7's grass
+; really has poison #MON (KOFFING, WEEZING - the smog); ROUTE 8's has none, so he names only 7.
+_Route6GardenerText::
+	text "I'm the gardener"
+	line "here. Keeping it"
+	cont "all pretty is"
+	cont "hard work!"
+
+	para "Especially with"
+	line "that city air"
+	cont "drifting in from"
+	cont "SAFFRON."
+
+	para "I hear ROUTE 7,"
+	line "west of SAFFRON,"
+	cont "has a few poison"
+	cont "#MON now."
+	done
+
 _Route6UndergroundPathSignText::
 	text "UNDERGROUND PATH"
 	line "CERULEAN CITY -"

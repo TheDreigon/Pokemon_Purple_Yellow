@@ -133,7 +133,12 @@ SpriteSets:
 	db SPRITE_MACHOP
 	db SPRITE_SAILOR
 	db SPRITE_COOLTRAINER_F
-	db SPRITE_COOLTRAINER_M
+; v1.0 (2026-09-07, Forte): was SPRITE_COOLTRAINER_M, which only Route 6's two
+; JR.TRAINER♂ wore (Vermilion City and Route 11 never used it); they wear the
+; YOUNGSTER now - their class pic is the camper boy - and the slot draws the
+; Route 6 gardener, the old man. sprite_set_audit.py checks every outdoor
+; object against its set.
+	db SPRITE_GRAMPS
 	db SPRITE_POKE_BALL
 	db SPRITE_UNUSED_GAMBLER_ASLEEP_2
 
