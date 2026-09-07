@@ -191,7 +191,7 @@ JrTrainerMData:
 ; Route 12
 	db 29, NIDORINA, NIDORINO, 0
 ; Route 6
-	db 16, ONIX, 0 ; v0.7 (2026-09-05, Forte): the couple - his ONIX stands in until a fan-made ONIX pre-evolution exists (was HORSEA, BELLSPROUT)
+	db 16, LICKITUNG, 0 ; v1.0 (2026-09-07, Forte): the couple - his LICKITUNG (ONIX from 09-05 to 09-07; HORSEA, BELLSPROUT before)
 ; 11: Cinnabar Gym - EVAN (Pokemon Adventures), the Camper who minds the gym for Blaine (2026-09-06)
 	db $FF, 46, HAUNTER, 47, ARCANINE, 0
 
