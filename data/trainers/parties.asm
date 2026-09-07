@@ -199,7 +199,7 @@ JrTrainerFData:
 ; Unused since 2026-09-06 (was Cerulean Gym's SEEL 19; DAISY is BEAUTY 17 now)
 	db 19, SEEL, 0
 ; Cerulean Gym: VIOLET, the middle SENSATIONAL SISTER (2026-09-06; the id was Unused)
-	db 17, SHELLDER, HORSEA, 0
+	db 17, SHELLDER, 0 ; VIOLET - her Let's Go Pokemon, alone (Forte, 2026-09-07: the HORSEA was the vanilla Swimmer's; the gym's Horsea is Misty's)
 ; Route 6
 	db 16, PIDGEY, SPEAROW, PIDGEY, 0
 ; Unused
