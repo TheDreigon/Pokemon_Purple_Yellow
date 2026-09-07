@@ -142,6 +142,11 @@ _FuchsiaGymAyaBattleText::
 	line "before you face"
 	cont "my brother!"
 
+	para "I love my VENONAT"
+	line "just as it is. I"
+	cont "will never let it"
+	cont "evolve!"
+
 	para "VENONAT! Show"
 	line "them our poison!"
 	done
