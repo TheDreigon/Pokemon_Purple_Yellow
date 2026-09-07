@@ -24,7 +24,7 @@ CeruleanGym_Object:
 ; tiles every player steps onto from the entrance corridor - without blocking.
 	object_event  2,  3, SPRITE_BEAUTY, STAY, RIGHT, TEXT_CERULEANGYM_DAISY, OPP_BEAUTY, 17, 3
 	object_event  8,  7, SPRITE_COOLTRAINER_F, STAY, LEFT, TEXT_CERULEANGYM_VIOLET, OPP_JR_TRAINER_F, 2, 3
-	object_event  3,  8, SPRITE_LITTLE_GIRL, STAY, RIGHT, TEXT_CERULEANGYM_LILY, OPP_LASS, 21, 2 ; the little-girl sprite: the youngest
+	object_event  3,  8, SPRITE_GIRL, STAY, RIGHT, TEXT_CERULEANGYM_LILY, OPP_LASS, 21, 2 ; the LASS pic's girl (was LITTLE_GIRL, a child - she is the youngest sister, not a kid; 2026-09-07) ; the little-girl sprite: the youngest
 	object_event  7, 11, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_CERULEANGYM_GYM_GUIDE
 
 	def_warps_to CERULEAN_GYM

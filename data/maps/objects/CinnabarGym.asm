@@ -23,7 +23,7 @@ CinnabarGym_Object:
 ; v1.0 (the gym rework, 2026-09-06): EVAN (Pokemon Adventures), the Camper who
 ; minds the gym while Blaine is away, greets the challenger in the first room -
 ; the one without a quiz. Then the six quiz gates, 46 -> 49 under Blaine's 49.
-	object_event 17,  2, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD1, OPP_JR_TRAINER_M, 11
+	object_event 17,  2, SPRITE_YOUNGSTER, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD1, OPP_JR_TRAINER_M, 11 ; the JR.TRAINER♂ pic's boy, like FORREST (was COOLTRAINER_M; 2026-09-07)
 	object_event 17,  8, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD2, OPP_BURGLAR, 4
 	object_event 11,  4, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD3, OPP_SUPER_NERD, 10
 	object_event 11,  8, SPRITE_SUPER_NERD, STAY, DOWN, TEXT_CINNABARGYM_SUPER_NERD4, OPP_BURGLAR, 5
