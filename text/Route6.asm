@@ -97,8 +97,9 @@ _Route6Youngster2AfterBattleText::
 	cont "just bad?"
 	done
 
-; v1.0 (2026-09-07, Forte): the gardener of the beds below the SAFFRON gate. ROUTE 7's grass
-; really has poison #MON (KOFFING, WEEZING - the smog); ROUTE 8's has none, so he names only 7.
+; v1.0 (2026-09-07, Forte): the gardener of the beds below the SAFFRON gate. Both routes' grass
+; really has poison #MON since the same day's pass (GRIMER, KOFFING, and a rare MUK / WEEZING);
+; emu_test_route6_gardener checks every route he names against the wild tables.
 _Route6GardenerText::
 	text "I'm the gardener"
 	line "here. Keeping it"
@@ -110,9 +111,10 @@ _Route6GardenerText::
 	cont "drifting in from"
 	cont "SAFFRON."
 
-	para "I hear ROUTE 7,"
-	line "west of SAFFRON,"
-	cont "has a few poison"
+	para "I hear ROUTE 7 and"
+	line "ROUTE 8, on both"
+	cont "sides of SAFFRON,"
+	cont "have some poison"
 	cont "#MON now."
 	done
 
