@@ -168,7 +168,14 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld bc, BASE_DATA_SIZE
 	call AddNTimes
 	ld de, wMonHeader
-	call CopyData
+; v0.7 (2026-09-08) FIX: BaseStats lives in bank $30 since v0.6 moved it out of
+; this bank, and this copy was still a same-bank CopyData: every evolution
+; loaded BASE_DATA_SIZE bytes of THIS bank's learnset data as the new species' header, so
+; CalcStats below built the evolved mon's stats (and the max-HP delta added to
+; its current HP) from garbage until its next level-up reloaded the real
+; header. Found because the exp top-up read a growth rate of 214 for GYARADOS.
+	ld a, BANK(BaseStats)
+	call FarCopyData
 	ld a, [wd0b5]
 	ld [wMonHIndex], a
 	pop af
