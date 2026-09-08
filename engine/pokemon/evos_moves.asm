@@ -157,6 +157,42 @@ Evolution_PartyMonLoop: ; loop over party mons
 	call DelayFrames
 	call ClearScreen
 	call RenameEvolvedMon
+; v0.7 (2026-09-08, Forte): EXP top-up across a curve change. Six lines evolve
+; from a FAST pre-evo into a MEDIUM_FAST evolution (Caterpie, Weedle, Pikachu,
+; Magikarp, Eevee, Dratini). Evolving never touched the exp, so the new species
+; carried exp under its own level floor: the box and the day care recompute the
+; level from exp and dropped it (Gyarados L26 -> L24), the first level after
+; evolving cost up to 3x, and the day care billed the drop as "grown by 254".
+; Fix: shift the exp by the difference between the two curves' floors for the
+; CURRENT level: the old floor is read here from the OLD species' header
+; (loaded explicitly - the animation happens to leave it in wMonHeader, but
+; nothing should lean on that), the new floor after the header swap below.
+; The in-level progress is kept. The result stays under the next level's floor
+; because every FAST->MEDIUM_FAST per-level step is 0.8x the new one (a pair
+; whose new curve grew SLOWER per level at some L would overshoot - none of the
+; six split lines does); it also assumes the exp sits inside the old curve's
+; own band, which a save from before a species' curve was switched to FAST
+; might not (a new game does). Only the slower direction adds; a faster new
+; curve leaves the exp alone. Both CalcExperience calls run before CalcStats:
+; hExperience aliases hProduct.
+	ld a, [wd0b5]
+	push af ; the new species, needed again below
+	ld a, [wEvoOldSpecies]
+	ld [wd0b5], a
+	call GetMonHeader ; wMonHeader = the OLD species (its growth rate)
+	pop af
+	ld [wd0b5], a
+	ld a, [wCurEnemyLVL]
+	ld d, a
+	callfar CalcExperience ; hExperience = floor of this level on the OLD curve
+	ldh a, [hExperience]
+	ld b, a
+	ldh a, [hExperience + 1]
+	ld c, a
+	ldh a, [hExperience + 2]
+	ld e, a
+	push bc
+	push de
 	ld a, [wd11e]
 	push af
 	ld a, [wd0b5]
@@ -180,6 +216,34 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wMonHIndex], a
 	pop af
 	ld [wd11e], a
+; v0.7 (2026-09-08): second half of the exp top-up (see above). wMonHeader now
+; holds the NEW species, so this floor is on the new curve.
+	ld a, [wCurEnemyLVL]
+	ld d, a
+	callfar CalcExperience ; hExperience = floor of this level on the NEW curve
+	pop de ; e = old floor, low byte
+	pop bc ; b, c = old floor, high and middle bytes
+	ldh a, [hExperience + 2]
+	sub e
+	ld e, a
+	ldh a, [hExperience + 1]
+	sbc c
+	ld c, a
+	ldh a, [hExperience]
+	sbc b
+	jr c, .noExpTopUp ; the new curve is the faster one: nothing to add
+	ld b, a
+	ld hl, wLoadedMonExp + 2
+	ld a, [hl]
+	add e
+	ld [hld], a
+	ld a, [hl]
+	adc c
+	ld [hld], a
+	ld a, [hl]
+	adc b
+	ld [hl], a
+.noExpTopUp
 	ld hl, wLoadedMonHPExp - 1
 	ld de, wLoadedMonStats
 	ld b, $1
