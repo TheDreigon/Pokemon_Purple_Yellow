@@ -1,5 +1,5 @@
 	db DEX_WEEZING ; pokedex id
-	base_stat_row 90, 95, 100, 95, 95, 50 ; hp atk def spatk spdef spd
+	base_stat_row 90, 95, 100, 95, 75, 50 ; hp atk def spatk spdef spd
 	db POISON, GAS ; type
 	db 60 ; catch rate  ; set by hand: level with Muk
 	db 175 ; base exp  ; BST 430 - poucas fraquezas (+2)

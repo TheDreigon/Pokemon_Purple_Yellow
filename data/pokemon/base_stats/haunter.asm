@@ -1,5 +1,5 @@
 	db DEX_HAUNTER ; pokedex id
-	base_stat_row 45, 60, 45, 105, 105, 100 ; hp atk def spatk spdef spd
+	base_stat_row 45, 60, 45, 105, 55, 100 ; hp atk def spatk spdef spd
 	db GHOST, GAS ; type
 	db 75 ; catch rate  ; exception: same line, less substance still
 	db 130 ; base exp  ; BST 355 - poucas fraquezas (+2)

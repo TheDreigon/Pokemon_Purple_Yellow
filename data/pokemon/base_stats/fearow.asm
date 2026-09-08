@@ -1,8 +1,8 @@
 	db DEX_FEAROW ; pokedex id
-	base_stat_row 70, 95, 65, 65, 65, 95 ; hp atk def spatk spdef spd
+	base_stat_row 70, 95, 65, 65, 65, 90 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 65 ; catch rate  ; final stage, BST 390, harder to handle
+	db 65 ; catch rate  ; final stage, BST 385, harder to handle
 	db 150 ; base exp  ; BST 390 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/fearow.pic", 0, 1 ; sprite dimensions

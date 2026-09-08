@@ -1,5 +1,5 @@
 	db DEX_GOLBAT ; pokedex id
-	base_stat_row 65, 80, 65, 70, 70, 110 ; hp atk def spatk spdef spd
+	base_stat_row 65, 80, 65, 70, 75, 110 ; hp atk def spatk spdef spd
 
 	db POISON, FLYING ; type
 	db 80 ; catch rate  ; final stage, BST 390

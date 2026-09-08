@@ -1,8 +1,8 @@
 	db DEX_MACHAMP ; pokedex id
-	base_stat_row 100, 130, 85, 65, 65, 80 ; hp atk def spatk spdef spd
+	base_stat_row 100, 130, 90, 65, 80, 80 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
-	db 45 ; catch rate  ; final stage, BST 460, harder to handle
+	db 45 ; catch rate  ; final stage, BST 465, harder to handle
 	db 195 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/machamp.pic", 0, 1 ; sprite dimensions

@@ -1,8 +1,8 @@
 	db DEX_MACHOKE ; pokedex id
-	base_stat_row 90, 100, 70, 65, 65, 60 ; hp atk def spatk spdef spd
+	base_stat_row 90, 100, 70, 50, 60, 60 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
-	db 100 ; catch rate  ; mid stage, BST 385, harder to handle
+	db 100 ; catch rate  ; mid stage, BST 370, harder to handle
 	db 150 ; base exp  ; BST 385 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/machoke.pic", 0, 1 ; sprite dimensions

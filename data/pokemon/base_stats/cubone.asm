@@ -1,8 +1,8 @@
 	db DEX_CUBONE ; pokedex id
-	base_stat_row 50, 50, 80, 40, 40, 40 ; hp atk def spatk spdef spd
+	base_stat_row 60, 45, 70, 40, 45, 40 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
-	db 225 ; catch rate  ; base stage, BST 260
+	db 220 ; catch rate  ; base stage, BST 255
 	db 75 ; base exp  ; BST 260 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/cubone.pic", 0, 1 ; sprite dimensions

@@ -1,5 +1,5 @@
 	db DEX_HORSEA ; pokedex id
-	base_stat_row 30, 40, 70, 60, 60, 60 ; hp atk def spatk spdef spd
+	base_stat_row 30, 40, 70, 60, 40, 55 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 235 ; catch rate  ; set by hand

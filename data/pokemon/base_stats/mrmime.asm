@@ -1,5 +1,5 @@
 	db DEX_MR_MIME ; pokedex id
-	base_stat_row 60, 50, 65, 110, 110, 95 ; hp atk def spatk spdef spd
+	base_stat_row 60, 50, 65, 100, 130, 95 ; hp atk def spatk spdef spd
 	db PSYCHIC_TYPE, FAIRY ; type
 	db 65 ; catch rate  ; set by hand: it puts a wall between you and it
 	db 145 ; base exp  ; BST 380

@@ -1,5 +1,5 @@
 	db DEX_GOLDEEN ; pokedex id
-	base_stat_row 45, 65, 60, 35, 35, 60 ; hp atk def spatk spdef spd
+	base_stat_row 45, 65, 60, 35, 50, 60 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 230 ; catch rate  ; set by hand

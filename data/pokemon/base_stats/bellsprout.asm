@@ -1,8 +1,8 @@
 	db DEX_BELLSPROUT ; pokedex id
-	base_stat_row 40, 65, 40, 55, 55, 50 ; hp atk def spatk spdef spd
+	base_stat_row 40, 65, 40, 70, 40, 45 ; hp atk def spatk spdef spd
 
 	db GRASS, GRASS ; type ; v0.7 (2026-09-05, Forte): pure GRASS; POISON arrives with WEEPINBELL (the BULBASAUR -> IVYSAUR shape)
-	db 230 ; catch rate  ; base stage, BST 250
+	db 220 ; catch rate  ; base stage, BST 260
 	db 65 ; base exp  ; BST 250 - grupo mantido igual
 
 	INCBIN "gfx/pokemon/front/bellsprout.pic", 0, 1 ; sprite dimensions

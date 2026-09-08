@@ -1,5 +1,5 @@
 	db DEX_PINSIR ; pokedex id
-	base_stat_row 70, 115, 100, 55, 55, 70 ; hp atk def spatk spdef spd
+	base_stat_row 75, 115, 100, 50, 80, 70 ; hp atk def spatk spdef spd
 	
 	db BUG, FIGHTING ; type
 	db 70 ; catch rate  ; solo stage, BST 410, harder to handle

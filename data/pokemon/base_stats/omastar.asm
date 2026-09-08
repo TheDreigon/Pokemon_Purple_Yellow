@@ -1,5 +1,5 @@
 	db DEX_OMASTAR ; pokedex id
-	base_stat_row 80, 90, 120, 100, 100, 60 ; hp atk def spatk spdef spd
+	base_stat_row 80, 85, 120, 95, 80, 60 ; hp atk def spatk spdef spd
 
 	db ROCK, WATER ; type
 	db 60 ; catch rate  ; set by hand: level with Aerodactyl

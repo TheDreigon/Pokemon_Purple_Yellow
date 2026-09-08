@@ -1,7 +1,7 @@
 	db DEX_NINETALES ; pokedex id
-	base_stat_row 80, 70, 70, 110, 110, 105 ; hp atk def spatk spdef spd
+	base_stat_row 80, 70, 70, 100, 100, 105 ; hp atk def spatk spdef spd
 	db FIRE, FAIRY ; type
-	db 65 ; catch rate  ; final stage, BST 435
+	db 70 ; catch rate  ; final stage, BST 425
 	db 180 ; base exp  ; BST 435 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/ninetales.pic", 0, 1 ; sprite dimensions

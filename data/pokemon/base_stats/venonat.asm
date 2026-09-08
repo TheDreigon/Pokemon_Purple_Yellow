@@ -1,8 +1,8 @@
 	db DEX_VENONAT ; pokedex id
-	base_stat_row 60, 45, 50, 50, 50, 50 ; hp atk def spatk spdef spd
+	base_stat_row 40, 45, 50, 50, 70, 50 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
-	db 225 ; catch rate  ; base stage, BST 255
+	db 230 ; catch rate  ; base stage, BST 235
 	db 65 ; base exp  ; BST 255 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/venonat.pic", 0, 1 ; sprite dimensions

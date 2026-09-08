@@ -1,5 +1,5 @@
 	db DEX_PIKACHU ; pokedex id
-	base_stat_row 60, 55, 50, 80, 80, 95 ; hp atk def spatk spdef spd
+	base_stat_row 60, 55, 50, 80, 60, 95 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 100 ; catch rate  ; set by hand: fast, skittish, and it shocks whoever grabs it

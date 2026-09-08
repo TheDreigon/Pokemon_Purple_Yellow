@@ -1,8 +1,8 @@
 	db DEX_HITMONLEE ; pokedex id
-	base_stat_row 80, 110, 70, 60, 60, 100 ; hp atk def spatk spdef spd
+	base_stat_row 80, 110, 75, 50, 80, 95 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
-	db 70 ; catch rate  ; solo stage, BST 420, harder to handle
+	db 70 ; catch rate  ; solo stage, BST 410, harder to handle
 	db 170 ; base exp  ; BST 420 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/hitmonlee.pic", 0, 1 ; sprite dimensions

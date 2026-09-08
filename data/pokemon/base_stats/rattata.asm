@@ -1,8 +1,8 @@
 	db DEX_RATTATA ; pokedex id
-	base_stat_row 35, 60, 35, 25, 25, 80 ; hp atk def spatk spdef spd
+	base_stat_row 35, 60, 35, 25, 35, 80 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
-	db 235 ; catch rate  ; base stage, BST 235
+	db 230 ; catch rate  ; base stage, BST 235
 	db 55 ; base exp  ; BST 235
 
 	INCBIN "gfx/pokemon/front/rattata.pic", 0, 1 ; sprite dimensions

@@ -1,5 +1,5 @@
 	db DEX_KINGLER ; pokedex id
-	base_stat_row 60, 110, 110, 70, 70, 80 ; hp atk def spatk spdef spd
+	base_stat_row 60, 110, 110, 70, 55, 80 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 90 ; catch rate  ; set by hand

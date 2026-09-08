@@ -1,5 +1,5 @@
 	db DEX_MAGNETON ; pokedex id
-	base_stat_row 60, 75, 100, 120, 120, 65 ; hp atk def spatk spdef spd
+	base_stat_row 60, 75, 100, 120, 70, 65 ; hp atk def spatk spdef spd
 	db ELECTRIC, STEEL ; type
 	db 80 ; catch rate  ; set by hand
 	db 175 ; base exp  ; BST 420 - poucas fraquezas (+5)

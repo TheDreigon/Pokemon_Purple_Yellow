@@ -1,8 +1,8 @@
 	db DEX_EXEGGUTOR ; pokedex id
-	base_stat_row 90, 70, 90, 120, 120, 60 ; hp atk def spatk spdef spd
+	base_stat_row 60, 70, 90, 120, 80, 60 ; hp atk def spatk spdef spd
 
 	db GRASS, PSYCHIC_TYPE ; type
-	db 65 ; catch rate  ; final stage, BST 430
+	db 75 ; catch rate  ; final stage, BST 400
 	db 170 ; base exp  ; BST 430 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/exeggutor.pic", 0, 1 ; sprite dimensions

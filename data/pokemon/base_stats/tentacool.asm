@@ -1,8 +1,8 @@
 	db DEX_TENTACOOL ; pokedex id
-	base_stat_row 50, 40, 30, 80, 80, 60 ; hp atk def spatk spdef spd
+	base_stat_row 50, 40, 30, 50, 90, 60 ; hp atk def spatk spdef spd
 
 	db WATER, POISON ; type
-	db 240 ; catch rate  ; base stage, BST 260, easy to approach
+	db 245 ; catch rate  ; base stage, BST 230, easy to approach
 	db 75 ; base exp  ; BST 260 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/tentacool.pic", 0, 1 ; sprite dimensions

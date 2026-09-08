@@ -1,5 +1,5 @@
 	db DEX_CHARMANDER ; pokedex id
-	base_stat_row 50, 55, 40, 55, 55, 65 ; hp atk def spatk spdef spd
+	base_stat_row 50, 60, 40, 65, 55, 65 ; hp atk def spatk spdef spd
 
 	db FIRE, FIRE ; type
 	db 120 ; catch rate  ; set by hand: starter line

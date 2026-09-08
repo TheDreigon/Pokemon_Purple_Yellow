@@ -1,8 +1,8 @@
 	db DEX_ZUBAT ; pokedex id
-	base_stat_row 40, 45, 35, 40, 40, 90 ; hp atk def spatk spdef spd
+	base_stat_row 35, 45, 35, 30, 40, 90 ; hp atk def spatk spdef spd
 
 	db POISON, FLYING ; type
-	db 230 ; catch rate  ; base stage, BST 250
+	db 230 ; catch rate  ; base stage, BST 235
 	db 70 ; base exp  ; BST 250 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/zubat.pic", 0, 1 ; sprite dimensions

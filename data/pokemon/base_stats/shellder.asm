@@ -1,8 +1,8 @@
 	db DEX_SHELLDER ; pokedex id
-	base_stat_row 30, 50, 100, 45, 45, 30 ; hp atk def spatk spdef spd
+	base_stat_row 30, 50, 90, 45, 45, 30 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
-	db 240 ; catch rate  ; base stage, BST 255, easy to approach
+	db 240 ; catch rate  ; base stage, BST 245, easy to approach
 	db 70 ; base exp  ; BST 255
 
 	INCBIN "gfx/pokemon/front/shellder.pic", 0, 1 ; sprite dimensions

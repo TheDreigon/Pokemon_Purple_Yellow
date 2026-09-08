@@ -1,5 +1,5 @@
 	db DEX_SLOWBRO ; pokedex id
-	base_stat_row 100, 75, 100, 85, 85, 30 ; hp atk def spatk spdef spd
+	base_stat_row 95, 75, 100, 85, 90, 30 ; hp atk def spatk spdef spd
 
 	db WATER, PSYCHIC_TYPE ; type
 	db 100 ; catch rate  ; set by hand

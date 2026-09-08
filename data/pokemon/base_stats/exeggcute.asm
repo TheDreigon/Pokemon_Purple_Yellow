@@ -1,8 +1,8 @@
 	db DEX_EXEGGCUTE ; pokedex id
-	base_stat_row 60, 35, 30, 80, 80, 30 ; hp atk def spatk spdef spd
+	base_stat_row 20, 35, 30, 60, 45, 30 ; hp atk def spatk spdef spd
 
 	db GRASS, PSYCHIC_TYPE ; type
-	db 250 ; catch rate  ; base stage, BST 235, easy to approach
+	db 255 ; catch rate  ; base stage, BST 175, easy to approach
 	db 50 ; base exp  ; BST 235 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/exeggcute.pic", 0, 1 ; sprite dimensions

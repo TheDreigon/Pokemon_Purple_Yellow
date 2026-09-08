@@ -1,8 +1,8 @@
 	db DEX_SANDSLASH ; pokedex id
-	base_stat_row 70, 110, 110, 55, 55, 65 ; hp atk def spatk spdef spd
+	base_stat_row 70, 110, 110, 45, 55, 60 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
-	db 75 ; catch rate  ; final stage, BST 410
+	db 80 ; catch rate  ; final stage, BST 395
 	db 165 ; base exp  ; BST 410 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/sandslash.pic", 0, 1 ; sprite dimensions

@@ -1,5 +1,5 @@
 	db DEX_BLASTOISE ; pokedex id
-	base_stat_row 90, 85, 110, 95, 95, 80 ; hp atk def spatk spdef spd
+	base_stat_row 90, 85, 110, 95, 105, 80 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 45 ; catch rate  ; set by hand: starter line, fully grown

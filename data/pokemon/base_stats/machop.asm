@@ -1,8 +1,8 @@
 	db DEX_MACHOP ; pokedex id
-	base_stat_row 70, 80, 50, 35, 35, 50 ; hp atk def spatk spdef spd
+	base_stat_row 70, 80, 50, 35, 40, 50 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
-	db 215 ; catch rate  ; base stage, BST 285
+	db 210 ; catch rate  ; base stage, BST 285
 	db 90 ; base exp  ; BST 285 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/machop.pic", 0, 1 ; sprite dimensions

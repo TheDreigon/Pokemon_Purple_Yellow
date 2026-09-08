@@ -1,8 +1,8 @@
 	db DEX_WEEDLE ; pokedex id
-	base_stat_row 40, 35, 30, 20, 20, 50 ; hp atk def spatk spdef spd
+	base_stat_row 30, 35, 30, 20, 20, 40 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
-	db 255 ; catch rate  ; base stage, BST 175
+	db 255 ; catch rate  ; base stage, BST 155
 	db 35 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/weedle.pic", 0, 1 ; sprite dimensions

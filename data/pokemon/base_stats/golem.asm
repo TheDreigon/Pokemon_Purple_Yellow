@@ -1,5 +1,5 @@
 	db DEX_GOLEM ; pokedex id
-	base_stat_row 85, 110, 135, 65, 65, 65 ; hp atk def spatk spdef spd
+	base_stat_row 90, 110, 130, 65, 70, 65 ; hp atk def spatk spdef spd
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate  ; final stage, BST 460, harder to handle

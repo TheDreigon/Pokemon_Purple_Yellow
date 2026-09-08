@@ -2,7 +2,7 @@
 	base_stat_row 40, 65, 35, 30, 30, 65 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 235 ; catch rate  ; base stage, BST 235
+	db 230 ; catch rate  ; base stage, BST 235
 	db 55 ; base exp  ; BST 235 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/spearow.pic", 0, 1 ; sprite dimensions

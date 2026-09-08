@@ -1,8 +1,8 @@
 	db DEX_DODUO ; pokedex id
-	base_stat_row 40, 80, 40, 40, 40, 90 ; hp atk def spatk spdef spd
+	base_stat_row 40, 80, 40, 40, 35, 90 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 200 ; catch rate  ; base stage, BST 290, harder to handle
+	db 195 ; catch rate  ; base stage, BST 290, harder to handle
 	db 90 ; base exp  ; BST 290 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/doduo.pic", 0, 1 ; sprite dimensions

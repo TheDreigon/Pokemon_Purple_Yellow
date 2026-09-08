@@ -1,5 +1,5 @@
 	db DEX_JOLTEON ; pokedex id
-	base_stat_row 65, 80, 65, 110, 110, 130 ; hp atk def spatk spdef spd
+	base_stat_row 65, 80, 65, 110, 95, 130 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, ELECTRIC ; type
 	db 75 ; catch rate  ; final stage, BST 450, easy to approach

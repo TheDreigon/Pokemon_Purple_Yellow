@@ -1,5 +1,5 @@
 	db DEX_DIGLETT ; pokedex id
-	base_stat_row 15, 60, 25, 40, 40, 95 ; hp atk def spatk spdef spd
+	base_stat_row 15, 60, 25, 40, 45, 95 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
 	db 190 ; catch rate  ; set by hand: it is underground before you finish reaching

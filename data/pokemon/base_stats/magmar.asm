@@ -1,5 +1,5 @@
 	db DEX_MAGMAR ; pokedex id
-	base_stat_row 75, 95, 80, 95, 95, 85 ; hp atk def spatk spdef spd
+	base_stat_row 75, 90, 80, 100, 85, 85 ; hp atk def spatk spdef spd
 	db FIRE, MAGMA ; type
 	db 65 ; catch rate  ; solo stage, BST 430, harder to handle
 	db 180 ; base exp  ; BST 430 - poucas fraquezas (+5)

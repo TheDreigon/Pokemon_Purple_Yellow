@@ -1,8 +1,8 @@
 	db DEX_DEWGONG ; pokedex id
-	base_stat_row 90, 70, 80, 90, 90, 75 ; hp atk def spatk spdef spd
+	base_stat_row 90, 70, 80, 75, 95, 75 ; hp atk def spatk spdef spd
 
 	db WATER, ICE ; type
-	db 90 ; catch rate  ; final stage, BST 405, easy to approach
+	db 90 ; catch rate  ; final stage, BST 390, easy to approach
 	db 155 ; base exp  ; BST 405 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/dewgong.pic", 0, 1 ; sprite dimensions

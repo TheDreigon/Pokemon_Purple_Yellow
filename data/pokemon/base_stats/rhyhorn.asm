@@ -1,5 +1,5 @@
 	db DEX_RHYHORN ; pokedex id
-	base_stat_row 80, 85, 95, 40, 40, 55 ; hp atk def spatk spdef spd
+	base_stat_row 80, 90, 95, 30, 35, 60 ; hp atk def spatk spdef spd
 
 	db GROUND, ROCK ; type
 	db 190 ; catch rate  ; base stage, BST 355, harder to handle

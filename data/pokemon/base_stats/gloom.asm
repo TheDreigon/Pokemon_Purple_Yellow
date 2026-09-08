@@ -1,7 +1,7 @@
 	db DEX_GLOOM ; pokedex id
-	base_stat_row 80, 70, 70, 80, 80, 40 ; hp atk def spatk spdef spd
+	base_stat_row 75, 70, 70, 75, 75, 40 ; hp atk def spatk spdef spd
 	db GRASS, POISON ; type
-	db 125 ; catch rate  ; mid stage, BST 340, easy to approach
+	db 125 ; catch rate  ; mid stage, BST 330, easy to approach
 	db 120 ; base exp  ; BST 340 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/gloom.pic", 0, 1 ; sprite dimensions

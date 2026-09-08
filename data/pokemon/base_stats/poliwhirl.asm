@@ -1,8 +1,8 @@
 	db DEX_POLIWHIRL ; pokedex id
-	base_stat_row 65, 65, 65, 70, 70, 70 ; hp atk def spatk spdef spd
+	base_stat_row 55, 65, 60, 70, 65, 70 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
-	db 110 ; catch rate  ; mid stage, BST 335
+	db 115 ; catch rate  ; mid stage, BST 320
 	db 115 ; base exp  ; BST 335
 
 	INCBIN "gfx/pokemon/front/poliwhirl.pic", 0, 1 ; sprite dimensions

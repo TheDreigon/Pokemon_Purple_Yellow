@@ -1,8 +1,8 @@
 	db DEX_VICTREEBEL ; pokedex id
-	base_stat_row 80, 95, 70, 95, 95, 90 ; hp atk def spatk spdef spd
+	base_stat_row 80, 95, 70, 100, 75, 90 ; hp atk def spatk spdef spd
 
 	db GRASS, POISON ; type
-	db 65 ; catch rate  ; final stage, BST 430
+	db 65 ; catch rate  ; final stage, BST 435
 	db 170 ; base exp  ; BST 430 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/victreebel.pic", 0, 1 ; sprite dimensions

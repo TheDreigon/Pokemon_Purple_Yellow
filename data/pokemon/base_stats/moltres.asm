@@ -1,5 +1,5 @@
 	db DEX_MOLTRES ; pokedex id
-	base_stat_row 100, 100, 90, 130, 130, 100 ; hp atk def spatk spdef spd
+	base_stat_row 100, 100, 90, 135, 100, 100 ; hp atk def spatk spdef spd
 
 	db FIRE, FLYING ; type
 	db 10 ; catch rate  ; exception: legendary: one in the world

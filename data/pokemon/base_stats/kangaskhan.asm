@@ -1,7 +1,7 @@
 	db DEX_KANGASKHAN ; pokedex id
-	base_stat_row 105, 85, 80, 50, 50, 80 ; hp atk def spatk spdef spd
+	base_stat_row 105, 85, 80, 40, 80, 80 ; hp atk def spatk spdef spd
 	db NORMAL, FIGHTING ; type
-	db 75 ; catch rate  ; solo stage, BST 400, harder to handle
+	db 75 ; catch rate  ; solo stage, BST 390, harder to handle
 	db 155 ; base exp  ; BST 400
 
 	INCBIN "gfx/pokemon/front/kangaskhan.pic", 0, 1 ; sprite dimensions

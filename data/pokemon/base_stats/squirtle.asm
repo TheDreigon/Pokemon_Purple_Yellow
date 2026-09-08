@@ -1,5 +1,5 @@
 	db DEX_SQUIRTLE ; pokedex id
-	base_stat_row 50, 50, 65, 55, 55, 45 ; hp atk def spatk spdef spd
+	base_stat_row 55, 50, 65, 55, 65, 45 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 120 ; catch rate  ; set by hand: starter line

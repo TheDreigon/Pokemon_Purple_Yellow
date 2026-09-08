@@ -1,5 +1,5 @@
 	db DEX_PONYTA ; pokedex id
-	base_stat_row 50, 65, 50, 65, 65, 80 ; hp atk def spatk spdef spd
+	base_stat_row 50, 65, 50, 65, 60, 80 ; hp atk def spatk spdef spd
 
 	db FIRE, FIRE ; type
 	db 190 ; catch rate  ; base stage, BST 310, harder to handle

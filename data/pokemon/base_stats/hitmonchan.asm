@@ -1,8 +1,8 @@
 	db DEX_HITMONCHAN ; pokedex id
-	base_stat_row 90, 80, 90, 80, 80, 80 ; hp atk def spatk spdef spd
+	base_stat_row 90, 80, 90, 80, 85, 75 ; hp atk def spatk spdef spd
 
 	db FIGHTING, FIGHTING ; type
-	db 70 ; catch rate  ; solo stage, BST 420, harder to handle
+	db 70 ; catch rate  ; solo stage, BST 415, harder to handle
 	db 170 ; base exp  ; BST 420 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/hitmonchan.pic", 0, 1 ; sprite dimensions

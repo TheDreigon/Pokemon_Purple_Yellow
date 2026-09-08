@@ -1,5 +1,5 @@
 	db DEX_TENTACRUEL ; pokedex id
-	base_stat_row 100, 80, 60, 120, 120, 90 ; hp atk def spatk spdef spd
+	base_stat_row 100, 80, 60, 90, 120, 90 ; hp atk def spatk spdef spd
 
 	db WATER, POISON ; type
 	db 70 ; catch rate  ; set by hand

@@ -1,5 +1,5 @@
 	db DEX_VAPOREON ; pokedex id
-	base_stat_row 130, 65, 65, 110, 110, 80 ; hp atk def spatk spdef spd
+	base_stat_row 130, 65, 65, 110, 95, 80 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
 	db 75 ; catch rate  ; final stage, BST 450, easy to approach

@@ -1,5 +1,5 @@
 	db DEX_MAROWAK ; pokedex id
-	base_stat_row 75, 90, 100, 80, 80, 70 ; hp atk def spatk spdef spd
+	base_stat_row 100, 90, 90, 60, 85, 75 ; hp atk def spatk spdef spd
 	db GROUND, DARK ; type
 	db 70 ; catch rate  ; final stage, BST 415
 	db 165 ; base exp  ; BST 415

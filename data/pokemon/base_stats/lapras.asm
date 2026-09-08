@@ -1,8 +1,8 @@
 	db DEX_LAPRAS ; pokedex id
-	base_stat_row 130, 75, 95, 100, 100, 60 ; hp atk def spatk spdef spd
+	base_stat_row 130, 75, 100, 95, 95, 65 ; hp atk def spatk spdef spd
 
 	db WATER, ICE ; type
-	db 90 ; catch rate  ; solo stage, BST 460, easy to approach
+	db 90 ; catch rate  ; solo stage, BST 465, easy to approach
 	db 190 ; base exp  ; BST 460 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/lapras.pic", 0, 1 ; sprite dimensions

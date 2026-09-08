@@ -1,5 +1,5 @@
 	db DEX_METAPOD ; pokedex id
-	base_stat_row 50, 20, 75, 25, 25, 5 ; hp atk def spatk spdef spd
+	base_stat_row 40, 30, 70, 20, 50, 5 ; hp atk def spatk spdef spd
 
 	db BUG, BUG ; type
 	db 200 ; catch rate  ; set by hand: an immobile cocoon whose only move is to harden

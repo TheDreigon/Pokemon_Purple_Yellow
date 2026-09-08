@@ -1,5 +1,5 @@
 	db DEX_JYNX ; pokedex id
-	base_stat_row 65, 60, 50, 110, 110, 95 ; hp atk def spatk spdef spd
+	base_stat_row 70, 60, 50, 120, 110, 105 ; hp atk def spatk spdef spd
 	db GHOST, ICE ; type
 	db 65 ; catch rate  ; set by hand: same tier as Electabuzz and Magmar
 	db 145 ; base exp  ; BST 380

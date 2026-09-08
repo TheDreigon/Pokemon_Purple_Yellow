@@ -1,5 +1,5 @@
 	db DEX_RAPIDASH ; pokedex id
-	base_stat_row 70, 100, 70, 85, 85, 100 ; hp atk def spatk spdef spd
+	base_stat_row 70, 105, 70, 85, 80, 100 ; hp atk def spatk spdef spd
 
 	db FIRE, FIRE ; type
 	db 65 ; catch rate  ; set by hand
