@@ -179,7 +179,7 @@ Moves: ; Current total = 220
 	move SLASH,          NO_ADDITIONAL_EFFECT,             65, NORMAL,       100, 20 ; high-crit.
 	move BODY_SLAM,      PARALYZE_SIDE_EFFECT1,            70, NORMAL,        95, 20
 	move CRUNCH,         DEFENSE_DOWN_SIDE_EFFECT,         75, NORMAL,       100, 20 ; new move.
-	move HORN_CHARGE,    FLINCH_SIDE_EFFECT1,              90, NORMAL,        95, 15 ; new move. high-crit.
+	move HORN_CHARGE,    FLINCH_SIDE_EFFECT2,              90, NORMAL,        95, 15 ; new move. high-crit.
 	move THRASH,         THRASH_PETAL_DANCE_EFFECT,        95, NORMAL,       100, 10
 	move HEAVY_SLAM,     PARALYZE_SIDE_EFFECT2,           100, NORMAL,        90, 10
 	move DOUBLE_EDGE,    RECOIL_EFFECT,                   120, NORMAL,        80, 10 ; high-crit.
@@ -289,7 +289,7 @@ Moves: ; Current total = 220
 	move EERIE_IMPULSE,  SPDEF_SPEED_DOWN1_EFFECT,          0, BIRD,          90, 20 ; new move. new effect.
 
 	move SCARY_FACE,     SPEED_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
-	move HINDER,         SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30 ; new move.
+	move HINDER,         SPEED_DOWN1_FLINCH_EFFECT,         0, BIRD,         100, 30 ; new move. new effect (2026-09-08): the Speed drop now carries a 30% flinch.
 	move STRING_SHOT,    SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30
 
 	move PSYCHIC_BIND,   SPEED_EVASION_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.

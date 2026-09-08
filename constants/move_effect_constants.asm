@@ -127,4 +127,5 @@
 	const SPDEF_UP2_EFFECT            ; $6B  user SP.DEF+2 (Amnesia). Proxy SPATK_UP2.
 	const SPDEF_DOWN2_EFFECT          ; $6C  target SP.DEF-2 (Fake Tears). Proxy SPATK_DOWN2.
 	const SPDEF_DOWN_SIDE_EFFECT      ; $6D  33% target SP.DEF-1 (Bug Buzz, Psybeam, Aurora Beam). Proxy SPATK_DOWN_SIDE.
+	const SPEED_DOWN1_FLINCH_EFFECT   ; $6E  target Speed-1 + ~30% flinch (Hinder; Forte 2026-09-08). The one-step sibling of $6A: same dispatcher, SPEED_DOWN1 as the stat leg.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

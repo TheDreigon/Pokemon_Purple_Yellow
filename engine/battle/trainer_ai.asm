@@ -489,6 +489,7 @@ Modifier2PreferredMoves:
 	db SPDEF_DOWN1_FLINCH_EFFECT   ; Screech (target down + flinch)
 	db ATTACK_DOWN2_FLINCH_EFFECT    ; Intimidate (target down + flinch)
 	db SPEED_DOWN2_FLINCH_EFFECT     ; Scary Face (target down + flinch)
+	db SPEED_DOWN1_FLINCH_EFFECT     ; Hinder (target down + flinch)
 	db SPDEF_UP2_EFFECT              ; Amnesia (the split, 2026-09-06)
 	db SPDEF_DOWN2_EFFECT            ; Fake Tears (the split)
 	db -1 ; end

@@ -2095,6 +2095,14 @@ SpeedDown2FlinchEffect:
 	ld c, SPEED_DOWN2_FLINCH_EFFECT
 	jr DoStatDownFlinchEffect
 
+SpeedDown1FlinchEffect:
+; Target Speed -1 plus ~30% flinch. Used by HINDER (Forte, 2026-09-08). The
+; one-step sibling of SCARY_FACE above: the -1 leg is in the same ladder, so
+; no proxy and no override are needed.
+	ld b, SPEED_DOWN1_EFFECT
+	ld c, SPEED_DOWN1_FLINCH_EFFECT
+	jr DoStatDownFlinchEffect
+
 SpDefDown1FlinchEffect:
 ; Target SP.DEF -1 plus ~30% flinch. Used by SCREECH (same day, same call).
 ; The split (2026-09-06): b is the SP.ATK proxy, the override carries MOD_SPDEF.
