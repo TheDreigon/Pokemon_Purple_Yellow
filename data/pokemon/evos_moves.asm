@@ -276,7 +276,7 @@ CharmanderEvosMoves:
 ; quadrupeds (Growlithe/Ponyta lines). OUTRAGE is TM-only.
 	db  6, EMBER
 	db  8, BITE
-	db 11, IGNITED
+	db 11, IGNITE
 	db 14, FOCUS_ENERGY
 	db 18, SLASH
 	db 20, CUT
@@ -293,7 +293,7 @@ CharmeleonEvosMoves:
 ; FIRE_BLAST are shared across the line).
 	db  6, EMBER
 	db  8, BITE
-	db 11, IGNITED
+	db 11, IGNITE
 	db 14, FOCUS_ENERGY
 	db 18, SLASH
 	db 20, CUT
@@ -313,7 +313,7 @@ CharizardEvosMoves:
 ; DRAGON_CLAW@36 / DRAGON_BREATH@48 shared across the line. Entry levels unique.
 	db  6, EMBER
 	db  8, BITE
-	db 11, IGNITED
+	db 11, IGNITE
 	db 14, FOCUS_ENERGY
 	db 18, SLASH
 	db 20, CUT
@@ -431,20 +431,21 @@ ButterfreeEvosMoves:
 	db  1, BUG_BITE
 	db 11, GROWL
 	db 11, GUST
-	db 14, CONFUSION
+	db 11, PSYWAVE
+	db 14, FAIRY_WIND
 	db 16, POISONPOWDER
 	db 18, STUN_POWDER
 	db 20, SLEEP_POWDER
-	db 22, FAIRY_WIND
+	db 21, CONFUSION
 	db 24, TAILWIND
-	db 26, EXTRASENSORY
-	db 28, WING_ATTACK
-	db 30, BUG_BUZZ ; Butterfree + Venomoth own BUG_BUZZ
+	db 26, WING_ATTACK
+	db 30, EXTRASENSORY
 	db 33, PSYCHIC_BIND
-	db 36, PSYBEAM
+	db 36, BUG_BUZZ ; Butterfree + Venomoth own BUG_BUZZ
+	db 40, PSYBEAM
 	db 42, QUIVER_DANCE
-	db 48, PETAL_DANCE
-	db 54, PSYCHIC_M
+	db 46, PETAL_DANCE
+	db 52, PSYCHIC_M
 	db 58, HURRICANE
 	db 0
 
@@ -482,22 +483,22 @@ BeedrillEvosMoves:
 	db 11, LEER
 	db 11, TACKLE
 	db 14, FURY_ATTACK
-	db 16, RAGE
-	db 18, HORN_ATTACK
+	db 16, HORN_ATTACK
+	db 18, RAGE
 	db 20, TWINEEDLE
 	db 22, FOCUS_ENERGY
-	db 24, HONE_CLAWS
 	db 26, QUICK_ATTACK
 	db 28, AERIAL_ACE
 	db 30, AGILITY
-	db 35, SWORDS_DANCE
-	db 40, THRASH
-	db 42, INTIMIDATE
-	db 44, DOUBLE_EDGE
-	db 47, DRILL_PECK
-	db 50, NEUROTOXIN
+	db 33, HORN_CHARGE
+	db 33, THRASH
+	db 40, SWORDS_DANCE
+	db 42, DOUBLE_EDGE
+	db 45, INTIMIDATE
+	db 48, DRILL_PECK
 	db 50, TOXIC_FANGS
-	db 55, EXTREMESPEED
+	db 52, NEUROTOXIN
+	db 56, EXTREMESPEED
 	db 60, GORE_ATTACK
 	db 65, OUTRAGE
 	db 0
@@ -582,15 +583,11 @@ RattataEvosMoves:
 	db 15, FAINT_ATTACK
 	db 18, RAGE
 	db 20, HYPER_FANG
+	db 21, CUT
 	db 23, SCREECH
-	db 25, CUT
-	db 27, AGILITY
-	db 29, HONE_CLAWS
-	db 32, SUPER_FANG
-	db 36, POISON_BITE
-	db 40, BODY_SLAM
-	db 48, TOXIC_FANGS
-	db 52, EXTREMESPEED
+	db 26, POISON_BITE
+	db 30, SUPER_FANG
+	db 32, HONE_CLAWS
 	db 0
 
 RaticateEvosMoves:
@@ -606,18 +603,19 @@ RaticateEvosMoves:
 	db 15, FAINT_ATTACK
 	db 18, RAGE
 	db 20, HYPER_FANG
+	db 21, CUT
 	db 23, SCREECH
-	db 25, CUT
-	db 27, AGILITY
-	db 29, HONE_CLAWS
-	db 32, SUPER_FANG
-	db 36, POISON_BITE
-	db 40, BODY_SLAM
-	db 44, NIGHT_SLASH
-	db 48, TOXIC_FANGS
-	db 52, EXTREMESPEED
-	db 56, GORE_ATTACK
-	db 60, TOXIC
+	db 26, POISON_BITE
+	db 30, SUPER_FANG
+	db 32, HONE_CLAWS
+	db 36, TAKE_DOWN
+	db 40, AGILITY
+	db 42, NIGHT_SLASH
+	db 45, TOXIC_FANGS
+	db 48, DOUBLE_EDGE
+	db 52, GORE_ATTACK
+	db 56, TOXIC
+	db 60, EXTREMESPEED
 	db 0
 
 SpearowEvosMoves:
@@ -639,7 +637,6 @@ SpearowEvosMoves:
 	db 27, AERIAL_ACE
 	db 31, NIGHT_SLASH
 	db 36, HONE_CLAWS
-	db 42, TAKE_DOWN
 	db 0
 
 FearowEvosMoves:
@@ -678,24 +675,21 @@ EkansEvosMoves:
 ; hides in shadow), NEUROTOXIN (snake venom), EXTREMESPEED (peak strike).
 ; No GUNK_SHOT / SLUDGE_WAVE (shared late poison capstone; snakes cap
 ; with NEUROTOXIN instead). No SCREECH (snakes hiss).
-	db  3, WRAP
+	db  3, POISON_STING
 	db  6, BITE
-	db  9, BIDE
+	db  9, WRAP
 	db 12, QUICK_ATTACK
-	db 15, POISON_STING
+	db 14, COIL
+	db 16, BIDE
 	db 18, ASTONISH
-	db 24, COIL
-	db 26, BIND
-	db 30, POISON_BITE
-	db 33, AGILITY
-	db 36, FAINT_ATTACK
-	db 40, SHADOW_SNEAK
-	db 42, SUBSTITUTE
-	db 48, TOXIC_FANGS
-	db 54, EXTREMESPEED
-	db 57, TOXIC
-	db 60, NEUROTOXIN
-	db 65, RECOVER
+	db 21, POISON_BITE
+	db 28, FAINT_ATTACK
+	db 30, SHADOW_SNEAK
+	db 33, SUBSTITUTE
+	db 43, TOXIC_FANGS
+	db 48, AGILITY
+	db 52, EXTREMESPEED
+	db 60, RECOVER
 	db 0
 
 ArbokEvosMoves:
@@ -705,27 +699,27 @@ ArbokEvosMoves:
 ; Poison/Dark — matured cobra. Ekans's learnset + cobra hood, Dark unlock,
 ; and heavy whip-tail: SCARY_FACE (L21, EVO LVL), IRON_TAIL (high-level
 ; whip), INTIMIDATE (full hood display, L52).
-	db  3, WRAP
+	db  3, POISON_STING
 	db  6, BITE
-	db  9, BIDE
+	db  9, WRAP
 	db 12, QUICK_ATTACK
-	db 15, POISON_STING
+	db 14, COIL
+	db 16, BIDE
 	db 18, ASTONISH
 	db 21, SCARY_FACE  ; (EVO LVL)
-	db 24, COIL
-	db 26, BIND
-	db 30, POISON_BITE
-	db 33, AGILITY
-	db 36, FAINT_ATTACK
-	db 40, SHADOW_SNEAK
-	db 42, SUBSTITUTE
-	db 45, IRON_TAIL
-	db 48, TOXIC_FANGS
-	db 52, INTIMIDATE
-	db 54, EXTREMESPEED
-	db 57, TOXIC
-	db 60, NEUROTOXIN
-	db 65, RECOVER
+	db 21, POISON_BITE
+	db 25, BIND
+	db 28, FAINT_ATTACK
+	db 30, SHADOW_SNEAK
+	db 33, SUBSTITUTE
+	db 36, IRON_TAIL
+	db 41, INTIMIDATE
+	db 43, TOXIC_FANGS
+	db 48, AGILITY
+	db 50, NEUROTOXIN
+	db 52, EXTREMESPEED
+	db 55, TOXIC
+	db 60, RECOVER
 	db 0
 
 PikachuEvosMoves:
@@ -1076,7 +1070,7 @@ VulpixEvosMoves:
 	db 28, AGILITY
 	db 32, WILL_O_WISP
 	db 40, FLAMETHROWER
-	db 48, FIRE_BLAST
+	db 42, DOUBLE_TEAM
 	db 0
 
 NinetalesEvosMoves:
@@ -1096,10 +1090,11 @@ NinetalesEvosMoves:
 	db 32, WILL_O_WISP
 	db 36, EERIE_IMPULSE
 	db 40, FLAMETHROWER
-	db 44, DAZZLE_GLEAM
-	db 48, FIRE_BLAST
-	db 52, SHADOW_BALL
-	db 60, MOONBLAST
+	db 42, DOUBLE_TEAM
+	db 45, DAZZLE_GLEAM
+	db 48, SHADOW_BALL
+	db 52, FIRE_BLAST
+	db 58, MOONBLAST
 	db 0
 
 JigglypuffEvosMoves:
@@ -1109,26 +1104,25 @@ JigglypuffEvosMoves:
 ; Learnset
 ; Normal/Fairy balloon singer. Voice kit: SING early, LOVELY_KISS,
 ; CHARM. DRAINING_KISS/BUBBLEBEAM round out the fairy pool.
-	db  6, HINDER
-	db  6, DEFENSE_CURL
-	db  9, TACKLE
-	db  9, FAIRY_WIND
+	db  4, DEFENSE_CURL
+	db  6, TICKLE
+	db  8, TACKLE
+	db 10, FAIRY_WIND
 	db 12, DOUBLESLAP
-	db 15, CHARM
-	db 17, TICKLE
+	db 14, CHARM
+	db 16, HINDER
 	db 20, GROWTH
-	db 23, ASTONISH
-	db 26, BIDE
-	db 29, ROLLOUT
-	db 31, BUBBLEBEAM
-	db 34, SCREECH
-	db 37, AMNESIA
-	db 40, LOVELY_KISS
-	db 43, DRAINING_KISS
-	db 45, BODY_SLAM
-	db 48, FAKE_TEARS
-	db 51, RAGE
-	db 54, FLY
+	db 22, ASTONISH
+	db 24, BIDE
+	db 26, RAGE
+	db 28, ROLLOUT
+	db 30, BUBBLEBEAM
+	db 32, SCREECH
+	db 35, LOVELY_KISS
+	db 38, BODY_SLAM
+	db 40, FAKE_TEARS
+	db 42, DRAINING_KISS
+	db 46, AMNESIA
 	db 0
 
 WigglytuffEvosMoves:
@@ -1138,28 +1132,27 @@ WigglytuffEvosMoves:
 ; Apex balloon singer. Jigglypuff backbone (incl. FLY HM02 natural L54
 ; — the balloon body floats) plus two apex exclusives: MIRROR_MOVE,
 ; PLAY_ROUGH.
-	db  6, HINDER
-	db  6, DEFENSE_CURL
-	db  9, TACKLE
-	db  9, FAIRY_WIND
+	db  4, DEFENSE_CURL
+	db  6, TICKLE
+	db  8, TACKLE
+	db 10, FAIRY_WIND
 	db 12, DOUBLESLAP
-	db 15, CHARM
-	db 17, TICKLE
+	db 14, CHARM
+	db 16, HINDER
 	db 20, GROWTH
-	db 23, ASTONISH
-	db 26, BIDE
-	db 29, ROLLOUT
-	db 31, BUBBLEBEAM
-	db 34, SCREECH
-	db 37, AMNESIA
-	db 40, LOVELY_KISS
-	db 43, DRAINING_KISS
-	db 45, BODY_SLAM
-	db 48, FAKE_TEARS
-	db 51, RAGE
-	db 54, FLY
-	db 57, MIRROR_MOVE
-	db 60, PLAY_ROUGH
+	db 22, ASTONISH
+	db 24, BIDE
+	db 26, RAGE
+	db 28, ROLLOUT
+	db 30, BUBBLEBEAM
+	db 32, SCREECH
+	db 35, LOVELY_KISS
+	db 38, BODY_SLAM
+	db 40, FAKE_TEARS
+	db 42, DRAINING_KISS
+	db 46, AMNESIA
+	db 50, PLAY_ROUGH
+	db 55, MIRROR_MOVE
 	db 0
 
 ZubatEvosMoves:
