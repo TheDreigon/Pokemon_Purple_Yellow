@@ -366,8 +366,8 @@ _MoveDesc_EvasionUp2::
 
 _MoveDesc_Heal::
 	text "Restores half of"
-	next "the user's full"
-	next "HP."
+	next "full HP and clears"
+	next "any status."
 	done
 
 _MoveDesc_Transform::
@@ -636,7 +636,7 @@ _MoveDesc_Rest::
 	done
 
 _MoveDesc_Softboiled::
-	text "Restores half of"
+	text "Restores 3/4 of"
 	next "full HP and clears"
 	next "any status."
 	done

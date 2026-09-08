@@ -17,13 +17,44 @@ HealEffect_:
 	jr nz, .passed
 	ld a, [de]
 	sbc [hl]
-	jp z, .failed ; no effect if user's HP is already at its maximum
+	jr nz, .passed
+; v1.0 (2026-09-08, Forte): the user's HP is full. RECOVER and SOFTBOILED clear
+; the user's status now, so with a status to clear they still work (cure only,
+; no "regained health" line); everything else fails here as it always did.
+	ld a, b
+	cp RECOVER
+	jr z, .fullHPCureOnly
+	cp SOFTBOILED
+	jr z, .fullHPCureOnly
+	jp .failed ; no effect if user's HP is already at its maximum
+.fullHPCureOnly
+	call .userStatusPtr
+	ld a, [hl]
+	and a
+	jp z, .failed
+	ld c, 50
+	call DelayFrames
+	xor a
+	ld [hl], a
+	farcall PlayCurrentMoveAnimation
+	ld hl, RegainedStatusText
+	jp PrintText
+.userStatusPtr
+; hl = the user's status byte
+	ld hl, wBattleMonStatus
+	ldh a, [hWhoseTurn]
+	and a
+	ret z
+	ld hl, wEnemyMonStatus
+	ret
 .passed
 	ld a, b
 	cp REST
 	jr z, .restPath
 	cp SOFTBOILED
 	jr z, .softboiledPath
+	cp RECOVER
+	jr z, .recoverPath
 	cp GROWTH
 	jr z, .growthDivide
 	jr .healHP
@@ -51,32 +82,36 @@ HealEffect_:
 	pop de
 	pop hl
 	jr .healHP
+.recoverPath
+; v1.0 (2026-09-08, Forte): RECOVER also clears the user's status - a move slot
+; that only did half a HYPER POTION was rarely worth carrying. Heal still /2.
+	call .clearUserStatus
+	or 1 ; ensure NZ so .healHP runs the /2 divide
+	jr .healHP
 .softboiledPath
-; v0.6: Softboiled also clears the user's status (no sleep). Heal still /2.
+; v0.6: Softboiled also clears the user's status (no sleep).
+; v1.0 (2026-09-08): and heals 3/4 of max HP instead of 1/2, so CHANSEY keeps a
+; signature now that RECOVER clears status too.
+	call .clearUserStatus
+	jr .softboiledDivide
+.clearUserStatus
+; clears the user's status if it has one and says so; de and hl preserved
 	push hl
 	push de
 	ld c, 50
 	call DelayFrames
-	ld hl, wBattleMonStatus
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .softboiledStatusPtr
-	ld hl, wEnemyMonStatus
-.softboiledStatusPtr
+	call .userStatusPtr
 	ld a, [hl]
 	and a
-	jr z, .softboiledNoStatus ; nothing to clear; skip refreshed message
+	jr z, .noStatusToClear ; nothing to clear; skip the refreshed line
 	xor a
 	ld [hl], a ; clear status
-	push de
 	ld hl, RegainedStatusText
 	call PrintText
-	pop de
-.softboiledNoStatus
+.noStatusToClear
 	pop de
 	pop hl
-	or 1 ; ensure NZ so .healHP runs the /2 divide
-	jr .healHP
+	ret
 .growthDivide
 ; v0.6: GROWTH (effect ATTACK_SPATK_UP1_HEAL_EFFECT) calls into HealEffect_ for the
 ; heal portion only, with a 1/4 max HP divisor. SPC+1 happens in the wrapper
@@ -92,6 +127,30 @@ HealEffect_:
 	rr c
 	srl b
 	rr c ; bc = maxHP / 4
+	jr .gotHPAmountToHeal
+.softboiledDivide
+; v1.0 (2026-09-08): bc = maxHP - maxHP / 4 = 3/4 of max HP. de (the HP
+; pointer) is live here, so the quarter is computed in a saved copy.
+	ld a, [hld]
+	ld [wHPBarMaxHP], a
+	ld c, a
+	ld a, [hl]
+	ld [wHPBarMaxHP+1], a
+	ld b, a
+	push de
+	ld d, b
+	ld e, c
+	srl d
+	rr e
+	srl d
+	rr e ; de = maxHP / 4
+	ld a, c
+	sub e
+	ld c, a
+	ld a, b
+	sbc d
+	ld b, a ; bc = maxHP - maxHP / 4
+	pop de
 	jr .gotHPAmountToHeal
 .healHP
 	ld a, [hld]

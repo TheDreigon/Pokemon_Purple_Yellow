@@ -8,7 +8,7 @@ MACRO move
 	assert \6 <= 40, "PP must be 40 or less"
 ENDM
 
-Moves: ; Current total = 219
+Moves: ; Current total = 220
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -167,7 +167,7 @@ Moves: ; Current total = 219
 	move LAVA_PLUME,     BURN_SIDE_EFFECT3,               100, MAGMA,        100, 10 ; new move. signature. new effect. BURN_SIDE_EFFECT3 = new 45% chance.
 
 
-	; === NORMAL TYPE (19 moves) ===
+	; === NORMAL TYPE (20 moves) ===
 	move WRAP,           TRAPPING_EFFECT,                  16, NORMAL,        80, 25
 	move FURY_ATTACK,    TWO_TO_FIVE_ATTACKS_EFFECT,       18, NORMAL,        90, 20
 	move SCRATCH,        NO_ADDITIONAL_EFFECT,             35, NORMAL,       100, 30
@@ -259,12 +259,12 @@ Moves: ; Current total = 219
 	move HARDEN,         DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 	move WITHDRAW,       DEFENSE_UP1_EFFECT,                0, BIRD,         100, 35
 
-	move GROWTH,         ATTACK_SPATK_UP1_HEAL_EFFECT,           0, BIRD,         100, 20 ; ATK+1 & SP.ATK+1 + 1/4 heal (the split, 2026-09-06).
-	move CALM_MIND,      SPATK_SPDEF_ACCURACY_UP1_EFFECT,       0, BIRD,         100, 25 ; new move. new effect.
-	move NASTY_PLOT,     SPATK_UP2_EFFECT,                0, BIRD,         100, 30 ; new move.
-	move AMNESIA,        SPDEF_UP2_EFFECT,                0, BIRD,         100, 30
+	move GROWTH,         ATTACK_SPATK_UP1_HEAL_EFFECT,      0, BIRD,         100, 20 ; ATK+1 & SP.ATK+1 + 1/4 heal (the split, 2026-09-06).
+	move CALM_MIND,      SPATK_SPDEF_ACCURACY_UP1_EFFECT,   0, BIRD,         100, 25 ; new move. new effect.
+	move NASTY_PLOT,     SPATK_UP2_EFFECT,                  0, BIRD,         100, 30 ; new move.
+	move AMNESIA,        SPDEF_UP2_EFFECT,                  0, BIRD,         100, 30
 
-	move QUIVER_DANCE,   SPATK_SPEED_UP1_EFFECT,          0, BIRD,         100, 20 ; new move. new effect.
+	move QUIVER_DANCE,   SPATK_SPEED_UP1_EFFECT,            0, BIRD,         100, 20 ; new move. new effect.
 
 	move TAILWIND,       SPEED_UP1_EFFECT,                  0, BIRD,         100, 35 ; new move.
 
@@ -282,11 +282,11 @@ Moves: ; Current total = 219
 	move TICKLE,         DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
-	move FAKE_TEARS,     SPDEF_DOWN2_EFFECT,              0, BIRD,          90, 15 ; new move.
-	move METAL_SOUND,    SPDEF_DOWN2_FLINCH_EFFECT,       0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
-	move SCREECH,        SPDEF_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 30
+	move FAKE_TEARS,     SPDEF_DOWN2_EFFECT,                0, BIRD,          90, 15 ; new move.
+	move METAL_SOUND,    SPDEF_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 15 ; new move. metallic circle (7 learners).
+	move SCREECH,        SPDEF_DOWN1_FLINCH_EFFECT,         0, BIRD,         100, 30
 
-	move EERIE_IMPULSE,  SPDEF_SPEED_DOWN1_EFFECT,        0, BIRD,          90, 20 ; new move. new effect.
+	move EERIE_IMPULSE,  SPDEF_SPEED_DOWN1_EFFECT,          0, BIRD,          90, 20 ; new move. new effect.
 
 	move SCARY_FACE,     SPEED_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
 	move HINDER,         SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30 ; new move.
@@ -299,8 +299,8 @@ Moves: ; Current total = 219
 	move SMOKESCREEN,    ACCURACY_DOWN1_EFFECT,             0, BIRD,         100, 20
 
 	move RECOVER,        HEAL_EFFECT,                       0, BIRD,         100, 20
-	move REST,           HEAL_EFFECT,                       0, BIRD,         100, 20
-	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 20 ; signature.
+	move REST,           HEAL_EFFECT,                       0, BIRD,         100, 30
+	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 30 ; signature.
 
 	move LIGHT_SCREEN,   LIGHT_SCREEN_EFFECT,               0, BIRD,         100, 30
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
