@@ -3,7 +3,7 @@
 
 	db WATER, PSYCHIC_TYPE ; type
 	db 70 ; catch rate  ; final stage, BST 505
-	db 170 ; base exp  ; BST 425 - muitas fraquezas (-2)
+	db 160 ; base exp  ; BST 505
 
 	INCBIN "gfx/pokemon/front/starmie.pic", 0, 1 ; sprite dimensions
 	dw StarmiePicFront, StarmiePicBack

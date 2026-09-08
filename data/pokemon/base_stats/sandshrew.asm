@@ -3,7 +3,7 @@
 
 	db GROUND, GROUND ; type
 	db 220 ; catch rate  ; base stage, BST 300
-	db 85 ; base exp  ; BST 280 - poucas fraquezas (+2)
+	db 85 ; base exp  ; BST 300
 
 	INCBIN "gfx/pokemon/front/sandshrew.pic", 0, 1 ; sprite dimensions
 	dw SandshrewPicFront, SandshrewPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 65, 90, 65, 120, 75, 110 ; hp atk def spatk spdef spd
 	db GHOST, DARK ; type
 	db 50 ; catch rate  ; final stage, BST 525, harder to handle
-	db 190 ; base exp  ; escolha dele
+	db 170 ; base exp  ; BST 525
 
 	INCBIN "gfx/pokemon/front/gengar.pic", 0, 1 ; sprite dimensions
 	dw GengarPicFront, GengarPicBack

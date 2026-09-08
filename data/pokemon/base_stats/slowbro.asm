@@ -3,7 +3,7 @@
 
 	db WATER, PSYCHIC_TYPE ; type
 	db 100 ; catch rate  ; set by hand
-	db 150 ; base exp  ; BST 390 - muitas fraquezas (-2)
+	db 150 ; base exp  ; BST 475
 
 	INCBIN "gfx/pokemon/front/slowbro.pic", 0, 1 ; sprite dimensions
 	dw SlowbroPicFront, SlowbroPicBack

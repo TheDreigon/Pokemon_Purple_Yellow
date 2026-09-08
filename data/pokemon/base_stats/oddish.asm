@@ -3,7 +3,7 @@
 
 	db GRASS, POISON ; type
 	db 220 ; catch rate  ; base stage, BST 300
-	db 65 ; base exp  ; BST 250 - grupo mantido igual
+	db 85 ; base exp  ; BST 300
 
 	INCBIN "gfx/pokemon/front/oddish.pic", 0, 1 ; sprite dimensions
 	dw OddishPicFront, OddishPicBack

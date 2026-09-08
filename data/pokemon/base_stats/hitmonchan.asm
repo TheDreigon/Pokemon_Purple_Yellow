@@ -3,7 +3,7 @@
 
 	db FIGHTING, FIGHTING ; type
 	db 70 ; catch rate  ; solo stage, BST 500, harder to handle
-	db 170 ; base exp  ; BST 420 - poucas fraquezas (+2)
+	db 160 ; base exp  ; BST 500
 
 	INCBIN "gfx/pokemon/front/hitmonchan.pic", 0, 1 ; sprite dimensions
 	dw HitmonchanPicFront, HitmonchanPicBack

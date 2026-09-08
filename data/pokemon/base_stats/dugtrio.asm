@@ -3,7 +3,7 @@
 
 	db GROUND, GROUND ; type
 	db 75 ; catch rate  ; final stage, BST 425, harder to handle
-	db 145 ; base exp  ; BST 375 - poucas fraquezas (+2)
+	db 130 ; base exp  ; BST 425
 
 	INCBIN "gfx/pokemon/front/dugtrio.pic", 0, 1 ; sprite dimensions
 	dw DugtrioPicFront, DugtrioPicBack

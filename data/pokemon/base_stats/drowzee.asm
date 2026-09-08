@@ -2,7 +2,7 @@
 	base_stat_row 60, 50, 45, 60, 90, 40 ; hp atk def spatk spdef spd
 	db PSYCHIC_TYPE, DARK ; type
 	db 210 ; catch rate  ; base stage, BST 345
-	db 80 ; base exp  ; BST 280 - muitas fraquezas (-2)
+	db 100 ; base exp  ; BST 345
 
 	INCBIN "gfx/pokemon/front/drowzee.pic", 0, 1 ; sprite dimensions
 	dw DrowzeePicFront, DrowzeePicBack

@@ -2,7 +2,7 @@
 	base_stat_row 90, 100, 80, 90, 80, 100 ; hp atk def spatk spdef spd
 	db FIRE, NORMAL ; type
 	db 60 ; catch rate  ; final stage, BST 540
-	db 190 ; base exp  ; BST 455 - poucas fraquezas (+2)
+	db 175 ; base exp  ; BST 540
 
 	INCBIN "gfx/pokemon/front/arcanine.pic", 0, 1 ; sprite dimensions
 	dw ArcaninePicFront, ArcaninePicBack

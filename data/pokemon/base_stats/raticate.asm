@@ -2,7 +2,7 @@
 	base_stat_row 70, 90, 65, 60, 75, 90 ; hp atk def spatk spdef spd
 	db NORMAL, DARK ; type
 	db 80 ; catch rate  ; final stage, BST 450
-	db 140 ; base exp  ; BST 375 - muitas fraquezas (-2)
+	db 140 ; base exp  ; BST 450
 
 	INCBIN "gfx/pokemon/front/raticate.pic", 0, 1 ; sprite dimensions
 	dw RaticatePicFront, RaticatePicBack

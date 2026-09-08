@@ -3,7 +3,7 @@
 
 	db ICE, FLYING ; type
 	db 11 ; catch rate  ; exception: legendary: one in the world, and ICE cannot be frozen
-	db 250 ; base exp  ; trio dos passaros lendarios
+	db 205 ; base exp  ; BST 625
 
 	INCBIN "gfx/pokemon/front/articuno.pic", 0, 1 ; sprite dimensions
 	dw ArticunoPicFront, ArticunoPicBack

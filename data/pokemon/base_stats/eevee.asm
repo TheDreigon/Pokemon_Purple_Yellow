@@ -3,7 +3,7 @@
 
 	db NORMAL, NORMAL ; type
 	db 100 ; catch rate  ; set by hand: as scarce as a wild Pikachu
-	db 110 ; base exp  ; BST 325
+	db 115 ; base exp  ; BST 390
 
 	INCBIN "gfx/pokemon/front/eevee.pic", 0, 1 ; sprite dimensions
 	dw EeveePicFront, EeveePicBack

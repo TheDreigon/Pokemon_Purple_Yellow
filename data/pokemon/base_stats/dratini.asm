@@ -3,7 +3,7 @@
 
 	db DRAGON, DRAGON ; type
 	db 40 ; catch rate  ; exception: precious, not strong: BST 270 would read as trivial
-	db 75 ; base exp  ; BST 270 - muitas fraquezas (-2)
+	db 90 ; base exp  ; BST 320
 
 	INCBIN "gfx/pokemon/front/dratini.pic", 0, 1 ; sprite dimensions
 	dw DratiniPicFront, DratiniPicBack

@@ -3,7 +3,7 @@
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 220 ; catch rate  ; base stage, BST 315
-	db 70 ; base exp  ; BST 260
+	db 90 ; base exp  ; BST 315
 
 	INCBIN "gfx/pokemon/front/abra.pic", 0, 1 ; sprite dimensions
 	dw AbraPicFront, AbraPicBack

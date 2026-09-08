@@ -2,7 +2,7 @@
 	base_stat_row 75, 75, 75, 100, 75, 75 ; hp atk def spatk spdef spd
 	db NORMAL, ELECTRIC ; type
 	db 10 ; catch rate  ; set by hand: not an animal: it is code, and it does not want holding
-	db 240 ; base exp  ; escolha dele
+	db 150 ; base exp  ; BST 475
 
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions
 	dw PorygonPicFront, PorygonPicBack

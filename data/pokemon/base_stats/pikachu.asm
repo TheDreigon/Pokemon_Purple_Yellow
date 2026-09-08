@@ -3,7 +3,7 @@
 
 	db ELECTRIC, ELECTRIC ; type
 	db 100 ; catch rate  ; set by hand: fast, skittish, and it shocks whoever grabs it
-	db 120 ; base exp  ; escolha dele
+	db 120 ; base exp  ; BST 400
 
 	INCBIN "gfx/pokemon/front/pikachu.pic", 0, 1 ; sprite dimensions
 	dw PikachuPicFront, PikachuPicBack

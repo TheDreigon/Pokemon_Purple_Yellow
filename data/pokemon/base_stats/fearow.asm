@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 65 ; catch rate  ; final stage, BST 450, harder to handle
-	db 150 ; base exp  ; BST 390 - muitas fraquezas (-2)
+	db 140 ; base exp  ; BST 450
 
 	INCBIN "gfx/pokemon/front/fearow.pic", 0, 1 ; sprite dimensions
 	dw FearowPicFront, FearowPicBack

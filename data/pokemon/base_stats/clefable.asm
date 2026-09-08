@@ -2,7 +2,7 @@
 	base_stat_row 100, 65, 70, 100, 100, 70 ; hp atk def spatk spdef spd
 	db FAIRY, FAIRY ; type
 	db 85 ; catch rate  ; final stage, BST 505, easy to approach
-	db 160 ; base exp  ; BST 410
+	db 160 ; base exp  ; BST 505
 
 	INCBIN "gfx/pokemon/front/clefable.pic", 0, 1 ; sprite dimensions
 	dw ClefablePicFront, ClefablePicBack

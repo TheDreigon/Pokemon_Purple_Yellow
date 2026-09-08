@@ -3,7 +3,7 @@
 
 	db WATER, ICE ; type
 	db 90 ; catch rate  ; final stage, BST 485, easy to approach
-	db 155 ; base exp  ; BST 405 - muitas fraquezas (-5)
+	db 155 ; base exp  ; BST 485
 
 	INCBIN "gfx/pokemon/front/dewgong.pic", 0, 1 ; sprite dimensions
 	dw DewgongPicFront, DewgongPicBack

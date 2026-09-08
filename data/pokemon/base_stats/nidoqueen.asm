@@ -3,7 +3,7 @@
 
 	db POISON, GROUND ; type
 	db 50 ; catch rate  ; final stage, BST 520, harder to handle
-	db 180 ; base exp  ; BST 430 - poucas fraquezas (+5)
+	db 165 ; base exp  ; BST 520
 
 	INCBIN "gfx/pokemon/front/nidoqueen.pic", 0, 1 ; sprite dimensions
 	dw NidoqueenPicFront, NidoqueenPicBack

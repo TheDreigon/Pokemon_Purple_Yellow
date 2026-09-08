@@ -3,7 +3,7 @@
 
 	db BUG, POISON ; type
 	db 85 ; catch rate  ; final stage, BST 445
-	db 130 ; base exp  ; BST 365 - muitas fraquezas (-5)
+	db 140 ; base exp  ; BST 445
 
 	INCBIN "gfx/pokemon/front/venomoth.pic", 0, 1 ; sprite dimensions
 	dw VenomothPicFront, VenomothPicBack

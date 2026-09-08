@@ -3,7 +3,7 @@
 
 	db POISON, FLYING ; type
 	db 230 ; catch rate  ; base stage, BST 275
-	db 70 ; base exp  ; BST 250 - poucas fraquezas (+2)
+	db 75 ; base exp  ; BST 275
 
 	INCBIN "gfx/pokemon/front/zubat.pic", 0, 1 ; sprite dimensions
 	dw ZubatPicFront, ZubatPicBack

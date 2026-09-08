@@ -3,7 +3,7 @@
 
 	db FIGHTING, FIGHTING ; type
 	db 75 ; catch rate  ; solo stage, BST 490, harder to handle
-	db 170 ; base exp  ; BST 420 - poucas fraquezas (+2)
+	db 155 ; base exp  ; BST 490
 
 	INCBIN "gfx/pokemon/front/hitmonlee.pic", 0, 1 ; sprite dimensions
 	dw HitmonleePicFront, HitmonleePicBack

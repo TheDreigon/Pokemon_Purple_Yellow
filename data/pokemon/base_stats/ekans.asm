@@ -3,7 +3,7 @@
 
 	db POISON, POISON ; type
 	db 220 ; catch rate  ; base stage, BST 315
-	db 75 ; base exp  ; BST 255 - poucas fraquezas (+5)
+	db 90 ; base exp  ; BST 315
 
 	INCBIN "gfx/pokemon/front/ekans.pic", 0, 1 ; sprite dimensions
 	dw EkansPicFront, EkansPicBack

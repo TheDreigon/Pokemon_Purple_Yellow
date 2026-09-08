@@ -3,7 +3,7 @@
 
 	db GROUND, ROCK ; type
 	db 60 ; catch rate  ; set by hand
-	db 180 ; base exp  ; BST 440 - muitas fraquezas (-2)
+	db 160 ; base exp  ; BST 500
 
 	INCBIN "gfx/pokemon/front/rhydon.pic", 0, 1 ; sprite dimensions
 	dw RhydonPicFront, RhydonPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 35, 80, 90, 55, 45, 40 ; hp atk def spatk spdef spd
 	db ROCK, BUG ; type
 	db 210 ; catch rate  ; base stage, BST 345
-	db 90 ; base exp  ; BST 290 - muitas fraquezas (-2)
+	db 100 ; base exp  ; BST 345
 
 	INCBIN "gfx/pokemon/front/kabuto.pic", 0, 1 ; sprite dimensions
 	dw KabutoPicFront, KabutoPicBack

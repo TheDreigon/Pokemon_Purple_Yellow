@@ -3,7 +3,7 @@
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate  ; final stage, BST 545, harder to handle
-	db 195 ; base exp  ; escolha dele
+	db 175 ; base exp  ; BST 545
 
 	INCBIN "gfx/pokemon/front/machamp.pic", 0, 1 ; sprite dimensions
 	dw MachampPicFront, MachampPicBack

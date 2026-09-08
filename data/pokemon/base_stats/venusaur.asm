@@ -3,7 +3,7 @@
 
 	db GRASS, POISON ; type
 	db 45 ; catch rate  ; set by hand: starter line, fully grown
-	db 220 ; base exp  ; starter final
+	db 185 ; base exp  ; BST 565
 
 	INCBIN "gfx/pokemon/front/venusaur.pic", 0, 1 ; sprite dimensions
 	dw VenusaurPicFront, VenusaurPicBack

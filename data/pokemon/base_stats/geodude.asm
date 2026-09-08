@@ -3,7 +3,7 @@
 
 	db ROCK, GROUND ; type
 	db 220 ; catch rate  ; base stage, BST 300
-	db 75 ; base exp  ; BST 270 - muitas fraquezas (-2)
+	db 85 ; base exp  ; BST 300
 
 	INCBIN "gfx/pokemon/front/geodude.pic", 0, 1 ; sprite dimensions
 	dw GeodudePicFront, GeodudePicBack

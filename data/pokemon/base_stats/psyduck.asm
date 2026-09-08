@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 230 ; catch rate  ; base stage, BST 335, easy to approach
-	db 80 ; base exp  ; BST 275
+	db 95 ; base exp  ; BST 335
 
 	INCBIN "gfx/pokemon/front/psyduck.pic", 0, 1 ; sprite dimensions
 	dw PsyduckPicFront, PsyduckPicBack

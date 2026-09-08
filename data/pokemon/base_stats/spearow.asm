@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 230 ; catch rate  ; base stage, BST 265
-	db 55 ; base exp  ; BST 235 - muitas fraquezas (-2)
+	db 70 ; base exp  ; BST 265
 
 	INCBIN "gfx/pokemon/front/spearow.pic", 0, 1 ; sprite dimensions
 	dw SpearowPicFront, SpearowPicBack

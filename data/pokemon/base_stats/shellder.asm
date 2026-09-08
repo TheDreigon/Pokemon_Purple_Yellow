@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 240 ; catch rate  ; base stage, BST 290, easy to approach
-	db 70 ; base exp  ; BST 255
+	db 80 ; base exp  ; BST 290
 
 	INCBIN "gfx/pokemon/front/shellder.pic", 0, 1 ; sprite dimensions
 	dw ShellderPicFront, ShellderPicBack

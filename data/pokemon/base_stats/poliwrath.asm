@@ -3,7 +3,7 @@
 
 	db WATER, FIGHTING ; type
 	db 60 ; catch rate  ; final stage, BST 530
-	db 170 ; base exp  ; BST 425
+	db 170 ; base exp  ; BST 530
 
 	INCBIN "gfx/pokemon/front/poliwrath.pic", 0, 1 ; sprite dimensions
 	dw PoliwrathPicFront, PoliwrathPicBack

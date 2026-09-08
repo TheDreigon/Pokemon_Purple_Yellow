@@ -3,7 +3,7 @@
 
 	db ELECTRIC, ELECTRIC ; type
 	db 75 ; catch rate  ; final stage, BST 545, easy to approach
-	db 210 ; base exp  ; eeveelution
+	db 175 ; base exp  ; BST 545
 
 	INCBIN "gfx/pokemon/front/jolteon.pic", 0, 1 ; sprite dimensions
 	dw JolteonPicFront, JolteonPicBack

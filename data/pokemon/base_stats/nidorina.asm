@@ -3,7 +3,7 @@
 
 	db POISON, POISON ; type
 	db 110 ; catch rate  ; mid stage, BST 400
-	db 125 ; base exp  ; BST 340 - poucas fraquezas (+5)
+	db 120 ; base exp  ; BST 400
 
 	INCBIN "gfx/pokemon/front/nidorina.pic", 0, 1 ; sprite dimensions
 	dw NidorinaPicFront, NidorinaPicBack

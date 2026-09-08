@@ -2,7 +2,7 @@
 	base_stat_row 80, 40, 50, 75, 70, 50 ; hp atk def spatk spdef spd
 	db FAIRY, FAIRY ; type
 	db 220 ; catch rate  ; base stage, BST 365, easy to approach
-	db 85 ; base exp  ; BST 280
+	db 110 ; base exp  ; BST 365
 
 	INCBIN "gfx/pokemon/front/clefairy.pic", 0, 1 ; sprite dimensions
 	dw ClefairyPicFront, ClefairyPicBack

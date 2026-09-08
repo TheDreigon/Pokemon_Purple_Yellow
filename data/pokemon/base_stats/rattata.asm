@@ -3,7 +3,7 @@
 
 	db NORMAL, NORMAL ; type
 	db 230 ; catch rate  ; base stage, BST 270
-	db 55 ; base exp  ; BST 235
+	db 70 ; base exp  ; BST 270
 
 	INCBIN "gfx/pokemon/front/rattata.pic", 0, 1 ; sprite dimensions
 	dw RattataPicFront, RattataPicBack

@@ -3,7 +3,7 @@
 
 	db FIRE, FLYING ; type
 	db 10 ; catch rate  ; exception: legendary: one in the world
-	db 250 ; base exp  ; trio dos passaros lendarios
+	db 205 ; base exp  ; BST 625
 
 	INCBIN "gfx/pokemon/front/moltres.pic", 0, 1 ; sprite dimensions
 	dw MoltresPicFront, MoltresPicBack

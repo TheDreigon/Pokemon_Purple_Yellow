@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 200 ; catch rate  ; base stage, BST 325, harder to handle
-	db 90 ; base exp  ; BST 290 - muitas fraquezas (-2)
+	db 90 ; base exp  ; BST 325
 
 	INCBIN "gfx/pokemon/front/doduo.pic", 0, 1 ; sprite dimensions
 	dw DoduoPicFront, DoduoPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 70, 60, 50, 120, 110, 105 ; hp atk def spatk spdef spd
 	db GHOST, ICE ; type
 	db 65 ; catch rate  ; set by hand: same tier as Electabuzz and Magmar
-	db 145 ; base exp  ; BST 380
+	db 165 ; base exp  ; BST 515
 
 	INCBIN "gfx/pokemon/front/jynx.pic", 0, 1 ; sprite dimensions
 	dw JynxPicFront, JynxPicBack

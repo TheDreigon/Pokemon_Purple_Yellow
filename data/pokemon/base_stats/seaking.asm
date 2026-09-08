@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 85 ; catch rate  ; set by hand
-	db 160 ; base exp  ; BST 405
+	db 150 ; base exp  ; BST 475
 
 	INCBIN "gfx/pokemon/front/seaking.pic", 0, 1 ; sprite dimensions
 	dw SeakingPicFront, SeakingPicBack

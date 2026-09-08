@@ -3,7 +3,7 @@
 
 	db FIGHTING, FIGHTING ; type
 	db 215 ; catch rate  ; base stage, BST 325
-	db 90 ; base exp  ; BST 285 - poucas fraquezas (+2)
+	db 90 ; base exp  ; BST 325
 
 	INCBIN "gfx/pokemon/front/machop.pic", 0, 1 ; sprite dimensions
 	dw MachopPicFront, MachopPicBack

@@ -2,7 +2,7 @@
 	base_stat_row 90, 130, 90, 90, 90, 80 ; hp atk def spatk spdef spd
 	db WATER, DRAGON ; type
 	db 20 ; catch rate  ; set by hand: enormous, furious, destructive - Dragonite tier
-	db 230 ; base exp  ; escolha dele
+	db 185 ; base exp  ; BST 570
 
 	INCBIN "gfx/pokemon/front/gyarados.pic", 0, 1 ; sprite dimensions
 	dw GyaradosPicFront, GyaradosPicBack

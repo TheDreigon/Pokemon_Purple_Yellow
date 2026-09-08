@@ -3,7 +3,7 @@
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate  ; final stage, BST 530, harder to handle
-	db 185 ; base exp  ; escolha dele: x4 a Water e a Grass, duas fraquezas comuns
+	db 170 ; base exp  ; BST 530
 
 	INCBIN "gfx/pokemon/front/golem.pic", 0, 1 ; sprite dimensions
 	dw GolemPicFront, GolemPicBack

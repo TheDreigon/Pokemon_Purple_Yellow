@@ -3,7 +3,7 @@
 
 	db GRASS, GRASS ; type ; v0.7 (2026-09-05, Forte): pure GRASS; POISON arrives with WEEPINBELL (the BULBASAUR -> IVYSAUR shape)
 	db 220 ; catch rate  ; base stage, BST 300
-	db 65 ; base exp  ; BST 250 - grupo mantido igual
+	db 85 ; base exp  ; BST 300
 
 	INCBIN "gfx/pokemon/front/bellsprout.pic", 0, 1 ; sprite dimensions
 	dw BellsproutPicFront, BellsproutPicBack

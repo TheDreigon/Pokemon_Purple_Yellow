@@ -3,7 +3,7 @@
 
 	db ROCK, WATER ; type
 	db 210 ; catch rate  ; base stage, BST 345
-	db 90 ; base exp  ; BST 290
+	db 100 ; base exp  ; BST 345
 
 	INCBIN "gfx/pokemon/front/omanyte.pic", 0, 1 ; sprite dimensions
 	dw OmanytePicFront, OmanytePicBack

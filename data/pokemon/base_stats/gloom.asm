@@ -2,7 +2,7 @@
 	base_stat_row 75, 70, 70, 75, 75, 40 ; hp atk def spatk spdef spd
 	db GRASS, POISON ; type
 	db 125 ; catch rate  ; mid stage, BST 405, easy to approach
-	db 120 ; base exp  ; BST 340 - muitas fraquezas (-2)
+	db 125 ; base exp  ; BST 405
 
 	INCBIN "gfx/pokemon/front/gloom.pic", 0, 1 ; sprite dimensions
 	dw GloomPicFront, GloomPicBack

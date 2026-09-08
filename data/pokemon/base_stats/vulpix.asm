@@ -2,7 +2,7 @@
 	base_stat_row 50, 40, 40, 60, 70, 75 ; hp atk def spatk spdef spd
 	db FIRE, FAIRY ; type
 	db 230 ; catch rate  ; base stage, BST 335, easy to approach
-	db 85 ; base exp  ; BST 270 - poucas fraquezas (+5)
+	db 95 ; base exp  ; BST 335
 
 	INCBIN "gfx/pokemon/front/vulpix.pic", 0, 1 ; sprite dimensions
 	dw VulpixPicFront, VulpixPicBack

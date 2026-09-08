@@ -3,7 +3,7 @@
 
 	db WATER, POISON ; type
 	db 70 ; catch rate  ; set by hand
-	db 190 ; base exp  ; BST 450 - poucas fraquezas (+2)
+	db 175 ; base exp  ; BST 540
 
 	INCBIN "gfx/pokemon/front/tentacruel.pic", 0, 1 ; sprite dimensions
 	dw TentacruelPicFront, TentacruelPicBack

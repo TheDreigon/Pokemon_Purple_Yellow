@@ -3,7 +3,7 @@
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 110 ; catch rate  ; mid stage, BST 400
-	db 110 ; base exp  ; BST 325
+	db 120 ; base exp  ; BST 400
 
 	INCBIN "gfx/pokemon/front/kadabra.pic", 0, 1 ; sprite dimensions
 	dw KadabraPicFront, KadabraPicBack

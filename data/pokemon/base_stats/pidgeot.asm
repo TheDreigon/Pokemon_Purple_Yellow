@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 55 ; catch rate  ; final stage, BST 500, harder to handle
-	db 170 ; base exp  ; BST 425 - muitas fraquezas (-2)
+	db 160 ; base exp  ; BST 500
 
 	INCBIN "gfx/pokemon/front/pidgeot.pic", 0, 1 ; sprite dimensions
 	dw PidgeotPicFront, PidgeotPicBack

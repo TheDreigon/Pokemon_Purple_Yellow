@@ -2,7 +2,7 @@
 	base_stat_row 150, 80, 80, 120, 120, 150 ; hp atk def spatk spdef spd  ; 2026-09-06 (Forte): +10 hp, +10 spd -> 700
 	db PSYCHIC_TYPE, FAIRY ; type
 	db 8 ; catch rate  ; set by hand: legendary: the hardest thing in the game
-	db 255 ; base exp  ; topo absoluto
+	db 235 ; base exp  ; BST 700
 
 	INCBIN "gfx/pokemon/front/mew.pic", 0, 1 ; sprite dimensions
 	dw MewPicFront, MewPicBack

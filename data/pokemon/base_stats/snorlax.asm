@@ -3,7 +3,7 @@
 
 	db NORMAL, NORMAL ; type
 	db 20 ; catch rate  ; set by hand: one per game, and it is an event
-	db 200 ; base exp  ; escolha dele
+	db 175 ; base exp  ; BST 540
 
 	INCBIN "gfx/pokemon/front/snorlax.pic", 0, 1 ; sprite dimensions
 	dw SnorlaxPicFront, SnorlaxPicBack

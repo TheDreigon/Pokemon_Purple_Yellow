@@ -2,7 +2,7 @@
 	base_stat_row 140, 75, 40, 80, 80, 80 ; hp atk def spatk spdef spd
 	db NORMAL, FAIRY ; type
 	db 85 ; catch rate  ; final stage, BST 495, easy to approach
-	db 150 ; base exp  ; BST 390 - muitas fraquezas (-2)
+	db 155 ; base exp  ; BST 495
 
 	INCBIN "gfx/pokemon/front/wigglytuff.pic", 0, 1 ; sprite dimensions
 	dw WigglytuffPicFront, WigglytuffPicBack

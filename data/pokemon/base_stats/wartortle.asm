@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 75 ; catch rate  ; set by hand: starter line, middle
-	db 115 ; base exp  ; BST 330 - grupo mantido igual
+	db 140 ; base exp  ; BST 445
 
 	INCBIN "gfx/pokemon/front/wartortle.pic", 0, 1 ; sprite dimensions
 	dw WartortlePicFront, WartortlePicBack

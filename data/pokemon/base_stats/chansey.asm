@@ -2,7 +2,7 @@
 	base_stat_row 250, 5, 10, 35, 105, 70 ; hp atk def spatk spdef spd
 	db NORMAL, FAIRY ; type
 	db 110 ; catch rate  ; solo stage, BST 475, easy to approach
-	db 245 ; base exp  ; o alvo de grinding do jogo
+	db 245 ; base exp  ; o alvo de grinding do jogo (vanilla: 255, o maximo)
 
 	INCBIN "gfx/pokemon/front/chansey.pic", 0, 1 ; sprite dimensions
 	dw ChanseyPicFront, ChanseyPicBack

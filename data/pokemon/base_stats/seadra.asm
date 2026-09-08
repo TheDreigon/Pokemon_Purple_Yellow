@@ -2,7 +2,7 @@
 	base_stat_row 60, 70, 90, 80, 80, 75 ; hp atk def spatk spdef spd
 	db WATER, DRAGON ; type
 	db 90 ; catch rate  ; set by hand
-	db 140 ; base exp  ; BST 380 - muitas fraquezas (-2)
+	db 140 ; base exp  ; BST 455
 
 	INCBIN "gfx/pokemon/front/seadra.pic", 0, 1 ; sprite dimensions
 	dw SeadraPicFront, SeadraPicBack

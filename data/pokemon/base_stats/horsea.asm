@@ -3,7 +3,7 @@
 
 	db WATER, WATER ; type
 	db 235 ; catch rate  ; set by hand
-	db 70 ; base exp  ; BST 260
+	db 80 ; base exp  ; BST 295
 
 	INCBIN "gfx/pokemon/front/horsea.pic", 0, 1 ; sprite dimensions
 	dw HorseaPicFront, HorseaPicBack

@@ -3,7 +3,7 @@
 
 	db NORMAL, FLYING ; type
 	db 125 ; catch rate  ; mid stage, BST 365
-	db 105 ; base exp  ; BST 315 - muitas fraquezas (-2)
+	db 110 ; base exp  ; BST 365
 
 	INCBIN "gfx/pokemon/front/pidgeotto.pic", 0, 1 ; sprite dimensions
 	dw PidgeottoPicFront, PidgeottoPicBack

@@ -3,7 +3,7 @@
 
 	db GRASS, POISON ; type
 	db 75 ; catch rate  ; set by hand: starter line, middle
-	db 115 ; base exp  ; BST 330 - grupo mantido igual
+	db 140 ; base exp  ; BST 445
 
 	INCBIN "gfx/pokemon/front/ivysaur.pic", 0, 1 ; sprite dimensions
 	dw IvysaurPicFront, IvysaurPicBack
