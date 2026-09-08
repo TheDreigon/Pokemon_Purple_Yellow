@@ -1009,6 +1009,7 @@ ClefairyEvosMoves:
 	db 29, BODY_SLAM
 	db 32, ICY_WIND
 	db 34, EXTRASENSORY
+	db 34, DISABLE
 	db 36, METRONOME
 	db 40, RECOVER
 	db 42, MIMIC
@@ -1035,6 +1036,7 @@ ClefableEvosMoves:
 	db 29, BODY_SLAM
 	db 32, ICY_WIND
 	db 34, EXTRASENSORY
+	db 34, DISABLE
 	db 36, METRONOME
 	db 40, RECOVER
 	db 42, MIMIC
@@ -1055,15 +1057,18 @@ VulpixEvosMoves:
 ; spectral kitsune. NIGHT_SHADE/FAINT_ATTACK/AGILITY for the ranged,
 ; graceful caster. No FLAME_CHARGE (too physical). DAZZLE_GLEAM reserved
 ; for Ninetales-only.
-	db 11, QUICK_ATTACK
-	db 14, CONFUSE_RAY
-	db 17, FAIRY_WIND
-	db 20, NIGHT_SHADE
-	db 24, FAINT_ATTACK
-	db 28, AGILITY
-	db 32, WILL_O_WISP
-	db 40, FLAMETHROWER
-	db 42, DOUBLE_TEAM
+	db  8, QUICK_ATTACK
+	db 10, FAIRY_WIND
+	db 14, FAINT_ATTACK
+	db 18, CONFUSE_RAY
+	db 21, NIGHT_SHADE
+	db 24, WILL_O_WISP
+	db 26, FLAME_CHARGE
+	db 28, EERIE_IMPULSE
+	db 31, DOUBLE_TEAM
+	db 34, DAZZLE_GLEAM
+	db 37, FLAMETHROWER
+	db 41, AGILITY
 	db 0
 
 NinetalesEvosMoves:
@@ -1074,20 +1079,22 @@ NinetalesEvosMoves:
 ; kitsune), DAZZLE_GLEAM (Fairy mid-apex), SHADOW_BALL (Ghost-coded — many
 ; tails channel spectral), MOONBLAST (lunar signature). No FLASH —
 ; EERIE_IMPULSE covers the mid-game utility slot.
-	db 11, QUICK_ATTACK
-	db 14, CONFUSE_RAY
-	db 17, FAIRY_WIND
-	db 20, NIGHT_SHADE
-	db 24, FAINT_ATTACK
-	db 28, AGILITY
-	db 32, WILL_O_WISP
-	db 36, EERIE_IMPULSE
-	db 40, FLAMETHROWER
-	db 42, DOUBLE_TEAM
-	db 45, DAZZLE_GLEAM
-	db 48, SHADOW_BALL
-	db 52, FIRE_BLAST
-	db 58, MOONBLAST
+	db  8, QUICK_ATTACK
+	db 10, FAIRY_WIND
+	db 14, FAINT_ATTACK
+	db 18, CONFUSE_RAY
+	db 21, NIGHT_SHADE
+	db 24, WILL_O_WISP
+	db 26, FLAME_CHARGE
+	db 28, EERIE_IMPULSE
+	db 31, DOUBLE_TEAM
+	db 34, DAZZLE_GLEAM
+	db 37, FLAMETHROWER
+	db 41, AGILITY
+	db 46, SHADOW_BALL
+	db 50, FIRE_BLAST
+	db 55, MOONBLAST
+	db 60, PETAL_DANCE
 	db 0
 
 JigglypuffEvosMoves:
@@ -1097,25 +1104,23 @@ JigglypuffEvosMoves:
 ; Learnset
 ; Normal/Fairy balloon singer. Voice kit: SING early, LOVELY_KISS,
 ; CHARM. DRAINING_KISS/BUBBLEBEAM round out the fairy pool.
-	db  4, DEFENSE_CURL
+	db  4, DOUBLESLAP
 	db  6, TICKLE
-	db  8, TACKLE
-	db 10, FAIRY_WIND
-	db 12, DOUBLESLAP
+	db  8, DEFENSE_CURL
+	db 10, TACKLE
+	db 12, HINDER
 	db 14, CHARM
-	db 16, HINDER
-	db 20, GROWTH
-	db 22, ASTONISH
-	db 24, BIDE
-	db 26, RAGE
-	db 28, ROLLOUT
+	db 16, ASTONISH
+	db 18, BIDE
+	db 20, RAGE
+	db 20, SCREECH
+	db 22, FAKE_TEARS
+	db 24, LOVELY_KISS
+	db 26, DRAINING_KISS
+	db 28, BODY_SLAM
 	db 30, BUBBLEBEAM
-	db 32, SCREECH
-	db 35, LOVELY_KISS
-	db 38, BODY_SLAM
-	db 40, FAKE_TEARS
-	db 42, DRAINING_KISS
-	db 46, AMNESIA
+	db 33, ROLLOUT
+	db 36, GROWTH
 	db 0
 
 WigglytuffEvosMoves:
@@ -1125,27 +1130,29 @@ WigglytuffEvosMoves:
 ; Apex balloon singer. Jigglypuff backbone (incl. FLY HM02 natural L54
 ; — the balloon body floats) plus two apex exclusives: MIRROR_MOVE,
 ; PLAY_ROUGH.
-	db  4, DEFENSE_CURL
+	db  4, DOUBLESLAP
 	db  6, TICKLE
-	db  8, TACKLE
-	db 10, FAIRY_WIND
-	db 12, DOUBLESLAP
+	db  8, DEFENSE_CURL
+	db 10, TACKLE
+	db 12, HINDER
 	db 14, CHARM
-	db 16, HINDER
-	db 20, GROWTH
-	db 22, ASTONISH
-	db 24, BIDE
-	db 26, RAGE
-	db 28, ROLLOUT
+	db 16, ASTONISH
+	db 18, BIDE
+	db 20, RAGE
+	db 20, SCREECH
+	db 22, FAKE_TEARS
+	db 24, LOVELY_KISS
+	db 26, DRAINING_KISS
+	db 28, BODY_SLAM
 	db 30, BUBBLEBEAM
-	db 32, SCREECH
-	db 35, LOVELY_KISS
-	db 38, BODY_SLAM
-	db 40, FAKE_TEARS
-	db 42, DRAINING_KISS
-	db 46, AMNESIA
+	db 33, ROLLOUT
+	db 36, GROWTH
+	db 40, AMNESIA
+	db 40, DISABLE
+	db 45, MIRROR_MOVE
 	db 50, PLAY_ROUGH
-	db 55, MIRROR_MOVE
+	db 55, DOUBLE_EDGE
+	db 60, MOONBLAST
 	db 0
 
 ZubatEvosMoves:
@@ -1157,21 +1164,19 @@ ZubatEvosMoves:
 ; WING_ATTACK at L21 (evo level). No SLUDGE (sludge-bodied/digestive
 ; lines only — a bat is neither). HURRICANE
 ; is TM only, not levelup.
-	db  7, QUICK_ATTACK
-	db 11, ABSORB
-	db 13, POISON_STING
-	db 17, LEECH_LIFE
-	db 19, LICK
-	db 21, WING_ATTACK
-	db 24, EERIE_IMPULSE
-	db 26, SCREECH
-	db 30, ASTONISH
-	db 34, AERIAL_ACE
-	db 36, FLY
-	db 40, POISON_BITE
-	db 44, AGILITY
-	db 48, TOXIC_FANGS
-	db 51, EXTREMESPEED
+	db  7, ASTONISH
+	db 10, POISON_STING
+	db 12, QUICK_ATTACK
+	db 15, ABSORB
+	db 18, SCREECH
+	db 20, LEECH_LIFE
+	db 21, LICK
+	db 22, WING_ATTACK
+	db 25, SUPERSONIC
+	db 28, EERIE_IMPULSE
+	db 30, POISON_BITE
+	db 33, AERIAL_ACE
+	db 40, AGILITY
 	db 0
 
 GolbatEvosMoves:
@@ -1180,22 +1185,25 @@ GolbatEvosMoves:
 ; Learnset
 ; Matured vampire bat. Zubat backbone plus apex exclusives DARK_PULSE
 ; (L55) and TOXIC (L60). HURRICANE is TM only, not levelup.
-	db  7, QUICK_ATTACK
-	db 11, ABSORB
-	db 13, POISON_STING
-	db 17, LEECH_LIFE
-	db 19, LICK
-	db 21, WING_ATTACK
-	db 24, EERIE_IMPULSE
-	db 26, SCREECH
-	db 30, ASTONISH
-	db 34, AERIAL_ACE
+	db  7, ASTONISH
+	db 10, POISON_STING
+	db 12, QUICK_ATTACK
+	db 15, ABSORB
+	db 18, SCREECH
+	db 20, LEECH_LIFE
+	db 21, LICK
+	db 22, WING_ATTACK
+	db 25, SUPERSONIC
+	db 28, EERIE_IMPULSE
+	db 30, POISON_BITE
+	db 33, AERIAL_ACE
 	db 36, FLY
-	db 40, POISON_BITE
-	db 44, AGILITY
-	db 48, TOXIC_FANGS
-	db 51, EXTREMESPEED
-	db 55, DARK_PULSE
+	db 40, AGILITY
+	db 43, NIGHT_SLASH
+	db 46, SCARY_FACE
+	db 50, TOXIC_FANGS
+	db 53, EXTREMESPEED
+	db 56, DARK_PULSE
 	db 60, TOXIC
 	db 0
 
@@ -1207,15 +1215,16 @@ OddishEvosMoves:
 ; Basic radish/turnip plant (Grass/Poison). Powder triad
 ; STUN_POWDER + SLEEP_POWDER + POISONPOWDER emerges by the evo level
 ; (SLEEP_POWDER at L22). LEECH_SEED + drain + apex PETAL_DANCE.
+	db  8, TACKLE
 	db 10, GROWTH
-	db 13, TACKLE
-	db 16, STUN_POWDER
-	db 19, POISONPOWDER
-	db 22, SLEEP_POWDER
-	db 25, ACID
-	db 28, LEECH_SEED
-	db 34, MEGA_DRAIN
-	db 46, PETAL_DANCE
+	db 12, LEECH_SEED
+	db 16, POISONPOWDER
+	db 18, STUN_POWDER
+	db 20, SLEEP_POWDER
+	db 22, MEGA_DRAIN
+	db 24, SCREECH
+	db 26, ACID
+	db 30, SPORE_DAZE
 	db 0
 
 GloomEvosMoves:
@@ -1226,17 +1235,21 @@ GloomEvosMoves:
 ; Mid-stage flower bud (Grass/Fungus). Oddish backbone plus two
 ; exclusives: SCREECH (drooly mouth resonance), TOXIC (mature poison
 ; glands).
+	db  8, TACKLE
 	db 10, GROWTH
-	db 13, TACKLE
-	db 16, STUN_POWDER
-	db 19, POISONPOWDER
-	db 22, SLEEP_POWDER
-	db 25, ACID
-	db 28, LEECH_SEED
-	db 31, SCREECH
-	db 34, MEGA_DRAIN
-	db 37, TOXIC
-	db 46, PETAL_DANCE
+	db 12, LEECH_SEED
+	db 16, POISONPOWDER
+	db 18, STUN_POWDER
+	db 20, SLEEP_POWDER
+	db 22, MEGA_DRAIN
+	db 24, SCREECH
+	db 26, ACID
+	db 30, SPORE_DAZE
+	db 33, EERIE_IMPULSE
+	db 36, SLUDGE
+	db 40, LEECH_LIFE
+	db 43, PETAL_DANCE
+	db 46, TOXIC
 	db 0
 
 VileplumeEvosMoves:
@@ -1248,23 +1261,24 @@ VileplumeEvosMoves:
 ; confusion), EERIE_IMPULSE (mature spore mind-effect), LEECH_LIFE
 ; (insect drain, high level), HAZE (gas/spore cloud), DARK_PULSE (dark
 ; fungal peak), SPORE (true apex L65).
+	db  8, TACKLE
 	db 10, GROWTH
-	db 13, TACKLE
-	db 16, STUN_POWDER
-	db 19, POISONPOWDER
-	db 22, SLEEP_POWDER
-	db 25, ACID
-	db 28, LEECH_SEED
-	db 31, SCREECH
-	db 34, MEGA_DRAIN
-	db 37, TOXIC
-	db 40, SPORE_DAZE
-	db 43, EERIE_IMPULSE
-	db 46, PETAL_DANCE
-	db 48, LEECH_LIFE
-	db 52, HAZE
-	db 58, DARK_PULSE
-	db 65, SPORE
+	db 12, LEECH_SEED
+	db 16, POISONPOWDER
+	db 18, STUN_POWDER
+	db 20, SLEEP_POWDER
+	db 22, MEGA_DRAIN
+	db 24, SCREECH
+	db 26, ACID
+	db 30, SPORE_DAZE
+	db 33, EERIE_IMPULSE
+	db 36, SLUDGE
+	db 40, LEECH_LIFE
+	db 43, PETAL_DANCE
+	db 46, TOXIC
+	db 50, HAZE
+	db 55, DARK_PULSE
+	db 60, SPORE
 	db 0
 
 ParasEvosMoves:
@@ -1277,17 +1291,16 @@ ParasEvosMoves:
 ; LEECH_LIFE bug-drain; SLASH claws; drain progression
 ; ABSORB -> MEGA_DRAIN -> GIGA_DRAIN.
 	db 10, ABSORB
-	db 13, GROWTH
-	db 13, LEECH_SEED
-	db 16, STUN_POWDER
-	db 19, POISONPOWDER
+	db 14, LEECH_SEED
+	db 18, STUN_POWDER
+	db 20, POISONPOWDER
 	db 22, SPORE
-	db 25, MEGA_DRAIN
-	db 27, CUT
-	db 29, SLASH
-	db 31, LEECH_LIFE
-	db 34, DIG
-	db 46, GIGA_DRAIN
+	db 22, GROWTH
+	db 24, LEECH_LIFE
+	db 24, MEGA_DRAIN
+	db 26, SLASH
+	db 26, CUT
+	db 28, SPORE_DAZE
 	db 0
 
 ParasectEvosMoves:
@@ -1301,25 +1314,25 @@ ParasectEvosMoves:
 ; NIGHT_SLASH (dark sharp claws), DOUBLE_EDGE (apex recoil),
 ; TOXIC_FANGS (fungal mandibular toxin), TOXIC (L60 last move).
 	db 10, ABSORB
-	db 13, GROWTH
-	db 13, LEECH_SEED
-	db 16, STUN_POWDER
-	db 19, POISONPOWDER
+	db 14, LEECH_SEED
+	db 18, STUN_POWDER
+	db 20, POISONPOWDER
 	db 22, SPORE
-	db 25, MEGA_DRAIN
-	db 27, PARASITE
-	db 27, CUT
-	db 29, SPORE_DAZE
-	db 29, SLASH
-	db 29, FALSE_SWIPE
-	db 31, LEECH_LIFE
-	db 34, SCARY_FACE
-	db 34, DIG
-	db 40, EERIE_IMPULSE
-	db 44, NIGHT_SLASH
-	db 46, GIGA_DRAIN
-	db 50, DOUBLE_EDGE
-	db 55, TOXIC_FANGS
+	db 22, GROWTH
+	db 24, LEECH_LIFE
+	db 24, MEGA_DRAIN
+	db 26, SLASH
+	db 26, CUT
+	db 28, SPORE_DAZE
+	db 30, EERIE_IMPULSE
+	db 33, FALSE_SWIPE
+	db 36, PARASITE
+	db 40, GIGA_DRAIN
+	db 42, SCARY_FACE
+	db 45, NIGHT_SLASH
+	db 50, TOXIC_FANGS
+	db 53, RECOVER
+	db 56, DARK_PULSE
 	db 60, TOXIC
 	db 0
 
@@ -1336,15 +1349,15 @@ VenonatEvosMoves:
 	db  6, POISON_STING
 	db  8, TACKLE
 	db 10, PSYWAVE
-	db 12, POISONPOWDER
 	db 14, SUPERSONIC
-	db 18, CONFUSION
-	db 22, STUN_POWDER
-	db 29, ACID
-	db 34, LEECH_LIFE
-	db 37, SPORE_DAZE
-	db 40, SMOG
-	db 50, TOXIC
+	db 16, POISONPOWDER
+	db 20, CONFUSION
+	db 23, STUN_POWDER
+	db 25, SLEEP_POWDER
+	db 28, ACID
+	db 30, SMOG
+	db 36, BUG_BUZZ
+	db 40, SPORE_DAZE
 	db 0
 
 VenomothEvosMoves:
@@ -1357,23 +1370,23 @@ VenomothEvosMoves:
 	db  6, POISON_STING
 	db  8, TACKLE
 	db 10, PSYWAVE
-	db 12, POISONPOWDER
 	db 14, SUPERSONIC
-	db 18, CONFUSION
+	db 16, POISONPOWDER
+	db 20, CONFUSION
 	db 21, GUST
-	db 22, STUN_POWDER
-	db 25, BUG_BUZZ
-	db 27, SLEEP_POWDER
-	db 29, ACID
-	db 31, WING_ATTACK
-	db 34, LEECH_LIFE
-	db 37, SPORE_DAZE
-	db 40, SMOG
-	db 42, QUIVER_DANCE
-	db 46, NIGHT_SHADE
-	db 50, TOXIC
-	db 54, HAZE
-	db 58, PSYCHIC_M
+	db 23, STUN_POWDER
+	db 25, SLEEP_POWDER
+	db 28, ACID
+	db 30, SMOG
+	db 33, WING_ATTACK
+	db 36, BUG_BUZZ
+	db 40, SPORE_DAZE
+	db 42, LEECH_LIFE
+	db 45, QUIVER_DANCE
+	db 48, NIGHT_SHADE
+	db 50, HAZE
+	db 55, TOXIC
+	db 60, PSYCHIC_M
 	db 0
 
 DiglettEvosMoves:
@@ -1385,20 +1398,19 @@ DiglettEvosMoves:
 ; body is built to live in the dig). GROWL as a vocal hinder (near-blind
 ; mole). QUICK_ATTACK/AGILITY speed. EARTHQUAKE at L33 = evo level.
 ; EXTREMESPEED apex mole speed. FISSURE signature, last move L60.
-	db  3, DIG
-	db  6, SAND_ATTACK
+	db  3, SAND_ATTACK
+	db  6, DIG
 	db 10, QUICK_ATTACK
 	db 16, BULLDOZE
-	db 22, AGILITY
+	db 20, FAINT_ATTACK
+	db 22, SLASH
 	db 24, CUT
 	db 26, MUD_BOMB
-	db 28, SLASH
-	db 30, FAINT_ATTACK
-	db 33, EARTHQUAKE
-	db 36, HONE_CLAWS
-	db 46, ROCK_TOMB
-	db 52, EXTREMESPEED
-	db 60, FISSURE
+	db 28, SCREECH
+	db 30, HONE_CLAWS
+	db 36, AGILITY
+	db 40, TAKE_DOWN
+	db 43, ROCK_TOMB
 	db 0
 
 DugtrioEvosMoves:
@@ -1409,24 +1421,24 @@ DugtrioEvosMoves:
 ; NIGHT_SLASH, TAKE_DOWN, RECOVER (burrows underground to rest). No
 ; TRI_ATTACK (Porygon/Mew/Magneton signature). STRENGTH via HM only,
 ; not levelup.
-	db  3, DIG
-	db  6, SAND_ATTACK
+	db  3, SAND_ATTACK
+	db  6, DIG
 	db 10, QUICK_ATTACK
 	db 16, BULLDOZE
-	db 22, AGILITY
+	db 20, FAINT_ATTACK
+	db 22, SLASH
 	db 24, CUT
 	db 26, MUD_BOMB
-	db 28, SLASH
-	db 30, FAINT_ATTACK
+	db 28, SCREECH
+	db 30, HONE_CLAWS
 	db 33, EARTHQUAKE
-	db 36, HONE_CLAWS
-	db 36, FALSE_SWIPE
-	db 38, SCREECH
-	db 46, ROCK_TOMB
-	db 48, NIGHT_SLASH
-	db 52, EXTREMESPEED
-	db 54, TAKE_DOWN
-	db 60, FISSURE
+	db 36, AGILITY
+	db 40, TAKE_DOWN
+	db 43, ROCK_TOMB
+	db 46, NIGHT_SLASH
+	db 50, EXTREMESPEED
+	db 55, FISSURE
+	db 60, ROCK_SLIDE
 	db 0
 
 MeowthEvosMoves:
@@ -1436,22 +1448,23 @@ MeowthEvosMoves:
 ; Learnset
 ; Feline cat, claws + coin. PAY_DAY signature. HONE_CLAWS/SLASH
 ; (claws). FAINT_ATTACK (cat sneak). INTIMIDATE (predator).
-	db  5, TAIL_WHIP
+	db  4, TAIL_WHIP
 	db  6, BITE
 	db  8, ASTONISH
 	db 10, QUICK_ATTACK
-	db 12, PAY_DAY
-	db 15, FURY_ATTACK
+	db 12, FURY_ATTACK
+	db 14, HONE_CLAWS
+	db 16, PAY_DAY
 	db 18, FAINT_ATTACK
-	db 21, HONE_CLAWS
-	db 21, FALSE_SWIPE
-	db 24, FOCUS_ENERGY
-	db 26, TAKE_DOWN
-	db 26, CUT
-	db 28, SLASH  ; (EVO LVL)
-	db 32, INTIMIDATE
-	db 38, NASTY_PLOT
-	db 44, AGILITY
+	db 20, SLASH
+	db 22, CUT
+	db 24, FALSE_SWIPE
+	db 26, FOCUS_ENERGY
+	db 26, SHADOW_SNEAK
+	db 28, TAKE_DOWN
+	db 30, RAGE
+	db 33, BIDE
+	db 43, NASTY_PLOT
 	db 0
 
 PersianEvosMoves:
@@ -1460,25 +1473,29 @@ PersianEvosMoves:
 ; Learnset
 ; Apex feline. INTIMIDATE (apex predator). NASTY_PLOT (sneaky special).
 ; EXTREMESPEED (apex speed).
-	db  5, TAIL_WHIP
+	db  4, TAIL_WHIP
 	db  6, BITE
 	db  8, ASTONISH
 	db 10, QUICK_ATTACK
-	db 12, PAY_DAY
-	db 15, FURY_ATTACK
+	db 12, FURY_ATTACK
+	db 14, HONE_CLAWS
+	db 16, PAY_DAY
 	db 18, FAINT_ATTACK
-	db 21, HONE_CLAWS
-	db 21, FALSE_SWIPE
-	db 24, FOCUS_ENERGY
-	db 26, TAKE_DOWN
-	db 26, CUT
-	db 28, SLASH
-	db 32, INTIMIDATE
-	db 35, RAGE
-	db 38, NASTY_PLOT
-	db 41, NIGHT_SLASH
-	db 44, AGILITY
+	db 20, SLASH
+	db 22, CUT
+	db 24, FALSE_SWIPE
+	db 26, FOCUS_ENERGY
+	db 26, SHADOW_SNEAK
+	db 28, TAKE_DOWN
+	db 30, RAGE
+	db 33, BIDE
+	db 36, INTIMIDATE
+	db 40, THRASH
+	db 43, NASTY_PLOT
+	db 46, NIGHT_SLASH
 	db 50, EXTREMESPEED
+	db 55, AGILITY
+	db 60, SWORDS_DANCE
 	db 0
 
 PsyduckEvosMoves:
@@ -1488,16 +1505,16 @@ PsyduckEvosMoves:
 ; Learnset
 ; Water duck with latent psychic power. DISABLE — its confused mind
 ; blocks the foe's moves. AMNESIA and PSYCHIC_BIND from the psychic side.
-	db 10, WATER_GUN
-	db 14, DISABLE
+	db  6, WATER_GUN
+	db  9, PSYWAVE
+	db 12, DISABLE
+	db 15, HEADBUTT
 	db 18, CONFUSION
-	db 22, BUBBLEBEAM
-	db 26, HEADBUTT
-	db 30, WATER_PULSE
-	db 36, EXTRASENSORY
-	db 38, PSYCHIC_BIND
-	db 42, AMNESIA
-	db 51, PSYWAVE
+	db 21, BUBBLEBEAM
+	db 24, WATER_PULSE
+	db 27, AMNESIA
+	db 30, EXTRASENSORY
+	db 33, PSYCHIC_BIND
 	db 0
 
 GolduckEvosMoves:
@@ -1506,50 +1523,50 @@ GolduckEvosMoves:
 ; Learnset
 ; Apex psychic duck. AMNESIA clears the mind. SURF/CUT natural HM
 ; learners. HYDRO_PUMP as the apex move.
-	db 10, WATER_GUN
-	db 14, DISABLE
+	db  6, WATER_GUN
+	db  9, PSYWAVE
+	db 12, DISABLE
+	db 15, HEADBUTT
 	db 18, CONFUSION
-	db 22, BUBBLEBEAM
-	db 26, HEADBUTT
-	db 30, WATER_PULSE
-	db 36, EXTRASENSORY
-	db 38, PSYCHIC_BIND
-	db 40, SURF
-	db 42, AMNESIA
-	db 47, PSYCHIC_M
-	db 49, AQUA_JET
-	db 51, PSYWAVE
-	db 53, ICY_PULSE
-	db 55, DOUBLE_TEAM
-	db 57, NIGHT_SHADE
-	db 59, ICE_BEAM
-	db 61, HYDRO_PUMP
+	db 21, BUBBLEBEAM
+	db 24, WATER_PULSE
+	db 27, AMNESIA
+	db 30, EXTRASENSORY
+	db 30, SLASH
+	db 33, PSYCHIC_BIND
+	db 36, AQUA_JET
+	db 40, ICY_PULSE
+	db 43, SURF
+	db 46, PSYCHIC_M
+	db 50, ICE_BEAM
+	db 55, NIGHT_SHADE
+	db 60, HYDRO_PUMP
 	db 0
 
 MankeyEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 29, PRIMEAPE
+	db EVOLVE_LEVEL, 28, PRIMEAPE
 	db 0
 ; Learnset
 ; Rage-fueled wild monkey. BITE, SAND_ATTACK and QUICK_ATTACK fit an
 ; ape's kit. FIERCE_ROAR is its battle roar. No DIZZY_PUNCH/SUBMISSION
 ; (grappling technique, not brute force) and no FAINT_ATTACK (an ape
 ; doesn't sneak). STRENGTH via HM only.
-	db  9, BITE
-	db 11, LOW_KICK
-	db 13, SAND_ATTACK
-	db 18, QUICK_ATTACK
-	db 20, FOCUS_ENERGY
-	db 22, RAGE
-	db 25, ROCK_THROW
-	db 27, COMET_PUNCH
-	db 29, FIERCE_ROAR
-	db 31, TAKE_DOWN
-	db 33, BODY_SLAM
-	db 39, ROLLING_KICK
-	db 41, THRASH
-	db 50, OUTRAGE
-	db 60, GORE_ATTACK
+	db  6, BITE
+	db  9, SAND_ATTACK
+	db 12, LOW_KICK
+	db 14, QUICK_ATTACK
+	db 16, ROCK_THROW
+	db 18, FURY_ATTACK
+	db 20, RAGE
+	db 22, FOCUS_ENERGY
+	db 24, COMET_PUNCH
+	db 26, GROUND_STOMP
+	db 28, FIERCE_ROAR
+	db 32, BODY_SLAM
+	db 34, BULK_UP
+	db 36, TAKE_DOWN
+	db 40, THRASH
 	db 0
 
 PrimeapeEvosMoves:
@@ -1559,28 +1576,30 @@ PrimeapeEvosMoves:
 ; Apex rage-monkey. Shares Mankey's backbone, plus exclusives: GROUND_STOMP,
 ; BULK_UP (muscle setup), BRUTAL_SWING (rage swing), high-level SWORDS_DANCE
 ; and GORE_ATTACK, INTIMIDATE. STRENGTH via HM only.
-	db  9, BITE
-	db 11, LOW_KICK
-	db 13, SAND_ATTACK
-	db 18, QUICK_ATTACK
-	db 20, FOCUS_ENERGY
-	db 22, RAGE
-	db 25, ROCK_THROW
-	db 27, COMET_PUNCH
-	db 29, FIERCE_ROAR
-	db 31, TAKE_DOWN
-	db 33, BODY_SLAM
-	db 35, GROUND_STOMP
-	db 37, BULK_UP
-	db 37, ROCK_PUNCH
-	db 39, ROLLING_KICK
-	db 41, THRASH
-	db 43, BRUTAL_SWING
-	db 46, INTIMIDATE
-	db 48, SEISMIC_TOSS
-	db 50, OUTRAGE
-	db 52, SWORDS_DANCE
-	db 60, GORE_ATTACK
+	db  6, BITE
+	db  9, SAND_ATTACK
+	db 12, LOW_KICK
+	db 14, QUICK_ATTACK
+	db 16, ROCK_THROW
+	db 18, FURY_ATTACK
+	db 20, RAGE
+	db 22, FOCUS_ENERGY
+	db 24, COMET_PUNCH
+	db 26, GROUND_STOMP
+	db 28, FIERCE_ROAR
+	db 30, ROCK_PUNCH
+	db 32, BODY_SLAM
+	db 34, BULK_UP
+	db 36, TAKE_DOWN
+	db 38, ROLLING_KICK
+	db 40, THRASH
+	db 42, BRUTAL_SWING
+	db 45, DOUBLE_EDGE
+	db 48, INTIMIDATE
+	db 50, SEISMIC_TOSS
+	db 53, GORE_ATTACK
+	db 56, SWORDS_DANCE
+	db 60, OUTRAGE
 	db 0
 
 GrowlitheEvosMoves:
