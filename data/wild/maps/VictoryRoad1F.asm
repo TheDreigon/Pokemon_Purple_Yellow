@@ -1,15 +1,15 @@
 VictoryRoad1FWildMons:
 	def_grass_wildmons 15 ; encounter rate
-	db 44, GRAVELER
-	db 43, GOLBAT
-	db 43, RHYHORN
-	db 44, MACHOKE
-	db 44, ONIX
-	db 44, ONIX
-	db 47, HITMONCHAN
-	db 47, HITMONLEE
-	db 45, GOLEM
-	db 48, MACHAMP
+	db 45, GOLBAT
+	db 46, GRAVELER
+	db 45, RHYHORN
+	db 46, SANDSLASH
+	db 47, PRIMEAPE
+	db 47, ONIX
+	db 50, MACHAMP
+	db 50, GOLEM
+	db 49, RHYDON
+	db 52, RHYDON
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
