@@ -525,6 +525,29 @@ GainExperience:
 	and a ; is mon's gain exp flag set?
 	pop hl
 	jp z, .nextMon ; if mon's gain exp flag not set, go to next mon
+; v1.0 (2026-09-08, Forte, T4a): on HARD a Pokemon at or past the level cap
+; gains NOTHING from a battle - not even stat exp. The cap used to be applied
+; only to the exp, after the stat exp loop below had already run, so a capped
+; Pokemon (a participant, or a TEAM-mode sharer) kept growing on the inside:
+; "batota". The same test moved here from after .statExpDone also keeps the
+; older story true - a gift Pokemon that ARRIVES above the cap (the roof-house
+; PORYGON, L20 on a cap of 15) is skipped outright, so its exp is never clamped
+; down and its level never drops. Compared as LEVELS, before any arithmetic.
+; Normal is untouched: GetLevelCap says MAX_LEVEL there and a L100 Pokemon
+; still banks stat exp, as in vanilla.
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .capOk
+	push hl
+	ld de, wPartyMon1Level - (wPartyMon1HP + 1)
+	add hl, de
+	ld b, [hl] ; this mon's level
+	pop hl
+	call GetLevelCap ; a = the cap; preserves bc, de and hl
+	cp b
+	jp c, .nextMon ; cap < level: already past it
+	jp z, .nextMon ; at the cap: that is it
+.capOk
 	ld de, (wPartyMon1HPExp + 1) - (wPartyMon1HP + 1)
 	add hl, de
 	ld d, h
@@ -558,26 +581,14 @@ GainExperience:
 	inc de
 	jr .gainStatExpLoop
 .statExpDone
-; v0.7 FIX: a Pokemon already at or past the hard-mode level cap gains no exp.
-;
-; Without this the cap is applied by clamping the mon's exp DOWN to the cap
-; level's exp -- which is fine for a mon growing into the cap, and ruinous for
-; one that arrives above it. Gift Pokemon do exactly that: the roof-house
-; PORYGON is L20 and Silph's is L30, so on Hard with no badges (cap 14) the
-; PORYGON's 6400 exp was cut to 2195 and it *dropped* to level 14 off a single
-; Rattata. Everything else that went wrong followed from the drop: the
-; level-up path ran backwards (see the guard further down), the move-learn
-; loop counted 21, 22 ... 255, 0 ... 14 and taught it every move from L22 up,
-; and the max-HP delta went negative so current HP underflowed and drew an HP
-; bar across the whole screen.
-;
-; Compared as LEVELS, before any exp arithmetic, so nothing can be lost.
-	ld hl, wPartyMon1Level - (wPartyMon1DVs - 1)
-	add hl, de ; de is the mon's own wPartyMon1DVs - 1 by now (see below)
-	ld b, [hl] ; this mon's level
-	call GetLevelCap
-	cp b
-	jp c, .nextMon ; cap < level: already past it, so nothing to gain
+; v0.7 FIX (2026-09-02), moved up to .capOk on 2026-09-08: a Pokemon at or
+; past the hard-mode level cap is skipped BEFORE the stat exp loop now, and the
+; test that lived here is the same one. The story it came from: without it the
+; cap was applied by clamping the mon's exp DOWN to the cap level's exp --
+; fine for a mon growing into the cap, ruinous for one that arrives above it
+; (the roof-house PORYGON, L20 on a cap of 15, had its 6400 exp cut to 2195 and
+; DROPPED to L15 off a single Rattata; the level-up path then ran backwards,
+; the move-learn loop wrapped through 255 and current HP underflowed).
 	xor a
 	ldh [hMultiplicand], a
 	ldh [hMultiplicand + 1], a
