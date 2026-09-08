@@ -163,6 +163,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_SpDefDown2 ; SPDEF_DOWN2_EFFECT
 	dw MoveDesc_SpDefDownSide ; SPDEF_DOWN_SIDE_EFFECT
 	dw MoveDesc_SpeedDown1Flinch ; SPEED_DOWN1_FLINCH_EFFECT
+	dw MoveDesc_DefenseDown1Flinch ; DEFENSE_DOWN1_FLINCH_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -607,6 +608,10 @@ MoveDesc_SpDefDown1Flinch:
 
 MoveDesc_AttackDown2Flinch:
 	text_far _MoveDesc_AttackDown2Flinch
+	text_end
+
+MoveDesc_DefenseDown1Flinch:
+	text_far _MoveDesc_DefenseDown1Flinch
 	text_end
 
 MoveDesc_SpeedDown1Flinch:

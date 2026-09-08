@@ -279,7 +279,7 @@ Moves: ; Current total = 220
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
 	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. acid pool (5 lines).
-	move TICKLE,         DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35 ; new move.
+	move TICKLE,         DEFENSE_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 35 ; new move. new effect (2026-09-08): the DEFENSE drop now carries a 30% flinch. Its own id: the plain -1 is shared by seven moves.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
 	move FAKE_TEARS,     SPDEF_DOWN2_EFFECT,                0, BIRD,          90, 15 ; new move.

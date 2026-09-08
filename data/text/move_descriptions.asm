@@ -684,6 +684,12 @@ _MoveDesc_AttackDown2Flinch::
 	next "to flinch the foe."
 	done
 
+_MoveDesc_DefenseDown1Flinch::
+	text "Lowers DEFENSE one"
+	next "step. 30 in 100"
+	next "to flinch the foe."
+	done
+
 _MoveDesc_SpeedDown1Flinch::
 	text "Lowers SPEED one"
 	next "step. 30 in 100"

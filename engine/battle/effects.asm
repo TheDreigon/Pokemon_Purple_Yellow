@@ -2095,6 +2095,14 @@ SpeedDown2FlinchEffect:
 	ld c, SPEED_DOWN2_FLINCH_EFFECT
 	jr DoStatDownFlinchEffect
 
+DefenseDown1FlinchEffect:
+; Target Defense -1 plus ~30% flinch. Used by TICKLE alone (Forte, 2026-09-08):
+; DEFENSE_DOWN1_EFFECT itself is shared by seven other moves, so the flinch
+; needed an id of its own rather than a change to the plain -1 effect.
+	ld b, DEFENSE_DOWN1_EFFECT
+	ld c, DEFENSE_DOWN1_FLINCH_EFFECT
+	jr DoStatDownFlinchEffect
+
 SpeedDown1FlinchEffect:
 ; Target Speed -1 plus ~30% flinch. Used by HINDER (Forte, 2026-09-08). The
 ; one-step sibling of SCARY_FACE above: the -1 leg is in the same ladder, so
