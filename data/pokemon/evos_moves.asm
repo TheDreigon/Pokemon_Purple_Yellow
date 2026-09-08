@@ -235,6 +235,7 @@ IvysaurEvosMoves:
 	db 28, ACID
 	db 32, RAZOR_LEAF
 	db 36, MEGA_DRAIN
+	db 38, BODY_SLAM
 	db 0
 
 VenusaurEvosMoves:
@@ -300,6 +301,7 @@ CharmeleonEvosMoves:
 	db 24, FLAME_BURST
 	db 28, DRAGON_CLAW
 	db 36, FLAMETHROWER
+	db 38, CRUNCH
 	db 0
 
 CharizardEvosMoves:
@@ -320,8 +322,8 @@ CharizardEvosMoves:
 	db 24, FLAME_BURST
 	db 28, DRAGON_CLAW
 	db 36, FLAMETHROWER
-	db 38, WING_ATTACK
-	db 40, CRUNCH
+	db 38, CRUNCH
+	db 40, WING_ATTACK
 	db 42, FLY
 	db 44, FIERCE_ROAR
 	db 46, DRAGON_RAGE
@@ -390,8 +392,8 @@ BlastoiseEvosMoves:
 	db 25, WATER_PULSE
 	db 30, BODY_SLAM
 	db 36, WATERFALL
-	db 39, BULLDOZE
-	db 41, HEAVY_SLAM
+	db 38, BULLDOZE
+	db 40, HEAVY_SLAM
 	db 44, SURF
 	db 48, ICE_BEAM
 	db 52, HEAD_SMASH
@@ -799,9 +801,13 @@ SandshrewEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROLLOUT
 	db 18, BULLDOZE
+	db 22, SLASH
+	db 22, CUT
 	db 24, HONE_CLAWS
+	db 26, FALSE_SWIPE
 	db 30, DIG
-	db 36, MUD_BOMB
+	db 34, MUD_BOMB
+	db 38, ROCK_TOMB
 	db 0
 
 SandslashEvosMoves:
@@ -818,19 +824,19 @@ SandslashEvosMoves:
 	db 13, SAND_ATTACK
 	db 16, ROLLOUT
 	db 18, BULLDOZE
-	db 20, CUT
 	db 22, SLASH
+	db 22, CUT
 	db 24, HONE_CLAWS
 	db 26, FALSE_SWIPE
 	db 30, DIG
-	db 36, MUD_BOMB
-	db 42, IRON_DEFENSE
-	db 44, ROCK_TOMB
-	db 48, EARTHQUAKE
-	db 52, NIGHT_SLASH
-	db 56, FISSURE
-	db 60, GORE_ATTACK
-	db 65, ROCK_SLIDE
+	db 34, MUD_BOMB
+	db 38, ROCK_TOMB
+	db 42, NIGHT_SLASH
+	db 46, IRON_DEFENSE
+	db 50, EARTHQUAKE
+	db 54, GORE_ATTACK
+	db 58, ROCK_SLIDE
+	db 62, FISSURE
 	db 0
 
 NidoranFEvosMoves:
@@ -842,18 +848,15 @@ NidoranFEvosMoves:
 ; and Nidoqueen inherit. SAND_ATTACK basic; FAIRY_WIND at L17 = evo level
 ; (fairy gift on evolution); TOXIC_FANGS late capstone. No SCRATCH. No
 ; BULLDOZE/GROUND_STOMP/CRUNCH in shared (Queen exclusivity).
-	db  7, POISON_STING
+	db  6, BITE
+	db  8, POISON_STING
 	db 10, SAND_ATTACK
-	db 13, TAIL_WHIP
-	db 15, BITE
-	db 15, QUICK_ATTACK
-	db 17, FAIRY_WIND
-	db 20, BIDE
-	db 22, HEADBUTT
-	db 26, POISON_BITE
-	db 28, BODY_SLAM
-	db 40, TOXIC_FANGS
-	db 50, TOXIC
+	db 12, FAIRY_WIND
+	db 14, HEADBUTT
+	db 17, QUICK_ATTACK
+	db 21, POISON_BITE
+	db 24, BODY_SLAM
+	db 27, MUD_SHOT
 	db 0
 
 NidorinaEvosMoves:
@@ -866,24 +869,18 @@ NidorinaEvosMoves:
 ; (F-line mud-thrower, not stomp), PLAY_ROUGH at L35 = evo level (fairy
 ; gift on evolution), TOXIC_FANGS, MUD_BOMB, TOXIC, NEUROTOXIN. No
 ; BULLDOZE/EARTHQUAKE/CRUNCH/STRENGTH (Nidoqueen-only).
-	db  7, POISON_STING
+	db  6, BITE
+	db  8, POISON_STING
 	db 10, SAND_ATTACK
-	db 13, TAIL_WHIP
-	db 15, BITE
-	db 15, QUICK_ATTACK
-	db 17, FAIRY_WIND
-	db 20, BIDE
-	db 22, HEADBUTT
-	db 24, ACID
-	db 26, POISON_BITE
-	db 28, BODY_SLAM
+	db 12, FAIRY_WIND
+	db 14, HEADBUTT
+	db 17, QUICK_ATTACK
+	db 21, POISON_BITE
+	db 24, BODY_SLAM
+	db 27, MUD_SHOT
 	db 30, TAKE_DOWN
-	db 33, MUD_SHOT
-	db 35, PLAY_ROUGH
-	db 40, TOXIC_FANGS
-	db 46, MUD_BOMB
-	db 50, TOXIC
-	db 55, NEUROTOXIN
+	db 40, PLAY_ROUGH
+	db 43, TOXIC_FANGS
 	db 0
 
 NidoqueenEvosMoves:
@@ -894,27 +891,24 @@ NidoqueenEvosMoves:
 ; adds Nidoqueen-only: CHARM, BULLDOZE (her ground move), TOXIC, STRENGTH.
 ; EARTHQUAKE is TM50-only, not levelup. No MEGAHORN/OUTRAGE/THRASH/
 ; GORE_ATTACK (M-only apex moves).
-	db  7, POISON_STING
+	db  6, BITE
+	db  8, POISON_STING
 	db 10, SAND_ATTACK
-	db 13, TAIL_WHIP
-	db 15, BITE
-	db 17, FAIRY_WIND
-	db 20, BIDE
-	db 22, HEADBUTT
-	db 24, ACID
-	db 26, POISON_BITE
-	db 28, BODY_SLAM
-	db 28, STRENGTH
+	db 12, FAIRY_WIND
+	db 14, HEADBUTT
+	db 17, QUICK_ATTACK
+	db 21, POISON_BITE
+	db 24, BODY_SLAM
+	db 27, MUD_SHOT
 	db 30, TAKE_DOWN
-	db 33, MUD_SHOT
-	db 35, PLAY_ROUGH
-	db 37, CHARM
-	db 40, TOXIC_FANGS
-	db 42, BULLDOZE
+	db 35, CHARM
+	db 40, PLAY_ROUGH
+	db 43, TOXIC_FANGS
 	db 46, MUD_BOMB
-	db 50, TOXIC
-	db 55, NEUROTOXIN
-	db 60, BRUTAL_SWING
+	db 50, THRASH
+	db 53, EARTHQUAKE
+	db 56, TOXIC
+	db 60, NEUROTOXIN
 	db 0
 
 NidoranMEvosMoves:
@@ -926,17 +920,15 @@ NidoranMEvosMoves:
 ; Nidoking inherit. POISON_STING + SAND_ATTACK basic toolkit; FURY_ATTACK
 ; early; POISON_BITE/BODY_SLAM mid-tier; HORN_CHARGE late as adult-horn
 ; move; TOXIC_FANGS late capstone. No DOUBLE_KICK.
-	db  7, POISON_STING
+	db  6, BITE
+	db  8, POISON_STING
 	db 10, SAND_ATTACK
-	db 13, BITE
-	db 15, QUICK_ATTACK
-	db 17, HORN_ATTACK
-	db 19, FURY_ATTACK
-	db 22, FOCUS_ENERGY
-	db 25, POISON_BITE
-	db 28, BODY_SLAM
-	db 39, HORN_CHARGE
-	db 47, TOXIC_FANGS
+	db 12, FURY_ATTACK
+	db 14, HORN_ATTACK
+	db 17, QUICK_ATTACK
+	db 21, POISON_BITE
+	db 24, BODY_SLAM
+	db 27, GROUND_STOMP
 	db 0
 
 NidorinoEvosMoves:
@@ -947,21 +939,19 @@ NidorinoEvosMoves:
 ; Mid-stage male, mature horn, learns aggression primitives. Nidoran♂ base
 ; + exclusives shared with Nidoking: TAKE_DOWN, GROUND_STOMP, RAGE at L35
 ; (= evo level), FIERCE_ROAR.
-	db  7, POISON_STING
+	db  6, BITE
+	db  8, POISON_STING
 	db 10, SAND_ATTACK
-	db 13, BITE
-	db 15, QUICK_ATTACK
-	db 17, HORN_ATTACK
-	db 19, FURY_ATTACK
-	db 22, FOCUS_ENERGY
-	db 25, POISON_BITE
-	db 28, BODY_SLAM
+	db 12, FURY_ATTACK
+	db 14, HORN_ATTACK
+	db 17, QUICK_ATTACK
+	db 21, POISON_BITE
+	db 24, BODY_SLAM
+	db 27, GROUND_STOMP
 	db 30, TAKE_DOWN
-	db 33, GROUND_STOMP
-	db 35, RAGE
-	db 37, FIERCE_ROAR
-	db 39, HORN_CHARGE
-	db 47, TOXIC_FANGS
+	db 35, FIERCE_ROAR
+	db 36, RAGE
+	db 46, TOXIC_FANGS
 	db 0
 
 NidokingEvosMoves:
@@ -973,28 +963,28 @@ NidokingEvosMoves:
 ; 35->65 BP), STRENGTH then CRUNCH, EARTHQUAKE, THRASH, MEGAHORN at L49,
 ; BRUTAL_SWING, GORE_ATTACK (high-level apex), OUTRAGE (final L65). No
 ; HORN_DRILL.
-	db  7, POISON_STING
+	db  6, BITE
+	db  8, POISON_STING
 	db 10, SAND_ATTACK
-	db 13, BITE
-	db 17, HORN_ATTACK
-	db 19, FURY_ATTACK
-	db 22, FOCUS_ENERGY
-	db 25, POISON_BITE
-	db 28, BODY_SLAM
-	db 28, STRENGTH
+	db 12, FURY_ATTACK
+	db 14, HORN_ATTACK
+	db 17, QUICK_ATTACK
+	db 21, POISON_BITE
+	db 24, BODY_SLAM
+	db 27, GROUND_STOMP
 	db 30, TAKE_DOWN
-	db 33, GROUND_STOMP
-	db 35, RAGE
-	db 37, FIERCE_ROAR
-	db 39, CRUNCH
-	db 41, BULLDOZE
-	db 43, HORN_CHARGE
-	db 47, TOXIC_FANGS
-	db 49, MEGAHORN
-	db 51, EARTHQUAKE
-	db 53, THRASH
-	db 58, BRUTAL_SWING
-	db 61, GORE_ATTACK
+	db 35, FIERCE_ROAR
+	db 36, RAGE
+	db 38, CRUNCH
+	db 40, STRENGTH
+	db 42, BULLDOZE
+	db 44, HORN_CHARGE
+	db 46, TOXIC_FANGS
+	db 48, MEGAHORN
+	db 50, THRASH
+	db 53, EARTHQUAKE
+	db 56, BRUTAL_SWING
+	db 60, GORE_ATTACK
 	db 65, OUTRAGE
 	db 0
 	
@@ -1006,22 +996,24 @@ ClefairyEvosMoves:
 ; Mystical Fairy. SING after L30. MIMIC/METRONOME fun naturals. CHARM.
 ; RECOVER (Clefairy-line). LIGHT_SCREEN/REFLECT/CALM_MIND shared with
 ; Clefable.
-	db  4, FAIRY_WIND
-	db  7, DOUBLESLAP
-	db 10, POWDER_SNOW
-	db 13, CALM_MIND
-	db 16, CHARM
-	db 19, TICKLE
-	db 22, DRAINING_KISS
-	db 25, RECOVER
-	db 28, LIGHT_SCREEN
-	db 32, MIMIC
-	db 35, SING
-	db 38, TELEPORT
-	db 41, METRONOME
-	db 44, DAZZLE_GLEAM
-	db 50, REFLECT
-	db 60, MOONBLAST
+	db  5, DOUBLESLAP
+	db  8, TACKLE
+	db 10, TICKLE
+	db 14, CHARM
+	db 16, POWDER_SNOW
+	db 18, CALM_MIND
+	db 20, DRAINING_KISS
+	db 23, SING
+	db 26, LIGHT_SCREEN
+	db 26, REFLECT
+	db 29, BODY_SLAM
+	db 32, ICY_WIND
+	db 34, EXTRASENSORY
+	db 36, METRONOME
+	db 40, RECOVER
+	db 42, MIMIC
+	db 45, DAZZLE_GLEAM
+	db 48, TELEPORT
 	db 0
 
 ClefableEvosMoves:
@@ -1030,24 +1022,25 @@ ClefableEvosMoves:
 ; Learnset
 ; Apex mystical Fairy. Clefairy backbone + Clefable-exclusives: BODY_SLAM,
 ; ICY_WIND, PLAY_ROUGH, PETAL_DANCE.
-	db  4, FAIRY_WIND
-	db  7, DOUBLESLAP
-	db 10, POWDER_SNOW
-	db 13, CALM_MIND
-	db 16, CHARM
-	db 19, TICKLE
-	db 22, DRAINING_KISS
-	db 22, BODY_SLAM
-	db 25, RECOVER
-	db 28, LIGHT_SCREEN
-	db 32, MIMIC
-	db 35, SING
-	db 38, TELEPORT
-	db 41, METRONOME
-	db 44, DAZZLE_GLEAM
-	db 47, ICY_WIND
-	db 50, REFLECT
-	db 53, PLAY_ROUGH
+	db  5, DOUBLESLAP
+	db  8, TACKLE
+	db 10, TICKLE
+	db 14, CHARM
+	db 16, POWDER_SNOW
+	db 18, CALM_MIND
+	db 20, DRAINING_KISS
+	db 23, SING
+	db 26, LIGHT_SCREEN
+	db 26, REFLECT
+	db 29, BODY_SLAM
+	db 32, ICY_WIND
+	db 34, EXTRASENSORY
+	db 36, METRONOME
+	db 40, RECOVER
+	db 42, MIMIC
+	db 45, DAZZLE_GLEAM
+	db 48, TELEPORT
+	db 52, PLAY_ROUGH
 	db 56, PETAL_DANCE
 	db 60, MOONBLAST
 	db 0
