@@ -213,6 +213,17 @@ DaycareGentlemanText:
 	ld hl, wDayCareMonBoxLevel
 	ld a, [hl]
 	ld [wDayCareStartLevel], a
+; v0.7 (2026-09-08, Forte): a mon whose exp sits UNDER its own level floor (an
+; evolution across a curve change before the top-up in evos_moves.asm, or a
+; species whose curve was edited under a running save) recomputes BELOW the
+; level it was deposited with. The subtraction below then wrapped to "grown by
+; 254 levels" and a Y9,999 bill (the two-byte BCD ceiling) that locked the mon in. The level shown
+; and charged is never below the one it arrived with; MoveMon still hands it
+; back at the level its exp says.
+	cp d
+	jr c, .grew ; deposited below the recomputed level: it really grew
+	ld d, a ; at or above it: no growth to show or to charge
+.grew
 	cp d
 	ld [hl], d
 	ld hl, .MonNeedsMoreTimeText
