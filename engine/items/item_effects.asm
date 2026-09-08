@@ -1905,6 +1905,16 @@ ASSERT ZINC > RARE_CANDY, "ZINC is the appended SP.DEF vitamin; if it ever joins
 	pop hl
 	push bc
 	push hl
+; v1.0 (2026-09-08): keep the stats the mon had, for the gains box below. hl is the mon's
+; struct base (just pushed, so the pop/push pair below restores it); bc and de are already
+; saved on the stack and nothing reads either register before those pops.
+	ld bc, wPartyMon1Stats - wPartyMon1
+	add hl, bc
+	ld de, wLevelUpStatGains
+	ld bc, wPartyMon1StatsEnd - wPartyMon1Stats
+	call CopyData
+	pop hl
+	push hl
 	call .recalculateStats
 	pop hl
 	ld bc, (wPartyMon1MaxHP + 1) - wPartyMon1
@@ -1936,6 +1946,12 @@ ASSERT ZINC > RARE_CANDY, "ZINC is the appended SP.DEF vitamin; if it ever joins
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
 	call LoadMonData
+; v1.0 (2026-09-08): the gains, before the new totals. LoadMonData above is what makes
+; this valid - RedrawPartyMenu ran LoadMonData once per slot and left the LAST mon in
+; wLoadedMon.
+	ld d, $2
+	callfar PrintStatsBox
+	call WaitForTextScrollButtonPress
 	ld d, $01
 	callfar PrintStatsBox ; display new stats text box
 	call WaitForTextScrollButtonPress ; wait for button press

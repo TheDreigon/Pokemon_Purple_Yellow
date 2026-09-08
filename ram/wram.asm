@@ -1793,7 +1793,28 @@ wMoves:: ds NUM_MOVES
 
 wMoveNum:: db
 
+UNION
 wMovesString:: ds 56
+
+NEXTU
+; v1.0 (2026-09-08, Forte): the level-up gains box. The two level-up paths copy the
+; mon's stats here just before CalcStats; PrintStatsBox with d = 2 subtracts them from
+; wLoadedMon in place and prints the result, so this holds the OLD stats on the way in
+; and the GAINS on the way out. Safe over wMovesString: FormatMovesString
+; (engine/battle/misc.asm) is its only writer and each of its three readers is preceded
+; by a FormatMovesString call in the same routine; none of them runs between the
+; snapshot and the box (LearnMoveFromLevelUp, which does, runs after it in both paths).
+; Struct order, big-endian, exactly like the party struct's stats block.
+wLevelUpStatGains::
+wLevelUpGainMaxHP::   dw
+wLevelUpGainAttack::  dw
+wLevelUpGainDefense:: dw
+wLevelUpGainSpeed::   dw
+wLevelUpGainSpAtk::   dw
+wLevelUpGainSpDef::   dw
+wLevelUpStatGainsEnd::
+ASSERT wLevelUpStatGainsEnd - wLevelUpStatGains == NUM_STATS * 2, "the gains buffer mirrors the party struct's stats block"
+ENDU
 
 ; v1.0 (2026-09-08): wUnusedD119 (a copy of wCurMapTileset nothing read) and
 ; wWalkBikeSurfStateCopy (a copy of wWalkBikeSurfState nothing read) went to the

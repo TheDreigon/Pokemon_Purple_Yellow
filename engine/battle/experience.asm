@@ -801,6 +801,16 @@ LevelUpPartyMon:
 	push bc ; push max HP (from before levelling up)
 	ld d, h
 	ld e, l
+; v1.0 (2026-09-08): keep the stats the mon had, for the gains box below. hl and de both
+; point at the stats block here and the next instruction destroys hl; bc is free (the old
+; max HP is already on the stack and the next instruction reloads bc anyway).
+	push hl
+	push de
+	ld de, wLevelUpStatGains
+	ld bc, wPartyMon1StatsEnd - wPartyMon1Stats
+	call CopyData
+	pop de
+	pop hl
 	ld bc, (wPartyMon1HPExp - 1) - wPartyMon1MaxHP
 	add hl, bc
 	ld b, $1 ; consider stat exp when calculating stats
@@ -897,6 +907,13 @@ LevelUpPartyMon:
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
 	call LoadMonData
+; v1.0 (2026-09-08): what the level gave, before what the mon now has. This is the
+; earliest valid point: DrawPlayerHUDAndHPBar above copies the BADGE-BOOSTED battle stats
+; over wLoadedMon, and only for the mon that is in battle, so the gains must be read after
+; this LoadMonData refills it from the party struct.
+	ld d, $2
+	callfar PrintStatsBox
+	call WaitForTextScrollButtonPress
 	ld d, $1
 	callfar PrintStatsBox
 	call WaitForTextScrollButtonPress

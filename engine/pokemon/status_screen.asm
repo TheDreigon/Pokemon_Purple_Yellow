@@ -533,6 +533,14 @@ PrintStatsBox:
 	ld bc, SCREEN_WIDTH + 6 ; numbers on the row below each label, cols 6-8
 	jr .PrintStats
 .DifferentBox
+	ld a, d
+	cp 2
+	jp z, PrintStatGainsBox ; v1.0 (2026-09-08): the gains window, drawn first
+; v1.0 (2026-09-08): the gains box is wider than this one (cols 5-19 against 9-19) and
+; the RARE CANDY screen has no save/restore, so blank the strip this box will not cover
+; before drawing it. d = 1 reaches here only from the two level-up callers, both of which
+; draw the gains box first.
+	call ClearStatGainsStrip
 ; v1.0 (the SPECIAL split, 2026-09-06): Gen 2's level-up box - the top moves
 ; to row 0 and the box grows to ten interior rows, so the five pairs sit on
 ; rows 1-10 with the bottom border on row 11, above the message box (row 12).
@@ -615,6 +623,140 @@ PrintStat:
 	ld de, SCREEN_WIDTH * 2
 	add hl, de
 	ret
+
+PrintStatGainsBox:
+; v1.0 (2026-09-08, Forte): "tal como nas geracoes seguintes" - the window of what the
+; level-up gave, shown before the box of new totals. All six stats, HP included, which is
+; why it is not the totals box's shape: six single rows instead of five two-row pairs, so
+; it is wider (cols 5-19) and shorter (rows 0-7) and still clears the message box on 12.
+; wLevelUpStatGains holds the stats the mon had before CalcStats.
+	hlcoord 5, 0
+	lb bc, NUM_STATS, 13
+	call TextBoxBorder
+	hlcoord 6, 1
+	ld de, StatGainsText
+	ldh a, [hUILayoutFlags]
+	set 2, a ; <NEXT> advances one row instead of two: six single rows, not five pairs
+	ldh [hUILayoutFlags], a
+	call PlaceString
+	ldh a, [hUILayoutFlags]
+	res 2, a
+	ldh [hUILayoutFlags], a
+; new - old, in place, clamped at zero: a stat that somehow fell would otherwise print
+; as a five-digit borrow through a three-digit field.
+	ld hl, wLevelUpStatGains
+	ld de, wLoadedMonMaxHP
+	ld c, NUM_STATS
+.diff
+	inc hl ; low bytes first: the stats are big-endian
+	inc de
+	ld a, [de]
+	sub [hl]
+	ld [hld], a
+	dec de
+	ld a, [de]
+	sbc [hl]
+	ld [hl], a
+	jr nc, .stored
+	xor a
+	ld [hli], a
+	ld [hld], a
+.stored
+	inc hl
+	inc hl
+	inc de
+	inc de
+	dec c
+	jr nz, .diff
+; printed in the labels' order, which is not the struct's: SPEED sits between DEFENSE
+; and SP.ATK in memory and last on screen.
+	hlcoord 6, 1
+	ld de, wLevelUpGainMaxHP
+	call PrintStatGain
+	ld de, wLevelUpGainAttack
+	call PrintStatGain
+	ld de, wLevelUpGainDefense
+	call PrintStatGain
+	ld de, wLevelUpGainSpAtk
+	call PrintStatGain
+	ld de, wLevelUpGainSpDef
+	call PrintStatGain
+	ld de, wLevelUpGainSpeed
+	; fallthrough
+
+PrintStatGain:
+; hl = the row's first interior column (col 6), de = the gain word. Right-aligns
+; "+NNN" so the units digit always lands on col 18, and steps hl one row down.
+	push hl
+	ld a, [de]
+	and a
+	jr nz, .threeDigits ; >= 256
+	inc de
+	ld a, [de]
+	dec de
+	cp 100
+	jr nc, .threeDigits
+	cp 10
+	jr nc, .twoDigits
+; PrintNumber takes two digits at least (its own comment says to place a single
+; one by hand), and a is still the low byte here.
+	ld bc, 17 - 6
+	add hl, bc
+	ld [hl], "+"
+	inc hl
+	add "0"
+	ld [hl], a
+	jr .printed
+.twoDigits
+	ld c, 2
+	jr .gotDigits
+.threeDigits
+	ld c, 3
+.gotDigits
+	push bc
+	ld a, 18 - 6 ; the units column, counted from the row's first interior column
+	sub c
+	ld c, a
+	ld b, 0
+	add hl, bc
+	pop bc
+	ld [hl], "+"
+	inc hl
+	ld b, 2 ; b = bytes, c = digits: the gain is a word, printed in exactly c digits
+	call PrintNumber
+.printed
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	ret
+
+ClearStatGainsStrip::
+; The four columns of the gains box (5-8) that the totals box does not cover.
+	hlcoord 5, 0
+	ld c, NUM_STATS + 2 ; the gains box's rows, borders included
+.row
+	push hl
+	ld b, 9 - 5
+	ld a, " "
+.col
+	ld [hli], a
+	dec b
+	jr nz, .col
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	dec c
+	jr nz, .row
+	ret
+
+StatGainsText:
+	db   "HP"
+	next "ATTACK"
+	next "DEFENSE"
+	next "SP.ATK"
+	next "SP.DEF"
+	next "SPEED@"
+	ASSERT NUM_STATS + 2 <= 12, "the gains box must end above the message box on row 12"
 
 StatsText:
 	db   "ATTACK"

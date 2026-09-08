@@ -339,6 +339,10 @@
 	charmap "ま", $cf
 	charmap "み", $d0
 	charmap "む", $d1
+	charmap "+",  $d1 ; v1.0 (2026-09-08): the level-up gains box. $d1 is blank in the
+	                  ; English font and is never a vChars1 load destination (the EXP bar
+	                  ; takes $c0-$c8, the trainer card $d6-$df); the kana alias above is
+	                  ; kept because it decodes first and no string in the tree uses it.
 	charmap "め", $d2
 	charmap "も", $d3
 	charmap "や", $d4
