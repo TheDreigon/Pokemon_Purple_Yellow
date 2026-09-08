@@ -2,7 +2,7 @@
 	base_stat_row 60, 70, 90, 100, 85, 100 ; hp atk def spatk spdef spd
 
 	db WATER, PSYCHIC_TYPE ; type
-	db 70 ; catch rate  ; final stage, BST 420
+	db 70 ; catch rate  ; final stage, BST 505
 	db 170 ; base exp  ; BST 425 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/starmie.pic", 0, 1 ; sprite dimensions

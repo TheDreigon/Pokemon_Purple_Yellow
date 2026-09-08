@@ -2,7 +2,7 @@
 	base_stat_row 20, 35, 30, 60, 45, 30 ; hp atk def spatk spdef spd
 
 	db GRASS, PSYCHIC_TYPE ; type
-	db 255 ; catch rate  ; base stage, BST 175, easy to approach
+	db 255 ; catch rate  ; base stage, BST 220, easy to approach
 	db 50 ; base exp  ; BST 235 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/exeggcute.pic", 0, 1 ; sprite dimensions

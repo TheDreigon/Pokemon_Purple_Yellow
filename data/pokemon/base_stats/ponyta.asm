@@ -2,7 +2,7 @@
 	base_stat_row 50, 65, 50, 65, 60, 80 ; hp atk def spatk spdef spd
 
 	db FIRE, FIRE ; type
-	db 190 ; catch rate  ; base stage, BST 310, harder to handle
+	db 190 ; catch rate  ; base stage, BST 370, harder to handle
 	db 105 ; base exp  ; BST 310 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/ponyta.pic", 0, 1 ; sprite dimensions

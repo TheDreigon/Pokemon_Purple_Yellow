@@ -2,7 +2,7 @@
 	base_stat_row 70, 110, 80, 65, 75, 120 ; hp atk def spatk spdef spd
 
 	db ROCK, FLYING ; type
-	db 65 ; catch rate  ; solo stage, BST 445, harder to handle
+	db 65 ; catch rate  ; solo stage, BST 520, harder to handle
 	db 200 ; base exp  ; fossil final
 
 	INCBIN "gfx/pokemon/front/aerodactyl.pic", 0, 1 ; sprite dimensions

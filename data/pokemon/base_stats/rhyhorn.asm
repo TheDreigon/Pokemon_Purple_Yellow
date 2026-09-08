@@ -2,7 +2,7 @@
 	base_stat_row 80, 90, 95, 30, 35, 60 ; hp atk def spatk spdef spd
 
 	db GROUND, ROCK ; type
-	db 190 ; catch rate  ; base stage, BST 355, harder to handle
+	db 190 ; catch rate  ; base stage, BST 390, harder to handle
 	db 125 ; base exp  ; BST 355 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/rhyhorn.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 65, 95, 65, 60, 75, 90 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
-	db 70 ; catch rate  ; final stage, BST 375, harder to handle
+	db 65 ; catch rate  ; final stage, BST 450, harder to handle
 	db 135 ; base exp  ; BST 375 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/beedrill.pic", 0, 1 ; sprite dimensions

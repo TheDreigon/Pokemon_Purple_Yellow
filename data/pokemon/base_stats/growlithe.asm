@@ -1,7 +1,7 @@
 	db DEX_GROWLITHE ; pokedex id
 	base_stat_row 65, 70, 45, 60, 50, 70 ; hp atk def spatk spdef spd
 	db FIRE, NORMAL ; type
-	db 205 ; catch rate  ; base stage, BST 310
+	db 205 ; catch rate  ; base stage, BST 360
 	db 100 ; base exp  ; BST 300 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/growlithe.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 45, 45, 40, 35, 35, 55 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 235 ; catch rate  ; base stage, BST 220
+	db 235 ; catch rate  ; base stage, BST 255
 	db 45 ; base exp  ; BST 220 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/pidgey.pic", 0, 1 ; sprite dimensions

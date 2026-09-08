@@ -1,7 +1,7 @@
 	db DEX_MANKEY ; pokedex id
 	base_stat_row 40, 80, 35, 30, 45, 80 ; hp atk def spatk spdef spd
 	db FIGHTING, FIGHTING ; type
-	db 220 ; catch rate  ; base stage, BST 265
+	db 220 ; catch rate  ; base stage, BST 310
 	db 75 ; base exp  ; BST 265 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/mankey.pic", 0, 1 ; sprite dimensions

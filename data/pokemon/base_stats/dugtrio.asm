@@ -2,7 +2,7 @@
 	base_stat_row 45, 90, 50, 50, 70, 120 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
-	db 75 ; catch rate  ; final stage, BST 355, harder to handle
+	db 75 ; catch rate  ; final stage, BST 425, harder to handle
 	db 145 ; base exp  ; BST 375 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/dugtrio.pic", 0, 1 ; sprite dimensions

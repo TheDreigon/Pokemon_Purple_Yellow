@@ -2,7 +2,7 @@
 	base_stat_row 70, 65, 55, 50, 50, 75 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 115 ; catch rate  ; mid stage, BST 315
+	db 125 ; catch rate  ; mid stage, BST 365
 	db 105 ; base exp  ; BST 315 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/pidgeotto.pic", 0, 1 ; sprite dimensions

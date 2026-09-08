@@ -2,7 +2,7 @@
 	base_stat_row 50, 70, 90, 20, 30, 40 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
-	db 215 ; catch rate  ; base stage, BST 270
+	db 220 ; catch rate  ; base stage, BST 300
 	db 85 ; base exp  ; BST 280 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/sandshrew.pic", 0, 1 ; sprite dimensions

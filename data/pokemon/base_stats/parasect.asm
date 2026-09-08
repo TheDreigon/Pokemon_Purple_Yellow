@@ -1,7 +1,7 @@
 	db DEX_PARASECT ; pokedex id
 	base_stat_row 90, 90, 90, 70, 85, 20 ; hp atk def spatk spdef spd
 	db BUG, FUNGUS ; type
-	db 90 ; catch rate  ; final stage, BST 360, easy to approach
+	db 90 ; catch rate  ; final stage, BST 445, easy to approach
 	db 140 ; base exp  ; BST 385 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/parasect.pic", 0, 1 ; sprite dimensions

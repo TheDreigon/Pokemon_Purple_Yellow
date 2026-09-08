@@ -1,7 +1,7 @@
 	db DEX_KABUTO ; pokedex id
 	base_stat_row 35, 80, 90, 55, 45, 40 ; hp atk def spatk spdef spd
 	db ROCK, BUG ; type
-	db 205 ; catch rate  ; base stage, BST 300
+	db 210 ; catch rate  ; base stage, BST 345
 	db 90 ; base exp  ; BST 290 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/kabuto.pic", 0, 1 ; sprite dimensions

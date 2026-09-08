@@ -2,7 +2,7 @@
 	base_stat_row 75, 90, 75, 100, 85, 90 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, ELECTRIC ; type
-	db 65 ; catch rate  ; solo stage, BST 430, harder to handle
+	db 65 ; catch rate  ; solo stage, BST 515, harder to handle
 	db 175 ; base exp  ; BST 430 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/electabuzz.pic", 0, 1 ; sprite dimensions

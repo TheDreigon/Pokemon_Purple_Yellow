@@ -1,7 +1,7 @@
 	db DEX_GENGAR ; pokedex id
 	base_stat_row 65, 90, 65, 120, 75, 110 ; hp atk def spatk spdef spd
 	db GHOST, DARK ; type
-	db 45 ; catch rate  ; final stage, BST 450, harder to handle
+	db 50 ; catch rate  ; final stage, BST 525, harder to handle
 	db 190 ; base exp  ; escolha dele
 
 	INCBIN "gfx/pokemon/front/gengar.pic", 0, 1 ; sprite dimensions

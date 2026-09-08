@@ -2,7 +2,7 @@
 	base_stat_row 40, 80, 100, 30, 30, 20 ; hp atk def spatk spdef spd
 
 	db ROCK, GROUND ; type
-	db 215 ; catch rate  ; base stage, BST 270
+	db 220 ; catch rate  ; base stage, BST 300
 	db 75 ; base exp  ; BST 270 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/geodude.pic", 0, 1 ; sprite dimensions

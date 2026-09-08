@@ -1,7 +1,7 @@
 	db DEX_ARBOK ; pokedex id
 	base_stat_row 65, 90, 90, 60, 80, 100 ; hp atk def spatk spdef spd
 	db POISON, DARK ; type
-	db 60 ; catch rate  ; final stage, BST 405, harder to handle
+	db 60 ; catch rate  ; final stage, BST 485, harder to handle
 	db 160 ; base exp  ; BST 400 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/arbok.pic", 0, 1 ; sprite dimensions

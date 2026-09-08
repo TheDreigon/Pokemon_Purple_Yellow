@@ -2,7 +2,7 @@
 	base_stat_row 90, 100, 95, 75, 80, 80 ; hp atk def spatk spdef spd
 
 	db POISON, GROUND ; type
-	db 50 ; catch rate  ; final stage, BST 440, harder to handle
+	db 50 ; catch rate  ; final stage, BST 520, harder to handle
 	db 180 ; base exp  ; BST 430 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/nidoking.pic", 0, 1 ; sprite dimensions

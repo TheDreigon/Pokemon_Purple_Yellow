@@ -2,7 +2,7 @@
 	base_stat_row 30, 30, 30, 30, 30, 60 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
-	db 255 ; catch rate  ; base stage, BST 180, easy to approach
+	db 255 ; catch rate  ; base stage, BST 210, easy to approach
 	db 30 ; base exp  ; a piada; sabor deliberado
 
 	INCBIN "gfx/pokemon/front/magikarp.pic", 0, 1 ; sprite dimensions

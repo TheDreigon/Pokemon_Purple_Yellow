@@ -2,7 +2,7 @@
 	base_stat_row 60, 105, 80, 60, 75, 110 ; hp atk def spatk spdef spd
 
 	db BUG, FLYING ; type
-	db 70 ; catch rate  ; solo stage, BST 415, harder to handle
+	db 75 ; catch rate  ; solo stage, BST 490, harder to handle
 	db 155 ; base exp  ; BST 410 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/scyther.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 50, 40, 30, 50, 90, 60 ; hp atk def spatk spdef spd
 
 	db WATER, POISON ; type
-	db 245 ; catch rate  ; base stage, BST 230, easy to approach
+	db 230 ; catch rate  ; base stage, BST 320, easy to approach
 	db 75 ; base exp  ; BST 260 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/tentacool.pic", 0, 1 ; sprite dimensions

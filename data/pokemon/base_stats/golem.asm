@@ -2,7 +2,7 @@
 	base_stat_row 90, 110, 130, 65, 70, 65 ; hp atk def spatk spdef spd
 
 	db ROCK, GROUND ; type
-	db 45 ; catch rate  ; final stage, BST 460, harder to handle
+	db 45 ; catch rate  ; final stage, BST 530, harder to handle
 	db 185 ; base exp  ; escolha dele: x4 a Water e a Grass, duas fraquezas comuns
 
 	INCBIN "gfx/pokemon/front/golem.pic", 0, 1 ; sprite dimensions

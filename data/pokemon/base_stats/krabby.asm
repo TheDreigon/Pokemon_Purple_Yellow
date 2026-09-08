@@ -2,7 +2,7 @@
 	base_stat_row 30, 75, 75, 35, 30, 60 ; hp atk def spatk spdef spd
 
 	db WATER, WATER ; type
-	db 215 ; catch rate  ; base stage, BST 275
+	db 220 ; catch rate  ; base stage, BST 305
 	db 80 ; base exp  ; BST 275
 
 	INCBIN "gfx/pokemon/front/krabby.pic", 0, 1 ; sprite dimensions

@@ -2,7 +2,7 @@
 	base_stat_row 130, 75, 100, 95, 95, 65 ; hp atk def spatk spdef spd
 
 	db WATER, ICE ; type
-	db 90 ; catch rate  ; solo stage, BST 465, easy to approach
+	db 80 ; catch rate  ; solo stage, BST 560, easy to approach
 	db 190 ; base exp  ; BST 460 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/lapras.pic", 0, 1 ; sprite dimensions

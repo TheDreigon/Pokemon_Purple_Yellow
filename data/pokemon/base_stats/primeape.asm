@@ -1,7 +1,7 @@
 	db DEX_PRIMEAPE ; pokedex id
 	base_stat_row 80, 110, 65, 60, 75, 90 ; hp atk def spatk spdef spd
 	db FIGHTING, DARK ; type
-	db 60 ; catch rate  ; final stage, BST 405, harder to handle
+	db 60 ; catch rate  ; final stage, BST 480, harder to handle
 	db 160 ; base exp  ; BST 410 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/primeape.pic", 0, 1 ; sprite dimensions

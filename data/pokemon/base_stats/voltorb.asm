@@ -1,7 +1,7 @@
 	db DEX_VOLTORB ; pokedex id
 	base_stat_row 20, 50, 40, 50, 50, 110 ; hp atk def spatk spdef spd
 	db ELECTRIC, STEEL ; type
-	db 200 ; catch rate  ; base stage, BST 270, harder to handle
+	db 200 ; catch rate  ; base stage, BST 320, harder to handle
 	db 85 ; base exp  ; BST 270 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/voltorb.pic", 0, 1 ; sprite dimensions

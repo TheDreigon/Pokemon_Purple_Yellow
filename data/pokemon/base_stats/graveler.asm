@@ -2,7 +2,7 @@
 	base_stat_row 55, 100, 115, 50, 50, 45 ; hp atk def spatk spdef spd
 
 	db ROCK, GROUND ; type
-	db 100 ; catch rate  ; mid stage, BST 365, harder to handle
+	db 100 ; catch rate  ; mid stage, BST 415, harder to handle
 	db 135 ; base exp  ; BST 365 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/graveler.pic", 0, 1 ; sprite dimensions

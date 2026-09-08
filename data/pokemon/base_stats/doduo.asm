@@ -2,7 +2,7 @@
 	base_stat_row 40, 80, 40, 40, 35, 90 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 195 ; catch rate  ; base stage, BST 290, harder to handle
+	db 200 ; catch rate  ; base stage, BST 325, harder to handle
 	db 90 ; base exp  ; BST 290 - muitas fraquezas (-2)
 
 	INCBIN "gfx/pokemon/front/doduo.pic", 0, 1 ; sprite dimensions

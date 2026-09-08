@@ -2,7 +2,7 @@
 	base_stat_row 35, 60, 45, 40, 55, 80 ; hp atk def spatk spdef spd
 
 	db POISON, POISON ; type
-	db 220 ; catch rate  ; base stage, BST 260
+	db 220 ; catch rate  ; base stage, BST 315
 	db 75 ; base exp  ; BST 255 - poucas fraquezas (+5)
 
 	INCBIN "gfx/pokemon/front/ekans.pic", 0, 1 ; sprite dimensions

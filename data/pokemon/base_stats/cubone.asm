@@ -2,7 +2,7 @@
 	base_stat_row 60, 45, 70, 40, 45, 40 ; hp atk def spatk spdef spd
 
 	db GROUND, GROUND ; type
-	db 220 ; catch rate  ; base stage, BST 255
+	db 220 ; catch rate  ; base stage, BST 300
 	db 75 ; base exp  ; BST 260 - poucas fraquezas (+2)
 
 	INCBIN "gfx/pokemon/front/cubone.pic", 0, 1 ; sprite dimensions

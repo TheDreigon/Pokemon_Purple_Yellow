@@ -2,7 +2,7 @@
 	base_stat_row 40, 45, 50, 50, 70, 50 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
-	db 230 ; catch rate  ; base stage, BST 235
+	db 220 ; catch rate  ; base stage, BST 305
 	db 65 ; base exp  ; BST 255 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/venonat.pic", 0, 1 ; sprite dimensions

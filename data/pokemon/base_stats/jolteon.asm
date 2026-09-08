@@ -2,7 +2,7 @@
 	base_stat_row 65, 80, 65, 110, 95, 130 ; hp atk def spatk spdef spd
 
 	db ELECTRIC, ELECTRIC ; type
-	db 75 ; catch rate  ; final stage, BST 450, easy to approach
+	db 75 ; catch rate  ; final stage, BST 545, easy to approach
 	db 210 ; base exp  ; eeveelution
 
 	INCBIN "gfx/pokemon/front/jolteon.pic", 0, 1 ; sprite dimensions

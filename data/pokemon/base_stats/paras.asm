@@ -2,7 +2,7 @@
 	base_stat_row 45, 70, 55, 45, 55, 40 ; hp atk def spatk spdef spd
 
 	db BUG, GRASS ; type
-	db 235 ; catch rate  ; base stage, BST 255, easy to approach
+	db 235 ; catch rate  ; base stage, BST 310, easy to approach
 	db 65 ; base exp  ; BST 255 - muitas fraquezas (-5)
 
 	INCBIN "gfx/pokemon/front/paras.pic", 0, 1 ; sprite dimensions
