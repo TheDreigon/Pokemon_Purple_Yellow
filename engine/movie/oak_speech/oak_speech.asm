@@ -21,7 +21,6 @@ PrepareOakSpeech:
 	xor a
 	ld [wSurfingMinigameHiScore], a
 	ld [wSurfingMinigameHiScore + 1], a
-	ld [wSurfingMinigameHiScore + 2], a
 	pop af
 	ld [wd732], a
 	pop af

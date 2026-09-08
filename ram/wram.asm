@@ -1411,8 +1411,9 @@ wTrainerPicPointer:: dw
 
 ; v1.0 (2026-09-08): the two pureRGB AI bytes went to the stack.
 ; wEnemyLastSelectedMoveDisable was never referenced; wPlayerLastSelectedMove was
-; never written, so its one reader (the Mirror Move check in trainer_ai.asm)
-; always saw zero and now discourages unconditionally, as it always did in effect.
+; never written, so its one reader (the MIRROR MOVE check in trainer_ai.asm)
+; always saw zero - that check reads wPlayerUsedMove now, the byte MIRROR MOVE
+; itself copies, which is what the pureRGB check meant.
 
 UNION
 wTempMoveNameBuffer:: ds 14
@@ -2070,8 +2071,7 @@ wXBlockCoord:: db
 
 wLastMap:: db
 
-wUnusedD366:: db
-
+; v1.0 (2026-09-08, T30): wUnusedD366 (vanilla wUnusedLastMapWidth, never read) went to the stack.
 wCurMapHeader::
 wCurMapTileset:: db
 wCurMapHeight:: db 
@@ -2093,8 +2093,6 @@ wSpriteSet:: ds 11
 wSpriteSetID:: db
 
 wObjectDataPointerTemp:: dw
-
-	ds 2
 
 ; the tile shown outside the boundaries of the map
 wMapBackgroundTile:: db
@@ -2162,17 +2160,15 @@ wCurPikaPicAnimObjectFrameIdx:: db
 wCurPikaPicAnimObjectFrameTimer:: db
 	ds 1
 wCurPikaPicAnimObjectEnd::
-
-	ds 18
+; v1.0 (2026-09-08, T30): the 18-byte tail of this member went to the stack; the
+; union is now the 17 bytes of wCurPikaMovementData.
 ENDU
 
 wPikachuHappiness:: db
 wPikachuMood:: db
 wd472:: db
 wd473:: db
-	ds 1
 wd475:: db
-	ds 4
 wd47a:: db
 
 ; v0.7: $D4F1-$D525 used to be 53 bytes of which 47 were padding -- a vanilla
@@ -2191,8 +2187,8 @@ wd47a:: db
 ; will read as garbage. Nothing else in the save moves.
 wd492:: db
 wSurfingMinigameHiScore:: dw ; little-endian BCD
-	ds 1 ; PrepareOakSpeech clears wSurfingMinigameHiScore + 2; keep it padding
-wUnknownSerialFlag_d499:: db
+; v1.0 (2026-09-08, T30): the pad after the high score (PrepareOakSpeech's redundant
+; clear of + 2 is gone) and wUnknownSerialFlag_d499 (Cable Club) went to the stack.
 wd49c:: db
 
 ; One bit per move, set when the move's animation is played in battle and for
@@ -2222,9 +2218,6 @@ wExpShareMode:: db
 ; wExpShareMode above.
 wRegisteredItem:: db
 
-	ds 1 ; free, and still contiguous (was 17 - the 2026-08-31 bitfield
-	     ; capacity pre-sizing ate 16 so the saved block kept its total size)
-
 ; number of signs in the current map (up to 16)
 wNumSigns:: db
 
@@ -2236,8 +2229,9 @@ wNumSprites:: db
 
 ; these two variables track the X and Y offset in blocks from the last special warp used
 ; they don't seem to be used for anything
-wYOffsetSinceLastSpecialWarp:: db
-wXOffsetSinceLastSpecialWarp:: db
+; v1.0 (2026-09-08, T30): wY/XOffsetSinceLastSpecialWarp (counted on every step, never
+; read) went to the stack with their six write sites (advance_player_sprite.asm,
+; special_warps.asm).
 
 wMapSpriteData:: ds 16 * 2 ; movement byte 2, text ID
 wMapSpriteExtraData:: ds 16 * 2 ; trainer class/item ID, trainer set ID
@@ -2280,8 +2274,6 @@ wTilesetTalkingOverTiles:: ds 3
 
 wGrassTile:: db
 
-	ds 4
-
 wNumBoxItems:: db
 ; item, quantity
 wBoxItems:: ds PC_ITEM_CAPACITY * 2 + 1
@@ -2290,20 +2282,15 @@ wBoxItems:: ds PC_ITEM_CAPACITY * 2 + 1
 ; bit 7: whether the player has changed boxes before
 wCurrentBoxNum:: db
 
-	ds 1
-
 ; number of HOF teams
 wNumHoFTeams:: db
 
-wUnusedD5A3:: db
-
+; v1.0 (2026-09-08, T30): wUnusedD5A3 (write-only) went to the stack.
 wPlayerCoins:: ds 2 ; BCD
 
 ; bit array of missable objects. set = removed
 wMissableObjectFlags:: flag_array $100
 wMissableObjectFlagsEnd::
-
-	ds 7
 
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db
@@ -2314,16 +2301,15 @@ wSavedSpriteImageIndex:: db
 ; terminated with $FF
 wMissableObjectList:: ds 16 * 2 + 1
 
-	ds 1
-
+; v1.0 (2026-09-08, T30): the vanilla holes inside wGameProgressFlags (21 bytes) went to
+; the stack; every map script byte is reached by its own label and the block is only
+; ever cleared as wGameProgressFlagsEnd - wGameProgressFlags.
 wGameProgressFlags::
 wOaksLabCurScript:: db
 wPalletTownCurScript:: db
-	ds 1
 wBluesHouseCurScript:: db
 wViridianCityCurScript:: db
 wRoute1CurScript:: db
-	ds 1
 wPewterCityCurScript:: db
 wRoute3CurScript:: db
 wRoute4CurScript:: db
@@ -2344,12 +2330,10 @@ wMtMoonB2FCurScript:: db
 wSSAnne1FRoomsCurScript:: db
 wSSAnne2FRoomsCurScript:: db
 wRoute22CurScript:: db
-	ds 1
 wRedsHouse2FCurScript:: db
 wViridianMartCurScript:: db
 wRoute22GateCurScript:: db
 wCeruleanCityCurScript:: db
-	ds 7
 wSSAnneBowCurScript:: db
 wViridianForestCurScript:: db
 wMuseum1FCurScript:: db
@@ -2361,7 +2345,6 @@ wRoute21CurScript:: db
 wSafariZoneGateCurScript:: db
 wRockTunnelB1FCurScript:: db
 wRockTunnel1FCurScript:: db
-	ds 1
 wRoute11CurScript:: db
 wRoute12CurScript:: db
 wRoute15CurScript:: db
@@ -2380,13 +2363,10 @@ wRocketHideoutB1FCurScript:: db
 wRocketHideoutB2FCurScript:: db
 wRocketHideoutB3FCurScript:: db
 wRocketHideoutB4FCurScript:: db
-	ds 1
 wRoute6GateCurScript:: db
 wRoute8GateCurScript:: db
-	ds 1
 wCinnabarIslandCurScript:: db
 wPokemonMansion1FCurScript:: db
-	ds 1
 wPokemonMansion2FCurScript:: db
 wPokemonMansion3FCurScript:: db
 wPokemonMansionB1FCurScript:: db
@@ -2409,17 +2389,16 @@ wBrunosRoomCurScript:: db
 wAgathasRoomCurScript:: db
 wCeruleanCaveB1FCurScript:: db
 wVictoryRoad1FCurScript:: db
-	ds 1
 wLancesRoomCurScript:: db
-	ds 4
 wSilphCo10FCurScript:: db
 wSilphCo11FCurScript:: db
 ; v0.7 (#38): was wFuchsiaPokecenterCurScript. NURSE JOY moved to the DAYCARE,
 ; so the FUCHSIA CENTER is an ordinary POKeMON CENTER again with no script
 ; states of its own. The byte stays reserved rather than reclaimed: everything
 ; from here to wGameProgressFlagsEnd is one block, and closing a hole in it
-; would shift every map script byte after it inside the SAVED data.
-	ds 1
+; would shift every map script byte after it inside the SAVED data. v1.0 (2026-09-08,
+; T30): reclaimed with the block's other holes once the save layout was allowed to
+; break (new game).
 wFuchsiaGymCurScript:: db
 wSaffronGymCurScript:: db
 ; v0.7 (#38): JOY's battle lives up here now. This byte cost no WRAM -- it was
@@ -2433,7 +2412,6 @@ wBillsHouseCurScript:: db
 wRoute5GateCurScript:: db
 wPowerPlantCurScript:: ; overload
 wRoute7GateCurScript:: db
-	ds 1
 wSSAnne2FCurScript:: db
 wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
@@ -2464,8 +2442,6 @@ wObtainedHiddenCoinsFlags:: flag_array 16
 ; $02 = surfing
 wWalkBikeSurfState:: db
 
-	ds 10
-
 wTownVisitedFlag:: flag_array NUM_CITY_MAPS
 
 ; starts at 502
@@ -2475,8 +2451,6 @@ wSafariSteps:: dw
 wFossilItem:: db
 ; mon that will result from the item
 wFossilMon:: db
-
-	ds 2
 
 ; trainer classes start at OPP_ID_OFFSET
 wEnemyMonOrTrainerClass:: db
@@ -2502,7 +2476,7 @@ wLastBlackoutMap:: db
 ; destination map (for certain types of special warps, not ordinary walking)
 wDestinationMap:: db
 
-wUnusedD71B:: db
+; v1.0 (2026-09-08, T30): wUnusedD71B (set to $ff by InitPlayerData, never read) went to the stack.
 
 ; used to store the tile in front of the boulder when trying to push a boulder
 ; also used to store the result of the collision check ($ff for a collision and $00 for no collision)
@@ -2563,8 +2537,6 @@ wMartInBagCount:: db
 ; CheckWarpsNoCollision and BILL's Eevee scene.
 wBlockNextWarp:: db
 
-	ds 2
-
 ; bit 0: using Strength outside of battle
 ; bit 1: set by IsSurfingAllowed when surfing's allowed, but the caller resets it after checking the result
 ; bit 3: received Old Rod
@@ -2574,13 +2546,9 @@ wBlockNextWarp:: db
 ; bit 7: set by ItemUseCardKey, which is leftover code from a previous implementation of the Card Key
 wd728:: db
 
-	ds 1
-
 ; redundant because it matches wObtainedBadges
 ; used to determine whether to show name on statue and in two NPC text scripts
 wBeatGymFlags:: db
-
-	ds 1
 
 ; bit 0: if not set, the 3 minimum steps between random battles have passed
 ; bit 1: prevent audio fade out
@@ -2608,15 +2576,11 @@ wd72d:: db
 ; bit 7: set if scripted NPC movement has been initialised
 wd72e:: db
 
-	ds 1
-
 ; bit 0: NPC sprite being moved by script
 ; bit 5: ignore joypad input
 ; bit 6: print text with no delay between each letter
 ; bit 7: set if joypad states are being simulated in the overworld or an NPC's movement is being scripted
 wd730:: db
-
-	ds 1
 
 ; bit 0: play time being counted
 ; bit 1: debug mode (unused and incomplete in non-debug builds)
@@ -2639,8 +2603,6 @@ wFlags_D733:: db
 ; the game uses this to tell when Elite 4 events need to be reset
 wBeatLorelei:: db
 
-	ds 1
-
 ; bit 0: check if the player is standing on a door and make him walk down a step if so
 ; bit 1: the player is currently stepping down from a door
 ; bit 2: standing on a warp
@@ -2650,17 +2612,11 @@ wd736:: db
 
 wCompletedInGameTradeFlags:: dw
 
-	ds 2
-
 wWarpedFromWhichWarp:: db
 wWarpedFromWhichMap:: db
 
-	ds 2
-
 wCardKeyDoorY:: db
 wCardKeyDoorX:: db
-
-	ds 2
 
 wFirstLockTrashCanIndex:: db
 wSecondLockTrashCanIndex:: db
@@ -2719,10 +2675,8 @@ ENDU
 
 wTrainerHeaderPtr:: dw
 
+; v1.0 (2026-09-08, T30): wDVCalcVar1 (never referenced) went to the stack.
 ; Used on the new status screen
-wDVCalcVar1:: 
-	ds 2
-
 wDVCalcVar2::
 	ds 5
 
@@ -2735,7 +2689,9 @@ wUnusedDA38:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-wStartBattleLevels:: ds PARTY_LENGTH ; player party levels snapshotted at battle start by StorePKMNLevels (init_battle.asm); currently write-only — the pureRGB AI comparisons that read it were not ported
+; v1.0 (2026-09-08, T30): wStartBattleLevels (StorePKMNLevels' write-only snapshot of the
+; party levels at battle start; the pureRGB readers were never ported) went to the stack
+; with the routine and its farcall.
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db
@@ -2811,7 +2767,11 @@ SECTION "Stack", WRAM0
 ; 232 on overworld and text paths, and see the battle figure recorded in
 ; layout.link. The v0.7 comment's "~60-70 static worst case" stays as the
 ; design figure. Size must stay in sync with layout.link "Stack".
-; v1.0 (2026-09-08): 260 bytes. The sentinel survey of the whole emulator suite
+; v1.0 (2026-09-08): 359 bytes - 260 after the first pass that afternoon, then T30
+; took 99 more from the dead padding and dead fields INSIDE the saved main-data
+; block (vanilla holes in wGameProgressFlags, after wWalkBikeSurfState, after the
+; missable flags, the pikapic tail, wStartBattleLevels...), which broke the save
+; layout on purpose before Forte's new game. The sentinel survey of the whole emulator suite
 ; (stack_survey.py, 2026-09-08) peaked at 115 of the 128 the split had left
 ; (Saffron gates 115, the school blackboard 113, boss battles 111), and the
 ; VBlank handler alone stacks about 16 on top of whatever the main thread is
@@ -2824,6 +2784,6 @@ SECTION "Stack", WRAM0
 ; $dfff, WRAM0 packed, map buffer big enough) and emu_harness.Game, which lays a
 ; sentinel at boot and raises when a run leaves under STACK_MARGIN bytes.
 ; Size must stay in sync with layout.link "Stack".
-	ds $104 - 1
+	ds $167 - 1
 wStack:: db
 ASSERT wStack == $dfff, "the Stack section must end at $dfff: the org in layout.link and this ds disagree"

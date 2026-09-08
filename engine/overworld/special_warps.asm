@@ -123,8 +123,6 @@ LoadSpecialWarpData:
 	xor a ; OVERWORLD
 	ld [wCurMapTileset], a
 .done
-	ld [wYOffsetSinceLastSpecialWarp], a
-	ld [wXOffsetSinceLastSpecialWarp], a
 	ld a, -1 ; exclude normal warps
 	ld [wDestinationWarpID], a
 	ret

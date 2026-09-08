@@ -10,7 +10,6 @@ ClearVariablesOnEnterMap::
 	ldh [hJoyReleased], a
 	ldh [hJoyHeld], a
 	ld [wActionResultOrTookBattleTurn], a
-	ld [wUnusedD5A3], a
 	ld hl, wCardKeyDoorY
 	ld [hli], a
 	ld [hl], a

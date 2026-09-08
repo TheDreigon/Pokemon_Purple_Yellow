@@ -90,8 +90,6 @@ _AdvancePlayerSprite::
 ; moved into the tile block to the east
 	xor a
 	ld [hl], a
-	ld hl, wXOffsetSinceLastSpecialWarp
-	inc [hl]
 	ld de, wCurrentTileBlockMapViewPointer
 	call MoveTileBlockMapPointerEast
 	jr .updateMapView
@@ -101,8 +99,6 @@ _AdvancePlayerSprite::
 ; moved into the tile block to the west
 	ld a, $01
 	ld [hl], a
-	ld hl, wXOffsetSinceLastSpecialWarp
-	dec [hl]
 	ld de, wCurrentTileBlockMapViewPointer
 	call MoveTileBlockMapPointerWest
 	jr .updateMapView
@@ -116,8 +112,6 @@ _AdvancePlayerSprite::
 ; moved into the tile block to the south
 	xor a
 	ld [hl], a
-	ld hl, wYOffsetSinceLastSpecialWarp
-	inc [hl]
 	ld de, wCurrentTileBlockMapViewPointer
 	ld a, [wCurMapWidth]
 	call MoveTileBlockMapPointerSouth
@@ -128,8 +122,6 @@ _AdvancePlayerSprite::
 ; moved into the tile block to the north
 	ld a, $01
 	ld [hl], a
-	ld hl, wYOffsetSinceLastSpecialWarp
-	dec [hl]
 	ld de, wCurrentTileBlockMapViewPointer
 	ld a, [wCurMapWidth]
 	call MoveTileBlockMapPointerNorth

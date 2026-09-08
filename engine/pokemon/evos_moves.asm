@@ -1233,32 +1233,6 @@ PrepareLevelUpMoveList::
 .debug
 	ret
 
-; shinpokerednote: ADDED: Stores the player's pokemon levels into wStartBattleLevels. 
-; NOTE: currently write-only in this hack — the upstream (pureRGB) readers were not ported (see wStartBattleLevels in ram/wram.asm). Multi-level-up move learning is handled separately via wTempLevelStore in engine/battle/experience.asm.
-StorePKMNLevels:
-	push hl
-	push de
-	ld a, [wPartyCount]	;1 to 6
-	and a
-	jr z, .doneStorePKMNLevels
-	ld b, a	;use b for countdown
-	ld hl, wPartyMon1Level
-	ld de, wStartBattleLevels
-.loopStorePKMNLevels
-	ld a, [hl]
-	ld [de], a	
-	dec b
-	jr z, .doneStorePKMNLevels
-	push bc
-	ld bc, wPartyMon2 - wPartyMon1
-	add hl, bc
-	inc de
-	pop bc
-	jr .loopStorePKMNLevels
-.doneStorePKMNLevels
-	pop de
-	pop hl
-	ret
 
 INCLUDE "data/pokemon/always_relearnable_moves.asm"
 INCLUDE "data/pokemon/evos_moves.asm"

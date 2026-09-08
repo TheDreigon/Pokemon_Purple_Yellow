@@ -9,8 +9,6 @@ InitPlayerData2:
 	ldh a, [hRandomAdd]
 	ld [wPlayerID + 1], a
 
-	ld a, $ff
-	ld [wUnusedD71B], a
 ; v0.7 (#41): zero is "no cave mouth walked into yet" -- see ram/wram.asm for why
 ; it has to be zero and not $ff. Written explicitly even though the new-game
 ; wipe already zeroes it, so that the sentinel has an owner to grep for.
