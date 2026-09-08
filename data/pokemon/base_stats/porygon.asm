@@ -8,7 +8,7 @@
 	dw PorygonPicFront, PorygonPicBack
 
 	db THUNDERSHOCK, FOCUS_ENERGY, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
-	db GROWTH_FAST ; growth rate
+	db GROWTH_MEDIUM_FAST ; growth rate  ; v0.7 (2026-09-08, Forte): was FAST - handed over at L20, L25 and L30 mid-game with 475 BST, nothing to compensate
 
 	; tm/hm learnset
 	; Single-stage digital construct:
