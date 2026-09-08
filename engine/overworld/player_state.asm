@@ -69,7 +69,6 @@ CheckForceBikeOrSurf::
 	set 5, [hl]
 	ld a, $1
 	ld [wWalkBikeSurfState], a
-	ld [wWalkBikeSurfStateCopy], a
 	call ForceBikeOrSurf
 	ret
 .incorrectMap
@@ -80,7 +79,6 @@ CheckForceBikeOrSurf::
 .forceSurfing
 	ld a, $2
 	ld [wWalkBikeSurfState], a
-	ld [wWalkBikeSurfStateCopy], a
 	call ForceBikeOrSurf
 	ret
 

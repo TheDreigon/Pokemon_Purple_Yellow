@@ -942,7 +942,6 @@ ItemUseBicycle:
 	and a
 	jp nz, ItemUseNotTime
 	ld a, [wWalkBikeSurfState]
-	ld [wWalkBikeSurfStateCopy], a
 	cp 2 ; is the player surfing?
 	jp z, ItemUseNotTime
 	dec a ; is player already bicycling?
@@ -977,7 +976,6 @@ ItemUseBicycle:
 ; used for Surf out-of-battle effect
 ItemUseSurfboard:
 	ld a, [wWalkBikeSurfState]
-	ld [wWalkBikeSurfStateCopy], a
 	cp 2 ; is the player already surfing?
 	jr z, .tryToStopSurfing
 .tryToSurf

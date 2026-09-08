@@ -946,7 +946,6 @@ LoadPlayerSpriteGraphics::
 .startWalking
 	xor a
 	ld [wWalkBikeSurfState], a
-	ld [wWalkBikeSurfStateCopy], a
 	jp LoadWalkingPlayerSpriteGraphics
 
 .determineGraphics
@@ -1941,8 +1940,6 @@ LoadMapHeader::
 	jr asm_0dbd
 
 asm_0dbd:
-	ld a, [wCurMapTileset]
-	ld [wUnusedD119], a
 	ld a, [wCurMap]
 	call SwitchToMapRomBank
 	ld a, [wCurMapTileset]
@@ -2162,9 +2159,7 @@ ResetMapVariables::
 	ldh [hSCY], a
 	ldh [hSCX], a
 	ld [wWalkCounter], a
-	ld [wUnusedD119], a
 	ld [wSpriteSetID], a
-	ld [wWalkBikeSurfStateCopy], a
 	ret
 
 CopyMapViewToVRAM::

@@ -75,7 +75,17 @@ wTempoModifier:: db
 
 wc0f3:: dw
 
-	ds 11
+; v1.0 (2026-09-08): these eleven bytes were anonymous padding (vanilla's `ds 11`)
+; that the org $c100 of the next section made unreachable, so four palette
+; variables from "GBC Palette Data" live here instead and the stack got their
+; old room. All of them are accessed by label (engine/gfx/palettes.asm,
+; home/cgb_palettes.asm); nothing in the audio engine walks past wc0f3, and the
+; only wholesale write to this range is the boot-time WRAM clear in home/init.asm,
+; which is what zeroed them at $df4c too.
+wGBCBasePalPointers:: ds NUM_ACTIVE_PALS * 2
+wLastBGP:: db
+wLastOBP0:: db
+wLastOBP1:: db
 
 
 SECTION "Sprite State Data", WRAM0
@@ -263,7 +273,16 @@ ASSERT wOverworldMap >= wMapViewScratchEnd, "LoadCurrentMapView's 24x20 scratch 
 SECTION "Overworld Map", WRAM0
 
 UNION
-wOverworldMap:: ds 1300
+; v1.0 (2026-09-08): 1300 -> 1248. LoadTileBlockMap lays the current map with a
+; MAP_BORDER of 3 blocks on every side, so the buffer needs (W + 6) * (H + 6)
+; bytes and the biggest maps in this hack, ROUTE_17 and ROUTE_23 at 10 x 72,
+; need exactly 1248 (vanilla's 1300 had the same 52 spare). Every consumer is
+; label-relative (home/overworld.asm LoadTileBlockMap, macros/coords.asm,
+; macros/scripts/maps.asm, update_map.asm, cinnabar_gym_quiz.asm), so the 52
+; bytes went to the stack. A map larger than 10 x 72 must grow this number:
+; stack_headroom_audit.py recomputes the maximum over constants/map_constants.asm
+; on every battery run and goes RED if this buffer is too small for it.
+wOverworldMap:: ds 1248
 wOverworldMapEnd::
 
 NEXTU
@@ -376,9 +395,8 @@ wListScrollOffset:: db
 ; allows the caller to scroll the entire menu up or down when this happens.
 wMenuWatchMovingOutOfBounds:: db
 
-wTradeCenterPointerTableIndex:: db
-
-	ds 1
+; v1.0 (2026-09-08): wTradeCenterPointerTableIndex (Cable Club menu, removed with
+; the link code) and the vanilla pad after it went to the stack.
 
 ; destination pointer for text output
 ; this variable is written to, but is never read from
@@ -387,29 +405,15 @@ wTextDest:: dw
 ; if non-zero, skip waiting for a button press after displaying text in DisplayTextID
 wDoNotWaitForButtonPressAfterDisplayingText:: db
 
-UNION
-; the received menu selection is stored twice
-wLinkMenuSelectionReceiveBuffer:: dw
-	ds 3
-; the menu selection byte is stored twice before sending
-wLinkMenuSelectionSendBuffer:: dw
-	ds 3
+; v1.0 (2026-09-08): this was the twelve-byte union of the Cable Club menu and the
+; serial-nybble exchange. The link code is gone (home/serial.asm, engine/link/),
+; so ten bytes went to the stack and the two that code still names stay:
+; wSerialExchangeNybbleReceiveData is written once at battle start (core.asm) and
+; only read behind `cp LINK_STATE_BATTLING`, a state nothing ever stores;
+; wEnteringCableClub is read in three places and never written (zero since boot).
+wSerialExchangeNybbleReceiveData:: db
 wEnteringCableClub::
 wLinkTimeoutCounter:: db
-
-NEXTU
-; temporary nybble used by Serial_ExchangeNybble
-wSerialExchangeNybbleTempReceiveData::
-; the final received nybble is stored here by Serial_SyncAndExchangeNybble
-wSerialSyncAndExchangeNybbleReceiveData:: db
-; the final received nybble is stored here by Serial_ExchangeNybble
-wSerialExchangeNybbleReceiveData:: db
-	ds 3
-; this nybble is sent when using Serial_SyncAndExchangeNybble or Serial_ExchangeNybble
-wSerialExchangeNybbleSendData:: db
-	ds 4
-wUnknownSerialCounter:: dw
-ENDU
 
 ; $00 = player mons
 ; $01 = enemy mons
@@ -432,8 +436,6 @@ wMenuWrappingEnabled:: db
 ; whether to check for 180-degree turn (0 = don't, 1 = do)
 wCheckFor180DegreeTurn:: db
 
-	ds 1
-
 wMissableObjectIndex:: db
 
 wPredefID:: db
@@ -443,16 +445,12 @@ wPredefBC:: dw
 
 wTrainerHeaderFlagBit:: db
 
-	ds 1
-
 ; which NPC movement script pointer is being used
 ; 0 if an NPC movement script is not running
 wNPCMovementScriptPointerTableNum:: db
 
 ; ROM bank of current NPC movement script
 wNPCMovementScriptBank:: db
-
-	ds 2
 
 ; This union spans 180 bytes.
 UNION
@@ -573,7 +571,7 @@ wMoveMenuType:: db
 wPlayerSelectedMove:: db
 wEnemySelectedMove:: db
 
-wLinkBattleRandomNumberListIndex:: db
+wLinkBattleRandomNumberListIndex:: db ; v1.0 (2026-09-08): dead since the link branch of BattleRandom went; inside a union arm, so it costs nothing
 
 ; number of times remaining that AI action can occur
 wAICount:: db
@@ -754,8 +752,6 @@ wEngagedTrainerClass:: db
 wEngagedTrainerSet:: db
 ENDU
 
-	ds 1
-
 wNPCMovementDirections2Index::
 wUnusedCD37::
 ; number of items in wFilteredBagItems list
@@ -775,13 +771,12 @@ wUnusedCD3A:: db
 ; XXX is it ever not 0?
 wOverrideSimulatedJoypadStatesMask:: db
 
-	ds 1
-
-; This union spans 30 bytes.
+; This union spans 28 bytes (v1.0, 2026-09-08: the vanilla pad before it and the
+; two-byte pad between the traded species and the OT names went to the stack;
+; in_game_trades.asm writes the two species with `ld [hli], a` and stops).
 UNION
 wTradedPlayerMonSpecies:: db
 wTradedEnemyMonSpecies:: db
-	ds 2
 wTradedPlayerMonOT:: ds NAME_LENGTH
 wTradedPlayerMonOTID:: dw
 wTradedEnemyMonOT:: ds NAME_LENGTH
@@ -1054,7 +1049,8 @@ wStandingOnWarpPadOrHole::
 wOAMBaseTile::
 wGymTrashCanIndex:: db
 
-wSymmetricSpriteOAMAttributes:: db
+; v1.0 (2026-09-08): wSymmetricSpriteOAMAttributes went with WriteSymmetricMonPartySpriteOAM
+; (deleted in the v0.7 space pass); the byte went to the stack.
 
 wMonPartySpriteSpecies:: db
 
@@ -1070,8 +1066,6 @@ wRightGBMonSpecies:: db
 ; bit 5: don't play sound when A or B is pressed in menu
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
 wFlags_0xcd60:: db
-
-	ds 9
 
 ; This has overlapping related uses.
 ; When the player tries to use an item or use certain field moves, 0 is stored
@@ -1211,8 +1205,6 @@ wSpriteIndex:: db
 ; movement byte 2 of current sprite
 wCurSpriteMovement2:: db
 
-	ds 2
-
 ; sprite offset of sprite being controlled by NPC movement script
 wNPCMovementScriptSpriteOffset:: db
 
@@ -1242,19 +1234,19 @@ wPartyMenuHPBarColors:: ds PARTY_LENGTH
 
 wStatusScreenHPBarColor:: db
 
-	ds 7
-
 wCopyingSGBTileData::
 wWhichPartyMenuHPBar::
 wPalPacket::
 	db
 
-; This union spans 49 bytes.
+; This union spans 48 bytes (v1.0, 2026-09-08: the string buffer's member was 49,
+; one more than the party-menu packet; InitPartyMenuBlkPacket re-copies the packet
+; from ROM before every use, so the overlap was never load-bearing).
 UNION
 wPartyMenuBlkPacket:: ds $30
 
 NEXTU
-	ds 29
+	ds 28
 ; storage buffer for various strings
 wStringBuffer:: ds 20
 
@@ -1295,8 +1287,8 @@ wMartType:: db
 
 wListPointer:: dw
 
-; used to store pointers, but never read
-wUnusedCF8D:: dw
+; v1.0 (2026-09-08): wUnusedCF8D (a pointer store nothing read) went to the stack
+; with its two stores in engine/battle/misc.asm.
 
 wItemPrices:: dw
 
@@ -1417,9 +1409,10 @@ wTrainerClass:: db
 
 wTrainerPicPointer:: dw
 
-; used by pureRGB AI
-wEnemyLastSelectedMoveDisable:: db
-wPlayerLastSelectedMove:: db
+; v1.0 (2026-09-08): the two pureRGB AI bytes went to the stack.
+; wEnemyLastSelectedMoveDisable was never referenced; wPlayerLastSelectedMove was
+; never written, so its one reader (the Mirror Move check in trainer_ai.asm)
+; always saw zero and now discourages unconditionally, as it always did in effect.
 
 UNION
 wTempMoveNameBuffer:: ds 14
@@ -1542,8 +1535,6 @@ wPlayerToxicCounter:: db
 ; low nibble: disable turns left
 wPlayerDisabledMove:: db
 
-	ds 1
-
 ; when the enemy is attacking multiple times, the number of attacks left
 wEnemyNumAttacksLeft:: db
 
@@ -1596,8 +1587,6 @@ wTempTilesetNumTiles:: db
 ; used by the pokemart code to save the existing value of wListScrollOffset
 ; so that it can be restored when the player is done with the pokemart NPC
 wSavedListScrollOffset:: db
-
-	ds 2
 
 ; base coordinates of frame block
 wBaseCoordX:: db
@@ -1660,10 +1649,7 @@ ENDU
 
 wEndBattleWinTextPointer:: dw
 wEndBattleLoseTextPointer:: dw
-	ds 2
 wEndBattleTextRomBank:: db
-
-	ds 1
 
 ; the address _of the address_ of the current subanimation entry
 wSubAnimAddrPtr:: dw
@@ -1679,8 +1665,6 @@ NEXTU
 ; or zero it.
 wSlotMachineAllowMatchesCounter:: db
 ENDU
-
-	ds 2
 
 wOutwardSpiralTileMapPointer:: db
 
@@ -1797,8 +1781,6 @@ ASSERT wMonHeaderEnd - wMonHeader == BASE_DATA_SIZE, \
 ; saved at the start of a battle and then written back at the end of the battle
 wSavedTileAnimations:: db
 
-	ds 1
-
 wDamage:: dw
 
 wRepelType:: db
@@ -1812,10 +1794,9 @@ wMoveNum:: db
 
 wMovesString:: ds 56
 
-wUnusedD119:: db
-
-; wWalkBikeSurfState is sometimes copied here, but it doesn't seem to be used for anything
-wWalkBikeSurfStateCopy:: db
+; v1.0 (2026-09-08): wUnusedD119 (a copy of wCurMapTileset nothing read) and
+; wWalkBikeSurfStateCopy (a copy of wWalkBikeSurfState nothing read) went to the
+; stack, with their ten write-only stores.
 
 ; the type of list for InitList to init
 wInitListType:: db
@@ -1910,8 +1891,8 @@ wSavedSpriteScreenX:: db
 wSavedSpriteMapY:: db
 wSavedSpriteMapX:: db
 
-	ds 4 ; v0.7: was 5 — one byte lent to the prize-list sentinel below, so the
-	     ; total WRAM size is unchanged and the hardened stack ORG stays put.
+; v1.0 (2026-09-08): the four remaining pad bytes here (vanilla's `ds 5`, one of
+; which became the prize-list sentinel below in v0.7) went to the stack.
 
 wWhichPrize:: db
 
@@ -1938,18 +1919,17 @@ wPrize4:: db ; 4th prize slot for the Game Corner TM prize menu (not in vanilla)
 
 wNoSprintSteps:: db
 
-UNION
-wSerialRandomNumberListBlock:: ds $11
-
-NEXTU
+; v1.0 (2026-09-08): this was an eighteen-byte union of the link battle's shared
+; random-number list (wLinkBattleRandomNumberList, 10, and the 17-byte serial
+; block it was received into) over the four prize prices. The link branch of
+; BattleRandom (home/battle_random.asm) was the only reader and it was
+; unreachable (LINK_STATE_BATTLING is never stored), so the branch is gone and
+; the ten bytes went to the stack. The prices are copied with an exact
+; `ld bc, 8` (prize_menu.asm) and read by name.
 wPrize1Price:: dw
 wPrize2Price:: dw
 wPrize3Price:: dw
 wPrize4Price:: dw ; price for the 4th Game Corner prize slot
-
-; shared list of 9 random numbers, indexed by wLinkBattleRandomNumberListIndex
-wLinkBattleRandomNumberList:: ds 10
-ENDU
 
 wSerialPlayerDataBlock:: ; ds $1a8
 
@@ -2814,11 +2794,9 @@ wBoxDataEnd::
 
 SECTION "GBC Palette Data", WRAM0
 
-wGBCBasePalPointers:: ds NUM_ACTIVE_PALS * 2
+; v1.0 (2026-09-08): wGBCBasePalPointers, wLastBGP, wLastOBP0 and wLastOBP1 moved
+; to the tail of "Audio RAM" (see there); the eleven bytes went to the stack.
 wGBCPal:: ds PALETTE_SIZE
-wLastBGP:: db
-wLastOBP0:: db
-wLastOBP1:: db
 wdef5:: db
 wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 
@@ -2833,5 +2811,19 @@ SECTION "Stack", WRAM0
 ; 232 on overworld and text paths, and see the battle figure recorded in
 ; layout.link. The v0.7 comment's "~60-70 static worst case" stays as the
 ; design figure. Size must stay in sync with layout.link "Stack".
-	ds $80 - 1
+; v1.0 (2026-09-08): 260 bytes. The sentinel survey of the whole emulator suite
+; (stack_survey.py, 2026-09-08) peaked at 115 of the 128 the split had left
+; (Saffron gates 115, the school blackboard 113, boss battles 111), and the
+; VBlank handler alone stacks about 16 on top of whatever the main thread is
+; doing, so 13 bytes of headroom was inside one interrupt of an overflow (which
+; lands on wBGPPalsBuffer first, then on the box data, which is SAVED).
+; 132 bytes came back from WRAM0 without touching a saved range: wOverworldMap
+; 1300 -> 1248, four palette bytes into the "Audio RAM" tail, and the dead
+; padding and dead link/pureRGB bytes of SECTION "WRAM" (see the CHANGELIST).
+; Guards: the ASSERT below, stack_headroom_audit.py (section floor, wStack at
+; $dfff, WRAM0 packed, map buffer big enough) and emu_harness.Game, which lays a
+; sentinel at boot and raises when a run leaves under STACK_MARGIN bytes.
+; Size must stay in sync with layout.link "Stack".
+	ds $104 - 1
 wStack:: db
+ASSERT wStack == $dfff, "the Stack section must end at $dfff: the org in layout.link and this ds disagree"

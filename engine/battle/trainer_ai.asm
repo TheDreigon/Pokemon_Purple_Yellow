@@ -296,10 +296,10 @@ AIMoveChoiceModification1:
 	pop hl
 	jp .nextMove
 .checkNoMirrorMoveOnFirstTurn
-	ld a, [wPlayerLastSelectedMove]
-	and a
-	jp z, .discourage ; don't use mirror move if the player has never selected a move yet
-	jp .nextMove
+; v1.0 (2026-09-08): this read wPlayerLastSelectedMove, a pureRGB byte nothing in
+; this hack ever wrote, so the check always discouraged Mirror Move; the byte is
+; gone (reclaimed for the stack) and the behaviour is kept as it was.
+	jp .discourage
 
 
 StatusAilmentMoveEffects:
