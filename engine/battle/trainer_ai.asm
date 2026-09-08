@@ -297,9 +297,15 @@ AIMoveChoiceModification1:
 	jp .nextMove
 .checkNoMirrorMoveOnFirstTurn
 ; v1.0 (2026-09-08): this read wPlayerLastSelectedMove, a pureRGB byte nothing in
-; this hack ever wrote, so the check always discouraged Mirror Move; the byte is
-; gone (reclaimed for the stack) and the behaviour is kept as it was.
-	jp .discourage
+; this hack ever wrote, so the check always discouraged MIRROR MOVE. The byte went
+; to the stack; the check now reads what MIRROR MOVE itself copies (core.asm
+; MirrorMoveCopyMove): wPlayerUsedMove, zeroed whenever a Pokemon is sent out and
+; whenever the player sleeps or is frozen through a turn. Zero = the copy would
+; fail, so discourage; otherwise let the move compete like any other.
+	ld a, [wPlayerUsedMove]
+	and a
+	jp z, .discourage ; the player has not used a move since the last switch-in
+	jp .nextMove
 
 
 StatusAilmentMoveEffects:
