@@ -215,11 +215,7 @@ BulbasaurEvosMoves:
 	db 13, ABSORB
 	db 18, GROWTH
 	db 24, SLEEP_POWDER
-	db 30, RAZOR_LEAF
-	db 36, MEGA_DRAIN
-	db 42, PETAL_DANCE
-	db 48, RECOVER
-	db 55, GIGA_DRAIN
+	db 32, RAZOR_LEAF
 	db 0
 
 IvysaurEvosMoves:
@@ -237,12 +233,8 @@ IvysaurEvosMoves:
 	db 20, POISONPOWDER
 	db 24, SLEEP_POWDER
 	db 28, ACID
-	db 30, RAZOR_LEAF
+	db 32, RAZOR_LEAF
 	db 36, MEGA_DRAIN
-	db 42, PETAL_DANCE
-	db 48, RECOVER
-	db 52, TOXIC
-	db 55, GIGA_DRAIN
 	db 0
 
 VenusaurEvosMoves:
@@ -260,7 +252,7 @@ VenusaurEvosMoves:
 	db 20, POISONPOWDER
 	db 24, SLEEP_POWDER
 	db 28, ACID
-	db 30, RAZOR_LEAF
+	db 32, RAZOR_LEAF
 	db 36, MEGA_DRAIN
 	db 38, BODY_SLAM
 	db 40, BULLDOZE
@@ -283,18 +275,12 @@ CharmanderEvosMoves:
 ; signature) + DRAGON_BREATH@48 shared. FLAME_CHARGE reserved for fast-fire
 ; quadrupeds (Growlithe/Ponyta lines). OUTRAGE is TM-only.
 	db  6, EMBER
-	db 10, BITE
-	db 14, SMOKESCREEN
-	db 18, HEADBUTT
+	db  8, BITE
+	db 11, IGNITED
+	db 14, FOCUS_ENERGY
+	db 18, SLASH
 	db 20, CUT
-	db 22, SLASH
 	db 24, FLAME_BURST
-	db 28, FOCUS_ENERGY
-	db 32, IGNITE
-	db 36, DRAGON_CLAW
-	db 38, FLAMETHROWER
-	db 48, DRAGON_BREATH
-	db 52, FIRE_BLAST
 	db 0
 
 CharmeleonEvosMoves:
@@ -306,18 +292,14 @@ CharmeleonEvosMoves:
 ; Charizard gets both via anatomical exception (FLAMETHROWER/DRAGON_BREATH/
 ; FIRE_BLAST are shared across the line).
 	db  6, EMBER
-	db 10, BITE
-	db 14, SMOKESCREEN
-	db 18, HEADBUTT
+	db  8, BITE
+	db 11, IGNITED
+	db 14, FOCUS_ENERGY
+	db 18, SLASH
 	db 20, CUT
-	db 22, SLASH
 	db 24, FLAME_BURST
-	db 28, FOCUS_ENERGY
-	db 32, IGNITE
-	db 36, DRAGON_CLAW
-	db 38, FLAMETHROWER
-	db 48, DRAGON_BREATH
-	db 52, FIRE_BLAST
+	db 28, DRAGON_CLAW
+	db 36, FLAMETHROWER
 	db 0
 
 CharizardEvosMoves:
@@ -330,23 +312,21 @@ CharizardEvosMoves:
 ; the flying-apex club — birds/Aerodactyl/Fearow/Pidgeot). HURRICANE is TM-only.
 ; DRAGON_CLAW@36 / DRAGON_BREATH@48 shared across the line. Entry levels unique.
 	db  6, EMBER
-	db 10, BITE
-	db 14, SMOKESCREEN
-	db 18, HEADBUTT
+	db  8, BITE
+	db 11, IGNITED
+	db 14, FOCUS_ENERGY
+	db 18, SLASH
 	db 20, CUT
-	db 22, SLASH
 	db 24, FLAME_BURST
-	db 28, FOCUS_ENERGY
-	db 32, IGNITE
-	db 36, DRAGON_CLAW
-	db 38, FLAMETHROWER
-	db 40, WING_ATTACK
+	db 28, DRAGON_CLAW
+	db 36, FLAMETHROWER
+	db 38, WING_ATTACK
+	db 40, CRUNCH
 	db 42, FLY
-	db 44, CRUNCH
-	db 46, AERIAL_ACE
-	db 48, DRAGON_BREATH
-	db 52, FIRE_BLAST
-	db 55, DRAGON_RAGE
+	db 44, FIERCE_ROAR
+	db 46, DRAGON_RAGE
+	db 50, FIRE_BLAST
+	db 55, DRAGON_BREATH
 	db 60, SKY_ATTACK
 	db 0
 
@@ -362,14 +342,12 @@ SquirtleEvosMoves:
 ; HEAVY_SLAM that Blastoise gets exclusively.
 	db  6, WATER_GUN
 	db  8, WITHDRAW
-	db 10, BITE
+	db 11, BITE
 	db 14, BIDE
 	db 18, BUBBLEBEAM
-	db 22, HEADBUTT
-	db 26, WATER_PULSE
+	db 20, HEADBUTT
+	db 25, WATER_PULSE
 	db 30, BODY_SLAM
-	db 36, WATERFALL
-	db 44, SURF
 	db 0
 
 WartortleEvosMoves:
@@ -383,15 +361,14 @@ WartortleEvosMoves:
 ; BITE baby-tier.
 	db  6, WATER_GUN
 	db  8, WITHDRAW
-	db 10, BITE
+	db 11, BITE
 	db 14, BIDE
 	db 18, BUBBLEBEAM
-	db 22, HEADBUTT
-	db 26, WATER_PULSE
+	db 20, HEADBUTT
+	db 25, WATER_PULSE
 	db 30, BODY_SLAM
 	db 36, WATERFALL  ; (EVO LVL Blastoise)
 	db 44, SURF
-	db 56, HYDRO_PUMP
 	db 0
 
 BlastoiseEvosMoves:
@@ -406,11 +383,11 @@ BlastoiseEvosMoves:
 ; Entry levels unique.
 	db  6, WATER_GUN
 	db  8, WITHDRAW
-	db 10, BITE
+	db 11, BITE
 	db 14, BIDE
 	db 18, BUBBLEBEAM
-	db 22, HEADBUTT
-	db 26, WATER_PULSE
+	db 20, HEADBUTT
+	db 25, WATER_PULSE
 	db 30, BODY_SLAM
 	db 36, WATERFALL
 	db 39, BULLDOZE
@@ -1463,7 +1440,6 @@ DugtrioEvosMoves:
 	db 48, NIGHT_SLASH
 	db 52, EXTREMESPEED
 	db 54, TAKE_DOWN
-	db 58, RECOVER
 	db 60, FISSURE
 	db 0
 
@@ -2586,7 +2562,6 @@ GengarEvosMoves:
 	db 62, DEEP_SLEEP
 	db 62, DREAM_EATER
 	db 66, EXPLOSION
-	db 66, RECOVER
 	db 68, HAZE
 	db 70, PSYCHIC_M
 	db 0
@@ -3006,7 +2981,6 @@ KoffingEvosMoves:
 	db 46, SLUDGE_WAVE
 	db 49, FLAMETHROWER
 	db 55, EXPLOSION
-	db 60, RECOVER
 	db 0
 
 WeezingEvosMoves:
@@ -3033,7 +3007,6 @@ WeezingEvosMoves:
 	db 49, FLAMETHROWER
 	db 52, SCARY_FACE
 	db 55, EXPLOSION
-	db 60, RECOVER
 	db 62, GUNK_SHOT
 	db 65, DARK_PULSE
 	db 0
@@ -3609,9 +3582,9 @@ LaprasEvosMoves:
 	db 33, AURORA_BEAM
 	db 36, EXTRASENSORY
 	db 40, SURF
-	db 40, RECOVER
-	db 45, ICE_BEAM
-	db 50, HEAVY_SLAM
+	db 43, ICE_BEAM
+	db 46, HEAVY_SLAM
+	db 50, RECOVER
 	db 53, BLIZZARD
 	db 56, HYDRO_PUMP
 	db 60, DRAGON_BREATH
