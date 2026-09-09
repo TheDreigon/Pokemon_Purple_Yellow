@@ -550,6 +550,25 @@ SilphCo11FSilphPresidentText:
 	call PrintText
 	jr .done
 .got_item
+; v1.0 (2026-09-09, Forte): the first time the player comes back as CHAMPION, the
+; president has one more of them - he had it made after the rescue, for this day.
+; wGameStage is the beat-the-League flag (scripts/HallOfFame.asm); the event flag
+; makes it once, ever, so a second League run does not repeat the gift.
+	ld a, [wGameStage]
+	and a
+	jr z, .describe
+	CheckEvent EVENT_GOT_SECOND_MASTER_BALL
+	jr nz, .describe
+	ld hl, .ChampionText
+	call PrintText
+	lb bc, MASTER_BALL, 1
+	call GiveItem
+	jr nc, .bag_full
+	ld hl, .ReceivedMasterBallText
+	call PrintText
+	SetEvent EVENT_GOT_SECOND_MASTER_BALL
+	jr .done
+.describe
 	ld hl, .MasterBallDescriptionText
 	call PrintText
 .done
@@ -562,6 +581,10 @@ SilphCo11FSilphPresidentText:
 .ReceivedMasterBallText:
 	text_far _SilphCo11FSilphPresidentReceivedMasterBallText
 	sound_get_key_item
+	text_end
+
+.ChampionText:
+	text_far _SilphCo11FSilphPresidentChampionText
 	text_end
 
 .MasterBallDescriptionText:

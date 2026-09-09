@@ -26,6 +26,20 @@ _SilphCo11FSilphPresidentReceivedMasterBallText::
 	text "!@"
 	text_end
 
+_SilphCo11FSilphPresidentChampionText::
+	text "PRESIDENT: The"
+	line "CHAMPION, here in"
+	cont "my building!"
+
+	para "I always knew the"
+	line "one who saved"
+	cont "SILPH would be."
+
+	para "So I had one more"
+	line "made, and kept it"
+	cont "for this day."
+	prompt
+
 _SilphCo11FSilphPresidentMasterBallDescriptionText::
 	text "PRESIDENT: You"
 	line "can't buy that"

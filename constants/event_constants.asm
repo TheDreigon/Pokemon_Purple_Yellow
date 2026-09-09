@@ -944,6 +944,10 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 ; per visit until both land - and a full-bag player is never text-locked.
 	const EVENT_SAFFRON_AIDES_AMBUSHED
 
+; v1.0 (2026-09-09, his idea): the SILPH president keeps a second MASTER BALL for the
+; day the person who saved his building becomes CHAMPION. Given once, ever.
+	const EVENT_GOT_SECOND_MASTER_BALL
+
 ; End of events
 ; v0.7 (2026-08-29, his call): the ceiling grew $A00 -> $A80 -- the gym-guide
 ; water flags had filled the old space to the last slot. This adds 16 bytes
