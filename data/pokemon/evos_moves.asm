@@ -1611,20 +1611,20 @@ GrowlitheEvosMoves:
 ; Intimidation ladder GROWL -> FIERCE_ROAR -> INTIMIDATE. PLAY_ROUGH fits
 ; a canine's rough bite/claw; no SUBMISSION (a canine doesn't wrestle) and
 ; no rock move (no earth affinity).
-	db  8, QUICK_ATTACK
-	db 11, HONE_CLAWS
-	db 14, EMBER
-	db 16, FIERCE_ROAR
-	db 18, FOCUS_ENERGY
-	db 22, FLAME_CHARGE
-	db 24, CUT
-	db 26, SLASH
-	db 28, CRUNCH
-	db 30, FALSE_SWIPE
-	db 36, FLAMETHROWER
-	db 44, INTIMIDATE
-	db 48, PLAY_ROUGH
-	db 60, FIRE_BLAST
+	db  6, EMBER
+	db  8, SAND_ATTACK
+	db 10, FOCUS_ENERGY
+	db 13, FIERCE_ROAR
+	db 16, QUICK_ATTACK
+	db 18, HONE_CLAWS
+	db 20, FLAME_CHARGE
+	db 23, CRUNCH
+	db 25, CUT
+	db 27, FALSE_SWIPE
+	db 30, PLAY_ROUGH
+	db 32, TAKE_DOWN
+	db 35, FLAME_BURST
+	db 38, RAGE
 	db 0
 
 ArcanineEvosMoves:
@@ -1634,24 +1634,24 @@ ArcanineEvosMoves:
 ; Apex alpha canine. Shares Growlithe's backbone, plus exclusives: AGILITY,
 ; STRENGTH (natural HM04) and SWORDS_DANCE. No EXTREMESPEED (canine isn't on
 ; the signature list) and no OUTRAGE (not Dragon-coded).
-	db  8, QUICK_ATTACK
-	db 11, HONE_CLAWS
-	db 14, EMBER
-	db 16, FIERCE_ROAR
-	db 18, FOCUS_ENERGY
-	db 22, FLAME_CHARGE
-	db 24, CUT
-	db 26, SLASH
-	db 28, CRUNCH
-	db 30, FALSE_SWIPE
+	db  6, EMBER
+	db  8, SAND_ATTACK
+	db 10, FOCUS_ENERGY
+	db 13, FIERCE_ROAR
+	db 16, QUICK_ATTACK
+	db 18, HONE_CLAWS
+	db 20, FLAME_CHARGE
+	db 23, CRUNCH
+	db 25, CUT
+	db 27, FALSE_SWIPE
+	db 30, PLAY_ROUGH
 	db 32, TAKE_DOWN
-	db 36, FLAMETHROWER
-	db 38, STRENGTH
-	db 41, AGILITY
-	db 44, INTIMIDATE
-	db 48, PLAY_ROUGH
-	db 52, SWORDS_DANCE
-	db 56, SEISMIC_TOSS
+	db 35, FLAME_BURST
+	db 38, RAGE
+	db 40, INTIMIDATE
+	db 45, FLAMETHROWER
+	db 50, SEISMIC_TOSS
+	db 55, SWORDS_DANCE
 	db 60, FIRE_BLAST
 	db 0
 

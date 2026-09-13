@@ -16,7 +16,7 @@ Moves: ; Current total = 220
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
-	move BUG_BUZZ,       SPDEF_DOWN_SIDE_EFFECT,         80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
+	move BUG_BUZZ,       SPDEF_DOWN_SIDE_EFFECT,           80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
 	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10 ; high-crit.
 	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; almost-signature.
@@ -25,7 +25,7 @@ Moves: ; Current total = 220
 
 	; === DARK TYPE (9 moves) === ; new type
 	move FAINT_ATTACK,   SWIFT_EFFECT,                     60, DARK,         100, 25 ; new move.
-	move RAGE,           THRASH_PETAL_DANCE_EFFECT,        60, DARK,         100, 20 ; v0.7 (2026-09-05, Forte): Thrash's lock; the Gen 1 Rage effect is dead
+	move RAGE,           THRASH_PETAL_DANCE_EFFECT,        70, DARK,         100, 10 ; v0.7 (2026-09-05, Forte): Thrash's lock; the Gen 1 Rage effect is dead.
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
 	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             80, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
@@ -40,7 +40,7 @@ Moves: ; Current total = 220
 	move DRAGON_CLAW,    NO_ADDITIONAL_EFFECT,             60, DRAGON,       100, 25 ; new move. high-crit.
 	move DRAGON_BREATH,  PARALYZE_SIDE_EFFECT2,            75, DRAGON,       100, 20 ; new move.
 	move DRAGON_SLAM,    RECOIL_EFFECT,                    95, DRAGON,        95, 15 ; new move.
-	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       100, DRAGON,       100, 10 ; new move. high-crit.
+	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       110, DRAGON,       100, 10 ; new move. high-crit.
 	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        80,  5 ; high-crit. apex/legendary pool (9 learners).
 
 
@@ -133,7 +133,7 @@ Moves: ; Current total = 220
 	move MEGA_DRAIN,     DRAIN_HP_EFFECT,                  50, GRASS,        100, 20
 	move RAZOR_LEAF,     NO_ADDITIONAL_EFFECT,             60, GRASS,        100, 20 ; high-crit.
 	move GIGA_DRAIN,     DRAIN_HP_EFFECT,                  75, GRASS,        100, 15 ; new move.
-	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        90, GRASS,        100, 10
+	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        80, GRASS,        100, 10
 	move SOLARBEAM,      CHARGE_EFFECT,                   180, GRASS,        100, 10
 	move LEECH_SEED,     LEECH_SEED_EFFECT,                 0, GRASS,         90, 20
 	move POISONPOWDER,   POISON_EFFECT,                     0, GRASS,         85, 25 ; powder-family type (was POISON; 0-BP status, type only gates immunity — vs Steel net-identical).
