@@ -208,7 +208,7 @@ Moves: ; Current total = 220
 	move EXTRASENSORY,   SWIFT_EFFECT,                     65, PSYCHIC_TYPE, 100, 25 ; new move.
 	move PSYBEAM,        SPDEF_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
-	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90, 10 ; almost-signature (Alakazam + Mewtwo). high-crit. new effect - 45% paralyze.
+	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90,  5 ; almost-signature (Alakazam + Mewtwo). high-crit. new effect - 45% paralyze.
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25
 	move HYPNOSIS,       SLEEP_EFFECT,                      0, PSYCHIC_TYPE,  75, 15
 

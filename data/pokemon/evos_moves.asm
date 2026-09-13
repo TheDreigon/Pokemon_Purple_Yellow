@@ -1661,14 +1661,15 @@ PoliwagEvosMoves:
 	db 0
 ; Learnset
 ; Water tadpole. BUBBLEBEAM, HYPNOSIS and DOUBLESLAP basic kit.
-	db  9, WATER_GUN
-	db 11, HINDER
-	db 13, HYPNOSIS
-	db 17, TACKLE
-	db 22, BUBBLEBEAM
-	db 24, BODY_SLAM
-	db 28, WATER_PULSE
-	db 51, AQUA_JET
+	db  6, WATER_GUN
+	db  8, HINDER
+	db 10, HYPNOSIS
+	db 13, TACKLE
+	db 20, BUBBLEBEAM
+	db 23, BODY_SLAM
+	db 26, WATER_PULSE
+	db 33, WATERFALL
+	db 50, AQUA_JET
 	db 0
 
 PoliwhirlEvosMoves:
@@ -1677,22 +1678,19 @@ PoliwhirlEvosMoves:
 	db 0
 ; Learnset
 ; Mid-evo. STRENGTH natural HM04 learner. BULK_UP muscle setup.
-	db  9, WATER_GUN
-	db 11, HINDER
-	db 13, HYPNOSIS
-	db 17, TACKLE
-	db 20, FOCUS_ENERGY
-	db 20, LOW_KICK
-	db 22, BUBBLEBEAM
-	db 24, BODY_SLAM
-	db 28, WATER_PULSE
-	db 32, BIDE
+	db  6, WATER_GUN
+	db  8, HINDER
+	db 10, HYPNOSIS
+	db 13, TACKLE
+	db 17, LOW_KICK  ; (Evo lvl)
+	db 18, FOCUS_ENERGY
+	db 20, BUBBLEBEAM
+	db 23, BODY_SLAM
+	db 26, WATER_PULSE
+	db 30, BIDE
+	db 33, WATERFALL
 	db 36, BULK_UP
-	db 36, WATERFALL
-	db 40, SURF
-	db 42, PLAY_ROUGH
-	db 49, DIZZY_PUNCH
-	db 51, AQUA_JET
+	db 50, AQUA_JET
 	db 0
 
 PoliwrathEvosMoves:
@@ -1701,27 +1699,27 @@ PoliwrathEvosMoves:
 ; Learnset
 ; Apex Water/Fighting. SUBMISSION signature (shared with Machamp).
 ; DIZZY_PUNCH for the boxer-frog. SURF natural HM03 learner.
-	db  9, WATER_GUN
-	db 11, HINDER
-	db 13, HYPNOSIS
-	db 17, TACKLE  ; (Evo lvl)
-	db 20, FOCUS_ENERGY
-	db 20, LOW_KICK
-	db 22, BUBBLEBEAM
-	db 24, BODY_SLAM
-	db 28, WATER_PULSE
-	db 32, BIDE
+	db  6, WATER_GUN
+	db  8, HINDER
+	db 10, HYPNOSIS
+	db 13, TACKLE
+	db 17, LOW_KICK  ; (Evo lvl)
+	db 18, FOCUS_ENERGY
+	db 20, BUBBLEBEAM
+	db 23, BODY_SLAM
+	db 26, WATER_PULSE
+	db 30, BIDE
+	db 33, WATERFALL
 	db 36, BULK_UP
-	db 36, WATERFALL
 	db 40, STRENGTH
 	db 40, SURF
-	db 42, PLAY_ROUGH
-	db 45, TAKE_DOWN
-	db 47, DIZZY_PUNCH
-	db 51, AQUA_JET
+	db 42, TAKE_DOWN
+	db 44, PLAY_ROUGH
+	db 46, DIZZY_PUNCH
+	db 50, AQUA_JET
 	db 53, SEISMIC_TOSS
-	db 57, SUBMISSION
-	db 59, DOUBLE_EDGE
+	db 56, SUBMISSION
+	db 60, DOUBLE_EDGE
 	db 0
 
 AbraEvosMoves:
@@ -1731,11 +1729,16 @@ AbraEvosMoves:
 ; Learnset
 ; Minimalist baby psychic. TELEPORT signature at L1 (canon Abra-only-
 ; Teleport), then a basic psychic kit (PSYWAVE/DISABLE/PSYCHIC_BIND).
-	db  7, PSYWAVE
-	db 13, DISABLE
-	db 19, PSYCHIC_BIND
+	db  5, PSYWAVE
+	db 10, DISABLE
+	db 15, EERIE_IMPULSE
+	db 20, PSYCHIC_BIND
 	db 26, CONFUSION  ; (EVO LVL)
-	db 42, CALM_MIND
+	db 27, FOCUS_ENERGY
+	db 28, CALM_MIND
+	db 30, LIGHT_SCREEN
+	db 31, REFLECT
+	db 34, EXTRASENSORY
 	db 0
 
 KadabraEvosMoves:
@@ -1746,21 +1749,21 @@ KadabraEvosMoves:
 ; Psychic mage mid-evo. PSYCHIC_BIND owned by the Kadabra line. RECOVER,
 ; LIGHT_SCREEN/REFLECT and CALM_MIND round out the mage kit. MIND_BREAK is
 ; reserved for the Alakazam apex.
-	db  7, PSYWAVE
-	db 13, DISABLE
-	db 19, PSYCHIC_BIND
-	db 26, CONFUSION
-	db 30, RECOVER
+	db  5, PSYWAVE
+	db 10, DISABLE
+	db 15, EERIE_IMPULSE
+	db 20, PSYCHIC_BIND
+	db 26, CONFUSION  ; (EVO LVL)
+	db 27, FOCUS_ENERGY
+	db 28, CALM_MIND
+	db 30, LIGHT_SCREEN
+	db 31, REFLECT
 	db 34, EXTRASENSORY
-	db 38, LIGHT_SCREEN
-	db 42, CALM_MIND  ; (EVO LVL)
-	db 42, FOCUS_ENERGY
-	db 44, PSYBEAM
-	db 46, SHOCK_WAVE
-	db 48, REFLECT
+	db 38, SHADOW_PUNCH
+	db 42, PSYBEAM  ; (EVO LVL)
+	db 43, SHOCK_WAVE
+	db 46, RECOVER
 	db 50, PSYCHIC_M
-	db 52, AGILITY
-	db 54, TRI_ATTACK
 	db 0
 
 AlakazamEvosMoves:
@@ -1770,25 +1773,26 @@ AlakazamEvosMoves:
 ; Apex Psychic mage. Shares Kadabra's backbone, plus exclusives:
 ; EERIE_IMPULSE, METRONOME, DARK_PULSE, and MIND_BREAK as the very-high
 ; last move (L70). FLASH natural HM05 learner.
-	db  7, PSYWAVE
-	db 13, DISABLE
-	db 19, PSYCHIC_BIND
-	db 26, CONFUSION
-	db 30, RECOVER
+	db  5, PSYWAVE
+	db 10, DISABLE
+	db 15, EERIE_IMPULSE
+	db 20, PSYCHIC_BIND
+	db 26, CONFUSION  ; (EVO LVL)
+	db 27, FOCUS_ENERGY
+	db 28, CALM_MIND
+	db 30, LIGHT_SCREEN
+	db 31, REFLECT
 	db 34, EXTRASENSORY
-	db 38, LIGHT_SCREEN
-	db 42, FOCUS_ENERGY
-	db 42, CALM_MIND  ; (EVO LVL)
-	db 44, EERIE_IMPULSE
-	db 44, PSYBEAM
-	db 46, SHOCK_WAVE
-	db 48, REFLECT
+	db 38, SHADOW_PUNCH
+	db 42, PSYBEAM  ; (EVO LVL)
+	db 43, SHOCK_WAVE
+	db 46, RECOVER
 	db 50, PSYCHIC_M
-	db 52, AGILITY
-	db 54, TRI_ATTACK
-	db 56, METRONOME
+	db 53, AGILITY
+	db 56, TRI_ATTACK
 	db 60, DARK_PULSE
-	db 70, MIND_BREAK
+	db 65, MIND_BREAK
+	db 70, METRONOME
 	db 0
 
 MachopEvosMoves:
