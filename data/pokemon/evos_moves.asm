@@ -1202,9 +1202,10 @@ GolbatEvosMoves:
 	db 43, NIGHT_SLASH
 	db 46, SCARY_FACE
 	db 50, TOXIC_FANGS
-	db 53, EXTREMESPEED
-	db 56, DARK_PULSE
-	db 60, TOXIC
+	db 52, EXTREMESPEED
+	db 55, TOXIC
+	db 58, DARK_PULSE
+	db 60, HAZE
 	db 0
 
 OddishEvosMoves:
@@ -1803,19 +1804,17 @@ MachopEvosMoves:
 ; Disciplined humanoid fighter. TACKLE starter, BULK_UP early. DIZZY_PUNCH
 ; instead of ROLLING_KICK (Hitmonlee-only). GROUND_STOMP fits humanoid
 ; stomping. SUBMISSION at higher level.
-	db 10, BIND
-	db 10, LOW_KICK
-	db 13, FOCUS_ENERGY
-	db 16, BULK_UP
-	db 18, KARATE_CHOP
-	db 21, SEISMIC_TOSS
-	db 23, ROCK_THROW
+	db  5, LOW_KICK
+	db  8, GROUND_STOMP
+	db 10, ROCK_THROW
+	db 12, FOCUS_ENERGY
+	db 16, KARATE_CHOP
+	db 20, BULK_UP
+	db 23, BIND
 	db 26, STRENGTH  ; (EVO LVL)
-	db 28, DIZZY_PUNCH
-	db 30, GROUND_STOMP
-	db 36, BODY_SLAM
-	db 38, TAKE_DOWN
-	db 48, SUBMISSION
+	db 27, BODY_SLAM
+	db 28, TAKE_DOWN
+	db 30, SEISMIC_TOSS
 	db 0
 
 MachokeEvosMoves:
@@ -1825,25 +1824,20 @@ MachokeEvosMoves:
 ; Learnset
 ; Mid-evo. Shares Machop's backbone, plus BODY_SLAM as a Machoke-and-up
 ; exclusive.
-	db 10, BIND
-	db 10, LOW_KICK
-	db 13, FOCUS_ENERGY
-	db 16, BULK_UP
-	db 18, KARATE_CHOP
-	db 21, SEISMIC_TOSS
-	db 23, ROCK_THROW
+	db  5, LOW_KICK
+	db  8, GROUND_STOMP
+	db 10, ROCK_THROW
+	db 12, FOCUS_ENERGY
+	db 16, KARATE_CHOP
+	db 20, BULK_UP
+	db 23, BIND
 	db 26, STRENGTH  ; (EVO LVL)
-	db 28, DIZZY_PUNCH
-	db 30, GROUND_STOMP
-	db 36, BODY_SLAM
-	db 38, TAKE_DOWN
-	db 42, COMET_PUNCH  ; (EVO LVL)
-	db 42, FALSE_SWIPE  ; (EVO LVL)
-	db 46, MACH_PUNCH
+	db 27, BODY_SLAM
+	db 28, TAKE_DOWN
+	db 30, SEISMIC_TOSS
+	db 34, DIZZY_PUNCH
+	db 38, BULLDOZE
 	db 48, SUBMISSION
-	db 50, BULLDOZE
-	db 55, SWORDS_DANCE
-	db 62, THRASH
 	db 0
 
 MachampEvosMoves:
@@ -1855,28 +1849,27 @@ MachampEvosMoves:
 ; (priority hand), BULLET_PUNCH (steel fast punch), IRON_DEFENSE
 ; (strong muscles and 4 arms defense), SWORDS_DANCE (apex setup).
 ; SUBMISSION signature shared with Poliwrath.
-	db 10, BIND
-	db 10, LOW_KICK
-	db 13, FOCUS_ENERGY
-	db 16, BULK_UP
-	db 18, KARATE_CHOP
-	db 21, SEISMIC_TOSS
-	db 23, ROCK_THROW
+	db  5, LOW_KICK
+	db  8, GROUND_STOMP
+	db 10, ROCK_THROW
+	db 12, FOCUS_ENERGY
+	db 16, KARATE_CHOP
+	db 20, BULK_UP
+	db 23, BIND
 	db 26, STRENGTH  ; (EVO LVL)
-	db 28, DIZZY_PUNCH
-	db 30, GROUND_STOMP
-	db 36, BODY_SLAM
-	db 38, TAKE_DOWN
+	db 27, BODY_SLAM
+	db 28, TAKE_DOWN
+	db 30, SEISMIC_TOSS
+	db 34, DIZZY_PUNCH
+	db 38, BULLDOZE
 	db 42, COMET_PUNCH  ; (EVO LVL)
 	db 42, FALSE_SWIPE  ; (EVO LVL)
 	db 46, MACH_PUNCH
 	db 48, SUBMISSION
-	db 50, BULLDOZE
-	db 52, BULLET_PUNCH
+	db 50, BULLET_PUNCH
 	db 55, SWORDS_DANCE
 	db 60, IRON_DEFENSE
-	db 62, THRASH
-	db 65, OUTRAGE
+	db 65, ROCK_SLIDE
 	db 0
 
 BellsproutEvosMoves:
