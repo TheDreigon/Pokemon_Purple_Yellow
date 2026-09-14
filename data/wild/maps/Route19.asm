@@ -9,8 +9,8 @@ Route19WildMons:
 	db 30, HORSEA
 	db 27, KRABBY
 	db 33, TENTACOOL
-	db 31, TENTACRUEL
-	db 34, TENTACRUEL
+	db 40, TENTACRUEL
+	db 40, TENTACRUEL
 	db 30, KRABBY
 	db 35, SEADRA
 	end_water_wildmons

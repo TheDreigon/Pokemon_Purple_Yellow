@@ -1960,7 +1960,7 @@ VictreebelEvosMoves:
 
 TentacoolEvosMoves:
 ; Evolutions
-	db EVOLVE_LEVEL, 30, TENTACRUEL
+	db EVOLVE_LEVEL, 40, TENTACRUEL
 	db 0
 ; Learnset
 ; Jellyfish Water/Poison. SLUDGE_WAVE = shared late poison capstone

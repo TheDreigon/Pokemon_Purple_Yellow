@@ -289,7 +289,7 @@ RocketData:
 	db 39, MAROWAK, MAGMAR, 0
 	db 39, SANDSLASH, VILEPLUME, 0
 ; Silph Co. 8F
-	db 37, RATICATE, TENTACRUEL, GOLBAT, MAROWAK, 0 ; variety (2026-09-07, Forte): was RATICATE, TENTACRUEL, GOLBAT, RATICATE
+	db $FF, 37, RATICATE, 37, GOLBAT, 37, MAROWAK, 40, TENTACRUEL, 0 ; variety (2026-09-07, Forte): was RATICATE, TENTACRUEL, GOLBAT, RATICATE. v1.0 (2026-09-14): TENTACOOL evolves at 40 now, so the TENTACRUEL is the ace at 40 and goes out last; the rest keep 37
 	db 39, VICTREEBEL, GOLBAT, WEEZING , 0
 ; Silph Co. 9F
 	db 38, HYPNO, MUK, MACHOKE, 0
@@ -630,7 +630,7 @@ JugglerData:
 	db 51, POLIWRATH, RHYDON, FLAREON, JOLTEON, 0
 ; Fuchsia Gym
 	db 35, BEEDRILL, NIDOKING, GOLBAT, HAUNTER, 0
-	db 37, TENTACRUEL, MUK, 0
+	db $FF, 37, MUK, 40, TENTACRUEL, 0 ; v1.0 (2026-09-14): TENTACOOL evolves at 40 now, so the TENTACRUEL is the ace at 40 and goes out last
 ; Victory Road 2F - Alakadoof
 	db 53, OMASTAR, ALAKAZAM, RAICHU, MR_MIME, 0
 ; Unused

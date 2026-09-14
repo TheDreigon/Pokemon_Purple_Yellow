@@ -19,8 +19,8 @@ Route21WildMons:
 	db 30, STARYU
 	db 31, TENTACOOL
 	db 33, STARYU
-	db 34, TENTACRUEL
+	db 40, TENTACRUEL
 	db 35, GYARADOS
-	db 36, TENTACRUEL
+	db 40, TENTACRUEL
 	db 37, STARMIE
 	end_water_wildmons

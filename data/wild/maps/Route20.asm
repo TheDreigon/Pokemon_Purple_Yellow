@@ -17,14 +17,17 @@ Route20WildMons:
 	end_grass_wildmons
 
 	def_water_wildmons 5 ; encounter rate
+; v1.0 (2026-09-14): TENTACOOL evolves at 40 now, and this is the adult crossing - the
+; identity is the 34.8% of adults, so the crossing rose instead of losing them. The
+; GYARADOS apex went 38 -> 44 with them: a 1.2% prize must still outrank the bulk.
 	db 30, TENTACOOL
-	db 32, TENTACRUEL
+	db 40, TENTACRUEL
 	db 28, TENTACOOL
 	db 31, STARYU
-	db 34, TENTACRUEL
+	db 40, TENTACRUEL
 	db 33, STARYU
 	db 35, TENTACOOL
-	db 36, TENTACRUEL
+	db 40, TENTACRUEL
 	db 35, STARYU
-	db 38, GYARADOS
+	db 44, GYARADOS
 	end_water_wildmons

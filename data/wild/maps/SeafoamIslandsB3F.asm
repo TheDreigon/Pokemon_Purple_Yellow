@@ -19,7 +19,7 @@ SeafoamIslandsB3FWildMons:
 	db 38, STARYU
 	db 36, TENTACOOL
 	db 38, SEEL
-	db 38, TENTACRUEL
+	db 40, TENTACRUEL
 	db 40, STARYU
 	db 40, DEWGONG
 	db 44, LAPRAS
