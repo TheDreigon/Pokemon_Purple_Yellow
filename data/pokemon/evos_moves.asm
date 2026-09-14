@@ -1882,19 +1882,20 @@ BellsproutEvosMoves:
 ; CONSTRICT/WRAP + vine kit; SLEEP_POWDER at evo level (signature on evo);
 ; ACID + RAZOR_LEAF + drain progression (ABSORB->MEGA->GIGA); TICKLE for
 ; debuff. No SLUDGE/CORRODE here (Weepinbell/Victreebel tier).
-	db 10, GROWTH
-	db 13, BITE
-	db 13, CONSTRICT
-	db 16, VINE_WHIP
-	db 16, TICKLE
-	db 19, BIDE
-	db 19, DOUBLESLAP
-	db 22, SLEEP_POWDER
-	db 25, ACID
-	db 31, RAZOR_LEAF
-	db 38, MEGA_DRAIN
-	db 42, LEECH_LIFE
-	db 45, GIGA_DRAIN
+	db  6, TICKLE
+	db  8, CONSTRICT
+	db 10, BITE
+	db 12, DOUBLESLAP
+	db 14, VINE_WHIP
+	db 16, ACID
+	db 20, GROWTH
+	db 22, BIDE  ; (EVO LVL)
+	db 25, RAZOR_LEAF
+	db 26, SLASH
+	db 27, CUT
+	db 28, FALSE_SWIPE
+	db 30, SLEEP_POWDER
+	db 33, MEGA_DRAIN
 	db 0
 
 WeepinbellEvosMoves:
@@ -1906,24 +1907,24 @@ WeepinbellEvosMoves:
 ; Weepinbell/Victreebel exclusives: BODY_SLAM (pitcher slam), TAKE_DOWN
 ; (vine grapple), SLUDGE (digestive), LEECH_LIFE (insect drain), CORRODE
 ; (predator -2 def signature), SLUDGE_WAVE high-level apex poison.
-	db 10, GROWTH
-	db 13, BITE
-	db 13, CONSTRICT
-	db 16, VINE_WHIP
-	db 16, TICKLE
-	db 19, BIDE
-	db 19, DOUBLESLAP
-	db 22, SLEEP_POWDER
-	db 25, ACID
-	db 31, RAZOR_LEAF
-	db 33, BODY_SLAM
-	db 36, TAKE_DOWN
-	db 38, MEGA_DRAIN
-	db 40, SLUDGE
-	db 42, LEECH_LIFE
-	db 45, GIGA_DRAIN
+	db  6, TICKLE
+	db  8, CONSTRICT
+	db 10, BITE
+	db 12, DOUBLESLAP
+	db 14, VINE_WHIP
+	db 16, ACID
+	db 20, GROWTH
+	db 22, BIDE  ; (EVO LVL)
+	db 25, RAZOR_LEAF
+	db 26, SLASH
+	db 27, CUT
+	db 28, FALSE_SWIPE
+	db 30, SLEEP_POWDER
+	db 33, MEGA_DRAIN
+	db 36, SLUDGE
+	db 42, LEECH_LIFE  ; (EVO LVL)
+	db 44, GIGA_DRAIN
 	db 50, CORRODE
-	db 55, SLUDGE_WAVE
 	db 0
 
 VictreebelEvosMoves:
@@ -1934,30 +1935,29 @@ VictreebelEvosMoves:
 ; exclusives: CUT (HM, matured leaves), SLASH (sharp matured leaves),
 ; SCARY_FACE (giant trap mouth, eerie/sinister), TOXIC (apex predator
 ; finishing poison).
-	db 10, GROWTH
-	db 13, BITE
-	db 13, CONSTRICT
-	db 16, VINE_WHIP
-	db 16, TICKLE
-	db 19, BIDE
-	db 19, DOUBLESLAP
-	db 22, SLEEP_POWDER
-	db 25, ACID
+	db  6, TICKLE
+	db  8, CONSTRICT
+	db 10, BITE
+	db 12, DOUBLESLAP
+	db 14, VINE_WHIP
+	db 16, ACID
+	db 20, GROWTH
+	db 22, BIDE  ; (EVO LVL)
+	db 25, RAZOR_LEAF
+	db 26, SLASH
 	db 27, CUT
-	db 29, SLASH
-	db 31, RAZOR_LEAF
-	db 33, BODY_SLAM
-	db 36, TAKE_DOWN
-	db 38, MEGA_DRAIN
-	db 40, SLUDGE
-	db 42, SCARY_FACE
-	db 42, LEECH_LIFE
-	db 45, GIGA_DRAIN
+	db 28, FALSE_SWIPE
+	db 30, SLEEP_POWDER
+	db 33, MEGA_DRAIN
+	db 36, SLUDGE
+	db 42, LEECH_LIFE  ; (EVO LVL)
+	db 44, GIGA_DRAIN
+	db 46, SCARY_FACE
 	db 50, CORRODE
-	db 50, FALSE_SWIPE
 	db 55, SLUDGE_WAVE
 	db 60, GUNK_SHOT
 	db 0
+
 TentacoolEvosMoves:
 ; Evolutions
 	db EVOLVE_LEVEL, 30, TENTACRUEL
@@ -1972,16 +1972,18 @@ TentacoolEvosMoves:
 	db  9, CONSTRICT
 	db 12, WATER_GUN
 	db 15, ACID
-	db 17, NEUROTOXIN
+	db 18, NEUROTOXIN
 	db 20, BUBBLEBEAM
-	db 23, SMOKESCREEN
-	db 26, SLUDGE
-	db 29, WATER_PULSE
-	db 31, GROWTH
-	db 33, BIND
-	db 33, LEECH_LIFE
-	db 35, NUZZLE
-	db 39, SURF
+	db 22, SMOKESCREEN
+	db 25, SLUDGE
+	db 28, WATER_PULSE
+	db 30, GROWTH  ; (EVO LVL)
+	db 30, ICY_PULSE  ; (EVO LVL)
+	db 32, BIND
+	db 35, LEECH_LIFE
+	db 38, NUZZLE
+	db 40, EERIE_IMPULSE
+	db 40, AURORA_BEAM
 	db 0
 
 TentacruelEvosMoves:
@@ -1997,22 +1999,25 @@ TentacruelEvosMoves:
 	db  9, CONSTRICT
 	db 12, WATER_GUN
 	db 15, ACID
-	db 17, NEUROTOXIN
+	db 18, NEUROTOXIN
 	db 20, BUBBLEBEAM
-	db 23, SMOKESCREEN
-	db 26, SLUDGE
-	db 29, WATER_PULSE
-	db 31, GROWTH
-	db 33, BIND
-	db 33, LEECH_LIFE
-	db 35, NUZZLE
-	db 37, EERIE_IMPULSE
-	db 39, SURF
-	db 43, SLUDGE_WAVE
+	db 22, SMOKESCREEN
+	db 25, SLUDGE
+	db 28, WATER_PULSE
+	db 30, GROWTH  ; (EVO LVL)
+	db 30, ICY_PULSE  ; (EVO LVL)
+	db 32, BIND
+	db 35, LEECH_LIFE
+	db 38, NUZZLE
+	db 40, EERIE_IMPULSE
+	db 40, AURORA_BEAM
+	db 42, SURF
+	db 45, SLUDGE_WAVE
 	db 48, SHOCK_WAVE
-	db 53, TOXIC
-	db 60, CORRODE
-	db 65, HYDRO_PUMP
+	db 50, TOXIC
+	db 50, RECOVER
+	db 55, CORRODE
+	db 60, HYDRO_PUMP
 	db 0
 
 GeodudeEvosMoves:

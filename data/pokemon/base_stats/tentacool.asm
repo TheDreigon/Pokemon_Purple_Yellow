@@ -1,5 +1,5 @@
 	db DEX_TENTACOOL ; pokedex id
-	base_stat_row 50, 40, 30, 50, 90, 60 ; hp atk def spatk spdef spd
+	base_stat_row 60, 40, 30, 50, 90, 50 ; hp atk def spatk spdef spd
 
 	db WATER, POISON ; type
 	db 230 ; catch rate  ; base stage, BST 320, easy to approach
