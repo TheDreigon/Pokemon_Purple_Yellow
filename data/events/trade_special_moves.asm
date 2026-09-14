@@ -4,7 +4,7 @@ TradeSpecialMoves:
 ; TRADE_FOR_* like TradeMons. Written into the received mon's first empty
 ; move slot (or slot 4 if full) with correct max PP, right after the trade.
 ; 0 = no special move (dormant rows).
-	db ROCK_SLIDE   ; TREMOR  (Dugtrio — digs until the cliff collapses)
+	db HEAD_SMASH   ; TREMOR  (Dugtrio — digs until the cliff collapses). v1.0 (2026-09-14): was ROCK_SLIDE, which DUGTRIO itself learns at 60 since the learnset pass; a signature the species can learn would arrive twice, in two slots with two PP pools, because the engine has no runtime duplicate guard
 	db TRANSFORM    ; MILES   (Mr. Mime — the perfect mime)
 	db GORE_ATTACK  ; PTERA   (Aerodactyl — the ancient predator)
 	db NEUROTOXIN   ; SPORE   (Parasect — the fungus deepens its hold)

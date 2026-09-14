@@ -2,8 +2,8 @@
 	base_stat_row 60, 70, 85, 120, 100, 60 ; hp atk def spatk spdef spd
 
 	db GRASS, PSYCHIC_TYPE ; type
-	db 75 ; catch rate  ; final stage, BST 480
-	db 150 ; base exp  ; BST 480
+	db 70 ; catch rate  ; final stage, BST 495
+	db 155 ; base exp  ; BST 495
 
 	INCBIN "gfx/pokemon/front/exeggutor.pic", 0, 1 ; sprite dimensions
 	dw ExeggutorPicFront, ExeggutorPicBack

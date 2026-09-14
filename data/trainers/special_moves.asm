@@ -806,7 +806,7 @@ SpecialTrainerMoves:
 	db 2, 2, COMET_PUNCH
 	db 2, 3, DIZZY_PUNCH
 	db 2, 4, BULK_UP
-	db 3, 1, MACH_PUNCH
+	db 3, 1, KARATE_CHOP
 	db 3, 2, STRENGTH
 	db 3, 3, BODY_SLAM
 	db 3, 4, BULLDOZE
