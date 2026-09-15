@@ -1977,13 +1977,14 @@ TentacoolEvosMoves:
 	db 22, SMOKESCREEN
 	db 25, SLUDGE
 	db 28, WATER_PULSE
-	db 30, GROWTH  ; (EVO LVL)
-	db 30, ICY_PULSE  ; (EVO LVL)
+	db 30, EERIE_IMPULSE
+	db 30, ICY_PULSE
 	db 32, BIND
 	db 35, LEECH_LIFE
 	db 38, NUZZLE
-	db 40, EERIE_IMPULSE
-	db 40, AURORA_BEAM
+	db 40, GROWTH  ; (EVO LVL)
+	db 40, AURORA_BEAM  ; (EVO LVL)
+	db 50, RECOVER
 	db 0
 
 TentacruelEvosMoves:
@@ -2004,13 +2005,13 @@ TentacruelEvosMoves:
 	db 22, SMOKESCREEN
 	db 25, SLUDGE
 	db 28, WATER_PULSE
-	db 30, GROWTH  ; (EVO LVL)
-	db 30, ICY_PULSE  ; (EVO LVL)
+	db 30, EERIE_IMPULSE
+	db 30, ICY_PULSE
 	db 32, BIND
 	db 35, LEECH_LIFE
 	db 38, NUZZLE
-	db 40, EERIE_IMPULSE
-	db 40, AURORA_BEAM
+	db 40, GROWTH  ; (EVO LVL)
+	db 40, AURORA_BEAM  ; (EVO LVL)
 	db 42, SURF
 	db 45, SLUDGE_WAVE
 	db 48, SHOCK_WAVE
