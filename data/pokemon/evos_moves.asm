@@ -1172,11 +1172,11 @@ ZubatEvosMoves:
 	db 20, LEECH_LIFE
 	db 21, LICK
 	db 22, WING_ATTACK
-	db 25, SUPERSONIC
-	db 28, EERIE_IMPULSE
-	db 30, POISON_BITE
-	db 33, AERIAL_ACE
-	db 40, AGILITY
+	db 24, SUPERSONIC
+	db 26, EERIE_IMPULSE
+	db 28, POISON_BITE
+	db 31, AERIAL_ACE
+	db 33, AGILITY
 	db 0
 
 GolbatEvosMoves:
@@ -1193,12 +1193,13 @@ GolbatEvosMoves:
 	db 20, LEECH_LIFE
 	db 21, LICK
 	db 22, WING_ATTACK
-	db 25, SUPERSONIC
-	db 28, EERIE_IMPULSE
-	db 30, POISON_BITE
-	db 33, AERIAL_ACE
-	db 36, FLY
-	db 40, AGILITY
+	db 24, SUPERSONIC
+	db 26, EERIE_IMPULSE
+	db 28, POISON_BITE
+	db 31, AERIAL_ACE
+	db 33, AGILITY
+	db 36, SONICBOOM
+	db 40, FLY
 	db 43, NIGHT_SLASH
 	db 46, SCARY_FACE
 	db 50, TOXIC_FANGS
@@ -2029,16 +2030,17 @@ GeodudeEvosMoves:
 ; Basic rolling rock with arms (Rock/Ground). ROLLOUT L36 line signature.
 ; ROCK_PUNCH at evo level (it has arms). HEAD_SMASH high level. No DIG.
 ; No EXPLOSION (Koffing/Voltorb/Magmar signature only).
-	db 10, ROCK_THROW
-	db 13, SAND_ATTACK
-	db 16, GROUND_STOMP
-	db 19, BIDE
-	db 22, BODY_SLAM
-	db 26, ROCK_PUNCH
-	db 30, BULLDOZE
-	db 36, ROLLOUT
-	db 42, ROCK_TOMB
-	db 50, HEAD_SMASH
+	db  6, GROUND_STOMP
+	db  9, ROCK_THROW
+	db 12, SAND_ATTACK
+	db 15, BIDE
+	db 18, BODY_SLAM
+	db 21, ROCK_PUNCH
+	db 24, BULLDOZE
+	db 26, ROLLOUT  ; (EVO LVL)
+	db 30, TAKE_DOWN
+	db 33, ROCK_TOMB
+	db 36, HEAD_SMASH
 	db 0
 
 GravelerEvosMoves:
@@ -2051,22 +2053,22 @@ GravelerEvosMoves:
 ; (rock-iron), STRENGTH (HM), ROCK_SLIDE (apex rock, after HEAD_SMASH),
 ; DOUBLE_EDGE (apex recoil). No BULK_UP (rock, not muscle). No DIG/
 ; EXPLOSION.
-	db 10, ROCK_THROW
-	db 13, SAND_ATTACK
-	db 16, GROUND_STOMP
-	db 19, BIDE
-	db 22, BODY_SLAM
-	db 26, ROCK_PUNCH
-	db 30, BULLDOZE
-	db 32, STRENGTH
-	db 34, TAKE_DOWN
-	db 36, ROLLOUT
-	db 40, EARTHQUAKE
-	db 42, ROCK_TOMB
+	db  6, GROUND_STOMP
+	db  9, ROCK_THROW
+	db 12, SAND_ATTACK
+	db 15, BIDE
+	db 18, BODY_SLAM
+	db 21, ROCK_PUNCH
+	db 24, BULLDOZE
+	db 26, ROLLOUT  ; (EVO LVL)
+	db 30, TAKE_DOWN
+	db 33, ROCK_TOMB
+	db 36, HEAD_SMASH
+	db 42, HEAVY_SLAM  ; (EVO LVL)
 	db 46, IRON_HEAD
-	db 50, HEAD_SMASH
-	db 58, ROCK_SLIDE
-	db 62, DOUBLE_EDGE
+	db 50, EARTHQUAKE
+	db 53, ROCK_SLIDE
+	db 56, DOUBLE_EDGE
 	db 0
 
 GolemEvosMoves:
@@ -2077,24 +2079,24 @@ GolemEvosMoves:
 ; exclusives: IRON_DEFENSE (DEF +2), HEAVY_SLAM (apex Normal heavy frame).
 ; No EXPLOSION (Koffing/Voltorb/Magmar signature only). No HORN moves (no
 ; horn anatomy). No OUTRAGE (gentle giant under the heft).
-	db 10, ROCK_THROW
-	db 13, SAND_ATTACK
-	db 16, GROUND_STOMP
-	db 19, BIDE
-	db 22, BODY_SLAM
-	db 26, ROCK_PUNCH
-	db 30, BULLDOZE
-	db 32, STRENGTH
-	db 34, TAKE_DOWN
-	db 36, ROLLOUT
-	db 40, EARTHQUAKE
-	db 42, ROCK_TOMB
+	db  6, GROUND_STOMP
+	db  9, ROCK_THROW
+	db 12, SAND_ATTACK
+	db 15, BIDE
+	db 18, BODY_SLAM
+	db 21, ROCK_PUNCH
+	db 24, BULLDOZE
+	db 26, ROLLOUT  ; (EVO LVL)
+	db 30, TAKE_DOWN
+	db 33, ROCK_TOMB
+	db 36, HEAD_SMASH
+	db 42, HEAVY_SLAM  ; (EVO LVL)
+	db 43, STRENGTH
 	db 46, IRON_HEAD
-	db 48, IRON_DEFENSE
-	db 50, HEAD_SMASH
-	db 55, ROCK_SLIDE
-	db 62, HEAVY_SLAM
-	db 65, DOUBLE_EDGE
+	db 50, EARTHQUAKE
+	db 53, ROCK_SLIDE
+	db 56, DOUBLE_EDGE
+	db 60, IRON_DEFENSE
 	db 0
 
 PonytaEvosMoves:
@@ -2107,18 +2109,20 @@ PonytaEvosMoves:
 ; rear-up + body-down). FAIRY_WIND shared with the Vulpix line (basal
 ; Fairy presence). AGILITY at L30 coincides with the evolution. GROUND_STOMP
 ; via hooves.
-	db  7, TAIL_WHIP
-	db 11, GROUND_STOMP
-	db 13, FAIRY_WIND
-	db 15, LOW_KICK
-	db 17, FLAME_CHARGE
-	db 20, IGNITE
-	db 23, BODY_SLAM
-	db 28, TAKE_DOWN
-	db 30, AGILITY
-	db 34, FLAMETHROWER
-	db 42, DOUBLE_EDGE
-	db 50, FIRE_BLAST
+	db  6, GROUND_STOMP
+	db  9, TACKLE
+	db 12, LOW_KICK
+	db 14, FAIRY_WIND
+	db 16, HORN_ATTACK
+	db 18, FLAME_CHARGE
+	db 21, BODY_SLAM
+	db 24, IGNITE
+	db 27, BIDE
+	db 29, FOCUS_ENERGY
+	db 30, HORN_CHARGE  ; (EVO LVL)
+	db 33, TAKE_DOWN
+	db 36, BULLDOZE
+	db 40, FLAMETHROWER
 	db 0
 
 RapidashEvosMoves:
@@ -2129,22 +2133,24 @@ RapidashEvosMoves:
 ; (horn appears with the evo, same level as AGILITY), HORN_CHARGE (mid-tier
 ; horn), DAZZLE_GLEAM (unicorn glow, Fairy apex), HORN_DRILL (signature,
 ; last move L60). No EXTREMESPEED (fast but not agile).
-	db  7, TAIL_WHIP
-	db 11, GROUND_STOMP
-	db 13, FAIRY_WIND
-	db 15, LOW_KICK
-	db 17, FLAME_CHARGE
-	db 20, IGNITE
-	db 23, BODY_SLAM
-	db 28, TAKE_DOWN
-	db 30, AGILITY
-	db 30, HORN_ATTACK
-	db 34, FLAMETHROWER
-	db 39, HORN_CHARGE
-	db 46, DOUBLE_EDGE
-	db 50, FIRE_BLAST
-	db 55, DAZZLE_GLEAM
-	db 60, HORN_DRILL
+	db  6, GROUND_STOMP
+	db  9, TACKLE
+	db 12, LOW_KICK
+	db 14, FAIRY_WIND
+	db 16, HORN_ATTACK
+	db 18, FLAME_CHARGE
+	db 21, BODY_SLAM
+	db 24, IGNITE
+	db 27, BIDE
+	db 29, FOCUS_ENERGY
+	db 30, HORN_CHARGE  ; (EVO LVL)
+	db 33, TAKE_DOWN
+	db 36, BULLDOZE
+	db 40, FLAMETHROWER
+	db 45, DAZZLE_GLEAM
+	db 50, HORN_DRILL
+	db 55, DOUBLE_EDGE
+	db 60, FIRE_BLAST
 	db 0
 
 SlowpokeEvosMoves:
