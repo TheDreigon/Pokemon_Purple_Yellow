@@ -439,15 +439,15 @@ StatusScreen_RevealQuietPage:
 	ld a, [wStatusScreenPageChange]
 	and STATUS_NOWAIT
 	ret nz ; page 2 is about to draw over this one - stay hidden until it does
-; NOT FIXED HERE, and it is the last thing left of the flicker Forte reported:
-; the transfer moves SIX ROWS per VBlank, so putting the page up takes three
-; frames whatever we do, and hAutoBGTransferPortion is wherever the last screen
-; left it - so the page arrives in a scrambled order rather than top to bottom.
-; Two frames of it are visible. `xor a / ldh [hAutoBGTransferPortion], a` here
-; and the same before page 2's reveal would make it a plain downward wipe, and
-; costs 6 bytes. Bank $4 has ~1.5 KB free (measured 2026-09-06); six of them
-; are reserved for exactly this, and that is Forte's to spend, not mine.
-	ld a, $1
+; v1.0 (2026-09-22, Forte's six bytes): the transfer moves SIX ROWS per
+; VBlank, so putting the page up takes three frames whatever we do - and it
+; used to start from wherever the last screen left hAutoBGTransferPortion, so
+; the page arrived in a scrambled order, two torn frames visible. Starting the
+; portion at 0 makes it a plain downward wipe: rows 0-5, 6-11, 12-17. The same
+; three bytes sit before page 2's reveal in StatusScreen2.
+	xor a
+	ldh [hAutoBGTransferPortion], a
+	inc a ; 1
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
 
@@ -897,7 +897,9 @@ StatusScreen2:
 	call GetMonName
 	hlcoord 9, 1
 	call PlaceString
-	ld a, $1
+	xor a
+	ldh [hAutoBGTransferPortion], a ; v1.0: the page wipes in top to bottom (see StatusScreen_RevealQuietPage)
+	inc a ; 1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
 	ld a, [wStatusScreenPageChange]
