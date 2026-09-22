@@ -872,7 +872,7 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 
 ; PURPLE's quiz — Celadon roof house (v0.7)
 	const EVENT_BEAT_PURPLES_QUIZ
-	const EVENT_GOT_ROOF_PORYGON
+	const EVENT_GOT_ROOF_PORYGON ; tombstone since 2026-09-22: the roof PORYGON is gone (it is SILPH's), the flag stays for old saves
 
 ; Forte / DREIGON post-game superboss — Cerulean Cave B1F (v0.7)
 	const EVENT_FORTE_FOUGHT   ; battled Forte at least once (dialogue: first vs rematch)
@@ -947,6 +947,11 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 ; v1.0 (2026-09-09, his idea): the SILPH president keeps a second MASTER BALL for the
 ; day the person who saved his building becomes CHAMPION. Given once, ever.
 	const EVENT_GOT_SECOND_MASTER_BALL
+
+; v1.0 (2026-09-22, Forte): PURPLE'S PATCH - he brings out one #MON's full
+; potential (every DV to 15). Once after his quiz, once more as CHAMPION.
+	const EVENT_USED_PURPLES_PATCH
+	const EVENT_USED_PURPLES_CHAMPION_PATCH
 
 ; End of events
 ; v0.7 (2026-08-29, his call): the ceiling grew $A00 -> $A80 -- the gym-guide

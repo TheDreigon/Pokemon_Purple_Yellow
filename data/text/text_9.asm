@@ -901,10 +901,7 @@ _RoofQuizPerfectText::
 	line "You actually read"
 	cont "my code!"
 
-	para "The prototype in"
-	line "that BALL is"
-	cont "yours! Go on!"
-	done
+	prompt
 
 _RoofQuizCloseText::
 	text "Ooh, so close!"
@@ -925,35 +922,68 @@ _RoofQuizFailText::
 	cont "back!"
 	done
 
-_RoofHouseGoTakeBallText::
-	text "Well? The"
-	line "prototype's in"
-	cont "that BALL!"
-	done
-
-_RoofHouseAfterGiftText::
-	text "How's my"
-	line "prototype? Report"
-	cont "any bugs to..."
-
-	para "Ha! To ME, of"
-	line "course!"
-	done
-
-_RoofHousePrototypeBallLockedText::
-	text "It's a BALL with"
-	line "a label:"
-
-	para "PROPERTY OF"
-	line "PURPLE. PASS THE"
-	cont "QUIZ FIRST!"
-	done
-
-_RoofHousePrototypeBallOpenText::
-	text "The label now"
-	line "reads: QUIZ"
-	cont "PASSED. ENJOY!"
+; PURPLE'S PATCH (2026-09-22, Forte): his talk around it. The patch itself
+; (refusals, the question, the result) is in data/text/text_7.asm.
+_RoofHousePrizeOneText::
+	text "So here's your"
+	line "prize: I'll bring"
+	cont "out one #MON's"
+	cont "full potential!"
 	prompt
+
+_RoofHouseAlsoChampionText::
+	text "And the CHAMPION,"
+	line "no less!"
+	prompt
+
+_RoofHousePrizeTwoText::
+	text "Your prize, and a"
+	line "bonus: I'll bring"
+	cont "out two #MON's"
+	cont "full potential!"
+	prompt
+
+_RoofHousePatchOfferText::
+	text "Back for your"
+	line "prize? I'll bring"
+	cont "out one #MON's"
+	cont "full potential!"
+	prompt
+
+_RoofHouseChampionGreetText::
+	text "The CHAMPION, on"
+	line "my roof! I knew"
+	cont "you read my code!"
+	prompt
+
+_RoofHouseBonusText::
+	text "Here's a bonus:"
+	line "one more #MON,"
+	cont "full potential!"
+	prompt
+
+_RoofHouseNoRushText::
+	text "No rush. If you'd"
+	line "rather think it"
+	cont "over, I'll wait!"
+	prompt
+
+_RoofHouseNextText::
+	text "And one more! Pick"
+	line "another #MON!"
+	prompt
+
+_RoofHouseAfterPatchText::
+	text "How's your #MON"
+	line "running? Report"
+	cont "any bugs to ME!"
+	done
+
+_RoofHouseAfterChampionText::
+	text "Go on, CHAMPION!"
+	line "Test my world all"
+	cont "over again!"
+	done
 
 ; #10: what the EXP.SHARE was just set to. Three lines each, none over 17
 ; characters, because a `cont` line loses its 18th tile under the "press A"

@@ -135,7 +135,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw CeladonMansionRoofHouseHS
+	dw NoHS ; CELADON_MANSION_ROOF_HOUSE: its desk BALL was deleted 2026-09-22
 	dw NoHS
 	dw NoHS
 	dw GameCornerHS
@@ -381,8 +381,6 @@ PokemonTower7FHS:
 	db POKEMON_TOWER_7F, POKEMONTOWER7F_MR_FUJI, SHOW
 MrFujisHouseHS:
 	db MR_FUJIS_HOUSE, MRFUJISHOUSE_MR_FUJI, HIDE
-CeladonMansionRoofHouseHS:
-	db CELADON_MANSION_ROOF_HOUSE, CELADONMANSION_ROOF_HOUSE_PROTOTYPE_BALL, SHOW
 GameCornerHS:
 	db GAME_CORNER, GAMECORNER_ROCKET, SHOW
 WardensHouseHS:

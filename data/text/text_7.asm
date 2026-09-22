@@ -233,3 +233,47 @@ _LooksContentText::
 	line "content asleep."
 	done
 
+; ---- PURPLE'S PATCH (Celadon Mansion roof house), 2026-09-22, Forte: the patch
+; itself. The quiz and PURPLE's talk around it are in data/text/text_9.asm (split
+; so neither bank falls under its floor). text/line/para 18 tiles, 17 on a line
+; under the press-A arrow; # renders 4.
+_RoofHousePatchThinkItOverText::
+	text "Take your time!"
+	line "I'll be right"
+	cont "here!"
+	done
+
+_RoofHousePatchPikachuText::
+	text "That PIKACHU is"
+	line "special! Its"
+	cont "potential is"
+	cont "already maxed!"
+	done
+
+_RoofHousePatchAlreadyText::
+	text "That one's already"
+	line "at its full"
+	cont "potential!"
+	done
+
+_RoofHousePatchConfirmText::
+	text "Unlock @"
+	text_ram wcd6d
+	text "'s"
+	line "full potential?"
+	done
+
+_RoofHousePatchCameOutText::
+	text_ram wcd6d
+	text "'s full"
+	line "potential is out!"
+	done
+
+_RoofHousePatchDoneText::
+	text "There! Report any"
+	line "bugs to..."
+
+	para "Ha! To ME, of"
+	line "course!"
+	done
+

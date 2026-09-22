@@ -509,7 +509,7 @@ DrawLineBox:
 	ld [hl], $6f ; ← (halfarrow ending)
 	ret
 
-PrintStatsBox:
+PrintStatsBox:: ; exported 2026-09-22: PURPLE'S PATCH (maps.o) shows the gains window too
 	ld a, d
 	and a ; a is 0 from the status screen
 	jr nz, .DifferentBox
