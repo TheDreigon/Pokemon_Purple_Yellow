@@ -1,8 +1,8 @@
 _SummerBeachHouseSurfinDudeText1::
 	text "Whoa!"
 
-	para "Your PIKACHU knows"
-	line "how to SURF! So,"
+	para "You've got a"
+	line "PIKACHU with you!"
 	cont "I'm not alone..."
 
 	para "Great! You earned"
