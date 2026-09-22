@@ -40,15 +40,18 @@ DisplayTownMap:
 	add hl, bc
 	ld a, [hl]
 .enterLoop
-	ld de, wTownMapCoords
-	call LoadTownMapEntry
-	ld a, [de]
+	push af ; the map id, for the twin cursor below
+	call LoadTownMapEntry ; c = x, b = y, hl = name (v1.0 T32: two-byte coordinates)
 	push hl
 	call TownMapCoordsToOAMCoords
 	ld a, $4
 	ld [wOAMBaseTile], a
 	ld hl, wShadowOAMSprite04
 	call WriteTownMapSpriteOAM ; town map cursor sprite
+	pop hl
+	pop af
+	push hl
+	call DrawTwinCursor ; a = map id: DIGLETT's CAVE's other mouth, or hide it
 	pop hl
 	ld de, wcd6d
 .copyMapName
@@ -62,7 +65,7 @@ DisplayTownMap:
 	call PlaceString
 	ld hl, wShadowOAMSprite04
 	ld de, wTileMapBackup + 16
-	ld bc, $10
+	ld bc, $20 ; both cursor blocks, sprites 4-11 (the blink restores from here)
 	call CopyData
 .inputLoop
 	call TownMapSpriteBlinkingAnimation
@@ -106,6 +109,40 @@ DisplayTownMap:
 	jp .townMapLoop
 
 INCLUDE "data/maps/town_map_order.asm"
+
+DrawTwinCursor:
+; a = map id. v1.0 (2026-09-22, Forte): DIGLETT's CAVE has two mouths, so
+; when the cursor is on either, a second cursor (sprites 8-11) marks the
+; other; on every other place those four sprites are parked off-screen ($a0,
+; the value the blink itself uses to hide sprites).
+	cp DIGLETTS_CAVE
+	jr z, .route11
+	cp DIGLETTS_CAVE_ROUTE_11
+	jr z, .cave
+	ld hl, wShadowOAMSprite08
+	ld de, 4
+	ld a, $a0
+	ld [hl], a
+	add hl, de
+	ld [hl], a
+	add hl, de
+	ld [hl], a
+	add hl, de
+	ld [hl], a
+	ret
+.route11
+	ld a, DIGLETTS_CAVE_ROUTE_11
+	jr .draw
+.cave
+	ld a, DIGLETTS_CAVE
+.draw
+	call LoadTownMapEntry
+	ld hl, wShadowOAMSprite08 ; TownMapCoordsToOAMCoords stores y/x through hl: aim it at the block itself
+	call TownMapCoordsToOAMCoords
+	ld a, $4
+	ld [wOAMBaseTile], a
+	ld hl, wShadowOAMSprite08
+	jp WriteTownMapSpriteOAM
 
 TownMapCursor:
 	INCBIN "gfx/town_map/town_map_cursor.1bpp"
@@ -356,9 +393,7 @@ DrawPlayerOrBirdSprite:
 	ld a, b
 	ld [wOAMBaseTile], a
 	pop af
-	ld de, wTownMapCoords
-	call LoadTownMapEntry
-	ld a, [de]
+	call LoadTownMapEntry ; c = x, b = y, hl = name
 	push hl
 	call TownMapCoordsToOAMCoords
 	call WritePlayerOrBirdSpriteOAM
@@ -379,7 +414,7 @@ DisplayWildLocations:
 	farcall FindWildLocationsOfMon
 	call ZeroOutDuplicatesInList
 	ld hl, wShadowOAM
-	ld de, wTownMapCoords
+	ld de, wBuffer ; the list of map ids FindWildLocationsOfMon built
 .loop
 	ld a, [de]
 	cp $ff
@@ -387,11 +422,16 @@ DisplayWildLocations:
 	and a
 	jr z, .nextEntry
 	push hl
-	call LoadTownMapEntry
+	call LoadTownMapEntry ; c = x, b = y; the list byte is left alone (it used
+	                      ; to be overwritten with the packed coordinate)
 	pop hl
-	ld a, [de]
-	cp $19 ; Cerulean Cave's coordinates
-	jr z, .nextEntry ; skip Cerulean Cave
+	ld a, c
+	cp 9 * 2
+	jr nz, .draw
+	ld a, b
+	cp 1 * 2
+	jr z, .nextEntry ; skip Cerulean Cave (tile x 9, y 1 - vanilla's `cp $19`; half tiles here)
+.draw
 	call TownMapCoordsToOAMCoords
 	ld a, $4 ; nest icon tile no.
 	ld [hli], a
@@ -426,18 +466,18 @@ AreaUnknownText:
 	db " AREA UNKNOWN@"
 
 TownMapCoordsToOAMCoords:
-; in: lower nybble of a = x, upper nybble of a = y
-; out: b and [hl] = (y * 8) + 24, c and [hl+1] = (x * 8) + 24
-	push af
-	and $f0
-	srl a
+; in: b = y, c = x in HALF tiles (v1.0 T32: whole bytes, so the map's 17 rows
+;     and 20 columns fit, and a marker can sit between two blocks)
+; out: b and [hl] = (y * 4) + 24, c and [hl+1] = (x * 4) + 24
+	ld a, b
+	add a
+	add a
 	add 24
 	ld b, a
 	ld [hli], a
-	pop af
-	and $f
-	swap a
-	srl a
+	ld a, c
+	add a
+	add a
 	add 24
 	ld c, a
 	ld [hli], a
@@ -524,10 +564,14 @@ ZeroOutDuplicatesInList:
 
 LoadTownMapEntry:
 ; in: a = map number
-; out: lower nybble of [de] = x, upper nybble of [de] = y, hl = address of name
+; out: c = x, b = y (half tiles), hl = address of name. de is preserved.
+; v1.0 (2026-09-22, T32): the entries carry x and y as whole bytes in half
+; tiles (they were one packed nibble byte of whole tiles, which capped the
+; markers at tile row 16 / column 17) and the result goes back in registers
+; instead of a WRAM byte.
 	cp FIRST_INDOOR_MAP
 	jr c, .external
-	ld bc, 4
+	ld bc, 5
 	ld hl, InternalMapEntries
 .loop
 	cp [hl]
@@ -544,9 +588,12 @@ LoadTownMapEntry:
 	add hl, bc
 	add hl, bc
 	add hl, bc
+	add hl, bc
 .readEntry
 	ld a, [hli]
-	ld [de], a
+	ld c, a ; x
+	ld a, [hli]
+	ld b, a ; y
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a

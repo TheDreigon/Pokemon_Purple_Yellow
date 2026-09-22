@@ -1144,7 +1144,9 @@ wHPBarTempHP:: dw
 wHPBarHPDifference:: dw
 
 NEXTU
-; lower nybble is x, upper nybble is y
+; v1.0 (2026-09-22, T32): no longer written - LoadTownMapEntry returns the
+; coordinates in registers (c = x, b = y); the AREA page walks its list of map
+; ids at wBuffer, which this label aliases. Kept as a name for the union slot.
 wTownMapCoords::
 ; whether WriteMonMoves is being used to make a mon learn moves from day care
 ; non-zero if so
