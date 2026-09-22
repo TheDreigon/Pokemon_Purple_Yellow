@@ -395,10 +395,10 @@ InGameTradeTextPointers:
 	dw TradeTextPointers1
 	dw TradeTextPointers2
 	dw TradeTextPointers3
-	dw TradeTextPointersTremor
+	dw TradeTextPointersColt
 	dw TradeTextPointersMiles
 	dw TradeTextPointersPtera
-	dw TradeTextPointersSpore
+	dw TradeTextPointersFloe
 	dw TradeTextPointersLola
 	dw TradeTextPointersBasalt
 	dw TradeTextPointersMoby
@@ -425,12 +425,12 @@ TradeTextPointers3:
 	dw Thanks3Text
 	dw AfterTrade3Text
 
-TradeTextPointersTremor:
-	dw WannaTradeTremorText
-	dw NoTradeTremorText
-	dw WrongMonTremorText
-	dw ThanksTremorText
-	dw AfterTradeTremorText
+TradeTextPointersColt:
+	dw WannaTradeColtText
+	dw NoTradeColtText
+	dw WrongMonColtText
+	dw ThanksColtText
+	dw AfterTradeColtText
 
 TradeTextPointersMiles:
 	dw WannaTradeMilesText
@@ -446,12 +446,12 @@ TradeTextPointersPtera:
 	dw ThanksPteraText
 	dw AfterTradePteraText
 
-TradeTextPointersSpore:
-	dw WannaTradeSporeText
-	dw NoTradeSporeText
-	dw WrongMonSporeText
-	dw ThanksSporeText
-	dw AfterTradeSporeText
+TradeTextPointersFloe:
+	dw WannaTradeFloeText
+	dw NoTradeFloeText
+	dw WrongMonFloeText
+	dw ThanksFloeText
+	dw AfterTradeFloeText
 
 TradeTextPointersLola:
 	dw WannaTradeLolaText
@@ -551,24 +551,24 @@ AfterTrade3Text:
 	text_far _AfterTrade3Text
 	text_end
 
-WannaTradeTremorText:
-	text_far _WannaTradeTremorText
+WannaTradeColtText:
+	text_far _WannaTradeColtText
 	text_end
 
-NoTradeTremorText:
-	text_far _NoTradeTremorText
+NoTradeColtText:
+	text_far _NoTradeColtText
 	text_end
 
-WrongMonTremorText:
-	text_far _WrongMonTremorText
+WrongMonColtText:
+	text_far _WrongMonColtText
 	text_end
 
-ThanksTremorText:
-	text_far _ThanksTremorText
+ThanksColtText:
+	text_far _ThanksColtText
 	text_end
 
-AfterTradeTremorText:
-	text_far _AfterTradeTremorText
+AfterTradeColtText:
+	text_far _AfterTradeColtText
 	text_end
 
 WannaTradeMilesText:
@@ -611,24 +611,24 @@ AfterTradePteraText:
 	text_far _AfterTradePteraText
 	text_end
 
-WannaTradeSporeText:
-	text_far _WannaTradeSporeText
+WannaTradeFloeText:
+	text_far _WannaTradeFloeText
 	text_end
 
-NoTradeSporeText:
-	text_far _NoTradeSporeText
+NoTradeFloeText:
+	text_far _NoTradeFloeText
 	text_end
 
-WrongMonSporeText:
-	text_far _WrongMonSporeText
+WrongMonFloeText:
+	text_far _WrongMonFloeText
 	text_end
 
-ThanksSporeText:
-	text_far _ThanksSporeText
+ThanksFloeText:
+	text_far _ThanksFloeText
 	text_end
 
-AfterTradeSporeText:
-	text_far _AfterTradeSporeText
+AfterTradeFloeText:
+	text_far _AfterTradeFloeText
 	text_end
 
 WannaTradeLolaText:

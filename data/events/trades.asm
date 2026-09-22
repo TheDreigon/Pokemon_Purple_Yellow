@@ -8,10 +8,10 @@ TradeMons:
 	; from the Japanese Blue trades, which used species that evolve.
 	; Japanese Red and Green used TRADE_DIALOGSET_CASUAL, and had
 	; the same species as English Red and Blue.
-	db LICKITUNG,  DUGTRIO,  TRADE_DIALOGSET_TREMOR,   "TREMOR@@@@@"
+	db LICKITUNG,  PONYTA,   TRADE_DIALOGSET_COLT,     "COLT@@@@@@@" ; v1.0 (2026-09-22, Forte): was DUGTRIO "TREMOR" - DIGLETT is most of the cave on this same route. A foal below the LICKITUNG given; RAPIDASH only at its own 30
 	db CLEFAIRY,   MR_MIME,  TRADE_DIALOGSET_MILES,    "MILES@@@@@@"
 	db SCYTHER,    AERODACTYL, TRADE_DIALOGSET_PTERA,  "PTERA@@@@@@"
-	db TANGELA,    PARASECT, TRADE_DIALOGSET_SPORE,    "SPORE@@@@@@"
+	db ARCANINE,   DEWGONG,  TRADE_DIALOGSET_FLOE,     "FLOE@@@@@@@" ; v1.0 (2026-09-22, Forte): was TANGELA -> PARASECT "SPORE" - PARASECT is 19.9% in the Safari next door. The cook's kitchen is too hot for a sea animal
 	db POLIWHIRL,  JYNX,     TRADE_DIALOGSET_LOLA,     "LOLA@@@@@@@"
 	db GOLDUCK,    RHYDON,   TRADE_DIALOGSET_BASALT,   "BASALT@@@@@"
 	db PINSIR,     GYARADOS, TRADE_DIALOGSET_MOBY,     "MOBY@@@@@@@"

@@ -3746,10 +3746,10 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	cp MR_MIME
 	ld b, ROUTE_2
 	jr z, .addEncounter
-	cp DUGTRIO
+	cp PONYTA
 	ld b, ROUTE_11
 	jr z, .addEncounter
-	cp PARASECT
+	cp DEWGONG
 	ld b, ROUTE_18
 	jr z, .addEncounter
 	cp RHYDON

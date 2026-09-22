@@ -2351,6 +2351,9 @@ DewgongEvosMoves:
 ; Learnset
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
 ; (TACKLE lives in the egg field, not the levelup list.)
+; SING L35, the evolution level: adult seals sing (the long trills of the bearded
+; seal, the calls of the Weddell seal under the ice). Forte 2026-09-22, level to
+; be revisited in his learnset pass.
 	db  4, TAIL_WHIP
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP
@@ -2363,6 +2366,7 @@ DewgongEvosMoves:
 	db 28, FROST_BREATH
 	db 30, WATER_PULSE
 	db 33, BODY_SLAM
+	db 35, SING
 	db 36, ICY_PULSE
 	db 40, AQUA_JET
 	db 42, AURORA_BEAM

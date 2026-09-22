@@ -9,7 +9,7 @@ Route18Gate2F_TextPointers:
 
 Route18Gate2FCookText:
 	text_asm
-	ld a, TRADE_FOR_SPORE
+	ld a, TRADE_FOR_FLOE
 	ld [wWhichTrade], a
 	predef DoInGameTradeDialogue
 	jp TextScriptEnd

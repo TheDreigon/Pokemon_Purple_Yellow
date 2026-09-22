@@ -61,7 +61,7 @@ Moves: ; Current total = 220
 	move DAZZLE_GLEAM,   FLINCH_SIDE_EFFECT2,              65, FAIRY,        100, 20 ; new move.
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              75, FAIRY,        100, 20 ; new move.
 	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; almost-signature.
-	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; singers' pool (5 lines).
+	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; singers' pool (6 lines; DEWGONG at 35, seal song, 2026-09-22).
 	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. moon-mons pool (4 lines).
 
 
@@ -76,7 +76,7 @@ Moves: ; Current total = 220
 	move TAKE_DOWN,      ATTACK_DOWN1_EFFECT,              75, FIGHTING,      90, 20
 	move LEEK_STRIKE,    FLINCH_SIDE_EFFECT2,              65, FIGHTING,     100, 25 ; new move. signature. high-crit.
 	move DIZZY_PUNCH,    CONFUSION_SIDE_EFFECT2,           75, FIGHTING,     100, 20 ; boxers' pool (5 lines). new effect.
-	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,      95, 20 ; almost-signature (Mankey-line + Hitmonlee).
+	move ROLLING_KICK,   FLINCH_SIDE_EFFECT2,              80, FIGHTING,      95, 20 ; almost-signature (Mankey-line + Hitmonlee + COLT trade).
 	move SUBMISSION,     DEFENSE_DOWN1_EFFECT,             95, FIGHTING,     100, 15 ; grappler capstone (Machop-line/Poliwrath/Pinsir).
 	move SKY_UPPERCUT,   NO_ADDITIONAL_EFFECT,            100, FIGHTING,      95, 10 ; new move. signature. high-crit.
 	move HI_JUMP_KICK,   JUMP_KICK_EFFECT,                110, FIGHTING,      90, 10 ; signature. high-crit.
@@ -223,7 +223,7 @@ Moves: ; Current total = 220
 	move ROLLOUT,        TWO_TO_FIVE_ATTACKS_EFFECT,       20, ROCK,          90, 20 ; rollers' staple (6 lines).
 	move BONEMERANG,     ATTACK_TWICE_EFFECT,              45, ROCK,          90, 20 ; signature.
 	move CRABHAMMER,     FLINCH_SIDE_EFFECT2,              90, ROCK,          90, 15 ; signature.
-	move HORN_DRILL,     DEFENSE_DOWN_SIDE_EFFECT,        100, ROCK,          90, 15 ; horned chargers (4 lines). high-crit.
+	move HORN_DRILL,     DEFENSE_DOWN_SIDE_EFFECT,        100, ROCK,          90, 15 ; horned chargers (4 lines + FLOE trade). high-crit.
 
 
 	; === STEEL TYPE (6 moves) === ; new type

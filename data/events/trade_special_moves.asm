@@ -6,10 +6,10 @@ TradeSpecialMoves:
 ; the oldest one that is not a same-type attack (the oldest of all only when
 ; the four are same-type attacks) - see InGameTrade_GiveSpecialMove.
 ; 0 = no special move (dormant rows).
-	db HEAD_SMASH   ; TREMOR  (Dugtrio — digs until the cliff collapses). v1.0 (2026-09-14): was ROCK_SLIDE, which DUGTRIO itself learns at 60 since the learnset pass; a signature the species can learn would arrive twice, in two slots with two PP pools, because the engine has no runtime duplicate guard
+	db ROLLING_KICK ; COLT    (Ponyta — a horse's weapon is the kick; it grows out of the foal's own LOW_KICK). v1.0 (2026-09-22): the trade was DUGTRIO "TREMOR" with HEAD_SMASH
 	db TRANSFORM    ; MILES   (Mr. Mime — the perfect mime)
 	db GORE_ATTACK  ; PTERA   (Aerodactyl — the ancient predator)
-	db NEUROTOXIN   ; SPORE   (Parasect — the fungus deepens its hold)
+	db HORN_DRILL   ; FLOE    (Dewgong — the horn that breaks through sea ice). v1.0 (2026-09-22): the trade was PARASECT "SPORE" with NEUROTOXIN
 	db PETAL_DANCE  ; LOLA    (Jynx — the dancer of Saffron)
 	db FLAME_CHARGE ; BASALT  (Rhydon — charges wreathed in volcano fire)
 	db THUNDER      ; MOBY    (Gyarados — the storm follows the whale)

@@ -292,3 +292,87 @@ _TradeCenterOpponentText::
 _ColosseumOpponentText::
 	text "!"
 	done
+
+; ---- NPC trade dialogues, Route 11 gate and Route 18 gate (moved from Text 9,
+; 2026-09-22; the other six trades are in data/text/text_9.asm) ----
+
+; v1.0 (2026-09-22, Forte): his PONYTA replaces the DUGTRIO. Same complaint, the
+; animal that explains it: a runner with no room on an upper floor kicks the walls.
+_WannaTradeColtText::
+	text "This gate rattles"
+	line "day and night!"
+
+	para "No room to run,"
+	line "so my PONYTA"
+	cont "kicks the walls!"
+
+	para "Swap me a lazy"
+	line "LICKITUNG?"
+	done
+
+_NoTradeColtText::
+	text "Then the kicking"
+	line "goes on..."
+	done
+
+_WrongMonColtText::
+	text "That's no"
+	line "LICKITUNG! My"
+	cont "floor still"
+	cont "shakes!"
+	done
+
+_ThanksColtText::
+	text "Ahh. Peace and"
+	line "quiet at last!"
+	done
+
+_AfterTradeColtText::
+	text "How's COLT? Out"
+	line "on the open road?"
+
+	para "My LICKITUNG never"
+	line "leaves the rug!"
+	done
+
+; v1.0 (2026-09-22, Forte): the gate's COOK. He took in a SEEL pup off the beach,
+; it grew into a DEWGONG, and a stove kitchen is no place for a cold-sea animal. He
+; lets it go for its own sake and wants a fire-lover that also guards the pantry.
+_WannaTradeFloeText::
+	text "I took in a SEEL"
+	line "pup on the beach."
+
+	para "Now it's a DEWGONG"
+	line "and my kitchen's"
+	cont "too hot for it!"
+
+	para "Got an ARCANINE?"
+	line "Fire won't bother"
+	cont "that one!"
+	done
+
+_NoTradeFloeText::
+	text "Then it pants by"
+	line "my stove again..."
+	done
+
+_WrongMonFloeText::
+	text "That's no"
+	line "ARCANINE! I need"
+	cont "a fire lover!"
+	done
+
+_ThanksFloeText::
+	text "Swim cold seas,"
+	line "FLOE! Take care!"
+	done
+
+_AfterTradeFloeText::
+	text "Does FLOE sing to"
+	line "the sea still?"
+
+	para "My ARCANINE keeps"
+	line "RATTATA out of my"
+	cont "pantry!"
+	done
+

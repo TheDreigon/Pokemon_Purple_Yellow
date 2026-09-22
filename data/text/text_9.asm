@@ -452,40 +452,8 @@ _UsedCutText::
 	line "away with CUT!"
 	prompt
 
-_WannaTradeTremorText::
-	text "This gate rattles"
-	line "day and night!"
-
-	para "My DUGTRIO digs"
-	line "too much. Got a"
-	cont "lazy LICKITUNG?"
-	done
-
-_NoTradeTremorText::
-	text "Then the shaking"
-	line "goes on..."
-	done
-
-_WrongMonTremorText::
-	text "That's no"
-	line "LICKITUNG! My"
-	cont "floor still"
-	cont "shakes!"
-	done
-
-_ThanksTremorText::
-	text "Ahh. Peace and"
-	line "quiet at last!"
-	done
-
-_AfterTradeTremorText::
-	text "How's TREMOR?"
-	line "Still digging?"
-
-	para "My LICKITUNG"
-	line "just naps. Bliss!"
-	done
-
+; The Route 11 gate (COLT) and Route 18 gate (FLOE) trade dialogues live in
+; data/text/text_5.asm since 2026-09-22: this bank was at its floor.
 _WannaTradeMilesText::
 	text "My MR.MIME"
 	line "copies all I do!"
@@ -553,37 +521,6 @@ _AfterTradePteraText::
 
 	para "My SCYTHER"
 	line "slices lovely!"
-	done
-
-_WannaTradeSporeText::
-	text "See my PARASECT?"
-	line "The mushroom"
-	cont "does the talking!"
-
-	para "Yours for a"
-	line "TANGELA?"
-	done
-
-_NoTradeSporeText::
-	text "The spores are"
-	line "disappointed..."
-	done
-
-_WrongMonSporeText::
-	text "No, no. That's"
-	line "not a TANGELA."
-	cont "No vines!"
-	done
-
-_ThanksSporeText::
-	text "The vines! They"
-	line "curl so nice!"
-	done
-
-_AfterTradeSporeText::
-	text "Water SPORE"
-	line "daily! Fungus"
-	cont "loves the damp!"
 	done
 
 _WannaTradeLolaText::
