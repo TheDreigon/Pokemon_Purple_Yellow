@@ -122,6 +122,15 @@ MainMenu:
 	; save made inside the lab.
 	ld hl, wCurMapTileset
 	res 7, [hl]
+	; v1.0 (2026-09-22): the full LoadMapHeader that the cleared bit forces also
+	; runs LoadTilesetHeader, whose dungeon arm re-applies wDestinationWarpID -
+	; the arrival warp the save still carries whenever no battle happened since
+	; the last door. CONTINUE inside a cave, forest, gym, gate, ship, mansion or
+	; cemetery put the player back on that door instead of where he saved
+	; (proven on the ROM: Mt Moon (15,32) -> (14,35)). Vanilla never reached
+	; that code on CONTINUE; forget the warp, keep the saved position.
+	ld a, $ff
+	ld [wDestinationWarpID], a
 	ld a, PLAYER_DIR_DOWN
 	ld [wPlayerDirection], a
 	ld c, 10
