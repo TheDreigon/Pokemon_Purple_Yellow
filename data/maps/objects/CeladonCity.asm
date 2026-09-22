@@ -21,7 +21,10 @@ CeladonCity_Object:
 	warp_event 35,  7, CELADON_POKECENTER, 1
 	warp_event 12, 27, CELADON_GYM, 1
 	warp_event 28, 17, GAME_CORNER, 1
-	warp_event 39, 16, CELADON_MART_5F, 1 ; 2026-09-08 (Forte): back to the redraw's cell. This warp is dead in BOTH directions here and in vanilla (the roof exits only to 5F) - a fake warp under a decorative stairway. To be REMOVED some day, renumbering the four city warps after it (prize room, diner, chief house, hotel) and every LAST_MAP index that points at them
+; v1.0 (2026-09-22, T29): the fake warp under the Mart's decorative roof
+; stairway (39,16 -> CELADON_MART_5F) is gone. It was dead in both directions
+; here and in vanilla (the roof only ever exits to 5F). The four warps below
+; moved up one id, and the LAST_MAP exits of those four interiors with them.
 	warp_event 33, 17, GAME_CORNER_PRIZE_ROOM, 1
 	warp_event 33, 27, CELADON_DINER, 1
 	warp_event 39, 27, CELADON_CHIEF_HOUSE, 1

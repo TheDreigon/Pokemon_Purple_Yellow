@@ -9,8 +9,8 @@ Route6Gate_Object:
 ; from SAFFRON CITY (the gate's back wall sits on the seam - see Route6.asm), so
 ; LAST_MAP would have sent a player who came in from the city out through the
 ; city's 3rd warp, the GYM. home/overworld.asm treats a named town like LAST_MAP.
-	warp_event  3,  5, ROUTE_6, 3
-	warp_event  4,  5, ROUTE_6, 3
+	warp_event  3,  5, ROUTE_6, 1
+	warp_event  4,  5, ROUTE_6, 1
 	warp_event  3,  0, SAFFRON_CITY, 9
 	warp_event  4,  0, SAFFRON_CITY, 10
 

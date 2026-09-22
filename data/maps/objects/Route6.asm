@@ -11,14 +11,12 @@ Route6_Object:
 	db $f ; border block
 
 	def_warp_events
-; v0.7 (2026-09-05, Forte): warps 1 and 2 are DEAD slots. This map's gate has
-; its roof on row 0, flush with SAFFRON's seam, so the square a player stands on
-; when bumping the back wall is SAFFRON (20,35)/(21,35) - the warps live there
-; (SAFFRON warps 9-10) and the gate's north door lands on them by name. These
-; two sit on roof tiles nobody can reach; they stay because warp ids 3 and 4
-; below are referenced by the gate and the UNDERGROUND PATH (never renumber).
-	warp_event  9,  0, ROUTE_6_GATE, 3
-	warp_event 10,  0, ROUTE_6_GATE, 3
+; The gate's roof is on row 0, flush with SAFFRON's seam: the square a player
+; stands on when bumping its back wall is SAFFRON (20,35)/(21,35), so the
+; north-door warps live there (SAFFRON warps 9-10) and the gate names them.
+; v1.0 (2026-09-22): the two dead warps that used to sit on the roof tiles
+; (9,0)/(10,0) are gone; the gate's south door and the UNDERGROUND PATH's exit
+; were renumbered with these (ROUTE_6 1 and LAST_MAP 2).
 	warp_event 10,  3, ROUTE_6_GATE, 1
 	warp_event 17,  9, UNDERGROUND_PATH_ROUTE_6, 1
 
