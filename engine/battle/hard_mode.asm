@@ -283,9 +283,39 @@ HardModeGymPartyGate::
 	cp HARD_MODE
 	ret nz
 	ld a, [wCurOpponent]
+	ld hl, wTrainerNo
+	ld d, [hl]
+	call CountTrainerParty
+	jp HardModeGymPartyGate_Compare
+
+HardModeGymCapHint::
+; v1.0 (2026-09-22, Forte): the gym guide announces the badge match cap before
+; the player walks into it. Inputs in registers because rst _Bankswitch lands
+; with a = destination bank: e = trainer class (OPP_*), d = the object_event's
+; party id. Prints only in HARD MODE; the advice page before it ends in `done`,
+; so it waits for A first. Trashes: a, b, d, e, hl.
+	ld a, [wDifficulty]
+	cp HARD_MODE
+	ret nz
+	ld a, e
+	call CountTrainerParty
+	ld a, b
+	ld [wd11e], a
+	farcall NewPageButtonPressCheck
+	ld hl, HardModeGymCapHintText
+	jp PrintText
+
+HardModeGymCapHintText:
+	text_far _HardModeGymCapHintText
+	text_end
+
+CountTrainerParty:
+; a = trainer class (OPP_*), d = party id (1-based) -> b = number of Pokemon.
+; Shared by the gate and the guide's hint. TrainerDataPointers is in this bank.
 	sub OPP_ID_OFFSET
 	dec a
 	ld e, a
+	push de
 	ld d, 0
 	ld hl, TrainerDataPointers
 	add hl, de
@@ -293,8 +323,7 @@ HardModeGymPartyGate::
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a ; hl -> the class's first party
-	ld a, [wTrainerNo]
-	ld d, a
+	pop de
 .findParty
 	dec d
 	jr z, .countParty
@@ -324,6 +353,9 @@ HardModeGymPartyGate::
 	inc b
 	jr .variableLevels
 .haveCount
+	ret
+
+HardModeGymPartyGate_Compare:
 	ld a, [wPartyCount]
 	cp b
 	ret z ; equal counts fight

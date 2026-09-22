@@ -61,6 +61,7 @@ INCLUDE "data/text/text_2.asm"
 SECTION "Text 3", ROMX
 
 INCLUDE "data/text/text_3.asm"
+INCLUDE "text/postgame_hints.asm"
 
 INCLUDE "text/DiglettsCaveRoute2.asm"
 INCLUDE "text/ViridianForestNorthGate.asm"
@@ -250,6 +251,7 @@ INCLUDE "data/text/text_8.asm"
 SECTION "Text 9", ROMX
 
 INCLUDE "text/PalletTownMom.asm"
+INCLUDE "text/gym_guide_cap.asm"
 
 INCLUDE "text/Signs.asm"
 

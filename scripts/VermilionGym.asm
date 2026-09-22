@@ -427,6 +427,9 @@ VermilionGymGymGuideText:
 ; badge in hand; once per gym, and a full bag defers the gift to the next
 ; talk (flag set only on success). The advice texts end in `done`, which does
 ; not wait, so the receipt page is held back until the player presses.
+	ld e, OPP_LT_SURGE ; v1.0: the HARD MODE badge match cap, announced (Pewter's note)
+	ld d, 1
+	callfar HardModeGymCapHint
 	CheckEvent EVENT_GOT_GYM_GUIDE_WATER_VERMILION
 	jr nz, .text_script_end
 	ld a, [wObtainedBadges]

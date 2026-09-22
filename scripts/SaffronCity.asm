@@ -67,8 +67,25 @@ SaffronCitySilphWorkerFText:
 	text_far _SaffronCitySilphWorkerFText
 	text_end
 
+; v1.0 (2026-09-22, Forte): once the player is CHAMPION the bird man hints at
+; the three trainers roosting in the legendary birds' chambers, without names.
 SaffronCityGentlemanText:
+	text_asm
+	ld a, [wGameStage]
+	and a
+	ld hl, .Champion
+	jr nz, .print
+	ld hl, .Silph
+.print
+	call PrintText
+	jp TextScriptEnd
+
+.Silph
 	text_far _SaffronCityGentlemanText
+	text_end
+
+.Champion
+	text_far _SaffronCityGentlemanChampionText
 	text_end
 
 SaffronCityPidgeotText:
