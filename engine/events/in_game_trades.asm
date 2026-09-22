@@ -162,8 +162,13 @@ InGameTrade_GiveSpecialMove:
 ; see data/events/trade_special_moves.asm), latched in wMoveNum by
 ; InGameTrade_LatchSpecialMove before the trade animation. The received mon
 ; is the last party member at this point (AddPartyMon just appended it).
-; The move goes into the first empty move slot, or over slot 4 if the set
-; is full, with its max PP — mirroring the LearnMove write pattern.
+; The move goes into the first empty move slot with its max PP — mirroring
+; the LearnMove write pattern. v1.0 (2026-09-22, Forte): when all four slots
+; are full, the OLDEST move that is not a same-type attack gives way, and
+; only if all four are same-type attacks does the oldest go regardless. It
+; used to be slot 4, the newest move, which is usually the same-type attack
+; the mon has just learned: SPORE's PARASECT at 28 and LOLA's JYNX at 25
+; arrived with no attack of their own type at all.
 	ld a, [wMoveNum]
 	and a
 	ret z ; dormant rows carry no special move
@@ -175,7 +180,7 @@ InGameTrade_GiveSpecialMove:
 	call AddNTimes
 ; NOTE: no runtime duplicate guard — the invariant "no TradeSpecialMoves
 ; entry is naturally learnable by its receiver" is enforced statically by
-; .claude/check_trade_special_moves.py (bank1C is byte-tight).
+; .claude/check_trade_special_moves.py.
 	ld b, NUM_MOVES
 .findEmptySlot
 	ld a, [hl]
@@ -184,7 +189,30 @@ InGameTrade_GiveSpecialMove:
 	inc hl
 	dec b
 	jr nz, .findEmptySlot
-	dec hl ; four natural moves: the newest one gives way
+; four natural moves: find the one that gives way
+	ld bc, -NUM_MOVES
+	add hl, bc ; back to slot 1, the oldest
+	push hl
+	ld bc, MON_TYPE1 - MON_MOVES
+	add hl, bc
+	ld a, [hli] ; latch the received mon's two types for the test below
+	ld [wBuffer], a
+	ld a, [hl]
+	ld [wBuffer + 1], a
+	pop hl
+	push hl ; the fallback: slot 1
+	ld b, NUM_MOVES
+.findGiveWay
+	ld a, [hl]
+	call InGameTrade_IsSameTypeAttack
+	jr nc, .foundGiveWay
+	inc hl
+	dec b
+	jr nz, .findGiveWay
+	pop hl ; all four are same-type attacks: the oldest gives way
+	jr .write
+.foundGiveWay
+	pop af ; drop the fallback (a is reloaded from e below)
 .write
 	ld a, e
 	ld [hl], a
@@ -201,6 +229,50 @@ InGameTrade_GiveSpecialMove:
 	ld a, [wBuffer + 5] ; the move's max PP
 	pop hl
 	ld [hl], a
+	ret
+
+InGameTrade_IsSameTypeAttack:
+; Carry if move a is a damaging move whose type is one of the two latched in
+; wBuffer / wBuffer + 1 (the received mon's). A status move is never kept for
+; its type. Preserves bc, de and hl.
+	push hl
+	push bc
+	dec a
+	ld hl, Moves + MOVE_POWER
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	and a
+	jr nz, .damaging
+; power 0 is a status move, except NIGHT_SHADE: its damage is the user's
+; level and its power byte is 0 (the other fixed-damage moves carry a 1)
+	ASSERT MOVE_EFFECT == MOVE_POWER - 1
+	dec hl
+	ld a, BANK(Moves)
+	call GetFarByte
+	inc hl
+	cp USER_LEVEL_DAMAGE_EFFECT
+	jr nz, .notSameType
+.damaging
+	ASSERT MOVE_TYPE == MOVE_POWER + 1
+	inc hl
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld hl, wBuffer
+	cp [hl]
+	jr z, .sameType
+	inc hl
+	cp [hl]
+	jr z, .sameType
+.notSameType
+	and a
+	jr .done
+.sameType
+	scf
+.done
+	pop bc
+	pop hl
 	ret
 
 INCLUDE "data/events/trade_special_moves.asm"
