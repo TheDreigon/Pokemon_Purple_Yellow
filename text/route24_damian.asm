@@ -49,3 +49,38 @@ _Route24DamianText4::
 	line "the moment it"
 	cont "actually matters."
 	done
+
+; v1.0 (Forte, 2026-09-23): the CHAMPION walks past with a CHARMELEON or a
+; CHARIZARD. He wants it back; it answers with its cry, and he backs down.
+_Route24DamianGiveItBackText::
+	text "DAMIAN: Hold on."
+	line "That's the"
+	cont "CHARMANDER I"
+	cont "left here?"
+
+	para "It's... strong."
+	line "Look, I've had"
+	cont "time to think."
+
+	para "Give it back to"
+	line "me. I was its"
+	cont "trainer first."
+	prompt ; wait here: the cry and his "!" answer the player's press, with the demand still on screen
+
+_Route24DamianRefusedText::
+	text_ram wcd6d
+	text " turned"
+	line "away from DAMIAN!"
+
+	para "DAMIAN: ...Fine."
+	line "Keep it."
+
+	para "It never listened"
+	line "to me anyway."
+	done
+
+_Route24DamianAfterText::
+	text "DAMIAN: Don't"
+	line "look at me like"
+	cont "that. It chose."
+	done

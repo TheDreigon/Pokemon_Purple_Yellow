@@ -334,7 +334,7 @@ INCLUDE "text/tmhm_names.asm"
 
 ; DAMIAN's lines on Route 24. Its own section because rewriting them for the
 ; anime's version of him pushed the pinned "Text 4" bank over, and text_far
-; reaches a floating section from any bank.
+; reaches a section in any bank (this one is pinned to ROMX $7 in layout.link).
 SECTION "Route 24 Damian Text", ROMX
 
 INCLUDE "text/route24_damian.asm"

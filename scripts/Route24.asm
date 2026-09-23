@@ -321,10 +321,68 @@ Route24CooltrainerM4Text:
 	jr .asm_515d8
 
 .asm_515d5
+; v1.0 (Forte, 2026-09-23): once the player is CHAMPION and the party holds a
+; CHARMELEON or a CHARIZARD (only those two - the point is that it grew; any
+; one of that line counts, the game cannot tell which CHARMANDER it was), he
+; wants it back; the Pokemon answers for itself (its cry, his '!') and he
+; backs down. Once only; afterwards a shorter line. A Champion who never took
+; the CHARMANDER never reaches this arm (EVENT_54F stays clear).
+	ld a, [wGameStage]
+	and a
+	jr z, .stillHauling
+	CheckEvent EVENT_DAMIAN_WANTED_IT_BACK
+	jr nz, .afterRefusal
+	call Route24FindCharLine
+	jr nc, .stillHauling
+	push af ; the species, for its cry
+	call GetPartyMonName2 ; wcd6d = its nickname (wWhichPokemon = the slot)
+	ld hl, Route24DamianGiveItBackText
+	call PrintText
+	pop af
+	call PlayCry
+	ld a, ROUTE24_COOLTRAINER_M4 ; DAMIAN's own sprite
+	ld [wEmotionBubbleSpriteIndex], a
+	ld a, EXCLAMATION_BUBBLE
+	ld [wWhichEmotionBubble], a
+	predef EmotionBubble
+	SetEvent EVENT_DAMIAN_WANTED_IT_BACK
+	ld hl, Route24DamianRefusedText
+	jr .asm_515d8
+.afterRefusal
+	ld hl, Route24DamianAfterText
+	jr .asm_515d8
+.stillHauling
 	ld hl, Route24Text_515ee
 .asm_515d8
 	call PrintText
 	jp TextScriptEnd
+
+Route24FindCharLine:
+; carry set when the party holds a CHARMELEON or a CHARIZARD: a = the species,
+; wWhichPokemon = its slot. Walks the $ff-terminated wPartySpecies list (not
+; PARTY_LENGTH slots: deposited remnants live in the tail).
+	ld hl, wPartySpecies
+	ld b, 0
+.loop
+	ld a, [hli]
+	cp $ff
+	jr z, .none
+	cp CHARMELEON
+	jr z, .found
+	cp CHARIZARD
+	jr z, .found
+	inc b
+	jr .loop
+.found
+	ld c, a
+	ld a, b
+	ld [wWhichPokemon], a
+	ld a, c
+	scf
+	ret
+.none
+	and a
+	ret
 
 Route24Text_515de:
 	text_far _Route24DamianText1
@@ -341,4 +399,16 @@ Route24Text_515e9:
 
 Route24Text_515ee:
 	text_far _Route24DamianText4
+	text_end
+
+Route24DamianGiveItBackText:
+	text_far _Route24DamianGiveItBackText
+	text_end
+
+Route24DamianRefusedText:
+	text_far _Route24DamianRefusedText
+	text_end
+
+Route24DamianAfterText:
+	text_far _Route24DamianAfterText
 	text_end
