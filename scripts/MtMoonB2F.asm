@@ -72,6 +72,7 @@ MtMoonB2F_ScriptPointers:
 	dw_const MtMoonB2FScript13,                        SCRIPT_MTMOONB2F_SCRIPT13
 	dw_const MtMoonB2FScript14,                        SCRIPT_MTMOONB2F_SCRIPT14
 	dw_const MtMoonB2FScript15,                        SCRIPT_MTMOONB2F_SCRIPT15
+	dw_const MtMoonB2FRematchPostBattleScript,         SCRIPT_MTMOONB2F_REMATCH_POST_BATTLE ; v1.0 (2026-09-23)
 
 MtMoonB2FDefaultScript:
 IF DEF(_DEBUG)
@@ -112,6 +113,19 @@ MtMoonB2FDefeatedSuperNerdScript:
 	call UpdateSprites
 	call Delay3
 	SetEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
+	xor a
+	ld [wJoyIgnore], a
+	ld a, SCRIPT_MTMOONB2F_DEFAULT
+	call MtMoonB2FSetScript
+	ret
+
+; v1.0 (Forte, 2026-09-23): after his post-League rematch. A loss spends
+; nothing; a win spends it for good - this one happens once, ever.
+MtMoonB2FRematchPostBattleScript:
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, MtMoonB2FResetScripts
+	SetEvent EVENT_BEAT_MT_MOON_SUPER_NERD_REMATCH
 	xor a
 	ld [wJoyIgnore], a
 	ld a, SCRIPT_MTMOONB2F_DEFAULT
@@ -501,10 +515,61 @@ MtMoonB2FSuperNerdText:
 	call MtMoonB2FSetScript
 	jr .done
 .got_a_fossil
+	ld a, [wGameStage] ; v1.0 (2026-09-23): the CHAMPION gets a rematch instead
+	and a
+	jr nz, .rematch
 	ld hl, MtMoonB2FSuperNerdTheresAPokemonLabText
 	call PrintText
 .done
 	jp TextScriptEnd
+; v1.0 (Forte, 2026-09-23): the fossil nerd's rematch, once - ever.
+; Dojo shape: the challenge, YES/NO, the end-battle line in both slots (the
+; loss slot is dead engine-wide), wCurOpponent/wTrainerNo by hand - going
+; through EngageMapTrainer would reload party 2 from the object bytes. The
+; ace follows the fossil HE kept: the player took the HELIX -> he has the DOME
+; (KABUTOPS, party 16); otherwise OMASTAR (party 15). And the map script keeps
+; wd72e bit 4 ("no battles here") set around the fossils once he is beaten -
+; NewBattle refuses everything while it is up, so it is cleared before the
+; overworld loop gets to start the fight.
+.rematch
+	CheckEvent EVENT_BEAT_MT_MOON_SUPER_NERD_REMATCH
+	jr nz, .rematchSpent
+	ld hl, MtMoonB2FSuperNerdRematchChallengeText
+	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; a stale poll count would phantom-accept
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, MtMoonB2FSuperNerdRematchWinText
+	ld de, MtMoonB2FSuperNerdRematchWinText
+	call SaveEndBattleTextPointers
+	ld hl, wd72d
+	set 6, [hl]
+	set 7, [hl]
+	ld a, OPP_SUPER_NERD
+	ld [wCurOpponent], a
+; CheckEvent leaves the event byte in a, so the party id is loaded AFTER the test
+	CheckEvent EVENT_GOT_HELIX_FOSSIL
+	ld a, 15 ; he kept the HELIX: OMASTAR
+	jr z, .party
+	ld a, 16 ; the player took the HELIX, he kept the DOME: KABUTOPS
+.party
+	ld [wTrainerNo], a
+	ld hl, wd72e
+	res 4, [hl]
+	ld a, SCRIPT_MTMOONB2F_REMATCH_POST_BATTLE
+	call MtMoonB2FSetScript
+	jp .done
+.refused
+	ld hl, MtMoonB2FSuperNerdRematchRefusedText
+	call PrintText
+	jp .done
+.rematchSpent
+	ld hl, MtMoonB2FSuperNerdRematchSpentText
+	call PrintText
+	jp .done
 
 MtMoonB2FRocket1Text:
 	text_asm
@@ -616,6 +681,23 @@ MtMoonB2FSuperNerdTheresAPokemonLabText:
 MtMoonB2FSuperNerdThenThisIsMineText:
 	text_far _MtMoonB2FSuperNerdThenThisIsMineText
 	sound_get_key_item
+	text_end
+
+; v1.0 (2026-09-23): the post-League rematch (text/MtMoonB2FRematch.asm)
+MtMoonB2FSuperNerdRematchChallengeText:
+	text_far _MtMoonB2FSuperNerdRematchChallengeText
+	text_end
+
+MtMoonB2FSuperNerdRematchWinText:
+	text_far _MtMoonB2FSuperNerdRematchWinText
+	text_end
+
+MtMoonB2FSuperNerdRematchRefusedText:
+	text_far _MtMoonB2FSuperNerdRematchRefusedText
+	text_end
+
+MtMoonB2FSuperNerdRematchSpentText:
+	text_far _MtMoonB2FSuperNerdRematchSpentText
 	text_end
 
 MtMoonB2FRocket2BattleText:

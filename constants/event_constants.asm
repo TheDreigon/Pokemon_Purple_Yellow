@@ -625,6 +625,11 @@
 	const EVENT_BEAT_MT_MOON_3_TRAINER_3
 	const EVENT_57E
 	const EVENT_GOT_HELIX_FOSSIL
+; v1.0 (2026-09-23, Forte): the fossil nerd's post-League rematch, ONCE, ever -
+; not a cooldown flag (nothing clears it; it is deliberately not named
+; EVENT_REMATCHED_*, which .claude/rematch_cooldown_validate.py reads as the
+; per-League-run kind). Lives in his own map's block, so nothing shifts.
+	const EVENT_BEAT_MT_MOON_SUPER_NERD_REMATCH
 
 ; S.S. Anne events
 	const_next $5C0

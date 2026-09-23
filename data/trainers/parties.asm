@@ -330,8 +330,11 @@ JessieAndJamesData:
 SuperNerdData:
 ; Mt. Moon 1F
 	db 10, MAGNEMITE, VOLTORB, 0
-; Mt. Moon B2F
-	db 12, GRIMER, KABUTO, OMANYTE, 0
+; Mt. Moon B2F - the fossil nerd (2026-09-23, Forte): what a digger pulls out of
+; this mountain, not the fossils themselves (he fights you FOR those). The
+; CUBONE with its skull is his prize; Ground/Rock right after Brock, with no
+; answer from a PIKACHU.
+	db $FF, 12, GEODUDE, 12, SANDSHREW, 13, CUBONE, 0
 ; Route 8
 	db 26, VOLTORB, KOFFING, GRIMER, MAGNEMITE, 0
 	db 30, PORYGON, 0
@@ -353,6 +356,12 @@ SuperNerdData:
 ; these two already wore the SUPER_NERD overworld sprite. Same teams.
 	db 21, MAGNEMITE, 0
 	db 18, MAGNEMITE, MACHOP, MAGNEMITE, 0
+; Mt. Moon B2F rematch, post-League (15, 16; 2026-09-23, Forte): his crew grown
+; up, and as the ace the fossil HE kept, revived - 15 when the player took the
+; DOME (he had the HELIX: OMASTAR), 16 when the player took the HELIX (KABUTOPS).
+; Between the dojo's 52-58 and the leaders' 63-65.
+	db $FF, 58, GOLEM, 58, SANDSLASH, 60, MAROWAK, 62, OMASTAR, 0
+	db $FF, 58, GOLEM, 58, SANDSLASH, 60, MAROWAK, 62, KABUTOPS, 0
 
 HikerData:
 ; Mt. Moon 1F

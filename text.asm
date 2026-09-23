@@ -345,6 +345,12 @@ SECTION "Museum Amber Quest Text", ROMX
 
 INCLUDE "text/Museum1FAmber.asm"
 
+; The Mt. Moon fossil nerd's rematch (2026-09-23): Text 1, his bank, has 310
+; bytes above its floor, so these lines live in their own pinned section.
+SECTION "Mt Moon Nerd Rematch Text", ROMX
+
+INCLUDE "text/MtMoonB2FRematch.asm"
+
 ; The SAFARI ZONE west BAIT/ROCK sign. Its own section because spelling out the
 ; numbers pushed the pinned "Text 2" bank over.
 SECTION "Safari West Tips Text", ROMX
