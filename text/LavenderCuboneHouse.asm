@@ -1,3 +1,4 @@
+; v1.0 (2026-09-23): she lives at MR. FUJI's now (scripts/MrFujisHouse.asm reads this)
 _LavenderCuboneHouseCuboneText::
 	text "CUBONE: Kyarugoo!@"
 	text_end

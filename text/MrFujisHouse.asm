@@ -71,11 +71,6 @@ _MrFujisHouseMrFujiPokeFluteNoRoomText::
 	line "room for this!"
 	done
 
-_MrFujisHouseMrFujiHasMyFluteHelpedYouText::
-	text "MR.FUJI: Has my"
-	line "FLUTE helped you?"
-	done
-
 _MrFujisHouseMrFujiPokedexText::
 	text "#MON Monthly"
 	line "Grand Prize"

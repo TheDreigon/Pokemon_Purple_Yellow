@@ -153,8 +153,8 @@ MapHSPointers:
 	dw PokemonTower6FHS
 	dw PokemonTower7FHS
 	dw MrFujisHouseHS
-	dw NoHS
-	dw NoHS
+	dw NoHS ; LAVENDER_MART
+	dw NoHS ; LAVENDER_CUBONE_HOUSE
 	dw NoHS
 	dw NoHS
 	dw NoHS
@@ -379,8 +379,6 @@ PokemonTower7FHS:
 	db POKEMON_TOWER_7F, POKEMONTOWER7F_JESSIE,  HIDE
 	db POKEMON_TOWER_7F, POKEMONTOWER7F_JAMES,   HIDE
 	db POKEMON_TOWER_7F, POKEMONTOWER7F_MR_FUJI, SHOW
-MrFujisHouseHS:
-	db MR_FUJIS_HOUSE, MRFUJISHOUSE_MR_FUJI, HIDE
 GameCornerHS:
 	db GAME_CORNER, GAMECORNER_ROCKET, SHOW
 WardensHouseHS:
@@ -610,7 +608,8 @@ SeafoamIslandsB4FHS:
 ; v0.7: BluesHouseHSCopy was here -- a vanilla duplicate block nothing pointed
 ; at (MapHSPointers sends BLUES_HOUSE to the real BluesHouseHS above). Its
 ; three rows paid, one each, for Pallet's mother, VIRIDIANGYM_KIYO and
-; FIGHTINGDOJO_KARATE_MASTER. The array is still exactly 256, with NO spares.
+; FIGHTINGDOJO_KARATE_MASTER. The array is 256/256 again since 2026-09-23
+; (MR. FUJI's CUBONE took the slot PURPLE's ball freed on 2026-09-22).
 LoreleisRoomHS:
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI,   		SHOW
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI_REMATCH, HIDE
@@ -624,11 +623,18 @@ RockTunnel1FHS: ; v0.7 rope quota (slot from the Tower 4F Elixir conversion)
 	db ROCK_TUNNEL_1F, ROCKTUNNEL1F_ESCAPE_ROPE, SHOW
 RockTunnelB1FHS:
 	db ROCK_TUNNEL_B1F, ROCKTUNNELB1F_TM_IRON_TAIL, SHOW
-SaffronPokecenterHS: ; must stay last: MissableObjects order must match HS_* constant order, and HS_SAFFRON_POKECENTER_AIDE_2 is the final constant (see constants/hide_show_constants.asm)
+SaffronPokecenterHS: ; MissableObjects order must match HS_* constant order (see constants/hide_show_constants.asm)
 ; v0.7 (2026-08-30): Oak's two aides - their exit fires once both parcels
 ; are delivered and TEAM ROCKET falls (scripts/SaffronPokecenter.asm).
 ; Slots funded by the two CERULEAN CAVE ULTRA BALL conversions.
 	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE1, SHOW
 	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE2, SHOW
+MrFujisHouseHS: ; must stay last: HS_MR_FUJIS_HOUSE_CUBONE is the final constant
+; v1.0 (2026-09-23): MR. FUJI, hidden until the Tower rescue (his row lived at
+; index 70 until this day), and the orphan CUBONE of the TOWER, who lives in
+; his Volunteer House and is hidden once he hands her to the player
+; (scripts/MrFujisHouse.asm). A map's rows must be contiguous, hence the move.
+	db MR_FUJIS_HOUSE, MRFUJISHOUSE_MR_FUJI, HIDE
+	db MR_FUJIS_HOUSE, MRFUJISHOUSE_CUBONE,  SHOW
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

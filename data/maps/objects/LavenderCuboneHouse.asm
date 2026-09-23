@@ -1,5 +1,4 @@
 	object_const_def
-	const_export LAVENDERCUBONEHOUSE_CUBONE
 	const_export LAVENDERCUBONEHOUSE_BRUNETTE_GIRL
 
 LavenderCuboneHouse_Object:
@@ -12,7 +11,8 @@ LavenderCuboneHouse_Object:
 	def_bg_events
 
 	def_object_events
-	object_event  3,  5, SPRITE_CUBONE, STAY, UP, TEXT_LAVENDERCUBONEHOUSE_CUBONE
+; v1.0 (2026-09-23, Forte): the orphan CUBONE lives at MR. FUJI's Volunteer House
+; now (vanilla kept her here, with the girl); the girl still talks about her.
 	object_event  2,  4, SPRITE_BRUNETTE_GIRL, STAY, RIGHT, TEXT_LAVENDERCUBONEHOUSE_BRUNETTE_GIRL
 
 	def_warps_to LAVENDER_CUBONE_HOUSE

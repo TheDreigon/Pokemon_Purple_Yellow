@@ -5,6 +5,7 @@
 	const_export MRFUJISHOUSE_NIDORINO
 	const_export MRFUJISHOUSE_MR_FUJI
 	const_export MRFUJISHOUSE_POKEDEX
+	const_export MRFUJISHOUSE_CUBONE ; v1.0 (2026-09-23): the orphan of the TOWER
 
 MrFujisHouse_Object:
 	db $a ; border block
@@ -22,5 +23,6 @@ MrFujisHouse_Object:
 	object_event  1,  3, SPRITE_NIDORINO, STAY, NONE, TEXT_MRFUJISHOUSE_NIDORINO
 	object_event  3,  1, SPRITE_MR_FUJI, STAY, NONE, TEXT_MRFUJISHOUSE_MR_FUJI
 	object_event  3,  3, SPRITE_POKEDEX, STAY, NONE, TEXT_MRFUJISHOUSE_POKEDEX
+	object_event  1,  5, SPRITE_CUBONE, STAY, UP, TEXT_MRFUJISHOUSE_CUBONE ; v1.0 (2026-09-23, Forte): the orphan of the TOWER, here until MR. FUJI hands her to the player (HS_MR_FUJIS_HOUSE_CUBONE)
 
 	def_warps_to MR_FUJIS_HOUSE

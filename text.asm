@@ -234,6 +234,7 @@ INCLUDE "data/text/text_7.asm"
 SECTION "Text 8", ROMX
 
 INCLUDE "text/PalletTown.asm"
+INCLUDE "text/MrFujisHouseCubone.asm"
 INCLUDE "text/ViridianCity.asm"
 INCLUDE "text/PewterCity.asm"
 INCLUDE "text/CeruleanCity.asm"

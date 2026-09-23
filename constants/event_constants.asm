@@ -111,7 +111,8 @@
 	const EVENT_GOT_TRAINER_MANUAL
 	const_skip 3
 	const EVENT_RESCUED_MR_FUJI_2
-	const_skip 16
+	const EVENT_GOT_FUJI_CUBONE ; v1.0 (2026-09-23): the orphan CUBONE left with the player (set only when GivePokemon succeeded)
+	const_skip 15
 	const EVENT_GOT_POKE_FLUTE
 	const_skip 30
 	const EVENT_GOT_SQUIRTLE_FROM_OFFICER_JENNY

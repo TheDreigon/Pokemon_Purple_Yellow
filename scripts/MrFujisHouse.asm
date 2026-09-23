@@ -10,6 +10,7 @@ MrFujisHouse_TextPointers:
 	dw_const MrFujisHouseNidorinoText,      TEXT_MRFUJISHOUSE_NIDORINO
 	dw_const MrFujisHouseMrFujiText,        TEXT_MRFUJISHOUSE_MR_FUJI
 	dw_const MrFujisHouseMrFujiPokedexText, TEXT_MRFUJISHOUSE_POKEDEX
+	dw_const MrFujisHouseCuboneText,        TEXT_MRFUJISHOUSE_CUBONE ; v1.0 (2026-09-23)
 
 MrFujisHouseSuperNerdText:
 	text_asm
@@ -79,13 +80,26 @@ MrFujisHouseMrFujiText:
 	ld hl, .ReceivedPokeFluteText
 	call PrintText
 	SetEvent EVENT_GOT_POKE_FLUTE
+; v1.0 (Forte, 2026-09-23): the flute scene ends in `done`, which does not
+; wait - hold its last page, then make the offer
+	call WaitForTextScrollButtonPress
+	ld hl, MrFujisHouseCuboneOfferText
+	call MrFujisHouseOfferCubone
 	jr .done
 .bag_full
 	ld hl, .PokeFluteNoRoomText
 	call PrintText
 	jr .done
 .got_item
-	ld hl, .HasMyFluteHelpedYouText
+; v1.0 (Forte, 2026-09-23): until the orphan leaves with the player, every
+; later talk asks again (a refusal and a full party set nothing)
+	CheckEvent EVENT_GOT_FUJI_CUBONE
+	jr nz, .has_cubone
+	ld hl, MrFujisHouseCuboneAgainText
+	call MrFujisHouseOfferCubone
+	jr .done
+.has_cubone
+	ld hl, .HowIsSheText
 	call PrintText
 .done
 	jp TextScriptEnd
@@ -104,10 +118,81 @@ MrFujisHouseMrFujiText:
 	text_far _MrFujisHouseMrFujiPokeFluteNoRoomText
 	text_end
 
-.HasMyFluteHelpedYouText:
-	text_far _MrFujisHouseMrFujiHasMyFluteHelpedYouText
+.HowIsSheText:
+	text_far _MrFujisHouseMrFujiHowIsSheText
+	text_end
+
+; v1.0 (Forte, 2026-09-23): the orphan CUBONE of the TOWER, who lives here in
+; his Volunteer House (object (1,5)). Her mother is the MAROWAK the player laid
+; to rest, which is why it is her he offers, and to this player. hl = the
+; offer to print (first time or a later re-ask). YES -> she joins the PARTY
+; only (his own words: a life in a PC box is no better than his house), the
+; flag and the hide happen only when GivePokemon succeeded; NO or a full
+; party set nothing, so he asks again next time. Speech before the gift:
+; GivePokemon prints its own "got CUBONE!" with the jingle.
+MrFujisHouseOfferCubone:
+	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; a stale poll count would phantom-accept
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld a, [wPartyCount]
+	cp PARTY_LENGTH
+	jr nc, .party_full
+	ld hl, .TakeHerText
+	call PrintText
+	lb bc, CUBONE, 25
+	call GivePokemon
+	jr nc, .party_full ; cannot happen after the count check; keeps the contract
+	SetEvent EVENT_GOT_FUJI_CUBONE
+	ld a, HS_MR_FUJIS_HOUSE_CUBONE
+	ld [wMissableObjectIndex], a
+	predef HideObject ; she is on this map: gone from the room at once
+	xor a
+	ld [wDoNotWaitForButtonPressAfterDisplayingText], a ; the party path leaves it set
+	ld hl, .FarewellText
+	jp PrintText
+.party_full
+	ld hl, .BetterWithMeText
+	jp PrintText
+.refused
+	ld hl, .SheStaysText
+	jp PrintText
+
+.TakeHerText:
+	text_far _MrFujisHouseMrFujiTakeHerText
+	text_end
+
+.FarewellText:
+	text_far _MrFujisHouseMrFujiCuboneFarewellText
+	text_end
+
+.BetterWithMeText:
+	text_far _MrFujisHouseMrFujiBetterWithMeText
+	text_end
+
+.SheStaysText:
+	text_far _MrFujisHouseMrFujiSheStaysText
+	text_end
+
+MrFujisHouseCuboneOfferText:
+	text_far _MrFujisHouseMrFujiCuboneOfferText
+	text_end
+
+MrFujisHouseCuboneAgainText:
+	text_far _MrFujisHouseMrFujiCuboneAgainText
 	text_end
 
 MrFujisHouseMrFujiPokedexText:
 	text_far _MrFujisHouseMrFujiPokedexText
 	text_end
+
+; v1.0 (2026-09-23): the orphan's own line, kept from her old house
+MrFujisHouseCuboneText:
+	text_far _LavenderCuboneHouseCuboneText
+	text_asm
+	ld a, CUBONE
+	call PlayCry
+	jp TextScriptEnd

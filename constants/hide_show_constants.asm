@@ -78,154 +78,153 @@ DEF SHOW EQU $15
 	const HS_POKEMON_TOWER_7F_JESSIE       ; 43
 	const HS_POKEMON_TOWER_7F_JAMES        ; 44
 	const HS_POKEMON_TOWER_7F_MR_FUJI      ; 45
-	const HS_MR_FUJIS_HOUSE_MR_FUJI        ; 46
-	const HS_GAME_CORNER_ROCKET            ; 47
-	const HS_WARDENS_HOUSE_ITEM            ; 48
-	const HS_POKEMON_MANSION_1F_ITEM_1     ; 49
-	const HS_POKEMON_MANSION_1F_ITEM_2     ; 4A
+	const HS_GAME_CORNER_ROCKET            ; 46
+	const HS_WARDENS_HOUSE_ITEM            ; 47
+	const HS_POKEMON_MANSION_1F_ITEM_1     ; 48
+	const HS_POKEMON_MANSION_1F_ITEM_2     ; 49
 	const HS_INDIGO_PLATEAU_LOBBY_POST_GAME_CLERK
-	const HS_FIGHTING_DOJO_GIFT_1          ; 4C
-	const HS_FIGHTING_DOJO_GIFT_2          ; 4D
+	const HS_FIGHTING_DOJO_GIFT_1          ; 4B
+	const HS_FIGHTING_DOJO_GIFT_2          ; 4C
 	const HS_FIGHTING_DOJO_MASTER ; v0.7: hidden post-League (he holds Viridian now); slot funded by HS_DAISY_WALKING_COPY (ids between here and there shifted, new-game basis)
-	const HS_SILPH_CO_1F_RECEPTIONIST      ; 4F
-	const HS_VOLTORB_1                     ; 50
-	const HS_VOLTORB_2                     ; 51
-	const HS_VOLTORB_3                     ; 52
-	const HS_ELECTRODE_1                   ; 53
-	const HS_VOLTORB_4                     ; 54
-	const HS_VOLTORB_5                     ; 55
-	const HS_ELECTRODE_2                   ; 56
-	const HS_VOLTORB_6                     ; 57
-	const HS_ZAPDOS                        ; 58
-	const HS_POWER_PLANT_ITEM_1            ; 59
-	const HS_POWER_PLANT_ITEM_2            ; 5A
-	const HS_POWER_PLANT_ITEM_3            ; 5B
-	const HS_POWER_PLANT_ITEM_4            ; 5C
+	const HS_SILPH_CO_1F_RECEPTIONIST      ; 4E
+	const HS_VOLTORB_1                     ; 4F
+	const HS_VOLTORB_2                     ; 50
+	const HS_VOLTORB_3                     ; 51
+	const HS_ELECTRODE_1                   ; 52
+	const HS_VOLTORB_4                     ; 53
+	const HS_VOLTORB_5                     ; 54
+	const HS_ELECTRODE_2                   ; 55
+	const HS_VOLTORB_6                     ; 56
+	const HS_ZAPDOS                        ; 57
+	const HS_POWER_PLANT_ITEM_1            ; 58
+	const HS_POWER_PLANT_ITEM_2            ; 59
+	const HS_POWER_PLANT_ITEM_3            ; 5A
+	const HS_POWER_PLANT_ITEM_4            ; 5B
 	const HS_POWER_PLANT_CRAIG ; Craig self-insert at Zapdos's tile (post-Zapdos + post-League)
-	const HS_MOLTRES                       ; 5E
-	const HS_VICTORY_ROAD_2F_ITEM_1        ; 5F
-	const HS_VICTORY_ROAD_2F_ITEM_2        ; 60
-	const HS_VICTORY_ROAD_2F_ITEM_3        ; 61
-	const HS_VICTORY_ROAD_2F_ITEM_4        ; 62
-	const HS_VICTORY_ROAD_2F_BOULDER       ; 63
+	const HS_MOLTRES                       ; 5D
+	const HS_VICTORY_ROAD_2F_ITEM_1        ; 5E
+	const HS_VICTORY_ROAD_2F_ITEM_2        ; 5F
+	const HS_VICTORY_ROAD_2F_ITEM_3        ; 60
+	const HS_VICTORY_ROAD_2F_ITEM_4        ; 61
+	const HS_VICTORY_ROAD_2F_BOULDER       ; 62
 	const HS_VICTORY_ROAD_2F_SMITH ; Smith self-insert at Moltres's tile (post-Moltres + post-League)
-	const HS_BILL_POKEMON                  ; 65
-	const HS_BILL_1                        ; 66
-	const HS_BILL_2                        ; 67
-	const HS_VIRIDIAN_FOREST_ITEM_1        ; 68
-	const HS_VIRIDIAN_FOREST_ITEM_2        ; 69
-	const HS_VIRIDIAN_FOREST_ITEM_3        ; 6A
-	const HS_MT_MOON_1F_ITEM_1             ; 6B
-	const HS_MT_MOON_1F_ITEM_2             ; 6C
-	const HS_MT_MOON_1F_ITEM_3             ; 6D
-	const HS_MT_MOON_1F_ITEM_4             ; 6E
-	const HS_MT_MOON_1F_ITEM_5             ; 6F
-	const HS_MT_MOON_1F_ITEM_6             ; 70
-	const HS_MT_MOON_B2F_JESSIE            ; 71
-	const HS_MT_MOON_B2F_JAMES             ; 72
-	const HS_MT_MOON_B2F_FOSSIL_1          ; 73
-	const HS_MT_MOON_B2F_FOSSIL_2          ; 74
-	const HS_MT_MOON_B2F_ITEM_1            ; 75
-	const HS_MT_MOON_B2F_ITEM_2            ; 76
-	const HS_SS_ANNE_2F_RIVAL              ; 77
-	const HS_SS_ANNE_1F_ROOMS_ITEM         ; 78
-	const HS_SS_ANNE_2F_ROOMS_ITEM_1       ; 79
-	const HS_SS_ANNE_2F_ROOMS_ITEM_2       ; 7A
-	const HS_SS_ANNE_B1F_ROOMS_ITEM_1      ; 7B
-	const HS_SS_ANNE_B1F_ROOMS_ITEM_2      ; 7C
-	const HS_SS_ANNE_B1F_ROOMS_ITEM_3      ; 7D
-	const HS_VICTORY_ROAD_3F_ITEM_1        ; 7E
-	const HS_VICTORY_ROAD_3F_ITEM_2        ; 7F
-	const HS_VICTORY_ROAD_3F_BOULDER       ; 80
-	const HS_ROCKET_HIDEOUT_B1F_ITEM_1     ; 81
-	const HS_ROCKET_HIDEOUT_B1F_ITEM_2     ; 82
-	const HS_ROCKET_HIDEOUT_B2F_ITEM_1     ; 83
-	const HS_ROCKET_HIDEOUT_B2F_ITEM_2     ; 84
-	const HS_ROCKET_HIDEOUT_B2F_ITEM_3     ; 85
-	const HS_ROCKET_HIDEOUT_B2F_ITEM_4     ; 86
-	const HS_ROCKET_HIDEOUT_B3F_ITEM_1     ; 87
-	const HS_ROCKET_HIDEOUT_B3F_ITEM_2     ; 88
-	const HS_ROCKET_HIDEOUT_B4F_GIOVANNI   ; 89
-	const HS_ROCKET_HIDEOUT_B4F_JAMES      ; 8A
-	const HS_ROCKET_HIDEOUT_B4F_JESSIE     ; 8B
-	const HS_ROCKET_HIDEOUT_B4F_ITEM_1     ; 8C
-	const HS_ROCKET_HIDEOUT_B4F_ITEM_2     ; 8D
-	const HS_ROCKET_HIDEOUT_B4F_ITEM_3     ; 8E
-	const HS_ROCKET_HIDEOUT_B4F_ITEM_4     ; 8F
-	const HS_ROCKET_HIDEOUT_B4F_ITEM_5     ; 90
-	const HS_SILPH_CO_2F_2                 ; 91
-	const HS_SILPH_CO_2F_3                 ; 92
-	const HS_SILPH_CO_2F_4                 ; 93
-	const HS_SILPH_CO_2F_5                 ; 94
-	const HS_SILPH_CO_3F_1                 ; 95
-	const HS_SILPH_CO_3F_2                 ; 96
-	const HS_SILPH_CO_3F_ITEM              ; 97
-	const HS_SILPH_CO_4F_1                 ; 98
-	const HS_SILPH_CO_4F_2                 ; 99
-	const HS_SILPH_CO_4F_3                 ; 9A
-	const HS_SILPH_CO_4F_ITEM_1            ; 9B
-	const HS_SILPH_CO_4F_ITEM_2            ; 9C
-	const HS_SILPH_CO_4F_ITEM_3            ; 9D
-	const HS_SILPH_CO_5F_1                 ; 9E
-	const HS_SILPH_CO_5F_2                 ; 9F
-	const HS_SILPH_CO_5F_3                 ; A0
-	const HS_SILPH_CO_5F_4                 ; A1
-	const HS_SILPH_CO_5F_ITEM_1            ; A2
-	const HS_SILPH_CO_5F_ITEM_2            ; A3
-	const HS_SILPH_CO_5F_ITEM_3            ; A4
-	const HS_SILPH_CO_6F_1                 ; A5
-	const HS_SILPH_CO_6F_2                 ; A6
-	const HS_SILPH_CO_6F_3                 ; A7
-	const HS_SILPH_CO_6F_ITEM_1            ; A8
-	const HS_SILPH_CO_6F_ITEM_2            ; A9
-	const HS_SILPH_CO_7F_1                 ; AA
-	const HS_SILPH_CO_7F_2                 ; AB
-	const HS_SILPH_CO_7F_3                 ; AC
-	const HS_SILPH_CO_7F_4                 ; AD
-	const HS_SILPH_CO_7F_RIVAL             ; AE
-	const HS_SILPH_CO_7F_ITEM_1            ; AF
-	const HS_SILPH_CO_7F_ITEM_2            ; B0
+	const HS_BILL_POKEMON                  ; 64
+	const HS_BILL_1                        ; 65
+	const HS_BILL_2                        ; 66
+	const HS_VIRIDIAN_FOREST_ITEM_1        ; 67
+	const HS_VIRIDIAN_FOREST_ITEM_2        ; 68
+	const HS_VIRIDIAN_FOREST_ITEM_3        ; 69
+	const HS_MT_MOON_1F_ITEM_1             ; 6A
+	const HS_MT_MOON_1F_ITEM_2             ; 6B
+	const HS_MT_MOON_1F_ITEM_3             ; 6C
+	const HS_MT_MOON_1F_ITEM_4             ; 6D
+	const HS_MT_MOON_1F_ITEM_5             ; 6E
+	const HS_MT_MOON_1F_ITEM_6             ; 6F
+	const HS_MT_MOON_B2F_JESSIE            ; 70
+	const HS_MT_MOON_B2F_JAMES             ; 71
+	const HS_MT_MOON_B2F_FOSSIL_1          ; 72
+	const HS_MT_MOON_B2F_FOSSIL_2          ; 73
+	const HS_MT_MOON_B2F_ITEM_1            ; 74
+	const HS_MT_MOON_B2F_ITEM_2            ; 75
+	const HS_SS_ANNE_2F_RIVAL              ; 76
+	const HS_SS_ANNE_1F_ROOMS_ITEM         ; 77
+	const HS_SS_ANNE_2F_ROOMS_ITEM_1       ; 78
+	const HS_SS_ANNE_2F_ROOMS_ITEM_2       ; 79
+	const HS_SS_ANNE_B1F_ROOMS_ITEM_1      ; 7A
+	const HS_SS_ANNE_B1F_ROOMS_ITEM_2      ; 7B
+	const HS_SS_ANNE_B1F_ROOMS_ITEM_3      ; 7C
+	const HS_VICTORY_ROAD_3F_ITEM_1        ; 7D
+	const HS_VICTORY_ROAD_3F_ITEM_2        ; 7E
+	const HS_VICTORY_ROAD_3F_BOULDER       ; 7F
+	const HS_ROCKET_HIDEOUT_B1F_ITEM_1     ; 80
+	const HS_ROCKET_HIDEOUT_B1F_ITEM_2     ; 81
+	const HS_ROCKET_HIDEOUT_B2F_ITEM_1     ; 82
+	const HS_ROCKET_HIDEOUT_B2F_ITEM_2     ; 83
+	const HS_ROCKET_HIDEOUT_B2F_ITEM_3     ; 84
+	const HS_ROCKET_HIDEOUT_B2F_ITEM_4     ; 85
+	const HS_ROCKET_HIDEOUT_B3F_ITEM_1     ; 86
+	const HS_ROCKET_HIDEOUT_B3F_ITEM_2     ; 87
+	const HS_ROCKET_HIDEOUT_B4F_GIOVANNI   ; 88
+	const HS_ROCKET_HIDEOUT_B4F_JAMES      ; 89
+	const HS_ROCKET_HIDEOUT_B4F_JESSIE     ; 8A
+	const HS_ROCKET_HIDEOUT_B4F_ITEM_1     ; 8B
+	const HS_ROCKET_HIDEOUT_B4F_ITEM_2     ; 8C
+	const HS_ROCKET_HIDEOUT_B4F_ITEM_3     ; 8D
+	const HS_ROCKET_HIDEOUT_B4F_ITEM_4     ; 8E
+	const HS_ROCKET_HIDEOUT_B4F_ITEM_5     ; 8F
+	const HS_SILPH_CO_2F_2                 ; 90
+	const HS_SILPH_CO_2F_3                 ; 91
+	const HS_SILPH_CO_2F_4                 ; 92
+	const HS_SILPH_CO_2F_5                 ; 93
+	const HS_SILPH_CO_3F_1                 ; 94
+	const HS_SILPH_CO_3F_2                 ; 95
+	const HS_SILPH_CO_3F_ITEM              ; 96
+	const HS_SILPH_CO_4F_1                 ; 97
+	const HS_SILPH_CO_4F_2                 ; 98
+	const HS_SILPH_CO_4F_3                 ; 99
+	const HS_SILPH_CO_4F_ITEM_1            ; 9A
+	const HS_SILPH_CO_4F_ITEM_2            ; 9B
+	const HS_SILPH_CO_4F_ITEM_3            ; 9C
+	const HS_SILPH_CO_5F_1                 ; 9D
+	const HS_SILPH_CO_5F_2                 ; 9E
+	const HS_SILPH_CO_5F_3                 ; 9F
+	const HS_SILPH_CO_5F_4                 ; A0
+	const HS_SILPH_CO_5F_ITEM_1            ; A1
+	const HS_SILPH_CO_5F_ITEM_2            ; A2
+	const HS_SILPH_CO_5F_ITEM_3            ; A3
+	const HS_SILPH_CO_6F_1                 ; A4
+	const HS_SILPH_CO_6F_2                 ; A5
+	const HS_SILPH_CO_6F_3                 ; A6
+	const HS_SILPH_CO_6F_ITEM_1            ; A7
+	const HS_SILPH_CO_6F_ITEM_2            ; A8
+	const HS_SILPH_CO_7F_1                 ; A9
+	const HS_SILPH_CO_7F_2                 ; AA
+	const HS_SILPH_CO_7F_3                 ; AB
+	const HS_SILPH_CO_7F_4                 ; AC
+	const HS_SILPH_CO_7F_RIVAL             ; AD
+	const HS_SILPH_CO_7F_ITEM_1            ; AE
+	const HS_SILPH_CO_7F_ITEM_2            ; AF
 	; Frees one HS slot to compensate for new TM ball items added elsewhere.
-	const HS_SILPH_CO_8F_1                 ; B1
-	const HS_SILPH_CO_8F_2                 ; B2
-	const HS_SILPH_CO_8F_3                 ; B3
-	const HS_SILPH_CO_9F_1                 ; B4
-	const HS_SILPH_CO_9F_2                 ; B5
-	const HS_SILPH_CO_9F_3                 ; B6
-	const HS_SILPH_CO_10F_1                ; B7
-	const HS_SILPH_CO_10F_2                ; B8
-	const HS_SILPH_CO_10F_ITEM_1           ; B9
-	const HS_SILPH_CO_10F_ITEM_2           ; BA
-	const HS_SILPH_CO_11F_1                ; BB
-	const HS_SILPH_CO_11F_JAMES            ; BC
-	const HS_SILPH_CO_11F_2                ; BD
-	const HS_SILPH_CO_11F_JESSIE           ; BE
+	const HS_SILPH_CO_8F_1                 ; B0
+	const HS_SILPH_CO_8F_2                 ; B1
+	const HS_SILPH_CO_8F_3                 ; B2
+	const HS_SILPH_CO_9F_1                 ; B3
+	const HS_SILPH_CO_9F_2                 ; B4
+	const HS_SILPH_CO_9F_3                 ; B5
+	const HS_SILPH_CO_10F_1                ; B6
+	const HS_SILPH_CO_10F_2                ; B7
+	const HS_SILPH_CO_10F_ITEM_1           ; B8
+	const HS_SILPH_CO_10F_ITEM_2           ; B9
+	const HS_SILPH_CO_11F_1                ; BA
+	const HS_SILPH_CO_11F_JAMES            ; BB
+	const HS_SILPH_CO_11F_2                ; BC
+	const HS_SILPH_CO_11F_JESSIE           ; BD
 	; Frees one HS slot to compensate for new TM ball items added elsewhere.
-	const HS_POKEMON_MANSION_2F_ITEM       ; BF
+	const HS_POKEMON_MANSION_2F_ITEM       ; BE
 	const HS_POKEMON_MANSION_2F_OAK
-	const HS_POKEMON_MANSION_3F_ITEM_1     ; C1
-	const HS_POKEMON_MANSION_3F_ITEM_2     ; C2
+	const HS_POKEMON_MANSION_3F_ITEM_1     ; C0
+	const HS_POKEMON_MANSION_3F_ITEM_2     ; C1
 	const HS_POKEMON_MANSION_B1F_MEW
-	const HS_POKEMON_MANSION_B1F_ITEM_1    ; C4
-	const HS_POKEMON_MANSION_B1F_ITEM_2    ; C5
-	const HS_POKEMON_MANSION_B1F_ITEM_3    ; C6
-	const HS_POKEMON_MANSION_B1F_ITEM_4    ; C7
-	const HS_POKEMON_MANSION_B1F_ITEM_5    ; C8
-	const HS_SAFARI_ZONE_EAST_ITEM_1       ; C9
-	const HS_SAFARI_ZONE_EAST_ITEM_2       ; CA
-	const HS_SAFARI_ZONE_EAST_ITEM_3       ; CB
-	const HS_SAFARI_ZONE_EAST_ITEM_4       ; CC
-	const HS_SAFARI_ZONE_NORTH_ITEM_1      ; CD
-	const HS_SAFARI_ZONE_NORTH_ITEM_2      ; CE
-	const HS_SAFARI_ZONE_WEST_ITEM_1       ; CF
-	const HS_SAFARI_ZONE_WEST_ITEM_2       ; D0
-	const HS_SAFARI_ZONE_WEST_ITEM_3       ; D1
-	const HS_SAFARI_ZONE_WEST_ITEM_4       ; D2
-	const HS_SAFARI_ZONE_CENTER_ITEM       ; D3
-	const HS_CERULEAN_CAVE_2F_ITEM_1       ; D4
-	const HS_CERULEAN_CAVE_2F_ITEM_3       ; D5
-	const HS_CERULEAN_CAVE_2F_ITEM_4       ; D6
-	const HS_MEWTWO                        ; D7
+	const HS_POKEMON_MANSION_B1F_ITEM_1    ; C3
+	const HS_POKEMON_MANSION_B1F_ITEM_2    ; C4
+	const HS_POKEMON_MANSION_B1F_ITEM_3    ; C5
+	const HS_POKEMON_MANSION_B1F_ITEM_4    ; C6
+	const HS_POKEMON_MANSION_B1F_ITEM_5    ; C7
+	const HS_SAFARI_ZONE_EAST_ITEM_1       ; C8
+	const HS_SAFARI_ZONE_EAST_ITEM_2       ; C9
+	const HS_SAFARI_ZONE_EAST_ITEM_3       ; CA
+	const HS_SAFARI_ZONE_EAST_ITEM_4       ; CB
+	const HS_SAFARI_ZONE_NORTH_ITEM_1      ; CC
+	const HS_SAFARI_ZONE_NORTH_ITEM_2      ; CD
+	const HS_SAFARI_ZONE_WEST_ITEM_1       ; CE
+	const HS_SAFARI_ZONE_WEST_ITEM_2       ; CF
+	const HS_SAFARI_ZONE_WEST_ITEM_3       ; D0
+	const HS_SAFARI_ZONE_WEST_ITEM_4       ; D1
+	const HS_SAFARI_ZONE_CENTER_ITEM       ; D2
+	const HS_CERULEAN_CAVE_2F_ITEM_1       ; D3
+	const HS_CERULEAN_CAVE_2F_ITEM_3       ; D4
+	const HS_CERULEAN_CAVE_2F_ITEM_4       ; D5
+	const HS_MEWTWO                        ; D6
 	; v0.7 ground-item redesign: the old ITEM_1 (the Ultra Ball at 26,1) was
 	; removed — hidden item at the same coords now; its slot funds Seafoam
 	; 1F's rope. The three survivors renumber; nothing referenced them.
@@ -233,42 +232,43 @@ DEF SHOW EQU $15
 	const HS_CERULEAN_CAVE_B1F_ITEM_2      ; (Max Revive)
 	const HS_CERULEAN_CAVE_B1F_ITEM_3      ; (Max Elixir)
 	const HS_CERULEAN_CAVE_B1F_FORTE       ; Forte/DREIGON self-insert at MEWTWO's tile (post-MEWTWO + post-League; repeatable)
-	const HS_VICTORY_ROAD_1F_ITEM_1        ; DC
-	const HS_VICTORY_ROAD_1F_ITEM_2        ; DD
+	const HS_VICTORY_ROAD_1F_ITEM_1        ; DB
+	const HS_VICTORY_ROAD_1F_ITEM_2        ; DC
 	const HS_LANCESROOM_LANCE
 	const HS_LANCESROOM_LANCE_REMATCH
-	const HS_CHAMPIONS_ROOM_OAK            ; E0
+	const HS_CHAMPIONS_ROOM_OAK            ; DF
 	const HS_CHAMPIONS_ROOM_JOLTEON
 	const HS_CHAMPIONS_ROOM_FLAREON
 	const HS_CHAMPIONS_ROOM_VAPOREON
-	const HS_SEAFOAM_ISLANDS_1F_BOULDER_1  ; E4
-	const HS_SEAFOAM_ISLANDS_1F_BOULDER_2  ; E5
+	const HS_SEAFOAM_ISLANDS_1F_BOULDER_1  ; E3
+	const HS_SEAFOAM_ISLANDS_1F_BOULDER_2  ; E4
 	const HS_SEAFOAM_ISLANDS_1F_ITEM_1 ; v0.7 rope ball (slot from the CC B1F Ultra Ball conversion)
-	const HS_SEAFOAM_ISLANDS_B1F_BOULDER_1 ; E7
-	const HS_SEAFOAM_ISLANDS_B1F_BOULDER_2 ; E8
-	const HS_SEAFOAM_ISLANDS_B2F_BOULDER_1 ; E9
-	const HS_SEAFOAM_ISLANDS_B2F_BOULDER_2 ; EA
-	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_1 ; EB
-	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_2 ; EC
-	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_3 ; ED
-	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_4 ; EE
+	const HS_SEAFOAM_ISLANDS_B1F_BOULDER_1 ; E6
+	const HS_SEAFOAM_ISLANDS_B1F_BOULDER_2 ; E7
+	const HS_SEAFOAM_ISLANDS_B2F_BOULDER_1 ; E8
+	const HS_SEAFOAM_ISLANDS_B2F_BOULDER_2 ; E9
+	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_1 ; EA
+	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_2 ; EB
+	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_3 ; EC
+	const HS_SEAFOAM_ISLANDS_B3F_BOULDER_4 ; ED
 	const HS_SEAFOAM_ISLANDS_B3F_ITEM_1 ; TM41 Light Screen ball
-	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_1 ; F0
-	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; F1
+	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_1 ; EF
+	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; F0
 	; v0.7 fix: these two were swapped relative to the SeafoamIslandsB4FHS
 	; data rows (ARTICUNO row comes BEFORE the TM ball row there). Inert
 	; today -- nothing references either constant -- but the first future
 	; `ld a, HS_ARTICUNO / predef HideObject` would have deleted the TM42
 	; ball and left Articuno standing. ROM byte-identical.
-	const HS_ARTICUNO                      ; F2
-	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; F3, TM42 Ice Beam ball
+	const HS_ARTICUNO                      ; F1
+	const HS_SEAFOAM_ISLANDS_B4F_ITEM_1 ; F2, TM42 Ice Beam ball
 	const HS_SEAFOAM_ISLANDS_B4F_WEEBRA ; Weebra self-insert at Articuno's tile (post-Articuno + post-League)
 ; v0.7: HS_TOWN_MAP_COPY, HS_DAISY_SITTING_COPY and HS_DAISY_WALKING_COPY were
 ; here. All three named a vanilla DUPLICATE of the Blue's House block that
 ; nothing points at (MapHSPointers sends BLUES_HOUSE to the real one). The
 ; first spare paid for HS_PALLET_TOWN_MOM at index 01; the last two paid for
 ; HS_VIRIDIAN_GYM_KIYO and HS_FIGHTING_DOJO_MASTER (the dojo-master takeover).
-; The array is still exactly 256, and there are NO spare slots left.
+; The array was exactly 256 with no spare until 2026-09-22 (PURPLE's ball
+; left, index 255 freed) and is full again since 2026-09-23 (MR. FUJI's CUBONE).
 	const HS_LORELEISROOM_LORELEI
 	const HS_LORELEISROOM_LORELEI_REMATCH
 	const HS_BRUNOSROOM_BRUNO
@@ -287,4 +287,14 @@ DEF SHOW EQU $15
 ; session, so nothing persisted the old indices.
 	const HS_SAFFRON_POKECENTER_AIDE_1
 	const HS_SAFFRON_POKECENTER_AIDE_2
+; v1.0 (2026-09-23, Forte): MR. FUJI's house holds two missables - himself
+; (hidden until the Tower rescue; his row moved here from the middle of the
+; table so the house's rows stay contiguous) and the orphan CUBONE of the
+; TOWER, who lives in his Volunteer House and is hidden once he hands her to
+; the player. Indices 254/255: the array is 256/256 (PURPLE's ball freed the
+; slot on 2026-09-22). Moving his row shifted every index after the old 70 by
+; one - saves of that day are dead (none in progress, Forte). The next visible
+; object has to convert an existing one into a hidden item.
+	const HS_MR_FUJIS_HOUSE_MR_FUJI
+	const HS_MR_FUJIS_HOUSE_CUBONE
 DEF NUM_HS_OBJECTS EQU const_value
