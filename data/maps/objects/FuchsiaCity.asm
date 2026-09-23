@@ -46,7 +46,7 @@ FuchsiaCity_Object:
 	object_event 27, 18, SPRITE_GAMBLER, WALK, LEFT_RIGHT, TEXT_FUCHSIACITY_GAMBLER
 	object_event 31,  9, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_FUCHSIACITY_ERIK
 	object_event  5,  8, SPRITE_YOUNGSTER, STAY, UP, TEXT_FUCHSIACITY_YOUNGSTER2
-	object_event 12,  5, SPRITE_CHANSEY, STAY, DOWN, TEXT_FUCHSIACITY_CHANSEY
+	object_event 12,  5, SPRITE_CHANSEY, STAY, ANY_DIR, TEXT_FUCHSIACITY_CHANSEY ; v1.0 (Forte, 2026-09-23): she turns in place at random (STAY takes the random path; the facing is written before the step is refused), so her side and back poses show. NOT WALK: chansey.png is 16x48, three poses and no step frames - a walker would draw the next sheet's bytes mid-step
 	object_event  5,  5, SPRITE_POKE_BALL, STAY, NONE, TEXT_FUCHSIACITY_VOLTORB
 	object_event 34,  5, SPRITE_KANGASKHAN, WALK, ANY_DIR, TEXT_FUCHSIACITY_KANGASKHAN
 	object_event 32, 13, SPRITE_SLOWPOKE, WALK, ANY_DIR, TEXT_FUCHSIACITY_SLOWPOKE

@@ -649,6 +649,27 @@ BillsHouse_TextPointers:
 	dw_const BillsHouseBillDontLeaveText,             TEXT_BILLSHOUSE_BILL_DONT_LEAVE
 	dw_const BillsHouseBillEeveeGiftText,             TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
 	dw_const BillsHouseBillPostBattleText,            TEXT_BILLSHOUSE_BILL_POST_BATTLE
+	dw_const BillsHouseMachineText,                   TEXT_BILLSHOUSE_MACHINE
+
+; v1.0 (Forte, 2026-09-23): the two TELEPORTER machines, flavour only. Once
+; BILL is back in one piece (EVENT_MET_BILL) the player knows what they are.
+BillsHouseMachineText:
+	text_asm
+	CheckEvent EVENT_MET_BILL
+	ld hl, .Saved
+	jr nz, .print
+	ld hl, .Unknown
+.print
+	call PrintText
+	jp TextScriptEnd
+
+.Unknown
+	text_far _BillsHouseMachineText
+	text_end
+
+.Saved
+	text_far _BillsHouseMachineSavedText
+	text_end
 
 BillsHouseBillDontLeaveText:
 	text_far _BillsHouseBillDontLeaveText
