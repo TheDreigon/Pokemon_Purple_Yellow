@@ -140,6 +140,15 @@ UpdateNPCSprite:
 	ld hl, wMapSpriteData
 	add l
 	ld l, a
+	; v1.0 (2026-09-23): carry into h. Vanilla never did, and got away with it
+	; because its table sat at $d4e3 (only a 16th object crossed the page); ours
+	; is at $d4e9 since the WRAM hardening, so objects 13-16 read their movement
+	; byte 2 from wWarpEntries and a fixed-facing STAY sprite turned at random
+	; (SAFFRON's ROCKER and ROCKET, the S.S. ANNE beauty). pureRGB's fix.
+	; Guard: .claude/emu_test_npc_page_carry.py.
+	jr nc, .noCarry
+	inc h
+.noCarry
 	ld a, [hl]        ; read movement byte 2
 	ld [wCurSpriteMovement2], a
 	ld h, HIGH(wSpriteStateData1)
