@@ -53,7 +53,12 @@
 	const_next $68
 	const EVENT_BOUGHT_MUSEUM_TICKET
 	const EVENT_GOT_OLD_AMBER
-	const_skip 8
+; v1.0 (2026-09-23): the museum's errand. REVIVED is set by the CINNABAR LAB the
+; instant it hands over the AERODACTYL grown from the OLD AMBER; FREE is set by
+; the researcher when the player brings the news, and the front desk honours it.
+	const EVENT_REVIVED_OLD_AMBER
+	const EVENT_MUSEUM_ADMISSION_FREE
+	const_skip 6
 	const EVENT_BEAT_PEWTER_GYM_TRAINER_0
 	const_skip 3
 	const EVENT_GOT_BROCK_TM

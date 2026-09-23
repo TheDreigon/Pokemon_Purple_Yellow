@@ -67,6 +67,13 @@ GiveFossilToCinnabarLab::
 	ld a, [wFossilItem]
 	ldh [hItemToRemoveID], a
 	farcall RemoveItemByID
+; v1.0 (2026-09-23): "tell them PEWTER's museum sent you"
+	ld a, [wFossilItem]
+	cp OLD_AMBER
+	jr nz, .notTheMuseums
+	ld hl, .PewterMuseumText
+	call PrintText
+.notTheMuseums
 	ld hl, .GoForAWalkText
 	call PrintText
 	SetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL
@@ -75,6 +82,10 @@ GiveFossilToCinnabarLab::
 	ld hl, .ComeAgainText
 	call PrintText
 	ret
+
+.PewterMuseumText:
+	text_far _CinnabarLabPewterMuseumText
+	text_end
 
 .ScientistSeesFossilText:
 	text_far _CinnabarLabFossilRoomScientist1SeesFossilText

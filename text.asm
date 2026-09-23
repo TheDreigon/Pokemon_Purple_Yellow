@@ -339,6 +339,12 @@ SECTION "Route 24 Damian Text", ROMX
 
 INCLUDE "text/route24_damian.asm"
 
+; The museum's amber errand (2026-09-23): kept out of Text 5, the museum's own
+; bank, to preserve its headroom; the errand's lines stay together here.
+SECTION "Museum Amber Quest Text", ROMX
+
+INCLUDE "text/Museum1FAmber.asm"
+
 ; The SAFARI ZONE west BAIT/ROCK sign. Its own section because spelling out the
 ; numbers pushed the pinned "Text 2" bank over.
 SECTION "Safari West Tips Text", ROMX

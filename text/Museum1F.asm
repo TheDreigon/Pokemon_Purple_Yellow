@@ -30,11 +30,11 @@ _Museum1FScientist1DoYouKnowWhatAmberIsText::
 	done
 
 _Museum1FScientist1TheresALabSomewhereText::
-	text "There's a lab"
-	line "somewhere trying"
-	cont "to resurrect"
+	text "There's a LAB on"
+	line "CINNABAR ISLAND"
+	cont "trying to bring"
 	cont "ancient #MON"
-	cont "from AMBER."
+	cont "back from AMBER."
 	done
 
 _Museum1FScientist1AmberIsFossilizedTreeSapText::
@@ -58,37 +58,10 @@ _Museum1FGamblerText::
 	cont "fossil!"
 	done
 
-_Museum1FScientist2TakeThisToAPokemonLabText::
-	text "Ssh! I think that"
-	line "this chunk of"
-	cont "AMBER contains"
-	cont "#MON DNA!"
-
-	para "It would be great"
-	line "if #MON could"
-	cont "be resurrected"
-	cont "from it!"
-
-	para "But, my colleagues"
-	line "just ignore me!"
-
-	para "So, I have a favor"
-	line "to ask!"
-
-	para "Take this to a"
-	line "#MON LAB and"
-	cont "get it examined!"
-	prompt
-
 _Museum1FScientist2ReceivedOldAmberText::
 	text "<PLAYER> received"
 	line "OLD AMBER!@"
 	text_end
-
-_Museum1FScientist2GetTheOldAmberCheckText::
-	text "Ssh! Get the OLD"
-	line "AMBER checked!"
-	done
 
 _Museum1FScientist2YouDontHaveSpaceText::
 	text "You don't have"

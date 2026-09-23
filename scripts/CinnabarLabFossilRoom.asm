@@ -82,6 +82,13 @@ CinnabarLabFossilRoomScientist1Text:
 	ld c, 35
 	call GivePokemon
 	jr nc, .done
+; v1.0 (2026-09-23): PEWTER's museum wants to hear how its amber went - only
+; the amber, and only once the AERODACTYL is really in the player's hands
+	ld a, [wFossilItem]
+	cp OLD_AMBER
+	jr nz, .notTheAmber
+	SetEvent EVENT_REVIVED_OLD_AMBER
+.notTheAmber
 	ResetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL, EVENT_LAB_HANDING_OVER_FOSSIL_MON
 	jr .done
 

@@ -13,14 +13,23 @@ Museum1FPrintScientist1Text::
 	cp 12
 	jp z, .behind_counter
 .not_behind_counter
-	CheckEvent EVENT_BOUGHT_MUSEUM_TICKET
+	CheckEitherEventSet EVENT_BOUGHT_MUSEUM_TICKET, EVENT_MUSEUM_ADMISSION_FREE ; v1.0: free since the amber
 	jr nz, .already_bought_ticket
 	ld hl, .GoToOtherSideText
 	call PrintText
 	jp .done
 .check_ticket
 	CheckEvent EVENT_BOUGHT_MUSEUM_TICKET
+	jr nz, .already_bought_ticket
+; v1.0 (2026-09-23): admission is free once the amber came back to life. The
+; walk-in trigger fires every frame until .allow_entry parks the map script,
+; so this path must end there and nowhere else.
+	CheckEvent EVENT_MUSEUM_ADMISSION_FREE
 	jr z, .no_ticket
+	SetEvent EVENT_BOUGHT_MUSEUM_TICKET ; this visit's ticket, on the house (later talks: "Take plenty of time")
+	ld hl, .FreeAdmissionText
+	call PrintText
+	jp .allow_entry
 .already_bought_ticket
 	ld hl, .TakePlentyOfTimeText
 	call PrintText
@@ -134,6 +143,10 @@ Museum1FPrintScientist1Text::
 	text_far _Museum1FScientist1TakePlentyOfTimeText
 	text_end
 
+.FreeAdmissionText:
+	text_far _Museum1FScientist1FreeAdmissionText
+	text_end
+
 Museum1FPrintGamblerText::
 	ld hl, .Text
 	call PrintText
@@ -143,11 +156,26 @@ Museum1FPrintGamblerText::
 	text_far _Museum1FGamblerText
 	text_end
 
+; v1.0 (Forte, 2026-09-23): the amber is an errand now. He asks the player by
+; name to carry it to the LAB on CINNABAR (YES/NO; a NO keeps the amber here
+; and he asks again), waits for news, and when the AERODACTYL is really back
+; (EVENT_REVIVED_OLD_AMBER, set by the lab at the hand-over) he thanks the
+; player and makes admission free for good (the front desk reads the flag).
 Museum1FPrintScientist2Text::
+	CheckEvent EVENT_MUSEUM_ADMISSION_FREE
+	jr nz, .standing_free
+	CheckEvent EVENT_REVIVED_OLD_AMBER
+	jr nz, .report
 	CheckEvent EVENT_GOT_OLD_AMBER
-	jr nz, .got_item
-	ld hl, .TakeThisToAPokemonLabText
+	jr nz, .waiting
+	ld hl, .RequestText
 	call PrintText
+	xor a
+	ld [wMenuJoypadPollCount], a ; a stale poll count would phantom-accept
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
 	lb bc, OLD_AMBER, 1
 	call GiveItem
 	jr nc, .bag_full
@@ -156,27 +184,56 @@ Museum1FPrintScientist2Text::
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	ld hl, .ReceivedOldAmberText
+	call PrintText
+	ld hl, .ThanksText
+	jr .done
+.refused
+	ld hl, .RefusedText
 	jr .done
 .bag_full
 	ld hl, .YouDontHaveSpaceText
 	jr .done
-.got_item
-	ld hl, .GetTheOldAmberCheckText
+.waiting
+	ld hl, .WaitingText
+	jr .done
+.report
+	SetEvent EVENT_MUSEUM_ADMISSION_FREE ; before hl is loaded
+	ld hl, .RevivedText
+	jr .done
+.standing_free
+	ld hl, .OnTheHouseText
 .done
 	call PrintText
 	ret
 
-.TakeThisToAPokemonLabText:
-	text_far _Museum1FScientist2TakeThisToAPokemonLabText
+.RequestText:
+	text_far _Museum1FScientist2AmberRequestText
+	text_end
+
+.ThanksText:
+	text_far _Museum1FScientist2AmberThanksText
+	text_end
+
+.RefusedText:
+	text_far _Museum1FScientist2AmberRefusedText
+	text_end
+
+.WaitingText:
+	text_far _Museum1FScientist2AmberWaitingText
+	text_end
+
+.RevivedText:
+	text_far _Museum1FScientist2AmberRevivedText
+	text_end
+
+.OnTheHouseText:
+	text_far _Museum1FScientist2AmberOnTheHouseText
 	text_end
 
 .ReceivedOldAmberText:
 	text_far _Museum1FScientist2ReceivedOldAmberText
 	sound_get_item_1
-	text_end
-
-.GetTheOldAmberCheckText:
-	text_far _Museum1FScientist2GetTheOldAmberCheckText
+	text_waitbutton ; v1.0: the thanks follow, hold the receipt
 	text_end
 
 .YouDontHaveSpaceText:
