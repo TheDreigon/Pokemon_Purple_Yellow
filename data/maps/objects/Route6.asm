@@ -32,9 +32,12 @@ Route6_Object:
 	object_event 11, 31, SPRITE_YOUNGSTER, STAY, LEFT, TEXT_ROUTE6_COOLTRAINER_M2, OPP_JR_TRAINER_M, 5, 3
 	object_event 11, 30, SPRITE_COOLTRAINER_F, STAY, LEFT, TEXT_ROUTE6_COOLTRAINER_F2, OPP_JR_TRAINER_F, 3, 3
 	object_event 17, 26, SPRITE_YOUNGSTER, STAY, LEFT, TEXT_ROUTE6_YOUNGSTER2, OPP_BUG_CATCHER, 11, 3
-; v1.0 (2026-09-07, Forte): the gardener, wandering the flower strip right below the SAFFRON
-; gate (row 5, between the gate and the hedge). A plain object: his text id sits within the
+; v1.0 (2026-09-07, Forte): the gardener on the flower strip right below the SAFFRON gate
+; (row 5, between the gate and the hedge). A plain object: his text id sits within the
 ; first 7 entries of the table.
-	object_event  7,  5, SPRITE_GRAMPS, WALK, LEFT_RIGHT, TEXT_ROUTE6_GARDENER
+; 2026-09-23: he looks around instead of wandering. gramps.png is 16x48 - three poses and no
+; step frames - so as a WALKer every step drew the CLERK's bytes (the sheet after his in ROM;
+; sprite_set_audit rule 4). A 16x96 sheet would give him the walk back.
+	object_event  7,  5, SPRITE_GRAMPS, STAY, ANY_DIR, TEXT_ROUTE6_GARDENER
 
 	def_warps_to ROUTE_6
