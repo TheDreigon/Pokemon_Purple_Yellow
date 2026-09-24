@@ -283,7 +283,7 @@ LoadTownMap_Fly::
 	jr z, .pressedDown ; skip past unvisited towns
 	jp .townMapFlyLoop
 .wrapToEndOfList
-	ld hl, wFlyLocationsList + NUM_CITY_MAPS
+	ld hl, wFlyLocationsList + NUM_FLY_SLOTS ; the $ff after the last slot
 	jr .pressedDown
 
 ToText:
@@ -297,18 +297,26 @@ BuildFlyLocationsList:
 	ld e, a
 	ld a, [wTownVisitedFlag + 1]
 	ld d, a
-	lb bc, 0, NUM_CITY_MAPS
+	lb bc, 0, NUM_FLY_SLOTS
 .loop
 	srl d
 	rr e
 	ld a, NOT_VISITED
 	jr nc, .notVisited
 	ld a, b ; store the map number of the town if it has been visited
-; ...except the last slot, which is not a town. It stands for BILL's LAB,
-; and the map you actually fly to is ROUTE 25, outside BILL's front door.
+; ...except the slots past the eleven towns, which are not towns. BILL's LAB
+; flies you to ROUTE 25, outside BILL's front door; the two POKeMON CENTERs
+; that stand on a route (v1.0) fly you to that route, one step below their
+; door: MT_MOON_FLY_SLOT is ROUTE 4's, ROCK_TUNNEL_FLY_SLOT is ROUTE 10's.
 	cp BILLS_LAB_FLY_SLOT
-	jr nz, .notVisited
+	jr c, .notVisited ; a town: the slot IS the map id
 	ld a, ROUTE_25
+	jr z, .notVisited ; BILLS_LAB_FLY_SLOT
+	ld a, b
+	cp MT_MOON_FLY_SLOT
+	ld a, ROUTE_4
+	jr z, .notVisited
+	ld a, ROUTE_10 ; ROCK_TUNNEL_FLY_SLOT, the last slot
 .notVisited
 	ld [hl], a
 	inc hl

@@ -1,8 +1,19 @@
 MarkTownVisitedAndLoadMissableObjects::
 	ld a, [wCurMap]
 	cp FIRST_ROUTE_MAP
-	jr nc, .notInTown
-	ld c, a
+	ld c, a ; a town's fly slot is its own map id (ld c, a leaves the flags alone)
+	jr c, .mark
+; v1.0 (2026-09-24): the two POKeMON CENTERs that stand on a route are fly
+; destinations too, and they mark their slot the moment the player walks in --
+; the same rule as a town (entering is what counts, not healing).
+; BuildFlyLocationsList turns the slot back into the route the CENTER stands on.
+	ld c, MT_MOON_FLY_SLOT
+	cp MT_MOON_POKECENTER
+	jr z, .mark
+	ld c, ROCK_TUNNEL_FLY_SLOT
+	cp ROCK_TUNNEL_POKECENTER
+	jr nz, .notInTown
+.mark
 	ld b, FLAG_SET
 	ld hl, wTownVisitedFlag   ; mark town as visited (for flying)
 	predef FlagActionPredef

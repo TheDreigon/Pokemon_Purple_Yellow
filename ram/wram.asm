@@ -849,8 +849,10 @@ wRivalStarterBallSpriteIndex:: db
 
 NEXTU
 wFlyAnimUsingCoordList:: db
-; $ff sentinel values at each end
-wFlyLocationsList:: ds NUM_CITY_MAPS + 2
+; $ff sentinel values at each end. v1.0: NUM_FLY_SLOTS entries (14) - this
+; branch is 17 bytes inside the 28-byte union that wTradedPlayerMonSpecies
+; opens, so it still costs nothing.
+wFlyLocationsList:: ds NUM_FLY_SLOTS + 2
 
 NEXTU
 wWhichTownMapLocation:: db
@@ -2493,7 +2495,11 @@ wObtainedHiddenCoinsFlags:: flag_array 16
 ; $02 = surfing
 wWalkBikeSurfState:: db
 
-wTownVisitedFlag:: flag_array NUM_CITY_MAPS
+; one bit per fly slot: the eleven towns, BILL's LAB, and (v1.0) the CENTERs on
+; ROUTE 4 and ROUTE 10. Saved; must stay two bytes (BuildFlyLocationsList
+; shifts it through d:e, and growing it would move sMainData).
+wTownVisitedFlag:: flag_array NUM_FLY_SLOTS
+ASSERT NUM_FLY_SLOTS <= 16, "wTownVisitedFlag must stay two bytes: it is inside sMainData and BuildFlyLocationsList shifts it through d:e"
 
 ; starts at 502
 wSafariSteps:: dw
