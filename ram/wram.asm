@@ -2058,6 +2058,7 @@ wRivalName:: ds NAME_LENGTH
 ;	10: Earphone2
 ;	11: Earphone3
 ; bits 2-0 = text speed (number of frames to delay after printing a letter)
+; 0: Instant (v1.0)
 ; 1: Fast
 ; 3: Medium
 ; 5: Slow

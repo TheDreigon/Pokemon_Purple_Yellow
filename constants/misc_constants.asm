@@ -8,10 +8,15 @@ DEF TRUE  EQU 1
 	const FLAG_SET   ; 1
 	const FLAG_TEST  ; 2
 
-; wOptions
-DEF TEXT_DELAY_FAST   EQU %001 ; 1
-DEF TEXT_DELAY_MEDIUM EQU %011 ; 3
-DEF TEXT_DELAY_SLOW   EQU %101 ; 5
+; wOptions bits 0-3: frames of delay after each printed letter
+DEF TEXT_DELAY_INSTANT EQU %000 ; 0 (v1.0: the whole box in one go)
+DEF TEXT_DELAY_FAST    EQU %001 ; 1
+DEF TEXT_DELAY_MEDIUM  EQU %011 ; 3
+DEF TEXT_DELAY_SLOW    EQU %101 ; 5
+
+; wLetterPrintingDelayFlags (bits, NOT TEXT_DELAY_* values - see InitOptions)
+DEF BIT_FAST_TEXT_DELAY EQU 0 ; 0 = cap the letter delay at 1 frame
+DEF BIT_TEXT_DELAY      EQU 1 ; 0 = no letter delay at all
 
 	const_def 6
 	const BIT_BATTLE_SHIFT     ; 6

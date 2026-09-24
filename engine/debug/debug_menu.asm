@@ -27,7 +27,7 @@ IF DEF(_DEBUG)
 	ld de, DebugMenuOptions
 	call PlaceString
 
-	ld a, TEXT_DELAY_MEDIUM
+	ld a, TEXT_DELAY_FAST ; v1.0: the NEW GAME default
 	ld [wOptions], a
 
 	ld a, A_BUTTON | B_BUTTON | START

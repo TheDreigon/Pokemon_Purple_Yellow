@@ -6,16 +6,20 @@ PrintLetterDelay::
 	bit 6, a
 	ret nz
 	ld a, [wLetterPrintingDelayFlags]
-	bit 1, a
+	bit BIT_TEXT_DELAY, a
 	ret z
 	push hl
 	push de
 	push bc
 	ld a, [wLetterPrintingDelayFlags]
-	bit 0, a
+	bit BIT_FAST_TEXT_DELAY, a
 	jr z, .waitOneFrame
 	ld a, [wOptions]
 	and $f
+	; v1.0: TEXT_DELAY_INSTANT (0). Leave before the pad poll: the old path
+	; reached .done with 0 too, but a held A/B took .endWait first and cost one
+	; DelayFrame per letter, so "0" was slower with A held than without.
+	jr z, .done
 	ldh [hFrameCounter], a
 	jr .checkButtons
 .waitOneFrame

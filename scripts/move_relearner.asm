@@ -76,13 +76,9 @@ MoveRelearnerText1:
 	pop bc
 	ld a, b
 	ld [wWhichPokemon], a
-	ld a, [wLetterPrintingDelayFlags]
-	push af
-	xor a
-	ld [wLetterPrintingDelayFlags], a
+	; v1.0: no wLetterPrintingDelayFlags override here (it pinned these boxes at
+	; 1 frame per letter whatever TEXT SPEED says - kep-hack's 47a144d9 removed it).
 	predef LearnMove
-	pop af
-	ld [wLetterPrintingDelayFlags], a
 	ld a, b
 	and a
 	jr z, .exit

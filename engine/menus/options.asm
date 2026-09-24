@@ -53,7 +53,7 @@ OptionsMenu_TextSpeed:
 	jr .nonePressed
 .pressedRight
 	ld a, c
-	cp $2
+	cp 3 ; the last entry (SLOW) wraps to INSTANT
 	jr c, .increase
 	ld c, $ff
 .increase
@@ -64,7 +64,7 @@ OptionsMenu_TextSpeed:
 	ld a, c
 	and a
 	jr nz, .decrease
-	ld c, $3
+	ld c, 4 ; INSTANT wraps to SLOW
 .decrease
 	dec c
 	ld a, d
@@ -88,35 +88,46 @@ OptionsMenu_TextSpeed:
 	ret
 
 TextSpeedStringsPointerTable:
+	dw InstantText
 	dw FastText
 	dw MidText
 	dw SlowText
 
+; 5 cells at (14,2): the box border is column 19, so "INSTANT" does not fit ("INSTA", Forte 2026-09-24).
+InstantText:
+	db "INSTA@"
 FastText:
-	db "FAST@"
+	db "FAST @"
 MidText:
-	db "MID @"
+	db "MID  @"
 SlowText:
-	db "SLOW@"
+	db "SLOW @"
 
+; c = entry index (0 INSTANT, 1 FAST, 2 MID, 3 SLOW); d = the value to the LEFT,
+; e = the value to the RIGHT (OptionsMenu_TextSpeed saves d on LEFT, e on RIGHT).
 GetTextSpeed:
 	ld a, [wOptions]
 	and $f
-	cp $5
+	jr z, .instantTextOption
+	cp TEXT_DELAY_SLOW
 	jr z, .slowTextOption
-	cp $1
+	cp TEXT_DELAY_FAST
 	jr z, .fastTextOption
 ; mid text option
-	ld c, $1
-	lb de, 1, 5
+	ld c, 2
+	lb de, TEXT_DELAY_FAST, TEXT_DELAY_SLOW
 	ret
 .slowTextOption
-	ld c, $2
-	lb de, 3, 1
+	ld c, 3
+	lb de, TEXT_DELAY_MEDIUM, TEXT_DELAY_INSTANT
 	ret
 .fastTextOption
-	ld c, $0
-	lb de, 5, 3
+	ld c, 1
+	lb de, TEXT_DELAY_INSTANT, TEXT_DELAY_MEDIUM
+	ret
+.instantTextOption
+	ld c, 0
+	lb de, TEXT_DELAY_SLOW, TEXT_DELAY_FAST
 	ret
 
 OptionsMenu_BattleAnimations:

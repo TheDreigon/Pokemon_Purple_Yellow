@@ -149,9 +149,14 @@ MainMenu:
 	jp SpecialEnterMap
 
 InitOptions:
-	ld a, TEXT_DELAY_FAST
+	; Bit 0 of the flags = "use the whole option delay"; clear, every letter is
+	; capped at 1 frame whatever TEXT SPEED says (print_text.asm .waitOneFrame).
+	; It is a bit, NOT a TEXT_DELAY_* value: kep-hack wrote TEXT_DELAY_FAST here,
+	; renumbered FAST to 0, and lost the text-speed option on every fresh
+	; cartridge (their a4f066d7, patched around in three later commits).
+	ld a, 1 << BIT_FAST_TEXT_DELAY
 	ld [wLetterPrintingDelayFlags], a
-	ld a, TEXT_DELAY_MEDIUM
+	ld a, TEXT_DELAY_FAST ; v1.0: FAST is the NEW GAME default (vanilla: MEDIUM)
 	ld [wOptions], a
 	ret
 

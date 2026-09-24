@@ -531,6 +531,13 @@ TextCommand_SOUND::
 	jr z, .pokemonCry
 	cp TX_SOUND_CRY_PIDGEOT
 	jr z, .pokemonCry
+	; v1.0: at INSTANT text speed this command runs ~4 frames after the ▼ press
+	; whose SFX_PRESS_AB (~16 frames) is still on CHAN5, and Audio*_PlaySound
+	; drops a new sfx whose id is above the playing one (engine_1.asm
+	; .notNoiseChannel, engine_3.asm): SFX_GET_ITEM_1 / _GET_KEY_ITEM /
+	; _POKEDEX_RATING all sit above SFX_PRESS_AB, so the jingle vanished. Let
+	; the old sfx end first - ManualTextScroll does the same before SFX_PRESS_AB.
+	call WaitForSoundToFinish
 	ld a, [hl]
 	call PlaySound
 	call WaitForSoundToFinish
