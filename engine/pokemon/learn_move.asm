@@ -227,8 +227,17 @@ TryingToLearn:
 	call IsMoveHM
 	pop bc
 	pop de
+; v1.0 (2026-09-24, Forte): a level-up or a TM may overwrite an HM here (the
+; Yellow Legacy's 3d8c2127 dropped vanilla's refusal; IsMoveHM's carry is
+; ignored) - except the party's last CUT or SURF, the two field moves with no
+; walking alternative: the same rule and the same line as the MOVE DELETER's
+; (scripts/move_deleter.asm). Bankswitch's epilogue keeps the callee's carry;
+; b, c and hl die in a farcall, so the row goes round it, and d survives.
+	push bc
+	farcall DeleterCheckLastFieldMove ; d = the move being forgotten; carry = refuse
+	pop bc
+	jr c, .hm
 	ld a, d
-	; jr c, .hm ; Don't prevent hm deletion
 	pop hl
 	add hl, bc
 	and a
@@ -307,11 +316,17 @@ TryingToLearn:
 .cardDone
 	pop hl
 	jp .loop
-; .hm
-; 	ld hl, HMCantDeleteText
-; 	call PrintText
-; 	pop hl
-; 	jr .loop
+.hm
+; the party's last CUT or SURF: say so and go back to the move list (the
+; stack holds the mon's four move bytes, which .loop pushes again)
+	ld a, d
+	ld [wd11e], a
+	call GetMoveName ; the move's name into wcd6d (de)...
+	call CopyToStringBuffer ; ...and into wStringBuffer, where the line reads it
+	ld hl, LearnMoveLastFieldMoveText
+	call PrintText
+	pop hl
+	jp .loop
 .cancel
 	scf
 	ret
@@ -383,6 +398,10 @@ ForgotAndText:
 	text_far _ForgotAndText
 	text_end
 
-HMCantDeleteText:
+HMCantDeleteText: ; vanilla's refusal, unused since the Yellow Legacy's 3d8c2127
 	text_far _HMCantDeleteText
+	text_end
+
+LearnMoveLastFieldMoveText: ; v1.0 (2026-09-24): the MOVE DELETER's line, shared
+	text_far _MoveDeleterLastFieldMoveText
 	text_end

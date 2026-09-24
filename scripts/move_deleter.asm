@@ -135,10 +135,11 @@ DeleteMove:
 	ld [hl], a ; clear last move's PP
 	ret
 
-DeleterCheckLastFieldMove:
+DeleterCheckLastFieldMove::
 ; Input: d = move id. Output: carry set if d is CUT or SURF and fewer than two
 ; party members know it (the selected one counts as one). PC boxes do not
-; count. Preserves d; clobbers a, bc, e, hl.
+; count. Preserves d; clobbers a, bc, e, hl. Exported: LearnMove (bank 1,
+; level-ups and TMs) farcalls it for the same rule (2026-09-24).
 	ld a, d
 	cp CUT
 	jr z, .fieldMove
