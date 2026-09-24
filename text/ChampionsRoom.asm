@@ -84,23 +84,6 @@ _ChampionsRoomRivalAfterBattleText::
 	line "like to admit it."
 	done
 
-_ChampionsRoomRivalRematchIntroText::
-	text "Back again?"
-	line "I've waited for"
-	cont "<PLAYER>!"
-
-	para "This time, my"
-	line "team's stronger"
-	cont "and ready to"
-	cont "take you down!"
-
-	para "Ready to hand"
-    line "over that title?"
-
-    para "Let's do this!"
-    line "No holding back!"
-	done
-
 _RivalRematchDefeatedText::
 	text "Even"
 	line "with my"
@@ -253,22 +236,6 @@ _ChampionsRoomRematchOakDisappointedWithRivalText::
 	line "and get stronger!"
 	done
 
-_ChampionsRoomRematchOakComeWithMeText::
-	text "OAK: <PLAYER>!"
-
-	para "Your triumph is"
-	line "not yours alone!"
-
-	para "Your bond with"
-	line "your #MON is"
-	cont "a lesson for us"
-	cont "all!"
-
-	para "<PLAYER>, let's"
-	line "celebrate your"
-	cont "achievement!"
-	done
-
 _ChampionsRoomJolteonText::
 	text "JOLTEON:"
 	line "JOLTEON!"
@@ -282,4 +249,25 @@ _ChampionsRoomFlareonText::
 _ChampionsRoomVaporeonText::
 	text "VAPOREON:"
 	line "VAPOREON!"
+	done
+
+; v1.0 (2026-09-25, Forte): OAK on a title defence says why he keeps turning up
+_ChampionsRoomRematchOakComeWithMeText::
+	text "OAK: <PLAYER>!"
+
+	para "I keep an eye on"
+	line "the LEAGUE these"
+	cont "days."
+
+	para "Your triumph is"
+	line "not yours alone!"
+
+	para "Your bond with"
+	line "your #MON is"
+	cont "a lesson for us"
+	cont "all!"
+
+	para "<PLAYER>, let's"
+	line "celebrate your"
+	cont "achievement!"
 	done

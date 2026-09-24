@@ -44,12 +44,12 @@ _LoreleisRoomLoreleiRematchBeforeBattleText::
 	line "the #MON"
 	cont "LEAGUE!"
 
-    para "Your past win"
-    line "means nothing"
-    cont "now!"
+    para "A CHAMPION who"
+    line "comes to defend"
+    cont "the title!"
 
-    para "Let's see if"
-    line "you've grown!"
+    para "Then show me it"
+    line "wasn't luck!"
     
     para "Prepare for a"
     line "chilling battle!"

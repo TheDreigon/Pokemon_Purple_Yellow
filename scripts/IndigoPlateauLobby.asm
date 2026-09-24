@@ -25,12 +25,42 @@ IndigoPlateauLobby_TextPointers:
 IndigoPlateauLobbyNurseText:
 	script_pokecenter_nurse
 
+; v1.0 (2026-09-25, Forte): once the player holds the title (wGameStage,
+; set by the first HALL OF FAME), the two helpers greet the CHAMPION who has
+; come to defend it instead of a "champ in making". The Yellow Legacy's
+; rematch layer never touched the lobby.
 IndigoPlateauLobbyGymGuideText:
+	text_asm
+	ld a, [wGameStage]
+	and a
+	ld hl, .Challenger
+	jr z, .print
+	ld hl, .Champion
+.print
+	call PrintText
+	jp TextScriptEnd
+.Challenger:
 	text_far _IndigoPlateauLobbyGymGuideText
+	text_end
+.Champion:
+	text_far _IndigoPlateauLobbyGymGuideChampionText
 	text_end
 
 IndigoPlateauLobbyCooltrainerFText:
+	text_asm
+	ld a, [wGameStage]
+	and a
+	ld hl, .Challenger
+	jr z, .print
+	ld hl, .Champion
+.print
+	call PrintText
+	jp TextScriptEnd
+.Challenger:
 	text_far _IndigoPlateauLobbyCooltrainerFText
+	text_end
+.Champion:
+	text_far _IndigoPlateauLobbyCooltrainerFChampionText
 	text_end
 
 IndigoPlateauLobbyChanseyText:
