@@ -305,6 +305,16 @@ ChampionsRoomRivalText:
 	text_asm
 	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
 	jr nz, .afterBattle
+; v1.0 (2026-09-24, Forte): the speech before the fight runs at SLOW whatever
+; TEXT SPEED says - PrintLetterDelay reads the low bits of wOptions for every
+; letter, so the option is swapped for the two halves and put back after
+; (INSTA included: its 0 becomes SLOW's 5). Holding A still skips the delay,
+; as everywhere. The rematch speech after the battle keeps the option.
+	ld a, [wOptions]
+	push af
+	and $f0
+	or TEXT_DELAY_SLOW
+	ld [wOptions], a
 	ld hl, .IntroText
 	call PrintText
 ; v1.0 (2026-09-24, Forte; the kep-hack's a2acee24): the room's theme dies
@@ -322,10 +332,12 @@ ChampionsRoomRivalText:
 	and a
 	jr nz, .waitFade
 	ld hl, .IntroTextPart2
-	jr .printText
+	call PrintText
+	pop af
+	ld [wOptions], a ; the player's TEXT SPEED again
+	jp TextScriptEnd
 .afterBattle
 	ld hl, ChampionsRoomRivalAfterBattleText
-.printText
 	call PrintText
 	jp TextScriptEnd
 
