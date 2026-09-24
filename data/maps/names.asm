@@ -51,3 +51,11 @@ PokemonMansionName:  db "<PKMN> MANSION@"
 SafariZoneName:      db "SAFARI ZONE@"
 CeruleanCaveName:    db "CERULEAN CAVE@"
 PowerPlantName:      db "POWER PLANT@"
+; v1.0 (2026-09-24, Forte): FLY points and Town Map stops of their own. The FLY
+; screen's name row is 15 tiles wide (columns 3-17), hence "R.TUNNEL".
+MtMoonCenterName:     db "MT.MOON CENTER@"
+RockTunnelCenterName: db "R.TUNNEL CENTER@"
+DayCareName:          db "DAY CARE@"
+NameRaterName:        db "NAME RATER@"
+MoveDeleterName:      db "MOVE DELETER@"
+MoveRelearnerName:    db "MOVE RELEARNER@"

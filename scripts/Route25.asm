@@ -20,16 +20,8 @@ Route25ShowHideBillScript:
 	bit 6, [hl]
 	res 6, [hl]
 	ret z
-; BILL's LAB is a FLY destination without being a city map, so the routine
-; that marks towns visited cannot reach it -- it only handles ids below
-; FIRST_ROUTE_MAP. ROUTE 25 marks the twelfth slot itself, once per entry, and
-; BuildFlyLocationsList turns that slot back into ROUTE_25.
-	push hl
-	ld c, BILLS_LAB_FLY_SLOT
-	ld b, FLAG_SET
-	ld hl, wTownVisitedFlag
-	predef FlagActionPredef
-	pop hl
+; v1.0 (2026-09-24, Forte): BILL's LAB's fly slot is marked on entering his
+; house (InteriorFlySlots, engine/overworld/missable_objects_2.asm), not here.
 	CheckEventHL EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING
 	ret nz
 	CheckEventReuseHL EVENT_MET_BILL_2

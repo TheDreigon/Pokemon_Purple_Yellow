@@ -18,6 +18,25 @@
 ; Called by MarkTownVisitedAndLoadMissableObjects (bank3) right after it wrote
 ; table 1's entries and the sentinel; the sentinel is rewritten at the new end.
 LoadMissableObjects2::
+; v1.0 (2026-09-24, Forte): first, the fly slots that are interiors. Walking
+; into one of these maps marks its slot (the same rule as a town: entering is
+; what counts, not healing). The towns mark themselves in bank3
+; (MarkTownVisitedAndLoadMissableObjects, which calls this for every map).
+	ld a, [wCurMap]
+	ld b, a
+	ld hl, InteriorFlySlots
+.flySlotLoop
+	ld a, [hli]
+	cp -1
+	jr z, .flySlotsDone
+	cp b
+	ld a, [hli] ; the slot (ld leaves the flags alone)
+	jr nz, .flySlotLoop
+	ld c, a
+	ld b, FLAG_SET
+	ld hl, wTownVisitedFlag
+	predef FlagActionPredef
+.flySlotsDone
 	ld hl, wMissableObjectList
 .findEnd
 	ld a, [hli]
@@ -55,6 +74,20 @@ LoadMissableObjects2::
 	ld a, -1
 	ld [de], a                 ; new sentinel
 	ret
+
+; map id, fly slot: the interiors that are FLY destinations. VICTORY ROAD has a
+; door on each of its two ROUTE 23 faces (1F and 2F), so both floors mark it.
+InteriorFlySlots:
+	db MT_MOON_POKECENTER,     MT_MOON_FLY_SLOT
+	db ROCK_TUNNEL_POKECENTER, ROCK_TUNNEL_FLY_SLOT
+	db BILLS_HOUSE,            BILLS_LAB_FLY_SLOT
+	db DAYCARE,                DAY_CARE_FLY_SLOT
+	db POWER_PLANT,            POWER_PLANT_FLY_SLOT
+	db SEAFOAM_ISLANDS_1F,     SEAFOAM_FLY_SLOT
+	db VICTORY_ROAD_1F,        VICTORY_ROAD_FLY_SLOT
+	db VICTORY_ROAD_2F,        VICTORY_ROAD_FLY_SLOT
+	db CERULEAN_CAVE_1F,       CERULEAN_CAVE_FLY_SLOT
+	db -1
 
 ; New game: clear wMissableObjectFlags2 and set the bit of every HIDE row.
 ; Called by InitializeMissableObjectsFlags (bank3) when it reaches the end of

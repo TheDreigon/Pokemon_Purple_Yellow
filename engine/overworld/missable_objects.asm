@@ -1,26 +1,15 @@
 MarkTownVisitedAndLoadMissableObjects::
 	ld a, [wCurMap]
 	cp FIRST_ROUTE_MAP
-	ld c, a ; a town's fly slot is its own map id (ld c, a leaves the flags alone)
-	jr c, .mark
-; v1.0 (2026-09-24): the two POKeMON CENTERs that stand on a route are fly
-; destinations too, and they mark their slot the moment the player walks in --
-; the same rule as a town (entering is what counts, not healing).
-; BuildFlyLocationsList turns the slot back into the route the CENTER stands on.
-	ld c, MT_MOON_FLY_SLOT
-	cp MT_MOON_POKECENTER
-	jr z, .mark
-	ld c, ROCK_TUNNEL_FLY_SLOT
-	cp ROCK_TUNNEL_POKECENTER
-	jr nz, .notInTown
-.mark
+	jr nc, .notInTown
+	ld c, a ; a town's fly slot is its own map id
 	ld b, FLAG_SET
 	ld hl, wTownVisitedFlag   ; mark town as visited (for flying)
 	predef FlagActionPredef
-; BILL's LAB is a fly destination that is NOT a city map, so it cannot mark
-; itself here. ROUTE 25 marks its own slot, in its own map script -- see
-; Route25ShowHideBillScript. Keeping the oddity in the map that owns it also
-; keeps it out of this routine, which every map in the game runs.
+; v1.0 (2026-09-24, Forte): the fly slots that are interiors (the two route
+; CENTERs, BILL's LAB, the DAY CARE, the POWER PLANT, SEAFOAM, VICTORY ROAD,
+; CERULEAN CAVE) are marked by table in LoadMissableObjects2 (bank $10), which
+; this routine calls at its end for every map: bank3 is full.
 .notInTown
 	ld hl, MapHSPointers
 	ld a, [wCurMap]

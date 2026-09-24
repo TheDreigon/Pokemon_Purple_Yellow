@@ -849,9 +849,9 @@ wRivalStarterBallSpriteIndex:: db
 
 NEXTU
 wFlyAnimUsingCoordList:: db
-; $ff sentinel values at each end. v1.0: NUM_FLY_SLOTS entries (14) - this
-; branch is 17 bytes inside the 28-byte union that wTradedPlayerMonSpecies
-; opens, so it still costs nothing.
+; $ff sentinel values at each end. v1.0: NUM_FLY_SLOTS entries (19 since
+; 2026-09-24) - this branch is 22 bytes inside the 28-byte union that
+; wTradedPlayerMonSpecies opens, so it still costs nothing.
 wFlyLocationsList:: ds NUM_FLY_SLOTS + 2
 
 NEXTU
@@ -2495,11 +2495,15 @@ wObtainedHiddenCoinsFlags:: flag_array 16
 ; $02 = surfing
 wWalkBikeSurfState:: db
 
-; one bit per fly slot: the eleven towns, BILL's LAB, and (v1.0) the CENTERs on
-; ROUTE 4 and ROUTE 10. Saved; must stay two bytes (BuildFlyLocationsList
-; shifts it through d:e, and growing it would move sMainData).
+; one bit per fly slot: the eleven towns, BILL's LAB, the CENTERs on ROUTE 4 and
+; ROUTE 10, and (v1.0, 2026-09-24) the DAY CARE, POWER PLANT, SEAFOAM ISLANDS,
+; VICTORY ROAD and CERULEAN CAVE: nineteen bits, three bytes. Saved. The third
+; byte moved every saved label after it: a SAVE-FORMAT CHANGE (Stack 343 -> 342,
+; migrate_sav_specialsplit.py grows this block with a zero tail, escape_rope_audit's
+; wd728 landmark is $3bc). Readers test the bits through FlagActionPredef, so the
+; width is free to grow again.
 wTownVisitedFlag:: flag_array NUM_FLY_SLOTS
-ASSERT NUM_FLY_SLOTS <= 16, "wTownVisitedFlag must stay two bytes: it is inside sMainData and BuildFlyLocationsList shifts it through d:e"
+ASSERT NUM_FLY_SLOTS <= 24, "wTownVisitedFlag is three bytes: growing it again moves sMainData (a save-format change) and the Stack section must give the byte back"
 
 ; starts at 502
 wSafariSteps:: dw
@@ -2842,7 +2846,8 @@ SECTION "Stack", WRAM0
 ; sentinel at boot and raises when a run leaves under STACK_MARGIN bytes.
 ; Size must stay in sync with layout.link "Stack".
 ; v1.0 (2026-09-24, T23): 359 -> 343, 16 bytes to wMissableObjectFlags2 (the
-; second hide/show table).
-	ds $157 - 1
+; second hide/show table). Later that day: 343 -> 342, one byte to
+; wTownVisitedFlag (nineteen fly slots).
+	ds $156 - 1
 wStack:: db
 ASSERT wStack == $dfff, "the Stack section must end at $dfff: the org in layout.link and this ds disagree"

@@ -79,12 +79,14 @@ InternalMapEntries:
 	internal_map PEWTER_POKECENTER,              2,  3, PewterCityName
 	internal_map MT_MOON_B2F,                    6,  2, MountMoonName
 	internal_map CERULEAN_MART,                 10,  2, CeruleanCityName
-	internal_map MT_MOON_POKECENTER,             5,  2, Route4Name
+	internal_map MT_MOON_POKECENTER,             5,  2, MtMoonCenterName ; v1.0 (2026-09-24): its own name, it is a FLY point
 	internal_map CERULEAN_TRASHED_HOUSE_COPY,   10,  2, CeruleanCityName
-	internal_map DAYCARE,                       10,  4, Route5Name
+	internal_map UNDERGROUND_PATH_ROUTE_5,      10,  4, Route5Name
+	internal_map DAYCARE,                       10,  4, DayCareName ; v1.0 (2026-09-24): a FLY point and a Town Map stop of its own
 	internal_map UNDERGROUND_PATH_ROUTE_6_COPY, 10,  7, Route6Name, 0, 1
 	internal_map UNDERGROUND_PATH_ROUTE_7_COPY,  9,  6, Route7Name
 	internal_map UNDERGROUND_PATH_ROUTE_8,      11,  6, Route8Name
+	internal_map ROCK_TUNNEL_POKECENTER,        14,  3, RockTunnelCenterName ; v1.0 (2026-09-24): a FLY point, at the tunnel's north mouth
 	internal_map ROCK_TUNNEL_1F,                14,  3, RockTunnelName
 	internal_map POWER_PLANT,                   15,  4, PowerPlantName
 	internal_map ROUTE_11_GATE_1F,              13,  9, Route11Name
@@ -128,19 +130,25 @@ InternalMapEntries:
 	internal_map VERMILION_TRADE_HOUSE,         10,  9, VermilionCityName
 	internal_map DIGLETTS_CAVE,                  3,  4, DiglettsCaveName
 	internal_map VICTORY_ROAD_3F,                0,  4, VictoryRoadName
-	internal_map UNUSED_MAP_CE,                  7,  6, RocketHQName
+	internal_map ROCKET_HIDEOUT_ELEVATOR,        7,  6, RocketHQName
+; v1.0 (2026-09-24, Forte): two unused ids stand in for the MOVE DELETER and the
+; MOVE RELEARNER on the Town Map (TOWN_MAP_MOVE_DELETER / _RELEARNER): both live
+; in CINNABAR LAB's fossil room, which has one map id, so one real row could not
+; name them apart. Only the Town Map list uses these ids ($CE falls to SILPH CO.).
+	internal_map TOWN_MAP_MOVE_DELETER,          2, 16, MoveDeleterName
+	internal_map TOWN_MAP_MOVE_RELEARNER,        2, 16, MoveRelearnerName
 	internal_map SILPH_CO_8F,                   10,  6, SilphCoName
 	internal_map POKEMON_MANSION_B1F,            2, 16, PokemonMansionName
 	internal_map SAFARI_ZONE_NORTH_REST_HOUSE,   8, 12, SafariZoneName
 	internal_map CERULEAN_CAVE_1F,               9,  1, CeruleanCaveName
-	internal_map NAME_RATERS_HOUSE,             14,  6, LavenderTownName
+	internal_map NAME_RATERS_HOUSE,             14,  6, NameRaterName ; v1.0 (2026-09-24): a Town Map stop of its own
 	internal_map CERULEAN_BADGE_HOUSE,          10,  2, CeruleanCityName
 	internal_map ROCK_TUNNEL_B1F,               14,  3, RockTunnelName
 	internal_map SILPH_CO_ELEVATOR,             10,  6, SilphCoName
 	internal_map AGATHAS_ROOM,                   0,  2, PokemonLeagueName
 	internal_map SUMMER_BEACH_HOUSE,             8, 15, Route19Name
 	internal_map VIRIDIAN_OLD_ROD_HOUSE,         2,  8, ViridianCityName
-	internal_map DAYCARE_2F,                    10,  4, Route5Name
+	internal_map DAYCARE_2F,                    10,  4, DayCareName
 	internal_map BILLS_GARDEN,                  13,  0, BillsLabName
 ; Must stay last, and must exist at all: InternalMapEntries is an ordered RANGE
 ; lookup with no end check, so the HIGHEST map id needs a line or LoadTownMapEntry

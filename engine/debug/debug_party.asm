@@ -28,6 +28,7 @@ IF DEF(_DEBUG)
 	dec a ; $ff (all bits)
 	ld [wTownVisitedFlag], a
 	ld [wTownVisitedFlag + 1], a
+	ld [wTownVisitedFlag + 2], a
 
 	; Get all badges except Earth Badge.
 	ld a, ~(1 << BIT_EARTHBADGE)

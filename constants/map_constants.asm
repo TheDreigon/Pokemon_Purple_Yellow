@@ -31,25 +31,35 @@ ENDM
 ; FLY SLOTS, not the number of towns -- BuildFlyLocationsList walks 0..it-1 and
 ; wTownVisitedFlag is a bit per slot. Moving the DEF past UNUSED_MAP_0B buys a
 ; twelfth slot without renumbering a single map, because $0B already existed.
-; The slot is BILL's LAB, and BuildFlyLocationsList turns it into ROUTE_25.
+; The slot is BILL's LAB (listed as BILLS_HOUSE since 2026-09-24: FlySlotMaps in
+; engine/items/town_map.asm; the landing outside his door is FlyWarpDataPtr's).
 ;
 ; It cost NO WRAM: wFlyLocationsList lives in a 28-byte union (the trade
 ; scratch, wTradedPlayerMonSpecies..) with slack inside it. Measured, not assumed.
-; v1.0 (2026-09-24): two more slots after it - the route CENTERs; see below.
+; v1.0 (2026-09-24): seven more slots after it - the route CENTERs and five
+; interiors; see below.
 	map_const UNUSED_MAP_0B,                  0,  0 ; $0B
 DEF NUM_CITY_MAPS EQU const_value
 DEF BILLS_LAB_FLY_SLOT EQU NUM_CITY_MAPS - 1
 ; v1.0 (2026-09-24): two more fly slots, for the POKeMON CENTERs that stand on a
-; route instead of in a town. They are bits 12 and 13 of wTownVisitedFlag, which
-; is two bytes wide either way (flag_array rounds up to whole bytes), so the save
-; format does not move and an old save simply has them clear. NUM_CITY_MAPS
+; route instead of in a town: bits 12 and 13 of wTownVisitedFlag. NUM_CITY_MAPS
 ; itself stays 12: the palette code (engine/gfx/palettes.asm) still means "is
-; this map a town" by it. The slot is marked on walking into the CENTER, in
-; MarkTownVisitedAndLoadMissableObjects; BuildFlyLocationsList turns the slot
-; back into the route the CENTER stands on.
-DEF MT_MOON_FLY_SLOT     EQU NUM_CITY_MAPS     ; 12: the CENTER on ROUTE 4
-DEF ROCK_TUNNEL_FLY_SLOT EQU NUM_CITY_MAPS + 1 ; 13: the CENTER on ROUTE 10
-DEF NUM_FLY_SLOTS        EQU NUM_CITY_MAPS + 2 ; what BuildFlyLocationsList walks
+; this map a town" by it. The slot is marked on walking into the CENTER (an
+; interior, so by InteriorFlySlots like the five below), and the FLY list shows
+; the CENTER under its own name (MT.MOON CENTER / R.TUNNEL CENTER).
+DEF MT_MOON_FLY_SLOT       EQU NUM_CITY_MAPS     ; 12: the CENTER on ROUTE 4
+DEF ROCK_TUNNEL_FLY_SLOT   EQU NUM_CITY_MAPS + 1 ; 13: the CENTER on ROUTE 10
+; v1.0 (2026-09-24, Forte): five more, all interiors - marked on entering the map
+; (InteriorFlySlots, engine/overworld/missable_objects_2.asm), listed under the
+; interior's own name (FlySlotMaps, engine/items/town_map.asm) and landing outside
+; its door (FlyWarpDataPtr, data/maps/special_warps.asm). Nineteen slots need a
+; third byte of wTownVisitedFlag: a save-format change (2026-09-24).
+DEF DAY_CARE_FLY_SLOT      EQU NUM_CITY_MAPS + 2 ; 14: the DAY CARE on ROUTE 5
+DEF POWER_PLANT_FLY_SLOT   EQU NUM_CITY_MAPS + 3 ; 15: lands on ROUTE 10
+DEF SEAFOAM_FLY_SLOT       EQU NUM_CITY_MAPS + 4 ; 16: lands on SEA ROUTE 20
+DEF VICTORY_ROAD_FLY_SLOT  EQU NUM_CITY_MAPS + 5 ; 17: lands on ROUTE 23
+DEF CERULEAN_CAVE_FLY_SLOT EQU NUM_CITY_MAPS + 6 ; 18: lands in CERULEAN CITY
+DEF NUM_FLY_SLOTS          EQU NUM_CITY_MAPS + 7 ; what BuildFlyLocationsList walks
 DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_1,                       10, 18 ; $0C
 	map_const ROUTE_2,                       10, 36 ; $0D
@@ -294,6 +304,13 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const BILLS_GARDEN,                  12, 12 ; $FB
 	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs) (behind BILL's cottage; reached only through the house, and only after the League)
 DEF NUM_MAPS EQU const_value
+
+; v1.0 (2026-09-24, Forte): two Town Map stops that are services, not maps. The
+; MOVE DELETER and the MOVE RELEARNER share CINNABAR LAB's fossil room, so each
+; borrows an unused map id for its own name and marker (data/maps/town_map_entries.asm,
+; data/maps/town_map_order.asm). No map has these ids: they never reach wCurMap.
+DEF TOWN_MAP_MOVE_DELETER   EQU UNUSED_MAP_CC
+DEF TOWN_MAP_MOVE_RELEARNER EQU UNUSED_MAP_CD
 
 ; Indoor maps, such as houses, use this as the Map ID in their exit warps
 ; This map ID takes the player back to the last outdoor map they were on, stored in wLastMap

@@ -97,6 +97,8 @@ DisplayTownMap:
 	xor a
 .noOverflow
 	ld [wWhichTownMapLocation], a
+	call IsTownMapStopHidden ; v1.0: a secret not yet visited - keep walking
+	jr c, .pressedUp
 	jp .townMapLoop
 .pressedDown
 	ld a, [wWhichTownMapLocation]
@@ -106,9 +108,51 @@ DisplayTownMap:
 	ld a, TownMapOrderEnd - TownMapOrder - 1 ; index of the last list item
 .noUnderflow
 	ld [wWhichTownMapLocation], a
+	call IsTownMapStopHidden
+	jr c, .pressedDown
 	jp .townMapLoop
 
 INCLUDE "data/maps/town_map_order.asm"
+
+IsTownMapStopHidden:
+; v1.0 (2026-09-24, Forte): three stops are secrets until the player has been
+; inside - BILL's LAB, the POWER PLANT and the CERULEAN CAVE. They share the
+; FLY slots' visited bits, so the Town Map skips them until then. Carry set =
+; skip the stop at wWhichTownMapLocation. PALLET TOWN is never a secret, so
+; the callers' loops always stop. Clobbers a, bc, hl.
+	ld hl, TownMapOrder
+	ld a, [wWhichTownMapLocation]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld b, [hl] ; the map id of the stop
+	ld hl, TownMapSecretStops
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .shown ; not a secret
+	cp b
+	ld a, [hli] ; the fly slot (ld leaves the flags alone)
+	jr nz, .loop
+	ld c, a
+	ld b, FLAG_TEST
+	ld hl, wTownVisitedFlag
+	predef FlagActionPredef ; c = the bit
+	ld a, c
+	and a
+	jr nz, .shown
+	scf
+	ret
+.shown
+	and a
+	ret
+
+TownMapSecretStops:
+; map id (as TownMapOrder lists it), fly slot
+	db BILLS_HOUSE,      BILLS_LAB_FLY_SLOT
+	db POWER_PLANT,      POWER_PLANT_FLY_SLOT
+	db CERULEAN_CAVE_1F, CERULEAN_CAVE_FLY_SLOT
+	db -1
 
 DrawTwinCursor:
 ; a = map id. v1.0 (2026-09-22, Forte): DIGLETT's CAVE has two mouths, so
@@ -288,43 +332,6 @@ LoadTownMap_Fly::
 
 ToText:
 	db "To@"
-
-BuildFlyLocationsList:
-	ld hl, wFlyAnimUsingCoordList
-	ld [hl], $ff
-	inc hl
-	ld a, [wTownVisitedFlag]
-	ld e, a
-	ld a, [wTownVisitedFlag + 1]
-	ld d, a
-	lb bc, 0, NUM_FLY_SLOTS
-.loop
-	srl d
-	rr e
-	ld a, NOT_VISITED
-	jr nc, .notVisited
-	ld a, b ; store the map number of the town if it has been visited
-; ...except the slots past the eleven towns, which are not towns. BILL's LAB
-; flies you to ROUTE 25, outside BILL's front door; the two POKeMON CENTERs
-; that stand on a route (v1.0) fly you to that route, one step below their
-; door: MT_MOON_FLY_SLOT is ROUTE 4's, ROCK_TUNNEL_FLY_SLOT is ROUTE 10's.
-	cp BILLS_LAB_FLY_SLOT
-	jr c, .notVisited ; a town: the slot IS the map id
-	ld a, ROUTE_25
-	jr z, .notVisited ; BILLS_LAB_FLY_SLOT
-	ld a, b
-	cp MT_MOON_FLY_SLOT
-	ld a, ROUTE_4
-	jr z, .notVisited
-	ld a, ROUTE_10 ; ROCK_TUNNEL_FLY_SLOT, the last slot
-.notVisited
-	ld [hl], a
-	inc hl
-	inc b
-	dec c
-	jr nz, .loop
-	ld [hl], $ff
-	ret
 
 TownMapUpArrow:
 	INCBIN "gfx/town_map/up_arrow.1bpp"
