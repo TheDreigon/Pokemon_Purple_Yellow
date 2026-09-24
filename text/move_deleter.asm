@@ -39,3 +39,14 @@ _MoveDeleterOneMoveText::
 	line "has one move."
 	cont "Pick another?"
 	done
+
+; v1.0 (2026-09-24): the last party member that knows CUT or SURF keeps it
+_MoveDeleterLastFieldMoveText::
+	text "It's the only one"
+	line "of yours that"
+	cont "knows @"
+	text_ram wStringBuffer
+	text "!"
+	cont "Teach another"
+	cont "one first!"
+	prompt

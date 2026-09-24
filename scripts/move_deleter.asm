@@ -62,6 +62,21 @@ MoveDeleterText1:
 	ld [wd11e],a
 	call GetMoveName
 	call CopyToStringBuffer ; copy name to wStringBuffer
+; v1.0 (2026-09-24, Forte): CUT and SURF may be forgotten only while another
+; party member still knows them - the deleter must not strand the player
+; behind a tree or on an island. FLY, STRENGTH, FLASH and every other move
+; stay deletable. d died in GetMoveName (it returns de = wcd6d): re-read
+; wMoveNum. The refusal unwinds the stack the way the "No" answer does.
+	ld a, [wMoveNum]
+	ld d, a
+	call DeleterCheckLastFieldMove ; carry = CUT/SURF that nobody else knows
+	jr nc, .confirm
+	ld hl, MoveDeleterLastFieldMoveText
+	call PrintText
+	pop bc ; b = mon index, needed live by .chooseMove (it pushes bc again); PrintText clobbers bc, so pop AFTER it
+	pop de
+	jr .chooseMove
+.confirm
 	ld hl, MoveDeleterConfirmText
 	call PrintText
 	call YesNoChoice
@@ -120,6 +135,47 @@ DeleteMove:
 	ld [hl], a ; clear last move's PP
 	ret
 
+DeleterCheckLastFieldMove:
+; Input: d = move id. Output: carry set if d is CUT or SURF and fewer than two
+; party members know it (the selected one counts as one). PC boxes do not
+; count. Preserves d; clobbers a, bc, e, hl.
+	ld a, d
+	cp CUT
+	jr z, .fieldMove
+	cp SURF
+	jr nz, .allowed
+.fieldMove
+	ld a, [wPartyCount]
+	and a
+	jr z, .allowed
+	ld c, a ; c = party members left to scan
+	ld b, 0 ; b = members that know the move
+	ld hl, wPartyMon1Moves
+.monLoop
+	ld e, NUM_MOVES
+.moveLoop
+	ld a, [hli]
+	cp d
+	jr nz, .notThisSlot
+	inc b
+.notThisSlot
+	dec e
+	jr nz, .moveLoop
+	ld a, wPartyMon2 - wPartyMon1 - NUM_MOVES ; hl is past the 4 moves: step to the next mon's
+	add l
+	ld l, a
+	ld a, 0 ; NOT xor a: the carry from `add l` feeds adc
+	adc h
+	ld h, a
+	dec c
+	jr nz, .monLoop
+	ld a, b
+	cp 2
+	ret ; carry <=> fewer than 2 know it <=> refuse
+.allowed
+	and a
+	ret
+
 PrepareDeletableMoveList:
 ; Places a list of the selected pokemon's moves at wMoveBuffer.
 ; First byte is count, and last byte is $ff.
@@ -175,4 +231,8 @@ MoveDeleterByeText:
 
 MoveDeleterOneMoveText:
 	text_far _MoveDeleterOneMoveText
+	text_end
+
+MoveDeleterLastFieldMoveText:
+	text_far _MoveDeleterLastFieldMoveText
 	text_end
