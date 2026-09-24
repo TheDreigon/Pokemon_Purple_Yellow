@@ -241,6 +241,53 @@ SilphCo7FRivalExitScript:
 	ld a, [wd730]
 	bit 0, a
 	ret nz
+; v1.0 (2026-09-24, Forte): he has walked onto the teleporter pad at (5,3)
+; (warp 4, the pad down to 3F) and used to vanish on the spot. Now he rides
+; it the way the player does (_LeaveMapAnim.spinWhileMovingUp): the pad's
+; sound, then the sprite spins DOWN, LEFT, UP, RIGHT while lifting 16 px a
+; step, three frames a step, until it is above the screen - same order, step
+; and delay as the player's own ride. c1x2 is (VRAM slot - 1) << 4 | facing |
+; frame, so the slot nibble is kept and the facing written into the low
+; nibble; PrepareOAMData draws from c1x2 and c1x4 at every V-blank, and
+; nothing else touches them while this loop holds the map script
+; (UpdateSprites only runs from the overworld loop). The step count is
+; computed, not searched for: 6 from the square below the player, 5 beside
+; him, never more than 15.
+	ld a, SFX_TELEPORT_EXIT_1
+	call PlaySound
+	ld a, [wSprite09StateData1YPixels] ; SILPHCO7F_RIVAL is object 9
+	sub $ec ; where the player's own ride ends: fully above the screen
+	swap a
+	and $f
+	ld c, a ; steps
+	ld b, 0 ; spin index
+.spinStep
+	ld a, b
+	and 3
+	ld e, a
+	ld d, 0
+	ld hl, .spinOrder
+	add hl, de
+	ld a, [hl]
+	ld d, a
+	ld hl, wSprite09StateData1ImageIndex
+	ld a, [hl]
+	and $f0
+	or d
+	ld [hl], a
+	ld hl, wSprite09StateData1YPixels
+	ld a, [hl]
+	sub $10
+	ld [hl], a
+	dec c
+	jr z, .gone
+	inc b
+	push bc
+	ld c, 3
+	call DelayFrames
+	pop bc
+	jr .spinStep
+.gone
 	ld a, HS_SILPH_CO_7F_RIVAL
 	ld [wMissableObjectIndex], a
 	predef HideObject
@@ -248,6 +295,10 @@ SilphCo7FRivalExitScript:
 	xor a
 	ld [wJoyIgnore], a
 	jp SilphCo7FSetCurScript
+
+.spinOrder
+; PlayerSpinningFacingOrder (engine/overworld/player_animations.asm)
+	db SPRITE_FACING_DOWN, SPRITE_FACING_LEFT, SPRITE_FACING_UP, SPRITE_FACING_RIGHT
 
 SilphCo7F_TextPointers:
 	def_text_pointers

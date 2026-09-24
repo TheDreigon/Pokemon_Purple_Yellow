@@ -165,9 +165,7 @@ DisplayEnemyTrainerTextAndStartBattle::
 	and $1
 	ret nz ; return if the enemy trainer hasn't finished walking to the player's sprite
 	ld [wJoyIgnore], a
-	ld a, [wSpriteIndex]
-	ldh [hSpriteIndexOrTextID], a
-	call DisplayTextID
+	farcall FaceTrainerAndDisplayText ; v1.0 (2026-09-24): the player turns to the trainer, then the text
 	; fall through
 
 StartTrainerBattle::

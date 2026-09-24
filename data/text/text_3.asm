@@ -83,6 +83,12 @@ _WhichFloorText::
 	line "you want? "
 	done
 
+; v1.0 (2026-09-24): the elevator refuses the floor the car is already on
+_ElevatorSameFloorText::
+	text "You are already"
+	line "on this floor."
+	prompt
+
 _SleepingPikachuText1::
 	text "There isn't any"
 	line "response..."

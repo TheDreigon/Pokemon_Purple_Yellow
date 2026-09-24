@@ -29,21 +29,27 @@ TrashCanRandom:
 	ret
 
 .three
+; v1.0 (2026-09-24): returns in a like .two and .four - TrashCanRandom does
+; `ld e, a`. Vanilla (and Legacy's 4b893080 restyle of it) returned the third
+; in b and left the swapped random byte in a, so a first can with three
+; candidate pairs (6 or 8 - the first can is always even) indexed the pair
+; table by 0..255 and the second switch landed on a byte that is no can at
+; all: one puzzle in four had no findable second switch.
 	call Random
 	swap a
 	cp 1 * $ff / 3
 	jr c, .setZero
 	cp 2 * $ff / 3
 	jr c, .setOne
-	ld b, 2
+	ld a, 2
 	ret
 
 .setZero:
-	ld b, 0
+	xor a
 	ret
 
 .setOne:
-	ld b, 1
+	ld a, 1
 	ret
 
 .four

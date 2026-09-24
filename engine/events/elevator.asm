@@ -1,4 +1,11 @@
 DisplayElevatorFloorMenu:
+	ld a, [wListScrollOffset]
+	push af
+	xor a
+	ld [wCurrentMenuItem], a
+	ld [wListScrollOffset], a
+	ld [wPrintItemPrices], a
+.menuLoop
 	ld hl, wd730
 	ld a, [hl]
 	push af
@@ -12,21 +19,10 @@ DisplayElevatorFloorMenu:
 	ld [wListPointer], a
 	ld a, h
 	ld [wListPointer + 1], a
-	ld a, [wListScrollOffset]
-	push af
-	xor a
-	ld [wCurrentMenuItem], a
-	ld [wListScrollOffset], a
-	ld [wPrintItemPrices], a
 	ld a, SPECIALLISTMENU
 	ld [wListMenuID], a
 	call DisplayListMenuID
-	pop bc
-	ld a, b
-	ld [wListScrollOffset], a
-	ret c
-	ld hl, wCurrentMapScriptFlags
-	set 7, [hl]
+	jr c, .done ; B: the car stays where it is
 	ld hl, wElevatorWarpMaps
 	ld a, [wWhichPokemon]
 	add a
@@ -37,8 +33,28 @@ DisplayElevatorFloorMenu:
 	ld b, a
 	ld a, [hl]
 	ld c, a
+; v1.0 (2026-09-24, Forte): the door's warp already points at the floor the
+; car is on (the map-load callback copies wWarpedFromWhichMap into it and
+; every ride rewrites it below), so its destination map IS the current floor.
+; Picking it again says so and reopens the list (cursor kept) instead of
+; shaking the car for nothing.
+	ld a, [wWarpEntries + 3] ; destination map of the door's first warp
+	cp c
+	jr z, .alreadyOnThisFloor
+	ld hl, wCurrentMapScriptFlags
+	set 7, [hl]
 	ld hl, wWarpEntries
 	call .UpdateWarp
+	call .UpdateWarp
+.done
+	pop af
+	ld [wListScrollOffset], a
+	ret
+
+.alreadyOnThisFloor
+	ld hl, ElevatorSameFloorText
+	call PrintText
+	jr .menuLoop
 
 .UpdateWarp
 	inc hl
@@ -51,4 +67,8 @@ DisplayElevatorFloorMenu:
 
 WhichFloorText:
 	text_far _WhichFloorText
+	text_end
+
+ElevatorSameFloorText:
+	text_far _ElevatorSameFloorText
 	text_end

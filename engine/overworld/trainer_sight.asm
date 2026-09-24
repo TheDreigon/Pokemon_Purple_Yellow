@@ -147,6 +147,36 @@ TrainerWalkUpToPlayer::
 	ldh [hSpriteIndex], a
 	jp MoveSprite_
 
+; v1.0 (2026-09-24, Forte). Called from DisplayEnemyTrainerTextAndStartBattle
+; (home) once the trainer that spotted the player has finished walking up.
+; The player turns to face the trainer before the challenge text, as every
+; later generation does, then the text is shown exactly as before. The
+; trainer's facing is read from its sprite slot, not wTrainerFacingDirection:
+; after the walk it faces the way it walked, i.e. at the player, and the WRAM
+; byte is union scratch that other code may have reused during the walk-up.
+FaceTrainerAndDisplayText::
+	ld a, [wSpriteIndex]
+	ldh [hSpriteIndexOrTextID], a
+	ldh [hSpriteIndex], a
+	ld a, SPRITESTATEDATA1_FACINGDIRECTION
+	ldh [hSpriteDataOffset], a
+	call GetPointerWithinSpriteStateData1
+	ld a, [hl] ; SPRITE_FACING_DOWN/UP/LEFT/RIGHT = 0/4/8/$c
+	rrca
+	rrca
+	and 3
+	ld e, a
+	ld d, 0
+	ld hl, .opposite
+	add hl, de
+	ld a, [hl]
+	ld [wPlayerMovingDirection], a ; UpdatePlayerSprite turns the sprite on the UpdateSprites DisplayTextIDInit runs before the box opens
+	jp DisplayTextID
+
+.opposite
+; indexed by the trainer's facing: the player looks back at it
+	db PLAYER_DIR_UP, PLAYER_DIR_DOWN, PLAYER_DIR_RIGHT, PLAYER_DIR_LEFT
+
 ; input: de = offset within sprite entry
 ; output: hl = pointer to sprite data
 GetSpriteDataPointer:

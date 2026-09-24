@@ -62,6 +62,7 @@ LancesRoomDefaultScript:
 	ld a, [wCoordIndex]
 	cp $3  ; Is player standing next to Lance's sprite?
 	jr nc, .notStandingNextToLance
+	call LancesRoomFaceEachOther ; v1.0 (2026-09-24): the two look at each other first
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr nz, .Rematch
@@ -96,6 +97,7 @@ LancesRoomLanceEndBattleScript:
 	ld a, [wIsInBattle]
 	cp $ff
 	jp z, ResetLanceScript
+	call LancesRoomFaceEachOther ; v1.0: the map reload after the battle reset him to DOWN
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
 	jr nz, .Rematch
@@ -139,6 +141,36 @@ LancesRoomPlayerIsMovingScript:
 	ld [wLancesRoomCurScript], a
 	ld [wCurMapScript], a
 	ret
+
+LancesRoomFaceEachOther:
+; v1.0 (2026-09-24, Forte): the two squares that start the talk are (5,1),
+; beside LANCE at (6,1), and (6,2), below him. Beside him the player faces
+; RIGHT and he turns LEFT; below him the player faces UP and he looks DOWN
+; (his resting pose - but the reload after the battle resets every NPC, so
+; it is written both times). The player's sprite picks wPlayerMovingDirection
+; up in the UpdateSprites that DisplayTextIDInit runs before the box opens;
+; LANCE's facing goes into his sprite slot, and the copy to
+; ORIGFACINGDIRECTION happens after this, so CloseTextDisplay restores what
+; we set. Post-game the rematch object (same square) is the one on show.
+	ld a, [wYCoord]
+	cp 1
+	ld a, PLAYER_DIR_RIGHT
+	ld b, SPRITE_FACING_LEFT
+	jr z, .gotDirections
+	ld a, PLAYER_DIR_UP
+	ld b, SPRITE_FACING_DOWN
+.gotDirections
+	ld [wPlayerMovingDirection], a
+	ld a, b
+	ldh [hSpriteFacingDirection], a
+	ld a, [wGameStage]
+	and a
+	ld a, LANCESROOM_LANCE
+	jr z, .gotSprite
+	ld a, LANCESROOM_LANCE_REMATCH
+.gotSprite
+	ldh [hSpriteIndex], a
+	jp SetSpriteFacingDirection
 
 LancesRoom_TextPointers:
 	def_text_pointers
