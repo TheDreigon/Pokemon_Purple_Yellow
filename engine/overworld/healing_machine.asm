@@ -1,7 +1,7 @@
 AnimateHealingMachine:
 	ld de, PokeCenterFlashingMonitorAndHealBall
 	ld hl, vChars0 tile $7c
-	lb bc, BANK(PokeCenterFlashingMonitorAndHealBall), 3 ; should be 2
+	lb bc, BANK(PokeCenterFlashingMonitorAndHealBall), 2 ; v1.0 (2026-09-24): the graphic is 2 tiles (heal_machine.2bpp, 32 bytes); vanilla copied 3 and left 16 bytes of the OAM data below it in tile $7e (kep-hack "fixed from 3")
 	call CopyVideoData
 	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]
