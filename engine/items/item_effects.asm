@@ -1372,12 +1372,17 @@ ItemUseMedicine:
 	res BADLY_POISONED, [hl] ; heal Toxic status
 	call CureConfusionIfFullHealOrRestore
 	pop hl
-	ld bc, wPartyMon1Stats - wPartyMon1Status
-	add hl, bc ; hl now points to party stats
-	ld de, wBattleMonStats
-	ld bc, NUM_STATS * 2
-	call CopyData ; copy party stats to in-battle stat data
-	predef DoubleOrHalveSelectedStats
+	; v1.0 (2026-09-24): vanilla copied the RAW party stats over the battle
+	; stats here and re-applied burn/para. That dropped every stat stage and,
+	; since the badge boost lives in wPlayerMonUnmodifiedStats (v0.7 badge
+	; boost fix), the badges too, until the next stat change recalculated
+	; them: X ATTACK, FULL HEAL, damage silently back to base. Recalculate
+	; from the unmodified stats x the stages instead; no burn/para penalty is
+	; due, the status was just cleared. (Found by the 2026-09-23 survey of the
+	; other hacks; guard .claude/emu_test_status_cure_stats.py.)
+	xor a
+	ld [wCalculateWhoseStats], a
+	farcall CalculateModifiedStats
 	jp .doneHealing
 
 .healHP

@@ -6742,7 +6742,7 @@ ApplyBurnAndParalysisPenalties:
 
 ; HalveSpeedDueToParalysis moved to engine/battle/hit_and_penalties.asm ("Battle Effects" section).
 
-CalculateModifiedStats:
+CalculateModifiedStats::
 	ld c, 0
 .loop
 	call CalculateModifiedStat
