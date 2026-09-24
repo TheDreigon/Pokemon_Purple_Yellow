@@ -262,6 +262,15 @@ RegistrableItems:
 	db GOOD_ROD
 	db SUPER_ROD
 	db ITEMFINDER
+; v1.0 (2026-09-24, Forte): the two reading/playing key items. The map needs
+; only hWY=0, which InitializeFieldMoveTextBox above already sets - this is
+; the wall map's path (engine/events/hidden_objects/town_map.asm) with the
+; item in front. The flute judges the map and the cell itself
+; (ItemUsePokeflute, Route12/16SnorlaxFluteCoords); the SNORLAX battle is
+; started by the route script on the next overworld frame, the same frame the
+; bag path reaches through CloseStartMenu.
+	db TOWN_MAP
+	db POKE_FLUTE
 	db -1 ; end
 
 RegisteredItemText:

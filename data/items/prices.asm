@@ -58,7 +58,7 @@ ItemPrices::
 	bcd3 4000  ; MAX_REVIVE
 	bcd3 2500 ; GUARD_SPEC
 	bcd3 400 ; SUPER_REPEL
-	bcd3 600 ; MAX_REPEL
+	bcd3 700 ; MAX_REPEL (600 until 2026-09-24; level-blind since, back to vanilla Yellow's 700 - the 200/400 ladder below it untouched)
 	bcd3 2000 ; DIRE_HIT
 	bcd3 10    ; COIN
 	bcd3 250   ; FRESH_WATER (was 200; still the cheapest HP in the game at 5 yen per HP, half the potions' 10 - the roof machines are its only shop)

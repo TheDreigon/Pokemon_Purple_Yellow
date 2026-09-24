@@ -1,9 +1,8 @@
 _SaffronMartSuperNerdText::
-	text "MAX REPEL lasts"
-	line "longer than SUPER"
-	cont "REPEL for keeping"
-	cont "weaker #MON"
-	cont "away!"
+	text "MAX REPEL keeps"
+	line "any wild #MON"
+	cont "away, no matter"
+	cont "how strong!"
 	done
 
 _SaffronMartCooltrainerFText::

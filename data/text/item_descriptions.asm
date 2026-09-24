@@ -214,8 +214,8 @@ _SuperRepelDescription::
 	prompt
 
 _MaxRepelDescription::
-	text "Repels weak #-"
-	next "MON for 250 steps."
+	text "Repels all #MON"
+	next "for 250 steps."
 	prompt
 
 _DireHitDescription::

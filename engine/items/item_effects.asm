@@ -2165,16 +2165,23 @@ INCLUDE "data/tilesets/escape_rope_tilesets.asm"
 
 ItemUseRepel:
 	ld b, 100
-	ld a, REPEL
-	ld [wRepelType], a
+	; falls through
 
 ItemUseRepelCommon:
-	ld a, b
-	ld [wRepelTypeSteps], a
+; In: b = steps. The item id is still in wcf91 (UseItem_ dispatched on it).
+; v1.0 (2026-09-24): the kind and its step count are recorded only once the
+; spray is really used. Legacy's version (89fd444d) wrote all three BEFORE the
+; battle check, so a MAX REPEL refused in battle ("not the time") overwrote
+; the kind of the REPEL already running - the wore-off prompt then offered a
+; MAX REPEL, and with the level-blind rule in wild_encounters.asm the running
+; REPEL would have become a MAX REPEL for free.
 	ld a, [wIsInBattle]
 	and a
 	jp nz, ItemUseNotTime
+	ld a, [wcf91] ; REPEL / SUPER_REPEL / MAX_REPEL
+	ld [wRepelType], a
 	ld a, b
+	ld [wRepelTypeSteps], a
 	ld [wRepelRemainingSteps], a
 	jp PrintItemUseTextAndRemoveItem
 
@@ -2223,14 +2230,10 @@ ItemUseGuardSpec:
 
 ItemUseSuperRepel:
 	ld b, 200
-	ld a, SUPER_REPEL
-	ld [wRepelType], a
 	jp ItemUseRepelCommon
 
 ItemUseMaxRepel:
 	ld b, 250
-	ld a, MAX_REPEL
-	ld [wRepelType], a
 	jp ItemUseRepelCommon
 
 ItemUseDireHit:
