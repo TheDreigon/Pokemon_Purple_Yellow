@@ -18,3 +18,15 @@ _NoScratchText::
 	line "scratch on"
 	cont "<TARGET>!"
 	prompt
+
+; x4 and x1/4 (2026-09-24). Same section as the lines above: the pinned text
+; banks have no room (Text 10 has 317 bytes in the debug build).
+_ExtremelyEffectiveText::
+	text "It's extremely"
+	line "effective!"
+	prompt
+
+_BarelyEffectiveText::
+	text "It's barely"
+	line "effective..."
+	prompt

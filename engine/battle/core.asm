@@ -1975,43 +1975,10 @@ DrawHUDsAndHPBars:
 	call DrawPlayerHUDAndHPBar
 	jp DrawEnemyHUDAndHPBar
 
-; The three-letter status in the HUD, plus CNF when the battler is confused and
-; has nothing worse wrong with it.
-;
-; Confusion cannot go through PrintStatusAilment, and this is the reason: that
-; routine reads a mon's STATUS BYTE, and confusion is not in it. Confusion is
-; volatile, it lives in wPlayerBattleStatus1 / wEnemyBattleStatus1, and it
-; belongs to the BATTLER rather than to the Pokemon. PrintStatusAilment is also
-; shared with the party menu and the stats screen, where the row being drawn is
-; usually not the mon that is confused -- widening it there would stamp CNF on
-; the wrong Pokemon, out of battle, permanently.
-;
-; A persistent status OUTRANKS confusion. There are three tiles and no more, and
-; a BRN still burns after the confusion has worn off.
-;
-; INPUT   a  = that battler's BattleStatus1
-;         de = its status byte
-;         hl = where to write
-; OUTPUT  NZ when something was written, which is the caller's cue to drop the
-;         level -- the same contract a real status already had.
-; Alternates the HUD's three status tiles between the persistent status and CNF
-; for a battler that has BOTH, about every two seconds.
-;
-; Why it is needed: PrintStatusOrConfusion gives the slot to the persistent
-; status, because that is the one that outlives the battle. So a burned AND
-; confused #MON reads BRN and the confusion is invisible. Three tiles is all
-; there is, so the only way to show both is to take turns.
-;
-; Called once per POLL of HandleMenuInput_'s inner loop (home/window.asm) --
-; ~50-100 times a frame, NOT once a frame; that loop has no frame wait, which
-; is why the phase reads the wall clock. Every menu in the game shares the
-; loop -- hence two gates, and both are load-bearing:
-;   hHUDStatusFlip           0 unless the battle menu deliberately set it;
-;                            HandleMenuInput clears it for everyone else.
-;   wPartyMenuAnimMonEnabled the party menu is the ONE caller that enters at
-;                            HandleMenuInput_ and so never clears the byte
-;                            above. Without this check, switching #MON mid
-;                            battle would stamp CNF into the party list.
+; PrintStatusOrConfusion and AlternateHUDStatus moved to engine/battle/hud_status.asm
+; (bank $12) on 2026-09-24, with the level/status HUD rework - Battle Core was at its
+; floor. Their essays went with them. BattleMenuInput stays here: emu_test_status_hud
+; block D decodes its bytes.
 ; HandleMenuInput with the HUD status alternation switched on. It has to enter
 ; at HandleMenuInput_ because the outer entry is precisely what turns the flag
 ; back off for every other menu in the game -- so it also has to do that entry's
@@ -2022,87 +1989,6 @@ BattleMenuInput:
 	inc a
 	ldh [hHUDStatusFlip], a
 	jp HandleMenuInput_
-
-AlternateHUDStatus::
-	ldh a, [hHUDStatusFlip]
-	and a
-	ret z
-	ld a, [wPartyMenuAnimMonEnabled]
-	and a
-	ret nz
-; hHUDStatusFlip is a pure on/off switch now. It USED to double as the
-; phase counter, one inc per call - and this is called once per POLL of
-; HandleMenuInput_'s inner loop, which has no frame wait in it (the
-; Delay3 sits in the outer loop; wMenuJoypadPollCount is a mode flag,
-; not a counter, so the inner loop just spins). ~50-100 polls a frame
-; put the "two-second" flip north of ten a second - Forte clocked it in
-; the FIGHT menu, 2026-09-01. The phase now comes from the wall clock
-; instead (see .side), which no poll rate can hurry.
-	ld a, [wPlayerBattleStatus1]
-	ld b, a
-	ld de, wBattleMonStatus
-	hlcoord 15, 8
-	call .side
-	ld a, [wEnemyBattleStatus1]
-	ld b, a
-	ld de, wEnemyMonStatus
-	hlcoord 5, 1
-	; falls through, and the ret at the end of .side is this routine's own
-.side
-; b = that battler's BattleStatus1, de = its status byte, hl = the three tiles
-	bit CONFUSED, b
-	ret z ; not confused, so the HUD is already showing the right thing
-	ld a, [de]
-	and a
-	ret z ; confused and nothing else -- the HUD already says CNF
-; 🔴 The phase is re-read here rather than carried in a register. It WAS carried
-; in c, and that was wrong: PrintStatusConditionNotFainted below goes through
-; homejp_sf, whose own `pop bc` destroys c. The phase therefore survived the
-; player's call and was gone by the enemy's, so the enemy alternated on garbage.
-; Caught by making the test assert the two sides with DIFFERENT statuses --
-; with the same status on both, swapping the source is invisible.
-;
-; The phase is the WALL CLOCK: TrackPlayTime advances wPlayTimeSeconds
-; (binary, 0-59) once a second in VBlank, so bit 1 alternates every two
-; seconds no matter how often this poll loop lands here. Known edge: a
-; play clock frozen at its 255:59 cap freezes the phase with it - and
-; the polarity below is chosen FOR that edge: the cap pins the seconds
-; at 59, whose bit 1 is SET, so nz must be the phase that shows the
-; PERSISTENT status (the honest, always-true label), never a CNF that
-; could then be stuck on screen for the rest of a maxed save.
-	ld a, [wPlayTimeSeconds]
-	and $02 ; bit 1 of the seconds: flips every two seconds
-	jp nz, PrintStatusConditionNotFainted ; put the real status back
-	ld a, "C"
-	ld [hli], a
-	ld a, "N"
-	ld [hli], a
-	ld [hl], "F"
-	ret
-
-PrintStatusOrConfusion:
-	push af
-	call PrintStatusConditionNotFainted
-; homejp_sf pushes and pops its own bank byte, so the top of the stack here is
-; still our BattleStatus1 -- and `pop bc` leaves the flags the call returned
-; with, which is the whole reason that macro exists in the _sf form.
-	pop bc
-	ret nz ; a real status was drawn, and it wins the slot
-	bit CONFUSED, b
-	ret z
-	ld a, "C"
-	ld [hli], a
-	ld a, "N"
-	ld [hli], a
-	ld a, "F"
-	ld [hl], a
-; Belt and braces, and worth being honest about: the `bit` above already left NZ
-; and none of the loads touch the flags, so removing this changes nothing today
-; -- a sabotage run proved the test stays green without it. It is here so that
-; the NZ the caller depends on survives someone inserting a flag-touching
-; instruction into this tail later. One byte.
-	and a
-	ret
 
 DrawPlayerHUDAndHPBar:
 	xor a
@@ -2126,16 +2012,12 @@ DrawPlayerHUDAndHPBar:
 	ld de, wLoadedMonLevel
 	ld bc, wBattleMonPP - wBattleMonLevel
 	call CopyData
-	hlcoord 14, 8
-	push hl
-	inc hl
-	ld de, wLoadedMonStatus
-	ld a, [wPlayerBattleStatus1]
-	call PrintStatusOrConfusion
-	pop hl
-	jr nz, .doNotPrintLevel
+; v1.0 (2026-09-24, Forte): level at (11,8), status at (15,8), both at once.
+; Row 8 holds nothing else (the HP box starts at row 9, the EXP bar is row 11).
+	hlcoord 11, 8
 	call PrintLevel
-.doNotPrintLevel
+	ld c, 0 ; the player's HUD
+	callfar PrintStatusOrConfusion ; TOX and CNF included -- engine/battle/hud_status.asm
 	ld a, [wLoadedMonSpecies]
 	ld [wcf91], a
 	hlcoord 10, 9
@@ -2200,18 +2082,15 @@ DrawEnemyHUDAndHPBar:
 	hlcoord 1, 0
 	call CenterMonName
 	call PlaceString
-	hlcoord 4, 1
-	push hl
-	inc hl
-	ld de, wEnemyMonStatus
-	ld a, [wEnemyBattleStatus1]
-	call PrintStatusOrConfusion
-	pop hl
-	jr nz, .skipPrintLevel ; if the mon has a status condition, skip printing the level
+; v1.0 (2026-09-24, Forte): level at (3,1), status at (7,1), both at once. The
+; ball icon keeps (1,1), the HP bar is row 2 (cols 2-9) and the box's bottom
+; edge is row 3 (cols 1-10).
+	hlcoord 3, 1
 	ld a, [wEnemyMonLevel]
 	ld [wLoadedMonLevel], a
 	call PrintLevel
-.skipPrintLevel
+	ld c, 1 ; the enemy's HUD
+	callfar PrintStatusOrConfusion ; engine/battle/hud_status.asm
 	ld hl, wEnemyMonHP
 	ld a, [hli]
 	ldh [hMultiplicand + 1], a
@@ -3855,7 +3734,7 @@ MirrorMoveCheck:
 	ld a, [hli]
 	ld b, [hl]
 	or b
-	ret z ; don't do anything else if the enemy fainted
+	jr z, .targetFainted ; nothing else runs on a fainted target -- but a multi-hit move still owes its two lines
 	farcall DefrostTargetIfFireOrMagma
 
 	ld hl, wPlayerBattleStatus1
@@ -3866,11 +3745,7 @@ MirrorMoveCheck:
 	ld [wPlayerNumAttacksLeft], a
 	jp nz, getPlayerAnimationType ; for multi-hit moves, apply attack until PlayerNumAttacksLeft hits 0 or the enemy faints.
 	                             ; damage calculation and accuracy tests only happen for the first hit
-	res ATTACKING_MULTIPLE_TIMES, [hl] ; clear attacking multiple times status when all attacks are over
-	ld hl, MultiHitText
-	call PrintText
-	xor a
-	ld [wPlayerNumHits], a
+	callfar MultiHitDone ; v1.0 (2026-09-24): clears ATTACKING_MULTIPLE_TIMES, says how effective it was (once) and how many times it hit
 .executeOtherEffects
 	ld a, [wPlayerMoveEffect]
 	and a
@@ -3884,9 +3759,12 @@ MirrorMoveCheck:
 	; Responsible for executing Twineedle's second side effect (poison).
 	jp ExecutePlayerMoveDone
 
-MultiHitText:
-	text_far _MultiHitText
-	text_end
+.targetFainted
+	callfar MultiHitDone ; returns at once unless a multi-hit move was in progress
+	ld b, 0 ; the caller reads b = 0 as "the target fainted" (vanilla's `ret z` left the HP low byte, 0, in b); the farcall clobbered it
+	ret
+
+; MultiHitText moved to engine/battle/display_effectiveness.asm (MultiHitDone prints it from that bank).
 
 ExecutePlayerMoveDone:
 	xor a
@@ -5992,21 +5870,15 @@ EnemyCheckIfMirrorMoveEffect:
 	ld a, [hli]
 	ld b, [hl]
 	or b
-	ret z
+	jr z, .targetFainted
 	farcall DefrostTargetIfFireOrMagma
 	ld hl, wEnemyBattleStatus1
 	bit ATTACKING_MULTIPLE_TIMES, [hl] ; is mon hitting multiple times? (example: double kick)
 	jr z, .notMultiHitMove
-	push hl
 	ld hl, wEnemyNumAttacksLeft
 	dec [hl]
-	pop hl
 	jp nz, GetEnemyAnimationType
-	res ATTACKING_MULTIPLE_TIMES, [hl] ; mon is no longer hitting multiple times
-	ld hl, HitXTimesText
-	call PrintText
-	xor a
-	ld [wEnemyNumHits], a
+	callfar MultiHitDone ; v1.0 (2026-09-24): clears ATTACKING_MULTIPLE_TIMES, says how effective it was (once) and how many times it hit
 .notMultiHitMove
 	ld a, [wEnemyMoveEffect]
 	and a
@@ -6017,9 +5889,12 @@ EnemyCheckIfMirrorMoveEffect:
 	call nc, JumpMoveEffect
 	jr ExecuteEnemyMoveDone
 
-HitXTimesText:
-	text_far _HitXTimesText
-	text_end
+.targetFainted
+	callfar MultiHitDone ; returns at once unless a multi-hit move was in progress
+	ld b, 0 ; the caller reads b = 0 as "the target fainted" (vanilla's `ret z` left the HP low byte, 0, in b); the farcall clobbered it
+	ret
+
+; HitXTimesText moved to engine/battle/display_effectiveness.asm (MultiHitDone prints it from that bank).
 
 ExecuteEnemyMoveDone:
 	ld b, $1

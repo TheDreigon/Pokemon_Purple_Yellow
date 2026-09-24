@@ -139,6 +139,7 @@ INCLUDE "engine/battle/move_effects/leech_seed.asm"
 SECTION "Battle Engine 5", ROMX
 
 INCLUDE "engine/battle/display_effectiveness.asm"
+INCLUDE "engine/battle/hud_status.asm" ; v1.0 (2026-09-24): the HUD's status tiles, out of Battle Core
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pikachu/respawn_overworld_pikachu.asm"
 INCLUDE "engine/battle/scale_sprites.asm"
