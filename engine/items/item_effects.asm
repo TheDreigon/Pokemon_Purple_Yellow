@@ -1485,8 +1485,14 @@ ItemUseMedicine:
 	jp .cureStatusAilment
 
 .notFullHP ; if the pokemon's current HP doesn't equal its max HP
+; v1.0 (2026-09-24): stop the alarm for the healing sound but keep its cycle
+; count (bits 6-5): a heal that leaves the bar red is the same stay in the red,
+; so the three cycles must not restart (the HUD redraw after the item re-sets
+; bit 7 only while the count is below three - DrawPlayerHUDAndHPBar)
+	ld a, [wLowHealthAlarm]
+	and $60
+	ld [wLowHealthAlarm], a
 	xor a
-	ld [wLowHealthAlarm], a ;disable low health alarm
 	ld [wChannelSoundIDs + CHAN5], a
 	push hl
 	push de

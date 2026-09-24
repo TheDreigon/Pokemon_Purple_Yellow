@@ -1596,8 +1596,10 @@ wSavedListScrollOffset:: db
 wBaseCoordX:: db
 wBaseCoordY:: db
 
-; low health alarm counter/enable
-; high bit = enable, others = timer to cycle frequencies
+; low health alarm (v1.0, 2026-09-24: three cycles, then quiet, re-arms)
+; bit 7 = sounding; bits 6-5 = cycles begun in this stay in the red (0-3; at
+; 3 the byte parks at $60 and DrawPlayerHUDAndHPBar leaves it until the bar
+; is no longer red); bits 4-0 = frame timer 0-30; $ff = stop now
 wLowHealthAlarm:: db
 
 ; counts how many tiles of the current frame block have been drawn

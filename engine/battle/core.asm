@@ -1031,13 +1031,16 @@ RemoveFaintedPlayerMon:
 	ld hl, wEnemyBattleStatus1
 	res 2, [hl]   ; reset "attacking multiple times" flag
 	ld a, [wLowHealthAlarm]
-	bit 7, a      ; skip sound flag (red bar (?))
-	jr z, .skipWaitForSound
-	ld a, $ff
-	ld [wLowHealthAlarm], a ;disable low health alarm
-	call WaitForSoundToFinish
+	bit 7, a      ; sounding?
+	ld a, $ff     ; yes: the VBlank handler cuts it and frees channel 1 next frame
+	jr nz, .storeAlarm
+	xor a         ; v1.0 (2026-09-24): idle, or parked at $60 after its three
+	              ; cycles - the next mon sent out must not inherit that latch
+	              ; (vanilla's WaitForSoundToFinish here was dead: it read the
+	              ; $ff just stored and returned at once)
+.storeAlarm
+	ld [wLowHealthAlarm], a
 	xor a
-.skipWaitForSound
 ; a is 0, so this zeroes the enemy's accumulated damage.
 	ld hl, wEnemyBideAccumulatedDamage
 	ld [hli], a
@@ -2046,6 +2049,9 @@ DrawPlayerHUDAndHPBar:
 	ret
 .setLowHealthAlarm
 	ld hl, wLowHealthAlarm
+	ld a, [hl]
+	cp $60 ; v1.0 (2026-09-24): its three cycles already sounded for this stay in
+	ret z  ; the red - quiet until the bar leaves it (.fainted above writes 0 = re-arm)
 	set 7, [hl] ;enable low health alarm
 	ret
 
