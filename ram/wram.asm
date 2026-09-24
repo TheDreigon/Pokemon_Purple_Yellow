@@ -2066,7 +2066,17 @@ wOptions:: db
 
 wObtainedBadges:: flag_array NUM_BADGES
 
-	ds 1
+; v1.0 (2026-09-24): the second options byte, on the pad vanilla left between
+; the badges and wLetterPrintingDelayFlags. Same address, same size: the save
+; layout does not move. An older save reads 0 here (a recycled ds byte reads
+; zero), InitPlayerData already zeroes it on NEW GAME (its `ld [hli], a` runs
+; on past wObtainedBadges), PrepareOakSpeech's clear covers it, and 0 is
+; vanilla behaviour for every bit.
+; bit 0 = BIT_BIKE_MUSIC_ROAD_ONLY (OPTION menu, BIKE MUSIC: YES/NO)
+;        0: the bike theme plays whenever you ride (vanilla)
+;        1: only on the Cycling Road; elsewhere the map's music plays on
+; bits 1-7: free
+wOptions2:: db
 
 ; bit 0: If 0, limit the delay to 1 frame. Note that this has no effect if
 ;        the delay has been disabled entirely through bit 1 of this variable

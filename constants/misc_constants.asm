@@ -22,5 +22,9 @@ DEF BIT_TEXT_DELAY      EQU 1 ; 0 = no letter delay at all
 	const BIT_BATTLE_SHIFT     ; 6
 	const BIT_BATTLE_ANIMATION ; 7
 
+; wOptions2 (v1.0)
+	const_def
+	const BIT_BIKE_MUSIC_ROAD_ONLY ; 0
+
 ; wd732 flags
 DEF BIT_DEBUG_MODE EQU 1

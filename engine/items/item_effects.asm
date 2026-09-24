@@ -952,7 +952,7 @@ ItemUseBicycle:
 	ld [wWalkBikeSurfState], a ; change player state to walking
 	ld a, $00
 	ld [wPikachuSpawnState], a
-	call PlayDefaultMusic ; play walking music
+	call BikePlayDefaultMusic ; play walking music (v1.0: unless BIKE MUSIC is NO off the road)
 	ld hl, GotOffBicycleText
 	jp PrintText
 
@@ -964,7 +964,7 @@ ItemUseBicycle:
 	ldh [hJoyHeld], a ; current joypad state
 	ld a, $1
 	ld [wWalkBikeSurfState], a ; change player state to bicycling
-	call PlayDefaultMusic ; play bike riding music
+	call BikePlayDefaultMusic ; play bike riding music (v1.0: unless BIKE MUSIC is NO off the road)
 	xor a
 	ld [wWalkBikeSurfState], a
 	ld hl, GotOnBicycleText
@@ -972,6 +972,25 @@ ItemUseBicycle:
 	ld a, $1
 	ld [wWalkBikeSurfState], a
 	ret
+
+; v1.0 (2026-09-24): with BIKE MUSIC set to NO, getting on or off the bike away
+; from the Cycling Road must leave the map's music exactly where it is.
+; PlayDefaultMusic zeroes wLastMusicSoundID before choosing, so it always
+; RESTARTS the track it lands on (vanilla: every mount and dismount restarts
+; the route theme from the top). Entering PlayDefaultMusicCommon directly, no
+; fade (c = d = 0) and wLastMusicSoundID untouched, swaps the track only when
+; the rule picks a different one: nothing happens off the road, the bike theme
+; starts when mounting on the road with the forced bit set, and the map's
+; theme comes back if the option was flipped to NO while the bike theme played.
+BikePlayDefaultMusic:
+	ld a, [wOptions2]
+	bit BIT_BIKE_MUSIC_ROAD_ONLY, a
+	jp z, PlayDefaultMusic ; YES: vanilla, restart included
+	call WaitForSoundToFinish
+	xor a
+	ld c, a
+	ld d, a
+	jp PlayDefaultMusicCommon
 
 ; used for Surf out-of-battle effect
 ItemUseSurfboard:

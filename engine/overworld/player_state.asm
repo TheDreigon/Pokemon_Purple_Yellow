@@ -84,6 +84,46 @@ CheckForceBikeOrSurf::
 
 INCLUDE "data/maps/force_bike_surf.asm"
 
+; v1.0 (2026-09-24): moved out of home/audio.asm (its only caller,
+; PlayDefaultMusicCommon, farcalls it with bc pushed). Returns carry when the
+; MAP's music should play although the player is on the bike:
+;  - vanilla's list: ROUTE 23, VICTORY ROAD, INDIGO PLATEAU;
+;  - with BIKE MUSIC set to NO, everywhere that is not the Cycling Road.
+; "The Cycling Road" is the forced-bike bit of wd732 while outdoors. The bit is
+; set by CheckForceBikeOrSurf above on the road's entry squares and survives
+; map connections, so it covers ROUTE 16 -> 17 -> 18 as ridden; the two gates
+; clear it in their map scripts, but a map script runs AFTER LoadMapData has
+; already chosen the music, hence the tileset test: riding into the ROUTE 18
+; gate from the road must fade to the gate's theme, not carry the bike theme
+; indoors. Trashes a. Keeps d and e (the caller's fade flag).
+CheckForNoBikingMusicMap::
+	ld a, [wOptions2]
+	bit BIT_BIKE_MUSIC_ROAD_ONLY, a
+	jr z, .vanilla
+	ld a, [wd732]
+	bit 5, a ; forced to ride the bike?
+	jr z, .found
+	ld a, [wCurMapTileset]
+	and a ; OVERWORLD? (LoadSAV's bit-7 marker is long cleared by LoadMapHeader here)
+	jr nz, .found
+.vanilla
+	ld a, [wCurMap]
+	cp ROUTE_23
+	jr z, .found
+	cp VICTORY_ROAD_1F
+	jr z, .found
+	cp VICTORY_ROAD_2F
+	jr z, .found
+	cp VICTORY_ROAD_3F
+	jr z, .found
+	cp INDIGO_PLATEAU
+	jr z, .found
+	and a
+	ret
+.found
+	scf
+	ret
+
 IsPlayerFacingEdgeOfMap::
 	push hl
 	push de

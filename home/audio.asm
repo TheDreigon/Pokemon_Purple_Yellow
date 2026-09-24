@@ -24,7 +24,14 @@ PlayDefaultMusicCommon::
 	jr z, .walking
 	cp $2
 	jr z, .surfing
-	call CheckForNoBikingMusicMap
+; v1.0 (2026-09-24): the "map music instead of the bike theme" rule lives in
+; bank 3 now (engine/overworld/player_state.asm, next to the forced-bike code
+; it reads): the BIKE MUSIC option needed room the home bank does not have.
+; bc is pushed because Bankswitch returns through `pop bc` and c is the fade
+; counter; the carry comes back intact.
+	push bc
+	farcall CheckForNoBikingMusicMap
+	pop bc
 	jr c, .walking
 	ld a, MUSIC_BIKE_RIDING
 	jr .next
@@ -34,8 +41,16 @@ PlayDefaultMusicCommon::
 
 .next
 	ld b, a
-	ld a, d
-	and a ; should current music be faded out first?
+; v1.0 (2026-09-24, bike through gates): was `ld a, d`. Riding out of a gate
+; is the first path where this branch runs with a DIFFERENT track playing from
+; a DIFFERENT audio bank (the gate themes live in bank $02, the bike theme in
+; $1F) and a fade requested: PlayDefaultMusicFadeOutCurrent passes c = 10 but
+; d = 0, so the bank was switched at once and the gate theme then faded out
+; with its channel pointers read from the bike theme's bank (GetNextMusicByte
+; goes through wAudioROMBank) - ~80 frames of garbage. The walking branch has
+; always keyed this on c (CompareMapMusicBankWithCurrentBank); d is dead now.
+	ld a, c
+	and a ; is a fade-out pending? (0 only on the PlayDefaultMusic path)
 	ld a, BANK(Music_BikeRiding)
 	jr nz, .next2
 
@@ -68,24 +83,7 @@ PlayDefaultMusicCommon::
 	ld [wNewSoundID], a
 	jp PlaySound
 
-CheckForNoBikingMusicMap::
-; probably used to not change music upon getting on bike
-	ld a, [wCurMap]
-	cp ROUTE_23
-	jr z, .found
-	cp VICTORY_ROAD_1F
-	jr z, .found
-	cp VICTORY_ROAD_2F
-	jr z, .found
-	cp VICTORY_ROAD_3F
-	jr z, .found
-	cp INDIGO_PLATEAU
-	jr z, .found
-	and a
-	ret
-.found
-	scf
-	ret
+; v1.0: CheckForNoBikingMusicMap moved to engine/overworld/player_state.asm (bank 3).
 
 UpdateMusic6Times::
 	ld c, 6

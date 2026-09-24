@@ -31,14 +31,16 @@ GetOptionPointer:
 	jp hl ; jump to the function for the current highlighted option
 
 ; v0.7: entry 4 was PRINT (Game Boy Printer darkness). The printer is gone, so
-; the row is gone with it; the cursor now steps straight from SOUND (3) to
-; CANCEL (7) and 4-6 are unreachable. See OptionsControl below.
+; the row went with it. v1.0: slot 4 is BIKE MUSIC, drawn and selectable only
+; once the BICYCLE is owned; the cursor steps SOUND (3) -> BIKE MUSIC (4) ->
+; CANCEL (7), or straight 3 -> 7 while the row is hidden. 5-6 stay unreachable.
+; See OptionsControl below.
 OptionMenuJumpTable:
 	dw OptionsMenu_TextSpeed
 	dw OptionsMenu_BattleAnimations
 	dw OptionsMenu_BattleStyle
 	dw OptionsMenu_SpeakerSettings
-	dw OptionsMenu_Dummy
+	dw OptionsMenu_BikeMusic ; v1.0: row 10, drawn only once the BICYCLE is owned
 	dw OptionsMenu_Dummy
 	dw OptionsMenu_Dummy
 	dw OptionsMenu_Cancel
@@ -282,6 +284,72 @@ Earphone2SoundText:
 Earphone3SoundText:
 	db "EARPHONE3@"
 
+; v1.0 (2026-09-24): BIKE MUSIC, jump-table slot 4 = screen row 10 (PRINT's old
+; row). Drawn and selectable only inside a running game (same guard as the
+; DIFFICULTY row) and only once the BIKE SHOP has handed over the BICYCLE
+; (EVENT_GOT_BICYCLE, never cleared). YES = the bike theme whenever you ride
+; (vanilla). NO = only on the Cycling Road; everywhere else the map's own
+; music keeps playing, and mounting or dismounting leaves it alone.
+OptionsMenu_BikeMusic:
+	call OptionsMenu_IsBikeRowShown
+	jr z, OptionsMenu_Dummy ; hidden: nothing to draw, nothing to toggle
+	ldh a, [hJoy5]
+	and D_RIGHT | D_LEFT
+	jr z, .draw
+	ld a, [wOptions2]
+	xor 1 << BIT_BIKE_MUSIC_ROAD_ONLY
+	ld [wOptions2], a
+; Apply it now. The menu only opens from the START menu, so the map's music is
+; playing under it. PlayDefaultMusicCommon with no fade (c = d = 0) and
+; wLastMusicSoundID left alone swaps the track only if the new rule picks a
+; different one; PlayDefaultMusic itself zeroes wLastMusicSoundID first and
+; would restart whatever it lands on.
+	xor a
+	ld c, a
+	ld d, a
+	call PlayDefaultMusicCommon
+.draw
+	ld a, [wOptions2]
+	and 1 << BIT_BIKE_MUSIC_ROAD_ONLY ; bit 0: 0 = YES, 1 = NO
+	ld c, a
+	ld b, 0
+	ld hl, BikeMusicOptionStringsPointerTable
+	add hl, bc
+	add hl, bc
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	hlcoord 14, 10
+	call PlaceString
+	and a
+	ret
+
+BikeMusicOptionStringsPointerTable:
+	dw BikeMusicYesText
+	dw BikeMusicNoText
+
+BikeMusicYesText:
+	db "YES@"
+BikeMusicNoText:
+	db "NO @"
+
+; nz = the BIKE MUSIC row exists (running game, BICYCLE owned). Keeps hl and b:
+; OptionsControl holds the cursor pointer in hl across it.
+OptionsMenu_IsBikeRowShown:
+	ld a, [wOptionsShowDifficulty]
+	and a
+	ret z
+	CheckEvent EVENT_GOT_BICYCLE
+	ret
+
+; a = the last selectable setting: 3 (SOUND) or 4 (BIKE MUSIC). Keeps hl.
+OptionsMenu_LastSetting:
+	call OptionsMenu_IsBikeRowShown
+	ld a, 3
+	ret z
+	inc a
+	ret
+
 OptionsMenu_Dummy:
 	and a
 	ret
@@ -313,9 +381,11 @@ OptionsControl:
 	scf
 	ret
 .doNotWrapAround
-	cp $3 ; SOUND, the last selectable setting since PRINT was removed
-	jr c, .regularIncrement
-	ld [hl], $6
+	ld b, a
+	call OptionsMenu_LastSetting ; a = 3 (SOUND), or 4 with the BIKE MUSIC row (v1.0)
+	cp b ; already on it?
+	jr nz, .regularIncrement
+	ld [hl], $6 ; 6 + 1 = CANCEL
 .regularIncrement
 	inc [hl]
 	scf
@@ -324,7 +394,8 @@ OptionsControl:
 	ld a, [hl]
 	cp $7
 	jr nz, .doNotJumpToLastSetting
-	ld [hl], $3
+	call OptionsMenu_LastSetting
+	ld [hl], a
 	scf
 	ret
 .doNotJumpToLastSetting
@@ -375,23 +446,33 @@ InitOptionsMenu:
 	ld a, [wOptionsShowDifficulty]
 	and a
 	jr z, .skipDifficultyRow
-	; v0.7: row 11, not 13. It sat three rows under the last setting when that
-	; setting was PRINT on row 10; PRINT is gone, so it follows SOUND up.
+; v0.7 put DIFFICULTY on row 11 (two rows under SOUND once PRINT left row 10).
+; v1.0: the BIKE MUSIC label takes row 10 once the BICYCLE is owned, and the
+; read-only DIFFICULTY row moves from 11 to 13 so it keeps its two blank rows
+; under the last setting. hlcoord is a bare `ld hl`: the flags survive it.
+	call OptionsMenu_IsBikeRowShown
 	hlcoord 2, 11
-	ld de, OptionMenuDifficultyText
+	jr z, .difficultyRow
+	hlcoord 2, 10
+	ld de, OptionMenuBikeMusicText
 	call PlaceString
+	hlcoord 2, 13
+.difficultyRow
+	ld de, OptionMenuDifficultyText
+	call PlaceString ; hl comes back unchanged (PlaceString pushes it)
+	ld de, 11
+	add hl, de ; column 13, same row
 	ld a, [wDifficulty]
 	and a ; NORMAL_MODE == 0?
 	ld de, OptionDifficultyNormalText
 	jr z, .gotDifficultyValue
 	ld de, OptionDifficultyHardText
 .gotDifficultyValue
-	hlcoord 13, 11
 	call PlaceString
 .skipDifficultyRow
 	xor a
 	ld [wOptionsCursorLocation], a
-	ld c, 4 ; the number of options to loop through
+	ld c, 5 ; the number of options to loop through (BIKE MUSIC draws nothing while hidden)
 .loop
 	push bc
 	call GetOptionPointer ; updates the next option
@@ -418,6 +499,8 @@ OptionMenuCancelText:
 
 OptionMenuDifficultyText:
 	db "DIFFICULTY:@"
+OptionMenuBikeMusicText:
+	db "BIKE MUSIC :@"
 OptionDifficultyNormalText:
 	db "NORMAL@"
 OptionDifficultyHardText:
