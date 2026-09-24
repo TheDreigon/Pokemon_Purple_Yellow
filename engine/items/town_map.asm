@@ -224,11 +224,7 @@ LoadTownMap_Fly::
 	ldh [hJoy7], a
 	call LoadPlayerSpriteGraphics
 	call LoadFontTilePatterns
-	ld de, BirdSprite
-	ld b, BANK(BirdSprite)
-	ld c, 12
-	ld hl, vSprites tile $04
-	call CopyVideoData
+	call LoadFlyMonIcon ; v1.0 (2026-09-24, Forte): the flier's own icon where the BIRD sprite went
 	ld de, TownMapUpArrow
 	ld hl, vChars1 tile $6d
 	lb bc, BANK(TownMapUpArrow), (TownMapUpArrowEnd - TownMapUpArrow) / $8
@@ -272,6 +268,7 @@ LoadTownMap_Fly::
 .inputLoop
 	push hl
 	call DelayFrame
+	call AnimateFlyMonIcon ; v1.0: the icon's two frames, in step with the blink counter
 	call JoypadLowSensitivity
 	ldh a, [hJoy5]
 	ld b, a
@@ -332,6 +329,166 @@ LoadTownMap_Fly::
 
 ToText:
 	db "To@"
+
+LoadFlyMonIcon:
+; v1.0 (2026-09-24, Forte): the FLY cursor is the party icon of the Pokémon
+; about to fly (wWhichPokemon, the party menu's pick), both frames, copied into
+; the tiles the BIRD sprite used ($04-$0B; the bird was 12 tiles, an icon is
+; 8). An icon's tile order is an overworld frame's (top-left, top-right,
+; bottom-left, bottom-right), so WriteTownMapSpriteOAM draws it unchanged.
+	ld a, [wWhichPokemon]
+	ld hl, wPartySpecies
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ld [wd11e], a
+	predef IndexToPokedex
+	ld a, [wd11e]
+	dec a
+	ld hl, MonPartyData
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl] ; the icon id: $80 and up live in MonIcons2 (LoadMonPartySpriteGfx)
+	ld de, MonIcons
+	ld b, BANK(MonIcons)
+	cp $80
+	jr c, .inBank
+	sub $80
+	ld de, MonIcons2
+	ld b, BANK(MonIcons2)
+.inBank
+	ld l, a
+	ld h, 0
+rept 7
+	add hl, hl ; id * $80, an icon's size
+endr
+	add hl, de
+	ld d, h
+	ld e, l
+	ld c, 8 ; tiles: both frames
+	ld hl, vSprites tile $04
+	jp CopyVideoData
+
+AnimateFlyMonIcon:
+; Every frame of LoadTownMap_Fly's input loop: the cursor's four OAM entries
+; (sprites 32-35, WritePlayerOrBirdSpriteOAM) show frame 1 (tiles 4-7) or
+; frame 2 (tiles 8-11) by bit 3 of a frame counter, eight frames each, the
+; party menu's pace for a healthy Pokémon. wAnimCounter is the blink's, but
+; the blink (TownMapSpriteBlinkingAnimation) only runs from DisplayTownMap's
+; loop and the nest page, never here, so this loop owns the counter (it is
+; zeroed on the way out with the blink flag).
+	ld hl, wAnimCounter
+	inc [hl]
+	ld a, [hl]
+	and 8
+	srl a
+	add 4 ; 4 or 8
+	ld hl, wShadowOAMSprite32 + 2 ; the tile id of the first entry
+	ld de, 4
+rept 3
+	ld [hl], a
+	inc a
+	add hl, de
+endr
+	ld [hl], a
+	ret
+
+BuildFlyLocationsList:
+; v1.0 (2026-09-24, Forte): the menu lists the fly points in story order, not
+; slot order. FlyDisplayOrder is the permutation (slot indices, $ff-terminated);
+; the bit of wTownVisitedFlag that a slot owns does NOT move (it is saved, and
+; a town's slot is its map id - MarkTownVisitedAndLoadMissableObjects). The
+; list keeps NUM_FLY_SLOTS entries followed by $ff, so LoadTownMap_Fly's
+; UP/DOWN/wrap code is untouched. Entry 0 must be PALLET TOWN: the menu shows
+; entry 0 without the NOT_VISITED skip, and PALLET is the slot every save has.
+; The bits are read through FlagActionPredef, so the flag array can be any
+; width (three bytes for the nineteen slots).
+	ld hl, wFlyAnimUsingCoordList
+	ld [hl], $ff
+	inc hl ; wFlyLocationsList
+	ld de, FlyDisplayOrder
+.loop
+	ld a, [de] ; the slot to show next, $ff = end of the table
+	inc de
+	cp $ff
+	jr z, .done
+	push de
+	push hl
+	ld c, a ; c = the slot
+	push bc
+	ld b, FLAG_TEST
+	ld hl, wTownVisitedFlag
+	predef FlagActionPredef ; c = the bit
+	ld a, c
+	pop bc ; c = the slot again
+	and a
+	ld a, NOT_VISITED
+	jr z, .store
+	ld a, c ; visited: the map id the menu shows and flies to
+	cp BILLS_LAB_FLY_SLOT
+	jr c, .store ; a town: the slot IS the map id
+; the slots past the eleven towns are interiors, listed under their own map id:
+; the name and the marker come from that map's row in town_map_entries.asm, and
+; FlyWarpDataPtr lands the player one cell below that map's door
+	sub BILLS_LAB_FLY_SLOT
+	ld hl, FlySlotMaps
+	add l
+	ld l, a
+	adc h
+	sub l
+	ld h, a
+	ld a, [hl]
+.store
+	pop hl
+	pop de
+	ld [hli], a
+	jr .loop
+.done
+	ld [hl], $ff ; the terminator .wrapToEndOfList points at: wFlyLocationsList + NUM_FLY_SLOTS
+	ret
+
+FlySlotMaps:
+; the map id of each slot from BILLS_LAB_FLY_SLOT up, in slot order
+	db BILLS_HOUSE            ; BILLS_LAB_FLY_SLOT     -> "BILL's LAB"
+	db MT_MOON_POKECENTER     ; MT_MOON_FLY_SLOT       -> "MT.MOON CENTER"
+	db ROCK_TUNNEL_POKECENTER ; ROCK_TUNNEL_FLY_SLOT   -> "R.TUNNEL CENTER"
+	db DAYCARE                ; DAY_CARE_FLY_SLOT      -> "DAY CARE"
+	db POWER_PLANT            ; POWER_PLANT_FLY_SLOT   -> "POWER PLANT"
+	db SEAFOAM_ISLANDS_1F     ; SEAFOAM_FLY_SLOT       -> "SEAFOAM ISLANDS"
+	db VICTORY_ROAD_1F        ; VICTORY_ROAD_FLY_SLOT  -> "VICTORY ROAD"
+	db CERULEAN_CAVE_1F       ; CERULEAN_CAVE_FLY_SLOT -> "CERULEAN CAVE"
+FlySlotMapsEnd:
+ASSERT FlySlotMapsEnd - FlySlotMaps == NUM_FLY_SLOTS - BILLS_LAB_FLY_SLOT, "FlySlotMaps must name every slot from BILLS_LAB_FLY_SLOT to NUM_FLY_SLOTS - 1, in slot order"
+
+FlyDisplayOrder:
+; the FLY menu's order (UP walks forward): the story's (Forte, 2026-09-24)
+	db PALLET_TOWN
+	db VIRIDIAN_CITY
+	db PEWTER_CITY
+	db MT_MOON_FLY_SLOT       ; the CENTER at MT.MOON's foot
+	db CERULEAN_CITY
+	db BILLS_LAB_FLY_SLOT
+	db DAY_CARE_FLY_SLOT
+	db VERMILION_CITY
+	db ROCK_TUNNEL_FLY_SLOT   ; the CENTER at ROCK TUNNEL's north mouth
+	db POWER_PLANT_FLY_SLOT
+	db LAVENDER_TOWN
+	db CELADON_CITY
+	db SAFFRON_CITY
+	db FUCHSIA_CITY
+	db SEAFOAM_FLY_SLOT
+	db CINNABAR_ISLAND
+	db VICTORY_ROAD_FLY_SLOT
+	db INDIGO_PLATEAU
+	db CERULEAN_CAVE_FLY_SLOT
+FlyDisplayOrderEnd:
+	db -1
+; the ASSERT proves the COUNT (LoadTownMap_Fly wraps at wFlyLocationsList +
+; NUM_FLY_SLOTS); that the table is a permutation of the slots is checked by
+; emu_test_flyslots.py, which reads it from this file.
+ASSERT FlyDisplayOrderEnd - FlyDisplayOrder == NUM_FLY_SLOTS, "FlyDisplayOrder must have NUM_FLY_SLOTS entries: LoadTownMap_Fly wraps at wFlyLocationsList + NUM_FLY_SLOTS"
 
 TownMapUpArrow:
 	INCBIN "gfx/town_map/up_arrow.1bpp"
