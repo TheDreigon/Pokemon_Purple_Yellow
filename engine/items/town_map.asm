@@ -641,10 +641,18 @@ TownMapCoordsToOAMCoords:
 ; in: b = y, c = x in HALF tiles (v1.0 T32: whole bytes, so the map's 17 rows
 ;     and 20 columns fit, and a marker can sit between two blocks)
 ; out: b and [hl] = (y * 4) + 24, c and [hl+1] = (x * 4) + 24
+;      - except on the last drawn row (tile row 17, y = 32), two pixels higher
 	ld a, b
 	add a
 	add a
 	add 24
+; v1.0 (2026-09-25, Forte): on the last drawn row a 16x16 sprite loses its
+; bottom four lines to the screen edge; two pixels up keeps fourteen of them,
+; and the 8x8 marker underneath is still covered. Nest icons there move too.
+	cp 32 * 4 + 24
+	jr nz, .notLastRow
+	sub 2
+.notLastRow
 	ld b, a
 	ld [hli], a
 	ld a, c
@@ -665,9 +673,11 @@ WritePlayerOrBirdSpriteOAM:
 WriteTownMapSpriteOAM:
 	push hl
 
-; Subtract 4 from c (X coord) and 4 from b (Y coord). However, the carry from c
-; is added to b, so the net result is that only 3 is subtracted from b.
-	lb hl, -4, -4
+; Subtract 4 from c (X coord) and 4 from b (Y coord): c is at least 24, so the
+; add always carries into h, which therefore starts at -5. (Vanilla had -4
+; there and drew every cursor, bird and "you are here" one pixel low - v1.0,
+; 2026-09-25, Forte's call after the cursor audit.)
+	lb hl, -5, -4
 	add hl, bc
 
 	ld b, h
