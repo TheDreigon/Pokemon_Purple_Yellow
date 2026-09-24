@@ -44,6 +44,17 @@ MoveHitTest:
 .checkForDigOrFlyStatus
 	bit INVULNERABLE, [hl]
 	jp nz, .moveMissed
+; v1.0 (2026-09-24, Forte): the damage calc already failed this move on type -
+; an immunity (WRAP vs a GHOST) or the "not even a scratch" collapse - and
+; ApplyTypeEffectivenessToDamage only writes the reason code. No accuracy
+; roll, and the attacker's trapping move must not trap a target it cannot
+; touch: TrappingEffect ran before we got here (SpecialEffectsCont) and set
+; the bit, so take the trap-ending tail. The reason is left alone: it is
+; what PrintMoveFailureText reads. INVULNERABLE is tested first on purpose
+; (a FLYing target is 'missed', whatever the type).
+	ld a, [wMoveMissed]
+	and a
+	jp nz, .endTrappingMove
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .enemyTurn
@@ -200,6 +211,7 @@ MoveHitTest:
 	inc a ; a = MOVE_FAILED_EVADED
 .gotFailureReason
 	ld [wMoveMissed], a
+.endTrappingMove
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .playerTurn2

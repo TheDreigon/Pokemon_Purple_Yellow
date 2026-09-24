@@ -72,7 +72,9 @@ HealEffect_:
 .restEffect
 	ld a, [hl]
 	and a
-	ld [hl], 2 ; clear status and set number of turns asleep to 2
+	; v1.0 (2026-09-24): 3, not 2 - the wake-up turn now attacks (core.asm
+	; .WakeUp), so a counter of 3 keeps REST at two turns out, as in Gen 2+.
+	ld [hl], 3 ; clear status and set number of turns asleep
 	ld hl, StartedSleepingEffect ; if mon didn't have an status
 	jr z, .printRestText
 	ld hl, FellAsleepBecameHealthyText ; if mon had an status

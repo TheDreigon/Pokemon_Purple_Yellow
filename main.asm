@@ -194,6 +194,10 @@ INCLUDE "engine/battle/core.asm"
 ; lookup in TryRunningFromBattle reads it with a plain ld, no bankswitch.
 INCLUDE "data/pokemon/flee_tiers.asm"
 INCLUDE "engine/battle/effects_dispatch.asm"
+; v1.0 (2026-09-24): opens its own SECTION ("Battle Core Overflow", bank $10) -
+; it MUST stay the last include of this block, everything after it would leave
+; Battle Core (that is how the effects dispatch broke for an hour).
+INCLUDE "engine/battle/damage_type.asm"
 
 
 ; v0.7: the move effects left Battle Core, which had reached its 16 KB

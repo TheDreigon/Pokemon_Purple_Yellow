@@ -101,6 +101,7 @@ ROMX $10
 	; $44 - this bank holds the dex entry blobs, which grow ~18 B per new
 	; species, and was down to 80 B free.
 	"bank10"
+	"Battle Core Overflow"
 ROMX $11
 	"Maps 5"
 	"Pokédex Rating"

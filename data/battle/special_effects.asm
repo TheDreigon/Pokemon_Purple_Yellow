@@ -18,6 +18,7 @@ SpecialEffects:
 	db ATTACK_TWICE_EFFECT
 	db JUMP_KICK_EFFECT
 	db RECOIL_EFFECT
+	db HYPER_BEAM_EFFECT ; v1.0 (2026-09-24): runs from AlwaysHappenSideEffects now - listed here so .executeOtherEffects does not run it a second time
 	; fallthrough
 SpecialEffectsCont:
 ; damaging moves whose effect is executed prior to damage calculation

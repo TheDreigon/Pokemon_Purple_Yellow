@@ -779,7 +779,11 @@ CooltrainerMAI:
 	ld a, 10
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion
-	ld a, 1
+	; v1.0 (2026-09-24, Forte): back to vanilla's 1/5. Yellow Legacy's ca98c226
+	; had 1 here (= "below max HP"), so a scratched Cooltrainer switched on
+	; 25% of its turns - a free turn for the player, no strategy. The AI
+	; switch layer planned for 1.0 supersedes this rule.
+	ld a, 5
 	call AICheckIfHPBelowFraction
 	ret nc
 	jp AISwitchIfEnoughMons
@@ -790,7 +794,11 @@ CooltrainerFAI:
 	ld a, 10
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion
-	ld a, 1
+	; v1.0 (2026-09-24, Forte): back to vanilla's 1/5. Yellow Legacy's ca98c226
+	; had 1 here (= "below max HP"), so a scratched Cooltrainer switched on
+	; 25% of its turns - a free turn for the player, no strategy. The AI
+	; switch layer planned for 1.0 supersedes this rule.
+	ld a, 5
 	call AICheckIfHPBelowFraction
 	ret nc
 	jp AISwitchIfEnoughMons

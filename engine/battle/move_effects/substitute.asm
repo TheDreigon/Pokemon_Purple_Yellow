@@ -37,6 +37,14 @@ SubstituteEffect_:
 	sbc 0
 	pop bc
 	jr c, .notEnoughHP ; underflow means user would be left with negative health
+; v1.0 (2026-09-24, Forte): a = new HP high byte, d = new HP low byte. Exactly a
+; quarter left would leave the user at 0 HP - vanilla made the doll and let the
+; user faint (the carry test only catches going NEGATIVE). "Too weak" instead.
+; e is dead here: wPlayer/EnemySubstituteHP was written through de above.
+	ld e, a
+	or d
+	ld a, e
+	jr z, .notEnoughHP
 .userHasZeroOrMoreHP
 	ldi [hl], a ; save resulting HP after subtraction into current HP
 	ld [hl], d
