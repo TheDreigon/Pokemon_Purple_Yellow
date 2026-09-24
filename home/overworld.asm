@@ -335,7 +335,7 @@ OverworldLoopLessDelay::
 	ld a, [wCurMap]
 	cp OAKS_LAB
 	jp z, .noFaintCheck ; no blacking out if the player lost to the rival in Oak's lab
-	callfar AnyPartyAlive
+	callfar PartyStandsAfterBattle ; v1.0: d = 0 also after a surrender (engine/battle/surrender.asm)
 	ld a, d
 	and a
 	jr z, AllPokemonFainted

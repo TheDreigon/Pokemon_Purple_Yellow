@@ -1177,6 +1177,7 @@ wBoughtOrSoldItemInMart:: db
 ; $00 - win
 ; $01 - lose
 ; $02 - draw
+; bit 7 - set with $01 when the player gave a trainer battle up (BATTLE_RESULT_SURRENDERED_F, 2026-09-24)
 wBattleResult:: db
 
 ; bit 0: if set, DisplayTextID automatically draws a text box

@@ -56,6 +56,7 @@ INCLUDE "text/RockTunnelB1F.asm"
 INCLUDE "text/SeafoamIslandsB4F.asm"
 
 INCLUDE "data/text/text_2.asm"
+INCLUDE "text/battle_surrender.asm" ; v1.0 (2026-09-24): the RUN-against-a-trainer prompt, next to _NoRunningText
 
 
 SECTION "Text 3", ROMX

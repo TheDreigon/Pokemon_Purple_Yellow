@@ -10,6 +10,16 @@ DEF MOVE_FAILED            EQU 1 ; an ordinary accuracy miss
 DEF MOVE_FAILED_EVADED     EQU 2 ; the 1-in-256 roll on a 100%-accurate move
 DEF MOVE_FAILED_NO_SCRATCH EQU 3 ; it connected, and the damage rounded to zero
 
+; wBattleResult (ram/wram.asm): $00 won, $01 lost, $02 drew / ran / caught.
+; v1.0 (2026-09-24): bit 7 rides on the $01 when the player gave a TRAINER
+; battle up (RUN -> YES). TrainerBattleSurrenderPrompt sets it,
+; PartyStandsAfterBattle reads it, ResetStatusAndHalveMoneyOnBlackout zeroes
+; the byte. Every other reader tests the byte with `and a` (EndOfBattle,
+; GetSavedEndBattleTextPointer, OaksLab.asm) or `cp $2` on a wild battle
+; (Route12/Route16/PokemonTower6F), so the bit changes nothing they see.
+DEF BATTLE_RESULT_LOSE EQU $01
+DEF BATTLE_RESULT_SURRENDERED_F EQU 7
+
 ; maximum moves known per mon
 DEF NUM_MOVES EQU 4
 

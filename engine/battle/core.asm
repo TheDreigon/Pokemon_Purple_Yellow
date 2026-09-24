@@ -1639,10 +1639,16 @@ TryRunningFromBattle:
 	ld a, $1
 	ld [wActionResultOrTookBattleTurn], a ; you lose your turn when you can't escape
 	ld hl, CantEscapeText
-	jr .printCantEscapeOrNoRunningText
+	jr .printCantEscape
 .trainerBattle
-	ld hl, NoRunningText
-.printCantEscapeOrNoRunningText
+; v1.0 (2026-09-24, Forte): RUN against a trainer offers to give the match up
+; (engine/battle/surrender.asm). Carry back = the player did: the screen is
+; already black and wBattleResult carries the defeat; the caller's `ret c`
+; ends the battle like a wild escape and the overworld's
+; PartyStandsAfterBattle turns it into the blackout.
+	farcall TrainerBattleSurrenderPrompt
+	ret
+.printCantEscape
 	call PrintText
 	ld a, 1
 	ld [wForcePlayerToChooseMon], a
@@ -1718,9 +1724,7 @@ CantEscapeText:
 	text_far _CantEscapeText
 	text_end
 
-NoRunningText:
-	text_far _NoRunningText
-	text_end
+; NoRunningText moved to engine/battle/surrender.asm with the RUN-against-a-trainer path (2026-09-24).
 
 GotAwayText:
 	text_far _GotAwayText
@@ -2412,11 +2416,28 @@ DisplayBattleMenu::
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
-	ld [hl], D_RIGHT | A_BUTTON ; wMenuWatchedKeys
+; v1.0 (2026-09-24, Forte): B jumps the cursor to RUN - but only where RUN
+; means running. wIsInBattle is 1 (wild, SAFARI, the forced-run battle) or
+; 2 (trainer) here.
+	ld a, [wIsInBattle]
+	cp 2
+	ld a, D_RIGHT | A_BUTTON
+	jr z, .leftKeys
+	or B_BUTTON
+.leftKeys
+	ld [hl], a ; wMenuWatchedKeys
 	call BattleMenuInput
 	bit BIT_D_RIGHT, a
 	jr nz, .rightColumn
-	jr .AButtonPressed ; the A button was pressed
+	bit BIT_B_BUTTON, a
+	jr z, .AButtonPressed ; the A button was pressed
+.BButtonPressed
+; v1.0: B (wild/SAFARI only, see the watched keys) parks the cursor on RUN:
+; bottom row of the right column. Falls into .rightColumn, which wipes the
+; left column's arrow; HandleMenuInput_'s PlaceMenuCursor draws the new one.
+	ld a, 1
+	ld [wCurrentMenuItem], a
+	; fall through
 .rightColumn ; put cursor in right column of menu
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_SAFARI
@@ -2445,11 +2466,18 @@ DisplayBattleMenu::
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
+	ld a, [wIsInBattle]
+	cp 2
 	ld a, D_LEFT | A_BUTTON
+	jr z, .rightKeys
+	or B_BUTTON ; v1.0: the RUN shortcut, wild/SAFARI only
+.rightKeys
 	ld [hli], a ; wMenuWatchedKeys
 	call BattleMenuInput
-	bit 5, a ; check if left was pressed
-	jr nz, .leftColumn ; if left was pressed, jump
+	bit BIT_D_LEFT, a ; check if left was pressed
+	jp nz, .leftColumn ; if left was pressed, jump (jp: the left column grew past jr's reach)
+	bit BIT_B_BUTTON, a
+	jr nz, .BButtonPressed
 	ld a, [wCurrentMenuItem]
 	add $2 ; if we're in the right column, the actual id is +2
 	ld [wCurrentMenuItem], a

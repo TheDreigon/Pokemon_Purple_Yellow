@@ -469,6 +469,7 @@ INCLUDE "gfx/trainer_card.asm"
 INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/battle/init_battle.asm"
 INCLUDE "engine/battle/init_battle_variables.asm"
+INCLUDE "engine/battle/surrender.asm" ; v1.0 (2026-09-24): RUN against a trainer = give the match up
 INCLUDE "engine/battle/move_effects/focus_energy.asm"
 INCLUDE "engine/battle/move_effects/mist.asm"
 INCLUDE "engine/battle/move_effects/pay_day.asm"
