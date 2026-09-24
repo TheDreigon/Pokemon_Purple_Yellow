@@ -8,15 +8,13 @@ PickUpItem:
 	ld a, [hli]
 	cp $ff
 	ret z
+	and $7f ; v1.0 (T23): bit 7 tags a second-table entry
 	cp b
 	jr z, .isMissable
 	inc hl
 	jr .missableObjectsListLoop
 
 .isMissable
-	ld a, [hl]
-	ldh [hMissableObjectIndex], a
-
 	ld hl, wMapSpriteExtraData
 	ldh a, [hSpriteIndexOrTextID]
 	dec a
@@ -30,9 +28,8 @@ PickUpItem:
 	call GiveItem
 	jr nc, .BagFull
 
-	ldh a, [hMissableObjectIndex]
-	ld [wMissableObjectIndex], a
-	predef HideObject
+	ldh a, [hSpriteIndexOrTextID]
+	farcall HideObjectBySpriteIndex ; v1.0 (T23): whichever table the ball is in
 	ld a, 1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, FoundItemText

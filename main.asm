@@ -219,6 +219,13 @@ INCLUDE "engine/movie/trade2.asm"
 INCLUDE "engine/menus/options.asm"
 
 
+SECTION "Missable Objects 2", ROMX
+; v1.0 (T23): the second hide/show table and its loader (pinned in layout.link, ROMX $10)
+
+INCLUDE "engine/overworld/missable_objects_2.asm"
+INCLUDE "data/maps/hide_show_data_2.asm"
+
+
 SECTION "Pokédex Rating", ROMX
 
 INCLUDE "engine/overworld/emotion_bubbles.asm"

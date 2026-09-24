@@ -23,6 +23,6 @@ MrFujisHouse_Object:
 	object_event  1,  3, SPRITE_NIDORINO, STAY, NONE, TEXT_MRFUJISHOUSE_NIDORINO
 	object_event  3,  1, SPRITE_MR_FUJI, STAY, NONE, TEXT_MRFUJISHOUSE_MR_FUJI
 	object_event  3,  3, SPRITE_POKEDEX, STAY, NONE, TEXT_MRFUJISHOUSE_POKEDEX
-	object_event  1,  5, SPRITE_CUBONE, STAY, UP, TEXT_MRFUJISHOUSE_CUBONE ; v1.0 (2026-09-23, Forte): the orphan of the TOWER, here until MR. FUJI hands her to the player (HS_MR_FUJIS_HOUSE_CUBONE)
+	object_event  1,  5, SPRITE_CUBONE, STAY, UP, TEXT_MRFUJISHOUSE_CUBONE ; v1.0 (2026-09-23, Forte): the orphan of the TOWER, here until MR. FUJI hands her to the player (HS2_MR_FUJIS_HOUSE_CUBONE: the second hide/show table, T23)
 
 	def_warps_to MR_FUJIS_HOUSE

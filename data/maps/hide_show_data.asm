@@ -608,8 +608,10 @@ SeafoamIslandsB4FHS:
 ; v0.7: BluesHouseHSCopy was here -- a vanilla duplicate block nothing pointed
 ; at (MapHSPointers sends BLUES_HOUSE to the real BluesHouseHS above). Its
 ; three rows paid, one each, for Pallet's mother, VIRIDIANGYM_KIYO and
-; FIGHTINGDOJO_KARATE_MASTER. The array is 256/256 again since 2026-09-23
-; (MR. FUJI's CUBONE took the slot PURPLE's ball freed on 2026-09-22).
+; FIGHTINGDOJO_KARATE_MASTER. The array was 256/256 again on 2026-09-23
+; (MR. FUJI's CUBONE took the slot PURPLE's ball freed on 2026-09-22) and is
+; 255/256 since 2026-09-24: T23 moved the CUBONE to the second table
+; (data/maps/hide_show_data_2.asm). New objects go there.
 LoreleisRoomHS:
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI,   		SHOW
 	db LORELEIS_ROOM, LORELEISROOM_LORELEI_REMATCH, HIDE
@@ -629,12 +631,13 @@ SaffronPokecenterHS: ; MissableObjects order must match HS_* constant order (see
 ; Slots funded by the two CERULEAN CAVE ULTRA BALL conversions.
 	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE1, SHOW
 	db SAFFRON_POKECENTER, SAFFRONPOKECENTER_AIDE2, SHOW
-MrFujisHouseHS: ; must stay last: HS_MR_FUJIS_HOUSE_CUBONE is the final constant
+MrFujisHouseHS: ; must stay last: HS_MR_FUJIS_HOUSE_MR_FUJI is the final constant (index 254; the CUBONE is HS2_ index 0 since T23)
 ; v1.0 (2026-09-23): MR. FUJI, hidden until the Tower rescue (his row lived at
 ; index 70 until this day), and the orphan CUBONE of the TOWER, who lives in
 ; his Volunteer House and is hidden once he hands her to the player
 ; (scripts/MrFujisHouse.asm). A map's rows must be contiguous, hence the move.
+; v1.0 (2026-09-24, T23): the CUBONE's row moved to hide_show_data_2.asm (the
+; second table; a map may have rows in both).
 	db MR_FUJIS_HOUSE, MRFUJISHOUSE_MR_FUJI, HIDE
-	db MR_FUJIS_HOUSE, MRFUJISHOUSE_CUBONE,  SHOW
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

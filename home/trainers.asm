@@ -201,14 +201,8 @@ EndTrainerBattle::
 	ld a, [wEnemyMonOrTrainerClass]
 	cp OPP_ID_OFFSET
 	jr nc, .skipRemoveSprite    ; test if trainer was fought (in that case skip removing the corresponding sprite)
-	ld hl, wMissableObjectList
-	ld de, $2
 	ld a, [wSpriteIndex]
-	call IsInArray              ; search for sprite ID
-	inc hl
-	ld a, [hl]
-	ld [wMissableObjectIndex], a               ; load corresponding missable object index and remove it
-	predef HideObject
+	farcall HideObjectBySpriteIndex ; v1.0 (T23): the sprite's missable, whichever table (was IsInArray + predef HideObject; a miss used to hide a garbage index)
 .skipRemoveSprite
 	ld hl, wd730
 	bit 4, [hl]

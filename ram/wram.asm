@@ -2329,12 +2329,26 @@ wPlayerCoins:: ds 2 ; BCD
 wMissableObjectFlags:: flag_array $100
 wMissableObjectFlagsEnd::
 
+; v1.0 (2026-09-24, T23): the SECOND hide/show table. One bit per row of
+; MissableObjects2 (data/maps/hide_show_data_2.asm), indexed by HS2_*; set =
+; removed, the same contract as above. 16 bytes of SAVED WRAM taken from the
+; Stack section (359 -> 343: layout.link "Stack" org $de99 -> $dea9). Every
+; label after this point moved 16 bytes: a SAVE-FORMAT CHANGE
+; (migrate_sav_specialsplit.py zero-fills this block; escape_rope_audit's
+; wd728 landmark is $3bb now).
+wMissableObjectFlags2:: flag_array HS2_CAPACITY
+wMissableObjectFlags2End::
+
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db
 
 ; each entry consists of 2 bytes
-; * the sprite ID (depending on the current map)
-; * the missable object index (global, used for wMissableObjectFlags)
+; * the sprite ID (depending on the current map). v1.0 (T23): bit 7 SET means
+;   the index is into wMissableObjectFlags2 (the second table); sprite IDs are
+;   1-14, so the bit is free. Every reader must `and $7f` before comparing --
+;   IsObjectHidden, PickUpItem and HideObjectBySpriteIndex are the only three
+;   (hs_align_audit.py keeps the list).
+; * the missable object index (global, used for wMissableObjectFlags / ...2)
 ; terminated with $FF
 wMissableObjectList:: ds 16 * 2 + 1
 
@@ -2821,6 +2835,8 @@ SECTION "Stack", WRAM0
 ; $dfff, WRAM0 packed, map buffer big enough) and emu_harness.Game, which lays a
 ; sentinel at boot and raises when a run leaves under STACK_MARGIN bytes.
 ; Size must stay in sync with layout.link "Stack".
-	ds $167 - 1
+; v1.0 (2026-09-24, T23): 359 -> 343, 16 bytes to wMissableObjectFlags2 (the
+; second hide/show table).
+	ds $157 - 1
 wStack:: db
 ASSERT wStack == $dfff, "the Stack section must end at $dfff: the org in layout.link and this ds disagree"

@@ -268,7 +268,9 @@ DEF SHOW EQU $15
 ; first spare paid for HS_PALLET_TOWN_MOM at index 01; the last two paid for
 ; HS_VIRIDIAN_GYM_KIYO and HS_FIGHTING_DOJO_MASTER (the dojo-master takeover).
 ; The array was exactly 256 with no spare until 2026-09-22 (PURPLE's ball
-; left, index 255 freed) and is full again since 2026-09-23 (MR. FUJI's CUBONE).
+; left, index 255 freed), full again on 2026-09-23 (MR. FUJI's CUBONE), and
+; 255/256 since 2026-09-24: T23 moved the CUBONE to the SECOND table (HS2_*,
+; constants/hide_show_constants_2.asm, 128 more objects). New objects go there.
 	const HS_LORELEISROOM_LORELEI
 	const HS_LORELEISROOM_LORELEI_REMATCH
 	const HS_BRUNOSROOM_BRUNO
@@ -291,10 +293,9 @@ DEF SHOW EQU $15
 ; (hidden until the Tower rescue; his row moved here from the middle of the
 ; table so the house's rows stay contiguous) and the orphan CUBONE of the
 ; TOWER, who lives in his Volunteer House and is hidden once he hands her to
-; the player. Indices 254/255: the array is 256/256 (PURPLE's ball freed the
-; slot on 2026-09-22). Moving his row shifted every index after the old 70 by
-; one - saves of that day are dead (none in progress, Forte). The next visible
-; object has to convert an existing one into a hidden item.
+; the player. Moving his row shifted every index after the old 70 by one -
+; saves of that day are dead (none in progress, Forte). Index 254; the CUBONE
+; was index 255 for one day and is HS2_MR_FUJIS_HOUSE_CUBONE (the second
+; table's index 0) since T23 (2026-09-24). Index 255 is free.
 	const HS_MR_FUJIS_HOUSE_MR_FUJI
-	const HS_MR_FUJIS_HOUSE_CUBONE
 DEF NUM_HS_OBJECTS EQU const_value

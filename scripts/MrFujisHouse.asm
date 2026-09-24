@@ -147,9 +147,9 @@ MrFujisHouseOfferCubone:
 	call GivePokemon
 	jr nc, .party_full ; cannot happen after the count check; keeps the contract
 	SetEvent EVENT_GOT_FUJI_CUBONE
-	ld a, HS_MR_FUJIS_HOUSE_CUBONE
+	ld a, HS2_MR_FUJIS_HOUSE_CUBONE
 	ld [wMissableObjectIndex], a
-	predef HideObject ; she is on this map: gone from the room at once
+	farcall HideObject_HS2 ; she is on this map: gone from the room at once (second hide/show table, T23)
 	xor a
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a ; the party path leaves it set
 	ld hl, .FarewellText

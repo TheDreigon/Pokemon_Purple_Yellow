@@ -62,6 +62,7 @@ MarkTownVisitedAndLoadMissableObjects::
 .done
 	ld a, -1
 	ld [de], a                 ; write sentinel
+	farcall LoadMissableObjects2 ; v1.0 (T23): this map's second-table rows, tagged; rewrites the sentinel
 	ret
 
 InitializeMissableObjectsFlags:
@@ -75,7 +76,7 @@ InitializeMissableObjectsFlags:
 .missableObjectsLoop
 	ld a, [hli]
 	cp -1           ; end of list
-	ret z
+	jr z, .table2
 	push hl
 	inc hl
 	ld a, [hl]
@@ -93,6 +94,9 @@ InitializeMissableObjectsFlags:
 	inc hl
 	inc hl
 	jr .missableObjectsLoop
+.table2
+	farcall InitializeMissableObjectsFlags2 ; v1.0 (T23): the second table's HIDE defaults
+	ret
 
 ; tests if current sprite is a missable object that is hidden/has been removed
 IsObjectHidden:
@@ -104,12 +108,18 @@ IsObjectHidden:
 	ld a, [hli]
 	cp -1
 	jr z, .notHidden ; not missable -> not hidden
+	ld c, a          ; v1.0 (T23): raw byte, bit 7 = second table
+	and $7f
 	cp b
 	ld a, [hli]
 	jr nz, .loop
+	ld hl, wMissableObjectFlags
+	bit 7, c
+	jr z, .table1
+	ld hl, wMissableObjectFlags2
+.table1
 	ld c, a
 	ld b, FLAG_TEST
-	ld hl, wMissableObjectFlags
 	call MissableObjectFlagAction
 	ld a, c
 	and a
