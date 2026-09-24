@@ -19,9 +19,12 @@ _ChampionsRoomRivalIntroText::
 	cont "that would beat"
 	cont "any #MON type!"
 
-	para "And now!"
+	para "And now..."
+	prompt
 
-	para "I'm the #MON"
+; v1.0 (2026-09-24): the second half, after the music has faded out
+_ChampionsRoomRivalIntroTextPart2::
+	text "I'm the #MON"
 	line "LEAGUE champion!"
 
 	para "<PLAYER>! Do you"

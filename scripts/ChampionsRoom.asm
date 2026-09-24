@@ -304,8 +304,26 @@ ChampionsRoom_TextPointers:
 ChampionsRoomRivalText:
 	text_asm
 	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	jr nz, .afterBattle
 	ld hl, .IntroText
-	jr z, .printText
+	call PrintText
+; v1.0 (2026-09-24, Forte; the kep-hack's a2acee24): the room's theme dies
+; out on "And now..." and the second half of the speech runs in silence, so
+; the battle music starts from nothing instead of cutting the theme. The
+; idiom is the healing machine's (engine/overworld/healing_machine.asm):
+; the fade counter, a stop request that PlaySound turns into a fade-out, and
+; a wait for the VBlank fade to finish. To revert: drop these lines and put
+; the two text halves back together (text/ChampionsRoom.asm).
+	ld a, 5
+	ld [wAudioFadeOutControl], a
+	call StopAllMusic
+.waitFade
+	ld a, [wAudioFadeOutControl]
+	and a
+	jr nz, .waitFade
+	ld hl, .IntroTextPart2
+	jr .printText
+.afterBattle
 	ld hl, ChampionsRoomRivalAfterBattleText
 .printText
 	call PrintText
@@ -313,6 +331,10 @@ ChampionsRoomRivalText:
 
 .IntroText:
 	text_far _ChampionsRoomRivalIntroText
+	text_end
+
+.IntroTextPart2:
+	text_far _ChampionsRoomRivalIntroTextPart2
 	text_end
 
 RivalDefeatedText:
