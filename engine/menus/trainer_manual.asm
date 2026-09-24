@@ -915,7 +915,7 @@ TrainerManualChapter1Pages:
 	dw ManualPage_1_4, ManualPage_1_5, ManualPage_1_6, ManualPage_1_7
 
 TrainerManualChapter2Sections:
-	db 8
+	db 9
 	manual_section TrainerManualSection2_1, 0
 	manual_section TrainerManualSection2_2, 1
 	manual_section TrainerManualSection2_3, 2
@@ -924,10 +924,12 @@ TrainerManualChapter2Sections:
 	manual_section TrainerManualSection2_6, 5
 	manual_section TrainerManualSection2_7, 6
 	manual_section TrainerManualSection2_8, 7
+	manual_section TrainerManualSection2_9, 8 ; v1.0 (2026-09-24, Forte): the four services, and that the TOWN MAP points at them
 TrainerManualChapter2Pages:
-	db 8
+	db 9
 	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4
 	dw ManualPage_2_5, ManualPage_2_6, ManualPage_2_7, ManualPage_2_8
+	dw ManualPage_2_9
 
 TrainerManualChapter3Sections:
 	db 5
@@ -1030,6 +1032,8 @@ TrainerManualSection2_7:
 	db "ON A SLOPE@"
 TrainerManualSection2_8:
 	db "GETTING AWAY@"
+TrainerManualSection2_9:
+	db "WHO HELPS OUT@"
 
 TrainerManualSection3_1:
 	db "SP.ATK AND SP.DEF@" ; 17 tiles = the section-list cap (the split, 2026-09-06)
@@ -1110,6 +1114,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_2_6
 	manual_page ManualPage_2_7
 	manual_page ManualPage_2_8
+	manual_page ManualPage_2_9
 
 	manual_page ManualPage_3_1
 	manual_page ManualPage_3_2

@@ -206,6 +206,22 @@ _ManualPage_2_8::
 	next "certain."
 	done
 
+_ManualPage_2_9::
+	text "ROUTE 5's DAY CARE"
+	next "raises a #MON"
+	next "for you."
+	next ""
+	next "LAVENDER's NAME"
+	next "RATER renames one"
+	next "you caught."
+	next ""
+	next "Both move tutors"
+	next "are in the"
+	next "CINNABAR LAB."
+	next "All four are stops"
+	next "on the TOWN MAP."
+	done
+
 _ManualPage_3_1::
 	text "SP.ATK is the"
 	next "power behind your"
