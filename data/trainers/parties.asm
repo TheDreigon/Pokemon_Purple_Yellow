@@ -418,8 +418,9 @@ GentlemanData:
 	db 19, NIDORAN_M, NIDORAN_F, 0
 ; SS Anne 2F Rooms/Vermilion Gym
 	db 22, VOLTORB, MAGNEMITE, 0
-; Unused
-	db 48, PRIMEAPE, 0
+; Route 12 (2026-09-25, Forte): the ROCKER class's last trainer, by the SUPER ROD house, is a
+; GENTLEMAN now, with a rich man's pets; the slot was vanilla's unused PRIMEAPE 48
+	db 30, NIDORINO, PERSIAN, 0
 ; SS Anne 2F Rooms
 	db 18, GROWLITHE, PONYTA, 0
 

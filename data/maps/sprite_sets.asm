@@ -191,7 +191,7 @@ SpriteSets:
 	db SPRITE_COOLTRAINER_M
 	db SPRITE_BEAUTY
 	db SPRITE_FISHER
-	db SPRITE_ROCKER
+	db SPRITE_GENTLEMAN ; v1.0 (2026-09-25): was SPRITE_ROCKER, which no object on the bridge maps used; Route 12's GENTLEMAN wears it
 	db SPRITE_POKE_BALL
 	db SPRITE_SNORLAX
 

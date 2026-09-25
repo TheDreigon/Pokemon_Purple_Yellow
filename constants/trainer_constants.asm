@@ -40,7 +40,7 @@ ENDM
 	trainer_const GAMBLER        ; $10
 	trainer_const BEAUTY         ; $11
 	trainer_const PSYCHIC_TR     ; $12
-	trainer_const ROCKER         ; $13
+	trainer_const ROCKER         ; $13 - v1.0 (2026-09-25): no trainer left (Route 12's became a GENTLEMAN); the slot, its name row, RockerData and RockerPic wait for a new class
 	trainer_const JUGGLER        ; $14
 	trainer_const TAMER          ; $15
 	trainer_const BIRD_KEEPER    ; $16

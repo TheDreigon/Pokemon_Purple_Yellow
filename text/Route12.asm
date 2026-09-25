@@ -64,20 +64,23 @@ _Route12CooltrainerMAfterBattleText::
 	cont "with MOON STONE!"
 	done
 
-_Route12SuperNerdBattleText::
-	text "Electricity is my"
-	line "specialty!"
+_Route12GentlemanBattleText::
+; v1.0 (2026-09-25, Forte): the ROCKER's electric lines went with the class
+	text "Ah, a trainer! My"
+	line "pets could use a"
+	cont "run. En garde!"
 	done
 
-_Route12SuperNerdEndBattleText::
-	text "Unplugged!"
+_Route12GentlemanEndBattleText::
+	text "Oh, my!"
+	line "Well played."
 	prompt
 
-_Route12SuperNerdAfterBattleText::
-	text "Water conducts"
-	line "electricity, so"
-	cont "you should zap"
-	cont "sea #MON!"
+_Route12GentlemanAfterBattleText::
+	text "I come here to"
+	line "fish in peace. My"
+	cont "cat prefers the"
+	cont "catch to the rod."
 	done
 
 _Route12Fisher3BattleText::

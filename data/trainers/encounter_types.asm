@@ -23,7 +23,6 @@ FemaleTrainerList::
 
 EvilTrainerList::
 	db OPP_GAMBLER
-	db OPP_ROCKER
 	db OPP_JUGGLER
 	db OPP_SCIENTIST
 	db OPP_GIOVANNI
