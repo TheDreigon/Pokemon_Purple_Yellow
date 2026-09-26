@@ -31,9 +31,12 @@ MoveHitTest:
 	and SLP_MASK
 	jp z, .moveMissed
 .swiftCheck
-	ld a, [de]
-	cp SWIFT_EFFECT
-	ret z ; Swift never misses (this was fixed from the Japanese versions)
+; v1.0 (2026-09-26, Forte): a never-miss move (SWIFT_EFFECT: SWIFT's heirs -
+; FAINT ATTACK, AERIAL ACE, SHOCK WAVE...) ignores accuracy and evasion, not
+; FLY/DIG. Vanilla returned here, before the INVULNERABLE check, so it hit a
+; mon up in the air or underground; from Gen 2 on it does not, and it made
+; no sense (AERIAL ACE into a hole). The check moved below the INVULNERABLE
+; and type-immunity gates.
 	call CheckTargetSubstitute ; substitute check (note that this overwrites a)
 	jr z, .checkForDigOrFlyStatus
 	ld a, [de]
@@ -55,6 +58,9 @@ MoveHitTest:
 	ld a, [wMoveMissed]
 	and a
 	jp nz, .endTrappingMove
+	ld a, [de]
+	cp SWIFT_EFFECT
+	ret z ; a never-miss move: no Mist, accuracy or evasion below this line applies
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .enemyTurn
