@@ -330,6 +330,9 @@ ROMX $43
 	; party icons for dex ids >= 128: grows 128 B per new species past
 	; dex 127 - at ~196 species this section wants ~9.3 KB.
 	"Mon Icons 2"
+	; v1.0 (2026-09-26): the debug ROM's menu and tests (empty in the release
+	; ROM). Out of bank $3F so "Text 10" has the same headroom in both builds.
+	"Debug"
 ROMX $44
 	; frozen data (trainer pics never grow with species) - parked together.
 	"Trainer Pics 2"

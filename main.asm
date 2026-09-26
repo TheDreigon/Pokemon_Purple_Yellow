@@ -509,6 +509,17 @@ INCLUDE "engine/pikachu/pikachu_status.asm"
 INCLUDE "engine/pikachu/pikachu_emotions.asm"
 INCLUDE "engine/pikachu/pikachu_movement.asm"
 INCLUDE "engine/pikachu/pikachu_pic_animation.asm"
+
+
+; v1.0 (2026-09-26): the debug ROM's menu, ANIM TEST and MON TEST. Everything
+; inside is under IF DEF(_DEBUG), so the section is empty in the release ROM.
+; It used to sit inside "Overworld Pikachu" (bank $3F), where its 4.6 KB left
+; "Text 10" - the home of new far texts - 317 free bytes in the debug build
+; while the release had 4.9 KB. Pinned in layout.link (ROMX $43). Its only
+; entry from outside is title.asm's `callfar DebugMenu`; it calls nothing in
+; the pikachu bank by a plain `call`.
+SECTION "Debug", ROMX
+
 INCLUDE "engine/debug/debug_menu.asm"
 INCLUDE "engine/debug/animation_test.asm"
 INCLUDE "engine/debug/mon_test.asm"
