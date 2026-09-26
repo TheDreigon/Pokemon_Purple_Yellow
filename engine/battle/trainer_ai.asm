@@ -1999,6 +1999,18 @@ SwitchEnemyMon:
 	ld hl, wEnemyMonHP
 	ld bc, 4
 	call CopyData
+; v1.0 (2026-09-26): and its battle MaxHP, so the roster's HP and MaxHP are
+; on the same scale once it has been out (a boss's battle MaxHP comes from
+; maxed DVs, the roster's from the trainer DVs). LoadEnemyMonData tops a boss
+; mon up only when the two are equal - a fresh mon, or one back at full.
+	ld a, [wEnemyMonPartyPos]
+	ld hl, wEnemyMon1MaxHP
+	ld bc, wEnemyMon2 - wEnemyMon1
+	call AddNTimes
+	ld a, [wEnemyMonMaxHP]
+	ld [hli], a
+	ld a, [wEnemyMonMaxHP + 1]
+	ld [hl], a
 
 ; v1.0 (2026-09-26, the AI switch layer): the mon that comes in starts
 ; fresh - its setup layer counts from zero again (as yumepokered does) and

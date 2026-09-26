@@ -6374,12 +6374,31 @@ LoadEnemyMonData:
 	; would display below full HP. Top current HP up to the new MaxHP.
 	; Gated on ShouldMaxEnemyDVs — the SAME predicate as the DV override, so
 	; the top-up can never apply to a mon that did not get the DVs (and vice
-	; versa). Wild battles and non-boss trainers stay bit-identical. Safe to
-	; overwrite current HP for a boss:
-	; Gen 1 trainers never switch, so a boss mon reaches this path only on
-	; a fresh send-out, always at full party HP.
+	; versa). Wild battles and non-boss trainers stay bit-identical.
+	; v1.0 (2026-09-26): the comment here used to say "Gen 1 trainers never
+	; switch, so a boss mon reaches this path only on a fresh send-out". The
+	; switch layer made that false: a boss the layer withdrew came back at full
+	; HP, on every switch, in Hard. Only a FRESH mon is topped up now - roster
+	; HP == roster MaxHP, both from the trainer DVs (AddPartyMon). SwitchEnemyMon
+	; writes the battle MaxHP into the roster, so a mon that has been out
+	; matches only at full, and one that left hurt keeps what it left with.
 	farcall ShouldMaxEnemyDVs
 	jr z, .copyTypes
+	ld hl, wEnemyMon1HP
+	ld a, [wWhichPokemon]
+	ld bc, wEnemyMon2 - wEnemyMon1
+	call AddNTimes
+	ld a, [hli]
+	ld d, a
+	ld e, [hl] ; de = its roster HP
+	ld bc, MON_MAXHP - (MON_HP + 1)
+	add hl, bc ; hl -> its roster MaxHP
+	ld a, [hli]
+	cp d
+	jr nz, .copyTypes
+	ld a, [hl]
+	cp e
+	jr nz, .copyTypes ; it has been in battle already: no top-up
 	ld a, [wEnemyMonMaxHP]
 	ld [wEnemyMonHP], a
 	ld a, [wEnemyMonMaxHP + 1]
