@@ -843,9 +843,17 @@ AIGetMovePriorityWrapped:
 ; never touches them. It adds up, out of 32, how much the mon that is out
 ; wants to leave; 32 or more asks for sure, 0 never asks (no Random spent),
 ; anything between asks with that chance out of 32. A hit sets
-; wAISwitchRequest, which the hook at the top of TrainerAI consumes this
-; same turn; SelectEnemyMove clears the request every turn before any of
-; its gates, so a request never outlives the turn that made it. It asks
+; wAISwitchRequest to 1 + the party index of the teammate AIPickSwitchTarget
+; chose; TrainerAI's hook acts on it this same turn and EnemySendOut brings
+; that teammate in; SelectEnemyMove clears the request every turn before any
+; of its gates, so a request never outlives the turn that made it. Since the
+; enemy chooses at the START of the turn (MainInBattleLoop), both the
+; decision and the pick see the player's Pokemon as the trainer could, not
+; one the player switched in that turn - bar the WRAP exceptions: when a
+; WRAP (the enemy's or the player's) stopped the choice at the top and the
+; player's action ended it (a switch ends both WRAPs; an item can end the
+; player's own on its last turn), the enemy chooses after that action and
+; sees it, as it always did - it had nothing to choose at the top. It asks
 ; only when the hook will honour it - a second live mon in the party (the
 ; mon that is out cannot be asleep or frozen past this turn here: the
 ; SelectEnemyMove gate returns before the layers run) - because a pending
@@ -961,7 +969,12 @@ AIMoveChoiceModification6:
 	cp b
 	ret nc
 .request
-	ld a, 1
+; the request names the teammate to bring in (1 + its party index); b is
+; kept as it came in (the score on the certain path, score * 8 on the roll
+; path) for the tests that read it back
+	push bc
+	call AIPickSwitchTarget
+	pop bc
 	ld [wAISwitchRequest], a
 	ret
 
@@ -1001,6 +1014,192 @@ SubFromBCapped:
 	xor a
 .noBorrow
 	ld b, a
+	ret
+
+; v1.0 (2026-09-26, Forte: "dar mais inteligência aos oponentes"): WHO comes
+; in when the switch layer withdraws a mon. Until now it was the first live
+; teammate in party order (vanilla's EnemySendOut, which ExtremeYellow
+; keeps). This ranks the teammates the way Gen 2 ranks a replacement
+; (pokecrystal FindMonInOTPartyToSwitchIntoBattle: a super-effective move
+; and not weak first, then not weak, ties to party order), without its two
+; blind spots (a STATUS move of a super-effective type counted there, and
+; HP was never looked at), and with a resist tier. It runs where the switch
+; is decided - when the enemy chooses, at the start of the turn (bar the
+; WRAP exception in MainInBattleLoop) - so it sees the player's Pokemon as
+; the trainer can, not one the player switches in that turn. The scores
+; (AIScoreSwitchCandidate):
+;   0  weak to one of the player's types, or below 1/4 of its HP
+;   1  takes the player's types neutrally
+;   2  resists (or is immune to) every one of them
+;  +2  not weak, and one of its TYPE-SCALED damaging moves is super effective
+;      on the player (not the fixed-damage family - SEISMIC TOSS, NIGHT SHADE,
+;      DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose damage ignores the
+;      type chart)
+; The best comes in; a tie keeps party order. The LAST mon of the party - the
+; ace of every boss team - is kept for last: it comes in only when no other
+; teammate is alive.
+; Out: a = 1 + the party index (the wAISwitchRequest encoding).
+AIPickSwitchTarget:
+	ld de, 0 ; d = 1 + the best score so far (0 = none yet), e = its party index
+	ld c, 0
+.loop
+	ld a, [wEnemyPartyCount]
+	dec a ; the last index: the ace
+	cp c
+	jr z, .done
+	jr c, .done
+	ld a, [wEnemyMonPartyPos]
+	cp c
+	jr z, .next ; the mon that is out
+	call AIScoreSwitchCandidate ; a = 0 fainted, else 1 + its score; keeps bc, de
+	and a
+	jr z, .next
+	cp d
+	jr c, .next
+	jr z, .next ; a tie keeps the earlier one
+	ld d, a
+	ld e, c
+.next
+	inc c
+	jr .loop
+.done
+	ld a, d
+	and a
+	jr z, .theAce
+	ld a, e
+	inc a
+	ret
+.theAce
+	ld a, [wEnemyPartyCount] ; 1 + the last index
+	ret
+
+AIScoreSwitchCandidate:
+; In: c = a party index (not the mon that is out). Out: a = 0 if it has
+; fainted, else 1 + its score (see AIPickSwitchTarget). Keeps bc, de.
+	push bc
+	push de
+	ld hl, wEnemyMon1
+	ld a, c
+	ld bc, wEnemyMon2 - wEnemyMon1
+	call AddNTimes
+	push hl ; its roster entry
+	ld bc, MON_HP
+	add hl, bc
+	ld a, [hli]
+	ld d, a
+	ld e, [hl] ; de = its HP
+	or e
+	jp z, .fainted ; jp: the effect checks below put it out of jr reach
+	sla e
+	rl d
+	sla e
+	rl d ; de = 4 * HP (HP stays below 1000: no bit is lost)
+	pop hl
+	push hl
+	ld bc, MON_MAXHP
+	add hl, bc
+	ld a, d
+	cp [hl]
+	jr c, .weak ; below a quarter of its HP: no place to take a hit
+	jr nz, .enoughHP
+	inc hl
+	ld a, e
+	cp [hl]
+	jr c, .weak
+.enoughHP
+	pop hl
+	push hl
+	ld bc, MON_TYPE1
+	add hl, bc ; hl -> its two types
+; defence: the worst the player's two types do to it
+	ld a, [wBattleMonType1]
+	call AIMatchupAtHL
+	ld b, a
+	ld a, [wBattleMonType2]
+	call AIMatchupAtHL
+	cp b
+	jr c, .gotWorst
+	ld b, a
+.gotWorst
+	ld a, b
+	ld c, 1 ; takes them neutrally
+	cp EFFECTIVE + 1
+	jr nc, .weak
+	cp EFFECTIVE
+	jr nc, .attack
+	inc c ; resists (or is immune to) every one of them
+.attack
+; +2 when one of its type-scaled damaging moves is super effective on the player
+	ld de, MON_MOVES - MON_TYPE1
+	add hl, de ; hl -> its moves
+	ld b, NUM_MOVES
+.moveLoop
+	ld a, [hli]
+	and a
+	jr z, .scored ; no more moves
+	push hl
+	push bc
+	dec a
+	ld hl, Moves + MOVE_EFFECT
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, [hli] ; its effect
+	cp SUPER_FANG_EFFECT
+	jr z, .nextMove ; the fixed-damage family: the type chart does not scale it
+	cp TARGET_LEVEL_DAMAGE_EFFECT
+	jr z, .nextMove
+	cp USER_LEVEL_DAMAGE_EFFECT
+	jr z, .nextMove
+	cp SET_DAMAGE_EFFECT
+	jr z, .nextMove
+	ld a, [hli] ; its power
+	and a
+	jr z, .nextMove ; a status move: its type hits nothing
+	ld a, [hl] ; its type
+	ld hl, wBattleMonType1
+	call AIMatchupAtHL
+	cp EFFECTIVE + 1
+	jr nc, .superEffective
+.nextMove
+	pop bc
+	pop hl
+	dec b
+	jr nz, .moveLoop
+	jr .scored
+.superEffective
+	pop bc
+	pop hl
+	inc c
+	inc c
+.scored
+	ld a, c
+	inc a
+	jr .return
+.weak
+	ld a, 1 ; 1 + a score of 0
+	jr .return
+.fainted
+	xor a
+.return
+	pop hl
+	pop de
+	pop bc
+	ret
+ASSERT MOVE_POWER == MOVE_EFFECT + 1 && MOVE_TYPE == MOVE_POWER + 1, "AIScoreSwitchCandidate reads a move's effect, then its power, then its type"
+
+AIMatchupAtHL:
+; a = how effective attacking type a is on the two defender types at hl
+; (EFFECTIVE = neutral). Keeps bc, hl.
+	push bc
+	push hl
+	ld d, a
+	ld a, [hli]
+	ld e, a
+	ld c, [hl]
+	farcall AITypeMatchup
+	ld a, e
+	pop hl
+	pop bc
 	ret
 
 ReadMove:
@@ -1053,19 +1252,19 @@ TrainerAI:
 
 ; v1.0 (2026-09-26, the AI switch layer): the switch layer (6) asked to
 ; switch this turn, and HandleMovePriority already put the enemy first for
-; it. The request is consumed here whatever comes of it. A mon still asleep
-; or frozen past this turn is not pulled (D14; the MainInBattleLoop rule: a
-; sleep counter of 1 wakes and acts, FRZ with a freeze counter of 0-1 thaws
-; and acts - those can go); with one mon left there is nothing to switch
-; to, and the class AI below runs as usual - its item count is set up
-; there, so this path falls through, it never returns. Both cases are
-; belt and braces: the layer only asks with a second live mon, after
-; SelectEnemyMove's own sleep gate.
+; it. The request names the teammate (1 + its party index); EnemySendOut
+; consumes it when the switch happens, and this hook drops it when it does
+; not (and ReplaceFaintedEnemyMon clears it), so a faint replacement keeps
+; party order. A mon still asleep or frozen past this turn is not pulled
+; (D14; the MainInBattleLoop rule: a sleep counter of 1 wakes and acts, FRZ
+; with a freeze counter of 0-1 thaws and acts - those can go); with one mon
+; left there is nothing to switch to, and the class AI below runs as usual
+; - its item count is set up there, so this path falls through, it never
+; returns. Both cases are belt and braces: the layer only asks with a
+; second live mon, after SelectEnemyMove's own sleep gate.
 	ld a, [wAISwitchRequest]
 	and a
 	jr z, .noSwitchRequest
-	xor a
-	ld [wAISwitchRequest], a
 	ld a, [wEnemyMonStatus]
 	ld c, a
 	and SLP_MASK
@@ -1074,9 +1273,12 @@ TrainerAI:
 	ld a, [wEnemyFreezeCounter]
 .switchGate
 	cp 2
-	jr nc, .noSwitchRequest
+	jr nc, .dropSwitchRequest
 	call AISwitchIfEnoughMons
-	ret c ; switched: that was the turn's action
+	ret c ; switched (EnemySendOut consumed the request): that was the turn's action
+.dropSwitchRequest
+	xor a
+	ld [wAISwitchRequest], a
 .noSwitchRequest
 	ld a, [wTrainerClass] ; what trainer class is this?
 	dec a
@@ -2002,7 +2204,8 @@ SwitchEnemyMon:
 ; v1.0 (2026-09-26): and its battle MaxHP, so the roster's HP and MaxHP are
 ; on the same scale once it has been out (a boss's battle MaxHP comes from
 ; maxed DVs, the roster's from the trainer DVs). LoadEnemyMonData tops a boss
-; mon up only when the two are equal - a fresh mon, or one back at full.
+; mon up only when the two are equal - a fresh mon, or one back at full -
+; and AIScoreSwitchCandidate's quarter-HP test compares them.
 	ld a, [wEnemyMonPartyPos]
 	ld hl, wEnemyMon1MaxHP
 	ld bc, wEnemyMon2 - wEnemyMon1

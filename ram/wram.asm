@@ -557,9 +557,12 @@ wForceEvolution:: db
 wAILayer2Encouragement:: db
 
 ; v1.0 (2026-09-26, the AI switch layer): the switch layer's request for
-; TrainerAI (1 = switch this turn). Cleared by SelectEnemyMove every turn
-; and consumed with a clear, so it lives one turn at most. Was a 1-byte pad
-; inside wMiscBattleData (zeroed by InitBattleVariables, below the save).
+; TrainerAI: 0 = none, else 1 + the party index of the teammate to bring in
+; (AIPickSwitchTarget). Cleared by SelectEnemyMove every turn; consumed by
+; EnemySendOut when the switch happens, or by TrainerAI's hook when it does
+; not, and cleared by ReplaceFaintedEnemyMon - so it lives one turn at most
+; and never reaches a faint replacement. Was a 1-byte pad inside
+; wMiscBattleData (zeroed by InitBattleVariables, below the save).
 wAISwitchRequest:: db
 
 ; current HP of player and enemy substitutes

@@ -100,7 +100,8 @@ ApplyTypeEffectivenessToDamage::
 
 ; function to tell how effective the type of an enemy attack is on the player's current pokemon
 ; the result is stored in [wTypeEffectiveness]
-; as far is can tell, this is only used once in some AI code to help decide which move to use
+; used by the AI's move-scoring layers (3 and 5); AITypeMatchup below reuses its
+; chain loop for any attacking type against any defender (the switch-in picker)
 ;
 ; v0.7 FIX: this used to RETURN at the first matching row, so a dual-typed
 ; defender was judged on one of its two types — whichever the table happened
@@ -124,6 +125,7 @@ AIGetTypeEffectiveness::
 	ld b, [hl]                 ; b = type 1 of player's pokemon
 	inc hl
 	ld c, [hl]                 ; c = type 2 of player's pokemon
+AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's types
 	; initialize to neutral effectiveness
 	ld a, EFFECTIVE ; v0.7 fix: was $10 (=16), a vanilla Gen 1 bug that made
 	ld [wTypeEffectiveness], a ; the AI read untabled (neutral) matchups as super-effective
@@ -182,6 +184,19 @@ AIGetTypeEffectiveness::
 	pop de
 	pop bc
 	jr .nextTypePair2          ; a defender's OTHER type may still have a row
+
+AITypeMatchup::
+; v1.0 (2026-09-26, the switch-in picker): the same chained lookup for ANY
+; attacking type against ANY defender, for AIPickSwitchTarget in bank $0E. A
+; farcall hands over only c, d and e and gives back only de and hl, so:
+; in: d = the attacking type, e and c = the defender's two types (a single
+; type stored twice, as everywhere). Out: e (and wTypeEffectiveness) = the
+; multiplier: EFFECTIVE = neutral, 0 = immune, above it super effective.
+	ld b, e
+	call AIGetTypeEffectivenessDBC
+	ld a, [wTypeEffectiveness]
+	ld e, a
+	ret
 
 
 INCLUDE "data/types/type_matchups.asm"

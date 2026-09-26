@@ -311,7 +311,7 @@ MainInBattleLoop:
 ; longer be seen by the move it picks (vanilla chose after the menu, and the
 ; AI "guessed" every switch and every cure). This is Gen 2's order
 ; (pokecrystal BattleTurn: AIChooseMove, then BattleMenu). The switch layer
-; decides here too. wAIChoseThisTurn keeps it
+; and its pick of who comes in are made here too. wAIChoseThisTurn keeps it
 ; to one choice per turn: pressing B in the FIGHT menu comes back to this
 ; loop, and must not re-roll the choice (or count the switch cooldown twice).
 ; One exception, kept on purpose: when a WRAP stopped the choice here and
@@ -984,6 +984,8 @@ ReplaceFaintedEnemyMon:
 	ret z
 	call LoadScreenTilesFromBuffer1
 .notLinkBattle
+	xor a
+	ld [wAISwitchRequest], a ; v1.0: a faint replacement keeps party order, whatever a request said
 	call EnemySendOut
 	xor a
 	ld [wEnemyMoveNum], a
@@ -1435,6 +1437,22 @@ EnemySendOutFirstMon:
 	ld [wWhichPokemon], a
 	jr .next3
 .next
+; v1.0 (2026-09-26, the AI switch layer): a switch the AI asked for names the
+; teammate to bring in (wAISwitchRequest = 1 + its party index, chosen by
+; AIPickSwitchTarget when the enemy chose - at the start of the turn, bar the
+; WRAP exception in MainInBattleLoop); it is consumed here. Every other
+; send-out - the battle's first, a replacement after a faint (which clears
+; the request first) - reads 0 and takes the first live mon in party order,
+; as vanilla does.
+	ld hl, wAISwitchRequest
+	ld a, [hl]
+	ld [hl], 0
+	and a
+	jr z, .nextInPartyOrder
+	dec a
+	ld [wWhichPokemon], a
+	jr .next3
+.nextInPartyOrder
 	ld b, $ff
 .next2
 	inc b
