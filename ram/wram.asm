@@ -551,10 +551,16 @@ wCanEvolveFlags:: db
 
 wForceEvolution:: db
 
-; if [wAILayer2Encouragement] != 1, the second AI layer is not applied
+; the second AI layer (setup moves on the mon's first turn) runs only while
+; this reads 0: zeroed at every send-out (and by SwitchEnemyMon since v1.0),
+; counted up by ExecuteEnemyMove. (The old comment said "!= 1": the reverse.)
 wAILayer2Encouragement:: db
 
-	ds 1
+; v1.0 (2026-09-26, the AI switch layer): the switch layer's request for
+; TrainerAI (1 = switch this turn). Cleared by SelectEnemyMove every turn
+; and consumed with a clear, so it lives one turn at most. Was a 1-byte pad
+; inside wMiscBattleData (zeroed by InitBattleVariables, below the save).
+wAISwitchRequest:: db
 
 ; current HP of player and enemy substitutes
 wPlayerSubstituteHP:: db
@@ -576,7 +582,13 @@ wLinkBattleRandomNumberListIndex:: db ; v1.0 (2026-09-08): dead since the link b
 ; number of times remaining that AI action can occur
 wAICount:: db
 
-	ds 2
+; v1.0 (2026-09-26, the AI switch layer; the two pads after wAICount):
+; how many times in a row the enemy has already EXECUTED wEnemyUsedMove
+; (0 = the first time; written in MonName1Text, read by the tactical layer's
+; anti-repeat rule) and the turns the mon that just came in is protected from
+; the switch layer (set by SwitchEnemyMon, counted down by the layer).
+wAIRepeatCount:: db
+wAISwitchCooldown:: db
 
 wEnemyMoveListIndex:: db
 

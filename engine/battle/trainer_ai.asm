@@ -7,17 +7,10 @@ AIEnemyTrainerChooseMoves:
 	ld [hli], a   ; move 2
 	ld [hli], a   ; move 3
 	ld [hl], a    ; move 4
-	
-;;;;;;;;;; shinpokerednote: ADDED: make a backup buffer
-	push hl
-	ld a, $ff
-	inc hl
-	ld [hli], a	;backup 1
-	ld [hli], a	;backup 2
-	ld [hli], a	;backup 3
-	ld [hl], a	;backup 4
-	pop hl
-;;;;;;;;;;
+; v1.0 (2026-09-26, P1 of the AI switch layer): the shinpokered "score backup"
+; (wBuffer+4..7 filled with $ff here and copied to by a
+; .loopFindMinimumEntries_backupfirst label nothing jumped to) is gone: 21 bytes
+; that no reader ever used.
 
 	ld a, [wEnemyDisabledMove] ; forbid disabled move (if any)
 	swap a
@@ -73,11 +66,6 @@ AIEnemyTrainerChooseMoves:
 	ld de, .nextMoveChoiceModification  ; set return address
 	push de
 	jp hl         ; execute modification function
-.loopFindMinimumEntries_backupfirst	;shinpokerednote: ADDED: make a backup of the scores
-	ld hl, wBuffer  ; temp move selection array
-	ld de, wBuffer + NUM_MOVES  ;backup buffer
-	ld bc, NUM_MOVES
-	call CopyData
 .loopFindMinimumEntries ; all entries will be decremented sequentially until one of them is zero
 	ld hl, wBuffer  ; temp move selection array
 	ld de, wEnemyMonMoves  ; enemy moves

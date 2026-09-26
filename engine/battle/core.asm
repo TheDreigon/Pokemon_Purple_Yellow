@@ -4264,6 +4264,19 @@ MonName1Text:
 	jr z, .playerTurn
 	ld a, [wEnemyMoveNum]
 	ld hl, wEnemyUsedMove
+; v1.0 (2026-09-26, the AI switch layer, P3): wAIRepeatCount = how many times
+; in a row the enemy has already executed this move (0 = the first time), for
+; the tactical layer's anti-repeat rule. The send-out zeroes wEnemyUsedMove, so
+; a new mon's first move always reads as a first time. a and hl are kept.
+	push af
+	cp [hl]
+	ld a, 0 ; not xor a: it would clear the Z of the cp
+	jr nz, .storeRepeatCount
+	ld a, [wAIRepeatCount]
+	inc a
+.storeRepeatCount
+	ld [wAIRepeatCount], a
+	pop af
 .playerTurn
 	ld [hl], a
 	ld [wd11e], a
