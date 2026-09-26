@@ -305,6 +305,23 @@ MainInBattleLoop:
 	call SaveScreenTilesToBuffer1
 	xor a
 	ld [wFirstMonsNotOutYet], a
+; v1.0 (2026-09-26, Forte: "isto é basicamente o AI a fazer batota"): the
+; enemy makes its choice HERE, at the start of the turn, before the player's
+; menu opens - so a switch or an item the player uses in the menu can no
+; longer be seen by the move it picks (vanilla chose after the menu, and the
+; AI "guessed" every switch and every cure). This is Gen 2's order
+; (pokecrystal BattleTurn: AIChooseMove, then BattleMenu). The switch layer
+; decides here too. wAIChoseThisTurn keeps it
+; to one choice per turn: pressing B in the FIGHT menu comes back to this
+; loop, and must not re-roll the choice (or count the switch cooldown twice).
+; One exception, kept on purpose: when a WRAP stopped the choice here and
+; the player's action ended it, the enemy chooses after that action, as it
+; always did (see .selectEnemyMove) - it had nothing to choose here. (A link
+; battle would need the pick after the data exchange; the Cable Club is
+; gone, and SelectEnemyMove's link branch is dead code.)
+	ld a, [wAIChoseThisTurn]
+	and a
+	call z, SelectEnemyMove
 	ld a, [wPlayerBattleStatus2]
 	and 1 << NEEDS_TO_RECHARGE ; check if the player needs to recharge
 	jr nz, .selectEnemyMove
@@ -362,9 +379,21 @@ MainInBattleLoop:
 	call LoadScreenTilesFromBuffer1
 	call DrawHUDsAndHPBars
 	pop af
-	jr nz, MainInBattleLoop ; if the player didn't select a move, jump
+	jp nz, MainInBattleLoop ; if the player didn't select a move, jump (v1.0: jp, the top grew)
 .selectEnemyMove
-	call SelectEnemyMove
+; v1.0: the choice was made at the top of the turn. It is made here only if a
+; gate stopped it there (SelectEnemyMove sets wAIChoseThisTurn only when it
+; picks): the stable ones (recharge, a charge, sleep) just stop it again,
+; and the ones a player's action can lift - the player's switch ends BOTH
+; WRAPs (SendOutMon resets the enemy's USING_TRAPPING_MOVE and zeroes
+; wPlayerBattleStatus1), an item on its last turn ends the player's own -
+; let the enemy choose now, after that action, as it always did. Then the
+; turn is committed.
+	ld a, [wAIChoseThisTurn]
+	and a
+	call z, SelectEnemyMove
+	xor a
+	ld [wAIChoseThisTurn], a
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr nz, .noLinkBattle
@@ -3450,6 +3479,8 @@ SelectEnemyMove:
 	ld a, $ff
 	jr .done
 .canSelectMove
+	ld a, 1
+	ld [wAIChoseThisTurn], a ; v1.0: a real pick is being made (the gates above leave it 0)
 	; v0.7 (AI PP fix): if every enemy move slot has 0 PP, force Struggle.
 	; OR over the 4 PP bytes, mask out the 2 PP-up bits so we look only
 	; at remaining PP. Mirrors AnyMoveToSelect's logic for the player.

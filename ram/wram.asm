@@ -569,7 +569,13 @@ wEnemySubstituteHP:: db
 ; used for TestBattle (unused in non-debug builds)
 wTestBattlePlayerSelectedMove:: db
 
-	ds 1
+; v1.0 (2026-09-26, the AI stops peeking): 1 once the enemy has made its
+; choice for this turn. SelectEnemyMove sets it when it picks a move (not
+; when a gate stops it); MainInBattleLoop asks for the choice at the top of
+; the turn, before the player's menu, only while it is 0, and clears it
+; when the turn is committed. Was a pad inside wMiscBattleData (zeroed per
+; battle), so a battle that ends mid-turn cannot leak it into the next.
+wAIChoseThisTurn:: db
 
 ; 0=regular, 1=mimic, 2=above message box (relearn, heal pp..)
 wMoveMenuType:: db
