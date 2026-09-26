@@ -25,7 +25,7 @@ TrainerAIPointers:
 	dbw 3, GenericAI
 	dbw 3, GenericAI
 	dbw 3, GenericAI
-	dbw 3, JugglerAI ; juggler
+	dbw 3, GenericAI ; juggler (v1.0, 2026-09-26: the blind 25% switch is gone; layer 6 in its list switches for a reason)
 	dbw 3, GenericAI
 	dbw 3, GenericAI
 	dbw 2, GenericAI ; blackbelt
@@ -36,8 +36,8 @@ TrainerAIPointers:
 	dbw 3, GenericAI
 	dbw 2, GiovanniAI ; giovanni — 2 AI item-uses/mon for its 4-item bag (FR/XAtk/XDef/FullHeal)
 	dbw 3, GenericAI
-	dbw 2, CooltrainerMAI ; cooltrainerm (non-boss; vanilla AI kept)
-	dbw 1, CooltrainerFAI ; cooltrainerf (non-boss; vanilla AI kept)
+	dbw 2, CooltrainerMAI ; cooltrainerm (non-boss; vanilla's HYPER POTION kept, its blind switch gone: layer 6, v1.0 2026-09-26)
+	dbw 1, CooltrainerFAI ; cooltrainerf (non-boss; same routine, same story)
 	dbw 2, BrunoAI ; bruno
 	dbw 1, BrockAI ; brock
 	dbw 1, MistyAI ; misty

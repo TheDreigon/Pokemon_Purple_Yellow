@@ -541,7 +541,15 @@ HandleMovePriority:
 .enemyUsingPriorityMove
         ld e, [hl]        ; get new priority value 
 .noEnemyPriorityMove
-        ret
+; v1.0 (2026-09-26, the AI switch layer): a pending switch request is the
+; enemy's action this turn (the layer asks only when TrainerAI's hook will
+; honour it), and a switch goes first, as the player's own does - above
+; every priority move.
+	ld a, [wAISwitchRequest]
+	and a
+	ret z
+	ld e, 10
+	ret
 
 INCLUDE "data/battle/priority_moves.asm"
 
@@ -3408,6 +3416,11 @@ SelectEnemyMove:
 	ld a, [hl]
 	jp .done
 .noLinkBattle
+; v1.0 (2026-09-26, the AI switch layer): a switch request lives one turn.
+; It is cleared here, before any of the gates below, so a request the layer
+; made on a turn the mon then could not act on never carries over.
+	xor a
+	ld [wAISwitchRequest], a
 	ld a, [wEnemyBattleStatus2]
 	and 1 << NEEDS_TO_RECHARGE ; need to recharge
 	ret nz

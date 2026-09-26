@@ -35,9 +35,10 @@ AIEnemyTrainerChooseMoves:
 	jr nz, .loopTrainerClassData
 	jr .loopTrainerClasses
 .readTrainerClassData
-	; v0.7 hard mode: boss trainers get all 4 AI modification layers,
-	; overriding their per-class list. So Brock (whose normal list is
-	; just [1]) becomes as smart as Lance ([1,2,3,4]) on Hard.
+	; v0.7 hard mode: boss trainers and semi-bosses get every AI layer
+	; (HardModeBossAIMods, 1-6 since v1.0), overriding their per-class
+	; list. So Brock (whose normal list is 1,2,3,5) thinks like Lance, and
+	; every boss switches out a losing mon, on Hard.
 	push hl
 	call IsHardModeBossOrSemiBattle ; semi-bosses think as hard as bosses do
 	pop hl
@@ -129,13 +130,14 @@ AIMoveChoiceModificationFunctionPointers:
 	dw AIMoveChoiceModification3
 	dw AIMoveChoiceModification4
 	dw AIMoveChoiceModification5 ; v1.0 (2026-09-26): the tactical layer
+	dw AIMoveChoiceModification6 ; v1.0 (2026-09-26): the switch layer (LAST in a list)
 
-; v0.7 hard mode override list — bosses get all 4 modification layers
+; v0.7 hard mode override list — bosses and semi-bosses get every layer (1-6 since v1.0)
 ; in Hard mode, regardless of their per-class default in
 ; TrainerClassMoveChoiceModifications. See AIEnemyTrainerChooseMoves
 ; (.readTrainerClassData) for the redirect.
 HardModeBossAIMods:
-	db 1, 2, 3, 4, 5, 0 ; v1.0 (2026-09-26): + the tactical layer
+	db 1, 2, 3, 4, 5, 6, 0 ; v1.0 (2026-09-26): + the tactical layer, + the switch layer
 
 ; PureRGBnote: CHANGED: AKA the "Dont do stupid things no player would ever do" AI subroutine, many new default AI restrictions added
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
@@ -835,6 +837,172 @@ AIGetMovePriorityWrapped:
 	pop hl
 	ret
 
+; v1.0 (2026-09-26, the AI switch layer, P6): the SWITCH layer - 6 in a
+; class's list (data/trainers/move_choices.asm), and it must come LAST in
+; the list: it reads the scores the layers before it left in wBuffer and
+; never touches them. It adds up, out of 32, how much the mon that is out
+; wants to leave; 32 or more asks for sure, 0 never asks (no Random spent),
+; anything between asks with that chance out of 32. A hit sets
+; wAISwitchRequest, which the hook at the top of TrainerAI consumes this
+; same turn; SelectEnemyMove clears the request every turn before any of
+; its gates, so a request never outlives the turn that made it. It asks
+; only when the hook will honour it - a second live mon in the party (the
+; mon that is out cannot be asleep or frozen past this turn here: the
+; SelectEnemyMove gate returns before the layers run) - because a pending
+; request is the enemy's action this turn: HandleMovePriority puts it above
+; every move, so a switch runs before the player's move, as the player's
+; own switch does.
+; Adapted from ExtremeYellow's Mod4 (trainer_ai.asm:1913-2072). The knobs
+; are its weights (13/6, 7/18/25/32, 29), plus two reasons to STAY that are
+; ours (a boosted mon, a mon behind screens) and a cooldown for the mon
+; that just came in. The stages are the seven MOD_ bytes (7 each when
+; untouched, 49 in all); the score floor of 0 means the reasons to stay
+; are taken off last, so they are never lost.
+AISwitchKnobs:
+.confused: db 13 ; the mon is CONFUSED
+.toxic:    db 6  ; the mon is badly poisoned
+.stages:   db 7, 18, 25, 32 ; net stat stages -1, -2, -3, -4 or worse
+.boosted:  db 10 ; off at net +2 or better: it is winning, it stays
+.allBad:   db 29 ; every move it has is discouraged (score 11 or more)
+.screen:   db 10 ; off for each screen up (REFLECT, LIGHT SCREEN)
+.cooldown: db 2  ; turns the mon that just came in is left alone
+
+AIMoveChoiceModification6:
+	ld a, [wAISwitchCooldown]
+	and a
+	jr z, .noCooldown
+	dec a
+	ld [wAISwitchCooldown], a
+	ret
+.noCooldown
+	call AICountLiveEnemyMons
+	cp 2
+	ret c ; nothing to switch to: no request, and no Random spent
+	ld b, 0 ; the score, out of 32
+	ld a, [wEnemyBattleStatus1]
+	bit CONFUSED, a
+	jr z, .checkToxic
+	ld a, [AISwitchKnobs.confused]
+	call AddToBCapped
+.checkToxic
+	ld a, [wEnemyBattleStatus3]
+	bit BADLY_POISONED, a
+	jr z, .checkStages
+	ld a, [AISwitchKnobs.toxic]
+	call AddToBCapped
+.checkStages
+	call AISumEnemyStatStages ; a = the seven stage bytes added up, 49 = untouched
+	cp 7 * (MOD_EVASION + 1)
+	jr nc, .checkScores ; untouched or boosted: nothing to add here
+	ld c, a
+	ld a, 7 * (MOD_EVASION + 1) - 1
+	sub c ; 0 at net -1, 1 at -2, 2 at -3, 3 and beyond further down
+	cp 4
+	jr c, .stageIndex
+	ld a, 3
+.stageIndex
+	ld hl, AISwitchKnobs.stages
+	ld c, a
+	push bc
+	ld b, 0
+	add hl, bc
+	pop bc
+	ld a, [hl]
+	call AddToBCapped
+.checkScores
+	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
+	ld de, wEnemyMonMoves ; enemy moves
+	ld c, NUM_MOVES + 1
+.nextMove
+	dec c
+	jr z, .allBad ; processed all 4 moves and none was fine
+	inc hl
+	ld a, [de]
+	and a
+	jr z, .allBad ; end of the set and none was fine
+	inc de
+	ld a, [hl]
+	cp 11
+	jr c, .checkBoosted ; one move is still fine (10 or better): it can fight
+	jr .nextMove
+.allBad
+	ld a, [AISwitchKnobs.allBad]
+	call AddToBCapped
+; the reasons to stay come off last
+.checkBoosted
+	call AISumEnemyStatStages
+	cp 7 * (MOD_EVASION + 1) + 2
+	jr c, .checkReflect
+	ld a, [AISwitchKnobs.boosted]
+	call SubFromBCapped
+.checkReflect
+	ld a, [wEnemyBattleStatus3]
+	bit HAS_REFLECT_UP, a
+	jr z, .checkLightScreen
+	ld a, [AISwitchKnobs.screen]
+	call SubFromBCapped
+.checkLightScreen
+	ld a, [wEnemyBattleStatus3]
+	bit HAS_LIGHT_SCREEN_UP, a
+	jr z, .roll
+	ld a, [AISwitchKnobs.screen]
+	call SubFromBCapped
+.roll
+	ld a, b
+	cp 32
+	jr nc, .request ; 32 or more: for sure
+	and a
+	ret z ; 0: never, and no Random spent
+	rla
+	rla
+	rla ; b < 32, so this is b * 8 with no bit lost: the chance out of 256
+	ld b, a
+	call Random
+	cp b
+	ret nc
+.request
+	ld a, 1
+	ld [wAISwitchRequest], a
+	ret
+
+AISumEnemyStatStages:
+; a = the enemy's seven stage bytes (MOD_ATTACK..MOD_EVASION; 7 each when
+; untouched, so 49) added up. The eighth byte of wEnemyMonStatMods is a pad
+; and is not read. Keeps hl, bc.
+	push hl
+	push bc
+	ld hl, wEnemyMonStatMods
+	ld c, MOD_EVASION + 1
+	xor a
+.loop
+	add [hl]
+	inc hl
+	dec c
+	jr nz, .loop
+	pop bc
+	pop hl
+	ret
+
+AddToBCapped:
+; b = b + a, held at 255
+	add b
+	jr nc, .noCarry
+	ld a, $ff
+.noCarry
+	ld b, a
+	ret
+
+SubFromBCapped:
+; b = b - a, held at 0. Clobbers c.
+	ld c, a
+	ld a, b
+	sub c
+	jr nc, .noBorrow
+	xor a
+.noBorrow
+	ld b, a
+	ret
+
 ReadMove:
 	push hl
 	push de
@@ -883,6 +1051,33 @@ TrainerAI:
 	ret nz
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; v1.0 (2026-09-26, the AI switch layer): the switch layer (6) asked to
+; switch this turn, and HandleMovePriority already put the enemy first for
+; it. The request is consumed here whatever comes of it. A mon still asleep
+; or frozen past this turn is not pulled (D14; the MainInBattleLoop rule: a
+; sleep counter of 1 wakes and acts, FRZ with a freeze counter of 0-1 thaws
+; and acts - those can go); with one mon left there is nothing to switch
+; to, and the class AI below runs as usual - its item count is set up
+; there, so this path falls through, it never returns. Both cases are
+; belt and braces: the layer only asks with a second live mon, after
+; SelectEnemyMove's own sleep gate.
+	ld a, [wAISwitchRequest]
+	and a
+	jr z, .noSwitchRequest
+	xor a
+	ld [wAISwitchRequest], a
+	ld a, [wEnemyMonStatus]
+	ld c, a
+	and SLP_MASK
+	bit FRZ, c
+	jr z, .switchGate
+	ld a, [wEnemyFreezeCounter]
+.switchGate
+	cp 2
+	jr nc, .noSwitchRequest
+	call AISwitchIfEnoughMons
+	ret c ; switched: that was the turn's action
+.noSwitchRequest
 	ld a, [wTrainerClass] ; what trainer class is this?
 	dec a
 	ld c, a
@@ -909,45 +1104,29 @@ TrainerAI:
 
 INCLUDE "data/trainers/ai_pointers.asm"
 
-JugglerAI:
-	cp 25 percent + 1
-	ret nc
-	jp AISwitchIfEnoughMons
+; v1.0 (2026-09-26, the AI switch layer): JugglerAI (a blind 25% switch every
+; turn) is gone; JUGGLER dispatches to GenericAI and carries layer 6 in its
+; move-choice list, which switches for a reason.
 
 ; v0.7 space pass (2026-08-17): BlackbeltAI deleted — the blackbelt row of
 ; the AI dispatch was repointed to GenericAI long ago, orphaning it.
 
 ; (Hard mode boss item bag — knob #10. See ; ===== HARD MODE BOSS AI ===== marker.)
 
+; v1.0 (2026-09-26, the AI switch layer): the Cooltrainers keep vanilla's
+; HYPER POTION (a 25% roll, then below 1/10 HP) and lose the blind switch
+; that followed it (the same roll, then below 1/5 HP - a free turn for the
+; player, no strategy; 2026-09-24 had already put it back to 1/5 from
+; Yellow Legacy's "below max HP"). Both classes carry layer 6 in their
+; move-choice lists now, which switches for a reason. One routine, two names.
 CooltrainerMAI:
-	cp 25 percent + 1
-	ret nc ; 25% chance to switch
-	ld a, 10
-	call AICheckIfHPBelowFraction
-	jp c, AIUseHyperPotion
-	; v1.0 (2026-09-24, Forte): back to vanilla's 1/5. Yellow Legacy's ca98c226
-	; had 1 here (= "below max HP"), so a scratched Cooltrainer switched on
-	; 25% of its turns - a free turn for the player, no strategy. The AI
-	; switch layer planned for 1.0 supersedes this rule.
-	ld a, 5
-	call AICheckIfHPBelowFraction
-	ret nc
-	jp AISwitchIfEnoughMons
-
 CooltrainerFAI:
 	cp 25 percent + 1
-	ret nc ; 25% chance to switch
+	ret nc ; 25% chance to act
 	ld a, 10
 	call AICheckIfHPBelowFraction
 	jp c, AIUseHyperPotion
-	; v1.0 (2026-09-24, Forte): back to vanilla's 1/5. Yellow Legacy's ca98c226
-	; had 1 here (= "below max HP"), so a scratched Cooltrainer switched on
-	; 25% of its turns - a free turn for the player, no strategy. The AI
-	; switch layer planned for 1.0 supersedes this rule.
-	ld a, 5
-	call AICheckIfHPBelowFraction
-	ret nc
-	jp AISwitchIfEnoughMons
+	ret
 
 ; ===== HARD MODE BOSS AI =====
 ;
@@ -1775,13 +1954,21 @@ AIPrintItemUseAndUpdateHPBar:
 
 AISwitchIfEnoughMons:
 ; enemy trainer switches if there are 2 or more unfainted mons in party
+	call AICountLiveEnemyMons
+	cp 2    ; don't bother if only 1
+	jp nc, SwitchEnemyMon
+	and a
+	ret
+
+AICountLiveEnemyMons:
+; v1.0 (2026-09-26, the AI switch layer): the count, on its own, so the
+; switch layer asks only when there is someone to switch to.
+; a = the unfainted mons in the enemy's party, from the roster's HP (the mon
+; that is out counts as it was when it came out). Clobbers bc, d, hl.
 	ld a, [wEnemyPartyCount]
 	ld c, a
 	ld hl, wEnemyMon1HP
-
 	ld d, 0 ; keep count of unfainted monsters
-
-	; count how many monsters haven't fainted yet
 .loop
 	ld a, [hli]
 	ld b, a
@@ -1796,11 +1983,7 @@ AISwitchIfEnoughMons:
 	pop bc
 	dec c
 	jr nz, .loop
-
-	ld a, d ; how many available monsters are there?
-	cp 2    ; don't bother if only 1
-	jp nc, SwitchEnemyMon
-	and a
+	ld a, d
 	ret
 
 SwitchEnemyMon:
@@ -1816,6 +1999,17 @@ SwitchEnemyMon:
 	ld hl, wEnemyMonHP
 	ld bc, 4
 	call CopyData
+
+; v1.0 (2026-09-26, the AI switch layer): the mon that comes in starts
+; fresh - its setup layer counts from zero again (as yumepokered does) and
+; the switch layer leaves the newcomer alone for a couple of turns. (The
+; player's WRAP needs nothing here: a held enemy never chooses a move -
+; SelectEnemyMove hands it $ff before the layers run - so it never asks to
+; switch while held, and EnemySendOutFirstMon drops the trapping bit.)
+	xor a
+	ld [wAILayer2Encouragement], a
+	ld a, [AISwitchKnobs.cooldown]
+	ld [wAISwitchCooldown], a
 
 	ld hl, AIBattleWithdrawText
 	call PrintText

@@ -12,8 +12,13 @@ ENDM
 ;         3 = prefer type-effective damage  4 = status when clean, heal low
 ;         5 = tactics (STAB, priority, EXPLOSION by HP, the move it keeps
 ;             repeating; v1.0, 2026-09-26) - on every list that has 3
+;         6 = switch out a mon that is losing (v1.0, 2026-09-26) - LAST in
+;             the list, it reads the scores the others left; in Normal on
+;             the six classes that switched by a blind roll in vanilla or
+;             are meant to think (JUGGLER, both COOLTRAINERs, PSYCHIC,
+;             GENTLEMAN, JESSIE & JAMES)
 ; These lists are live in BOTH difficulties; Hard mode overrides bosses and
-; semi-bosses to 1-5 (HardModeBossAIMods in trainer_ai.asm).
+; semi-bosses to 1-6 (HardModeBossAIMods in trainer_ai.asm).
 ;
 ; v0.7 policy (Forte, 2026-07-27): a boss's list carries every layer its
 ; MOVESET was designed around, and omits layers with nothing to act on.
@@ -43,9 +48,9 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1       ; CUE_BALL
 	move_choices 1       ; GAMBLER
 	move_choices 1, 3, 5    ; BEAUTY
-	move_choices 1, 2    ; PSYCHIC_TR
+	move_choices 1, 2, 6    ; PSYCHIC_TR
 	move_choices 1       ; ROCKER
-	move_choices 1       ; JUGGLER
+	move_choices 1, 6          ; JUGGLER
 	move_choices 1       ; TAMER
 	move_choices 1       ; BIRD_KEEPER
 	move_choices 1       ; BLACKBELT
@@ -56,8 +61,8 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2    ; SCIENTIST
 	move_choices 1, 2, 3, 5 ; GIOVANNI
 	move_choices 1       ; ROCKET
-	move_choices 1, 3, 5    ; COOLTRAINER_M
-	move_choices 1, 3, 5    ; COOLTRAINER_F
+	move_choices 1, 3, 5, 6    ; COOLTRAINER_M
+	move_choices 1, 3, 5, 6    ; COOLTRAINER_F
 	move_choices 1, 2, 3, 4, 5 ; BRUNO
 	move_choices 1, 2, 3, 5 ; BROCK — v0.7: was 1. Both main mons carry a setup move (Defense Curl, Coil) and the rematch adds Swords Dance/Intimidate; the fortify-then-hit pattern IS Brock. No status/heal moves at all, so layer 4 stays off.
 	move_choices 1, 3, 4, 5 ; MISTY
@@ -66,7 +71,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 3, 4, 5 ; KOGA
 	move_choices 1, 2, 3, 5 ; BLAINE
 	move_choices 1, 2, 3, 4, 5 ; SABRINA — v0.7: +2. Seven of her ten sets carry a layer-2 move (Calm Mind x3, Quiver Dance x2, Reflect, Substitute). She foresees the fight: setup first, then win. The biggest missing-layer/moveset mismatch in the game.
-	move_choices 1, 2    ; GENTLEMAN
+	move_choices 1, 2, 6    ; GENTLEMAN
 	move_choices 1, 3, 5    ; RIVAL2
 	move_choices 1, 2, 3, 4, 5 ; RIVAL3
 	move_choices 1, 2, 3, 4, 5 ; LORELEI
@@ -77,7 +82,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4, 5 ; JANINE — v0.7: +2. Venomoth's Sleep Powder + Quiver Dance is the sleep-then-setup combo by design, and Beedrill opens Swords Dance; also aligns her with every other semi-boss (all at four).
 	move_choices 1, 2, 3, 4, 5 ; JOY
 	move_choices 1, 2, 3, 4, 5 ; JENNY
-	move_choices 1, 2, 3, 4, 5 ; JESSIE_AND_JAMES (boss-tier always, even in Normal mode)
+	move_choices 1, 2, 3, 4, 5, 6 ; JESSIE_AND_JAMES (boss-tier always, even in Normal mode)
 	move_choices 1, 2, 3, 4, 5 ; FORTE
 	move_choices 1, 2, 3, 4, 5 ; BILL
 	assert_list_length NUM_TRAINERS
