@@ -480,6 +480,27 @@ MainInBattleLoop:
 	call CheckNumAttacksLeft
 	jp MainInBattleLoop
 
+AIGetPriority::
+; v1.0 (2026-09-26, the AI switch layer): e = the priority of the enemy's
+; wEnemyMoveNum from PriorityMovesList (7 = none), for the tactical AI layer
+; in bank $0E (AIGetMovePriorityWrapped), which must not carry a copy of the
+; list. Clobbers a, b, hl.
+	ld a, [wEnemyMoveNum]
+	ld b, a
+	ld hl, PriorityMovesList
+	ld e, 7
+.loop
+	ld a, [hli]
+	cp b
+	jr z, .found
+	inc a ; -1 + 1 = 0 at the end of the list
+	ret z
+	inc hl
+	jr .loop
+.found
+	ld e, [hl]
+	ret
+
 HandleMovePriority:
 ; This subroutine modifies registers a, hl, bc, and de
 ; The player's priority value will be stored in register c and 

@@ -128,13 +128,14 @@ AIMoveChoiceModificationFunctionPointers:
 	dw AIMoveChoiceModification2
 	dw AIMoveChoiceModification3
 	dw AIMoveChoiceModification4
+	dw AIMoveChoiceModification5 ; v1.0 (2026-09-26): the tactical layer
 
 ; v0.7 hard mode override list — bosses get all 4 modification layers
 ; in Hard mode, regardless of their per-class default in
 ; TrainerClassMoveChoiceModifications. See AIEnemyTrainerChooseMoves
 ; (.readTrainerClassData) for the redirect.
 HardModeBossAIMods:
-	db 1, 2, 3, 4, 0
+	db 1, 2, 3, 4, 5, 0 ; v1.0 (2026-09-26): + the tactical layer
 
 ; PureRGBnote: CHANGED: AKA the "Dont do stupid things no player would ever do" AI subroutine, many new default AI restrictions added
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
@@ -676,6 +677,163 @@ Modifier4PreferredMoves:
 	                     ; burn moves are power-gated out before this lookup)
 	db CONFUSION_EFFECT
 	db -1 ; end
+
+; v1.0 (2026-09-26, the AI switch layer, P4): the TACTICAL layer - 5 in a
+; class's list (data/trainers/move_choices.asm), so it is opt-in per class.
+; Adapted from ExtremeYellow's Mod3 parts 3/4/8/2 (trainer_ai.asm:1173, :1209,
+; :1858, :1122). For every move of the set:
+;  - the move the enemy keeps repeating (wEnemyUsedMove, wAIRepeatCount from
+;    MonName1Text): +1 on the fourth use in a row, +2, +3, +4 saturated;
+; and for the damaging ones only:
+;  - STAB (the move's type is one of the mon's): -1;
+;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3;
+;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
+;    +5 - it would go first and hit nothing (nothing lands on a mon up in the
+;    air or underground here, never-miss moves included);
+;  - a priority move when the enemy is slower, the player acts this turn (not
+;    asleep or frozen past it: the MainInBattleLoop rule) and the move at
+;    least neutral: -1 (it goes first).
+AIMoveChoiceModification5:
+	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
+	ld de, wEnemyMonMoves ; enemy moves
+	ld b, NUM_MOVES + 1
+.nextMove
+	dec b
+	ret z ; processed all 4 moves
+	inc hl
+	ld a, [de]
+	and a
+	ret z ; no more moves in move set
+	inc de
+	call ReadMove
+; the move the enemy keeps using
+	ld a, [wEnemyMoveNum]
+	ld c, a
+	ld a, [wEnemyUsedMove]
+	cp c
+	jr nz, .notARepeat
+	ld a, [wAIRepeatCount] ; executions in a row already: 2 = this would be the fourth
+	cp 2
+	jr c, .notARepeat
+	dec a ; 2 -> +1, 3 -> +2, 4 -> +3, 5 -> +4
+	cp 5
+	jr c, .addRepeat
+	ld a, 4 ; saturates
+.addRepeat
+	add [hl]
+	ld [hl], a
+.notARepeat
+	ld a, [wEnemyMovePower]
+	and a
+	jp z, .nextMove ; the rest is for damaging moves only
+; STAB
+	ld a, [wEnemyMoveType]
+	ld c, a
+	ld a, [wEnemyMonType1]
+	cp c
+	jr z, .stab
+	ld a, [wEnemyMonType2]
+	cp c
+	jr nz, .noStab
+.stab
+	dec [hl]
+.noStab
+; EXPLOSION by HP
+	ld a, [wEnemyMoveEffect]
+	cp EXPLODE_EFFECT
+	jr nz, .notExplosion
+	ld a, 2
+	call AICheckIfHPBelowFractionWrapped
+	jr nc, .notExplosion
+	dec [hl]
+	ld a, 4
+	call AICheckIfHPBelowFractionWrapped
+	jr nc, .notExplosion
+	dec [hl]
+	ld a, 8
+	call AICheckIfHPBelowFractionWrapped
+	jr nc, .notExplosion
+	dec [hl]
+.notExplosion
+	ld a, [wPlayerBattleStatus1]
+	bit INVULNERABLE, a ; the player is up in the air / underground
+	jr z, .playerVisible
+	call AIGetMovePriorityWrapped
+	cp 8
+	jp c, .nextMove
+	ld a, [hl] ; a priority move now goes first and hits nothing
+	add 5
+	ld [hl], a
+	jp .nextMove
+.playerVisible
+	call AIGetMovePriorityWrapped
+	cp 8
+	jp c, .nextMove
+	call AIEnemyIsSlower
+	jp nc, .nextMove ; faster (or as fast) anyway: no need for priority
+; does the player act this turn? The MainInBattleLoop rule: a sleep counter
+; of 1 wakes and attacks, FRZ with a freeze counter of 0-1 thaws and attacks;
+; 2 and up stays down, and there is no first strike to win against it
+	ld a, [wBattleMonStatus]
+	ld c, a
+	and SLP_MASK
+	bit FRZ, c
+	jr z, .playerActsGate
+	ld a, [wPlayerFreezeCounter]
+.playerActsGate
+	cp 2
+	jp nc, .nextMove
+	push hl
+	push bc
+	push de
+	callfar AIGetTypeEffectiveness
+	pop de
+	pop bc
+	pop hl
+	ld a, [wTypeEffectiveness]
+	cp EFFECTIVE
+	jp c, .nextMove ; not very effective: the first strike is not worth it
+	dec [hl]
+	jp .nextMove
+
+AIEnemyIsSlower:
+; carry = the enemy's speed (modified, the word the turn order compares) is
+; below the player's; equal is "not slower". Registers kept.
+	push hl
+	push de
+	push bc
+	ld hl, wEnemyMonSpeed
+	ld de, wBattleMonSpeed
+	ld a, [de]
+	ld b, a ; player's high byte
+	ld a, [hli]
+	cp b
+	jr nz, .decided
+	inc de
+	ld a, [de]
+	ld b, a ; player's low byte
+	ld a, [hl]
+	cp b
+.decided
+	pop bc
+	pop de
+	pop hl
+	ret
+
+AIGetMovePriorityWrapped:
+; a = the priority of wEnemyMoveNum (7 = none). PriorityMovesList lives in
+; Battle Core with HandleMovePriority; AIGetPriority reads it there, so no
+; copy of the list is kept in this bank. Registers kept (a farcall kills
+; b, c and hl; e carries the answer out).
+	push hl
+	push de
+	push bc
+	farcall AIGetPriority
+	ld a, e
+	pop bc
+	pop de
+	pop hl
+	ret
 
 ReadMove:
 	push hl
