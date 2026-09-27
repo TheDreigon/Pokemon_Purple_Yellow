@@ -1372,23 +1372,22 @@ CooltrainerFAI:
 ; falls through.
 ;
 ; Pattern (every boss now also carries Full Heal):
-;   1. If statused, try Full Heal.
-;   2. Else if HP below threshold (1/3; 1/2 for Giovanni/Oak/Joy), heal item.
-;   3. Else, one ~25% roll per buff item (independent rolls).
+;   1. If statused, try Full Heal (AITryFullHeal).
+;   2. Else if HP below threshold (1/3; 1/2 for Giovanni/Oak/Joy/Bill), heal item
+;      (a FULL RESTORE cures confusion too, 2026-09-27).
+;   3. Else, if only confused and an item action is to spare, try Full Heal
+;      (AITryConfusionFullHeal, 2026-09-27: the player may FULL HEAL a mon that
+;      is only confused; the enemy plays by the same rule).
+;   4. Else, one ~25% roll per buff item (independent rolls).
 ; Per-battle item caps come from the bag data; per-mon caps still come from
 ; wAICount/ai_pointers.asm (each AIUse* tail-calls DecrementAICount).
 
 BrockAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	; Priority 1: status -> Full Heal (every boss carries it now)
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	; Priority 1: status -> Full Heal (every boss carries it now); confusion alone, after the HP branch
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	; Heal at HP < 1/3 — the rematch bag carries Full Restore, the first
 	; fight's carries Potion; try the better tier first (same both ways for
 	; every leader below)
@@ -1402,6 +1401,8 @@ BrockAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUsePotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X Defend (rocks defensive)
 	call Random
 	cp 25 percent + 1
@@ -1414,13 +1415,8 @@ BrockAI:
 MistyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1431,6 +1427,8 @@ MistyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X SP.ATK
 	call Random
 	cp 25 percent + 1
@@ -1443,13 +1441,8 @@ MistyAI:
 LtSurgeAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1460,6 +1453,8 @@ LtSurgeAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X Speed (electric speed)
 	call Random
 	cp 25 percent + 1
@@ -1472,13 +1467,8 @@ LtSurgeAI:
 ErikaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1489,6 +1479,8 @@ ErikaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X SP.DEF (2026-09-06 table: Erika's bags carry X SP.DEF -
 	; her flowers take the hit rather than deal it)
 	call Random
@@ -1502,13 +1494,8 @@ ErikaAI:
 KogaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1519,6 +1506,8 @@ KogaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X Speed
 	call Random
 	cp 25 percent + 1
@@ -1539,13 +1528,8 @@ KogaAI:
 SabrinaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1556,6 +1540,8 @@ SabrinaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X SP.ATK (Psychic special attacker)
 	call Random
 	cp 25 percent + 1
@@ -1568,13 +1554,8 @@ SabrinaAI:
 BlaineAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1585,6 +1566,8 @@ BlaineAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseMaxPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X SP.ATK (fire special attacker)
 	call Random
 	cp 25 percent + 1
@@ -1599,13 +1582,8 @@ BlaineAI:
 GiovanniAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 2
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1616,6 +1594,8 @@ GiovanniAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X Attack roll
 	call Random
 	cp 25 percent + 1
@@ -1638,13 +1618,8 @@ GiovanniAI:
 LoreleiAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1652,6 +1627,8 @@ LoreleiAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X SP.ATK roll (2026-09-06 table: she buffs her special attacks, not her Defense)
 	call Random
 	cp 25 percent + 1
@@ -1664,13 +1641,8 @@ LoreleiAI:
 BrunoAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1678,6 +1650,8 @@ BrunoAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	call Random
 	cp 25 percent + 1
 	ret nc
@@ -1689,13 +1663,8 @@ BrunoAI:
 AgathaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1703,6 +1672,8 @@ AgathaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% chance X Speed
 	call Random
 	cp 25 percent + 1
@@ -1715,13 +1686,8 @@ AgathaAI:
 LanceAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1729,6 +1695,8 @@ LanceAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X Speed roll (2026-09-06 table: his bag is all speed now; the X Special roll went with it)
 	call Random
 	cp 25 percent + 1
@@ -1743,13 +1711,8 @@ LanceAI:
 Rival2AI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1757,6 +1720,8 @@ Rival2AI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; no buff roll: the same correction took his X Attacks away, and an AI
 	; branch with no item behind it is the mirror image of dead weight
 	ret
@@ -1767,13 +1732,8 @@ KiyoAI:
 ; ATTACK and his Dire Hit lives in the rematch bag.
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1784,6 +1744,8 @@ KiyoAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X Attack roll
 	call Random
 	cp 25 percent + 1
@@ -1804,13 +1766,8 @@ KiyoAI:
 Rival3AI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1818,6 +1775,8 @@ Rival3AI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X Speed roll (2026-09-06 table: speed and a Dire Hit; the X Attack is gone)
 	call Random
 	cp 25 percent + 1
@@ -1842,13 +1801,8 @@ Rival3AI:
 ProfOakAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 2
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1856,6 +1810,8 @@ ProfOakAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% Guard Spec roll
 	call Random
 	cp 25 percent + 1
@@ -1877,13 +1833,8 @@ ProfOakAI:
 JoyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 2
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1891,6 +1842,8 @@ JoyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; no buff roll (2026-09-06 table): the nurse heals and nothing else
 	ret
 
@@ -1902,19 +1855,17 @@ JoyAI:
 SelfInsertBossAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
-	ret nc
+	jr nc, .skipHeal
 	ld a, FULL_RESTORE
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
+.skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	ret
 
 BillAI:
@@ -1927,13 +1878,8 @@ BillAI:
 ; weight, which is precisely how ForteBossBag ended up stocked and never spent.
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 2
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1941,6 +1887,8 @@ BillAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% Guard Spec roll
 	call Random
 	cp 25 percent + 1
@@ -1961,13 +1909,8 @@ BillAI:
 JennyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -1975,6 +1918,8 @@ JennyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X Attack roll
 	call Random
 	cp 25 percent + 1
@@ -1996,13 +1941,8 @@ JennyAI:
 JanineAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
 	jr nc, .skipHeal
@@ -2010,6 +1950,8 @@ JanineAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	; ~25% X Speed roll
 	call Random
 	cp 25 percent + 1
@@ -2030,19 +1972,17 @@ JanineAI:
 JessieAndJamesAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .noStatus
-	ld a, FULL_HEAL
-	call CheckAndConsumeBossItem
+	call AITryFullHeal ; a status: FULL HEAL (confusion alone waits for the HP branch)
 	jp c, AIUseFullHeal
-.noStatus
 	ld a, 3
 	call AICheckIfHPBelowFraction
-	ret nc
+	jr nc, .skipHeal
 	ld a, SUPER_POTION
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
+.skipHeal
+	call AITryConfusionFullHeal ; confusion alone, when an item action is to spare
+	jp c, AIUseFullHeal
 	ret
 
 GenericAI:
@@ -2516,6 +2456,33 @@ UndoBurnParStats:
 ; data/trainers/boss_item_bags.asm. Boss AI routines call
 ; CheckAndConsumeBossItem before each AIUse*; if the bag is empty for that
 ; item, the AI silently no-ops.
+
+; v1.0 (2026-09-27): the boss / semi-boss FULL HEAL, in two halves.
+; AITryFullHeal (first in every routine): a status, always, as before.
+; AITryConfusionFullHeal (after the HP branch - below its line a FULL RESTORE
+; cures the confusion AND the HP in one action): confusion alone, as the player
+; may (CheckCanCureConfusion), but never with this mon's LAST item action
+; (wAICount 1): confusion wears off by itself, and that action is kept for its
+; HP. It reads what a trainer sees - the status, the CNF on its HUD - never the
+; hidden confusion count. The switch layer decided first (TrainerAI honours its
+; request before the class routine), so a switch never costs a FULL HEAL.
+; Out: carry = a FULL HEAL was in the bag and is now spent. Trashes a, b, c, hl;
+; keeps de.
+AITryConfusionFullHeal:
+	ld a, [wEnemyBattleStatus1]
+	and 1 << CONFUSED ; carry clear from here to both rets
+	ret z
+	ld a, [wAICount] ; 1-3 here (TrainerAI returned at 0)
+	dec a
+	ret z
+	jr AISpendFullHeal
+AITryFullHeal:
+	ld a, [wEnemyMonStatus]
+	and a
+	ret z
+AISpendFullHeal:
+	ld a, FULL_HEAL
+	jp CheckAndConsumeBossItem
 
 ; Walk the bag looking for item_id in `a`. If found AND count > 0,
 ; decrement count and return carry. Otherwise clear carry.
