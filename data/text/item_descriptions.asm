@@ -59,7 +59,7 @@ _LeafStoneDescription::
 
 _PoisonHealDescription::
 	text "Cures poisoned"
-	next "#MON."
+	next "#MON. Not TOX."
 	prompt
 
 _BurnHealDescription::

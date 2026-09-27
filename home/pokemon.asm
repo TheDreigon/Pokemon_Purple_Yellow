@@ -339,8 +339,11 @@ DrawPartyMenuCommon::
 
 ; prints a pokemon's status condition
 ; INPUT:
-; de = address of status condition
+; de = address of status condition of a PARTY / BOX struct (wLoadedMonStatus from
+;      the party menu and the stats screen - its only two callers). The battle
+;      HUD enters at PrintStatusConditionNotFainted instead.
 ; hl = destination address
+; OUTPUT: nz when something was written (FNT, TOX, a status)
 PrintStatusCondition::
 	push de
 	dec de
@@ -351,7 +354,7 @@ PrintStatusCondition::
 	ld a, [de]
 	or b ; is the pokemon's HP zero?
 	pop de
-	jr nz, PrintStatusConditionNotFainted
+	jr nz, .notFainted
 ; if the pokemon's HP is 0, print "FNT"
 	ld a, "F"
 	ld [hli], a
@@ -360,9 +363,73 @@ PrintStatusCondition::
 	ld [hl], "T"
 	and a
 	ret
+.notFainted
+; v1.0 (2026-09-27, Forte: "o menu mostra TOX"): a bad POISON stays bad when the
+; #MON is called back (TOXIC by the Gen 3 rule), so the party list and the
+; stats screen say TOX in battle too, as the HUD does.
+	call IsPartyStatusToxic
+	jr z, PrintStatusConditionNotFainted
+	ld a, "T"
+	ld [hli], a
+	ld a, "O"
+	ld [hli], a
+	ld [hl], "X"
+	and a ; nz (a = "O")
+	ret
 
 PrintStatusConditionNotFainted::
 	homejp_sf PrintStatusAilment
+
+; v1.0 (2026-09-27): TOX is a battle-only state: PSN together with bit 7 of the
+; byte before the status (MON_BOX_LEVEL, BOX_LEVEL_TOXIC_F; levels stop at 100,
+; freeze counts at 6 - engine/battle/toxic_carry.asm). Out of battle: POISON.
+; IN de = a party / box struct's status byte. OUT nz = TOX. a trashed; bc, de, hl kept.
+IsPartyStatusToxic::
+	ld a, [wIsInBattle]
+	and a
+	ret z
+	ld a, [de]
+	and 1 << PSN
+	ret z
+	dec de
+	ld a, [de]
+	inc de
+	and 1 << BOX_LEVEL_TOXIC_F
+	ret
+
+; v1.0 (2026-09-27, Forte: "o poison heal ser só para o poison e o full heal e
+; full restore serem para poison e toxic status"): a POISON HEAL cures ordinary
+; POISON only; TOX takes a FULL HEAL or a FULL RESTORE. Here in home because
+; ItemUseMedicine's bank 3 has no room for a farcall.
+; IN  hl = the party status byte, [wcf91] = the item, d = the party index
+; OUT carry = refused: the text is printed, wActionResultOrTookBattleTurn = 0,
+;             the item is NOT used up; a, bc, de, hl trashed.
+;     no carry = go on: a = [wcf91]; bc, de, hl kept.
+PoisonHealVsToxic::
+	ld a, [wcf91]
+	cp POISON_HEAL
+	jr nz, .goOn
+	push de
+	ld d, h
+	ld e, l
+	call IsPartyStatusToxic
+	pop de
+	jr z, .notToxic
+	xor a
+	ld [wActionResultOrTookBattleTurn], a
+	ld hl, PoisonHealTooToxicText
+	call PrintText
+	scf
+	ret
+.notToxic
+	ld a, POISON_HEAL ; the caller's a = [wcf91]
+.goOn
+	and a ; no carry (a = an item id, never 0)
+	ret
+
+PoisonHealTooToxicText:
+	text_far _PoisonHealTooToxicText
+	text_end
 
 ; function to print pokemon level, leaving off the ":L" if the level is at least 100
 ; INPUT:

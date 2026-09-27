@@ -1342,7 +1342,8 @@ ItemUseMedicine:
 .cureStatusAilment
 	ld bc, wPartyMon1Status - wPartyMon1
 	add hl, bc ; hl now points to status
-	ld a, [wcf91]
+	call PoisonHealVsToxic ; v1.0 (2026-09-27, home): POISON HEAL on TOX is refused. No carry: a = [wcf91], bc/de/hl kept
+	jp c, .done ; refused: printed, the item kept, the turn not spent
 	lb bc, POISON_HEAL_MSG, 1 << PSN
 	cp POISON_HEAL
 	jr z, .checkMonStatus
@@ -1726,7 +1727,7 @@ ItemUseMedicine:
 
 .healingItemNoEffect
 	call ItemUseNoEffect
-	jp .done
+	jr .done ; (v1.0 2026-09-27: jr - bank 3 paid for the POISON HEAL check above)
 
 .doneHealing
 	ld a, [wPseudoItemID]

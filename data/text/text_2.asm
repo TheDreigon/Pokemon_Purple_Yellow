@@ -705,6 +705,10 @@ _ViridianBlackboardPoisonText::
 	para "Use a POISON HEAL"
 	line "or a FULL HEAL to"
 	cont "cure poison!"
+
+	para "Bad poison from"
+	line "TOXIC takes a"
+	cont "FULL HEAL!"
 	prompt
 
 _ViridianBlackboardPrlzText::

@@ -206,3 +206,12 @@ _ViridianForestCooltrainerF2AfterBattleText::
 	para "They say it'd be"
 	line "rude to family."
 	done
+
+; v1.0 (2026-09-27, Forte: "a mensagem pode ser algo como 'that poison is too
+; strong/toxic!' (deixo para melhorares)"): a POISON HEAL used on TOX
+; (home/pokemon.asm PoisonHealVsToxic). Line 1 is 17 of 18 tiles ('s is one);
+; line 2 (14) shares the prompt arrow's row, 17 at most.
+_PoisonHealTooToxicText::
+	text "It's too toxic for"
+	line "a POISON HEAL!"
+	prompt

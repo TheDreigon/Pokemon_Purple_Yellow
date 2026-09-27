@@ -266,9 +266,10 @@ _FuchsiaGymGymGuideChampInMakingText::
 
 	para "And nearly all"
 	line "of them spread"
-	cont "TOXIC! Pack a"
-	cont "POISON HEAL or"
-	cont "two!"
+	cont "TOXIC, and a"
+	cont "POISON HEAL can't"
+	cont "cure it! Pack a"
+	cont "FULL HEAL or two!"
 	done
 
 ; from text/SaffronGym.asm

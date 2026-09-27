@@ -367,15 +367,15 @@ _ManualPage_4_5::
 	next "an eighth of full"
 	next "health each turn,"
 	next "in battle and out."
-	next ""
 	next "TOX, from TOXIC,"
 	next "bites harder each"
 	next "turn, and is"
 	next "POISON after the"
 	next "battle."
-	next "A POISON HEAL or a"
-	next "FULL HEAL clears"
-	next "both."
+	next "FULL HEAL and FULL"
+	next "RESTORE clear"
+	next "both. POISON HEAL:"
+	next "POISON only."
 	done
 
 _ManualPage_4_6::
