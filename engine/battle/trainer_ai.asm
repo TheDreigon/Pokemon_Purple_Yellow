@@ -2190,7 +2190,7 @@ AICountLiveEnemyMons:
 
 SwitchEnemyMon:
 
-; prepare to withdraw the active monster: copy hp, number, and status to roster
+; prepare to withdraw the active monster: copy hp, freeze count and status to roster
 
 	ld a, [wEnemyMonPartyPos]
 	ld hl, wEnemyMon1HP
@@ -2201,6 +2201,14 @@ SwitchEnemyMon:
 	ld hl, wEnemyMonHP
 	ld bc, 4
 	call CopyData
+; v1.0 (2026-09-27): byte 3 of the roster entry (it just got the party
+; position, which nothing reads there) keeps the freeze count, so a frozen mon
+; that comes back resumes its own count - wEnemyFreezeCounter is one byte for
+; the whole side (LoadEnemyMonData reads it back).
+	dec de
+	dec de
+	ld a, [wEnemyFreezeCounter]
+	ld [de], a
 ; v1.0 (2026-09-26): and its battle MaxHP, so the roster's HP and MaxHP are
 ; on the same scale once it has been out (a boss's battle MaxHP comes from
 ; maxed DVs, the roster's from the trainer DVs). LoadEnemyMonData tops a boss

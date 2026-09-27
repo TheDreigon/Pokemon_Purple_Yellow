@@ -342,11 +342,12 @@ _ManualPage_4_3::
 	next "turns, then thaws"
 	next "on its own."
 	next ""
-	next "A FIRE or MAGMA"
-	next "hit thaws it at"
-	next "once. So does an"
-	next "ICE HEAL or a FULL"
-	next "HEAL."
+	next "It stays after the"
+	next "battle. A FIRE or"
+	next "MAGMA hit thaws it"
+	next "at once, as does"
+	next "an ICE HEAL or a"
+	next "FULL HEAL."
 	done
 
 _ManualPage_4_4::

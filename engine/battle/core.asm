@@ -1871,6 +1871,33 @@ LoadBattleMonFromParty:
 	jr nz, .statModLoop
 	xor a
 	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
+; v1.0 (2026-09-27, Forte: "corrige"): the freeze count travels with the #MON,
+; as the sleep count always did (it lives in the status byte). The live count,
+; wPlayerFreezeCounter, is one byte for the whole side, so a frozen #MON sent
+; back in used to inherit whatever the side's last freeze left there: another
+; mon's count, or 0 - and 0 thaws on the first turn, which is also why freeze
+; never outlived a battle while sleep does. Byte 3 of the party data (the box
+; level: it means nothing for a party #MON, the PC and the Daycare write the
+; level there when a mon goes in) now holds it - ReadPlayerMonCurHPAndStatus
+; writes the live count there with the HP and the status, every turn - and it
+; is read back here. A frozen #MON whose byte is not a count (1-6) - caught
+; frozen, withdrawn from the PC, or from a save made before this - draws a
+; fresh one, 3-6, like a new freeze. One that is not frozen starts at 0.
+; (A frozen #MON withdrawn from the PC at level 1-6 reads its level as the
+; count: a legal count, just not a fresh one.)
+	ld hl, wBattleMonStatus
+	bit FRZ, [hl] ; (a = 0 from above)
+	jr z, .setFreezeCounter
+	ld a, [wBattleMonBoxLevel]
+	dec a
+	cp 6
+	inc a ; (inc leaves the carry alone)
+	jr c, .setFreezeCounter ; 1-6: its own count
+	call BattleRandom
+	and 3
+	add 3
+.setFreezeCounter
+	ld [wPlayerFreezeCounter], a
 	ret
 
 ; copies from enemy party data to current enemy mon data when sending out a new enemy mon
@@ -2040,6 +2067,13 @@ AnimateRetreatingPlayerMon:
 
 ; reads player's current mon's HP into wBattleMonHP
 ReadPlayerMonCurHPAndStatus:
+; v1.0 (2026-09-27): byte 3 carries the freeze count to the party data with the
+; HP and the status (see the end of LoadBattleMonFromParty). This runs at the
+; top of every turn, when the #MON faints and when the enemy's does, so the
+; party holds the count at every switch, run and battle end: it only changes
+; while a turn executes.
+	ld a, [wPlayerFreezeCounter]
+	ld [wBattleMonBoxLevel], a
 	ld a, [wPlayerMonNumber]
 	ld hl, wPartyMon1HP
 	ld bc, wPartyMon2 - wPartyMon1
@@ -2047,7 +2081,7 @@ ReadPlayerMonCurHPAndStatus:
 	ld d, h
 	ld e, l
 	ld hl, wBattleMonHP
-	ld bc, $4               ; 2 bytes HP, 1 byte unknown (unused?), 1 byte status
+	ld bc, $4               ; 2 bytes HP, byte 3 = the freeze count, 1 byte status
 	jp CopyData
 
 DrawHUDsAndHPBars:
@@ -6413,7 +6447,8 @@ LoadEnemyMonData:
 	ld [wEnemyMonHP + 1], a
 	ld a, [wWhichPokemon]
 	ld [wEnemyMonPartyPos], a
-	inc hl
+	ld a, [hli] ; v1.0 (2026-09-27): byte 3 = the freeze count it left the field with (SwitchEnemyMon; 0 for a fresh mon)
+	ld [wEnemyFreezeCounter], a
 	ld a, [hl]
 	ld [wEnemyMonStatus], a
 	; v0.7 hard-mode boss HP fix (knob #8 follow-up). The $ff DV override

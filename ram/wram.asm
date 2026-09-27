@@ -1586,6 +1586,8 @@ wPlayerNumHits:: db
 ENDU
 
 ; freeze auto-thaw counters: set to 3-6 turns when freeze is inflicted (effects.asm), decremented each turn (core.asm), mon thaws at 0
+; v1.0 (2026-09-27): these are the LIVE counts of the mon on the field; each mon keeps its own in byte 3 of its
+; party/roster data (ReadPlayerMonCurHPAndStatus / LoadBattleMonFromParty, SwitchEnemyMon / LoadEnemyMonData)
 wPlayerFreezeCounter:: db
 wEnemyFreezeCounter:: db
 
