@@ -23,28 +23,7 @@ AIEnemyTrainerChooseMoves:
 	add hl, bc    ; advance pointer to forbidden move
 	ld [hl], $50  ; forbid (highly discourage) disabled move
 .noMoveDisabled
-	ld hl, TrainerClassMoveChoiceModifications
-	ld a, [wTrainerClass]
-	ld b, a
-.loopTrainerClasses
-	dec b
-	jr z, .readTrainerClassData
-.loopTrainerClassData
-	ld a, [hli]
-	and a
-	jr nz, .loopTrainerClassData
-	jr .loopTrainerClasses
-.readTrainerClassData
-	; v0.7 hard mode: boss trainers and semi-bosses get every AI layer
-	; (HardModeBossAIMods, 1-6 since v1.0), overriding their per-class
-	; list. So Brock (whose normal list is 1,2,3,5) thinks like Lance, and
-	; every boss switches out a losing mon, on Hard.
-	push hl
-	call IsHardModeBossOrSemiBattle ; semi-bosses think as hard as bosses do
-	pop hl
-	jr z, .skipBossAIOverride
-	ld hl, HardModeBossAIMods
-.skipBossAIOverride
+	call AIGetMoveChoiceList ; hl = this battle's layer list (the Hard boss / semi-boss override included)
 	ld a, [hl]
 	and a
 	jp z, .useOriginalMoveSet
@@ -138,6 +117,35 @@ AIMoveChoiceModificationFunctionPointers:
 ; (.readTrainerClassData) for the redirect.
 HardModeBossAIMods:
 	db 1, 2, 3, 4, 5, 6, 0 ; v1.0 (2026-09-26): + the tactical layer, + the switch layer
+
+; v1.0 (2026-09-27): hl = the AI layer list this battle uses - the class's row
+; of TrainerClassMoveChoiceModifications, or HardModeBossAIMods for a boss or a
+; semi-boss in Hard. Shared by AIEnemyTrainerChooseMoves and AIHasSwitchLayer so
+; the two can never disagree. Trainer battles only (class 0 would walk 255
+; rows). Clobbers a, b; keeps c, de.
+AIGetMoveChoiceList:
+	ld hl, TrainerClassMoveChoiceModifications
+	ld a, [wTrainerClass]
+	ld b, a
+.loopTrainerClasses
+	dec b
+	jr z, .readTrainerClassData
+.loopTrainerClassData
+	ld a, [hli]
+	and a
+	jr nz, .loopTrainerClassData
+	jr .loopTrainerClasses
+.readTrainerClassData
+	; v0.7 hard mode: boss trainers and semi-bosses get every AI layer
+	; (HardModeBossAIMods, 1-6 since v1.0), overriding their per-class
+	; list. So Brock (whose normal list is 1,2,3,5) thinks like Lance, and
+	; every boss switches out a losing mon, on Hard.
+	push hl
+	call IsHardModeBossOrSemiBattle ; semi-bosses think as hard as bosses do
+	pop hl
+	ret z
+	ld hl, HardModeBossAIMods
+	ret
 
 ; PureRGBnote: CHANGED: AKA the "Dont do stupid things no player would ever do" AI subroutine, many new default AI restrictions added
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
@@ -1046,10 +1054,36 @@ SubFromBCapped:
 ;      type chart)
 ; The best comes in; a tie keeps party order. The LAST mon of the party - the
 ; ace of every boss team - is kept for last: it comes in only when no other
-; teammate is alive.
-; Out: a = 1 + the party index (the wAISwitchRequest encoding).
+; teammate is alive. In Hard, for a boss or a semi-boss (Forte, 2026-09-27:
+; "pode ser, sim. à experiencia") the co-aces wait with it: a teammate at the team's top level
+; (the highest MON_LEVEL in the whole roster, fainted mons included, so the set
+; never changes during the fight) comes in only when no teammate below that
+; level is alive - then the best of them, the last slot still last of all. A
+; team all at one level has no one below the top and plays as in Normal.
+; It also picks the replacement of a fainted mon (AIPickFaintReplacement).
+; Out: a = 1 + the party index (the wAISwitchRequest encoding). Clobbers bc, de, hl.
 AIPickSwitchTarget:
-	ld de, 0 ; d = 1 + the best score so far (0 = none yet), e = its party index
+; b = the level held back with the ace: for a boss or a semi-boss in Hard the
+; team's top level; otherwise $ff, a level no Pokemon has
+	call IsHardModeBossOrSemiBattle ; trashes a, b, hl
+	ld b, $ff
+	jr z, .gotHeldLevel
+	ld a, [wEnemyPartyCount]
+	ld c, a
+	ld hl, wEnemyMon1Level ; MON_LEVEL - byte 3 (MON_BOX_LEVEL) is the freeze count now
+	ld de, wEnemyMon2 - wEnemyMon1
+	ld b, [hl]
+.topLevel
+	ld a, [hl]
+	cp b
+	jr c, .notHigher
+	ld b, a
+.notHigher
+	add hl, de
+	dec c
+	jr nz, .topLevel
+.gotHeldLevel
+	ld de, 0 ; d = the best rank so far (0 = none yet), e = its party index
 	ld c, 0
 .loop
 	ld a, [wEnemyPartyCount]
@@ -1060,9 +1094,21 @@ AIPickSwitchTarget:
 	ld a, [wEnemyMonPartyPos]
 	cp c
 	jr z, .next ; the mon that is out
-	call AIScoreSwitchCandidate ; a = 0 fainted, else 1 + its score; keeps bc, de
+	call AIScoreSwitchCandidate ; a = 0 fainted, else 1 + its score (1-5); hl = its roster entry; keeps bc, de
 	and a
 	jr z, .next
+	push bc
+	ld bc, MON_LEVEL
+	add hl, bc
+	pop bc
+	ld l, [hl] ; its level
+	ld h, a ; 1 + its score
+	ld a, l
+	cp b
+	ld a, h
+	jr z, .heldBack ; a co-ace: it ranks only among the co-aces
+	add 8 ; not held back: above every co-ace (1 + a score is 5 at most)
+.heldBack
 	cp d
 	jr c, .next
 	jr z, .next ; a tie keeps the earlier one
@@ -1084,7 +1130,8 @@ AIPickSwitchTarget:
 
 AIScoreSwitchCandidate:
 ; In: c = a party index (not the mon that is out). Out: a = 0 if it has
-; fainted, else 1 + its score (see AIPickSwitchTarget). Keeps bc, de.
+; fainted, else 1 + its score (see AIPickSwitchTarget); hl = its roster entry
+; (AIPickSwitchTarget reads its level there). Keeps bc, de.
 	push bc
 	push de
 	ld hl, wEnemyMon1
@@ -1196,6 +1243,43 @@ AIScoreSwitchCandidate:
 	ret
 ASSERT MOVE_POWER == MOVE_EFFECT + 1 && MOVE_TYPE == MOVE_POWER + 1, "AIScoreSwitchCandidate reads a move's effect, then its power, then its type"
 
+; v1.0 (2026-09-27): carry when this battle's AI list has the switch layer (6).
+; Clobbers a, b, hl.
+AIHasSwitchLayer:
+	call AIGetMoveChoiceList
+.loop
+	ld a, [hli]
+	and a
+	ret z ; the end of the list (and `and a` cleared carry): no switch layer
+	cp 6 ; the switch layer
+	jr nz, .loop
+	scf
+	ret
+
+; v1.0 (2026-09-27, Forte: "concordo com a tua melhor recomendação"): who
+; replaces a fainted Pokemon. A trainer whose AI has the switch layer (6 in its
+; list: in Normal the six classes of move_choices.asm, in Hard also every boss
+; and semi-boss) picks it the way the layer does, against the Pokemon the
+; player has out; everyone else keeps party order, as vanilla does. A double
+; KO keeps party order too: the player's replacement has already been chosen
+; and sent out (ChooseNextMon runs first in both faint handlers), and picking
+; against it would read the player's blind choice. wInHandlePlayerMonFainted =
+; 1 marks it (see HandleEnemyMonFainted). Called by farcall from
+; ReplaceFaintedEnemyMon just before EnemySendOut, which consumes the request;
+; a farcall does not return a, so the answer goes to WRAM.
+; Out: wAISwitchRequest = 1 + the party index, or 0 (party order). Clobbers all.
+AIPickFaintReplacement:
+	xor a
+	ld [wAISwitchRequest], a ; party order, unless the pick below names the teammate
+	ld a, [wInHandlePlayerMonFainted]
+	and a
+	ret nz ; a double KO: the player's replacement is already out
+	call AIHasSwitchLayer
+	ret nc ; not a trainer that thinks about switching: party order
+	call AIPickSwitchTarget
+	ld [wAISwitchRequest], a
+	ret
+
 AIMatchupAtHL:
 ; a = how effective attacking type a is on the two defender types at hl
 ; (EFFECTIVE = neutral). Keeps bc, hl.
@@ -1284,8 +1368,8 @@ TrainerAI:
 ; switch this turn; TrainerAI runs before either move (MainInBattleLoop,
 ; 2026-09-27), so the switch goes first. The request names the teammate (1 + its party index); EnemySendOut
 ; consumes it when the switch happens, and this hook drops it when it does
-; not (and ReplaceFaintedEnemyMon clears it), so a faint replacement keeps
-; party order. An asleep or frozen mon is not pulled (D14, by the status
+; not; a faint replacement never sees it (AIPickFaintReplacement rewrites
+; the byte, 0 or its own pick, just before that send-out). An asleep or frozen mon is not pulled (D14, by the status
 ; only since 2026-09-27); with one mon left there is nothing to switch to,
 ; and the class AI below runs as usual - its item count is set up there, so
 ; this path falls through, it never returns. Both cases are belt and braces:

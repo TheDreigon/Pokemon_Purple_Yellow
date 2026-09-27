@@ -42,7 +42,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1       ; HIKER
 	move_choices 1       ; BIKER
 	move_choices 1, 3, 5    ; BURGLAR
-	move_choices 1, 2, 3, 5 ; KIYO (was ENGINEER) — all-out fighters, setup but no status/heal moves, so layer 4 stays off in Normal (Hard overrides every boss to 1,2,3,4)
+	move_choices 1, 2, 3, 5 ; KIYO (was ENGINEER) — all-out fighters, setup but no status/heal moves, so layer 4 stays off in Normal (Hard overrides every boss to 1-6, HardModeBossAIMods)
 	move_choices 1, 3, 5    ; FISHER
 	move_choices 1, 3, 5    ; SWIMMER
 	move_choices 1       ; CUE_BALL

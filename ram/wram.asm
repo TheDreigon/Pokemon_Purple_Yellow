@@ -560,8 +560,8 @@ wAILayer2Encouragement:: db
 ; TrainerAI: 0 = none, else 1 + the party index of the teammate to bring in
 ; (AIPickSwitchTarget). Cleared by SelectEnemyMove every turn; consumed by
 ; EnemySendOut when the switch happens, or by TrainerAI's hook when it does
-; not, and cleared by ReplaceFaintedEnemyMon - so it lives one turn at most
-; and never reaches a faint replacement. Was a 1-byte pad inside
+; not - so it lives one turn at most. Before a faint replacement
+; AIPickFaintReplacement rewrites it (2026-09-27: 0, or its own pick). Was a 1-byte pad inside
 ; wMiscBattleData (zeroed by InitBattleVariables, below the save).
 wAISwitchRequest:: db
 
@@ -622,7 +622,9 @@ wPlayerDisabledMoveNumber:: db
 wEnemyDisabledMoveNumber:: db
 
 ; When running in the scope of HandlePlayerMonFainted, it equals 1.
-; When running in the scope of HandleEnemyMonFainted, it equals 0.
+; When running in the scope of HandleEnemyMonFainted, it equals 0 - until its
+; double-KO branch sets it to 1 (2026-09-27): at ReplaceFaintedEnemyMon, 1 means
+; a double KO (AIPickFaintReplacement keeps party order then).
 wInHandlePlayerMonFainted:: db
 
 wPlayerUsedMove:: db

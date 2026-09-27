@@ -852,6 +852,12 @@ HandleEnemyMonFainted:
 	ld a, [hli]
 	or [hl] ; does battle mon have 0 HP?
 	jr nz, .skipReplacingBattleMon ; if not, skip replacing battle mon
+; v1.0 (2026-09-27): a double KO. From here wInHandlePlayerMonFainted reads 1,
+; as in HandlePlayerMonFainted: the player's replacement is chosen and sent out
+; first (ChooseNextMon), so AIPickFaintReplacement must not pick against it.
+; Its only readers (FaintEnemyPokemon, RemoveFaintedPlayerMon) have already run.
+	ld a, 1
+	ld [wInHandlePlayerMonFainted], a
 	call DoUseNextMonDialogue ; this call is useless in a trainer battle. it shouldn't be here
 	ret c
 	call ChooseNextMon
@@ -1005,8 +1011,11 @@ ReplaceFaintedEnemyMon:
 	ret z
 	call LoadScreenTilesFromBuffer1
 .notLinkBattle
-	xor a
-	ld [wAISwitchRequest], a ; v1.0: a faint replacement keeps party order, whatever a request said
+; v1.0 (2026-09-27): who replaces the fainted mon - a trainer with the switch
+; layer picks it as the layer does; the rest, and a double KO, keep party
+; order. The answer is in wAISwitchRequest (0 = party order); EnemySendOut
+; consumes it. a, b, c and hl come back clobbered; nothing below reads them.
+	callfar AIPickFaintReplacement
 	call EnemySendOut
 	xor a
 	ld [wEnemyMoveNum], a
@@ -1461,10 +1470,11 @@ EnemySendOutFirstMon:
 ; v1.0 (2026-09-26, the AI switch layer): a switch the AI asked for names the
 ; teammate to bring in (wAISwitchRequest = 1 + its party index, chosen by
 ; AIPickSwitchTarget when the enemy chose - at the start of the turn, bar the
-; WRAP exception in MainInBattleLoop); it is consumed here. Every other
-; send-out - the battle's first, a replacement after a faint (which clears
-; the request first) - reads 0 and takes the first live mon in party order,
-; as vanilla does.
+; WRAP exception in MainInBattleLoop); it is consumed here. A replacement
+; after a faint reads what AIPickFaintReplacement just wrote (2026-09-27: its
+; pick for a trainer with the switch layer, else 0). The battle's first
+; send-out, a trainer without the layer and a double KO read 0 and take the
+; first live mon in party order, as vanilla does.
 	ld hl, wAISwitchRequest
 	ld a, [hl]
 	ld [hl], 0
