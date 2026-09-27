@@ -6432,7 +6432,17 @@ LoadEnemyMonData:
 	ld a, [wEnemyMonMaxHP+1]
 	ld [hli], a
 	xor a
-	inc hl
+; v1.0 (2026-09-27): vanilla skipped byte 3 here (inc hl), so a wild battle
+; kept whatever wEnemyMonPartyPos last held - and SendNewMonToBox writes the
+; caught mon's LEVEL there (it is also wEnemyMonBoxLevel). Three routines
+; index the enemy roster with it without asking whether the battle is wild:
+; DecrementEnemyPP (Normal mode, every enemy move), IncrementMovePP (after
+; METRONOME / MIRROR MOVE) and CheckDefrost (a FIRE hit thawing the enemy).
+; After a catch went to the PC, every wild move until the next trainer battle
+; wrote at wEnemyMon1PP + level x 48: the PC box, the Day-Care, the palettes,
+; the stack. A wild mon is slot 0 of a roster nothing reads.
+; (Guard: .claude/emu_test_wild_partypos.py.)
+	ld [hli], a ; wEnemyMonPartyPos = 0
 	ld [hl], a ; init status to 0
 	jr .copyTypes
 ; if it's a trainer mon, copy the HP and status from the enemy party data
