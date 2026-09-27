@@ -1988,6 +1988,18 @@ LoadEnemyMonFromParty:
 	ret
 
 SendOutMon:
+; v1.0 (2026-09-27): the outgoing #MON's volatile status is cleared BEFORE the
+; HUD is drawn - DrawPlayerHUDAndHPBar reads wPlayerBattleStatus1 (CNF) and 3
+; (TOX; TRANSFORMED for the EXP bar, harmless: wPlayerMonNumber is already the
+; newcomer). Cleared after it (vanilla's order), the #MON coming in wore the
+; CNF / TOX of the one going out until the next redraw.
+	xor a
+	ld hl, wPlayerStatsToDouble ; ..StatsToHalve, BattleStatus1 / 2 / 3
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
 	callfar PrintSendOutMonMessage
 	ld hl, wEnemyMonHP
 	ld a, [hli]
@@ -2008,13 +2020,7 @@ SendOutMon:
 	ld hl, wPlayerUsedMove
 	ld [hli], a
 	ld [hl], a
-	ld hl, wPlayerStatsToDouble
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
-	ld [wPlayerDisabledMove], a
+	ld [wPlayerDisabledMove], a ; (the StatsToDouble..BattleStatus3 clear moved to the top)
 	ld [wPlayerDisabledMoveNumber], a
 	ld [wPlayerMonMinimized], a
 	ld b, SET_PAL_BATTLE
