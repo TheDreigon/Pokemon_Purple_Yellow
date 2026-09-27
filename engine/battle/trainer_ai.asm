@@ -877,7 +877,7 @@ AIGetMovePriorityWrapped:
 ; are taken off last, so they are never lost.
 AISwitchKnobs:
 .confused: db 13 ; the mon is CONFUSED
-.toxic:    db 6  ; the mon is badly poisoned
+.toxic:    db 3  ; per tick the badly poisoned mon has taken (2026-09-27: 6 at two, the old flat weight)
 .stages:   db 7, 18, 25, 32 ; net stat stages -1, -2, -3, -4 or worse
 .boosted:  db 10 ; off at net +2 or better: it is winning, it stays
 .allBad:   db 29 ; every move it has is discouraged (score 11 or more)
@@ -910,11 +910,25 @@ AIMoveChoiceModification6:
 	ld a, [AISwitchKnobs.confused]
 	call AddToBCapped
 .checkToxic
+; v1.0 (2026-09-27): TOXIC stays on a switch now (Gen 3); only its count
+; restarts. Leaving is worth something once the count has climbed: .toxic per
+; tick taken (wEnemyToxicCounter - the ticks the trainer has watched). Gated on
+; PSN: a BADLY_POISONED left over without it means nothing.
+	ld a, [wEnemyMonStatus]
+	bit PSN, a
+	jr z, .checkStages
 	ld a, [wEnemyBattleStatus3]
 	bit BADLY_POISONED, a
 	jr z, .checkStages
+	ld a, [wEnemyToxicCounter]
+	and a
+	jr z, .checkStages
+	ld c, a ; c is free here; AddToBCapped keeps it
+.toxicTick
 	ld a, [AISwitchKnobs.toxic]
 	call AddToBCapped
+	dec c
+	jr nz, .toxicTick
 .checkStages
 	call AISumEnemyStatStages ; a = the seven stage bytes added up, 49 = untouched
 	cp 7 * (MOD_EVASION + 1)
@@ -2262,12 +2276,22 @@ SwitchEnemyMon:
 	ld bc, 4
 	call CopyData
 ; v1.0 (2026-09-27): byte 3 of the roster entry (it just got the party
-; position, which nothing reads there) keeps the freeze count, so a frozen mon
-; that comes back resumes its own count - wEnemyFreezeCounter is one byte for
-; the whole side (LoadEnemyMonData reads it back).
+; position, which nothing reads there) keeps the freeze count and, in bit 7, a
+; bad POISON (TOXIC by the Gen 3 rule: it stays when called back) -
+; wEnemyFreezeCounter and BADLY_POISONED are the side's, not the mon's
+; (LoadEnemyMonData / RestoreEnemyMonToxic read them back). Bit 7 only with PSN:
+; a leftover BADLY_POISONED is not carried.
 	dec de
-	dec de
-	ld a, [wEnemyFreezeCounter]
+	dec de ; de -> byte 3 of its roster entry
+	ld a, [wEnemyMonStatus]
+	and 1 << PSN
+	jr z, .gotToxicBit ; a = 0
+	ld a, [wEnemyBattleStatus3]
+	rrca ; BADLY_POISONED (bit 0) -> bit 7
+	and 1 << BOX_LEVEL_TOXIC_F
+.gotToxicBit
+	ld hl, wEnemyFreezeCounter
+	or [hl]
 	ld [de], a
 ; v1.0 (2026-09-26): and its battle MaxHP, so the roster's HP and MaxHP are
 ; on the same scale once it has been out (a boss's battle MaxHP comes from

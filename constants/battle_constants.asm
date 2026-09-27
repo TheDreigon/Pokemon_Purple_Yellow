@@ -165,6 +165,9 @@ DEF SPDSPCDV_TRAINER EQU $88
 ; wPlayerBattleStatus3 or wEnemyBattleStatus3 bit flags
 	const_def
 	const BADLY_POISONED      ; 0
+; (v1.0 2026-09-27) bit 7 of MON_BOX_LEVEL (byte 3) of a party / roster #MON: it
+; left the field badly poisoned (engine/battle/toxic_carry.asm). Only with PSN.
+DEF BOX_LEVEL_TOXIC_F EQU 7
 	const HAS_LIGHT_SCREEN_UP ; 1
 	const HAS_REFLECT_UP      ; 2
 	const TRANSFORMED         ; 3

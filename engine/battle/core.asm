@@ -2000,6 +2000,7 @@ SendOutMon:
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
+	farcall RestoreBattleMonToxic ; a bad POISON it left with comes back, its count at 0 (Gen 3)
 	callfar PrintSendOutMonMessage
 	ld hl, wEnemyMonHP
 	ld a, [hli]
@@ -2105,12 +2106,12 @@ AnimateRetreatingPlayerMon:
 ; reads player's current mon's HP into wBattleMonHP
 ReadPlayerMonCurHPAndStatus:
 ; v1.0 (2026-09-27): byte 3 carries the freeze count to the party data with the
-; HP and the status (see the end of LoadBattleMonFromParty). This runs at the
-; top of every turn, when the #MON faints and when the enemy's does, so the
-; party holds the count at every switch, run and battle end: it only changes
-; while a turn executes.
-	ld a, [wPlayerFreezeCounter]
-	ld [wBattleMonBoxLevel], a
+; HP and the status (see the end of LoadBattleMonFromParty), and in its bit 7 a
+; bad POISON (TOXIC by the Gen 3 rule, toxic_carry.asm). This runs at the top of
+; every turn, when the #MON faints, when the enemy's does and after a drain, so
+; the party holds both at every switch, run, battle end and menu: they only
+; change while a turn executes.
+	farcall StoreBattleMonByte3 ; the freeze count | bit 7 when badly poisoned
 	ld a, [wPlayerMonNumber]
 	ld hl, wPartyMon1HP
 	ld bc, wPartyMon2 - wPartyMon1
@@ -2118,7 +2119,7 @@ ReadPlayerMonCurHPAndStatus:
 	ld d, h
 	ld e, l
 	ld hl, wBattleMonHP
-	ld bc, $4               ; 2 bytes HP, byte 3 = the freeze count, 1 byte status
+	ld bc, $4               ; 2 bytes HP, byte 3 = the freeze count (bit 7: TOX), 1 byte status
 	jp CopyData
 
 DrawHUDsAndHPBars:
@@ -4676,6 +4677,8 @@ CheckForDisobedience:
 	and SLP_MASK
 	jr z, .monNaps ; keep trying until we get at least 1 turn of sleep
 	ld [wBattleMonStatus], a
+	ld hl, wPlayerBattleStatus3
+	res BADLY_POISONED, [hl] ; v1.0 (2026-09-27): the nap replaces any status - a bad POISON goes with the POISON
 	ld hl, BeganToNapText
 	jr .printText
 .monDoesNothing
@@ -6492,10 +6495,11 @@ LoadEnemyMonData:
 	ld [wEnemyMonHP + 1], a
 	ld a, [wWhichPokemon]
 	ld [wEnemyMonPartyPos], a
-	ld a, [hli] ; v1.0 (2026-09-27): byte 3 = the freeze count it left the field with (SwitchEnemyMon; 0 for a fresh mon)
-	ld [wEnemyFreezeCounter], a
+	ld a, [hli] ; v1.0 (2026-09-27): byte 3 = the freeze count it left the field with, bit 7 = badly poisoned (SwitchEnemyMon; 0 for a fresh mon)
+	ld [wEnemyFreezeCounter], a ; RestoreEnemyMonToxic takes bit 7 off, below
 	ld a, [hl]
 	ld [wEnemyMonStatus], a
+	farcall RestoreEnemyMonToxic ; toxic_carry.asm
 	; v0.7 hard-mode boss HP fix (knob #8 follow-up). The $ff DV override
 	; at .writeDVs raised this mon's freshly-CalcStats'd MaxHP, but the
 	; current HP just copied above was computed by AddPartyMon with the

@@ -36,6 +36,7 @@ HealEffect_:
 	call DelayFrames
 	xor a
 	ld [hl], a
+	call .userToxicOff
 	farcall PlayCurrentMoveAnimation
 	ld hl, RegainedStatusText
 	jp PrintText
@@ -57,7 +58,7 @@ HealEffect_:
 	jr z, .recoverPath
 	cp GROWTH
 	jr z, .growthDivide
-	jr .healHP
+	jp .healHP ; (v1.0 2026-09-27: jp - the bad-POISON calls below put it out of jr reach)
 .restPath
 	push hl
 	push de
@@ -70,6 +71,7 @@ HealEffect_:
 	jr z, .restEffect
 	ld hl, wEnemyMonStatus
 .restEffect
+	call .userToxicOff ; REST replaces any status, a bad POISON too (before the `and a` below)
 	ld a, [hl]
 	and a
 	; v1.0 (2026-09-24): 3, not 2 - the wake-up turn now attacks (core.asm
@@ -108,6 +110,7 @@ HealEffect_:
 	jr z, .noStatusToClear ; nothing to clear; skip the refreshed line
 	xor a
 	ld [hl], a ; clear status
+	call .userToxicOff
 	ld hl, RegainedStatusText
 	call PrintText
 .noStatusToClear
@@ -228,6 +231,22 @@ HealEffect_:
 ; EffectCallBattleCore switches to a HARDCODED BANK(BattleCore) before the
 ; jump -- it would land on garbage. farjp recomputes the target's real bank.
 	farjp PrintButItFailedText_
+
+.userToxicOff
+; v1.0 (2026-09-27): the user's bad POISON ends with its status (Gen 2+; TOXIC by
+; the Gen 3 rule, toxic_carry.asm): BADLY_POISONED off, or the next ordinary
+; POISON would tick as TOX. Keeps everything but a and the flags. (At the very
+; end: anywhere above, it pushed one of the routine's jr out of reach.)
+	push hl
+	ld hl, wPlayerBattleStatus3
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotUserStatus3
+	ld hl, wEnemyBattleStatus3
+.gotUserStatus3
+	res BADLY_POISONED, [hl]
+	pop hl
+	ret
 
 StartedSleepingEffect:
 	text_far _StartedSleepingEffect

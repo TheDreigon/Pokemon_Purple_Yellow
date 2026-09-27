@@ -70,6 +70,10 @@ EndOfBattle:
 	ld [hli], a
 	dec b
 	jr nz, .loop
+; v1.0 (2026-09-27): a bad POISON lasts the battle; every party #MON leaves it as
+; ordinary POISON (Gen 3-4), so nothing says TOX outside a battle. Every battle
+; ends here (init_battle.asm: callfar StartBattle, then callfar EndOfBattle).
+	farcall RevertPartyToxic ; toxic_carry.asm
 	ld hl, wd72c
 	set 0, [hl]
 	call WaitForSoundToFinish

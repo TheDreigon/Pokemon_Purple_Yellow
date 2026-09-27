@@ -6,9 +6,12 @@
 ; Confusion cannot go through PrintStatusAilment: that routine reads a mon's
 ; STATUS BYTE, confusion is volatile and lives in wXBattleStatus1, and the
 ; routine is shared with the party menu and the stats screen, where the row
-; being drawn is usually not the battler. Same reason TOX lives here and not
-; there: BADLY_POISONED is wXBattleStatus3 bit 0, gone once the #MON is
-; switched out, so the party list keeps saying PSN, which is what it will be.
+; being drawn is usually not the battler. TOX is read here from the LIVE bit
+; (BADLY_POISONED, wXBattleStatus3 bit 0). Since 2026-09-27 a bad POISON stays
+; when the #MON is called back (TOXIC by the Gen 3 rule): its own copy is bit 7
+; of byte 3 of its party data (toxic_carry.asm), and the battle's end turns it
+; ordinary. A battle struct's byte 3 is no such copy (wBattleMonBoxLevel is only
+; rebuilt at write-backs; the enemy's is wEnemyMonPartyPos), so this never reads it.
 ;
 ; A persistent status OUTRANKS confusion: three tiles and no more.
 

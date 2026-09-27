@@ -51,6 +51,16 @@ SleepEffect:
 	and a
 	jr nz, .didntAffect
 .setSleepCounter
+; v1.0 (2026-09-27): sleep replaces any status here (the recharge bypass above
+; skips the "already statused" test): a bad POISON goes with the POISON, or it
+; would come back as TOX on the next ordinary POISON.
+	ld hl, wEnemyBattleStatus3
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotTargetStatus3
+	ld hl, wPlayerBattleStatus3
+.gotTargetStatus3
+	res BADLY_POISONED, [hl]
 ; PURPLE YELLOW v0.5: sleep lasts 2-5 turns (was 1-7 with Stadium override to 1-3).
 	call BattleRandom
 	and $3   ; 0-3
