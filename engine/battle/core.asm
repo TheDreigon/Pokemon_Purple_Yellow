@@ -3695,12 +3695,17 @@ ExecutePlayerMove:
 	ld a, [wActionResultOrTookBattleTurn]
 	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
 	jp nz, ExecutePlayerMoveDone
-	call PrintGhostText
-	jp z, ExecutePlayerMoveDone
 	call CheckPlayerStatusConditions
 	jr nz, .playerHasNoSpecialCondition
 	jp hl
 .playerHasNoSpecialCondition
+; v1.0 (2026-09-27): the ghost check comes AFTER the status checks, so a sleep or
+; a freeze counts down (and says so) in the ghost battle too; a #MON that would
+; act - awake, just woken, thawed - is then too scared, and the unidentified
+; ghost is never hit. (Before it, a count of exactly 2 lost the turn silently
+; forever, a count of 1 stayed "too scared" forever and a freeze never thawed.)
+	call PrintGhostText
+	jp z, ExecutePlayerMoveDone
 	call GetCurrentMove
 	ld hl, wPlayerBattleStatus1
 	bit CHARGING_UP, [hl] ; charging up for attack
@@ -3902,13 +3907,8 @@ PrintGhostText:
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .Ghost
-	ld a, [wBattleMonStatus] ; player's turn
-	and SLP_MASK
-	cp 2
-	ret nc ; v1.0 (2026-09-24): asleep beyond this turn, "fast asleep" is the line.
-	       ; A #MON that would wake this turn - or is frozen - is too scared
-	       ; instead and stays put: the wake/thaw turn attacks now, and the
-	       ; unidentified ghost must never be hit
+	; player's turn: ExecutePlayerMove calls this after the status checks
+	; (2026-09-27), so the #MON is able to act - and too scared to
 	ld hl, ScaredText
 	call PrintText
 	xor a
