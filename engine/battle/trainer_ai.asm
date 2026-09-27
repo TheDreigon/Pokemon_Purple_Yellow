@@ -858,8 +858,8 @@ AIGetMovePriorityWrapped:
 ; asks for a mon that is asleep or frozen (2026-09-27: the status only, see
 ; its top - the layers now run for sleepers), and only when the hook will
 ; honour it - a second live mon in the party - because a pending
-; request is the enemy's action this turn: HandleMovePriority puts it above
-; every move, so a switch runs before the player's move, as the player's
+; request is the enemy's action this turn: TrainerAI runs before either move
+; (2026-09-27), so a switch runs before the player's move, as the player's
 ; own switch does.
 ; Adapted from ExtremeYellow's Mod4 (trainer_ai.asm:1913-2072). The knobs
 ; are its weights (13/6, 7/18/25/32, 29), plus two reasons to STAY that are
@@ -1250,18 +1250,39 @@ TrainerAI:
 	ret z ; if in a link battle, we're done as well
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;shinpokerednote: FIXED: AI should not use actions (items / switching) if in a move that prevents such a thing
-	and a ; clear carry flag in case we return due to the next two checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent.
+; v1.0 (2026-09-27, Forte: "a regra para o oponente deverá ser a mesma pelo qual o
+; player se rege"): an item exactly when the player would get the
+; battle menu (MainInBattleLoop): never while it must recharge, THRASHes or
+; charges a two-turn move (FLY/DIG's INVULNERABLE only exists with CHARGING_UP).
+; BIDE, confusion, sleep, a freeze and the player's WRAP do not stop it, as they
+; do not stop the player. Its own WRAP does not either - the item costs a turn of
+; it, as the player's does (UseBagItem; DecrementAICount here) - except the
+; WRAP's LAST turn: there the player's item frees the enemy to act that same
+; turn, while the player, held, chose its $ff at the menu before this and could
+; not get that turn back. (shinpokered's mask was %01110010: the enemy's own
+; WRAP blocked it, stricter than the player.) A SWITCH stays stricter than the
+; player's: SelectEnemyMove makes no request in its own BIDE or WRAP, or while
+; held and awake, and layer 6 never asks for an asleep or frozen mon (D14) -
+; parity there is for Forte to decide.
+	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / dec keep it clear)
 	ld a, [wEnemyBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
 	ret nz
-	ld a, [wEnemyBattleStatus1]
-	and %01110010 
+	ld hl, wEnemyBattleStatus1
+	ld a, [hl]
+	and (1 << THRASHING_ABOUT) | (1 << CHARGING_UP)
 	ret nz
+	bit USING_TRAPPING_MOVE, [hl]
+	jr z, .notOwnWrapLastTurn
+	ld a, [wEnemyNumAttacksLeft] ; 1-4 at the menu while the bit is set
+	dec a
+	ret z
+.notOwnWrapLastTurn
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; v1.0 (2026-09-26, the AI switch layer): the switch layer (6) asked to
-; switch this turn, and HandleMovePriority already put the enemy first for
-; it. The request names the teammate (1 + its party index); EnemySendOut
+; switch this turn; TrainerAI runs before either move (MainInBattleLoop,
+; 2026-09-27), so the switch goes first. The request names the teammate (1 + its party index); EnemySendOut
 ; consumes it when the switch happens, and this hook drops it when it does
 ; not (and ReplaceFaintedEnemyMon clears it), so a faint replacement keeps
 ; party order. An asleep or frozen mon is not pulled (D14, by the status
@@ -2033,6 +2054,20 @@ GenericAI:
 DecrementAICount:
 	ld hl, wAICount
 	dec [hl]
+; v1.0 (2026-09-27): an item used while its own WRAP holds the player costs a
+; turn of it, as the player's does (UseBagItem). wEnemyNumAttacksLeft is shared
+; with BIDE / THRASH / multi-hit: it is read only behind USING_TRAPPING_MOVE.
+; (TrainerAI never lets it happen on the WRAP's last turn; the reset mirrors the
+; player's code all the same.)
+	ld hl, wEnemyBattleStatus1
+	bit USING_TRAPPING_MOVE, [hl]
+	jr z, .done
+	ld a, [wEnemyNumAttacksLeft]
+	dec a
+	ld [wEnemyNumAttacksLeft], a
+	jr nz, .done
+	res USING_TRAPPING_MOVE, [hl]
+.done
 	scf
 	ret
 

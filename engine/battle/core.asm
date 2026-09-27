@@ -483,20 +483,43 @@ MainInBattleLoop:
 	call CheckNumAttacksLeft
 	jp MainInBattleLoop
 .playerMovesFirst
+; v1.0 (2026-09-27, Forte: "queremos que os oponentes sejam fortes ... mas não
+; queremos que façam batota descaradamente"): the enemy's item or switch comes
+; FIRST in this branch too, as in the enemy-first one - Gen 2's order
+; (pokecrystal Battle_PlayerFirst: AI_SwitchOrTryItem, then the player's move).
+; It used to run after the player's move, so a SLOWER enemy decided seeing the
+; hit it had just taken - healing that damage, curing that status - and a hit
+; that knocks it out came before any heal. It now decides on the state after
+; the player's menu action, whatever the speeds, as the player's own item and
+; switch do. The order was fixed above, so each side's poison / burn / LEECH
+; SEED keeps its speed slot: on an item or switch turn the enemy's residual
+; follows the player's move and residual (Gen 2's .switched_or_used_item). The
+; flag rides on the stack across the player's move (Gen 2 keeps it in a
+; register pair); every exit below pops it first.
+	ld a, $1
+	ldh [hWhoseTurn], a
+	callfar TrainerAI
+	push af ; carry = its item or switch was its turn
+	call c, DrawEnemyHUDAndHPBar ; its cure / its newcomer shows before the player's move
 	call ExecutePlayerMove
+	pop de ; e = TrainerAI's flags (bit 4 = carry); b = ExecutePlayerMove's answer
 	ld a, [wEscapedFromBattle]
 	and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
 	ret nz ; if so, return
 	ld a, b
 	and a
 	jp z, HandleEnemyMonFainted
+	push de
 	call HandlePoisonBurnLeechSeed
+	pop de ; (pop keeps the flags)
 	jp z, HandlePlayerMonFainted
+	push de
 	call DrawHUDsAndHPBars
+	pop de
 	ld a, $1
 	ldh [hWhoseTurn], a
-	callfar TrainerAI
-	jr c, .AIActionUsedPlayerFirst
+	bit 4, e ; its item or switch: no move this turn, just its residual
+	jr nz, .AIActionUsedPlayerFirst
 	call ExecuteEnemyMove
 	ld a, [wEscapedFromBattle]
 	and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
@@ -572,14 +595,10 @@ HandleMovePriority:
 .enemyUsingPriorityMove
         ld e, [hl]        ; get new priority value 
 .noEnemyPriorityMove
-; v1.0 (2026-09-26, the AI switch layer): a pending switch request is the
-; enemy's action this turn (the layer asks only when TrainerAI's hook will
-; honour it), and a switch goes first, as the player's own does - above
-; every priority move.
-	ld a, [wAISwitchRequest]
-	and a
-	ret z
-	ld e, 10
+; (v1.0 2026-09-27: the priority 10 a pending switch request got here is gone -
+; the enemy's item or switch now runs before either move in both branches of
+; MainInBattleLoop, and the speed order only places the residuals, as Gen 2's
+; switch does.)
 	ret
 
 INCLUDE "data/battle/priority_moves.asm"
