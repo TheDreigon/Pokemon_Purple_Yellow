@@ -339,22 +339,14 @@ MainInBattleLoop:
 	ld a, [wEscapedFromBattle]
 	and a
 	ret nz ; return if pokedoll was used to escape from battle
-; v1.0 (2026-09-24): a sleeper / a frozen #MON picks a move on the turn it
-; will wake or thaw (CheckPlayerStatusConditions counts down first and then
-; lets it act), so the move it uses is chosen THIS turn, not the stale
-; wPlayerSelectedMove. Sleep: SLP counter 1 wakes this turn. Freeze:
-; wPlayerFreezeCounter 0 or 1 thaws this turn (.FrozenCheck's already-zero /
-; dec-to-zero pair). `bit` does not touch a, and a frozen #MON has no sleep
-; counter, so a can be reused.
-	ld hl, wBattleMonStatus
-	ld a, [hl]
-	and SLP_MASK
-	bit FRZ, [hl]
-	jr z, .gateOnCounter
-	ld a, [wPlayerFreezeCounter]
-.gateOnCounter
-	cp 2
-	jr nc, .selectEnemyMove ; still asleep or frozen after this turn: nothing to pick
+; v1.0 (2026-09-27, Forte: "concordo e aprovo, podes seguir"): the move list is
+; offered EVERY turn, asleep or frozen too, as from Gen 2 on (pokecrystal's
+; BattleMenu has no sleep gate). A #MON that stays down says fast asleep /
+; frozen solid before GetCurrentMove or DecrementPP run, so the pick costs
+; nothing; one that wakes, thaws, or is thawed by a FIRE hit uses the move
+; chosen THIS turn. (2026-09-24 offered the list only on the turn the counter
+; ran out: a FIRE thaw then ran the last pick, made turns before - maybe by
+; another #MON - and the list's appearing told the player the hidden count.)
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump
@@ -362,6 +354,15 @@ MainInBattleLoop:
 	bit USING_TRAPPING_MOVE, a ; check if enemy is using a multi-turn attack like wrap
 	jr z, .selectPlayerMove ; if not, jump
 ; enemy is using a multi-turn attack like wrap, so player is trapped and cannot execute a move
+; v1.0 (2026-09-27): unless asleep or frozen - then it picks as if free. A $ff
+; makes ExecutePlayerMove return before CheckPlayerStatusConditions, so the
+; sleep / freeze would not count down while the WRAP lasts (since 2026-09-24).
+; The pick runs only if the WRAP user loses its grip first (full paralysis, a
+; confusion self-hit) on the wake / thaw turn; otherwise .HeldInPlaceCheck
+; says "can't move". It is always this #MON's own.
+	ld a, [wBattleMonStatus]
+	and (1 << FRZ) | SLP_MASK
+	jr nz, .selectPlayerMove
 	ld a, $ff
 	ld [wPlayerSelectedMove], a
 	jr .selectEnemyMove
@@ -383,7 +384,8 @@ MainInBattleLoop:
 .selectEnemyMove
 ; v1.0: the choice was made at the top of the turn. It is made here only if a
 ; gate stopped it there (SelectEnemyMove sets wAIChoseThisTurn only when it
-; picks): the stable ones (recharge, a charge, sleep) just stop it again,
+; picks): the stable ones (recharge, a charge or THRASH, BIDE) just stop it
+; again,
 ; and the ones a player's action can lift - the player's switch ends BOTH
 ; WRAPs (SendOutMon resets the enemy's USING_TRAPPING_MOVE and zeroes
 ; wPlayerBattleStatus1), an item on its last turn ends the player's own -
@@ -3509,24 +3511,22 @@ SelectEnemyMove:
 	ld a, [hl]
 	and (1 << CHARGING_UP) | (1 << THRASHING_ABOUT) ; using a charging move or thrash/petal dance
 	ret nz
-; v1.0 (2026-09-24): mirror of the player's gate in MainInBattleLoop - a
-; sleeper / a frozen #MON that wakes or thaws this turn must choose now,
-; otherwise CheckEnemyStatusConditions runs the stale wEnemySelectedMove.
-	ld hl, wEnemyMonStatus
-	ld a, [hl]
-	and SLP_MASK
-	bit FRZ, [hl]
-	jr z, .gateOnCounter
-	ld a, [wEnemyFreezeCounter]
-.gateOnCounter
-	cp 2
-	ret nc ; still asleep or frozen after this turn: keep the old pick, it will not run
-	ld a, [wEnemyBattleStatus1]
+; v1.0 (2026-09-27): no sleep / freeze gate - the enemy chooses every turn,
+; asleep or frozen too, as the player does (pokecrystal AIChooseMove stops only
+; for CheckEnemyLockedIn: recharge, a charge, a rampage, BIDE, ROLLOUT). The
+; switch layer never withdraws an asleep or frozen mon (its own top).
+	ld a, [hl] ; hl = wEnemyBattleStatus1 still
 	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; using a trapping move like wrap or bide
 	ret nz
 	ld a, [wPlayerBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; caught in player's trapping move (e.g. wrap)
 	jr z, .canSelectMove
+; v1.0 (2026-09-27): held while asleep or frozen, it still chooses: a $ff would
+; skip the count-down (ExecuteEnemyMove returns before CheckEnemyStatusConditions).
+; The layers run; the switch layer never asks for an asleep or frozen mon.
+	ld a, [wEnemyMonStatus]
+	and (1 << FRZ) | SLP_MASK
+	jr nz, .canSelectMove
 .unableToSelectMove
 	ld a, $ff
 	jr .done
@@ -3969,8 +3969,8 @@ CheckPlayerStatusConditions:
 	jp .returnToHL
 .WakeUp
 ; v1.0 (2026-09-24, Forte): the turn a #MON wakes up it goes on to its move.
-; The FIGHT menu was offered this turn (MainInBattleLoop lets a sleeper with
-; one turn left pick), so wPlayerSelectedMove is fresh. Redraw first or the
+; The move list is offered every turn (2026-09-27), so wPlayerSelectedMove is
+; this turn's pick. Redraw first or the
 ; HUD keeps saying SLP through the attack. Frozen and asleep exclude each
 ; other: skip .FrozenCheck.
 	ld hl, WokeUpText
@@ -6059,7 +6059,7 @@ CheckEnemyStatusConditions:
 	jp .enemyReturnToHL
 .wokeUp
 ; v1.0 (2026-09-24): see .WakeUp on the player side. SelectEnemyMove chose a
-; fresh move this turn (its gate lets a sleeper with one turn left choose).
+; fresh move this turn (it chooses every turn since 2026-09-27).
 	ld hl, WokeUpText
 	call PrintText
 	call DrawHUDsAndHPBars

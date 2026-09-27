@@ -269,11 +269,14 @@ AIMoveChoiceModification1:
 	jr nz, .notFullHealth
 	; PURPLE YELLOW v0.6: Softboiled now also clears status (Full Heal). Allow
 	; the AI to use Softboiled at full HP if it has a status to refresh.
+	; v1.0 (2026-09-27): a POISON, a BURN or a PARALYSIS - not SLEEP or a FREEZE:
+	; the enemy now chooses while asleep or frozen, and that pick runs only on the
+	; turn it wakes or thaws, when the status is already gone.
 	ld a, [wEnemyMoveNum]
 	cp SOFTBOILED
 	jr nz, .fullHealthDiscourage
 	ld a, [wEnemyMonStatus]
-	and a
+	and (1 << PSN) | (1 << BRN) | (1 << PAR)
 	jr z, .fullHealthDiscourage
 	pop de
 	pop hl
@@ -648,11 +651,13 @@ AIMoveChoiceModification4:
 	jr c, .preferMove ; if HP is below 50% encourage using a healing move
 	; PURPLE YELLOW v0.6: Softboiled also acts as Full Heal — encourage it when
 	; the AI has a status condition, regardless of HP.
+	; v1.0 (2026-09-27): POISON, BURN, PARALYSIS only (see layer 1: a pick made
+	; asleep or frozen runs once the status is gone).
 	ld a, [wEnemyMoveNum]
 	cp SOFTBOILED
 	jr nz, .nextMove
 	ld a, [wEnemyMonStatus]
-	and a
+	and (1 << PSN) | (1 << BRN) | (1 << PAR)
 	jr nz, .preferMove
 	jr .nextMove
 .checkOpponentAsleep
@@ -692,9 +697,9 @@ Modifier4PreferredMoves:
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
 ;    +5 - it would go first and hit nothing (nothing lands on a mon up in the
 ;    air or underground here, never-miss moves included);
-;  - a priority move when the enemy is slower, the player acts this turn (not
-;    asleep or frozen past it: the MainInBattleLoop rule) and the move at
-;    least neutral: -1 (it goes first).
+;  - a priority move when the enemy is slower, the player is not asleep or
+;    frozen (the status a trainer sees; 2026-09-27: not the hidden turns left)
+;    and the move at least neutral: -1 (it goes first).
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -773,18 +778,14 @@ AIMoveChoiceModification5:
 	jp c, .nextMove
 	call AIEnemyIsSlower
 	jp nc, .nextMove ; faster (or as fast) anyway: no need for priority
-; does the player act this turn? The MainInBattleLoop rule: a sleep counter
-; of 1 wakes and attacks, FRZ with a freeze counter of 0-1 thaws and attacks;
-; 2 and up stays down, and there is no first strike to win against it
+; does the player act this turn? v1.0 (2026-09-27, Forte: "certo, corrige"):
+; a trainer sees the status, not the turns left - asleep or frozen is taken as
+; "stays down" (true on most such turns), and no first strike is bought
+; against it. (It used to read the player's exact sleep count and
+; wPlayerFreezeCounter; pokecrystal's AI_Smart_PriorityHit reads neither.)
 	ld a, [wBattleMonStatus]
-	ld c, a
-	and SLP_MASK
-	bit FRZ, c
-	jr z, .playerActsGate
-	ld a, [wPlayerFreezeCounter]
-.playerActsGate
-	cp 2
-	jp nc, .nextMove
+	and (1 << FRZ) | SLP_MASK
+	jp nz, .nextMove
 	push hl
 	push bc
 	push de
@@ -853,10 +854,10 @@ AIGetMovePriorityWrapped:
 ; WRAP (the enemy's or the player's) stopped the choice at the top and the
 ; player's action ended it (a switch ends both WRAPs; an item can end the
 ; player's own on its last turn), the enemy chooses after that action and
-; sees it, as it always did - it had nothing to choose at the top. It asks
-; only when the hook will honour it - a second live mon in the party (the
-; mon that is out cannot be asleep or frozen past this turn here: the
-; SelectEnemyMove gate returns before the layers run) - because a pending
+; sees it, as it always did - it had nothing to choose at the top. It never
+; asks for a mon that is asleep or frozen (2026-09-27: the status only, see
+; its top - the layers now run for sleepers), and only when the hook will
+; honour it - a second live mon in the party - because a pending
 ; request is the enemy's action this turn: HandleMovePriority puts it above
 ; every move, so a switch runs before the player's move, as the player's
 ; own switch does.
@@ -883,6 +884,14 @@ AIMoveChoiceModification6:
 	ld [wAISwitchCooldown], a
 	ret
 .noCooldown
+; v1.0 (2026-09-27, D14 by the status only): an asleep or frozen mon is never
+; withdrawn - the trainer sees the status, not the turns left (it used to let
+; one go on the turn its hidden count ran out). The enemy now chooses every
+; turn, so this runs for sleepers: the rule lives here (the TrainerAI hook
+; keeps the same test as a second guard).
+	ld a, [wEnemyMonStatus]
+	and (1 << FRZ) | SLP_MASK
+	ret nz ; no request, no Random spent
 	call AICountLiveEnemyMons
 	cp 2
 	ret c ; nothing to switch to: no request, and no Random spent
@@ -1255,25 +1264,17 @@ TrainerAI:
 ; it. The request names the teammate (1 + its party index); EnemySendOut
 ; consumes it when the switch happens, and this hook drops it when it does
 ; not (and ReplaceFaintedEnemyMon clears it), so a faint replacement keeps
-; party order. A mon still asleep or frozen past this turn is not pulled
-; (D14; the MainInBattleLoop rule: a sleep counter of 1 wakes and acts, FRZ
-; with a freeze counter of 0-1 thaws and acts - those can go); with one mon
-; left there is nothing to switch to, and the class AI below runs as usual
-; - its item count is set up there, so this path falls through, it never
-; returns. Both cases are belt and braces: the layer only asks with a
-; second live mon, after SelectEnemyMove's own sleep gate.
+; party order. An asleep or frozen mon is not pulled (D14, by the status
+; only since 2026-09-27); with one mon left there is nothing to switch to,
+; and the class AI below runs as usual - its item count is set up there, so
+; this path falls through, it never returns. Both cases are belt and braces:
+; the layer asks only for an awake mon with a second live mon.
 	ld a, [wAISwitchRequest]
 	and a
 	jr z, .noSwitchRequest
 	ld a, [wEnemyMonStatus]
-	ld c, a
-	and SLP_MASK
-	bit FRZ, c
-	jr z, .switchGate
-	ld a, [wEnemyFreezeCounter]
-.switchGate
-	cp 2
-	jr nc, .dropSwitchRequest
+	and (1 << FRZ) | SLP_MASK
+	jr nz, .dropSwitchRequest ; asleep or frozen: it stays
 	call AISwitchIfEnoughMons
 	ret c ; switched (EnemySendOut consumed the request): that was the turn's action
 .dropSwitchRequest
@@ -2226,9 +2227,10 @@ SwitchEnemyMon:
 ; v1.0 (2026-09-26, the AI switch layer): the mon that comes in starts
 ; fresh - its setup layer counts from zero again (as yumepokered does) and
 ; the switch layer leaves the newcomer alone for a couple of turns. (The
-; player's WRAP needs nothing here: a held enemy never chooses a move -
-; SelectEnemyMove hands it $ff before the layers run - so it never asks to
-; switch while held, and EnemySendOutFirstMon drops the trapping bit.)
+; player's WRAP needs nothing here: a held enemy never asks to switch -
+; SelectEnemyMove hands an awake one $ff before the layers run, and the
+; layer never asks for an asleep or frozen one - and EnemySendOutFirstMon
+; drops the trapping bit.)
 	xor a
 	ld [wAILayer2Encouragement], a
 	ld a, [AISwitchKnobs.cooldown]
