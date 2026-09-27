@@ -2315,6 +2315,15 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	ldh [hWhoseTurn], a
 	xor a
 	ld [wEnemyMonStatus], a ; clear status in active enemy data
+; v1.0 (2026-09-27, Forte: "full heal e full restore ambos deverão corrigir o
+; confusion status"): confusion goes too, the bit and its count, as with the
+; player's two items (item_effects.asm CureConfusionIfFullHealOrRestore). Only
+; AIUseFullHeal and AIUseFullRestore come here, so there is no item to test.
+; a is still 0. (Every writer of CONFUSED writes a fresh 2-5 count with it; the
+; zero is belt and braces, as on the player's side.)
+	ld [wEnemyConfusedCounter], a
+	ld hl, wEnemyBattleStatus1
+	res CONFUSED, [hl]
 	ld hl, wEnemyBattleStatus3
 	res BADLY_POISONED, [hl]	;clear toxic bit
 	ret
