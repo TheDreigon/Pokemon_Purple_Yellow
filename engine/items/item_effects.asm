@@ -1384,25 +1384,40 @@ ItemUseMedicine:
 	cp d ; is pokemon the item was used on active in battle?
 	jp nz, .doneHealing
 ; if it is active in battle
+	call .clearBattleMonStatus
+	jp .doneHealing
+
+; Clears what the status byte of the party data does not hold, for the #MON
+; that is out: its battle status, TOXIC (a bit of wPlayerBattleStatus3) and,
+; for a FULL HEAL or a FULL RESTORE, confusion; then recalculates its stats.
+; Shared by the status items and by a FULL RESTORE below full HP.
+; v1.0 (2026-09-24): vanilla copied the RAW party stats over the battle
+; stats here and re-applied burn/para. That dropped every stat stage and,
+; since the badge boost lives in wPlayerMonUnmodifiedStats (v0.7 badge
+; boost fix), the badges too, until the next stat change recalculated
+; them: X ATTACK, FULL HEAL, damage silently back to base. Recalculate
+; from the unmodified stats x the stages instead; no burn/para penalty is
+; due, the status was just cleared. (Found by the 2026-09-23 survey of the
+; other hacks; guard .claude/emu_test_status_cure_stats.py.)
+; v1.0 (2026-09-27): a FULL RESTORE below full HP only cleared the status
+; bytes, so TOXIC kept ticking harder every turn and a burn's halved ATTACK
+; (or paralysis's quartered SPEED) stayed until the next stat change; it now
+; comes here too. Out of battle wPlayerMonNumber is stale, so the helper
+; returns at once there: the battle data is not live.
+; Trashes af, bc, de, hl.
+.clearBattleMonStatus
+	ld a, [wIsInBattle]
+	and a
+	ret z
 	xor a
 	ld [wBattleMonStatus], a ; remove the status ailment in the in-battle pokemon data
-	push hl
 	ld hl, wPlayerBattleStatus3
 	res BADLY_POISONED, [hl] ; heal Toxic status
 	call CureConfusionIfFullHealOrRestore
-	pop hl
-	; v1.0 (2026-09-24): vanilla copied the RAW party stats over the battle
-	; stats here and re-applied burn/para. That dropped every stat stage and,
-	; since the badge boost lives in wPlayerMonUnmodifiedStats (v0.7 badge
-	; boost fix), the badges too, until the next stat change recalculated
-	; them: X ATTACK, FULL HEAL, damage silently back to base. Recalculate
-	; from the unmodified stats x the stages instead; no burn/para penalty is
-	; due, the status was just cleared. (Found by the 2026-09-23 survey of the
-	; other hacks; guard .claude/emu_test_status_cure_stats.py.)
 	xor a
 	ld [wCalculateWhoseStats], a
 	farcall CalculateModifiedStats
-	jp .doneHealing
+	ret
 
 .healHP
 	inc hl ; hl = address of current HP
@@ -1696,11 +1711,9 @@ ItemUseMedicine:
 	ld a, [wcf91]
 	cp FULL_RESTORE
 	jr nz, .calculateHPBarCoords
-	xor a
-	ld [wBattleMonStatus], a ; remove the status ailment in the in-battle pokemon data
-	push hl
-	call CureConfusionIfFullHealOrRestore
-	pop hl
+	push de ; d = the party index, for the HP bar below (hl and bc are reloaded there)
+	call .clearBattleMonStatus
+	pop de
 .calculateHPBarCoords
 	hlcoord 4, -1
 	ld bc, 2 * SCREEN_WIDTH
