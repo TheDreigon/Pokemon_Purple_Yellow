@@ -44,7 +44,9 @@ DecrementPP:
 ; EnemyCanExecuteMove (in core.asm) to mirror the player's DecrementPP.
 ; Combined with the PP-aware selection in SelectEnemyMove (also v0.7),
 ; bosses run out of PP in long fights and end up using Struggle — same
-; rules as the player.
+; rules as the player. v1.0 (D3, 2026-09-28): the roster PP it spends below is
+; read back when the #MON is sent in again (LoadEnemyMonDataTail), so a #MON
+; called back keeps its PP, as the player's does.
 ; NORMAL MODE ONLY: hard mode keeps the vanilla
 ; infinite enemy PP as a difficulty knob — it kills the drain-the-boss-
 ; into-Struggle stall (see the gate at the top of the routine).

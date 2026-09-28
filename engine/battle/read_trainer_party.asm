@@ -135,8 +135,34 @@ ReadTrainer:
 	and a
 	jr nz, .asm_39c46
 	jr .loopAdditionalMoveData
-; shared money-calculation tail; also entered by GenerateRivalParty.
+; shared tail (the roster's PP, then the prize money); also entered by
+; GenerateRivalParty.
 ReadTrainerFinishUp:
+; v1.0 (D3, 2026-09-28): every roster #MON's PP from the moves it has now.
+; AddPartyMon wrote the PP of its level-up moves; SpecialTrainerMoves (above) and
+; a rival's hand-picked set (AddRivalMon) then replace moves and leave that PP
+; behind (a boss's pinned-empty slot 4 kept a level-up move's PP). The roster PP is
+; what a trainer's #MON is sent in with in Normal (LoadEnemyMonDataTail), so here it
+; must be the full PP of its own moves: a first send-out stays full. Link battles
+; never get here (the ret nz at the top). Every trainer has at least one #MON.
+	ld hl, wEnemyMon1Moves
+	ld de, wEnemyMon1PP - 1 ; LoadMovePPs writes from de + 1
+	ld a, [wEnemyPartyCount]
+.ppLoop
+	push af
+	push hl
+	push de
+	predef LoadMovePPs ; hl = its moves, de = its PP - 1; trashes every register
+	pop hl
+	ld bc, wEnemyMon2 - wEnemyMon1
+	add hl, bc
+	ld d, h
+	ld e, l ; the next #MON's PP - 1
+	pop hl
+	add hl, bc ; the next #MON's moves
+	pop af
+	dec a
+	jr nz, .ppLoop
 ; clear wAmountMoneyWon addresses
 	xor a
 	ld de, wAmountMoneyWon
@@ -409,8 +435,8 @@ AddRivalMon:
 	dec b
 	jr nz, .copyMoves
 	ret
-; (battle PP is derived from these moves at send-out by LoadEnemyMonData's
-; LoadMovePPs pass, so no PP write is needed here.)
+; (no PP write here: ReadTrainerFinishUp writes every roster #MON's PP from its
+; moves once the whole party is in - v1.0 D3.)
 
 ; out: a = rival battle id (0-8). Maps the scripts' historical wTrainerNo
 ; values (including the legacy per-eeveelution variants) onto pool ids.

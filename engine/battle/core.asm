@@ -6602,7 +6602,7 @@ LoadEnemyMonData:
 	call AddNTimes
 	ld bc, NUM_MOVES
 	call CopyData
-	jr .loadMovePPs
+	jr .loadMovePPs ; full PP from the move ids; in Normal LoadEnemyMonDataTail puts its roster PP over them (v1.0 D3)
 .copyStandardMoves
 ; for a wild mon, first copy default moves from the mon header
 	ld hl, wMonHMoves

@@ -85,7 +85,9 @@ RevertPartyToxic::
 ; called back came in again at its full SPEED or ATTACK. Wild: none - the ball's
 ; reload of a TRANSFORMed #MON (item_effects .skip6) must stay uncut, as
 ; AddPartyMon copies these stats. (Link battles never get here:
-; LoadEnemyMonFromParty.) Keeps hWhoseTurn. Trashes a, bc, de, hl.
+; LoadEnemyMonFromParty.) Last (v1.0 D3), in Normal, a trainer's #MON takes the PP
+; its roster holds, over the full PP LoadMovePPs gave it. Keeps hWhoseTurn.
+; Trashes a, bc, de, hl.
 LoadEnemyMonDataTail::
 	ld hl, wEnemyMonLevel
 	ld de, wEnemyMonUnmodifiedLevel
@@ -108,4 +110,22 @@ LoadEnemyMonDataTail::
 	farcall ApplyBurnAndParalysisPenaltiesToEnemy ; sets hWhoseTurn 0
 	pop af
 	ldh [hWhoseTurn], a
-	ret
+; v1.0 (D3, 2026-09-28): the PP its trainer's roster holds, as the player's #MON
+; comes in with its party PP (LoadBattleMonFromParty). DecrementEnemyPP spends the
+; roster PP with the battle PP (Normal), so a #MON the switch layer called back
+; comes in again with the PP it left with; LoadMovePPs (LoadEnemyMonData) gave it
+; full PP from its move ids on every send-out. A fresh #MON's roster PP is its full
+; PP (ReadTrainerFinishUp), so a first send-out is unchanged; a TRANSFORMed #MON's
+; copied PP never reach the roster (DecrementEnemyPP), so it comes back with its
+; own. Hard: its trainer's PP never drops, and the roster is not read (the gate is
+; DecrementEnemyPP's).
+	ld a, [wDifficulty]
+	and a
+	ret nz
+	ld a, [wEnemyMonPartyPos] ; its roster slot: LoadEnemyMonData's trainer branch just wrote it
+	ld hl, wEnemyMon1PP
+	ld bc, wEnemyMon2 - wEnemyMon1
+	call AddNTimes
+	ld de, wEnemyMonPP
+	ld bc, NUM_MOVES
+	jp CopyData
