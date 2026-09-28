@@ -3,8 +3,9 @@
 ; paralysis puts the stat back: the side's five battle stats = unmodified x stages (the badge
 ; boost lives in the unmodified stats, so it stays; no cut). Exact, and right whether or not a
 ; cut was there - the old "double it back" (UndoBurnParStats) lost the odd point and doubled a
-; stat that had no cut. On a side with no BRN or PAR it changes nothing, bar two cases it puts
-; right: a TRANSFORMed #MON's copied cut, and a stat a lowering left above 999.
+; stat that had no cut. On a side with no BRN or PAR it changes nothing, bar one case it puts
+; right: a stat a lowering left above 999. (A TRANSFORMed #MON no longer carries the target's
+; cut: D6, UserStatsWithOwnCut below.)
 ; Needs stage bytes 1-13 (every writer keeps them there).
 ; Trashes a, bc, de, hl, f, hMath and wd11e; keeps hWhoseTurn.
 PlayerStatusGone:: ; the nap, the player's items
@@ -26,3 +27,26 @@ TargetStatusGone:: ; SLEEP on a recharging target (it skips the "already statuse
 UserStatusGone: ; RECOVER, SOFTBOILED, REST
 	ldh a, [hWhoseTurn]
 	jr SideStatusGone
+
+; v1.0 (D6, 2026-09-28; Forte: "sobre o transform: corrige esses 2 bugs encontrados, sim"):
+; TRANSFORM (transform.asm), once the target's unmodified stats and stages are copied. Vanilla
+; copied the target's five battle stats, the TARGET's burn / paralysis cut with them, and the
+; user lost its own (TRANSFORM never copies the status). Now the user's five stats = the copied
+; unmodified x the copied stages, then the user's OWN cut: the order of every send-out, and
+; what a level-up of a TRANSFORMed #MON already did (experience.asm .recalcStatChanges). Both
+; sides. With no burn or paralysis on either side it equals the copy (bar a stat the target
+; held above 999 after a lowering from a high stage: capped here).
+; Needs the copied stage bytes 1-13. Trashes a, bc, de, hl, f, hMath and wd11e; keeps hWhoseTurn.
+UserStatsWithOwnCut:
+	ldh a, [hWhoseTurn]
+	push af
+	call RecalcSideStats ; a = the user's side (0 the player, 1 the enemy)
+	pop af
+	push af
+	xor 1 ; HalveSpeedDueToParalysis / HalveAttackDueToBurn cut the side hWhoseTurn is NOT: the user
+	ldh [hWhoseTurn], a
+	farcall HalveSpeedDueToParalysis
+	farcall HalveAttackDueToBurn
+	pop af
+	ldh [hWhoseTurn], a
+	ret

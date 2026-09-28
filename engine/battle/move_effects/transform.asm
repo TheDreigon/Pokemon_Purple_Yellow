@@ -119,6 +119,9 @@ TransformEffect_:
 	ld de, wPlayerMonStatMods
 	ld bc, NUM_STAT_MODS
 	call .copyBasedOnTurn ; stat mods
+; v1.0 (D6): the five stats from what was just copied, then the user's OWN burn /
+; paralysis cut - the copied battle stats carried the TARGET's (status_stat_cut.asm)
+	call UserStatsWithOwnCut
 	ld hl, TransformedText
 	jp PrintText
 
