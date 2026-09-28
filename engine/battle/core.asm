@@ -612,6 +612,11 @@ HandlePoisonBurnLeechSeed:
 	ld hl, wEnemyMonHP
 	ld de, wEnemyMonStatus
 .playersTurn
+; v1.0 (N1, Gen 2 HasUserFainted): no residual for a #MON that enters with no HP
+	ld a, [hli]
+	or [hl]
+	dec hl ; the HP pointer again (keeps the flags)
+	jr z, .notLeechSeeded ; its HP test there answers Z: fainted
 	ld a, [de]
 	and (1 << BRN) | (1 << PSN)
 	jr z, .notBurnedOrPoisoned
@@ -630,6 +635,11 @@ HandlePoisonBurnLeechSeed:
 	pop hl
 	call HandlePoisonBurnLeechSeed_DecreaseOwnHP
 .notBurnedOrPoisoned
+; v1.0 (N1, Gen 2): no LEECH SEED on a #MON its poison or burn just knocked out
+	ld a, [hli]
+	or [hl]
+	dec hl
+	jr z, .notLeechSeeded
 	ld de, wPlayerBattleStatus2
 	ldh a, [hWhoseTurn]
 	and a
@@ -651,7 +661,7 @@ HandlePoisonBurnLeechSeed:
 	pop af
 	ldh [hWhoseTurn], a
 	pop hl
-	call HandlePoisonBurnLeechSeed_DecreaseOwnHP
+	call HandlePoisonBurnLeechSeed_DecreaseOwnHPFlat ; LEECH SEED: a flat 1/8, no toxic count (Gen 2)
 	call HandlePoisonBurnLeechSeed_IncreaseEnemyHP
 	push hl
 	ld hl, HurtByLeechSeedText
@@ -679,11 +689,22 @@ HurtByLeechSeedText:
 	text_far _HurtByLeechSeedText
 	text_end
 
-; decreases the mon's current HP by 1/8 of the Max HP (multiplied by number of toxic ticks if active)
-; note that the toxic ticks are considered even if the damage is not poison (hence the Leech Seed glitch)
-; hl: HP pointer
-; bc (out): total damage
+; LEECH SEED's drain (v1.0, Forte: "corrige esse bug vanilla e faz como a gen2"): a flat
+; 1/8 of the max HP (Gen 2 GetEighthMaxHP); the toxic count is neither multiplied in nor
+; advanced. (Gen 1 ran the drain through the poison tick below: a badly poisoned seeded
+; #MON lost - and the seeder gained - count x 1/8, and its count climbed twice a turn.)
+; Same IN/OUT as below. Keep it ABOVE the main entry.
+HandlePoisonBurnLeechSeed_DecreaseOwnHPFlat:
+	ld d, 0
+	jr HandlePoisonBurnLeechSeed_DecreaseOwnHP.enter
+
+; The poison / burn tick: 1/8 of the max HP (at least 1), times the toxic count when
+; BADLY_POISONED (which it advances first).
+; IN  hl = the HP pointer of hWhoseTurn's #MON
+; OUT bc = the HP it actually lost (never more than it had); hl kept; a, de, f trashed
 HandlePoisonBurnLeechSeed_DecreaseOwnHP:
+	ld d, 1 ; the poison / burn tick
+.enter
 	push hl
 	push hl
 	ld bc, $e      ; skip to max HP
@@ -704,6 +725,8 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	jr nz, .nonZeroDamage
 	inc c         ; damage is at least 1
 .nonZeroDamage
+	dec d
+	jr nz, .noToxic ; LEECH SEED (d was 0): no toxic count
 	ld hl, wPlayerBattleStatus3
 	ld de, wPlayerToxicCounter
 	ldh a, [hWhoseTurn]
@@ -741,15 +764,21 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	xor a         ; overkill: zero HP
 	ld [hli], a
 	ld [hl], a
-	ld [wHPBarNewHP], a
-	ld [wHPBarNewHP+1], a
+	ASSERT wHPBarNewHP == wHPBarOldHP + 2, "the overkill walk below"
+	ld hl, wHPBarNewHP + 1
+	ld [hld], a
+	ld [hld], a ; hl = wHPBarOldHP + 1
+; v1.0 (N1, Gen 2 SubtractHP): bc = the HP it had, so the seeder gains no more than was drained
+	ld b, [hl]
+	dec hl
+	ld c, [hl]
 .noOverkill
 	call UpdateCurMonHPBar
 	pop hl
 	ret
 
 ; adds bc to enemy HP
-; bc isn't updated if HP subtracted was capped to prevent overkill
+; (v1.0, N1: bc is the HP actually drained - capped at what the seeded #MON had, as Gen 2)
 HandlePoisonBurnLeechSeed_IncreaseEnemyHP:
 	push hl
 	ld hl, wEnemyMonMaxHP
