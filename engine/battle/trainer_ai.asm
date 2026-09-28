@@ -1,28 +1,11 @@
 ; creates a set of moves that may be used and returns its address in hl
 ; unused slots are filled with 0, all used slots may be chosen with equal probability
 AIEnemyTrainerChooseMoves:
-	ld a, $a
-	ld hl, wBuffer ; init temporary move selection array. Only the moves with the lowest numbers are chosen in the end
-	ld [hli], a   ; move 1
-	ld [hli], a   ; move 2
-	ld [hli], a   ; move 3
-	ld [hl], a    ; move 4
 ; v1.0 (2026-09-26, P1 of the AI switch layer): the shinpokered "score backup"
 ; (wBuffer+4..7 filled with $ff here and copied to by a
 ; .loopFindMinimumEntries_backupfirst label nothing jumped to) is gone: 21 bytes
 ; that no reader ever used.
-
-	ld a, [wEnemyDisabledMove] ; forbid disabled move (if any)
-	swap a
-	and $f
-	jr z, .noMoveDisabled
-	ld hl, wBuffer
-	dec a
-	ld c, a
-	ld b, $0
-	add hl, bc    ; advance pointer to forbidden move
-	ld [hl], $50  ; forbid (highly discourage) disabled move
-.noMoveDisabled
+	call AISeedMoveScores ; $a, or $50 for a move it cannot use this turn (N3-6)
 	call AIGetMoveChoiceList ; hl = this battle's layer list (the Hard boss / semi-boss override included)
 	ld a, [hl]
 	and a
@@ -1342,49 +1325,66 @@ AIPickFaintReplacement:
 	ld [wAISwitchRequest], a
 	ret
 
-; v1.0 (N3, 2026-09-27, Forte: "talvez ambos poderem trocar o seu pokemon a meio
-; do seu bide"): the switch decision alone, on a turn locked into the enemy's
-; own BIDE or WRAP - the player may switch out of either. The move layers must
-; not run: ReadMove would overwrite the wEnemyMove* block the locked move reads
-; (BIDE's release reads wEnemyMoveEffect). The scores layer 6 reads are the
-; neutral $0a, so "every move discouraged" never counts. Only trainers whose
-; list has layer 6; its own top still applies (held by the player's WRAP too:
-; no request). Tail-called by SelectEnemyMove. Clobbers all.
+; v1.0 (N3, 2026-09-27/28): the switch decision alone, on a turn with no move to
+; choose - the player may switch out of each:
+; - AILockedSwitchDecision, a turn locked into the enemy's own BIDE or WRAP
+;   (Forte: "talvez ambos poderem trocar o seu pokemon a meio do seu bide"),
+;   tail-called by SelectEnemyMove. The move layers must not run: ReadMove would
+;   overwrite the wEnemyMove* block the locked move reads (BIDE's release reads
+;   wEnemyMoveEffect).
+; - AIStruggleSwitchDecision, a turn forced into STRUGGLE - no move but the
+;   disabled one has PP left, the player's rule (HasMoveToSelect in core.asm,
+;   asked for both sides) - called by callfar. SelectEnemyMove used to run no AI
+;   at all there, so the mon could not be withdrawn.
+; The scores layer 6 reads are the chooser's seeds (AISeedMoveScores, N3-6): $a
+; for a move it could use this turn, $50 for one it could not. On a STRUGGLE turn
+; every move is unusable, so "every move discouraged" counts, as a trainer would
+; see it; on a locked turn a spent move no longer counts as fine. Only trainers
+; whose list has layer 6; its own top still applies (held by the player's WRAP
+; too: no request). Clobbers all.
 AILockedSwitchDecision:
-	ld a, [wIsInBattle]
-	dec a
-	ret z ; wild
-	call AIHasSwitchLayer
-	ret nc
-	ld hl, wBuffer
-	ld a, $a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
-	jp AIMoveChoiceModification6
-
-; v1.0 (N3, 2026-09-27): the same on a turn forced into STRUGGLE - no move but the
-; disabled one has PP left, the player's rule (HasMoveToSelect in core.asm, asked
-; for both sides). SelectEnemyMove ran no AI at all there, so the switch layer
-; never ran and the mon could not be withdrawn, while the player, in the same
-; state, may switch. No move layer runs (there is no move to choose), but every
-; move it has is unusable, so the scores layer 6 reads are 11: "every move
-; discouraged" counts, as a trainer would see it. Called by callfar from
-; SelectEnemyMove. Clobbers all.
 AIStruggleSwitchDecision:
 	ld a, [wIsInBattle]
 	dec a
 	ret z ; wild
 	call AIHasSwitchLayer
 	ret nc
-	ld hl, wBuffer
-	ld a, 11 ; discouraged (layer 6 reads 11 or more as "discouraged")
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
+	call AISeedMoveScores
 	jp AIMoveChoiceModification6
+
+; v1.0 (N3-6, 2026-09-28; Forte: "queremos que seja igual para ambos"): the move
+; scores in wBuffer (the chooser keeps only the moves with the lowest) start at $a,
+; and a move the enemy cannot use this turn at $50 - the two the player's move
+; menu refuses: the disabled one (vanilla) and one with no PP left (the PP Up bits
+; masked). Summed over every rule, the layers take at most 10 off a move and add
+; at most 20, so a $50 never comes down to a usable move and the minimum filter
+; never keeps it; SelectEnemyMove sends a turn with no usable move to STRUGGLE
+; before the chooser runs. Layer 6 reads 11 or more as "discouraged": an unusable
+; move is. (A move with no PP used to start at $a: scored best, it was the one
+; kept, and the enemy STRUGGLEd with a usable move left.) Trashes a, bc, de, hl.
+AISeedMoveScores:
+	ld a, [wEnemyDisabledMove]
+	swap a
+	and $f
+	ld b, a ; b = the disabled slot, 1-4 (0: none)
+	ld hl, wBuffer
+	ld de, wEnemyMonPP
+	ld c, NUM_MOVES
+.seedScore
+	ld a, [de]
+	inc de
+	dec b ; zero on the disabled slot only
+	jr z, .unusable
+	and $3f ; PP left?
+	ld a, $a ; usable: the neutral score (ld keeps the flags)
+	jr nz, .seeded
+.unusable
+	ld a, $50 ; forbid (highly discourage): disabled, or no PP left
+.seeded
+	ld [hli], a
+	dec c
+	jr nz, .seedScore
+	ret
 
 AIMatchupAtHL:
 ; a = how effective attacking type a is on the two defender types at hl

@@ -3642,6 +3642,13 @@ SelectEnemyMove:
 	; forever (normal mode drains enemy PP; vanilla never could hang here
 	; because enemy PP was infinite). If no slot is simultaneously listed,
 	; holding PP, and not disabled, Struggle instead.
+	; v1.0 (N3-6, 2026-09-28): play no longer reaches that Struggle - the test at
+	; .canSelectMove sends a turn with no usable move to .forcedStruggle, the
+	; chooser never keeps a move with no PP or the disabled one (they start at
+	; $50), and a wild list is the moveset itself (the pick below retries). Kept as
+	; a guard. It does not go to .forcedStruggle: on a trainer's turn layer 6 has
+	; already run in the chooser, and a second run would tick the cooldown twice
+	; and roll again.
 	call .anySelectableMoveInList
 	jr nz, .pickFromList
 	ld a, STRUGGLE
