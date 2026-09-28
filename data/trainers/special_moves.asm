@@ -888,7 +888,7 @@ SpecialTrainerMoves:
 	db 6, 4, EARTHQUAKE
 	db 0
 
-	db FORTE, 1 ; DREIGON superboss — all L80 (send-out order: Beedrill, Hitmonlee, Magmar, Golem, Gyarados, Nidoking)
+	db FORTE, 1 ; DREIGON superboss — all L80 (party order: Beedrill, Hitmonlee, Magmar, Golem, Gyarados, Nidoking; the send-out order in Normal - in Hard the picker chooses, no ace)
 	db 1, 1, TWINEEDLE
 	db 1, 2, TOXIC_FANGS
 	db 1, 3, DRILL_PECK

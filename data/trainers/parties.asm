@@ -928,7 +928,9 @@ WeebraData:
 	db 60, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
 
 ForteData:
-; "Forte / DREIGON" superboss — all L80, in Forte's send-out order (Nidoking ace/last).
+; "Forte / DREIGON" superboss — all L80, in Forte's party order: BEEDRILL leads; no ace (Forte,
+; 2026-09-27: "estão todos ao mesmo nivel de respeito") - in Hard the switch picker chooses who
+; follows, NIDOKING included; in Normal (no switch layer) this is the send-out order.
 ; Per-mon movesets in special_moves.asm (finalized by Forte in Notes/Boss Movesets.md).
 	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
 
