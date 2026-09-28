@@ -1070,27 +1070,29 @@ SubFromBCapped:
 ;      DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose damage ignores the
 ;      type chart)
 ; The best comes in; a tie keeps party order. The LAST mon of the party - the
-; ace of every boss team - is kept for last: it comes in only when no other
+; ace of a boss team - is kept for last: it comes in only when no other
 ; teammate is alive. In Hard, for a boss or a semi-boss (Forte, 2026-09-27:
 ; "pode ser, sim. à experiencia") the co-aces wait with it: a teammate at the team's top level
 ; (the highest MON_LEVEL in the whole roster, fainted mons included, so the set
 ; never changes during the fight) comes in only when no teammate below that
 ; level is alive - then the best of them, the last slot still last of all. A
 ; team all at one level has no one below the top and plays as in Normal.
-; DREIGON's team (FORTE) has neither (Forte, 2026-09-27: "considera que essa
-; equipa não tem ás. estão todos ao mesmo nivel de respeito, por assim dizer"):
-; every live teammate but the one out competes on its score alone, the last slot
-; included, and no level is held back; a tie still keeps party order. FORTE only
-; gets here in Hard: his Normal list (1-5) has no switch layer, so in Normal he
-; never switches and replaces in party order.
+; Four teams have neither (AITeamHasNoAce): DREIGON's (FORTE; Forte,
+; 2026-09-27: "considera que essa equipa não tem ás. estão todos ao mesmo
+; nivel de respeito, por assim dizer") and those of the three bird-chamber
+; self-inserts SMITH, CRAIG and WEEBRA (2026-09-28: "smith, craig, weebra
+; tambem nao têm às. kiyo tem o machamp"): every live teammate but the one out
+; competes on its score alone, the last slot included, and no level is held
+; back; a tie still keeps party order. They only get here in Hard: their Normal
+; lists (1-5) have no switch layer, so in Normal they never switch and replace
+; in party order. KIYO keeps his ace in both fights.
 ; It also picks the replacement of a fainted mon (AIPickFaintReplacement).
 ; Out: a = 1 + the party index (the wAISwitchRequest encoding). Clobbers bc, de, hl.
 AIPickSwitchTarget:
 ; b = the level held back with the ace: for a boss or a semi-boss in Hard the
-; team's top level; otherwise $ff, a level no Pokemon has - and $ff for DREIGON
-; (FORTE), whose team has no ace to hold anyone with
-	ld a, [wTrainerClass]
-	cp FORTE
+; team's top level; otherwise $ff, a level no Pokemon has - and $ff for a team
+; with no ace to hold anyone with (AITeamHasNoAce)
+	call AITeamHasNoAce ; Z: no ace (a trashed; bc, de, hl kept)
 	jr z, .noAce ; Z rides through the ld below
 	call IsHardModeBossOrSemiBattle ; trashes a, b, hl
 .noAce
@@ -1117,11 +1119,10 @@ AIPickSwitchTarget:
 	ld a, [wEnemyPartyCount]
 	dec a ; the last index
 	cp c
-	jr c, .done ; past the last slot (only DREIGON's pass scores it)
+	jr c, .done ; past the last slot (only a no-ace team's pass scores it)
 	jr nz, .candidate
-	ld a, [wTrainerClass] ; the last slot is the ace, kept for last (.theAce) -
-	cp FORTE              ; but DREIGON's team has none: it competes too
-	jr nz, .done
+	call AITeamHasNoAce ; the last slot is the ace, kept for last (.theAce) -
+	jr nz, .done        ; but a team with none: it competes too (b, c, de kept)
 .candidate
 	ld a, [wEnemyMonPartyPos]
 	cp c
@@ -1157,8 +1158,24 @@ AIPickSwitchTarget:
 	inc a
 	ret
 .theAce
-; (DREIGON: reached only with no live teammate, which neither caller allows)
+; (a no-ace team: only with no live teammate, which neither caller allows)
 	ld a, [wEnemyPartyCount] ; 1 + the last index
+	ret
+
+; v1.0 (2026-09-27/28): Z when this battle's team has no ace (see
+; AIPickSwitchTarget): DREIGON (FORTE) and the three bird-chamber self-inserts
+; SMITH, CRAIG and WEEBRA. The class alone decides: KIYO keeps his ace in both
+; fights. Clobbers a and the flags; keeps bc, de, hl - the picker's loop holds
+; the level held back in b, the party index in c, the best so far in de.
+AITeamHasNoAce:
+	ld a, [wTrainerClass]
+	cp FORTE
+	ret z
+	cp SMITH
+	ret z
+	cp CRAIG
+	ret z
+	cp WEEBRA
 	ret
 
 AIScoreSwitchCandidate:

@@ -917,14 +917,19 @@ JoyData:
 
 SmithData:
 ; Moltres Fight
+; All L60; no ace, like DREIGON's (Forte, 2026-09-28: "smith, craig, weebra tambem nao têm às"):
+; in Hard the switch picker chooses who follows, STARMIE included; in Normal (no switch layer)
+; this is the send-out order. CRAIG's and WEEBRA's teams likewise.
     db 60, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
 
 CraigData:
 ; Zapdos Fight
+; All L60; no ace (see SmithData): in Hard ARCANINE competes like the rest.
 	db 60, JOLTEON, AERODACTYL, EXEGGUTOR, SNORLAX, CLOYSTER, ARCANINE, 0
 
 WeebraData:
 ; Articuno Fight
+; All L60; no ace (see SmithData): in Hard MACHAMP competes like the rest.
 	db 60, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
 
 ForteData:
