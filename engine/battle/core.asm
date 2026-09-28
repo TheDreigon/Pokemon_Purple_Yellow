@@ -3343,38 +3343,8 @@ AnyMoveToSelect:
 	ld a, STRUGGLE
 	ld [wPlayerSelectedMove], a
 	ld a, [wPlayerDisabledMove]
-	and a
 	ld hl, wBattleMonPP
-	jr nz, .handleDisabledMove
-	ld a, [hli]
-	or [hl]
-	inc hl
-	or [hl]
-	inc hl
-	or [hl]
-	and $3f
-	ret nz
-	jr .noMovesLeft
-.handleDisabledMove
-	swap a
-	and $f ; get disabled move
-	ld b, a
-	ld d, NUM_MOVES + 1
-	xor a
-.handleDisabledMovePPLoop
-	dec d
-	jr z, .allMovesChecked
-	ld c, [hl] ; get move PP
-	inc hl
-	dec b ; is this the disabled move?
-	jr z, .handleDisabledMovePPLoop ; if so, ignore its PP value
-	or c
-	jr .handleDisabledMovePPLoop
-.allMovesChecked
-; bugfix: only check PP value and not PP up bits
-; in case all other moves have no PP left and a move has a PP up used on it
-; and a non-PP up move is disabled
-	and $3f ; any PP left?
+	call HasMoveToSelect ; v1.0 (N3-5): the one rule, the enemy's STRUGGLE too
 	ret nz ; return if a move has PP left
 .noMovesLeft
 	ld hl, NoMovesLeftText
@@ -3387,6 +3357,35 @@ AnyMoveToSelect:
 NoMovesLeftText:
 	text_far _NoMovesLeftText
 	text_end
+
+; v1.0 (N3-5, 2026-09-28; Forte: "queremos que seja igual para ambos"): the one
+; rule both sides reach STRUGGLE by - no move but the disabled one has PP left (the
+; PP Up bits masked). AnyMoveToSelect asks it for the player, SelectEnemyMove for
+; the enemy. The body is AnyMoveToSelect's old loop, moved here unchanged (with
+; no move disabled, b = 0 never reaches zero, so all four count).
+; IN  hl = the side's four PP bytes; a = its wXDisabledMove (the slot, 1-4, in the
+;     high nibble; 0 = none)
+; OUT nz = a move to select; z = none: STRUGGLE. Clobbers a, b, c, d, hl; keeps e.
+HasMoveToSelect:
+	swap a
+	and $f ; the disabled slot, 1-4 (0: none)
+	ld b, a
+	ld d, NUM_MOVES + 1
+	xor a
+.loop
+	dec d
+	jr z, .checked
+	ld c, [hl] ; this move's PP
+	inc hl
+	dec b ; the disabled move?
+	jr z, .loop ; its PP does not count
+	or c
+	jr .loop
+.checked
+; vanilla bugfix, kept: only the PP, not the PP Up bits - in case every other move
+; has no PP left, one has PP Up applied, and a move without PP Up is disabled
+	and $3f ; any PP left?
+	ret
 
 SwapMovesInMenu:
 IF DEF(_DEBUG)
@@ -3610,18 +3609,18 @@ SelectEnemyMove:
 	ld a, $ff
 	jr .done
 .canSelectMove
-	; v0.7 (AI PP fix): if every enemy move slot has 0 PP, force Struggle.
-	; OR over the 4 PP bytes, mask out the 2 PP-up bits so we look only
-	; at remaining PP. Mirrors AnyMoveToSelect's logic for the player.
+; v1.0 (N3-5, 2026-09-28; Forte: "queremos que seja igual para ambos"): STRUGGLE by
+; the player's rule, asked of the routine that decides the player's (HasMoveToSelect,
+; which AnyMoveToSelect asks too): no move but the disabled one has PP left. It
+; replaces the v0.7 test (all four PP bytes 0) and "its only move is disabled",
+; which missed a disabled move holding the only PP left - the move AI then ran,
+; kept a move with no PP and STRUGGLEd, its switch decision reading that move as
+; usable - and, after a TRANSFORM to a one-move set, took a stale DISABLE for the
+; only move.
+	ld a, [wEnemyDisabledMove]
 	ld hl, wEnemyMonPP
-	ld a, [hli]
-	or [hl]
-	inc hl
-	or [hl]
-	inc hl
-	or [hl]
-	and $3f
-	jr nz, .atLeastOneMoveHasPP
+	call HasMoveToSelect
+	jr nz, .aMoveToSelect
 .forcedStruggle
 ; v1.0 (N3, 2026-09-27): a turn forced into STRUGGLE runs no move layer (there is
 ; no move to choose), but the switch decision still runs - the player may switch
@@ -3629,15 +3628,8 @@ SelectEnemyMove:
 	callfar AIStruggleSwitchDecision
 	ld a, STRUGGLE
 	jr .done
-.atLeastOneMoveHasPP
-	ld hl, wEnemyMonMoves+1 ; 2nd enemy move
-	ld a, [hld]
-	and a
-	jr nz, .atLeastTwoMovesAvailable
-	ld a, [wEnemyDisabledMove]
-	and a
-	jr nz, .forcedStruggle ; struggle if the only move is disabled
-.atLeastTwoMovesAvailable
+.aMoveToSelect
+	ld hl, wEnemyMonMoves ; the wild pick's list (a trainer's comes back in hl)
 	ld a, [wIsInBattle]
 	dec a
 	jr z, .chooseRandomMove ; wild encounter

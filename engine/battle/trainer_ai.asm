@@ -1364,11 +1364,12 @@ AILockedSwitchDecision:
 	ld [hl], a
 	jp AIMoveChoiceModification6
 
-; v1.0 (N3, 2026-09-27): the same on a turn forced into STRUGGLE - no PP left, or
-; its only move disabled. SelectEnemyMove ran no AI at all there, so the switch
-; layer never ran and the mon could not be withdrawn, while the player, in the
-; same state, may switch. No move layer runs (there is no move to choose), but
-; every move it has is unusable, so the scores layer 6 reads are 11: "every move
+; v1.0 (N3, 2026-09-27): the same on a turn forced into STRUGGLE - no move but the
+; disabled one has PP left, the player's rule (HasMoveToSelect in core.asm, asked
+; for both sides). SelectEnemyMove ran no AI at all there, so the switch layer
+; never ran and the mon could not be withdrawn, while the player, in the same
+; state, may switch. No move layer runs (there is no move to choose), but every
+; move it has is unusable, so the scores layer 6 reads are 11: "every move
 ; discouraged" counts, as a trainer would see it. Called by callfar from
 ; SelectEnemyMove. Clobbers all.
 AIStruggleSwitchDecision:
