@@ -1402,23 +1402,20 @@ ItemUseMedicine:
 ; other hacks; guard .claude/emu_test_status_cure_stats.py.)
 ; v1.0 (2026-09-27): a FULL RESTORE below full HP only cleared the status
 ; bytes, so TOXIC kept ticking harder every turn and a burn's halved ATTACK
-; (or paralysis's quartered SPEED) stayed until the next stat change; it now
+; (or paralysis's halved SPEED) stayed until the next stat change; it now
 ; comes here too. Out of battle wPlayerMonNumber is stale, so the helper
 ; returns at once there: the battle data is not live.
-; Trashes af, bc, de, hl.
+; (v1.0 N5: the TOXIC bit and the recalculation are the helper every status
+; cure shares, status_stat_cut.asm PlayerStatusGone.)
+; Trashes af, bc, de, hl, hMath and wd11e.
 .clearBattleMonStatus
 	ld a, [wIsInBattle]
 	and a
 	ret z
 	xor a
 	ld [wBattleMonStatus], a ; remove the status ailment in the in-battle pokemon data
-	ld hl, wPlayerBattleStatus3
-	res BADLY_POISONED, [hl] ; heal Toxic status
 	call CureConfusionIfFullHealOrRestore
-	xor a
-	ld [wCalculateWhoseStats], a
-	farcall CalculateModifiedStats
-	ret
+	farjp PlayerStatusGone ; heal Toxic status; the stats from unmodified x stages
 
 .healHP
 	inc hl ; hl = address of current HP

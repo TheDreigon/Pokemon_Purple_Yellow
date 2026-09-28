@@ -234,17 +234,12 @@ HealEffect_:
 
 .userToxicOff
 ; v1.0 (2026-09-27): the user's bad POISON ends with its status (Gen 2+; TOXIC by
-; the Gen 3 rule, toxic_carry.asm): BADLY_POISONED off, or the next ordinary
-; POISON would tick as TOX. Keeps everything but a and the flags. (At the very
+; the Gen 3 rule, toxic_carry.asm), and (N5) a burn's ATTACK or a paralysis's
+; SPEED comes back with it: status_stat_cut.asm. Keeps hl; trashes a, bc, de,
+; the flags and the math scratch (all three callers reload them). (At the very
 ; end: anywhere above, it pushed one of the routine's jr out of reach.)
 	push hl
-	ld hl, wPlayerBattleStatus3
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .gotUserStatus3
-	ld hl, wEnemyBattleStatus3
-.gotUserStatus3
-	res BADLY_POISONED, [hl]
+	call UserStatusGone
 	pop hl
 	ret
 

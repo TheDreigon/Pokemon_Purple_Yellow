@@ -2372,14 +2372,6 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	call AddNTimes
 	xor a
 	ld [hl], a ; clear status in enemy team roster
-	ldh a, [hWhoseTurn]
-	push af
-	ld a, $01 	;forcibly set it to the AI's turn
-	ldh [hWhoseTurn], a
-	call UndoBurnParStats	;undo brn/par stat changes
-	pop af
-	ldh [hWhoseTurn], a
-	xor a
 	ld [wEnemyMonStatus], a ; clear status in active enemy data
 ; v1.0 (2026-09-27, Forte: "full heal e full restore ambos deverão corrigir o
 ; confusion status"): confusion goes too, the bit and its count, as with the
@@ -2390,9 +2382,11 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	ld [wEnemyConfusedCounter], a
 	ld hl, wEnemyBattleStatus1
 	res CONFUSED, [hl]
-	ld hl, wEnemyBattleStatus3
-	res BADLY_POISONED, [hl]	;clear toxic bit
-	ret
+; v1.0 (N5, 2026-09-27): TOXIC off, and the burn/para cut goes: the enemy's stats
+; recalculated (status_stat_cut.asm; UndoBurnParStats doubled the stat back, which
+; lost the odd point and doubled a stat that had no cut)
+	inc a ; 1 = the enemy
+	jp SideStatusGone
 
 AIUseGuardSpec:
 	call AIPlayRestoringSFX
@@ -2538,40 +2532,7 @@ StoreBattleMonTypes:
 	pop hl
 	ret
 
-; Used by the pureRGB AI
-;shinpokerednote: ADDED: doubles attack if burned or doubles speed if paralyzed.
-;It's meant to be run right before healing paralysis or burn so as to
-;undo the stat changes.
-;v0.7: paralysis speed penalty changed /4 -> /2 (HalveSpeedDueToParalysis),
-;so the undo doubles speed ONCE now. The old double-double restored 4x and
-;left a cured enemy at twice its real speed.
-UndoBurnParStats:
-	ld hl, wBattleMonStatus
-	ld de, wPlayerStatsToDouble
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .checkburn
-	ld hl, wEnemyMonStatus
-	ld de, wEnemyStatsToDouble
-.checkburn
-	ld a, [hl]		;load statuses
-	and 1 << BRN	;test for burn 
-	jr z, .checkpar
-	ld a, $01
-	ld [de], a	;set attack to be doubled to undo the stat change of BRN
-	call DoubleSelectedStats
-	jr .return
-.checkpar
-	ld a, [hl]		;load statuses
-	and 1 << PAR	;test for paralyze 
-	jr z, .return
-	ld a, $04
-	ld [de], a	;set speed to be doubled (once) to undo the /2 stat change of PAR
-	call DoubleSelectedStats
-.return
-	xor a
-	ld [de], a	;reset the stat change bits
-	ret
+; (UndoBurnParStats went in v1.0, N5: AICureStatus recalculates, status_stat_cut.asm.)
 
 
 ; ===== HARD MODE BOSS ITEM BAG HELPERS (knob #10) =====

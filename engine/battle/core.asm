@@ -4706,8 +4706,7 @@ CheckForDisobedience:
 	and SLP_MASK
 	jr z, .monNaps ; keep trying until we get at least 1 turn of sleep
 	ld [wBattleMonStatus], a
-	ld hl, wPlayerBattleStatus3
-	res BADLY_POISONED, [hl] ; v1.0 (2026-09-27): the nap replaces any status - a bad POISON goes with the POISON
+	farcall PlayerStatusGone ; v1.0 (2026-09-27): the nap replaces any status - a bad POISON goes with the POISON, and (N5) a burn/para cut
 	ld hl, BeganToNapText
 	jr .printText
 .monDoesNothing
