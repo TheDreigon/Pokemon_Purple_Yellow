@@ -1325,6 +1325,28 @@ AIPickFaintReplacement:
 	ld [wAISwitchRequest], a
 	ret
 
+; v1.0 (N3, 2026-09-27, Forte: "talvez ambos poderem trocar o seu pokemon a meio
+; do seu bide"): the switch decision alone, on a turn locked into the enemy's
+; own BIDE or WRAP - the player may switch out of either. The move layers must
+; not run: ReadMove would overwrite the wEnemyMove* block the locked move reads
+; (BIDE's release reads wEnemyMoveEffect). The scores layer 6 reads are the
+; neutral $0a, so "every move discouraged" never counts. Only trainers whose
+; list has layer 6; its own top still applies (held by the player's WRAP too:
+; no request). Tail-called by SelectEnemyMove. Clobbers all.
+AILockedSwitchDecision:
+	ld a, [wIsInBattle]
+	dec a
+	ret z ; wild
+	call AIHasSwitchLayer
+	ret nc
+	ld hl, wBuffer
+	ld a, $a
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	jp AIMoveChoiceModification6
+
 AIMatchupAtHL:
 ; a = how effective attacking type a is on the two defender types at hl
 ; (EFFECTIVE = neutral). Keeps bc, hl.
@@ -1391,8 +1413,8 @@ TrainerAI:
 ; player's own. (shinpokered's mask was %01110010: the enemy's own WRAP blocked
 ; it, stricter than the player.) A SWITCH by the player's rule
 ; (N3, 2026-09-27): held by the other side's WRAP or CLAMP, neither side can
-; switch (layer 6's top, .switchMon); asleep or frozen, both can. SelectEnemyMove
-; still makes no request in the enemy's own BIDE or WRAP, or while it is held.
+; switch (layer 6's top, .switchMon); asleep or frozen, both can; in its own
+; BIDE or WRAP, both can (AILockedSwitchDecision).
 	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / and keep it clear)
 	ld a, [wEnemyBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a

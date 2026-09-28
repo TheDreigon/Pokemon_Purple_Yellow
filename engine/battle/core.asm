@@ -3592,7 +3592,11 @@ SelectEnemyMove:
 	ld a, [hl] ; hl = wEnemyBattleStatus1 still
 	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; its own WRAP or BIDE: that move stays
 	jr z, .canSelectMove
-	ret
+; v1.0 (N3, 2026-09-27, Forte: "talvez ambos poderem trocar o seu pokemon a meio
+; do seu bide"): as the player may switch out of its own BIDE or WRAP, so may the
+; enemy - the switch decision alone (trainer_ai.asm); wEnemySelectedMove keeps
+; the locked move. Returns to MainInBattleLoop.
+	jpfar AILockedSwitchDecision
 .unableToSelectMove ; the dead link branch's LINKBATTLE_NO_ACTION
 	ld a, $ff
 	jr .done
