@@ -76,3 +76,36 @@ RevertPartyToxic::
 	dec b
 	jr nz, .loop
 	ret
+
+; LoadEnemyMonData's tail (moved here from Battle Core by v1.0 N5-A, 2026-09-27):
+; the unmodified stats (level + stats, the base every recalculation starts
+; from), every stage back to neutral, no stale SP.DEF override.
+; Then (N5-A) a trainer's #MON sent in burnt or paralysed has its cut, as the
+; player's has (LoadBattleMonFromParty): before this, one the switch layer
+; called back came in again at its full SPEED or ATTACK. Wild: none - the ball's
+; reload of a TRANSFORMed #MON (item_effects .skip6) must stay uncut, as
+; AddPartyMon copies these stats. (Link battles never get here:
+; LoadEnemyMonFromParty.) Keeps hWhoseTurn. Trashes a, bc, de, hl.
+LoadEnemyMonDataTail::
+	ld hl, wEnemyMonLevel
+	ld de, wEnemyMonUnmodifiedLevel
+	ld bc, 1 + NUM_STATS * 2
+	call CopyData
+	ld a, $7 ; default stat mod
+	ld b, NUM_STAT_MODS ; number of stat mods
+	ld hl, wEnemyMonStatMods
+.statModLoop
+	ld [hli], a
+	dec b
+	jr nz, .statModLoop
+	xor a
+	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
+	ld a, [wIsInBattle]
+	cp 2 ; a trainer battle
+	ret nz
+	ldh a, [hWhoseTurn]
+	push af
+	farcall ApplyBurnAndParalysisPenaltiesToEnemy ; sets hWhoseTurn 0
+	pop af
+	ldh [hWhoseTurn], a
+	ret

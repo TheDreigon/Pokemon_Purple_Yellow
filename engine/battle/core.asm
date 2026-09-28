@@ -6653,20 +6653,9 @@ LoadEnemyMonData:
 	ld b, FLAG_SET
 	ld hl, wPokedexSeen
 	predef FlagActionPredef ; mark this mon as seen in the pokedex
-	ld hl, wEnemyMonLevel
-	ld de, wEnemyMonUnmodifiedLevel
-	ld bc, 1 + NUM_STATS * 2
-	call CopyData
-	ld a, $7 ; default stat mod
-	ld b, NUM_STAT_MODS ; number of stat mods
-	ld hl, wEnemyMonStatMods
-.statModLoop
-	ld [hli], a
-	dec b
-	jr nz, .statModLoop
-	xor a
-	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
-	ret
+; the unmodified stats, the stages and (v1.0 N5-A) a trainer #MON's burn/para cut:
+; in Battle Core Overflow (toxic_carry.asm), Battle Core is near its floor
+	farjp LoadEnemyMonDataTail
 
 .CraigMonsNicks
 	db "JOLTEON@@@@", "AERODACTYL@", "EXEGGUTOR@@", "SNORLAX@@@@", "CLOYSTER@@@", "FURBALL@@@@"
