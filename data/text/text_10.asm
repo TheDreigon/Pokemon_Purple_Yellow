@@ -215,3 +215,12 @@ _PoisonHealTooToxicText::
 	text "It's too toxic for"
 	line "a POISON HEAL!"
 	prompt
+
+; v1.0 (N3, 2026-09-27): the player's #MON held by the enemy's WRAP / CLAMP
+; (core.asm .switchMon; Gen 2's "can't be recalled!"). Line 1 is 15 tiles at
+; most (a 10-letter name; 't is one tile); line 2 (12) shares the prompt arrow's row.
+_CantBeRecalledText::
+	text_ram wBattleMonNick
+	text " can't"
+	line "be recalled!"
+	prompt

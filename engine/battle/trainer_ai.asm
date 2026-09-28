@@ -863,9 +863,9 @@ AIGetMovePriorityWrapped:
 ; player's action ended it (a switch ends both WRAPs; an item can end the
 ; player's own on its last turn), the enemy chooses after that action and
 ; sees it, as it always did - it had nothing to choose at the top. It never
-; asks for a mon that is asleep or frozen (2026-09-27: the status only, see
-; its top - the layers now run for sleepers), and only when the hook will
-; honour it - a second live mon in the party - because a pending
+; asks for a mon the player's WRAP or CLAMP holds (N3, 2026-09-27: held,
+; neither side can switch; asleep or frozen, both can - see its top), and
+; only when the hook will honour it - a second live mon in the party - because a pending
 ; request is the enemy's action this turn: TrainerAI runs before either move
 ; (2026-09-27), so a switch runs before the player's move, as the player's
 ; own switch does.
@@ -892,13 +892,15 @@ AIMoveChoiceModification6:
 	ld [wAISwitchCooldown], a
 	ret
 .noCooldown
-; v1.0 (2026-09-27, D14 by the status only): an asleep or frozen mon is never
-; withdrawn - the trainer sees the status, not the turns left (it used to let
-; one go on the turn its hidden count ran out). The enemy now chooses every
-; turn, so this runs for sleepers: the rule lives here (the TrainerAI hook
-; keeps the same test as a second guard).
-	ld a, [wEnemyMonStatus]
-	and (1 << FRZ) | SLP_MASK
+; v1.0 (N3, 2026-09-27, Forte: "queremos que seja igual para ambos, para ser
+; justo"): held by the player's WRAP / CLAMP it cannot be withdrawn, as the
+; player's cannot (.switchMon; Gen 2+). Asleep, frozen or confused it can, as
+; the player's can: the old rule that kept an asleep or frozen mon in (D14)
+; went. After the cooldown tick: the cooldown counts the turns the layers run
+; (held ones too; not a recharge, a charge or THRASH, which choose nothing).
+; The TrainerAI hook keeps the same test as a second guard.
+	ld a, [wPlayerBattleStatus1]
+	bit USING_TRAPPING_MOVE, a
 	ret nz ; no request, no Random spent
 	call AICountLiveEnemyMons
 	cp 2
@@ -1059,9 +1061,12 @@ SubFromBCapped:
 ; WRAP exception in MainInBattleLoop) - so it sees the player's Pokemon as
 ; the trainer can, not one the player switches in that turn. The scores
 ; (AIScoreSwitchCandidate):
-;   0  weak to one of the player's types, or below 1/4 of its HP
-;   1  takes the player's types neutrally
-;   2  resists (or is immune to) every one of them
+;   0  asleep or frozen: it would come in and do nothing (N3, 2026-09-27: it
+;      may now be withdrawn, so it may be on the bench); below every teammate
+;      that can act, low ones included
+;   1  weak to one of the player's types, or below 1/4 of its HP
+;   2  takes the player's types neutrally
+;   3  resists (or is immune to) every one of them
 ;  +2  not weak, and one of its TYPE-SCALED damaging moves is super effective
 ;      on the player (not the fixed-damage family - SEISMIC TOSS, NIGHT SHADE,
 ;      DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose damage ignores the
@@ -1123,7 +1128,7 @@ AIPickSwitchTarget:
 	ld a, [wEnemyMonPartyPos]
 	cp c
 	jr z, .next ; the mon that is out
-	call AIScoreSwitchCandidate ; a = 0 fainted, else 1 + its score (1-5); hl = its roster entry; keeps bc, de
+	call AIScoreSwitchCandidate ; a = 0 fainted, else 1 + its score (1-6); hl = its roster entry; keeps bc, de
 	and a
 	jr z, .next
 	push bc
@@ -1136,7 +1141,7 @@ AIPickSwitchTarget:
 	cp b
 	ld a, h
 	jr z, .heldBack ; a co-ace: it ranks only among the co-aces
-	add 8 ; not held back: above every co-ace (1 + a score is 5 at most)
+	add 8 ; not held back: above every co-ace (1 + a score is 6 at most)
 .heldBack
 	cp d
 	jr c, .next
@@ -1176,6 +1181,17 @@ AIScoreSwitchCandidate:
 	ld e, [hl] ; de = its HP
 	or e
 	jp z, .fainted ; jp: the effect checks below put it out of jr reach
+; v1.0 (N3, 2026-09-27): an asleep or frozen teammate would come in and do
+; nothing: it ranks below every teammate that can act, low ones included
+; (tested before the HP). Its status is on its bench entry: the trainer sees it.
+	pop hl
+	push hl
+	ld bc, MON_STATUS
+	add hl, bc
+	ld a, [hl]
+	and (1 << FRZ) | SLP_MASK
+	ld a, 1 ; 1 + a score of 0
+	jp nz, .return
 	sla e
 	rl d
 	sla e
@@ -1260,9 +1276,10 @@ AIScoreSwitchCandidate:
 .scored
 	ld a, c
 	inc a
+	inc a ; 1 + a score of c + 1
 	jr .return
 .weak
-	ld a, 1 ; 1 + a score of 0
+	ld a, 2 ; 1 + a score of 1
 	jr .return
 .fainted
 	xor a
@@ -1374,10 +1391,10 @@ TrainerAI:
 ; WRAP's LAST turn: there the player's item frees the enemy to act that same
 ; turn, while the player, held, chose its $ff at the menu before this and could
 ; not get that turn back. (shinpokered's mask was %01110010: the enemy's own
-; WRAP blocked it, stricter than the player.) A SWITCH stays stricter than the
-; player's: SelectEnemyMove makes no request in its own BIDE or WRAP, or while
-; held and awake, and layer 6 never asks for an asleep or frozen mon (D14) -
-; parity there is for Forte to decide.
+; WRAP blocked it, stricter than the player.) A SWITCH by the player's rule
+; (N3, 2026-09-27): held by the other side's WRAP or CLAMP, neither side can
+; switch (layer 6's top, .switchMon); asleep or frozen, both can. SelectEnemyMove
+; still makes no request in the enemy's own BIDE or WRAP, or while it is held.
 	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / dec keep it clear)
 	ld a, [wEnemyBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
@@ -1399,17 +1416,18 @@ TrainerAI:
 ; 2026-09-27), so the switch goes first. The request names the teammate (1 + its party index); EnemySendOut
 ; consumes it when the switch happens, and this hook drops it when it does
 ; not; a faint replacement never sees it (AIPickFaintReplacement rewrites
-; the byte, 0 or its own pick, just before that send-out). An asleep or frozen mon is not pulled (D14, by the status
-; only since 2026-09-27); with one mon left there is nothing to switch to,
+; the byte, 0 or its own pick, just before that send-out). A mon the player's
+; WRAP or CLAMP holds is not pulled (N3, 2026-09-27: neither side switches
+; while held); with one mon left there is nothing to switch to,
 ; and the class AI below runs as usual - its item count is set up there, so
 ; this path falls through, it never returns. Both cases are belt and braces:
-; the layer asks only for an awake mon with a second live mon.
+; the layer asks only for a mon that is not held, with a second live mon.
 	ld a, [wAISwitchRequest]
 	and a
 	jr z, .noSwitchRequest
-	ld a, [wEnemyMonStatus]
-	and (1 << FRZ) | SLP_MASK
-	jr nz, .dropSwitchRequest ; asleep or frozen: it stays
+	ld a, [wPlayerBattleStatus1]
+	bit USING_TRAPPING_MOVE, a
+	jr nz, .dropSwitchRequest ; held: it stays
 	call AISwitchIfEnoughMons
 	ret c ; switched (EnemySendOut consumed the request): that was the turn's action
 .dropSwitchRequest
@@ -2329,9 +2347,7 @@ SwitchEnemyMon:
 ; fresh - its setup layer counts from zero again (as yumepokered does) and
 ; the switch layer leaves the newcomer alone for a couple of turns. (The
 ; player's WRAP needs nothing here: a held enemy never asks to switch -
-; SelectEnemyMove hands an awake one $ff before the layers run, and the
-; layer never asks for an asleep or frozen one - and EnemySendOutFirstMon
-; drops the trapping bit.)
+; layer 6's top, N3 - and EnemySendOutFirstMon drops the trapping bit.)
 	xor a
 	ld [wAILayer2Encouragement], a
 	ld a, [AISwitchKnobs.cooldown]

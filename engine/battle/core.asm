@@ -2915,12 +2915,21 @@ PartyMenuOrRockOrRun:
 	ld d, a
 	ld a, [wWhichPokemon]
 	cp d ; check if the mon to switch to is already out
-	jr nz, .notAlreadyOut
 ; mon is already out
 	ld hl, AlreadyOutText
+	jr z, .cantSwitch
+; v1.0 (N3, 2026-09-27, Forte: "nenhum poder trocar o seu pokemon se ele estiver
+; a ser alvo de um wrap/clamp"): held by the enemy's WRAP / CLAMP, it cannot be
+; recalled (Gen 2+), as the enemy's cannot (trainer_ai.asm, layer 6). Nothing is
+; spent: back to the party menu.
+	ld a, [wEnemyBattleStatus1]
+	bit USING_TRAPPING_MOVE, a
+	jr z, .notHeld
+	ld hl, CantBeRecalledText
+.cantSwitch
 	call PrintText
 	jp .partyMonDeselected
-.notAlreadyOut
+.notHeld
 	call HasMonFainted
 	jp z, .partyMonDeselected ; can't switch to fainted mon
 	ld a, $1
@@ -2958,6 +2967,10 @@ SwitchPlayerMon:
 
 AlreadyOutText:
 	text_far _AlreadyOutText
+	text_end
+
+CantBeRecalledText:
+	text_far _CantBeRecalledText
 	text_end
 
 BattleMenu_RunWasSelected:
