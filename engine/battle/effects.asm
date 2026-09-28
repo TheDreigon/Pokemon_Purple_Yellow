@@ -1062,6 +1062,22 @@ ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must
 	ld b, $4
 	call Divide
 	pop hl
+; v1.0 (D7-999, 2026-09-28; Forte: "corrige"): the raising path's 999 cap, here too.
+; Vanilla capped only on the way up, so a stat held at 999 by a high stage came back
+; above it one stage down (800 at +2 = 999, at +1 = 1200). .scaleStats keeps ten bits
+; of a stat (/4, one byte): 1200 fought as 44, and 1024-1027 as a DEFENSE or SP.DEF
+; scaled to a zero divisor - a freeze. Shared by both sides; Gold/Silver/Crystal cap
+; here as well (CalcBattleStats).
+	ldh a, [hProduct + 3]
+	sub LOW(MAX_STAT_VALUE)
+	ldh a, [hProduct + 2]
+	sbc HIGH(MAX_STAT_VALUE)
+	jr c, .notAbove999
+	ld a, HIGH(MAX_STAT_VALUE)
+	ldh [hProduct + 2], a ; (= hMultiplicand + 1, what the raising path writes)
+	ld a, LOW(MAX_STAT_VALUE)
+	ldh [hProduct + 3], a
+.notAbove999 ; a capped 999 is not 0: the floor below lets it through
 	ldh a, [hProduct + 3]
 	ld b, a
 	ldh a, [hProduct + 2]

@@ -3,9 +3,10 @@
 ; paralysis puts the stat back: the side's five battle stats = unmodified x stages (the badge
 ; boost lives in the unmodified stats, so it stays; no cut). Exact, and right whether or not a
 ; cut was there - the old "double it back" (UndoBurnParStats) lost the odd point and doubled a
-; stat that had no cut. On a side with no BRN or PAR it changes nothing, bar one case it puts
-; right: a stat a lowering left above 999. (A TRANSFORMed #MON no longer carries the target's
-; cut: D6, UserStatsWithOwnCut below.)
+; stat that had no cut. On a side with no BRN or PAR it changes nothing. (It used to put two
+; cases right; neither exists any more: a TRANSFORMed #MON no longer carries the target's cut -
+; D6, UserStatsWithOwnCut below - and a lowering no longer leaves a stat above 999 - D7,
+; effects.asm.)
 ; Needs stage bytes 1-13 (every writer keeps them there).
 ; Trashes a, bc, de, hl, f, hMath and wd11e; keeps hWhoseTurn.
 PlayerStatusGone:: ; the nap, the player's items
@@ -34,8 +35,7 @@ UserStatusGone: ; RECOVER, SOFTBOILED, REST
 ; user lost its own (TRANSFORM never copies the status). Now the user's five stats = the copied
 ; unmodified x the copied stages, then the user's OWN cut: the order of every send-out, and
 ; what a level-up of a TRANSFORMed #MON already did (experience.asm .recalcStatChanges). Both
-; sides. With no burn or paralysis on either side it equals the copy (bar a stat the target
-; held above 999 after a lowering from a high stage: capped here).
+; sides. With no burn or paralysis on either side it equals the copy.
 ; Needs the copied stage bytes 1-13. Trashes a, bc, de, hl, f, hMath and wd11e; keeps hWhoseTurn.
 UserStatsWithOwnCut:
 	ldh a, [hWhoseTurn]
