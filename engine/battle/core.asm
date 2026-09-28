@@ -5837,6 +5837,19 @@ IncrementMovePP:
 	ld c, a
 	add hl, bc
 	inc [hl] ; increment PP in the currently battling pokemon memory location
+; v1.0 (D9, 2026-09-28): not the party / roster PP of a TRANSFORMed user - its moves
+; are copies, and DecrementPP / DecrementEnemyPP leave that PP alone too. (Vanilla
+; refunded it anyway: every copied METRONOME / MIRROR MOVE gave a point of PP to a
+; slot of its own set, an empty one included; sent in again, it had PP on a slot
+; with no move, and DISABLE on it, every real move at 0 PP, drew for ever.)
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerBattleStatus3]
+	jr z, .gotStatus3
+	ld a, [wEnemyBattleStatus3]
+.gotStatus3
+	bit TRANSFORMED, a
+	ret nz
 	ld h, d
 	ld l, e
 	add hl, bc

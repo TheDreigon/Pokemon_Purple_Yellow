@@ -116,8 +116,8 @@ LoadEnemyMonDataTail::
 ; comes in again with the PP it left with; LoadMovePPs (LoadEnemyMonData) gave it
 ; full PP from its move ids on every send-out. A fresh #MON's roster PP is its full
 ; PP (ReadTrainerFinishUp), so a first send-out is unchanged; a TRANSFORMed #MON's
-; copied PP never reach the roster (DecrementEnemyPP), so it comes back with its
-; own. Hard: its trainer's PP never drops, and the roster is not read (the gate is
+; copied PP never reach the roster (DecrementEnemyPP, and IncrementMovePP's refund
+; since D9), so it comes back with its own. Hard: its trainer's PP never drops, and the roster is not read (the gate is
 ; DecrementEnemyPP's).
 	ld a, [wDifficulty]
 	and a
