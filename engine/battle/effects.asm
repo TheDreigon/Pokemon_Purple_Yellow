@@ -1684,18 +1684,20 @@ DisableEffect:
 	jr z, .pickMoveToDisable ; loop until a non-00 move slot is found
 	ld [wd11e], a ; store move number
 	push hl
+; v1.0 (D4a, 2026-09-28): the target's PP is checked on both turns: a slot with
+; no PP left is drawn again, and with no PP left anywhere DISABLE fails. Vanilla
+; checked the enemy's PP in link battles only ("non-link battle enemies have
+; unlimited PP"), false since v0.7 drains it in Normal mode - the player's
+; DISABLE could land on a move the enemy could not use anyway, while the enemy's
+; always checked the player's PP (bar the PP Up slip fixed just below).
+; Hard is unchanged: the enemy's PP never drains there (DecrementEnemyPP)
+; and every move it holds has 5 PP or more from its send-out.
 	ldh a, [hWhoseTurn]
 	and a
 	ld hl, wBattleMonPP
-	jr nz, .enemyTurn
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	pop hl ; wEnemyMonMoves
-	jr nz, .playerTurnNotLinkBattle
-; .playerTurnLinkBattle
-	push hl
+	jr nz, .checkTargetPP
 	ld hl, wEnemyMonPP
-.enemyTurn
+.checkTargetPP
 	push hl
 	ld a, [hli]
 	or [hl]
@@ -1709,10 +1711,11 @@ DisableEffect:
 	add hl, bc
 	ld a, [hl]
 	pop hl
-	and a
+; v1.0 (D4b, 2026-09-28): remaining PP only, the PP Up bits masked - the rule of
+; the move menu, AnyMoveToSelect and SelectEnemyMove. Vanilla's `and a` let the
+; enemy's DISABLE land on a player move at 0 PP that had a PP UP used on it.
+	and $3f
 	jr z, .pickMoveToDisable ; pick another move if this one had 0 PP
-.playerTurnNotLinkBattle
-; non-link battle enemies have unlimited PP so the previous checks aren't needed
 	call BattleRandom
 	and $7
 	inc a ; 1-8 turns disabled
