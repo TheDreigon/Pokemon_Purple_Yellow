@@ -1138,6 +1138,7 @@ RemoveFaintedPlayerMon:
 	predef FlagActionPredef ; clear gain exp flag for fainted mon
 	ld hl, wEnemyBattleStatus1
 	res 2, [hl]   ; reset "attacking multiple times" flag
+	res USING_TRAPPING_MOVE, [hl] ; v1.0 (N3): the #MON it held fainted - the hold is over (lets "Use next #MON? NO" run)
 	ld a, [wLowHealthAlarm]
 	bit 7, a      ; sounding?
 	ld a, $ff     ; yes: the VBlank handler cuts it and frees channel 1 next frame
@@ -1695,7 +1696,14 @@ TryRunningFromBattle:
 	jp z, .canEscape
 	ld a, [wIsInBattle]
 	dec a
-	jr nz, .trainerBattle ; jump if it's a trainer battle
+	jp nz, .trainerBattle ; jump if it's a trainer battle (v1.0: jp, the held test below put it out of jr reach)
+; v1.0 (N3, 2026-09-27): held by the wild #MON's WRAP / CLAMP it cannot run
+; (Gen 2+ TryToRunAwayFromBattle), as it cannot switch: "Can't escape!", the
+; attempt not counted, the turn not spent. (A trainer's RUN is the surrender
+; prompt, untouched; a POKe DOLL still works.)
+	ld a, [wEnemyBattleStatus1]
+	bit USING_TRAPPING_MOVE, a
+	jr nz, .heldCantEscape
 	ld a, [wNumRunAttempts]
 	inc a
 	ld [wNumRunAttempts], a
@@ -1766,6 +1774,7 @@ TryRunningFromBattle:
 ; can't escape
 	ld a, $1
 	ld [wActionResultOrTookBattleTurn], a ; you lose your turn when you can't escape
+.heldCantEscape ; (wActionResultOrTookBattleTurn left 0: back to the battle menu)
 	ld hl, CantEscapeText
 	jr .printCantEscape
 .trainerBattle

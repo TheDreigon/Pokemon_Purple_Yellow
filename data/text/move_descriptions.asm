@@ -285,8 +285,8 @@ _MoveDesc_SpecialDamage::
 _MoveDesc_Trapping::
 	text "Traps the foe for"
 	next "2 to 5 turns. It"
-	next "cannot act while"
-	next "held."
+	next "can't act or"
+	next "leave while held."
 	done
 
 _MoveDesc_Fly::
