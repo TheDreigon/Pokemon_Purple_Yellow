@@ -1044,7 +1044,8 @@ SubFromBCapped:
 ; (AIScoreSwitchCandidate):
 ;   0  asleep or frozen: it would come in and do nothing (N3, 2026-09-27: it
 ;      may now be withdrawn, so it may be on the bench); below every teammate
-;      that can act, low ones included
+;      that can act, low ones included. The same for one with no PP left on any
+;      move, which could only STRUGGLE (D10, 2026-09-28)
 ;   1  weak to one of the player's types, or below 1/4 of its HP
 ;   2  takes the player's types neutrally
 ;   3  resists (or is immune to) every one of them
@@ -1190,6 +1191,22 @@ AIScoreSwitchCandidate:
 	and (1 << FRZ) | SLP_MASK
 	ld a, 1 ; 1 + a score of 0
 	jp nz, .return
+; v1.0 (D10, 2026-09-28): nor can a teammate with no PP left on any move (the PP Up
+; bits masked): it would come in and only STRUGGLE. Normal only in effect - an
+; enemy's PP never drains in Hard - and, since D3, its PP stays spent on the bench.
+	pop hl
+	push hl
+	ld bc, MON_PP
+	add hl, bc
+	ld a, [hli]
+	or [hl]
+	inc hl
+	or [hl]
+	inc hl
+	or [hl]
+	and $3f
+	ld a, 1 ; 1 + a score of 0 (ld keeps the flags)
+	jp z, .return
 	sla e
 	rl d
 	sla e
