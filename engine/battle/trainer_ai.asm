@@ -1347,6 +1347,27 @@ AILockedSwitchDecision:
 	ld [hl], a
 	jp AIMoveChoiceModification6
 
+; v1.0 (N3, 2026-09-27): the same on a turn forced into STRUGGLE - no PP left, or
+; its only move disabled. SelectEnemyMove ran no AI at all there, so the switch
+; layer never ran and the mon could not be withdrawn, while the player, in the
+; same state, may switch. No move layer runs (there is no move to choose), but
+; every move it has is unusable, so the scores layer 6 reads are 11: "every move
+; discouraged" counts, as a trainer would see it. Called by callfar from
+; SelectEnemyMove. Clobbers all.
+AIStruggleSwitchDecision:
+	ld a, [wIsInBattle]
+	dec a
+	ret z ; wild
+	call AIHasSwitchLayer
+	ret nc
+	ld hl, wBuffer
+	ld a, 11 ; discouraged (layer 6 reads 11 or more as "discouraged")
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	jp AIMoveChoiceModification6
+
 AIMatchupAtHL:
 ; a = how effective attacking type a is on the two defender types at hl
 ; (EFFECTIVE = neutral). Keeps bc, hl.
@@ -1414,7 +1435,8 @@ TrainerAI:
 ; it, stricter than the player.) A SWITCH by the player's rule
 ; (N3, 2026-09-27): held by the other side's WRAP or CLAMP, neither side can
 ; switch (layer 6's top, .switchMon); asleep or frozen, both can; in its own
-; BIDE or WRAP, both can (AILockedSwitchDecision).
+; BIDE or WRAP, both can (AILockedSwitchDecision); on a STRUGGLE turn, both can
+; (AIStruggleSwitchDecision).
 	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / and keep it clear)
 	ld a, [wEnemyBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a

@@ -3622,6 +3622,11 @@ SelectEnemyMove:
 	or [hl]
 	and $3f
 	jr nz, .atLeastOneMoveHasPP
+.forcedStruggle
+; v1.0 (N3, 2026-09-27): a turn forced into STRUGGLE runs no move layer (there is
+; no move to choose), but the switch decision still runs - the player may switch
+; out of a STRUGGLE turn too (trainer_ai.asm AIStruggleSwitchDecision)
+	callfar AIStruggleSwitchDecision
 	ld a, STRUGGLE
 	jr .done
 .atLeastOneMoveHasPP
@@ -3631,8 +3636,7 @@ SelectEnemyMove:
 	jr nz, .atLeastTwoMovesAvailable
 	ld a, [wEnemyDisabledMove]
 	and a
-	ld a, STRUGGLE ; struggle if the only move is disabled
-	jr nz, .done
+	jr nz, .forcedStruggle ; struggle if the only move is disabled
 .atLeastTwoMovesAvailable
 	ld a, [wIsInBattle]
 	dec a
