@@ -314,11 +314,14 @@ MainInBattleLoop:
 ; and its pick of who comes in are made here too. wAIChoseThisTurn keeps it
 ; to one choice per turn: pressing B in the FIGHT menu comes back to this
 ; loop, and must not re-roll the choice (or count the switch cooldown twice).
-; One exception, kept on purpose: when a WRAP stopped the choice here and
-; the player's action ended it, the enemy chooses after that action, as it
-; always did (see .selectEnemyMove) - it had nothing to choose here. (A link
-; battle would need the pick after the data exchange; the Cable Club is
-; gone, and SelectEnemyMove's link branch is dead code.)
+; No exception (N3, 2026-09-27): SelectEnemyMove marks the choice made on
+; every path, so a turn its gates stop (recharge, a charge, THRASH, its own
+; BIDE or WRAP) is not chosen again after the player's action. Held by a
+; WRAP, either side still chooses. (Before, a WRAP that stopped the choice
+; here and that the player's action ended let the enemy choose after that
+; action and see it. A link battle would need the pick after the data
+; exchange; the Cable Club is gone, and SelectEnemyMove's link branch is dead
+; code.)
 	ld a, [wAIChoseThisTurn]
 	and a
 	call z, SelectEnemyMove
@@ -350,22 +353,13 @@ MainInBattleLoop:
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump
-	ld a, [wEnemyBattleStatus1]
-	bit USING_TRAPPING_MOVE, a ; check if enemy is using a multi-turn attack like wrap
-	jr z, .selectPlayerMove ; if not, jump
-; enemy is using a multi-turn attack like wrap, so player is trapped and cannot execute a move
-; v1.0 (2026-09-27): unless asleep or frozen - then it picks as if free. A $ff
-; makes ExecutePlayerMove return before CheckPlayerStatusConditions, so the
-; sleep / freeze would not count down while the WRAP lasts (since 2026-09-24).
-; The pick runs only if the WRAP user loses its grip first (full paralysis, a
-; confusion self-hit) on the wake / thaw turn; otherwise .HeldInPlaceCheck
-; says "can't move". It is always this #MON's own.
-	ld a, [wBattleMonStatus]
-	and (1 << FRZ) | SLP_MASK
-	jr nz, .selectPlayerMove
-	ld a, $ff
-	ld [wPlayerSelectedMove], a
-	jr .selectEnemyMove
+; v1.0 (N3, 2026-09-27, Forte: "queremos que seja igual para ambos"): held by
+; the enemy's WRAP / CLAMP it chooses too, as from Gen 2 on, and as the enemy
+; does. The hold is enforced where the move would run (.HeldInPlaceCheck says
+; "can't move" before the move is read or its PP spent); freed first - the
+; WRAP user switched out, used an item on the WRAP's last turn, was fully
+; paralysed or hurt itself in confusion - it uses this pick. (Gen 1 gave a
+; held #MON a $ff here, so a WRAP user's switch gave it a free turn.)
 .selectPlayerMove
 	ld a, [wActionResultOrTookBattleTurn]
 	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
@@ -382,15 +376,10 @@ MainInBattleLoop:
 	pop af
 	jp nz, MainInBattleLoop ; if the player didn't select a move, jump (v1.0: jp, the top grew)
 .selectEnemyMove
-; v1.0: the choice was made at the top of the turn. It is made here only if a
-; gate stopped it there (SelectEnemyMove sets wAIChoseThisTurn only when it
-; picks): the stable ones (recharge, a charge or THRASH, BIDE) just stop it
-; again,
-; and the ones a player's action can lift - the player's switch ends BOTH
-; WRAPs (SendOutMon resets the enemy's USING_TRAPPING_MOVE and zeroes
-; wPlayerBattleStatus1), an item on its last turn ends the player's own -
-; let the enemy choose now, after that action, as it always did. Then the
-; turn is committed.
+; v1.0: the choice was made at the top of the turn, and SelectEnemyMove marks
+; it made on every path (N3, 2026-09-27), so in play the flag is always 1
+; here and this call never runs: it is the tests' staging hook (they set the
+; flag to 0 and stage a choice for this point). Then the turn is committed.
 	ld a, [wAIChoseThisTurn]
 	and a
 	call z, SelectEnemyMove
@@ -1498,8 +1487,8 @@ EnemySendOutFirstMon:
 .next
 ; v1.0 (2026-09-26, the AI switch layer): a switch the AI asked for names the
 ; teammate to bring in (wAISwitchRequest = 1 + its party index, chosen by
-; AIPickSwitchTarget when the enemy chose - at the start of the turn, bar the
-; WRAP exception in MainInBattleLoop); it is consumed here. A replacement
+; AIPickSwitchTarget when the enemy chose - at the start of the turn,
+; MainInBattleLoop); it is consumed here. A replacement
 ; after a faint reads what AIPickFaintReplacement just wrote (2026-09-27: its
 ; pick for a trainer with the switch layer, else 0). The battle's first
 ; send-out, a trainer without the layer and a double KO read 0 and take the
@@ -3580,8 +3569,13 @@ SelectEnemyMove:
 ; v1.0 (2026-09-26, the AI switch layer): a switch request lives one turn.
 ; It is cleared here, before any of the gates below, so a request the layer
 ; made on a turn the mon then could not act on never carries over.
+; v1.0 (N3, 2026-09-27): and the turn's choice is marked made on EVERY path
+; from here - a pick, a stable gate, a locked move - so MainInBattleLoop asks
+; once per turn, at its top.
 	xor a
 	ld [wAISwitchRequest], a
+	inc a
+	ld [wAIChoseThisTurn], a
 	ld a, [wEnemyBattleStatus2]
 	and 1 << NEEDS_TO_RECHARGE ; need to recharge
 	ret nz
@@ -3591,26 +3585,18 @@ SelectEnemyMove:
 	ret nz
 ; v1.0 (2026-09-27): no sleep / freeze gate - the enemy chooses every turn,
 ; asleep or frozen too, as the player does (pokecrystal AIChooseMove stops only
-; for CheckEnemyLockedIn: recharge, a charge, a rampage, BIDE, ROLLOUT). The
-; switch layer never withdraws an asleep or frozen mon (its own top).
+; for CheckEnemyLockedIn: recharge, a charge, a rampage, BIDE, ROLLOUT). Held
+; by the player's WRAP / CLAMP it chooses too (N3, as the player does): the
+; hold is enforced where the move would run (CheckEnemyStatusConditions), and
+; the switch layer asks for no switch while it is held (its top).
 	ld a, [hl] ; hl = wEnemyBattleStatus1 still
-	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; using a trapping move like wrap or bide
-	ret nz
-	ld a, [wPlayerBattleStatus1]
-	bit USING_TRAPPING_MOVE, a ; caught in player's trapping move (e.g. wrap)
+	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; its own WRAP or BIDE: that move stays
 	jr z, .canSelectMove
-; v1.0 (2026-09-27): held while asleep or frozen, it still chooses: a $ff would
-; skip the count-down (ExecuteEnemyMove returns before CheckEnemyStatusConditions).
-; The layers run; the switch layer never asks for an asleep or frozen mon.
-	ld a, [wEnemyMonStatus]
-	and (1 << FRZ) | SLP_MASK
-	jr nz, .canSelectMove
-.unableToSelectMove
+	ret
+.unableToSelectMove ; the dead link branch's LINKBATTLE_NO_ACTION
 	ld a, $ff
 	jr .done
 .canSelectMove
-	ld a, 1
-	ld [wAIChoseThisTurn], a ; v1.0: a real pick is being made (the gates above leave it 0)
 	; v0.7 (AI PP fix): if every enemy move slot has 0 PP, force Struggle.
 	; OR over the 4 PP bytes, mask out the 2 PP-up bits so we look only
 	; at remaining PP. Mirrors AnyMoveToSelect's logic for the player.

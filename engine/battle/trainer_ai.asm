@@ -858,11 +858,9 @@ AIGetMovePriorityWrapped:
 ; of its gates, so a request never outlives the turn that made it. Since the
 ; enemy chooses at the START of the turn (MainInBattleLoop), both the
 ; decision and the pick see the player's Pokemon as the trainer could, not
-; one the player switched in that turn - bar the WRAP exceptions: when a
-; WRAP (the enemy's or the player's) stopped the choice at the top and the
-; player's action ended it (a switch ends both WRAPs; an item can end the
-; player's own on its last turn), the enemy chooses after that action and
-; sees it, as it always did - it had nothing to choose at the top. It never
+; one the player switched in that turn (no exception since N3, 2026-09-27: a
+; WRAP no longer stops the choice at the top, and a gated turn is not chosen
+; again after the player's action). It never
 ; asks for a mon the player's WRAP or CLAMP holds (N3, 2026-09-27: held,
 ; neither side can switch; asleep or frozen, both can - see its top), and
 ; only when the hook will honour it - a second live mon in the party - because a pending
@@ -1057,8 +1055,8 @@ SubFromBCapped:
 ; and not weak first, then not weak, ties to party order), without its two
 ; blind spots (a STATUS move of a super-effective type counted there, and
 ; HP was never looked at), and with a resist tier. It runs where the switch
-; is decided - when the enemy chooses, at the start of the turn (bar the
-; WRAP exception in MainInBattleLoop) - so it sees the player's Pokemon as
+; is decided - when the enemy chooses, at the start of the turn
+; (MainInBattleLoop) - so it sees the player's Pokemon as
 ; the trainer can, not one the player switches in that turn. The scores
 ; (AIScoreSwitchCandidate):
 ;   0  asleep or frozen: it would come in and do nothing (N3, 2026-09-27: it
@@ -1387,28 +1385,21 @@ TrainerAI:
 ; charges a two-turn move (FLY/DIG's INVULNERABLE only exists with CHARGING_UP).
 ; BIDE, confusion, sleep, a freeze and the player's WRAP do not stop it, as they
 ; do not stop the player. Its own WRAP does not either - the item costs a turn of
-; it, as the player's does (UseBagItem; DecrementAICount here) - except the
-; WRAP's LAST turn: there the player's item frees the enemy to act that same
-; turn, while the player, held, chose its $ff at the menu before this and could
-; not get that turn back. (shinpokered's mask was %01110010: the enemy's own
-; WRAP blocked it, stricter than the player.) A SWITCH by the player's rule
+; it, as the player's does (UseBagItem; DecrementAICount here), its last turn
+; too: the player, held, chose a move as well (N3), and uses it when the item
+; ends the WRAP first - as the enemy does when the player's item ends the
+; player's own. (shinpokered's mask was %01110010: the enemy's own WRAP blocked
+; it, stricter than the player.) A SWITCH by the player's rule
 ; (N3, 2026-09-27): held by the other side's WRAP or CLAMP, neither side can
 ; switch (layer 6's top, .switchMon); asleep or frozen, both can. SelectEnemyMove
 ; still makes no request in the enemy's own BIDE or WRAP, or while it is held.
-	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / dec keep it clear)
+	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / and keep it clear)
 	ld a, [wEnemyBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
 	ret nz
-	ld hl, wEnemyBattleStatus1
-	ld a, [hl]
+	ld a, [wEnemyBattleStatus1]
 	and (1 << THRASHING_ABOUT) | (1 << CHARGING_UP)
 	ret nz
-	bit USING_TRAPPING_MOVE, [hl]
-	jr z, .notOwnWrapLastTurn
-	ld a, [wEnemyNumAttacksLeft] ; 1-4 at the menu while the bit is set
-	dec a
-	ret z
-.notOwnWrapLastTurn
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; v1.0 (2026-09-26, the AI switch layer): the switch layer (6) asked to
@@ -2131,8 +2122,9 @@ DecrementAICount:
 ; v1.0 (2026-09-27): an item used while its own WRAP holds the player costs a
 ; turn of it, as the player's does (UseBagItem). wEnemyNumAttacksLeft is shared
 ; with BIDE / THRASH / multi-hit: it is read only behind USING_TRAPPING_MOVE.
-; (TrainerAI never lets it happen on the WRAP's last turn; the reset mirrors the
-; player's code all the same.)
+; On the WRAP's last turn the reset frees the player that same turn, and it
+; uses the move it chose (N3: a held #MON chooses too), as UseBagItem frees
+; the enemy.
 	ld hl, wEnemyBattleStatus1
 	bit USING_TRAPPING_MOVE, [hl]
 	jr z, .done
