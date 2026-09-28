@@ -1557,14 +1557,20 @@ CooltrainerFAI:
 ; falls through.
 ;
 ; Pattern (every boss now also carries Full Heal):
-;   1. If statused: below half its HP a FULL RESTORE (HP, status and confusion
-;      in one action), else a FULL HEAL (AIStatusCureItem; 2026-09-27, Forte:
-;      "menos hp faz sentido mais prioridade ao full restore").
+;   1. If statused below half its HP: a FULL RESTORE (HP, status and confusion
+;      in one action) if the bag has one (AIStatusCureItem; 2026-09-27, Forte:
+;      "menos hp faz sentido mais prioridade ao full restore"); with none, a
+;      FULL HEAL for sleep, freeze or TOXIC (2026-09-28).
 ;   2. Else if HP below threshold (1/3; 1/2 for Giovanni/Oak/Joy/Bill), heal item
-;      (a FULL RESTORE cures confusion too, 2026-09-27).
-;   3. Else, if only confused and an item action is to spare, the same as 1
-;      (AIConfusionCureItem, 2026-09-27: the player may FULL HEAL a mon that is
-;      only confused; the enemy plays by the same rule).
+;      (a FULL RESTORE cures confusion too, 2026-09-27). It comes before any FULL
+;      HEAL: a bag with potions only heals a poisoned, burnt or paralysed mon below
+;      its line first, and the status stays (2026-09-28, the same principle); an
+;      asleep, frozen or badly poisoned one gets its FULL HEAL first (step 1).
+;   3. Else (no HP item used; AILateCureItem): a status -> a FULL HEAL; with none
+;      left, a FULL RESTORE only for sleep or a freeze (2026-09-28). Only
+;      confused, with an item action to spare -> below half a FULL RESTORE, else
+;      a FULL HEAL (2026-09-27: the player may FULL HEAL a mon that is only
+;      confused; the enemy plays by the same rule).
 ;   4. Else, one ~25% roll per buff item (independent rolls).
 ; Per-battle item caps come from the bag data; per-mon caps still come from
 ; wAICount/ai_pointers.asm (each AIUse* tail-calls DecrementAICount).
@@ -1572,8 +1578,8 @@ CooltrainerFAI:
 BrockAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	; Priority 1: a status -> FULL RESTORE below half its HP, else FULL HEAL; confusion alone after the HP branch
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	; Priority 1: a status below half its HP -> FULL RESTORE; then the HP branch; then a status's FULL HEAL, or confusion alone
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	; Heal at HP < 1/3 — the rematch bag carries Full Restore, the first
 	; fight's carries Potion; try the better tier first (same both ways for
@@ -1588,7 +1594,7 @@ BrockAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUsePotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X Defend (rocks defensive)
 	call Random
@@ -1602,7 +1608,7 @@ BrockAI:
 MistyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1614,7 +1620,7 @@ MistyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X SP.ATK
 	call Random
@@ -1628,7 +1634,7 @@ MistyAI:
 LtSurgeAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1640,7 +1646,7 @@ LtSurgeAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X Speed (electric speed)
 	call Random
@@ -1654,7 +1660,7 @@ LtSurgeAI:
 ErikaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1666,7 +1672,7 @@ ErikaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X SP.DEF (2026-09-06 table: Erika's bags carry X SP.DEF -
 	; her flowers take the hit rather than deal it)
@@ -1681,7 +1687,7 @@ ErikaAI:
 KogaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1693,7 +1699,7 @@ KogaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X Speed
 	call Random
@@ -1715,7 +1721,7 @@ KogaAI:
 SabrinaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1727,7 +1733,7 @@ SabrinaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X SP.ATK (Psychic special attacker)
 	call Random
@@ -1741,7 +1747,7 @@ SabrinaAI:
 BlaineAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1753,7 +1759,7 @@ BlaineAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseMaxPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X SP.ATK (fire special attacker)
 	call Random
@@ -1769,7 +1775,7 @@ BlaineAI:
 GiovanniAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 2
 	call AICheckIfHPBelowFraction
@@ -1781,7 +1787,7 @@ GiovanniAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X Attack roll
 	call Random
@@ -1805,7 +1811,7 @@ GiovanniAI:
 LoreleiAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1814,7 +1820,7 @@ LoreleiAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X SP.ATK roll (2026-09-06 table: she buffs her special attacks, not her Defense)
 	call Random
@@ -1828,7 +1834,7 @@ LoreleiAI:
 BrunoAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1837,7 +1843,7 @@ BrunoAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	call Random
 	cp 25 percent + 1
@@ -1850,7 +1856,7 @@ BrunoAI:
 AgathaAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1859,7 +1865,7 @@ AgathaAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% chance X Speed
 	call Random
@@ -1873,7 +1879,7 @@ AgathaAI:
 LanceAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1882,7 +1888,7 @@ LanceAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X Speed roll (2026-09-06 table: his bag is all speed now; the X Special roll went with it)
 	call Random
@@ -1898,7 +1904,7 @@ LanceAI:
 Rival2AI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1907,7 +1913,7 @@ Rival2AI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; no buff roll: the same correction took his X Attacks away, and an AI
 	; branch with no item behind it is the mirror image of dead weight
@@ -1919,7 +1925,7 @@ KiyoAI:
 ; ATTACK and his Dire Hit lives in the rematch bag.
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1931,7 +1937,7 @@ KiyoAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseHyperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X Attack roll
 	call Random
@@ -1953,7 +1959,7 @@ KiyoAI:
 Rival3AI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -1962,7 +1968,7 @@ Rival3AI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X Speed roll (2026-09-06 table: speed and a Dire Hit; the X Attack is gone)
 	call Random
@@ -1988,7 +1994,7 @@ Rival3AI:
 ProfOakAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 2
 	call AICheckIfHPBelowFraction
@@ -1997,7 +2003,7 @@ ProfOakAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% Guard Spec roll
 	call Random
@@ -2020,7 +2026,7 @@ ProfOakAI:
 JoyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 2
 	call AICheckIfHPBelowFraction
@@ -2029,7 +2035,7 @@ JoyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; no buff roll (2026-09-06 table): the nurse heals and nothing else
 	ret
@@ -2042,7 +2048,7 @@ JoyAI:
 SelfInsertBossAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -2051,7 +2057,7 @@ SelfInsertBossAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	ret
 
@@ -2065,7 +2071,7 @@ BillAI:
 ; weight, which is precisely how ForteBossBag ended up stocked and never spent.
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 2
 	call AICheckIfHPBelowFraction
@@ -2074,7 +2080,7 @@ BillAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% Guard Spec roll
 	call Random
@@ -2096,7 +2102,7 @@ BillAI:
 JennyAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -2105,7 +2111,7 @@ JennyAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X Attack roll
 	call Random
@@ -2128,7 +2134,7 @@ JennyAI:
 JanineAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -2137,7 +2143,7 @@ JanineAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	; ~25% X Speed roll
 	call Random
@@ -2159,7 +2165,7 @@ JanineAI:
 JessieAndJamesAI:
 	call IsHardModeBossOrSemiBattle
 	ret z
-	call AIStatusCureItem ; a status: FULL RESTORE below half its HP, else FULL HEAL (used there)
+	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first
 	ret c
 	ld a, 3
 	call AICheckIfHPBelowFraction
@@ -2168,7 +2174,7 @@ JessieAndJamesAI:
 	call CheckAndConsumeBossItem
 	jp c, AIUseSuperPotion
 .skipHeal
-	call AIConfusionCureItem ; confusion alone, an item action to spare: the same rule
+	call AILateCureItem ; no HP item used: a status (FULL HEAL; asleep or frozen, a FULL RESTORE), or confusion alone
 	ret c
 	ret
 
@@ -2614,47 +2620,90 @@ StoreBattleMonTypes:
 ; CheckAndConsumeBossItem before each AIUse*; if the bag is empty for that
 ; item, the AI silently no-ops.
 
-; v1.0 (2026-09-27): the boss / semi-boss cure, in two halves; each uses the item
-; itself and returns carry when one was used (DecrementAICount's scf), so a
-; routine reads `call X / ret c`.
-; AIStatusCureItem (first in every routine): a status, always. Below half its HP
-; (HP < floor(MaxHP/2), the line Giovanni, Oak, Joy and Bill already heal at) a
-; FULL RESTORE if the bag has one - HP, status and confusion in one action -
-; else a FULL HEAL (Forte: "menos hp faz sentido mais prioridade ao full
-; restore que tambem restora vida"). Gen 2's AI_Items also tries the FULL
-; RESTORE first.
-; AIConfusionCureItem (after the HP branch): confusion alone, as the player may
-; (CheckCanCureConfusion), but never with this mon's LAST item action
-; (wAICount 1): confusion wears off by itself, and that action is kept for its
-; HP. Then the same half-HP rule. It reads what a trainer sees - the status, the
-; CNF on its HUD, its own HP bar - never the hidden confusion count. The switch
-; layer decided first (TrainerAI honours its request before the class routine),
-; so a switch never costs an item.
+; v1.0 (2026-09-27, 2026-09-28): the boss / semi-boss cure, in two halves around
+; the routine's HP branch; each uses the item itself and returns carry when one
+; was used (DecrementAICount's scf), so a routine reads `call X / ret c`. Less
+; HP, more weight to what gives HP back (Forte: "menos hp faz sentido mais
+; prioridade ao full restore que tambem restora vida"; 2026-09-28: the early
+; bosses' potions too).
+; AIStatusCureItem (first in every routine): a status below half its HP
+; (HP < floor(MaxHP/2), the line Giovanni, Oak, Joy and Bill already heal at): a
+; FULL RESTORE if the bag has one - HP, status and confusion in one action. Gen
+; 2's AI_Items also tries the FULL RESTORE first. With none, a sleep, a freeze or
+; a TOXIC gets its FULL HEAL here, before any potion: a potion buys nothing
+; against those (an item turn counts neither a sleep nor a freeze down, and every
+; TOXIC tick is bigger), and on a boss with one item action per mon the FULL HEAL
+; would never come (the 2026-09-28 review). A poison, a burn or a paralysis leaves
+; it acting: nothing here, the HP branch comes next, so a bag with no FULL
+; RESTORE heals below its line with its potion before any FULL HEAL.
+; AILateCureItem (at .skipHeal: no HP item was used this turn):
+; - a status: a FULL HEAL; with none left, a FULL RESTORE only for sleep or a
+;   freeze, which stop it acting. A poison, a burn or a paralysis leaves it
+;   acting, and the FULL RESTORE is kept for its HP - AIStatusCureItem's half
+;   line spends it (a TOXIC gets there in a few turns). Gen 2's context AI spends
+;   a status cure only on sleep or a freeze (and on a TOXIC past its 4th tick,
+;   half of the time): pokecrystal engine/battle/ai/items.asm .StatusCheckContext.
+; - else confusion alone, as the player may (CheckCanCureConfusion), but never
+;   with this mon's LAST item action (wAICount 1): confusion wears off by
+;   itself, and that action is kept for its HP. Below half a FULL RESTORE, else
+;   a FULL HEAL.
+; Both read what a trainer sees - the status, the CNF on its HUD, its own HP bar -
+; never the hidden confusion count. The switch layer decided first (TrainerAI
+; honours its request before the class routine), so a switch never costs an item.
+; Every bag item taken here is used at once (a jp to its AIUse*).
 ; Out: carry = an item was used. Trashes a, bc, de, hl and the Divide scratch.
-AIConfusionCureItem:
-	ld a, [wEnemyBattleStatus1]
-	and 1 << CONFUSED ; carry clear from here to both rets
-	ret z
-	ld a, [wAICount] ; 1-3 here (TrainerAI returned at 0)
-	dec a
-	ret z
-	jr AICureBelowHalf
 AIStatusCureItem:
 	ld a, [wEnemyMonStatus]
 	and a
 	ret z
-AICureBelowHalf:
 	ld a, 2
 	call AICheckIfHPBelowFraction ; carry: below half
-	jr nc, AIFullHealFromBag
+	ret nc
 	ld a, FULL_RESTORE
 	call CheckAndConsumeBossItem
 	jp c, AIUseFullRestore
-AIFullHealFromBag:
+; no FULL RESTORE: a status the potion cannot outrun is cured first - a sleep or a
+; freeze (it cannot act, and an item turn counts neither down) or a TOXIC (every
+; tick bigger); a poison, a burn or a paralysis leaves it acting: the HP branch's
+; potion comes first
+	ld a, [wEnemyMonStatus]
+	and (1 << FRZ) | SLP_MASK
+	jr nz, AILateCureItem.fullHeal
+	ld a, [wEnemyMonStatus]
+	and 1 << PSN ; (and clears carry: no item)
+	ret z
+	ld a, [wEnemyBattleStatus3]
+	bit BADLY_POISONED, a ; (bit keeps the carry clear)
+	ret z
+	jr AILateCureItem.fullHeal
+AILateCureItem:
+	ld a, [wEnemyMonStatus]
+	and a
+	jr nz, .fullHeal ; a status the HP branch left
+	ld a, [wEnemyBattleStatus1]
+	and 1 << CONFUSED ; carry clear from here to the rets
+	ret z
+	ld a, [wAICount] ; 1-3 here (TrainerAI returned at 0)
+	dec a
+	ret z
+	ld a, 2
+	call AICheckIfHPBelowFraction ; carry: below half
+	jr nc, .fullHeal
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
+	jp c, AIUseFullRestore
+.fullHeal
 	ld a, FULL_HEAL
 	call CheckAndConsumeBossItem
+	jp c, AIUseFullHeal
+	ld a, [wEnemyMonStatus] ; 0 on the confusion path, whose FULL RESTORE came first
+	and (1 << FRZ) | SLP_MASK
+	ret z ; poison, burn, paralysis: the FULL RESTORE stays for its HP
+AIFullRestoreFromBag:
+	ld a, FULL_RESTORE
+	call CheckAndConsumeBossItem
 	ret nc
-	jp AIUseFullHeal
+	jp AIUseFullRestore
 
 ; Walk the bag looking for item_id in `a`. If found AND count > 0,
 ; decrement count and return carry. Otherwise clear carry.
