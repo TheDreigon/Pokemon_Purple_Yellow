@@ -681,14 +681,15 @@ HurtByLeechSeedText:
 ; LEECH SEED's drain (v1.0, Forte: "corrige esse bug vanilla e faz como a gen2"): a flat
 ; 1/8 of the max HP (Gen 2 GetEighthMaxHP); the toxic count is neither multiplied in nor
 ; advanced. (Gen 1 ran the drain through the poison tick below: a badly poisoned seeded
-; #MON lost - and the seeder gained - count x 1/8, and its count climbed twice a turn.)
+; #MON lost - and the seeder gained - count x the tick (1/16 in vanilla, 1/8 in the Yellow
+; Legacy base), and its count climbed twice a turn.)
 ; Same IN/OUT as below. Keep it ABOVE the main entry.
 HandlePoisonBurnLeechSeed_DecreaseOwnHPFlat:
 	ld d, 0
 	jr HandlePoisonBurnLeechSeed_DecreaseOwnHP.enter
 
-; The poison / burn tick: 1/8 of the max HP (at least 1), times the toxic count when
-; BADLY_POISONED (which it advances first).
+; The poison / burn tick: 1/8 of the max HP (at least 1). BADLY_POISONED (TOXIC): 1/16 of
+; the max HP (at least 1) times the toxic count, which it advances first (v1.0 D8).
 ; IN  hl = the HP pointer of hWhoseTurn's #MON
 ; OUT bc = the HP it actually lost (never more than it had); hl kept; a, de, f trashed
 HandlePoisonBurnLeechSeed_DecreaseOwnHP:
@@ -726,6 +727,14 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 .playersTurn
 	bit BADLY_POISONED, [hl]
 	jr z, .noToxic
+; v1.0 (D8, Forte: "sim, n/16 como recomendas."): TOXIC takes the count
+; x 1/16 of the max HP, as every official game does (Gen 2 GetSixteenthMaxHP: at least 1);
+; the Yellow Legacy base had it at x 1/8. POISON, BURN and LEECH SEED keep the eighth above.
+; max(1, eighth / 2) = max(1, max HP / 16) for every max HP.
+	srl c
+	jr nz, .toxicSixteenth
+	inc c         ; at least 1 (max HP < 16)
+.toxicSixteenth
 	ld a, [de]    ; increment toxic counter
 	inc a
 	ld [de], a
