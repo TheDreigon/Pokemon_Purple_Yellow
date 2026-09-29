@@ -2247,22 +2247,16 @@ ItemUsePokedoll:
 	ld [wBattleResult], a
 	jp PrintItemUseTextAndRemoveItem
 
+; v1.0 (E3, 2026-09-29; Forte: "no caso do dire hit e guard spec faz sentido duplicar?"):
+; GUARD SPEC and DIRE HIT each set one flag of wPlayerBattleStatus2 - MIST, and the pumped state
+; DIRE HIT shares with FOCUS ENERGY (the crit rate x3, once: core.asm tests the bit). A second one
+; sets nothing, so it is refused as Gen 2 refuses it (pokecrystal GuardSpecEffect /
+; DireHitEffect): "It won't have any effect.", the item kept, the turn not spent
+; (ItemUseNoEffect: UseBagItem goes back to the bag) and PIKACHU's mood untouched - as a POTION
+; at full HP. The enemy keeps its own the same way (trainer_ai.asm AIXItemRefused).
 ItemUseGuardSpec:
-	ld a, [wIsInBattle]
-	and a
-	jp z, ItemUseNotTime
-
-	ld a, [wWhichPokemon]
-	push af
-	ld a, [wPlayerMonNumber]
-	ld [wWhichPokemon], a
-	callabd_ModifyPikachuHappiness PIKAHAPPY_USEDXITEM
-	pop af
-	ld [wWhichPokemon], a
-
-	ld hl, wPlayerBattleStatus2
-	set PROTECTED_BY_MIST, [hl] ; Mist bit
-	jp PrintItemUseTextAndRemoveItem
+	ld b, 1 << PROTECTED_BY_MIST
+	jr ItemUseBattleFlagItem
 
 ItemUseSuperRepel:
 	ld b, 200
@@ -2273,9 +2267,20 @@ ItemUseMaxRepel:
 	jp ItemUseRepelCommon
 
 ItemUseDireHit:
+	ld b, 1 << GETTING_PUMPED
+	; fall through
+ItemUseBattleFlagItem:
+; b = the item's flag, one bit of wPlayerBattleStatus2 (E3)
 	ld a, [wIsInBattle]
 	and a
 	jp z, ItemUseNotTime
+	ld hl, wPlayerBattleStatus2
+	ld a, [hl]
+	and b
+	jp nz, ItemUseNoEffect ; already in effect: kept, the turn not spent
+	ld a, b
+	or [hl]
+	ld [hl], a
 
 	ld a, [wWhichPokemon]
 	push af
@@ -2284,9 +2289,6 @@ ItemUseDireHit:
 	callabd_ModifyPikachuHappiness PIKAHAPPY_USEDXITEM
 	pop af
 	ld [wWhichPokemon], a
-
-	ld hl, wPlayerBattleStatus2
-	set GETTING_PUMPED, [hl] ; Focus Energy bit
 	jp PrintItemUseTextAndRemoveItem
 
 ItemUseXStat:
