@@ -1763,7 +1763,8 @@ CooltrainerFAI:
 ; per-battle inventory populated by InitEnemyTrainerItemBag from
 ; data/trainers/boss_item_bags.asm) via CheckAndConsumeBossItem. Items are
 ; only used when in the bag AND count > 0 (an X item also only while its stat
-; can still rise: AIXItemRefused, v1.0 D15); once exhausted or refused the AI
+; can still rise, v1.0 D15; a DIRE HIT only on a Pokemon not yet pumped, a GUARD
+; SPEC only without MIST, E3: AIXItemRefused); once exhausted or refused the AI
 ; silently falls through.
 ;
 ; Pattern (every boss now also carries Full Heal):
@@ -2677,14 +2678,14 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 AIUseGuardSpec:
 	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
-	set 1, [hl]
+	set PROTECTED_BY_MIST, [hl] ; the bit AIXItemRefused tests (E3)
 	ld a, GUARD_SPEC
 	jp AIPrintItemUse
 
 AIUseDireHit:
 	call AIPlayRestoringSFX
 	ld hl, wEnemyBattleStatus2
-	set 2, [hl]
+	set GETTING_PUMPED, [hl] ; the bit AIXItemRefused tests (E3)
 	ld a, DIRE_HIT
 	jp AIPrintItemUse
 
@@ -2814,8 +2815,9 @@ AIBattleUseItemText:
 ; padded with -1. Populated once per battle by InitEnemyTrainerItemBag from
 ; data/trainers/boss_item_bags.asm. Boss AI routines call
 ; CheckAndConsumeBossItem before each AIUse*; if the bag is empty for that
-; item, or it is an X item the engine would refuse (v1.0 D15), the AI silently
-; no-ops and the item stays in the bag.
+; item, or it is an X item the engine would refuse (v1.0 D15), or a DIRE HIT /
+; GUARD SPEC already in effect (E3), the AI silently no-ops and the item stays
+; in the bag.
 
 ; v1.0 (2026-09-27, 2026-09-28): the boss / semi-boss cure, in two halves around
 ; the routine's HP branch; each uses the item itself and returns carry when one
@@ -2903,8 +2905,9 @@ AIFullRestoreFromBag:
 	jp AIUseFullRestore
 
 ; Walk the bag looking for item_id in `a`. If found AND count > 0 (and, v1.0
-; D15, not an X item whose stat the enemy cannot raise: AIXItemRefused),
-; decrement count and return carry. Otherwise clear carry.
+; D15, not an X item whose stat the enemy cannot raise, nor, E3, a DIRE HIT
+; or a GUARD SPEC already in effect: AIXItemRefused), decrement count and
+; return carry. Otherwise clear carry.
 ;
 ; Loop is bounded by BOSS_BAG_SIZE / 2 pair iterations — defensive against
 ; an uninitialised bag (e.g. wMiscBattleData zeroed but InitEnemyTrainerItem
@@ -2919,11 +2922,12 @@ AIFullRestoreFromBag:
 ; Input:   a = item_id to consume
 ; Output:  carry = 1 → item was available and is now consumed
 ;          carry = 0 → item not in bag, or in bag with 0 count, or (v1.0, D15) an X item
-;                      whose stat the enemy cannot raise (AIXItemRefused): it stays in the bag
+;                      whose stat the enemy cannot raise, or (E3) a DIRE HIT / GUARD SPEC
+;                      already in effect (AIXItemRefused): it stays in the bag
 ; Trashes: a, b, c, hl (and de for an X item)
 CheckAndConsumeBossItem:
 	ld b, a
-	call AIXItemRefused ; v1.0 (D15): carry = an X item the engine would refuse (b kept)
+	call AIXItemRefused ; v1.0 (D15, E3): carry = an X item the engine would refuse, or a DIRE HIT / GUARD SPEC already in effect (b kept)
 	jr c, .notFound
 	ld hl, wEnemyTrainerItemBag
 	ld c, BOSS_BAG_SIZE / 2     ; max pair iterations
@@ -2954,9 +2958,22 @@ CheckAndConsumeBossItem:
 ; X SP.DEF) whose stat the engine would refuse to raise for the enemy (AIEnemyStatMaxed, the
 ; move layer's test): the boss keeps it in the bag and its routine goes on as with none - its
 ; next roll, or a move. Asked by CheckAndConsumeBossItem, after the routine's roll, so the rolls
-; are spent as before. Keeps b; clobbers a, c, de, hl.
+; are spent as before.
+; v1.0 (E3, 2026-09-29; Forte: "no caso do dire hit e guard spec faz sentido duplicar?"): the
+; same for a DIRE HIT on a Pokemon already pumped (its own FOCUS ENERGY, or a DIRE HIT) and a
+; GUARD SPEC while its side is under MIST. Each item sets one bit of wEnemyBattleStatus2 and
+; nothing else - the crit rate is x3 once (core.asm tests the bit), MIST is one bit - so a second
+; one does nothing but spend the item, the turn and an item action. Both states were announced on
+; screen. The player's are refused the same way (item_effects.asm ItemUseBattleFlagItem).
+; Keeps b; clobbers a, c, de, hl.
 AIXItemRefused:
 	ld a, b
+	ld c, 1 << GETTING_PUMPED
+	cp DIRE_HIT
+	jr z, .flagItem
+	ld c, 1 << PROTECTED_BY_MIST
+	cp GUARD_SPEC
+	jr z, .flagItem
 	ld c, MOD_SPDEF
 	cp X_SPDEF
 	jr z, .gotStat
@@ -2966,6 +2983,12 @@ AIXItemRefused:
 	ld c, a ; X_ATTACK..X_SPATK sit in the MOD_ATTACK..MOD_SPATK order (the ASSERT below)
 .gotStat
 	jp AIEnemyStatMaxed
+.flagItem ; c = the item's bit (E3): carry when it is already set
+	ld a, [wEnemyBattleStatus2]
+	and c
+	ret z ; not yet: the item acts (`and` cleared the carry)
+	scf
+	ret
 ASSERT MOD_ATTACK == 0 && X_DEFEND - X_ATTACK == MOD_DEFENSE && X_SPEED - X_ATTACK == MOD_SPEED && X_SPATK - X_ATTACK == MOD_SPATK, \
 	"AIXItemRefused maps X ATTACK..X SP.ATK onto MOD_ATTACK..MOD_SPATK by subtraction"
 
