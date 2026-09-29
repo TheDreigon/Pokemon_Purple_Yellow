@@ -753,7 +753,11 @@ ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start in
 	jr nc, .ok
 	ld b, a
 .ok
-	ld [hl], b
+; v1.0 (D12, 2026-09-28; Forte: "sigo a tua melhor recomendacao"): b is the new stage, written
+; at UpdateStatDone once the raise goes through. Vanilla wrote it here, and the refusal at 999
+; below undid one step only: a +2 move (SWORDS DANCE, IRON DEFENSE, NASTY PLOT, AMNESIA) said
+; "Nothing happened!" and kept a hidden +1 (Gold/Silver/Crystal too). Now no refusal touches
+; the stage byte. Shared by both sides.
 	ld a, c
 	cp MOD_ACCURACY
 	jr nc, UpdateStatDone ; jump if mod affected is evasion/accuracy
@@ -783,7 +787,7 @@ ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start in
 	jr nz, .recalculateStat
 	ld a, [hl]
 	sbc HIGH(MAX_STAT_VALUE)
-	jp z, RestoreOriginalStatModifier
+	jp z, StatAlreadyAt999 ; D12: nothing was written, nothing to undo
 .recalculateStat ; recalculate affected stat
                  ; paralysis and burn penalties are ignored here (selectively re-applied after the text below); badge boosts are baked into the unmodified stats (v0.7) so they carry through
 	push hl
@@ -807,8 +811,10 @@ ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start in
 	call Multiply
 	ld a, [hl]
 	ldh [hDivisor], a
+	push bc ; D12: b = the new stage, for UpdateStatDone
 	ld b, $4
 	call Divide
+	pop bc
 	pop hl
 ; cap at MAX_STAT_VALUE (999)
 	ldh a, [hProduct + 3]
@@ -828,6 +834,7 @@ UpdateStat:
 	ld [hl], a
 	pop hl
 UpdateStatDone:
+	ld [hl], b ; D12: the stage, stored only here (hl = its byte on both ways in)
 	ld b, c
 	inc b
 	; v0.7 burn/para reapplication fix: stash the recalc'd stat index so
@@ -874,9 +881,8 @@ UpdateStatDone:
 	ldh [hWhoseTurn], a
 	ret
 
-RestoreOriginalStatModifier:
-	pop hl
-	dec [hl]
+StatAlreadyAt999: ; D12: the stat is already 999 and the stage byte was never written
+	pop hl ; the stage byte's address, pushed on the stat path
 
 PrintNothingHappenedText:
 	ld hl, NothingHappenedText
@@ -1004,7 +1010,10 @@ ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must
 	jr nz, .ok
 	inc b ; increment mod to 1 (-6) if it would become 0 (-7)
 .ok
-	ld [hl], b ; save modified mod
+; v1.0 (D12, 2026-09-28): b is the new stage, written at UpdateLoweredStatDone once the
+; lowering goes through - the mirror of the raising path. Vanilla wrote it here and the
+; refusal at a stat of 1 (CantLowerAnymore_Pop) undid one step only: a -2 move said "won't
+; go lower" and kept a hidden -1. Now no refusal touches the stage byte.
 	ld a, c
 	cp MOD_ACCURACY
 	jr nc, UpdateLoweredStatDone ; jump for evasion/accuracy
@@ -1059,8 +1068,10 @@ ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must
 	call Multiply
 	ld a, [hl]
 	ldh [hDivisor], a
+	push bc ; D12: b = the new stage, for UpdateLoweredStatDone
 	ld b, $4
 	call Divide
+	pop bc
 	pop hl
 ; v1.0 (D7-999, 2026-09-28; Forte: "corrige"): the raising path's 999 cap, here too.
 ; Vanilla capped only on the way up, so a stat held at 999 by a high stage came back
@@ -1078,10 +1089,12 @@ ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must
 	ld a, LOW(MAX_STAT_VALUE)
 	ldh [hProduct + 3], a
 .notAbove999 ; a capped 999 is not 0: the floor below lets it through
-	ldh a, [hProduct + 3]
-	ld b, a
+; (D12: the zero test leaves b alone - it holds the new stage)
 	ldh a, [hProduct + 2]
-	or b
+	and a
+	jp nz, UpdateLoweredStat
+	ldh a, [hProduct + 3]
+	and a
 	jp nz, UpdateLoweredStat
 	ldh [hMultiplicand + 1], a
 	ld a, $1
@@ -1095,6 +1108,7 @@ UpdateLoweredStat:
 	pop de
 	pop hl
 UpdateLoweredStatDone:
+	ld [hl], b ; D12: the stage, stored only here (hl = its byte on both ways in)
 	ld b, c
 	inc b
 	; v0.7 burn/para reapplication fix: stash the recalc'd stat index
@@ -1132,10 +1146,9 @@ UpdateLoweredStatDone:
 	call z, HalveSpeedDueToParalysis    ; if so & target is paralyzed, halve it
 	ret
 
-CantLowerAnymore_Pop:
+CantLowerAnymore_Pop: ; D12: the stat is already 1 and the stage byte was never written
 	pop de
 	pop hl
-	inc [hl]
 
 CantLowerAnymore:
 	ld a, [de]
