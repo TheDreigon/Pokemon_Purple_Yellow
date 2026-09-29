@@ -79,11 +79,10 @@ AIEnemyTrainerChooseMoves:
 .useOriginalMoveSet
 	ld hl, wEnemyMonMoves    ; use original move set
 .done
-;;;;;;;;;; PureRGBnote: clear these values at the end of an AI cycle, they only apply when the player has switched or healed in a turn
-	xor a
-	ld [wAIMoveSpamAvoider], a
-	ld [wAITargetMonStatus], a
-;;;;;;;;;;
+; v1.0 (E4, 2026-09-29): the pureRGB "spam avoider" zeroed wAIMoveSpamAvoider and
+; wAITargetMonStatus here. Nothing ever stored anything else in them (and WRAM is cleared at
+; boot), so every test of them (layers 1, 3 and 4, CheckSeeded, CheckStatusImmunity) was dead, and so were wAITargetMonType1/2,
+; read only behind one of those tests. The code went; the four WRAM bytes stay where they are.
 	ret
 
 AIMoveChoiceModificationFunctionPointers:
@@ -383,14 +382,7 @@ CheckStatusImmunity:
 	jr nz, .getMonTypes
 	ld c, GROUND ; Ground is immune to the whole Electric move (incl. paralysis)
 .getMonTypes
-	ld a, [wAIMoveSpamAvoider] ; set if we healed status or switched out this turn
-	cp 2 ; it's 2 if we switched out
-	jr nz, .noSwitchOut
-	ld hl, wAITargetMonType1
-	jr .checkTypes
-.noSwitchOut
-	ld hl, wBattleMonType1
-.checkTypes
+	ld hl, wBattleMonType1 ; v1.0 (E4): the player's types as they are (the pureRGB switch-out path read a byte nothing sets)
 	ld a, [hl]
 	cp b
 	jr z, .discourage
@@ -634,10 +626,6 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .nextMove ; ignores moves that do no damage (status moves), as we're only concerned with damaging moves for this modifier
-	ld a, [wAIMoveSpamAvoider] ; if we switched this turn or healed status, this is set
-	cp 2 ; it's 2 if we switched pokemon this turn
-	call nz, StoreBattleMonTypes ; in the case where we didnt switch
-								 ; we need to populate wAITargetMonType1 and wAITargetMonType2 with the current pokemon's type data
 	push hl
 	push bc
 	push de
@@ -705,9 +693,6 @@ AIMoveChoiceModification3:
 	inc [hl] ; slightly discourage this move
 	jp .nextMove
 .clearPreviousTypes
-	xor a
-	ld [wAITargetMonType1], a
-	ld [wAITargetMonType2], a
 	ret
 
 ; PureRGBnote: ADDED: if the opponent has less than 1/2 health they will prefer healing moves if they use AI subroutine 3
@@ -757,13 +742,6 @@ AIMoveChoiceModification4:
 	pop de
 	pop hl
 	jr nc, .nextMove
-	ld a, [wAITargetMonStatus] ; set to nonzero if player healed battle mon's status or switched one with a status out this turn
-	and a
-	jr z, .preferMove
-	ld a, [hl]
-	add $5 
-	ld [hl], a ; heavily discourage using a status move right after the player switched or healed
-	jr .nextMove
 .preferMove
 	dec [hl] ; slightly encourage this move
 	jr .nextMove
@@ -783,12 +761,6 @@ AIMoveChoiceModification4:
 	jr nz, .preferMove
 	jr .nextMove
 .checkOpponentAsleep
-	ld a, [wAITargetMonStatus] ; set to nonzero if player healed battle mon's status or switched one with a status out this turn
-	and SLP_MASK
-	jr nz, .preferMoveEvenMore
-	ld a, [wAIMoveSpamAvoider] ; set if we switched or healed this turn
-	cp 2 ; set to 2 if we switched
-	jr z, .nextMove ; if the AI thinks the player IS NOT asleep before they switch, we shouldn't encourage based on the new mon's status
 	ld a, [wBattleMonStatus]
 	and SLP_MASK
 	jr z, .nextMove
@@ -2746,20 +2718,6 @@ AIPrintItemUse_:
 AIBattleUseItemText:
 	text_far _AIBattleUseItemText
 	text_end
-
-;;;;;;;;;; PureRGBnote: ADDED: these wram properties are used to make sure the 
-;;;;;;;;;;                     AI doesn't instantly read the player's current pokemon type after a player switches.
-;;;;;;;;;;                     makes sure the AI doesn't appear to predict all your switch-outs of pokemon.
-StoreBattleMonTypes:
-	push hl
-	ld hl, wBattleMonType
-	ld a, [hl] ; type 1 of player's pokemon -> wAITargetMonType1 (line 1717: type 2 -> wAITargetMonType2)
-	ld [wAITargetMonType1], a
-	inc hl
-	ld a, [hl]                 ; c = type 2 of player's pokemon
-	ld [wAITargetMonType2], a
-	pop hl
-	ret
 
 ; (UndoBurnParStats went in v1.0, N5: AICureStatus recalculates, status_stat_cut.asm.)
 
