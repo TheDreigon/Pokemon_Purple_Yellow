@@ -1705,8 +1705,9 @@ CooltrainerFAI:
 ; In Hard mode boss battles the routine consults wEnemyTrainerItemBag (a
 ; per-battle inventory populated by InitEnemyTrainerItemBag from
 ; data/trainers/boss_item_bags.asm) via CheckAndConsumeBossItem. Items are
-; only used when in the bag AND count > 0; once exhausted the AI silently
-; falls through.
+; only used when in the bag AND count > 0 (an X item also only while its stat
+; can still rise: AIXItemRefused, v1.0 D15); once exhausted or refused the AI
+; silently falls through.
 ;
 ; Pattern (every boss now also carries Full Heal):
 ;   1. If statused below half its HP: a FULL RESTORE (HP, status and confusion
@@ -2770,7 +2771,8 @@ StoreBattleMonTypes:
 ; padded with -1. Populated once per battle by InitEnemyTrainerItemBag from
 ; data/trainers/boss_item_bags.asm. Boss AI routines call
 ; CheckAndConsumeBossItem before each AIUse*; if the bag is empty for that
-; item, the AI silently no-ops.
+; item, or it is an X item the engine would refuse (v1.0 D15), the AI silently
+; no-ops and the item stays in the bag.
 
 ; v1.0 (2026-09-27, 2026-09-28): the boss / semi-boss cure, in two halves around
 ; the routine's HP branch; each uses the item itself and returns carry when one
@@ -2857,7 +2859,8 @@ AIFullRestoreFromBag:
 	ret nc
 	jp AIUseFullRestore
 
-; Walk the bag looking for item_id in `a`. If found AND count > 0,
+; Walk the bag looking for item_id in `a`. If found AND count > 0 (and, v1.0
+; D15, not an X item whose stat the enemy cannot raise: AIXItemRefused),
 ; decrement count and return carry. Otherwise clear carry.
 ;
 ; Loop is bounded by BOSS_BAG_SIZE / 2 pair iterations — defensive against
@@ -2872,10 +2875,13 @@ AIFullRestoreFromBag:
 ;
 ; Input:   a = item_id to consume
 ; Output:  carry = 1 → item was available and is now consumed
-;          carry = 0 → item not in bag, or in bag with 0 count
-; Trashes: a, b, c, hl
+;          carry = 0 → item not in bag, or in bag with 0 count, or (v1.0, D15) an X item
+;                      whose stat the enemy cannot raise (AIXItemRefused): it stays in the bag
+; Trashes: a, b, c, hl (and de for an X item)
 CheckAndConsumeBossItem:
 	ld b, a
+	call AIXItemRefused ; v1.0 (D15): carry = an X item the engine would refuse (b kept)
+	jr c, .notFound
 	ld hl, wEnemyTrainerItemBag
 	ld c, BOSS_BAG_SIZE / 2     ; max pair iterations
 .loop
@@ -2900,6 +2906,25 @@ CheckAndConsumeBossItem:
 .notFound
 	and a                       ; clear carry
 	ret
+
+; v1.0 (D15, 2026-09-29): carry when b is an X item (X ATTACK, X DEFEND, X SPEED, X SP.ATK,
+; X SP.DEF) whose stat the engine would refuse to raise for the enemy (AIEnemyStatMaxed, the
+; move layer's test): the boss keeps it in the bag and its routine goes on as with none - its
+; next roll, or a move. Asked by CheckAndConsumeBossItem, after the routine's roll, so the rolls
+; are spent as before. Keeps b; clobbers a, c, de, hl.
+AIXItemRefused:
+	ld a, b
+	ld c, MOD_SPDEF
+	cp X_SPDEF
+	jr z, .gotStat
+	sub X_ATTACK
+	cp X_SPATK + 1 - X_ATTACK
+	ret nc ; not an X item (X ACCURACY has no AI use)
+	ld c, a ; X_ATTACK..X_SPATK sit in the MOD_ATTACK..MOD_SPATK order (the ASSERT below)
+.gotStat
+	jp AIEnemyStatMaxed
+ASSERT MOD_ATTACK == 0 && X_DEFEND - X_ATTACK == MOD_DEFENSE && X_SPEED - X_ATTACK == MOD_SPEED && X_SPATK - X_ATTACK == MOD_SPATK, \
+	"AIXItemRefused maps X ATTACK..X SP.ATK onto MOD_ATTACK..MOD_SPATK by subtraction"
 
 ; InitEnemyTrainerItemBag moved to data/trainers/boss_item_bags.asm
 ; (2026-08-17): the bags went per-FIGHT and the loader lives with the data it
