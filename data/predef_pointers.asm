@@ -49,7 +49,7 @@ PredefPointers::
 	add_predef PredefShakeScreenHorizontally
 	add_predef UpdateHPBar
 	add_predef HPBarLength
-	add_predef DoubleOrHalveSelectedStats
+	add_predef DoubleOrHalveSelectedStats ; v1.0 E1: dead, a bare ret in core.asm; the row stays so no later predef id moves
 	add_predef ShowPokedexMenu
 	add_predef EvolutionAfterBattle
 	add_predef SaveSAVtoSRAM0

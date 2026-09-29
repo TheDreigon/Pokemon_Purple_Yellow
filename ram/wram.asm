@@ -1512,7 +1512,11 @@ wCriticalHitOrOHKO:: db
 
 wMoveMissed:: db
 
-; always 0
+; always 0; nothing reads it since v1.0 E1 (DoubleSelectedStats went). Kept, with
+; wPlayerStatsToHalve and the enemy's two: every writer zeroes them (the five-byte
+; status clears in core.asm, EndOfBattle's span, the debug menu), and
+; taking them out would move the saved Party / Main Data blocks packed after
+; SECTION "WRAM".
 wPlayerStatsToDouble:: db
 
 ; always 0
@@ -1543,7 +1547,7 @@ wPlayerBattleStatus2:: db
 ; bit 3 - transformed
 wPlayerBattleStatus3:: db
 
-; always 0
+; always 0; nothing reads it since v1.0 E1 (see wPlayerStatsToDouble)
 wEnemyStatsToDouble:: db
 
 ; always 0

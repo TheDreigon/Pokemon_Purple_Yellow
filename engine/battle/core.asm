@@ -6821,10 +6821,14 @@ LoadPlayerBackPic:
 	hlcoord 1, 5
 	predef_jump CopyUncompressedPicToTilemap
 
-; does nothing since no stats are ever selected (barring glitches)
+; v1.0 (E1, 2026-09-29): dead, kept as a bare ret. Its last caller, ItemUseMedicine,
+; recalculates since 2026-09-24; DoubleSelectedStats' other caller, the AI's
+; UndoBurnParStats, went in N5 (status_stat_cut.asm);
+; DoubleSelectedStats / HalveSelectedStats (unused_stats_functions.asm, bank $0E,
+; 83 bytes) went with them. The row stays in data/predef_pointers.asm: predef ids
+; are positional, so none after it moves.
 DoubleOrHalveSelectedStats:
-	callfar DoubleSelectedStats
-	jpfar HalveSelectedStats
+	ret
 
 ScrollTrainerPicAfterBattle:
 	jpfar _ScrollTrainerPicAfterBattle
