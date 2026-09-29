@@ -428,6 +428,21 @@ _MoveDesc_Poison::
 	next "each turn."
 	done
 
+; TOXIC's own card, a per-move override (v1.0 D13, 2026-09-28, Forte: "concordo
+; em ajustar para reflectir o verdadeiro efeito"). The tick is the toxic count x
+; 1/16 of the max HP, at least 1 (core.asm HandlePoisonBurnLeechSeed_DecreaseOwnHP,
+; D8), and the count starts again when the #MON is sent back in (toxic_carry.asm,
+; both sides). Five lines: TOXIC's flavour takes three rows and the blank one, of
+; nine. Fractions, like SOFTBOILED's 3/4. TOX turning into POISON when the battle
+; ends is on manual page 4_5, as POISON lasting after it is.
+_MoveDesc_Toxic::
+	text "Badly POISONs the"
+	next "foe: 1/16 of full"
+	next "HP, then 2/16, and"
+	next "so on. A switch-in"
+	next "starts it at 1/16."
+	done
+
 _MoveDesc_Paralyze::
 	text "PARALYZEs the"
 	next "foe. It halves"

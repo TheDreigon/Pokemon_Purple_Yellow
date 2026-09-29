@@ -554,8 +554,8 @@ _TM33Description::
 	prompt
 
 _TM34Description::
-	text "POISONs the foe,"
-	next "which costs it HP."
+	text "A POISON that gets"
+	next "worse every turn."
 	prompt
 
 _TM35Description::

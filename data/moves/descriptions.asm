@@ -45,6 +45,12 @@ MoveDescriptionOverrides:
 	dw MoveDesc_Priority
 	db AQUA_JET,     
 	dw MoveDesc_Priority
+; v1.0 (D13, 2026-09-28): TOXIC runs on POISON_EFFECT with POISON GAS and
+; POISONPOWDER; only its move id makes the poison bad (effects.asm, the
+; `cp TOXIC` in the poison effect). Since D8 its tick is the count x 1/16 of
+; full HP, not POISON's eighth, so it gets words of its own.
+	db TOXIC,
+	dw MoveDesc_Toxic
 	db -1
 
 ; One entry per move effect, indexed by effect id. Must stay in constant order
@@ -596,6 +602,10 @@ MoveDesc_Softboiled:
 
 MoveDesc_Sonicboom:
 	text_far _MoveDesc_Sonicboom
+	text_end
+
+MoveDesc_Toxic:
+	text_far _MoveDesc_Toxic
 	text_end
 
 MoveDesc_SpDefDown2Flinch:
