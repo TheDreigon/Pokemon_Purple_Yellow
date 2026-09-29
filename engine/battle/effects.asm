@@ -883,13 +883,15 @@ UpdateStatDone:
 
 StatAlreadyAt999: ; D12: the stat is already 999 and the stage byte was never written
 	pop hl ; the stage byte's address, pushed on the stat path
-
-PrintNothingHappenedText:
-	ld hl, NothingHappenedText
-	jp PrintText
+	; fall through (D14): the 999 refusal names the stat, as the +6 one does
 
 ; v0.7: stat capped at +6 — print "<USER>'s <STAT> won't go any higher!".
-; Expects c = 0-based stat index (live at the StatModifierUpEffect call site);
+; v1.0 (D14, 2026-09-29; Forte: "sim, quero"): a raise refused because the stat is already
+; 999 falls in here from StatAlreadyAt999 and names the stat too, as in Gold/Silver/Crystal.
+; It said "Nothing happened!", which nothing else printed and which went with it.
+; Expects c = 0-based stat index on both ways in: the +6 test jumps here with c from
+; .gotIndexUp, and the 999 test comes after .checkIf999's `pop bc` restored it (SP.DEF's 4
+; is wStatModIndexOverride's, consumed at .gotIndexUp). Both sides and the X items.
 ; PrintStatText consumes b = c+1 and copies the stat name to wStringBuffer.
 PrintStatWontGoHigherText:
 	ld b, c
@@ -1787,10 +1789,6 @@ TransformEffect:
 
 ReflectLightScreenEffect:
 	jpfar ReflectLightScreenEffect_
-
-NothingHappenedText:
-	text_far _NothingHappenedText
-	text_end
 
 StatWontGoHigherText:
 	text_far _StatWontGoHigherText

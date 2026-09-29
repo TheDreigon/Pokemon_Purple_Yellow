@@ -55,8 +55,8 @@ _RoseText::
 	text " rose!"
 	prompt
 
-; Shown when a stat is already at +6 (stat name is loaded into
-; wStringBuffer by the caller).
+; Shown when a stat is already at +6, or (v1.0, D14) already 999 (stat name is
+; loaded into wStringBuffer by the caller).
 _StatWontGoHigherText::
 	text "<USER>'s"
 	line "@"
@@ -148,10 +148,6 @@ _MoveWasDisabledText::
 	text_ram wcd6d
 	text " was"
 	cont "disabled!"
-	prompt
-
-_NothingHappenedText::
-	text "Nothing happened!"
 	prompt
 
 _NoEffectText::
