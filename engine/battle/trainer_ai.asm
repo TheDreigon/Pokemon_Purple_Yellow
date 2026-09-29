@@ -136,6 +136,22 @@ AIGetMoveChoiceList:
 ; v1.0 (D15, 2026-09-29): and a stat-up move that would raise nothing - every stat it raises
 ; already at +6 or at 999 (.checkRaise). Every class list starts with this layer
 ; (data/trainers/move_choices.asm; Hard's HardModeBossAIMods too): every trainer gets it.
+; v1.0 (E4, 2026-09-29; Forte: "sigo a tua melhor recomendacao"): two tiers. A move the engine
+; would refuse against what the trainer sees, and that only a deliberate act of the player (a
+; switch, a cure, its own REST) could turn around before it runs, is USELESS (.useless, the tier
+; of a refused raise): DREAM EATER on a Pokemon that is not asleep (MoveHitTest); LEECH SEED on
+; one already seeded or GRASS (LeechSeedEffect_); FOCUS ENERGY while pumped (FocusEnergyEffect_);
+; MIST, REFLECT or LIGHT SCREEN already up (MistEffect_, ReflectLightScreenEffect_ - no move
+; carries HAZE_EFFECT, so only the enemy's own switch takes them down); a status move on a type
+; immune to it (CheckStatusImmunity) or on a Pokemon with a POISON, a BURN or a PARALYSIS (every
+; status handler refuses a statused target, and those three never wear off by themselves). A
+; move the ordinary course of the turn may still let act is only DISCOURAGED (+5, .discourage):
+; DISABLE while a move of the player's is disabled and a confusion move on a confused Pokemon
+; (both counts are hidden and run down in its own turn, CheckPlayerStatusConditions); a status
+; move on one asleep or frozen (it may wake or thaw in its turn, before this move runs) or on a
+; statused one that must recharge (SleepEffect puts it to sleep whatever its status); RECOVER,
+; SOFTBOILED or REST at full HP (a hit taken first makes them heal); MIRROR MOVE with nothing to
+; copy (the player's move, if it goes first, gives it one).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -161,21 +177,24 @@ AIMoveChoiceModification1:
 	cp LEECH_SEED_EFFECT
 	jp z, .checkSeeded
 	cp FOCUS_ENERGY_EFFECT
-	jr z, .checkPumpedUp
+	ld c, 1 << GETTING_PUMPED ; v1.0 (E4): c = the enemy's own flag its handler tests (ld keeps the flags; c is free here)
+	jr z, .checkOwnStatus2
 	cp LIGHT_SCREEN_EFFECT
-	jp z, .checkLightScreenUp
+	ld c, 1 << HAS_LIGHT_SCREEN_UP
+	jr z, .checkOwnStatus3
 	cp REFLECT_EFFECT
-	jp z, .checkReflectUp
-	cp MIST_EFFECT
-	jp z, .checkMistUp
+	ld c, 1 << HAS_REFLECT_UP
+	jr z, .checkOwnStatus3
+	cp MIST_EFFECT ; no move carries it today (the handler is kept): for a restored MIST
+	ld c, 1 << PROTECTED_BY_MIST
+	jr z, .checkOwnStatus2
 	cp CONFUSION_EFFECT
 	jp z, .checkConfused
 	cp HEAL_EFFECT
 	jp z, .checkFullHealth
 	cp MIRROR_MOVE_EFFECT
 	jp z, .checkNoMirrorMoveOnFirstTurn
-	ld a, [wEnemyMoveEffect]
-	push hl
+	push hl ; (a still holds the effect: cp keeps it)
 	push de
 	push bc
 	ld hl, StatusAilmentMoveEffects
@@ -184,69 +203,81 @@ AIMoveChoiceModification1:
 	pop bc
 	pop de
 	pop hl
-	jp nc, .checkRaise ; v1.0 (D15): not a status move - a stat-up at its limit? (jp: past jr reach)
+	jp nc, .checkRaise ; v1.0 (D15): not a status move - one that would do nothing? (E4: a jr would reach now; the jp stays, emu_test_ai_stat_limits S2 reads these 3 bytes)
 .checkStatusImmunity
 	call CheckStatusImmunity
-	jr c, .discourage
-.notImmune
-	ld a, [wAITargetMonStatus] ; set to the pokemon's current status before it gets healed or before it switches out
-	and a
-	jr nz, .discourage ; if the AI thinks the player has a status, they should avoid using status moves 
-					   ; even if the player heals the status or switches out that turn
-	ld a, [wAIMoveSpamAvoider] ; set if we switched or healed this turn
-	cp 2 ; set to 2 if we switched
-	jr z, .nextMove ; if the AI thinks the player DOESNT have a status before they switch, we should avoid discouraging status moves
+	jr c, .useless ; the type is immune to it: the handler refuses it (E4)
 	ld a, [wBattleMonStatus]
 	and a
-	jr z, .nextMove ; no need to discourage status moves if the player doesn't have a status
+	jr z, .nextMove ; no status: nothing refuses it
+	and (1 << PSN) | (1 << BRN) | (1 << PAR)
+	jr z, .discourage ; asleep or frozen: it may wake or thaw in its own turn, before this move runs
+	ld a, [wPlayerBattleStatus2]
+	bit NEEDS_TO_RECHARGE, a
+	jr z, .useless ; a POISON, a BURN or a PARALYSIS stays, and every status handler refuses it (E4)
+	; it must recharge: SleepEffect puts it to sleep whatever its status - for that one turn every
+	; status move stays at +5 (the other three would still fail: a turn on the safe side)
 .discourage
 	ld a, [hl]
 	add $5 ; heavily discourage move
 	ld [hl], a
 	jr .nextMove
+; v1.0 (D15, 2026-09-29; Forte: "o AI tem que ter inteligencia para saber que +6 e 999 sao os
+; limites"): a stat-up move that would raise nothing - every stat it raises already at +6, or
+; at 999 (AIEnemyRaiseRefused) - is useless; v1.0 (E4): so is every move the rules above and
+; below find the engine would surely refuse. .useless scores it AI_SCORE_USELESS: above every
+; move the enemy can use to some effect, below every move it cannot use at all
+; (AISeedMoveScores' $50: the disabled one, one with no PP left). The chooser then never keeps
+; it while another move can act, never keeps an unusable move over it (that would STRUGGLE with
+; a move it may use), and with only such moves left it uses one, as the player would have to.
+; Layer 6 counts it as discouraged (11 or more). Whatever the other layers add or take (-10..+20;
+; DREAM EATER, a damaging move, meets layers 3 and 5 too), the three tiers never meet.
+DEF AI_SCORE_USELESS EQU $30
+ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
+	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
+.checkRaise
+	call AIEnemyRaiseRefused ; carry: every stat it raises is at its limit
+	jp nc, .nextMove
+.useless
+	ld a, [hl]
+	add AI_SCORE_USELESS - $a
+	ld [hl], a
+	jp .nextMove
 .checkDisabled
 	ld a, [wPlayerDisabledMove] ; non-zero if the player has a disabled move
 	and a
 	jp z, .nextMove ; if it's zero don't do anything
 	jr .discourage ; otherwise discourage using disable while opponent is disabled already
-.checkPumpedUp
+.checkOwnStatus3 ; v1.0 (E4): LIGHT SCREEN, REFLECT - c = the bit its handler tests
+	ld a, [wEnemyBattleStatus3]
+	jr .checkOwnBit
+.checkOwnStatus2 ; FOCUS ENERGY, MIST
 	ld a, [wEnemyBattleStatus2]
-	bit GETTING_PUMPED, a
-	jr nz, .discourage ; if the enemy has used focus energy don't use again
+.checkOwnBit
+	and c
+	jr nz, .useless ; already pumped / already up: its handler fails, and only the enemy's own switch clears it
 	jp .nextMove
 .checkAsleep
-	ld a, [wAITargetMonStatus]
-	and SLP_MASK
-	jp nz, .nextMove ; if we just healed sleep or switched out a sleeping pokemon, 
-					 ; the AI shouldn't predict this perfectly when deciding whether to use dream eater
 	ld a, [wBattleMonStatus]
 	and SLP_MASK
-	jr z, .discourage ; heavily discourage, if the player isn't asleep avoid using dream eater
-	jp .nextMove
-.checkLightScreenUp
-	ld a, [wEnemyBattleStatus3]
-	bit HAS_LIGHT_SCREEN_UP, a
-	jr nz, .discourage ; if the enemy has a light screen up dont use the move again
-	jp .nextMove
-.checkReflectUp
-	ld a, [wEnemyBattleStatus3]
-	bit HAS_REFLECT_UP, a
-	jr nz, .discourage ; if the enemy has a reflect up dont use the move again
-	jp .nextMove
-.checkMistUp
-	ld a, [wEnemyBattleStatus2]
-	bit PROTECTED_BY_MIST, a
-	jr nz, .discourage ; if the enemy has used mist, don't use it again
+	jr z, .useless ; not asleep: DREAM EATER misses (MoveHitTest) - only the player's own REST, first, would change that
 	jp .nextMove
 .checkConfused
 	ld a, [wPlayerBattleStatus1]
 	bit CONFUSED, a
 	jr nz, .discourage ; if the player is confused, don't use confusion-inflicting moves
 	jp .nextMove
-.checkSeeded
-	call CheckSeeded
-	jp nc, .nextMove
-	jr .discourage
+.checkSeeded ; v1.0 (E4): LeechSeedEffect_'s two refusals, here (CheckSeeded went)
+	ld a, [wPlayerBattleStatus2]
+	bit SEEDED, a
+	jr nz, .useless ; already seeded
+	ld a, [wBattleMonType1]
+	cp GRASS
+	jr z, .useless ; LEECH SEED does not affect a GRASS type
+	ld a, [wBattleMonType2]
+	cp GRASS
+	jr z, .useless
+	jp .nextMove
 .checkFullHealth ; avoid using moves like recover at full health.
 	push hl
 	push de
@@ -265,15 +296,18 @@ AIMoveChoiceModification1:
 	; v1.0 (2026-09-27): a POISON, a BURN or a PARALYSIS - not SLEEP or a FREEZE:
 	; the enemy now chooses while asleep or frozen, and that pick runs only on the
 	; turn it wakes or thaws, when the status is already gone.
+	; v1.0 (E4, 2026-09-29): RECOVER too. It has cured the user's status since 2026-09-08
+	; (HealEffect_ .fullHPCureOnly: RECOVER and SOFTBOILED cure at full HP, REST fails there);
+	; this test had kept SOFTBOILED alone. HEAL_EFFECT's moves are RECOVER, REST and SOFTBOILED.
 	ld a, [wEnemyMoveNum]
-	cp SOFTBOILED
-	jr nz, .fullHealthDiscourage
+	cp REST
+	jr z, .fullHealthDiscourage
 	ld a, [wEnemyMonStatus]
 	and (1 << PSN) | (1 << BRN) | (1 << PAR)
 	jr z, .fullHealthDiscourage
 	pop de
 	pop hl
-	jp .nextMove ; statused: Softboiled is worth using as Full Heal
+	jp .nextMove ; statused: RECOVER or SOFTBOILED is worth using as a FULL HEAL
 .fullHealthDiscourage
 	pop de
 	pop hl
@@ -293,24 +327,6 @@ AIMoveChoiceModification1:
 	and a
 	jp z, .discourage ; the player has not used a move since the last switch-in
 	jp .nextMove
-; v1.0 (D15, 2026-09-29; Forte: "o AI tem que ter inteligencia para saber que +6 e 999 sao os
-; limites"): a stat-up move that would raise nothing - every stat it raises already at +6, or
-; at 999 (AIEnemyRaiseRefused) - is scored AI_SCORE_REFUSED_RAISE: above every move the enemy
-; can use to some effect, below every move it cannot use at all (AISeedMoveScores' $50: the
-; disabled one, one with no PP left). The chooser then never keeps it while another move can
-; act, never keeps an unusable move over it (that would STRUGGLE with a move it may use), and
-; with only such moves left it uses one, as the player would have to. Layer 6 counts it as
-; discouraged (11 or more).
-DEF AI_SCORE_REFUSED_RAISE EQU $30
-ASSERT AI_SCORE_REFUSED_RAISE - 1 > $a + 20 && AI_SCORE_REFUSED_RAISE + 4 < $50 - 10, \
-	"a refused raise must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
-.checkRaise
-	call AIEnemyRaiseRefused ; carry: every stat it raises is at its limit
-	jp nc, .nextMove
-	ld a, [hl]
-	add AI_SCORE_REFUSED_RAISE - $a
-	ld [hl], a
-	jp .nextMove
 
 
 StatusAilmentMoveEffects:
@@ -321,36 +337,6 @@ StatusAilmentMoveEffects:
 	               ; moves are power-gated out before this lookup, so they are
 	               ; intentionally absent — discouraging a damage move here is wrong)
 	db -1 ; end
-
-;;;;;;;;;; PureRGBnote: ADDED: function for checking if the player can have leech seed applied and whether they already have it applied
-
-CheckSeeded:
-	push hl
-	ld a, [wPlayerBattleStatus2]
-	bit SEEDED, a
-	jr nz, .discourage ; if the enemy has used leech seed don't use again
-	ld a, [wAIMoveSpamAvoider]
-	cp 2 ; set to 2 if we switched out this turn
-	ld hl, wBattleMonType1
-	jr nz, .noSwitchOut
-	ld hl, wAITargetMonType1 ; stores what the AI thinks the player's type is when a switchout happens
-.noSwitchOut	
-	ld a, [hl]
-	cp GRASS
-	jr z, .discourage ; leech seed does not affect grass types
-	inc hl
-	ld a, [hl]
-	cp GRASS
-	jr z, .discourage ; leech seed does not affect grass types
-	pop hl
-	and a
-	ret
-.discourage
-	pop hl
-	scf
-	ret	
-
-;;;;;;;;;;
 
 ;;;;;;;;;; PureRGBnote: ADDED: function for checking if the player's pokemon is unaffected by specific status moves.
 
@@ -753,9 +739,10 @@ AIMoveChoiceModification4:
 	; the AI has a status condition, regardless of HP.
 	; v1.0 (2026-09-27): POISON, BURN, PARALYSIS only (see layer 1: a pick made
 	; asleep or frozen runs once the status is gone).
+	; v1.0 (E4, 2026-09-29): RECOVER too - it cures a status since 2026-09-08 (layer 1).
 	ld a, [wEnemyMoveNum]
-	cp SOFTBOILED
-	jr nz, .nextMove
+	cp REST
+	jr z, .nextMove
 	ld a, [wEnemyMonStatus]
 	and (1 << PSN) | (1 << BRN) | (1 << PAR)
 	jr nz, .preferMove
@@ -1482,10 +1469,11 @@ AIStruggleSwitchDecision:
 ; before the chooser runs. Layer 6 reads 11 or more as "discouraged": an unusable
 ; move is. (A move with no PP used to start at $a: scored best, it was the one
 ; kept, and the enemy STRUGGLEd with a usable move left.) Trashes a, bc, de, hl.
-; v1.0 (D15, 2026-09-29): a third tier sits between the two. Layer 1 lifts a stat-up
-; move that would raise nothing to AI_SCORE_REFUSED_RAISE ($30, outside the +20 above):
-; never kept while a move can act, never ranked below an unusable one
-; (AIMoveChoiceModification1.checkRaise).
+; v1.0 (D15, 2026-09-29): a third tier sits between the two. Layer 1 lifts a move that
+; would surely do nothing - a stat-up move that would raise nothing (D15), and since E4 every
+; move its rules find the engine would refuse - to AI_SCORE_USELESS ($30, clear of the
+; -10..+20 above): never kept while a move can act, never ranked below an unusable one
+; (AIMoveChoiceModification1.useless).
 AISeedMoveScores:
 	ld a, [wEnemyDisabledMove]
 	swap a
