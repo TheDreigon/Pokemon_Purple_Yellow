@@ -115,6 +115,7 @@ TransformEffect_:
 	ld de, wPlayerMonUnmodifiedAttack
 	ld bc, wPlayerMonStatMods - wPlayerMonUnmodifiedAttack ; NUM_BATTLE_STATS words
 	call .copyBasedOnTurn ; original (unmodified) stats
+	call EnemyTransformRawStats ; v1.0 (D11): in Normal, your stats without the badge boost
 	ld hl, wEnemyMonStatMods
 	ld de, wPlayerMonStatMods
 	ld bc, NUM_STAT_MODS
@@ -147,3 +148,34 @@ TransformEffect_:
 TransformedText:
 	text_far _TransformedText
 	text_end
+
+; v1.0 (D11, 2026-09-28; Forte: "deixar copiar se for Hard Mode, mas nao copiar as medalhas se
+; for Normal Mode"): the ENEMY's TRANSFORM, right after it copied your unmodified stats. In
+; Normal those carry the badge boost - PIKACHU's x1.25 with it - baked in by ApplyBadgeStatBoosts
+; at the send-out (LoadBattleMonFromParty) and at a level-up (experience.asm). The enemy now takes
+; the party stats of your #MON in battle instead: the same five, before the boost (a level-up
+; rewrites them first, then re-bakes). Not when your #MON is TRANSFORMed: its unmodified stats
+; are then a copy of an enemy's (the one it TRANSFORMed into), with no boost in them. Hard bakes
+; no boost, so it is left as it was. Your TRANSFORM copies the enemy's stats, which never carry
+; one. HP is never copied.
+; UserStatsWithOwnCut then makes the enemy's five battle stats from these.
+; Trashes a, bc, de, hl, f.
+EnemyTransformRawStats:
+	ldh a, [hWhoseTurn]
+	and a
+	ret z ; your TRANSFORM
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	ret nz
+	ld a, [wPlayerBattleStatus3]
+	bit TRANSFORMED, a
+	ret nz
+	ld a, [wPlayerMonNumber]
+	ld hl, wPartyMon1Attack
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	ld de, wEnemyMonUnmodifiedAttack
+	ld bc, wPlayerMonStatMods - wPlayerMonUnmodifiedAttack ; NUM_BATTLE_STATS words, ATTACK..SP.DEF (the party order too)
+	jp CopyData
+ASSERT wPartyMon1StatsEnd - wPartyMon1Attack == wPlayerMonStatMods - wPlayerMonUnmodifiedAttack, \
+	"EnemyTransformRawStats copies the party ATTACK..SP.DEF over the unmodified block"
