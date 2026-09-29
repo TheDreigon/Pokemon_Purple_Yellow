@@ -134,6 +134,9 @@ AIGetMoveChoiceList:
 ; discourages moves that cause no damage but only a status ailment if player's mon already has one, or if they're immune to it
 ; discourages moves that after being used once won't do anything when used again (mist, leech seed, etc.)
 ; discourages moves that will fail due to the current enemy pokemon's state (e.g. recover at full health)
+; v1.0 (D15, 2026-09-29): and a stat-up move that would raise nothing - every stat it raises
+; already at +6 or at 999 (.checkRaise). Every class list starts with this layer
+; (data/trainers/move_choices.asm; Hard's HardModeBossAIMods too): every trainer gets it.
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -182,7 +185,7 @@ AIMoveChoiceModification1:
 	pop bc
 	pop de
 	pop hl
-	jr nc, .nextMove
+	jp nc, .checkRaise ; v1.0 (D15): not a status move - a stat-up at its limit? (jp: past jr reach)
 .checkStatusImmunity
 	call CheckStatusImmunity
 	jr c, .discourage
@@ -291,6 +294,24 @@ AIMoveChoiceModification1:
 	and a
 	jp z, .discourage ; the player has not used a move since the last switch-in
 	jp .nextMove
+; v1.0 (D15, 2026-09-29; Forte: "o AI tem que ter inteligencia para saber que +6 e 999 sao os
+; limites"): a stat-up move that would raise nothing - every stat it raises already at +6, or
+; at 999 (AIEnemyRaiseRefused) - is scored AI_SCORE_REFUSED_RAISE: above every move the enemy
+; can use to some effect, below every move it cannot use at all (AISeedMoveScores' $50: the
+; disabled one, one with no PP left). The chooser then never keeps it while another move can
+; act, never keeps an unusable move over it (that would STRUGGLE with a move it may use), and
+; with only such moves left it uses one, as the player would have to. Layer 6 counts it as
+; discouraged (11 or more).
+DEF AI_SCORE_REFUSED_RAISE EQU $30
+ASSERT AI_SCORE_REFUSED_RAISE - 1 > $a + 20 && AI_SCORE_REFUSED_RAISE + 4 < $50 - 10, \
+	"a refused raise must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
+.checkRaise
+	call AIEnemyRaiseRefused ; carry: every stat it raises is at its limit
+	jp nc, .nextMove
+	ld a, [hl]
+	add AI_SCORE_REFUSED_RAISE - $a
+	ld [hl], a
+	jp .nextMove
 
 
 StatusAilmentMoveEffects:
@@ -392,6 +413,116 @@ CheckStatusImmunity:
 	scf
 	ret
 ;;;;;;;;;;
+
+; v1.0 (D15, 2026-09-29; Forte: "o AI tem que ter inteligencia para saber que +6 e 999 sao os
+; limites"): carry when the enemy's stat-up move (wEnemyMoveEffect) would raise nothing:
+; StatModifierUpEffect would refuse every stat it raises (AIEnemyStatMaxed), and GROWTH, which
+; also heals, only at full HP (AttackSpAtkUp1HealEffect heals below it). Only the effects of
+; AIRaiseEffectStats count; layer 1 asks for power-0 moves only, so STRENGTH and FLAME CHARGE
+; (damaging, with a stat-up effect) never get here. FIERCE ROAR is not listed (its second leg
+; lowers the target), nor FOCUS ENERGY (layer 1's pumped test covers it: pumped, it fails
+; before its ACCURACY leg). It reads the trainer's own Pokemon: its stages (every change is
+; announced) and its stats. Keeps bc, de, hl.
+AIEnemyRaiseRefused:
+	push hl
+	push de
+	push bc
+	ld a, [wEnemyMoveEffect]
+	ld hl, AIRaiseEffectStats
+	ld de, 2
+	call IsInArray ; carry: listed, hl -> its row
+	jr nc, .done ; not a stat-up effect (carry clear)
+	inc hl
+	ld b, [hl] ; bit n: it raises stat MOD_ n; bit 7: it heals too
+	bit 7, b
+	jr z, .walk
+	ld hl, wEnemyMonHP
+	ld a, [wEnemyMonMaxHP]
+	xor [hl]
+	ld c, a
+	inc hl
+	ld a, [wEnemyMonMaxHP + 1]
+	xor [hl]
+	or c ; (or clears carry)
+	jr nz, .done ; below full HP: GROWTH heals, the turn is not wasted
+	res 7, b
+.walk
+	ld c, MOD_ATTACK
+.nextStat
+	srl b
+	jr nc, .notRaised
+	call AIEnemyStatMaxed ; carry: that raise is refused (keeps bc)
+	jr nc, .done ; this stat would rise: not wasted
+.notRaised
+	inc c
+	ld a, b
+	and a
+	jr nz, .nextStat
+	scf ; every stat it raises is at its limit
+.done
+	pop bc
+	pop de
+	pop hl
+	ret
+
+; v1.0 (D15): the power-0 stat-up effects and the stats each one raises (bit n = MOD_ n; bit 7 =
+; it heals too) - the ladder ids as StatModifierUpEffect maps them (SP.DEF has no ladder id), the
+; dual / triple handlers and AMNESIA's SPDEF_UP2 as effects.asm spoofs them. emu_test_ai_stat_limits
+; S1 derives this table from effects_pointers.asm and effects.asm and must match it.
+DEF AI_RAISE_HEALS_TOO EQU 1 << 7
+ASSERT MOD_EVASION < 7, "AIRaiseEffectStats keeps bit 7 for GROWTH's heal"
+AIRaiseEffectStats:
+	db ATTACK_UP1_EFFECT,               1 << MOD_ATTACK
+	db DEFENSE_UP1_EFFECT,              1 << MOD_DEFENSE
+	db SPEED_UP1_EFFECT,                1 << MOD_SPEED
+	db SPATK_UP1_EFFECT,                1 << MOD_SPATK
+	db ACCURACY_UP1_EFFECT,             1 << MOD_ACCURACY
+	db EVASION_UP1_EFFECT,              1 << MOD_EVASION
+	db ATTACK_UP2_EFFECT,               1 << MOD_ATTACK
+	db DEFENSE_UP2_EFFECT,              1 << MOD_DEFENSE
+	db SPEED_UP2_EFFECT,                1 << MOD_SPEED
+	db SPATK_UP2_EFFECT,                1 << MOD_SPATK
+	db ACCURACY_UP2_EFFECT,             1 << MOD_ACCURACY
+	db EVASION_UP2_EFFECT,              1 << MOD_EVASION
+	db SPDEF_UP2_EFFECT,                1 << MOD_SPDEF                                      ; AMNESIA
+	db ATTACK_DEFENSE_UP1_EFFECT,       1 << MOD_ATTACK | 1 << MOD_DEFENSE                  ; BULK UP, COIL
+	db ATTACK_ACCURACY_UP1_EFFECT,      1 << MOD_ATTACK | 1 << MOD_ACCURACY                 ; HONE CLAWS
+	db SPEED_EVASION_UP1_EFFECT,        1 << MOD_SPEED | 1 << MOD_EVASION                   ; AGILITY
+	db SPATK_SPEED_UP1_EFFECT,          1 << MOD_SPATK | 1 << MOD_SPEED                     ; QUIVER DANCE
+	db SPATK_SPDEF_ACCURACY_UP1_EFFECT, 1 << MOD_SPATK | 1 << MOD_SPDEF | 1 << MOD_ACCURACY ; CALM MIND
+	db ATTACK_SPATK_UP1_HEAL_EFFECT,    1 << MOD_ATTACK | 1 << MOD_SPATK | AI_RAISE_HEALS_TOO ; GROWTH
+	db -1 ; end
+
+; v1.0 (D15): carry when StatModifierUpEffect would refuse to raise the enemy's stat c
+; (MOD_ATTACK..MOD_EVASION) - its two refusals, exactly: the stage byte plus one past +6 (13),
+; "won't go any higher!"; or, ATTACK..SP.DEF only, the battle word exactly 999, as the engine
+; reads it - the burn / paralysis cut included, never "improved". Both refusals print "won't
+; go any higher!" (D14). A +2 at +5 still raises one stage: not refused. Keeps bc; clobbers
+; a, de, hl.
+AIEnemyStatMaxed:
+	ld e, c
+	ld d, 0
+	ld hl, wEnemyMonStatMods
+	add hl, de
+	ld a, [hl]
+	inc a
+	cp MAX_STAT_LEVEL + 1
+	ccf
+	ret c ; the stage is +6
+	ld a, c
+	cp MOD_ACCURACY
+	ret nc ; ACCURACY and EVASION have no stat word (carry clear)
+	ld hl, wEnemyMonAttack
+	add hl, de
+	add hl, de ; its battle word, big-endian
+	ld a, [hli]
+	xor HIGH(MAX_STAT_VALUE)
+	ld d, a
+	ld a, [hl]
+	xor LOW(MAX_STAT_VALUE)
+	or d
+	cp 1 ; carry: the word is exactly 999
+	ret
 
 ; PureRGBnote: CHANGED: AKA the "Boost stats on the first turn" subroutine
 ; slightly encourage moves with specific effects on the first turn. (PureRGBnote: FIXED: used to be the second turn, made it first turn)
@@ -1379,6 +1510,10 @@ AIStruggleSwitchDecision:
 ; before the chooser runs. Layer 6 reads 11 or more as "discouraged": an unusable
 ; move is. (A move with no PP used to start at $a: scored best, it was the one
 ; kept, and the enemy STRUGGLEd with a usable move left.) Trashes a, bc, de, hl.
+; v1.0 (D15, 2026-09-29): a third tier sits between the two. Layer 1 lifts a stat-up
+; move that would raise nothing to AI_SCORE_REFUSED_RAISE ($30, outside the +20 above):
+; never kept while a move can act, never ranked below an unusable one
+; (AIMoveChoiceModification1.checkRaise).
 AISeedMoveScores:
 	ld a, [wEnemyDisabledMove]
 	swap a
