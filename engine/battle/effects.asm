@@ -847,7 +847,15 @@ UpdateStatDone:
 	; special case for it is gone.
 	ld a, [wMoveDidntMiss]
 	and a
-	jr nz, .skipUpAnim ; damage already played the animation, or dual-stat second leg
+	jr nz, .skipUpAnim ; damage already played the animation, or an earlier leg of this move rose
+; v1.0 (E5, 2026-09-29; Forte: "concordo com esta correcao"): the flag is set HERE, where the
+; animation plays, and no longer by the multi-stat handlers after their first leg. A first stat
+; refused (+6, or 999 since D14) leaves the animation to the first stat that rises (BULK UP at
+; ATTACK +6 animates on DEFENSE); a move whose every stat is refused plays none; never twice.
+; Newer games play it whenever one stat rises. Both sides (hWhoseTurn); X items and FOCUS ENERGY
+; are one leg each and unchanged (FOCUS ENERGY still pre-sets the flag: its own animation played).
+	inc a ; a = 1
+	ld [wMoveDidntMiss], a
 	call PlayCurrentMoveAnimation
 .skipUpAnim
 .applyBadgeBoostsAndStatusPenalties
@@ -1122,7 +1130,9 @@ UpdateLoweredStatDone:
 	pop de
 	ld a, [wMoveDidntMiss]
 	and a
-	jr nz, .ApplyBadgeBoostsAndStatusPenalties ; v0.5: damage already played anim, or dual-stat second leg
+	jr nz, .ApplyBadgeBoostsAndStatusPenalties ; v0.5: damage already played anim, or an earlier leg fell
+	inc a ; E5: a = 1, set where the animation plays, as at UpdateStatDone (a side effect never
+	ld [wMoveDidntMiss], a ; arrives here with 0: it runs only after the hit, which set it)
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT ; a side effect rides on a damaging move: its animation already played
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
@@ -1809,7 +1819,9 @@ NoEffectText:
 ConditionalPrintButItFailed:
 	ld a, [wMoveDidntMiss]
 	and a
-	ret nz ; return if the side effect failed, yet the attack was successful
+	ret nz ; return if the side effect failed, yet the attack was successful, or this move said it
+	inc a ; E5: a = 1 - said once per move: a multi-stat move's later leg that fails stays silent
+	ld [wMoveDidntMiss], a ; (FLASH into a SUBSTITUTE), as the handlers' own flag did before E5
 
 PrintButItFailedText_:
 	ld hl, ButItFailedText
@@ -1939,11 +1951,8 @@ AttackDefenseUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	; Suppress animation on the second leg (we only want one "used BULK_UP"
-	; hit) by spoofing wMoveDidntMiss; the guard in StatModifierUpEffect
-	; reads this flag and skips PlayCurrentMoveAnimation.
-	ld a, 1
-	ld [wMoveDidntMiss], a
+	; E5: one animation per use, played by the first leg that rises: UpdateStatDone
+	; sets wMoveDidntMiss then, and the later legs skip it. Nothing is spoofed here.
 	push de
 	ld a, DEFENSE_UP1_EFFECT
 	ld [de], a
@@ -1967,9 +1976,6 @@ AttackAccuracyUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	; Suppress animation on the second leg.
-	ld a, 1
-	ld [wMoveDidntMiss], a
 	push de
 	ld a, ACCURACY_UP1_EFFECT
 	ld [de], a
@@ -1993,9 +1999,6 @@ SpeedEvasionUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	; Suppress animation on the second leg.
-	ld a, 1
-	ld [wMoveDidntMiss], a
 	push de
 	ld a, EVASION_UP1_EFFECT
 	ld [de], a
@@ -2021,9 +2024,6 @@ SpAtkSpDefAccuracyUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	; Suppress animation on the later legs.
-	ld a, 1
-	ld [wMoveDidntMiss], a
 	push de
 	ld a, MOD_SPDEF + 1
 	ld [wStatModIndexOverride], a
@@ -2059,10 +2059,10 @@ AccuracyEvasionDown1Effect:
 	pop de
 	xor a
 	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
-	; Suppress animation on the second leg: the guard in StatModifierDownEffect
-	; reads wMoveDidntMiss and skips PlayCurrentMoveAnimation2 when set.
-	ld a, 1
-	ld [wMoveDidntMiss], a
+	; E5: one animation per use, played by the first leg that lowers (UpdateLoweredStatDone
+	; sets wMoveDidntMiss then), and one "But, it failed!" (ConditionalPrintButItFailed sets it).
+	; So a first leg that misses and a later one that lands say "But, it failed!", then "fell!"
+	; with no animation, as before E5 (EERIE IMPULSE / PSYCHIC BIND at 90%: about 9% of uses).
 	push de
 	ld a, EVASION_DOWN1_EFFECT
 	ld [de], a
@@ -2095,9 +2095,6 @@ SpDefSpeedDown1Effect:
 	xor a
 	ld [wStatModIndexOverride], a ; not consumed if the leg left early
 	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
-	; Suppress animation on the second leg.
-	ld a, 1
-	ld [wMoveDidntMiss], a
 	push de
 	ld a, SPEED_DOWN1_EFFECT
 	ld [de], a
@@ -2257,9 +2254,6 @@ SpeedEvasionDown1Effect:
 	pop de
 	xor a
 	ld [wMoveMissed], a ; reset miss flag between legs (each leg rolls independently)
-	; Suppress animation on the second leg.
-	ld a, 1
-	ld [wMoveDidntMiss], a
 	push de
 	ld a, EVASION_DOWN1_EFFECT
 	ld [de], a
@@ -2284,11 +2278,6 @@ SpAtkSpeedUp1Effect:
 	ld [de], a
 	call StatModifierUpEffect
 	pop de
-	; Suppress animation on the second leg (we only want one "used QUIVER
-	; DANCE" hit) by spoofing wMoveDidntMiss; the guard in StatModifierUp
-	; Effect reads this flag and skips PlayCurrentMoveAnimation.
-	ld a, 1
-	ld [wMoveDidntMiss], a
 	push de
 	ld a, SPEED_UP1_EFFECT
 	ld [de], a
@@ -2316,9 +2305,8 @@ AttackUp1Down1Effect:
 	; Reset miss flag for the down leg's independent hit test.
 	xor a
 	ld [wMoveMissed], a
-	; Suppress animation on the second leg.
-	ld a, 1
-	ld [wMoveDidntMiss], a
+	; E5: nothing spoofed - an ATTACK that rises animates (and sets the flag) at
+	; UpdateStatDone; one refused (+6, 999) leaves the animation to the target's drop.
 	push de
 	ld a, ATTACK_DOWN1_EFFECT
 	ld [de], a
@@ -2331,8 +2319,8 @@ AttackUp1Down1Effect:
 AttackSpAtkUp1HealEffect:
 ; Triple: ATTACK+1 and SP.ATK+1 to the user + heal 1/4 max HP. Used by GROWTH
 ; (the split, 2026-09-06: body and mind).
-; Phase 1 uses StatModifierUpEffect twice (the first leg animated, "rose!" text
-; on both). Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch
+; Phase 1 uses StatModifierUpEffect twice (the first leg that rises animates - E5 -
+; "rose!" on each that rises). Phase 2 farcalls HealEffect_ which takes a GROWTH-specific branch
 ; that divides max HP by 4 and honours wMoveDidntMiss to skip re-animating.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
@@ -2345,9 +2333,8 @@ AttackSpAtkUp1HealEffect:
 	ld [de], a
 	call StatModifierUpEffect       ; +1 ATTACK to user (anim + text)
 	pop de
-	; Suppress the animation on the second leg and the replay inside HealEffect_'s .playAnim.
-	ld a, 1
-	ld [wMoveDidntMiss], a
+	; E5: the first leg that rises animates and sets wMoveDidntMiss (UpdateStatDone), which
+	; also keeps HealEffect_'s .playAnim quiet; with both stats refused the heal plays it.
 	push de
 	ld a, SPATK_UP1_EFFECT
 	ld [de], a
@@ -2355,8 +2342,8 @@ AttackSpAtkUp1HealEffect:
 	pop de
 ; v0.7 FIX: HealEffect_'s full-HP guard runs before its per-move dispatch and
 ; lands on .failed, which prints "But, it failed!" UNCONDITIONALLY (it calls
-; PrintButItFailedText_, not the conditional variant, so the wMoveDidntMiss set
-; just above is ignored). At full HP that produced "<MON>'s SPECIAL rose!"
+; PrintButItFailedText_, not the conditional variant, so wMoveDidntMiss is
+; ignored). At full HP that produced "<MON>'s SPECIAL rose!"
 ; immediately followed by "But, it failed!" for the same move — even though the
 ; stat really did go up. Skip the heal leg when the user is already at max HP.
 ; Battle Core is at its size limit, so this stays deliberately compact: the

@@ -119,9 +119,9 @@ HealEffect_:
 	ret
 .growthDivide
 ; v0.6: GROWTH (effect ATTACK_SPATK_UP1_HEAL_EFFECT) calls into HealEffect_ for the
-; heal portion only, with a 1/4 max HP divisor. SPC+1 happens in the wrapper
-; handler (AttackSpAtkUp1HealEffect in effects.asm), which sets wMoveDidntMiss=1
-; before this farcall to suppress the move-anim replay in .playAnim below.
+; heal portion only, with a 1/4 max HP divisor. The stat legs run in the wrapper
+; handler (AttackSpAtkUp1HealEffect in effects.asm); the first that rises plays the
+; animation and sets wMoveDidntMiss=1 (E5), which keeps .playAnim below quiet.
 	ld a, [hld]
 	ld [wHPBarMaxHP], a
 	ld c, a
@@ -199,9 +199,9 @@ HealEffect_:
 	ld [de], a
 	ld [wHPBarNewHP], a
 .playAnim
-; v0.6: AttackSpAtkUp1HealEffect (Growth) sets wMoveDidntMiss=1 before farcalling
-; HealEffect_, so this skip avoids re-playing the move anim that the SPC+1 leg
-; already played. Other callers (Recover/Rest/Softboiled) leave the flag at 0.
+; v0.6: for GROWTH, wMoveDidntMiss=1 means a stat leg already played the move anim
+; (E5: UpdateStatDone sets it where it plays); with both stats refused it is 0 and
+; the heal plays it. Other callers (Recover/Rest/Softboiled) leave the flag at 0.
 	ld a, [wMoveDidntMiss]
 	and a
 	jr nz, .skipMoveAnim
