@@ -152,6 +152,11 @@ AIGetMoveChoiceList:
 ; statused one that must recharge (SleepEffect puts it to sleep whatever its status); RECOVER,
 ; SOFTBOILED or REST at full HP (a hit taken first makes them heal); MIRROR MOVE with nothing to
 ; copy (the player's move, if it goes first, gives it one).
+; v1.0 (E2, 2026-09-29; Forte: "sigo a tua melhor recomendacao"): and the mirror of D15 for the
+; moves that lower the player's stats - useless behind the player's SUBSTITUTE or MIST, or when
+; every stat it lowers is already at -6 (not a move whose flinch still rolls there: INTIMIDATE,
+; SCARY FACE, METAL SOUND, SCREECH, HINDER, TICKLE; FIERCE ROAR only when its own ATTACK raise is
+; refused too) (.checkRaise, AIPlayerLowerRefused).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -237,6 +242,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
 .checkRaise
 	call AIEnemyRaiseRefused ; carry: every stat it raises is at its limit
+	call nc, AIPlayerLowerRefused ; v1.0 (E2): carry: nothing it lowers would fall
 	jp nc, .nextMove
 .useless
 	ld a, [hl]
@@ -398,7 +404,8 @@ CheckStatusImmunity:
 ; also heals, only at full HP (AttackSpAtkUp1HealEffect heals below it). Only the effects of
 ; AIRaiseEffectStats count; layer 1 asks for power-0 moves only, so STRENGTH and FLAME CHARGE
 ; (damaging, with a stat-up effect) never get here. FIERCE ROAR is not listed (its second leg
-; lowers the target), nor FOCUS ENERGY (layer 1's pumped test covers it: pumped, it fails
+; lowers the target: AIPlayerLowerRefused weighs both legs, E2), nor FOCUS ENERGY (layer 1's
+; pumped test covers it: pumped, it fails
 ; before its ACCURACY leg). It reads the trainer's own Pokemon: its stages (every change is
 ; announced) and its stats. Keeps bc, de, hl.
 AIEnemyRaiseRefused:
@@ -501,6 +508,96 @@ AIEnemyStatMaxed:
 	or d
 	cp 1 ; carry: the word is exactly 999
 	ret
+
+; v1.0 (E2, 2026-09-29; Forte: "sigo a tua melhor recomendacao"): the mirror of D15 for the
+; moves that LOWER the player's stats. Carry when the enemy's power-0 lowering move
+; (wEnemyMoveEffect, a row of AILowerEffectStats) would do nothing: behind the player's
+; SUBSTITUTE (StatModifierDownEffect's first test; FlinchSideEffect's too) or its MIST / GUARD
+; SPEC. (MoveHitTest: every leg's id, the spoofed ones included, is in its MIST ranges, and a
+; whiffed leg rolls no flinch) every leg fails; else every stat it lowers already at -6 - the
+; stage byte 1, StatModifierDownEffect's `dec b / jp z, CantLowerAnymore`. The stat VALUE the
+; engine also refuses at 1 is hidden from a trainer and not read. A move whose flinch still
+; rolls at -6 (INTIMIDATE, SCARY FACE, METAL SOUND, SCREECH, HINDER, TICKLE: AI_LOWER_FLINCHES
+; in its row) is wasted only behind a SUBSTITUTE or MIST; FIERCE ROAR, which first raises the
+; enemy's ATTACK, only when that raise is refused too (AIEnemyStatMaxed). It reads what a
+; trainer sees: the player's stages (every drop and the -6 refusal are announced), its
+; SUBSTITUTE and its MIST (both announced). Keeps bc, de, hl.
+AIPlayerLowerRefused:
+	push hl
+	push de
+	push bc
+	ld a, [wEnemyMoveEffect]
+	ld hl, AILowerEffectStats
+	ld de, 2
+	call IsInArray ; carry: listed, hl -> its row, c = the effect
+	jr nc, .done ; not a lowering effect (carry clear)
+	inc hl
+	ld b, [hl] ; bit n: it lowers the player's stat MOD_ n; AI_LOWER_FLINCH_BIT: a flinch rolls too
+	ld a, [wPlayerBattleStatus2]
+	and (1 << HAS_SUBSTITUTE_UP) | (1 << PROTECTED_BY_MIST) ; (and clears carry)
+	jr nz, .lowerRefused ; every leg fails, the flinch too
+	bit 7, b ; AI_LOWER_FLINCH_BIT (defined with the table below)
+	jr nz, .done ; at -6 its flinch still rolls: not wasted (carry clear)
+	ld hl, wPlayerMonStatMods
+.nextStat
+	srl b
+	jr nc, .notLowered
+	ld a, [hl]
+	dec a ; the stage byte is 1 at -6
+	and a ; (Z kept, carry cleared)
+	jr nz, .done ; this stat would fall: not wasted
+.notLowered
+	inc hl
+	ld a, b
+	and a
+	jr nz, .nextStat
+.lowerRefused
+	ld a, c
+	cp ATTACK_UP1_DOWN1_EFFECT ; FIERCE ROAR raises the enemy's ATTACK first
+	scf
+	jr nz, .done
+	ld c, MOD_ATTACK
+	call AIEnemyStatMaxed ; carry: that raise is refused too (keeps bc)
+.done
+	pop bc
+	pop de
+	pop hl
+	ret
+
+; v1.0 (E2): the lowering effects a power-0 move can carry and the player's stats each one
+; lowers (bit n = MOD_ n) - the ladder ids as StatModifierDownEffect maps them (SP.DEF has no
+; ladder id), FAKE TEARS' SPDEF_DOWN2, the dual and flinch handlers as effects.asm spoofs them,
+; and FIERCE ROAR's lowering leg. The side-effect ids ride on damaging moves only, which layer
+; 1 never scores. emu_test_ai_useless_moves S1 derives this table from effects_pointers.asm and
+; effects.asm and must match it.
+DEF AI_LOWER_FLINCH_BIT EQU 7
+DEF AI_LOWER_FLINCHES EQU 1 << AI_LOWER_FLINCH_BIT
+ASSERT MOD_EVASION < AI_LOWER_FLINCH_BIT, "AILowerEffectStats keeps bit 7 for the flinch"
+AILowerEffectStats:
+	db ATTACK_DOWN1_EFFECT,           1 << MOD_ATTACK
+	db DEFENSE_DOWN1_EFFECT,          1 << MOD_DEFENSE
+	db SPEED_DOWN1_EFFECT,            1 << MOD_SPEED
+	db SPATK_DOWN1_EFFECT,            1 << MOD_SPATK
+	db ACCURACY_DOWN1_EFFECT,         1 << MOD_ACCURACY
+	db EVASION_DOWN1_EFFECT,          1 << MOD_EVASION
+	db ATTACK_DOWN2_EFFECT,           1 << MOD_ATTACK
+	db DEFENSE_DOWN2_EFFECT,          1 << MOD_DEFENSE
+	db SPEED_DOWN2_EFFECT,            1 << MOD_SPEED
+	db SPATK_DOWN2_EFFECT,            1 << MOD_SPATK
+	db ACCURACY_DOWN2_EFFECT,         1 << MOD_ACCURACY
+	db EVASION_DOWN2_EFFECT,          1 << MOD_EVASION
+	db SPDEF_DOWN2_EFFECT,            1 << MOD_SPDEF                          ; FAKE TEARS
+	db ACCURACY_EVASION_DOWN1_EFFECT, 1 << MOD_ACCURACY | 1 << MOD_EVASION    ; FLASH
+	db SPDEF_SPEED_DOWN1_EFFECT,      1 << MOD_SPDEF | 1 << MOD_SPEED         ; EERIE IMPULSE
+	db SPEED_EVASION_DOWN1_EFFECT,    1 << MOD_SPEED | 1 << MOD_EVASION       ; PSYCHIC BIND
+	db ATTACK_UP1_DOWN1_EFFECT,       1 << MOD_ATTACK                         ; FIERCE ROAR (and its raise)
+	db ATTACK_DOWN2_FLINCH_EFFECT,    1 << MOD_ATTACK | AI_LOWER_FLINCHES     ; INTIMIDATE
+	db SPEED_DOWN2_FLINCH_EFFECT,     1 << MOD_SPEED | AI_LOWER_FLINCHES      ; SCARY FACE
+	db SPEED_DOWN1_FLINCH_EFFECT,     1 << MOD_SPEED | AI_LOWER_FLINCHES      ; HINDER
+	db DEFENSE_DOWN1_FLINCH_EFFECT,   1 << MOD_DEFENSE | AI_LOWER_FLINCHES    ; TICKLE
+	db SPDEF_DOWN2_FLINCH_EFFECT,     1 << MOD_SPDEF | AI_LOWER_FLINCHES      ; METAL SOUND
+	db SPDEF_DOWN1_FLINCH_EFFECT,     1 << MOD_SPDEF | AI_LOWER_FLINCHES      ; SCREECH
+	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Boost stats on the first turn" subroutine
 ; slightly encourage moves with specific effects on the first turn. (PureRGBnote: FIXED: used to be the second turn, made it first turn)
