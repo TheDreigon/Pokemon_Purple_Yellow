@@ -63,7 +63,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; SECRET_KEY
 	dw ItemUseTrainerManual ; TRAINER_MANUAL (v0.7; item $2C, the phantom slot)
 	dw UnusableItem      ; BIKE_VOUCHER
-	dw ItemUseXAccuracy  ; X_ACCURACY
+	dw ItemUseXStat      ; X_ACCURACY (v1.0 F7: a +1 ACCURACY stage, as the other X items)
 	dw ItemUseEvoStone   ; LEAF_STONE
 	dw UnusableItem      ; CARD_KEY
 	dw UnusableItem      ; NUGGET
@@ -2221,16 +2221,6 @@ ItemUseRepelCommon:
 	ld [wRepelRemainingSteps], a
 	jp PrintItemUseTextAndRemoveItem
 
-; handles X Accuracy item
-ItemUseXAccuracy:
-	ld a, [wIsInBattle]
-	and a
-	jp z, ItemUseNotTime
-	ld hl, wPlayerBattleStatus2
-	set USING_X_ACCURACY, [hl] ; X Accuracy bit
-	callabd_ModifyPikachuHappiness PIKAHAPPY_USEDXITEM
-	jp PrintItemUseTextAndRemoveItem
-
 ItemUsePokedoll:
 	ld a, [wIsInBattle]
 	dec a
@@ -2291,6 +2281,13 @@ ItemUseBattleFlagItem:
 	ld [wWhichPokemon], a
 	jp PrintItemUseTextAndRemoveItem
 
+; v1.0 (F7, 2026-09-30; Forte: "accuracy passa a fazer +1 e a custar 1500 (deliberadamente mais
+; que os restantes +1 a 1000)"): X ACCURACY is one of these now - ACCURACY +1 through
+; ACCURACY_UP1_EFFECT, refused and kept at +6 (F1; ACCURACY has no stat word, only its stage
+; counts). It was vanilla's always-hit switch (ItemUseXAccuracy set USING_X_ACCURACY and
+; MoveHitTest hit before any roll - past the Hard boss edge and the 1/256 miss), and its
+; happiness call read wWhichPokemon, the bag slot, as a party slot; both went with it. Nothing
+; sets USING_X_ACCURACY any more (hit_and_penalties.asm keeps the test).
 ItemUseXStat:
 	ld a, [wIsInBattle]
 	and a
@@ -2313,6 +2310,9 @@ ItemUseXStat:
 	ld a, [wcf91]
 	ld c, MOD_SPDEF
 	cp X_SPDEF
+	jr z, .gotStat
+	ld c, MOD_ACCURACY ; X ACCURACY (F7): the stage only
+	cp X_ACCURACY
 	jr z, .gotStat
 	sub X_ATTACK ; X ATTACK..X SP.ATK: MOD_ATTACK..MOD_SPATK (the ASSERT)
 	ld c, a
@@ -2341,6 +2341,12 @@ ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED 
 	ld a, SPATK_UP1_EFFECT
 	jr .gotEffect
 .ladderItem
+; X ACCURACY (F7): ACCURACY_UP1_EFFECT - its id ($2E) is nowhere near X ATTACK's, off the subtraction
+	cp X_ACCURACY
+	jr nz, .attackToSpAtk
+	ld a, ACCURACY_UP1_EFFECT
+	jr .gotEffect
+.attackToSpAtk
 	sub X_ATTACK - ATTACK_UP1_EFFECT
 .gotEffect
 	ld [hl], a ; store player move effect

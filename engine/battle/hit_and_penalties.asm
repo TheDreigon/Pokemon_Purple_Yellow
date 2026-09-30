@@ -110,6 +110,9 @@ MoveHitTest:
 	bit PROTECTED_BY_MIST, a ; is mon protected by mist?
 	jp nz, .moveMissed
 .skipEnemyMistCheck
+; v1.0 (F7, 2026-09-30): nothing sets USING_X_ACCURACY any more, on either side - X ACCURACY is a
+; +1 ACCURACY stage (item_effects.asm ItemUseXStat) and no trainer uses one. Both tests stay: the
+; emu tests stage the bit to force a hit, and a send-out clears it.
 	ld a, [wPlayerBattleStatus2]
 	bit USING_X_ACCURACY, a ; is the player using X Accuracy?
 	ret nz ; if so, always hit regardless of accuracy/evasion

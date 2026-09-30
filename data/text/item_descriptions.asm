@@ -169,7 +169,7 @@ _BikeVoucherDescription::
 	prompt
 
 _XAccuracyDescription::
-	text "No accuracy roll"
+	text "ACCURACY up a step"
 	next "until you switch."
 	prompt
 

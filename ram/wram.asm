@@ -1532,7 +1532,7 @@ wPlayerStatsToHalve:: db
 ; bit 7 - confusion
 wPlayerBattleStatus1:: db
 
-; bit 0 - X Accuracy effect
+; bit 0 - X Accuracy (nothing sets it since v1.0 F7; MoveHitTest keeps the test)
 ; bit 1 - protected by "mist"
 ; bit 2 - focus energy effect
 ; bit 4 - has a substitute

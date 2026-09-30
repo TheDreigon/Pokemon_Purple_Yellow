@@ -47,7 +47,7 @@ ItemPrices::
 	bcd3 0     ; SECRET_KEY
 	bcd3 0     ; TRAINER_MANUAL (not for sale)
 	bcd3 0     ; BIKE_VOUCHER
-	bcd3 3000 ; X_ACCURACY
+	bcd3 1500  ; X_ACCURACY (3000 while it was the always-hit switch; v1.0 F7, 2026-09-30: a +1 ACCURACY stage, deliberately dearer than the +1 items at 1000 - Forte)
 	bcd3 3000  ; LEAF_STONE  (was 2100; matches other stones)
 	bcd3 0     ; CARD_KEY
 	bcd3 10000 ; NUGGET      (player sells; sale value = 1/2 price)
