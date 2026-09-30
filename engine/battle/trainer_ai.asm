@@ -2476,6 +2476,16 @@ AIPlayRestoringSFX:
 AIUseFullRestore:
 	call AICureStatus
 	ld a, FULL_RESTORE
+	jr AIUseFullHPItem
+
+; Max Potion: fully restores HP but (unlike Full Restore) does NOT cure status.
+AIUseMaxPotion:
+	ld a, MAX_POTION
+	; fall through
+; v1.0 (R8, 2026-09-30): FULL RESTORE's and MAX POTION's one body - they were two byte-identical
+; copies (36 B back in this bank). a = the item: wAIItem, the HP to its max, the HP bar's
+; old / new / max, then the message and the bar (AIPrintItemUseAndUpdateHPBar).
+AIUseFullHPItem:
 	ld [wAIItem], a
 	ld de, wHPBarOldHP
 	ld hl, wEnemyMonHP + 1
@@ -2496,30 +2506,6 @@ AIUseFullRestore:
 	ld [wHPBarMaxHP+1], a
 	ld [wEnemyMonHP], a
 	jr AIPrintItemUseAndUpdateHPBar
-
-; Max Potion: fully restores HP but (unlike Full Restore) does NOT cure status.
-AIUseMaxPotion:
-	ld a, MAX_POTION
-	ld [wAIItem], a
-	ld de, wHPBarOldHP
-	ld hl, wEnemyMonHP + 1
-	ld a, [hld]
-	ld [de], a
-	inc de
-	ld a, [hl]
-	ld [de], a
-	inc de
-	ld hl, wEnemyMonMaxHP + 1
-	ld a, [hld]
-	ld [de], a
-	inc de
-	ld [wHPBarMaxHP], a
-	ld [wEnemyMonHP + 1], a
-	ld a, [hl]
-	ld [de], a
-	ld [wHPBarMaxHP+1], a
-	ld [wEnemyMonHP], a
-	jp AIPrintItemUseAndUpdateHPBar
 
 AIUsePotion:
 ; enemy trainer heals his monster with a potion
