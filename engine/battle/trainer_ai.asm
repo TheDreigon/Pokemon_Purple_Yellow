@@ -1116,8 +1116,9 @@ AIGetMovePriorityWrapped:
 ; (2026-09-27), so a switch runs before the player's move, as the player's
 ; own switch does.
 ; Adapted from ExtremeYellow's Mod4 (trainer_ai.asm:1913-2072). The knobs
-; are its weights (13/6, 7/18/25/32, 29), plus two reasons to STAY that are
-; ours (a boosted mon, a mon behind screens) and a cooldown for the mon
+; are its weights (13/6, 7/18/25/32, 29), plus three reasons to STAY that
+; are ours (a boosted mon, a mon behind screens and - v1.0 R8, 2026-09-30 -
+; a mon behind its own SUBSTITUTE doll) and a cooldown for the mon
 ; that just came in. The stages are the seven MOD_ bytes (7 each when
 ; untouched, 49 in all); the score floor of 0 means the reasons to stay
 ; are taken off last, so they are never lost.
@@ -1129,6 +1130,7 @@ AISwitchKnobs:
 .allBad:   db 29 ; every move it has is discouraged (score 11 or more)
 .screen:   db 10 ; off for each screen up (REFLECT, LIGHT SCREEN)
 .cooldown: db 2  ; turns the mon that just came in is left alone
+.doll:     db 10 ; off with its own SUBSTITUTE doll up (v1.0 R8: a switch would throw it away)
 
 AIMoveChoiceModification6:
 	ld a, [wAISwitchCooldown]
@@ -1231,8 +1233,17 @@ AIMoveChoiceModification6:
 .checkLightScreen
 	ld a, [wEnemyBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a
-	jr z, .roll
+	jr z, .checkDoll
 	ld a, [AISwitchKnobs.screen]
+	call SubFromBCapped
+.checkDoll
+; v1.0 (R8, 2026-09-30): its own SUBSTITUTE doll up. A send-out clears it (EnemySendOutFirstMon), so a
+; switch would throw it away; and layer 1 scores a SUBSTITUTE with its doll up 11 or more (R8), so with
+; every other move discouraged .allBad alone would ask for that switch.
+	ld a, [wEnemyBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr z, .roll
+	ld a, [AISwitchKnobs.doll]
 	call SubFromBCapped
 .roll
 	ld a, b
