@@ -163,6 +163,13 @@ AIGetMoveChoiceList:
 ; POISON, BURN and CONFUSION fail (PoisonEffect, BurnEffect, ConfusionEffect test it first) - all
 ; useless (.checkSubstitute, .checkConfused, CheckStatusImmunity), as E2's lowering moves already
 ; were. SLEEP, PARALYZE, LEECH SEED, DISABLE, MIMIC and TRANSFORM do not test it and still land.
+; v1.0 (R8, 2026-09-30; Forte: "concordo contigo, isto é algo a ser corrigido."): and the
+; trainer's own SUBSTITUTE, which SubstituteEffect_ refuses with its doll already up, and with its
+; HP at or below a quarter of its max HP (the cost; at exactly the cost too, since 2026-09-24)
+; (.checkOwnSubstitute): USELESS at or below the cost, which nothing the player does can raise -
+; only DISCOURAGED there with the player SEEDED (its drain, when the player moves first, heals the
+; enemy before this move); DISCOURAGED with its doll already up (a hit taken first may break it,
+; as RECOVER at full HP).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -200,6 +207,8 @@ AIMoveChoiceModification1:
 	cp MIST_EFFECT ; no move carries it today (the handler is kept): for a restored MIST
 	ld c, 1 << PROTECTED_BY_MIST
 	jr z, .checkOwnStatus2
+	cp SUBSTITUTE_EFFECT ; v1.0 (R8): its own doll up, or its HP too low to pay for one
+	jr z, .checkOwnSubstitute
 	cp CONFUSION_EFFECT
 	jp z, .checkConfused
 	cp HEAL_EFFECT
@@ -233,7 +242,8 @@ AIMoveChoiceModification1:
 	ld a, [hl]
 	add $5 ; heavily discourage move
 	ld [hl], a
-	jr .nextMove
+	jr .toNextMove ; v1.0 (R8): forward, through .useless's jp - since .checkOwnSubstitute's dispatch a jr
+	; back to .nextMove would reach exactly -128, the limit (0 B, the same scores)
 ; v1.0 (D15, 2026-09-29; Forte: "o AI tem que ter inteligencia para saber que +6 e 999 sao os
 ; limites"): a stat-up move that would raise nothing - every stat it raises already at +6, or
 ; at 999 (AIEnemyRaiseRefused) - is useless; v1.0 (E4): so is every move the rules above and
@@ -262,6 +272,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	ld a, [hl]
 	add AI_SCORE_USELESS - $a
 	ld [hl], a
+.toNextMove ; v1.0 (R8): .discourage's way back too
 	jp .nextMove
 .checkDisabled
 	ld a, [wPlayerDisabledMove] ; non-zero if the player has a disabled move
@@ -277,6 +288,20 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	and c
 	jr nz, .useless ; already up: its handler fails, and only the enemy's own switch clears it
 	jp .nextMove
+.checkOwnSubstitute ; v1.0 (R8): SubstituteEffect_'s two refusals, on the trainer's own Pokemon
+	ld a, 4
+	call AICheckIfHPBelowFractionWrapped ; carry: HP below max HP / 4, Z: equal to it (keeps bc, de, hl)
+	jr c, .ownSubstituteTooWeak
+	jr z, .ownSubstituteTooWeak ; exactly the cost is "Too weak" too (2026-09-24: no 0-HP user)
+	ld a, [wEnemyBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .discourage ; its doll is up: it fails unless a hit taken first breaks the doll (E4: as RECOVER at full HP)
+	jp .nextMove
+.ownSubstituteTooWeak ; the HP decides over the doll: a broken doll would leave the HP as low
+	ld a, [wPlayerBattleStatus2]
+	bit SEEDED, a
+	jr nz, .discourage ; the player's LEECH SEED drain, when the player moves first, heals the enemy before this move
+	jr .useless ; "Too weak to make a SUBSTITUTE!", whatever else the player does
 .checkAsleep
 	ld a, [wBattleMonStatus]
 	and SLP_MASK
@@ -2744,6 +2769,9 @@ AICheckIfHPBelowFractionWrapped:
 
 AICheckIfHPBelowFraction:
 ; return carry if enemy trainer's current HP is below 1 / a of the maximum
+; (floor(max HP / a)); Z: the HP equals it exactly; neither: above it.
+; v1.0 (R8, 2026-09-30): layer 1's .checkOwnSubstitute relies on the Z (a
+; SUBSTITUTE at exactly its cost fails) - keep both flags if this tail changes.
 	ldh [hDivisor], a
 	ld hl, wEnemyMonMaxHP
 	ld a, [hli]
