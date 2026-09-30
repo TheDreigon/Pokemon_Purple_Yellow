@@ -2301,6 +2301,26 @@ ItemUseXStat:
 	ret
 
 .inBattle
+; v1.0 (F1, 2026-09-30; Forte: "se for um move, gasta-se PP porque faz parte da estrategia do
+; player ter nocao dos stages, mas um item pode ser generoso e nao se gastar ao nao ser usado"):
+; an X item whose stat StatModifierUpEffect would refuse to raise - its stage at +6, or, ATTACK
+; to SP.DEF, its battle word exactly 999, the burn / paralysis cut included as the engine reads
+; it - is refused before anything is written (the move bytes, the SP.DEF override): "It won't
+; have any effect.", the item kept, the turn not spent (ItemUseNoEffect: UseBagItem goes back to
+; the bag) and PIKACHU's mood untouched - E3b's path. The test is the boss's own (trainer_ai.asm:
+; PlayerStatMaxed and AIEnemyStatMaxed share SideStatMaxed). A move at the limit still spends
+; its PP: knowing the stages is the player's part.
+	ld a, [wcf91]
+	ld c, MOD_SPDEF
+	cp X_SPDEF
+	jr z, .gotStat
+	sub X_ATTACK ; X ATTACK..X SP.ATK: MOD_ATTACK..MOD_SPATK (the ASSERT)
+	ld c, a
+ASSERT MOD_ATTACK == 0 && X_DEFEND - X_ATTACK == MOD_DEFENSE && X_SPEED - X_ATTACK == MOD_SPEED && X_SPATK - X_ATTACK == MOD_SPATK, \
+	"ItemUseXStat maps X ATTACK..X SP.ATK onto MOD_ATTACK..MOD_SPATK by subtraction (F1)"
+.gotStat
+	farcall PlayerStatMaxed ; c in, the carry out
+	jp c, ItemUseNoEffect
 	ld hl, wPlayerMoveNum
 	ld a, [hli]
 	push af ; save [wPlayerMoveNum]

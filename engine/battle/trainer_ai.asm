@@ -484,20 +484,28 @@ AIRaiseEffectStats:
 ; reads it - the burn / paralysis cut included, never "improved". Both refusals print "won't
 ; go any higher!" (D14). A +2 at +5 still raises one stage: not refused. Keeps bc; clobbers
 ; a, de, hl.
+; v1.0 (F1, 2026-09-30): the body is SideStatMaxed, shared with the player's X items
+; (PlayerStatMaxed, below) - one rule for both sides.
 AIEnemyStatMaxed:
+	ld hl, wEnemyMonStatMods
+	ld de, wEnemyMonAttack
+	; fall through
+; F1: hl = the side's stage bytes (MOD_ order), de = its battle ATTACK word (the five words
+; follow in MOD_ order), c = the stat. Keeps bc; clobbers a, de, hl.
+SideStatMaxed:
+	push de
 	ld e, c
 	ld d, 0
-	ld hl, wEnemyMonStatMods
 	add hl, de
 	ld a, [hl]
 	inc a
 	cp MAX_STAT_LEVEL + 1
 	ccf
+	pop hl ; the side's ATTACK word (a pop leaves the flags)
 	ret c ; the stage is +6
 	ld a, c
 	cp MOD_ACCURACY
 	ret nc ; ACCURACY and EVASION have no stat word (carry clear)
-	ld hl, wEnemyMonAttack
 	add hl, de
 	add hl, de ; its battle word, big-endian
 	ld a, [hli]
@@ -508,6 +516,18 @@ AIEnemyStatMaxed:
 	or d
 	cp 1 ; carry: the word is exactly 999
 	ret
+
+; v1.0 (F1, 2026-09-30; Forte: "se for um move, gasta-se PP porque faz parte da estrategia do
+; player ter nocao dos stages, mas um item pode ser generoso e nao se gastar ao nao ser usado"):
+; the player's side of AIEnemyStatMaxed - carry when StatModifierUpEffect would refuse to raise
+; the player's stat c, the same two refusals read the same way (the battle word the engine
+; compares, the burn / paralysis cut included). Farcalled by item_effects.asm ItemUseXStat
+; before it writes anything: c in, the carry out (Bankswitch's `pop bc` leaves the flags; c
+; does not survive it). Clobbers a, de, hl.
+PlayerStatMaxed::
+	ld hl, wPlayerMonStatMods
+	ld de, wBattleMonAttack
+	jr SideStatMaxed
 
 ; v1.0 (E2, 2026-09-29; Forte: "sigo a tua melhor recomendacao"): the mirror of D15 for the
 ; moves that LOWER the player's stats. Carry when the enemy's power-0 lowering move
