@@ -4266,10 +4266,11 @@ CheckPlayerStatusConditions:
 ; the selected move instead of stamping THRASH over the move number. Four moves
 ; carry this effect now (THRASH, PETAL DANCE, OUTRAGE, RAGE), and the stamp gave
 ; the other three THRASH's animation, MOVEDEX mark and Mirror Move copy from the
-; second turn on. Re-deriving also restores the move's ACCURACY: a continuation
-; skips move selection, CalcHitChance writes the stage-scaled accuracy back over
-; the byte it read, and a stage change while locked in compounded every turn -
-; the "one miss, then every miss" the old RAGE showed Forte. (The confusion
+; second turn on. Re-deriving also restored the move's ACCURACY: a continuation
+; skips move selection, CalcHitChance then wrote the stage-scaled accuracy back
+; over the byte it read, and a stage change while locked in compounded every turn -
+; the "one miss, then every miss" the old RAGE showed Forte (since F6, 2026-09-30,
+; it writes nothing back). (The confusion
 ; self-hit's TACKLE poke is covered too: the block comes back whole.)
 	call GetCurrentMove
 	ld hl, ThrashingAboutText

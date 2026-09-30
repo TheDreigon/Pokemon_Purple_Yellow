@@ -148,13 +148,14 @@ MoveHitTest:
 	bit USING_X_ACCURACY, a ; is the enemy using X Accuracy?
 	ret nz ; if so, always hit regardless of accuracy/evasion
 .calcHitChance
-	call CalcHitChance ; scale the move accuracy according to attacker's accuracy and target's evasion
-	ld a, [wPlayerMoveAccuracy]
-	ld b, a
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .doAccuracyCheck
-	ld a, [wEnemyMoveAccuracy]
+; v1.0 (F6, 2026-09-30; Forte: "se eu estou a entender bem o que isso quer dizer, corrige"):
+; CalcHitChance hands the hit chance back in a and no longer stores it over the move's
+; accuracy byte. Stored, it was what a SECOND roll in the same use scaled again - the
+; stat drop of a damaging lowering move (TAKE DOWN, ROCK TOMB, HYDRO PUMP...) and, before
+; F3, the later leg of FLASH / EERIE IMPULSE / PSYCHIC BIND - so the ACCURACY and EVASION
+; stages counted twice (behind +1 EVASION a sure drop rolled 64%, not 80%). The first
+; roll of every move is the same: b is the value that used to be stored and read back.
+	call CalcHitChance ; a = the move's accuracy scaled by the attacker's accuracy and the target's evasion
 	ld b, a
 .doAccuracyCheck
 	; v0.7 hard mode boss accuracy edge (~±5pp = ±13/256). Applied
@@ -230,6 +231,8 @@ MoveHitTest:
 	res USING_TRAPPING_MOVE, [hl] ; end multi-turn attack e.g. wrap
 	ret
 
+; Out: a = the hit chance, the move's accuracy scaled by the attacker's ACCURACY and the
+; target's EVASION stage (1-$FF); hl = the accuracy byte it read. F6: it writes nothing.
 ; values for player turn
 
 CalcHitChance:
@@ -295,13 +298,12 @@ CalcHitChance:
 	ldh a, [hQuotient + 2]
 	and a ; is the calculated hit chance over 0xFF?
 	ldh a, [hQuotient + 3]
-	jr z, .storeAccuracy
+	jr z, .gotHitChance
 ; if calculated hit chance over 0xFF
 	ld a, $ff ; set the hit chance to 0xFF
-.storeAccuracy
-	pop hl
-	ld [hl], a ; store the hit chance in the move accuracy variable
-	ret
+.gotHitChance
+	pop hl ; hl = the move's accuracy byte, as before F6 - read above, never written
+	ret ; a = the hit chance (MoveHitTest takes it from here)
 
 ; multiplies damage by a random percentage from ~85% to 100%
 
