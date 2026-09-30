@@ -158,6 +158,11 @@ AIGetMoveChoiceList:
 ; every stat it lowers is already at -6 (not a move whose flinch still rolls there: INTIMIDATE,
 ; SCARY FACE, METAL SOUND, SCREECH, HINDER, TICKLE; FIERCE ROAR only when its own ATTACK raise is
 ; refused too) (.checkRaise, AIPlayerLowerRefused).
+; v1.0 (F5, 2026-09-30; Forte: "okay, sendo assim, a AI tem que passar a saber. corrige."): and the
+; player's SUBSTITUTE (on screen): behind it DREAM EATER and the DRAIN moves miss (MoveHitTest), and
+; POISON, BURN and CONFUSION fail (PoisonEffect, BurnEffect, ConfusionEffect test it first) - all
+; useless (.checkSubstitute, .checkConfused, CheckStatusImmunity), as E2's lowering moves already
+; were. SLEEP, PARALYZE, LEECH SEED, DISABLE, MIMIC and TRANSFORM do not test it and still land.
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -174,6 +179,8 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]
 	cp DREAM_EATER_EFFECT
 	jp z, .checkAsleep
+	cp DRAIN_HP_EFFECT ; v1.0 (F5): damaging, so it is caught before the power gate
+	jp z, .checkSubstitute
 	ld a, [wEnemyMovePower]
 	and a
 	jr nz, .nextMove
@@ -211,7 +218,7 @@ AIMoveChoiceModification1:
 	jp nc, .checkRaise ; v1.0 (D15): not a status move - one that would do nothing? (E4: a jr would reach now; the jp stays, emu_test_ai_stat_limits S2 reads these 3 bytes)
 .checkStatusImmunity
 	call CheckStatusImmunity
-	jr c, .useless ; the type is immune to it: the handler refuses it (E4)
+	jr c, .useless ; refused before its status test: a type immune to it (E4) or, POISON / BURN, a SUBSTITUTE (F5)
 	ld a, [wBattleMonStatus]
 	and a
 	jr z, .nextMove ; no status: nothing refuses it
@@ -274,8 +281,16 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	ld a, [wBattleMonStatus]
 	and SLP_MASK
 	jr z, .useless ; not asleep: DREAM EATER misses (MoveHitTest) - only the player's own REST, first, would change that
+	; asleep: it still misses behind a SUBSTITUTE
+.checkSubstitute ; v1.0 (F5): DREAM EATER and the DRAIN moves miss behind the player's SUBSTITUTE (MoveHitTest)
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .useless
 	jp .nextMove
 .checkConfused
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .useless ; v1.0 (F5): ConfusionEffect refuses a SUBSTITUTE before anything else
 	ld a, [wPlayerBattleStatus1]
 	bit CONFUSED, a
 	jr nz, .discourage ; if the player is confused, don't use confusion-inflicting moves
@@ -358,21 +373,30 @@ CheckStatusImmunity:
 ; pair (when only one applies, b == c). Mirrors the engine-side immunities
 ; in effects.asm (burn: FIRE/MAGMA; poison: POISON/STEEL; paralyze:
 ; ELECTRIC always, plus GROUND vs Electric-sourced paralysis).
+; v1.0 (F5, 2026-09-30; Forte: "okay, sendo assim, a AI tem que passar a saber. corrige."): carry
+; also when POISON or BURN meets the player's SUBSTITUTE - PoisonEffect and BurnEffect test it
+; before anything else (the target's status, its types). SLEEP (SleepEffect) and PARALYZE
+; (ParalyzeEffect_) do not test it: they land through a SUBSTITUTE, as in Gen 1. Carry = the
+; handler refuses the move before it looks at the target's status.
 	push bc
 	push hl
 	ld a, [wEnemyMoveEffect]
 	cp POISON_EFFECT
 	ld b, POISON
 	ld c, STEEL ; v0.7: Steel-types can't be poisoned either
-	jr z, .getMonTypes
+	jr z, .substituteFirst ; v1.0 (F5)
 	cp PARALYZE_EFFECT
 	jr z, .checkParalyze
 	ld b, FIRE
 	ld c, MAGMA ; burn immunity: Fire/Magma types
 	cp BURN_EFFECT ; only Will-O-Wisp/Ignite reach here — damaging burn moves
 	               ; (Fire Blast/Lava Plume) are power-gated out before this
-	jr z, .getMonTypes
-	jr .done
+	jr nz, .done
+.substituteFirst ; v1.0 (F5): POISON (from above) and BURN
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .discourage ; carry: the SUBSTITUTE refuses it
+	jr .getMonTypes
 .checkParalyze
 	ld b, ELECTRIC ; v0.7: Electric-types can't be paralyzed at all
 	ld c, ELECTRIC
