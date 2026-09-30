@@ -77,20 +77,13 @@ MoveHitTest:
 	ld a, [wPlayerMovePower]
 	and a
 	jr nz, .skipEnemyMistCheck ; a damaging move is never Mist-blocked
-; v0.7 FIX: the chart says PSYCHIC_TYPE has NO_EFFECT against DARK, but a 0-BP
-; status move never reaches the damage path that applies the chart — so HYPNOSIS
-; and DISABLE were landing on Dark-types regardless. Enforced here, on the
-; 0-power path only, so damaging Psychic moves keep their own "doesn't affect".
-	ld a, [wPlayerMoveType]
-	cp PSYCHIC_TYPE
-	jr nz, .playerPsychicOk
-	ld a, [wEnemyMonType1]
-	cp DARK
-	jp z, .moveMissed ; jp, not jr: .moveMissed is ~160 bytes ahead from here
-	ld a, [wEnemyMonType2]
-	cp DARK
-	jp z, .moveMissed
-.playerPsychicOk
+; v1.0 (F4, 2026-09-30; Forte: "como sao moves de utility, gostava que estes conseguissem acertar
+; nos Dark types. sim, abre excepcao para estes 2"): the v0.7 guard that made a power-0 PSYCHIC
+; move miss a DARK target is gone, on both turns. Its only members were HYPNOSIS and DISABLE -
+; moves.asm has no other power-0 PSYCHIC move - so exempting the two left it with nothing to
+; guard. The chart's PSYCHIC -> DARK NO_EFFECT still rules the damage path (every damaging PSYCHIC
+; move "doesn't affect" a DARK type), where MIND BREAK alone reaches it, at 0.5x
+; (type_effectiveness.asm, TypeRowMultiplier).
 ; this checks if the move effect is disallowed by mist
 	ld a, [wPlayerMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
@@ -121,16 +114,7 @@ MoveHitTest:
 	ld a, [wEnemyMovePower] ; same power gate as the player turn — see above
 	and a
 	jr nz, .skipPlayerMistCheck
-	ld a, [wEnemyMoveType] ; same PSYCHIC->DARK guard as the player turn
-	cp PSYCHIC_TYPE
-	jr nz, .enemyPsychicOk
-	ld a, [wBattleMonType1]
-	cp DARK
-	jr z, .moveMissed
-	ld a, [wBattleMonType2]
-	cp DARK
-	jr z, .moveMissed
-.enemyPsychicOk
+	; (v1.0, F4: the PSYCHIC -> DARK guard that stood here went with the player turn's - see above)
 	ld a, [wEnemyMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
 	jr c, .skipPlayerMistCheck

@@ -14,9 +14,17 @@
 ; chained (so dual-typed defenders get 4x / 0.25x as expected). Sets
 ; wMoveMissed if a chained multiplier collapses damage to 0.
 ; In: d = defender type 1, e = defender type 2.
-; Reads wMoveType, wDamage, wDamageMultipliers; writes wDamage,
-; wDamageMultipliers, wMoveMissed.
+; Reads wMoveType, wDamage, wDamageMultipliers, hWhoseTurn and that side's
+; w*MoveNum (v1.0, F4: MIND BREAK); writes wDamage, wDamageMultipliers,
+; wMoveMissed. Clobbers bc.
 ApplyTypeEffectivenessToDamage::
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveNum]
+	jr z, .gotMove
+	ld a, [wEnemyMoveNum]
+.gotMove
+	ld c, a ; v1.0 (F4): c = the move being used, for TypeRowMultiplier (the walk never reads c; push bc keeps it)
 	ld a, [wMoveType]
 	ld b, a
 	ld hl, TypeEffects
@@ -41,6 +49,7 @@ ApplyTypeEffectivenessToDamage::
 	and $80
 	ld b, a
 	ld a, [hl] ; a = damage multiplier
+	call TypeRowMultiplier ; v1.0 (F4): MIND BREAK on DARK's row reads NOT_VERY_EFFECTIVE
 	ldh [hMultiplier], a
 	and a  ; cp NO_EFFECT
 	jr z, .gotMultiplier
@@ -121,11 +130,13 @@ ApplyTypeEffectivenessToDamage::
 AIGetTypeEffectiveness::
 	ld a, [wEnemyMoveType]
 	ld d, a                    ; d = type of enemy move
+	ld a, [wEnemyMoveNum]
+	ld e, a                    ; v1.0 (F4): e = the enemy's move (layers 3 and 5 ReadMove it first)
 	ld hl, wBattleMonType
 	ld b, [hl]                 ; b = type 1 of player's pokemon
 	inc hl
 	ld c, [hl]                 ; c = type 2 of player's pokemon
-AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's types
+AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's types, e = the move (NO_MOVE: types alone)
 	; initialize to neutral effectiveness
 	ld a, EFFECTIVE ; v0.7 fix: was $10 (=16), a vanilla Gen 1 bug that made
 	ld [wTypeEffectiveness], a ; the AI read untabled (neutral) matchups as super-effective
@@ -166,7 +177,9 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 	push bc
 	push de
 	push hl
+	ld c, e                    ; v1.0 (F4): the move, for TypeRowMultiplier (c is back at pop bc)
 	ld a, [hl]                 ; a = damage multiplier of this row
+	call TypeRowMultiplier
 	ldh [hMultiplier], a
 	xor a
 	ldh [hMultiplicand], a
@@ -193,9 +206,34 @@ AITypeMatchup::
 ; type stored twice, as everywhere). Out: e (and wTypeEffectiveness) = the
 ; multiplier: EFFECTIVE = neutral, 0 = immune, above it super effective.
 	ld b, e
+	ld e, NO_MOVE ; v1.0 (F4): types alone - the picker weighs types, not moves
 	call AIGetTypeEffectivenessDBC
 	ld a, [wTypeEffectiveness]
 	ld e, a
+	ret
+
+; v1.0 (F4, 2026-09-30; Forte: "na verdade, podes tambem abrir excepcao para o Mind Break, para se
+; diferenciar ainda mais como uma versao mais forte do move psychic", then "mind break vs dark a
+; 0.5x, sim."): the chart's one exception, shared by the damage walk and the AI's walk so the two
+; can never disagree. In: a = the multiplier of the row that matched, hl -> it (the row's defending
+; type at hl - 1), c = the move (NO_MOVE: types alone). Out: a = NOT_VERY_EFFECTIVE for MIND BREAK
+; on a NO_EFFECT row whose defending type is DARK (MIND BREAK is PSYCHIC: the PSYCHIC -> DARK row),
+; else a unchanged. MIND BREAK's paralysis (45%) comes with the hit. Keeps bc, de, hl.
+ASSERT NO_EFFECT == 0, "TypeRowMultiplier tests NO_EFFECT with `and a`"
+TypeRowMultiplier:
+	and a ; NO_EFFECT?
+	ret nz
+	ld a, c
+	cp MIND_BREAK
+	jr nz, .immune
+	dec hl
+	ld a, [hl] ; the row's defending type
+	inc hl
+	cp DARK
+	ld a, NOT_VERY_EFFECTIVE
+	ret z
+.immune
+	xor a ; NO_EFFECT
 	ret
 
 

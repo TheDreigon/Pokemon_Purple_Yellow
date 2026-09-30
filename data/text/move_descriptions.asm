@@ -443,6 +443,17 @@ _MoveDesc_Toxic::
 	next "starts it at 1/16."
 	done
 
+; MIND BREAK's own card (round 7, 2026-09-30, Forte: "se tiver espaco, pode passar a dizer
+; que hits dark types"). Its 45 in 100 PARALYZE (PARALYZE_SIDE_EFFECT3, NUZZLE's card too)
+; and, since F4, the DARK exception: the one DAMAGING PSYCHIC move that hits a DARK type
+; (0.5x, "not very effective"; HYPNOSIS and DISABLE land on DARK since F4 too, being status
+; moves). Three lines: the flavour takes five rows and the blank one, of nine.
+_MoveDesc_MindBreak::
+	text "45 in 100 to"
+	next "PARALYZE the foe."
+	next "Hits DARK types."
+	done
+
 _MoveDesc_Paralyze::
 	text "PARALYZEs the"
 	next "foe. It halves"

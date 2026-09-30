@@ -51,6 +51,12 @@ MoveDescriptionOverrides:
 ; full HP, not POISON's eighth, so it gets words of its own.
 	db TOXIC,
 	dw MoveDesc_Toxic
+; v1.0 (round 7, 2026-09-30; Forte: "se tiver espaco, pode passar a dizer que hits
+; dark types"): since F4 MIND BREAK hits DARK at 0.5x, the one DAMAGING PSYCHIC move
+; that does (TypeRowMultiplier, type_effectiveness.asm); HYPNOSIS and DISABLE land on DARK
+; since F4 too, being status moves. NUZZLE keeps the shared PARALYZE_SIDE_EFFECT3 line.
+	db MIND_BREAK,
+	dw MoveDesc_MindBreak
 	db -1
 
 ; One entry per move effect, indexed by effect id. Must stay in constant order
@@ -606,6 +612,10 @@ MoveDesc_Sonicboom:
 
 MoveDesc_Toxic:
 	text_far _MoveDesc_Toxic
+	text_end
+
+MoveDesc_MindBreak:
+	text_far _MoveDesc_MindBreak
 	text_end
 
 MoveDesc_SpDefDown2Flinch:

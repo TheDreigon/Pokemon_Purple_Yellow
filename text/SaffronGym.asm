@@ -176,7 +176,8 @@ _SaffronGymPsychic1EndBattleText::
 	prompt
 
 _SaffronGymPsychic1AfterBattleText::
-; 2026-09-06: the dark, too - Psychic hits nothing on DARK here
+; 2026-09-06: the dark, too - Psychic hits nothing on DARK here (v1.0 F4, 2026-09-30:
+; but MIND BREAK, at 0.5x; the status moves HYPNOSIS and DISABLE land)
 	text "Psychic #MON"
 	line "fear bugs, ghosts"
 	cont "and the dark!"
