@@ -513,8 +513,9 @@ AIEnemyStatMaxed:
 ; moves that LOWER the player's stats. Carry when the enemy's power-0 lowering move
 ; (wEnemyMoveEffect, a row of AILowerEffectStats) would do nothing: behind the player's
 ; SUBSTITUTE (StatModifierDownEffect's first test; FlinchSideEffect's too) or its MIST / GUARD
-; SPEC. (MoveHitTest: every leg's id, the spoofed ones included, is in its MIST ranges, and a
-; whiffed leg rolls no flinch) every leg fails; else every stat it lowers already at -6 - the
+; SPEC. (MoveHitTest: the first leg's id, spoofed or not, is in its MIST ranges - and since F3 a
+; later leg follows that leg's miss, StatModifierDownEffectLaterLeg - and a whiffed leg rolls no
+; flinch) every leg fails; else every stat it lowers already at -6 - the
 ; stage byte 1, StatModifierDownEffect's `dec b / jp z, CantLowerAnymore`. The stat VALUE the
 ; engine also refuses at 1 is hidden from a trainer and not read. A move whose flinch still
 ; rolls at -6 (INTIMIDATE, SCARY FACE, METAL SOUND, SCREECH, HINDER, TICKLE: AI_LOWER_FLINCHES

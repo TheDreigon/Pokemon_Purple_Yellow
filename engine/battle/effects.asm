@@ -931,6 +931,33 @@ RoseText:
 	text_far _RoseText
 	text_end
 
+; v1.0 (F3, 2026-09-30; Forte: "consigo aceitar essa ideia. sigo a tua recomendacao"):
+; the later leg of a move that lowers two stats (FLASH, EERIE IMPULSE, PSYCHIC BIND)
+; rolls no accuracy of its own - one roll per use, as from Gen 3 on and as
+; DoStatDownFlinchEffect. The first leg, a plain StatModifierDownEffect, decided for
+; the move (the SUBSTITUTE, MIST, FLY/DIG, the roll) and said "But, it failed!" once if
+; it did not land. This leg follows that verdict: nothing after a miss (MIST and FLY/DIG
+; are misses in MoveHitTest) or into the SUBSTITUTE (the first leg's test, which leaves
+; wMoveMissed at 0); else its stat falls - refused on its own at -6 - and E5's one
+; animation plays on the first stat that changes. In: the leg's id in the attacker's
+; move-effect byte. It sets hl and de as StatModifierDownEffect does; bc is dead from
+; .hit on (c at .ladderIndexDown, b at .gotIndexDown). StatModifierDownEffect itself is
+; untouched: every other move runs the same bytes.
+StatModifierDownEffectLaterLeg:
+	ld a, [wMoveMissed]
+	and a
+	ret nz ; the move missed: the first leg said so
+	call CheckTargetSubstitute
+	ret nz ; the SUBSTITUTE took the move: the first leg said so
+	ld hl, wEnemyMonStatMods
+	ld de, wPlayerMoveEffect
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, StatModifierDownEffect.hit
+	ld hl, wPlayerMonStatMods
+	ld de, wEnemyMoveEffect
+	jr StatModifierDownEffect.hit
+
 StatModifierDownEffect:
 	ld hl, wEnemyMonStatMods
 	ld de, wPlayerMoveEffect
@@ -979,6 +1006,7 @@ StatModifierDownEffect:
 	ld a, [bc]
 	bit INVULNERABLE, a ; fly/dig
 	jp nz, MoveMissed
+.hit ; F3: StatModifierDownEffectLaterLeg joins here (hl, de as set above; bc no longer read)
 	ld a, [de]
 	sub ATTACK_DOWN1_EFFECT
 	cp EVASION_DOWN1_EFFECT + $3 - ATTACK_DOWN1_EFFECT ; covers all -1 effects
@@ -2042,10 +2070,9 @@ SpAtkSpDefAccuracyUp1Effect:
 
 AccuracyEvasionDown1Effect:
 ; Dual-stat -1 on the target (Accuracy + Evasion). Used by FLASH.
-; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
-; its own accuracy check; for 100% accurate moves (FLASH) both always land.
-; For sub-100% users the two effects roll independently, which is a known
-; minor quirk.
+; Spoofs the effect for each leg and restores it. F3 (2026-09-30): one accuracy
+; roll per use, the ACCURACY leg's; the EVASION leg (StatModifierDownEffectLaterLeg)
+; follows it and rolls nothing.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2055,18 +2082,15 @@ AccuracyEvasionDown1Effect:
 	push de
 	ld a, ACCURACY_DOWN1_EFFECT
 	ld [de], a
-	call StatModifierDownEffect
+	call StatModifierDownEffect ; the move's one accuracy roll
 	pop de
-	xor a
-	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
 	; E5: one animation per use, played by the first leg that lowers (UpdateLoweredStatDone
 	; sets wMoveDidntMiss then), and one "But, it failed!" (ConditionalPrintButItFailed sets it).
-	; So a first leg that misses and a later one that lands say "But, it failed!", then "fell!"
-	; with no animation, as before E5 (EERIE IMPULSE / PSYCHIC BIND at 90%: about 9% of uses).
+	; F3: wMoveMissed is the first leg's verdict and stays; the later leg reads it.
 	push de
 	ld a, EVASION_DOWN1_EFFECT
 	ld [de], a
-	call StatModifierDownEffect
+	call StatModifierDownEffectLaterLeg ; no roll: it lands only after the ACCURACY leg's hit
 	pop de
 	ld a, ACCURACY_EVASION_DOWN1_EFFECT
 	ld [de], a
@@ -2077,8 +2101,8 @@ SpDefSpeedDown1Effect:
 ; The split (2026-09-06): the SP.DEF leg spoofs the SP.ATK proxy and hands
 ; MOD_SPDEF over in wStatModIndexOverride. The down path can leave before it
 ; consumes the override (substitute, miss, MIST), so it is cleared between legs.
-; Spoofs the effect and calls StatModifierDownEffect twice. Each call does
-; its own accuracy check; for 100% accurate moves both always land.
+; F3 (2026-09-30): one accuracy roll per use, the SP.DEF leg's; the SPEED leg
+; (StatModifierDownEffectLaterLeg) follows it and rolls nothing.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2094,11 +2118,10 @@ SpDefSpeedDown1Effect:
 	pop de
 	xor a
 	ld [wStatModIndexOverride], a ; not consumed if the leg left early
-	ld [wMoveMissed], a ; reset miss flag between legs (hit independently each leg)
-	push de
+	push de ; (F3: wMoveMissed is the SP.DEF leg's verdict and stays)
 	ld a, SPEED_DOWN1_EFFECT
 	ld [de], a
-	call StatModifierDownEffect
+	call StatModifierDownEffectLaterLeg ; no roll: it lands only after the SP.DEF leg's hit
 	pop de
 	ld a, SPDEF_SPEED_DOWN1_EFFECT
 	ld [de], a
@@ -2157,7 +2180,7 @@ DoStatDownFlinchEffect:
 ; is FlinchSideEffect (which re-derives its side from hWhoseTurn and reads
 ; the chance tier from the move-effect byte: anything but tier 1 = 30%).
 ; The flinch rolls ONLY when the stat leg landed - one accuracy roll for
-; the whole move, unlike the dual-stat pairs where each leg rolls its own.
+; the whole move, as the dual-stat pairs since F3 (StatModifierDownEffectLaterLeg).
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2239,8 +2262,9 @@ DoSpDefStatEffect:
 SpeedEvasionDown1Effect:
 ; Dual-stat -1 on the target (Speed + Evasion). Used by PSYCHIC_BIND (v0.7).
 ; Mirrors SpeedEvasionUp1Effect (Agility) but in the down direction —
-; same "spoof effect, call StatModifierDownEffect twice, restore" pattern
-; as SpDefSpeedDown1Effect / AccuracyEvasionDown1Effect above.
+; same "spoof effect, one leg after the other, restore" pattern as
+; SpDefSpeedDown1Effect / AccuracyEvasionDown1Effect above - F3 (2026-09-30): one
+; accuracy roll per use, the SPEED leg's; the EVASION leg follows it.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2250,14 +2274,12 @@ SpeedEvasionDown1Effect:
 	push de
 	ld a, SPEED_DOWN1_EFFECT
 	ld [de], a
-	call StatModifierDownEffect
+	call StatModifierDownEffect ; the move's one accuracy roll
 	pop de
-	xor a
-	ld [wMoveMissed], a ; reset miss flag between legs (each leg rolls independently)
-	push de
+	push de ; (F3: wMoveMissed is the SPEED leg's verdict and stays)
 	ld a, EVASION_DOWN1_EFFECT
 	ld [de], a
-	call StatModifierDownEffect
+	call StatModifierDownEffectLaterLeg ; no roll: it lands only after the SPEED leg's hit
 	pop de
 	ld a, SPEED_EVASION_DOWN1_EFFECT
 	ld [de], a
