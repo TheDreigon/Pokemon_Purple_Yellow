@@ -95,6 +95,18 @@ ReadTrainer:
 	jr .SpecialTrainer
 .AddAdditionalMoveData
 ; does the trainer have additional move data?
+; v1.0 BUGFIX (2026-09-30): the lookup steps over WHOLE entries. An entry is
+; `db class, number`, triples `db party slot, move slot, move`, then `db 0`; the
+; skip used to read to the first 0 BYTE, but a boss's 3-move set pins slot 4 to
+; NO_MOVE, a 0 inside its entry (MISTY 1's GOLDEEN and PSYDUCK, since 2026-09-06).
+; The skip stopped there and took the bytes after it for headers: 02 01 matched
+; BUG_CATCHER 1 (Viridian Forest: 3 writes outside his party - an event flag byte,
+; the bag, a party OT name) and 03 01 matched LASS 1 (Route 3: ReadTrainer never came
+; back). Only a triple's FIRST byte (the party slot, 1-6) ends an entry now, and
+; Forte's 3-move sets stay (Yellow Legacy's e67f7093, 2024-01-15, had removed every
+; NO_MOVE from this table for the same corruption). 0 B: the skip's two `inc hl`
+; are paid below (a jr for the jp, and the move slot added as it is onto
+; wEnemyMon1Moves - 1, one `dec a` less).
 	ld a, [wTrainerClass]
 	ld b, a
 	ld a, [wTrainerNo]
@@ -105,24 +117,23 @@ ReadTrainer:
 	cp $ff
 	jr z, ReadTrainerFinishUp
 	cp b
-	jr nz, .asm_39c46
-	ld a, [hli]
+	ld a, [hli] ; the trainer number (a load keeps the flags: Z is still the class's)
+	jr nz, .skipEntry ; both header bytes read: hl = the entry's first triple
 	cp c
-	jr nz, .asm_39c46
+	jr nz, .skipEntry
 	ld d, h
 	ld e, l
 .writeAdditionalMoveDataLoop
 	ld a, [de]
 	inc de
 	and a
-	jp z, ReadTrainerFinishUp
+	jr z, ReadTrainerFinishUp
 	dec a
-	ld hl, wEnemyMon1Moves
+	ld hl, wEnemyMon1Moves - 1 ; + the move slot (1-4), added as it is
 	ld bc, wEnemyMon2 - wEnemyMon1
 	call AddNTimes
 	ld a, [de]
 	inc de
-	dec a
 	ld c, a
 	ld b, 0
 	add hl, bc
@@ -130,11 +141,15 @@ ReadTrainer:
 	inc de
 	ld [hl], a
 	jr .writeAdditionalMoveDataLoop
-.asm_39c46
+.skipEntry
+; one triple per turn: a party slot of 0 ends the entry; the move slot and the move
+; are stepped over, whatever they hold (a NO_MOVE 0 included)
 	ld a, [hli]
 	and a
-	jr nz, .asm_39c46
-	jr .loopAdditionalMoveData
+	jr z, .loopAdditionalMoveData
+	inc hl
+	inc hl
+	jr .skipEntry
 ; shared tail (the roster's PP, then the prize money); also entered by
 ; GenerateRivalParty.
 ReadTrainerFinishUp:
