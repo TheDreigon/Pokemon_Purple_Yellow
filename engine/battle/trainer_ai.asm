@@ -2366,9 +2366,11 @@ BillAI:
 ; (Guard Spec) and he takes his shot when he sees one (Dire Hit), but he never
 ; drills his team with X Attack or X Speed the way a gym leader would.
 ;
-; The rolls mirror ProfOakAI because Bill carries Oak's bag. That pairing is not
-; cosmetic: an item in the bag that no AI branch ever reaches for is dead
-; weight, which is precisely how ForteBossBag ended up stocked and never spent.
+; The rolls mirror ProfOakAI because Bill carries Oak's items in a lighter bag
+; (BillBossBag: 2 FULL RESTORE and 2 FULL HEAL against Oak's 3 and 3, and the
+; same one GUARD SPEC and one DIRE HIT). That pairing is not cosmetic: an item
+; in the bag that no AI branch ever reaches for is dead weight, which is
+; precisely how ForteBossBag ended up stocked and never spent.
 	call IsHardModeBossOrSemiBattle
 	ret z
 	call AIStatusCureItem ; a status below half its HP: FULL RESTORE (used there); else the HP branch first

@@ -4,12 +4,16 @@
 ;	db 0
 
 ; v1.0 boss sets generated from Notes/Boss Movesets.md (source of truth).
-; Every boss mon has all 4 slots specified (hand-picked full sets; a 3-move set pins slot 4 to NO_MOVE).
-; Preserved verbatim below the generated bosses: SMITH, CRAIG, WEEBRA,
-; FORTE (the DREIGON superboss, synced by hand from the doc's FINAL
-; section) and SCIENTIST 9 (the Silph prototype-PORYGON ace). The rival's
-; moves come from data/trainers/rival_pools.asm via GenerateRivalParty
-; (Phase B); no RIVALn entries live in this table.
+; Every boss mon has all 4 slots specified (hand-picked full sets; a 3-move set pins slot 4 to NO_MOVE),
+; except BILL's DITTO: its lone TRANSFORM, its whole pool (slots 2-4 stay empty).
+; A NO_MOVE pin is safe: ReadTrainer's lookup steps over whole entries (v1.0, 2026-09-30).
+; Preserved verbatim below the generated bosses (every non-boss entry): SMITH,
+; CRAIG, WEEBRA, FORTE (the DREIGON superboss, synced by hand from the doc's
+; FINAL section), SCIENTIST 9 (the Silph prototype-PORYGON ace) and four gym
+; trainers' own sets: LASS 18, BEAUTY 3 and COOLTRAINER_F 1 (Celadon), and
+; COOLTRAINER_F 10 (Fuchsia). The rival's moves come from
+; data/trainers/rival_pools.asm via GenerateRivalParty (Phase B); no RIVALn
+; entries live in this table.
 
 SpecialTrainerMoves:
 	db BROCK, 1 ; Pewter Gym — 10 RHYHORN, 12 GEODUDE, 14 ONIX
@@ -833,6 +837,30 @@ SpecialTrainerMoves:
 	db 5, 2, EARTHQUAKE
 	db 5, 3, ROCK_SLIDE
 	db 5, 4, SWORDS_DANCE
+	db 0
+
+	db BILL, 1 ; Bill's house (Route 25, post-League) — 70 EEVEE, 70 VAPOREON, 70 JOLTEON, 70 FLAREON, 75 DITTO, 75 PORYGON
+	db 1, 1, CHARM
+	db 1, 2, BODY_SLAM
+	db 1, 3, PLAY_ROUGH
+	db 1, 4, DOUBLE_EDGE
+	db 2, 1, ICE_BEAM
+	db 2, 2, HYDRO_PUMP
+	db 2, 3, PLAY_ROUGH
+	db 2, 4, RECOVER
+	db 3, 1, THUNDER
+	db 3, 2, THUNDER_WAVE
+	db 3, 3, PLAY_ROUGH
+	db 3, 4, EXTREMESPEED
+	db 4, 1, FIRE_BLAST
+	db 4, 2, TAKE_DOWN
+	db 4, 3, FAINT_ATTACK
+	db 4, 4, IGNITE
+	db 5, 1, TRANSFORM
+	db 6, 1, THUNDERBOLT
+	db 6, 2, ICE_BEAM
+	db 6, 3, TRI_ATTACK
+	db 6, 4, RECOVER
 	db 0
 
 	db SMITH, 1

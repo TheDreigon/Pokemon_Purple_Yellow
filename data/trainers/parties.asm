@@ -940,9 +940,6 @@ ForteData:
 	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
 
 BillData:
-; Post-League, in his house on Route 25. Not a trainer and not pretending to be:
-; the team is what he has studied rather than what he would pick to win. The
-; three eeveelutions are his research, Ditto lost its own shape the way he once
-; did, and Porygon - a Pokemon that is software - closes, because he is the
-; man who taught the world to keep Pokemon inside a machine.
+; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
+; 1: Bill's house (Route 25, post-League)
 	db $FF, 70, EEVEE, 70, VAPOREON, 70, JOLTEON, 70, FLAREON, 75, DITTO, 75, PORYGON, 0
