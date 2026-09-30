@@ -155,6 +155,8 @@ MoveHitTest:
 ; F3, the later leg of FLASH / EERIE IMPULSE / PSYCHIC BIND - so the ACCURACY and EVASION
 ; stages counted twice (behind +1 EVASION a sure drop rolled 64%, not 80%). The first
 ; roll of every move is the same: b is the value that used to be stored and read back.
+; (F3b then took that drop off the roll - effects.asm .dropAfterHit - so no use rolls
+; twice today; F6 stays as the guard, 13 bytes shorter than the read-back.)
 	call CalcHitChance ; a = the move's accuracy scaled by the attacker's accuracy and the target's evasion
 	ld b, a
 .doAccuracyCheck

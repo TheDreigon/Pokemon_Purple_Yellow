@@ -941,8 +941,11 @@ RoseText:
 ; wMoveMissed at 0); else its stat falls - refused on its own at -6 - and E5's one
 ; animation plays on the first stat that changes. In: the leg's id in the attacker's
 ; move-effect byte. It sets hl and de as StatModifierDownEffect does; bc is dead from
-; .hit on (c at .ladderIndexDown, b at .gotIndexDown). StatModifierDownEffect itself is
-; untouched: every other move runs the same bytes.
+; .hit on (c at .ladderIndexDown, b at .gotIndexDown). F3 left StatModifierDownEffect's
+; bytes as they were; F3b then took the damaging moves' drops off the roll (.dropAfterHit).
+; A damaging move on a two-leg handler would pass its first leg's MIST silently there, with
+; wMoveMissed at 0, and this leg would then lower through MIST: none exists (every two-leg
+; handler's move has power 0; emu_test_drop_after_hit C2 fails if one appears).
 StatModifierDownEffectLaterLeg:
 	ld a, [wMoveMissed]
 	and a
@@ -980,7 +983,8 @@ StatModifierDownEffect:
 ; silently - CantLowerAnymore returns without text for side effects,
 ; exactly like a failed 33% roll. Power-0 stat moves were already blocked
 ; upstream in MoveHitTest (all 19, spoofed ids included - see the T17
-; note); this is the other half.
+; note); this is the other half. The damaging moves' own -1 drops (TAKE
+; DOWN, ROCK TOMB...) are shielded the same way at .dropAfterHit (F3b).
 	inc bc
 	ld a, [bc] ; the DEFENDER's w*BattleStatus2
 	dec bc
@@ -992,11 +996,40 @@ StatModifierDownEffect:
 	ld a, [de]
 	sub ATTACK_DOWN_SIDE_EFFECT ; map each stat to 0-3
 	jr .decrementStatMod
+; v1.0 (F3b, 2026-09-30; Forte: "entendo, tem que ser corrigido, entao"): the drop of a
+; damaging move on a plain lowering id (today 17 moves, all -1: TAKE DOWN, ROCK TOMB, HYDRO
+; PUMP...) is sure once the move has hit, as from Gen 3 on and as each card says. The core
+; runs it only from .executeOtherEffects: after the one accuracy roll hit, the damage landed
+; and the target still stands. It rolled a SECOND time here (MoveHitTest): HYDRO PUMP
+; lowered SPEED on ~85 of 100 hits; in hard mode a 100 percent move lost its drop 1 time
+; in 256 (1 in 18 for your moves against a hard-mode boss: its -13 edge applied again);
+; and that miss zeroed wDamage after the damage had landed (what the other side's BIDE
+; stores). Now no roll.
+; MIST / GUARD SPEC shields the stat, silently - the damage stays (T17's rule for the
+; 33 percent drops above; MoveHitTest's MIST test covers power-0 moves only). A SUBSTITUTE
+; that took the hit failed the test above (silent: the core set wMoveDidntMiss), one that
+; broke zeroed the effect (AttackSubstitute), and FLY / DIG made the hit itself miss.
+; In: bc = the DEFENDER's w*BattleStatus1.
+.dropAfterHit
+	inc bc
+	ld a, [bc] ; the DEFENDER's w*BattleStatus2
+	bit PROTECTED_BY_MIST, a
+	ret nz ; the stage stays, and nothing is said
+	jr .hit ; (bc is dead from .hit on)
 .nonSideEffect ; non-side effects only
+ASSERT wPlayerMovePower == wPlayerMoveEffect + 1, "F3b reads the power one byte past the effect"
+ASSERT wEnemyMovePower == wEnemyMoveEffect + 1, "F3b reads the power one byte past the effect"
+ASSERT wPlayerBattleStatus2 == wPlayerBattleStatus1 + 1, "T17 and F3b read status 2 one byte past status 1"
+ASSERT wEnemyBattleStatus2 == wEnemyBattleStatus1 + 1, "T17 and F3b read status 2 one byte past status 1"
+	inc de
+	ld a, [de] ; the move's power
+	dec de
+	and a
+	jr nz, .dropAfterHit ; a damaging move: its hit was its roll
 	push hl
 	push de
 	push bc
-	call MoveHitTest ; apply accuracy tests
+	call MoveHitTest ; apply accuracy tests (a power-0 move's one roll)
 	pop bc
 	pop de
 	pop hl
@@ -1006,7 +1039,7 @@ StatModifierDownEffect:
 	ld a, [bc]
 	bit INVULNERABLE, a ; fly/dig
 	jp nz, MoveMissed
-.hit ; F3: StatModifierDownEffectLaterLeg joins here (hl, de as set above; bc no longer read)
+.hit ; F3: StatModifierDownEffectLaterLeg joins here, F3b: .dropAfterHit (hl, de as set above; bc no longer read)
 	ld a, [de]
 	sub ATTACK_DOWN1_EFFECT
 	cp EVASION_DOWN1_EFFECT + $3 - ATTACK_DOWN1_EFFECT ; covers all -1 effects
@@ -1191,9 +1224,15 @@ CantLowerAnymore_Pop: ; D12: the stat is already 1 and the stage byte was never 
 	pop hl
 
 CantLowerAnymore:
-	ld a, [de]
-	cp ATTACK_DOWN_SIDE_EFFECT
-	ret nc
+; v1.0 (F3b, 2026-09-30; Forte: "sigo a tua melhor recomendacao"): silent for a move with
+; power - the 33-in-100 side drops as before, and now the drops of the damaging moves too
+; (sure since F3b; Gen 3 on says nothing there either). A status move (GROWL, CHARM...)
+; still names the stat. de = the attacker's effect byte; its power byte follows it.
+	inc de
+	ld a, [de] ; the move's power
+	dec de
+	and a
+	ret nz
 	; v0.7: named text instead of "Nothing happened!". c = 0-based stat
 	; index — live on both printing paths here (set at .decrementStatMod;
 	; restored by `pop bc` before the CantLowerAnymore_Pop path).
