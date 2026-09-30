@@ -853,7 +853,8 @@ UpdateStatDone:
 ; refused (+6, or 999 since D14) leaves the animation to the first stat that rises (BULK UP at
 ; ATTACK +6 animates on DEFENSE); a move whose every stat is refused plays none; never twice.
 ; Newer games play it whenever one stat rises. Both sides (hWhoseTurn); X items and FOCUS ENERGY
-; are one leg each and unchanged (FOCUS ENERGY still pre-sets the flag: its own animation played).
+; are one leg each and unchanged (FOCUS ENERGY pre-sets the flag only when it pumps: its own
+; animation played. v1.0 F2: already pumped, it leaves 0 and its ACCURACY leg animates here).
 	inc a ; a = 1
 	ld [wMoveDidntMiss], a
 	call PlayCurrentMoveAnimation

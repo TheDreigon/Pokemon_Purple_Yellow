@@ -140,7 +140,8 @@ AIGetMoveChoiceList:
 ; would refuse against what the trainer sees, and that only a deliberate act of the player (a
 ; switch, a cure, its own REST) could turn around before it runs, is USELESS (.useless, the tier
 ; of a refused raise): DREAM EATER on a Pokemon that is not asleep (MoveHitTest); LEECH SEED on
-; one already seeded or GRASS (LeechSeedEffect_); FOCUS ENERGY while pumped (FocusEnergyEffect_);
+; one already seeded or GRASS (LeechSeedEffect_); FOCUS ENERGY while pumped with its ACCURACY at +6
+; (FocusEnergyEffect_, F2: pumped, it still raises ACCURACY);
 ; MIST, REFLECT or LIGHT SCREEN already up (MistEffect_, ReflectLightScreenEffect_ - no move
 ; carries HAZE_EFFECT, so only the enemy's own switch takes them down); a status move on a type
 ; immune to it (CheckStatusImmunity) or on a Pokemon with a POISON, a BURN or a PARALYSIS (every
@@ -182,10 +183,9 @@ AIMoveChoiceModification1:
 	cp LEECH_SEED_EFFECT
 	jp z, .checkSeeded
 	cp FOCUS_ENERGY_EFFECT
-	ld c, 1 << GETTING_PUMPED ; v1.0 (E4): c = the enemy's own flag its handler tests (ld keeps the flags; c is free here)
-	jr z, .checkOwnStatus2
+	jr z, .checkFocusEnergy ; v1.0 (F2)
 	cp LIGHT_SCREEN_EFFECT
-	ld c, 1 << HAS_LIGHT_SCREEN_UP
+	ld c, 1 << HAS_LIGHT_SCREEN_UP ; v1.0 (E4): c = the enemy's own flag its handler tests (ld keeps the flags; c is free here)
 	jr z, .checkOwnStatus3
 	cp REFLECT_EFFECT
 	ld c, 1 << HAS_REFLECT_UP
@@ -240,6 +240,13 @@ AIMoveChoiceModification1:
 DEF AI_SCORE_USELESS EQU $30
 ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
+.checkFocusEnergy ; v1.0 (F2): pumped, FOCUS ENERGY still raises ACCURACY (FocusEnergyEffect_), so it is
+; wasted only when ACCURACY is at +6 too: AIRaiseEffectStats' FOCUS ENERGY row, asked below. Not pumped,
+; the pump itself is never wasted.
+	ld a, [wEnemyBattleStatus2]
+	bit GETTING_PUMPED, a
+	jp z, .nextMove
+	; fall through: pumped
 .checkRaise
 	call AIEnemyRaiseRefused ; carry: every stat it raises is at its limit
 	call nc, AIPlayerLowerRefused ; v1.0 (E2): carry: nothing it lowers would fall
@@ -257,11 +264,11 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 .checkOwnStatus3 ; v1.0 (E4): LIGHT SCREEN, REFLECT - c = the bit its handler tests
 	ld a, [wEnemyBattleStatus3]
 	jr .checkOwnBit
-.checkOwnStatus2 ; FOCUS ENERGY, MIST
+.checkOwnStatus2 ; MIST (FOCUS ENERGY left for .checkFocusEnergy, F2)
 	ld a, [wEnemyBattleStatus2]
 .checkOwnBit
 	and c
-	jr nz, .useless ; already pumped / already up: its handler fails, and only the enemy's own switch clears it
+	jr nz, .useless ; already up: its handler fails, and only the enemy's own switch clears it
 	jp .nextMove
 .checkAsleep
 	ld a, [wBattleMonStatus]
@@ -404,9 +411,9 @@ CheckStatusImmunity:
 ; also heals, only at full HP (AttackSpAtkUp1HealEffect heals below it). Only the effects of
 ; AIRaiseEffectStats count; layer 1 asks for power-0 moves only, so STRENGTH and FLAME CHARGE
 ; (damaging, with a stat-up effect) never get here. FIERCE ROAR is not listed (its second leg
-; lowers the target: AIPlayerLowerRefused weighs both legs, E2), nor FOCUS ENERGY (layer 1's
-; pumped test covers it: pumped, it fails
-; before its ACCURACY leg). It reads the trainer's own Pokemon: its stages (every change is
+; lowers the target: AIPlayerLowerRefused weighs both legs, E2). FOCUS ENERGY's row is its
+; ACCURACY leg alone (F2): layer 1 asks only when the enemy is already pumped - unpumped, the
+; pump is never wasted. It reads the trainer's own Pokemon: its stages (every change is
 ; announced) and its stats. Keeps bc, de, hl.
 AIEnemyRaiseRefused:
 	push hl
@@ -476,6 +483,7 @@ AIRaiseEffectStats:
 	db SPATK_SPEED_UP1_EFFECT,          1 << MOD_SPATK | 1 << MOD_SPEED                     ; QUIVER DANCE
 	db SPATK_SPDEF_ACCURACY_UP1_EFFECT, 1 << MOD_SPATK | 1 << MOD_SPDEF | 1 << MOD_ACCURACY ; CALM MIND
 	db ATTACK_SPATK_UP1_HEAL_EFFECT,    1 << MOD_ATTACK | 1 << MOD_SPATK | AI_RAISE_HEALS_TOO ; GROWTH
+	db FOCUS_ENERGY_EFFECT,             1 << MOD_ACCURACY ; its ACCURACY leg (F2: it runs pumped too; layer 1 asks only then)
 	db -1 ; end
 
 ; v1.0 (D15): carry when StatModifierUpEffect would refuse to raise the enemy's stat c
