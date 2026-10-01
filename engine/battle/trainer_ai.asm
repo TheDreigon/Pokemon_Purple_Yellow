@@ -787,15 +787,7 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .nextMove ; ignores moves that do no damage (status moves), as we're only concerned with damaging moves for this modifier
-	push hl
-	push bc
-	push de
-	callfar AIGetTypeEffectiveness
-	pop de
-	pop bc
-	pop hl
-	ld a, [wTypeEffectiveness]
-	cp EFFECTIVE
+	call AIMoveEffectiveness ; v1.0 (R9): the walk, shared with layer 5 (the flags of cp EFFECTIVE)
 	jr z, .checkSpecificEffects
 	jr c, .notEffectiveMove
 	dec [hl] ; slightly encourage this super effective move
@@ -825,16 +817,10 @@ AIMoveChoiceModification3:
 	jr z, .done
 	call ReadMove
 	ld a, [wEnemyMoveEffect]
-	cp SUPER_FANG_EFFECT
-	jr z, .betterMoveFound ; Super Fang is considered to be a better move
-	cp TARGET_LEVEL_DAMAGE_EFFECT
-	jr z, .betterMoveFound ; the fixed-damage family is considered better
-	cp USER_LEVEL_DAMAGE_EFFECT
-	jr z, .betterMoveFound
-	cp SET_DAMAGE_EFFECT
-	jr z, .betterMoveFound
 	cp FLY_EFFECT
 	jr z, .betterMoveFound ; Fly is considered to be a better move
+	call AIFixedDamage
+	jr c, .betterMoveFound ; the fixed-damage family (Super Fang, Seismic Toss...) is considered better
 	ld a, [wEnemyMoveType]
 	cp d
 	jr z, .loopMoves
@@ -843,7 +829,7 @@ AIMoveChoiceModification3:
 	jr nz, .betterMoveFound ; damaging moves of a different type are considered to be better moves
 	jr .loopMoves
 .betterMoveFound
-	ld c, a
+	inc c ; v1.0 (R9): c was 0 and the loop ends here (after AIFixedDamage a is 0 for SEISMIC TOSS)
 .done
 	ld a, c
 	pop bc
@@ -1042,15 +1028,7 @@ AIMoveChoiceModification5:
 	ld a, [wBattleMonStatus]
 	and (1 << FRZ) | SLP_MASK
 	jp nz, .nextMove
-	push hl
-	push bc
-	push de
-	callfar AIGetTypeEffectiveness
-	pop de
-	pop bc
-	pop hl
-	ld a, [wTypeEffectiveness]
-	cp EFFECTIVE
+	call AIMoveEffectiveness ; v1.0 (R9): the shared walk (the flags of cp EFFECTIVE)
 	jp c, .nextMove ; not very effective: the first strike is not worth it
 	dec [hl]
 	jp .nextMove
@@ -1537,14 +1515,8 @@ AIScoreSwitchCandidate:
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, [hli] ; its effect
-	cp SUPER_FANG_EFFECT
-	jr z, .nextMove ; the fixed-damage family: the type chart does not scale it
-	cp TARGET_LEVEL_DAMAGE_EFFECT
-	jr z, .nextMove
-	cp USER_LEVEL_DAMAGE_EFFECT
-	jr z, .nextMove
-	cp SET_DAMAGE_EFFECT
-	jr z, .nextMove
+	call AIFixedDamage ; (v1.0 R9: the test layer 3's loop shares; keeps hl)
+	jr c, .nextMove ; the fixed-damage family: the type chart does not scale it
 	ld a, [hli] ; its power
 	and a
 	jr z, .nextMove ; a status move: its type hits nothing
@@ -1682,6 +1654,37 @@ AISeedMoveScores:
 	ld [hli], a
 	dec c
 	jr nz, .seedScore
+	ret
+
+; v1.0 (R9, 2026-09-30): carry when a (a move effect) is one of SetDamageEffects' family
+; (data/battle/set_damage_effects.asm): SUPER FANG and PARASITE, SEISMIC TOSS, NIGHT SHADE, DRAGON RAGE and
+; SONICBOOM. EnemyCalcMoveDamage sends them past the damage calculation and the type walk, so the chart neither
+; scales nor stops them. Layer 3 and the switch-in picker ask it. Clobbers a; keeps bc, de, hl.
+AIFixedDamage:
+	cp SUPER_FANG_EFFECT
+	scf
+	ret z
+	sub TARGET_LEVEL_DAMAGE_EFFECT
+	cp SET_DAMAGE_EFFECT + 1 - TARGET_LEVEL_DAMAGE_EFFECT
+	ret
+ASSERT USER_LEVEL_DAMAGE_EFFECT == TARGET_LEVEL_DAMAGE_EFFECT + 1 && SET_DAMAGE_EFFECT == USER_LEVEL_DAMAGE_EFFECT + 1, \
+	"AIFixedDamage reads TARGET_LEVEL_DAMAGE .. SET_DAMAGE as one run"
+
+; v1.0 (R9, 2026-09-30): the type walk for the move ReadMove read, against the player's types as they are on
+; screen - layers 3 and 5 ask it: AIGetTypeEffectiveness, bank $30, the damage walk's own TypeRowMultiplier
+; with e = the move (MIND BREAK on DARK: NOT_VERY_EFFECTIVE). Out: a (EFFECTIVE neutral), the flags of
+; `cp EFFECTIVE`. Keeps bc, de, hl (the farcall trashes them).
+AIMoveEffectiveness:
+	push hl
+	push bc
+	push de
+	callfar AIGetTypeEffectiveness
+	pop de
+	pop bc
+	pop hl
+	ld a, [wTypeEffectiveness]
+.done
+	cp EFFECTIVE
 	ret
 
 AIMatchupAtHL:
