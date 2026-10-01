@@ -196,11 +196,12 @@ INCLUDE "engine/battle/core.asm"
 INCLUDE "data/pokemon/flee_tiers.asm"
 INCLUDE "engine/battle/effects_dispatch.asm"
 ; v1.0 (2026-09-24): opens its own SECTION ("Battle Core Overflow", bank $10) -
-; it and toxic_carry.asm MUST stay the last includes of this block, everything
+; it and the files after it MUST stay the last includes of this block, everything
 ; after them would leave Battle Core (that is how the effects dispatch broke for
 ; an hour).
 INCLUDE "engine/battle/damage_type.asm"
 INCLUDE "engine/battle/toxic_carry.asm" ; (v1.0 2026-09-27) lands in Battle Core Overflow too
+INCLUDE "engine/battle/grand_victory.asm" ; (v1.0 R9s, 2026-09-30) out of Battle Engine 6: lands here too
 
 
 ; v0.7: the move effects left Battle Core, which had reached its 16 KB
