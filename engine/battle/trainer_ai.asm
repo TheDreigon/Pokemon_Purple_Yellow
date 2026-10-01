@@ -154,6 +154,13 @@ AIGetMoveChoiceList:
 ; statused one that must recharge (SleepEffect puts it to sleep whatever its status); RECOVER,
 ; SOFTBOILED or REST at full HP (a hit taken first makes them heal); MIRROR MOVE with nothing to
 ; copy (the player's move, if it goes first, gives it one).
+; v1.0 (R9i, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"): with
+; the player RECHARGING (NEEDS_TO_RECHARGE: no menu, and its turn ends before its disable and confusion
+; counts run down - CheckPlayerStatusConditions .HyperBeamCheck) nothing of its runs before this move,
+; so five of these surely fail and are USELESS that turn (.discourageUnlessRecharging): DISABLE, the
+; confusion move, RECOVER / SOFTBOILED / REST at full HP, MIRROR MOVE with nothing to copy, and the
+; trainer's own SUBSTITUTE with its doll up. A status move on a statused Pokemon that must recharge
+; stays +5 (SleepEffect lands), and so does the too-weak SUBSTITUTE with the player SEEDED.
 ; v1.0 (E2, 2026-09-29; Forte: "sigo a tua melhor recomendacao"): and the mirror of D15 for the
 ; moves that lower the player's stats - useless behind the player's SUBSTITUTE or MIST, or when
 ; every stat it lowers is already at -6 (not a move whose flinch still rolls there: INTIMIDATE,
@@ -297,7 +304,12 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	ld a, [wPlayerDisabledMove] ; non-zero if the player has a disabled move
 	and a
 	jp z, .nextMove ; if it's zero don't do anything
-	jr .discourage ; otherwise discourage using disable while opponent is disabled already
+	; otherwise: its count runs down in the player's own turn - not on a recharge turn (R9i)
+.discourageUnlessRecharging ; v1.0 (R9i): the player must recharge - nothing of its runs first
+	ld a, [wPlayerBattleStatus2]
+	bit NEEDS_TO_RECHARGE, a
+	jr z, .discourage
+	jr .useless
 .checkOwnStatus3 ; v1.0 (E4): LIGHT SCREEN, REFLECT - c = the bit its handler tests
 	ld a, [wEnemyBattleStatus3]
 	jr .checkOwnBit
@@ -314,7 +326,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	jr z, .ownSubstituteTooWeak ; exactly the cost is "Too weak" too (2026-09-24: no 0-HP user)
 	ld a, [wEnemyBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
-	jr nz, .discourage ; its doll is up: it fails unless a hit taken first breaks the doll (E4: as RECOVER at full HP)
+	jr nz, .discourageUnlessRecharging ; its doll is up: it fails unless a hit taken first breaks the doll (E4)
 	jp .nextMove
 .ownSubstituteTooWeak ; the HP decides over the doll: a broken doll would leave the HP as low
 	ld a, [wPlayerBattleStatus2]
@@ -348,7 +360,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	jr nz, .useless ; v1.0 (F5): ConfusionEffect refuses a SUBSTITUTE before anything else
 	ld a, [wPlayerBattleStatus1]
 	bit CONFUSED, a
-	jr nz, .discourage ; if the player is confused, don't use confusion-inflicting moves
+	jr nz, .discourageUnlessRecharging ; if the player is confused, don't use confusion-inflicting moves
 	jp .nextMove
 .checkSeeded ; v1.0 (E4): LeechSeedEffect_'s two refusals, here (CheckSeeded went)
 	ld a, [wPlayerBattleStatus2]
@@ -359,7 +371,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	jr z, .useless ; LEECH SEED does not affect a GRASS type
 	ld a, [wBattleMonType2]
 	cp GRASS
-	jr z, .useless
+	jp z, .useless ; (R9i: a jr no longer reaches)
 	jp .nextMove
 .checkFullHealth ; avoid using moves like recover at full health.
 	push hl
@@ -394,7 +406,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 .fullHealthDiscourage
 	pop de
 	pop hl
-	jp .discourage
+	jp .discourageUnlessRecharging
 .notFullHealth
 	pop de
 	pop hl
@@ -408,7 +420,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 ; fail, so discourage; otherwise let the move compete like any other.
 	ld a, [wPlayerUsedMove]
 	and a
-	jp z, .discourage ; the player has not used a move since the last switch-in
+	jp z, .discourageUnlessRecharging ; the player has not used a move since the last switch-in
 	jp .nextMove
 
 
