@@ -137,7 +137,7 @@ Moves: ; Current total = 220
 	move SOLARBEAM,      CHARGE_EFFECT,                   180, GRASS,        100, 10
 	move LEECH_SEED,     LEECH_SEED_EFFECT,                 0, GRASS,         90, 20
 	move POISONPOWDER,   POISON_EFFECT,                     0, GRASS,         85, 25 ; powder-family type (was POISON; 0-BP status, type only gates immunity — vs Steel net-identical).
-	move STUN_POWDER,     PARALYZE_EFFECT,                   0, GRASS,         80, 20
+	move STUN_POWDER,    PARALYZE_EFFECT,                   0, GRASS,         80, 20
 	move SLEEP_POWDER,   SLEEP_EFFECT,                      0, GRASS,         75, 15
 
 
@@ -157,7 +157,7 @@ Moves: ; Current total = 220
 	move ICY_WIND,       SPEED_DOWN1_EFFECT,               45, ICE,          100, 30 ; new move.
 	move FROST_BREATH,   FREEZE_SIDE_EFFECT2,              60, ICE,          100, 20 ; new move.
 	move ICY_PULSE,      SWIFT_EFFECT,                     70, ICE,          100, 25 ; new move.
-	move AURORA_BEAM,    SPDEF_DOWN_SIDE_EFFECT,         80, ICE,          100, 20
+	move AURORA_BEAM,    SPDEF_DOWN_SIDE_EFFECT,           80, ICE,          100, 20
 	move ICE_BEAM,       FREEZE_SIDE_EFFECT1,              95, ICE,          100, 15 ; new effect.
 	move BLIZZARD,       FREEZE_SIDE_EFFECT2,             115, ICE,           85, 10 ; new effect.
 
@@ -206,7 +206,7 @@ Moves: ; Current total = 220
 	move PSYWAVE,        FLINCH_SIDE_EFFECT2,              35, PSYCHIC_TYPE, 100, 30
 	move CONFUSION,      CONFUSION_SIDE_EFFECT2,           50, PSYCHIC_TYPE, 100, 30
 	move EXTRASENSORY,   SWIFT_EFFECT,                     65, PSYCHIC_TYPE, 100, 25 ; new move.
-	move PSYBEAM,        SPDEF_DOWN_SIDE_EFFECT,         80, PSYCHIC_TYPE, 100, 20
+	move PSYBEAM,        SPDEF_DOWN_SIDE_EFFECT,           80, PSYCHIC_TYPE, 100, 20
 	move PSYCHIC_M,      CONFUSION_SIDE_EFFECT3,           95, PSYCHIC_TYPE, 100, 15 ; new effect.
 	move MIND_BREAK,     PARALYZE_SIDE_EFFECT3,           125, PSYCHIC_TYPE,  90,  5 ; almost-signature (Alakazam + Mewtwo). high-crit. new effect - 45% paralyze. hits DARK types (0.5x; v1.0 F4 - the one damaging PSYCHIC move that does).
 	move DISABLE,        DISABLE_EFFECT,                    0, PSYCHIC_TYPE,  75, 25 ; hits DARK types (v1.0 F4).
