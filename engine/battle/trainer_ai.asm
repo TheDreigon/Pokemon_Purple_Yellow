@@ -149,7 +149,8 @@ AIGetMoveChoiceList:
 ; move the ordinary course of the turn may still let act is only DISCOURAGED (+5, .discourage):
 ; DISABLE while a move of the player's is disabled and a confusion move on a confused Pokemon
 ; (both counts are hidden and run down in its own turn, CheckPlayerStatusConditions); a status
-; move on one asleep or frozen (it may wake or thaw in its turn, before this move runs) or on a
+; move on one asleep or frozen (it may wake or thaw in its turn, before this move runs - but not
+; IGNITE on a frozen one, USELESS since R9g: it thaws it, .frozen) or on a
 ; statused one that must recharge (SleepEffect puts it to sleep whatever its status); RECOVER,
 ; SOFTBOILED or REST at full HP (a hit taken first makes them heal); MIRROR MOVE with nothing to
 ; copy (the player's move, if it goes first, gives it one).
@@ -246,8 +247,10 @@ AIMoveChoiceModification1:
 	ld a, [wBattleMonStatus]
 	and a
 	jr z, .nextMove ; no status: nothing refuses it
+	bit FRZ, a
+	jr nz, .frozen ; v1.0 (R9g)
 	and (1 << PSN) | (1 << BRN) | (1 << PAR)
-	jr z, .discourage ; asleep or frozen: it may wake or thaw in its own turn, before this move runs
+	jr z, .discourage ; asleep: it may wake in its own turn, before this move runs
 	ld a, [wPlayerBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
 	jr z, .useless ; a POISON, a BURN or a PARALYSIS stays, and every status handler refuses it (E4)
@@ -318,6 +321,17 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	bit SEEDED, a
 	jr nz, .discourage ; the player's LEECH SEED drain, when the player moves first, heals the enemy before this move
 	jr .useless ; "Too weak to make a SUBSTITUTE!", whatever else the player does
+.frozen ; v1.0 (R9g, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"):
+; IGNITE into a frozen Pokemon THAWS it and burns nothing (BurnEffect .alreadyStatused: a FIRE or MAGMA
+; burn move -> CheckDefrost): whenever it runs while the freeze holds - this move first, or the freeze
+; outlasting the player's own turn - it hands the player back the frozen turns it had left. It burns
+; only when the player moved first and thawed in that very turn. USELESS: every other outcome helps
+; the player. IGNITE is the one power-0 FIRE or MAGMA move (emu_test_ai_useless_moves pins it), so
+; the FIRE test is the engine's. Any other status move on a frozen Pokemon: +5, it may thaw first (E4).
+	ld a, [wEnemyMoveType]
+	cp FIRE
+	jr z, .useless
+	jr .discourage
 .checkAsleep
 	ld a, [wBattleMonStatus]
 	and SLP_MASK

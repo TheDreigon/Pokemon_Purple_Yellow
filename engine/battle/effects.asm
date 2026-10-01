@@ -631,7 +631,7 @@ TriStatusSideEffect:
 DefrostTargetIfFireOrMagma::
 ; v0.7: ANY damaging FIRE or MAGMA move thaws a frozen target.
 ;
-; CheckDefrost below is only reached from the burn/freeze/paralyze side-effect
+; CheckDefrost below was only reached from the burn/freeze/paralyze side-effect
 ; handlers, so before this only the five Fire/Magma moves carrying such an effect
 ; defrosted (EMBER, FLAMETHROWER, FIRE_BLAST, MAGMA_PUNCH, LAVA_PLUME) while
 ; FLAME_CHARGE, FLAME_BURST and EXPLOSION left the target frozen -- a rule with
@@ -650,9 +650,12 @@ DefrostTargetIfFireOrMagma::
 	; fallthrough
 
 CheckDefrost:
-; a Fire- or Magma-type move with a burn/freeze/paralyze side effect defrosts a frozen target (pure-status IGNITE and other Fire/Magma effects never reach this path)
+; a FIRE or MAGMA move thaws a frozen target. Reached from the burn/freeze/paralyze side-effect
+; handlers, from DefrostTargetIfFireOrMagma above (every damaging FIRE or MAGMA move, after its hit)
+; and from BurnEffect's .alreadyStatused (IGNITE: it thaws and burns nothing - v1.0 R9g, the AI
+; ranks it USELESS there)
 	and 1 << FRZ ; are they frozen?
-	ret z ; return if so
+	ret z ; return if not
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .opponent
