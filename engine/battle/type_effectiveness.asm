@@ -249,6 +249,22 @@ AITypeMatchup::
 	ld e, a
 	ret
 
+; v1.0 (R9d, 2026-09-30): the walk for a TEAMMATE's move, for the switch-in picker in bank $0E
+; (AIRosterMonGetsThrough): in d = the move's type, e = the move (TypeRowMultiplier's MIND BREAK),
+; against the player's types as they are on screen. A farcall hands over only c, d and e and gives
+; back de and hl, so the answer comes back in e (and wTypeEffectiveness): EFFECTIVE = neutral, 0 =
+; "It doesn't affect". Unlike AIGetTypeEffectiveness it reads no wEnemyMove* byte - the picker also
+; runs on a locked BIDE turn, whose release reads that block after layer 6 - and it writes none.
+AIMoveOnPlayer::
+	ld hl, wBattleMonType
+	ld b, [hl]
+	inc hl
+	ld c, [hl]
+	call AIGetTypeEffectivenessDBC
+	ld a, [wTypeEffectiveness]
+	ld e, a
+	ret
+
 ; v1.0 (F4, 2026-09-30; Forte: "na verdade, podes tambem abrir excepcao para o Mind Break, para se
 ; diferenciar ainda mais como uma versao mais forte do move psychic", then "mind break vs dark a
 ; 0.5x, sim."): the chart's one exception, shared by the damage walk and the AI's walk so the two

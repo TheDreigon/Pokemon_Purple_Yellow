@@ -1124,7 +1124,8 @@ AISwitchKnobs:
 .toxic:    db 3  ; per tick the badly poisoned mon has taken (2026-09-27: 6 at two, the old flat weight)
 .stages:   db 7, 18, 25, 32 ; net stat stages -1, -2, -3, -4 or worse
 .boosted:  db 10 ; off at net +2 or better: it is winning, it stays
-.allBad:   db 29 ; every move it has is discouraged (score 11 or more)
+.allBad:   db 29 ; every move it has is discouraged (score 11 or more), and a switch would bring in a
+                 ; teammate that could hurt the player (v1.0 R9d: .everyMoveBad)
 .screen:   db 10 ; off for each screen up (REFLECT, LIGHT SCREEN)
 .cooldown: db 2  ; turns the mon that just came in is left alone
 .doll:     db 10 ; off with its own SUBSTITUTE doll up (v1.0 R8: a switch would throw it away)
@@ -1201,16 +1202,33 @@ AIMoveChoiceModification6:
 	ld c, NUM_MOVES + 1
 .nextMove
 	dec c
-	jr z, .allBad ; processed all 4 moves and none was fine
+	jr z, .everyMoveBad ; processed all 4 moves and none was fine
 	inc hl
 	ld a, [de]
 	and a
-	jr z, .allBad ; end of the set and none was fine
+	jr z, .everyMoveBad ; end of the set and none was fine
 	inc de
 	ld a, [hl]
 	cp 11
 	jr c, .checkBoosted ; one move is still fine (10 or better): it can fight
 	jr .nextMove
+.everyMoveBad
+; v1.0 (R9d, 2026-09-30; Forte, of the switch-in picker: "faz sentido que também passe a verificar isto,
+; certo? Sigo a tua melhor recomendação para corrigir."): a mon that can do nothing asks to leave for that
+; only when leaving can help - when the teammate a switch would bring in (AIPickSwitchTarget's pick, the one
+; .request makes) could hurt the player's Pokemon on arrival. AIScoreSwitchCandidate puts one that could not
+; (asleep, frozen, or none of its moves with PP left gets any damage through the player's types) at the
+; bottom, 1, below every one that could: a pick at 1 means no teammate the switch may bring in could. Then
+; .allBad stays out (KIYO's dojo in Hard: his fighters, all walled by a HAUNTER, traded places every few
+; turns). The other reasons to leave - confusion, TOXIC, stages - still count: they are the mon's own.
+	push bc ; b = the score so far
+	call AIPickSwitchTarget ; a = 1 + the party index of the teammate a switch would bring in
+	dec a
+	ld c, a
+	call AIScoreSwitchCandidate ; a = 1 + its score (a live teammate: 1 or more)
+	pop bc
+	dec a
+	jr z, .checkBoosted ; 1: it could not hurt the player either, and switching cannot help
 .allBad
 	ld a, [AISwitchKnobs.allBad]
 	call AddToBCapped
@@ -1317,15 +1335,18 @@ SubFromBCapped:
 ; (AIScoreSwitchCandidate):
 ;   0  asleep or frozen: it would come in and do nothing (N3, 2026-09-27: it
 ;      may now be withdrawn, so it may be on the bench); below every teammate
-;      that can act, low ones included. The same for one with no PP left on any
+;      that can act, low ones included. The same for one that could not hurt
+;      the player's Pokemon (R9d, 2026-09-30): none of its moves with PP left
+;      is a damaging one the player's types let through (AIRosterMonGetsThrough;
+;      a status move never counts) - which takes in one with no PP left on any
 ;      move, which could only STRUGGLE (D10, 2026-09-28)
 ;   1  weak to one of the player's types, or below 1/4 of its HP
 ;   2  takes the player's types neutrally
 ;   3  resists (or is immune to) every one of them
-;  +2  not weak, and one of its TYPE-SCALED damaging moves is super effective
-;      on the player (not the fixed-damage family - SEISMIC TOSS, NIGHT SHADE,
-;      DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose set number the type
-;      chart never scales: since R9c it can only stop it)
+;  +2  not weak, and one of its TYPE-SCALED damaging moves with PP left (R9d)
+;      is super effective on the player (not the fixed-damage family - SEISMIC
+;      TOSS, NIGHT SHADE, DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose
+;      set number the type chart never scales: since R9c it can only stop it)
 ; The best comes in; a tie keeps party order. The LAST mon of the party - the
 ; ace of a boss team - is kept for last: it comes in only when no other
 ; teammate is alive. In Hard, for a boss or a semi-boss (Forte, 2026-09-27:
@@ -1415,7 +1436,8 @@ AIPickSwitchTarget:
 	inc a
 	ret
 .theAce
-; (a no-ace team: only with no live teammate, which neither caller allows)
+; (a no-ace team: only with no live teammate, which no caller allows - layer 6
+; asks, twice since R9d, only with a second live mon; AIPickFaintReplacement)
 	ld a, [wEnemyPartyCount] ; 1 + the last index
 	ret
 
@@ -1464,22 +1486,22 @@ AIScoreSwitchCandidate:
 	and (1 << FRZ) | SLP_MASK
 	ld a, 1 ; 1 + a score of 0
 	jp nz, .return
-; v1.0 (D10, 2026-09-28): nor can a teammate with no PP left on any move (the PP Up
-; bits masked): it would come in and only STRUGGLE. Normal only in effect - an
-; enemy's PP never drains in Hard - and, since D3, its PP stays spent on the bench.
+; v1.0 (R9d, 2026-09-30; Forte: "faz sentido que também passe a verificar isto, certo? Sigo a tua melhor
+; recomendação para corrigir."): nor can a teammate that could not hurt the player's Pokemon - none of its
+; moves with PP left (the PP Up bits masked) is a damaging one that gets through the player's types
+; (AIRosterMonGetsThrough with c = 1). It would come in and never scratch it: only the player's switch or
+; TRANSFORM, deliberate acts, change those types (E4; layer 1 ranks such a move USELESS, R9). A status move
+; does not count: it lands once at most, then layer 1 retires it. This takes in D10 (2026-09-28): a teammate
+; with no PP left on any move, which could only STRUGGLE (Normal only in effect - an enemy's PP never drains
+; in Hard - and, since D3 of 2026-09-28, its PP stays spent on the bench).
 	pop hl
 	push hl
-	ld bc, MON_PP
-	add hl, bc
-	ld a, [hli]
-	or [hl]
-	inc hl
-	or [hl]
-	inc hl
-	or [hl]
-	and $3f
+	push de ; its HP
+	ld c, 1 ; any damage at all
+	call AIRosterMonGetsThrough ; carry: none of its moves with PP left gets any damage through
+	pop de
 	ld a, 1 ; 1 + a score of 0 (ld keeps the flags)
-	jp z, .return
+	jp c, .return
 	sla e
 	rl d
 	sla e
@@ -1519,40 +1541,16 @@ AIScoreSwitchCandidate:
 	jr nc, .attack
 	inc c ; resists (or is immune to) every one of them
 .attack
-; +2 when one of its type-scaled damaging moves is super effective on the player
-	ld de, MON_MOVES - MON_TYPE1
-	add hl, de ; hl -> its moves
-	ld b, NUM_MOVES
-.moveLoop
-	ld a, [hli]
-	and a
-	jr z, .scored ; no more moves
-	push hl
-	push bc
-	dec a
-	ld hl, Moves + MOVE_EFFECT
-	ld bc, MOVE_LENGTH
-	call AddNTimes
-	ld a, [hli] ; its effect
-	call AIFixedDamage ; (v1.0 R9: the one test layer 3 shares; keeps hl)
-	jr c, .nextMove ; the fixed-damage family: the type chart does not scale it (R9c: it only stops it)
-	ld a, [hli] ; its power
-	and a
-	jr z, .nextMove ; a status move: its type hits nothing
-	ld a, [hl] ; its type
-	ld hl, wBattleMonType1
-	call AIMatchupAtHL
-	cp EFFECTIVE + 1
-	jr nc, .superEffective
-.nextMove
-	pop bc
+; +2 when one of its type-scaled damaging moves with PP left is super effective on the player (v1.0 R9d: the
+; walk of AIRosterMonGetsThrough, shared with the floor above; the fixed-damage family never counts - its
+; damage ignores the chart's multipliers - nor does a status move)
 	pop hl
-	dec b
-	jr nz, .moveLoop
-	jr .scored
-.superEffective
+	push hl ; its roster entry
+	push bc ; c = the score so far
+	ld c, EFFECTIVE + 1 ; super effective
+	call AIRosterMonGetsThrough ; carry: none of its moves is
 	pop bc
-	pop hl
+	jr c, .scored
 	inc c
 	inc c
 .scored
@@ -1570,7 +1568,67 @@ AIScoreSwitchCandidate:
 	pop de
 	pop bc
 	ret
-ASSERT MOVE_POWER == MOVE_EFFECT + 1 && MOVE_TYPE == MOVE_POWER + 1, "AIScoreSwitchCandidate reads a move's effect, then its power, then its type"
+
+; v1.0 (R9d, 2026-09-30): no carry when a move of the party Pokemon whose roster entry is at hl, with PP left
+; (the PP Up bits masked), gets c or more through on the Pokemon the player has out: the multiplier its damage
+; would take on the player's types - the walk the damage takes (AIGetTypeEffectiveness, TypeRowMultiplier:
+; MIND BREAK on DARK lands, 0.5x; EFFECTIVE = neutral, 0 = "It doesn't affect"). A status move (power 0)
+; gets nothing through. SetDamageEffects' family (SEISMIC TOSS, SUPER FANG and PARASITE, NIGHT SHADE - power
+; 0 -, DRAGON RAGE, SONICBOOM) ignores the multipliers but not an immunity (R9c): it counts for c = 1 only.
+; c = 1: could it hurt the player at all (the switch-in picker's floor, which layer 6's .everyMoveBad reads
+; through the pick); c = EFFECTIVE + 1: a super-effective hit (the picker's +2). It reads the roster, Moves and
+; the player's types - what the trainer sees; never the player's moves, nor the wEnemyMove* block, which a
+; locked BIDE reads after layer 6 (AILockedSwitchDecision). The moves end at the first empty slot. Clobbers
+; a, bc, de, hl.
+AIRosterMonGetsThrough:
+	ld de, MON_MOVES
+	add hl, de ; hl -> its moves
+	ld b, NUM_MOVES
+.loop
+	ld a, [hli]
+	cp 1
+	ret c ; no more moves: none got c through (carry)
+	push hl
+	push bc
+	ld e, a ; the move (TypeRowMultiplier's MIND BREAK)
+	ld bc, MON_PP - MON_MOVES - 1
+	add hl, bc
+	ld a, [hl] ; its PP
+	and $3f
+	jr z, .nothing ; none left: it cannot be used
+	ld a, e
+	dec a
+	ld hl, Moves + MOVE_EFFECT
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, [hli] ; its effect
+	call AIFixedDamage ; carry: SetDamageEffects' family (keeps bc, de, hl)
+	ld a, [hli] ; its power (a load keeps the flags)
+	ld d, [hl] ; its type
+	jr nc, .scaled
+	pop bc ; b, c = the count and the threshold (AddNTimes left MOVE_LENGTH in bc)
+	push bc
+	dec c ; the fixed family counts for c = 1 only (.compare's pop brings c back)
+	jr z, .walk
+.nothing
+	xor a ; nothing gets through
+	jr .compare
+.scaled
+	and a
+	jr z, .nothing ; a status move: no damage of its own
+.walk
+	farcall AIMoveOnPlayer ; e = the multiplier (bank $30; a, bc, hl trashed)
+	ld a, e
+.compare
+	pop bc
+	pop hl
+	cp c
+	ret nc ; this one gets c or more through
+	dec b
+	jr nz, .loop
+	ret ; carry: the last one got less than c through
+ASSERT MOVE_POWER == MOVE_EFFECT + 1 && MOVE_TYPE == MOVE_POWER + 1, "AIRosterMonGetsThrough reads a move's effect, then its power, then its type"
+ASSERT MON_PP > MON_MOVES + NUM_MOVES - 1, "AIRosterMonGetsThrough reaches a move's PP from the move"
 
 ; v1.0 (2026-09-27): carry when this battle's AI list has the switch layer (6).
 ; Clobbers a, b, hl.
@@ -1622,7 +1680,8 @@ AIPickFaintReplacement:
 ;   at all there, so the mon could not be withdrawn.
 ; The scores layer 6 reads are the chooser's seeds (AISeedMoveScores, N3-6): $a
 ; for a move it could use this turn, $50 for one it could not. On a STRUGGLE turn
-; every move is unusable, so "every move discouraged" counts, as a trainer would
+; every move is unusable, so "every move discouraged" counts - when the pick could
+; hurt the player (R9d, .everyMoveBad) - as a trainer would
 ; see it; on a locked turn a spent move no longer counts as fine. Only trainers
 ; whose list has layer 6; its own top still applies (held by the player's WRAP
 ; too: no request). Clobbers all.
