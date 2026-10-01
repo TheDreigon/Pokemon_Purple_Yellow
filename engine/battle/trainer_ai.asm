@@ -268,7 +268,7 @@ AIMoveChoiceModification1:
 ; it while another move can act, never keeps an unusable move over it (that would STRUGGLE with
 ; a move it may use), and with only such moves left it uses one, as the player would have to.
 ; Layer 6 counts it as bad (R9k: AI_SCORE_USELESS - 10 or more). Whatever the other layers add or take (-10..+20;
-; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets layers 2 (its first turn), 3 and 5 too), the three
+; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets layers 3 and 5 too (not 2 since R9f)), the three
 ; tiers never meet.
 DEF AI_SCORE_USELESS EQU $30
 ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
@@ -696,6 +696,13 @@ AILowerEffectStats:
 ; PureRGBnote: CHANGED: AKA the "Boost stats on the first turn" subroutine
 ; slightly encourage moves with specific effects on the first turn. (PureRGBnote: FIXED: used to be the second turn, made it first turn)
 ; this mostly means trainers will buff their pokemon a bit on the first turn
+; v1.0 (R9f, 2026-09-30; Forte, of layer 2 favouring 19 damaging moves on the first turn: "nao me lembro se foi
+; intencional. Sigo a tua melhor recomendação."): STATUS moves only
+; (power 0). Since v0.5 the moves that deal damage AND change a stat carry the status moves' effect ids
+; (PLAY ROUGH ATTACK_DOWN1, STRENGTH ATTACK_UP1, HYDRO PUMP SPEED_DOWN1 - 19 in moves.asm), so the list
+; read them as setup moves: the accident MoveHitTest's MIST check had, closed there by the same power
+; gate (v0.7). Vanilla's damaging stat moves carry *_SIDE_EFFECT ids its ranges never reach (only PAY
+; DAY and SWIFT fell inside them). NIGHT SHADE (power 0, USER_LEVEL_DAMAGE_EFFECT) is not listed.
 AIMoveChoiceModification2:
 	ld a, [wAILayer2Encouragement]
 	and a
@@ -712,6 +719,9 @@ AIMoveChoiceModification2:
 	ret z ; no more moves in move set
 	inc de
 	call ReadMove
+	ld a, [wEnemyMovePower]
+	and a
+	jr nz, .nextMove ; v1.0 (R9f): a damaging move is not a first-turn setup move, whatever its effect id
 	ld a, [wEnemyMoveEffect]
 	push hl
 	push de
