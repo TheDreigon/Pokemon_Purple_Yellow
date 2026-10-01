@@ -267,7 +267,7 @@ AIMoveChoiceModification1:
 ; (AISeedMoveScores' $50: the disabled one, one with no PP left). The chooser then never keeps
 ; it while another move can act, never keeps an unusable move over it (that would STRUGGLE with
 ; a move it may use), and with only such moves left it uses one, as the player would have to.
-; Layer 6 counts it as discouraged (11 or more). Whatever the other layers add or take (-10..+20;
+; Layer 6 counts it as bad (R9k: AI_SCORE_USELESS - 10 or more). Whatever the other layers add or take (-10..+20;
 ; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets layers 2 (its first turn), 3 and 5 too), the three
 ; tiers never meet.
 DEF AI_SCORE_USELESS EQU $30
@@ -1124,8 +1124,8 @@ AISwitchKnobs:
 .toxic:    db 3  ; per tick the badly poisoned mon has taken (2026-09-27: 6 at two, the old flat weight)
 .stages:   db 7, 18, 25, 32 ; net stat stages -1, -2, -3, -4 or worse
 .boosted:  db 10 ; off at net +2 or better: it is winning, it stays
-.allBad:   db 29 ; every move it has is discouraged (score 11 or more), and a switch would bring in a
-                 ; teammate that could hurt the player (v1.0 R9d: .everyMoveBad)
+.allBad:   db 29 ; every move it has is useless or unusable (v1.0 R9k: AI_SCORE_USELESS - 10 or more; it
+                 ; was 11 or more), and a switch would bring in a teammate that could hurt the player (R9d)
 .screen:   db 10 ; off for each screen up (REFLECT, LIGHT SCREEN)
 .cooldown: db 2  ; turns the mon that just came in is left alone
 .doll:     db 10 ; off with its own SUBSTITUTE doll up (v1.0 R8: a switch would throw it away)
@@ -1197,6 +1197,12 @@ AIMoveChoiceModification6:
 	ld a, [hl]
 	call AddToBCapped
 .checkScores
+; v1.0 (R9k, 2026-09-30): "every move bad" is every move USELESS or unusable (AI_SCORE_USELESS - 10 or more: the
+; tiers layer 1's ASSERT keeps apart), no longer every move 11 or more. A usable move nudged past 10 - layer 3's +1
+; on a resisted move, layer 5's anti-repeat +1..+4 - or only DISCOURAGED (+5, E4: the turn may still let it act)
+; is a move the mon can still use, and it stays to use it. Since R9b ranks a damaging move the chart stops
+; USELESS, such a move no longer passes for fine here, and the old test sent out a mon whose one working move
+; it had used three times in a row.
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
 	ld c, NUM_MOVES + 1
@@ -1209,8 +1215,8 @@ AIMoveChoiceModification6:
 	jr z, .everyMoveBad ; end of the set and none was fine
 	inc de
 	ld a, [hl]
-	cp 11
-	jr c, .checkBoosted ; one move is still fine (10 or better): it can fight
+	cp AI_SCORE_USELESS - 10
+	jr c, .checkBoosted ; one move it can still use (below the useless tier): it stays for that
 	jr .nextMove
 .everyMoveBad
 ; v1.0 (R9d, 2026-09-30; Forte, of the switch-in picker: "faz sentido que também passe a verificar isto,
@@ -1253,8 +1259,9 @@ AIMoveChoiceModification6:
 	call SubFromBCapped
 .checkDoll
 ; v1.0 (R8, 2026-09-30): its own SUBSTITUTE doll up. A send-out clears it (EnemySendOutFirstMon), so a
-; switch would throw it away; and layer 1 scores a SUBSTITUTE with its doll up 11 or more (R8), so with
-; every other move discouraged .allBad alone would ask for that switch.
+; switch would throw it away. (R8: layer 1 scored a SUBSTITUTE with its doll up 11 or more, so .allBad
+; alone asked for that switch; since R9k that +5 no longer counts as bad - the doll still weighs against
+; every other reason, a too-weak SUBSTITUTE's USELESS included.)
 	ld a, [wEnemyBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
 	jr z, .roll
@@ -1680,8 +1687,8 @@ AIPickFaintReplacement:
 ;   at all there, so the mon could not be withdrawn.
 ; The scores layer 6 reads are the chooser's seeds (AISeedMoveScores, N3-6): $a
 ; for a move it could use this turn, $50 for one it could not. On a STRUGGLE turn
-; every move is unusable, so "every move discouraged" counts - when the pick could
-; hurt the player (R9d, .everyMoveBad) - as a trainer would
+; every move is unusable, so "every move bad" (R9k: useless or unusable) counts -
+; when the pick could hurt the player (R9d, .everyMoveBad) - as a trainer would
 ; see it; on a locked turn a spent move no longer counts as fine. Only trainers
 ; whose list has layer 6; its own top still applies (held by the player's WRAP
 ; too: no request). Clobbers all.
@@ -1702,7 +1709,7 @@ AIStruggleSwitchDecision:
 ; masked). Summed over every rule, the layers take at most 10 off a move and add
 ; at most 20, so a $50 never comes down to a usable move and the minimum filter
 ; never keeps it; SelectEnemyMove sends a turn with no usable move to STRUGGLE
-; before the chooser runs. Layer 6 reads 11 or more as "discouraged": an unusable
+; before the chooser runs. Layer 6 reads AI_SCORE_USELESS - 10 or more (R9k) as bad: an unusable
 ; move is. (A move with no PP used to start at $a: scored best, it was the one
 ; kept, and the enemy STRUGGLEd with a usable move left.) Trashes a, bc, de, hl.
 ; v1.0 (D15, 2026-09-29): a third tier sits between the two. Layer 1 lifts a move that
