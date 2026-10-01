@@ -961,6 +961,11 @@ Modifier4PreferredMoves:
 ;  - a priority move when the enemy is slower, the player is not asleep or
 ;    frozen (the status a trainer sees; 2026-09-27: not the hidden turns left)
 ;    and the move at least neutral: -1 (it goes first).
+; v1.0 (R9e, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"): none
+; of the damaging rules for a move the player's types stop (AIMoveEffectiveness 0 - layer 1 made
+; it USELESS): its damage is 0, so there is no STAB to weigh, no first strike to buy and no reason
+; to explode - a stopped EXPLOSION (FIRE here: MAGMA stops it) was the favourite of the useless
+; tier at low HP, the user fainting for nothing.
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -993,7 +998,10 @@ AIMoveChoiceModification5:
 .notARepeat
 	ld a, [wEnemyMovePower]
 	and a
-	jp z, .nextMove ; the rest is for damaging moves only
+	jr z, .nextMove ; the rest is for damaging moves only (v1.0 R9e: a jr reaches)
+	call AIMoveEffectiveness ; v1.0 (R9e): the multiplier its damage would take, 0 = stopped (keeps bc, de, hl)
+	and a
+	jr z, .nextMove ; "It doesn't affect": no damage to weigh - no STAB, no EXPLOSION by HP, no priority
 ; STAB
 	ld a, [wEnemyMoveType]
 	ld c, a
