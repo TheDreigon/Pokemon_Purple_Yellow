@@ -18,6 +18,14 @@ _PokemonTower2FRivalDefeatedText::
 	line "you too!"
 	prompt
 
+; v1.0 (R9x, 2026-10-01; Forte: "sigo a tua recomendação"): Yellow Legacy's last lines
+; said GHOST moves "may not hit normal-types" - false in this chart, where GHOST hits
+; NORMAL neutrally. What holds is the other way round: NORMAL and FIGHTING attacks
+; cannot touch a GHOST (SEISMIC TOSS and SUPER FANG too, since R9c). "attacks", not
+; "moves" (Forte: "ok, concordo com o "attacks"."): SUPERSONIC, a NORMAL status move,
+; still lands on one. "Most": the FIGHT menu shows the typeless BIRD type as NORMAL
+; (data/types/names.asm), and TRI ATTACK, BIDE and STRUGGLE, BIRD here, hit a GHOST.
+; Lines under the arrow: 17.
 _PokemonTower2FRivalVictoryText::
 	text "<RIVAL>: Well,"
 	line "look at all your"
@@ -27,14 +35,11 @@ _PokemonTower2FRivalVictoryText::
 	line "bit more!"
 
 	para "Also watch out"
-	line "for ghost-type"
-	cont "moves!"
+	line "for GHOST types!"
 
-	para "They may not hit"
-	line "normal-types,"
-	cont "but non-physical"
-	cont "moves can still"
-	cont "hit hard!"
+	para "Most NORMAL and"
+	line "FIGHTING attacks"
+	cont "can't touch them!"
 	prompt
 
 _PokemonTower2FRivalHowsYourDexText::
