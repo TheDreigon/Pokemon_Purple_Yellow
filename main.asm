@@ -202,6 +202,7 @@ INCLUDE "engine/battle/effects_dispatch.asm"
 INCLUDE "engine/battle/damage_type.asm"
 INCLUDE "engine/battle/toxic_carry.asm" ; (v1.0 2026-09-27) lands in Battle Core Overflow too
 INCLUDE "engine/battle/grand_victory.asm" ; (v1.0 R9s, 2026-09-30) out of Battle Engine 6: lands here too
+INCLUDE "engine/battle/misc.asm" ; (v1.0 R9t, 2026-09-30) out of Battle Engine 6 too: every caller a callfar
 
 
 ; v0.7: the move effects left Battle Core, which had reached its 16 KB

@@ -1720,7 +1720,8 @@ INCLUDE "data/trainers/pic_pointers_money.asm"
 
 INCLUDE "data/trainers/names.asm"
 
-INCLUDE "engine/battle/misc.asm"
+; engine/battle/misc.asm (FormatMovesString, InitList) is in "Battle Core Overflow", bank $10,
+; since v1.0 R9t (2026-09-30): every caller reaches it with callfar.
 
 INCLUDE "engine/battle/read_trainer_party.asm"
 

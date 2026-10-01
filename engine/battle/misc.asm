@@ -1,3 +1,7 @@
+; v1.0 (R9t, 2026-09-30): in "Battle Core Overflow" (bank $10), out of "Battle Engine 6" (bank $0E),
+; which round 9's AI rules needed. Every caller reaches both routines with callfar (core.asm,
+; learn_move.asm, status_screen.asm; pokemart.asm, scripts/CeladonMart1F.asm), so the bank is free.
+
 ; formats a string at wMovesString that lists the moves at wMoves
 FormatMovesString:
 	ld hl, wMoves
