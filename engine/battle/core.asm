@@ -7066,30 +7066,22 @@ PrintEmptyString:
 ; a plain `call` and neither pays a farcall's clobbered registers.
 
 HandleExplodingAnimation:
+; v1.0 (R9h, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"):
+; EXPLOSION's second animation, the shake of the hit on the target, plays when the hit landed -
+; wMoveMissed 0, the outcome MoveHitTest and ApplyTypeEffectivenessToDamage write, on both turns.
+; Vanilla also skipped it for a GHOST target (EXPLOSION was NORMAL there; it is FIRE here and hits a
+; GHOST, while MAGMA's immunity already sets wMoveMissed) and for an INVULNERABLE one (MoveHitTest
+; misses it first; on the enemy's turn vanilla read the ATTACKER's own bit, wEnemyBattleStatus1).
 	ldh a, [hWhoseTurn]
 	and a
-	ld hl, wEnemyMonType1
-	ld de, wEnemyBattleStatus1
 	ld a, [wPlayerMoveNum]
 	jr z, .player
-	ld hl, wBattleMonType1
-	ld de, wEnemyBattleStatus1
 	ld a, [wEnemyMoveNum]
 .player
 	; SELFDESTRUCT was removed in the v0.5 movelist overhaul; only EXPLOSION
 	; remains as an exploding move.
 	cp EXPLOSION
 	ret nz
-.isExplodingMove
-	ld a, [de]
-	bit INVULNERABLE, a ; fly/dig
-	ret nz
-	ld a, [hli]
-	cp GHOST
-	ret z
-	ld a, [hl]
-	cp GHOST
-	ret z
 	ld a, [wMoveMissed]
 	and a
 	ret nz
