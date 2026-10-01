@@ -174,9 +174,11 @@ AIGetMoveChoiceList:
 ; nada": "tem que ser corrigido."): and a DAMAGING move the type chart stops - "It doesn't affect", a
 ; NO_EFFECT row in ApplyTypeEffectivenessToDamage (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on
 ; FLYING and GAS, FIRE on MAGMA, POISON on STEEL, PSYCHIC on DARK; one such type of two is enough) - is USELESS
-; (.useless, the E4 tier of a status move on an immune type). AIDamageEffectiveness asks the walk the damage
-; takes (AIGetTypeEffectiveness, the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands) and leaves
-; out SetDamageEffects' family, which never meets the walk (SEISMIC TOSS and SUPER FANG hit a GHOST). The
+; (.useless, the E4 tier of a status move on an immune type). AIMoveEffectiveness asks the walk the damage
+; takes (AIGetTypeEffectiveness, the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c
+; (Forte, of the fixed-damage moves: "muda para eles também passarem a seguir as regras de imunidade")
+; that holds for SetDamageEffects' family too: its set number is never scaled, but FixedDamageImmunity stops
+; it on a NO_EFFECT row (SEISMIC TOSS and SUPER FANG do not affect a GHOST). The
 ; player's types are on screen; only its switch or a TRANSFORM, both deliberate acts, change them first (E4).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
@@ -199,7 +201,7 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .statusMove ; v1.0 (R9): a damaging move meets the type chart here, a power-0 one the rules below
-	call AIDamageEffectiveness ; a = the multiplier its damage would take on the player's types (keeps bc, de, hl)
+	call AIMoveEffectiveness ; a = the chart's multiplier on the player's types, 0 = stopped (R9c: the fixed family too; keeps bc, de, hl)
 	and a
 	jr nz, .nextMove ; it lands (0.25x to 4x)
 	jr .useless ; "It doesn't affect": only the player's switch or TRANSFORM, first, would change its types
@@ -801,6 +803,9 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .nextMove ; ignores moves that do no damage (status moves), as we're only concerned with damaging moves for this modifier
+	ld a, [wEnemyMoveEffect]
+	call AIFixedDamage
+	jr c, .nextMove ; v1.0 (R9c): a set number the chart never scales - nothing to weigh; stopped, layer 1 ranks it USELESS
 	call AIMoveEffectiveness ; v1.0 (R9): the walk, shared with layers 1 and 5 (the flags of cp EFFECTIVE)
 	jr z, .checkSpecificEffects
 	jr c, .notEffectiveMove
@@ -1319,8 +1324,8 @@ SubFromBCapped:
 ;   3  resists (or is immune to) every one of them
 ;  +2  not weak, and one of its TYPE-SCALED damaging moves is super effective
 ;      on the player (not the fixed-damage family - SEISMIC TOSS, NIGHT SHADE,
-;      DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose damage ignores the
-;      type chart)
+;      DRAGON RAGE, SONICBOOM, SUPER FANG, PARASITE - whose set number the type
+;      chart never scales: since R9c it can only stop it)
 ; The best comes in; a tie keeps party order. The LAST mon of the party - the
 ; ace of a boss team - is kept for last: it comes in only when no other
 ; teammate is alive. In Hard, for a boss or a semi-boss (Forte, 2026-09-27:
@@ -1529,8 +1534,8 @@ AIScoreSwitchCandidate:
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, [hli] ; its effect
-	call AIFixedDamage ; (v1.0 R9: the one test layers 1 and 3 share; keeps hl)
-	jr c, .nextMove ; the fixed-damage family: the type chart does not scale it
+	call AIFixedDamage ; (v1.0 R9: the one test layer 3 shares; keeps hl)
+	jr c, .nextMove ; the fixed-damage family: the type chart does not scale it (R9c: it only stops it)
 	ld a, [hli] ; its power
 	and a
 	jr z, .nextMove ; a status move: its type hits nothing
@@ -1672,8 +1677,9 @@ AISeedMoveScores:
 
 ; v1.0 (R9, 2026-09-30): carry when a (a move effect) is one of SetDamageEffects' family
 ; (data/battle/set_damage_effects.asm): SUPER FANG and PARASITE, SEISMIC TOSS, NIGHT SHADE, DRAGON RAGE and
-; SONICBOOM. EnemyCalcMoveDamage sends them past the damage calculation and the type walk, so the chart neither
-; scales nor stops them. Layers 1 and 3 and the switch-in picker ask it. Clobbers a; keeps bc, de, hl.
+; SONICBOOM. EnemyCalcMoveDamage sends them past the damage calculation - the chart never scales their set
+; number - and, since R9c, through FixedDamageImmunity, where a NO_EFFECT row still stops them. Layer 3 (its
+; walk and its loop) and the switch-in picker ask it. Clobbers a; keeps bc, de, hl.
 AIFixedDamage:
 	cp SUPER_FANG_EFFECT
 	scf
@@ -1684,18 +1690,12 @@ AIFixedDamage:
 ASSERT USER_LEVEL_DAMAGE_EFFECT == TARGET_LEVEL_DAMAGE_EFFECT + 1 && SET_DAMAGE_EFFECT == USER_LEVEL_DAMAGE_EFFECT + 1, \
 	"AIFixedDamage reads TARGET_LEVEL_DAMAGE .. SET_DAMAGE as one run"
 
-; v1.0 (R9, 2026-09-30): the type walk for the move ReadMove read, against the player's types as they are on
-; screen. AIMoveEffectiveness (layers 3 and 5): the chart alone - AIGetTypeEffectiveness, bank $30, the damage
-; walk's own TypeRowMultiplier with e = the move (MIND BREAK on DARK: NOT_VERY_EFFECTIVE). AIDamageEffectiveness
-; (layer 1): what the damage would take - EFFECTIVE for SetDamageEffects' family, which skips the walk, else the
-; chart; 0 = a NO_EFFECT row, "It doesn't affect" (ApplyTypeEffectivenessToDamage zeroes the damage,
-; PrintMoveFailureText reads the multiplier). Out: a (EFFECTIVE neutral), the flags of `cp EFFECTIVE`. Keeps bc,
-; de, hl (the farcall trashes them).
-AIDamageEffectiveness:
-	ld a, [wEnemyMoveEffect]
-	call AIFixedDamage
-	ld a, EFFECTIVE
-	jr c, AIMoveEffectiveness.done
+; v1.0 (R9, R9c 2026-09-30): the type walk for the move ReadMove read, against the player's types as they are
+; on screen - layers 1, 3 and 5 ask it: AIGetTypeEffectiveness, bank $30, the damage walk's own
+; TypeRowMultiplier with e = the move (MIND BREAK on DARK: NOT_VERY_EFFECTIVE). 0 = a NO_EFFECT row: "It
+; doesn't affect" for every damaging move - ApplyTypeEffectivenessToDamage zeroes the damage, and since R9c
+; FixedDamageImmunity stops SetDamageEffects' family there too (PrintMoveFailureText reads the multiplier).
+; Out: a (EFFECTIVE neutral), the flags of `cp EFFECTIVE`. Keeps bc, de, hl (the farcall trashes them).
 AIMoveEffectiveness:
 	push hl
 	push bc
@@ -1705,7 +1705,6 @@ AIMoveEffectiveness:
 	pop bc
 	pop hl
 	ld a, [wTypeEffectiveness]
-.done
 	cp EFFECTIVE
 	ret
 

@@ -49,7 +49,9 @@ MoveHitTest:
 	jp nz, .moveMissed
 ; v1.0 (2026-09-24, Forte): the damage calc already failed this move on type -
 ; an immunity (WRAP vs a GHOST) or the "not even a scratch" collapse - and
-; ApplyTypeEffectivenessToDamage only writes the reason code. No accuracy
+; ApplyTypeEffectivenessToDamage only writes the reason code (v1.0 R9c: the
+; fixed-damage family skips the damage calc; FixedDamageImmunity runs the same
+; walk for it, so only an immunity sends it here). No accuracy
 ; roll, and the attacker's trapping move must not trap a target it cannot
 ; touch: TrappingEffect ran before we got here (SpecialEffectsCont) and set
 ; the bit, so take the trap-ending tail. The reason is left alone: it is

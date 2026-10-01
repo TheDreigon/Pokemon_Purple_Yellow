@@ -5,12 +5,13 @@
 ; builds. Both lookup loops now live in bank $30 alongside the data
 ; table itself; core.asm `farcall`s into them.
 ;
-; Both functions read TypeEffects (defined in data/types/type_matchups.asm,
-; INCLUDEd at the bottom of this file) and use only HRAM/WRAM and
-; home-bank routines (Multiply, Divide), so they run unchanged in any
-; bank.
+; The routines here read TypeEffects (defined in data/types/type_matchups.asm,
+; INCLUDEd at the bottom of this file), directly or through the two walks,
+; and use only HRAM/WRAM and home-bank routines (Multiply, Divide), so they
+; run unchanged in any bank.
 
-; Walk TypeEffects and apply every matching multiplier to wDamage,
+; Walk TypeEffects and apply every matching multiplier to wDamage (v1.0 R9c: also
+; for the fixed-damage family, through FixedDamageImmunity below),
 ; chained (so dual-typed defenders get 4x / 0.25x as expected). Sets
 ; wMoveMissed if a chained multiplier collapses damage to 0.
 ; In: d = defender type 1, e = defender type 2.
@@ -106,11 +107,46 @@ ApplyTypeEffectivenessToDamage::
 	inc hl
 	jp .loop
 
+; v1.0 (R9c, 2026-09-30; Forte, of the fixed-damage moves: "muda para eles também passarem a seguir
+; as regras de imunidade"):
+; SetDamageEffects' family - SEISMIC TOSS, SUPER FANG, PARASITE, NIGHT SHADE, DRAGON RAGE, SONICBOOM - deals
+; a set number, so the chart's multipliers never scale it; but a type immunity stops it, as from Gen 2 on
+; (with this chart: SEISMIC TOSS and SUPER FANG on a GHOST). PlayerCalcMoveDamage and EnemyCalcMoveDamage
+; call this on the family's branch, where the damage calculation is skipped, right before MoveHitTest. The
+; walk above runs on the move's type and the target's types and answers a NO_EFFECT row exactly as it does
+; for any move: the multiplier's low bits 0 and MOVE_FAILED_NO_SCRATCH - MoveHitTest takes its type exit
+; (no accuracy roll), PrintMoveFailureText says "It doesn't affect", no damage; the PP is already spent.
+; Any other chain is put back as the turn started it (EFFECTIVE, wMoveMissed 0): no "super effective"
+; line or hit sound for a set number. wDamage is scratch here (the walk scales whatever it holds;
+; ApplyAttackTo*Pokemon writes the family's number). In: hWhoseTurn. Clobbers af, bc, de, hl.
+FixedDamageImmunity::
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveType]
+	ld hl, wEnemyMonType
+	jr z, .gotSide
+	ld a, [wEnemyMoveType]
+	ld hl, wBattleMonType
+.gotSide
+	ld [wMoveType], a
+	ld a, [hli]
+	ld d, a ; d, e = the target's types, as AdjustDamageForMoveType hands them to the walk
+	ld e, [hl]
+	call ApplyTypeEffectivenessToDamage
+	ld hl, wDamageMultipliers
+	ld a, [hl]
+	and $7f
+	ret z ; a NO_EFFECT row: stopped, as any move the chart stops
+	ld [hl], EFFECTIVE ; it lands: a set number, nothing to say about how effective it was
+	xor a
+	ld [wMoveMissed], a ; the walk's "not even a scratch" read the scratch wDamage, not the number to come
+	ret
+
 
 ; function to tell how effective the type of an enemy attack is on the player's current pokemon
 ; the result is stored in [wTypeEffectiveness]
-; used by the AI's move-scoring layers (1, 3 and 5, through trainer_ai.asm's AIMoveEffectiveness and
-; AIDamageEffectiveness - v1.0 R9); AITypeMatchup below reuses its
+; used by the AI's move-scoring layers (1, 3 and 5, through trainer_ai.asm's AIMoveEffectiveness - v1.0
+; R9, R9c); AITypeMatchup below reuses its
 ; chain loop for any attacking type against any defender (the switch-in picker)
 ;
 ; v0.7 FIX: this used to RETURN at the first matching row, so a dual-typed

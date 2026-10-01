@@ -3839,7 +3839,7 @@ PlayerCalcMoveDamage:
 	ld hl, SetDamageEffects
 	ld de, 1
 	call IsInArray
-	jp c, .moveHitTest ; SetDamageEffects moves (e.g. Seismic Toss and Super Fang) skip damage calculation
+	jr c, .fixedDamage ; SetDamageEffects moves (e.g. Seismic Toss and Super Fang) skip damage calculation
 	call CriticalHitTest
 	call HandleCounterMove
 	jr z, handleIfPlayerMoveMissed
@@ -3849,6 +3849,9 @@ PlayerCalcMoveDamage:
 	               ; for these moves, accuracy tests will only occur if they are called as part of the effect itself
 	farcall AdjustDamageForMoveType ; v1.0: in bank $10 since 2026-09-24
 	call RandomizeDamage
+	jr .moveHitTest
+.fixedDamage ; v1.0 (R9c): a set number skips the chart's multipliers, not its immunities
+	farcall FixedDamageImmunity ; a NO_EFFECT row: "It doesn't affect", as for any move (type_effectiveness.asm)
 .moveHitTest
 	farcall MoveHitTest
 handleIfPlayerMoveMissed:
@@ -5992,7 +5995,7 @@ EnemyCalcMoveDamage:
 	ld hl, SetDamageEffects
 	ld de, $1
 	call IsInArray
-	jp c, EnemyMoveHitTest
+	jr c, .fixedDamage ; SetDamageEffects moves skip damage calculation (v1.0 R9c: not the chart's immunities)
 	call CriticalHitTest
 	call HandleCounterMove
 	jr z, handleIfEnemyMoveMissed
@@ -6003,6 +6006,9 @@ EnemyCalcMoveDamage:
 	jp z, EnemyCheckIfFlyOrChargeEffect
 	farcall AdjustDamageForMoveType ; v1.0: in bank $10 since 2026-09-24
 	call RandomizeDamage
+	jr EnemyMoveHitTest
+.fixedDamage ; v1.0 (R9c): see PlayerCalcMoveDamage
+	farcall FixedDamageImmunity
 
 EnemyMoveHitTest:
 	farcall MoveHitTest
