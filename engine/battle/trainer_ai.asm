@@ -170,6 +170,14 @@ AIGetMoveChoiceList:
 ; only DISCOURAGED there with the player SEEDED (its drain, when the player moves first, heals the
 ; enemy before this move); DISCOURAGED with its doll already up (a hit taken first may break it,
 ; as RECOVER at full HP).
+; v1.0 (R9, 2026-09-30; Forte, of "a AI não sabe que um golpe de dano contra uma imunidade de tipo não faz
+; nada": "tem que ser corrigido."): and a DAMAGING move the type chart stops - "It doesn't affect", a
+; NO_EFFECT row in ApplyTypeEffectivenessToDamage (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on
+; FLYING and GAS, FIRE on MAGMA, POISON on STEEL, PSYCHIC on DARK; one such type of two is enough) - is USELESS
+; (.useless, the E4 tier of a status move on an immune type). AIDamageEffectiveness asks the walk the damage
+; takes (AIGetTypeEffectiveness, the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands) and leaves
+; out SetDamageEffects' family, which never meets the walk (SEISMIC TOSS and SUPER FANG hit a GHOST). The
+; player's types are on screen; only its switch or a TRANSFORM, both deliberate acts, change them first (E4).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -190,7 +198,12 @@ AIMoveChoiceModification1:
 	jp z, .checkSubstitute
 	ld a, [wEnemyMovePower]
 	and a
-	jr nz, .nextMove
+	jr z, .statusMove ; v1.0 (R9): a damaging move meets the type chart here, a power-0 one the rules below
+	call AIDamageEffectiveness ; a = the multiplier its damage would take on the player's types (keeps bc, de, hl)
+	and a
+	jr nz, .nextMove ; it lands (0.25x to 4x)
+	jr .useless ; "It doesn't affect": only the player's switch or TRANSFORM, first, would change its types
+.statusMove
 	ld a, [wEnemyMoveEffect]
 	cp DISABLE_EFFECT
 	jr z, .checkDisabled
@@ -253,7 +266,8 @@ AIMoveChoiceModification1:
 ; it while another move can act, never keeps an unusable move over it (that would STRUGGLE with
 ; a move it may use), and with only such moves left it uses one, as the player would have to.
 ; Layer 6 counts it as discouraged (11 or more). Whatever the other layers add or take (-10..+20;
-; DREAM EATER, a damaging move, meets layers 3 and 5 too), the three tiers never meet.
+; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets layers 2 (its first turn), 3 and 5 too), the three
+; tiers never meet.
 DEF AI_SCORE_USELESS EQU $30
 ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
@@ -787,7 +801,7 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .nextMove ; ignores moves that do no damage (status moves), as we're only concerned with damaging moves for this modifier
-	call AIMoveEffectiveness ; v1.0 (R9): the walk, shared with layer 5 (the flags of cp EFFECTIVE)
+	call AIMoveEffectiveness ; v1.0 (R9): the walk, shared with layers 1 and 5 (the flags of cp EFFECTIVE)
 	jr z, .checkSpecificEffects
 	jr c, .notEffectiveMove
 	dec [hl] ; slightly encourage this super effective move
@@ -1515,7 +1529,7 @@ AIScoreSwitchCandidate:
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, [hli] ; its effect
-	call AIFixedDamage ; (v1.0 R9: the test layer 3's loop shares; keeps hl)
+	call AIFixedDamage ; (v1.0 R9: the one test layers 1 and 3 share; keeps hl)
 	jr c, .nextMove ; the fixed-damage family: the type chart does not scale it
 	ld a, [hli] ; its power
 	and a
@@ -1659,7 +1673,7 @@ AISeedMoveScores:
 ; v1.0 (R9, 2026-09-30): carry when a (a move effect) is one of SetDamageEffects' family
 ; (data/battle/set_damage_effects.asm): SUPER FANG and PARASITE, SEISMIC TOSS, NIGHT SHADE, DRAGON RAGE and
 ; SONICBOOM. EnemyCalcMoveDamage sends them past the damage calculation and the type walk, so the chart neither
-; scales nor stops them. Layer 3 and the switch-in picker ask it. Clobbers a; keeps bc, de, hl.
+; scales nor stops them. Layers 1 and 3 and the switch-in picker ask it. Clobbers a; keeps bc, de, hl.
 AIFixedDamage:
 	cp SUPER_FANG_EFFECT
 	scf
@@ -1671,9 +1685,17 @@ ASSERT USER_LEVEL_DAMAGE_EFFECT == TARGET_LEVEL_DAMAGE_EFFECT + 1 && SET_DAMAGE_
 	"AIFixedDamage reads TARGET_LEVEL_DAMAGE .. SET_DAMAGE as one run"
 
 ; v1.0 (R9, 2026-09-30): the type walk for the move ReadMove read, against the player's types as they are on
-; screen - layers 3 and 5 ask it: AIGetTypeEffectiveness, bank $30, the damage walk's own TypeRowMultiplier
-; with e = the move (MIND BREAK on DARK: NOT_VERY_EFFECTIVE). Out: a (EFFECTIVE neutral), the flags of
-; `cp EFFECTIVE`. Keeps bc, de, hl (the farcall trashes them).
+; screen. AIMoveEffectiveness (layers 3 and 5): the chart alone - AIGetTypeEffectiveness, bank $30, the damage
+; walk's own TypeRowMultiplier with e = the move (MIND BREAK on DARK: NOT_VERY_EFFECTIVE). AIDamageEffectiveness
+; (layer 1): what the damage would take - EFFECTIVE for SetDamageEffects' family, which skips the walk, else the
+; chart; 0 = a NO_EFFECT row, "It doesn't affect" (ApplyTypeEffectivenessToDamage zeroes the damage,
+; PrintMoveFailureText reads the multiplier). Out: a (EFFECTIVE neutral), the flags of `cp EFFECTIVE`. Keeps bc,
+; de, hl (the farcall trashes them).
+AIDamageEffectiveness:
+	ld a, [wEnemyMoveEffect]
+	call AIFixedDamage
+	ld a, EFFECTIVE
+	jr c, AIMoveEffectiveness.done
 AIMoveEffectiveness:
 	push hl
 	push bc

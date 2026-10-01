@@ -109,7 +109,8 @@ ApplyTypeEffectivenessToDamage::
 
 ; function to tell how effective the type of an enemy attack is on the player's current pokemon
 ; the result is stored in [wTypeEffectiveness]
-; used by the AI's move-scoring layers (3 and 5); AITypeMatchup below reuses its
+; used by the AI's move-scoring layers (1, 3 and 5, through trainer_ai.asm's AIMoveEffectiveness and
+; AIDamageEffectiveness - v1.0 R9); AITypeMatchup below reuses its
 ; chain loop for any attacking type against any defender (the switch-in picker)
 ;
 ; v0.7 FIX: this used to RETURN at the first matching row, so a dual-typed
@@ -131,7 +132,7 @@ AIGetTypeEffectiveness::
 	ld a, [wEnemyMoveType]
 	ld d, a                    ; d = type of enemy move
 	ld a, [wEnemyMoveNum]
-	ld e, a                    ; v1.0 (F4): e = the enemy's move (layers 3 and 5 ReadMove it first)
+	ld e, a                    ; v1.0 (F4): e = the enemy's move (layers 1, 3 and 5 ReadMove it first)
 	ld hl, wBattleMonType
 	ld b, [hl]                 ; b = type 1 of player's pokemon
 	inc hl
