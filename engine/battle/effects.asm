@@ -636,7 +636,8 @@ DefrostTargetIfFireOrMagma::
 ; defrosted (EMBER, FLAMETHROWER, FIRE_BLAST, MAGMA_PUNCH, LAVA_PLUME) while
 ; FLAME_CHARGE, FLAME_BURST and EXPLOSION left the target frozen -- a rule with
 ; four exceptions nobody could reasonably learn. Called from the post-hit path in
-; core.asm for both sides.
+; core.asm for both sides. The trainer AI weighs it (v1.0 R10d): its layer 5 ranks a
+; FIRE or MAGMA hit into a frozen player +5 (an EXPLOSION below half HP keeps its HP rule).
 ;
 ; CheckDefrost is safe to call blind: it returns immediately unless the defender
 ; is frozen AND the move's type is FIRE or MAGMA. It just wants the defender's

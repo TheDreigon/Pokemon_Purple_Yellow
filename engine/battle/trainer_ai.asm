@@ -1077,12 +1077,26 @@ Modifier4PreferredMoves:
 ;    air or underground here, never-miss moves included);
 ;  - a priority move when the enemy is slower, the player is not asleep or
 ;    frozen (the status a trainer sees; 2026-09-27: not the hidden turns left)
-;    and the move at least neutral: -1 (it goes first).
+;    and the move at least neutral: -1 (it goes first);
+;  - (v1.0 R10d) a FIRE or MAGMA hit into a FROZEN player: +5, and no priority rule after it
+;    (an EXPLOSION below half HP keeps its -1..-3 instead).
 ; v1.0 (R9e, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"): none
 ; of the damaging rules for a move the player's types stop (AIMoveEffectiveness 0 - layer 1 made
 ; it USELESS): its damage is 0, so there is no STAB to weigh, no first strike to buy and no reason
 ; to explode - a stopped EXPLOSION (FIRE here: MAGMA stops it) was the favourite of the useless
 ; tier at low HP, the user fainting for nothing.
+; v1.0 (R10d, 2026-10-01; Forte: "aprovo tambem o seguinte progresso, da ronda 10, seguindo as tuas
+; melhores recomendações"): a damaging FIRE or MAGMA move that leaves a FROZEN player standing thaws it
+; (DefrostTargetIfFireOrMagma, both sides) and hands it back the frozen turns it had left (3-6 drawn at
+; the freeze, one spent each time it would move: 2 to 5 lost turns in all; the count is hidden, FRZ is on
+; screen). The hit still deals its damage, so this is a tactic, not a failure: +5, the weight layer 1
+; gives a move the turn may still let act. Another type's hit that lands, NIGHT SHADE or a stat move then
+; goes first (short of its own anti-repeat weight from a fifth use in a row), and the FIRE hit still beats
+; a USELESS or unusable move - the "only move that lands" case needs no rule of its own. EXPLOSION (FIRE
+; here) meets its HP ladder first: below half HP it keeps its -1..-3 and gets no +5 - the trainer never
+; sees the turns left, the player acts on its thaw turn whoever is faster (CheckPlayerStatusConditions
+; .playerFreezeCounterUnderflow), and a target the blast knocks out is never thawed
+; (DefrostTargetIfFireOrMagma runs on a target left standing).
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -1134,10 +1148,10 @@ AIMoveChoiceModification5:
 ; EXPLOSION by HP
 	ld a, [wEnemyMoveEffect]
 	cp EXPLODE_EFFECT
-	jr nz, .notExplosion
+	jr nz, .thawTest
 	ld a, 2
 	call AICheckIfHPBelowFractionWrapped
-	jr nc, .notExplosion
+	jr nc, .thawTest ; v1.0 (R10d): half HP or more - the ladder adds nothing; the thaw test, as for any FIRE hit
 	dec [hl]
 	ld a, 4
 	call AICheckIfHPBelowFractionWrapped
@@ -1147,6 +1161,16 @@ AIMoveChoiceModification5:
 	call AICheckIfHPBelowFractionWrapped
 	jr nc, .notExplosion
 	dec [hl]
+	jr .notExplosion ; v1.0 (R10d): below half HP the ladder decides, a frozen player or not (no +5)
+.thawTest ; v1.0 (R10d): a FIRE or MAGMA hit thaws a frozen player (c = the move's type, from STAB, kept by the calls)
+	ld a, [wBattleMonStatus]
+	bit FRZ, a
+	jr z, .notExplosion
+	ld a, c
+	cp FIRE
+	jr z, .discourage ; +5, and no priority rule after it: neither applies to a frozen player
+	cp MAGMA
+	jr z, .discourage
 .notExplosion
 	ld a, [wPlayerBattleStatus1]
 	bit INVULNERABLE, a ; the player is up in the air / underground
@@ -1154,7 +1178,8 @@ AIMoveChoiceModification5:
 	call AIGetMovePriorityWrapped
 	cp 8
 	jp c, .nextMove
-	ld a, [hl] ; a priority move now goes first and hits nothing
+.discourage ; +5: a priority move now goes first and hits nothing; (R10d) a FIRE or MAGMA hit thaws a frozen player
+	ld a, [hl]
 	add 5
 	ld [hl], a
 	jp .nextMove
