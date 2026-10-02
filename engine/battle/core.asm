@@ -419,7 +419,7 @@ MainInBattleLoop:
 	; c = player priority, e = enemy priority
 	ld a, c
 	cp e
-	jr z, .compareSpeed ; if both used Counter
+	jr z, .compareSpeed ; the same priority: the speeds decide
 	jr c, .enemyMovesFirst
 	jr .playerMovesFirst
 .compareSpeed
@@ -3841,8 +3841,6 @@ PlayerCalcMoveDamage:
 	call IsInArray
 	jr c, .fixedDamage ; SetDamageEffects moves (e.g. Seismic Toss and Super Fang) skip damage calculation
 	call CriticalHitTest
-	call HandleCounterMove
-	jr z, handleIfPlayerMoveMissed
 	call GetDamageVarsForPlayerAttack
 	call CalculateDamage
 	jp z, playerCheckIfFlyOrChargeEffect ; for moves with 0 BP, skip any further damage calculation and, for now, skip MoveHitTest
@@ -5436,15 +5434,12 @@ CriticalHitTest:
 
 INCLUDE "data/battle/critical_hit_moves.asm"
 
-; v0.7 cleanup: Counter was removed in the v0.5 movelist overhaul, so the
-; vanilla handler body (~70 bytes, unreachable behind an always-taken guard)
-; was deleted to free bank $0F space. Caller contract (see the two
-; `call HandleCounterMove / jr z, handleIf*MoveMissed` sites): Z=1 means
-; "Counter was used and missed — skip straight to the move-missed handler";
-; NZ means proceed with the normal damage pipeline. Always NZ now.
-HandleCounterMove:
-	or 1
-	ret
+; v1.0 (R10e, 2026-10-01; Forte, of dead code: "se o código for mesmo código morto, podes limpá-lo,
+; sim"): HandleCounterMove is gone. COUNTER left the move list in v0.5 and v0.7 cut the handler to
+; `or 1 / ret` (always NZ), so the `call HandleCounterMove / jr z, handleIf..MoveMissed` pair of
+; PlayerCalcMoveDamage and EnemyCalcMoveDamage never jumped, and nothing read the a and flags it left
+; (GetDamageVarsForPlayerAttack opens with `xor a`; SwapPlayerAndEnemyLevels loads a and passes the
+; flags to GetDamageVarsForEnemyAttack's `xor a`). 13 bytes of Battle Core.
 
 ApplyAttackToEnemyPokemon:
 	ld a, [wPlayerMoveEffect]
@@ -5997,8 +5992,6 @@ EnemyCalcMoveDamage:
 	call IsInArray
 	jr c, .fixedDamage ; SetDamageEffects moves skip damage calculation (v1.0 R9c: not the chart's immunities)
 	call CriticalHitTest
-	call HandleCounterMove
-	jr z, handleIfEnemyMoveMissed
 	call SwapPlayerAndEnemyLevels
 	call GetDamageVarsForEnemyAttack
 	call SwapPlayerAndEnemyLevels
