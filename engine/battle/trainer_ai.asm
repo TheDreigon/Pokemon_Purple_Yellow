@@ -1079,7 +1079,8 @@ Modifier4PreferredMoves:
 ;    frozen (the status a trainer sees; 2026-09-27: not the hidden turns left)
 ;    and the move at least neutral: -1 (it goes first);
 ;  - (v1.0 R10d) a FIRE or MAGMA hit into a FROZEN player: +5, and no priority rule after it
-;    (an EXPLOSION below half HP keeps its -1..-3 instead).
+;    (an EXPLOSION below half HP keeps its -1..-3 instead; v1.0 R11: none with the player's HP bar
+;    RED and the hit not resisted - an EXPLOSION at half HP or more keeps its +5).
 ; v1.0 (R9e, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"): none
 ; of the damaging rules for a move the player's types stop (AIMoveEffectiveness 0 - layer 1 made
 ; it USELESS): its damage is 0, so there is no STAB to weigh, no first strike to buy and no reason
@@ -1103,6 +1104,13 @@ Modifier4PreferredMoves:
 ; STAB -1 it took made it beat a neutral hit (or tie the mon's real STAB hits) for damage it never
 ; deals. None of them is EXPLOSION, FIRE, MAGMA or a priority move: the STAB was the one rule
 ; that reached them. moves.asm's `move` asserts that power 1 is that family and only it.
+; v1.0 (R11, 2026-10-02): R10d's rule, read off the screen:
+; with the player's HP bar RED (wPlayerHPBarColor, the colour the HUD shows: under 10 of its 48 pixels,
+; about a fifth) a FIRE or MAGMA hit the chart does not resist most likely knocks the frozen Pokemon
+; out, and a Pokemon knocked out is never thawed - so R10d's +5 is not added and the hit ranks as any
+; other. A resisted one keeps the +5 (it is the hit that most often leaves the player standing), and so
+; does an EXPLOSION at half HP or more: the user would faint to finish a Pokemon in the red. The bar is
+; public; the trainer never reads the HP numbers, the player's stats or the hidden freeze count.
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -1154,7 +1162,7 @@ AIMoveChoiceModification5:
 ; EXPLOSION by HP
 	ld a, [wEnemyMoveEffect]
 	cp EXPLODE_EFFECT
-	jr nz, .thawTest
+	jr nz, .thawGate ; v1.0 (R11): every other damaging move meets the bar first
 	ld a, 2
 	call AICheckIfHPBelowFractionWrapped
 	jr nc, .thawTest ; v1.0 (R10d): half HP or more - the ladder adds nothing; the thaw test, as for any FIRE hit
@@ -1168,6 +1176,13 @@ AIMoveChoiceModification5:
 	jr nc, .notExplosion
 	dec [hl]
 	jr .notExplosion ; v1.0 (R10d): below half HP the ladder decides, a frozen player or not (no +5)
+.thawGate ; v1.0 (R11): the player's HP bar RED and the hit not resisted - it most likely knocks out: no +5
+	ld a, [wPlayerHPBarColor] ; the HUD's colour, current at every choice: MainInBattleLoop redraws both
+	                          ; HUDs after each turn's residuals, and a faint draws the mon that stands
+	cp HP_BAR_RED
+	jr nz, .thawTest
+	call AIMoveEffectiveness ; keeps bc (c = the type), de, hl; carry: resisted (EFFECTIVE neutral)
+	jr nc, .notExplosion ; neutral or better: the priority rules after it skip a frozen player anyway
 .thawTest ; v1.0 (R10d): a FIRE or MAGMA hit thaws a frozen player (c = the move's type, from STAB, kept by the calls)
 	ld a, [wBattleMonStatus]
 	bit FRZ, a
