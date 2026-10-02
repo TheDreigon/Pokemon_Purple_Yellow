@@ -6,6 +6,12 @@ MACRO move
 	db \5 percent ; accuracy
 	db \6 ; pp
 	assert \6 <= 40, "PP must be 40 or less"
+	; v1.0 (R11, 2026-10-02): power 1 is SetDamageEffects' family and only it (the tactical layer,
+	; AIMoveChoiceModification5, reads power 0 and 1 as "no damage rule": a set number takes no STAB)
+	assert \3 != 1 || \2 == SUPER_FANG_EFFECT || (\2 >= TARGET_LEVEL_DAMAGE_EFFECT && \2 <= SET_DAMAGE_EFFECT), \
+		"a power-1 move must be one of SetDamageEffects' family"
+	assert \3 <= 1 || !(\2 == SUPER_FANG_EFFECT || (\2 >= TARGET_LEVEL_DAMAGE_EFFECT && \2 <= SET_DAMAGE_EFFECT)), \
+		"a move of SetDamageEffects' family must be power 0 or 1"
 ENDM
 
 Moves: ; Current total = 220

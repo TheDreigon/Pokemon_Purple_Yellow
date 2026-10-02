@@ -1069,7 +1069,7 @@ Modifier4PreferredMoves:
 ; :1858, :1122). For every move of the set:
 ;  - the move the enemy keeps repeating (wEnemyUsedMove, wAIRepeatCount from
 ;    MonName1Text): +1 on the fourth use in a row, +2, +3, +4 saturated;
-; and for the damaging ones only:
+; and for the damaging ones only (v1.0 R11: not SetDamageEffects' family, a set number):
 ;  - STAB (the move's type is one of the mon's): -1;
 ;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3;
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
@@ -1097,6 +1097,12 @@ Modifier4PreferredMoves:
 ; sees the turns left, the player acts on its thaw turn whoever is faster (CheckPlayerStatusConditions
 ; .playerFreezeCounterUnderflow), and a target the blast knocks out is never thawed
 ; (DefrostTargetIfFireOrMagma runs on a target left standing).
+; v1.0 (R11, 2026-10-02): none of these rules for SetDamageEffects' family - SEISMIC TOSS,
+; SUPER FANG, PARASITE, DRAGON RAGE, SONICBOOM (power 1; NIGHT SHADE, power 0, never met them):
+; its set number never goes through AdjustDamageForMoveType, so its type adds no STAB, and the
+; STAB -1 it took made it beat a neutral hit (or tie the mon's real STAB hits) for damage it never
+; deals. None of them is EXPLOSION, FIRE, MAGMA or a priority move: the STAB was the one rule
+; that reached them. moves.asm's `move` asserts that power 1 is that family and only it.
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -1128,8 +1134,8 @@ AIMoveChoiceModification5:
 	ld [hl], a
 .notARepeat
 	ld a, [wEnemyMovePower]
-	and a
-	jr z, .nextMove ; the rest is for damaging moves only (v1.0 R9e: a jr reaches)
+	cp 2 ; v1.0 (R11): power 1 is SetDamageEffects' family (asserted in moves.asm) - a set number, no STAB
+	jr c, .nextMove ; the rest is for damaging moves only, not a set number (v1.0 R9e: a jr reaches)
 	call AIMoveEffectiveness ; v1.0 (R9e): the multiplier its damage would take, 0 = stopped (keeps bc, de, hl)
 	and a
 	jr z, .nextMove ; "It doesn't affect": no damage to weigh - no STAB, no EXPLOSION by HP, no priority
