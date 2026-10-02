@@ -193,6 +193,10 @@ AIGetMoveChoiceList:
 ; that holds for SetDamageEffects' family too: its set number is never scaled, but FixedDamageImmunity stops
 ; it on a NO_EFFECT row (SEISMIC TOSS and SUPER FANG do not affect a GHOST). The
 ; player's types are on screen; only its switch or a TRANSFORM, both deliberate acts, change them first (E4).
+; v1.0 (R10c, 2026-10-01; Forte: "aprovo tambem o seguinte progresso, da ronda 10, seguindo as tuas melhores
+; recomendações"): and of those stopped moves, the two that also hurt their user - THRASH (locked in for 2-3 more
+; turns of "It doesn't affect", then confused) and EXPLOSION (the user faints, hit or miss) - rank after every other
+; useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -289,6 +293,16 @@ AIMoveChoiceModification1:
 DEF AI_SCORE_USELESS EQU $30
 ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
+; v1.0 (R10c): a stopped move that hurts its user gets AI_SCORE_HURTS_USER more (.uselessScore) - above every
+; other useless move, even the one layer 5's anti-repeat has lifted by its +4 at most (a status move meets layers 2
+; and 4 too, which only take off). A stopped damaging move meets no rule but layer 3's +1 (R9e: no STAB,
+; EXPLOSION-by-HP or priority rule; R9f: no layer 2; layer 4 weighs power-0 moves and DREAM EATER) and that repeat
+; rule, so it stays below the unusable tier. The other useless damaging moves (DREAM EATER into a Pokemon awake,
+; a DRAIN move into a SUBSTITUTE) are not stopped and meet layer 5's +5 rules too: none of them is FIRE, MAGMA or
+; a priority move today, or one could rank with these (emu_test_ai_useless_moves pins it).
+DEF AI_SCORE_HURTS_USER EQU 5
+ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4 < $50 - 10, \
+	"a useless move that hurts its user must rank above a repeated useless one (+4) and below every unusable one"
 .checkFocusEnergy ; v1.0 (F2): pumped, FOCUS ENERGY still raises ACCURACY (FocusEnergyEffect_), so it is
 ; wasted only when ACCURACY is at +6 too: AIRaiseEffectStats' FOCUS ENERGY row, asked below. Not pumped,
 ; the pump itself is never wasted.
@@ -395,8 +409,24 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	cp MIRROR_MOVE
 	jr z, .copyDiscourage ; MIRROR MOVE's copy would surely fail: +5, USELESS while the player recharges
 .uselessScore
-	ld a, [hl]
-	add AI_SCORE_USELESS - $a
+; v1.0 (R10c, 2026-10-01): the USELESS score, and AI_SCORE_HURTS_USER more when the move judged also hurts its
+; user - the slot's own move, or MIRROR MOVE's copy while the player recharges (no copy reaches that today,
+; R10a). Both such effects are damaging, so the chart's stop is their one way here: THRASH_PETAL_DANCE_EFFECT
+; (ThrashPetalDanceEffect locks the user in before the damage, SpecialEffectsCont: 2-3 more turns of "It doesn't
+; affect", then CONFUSED for 2-5) and EXPLODE_EFFECT (the miss path still runs ExplodeEffect: the user faints). No
+; other stopped move costs its user: a trapping move's trap ends at MoveHitTest's type exit, recoil and HYPER BEAM's
+; recharge follow a hit only, DIG's charge turn is spent underground, and HI JUMP KICK's crash is 1 HP (wDamage is
+; 0). Of these moves only THRASH (NORMAL: a GHOST) and EXPLOSION (FIRE: a MAGMA) can be stopped today.
+	ld a, [wEnemyMoveEffect] ; the move judged (ReadMove's: the slot's own, or the copy from .readAndJudge)
+	cp THRASH_PETAL_DANCE_EFFECT
+	jr z, .hurtsUser
+	cp EXPLODE_EFFECT
+	ld a, AI_SCORE_USELESS - $a ; (ld keeps the flags of the cp)
+	jr nz, .addUselessScore
+.hurtsUser
+	ld a, AI_SCORE_USELESS - $a + AI_SCORE_HURTS_USER
+.addUselessScore
+	add [hl]
 	ld [hl], a
 	jp .nextMove
 .checkFullHealth ; avoid using moves like recover at full health.
