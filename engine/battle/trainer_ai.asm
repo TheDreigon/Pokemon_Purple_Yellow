@@ -161,6 +161,11 @@ AIGetMoveChoiceList:
 ; confusion move, RECOVER / SOFTBOILED / REST at full HP, MIRROR MOVE with nothing to copy, and the
 ; trainer's own SUBSTITUTE with its doll up. A status move on a statused Pokemon that must recharge
 ; stays +5 (SleepEffect lands), and so does the too-weak SUBSTITUTE with the player SEEDED.
+; v1.0 (R10a, 2026-10-01; Forte: "aprovo tambem o seguinte progresso, da ronda 10, seguindo as tuas
+; melhores recomendações"): MIRROR MOVE ranks as the move it would copy (the player's
+; last, on screen) - these rules run on that copy, as the trainer's own move - but a copy they find USELESS
+; makes it only +5: the player's move, if it goes first, replaces the copy. USELESS while the player
+; recharges (.uselessUnlessCopy) - reachable only through a recharge move a type stops: none today.
 ; v1.0 (E2, 2026-09-29; Forte: "sigo a tua melhor recomendacao"): and the mirror of D15 for the
 ; moves that lower the player's stats - useless behind the player's SUBSTITUTE or MIST, or when
 ; every stat it lowers is already at -6 (not a move whose flinch still rolls there: INTIMIDATE,
@@ -200,6 +205,7 @@ AIMoveChoiceModification1:
 	and a
 	ret z ; no more moves in move set
 	inc de
+.readAndJudge ; v1.0 (R10a): MIRROR MOVE's copy comes in here too, a = its id (.checkNoMirrorMoveOnFirstTurn)
 	call ReadMove
 	ld a, [wEnemyMoveEffect]
 	cp DREAM_EATER_EFFECT
@@ -267,12 +273,12 @@ AIMoveChoiceModification1:
 	ld a, [hl]
 	add $5 ; heavily discourage move
 	ld [hl], a
-	jr .toNextMove ; v1.0 (R8): forward, through .useless's jp - since .checkOwnSubstitute's dispatch a jr
+	jr .toNextMove ; v1.0 (R8): forward, through .toNextMove's jp - since .checkOwnSubstitute's dispatch a jr
 	; back to .nextMove would reach exactly -128, the limit (0 B, the same scores)
 ; v1.0 (D15, 2026-09-29; Forte: "o AI tem que ter inteligencia para saber que +6 e 999 sao os
 ; limites"): a stat-up move that would raise nothing - every stat it raises already at +6, or
 ; at 999 (AIEnemyRaiseRefused) - is useless; v1.0 (E4): so is every move the rules above and
-; below find the engine would surely refuse. .useless scores it AI_SCORE_USELESS: above every
+; below find the engine would surely refuse. .uselessScore scores it AI_SCORE_USELESS: above every
 ; move the enemy can use to some effect, below every move it cannot use at all
 ; (AISeedMoveScores' $50: the disabled one, one with no PP left). The chooser then never keeps
 ; it while another move can act, never keeps an unusable move over it (that would STRUGGLE with
@@ -295,9 +301,8 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	call nc, AIPlayerLowerRefused ; v1.0 (E2): carry: nothing it lowers would fall
 	jp nc, .nextMove
 .useless
-	ld a, [hl]
-	add AI_SCORE_USELESS - $a
-	ld [hl], a
+	jp .uselessUnlessCopy ; v1.0 (R10a): the score is written there, after MIRROR MOVE's test - this 3-byte
+	; jp, in place of the 4-byte score, keeps the tightest span of the bank (the dispatch's jr's) from growing
 .toNextMove ; v1.0 (R8): .discourage's way back too
 	jp .nextMove
 .checkDisabled
@@ -309,7 +314,8 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	ld a, [wPlayerBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
 	jr z, .discourage
-	jr .useless
+	jr .uselessScore ; (R10a: past MIRROR MOVE's test, which sends a copy's USELESS verdict here - never
+	; .useless or .uselessUnlessCopy: MIRROR MOVE with nothing to copy would come back here without end)
 .checkOwnStatus3 ; v1.0 (E4): LIGHT SCREEN, REFLECT - c = the bit its handler tests
 	ld a, [wEnemyBattleStatus3]
 	jr .checkOwnBit
@@ -365,13 +371,33 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 .checkSeeded ; v1.0 (E4): LeechSeedEffect_'s two refusals, here (CheckSeeded went)
 	ld a, [wPlayerBattleStatus2]
 	bit SEEDED, a
-	jr nz, .useless ; already seeded
+	jr nz, .uselessUnlessCopy ; already seeded
 	ld a, [wBattleMonType1]
 	cp GRASS
-	jr z, .useless ; LEECH SEED does not affect a GRASS type
+	jr z, .uselessUnlessCopy ; LEECH SEED does not affect a GRASS type
 	ld a, [wBattleMonType2]
 	cp GRASS
-	jp z, .useless ; (R9i: a jr no longer reaches)
+	jp nz, .nextMove
+	; a GRASS type 2: falls into the USELESS verdict (R10a: .uselessUnlessCopy's test sits right below)
+.uselessUnlessCopy
+; v1.0 (R10a, 2026-10-01; Forte: "aprovo tambem o seguinte progresso, da ronda 10, seguindo as tuas
+; melhores recomendações"): every USELESS verdict ends here (.useless jumps here). When the
+; slot holds MIRROR MOVE, the verdict was on its copy (.checkNoMirrorMoveOnFirstTurn): the player's own move,
+; if it goes first, replaces that copy, so by E4 it is only +5 - USELESS while the player recharges
+; (.discourageUnlessRecharging: nothing of its runs first, R9i) - a case no copy reaches today: the one
+; recharge move, HYPER BEAM, is DRAGON (no type stops it), and while the player recharges the copy is that
+; HYPER BEAM or nothing (R9i's USELESS). MIRROR MOVE's own slot reaches this test only through a copy:
+; with nothing to copy it goes to .copyDiscourage, and .discourageUnlessRecharging gives its USELESS at
+; .uselessScore, past this test.
+	dec de
+	ld a, [de] ; the slot's own move (de is one past it; the rules keep de)
+	inc de
+	cp MIRROR_MOVE
+	jr z, .copyDiscourage ; MIRROR MOVE's copy would surely fail: +5, USELESS while the player recharges
+.uselessScore
+	ld a, [hl]
+	add AI_SCORE_USELESS - $a
+	ld [hl], a
 	jp .nextMove
 .checkFullHealth ; avoid using moves like recover at full health.
 	push hl
@@ -406,6 +432,7 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 .fullHealthDiscourage
 	pop de
 	pop hl
+.copyDiscourage ; v1.0 (R10a): MIRROR MOVE with nothing to copy, or with a copy that would surely fail
 	jp .discourageUnlessRecharging
 .notFullHealth
 	pop de
@@ -417,11 +444,19 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 ; to the stack; the check now reads what MIRROR MOVE itself copies (core.asm
 ; MirrorMoveCopyMove): wPlayerUsedMove, zeroed whenever a Pokemon is sent out and
 ; whenever the player sleeps or is frozen through a turn. Zero = the copy would
-; fail, so discourage; otherwise let the move compete like any other.
+; fail, so discourage.
+; v1.0 (R10a, 2026-10-01; Forte: "aprovo tambem o seguinte progresso, da ronda 10, seguindo as tuas
+; melhores recomendações"): otherwise MIRROR MOVE runs that move as the trainer's own
+; (MirrorMoveCopyMove -> ReloadMoveData, then the enemy's whole move path), so the rules above judge the copy
+; itself (.readAndJudge): it ranks as that move would - a copy they find USELESS only +5 (.uselessUnlessCopy),
+; since the player's move, if it goes first, gives it another. wPlayerUsedMove is what the screen last said
+; the player's Pokemon used.
 	ld a, [wPlayerUsedMove]
 	and a
-	jp z, .discourageUnlessRecharging ; the player has not used a move since the last switch-in
-	jp .nextMove
+	jr z, .copyDiscourage ; the player has not used a move since the last switch-in
+	cp MIRROR_MOVE
+	jr z, .copyDiscourage ; MirrorMoveCopyMove fails a copied MIRROR MOVE (and judging it would never end)
+	jp .readAndJudge ; a = the copy
 
 
 StatusAilmentMoveEffects:
@@ -1760,7 +1795,7 @@ AIStruggleSwitchDecision:
 ; would surely do nothing - a stat-up move that would raise nothing (D15), and since E4 every
 ; move its rules find the engine would refuse - to AI_SCORE_USELESS ($30, clear of the
 ; -10..+20 above): never kept while a move can act, never ranked below an unusable one
-; (AIMoveChoiceModification1.useless).
+; (AIMoveChoiceModification1.useless, scored at .uselessScore since R10a).
 AISeedMoveScores:
 	ld a, [wEnemyDisabledMove]
 	swap a
