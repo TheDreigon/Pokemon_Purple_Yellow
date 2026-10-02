@@ -642,6 +642,13 @@ DefrostTargetIfFireOrMagma::
 ; CheckDefrost is safe to call blind: it returns immediately unless the defender
 ; is frozen AND the move's type is FIRE or MAGMA. It just wants the defender's
 ; status in a.
+; v1.0 (R10d2, 2026-10-01; Forte: "corrige também os outros bugs que
+; encontrares/encontraste"): a MISS thaws nothing. EXPLOSION alone reaches here
+; after a miss (the post-hit path runs for it so the user still faints), with
+; wMoveMissed still set; a FIRE or MAGMA HIT thaws, as TRAINER MANUAL 4_3 says.
+	ld a, [wMoveMissed]
+	and a
+	ret nz
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wEnemyMonStatus] ; ld does not touch flags, so the jr below still
