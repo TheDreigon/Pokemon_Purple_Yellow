@@ -1070,7 +1070,7 @@ Modifier4PreferredMoves:
 ;  - the move the enemy keeps repeating (wEnemyUsedMove, wAIRepeatCount from
 ;    MonName1Text): +1 on the fourth use in a row, +2, +3, +4 saturated;
 ; and for the damaging ones only (v1.0 R11: not SetDamageEffects' family, a set number):
-;  - STAB (the move's type is one of the mon's): -1;
+;  - STAB (the move's type is one of the mon's) on a hit not resisted (v1.0 R11: 1x or more): -1;
 ;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3;
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
 ;    +5 - it would go first and hit nothing (nothing lands on a mon up in the
@@ -1119,6 +1119,11 @@ Modifier4PreferredMoves:
 ; ("The same priority" is the one fact off the screen it reads: a player's slot that prints no move - asleep,
 ; frozen, fully paralysed - still teaches when the unseen pick had the enemy's priority. The order learned is true.
 ; A turn in which either side stores BIDE energy teaches nothing: that side prints nothing at all.)
+; v1.0 (R11, 2026-10-02): no STAB for a hit the player's types resist (0.5x, 0.25x: AIMoveEffectiveness below
+; EFFECTIVE) - 1.5 x 0.5 deals less than a neutral hit of the same power, and the rule weighs the chart the trainer
+; sees, not the moves' power. Layer 3's +1 then holds it back as any resisted hit (when the mon has a usable damaging
+; move of another type, however resisted), and with none it ties the status moves instead of beating them: since R10b
+; no stopped teammate's +1 cancels the STAB any more (GLOOM's MEGA DRAIN into a MAGNETON, SLEEP POWDER left behind).
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -1152,12 +1157,14 @@ AIMoveChoiceModification5:
 	ld a, [wEnemyMovePower]
 	cp 2 ; v1.0 (R11): power 1 is SetDamageEffects' family (asserted in moves.asm) - a set number, no STAB
 	jr c, .nextMove ; the rest is for damaging moves only, not a set number (v1.0 R9e: a jr reaches)
+	ld a, [wEnemyMoveType]
+	ld c, a ; the move's type, for STAB and the thaw test (v1.0 R11: read first - AIMoveEffectiveness keeps bc)
 	call AIMoveEffectiveness ; v1.0 (R9e): the multiplier its damage would take, 0 = stopped (keeps bc, de, hl)
 	and a
 	jr z, .nextMove ; "It doesn't affect": no damage to weigh - no STAB, no EXPLOSION by HP, no priority
+	cp EFFECTIVE
+	jr c, .noStab ; v1.0 (R11): resisted (0.5x, 0.25x): no STAB - 1.5 x 0.5 < a neutral hit of the same power
 ; STAB
-	ld a, [wEnemyMoveType]
-	ld c, a
 	ld a, [wEnemyMonType1]
 	cp c
 	jr z, .stab
@@ -1191,7 +1198,7 @@ AIMoveChoiceModification5:
 	jr nz, .thawTest
 	call AIMoveEffectiveness ; keeps bc (c = the type), de, hl; carry: resisted (EFFECTIVE neutral)
 	jr nc, .notExplosion ; neutral or better: the priority rules after it skip a frozen player anyway
-.thawTest ; v1.0 (R10d): a FIRE or MAGMA hit thaws a frozen player (c = the move's type, from STAB, kept by the calls)
+.thawTest ; v1.0 (R10d): a FIRE or MAGMA hit thaws a frozen player (c = the move's type, kept by the calls)
 	ld a, [wBattleMonStatus]
 	bit FRZ, a
 	jr z, .notExplosion
