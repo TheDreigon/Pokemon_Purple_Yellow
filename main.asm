@@ -165,7 +165,6 @@ INCLUDE "data/trainers/boss_item_bags.asm"
 SECTION "Battle Engine 6", ROMX
 
 INCLUDE "data/moves/moves.asm"
-INCLUDE "data/pokemon/cries.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
 ; v0.7: moved out of Battle Core. The tier lists and their helpers are cold
 ; code that was squatting in the fullest bank in the ROM, and the semi-boss
@@ -203,6 +202,7 @@ INCLUDE "engine/battle/damage_type.asm"
 INCLUDE "engine/battle/toxic_carry.asm" ; (v1.0 2026-09-27) lands in Battle Core Overflow too
 INCLUDE "engine/battle/grand_victory.asm" ; (v1.0 R9s, 2026-09-30) out of Battle Engine 6: lands here too
 INCLUDE "engine/battle/misc.asm" ; (v1.0 R9t, 2026-09-30) out of Battle Engine 6 too: every caller a callfar
+INCLUDE "data/pokemon/cries.asm" ; (v1.0 R11, 2026-10-02) out of it too: read only through BANK(CryData)
 
 
 ; v0.7: the move effects left Battle Core, which had reached its 16 KB
