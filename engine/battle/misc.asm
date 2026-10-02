@@ -103,3 +103,77 @@ InitList::
 	ld a, b
 	ld [wItemPrices + 1], a
 	ret
+
+; v1.0 (R11, 2026-10-02): the speeds as the screen shows them, for the turn order the trainer AI has seen
+; (wAITurnOrder, MainInBattleLoop): it forgets "the player first" when the screen shows a change that could undo it -
+; the player's SPEED stage down or its PAR on, the enemy's SPEED stage up or its PAR gone - and never reads a speed.
+AISpeedsDecideTheTurn::
+; MainInBattleLoop's .compareSpeed: the speeds decide this turn's order. Unless the player's item, switch or failed
+; run took its turn, or a side stores BIDE energy (it prints nothing that turn), the screen will show that order: it
+; is pending, and the speeds as the screen shows them are kept with it (rewritten at every pending turn).
+	ld a, [wActionResultOrTookBattleTurn]
+	and a
+	ret nz
+	ld a, [wPlayerBattleStatus1]
+	ld b, a
+	ld a, [wEnemyBattleStatus1]
+	or b
+	and 1 << STORING_ENERGY ; a side storing BIDE energy prints nothing that turn: no order on screen either
+	ret nz
+	call AISpeedContext
+	ld [wAISpeedContext], a
+	ld hl, wAITurnOrder
+	set AI_ORDER_PENDING, [hl]
+	ret
+
+AIForgetStaleTurnOrder::
+; the top of every turn, before the enemy chooses: no order is pending yet. The order seen is forgotten when the
+; player's side now reads lower, or the enemy's higher, than in the context kept with it; a change the other way (the
+; player's AGILITY, a SPEED drop or a PAR on the enemy) keeps it. This routine never rewrites the context: only
+; AISpeedsDecideTheTurn does, at every pending turn - an item turn's too, where the order stays unseen; that context
+; passed this check, so it is at least as good for "the player first", and a forget can only come sooner.
+	ld hl, wAITurnOrder
+	res AI_ORDER_PENDING, [hl]
+	call AISpeedContext
+	ld b, a ; now
+	ld a, [wAISpeedContext]
+	ld c, a ; seen
+	ld a, b
+	or $0f
+	cp c ; carry: the player's nybble now is below the one seen (the low nybbles cannot decide it)
+	jr c, .forget
+	ld a, b
+	swap a
+	ld b, a ; now, the enemy's nybble high
+	ld a, c
+	swap a
+	or $0f
+	cp b ; carry: the enemy's nybble seen is below the one now
+	ret nc
+.forget
+	ld [hl], 0
+	ret
+
+AISpeedContext:
+; a = each side's SPEED stage + 2, two less when PAR (it halves the speed, as stage 5 does): 1-15, the player's in
+; the high nybble, the enemy's in the low one. Clobbers b, c.
+	ld a, [wBattleMonStatus]
+	ld b, a
+	ld a, [wPlayerMonSpeedMod]
+	call .fold
+	swap a
+	ld c, a
+	ld a, [wEnemyMonStatus]
+	ld b, a
+	ld a, [wEnemyMonSpeedMod]
+	call .fold
+	or c
+	ret
+.fold
+	inc a
+	inc a
+	bit PAR, b
+	ret z
+	dec a
+	dec a
+	ret

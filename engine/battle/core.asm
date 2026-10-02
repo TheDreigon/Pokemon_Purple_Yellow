@@ -322,6 +322,7 @@ MainInBattleLoop:
 ; action and see it. A link battle would need the pick after the data
 ; exchange; the Cable Club is gone, and SelectEnemyMove's link branch is dead
 ; code.)
+	farcall AIForgetStaleTurnOrder ; v1.0 (R11): before the enemy chooses - a speed change the screen showed
 	ld a, [wAIChoseThisTurn]
 	and a
 	call z, SelectEnemyMove
@@ -417,29 +418,16 @@ MainInBattleLoop:
 .noLinkBattle
 	call HandleMovePriority
 	; c = player priority, e = enemy priority
-; v1.0 (R11, 2026-10-02): the trainer AI learns who is faster only from what the screen shows - a turn whose order
-; the speeds decided (the same priority) and in which both sides used a move (a side storing BIDE energy prints
-; nothing that turn). Pending here, committed in the branch below once TrainerAI has neither used an item nor
-; switched (that shows first, and no order); read by layer 5.
-	ld hl, wAITurnOrder
-	res AI_ORDER_PENDING, [hl] ; nothing seen yet this turn
 	ld a, c
 	cp e
 	jr z, .compareSpeed ; the same priority: the speeds decide
 	jr c, .enemyMovesFirst
 	jr .playerMovesFirst
 .compareSpeed
-	ld a, [wActionResultOrTookBattleTurn]
-	and a ; the player's item, switch or failed run took its turn: no order on screen
-	jr nz, .orderNotShown
-	ld a, [wPlayerBattleStatus1]
-	ld b, a
-	ld a, [wEnemyBattleStatus1]
-	or b
-	and 1 << STORING_ENERGY ; a side storing BIDE energy prints nothing that turn: no order on screen either
-	jr nz, .orderNotShown
-	set AI_ORDER_PENDING, [hl]
-.orderNotShown
+; v1.0 (R11, 2026-10-02): the speeds decide - unless the player's item, switch or failed run took its turn, or a
+; side stores BIDE energy (it prints nothing that turn), the screen will show who is faster: the order is pending
+; (the branch commits it), with the speeds as the screen shows them
+	farcall AISpeedsDecideTheTurn
 	ld de, wBattleMonSpeed ; player speed value
 	ld hl, wEnemyMonSpeed ; enemy speed value
 	ld c, $2

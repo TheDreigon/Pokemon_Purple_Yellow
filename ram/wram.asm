@@ -646,7 +646,11 @@ wLowHealthAlarmDisabled:: db
 
 wPlayerMonMinimized:: db
 
-	ds 2
+; v1.0 (R11, 2026-10-02): the speeds as the screen showed them at the last turn whose order was pending
+; (AISpeedContext: AISpeedsDecideTheTurn writes it, AIForgetStaleTurnOrder compares) - was vanilla's pad,
+; zeroed with wMiscBattleData.
+wAISpeedContext:: db
+	ds 1
 
 wEXPBarPixelLength::  ds 1
 wEXPBarBaseEXP::      ds 3
