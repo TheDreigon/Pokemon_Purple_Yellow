@@ -1075,9 +1075,10 @@ Modifier4PreferredMoves:
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
 ;    +5 - it would go first and hit nothing (nothing lands on a mon up in the
 ;    air or underground here, never-miss moves included);
-;  - a priority move when the enemy is slower, the player is not asleep or
-;    frozen (the status a trainer sees; 2026-09-27: not the hidden turns left)
-;    and the move at least neutral: -1 (it goes first);
+;  - a priority move when the screen showed the player moving first in this
+;    matchup (v1.0 R11: wAITurnOrder - never the speeds, a hidden stat), the
+;    player is not asleep or frozen (the status a trainer sees; 2026-09-27: not
+;    the hidden turns left) and the move at least neutral: -1 (it goes first);
 ;  - (v1.0 R10d) a FIRE or MAGMA hit into a FROZEN player: +5, and no priority rule after it
 ;    (an EXPLOSION below half HP keeps its -1..-3 instead; v1.0 R11: none with the player's HP bar
 ;    RED and the hit not resisted - an EXPLOSION at half HP or more keeps its +5).
@@ -1111,6 +1112,13 @@ Modifier4PreferredMoves:
 ; other. A resisted one keeps the +5 (it is the hit that most often leaves the player standing), and so
 ; does an EXPLOSION at half HP or more: the user would faint to finish a Pokemon in the red. The bar is
 ; public; the trainer never reads the HP numbers, the player's stats or the hidden freeze count.
+; v1.0 (R11, 2026-10-02): the priority rule no longer compares the speeds - the player's is a hidden stat. It asks who
+; the screen showed moving first: wAITurnOrder, which MainInBattleLoop keeps from a turn of this matchup in which both
+; sides used a move of the same priority (the speeds deciding; .noLinkBattle). A new matchup - any send-out - has seen
+; no such turn yet: the trainer buys no first strike there, as a player who has not seen the speeds would not.
+; ("The same priority" is the one fact off the screen it reads: a player's slot that prints no move - asleep,
+; frozen, fully paralysed - still teaches when the unseen pick had the enemy's priority. The order learned is true.
+; A turn in which either side stores BIDE energy teaches nothing: that side prints nothing at all.)
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -1208,8 +1216,9 @@ AIMoveChoiceModification5:
 	call AIGetMovePriorityWrapped
 	cp 8
 	jp c, .nextMove
-	call AIEnemyIsSlower
-	jp nc, .nextMove ; faster (or as fast) anyway: no need for priority
+	ld a, [wAITurnOrder] ; v1.0 (R11): the turn order the screen showed, never the speeds (hidden)
+	rra ; AI_ORDER_PLAYER_FIRST (bit 0): the last order shown in this matchup had the player first
+	jp nc, .nextMove ; the enemy seen first, or nothing seen yet (a new matchup): no first strike to buy
 ; does the player act this turn? v1.0 (2026-09-27, Forte: "certo, corrige"):
 ; a trainer sees the status, not the turns left - asleep or frozen is taken as
 ; "stays down" (true on most such turns), and no first strike is bought
@@ -1223,29 +1232,7 @@ AIMoveChoiceModification5:
 	dec [hl]
 	jp .nextMove
 
-AIEnemyIsSlower:
-; carry = the enemy's speed (modified, the word the turn order compares) is
-; below the player's; equal is "not slower". Registers kept.
-	push hl
-	push de
-	push bc
-	ld hl, wEnemyMonSpeed
-	ld de, wBattleMonSpeed
-	ld a, [de]
-	ld b, a ; player's high byte
-	ld a, [hli]
-	cp b
-	jr nz, .decided
-	inc de
-	ld a, [de]
-	ld b, a ; player's low byte
-	ld a, [hl]
-	cp b
-.decided
-	pop bc
-	pop de
-	pop hl
-	ret
+ASSERT AI_ORDER_PLAYER_FIRST == 0, "layer 5 reads it with rra"
 
 AIGetMovePriorityWrapped:
 ; a = the priority of wEnemyMoveNum (7 = none). PriorityMovesList lives in

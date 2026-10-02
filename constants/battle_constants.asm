@@ -171,3 +171,7 @@ DEF BOX_LEVEL_TOXIC_F EQU 7
 	const HAS_LIGHT_SCREEN_UP ; 1
 	const HAS_REFLECT_UP      ; 2
 	const TRANSFORMED         ; 3
+
+; v1.0 (R11, 2026-10-02): wAITurnOrder's bits - the turn order the trainer AI has SEEN in this matchup
+DEF AI_ORDER_PLAYER_FIRST EQU 0 ; the last order the screen showed (the speeds deciding it) had the player first
+DEF AI_ORDER_PENDING      EQU 7 ; this turn's order is the speeds' and the player uses a move: the branch commits it

@@ -612,7 +612,10 @@ wTotalPayDayMoney:: ds 3
 wSafariEscapeFactor:: db
 wSafariBaitFactor:: db
 
-	ds 1
+; v1.0 (R11, 2026-10-02): the turn order the trainer AI has SEEN in this matchup (AI_ORDER_* bits; layer 5 reads it
+; instead of the speeds, which are hidden). Was vanilla's pad: zeroed with wMiscBattleData by InitBattleVariables,
+; and by every send-out (EnemySendOutFirstMon, SendOutMon).
+wAITurnOrder:: db
 
 wTransformedEnemyMonOriginalDVs:: dw
 

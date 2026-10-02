@@ -417,12 +417,29 @@ MainInBattleLoop:
 .noLinkBattle
 	call HandleMovePriority
 	; c = player priority, e = enemy priority
+; v1.0 (R11, 2026-10-02): the trainer AI learns who is faster only from what the screen shows - a turn whose order
+; the speeds decided (the same priority) and in which both sides used a move (a side storing BIDE energy prints
+; nothing that turn). Pending here, committed in the branch below once TrainerAI has neither used an item nor
+; switched (that shows first, and no order); read by layer 5.
+	ld hl, wAITurnOrder
+	res AI_ORDER_PENDING, [hl] ; nothing seen yet this turn
 	ld a, c
 	cp e
 	jr z, .compareSpeed ; the same priority: the speeds decide
 	jr c, .enemyMovesFirst
 	jr .playerMovesFirst
 .compareSpeed
+	ld a, [wActionResultOrTookBattleTurn]
+	and a ; the player's item, switch or failed run took its turn: no order on screen
+	jr nz, .orderNotShown
+	ld a, [wPlayerBattleStatus1]
+	ld b, a
+	ld a, [wEnemyBattleStatus1]
+	or b
+	and 1 << STORING_ENERGY ; a side storing BIDE energy prints nothing that turn: no order on screen either
+	jr nz, .orderNotShown
+	set AI_ORDER_PENDING, [hl]
+.orderNotShown
 	ld de, wBattleMonSpeed ; player speed value
 	ld hl, wEnemyMonSpeed ; enemy speed value
 	ld c, $2
@@ -443,6 +460,11 @@ MainInBattleLoop:
 	ldh [hWhoseTurn], a
 	callfar TrainerAI
 	jr c, .AIActionUsedEnemyFirst
+	ld hl, wAITurnOrder ; v1.0 (R11): its move goes first - a pending order is "the enemy first"
+	bit AI_ORDER_PENDING, [hl]
+	jr z, .enemyFirstUnseen
+	ld [hl], 0
+.enemyFirstUnseen
 	call ExecuteEnemyMove
 	ld a, [wEscapedFromBattle]
 	and a ; and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
@@ -483,7 +505,13 @@ MainInBattleLoop:
 	ld a, $1
 	ldh [hWhoseTurn], a
 	callfar TrainerAI
-	push af ; carry = its item or switch was its turn
+	jr c, .playerFirstUnseen ; v1.0 (R11): its item or switch shows first, and no order
+	ld hl, wAITurnOrder ; its move follows the player's: a pending order is "the player first"
+	bit AI_ORDER_PENDING, [hl]
+	jr z, .playerFirstUnseen
+	ld [hl], 1 << AI_ORDER_PLAYER_FIRST
+.playerFirstUnseen
+	push af ; carry = its item or switch was its turn (bit and ld [hl] keep it)
 	call c, DrawEnemyHUDAndHPBar ; its cure / its newcomer shows before the player's move
 	call ExecutePlayerMove
 	pop de ; e = TrainerAI's flags (bit 4 = carry); b = ExecutePlayerMove's answer
@@ -1461,6 +1489,7 @@ EnemySendOut:
 ; don't change wPartyGainExpFlags or wPartyFoughtCurrentEnemyFlags
 EnemySendOutFirstMon:
 	xor a
+	ld [wAITurnOrder], a ; v1.0 (R11): a new matchup - no order seen
 	ld hl, wEnemyStatsToDouble ; clear enemy statuses
 	ld [hli], a
 	ld [hli], a
@@ -2055,6 +2084,7 @@ SendOutMon:
 	ld [wPlayerDisabledMove], a ; (the StatsToDouble..BattleStatus3 clear moved to the top)
 	ld [wPlayerDisabledMoveNumber], a
 	ld [wPlayerMonMinimized], a
+	ld [wAITurnOrder], a ; v1.0 (R11): a new matchup - no order seen
 	ld b, SET_PAL_BATTLE
 	call RunPaletteCommand
 	ld hl, wEnemyBattleStatus1
