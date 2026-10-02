@@ -888,6 +888,15 @@ Modifier2PreferredMoves:
 ; encourage effective or super effective draining moves to be used at low health
 ; PureRGBnote: FIXED: this subroutine won't cause the AI to prefer status moves 
 ;                     just because their type is super effective against the opponent. Like spamming agility on a poison pokemon.
+; v1.0 (R10b, 2026-10-01; Forte: "aprovo tambem o seguinte progresso, da ronda 10, seguindo as tuas melhores
+; recomendações"): a "better move" (.notEffectiveMove's loop) must be one the trainer can use to some effect: its
+; score, which layer 1 (first in every list) has set, below AI_SCORE_USELESS - 10 - the line layer 6 reads (R9k).
+; The vanilla loop counted every damaging move of another type, the fixed-damage family and FLY even when the chart
+; stops it ("It doesn't affect"), when it surely misses (DREAM EATER into a Pokemon awake, a DRAIN move into a
+; SUBSTITUTE) or when it cannot be used (no PP left, disabled): a resisted move that lands was held back (+1)
+; behind every status move for a move that does nothing, and a stopped one was lifted above the other useless moves.
+; (The PureRGB line above, "unless there's no damaging move that deals at least neutral damage", was never the
+; rule: a usable candidate of another type counts however resisted, and so does the fixed-damage family.)
 AIMoveChoiceModification3:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -936,9 +945,8 @@ AIMoveChoiceModification3:
 	and a
 	jr z, .done
 	call ReadMove
-	ld a, [wEnemyMoveEffect]
-	cp FLY_EFFECT
-	jr z, .betterMoveFound ; Fly is considered to be a better move
+	ld a, [wEnemyMoveEffect] ; v1.0 (R10b): vanilla's `cp FLY_EFFECT` went - FLY counted itself, and every FLYING
+	                         ; move beside it, as "better"; FLY of another type is still one by the rule below
 	call AIFixedDamage
 	jr c, .betterMoveFound ; the fixed-damage family (Super Fang, Seismic Toss...) is considered better
 	ld a, [wEnemyMoveType]
@@ -946,10 +954,18 @@ AIMoveChoiceModification3:
 	jr z, .loopMoves
 	ld a, [wEnemyMovePower]
 	and a
-	jr nz, .betterMoveFound ; damaging moves of a different type are considered to be better moves
-	jr .loopMoves
+	jr z, .loopMoves ; a status move is no candidate; a damaging move of a different type is (vanilla), if usable
 .betterMoveFound
-	inc c ; v1.0 (R9): c was 0 and the loop ends here (after AIFixedDamage a is 0 for SEISMIC TOSS)
+	push hl
+	push de
+	ld de, wBuffer - wEnemyMonMoves - 1 ; v1.0 (R10b): hl - 1 holds the candidate (`ld a, [hli]`): hl + this, its score
+	add hl, de
+	ld a, [hl]
+	pop de
+	pop hl
+	cp AI_SCORE_USELESS - 10
+	jr nc, .loopMoves ; USELESS or unusable (layer 1, AISeedMoveScores): no better than the move it would replace
+	inc c ; v1.0 (R9): c was 0 and the loop ends here (vanilla's `ld c, a` read a 0 after AIFixedDamage; a is the score now)
 .done
 	ld a, c
 	pop bc
