@@ -292,7 +292,7 @@ _ColosseumOpponentText::
 ; ---- NPC trade dialogues, Route 11 gate and Route 18 gate (moved from Text 9,
 ; 2026-09-22; the other six trades are in data/text/text_9.asm) ----
 
-; v1.0 (2026-09-22, Forte): his PONYTA replaces the DUGTRIO. Same complaint, the
+; v1.0 (2026-09-22): his PONYTA replaces the DUGTRIO. Same complaint, the
 ; animal that explains it: a runner with no room on an upper floor kicks the walls.
 _WannaTradeColtText::
 	text "This gate rattles"
@@ -331,7 +331,7 @@ _AfterTradeColtText::
 	line "leaves the rug!"
 	done
 
-; v1.0 (2026-09-22, Forte): the gate's COOK. He took in a SEEL pup off the beach,
+; v1.0 (2026-09-22): the gate's COOK. He took in a SEEL pup off the beach,
 ; it grew into a DEWGONG, and a stove kitchen is no place for a cold-sea animal. He
 ; lets it go for its own sake and wants a fire-lover that also guards the pantry.
 _WannaTradeFloeText::

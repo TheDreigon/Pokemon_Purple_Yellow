@@ -2,7 +2,7 @@ SaffronPokecenter_Script:
 	call SaffronPokecenterAidesScene
 	jp EnableAutoTextBoxDrawing
 
-; v0.7 (2026-08-30, Forte's design, v3): PROF.OAK's two aides wait here
+; v0.7 (2026-08-30, design v3): PROF.OAK's two aides wait here
 ; with the ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek.
 ; The moment the player walks in (spawn is (3,7), the city warp targets
 ; warp 1), the scene freezes the pad and walks both aides three steps
@@ -16,7 +16,7 @@ SaffronPokecenter_Script:
 ; on-entry branch hides both aides for good: they went home to the lab (the
 ; two HS slots came from the CERULEAN CAVE ULTRA BALL conversions).
 ;
-; v0.7 (2026-09-05, Forte's playtest): the walks were one aide at a time
+; v0.7 (2026-09-05, playtest): the walks were one aide at a time
 ; (the J&J idiom) and one aide talked with his back turned. Both had the
 ; same root: MoveSprite leaves a sprite's movement byte 2 at $FF, and a
 ; STAY sprite with $FF there turns to face a random way every so often -
@@ -233,7 +233,7 @@ SaffronAidesSafeText:
 	text_far _SaffronAidesSafeText
 	text_end
 
-; Shared by both aides and the ambush. Forte's v2 rule: BOTH parcels at
+; Shared by both aides and the ambush. The v2 rule: BOTH parcels at
 ; once or neither - a bag without two free slots gets the direct
 ; make-room line and nothing else. Returns CARRY when there was nothing
 ; left to deliver (the caller then prints his sign-off line).

@@ -1,5 +1,5 @@
-; v1.0 (N5, 2026-09-27; Forte: "esses side-effects dos status (paralyze-speed e burn-attack)
-; deverão sempre tambem ser curados quando o status é curado"): whatever ends a burn or a
+; v1.0 (N5, 2026-09-27; a status's side effect - PARALYZE's speed cut, BURN's attack cut - is
+; always cured with the status): whatever ends a burn or a
 ; paralysis puts the stat back: the side's five battle stats = unmodified x stages (the badge
 ; boost lives in the unmodified stats, so it stays; no cut). Exact, and right whether or not a
 ; cut was there - the old "double it back" (UndoBurnParStats) lost the odd point and doubled a
@@ -29,7 +29,7 @@ UserStatusGone: ; RECOVER, SOFTBOILED, REST
 	ldh a, [hWhoseTurn]
 	jr SideStatusGone
 
-; v1.0 (D6, 2026-09-28; Forte: "sobre o transform: corrige esses 2 bugs encontrados, sim"):
+; v1.0 (D6, 2026-09-28; the two TRANSFORM bugs found):
 ; TRANSFORM (transform.asm), once the target's unmodified stats and stages are copied. Vanilla
 ; copied the target's five battle stats, the TARGET's burn / paralysis cut with them, and the
 ; user lost its own (TRANSFORM never copies the status). Now the user's five stats = the copied

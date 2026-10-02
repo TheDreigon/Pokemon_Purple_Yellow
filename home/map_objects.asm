@@ -71,7 +71,7 @@ IsItemInBag::
 	ret
 
 IsPikachuInParty::
-; v0.7 (2026-09-01, Forte's call): bit 6 of wd472 - the Summer Beach House
+; v0.7 (2026-09-01): bit 6 of wd472 - the Summer Beach House
 ; gate (the minigame, its posters and scoreboard) and the surf-along
 ; player sprite - now asks only "is there a PIKACHU in the party?". The
 ; old SURF-move requirement is gone: no Pikachu learns SURF in this hack,

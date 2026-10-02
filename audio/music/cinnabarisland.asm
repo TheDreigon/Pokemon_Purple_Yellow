@@ -1,6 +1,6 @@
 ; Cinnabar Island (and the Lab).
 ;
-; Forte's brief: keep Vermilion's tune but make the island sound serious.
+; The brief: keep Vermilion's tune but make the island sound serious.
 ; Same notes, different voice -- which is the point, because the two themes
 ; were never far apart: vanilla Cinnabar and vanilla Vermilion carry the
 ; IDENTICAL lead patch (duty_cycle 3, vibrato 12/3/4, perfect pitch), which is

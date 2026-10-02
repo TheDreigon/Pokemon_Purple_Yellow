@@ -1,6 +1,6 @@
 ; The dojo-master takeover: KIYO's voice at the Viridian Gym, the promoted
 ; student's at the Fighting Dojo, and the four one-shot student rebattles
-; (Forte approved the lines 2026-08-18). The cooldown line is the shared
+; (lines settled 2026-08-18). The cooldown line is the shared
 ; _GymRematchCooldownText — he queues with the other seven leaders.
 
 _ViridianGymKiyoIntroKnowsYouText::
@@ -231,8 +231,8 @@ _FightingDojoBlackbelt4RebattleAfterText::
 	cont "class!"
 	done
 
-; The eight gym trainers, once KIYO holds the gym. One line each, approved
-; by Forte 2026-08-17 — including the Johto rumour.
+; The eight gym trainers, once KIYO holds the gym. One line each, settled
+; 2026-08-17 — including the Johto rumour.
 
 _ViridianGymCooltrainerM1KiyoEraText::
 	text "KIYO drills us"

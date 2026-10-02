@@ -19,7 +19,7 @@ LoadMapMusicOverrides::
 ; The table entry is Music_SaffronCity, which is the theme in A minor. That is
 ; what plays while Silph Co is occupied. Beat Giovanni on the top floor and
 ; this swaps in Music_SaffronFree: the SAME tune, transposed to A major and
-; about ten percent faster. Forte's design, and the reason it works is that
+; about ten percent faster. By design, and the reason it works is that
 ; there is nothing new to learn -- the city still sounds like itself, it just
 ; stops sounding grim.
 ;
@@ -48,7 +48,7 @@ LoadMapMusicOverrides::
 	ret
 
 ; THE VIRIDIAN GYM changes hands after the League: KIYO holds the floor and
-; brings the dojo's theme down from Saffron with him (Forte, 2026-08-17).
+; brings the dojo's theme down from Saffron with him (2026-08-17).
 ; Same shape as Saffron's case — the table keeps the pre-League gym music,
 ; the override is the post-game state, and it covers every visit including
 ; just walking around talking to the gym trainers.

@@ -1,4 +1,4 @@
-; v0.7 (2026-09-05, Forte): this floor is the TM floor now (both TM clerks at
+; v0.7 (2026-09-05): this floor is the TM floor now (both TM clerks at
 ; the one counter); the vitamins and their two admirers' lines went to 2F's
 ; shop in spirit - these two talk TMs.
 _CeladonMart5FGentlemanText::

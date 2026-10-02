@@ -1,4 +1,4 @@
-; Three things changed here on 2026-09-24 (Forte):
+; Three things changed here on 2026-09-24:
 ;  * A multi-hit move says how effective it was ONCE, when it is over, not once
 ;    per hit. DisplayEffectiveness stays quiet while the hits are landing;
 ;    MultiHitDone says it (and "Hit N times!") when the last planned hit has

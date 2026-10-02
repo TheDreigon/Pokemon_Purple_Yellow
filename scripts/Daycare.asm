@@ -13,7 +13,7 @@ Daycare_TextPointers:
 
 ; The POKeMON CENTER's little ceremony, borrowed for the hand-over: the
 ; heal jingle shares the map music's audio bank ($02 -- MUSIC_PALLET_TOWN
-; since Forte's 2026-08-07 pick), so the RedsHouse1F PlaySound idiom
+; since the 2026-08-07 pick), so the RedsHouse1F PlaySound idiom
 ; carries over unchanged.
 PlayDaycareJingle:
 	ld a, MUSIC_PKMN_HEALED
@@ -88,7 +88,7 @@ DaycareGentlemanText:
 	ld a, [wDayCareInUse]
 	and a
 	jp nz, .daycareInUse
-; Forte, 2026-08-07: the place is a family act now -- he is the rigor,
+; 2026-08-07: the place is a family act now -- he is the rigor,
 ; the daughter upstairs is the tenderness. And once the player is CHAMPION,
 ; he brags about the doubled care (which IncrementDayCareMonExp delivers).
 ; These come BEFORE the question: the question text is designed to flow
@@ -213,7 +213,7 @@ DaycareGentlemanText:
 	ld hl, wDayCareMonBoxLevel
 	ld a, [hl]
 	ld [wDayCareStartLevel], a
-; v0.7 (2026-09-08, Forte): a mon whose exp sits UNDER its own level floor (an
+; v0.7 (2026-09-08): a mon whose exp sits UNDER its own level floor (an
 ; evolution across a curve change before the top-up in evos_moves.asm, or a
 ; species whose curve was edited under a running save) recomputes BELOW the
 ; level it was deposited with. The subtraction below then wrapped to "grown by

@@ -525,7 +525,7 @@ ItemUseBall:
 ; whatever bag slot number equalled the party size minus one, instead of a
 ; ball: with the TRAINER MANUAL sitting in that slot it vanished outright, and
 ; the ball count looked like it GREW because it was never spent. Found in
-; Forte's first fresh playthrough. Preserve the bag index across the exp pay.
+; the first fresh playthrough. Preserve the bag index across the exp pay.
 	ld a, [wWhichPokemon]
 	push af
 	callfar DistributeExperience
@@ -912,7 +912,7 @@ ItemUseExpShare:
 	and a ; OFF may always be chosen
 	jr z, .store
 ; ONE and TEAM with a single Pokemon: there is nobody to share WITH, so the
-; menu refuses and explains (Forte 2026-09-02). The battle engine would cope
+; menu refuses and explains (2026-09-02). The battle engine would cope
 ; with the setting fine - this is purely the honest answer at the counter.
 	ld a, [wPartyCount]
 	dec a
@@ -1193,7 +1193,7 @@ RefusingText:
 ; Confusion is not part of a #MON's status byte. It is a bit in
 ; wPlayerBattleStatus1 with its own counter, which is why the $ff mask a FULL
 ; HEAL carries has never touched it and why a FULL RESTORE never did either.
-; Forte's call is that it should behave like burn or sleep, so these two items
+; By design it behaves like burn or sleep, so these two items
 ; clear it. Nothing else does -- the single-ailment heals keep their own masks.
 ;
 ; Returns carry when there is confusion for them to clear: a battle is running,
@@ -1244,7 +1244,7 @@ ItemUseVitamin:
 	and a
 	jp nz, ItemUseNotTime
 ; FALLS THROUGH into ItemUseMedicine - put NOTHING between these two labels.
-; v0.7 bug (2026-08-05 -> 2026-09-05, Forte's run): the confusion helpers
+; v0.7 bug (2026-08-05 -> 2026-09-05, found in a playthrough): the confusion helpers
 ; landed here and every vitamin and RARE CANDY went dead out of battle (the
 ; bag whited out and came back). The ASSERT below pins the two together.
 
@@ -1366,7 +1366,7 @@ ItemUseMedicine:
 	jr nz, .curesSomething
 ; The status BYTE is clear -- but confusion is not in it. It is a bit in
 ; wPlayerBattleStatus1, which is why a FULL HEAL's $ff mask never reached it.
-; Forte's call is that confusion should behave like burn or sleep, so a FULL
+; By design confusion behaves like burn or sleep, so a FULL
 ; HEAL used on a mon that is only confused has to count as doing something
 ; rather than reporting no effect.
 	push hl
@@ -1618,7 +1618,7 @@ ItemUseMedicine:
 	ld b, 50 ; Fresh Water heal amount
 	jr z, .addHealAmount
 	cp SUPER_POTION
-	ld b, 150 ; Hyper Potion heal amount (v0.7, 2026-09-06, Forte: 200 -> 150; a flat 10 yen per HP across the potion line)
+	ld b, 150 ; Hyper Potion heal amount (v0.7, 2026-09-06: 200 -> 150; a flat 10 yen per HP across the potion line)
 	jr c, .addHealAmount
 	ld b, 50 ; Super Potion heal amount
 	jr z, .addHealAmount
@@ -2118,7 +2118,7 @@ ItemUseEscapeRope:
 	ld a, [wIsInBattle]
 	and a
 	jr nz, .notUsable
-; v0.7 (2026-08-13, his call): the rope and DIG are for the six caves and
+; v0.7 (2026-08-13): the rope and DIG are for the six caves and
 ; nothing else, and EscapeRopeTilesets is now CAVERN alone, which IS those six.
 ; The three maps that used to be excluded by name here -- AGATHAS_ROOM,
 ; BILLS_HOUSE and POKEMON_FAN_CLUB -- were holes in the CEMETERY and INTERIOR
@@ -2237,7 +2237,7 @@ ItemUsePokedoll:
 	ld [wBattleResult], a
 	jp PrintItemUseTextAndRemoveItem
 
-; v1.0 (E3, 2026-09-29; Forte: "no caso do dire hit e guard spec faz sentido duplicar?"):
+; v1.0 (E3, 2026-09-29; the same rule for DIRE HIT and GUARD SPEC):
 ; GUARD SPEC and DIRE HIT each set one flag of wPlayerBattleStatus2 - MIST, and the pumped state
 ; DIRE HIT shares with FOCUS ENERGY (the crit rate x3, once: core.asm tests the bit). A second one
 ; sets nothing, so it is refused as Gen 2 refuses it (pokecrystal GuardSpecEffect /
@@ -2281,8 +2281,8 @@ ItemUseBattleFlagItem:
 	ld [wWhichPokemon], a
 	jp PrintItemUseTextAndRemoveItem
 
-; v1.0 (F7, 2026-09-30; Forte: "accuracy passa a fazer +1 e a custar 1500 (deliberadamente mais
-; que os restantes +1 a 1000)"): X ACCURACY is one of these now - ACCURACY +1 through
+; v1.0 (F7, 2026-09-30; X ACCURACY now gives +1 and costs 1500, deliberately above the other
+; +1 items at 1000): X ACCURACY is one of these now - ACCURACY +1 through
 ; ACCURACY_UP1_EFFECT, refused and kept at +6 (F1; ACCURACY has no stat word, only its stage
 ; counts). It was vanilla's always-hit switch (ItemUseXAccuracy set USING_X_ACCURACY and
 ; MoveHitTest hit before any roll - past the Hard boss edge and the 1/256 miss), and its
@@ -2298,8 +2298,8 @@ ItemUseXStat:
 	ret
 
 .inBattle
-; v1.0 (F1, 2026-09-30; Forte: "se for um move, gasta-se PP porque faz parte da estrategia do
-; player ter nocao dos stages, mas um item pode ser generoso e nao se gastar ao nao ser usado"):
+; v1.0 (F1, 2026-09-30; a move still spends its PP - knowing the stages is part of the player's
+; strategy - but an item is generous and is not spent when it would do nothing):
 ; an X item whose stat StatModifierUpEffect would refuse to raise - its stage at +6, or, ATTACK
 ; to SP.DEF, its battle word exactly 999, the burn / paralysis cut included as the engine reads
 ; it - is refused before anything is written (the move bytes, the SP.DEF override): "It won't
@@ -2385,7 +2385,7 @@ ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED 
 ItemUsePokeflute:
 ; The flute is the SNORLAX key and nothing else now. In battle it used to wake
 ; every #MON on both sides for free and forever, which made a SLEEP HEAL and a
-; FULL HEAL pointless against sleep the moment you owned one. Forte's call: it
+; FULL HEAL pointless against sleep the moment you owned one. Now it
 ; only works outside battle. The whole in-battle branch, and WakeUpEntireParty
 ; which only that branch called, are gone rather than left unreachable.
 	ld a, [wIsInBattle]
@@ -3702,7 +3702,7 @@ FindWildLocationsOfMon:
 	ld a, [hld]
 	inc a
 	jr z, .done
-; v0.7 (his playtest 2026-08-28): BILL's garden is a secret map, absent from
+; v0.7 (playtest 2026-08-28): BILL's garden is a secret map, absent from
 ; the town map on purpose -- but its wild table was scanned like any public
 ; map, and its town-map row (which exists only to terminate the interval
 ; lookup in LoadTownMapEntry) rendered its habitats as a nest on BILL's LAB

@@ -1,4 +1,4 @@
-; v0.7 (Forte, 2026-08-18): the dojo losing SAFFRON's gym to the psychics is
+; v0.7 (2026-08-18): the dojo losing SAFFRON's gym to the psychics is
 ; canon and the game already tells it - but only from the winners' side. The
 ; Saffron Gym psychic says "There used to be 2 #MON GYMs in SAFFRON. The
 ; FIGHTING DOJO next door lost its GYM status when we went and creamed them!"

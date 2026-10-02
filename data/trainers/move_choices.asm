@@ -20,7 +20,7 @@ ENDM
 ; These lists are live in BOTH difficulties; Hard mode overrides bosses and
 ; semi-bosses to 1-6 (HardModeBossAIMods in trainer_ai.asm).
 ;
-; v0.7 policy (Forte, 2026-07-27): a boss's list carries every layer its
+; v0.7 policy (2026-07-27): a boss's list carries every layer its
 ; MOVESET was designed around, and omits layers with nothing to act on.
 ; Five classes were raised over the Yellow Legacy values on that basis
 ; (Brock, Lt. Surge, Erika, Sabrina, Janine — see the per-line comments).

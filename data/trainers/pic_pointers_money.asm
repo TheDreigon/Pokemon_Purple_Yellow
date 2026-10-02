@@ -72,7 +72,7 @@ TrainerPicAndMoneyPointers::
 	pic_money BillPic, 	   7900 ; BILL — semi-boss (repeatable), 79/lvl (was 76: the semis are flat now)
 	assert_table_length NUM_TRAINERS
 
-; KIYO's purse is decided per FIGHT, not per class (Forte, 2026-08-18).
+; KIYO's purse is decided per FIGHT, not per class (2026-08-18).
 ;
 ; TrainerPicAndMoneyPointers is indexed by trainer class, and KIYO is two
 ; different opponents wearing one class: the KARATE MASTER of the Saffron dojo,

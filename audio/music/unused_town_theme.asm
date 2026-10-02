@@ -1,10 +1,10 @@
 ; PARKED -- an original town theme with no home yet. NOT BUILT.
 ;
-; Written for Cerulean on 2026-08-05 and set aside the same day. Forte liked it
-; ("gostei muito") but decided Cerulean should keep its own familiar tune made
+; Written for Cerulean on 2026-08-05 and set aside the same day. Well liked,
+; but Cerulean keeps its own familiar tune made
 ; more coastal instead, so this is kept for a town to be chosen later.
 ;
-; This is the version he picked of three: the classic 75% lead. The other two
+; This is the version picked of three: the classic 75% lead. The other two
 ; differed by one line each and were discarded (12.5% lead; no drum channel).
 ;
 ; NOT REFERENCED FROM audio.asm, so it costs no ROM. It lives in the repo
@@ -37,8 +37,8 @@
 ;
 ; VOICE. Lead on duty_cycle 3, the 75% pulse -- the warm one Cities1, Cities2,
 ; Celadon, Vermilion, Cinnabar, Routes 3/4 and Indigo all share. A 12.5% lead
-; was tried, on the argument that no map theme uses one; Forte preferred this,
-; and he was right. Ch2 sits underneath on the 50% square for body.
+; was tried, on the argument that no map theme uses one; this one was
+; preferred, rightly. Ch2 sits underneath on the 50% square for body.
 ;
 ; SHAPE. Every phrase is an arc that rises and settles back, and each of the
 ; four ends with a rest. That breath is the whole coastal idea; a theme with no

@@ -107,8 +107,7 @@ ApplyTypeEffectivenessToDamage::
 	inc hl
 	jp .loop
 
-; v1.0 (R9c, 2026-09-30; Forte, of the fixed-damage moves: "muda para eles também passarem a seguir
-; as regras de imunidade"):
+; v1.0 (R9c, 2026-09-30; the fixed-damage moves follow the immunity rules too):
 ; SetDamageEffects' family - SEISMIC TOSS, SUPER FANG, PARASITE, NIGHT SHADE, DRAGON RAGE, SONICBOOM - deals
 ; a set number, so the chart's multipliers never scale it; but a type immunity stops it, as from Gen 2 on
 ; (with this chart: SEISMIC TOSS and SUPER FANG on a GHOST). PlayerCalcMoveDamage and EnemyCalcMoveDamage
@@ -265,9 +264,9 @@ AIMoveOnPlayer::
 	ld e, a
 	ret
 
-; v1.0 (F4, 2026-09-30; Forte: "na verdade, podes tambem abrir excepcao para o Mind Break, para se
-; diferenciar ainda mais como uma versao mais forte do move psychic", then "mind break vs dark a
-; 0.5x, sim."): the chart's one exception, shared by the damage walk and the AI's walk so the two
+; v1.0 (F4, 2026-09-30; MIND BREAK gets an exception too, setting it further apart as the stronger
+; PSYCHIC move: MIND BREAK vs DARK at 0.5x): the chart's one exception, shared by the damage walk and
+; the AI's walk so the two
 ; can never disagree. In: a = the multiplier of the row that matched, hl -> it (the row's defending
 ; type at hl - 1), c = the move (NO_MOVE: types alone). Out: a = NOT_VERY_EFFECTIVE for MIND BREAK
 ; on a NO_EFFECT row whose defending type is DARK (MIND BREAK is PSYCHIC: the PSYCHIC -> DARK row),

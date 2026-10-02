@@ -188,7 +188,7 @@ SeafoamIslands5HiddenObjects:
 ViridianForestHiddenObjects:
 	hidden_object  1, 18, LEAF_STONE, HiddenItems
 	hidden_object 16, 42, POTION, HiddenItems
-	hidden_object  8,  4, POTION, HiddenItems ; 2026-09-06 (Forte): the (8,3) ball, hidden one square down
+	hidden_object  8,  4, POTION, HiddenItems ; 2026-09-06: the (8,3) ball, hidden one square down
 	db -1 ; end
 
 MtMoon3HiddenObjects:
@@ -282,7 +282,7 @@ VictoryRoad2HiddenObjects:
 
 Route25HiddenObjects:
 	hidden_object 38,  3, ETHER, HiddenItems
-	hidden_object 34,  9, X_ATTACK, HiddenItems ; in the bush (Forte, run feedback 2026-09-05)
+	hidden_object 34,  9, X_ATTACK, HiddenItems ; in the bush (run feedback 2026-09-05)
 	db -1 ; end
 
 BillsHouseHiddenObjects:
@@ -402,7 +402,7 @@ PewterPokecenterHiddenObjects:
 	db -1 ; end
 
 CeruleanCityHiddenObjects:
-	hidden_object 19,  8, RARE_CANDY, HiddenItems ; (15,8) -> (19,8), Forte 2026-09-05
+	hidden_object 19,  8, RARE_CANDY, HiddenItems ; (15,8) -> (19,8), 2026-09-05
 	db -1 ; end
 
 CeruleanPokecenterHiddenObjects:

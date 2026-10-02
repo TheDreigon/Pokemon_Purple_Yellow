@@ -119,7 +119,7 @@ MtMoonB2FDefeatedSuperNerdScript:
 	call MtMoonB2FSetScript
 	ret
 
-; v1.0 (Forte, 2026-09-23): after his post-League rematch. A loss spends
+; v1.0 (2026-09-23): after his post-League rematch. A loss spends
 ; nothing; a win spends it for good - this one happens once, ever.
 MtMoonB2FRematchPostBattleScript:
 	ld a, [wIsInBattle]
@@ -522,7 +522,7 @@ MtMoonB2FSuperNerdText:
 	call PrintText
 .done
 	jp TextScriptEnd
-; v1.0 (Forte, 2026-09-23): the fossil nerd's rematch, once - ever.
+; v1.0 (2026-09-23): the fossil nerd's rematch, once - ever.
 ; Dojo shape: the challenge, YES/NO, the end-battle line in both slots (the
 ; loss slot is dead engine-wide), wCurOpponent/wTrainerNo by hand - going
 ; through EngageMapTrainer would reload party 2 from the object bytes. The

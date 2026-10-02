@@ -115,7 +115,7 @@ DisplayTownMap:
 INCLUDE "data/maps/town_map_order.asm"
 
 IsTownMapStopHidden:
-; v1.0 (2026-09-24, Forte): three stops are secrets until the player has been
+; v1.0 (2026-09-24): three stops are secrets until the player has been
 ; inside - BILL's LAB, the POWER PLANT and the CERULEAN CAVE. They share the
 ; FLY slots' visited bits, so the Town Map skips them until then. Carry set =
 ; skip the stop at wWhichTownMapLocation. PALLET TOWN is never a secret, so
@@ -155,7 +155,7 @@ TownMapSecretStops:
 	db -1
 
 DrawTwinCursor:
-; a = map id. v1.0 (2026-09-22, Forte): DIGLETT's CAVE has two mouths, so
+; a = map id. v1.0 (2026-09-22): DIGLETT's CAVE has two mouths, so
 ; when the cursor is on either, a second cursor (sprites 8-11) marks the
 ; other; on every other place those four sprites are parked off-screen ($a0,
 ; the value the blink itself uses to hide sprites).
@@ -224,7 +224,7 @@ LoadTownMap_Fly::
 	ldh [hJoy7], a
 	call LoadPlayerSpriteGraphics
 	call LoadFontTilePatterns
-	call LoadFlyMonIcon ; v1.0 (2026-09-24, Forte): the flier's own icon where the BIRD sprite went
+	call LoadFlyMonIcon ; v1.0 (2026-09-24): the flier's own icon where the BIRD sprite went
 	ld de, TownMapUpArrow
 	ld hl, vChars1 tile $6d
 	lb bc, BANK(TownMapUpArrow), (TownMapUpArrowEnd - TownMapUpArrow) / $8
@@ -331,7 +331,7 @@ ToText:
 	db "To@"
 
 LoadFlyMonIcon:
-; v1.0 (2026-09-24, Forte): the FLY cursor is the party icon of the Pokémon
+; v1.0 (2026-09-24): the FLY cursor is the party icon of the Pokémon
 ; about to fly (wWhichPokemon, the party menu's pick), both frames, copied into
 ; the tiles the BIRD sprite used ($04-$0B; the bird was 12 tiles, an icon is
 ; 8). An icon's tile order is an overworld frame's (top-left, top-right,
@@ -396,7 +396,7 @@ endr
 	ret
 
 BuildFlyLocationsList:
-; v1.0 (2026-09-24, Forte): the menu lists the fly points in story order, not
+; v1.0 (2026-09-24): the menu lists the fly points in story order, not
 ; slot order. FlyDisplayOrder is the permutation (slot indices, $ff-terminated);
 ; the bit of wTownVisitedFlag that a slot owns does NOT move (it is saved, and
 ; a town's slot is its map id - MarkTownVisitedAndLoadMissableObjects). The
@@ -463,7 +463,7 @@ FlySlotMapsEnd:
 ASSERT FlySlotMapsEnd - FlySlotMaps == NUM_FLY_SLOTS - BILLS_LAB_FLY_SLOT, "FlySlotMaps must name every slot from BILLS_LAB_FLY_SLOT to NUM_FLY_SLOTS - 1, in slot order"
 
 FlyDisplayOrder:
-; the FLY menu's order (UP walks forward): the story's (Forte, 2026-09-24)
+; the FLY menu's order (UP walks forward): the story's (2026-09-24)
 	db PALLET_TOWN
 	db VIRIDIAN_CITY
 	db PEWTER_CITY
@@ -646,7 +646,7 @@ TownMapCoordsToOAMCoords:
 	add a
 	add a
 	add 24
-; v1.0 (2026-09-25, Forte): on the last drawn row a 16x16 sprite loses its
+; v1.0 (2026-09-25): on the last drawn row a 16x16 sprite loses its
 ; bottom four lines to the screen edge; two pixels up keeps fourteen of them,
 ; and the 8x8 marker underneath is still covered. Nest icons there move too.
 	cp 32 * 4 + 24
@@ -676,7 +676,7 @@ WriteTownMapSpriteOAM:
 ; Subtract 4 from c (X coord) and 4 from b (Y coord): c is at least 24, so the
 ; add always carries into h, which therefore starts at -5. (Vanilla had -4
 ; there and drew every cursor, bird and "you are here" one pixel low - v1.0,
-; 2026-09-25, Forte's call after the cursor audit.)
+; 2026-09-25, after the cursor audit.)
 	lb hl, -5, -4
 	add hl, bc
 

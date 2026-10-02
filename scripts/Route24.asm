@@ -321,7 +321,7 @@ Route24CooltrainerM4Text:
 	jr .asm_515d8
 
 .asm_515d5
-; v1.0 (Forte, 2026-09-23): once the player is CHAMPION and the party holds a
+; v1.0 (2026-09-23): once the player is CHAMPION and the party holds a
 ; CHARMELEON or a CHARIZARD (only those two - the point is that it grew; any
 ; one of that line counts, the game cannot tell which CHARMANDER it was), he
 ; wants it back; the Pokemon answers for itself (its cry, his '!') and he

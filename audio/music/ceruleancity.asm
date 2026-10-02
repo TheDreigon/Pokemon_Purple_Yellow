@@ -1,7 +1,7 @@
 ; Cerulean City -- Cities2 with the sea put into it.
 ;
-; Cerulean and Fuchsia shared MUSIC_CITIES2. Forte wanted Cerulean to keep its
-; own familiar tune and be pushed towards "a coastal, maritime town", so this is
+; Cerulean and Fuchsia shared MUSIC_CITIES2. Cerulean keeps its
+; own familiar tune, pushed towards a coastal, maritime town, so this is
 ; the Pewter treatment: same piece, different voice. Fuchsia keeps Cities2
 ; untouched. THE MELODY IS NOT TOUCHED -- Ch1 and Ch2 are Cities2's note data
 ; verbatim, and `python .claude/derive_cerulean.py --check` proves it.

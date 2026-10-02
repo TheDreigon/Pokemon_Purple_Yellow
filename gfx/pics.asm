@@ -201,7 +201,7 @@ KakunaPicBack::       INCBIN "gfx/pokemon/back/kakunab.pic"
 BeedrillPicFront::    INCBIN "gfx/pokemon/front/beedrill.pic"
 BeedrillPicBack::     INCBIN "gfx/pokemon/back/beedrillb.pic"
 
-; v0.7 (2026-08-31, Forte's request): the SECOND Pikachu front pic - the
+; v0.7 (2026-08-31): the SECOND Pikachu front pic - the
 ; G/S Silver import - shown by every Pikachu that is NOT the partner (the
 ; ones caught in the wild, which can evolve). Same 5x5 dims as the Yellow
 ; pic, so only the pointer and bank get swapped (UseFakePikachuFrontPic in
@@ -279,7 +279,7 @@ PidgeotPicBack::       INCBIN "gfx/pokemon/back/pidgeotb.pic"
 
 SECTION "Pics 5", ROMX
 
-; STARMIE ($98) lives here, not in "Pics 4": Forte's sprite pass pushed that
+; STARMIE ($98) lives here, not in "Pics 4": the sprite pass pushed that
 ; section five bytes past a full bank.
 ; (2026-08-31: the sentence that used to follow described the old
 ; internal-index bank ladder - OBSOLETE since the v0.7 per-mon pic-bank

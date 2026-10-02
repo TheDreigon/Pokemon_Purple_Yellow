@@ -4,12 +4,12 @@
 ; DebugMenu -> MON. Shows each species' front sprite in its real gameplay
 ; colours, its dex number, name and types, and plays its cry.
 ;
-; It exists because the dev cannot playtest right now, so this is the only way
-; to check sprites and cries by hand (the same reason ANIM TEST exists for move
+; It exists so that sprites and cries can be checked by hand without a
+; playthrough (the same reason ANIM TEST exists for move
 ; animations). It also covers two playtest-checklist items directly: hearing the
 ; reworked Rhyhorn/Ditto/Muk cries, and eyeing the sprites the dex review touched.
 ;
-; Since 2026-08-29 (his request) the screen opens on a POKEDEX-STYLE LIST
+; Since 2026-08-29 the screen opens on a POKEDEX-STYLE LIST
 ; first: 14 names a page, pick one, A opens the sprite view, B in the view
 ; returns to the list. The list carries NO state of its own -- it is just
 ; another view over wWhichPokemon (the cursor IS the selection), so the two
@@ -20,7 +20,7 @@
 ;   LEFT / RIGHT  page -14 / +14 (clamps at the ends)
 ;   A             open the sprite view on the selection
 ;   B             back to the debug menu
-; Controls, VIEW (as specified by Forte, 2026-08-21):
+; Controls, VIEW (as specified, 2026-08-21):
 ;   UP / DOWN     previous / next species (wraps)
 ;   LEFT / RIGHT  -10 / +10 (clamps at the ends)
 ;   A             replay the cry
@@ -133,7 +133,7 @@ IF DEF(_DEBUG)
 	bit BIT_A_BUTTON, a
 	jr nz, .replayCry
 ; UP/DOWN step one, LEFT/RIGHT jump ten -- the same hand as ANIM TEST's list
-; (2026-08-21, Forte). Both screens are browsed the same way on purpose.
+; (2026-08-21). Both screens are browsed the same way on purpose.
 	bit BIT_D_UP, a
 	jr nz, .prev
 	bit BIT_D_DOWN, a
@@ -204,7 +204,7 @@ MonTest_Draw:
 
 	hlcoord 1, 1                   ; MUST be 1,1 — see the palette note above
 ; This viewer shows the canonical (Yellow partner) Pikachu art only — the
-; unflipped loader has no fake-pic hook, and Forte ruled either art is fine
+; unflipped loader has no fake-pic hook, and either art is fine
 ; here (2026-09-01). To review PikachuFakePicFront, use the status screen of
 ; a caught Pikachu in-game.
 	call LoadFrontSpriteByMonIndex

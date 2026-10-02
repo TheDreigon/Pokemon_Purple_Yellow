@@ -246,7 +246,7 @@
 ; v0.7: two durable KIYO flags, carved out of what was `const_skip 8` so no
 ; later event moves. KIYO_REWARD_EARNED = the honor reward was EARNED: set at
 ; the moment of a Viridian VICTORY while the player already owns exactly one
-; dojo Hitmon (Forte's rule, 2026-08-17: the Hitmon is a reward — a win
+; dojo Hitmon (the rule, 2026-08-17: the Hitmon is a reward — a win
 ; grants it, talking never does; claiming a dojo ball after a win earns
 ; nothing until the NEXT win). Durable on purpose — EVENT_REMATCHED_KIYO in
 ; the cooldown block is wiped every League run and cannot carry this.
@@ -255,7 +255,7 @@
 ; and hands it over on the next talk with room.
 	const EVENT_KIYO_REWARD_EARNED
 	const EVENT_GOT_KIYO_HITMON
-; v0.7 2026-08-18: the four one-shot student rebattles (Forte's design).
+; v0.7 2026-08-18: the four one-shot student rebattles (by design).
 ; Durable on purpose — spent on a win, never re-armed by the Hall of Fame
 ; wipe. Index = trainer/object order, 0 being the promoted master at (3,4).
 	const EVENT_DOJO_REBATTLE_SPENT_0
@@ -305,7 +305,7 @@
 	const_next $3F0
 	const_skip 2
 	const EVENT_BEAT_ROUTE_4_TRAINER_0
-	const EVENT_BEAT_ROUTE_4_TRAINER_1 ; v0.7 (2026-09-06, Forte): the HIKER outside the MT.MOON exit, object 3
+	const EVENT_BEAT_ROUTE_4_TRAINER_1 ; v0.7 (2026-09-06): the HIKER outside the MT.MOON exit, object 3
 	const_skip 11
 	const EVENT_BOUGHT_MAGIKARP
 
@@ -597,12 +597,12 @@
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_2
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_3
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_4
-; v0.7 (2026-08-30, Forte): the COOLTRAINER toll gate at (2,18). MUST sit
+; v0.7 (2026-08-30): the COOLTRAINER toll gate at (2,18). MUST sit
 ; right here - the `trainer` header macro requires consecutive bits within
 ; the map's flag byte (bit 7 of $560's byte, carved from free padding; Mt.
 ; Moon's const_next $570 anchors the next block, so nothing shifts).
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_5
-; v0.7 (2026-09-02, Forte): the shortcut LASS at (16,30). Object slot 8 needs
+; v0.7 (2026-09-02): the shortcut LASS at (16,30). Object slot 8 needs
 ; bit 8%8 = 0 - this lands at $568, bit 0 of the padding byte between this
 ; block and Mt. Moon's const_next $570 anchor, so nothing shifts.
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_6
@@ -625,7 +625,7 @@
 	const EVENT_BEAT_MT_MOON_3_TRAINER_3
 	const EVENT_57E
 	const EVENT_GOT_HELIX_FOSSIL
-; v1.0 (2026-09-23, Forte): the fossil nerd's post-League rematch, ONCE, ever -
+; v1.0 (2026-09-23): the fossil nerd's post-League rematch, ONCE, ever -
 ; not a cooldown flag (nothing clears it; it is deliberately not named
 ; EVENT_REMATCHED_*, which .claude/rematch_cooldown_validate.py reads as the
 ; per-League-run kind). Lives in his own map's block, so nothing shifts.
@@ -933,7 +933,7 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	                                    ; a full bag. He offers it again on the
 	                                    ; next visit rather than losing it.
 
-; v0.7 (2026-08-29, his request): the gym guide at the door hands a FRESH
+; v0.7 (2026-08-29): the gym guide at the door hands a FRESH
 ; WATER to a challenger who is ELIGIBLE (previous badge in hand) but has
 ; not yet won THIS gym's badge. One per gym, ever; a full bag defers the
 ; gift to the next talk, so the flag is only set when the bottle lands.
@@ -944,31 +944,31 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	const EVENT_GOT_GYM_GUIDE_WATER_SAFFRON
 	const EVENT_GOT_GYM_GUIDE_WATER_CINNABAR
 	const EVENT_GOT_GYM_GUIDE_WATER_VIRIDIAN
-; v0.7 (2026-08-30, his call): CELADON had no in-gym guide and sat out the
+; v0.7 (2026-08-30): CELADON had no in-gym guide and sat out the
 ; water round -- she is the eighth, a new NPC by the door (girls-only gym,
 ; so the usher is a woman).
 	const EVENT_GOT_GYM_GUIDE_WATER_CELADON
-; v0.7 (2026-08-30, his design, v3): the two Oak's aides wait in the
+; v0.7 (2026-08-30, design v3): the two Oak's aides wait in the
 ; SAFFRON Pokecenter with the ITEMFINDER and EXP.SHARE. This latch marks
 ; "the entry cutscene already ran this visit"; the map's on-entry script
 ; CLEARS it again while a parcel is still owed, so the scene repeats once
 ; per visit until both land - and a full-bag player is never text-locked.
 	const EVENT_SAFFRON_AIDES_AMBUSHED
 
-; v1.0 (2026-09-09, his idea): the SILPH president keeps a second MASTER BALL for the
+; v1.0 (2026-09-09): the SILPH president keeps a second MASTER BALL for the
 ; day the person who saved his building becomes CHAMPION. Given once, ever.
 	const EVENT_GOT_SECOND_MASTER_BALL
 
-; v1.0 (2026-09-22, Forte): PURPLE'S PATCH - he brings out one #MON's full
+; v1.0 (2026-09-22): PURPLE'S PATCH - he brings out one #MON's full
 ; potential (every DV to 15). Once after his quiz, once more as CHAMPION.
 	const EVENT_USED_PURPLES_PATCH
 	const EVENT_USED_PURPLES_CHAMPION_PATCH
 
 ; End of events
-; v0.7 (2026-08-29, his call): the ceiling grew $A00 -> $A80 -- the gym-guide
+; v0.7 (2026-08-29): the ceiling grew $A00 -> $A80 -- the gym-guide
 ; water flags had filled the old space to the last slot. This adds 16 bytes
 ; of SAVED WRAM and shifts everything after it: A SAVE-FORMAT CHANGE,
-; blessed by him (new game only). The Stack org in layout.link moved
+; accepted for a new game only. The Stack org in layout.link moved
 ; $df08 -> $df18 to make room (stack 248 -> 232 -- still 38 bytes above
 ; the pre-hardening size, and the stack-leak bug that motivated the
 ; cushion died with the 08-25 pp-freeze fix). 128 fresh slots.

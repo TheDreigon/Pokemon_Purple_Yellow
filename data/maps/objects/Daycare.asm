@@ -21,7 +21,7 @@ Daycare_Object:
 	object_event  2,  3, SPRITE_GENTLEMAN, STAY, RIGHT, TEXT_DAYCARE_GENTLEMAN
 ; The current boarders. Only PIDGEY has a 24-tile sheet with walk frames;
 ; the others are 12-tile stills -- a still sprite set to WALK animates with
-; whatever sprite sits NEXT in the ROM, which is the flicker Forte saw.
+; whatever sprite sits NEXT in the ROM, which is the flicker seen in play.
 ; STAY sprites still turn to face the player when spoken to.
 	object_event  5,  3, SPRITE_ODDISH, STAY, NONE, TEXT_DAYCARE_ODDISH
 	object_event  0,  4, SPRITE_JIGGLYPUFF, STAY, NONE, TEXT_DAYCARE_JIGGLYPUFF

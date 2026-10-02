@@ -114,7 +114,7 @@ OakSpeech:
 	ld [wd0b5], a
 	ld [wcf91], a
 	call GetMonHeader
-; v0.7 (2026-09-01, Forte's playtest): this pic is the PARTNER being
+; v0.7 (2026-09-01, playtest): this pic is the PARTNER being
 ; introduced, so it must be the Yellow art. The flipped loader's fake-
 ; Pikachu hook judges by wLoadedMon, which at this point is whatever the
 ; last screen left there (a NEW GAME after browsing a caught Pikachu's

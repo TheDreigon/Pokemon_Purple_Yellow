@@ -1,6 +1,6 @@
 ; ARCHIVED -- Saffron City while Silph Co is occupied -- the first Saffron theme. NOT BUILT.
 ;
-; This is the first version, kept because Forte asked for the originals to be
+; This is the first version, kept so that the originals would be
 ; preserved before Saffron was rewritten (2026-08-05). The note data below is
 ; byte-for-byte what shipped; only the labels are renamed, so that this file can
 ; sit in the repo beside the live one without clashing. It is not referenced
@@ -15,7 +15,7 @@
 ; Then check: python .claude/song_id_audit.py and .claude/music_analyze.py
 ;
 ; A minor on an Am-Em-F-G vamp, tempo 152, 8 bars, 31 notes in the lead.
-; Forte chose this over two later revisions; see the memory. Its twin is
+; Chosen over two later revisions. Its twin is
 ; unused_saffron_free.asm and the two must stay structurally identical.
 
 ; Saffron City -- an original piece, not derived from anything.
@@ -26,11 +26,11 @@
 ; same tune in A major, faster, and with a second half. If you change anything
 ; structural here, that file is its twin and has to follow.
 ;
-; Two derivations failed the same way: Forte liked the music and said it did not
+; Two derivations failed the same way: the music was liked but did not
 ; fit. Celadon and Route 24/25 are fundamentally CHEERFUL and ADVENTUROUS, and
 ; slowing a tune down does not change what the tune is about. Saffron is
 ; neither. It is the biggest city in Kanto, it is Silph's company town, and
-; Forte's own note is that visually there is barely any room to move because it
+; visually there is barely any room to move because it
 ; is just a mass of buildings. So this is written for that on purpose.
 ;
 ; The decisions, stated so they can be argued with:
@@ -64,26 +64,26 @@
 ; TEMPO 152. Purposeful, and deliberately not slow: Cinnabar (200) and Pewter
 ; (184) own the heavy end now. Direction reminder -- the note delay is
 ; note_length * note_speed * TEMPO, so a bigger number is SLOWER. This is the
-; ONE thing carried back from the later attempts: Forte asked for "a touch
-; faster" while v2 was being made, which was a standing note about the track
+; ONE thing carried back from the later attempts: a touch more speed, noted
+; while v2 was being made as a standing note about the track
 ; and not part of the Kanto argument. Everything else here is v1 untouched.
 ;
 ; -- HOW THIS ENDED (2026-07-30) ---------------------------------------------
-; Three versions were made and Forte chose this one.
+; Three versions were made and this one was chosen.
 ;
-;   v1 (this)  original, "modern city". He scored it 9/10 and said he loved it,
+;   v1 (this)  original, "modern city". Rated 9/10 and well liked,
 ;              with one reservation: it does not sound like the rest of Kanto.
 ;   v2         same melody, accompaniment rebuilt in Gen 1 idiom -- 6+6+4 drums
-;              instead of four-on-the-floor, a walking bass, perfect pitch. He
-;              still heard the difference and correctly identified that the
-;              cause was the MELODY, not the backing.
+;              instead of four-on-the-floor, a walking bass, perfect pitch.
+;              The difference was still audible, and its cause was the
+;              MELODY, not the backing.
 ;   v3         melody and harmony rewritten to Gen 1's measured profile
 ;              (Am-Dm-E-Am, mostly stepwise with leaps at the phrase joins).
-;              His verdict: the worst of the three.
+;              Rated the worst of the three.
 ;
 ; The lesson is worth more than the track. v3 scored well against every metric
 ; I could take off Cities1 and Celadon -- interval profile, range, cadential
-; harmony -- and it was the one he liked least. Matching a measured profile is
+; harmony -- and it was the one liked least. Matching a measured profile is
 ; not the same as writing a good tune, and when the two disagree the ear wins.
 ; The thing that made v1 worth keeping was never its idiom; it is that it is a
 ; good piece of music, and that Saffron sounding unlike anywhere else in Kanto

@@ -147,7 +147,7 @@ TrainerWalkUpToPlayer::
 	ldh [hSpriteIndex], a
 	jp MoveSprite_
 
-; v1.0 (2026-09-24, Forte). Called from DisplayEnemyTrainerTextAndStartBattle
+; v1.0 (2026-09-24). Called from DisplayEnemyTrainerTextAndStartBattle
 ; (home) once the trainer that spotted the player has finished walking up.
 ; The player turns to face the trainer before the challenge text, as every
 ; later generation does, then the text is shown exactly as before. The

@@ -156,7 +156,7 @@ Museum1FPrintGamblerText::
 	text_far _Museum1FGamblerText
 	text_end
 
-; v1.0 (Forte, 2026-09-23): the amber is an errand now. He asks the player by
+; v1.0 (2026-09-23): the amber is an errand now. He asks the player by
 ; name to carry it to the LAB on CINNABAR (YES/NO; a NO keeps the amber here
 ; and he asks again), waits for news, and when the AERODACTYL is really back
 ; (EVENT_REVIVED_OLD_AMBER, set by the lab at the hand-over) he thanks the

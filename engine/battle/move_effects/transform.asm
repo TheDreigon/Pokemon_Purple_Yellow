@@ -149,8 +149,8 @@ TransformedText:
 	text_far _TransformedText
 	text_end
 
-; v1.0 (D11, 2026-09-28; Forte: "deixar copiar se for Hard Mode, mas nao copiar as medalhas se
-; for Normal Mode"): the ENEMY's TRANSFORM, right after it copied your unmodified stats. In
+; v1.0 (D11, 2026-09-28; in Hard Mode the copy stands, in Normal Mode the badges are not copied):
+; the ENEMY's TRANSFORM, right after it copied your unmodified stats. In
 ; Normal those carry the badge boost - PIKACHU's x1.25 with it - baked in by ApplyBadgeStatBoosts
 ; at the send-out (LoadBattleMonFromParty) and at a level-up (experience.asm). The enemy now takes
 ; the party stats of your #MON in battle instead: the same five, before the boost (a level-up

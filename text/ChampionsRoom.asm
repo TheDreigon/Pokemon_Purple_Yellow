@@ -251,7 +251,7 @@ _ChampionsRoomVaporeonText::
 	line "VAPOREON!"
 	done
 
-; v1.0 (2026-09-25, Forte): OAK on a title defence says why he keeps turning up
+; v1.0 (2026-09-25): OAK on a title defence says why he keeps turning up
 _ChampionsRoomRematchOakComeWithMeText::
 	text "OAK: <PLAYER>!"
 

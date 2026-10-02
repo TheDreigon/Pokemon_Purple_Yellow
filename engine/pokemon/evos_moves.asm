@@ -157,7 +157,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	call DelayFrames
 	call ClearScreen
 	call RenameEvolvedMon
-; v0.7 (2026-09-08, Forte): EXP top-up across a curve change. Six lines evolve
+; v0.7 (2026-09-08): EXP top-up across a curve change. Six lines evolve
 ; from a FAST pre-evo into a MEDIUM_FAST evolution (Caterpie, Weedle, Pikachu,
 ; Magikarp, Eevee, Dratini). Evolving never touched the exp, so the new species
 ; carried exp under its own level floor: the box and the day care recompute the
@@ -825,7 +825,7 @@ PrepareRelearnableMoveList::
 	pop hl                        ; restore learnset pointer
 	; --- end v0.5 globals ---
 
-	; v0.7 (Forte): relearner menu order = REST -> egg moves -> level-up.
+	; v0.7: relearner menu order = REST -> egg moves -> level-up.
 	; The egg/header phase lives physically below (.eggPhase); run it FIRST,
 	; then come back to .loop for the level-up scan. It clobbers b (its loop
 	; counter), so save the mon level; hl (learnset ptr) is saved too and
@@ -894,7 +894,7 @@ PrepareRelearnableMoveList::
 
 ;joenote - start checking for level-0 moves
 ; v0.7: reached via `jp .eggPhase` above (egg moves are now listed BEFORE
-; the level-up moves, per Forte); exits through .done2, which restores the
+; the level-up moves); exits through .done2, which restores the
 ; level + learnset pointer and jumps back to .loop.
 .eggPhase
 	xor a

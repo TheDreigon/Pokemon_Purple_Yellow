@@ -80,7 +80,7 @@ MrFujisHouseMrFujiText:
 	ld hl, .ReceivedPokeFluteText
 	call PrintText
 	SetEvent EVENT_GOT_POKE_FLUTE
-; v1.0 (Forte, 2026-09-23): the flute scene ends in `done`, which does not
+; v1.0 (2026-09-23): the flute scene ends in `done`, which does not
 ; wait - hold its last page, then make the offer
 	call WaitForTextScrollButtonPress
 	ld hl, MrFujisHouseCuboneOfferText
@@ -91,7 +91,7 @@ MrFujisHouseMrFujiText:
 	call PrintText
 	jr .done
 .got_item
-; v1.0 (Forte, 2026-09-23): until the orphan leaves with the player, every
+; v1.0 (2026-09-23): until the orphan leaves with the player, every
 ; later talk asks again (a refusal and a full party set nothing)
 	CheckEvent EVENT_GOT_FUJI_CUBONE
 	jr nz, .has_cubone
@@ -122,7 +122,7 @@ MrFujisHouseMrFujiText:
 	text_far _MrFujisHouseMrFujiHowIsSheText
 	text_end
 
-; v1.0 (Forte, 2026-09-23): the orphan CUBONE of the TOWER, who lives here in
+; v1.0 (2026-09-23): the orphan CUBONE of the TOWER, who lives here in
 ; his Volunteer House (object (1,5)). Her mother is the MAROWAK the player laid
 ; to rest, which is why it is her he offers, and to this player. hl = the
 ; offer to print (first time or a later re-ask). YES -> she joins the PARTY

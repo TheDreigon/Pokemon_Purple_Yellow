@@ -227,7 +227,7 @@ TryingToLearn:
 	call IsMoveHM
 	pop bc
 	pop de
-; v1.0 (2026-09-24, Forte): a level-up or a TM may overwrite an HM here (the
+; v1.0 (2026-09-24): a level-up or a TM may overwrite an HM here (the
 ; Yellow Legacy's 3d8c2127 dropped vanilla's refusal; IsMoveHM's carry is
 ; ignored) - except the party's last CUT or SURF, the two field moves with no
 ; walking alternative: the same rule and the same line as the MOVE DELETER's

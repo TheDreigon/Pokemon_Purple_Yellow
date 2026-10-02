@@ -1841,7 +1841,7 @@ UNION
 wMovesString:: ds 56
 
 NEXTU
-; v1.0 (2026-09-08, Forte): the level-up gains box. The two level-up paths copy the
+; v1.0 (2026-09-08): the level-up gains box. The two level-up paths copy the
 ; mon's stats here just before CalcStats; PrintStatsBox with d = 2 subtracts them from
 ; wLoadedMon in place and prints the result, so this holds the OLD stats on the way in
 ; and the GAINS on the way out. Safe over wMovesString: FormatMovesString
@@ -2065,7 +2065,7 @@ SECTION "Main Data", WRAM0
 
 wMainDataStart::
 
-; v0.7 expansion prep (2026-08-31, save format break, Forte's GO): both dex
+; v0.7 expansion prep (2026-08-31, save format break): both dex
 ; bitfields are pre-sized to POKEDEX_FLAG_CAPACITY (200 species / 25 bytes)
 ; so future species additions stop moving every label after them. Trailing
 ; bits are zero on a new game and in the migrated fixture; every consumer
@@ -2288,7 +2288,7 @@ wMovedexSeenEnd::
 ; and has to pick a mode, which is exactly what we want them to do anyway.
 wExpShareMode:: db
 
-; v0.7 "registered item" (his 2026-08-28 request): the key item bound to
+; v0.7 "registered item" (2026-08-28): the key item bound to
 ; SELECT in the overworld. 0 = nothing registered -- which is also what an
 ; old save's recycled byte reads, the same safe-sentinel precedent as
 ; wExpShareMode above.
@@ -2869,7 +2869,7 @@ SECTION "Stack", WRAM0
 ; took 99 more from the dead padding and dead fields INSIDE the saved main-data
 ; block (vanilla holes in wGameProgressFlags, after wWalkBikeSurfState, after the
 ; missable flags, the pikapic tail, wStartBattleLevels...), which broke the save
-; layout on purpose before Forte's new game. The sentinel survey of the whole emulator suite
+; layout on purpose before the new playthrough. The sentinel survey of the whole emulator suite
 ; (stack_survey.py, 2026-09-08) peaked at 115 of the 128 the split had left
 ; (Saffron gates 115, the school blackboard 113, boss battles 111), and the
 ; VBlank handler alone stacks about 16 on top of whatever the main thread is

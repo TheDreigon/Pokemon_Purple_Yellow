@@ -113,7 +113,7 @@ HoFShowMonOrPlayer:
 .showMon
 	hlcoord 12, 5
 	call GetMonHeader
-; v0.7 (2026-09-01, Forte's call): the induction shows the INDIVIDUAL -
+; v0.7 (2026-09-01): the induction shows the INDIVIDUAL -
 ; a fake Pikachu on the winning team wears its own (Silver) pic, the
 ; partner wears the Yellow one. The HoF variant reads wHoFPartyMonIndex;
 ; the League PC replay draws through its own routine and stays Yellow

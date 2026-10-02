@@ -1,6 +1,6 @@
 ; ARCHIVED -- Saffron City after Giovanni is beaten -- the first Saffron theme's twin. NOT BUILT.
 ;
-; This is the first version, kept because Forte asked for the originals to be
+; This is the first version, kept so that the originals would be
 ; preserved before Saffron was rewritten (2026-08-05). The note data below is
 ; byte-for-byte what shipped; only the labels are renamed, so that this file can
 ; sit in the repo beside the live one without clashing. It is not referenced
@@ -20,7 +20,7 @@
 
 ; Saffron City, after Silph Co is taken back.
 ;
-; Forte's design: the city keeps its own theme either way, so the place still
+; The design: the city keeps its own theme either way, so the place still
 ; sounds like itself -- but once Giovanni is off the top floor the same tune
 ; plays in MAJOR and faster. Nothing new to learn, and it lands as the city
 ; exhaling rather than as a different track starting.
@@ -36,10 +36,10 @@
 ;
 ; Tempo 152 -> 138, about 10% faster.
 ;
-; -- THE SECOND HALF (Forte scored the 8-bar version 8/10) --------------------
-; His note was that Celadon and Fuchsia have "more life, more voice" and that
-; this melody was short, and on a second pass that it sounded more amateur than
-; the other Kanto themes. Measured, he is right on every count:
+; -- THE SECOND HALF (the 8-bar version was rated 8/10) -----------------------
+; The critique: Celadon and Fuchsia have more life and more voice, this
+; melody was short, and on a second pass it sounded more amateur than
+; the other Kanto themes. Measured, that holds on every count:
 ;
 ;     Celadon                     16 bars |  78 notes | lengths 1,2,4,6,8
 ;     Cities2 (Cerulean/Fuchsia)  16 bars |  53 notes | lengths 1,2,4,8,16
@@ -60,27 +60,26 @@
 ;
 ; Only Ch1 gains material by design. Ch2's rigid arpeggio is the traffic and
 ; keeps its shape; it and the bass simply follow the new chords. Widening
-; everything at once would have muddled the one thing he asked for.
+; everything at once would have muddled the one thing that was needed.
 ;
 ; Second-half harmony: D - A - F#m - E - D - A - E - E. The D is the lift.
 ;
 ; -- NO DRUM CHANNEL, from 2026-07-30 ----------------------------------------
-; Forte heard "a constant tum, tum, tum, tum in the background, always the
-; same" and asked for it gone. Two things in here fit that description and I
-; could not tell them apart by ear, so I described both and he picked: it was
-; Ch4. Four evenly spaced hits a bar, byte-identical across all sixteen bars,
+; A constant thump in the background, always the same, had to go. Two things
+; in here fit that description and could not be told apart by ear, so both
+; were described and the choice fell on Ch4. Four evenly spaced hits a bar,
+; byte-identical across all sixteen bars,
 ; never varying once. Over the old 8-bar loop it passed; stretched to 16 it is
 ; a metronome.
 ;
 ; So this track has three channels, which is not a compromise: Celadon and
 ; Cities2 (Cerulean and Fuchsia) are both three-channel with no noise channel
-; at all, and those are the two themes he keeps naming as the ones with life in
-; them.
+; at all, and those are the two themes named as the ones with life in them.
 ;
-; Removed from THIS track only, at his instruction. Music_SaffronCity, the
+; Removed from THIS track only, as specified. Music_SaffronCity, the
 ; minor version, keeps its drums. Worth flagging that the two are meant to
 ; differ only in key and tempo, so if the drums ever come out of one they
-; probably should come out of both -- but that is his call to make, not
+; probably should come out of both -- but that is a design decision, not
 ; something to do quietly on the way past.
 
 Music_UnusedSaffronFree_Ch1::

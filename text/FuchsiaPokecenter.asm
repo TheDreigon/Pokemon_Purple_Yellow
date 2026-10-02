@@ -23,7 +23,7 @@ _FuchsiaPokecenterCooltrainerFText::
 ; is the DAYCARE gentleman's daughter now, and this is an ordinary POKeMON
 ; CENTER again.
 
-; v1.0 (2026-09-25, Forte): the CHAMPION's room on a title defence: the rival names
+; v1.0 (2026-09-25): the CHAMPION's room on a title defence: the rival names
 ; himself the challenger and the player the champ. It was in Text 9 (at its floor;
 ; Text 10 is full in the debug ROM) and was rewritten here, in Text 5.
 _ChampionsRoomRivalRematchIntroText::

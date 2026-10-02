@@ -34,7 +34,7 @@ FocusEnergyEffect_:
 	ld [de], a
 	ret
 .alreadyUsing
-; v1.0 (F2, 2026-09-30; Forte: "sim, ainda podemos o ter o accuracy a subir caso consiga"):
+; v1.0 (F2, 2026-09-30; the ACCURACY raise still runs when it can):
 ; already pumped (its own FOCUS ENERGY or a DIRE HIT: one bit, x3 once, it never stacks), the
 ; crit half is refused and says so, and the ACCURACY +1 still runs - refused only at +6, where
 ; StatModifierUpEffect says "won't go any higher!" - as BULK UP at ATTACK +6 still raises its

@@ -66,7 +66,7 @@ Voltorb7TrainerHeader:
 ZapdosTrainerHeader:
 	trainer EVENT_BEAT_ZAPDOS, TEXT_POWERPLANT_ZAPDOS, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText
 CraigTrainerHeader:
-	trainer EVENT_BEAT_CRAIG, TEXT_POWERPLANT_CRAIG, PowerPlantCraigBattleText1, PowerPlantCraigEndBattleText1, PowerPlantCraigAfterBattleText1 ; range 0 = talk-only, no line-of-sight (Forte: Craig/Smith/Weebra are talk-to-battle)
+	trainer EVENT_BEAT_CRAIG, TEXT_POWERPLANT_CRAIG, PowerPlantCraigBattleText1, PowerPlantCraigEndBattleText1, PowerPlantCraigAfterBattleText1 ; range 0 = talk-only, no line-of-sight (Craig/Smith/Weebra are talk-to-battle)
 	db -1 ; end
 
 PowerPlantCraigText:

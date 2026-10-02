@@ -21,7 +21,7 @@ CeladonMart2FCurrentFloorSignText:
 	text_far _CeladonMart2FCurrentFloorSignText
 	text_end
 
-; v0.7 (2026-09-05, Forte): the counter was regular shop (left) + damage TMs
+; v0.7 (2026-09-05): the counter was regular shop (left) + damage TMs
 ; (right). The TMs moved up to 5F to sit beside the other TM clerk, the
 ; vitamins came down in their place, and the two here swapped so that the
 ; vitamins are on the LEFT and the regular shop on the RIGHT.

@@ -1,4 +1,4 @@
-; v1.0 (Forte, 2026-09-23): the Mt. Moon fossil nerd's post-League rematch. Its
+; v1.0 (2026-09-23): the Mt. Moon fossil nerd's post-League rematch. Its
 ; own section (pinned in layout.link): Text 1, his bank, sits 310 bytes above
 ; its floor. The end-battle line follows "SUPER NERD: " so its first row has
 ; six tiles; every line under the press-A arrow is 17 or less.

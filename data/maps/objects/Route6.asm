@@ -5,7 +5,7 @@
 	const_export ROUTE6_COOLTRAINER_M2
 	const_export ROUTE6_COOLTRAINER_F2
 	const_export ROUTE6_YOUNGSTER2
-	const_export ROUTE6_GARDENER ; v1.0 (2026-09-07, Forte): the old man who keeps the garden
+	const_export ROUTE6_GARDENER ; v1.0 (2026-09-07): the old man who keeps the garden
 
 Route6_Object:
 	db $f ; border block
@@ -32,7 +32,7 @@ Route6_Object:
 	object_event 11, 31, SPRITE_YOUNGSTER, STAY, LEFT, TEXT_ROUTE6_COOLTRAINER_M2, OPP_JR_TRAINER_M, 5, 3
 	object_event 11, 30, SPRITE_COOLTRAINER_F, STAY, LEFT, TEXT_ROUTE6_COOLTRAINER_F2, OPP_JR_TRAINER_F, 3, 3
 	object_event 17, 26, SPRITE_YOUNGSTER, STAY, LEFT, TEXT_ROUTE6_YOUNGSTER2, OPP_BUG_CATCHER, 11, 3
-; v1.0 (2026-09-07, Forte): the gardener on the flower strip right below the SAFFRON gate
+; v1.0 (2026-09-07): the gardener on the flower strip right below the SAFFRON gate
 ; (row 5, between the gate and the hedge). A plain object: his text id sits within the
 ; first 7 entries of the table.
 ; 2026-09-23: he looks around instead of wandering. gramps.png is 16x48 - three poses and no

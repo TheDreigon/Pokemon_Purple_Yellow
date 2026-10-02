@@ -132,7 +132,7 @@ StatusScreen:
 ; Ours is not white. STATUS_QUIET leaves the previous page up, and the move
 ; page draws its box out of those very tiles. Each CopyVideoData waits for a
 ; VBlank, so for about six frames the move page sat on screen with pieces of
-; the HP bar where its border should be - the flicker Forte caught coming back
+; the HP bar where its border should be - the flicker seen in play coming back
 ; from the moves. Measured, not reasoned: tiles $96d0, $9760, $9770 and $9780
 ; differed from the settled page for frames +4 to +10 of the flip, while the
 ; tile map did not change at all in that window.
@@ -179,7 +179,7 @@ StatusScreen:
 	coord hl, 19, 1
 	lb bc, 6, 10
 	call DrawLineBox ; Draws the box around name, HP and status
-; v1.0 (2026-09-06, Forte): the dex number moved off row 7 into the lower-right
+; v1.0 (2026-09-06): the dex number moved off row 7 into the lower-right
 ; panel, above TYPE1/ (row 8, the one row that panel had free), so the left
 ; half of row 7 is empty - a row of air between the picture and ATTACK.
 	coord hl, 10, 8
@@ -188,7 +188,7 @@ StatusScreen:
 	ld [hl], $61 ; "X"
 	inc hl
 	ld de, DexNoText
-	call PlaceString ; "№." - so the number reads apart from the DV page's ID№/ (Forte)
+	call PlaceString ; "№." - so the number reads apart from the DV page's ID№/
 	coord hl, 19, 9
 	lb bc, 8, 6
 	call DrawLineBox ; Draws the box around the types (or, with START, ID No. and OT)
@@ -263,7 +263,7 @@ StatusScreen:
 	ld e, l
 	coord hl, 9, 1
 	call PlaceString ; Pokémon name
-; v1.0 (2026-09-06, Forte): the lower-right panel holds the dex number (row
+; v1.0 (2026-09-06): the lower-right panel holds the dex number (row
 ; 8), a blank row, then the types on rows 10-13 - rows 14-15 stay free for a
 ; possible third type. The ID number and the OT moved to the DV page: with
 ; START held, rows 10-13 show IDNo/ and OT/ instead of the types.
@@ -313,7 +313,7 @@ StatusScreen:
 ; in the NEXT one's colours and left it like that until the picture caught up.
 ; Measured on the step: something visible changed at frame +4, then twenty-six
 ; frames of nothing at all, then the picture arrived at +32. A green PIKACHU
-; for half a second, which is what Forte reported.
+; for half a second, which is what showed in play.
 ;
 ; Moved, not added - the two instructions come from further up, so this costs
 ; nothing (bank $4 has ~1.5 KB free, not the seven bytes once feared). GetHealthBarColor stays where it
@@ -439,7 +439,7 @@ StatusScreen_RevealQuietPage:
 	ld a, [wStatusScreenPageChange]
 	and STATUS_NOWAIT
 	ret nz ; page 2 is about to draw over this one - stay hidden until it does
-; v1.0 (2026-09-22, Forte's six bytes): the transfer moves SIX ROWS per
+; v1.0 (2026-09-22, six bytes): the transfer moves SIX ROWS per
 ; VBlank, so putting the page up takes three frames whatever we do - and it
 ; used to start from wherever the last screen left hAutoBGTransferPortion, so
 ; the page arrived in a scrambled order, two torn frames visible. Starting the
@@ -625,7 +625,7 @@ PrintStat:
 	ret
 
 PrintStatGainsBox:
-; v1.0 (2026-09-08, Forte): "tal como nas geracoes seguintes" - the window of what the
+; v1.0 (2026-09-08): as in the later generations - the window of what the
 ; level-up gave, shown before the box of new totals. All six stats, HP included, which is
 ; why it is not the totals box's shape: six single rows instead of five two-row pairs, so
 ; it is wider (cols 5-19) and shorter (rows 0-7) and still clears the message box on 12.

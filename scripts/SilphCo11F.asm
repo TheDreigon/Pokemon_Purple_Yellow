@@ -201,7 +201,7 @@ SilphCo11FGiovanniStartBattleScript:
 .continue
 	call SilphCo11FScript_621ff
 	call Delay3
-; his sting, all three appearances (Forte 2026-08-17): the dojo theme opens
+; his sting, all three appearances (2026-08-17): the dojo theme opens
 ; every Giovanni confrontation — plays under his pre-battle words here
 	ld c, BANK(Music_FightingDojo)
 	ld a, MUSIC_FIGHTING_DOJO
@@ -550,7 +550,7 @@ SilphCo11FSilphPresidentText:
 	call PrintText
 	jr .done
 .got_item
-; v1.0 (2026-09-09, Forte): the first time the player comes back as CHAMPION, the
+; v1.0 (2026-09-09): the first time the player comes back as CHAMPION, the
 ; president has one more of them - he had it made after the rescue, for this day.
 ; wGameStage is the beat-the-League flag (scripts/HallOfFame.asm); the event flag
 ; makes it once, ever, so a second League run does not repeat the gift.

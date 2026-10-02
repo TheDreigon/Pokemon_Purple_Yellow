@@ -65,7 +65,7 @@ _Route12CooltrainerMAfterBattleText::
 	done
 
 _Route12GentlemanBattleText::
-; v1.0 (2026-09-25, Forte): the ROCKER's electric lines went with the class
+; v1.0 (2026-09-25): the ROCKER's electric lines went with the class
 	text "Ah, a trainer! My"
 	line "pets could use a"
 	cont "run. En garde!"

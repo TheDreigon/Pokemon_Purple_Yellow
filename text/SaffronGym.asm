@@ -66,7 +66,7 @@ _SaffronGymRematchPostBattleText::
 	done
 
 _SaffronGymSabrinaGoldBadgeInfoText::
-; v1.0 (the SPECIAL split, 2026-09-06): Forte's badge map - the GOLDBADGE
+; v1.0 (the SPECIAL split, 2026-09-06): the badge map - the GOLDBADGE
 ; lends SP.DEF (Normal only, knob #17: the hard twin below claims none).
 	text "The GOLDBADGE is"
 	line "a mark of psychic"

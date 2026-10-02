@@ -23,7 +23,7 @@ DistributeExperience::
 ;
 ; It also covers the plain case of an empty flag byte, where ONE would otherwise
 ; halve the block and hand the fighters' half to nobody.
-; #10 follow-up (Forte 2026-09-02): the summary bookkeeping starts clean for
+; #10 follow-up (2026-09-02): the summary bookkeeping starts clean for
 ; every distribution - the party loop below accumulates into these, and
 ; PrintExpShareSummary reads them. Zeroed in all modes; OFF just never prints.
 	xor a
@@ -94,7 +94,7 @@ DistributeExperience::
 	jp GainExperience
 
 PrintExpShareSummary:
-; One box per battle instead of a text per Pokemon (Forte 2026-09-02):
+; One box per battle instead of a text per Pokemon (2026-09-02):
 ; "Shared X EXP / between A, B, and C" - X is everything both passes handed
 ; out, the names are everyone whose exp actually moved. If every candidate
 ; was refused (at the cap, fainted on Hard) there is nothing to say. In a
@@ -230,7 +230,7 @@ BuildExpShareNames:
 	ld a, [wd11e]
 	cp 2
 	jr c, .checkFit
-	ld h, 6 ; ", and " before the last of three or more - the Oxford comma (Forte 2026-09-05)
+	ld h, 6 ; ", and " before the last of three or more - the Oxford comma (2026-09-05)
 .checkFit
 	ld a, c
 	add h
@@ -334,7 +334,7 @@ ExpShareAndWord:     db " and @"
 GetExpShareMode:
 ; out: a = the mode in force right now, zero flag set if that is OFF.
 ; The stored mode only counts while the item is really in the bag.
-	ld b, EXP_SHARE ; v0.7 policy (Forte, 2026-08-31): identifiers match the
+	ld b, EXP_SHARE ; v0.7 policy (2026-08-31): identifiers match the
 	              ; name the player reads, everywhere. The old "constants keep
 	              ; their vanilla names" rule is dead - EXP_ALL, ANTIDOTE,
 	              ; AWAKENING and PARLYZ_HEAL were renamed across the tree.
@@ -525,11 +525,11 @@ GainExperience:
 	and a ; is mon's gain exp flag set?
 	pop hl
 	jp z, .nextMon ; if mon's gain exp flag not set, go to next mon
-; v1.0 (2026-09-08, Forte, T4a): on HARD a Pokemon at or past the level cap
+; v1.0 (2026-09-08, T4a): on HARD a Pokemon at or past the level cap
 ; gains NOTHING from a battle - not even stat exp. The cap used to be applied
 ; only to the exp, after the stat exp loop below had already run, so a capped
 ; Pokemon (a participant, or a TEAM-mode sharer) kept growing on the inside:
-; "batota". The same test moved here from after .statExpDone also keeps the
+; a cheat. The same test moved here from after .statExpDone also keeps the
 ; older story true - a gift Pokemon that ARRIVES above the cap (the roof-house
 ; PORYGON, L20 on a cap of 15) is skipped outright, so its exp is never clamped
 ; down and its level never drops. Compared as LEVELS, before any arithmetic.
@@ -720,7 +720,7 @@ GainExperience:
 	call LoadMonData
 	call AnimateEXPBar
 	pop hl
-; v0.7 (2026-09-05, Forte's run): with the EXP.SHARE the level-up is put off
+; v0.7 (2026-09-05, playthrough): with the EXP.SHARE the level-up is put off
 ; until the summary box has printed - otherwise a Pokemon at the back of the
 ; party grew a level (stats box, new moves) BEFORE the player was told the
 ; exp had been shared with it. The exp is already in the party struct;
@@ -1067,7 +1067,7 @@ AnimateEXPBar:
 ; flow pays the active mon on the post-catch screen, where the battle HUD is
 ; gone -- and the grow loop below works by INCREMENTING the tile under the
 ; cursor, so on a blank $7F tile it writes $80, $81... which are the FONT's
-; letters. That is the stray "Q" (and friends) Forte saw in the corner during
+; letters. That is the stray "Q" (and friends) seen in the corner during
 ; "gained EXP" after a catch. The bar's fill states are tiles $c0-$c8; if the
 ; tile at the bar's anchor is not one of them, there is no bar to animate.
 	coord hl, 17, 11
@@ -1149,7 +1149,7 @@ GetLevelCap::
 	ld a, [wGameStage]
 	and a
 	jr nz, .uncapped ; the League is beaten; the cap has done its job
-; v0.7 (2026-09-01, Forte's redesign): the ceiling is the level the HARD
+; v0.7 (2026-09-01, redesign): the ceiling is the level the HARD
 ; player actually SEES on the next leader's ace - base +1, because bosses
 ; are +1 on hard (knob #12). It doubles as the OBEDIENCE threshold for
 ; every #MON the player commands (CheckForDisobedience farcalls the
@@ -1177,10 +1177,10 @@ GetLevelCap::
 	ld b, 39 ; Erika's ace, 4th gym (38 + 1)
 	jr nc, .done
 	cp 2
-	ld b, 31 ; Surge's ace, 3rd gym (30 + 1; Forte's 2026-09-05 roster)
+	ld b, 31 ; Surge's ace, 3rd gym (30 + 1; the 2026-09-05 roster)
 	jr nc, .done
 	cp 1
-	ld b, 23 ; Misty's ace, 2nd gym (22 + 1; STARMIE L22 since Forte's 2026-09-01 touch-up)
+	ld b, 23 ; Misty's ace, 2nd gym (22 + 1; STARMIE L22 since the 2026-09-01 touch-up)
 	jr nc, .done
 	ld b, 15 ; Brock's ace, 1st gym (14 + 1)
 	jr .done

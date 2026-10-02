@@ -944,7 +944,7 @@ SpecialTrainerMoves:
 	db 0
 
 	db SCIENTIST, 9 ; Silph Co. 8F — prototype PORYGON ace (40 MAGNETON, 42 ELECTRODE, 45 PORYGON)
-	; Forte's set. All four are level-up moves the L45 Porygon already has
+	; The specified set. All four are level-up moves the L45 Porygon already has
 	; naturally (TRI_ATTACK 40, SHOCK_WAVE 22, ICY_PULSE 35, EXTRASENSORY 30),
 	; so this is legal without relying on the learns-later allowance.
 	db 3, 1, TRI_ATTACK

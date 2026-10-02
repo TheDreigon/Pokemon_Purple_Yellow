@@ -97,7 +97,7 @@ _Route6Youngster2AfterBattleText::
 	cont "just bad?"
 	done
 
-; v1.0 (2026-09-07, Forte): the gardener of the beds below the SAFFRON gate. Both routes' grass
+; v1.0 (2026-09-07): the gardener of the beds below the SAFFRON gate. Both routes' grass
 ; really has poison #MON since the same day's pass (GRIMER, KOFFING, and a rare MUK / WEEZING);
 ; emu_test_route6_gardener checks every route he names against the wild tables.
 _Route6GardenerText::

@@ -5,7 +5,7 @@
 
 ; v0.7: dedicated ratio table for the ACCURACY/EVASION stages (CalcHitChance
 ; only). It started on the modern (Gen 5+) 3/(3+n) curve (-1 = x0.75 against
-; the shared stat table's x0.66); Forte's run (2026-09-05) still found -1 too
+; the shared stat table's x0.66); a playthrough (2026-09-05) still found -1 too
 ; strong, so the curve is one notch shallower, 4/(4+n): -1 = x0.80, -6 = x0.40,
 ; +1 = x1.25, +6 = x2.50. Same shape, gentler steps. The four battle stats
 ; keep StatModifierRatios above.

@@ -26,7 +26,7 @@ FightingDojoPostLeagueState:
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	SetEventRange EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
-; 2026-08-30 (Forte): with the master gone the prize fight is gone too, so
+; 2026-08-30: with the master gone the prize fight is gone too, so
 ; a player who never beat him can never open the balls — leaving them
 ; visible would be an unreachable tease. Hide both. A player who DID beat
 ; him keeps the earned, still-claimable choice (and FightingDojoOnEntry
@@ -165,7 +165,7 @@ FightingDojoRebattlePostBattleScript:
 	jp FightingDojoResetScripts
 
 ; Starts a one-shot student rebattle, dojo style — the challenge leads
-; straight into the fight, no Yes/No on this floor (Forte, 2026-08-18).
+; straight into the fight, no Yes/No on this floor (2026-08-18).
 ; hl = challenge text · de = end-battle text · b = BLACKBELT party (10-13) ·
 ; c = student index (1-4) for the shared post-battle state above.
 ; The same de fills BOTH SaveEndBattleTextPointers slots ON PURPOSE: the
@@ -174,7 +174,7 @@ FightingDojoRebattlePostBattleScript:
 ; a defeated player just blacks out hearing nothing. A per-student loss
 ; table lived here for one day (2026-08-29) and was reverted as unreachable
 ; content; do not split these again without wiring HandlePlayerBlackOut
-; to print the loss slot first (idea parked in TASKS, Forte 2026-08-30).
+; to print the loss slot first (idea parked in TASKS, 2026-08-30).
 FightingDojoStartRebattle:
 	push de
 	push bc
@@ -454,7 +454,7 @@ FightingDojoHitmonleePokeBallText:
 	call PrintText
 	jr .done
 .PrizeStillHere
-; 2026-08-29 (Forte): the prize is earned, never found — post-League the
+; 2026-08-29: the prize is earned, never found — post-League the
 ; master is gone and the hall stands open, so without this gate a player
 ; who skipped the dojo could walk in and lift a ball for free. The
 ; Viridian honor reward chains off the GOT_* flags, so this one check

@@ -305,7 +305,7 @@ MainInBattleLoop:
 	call SaveScreenTilesToBuffer1
 	xor a
 	ld [wFirstMonsNotOutYet], a
-; v1.0 (2026-09-26, Forte: "isto é basicamente o AI a fazer batota"): the
+; v1.0 (2026-09-26; choosing after the player's menu was the AI cheating): the
 ; enemy makes its choice HERE, at the start of the turn, before the player's
 ; menu opens - so a switch or an item the player uses in the menu can no
 ; longer be seen by the move it picks (vanilla chose after the menu, and the
@@ -343,7 +343,7 @@ MainInBattleLoop:
 	ld a, [wEscapedFromBattle]
 	and a
 	ret nz ; return if pokedoll was used to escape from battle
-; v1.0 (2026-09-27, Forte: "concordo e aprovo, podes seguir"): the move list is
+; v1.0 (2026-09-27): the move list is
 ; offered EVERY turn, asleep or frozen too, as from Gen 2 on (pokecrystal's
 ; BattleMenu has no sleep gate). A #MON that stays down says fast asleep /
 ; frozen solid before GetCurrentMove or DecrementPP run, so the pick costs
@@ -354,7 +354,7 @@ MainInBattleLoop:
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump
-; v1.0 (N3, 2026-09-27, Forte: "queremos que seja igual para ambos"): held by
+; v1.0 (N3, 2026-09-27; the same rule for both sides): held by
 ; the enemy's WRAP / CLAMP it chooses too, as from Gen 2 on, and as the enemy
 ; does. The hold is enforced where the move would run (.HeldInPlaceCheck says
 ; "can't move" before the move is read or its PP spent); freed first - the
@@ -477,8 +477,8 @@ MainInBattleLoop:
 	call CheckNumAttacksLeft
 	jp MainInBattleLoop
 .playerMovesFirst
-; v1.0 (2026-09-27, Forte: "queremos que os oponentes sejam fortes ... mas não
-; queremos que façam batota descaradamente"): the enemy's item or switch comes
+; v1.0 (2026-09-27; strong opponents, but no blatant cheating): the enemy's
+; item or switch comes
 ; FIRST in this branch too, as in the enemy-first one - Gen 2's order
 ; (pokecrystal Battle_PlayerFirst: AI_SwitchOrTryItem, then the player's move).
 ; It used to run after the player's move, so a SLOWER enemy decided seeing the
@@ -689,7 +689,7 @@ HurtByLeechSeedText:
 	text_far _HurtByLeechSeedText
 	text_end
 
-; LEECH SEED's drain (v1.0, Forte: "corrige esse bug vanilla e faz como a gen2"): a flat
+; LEECH SEED's drain (v1.0, a vanilla bug fixed the Gen 2 way): a flat
 ; 1/8 of the max HP (Gen 2 GetEighthMaxHP); the toxic count is neither multiplied in nor
 ; advanced. (Gen 1 ran the drain through the poison tick below: a badly poisoned seeded
 ; #MON lost - and the seeder gained - count x the tick (1/16 in vanilla, 1/8 in the Yellow
@@ -738,7 +738,7 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 .playersTurn
 	bit BADLY_POISONED, [hl]
 	jr z, .noToxic
-; v1.0 (D8, Forte: "sim, n/16 como recomendas."): TOXIC takes the count
+; v1.0 (D8): TOXIC takes the count
 ; x 1/16 of the max HP, as every official game does (Gen 2 GetSixteenthMaxHP: at least 1);
 ; the Yellow Legacy base had it at x 1/8. POISON, BURN and LEECH SEED keep the eighth above.
 ; max(1, eighth / 2) = max(1, max HP / 16) for every max HP.
@@ -1771,7 +1771,7 @@ TryRunningFromBattle:
 ; v0.7 T18 ("Can't get away!" realism): the wild mon's temperament shifts
 ; the roll before the attempt bonus stacks -- a HUNTER blocks hard on the
 ; first try, a VERY DOCILE one barely ever does. Table and tier values in
-; data/pokemon/flee_tiers.asm; source of truth is his Notes table.
+; data/pokemon/flee_tiers.asm; source of truth is the Notes table.
 	call .applyFleeTierDelta
 	ld a, [wNumRunAttempts]
 	ld c, a
@@ -1799,7 +1799,7 @@ TryRunningFromBattle:
 	ld hl, CantEscapeText
 	jr .printCantEscape
 .trainerBattle
-; v1.0 (2026-09-24, Forte): RUN against a trainer offers to give the match up
+; v1.0 (2026-09-24): RUN against a trainer offers to give the match up
 ; (engine/battle/surrender.asm). Carry back = the player did: the screen is
 ; already black and wBattleResult carries the defeat; the caller's `ret c`
 ; ends the battle like a wild escape and the overworld's
@@ -1950,7 +1950,7 @@ LoadBattleMonFromParty:
 	jr nz, .statModLoop
 	xor a
 	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
-; v1.0 (2026-09-27, Forte: "corrige"): the freeze count travels with the #MON,
+; v1.0 (2026-09-27): the freeze count travels with the #MON,
 ; as the sleep count always did (it lives in the status byte). The live count,
 ; wPlayerFreezeCounter, is one byte for the whole side, so a frozen #MON sent
 ; back in used to inherit whatever the side's last freeze left there: another
@@ -2212,7 +2212,7 @@ DrawPlayerHUDAndHPBar:
 	ld de, wLoadedMonLevel
 	ld bc, wBattleMonPP - wBattleMonLevel
 	call CopyData
-; v1.0 (2026-09-24, Forte): level at (11,8), status at (15,8), both at once.
+; v1.0 (2026-09-24): level at (11,8), status at (15,8), both at once.
 ; Row 8 holds nothing else (the HP box starts at row 9, the EXP bar is row 11).
 	hlcoord 11, 8
 	call PrintLevel
@@ -2285,7 +2285,7 @@ DrawEnemyHUDAndHPBar:
 	hlcoord 1, 0
 	call CenterMonName
 	call PlaceString
-; v1.0 (2026-09-24, Forte): level at (3,1), status at (7,1), both at once. The
+; v1.0 (2026-09-24): level at (3,1), status at (7,1), both at once. The
 ; ball icon keeps (1,1), the HP bar is row 2 (cols 2-9) and the box's bottom
 ; edge is row 3 (cols 1-10).
 	hlcoord 3, 1
@@ -2498,7 +2498,7 @@ DisplayBattleMenu::
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
-; v1.0 (2026-09-24, Forte): B jumps the cursor to RUN - but only where RUN
+; v1.0 (2026-09-24): B jumps the cursor to RUN - but only where RUN
 ; means running. wIsInBattle is 1 (wild, SAFARI, the forced-run battle) or
 ; 2 (trainer) here.
 	ld a, [wIsInBattle]
@@ -2830,7 +2830,7 @@ PartyMenuOrRockOrRun:
 ; display the two status screens
 ; v0.7: drive both pages the way the overworld party menu does
 ; (start_sub_menus.asm): A/Left/Right swap pages, B leaves from either page,
-; and -- since his 2026-08-28 playtest -- Up/Down walks the party here too,
+; and -- since the 2026-08-28 playtest -- Up/Down walks the party here too,
 ; wrapping both ways, mirroring the overworld driver verbatim. The old
 ; battle-only exclusion ("wWhichPokemon feeds the switch-in") was disproved
 ; by tracing: leaving the status screens always returns through the FULL
@@ -2938,8 +2938,8 @@ PartyMenuOrRockOrRun:
 ; mon is already out
 	ld hl, AlreadyOutText
 	jr z, .cantSwitch
-; v1.0 (N3, 2026-09-27, Forte: "nenhum poder trocar o seu pokemon se ele estiver
-; a ser alvo de um wrap/clamp"): held by the enemy's WRAP / CLAMP, it cannot be
+; v1.0 (N3, 2026-09-27; neither side may switch out a Pokemon held by a WRAP /
+; CLAMP): held by the enemy's WRAP / CLAMP, it cannot be
 ; recalled (Gen 2+), as the enemy's cannot (trainer_ai.asm, layer 6). Nothing is
 ; spent: back to the party menu.
 	ld a, [wEnemyBattleStatus1]
@@ -3155,7 +3155,7 @@ SelectMenuItem:
 .select
 	ld hl, hUILayoutFlags
 	set 1, [hl]
-; v0.7 (2026-08-31, Forte's playtest): the FIGHT move-select menu now arms
+; v0.7 (2026-08-31, playtest): the FIGHT move-select menu now arms
 ; the CNF/status HUD alternation too - plain HandleMenuInput's outer entry
 ; clears the flip flag, so a confused+paralyzed mon read only PAR while
 ; the player sat exactly here choosing a move.
@@ -3380,7 +3380,7 @@ NoMovesLeftText:
 	text_far _NoMovesLeftText
 	text_end
 
-; v1.0 (N3-5, 2026-09-28; Forte: "queremos que seja igual para ambos"): the one
+; v1.0 (N3-5, 2026-09-28; the same rule for both sides): the one
 ; rule both sides reach STRUGGLE by - no move but the disabled one has PP left (the
 ; PP Up bits masked). AnyMoveToSelect asks it for the player, SelectEnemyMove for
 ; the enemy. The body is AnyMoveToSelect's old loop, moved here unchanged (with
@@ -3622,8 +3622,8 @@ SelectEnemyMove:
 	ld a, [hl] ; hl = wEnemyBattleStatus1 still
 	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; its own WRAP or BIDE: that move stays
 	jr z, .canSelectMove
-; v1.0 (N3, 2026-09-27, Forte: "talvez ambos poderem trocar o seu pokemon a meio
-; do seu bide"): as the player may switch out of its own BIDE or WRAP, so may the
+; v1.0 (N3, 2026-09-27; both sides may switch out in the middle of their own
+; BIDE): as the player may switch out of its own BIDE or WRAP, so may the
 ; enemy - the switch decision alone (trainer_ai.asm); wEnemySelectedMove keeps
 ; the locked move. Returns to MainInBattleLoop.
 	jpfar AILockedSwitchDecision
@@ -3631,7 +3631,7 @@ SelectEnemyMove:
 	ld a, $ff
 	jr .done
 .canSelectMove
-; v1.0 (N3-5, 2026-09-28; Forte: "queremos que seja igual para ambos"): STRUGGLE by
+; v1.0 (N3-5, 2026-09-28; the same rule for both sides): STRUGGLE by
 ; the player's rule, asked of the routine that decides the player's (HasMoveToSelect,
 ; which AnyMoveToSelect asks too): no move but the disabled one has PP left. It
 ; replaces the v0.7 test (all four PP bytes 0) and "its only move is disabled",
@@ -4071,7 +4071,7 @@ CheckPlayerStatusConditions:
 	ld hl, ExecutePlayerMoveDone ; player can't move this turn
 	jp .returnToHL
 .WakeUp
-; v1.0 (2026-09-24, Forte): the turn a #MON wakes up it goes on to its move.
+; v1.0 (2026-09-24): the turn a #MON wakes up it goes on to its move.
 ; The move list is offered every turn (2026-09-27), so wPlayerSelectedMove is
 ; this turn's pick. Redraw first or the
 ; HUD keeps saying SLP through the attack. Frozen and asleep exclude each
@@ -4276,14 +4276,14 @@ CheckPlayerStatusConditions:
 .ThrashingAboutCheck
 	bit THRASHING_ABOUT, [hl] ; is mon using thrash or petal dance?
 	jr z, .MultiturnMoveCheck
-; v0.7 (2026-09-05, Forte's RAGE): re-derive the whole wPlayerMove* block from
+; v0.7 (2026-09-05, the RAGE rework): re-derive the whole wPlayerMove* block from
 ; the selected move instead of stamping THRASH over the move number. Four moves
 ; carry this effect now (THRASH, PETAL DANCE, OUTRAGE, RAGE), and the stamp gave
 ; the other three THRASH's animation, MOVEDEX mark and Mirror Move copy from the
 ; second turn on. Re-deriving also restored the move's ACCURACY: a continuation
 ; skips move selection, CalcHitChance then wrote the stage-scaled accuracy back
 ; over the byte it read, and a stage change while locked in compounded every turn -
-; the "one miss, then every miss" the old RAGE showed Forte (since F6, 2026-09-30,
+; the "one miss, then every miss" the old RAGE showed in play (since F6, 2026-09-30,
 ; it writes nothing back). (The confusion
 ; self-hit's TACKLE poke is covered too: the block comes back whole.)
 	call GetCurrentMove
@@ -4460,7 +4460,7 @@ HandleSelfConfusionDamage:
 	ld [wAnimationType], a
 	inc a
 	ldh [hWhoseTurn], a
-; v0.7 (2026-08-31, Forte's playtest): the self-hit has its own animation
+; v0.7 (2026-08-31, playtest): the self-hit has its own animation
 ; now - CONFUSION_HIT_ANIM, a replica of vanilla POUND's stream. (History:
 ; vanilla played "anim 1" via the implicit inc a - POUND until the v0.5
 ; reorder made id 1 CONSTRICT; a brief BUG_BITE stand-in made no sense.)
@@ -4682,7 +4682,7 @@ CheckForDisobedience:
 	and a
 	ret
 .notLinkBattle
-; v0.7 (2026-09-01, Forte's redesign): obedience is the training ceiling
+; v0.7 (2026-09-01, redesign): obedience is the training ceiling
 ; now, nothing else - and it applies to EVERY #MON the player commands,
 ; own or traded alike:
 ;   NORMAL: no caps, total obedience. The vanilla traded-mon badge tiers
@@ -4959,7 +4959,7 @@ GetDamageVarsForPlayerAttack:
 	ld a, [wEnemyBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
 	jr z, .specialPlainDone
-; if the enemy has used Light Screen, double the enemy's SP.DEF (only SP.DEF: Forte, 2026-09-06)
+; if the enemy has used Light Screen, double the enemy's SP.DEF (only SP.DEF: 2026-09-06)
 	call DoubleStatCapped
 .specialPlainDone
 	ld hl, wBattleMonSpAtk
@@ -5108,7 +5108,7 @@ GetDamageVarsForEnemyAttack:
 	ld a, [wPlayerBattleStatus3]
 	bit HAS_LIGHT_SCREEN_UP, a ; check for Light Screen
 	jr z, .specialPlainDone
-; if the player has used Light Screen, double the player's SP.DEF (only SP.DEF: Forte, 2026-09-06)
+; if the player has used Light Screen, double the player's SP.DEF (only SP.DEF: 2026-09-06)
 	call DoubleStatCapped
 .specialPlainDone
 	ld hl, wEnemyMonSpAtk
@@ -5447,8 +5447,8 @@ CriticalHitTest:
 
 INCLUDE "data/battle/critical_hit_moves.asm"
 
-; v1.0 (R10e, 2026-10-01; Forte, of dead code: "se o código for mesmo código morto, podes limpá-lo,
-; sim"): HandleCounterMove is gone. COUNTER left the move list in v0.5 and v0.7 cut the handler to
+; v1.0 (R10e, 2026-10-01; dead code removed): HandleCounterMove is gone. COUNTER left the move list
+; in v0.5 and v0.7 cut the handler to
 ; `or 1 / ret` (always NZ), so the `call HandleCounterMove / jr z, handleIf..MoveMissed` pair of
 ; PlayerCalcMoveDamage and EnemyCalcMoveDamage never jumped, and nothing read the a and flags it left
 ; (GetDamageVarsForPlayerAttack opens with `xor a`; SwapPlayerAndEnemyLevels loads a and passes the
@@ -5486,7 +5486,7 @@ ApplyAttackToEnemyPokemon:
 	ld a, $01
 	ld [de], a
 	jr ApplyDamageToEnemyPokemon
-; v0.7 clarity split (Forte, 2026-08-31): the old SPECIAL_DAMAGE black box
+; v0.7 clarity split (2026-08-31): the old SPECIAL_DAMAGE black box
 ; (with its unreachable Psywave random-damage tail - PSYWAVE is a flinch
 ; move since v0.5) became three self-naming effects.
 .userLevelDamage
@@ -5503,7 +5503,7 @@ ApplyAttackToEnemyPokemon:
 	ld b, SONICBOOM_DAMAGE
 	jr .storeDamage
 .targetLevelDamage
-; v0.7 T12 (Forte, 2026-08-31): SEISMIC TOSS hits for the TARGET's level.
+; v0.7 T12 (2026-08-31): SEISMIC TOSS hits for the TARGET's level.
 	ld a, [wEnemyMonLevel]
 	ld b, a
 .storeDamage ; store damage value at b
@@ -5599,7 +5599,7 @@ ApplyAttackToPlayerPokemon:
 	ld a, $01
 	ld [de], a
 	jr ApplyDamageToPlayerPokemon
-; v0.7 clarity split (Forte, 2026-08-31): mirror of the player side above.
+; v0.7 clarity split (2026-08-31): mirror of the player side above.
 .userLevelDamage
 ; NIGHT SHADE hits for the USER's own level.
 	ld a, [wEnemyMonLevel]
@@ -5614,7 +5614,7 @@ ApplyAttackToPlayerPokemon:
 	ld b, SONICBOOM_DAMAGE
 	jr .storeDamage
 .targetLevelDamage
-; v0.7 T12 (Forte, 2026-08-31): SEISMIC TOSS hits for the TARGET's level.
+; v0.7 T12 (2026-08-31): SEISMIC TOSS hits for the TARGET's level.
 	ld a, [wBattleMonLevel]
 	ld b, a
 .storeDamage
@@ -5728,7 +5728,7 @@ AttackSubstitute:
 	jr z, .nullifyEffect
 	ld hl, wEnemyMoveEffect ; value for enemy's turn
 .nullifyEffect
-; v1.0 (2026-09-24, Forte): HYPER BEAM still has to recharge when all it broke
+; v1.0 (2026-09-24): HYPER BEAM still has to recharge when all it broke
 ; was the SUBSTITUTE. Gen 1 dropped every side effect with the doll; only this
 ; one is restored: the effect is in AlwaysHappenSideEffects now, so keeping it
 ; here is what lets .notDone / .handleExplosionMiss set NEEDS_TO_RECHARGE.
@@ -6953,7 +6953,7 @@ ApplyBadgeStatBoosts:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ret z ; return if link battle
-; v0.7 hard mode knob #17 (Forte, 2026-09-01): badges only strengthen
+; v0.7 hard mode knob #17 (2026-09-01): badges only strengthen
 ; your #MON in NORMAL mode - hard mode fights on raw stats (the PIKACHU
 ; x1.25 mascot bonus below is part of the badge boost, so it dies with
 ; it). One gate covers both callers: the send-out bake
@@ -6967,7 +6967,7 @@ ApplyBadgeStatBoosts:
 	ld hl, wBattleMonAttack
 	ld de, .badgeForStat
 	ld c, NUM_STAGED_STATS
-; v1.0 (the SPECIAL split, Forte's map, 2026-09-06): one badge per staged
+; v1.0 (the SPECIAL split's badge map, 2026-09-06): one badge per staged
 ; stat, from the table below, walked in the stats' RAM order. Vanilla walked
 ; the even badge bits (Boulder/Thunder/Soul/Volcano = Attack/Defense/Speed/
 ; Special); now the middle five gyms carry the boosts and the first, second
@@ -7072,7 +7072,7 @@ PrintEmptyString:
 ; a plain `call` and neither pays a farcall's clobbered registers.
 
 HandleExplodingAnimation:
-; v1.0 (R9h, 2026-09-30; Forte: "corrige também os outros bugs que encontrares/encontraste"):
+; v1.0 (R9h, 2026-09-30):
 ; EXPLOSION's second animation, the shake of the hit on the target, plays when the hit landed -
 ; wMoveMissed 0, the outcome MoveHitTest and ApplyTypeEffectivenessToDamage write, on both turns.
 ; Vanilla also skipped it for a GHOST target (EXPLOSION was NORMAL there; it is FIRE here and hits a

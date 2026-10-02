@@ -11,7 +11,7 @@ IsStarterPikachuInOurParty::
 	jr z, .noPlayerPikachu
 	cp STARTER_PIKACHU + 1
 	jr nz, .curMonNotPlayerPikachu
-; v0.7 (2026-08-31, Forte's playtest): the same marker test the per-mon
+; v0.7 (2026-08-31, playtest): the same marker test the per-mon
 ; IsThisPartymonStarterPikachu already does - species, OTID and OT name
 ; ALL pass for a Pikachu the player catches in the wild (the player is
 ; its OT), so depositing the starter left a caught Route 1 Pikachu
@@ -150,7 +150,7 @@ asm_fce21:
 	ret
 
 UseFakePikachuFrontPic::
-; v0.7 (2026-08-31, Forte's request): the second Pikachu. The partner
+; v0.7 (2026-08-31): the second Pikachu. The partner
 ; keeps the Yellow front pic; every OTHER Pikachu - the wild ones and
 ; anything caught from them, the ones that CAN evolve - shows the G/S
 ; Silver import instead. Call after GetMonHeader (or LoadMonData) and
@@ -185,7 +185,7 @@ UseFakePikachuFrontPic::
 	ret
 
 UseFakePikachuFrontPicEnemy::
-; the battle-enemy variant, with ONE exception (Forte, 2026-09-01): the
+; the battle-enemy variant, with ONE exception (2026-09-01): the
 ; scripted catch on the way out of Pallet - the wild PIKACHU that OAK
 ; catches IS the future partner, so that battle alone keeps the Yellow
 ; pic. Every other enemy Pikachu (wild or trainer-owned) is a fake.
@@ -199,7 +199,7 @@ UseFakePikachuFrontPicEnemy::
 ; byte into wBattleMon first) - so a Ditto wearing the partner's shape
 ; keeps the Yellow art and one wearing a caught Pikachu's shape wears
 ; Silver, correct by IDENTITY even after the player switches out
-; (Forte, 2026-09-01: "ditto tem que se transformar no pikachu correto").
+; (2026-09-01: DITTO must transform into the correct PIKACHU).
 	ld a, [wEnemyMonCatchRate]
 	cp LIGHT_BALL_GSC
 	ret z
@@ -234,8 +234,8 @@ UseFakePikachuFrontPicChangeMonPic::
 	jp UseFakePikachuFrontPic
 
 UseFakePikachuFrontPicHoF::
-; Hall of Fame INDUCTION: show the individual being inducted (Forte,
-; 2026-09-01: "depende - o pikachu que foi usado"). wHoFPartyMonIndex is
+; Hall of Fame INDUCTION: show the individual being inducted (2026-09-01:
+; the PIKACHU that was used). wHoFPartyMonIndex is
 ; the party slot; the full partner test (marker + OTID + OT name) lives
 ; two routines up in this same bank. The REPLAY from the League PC never
 ; comes here - its records store species only, so it keeps the canonical
@@ -338,7 +338,7 @@ CheckPikachuFaintedOrStatused::
 	ret
 
 IsPikachuInThePlayersParty::
-; v0.7 (2026-09-01, Forte's call): the minigame's celebration cry follows
+; v0.7 (2026-09-01): the minigame's celebration cry follows
 ; the entry gate - ANY Pikachu in the party counts, the SURF-move (and
 ; OTID/OT-name) requirements died with the gate relax in
 ; home/map_objects.asm IsPikachuInParty. Carry = found.

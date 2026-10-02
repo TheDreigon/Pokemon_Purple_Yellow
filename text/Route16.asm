@@ -114,7 +114,7 @@ _Route16CyclingRoadSignText::
 	done
 
 _Route16SignText::
-; v0.7 (2026-09-01, Forte): the route label moved to ROUTE 17 (7,5); this
+; v0.7 (2026-09-01): the route label moved to ROUTE 17 (7,5); this
 ; sign at the CYCLING ROAD gate teaches the road's one local rule instead
 ; (the manual's 2.7 is the global backup).
 	text "CYCLING ROAD"

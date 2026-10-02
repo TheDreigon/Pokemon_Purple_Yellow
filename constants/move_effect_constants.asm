@@ -45,7 +45,7 @@
 	const OHKO_EFFECT                ; $26 moves like Horn Drill
 	const CHARGE_EFFECT              ; $27 moves like Solar Beam
 	const SUPER_FANG_EFFECT          ; $28
-	const UNUSED_SPECIAL_DAMAGE_EFFECT ; $29 DEAD SLOT (2026-08-31, Forte's clarity pass). Was the Gen 1 "special damage"
+	const UNUSED_SPECIAL_DAMAGE_EFFECT ; $29 DEAD SLOT (2026-08-31, clarity pass). Was the Gen 1 "special damage"
 	                                 ; black box (Seismic Toss, Night Shade, Sonic Boom, Dragon Rage, Psywave). v0.5
 	                                 ; reworked PSYWAVE into a flinch move; v0.7 split the rest into the self-naming
 	                                 ; TARGET_LEVEL_DAMAGE / USER_LEVEL_DAMAGE / SET_DAMAGE effects below. Kept so the
@@ -89,7 +89,7 @@
 	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)
 	const SUBSTITUTE_EFFECT          ; $4F
 	const HYPER_BEAM_EFFECT          ; $50
-	const UNUSED_RAGE_EFFECT         ; $51 DEAD SLOT (2026-09-05, Forte's playtest). Was the Gen 1 Rage: lock in,
+	const UNUSED_RAGE_EFFECT         ; $51 DEAD SLOT (2026-09-05, playtest). Was the Gen 1 Rage: lock in,
 	                                 ; +1 ATTACK each time the user is hit, no PP, no move selection. The lock kept
 	                                 ; the previous turn's stage-scaled accuracy, so one stage change made every
 	                                 ; later turn miss. RAGE now carries THRASH_PETAL_DANCE_EFFECT; the handler,
@@ -112,12 +112,12 @@
 	const SPATK_SPDEF_ACCURACY_UP1_EFFECT ; $61  user SP.ATK+1 & SP.DEF+1 & Acc+1 (Calm Mind; the split). The SP.DEF leg goes through the proxy + override.
 	const BURN_SIDE_EFFECT3          ; $62  45% burn chance (Lava Plume). Heaviest tier of the 15/30/45 burn ladder.
 	const FALSE_SWIPE_EFFECT         ; $63  damage that always leaves the target with at least 1 HP - never KOs (False Swipe).
-	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; Forte's T12, 2026-08-31).
+	const TARGET_LEVEL_DAMAGE_EFFECT ; $64  damage equals the TARGET's level (Seismic Toss; T12, 2026-08-31).
 	const USER_LEVEL_DAMAGE_EFFECT   ; $65  damage equals the USER's level (Night Shade; clarity split of $29, 2026-08-31).
 	const SET_DAMAGE_EFFECT          ; $66  fixed damage by move: DRAGON RAGE 50, SONICBOOM 25 (clarity split of $29, 2026-08-31).
-	const SPDEF_DOWN2_FLINCH_EFFECT ; $67  target SP.DEF-2 + ~30% flinch (Metal Sound; Forte 2026-09-01). The stat leg goes through the proxy + override.
+	const SPDEF_DOWN2_FLINCH_EFFECT ; $67  target SP.DEF-2 + ~30% flinch (Metal Sound; 2026-09-01). The stat leg goes through the proxy + override.
 	const SPDEF_DOWN1_FLINCH_EFFECT ; $68  target SP.DEF-1 + ~30% flinch (Screech; same family as $67).
-	const ATTACK_DOWN2_FLINCH_EFFECT  ; $69  target Atk-2 + ~30% flinch (Intimidate; Forte 2026-09-05, same family as $67. CHARM keeps the plain ATTACK_DOWN2.)
+	const ATTACK_DOWN2_FLINCH_EFFECT  ; $69  target Atk-2 + ~30% flinch (Intimidate; 2026-09-05, same family as $67. CHARM keeps the plain ATTACK_DOWN2.)
 	const SPEED_DOWN2_FLINCH_EFFECT   ; $6A  target Speed-2 + ~30% flinch (Scary Face; same day. Neither leg is touched by the 1.0 SPECIAL split.)
 ; The SPECIAL split (2026-09-06). SP.DEF has no ladder of its own: each of these
 ; is a handler that spoofs the SP.ATK id of the same sign and size into the move
@@ -127,6 +127,6 @@
 	const SPDEF_UP2_EFFECT            ; $6B  user SP.DEF+2 (Amnesia). Proxy SPATK_UP2.
 	const SPDEF_DOWN2_EFFECT          ; $6C  target SP.DEF-2 (Fake Tears). Proxy SPATK_DOWN2.
 	const SPDEF_DOWN_SIDE_EFFECT      ; $6D  33% target SP.DEF-1 (Bug Buzz, Psybeam, Aurora Beam). Proxy SPATK_DOWN_SIDE.
-	const SPEED_DOWN1_FLINCH_EFFECT   ; $6E  target Speed-1 + ~30% flinch (Hinder; Forte 2026-09-08). The one-step sibling of $6A: same dispatcher, SPEED_DOWN1 as the stat leg.
-	const DEFENSE_DOWN1_FLINCH_EFFECT ; $6F  target Defense-1 + ~30% flinch (Tickle; Forte 2026-09-08). Its own id because DEFENSE_DOWN1 is shared by seven other moves.
+	const SPEED_DOWN1_FLINCH_EFFECT   ; $6E  target Speed-1 + ~30% flinch (Hinder; 2026-09-08). The one-step sibling of $6A: same dispatcher, SPEED_DOWN1 as the stat leg.
+	const DEFENSE_DOWN1_FLINCH_EFFECT ; $6F  target Defense-1 + ~30% flinch (Tickle; 2026-09-08). Its own id because DEFENSE_DOWN1 is shared by seven other moves.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

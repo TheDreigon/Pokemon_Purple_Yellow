@@ -70,7 +70,7 @@ _VermilionGymRematchPostBattleText::
 	done
 
 _VermilionGymLTSurgeThunderBadgeInfoText::
-; v1.0 (the SPECIAL split, 2026-09-06): Forte's badge map - THUNDER lends
+; v1.0 (the SPECIAL split, 2026-09-06): the badge map - THUNDER lends
 ; SPEED (it was DEFENSE).
 	text "The THUNDERBADGE"
 	line "cranks up the"

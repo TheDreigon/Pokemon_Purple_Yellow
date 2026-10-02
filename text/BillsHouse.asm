@@ -89,7 +89,7 @@ _BillsHouseBillWhyDontYouGoInsteadOfMeText::
 ; flavor lives on in the post-quest "PC system" line. Reclaims bytes in
 ; the tight Text 3 bank.
 
-; v1.0 (Forte, 2026-09-23): the two TELEPORTER machines, flavour only. Once
+; v1.0 (2026-09-23): the two TELEPORTER machines, flavour only. Once
 ; BILL is back in one piece (EVENT_MET_BILL) the player knows what they were
 ; looking at. Lines under the arrow: 17.
 _BillsHouseMachineText::

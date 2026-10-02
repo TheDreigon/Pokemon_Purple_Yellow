@@ -62,7 +62,7 @@ TryCut:
 	ld a, [wObtainedBadges]
 	bit BIT_CASCADEBADGE, a ; was a hard-coded `bit 1` with only this comment naming it
 	jr z, TrySurf.no2
-; v0.7 (2026-09-06, Forte): and the CAPTAIN's HM01 - see the party-menu twin in
+; v0.7 (2026-09-06): and the CAPTAIN's HM01 - see the party-menu twin in
 ; engine/menus/start_sub_menus.asm
 	CheckEvent EVENT_GOT_HM01
 	jr z, .noTechnique
@@ -183,14 +183,14 @@ CutNeedsTechniqueText:
 	text_far _CutNeedsTechniqueText
 	text_end
 
-; --- v0.7 "registered item" (his 2026-08-28 request) ------------------------
+; --- v0.7 "registered item" (2026-08-28) ------------------------------------
 ; SELECT in the overworld uses the key item bound via the bag's
 ; USE/INFO/TOSS box (RegisterKeyItem below). The overworld hook is in
 ; home/overworld.asm (predef TryUseRegisteredItem); registration rides the
 ; submenu in engine/menus/start_sub_menus.asm.
 
 TryUseRegisteredItem::
-; v0.7 (2026-09-05, Forte's run): the same refusal the A button uses in
+; v0.7 (2026-09-05, playthrough): the same refusal the A button uses in
 ; home/overworld.asm - NPC movement script, stepping out of a door, simulated
 ; input (this subsumes the old wd730 bit 7 test).
 	call IsPlayerCharacterBeingControlledByGame
@@ -219,7 +219,7 @@ TryUseRegisteredItem::
 	ld a, BICYCLE
 .use
 	ld [wcf91], a
-; v0.7 (2026-09-05, Forte's run): "<PLAYER> used" / "<name>!" prints the name
+; v0.7 (2026-09-05, playthrough): "<PLAYER> used" / "<name>!" prints the name
 ; from wStringBuffer (text_ram, data/text/text_9.asm _ItemUseText002). The bag
 ; fills it before UseItem; this path never did - and the buffer is a union the
 ; party-menu palette packet and every exp gain overwrite. Hence "used <garbage>"
@@ -262,7 +262,7 @@ RegistrableItems:
 	db GOOD_ROD
 	db SUPER_ROD
 	db ITEMFINDER
-; v1.0 (2026-09-24, Forte): the two reading/playing key items. The map needs
+; v1.0 (2026-09-24): the two reading/playing key items. The map needs
 ; only hWY=0, which InitializeFieldMoveTextBox above already sets - this is
 ; the wall map's path (engine/events/hidden_objects/town_map.asm) with the
 ; item in front. The flute judges the map and the cell itself

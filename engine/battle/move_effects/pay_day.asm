@@ -8,7 +8,7 @@ PayDayEffect_:
 	jr z, .payDayEffect
 	ld a, [wEnemyMonLevel]
 .payDayEffect
-; level * 2 -- or, since v0.7 (his request 2026-08-28), level * 3 on a
+; level * 2 -- or, since v0.7 (2026-08-28), level * 3 on a
 ; critical hit: the money gets the same x1.5 the damage got. The guard is
 ; on EXACTLY 1: the OHKO scaffolding parks $2/$ff in wCriticalHitOrOHKO
 ; and must not pay. 3xL overflows a byte above L85, so the carry crosses

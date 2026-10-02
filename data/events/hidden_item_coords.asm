@@ -51,19 +51,19 @@ HiddenItemCoords:
 	hidden_item VICTORY_ROAD_2F,                5,   2
 	hidden_item VICTORY_ROAD_2F,               26,   7
 	hidden_item ROUTE_25,                      38,   3
-	hidden_item ROUTE_25,                      34,   9 ; moved by Forte 2026-07-30; into the bush 2026-09-05
+	hidden_item ROUTE_25,                      34,   9 ; moved 2026-07-30; into the bush 2026-09-05
 	hidden_item ROUTE_4,                       40,   3
 	hidden_item ROUTE_9,                       14,   7
 	hidden_item COPYCATS_HOUSE_2F,              1,   1
 	hidden_item VIRIDIAN_CITY,                 14,   4
-	hidden_item CERULEAN_CITY,                 19,   8 ; (15,8) -> (19,8), Forte 2026-09-05
+	hidden_item CERULEAN_CITY,                 19,   8 ; (15,8) -> (19,8), 2026-09-05
 	hidden_item CERULEAN_CAVE_1F,              18,   7
 	hidden_item POKEMON_TOWER_5F,               4,  12
 	hidden_item VERMILION_CITY,                14,  11
 	hidden_item CELADON_CITY,                  48,  15
 	; v0.7 ground-item redesign: this ROW was the inaccessible SAFARI_ZONE_GATE
 	; NUGGET — same rewrite-in-place trick as the ROCK_TUNNEL_1F row above.
-	hidden_item DIGLETTS_CAVE,                 14,  15 ; the gag rope. Coords confirmed by Forte 2026-07-30
+	hidden_item DIGLETTS_CAVE,                 14,  15 ; the gag rope. Coords confirmed 2026-07-30
 	hidden_item POKEMON_MANSION_1F,             8,  16
 	; v0.7 ground-item redesign: new entries append at the END so every
 	; pre-existing flag index stays put (index = row position in this table).

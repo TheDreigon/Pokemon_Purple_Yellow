@@ -84,7 +84,7 @@ LoadMonData::
 LoadFlippedFrontSpriteByMonIndex::
 	ld a, 1
 	ld [wSpriteFlipped], a
-; v0.7 (2026-08-31, Forte's request): the individual-aware fake-Pikachu
+; v0.7 (2026-08-31): the individual-aware fake-Pikachu
 ; hook - a non-partner Pikachu swaps to its own front pic (the G/S Silver
 ; import) here. SIX screens enter this flipped loader (grep before
 ; trusting this list): the status screen (LoadMonData ran, wLoadedMon is
@@ -364,7 +364,7 @@ PrintStatusCondition::
 	and a
 	ret
 .notFainted
-; v1.0 (2026-09-27, Forte: "o menu mostra TOX"): a bad POISON stays bad when the
+; v1.0 (2026-09-27; the menu shows TOX): a bad POISON stays bad when the
 ; #MON is called back (TOXIC by the Gen 3 rule), so the party list and the
 ; stats screen say TOX in battle too, as the HUD does.
 	call IsPartyStatusToxic
@@ -397,8 +397,7 @@ IsPartyStatusToxic::
 	and 1 << BOX_LEVEL_TOXIC_F
 	ret
 
-; v1.0 (2026-09-27, Forte: "o poison heal ser só para o poison e o full heal e
-; full restore serem para poison e toxic status"): a POISON HEAL cures ordinary
+; v1.0 (2026-09-27): a POISON HEAL cures ordinary
 ; POISON only; TOX takes a FULL HEAL or a FULL RESTORE. Here in home because
 ; ItemUseMedicine's bank 3 has no room for a farcall.
 ; IN  hl = the party status byte, [wcf91] = the item, d = the party index

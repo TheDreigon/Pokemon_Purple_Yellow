@@ -1,6 +1,6 @@
 ; PURPLE the PROGRAMMER (Celadon Mansion roof house).
 ; The roof-house dev quizzes the player on THIS hack's canon (10
-; questions, 3-way menus). v1.0 (2026-09-22, Forte): a perfect score earns
+; questions, 3-way menus). v1.0 (2026-09-22): a perfect score earns
 ; PURPLE'S PATCH - he brings out one party #MON's full potential: every DV
 ; to 15 ($FF $FF; the Special DV feeds SP.ATK and SP.DEF, and the HP DV is
 ; derived from the other four, so all six stats), its stats recalculated

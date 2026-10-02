@@ -289,12 +289,12 @@ DEF SHOW EQU $15
 ; session, so nothing persisted the old indices.
 	const HS_SAFFRON_POKECENTER_AIDE_1
 	const HS_SAFFRON_POKECENTER_AIDE_2
-; v1.0 (2026-09-23, Forte): MR. FUJI's house holds two missables - himself
+; v1.0 (2026-09-23): MR. FUJI's house holds two missables - himself
 ; (hidden until the Tower rescue; his row moved here from the middle of the
 ; table so the house's rows stay contiguous) and the orphan CUBONE of the
 ; TOWER, who lives in his Volunteer House and is hidden once he hands her to
 ; the player. Moving his row shifted every index after the old 70 by one -
-; saves of that day are dead (none in progress, Forte). Index 254; the CUBONE
+; saves of that day are dead (none was in progress). Index 254; the CUBONE
 ; was index 255 for one day and is HS2_MR_FUJIS_HOUSE_CUBONE (the second
 ; table's index 0) since T23 (2026-09-24). Index 255 is free.
 	const HS_MR_FUJIS_HOUSE_MR_FUJI

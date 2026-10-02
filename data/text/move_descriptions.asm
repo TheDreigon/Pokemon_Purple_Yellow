@@ -428,8 +428,8 @@ _MoveDesc_Poison::
 	next "each turn."
 	done
 
-; TOXIC's own card, a per-move override (v1.0 D13, 2026-09-28, Forte: "concordo
-; em ajustar para reflectir o verdadeiro efeito"). The tick is the toxic count x
+; TOXIC's own card, a per-move override (v1.0 D13, 2026-09-28: the card states the
+; true effect). The tick is the toxic count x
 ; 1/16 of the max HP, at least 1 (core.asm HandlePoisonBurnLeechSeed_DecreaseOwnHP,
 ; D8), and the count starts again when the #MON is sent back in (toxic_carry.asm,
 ; both sides). Five lines: TOXIC's flavour takes three rows and the blank one, of
@@ -443,8 +443,8 @@ _MoveDesc_Toxic::
 	next "starts it at 1/16."
 	done
 
-; MIND BREAK's own card (round 7, 2026-09-30, Forte: "se tiver espaco, pode passar a dizer
-; que hits dark types"). Its 45 in 100 PARALYZE (PARALYZE_SIDE_EFFECT3, NUZZLE's card too)
+; MIND BREAK's own card (round 7, 2026-09-30: it says it hits DARK types, space permitting).
+; Its 45 in 100 PARALYZE (PARALYZE_SIDE_EFFECT3, NUZZLE's card too)
 ; and, since F4, the DARK exception: the one DAMAGING PSYCHIC move that hits a DARK type
 ; (0.5x, "not very effective"; HYPNOSIS and DISABLE land on DARK since F4 too, being status
 ; moves). Three lines: the flavour takes five rows and the blank one, of nine.

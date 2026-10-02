@@ -642,8 +642,7 @@ DefrostTargetIfFireOrMagma::
 ; CheckDefrost is safe to call blind: it returns immediately unless the defender
 ; is frozen AND the move's type is FIRE or MAGMA. It just wants the defender's
 ; status in a.
-; v1.0 (R10d2, 2026-10-01; Forte: "corrige também os outros bugs que
-; encontrares/encontraste"): a MISS thaws nothing. EXPLOSION alone reaches here
+; v1.0 (R10d2, 2026-10-01): a MISS thaws nothing. EXPLOSION alone reaches here
 ; after a miss (the post-hit path runs for it so the user still faints), with
 ; wMoveMissed still set; a FIRE or MAGMA HIT thaws, as TRAINER MANUAL 4_3 says.
 	ld a, [wMoveMissed]
@@ -764,7 +763,7 @@ ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start in
 	jr nc, .ok
 	ld b, a
 .ok
-; v1.0 (D12, 2026-09-28; Forte: "sigo a tua melhor recomendacao"): b is the new stage, written
+; v1.0 (D12, 2026-09-28): b is the new stage, written
 ; at UpdateStatDone once the raise goes through. Vanilla wrote it here, and the refusal at 999
 ; below undid one step only: a +2 move (SWORDS DANCE, IRON DEFENSE, NASTY PLOT, AMNESIA) said
 ; "Nothing happened!" and kept a hidden +1 (Gold/Silver/Crystal too). Now no refusal touches
@@ -859,7 +858,7 @@ UpdateStatDone:
 	ld a, [wMoveDidntMiss]
 	and a
 	jr nz, .skipUpAnim ; damage already played the animation, or an earlier leg of this move rose
-; v1.0 (E5, 2026-09-29; Forte: "concordo com esta correcao"): the flag is set HERE, where the
+; v1.0 (E5, 2026-09-29): the flag is set HERE, where the
 ; animation plays, and no longer by the multi-stat handlers after their first leg. A first stat
 ; refused (+6, or 999 since D14) leaves the animation to the first stat that rises (BULK UP at
 ; ATTACK +6 animates on DEFENSE); a move whose every stat is refused plays none; never twice.
@@ -906,7 +905,7 @@ StatAlreadyAt999: ; D12: the stat is already 999 and the stage byte was never wr
 	; fall through (D14): the 999 refusal names the stat, as the +6 one does
 
 ; v0.7: stat capped at +6 — print "<USER>'s <STAT> won't go any higher!".
-; v1.0 (D14, 2026-09-29; Forte: "sim, quero"): a raise refused because the stat is already
+; v1.0 (D14, 2026-09-29): a raise refused because the stat is already
 ; 999 falls in here from StatAlreadyAt999 and names the stat too, as in Gold/Silver/Crystal.
 ; It said "Nothing happened!", which nothing else printed and which went with it.
 ; Expects c = 0-based stat index on both ways in: the +6 test jumps here with c from
@@ -943,7 +942,7 @@ RoseText:
 	text_far _RoseText
 	text_end
 
-; v1.0 (F3, 2026-09-30; Forte: "consigo aceitar essa ideia. sigo a tua recomendacao"):
+; v1.0 (F3, 2026-09-30):
 ; the later leg of a move that lowers two stats (FLASH, EERIE IMPULSE, PSYCHIC BIND)
 ; rolls no accuracy of its own - one roll per use, as from Gen 3 on and as
 ; DoStatDownFlinchEffect. The first leg, a plain StatModifierDownEffect, decided for
@@ -989,7 +988,7 @@ StatModifierDownEffect:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	jr c, .nonSideEffect
-; v0.7 T17 (Forte, 2026-08-31): MIST / GUARD SPEC. also shield against the
+; v0.7 T17 (2026-08-31): MIST / GUARD SPEC. also shield against the
 ; stat drops that ride on damaging moves (SURF, CRUNCH, ~31 moves). The
 ; damage has already landed; a protected target just keeps its stage,
 ; silently - CantLowerAnymore returns without text for side effects,
@@ -1008,7 +1007,7 @@ StatModifierDownEffect:
 	ld a, [de]
 	sub ATTACK_DOWN_SIDE_EFFECT ; map each stat to 0-3
 	jr .decrementStatMod
-; v1.0 (F3b, 2026-09-30; Forte: "entendo, tem que ser corrigido, entao"): the drop of a
+; v1.0 (F3b, 2026-09-30): the drop of a
 ; damaging move on a plain lowering id (today 17 moves, all -1: TAKE DOWN, ROCK TOMB, HYDRO
 ; PUMP...) is sure once the move has hit, as from Gen 3 on and as each card says. The core
 ; runs it only from .executeOtherEffects: after the one accuracy roll hit, the damage landed
@@ -1156,7 +1155,7 @@ ASSERT EVASION_DOWN2_EFFECT + $5 == ATTACK_DOWN_SIDE_EFFECT, "the -2 window must
 	call Divide
 	pop bc
 	pop hl
-; v1.0 (D7-999, 2026-09-28; Forte: "corrige"): the raising path's 999 cap, here too.
+; v1.0 (D7-999, 2026-09-28): the raising path's 999 cap, here too.
 ; Vanilla capped only on the way up, so a stat held at 999 by a high stage came back
 ; above it one stage down (800 at +2 = 999, at +1 = 1200). .scaleStats keeps ten bits
 ; of a stat (/4, one byte): 1200 fought as 44, and 1024-1027 as a DEFENSE or SP.DEF
@@ -1236,7 +1235,7 @@ CantLowerAnymore_Pop: ; D12: the stat is already 1 and the stage byte was never 
 	pop hl
 
 CantLowerAnymore:
-; v1.0 (F3b, 2026-09-30; Forte: "sigo a tua melhor recomendacao"): silent for a move with
+; v1.0 (F3b, 2026-09-30): silent for a move with
 ; power - the 33-in-100 side drops as before, and now the drops of the damaging moves too
 ; (sure since F3b; Gen 3 on says nothing there either). A status move (GROWL, CHARM...)
 ; still names the stat. de = the attacker's effect byte; its power byte follows it.
@@ -1503,7 +1502,7 @@ ChargeMoveEffectText:
 	ld a, [wChargeMoveNum]
 	; PURPLE YELLOW v0.5: RAZOR_WIND and SKULL_BASH were removed. SKY_ATTACK was
 	; reintroduced in the later revision; its charge line is "soared sky-high!"
-	; (Forte, 2026-08-25: Sky Attack is a stronger Fly, not a glow).
+	; (2026-08-25: Sky Attack is a stronger Fly, not a glow).
 	cp SOLARBEAM
 	ld hl, TookInSunlightText
 	jr z, .gotText
@@ -2179,7 +2178,7 @@ SpDefSpeedDown1Effect:
 	ret
 
 SpDefDown2FlinchEffect:
-; Target SP.DEF -2 plus ~30% flinch. Used by METAL_SOUND (Forte's call,
+; Target SP.DEF -2 plus ~30% flinch. Used by METAL_SOUND (since
 ; 2026-09-01). The split (2026-09-06): b is the SP.ATK proxy, the override
 ; carries MOD_SPDEF (emu_test_flinch_combo reads the first four bytes).
 	ld b, SPATK_DOWN2_EFFECT
@@ -2189,7 +2188,7 @@ SpDefDown2FlinchEffect:
 	jr DoStatDownFlinchEffect
 
 AttackDown2FlinchEffect:
-; Target Attack -2 plus ~30% flinch. Used by INTIMIDATE (Forte 2026-09-05;
+; Target Attack -2 plus ~30% flinch. Used by INTIMIDATE (2026-09-05;
 ; CHARM keeps the plain ATTACK_DOWN2_EFFECT).
 	ld b, ATTACK_DOWN2_EFFECT
 	ld c, ATTACK_DOWN2_FLINCH_EFFECT
@@ -2202,7 +2201,7 @@ SpeedDown2FlinchEffect:
 	jr DoStatDownFlinchEffect
 
 DefenseDown1FlinchEffect:
-; Target Defense -1 plus ~30% flinch. Used by TICKLE alone (Forte, 2026-09-08):
+; Target Defense -1 plus ~30% flinch. Used by TICKLE alone (2026-09-08):
 ; DEFENSE_DOWN1_EFFECT itself is shared by seven other moves, so the flinch
 ; needed an id of its own rather than a change to the plain -1 effect.
 	ld b, DEFENSE_DOWN1_EFFECT
@@ -2210,7 +2209,7 @@ DefenseDown1FlinchEffect:
 	jr DoStatDownFlinchEffect
 
 SpeedDown1FlinchEffect:
-; Target Speed -1 plus ~30% flinch. Used by HINDER (Forte, 2026-09-08). The
+; Target Speed -1 plus ~30% flinch. Used by HINDER (2026-09-08). The
 ; one-step sibling of SCARY_FACE above: the -1 leg is in the same ladder, so
 ; no proxy and no override are needed.
 	ld b, SPEED_DOWN1_EFFECT

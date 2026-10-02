@@ -24,7 +24,7 @@ _IndigoPlateauLobbyCooltrainerFText::
 	cont "Good luck!"
 	done
 
-; v1.0 (2026-09-25, Forte): the CHAMPION's lines (wGameStage set)
+; v1.0 (2026-09-25): the CHAMPION's lines (wGameStage set)
 _IndigoPlateauLobbyGymGuideChampionText::
 	text "Yo! CHAMPION!"
 	line "Back to defend"

@@ -290,7 +290,7 @@
 
 DEF NUM_ATTACKS EQU const_value - 1
 
-; v0.7 anim split (2026-08-31, Forte's GO - the expansion prep): the 35
+; v0.7 anim split (2026-08-31, the expansion prep): the 35
 ; SPECIAL battle animations no longer share the move-id byte. They live in
 ; their own 1-based id space, played through PlaySpecialAnimation (or by
 ; writing SPECIAL_ANIM_MARKER into wAnimationID with the index in
@@ -341,7 +341,7 @@ DEF SPECIAL_ANIM_MARKER EQU $FF
 	const HIDEPIC_ANIM ; monster disappears
 	const ROCK_ANIM ; throw rock
 	const BAIT_ANIM ; throw bait
-	const CONFUSION_HIT_ANIM ; the confusion self-hit (v0.7: vanilla POUND's stream, Forte 2026-08-31)
+	const CONFUSION_HIT_ANIM ; the confusion self-hit (v0.7: vanilla POUND's stream, 2026-08-31)
 
 DEF NUM_SPECIAL_ANIMS EQU const_value - 1
 ASSERT NUM_SPECIAL_ANIMS == 36, "the special-anim census (and its pointer table) is 36 entries"
@@ -351,7 +351,7 @@ ASSERT NUM_SPECIAL_ANIMS < SPECIAL_ANIM_MARKER, "special anim indexes must stay 
 ASSERT XSTATITEM_DUPLICATE_ANIM == XSTATITEM_ANIM + 1, "Bide/X-item +turn pair broke"
 ASSERT ANIM_B1 == SHRINKING_SQUARE_ANIM + 1, "Thrash +turn pair broke"
 ASSERT TRADE_BALL_POOF_ANIM == TRADE_BALL_DROP_ANIM + 3, "the trade-ball run of 4 broke"
-; The blessed expansion ceiling (Forte, 2026-08-31): up to 254 moves - $FF
+; The expansion ceiling (2026-08-31): up to 254 moves - $FF
 ; stays reserved (list terminators), and 248/256 are forbidden counts
 ; (movedex_seen's % 8 assert). See Notes/"Tecto de moves 220-250".
 ASSERT NUM_ATTACKS <= 254, "the blessed move ceiling is 254 ($FF is reserved)"

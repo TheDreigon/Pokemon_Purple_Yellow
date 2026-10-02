@@ -148,7 +148,7 @@ Route6Youngster2AfterBattleText:
 	text_far _Route6Youngster2AfterBattleText
 	text_end
 
-; v1.0 (2026-09-07, Forte): the gardener
+; v1.0 (2026-09-07): the gardener
 Route6GardenerText:
 	text_far _Route6GardenerText
 	text_end

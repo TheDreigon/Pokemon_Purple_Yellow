@@ -305,7 +305,7 @@ ChampionsRoomRivalText:
 	text_asm
 	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
 	jr nz, .afterBattle
-; v1.0 (2026-09-24, Forte): the speech before the fight runs at SLOW whatever
+; v1.0 (2026-09-24): the speech before the fight runs at SLOW whatever
 ; TEXT SPEED says - PrintLetterDelay reads the low bits of wOptions for every
 ; letter, so the option is swapped for the two halves and put back after
 ; (INSTA included: its 0 becomes SLOW's 5). Holding A still skips the delay,
@@ -317,7 +317,7 @@ ChampionsRoomRivalText:
 	ld [wOptions], a
 	ld hl, .IntroText
 	call PrintText
-; v1.0 (2026-09-24, Forte; the kep-hack's a2acee24): the room's theme dies
+; v1.0 (2026-09-24; the kep-hack's a2acee24): the room's theme dies
 ; out on "And now..." and the second half of the speech runs in silence, so
 ; the battle music starts from nothing instead of cutting the theme. The
 ; idiom is the healing machine's (engine/overworld/healing_machine.asm):

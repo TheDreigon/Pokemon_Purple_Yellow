@@ -31,7 +31,7 @@ Moves: ; Current total = 220
 
 	; === DARK TYPE (9 moves) === ; new type
 	move FAINT_ATTACK,   SWIFT_EFFECT,                     60, DARK,         100, 25 ; new move.
-	move RAGE,           THRASH_PETAL_DANCE_EFFECT,        70, DARK,         100, 10 ; v0.7 (2026-09-05, Forte): Thrash's lock; the Gen 1 Rage effect is dead.
+	move RAGE,           THRASH_PETAL_DANCE_EFFECT,        70, DARK,         100, 10 ; v0.7 (2026-09-05): Thrash's lock; the Gen 1 Rage effect is dead.
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
 	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             80, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
@@ -280,7 +280,7 @@ Moves: ; Current total = 220
 	move TELEPORT,       EVASION_UP1_EFFECT,                0, BIRD,         100, 20
 
 	move CHARM,          ATTACK_DOWN2_EFFECT,               0, BIRD,          90, 20 ; new move.
-	move INTIMIDATE,     ATTACK_DOWN2_FLINCH_EFFECT,        0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
+	move INTIMIDATE,     ATTACK_DOWN2_FLINCH_EFFECT,        0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05): + ~30% flinch, like SCREECH
 	move GROWL,          ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
@@ -294,7 +294,7 @@ Moves: ; Current total = 220
 
 	move EERIE_IMPULSE,  SPDEF_SPEED_DOWN1_EFFECT,          0, BIRD,          90, 20 ; new move. new effect.
 
-	move SCARY_FACE,     SPEED_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05, Forte): + ~30% flinch, like SCREECH
+	move SCARY_FACE,     SPEED_DOWN2_FLINCH_EFFECT,         0, BIRD,          90, 20 ; new move. v0.7 (2026-09-05): + ~30% flinch, like SCREECH
 	move HINDER,         SPEED_DOWN1_FLINCH_EFFECT,         0, BIRD,         100, 30 ; new move. new effect (2026-09-08): the Speed drop now carries a 30% flinch.
 	move STRING_SHOT,    SPEED_DOWN1_EFFECT,                0, BIRD,         100, 30
 

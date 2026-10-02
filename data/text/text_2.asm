@@ -512,7 +512,7 @@ TMNotebookText::
 
 	para "..."
 
-; v0.7 (2026-09-05, Forte): it said 50 with NUM_TMS at 55. The two ASSERTs
+; v0.7 (2026-09-05): it said 50 with NUM_TMS at 55. The two ASSERTs
 ; below stop the build the day either count moves again.
 	ASSERT NUM_TMS == 55, "TMNotebookText says 55 TMs - update the pamphlet"
 	ASSERT NUM_HMS == 5, "TMNotebookText says 5 HMs - update the pamphlet"

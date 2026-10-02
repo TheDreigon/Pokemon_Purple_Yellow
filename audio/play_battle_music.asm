@@ -42,7 +42,7 @@ PlayBattleMusic::
 .playSong
 	jp PlayMusic
 
-; Per-trainer battle themes (Forte's tier/music review). Anything not listed
+; Per-trainer battle themes (the tier/music review). Anything not listed
 ; keeps the normal trainer theme. Order doesn't matter (linear scan);
 ; 3 bytes per entry: opponent id, music id, music bank; -1 terminates.
 ;

@@ -1,5 +1,4 @@
-; v1.0 (2026-09-27, Forte: "Recomendo a regra da Gen 3: continua tóxico depois
-; da troca, a contagem recomeça e o menu mostra TOX - pode ser assim"): TOXIC by
+; v1.0 (2026-09-27; the Gen 3 rule, with the menu showing TOX): TOXIC by
 ; the Gen 3 rule. A badly poisoned #MON stays badly poisoned when it is called
 ; back, its count starts over when it comes back in, and the battle's end leaves
 ; it ordinary POISON (Gen 3-4, EndOfBattle).

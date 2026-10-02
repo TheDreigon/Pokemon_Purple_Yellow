@@ -90,7 +90,7 @@ TryDoWildEncounter:
 	ld a, [wRepelRemainingSteps]
 	and a
 	jr z, .willEncounter
-; v1.0 (2026-09-24, Forte): a MAX REPEL is level-blind - nothing appears while
+; v1.0 (2026-09-24): a MAX REPEL is level-blind - nothing appears while
 ; it runs. REPEL and SUPER REPEL keep the vanilla rule below. The kind is the
 ; one ItemUseRepelCommon recorded when the spray was used (wRepelType, Yellow
 ; Legacy's reuse-prompt byte, not saved - same as the step counter), and the

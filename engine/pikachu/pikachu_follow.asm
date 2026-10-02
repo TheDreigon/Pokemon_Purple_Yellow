@@ -964,8 +964,8 @@ Func_fca0a:
 	add hl, bc
 ; v0.7: sixteen ticks, not the original eight. The crossing has to cover exactly
 ; two cells - 32 pixels - and the two adds available move 4 or 2 pixels a tick,
-; so the only clean durations are 8 fast ticks or 16 at half speed. Forte tried
-; the fast one and said the hop was over before it read, especially head-on.
+; so the only clean durations are 8 fast ticks or 16 at half speed. In play the
+; fast one was over before the hop read, especially head-on.
 	ld [hl], $10
 	ld hl, wSpritePikachuStateData1MovementStatus - wSpritePikachuStateData1
 	add hl, bc
@@ -1002,13 +1002,13 @@ PikachuLedgeHopArc:
 ; at the end - which matters because his position feeds the follow logic, not
 ; just the screen.
 ;
-; Peak is 14 pixels, up from 8 and then 11 across Forte's playtests.
+; Peak is 14 pixels, up from 8 and then 11 across the playtests.
 ;
-; Height alone was never going to fix the head-on view, which is what he
-; reported: jumping DOWN, the crossing is already dragging him down the screen
+; Height alone was never going to fix the head-on view, which was the
+; problem: jumping DOWN, the crossing is already dragging him down the screen
 ; while the arc lifts him, so the two cancel and the visible rise was about a
 ; pixel. Sideways the crossing is horizontal and the whole arc shows, which is
-; exactly why he said it looked nearly right from the side and wrong from the
+; exactly why it looked nearly right from the side and wrong from the
 ; front. Halving the crossing speed (see Func_fca0a) is what makes the arc win.
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc

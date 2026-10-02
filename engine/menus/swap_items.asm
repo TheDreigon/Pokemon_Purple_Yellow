@@ -1,5 +1,5 @@
 HandleItemListSwapping::
-; v0.7 (2026-09-05, Forte's run): SELECT picks an item UP and sets it DOWN at
+; v0.7 (2026-09-05, playthrough): SELECT picks an item UP and sets it DOWN at
 ; the chosen slot, shifting the items in between - an insertion, not the
 ; vanilla two-way swap (Gen 1 is the only generation that swapped; Gen 2 on
 ; already insert). Same entry contract, same exits, same CANCEL guard, same

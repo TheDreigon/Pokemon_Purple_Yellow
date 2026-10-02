@@ -47,7 +47,7 @@ ItemPrices::
 	bcd3 0     ; SECRET_KEY
 	bcd3 0     ; TRAINER_MANUAL (not for sale)
 	bcd3 0     ; BIKE_VOUCHER
-	bcd3 1500  ; X_ACCURACY (3000 while it was the always-hit switch; v1.0 F7, 2026-09-30: a +1 ACCURACY stage, deliberately dearer than the +1 items at 1000 - Forte)
+	bcd3 1500  ; X_ACCURACY (3000 while it was the always-hit switch; v1.0 F7, 2026-09-30: a +1 ACCURACY stage, deliberately dearer than the +1 items at 1000)
 	bcd3 3000  ; LEAF_STONE  (was 2100; matches other stones)
 	bcd3 0     ; CARD_KEY
 	bcd3 10000 ; NUGGET      (player sells; sale value = 1/2 price)
@@ -69,7 +69,7 @@ ItemPrices::
 	bcd3 1000  ; X_ATTACK    (was 4000; X-items made cheap so they're actually used)
 	bcd3 1000  ; X_DEFEND
 	bcd3 1500  ; X_SPEED
-	bcd3 1000  ; X_SPATK (1500 while it was the whole SPECIAL; Forte, 2026-09-06)
+	bcd3 1000  ; X_SPATK (1500 while it was the whole SPECIAL; 2026-09-06)
 	bcd3 0     ; COIN_CASE
 	bcd3 0     ; OAKS_PARCEL
 	bcd3 0     ; ITEMFINDER
@@ -87,7 +87,7 @@ ItemPrices::
 	bcd3 4500  ; MAX_ELIXIR  (was 0; now sold post-E4-rematch at Indigo + Celadon 2F)
 	bcd3 0     ; BILLS_CHIP  (a gift; never sold, and worth nothing at a counter)
 	bcd3 4900  ; ZINC (CALCIUM's price)
-	bcd3 1000  ; X_SPDEF (Forte, 2026-09-06)
+	bcd3 1000  ; X_SPDEF (2026-09-06)
 	assert_table_length NUM_ITEMS
 	bcd3 0     ; FLOOR_B2F
 	bcd3 0     ; FLOOR_B1F

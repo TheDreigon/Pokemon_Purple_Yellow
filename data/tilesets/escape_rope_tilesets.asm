@@ -1,4 +1,4 @@
-; v0.7 (2026-08-13, his call): the ESCAPE ROPE and DIG are for the caves and for
+; v0.7 (2026-08-13): the ESCAPE ROPE and DIG are for the caves and for
 ; nothing else -- MT.MOON, DIGLETT'S CAVE, ROCK TUNNEL, the SEAFOAM ISLANDS,
 ; VICTORY ROAD and CERULEAN CAVE, every floor. CAVERN is exactly those nineteen
 ; maps and no others, so the list is one entry long.

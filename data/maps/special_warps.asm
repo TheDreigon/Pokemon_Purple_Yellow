@@ -75,7 +75,7 @@ FlyWarpDataPtr:
 	fly_warp_spec SAFFRON_CITY,    SAFFRON_CITY,    .SaffronCity
 	fly_warp_spec ROUTE_4,         ROUTE_4,         .Route4  ; blackouts from MT.MOON's CENTER
 	fly_warp_spec ROUTE_10,        ROUTE_10,        .Route10 ; blackouts from ROCK TUNNEL's CENTER
-; v1.0 (2026-09-24, Forte): the FLY list names interiors; each lands one cell
+; v1.0 (2026-09-24): the FLY list names interiors; each lands one cell
 ; below its door, the rule every other fly point follows (fly_point_rule.py).
 	fly_warp_spec MT_MOON_POKECENTER,     ROUTE_4,       .Route4
 	fly_warp_spec ROCK_TUNNEL_POKECENTER, ROUTE_10,      .Route10
@@ -107,7 +107,7 @@ FlyWarpDataPtr:
 ; and INDIGO it lands one cell below the map's first warp -- which here is BILL's
 ; own front door at (53, 5).
 .Route25:        fly_warp ROUTE_25,        53,  6
-; v1.0 (2026-09-24, Forte): the interiors' landing cells, one below each door.
+; v1.0 (2026-09-24): the interiors' landing cells, one below each door.
 ; The POWER PLANT's and the CERULEAN CAVE's are strips of land reached only by SURF:
 ; whoever flies there has been inside, so has SURF. All five are land tiles.
 .DayCare:        fly_warp ROUTE_5,        10, 22 ; the DAY CARE's door is (10, 21)

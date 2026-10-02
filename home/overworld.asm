@@ -572,7 +572,7 @@ WarpFound2::
 	ldh a, [hWarpDestinationMap] ; destination map
 	cp LAST_MAP
 	jr z, .goBackOutside
-; v0.7 (2026-09-05, Forte's ROUTE 6 gate): an indoor map may name a town or a
+; v0.7 (2026-09-05, the ROUTE 6 gate): an indoor map may name a town or a
 ; route outright. Vanilla never does - every gate says LAST_MAP - and LAST_MAP
 ; breaks for a gate whose back wall sits on the city's seam: that door is then
 ; entered from the city, wLastMap is the city, and the far door's warp id gets

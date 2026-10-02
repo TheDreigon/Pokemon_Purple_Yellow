@@ -241,7 +241,7 @@ SilphCo7FRivalExitScript:
 	ld a, [wd730]
 	bit 0, a
 	ret nz
-; v1.0 (2026-09-24, Forte): he has walked onto the teleporter pad at (5,3)
+; v1.0 (2026-09-24): he has walked onto the teleporter pad at (5,3)
 ; (warp 4, the pad down to 3F) and used to vanish on the spot. Now he rides
 ; it the way the player does (_LeaveMapAnim.spinWhileMovingUp): the pad's
 ; sound, then the sprite spins DOWN, LEFT, UP, RIGHT while lifting 16 px a

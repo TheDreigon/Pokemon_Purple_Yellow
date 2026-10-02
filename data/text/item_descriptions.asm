@@ -28,7 +28,7 @@ _BicycleDescription::
 	next "for fast movement."
 	prompt
 
-; v0.7 (2026-09-05, Forte): one shape for the five stones - "Evolves" first,
+; v0.7 (2026-09-05): one shape for the five stones - "Evolves" first,
 ; species in dex order with EEVEE last, a comma list for three species (no
 ; "and" fits in 18 tiles), "A and B." for two. LEAF STONE lists EXEGGCUTE
 ; first: the only order of those three names that fits two lines.

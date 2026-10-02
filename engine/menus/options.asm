@@ -95,7 +95,7 @@ TextSpeedStringsPointerTable:
 	dw MidText
 	dw SlowText
 
-; 5 cells at (14,2): the box border is column 19, so "INSTANT" does not fit ("INSTA", Forte 2026-09-24).
+; 5 cells at (14,2): the box border is column 19, so "INSTANT" does not fit ("INSTA", 2026-09-24).
 InstantText:
 	db "INSTA@"
 FastText:

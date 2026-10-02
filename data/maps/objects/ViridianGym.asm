@@ -32,7 +32,7 @@ ViridianGym_Object:
 	object_event 10,  7, SPRITE_ROCKER, STAY, DOWN, TEXT_VIRIDIANGYM_ROCKER1, OPP_TAMER, 3, 4
 	object_event  3,  7, SPRITE_HIKER, STAY, LEFT, TEXT_VIRIDIANGYM_HIKER2, OPP_BLACKBELT, 7, 2
 	object_event 13,  5, SPRITE_COOLTRAINER_M, STAY, RIGHT, TEXT_VIRIDIANGYM_COOLTRAINER_M2, OPP_COOLTRAINER_M, 10, 3
-; v1.0 (2026-09-06, Forte): JESSIE & JAMES guard the door of Giovanni's room -
+; v1.0 (2026-09-06): JESSIE & JAMES guard the door of Giovanni's room -
 ; the fifth and last fight of the duo, the last fight before the Boss. JESSIE
 ; carries the trainer header (class JESSIE_AND_JAMES, party 5); she faces the
 ; room's only entry tile (4,4) at range 1, so nobody reaches Giovanni without

@@ -72,7 +72,7 @@ MapSongBanks::
 	db MUSIC_DUNGEON3, BANK(Music_Dungeon3) ; CERULEAN_TRASHED_HOUSE_COPY
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; ROUTE_5_GATE
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; UNDERGROUND_PATH_ROUTE_5
-	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE (Forte 2026-08-07: the homely tune fits the nursery)
+	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE (2026-08-07: the homely tune fits the nursery)
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; ROUTE_6_GATE
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; UNDERGROUND_PATH_ROUTE_6
 	db MUSIC_VERMILION, BANK(Music_Vermilion) ; UNDERGROUND_PATH_ROUTE_6_COPY
@@ -251,6 +251,6 @@ MapSongBanks::
 	db MUSIC_ROUTES3, BANK(Music_Routes3) ; SUMMER_BEACH_HOUSE
 	db MUSIC_CITIES1, BANK(Music_Cities1) ; VIRIDIAN_OLD_ROD_HOUSE
 	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE_2F (same as the floor below)
-	db MUSIC_ROUTES1, BANK(Music_Routes1) ; BILLS_GARDEN (ROUTE 1's theme, Forte's pick: the quiet one from the very start of the game, for a garden full of first partners)
+	db MUSIC_ROUTES1, BANK(Music_Routes1) ; BILLS_GARDEN (ROUTE 1's theme, chosen as the quiet one from the very start of the game, for a garden full of first partners)
 	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; BLUES_HOUSE_2F (same as the floor below, and as the player's own bedroom)
 	assert_table_length NUM_MAPS

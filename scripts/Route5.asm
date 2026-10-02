@@ -20,7 +20,7 @@ Route5LittleGirlText:
 
 Route5YoungsterText:
 ; Complains about the shut road until TEAM ROCKET is beaten at SILPH CO. -
-; the gates' third stage, SAFFRON open to everyone (2026-09-06, Forte); a
+; the gates' third stage, SAFFRON open to everyone (2026-09-06); a
 ; four-badge player passing at stage two is nothing he gets to see.
 	text_asm
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI

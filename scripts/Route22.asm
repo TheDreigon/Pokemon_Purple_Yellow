@@ -79,7 +79,7 @@ Route22DefaultScript:
 .Route22RivalBattleCoords
 ; 🔴 These followed the RIVAL down the map, they are not vanilla's any more.
 ; Vanilla stands him at (25,5) and triggers at (29,4)/(29,5): one row above him
-; and his own row, four tiles east. Forte's map polish moved him to (25,7) and
+; and his own row, four tiles east. A map polish pass moved him to (25,7) and
 ; left the coords behind -- and rows 4 and 5 became SOLID, so the trigger sat on
 ; two tiles the player can never occupy and neither RIVAL1 nor RIVAL2 could ever
 ; fire. Same relationship as vanilla, two rows down.

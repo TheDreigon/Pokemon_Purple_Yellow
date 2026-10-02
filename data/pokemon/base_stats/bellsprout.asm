@@ -1,7 +1,7 @@
 	db DEX_BELLSPROUT ; pokedex id
 	base_stat_row 40, 65, 40, 70, 40, 45 ; hp atk def spatk spdef spd
 
-	db GRASS, GRASS ; type ; v0.7 (2026-09-05, Forte): pure GRASS; POISON arrives with WEEPINBELL (the BULBASAUR -> IVYSAUR shape)
+	db GRASS, GRASS ; type ; v0.7 (2026-09-05): pure GRASS; POISON arrives with WEEPINBELL (the BULBASAUR -> IVYSAUR shape)
 	db 220 ; catch rate  ; base stage, BST 300
 	db 85 ; base exp  ; BST 300
 

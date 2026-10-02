@@ -102,12 +102,12 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       nunca inserida.
 	const PAL_IRONMON                ; $31 — MACHAMP: aco escuro, o azul da artwork. APPENDADA,
 	                                 ;       nunca inserida.
-	const PAL_SLATEMON               ; $32 — o cinzento NEUTRO do kep-hack (GREYMON deles), a pedido
-	                                 ;       do Forte 2026-08-30: MAGNEMITE/MAGNETON/ONIX/RHYHORN/
+	const PAL_SLATEMON               ; $32 — o cinzento NEUTRO do kep-hack (GREYMON deles), desde
+	                                 ;       2026-08-30: MAGNEMITE/MAGNETON/ONIX/RHYHORN/
 	                                 ;       RHYDON. O nosso PAL_GREYMON e o rosado vanilla (fica
 	                                 ;       para MAROWAK e para a Pokemon Tower). APPENDADA.
 	const PAL_PIKAMON                ; $33 — o amarelo do PIKACHU um toque mais claro que o puro
-	                                 ;       (P2, escolha do Forte 2026-09-01, com o re-shade dos
+	                                 ;       (P2, escolhido a 2026-09-01, com o re-shade dos
 	                                 ;       sprites). SO o PIKACHU (o real e o fake partilham a
 	                                 ;       paleta por serem a mesma especie); RAICHU/SANDSHREW/
 	                                 ;       WEEDLE continuam no PAL_YELLOWMON. APPENDADA.

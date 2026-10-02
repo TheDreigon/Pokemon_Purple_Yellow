@@ -21,7 +21,7 @@ BillsHouse_Object:
 	warp_event 11,  0, BILLS_GARDEN, 1
 
 	def_bg_events
-; v1.0 (Forte, 2026-09-23): the two TELEPORTER machines answer when examined
+; v1.0 (2026-09-23): the two TELEPORTER machines answer when examined
 	bg_event  1,  2, TEXT_BILLSHOUSE_MACHINE
 	bg_event  6,  2, TEXT_BILLSHOUSE_MACHINE
 

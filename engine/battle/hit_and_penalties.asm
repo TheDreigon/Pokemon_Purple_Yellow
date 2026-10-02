@@ -31,7 +31,7 @@ MoveHitTest:
 	and SLP_MASK
 	jp z, .moveMissed
 .swiftCheck
-; v1.0 (2026-09-26, Forte): a never-miss move (SWIFT_EFFECT: SWIFT's heirs -
+; v1.0 (2026-09-26): a never-miss move (SWIFT_EFFECT: SWIFT's heirs -
 ; FAINT ATTACK, AERIAL ACE, SHOCK WAVE...) ignores accuracy and evasion, not
 ; FLY/DIG. Vanilla returned here, before the INVULNERABLE check, so it hit a
 ; mon up in the air or underground; from Gen 2 on it does not, and it made
@@ -47,7 +47,7 @@ MoveHitTest:
 .checkForDigOrFlyStatus
 	bit INVULNERABLE, [hl]
 	jp nz, .moveMissed
-; v1.0 (2026-09-24, Forte): the damage calc already failed this move on type -
+; v1.0 (2026-09-24): the damage calc already failed this move on type -
 ; an immunity (WRAP vs a GHOST) or the "not even a scratch" collapse - and
 ; ApplyTypeEffectivenessToDamage only writes the reason code (v1.0 R9c: the
 ; fixed-damage family skips the damage calc; FixedDamageImmunity runs the same
@@ -79,8 +79,8 @@ MoveHitTest:
 	ld a, [wPlayerMovePower]
 	and a
 	jr nz, .skipEnemyMistCheck ; a damaging move is never Mist-blocked
-; v1.0 (F4, 2026-09-30; Forte: "como sao moves de utility, gostava que estes conseguissem acertar
-; nos Dark types. sim, abre excepcao para estes 2"): the v0.7 guard that made a power-0 PSYCHIC
+; v1.0 (F4, 2026-09-30; as utility moves, these two get an exception and hit DARK types): the
+; v0.7 guard that made a power-0 PSYCHIC
 ; move miss a DARK target is gone, on both turns. Its only members were HYPNOSIS and DISABLE -
 ; moves.asm has no other power-0 PSYCHIC move - so exempting the two left it with nothing to
 ; guard. The chart's PSYCHIC -> DARK NO_EFFECT still rules the damage path (every damaging PSYCHIC
@@ -137,7 +137,7 @@ MoveHitTest:
 	bit USING_X_ACCURACY, a ; is the enemy using X Accuracy?
 	ret nz ; if so, always hit regardless of accuracy/evasion
 .calcHitChance
-; v1.0 (F6, 2026-09-30; Forte: "se eu estou a entender bem o que isso quer dizer, corrige"):
+; v1.0 (F6, 2026-09-30):
 ; CalcHitChance hands the hit chance back in a and no longer stores it over the move's
 ; accuracy byte. Stored, it was what a SECOND roll in the same use scaled again - the
 ; stat drop of a damaging lowering move (TAKE DOWN, ROCK TOMB, HYDRO PUMP...) and, before
@@ -339,7 +339,7 @@ HalveAttackDueToBurn:
 
 HalveSpeedDueToParalysis:
 ; v0.7: was QuarterSpeedDueToParalysis (/ 4) — now halves (/ 2) per modern
-; Pokemon (Gen 7+ behavior) and project owner's call. Rename + one less
+; Pokemon (Gen 7+ behavior), by design. Rename + one less
 ; srl/rr pair per side. Behaviour: halve current speed if statused.
 ; (Idempotency caveat: still halves whatever's there — must only be called
 ; right after a recalc-from-unmodified, never on a stat that already had

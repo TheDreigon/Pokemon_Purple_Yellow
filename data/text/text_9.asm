@@ -922,7 +922,7 @@ _RoofQuizFailText::
 	cont "back!"
 	done
 
-; PURPLE'S PATCH (2026-09-22, Forte): his talk around it. The patch itself
+; PURPLE'S PATCH (2026-09-22): his talk around it. The patch itself
 ; (refusals, the question, the result) is in data/text/text_7.asm.
 _RoofHousePrizeOneText::
 	text "So here's your"

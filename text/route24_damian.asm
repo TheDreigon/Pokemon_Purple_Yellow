@@ -50,7 +50,7 @@ _Route24DamianText4::
 	cont "actually matters."
 	done
 
-; v1.0 (Forte, 2026-09-23): the CHAMPION walks past with a CHARMELEON or a
+; v1.0 (2026-09-23): the CHAMPION walks past with a CHARMELEON or a
 ; CHARIZARD. He wants it back; it answers with its cry, and he backs down.
 _Route24DamianGiveItBackText::
 	text "DAMIAN: Hold on."

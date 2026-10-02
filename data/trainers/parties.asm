@@ -146,10 +146,10 @@ LassData:
 ; SS Anne 1F Rooms
 	db 18, PIDGEOTTO, NIDORINA, 0
 ; SS Anne 2F Rooms
-; v0.7 (2026-09-01, Forte): the first trainer-owned PIKACHU in the game -
-; unlocked by the fake-Pikachu sprite (it visibly is not the partner). His
-; tuning-saga rule kept Pikachu out of every party for Yellow lore; he
-; reversed it now that the two arts exist.
+; v0.7 (2026-09-01): the first trainer-owned PIKACHU in the game -
+; unlocked by the fake-Pikachu sprite (it visibly is not the partner). The
+; tuning-saga rule kept Pikachu out of every party for Yellow lore; it was
+; reversed now that the two arts exist.
 	db 20, JIGGLYPUFF, CLEFAIRY, PIKACHU, 0
 ; Route 8
 	db 27, WEEPINBELL, NIDORINA, 0
@@ -161,7 +161,7 @@ LassData:
 	db 33, PARASECT, EXEGGUTOR, 0 ; 29 -> 33, the top row (taught SPORE, special_moves)
 ; Viridian Forest
 	db 6, NIDORAN_F, NIDORAN_M, 0
-	db 7, ODDISH, BELLSPROUT, 0 ; v0.7 (2026-09-02, Forte): the shortcut LASS
+	db 7, ODDISH, BELLSPROUT, 0 ; v0.7 (2026-09-02): the shortcut LASS
 ; 21: Cerulean Gym - LILY, the youngest SENSATIONAL SISTER (2026-09-06)
 	db 16, GOLDEEN, 0
 
@@ -182,7 +182,7 @@ JrTrainerMData:
 ; Unused
 	db 20, SQUIRTLE, 0
 ; Route 6
-	db $FF, 18, MANKEY, 20, RATICATE, 0 ; mini-ace Raticate (Forte)
+	db $FF, 18, MANKEY, 20, RATICATE, 0 ; mini-ace Raticate
 ; Unused
 	db 18, DIGLETT, DIGLETT, SANDSHREW, 0
 	db 21, GROWLITHE, CHARMANDER, 0
@@ -191,7 +191,7 @@ JrTrainerMData:
 ; Route 12
 	db 29, NIDORINA, NIDORINO, 0
 ; Route 6
-	db 16, LICKITUNG, 0 ; v1.0 (2026-09-07, Forte): the couple - his LICKITUNG (ONIX from 09-05 to 09-07; HORSEA, BELLSPROUT before)
+	db 16, LICKITUNG, 0 ; v1.0 (2026-09-07): the couple - his LICKITUNG (ONIX from 09-05 to 09-07; HORSEA, BELLSPROUT before)
 ; 11: Cinnabar Gym - EVAN (Pokemon Adventures), the Camper who minds the gym for Blaine (2026-09-06)
 	db $FF, 46, HAUNTER, 47, ARCANINE, 0
 
@@ -199,9 +199,9 @@ JrTrainerFData:
 ; Unused since 2026-09-06 (was Cerulean Gym's SEEL 19; DAISY is BEAUTY 17 now)
 	db 19, SEEL, 0
 ; Cerulean Gym: VIOLET, the middle SENSATIONAL SISTER (2026-09-06; the id was Unused)
-	db 17, SHELLDER, 0 ; VIOLET - her Let's Go Pokemon, alone (Forte, 2026-09-07: the HORSEA was the vanilla Swimmer's; the gym's Horsea is Misty's)
+	db 17, SHELLDER, 0 ; VIOLET - her Let's Go Pokemon, alone (2026-09-07: the HORSEA was the vanilla Swimmer's; the gym's Horsea is Misty's)
 ; Route 6
-	db 16, PIDGEY, SPEAROW, PSYDUCK, 0 ; variety (2026-09-07, Forte): was PIDGEY, SPEAROW, PIDGEY
+	db 16, PIDGEY, SPEAROW, PSYDUCK, 0 ; variety (2026-09-07): was PIDGEY, SPEAROW, PIDGEY
 ; Unused
 	db 22, BULBASAUR, 0
 ; Route 9
@@ -216,12 +216,12 @@ JrTrainerFData:
 ; Celadon Gym
 	db 31, IVYSAUR, WEEPINBELL, 0 ; the gym rework (2026-09-06): the L29 BULBASAUR was 11 levels past its evolution
 ; Route 13
-	db 28, POLIWHIRL, CLEFAIRY, WEEPINBELL, PSYDUCK, MEOWTH, 0 ; variety (2026-09-07, Forte): was POLIWHIRL, CLEFAIRY, WEEPINBELL, POLIWHIRL, MEOWTH
+	db 28, POLIWHIRL, CLEFAIRY, WEEPINBELL, PSYDUCK, MEOWTH, 0 ; variety (2026-09-07): was POLIWHIRL, CLEFAIRY, WEEPINBELL, POLIWHIRL, MEOWTH
 	db 29, POLIWHIRL, SEAKING, 0
 	db 28, TANGELA, PERSIAN, 0
 	db 29, POLIWHIRL, SEADRA, 0
 ; Route 20
-	db 41, SEAKING, SLOWBRO, 0 ; variety (2026-09-07, Forte): was SEAKING, SEAKING (the sandbar's Slowpoke, grown)
+	db 41, SEAKING, SLOWBRO, 0 ; variety (2026-09-07): was SEAKING, SEAKING (the sandbar's Slowpoke, grown)
 ; Rock Tunnel 1F
 	db 24, WEEPINBELL, CLEFAIRY, 0
 	db 23, MEOWTH, WARTORTLE, FEAROW, 0
@@ -234,7 +234,7 @@ JrTrainerFData:
 ; Route 20
 	db 40, TENTACRUEL, SEADRA, DEWGONG, 0
 ; Route 6
-	db 19, SHELLDER, 0 ; v0.7 (2026-09-05, Forte): the couple - her SHELLDER (was CUBONE)
+	db 19, SHELLDER, 0 ; v0.7 (2026-09-05): the couple - her SHELLDER (was CUBONE)
 
 RocketData:
 ; Mt. Moon B2F  (party order = trainer-index order: 1=ROCKET3, 2=ROCKET1, 3=ROCKET2)
@@ -272,7 +272,7 @@ RocketData:
 	db 26, DROWZEE, KOFFING, 0
 ; Silph Co. 2F
 	db 39, MAROWAK, GOLBAT, 0
-	db 35, GOLBAT, RATICATE, SANDSLASH, PINSIR, 0 ; variety (2026-09-07, Forte): was GOLBAT, RATICATE, GOLBAT, PINSIR
+	db 35, GOLBAT, RATICATE, SANDSLASH, PINSIR, 0 ; variety (2026-09-07): was GOLBAT, RATICATE, GOLBAT, PINSIR
 ; Silph Co. 3F
 	db 38, RATICATE, HYPNO, MUK, 0
 ; Silph Co. 4F
@@ -289,7 +289,7 @@ RocketData:
 	db 39, MAROWAK, MAGMAR, 0
 	db 39, SANDSLASH, VILEPLUME, 0
 ; Silph Co. 8F
-	db $FF, 37, RATICATE, 37, GOLBAT, 37, MAROWAK, 40, TENTACRUEL, 0 ; variety (2026-09-07, Forte): was RATICATE, TENTACRUEL, GOLBAT, RATICATE. v1.0 (2026-09-14): TENTACOOL evolves at 40 now, so the TENTACRUEL is the ace at 40 and goes out last; the rest keep 37
+	db $FF, 37, RATICATE, 37, GOLBAT, 37, MAROWAK, 40, TENTACRUEL, 0 ; variety (2026-09-07): was RATICATE, TENTACRUEL, GOLBAT, RATICATE. v1.0 (2026-09-14): TENTACOOL evolves at 40 now, so the TENTACRUEL is the ace at 40 and goes out last; the rest keep 37
 	db 39, VICTREEBEL, GOLBAT, WEEZING , 0
 ; Silph Co. 9F
 	db 38, HYPNO, MUK, MACHOKE, 0
@@ -330,7 +330,7 @@ JessieAndJamesData:
 SuperNerdData:
 ; Mt. Moon 1F
 	db 10, MAGNEMITE, VOLTORB, 0
-; Mt. Moon B2F - the fossil nerd (2026-09-23, Forte): what a digger pulls out of
+; Mt. Moon B2F - the fossil nerd (2026-09-23): what a digger pulls out of
 ; this mountain, not the fossils themselves (he fights you FOR those). The
 ; CUBONE with its skull is his prize; Ground/Rock right after Brock, with no
 ; answer from a PIKACHU.
@@ -356,7 +356,7 @@ SuperNerdData:
 ; these two already wore the SUPER_NERD overworld sprite. Same teams.
 	db 21, MAGNEMITE, 0
 	db 18, MAGNEMITE, MACHOP, MAGNEMITE, 0
-; Mt. Moon B2F rematch, post-League (15, 16; 2026-09-23, Forte): his crew grown
+; Mt. Moon B2F rematch, post-League (15, 16; 2026-09-23): his crew grown
 ; up, and as the ace the fossil HE kept, revived - 15 when the player took the
 ; DOME (he had the HELIX: OMASTAR), 16 when the player took the HELIX (KABUTOPS).
 ; Between the dojo's 52-58 and the leaders' 63-65.
@@ -368,14 +368,14 @@ HikerData:
 	db 10, GEODUDE, MACHOP, ONIX, 0
 ; Route 25
 	db 16, MACHOP, GEODUDE, 0
-	db 15, GEODUDE, ZUBAT, MACHOP, SANDSHREW, 0 ; variety (2026-09-07, Forte): was GEODUDE, ZUBAT, MACHOP, GEODUDE
+	db 15, GEODUDE, ZUBAT, MACHOP, SANDSHREW, 0 ; variety (2026-09-07): was GEODUDE, ZUBAT, MACHOP, GEODUDE
 	db 18, ONIX, 0
 ; Route 9
 	db 24, GEODUDE, ONIX, 0
-	db 22, GEODUDE, MACHOP, CUBONE, 0 ; variety (2026-09-07, Forte): was GEODUDE, MACHOP, GEODUDE
+	db 22, GEODUDE, MACHOP, CUBONE, 0 ; variety (2026-09-07): was GEODUDE, MACHOP, GEODUDE
 ; Route 10
 	db 25, ZUBAT, ONIX, GOLBAT, 0
-	db 27, RHYHORN, TAUROS, 0 ; ride-pokemon duo (Forte)
+	db 27, RHYHORN, TAUROS, 0 ; ride-pokemon duo
 ; Rock Tunnel B1F
 	db $FF, 24, GEODUDE, 24, GEODUDE, 26, GRAVELER, 0
 	db 26, GRAVELER, 0
@@ -383,11 +383,11 @@ HikerData:
 	db 23, MACHOP, ONIX, 0
 ; Rock Tunnel 1F
 	db $FF, 24, MACHOP, 26, MACHOKE, 0
-	db 24, ONIX, SANDSLASH, GEODUDE, 0 ; variety (2026-09-07, Forte): was ONIX, SANDSHREW, ONIX (Sandshrew evolves at 22 here)
+	db 24, ONIX, SANDSLASH, GEODUDE, 0 ; variety (2026-09-07): was ONIX, SANDSHREW, ONIX (Sandshrew evolves at 22 here)
 	db $FF, 24, GEODUDE, 26, GRAVELER, 0
 ; Victory Road - Sable
 	db 52, AERODACTYL, PARASECT, JOLTEON, ARCANINE, 0
-; Route 4, outside the MT.MOON exit (2026-09-06, Forte) - party 16
+; Route 4, outside the MT.MOON exit (2026-09-06) - party 16
 	db 10, GEODUDE, SANDSHREW, MACHOP, DIGLETT, 0
 
 MistyData:
@@ -414,11 +414,11 @@ SailorData:
 
 GentlemanData:
 ; SS Anne 1F Rooms
-	db 18, GROWLITHE, SEEL, 0 ; variety (2026-09-07, Forte): was GROWLITHE, GROWLITHE (a pet of the crossing; GROWLITHE + VULPIX is the Route 11 gambler's pair)
+	db 18, GROWLITHE, SEEL, 0 ; variety (2026-09-07): was GROWLITHE, GROWLITHE (a pet of the crossing; GROWLITHE + VULPIX is the Route 11 gambler's pair)
 	db 19, NIDORAN_M, NIDORAN_F, 0
 ; SS Anne 2F Rooms/Vermilion Gym
 	db 22, VOLTORB, MAGNEMITE, 0
-; Route 12 (2026-09-25, Forte): the ROCKER class's last trainer, by the SUPER ROD house, is a
+; Route 12 (2026-09-25): the ROCKER class's last trainer, by the SUPER ROD house, is a
 ; GENTLEMAN now, with a rich man's pets; the slot was vanilla's unused PRIMEAPE 48
 	db 30, NIDORINO, PERSIAN, 0
 ; SS Anne 2F Rooms
@@ -426,16 +426,16 @@ GentlemanData:
 
 FisherData:
 ; SS Anne 2F Rooms
-	db 18, GOLDEEN, TENTACOOL, HORSEA, 0 ; variety (2026-09-07, Forte): was GOLDEEN, TENTACOOL, GOLDEEN (Vermilion's rod fish)
+	db 18, GOLDEEN, TENTACOOL, HORSEA, 0 ; variety (2026-09-07): was GOLDEEN, TENTACOOL, GOLDEEN (Vermilion's rod fish)
 ; SS Anne B1F Rooms
 	db 18, TENTACOOL, STARYU, SHELLDER, 0
 ; Route 12
-	db 25, SEAKING, POLIWHIRL, KRABBY, 0 ; variety (2026-09-07, Forte): was GOLDEEN, POLIWAG, GOLDEEN (Goldeen evolves at 24, Poliwag at 17)
+	db 25, SEAKING, POLIWHIRL, KRABBY, 0 ; variety (2026-09-07): was GOLDEEN, POLIWAG, GOLDEEN (Goldeen evolves at 24, Poliwag at 17)
 	db 26, TENTACOOL, GOLDEEN, 0
 	db 28, SEAKING, 0
 	db 24, POLIWAG, SHELLDER, DRATINI, HORSEA, 0
 ; Route 21
-	db 40, SEAKING, STARYU, GOLDUCK, SEADRA, 0 ; variety (2026-09-07, Forte): was SEAKING, GOLDEEN, SEAKING, SEAKING (the Goldeen was 16 levels past evolving)
+	db 40, SEAKING, STARYU, GOLDUCK, SEADRA, 0 ; variety (2026-09-07): was SEAKING, GOLDEEN, SEAKING, SEAKING (the Goldeen was 16 levels past evolving)
 	db 41, SHELLDER, CLOYSTER, 0
 	db $FF, 30, MAGIKARP, 38, GYARADOS, 38, GYARADOS, 38, GYARADOS, 38, GYARADOS, 40, GYARADOS,  0
 	db 40, SEAKING, TENTACRUEL, 0
@@ -486,7 +486,7 @@ PokemaniacData:
 	db 43, MAGMAR, JYNX, LAPRAS, 0
 	db 27, KANGASKHAN, 0
 ; Rock Tunnel B1F
-	db 23, SLOWPOKE, LICKITUNG, RHYHORN, 0 ; variety (2026-09-07, Forte): was SLOWPOKE, LICKITUNG, SLOWPOKE (vanilla's maniac species; Cubone is on both neighbours, Route 10's KANGASKHAN stays the corridor's one reveal)
+	db 23, SLOWPOKE, LICKITUNG, RHYHORN, 0 ; variety (2026-09-07): was SLOWPOKE, LICKITUNG, SLOWPOKE (vanilla's maniac species; Cubone is on both neighbours, Route 10's KANGASKHAN stays the corridor's one reveal)
 	db 26, CHARMELEON, CUBONE, 0
 	db 25, SLOWPOKE, 0
 ; Victory Road 2F
@@ -501,7 +501,7 @@ GamblerData:
 	db 19, DROWZEE, ABRA, 0
 	db 19, GROWLITHE, VULPIX, 0
 ; Route 8
-	db $FF, 24, PSYDUCK, 24, POLIWHIRL, 27, SLOWPOKE, 0 ; variety (2026-09-07, Forte): was POLIWAG, POLIWAG, POLIWHIRL (the twins were 7 levels past evolving - Poliwag evolves at 17 here)
+	db $FF, 24, PSYDUCK, 24, POLIWHIRL, 27, SLOWPOKE, 0 ; variety (2026-09-07): was POLIWAG, POLIWAG, POLIWHIRL (the twins were 7 levels past evolving - Poliwag evolves at 17 here)
 ; Unused
 	db 22, ONIX, GEODUDE, GEODUDE, 0
 ; Route 8
@@ -553,20 +553,20 @@ BikerData:
 ; Route 14
 	db 30, SANDSLASH, MACHOKE, 0
 ; Route 15
-	db 34, SANDSLASH, KOFFING, RHYHORN, GRIMER, 0 ; variety (2026-09-07, Forte): was SANDSLASH, KOFFING, SANDSLASH, GRIMER
+	db 34, SANDSLASH, KOFFING, RHYHORN, GRIMER, 0 ; variety (2026-09-07): was SANDSLASH, KOFFING, SANDSLASH, GRIMER
 	db $FF, 34, KOFFING, 34, GRIMER, 36, WEEZING, 0
 ; Route 16
 	db 29, GRIMER, BEEDRILL, 0
 	db 31, WEEZING, 0
-	db 28, GRIMER, CHARMELEON, RHYHORN, SANDSLASH, 0 ; variety (2026-09-07, Forte): was GRIMER, CHARMELEON, RHYHORN, GRIMER
+	db 28, GRIMER, CHARMELEON, RHYHORN, SANDSLASH, 0 ; variety (2026-09-07): was GRIMER, CHARMELEON, RHYHORN, GRIMER
 ; Route 17
-	db 33, WEEZING, KOFFING, GRIMER, 0 ; variety (2026-09-07, Forte): was WEEZING, KOFFING, WEEZING
+	db 33, WEEZING, KOFFING, GRIMER, 0 ; variety (2026-09-07): was WEEZING, KOFFING, WEEZING
 	db 35, MUK, 0
 	db 33, ELECTRODE, MAGNETON, 0
 	db 32, WEEZING, MUK, 0
 	db 30, SANDSLASH, KRABBY, KOFFING, KINGLER, 0
 ; Route 14
-	db 31, BEEDRILL, WEEZING, VENOMOTH, 0 ; variety (2026-09-07, Forte): was BEEDRILL, WEEZING, BEEDRILL
+	db 31, BEEDRILL, WEEZING, VENOMOTH, 0 ; variety (2026-09-07): was BEEDRILL, WEEZING, BEEDRILL
 	db 32, HITMONCHAN, GRIMER, KOFFING, 0
 	db 32, HITMONLEE, MUK, 0
 
@@ -599,7 +599,7 @@ BeautyData:
 	db 30, CLEFAIRY, PERSIAN, 0
 ; Route 20
 	db 45, SEAKING, 0
-	db 40, CLOYSTER, KINGLER, STARMIE, 0 ; variety (2026-09-07, Forte): was CLOYSTER, KINGLER, CLOYSTER
+	db 40, CLOYSTER, KINGLER, STARMIE, 0 ; variety (2026-09-07): was CLOYSTER, KINGLER, CLOYSTER
 	db 41, POLIWHIRL, SEAKING, 0
 ; Route 15
 	db 35, GOLDUCK, WIGGLYTUFF, 0
@@ -679,20 +679,20 @@ JanineData:
 BirdKeeperData:
 ; Route 13
 	db 32, FEAROW, PIDGEOTTO, 0
-	db 28, PIDGEOTTO, FEAROW, DODUO, FARFETCHD, 0 ; variety (2026-09-07, Forte): was SPEAROW, DODUO, PIDGEY, SPEAROW, SPEAROW (a flock grown to its level)
-	db 30, PIDGEOTTO, FEAROW, DODUO, 0 ; variety (2026-09-07, Forte): was PIDGEOTTO, FEAROW, PIDGEOTTO, FEAROW
+	db 28, PIDGEOTTO, FEAROW, DODUO, FARFETCHD, 0 ; variety (2026-09-07): was SPEAROW, DODUO, PIDGEY, SPEAROW, SPEAROW (a flock grown to its level)
+	db 30, PIDGEOTTO, FEAROW, DODUO, 0 ; variety (2026-09-07): was PIDGEOTTO, FEAROW, PIDGEOTTO, FEAROW
 ; Route 14
 	db 33, FARFETCHD, 0
 	db 33, DODRIO, FEAROW, 0
 ; Route 15
-	db 35, PIDGEOTTO, FARFETCHD, DODRIO, FEAROW, 0 ; variety (2026-09-07, Forte): was PIDGEOTTO, FARFETCHD, DODRIO, PIDGEOTTO
+	db 35, PIDGEOTTO, FARFETCHD, DODRIO, FEAROW, 0 ; variety (2026-09-07): was PIDGEOTTO, FARFETCHD, DODRIO, PIDGEOTTO
 	db 36, DODRIO, PIDGEOT, 0
 ; Route 18
 	db 34, PIDGEOTTO, FEAROW, 0
 	db 36, DODRIO, 0
 	db 32, FARFETCHD, DODUO, FEAROW,  0
 ; Route 20
-	db 41, FEAROW, DODRIO, PIDGEOT, 0 ; variety (2026-09-07, Forte): was FEAROW, FEAROW, PIDGEOT
+	db 41, FEAROW, DODRIO, PIDGEOT, 0 ; variety (2026-09-07): was FEAROW, FEAROW, PIDGEOT
 ; Unused
 	db 39, PIDGEOTTO, PIDGEOTTO, PIDGEY, PIDGEOTTO, 0
 	db 42, FARFETCHD, FEAROW, 0
@@ -712,11 +712,11 @@ SwimmerData:
 	db 41, SEADRA, TENTACRUEL, GYARADOS, 0
 	db 41, SEAKING, SLOWBRO, GOLDUCK, 0
 	db 45, SEADRA, 0
-	db 40, TENTACRUEL, KINGLER, STARMIE, SEADRA, DEWGONG, 0 ; variety (2026-09-07, Forte): was TENTACRUEL, TENTACRUEL, STARMIE, SEADRA, TENTACRUEL
+	db 40, TENTACRUEL, KINGLER, STARMIE, SEADRA, DEWGONG, 0 ; variety (2026-09-07): was TENTACRUEL, TENTACRUEL, STARMIE, SEADRA, TENTACRUEL
 ; Route 20
 	db 42, KINGLER, CLOYSTER, 0
 	db 45, GYARADOS, 0
-	db 42, SEADRA, GYARADOS, GOLDUCK, 0 ; variety (2026-09-07, Forte): was SEADRA, GYARADOS, SEADRA
+	db 42, SEADRA, GYARADOS, GOLDUCK, 0 ; variety (2026-09-07): was SEADRA, GYARADOS, SEADRA
 ; Route 21
 	db 43, SEADRA, TENTACRUEL, 0
 	db 47, STARMIE, 0
@@ -725,7 +725,7 @@ SwimmerData:
 
 CueBallData:
 ; Route 16
-	db 28, MACHOKE, WIGGLYTUFF, MANKEY, 0 ; variety (2026-09-07, Forte): was MACHOP, WIGGLYTUFF, MACHOP (Machop evolves at 26 here)
+	db 28, MACHOKE, WIGGLYTUFF, MANKEY, 0 ; variety (2026-09-07): was MACHOP, WIGGLYTUFF, MACHOP (Machop evolves at 26 here)
 	db 29, MANKEY, MACHOP, 0
 	db 31, MACHOKE, 0
 ; Route 17
@@ -738,7 +738,7 @@ CueBallData:
 	db 42, CLOYSTER, RHYDON, TENTACRUEL, 0
 
 BlackbeltData:
-; Fighting Dojo — Forte's 2026-08-18 redesign: four two-mon schools on a
+; Fighting Dojo — the 2026-08-18 redesign: four two-mon schools on a
 ; 32->38 ladder under KIYO's L40 trio. Party 1 is DEAD data (the master
 ; fights as KIYO 1 since a6dcf153), kept in place because party ids are
 ; positional — never renumber.
@@ -785,8 +785,8 @@ ScientistData:
 ; Unused
 	db 34, KOFFING, VOLTORB, 0
 ; Silph Co. 2F
-	db 37, MUK, WEEZING, PORYGON, DITTO, 0 ; variety (2026-09-07, Forte): was MUK, WEEZING, PORYGON, WEEZING (the lab's own experiment; a MAGNETON at 37 has no Electric attack here)
-	db 38, MAGNETON, ELECTRODE, ELECTABUZZ, 0 ; variety (2026-09-07, Forte): was MAGNETON, ELECTRODE, MAGNETON (the electric chemist stays electric; nothing shared with the poison one)
+	db 37, MUK, WEEZING, PORYGON, DITTO, 0 ; variety (2026-09-07): was MUK, WEEZING, PORYGON, WEEZING (the lab's own experiment; a MAGNETON at 37 has no Electric attack here)
+	db 38, MAGNETON, ELECTRODE, ELECTABUZZ, 0 ; variety (2026-09-07): was MAGNETON, ELECTRODE, MAGNETON (the electric chemist stays electric; nothing shared with the poison one)
 ; Silph Co. 3F/Mansion 1F
 	db 39, ELECTRODE, WEEZING, 0
 ; Silph Co. 4F
@@ -857,7 +857,7 @@ CooltrainerFData:
 ; 9: Vermilion Gym - VISQUEZ, Lt. Surge's second (2026-09-06); her Pikachu will be a Raichu like his
 	db $FF, 26, PIKACHU, 26, VOLTORB, 0
 ; 10: Fuchsia Gym - AYA, Koga's younger sister (2026-09-06); VENONAT is her only known POKeMON
-	db 40, VENONAT, 0 ; AYA (2026-09-07, Forte): her one anime Pokemon, alone and never evolved, at 40 - one under Koga's lowest (was VENONAT 37 + VENOMOTH 39); her STUN_POWDER back in special_moves
+	db 40, VENONAT, 0 ; AYA (2026-09-07): her one anime Pokemon, alone and never evolved, at 40 - one under Koga's lowest (was VENONAT 37 + VENOMOTH 39); her STUN_POWDER back in special_moves
 
 LoreleiData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
@@ -917,7 +917,7 @@ JoyData:
 
 SmithData:
 ; Moltres Fight
-; All L60; no ace, like DREIGON's (Forte, 2026-09-28: "smith, craig, weebra tambem nao têm às"):
+; All L60; no ace, like DREIGON's (2026-09-28: SMITH, CRAIG and WEEBRA have no ace either):
 ; in Hard the switch picker chooses who follows, STARMIE included; in Normal (no switch layer)
 ; this is the send-out order. CRAIG's and WEEBRA's teams likewise.
     db 60, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
@@ -933,10 +933,10 @@ WeebraData:
 	db 60, SNORLAX, GENGAR, CHARIZARD, VAPOREON, ONIX, MACHAMP, 0
 
 ForteData:
-; "Forte / DREIGON" superboss — all L80, in Forte's party order: BEEDRILL leads; no ace (Forte,
-; 2026-09-27: "estão todos ao mesmo nivel de respeito") - in Hard the switch picker chooses who
+; "Forte / DREIGON" superboss — all L80, in its fixed party order: BEEDRILL leads; no ace (all
+; held in the same regard, 2026-09-27) - in Hard the switch picker chooses who
 ; follows, NIDOKING included; in Normal (no switch layer) this is the send-out order.
-; Per-mon movesets in special_moves.asm (finalized by Forte in Notes/Boss Movesets.md).
+; Per-mon movesets in special_moves.asm (finalized in Notes/Boss Movesets.md).
 	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
 
 BillData:

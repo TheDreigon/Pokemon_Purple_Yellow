@@ -18,11 +18,11 @@ _PokemonTower2FRivalDefeatedText::
 	line "you too!"
 	prompt
 
-; v1.0 (R9x, 2026-10-01; Forte: "sigo a tua recomendação"): Yellow Legacy's last lines
+; v1.0 (R9x, 2026-10-01): Yellow Legacy's last lines
 ; said GHOST moves "may not hit normal-types" - false in this chart, where GHOST hits
 ; NORMAL neutrally. What holds is the other way round: NORMAL and FIGHTING attacks
 ; cannot touch a GHOST (SEISMIC TOSS and SUPER FANG too, since R9c). "attacks", not
-; "moves" (Forte: "ok, concordo com o "attacks"."): SUPERSONIC, a NORMAL status move,
+; "moves": SUPERSONIC, a NORMAL status move,
 ; still lands on one. "Most": the FIGHT menu shows the typeless BIRD type as NORMAL
 ; (data/types/names.asm), and TRI ATTACK, BIDE and STRUGGLE, BIRD here, hit a GHOST.
 ; Lines under the arrow: 17.

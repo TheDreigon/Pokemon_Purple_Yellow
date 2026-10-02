@@ -1975,17 +1975,17 @@ AnimationWavyScreen:
 	ldh [hAutoBGTransferEnabled], a
 	ld a, SCREEN_HEIGHT_PX
 	ldh [hWY], a
-; Rewritten 2026-08-25 (Forte). Two fixes over vanilla:
+; Rewritten 2026-08-25. Two fixes over vanilla:
 ;  * SPEED. Vanilla re-tested rLY so soon after stepping the phase that it was
 ;    still inside line 143's H-blank and stepped TWICE every frame (measured
-;    2.01/frame). One step per frame (and 1.5) felt too slow to Forte, so the phase now
+;    2.01/frame). One step per frame (and 1.5) felt too slow in play, so the phase now
 ;    advances +2 per frame -- vanilla's measured speed, now deliberate.
 ;  * STABILITY. The wave used to be drawn from a walking pointer, starting at
 ;    whatever scanline the VBlank handler released the CPU on. With a SFX
 ;    playing, the audio work makes that start line jitter by up to ~30 lines
 ;    per frame (measured on PSYCHIC's `PSYBEAM, SE_WAVY_SCREEN`), which
-;    vertically bounced the whole ripple -- Forte saw it as "ondula mais
-;    depressa quando associado ao sfx". Each line now reads
+;    vertically bounced the whole ripple -- it looked like a faster ripple
+;    whenever a sound played. Each line now reads
 ;    offsets[(LY + phase) & 31], so the pattern is pinned to the scanline and
 ;    a late start only leaves the top lines flat for that frame.
 	ld e, SCREEN_HEIGHT_PX - 1
@@ -2209,7 +2209,7 @@ ChangeMonPic:
 	xor a
 	ld [wSpriteFlipped], a
 	call GetMonHeader
-; v0.7 (2026-09-01, Forte): a Pikachu drawn on the enemy side wears the
+; v0.7 (2026-09-01): a Pikachu drawn on the enemy side wears the
 ; art of the INDIVIDUAL being drawn - the variant sorts out whether that
 ; is the enemy's own shape or the player's battler mid-transform
 	callfar UseFakePikachuFrontPicChangeMonPic

@@ -291,7 +291,7 @@ CapQuantityByPrice:
 	db 99, 50, 33, 25, 20, 16, 14, 12, 11, 10
 
 CapQuantityByMoney:
-; v0.7 (2026-08-31, Forte's playtest): pressing Down on x01 wraps the buy
+; v0.7 (2026-08-31, playtest): pressing Down on x01 wraps the buy
 ; quantity to the menu maximum, which used to mean x99 no matter the
 ; wallet. Cap the maximum at floor(money / price) instead, so the wrap
 ; (and D-RIGHT's +10 clamp) lands on the most the player can actually
@@ -392,7 +392,7 @@ PokemartAnythingElseText:
 
 
 ; v0.7 (#37): "IN BAG" for the item under the cursor, in a box that mirrors the
-; money box on the other side of the screen -- his layout, x0..10 y0..2 against
+; money box on the other side of the screen -- x0..10 y0..2 against
 ; the money box's x11..19 y0..2. Only the buy list; the sell list already shows
 ; a quantity on every row.
 ;

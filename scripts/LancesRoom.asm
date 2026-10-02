@@ -143,7 +143,7 @@ LancesRoomPlayerIsMovingScript:
 	ret
 
 LancesRoomFaceEachOther:
-; v1.0 (2026-09-24, Forte): the two squares that start the talk are (5,1),
+; v1.0 (2026-09-24): the two squares that start the talk are (5,1),
 ; beside LANCE at (6,1), and (6,2), below him. Beside him the player faces
 ; RIGHT and he turns LEFT; below him the player faces UP and he looks DOWN
 ; (his resting pose - but the reload after the battle resets every NPC, so

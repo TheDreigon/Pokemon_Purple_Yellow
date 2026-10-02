@@ -49,7 +49,7 @@ DEF BILLS_LAB_FLY_SLOT EQU NUM_CITY_MAPS - 1
 ; the CENTER under its own name (MT.MOON CENTER / R.TUNNEL CENTER).
 DEF MT_MOON_FLY_SLOT       EQU NUM_CITY_MAPS     ; 12: the CENTER on ROUTE 4
 DEF ROCK_TUNNEL_FLY_SLOT   EQU NUM_CITY_MAPS + 1 ; 13: the CENTER on ROUTE 10
-; v1.0 (2026-09-24, Forte): five more, all interiors - marked on entering the map
+; v1.0 (2026-09-24): five more, all interiors - marked on entering the map
 ; (InteriorFlySlots, engine/overworld/missable_objects_2.asm), listed under the
 ; interior's own name (FlySlotMaps, engine/items/town_map.asm) and landing outside
 ; its door (FlyWarpDataPtr, data/maps/special_warps.asm). Nineteen slots need a
@@ -305,7 +305,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs) (behind BILL's cottage; reached only through the house, and only after the League)
 DEF NUM_MAPS EQU const_value
 
-; v1.0 (2026-09-24, Forte): two Town Map stops that are services, not maps. The
+; v1.0 (2026-09-24): two Town Map stops that are services, not maps. The
 ; MOVE DELETER and the MOVE RELEARNER share CINNABAR LAB's fossil room, so each
 ; borrows an unused map id for its own name and marker (data/maps/town_map_entries.asm,
 ; data/maps/town_map_order.asm). No map has these ids: they never reach wCurMap.

@@ -41,7 +41,7 @@ _ViridianForestYoungster3AfterBattleText::
 	cont "stronger ones!"
 	done
 
-; v0.7 (2026-09-05, Forte): he guards the two-wide shortcut opened at
+; v0.7 (2026-09-05): he guards the two-wide shortcut opened at
 ; (18-19, 20-21) in eff99feb - sight 1 LEFT covers (18,19), the only other
 ; entrance tile, so the gate is total. (Not the shortcut LASS, slot 8.)
 _ViridianForestYoungster4BattleText::
@@ -116,7 +116,7 @@ _ViridianForestYoungster6Text::
 	done
 
 
-; v0.7 (2026-08-30, Forte): the western-corridor toll gate. His class tag
+; v0.7 (2026-08-30): the western-corridor toll gate. His class tag
 ; renders "COOLTRAINER(m): " (12 tiles), so the end-battle first row gets 4.
 _ViridianForestCooltrainerMBattleText::
 	text "Check out my"

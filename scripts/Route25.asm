@@ -20,7 +20,7 @@ Route25ShowHideBillScript:
 	bit 6, [hl]
 	res 6, [hl]
 	ret z
-; v1.0 (2026-09-24, Forte): BILL's LAB's fly slot is marked on entering his
+; v1.0 (2026-09-24): BILL's LAB's fly slot is marked on entering his
 ; house (InteriorFlySlots, engine/overworld/missable_objects_2.asm), not here.
 	CheckEventHL EVENT_LEFT_BILLS_HOUSE_AFTER_HELPING
 	ret nz

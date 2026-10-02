@@ -7,8 +7,8 @@
 ; only provides the shared definition of "boss" and the two helpers
 ; everyone calls.
 ;
-; Two tiers, defined at the bottom of this file (Forte, 2026-07-26; counts and
-; membership re-confirmed by him 2026-08-18):
+; Two tiers, defined at the bottom of this file (2026-07-26; counts and
+; membership re-confirmed 2026-08-18):
 ;   BOSS (17)  = all 8 gym leaders + all 4 Elite Four + all 3 rival classes
 ;                (RIVAL3 = Champion) + Prof Oak + FORTE. Giovanni's three
 ;                appearances are all boss fights.
@@ -74,8 +74,8 @@ IsBossTrainerClass::
 	or a
 	ret
 
-; KIYO is the one trainer whose tier is not decided by his class alone (Forte,
-; 2026-08-18): the KARATE MASTER of the Saffron dojo is a SEMI-boss, and the
+; KIYO is the one trainer whose tier is not decided by his class alone
+; (2026-08-18): the KARATE MASTER of the Saffron dojo is a SEMI-boss, and the
 ; same man holding the Viridian Gym after the League is a full boss. He is
 ; listed in SemiBossTrainerClasses and NOT in BossTrainerClasses — the two
 ; lists may never overlap, emu_test_bosstiers enforces it and boss_bag_coverage
@@ -230,7 +230,7 @@ BossTrainerClasses::
 	db SABRINA
 	db -1                       ; terminator
 
-; The semi-boss tier (Forte, 2026-07-26). These get the AI their class already
+; The semi-boss tier (2026-07-26). These get the AI their class already
 ; carries, maxed DVs in Hard mode, and an item bag - but NOT the crit bonus,
 ; the +1 level or the accuracy edge. Those three change the rules of the fight
 ; against the player, and staying on the boss side of that line is what keeps a
@@ -246,7 +246,7 @@ BossTrainerClasses::
 ; "already calibrated by hand", which was true of their teams but left their
 ; documented item bags doing nothing at all.
 SemiBossTrainerClasses::
-	db BILL                     ; approved as a semi with Oak's bag (2026-08-09)
+	db BILL                     ; designated a semi with Oak's bag (2026-08-09)
 	                            ; but never listed — BillBossBag and his Hard
 	                            ; DVs were dead until 2026-08-16
 	db CRAIG
@@ -264,7 +264,7 @@ SemiBossTrainerClasses::
 
 
 ; -------------------------------------------------------------------------
-; v0.7 hard mode (Forte, 2026-08-30): a BADGE match is refused unless the
+; v0.7 hard mode (2026-08-30): a BADGE match is refused unless the
 ; challenger brings no more POKeMON than the leader fields (equal is fine).
 ; Post-League rematches are exempt: their script branches never call this.
 ;
@@ -289,7 +289,7 @@ HardModeGymPartyGate::
 	jp HardModeGymPartyGate_Compare
 
 HardModeGymCapHint::
-; v1.0 (2026-09-22, Forte): the gym guide announces the badge match cap before
+; v1.0 (2026-09-22): the gym guide announces the badge match cap before
 ; the player walks into it. Inputs in registers because rst _Bankswitch lands
 ; with a = destination bank: e = trainer class (OPP_*), d = the object_event's
 ; party id. Prints only in HARD MODE; the advice page before it ends in `done`,

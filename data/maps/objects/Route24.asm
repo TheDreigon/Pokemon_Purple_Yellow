@@ -24,7 +24,7 @@ Route24_Object:
 	object_event 13, 29, SPRITE_YOUNGSTER, STAY, LEFT, TEXT_ROUTE24_YOUNGSTER1, OPP_YOUNGSTER, 4, 1
 	object_event 12, 32, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_ROUTE24_COOLTRAINER_F2, OPP_LASS, 8, 1
 	object_event 13, 35, SPRITE_YOUNGSTER, STAY, LEFT, TEXT_ROUTE24_YOUNGSTER2, OPP_BUG_CATCHER, 9, 1
-	object_event  6, 36, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE24_TM_ICY_PULSE, TM_ICY_PULSE ; world-design reposition (was TM_THUNDER_WAVE in April; TM renamed since, position is his)
+	object_event  6, 36, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE24_TM_ICY_PULSE, TM_ICY_PULSE ; world-design reposition (was TM_THUNDER_WAVE in April; TM renamed since, position kept)
 	object_event 12,  6, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_ROUTE24_COOLTRAINER_M4
 
 	def_warps_to ROUTE_24

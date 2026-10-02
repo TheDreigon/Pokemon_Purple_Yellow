@@ -21,8 +21,8 @@ Route4_Object:
 	def_object_events
 	object_event  9,  8, SPRITE_COOLTRAINER_F, WALK, ANY_DIR, TEXT_ROUTE4_COOLTRAINER_F1
 	object_event 63,  3, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_ROUTE4_COOLTRAINER_F2, OPP_LASS, 4, 3
-	object_event 25,  8, SPRITE_HIKER, STAY, DOWN, TEXT_ROUTE4_HIKER, OPP_HIKER, 16, 3 ; v0.7 (2026-09-06, Forte): fresh out of the MT.MOON exit at (24,7); object 3 = trainer header bit 3
-	object_event 49,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE4_TM_QUICK_ATTACK, TM_QUICK_ATTACK ; world-design reposition (was TM_RAZOR_WIND in April; TM renamed since, position is his)
-	object_event 19,  6, SPRITE_COOLTRAINER_F, STAY, DOWN, TEXT_ROUTE4_COOLTRAINER_F3 ; v0.7 (2026-09-06, Forte): the girl working up the courage to enter MT.MOON, beside the tunnel entrance
+	object_event 25,  8, SPRITE_HIKER, STAY, DOWN, TEXT_ROUTE4_HIKER, OPP_HIKER, 16, 3 ; v0.7 (2026-09-06): fresh out of the MT.MOON exit at (24,7); object 3 = trainer header bit 3
+	object_event 49,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE4_TM_QUICK_ATTACK, TM_QUICK_ATTACK ; world-design reposition (was TM_RAZOR_WIND in April; TM renamed since, position kept)
+	object_event 19,  6, SPRITE_COOLTRAINER_F, STAY, DOWN, TEXT_ROUTE4_COOLTRAINER_F3 ; v0.7 (2026-09-06): the girl working up the courage to enter MT.MOON, beside the tunnel entrance
 
 	def_warps_to ROUTE_4

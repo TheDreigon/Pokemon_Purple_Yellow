@@ -9,7 +9,7 @@
 ; THE SHAPE, and why it is this one:
 ;
 ; * THREE LEVELS, LIKE THE CELADON INFORMATION DESK -- chapters, the sections
-;   inside one, then the page. Forte's call: topics you pick from, not a book
+;   inside one, then the page. By design: topics you pick from, not a book
 ;   you read through. STATUS has nine sections and TYPE MATCHUPS has
 ;   twenty-one; reaching either by paging would be the whole objection.
 ; * ONE CURSOR PER SCREEN AT EVERY LEVEL. Every navigation bug playtesting has
@@ -21,7 +21,7 @@
 ;   straight through. Picking and reading on cost the same code.
 ; * NO CLOSE ROW AND NO BACK ROW. B goes up one level from all three screens,
 ;   as it does everywhere else in this game. A CLOSE row was built and taken
-;   out: Forte wanted a blank line above it, and PlaceMenuCursor steps a fixed
+;   out: it needed a blank line above it, and PlaceMenuCursor steps a fixed
 ;   number of rows per entry, so that row would have sat where the arrow cannot
 ;   go. The MOVEDEX lost its QUIT on the same argument.
 ;
@@ -99,7 +99,7 @@ TrainerManual_DrawContents:
 	hlcoord 1, 1
 	ld de, TrainerManualTitleText
 	call TrainerManual_PlaceCentered
-; Front matter. Forte's framing: a boy leaves on his first journey and his
+; Front matter. The framing: a boy leaves on his first journey and his
 ; mother buys him the official manual. One line of provenance is what makes it
 ; that object instead of an anonymous list of true statements -- and it is what
 ; explains how a book in Pallet Town knows the rules of a gym battle.
@@ -547,7 +547,7 @@ TrainerManual_LastOffset:
 ; One box, the whole screen. Interior rows 1 to 16, columns 1 to 18.
 TrainerManual_DrawFrame:
 	call ClearScreen
-; v0.7 (2026-09-05, Forte's run): hide the overworld sprites. ClearScreen only
+; v0.7 (2026-09-05, playthrough): hide the overworld sprites. ClearScreen only
 ; blanks the tilemap; the OAM is rebuilt every VBlank from each sprite's image
 ; index, and nothing told the sprite engine the screen had changed - so every
 ; NPC standing outside the bag's box stayed drawn over the manual. UpdateSprites
@@ -707,7 +707,7 @@ TrainerManual_SwapForDifficulty:
 ; hard mode every page WITHOUT a hard twin (which is all of them but 5_2)
 ; handed the table's tail to TextCommandProcessor, and the manual printed the
 ; bytes after the terminator as prose. Normal mode returns before the walk,
-; which is why every reading of the manual until Forte's first hard-mode
+; which is why every reading of the manual until the first hard-mode
 ; playthrough -- including the test, whose save was on normal -- looked fine.
 	jr z, .keep ; the list ended without a match: keep the original page
 	ld a, c
@@ -897,7 +897,7 @@ TrainerManualChapterPages:
 	dw TrainerManualChapter7Pages
 
 ; v0.7 (2026-08-31): chapters 1 and 2 each grew a section when the TRAINER
-; TIPS signs came down (Forte's T11) - the two facts nothing else in the
+; TIPS signs came down (T11) - the two facts nothing else in the
 ; game taught: the #DEX rating over a PC (was a Viridian Forest sign) and
 ; the Cycling Road slope control (was a Route 17 sign).
 TrainerManualChapter1Sections:
@@ -924,7 +924,7 @@ TrainerManualChapter2Sections:
 	manual_section TrainerManualSection2_6, 5
 	manual_section TrainerManualSection2_7, 6
 	manual_section TrainerManualSection2_8, 7
-	manual_section TrainerManualSection2_9, 8 ; v1.0 (2026-09-24, Forte): the four services, and that the TOWN MAP points at them
+	manual_section TrainerManualSection2_9, 8 ; v1.0 (2026-09-24): the four services, and that the TOWN MAP points at them
 TrainerManualChapter2Pages:
 	db 9
 	dw ManualPage_2_1, ManualPage_2_2, ManualPage_2_3, ManualPage_2_4

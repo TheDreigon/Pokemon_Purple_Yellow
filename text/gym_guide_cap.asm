@@ -1,4 +1,4 @@
-; v1.0 (2026-09-22, Forte): the gym guides' shared cap line lives here (Text 9)
+; v1.0 (2026-09-22): the gym guides' shared cap line lives here (Text 9)
 ; because the gym scripts' text banks are full. Lines under the arrow: 17.
 
 ; The gym guide, on HARD, before the badge fight: the leader's party size is

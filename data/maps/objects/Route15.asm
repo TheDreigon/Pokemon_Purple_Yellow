@@ -34,6 +34,6 @@ Route15_Object:
 	object_event 44, 10, SPRITE_BIKER, STAY, DOWN, TEXT_ROUTE15_BIKER2, OPP_BIKER, 4, 3
 	object_event 34,  5, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_ROUTE15_COOLTRAINER_F3, OPP_JR_TRAINER_F, 22, 3
 	object_event 14, 12, SPRITE_COOLTRAINER_F, STAY, UP, TEXT_ROUTE15_COOLTRAINER_F4, OPP_JR_TRAINER_F, 23, 3
-	object_event 15,  5, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE15_TM_CHARM, TM_CHARM ; world-design reposition (was TM_RAGE in April; TM renamed since, position is his)
+	object_event 15,  5, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE15_TM_CHARM, TM_CHARM ; world-design reposition (was TM_RAGE in April; TM renamed since, position kept)
 
 	def_warps_to ROUTE_15

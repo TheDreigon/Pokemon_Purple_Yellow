@@ -18,7 +18,7 @@ HealEffect_:
 	ld a, [de]
 	sbc [hl]
 	jr nz, .passed
-; v1.0 (2026-09-08, Forte): the user's HP is full. RECOVER and SOFTBOILED clear
+; v1.0 (2026-09-08): the user's HP is full. RECOVER and SOFTBOILED clear
 ; the user's status now, so with a status to clear they still work (cure only,
 ; no "regained health" line); everything else fails here as it always did.
 	ld a, b
@@ -87,7 +87,7 @@ HealEffect_:
 	pop hl
 	jr .healHP
 .recoverPath
-; v1.0 (2026-09-08, Forte): RECOVER also clears the user's status - a move slot
+; v1.0 (2026-09-08): RECOVER also clears the user's status - a move slot
 ; that only did half a HYPER POTION was rarely worth carrying. Heal still /2.
 	call .clearUserStatus
 	or 1 ; ensure NZ so .healHP runs the /2 divide

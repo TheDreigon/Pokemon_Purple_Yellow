@@ -28,6 +28,6 @@ Route9_Object:
 	object_event 46,  3, SPRITE_YOUNGSTER, STAY, DOWN, TEXT_ROUTE9_YOUNGSTER1, OPP_BUG_CATCHER, 13, 4
 	object_event 46,  7, SPRITE_HIKER, STAY, RIGHT, TEXT_ROUTE9_HIKER3, OPP_HIKER, 5, 2
 	object_event 32,  7, SPRITE_YOUNGSTER, STAY, RIGHT, TEXT_ROUTE9_YOUNGSTER2, OPP_BUG_CATCHER, 14, 2
-	object_event  7,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE9_TM_RAGE, TM_RAGE ; world-design reposition (ball was TM_TELEPORT in April; TM renamed since, position is his)
+	object_event  7,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_ROUTE9_TM_RAGE, TM_RAGE ; world-design reposition (ball was TM_TELEPORT in April; TM renamed since, position kept)
 
 	def_warps_to ROUTE_9

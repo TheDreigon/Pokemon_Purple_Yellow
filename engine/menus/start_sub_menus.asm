@@ -205,7 +205,7 @@ StartMenu_Pokemon::
 	dw .teleport
 	dw .softboiled
 .fly
-; v0.7 HM remap (2026-08-31, Forte): FLY unlocks with ERIKA's badge - the
+; v0.7 HM remap (2026-08-31): FLY unlocks with ERIKA's badge - the
 ; HM is picked up in her own city. Was THUNDERBADGE.
 	bit BIT_RAINBOWBADGE, a
 	jp z, .newBadgeRequired
@@ -232,7 +232,7 @@ StartMenu_Pokemon::
 .cut
 	bit BIT_CASCADEBADGE, a
 	jp z, .newBadgeRequired
-; v0.7 (2026-09-06, Forte): the badge is the licence, the CAPTAIN's HM01 the
+; v0.7 (2026-09-06): the badge is the licence, the CAPTAIN's HM01 the
 ; know-how - thirteen lines learn CUT by level, and the S.S.ANNE stays mandatory.
 	CheckEvent EVENT_GOT_HM01
 	jp z, .techniqueRequired
@@ -272,7 +272,7 @@ StartMenu_Pokemon::
 	ld [wd473], a
 	jp .loop
 .strength
-; v0.7 HM remap (2026-08-31, Forte): STRENGTH unlocks with SABRINA's badge
+; v0.7 HM remap (2026-08-31): STRENGTH unlocks with SABRINA's badge
 ; (only truly needed at VICTORY ROAD; gives badge 6 a reward). Was
 ; RAINBOWBADGE. Mirror gate: BoulderText in home/overworld_text.asm.
 	bit BIT_GOLDBADGE, a
@@ -281,7 +281,7 @@ StartMenu_Pokemon::
 	call GBPalWhiteOutWithDelay3
 	jp .goBackToMap
 .flash
-; v0.7 HM remap (2026-08-31, Forte): FLASH unlocks with LT.SURGE's badge -
+; v0.7 HM remap (2026-08-31): FLASH unlocks with LT.SURGE's badge -
 ; ROCK TUNNEL comes right after him; on BROCK's it was redundant. Was
 ; BOULDERBADGE.
 	bit BIT_THUNDERBADGE, a

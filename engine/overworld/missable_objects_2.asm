@@ -18,7 +18,7 @@
 ; Called by MarkTownVisitedAndLoadMissableObjects (bank3) right after it wrote
 ; table 1's entries and the sentinel; the sentinel is rewritten at the new end.
 LoadMissableObjects2::
-; v1.0 (2026-09-24, Forte): first, the fly slots that are interiors. Walking
+; v1.0 (2026-09-24): first, the fly slots that are interiors. Walking
 ; into one of these maps marks its slot (the same rule as a town: entering is
 ; what counts, not healing). The towns mark themselves in bank3
 ; (MarkTownVisitedAndLoadMissableObjects, which calls this for every map).

@@ -4,7 +4,7 @@
 ; SFX+cry mirror (sfxheaders5.asm). They used to live in AUDIO_4, whose vanilla
 ; SFX table is the short one -- any overworld sound there resolved to garbage
 ; and wedged channels 5-8, which is what killed the music on the Pewter ledge
-; (bug #7 of Forte's first playthrough).
+; (bug #7 of the first playthrough).
 ;
 ; Song ids are (header - $4000) / 3 within the bank. These headers sit directly
 ; after the sfx mirror, so their ids start where MAX_SFX_ID_5 ends. Same rule

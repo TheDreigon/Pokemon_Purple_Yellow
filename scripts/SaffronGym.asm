@@ -409,7 +409,7 @@ SaffronGymGymGuideText:
 	jr nz, .afterBeat
 	ld hl, .ChampInMakingText
 	call PrintText
-; v0.7 (his 2026-08-29 request; moved to the END of the advice 2026-09-05):
+; v0.7 (2026-08-29; moved to the END of the advice 2026-09-05):
 ; the first ELIGIBLE pre-badge visit earns a FRESH WATER. Eligible = previous
 ; badge in hand; once per gym, and a full bag defers the gift to the next
 ; talk (flag set only on success). The advice texts end in `done`, which does

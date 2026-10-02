@@ -103,7 +103,7 @@ ReadTrainer:
 ; BUG_CATCHER 1 (Viridian Forest: 3 writes outside his party - an event flag byte,
 ; the bag, a party OT name) and 03 01 matched LASS 1 (Route 3: ReadTrainer never came
 ; back). Only a triple's FIRST byte (the party slot, 1-6) ends an entry now, and
-; Forte's 3-move sets stay (Yellow Legacy's e67f7093, 2024-01-15, had removed every
+; the 3-move sets stay (Yellow Legacy's e67f7093, 2024-01-15, had removed every
 ; NO_MOVE from this table for the same corruption). 0 B: the skip's two `inc hl`
 ; are paid below (a jr for the jp, and the move slot added as it is onto
 ; wEnemyMon1Moves - 1, one `dec a` less).
@@ -205,7 +205,7 @@ ReadTrainerFinishUp:
 ; trainer), .SpecialTrainer (per-mon level), and AddRivalMon (rival pool
 ; engine), just BEFORE writing to wCurEnemyLVL. Adds 1 to A if Hard
 ; mode + boss class, capped at MAX_LEVEL. No-op otherwise.
-; (Was +2 originally; Forte lowered it to +1 on 2026-07-23.)
+; (Was +2 originally; lowered to +1 on 2026-07-23.)
 ;
 ; Note: this also subtly bumps the prize money (wAmountMoneyWon is
 ; computed from the bumped wCurEnemyLVL down at ReadTrainerFinishUp). That's
@@ -316,7 +316,7 @@ GenerateRivalParty:
 	ld [wBuffer + 6], a
 ; pre-mark the guaranteed entries: they are the LAST G rows of the table
 ; (bits N-G..N-1), so the add phase - which walks table order - sends them
-; out last. v0.7 (2026-09-05, Forte): EEVEE closes the early fights the way
+; out last. v0.7 (2026-09-05): EEVEE closes the early fights the way
 ; the eeveelution closes the later ones; until now the guaranteed rows were
 ; the FIRST G and EEVEE led at Route 22 and Cerulean.
 	ld a, [wBuffer + 1]

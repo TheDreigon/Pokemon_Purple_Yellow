@@ -535,7 +535,7 @@ ShowPokedexDataInternal:
 ; v0.7: DATA opens on the typing and the base stats, and the description
 ; follows it. Carry clear means the mon has only been SEEN, and then the whole
 ; area below the divider stays empty exactly as before - no height, no weight,
-; no description, and now no stats either. Forte's call: you have to have
+; no description, and now no stats either. By design: you have to have
 ; caught it.
 	jr nc, .waitForButtonPress
 	push hl ; DrawDexEntryOnScreen leaves the description pointer here, and
@@ -681,7 +681,7 @@ DrawDexEntryOnScreen:
 	call Delay3
 	call GBPalNormal
 	call GetMonHeader ; load pokemon picture location
-; v0.7 (2026-09-01, Forte's call): the Pokedex shows the FAKE Pikachu -
+; v0.7 (2026-09-01): the Pokedex shows the FAKE Pikachu -
 ; the species as found in the wild - deliberately and always. Armed here
 ; because the flipped loader's own hook reads wLoadedMon, which this
 ; screen never fills (and an armed swap is never undone by it).
@@ -1160,7 +1160,7 @@ Pokedex_PrintBaseStats:
 ;
 ; v1.0 (the SPECIAL split, 2026-09-06): six stat rows (SAT / SDF = SP.ATK /
 ; SP.DEF) fill rows 11-16, so TOTAL moved to the left column under the types,
-; label over value like TYPE1/. TOTAL is the six-stat sum (Forte).
+; label over value like TYPE1/. TOTAL is the six-stat sum.
 ;
 ; Nothing here has to go and FETCH anything. DrawDexEntryOnScreen already
 ; called GetMonHeader with wd0b5 = the internal index, to find the front
@@ -1210,7 +1210,7 @@ Pokedex_PrintBaseStats:
 ; shows the SP pair before SPEED everywhere - see the party stats screen,
 ; engine/pokemon/status_screen.asm. Vanilla walked the struct here; this hack
 ; reordered the stats screen and this page was left behind, so the dex and the
-; stats screen disagreed with each other. Forte caught it on a NIDORAN.
+; stats screen disagreed with each other. It showed on a NIDORAN.
 	ld de, wMonHBaseStats
 	hlcoord 16, 11
 	ld c, 3

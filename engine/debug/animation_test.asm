@@ -34,7 +34,7 @@
 ;   so a wild TANGELA tickling you made ITSELF giggle. On the player's turn it
 ;   looked perfectly fine, and it sat in the tree for four months because the
 ;   one screen built to inspect animations structurally could not show it.
-;   Forte caught it playing, and then asked for this.
+;   It was caught in play, and this view was built for it.
 ;
 ;   No new state was needed: hWhoseTurn IS the toggle. CallWithTurnFlipped
 ;   (engine/battle/animations.asm) is the only thing in the animation engine
@@ -123,7 +123,7 @@ IF DEF(_DEBUG)
 ; UP/DOWN step one, LEFT/RIGHT jump ten. This is a VERTICAL list with a
 ; vertical cursor, so up-and-down moving one line is the mapping the hand
 ; expects; sideways is the page. It was briefly the other way round to match
-; MON TEST -- MON TEST moved to this instead (2026-08-21, Forte).
+; MON TEST -- MON TEST moved to this instead (2026-08-21).
 ;
 ; Note the deliberate mismatch with PLAY below, where LEFT/RIGHT step one move:
 ; there is no list on screen there, nothing to page through, and prev/next on

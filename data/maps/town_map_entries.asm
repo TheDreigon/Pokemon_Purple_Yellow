@@ -90,7 +90,7 @@ InternalMapEntries:
 	internal_map ROCK_TUNNEL_1F,                14,  3, RockTunnelName
 	internal_map POWER_PLANT,                   15,  4, PowerPlantName
 	internal_map ROUTE_11_GATE_1F,              13,  9, Route11Name
-; v1.0 (2026-09-22, Forte): DIGLETT's CAVE has two mouths, so it gets two markers - the
+; v1.0 (2026-09-22): DIGLETT's CAVE has two mouths, so it gets two markers - the
 ; cave itself keeps the Route 2 side (row DIGLETTS_CAVE below) and the Route 11 mouth's
 ; own map sits north-east of VERMILION. The Town Map draws BOTH cursors whenever it is
 ; on either (DrawTwinCursor in engine/items/town_map.asm); the list has one stop.
@@ -131,7 +131,7 @@ InternalMapEntries:
 	internal_map DIGLETTS_CAVE,                  3,  4, DiglettsCaveName
 	internal_map VICTORY_ROAD_3F,                0,  4, VictoryRoadName
 	internal_map ROCKET_HIDEOUT_ELEVATOR,        7,  6, RocketHQName
-; v1.0 (2026-09-24, Forte): two unused ids stand in for the MOVE DELETER and the
+; v1.0 (2026-09-24): two unused ids stand in for the MOVE DELETER and the
 ; MOVE RELEARNER on the Town Map (TOWN_MAP_MOVE_DELETER / _RELEARNER): both live
 ; in CINNABAR LAB's fossil room, which has one map id, so one real row could not
 ; name them apart. Only the Town Map list uses these ids ($CE falls to SILPH CO.).
