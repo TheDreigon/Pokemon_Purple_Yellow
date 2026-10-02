@@ -431,18 +431,13 @@ MainInBattleLoop:
 	jr nc, .playerMovesFirst ; if player is faster
 	jr .enemyMovesFirst ; if enemy is faster
 .speedEqual ; 50/50 chance for both players
-	ldh a, [hSerialConnectionStatus]
-	cp USING_INTERNAL_CLOCK
-	jr z, .invertOutcome
+; v1.0 (R11, 2026-10-02): the link's inverted roll is gone, dead code -
+; hSerialConnectionStatus is only ever CONNECTION_NOT_ESTABLISHED (home/init.asm), and the
+; serial vector is a bare reti since the cable went (home/header.asm)
 	call BattleRandom
 	cp 50 percent + 1
 	jr c, .playerMovesFirst
-	jr .enemyMovesFirst
-.invertOutcome
-	call BattleRandom
-	cp 50 percent + 1
-	jr c, .enemyMovesFirst
-	jr .playerMovesFirst
+	; fall through: the enemy moves first
 .enemyMovesFirst
 	ld a, $1
 	ldh [hWhoseTurn], a
