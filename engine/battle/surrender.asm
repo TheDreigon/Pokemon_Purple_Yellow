@@ -1,7 +1,7 @@
-; v1.0 (2026-09-24): RUN in a trainer battle = an offer to give the
-; match up. Returns carry set when the player took it: the palette is black,
-; the forfeit text was printed and wBattleResult is BATTLE_RESULT_LOSE with
-; the SURRENDERED bit on; TryRunningFromBattle's caller then ends the battle
+; v1.0 (2026-09-24): RUN in a trainer battle = an offer to give the match
+; up. Returns carry set when the player took it: the palette is black, the
+; forfeit text was printed and wBattleResult is BATTLE_RESULT_LOSE with the
+; SURRENDERED bit on; TryRunningFromBattle's caller then ends the battle
 ; through `ret c` exactly as a wild escape does, and PartyStandsAfterBattle
 ; below turns it into the blackout. Carry clear = back to the battle menu
 ; with the turn unspent (wActionResultOrTookBattleTurn untouched).

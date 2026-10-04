@@ -611,12 +611,12 @@ LoadSGB:
 	di
 	call PrepareSuperNintendoVRAMTransfer
 	ei
-; v0.7 "Patamar 1" (2026-08-17): the custom BORDER is gone —
-; the ChrTrn (border tiles) and PctTrn (border map+palettes) transfers that
-; sat here, plus their 3360 bytes of data, bought bank1C's palette space
-; back (~210 palette slots). SGB support itself is intact: the console shows
-; its own default frame, and the PalTrn below still delivers SuperPalettes,
-; so the game stays fully coloured on real Super Game Boy hardware.
+; v0.7 "Patamar 1" (2026-08-17): the custom BORDER is gone — the ChrTrn
+; (border tiles) and PctTrn (border map+palettes) transfers that sat here,
+; plus their 3360 bytes of data, bought bank1C's palette space back (~210
+; palette slots). SGB support itself is intact: the console shows its own
+; default frame, and the PalTrn below still delivers SuperPalettes, so the
+; game stays fully coloured on real Super Game Boy hardware.
 	ld de, PalTrnPacket
 	ld hl, SuperPalettes
 	call CopyGfxToSuperNintendoVRAM

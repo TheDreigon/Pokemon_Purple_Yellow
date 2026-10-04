@@ -96,17 +96,17 @@ ReadTrainer:
 .AddAdditionalMoveData
 ; does the trainer have additional move data?
 ; v1.0 BUGFIX (2026-09-30): the lookup steps over WHOLE entries. An entry is
-; `db class, number`, triples `db party slot, move slot, move`, then `db 0`; the
-; skip used to read to the first 0 BYTE, but a boss's 3-move set pins slot 4 to
-; NO_MOVE, a 0 inside its entry (MISTY 1's GOLDEEN and PSYDUCK, since 2026-09-06).
+; `db class, number`, triples `db party slot, move slot, move`, then `db 0`; the skip
+; used to read to the first 0 BYTE, but a boss's 3-move set pins slot 4 to NO_MOVE, a
+; 0 inside its entry (MISTY 1's GOLDEEN and PSYDUCK, since 2026-09-06).
 ; The skip stopped there and took the bytes after it for headers: 02 01 matched
 ; BUG_CATCHER 1 (Viridian Forest: 3 writes outside his party - an event flag byte,
 ; the bag, a party OT name) and 03 01 matched LASS 1 (Route 3: ReadTrainer never came
-; back). Only a triple's FIRST byte (the party slot, 1-6) ends an entry now, and
-; the 3-move sets stay (Yellow Legacy's e67f7093, 2024-01-15, had removed every
-; NO_MOVE from this table for the same corruption). 0 B: the skip's two `inc hl`
-; are paid below (a jr for the jp, and the move slot added as it is onto
-; wEnemyMon1Moves - 1, one `dec a` less).
+; back). Only a triple's FIRST byte (the party slot, 1-6) ends an entry now, and the
+; 3-move sets stay (Yellow Legacy's e67f7093, 2024-01-15, had removed every NO_MOVE
+; from this table for the same corruption). 0 B: the skip's two `inc hl` are paid
+; below (a jr for the jp, and the move slot added as it is onto wEnemyMon1Moves - 1,
+; one `dec a` less).
 	ld a, [wTrainerClass]
 	ld b, a
 	ld a, [wTrainerNo]
@@ -316,9 +316,9 @@ GenerateRivalParty:
 	ld [wBuffer + 6], a
 ; pre-mark the guaranteed entries: they are the LAST G rows of the table
 ; (bits N-G..N-1), so the add phase - which walks table order - sends them
-; out last. v0.7 (2026-09-05): EEVEE closes the early fights the way
-; the eeveelution closes the later ones; until now the guaranteed rows were
-; the FIRST G and EEVEE led at Route 22 and Cerulean.
+; out last. v0.7 (2026-09-05): EEVEE closes the early fights the way the
+; eeveelution closes the later ones; until now the guaranteed rows were the
+; FIRST G and EEVEE led at Route 22 and Cerulean.
 	ld a, [wBuffer + 1]
 	ld [wBuffer + 7], a ; chosen = guaranteed
 	and a

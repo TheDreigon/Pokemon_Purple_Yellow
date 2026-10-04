@@ -1,8 +1,8 @@
 ; PARKED -- an original town theme with no home yet. NOT BUILT.
 ;
 ; Written for Cerulean on 2026-08-05 and set aside the same day. Well liked,
-; but Cerulean keeps its own familiar tune made
-; more coastal instead, so this is kept for a town to be chosen later.
+; but Cerulean keeps its own familiar tune made more coastal instead, so this
+; is kept for a town to be chosen later.
 ;
 ; This is the version picked of three: the classic 75% lead. The other two
 ; differed by one line each and were discarded (12.5% lead; no drum channel).

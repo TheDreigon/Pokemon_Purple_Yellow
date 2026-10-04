@@ -2352,8 +2352,8 @@ DewgongEvosMoves:
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
 ; (TACKLE lives in the egg field, not the levelup list.)
 ; SING L35, the evolution level: adult seals sing (the long trills of the bearded
-; seal, the calls of the Weddell seal under the ice). 2026-09-22, level to
-; be revisited in the learnset pass.
+; seal, the calls of the Weddell seal under the ice). 2026-09-22, level to be
+; revisited in the learnset pass.
 	db  4, TAIL_WHIP
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP

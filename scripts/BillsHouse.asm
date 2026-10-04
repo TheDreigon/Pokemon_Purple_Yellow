@@ -465,9 +465,9 @@ BillsHouseScript10:
 ; one of the two door columns.
 ;
 ; It used to fire on the whole of row 6, one row short of the mat, for fear that
-; standing on the warp would leave the room before Bill could speak. Tested
-; in play: the warp only fires if you press Down while standing there. The old
-; rule cost two things - being stopped a tile before the doorway for no visible
+; standing on the warp would leave the room before Bill could speak. Tested in
+; play: the warp only fires if you press Down while standing there. The old rule
+; cost two things - being stopped a tile before the doorway for no visible
 ; reason, and being stopped anywhere along that row, which could leave half the
 ; room between the two of you while he handed over an Eevee.
 ;
@@ -519,9 +519,9 @@ BillsHouseScript10:
 ; The player is standing on a door column with the mat one step below, and BILL
 ; still owes them an EEVEE. Ask the next warp to not happen.
 ;
-; 2026-08-14, from a playtest: a held Down walked STRAIGHT OUT of the
-; house while BILL was calling him back. CheckWarpsNoCollision decides the warp
-; at the END of the step that lands on the mat, and re-reads the joypad right
+; 2026-08-14, from a playtest: a held Down walked STRAIGHT OUT of the house
+; while BILL was calling him back. CheckWarpsNoCollision decides the warp at
+; the END of the step that lands on the mat, and re-reads the joypad right
 ; there -- before the overworld loop returns to the top and runs this script. A
 ; map script gets one frame per completed step and that frame comes after the
 ; warp, so it can never win the race by being fast. It has to close the door
@@ -588,8 +588,8 @@ BillsHouseScript11:
 ;
 ; The wait is BOUNDED. An earlier version waited on wd730 bit 0 alone, and when
 ; the movement could not start it waited for ever with the player's input
-; ignored - a freeze on the doormat, hit in play. The cause below is fixed
-; too, but a scripted scene that CAN hang is not worth the six bytes saved: on
+; ignored - a freeze on the doormat, hit in play. The cause below is fixed too,
+; but a scripted scene that CAN hang is not worth the six bytes saved: on
 ; timeout the scene simply plays out from wherever he is standing.
 	ld a, [wd730]
 	bit 0, a
@@ -651,8 +651,8 @@ BillsHouse_TextPointers:
 	dw_const BillsHouseBillPostBattleText,            TEXT_BILLSHOUSE_BILL_POST_BATTLE
 	dw_const BillsHouseMachineText,                   TEXT_BILLSHOUSE_MACHINE
 
-; v1.0 (2026-09-23): the two TELEPORTER machines, flavour only. Once
-; BILL is back in one piece (EVENT_MET_BILL) the player knows what they are.
+; v1.0 (2026-09-23): the two TELEPORTER machines, flavour only. Once BILL is
+; back in one piece (EVENT_MET_BILL) the player knows what they are.
 BillsHouseMachineText:
 	text_asm
 	CheckEvent EVENT_MET_BILL

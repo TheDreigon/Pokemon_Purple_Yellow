@@ -392,9 +392,9 @@ PokemartAnythingElseText:
 
 
 ; v0.7 (#37): "IN BAG" for the item under the cursor, in a box that mirrors the
-; money box on the other side of the screen -- x0..10 y0..2 against
-; the money box's x11..19 y0..2. Only the buy list; the sell list already shows
-; a quantity on every row.
+; money box on the other side of the screen -- x0..10 y0..2 against the money
+; box's x11..19 y0..2. Only the buy list; the sell list already shows a
+; quantity on every row.
 ;
 ; Called from DisplayListMenuIDLoop, which redraws on every cursor move now, so
 ; the number is never one row out of date. The cursor can sit on CANCEL, whose

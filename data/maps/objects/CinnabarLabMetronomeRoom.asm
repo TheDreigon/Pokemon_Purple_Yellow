@@ -12,8 +12,8 @@ CinnabarLabMetronomeRoom_Object:
 	def_bg_events
 	bg_event  0,  4, TEXT_CINNABARLABMETRONOMEROOM_PC_KEYBOARD
 	bg_event  1,  4, TEXT_CINNABARLABMETRONOMEROOM_PC_MONITOR
-; v1.0 (2026-09-23): the pipe is drawn across x 0-4 of this row, so every
-; cell of it answers, not just the middle one
+; v1.0 (2026-09-23): the pipe is drawn across x 0-4 of this row, so every cell
+; of it answers, not just the middle one
 	bg_event  0,  1, TEXT_CINNABARLABMETRONOMEROOM_AMBER_PIPE
 	bg_event  1,  1, TEXT_CINNABARLABMETRONOMEROOM_AMBER_PIPE
 	bg_event  2,  1, TEXT_CINNABARLABMETRONOMEROOM_AMBER_PIPE

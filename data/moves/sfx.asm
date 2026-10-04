@@ -37,12 +37,13 @@
 ; noise layer up a whole octave, and never touches the length of a noise-only
 ; SFX. That is the mechanism behind the short, shrill, odd-sounding results.
 ;
-; The tuning rule (2026-08-21): within a family, the stronger move
-; should sound deeper and fuller -- GUNK SHOT below ACID, THUNDER below
+; The tuning rule (2026-08-21): within a family, the stronger move should
+; sound deeper and fuller -- GUNK SHOT below ACID, THUNDER below
 ; THUNDERSHOCK. Deeper means a SMALLER pitch byte on a tone SFX (and never
 ; past the fold) and a BIGGER one on a noise SFX. Rows tagged MEASURED record
-; what their bytes do; "Anim pass #N" rows record the intended effect, and those
-; still stand -- the bytes under them were chosen against the wrong model.
+; what their bytes do; "Anim pass #N" rows record the intended effect, and
+; those still stand -- the bytes under them were chosen against the wrong
+; model.
 ;
 ; GROWL is the one structural exception: IsCryMove plays the species' own cry
 ; and ADDS this row's two bytes to the cry's modifiers; its SFX id is ignored.

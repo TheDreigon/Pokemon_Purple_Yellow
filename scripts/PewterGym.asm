@@ -302,13 +302,13 @@ PewterGymGuideText:
 .advice
 	ld hl, PewterGymGuideAdviceText
 	call PrintText
-; v0.7 (2026-08-29; moved to the END of the advice 2026-09-05):
-; the first pre-badge visit earns a FRESH WATER (no previous badge exists for
-; the first gym); once per gym, and a full bag defers the gift to the next
-; talk (flag set only on success). The advice ends in `done`, which does not
-; wait, so the receipt page is held back until the player presses.
-; v1.0 (2026-09-22): in HARD MODE the guide announces the badge match
-; cap (the leader's party size) before the player walks into it
+; v0.7 (2026-08-29; moved to the END of the advice 2026-09-05): the first
+; pre-badge visit earns a FRESH WATER (no previous badge exists for the first
+; gym); once per gym, and a full bag defers the gift to the next talk (flag
+; set only on success). The advice ends in `done`, which does not wait, so
+; the receipt page is held back until the player presses.
+; v1.0 (2026-09-22): in HARD MODE the guide announces the badge match cap
+; (the leader's party size) before the player walks into it
 	ld e, OPP_BROCK
 	ld d, 1 ; the object_event's party id
 	callfar HardModeGymCapHint

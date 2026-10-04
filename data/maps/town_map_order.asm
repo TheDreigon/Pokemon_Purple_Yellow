@@ -1,10 +1,10 @@
-; v1.0 (2026-09-24): the cursor walks the story - PALLET to the CERULEAN
-; CAVE - and stops at the places drawn on the map plus the four services a
-; player asks "where was that again?" about: the DAY CARE, the NAME RATER, the
-; MOVE DELETER and the MOVE RELEARNER (the last two share one room, so each
-; borrows an unused map id - constants/map_constants.asm). S.S. ANNE is gone
-; (the ship leaves). Three stops are secrets until the player has been inside -
-; BILL's LAB, the POWER PLANT and the CERULEAN CAVE (TownMapSecretStops,
+; v1.0 (2026-09-24): the cursor walks the story - PALLET to the CERULEAN CAVE -
+; and stops at the places drawn on the map plus the four services a player asks
+; "where was that again?" about: the DAY CARE, the NAME RATER, the MOVE DELETER
+; and the MOVE RELEARNER (the last two share one room, so each borrows an
+; unused map id - constants/map_constants.asm). S.S. ANNE is gone (the ship
+; leaves). Three stops are secrets until the player has been inside - BILL's
+; LAB, the POWER PLANT and the CERULEAN CAVE (TownMapSecretStops,
 ; engine/items/town_map.asm): the cursor skips them until then.
 TownMapOrder:
 	db PALLET_TOWN

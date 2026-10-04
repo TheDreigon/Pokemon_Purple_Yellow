@@ -429,12 +429,12 @@ _MoveDesc_Poison::
 	done
 
 ; TOXIC's own card, a per-move override (v1.0 D13, 2026-09-28: the card states the
-; true effect). The tick is the toxic count x
-; 1/16 of the max HP, at least 1 (core.asm HandlePoisonBurnLeechSeed_DecreaseOwnHP,
-; D8), and the count starts again when the #MON is sent back in (toxic_carry.asm,
-; both sides). Five lines: TOXIC's flavour takes three rows and the blank one, of
-; nine. Fractions, like SOFTBOILED's 3/4. TOX turning into POISON when the battle
-; ends is on manual page 4_5, as POISON lasting after it is.
+; true effect). The tick is the toxic count x 1/16 of the max HP, at least 1
+; (core.asm HandlePoisonBurnLeechSeed_DecreaseOwnHP, D8), and the count starts
+; again when the #MON is sent back in (toxic_carry.asm, both sides). Five lines:
+; TOXIC's flavour takes three rows and the blank one, of nine. Fractions, like
+; SOFTBOILED's 3/4. TOX turning into POISON when the battle ends is on manual page
+; 4_5, as POISON lasting after it is.
 _MoveDesc_Toxic::
 	text "Badly POISONs the"
 	next "foe: 1/16 of full"
@@ -443,11 +443,12 @@ _MoveDesc_Toxic::
 	next "starts it at 1/16."
 	done
 
-; MIND BREAK's own card (round 7, 2026-09-30: it says it hits DARK types, space permitting).
-; Its 45 in 100 PARALYZE (PARALYZE_SIDE_EFFECT3, NUZZLE's card too)
-; and, since F4, the DARK exception: the one DAMAGING PSYCHIC move that hits a DARK type
-; (0.5x, "not very effective"; HYPNOSIS and DISABLE land on DARK since F4 too, being status
-; moves). Three lines: the flavour takes five rows and the blank one, of nine.
+; MIND BREAK's own card (round 7, 2026-09-30: it says it hits DARK types, space
+; permitting).
+; Its 45 in 100 PARALYZE (PARALYZE_SIDE_EFFECT3, NUZZLE's card too) and, since F4, the DARK
+; exception: the one DAMAGING PSYCHIC move that hits a DARK type (0.5x, "not very
+; effective"; HYPNOSIS and DISABLE land on DARK since F4 too, being status moves). Three
+; lines: the flavour takes five rows and the blank one, of nine.
 _MoveDesc_MindBreak::
 	text "45 in 100 to"
 	next "PARALYZE the foe."

@@ -165,14 +165,13 @@ TransformedText:
 	text_end
 
 ; v1.0 (D11, 2026-09-28; in Hard Mode the copy stands, in Normal Mode the badges are not copied):
-; the ENEMY's TRANSFORM, right after it copied your unmodified stats. In
-; Normal those carry the badge boost - PIKACHU's x1.25 with it - baked in by ApplyBadgeStatBoosts
-; at the send-out (LoadBattleMonFromParty) and at a level-up (experience.asm). The enemy now takes
-; the party stats of your #MON in battle instead: the same five, before the boost (a level-up
-; rewrites them first, then re-bakes). Not when your #MON is TRANSFORMed: its unmodified stats
-; are then a copy of an enemy's (the one it TRANSFORMed into), with no boost in them. Hard bakes
-; no boost, so it is left as it was. Your TRANSFORM copies the enemy's stats, which never carry
-; one. HP is never copied.
+; the ENEMY's TRANSFORM, right after it copied your unmodified stats. In Normal those carry the
+; badge boost - PIKACHU's x1.25 with it - baked in by ApplyBadgeStatBoosts at the send-out
+; (LoadBattleMonFromParty) and at a level-up (experience.asm). The enemy now takes the party stats
+; of your #MON in battle instead: the same five, before the boost (a level-up rewrites them first,
+; then re-bakes). Not when your #MON is TRANSFORMed: its unmodified stats are then a copy of an
+; enemy's (the one it TRANSFORMed into), with no boost in them. Hard bakes no boost, so it is left
+; as it was. Your TRANSFORM copies the enemy's stats, which never carry one. HP is never copied.
 ; UserStatsWithOwnCut then makes the enemy's five battle stats from these.
 ; Trashes a, bc, de, hl, f.
 EnemyTransformRawStats:

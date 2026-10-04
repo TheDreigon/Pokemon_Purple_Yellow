@@ -143,15 +143,15 @@ LancesRoomPlayerIsMovingScript:
 	ret
 
 LancesRoomFaceEachOther:
-; v1.0 (2026-09-24): the two squares that start the talk are (5,1),
-; beside LANCE at (6,1), and (6,2), below him. Beside him the player faces
-; RIGHT and he turns LEFT; below him the player faces UP and he looks DOWN
-; (his resting pose - but the reload after the battle resets every NPC, so
-; it is written both times). The player's sprite picks wPlayerMovingDirection
-; up in the UpdateSprites that DisplayTextIDInit runs before the box opens;
-; LANCE's facing goes into his sprite slot, and the copy to
-; ORIGFACINGDIRECTION happens after this, so CloseTextDisplay restores what
-; we set. Post-game the rematch object (same square) is the one on show.
+; v1.0 (2026-09-24): the two squares that start the talk are (5,1), beside
+; LANCE at (6,1), and (6,2), below him. Beside him the player faces RIGHT and
+; he turns LEFT; below him the player faces UP and he looks DOWN (his resting
+; pose - but the reload after the battle resets every NPC, so it is written
+; both times). The player's sprite picks wPlayerMovingDirection up in the
+; UpdateSprites that DisplayTextIDInit runs before the box opens; LANCE's
+; facing goes into his sprite slot, and the copy to ORIGFACINGDIRECTION
+; happens after this, so CloseTextDisplay restores what we set. Post-game the
+; rematch object (same square) is the one on show.
 	ld a, [wYCoord]
 	cp 1
 	ld a, PLAYER_DIR_RIGHT

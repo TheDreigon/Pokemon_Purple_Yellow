@@ -1004,12 +1004,12 @@ PikachuLedgeHopArc:
 ;
 ; Peak is 14 pixels, up from 8 and then 11 across the playtests.
 ;
-; Height alone was never going to fix the head-on view, which was the
-; problem: jumping DOWN, the crossing is already dragging him down the screen
-; while the arc lifts him, so the two cancel and the visible rise was about a
-; pixel. Sideways the crossing is horizontal and the whole arc shows, which is
-; exactly why it looked nearly right from the side and wrong from the
-; front. Halving the crossing speed (see Func_fca0a) is what makes the arc win.
+; Height alone was never going to fix the head-on view, which was the problem:
+; jumping DOWN, the crossing is already dragging him down the screen while the
+; arc lifts him, so the two cancel and the visible rise was about a pixel.
+; Sideways the crossing is horizontal and the whole arc shows, which is exactly
+; why it looked nearly right from the side and wrong from the front. Halving
+; the crossing speed (see Func_fca0a) is what makes the arc win.
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
 	ld a, [hl]

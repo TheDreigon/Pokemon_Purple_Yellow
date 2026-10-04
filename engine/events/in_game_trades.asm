@@ -163,12 +163,12 @@ InGameTrade_GiveSpecialMove:
 ; InGameTrade_LatchSpecialMove before the trade animation. The received mon
 ; is the last party member at this point (AddPartyMon just appended it).
 ; The move goes into the first empty move slot with its max PP — mirroring
-; the LearnMove write pattern. v1.0 (2026-09-22): when all four slots
-; are full, the OLDEST move that is not a same-type attack gives way, and
-; only if all four are same-type attacks does the oldest go regardless. It
-; used to be slot 4, the newest move, which is usually the same-type attack
-; the mon has just learned: SPORE's PARASECT at 28 and LOLA's JYNX at 25
-; arrived with no attack of their own type at all.
+; the LearnMove write pattern. v1.0 (2026-09-22): when all four slots are
+; full, the OLDEST move that is not a same-type attack gives way, and only
+; if all four are same-type attacks does the oldest go regardless. It used
+; to be slot 4, the newest move, which is usually the same-type attack the
+; mon has just learned: SPORE's PARASECT at 28 and LOLA's JYNX at 25 arrived
+; with no attack of their own type at all.
 	ld a, [wMoveNum]
 	and a
 	ret z ; dormant rows carry no special move

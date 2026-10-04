@@ -1,7 +1,7 @@
 ; ARCHIVED -- Saffron City after Giovanni is beaten -- the first Saffron theme's twin. NOT BUILT.
 ;
-; This is the first version, kept so that the originals would be
-; preserved before Saffron was rewritten (2026-08-05). The note data below is
+; This is the first version, kept so that the originals would be preserved
+; before Saffron was rewritten (2026-08-05). The note data below is
 ; byte-for-byte what shipped; only the labels are renamed, so that this file can
 ; sit in the repo beside the live one without clashing. It is not referenced
 ; from audio.asm and costs no ROM.
@@ -37,9 +37,9 @@
 ; Tempo 152 -> 138, about 10% faster.
 ;
 ; -- THE SECOND HALF (the 8-bar version was rated 8/10) -----------------------
-; The critique: Celadon and Fuchsia have more life and more voice, this
-; melody was short, and on a second pass it sounded more amateur than
-; the other Kanto themes. Measured, that holds on every count:
+; The critique: Celadon and Fuchsia have more life and more voice, this melody
+; was short, and on a second pass it sounded more amateur than the other Kanto
+; themes. Measured, that holds on every count:
 ;
 ;     Celadon                     16 bars |  78 notes | lengths 1,2,4,6,8
 ;     Cities2 (Cerulean/Fuchsia)  16 bars |  53 notes | lengths 1,2,4,8,16
@@ -68,16 +68,15 @@
 ; A constant thump in the background, always the same, had to go. Two things
 ; in here fit that description and could not be told apart by ear, so both
 ; were described and the choice fell on Ch4. Four evenly spaced hits a bar,
-; byte-identical across all sixteen bars,
-; never varying once. Over the old 8-bar loop it passed; stretched to 16 it is
-; a metronome.
+; byte-identical across all sixteen bars, never varying once. Over the old
+; 8-bar loop it passed; stretched to 16 it is a metronome.
 ;
 ; So this track has three channels, which is not a compromise: Celadon and
 ; Cities2 (Cerulean and Fuchsia) are both three-channel with no noise channel
 ; at all, and those are the two themes named as the ones with life in them.
 ;
-; Removed from THIS track only, as specified. Music_SaffronCity, the
-; minor version, keeps its drums. Worth flagging that the two are meant to
+; Removed from THIS track only, as specified. Music_SaffronCity, the minor
+; version, keeps its drums. Worth flagging that the two are meant to
 ; differ only in key and tempo, so if the drums ever come out of one they
 ; probably should come out of both -- but that is a design decision, not
 ; something to do quietly on the way past.

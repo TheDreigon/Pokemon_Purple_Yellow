@@ -33,8 +33,8 @@ ViridianForest_Object:
 	object_event  3, 41, SPRITE_COOLTRAINER_F, STAY, NONE, TEXT_VIRIDIANFOREST_COOLTRAINER_F, OPP_LASS, 19, 0
 	object_event 10,  7, SPRITE_YOUNGSTER, STAY, RIGHT, TEXT_VIRIDIANFOREST_YOUNGSTER5, OPP_BUG_CATCHER, 15, 4
 ; v0.7 (2026-08-30): the toll gate on the way to PEWTER - (2,18) was
-; cleared by moving the bug catcher to (19,19). SCYTHER+PINSIR L10,
-; sight 2 down the western corridor.
+; cleared by moving the bug catcher to (19,19). SCYTHER+PINSIR L10, sight 2
+; down the western corridor.
 ; 🔴 This object MUST be number 7: trainer-header byte +0 is BOTH the event
 ; bit AND the object_event index (CheckForEngagingTrainers writes it into
 ; wSpriteIndex), so the map's headered trainers have to occupy exactly the
@@ -42,11 +42,11 @@ ViridianForest_Object:
 ; sight-engaged and the sight scan ran against the POTION ball instead
 ; (glitch-encounter hazard). trainer_pairing_audit.py now guards this.
 	object_event  2, 18, SPRITE_COOLTRAINER_M, STAY, LEFT, TEXT_VIRIDIANFOREST_COOLTRAINER_M, OPP_COOLTRAINER_M, 11, 2
-; v0.7 (2026-09-02): the shortcut LASS - she faces the bushes she
-; wishes were gone. Slot 8 (the ordinal contract above applies to her too).
+; v0.7 (2026-09-02): the shortcut LASS - she faces the bushes she wishes
+; were gone. Slot 8 (the ordinal contract above applies to her too).
 	object_event 16, 30, SPRITE_COOLTRAINER_F, STAY, UP, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, OPP_LASS, 20, 1
-; v0.7 (2026-09-06): the POTION ball that stood here at (8,3) is a hidden item at
-; (8,4) now (data/events/hidden_objects.asm); its missable slot pays for this REPEL.
+; v0.7 (2026-09-06): the POTION ball that stood here at (8,3) is a hidden item at (8,4)
+; now (data/events/hidden_objects.asm); its missable slot pays for this REPEL.
 	object_event 32, 43, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_REPEL, REPEL
 	object_event 21, 27, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POISON_HEAL, POISON_HEAL ; v0.7 (2026-09-06): was (32,43)
 	object_event  4, 28, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_POKE_BALL, POKE_BALL

@@ -1,7 +1,7 @@
-; v1.0 (2026-09-27; the Gen 3 rule, with the menu showing TOX): TOXIC by
-; the Gen 3 rule. A badly poisoned #MON stays badly poisoned when it is called
-; back, its count starts over when it comes back in, and the battle's end leaves
-; it ordinary POISON (Gen 3-4, EndOfBattle).
+; v1.0 (2026-09-27; the Gen 3 rule, with the menu showing TOX): TOXIC by the
+; Gen 3 rule. A badly poisoned #MON stays badly poisoned when it is called back,
+; its count starts over when it comes back in, and the battle's end leaves it
+; ordinary POISON (Gen 3-4, EndOfBattle).
 ; The flag is bit 7 (BOX_LEVEL_TOXIC_F) of byte 3 of the party / roster data
 ; (MON_BOX_LEVEL), above the freeze count (bits 0-6). Bit 7 is free there: FRZ
 ; and PSN never share the status byte, a box level is at most MAX_LEVEL, every

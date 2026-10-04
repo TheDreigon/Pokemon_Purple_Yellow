@@ -155,10 +155,10 @@ TownMapSecretStops:
 	db -1
 
 DrawTwinCursor:
-; a = map id. v1.0 (2026-09-22): DIGLETT's CAVE has two mouths, so
-; when the cursor is on either, a second cursor (sprites 8-11) marks the
-; other; on every other place those four sprites are parked off-screen ($a0,
-; the value the blink itself uses to hide sprites).
+; a = map id. v1.0 (2026-09-22): DIGLETT's CAVE has two mouths, so when the
+; cursor is on either, a second cursor (sprites 8-11) marks the other; on
+; every other place those four sprites are parked off-screen ($a0, the value
+; the blink itself uses to hide sprites).
 	cp DIGLETTS_CAVE
 	jr z, .route11
 	cp DIGLETTS_CAVE_ROUTE_11
@@ -331,11 +331,11 @@ ToText:
 	db "To@"
 
 LoadFlyMonIcon:
-; v1.0 (2026-09-24): the FLY cursor is the party icon of the Pokémon
-; about to fly (wWhichPokemon, the party menu's pick), both frames, copied into
-; the tiles the BIRD sprite used ($04-$0B; the bird was 12 tiles, an icon is
-; 8). An icon's tile order is an overworld frame's (top-left, top-right,
-; bottom-left, bottom-right), so WriteTownMapSpriteOAM draws it unchanged.
+; v1.0 (2026-09-24): the FLY cursor is the party icon of the Pokémon about to
+; fly (wWhichPokemon, the party menu's pick), both frames, copied into the
+; tiles the BIRD sprite used ($04-$0B; the bird was 12 tiles, an icon is 8). An
+; icon's tile order is an overworld frame's (top-left, top-right, bottom-left,
+; bottom-right), so WriteTownMapSpriteOAM draws it unchanged.
 	ld a, [wWhichPokemon]
 	ld hl, wPartySpecies
 	ld c, a
@@ -396,15 +396,15 @@ endr
 	ret
 
 BuildFlyLocationsList:
-; v1.0 (2026-09-24): the menu lists the fly points in story order, not
-; slot order. FlyDisplayOrder is the permutation (slot indices, $ff-terminated);
-; the bit of wTownVisitedFlag that a slot owns does NOT move (it is saved, and
-; a town's slot is its map id - MarkTownVisitedAndLoadMissableObjects). The
-; list keeps NUM_FLY_SLOTS entries followed by $ff, so LoadTownMap_Fly's
-; UP/DOWN/wrap code is untouched. Entry 0 must be PALLET TOWN: the menu shows
-; entry 0 without the NOT_VISITED skip, and PALLET is the slot every save has.
-; The bits are read through FlagActionPredef, so the flag array can be any
-; width (three bytes for the nineteen slots).
+; v1.0 (2026-09-24): the menu lists the fly points in story order, not slot
+; order. FlyDisplayOrder is the permutation (slot indices, $ff-terminated); the
+; bit of wTownVisitedFlag that a slot owns does NOT move (it is saved, and a
+; town's slot is its map id - MarkTownVisitedAndLoadMissableObjects). The list
+; keeps NUM_FLY_SLOTS entries followed by $ff, so LoadTownMap_Fly's UP/DOWN/wrap
+; code is untouched. Entry 0 must be PALLET TOWN: the menu shows entry 0 without
+; the NOT_VISITED skip, and PALLET is the slot every save has.
+; The bits are read through FlagActionPredef, so the flag array can be any width
+; (three bytes for the nineteen slots).
 	ld hl, wFlyAnimUsingCoordList
 	ld [hl], $ff
 	inc hl ; wFlyLocationsList
@@ -646,9 +646,9 @@ TownMapCoordsToOAMCoords:
 	add a
 	add a
 	add 24
-; v1.0 (2026-09-25): on the last drawn row a 16x16 sprite loses its
-; bottom four lines to the screen edge; two pixels up keeps fourteen of them,
-; and the 8x8 marker underneath is still covered. Nest icons there move too.
+; v1.0 (2026-09-25): on the last drawn row a 16x16 sprite loses its bottom
+; four lines to the screen edge; two pixels up keeps fourteen of them, and
+; the 8x8 marker underneath is still covered. Nest icons there move too.
 	cp 32 * 4 + 24
 	jr nz, .notLastRow
 	sub 2

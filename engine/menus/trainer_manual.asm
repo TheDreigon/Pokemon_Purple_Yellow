@@ -99,9 +99,9 @@ TrainerManual_DrawContents:
 	hlcoord 1, 1
 	ld de, TrainerManualTitleText
 	call TrainerManual_PlaceCentered
-; Front matter. The framing: a boy leaves on his first journey and his
-; mother buys him the official manual. One line of provenance is what makes it
-; that object instead of an anonymous list of true statements -- and it is what
+; Front matter. The framing: a boy leaves on his first journey and his mother
+; buys him the official manual. One line of provenance is what makes it that
+; object instead of an anonymous list of true statements -- and it is what
 ; explains how a book in Pallet Town knows the rules of a gym battle.
 ; Rows 2 and 3, not 3 and 4: nine chapters centre onto row 5, and the front
 ; matter sitting directly above them read as a tenth entry.
@@ -897,9 +897,9 @@ TrainerManualChapterPages:
 	dw TrainerManualChapter7Pages
 
 ; v0.7 (2026-08-31): chapters 1 and 2 each grew a section when the TRAINER
-; TIPS signs came down (T11) - the two facts nothing else in the
-; game taught: the #DEX rating over a PC (was a Viridian Forest sign) and
-; the Cycling Road slope control (was a Route 17 sign).
+; TIPS signs came down (T11) - the two facts nothing else in the game
+; taught: the #DEX rating over a PC (was a Viridian Forest sign) and the
+; Cycling Road slope control (was a Route 17 sign).
 TrainerManualChapter1Sections:
 	db 7
 	manual_section TrainerManualSection1_1, 0

@@ -227,10 +227,10 @@ TryingToLearn:
 	call IsMoveHM
 	pop bc
 	pop de
-; v1.0 (2026-09-24): a level-up or a TM may overwrite an HM here (the
-; Yellow Legacy's 3d8c2127 dropped vanilla's refusal; IsMoveHM's carry is
-; ignored) - except the party's last CUT or SURF, the two field moves with no
-; walking alternative: the same rule and the same line as the MOVE DELETER's
+; v1.0 (2026-09-24): a level-up or a TM may overwrite an HM here (the Yellow
+; Legacy's 3d8c2127 dropped vanilla's refusal; IsMoveHM's carry is ignored) -
+; except the party's last CUT or SURF, the two field moves with no walking
+; alternative: the same rule and the same line as the MOVE DELETER's
 ; (scripts/move_deleter.asm). Bankswitch's epilogue keeps the callee's carry;
 ; b, c and hl die in a farcall, so the row goes round it, and d survives.
 	push bc

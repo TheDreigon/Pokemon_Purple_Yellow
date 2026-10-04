@@ -148,9 +148,9 @@ _PewterGymBrockReceivedBoulderBadgeText::
 	text_end
 
 _PewterGymBrockBoulderBadgeInfoText::
-; v1.0 (the SPECIAL split, 2026-09-06): the badge map starts the stat
-; boosts at the THUNDERBADGE, so the BOULDERBADGE claims none - one text for
-; both roads (the knob #17 hard chain died with the boost).
+; v1.0 (the SPECIAL split, 2026-09-06): the badge map starts the stat boosts
+; at the THUNDERBADGE, so the BOULDERBADGE claims none - one text for both
+; roads (the knob #17 hard chain died with the boost).
 	text_start
 
 	para "That's an official"

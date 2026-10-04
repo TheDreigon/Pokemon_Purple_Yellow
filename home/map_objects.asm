@@ -71,16 +71,16 @@ IsItemInBag::
 	ret
 
 IsPikachuInParty::
-; v0.7 (2026-09-01): bit 6 of wd472 - the Summer Beach House
-; gate (the minigame, its posters and scoreboard) and the surf-along
-; player sprite - now asks only "is there a PIKACHU in the party?". The
-; old SURF-move requirement is gone: no Pikachu learns SURF in this hack,
-; which left the whole minigame unreachable. Any Pikachu counts, the
-; partner or a caught one.
+; v0.7 (2026-09-01): bit 6 of wd472 - the Summer Beach House gate (the
+; minigame, its posters and scoreboard) and the surf-along player sprite -
+; now asks only "is there a PIKACHU in the party?". The old SURF-move
+; requirement is gone: no Pikachu learns SURF in this hack, which left the
+; whole minigame unreachable. Any Pikachu counts, the partner or a caught
+; one.
 ; (Was IsSurfingPikachuInParty. The vanilla loop also walked wPartyMon1
-; structs for PARTY_LENGTH slots regardless of the real count, so the
-; data remnants of a DEPOSITED mon in the tail slots could satisfy it;
-; this walks the $ff-terminated species list instead.)
+; structs for PARTY_LENGTH slots regardless of the real count, so the data
+; remnants of a DEPOSITED mon in the tail slots could satisfy it; this
+; walks the $ff-terminated species list instead.)
 ; Falls into Func_3467, which maintains bit 7 (the partner-in-party flag).
 	ld a, [wd472]
 	and $3f

@@ -25,8 +25,8 @@ Route8GateDefaultScript:
 	ld a, [wd728]
 	bit 6, a
 	ret nz
-; stage three (2026-09-06): TEAM ROCKET beaten at SILPH CO. - the road is
-; open to everyone, badges or not (the same event flips Saffron's music)
+; stage three (2026-09-06): TEAM ROCKET beaten at SILPH CO. - the road is open
+; to everyone, badges or not (the same event flips Saffron's music)
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	ret nz
 	ld hl, .PlayerInCoordsArray
@@ -36,8 +36,8 @@ Route8GateDefaultScript:
 	ld [wPlayerMovingDirection], a
 	xor a
 	ldh [hJoyHeld], a
-; v0.7 (2026-09-06): the guards ask for four BADGES, not a drink - TEAM
-; ROCKET has the city on edge. wd728 bit 6 (once "served") now means "let through".
+; v0.7 (2026-09-06): the guards ask for four BADGES, not a drink - TEAM ROCKET has
+; the city on edge. wd728 bit 6 (once "served") now means "let through".
 	ld a, [wObtainedBadges]
 	bit BIT_RAINBOWBADGE, a
 	jr nz, .fourBadges

@@ -330,10 +330,10 @@ JessieAndJamesData:
 SuperNerdData:
 ; Mt. Moon 1F
 	db 10, MAGNEMITE, VOLTORB, 0
-; Mt. Moon B2F - the fossil nerd (2026-09-23): what a digger pulls out of
-; this mountain, not the fossils themselves (he fights you FOR those). The
-; CUBONE with its skull is his prize; Ground/Rock right after Brock, with no
-; answer from a PIKACHU.
+; Mt. Moon B2F - the fossil nerd (2026-09-23): what a digger pulls out of this
+; mountain, not the fossils themselves (he fights you FOR those). The CUBONE
+; with its skull is his prize; Ground/Rock right after Brock, with no answer
+; from a PIKACHU.
 	db $FF, 12, GEODUDE, 12, SANDSHREW, 13, CUBONE, 0
 ; Route 8
 	db 26, VOLTORB, KOFFING, GRIMER, MAGNEMITE, 0
@@ -356,9 +356,9 @@ SuperNerdData:
 ; these two already wore the SUPER_NERD overworld sprite. Same teams.
 	db 21, MAGNEMITE, 0
 	db 18, MAGNEMITE, MACHOP, MAGNEMITE, 0
-; Mt. Moon B2F rematch, post-League (15, 16; 2026-09-23): his crew grown
-; up, and as the ace the fossil HE kept, revived - 15 when the player took the
-; DOME (he had the HELIX: OMASTAR), 16 when the player took the HELIX (KABUTOPS).
+; Mt. Moon B2F rematch, post-League (15, 16; 2026-09-23): his crew grown up, and
+; as the ace the fossil HE kept, revived - 15 when the player took the DOME (he
+; had the HELIX: OMASTAR), 16 when the player took the HELIX (KABUTOPS).
 ; Between the dojo's 52-58 and the leaders' 63-65.
 	db $FF, 58, GOLEM, 58, SANDSLASH, 60, MAROWAK, 62, OMASTAR, 0
 	db $FF, 58, GOLEM, 58, SANDSLASH, 60, MAROWAK, 62, KABUTOPS, 0
@@ -917,9 +917,9 @@ JoyData:
 
 SmithData:
 ; Moltres Fight
-; All L60; no ace, like DREIGON's (2026-09-28: SMITH, CRAIG and WEEBRA have no ace either):
-; in Hard the switch picker chooses who follows, STARMIE included; in Normal (no switch layer)
-; this is the send-out order. CRAIG's and WEEBRA's teams likewise.
+; All L60; no ace, like DREIGON's (2026-09-28: SMITH, CRAIG and WEEBRA have no ace either): in
+; Hard the switch picker chooses who follows, STARMIE included; in Normal (no switch layer) this
+; is the send-out order. CRAIG's and WEEBRA's teams likewise.
     db 60, AERODACTYL, GENGAR, TENTACRUEL, ALAKAZAM, TAUROS, STARMIE, 0
 
 CraigData:
@@ -934,8 +934,8 @@ WeebraData:
 
 ForteData:
 ; "Forte / DREIGON" superboss — all L80, in its fixed party order: BEEDRILL leads; no ace (all
-; held in the same regard, 2026-09-27) - in Hard the switch picker chooses who
-; follows, NIDOKING included; in Normal (no switch layer) this is the send-out order.
+; held in the same regard, 2026-09-27) - in Hard the switch picker chooses who follows,
+; NIDOKING included; in Normal (no switch layer) this is the send-out order.
 ; Per-mon movesets in special_moves.asm (finalized in Notes/Boss Movesets.md).
 	db 80, BEEDRILL, HITMONLEE, MAGMAR, GOLEM, GYARADOS, NIDOKING, 0
 

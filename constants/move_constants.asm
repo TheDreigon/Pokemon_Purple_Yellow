@@ -290,10 +290,10 @@
 
 DEF NUM_ATTACKS EQU const_value - 1
 
-; v0.7 anim split (2026-08-31, the expansion prep): the 35
-; SPECIAL battle animations no longer share the move-id byte. They live in
-; their own 1-based id space, played through PlaySpecialAnimation (or by
-; writing SPECIAL_ANIM_MARKER into wAnimationID with the index in
+; v0.7 anim split (2026-08-31, the expansion prep): the 35 SPECIAL battle
+; animations no longer share the move-id byte. They live in their own
+; 1-based id space, played through PlaySpecialAnimation (or by writing
+; SPECIAL_ANIM_MARKER into wAnimationID with the index in
 ; hSpecialAnimIndex) and resolved via SpecialAnimationPointers. Moves now
 ; own ids 1..254 outright. Before the split, 220 moves + these 35 filled
 ; the byte at exactly 255 and the movelist could never grow again.
@@ -351,9 +351,9 @@ ASSERT NUM_SPECIAL_ANIMS < SPECIAL_ANIM_MARKER, "special anim indexes must stay 
 ASSERT XSTATITEM_DUPLICATE_ANIM == XSTATITEM_ANIM + 1, "Bide/X-item +turn pair broke"
 ASSERT ANIM_B1 == SHRINKING_SQUARE_ANIM + 1, "Thrash +turn pair broke"
 ASSERT TRADE_BALL_POOF_ANIM == TRADE_BALL_DROP_ANIM + 3, "the trade-ball run of 4 broke"
-; The expansion ceiling (2026-08-31): up to 254 moves - $FF
-; stays reserved (list terminators), and 248/256 are forbidden counts
-; (movedex_seen's % 8 assert). See Notes/"Tecto de moves 220-250".
+; The expansion ceiling (2026-08-31): up to 254 moves - $FF stays reserved
+; (list terminators), and 248/256 are forbidden counts (movedex_seen's % 8
+; assert). See Notes/"Tecto de moves 220-250".
 ASSERT NUM_ATTACKS <= 254, "the blessed move ceiling is 254 ($FF is reserved)"
 ; v0.7 expansion prep (2026-08-31): the SAVED movedex bitfield is pre-sized
 ; to this capacity (32 bytes) so move additions stop breaking the save

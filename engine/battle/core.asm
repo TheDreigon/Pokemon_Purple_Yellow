@@ -343,24 +343,24 @@ MainInBattleLoop:
 	ld a, [wEscapedFromBattle]
 	and a
 	ret nz ; return if pokedoll was used to escape from battle
-; v1.0 (2026-09-27): the move list is
-; offered EVERY turn, asleep or frozen too, as from Gen 2 on (pokecrystal's
-; BattleMenu has no sleep gate). A #MON that stays down says fast asleep /
-; frozen solid before GetCurrentMove or DecrementPP run, so the pick costs
-; nothing; one that wakes, thaws, or is thawed by a FIRE hit uses the move
-; chosen THIS turn. (2026-09-24 offered the list only on the turn the counter
-; ran out: a FIRE thaw then ran the last pick, made turns before - maybe by
-; another #MON - and the list's appearing told the player the hidden count.)
+; v1.0 (2026-09-27): the move list is offered EVERY turn, asleep or frozen too,
+; as from Gen 2 on (pokecrystal's BattleMenu has no sleep gate). A #MON that
+; stays down says fast asleep / frozen solid before GetCurrentMove or
+; DecrementPP run, so the pick costs nothing; one that wakes, thaws, or is
+; thawed by a FIRE hit uses the move chosen THIS turn. (2026-09-24 offered the
+; list only on the turn the counter ran out: a FIRE thaw then ran the last
+; pick, made turns before - maybe by another #MON - and the list's appearing
+; told the player the hidden count.)
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump
-; v1.0 (N3, 2026-09-27; the same rule for both sides): held by
-; the enemy's WRAP / CLAMP it chooses too, as from Gen 2 on, and as the enemy
-; does. The hold is enforced where the move would run (.HeldInPlaceCheck says
-; "can't move" before the move is read or its PP spent); freed first - the
-; WRAP user switched out, used an item on the WRAP's last turn, was fully
-; paralysed or hurt itself in confusion - it uses this pick. (Gen 1 gave a
-; held #MON a $ff here, so a WRAP user's switch gave it a free turn.)
+; v1.0 (N3, 2026-09-27; the same rule for both sides): held by the enemy's
+; WRAP / CLAMP it chooses too, as from Gen 2 on, and as the enemy does. The
+; hold is enforced where the move would run (.HeldInPlaceCheck says "can't
+; move" before the move is read or its PP spent); freed first - the WRAP user
+; switched out, used an item on the WRAP's last turn, was fully paralysed or
+; hurt itself in confusion - it uses this pick. (Gen 1 gave a held #MON a $ff
+; here, so a WRAP user's switch gave it a free turn.)
 .selectPlayerMove
 	ld a, [wActionResultOrTookBattleTurn]
 	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
@@ -478,9 +478,9 @@ MainInBattleLoop:
 	jp MainInBattleLoop
 .playerMovesFirst
 ; v1.0 (2026-09-27; strong opponents, but no blatant cheating): the enemy's
-; item or switch comes
-; FIRST in this branch too, as in the enemy-first one - Gen 2's order
-; (pokecrystal Battle_PlayerFirst: AI_SwitchOrTryItem, then the player's move).
+; item or switch comes FIRST in this branch too, as in the enemy-first one -
+; Gen 2's order (pokecrystal Battle_PlayerFirst: AI_SwitchOrTryItem, then the
+; player's move).
 ; It used to run after the player's move, so a SLOWER enemy decided seeing the
 ; hit it had just taken - healing that damage, curing that status - and a hit
 ; that knocks it out came before any heal. It now decides on the state after
@@ -689,11 +689,11 @@ HurtByLeechSeedText:
 	text_far _HurtByLeechSeedText
 	text_end
 
-; LEECH SEED's drain (v1.0, a vanilla bug fixed the Gen 2 way): a flat
-; 1/8 of the max HP (Gen 2 GetEighthMaxHP); the toxic count is neither multiplied in nor
-; advanced. (Gen 1 ran the drain through the poison tick below: a badly poisoned seeded
-; #MON lost - and the seeder gained - count x the tick (1/16 in vanilla, 1/8 in the Yellow
-; Legacy base), and its count climbed twice a turn.)
+; LEECH SEED's drain (v1.0, a vanilla bug fixed the Gen 2 way): a flat 1/8 of the max HP
+; (Gen 2 GetEighthMaxHP); the toxic count is neither multiplied in nor advanced. (Gen 1
+; ran the drain through the poison tick below: a badly poisoned seeded #MON lost - and the
+; seeder gained - count x the tick (1/16 in vanilla, 1/8 in the Yellow Legacy base), and
+; its count climbed twice a turn.)
 ; Same IN/OUT as below. Keep it ABOVE the main entry.
 HandlePoisonBurnLeechSeed_DecreaseOwnHPFlat:
 	ld d, 0
@@ -738,9 +738,9 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 .playersTurn
 	bit BADLY_POISONED, [hl]
 	jr z, .noToxic
-; v1.0 (D8): TOXIC takes the count
-; x 1/16 of the max HP, as every official game does (Gen 2 GetSixteenthMaxHP: at least 1);
-; the Yellow Legacy base had it at x 1/8. POISON, BURN and LEECH SEED keep the eighth above.
+; v1.0 (D8): TOXIC takes the count x 1/16 of the max HP, as every official game does (Gen 2
+; GetSixteenthMaxHP: at least 1); the Yellow Legacy base had it at x 1/8. POISON, BURN and
+; LEECH SEED keep the eighth above.
 ; max(1, eighth / 2) = max(1, max HP / 16) for every max HP.
 	srl c
 	jr nz, .toxicSixteenth
@@ -1950,8 +1950,8 @@ LoadBattleMonFromParty:
 	jr nz, .statModLoop
 	xor a
 	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
-; v1.0 (2026-09-27): the freeze count travels with the #MON,
-; as the sleep count always did (it lives in the status byte). The live count,
+; v1.0 (2026-09-27): the freeze count travels with the #MON, as the sleep
+; count always did (it lives in the status byte). The live count,
 ; wPlayerFreezeCounter, is one byte for the whole side, so a frozen #MON sent
 ; back in used to inherit whatever the side's last freeze left there: another
 ; mon's count, or 0 - and 0 thaws on the first turn, which is also why freeze
@@ -2285,9 +2285,9 @@ DrawEnemyHUDAndHPBar:
 	hlcoord 1, 0
 	call CenterMonName
 	call PlaceString
-; v1.0 (2026-09-24): level at (3,1), status at (7,1), both at once. The
-; ball icon keeps (1,1), the HP bar is row 2 (cols 2-9) and the box's bottom
-; edge is row 3 (cols 1-10).
+; v1.0 (2026-09-24): level at (3,1), status at (7,1), both at once. The ball
+; icon keeps (1,1), the HP bar is row 2 (cols 2-9) and the box's bottom edge
+; is row 3 (cols 1-10).
 	hlcoord 3, 1
 	ld a, [wEnemyMonLevel]
 	ld [wLoadedMonLevel], a
@@ -2498,9 +2498,9 @@ DisplayBattleMenu::
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
-; v1.0 (2026-09-24): B jumps the cursor to RUN - but only where RUN
-; means running. wIsInBattle is 1 (wild, SAFARI, the forced-run battle) or
-; 2 (trainer) here.
+; v1.0 (2026-09-24): B jumps the cursor to RUN - but only where RUN means
+; running. wIsInBattle is 1 (wild, SAFARI, the forced-run battle) or 2
+; (trainer) here.
 	ld a, [wIsInBattle]
 	cp 2
 	ld a, D_RIGHT | A_BUTTON
@@ -2939,9 +2939,9 @@ PartyMenuOrRockOrRun:
 	ld hl, AlreadyOutText
 	jr z, .cantSwitch
 ; v1.0 (N3, 2026-09-27; neither side may switch out a Pokemon held by a WRAP /
-; CLAMP): held by the enemy's WRAP / CLAMP, it cannot be
-; recalled (Gen 2+), as the enemy's cannot (trainer_ai.asm, layer 6). Nothing is
-; spent: back to the party menu.
+; CLAMP): held by the enemy's WRAP / CLAMP, it cannot be recalled (Gen 2+), as
+; the enemy's cannot (trainer_ai.asm, layer 6). Nothing is spent: back to the
+; party menu.
 	ld a, [wEnemyBattleStatus1]
 	bit USING_TRAPPING_MOVE, a
 	jr z, .notHeld
@@ -3155,8 +3155,8 @@ SelectMenuItem:
 .select
 	ld hl, hUILayoutFlags
 	set 1, [hl]
-; v0.7 (2026-08-31, playtest): the FIGHT move-select menu now arms
-; the CNF/status HUD alternation too - plain HandleMenuInput's outer entry
+; v0.7 (2026-08-31, playtest): the FIGHT move-select menu now arms the
+; CNF/status HUD alternation too - plain HandleMenuInput's outer entry
 ; clears the flip flag, so a confused+paralyzed mon read only PAR while
 ; the player sat exactly here choosing a move.
 	call BattleMenuInput
@@ -3380,11 +3380,11 @@ NoMovesLeftText:
 	text_far _NoMovesLeftText
 	text_end
 
-; v1.0 (N3-5, 2026-09-28; the same rule for both sides): the one
-; rule both sides reach STRUGGLE by - no move but the disabled one has PP left (the
-; PP Up bits masked). AnyMoveToSelect asks it for the player, SelectEnemyMove for
-; the enemy. The body is AnyMoveToSelect's old loop, moved here unchanged (with
-; no move disabled, b = 0 never reaches zero, so all four count).
+; v1.0 (N3-5, 2026-09-28; the same rule for both sides): the one rule both sides
+; reach STRUGGLE by - no move but the disabled one has PP left (the PP Up bits
+; masked). AnyMoveToSelect asks it for the player, SelectEnemyMove for the enemy.
+; The body is AnyMoveToSelect's old loop, moved here unchanged (with no move
+; disabled, b = 0 never reaches zero, so all four count).
 ; IN  hl = the side's four PP bytes; a = its wXDisabledMove (the slot, 1-4, in the
 ;     high nibble; 0 = none)
 ; OUT nz = a move to select; z = none: STRUGGLE. Clobbers a, b, c, d, hl; keeps e.
@@ -3623,22 +3623,21 @@ SelectEnemyMove:
 	and (1 << USING_TRAPPING_MOVE) | (1 << STORING_ENERGY) ; its own WRAP or BIDE: that move stays
 	jr z, .canSelectMove
 ; v1.0 (N3, 2026-09-27; both sides may switch out in the middle of their own
-; BIDE): as the player may switch out of its own BIDE or WRAP, so may the
-; enemy - the switch decision alone (trainer_ai.asm); wEnemySelectedMove keeps
-; the locked move. Returns to MainInBattleLoop.
+; BIDE): as the player may switch out of its own BIDE or WRAP, so may the enemy -
+; the switch decision alone (trainer_ai.asm); wEnemySelectedMove keeps the locked
+; move. Returns to MainInBattleLoop.
 	jpfar AILockedSwitchDecision
 .unableToSelectMove ; the dead link branch's LINKBATTLE_NO_ACTION
 	ld a, $ff
 	jr .done
 .canSelectMove
-; v1.0 (N3-5, 2026-09-28; the same rule for both sides): STRUGGLE by
-; the player's rule, asked of the routine that decides the player's (HasMoveToSelect,
-; which AnyMoveToSelect asks too): no move but the disabled one has PP left. It
-; replaces the v0.7 test (all four PP bytes 0) and "its only move is disabled",
-; which missed a disabled move holding the only PP left - the move AI then ran,
-; kept a move with no PP and STRUGGLEd, its switch decision reading that move as
-; usable - and, after a TRANSFORM to a one-move set, took a stale DISABLE for the
-; only move.
+; v1.0 (N3-5, 2026-09-28; the same rule for both sides): STRUGGLE by the player's
+; rule, asked of the routine that decides the player's (HasMoveToSelect, which
+; AnyMoveToSelect asks too): no move but the disabled one has PP left. It replaces
+; the v0.7 test (all four PP bytes 0) and "its only move is disabled", which missed a
+; disabled move holding the only PP left - the move AI then ran, kept a move with no
+; PP and STRUGGLEd, its switch decision reading that move as usable - and, after a
+; TRANSFORM to a one-move set, took a stale DISABLE for the only move.
 	ld a, [wEnemyDisabledMove]
 	ld hl, wEnemyMonPP
 	call HasMoveToSelect
@@ -4460,8 +4459,8 @@ HandleSelfConfusionDamage:
 	ld [wAnimationType], a
 	inc a
 	ldh [hWhoseTurn], a
-; v0.7 (2026-08-31, playtest): the self-hit has its own animation
-; now - CONFUSION_HIT_ANIM, a replica of vanilla POUND's stream. (History:
+; v0.7 (2026-08-31, playtest): the self-hit has its own animation now -
+; CONFUSION_HIT_ANIM, a replica of vanilla POUND's stream. (History:
 ; vanilla played "anim 1" via the implicit inc a - POUND until the v0.5
 ; reorder made id 1 CONSTRICT; a brief BUG_BITE stand-in made no sense.)
 	ld a, CONFUSION_HIT_ANIM
@@ -4682,9 +4681,9 @@ CheckForDisobedience:
 	and a
 	ret
 .notLinkBattle
-; v0.7 (2026-09-01, redesign): obedience is the training ceiling
-; now, nothing else - and it applies to EVERY #MON the player commands,
-; own or traded alike:
+; v0.7 (2026-09-01, redesign): obedience is the training ceiling now,
+; nothing else - and it applies to EVERY #MON the player commands, own
+; or traded alike:
 ;   NORMAL: no caps, total obedience. The vanilla traded-mon badge tiers
 ;   (CASCADE L30 / RAINBOW L50 / MARSH L70 / EARTH all) are GONE - the
 ;   badge speeches and Badge House entries were reworded to match.
@@ -5448,9 +5447,9 @@ CriticalHitTest:
 INCLUDE "data/battle/critical_hit_moves.asm"
 
 ; v1.0 (R10e, 2026-10-01; dead code removed): HandleCounterMove is gone. COUNTER left the move list
-; in v0.5 and v0.7 cut the handler to
-; `or 1 / ret` (always NZ), so the `call HandleCounterMove / jr z, handleIf..MoveMissed` pair of
-; PlayerCalcMoveDamage and EnemyCalcMoveDamage never jumped, and nothing read the a and flags it left
+; in v0.5 and v0.7 cut the handler to `or 1 / ret` (always NZ), so the
+; `call HandleCounterMove / jr z, handleIf..MoveMissed` pair of PlayerCalcMoveDamage and
+; EnemyCalcMoveDamage never jumped, and nothing read the a and flags it left
 ; (GetDamageVarsForPlayerAttack opens with `xor a`; SwapPlayerAndEnemyLevels loads a and passes the
 ; flags to GetDamageVarsForEnemyAttack's `xor a`). 13 bytes of Battle Core.
 
@@ -5486,9 +5485,9 @@ ApplyAttackToEnemyPokemon:
 	ld a, $01
 	ld [de], a
 	jr ApplyDamageToEnemyPokemon
-; v0.7 clarity split (2026-08-31): the old SPECIAL_DAMAGE black box
-; (with its unreachable Psywave random-damage tail - PSYWAVE is a flinch
-; move since v0.5) became three self-naming effects.
+; v0.7 clarity split (2026-08-31): the old SPECIAL_DAMAGE black box (with
+; its unreachable Psywave random-damage tail - PSYWAVE is a flinch move
+; since v0.5) became three self-naming effects.
 .userLevelDamage
 ; NIGHT SHADE hits for the USER's own level.
 	ld a, [wBattleMonLevel]
@@ -5728,9 +5727,9 @@ AttackSubstitute:
 	jr z, .nullifyEffect
 	ld hl, wEnemyMoveEffect ; value for enemy's turn
 .nullifyEffect
-; v1.0 (2026-09-24): HYPER BEAM still has to recharge when all it broke
-; was the SUBSTITUTE. Gen 1 dropped every side effect with the doll; only this
-; one is restored: the effect is in AlwaysHappenSideEffects now, so keeping it
+; v1.0 (2026-09-24): HYPER BEAM still has to recharge when all it broke was
+; the SUBSTITUTE. Gen 1 dropped every side effect with the doll; only this one
+; is restored: the effect is in AlwaysHappenSideEffects now, so keeping it
 ; here is what lets .notDone / .handleExplosionMiss set NEEDS_TO_RECHARGE.
 	ld a, [hl]
 	cp HYPER_BEAM_EFFECT
@@ -6953,8 +6952,8 @@ ApplyBadgeStatBoosts:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ret z ; return if link battle
-; v0.7 hard mode knob #17 (2026-09-01): badges only strengthen
-; your #MON in NORMAL mode - hard mode fights on raw stats (the PIKACHU
+; v0.7 hard mode knob #17 (2026-09-01): badges only strengthen your
+; #MON in NORMAL mode - hard mode fights on raw stats (the PIKACHU
 ; x1.25 mascot bonus below is part of the badge boost, so it dies with
 ; it). One gate covers both callers: the send-out bake
 ; (LoadBattleMonFromParty) and the mid-battle level-up re-bake
@@ -7072,9 +7071,9 @@ PrintEmptyString:
 ; a plain `call` and neither pays a farcall's clobbered registers.
 
 HandleExplodingAnimation:
-; v1.0 (R9h, 2026-09-30):
-; EXPLOSION's second animation, the shake of the hit on the target, plays when the hit landed -
-; wMoveMissed 0, the outcome MoveHitTest and ApplyTypeEffectivenessToDamage write, on both turns.
+; v1.0 (R9h, 2026-09-30): EXPLOSION's second animation, the shake of the hit on the target, plays
+; when the hit landed - wMoveMissed 0, the outcome MoveHitTest and ApplyTypeEffectivenessToDamage
+; write, on both turns.
 ; Vanilla also skipped it for a GHOST target (EXPLOSION was NORMAL there; it is FIRE here and hits a
 ; GHOST, while MAGMA's immunity already sets wMoveMissed) and for an INVULNERABLE one (MoveHitTest
 ; misses it first; on the enemy's turn vanilla read the ATTACKER's own bit, wEnemyBattleStatus1).

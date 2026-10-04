@@ -1,5 +1,5 @@
-; v1.0 (2026-09-23): the OLD AMBER errand. The museum's researcher asks
-; the player by name to carry the amber to the LAB on CINNABAR, the lab
+; v1.0 (2026-09-23): the OLD AMBER errand. The museum's researcher asks the
+; player by name to carry the amber to the LAB on CINNABAR, the lab
 ; acknowledges the museum, and the news makes admission free for good. Its own
 ; section (pinned in layout.link): Text 5, the museum's bank, sits 100 bytes
 ; above its floor. Every line under the press-A arrow is 17 tiles or less.

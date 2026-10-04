@@ -73,8 +73,8 @@ _Route8SuperNerd3EndBattleText::
 	prompt
 
 _Route8SuperNerd3AfterBattleText::
-; v1.0 (2026-09-06): the vanilla "stuck here because of the gates at
-; SAFFRON" went false once the gates open in phase 3 - a neutral line instead.
+; v1.0 (2026-09-06): the vanilla "stuck here because of the gates at SAFFRON"
+; went false once the gates open in phase 3 - a neutral line instead.
 	text "My research on"
 	line "#MON growth is"
 	cont "far from done!"
@@ -107,8 +107,8 @@ _Route8CooltrainerF3EndBattleText::
 	prompt
 
 _Route8CooltrainerF3AfterBattleText::
-; v1.0 (2026-09-06): "the gate-keeper won't let us through" went false
-; once the Saffron gates open in phase 3 - a neutral line instead.
+; v1.0 (2026-09-06): "the gate-keeper won't let us through" went false once
+; the Saffron gates open in phase 3 - a neutral line instead.
 	text "I come here to"
 	line "train with my"
 	cont "friends after"

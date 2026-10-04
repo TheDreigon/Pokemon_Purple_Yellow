@@ -1,5 +1,5 @@
-; v1.0 (2026-09-22): post-game lines whose maps' text banks are full
-; live here (Text 3). Every line under the press-A arrow stays at 17 tiles.
+; v1.0 (2026-09-22): post-game lines whose maps' text banks are full live
+; here (Text 3). Every line under the press-A arrow stays at 17 tiles.
 
 ; The gentleman with the PIDGEOT in SAFFRON, once the player is CHAMPION:
 ; the three fliers are CRAIG, WEEBRA and SMITH, never named, roosting in the

@@ -75,8 +75,8 @@ FlyWarpDataPtr:
 	fly_warp_spec SAFFRON_CITY,    SAFFRON_CITY,    .SaffronCity
 	fly_warp_spec ROUTE_4,         ROUTE_4,         .Route4  ; blackouts from MT.MOON's CENTER
 	fly_warp_spec ROUTE_10,        ROUTE_10,        .Route10 ; blackouts from ROCK TUNNEL's CENTER
-; v1.0 (2026-09-24): the FLY list names interiors; each lands one cell
-; below its door, the rule every other fly point follows (fly_point_rule.py).
+; v1.0 (2026-09-24): the FLY list names interiors; each lands one cell below
+; its door, the rule every other fly point follows (fly_point_rule.py).
 	fly_warp_spec MT_MOON_POKECENTER,     ROUTE_4,       .Route4
 	fly_warp_spec ROCK_TUNNEL_POKECENTER, ROUTE_10,      .Route10
 	fly_warp_spec BILLS_HOUSE,            ROUTE_25,      .Route25

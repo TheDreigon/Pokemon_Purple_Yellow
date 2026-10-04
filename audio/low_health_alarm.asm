@@ -1,6 +1,6 @@
 ; The player's red-HP alarm; VBlank runs it every frame (home/vblank.asm,
-; home/cgb_palettes.asm Func_3082). v1.0 (2026-09-24): three cycles,
-; then quiet, and it re-arms once the bar has left the red.
+; home/cgb_palettes.asm Func_3082). v1.0 (2026-09-24): three cycles, then
+; quiet, and it re-arms once the bar has left the red.
 ;
 ; wLowHealthAlarm:
 ;   bit 7    = sounding. DrawPlayerHUDAndHPBar sets it while the bar is red.

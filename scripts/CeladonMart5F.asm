@@ -27,6 +27,6 @@ CeladonMart5FClerk1Text::
 	script_mart TM_SWORDS_DANCE, TM_BULK_UP, TM_CALM_MIND, TM_AGILITY, TM_INTIMIDATE, TM_CHARM, TM_FAKE_TEARS, TM_SCARY_FACE, TM_REFLECT, TM_LIGHT_SCREEN
 
 CeladonMart5FClerk2Text::
-	; TM clerk: early/mid damage TMs. v0.7 (2026-09-05): up from 2F, so
-	; both TM clerks share this counter; the vitamins went down to 2F.
+	; TM clerk: early/mid damage TMs. v0.7 (2026-09-05): up from 2F, so both
+	; TM clerks share this counter; the vitamins went down to 2F.
 	script_mart TM_FAINT_ATTACK, TM_RAGE, TM_DRAGON_CLAW, TM_SHOCK_WAVE, TM_BIND, TM_SEISMIC_TOSS, TM_FLAME_BURST, TM_AERIAL_ACE, TM_NIGHT_SHADE, TM_ICY_PULSE, TM_QUICK_ATTACK, TM_BODY_SLAM, TM_EXTRASENSORY, TM_ROCK_THROW, TM_IRON_TAIL, TM_WATER_PULSE

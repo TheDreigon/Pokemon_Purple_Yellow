@@ -157,8 +157,8 @@ Evolution_PartyMonLoop: ; loop over party mons
 	call DelayFrames
 	call ClearScreen
 	call RenameEvolvedMon
-; v0.7 (2026-09-08): EXP top-up across a curve change. Six lines evolve
-; from a FAST pre-evo into a MEDIUM_FAST evolution (Caterpie, Weedle, Pikachu,
+; v0.7 (2026-09-08): EXP top-up across a curve change. Six lines evolve from a
+; FAST pre-evo into a MEDIUM_FAST evolution (Caterpie, Weedle, Pikachu,
 ; Magikarp, Eevee, Dratini). Evolving never touched the exp, so the new species
 ; carried exp under its own level floor: the box and the day care recompute the
 ; level from exp and dropped it (Gyarados L26 -> L24), the first level after
@@ -894,8 +894,8 @@ PrepareRelearnableMoveList::
 
 ;joenote - start checking for level-0 moves
 ; v0.7: reached via `jp .eggPhase` above (egg moves are now listed BEFORE
-; the level-up moves); exits through .done2, which restores the
-; level + learnset pointer and jumps back to .loop.
+; the level-up moves); exits through .done2, which restores the level +
+; learnset pointer and jumps back to .loop.
 .eggPhase
 	xor a
 	ld b, a	;b will act as a counter, as there can only be up to 4 level-0 moves

@@ -107,16 +107,16 @@ ApplyTypeEffectivenessToDamage::
 	inc hl
 	jp .loop
 
-; v1.0 (R9c, 2026-09-30; the fixed-damage moves follow the immunity rules too):
-; SetDamageEffects' family - SEISMIC TOSS, SUPER FANG, PARASITE, NIGHT SHADE, DRAGON RAGE, SONICBOOM - deals
-; a set number, so the chart's multipliers never scale it; but a type immunity stops it, as from Gen 2 on
-; (with this chart: SEISMIC TOSS and SUPER FANG on a GHOST). PlayerCalcMoveDamage and EnemyCalcMoveDamage
-; call this on the family's branch, where the damage calculation is skipped, right before MoveHitTest. The
-; walk above runs on the move's type and the target's types and answers a NO_EFFECT row exactly as it does
-; for any move: the multiplier's low bits 0 and MOVE_FAILED_NO_SCRATCH - MoveHitTest takes its type exit
-; (no accuracy roll), PrintMoveFailureText says "It doesn't affect", no damage; the PP is already spent.
-; Any other chain is put back as the turn started it (EFFECTIVE, wMoveMissed 0): no "super effective"
-; line or hit sound for a set number. wDamage is scratch here (the walk scales whatever it holds;
+; v1.0 (R9c, 2026-09-30; the fixed-damage moves follow the immunity rules too): SetDamageEffects' family -
+; SEISMIC TOSS, SUPER FANG, PARASITE, NIGHT SHADE, DRAGON RAGE, SONICBOOM - deals a set number, so the
+; chart's multipliers never scale it; but a type immunity stops it, as from Gen 2 on (with this chart:
+; SEISMIC TOSS and SUPER FANG on a GHOST). PlayerCalcMoveDamage and EnemyCalcMoveDamage call this on the
+; family's branch, where the damage calculation is skipped, right before MoveHitTest. The walk above runs on
+; the move's type and the target's types and answers a NO_EFFECT row exactly as it does for any move: the
+; multiplier's low bits 0 and MOVE_FAILED_NO_SCRATCH - MoveHitTest takes its type exit (no accuracy roll),
+; PrintMoveFailureText says "It doesn't affect", no damage; the PP is already spent.
+; Any other chain is put back as the turn started it (EFFECTIVE, wMoveMissed 0): no "super effective" line
+; or hit sound for a set number. wDamage is scratch here (the walk scales whatever it holds;
 ; ApplyAttackTo*Pokemon writes the family's number). In: hWhoseTurn. Clobbers af, bc, de, hl.
 FixedDamageImmunity::
 	ldh a, [hWhoseTurn]
@@ -265,12 +265,12 @@ AIMoveOnPlayer::
 	ret
 
 ; v1.0 (F4, 2026-09-30; MIND BREAK gets an exception too, setting it further apart as the stronger
-; PSYCHIC move: MIND BREAK vs DARK at 0.5x): the chart's one exception, shared by the damage walk and
-; the AI's walk so the two
-; can never disagree. In: a = the multiplier of the row that matched, hl -> it (the row's defending
-; type at hl - 1), c = the move (NO_MOVE: types alone). Out: a = NOT_VERY_EFFECTIVE for MIND BREAK
-; on a NO_EFFECT row whose defending type is DARK (MIND BREAK is PSYCHIC: the PSYCHIC -> DARK row),
-; else a unchanged. MIND BREAK's paralysis (45%) comes with the hit. Keeps bc, de, hl.
+; PSYCHIC move: MIND BREAK vs DARK at 0.5x): the chart's one exception, shared by the damage walk
+; and the AI's walk so the two can never disagree. In: a = the multiplier of the row that matched,
+; hl -> it (the row's defending type at hl - 1), c = the move (NO_MOVE: types alone). Out: a =
+; NOT_VERY_EFFECTIVE for MIND BREAK on a NO_EFFECT row whose defending type is DARK (MIND BREAK is
+; PSYCHIC: the PSYCHIC -> DARK row), else a unchanged. MIND BREAK's paralysis (45%) comes with the
+; hit. Keeps bc, de, hl.
 ASSERT NO_EFFECT == 0, "TypeRowMultiplier tests NO_EFFECT with `and a`"
 TypeRowMultiplier:
 	and a ; NO_EFFECT?

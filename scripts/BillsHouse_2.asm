@@ -96,9 +96,9 @@ BillsHousePrintBillSSTicketText::
 	ld a, [wObtainedBadges]
 	bit BIT_CASCADEBADGE, a
 	jr z, .no_badge_yet
-; 2026-08-29: the reward asks only that the gift was handed over
-; and MISTY fell — no party scan. Boxing, evolving, even releasing the
-; EEVEE no longer matters; the stone is a thank-you, not a custody check.
+; 2026-08-29: the reward asks only that the gift was handed over and
+; MISTY fell — no party scan. Boxing, evolving, even releasing the EEVEE
+; no longer matters; the stone is a thank-you, not a custody check.
 	jp BillsHouseStoneReward
 .default_chat
 	ld hl, .WhyDontYouGoInsteadOfMeText
@@ -460,9 +460,9 @@ BillsHouseGiveEevee::
 	text_far _BillsHouseBillNoRoomForEeveeText
 	text_end
 
-; part 2 payoff (reshaped 2026-08-29): beat MISTY with the EEVEE
-; handed over and Bill pays the promised reward — a free pick of the
-; three evolution stones, tied to nothing but the two events. The old
+; part 2 payoff (reshaped 2026-08-29): beat MISTY with the EEVEE handed
+; over and Bill pays the promised reward — a free pick of the three
+; evolution stones, tied to nothing but the two events. The old
 ; favorite-eeveelution quiz, its party scan, and the 08-25 evolved-EEVEE
 ; recognition all left with the custody requirement they served.
 BillsHouseStoneReward::

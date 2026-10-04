@@ -2,11 +2,11 @@ SaffronPokecenter_Script:
 	call SaffronPokecenterAidesScene
 	jp EnableAutoTextBoxDrawing
 
-; v0.7 (2026-08-30, design v3): PROF.OAK's two aides wait here
-; with the ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek.
+; v0.7 (2026-08-30, design v3): PROF.OAK's two aides wait here with the
+; ITEMFINDER and the EXP.SHARE - no dex quota, no gate trek.
 ; The moment the player walks in (spawn is (3,7), the city warp targets
-; warp 1), the scene freezes the pad and walks both aides three steps
-; down, side by side, to (2,6) and (4,6), the player's two diagonals.
+; warp 1), the scene freezes the pad and walks both aides three steps down,
+; side by side, to (2,6) and (4,6), the player's two diagonals.
 ; Delivery is BOTH parcels or neither (a packed bag gets the direct "two
 ; free slots" demand), then they walk back up together. The scene re-arms
 ; on every map entry while a parcel is owed, so it repeats each visit until
@@ -16,22 +16,22 @@ SaffronPokecenter_Script:
 ; on-entry branch hides both aides for good: they went home to the lab (the
 ; two HS slots came from the CERULEAN CAVE ULTRA BALL conversions).
 ;
-; v0.7 (2026-09-05, playtest): the walks were one aide at a time
-; (the J&J idiom) and one aide talked with his back turned. Both had the
-; same root: MoveSprite leaves a sprite's movement byte 2 at $FF, and a
-; STAY sprite with $FF there turns to face a random way every so often -
-; so the aide who had finished walking stood turning at random while the
-; other walked, and the text froze him wherever he happened to look. Now
-; the two walk in lockstep (SaffronAidesWalkBoth) and their byte 2 holds
-; the facing the walk ends in. Scripted steps ignore collision
-; (CanWalkOntoTile), so a wandering GENTLEMAN in a column is walked
-; through, not around - cosmetic, one step. Two more cosmetic edges the
-; review noted, both pre-existing: the scene re-arms on ANY map entry while
-; a parcel is owed, so a save-and-reload inside the Center after a "make
-; room" refusal plays it with the player wherever they stand (the delivery
-; still lands); and about once in a hundred entries one aide happens to be
-; mid-refresh (movement status 2) when the walk starts and sets off one
-; frame after the other - one pixel, invisible.
+; v0.7 (2026-09-05, playtest): the walks were one aide at a time (the J&J
+; idiom) and one aide talked with his back turned. Both had the same root:
+; MoveSprite leaves a sprite's movement byte 2 at $FF, and a STAY sprite
+; with $FF there turns to face a random way every so often - so the aide
+; who had finished walking stood turning at random while the other walked,
+; and the text froze him wherever he happened to look. Now the two walk in
+; lockstep (SaffronAidesWalkBoth) and their byte 2 holds the facing the
+; walk ends in. Scripted steps ignore collision (CanWalkOntoTile), so a
+; wandering GENTLEMAN in a column is walked through, not around - cosmetic,
+; one step. Two more cosmetic edges the review noted, both pre-existing:
+; the scene re-arms on ANY map entry while a parcel is owed, so a
+; save-and-reload inside the Center after a "make room" refusal plays it
+; with the player wherever they stand (the delivery still lands); and about
+; once in a hundred entries one aide happens to be mid-refresh (movement
+; status 2) when the walk starts and sets off one frame after the other -
+; one pixel, invisible.
 SaffronPokecenterAidesScene:
 	ld hl, wCurrentMapScriptFlags
 	bit 5, [hl]

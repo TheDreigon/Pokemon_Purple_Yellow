@@ -368,9 +368,9 @@ BugBuzzAnim:
 	db -1 ; end
 
 MegahornAnim:
-	; Design image: like a beetle TOSSING its opponent with its
-	; horn — launching upward. Anim pass #1: the impact star should
-	; rise bottom-to-top (the launch motion), not drift across.
+	; Design image: like a beetle TOSSING its opponent with its horn —
+	; launching upward. Anim pass #1: the impact star should rise
+	; bottom-to-top (the launch motion), not drift across.
 	; SUBANIM_1_SPHERE_BIG_RISE is the upward primitive (used in
 	; SeismicToss to lift the enemy). Charge step + horn jab + RISING
 	; impact + HUD rattle + shake. Distinct from HORN_DRILL (sustained
@@ -419,10 +419,10 @@ FalseSwipeAnim:
 	db -1 ; end
 
 ConfusionHitAnim:
-; v0.7 (2026-08-31, playtest): the confusion self-hit's own
-; animation - a replica of vanilla POUND's stream, which "anim id 1"
-; stopped meaning in the v0.5 reorder (and BUG_BITE's chomp made no sense
-; here). Sound arg TACKLE: the plain thud, closest to vanilla POUND's.
+; v0.7 (2026-08-31, playtest): the confusion self-hit's own animation - a
+; replica of vanilla POUND's stream, which "anim id 1" stopped meaning in
+; the v0.5 reorder (and BUG_BITE's chomp made no sense here). Sound arg
+; TACKLE: the plain thud, closest to vanilla POUND's.
 	battle_anim TACKLE, SUBANIM_0_STAR_TWICE, 0, 8
 	db -1 ; end
 
@@ -563,9 +563,9 @@ DragonClawAnim:
 
 DragonBreathAnim:
 	; Anim pass #8: a more continuous, longer sound and a slightly
-	; longer animation. Stretched the beam (4→6 each leg)
-	; and added a third column at the end. The SFX tempo is also
-	; lengthened in sfx.asm so the breath sustains.
+	; longer animation. Stretched the beam (4→6 each leg) and added a
+	; third column at the end. The SFX tempo is also lengthened in
+	; sfx.asm so the breath sustains.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim DRAGON_RAGE, SUBANIM_1_FLAME_BEAM, 1, 6
 	battle_anim DRAGON_RAGE, SUBANIM_1_FLAME_BEAM, 1, 6
@@ -720,8 +720,8 @@ DrainingKissAnim:
 	db -1 ; end
 
 DazzleGleamAnim:
-	; Anim pass #15: looked broken — after the beam, visual ended
-	; but SFX kept ringing in silence (a repeating sound). Now adds
+	; Anim pass #15: looked broken — after the beam, visual ended but
+	; SFX kept ringing in silence (a repeating sound). Now adds
 	; sustained flash + sparkly stars between beam and reset, so the
 	; long DAZZLE_GLEAM SFX always has visual to match.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
@@ -762,9 +762,9 @@ PlayRoughAnim:
 LovelyKissAnim:
 	; v0.7: relocated from BIRD section. LOVELY_KISS was NORMAL in
 	; vanilla; current type is FAIRY. Effect changed SLEEP_EFFECT →
-	; CONFUSION_EFFECT — kiss leaves opponent dazed/dizzy,
-	; not asleep. Body retained: heart + wavy already evokes confusion
-	; better than sleep, no rework needed.
+	; CONFUSION_EFFECT — kiss leaves opponent dazed/dizzy, not asleep.
+	; Body retained: heart + wavy already evokes confusion better than
+	; sleep, no rework needed.
 	; Mental image: quick affectionate kiss + the target's mind goes
 	; fuzzy and confused. The heart is the kiss landing; the wavy
 	; aftermath is the confusion setting in. Distinct from CHARM (atk
@@ -805,8 +805,8 @@ MoonblastAnim:
 ; ============================================================
 
 SeismicTossAnim:
-	; Anim pass #19: a small sound while the opponent blinks
-	; (the grab). WRAP plays the squeeze SFX (BATTLE_14) which fits a
+	; Anim pass #19: a small sound while the opponent blinks (the grab).
+	; WRAP plays the squeeze SFX (BATTLE_14) which fits a
 	; pickup-and-grapple. First line gains audio without changing visual.
 	battle_anim LEER, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -825,12 +825,18 @@ SeismicTossAnim:
 	db -1 ; end
 
 LowKickAnim:
-	; Anim pass #20: more like a dirty trip — sneaky
-	; sweep that drops the target. Engine has no leg-sweep primitive.
+	; Anim pass #20: more like a dirty trip — sneaky sweep that drops
+	; the target. Engine has no leg-sweep primitive.
 	; Approximate: quick approach + SLIDE_MON_OFF (target loses
 	; footing) + descending star (the leg sweeping low) + return.
 	; would-want: dedicated leg-sweep subanim.
-	; 2026-08-22 (anim pass #21): a visual artifact -- real, and in battle too: SE_MOVE_MON_HORIZONTALLY redraws the pic at columns 2-8 and SE_SLIDE_MON_OFF only rewrites columns 0-7, so the rightmost column stayed behind as a 1-tile sliver until RESET_MON_POSITION (~50 frames). The approach beat is gone (vanilla has none); nothing else in the file pairs MOVE with SLIDE_OFF.
+	; 2026-08-22 (anim pass #21): a visual artifact -- real, and in
+	; battle too: SE_MOVE_MON_HORIZONTALLY redraws the pic at columns
+	; 2-8 and SE_SLIDE_MON_OFF only rewrites columns 0-7, so the
+	; rightmost column stayed behind as a 1-tile sliver until
+	; RESET_MON_POSITION (~50 frames). The approach beat is gone
+	; (vanilla has none); nothing else in the file pairs MOVE with
+	; SLIDE_OFF.
 	battle_anim LOW_KICK, SE_SLIDE_MON_OFF
 	battle_anim NO_MOVE, SUBANIM_0_STAR_DESCENDING, 0, 4
 	battle_anim NO_MOVE, SE_SHOW_MON_PIC
@@ -892,8 +898,8 @@ StrengthAnim:
 	db -1 ; end
 
 TakeDownAnim:
-	; Anim pass #24: was too rapid; needs the impact star toward
-	; the opponent. Now: charge slide → delay → STAR_BIG_MOVING (the
+	; Anim pass #24: was too rapid; needs the impact star toward the
+	; opponent. Now: charge slide → delay → STAR_BIG_MOVING (the
 	; impact, visible) → flash → shake → flash → reset. Slower pacing
 	; lets the hit register.
 	battle_anim LOW_KICK, SE_MOVE_MON_HORIZONTALLY
@@ -1270,8 +1276,8 @@ ParasiteAnim:
 	db -1 ; end
 
 SporeAnim:
-	; Anim pass #42: a bit slower. Delays 6→10 for the
-	; thick suffocating drift.
+	; Anim pass #42: a bit slower. Delays 6→10 for the thick
+	; suffocating drift.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim SPORE, SUBANIM_0_CIRCLES_FALLING, 0, 10
 	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_FALLING, 0, 10
@@ -1292,9 +1298,9 @@ SmogAnim:
 
 HazeAnim:
 	; Anim pass #45: more intense + better SFX + bring back the
-	; droplet screen (WATER_DROPLETS_EVERYWHERE) which actually
-	; reads as misty haze HERE (not water — a wet fog). Combined with
-	; cloud toss + shake for the choking-fog feel.
+	; droplet screen (WATER_DROPLETS_EVERYWHERE) which actually reads
+	; as misty haze HERE (not water — a wet fog). Combined with cloud
+	; toss + shake for the choking-fog feel.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim HAZE, SUBANIM_1_CLOUD_TOSS, 1, 8
 	battle_anim NO_MOVE, SUBANIM_1_CLOUD_TOSS, 1, 6
@@ -1334,9 +1340,9 @@ LickAnim:
 	db -1 ; end
 
 AstonishAnim:
-	; Anim pass #48: more aggressive. Lunge in (slide horizontal),
-	; dark flash, hit, second flash + shake, return. Distinct from
-	; LICK (slow blob drip) by speed and impact.
+	; Anim pass #48: more aggressive. Lunge in (slide horizontal), dark
+	; flash, hit, second flash + shake, return. Distinct from LICK
+	; (slow blob drip) by speed and impact.
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 6
 	battle_anim ASTONISH, SE_DARK_SCREEN_FLASH
@@ -1384,8 +1390,8 @@ SpiritDrainAnim:
 	db -1 ; end
 
 ShadowBallAnim:
-	; Anim pass #52: was using PSYBEAM as the SFX trigger (sounded
-	; too psychic, not ghostly). Now uses SHADOW_BALL's own SFX (drain
+	; Anim pass #52: was using PSYBEAM as the SFX trigger (sounded too
+	; psychic, not ghostly). Now uses SHADOW_BALL's own SFX (drain
 	; family deep-pitched in sfx.asm). Added impact thud at end via
 	; TACKLE-borrowed shake.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
@@ -1467,8 +1473,8 @@ RazorLeafAnim:
 	db -1 ; end
 
 GigaDrainAnim:
-	; Anim pass #54 (dup): more intense (anim AND sound). Added
-	; dark palette frame + shake mid-drain + 3rd cycle. SFX retuned
+	; Anim pass #54 (dup): more intense (anim AND sound). Added dark
+	; palette frame + shake mid-drain + 3rd cycle. SFX retuned
 	; deeper + max tempo.
 	battle_anim GIGA_DRAIN, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -1512,9 +1518,9 @@ PetalDanceAnim:
 	db -1 ; end
 
 SolarBeamAnim:
-	; Anim pass #55: a touch longer. Added 2nd delay
-	; before beam + extended beam delay (5→6) + final dark flash for
-	; the lingering after-glow.
+	; Anim pass #55: a touch longer. Added 2nd delay before beam +
+	; extended beam delay (5→6) + final dark flash for the lingering
+	; after-glow.
 	battle_anim LEECH_SEED, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -1569,8 +1575,8 @@ SleepPowderAnim:
 ; ============================================================
 
 GroundStompAnim:
-	; Anim pass #58: good but more powerful. Added shake between
-	; the two stomps + final shake. Bigger felt impact.
+	; Anim pass #58: good but more powerful. Added shake between the
+	; two stomps + final shake. Bigger felt impact.
 	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim GROUND_STOMP, SUBANIM_1_STAR_BIG, 1, 12
@@ -1645,8 +1651,8 @@ FissureAnim:
 	db -1 ; end
 
 BoneClubAnim:
-	; Anim pass #64: try the green-ish (LIGHT_SCREEN palette)
-	; wrap to see how it reads on a club move (an experiment).
+	; Anim pass #64: try the green-ish (LIGHT_SCREEN palette) wrap
+	; to see how it reads on a club move (an experiment).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim BONE_CLUB, SUBANIM_0_STAR_THRICE, 0, 6
@@ -1748,8 +1754,8 @@ AuroraBeamAnim:
 	db -1 ; end
 
 IceBeamAnim:
-	; Anim pass #70: slower beam (delay 5→8) + longer SFX
-	; (sfx.asm) + light palette wrap.
+	; Anim pass #70: slower beam (delay 5→8) + longer SFX (sfx.asm) +
+	; light palette wrap.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim BLIZZARD, SE_WATER_DROPLETS_EVERYWHERE
@@ -1862,8 +1868,8 @@ TackleAnim:
 	db -1 ; end
 
 BiteAnim:
-	; Anim pass #75: a little more impactful. Added shake
-	; on the bite.
+	; Anim pass #75: a little more impactful. Added shake on the
+	; bite.
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim BITE, SUBANIM_0_STAR_TWICE, 0, 11
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
@@ -1943,9 +1949,9 @@ HornChargeAnim:
 	db -1 ; end
 
 ThrashAnim:
-	; Anim pass #82: like Rage but stronger. LIGHT_SCREEN_PALETTE
-	; wrap (matches Rage's framing). Keep impact star + add multiple
-	; shakes for the sustained 2-3 turn frenzy.
+	; Anim pass #82: like Rage but stronger. LIGHT_SCREEN_PALETTE wrap
+	; (matches Rage's framing). Keep impact star + add multiple shakes
+	; for the sustained 2-3 turn frenzy.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
@@ -1958,9 +1964,9 @@ ThrashAnim:
 	db -1 ; end
 
 HeavySlamAnim:
-	; Anim pass #83: was silent (only LEECH_SEED SFX, then
-	; quiet flashes). Now: dark + slide + a very SLOW STAR_BIG (delay 10)
-	; + dual TAKE_DOWN-borrowed thuds + shakes. Audio fills the dark
+	; Anim pass #83: was silent (only LEECH_SEED SFX, then quiet
+	; flashes). Now: dark + slide + a very SLOW STAR_BIG (delay 10) +
+	; dual TAKE_DOWN-borrowed thuds + shakes. Audio fills the dark
 	; phase.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim LEECH_SEED, SE_MOVE_MON_HORIZONTALLY
@@ -2033,8 +2039,8 @@ SuperFangAnim:
 	db -1 ; end
 
 HyperFangAnim:
-	; Anim pass #87: too simple + weak. Now: dark dip + slide-
-	; in + jaw chomp + big star impact + double shake.
+	; Anim pass #87: too simple + weak. Now: dark dip + slide-in +
+	; jaw chomp + big star impact + double shake.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10

@@ -305,8 +305,8 @@ ChampionsRoomRivalText:
 	text_asm
 	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
 	jr nz, .afterBattle
-; v1.0 (2026-09-24): the speech before the fight runs at SLOW whatever
-; TEXT SPEED says - PrintLetterDelay reads the low bits of wOptions for every
+; v1.0 (2026-09-24): the speech before the fight runs at SLOW whatever TEXT
+; SPEED says - PrintLetterDelay reads the low bits of wOptions for every
 ; letter, so the option is swapped for the two halves and put back after
 ; (INSTA included: its 0 becomes SLOW's 5). Holding A still skips the delay,
 ; as everywhere. The rematch speech after the battle keeps the option.
@@ -317,13 +317,13 @@ ChampionsRoomRivalText:
 	ld [wOptions], a
 	ld hl, .IntroText
 	call PrintText
-; v1.0 (2026-09-24; the kep-hack's a2acee24): the room's theme dies
-; out on "And now..." and the second half of the speech runs in silence, so
-; the battle music starts from nothing instead of cutting the theme. The
-; idiom is the healing machine's (engine/overworld/healing_machine.asm):
-; the fade counter, a stop request that PlaySound turns into a fade-out, and
-; a wait for the VBlank fade to finish. To revert: drop these lines and put
-; the two text halves back together (text/ChampionsRoom.asm).
+; v1.0 (2026-09-24; the kep-hack's a2acee24): the room's theme dies out on
+; "And now..." and the second half of the speech runs in silence, so the
+; battle music starts from nothing instead of cutting the theme. The idiom
+; is the healing machine's (engine/overworld/healing_machine.asm): the fade
+; counter, a stop request that PlaySound turns into a fade-out, and a wait
+; for the VBlank fade to finish. To revert: drop these lines and put the two
+; text halves back together (text/ChampionsRoom.asm).
 	ld a, 5
 	ld [wAudioFadeOutControl], a
 	call StopAllMusic

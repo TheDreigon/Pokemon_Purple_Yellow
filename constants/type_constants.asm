@@ -4,12 +4,12 @@
 ; types with ID < SPECIAL use Attack/Defense, types >= SPECIAL use Special.
 ; We extended the PHYSICAL range to fit the new physical types (DRAGON moved
 ; down from $1A; DARK, STEEL added). GHOST moved from $08 to $0D. FAIRY and
-; GAS are in the SPECIAL range. 2026-09-02: MAGMA and FUNGUS turned
-; SPECIAL - the boundary moved from $0D down to $0B, NO id changed (a mon's
-; type bytes, the matchup table and the name table are all untouched; only
-; the three `cp SPECIAL` category checks and the generated manual pages see
-; the difference). The gap between GHOST and FIRE is preserved to keep the
-; trade slot layout ($14 alignment).
+; GAS are in the SPECIAL range. 2026-09-02: MAGMA and FUNGUS turned SPECIAL -
+; the boundary moved from $0D down to $0B, NO id changed (a mon's type bytes,
+; the matchup table and the name table are all untouched; only the three
+; `cp SPECIAL` category checks and the generated manual pages see the
+; difference). The gap between GHOST and FIRE is preserved to keep the trade
+; slot layout ($14 alignment).
 	const_def
 
 DEF PHYSICAL EQU const_value

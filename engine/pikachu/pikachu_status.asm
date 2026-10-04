@@ -150,11 +150,11 @@ asm_fce21:
 	ret
 
 UseFakePikachuFrontPic::
-; v0.7 (2026-08-31): the second Pikachu. The partner
-; keeps the Yellow front pic; every OTHER Pikachu - the wild ones and
-; anything caught from them, the ones that CAN evolve - shows the G/S
-; Silver import instead. Call after GetMonHeader (or LoadMonData) and
-; before the front pic load: if the loaded header is Pikachu's, repoint
+; v0.7 (2026-08-31): the second Pikachu. The partner keeps the Yellow
+; front pic; every OTHER Pikachu - the wild ones and anything caught
+; from them, the ones that CAN evolve - shows the G/S Silver import
+; instead. Call after GetMonHeader (or LoadMonData) and before the
+; front pic load: if the loaded header is Pikachu's, repoint
 ; wMonHeader's front pointer and pic bank at PikachuFakePicFront. Both
 ; pics are 5x5, so the dim byte needs no touch. The header is a scratch
 ; copy - the next GetMonHeader rebuilds it from base stats.
@@ -234,10 +234,10 @@ UseFakePikachuFrontPicChangeMonPic::
 	jp UseFakePikachuFrontPic
 
 UseFakePikachuFrontPicHoF::
-; Hall of Fame INDUCTION: show the individual being inducted (2026-09-01:
-; the PIKACHU that was used). wHoFPartyMonIndex is
-; the party slot; the full partner test (marker + OTID + OT name) lives
-; two routines up in this same bank. The REPLAY from the League PC never
+; Hall of Fame INDUCTION: show the individual being inducted
+; (2026-09-01: the PIKACHU that was used). wHoFPartyMonIndex is the
+; party slot; the full partner test (marker + OTID + OT name) lives two
+; routines up in this same bank. The REPLAY from the League PC never
 ; comes here - its records store species only, so it keeps the canonical
 ; Yellow pic (there is nothing individual left to ask).
 ; Clobbers wWhichPokemon; the HoF flow rewrites it with this same value
@@ -338,8 +338,8 @@ CheckPikachuFaintedOrStatused::
 	ret
 
 IsPikachuInThePlayersParty::
-; v0.7 (2026-09-01): the minigame's celebration cry follows
-; the entry gate - ANY Pikachu in the party counts, the SURF-move (and
+; v0.7 (2026-09-01): the minigame's celebration cry follows the entry
+; gate - ANY Pikachu in the party counts, the SURF-move (and
 ; OTID/OT-name) requirements died with the gate relax in
 ; home/map_objects.asm IsPikachuInParty. Carry = found.
 ; (Was IsSurfingPikachuInThePlayersParty, ~70 bytes of species+SURF+OT

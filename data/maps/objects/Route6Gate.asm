@@ -5,10 +5,10 @@ Route6Gate_Object:
 	db $a ; border block
 
 	def_warp_events
-; v0.7 (2026-09-05): named, not LAST_MAP. The north door is entered
-; from SAFFRON CITY (the gate's back wall sits on the seam - see Route6.asm), so
-; LAST_MAP would have sent a player who came in from the city out through the
-; city's 3rd warp, the GYM. home/overworld.asm treats a named town like LAST_MAP.
+; v0.7 (2026-09-05): named, not LAST_MAP. The north door is entered from SAFFRON
+; CITY (the gate's back wall sits on the seam - see Route6.asm), so LAST_MAP
+; would have sent a player who came in from the city out through the city's 3rd
+; warp, the GYM. home/overworld.asm treats a named town like LAST_MAP.
 	warp_event  3,  5, ROUTE_6, 1
 	warp_event  4,  5, ROUTE_6, 1
 	warp_event  3,  0, SAFFRON_CITY, 9

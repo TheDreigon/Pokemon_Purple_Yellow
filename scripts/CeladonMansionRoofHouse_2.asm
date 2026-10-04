@@ -1,13 +1,13 @@
 ; PURPLE the PROGRAMMER (Celadon Mansion roof house).
-; The roof-house dev quizzes the player on THIS hack's canon (10
-; questions, 3-way menus). v1.0 (2026-09-22): a perfect score earns
-; PURPLE'S PATCH - he brings out one party #MON's full potential: every DV
-; to 15 ($FF $FF; the Special DV feeds SP.ATK and SP.DEF, and the HP DV is
-; derived from the other four, so all six stats), its stats recalculated
-; from its own stat exp. Two credits, each its own flag: the quiz prize, and
-; a bonus once the player is CHAMPION. A player can hold both at once (the
-; prize never used, or PURPLE first met as CHAMPION): then both are offered
-; in the same talk. No rush: B or NO ends the talk and every credit stays.
+; The roof-house dev quizzes the player on THIS hack's canon (10 questions,
+; 3-way menus). v1.0 (2026-09-22): a perfect score earns PURPLE'S PATCH - he
+; brings out one party #MON's full potential: every DV to 15 ($FF $FF; the
+; Special DV feeds SP.ATK and SP.DEF, and the HP DV is derived from the
+; other four, so all six stats), its stats recalculated from its own stat
+; exp. Two credits, each its own flag: the quiz prize, and a bonus once the
+; player is CHAMPION. A player can hold both at once (the prize never used,
+; or PURPLE first met as CHAMPION): then both are offered in the same talk.
+; No rush: B or NO ends the talk and every credit stays.
 ; The PORYGON his desk used to hold is SILPH's now (their 5F worker).
 
 RoofHouseProgrammerScript::

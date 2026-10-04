@@ -13,8 +13,8 @@ Daycare_TextPointers:
 
 ; The POKeMON CENTER's little ceremony, borrowed for the hand-over: the
 ; heal jingle shares the map music's audio bank ($02 -- MUSIC_PALLET_TOWN
-; since the 2026-08-07 pick), so the RedsHouse1F PlaySound idiom
-; carries over unchanged.
+; since the 2026-08-07 pick), so the RedsHouse1F PlaySound idiom carries
+; over unchanged.
 PlayDaycareJingle:
 	ld a, MUSIC_PKMN_HEALED
 	ld [wNewSoundID], a
@@ -88,12 +88,12 @@ DaycareGentlemanText:
 	ld a, [wDayCareInUse]
 	and a
 	jp nz, .daycareInUse
-; 2026-08-07: the place is a family act now -- he is the rigor,
-; the daughter upstairs is the tenderness. And once the player is CHAMPION,
-; he brags about the doubled care (which IncrementDayCareMonExp delivers).
+; 2026-08-07: the place is a family act now -- he is the rigor, the
+; daughter upstairs is the tenderness. And once the player is CHAMPION, he
+; brags about the doubled care (which IncrementDayCareMonExp delivers).
 ; These come BEFORE the question: the question text is designed to flow
-; straight into the yes/no box, so anything printed after it barges in
-; with no button wait.
+; straight into the yes/no box, so anything printed after it barges in with
+; no button wait.
 	ld hl, .TeamworkText
 	call PrintText
 	ld a, [wGameStage]

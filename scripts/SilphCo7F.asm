@@ -241,18 +241,17 @@ SilphCo7FRivalExitScript:
 	ld a, [wd730]
 	bit 0, a
 	ret nz
-; v1.0 (2026-09-24): he has walked onto the teleporter pad at (5,3)
-; (warp 4, the pad down to 3F) and used to vanish on the spot. Now he rides
-; it the way the player does (_LeaveMapAnim.spinWhileMovingUp): the pad's
-; sound, then the sprite spins DOWN, LEFT, UP, RIGHT while lifting 16 px a
-; step, three frames a step, until it is above the screen - same order, step
-; and delay as the player's own ride. c1x2 is (VRAM slot - 1) << 4 | facing |
-; frame, so the slot nibble is kept and the facing written into the low
-; nibble; PrepareOAMData draws from c1x2 and c1x4 at every V-blank, and
-; nothing else touches them while this loop holds the map script
-; (UpdateSprites only runs from the overworld loop). The step count is
-; computed, not searched for: 6 from the square below the player, 5 beside
-; him, never more than 15.
+; v1.0 (2026-09-24): he has walked onto the teleporter pad at (5,3) (warp 4,
+; the pad down to 3F) and used to vanish on the spot. Now he rides it the way
+; the player does (_LeaveMapAnim.spinWhileMovingUp): the pad's sound, then
+; the sprite spins DOWN, LEFT, UP, RIGHT while lifting 16 px a step, three
+; frames a step, until it is above the screen - same order, step and delay as
+; the player's own ride. c1x2 is (VRAM slot - 1) << 4 | facing | frame, so
+; the slot nibble is kept and the facing written into the low nibble;
+; PrepareOAMData draws from c1x2 and c1x4 at every V-blank, and nothing else
+; touches them while this loop holds the map script (UpdateSprites only runs
+; from the overworld loop). The step count is computed, not searched for: 6
+; from the square below the player, 5 beside him, never more than 15.
 	ld a, SFX_TELEPORT_EXIT_1
 	call PlaySound
 	ld a, [wSprite09StateData1YPixels] ; SILPHCO7F_RIVAL is object 9

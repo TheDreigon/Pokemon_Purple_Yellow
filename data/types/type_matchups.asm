@@ -102,8 +102,8 @@ TypeEffects:
 	db ICE,          ICE,          NOT_VERY_EFFECTIVE
 	db ICE,          MAGMA,        NOT_VERY_EFFECTIVE
 	db ICE,          STEEL,        NOT_VERY_EFFECTIVE
-; v0.7 (2026-09-05): fighters train in the cold, so FIGHTING resists ICE - and
-; the same day it stopped resisting STEEL (row removed from the STEEL run below).
+; v0.7 (2026-09-05): fighters train in the cold, so FIGHTING resists ICE - and the
+; same day it stopped resisting STEEL (row removed from the STEEL run below).
 	db ICE,          FIGHTING,     NOT_VERY_EFFECTIVE
 
 ; ===== FIGHTING =====

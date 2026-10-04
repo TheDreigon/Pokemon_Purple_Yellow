@@ -23,8 +23,8 @@ DistributeExperience::
 ;
 ; It also covers the plain case of an empty flag byte, where ONE would otherwise
 ; halve the block and hand the fighters' half to nobody.
-; #10 follow-up (2026-09-02): the summary bookkeeping starts clean for
-; every distribution - the party loop below accumulates into these, and
+; #10 follow-up (2026-09-02): the summary bookkeeping starts clean for every
+; distribution - the party loop below accumulates into these, and
 ; PrintExpShareSummary reads them. Zeroed in all modes; OFF just never prints.
 	xor a
 	ld [wExpShareTotal], a
@@ -94,12 +94,12 @@ DistributeExperience::
 	jp GainExperience
 
 PrintExpShareSummary:
-; One box per battle instead of a text per Pokemon (2026-09-02):
-; "Shared X EXP / between A, B, and C" - X is everything both passes handed
-; out, the names are everyone whose exp actually moved. If every candidate
-; was refused (at the cap, fainted on Hard) there is nothing to say. In a
-; link battle GainExperience returns without paying, the flags stay zero,
-; and this stays quiet with it.
+; One box per battle instead of a text per Pokemon (2026-09-02): "Shared X
+; EXP / between A, B, and C" - X is everything both passes handed out, the
+; names are everyone whose exp actually moved. If every candidate was
+; refused (at the cap, fainted on Hard) there is nothing to say. In a link
+; battle GainExperience returns without paying, the flags stay zero, and
+; this stays quiet with it.
 	xor a
 	ld [wBoostExpByExpShare], a ; do not leak the silence past this battle
 	ld a, [wExpSharePaidFlags]
@@ -525,14 +525,14 @@ GainExperience:
 	and a ; is mon's gain exp flag set?
 	pop hl
 	jp z, .nextMon ; if mon's gain exp flag not set, go to next mon
-; v1.0 (2026-09-08, T4a): on HARD a Pokemon at or past the level cap
-; gains NOTHING from a battle - not even stat exp. The cap used to be applied
-; only to the exp, after the stat exp loop below had already run, so a capped
-; Pokemon (a participant, or a TEAM-mode sharer) kept growing on the inside:
-; a cheat. The same test moved here from after .statExpDone also keeps the
-; older story true - a gift Pokemon that ARRIVES above the cap (the roof-house
-; PORYGON, L20 on a cap of 15) is skipped outright, so its exp is never clamped
-; down and its level never drops. Compared as LEVELS, before any arithmetic.
+; v1.0 (2026-09-08, T4a): on HARD a Pokemon at or past the level cap gains
+; NOTHING from a battle - not even stat exp. The cap used to be applied only to
+; the exp, after the stat exp loop below had already run, so a capped Pokemon
+; (a participant, or a TEAM-mode sharer) kept growing on the inside: a cheat.
+; The same test moved here from after .statExpDone also keeps the older story
+; true - a gift Pokemon that ARRIVES above the cap (the roof-house PORYGON, L20
+; on a cap of 15) is skipped outright, so its exp is never clamped down and its
+; level never drops. Compared as LEVELS, before any arithmetic.
 ; Normal is untouched: GetLevelCap says MAX_LEVEL there and a L100 Pokemon
 ; still banks stat exp, as in vanilla.
 	ld a, [wDifficulty]
@@ -1149,11 +1149,11 @@ GetLevelCap::
 	ld a, [wGameStage]
 	and a
 	jr nz, .uncapped ; the League is beaten; the cap has done its job
-; v0.7 (2026-09-01, redesign): the ceiling is the level the HARD
-; player actually SEES on the next leader's ace - base +1, because bosses
-; are +1 on hard (knob #12). It doubles as the OBEDIENCE threshold for
-; every #MON the player commands (CheckForDisobedience farcalls the
-; wrapper below), so training to the cap is always safe by construction.
+; v0.7 (2026-09-01, redesign): the ceiling is the level the HARD player
+; actually SEES on the next leader's ace - base +1, because bosses are +1
+; on hard (knob #12). It doubles as the OBEDIENCE threshold for every #MON
+; the player commands (CheckForDisobedience farcalls the wrapper below),
+; so training to the cap is always safe by construction.
 ; 🔴 THIS IS THE ONLY COPY of the ladder - the Rare Candy and Day Care
 ; inlines were deduped onto GetLevelCapFar the same day. Keep it that way.
 	call GetBadgesObtained

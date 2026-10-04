@@ -228,13 +228,12 @@ ExpBarBluePalette:
 ; started as a source-level copy of PAL_CYANMON (data/sgb/sgb_palettes.asm).
 ; The bar tiles only use color indices 0, 2 and 3; colors 0 and 3 match the
 ; HP-bar palettes (white frame, black outline), and color 2 is the fill.
-; v0.7 (playtest, 2026-08-28): fill went from blue 00,17,31 to a lighter
-; cyan.
+; v0.7 (playtest, 2026-08-28): fill went from blue 00,17,31 to a lighter cyan.
 ; v1.0 (2026-09-08, in-game review): the fill is now CRYSTAL's exp-bar blue
 ; (pokecrystal gfx/battle/exp_bar.pal, its second colour: four, seventeen,
-; thirty-one) - checked in the game, the Crystal colour was brought
-; back. Colours 0 and 3 stay the HP bars' white and black (Crystal's bar sits
-; on cream; ours on white). No "RGB" + digits in these comments: the audit and
+; thirty-one) - checked in the game, the Crystal colour was brought back.
+; Colours 0 and 3 stay the HP bars' white and black (Crystal's bar sits on
+; cream; ours on white). No "RGB" + digits in these comments: the audit and
 ; emu_test_expbarblue read the first such token after the label as the data.
 ; Living here instead of GBCBasePalettes costs bank1C nothing (it has 1 byte).
 	RGB 31,31,31, 16,26,31, 04,17,31, 03,03,03

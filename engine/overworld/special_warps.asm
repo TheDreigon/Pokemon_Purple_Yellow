@@ -5,10 +5,10 @@ PrepareForSpecialWarp::
 	bit 2, [hl] ; dungeon warp or fly warp?
 	res 2, [hl]
 	jr z, .debugNewGameWarp
-; v1.0 (2026-09-24): wCurMap, not wDestinationMap - LoadSpecialWarpData
-; just set it to the map the player lands on, which is not the key when the
-; key is an interior (the FLY list names BILL's LAB, the POWER PLANT...). It is
-; also right after a blackout, which never writes wDestinationMap.
+; v1.0 (2026-09-24): wCurMap, not wDestinationMap - LoadSpecialWarpData just
+; set it to the map the player lands on, which is not the key when the key is
+; an interior (the FLY list names BILL's LAB, the POWER PLANT...). It is also
+; right after a blackout, which never writes wDestinationMap.
 	ld a, [wCurMap]
 	jr .next
 .debugNewGameWarp
@@ -112,8 +112,8 @@ LoadSpecialWarpData:
 	inc hl
 	jr .flyWarpDataPtrLoop
 .foundFlyWarpMatch
-; v1.0 (2026-09-24): the byte after the key is the map the player lands
-; on - the key itself for a town, the map outside the door for an interior
+; v1.0 (2026-09-24): the byte after the key is the map the player lands on -
+; the key itself for a town, the map outside the door for an interior
 	ld a, [hli]
 	ld [wCurMap], a
 	ld a, [hli]

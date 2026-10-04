@@ -1,6 +1,6 @@
 Route7WildMons:
-; v1.0 (2026-09-07): the poison pass on both sides of SAFFRON - GRIMER 10% + KOFFING
-; 10% + a 1% evolved rare (MUK here, WEEZING on Route 8; both evolve at 31 in this hack).
+; v1.0 (2026-09-07): the poison pass on both sides of SAFFRON - GRIMER 10% + KOFFING 10% +
+; a 1% evolved rare (MUK here, WEEZING on Route 8; both evolve at 31 in this hack).
 ; The 20% KOFFING slot is MEOWTH now (the city cat, up from Route 5's 15); the second
 ; KOFFING slot stays; PIDGEOTTO's slot is the GRIMER (Pidgeotto stays on 12/13/15/21).
 	def_grass_wildmons 15 ; encounter rate

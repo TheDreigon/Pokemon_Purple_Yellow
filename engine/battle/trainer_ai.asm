@@ -136,66 +136,62 @@ AIGetMoveChoiceList:
 ; v1.0 (D15, 2026-09-29): and a stat-up move that would raise nothing - every stat it raises
 ; already at +6 or at 999 (.checkRaise). Every class list starts with this layer
 ; (data/trainers/move_choices.asm; Hard's HardModeBossAIMods too): every trainer gets it.
-; v1.0 (E4, 2026-09-29): two tiers. A move the engine
-; would refuse against what the trainer sees, and that only a deliberate act of the player (a
-; switch, a cure, its own REST) could turn around before it runs, is USELESS (.useless, the tier
-; of a refused raise): DREAM EATER on a Pokemon that is not asleep (MoveHitTest); LEECH SEED on
-; one already seeded or GRASS (LeechSeedEffect_); FOCUS ENERGY while pumped with its ACCURACY at +6
-; (FocusEnergyEffect_, F2: pumped, it still raises ACCURACY);
-; MIST, REFLECT or LIGHT SCREEN already up (MistEffect_, ReflectLightScreenEffect_ - no move
-; carries HAZE_EFFECT, so only the enemy's own switch takes them down); a status move on a type
-; immune to it (CheckStatusImmunity) or on a Pokemon with a POISON, a BURN or a PARALYSIS (every
-; status handler refuses a statused target, and those three never wear off by themselves). A
+; v1.0 (E4, 2026-09-29): two tiers. A move the engine would refuse against what the trainer sees,
+; and that only a deliberate act of the player (a switch, a cure, its own REST) could turn around
+; before it runs, is USELESS (.useless, the tier of a refused raise): DREAM EATER on a Pokemon that
+; is not asleep (MoveHitTest); LEECH SEED on one already seeded or GRASS (LeechSeedEffect_); FOCUS
+; ENERGY while pumped with its ACCURACY at +6 (FocusEnergyEffect_, F2: pumped, it still raises
+; ACCURACY); MIST, REFLECT or LIGHT SCREEN already up (MistEffect_, ReflectLightScreenEffect_ - no
+; move carries HAZE_EFFECT, so only the enemy's own switch takes them down); a status move on a
+; type immune to it (CheckStatusImmunity) or on a Pokemon with a POISON, a BURN or a PARALYSIS
+; (every status handler refuses a statused target, and those three never wear off by themselves). A
 ; move the ordinary course of the turn may still let act is only DISCOURAGED (+5, .discourage):
-; DISABLE while a move of the player's is disabled and a confusion move on a confused Pokemon
-; (both counts are hidden and run down in its own turn, CheckPlayerStatusConditions); a status
-; move on one asleep or frozen (it may wake or thaw in its turn, before this move runs - but not
-; IGNITE on a frozen one, USELESS since R9g: it thaws it, .frozen) or on a
-; statused one that must recharge (SleepEffect puts it to sleep whatever its status); RECOVER,
-; SOFTBOILED or REST at full HP (a hit taken first makes them heal); MIRROR MOVE with nothing to
-; copy (the player's move, if it goes first, gives it one).
-; v1.0 (R9i, 2026-09-30): with
-; the player RECHARGING (NEEDS_TO_RECHARGE: no menu, and its turn ends before its disable and confusion
-; counts run down - CheckPlayerStatusConditions .HyperBeamCheck) nothing of its runs before this move,
-; so five of these surely fail and are USELESS that turn (.discourageUnlessRecharging): DISABLE, the
-; confusion move, RECOVER / SOFTBOILED / REST at full HP, MIRROR MOVE with nothing to copy, and the
-; trainer's own SUBSTITUTE with its doll up. A status move on a statused Pokemon that must recharge
-; stays +5 (SleepEffect lands), and so does the too-weak SUBSTITUTE with the player SEEDED.
-; v1.0 (R10a, 2026-10-01): MIRROR MOVE ranks as the move it would copy (the player's
-; last, on screen) - these rules run on that copy, as the trainer's own move - but a copy they find USELESS
-; makes it only +5: the player's move, if it goes first, replaces the copy. USELESS while the player
-; recharges (.uselessUnlessCopy) - reachable only through a recharge move a type stops: none today.
-; v1.0 (E2, 2026-09-29): and the mirror of D15 for the
-; moves that lower the player's stats - useless behind the player's SUBSTITUTE or MIST, or when
-; every stat it lowers is already at -6 (not a move whose flinch still rolls there: INTIMIDATE,
-; SCARY FACE, METAL SOUND, SCREECH, HINDER, TICKLE; FIERCE ROAR only when its own ATTACK raise is
-; refused too) (.checkRaise, AIPlayerLowerRefused).
-; v1.0 (F5, 2026-09-30): and the
-; player's SUBSTITUTE (on screen): behind it DREAM EATER and the DRAIN moves miss (MoveHitTest), and
-; POISON, BURN and CONFUSION fail (PoisonEffect, BurnEffect, ConfusionEffect test it first) - all
-; useless (.checkSubstitute, .checkConfused, CheckStatusImmunity), as E2's lowering moves already
-; were. SLEEP, PARALYZE, LEECH SEED, DISABLE, MIMIC and TRANSFORM do not test it and still land.
-; v1.0 (R8, 2026-09-30): and the
-; trainer's own SUBSTITUTE, which SubstituteEffect_ refuses with its doll already up, and with its
-; HP at or below a quarter of its max HP (the cost; at exactly the cost too, since 2026-09-24)
-; (.checkOwnSubstitute): USELESS at or below the cost, which nothing the player does can raise -
-; only DISCOURAGED there with the player SEEDED (its drain, when the player moves first, heals the
-; enemy before this move); DISCOURAGED with its doll already up (a hit taken first may break it,
-; as RECOVER at full HP).
-; v1.0 (R9, 2026-09-30; the AI did not know that a damaging move into a type immunity does nothing): and
-; a DAMAGING move the type chart stops - "It doesn't affect", a
-; NO_EFFECT row in ApplyTypeEffectivenessToDamage (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on
-; FLYING and GAS, FIRE on MAGMA, POISON on STEEL, PSYCHIC on DARK; one such type of two is enough) - is USELESS
-; (.useless, the E4 tier of a status move on an immune type). AIMoveEffectiveness asks the walk the damage
-; takes (AIGetTypeEffectiveness, the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c
-; (the fixed-damage moves follow the immunity rules too)
-; that holds for SetDamageEffects' family too: its set number is never scaled, but FixedDamageImmunity stops
-; it on a NO_EFFECT row (SEISMIC TOSS and SUPER FANG do not affect a GHOST). The
+; DISABLE while a move of the player's is disabled and a confusion move on a confused Pokemon (both
+; counts are hidden and run down in its own turn, CheckPlayerStatusConditions); a status move on
+; one asleep or frozen (it may wake or thaw in its turn, before this move runs - but not IGNITE on
+; a frozen one, USELESS since R9g: it thaws it, .frozen) or on a statused one that must recharge
+; (SleepEffect puts it to sleep whatever its status); RECOVER, SOFTBOILED or REST at full HP (a hit
+; taken first makes them heal); MIRROR MOVE with nothing to copy (the player's move, if it goes
+; first, gives it one).
+; v1.0 (R9i, 2026-09-30): with the player RECHARGING (NEEDS_TO_RECHARGE: no menu, and its turn ends
+; before its disable and confusion counts run down - CheckPlayerStatusConditions .HyperBeamCheck)
+; nothing of its runs before this move, so five of these surely fail and are USELESS that turn
+; (.discourageUnlessRecharging): DISABLE, the confusion move, RECOVER / SOFTBOILED / REST at full HP,
+; MIRROR MOVE with nothing to copy, and the trainer's own SUBSTITUTE with its doll up. A status move on
+; a statused Pokemon that must recharge stays +5 (SleepEffect lands), and so does the too-weak
+; SUBSTITUTE with the player SEEDED.
+; v1.0 (R10a, 2026-10-01): MIRROR MOVE ranks as the move it would copy (the player's last, on screen) -
+; these rules run on that copy, as the trainer's own move - but a copy they find USELESS makes it only +5:
+; the player's move, if it goes first, replaces the copy. USELESS while the player recharges
+; (.uselessUnlessCopy) - reachable only through a recharge move a type stops: none today.
+; v1.0 (E2, 2026-09-29): and the mirror of D15 for the moves that lower the player's stats -
+; useless behind the player's SUBSTITUTE or MIST, or when every stat it lowers is already at -6
+; (not a move whose flinch still rolls there: INTIMIDATE, SCARY FACE, METAL SOUND, SCREECH,
+; HINDER, TICKLE; FIERCE ROAR only when its own ATTACK raise is refused too) (.checkRaise,
+; AIPlayerLowerRefused).
+; v1.0 (F5, 2026-09-30): and the player's SUBSTITUTE (on screen): behind it DREAM EATER and the
+; DRAIN moves miss (MoveHitTest), and POISON, BURN and CONFUSION fail (PoisonEffect, BurnEffect,
+; ConfusionEffect test it first) - all useless (.checkSubstitute, .checkConfused,
+; CheckStatusImmunity), as E2's lowering moves already were. SLEEP, PARALYZE, LEECH SEED, DISABLE,
+; MIMIC and TRANSFORM do not test it and still land.
+; v1.0 (R8, 2026-09-30): and the trainer's own SUBSTITUTE, which SubstituteEffect_ refuses with
+; its doll already up, and with its HP at or below a quarter of its max HP (the cost; at exactly
+; the cost too, since 2026-09-24) (.checkOwnSubstitute): USELESS at or below the cost, which
+; nothing the player does can raise - only DISCOURAGED there with the player SEEDED (its drain,
+; when the player moves first, heals the enemy before this move); DISCOURAGED with its doll
+; already up (a hit taken first may break it, as RECOVER at full HP).
+; v1.0 (R9, 2026-09-30; the AI did not know that a damaging move into a type immunity does nothing): and a
+; DAMAGING move the type chart stops - "It doesn't affect", a NO_EFFECT row in ApplyTypeEffectivenessToDamage
+; (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on FLYING and GAS, FIRE on MAGMA, POISON on STEEL,
+; PSYCHIC on DARK; one such type of two is enough) - is USELESS (.useless, the E4 tier of a status move on an
+; immune type). AIMoveEffectiveness asks the walk the damage takes (AIGetTypeEffectiveness, the same
+; TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c (the fixed-damage moves follow the
+; immunity rules too) that holds for SetDamageEffects' family too: its set number is never scaled, but
+; FixedDamageImmunity stops it on a NO_EFFECT row (SEISMIC TOSS and SUPER FANG do not affect a GHOST). The
 ; player's types are on screen; only its switch or a TRANSFORM, both deliberate acts, change them first (E4).
-; v1.0 (R10c, 2026-10-01): and of those stopped moves, the two that also hurt their user -
-; THRASH (locked in for 2-3 more
-; turns of "It doesn't affect", then confused) and EXPLOSION (the user faints, hit or miss) - rank after every other
-; useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
+; v1.0 (R10c, 2026-10-01): and of those stopped moves, the two that also hurt their user - THRASH (locked in for 2-3
+; more turns of "It doesn't affect", then confused) and EXPLOSION (the user faints, hit or miss) - rank after every
+; other useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -279,16 +275,16 @@ AIMoveChoiceModification1:
 	jr .toNextMove ; v1.0 (R8): forward, through .toNextMove's jp - since .checkOwnSubstitute's dispatch a jr
 	; back to .nextMove would reach exactly -128, the limit (0 B, the same scores)
 ; v1.0 (D15, 2026-09-29; +6 and 999 are the limits): a stat-up move that would raise nothing -
-; every stat it raises already at +6, or
-; at 999 (AIEnemyRaiseRefused) - is useless; v1.0 (E4): so is every move the rules above and
-; below find the engine would surely refuse. .uselessScore scores it AI_SCORE_USELESS: above every
-; move the enemy can use to some effect, below every move it cannot use at all
-; (AISeedMoveScores' $50: the disabled one, one with no PP left). The chooser then never keeps
-; it while another move can act, never keeps an unusable move over it (that would STRUGGLE with
-; a move it may use), and with only such moves left it uses one, as the player would have to.
-; Layer 6 counts it as bad (R9k: AI_SCORE_USELESS - 10 or more). Whatever the other layers add or take (-10..+20;
-; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets layers 3 and 5 too (not 2 since R9f)), the three
-; tiers never meet.
+; every stat it raises already at +6, or at 999 (AIEnemyRaiseRefused) - is useless; v1.0 (E4): so
+; is every move the rules above and below find the engine would surely refuse. .uselessScore
+; scores it AI_SCORE_USELESS: above every move the enemy can use to some effect, below every move
+; it cannot use at all (AISeedMoveScores' $50: the disabled one, one with no PP left). The chooser
+; then never keeps it while another move can act, never keeps an unusable move over it (that would
+; STRUGGLE with a move it may use), and with only such moves left it uses one, as the player would
+; have to.
+; Layer 6 counts it as bad (R9k: AI_SCORE_USELESS - 10 or more). Whatever the other layers add or
+; take (-10..+20; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets
+; layers 3 and 5 too (not 2 since R9f)), the three tiers never meet.
 DEF AI_SCORE_USELESS EQU $30
 ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
@@ -393,13 +389,13 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	jp nz, .nextMove
 	; a GRASS type 2: falls into the USELESS verdict (R10a: .uselessUnlessCopy's test sits right below)
 .uselessUnlessCopy
-; v1.0 (R10a, 2026-10-01): every USELESS verdict ends here (.useless jumps here). When the
-; slot holds MIRROR MOVE, the verdict was on its copy (.checkNoMirrorMoveOnFirstTurn): the player's own move,
-; if it goes first, replaces that copy, so by E4 it is only +5 - USELESS while the player recharges
+; v1.0 (R10a, 2026-10-01): every USELESS verdict ends here (.useless jumps here). When the slot holds MIRROR
+; MOVE, the verdict was on its copy (.checkNoMirrorMoveOnFirstTurn): the player's own move, if it goes first,
+; replaces that copy, so by E4 it is only +5 - USELESS while the player recharges
 ; (.discourageUnlessRecharging: nothing of its runs first, R9i) - a case no copy reaches today: the one
 ; recharge move, HYPER BEAM, is DRAGON (no type stops it), and while the player recharges the copy is that
-; HYPER BEAM or nothing (R9i's USELESS). MIRROR MOVE's own slot reaches this test only through a copy:
-; with nothing to copy it goes to .copyDiscourage, and .discourageUnlessRecharging gives its USELESS at
+; HYPER BEAM or nothing (R9i's USELESS). MIRROR MOVE's own slot reaches this test only through a copy: with
+; nothing to copy it goes to .copyDiscourage, and .discourageUnlessRecharging gives its USELESS at
 ; .uselessScore, past this test.
 	dec de
 	ld a, [de] ; the slot's own move (de is one past it; the rules keep de)
@@ -473,11 +469,11 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 ; MirrorMoveCopyMove): wPlayerUsedMove, zeroed whenever a Pokemon is sent out and
 ; whenever the player sleeps or is frozen through a turn. Zero = the copy would
 ; fail, so discourage.
-; v1.0 (R10a, 2026-10-01): otherwise MIRROR MOVE runs that move as the trainer's own
-; (MirrorMoveCopyMove -> ReloadMoveData, then the enemy's whole move path), so the rules above judge the copy
-; itself (.readAndJudge): it ranks as that move would - a copy they find USELESS only +5 (.uselessUnlessCopy),
-; since the player's move, if it goes first, gives it another. wPlayerUsedMove is what the screen last said
-; the player's Pokemon used.
+; v1.0 (R10a, 2026-10-01): otherwise MIRROR MOVE runs that move as the trainer's own (MirrorMoveCopyMove ->
+; ReloadMoveData, then the enemy's whole move path), so the rules above judge the copy itself (.readAndJudge):
+; it ranks as that move would - a copy they find USELESS only +5 (.uselessUnlessCopy), since the player's
+; move, if it goes first, gives it another. wPlayerUsedMove is what the screen last said the player's Pokemon
+; used.
 	ld a, [wPlayerUsedMove]
 	and a
 	jr z, .copyDiscourage ; the player has not used a move since the last switch-in
@@ -502,11 +498,11 @@ CheckStatusImmunity:
 ; pair (when only one applies, b == c). Mirrors the engine-side immunities
 ; in effects.asm (burn: FIRE/MAGMA; poison: POISON/STEEL; paralyze:
 ; ELECTRIC always, plus GROUND vs Electric-sourced paralysis).
-; v1.0 (F5, 2026-09-30): carry
-; also when POISON or BURN meets the player's SUBSTITUTE - PoisonEffect and BurnEffect test it
-; before anything else (the target's status, its types). SLEEP (SleepEffect) and PARALYZE
-; (ParalyzeEffect_) do not test it: they land through a SUBSTITUTE, as in Gen 1. Carry = the
-; handler refuses the move before it looks at the target's status.
+; v1.0 (F5, 2026-09-30): carry also when POISON or BURN meets the player's SUBSTITUTE -
+; PoisonEffect and BurnEffect test it before anything else (the target's status, its types).
+; SLEEP (SleepEffect) and PARALYZE (ParalyzeEffect_) do not test it: they land through a
+; SUBSTITUTE, as in Gen 1. Carry = the handler refuses the move before it looks at the target's
+; status.
 	push bc
 	push hl
 	ld a, [wEnemyMoveEffect]
@@ -559,15 +555,15 @@ CheckStatusImmunity:
 ;;;;;;;;;;
 
 ; v1.0 (D15, 2026-09-29; +6 and 999 are the limits): carry when the enemy's stat-up move
-; (wEnemyMoveEffect) would raise nothing:
-; StatModifierUpEffect would refuse every stat it raises (AIEnemyStatMaxed), and GROWTH, which
-; also heals, only at full HP (AttackSpAtkUp1HealEffect heals below it). Only the effects of
-; AIRaiseEffectStats count; layer 1 asks for power-0 moves only, so STRENGTH and FLAME CHARGE
-; (damaging, with a stat-up effect) never get here. FIERCE ROAR is not listed (its second leg
-; lowers the target: AIPlayerLowerRefused weighs both legs, E2). FOCUS ENERGY's row is its
-; ACCURACY leg alone (F2): layer 1 asks only when the enemy is already pumped - unpumped, the
-; pump is never wasted. It reads the trainer's own Pokemon: its stages (every change is
-; announced) and its stats. Keeps bc, de, hl.
+; (wEnemyMoveEffect) would raise nothing: StatModifierUpEffect would refuse every stat it
+; raises (AIEnemyStatMaxed), and GROWTH, which also heals, only at full HP
+; (AttackSpAtkUp1HealEffect heals below it). Only the effects of AIRaiseEffectStats count;
+; layer 1 asks for power-0 moves only, so STRENGTH and FLAME CHARGE (damaging, with a stat-up
+; effect) never get here. FIERCE ROAR is not listed (its second leg lowers the target:
+; AIPlayerLowerRefused weighs both legs, E2). FOCUS ENERGY's row is its ACCURACY leg alone
+; (F2): layer 1 asks only when the enemy is already pumped - unpumped, the pump is never
+; wasted. It reads the trainer's own Pokemon: its stages (every change is announced) and its
+; stats. Keeps bc, de, hl.
 AIEnemyRaiseRefused:
 	push hl
 	push de
@@ -679,31 +675,31 @@ SideStatMaxed:
 	ret
 
 ; v1.0 (F1, 2026-09-30; a move still spends its PP - knowing the stages is part of the player's
-; strategy - but an item is generous and is not spent when it would do nothing):
-; the player's side of AIEnemyStatMaxed - carry when StatModifierUpEffect would refuse to raise
-; the player's stat c, the same two refusals read the same way (the battle word the engine
-; compares, the burn / paralysis cut included). Farcalled by item_effects.asm ItemUseXStat
-; before it writes anything: c in, the carry out (Bankswitch's `pop bc` leaves the flags; c
-; does not survive it). Clobbers a, de, hl.
+; strategy - but an item is generous and is not spent when it would do nothing): the player's
+; side of AIEnemyStatMaxed - carry when StatModifierUpEffect would refuse to raise the player's
+; stat c, the same two refusals read the same way (the battle word the engine compares, the
+; burn / paralysis cut included). Farcalled by item_effects.asm ItemUseXStat before it writes
+; anything: c in, the carry out (Bankswitch's `pop bc` leaves the flags; c does not survive it).
+; Clobbers a, de, hl.
 PlayerStatMaxed::
 	ld hl, wPlayerMonStatMods
 	ld de, wBattleMonAttack
 	jr SideStatMaxed
 
-; v1.0 (E2, 2026-09-29): the mirror of D15 for the
-; moves that LOWER the player's stats. Carry when the enemy's power-0 lowering move
-; (wEnemyMoveEffect, a row of AILowerEffectStats) would do nothing: behind the player's
-; SUBSTITUTE (StatModifierDownEffect's first test; FlinchSideEffect's too) or its MIST / GUARD
-; SPEC. (MoveHitTest: the first leg's id, spoofed or not, is in its MIST ranges - and since F3 a
-; later leg follows that leg's miss, StatModifierDownEffectLaterLeg - and a whiffed leg rolls no
-; flinch) every leg fails; else every stat it lowers already at -6 - the
-; stage byte 1, StatModifierDownEffect's `dec b / jp z, CantLowerAnymore`. The stat VALUE the
-; engine also refuses at 1 is hidden from a trainer and not read. A move whose flinch still
-; rolls at -6 (INTIMIDATE, SCARY FACE, METAL SOUND, SCREECH, HINDER, TICKLE: AI_LOWER_FLINCHES
-; in its row) is wasted only behind a SUBSTITUTE or MIST; FIERCE ROAR, which first raises the
-; enemy's ATTACK, only when that raise is refused too (AIEnemyStatMaxed). It reads what a
-; trainer sees: the player's stages (every drop and the -6 refusal are announced), its
-; SUBSTITUTE and its MIST (both announced). Keeps bc, de, hl.
+; v1.0 (E2, 2026-09-29): the mirror of D15 for the moves that LOWER the player's stats. Carry
+; when the enemy's power-0 lowering move (wEnemyMoveEffect, a row of AILowerEffectStats) would
+; do nothing: behind the player's SUBSTITUTE (StatModifierDownEffect's first test;
+; FlinchSideEffect's too) or its MIST / GUARD SPEC. (MoveHitTest: the first leg's id, spoofed or
+; not, is in its MIST ranges - and since F3 a later leg follows that leg's miss,
+; StatModifierDownEffectLaterLeg - and a whiffed leg rolls no flinch) every leg fails; else
+; every stat it lowers already at -6 - the stage byte 1, StatModifierDownEffect's
+; `dec b / jp z, CantLowerAnymore`. The stat VALUE the engine also refuses at 1 is hidden from a
+; trainer and not read. A move whose flinch still rolls at -6 (INTIMIDATE, SCARY FACE, METAL
+; SOUND, SCREECH, HINDER, TICKLE: AI_LOWER_FLINCHES in its row) is wasted only behind a
+; SUBSTITUTE or MIST; FIERCE ROAR, which first raises the enemy's ATTACK, only when that raise
+; is refused too (AIEnemyStatMaxed). It reads what a trainer sees: the player's stages (every
+; drop and the -6 refusal are announced), its SUBSTITUTE and its MIST (both announced). Keeps
+; bc, de, hl.
 AIPlayerLowerRefused:
 	push hl
 	push de
@@ -785,12 +781,11 @@ AILowerEffectStats:
 ; slightly encourage moves with specific effects on the first turn. (PureRGBnote: FIXED: used to be the second turn, made it first turn)
 ; this mostly means trainers will buff their pokemon a bit on the first turn
 ; v1.0 (R9f, 2026-09-30; layer 2 favoured 19 damaging moves on the first turn, with nothing to show it was
-; intended): STATUS moves only
-; (power 0). Since v0.5 the moves that deal damage AND change a stat carry the status moves' effect ids
-; (PLAY ROUGH ATTACK_DOWN1, STRENGTH ATTACK_UP1, HYDRO PUMP SPEED_DOWN1 - 19 in moves.asm), so the list
-; read them as setup moves: the accident MoveHitTest's MIST check had, closed there by the same power
-; gate (v0.7). Vanilla's damaging stat moves carry *_SIDE_EFFECT ids its ranges never reach (only PAY
-; DAY and SWIFT fell inside them). NIGHT SHADE (power 0, USER_LEVEL_DAMAGE_EFFECT) is not listed.
+; intended): STATUS moves only (power 0). Since v0.5 the moves that deal damage AND change a stat carry the
+; status moves' effect ids (PLAY ROUGH ATTACK_DOWN1, STRENGTH ATTACK_UP1, HYDRO PUMP SPEED_DOWN1 - 19 in
+; moves.asm), so the list read them as setup moves: the accident MoveHitTest's MIST check had, closed there by
+; the same power gate (v0.7). Vanilla's damaging stat moves carry *_SIDE_EFFECT ids its ranges never reach
+; (only PAY DAY and SWIFT fell inside them). NIGHT SHADE (power 0, USER_LEVEL_DAMAGE_EFFECT) is not listed.
 AIMoveChoiceModification2:
 	ld a, [wAILayer2Encouragement]
 	and a
@@ -885,13 +880,13 @@ Modifier2PreferredMoves:
 ; encourage effective or super effective draining moves to be used at low health
 ; PureRGBnote: FIXED: this subroutine won't cause the AI to prefer status moves 
 ;                     just because their type is super effective against the opponent. Like spamming agility on a poison pokemon.
-; v1.0 (R10b, 2026-10-01): a "better move" (.notEffectiveMove's loop) must be one the trainer can
-; use to some effect: its
-; score, which layer 1 (first in every list) has set, below AI_SCORE_USELESS - 10 - the line layer 6 reads (R9k).
+; v1.0 (R10b, 2026-10-01): a "better move" (.notEffectiveMove's loop) must be one the trainer can use to some
+; effect: its score, which layer 1 (first in every list) has set, below AI_SCORE_USELESS - 10 - the line layer 6
+; reads (R9k).
 ; The vanilla loop counted every damaging move of another type, the fixed-damage family and FLY even when the chart
 ; stops it ("It doesn't affect"), when it surely misses (DREAM EATER into a Pokemon awake, a DRAIN move into a
-; SUBSTITUTE) or when it cannot be used (no PP left, disabled): a resisted move that lands was held back (+1)
-; behind every status move for a move that does nothing, and a stopped one was lifted above the other useless moves.
+; SUBSTITUTE) or when it cannot be used (no PP left, disabled): a resisted move that lands was held back (+1) behind
+; every status move for a move that does nothing, and a stopped one was lifted above the other useless moves.
 ; v1.0 (R12, 2026-10-03): and it must hit harder by type than the move it would hold back (AIMoveEffectiveness
 ; above the held move's): until R12 a usable candidate of another type counted however resisted. With every usable
 ; attack resisted alike, none is held back: they meet the status moves at one score, as they do when the set has
@@ -1092,11 +1087,10 @@ Modifier4PreferredMoves:
 ;  - (v1.0 R10d) a FIRE or MAGMA hit into a FROZEN player: +5, and no priority rule after it
 ;    (an EXPLOSION below half HP keeps its -1..-3 instead; v1.0 R11: none with the player's HP bar
 ;    RED and the hit not resisted - an EXPLOSION at half HP or more keeps its +5).
-; v1.0 (R9e, 2026-09-30): none
-; of the damaging rules for a move the player's types stop (AIMoveEffectiveness 0 - layer 1 made
-; it USELESS): its damage is 0, so there is no STAB to weigh, no first strike to buy and no reason
-; to explode - a stopped EXPLOSION (FIRE here: MAGMA stops it) was the favourite of the useless
-; tier at low HP, the user fainting for nothing.
+; v1.0 (R9e, 2026-09-30): none of the damaging rules for a move the player's types stop
+; (AIMoveEffectiveness 0 - layer 1 made it USELESS): its damage is 0, so there is no STAB to
+; weigh, no first strike to buy and no reason to explode - a stopped EXPLOSION (FIRE here: MAGMA
+; stops it) was the favourite of the useless tier at low HP, the user fainting for nothing.
 ; v1.0 (R10d, 2026-10-01): a damaging FIRE or MAGMA move that leaves a FROZEN player standing thaws it
 ; (DefrostTargetIfFireOrMagma, both sides) and hands it back the frozen turns it had left (3-6 drawn at
 ; the freeze, one spent each time it would move: 2 to 5 lost turns in all; the count is hidden, FRZ is on
@@ -1247,11 +1241,11 @@ AIMoveChoiceModification5:
 	ld a, [wAITurnOrder] ; v1.0 (R11): the turn order the screen showed, never the speeds (hidden)
 	rra ; AI_ORDER_PLAYER_FIRST (bit 0): the last order shown in this matchup had the player first
 	jp nc, .nextMove ; the enemy seen first, or nothing seen yet (a new matchup): no first strike to buy
-; does the player act this turn? v1.0 (2026-09-27):
-; a trainer sees the status, not the turns left - asleep or frozen is taken as
-; "stays down" (true on most such turns), and no first strike is bought
-; against it. (It used to read the player's exact sleep count and
-; wPlayerFreezeCounter; pokecrystal's AI_Smart_PriorityHit reads neither.)
+; does the player act this turn? v1.0 (2026-09-27): a trainer sees the status,
+; not the turns left - asleep or frozen is taken as "stays down" (true on most
+; such turns), and no first strike is bought against it. (It used to read the
+; player's exact sleep count and wPlayerFreezeCounter; pokecrystal's
+; AI_Smart_PriorityHit reads neither.)
 	ld a, [wBattleMonStatus]
 	and (1 << FRZ) | SLP_MASK
 	jp nz, .nextMove
@@ -1324,12 +1318,12 @@ AIMoveChoiceModification6:
 	ld [wAISwitchCooldown], a
 	ret
 .noCooldown
-; v1.0 (N3, 2026-09-27; the same rule for both sides, for fairness): held by the
-; player's WRAP / CLAMP it cannot be withdrawn, as the
-; player's cannot (.switchMon; Gen 2+). Asleep, frozen or confused it can, as
-; the player's can: the old rule that kept an asleep or frozen mon in (D14)
-; went. After the cooldown tick: the cooldown counts the turns the layers run
-; (held ones too; not a recharge, a charge or THRASH, which choose nothing).
+; v1.0 (N3, 2026-09-27; the same rule for both sides, for fairness): held by
+; the player's WRAP / CLAMP it cannot be withdrawn, as the player's cannot
+; (.switchMon; Gen 2+). Asleep, frozen or confused it can, as the player's
+; can: the old rule that kept an asleep or frozen mon in (D14) went. After
+; the cooldown tick: the cooldown counts the turns the layers run (held ones
+; too; not a recharge, a charge or THRASH, which choose nothing).
 ; The TrainerAI hook keeps the same test as a second guard.
 	ld a, [wPlayerBattleStatus1]
 	bit USING_TRAPPING_MOVE, a
@@ -1513,18 +1507,17 @@ SubFromBCapped:
 	ld b, a
 	ret
 
-; v1.0 (2026-09-26, smarter opponents): WHO comes
-; in when the switch layer withdraws a mon. Until now it was the first live
-; teammate in party order (vanilla's EnemySendOut, which ExtremeYellow
-; keeps). This ranks the teammates the way Gen 2 ranks a replacement
-; (pokecrystal FindMonInOTPartyToSwitchIntoBattle: a super-effective move
-; and not weak first, then not weak, ties to party order), without its two
-; blind spots (a STATUS move of a super-effective type counted there, and
-; HP was never looked at), and with a resist tier. It runs where the switch
-; is decided - when the enemy chooses, at the start of the turn
-; (MainInBattleLoop) - so it sees the player's Pokemon as
-; the trainer can, not one the player switches in that turn. The scores
-; (AIScoreSwitchCandidate):
+; v1.0 (2026-09-26, smarter opponents): WHO comes in when the switch layer
+; withdraws a mon. Until now it was the first live teammate in party order
+; (vanilla's EnemySendOut, which ExtremeYellow keeps). This ranks the
+; teammates the way Gen 2 ranks a replacement (pokecrystal
+; FindMonInOTPartyToSwitchIntoBattle: a super-effective move and not weak
+; first, then not weak, ties to party order), without its two blind spots (a
+; STATUS move of a super-effective type counted there, and HP was never
+; looked at), and with a resist tier. It runs where the switch is decided -
+; when the enemy chooses, at the start of the turn (MainInBattleLoop) - so
+; it sees the player's Pokemon as the trainer can, not one the player
+; switches in that turn. The scores (AIScoreSwitchCandidate):
 ;   0  asleep or frozen: it would come in and do nothing (N3, 2026-09-27: it
 ;      may now be withdrawn, so it may be on the bench); below every teammate
 ;      that can act, low ones included. The same for one that could not hurt
@@ -1541,20 +1534,20 @@ SubFromBCapped:
 ;      set number the type chart never scales: since R9c it can only stop it)
 ; The best comes in; a tie keeps party order. The LAST mon of the party - the
 ; ace of a boss team - is kept for last: it comes in only when no other
-; teammate is alive. In Hard, for a boss or a semi-boss (2026-09-27, on
-; trial) the co-aces wait with it: a teammate at the team's top level
-; (the highest MON_LEVEL in the whole roster, fainted mons included, so the set
-; never changes during the fight) comes in only when no teammate below that
-; level is alive - then the best of them, the last slot still last of all. A
-; team all at one level has no one below the top and plays as in Normal.
-; Four teams have neither (AITeamHasNoAce): DREIGON's (FORTE; 2026-09-27:
-; that team has no ace, every member held in the same regard) and those of
-; the three bird-chamber self-inserts SMITH, CRAIG and WEEBRA (2026-09-28:
-; no ace either; KIYO keeps his MACHAMP): every live teammate but the one out
-; competes on its score alone, the last slot included, and no level is held
-; back; a tie still keeps party order. They only get here in Hard: their Normal
-; lists (1-5) have no switch layer, so in Normal they never switch and replace
-; in party order. KIYO keeps his ace in both fights.
+; teammate is alive. In Hard, for a boss or a semi-boss (2026-09-27, on trial)
+; the co-aces wait with it: a teammate at the team's top level (the highest
+; MON_LEVEL in the whole roster, fainted mons included, so the set never
+; changes during the fight) comes in only when no teammate below that level is
+; alive - then the best of them, the last slot still last of all. A team all at
+; one level has no one below the top and plays as in Normal.
+; Four teams have neither (AITeamHasNoAce): DREIGON's (FORTE; 2026-09-27: that
+; team has no ace, every member held in the same regard) and those of the three
+; bird-chamber self-inserts SMITH, CRAIG and WEEBRA (2026-09-28: no ace either;
+; KIYO keeps his MACHAMP): every live teammate but the one out competes on its
+; score alone, the last slot included, and no level is held back; a tie still
+; keeps party order. They only get here in Hard: their Normal lists (1-5) have
+; no switch layer, so in Normal they never switch and replace in party order.
+; KIYO keeps his ace in both fights.
 ; It also picks the replacement of a fainted mon (AIPickFaintReplacement).
 ; Out: a = 1 + the party index (the wAISwitchRequest encoding). Clobbers bc, de, hl.
 AIPickSwitchTarget:
@@ -1677,8 +1670,8 @@ AIScoreSwitchCandidate:
 	and (1 << FRZ) | SLP_MASK
 	ld a, 1 ; 1 + a score of 0
 	jp nz, .return
-; v1.0 (R9d, 2026-09-30): nor can a teammate that could not hurt the player's Pokemon - none of its
-; moves with PP left (the PP Up bits masked) is a damaging one that gets through the player's types
+; v1.0 (R9d, 2026-09-30): nor can a teammate that could not hurt the player's Pokemon - none of its moves
+; with PP left (the PP Up bits masked) is a damaging one that gets through the player's types
 ; (AIRosterMonGetsThrough with c = 1). It would come in and never scratch it: only the player's switch or
 ; TRANSFORM, deliberate acts, change those types (E4; layer 1 ranks such a move USELESS, R9). A status move
 ; does not count: it lands once at most, then layer 1 retires it. This takes in D10 (2026-09-28): a teammate
@@ -1833,17 +1826,16 @@ AIHasSwitchLayer:
 	scf
 	ret
 
-; v1.0 (2026-09-27): who
-; replaces a fainted Pokemon. A trainer whose AI has the switch layer (6 in its
-; list: in Normal the six classes of move_choices.asm, in Hard also every boss
-; and semi-boss) picks it the way the layer does, against the Pokemon the
-; player has out; everyone else keeps party order, as vanilla does. A double
-; KO keeps party order too: the player's replacement has already been chosen
-; and sent out (ChooseNextMon runs first in both faint handlers), and picking
-; against it would read the player's blind choice. wInHandlePlayerMonFainted =
-; 1 marks it (see HandleEnemyMonFainted). Called by farcall from
-; ReplaceFaintedEnemyMon just before EnemySendOut, which consumes the request;
-; a farcall does not return a, so the answer goes to WRAM.
+; v1.0 (2026-09-27): who replaces a fainted Pokemon. A trainer whose AI has the
+; switch layer (6 in its list: in Normal the six classes of move_choices.asm,
+; in Hard also every boss and semi-boss) picks it the way the layer does,
+; against the Pokemon the player has out; everyone else keeps party order, as
+; vanilla does. A double KO keeps party order too: the player's replacement has
+; already been chosen and sent out (ChooseNextMon runs first in both faint
+; handlers), and picking against it would read the player's blind choice.
+; wInHandlePlayerMonFainted = 1 marks it (see HandleEnemyMonFainted). Called by
+; farcall from ReplaceFaintedEnemyMon just before EnemySendOut, which consumes
+; the request; a farcall does not return a, so the answer goes to WRAM.
 ; Out: wAISwitchRequest = 1 + the party index, or 0 (party order). Clobbers all.
 AIPickFaintReplacement:
 	xor a
@@ -1860,9 +1852,9 @@ AIPickFaintReplacement:
 ; v1.0 (N3, 2026-09-27/28): the switch decision alone, on a turn with no move to
 ; choose - the player may switch out of each:
 ; - AILockedSwitchDecision, a turn locked into the enemy's own BIDE or WRAP
-;   (both sides may switch out in the middle of their own BIDE),
-;   tail-called by SelectEnemyMove. The move layers must not run: ReadMove would
-;   overwrite the wEnemyMove* block the locked move reads (BIDE's release reads
+;   (both sides may switch out in the middle of their own BIDE), tail-called by
+;   SelectEnemyMove. The move layers must not run: ReadMove would overwrite the
+;   wEnemyMove* block the locked move reads (BIDE's release reads
 ;   wEnemyMoveEffect).
 ; - AIStruggleSwitchDecision, a turn forced into STRUGGLE - no move but the
 ;   disabled one has PP left, the player's rule (HasMoveToSelect in core.asm,
@@ -1885,16 +1877,16 @@ AIStruggleSwitchDecision:
 	call AISeedMoveScores
 	jp AIMoveChoiceModification6
 
-; v1.0 (N3-6, 2026-09-28; the same rule for both sides): the move
-; scores in wBuffer (the chooser keeps only the moves with the lowest) start at $a,
-; and a move the enemy cannot use this turn at $50 - the two the player's move
-; menu refuses: the disabled one (vanilla) and one with no PP left (the PP Up bits
-; masked). Summed over every rule, the layers take at most 10 off a move and add
-; at most 20, so a $50 never comes down to a usable move and the minimum filter
-; never keeps it; SelectEnemyMove sends a turn with no usable move to STRUGGLE
-; before the chooser runs. Layer 6 reads AI_SCORE_USELESS - 10 or more (R9k) as bad: an unusable
-; move is. (A move with no PP used to start at $a: scored best, it was the one
-; kept, and the enemy STRUGGLEd with a usable move left.) Trashes a, bc, de, hl.
+; v1.0 (N3-6, 2026-09-28; the same rule for both sides): the move scores in wBuffer
+; (the chooser keeps only the moves with the lowest) start at $a, and a move the
+; enemy cannot use this turn at $50 - the two the player's move menu refuses: the
+; disabled one (vanilla) and one with no PP left (the PP Up bits masked). Summed
+; over every rule, the layers take at most 10 off a move and add at most 20, so a
+; $50 never comes down to a usable move and the minimum filter never keeps it;
+; SelectEnemyMove sends a turn with no usable move to STRUGGLE before the chooser
+; runs. Layer 6 reads AI_SCORE_USELESS - 10 or more (R9k) as bad: an unusable move
+; is. (A move with no PP used to start at $a: scored best, it was the one kept, and
+; the enemy STRUGGLEd with a usable move left.) Trashes a, bc, de, hl.
 ; v1.0 (D15, 2026-09-29): a third tier sits between the two. Layer 1 lifts a move that
 ; would surely do nothing - a stat-up move that would raise nothing (D15), and since E4 every
 ; move its rules find the engine would refuse - to AI_SCORE_USELESS ($30, clear of the
@@ -2012,20 +2004,20 @@ TrainerAI:
 	ret z ; if in a link battle, we're done as well
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;shinpokerednote: FIXED: AI should not use actions (items / switching) if in a move that prevents such a thing
-; v1.0 (2026-09-27; the opponent follows the rule the player follows): an
-; item exactly when the player would get the
-; battle menu (MainInBattleLoop): never while it must recharge, THRASHes or
-; charges a two-turn move (FLY/DIG's INVULNERABLE only exists with CHARGING_UP).
+; v1.0 (2026-09-27; the opponent follows the rule the player follows): an item
+; exactly when the player would get the battle menu (MainInBattleLoop): never
+; while it must recharge, THRASHes or charges a two-turn move (FLY/DIG's
+; INVULNERABLE only exists with CHARGING_UP).
 ; BIDE, confusion, sleep, a freeze and the player's WRAP do not stop it, as they
 ; do not stop the player. Its own WRAP does not either - the item costs a turn of
-; it, as the player's does (UseBagItem; DecrementAICount here), its last turn
-; too: the player, held, chose a move as well (N3), and uses it when the item
-; ends the WRAP first - as the enemy does when the player's item ends the
-; player's own. (shinpokered's mask was %01110010: the enemy's own WRAP blocked
-; it, stricter than the player.) A SWITCH by the player's rule
-; (N3, 2026-09-27): held by the other side's WRAP or CLAMP, neither side can
-; switch (layer 6's top, .switchMon); asleep or frozen, both can; in its own
-; BIDE or WRAP, both can (AILockedSwitchDecision); on a STRUGGLE turn, both can
+; it, as the player's does (UseBagItem; DecrementAICount here), its last turn too:
+; the player, held, chose a move as well (N3), and uses it when the item ends the
+; WRAP first - as the enemy does when the player's item ends the player's own.
+; (shinpokered's mask was %01110010: the enemy's own WRAP blocked it, stricter
+; than the player.) A SWITCH by the player's rule (N3, 2026-09-27): held by the
+; other side's WRAP or CLAMP, neither side can switch (layer 6's top, .switchMon);
+; asleep or frozen, both can; in its own BIDE or WRAP, both can
+; (AILockedSwitchDecision); on a STRUGGLE turn, both can
 ; (AIStruggleSwitchDecision).
 	and a ; clear carry flag in case we return due to the next checks, we dont want carry returned in those cases as it marks an action as being taken by the opponent (bit / ld / and keep it clear)
 	ld a, [wEnemyBattleStatus2]
@@ -2133,8 +2125,8 @@ CooltrainerFAI:
 ; Pattern (every boss now also carries Full Heal):
 ;   1. If statused below half its HP: a FULL RESTORE (HP, status and confusion
 ;      in one action) if the bag has one (AIStatusCureItem; 2026-09-27: less
-;      HP, more priority to the FULL RESTORE); with none, a
-;      FULL HEAL for sleep, freeze or TOXIC (2026-09-28).
+;      HP, more priority to the FULL RESTORE); with none, a FULL HEAL for
+;      sleep, freeze or TOXIC (2026-09-28).
 ;   2. Else if HP below threshold (1/3; 1/2 for Giovanni/Oak/Joy/Bill), heal item
 ;      (a FULL RESTORE cures confusion too, 2026-09-27). It comes before any FULL
 ;      HEAL: a bag with potions only heals a poisoned, burnt or paralysed mon below
@@ -3012,9 +3004,9 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 	ld [hl], a ; clear status in enemy team roster
 	ld [wEnemyMonStatus], a ; clear status in active enemy data
 ; v1.0 (2026-09-27; both FULL HEAL and FULL RESTORE cure confusion): the
-; confusion bit and its count go too, as with the
-; player's two items (item_effects.asm CureConfusionIfFullHealOrRestore). Only
-; AIUseFullHeal and AIUseFullRestore come here, so there is no item to test.
+; confusion bit and its count go too, as with the player's two items
+; (item_effects.asm CureConfusionIfFullHealOrRestore). Only AIUseFullHeal and
+; AIUseFullRestore come here, so there is no item to test.
 ; a is still 0. (Every writer of CONFUSED writes a fresh 2-5 count with it; the
 ; zero is belt and braces, as on the player's side.)
 	ld [wEnemyConfusedCounter], a
@@ -3175,20 +3167,19 @@ AIBattleUseItemText:
 
 ; v1.0 (2026-09-27, 2026-09-28): the boss / semi-boss cure, in two halves around
 ; the routine's HP branch; each uses the item itself and returns carry when one
-; was used (DecrementAICount's scf), so a routine reads `call X / ret c`. Less
-; HP, more weight to what gives HP back (less HP, more priority to the FULL
-; RESTORE, which also restores HP; 2026-09-28: the early
-; bosses' potions too).
-; AIStatusCureItem (first in every routine): a status below half its HP
-; (HP < floor(MaxHP/2), the line Giovanni, Oak, Joy and Bill already heal at): a
-; FULL RESTORE if the bag has one - HP, status and confusion in one action. Gen
-; 2's AI_Items also tries the FULL RESTORE first. With none, a sleep, a freeze or
-; a TOXIC gets its FULL HEAL here, before any potion: a potion buys nothing
-; against those (an item turn counts neither a sleep nor a freeze down, and every
-; TOXIC tick is bigger), and on a boss with one item action per mon the FULL HEAL
-; would never come (the 2026-09-28 review). A poison, a burn or a paralysis leaves
-; it acting: nothing here, the HP branch comes next, so a bag with no FULL
-; RESTORE heals below its line with its potion before any FULL HEAL.
+; was used (DecrementAICount's scf), so a routine reads `call X / ret c`. Less HP,
+; more weight to what gives HP back (less HP, more priority to the FULL RESTORE,
+; which also restores HP; 2026-09-28: the early bosses' potions too).
+; AIStatusCureItem (first in every routine): a status below half its HP (HP <
+; floor(MaxHP/2), the line Giovanni, Oak, Joy and Bill already heal at): a FULL
+; RESTORE if the bag has one - HP, status and confusion in one action. Gen 2's
+; AI_Items also tries the FULL RESTORE first. With none, a sleep, a freeze or a
+; TOXIC gets its FULL HEAL here, before any potion: a potion buys nothing against
+; those (an item turn counts neither a sleep nor a freeze down, and every TOXIC
+; tick is bigger), and on a boss with one item action per mon the FULL HEAL would
+; never come (the 2026-09-28 review). A poison, a burn or a paralysis leaves it
+; acting: nothing here, the HP branch comes next, so a bag with no FULL RESTORE
+; heals below its line with its potion before any FULL HEAL.
 ; AILateCureItem (at .skipHeal: no HP item was used this turn):
 ; - a status: a FULL HEAL; with none left, a FULL RESTORE only for sleep or a
 ;   freeze, which stop it acting. A poison, a burn or a paralysis leaves it
@@ -3313,12 +3304,12 @@ CheckAndConsumeBossItem:
 ; move layer's test): the boss keeps it in the bag and its routine goes on as with none - its
 ; next roll, or a move. Asked by CheckAndConsumeBossItem, after the routine's roll, so the rolls
 ; are spent as before.
-; v1.0 (E3, 2026-09-29; the rule extended to DIRE HIT and GUARD SPEC): the
-; same for a DIRE HIT on a Pokemon already pumped (its own FOCUS ENERGY, or a DIRE HIT) and a
-; GUARD SPEC while its side is under MIST. Each item sets one bit of wEnemyBattleStatus2 and
-; nothing else - the crit rate is x3 once (core.asm tests the bit), MIST is one bit - so a second
-; one does nothing but spend the item, the turn and an item action. Both states were announced on
-; screen. The player's are refused the same way (item_effects.asm ItemUseBattleFlagItem).
+; v1.0 (E3, 2026-09-29; the rule extended to DIRE HIT and GUARD SPEC): the same for a DIRE HIT on
+; a Pokemon already pumped (its own FOCUS ENERGY, or a DIRE HIT) and a GUARD SPEC while its side
+; is under MIST. Each item sets one bit of wEnemyBattleStatus2 and nothing else - the crit rate
+; is x3 once (core.asm tests the bit), MIST is one bit - so a second one does nothing but spend
+; the item, the turn and an item action. Both states were announced on screen. The player's are
+; refused the same way (item_effects.asm ItemUseBattleFlagItem).
 ; Keeps b; clobbers a, c, de, hl.
 AIXItemRefused:
 	ld a, b

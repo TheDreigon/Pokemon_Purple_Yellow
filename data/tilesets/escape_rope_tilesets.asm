@@ -1,7 +1,7 @@
-; v0.7 (2026-08-13): the ESCAPE ROPE and DIG are for the caves and for
-; nothing else -- MT.MOON, DIGLETT'S CAVE, ROCK TUNNEL, the SEAFOAM ISLANDS,
-; VICTORY ROAD and CERULEAN CAVE, every floor. CAVERN is exactly those nineteen
-; maps and no others, so the list is one entry long.
+; v0.7 (2026-08-13): the ESCAPE ROPE and DIG are for the caves and for nothing
+; else -- MT.MOON, DIGLETT'S CAVE, ROCK TUNNEL, the SEAFOAM ISLANDS, VICTORY
+; ROAD and CERULEAN CAVE, every floor. CAVERN is exactly those nineteen maps and
+; no others, so the list is one entry long.
 ;
 ; What this turned off, all of it inherited from vanilla and none of it wanted:
 ;   CEMETERY  POKeMON TOWER 1F-7F (and AGATHA's room, which vanilla had to

@@ -233,9 +233,9 @@ _LooksContentText::
 	line "content asleep."
 	done
 
-; ---- PURPLE'S PATCH (Celadon Mansion roof house), 2026-09-22: the patch
-; itself. The quiz and PURPLE's talk around it are in data/text/text_9.asm (split
-; so neither bank falls under its floor). text/line/para 18 tiles, 17 on a line
+; ---- PURPLE'S PATCH (Celadon Mansion roof house), 2026-09-22: the patch itself.
+; The quiz and PURPLE's talk around it are in data/text/text_9.asm (split so
+; neither bank falls under its floor). text/line/para 18 tiles, 17 on a line
 ; under the press-A arrow; # renders 4.
 _RoofHousePatchThinkItOverText::
 	text "Take your time!"

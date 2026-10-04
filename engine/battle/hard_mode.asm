@@ -289,11 +289,11 @@ HardModeGymPartyGate::
 	jp HardModeGymPartyGate_Compare
 
 HardModeGymCapHint::
-; v1.0 (2026-09-22): the gym guide announces the badge match cap before
-; the player walks into it. Inputs in registers because rst _Bankswitch lands
-; with a = destination bank: e = trainer class (OPP_*), d = the object_event's
-; party id. Prints only in HARD MODE; the advice page before it ends in `done`,
-; so it waits for A first. Trashes: a, b, d, e, hl.
+; v1.0 (2026-09-22): the gym guide announces the badge match cap before the
+; player walks into it. Inputs in registers because rst _Bankswitch lands with
+; a = destination bank: e = trainer class (OPP_*), d = the object_event's party
+; id. Prints only in HARD MODE; the advice page before it ends in `done`, so it
+; waits for A first. Trashes: a, b, d, e, hl.
 	ld a, [wDifficulty]
 	cp HARD_MODE
 	ret nz

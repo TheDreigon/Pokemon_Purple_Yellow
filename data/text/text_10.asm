@@ -1,9 +1,9 @@
 ; Text bank 10 (v0.7, 2026-08-30): opened when Text 9 ran down to 99 free
 ; bytes (the bank_slack_audit tripwire caught it). New far texts go here
 ; until this one fills too.
-; v0.7 (2026-08-30): PROF.OAK's two aides wait here with
-; the parcels. Both item descriptions are borrowed from the old gate text
-; files; these are the duo's own lines.
+; v0.7 (2026-08-30): PROF.OAK's two aides wait here with the parcels.
+; Both item descriptions are borrowed from the old gate text files; these
+; are the duo's own lines.
 _SaffronAidesGreetingText::
 	text "Hey, <PLAYER>!"
 	line "We've been"
@@ -87,9 +87,9 @@ _SaffronAidesSafeText::
 
 ; v0.7 hard mode (2026-08-30): every gym leader's badge-match party cap
 ; (engine/battle/hard_mode.asm, HardModeGymPartyGate). One shared voice for
-; all eight. No HARD MODE name-drop (the 4th wall stays up), and the
-; leader says HOW MANY they field - the gate parks the count in wd11e just
-; before printing.
+; all eight. No HARD MODE name-drop (the 4th wall stays up), and the leader
+; says HOW MANY they field - the gate parks the count in wd11e just before
+; printing.
 _HardModeGymPartyGateText::
 	text "Whoa, hold it!"
 	line "I only accept a"
@@ -102,9 +102,9 @@ _HardModeGymPartyGateText::
 	text " #MON."
 	done
 
-; v0.7 knob #17 follow-up (2026-09-01): the boost-badge speeches and
-; the Badge House entries must not mislead a HARD player - on hard the badges
-; lend no stat boost. Same 4th-wall rule as the party-gate text above: no mode
+; v0.7 knob #17 follow-up (2026-09-01): the boost-badge speeches and the Badge
+; House entries must not mislead a HARD player - on hard the badges lend no
+; stat boost. Same 4th-wall rule as the party-gate text above: no mode
 ; name-drop; the leaders speak of the player's chosen road instead.
 ; v1.0 (the SPECIAL split, 2026-09-06): the badge map moved the boosts to
 ; THUNDER/RAINBOW/SOUL/GOLD/VOLCANO. Brock's hard twin died with his boost;
@@ -207,9 +207,9 @@ _ViridianForestCooltrainerF2AfterBattleText::
 	line "rude to family."
 	done
 
-; v1.0 (2026-09-27): a POISON HEAL used on TOX
-; (home/pokemon.asm PoisonHealVsToxic). Line 1 is 17 of 18 tiles ('s is one);
-; line 2 (14) shares the prompt arrow's row, 17 at most.
+; v1.0 (2026-09-27): a POISON HEAL used on TOX (home/pokemon.asm
+; PoisonHealVsToxic). Line 1 is 17 of 18 tiles ('s is one); line 2 (14)
+; shares the prompt arrow's row, 17 at most.
 _PoisonHealTooToxicText::
 	text "It's too toxic for"
 	line "a POISON HEAL!"

@@ -535,8 +535,8 @@ ShowPokedexDataInternal:
 ; v0.7: DATA opens on the typing and the base stats, and the description
 ; follows it. Carry clear means the mon has only been SEEN, and then the whole
 ; area below the divider stays empty exactly as before - no height, no weight,
-; no description, and now no stats either. By design: you have to have
-; caught it.
+; no description, and now no stats either. By design: you have to have caught
+; it.
 	jr nc, .waitForButtonPress
 	push hl ; DrawDexEntryOnScreen leaves the description pointer here, and
 	        ; everything below walks all over hl
@@ -681,10 +681,10 @@ DrawDexEntryOnScreen:
 	call Delay3
 	call GBPalNormal
 	call GetMonHeader ; load pokemon picture location
-; v0.7 (2026-09-01): the Pokedex shows the FAKE Pikachu -
-; the species as found in the wild - deliberately and always. Armed here
-; because the flipped loader's own hook reads wLoadedMon, which this
-; screen never fills (and an armed swap is never undone by it).
+; v0.7 (2026-09-01): the Pokedex shows the FAKE Pikachu - the species as
+; found in the wild - deliberately and always. Armed here because the
+; flipped loader's own hook reads wLoadedMon, which this screen never
+; fills (and an armed swap is never undone by it).
 	callfar UseFakePikachuFrontPic
 	hlcoord 1, 1
 	call LoadFlippedFrontSpriteByMonIndex ; draw pokemon picture

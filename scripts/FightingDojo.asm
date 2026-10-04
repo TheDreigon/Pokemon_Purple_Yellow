@@ -26,8 +26,8 @@ FightingDojoPostLeagueState:
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	SetEventRange EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
-; 2026-08-30: with the master gone the prize fight is gone too, so
-; a player who never beat him can never open the balls — leaving them
+; 2026-08-30: with the master gone the prize fight is gone too, so a
+; player who never beat him can never open the balls — leaving them
 ; visible would be an unreachable tease. Hide both. A player who DID beat
 ; him keeps the earned, still-claimable choice (and FightingDojoOnEntry
 ; already retires the unchosen one after a pick).
@@ -454,11 +454,11 @@ FightingDojoHitmonleePokeBallText:
 	call PrintText
 	jr .done
 .PrizeStillHere
-; 2026-08-29: the prize is earned, never found — post-League the
-; master is gone and the hall stands open, so without this gate a player
-; who skipped the dojo could walk in and lift a ball for free. The
-; Viridian honor reward chains off the GOT_* flags, so this one check
-; gates that too; the never-won player catches his in VICTORY ROAD.
+; 2026-08-29: the prize is earned, never found — post-League the master
+; is gone and the hall stands open, so without this gate a player who
+; skipped the dojo could walk in and lift a ball for free. The Viridian
+; honor reward chains off the GOT_* flags, so this one check gates that
+; too; the never-won player catches his in VICTORY ROAD.
 	CheckEvent EVENT_BEAT_KARATE_MASTER
 	jr nz, .GetMon
 	ld hl, FightingDojoPrizeNotEarnedText

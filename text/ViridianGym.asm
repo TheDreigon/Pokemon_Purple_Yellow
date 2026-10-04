@@ -183,9 +183,9 @@ _ViridianGymCooltrainerM2AfterBattleText::
 	line "scold me!"
 	done
 
-; v1.0 (2026-09-06): JESSIE & JAMES at the door of Giovanni's room, the
-; duo's fifth fight. The end line keeps its one-letter first row: the battle
-; screen prints "JESSIE&JAMES: " (14 tiles) before it.
+; v1.0 (2026-09-06): JESSIE & JAMES at the door of Giovanni's room, the duo's
+; fifth fight. The end line keeps its one-letter first row: the battle screen
+; prints "JESSIE&JAMES: " (14 tiles) before it.
 _ViridianGymJessieBattleText::
 	text "Stop right there!"
 

@@ -1841,8 +1841,8 @@ UNION
 wMovesString:: ds 56
 
 NEXTU
-; v1.0 (2026-09-08): the level-up gains box. The two level-up paths copy the
-; mon's stats here just before CalcStats; PrintStatsBox with d = 2 subtracts them from
+; v1.0 (2026-09-08): the level-up gains box. The two level-up paths copy the mon's
+; stats here just before CalcStats; PrintStatsBox with d = 2 subtracts them from
 ; wLoadedMon in place and prints the result, so this holds the OLD stats on the way in
 ; and the GAINS on the way out. Safe over wMovesString: FormatMovesString
 ; (engine/battle/misc.asm) is its only writer and each of its three readers is preceded
@@ -2065,12 +2065,12 @@ SECTION "Main Data", WRAM0
 
 wMainDataStart::
 
-; v0.7 expansion prep (2026-08-31, save format break): both dex
-; bitfields are pre-sized to POKEDEX_FLAG_CAPACITY (200 species / 25 bytes)
-; so future species additions stop moving every label after them. Trailing
-; bits are zero on a new game and in the migrated fixture; every consumer
-; derives its width from the End labels and counts/scans set bits, so the
-; padding is inert.
+; v0.7 expansion prep (2026-08-31, save format break): both dex bitfields
+; are pre-sized to POKEDEX_FLAG_CAPACITY (200 species / 25 bytes) so future
+; species additions stop moving every label after them. Trailing bits are
+; zero on a new game and in the migrated fixture; every consumer derives
+; its width from the End labels and counts/scans set bits, so the padding
+; is inert.
 wPokedexOwned:: ds POKEDEX_FLAG_CAPACITY / 8
 wPokedexOwnedEnd::
 
@@ -2288,10 +2288,10 @@ wMovedexSeenEnd::
 ; and has to pick a mode, which is exactly what we want them to do anyway.
 wExpShareMode:: db
 
-; v0.7 "registered item" (2026-08-28): the key item bound to
-; SELECT in the overworld. 0 = nothing registered -- which is also what an
-; old save's recycled byte reads, the same safe-sentinel precedent as
-; wExpShareMode above.
+; v0.7 "registered item" (2026-08-28): the key item bound to SELECT in the
+; overworld. 0 = nothing registered -- which is also what an old save's
+; recycled byte reads, the same safe-sentinel precedent as wExpShareMode
+; above.
 wRegisteredItem:: db
 
 ; number of signs in the current map (up to 16)

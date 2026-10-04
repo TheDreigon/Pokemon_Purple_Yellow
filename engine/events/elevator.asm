@@ -33,9 +33,9 @@ DisplayElevatorFloorMenu:
 	ld b, a
 	ld a, [hl]
 	ld c, a
-; v1.0 (2026-09-24): the door's warp already points at the floor the
-; car is on (the map-load callback copies wWarpedFromWhichMap into it and
-; every ride rewrites it below), so its destination map IS the current floor.
+; v1.0 (2026-09-24): the door's warp already points at the floor the car is
+; on (the map-load callback copies wWarpedFromWhichMap into it and every ride
+; rewrites it below), so its destination map IS the current floor.
 ; Picking it again says so and reopens the list (cursor kept) instead of
 ; shaking the car for nothing.
 	ld a, [wWarpEntries + 3] ; destination map of the door's first warp

@@ -1,7 +1,7 @@
 ; ARCHIVED -- Saffron City while Silph Co is occupied -- the first Saffron theme. NOT BUILT.
 ;
-; This is the first version, kept so that the originals would be
-; preserved before Saffron was rewritten (2026-08-05). The note data below is
+; This is the first version, kept so that the originals would be preserved
+; before Saffron was rewritten (2026-08-05). The note data below is
 ; byte-for-byte what shipped; only the labels are renamed, so that this file can
 ; sit in the repo beside the live one without clashing. It is not referenced
 ; from audio.asm and costs no ROM.
@@ -15,8 +15,8 @@
 ; Then check: python .claude/song_id_audit.py and .claude/music_analyze.py
 ;
 ; A minor on an Am-Em-F-G vamp, tempo 152, 8 bars, 31 notes in the lead.
-; Chosen over two later revisions. Its twin is
-; unused_saffron_free.asm and the two must stay structurally identical.
+; Chosen over two later revisions. Its twin is unused_saffron_free.asm
+; and the two must stay structurally identical.
 
 ; Saffron City -- an original piece, not derived from anything.
 ;
@@ -26,12 +26,12 @@
 ; same tune in A major, faster, and with a second half. If you change anything
 ; structural here, that file is its twin and has to follow.
 ;
-; Two derivations failed the same way: the music was liked but did not
-; fit. Celadon and Route 24/25 are fundamentally CHEERFUL and ADVENTUROUS, and
+; Two derivations failed the same way: the music was liked but did not fit.
+; Celadon and Route 24/25 are fundamentally CHEERFUL and ADVENTUROUS, and
 ; slowing a tune down does not change what the tune is about. Saffron is
 ; neither. It is the biggest city in Kanto, it is Silph's company town, and
-; visually there is barely any room to move because it
-; is just a mass of buildings. So this is written for that on purpose.
+; visually there is barely any room to move because it is just a mass of
+; buildings. So this is written for that on purpose.
 ;
 ; The decisions, stated so they can be argued with:
 ;
@@ -65,8 +65,8 @@
 ; (184) own the heavy end now. Direction reminder -- the note delay is
 ; note_length * note_speed * TEMPO, so a bigger number is SLOWER. This is the
 ; ONE thing carried back from the later attempts: a touch more speed, noted
-; while v2 was being made as a standing note about the track
-; and not part of the Kanto argument. Everything else here is v1 untouched.
+; while v2 was being made as a standing note about the track and not part of
+; the Kanto argument. Everything else here is v1 untouched.
 ;
 ; -- HOW THIS ENDED (2026-07-30) ---------------------------------------------
 ; Three versions were made and this one was chosen.

@@ -25,10 +25,10 @@ IndigoPlateauLobby_TextPointers:
 IndigoPlateauLobbyNurseText:
 	script_pokecenter_nurse
 
-; v1.0 (2026-09-25): once the player holds the title (wGameStage,
-; set by the first HALL OF FAME), the two helpers greet the CHAMPION who has
-; come to defend it instead of a "champ in making". The Yellow Legacy's
-; rematch layer never touched the lobby.
+; v1.0 (2026-09-25): once the player holds the title (wGameStage, set by the
+; first HALL OF FAME), the two helpers greet the CHAMPION who has come to
+; defend it instead of a "champ in making". The Yellow Legacy's rematch
+; layer never touched the lobby.
 IndigoPlateauLobbyGymGuideText:
 	text_asm
 	ld a, [wGameStage]

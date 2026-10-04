@@ -87,9 +87,9 @@ _VermilionCitySailor2Text::
 	line "once a year."
 	done
 
-; v0.7 (#38): she gives her name in conversation, not only on the
-; battle screen. Both of these are a possible first meeting -- which one you get
-; depends on whether you already have the CASCADEBADGE -- so both introduce her.
+; v0.7 (#38): she gives her name in conversation, not only on the battle screen.
+; Both of these are a possible first meeting -- which one you get depends on
+; whether you already have the CASCADEBADGE -- so both introduce her.
 _OfficerJennyText1::
 	text "I'm OFFICER JENNY."
 

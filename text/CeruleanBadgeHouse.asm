@@ -24,8 +24,8 @@ _CeruleanBadgeHouseMiddleAgedManVisitAnyTimeText::
 	done
 
 _CeruleanBadgeHouseBoulderBadgeText::
-; v1.0 (the SPECIAL split, 2026-09-06): the badge map starts the boosts
-; at THUNDER - the first BADGE lends none on either road, so one text.
+; v1.0 (the SPECIAL split, 2026-09-06): the badge map starts the boosts at
+; THUNDER - the first BADGE lends none on either road, so one text.
 	text "It is proof of"
 	line "your first GYM"
 	cont "victory."
@@ -38,8 +38,8 @@ _CeruleanBadgeHouseCascadeBadgeText::
 	prompt
 
 _CeruleanBadgeHouseThunderBadgeText::
-; v1.0 (the SPECIAL split, 2026-09-06): the badge map - THUNDER lends
-; SPEED (it was DEFENSE); the HM claim follows the v0.7 remap (FLY -> FLASH).
+; v1.0 (the SPECIAL split, 2026-09-06): the badge map - THUNDER lends SPEED
+; (it was DEFENSE); the HM claim follows the v0.7 remap (FLY -> FLASH).
 	text "The SPEED of all"
 	line "#MON increases"
 	cont "a little bit."

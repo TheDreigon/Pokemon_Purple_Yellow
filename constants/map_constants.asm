@@ -305,9 +305,9 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs) (behind BILL's cottage; reached only through the house, and only after the League)
 DEF NUM_MAPS EQU const_value
 
-; v1.0 (2026-09-24): two Town Map stops that are services, not maps. The
-; MOVE DELETER and the MOVE RELEARNER share CINNABAR LAB's fossil room, so each
-; borrows an unused map id for its own name and marker (data/maps/town_map_entries.asm,
+; v1.0 (2026-09-24): two Town Map stops that are services, not maps. The MOVE DELETER
+; and the MOVE RELEARNER share CINNABAR LAB's fossil room, so each borrows an unused
+; map id for its own name and marker (data/maps/town_map_entries.asm,
 ; data/maps/town_map_order.asm). No map has these ids: they never reach wCurMap.
 DEF TOWN_MAP_MOVE_DELETER   EQU UNUSED_MAP_CC
 DEF TOWN_MAP_MOVE_RELEARNER EQU UNUSED_MAP_CD

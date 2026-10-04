@@ -31,8 +31,8 @@ MoveHitTest:
 	and SLP_MASK
 	jp z, .moveMissed
 .swiftCheck
-; v1.0 (2026-09-26): a never-miss move (SWIFT_EFFECT: SWIFT's heirs -
-; FAINT ATTACK, AERIAL ACE, SHOCK WAVE...) ignores accuracy and evasion, not
+; v1.0 (2026-09-26): a never-miss move (SWIFT_EFFECT: SWIFT's heirs - FAINT
+; ATTACK, AERIAL ACE, SHOCK WAVE...) ignores accuracy and evasion, not
 ; FLY/DIG. Vanilla returned here, before the INVULNERABLE check, so it hit a
 ; mon up in the air or underground; from Gen 2 on it does not, and it made
 ; no sense (AERIAL ACE into a hole). The check moved below the INVULNERABLE
@@ -47,16 +47,16 @@ MoveHitTest:
 .checkForDigOrFlyStatus
 	bit INVULNERABLE, [hl]
 	jp nz, .moveMissed
-; v1.0 (2026-09-24): the damage calc already failed this move on type -
-; an immunity (WRAP vs a GHOST) or the "not even a scratch" collapse - and
+; v1.0 (2026-09-24): the damage calc already failed this move on type - an
+; immunity (WRAP vs a GHOST) or the "not even a scratch" collapse - and
 ; ApplyTypeEffectivenessToDamage only writes the reason code (v1.0 R9c: the
 ; fixed-damage family skips the damage calc; FixedDamageImmunity runs the same
-; walk for it, so only an immunity sends it here). No accuracy
-; roll, and the attacker's trapping move must not trap a target it cannot
-; touch: TrappingEffect ran before we got here (SpecialEffectsCont) and set
-; the bit, so take the trap-ending tail. The reason is left alone: it is
-; what PrintMoveFailureText reads. INVULNERABLE is tested first on purpose
-; (a FLYing target is 'missed', whatever the type).
+; walk for it, so only an immunity sends it here). No accuracy roll, and the
+; attacker's trapping move must not trap a target it cannot touch:
+; TrappingEffect ran before we got here (SpecialEffectsCont) and set the bit,
+; so take the trap-ending tail. The reason is left alone: it is what
+; PrintMoveFailureText reads. INVULNERABLE is tested first on purpose (a
+; FLYing target is 'missed', whatever the type).
 	ld a, [wMoveMissed]
 	and a
 	jp nz, .endTrappingMove
@@ -79,13 +79,12 @@ MoveHitTest:
 	ld a, [wPlayerMovePower]
 	and a
 	jr nz, .skipEnemyMistCheck ; a damaging move is never Mist-blocked
-; v1.0 (F4, 2026-09-30; as utility moves, these two get an exception and hit DARK types): the
-; v0.7 guard that made a power-0 PSYCHIC
-; move miss a DARK target is gone, on both turns. Its only members were HYPNOSIS and DISABLE -
-; moves.asm has no other power-0 PSYCHIC move - so exempting the two left it with nothing to
-; guard. The chart's PSYCHIC -> DARK NO_EFFECT still rules the damage path (every damaging PSYCHIC
-; move "doesn't affect" a DARK type), where MIND BREAK alone reaches it, at 0.5x
-; (type_effectiveness.asm, TypeRowMultiplier).
+; v1.0 (F4, 2026-09-30; as utility moves, these two get an exception and hit DARK types): the v0.7
+; guard that made a power-0 PSYCHIC move miss a DARK target is gone, on both turns. Its only
+; members were HYPNOSIS and DISABLE - moves.asm has no other power-0 PSYCHIC move - so exempting
+; the two left it with nothing to guard. The chart's PSYCHIC -> DARK NO_EFFECT still rules the
+; damage path (every damaging PSYCHIC move "doesn't affect" a DARK type), where MIND BREAK alone
+; reaches it, at 0.5x (type_effectiveness.asm, TypeRowMultiplier).
 ; this checks if the move effect is disallowed by mist
 	ld a, [wPlayerMoveEffect]
 	cp ATTACK_DOWN1_EFFECT
@@ -137,15 +136,14 @@ MoveHitTest:
 	bit USING_X_ACCURACY, a ; is the enemy using X Accuracy?
 	ret nz ; if so, always hit regardless of accuracy/evasion
 .calcHitChance
-; v1.0 (F6, 2026-09-30):
-; CalcHitChance hands the hit chance back in a and no longer stores it over the move's
-; accuracy byte. Stored, it was what a SECOND roll in the same use scaled again - the
-; stat drop of a damaging lowering move (TAKE DOWN, ROCK TOMB, HYDRO PUMP...) and, before
-; F3, the later leg of FLASH / EERIE IMPULSE / PSYCHIC BIND - so the ACCURACY and EVASION
-; stages counted twice (behind +1 EVASION a sure drop rolled 64%, not 80%). The first
-; roll of every move is the same: b is the value that used to be stored and read back.
-; (F3b then took that drop off the roll - effects.asm .dropAfterHit - so no use rolls
-; twice today; F6 stays as the guard, 13 bytes shorter than the read-back.)
+; v1.0 (F6, 2026-09-30): CalcHitChance hands the hit chance back in a and no longer stores
+; it over the move's accuracy byte. Stored, it was what a SECOND roll in the same use scaled
+; again - the stat drop of a damaging lowering move (TAKE DOWN, ROCK TOMB, HYDRO PUMP...)
+; and, before F3, the later leg of FLASH / EERIE IMPULSE / PSYCHIC BIND - so the ACCURACY
+; and EVASION stages counted twice (behind +1 EVASION a sure drop rolled 64%, not 80%). The
+; first roll of every move is the same: b is the value that used to be stored and read back.
+; (F3b then took that drop off the roll - effects.asm .dropAfterHit - so no use rolls twice
+; today; F6 stays as the guard, 13 bytes shorter than the read-back.)
 	call CalcHitChance ; a = the move's accuracy scaled by the attacker's accuracy and the target's evasion
 	ld b, a
 .doAccuracyCheck
@@ -339,8 +337,8 @@ HalveAttackDueToBurn:
 
 HalveSpeedDueToParalysis:
 ; v0.7: was QuarterSpeedDueToParalysis (/ 4) — now halves (/ 2) per modern
-; Pokemon (Gen 7+ behavior), by design. Rename + one less
-; srl/rr pair per side. Behaviour: halve current speed if statused.
+; Pokemon (Gen 7+ behavior), by design. Rename + one less srl/rr pair per
+; side. Behaviour: halve current speed if statused.
 ; (Idempotency caveat: still halves whatever's there — must only be called
 ; right after a recalc-from-unmodified, never on a stat that already had
 ; the penalty applied. See UpdateStatDone / UpdateLoweredStatDone in

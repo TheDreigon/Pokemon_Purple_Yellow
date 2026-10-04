@@ -67,8 +67,8 @@ SaffronCitySilphWorkerFText:
 	text_far _SaffronCitySilphWorkerFText
 	text_end
 
-; v1.0 (2026-09-22): once the player is CHAMPION the bird man hints at
-; the three trainers roosting in the legendary birds' chambers, without names.
+; v1.0 (2026-09-22): once the player is CHAMPION the bird man hints at the
+; three trainers roosting in the legendary birds' chambers, without names.
 SaffronCityGentlemanText:
 	text_asm
 	ld a, [wGameStage]

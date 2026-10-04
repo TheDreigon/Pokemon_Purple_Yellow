@@ -51,10 +51,10 @@ MoveDescriptionOverrides:
 ; full HP, not POISON's eighth, so it gets words of its own.
 	db TOXIC,
 	dw MoveDesc_Toxic
-; v1.0 (round 7, 2026-09-30; the card says it hits DARK types, space
-; permitting): since F4 MIND BREAK hits DARK at 0.5x, the one DAMAGING PSYCHIC move
-; that does (TypeRowMultiplier, type_effectiveness.asm); HYPNOSIS and DISABLE land on DARK
-; since F4 too, being status moves. NUZZLE keeps the shared PARALYZE_SIDE_EFFECT3 line.
+; v1.0 (round 7, 2026-09-30; the card says it hits DARK types, space permitting): since F4
+; MIND BREAK hits DARK at 0.5x, the one DAMAGING PSYCHIC move that does
+; (TypeRowMultiplier, type_effectiveness.asm); HYPNOSIS and DISABLE land on DARK since F4
+; too, being status moves. NUZZLE keeps the shared PARALYZE_SIDE_EFFECT3 line.
 	db MIND_BREAK,
 	dw MoveDesc_MindBreak
 	db -1

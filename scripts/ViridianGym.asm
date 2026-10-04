@@ -431,8 +431,8 @@ ViridianGymCooltrainerM1EndBattleText:
 ; The eight gym trainers stay after the badge; once KIYO holds the gym the
 ; seven regulars fight again as his disciples (the gym rework, 9/9,
 ; 2026-09-06) and ViridianGymKiyoEraTrainerHeaders carries their era texts -
-; the battle and end lines below, and the after-lines settled
-; 2026-08-17 - so no stub here branches on wGameStage any more.
+; the battle and end lines below, and the after-lines settled 2026-08-17 -
+; so no stub here branches on wGameStage any more.
 ViridianGymCooltrainerM1AfterBattleText:
 	text_far _ViridianGymCooltrainerM1AfterBattleText
 	text_end
@@ -696,11 +696,11 @@ ViridianGymGymGuideText:
 	jr nz, .afterBeat
 	ld hl, ViridianGymGuidePreBattleText
 	call PrintText
-; v0.7 (2026-08-29; moved to the END of the advice 2026-09-05):
-; the first ELIGIBLE pre-badge visit earns a FRESH WATER. Eligible = previous
-; badge in hand; once per gym, and a full bag defers the gift to the next
-; talk (flag set only on success). The advice texts end in `done`, which does
-; not wait, so the receipt page is held back until the player presses.
+; v0.7 (2026-08-29; moved to the END of the advice 2026-09-05): the first
+; ELIGIBLE pre-badge visit earns a FRESH WATER. Eligible = previous badge in
+; hand; once per gym, and a full bag defers the gift to the next talk (flag
+; set only on success). The advice texts end in `done`, which does not wait,
+; so the receipt page is held back until the player presses.
 	ld e, OPP_GIOVANNI ; v1.0: the HARD MODE badge match cap, announced (Pewter's note)
 	ld d, 3 ; GIOVANNI's gym fight is his third party
 	callfar HardModeGymCapHint
@@ -834,8 +834,8 @@ ViridianGymKiyoPostBattleText:
 	ld hl, .WinText
 	call PrintText
 ; this is the ONLY place the honor reward can be earned — a victory, with
-; exactly one dojo Hitmon already owned (the Hitmon is a reward;
-; talking never grants it, and a ball claimed after a win waits for the next)
+; exactly one dojo Hitmon already owned (the Hitmon is a reward; talking
+; never grants it, and a ball claimed after a win waits for the next)
 	CheckEvent EVENT_GOT_KIYO_HITMON
 	jr nz, .done
 	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN

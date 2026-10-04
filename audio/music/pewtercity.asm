@@ -1,7 +1,7 @@
 ; Pewter City -- Cities1 with the brightness taken out of it.
 ;
-; Viridian and Pewter were the same theme, and Pewter is the town built
-; on stone with the rock gym in it. Same tune, heavier voice, so the two towns
+; Viridian and Pewter were the same theme, and Pewter is the town built on
+; stone with the rock gym in it. Same tune, heavier voice, so the two towns
 ; stop being interchangeable while Pewter still sounds like the place you
 ; already know.
 ;

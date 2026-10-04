@@ -1,10 +1,10 @@
-; v1.0 (2026-09-23): MR. FUJI offers the orphan CUBONE of the TOWER - she
-; lives in his Volunteer House - right after the POKE FLUTE, without forcing. Why
-; her and not his other wards, and why to this player: her mother is the MAROWAK
-; the player laid to rest. Lives in Text 8: Fuji's own bank (Text 6) had
-; 470 bytes free, less than these 733; Text 8 keeps 2888 (the bank's tail
-; looks full only because rgblink packs floating sections into it). Every
-; line under the press-A arrow is 17 or less.
+; v1.0 (2026-09-23): MR. FUJI offers the orphan CUBONE of the TOWER - she lives
+; in his Volunteer House - right after the POKE FLUTE, without forcing. Why her
+; and not his other wards, and why to this player: her mother is the MAROWAK the
+; player laid to rest. Lives in Text 8: Fuji's own bank (Text 6) had 470 bytes
+; free, less than these 733; Text 8 keeps 2888 (the bank's tail looks full only
+; because rgblink packs floating sections into it). Every line under the press-A
+; arrow is 17 or less.
 
 _MrFujisHouseMrFujiCuboneOfferText::
 	text "MR.FUJI: There is"

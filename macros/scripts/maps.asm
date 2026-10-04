@@ -13,8 +13,8 @@ ENDM
 ;\7 items only: item id
 ;\7 trainers only: trainer class/pokemon id
 ;\8 trainers only: trainer number/pokemon level
-;\9 trainers only, OPTIONAL: sight range in tiles (0-15). Since
-;   2026-08-31: author the range HERE, next to the trainer it belongs to.
+;\9 trainers only, OPTIONAL: sight range in tiles (0-15). Since 2026-08-31:
+;   author the range HERE, next to the trainer it belongs to.
 ;   Emits NO bytes - it defines _SIGHT_<text id> and _OBJIDX_<text id>,
 ;   which the `trainer` header macro consumes (range byte) and ASSERTs
 ;   against (the ordinal contract: header byte +0 must equal this object's

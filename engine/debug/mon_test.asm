@@ -4,16 +4,16 @@
 ; DebugMenu -> MON. Shows each species' front sprite in its real gameplay
 ; colours, its dex number, name and types, and plays its cry.
 ;
-; It exists so that sprites and cries can be checked by hand without a
-; playthrough (the same reason ANIM TEST exists for move
-; animations). It also covers two playtest-checklist items directly: hearing the
-; reworked Rhyhorn/Ditto/Muk cries, and eyeing the sprites the dex review touched.
+; It exists so that sprites and cries can be checked by hand without a playthrough
+; (the same reason ANIM TEST exists for move animations). It also covers two
+; playtest-checklist items directly: hearing the reworked Rhyhorn/Ditto/Muk cries,
+; and eyeing the sprites the dex review touched.
 ;
-; Since 2026-08-29 the screen opens on a POKEDEX-STYLE LIST
-; first: 14 names a page, pick one, A opens the sprite view, B in the view
-; returns to the list. The list carries NO state of its own -- it is just
-; another view over wWhichPokemon (the cursor IS the selection), so the two
-; screens can never disagree about which species is current.
+; Since 2026-08-29 the screen opens on a POKEDEX-STYLE LIST first: 14 names
+; a page, pick one, A opens the sprite view, B in the view returns to the
+; list. The list carries NO state of its own -- it is just another view
+; over wWhichPokemon (the cursor IS the selection), so the two screens can
+; never disagree about which species is current.
 ;
 ; Controls, LIST (dex-numbered, 14 per page):
 ;   UP / DOWN     previous / next species (wraps #001 <-> #151)
@@ -204,9 +204,9 @@ MonTest_Draw:
 
 	hlcoord 1, 1                   ; MUST be 1,1 — see the palette note above
 ; This viewer shows the canonical (Yellow partner) Pikachu art only — the
-; unflipped loader has no fake-pic hook, and either art is fine
-; here (2026-09-01). To review PikachuFakePicFront, use the status screen of
-; a caught Pikachu in-game.
+; unflipped loader has no fake-pic hook, and either art is fine here
+; (2026-09-01). To review PikachuFakePicFront, use the status screen of a
+; caught Pikachu in-game.
 	call LoadFrontSpriteByMonIndex
 
 	hlcoord 1, 0

@@ -1985,9 +1985,9 @@ AnimationWavyScreen:
 ;    playing, the audio work makes that start line jitter by up to ~30 lines
 ;    per frame (measured on PSYCHIC's `PSYBEAM, SE_WAVY_SCREEN`), which
 ;    vertically bounced the whole ripple -- it looked like a faster ripple
-;    whenever a sound played. Each line now reads
-;    offsets[(LY + phase) & 31], so the pattern is pinned to the scanline and
-;    a late start only leaves the top lines flat for that frame.
+;    whenever a sound played. Each line now reads offsets[(LY + phase) & 31],
+;    so the pattern is pinned to the scanline and a late start only leaves
+;    the top lines flat for that frame.
 	ld e, SCREEN_HEIGHT_PX - 1
 	ld b, 0   ; phase
 	ld c, $80 ; frames (~2.1 s)
@@ -2209,9 +2209,9 @@ ChangeMonPic:
 	xor a
 	ld [wSpriteFlipped], a
 	call GetMonHeader
-; v0.7 (2026-09-01): a Pikachu drawn on the enemy side wears the
-; art of the INDIVIDUAL being drawn - the variant sorts out whether that
-; is the enemy's own shape or the player's battler mid-transform
+; v0.7 (2026-09-01): a Pikachu drawn on the enemy side wears the art of
+; the INDIVIDUAL being drawn - the variant sorts out whether that is the
+; enemy's own shape or the player's battler mid-transform
 	callfar UseFakePikachuFrontPicChangeMonPic
 	hlcoord 12, 0
 	call LoadFrontSpriteByMonIndex

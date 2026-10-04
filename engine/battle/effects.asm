@@ -763,11 +763,10 @@ ASSERT ATTACK_UP2_EFFECT >= ATTACK_UP1_EFFECT + $8, "the +2 ladder must start in
 	jr nc, .ok
 	ld b, a
 .ok
-; v1.0 (D12, 2026-09-28): b is the new stage, written
-; at UpdateStatDone once the raise goes through. Vanilla wrote it here, and the refusal at 999
-; below undid one step only: a +2 move (SWORDS DANCE, IRON DEFENSE, NASTY PLOT, AMNESIA) said
-; "Nothing happened!" and kept a hidden +1 (Gold/Silver/Crystal too). Now no refusal touches
-; the stage byte. Shared by both sides.
+; v1.0 (D12, 2026-09-28): b is the new stage, written at UpdateStatDone once the raise goes
+; through. Vanilla wrote it here, and the refusal at 999 below undid one step only: a +2 move
+; (SWORDS DANCE, IRON DEFENSE, NASTY PLOT, AMNESIA) said "Nothing happened!" and kept a hidden
+; +1 (Gold/Silver/Crystal too). Now no refusal touches the stage byte. Shared by both sides.
 	ld a, c
 	cp MOD_ACCURACY
 	jr nc, UpdateStatDone ; jump if mod affected is evasion/accuracy
@@ -858,10 +857,10 @@ UpdateStatDone:
 	ld a, [wMoveDidntMiss]
 	and a
 	jr nz, .skipUpAnim ; damage already played the animation, or an earlier leg of this move rose
-; v1.0 (E5, 2026-09-29): the flag is set HERE, where the
-; animation plays, and no longer by the multi-stat handlers after their first leg. A first stat
-; refused (+6, or 999 since D14) leaves the animation to the first stat that rises (BULK UP at
-; ATTACK +6 animates on DEFENSE); a move whose every stat is refused plays none; never twice.
+; v1.0 (E5, 2026-09-29): the flag is set HERE, where the animation plays, and no longer by the
+; multi-stat handlers after their first leg. A first stat refused (+6, or 999 since D14) leaves
+; the animation to the first stat that rises (BULK UP at ATTACK +6 animates on DEFENSE); a move
+; whose every stat is refused plays none; never twice.
 ; Newer games play it whenever one stat rises. Both sides (hWhoseTurn); X items and FOCUS ENERGY
 ; are one leg each and unchanged (FOCUS ENERGY pre-sets the flag only when it pumps: its own
 ; animation played. v1.0 F2: already pumped, it leaves 0 and its ACCURACY leg animates here).
@@ -905,8 +904,8 @@ StatAlreadyAt999: ; D12: the stat is already 999 and the stage byte was never wr
 	; fall through (D14): the 999 refusal names the stat, as the +6 one does
 
 ; v0.7: stat capped at +6 — print "<USER>'s <STAT> won't go any higher!".
-; v1.0 (D14, 2026-09-29): a raise refused because the stat is already
-; 999 falls in here from StatAlreadyAt999 and names the stat too, as in Gold/Silver/Crystal.
+; v1.0 (D14, 2026-09-29): a raise refused because the stat is already 999 falls in here from
+; StatAlreadyAt999 and names the stat too, as in Gold/Silver/Crystal.
 ; It said "Nothing happened!", which nothing else printed and which went with it.
 ; Expects c = 0-based stat index on both ways in: the +6 test jumps here with c from
 ; .gotIndexUp, and the 999 test comes after .checkIf999's `pop bc` restored it (SP.DEF's 4
@@ -942,18 +941,17 @@ RoseText:
 	text_far _RoseText
 	text_end
 
-; v1.0 (F3, 2026-09-30):
-; the later leg of a move that lowers two stats (FLASH, EERIE IMPULSE, PSYCHIC BIND)
-; rolls no accuracy of its own - one roll per use, as from Gen 3 on and as
-; DoStatDownFlinchEffect. The first leg, a plain StatModifierDownEffect, decided for
-; the move (the SUBSTITUTE, MIST, FLY/DIG, the roll) and said "But, it failed!" once if
-; it did not land. This leg follows that verdict: nothing after a miss (MIST and FLY/DIG
-; are misses in MoveHitTest) or into the SUBSTITUTE (the first leg's test, which leaves
+; v1.0 (F3, 2026-09-30): the later leg of a move that lowers two stats (FLASH, EERIE
+; IMPULSE, PSYCHIC BIND) rolls no accuracy of its own - one roll per use, as from Gen 3 on
+; and as DoStatDownFlinchEffect. The first leg, a plain StatModifierDownEffect, decided for
+; the move (the SUBSTITUTE, MIST, FLY/DIG, the roll) and said "But, it failed!" once if it
+; did not land. This leg follows that verdict: nothing after a miss (MIST and FLY/DIG are
+; misses in MoveHitTest) or into the SUBSTITUTE (the first leg's test, which leaves
 ; wMoveMissed at 0); else its stat falls - refused on its own at -6 - and E5's one
 ; animation plays on the first stat that changes. In: the leg's id in the attacker's
-; move-effect byte. It sets hl and de as StatModifierDownEffect does; bc is dead from
-; .hit on (c at .ladderIndexDown, b at .gotIndexDown). F3 left StatModifierDownEffect's
-; bytes as they were; F3b then took the damaging moves' drops off the roll (.dropAfterHit).
+; move-effect byte. It sets hl and de as StatModifierDownEffect does; bc is dead from .hit
+; on (c at .ladderIndexDown, b at .gotIndexDown). F3 left StatModifierDownEffect's bytes as
+; they were; F3b then took the damaging moves' drops off the roll (.dropAfterHit).
 ; A damaging move on a two-leg handler would pass its first leg's MIST silently there, with
 ; wMoveMissed at 0, and this leg would then lower through MIST: none exists (every two-leg
 ; handler's move has power 0; emu_test_drop_after_hit C2 fails if one appears).
@@ -988,14 +986,14 @@ StatModifierDownEffect:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	jr c, .nonSideEffect
-; v0.7 T17 (2026-08-31): MIST / GUARD SPEC. also shield against the
-; stat drops that ride on damaging moves (SURF, CRUNCH, ~31 moves). The
-; damage has already landed; a protected target just keeps its stage,
-; silently - CantLowerAnymore returns without text for side effects,
-; exactly like a failed 33% roll. Power-0 stat moves were already blocked
-; upstream in MoveHitTest (all 19, spoofed ids included - see the T17
-; note); this is the other half. The damaging moves' own -1 drops (TAKE
-; DOWN, ROCK TOMB...) are shielded the same way at .dropAfterHit (F3b).
+; v0.7 T17 (2026-08-31): MIST / GUARD SPEC. also shield against the stat
+; drops that ride on damaging moves (SURF, CRUNCH, ~31 moves). The damage
+; has already landed; a protected target just keeps its stage, silently -
+; CantLowerAnymore returns without text for side effects, exactly like a
+; failed 33% roll. Power-0 stat moves were already blocked upstream in
+; MoveHitTest (all 19, spoofed ids included - see the T17 note); this is
+; the other half. The damaging moves' own -1 drops (TAKE DOWN, ROCK
+; TOMB...) are shielded the same way at .dropAfterHit (F3b).
 	inc bc
 	ld a, [bc] ; the DEFENDER's w*BattleStatus2
 	dec bc
@@ -1007,19 +1005,18 @@ StatModifierDownEffect:
 	ld a, [de]
 	sub ATTACK_DOWN_SIDE_EFFECT ; map each stat to 0-3
 	jr .decrementStatMod
-; v1.0 (F3b, 2026-09-30): the drop of a
-; damaging move on a plain lowering id (today 17 moves, all -1: TAKE DOWN, ROCK TOMB, HYDRO
-; PUMP...) is sure once the move has hit, as from Gen 3 on and as each card says. The core
-; runs it only from .executeOtherEffects: after the one accuracy roll hit, the damage landed
-; and the target still stands. It rolled a SECOND time here (MoveHitTest): HYDRO PUMP
-; lowered SPEED on ~85 of 100 hits; in hard mode a 100 percent move lost its drop 1 time
-; in 256 (1 in 18 for your moves against a hard-mode boss: its -13 edge applied again);
-; and that miss zeroed wDamage after the damage had landed (what the other side's BIDE
-; stores). Now no roll.
-; MIST / GUARD SPEC shields the stat, silently - the damage stays (T17's rule for the
-; 33 percent drops above; MoveHitTest's MIST test covers power-0 moves only). A SUBSTITUTE
-; that took the hit failed the test above (silent: the core set wMoveDidntMiss), one that
-; broke zeroed the effect (AttackSubstitute), and FLY / DIG made the hit itself miss.
+; v1.0 (F3b, 2026-09-30): the drop of a damaging move on a plain lowering id (today 17
+; moves, all -1: TAKE DOWN, ROCK TOMB, HYDRO PUMP...) is sure once the move has hit, as from
+; Gen 3 on and as each card says. The core runs it only from .executeOtherEffects: after the
+; one accuracy roll hit, the damage landed and the target still stands. It rolled a SECOND
+; time here (MoveHitTest): HYDRO PUMP lowered SPEED on ~85 of 100 hits; in hard mode a 100
+; percent move lost its drop 1 time in 256 (1 in 18 for your moves against a hard-mode boss:
+; its -13 edge applied again); and that miss zeroed wDamage after the damage had landed
+; (what the other side's BIDE stores). Now no roll.
+; MIST / GUARD SPEC shields the stat, silently - the damage stays (T17's rule for the 33
+; percent drops above; MoveHitTest's MIST test covers power-0 moves only). A SUBSTITUTE that
+; took the hit failed the test above (silent: the core set wMoveDidntMiss), one that broke
+; zeroed the effect (AttackSubstitute), and FLY / DIG made the hit itself miss.
 ; In: bc = the DEFENDER's w*BattleStatus1.
 .dropAfterHit
 	inc bc
@@ -1235,10 +1232,10 @@ CantLowerAnymore_Pop: ; D12: the stat is already 1 and the stage byte was never 
 	pop hl
 
 CantLowerAnymore:
-; v1.0 (F3b, 2026-09-30): silent for a move with
-; power - the 33-in-100 side drops as before, and now the drops of the damaging moves too
-; (sure since F3b; Gen 3 on says nothing there either). A status move (GROWL, CHARM...)
-; still names the stat. de = the attacker's effect byte; its power byte follows it.
+; v1.0 (F3b, 2026-09-30): silent for a move with power - the 33-in-100 side drops as
+; before, and now the drops of the damaging moves too (sure since F3b; Gen 3 on says
+; nothing there either). A status move (GROWL, CHARM...) still names the stat. de = the
+; attacker's effect byte; its power byte follows it.
 	inc de
 	ld a, [de] ; the move's power
 	dec de
@@ -2188,8 +2185,8 @@ SpDefDown2FlinchEffect:
 	jr DoStatDownFlinchEffect
 
 AttackDown2FlinchEffect:
-; Target Attack -2 plus ~30% flinch. Used by INTIMIDATE (2026-09-05;
-; CHARM keeps the plain ATTACK_DOWN2_EFFECT).
+; Target Attack -2 plus ~30% flinch. Used by INTIMIDATE (2026-09-05; CHARM
+; keeps the plain ATTACK_DOWN2_EFFECT).
 	ld b, ATTACK_DOWN2_EFFECT
 	ld c, ATTACK_DOWN2_FLINCH_EFFECT
 	jr DoStatDownFlinchEffect

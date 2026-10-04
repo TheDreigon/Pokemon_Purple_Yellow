@@ -62,10 +62,10 @@ MoveDeleterText1:
 	ld [wd11e],a
 	call GetMoveName
 	call CopyToStringBuffer ; copy name to wStringBuffer
-; v1.0 (2026-09-24): CUT and SURF may be forgotten only while another
-; party member still knows them - the deleter must not strand the player
-; behind a tree or on an island. FLY, STRENGTH, FLASH and every other move
-; stay deletable. d died in GetMoveName (it returns de = wcd6d): re-read
+; v1.0 (2026-09-24): CUT and SURF may be forgotten only while another party
+; member still knows them - the deleter must not strand the player behind a
+; tree or on an island. FLY, STRENGTH, FLASH and every other move stay
+; deletable. d died in GetMoveName (it returns de = wcd6d): re-read
 ; wMoveNum. The refusal unwinds the stack the way the "No" answer does.
 	ld a, [wMoveNum]
 	ld d, a

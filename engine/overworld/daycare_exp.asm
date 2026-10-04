@@ -3,8 +3,8 @@ IncrementDayCareMonExp:
 	and a
 	ret z
 	call .step
-; 2026-08-07: with the CHAMPION as a customer the day care doubles
-; its care -- two exp per step once the Hall of Fame is signed. The call
+; 2026-08-07: with the CHAMPION as a customer the day care doubles its
+; care -- two exp per step once the Hall of Fame is signed. The call
 ; above plus the fall-through below is the second increment.
 	ld a, [wGameStage]
 	and a

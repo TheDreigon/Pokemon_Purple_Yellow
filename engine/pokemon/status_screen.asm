@@ -179,9 +179,9 @@ StatusScreen:
 	coord hl, 19, 1
 	lb bc, 6, 10
 	call DrawLineBox ; Draws the box around name, HP and status
-; v1.0 (2026-09-06): the dex number moved off row 7 into the lower-right
-; panel, above TYPE1/ (row 8, the one row that panel had free), so the left
-; half of row 7 is empty - a row of air between the picture and ATTACK.
+; v1.0 (2026-09-06): the dex number moved off row 7 into the lower-right panel,
+; above TYPE1/ (row 8, the one row that panel had free), so the left half of
+; row 7 is empty - a row of air between the picture and ATTACK.
 	coord hl, 10, 8
 	ld [hl], $60 ; "DE" - the condensed DEX glyph pair, same style as <ID>
 	inc hl
@@ -263,8 +263,8 @@ StatusScreen:
 	ld e, l
 	coord hl, 9, 1
 	call PlaceString ; Pokémon name
-; v1.0 (2026-09-06): the lower-right panel holds the dex number (row
-; 8), a blank row, then the types on rows 10-13 - rows 14-15 stay free for a
+; v1.0 (2026-09-06): the lower-right panel holds the dex number (row 8), a
+; blank row, then the types on rows 10-13 - rows 14-15 stay free for a
 ; possible third type. The ID number and the OT moved to the DV page: with
 ; START held, rows 10-13 show IDNo/ and OT/ instead of the types.
 	call Joypad
@@ -439,12 +439,12 @@ StatusScreen_RevealQuietPage:
 	ld a, [wStatusScreenPageChange]
 	and STATUS_NOWAIT
 	ret nz ; page 2 is about to draw over this one - stay hidden until it does
-; v1.0 (2026-09-22, six bytes): the transfer moves SIX ROWS per
-; VBlank, so putting the page up takes three frames whatever we do - and it
-; used to start from wherever the last screen left hAutoBGTransferPortion, so
-; the page arrived in a scrambled order, two torn frames visible. Starting the
-; portion at 0 makes it a plain downward wipe: rows 0-5, 6-11, 12-17. The same
-; three bytes sit before page 2's reveal in StatusScreen2.
+; v1.0 (2026-09-22, six bytes): the transfer moves SIX ROWS per VBlank, so
+; putting the page up takes three frames whatever we do - and it used to start
+; from wherever the last screen left hAutoBGTransferPortion, so the page
+; arrived in a scrambled order, two torn frames visible. Starting the portion
+; at 0 makes it a plain downward wipe: rows 0-5, 6-11, 12-17. The same three
+; bytes sit before page 2's reveal in StatusScreen2.
 	xor a
 	ldh [hAutoBGTransferPortion], a
 	inc a ; 1
@@ -625,10 +625,10 @@ PrintStat:
 	ret
 
 PrintStatGainsBox:
-; v1.0 (2026-09-08): as in the later generations - the window of what the
-; level-up gave, shown before the box of new totals. All six stats, HP included, which is
-; why it is not the totals box's shape: six single rows instead of five two-row pairs, so
-; it is wider (cols 5-19) and shorter (rows 0-7) and still clears the message box on 12.
+; v1.0 (2026-09-08): as in the later generations - the window of what the level-up gave,
+; shown before the box of new totals. All six stats, HP included, which is why it is not
+; the totals box's shape: six single rows instead of five two-row pairs, so it is wider
+; (cols 5-19) and shorter (rows 0-7) and still clears the message box on 12.
 ; wLevelUpStatGains holds the stats the mon had before CalcStats.
 	hlcoord 5, 0
 	lb bc, NUM_STATS, 13

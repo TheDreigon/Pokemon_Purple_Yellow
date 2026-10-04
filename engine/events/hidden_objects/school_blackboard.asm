@@ -23,9 +23,9 @@ ViridianSchoolBlackboard::
 	ld a, D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
 	; v0.7: three headings a column. The board carried a QUIT row, but that
-	; row is grouped with things that are WRITTEN on the
-	; blackboard, and "QUIT" is not one of them -- B leaves, as it does
-	; everywhere. Losing it turned 4+3 back into an even 3+3.
+	; row is grouped with things that are WRITTEN on the blackboard, and
+	; "QUIT" is not one of them -- B leaves, as it does everywhere. Losing it
+	; turned 4+3 back into an even 3+3.
 	ld a, 2
 	ld [wMaxMenuItem], a
 	ld a, 2
