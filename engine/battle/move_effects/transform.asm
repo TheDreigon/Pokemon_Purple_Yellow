@@ -123,6 +123,15 @@ TransformEffect_:
 ; v1.0 (D6): the five stats from what was just copied, then the user's OWN burn /
 ; paralysis cut - the copied battle stats carried the TARGET's (status_stat_cut.asm)
 	call UserStatsWithOwnCut
+; v1.0 (R12, 2026-10-02): the user's SPEED is now rebuilt from the target's - its unmodified stat (for the enemy's
+; copy in Normal, the party stat without the badge boost) and its stage - with the user's own paralysis cut: a
+; change no stage message shows, so the turn order the trainer AI learned in this matchup (wAITurnOrder) no longer
+; holds - for the enemy's TRANSFORM and the player's alike. The next turn the speeds decide teaches it again
+; (AISpeedsDecideTheTurn writes the context then, before any commit can set bit 0, so the context needs no reset
+; here). A TRANSFORM that ended at .failed (not reached in play: the FLY / DIG test at the top never fails) would
+; copy nothing and keep it.
+	xor a
+	ld [wAITurnOrder], a
 	ld hl, TransformedText
 	jp PrintText
 
