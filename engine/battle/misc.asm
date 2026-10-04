@@ -107,6 +107,9 @@ InitList::
 ; v1.0 (R11, 2026-10-02): the speeds as the screen shows them, for the turn order the trainer AI has seen
 ; (wAITurnOrder, MainInBattleLoop): it forgets "the player first" when the screen shows a change that could undo it -
 ; the player's SPEED stage down or its PAR on, the enemy's SPEED stage up or its PAR gone - and never reads a speed.
+; v1.0 (R12, 2026-10-02): each side's stage and PAR are one rank (AISpeedContext), so a stage change and a PAR change
+; shown in the same span weigh as the engine's multipliers do (R11's fold, stage - 2 for PAR, matched them only at
+; stages 0 and +2: a PAR on at +1 with two AGILITYs to +3 read as no change, x1.5 -> x1.25).
 AISpeedsDecideTheTurn::
 ; MainInBattleLoop's .compareSpeed: the speeds decide this turn's order. Unless the player's item, switch or failed
 ; run took its turn, or a side stores BIDE energy (it prints nothing that turn), the screen will show that order: it
@@ -121,59 +124,64 @@ AISpeedsDecideTheTurn::
 	and 1 << STORING_ENERGY ; a side storing BIDE energy prints nothing that turn: no order on screen either
 	ret nz
 	call AISpeedContext
-	ld [wAISpeedContext], a
+	ld hl, wAISpeedContext
+	ld a, d
+	ld [hli], a ; the player's rank
+	ld [hl], e ; the enemy's
 	ld hl, wAITurnOrder
 	set AI_ORDER_PENDING, [hl]
 	ret
 
 AIForgetStaleTurnOrder::
 ; the top of every turn, before the enemy chooses: no order is pending yet. The order seen is forgotten when the
-; player's side now reads lower, or the enemy's higher, than in the context kept with it; a change the other way (the
-; player's AGILITY, a SPEED drop or a PAR on the enemy) keeps it. This routine never rewrites the context: only
+; player's rank now is below, or the enemy's above, the one kept with it; a change the other way (the player's
+; AGILITY, a SPEED drop or a PAR on the enemy) or none keeps it. This routine never rewrites the context: only
 ; AISpeedsDecideTheTurn does, at every pending turn - an item turn's too, where the order stays unseen; that context
 ; passed this check, so it is at least as good for "the player first", and a forget can only come sooner.
 	ld hl, wAITurnOrder
 	res AI_ORDER_PENDING, [hl]
 	call AISpeedContext
-	ld b, a ; now
-	ld a, [wAISpeedContext]
-	ld c, a ; seen
-	ld a, b
-	or $0f
-	cp c ; carry: the player's nybble now is below the one seen (the low nybbles cannot decide it)
+	ld hl, wAISpeedContext
+	ld a, d
+	cp [hl] ; carry: the player's rank now is below the one seen
 	jr c, .forget
-	ld a, b
-	swap a
-	ld b, a ; now, the enemy's nybble high
-	ld a, c
-	swap a
-	or $0f
-	cp b ; carry: the enemy's nybble seen is below the one now
+	inc hl
+	ld a, [hl]
+	cp e ; carry: the enemy's rank seen is below the one now
 	ret nc
 .forget
-	ld [hl], 0
+	xor a
+	ld [wAITurnOrder], a
 	ret
 
 AISpeedContext:
-; a = each side's SPEED stage + 2, two less when PAR (it halves the speed, as stage 5 does): 1-15, the player's in
-; the high nybble, the enemy's in the low one. Clobbers b, c.
-	ld a, [wBattleMonStatus]
-	ld b, a
+; d = the player's speed rank, e = the enemy's: round(8 x log2(the multiplier the engine applies)) + 24 -
+; StatModifierRatios' row for the stage (AISpeedRanks), then PAR halving it (HalveSpeedDueToParalysis): 8 down.
+; Equal multipliers rank equal (PAR at +2 = no stage, PAR at -2 = -6 ...), a higher one higher: 0 (-6 with PAR) to
+; 40 (+6). Clobbers a, b, c, hl.
 	ld a, [wPlayerMonSpeedMod]
-	call .fold
-	swap a
+	ld c, a
+	ld a, [wBattleMonStatus]
+	call .rank
+	ld d, a
+	ld a, [wEnemyMonSpeedMod]
 	ld c, a
 	ld a, [wEnemyMonStatus]
-	ld b, a
-	ld a, [wEnemyMonSpeedMod]
-	call .fold
-	or c
+	call .rank
+	ld e, a
 	ret
-.fold
-	inc a
-	inc a
-	bit PAR, b
+.rank
+; c = the SPEED stage (1-13), a = the status
+	ld b, 0
+	ld hl, AISpeedRanks - 1
+	add hl, bc
+	and 1 << PAR
+	ld a, [hl]
 	ret z
-	dec a
-	dec a
+	sub 8 ; PAR halves the speed: one doubling down
 	ret
+
+AISpeedRanks:
+; SPEED stage 1-13 (-6 .. +6) without PAR: round(8 x log2(num / den)) + 24, StatModifierRatios' rows
+	db 8, 9, 11, 13, 16, 19, 24, 29, 32, 35, 37, 38, 40
+	ASSERT @ - AISpeedRanks == MAX_STAT_LEVEL, "one rank per SPEED stage"

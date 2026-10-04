@@ -648,9 +648,9 @@ wPlayerMonMinimized:: db
 
 ; v1.0 (R11, 2026-10-02): the speeds as the screen showed them at the last turn whose order was pending
 ; (AISpeedContext: AISpeedsDecideTheTurn writes it, AIForgetStaleTurnOrder compares) - was vanilla's pad,
-; zeroed with wMiscBattleData.
-wAISpeedContext:: db
-	ds 1
+; zeroed with wMiscBattleData. v1.0 (R12, 2026-10-02): two bytes, the player's speed rank then the enemy's (the
+; second is the pad that followed it, vanilla's too; no symbol moves).
+wAISpeedContext:: ds 2
 
 wEXPBarPixelLength::  ds 1
 wEXPBarBaseEXP::      ds 3
