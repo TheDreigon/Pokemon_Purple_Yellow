@@ -48,6 +48,8 @@ AdjustDamageForMoveType::
 ; would have flattened Porygon's own weaknesses and resistances.
 ; Only `a` is touched — d/e still hold the defender's types for the
 ; effectiveness walk below.
+; v1.0 (R12, 2026-10-02): the trainer AI's tactical layer (AIMoveChoiceModification5, the STAB rule) repeats this
+; exception test for the enemy side, the same move and species bytes - a change here is a change there.
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .triAttackEnemyTurn

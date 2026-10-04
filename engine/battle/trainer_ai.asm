@@ -1067,7 +1067,9 @@ Modifier4PreferredMoves:
 ;  - the move the enemy keeps repeating (wEnemyUsedMove, wAIRepeatCount from
 ;    MonName1Text): +1 on the fourth use in a row, +2, +3, +4 saturated;
 ; and for the damaging ones only (v1.0 R11: not SetDamageEffects' family, a set number):
-;  - STAB (the move's type is one of the mon's) on a hit not resisted (v1.0 R11: 1x or more): -1;
+;  - STAB (the move's type is one of the mon's; v1.0 R12: or the TRI ATTACK of
+;    a PORYGON, as in the damage) on a hit not resisted (v1.0 R11: 1x or
+;    more): -1;
 ;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3;
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
 ;    +5 - it would go first and hit nothing (nothing lands on a mon up in the
@@ -1120,6 +1122,10 @@ Modifier4PreferredMoves:
 ; sees, not the moves' power. Layer 3's +1 then holds it back as any resisted hit (when the mon has a usable damaging
 ; move of another type, however resisted), and with none it ties the status moves instead of beating them: since R10b
 ; no stopped teammate's +1 cancels the STAB any more (GLOOM's MEGA DRAIN into a MAGNETON, SLEEP POWDER left behind).
+; v1.0 (R12, 2026-10-02): the STAB test mirrors AdjustDamageForMoveType's, exception included: TRI ATTACK is typed
+; BIRD (neutral into every type, so never resisted) and matches no species' type, but the engine gives it STAB when
+; wEnemyMonSpecies2 is PORYGON - the same two bytes are read here (wEnemyMoveNum, wEnemyMonSpecies2), so a PORYGON
+; that TRANSFORMed keeps it and a DITTO TRANSFORMed into one does not, as in the damage.
 AIMoveChoiceModification5:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -1166,6 +1172,12 @@ AIMoveChoiceModification5:
 	jr z, .stab
 	ld a, [wEnemyMonType2]
 	cp c
+	jr z, .stab
+	ld a, [wEnemyMoveNum] ; v1.0 (R12): AdjustDamageForMoveType's exception - PORYGON's TRI ATTACK has STAB
+	cp TRI_ATTACK
+	jr nz, .noStab
+	ld a, [wEnemyMonSpecies2]
+	cp PORYGON
 	jr nz, .noStab
 .stab
 	dec [hl]
