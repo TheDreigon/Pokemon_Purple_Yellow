@@ -892,8 +892,14 @@ Modifier2PreferredMoves:
 ; stops it ("It doesn't affect"), when it surely misses (DREAM EATER into a Pokemon awake, a DRAIN move into a
 ; SUBSTITUTE) or when it cannot be used (no PP left, disabled): a resisted move that lands was held back (+1)
 ; behind every status move for a move that does nothing, and a stopped one was lifted above the other useless moves.
-; (The PureRGB line above, "unless there's no damaging move that deals at least neutral damage", was never the
-; rule: a usable candidate of another type counts however resisted, and so does the fixed-damage family.)
+; v1.0 (R12, 2026-10-03): and it must hit harder by type than the move it would hold back (AIMoveEffectiveness
+; above the held move's): until R12 a usable candidate of another type counted however resisted. With every usable
+; attack resisted alike, none is held back: they meet the status moves at one score, as they do when the set has
+; one attacking type (layers 2 and 4 may still put a status move ahead), and a 0.25x hit still waits behind a 0.5x
+; one. The fixed-damage family still counts (a set number the chart never scales), and a stopped move keeps its +1
+; beside any usable candidate of another type the chart does not stop (USELESS either way). (The PureRGB line
+; above, "unless there's no damaging move that deals at least neutral damage", is not the rule: a 0.5x candidate
+; holds back a 0.25x move.)
 AIMoveChoiceModification3:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -924,6 +930,8 @@ AIMoveChoiceModification3:
 	push hl
 	push de
 	push bc
+	inc a ; v1.0 (R12): a = this move's multiplier (AIMoveEffectiveness: below EFFECTIVE, so no wrap) - plus 1
+	ld e, a ; e = the least a candidate must reach to hit harder (e free: de is pushed, d is the type)
 	ld a, [wEnemyMoveType]
 	ld d, a
 	ld hl, wEnemyMonMoves  ; enemy moves
@@ -952,6 +960,9 @@ AIMoveChoiceModification3:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .loopMoves ; a status move is no candidate; a damaging move of a different type is (vanilla), if usable
+	call AIMoveEffectiveness ; v1.0 (R12): the candidate's multiplier on the player's types (keeps bc, de, hl)
+	cp e
+	jr c, .loopMoves ; not above the held move's: the player resists it as much or more - no better than that move
 .betterMoveFound
 	push hl
 	push de
@@ -1120,8 +1131,10 @@ Modifier4PreferredMoves:
 ; v1.0 (R11, 2026-10-02): no STAB for a hit the player's types resist (0.5x, 0.25x: AIMoveEffectiveness below
 ; EFFECTIVE) - 1.5 x 0.5 deals less than a neutral hit of the same power, and the rule weighs the chart the trainer
 ; sees, not the moves' power. Layer 3's +1 then holds it back as any resisted hit (when the mon has a usable damaging
-; move of another type, however resisted), and with none it ties the status moves instead of beating them: since R10b
-; no stopped teammate's +1 cancels the STAB any more (GLOOM's MEGA DRAIN into a MAGNETON, SLEEP POWDER left behind).
+; move of another type that hits harder by type - since R12 - or a usable one of the fixed-damage family), and with
+; none it ties the status moves instead of beating them: since R10b no stopped teammate's +1 cancels the STAB any
+; more (GLOOM's MEGA DRAIN into a MAGNETON, SLEEP POWDER left behind), and since R12 no candidate resisted as much
+; holds it back.
 ; v1.0 (R12, 2026-10-02): the STAB test mirrors AdjustDamageForMoveType's, exception included: TRI ATTACK is typed
 ; BIRD (neutral into every type, so never resisted) and matches no species' type, but the engine gives it STAB when
 ; wEnemyMonSpecies2 is PORYGON - the same two bytes are read here (wEnemyMoveNum, wEnemyMonSpecies2), so a PORYGON
