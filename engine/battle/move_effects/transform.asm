@@ -12,7 +12,13 @@ TransformEffect_:
 	ld [wPlayerMoveListIndex], a
 	ld a, [wPlayerBattleStatus1]
 .hitTest
-	bit INVULNERABLE, a ; is mon invulnerable to typical attacks? (fly/dig)
+; v1.0 (R12, 2026-10-03): this FLY / DIG test never fails, and that is intended: TRANSFORM copies a target
+; that is up in the air (FLY) or underground (DIG), since the user saw it a moment ago and still remembers
+; it. On the player's turn a holds the user's own battle status 1, never INVULNERABLE when it acts; on the
+; enemy's turn the `ldh a, [hWhoseTurn]` above has replaced the byte just loaded with 1. TRANSFORM, a
+; ResidualEffects1 move, never reaches MoveHitTest's INVULNERABLE gate either, so .failed is not reached in
+; play. The code is vanilla's.
+	bit INVULNERABLE, a ; the user's own byte, or 1 on the enemy's turn: never set here (see above)
 	jp nz, .failed
 	push hl
 	push de

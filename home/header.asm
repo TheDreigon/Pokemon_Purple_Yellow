@@ -60,9 +60,12 @@ SECTION "timer", ROM0[$0050]
 	ds $58 - @, 0 ; unused
 
 SECTION "serial", ROM0[$0058]
-; v0.7: the link cable is gone. Nothing arms a transfer any more, and the
-; SERIAL bit is off in rIE, but the vector still has to be safe if a stray
-; clock ever arrives on the port.
+; v0.7: the link cable is gone. v1.0 (R12, 2026-10-02): nothing starts a
+; transfer (rSC is written once, 0, in home/init.asm), so no serial interrupt
+; is requested. rIE's SERIAL bit is off except while PlayIntroScene and
+; SurfingPikachuMinigame run: both set rIE to $0F (VBLANK, LCD_STAT, TIMER,
+; SERIAL) and restore it on exit. The vector still has to be safe if one ever
+; arrives.
 	reti
 
 	ds $60 - @, 0 ; unused
