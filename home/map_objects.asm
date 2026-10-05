@@ -32,12 +32,6 @@ TextScript_ItemStoragePC::
 	ld hl, PlayerPC
 	jr bankswitchAndContinue
 
-TextScript_BillsPC::
-	call SaveScreenTilesToBuffer2
-	ld b, BANK(BillsPC_)
-	ld hl, BillsPC_
-	jr bankswitchAndContinue
-
 TextScript_GameCornerPrizeMenu::
 ; XXX find a better name for this function
 ; special_F7

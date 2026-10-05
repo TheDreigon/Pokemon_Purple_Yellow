@@ -176,10 +176,7 @@ MACRO script_mart
 	db -1 ; end
 ENDM
 
-	const TX_SCRIPT_BILLS_PC ; $fd
-MACRO script_bills_pc
-	db TX_SCRIPT_BILLS_PC
-ENDM
+	const TX_SCRIPT_BILLS_PC ; $fd: no handler in DisplayTextID; kept so the ids below keep their values
 
 	const TX_SCRIPT_PLAYERS_PC ; $fc
 MACRO script_players_pc

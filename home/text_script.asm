@@ -89,7 +89,6 @@ ENDM
 	dict2 TX_SCRIPT_TIERED_MART,             dispatch_tiered_mart
 	dict  TX_SCRIPT_POKECENTER_NURSE,        DisplayPokemonCenterDialogue
 	dict  TX_SCRIPT_PLAYERS_PC,              TextScript_ItemStoragePC
-	dict  TX_SCRIPT_BILLS_PC,                TextScript_BillsPC
 	dict  TX_SCRIPT_POKECENTER_PC,           TextScript_PokemonCenterPC
 	dict2 TX_SCRIPT_VENDING_MACHINE,         farcall VendingMachineMenu
 	dict  TX_SCRIPT_PRIZE_VENDOR,            TextScript_GameCornerPrizeMenu
