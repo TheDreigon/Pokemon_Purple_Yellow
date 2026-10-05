@@ -149,8 +149,8 @@ _CeruleanGymVioletBattleText::
 	line "the SENSATIONAL"
 	cont "SISTERS!"
 
-	para "Splash! I'm first"
-	line "up! Let's do it!"
+	para "My turn! Let's"
+	line "make a splash!"
 	done
 
 _CeruleanGymVioletEndBattleText::
