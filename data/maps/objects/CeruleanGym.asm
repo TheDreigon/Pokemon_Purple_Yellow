@@ -24,9 +24,12 @@ CeruleanGym_Object:
 ; (5,5); LILY (LASS) stands beside the corridor mouth at (3,8) facing RIGHT, so
 ; she sees (4,8)/(5,8) - the tiles every player steps onto from the entrance
 ; corridor - without blocking.
+; Each trainer's sprite here is the overworld picture of its class's battle pic
+; (GetTrainerInformation picks the pic by class alone): BEAUTY - BeautyPic,
+; COOLTRAINER_F - JrTrainerFPic, GIRL - LassPic, MISTY - MistyPic.
 	object_event  2,  3, SPRITE_BEAUTY, STAY, RIGHT, TEXT_CERULEANGYM_DAISY, OPP_BEAUTY, 17, 3
 	object_event  3,  5, SPRITE_COOLTRAINER_F, STAY, RIGHT, TEXT_CERULEANGYM_VIOLET, OPP_JR_TRAINER_F, 2, 2
-	object_event  3,  8, SPRITE_GIRL, STAY, RIGHT, TEXT_CERULEANGYM_LILY, OPP_LASS, 21, 2 ; the LASS pic's girl (was LITTLE_GIRL, a child - she is the youngest sister, not a kid; 2026-09-07) ; the little-girl sprite: the youngest
+	object_event  3,  8, SPRITE_GIRL, STAY, RIGHT, TEXT_CERULEANGYM_LILY, OPP_LASS, 21, 2
 	object_event  7, 11, SPRITE_GYM_GUIDE, STAY, DOWN, TEXT_CERULEANGYM_GYM_GUIDE
 
 	def_warps_to CERULEAN_GYM
