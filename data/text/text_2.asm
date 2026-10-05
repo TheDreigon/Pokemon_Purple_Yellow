@@ -502,10 +502,6 @@ _GameCornerSomeonesKeysText::
 	line "They'll be back."
 	done
 
-_JustAMomentText::
-	text "Just a moment."
-	done
-
 TMNotebookText::
 	text "It's a pamphlet"
 	line "on TMs."

@@ -544,19 +544,3 @@ OnceReleasedText:
 MonWasReleasedText:
 	text_far _MonWasReleasedText
 	text_end
-
-; v0.7: the two Game Boys sitting on the cable club tables were the last
-; things that could ever write wLinkState anything but LINK_STATE_NONE.
-
-JustAMomentText::
-	text_far _JustAMomentText
-	text_end
-
-	ld a, [wSpritePlayerStateData1FacingDirection]
-	cp SPRITE_FACING_UP
-	ret nz
-	call EnableAutoTextBoxDrawing
-	tx_pre_jump OpenBillsPCText
-
-OpenBillsPCText::
-	script_bills_pc

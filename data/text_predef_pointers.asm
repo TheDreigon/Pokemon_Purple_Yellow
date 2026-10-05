@@ -39,8 +39,10 @@ TextPredefs::
 	add_tx_pre PokemonCenterPCText                  ; 21
 	add_tx_pre ViridianSchoolNotebook               ; 22
 	add_tx_pre ViridianSchoolBlackboard             ; 23
-	add_tx_pre JustAMomentText                      ; 24
-	add_tx_pre OpenBillsPCText                      ; 25
+; $24/$25: free slots. An id is its row number, so these NULL rows keep every later id in place, and with no
+; _id label no tx_pre site can name them.
+	dw NULL                                         ; 24 free
+	dw NULL                                         ; 25 free
 	add_tx_pre FoundHiddenItemText                  ; 26
 	add_tx_pre HiddenItemBagFullText                ; 27 XXX unused
 	add_tx_pre VermilionGymTrashText                ; 28
@@ -57,22 +59,22 @@ TextPredefs::
 	add_tx_pre CinnabarGymQuiz                      ; 33
 	add_tx_pre GameCornerNoCoinsText                ; 34
 	add_tx_pre GameCornerCoinCaseText               ; 35
-	add_tx_pre TMNotebook                           ; 37
-	add_tx_pre FightingDojoText                     ; 38
-	add_tx_pre EnemiesOnEverySideText               ; 39
-	add_tx_pre WhatGoesAroundComesAroundText        ; 3A
-	add_tx_pre NewBicycleText                       ; 3B
-	add_tx_pre IndigoPlateauStatues                 ; 3C
-	add_tx_pre VermilionGymTrashSuccessText1        ; 3D
-	add_tx_pre VermilionGymTrashSuccessText2        ; 3E XXX unused
-	add_tx_pre VermilionGymTrashSuccessText3        ; 3F
-	add_tx_pre VermilionGymTrashFailText            ; 40
-	add_tx_pre TownMapText                          ; 41
-	add_tx_pre BookOrSculptureText                  ; 42
-	add_tx_pre ElevatorText                         ; 43
-	add_tx_pre PokemonStuffText                     ; 44
+	add_tx_pre TMNotebook                           ; 36
+	add_tx_pre FightingDojoText                     ; 37
+	add_tx_pre EnemiesOnEverySideText               ; 38
+	add_tx_pre WhatGoesAroundComesAroundText        ; 39
+	add_tx_pre NewBicycleText                       ; 3A
+	add_tx_pre IndigoPlateauStatues                 ; 3B
+	add_tx_pre VermilionGymTrashSuccessText1        ; 3C
+	add_tx_pre VermilionGymTrashSuccessText2        ; 3D XXX unused
+	add_tx_pre VermilionGymTrashSuccessText3        ; 3E
+	add_tx_pre VermilionGymTrashFailText            ; 3F
+	add_tx_pre TownMapText                          ; 40
+	add_tx_pre BookOrSculptureText                  ; 41
+	add_tx_pre ElevatorText                         ; 42
+	add_tx_pre PokemonStuffText                     ; 43
 ; APPENDED. The table is positional - the id IS the row number, and predef ids
 ; are baked into every tx_pre_jump in the game, so a row inserted in the middle
 ; would silently repoint all of them.
-	add_tx_pre BluesBedroomSNESText                 ; 45
-	add_tx_pre BluesBedroomPCText                   ; 46
+	add_tx_pre BluesBedroomSNESText                 ; 44
+	add_tx_pre BluesBedroomPCText                   ; 45
