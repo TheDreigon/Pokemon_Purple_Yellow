@@ -15,5 +15,5 @@ HiddenCoinCoords:
 	hidden_coin GAME_CORNER, 10, 16
 	hidden_coin GAME_CORNER, 11,  7
 	hidden_coin GAME_CORNER, 15,  8
-	hidden_coin GAME_CORNER, 12, 15
+	hidden_coin GAME_CORNER, 12, 16 ; (12,15) -> (12,16), 2026-10-06, with its hidden object row; same flag
 	db -1 ; end

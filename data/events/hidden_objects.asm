@@ -565,7 +565,7 @@ GameCornerHiddenObjects:
 	hidden_object 10, 16, COIN+10, HiddenCoins
 	hidden_object 11,  7, COIN+40, HiddenCoins
 	hidden_object 15,  8, COIN+100, HiddenCoins
-	hidden_object 12, 15, COIN+10, HiddenCoins
+	hidden_object 12, 16, COIN+10, HiddenCoins ; (12,15) -> (12,16), 2026-10-06: the slot row there answers first
 	db -1 ; end
 
 FuchsiaPokecenterHiddenObjects:
