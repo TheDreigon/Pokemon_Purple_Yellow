@@ -281,8 +281,8 @@ VictoryRoad2HiddenObjects:
 	db -1 ; end
 
 Route25HiddenObjects:
-	hidden_object 38,  3, ETHER, HiddenItems
-	hidden_object 34,  9, X_ATTACK, HiddenItems ; in the bush (run feedback 2026-09-05)
+	hidden_object 34,  9, ETHER, HiddenItems ; (38,3) -> (34,9), 2026-10-06: no reachable cell faces (38,3)
+	hidden_object 16,  5, X_ATTACK, HiddenItems ; (34,9) -> (16,5), 2026-10-06: the ETHER took its bush
 	db -1 ; end
 
 BillsHouseHiddenObjects:

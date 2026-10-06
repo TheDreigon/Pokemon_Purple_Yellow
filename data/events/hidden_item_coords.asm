@@ -50,8 +50,8 @@ HiddenItemCoords:
 	hidden_item ROUTE_23,                       8,  90
 	hidden_item VICTORY_ROAD_2F,                5,   2
 	hidden_item VICTORY_ROAD_2F,               26,   7
-	hidden_item ROUTE_25,                      38,   3
-	hidden_item ROUTE_25,                      34,   9 ; moved 2026-07-30; into the bush 2026-09-05
+	hidden_item ROUTE_25,                      34,   9 ; the ETHER; (38,3) -> (34,9), 2026-10-06
+	hidden_item ROUTE_25,                      16,   5 ; the X_ATTACK; (34,9) -> (16,5), 2026-10-06
 	hidden_item ROUTE_4,                       40,   3
 	hidden_item ROUTE_9,                       14,   7
 	hidden_item COPYCATS_HOUSE_2F,              1,   1
