@@ -192,8 +192,8 @@ ENDM
 ;\1 direction
 ;\2 map name
 ;\3 map id
-;\4 offset of the target map relative to the current map
-;   (x offset for east/west, y offset for north/south)
+;\4 offset of the target map relative to the current map, in blocks
+;   (y offset for east/west, x offset for north/south - it feeds _y and _x below)
 MACRO connection
 
 	; Calculate tile offsets for source (current) and target maps
