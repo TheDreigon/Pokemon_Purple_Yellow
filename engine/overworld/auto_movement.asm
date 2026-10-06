@@ -183,6 +183,7 @@ PewterMovementScript_WalkToMuseum:
 	xor a
 	ld [wWhichPewterGuy], a
 	call PewterGuys
+	jr c, PewterMovementScript_NoWalk
 	ld hl, wNPCMovementDirections2
 	ld de, RLEList_PewterMuseumGuy
 	call DecodeRLEList
@@ -192,18 +193,22 @@ PewterMovementScript_WalkToMuseum:
 	ld [wNPCMovementScriptFunctionNum], a
 	ret
 
+; The museum guy walks from (21,14) up to row 12 (the sign at (21,11) closes column 21), left to
+; column 14, up to (14,8) under the museum door and one step right to (15,8), where PewterCity's
+; script re-places him. The player's list is played from its end, its last byte replaced by
+; PewterGuys' pre-steps: the player follows one step behind and stops on (14,8) facing the door.
 RLEList_PewterMuseumPlayer:
 	db NO_INPUT, 1
-	db D_UP, 3
-	db D_LEFT, 13
-	db D_UP, 6
+	db D_UP, 4
+	db D_LEFT, 7
+	db D_UP, 2
 	db -1 ; end
 
 RLEList_PewterMuseumGuy:
-	db NPC_MOVEMENT_UP, 6
-	db NPC_MOVEMENT_LEFT, 13
-	db NPC_MOVEMENT_UP, 3
-	db NPC_MOVEMENT_LEFT, 1
+	db NPC_MOVEMENT_UP, 2
+	db NPC_MOVEMENT_LEFT, 7
+	db NPC_MOVEMENT_UP, 4
+	db NPC_MOVEMENT_RIGHT, 1
 	db -1 ; end
 
 PewterMovementScript_Done:
@@ -215,6 +220,16 @@ PewterMovementScript_Done:
 	ld hl, wd72e
 	res 7, [hl]
 	jp EndNPCMovementScript
+
+; PewterGuys found no row for the player's cell: nobody walks (simulated steps ignore collision, so
+; a walk from an unplanned cell could cross walls). The map's music, its default script and the
+; player's control come back.
+PewterMovementScript_NoWalk:
+	xor a ; SCRIPT_PEWTERCITY_DEFAULT
+	ld [wPewterCityCurScript], a
+	ld [wJoyIgnore], a
+	call PlayDefaultMusic
+	jp _EndNPCMovementScript
 
 PewterGymGuyMovementScriptPointerTable::
 	dw PewterMovementScript_WalkToGym
@@ -238,6 +253,7 @@ PewterMovementScript_WalkToGym:
 	ld a, 1
 	ld [wWhichPewterGuy], a
 	call PewterGuys
+	jr c, PewterMovementScript_NoWalk
 	ld hl, wNPCMovementDirections2
 	ld de, RLEList_PewterGymGuy
 	call DecodeRLEList

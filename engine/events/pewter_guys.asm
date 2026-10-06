@@ -1,3 +1,6 @@
+; Appends the pre-steps of the player's cell, from the table of the guy in wWhichPewterGuy, to the
+; simulated joypad list (over its last byte). Each table ends in -1: a cell with no row appends
+; nothing and returns carry; after a match the carry is clear.
 PewterGuys:
 	ld hl, wSimulatedJoypadStatesEnd
 	ld a, [wSimulatedJoypadStatesIndex]
@@ -23,6 +26,8 @@ PewterGuys:
 	ld c, a
 .findMatchingCoordsLoop
 	ld a, [hli]
+	cp -1
+	jr z, .noMatch
 	cp b
 	jr nz, .nextEntry1
 	ld a, [hli]
@@ -47,23 +52,26 @@ PewterGuys:
 	inc hl
 	inc hl
 	jr .findMatchingCoordsLoop
+.noMatch
+	scf
+	ret
 
 PewterGuysCoordsTable:
 	dw PewterMuseumGuyCoords
 	dw PewterGymGuyCoords
 
-; these are the four coordinates of the spaces below, above, to the left and
-; to the right of the museum guy, and pointers to different movements for
-; the player to make to get positioned before the main movement.
+; y, x of the cells the museum guy at (21,14) is talked to from: below, above and to his left (the
+; cell to his right is a wall; data/maps/objects/PewterCity.asm). Each points to the steps that put
+; the player one step behind him for the main walk, written in reverse (the list is played from
+; its end).
 PewterMuseumGuyCoords:
-	db 18, 27
+	db 15, 21
 	dw .down
-	db 16, 27
+	db 13, 21
 	dw .up
-	db 17, 26
+	db 14, 20
 	dw .left
-	db 17, 28
-	dw .right
+	db -1 ; end
 
 .down
 	db D_UP, D_UP, $ff
@@ -71,13 +79,10 @@ PewterMuseumGuyCoords:
 	db D_RIGHT, D_LEFT, $ff
 .left
 	db D_UP, D_RIGHT, $ff
-.right
-	db D_UP, D_LEFT, $ff
 
-; these are the five coordinates which trigger the gym guy and pointers to
-; different movements for the player to make to get positioned before the
-; main movement
-; $00 is a pause
+; y, x of the cells the gym guy at (35,16) is talked to from (west, south, east; north is a ledge)
+; and of the four that send him while BROCK is unbeaten (PewterCityPlayerLeavingEastCoords), with
+; the player's pre-steps as above; $00 is a pause
 PewterGymGuyCoords:
 	db 16, 34
 	dw .one
@@ -89,6 +94,9 @@ PewterGymGuyCoords:
 	dw .four
 	db 17, 36
 	dw .five
+	db 16, 36
+	dw .six
+	db -1 ; end
 
 .one
 	db D_LEFT, D_DOWN, D_DOWN, D_RIGHT, $ff
@@ -100,3 +108,5 @@ PewterGymGuyCoords:
 	db D_LEFT, D_LEFT, D_UP, D_LEFT, $ff
 .five
 	db D_LEFT, D_DOWN, D_LEFT, $00, $00, $00, $00, $00, $00, $00, $00, $ff
+.six
+	db D_LEFT, D_DOWN, D_DOWN, D_LEFT, $ff

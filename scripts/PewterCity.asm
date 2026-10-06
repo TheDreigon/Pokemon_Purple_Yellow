@@ -65,13 +65,15 @@ PewterCitySuperNerd1ShowsPlayerMuseumScript:
 	ld a, TEXT_PEWTERCITY_SUPER_NERD1_ITS_RIGHT_HERE
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
+; the guy goes on (15,8), right of the player on (14,8), where his walk ends: his exit down column 15
+; is clear (column 13 holds the museum sign at (13,9))
 	ld a, $3c
 	ldh [hSpriteScreenYCoord], a
-	ld a, $30
+	ld a, $50
 	ldh [hSpriteScreenXCoord], a
 	ld a, 12
 	ldh [hSpriteMapYCoord], a
-	ld a, 17
+	ld a, 19
 	ldh [hSpriteMapXCoord], a
 	ld a, PEWTERCITY_SUPER_NERD1
 	ld [wSpriteIndex], a
