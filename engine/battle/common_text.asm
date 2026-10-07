@@ -201,6 +201,10 @@ PlayerMon2Text:
 	ld a, [de]
 	sbc b
 	ldh [hMultiplicand + 1], a
+; a borrow: the enemy gained HP since wLastSwitchInEnemyMonHP (it healed). That reads as no change
+; (0): the wrapped difference would pick any of the four lines.
+	ld a, 0 ; (keeps the carry)
+	jr c, .gotDrop
 	ld a, 25
 	ldh [hMultiplier], a
 	call Multiply
@@ -215,15 +219,13 @@ PlayerMon2Text:
 	ld b, 4
 	ldh [hDivisor], a
 	call Divide
+	ldh a, [hQuotient + 3] ; a = ((LastSwitchInEnemyMonHP - CurrentEnemyMonHP) * 25) / (EnemyMonMaxHP / 4)
+.gotDrop
 	pop bc
 	pop de
-	ldh a, [hQuotient + 3] ; a = ((LastSwitchInEnemyMonHP - CurrentEnemyMonHP) * 25) / (EnemyMonMaxHP / 4)
-; Assuming that the enemy mon hasn't gained HP since the last switch in,
 ; a approximates the percentage that the enemy mon's total HP has decreased
-; since the last switch in.
-; If the enemy mon has gained HP, then a is garbage due to wrap-around and
-; can fall in any of the ranges below.
-	ld hl, EnoughText ; HP stayed the same
+; since the last switch in (0 when it has not decreased).
+	ld hl, EnoughText ; HP stayed the same or went up
 	and a
 	ret z
 	ld hl, ComeBackText ; HP went down 1% - 29%
