@@ -74,13 +74,6 @@ InitWildBattle:
 	callfar IsGhostBattle
 	jr nz, .isNoGhost
 .isGhost
-	ld hl, wMonHSpriteDim
-	ld a, $66
-	ld [hli], a   ; write sprite dimensions
-	ld bc, GhostPic
-	ld a, c
-	ld [hli], a   ; write front sprite pointer
-	ld [hl], b
 	ld hl, wEnemyMonNick  ; set name to "GHOST"
 	ld a, "G"
 	ld [hli], a
@@ -93,14 +86,7 @@ InitWildBattle:
 	ld a, "T"
 	ld [hli], a
 	ld [hl], "@"
-	ld a, [wcf91]
-	push af
-	ld a, MON_GHOST
-	ld [wcf91], a
-	ld de, vFrontPic
-	call LoadMonFrontSprite ; load ghost sprite
-	pop af
-	ld [wcf91], a
+	call LoadGhostFrontPic
 	jr .spriteLoaded
 .isNoGhost
 ; v0.7: a wild Pikachu shows the fake's pic - except the one OAK catches
@@ -158,6 +144,40 @@ _InitBattleCommon:
 	ret
 .emptyString
 	db "@"
+
+; The battle STATS screen (PartyMenuOrRockOrRun) draws a party #MON over vFrontPic: the enemy's
+; picture again, as the battle drew it - the GHOST's while IsGhostBattle holds, else the
+; species' (GetMonHeader has loaded its header). Not InitWildBattle's RESTLESS_SOUL test: with
+; the SILPH SCOPE, MarowakAnim has shown the MAROWAK at the battle's start.
+ReloadEnemyMonFrontPic:
+	callfar IsGhostBattle
+	jr z, LoadGhostFrontPic
+; an enemy Pikachu shows the fake's pic - except OAK's catch (the Enemy variant tests
+; BATTLE_TYPE_PIKACHU), as in InitWildBattle
+	callfar UseFakePikachuFrontPicEnemy
+	ld de, vFrontPic
+	jp LoadMonFrontSprite
+
+; The GHOST's front pic into vFrontPic over the enemy species' header: only its sprite dimensions
+; and front pointer change; wcf91 is MON_GHOST for the load alone (UncompressMonSprite takes the
+; pic's bank from it).
+LoadGhostFrontPic:
+	ld hl, wMonHSpriteDim
+	ld a, $66
+	ld [hli], a   ; write sprite dimensions
+	ld bc, GhostPic
+	ld a, c
+	ld [hli], a   ; write front sprite pointer
+	ld [hl], b
+	ld a, [wcf91]
+	push af
+	ld a, MON_GHOST
+	ld [wcf91], a
+	ld de, vFrontPic
+	call LoadMonFrontSprite ; load ghost sprite
+	pop af
+	ld [wcf91], a
+	ret
 
 _LoadTrainerPic:
 	ld a, [wTrainerPicPointer]

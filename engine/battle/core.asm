@@ -2263,6 +2263,8 @@ DrawEnemyHUDAndHPBar:
 	ld a, [wIsInBattle]
 	cp 2
 	jr z, .notOwned
+	call IsGhostBattle ; an unidentified GHOST: the ball would tell its species
+	jr z, .notOwned
 	ld a, [wEnemyMonSpecies2]
 	ld [wd11e], a
 	ld hl, IndexToPokedex
@@ -2918,12 +2920,8 @@ PartyMenuOrRockOrRun:
 	ld [wcf91], a
 	ld [wd0b5], a
 	call GetMonHeader
-; v0.7: an enemy Pikachu shows the fake's pic - except OAK's catch (the
-; Enemy variant tests BATTLE_TYPE_PIKACHU), so a mid-battle pic reload
-; there stays consistent with the load in init_battle
-	callfar UseFakePikachuFrontPicEnemy
-	ld de, vFrontPic
-	call LoadMonFrontSprite
+; the picture the battle drew: the GHOST's, or the species' (init_battle.asm)
+	callfar ReloadEnemyMonFrontPic
 	jr .enemyMonPicReloaded
 .doEnemyMonAnimation
 	ld b, BANK(AnimationSubstitute) ; BANK(AnimationMinimizeMon)
@@ -4029,6 +4027,10 @@ GetOutText:
 	text_far _GetOutText
 	text_end
 
+; z: an unidentified GHOST - a wild battle on a POKEMON_TOWER map without the SILPH_SCOPE in the
+; bag. Asked by what would otherwise show its species: the picture (InitWildBattle,
+; ReloadEnemyMonFrontPic), the seen flag (LoadEnemyMonData), the owned ball (DrawEnemyHUDAndHPBar).
+; SetPal_Battle does not ask: the picture keeps the species' palette, as in vanilla. Trashes a, b, hl.
 IsGhostBattle:
 	ld a, [wIsInBattle]
 	dec a
@@ -6696,12 +6698,15 @@ LoadEnemyMonData:
 	ld a, [wEnemyMonSpecies2]
 	ld [wd11e], a
 	predef IndexToPokedex
+	call IsGhostBattle ; an unidentified GHOST is not seen (wd11e keeps the dex number either way)
+	jr z, .notSeen
 	ld a, [wd11e]
 	dec a
 	ld c, a
 	ld b, FLAG_SET
 	ld hl, wPokedexSeen
 	predef FlagActionPredef ; mark this mon as seen in the pokedex
+.notSeen
 ; the unmodified stats, the stages and (v1.0 N5-A) a trainer #MON's burn/para cut:
 ; in Battle Core Overflow (toxic_carry.asm), Battle Core is near its floor
 	farjp LoadEnemyMonDataTail
