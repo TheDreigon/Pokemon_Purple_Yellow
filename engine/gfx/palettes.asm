@@ -178,6 +178,19 @@ SetPal_Overworld:
 	ld de, wPalPacket
 	ld bc, $10
 	call CopyData
+	call GetPal_Overworld
+	ld hl, wPalPacket + 1
+	ld [hld], a
+	ld de, BlkPacket_WholeScreen
+	ld a, SET_PAL_OVERWORLD
+	ld [wDefaultPaletteCommand], a
+	ret
+
+; a = the current map's palette id. SetPal_Overworld paints the whole screen with it (the overworld
+; sprites take their colours 0, 1 and 3 from it too) and LoadOverworldPikachuFrontpicPalettes the
+; screen around PIKACHU's portrait. One routine, so that the two agree: with two copies, an
+; exception written into one only would put other colours behind the portrait. Changes a and f only.
+GetPal_Overworld:
 	ld a, [wCurMapTileset]
 	cp CEMETERY
 	jr z, .PokemonTowerOrAgatha
@@ -202,11 +215,6 @@ SetPal_Overworld:
 	ld a, PAL_ROUTE - 1
 .town
 	inc a ; a town's palette ID is its map ID + 1
-	ld hl, wPalPacket + 1
-	ld [hld], a
-	ld de, BlkPacket_WholeScreen
-	ld a, SET_PAL_OVERWORLD
-	ld [wDefaultPaletteCommand], a
 	ret
 .PokemonTowerOrAgatha
 	ld a, PAL_GREYMON - 1
@@ -230,9 +238,6 @@ SetPal_Overworld:
 	jr .town
 .Lorelei
 	xor a
-	jr .town
-.trade_center_colosseum
-	ld a, PAL_GREYMON - 1
 	jr .town
 
 ; used when a Pokemon is the only thing on the screen
@@ -390,7 +395,7 @@ LoadOverworldPikachuFrontpicPalettes::
 	ld de, wPalPacket
 	ld bc, $10
 	call CopyData
-	call GetPal_Pikachu
+	call GetPal_Overworld
 	ld hl, wPartyMenuBlkPacket
 	ld [hl], a
 	ld hl, wPartyMenuBlkPacket + 2
@@ -432,64 +437,6 @@ LoadOverworldPikachuFrontpicPalettes::
 	call InitGBCPalettes
 .okay_2
 	ret
-
-GetPal_Pikachu::
-; similar to SetPal_Overworld
-	ld a, [wCurMapTileset]
-	cp CEMETERY
-	jr z, .PokemonTowerOrAgatha
-	cp CAVERN
-	jr z, .caveOrBruno
-	ld a, [wCurMap]
-	cp REDS_HOUSE_1F
-	jr c, .townOrRoute
-	cp CERULEAN_CAVE_2F
-	jr c, .normalDungeonOrBuilding
-	cp NAME_RATERS_HOUSE
-	jr c, .caveOrBruno
-	cp LORELEIS_ROOM
-	jr z, .Lorelei
-	cp BRUNOS_ROOM
-	jr z, .caveOrBruno
-.normalDungeonOrBuilding
-	ld a, [wLastMap] ; town or route that current dungeon or building is located
-.townOrRoute
-	cp SAFFRON_CITY + 1
-	jr c, .town
-	ld a, PAL_ROUTE - 1
-.town
-	inc a ; a town's pallete ID is its map ID + 1
-	ret
-
-.PokemonTowerOrAgatha
-	ld a, PAL_GREYMON - 1
-	jr .town
-
-.caveOrBruno
-	ld a, [wCurMap]
-	cp SEAFOAM_ISLANDS_1F
-	jr z, .SeafoamIslands
-	cp SEAFOAM_ISLANDS_B1F
-	jr z, .SeafoamIslands
-	cp SEAFOAM_ISLANDS_B2F
-	jr z, .SeafoamIslands
-	cp SEAFOAM_ISLANDS_B3F
-	jr z, .SeafoamIslands
-	cp SEAFOAM_ISLANDS_B4F
-	jr z, .SeafoamIslands
-	ld a, PAL_CAVE - 1
-	jr .town
-.SeafoamIslands
-	ld a, PAL_CYANMON - 1
-	jr .town
-
-.Lorelei
-	xor a ; PAL_PALLET - 1
-	jr .town
-
-.battleOrTradeCenter
-	ld a, PAL_GREYMON - 1
-	jr .town
 
 InitPartyMenuBlkPacket:
 	ld hl, BlkPacket_PartyMenu
