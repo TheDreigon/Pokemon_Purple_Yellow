@@ -374,6 +374,74 @@ SetSpriteCollisionValues:
 .done
 	ret
 
+; nz (a = 1) when a sprite stands on the map cell in front of the player (IsSpriteOnMapCell, below).
+; The cell comes from wPlayerDirection, as IsSpriteInFrontOfPlayer2 has just set it, and wYCoord /
+; wXCoord: from the party menu, GetTileAndCoordsInFrontOfPlayer would read the menu in wTileMap.
+IsSpriteOnCellInFrontOfPlayer::
+	ld a, [wYCoord]
+	ld d, a
+	ld a, [wXCoord]
+	ld e, a
+	ld a, [wPlayerDirection]
+	rrca ; PLAYER_DIR_RIGHT
+	jr nc, .notRight
+	inc e
+.notRight
+	rrca ; PLAYER_DIR_LEFT
+	jr nc, .notLeft
+	dec e
+.notLeft
+	rrca ; PLAYER_DIR_DOWN
+	jr nc, .notDown
+	inc d
+.notDown
+	rrca ; PLAYER_DIR_UP
+	jr nc, IsSpriteOnMapCell
+	dec d
+; fall through
+
+; nz (a = 1) when a sprite of slots 1-14 stands on map cell d = y, e = x, found by its map
+; coordinates: one a menu box covers (CheckSpriteAvailability gave it image $ff) counts, a hidden
+; missable (a picked-up item ball) does not; PIKACHU (slot 15) is not looked at. z (a = 0) when
+; none. Keeps de; trashes bc, hl, hCurrentSpriteOffset and hIsHiddenMissableObject, and through
+; the predef wPredefID, wPredefParentBank, wPredefBank and wPredefHL / DE / BC: a caller that runs
+; inside a predef reads its registers (GetPredefRegisters) before calling this.
+IsSpriteOnMapCell::
+	ld a, $10 ; slot 1
+.loop
+	ldh [hCurrentSpriteOffset], a
+	ld l, a
+	ld h, HIGH(wSpriteStateData1)
+	ld a, [hl] ; x#SPRITESTATEDATA1_PICTUREID (0: no sprite)
+	and a
+	jr z, .next
+	inc h
+	set 2, l ; x#SPRITESTATEDATA2_MAPY
+	ld a, [hli]
+	sub 4
+	cp d
+	jr nz, .next
+	ld a, [hl] ; x#SPRITESTATEDATA2_MAPX
+	sub 4
+	cp e
+	jr nz, .next
+	push de
+	predef IsObjectHidden
+	pop de
+	ldh a, [hIsHiddenMissableObject]
+	and a
+	jr z, .found
+.next
+	ldh a, [hCurrentSpriteOffset]
+	add $10
+	cp $f0 ; PIKACHU's slot
+	jr nz, .loop
+	xor a
+	ret
+.found
+	inc a
+	ret
+
 SpriteCollisionBitTable:
 FOR n, $10
 	bigdw 1 << n

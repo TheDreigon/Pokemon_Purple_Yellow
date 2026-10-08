@@ -1022,6 +1022,10 @@ ItemUseSurfboard:
 	ldh a, [hSpriteIndexOrTextID]
 	and a ; is there a sprite in the way?
 	jr nz, .cannotStopSurfing
+; from the party menu a sprite under the START menu box (the cell to the player's right) has
+; image $ff, which the test above skips; this one finds it by its map cell
+	farcall IsSpriteOnCellInFrontOfPlayer
+	jr nz, .cannotStopSurfing
 	ld hl, TilePairCollisionsWater
 	call CheckForTilePairCollisions
 	jr c, .cannotStopSurfing
