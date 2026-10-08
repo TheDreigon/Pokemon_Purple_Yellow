@@ -193,7 +193,8 @@ PikachuMovementData_49dca:
 CoordsData_49dce:
 	dbmapcoord 13,  7
 	dbmapcoord 14,  6
-	dbmapcoord 14,  5
+	dbmapcoord 14,  5 ; a wall
+	dbmapcoord 13,  5 ; above the HELIX: the two lists name every cell a fossil can be taken from
 	db -1 ; end
 
 CoordsData_49dd5:
