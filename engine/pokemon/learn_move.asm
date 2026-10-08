@@ -61,6 +61,13 @@ DontAbandonLearning:
 	ld a, [wPlayerMonNumber]
 	cp b
 	jp nz, PrintLearnedMove
+; v1.0 (R16t, 2026-10-07): a TRANSFORMed #MON keeps the moves and PP it copied while it stays out; the
+; new move is in its own moveset (the party struct, above), there from its next send-out. The copy
+; below would put its own moves under the target's shape, their PP spent in the battle struct only
+; (DecrementPP skips the party struct while TRANSFORMed).
+	ld a, [wPlayerBattleStatus3]
+	bit TRANSFORMED, a
+	jr nz, PrintLearnedMove
 	ld h, d
 	ld l, e
 	ld de, wBattleMonMoves
