@@ -2970,6 +2970,11 @@ SwitchEnemyMon:
 	ld hl, AIBattleWithdrawText
 	call PrintText
 
+; v1.0 (R16d, 2026-10-07): the send-out leaves wCurrentMenuItem at 1 (its "no shift" answer), and the
+; player's move this turn still reads it as the slot picked in the FIGHT menu: MIMIC writes its copy
+; there, and in Hard CheckForDisobedience compares it. The value the player left is given back.
+	ld a, [wCurrentMenuItem]
+	push af
 	; This wFirstMonsNotOutYet variable is abused to prevent the player from
 	; switching in a new mon in response to this switch.
 	ld a, 1
@@ -2977,6 +2982,8 @@ SwitchEnemyMon:
 	callfar EnemySendOut
 	xor a
 	ld [wFirstMonsNotOutYet], a
+	pop af
+	ld [wCurrentMenuItem], a
 
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
