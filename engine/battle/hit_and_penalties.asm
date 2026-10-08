@@ -2,14 +2,35 @@
 ;
 ; These came out of Battle Core, which was at its 16 KB ceiling, and they came
 ; here rather than anywhere else because this is where their callers are:
-; MoveHitTest is called 8 times from effects.asm against 2 from core.asm, and
-; the two Halve routines 13 times against 2. Moving them WITH the effects turns
-; 21 would-be cross-bank calls back into local ones.
+; MoveHitTest is called 8 times from effects.asm against 2 from core.asm (v1.0, R16g:
+; through DamagingMoveHitTest, below), and the two Halve routines 13 times against 2.
+; Moving them WITH the effects turns 21 would-be cross-bank calls back into local ones.
 ;
 ; CalcHitChance travels with MoveHitTest because MoveHitTest is its only caller.
 ; Neither of them ends up calling anything left behind in Battle Core:
 ; BattleRandom is in the home bank and Multiply/Divide always were, so nothing
 ; here pays a farcall at all.
+
+; v1.0 (R16g, 2026-10-07): the hit test of the two damage paths, PlayerCalcMoveDamage and
+; EnemyMoveHitTest (core.asm; the effects call MoveHitTest itself). After MoveHitTest, a trapping move
+; that hit clears the target's HYPER BEAM recharge, the hold taking its place as in Gen 1. TrappingEffect
+; runs before the test and cleared it there, so a faster WRAP or CLAMP that missed a recharging #MON let
+; it fire HYPER BEAM again in its recharge turn, with no menu (shinpokered clears it on a hit only). A
+; type exit (an immunity, "not even a scratch") leaves wMoveMissed set: no hit, the recharge stays.
+DamagingMoveHitTest:
+	call MoveHitTest
+	ld a, [wMoveMissed]
+	and a
+	ret nz
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveEffect]
+	jr z, .gotMoveEffect
+	ld a, [wEnemyMoveEffect]
+.gotMoveEffect
+	cp TRAPPING_EFFECT
+	ret nz
+	jp ClearHyperBeam
 
 MoveHitTest:
 ; player's turn

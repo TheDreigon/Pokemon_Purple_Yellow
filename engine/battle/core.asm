@@ -3861,7 +3861,7 @@ PlayerCalcMoveDamage:
 .fixedDamage ; v1.0 (R9c): a set number skips the chart's multipliers, not its immunities
 	farcall FixedDamageImmunity ; a NO_EFFECT row: "It doesn't affect", as for any move (type_effectiveness.asm)
 .moveHitTest
-	farcall MoveHitTest
+	farcall DamagingMoveHitTest ; v1.0 (R16g): MoveHitTest, then a trapping hit clears the recharge
 handleIfPlayerMoveMissed:
 	ld a, [wMoveMissed]
 	and a
@@ -6049,7 +6049,7 @@ EnemyCalcMoveDamage:
 	farcall FixedDamageImmunity
 
 EnemyMoveHitTest:
-	farcall MoveHitTest
+	farcall DamagingMoveHitTest ; v1.0 (R16g): see PlayerCalcMoveDamage
 handleIfEnemyMoveMissed:
 	ld a, [wMoveMissed]
 	and a
