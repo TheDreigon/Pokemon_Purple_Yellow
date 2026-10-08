@@ -111,4 +111,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       sprites). SO o PIKACHU (o real e o fake partilham a
 	                                 ;       paleta por serem a mesma especie); RAICHU/SANDSHREW/
 	                                 ;       WEEDLE continuam no PAL_YELLOWMON. APPENDADA.
+	const PAL_FOREST                 ; $34 - VIRIDIAN FOREST's map palette: a drier green for colour 1 and teal
+	                                 ;       for colour 2 (the trees; sky blue in PAL_ROUTE). GetPal_Overworld
+	                                 ;       picks it by map id. APPENDED, never inserted.
 DEF NUM_SGB_PALS EQU const_value
