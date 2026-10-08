@@ -117,4 +117,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_GARDEN                 ; $35 - BILL's GARDEN's map palette: green for colour 1 and coral for
 	                                 ;       colour 2 (the trees, half of the tall grass, the roof; sky blue in
 	                                 ;       PAL_ROUTE). GetPal_Overworld picks it by map id. APPENDED.
+	const PAL_BLOSSOM                ; $36 - light grey and magenta; colour 3 is true black (00,00,00) on GBC
+	                                 ;       and 06,06,06, that table's own black, in the SGB row. Kept for later
+	                                 ;       use: no map and no species uses it yet. APPENDED, never inserted.
 DEF NUM_SGB_PALS EQU const_value

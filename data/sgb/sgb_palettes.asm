@@ -55,6 +55,7 @@ SuperPalettes:
 	RGB 31,31,30, 31,30,22, 27,16,16, 06,06,06 ; PAL_PIKAMON (2026-09-06: = PAL_MEWMON, the title screen's Pikachu, on this table too)
 	RGB 31,31,30, 20,28,08, 08,19,16, 06,06,06 ; PAL_FOREST
 	RGB 31,31,30, 14,29,09, 31,15,13, 06,06,06 ; PAL_GARDEN
+	RGB 31,31,30, 22,22,22, 27,00,18, 06,06,06 ; PAL_BLOSSOM (no map or species uses it yet)
 	assert_table_length NUM_SGB_PALS
 
 GBCBasePalettes:
@@ -114,4 +115,5 @@ GBCBasePalettes:
 	RGB 31,31,31, 31,31,00, 31,01,01, 03,03,03 ; PAL_PIKAMON (2026-09-06: = PAL_MEWMON, the palette the title screen paints Pikachu with; was 31,31,14 / 22,06,01 from the 09-01 sheet)
 	RGB 31,31,31, 20,28,08, 08,19,16, 03,03,03 ; PAL_FOREST
 	RGB 31,31,31, 14,29,09, 31,15,13, 03,03,03 ; PAL_GARDEN
+	RGB 31,31,31, 22,22,22, 27,00,18, 00,00,00 ; PAL_BLOSSOM (no map or species uses it yet)
 	assert_table_length NUM_SGB_PALS
