@@ -40,9 +40,9 @@ Route18Gate1FDefaultScript:
 	ld [wRoute18Gate1FCurScript], a
 	ret
 .next_to_counter
-	ld a, SCRIPT_ROUTE18GATE1F_GUARD
-	ld [wRoute18Gate1FCurScript], a
-	ret
+; the counter row: the pad is locked and the guard speaks in this frame, as on the other rows once
+; their walk up has ended (run from the next frame, the guard came after a held LEFT had stepped past)
+	jr Route18Gate1FPlayerMovingUpScript.lockJoypad
 
 .StopsPlayerCoords:
 	dbmapcoord  4,  3
@@ -55,6 +55,7 @@ Route18Gate1FPlayerMovingUpScript:
 	ld a, [wSimulatedJoypadStatesIndex]
 	and a
 	ret nz
+.lockJoypad
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 
