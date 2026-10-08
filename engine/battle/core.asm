@@ -4470,7 +4470,12 @@ HandleSelfConfusionDamage:
 	call DrawPlayerHUDAndHPBar
 	xor a
 	ldh [hWhoseTurn], a
-	jp ApplyDamageToPlayerPokemon
+; v1.0 (R16a, 2026-10-07): the self-hit costs the #MON's own HP. It enters past the routine's
+; SUBSTITUTE test, as a doll takes only the foe's damage: through that test a #MON with its own doll up
+; lost nothing, and the damage went to the foe's doll (AttackSubstitute picks the target's doll by
+; hWhoseTurn, the player's here). The disobedience self-hit (CheckForDisobedience) comes here too.
+	ld hl, wDamage + 1 ; .selfDamage's input
+	jp ApplyDamageToPlayerPokemon.selfDamage
 
 PrintMonName1Text:
 	ld hl, MonName1Text
@@ -4609,12 +4614,14 @@ PrintMoveFailureText:
 	call PrintText
 	ld b, $4
 	predef PredefShakeScreenHorizontally
+; v1.0 (R16a): the crash is the user's own HP too, past any SUBSTITUTE (see HandleSelfConfusionDamage)
+	ld hl, wDamage + 1
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .enemyTurn
-	jp ApplyDamageToPlayerPokemon
+	jp ApplyDamageToPlayerPokemon.selfDamage
 .enemyTurn
-	jp ApplyDamageToEnemyPokemon
+	jp ApplyDamageToEnemyPokemon.selfDamage
 
 AttackMissedText:
 	text_far _AttackMissedText
@@ -5525,6 +5532,9 @@ ApplyDamageToEnemyPokemon:
 	ld a, [wEnemyBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a ; does the enemy have a substitute?
 	jp nz, AttackSubstitute
+; v1.0 (R16a): the enemy's own damage enters here, hl = wDamage + 1: its confusion self-hit and its
+; crash. Past FALSE SWIPE (never theirs), the zero test (neither is 0) and the SUBSTITUTE test.
+.selfDamage
 ; subtract the damage from the Pokemon's current HP
 ; also, save the current HP at wHPBarOldHP
 	ld a, [hld]
@@ -5636,6 +5646,9 @@ ApplyDamageToPlayerPokemon:
 	ld a, [wPlayerBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a ; does the player have a substitute?
 	jp nz, AttackSubstitute
+; v1.0 (R16a): the player's own damage enters here, hl = wDamage + 1: its confusion self-hit and
+; its crash. Past FALSE SWIPE (never theirs), the zero test (neither is 0) and the SUBSTITUTE test.
+.selfDamage
 ; subtract the damage from the pokemon's current HP
 ; also, save the current HP at wHPBarOldHP and the new HP at wHPBarNewHP
 	ld a, [hld]
@@ -5679,12 +5692,11 @@ ApplyAttackToPlayerPokemonDone:
 	jp DrawHUDsAndHPBars
 
 AttackSubstitute:
-; Unlike the two ApplyAttackToPokemon functions, Attack Substitute is shared by player and enemy.
-; Self-confusion damage as well as Hi Jump Kick crash recoil cause a momentary turn swap before being applied.
-; If the user has a Substitute up and would take damage because of that,
-; damage will be applied to the other player's Substitute.
-; Normal recoil such as from Double-Edge isn't affected by this glitch,
-; because this function is never called in that case.
+; Unlike the two ApplyAttackToPokemon functions, Attack Substitute is shared by player and enemy:
+; the attacker's damage on the target's doll, hWhoseTurn naming the attacker. v1.0 (R16a): the
+; confusion self-hit and HI JUMP KICK's crash no longer come here. They called the user's own
+; ApplyDamageTo*Pokemon with hWhoseTurn the user's, so a doll of its own sent the damage to the
+; other side's doll (Gen 1); they enter at .selfDamage now. Recoil (RecoilEffect_) never came here.
 
 	ld hl, SubstituteTookDamageText
 	call PrintText
@@ -6314,7 +6326,8 @@ CheckEnemyStatusConditions:
 	call PlaySpecialAnimation
 	ld a, $1
 	ldh [hWhoseTurn], a
-	call ApplyDamageToEnemyPokemon
+	ld hl, wDamage + 1 ; v1.0 (R16a): its own HP, past any SUBSTITUTE (see HandleSelfConfusionDamage)
+	call ApplyDamageToEnemyPokemon.selfDamage
 	jr .monHurtItselfOrFullyParalysed
 .checkIfTriedToUseDisabledMove
 ; prevents a disabled move that was selected before being disabled from being used

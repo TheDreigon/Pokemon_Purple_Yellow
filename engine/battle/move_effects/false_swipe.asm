@@ -5,11 +5,10 @@
 ; ApplyDamageToEnemyPokemon / ApplyDamageToPlayerPokemon in
 ; engine/battle/core.asm, before wDamage is consumed (no registers are live
 ; there). Each entry refuses to act unless the hit really is the attacker's
-; own FALSE SWIPE on its own turn: confusion self-hits and crash damage
-; route through the "other side's" Apply routine with hWhoseTurn pointing at
-; the attacker, so the turn check exempts them (a confused user CAN still
-; knock itself out). A hit absorbed by a SUBSTITUTE is also exempt - the
-; doll may break normally.
+; own FALSE SWIPE on its own turn. Confusion self-hits and crash damage do
+; not come here (v1.0, R16a): they enter those routines at .selfDamage, past
+; this call, so a confused user CAN still knock itself out. A hit absorbed
+; by a SUBSTITUTE is also exempt - the doll may break normally.
 
 CheckFalseSwipeEnemy::
 ; the player's attack is about to hit the enemy mon
