@@ -4029,8 +4029,8 @@ GetOutText:
 
 ; z: an unidentified GHOST - a wild battle on a POKEMON_TOWER map without the SILPH_SCOPE in the
 ; bag. Asked by what would otherwise show its species: the picture (InitWildBattle,
-; ReloadEnemyMonFrontPic), the seen flag (LoadEnemyMonData), the owned ball (DrawEnemyHUDAndHPBar).
-; SetPal_Battle does not ask: the picture keeps the species' palette, as in vanilla. Trashes a, b, hl.
+; ReloadEnemyMonFrontPic), the seen flag (LoadEnemyMonData), the owned ball (DrawEnemyHUDAndHPBar)
+; and the picture's colour (SetPal_Battle, bank $1C, paints it PAL_GREYMON). Trashes a, b, hl.
 IsGhostBattle:
 	ld a, [wIsInBattle]
 	dec a

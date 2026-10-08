@@ -44,6 +44,18 @@ SetPal_Battle:
 	ld hl, wEnemyMonSpecies2
 	call DeterminePaletteID
 	ld c, a
+; An unidentified GHOST (IsGhostBattle: a wild battle in POKEMON TOWER without the SILPH SCOPE) is
+; PAL_GREYMON: wEnemyMonSpecies2 still holds its species, and the species' palette would tell what
+; it is. Every SET_PAL_BATTLE of the battle comes here, so it stays grey to the end; with the SCOPE
+; the 6F MAROWAK keeps its own PAL_GREYMON, before and after it is unveiled. The farcall returns
+; through Bankswitch's pop bc and IsGhostBattle trashes b: bc (b = the player's palette, c = the
+; enemy's) is pushed around it, and the pop leaves IsGhostBattle's z alone.
+	push bc
+	callfar IsGhostBattle
+	pop bc
+	jr nz, .notGhost
+	ld c, PAL_GREYMON
+.notGhost
 ; DREIGON is the one trainer in the game with a colour of his own. Every trainer
 ; pic is drawn with wEnemyMonSpecies2 = 0 - init_battle.asm and
 ; scroll_draw_trainer_pic.asm both xor a before the palette command - which
