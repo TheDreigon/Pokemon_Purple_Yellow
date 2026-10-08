@@ -116,7 +116,14 @@ SafariZoneGateSetScriptAfterMoveScript:
 	call SafariZoneGateReturnSimulatedJoypadStateScript
 	ret nz
 	call Delay3
-	ld a, [wNextSafariZoneGateScript]
+; the script after the walk follows EVENT_IN_SAFARI_ZONE, which the save keeps: YES has cleared it
+; (DEFAULT, the counter), NO keeps it (LEAVING_SAFARI asks again on the next way out). The
+; unsaved wNextSafariZoneGateScript read 0 after a SAVE in the zone and a CONTINUE.
+	CheckEvent EVENT_IN_SAFARI_ZONE
+	ld a, SCRIPT_SAFARIZONEGATE_DEFAULT
+	jr z, .set_script
+	ld a, SCRIPT_SAFARIZONEGATE_LEAVING_SAFARI
+.set_script
 	ld [wSafariZoneGateCurScript], a
 	ret
 
@@ -176,8 +183,6 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	ld [wSafariSteps], a
 	ld [wSafariSteps + 1], a
 	ld [wNumSafariBalls], a
-	ld a, SCRIPT_SAFARIZONEGATE_DEFAULT
-	ld [wNextSafariZoneGateScript], a
 	jr .set_current_script
 .not_ready_to_leave
 	ld hl, .GoodLuckText
@@ -187,8 +192,6 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	ld a, D_UP
 	ld c, 1
 	call SafariZoneEntranceAutoWalk
-	ld a, SCRIPT_SAFARIZONEGATE_LEAVING_SAFARI
-	ld [wNextSafariZoneGateScript], a
 .set_current_script
 	ld a, SCRIPT_SAFARIZONEGATE_SET_SCRIPT_AFTER_MOVE
 	ld [wSafariZoneGateCurScript], a
