@@ -1278,7 +1278,7 @@ AIGetMovePriorityWrapped:
 ; wants to leave; 32 or more asks for sure, 0 never asks (no Random spent),
 ; anything between asks with that chance out of 32. A hit sets
 ; wAISwitchRequest to 1 + the party index of the teammate AIPickSwitchTarget
-; chose; TrainerAI's hook acts on it this same turn and EnemySendOut brings
+; chose; TrainerAI's hook acts on it this same turn and EnemySendOutFirstMon brings
 ; that teammate in; SelectEnemyMove clears the request every turn before any
 ; of its gates, so a request never outlives the turn that made it. Since the
 ; enemy chooses at the START of the turn (MainInBattleLoop), both the
@@ -2030,8 +2030,8 @@ TrainerAI:
 
 ; v1.0 (2026-09-26, the AI switch layer): the switch layer (6) asked to
 ; switch this turn; TrainerAI runs before either move (MainInBattleLoop,
-; 2026-09-27), so the switch goes first. The request names the teammate (1 + its party index); EnemySendOut
-; consumes it when the switch happens, and this hook drops it when it does
+; 2026-09-27), so the switch goes first. The request names the teammate (1 + its party index);
+; EnemySendOutFirstMon consumes it when the switch happens, and this hook drops it when it does
 ; not; a faint replacement never sees it (AIPickFaintReplacement rewrites
 ; the byte, 0 or its own pick, just before that send-out). A mon the player's
 ; WRAP or CLAMP holds is not pulled (N3, 2026-09-27: neither side switches
@@ -2046,7 +2046,7 @@ TrainerAI:
 	bit USING_TRAPPING_MOVE, a
 	jr nz, .dropSwitchRequest ; held: it stays
 	call AISwitchIfEnoughMons
-	ret c ; switched (EnemySendOut consumed the request): that was the turn's action
+	ret c ; switched (EnemySendOutFirstMon consumed the request): that was the turn's action
 .dropSwitchRequest
 	xor a
 	ld [wAISwitchRequest], a
@@ -2979,7 +2979,11 @@ SwitchEnemyMon:
 	; switching in a new mon in response to this switch.
 	ld a, 1
 	ld [wFirstMonsNotOutYet], a
-	callfar EnemySendOut
+; v1.0 (R16f, 2026-10-07): EnemySendOutFirstMon, past EnemySendOut's two clears: a switch keeps the
+; EXP participation. The #MON that fought the mon going out share the EXP of the next enemy to faint,
+; and the one on the field already has its bits (every player send-out sets them). A faint still
+; clears them (GainExperience's end; ReplaceFaintedEnemyMon calls EnemySendOut). shinpokered's rule.
+	callfar EnemySendOutFirstMon
 	xor a
 	ld [wFirstMonsNotOutYet], a
 	pop af
