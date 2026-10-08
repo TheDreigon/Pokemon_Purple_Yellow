@@ -79,13 +79,17 @@ IF DEF(_DEBUG)
 	call DebugPressedOrHeldB
 	ret nz
 ENDC
-	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
-	call z, MtMoonB2FScript_49d28
+	call MtMoonB2FScript_49d28
 	CheckEvent EVENT_BEAT_MT_MOON_3_TRAINER_0
 	call z, MtMoonB2FScript_49e15
 	ret
 
+; The nerd's stop at (13,8) while he is unbeaten and no fossil is taken; else the check of the
+; floor's trainers. The fossil test gates the stop alone: the trainers still look once a fossil
+; is in the bag.
 MtMoonB2FScript_49d28:
+	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
+	jr nz, .asm_49d4b
 	CheckEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
 	jp nz, .asm_49d4b
 	ld a, [wYCoord]
@@ -102,9 +106,7 @@ MtMoonB2FScript_49d28:
 	ret
 
 .asm_49d4b
-	CheckEitherEventSet EVENT_GOT_DOME_FOSSIL, EVENT_GOT_HELIX_FOSSIL
-	jp z, CheckFightingMapTrainers
-	ret
+	jp CheckFightingMapTrainers
 
 MtMoonB2FDefeatedSuperNerdScript:
 	ld a, [wIsInBattle]
