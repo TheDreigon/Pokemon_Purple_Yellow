@@ -189,10 +189,24 @@ MoveHitTest:
 	jr nc, .moveMissed
 	ret
 .moveMissed
-	xor a
+; v1.0 (R16b, 2026-10-07): HI JUMP KICK keeps the damage it would have dealt - its crash
+; (PrintMoveFailureText) is 1/8 of it, at least 1, as pokecrystal's CheckHit keeps it for
+; EFFECT_JUMP_KICK. Every other move zeroes it, as before. (de cannot name the effect here: the
+; roll's path went through CalcHitChance, whose loop counter is d.)
+	ld hl, wPlayerMoveEffect
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotMoveEffect
+	ld hl, wEnemyMoveEffect
+.gotMoveEffect
+	ld a, [hl]
+	cp JUMP_KICK_EFFECT
+	ld a, 0 ; (ld keeps the flags of the cp)
+	jr z, .keptTheDamage
 	ld hl, wDamage ; zero the damage
 	ld [hli], a
 	ld [hl], a
+.keptTheDamage
 ; v0.7: say WHICH miss this was. b still holds the accuracy the roll was
 ; compared against, so b = $FF means the move could only have failed on the
 ; 1-in-256 -- the one Gen 1 quirk this game keeps on purpose, and only in hard
