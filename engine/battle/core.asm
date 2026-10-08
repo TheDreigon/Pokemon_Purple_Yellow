@@ -5713,15 +5713,17 @@ AttackSubstitute:
 	ld hl, wDamage
 	ld a, [hli]
 	and a
+	ld a, [de] ; the doll's HP (ld keeps the Z of the and)
 	jr nz, .substituteBroke ; damage > 0xFF always breaks substitutes
 ; subtract damage from HP of substitute
-	ld a, [de]
 	sub [hl]
 	ld [de], a
 	ret nc
+	add [hl] ; v1.0 (R16c): back to the doll's HP before the hit (the byte keeps the wrapped difference)
 .substituteBroke
-; If the target's Substitute breaks, wDamage isn't updated with the amount of HP
-; the Substitute had before being attacked.
+; v1.0 (R16c): a = the doll's HP before the hit, all the damage it took: kept for a recoil move
+; (.nullifyEffect). wDamage still holds the damage computed; only a recoil move's is rewritten there.
+	push af
 	ld h, b
 	ld l, c
 	res HAS_SUBSTITUTE_UP, [hl] ; unset the substitute bit
@@ -5741,13 +5743,30 @@ AttackSubstitute:
 	jr z, .nullifyEffect
 	ld hl, wEnemyMoveEffect ; value for enemy's turn
 .nullifyEffect
+	pop bc ; v1.0 (R16c): b = the doll's HP before the hit
 ; v1.0 (2026-09-24): HYPER BEAM still has to recharge when all it broke was
-; the SUBSTITUTE. Gen 1 dropped every side effect with the doll; only this one
-; is restored: the effect is in AlwaysHappenSideEffects now, so keeping it
+; the SUBSTITUTE. Gen 1 dropped every side effect with the doll; this one was
+; the first restored: the effect is in AlwaysHappenSideEffects now, so keeping it
 ; here is what lets .notDone / .handleExplosionMiss set NEEDS_TO_RECHARGE.
+; v1.0 (R16c, 2026-10-07): EXPLOSION and the recoil moves (DOUBLE-EDGE, DRAGON SLAM, HEAD SMASH, STRUGGLE) keep
+; their effect too, both sides (AlwaysHappenSideEffects runs them, as it runs HYPER BEAM's). The doll takes the
+; hit, broken or not, and the user pays as when it holds: EXPLOSION's user faints (as from Gen 2 on), a
+; recoil move's user takes recoil - counted on what the doll took, as when it holds (all the damage then goes
+; into the doll): wDamage becomes the doll's HP before the hit. Only RECOIL_EFFECT rewrites it: a multi-hit
+; move whose later hit breaks the doll goes on with its damage. Every other effect still goes with the doll.
 	ld a, [hl]
 	cp HYPER_BEAM_EFFECT
 	jr z, .keepEffect
+	cp EXPLODE_EFFECT
+	jr z, .keepEffect
+	cp RECOIL_EFFECT
+	jr nz, .dropEffect
+	ld hl, wDamage
+	xor a
+	ld [hli], a
+	ld [hl], b
+	jr .keepEffect
+.dropEffect
 	xor a
 	ld [hl], a ; zero the effect of the attacker's move
 .keepEffect
