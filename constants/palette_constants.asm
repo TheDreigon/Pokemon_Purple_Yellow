@@ -114,4 +114,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_FOREST                 ; $34 - VIRIDIAN FOREST's map palette: a drier green for colour 1 and teal
 	                                 ;       for colour 2 (the trees; sky blue in PAL_ROUTE). GetPal_Overworld
 	                                 ;       picks it by map id. APPENDED, never inserted.
+	const PAL_GARDEN                 ; $35 - BILL's GARDEN's map palette: green for colour 1 and coral for
+	                                 ;       colour 2 (the trees, half of the tall grass, the roof; sky blue in
+	                                 ;       PAL_ROUTE). GetPal_Overworld picks it by map id. APPENDED.
 DEF NUM_SGB_PALS EQU const_value

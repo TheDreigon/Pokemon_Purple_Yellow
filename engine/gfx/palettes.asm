@@ -208,10 +208,13 @@ GetPal_Overworld:
 	cp BRUNOS_ROOM
 	jr z, .caveOrBruno
 .normalDungeonOrBuilding
-; an interior with a palette of its own, chosen by its map id (a holds wCurMap on both paths that reach this
-; label); a test on the FOREST tileset would paint the four SAFARI ZONE areas too
+; the interiors with a palette of their own, chosen by their map id (a holds wCurMap on both paths that reach this
+; label); a test on the FOREST tileset would paint the four SAFARI ZONE areas too, and one on wLastMap would paint
+; BILLS_HOUSE, whose wLastMap reads BILLS_GARDEN once the player has walked out of the garden
 	cp VIRIDIAN_FOREST
 	jr z, .viridianForest
+	cp BILLS_GARDEN
+	jr z, .billsGarden
 	ld a, [wLastMap] ; town or route that current dungeon or building is located
 .townOrRoute
 	cp NUM_CITY_MAPS
@@ -245,6 +248,9 @@ GetPal_Overworld:
 	jr .town
 .viridianForest
 	ld a, PAL_FOREST - 1
+	jr .town
+.billsGarden
+	ld a, PAL_GARDEN - 1
 	jr .town
 
 ; used when a Pokemon is the only thing on the screen
