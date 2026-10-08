@@ -202,6 +202,7 @@ EndTrainerBattle::
 	cp OPP_ID_OFFSET
 	jr nc, .skipRemoveSprite    ; test if trainer was fought (in that case skip removing the corresponding sprite)
 	ld a, [wSpriteIndex]
+	ld e, a ; the sprite goes in e: a farcall enters its callee with a = the callee's bank
 	farcall HideObjectBySpriteIndex ; v1.0 (T23): the sprite's missable, whichever table (was IsInArray + predef HideObject; a miss used to hide a garbage index)
 .skipRemoveSprite
 	ld hl, wd730

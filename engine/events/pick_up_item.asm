@@ -29,6 +29,7 @@ PickUpItem:
 	jr nc, .BagFull
 
 	ldh a, [hSpriteIndexOrTextID]
+	ld e, a ; the sprite goes in e: a farcall enters its callee with a = the callee's bank
 	farcall HideObjectBySpriteIndex ; v1.0 (T23): whichever table the ball is in
 	ld a, 1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a

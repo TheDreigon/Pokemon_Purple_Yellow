@@ -133,14 +133,16 @@ HideShowObject_HS2:
 	predef FlagActionPredef
 	jp UpdateSprites
 
-; Hides the missable that map-local sprite a (1-14) maps to, whichever table
+; Hides the missable that map-local sprite e (1-14) maps to, whichever table
 ; it is in; nothing happens if the sprite is not in the list. The two dynamic
 ; hiders (PickUpItem, the trainer-header static mons in home/trainers.asm) come
 ; through here because they know a sprite, not an HS_ constant. (Vanilla's
 ; trainers.asm used IsInArray and, on a miss, hid whatever index sat after the
-; sentinel - that latent closes here.)
+; sentinel - that latent closes here.) The sprite comes in e, not a: both
+; callers farcall it, and Bankswitch enters a farcall callee with a = b = the
+; callee's bank and hl = its address; c, d and e pass through.
 HideObjectBySpriteIndex::
-	ld b, a
+	ld b, e
 	ld hl, wMissableObjectList
 .loop
 	ld a, [hli]
