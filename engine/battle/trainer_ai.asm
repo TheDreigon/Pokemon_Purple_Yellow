@@ -3027,7 +3027,11 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 ; recalculated (status_stat_cut.asm; UndoBurnParStats doubled the stat back, which
 ; lost the odd point and doubled a stat that had no cut)
 	inc a ; 1 = the enemy
-	jp SideStatusGone
+	call SideStatusGone
+; v1.0 (R16e, 2026-10-07): the HUD drops the status now, before the item's line; MainInBattleLoop
+; redraws it only once TrainerAI is back (after FULL RESTORE's HP bar too). shinpokered does the same.
+	callfar DrawEnemyHUDAndHPBar
+	ret
 
 AIUseGuardSpec:
 	call AIPlayRestoringSFX
