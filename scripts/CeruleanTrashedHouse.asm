@@ -12,7 +12,8 @@ CeruleanTrashedHouseFishingGuruText:
 	text_asm
 	ld b, TM_BULLDOZE
 	predef GetQuantityOfItemInBag
-	and b
+	ld a, b ; the count is in b: a predef returns with a = the ROM bank it was called from
+	and a
 	jr z, .no_dig_tm
 	ld hl, .WhatsLostIsLostText
 	call PrintText
