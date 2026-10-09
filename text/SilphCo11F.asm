@@ -127,3 +127,8 @@ _SilphCo11FRocket2AfterBattleText::
 	line "my BOSS likes his"
 	cont "#MON tough!"
 	done
+
+_SilphCo11FComputerMonitorText::
+	text "The monitor has"
+	line "#MON on it!"
+	prompt

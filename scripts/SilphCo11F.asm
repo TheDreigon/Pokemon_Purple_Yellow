@@ -494,6 +494,7 @@ SilphCo11F_TextPointers:
 	dw_const SilphCo11FJessieJamesText,               TEXT_SILPHCO11F_TEXT8
 	dw_const SilphCo11FText9,                         TEXT_SILPHCO11F_TEXT9
 	dw_const SilphCo11FText10,                        TEXT_SILPHCO11F_TEXT10
+	dw_const SilphCo11FComputerMonitorText,           TEXT_SILPHCO11F_COMPUTER_MONITOR ; v1.0 (R18c): appended
 
 SilphCo11TrainerHeaders:
 	def_trainers 5
@@ -627,4 +628,20 @@ SilphCo11FRocketEndBattleText:
 
 SilphCo11FRocketAfterBattleText:
 	text_far _SilphCo11FRocket2AfterBattleText
+	text_end
+
+; v1.0 (R18c, 2026-10-07): Red/Blue's unused SilphCo10FPorygonText, wired to the
+; monitor on the president's desk (11,12) as poke-solus-rgb did (867da523). The
+; PC beside it, (10,12), is the hidden object. DisplayPokedex marks PORYGON as
+; seen, like the S.S. ANNE's SNORLAX picture and the FUCHSIA zoo signs.
+SilphCo11FComputerMonitorText:
+	text_asm
+	ld hl, .Text
+	call PrintText
+	ld a, PORYGON
+	call DisplayPokedex
+	jp TextScriptEnd
+
+.Text:
+	text_far _SilphCo11FComputerMonitorText
 	text_end

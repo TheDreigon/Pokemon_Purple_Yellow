@@ -16,6 +16,7 @@ SilphCo11F_Object:
 	warp_event  3,  2, SILPH_CO_7F, 4
 
 	def_bg_events
+	bg_event 11, 12, TEXT_SILPHCO11F_COMPUTER_MONITOR ; v1.0 (R18c): the monitor on the president's desk
 
 	def_object_events
 	object_event  7,  5, SPRITE_SILPH_PRESIDENT, STAY, DOWN, TEXT_SILPHCO11F_SILPH_PRESIDENT
