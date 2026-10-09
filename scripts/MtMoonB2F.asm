@@ -7,6 +7,24 @@ MtMoonB2F_Script:
 	ld [wMtMoonB2FCurScript], a
 	CheckEvent EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD
 	ret z
+; v1.0 (R18m, 2026-10-07): "no battles" (wd72e bit 4) on the 16 cells around the fossils lasts only for the fossil
+; scene: from the nerd's defeat until a fossil is taken AND his walk to the other one is over (the map script
+; back at SCRIPT_MTMOONB2F_DEFAULT, 0). Vanilla kept it up there for the rest of the game: no step inside the
+; corner, or out of it, started a battle again (a step INTO it still could: NewBattle runs at the end of a step
+; and reads the bit set on the cell before). Once the scene is over the corner is as the rest of the floor. A
+; fossil's text sets SCRIPT_MTMOONB2F_MOVE_SUPER_NERD, and every cell a fossil can be taken from is on one of
+; MtMoonB2FMoveSuperNerdScript's lists, so the scene runs from the next frame, with no step or turn possible
+; until it is over (MoveSprite's wJoyIgnore $ff, then the direction mask while he speaks). The test of the map
+; script keeps the bit up through those frames, so it comes down only after them: fossil taken, scene, default
+; script. The two fossil events share the nerd's event byte, which CheckEvent leaves in a.
+	assert EVENT_GOT_DOME_FOSSIL / 8 == EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD / 8
+	assert EVENT_GOT_HELIX_FOSSIL / 8 == EVENT_BEAT_MT_MOON_EXIT_SUPER_NERD / 8
+	and (1 << (EVENT_GOT_DOME_FOSSIL % 8)) | (1 << (EVENT_GOT_HELIX_FOSSIL % 8))
+	jr z, .fossilScene ; no fossil yet
+	ld a, [wMtMoonB2FCurScript]
+	and a ; SCRIPT_MTMOONB2F_DEFAULT: the nerd's walk is over
+	jr z, .enable_battles
+.fossilScene
 	ld hl, MtMoonB2FFossilAreaCoords
 	call ArePlayerCoordsInArray
 	jr nc, .enable_battles
@@ -530,10 +548,10 @@ MtMoonB2FSuperNerdText:
 ; loss slot is dead engine-wide), wCurOpponent/wTrainerNo by hand - going
 ; through EngageMapTrainer would reload party 2 from the object bytes. The
 ; ace follows the fossil HE kept: the player took the HELIX -> he has the DOME
-; (KABUTOPS, party 16); otherwise OMASTAR (party 15). And the map script keeps
-; wd72e bit 4 ("no battles here") set around the fossils once he is beaten -
-; NewBattle refuses everything while it is up, so it is cleared before the
-; overworld loop gets to start the fight.
+; (KABUTOPS, party 16); otherwise OMASTAR (party 15). NewBattle starts nothing
+; while wd72e bit 4 ("no battles here") is up; the map script sets it around
+; the fossils only until the fossil scene is over (R18m), so it is already
+; down when this arm runs, and the res below only makes sure of it.
 .rematch
 	CheckEvent EVENT_BEAT_MT_MOON_SUPER_NERD_REMATCH
 	jr nz, .rematchSpent
