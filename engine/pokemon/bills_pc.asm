@@ -263,7 +263,20 @@ BillsPCDeposit:
 	ld [hl], "@"
 	ld hl, MonWasStoredText
 	call PrintText
+; v1.0 (R18e, 2026-10-07): say so when that deposit filled the Box. Before, the
+; PC spoke only at the NEXT deposit ("Oops! This Box is full"), and a catch sent
+; to the full Box is refused at the throw - the catch path already warns the
+; moment its Box fills (ItemUseBall .boxCheck, _BoxIsFullReminderText).
+	ld a, [wBoxCount]
+	cp MONS_PER_BOX
+	jp nz, BillsPCMenu
+	ld hl, BoxNowFullText
+	call PrintText
 	jp BillsPCMenu
+
+BoxNowFullText:
+	text_far _BoxNowFullText
+	text_end
 
 SleepingPikachuText2:
 	text_far _SleepingPikachuText2

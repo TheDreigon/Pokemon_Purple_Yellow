@@ -318,6 +318,15 @@ _BoxFullText::
 	line "full of #MON."
 	prompt
 
+; v1.0 (R18e): right after the deposit that filled it (BillsPCDeposit)
+_BoxNowFullText::
+	text "This Box is now"
+	line "full of #MON."
+
+	para "Use CHANGE BOX to"
+	line "pick another Box."
+	prompt
+
 _MonIsTakenOutText::
 	text_ram wStringBuffer
 	text " is"
