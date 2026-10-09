@@ -591,6 +591,7 @@ StartMenu_TrainerInfo::
 	ldh [hTileAnimations], a
 	call DrawTrainerInfo
 	predef DrawBadges ; draw badges
+	call DrawLeaderNames ; v1.0 (R18f)
 	ld b, SET_PAL_TRAINER_CARD
 	call RunPaletteCommand
 	ld a, [wOnSGB]
@@ -663,6 +664,17 @@ DrawTrainerInfo:
 	ld hl, TrainerInfoTextBoxTileGraphics tile 8  ; background tile pattern
 	ld de, vChars1 tile $57
 	call TrainerInfo_FarCopyData
+; v1.0 (R18f): the gym leaders' names (DrawLeaderNames). 22 tiles to ids
+; $60-$75 (free on the card), the rest to ids $C0.. (blank kana in the English
+; font; LoadFontTilePatterns puts the font back when the card closes).
+	ld hl, LeaderNamesGraphics
+	ld de, vChars2 tile $60
+	ld bc, 22 tiles
+	call TrainerInfo_FarCopyData
+	ld hl, LeaderNamesGraphics tile 22
+	ld de, vChars1 tile $40
+	ld bc, LeaderNamesGraphicsEnd - (LeaderNamesGraphics tile 22)
+	call TrainerInfo_FarCopyData
 	call EnableLCD
 	ld hl, wTrainerInfoTextBoxWidthPlus1
 	ld a, 18 + 1
@@ -711,6 +723,73 @@ DrawTrainerInfo:
 TrainerInfo_FarCopyData:
 	ld a, BANK(TrainerInfoTextBoxTileGraphics)
 	jp FarCopyData
+
+; v1.0 (R18f, 2026-10-07): each gym leader's name above his face (or, once won,
+; his badge), in the 3x7 letters of gfx/trainer_card/leader_names.png. The
+; yellow number square that sat on that row moves one row down, beside the face.
+; The 8th name is "???" until the EARTHBADGE, like the "?" face. Badge order and
+; leaders are this hack's (BIT_*BADGE; scripts/<City>Gym.asm): BROCK, MISTY,
+; LT.SURGE, ERIKA, KOGA, SABRINA (GOLDBADGE), BLAINE, GIOVANNI. KIYO, the
+; post-League leader of Viridian, gives no badge and has no slot.
+DrawLeaderNames:
+	ld de, LeaderNameTileIds
+	hlcoord 2, 11
+	ld c, NUM_BADGES
+.slot
+	ld a, c
+	dec a
+	jr nz, .draw ; not the 8th
+	ld a, [wObtainedBadges]
+	bit BIT_EARTHBADGE, a
+	jr nz, .draw
+	inc de ; GIOVANNI's ids -> the "???" ids after them
+	inc de
+	inc de
+	inc de
+.draw
+	push hl
+	ld a, [hl] ; the number square
+	push bc
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	pop bc
+	ld [hl], a ; ... one row down, left of the face
+	pop hl
+	push hl
+	ld b, 4
+.tile
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec b
+	jr nz, .tile
+	pop hl
+	ld a, c
+	cp NUM_BADGES - 3 ; the 4th slot was just drawn
+	ld a, 4
+	jr nz, .advance
+	ld a, 3 * SCREEN_WIDTH - 12 ; (14,11) -> (2,14)
+.advance
+	add l
+	ld l, a
+	adc h
+	sub l
+	ld h, a
+	dec c
+	jr nz, .slot
+	ret
+
+LeaderNameTileIds:
+; four tile ids per badge, " " = blank; gen: the strip's own order
+	db $60, $61, $62, " " ; BROCK
+	db $63, $64, $65, " " ; MISTY
+	db $66, $67, $68, $69 ; LT.SURGE
+	db $6a, $6b, $6c, " " ; ERIKA
+	db " ", $6d, $6e, " " ; KOGA
+	db $6f, $70, $71, $72 ; SABRINA
+	db $73, $74, $75, " " ; BLAINE
+	db $c0, $c1, $c2, $c3 ; GIOVANNI
+	db " ", $c4, $c5, " " ; ??? (the 8th, until the EARTHBADGE)
 
 TrainerInfo_NameMoneyTimeText:
 	db   "NAME/"
