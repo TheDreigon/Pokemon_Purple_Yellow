@@ -669,29 +669,35 @@ CanWalkOntoTile:
 	bit 7, d           ; check if going upwards (d=$ff)
 	jr nz, .upwards
 	add d
-	; bug: these tests against $5 probably were supposed to prevent
-	; sprites from walking out too far, but this line makes sprites get
-	; stuck whenever they walked upwards 5 steps
-	; on the other hand, the amount a sprite can walk out to the
-	; right of bottom is not limited (until the counter overflows)
-	; this was fixed in Yellow
-	cp $5
-	;jr c, .impassable  ; if [x#SPRITESTATEDATA2_YDISPLACEMENT]+d < 5, don't go
+; v1.0 (R18d, 2026-10-07): a wandering NPC stays within 5 cells of where it
+; spawned, every way (displacement 8 at spawn: 3..13 allowed). Down and right
+; were never bounded (Red/Blue's own comment says so), so a walker drifted off
+; down a route or a city street; up and left stopped 8 steps out, at the carry
+; of `sub $1`. Red/Blue's `cp $5 / jr c` only stuck a sprite that had walked
+; 5 steps up (its own comment); Yellow dropped it. The bounds are the Shin's.
+; That carry needs no jump of its own any more: from 8 the value never leaves
+; 3..13 (every map load, CONTINUE too, sets it to 8; only the reload after a
+; battle keeps it as it was).
+	cp $e              ; down: refuse past spawn + 5
+	jr nc, .impassable
 	jr .checkHorizontal
 .upwards
 	sub $1
-	jr c, .impassable  ; if [x#SPRITESTATEDATA2_YDISPLACEMENT] == 0, don't go
+	cp $3              ; up: refuse past spawn - 5
+	jr c, .impassable
 .checkHorizontal
 	ld d, a
 	ld a, [hl]         ; x#SPRITESTATEDATA2_XDISPLACEMENT (initialized at $8, keep track of where a sprite did go)
 	bit 7, e           ; check if going left (e=$ff)
 	jr nz, .left
 	add e
-	cp $5              ; compare, but no conditional jump like in the vertical check above (bug?)
+	cp $e              ; right: refuse past spawn + 5
+	jr nc, .impassable
 	jr .passable
 .left
 	sub $1
-	jr c, .impassable  ; if [x#SPRITESTATEDATA2_XDISPLACEMENT] == 0, don't go
+	cp $3              ; left: refuse past spawn - 5
+	jr c, .impassable
 .passable
 	ld [hld], a        ; update x#SPRITESTATEDATA2_XDISPLACEMENT
 	ld [hl], d         ; update x#SPRITESTATEDATA2_YDISPLACEMENT
