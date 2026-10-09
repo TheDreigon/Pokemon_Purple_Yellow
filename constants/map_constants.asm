@@ -301,8 +301,8 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const SUMMER_BEACH_HOUSE,             7,  4 ; $F8
 	map_const VIRIDIAN_OLD_ROD_HOUSE,         4,  4 ; $F9 (the standard small-house interior; the FISHING GURU moved here out of the Viridian MART)
 	map_const DAYCARE_2F,                     4,  4 ; $FA (the Day Care's upper floor: the gentleman's daughter and her wards)
-	map_const BILLS_GARDEN,                  12, 12 ; $FB
-	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs) (behind BILL's cottage; reached only through the house, and only after the League)
+	map_const BILLS_GARDEN,                  12, 12 ; $FB (behind BILL's cottage; reached only through the house, and only after the League)
+	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs)
 DEF NUM_MAPS EQU const_value
 
 ; v1.0 (2026-09-24): two Town Map stops that are services, not maps. The MOVE DELETER
