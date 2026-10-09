@@ -60,8 +60,9 @@ _CeladonMart3FCurrentFloorSignText::
 	done
 
 _CeladonMart3FPokemonPosterText::
-	text "Red and Blue!"
-	line "Both are #MON!"
+	text "Red, Green, Blue,"
+	line "Yellow and Purple"
+	cont "are all #MON!"
 	done
 
 _CeladonMart3FClerkTM18PreReceiveText::
