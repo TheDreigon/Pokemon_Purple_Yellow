@@ -181,6 +181,17 @@ UpdateNPCSprite:
 	ld a, [wWalkCounter]
 	and a
 	ret nz           ; don't do anything yet if player is currently moving
+; v1.0 (R18a, 2026-10-07): nor while wd736 bit 6 is up, as it is for a ledge jump's two steps and its landing
+; frame. wWalkCounter is 0 for the one frame between the two steps (home/overworld.asm .noDirectionChange calls
+; UpdateSprites before setting it to 8), and an NPC that came ready during the first step would set off right
+; then - into the cell LedgeLandingIsTaken had just found free. The hold comes before the scripted-movement
+; branch, so an NPC on a MoveSprite path waits too: delayed by the jump, no step skipped. FishingAnim and
+; AnimatePikachuShadow (PIKACHU's scripted hops) raise the bit too, in loops that do not call UpdateSprites;
+; the one UpdateSprites under it there is EmotionBubble's last on the fishing bite, a frame on which a ready
+; NPC now waits.
+	ld a, [wd736]
+	bit 6, a
+	ret nz
 	call InitializeSpriteScreenPosition
 	ld h, HIGH(wSpriteStateData2)
 	ldh a, [hCurrentSpriteOffset]
