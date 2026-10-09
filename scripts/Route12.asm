@@ -98,7 +98,9 @@ Route12TrainerHeader6:
 
 Route12SnorlaxText:
 	text_far _Route12SnorlaxText
-	text_end
+	text_asm
+	farcall OfferPokeFluteToSnorlax ; v1.0 (R18g)
+	jp TextScriptEnd
 
 Route12SnorlaxWokeUpText:
 	text_far _Route12SnorlaxWokeUpText

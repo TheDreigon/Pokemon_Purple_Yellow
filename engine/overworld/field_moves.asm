@@ -183,6 +183,37 @@ CutNeedsTechniqueText:
 	text_far _CutNeedsTechniqueText
 	text_end
 
+; v1.0 (R18g, 2026-10-07): a sleeping SNORLAX offers the flute the way a CUT tree offers CUT (TryCut above): its
+; "A sleeping #MON blocks the way!" stays, then, with the POKe FLUTE in the bag, a YES/NO. YES is the flute used
+; from the bag on that cell: UseItem -> ItemUsePokeflute judges the map, the BEAT event and the cell
+; (Route12/16SnorlaxFluteCoords: the cells SNORLAX can be talked to from), plays the tune and sets
+; EVENT_FIGHT_ROUTE1x_SNORLAX, and the route script starts the battle on the next overworld frame, as after the
+; bag or SELECT. Both answers end as CUT's do: NO closes the box at once, YES right after the tune (one press
+; on "played the POKe FLUTE.", before the tune, as on CUT's "hacked away"). DisableWaitingAfterTextDisplay
+; tells DisplayTextID not to wait when the text script ends; the route script's EnableAutoTextBoxDrawing clears
+; that again on its next frame. Called from the text_asm of Route12SnorlaxText / Route16SnorlaxText.
+OfferPokeFluteToSnorlax::
+	ld b, POKE_FLUTE
+	call IsItemInBag
+	ret z ; no flute: the sleeping line alone, as before
+	call ManualTextScroll ; let that line be read first (BoulderText's way)
+	ld hl, PromptToPlayFluteText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jp nz, DisableWaitingAfterTextDisplay ; NO: the box closes at once
+	call DisableWaitingAfterTextDisplay ; YES: it closes after the tune, with no extra press
+	ld a, POKE_FLUTE
+	ld [wcf91], a
+	xor a
+	ld [wPseudoItemID], a ; a real bag item
+	jp UseItem
+
+PromptToPlayFluteText:
+	text "Want to play the"
+	line "# FLUTE?@@"
+
 ; --- v0.7 "registered item" (2026-08-28) ------------------------------------
 ; SELECT in the overworld uses the key item bound via the bag's
 ; USE/INFO/TOSS box (RegisterKeyItem below). The overworld hook is in

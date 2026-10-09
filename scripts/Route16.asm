@@ -202,7 +202,9 @@ Route16Biker6AfterBattleText:
 
 Route16SnorlaxText:
 	text_far _Route16Text7
-	text_end
+	text_asm
+	farcall OfferPokeFluteToSnorlax ; v1.0 (R18g)
+	jp TextScriptEnd
 
 Route16SnorlaxWokeUpText:
 	text_far _Route16SnorlaxWokeUpText
