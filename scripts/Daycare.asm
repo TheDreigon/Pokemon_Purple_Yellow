@@ -127,9 +127,8 @@ DaycareGentlemanText:
 	pop af
 	ld hl, .AllRightThenText
 	jp c, .done
-	callfar KnowsHMMove
-	ld hl, .CantAcceptMonWithHMText
-	jp c, .done
+; v1.0 (R21b): a #MON that knows an HM is taken in. Vanilla turned it away because WriteMonMoves
+; could push the HM out at withdrawal; it learns there through "forget a move?" now (R21a).
 	xor a
 	ld [wPartyAndBillsPCSavedMenuItem], a
 	ld a, [wWhichPokemon]
@@ -442,10 +441,6 @@ DaycareGentlemanText:
 
 .OnlyHaveOneMonText:
 	text_far _DaycareGentlemanOnlyHaveOneMonText
-	text_end
-
-.CantAcceptMonWithHMText:
-	text_far _DaycareGentlemanCantAcceptMonWithHMText
 	text_end
 
 .HeresYourMonText:

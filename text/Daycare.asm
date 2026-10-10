@@ -81,12 +81,6 @@ _DaycareGentlemanOnlyHaveOneMonText::
 	line "#MON with you."
 	done
 
-_DaycareGentlemanCantAcceptMonWithHMText::
-	text "I can't accept a"
-	line "#MON that"
-	cont "knows an HM move."
-	done
-
 _DaycareGentlemanHeresYourMonText::
 	text "Thank you! Here's"
 	line "your #MON!"
