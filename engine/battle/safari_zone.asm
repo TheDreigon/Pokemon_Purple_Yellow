@@ -4,6 +4,7 @@ PrintSafariZoneBattleText:
 	and a
 	jr z, .no_bait
 	dec [hl]
+	ret z ; the bait runs out this turn: the #MON is not eating any more (core.asm reads 0 next)
 	ld hl, SafariZoneEatingText
 	jr .done
 .no_bait
@@ -12,6 +13,7 @@ PrintSafariZoneBattleText:
 	and a
 	ret z
 	dec [hl]
+	ret z ; the anger runs out this turn: no "is angry!" (core.asm reads 0 next)
 	ld hl, SafariZoneAngryText
 ; v0.7 catch rework: there is nothing to restore here any more, and the branch
 ; that used to skip the restore is gone with it (it had become `jr nz` to the
