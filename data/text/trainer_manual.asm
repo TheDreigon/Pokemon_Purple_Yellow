@@ -629,7 +629,7 @@ _ManualPage_7_3::
 	next "obey past the GYM"
 	next "ahead. Badges lift"
 	next "the ceiling; the"
-	next "League ends it."
+	next "LEAGUE ends it."
 	done
 
 _ManualPage_7_4::

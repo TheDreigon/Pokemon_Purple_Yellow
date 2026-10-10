@@ -48,7 +48,7 @@ _CeladonGymGateNoBadgeText::
 	cont "the THUNDERBADGE!"
 
 	para "Go beat LT.SURGE"
-	line "in VERMILION CITY"
+	line "in VERMILION!"
 	done
 
 _CeladonGymErikaNoBadgeText::

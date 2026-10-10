@@ -172,7 +172,7 @@ _CeruleanGymLilyBattleText::
 
 	para "GOLDEEN is the"
 	line "only one I have"
-	cont "left! Go, GOLDEEN"
+	cont "left! Go GOLDEEN!"
 	done
 
 _CeruleanGymLilyEndBattleText::

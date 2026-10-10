@@ -437,10 +437,10 @@ _OaksLabScientistText::
 	cont "paper proving"
 	cont "a rumor false."
 
-	para "As thought,"
+	para "As we thought,"
 	line "the rare ghost-"
 	cont "type is super"
-	cont "effective to"
+	cont "effective against"
 	cont "psychic-types."
 	done
 

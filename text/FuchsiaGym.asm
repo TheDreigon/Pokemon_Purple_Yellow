@@ -55,10 +55,9 @@ _FuchsiaGymRematchPreBattle1Text::
 
 _FuchsiaGymPreRematchBattle2Text::
 	text "Let us see if"
-	line "the CHAMPION"
-	
-	para "can survive the"
-	line "ultimate poison"
+	line "the CHAMPION can"
+	cont "survive the"
+	cont "ultimate poison"
 	cont "technique!"
     done
 
@@ -203,9 +202,9 @@ _FuchsiaGymJanineEndBattleText::
 _FuchsiaGymJanineAfterBattleText::
 	text "I'm going to"
 	line "really apply"
-
-	para "myself and improve"
-	line "my skills."
+	cont "myself and"
+	cont "improve my"
+	cont "skills."
 
 	para "I want to become"
 	line "better than both"

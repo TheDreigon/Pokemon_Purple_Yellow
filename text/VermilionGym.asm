@@ -137,7 +137,7 @@ _VermilionGymLTSurgeReceivedThunderBadgeText::
 _VermilionGymVisquezBattleText::
 	text "I'm VISQUEZ, the"
 	line "Lieutenant's"
-	cont "second in command"
+	cont "2nd in command!"
 
 	para "My PIKACHU will be"
 	line "a RAICHU like his"

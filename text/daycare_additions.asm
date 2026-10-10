@@ -62,38 +62,32 @@ _Daycare2FNurseText::
 ; v0.7 (#38): moved here from text/FuchsiaPokecenter.asm with her.
 _NurseJoyBattleText::
 	text "Actually..."
-    line "Before you go,"
-
-    para "I've always"
-    line "dreamed of"
-
-    para "becoming a"
-    line "#MON MASTER,"
-
-    para "but my duties"
-    line "here make it"
-
-	para "hard to travel"
-    line "and collect"
-    cont "badges."
+	line "Before you go,"
+	cont "I've always"
+	cont "dreamed of"
+	cont "becoming a"
+	cont "#MON MASTER,"
+	cont "but my duties"
+	cont "here make it"
+	cont "hard to travel"
+	cont "and collect"
+	cont "badges."
 
 	para "It would be a"
-    line "great honor to"
-    cont "test my skills"
+	line "great honor to"
+	cont "test my skills"
+	cont "against the new"
+	cont "CHAMPION."
 
-    para "against the new"
-    line "CHAMPION."
-
-    para "Could I ask for"
-    line "a battle?"
+	para "Could I ask for"
+	line "a battle?"
 	done
 
 _NurseJoyBattleText2::
-    text "Actually..."
-    line "Before you go,"
-
-    para "Could I ask for"
-    line "another battle?"
+	text "Actually..."
+	line "Before you go,"
+	cont "could I ask for"
+	cont "another battle?"
 	done
 
 _NurseJoyRefusedText::

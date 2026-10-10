@@ -290,12 +290,12 @@ _ViridianGymCooltrainerM3KiyoEraText::
 
 _ViridianGymKiyoGiovanniDebtText::
 	text "Hold. The old"
-	line "leader left these"
+	line "LEADER left these"
 	cont "for the one who"
 	cont "beat him."
 
 	para "A debt of the"
-	line "gym is a debt of"
+	line "GYM is a debt of"
 	cont "mine."
 	done
 

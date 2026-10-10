@@ -41,9 +41,8 @@ _PewterGymBrockPostBattleAdviceText::
 _PewterGymRematchPreBattle1Text::
 	text "Since our last"
 	line "battle, my"
-	
-	para "#MON have"
-	line "grown!"
+	cont "#MON have"
+	cont "grown!"
 
 	para "ROCK-hard will"
 	line "meets peak skill"

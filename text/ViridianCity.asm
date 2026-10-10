@@ -123,7 +123,7 @@ ViridianCityYoungster2CaterpieAndWeedleDescriptionText::
 	para "At lvl 100,"
 	line "the difference"
 	cont "between a 0 and"
-	cont "15 DV, would be"
+	cont "15 DV would be"
 	cont "30 stat points."
 
 	para "I wouldn't"
