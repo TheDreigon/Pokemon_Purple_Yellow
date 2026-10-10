@@ -1301,10 +1301,6 @@ _DifficultyText::
     text "Select Difficulty"
     done
 
-_AreYouSureText::
-	text "Are you sure?"
-	done
-
 _BoyGirlText::
     text "Play as a boy, or"
     line "as a girl?"

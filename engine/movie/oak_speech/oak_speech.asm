@@ -252,9 +252,6 @@ HardModeText:
 DifficultyText:
 	text_far _DifficultyText
 	text_end
-YesNoNormalHardText:
-	text_far _AreYouSureText
-	text_end
 BoyGirlText:
     text_far _BoyGirlText
     text_end

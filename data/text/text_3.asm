@@ -458,21 +458,21 @@ _OakSpeechText1::
 	prompt
 
 _NormalModeText::
-	text "Are you sure?"
-
-	para "Classic #MON"
+	text "Classic #MON"
 	line "rules."
+
+	para "Are you sure?"
 	done
 
 _HardModeText::
-	text "Are you sure?"
-
-	para "Bosses hit harder"
+	text "Bosses hit harder"
 	line "and play smarter."
 
 	para "Set mode, level"
 	line "caps, fewer items"
 	cont "vs trainers."
+
+	para "Are you sure?"
 	done
 
 _OakSpeechText2A::
