@@ -1516,7 +1516,7 @@ INCLUDE "scripts/SilphCo11F_2.asm"
 ; 16-bit pointer that is read with the header's own bank.
 ;
 ; The map was seeded from kep-hack's BillsGarden.blk (see the credit note in
-; the CHANGELIST) and is meant to be redrawn.
+; the CHANGELIST), then redrawn.
 SECTION "Bills Garden Map", ROMX
 
 INCLUDE "data/maps/headers/BillsGarden.asm"

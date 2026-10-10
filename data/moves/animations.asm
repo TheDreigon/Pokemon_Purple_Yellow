@@ -360,7 +360,7 @@ LeechLifeAnim:
 	db -1 ; end
 
 BugBuzzAnim:
-	; Per comment: drop the 'v0.7 reviewed:'/'replaces placeholder'/'relocated from BIRD section'/'Body unchanged' narration; keep the move-fact parenthetical and the design rationale, e.g. line 355 becomes '; (80 BP) flash + double sound wave for buzz weight.'
+	; flash + double sound wave for buzz weight.
 	battle_anim BUG_BUZZ, SUBANIM_0_BEAM, 0, 4
 	battle_anim NO_MOVE, SUBANIM_0_SOUND_WAVE, 0, 4
 	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG

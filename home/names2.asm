@@ -30,7 +30,7 @@ GetName::
 	jr nz, .notMachine	;if the list type is not items, then A cannot be referring to a machine
 	;At this line, definitely working with an item list. So see if it's a machine or item
 	cp HM01
-	;joenote - call removed; TM/HM names are handled inline below (GetMachineName in names.asm is now unreferenced)
+	;joenote - call removed; TM/HM names are handled inline below (GetMachineName has since been removed)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do some stuff if the item is a machine
 	jr c, .notMachine

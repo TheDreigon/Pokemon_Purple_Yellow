@@ -68,7 +68,7 @@ TrainerDataPointers:
 Rival1Data:
 ; v0.7 Phase B: DEAD DATA — rival parties are now GENERATED from
 ; data/trainers/rival_pools.asm (see GenerateRivalParty). Kept only as a
-; placeholder for the pointer table; remove in the Phase C cleanup.
+; placeholder for the pointer table (its bytes are not reclaimed yet).
 ; Oak's Lab
 	db 5, EEVEE, 0
 ; Route 22
@@ -445,7 +445,7 @@ FisherData:
 Rival2Data:
 ; v0.7 Phase B: DEAD DATA — rival parties are now GENERATED from
 ; data/trainers/rival_pools.asm (see GenerateRivalParty). Kept only as a
-; placeholder for the pointer table; remove in the Phase C cleanup.
+; placeholder for the pointer table (its bytes are not reclaimed yet).
 ; SS Anne 2F
 	db $FF, 20, RATICATE , 22, WEEPINBELL, 21, SANDSHREW, 24, EEVEE, 0
 ; Pokémon Tower 2F
@@ -890,7 +890,8 @@ LanceData:
 Rival3Data:
 ; v0.7 Phase B: DEAD DATA — rival parties are now GENERATED from
 ; data/trainers/rival_pools.asm (see GenerateRivalParty). Kept only as a
-; placeholder for the pointer table; remove in the Phase C cleanup. 
+; placeholder for the pointer table (its bytes are not reclaimed yet; a reclaim
+; revisits .claude/emu_test_ai_useless_moves.py, which reads Rival3Data+$30).
 ; Champion's Room
 	db $FF, 63, ALAKAZAM, 60, RHYDON, 61, GYARADOS, 63, ARCANINE, 62, EXEGGUTOR, 65, JOLTEON, 0
 	db $FF, 62, MAGNETON, 61, DODRIO, 63, ALAKAZAM, 60, SANDSLASH, 62, CLOYSTER, 65, FLAREON, 0
