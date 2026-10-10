@@ -254,4 +254,5 @@ MapHeaderPointers::
 	dw Daycare2F_h
 	dw BillsGarden_h
 	dw BluesHouse2F_h
+	dw DiglettsCaveEast_h
 	assert_table_length NUM_MAPS

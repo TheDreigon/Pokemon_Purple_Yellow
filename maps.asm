@@ -1283,8 +1283,37 @@ INCLUDE "data/maps/objects/UndergroundPathWestEast.asm"
 INCLUDE "data/maps/headers/DiglettsCave.asm"
 INCLUDE "scripts/DiglettsCave.asm"
 INCLUDE "data/maps/objects/DiglettsCave.asm"
-DiglettsCave_Blocks: INCBIN "maps/DiglettsCave.blk"
+; v1.0 (R22, 2026-10-10): DIGLETT's CAVE is drawn as ONE map, maps/DiglettsCave.blk, whose size is the "mapconst
+; DIGLETTS_CAVE" line of constants/map_constants.asm (50x30 blocks). A map needs (W + 6) * (H + 6) bytes of
+; wOverworldMap, which holds 1248, so the build cuts the master at block column DIGLETTS_CAVE_CUT, one row at a
+; time: the columns before it are DIGLETTS_CAVE, the rest DIGLETTS_CAVE_EAST, both the master's height, joined
+; east-west by a connection with offset 0. The player walks across with no warp, no fade and no change of music
+; (CheckMapConnections forgets the arrival warp at a seam, home/overworld.asm). Each piece keeps its events in
+; its own objects file and coordinates: a master cell (x, y) is (x - 2 * DIGLETTS_CAVE_CUT, y) in the east
+; piece. Nothing stands within 5 cells of the seam (.claude/interior_seam_audit.py).
+DEF DIGLETTS_CAVE_CUT EQU 25
+	assert DIGLETTS_CAVE_WIDTH == DIGLETTS_CAVE_CUT, "the west piece's width is not the cut"
+	assert DIGLETTS_CAVE_EAST_WIDTH == DIGLETTS_CAVE_MASTER_WIDTH - DIGLETTS_CAVE_CUT, "the east piece's width"
+	assert DIGLETTS_CAVE_HEIGHT == DIGLETTS_CAVE_MASTER_HEIGHT, "the west piece's height is not the master's"
+	assert DIGLETTS_CAVE_EAST_HEIGHT == DIGLETTS_CAVE_MASTER_HEIGHT, "the east piece's height is not the master's"
+DiglettsCave_Blocks:
+FOR row, DIGLETTS_CAVE_MASTER_HEIGHT
+	INCBIN "maps/DiglettsCave.blk", row * DIGLETTS_CAVE_MASTER_WIDTH, DIGLETTS_CAVE_CUT
+ENDR
 	assert @ - DiglettsCave_Blocks == DIGLETTS_CAVE_WIDTH * DIGLETTS_CAVE_HEIGHT, "DiglettsCave.blk size does not match DIGLETTS_CAVE in map_constants.asm"
+; the master ends at width x height: a shorter one stops the slices above ("out of bounds"), a longer one here
+.masterEnd
+	INCBIN "maps/DiglettsCave.blk", DIGLETTS_CAVE_MASTER_WIDTH * DIGLETTS_CAVE_MASTER_HEIGHT
+	assert @ - .masterEnd == 0, "maps/DiglettsCave.blk is larger than the mapconst DIGLETTS_CAVE size"
+
+INCLUDE "data/maps/headers/DiglettsCaveEast.asm"
+INCLUDE "scripts/DiglettsCaveEast.asm"
+INCLUDE "data/maps/objects/DiglettsCaveEast.asm"
+DiglettsCaveEast_Blocks:
+FOR row, DIGLETTS_CAVE_MASTER_HEIGHT
+	INCBIN "maps/DiglettsCave.blk", row * DIGLETTS_CAVE_MASTER_WIDTH + DIGLETTS_CAVE_CUT, DIGLETTS_CAVE_EAST_WIDTH
+ENDR
+	assert @ - DiglettsCaveEast_Blocks == DIGLETTS_CAVE_EAST_WIDTH * DIGLETTS_CAVE_EAST_HEIGHT, "DiglettsCave.blk size does not match DIGLETTS_CAVE_EAST in map_constants.asm"
 
 INCLUDE "data/maps/headers/SilphCo11F.asm"
 INCLUDE "scripts/SilphCo11F.asm"

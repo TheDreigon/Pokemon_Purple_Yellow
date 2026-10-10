@@ -4,6 +4,16 @@ MACRO map_const
 	DEF \1_HEIGHT EQU \3
 ENDM
 
+; v1.0 (R22, 2026-10-10): a map drawn as ONE master .blk that the build cuts into several maps, because
+; it is larger than one map can be (maps.asm). \1 = the map the master is named after, \2 = the
+; master's height and \3 = its width, in blocks: pokered's old "mapconst" name and order. No map id.
+; Polished Map opens maps/<Name>.blk at the size of the FIRST indented "map_const" or "mapconst" line of
+; this file that names <NAME>, so a master's line stands right above its map's own.
+MACRO mapconst
+	DEF \1_MASTER_HEIGHT EQU \2
+	DEF \1_MASTER_WIDTH EQU \3
+ENDM
+
 ; map ids
 ; indexes for:
 ; - MapHeaderBanks (see data/maps/map_header_banks.asm)
@@ -247,7 +257,8 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const VICTORY_ROAD_2F,               15,  9 ; $C2
 	map_const ROUTE_12_GATE_2F,               4,  4 ; $C3
 	map_const VERMILION_TRADE_HOUSE,          4,  4 ; $C4
-	map_const DIGLETTS_CAVE,                 21, 18 ; $C5
+	mapconst  DIGLETTS_CAVE,                 30, 50 ; the master, maps/DiglettsCave.blk (no map id)
+	map_const DIGLETTS_CAVE,                 25, 30 ; $C5 (v1.0 R22: the master's block columns 0-24)
 	map_const VICTORY_ROAD_3F,               15,  9 ; $C6
 	map_const ROCKET_HIDEOUT_B1F,            15, 14 ; $C7
 	map_const ROCKET_HIDEOUT_B2F,            15, 14 ; $C8
@@ -303,6 +314,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const DAYCARE_2F,                     4,  4 ; $FA (the Day Care's upper floor: the gentleman's daughter and her wards)
 	map_const BILLS_GARDEN,                  12, 12 ; $FB (behind BILL's cottage; reached only through the house, and only after the League)
 	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs)
+	map_const DIGLETTS_CAVE_EAST,            25, 30 ; $FD (v1.0 R22: the master's block columns 25-49)
 DEF NUM_MAPS EQU const_value
 
 ; v1.0 (2026-09-24): two Town Map stops that are services, not maps. The MOVE DELETER

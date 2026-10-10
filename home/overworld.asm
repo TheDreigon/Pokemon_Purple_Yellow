@@ -769,6 +769,14 @@ CheckMapConnections::
 	ld a, h
 	ld [wCurrentTileBlockMapViewPointer + 1], a
 .loadNewMap ; load the connected map that was entered
+; v1.0 (R22, 2026-10-10): a seam is not a warp. LoadMapHeader runs LoadTilesetHeader, whose dungeon-tileset arm
+; (CAVERN among them) puts the player on warp wDestinationWarpID of the new map unless it is $ff - the door he
+; last came in by. Across a seam between two such maps (DIGLETT's CAVE's two pieces) that moved him onto that
+; warp while the screen still showed the seam; no vanilla connection joins two of them, and EndOfBattle writes
+; $ff, so it showed only with no battle since the last door. Its "tileset changed" arm reads it too (ROUTE 22 /
+; ROUTE 23).
+	ld a, $ff
+	ld [wDestinationWarpID], a
 	ld hl, wPikachuOverworldStateFlags
 	set 4, [hl]
 	ld a, $2

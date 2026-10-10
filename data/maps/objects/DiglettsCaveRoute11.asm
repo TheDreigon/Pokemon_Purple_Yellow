@@ -7,7 +7,7 @@ DiglettsCaveRoute11_Object:
 	def_warp_events
 	warp_event  2,  7, LAST_MAP, 5
 	warp_event  3,  7, LAST_MAP, 5
-	warp_event  4,  4, DIGLETTS_CAVE, 2
+	warp_event  4,  4, DIGLETTS_CAVE_EAST, 1
 
 	def_bg_events
 

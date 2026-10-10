@@ -254,4 +254,5 @@ MapHeaderBanks::
 	db BANK(Daycare2F_h)
 	db BANK(BillsGarden_h)
 	db BANK(BluesHouse2F_h)
+	db BANK(DiglettsCaveEast_h)
 	assert_table_length NUM_MAPS

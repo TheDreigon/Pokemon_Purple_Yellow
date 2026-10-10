@@ -253,4 +253,5 @@ MapSongBanks::
 	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; DAYCARE_2F (same as the floor below)
 	db MUSIC_ROUTES1, BANK(Music_Routes1) ; BILLS_GARDEN (ROUTE 1's theme, chosen as the quiet one from the very start of the game, for a garden full of first partners)
 	db MUSIC_PALLET_TOWN, BANK(Music_PalletTown) ; BLUES_HOUSE_2F (same as the floor below, and as the player's own bedroom)
+	db MUSIC_DUNGEON2, BANK(Music_Dungeon2) ; DIGLETTS_CAVE_EAST (the cave's own: it plays on across the seam)
 	assert_table_length NUM_MAPS

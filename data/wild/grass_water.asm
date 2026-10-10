@@ -253,6 +253,7 @@ WildDataPointers:
 	dw NothingWildMons        ; DAYCARE_2F
 	dw BillsGardenWildMons    ; BILLS_GARDEN
 	dw NothingWildMons        ; BLUES_HOUSE_2F
+	dw DiglettsCaveWildMons   ; DIGLETTS_CAVE_EAST (the cave's one table: data/wild/maps/DiglettsCave.asm)
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 

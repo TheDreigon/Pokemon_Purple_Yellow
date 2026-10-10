@@ -158,8 +158,12 @@ DrawTwinCursor:
 ; a = map id. v1.0 (2026-09-22): DIGLETT's CAVE has two mouths, so when the
 ; cursor is on either, a second cursor (sprites 8-11) marks the other; on
 ; every other place those four sprites are parked off-screen ($a0, the value
-; the blink itself uses to hide sprites).
+; the blink itself uses to hide sprites). v1.0 (R22): DIGLETT's CAVE is two
+; maps joined by a seam (maps.asm); its east piece, DIGLETTS_CAVE_EAST, has the
+; cave's Town Map row and is drawn as the cave: the twin marks ROUTE 11's mouth.
 	cp DIGLETTS_CAVE
+	jr z, .route11
+	cp DIGLETTS_CAVE_EAST
 	jr z, .route11
 	cp DIGLETTS_CAVE_ROUTE_11
 	jr z, .cave

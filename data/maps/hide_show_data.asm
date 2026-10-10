@@ -256,6 +256,7 @@ MapHSPointers:
 	dw NoHS ; DAYCARE_2F
 	dw NoHS ; BILLS_GARDEN
 	dw NoHS ; BLUES_HOUSE_2F
+	dw NoHS ; DIGLETTS_CAVE_EAST
 	assert_table_length NUM_MAPS
 	dw -1 ; end
 

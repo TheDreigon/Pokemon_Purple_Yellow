@@ -150,13 +150,21 @@ InternalMapEntries:
 	internal_map VIRIDIAN_OLD_ROD_HOUSE,         2,  8, ViridianCityName
 	internal_map DAYCARE_2F,                    10,  4, DayCareName
 	internal_map BILLS_GARDEN,                  13,  0, BillsLabName
-; Must stay last, and must exist at all: InternalMapEntries is an ordered RANGE
-; lookup with no end check, so the HIGHEST map id needs a line or LoadTownMapEntry
-; reads straight past the -1 and treats whatever follows as coordinates.
+; The last row must exist and name the HIGHEST map id: InternalMapEntries is an
+; ordered RANGE lookup with no end check, so without it LoadTownMapEntry reads
+; straight past the -1 and treats whatever follows as coordinates.
 ; (v0.7 note: this invariant is carried by whichever row is last -- it sat on
 ; the BILLS_GARDEN line above until BLUES_HOUSE_2F, the higher id, was appended
-; after it. The garden row itself is also load-bearing for the range walk, but
-; its habitats no longer reach the AREA page: FindWildLocationsOfMon skips the
-; garden at the source -- the map is secret.)
+; after it, and on that row until DIGLETTS_CAVE_EAST below (v1.0, R22). The
+; garden row itself is also load-bearing for the range walk, but its habitats
+; no longer reach the AREA page: FindWildLocationsOfMon skips the garden at the
+; source -- the map is secret.)
 	internal_map BLUES_HOUSE_2F,                 2, 11, PalletTownName
+; v1.0 (R22, 2026-10-10): DIGLETT's CAVE from block column 25 on, a map of its
+; own since the cave is drawn larger than one map can be (maps.asm). It takes the
+; cave's row - the ROUTE 2 mouth and the cave's name - so the Town Map looks the
+; same from anywhere in the cave, as when it was one map: the "you are here"
+; sprite does not jump at the seam, and DrawTwinCursor marks the ROUTE 11 mouth
+; from both pieces. The AREA page draws the cave's nest twice, on that one spot.
+	internal_map DIGLETTS_CAVE_EAST,             3,  4, DiglettsCaveName
 	db -1 ; end
