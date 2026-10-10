@@ -1,4 +1,9 @@
 DisplayOptionMenu_:
+; v1.0 (2026-10-09): InitOptionsMenu runs every row's handler once to draw it, and each handler acts on the
+; direction in hJoy5: the byte the menu that opened OPTION left there (a direction pressed with that A)
+; moved a setting. No button is reported on the frame OPTION opens.
+	xor a
+	ldh [hJoy5], a
 	call InitOptionsMenu
 .optionMenuLoop
 	call JoypadLowSensitivity
