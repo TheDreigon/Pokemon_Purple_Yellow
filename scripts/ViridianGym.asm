@@ -2,6 +2,13 @@ ViridianGym_Script:
 	call ViridianGymPostLeagueState
 	ld hl, .CityName
 	ld de, .LeaderName
+; v1.0 (2026-10-09): the statues name the leader once the EARTHBADGE is won, as the TRAINER CARD's 8th name
+; does; GIOVANNI after it, in the KIYO era too (the badge is his).
+	ld a, [wObtainedBadges]
+	bit BIT_EARTHBADGE, a
+	jr nz, .leaderKnown
+	ld de, .UnknownLeaderName
+.leaderKnown
 	call LoadGymLeaderAndCityName
 	call EnableAutoTextBoxDrawing
 	ld hl, ViridianGymTrainerHeaders
@@ -17,6 +24,9 @@ ViridianGym_Script:
 
 .LeaderName:
 	db "GIOVANNI@"
+
+.UnknownLeaderName:
+	db "???@"
 
 ViridianGymResetScripts:
 	xor a
