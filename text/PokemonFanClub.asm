@@ -15,9 +15,9 @@ _PokemonFanClubClefairyFanText::
 	line "hobby is taking"
 	cont "#MON photos."
 
-	para "He gave me a nice"
-	line "PRINT of my cute"
-	cont "CLEFAIRY."
+	para "He took a photo of"
+	line "my cute CLEFAIRY"
+	cont "for his wall!"
 	done
 
 _PokemonFanClubSeelFanNormalText::
@@ -36,10 +36,10 @@ _PokemonFanClubSeelFanBetterText::
 	done
 
 _PokemonFanClubSeelFanText::
-	text "I'm going to hook"
-	line "up the cable to"
-	cont "get a photo PRINT"
-	cont "of my SEEL!"
+	text "I'm going to ask"
+	line "the CHAIRMAN to"
+	cont "take a photo of"
+	cont "my SEEL!"
 	done
 
 _PokemonFanClubClefairyText::

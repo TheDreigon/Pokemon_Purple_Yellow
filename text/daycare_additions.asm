@@ -1,7 +1,7 @@
 _DaycareGentlemanTeamworkText::
 	text "My daughter JOY"
-	line "and I run this"
-	cont "DAYCARE together."
+	line "and I make a team"
+	cont "at this DAY CARE."
 
 	para "I keep them fed"
 	line "and disciplined,"

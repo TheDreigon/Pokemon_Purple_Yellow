@@ -113,11 +113,11 @@ _ManualPage_2_1::
 
 _ManualPage_2_2::
 	text "A #MON at full"
-	next "health shrugs off"
-	next "a BALL. Wear it"
-	next "down, or put it to"
-	next "sleep, before you"
-	next "throw."
+	next "health often"
+	next "shrugs off a BALL."
+	next "Wear it down, or"
+	next "put it to sleep,"
+	next "before you throw."
 	next ""
 	next "A #MON you"
 	next "catch pays"

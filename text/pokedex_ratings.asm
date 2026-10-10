@@ -38,13 +38,14 @@ _DexRatingText_Own30To39::
 	text "Good, you're"
 	line "trying hard!"
 	cont "Get an ITEMFINDER"
-	cont "from my AIDE!"
+	cont "from my AIDE in"
+	cont "SAFFRON!"
 	done
 
 _DexRatingText_Own40To49::
 	text "Looking good!"
-	line "Go find my AIDE"
-	cont "when you get 50!"
+	line "Have you been to"
+	cont "the SAFARI ZONE?"
 	done
 
 _DexRatingText_Own50To59::
@@ -52,7 +53,7 @@ _DexRatingText_Own50To59::
 	line "least 50 species!"
 	cont "Be sure to get"
 	cont "EXP.SHARE from my"
-	cont "AIDE!"
+	cont "AIDE in SAFFRON!"
 	done
 
 _DexRatingText_Own60To69::
@@ -94,8 +95,8 @@ _DexRatingText_Own110To119::
 
 _DexRatingText_Own120To129::
 	text "Excellent! Trade"
-	line "with friends to"
-	cont "get some more!"
+	line "with people you"
+	cont "meet to get more!"
 	done
 
 _DexRatingText_Own130To139::
