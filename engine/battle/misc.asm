@@ -185,3 +185,29 @@ AISpeedRanks:
 ; SPEED stage 1-13 (-6 .. +6) without PAR: round(8 x log2(num / den)) + 24, StatModifierRatios' rows
 	db 8, 9, 11, 13, 16, 19, 24, 29, 32, 35, 37, 38, 40
 	ASSERT @ - AISpeedRanks == MAX_STAT_LEVEL, "one rank per SPEED stage"
+
+; v1.0 (2026-10-09): EnemySendOutFirstMon (core.asm) asks "Will <PLAYER> change #MON?" only while this says nz.
+; OUT nz: a party #MON other than the one in battle (wPlayerMonNumber) has HP left;
+;     z: none has - each one fainted, or the party is the one #MON in battle. Trashes a, bc, de, hl.
+AnyOtherPartyMonAlive:
+	ld hl, wPartyMon1HP
+	ld a, [wPartyCount]
+	ld e, a ; the #MON left to look at
+	ld a, [wPlayerMonNumber]
+	ld d, a ; counts down to the one in battle (0), which is skipped
+	ld bc, wPartyMon2 - wPartyMon1
+.loop
+	ld a, d
+	and a
+	jr z, .next ; the #MON in battle
+	ld a, [hli]
+	or [hl]
+	dec hl
+	ret nz ; this one can come in
+.next
+	add hl, bc
+	dec d
+	dec e
+	jr nz, .loop
+	xor a ; z
+	ret

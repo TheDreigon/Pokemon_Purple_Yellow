@@ -1570,8 +1570,9 @@ EnemySendOutFirstMon:
 	ld a, [wFirstMonsNotOutYet]
 	dec a
 	jr z, .next4
-	ld a, [wPartyCount]
-	dec a
+; v1.0 (2026-10-09): no question while no other party #MON can come in - every one fainted, or the party is
+; this one #MON (the wPartyCount test this replaces). misc.asm, bank $10: Battle Core is near its floor.
+	farcall AnyOtherPartyMonAlive
 	jr z, .next4
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
