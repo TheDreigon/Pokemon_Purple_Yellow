@@ -182,6 +182,16 @@ _ExpShareLonelyText::
 	line "to share."
 	prompt
 
+; v1.0 (2026-10-09): the VIRIDIAN CITY gambler once the League is beaten (scripts/ViridianCity_2.asm).
+_ViridianCityGambler1GymNewLeaderText::
+	text "VIRIDIAN GYM has"
+	line "a new LEADER!"
+
+	para "The KARATE MASTER"
+	line "from SAFFRON took"
+	cont "it over!"
+	done
+
 _ViridianForestCooltrainerF2BattleText::
 	text "I wish these"
 	line "bushes weren't"

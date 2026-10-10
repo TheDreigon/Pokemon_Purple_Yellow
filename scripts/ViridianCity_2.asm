@@ -8,6 +8,11 @@ ViridianCityPrintYoungster1Text::
 	text_end
 
 ViridianCityPrintGambler1Text::
+; v1.0 (2026-10-09): once the League is beaten (wGameStage), KIYO runs the GYM, and the gambler says so.
+	ld hl, .GymNewLeaderText
+	ld a, [wGameStage]
+	and a
+	jr nz, .print_text
 	ld hl, .GymLeaderReturnedText
 	ld a, [wObtainedBadges]
 	cp ~(1 << BIT_EARTHBADGE)
@@ -25,6 +30,10 @@ ViridianCityPrintGambler1Text::
 
 .GymLeaderReturnedText:
 	text_far _ViridianCityGambler1GymLeaderReturnedText
+	text_end
+
+.GymNewLeaderText:
+	text_far _ViridianCityGambler1GymNewLeaderText
 	text_end
 
 ViridianCityPrintYoungster2Text::
