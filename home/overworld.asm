@@ -787,7 +787,9 @@ CheckMapConnections::
 	call RunPaletteCommand
 ; Since the sprite set shouldn't change, this will just update VRAM slots at
 ; x#SPRITESTATEDATA2_IMAGEBASEOFFSET without loading any tile patterns.
-	call InitMapSprites
+; v1.0 (R23, 2026-10-10): InitMapSpritesAtSeam, the seam's own: an inside map that shows the same sprite
+; pictures as the one left keeps their tiles too (DIGLETT's CAVE's two pieces: PIKACHU's 24 tiles).
+	farcall InitMapSpritesAtSeam
 	call LoadTileBlockMap
 	jp OverworldLoopLessDelay
 

@@ -17,6 +17,49 @@ _InitMapSprites::
 	call Func_14150
 	ret
 
+; v1.0 (R23, 2026-10-10): the sprites of a map entered through a seam (CheckMapConnections .loadNewMap only;
+; every other way into a map is LoadMapData, through _InitMapSprites). An outside map: as _InitMapSprites. An
+; inside map: wSpriteSet is built again from the new map's objects, and its tile patterns are loaded only if it
+; differs from the set left behind, or if the font is loaded over the walking tiles (wFontLoaded bit 0). The
+; tiles of the set left behind are in VRAM - the trust InitOutsideMapSprites already puts in wSpriteSetID at an
+; outside seam: each writer of wSpriteSet loads them, and text and menus put the sprite slots back
+; (CloseTextDisplay, ReloadMapSpriteTilePatterns).
+	ASSERT wSpriteSetID == wSpriteSet + 11, "InitMapSpritesAtSeam saves wSpriteSet and wSpriteSetID as 6 words"
+InitMapSpritesAtSeam::
+	call InitOutsideMapSprites
+	ret c ; an outside map
+	ld hl, wSpriteSet
+	ld c, (wSpriteSetID + 1 - wSpriteSet) / 2
+.saveOldSet ; the set left behind and wSpriteSetID (LoadSpriteSetFromMapHeader leaves it alone), on the stack
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	push de
+	dec c
+	jr nz, .saveOldSet
+	call LoadSpriteSetFromMapHeader
+	ld hl, wSpriteSetID + 1
+	lb bc, (wSpriteSetID + 1 - wSpriteSet) / 2, 0
+.compareSets ; c = the OR of each new byte XOR its old one: 0 when the two sets are the same
+	pop de
+	dec hl
+	ld a, [hld]
+	xor d
+	or c
+	ld c, a
+	ld a, [hl]
+	xor e
+	or c
+	ld c, a
+	dec b
+	jr nz, .compareSets
+	ld a, [wFontLoaded]
+	and 1 ; bit 0: the font is over the walking tiles (LoadMapSpriteTilePatterns then loads those only)
+	or c
+	call nz, LoadMapSpriteTilePatterns
+	jp Func_14150
+
 ; Loads sprite set for outside maps (cities and routes) and sets VRAM slots.
 ; sets carry if the map is a city or route, unsets carry if not
 InitOutsideMapSprites:
