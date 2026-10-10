@@ -8,7 +8,7 @@ _CeladonDinerCookText::
 _CeladonDinerMiddleAgedWomanText::
 	text "My #MON are"
 	line "weak, so I often"
-	cont "go up to 5F at"
+	cont "go up to 2F at"
 	cont "the DEPT. STORE."
 	done
 

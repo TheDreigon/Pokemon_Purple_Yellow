@@ -242,7 +242,7 @@ _VermilionGymGymGuideBeatLTSurgeText::
 ; (bank $2B, room in both builds; Text 10 is full in the debug build). The scripts' text_far pointers follow the labels.
 ; from text/FuchsiaGym.asm
 _FuchsiaGymGymGuideChampInMakingText::
-	text "Yo! CHAMP in"
+	text "Yo! Champ in"
 	line "making!"
 
 	para "FUCHSIA GYM is"
@@ -255,7 +255,7 @@ _FuchsiaGymGymGuideChampInMakingText::
 	cont "cover his ground-"
 	cont "type weakness."
 
-	para "Most of his 5"
+	para "Two of his 5"
 	line "#MON fly or"
 	cont "float over it."
 

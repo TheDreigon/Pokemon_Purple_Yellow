@@ -14,8 +14,8 @@ _Route12Gate2FBrunetteGirlReceivedTM39Text::
 	text_end
 
 _Route12Gate2FBrunetteGirlTM39ExplanationText::
-	text "TM29 is a move"
-	line "called AERIAL ACE"
+	text "TM29 teaches"
+	line "AERIAL ACE."
 
 	para "It's very accurate,"
 	line "so use it during"

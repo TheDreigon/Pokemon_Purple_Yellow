@@ -109,7 +109,7 @@ _FuchsiaGymKogaTMExplanationText::
 
 	para "A poison that"
 	line "festers and grows"
-	cont "worse by the turn"
+	cont "worse each turn."
 
 	para "A secret over"
 	line "400 years old!"

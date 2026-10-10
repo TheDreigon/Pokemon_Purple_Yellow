@@ -216,7 +216,7 @@ _ChampionsRoomRematchOakDisappointedWithRivalText::
 	para "I had hoped for"
 	line "a better outcome."
 	
-	para "but I see you"
+	para "But I see you"
 	line "have fallen"
 	cont "short once more!"
 

@@ -13,12 +13,12 @@ _VictoryRoad2FHikerBattleText::
 
 _VictoryRoad2FHikerEndBattleText::
 	text "You gave me"
-	line "a whalloping!"
+	line "a walloping!"
 	prompt
 
 _VictoryRoad2FHikerAfterBattleText::
 	text "I was hiking down"
-	line "MT. SILVER and I"
+	line "MT.SILVER and I"
 	cont "ended up here."
 
 	para "Can you point"
@@ -27,7 +27,7 @@ _VictoryRoad2FHikerAfterBattleText::
 	done
 
 _VictoryRoad2FJuggler1BattleText::
-	text "Tch, Lets see if"
+	text "Tch, let's see if"
 	line "KANTO trainers"
 	cont "are strong."
 	done

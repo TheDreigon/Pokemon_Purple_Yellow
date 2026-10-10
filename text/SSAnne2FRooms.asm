@@ -92,7 +92,7 @@ _SSAnne2FRoomsGentleman5Text::
 	cont "in FUCHSIA CITY?"
 
 	para "It had many rare"
-	line "rare #MON!!"
+	line "kinds of #MON!"
 	done
 
 _SSAnne2FRoomsLittleBoyText::
