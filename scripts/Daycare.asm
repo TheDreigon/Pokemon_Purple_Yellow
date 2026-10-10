@@ -305,22 +305,19 @@ DaycareGentlemanText:
 	ld a, DAYCARE_TO_PARTY
 	ld [wMoveMonType], a
 	call MoveMon
+; v1.0 (R21a): the moves of the levels gained here are taught after the cry (.asm_56430) by the
+; level-up flow of a battle. WriteMonMoves wrote them in silence and, with four moves known, pushed
+; the first one out - an HM too, which is why vanilla turned an HM user away at the door.
+	ld a, [wDayCareStartLevel]
+	ld b, a
+	ld a, [wCurEnemyLVL] ; MoveMon: the level its exp gives
+	ld c, a
+	push bc
 	ld a, [wDayCareMonSpecies]
 	ld [wcf91], a
 	ld a, [wPartyCount]
 	dec a
-	push af
 	ld bc, wPartyMon2 - wPartyMon1
-	push bc
-	ld hl, wPartyMon1Moves
-	call AddNTimes
-	ld d, h
-	ld e, l
-	ld a, 1
-	ld [wLearningMovesFromDayCare], a
-	predef WriteMonMoves
-	pop bc
-	pop af
 
 ; set mon's HP to max
 	ld hl, wPartyMon1HP
@@ -356,6 +353,32 @@ DaycareGentlemanText:
 	ldpikacry e, PikachuCry35
 	callfar PlayPikachuSoundClip
 .asm_56430
+	pop bc ; b = the level it was left at, c = the level it comes back at
+	ld a, b
+	cp c
+	jr nc, .learnedAll
+; One call per level gained, the predef a battle level-up calls (experience.asm): each move of that
+; level is offered once, "forget a move?" when four are known, B or the new move keeps the four, and
+; the party's last CUT or SURF cannot be forgotten (LearnMove; the mon is in the party already). The
+; room's sprites would sit on the move list and the MOVE INFO card: hidden until the last level.
+	xor a
+	ld [wUpdateSpritesEnabled], a
+	ld [wMonDataLocation], a ; PLAYER_PARTY_DATA
+.learnLevelLoop
+	inc b
+	ld a, b
+	ld [wCurEnemyLVL], a
+	ld a, [wDayCareMonSpecies]
+	ld [wd11e], a
+	push bc
+	predef LearnMoveFromLevelUp ; wWhichPokemon = the last party slot, set above
+	pop bc
+	ld a, b
+	cp c
+	jr c, .learnLevelLoop
+	ld a, 1
+	ld [wUpdateSpritesEnabled], a
+.learnedAll
 	ld hl, .GotMonBackText
 	jr .done
 

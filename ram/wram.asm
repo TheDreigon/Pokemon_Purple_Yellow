@@ -1180,8 +1180,9 @@ NEXTU
 ; coordinates in registers (c = x, b = y); the AREA page walks its list of map
 ; ids at wBuffer, which this label aliases. Kept as a name for the union slot.
 wTownMapCoords::
-; whether WriteMonMoves is being used to make a mon learn moves from day care
-; non-zero if so
+; non-zero: WriteMonMoves also writes each new move's PP and skips the levels up to
+; wDayCareStartLevel - vanilla's DAY CARE withdrawal. v1.0 (R21a): the DAY CARE learns through
+; LearnMoveFromLevelUp; _AddPartyMon and LoadEnemyMonData write 0 here before their WriteMonMoves.
 wLearningMovesFromDayCare::
 	db
 
