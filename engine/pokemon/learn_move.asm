@@ -332,6 +332,12 @@ TryingToLearn:
 	call CopyToStringBuffer ; ...and into wStringBuffer, where the line reads it
 	ld hl, LearnMoveLastFieldMoveText
 	call PrintText
+; v1.0 (R21c): the line borrowed wStringBuffer, which holds the move being LEARNED for the whole
+; flow ("Learn X over Y?", "learned X!", "Abandon learning X?", "did not learn X!"): given back
+	ld a, [wMoveNum]
+	ld [wd11e], a
+	call GetMoveName
+	call CopyToStringBuffer
 	pop hl
 	jp .loop
 .cancel
