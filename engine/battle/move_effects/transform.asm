@@ -50,11 +50,13 @@ TransformEffect_:
 	call nz, Bankswitch
 	pop bc
 	ld a, [bc]
+	bit TRANSFORMED, a ; v1.0 (2026-10-09): nz = a second TRANSFORM since the user came in
 	set TRANSFORMED, a ; mon is now transformed
 	ld [bc], a
 	pop de
 	pop hl
 	push hl
+	push af ; that z / nz, for the DVs below
 ; transform user into opposing Pokemon
 ; species
 	ld a, [hl]
@@ -70,6 +72,8 @@ TransformEffect_:
 	inc bc
 	inc bc
 	call CopyData
+	pop af
+	jr nz, .next ; already transformed: wTransformedEnemyMonOriginalDVs holds the DVs it came in with
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .next
