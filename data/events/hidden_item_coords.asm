@@ -63,7 +63,9 @@ HiddenItemCoords:
 	hidden_item CELADON_CITY,                  48,  15
 	; v0.7 ground-item redesign: this ROW was the inaccessible SAFARI_ZONE_GATE
 	; NUGGET — same rewrite-in-place trick as the ROCK_TUNNEL_1F row above.
-	hidden_item DIGLETTS_CAVE,                 14,  15 ; the gag rope. Coords confirmed 2026-07-30
+	; v1.0 R24b: rewritten in place again, DIGLETTS_CAVE (14,15) -> DIGLETTS_CAVE_EAST (22,39), on the rock
+	; of the master's (72,39): the row keeps its position, so the rope keeps its flag.
+	hidden_item DIGLETTS_CAVE_EAST,            22,  39 ; the gag rope
 	hidden_item POKEMON_MANSION_1F,             8,  16
 	; v0.7 ground-item redesign: new entries append at the END so every
 	; pre-existing flag index stays put (index = row position in this table).

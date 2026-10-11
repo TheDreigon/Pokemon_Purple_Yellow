@@ -10,7 +10,7 @@ HiddenObjectMaps:
 	dbw CERULEAN_CAVE_B1F,            CeruleanCave3HiddenObjects
 	dbw ROCK_TUNNEL_1F,               RockTunnel1FHiddenObjects
 	dbw ROCK_TUNNEL_B1F,              RockTunnelB1FHiddenObjects
-	dbw DIGLETTS_CAVE,                DiglettsCaveHiddenObjects
+	dbw DIGLETTS_CAVE_EAST,           DiglettsCaveEastHiddenObjects
 	dbw SEAFOAM_ISLANDS_B1F,          SeafoamIslandsB1FHiddenObjects
 	dbw POKEMON_TOWER_4F,             PokemonTower4FHiddenObjects
 	dbw SEAFOAM_ISLANDS_B2F,          SeafoamIslands3HiddenObjects
@@ -159,10 +159,15 @@ RockTunnelB1FHiddenObjects:
 	hidden_object 30, 11, IRON, HiddenItems        ; iron in the rock, literally. TODO: provisional coords
 	db -1 ; end
 
-; The gag rope: a dead-straight two-exit tunnel, and the Itemfinder will
-; happily point the truly lost to the door. One step from the ladder.
-DiglettsCaveHiddenObjects:
-	hidden_object 14, 15, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
+; The gag rope: an ESCAPE ROPE hidden in a cave with a mouth at each end, for the one player who truly cannot
+; find the way out - the Itemfinder points to it. v1.0 R24b: the cave is the owner's own map, roughly an arch
+; from the ROUTE 2 mouth to the ROUTE 11 mouth (maps/DiglettsCave.blk, cut into DIGLETTS_CAVE and
+; DIGLETTS_CAVE_EAST by maps.asm), and the rope lies on the rock he chose: the master's cell (72,39), block
+; (36,19), which is the east piece's (22,39). A player faces it from (22,38), facing down, or from (23,39),
+; facing left, 40 and 38 steps from the ROUTE 11 ladder (45,55); the tile $05 floor below it is walled off
+; from the corridor by TilePairCollisionsLand.
+DiglettsCaveEastHiddenObjects:
+	hidden_object 22, 39, ESCAPE_ROPE, HiddenItems ; on the rock of the master's (72,39), the owner's cell
 	db -1 ; end
 
 SeafoamIslandsB1FHiddenObjects:
