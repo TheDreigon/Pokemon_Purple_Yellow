@@ -15,9 +15,8 @@ _Route14CooltrainerM1AfterBattleText::
 	cont "say #MON"
 	cont "can't ever forget"
 	cont "those moves,"
-
-	para "but it's not"
-	line "true."
+	cont "but it's not"
+	cont "true."
 	done
 
 _Route14CooltrainerM2BattleText::

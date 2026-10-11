@@ -53,9 +53,8 @@ _VictoryRoad1FBugCatcherEndBattleText::
 _VictoryRoad1FBugCatcherAfterBattleText::
 	text "I know they"
 	line "aren't all bugs,"
-
-	para "I just like"
-	line "the net."
+	cont "I just like"
+	cont "the net."
 	done
 
 _VictoryRoad1FBeautyBattleText::

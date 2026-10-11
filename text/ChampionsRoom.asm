@@ -88,9 +88,8 @@ _RivalRematchDefeatedText::
 	text "Even"
 	line "with my"
 	cont "strongest team,"
-
-	para "your skills as"
-	line "CHAMPION..."
+	cont "your skills as"
+	cont "CHAMPION..."
 
 	para "They're real."
 	prompt
@@ -98,9 +97,8 @@ _RivalRematchDefeatedText::
 _RivalRematchVictoryText::
 	text "With my new"
 	line "strategies,"
-
-	para "you stood no"
-	line "chance, <PLAYER>!"
+	cont "you stood no"
+	cont "chance, <PLAYER>!"
 
 	para "The title of"
 	line "champion is"
@@ -222,13 +220,11 @@ _ChampionsRoomRematchOakDisappointedWithRivalText::
 
 	para "Remember,"
 	line "<RIVAL>,"
-
-	para "it's not just"
-	line "about strength"
+	cont "it's not just"
+	cont "about strength"
 	cont "in battle,"
-
-	para "but also about"
-	line "the bond you"
+	cont "but also about"
+	cont "the bond you"
 	cont "share with your"
 	cont "#MON."
 

@@ -10,9 +10,8 @@ _PowerPlantCraigBattleText1::
 	text "I'm trying to"
 	line "complete my"
 	cont "#DEX,"
-	
-	para "for a game I'm"
-	line "making based on"
+	cont "for a game I'm"
+	cont "making based on"
 	cont "#MON."
 
 	para "So battle me!"

@@ -35,9 +35,8 @@ _ViridianCityOldManLosingMyTouchText::
 	line "you hold START"
 	cont "while pressing A"
 	cont "on STATS,"
-
-	para "You can check to"
-	line "see a #MON's"
+	cont "you can check to"
+	cont "see a #MON's"
 	cont "growth potential."
 
 	para "I've run out of"

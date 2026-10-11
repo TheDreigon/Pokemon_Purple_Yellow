@@ -17,17 +17,15 @@ _SilphCo5FSilphWorkerMPorygonOfferText::
 
 	para "This floor's LAB"
 	line "made PORYGON,"
-
-	para "the first #MON"
-	line "born from human"
+	cont "the first #MON"
+	cont "born from human"
 	cont "hands, not caught"
 	cont "in the wild."
 
 	para "That makes it"
 	line "hard to raise..."
-
-	para "but a TRAINER"
-	line "strong enough to"
+	cont "but a TRAINER"
+	cont "strong enough to"
 	cont "clear this tower"
 	cont "can handle it."
 
@@ -139,7 +137,6 @@ _SilphCo5FPokemonReport3Text::
 	line "#MON evolve"
 	cont "only when traded"
 	cont "by link-cable,"
-
-	para "but it's not"
-	line "true."
+	cont "but it's not"
+	cont "true."
 	done

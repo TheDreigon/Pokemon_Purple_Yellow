@@ -6,9 +6,8 @@ _VermilionDockTruckText::
 	text "Sounds like"
 	line "something is"
 	cont "under here,"
-
-	para "I should take a"
-	line "look."
+	cont "I should take a"
+	cont "look."
 
 	para "Oh, it's just a"
 	line "DITTO."

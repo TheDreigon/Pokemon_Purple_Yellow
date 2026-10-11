@@ -14,17 +14,15 @@ _VictoryRoad3FCooltrainerM1AfterBattleText::
 	text "I swear it was"
 	line "around here"
 	cont "somewhere,"
-
-	para "maybe I'm in the"
-	line "wrong place..."
+	cont "maybe I'm in the"
+	cont "wrong place..."
 	done
 
 _VictoryRoad3FCooltrainerF1BattleText::
 	text "Not all #MON"
 	line "are strong,"
-
-	para "but it's always"
-	line "cool to use your"
+	cont "but it's always"
+	cont "cool to use your"
 	cont "favorites!"
 	done
 

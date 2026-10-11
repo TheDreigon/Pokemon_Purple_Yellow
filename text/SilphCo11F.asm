@@ -85,7 +85,7 @@ _SilphCo11FGiovanniText::
 	line "out of grown-up"
 	cont "matters..."
 
-	para "or, experience a"
+	para "Or, experience a"
 	line "world of pain!"
 	done
 
