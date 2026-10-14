@@ -85,11 +85,12 @@ BlkPacket_Slots:
 	ATTR_BLK_DATA %011, 0,0,0, 00,12, 19,17 ; message box: pal 0
 
 BlkPacket_Titlescreen:
-	ATTR_BLK 3
-	ATTR_BLK_DATA %011, 0,0,0, 00,00, 19,07 ; pokemon logo, version text: pal 0
+	ATTR_BLK 5 ; 2 + 5 * 6 = 32 bytes: two packets
+	ATTR_BLK_DATA %011, 0,0,0, 00,00, 19,07 ; pokemon logo: pal 0
 	ATTR_BLK_DATA %011, 2,2,0, 00,08, 19,17 ; pikachu, copyright text: pal 2
 	ATTR_BLK_DATA %010, 0,0,0, 09,08, 10,08 ; pika bubble: pal 0
-	ds 12, 0
+	ATTR_BLK_DATA %011, 3,3,0, 03,07, 06,07 ; banner, PURPLE: pal 3
+	ATTR_BLK_DATA %011, 3,3,0, 13,07, 16,07 ; banner, YELLOW: pal 3
 
 BlkPacket_NidorinoIntro:
 	ATTR_BLK 3
