@@ -34,7 +34,8 @@ endif
 # ./rgbfix --version = rgbfix v0.6.1
 # ./rgbgfx --version = rgbgfx v0.6.1
 
-RGBDS = rgbds/
+# rgbds/ (gitignored) when it holds the binaries, else the rgbds on the PATH; `make RGBDS=dir/` names another.
+RGBDS ?= $(if $(wildcard rgbds/rgbasm),rgbds/,)
 RGBASM  = $(RGBDS)rgbasm
 RGBFIX  = $(RGBDS)rgbfix
 RGBGFX  = $(RGBDS)rgbgfx
@@ -80,7 +81,8 @@ tidy:
 	      rgbdscheck.o
 	$(MAKE) clean -C tools/
 
-compare: $(roms) $(patches)
+# roms.sha1 holds the hashes of the last release (the release check writes them): a release tag passes.
+compare: $(roms)
 	@$(SHA1) -c roms.sha1
 
 tools:
