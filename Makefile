@@ -47,7 +47,7 @@ RGBLINK = $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all yellow yellow_debug clean tidy compare tools
+.PHONY: all yellow yellow_debug clean tidy compare tools bps
 
 all: $(roms)
 yellow:       pokeyellow.gbc
@@ -68,6 +68,7 @@ tidy:
 	$(RM) $(roms) \
 	      $(roms:.gbc=.sym) \
 	      $(roms:.gbc=.map) \
+	      pokeyellow.bps \
 	      $(patches) \
 	      $(patches:.patch=_vc.gbc) \
 	      $(patches:.patch=_vc.sym) \
@@ -84,6 +85,19 @@ compare: $(roms) $(patches)
 
 tools:
 	$(MAKE) -C tools/
+
+# The release patch (tools/make_bps.py): the BPS that turns the retail English Pokemon Yellow into
+# pokeyellow.gbc, `make bps BASEROM=path/to/rom.gbc`. The base is read, never built, so it is no prerequisite
+# here (the %.gbc rule below would try to link it). A base whose SHA-1 is not BASEROM_SHA1 is refused, and the
+# patch is written only once it decodes back to pokeyellow.gbc byte for byte.
+BASEROM ?= baserom.gbc
+BASEROM_SHA1 := cc7d03262ebfaf2f06772c1a480c7d9d5f4a38e1
+PYTHON ?= python3
+
+bps: pokeyellow.bps
+
+pokeyellow.bps: pokeyellow.gbc tools/make_bps.py
+	$(PYTHON) tools/make_bps.py create --base-sha1 $(BASEROM_SHA1) "$(BASEROM)" $< $@
 
 
 RGBASMFLAGS = -hL -Q8 -P includes.asm -Weverything -Wnumeric-string=2 -Wtruncation=1

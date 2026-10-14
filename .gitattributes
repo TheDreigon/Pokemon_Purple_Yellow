@@ -20,6 +20,9 @@
 # CRLF pair; any future .bin that does would have been silently corrupted on
 # checkin, with a build that still passes and bytes that no longer match.
 *.bin binary
+# Release patches (`make bps`) are gitignored; one ever committed must not meet the eol=lf rule either.
+*.bps binary
+*.ips binary
 
 # Declare files that will always have CRLF line endings on checkout.
 *.patch.template text eol=crlf linguist-language=INI

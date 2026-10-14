@@ -14,6 +14,10 @@
 *.gb
 *.patch
 
+# release patches (`make bps`): published with a release, never committed
+*.bps
+*.ips
+
 # rgbds extras
 # *.map
 pokeyellow.map
