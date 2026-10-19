@@ -1,5 +1,6 @@
 HallOfFamePC:
 	callfar AnimateHallOfFame
+.afterHallOfFame:: ; the debug ROM's CREDITS entry comes in here (engine/debug/debug_menu.asm)
 	call ClearScreen
 	ld c, 100
 	call DelayFrames

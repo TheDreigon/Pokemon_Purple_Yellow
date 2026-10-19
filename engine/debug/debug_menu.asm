@@ -20,7 +20,7 @@ IF DEF(_DEBUG)
 	call RunDefaultPaletteCommand
 
 	hlcoord 5, 6
-	lb bc, 7, 9 ; 7 inner rows: fits the 4 menu entries at 2-row spacing
+	lb bc, 9, 9 ; 9 inner rows: the 5 menu entries at 2-row spacing
 	call TextBoxBorder
 
 	hlcoord 7, 7
@@ -34,7 +34,7 @@ IF DEF(_DEBUG)
 	ld [wMenuWatchedKeys], a
 	xor a
 	ld [wMenuJoypadPollCount], a
-	ld a, 3 ; 4 entries: FIGHT/DEBUG/ANIM/MON
+	ld a, 4 ; 5 entries: FIGHT/DEBUG/ANIM/MON/CREDITS
 	ld [wMaxMenuItem], a
 	ld a, 7
 	ld [wTopMenuItemY], a
@@ -59,7 +59,9 @@ IF DEF(_DEBUG)
 	; Both test screens live in this same bank and exit with `jp DebugMenu`,
 	; so they loop back here and the hl-return contract is preserved.
 	jp z, AnimationTestMenu
-	jp MonTestMenu ; MON (v0.7): browse all 151, colored sprite + cry
+	dec a ; MON?
+	jp z, MonTestMenu ; MON (v0.7): browse all 151, colored sprite + cry
+	jp DebugCredits ; CREDITS (1.0)
 
 .debug
 	ld hl, wd732
@@ -77,7 +79,58 @@ DebugMenuOptions:
 	db   "FIGHT"
 	next "DEBUG"
 	next "ANIM"
-	next "MON@"
+	next "MON"
+	next "CREDITS@"
+
+DebugCredits:
+; CREDITS (1.0): the Hall of Fame's last page - the player, the game and mode box, the POKeDEX rating - and
+; the whole credits roll, as after the League; A = Normal, START = Hard (the box reads wDifficulty). There is
+; no party here, so no parade, and SaveHallOfFameTeams (SRAM) is never called: no Hall of Fame record is
+; written. The page is set up as AnimateHallOfFame sets it up; after THE END a button restarts the game.
+	ldh a, [hJoy5] ; HandleMenuInput left the keys pressed here
+	and START
+	jr z, .gotMode ; a = 0: Normal
+	ld a, 1 ; Hard
+.gotMode
+	ld [wDifficulty], a
+	farcall HoFFadeOutScreenAndMusic
+	call ClearScreen
+	ld c, 100 ; the fade-out of the title theme ends before the Hall of Fame theme starts
+	call DelayFrames
+	call LoadFontTilePatterns
+	call LoadTextBoxTilePatterns
+	call DisableLCD
+	ld hl, vBGMap0
+	ld bc, $800
+	ld a, " "
+	call FillMemory
+	call EnableLCD
+	ld hl, rLCDC
+	set 3, [hl]
+	xor a
+	ld [wUpdateSpritesEnabled], a
+	ldh [hTileAnimations], a
+	ld [wSpriteFlipped], a
+	ld [wLetterPrintingDelayFlags], a ; no delay
+	ld [wHoFMonSpecies], a
+	inc a
+	ld [wHoFMonOrPlayer], a ; player
+	ldh [hAutoBGTransferEnabled], a
+	ld a, $90
+	ldh [hWY], a
+	ld c, BANK(Music_HallOfFame)
+	ld a, MUSIC_HALL_OF_FAME
+	call PlayMusic
+	farcall HoFShowMonOrPlayer
+	farcall HoFDisplayPlayerStats
+	farcall HoFFadeOutScreenAndMusic
+	xor a
+	ldh [hWY], a
+	ld hl, rLCDC
+	res 3, [hl]
+	farcall HallOfFamePC.afterHallOfFame
+	call WaitForTextScrollButtonPress
+	jp Init
 
 TestBattle: ; unreferenced except in _DEBUG
 	ld a, 1
