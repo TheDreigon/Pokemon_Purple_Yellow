@@ -22,7 +22,7 @@
 ;  - Gas is immune to Ground (the obvious physics joke).
 ;  - Steel keeps its huge resist list but loses Psychic/Dark/Ghost resists.
 ;  - Ice continues SE vs Dragon (convention) and gains Fungus/Bug/Gas SE coverage.
-;  - Poison gets Fairy + Fungus SE; can't hit Steel.
+;  - Poison gets Fairy + Fungus SE; Steel resists it (immune until v1.0) and is never poisoned.
 ;  - Fighting gets Dragon + Steel + Dark SE; weak TO Fairy.
 
 TypeEffects:
@@ -133,7 +133,9 @@ TypeEffects:
 	db POISON,       ICE,          NOT_VERY_EFFECTIVE
 	db POISON,       FIGHTING,     NOT_VERY_EFFECTIVE
 	db POISON,       MAGMA,        NOT_VERY_EFFECTIVE
-	db POISON,       STEEL,        NO_EFFECT
+; v1.0 (2026-10-18): STEEL resists POISON, where it was immune. The poison STATUS still never takes on a
+; STEEL: PoisonEffect (effects.asm) and the AI's CheckStatusImmunity (trainer_ai.asm) refuse it by type.
+	db POISON,       STEEL,        NOT_VERY_EFFECTIVE
 
 ; ===== GROUND =====
 	db GROUND,       FIRE,         SUPER_EFFECTIVE

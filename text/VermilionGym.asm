@@ -215,9 +215,10 @@ _VermilionGymGymGuideChampInMakingText::
 	line "MAGNEMITE are"
 	cont "part steel-type!"
 
-	para "Poison bounces"
-	line "right off them,"
-	cont "but ground moves"
+	para "Poison barely"
+	line "hurts them and"
+	cont "never sticks, but"
+	cont "ground moves"
 	cont "wreck them!"
 
 	para "Birds and water"

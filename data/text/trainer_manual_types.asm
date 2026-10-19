@@ -80,8 +80,6 @@ _ManualType_POISON_ATK::
 	next "POISON GROUND ROCK"
 	next "GHOST PSYCHIC ICE"
 	next "FIGHTING MAGMA"
-	next ""
-	next "CANNOT HIT"
 	next "STEEL"
 	done
 
@@ -236,11 +234,9 @@ _ManualType_STEEL_DEF::
 	next ""
 	next "RESISTS"
 	next "NORMAL GRASS ICE"
-	next "FLYING BUG ROCK"
-	next "DRAGON STEEL FAIRY"
-	next "GAS FUNGUS"
-	next "IMMUNE TO"
-	next "POISON"
+	next "POISON FLYING BUG"
+	next "ROCK DRAGON STEEL"
+	next "FAIRY GAS FUNGUS"
 	done
 
 _ManualType_MAGMA_ATK::

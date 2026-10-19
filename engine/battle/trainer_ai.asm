@@ -182,10 +182,10 @@ AIGetMoveChoiceList:
 ; already up (a hit taken first may break it, as RECOVER at full HP).
 ; v1.0 (R9, 2026-09-30; the AI did not know that a damaging move into a type immunity does nothing): and a
 ; DAMAGING move the type chart stops - "It doesn't affect", a NO_EFFECT row in ApplyTypeEffectivenessToDamage
-; (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on FLYING and GAS, FIRE on MAGMA, POISON on STEEL,
-; PSYCHIC on DARK; one such type of two is enough) - is USELESS (.useless, the E4 tier of a status move on an
-; immune type). AIMoveEffectiveness asks the walk the damage takes (AIGetTypeEffectiveness, the same
-; TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c (the fixed-damage moves follow the
+; (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on FLYING and GAS, FIRE on MAGMA, PSYCHIC on DARK;
+; one such type of two is enough; STEEL resists POISON since 2026-10-18) - is USELESS (.useless, the E4 tier of
+; a status move on an immune type). AIMoveEffectiveness asks the walk the damage takes (AIGetTypeEffectiveness,
+; the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c (the fixed-damage moves follow the
 ; immunity rules too) that holds for SetDamageEffects' family too: its set number is never scaled, but
 ; FixedDamageImmunity stops it on a NO_EFFECT row (SEISMIC TOSS and SUPER FANG do not affect a GHOST). The
 ; player's types are on screen; only its switch or a TRANSFORM, both deliberate acts, change them first (E4).
