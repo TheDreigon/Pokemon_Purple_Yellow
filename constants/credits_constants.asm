@@ -141,6 +141,67 @@
 	const CRED_LAKE
 	const CRED_NESLUG
 	const CRED_TOM_WANG
+; Purple Yellow's own screens and vanilla's Game Freak opener (1.0)
+	const CRED_THEDREIGON
+	const CRED_WITH_HELP_FROM
+	const CRED_CLAUDE_CODE
+	const CRED_PY_BATTLE
+	const CRED_PY_BATTLE2
+	const CRED_PY_BATTLE3
+	const CRED_PY_BATTLE4
+	const CRED_PY_MOVES
+	const CRED_PY_MOVES2
+	const CRED_PY_MOVES3
+	const CRED_PY_MOVES4
+	const CRED_PY_TYPES
+	const CRED_PY_TYPES2
+	const CRED_PY_TYPES3
+	const CRED_PY_TYPES4
+	const CRED_PY_STATS
+	const CRED_PY_STATS2
+	const CRED_PY_STATS3
+	const CRED_PY_STATS4
+	const CRED_PY_SPRITES
+	const CRED_PY_SPRITES2
+	const CRED_PY_MAP
+	const CRED_PY_MAP2
+	const CRED_PY_MAP3
+	const CRED_PY_MAP4
+	const CRED_PY_TRAINERS
+	const CRED_PY_TRAINERS2
+	const CRED_PY_TRAINERS3
+	const CRED_PY_TRAINERS4
+	const CRED_PY_MORE
+	const CRED_PY_MORE2
+	const CRED_PY_MORE3
+	const CRED_PY_MORE4
+	const CRED_THANKS
+	const CRED_THANKS2
+	const CRED_THANKS3
+	const CRED_THANKS4
+	const CRED_YELLOW_LEGACY
+	const CRED_KEP
+	const CRED_EXTREME_YELLOW
+	const CRED_SHIN
+	const CRED_PURERGB
+	const CRED_YUME
+	const CRED_SOLUS
+	const CRED_RED_PLUS_PLUS
+	const CRED_GOLD97
+	const CRED_GOLD97_2
+	const CRED_RED_STAR_BLUE_STAR
+	const CRED_ORIGINALS
+	const CRED_RGB
+	const CRED_YELLOW
+	const CRED_GSC
+	const CRED_DEVELOPED_USING
+	const CRED_AS_THE_BASE
+	const CRED_YL_ARTISTS
+	const CRED_YL_ARTISTS2
+	const CRED_YL_ARTISTS3
+	const CRED_YL_ARTISTS4
+	const CRED_YL_ARTISTS5
+	const CRED_YELLOW_VERSION
 DEF NUM_CRED_STRINGS EQU const_value
 
 	const_def -1, -1
@@ -150,3 +211,6 @@ DEF NUM_CRED_STRINGS EQU const_value
 	const CRED_TEXT          ; $FC
 	const CRED_COPYRIGHT     ; $FB
 	const CRED_THE_END       ; $FA
+
+; the commands count down from $FF (const_def -1, -1)
+ASSERT NUM_CRED_STRINGS <= LOW(CRED_THE_END), "a credits string id would read as a command byte"

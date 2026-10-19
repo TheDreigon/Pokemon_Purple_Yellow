@@ -143,20 +143,83 @@ CreditsTextPointers:
 	dw CreditsText_Lake
 	dw CreditsText_Neslug
 	dw CreditsText_TomWang
+
+	dw CreditsText_TheDreigon
+	dw CreditsText_WithHelpFrom
+	dw CreditsText_ClaudeCode
+	dw CreditsText_PyBattle
+	dw CreditsText_PyBattle2
+	dw CreditsText_PyBattle3
+	dw CreditsText_PyBattle4
+	dw CreditsText_PyMoves
+	dw CreditsText_PyMoves2
+	dw CreditsText_PyMoves3
+	dw CreditsText_PyMoves4
+	dw CreditsText_PyTypes
+	dw CreditsText_PyTypes2
+	dw CreditsText_PyTypes3
+	dw CreditsText_PyTypes4
+	dw CreditsText_PyStats
+	dw CreditsText_PyStats2
+	dw CreditsText_PyStats3
+	dw CreditsText_PyStats4
+	dw CreditsText_PySprites
+	dw CreditsText_PySprites2
+	dw CreditsText_PyMap
+	dw CreditsText_PyMap2
+	dw CreditsText_PyMap3
+	dw CreditsText_PyMap4
+	dw CreditsText_PyTrainers
+	dw CreditsText_PyTrainers2
+	dw CreditsText_PyTrainers3
+	dw CreditsText_PyTrainers4
+	dw CreditsText_PyMore
+	dw CreditsText_PyMore2
+	dw CreditsText_PyMore3
+	dw CreditsText_PyMore4
+	dw CreditsText_Thanks
+	dw CreditsText_Thanks2
+	dw CreditsText_Thanks3
+	dw CreditsText_Thanks4
+	dw CreditsText_YellowLegacy
+	dw CreditsText_KEP
+	dw CreditsText_ExtremeYellow
+	dw CreditsText_Shin
+	dw CreditsText_PureRGB
+	dw CreditsText_Yume
+	dw CreditsText_Solus
+	dw CreditsText_RedPlusPlus
+	dw CreditsText_Gold97
+	dw CreditsText_Gold97_2
+	dw CreditsText_RedStarBlueStar
+	dw CreditsText_Originals
+	dw CreditsText_RGB
+	dw CreditsText_Yellow
+	dw CreditsText_GSC
+	dw CreditsText_DevelopedUsing
+	dw CreditsText_AsTheBase
+	dw CreditsText_YLArtists
+	dw CreditsText_YLArtists2
+	dw CreditsText_YLArtists3
+	dw CreditsText_YLArtists4
+	dw CreditsText_YLArtists5
+	dw CreditsText_YellowVersion
 	assert_table_length NUM_CRED_STRINGS
 
-; 
-; 5  / 4  = -1
-; 7  / 6  = -2
-; 9  / 8  = -3
-; 11 / 10 = -4
-; 13 / 12 = -5
-; 15 / 14 = -6
-; 16 / 17 = -7
-; 18 / 19 = -8
+; the offset byte: a string starts on column 9 + its offset (PlaceCreditsText). Every row of the roll
+; is centred (1.0): an odd width w puts its middle tile on column 9, offset (1 - w) / 2; an even
+; width starts on column 10 - w / 2, offset 1 - w / 2 ("#" draws four tiles). Widths, offset:
+;  3 /  4 = -1
+;  5 /  6 = -2
+;  7 /  8 = -3
+;  9 / 10 = -4
+; 11 / 12 = -5
+; 13 / 14 = -6
+; 15 / 16 = -7
+; 17 / 18 = -8
+; 19 / 20 = -9
 CreditsText_Version:
-	db -6, "YELLOW LEGACY"
-	next   "    STAFF@"
+	db -6, "PURPLE YELLOW@"
 CreditsText_Tajiri:
 	db -6, "SATOSHI TAJIRI@"
 CreditsText_Oota:
@@ -168,7 +231,7 @@ CreditsText_Watanabe:
 CreditsText_Masuda:
 	db -6, "JUNICHI MASUDA@"
 CreditsText_Nishino:
-	db -5, "KOHJI NISHINO@"
+	db -6, "KOHJI NISHINO@"
 CreditsText_Sugimori:
 	db -5, "KEN SUGIMORI@"
 CreditsText_Nishida:
@@ -230,11 +293,11 @@ CreditsText_MonsterDesign:
 CreditsText_GameScenario:
 	db -6, "GAME SCENARIO@"
 CreditsText_ParametricDesign:
-	db -7, "PARAMETRIC DESIGN@"
+	db -8, "PARAMETRIC DESIGN@"
 CreditsText_MapDesign:
 	db -4, "MAP DESIGN@"
 CreditsText_Testing:
-	db -6, "PRODUCT TESTING@"
+	db -7, "PRODUCT TESTING@"
 CreditsText_SpecialThanks:
 	db -6, "SPECIAL THANKS@"
 CreditsText_Producers:
@@ -252,15 +315,15 @@ CreditsText_Yoshikawa:
 CreditsText_Oota23:
 	db -6, "TOMOMICHI OOTA@"
 CreditsText_Matsumita:
-	db -8, "TOSHINOBU MATSUMIYA@"
+	db -9, "TOSHINOBU MATSUMIYA@"
 CreditsText_Seya:
-	db -5, "NOBUHIRO SEYA@"
+	db -6, "NOBUHIRO SEYA@"
 CreditsText_Yoshida:
 	db -7, "HIRONOBU YOSHIDA@"
 CreditsText_Sekine:
-	db -6, "KAZUHITO SEKINE@"
+	db -7, "KAZUHITO SEKINE@"
 CreditsText_Shimamura:
-	db -7, "KAZUSHI SHIMAMURA@"
+	db -8, "KAZUSHI SHIMAMURA@"
 CreditsText_Shimoyamada:
 	db -9, "TERUYUKI SHIMOYAMADA@"
 CreditsText_SuperMarioClub:
@@ -327,10 +390,14 @@ CreditsText_Okubo:
 CreditsText_Nakamichi:
 	db -7, "KIMIKO NAKAMICHI@"
 CreditsText_Yoshimura:
-	db -6, "KAMON YOSHIMURA@"
+	db -7, "KAMON YOSHIMURA@"
 CreditsText_Yamazaki:
 	db -6, "SAKAE YAMAZAKI@"
 
+; Yellow Legacy's staff screens left the roll in 1.0: of the strings from here to CreditsText_TomWang
+; only CREATED BY, SPRITE ARTISTS, pret's four, READER DRAGON, GHOST-MISSINGNO, ZETA NULL and BLUE
+; EMERALD are on it, centred by the rule above; the others stay, with Yellow Legacy's offsets, so
+; that no CRED_* id moves
 CreditsText_Creator:
 	db -4, "CREATED BY@"
 CreditsText_Developer:
@@ -350,11 +417,11 @@ CreditsText_Tutorials:
 CreditsText_Pret1:
 	db -7, "THANK YOU TO THE@"
 CreditsText_Pret2:
-	db -7, "PRET TEAM FOR THE@"
+	db -8, "PRET TEAM FOR THE@"
 CreditsText_Pret3:
 	db -4, "POKEYELLOW@"
 CreditsText_Pret4:
-	db -4, "DISASSEMBLY@"
+	db -5, "DISASSEMBLY@"
 
 CreditsText_SmithPlaysPokemon:
 	db -7, "SMITHPLAYSPOKEMON@"
@@ -388,7 +455,7 @@ CreditsText_Disq:
 CreditsText_Brice:
 	db -1, "BRICE@"
 CreditsText_ReaderDragon:
-	db -5, "READER DRAGON@"
+	db -6, "READER DRAGON@"
 CreditsText_Sable:
 	db -1, "SABLE@"
 CreditsText_Soul:
@@ -443,11 +510,11 @@ CreditsText_Jaas:
 CreditsText_Longlostsoul:
 	db -4, "MADAME FROG@"
 CreditsText_GhostMissingNo:
-	db -6, "GHOST-MISSINGNO@"
+	db -7, "GHOST-MISSINGNO@"
 
 ; Porygon Sprite
 CreditsText_ZetaNull:
-	db -3, "ZETA NULL@"
+	db -4, "ZETA NULL@"
 
 ; Party Sprites
 CreditsText_Chamber:
@@ -462,3 +529,128 @@ CreditsText_Neslug:
 	db -2, "NESLUG@"
 CreditsText_TomWang:
 	db -3, "TOM WANG@"
+
+; Pokemon Purple Yellow (1.0)
+CreditsText_TheDreigon:
+	db -4, "TheDreigon@"
+CreditsText_WithHelpFrom:
+	db -6, "WITH HELP FROM@"
+CreditsText_ClaudeCode:
+	db -5, "Claude Code@"
+CreditsText_PyBattle:
+	db -9, "BATTLE ENGINE AND AI@"
+CreditsText_PyBattle2:
+	db -7, "FIXES AND REWORK@"
+CreditsText_PyBattle3:
+	db -8, "CRITICAL HITS AND@"
+CreditsText_PyBattle4:
+	db -7, "CATCHING REBUILT@"
+CreditsText_PyMoves:
+	db -6, "EVERY MOVE AND@"
+CreditsText_PyMoves2:
+	db -7, "EVERY ANIMATION@"
+CreditsText_PyMoves3:
+	db -6, "NEW MOVES AND@"
+CreditsText_PyMoves4:
+	db -7, "NEW MOVE EFFECTS@"
+CreditsText_PyTypes:
+	db -7, "NEW TYPE SYSTEM@"
+CreditsText_PyTypes2:
+	db -8, "REALISTIC MATCHUPS@"
+CreditsText_PyTypes3:
+	db -8, "SPECIAL SPLIT INTO@"
+CreditsText_PyTypes4:
+	db -8, "SP.ATK AND SP.DEF@"
+CreditsText_PyStats:
+	db -7, "ALL BASE STATS,@"
+CreditsText_PyStats2:
+	db -9, "LEARNSETS, TYPINGS,@"
+CreditsText_PyStats3:
+	db -6, "EXP CURVES AND@"
+CreditsText_PyStats4:
+	db -6, "#DEX PAGES@"
+CreditsText_PySprites:
+	db -9, "#MON SPRITES AND@"
+CreditsText_PySprites2:
+	db -7, "PALETTES REVISED@"
+CreditsText_PyMap:
+	db -7, "TOWNS AND ROUTES@"
+CreditsText_PyMap2:
+	db -7, "REDESIGNED, NEW@"
+CreditsText_PyMap3:
+	db -9, "MAPS, WILD #MON,@"
+CreditsText_PyMap4:
+	db -7, "ITEMS AND MARTS@"
+CreditsText_PyTrainers:
+	db -8, "GYMS AND LEADERS,@"
+CreditsText_PyTrainers2:
+	db -8, "RIVAL AND BOSSES,@"
+CreditsText_PyTrainers3:
+	db -8, "EVERY TRAINER AND@"
+CreditsText_PyTrainers4:
+	db -5, "CANON CHECKS@"
+CreditsText_PyMore:
+	db -9, "THE HARD DIFFICULTY@"
+CreditsText_PyMore2:
+	db -6, "REWORKED, THE@"
+CreditsText_PyMore3:
+	db -7, "PARTNER PIKACHU,@"
+CreditsText_PyMore4:
+	db -9, "MUSIC AND MUCH MORE@"
+CreditsText_Thanks:
+	db -6, "WITH RESPECT,@"
+CreditsText_Thanks2:
+	db -7, "ADMIRATION, AND@"
+CreditsText_Thanks3:
+	db -8, "THANKS FOR ALL THE@"
+CreditsText_Thanks4:
+	db -5, "WORK DONE IN@"
+CreditsText_YellowLegacy:
+	db -6, "YELLOW LEGACY@"
+CreditsText_KEP:
+	db -9, "KANTO EXPANSION PAK@"
+CreditsText_ExtremeYellow:
+	db -6, "EXTREME YELLOW@"
+CreditsText_Shin:
+	db -5, "SHIN #MON@"
+CreditsText_PureRGB:
+	db -3, "PureRGB@"
+CreditsText_Yume:
+	db -5, "#MON YUME@"
+CreditsText_Solus:
+	db -4, "SOLUS RGB@"
+CreditsText_RedPlusPlus:
+	db -2, "RED++@"
+CreditsText_Gold97:
+	db -7, "GOLD & SILVER 97@"
+CreditsText_Gold97_2:
+	db -3, "REFORGED@"
+CreditsText_RedStarBlueStar:
+	db -6, "RED★ AND BLUE★@"
+CreditsText_Originals:
+	db -8, "AND THE ORIGINALS@"
+CreditsText_RGB:
+	db -6, "RED GREEN BLUE@"
+CreditsText_Yellow:
+	db -2, "YELLOW@"
+CreditsText_GSC:
+	db -9, "GOLD SILVER CRYSTAL@"
+CreditsText_DevelopedUsing:
+	db -7, "DEVELOPED USING@"
+CreditsText_AsTheBase:
+	db -5, "AS THE BASE@"
+CreditsText_YLArtists:
+	db -7, "ZUPERZACH  ISONA@"
+CreditsText_YLArtists2:
+	db -8, "KARLOS  ALAKADOOF@"
+CreditsText_YLArtists3:
+	db -9, "MADAME FROG  CHAMBER@"
+CreditsText_YLArtists4:
+	db -6, "SOLOO993  LAKE@"
+CreditsText_YLArtists5:
+	db -7, "NESLUG  TOM WANG@"
+
+; vanilla's opener of Game Freak's credits (pret pokeyellow), in front of them again
+CreditsText_YellowVersion:
+	db -6, "YELLOW VERSION"
+	next   "    STAFF@"

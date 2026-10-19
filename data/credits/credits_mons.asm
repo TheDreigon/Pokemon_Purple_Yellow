@@ -1,20 +1,20 @@
 CreditsMons:
 ; one entry per CRED_TEXT_MON or CRED_TEXT_FADE_MON in CreditsOrder
 	db PIKACHU
-	db STARMIE
-	db ARCANINE
-	db MACHAMP
 
-	db EEVEE
-	db FLAREON
-	db BULBASAUR
-	db ALAKAZAM
-	db VULPIX
-	db PORYGON
-	db CHARIZARD
+	; Pokemon Purple Yellow's screens: the final boss DREIGON's party, in its order
+	; (data/trainers/parties.asm, ForteData)
+	db BEEDRILL
+	db HITMONLEE
+	db MAGMAR
+	db GOLEM
+	db GYARADOS
+	db NIDOKING
+
+	; pret's screen
 	db RAICHU
 
-	db VENUSAUR ; original
+	db VENUSAUR ; original (vanilla's first screen, in front of Game Freak's credits)
 	db ARBOK
 	db RHYHORN
 	db FEAROW

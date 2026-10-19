@@ -344,6 +344,10 @@
 	                  ; takes $c0-$c8, the trainer card $c0-$c5 and $d6-$df); the kana
 	                  ; alias above is kept because it decodes first and no string in the
 	                  ; tree uses it.
+	charmap "★",  $d2 ; 1.0: the star of the credits' "RED★ AND BLUE★", for the credits only:
+	                  ; the font has no star ($d2 is one of its blank tiles and never a
+	                  ; vChars1 load destination, as $d1 above). Named before its kana so
+	                  ; that it decodes first.
 	charmap "め", $d2
 	charmap "も", $d3
 	charmap "や", $d4
