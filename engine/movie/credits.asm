@@ -31,7 +31,7 @@ HallOfFamePC:
 	ld c, BANK(Music_Credits)
 	ld a, MUSIC_CREDITS
 	call PlayMusic
-	ld c, 128
+	ld c, 75 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla
 	call DelayFrames
 	xor a
 	ld [wHoFMonSpecies], a
