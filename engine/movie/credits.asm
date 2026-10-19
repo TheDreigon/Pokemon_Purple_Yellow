@@ -137,6 +137,19 @@ CreditsCopyTileMapToVRAM:
 
 CreditsLoadFont:
 	call LoadFontTilePatterns
+; the credits' own digits, "+" and star, drawn like the font's letters (1-pixel strokes, 7 rows): the
+; font's digits and "+" are the HUD's heavier ones, and it has no star. Only this copy in VRAM changes,
+; until the next font load
+	ld hl, CreditsDigitsGfx
+	ld de, vFont tile ("0" - $80)
+	ld bc, 10 * LEN_1BPP_TILE
+	ld a, BANK(CreditsDigitsGfx)
+	call FarCopyDataDouble
+	ld hl, CreditsPlusGfx
+	ld de, vFont tile ("+" - $80)
+	ld bc, 2 * LEN_1BPP_TILE ; the "+" and the star
+	ld a, BANK(CreditsPlusGfx)
+	call FarCopyDataDouble
 	ld hl, vChars1
 	ld bc,  ($80 tiles) / 2
 	call ZeroMemory
@@ -320,3 +333,106 @@ INCLUDE "data/credits/credits_text.asm"
 TheEndGfx:
 	INCBIN "gfx/credits/the_end.2bpp"
 TheEndGfxEnd:
+
+CreditsDigitsGfx: ; 1bpp, "0" to "9", the letters' 1-pixel strokes and 7 rows
+	db %01111100
+	db %10000010
+	db %10000010
+	db %10000010
+	db %10000010
+	db %10000010
+	db %01111100
+	db %00000000
+	db %00010000
+	db %00110000
+	db %00010000
+	db %00010000
+	db %00010000
+	db %00010000
+	db %00111000
+	db %00000000
+	db %01111100
+	db %10000010
+	db %00000010
+	db %00111100
+	db %01000000
+	db %10000000
+	db %11111110
+	db %00000000
+	db %01111100
+	db %10000010
+	db %00000010
+	db %00111100
+	db %00000010
+	db %10000010
+	db %01111100
+	db %00000000
+	db %00001000
+	db %00011000
+	db %00101000
+	db %01001000
+	db %11111110
+	db %00001000
+	db %00001000
+	db %00000000
+	db %11111110
+	db %10000000
+	db %11111100
+	db %00000010
+	db %00000010
+	db %10000010
+	db %01111100
+	db %00000000
+	db %00111100
+	db %01000000
+	db %10000000
+	db %11111100
+	db %10000010
+	db %10000010
+	db %01111100
+	db %00000000
+	db %11111110
+	db %10000010
+	db %00000100
+	db %00001000
+	db %00010000
+	db %00010000
+	db %00010000
+	db %00000000
+	db %01111100
+	db %10000010
+	db %10000010
+	db %01111100
+	db %10000010
+	db %10000010
+	db %01111100
+	db %00000000
+	db %01111100
+	db %10000010
+	db %10000010
+	db %01111110
+	db %00000010
+	db %00000100
+	db %01111000
+	db %00000000
+
+CreditsPlusGfx: ; 1bpp, "+", then the star: two tiles in a row, as their codes are
+	db %00000000
+	db %00010000
+	db %00010000
+	db %01111100
+	db %00010000
+	db %00010000
+	db %00000000
+	db %00000000
+
+CreditsStarGfx: ; 1bpp, the star of "RED★ AND BLUE★" (the charmap's "★")
+	db %00010000
+	db %00010000
+	db %11111110
+	db %01111100
+	db %00111000
+	db %01101100
+	db %01000100
+	db %00000000
+	ASSERT "★" == "+" + 1 && CreditsStarGfx - CreditsPlusGfx == LEN_1BPP_TILE, "two tiles in a row"
