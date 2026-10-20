@@ -25,7 +25,9 @@ HallOfFamePC:
 	call UpdateGBCPal_BGP
 	call EnableLCD
 	call StopAllMusic
-	ld hl, vBGMap1
+; vBGMap1's columns 12-31 get the bars and the white: column 20 is the one the copyright screen scrolls into view
+; (Credits.showCopyrightText); columns 0-19 are written by DisplayCreditsMon before vBGMap1 is ever shown
+	ld hl, vBGMap1 + 12
 	call CreditsCopyTileMapToVRAM
 	ld hl, vBGMap0
 	call CreditsCopyTileMapToVRAM
@@ -84,7 +86,8 @@ DisplayCreditsMon:
 	res 3, [hl]
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
-	ld b, 0
+	ldh a, [hSCX] ; 0, or the copyright screen's 4: the slide goes on from where the screen stands
+	ld b, a
 	ld c, 10
 	call ScrollCreditsMonLeft
 	call FillLeftHalfOfScreenWithWhite
@@ -251,6 +254,18 @@ Credits: ; Roll credits
 	jr .nextCreditsCommand
 
 .showCopyrightText
+; LoadCopyrightTiles' picture (columns 2-18, the boot screen's too) sits 4 pixels right of centre: this screen shows
+; vBGMap1 scrolled 4 pixels left, and its silhouette's slide starts from there (DisplayCreditsMon). The column that
+; comes into view is vBGMap1's 20, bars and white since HallOfFamePC (vBGMap0's still holds the last silhouette's
+; left column). Until the transfer reaches it, vBGMap1 shows the last screen's text: colour 2, white under this BGP
+	ld hl, rLCDC
+	set 3, [hl] ; the BG map at vBGMap1
+	ld a, 4
+	ldh [hSCX], a
+	ld a, LOW(vBGMap1)
+	ldh [hAutoBGTransferDest], a
+	ld a, HIGH(vBGMap1)
+	ldh [hAutoBGTransferDest + 1], a
 	farcall LoadCopyrightTiles
 	pop de
 	jr .nextCreditsCommand
