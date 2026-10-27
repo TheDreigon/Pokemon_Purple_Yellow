@@ -203,7 +203,7 @@ BeedrillPicBack::     INCBIN "gfx/pokemon/back/beedrillb.pic"
 
 ; v0.7 (2026-08-31): the SECOND Pikachu front pic - the G/S Silver
 ; import - shown by every Pikachu that is NOT the partner (the ones caught
-; in the wild, which can evolve). Same 5x5 dims as the Yellow pic, so only
+; in the wild, which can evolve). Same dims as the Yellow pic (both 6x6), so only
 ; the pointer and bank get swapped (UseFakePikachuFrontPic in
 ; engine/pikachu/pikachu_status.asm). No back pic: only the player's own
 ; mon shows a back, and the fake's status/battle appearances are fronts.

@@ -156,7 +156,7 @@ UseFakePikachuFrontPic::
 ; instead. Call after GetMonHeader (or LoadMonData) and before the
 ; front pic load: if the loaded header is Pikachu's, repoint
 ; wMonHeader's front pointer and pic bank at PikachuFakePicFront. Both
-; pics are 5x5, so the dim byte needs no touch. The header is a scratch
+; pics have the same dims (6x6), so the dim byte needs no touch. The header is a scratch
 ; copy - the next GetMonHeader rebuilds it from base stats.
 ;
 ; This entry is UNCONDITIONAL on purpose: it serves the battle-enemy
