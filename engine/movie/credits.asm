@@ -34,7 +34,8 @@ HallOfFamePC:
 	ld c, BANK(Music_Credits)
 	ld a, MUSIC_CREDITS
 	call PlayMusic
-	ld c, 75 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla
+	ld c, 26 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla. The roll's pics load in it, so a change
+	         ; to the sprites moves THE END: emu_test_credits_sync and emu_test_credits_copyright L6 measure it
 	call DelayFrames
 	xor a
 	ld [wHoFMonSpecies], a
