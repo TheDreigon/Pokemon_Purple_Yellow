@@ -1226,6 +1226,27 @@ AIMoveChoiceModification5:
 	ld a, [wPlayerBattleStatus1]
 	bit INVULNERABLE, a ; the player is up in the air / underground
 	jr z, .playerVisible
+; v1.0 (2026-11-01): a move that reaches the hidden player is worth -1, as a person would
+; pick it. Not the two-turn ones among them: they only go up or down this turn.
+	ld a, [wEnemyMoveEffect]
+	cp FLY_EFFECT
+	jr z, .cannotReach
+	cp CHARGE_EFFECT
+	jr z, .cannotReach
+	push hl
+	push de
+	push bc
+	ld a, [wPlayerMoveEffect] ; what hid the player
+	ld c, a
+	ld a, [wEnemyMoveNum]
+	call MoveReachesHiddenMon
+	pop bc
+	pop de
+	pop hl
+	jr nc, .cannotReach
+	dec [hl]
+	jp .nextMove
+.cannotReach
 	call AIGetMovePriorityWrapped
 	cp 8
 	jp c, .nextMove

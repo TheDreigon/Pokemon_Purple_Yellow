@@ -2246,11 +2246,16 @@ AnimationHideEnemyMonPic:
 
 Func_79929:
 	ld hl, wPlayerMonMinimized
+	ld de, wPlayerBattleStatus1
 	ldh a, [hWhoseTurn]
 	and a
 	jr z, .playerTurn
 	ld hl, wEnemyMonMinimized
+	ld de, wEnemyBattleStatus1
 .playerTurn
+	ld a, [de]
+	bit INVULNERABLE, a
+	jr nz, .ownerHidden
 	ld a, [hl]
 	and a
 	jr z, .notMinimized
@@ -2260,6 +2265,18 @@ Func_79929:
 	call AnimationFlashMonPic
 	call AnimationShowMonPic
 	ret
+.ownerHidden
+; v1.0 (2026-11-01): a move that reaches a hidden #MON broke its doll, which ChargeEffect
+; had put back on screen. The doll goes and nothing replaces it: the owner's own sprite
+; returns to VRAM for its attack to show, and the tile map stays blank.
+	ld a, [hl]
+	and a
+	jr nz, .minimizedOwner
+	call AnimationFlashMonPic
+	jp AnimationHideMonPic
+.minimizedOwner
+	call AnimationMinimizeMon
+	jp AnimationHideMonPic
 
 InitMultipleObjectsOAM:
 ; Writes c OAM entries with tile d.

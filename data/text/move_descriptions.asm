@@ -290,10 +290,17 @@ _MoveDesc_Trapping::
 	done
 
 _MoveDesc_Fly::
-	text "Rises out of"
-	next "reach, then"
+	text "Rises high, then"
 	next "strikes on the"
-	next "next turn."
+	next "next turn. Few"
+	next "moves reach it."
+	done
+
+_MoveDesc_Dig::
+	text "Digs in, then"
+	next "strikes on the"
+	next "next turn. Few"
+	next "moves reach it."
 	done
 
 _MoveDesc_AttackTwice::

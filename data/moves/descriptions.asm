@@ -57,6 +57,9 @@ MoveDescriptionOverrides:
 ; too, being status moves. NUZZLE keeps the shared PARALYZE_SIDE_EFFECT3 line.
 	db MIND_BREAK,
 	dw MoveDesc_MindBreak
+; DIG shares CHARGE_EFFECT with SOLARBEAM and MOONBLAST, which do not hide.
+	db DIG,
+	dw MoveDesc_Dig
 	db -1
 
 ; One entry per move effect, indexed by effect id. Must stay in constant order
@@ -340,6 +343,10 @@ MoveDesc_FlinchSide2:
 
 MoveDesc_Fly:
 	text_far _MoveDesc_Fly
+	text_end
+
+MoveDesc_Dig:
+	text_far _MoveDesc_Dig
 	text_end
 
 MoveDesc_FocusEnergy:

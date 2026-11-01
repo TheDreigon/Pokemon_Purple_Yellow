@@ -57,7 +57,9 @@ MoveHitTest:
 ; FLY/DIG. Vanilla returned here, before the INVULNERABLE check, so it hit a
 ; mon up in the air or underground; from Gen 2 on it does not, and it made
 ; no sense (AERIAL ACE into a hole). The check moved below the INVULNERABLE
-; and type-immunity gates.
+; and type-immunity gates. v1.0 (2026-11-01): the one exception is the short
+; list of moves that reach a hidden #MON (home/hidden_mon.asm), AERIAL ACE among
+; them against FLY, never against DIG.
 	call CheckTargetSubstitute ; substitute check (note that this overwrites a)
 	jr z, .checkForDigOrFlyStatus
 	ld a, [de]
@@ -67,7 +69,22 @@ MoveHitTest:
 	jp z, .moveMissed
 .checkForDigOrFlyStatus
 	bit INVULNERABLE, [hl]
-	jp nz, .moveMissed
+	jr z, .targetInSight
+	push de ; the rest of the test reads the attacker's effect through it
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyMoveEffect] ; what hid the target
+	ld c, a
+	ld a, [wPlayerMoveNum]
+	jr z, .gotMoves
+	ld a, [wPlayerMoveEffect]
+	ld c, a
+	ld a, [wEnemyMoveNum]
+.gotMoves
+	call MoveReachesHiddenMon
+	pop de
+	jp nc, .moveMissed
+.targetInSight
 ; v1.0 (2026-09-24): the damage calc already failed this move on type - an
 ; immunity (WRAP vs a GHOST) or the "not even a scratch" collapse - and
 ; ApplyTypeEffectivenessToDamage only writes the reason code (v1.0 R9c: the

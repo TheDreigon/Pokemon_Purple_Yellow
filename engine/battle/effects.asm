@@ -328,6 +328,8 @@ FreezeBurnParalyzeEffect:
 	and $3
 	add 3
 	ld [wEnemyFreezeCounter], a
+	ld hl, wEnemyBattleStatus1
+	call FrozenMonLeavesHiding
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	ld hl, FrozenText
@@ -437,6 +439,8 @@ FreezeBurnParalyzeEffect:
 	and $3
 	add 3
 	ld [wPlayerFreezeCounter], a
+	ld hl, wPlayerBattleStatus1
+	call FrozenMonLeavesHiding
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
 	ld hl, FrozenText
@@ -1016,7 +1020,8 @@ StatModifierDownEffect:
 ; MIST / GUARD SPEC shields the stat, silently - the damage stays (T17's rule for the 33
 ; percent drops above; MoveHitTest's MIST test covers power-0 moves only). A SUBSTITUTE that
 ; took the hit failed the test above (silent: the core set wMoveDidntMiss), one that broke
-; zeroed the effect (AttackSubstitute), and FLY / DIG made the hit itself miss.
+; zeroed the effect (AttackSubstitute), and FLY / DIG made the hit itself miss unless the
+; move reaches a hidden #MON (home/hidden_mon.asm): then the drop lands like any other.
 ; In: bc = the DEFENDER's w*BattleStatus1.
 .dropAfterHit
 	inc bc
@@ -1677,6 +1682,18 @@ HyperBeamEffect:
 	ld hl, wEnemyBattleStatus2
 .hyperBeamEffect
 	set NEEDS_TO_RECHARGE, [hl] ; mon now needs to recharge
+	ret
+
+; v1.0 (2026-11-01): BLIZZARD reaches a #MON hidden by FLY, and a freeze lasts turns. Left
+; hidden, it could only be hit by the few moves that reach it until it thawed, and it would
+; still owe its attack. It comes out of hiding instead: the attack is lost and its sprite returns.
+; In: hl = the frozen #MON's w*BattleStatus1. hWhoseTurn names the attacker.
+FrozenMonLeavesHiding:
+	bit INVULNERABLE, [hl]
+	ret z
+	res INVULNERABLE, [hl]
+	res CHARGING_UP, [hl]
+	callfar AnimationShowEnemyMonPic
 	ret
 
 ClearHyperBeam:
