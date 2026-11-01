@@ -2219,6 +2219,12 @@ ItemUseRepelCommon:
 	ld a, [wIsInBattle]
 	and a
 	jp nz, ItemUseNotTime
+; v1.0 (2026-11-01): writing over a running Repel threw away its remaining steps
+; whatever the two kinds were, so no spray is used while one is running, and the
+; item is kept.
+	ld a, [wRepelRemainingSteps]
+	and a
+	jp nz, RepelStillRunning
 	ld a, [wcf91] ; REPEL / SUPER_REPEL / MAX_REPEL
 	ld [wRepelType], a
 	ld a, b

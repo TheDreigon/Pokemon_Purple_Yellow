@@ -1829,9 +1829,25 @@ wSavedTileAnimations:: db
 
 wDamage:: dw
 
-wRepelType:: db
-wRepelTypeSteps:: db
-wRepelRemainingSteps:: db
+; v0.7 (#37): the POKeMART's "IN BAG" counter. v1.0 (2026-11-01): these three bytes
+; only matter while a list menu is open, so they traded places with the Repel bytes,
+; which have to be saved (see wRepelType): no new WRAM, and the save layout is byte
+; for byte what it was.
+;
+; wPrevMenuItem is where the list-menu cursor was before HandleMenuInput ran.
+; The buy list is the one list menu that watches Up and Down, so it returns from
+; HandleMenuInput_ with the cursor ALREADY moved; comparing against this is how
+; DisplayListMenuIDLoop tells "moved inside the window, just redraw" from
+; "pressed against the edge, scroll". Every other list menu only ever returns at
+; an edge, where the two are equal, so nothing else changes behaviour.
+wPrevMenuItem:: db
+; set by the mart around its buy list and cleared the moment it ends, so the
+; counter cannot appear on the CELADON MART information desk, which uses the
+; same PRICEDITEMLISTMENU to put prices beside names but is not a purchase.
+wMartShowInBag:: db
+; how many of the item under the cursor are in the bag; PrintNumber needs an
+; address, not a register.
+wMartInBagCount:: db
 
 ; list of moves for FormatMovesString
 wMoves:: ds NUM_MOVES
@@ -2612,23 +2628,16 @@ wRivalEeveelution:: db
 wEscapeWarpMap:: db
 wEscapeWarpID:: db
 
-; v0.7 (#37): the POKeMART's "IN BAG" counter, three more bytes out of the same
-; reserved hole, so it costs no WRAM either.
-;
-; wPrevMenuItem is where the list-menu cursor was before HandleMenuInput ran.
-; The buy list is the one list menu that watches Up and Down, so it returns from
-; HandleMenuInput_ with the cursor ALREADY moved; comparing against this is how
-; DisplayListMenuIDLoop tells "moved inside the window, just redraw" from
-; "pressed against the edge, scroll". Every other list menu only ever returns at
-; an edge, where the two are equal, so nothing else changes behaviour.
-wPrevMenuItem:: db
-; set by the mart around its buy list and cleared the moment it ends, so the
-; counter cannot appear on the CELADON MART information desk, which uses the
-; same PRICEDITEMLISTMENU to put prices beside names but is not a purchase.
-wMartShowInBag:: db
-; how many of the item under the cursor are in the bag; PrintNumber needs an
-; address, not a register.
-wMartInBagCount:: db
+; v1.0 (2026-11-01): the running Repel, in the SAVED block so that loading a game
+; keeps it. These bytes were the mart's list-menu scratch (now beside wDamage).
+; The counter sits on wMartShowInBag's old byte on purpose: the mart clears that
+; byte as its buy list ends, so a save made before this reads zero there, and zero
+; is "no Repel running". The other two hold stale menu values in such a save, and
+; nothing reads them while the counter is zero. PrepareOakSpeech's wipe clears all
+; three for a NEW GAME started after MainMenu's LoadSAV.
+wRepelType:: db
+wRepelRemainingSteps:: db
+wRepelTypeSteps:: db
 
 ; v0.7: a map script asking the next warp to not happen. ONE SHOT -- the warp
 ; check clears it the moment it honours it -- so the worst a stuck value can

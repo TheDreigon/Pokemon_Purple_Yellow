@@ -284,6 +284,22 @@ RepelWoreOffUseAnotherText::
 	text_far _RepelWoreOffUseAnotherText
 	text_end
 
+; ItemUseRepelCommon's refusal (bank3 is short of room, ROM0 is not): names the
+; Repel that is running and ends as ItemUseFailed does, so the item stays in the bag.
+RepelStillRunning::
+	ld a, [wRepelType]
+	ld [wd11e], a
+	call GetItemName
+	call CopyToStringBuffer
+	xor a
+	ld [wActionResultOrTookBattleTurn], a ; item use failed
+	ld hl, RepelStillRunningText
+	jp PrintText
+
+RepelStillRunningText::
+	text_far _RepelStillRunningText
+	text_end
+
 DisplayPikachuEmotion::
 	callfar TalkToPikachu
 	jp CloseTextDisplay

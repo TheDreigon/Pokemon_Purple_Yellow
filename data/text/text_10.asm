@@ -233,3 +233,11 @@ _CantBeRecalledText::
 	text " can't"
 	line "be recalled!"
 	prompt
+
+; v1.0 (2026-11-01): a Repel used while one is still running (home/text_script.asm
+; RepelStillRunning). Line 1 is 14 tiles at most (SUPER REPEL).
+_RepelStillRunningText::
+	text_ram wStringBuffer
+	text " is"
+	line "still in effect!"
+	prompt
