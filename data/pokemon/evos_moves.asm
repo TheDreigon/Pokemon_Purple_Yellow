@@ -849,10 +849,11 @@ NidoranFEvosMoves:
 ; (fairy gift on evolution); TOXIC_FANGS late capstone. No SCRATCH. No
 ; BULLDOZE/GROUND_STOMP/CRUNCH in shared (Queen exclusivity).
 	db  6, BITE
-	db  8, POISON_STING
-	db 10, SAND_ATTACK
-	db 12, FAIRY_WIND
-	db 14, HEADBUTT
+	db  8, SAND_ATTACK
+	db 10, POISON_STING
+	db 12, HEADBUTT
+	db 14, LOW_KICK
+	db 15, FAIRY_WIND
 	db 17, QUICK_ATTACK
 	db 21, POISON_BITE
 	db 24, BODY_SLAM
@@ -870,10 +871,11 @@ NidorinaEvosMoves:
 ; gift on evolution), TOXIC_FANGS, MUD_BOMB, TOXIC, NEUROTOXIN. No
 ; BULLDOZE/EARTHQUAKE/CRUNCH/STRENGTH (Nidoqueen-only).
 	db  6, BITE
-	db  8, POISON_STING
-	db 10, SAND_ATTACK
-	db 12, FAIRY_WIND
-	db 14, HEADBUTT
+	db  8, SAND_ATTACK
+	db 10, POISON_STING
+	db 12, HEADBUTT
+	db 14, LOW_KICK
+	db 15, FAIRY_WIND
 	db 17, QUICK_ATTACK
 	db 21, POISON_BITE
 	db 24, BODY_SLAM
@@ -892,10 +894,11 @@ NidoqueenEvosMoves:
 ; EARTHQUAKE is TM50-only, not levelup. No MEGAHORN/OUTRAGE/THRASH/
 ; GORE_ATTACK (M-only apex moves).
 	db  6, BITE
-	db  8, POISON_STING
-	db 10, SAND_ATTACK
-	db 12, FAIRY_WIND
-	db 14, HEADBUTT
+	db  8, SAND_ATTACK
+	db 10, POISON_STING
+	db 12, HEADBUTT
+	db 14, LOW_KICK
+	db 15, FAIRY_WIND
 	db 17, QUICK_ATTACK
 	db 21, POISON_BITE
 	db 24, BODY_SLAM
@@ -921,10 +924,11 @@ NidoranMEvosMoves:
 ; early; POISON_BITE/BODY_SLAM mid-tier; HORN_CHARGE late as adult-horn
 ; move; TOXIC_FANGS late capstone. No DOUBLE_KICK.
 	db  6, BITE
-	db  8, POISON_STING
-	db 10, SAND_ATTACK
-	db 12, FURY_ATTACK
-	db 14, HORN_ATTACK
+	db  8, SAND_ATTACK
+	db 10, POISON_STING
+	db 12, HORN_ATTACK
+	db 14, LOW_KICK
+	db 15, FURY_ATTACK
 	db 17, QUICK_ATTACK
 	db 21, POISON_BITE
 	db 24, BODY_SLAM
@@ -940,10 +944,11 @@ NidorinoEvosMoves:
 ; + exclusives shared with Nidoking: TAKE_DOWN, GROUND_STOMP, RAGE at L35
 ; (= evo level), FIERCE_ROAR.
 	db  6, BITE
-	db  8, POISON_STING
-	db 10, SAND_ATTACK
-	db 12, FURY_ATTACK
-	db 14, HORN_ATTACK
+	db  8, SAND_ATTACK
+	db 10, POISON_STING
+	db 12, HORN_ATTACK
+	db 14, LOW_KICK
+	db 15, FURY_ATTACK
 	db 17, QUICK_ATTACK
 	db 21, POISON_BITE
 	db 24, BODY_SLAM
@@ -964,10 +969,11 @@ NidokingEvosMoves:
 ; BRUTAL_SWING, GORE_ATTACK (high-level apex), OUTRAGE (final L65). No
 ; HORN_DRILL.
 	db  6, BITE
-	db  8, POISON_STING
-	db 10, SAND_ATTACK
-	db 12, FURY_ATTACK
-	db 14, HORN_ATTACK
+	db  8, SAND_ATTACK
+	db 10, POISON_STING
+	db 12, HORN_ATTACK
+	db 14, LOW_KICK
+	db 15, FURY_ATTACK
 	db 17, QUICK_ATTACK
 	db 21, POISON_BITE
 	db 24, BODY_SLAM
