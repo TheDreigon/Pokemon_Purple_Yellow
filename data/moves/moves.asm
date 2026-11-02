@@ -14,7 +14,7 @@ MACRO move
 		"a move of SetDamageEffects' family must be power 0 or 1"
 ENDM
 
-Moves: ; Current total = 220
+Moves: ; Current total = 222
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -251,7 +251,7 @@ Moves: ; Current total = 220
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
 
 
-	; === BIRD TYPE (50 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
+	; === BIRD TYPE (52 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
 	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; machine-mind circle (5 learners). new effect - ~30% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
@@ -310,11 +310,11 @@ Moves: ; Current total = 220
 
 	move LIGHT_SCREEN,   LIGHT_SCREEN_EFFECT,               0, BIRD,         100, 30
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
-	move PROTECT,        PROTECT_EFFECT,                    0, BIRD,         100, 10 ; new move (2026-11-02). new effect. priority move.
+	move PROTECT,        PROTECT_EFFECT,                    0, BIRD,         100, 10 ; new effect. priority move.
 
 	move BIDE,           BIDE_EFFECT,                       0, BIRD,         100, 20
 	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30 ; also raises user Accuracy +1 (on top of the x3 crit boost)
-	move LOCK_ON,        LOCK_ON_EFFECT,                    0, BIRD,         100,  5 ; new move (2026-11-02). new effect.
+	move LOCK_ON,        LOCK_ON_EFFECT,                    0, BIRD,         100,  5 ; new effect.
 	move MIMIC,          MIMIC_EFFECT,                      0, BIRD,         100, 15
 	move MIRROR_MOVE,    MIRROR_MOVE_EFFECT,                0, BIRD,         100, 20
 	move SUBSTITUTE,     SUBSTITUTE_EFFECT,                 0, BIRD,         100, 15
