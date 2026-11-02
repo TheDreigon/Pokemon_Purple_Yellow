@@ -5198,13 +5198,7 @@ CalculateDamage:
 	ld a, [wEnemyMoveEffect]
 .effect
 
-; EXPLODE_EFFECT halves defense.
-	cp EXPLODE_EFFECT
-	jr nz, .ok
-	srl c
-	jr nz, .ok
-	inc c ; ...with a minimum value of 1 (used as a divisor later on)
-.ok
+; v1.0: EXPLODE_EFFECT no longer halves the defense; EXPLOSION is a plain hit that costs its user.
 
 ; Multi-hit attacks may or may not have 0 bp.
 	cp TWO_TO_FIVE_ATTACKS_EFFECT

@@ -106,10 +106,10 @@ _MoveDesc_ParalyzeSide3::
 	done
 
 _MoveDesc_Explode::
-	text "The user faints,"
-	next "but the foe's"
-	next "DEFENSE is halved"
-	next "first."
+	text "The user faints."
+	next "Never misses, no"
+	next "matter the foe's"
+	next "EVASION."
 	done
 
 _MoveDesc_DreamEater::

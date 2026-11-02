@@ -101,6 +101,8 @@ MoveHitTest:
 	ld a, [de]
 	cp SWIFT_EFFECT
 	ret z ; a never-miss move: no Mist, accuracy or evasion below this line applies
+	cp EXPLODE_EFFECT
+	ret z ; v1.0: EXPLOSION never misses either, by the same rule: a hidden target above still dodges it
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .enemyTurn
