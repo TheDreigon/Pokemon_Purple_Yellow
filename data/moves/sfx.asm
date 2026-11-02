@@ -290,7 +290,7 @@ MoveSoundTable:
 	db SFX_BATTLE_32,          $08, $40 ; SOFTBOILED
 	db SFX_BATTLE_0E,          $f0, $80 ; LIGHT_SCREEN ; tempo $10 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_0E,          $00, $80 ; REFLECT ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; same SFX as LIGHT_SCREEN with higher pitch — they're a pair, should sound related. -- MEASURED: noise +0 st; tempo byte inert (noise-only SFX); REFLECT $00 is one octave BELOW LIGHT_SCREEN $f0 on this noise-only SFX, not above -- tempo $10 -> $80 (inert: noise-only SFX; 2026-08-22)
-	db SFX_BATTLE_0E,          $80, $80 ; PROTECT ; v1.0 (2026-11-02): the screens' wall sound, between LIGHT_SCREEN's pitch and REFLECT's (tempo inert: noise-only SFX)
+	db SFX_BATTLE_0E,          $20, $80 ; PROTECT ; v1.0 (2026-11-02): vanilla BARRIER's row, with its animation ($20, $20; tempo $80 as the rest: inert, noise-only SFX)
 	db SFX_BATTLE_18,          $00, $80 ; BIDE ; tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_25,          $00, $80 ; FOCUS_ENERGY
 	db SFX_BATTLE_09,          $f8, $30 ; LOCK_ON ; v1.0 (2026-11-02): MIMIC's sound, for the same squares, a little higher and quicker

@@ -3013,11 +3013,12 @@ ReflectAnim:
 	db -1 ; end
 
 ProtectAnim:
-	; v1.0 (2026-11-02): the screens' barrier, raised once on the bright palette and sealed with a
-	; flash - a wall for this turn only, where LIGHT SCREEN and REFLECT hold theirs twice.
+	; v1.0 (2026-11-02, Forte's pick): vanilla BARRIER's animation - the barrier twice (BARRIER is not in this
+	; game) - on the light background, as he asked for both new moves. Its sound is vanilla BARRIER's row
+	; too (sfx.asm).
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
 	battle_anim PROTECT, SUBANIM_1_BARRIER, 1, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim PROTECT, SUBANIM_1_BARRIER, 1, 6
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -3039,10 +3040,12 @@ FocusEnergyAnim:
 	db -1 ; end
 
 LockOnAnim:
-	; v1.0 (2026-11-02): squares closing in on the target - MIMIC's sight, without its toss back -
-	; then a flash: the aim is taken.
-	battle_anim LOCK_ON, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 1, 6
-	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	; v1.0 (2026-11-02, Forte's pick): HARDEN's closing square, on the TARGET and slow (16 frames a step
+	; where HARDEN takes 6) - the aim tightening on it - on the light background throughout (HARDEN's dark
+	; flash at the end left out: he asked for the light background on both new moves).
+	battle_anim LOCK_ON, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_CLOSING_ENEMY, 1, 16
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 MimicAnim:

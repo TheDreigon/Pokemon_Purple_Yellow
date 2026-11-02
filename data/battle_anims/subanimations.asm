@@ -87,6 +87,7 @@ SubanimationPointers:
 	dw Subanim_0SafariBait
 	dw Subanim_0StarHigh
 	dw Subanim_0StarAscending
+	dw Subanim_0Circle_1Square_ClosingEnemy
 	assert_table_length NUM_SUBANIMS
 
 ; format:
@@ -847,6 +848,15 @@ Subanim_1LeavesToss:
 
 Subanim_0Circle_1Square_Closing:
 	subanim SUBANIMTYPE_ENEMY, 3
+	db FRAMEBLOCK_6A, BASECOORD_07, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_6B, BASECOORD_0F, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_6C, BASECOORD_17, FRAMEBLOCKMODE_00
+
+; 2026-11-02: LOCK-ON's sight - the closing square above (HARDEN's), drawn on the TARGET. The same three
+; frames and base coords (the enemy's spot); HFLIP for ENEMY swaps the sides: no transform on the
+; player's turn (on the enemy), the flip on the enemy's turn (on the player), as CenteringEnemy does.
+Subanim_0Circle_1Square_ClosingEnemy:
+	subanim SUBANIMTYPE_HFLIP, 3
 	db FRAMEBLOCK_6A, BASECOORD_07, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_6B, BASECOORD_0F, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_6C, BASECOORD_17, FRAMEBLOCKMODE_00
