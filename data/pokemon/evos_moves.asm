@@ -2103,6 +2103,7 @@ GolemEvosMoves:
 	db 53, ROCK_SLIDE
 	db 56, DOUBLE_EDGE
 	db 60, IRON_DEFENSE
+	db 65, EXPLOSION
 	db 0
 
 PonytaEvosMoves:
@@ -3775,6 +3776,7 @@ PorygonEvosMoves:
 	db 60, PSYCHIC_M
 	db 62, THUNDER
 	db 65, HYPER_BEAM
+	db 70, EXPLOSION
 	db 0
 
 OmanyteEvosMoves:
