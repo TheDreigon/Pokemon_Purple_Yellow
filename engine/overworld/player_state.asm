@@ -346,8 +346,10 @@ _GetTileAndCoordsInFrontOfPlayer:
 	lda_coord 10, 9
 	inc e
 .storeTile
-	cp $3d
-	call z, ReadTileFromVram
+; v1.0 (2026-11-02): this tileset's cut tree (CutTreeTiles; it was OVERWORLD's $3d in every tileset), read from VRAM
+; since it may have been cut already (joenote's fix of the tree that came back and blocked the player)
+	call IsCutTreeTile ; carry: a is the cut tree (keeps a, bc, de, hl)
+	call c, ReadTileFromVram
 	ld c, a
 	ld [wTileInFrontOfPlayer], a
 	ret

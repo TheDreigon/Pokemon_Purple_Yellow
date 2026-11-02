@@ -1,21 +1,15 @@
 UsedCut:
 	xor a
 	ld [wActionResultOrTookBattleTurn], a ; initialise to failure value
-	ld a, [wCurMapTileset]
-	and a ; OVERWORLD
-	jr z, .overworld
-	cp GYM
-	jr nz, .nothingToCut
-	ld a, [wTileInFrontOfPlayer]
-	cp $50 ; gym cut tree
-	jr nz, .nothingToCut
-	jr .canCut
-.overworld
-	dec a
-	ld a, [wTileInFrontOfPlayer]
-	cp $3d ; cut tree
-	jr z, .canCut
+; v1.0 (2026-11-02): the tree of this tileset (CutTreeTiles: OVERWORLD, GYM and, new, FOREST), and OVERWORLD's tall
+; grass as before
+	call IsTileInFrontCutTree ; carry: a cut tree (a = the tile)
+	jr c, .canCut
 	cp $52 ; grass
+	jr nz, .nothingToCut
+	ld a, [wCurMapTileset]
+	and a ; OVERWORLD's grass alone
+	ld a, $52 ; (ld keeps the flags)
 	jr z, .canCut
 .nothingToCut
 	ld hl, .NothingToCutText
@@ -74,6 +68,37 @@ UsedCutText:
 	text_far _UsedCutText
 	text_end
 
+; v1.0 (2026-11-02): carry when tile a is the cuttable tree of the current tileset (CutTreeTiles); keeps a, bc, de,
+; hl. IsTileInFrontCutTree asks it of the tile in front of the player (UsedCut; IsCutTile by farcall: Bankswitch's
+; `pop bc` leaves the flags). The tile reader in front of the player calls IsCutTreeTile too (player_state.asm).
+IsTileInFrontCutTree::
+	ld a, [wTileInFrontOfPlayer]
+IsCutTreeTile:
+	push hl
+	push bc
+	ld b, a ; the tile
+	ld a, [wCurMapTileset]
+	ld c, a
+	ld hl, CutTreeTiles
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .no
+	cp c
+	ld a, [hli] ; this tileset's tree tile (a load keeps the flags)
+	jr nz, .loop
+	cp b
+	jr nz, .no
+	scf
+	jr .done
+.no
+	and a ; no carry
+.done
+	ld a, b
+	pop bc
+	pop hl
+	ret
+
 InitCutAnimOAM:
 	xor a
 	ld [wWhichAnimationOffsets], a
@@ -84,6 +109,9 @@ InitCutAnimOAM:
 	cp $52
 	jr z, .grass
 ; tree
+	ld a, [wCurMapTileset]
+	cp FOREST
+	jr z, .forestTree ; v1.0 (2026-11-02): the forest's own tree, on its ground
 	ld de, Overworld_GFX tile $2d ; cuttable tree sprite top row
 	ld hl, vChars1 tile $7c
 	lb bc, BANK(Overworld_GFX), 2
@@ -91,6 +119,16 @@ InitCutAnimOAM:
 	ld de, Overworld_GFX tile $3d ; cuttable tree sprite bottom row
 	ld hl, vChars1 tile $7e
 	lb bc, BANK(Overworld_GFX), 2
+	call CopyVideoData
+	jr WriteCutOrBoulderDustAnimationOAMBlock
+.forestTree
+	ld de, Forest_GFX tile $10 ; top row ($10 $11)
+	ld hl, vChars1 tile $7c
+	lb bc, BANK(Forest_GFX), 2
+	call CopyVideoData
+	ld de, Forest_GFX tile $58 ; bottom row ($58 $59)
+	ld hl, vChars1 tile $7e
+	lb bc, BANK(Forest_GFX), 2
 	call CopyVideoData
 	jr WriteCutOrBoulderDustAnimationOAMBlock
 .grass

@@ -82,25 +82,10 @@ TryCut:
 	jr TrySurf.no2
 
 IsCutTile:
-; partial copy from UsedCut
-	ld a, [wCurMapTileset]
-	and a ; OVERWORLD
-	jr z, .overworld
-	cp GYM
-	jr nz, .no
-	ld a, [wTileInFrontOfPlayer]
-	cp $50 ; gym cut tree
-	jr nz, .no
-	jr .yes
-.overworld
-	ld a, [wTileInFrontOfPlayer]
-	cp $3d ; cut tree
-	jr nz, .no
-.yes
-	scf
-	ret
-.no
-	and a
+; carry when the tile in front of the player is a cuttable tree. v1.0 (2026-11-02): UsedCut's own rule, one table
+; for every tileset (CutTreeTiles: OVERWORLD, GYM, FOREST), in bank 3 - it was a partial copy of UsedCut (the tall
+; grass UsedCut also cuts is still not offered here). Bankswitch's `pop bc` leaves the carry.
+	farcall IsTileInFrontCutTree
 	ret
 
 HasPartyMove::
