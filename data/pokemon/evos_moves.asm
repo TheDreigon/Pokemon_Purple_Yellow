@@ -2035,7 +2035,7 @@ GeodudeEvosMoves:
 ; Learnset
 ; Basic rolling rock with arms (Rock/Ground). ROLLOUT L36 line signature.
 ; ROCK_PUNCH at evo level (it has arms). HEAD_SMASH high level. No DIG.
-; No EXPLOSION (Koffing/Voltorb/Magmar signature only).
+; No EXPLOSION (in this line, Golem only).
 	db  6, GROUND_STOMP
 	db  9, ROCK_THROW
 	db 12, SAND_ATTACK
@@ -2083,7 +2083,7 @@ GolemEvosMoves:
 ; Learnset
 ; Apex turtle-shell rock (Rock/Ground). Graveler backbone + Golem-only
 ; exclusives: IRON_DEFENSE (DEF +2), HEAVY_SLAM (apex Normal heavy frame).
-; No EXPLOSION (Koffing/Voltorb/Magmar signature only). No HORN moves (no
+; EXPLOSION apex L65 (in this line, Golem only). No HORN moves (no
 ; horn anatomy). No OUTRAGE (gentle giant under the heft).
 	db  6, GROUND_STOMP
 	db  9, ROCK_THROW
@@ -3747,7 +3747,7 @@ PorygonEvosMoves:
 ; Digital construct. Fun moves are natural levelup here (copy.exe/
 ; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L40 signature, RECOVER
 ; (file restore), MAGNET_BOMB L58 (shared signature with Magneton and Electabuzz),
-; HYPER_BEAM L65 last. No NASTY_PLOT, no TRANSFORM (Ditto), no
+; HYPER_BEAM L65, EXPLOSION L70 last. No NASTY_PLOT, no TRANSFORM (Ditto), no
 ; CONVERSION (move no longer exists).
 	db  6, HARDEN
 	db 10, DISABLE

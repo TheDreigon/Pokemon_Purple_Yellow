@@ -95,7 +95,7 @@ Moves: ; Current total = 220
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
 	move IGNITE,         BURN_EFFECT,                       0, FIRE,          95, 20
-	move EXPLOSION,      EXPLODE_EFFECT,                  250, FIRE,         100,  5 ; kamikaze pool (6 lines). high-crit.
+	move EXPLOSION,      EXPLODE_EFFECT,                  250, FIRE,         100,  5 ; kamikaze pool (8 lines). high-crit.
 
 
 	; === FLYING TYPE (8 moves) ===
