@@ -235,6 +235,11 @@ GetPal_Overworld:
 	jr .town
 .caveOrBruno
 	ld a, [wCurMap]
+	cp CERULEAN_CAVE_2F
+	jr c, .notCeruleanCave
+	cp CERULEAN_CAVE_1F + 1
+	jr c, .ceruleanCave
+.notCeruleanCave
 	cp SEAFOAM_ISLANDS_1F
 	jr z, .SeafoamIslands
 	cp SEAFOAM_ISLANDS_B1F
@@ -249,6 +254,9 @@ GetPal_Overworld:
 	jr .town
 .SeafoamIslands
 	ld a, PAL_CYANMON - 1
+	jr .town
+.ceruleanCave
+	ld a, PAL_CERULEAN_CAVE - 1
 	jr .town
 .Lorelei
 	xor a

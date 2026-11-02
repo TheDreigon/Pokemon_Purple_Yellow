@@ -55,7 +55,8 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_TOWNMAP              ; $0C
 	const PAL_LOGO1                ; $0D
 	const PAL_LOGO2                ; $0E
-	const PAL_0F                   ; $0F
+	const PAL_CERULEAN_CAVE        ; $0F - a purple that recalls who lives at the bottom. It took the place of vanilla's
+	                               ;       PAL_0F, which nothing used, so that no id moved and no row was added.
 	const PAL_MEWMON               ; $10
 	const PAL_BLUEMON              ; $11
 	const PAL_ORANGEMON               ; $12 — era PAL_REDMON. O claro dele
