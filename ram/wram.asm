@@ -2146,7 +2146,8 @@ wMapMusicSoundID:: db
 wMapMusicROMBank:: db
 
 ; offset subtracted from FadePal4 to get the background and object palettes for the current map
-; normally, it is 0. it is 6 when Flash is needed, causing FadePal2 to be used instead of FadePal4
+; normally, it is 0. on a dark cave floor it is DARKNESS_DIM or DARKNESS_DARK, causing FadePal3 or FadePal2
+; to be used instead of FadePal4: SetMapDarkness sets it on every map entry
 wMapPalOffset:: db
 
 wCurMap:: db

@@ -11,6 +11,10 @@ DEF PALETTE_SIZE EQU NUM_PAL_COLORS * PAL_COLOR_SIZE
 
 DEF NUM_ACTIVE_PALS EQU 4
 
+; wMapPalOffset: how many bytes before FadePal4 LoadGBPal reads a map's palettes (home/fade.asm)
+DEF DARKNESS_DIM  EQU 3 ; FadePal3: darker, and everything still reads
+DEF DARKNESS_DARK EQU 6 ; FadePal2: the player and the boulders vanish into the floor
+
 ; pal/blk packets
 ; SetPalFunctions indexes (see engine/gfx/palettes.asm)
 	const_def

@@ -964,6 +964,10 @@ DEF REMATCH_COOLDOWN_EVENTS_END EQU const_value - 1
 	const EVENT_USED_PURPLES_PATCH
 	const EVENT_USED_PURPLES_CHAMPION_PATCH
 
+; v1.0 (2026-11-02): FLASH lit the cave the player is in, every floor of it, until they
+; leave it. Saved, so the light outlives a reset. See SetMapDarkness.
+	const EVENT_FLASH_LIT_CAVE
+
 ; End of events
 ; v0.7 (2026-08-29): the ceiling grew $A00 -> $A80 -- the gym-guide water
 ; flags had filled the old space to the last slot. This adds 16 bytes of

@@ -288,6 +288,13 @@ StartMenu_Pokemon::
 	jp z, .newBadgeRequired
 	xor a
 	ld [wMapPalOffset], a
+; v1.0 (2026-11-02): the light stays for every floor of this cave (SetMapDarkness). Out of a
+; cave there is nothing to light, and the mark would carry into the next cave entered.
+	ld a, [wCurMapTileset]
+	cp CAVERN
+	jr nz, .flashNotInCave
+	SetEvent EVENT_FLASH_LIT_CAVE
+.flashNotInCave
 	ld hl, .flashLightsAreaText
 	call PrintText
 	call GBPalWhiteOutWithDelay3

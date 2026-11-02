@@ -4,6 +4,7 @@ EnterMap::
 	ld [wJoyIgnore], a
 	call LoadMapData
 	farcall ClearVariablesOnEnterMap
+	farcall SetMapDarkness
 	ld hl, wd72c
 	bit 0, [hl] ; has the player already made 3 steps since the last battle?
 	jr z, .skipGivingThreeStepsOfNoRandomBattles
@@ -545,12 +546,6 @@ WarpFound2::
 ; bytes left, so it paid for the six lines above.)
 	ldh a, [hWarpDestinationMap]
 	ld [wCurMap], a
-	cp ROCK_TUNNEL_1F
-	jr nz, .notRockTunnel
-	ld a, $06
-	ld [wMapPalOffset], a
-	call GBFadeOutToBlack
-.notRockTunnel
 	callfar SetPikachuSpawnOutside
 	call PlayMapChangeSound
 	jr .done
@@ -598,10 +593,10 @@ WarpFound2::
 ;   Func_07c4 zeroes wWalkBikeSurfState -- do it early and the redraw that closes
 ;   the DIG menu paints the WALKING sprite standing on open water.
 ;   wMapPalOffset is the darkness offset; clear it early and CloseTextDisplay's
-;   LoadGBPal lights an unlit ROCK TUNNEL up for the whole spin-out animation.
+;   LoadGBPal lights an unlit cave floor up for the whole spin-out animation.
 	call Func_07c4 ; off the bike / out of the water (SEAFOAM and CERULEAN CAVE are surfable)
 	xor a
-	ld [wMapPalOffset], a ; ROCK TUNNEL leaves this at 6
+	ld [wMapPalOffset], a ; a dark floor leaves this set
 	ld a, [wEscapeWarpMap]
 	dec a ; stored as id+1, see wram.asm
 	ld [wCurMap], a
