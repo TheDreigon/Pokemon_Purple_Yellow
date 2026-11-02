@@ -1459,9 +1459,11 @@ NEXTU
 wLearnMoveMonName:: ds NAME_LENGTH
 ENDU
 
-; For the pureRGB AI enhancements (dead since v1.0 E4, 2026-09-29: nothing reads them)
-wAIMoveSpamAvoider:: db
-wAITargetMonStatus:: db
+; v1.0 (2026-11-02): two spare bytes, free for the next need of the battle (not saved; zeroed at boot). They were
+; wAIMoveSpamAvoider and wAITargetMonStatus, two of the four pureRGB AI bytes, dead since v1.0 E4 (2026-09-29:
+; nothing read them); the other two became wDefenderType3 and wDefenderAirborne below.
+wSpareBattleByte1:: db
+wSpareBattleByte2:: db
 ; v1.0 (2026-11-02): the defender's traits for the chart walks (type_effectiveness.asm), from its species
 ; (SetDefenderTraits): every caller of ApplyTypeEffectivenessToDamage and AIGetTypeEffectivenessDBC sets
 ; them first. wDefenderType3: its third type, $FF for none. wDefenderAirborne: FLYING when it is AIRBORNE,
