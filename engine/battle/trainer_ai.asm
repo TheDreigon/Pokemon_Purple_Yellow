@@ -193,6 +193,8 @@ AIGetMoveChoiceList:
 ; v1.0 (R10c, 2026-10-01): and of those stopped moves, the two that also hurt their user - THRASH (locked in for 2-3
 ; more turns of "It doesn't affect", then confused) and EXPLOSION (the user faints, hit or miss) - rank after every
 ; other useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
+; v1.0 (2026-11-02): and a stat move a LOCK-ON leaves nothing to change - every stat it touches refused or one a lock
+; makes moot (an EVASION or ACCURACY stage the locked side's moves never roll against) - is +5 (.checkLockMoot).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -316,7 +318,7 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 .checkRaise
 	call AIEnemyRaiseRefused ; carry: every stat it raises is at its limit
 	call nc, AIPlayerLowerRefused ; v1.0 (E2): carry: nothing it lowers would fall
-	jp nc, .nextMove
+	jp nc, .checkLockMoot ; v1.0 (2026-11-02): or nothing a lock leaves it to change
 .useless
 	jp .uselessUnlessCopy ; v1.0 (R10a): the score is written there, after MIRROR MOVE's test - this 3-byte
 	; jp, in place of the 4-byte score, keeps the tightest span of the bank (the dispatch's jr's) from growing
@@ -510,6 +512,34 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	cp MIRROR_MOVE
 	jr z, .copyDiscourage ; MirrorMoveCopyMove fails a copied MIRROR MOVE (and judging it would never end)
 	jp .readAndJudge ; a = the copy
+.checkLockMoot
+; v1.0 (2026-11-02): a LOCK-ON makes a stage moot while it holds - the locked side's moves skip the accuracy
+; roll (MoveHitTest): the trainer's own lock its ACCURACY and the player's EVASION, the player's lock (on screen:
+; "took aim") the trainer's EVASION and the player's ACCURACY. A stat move whose every stat is refused or moot
+; (DOUBLE TEAM against the player's lock, SAND ATTACK too, a second FOCUS ENERGY under its own) is +5, not
+; USELESS: a lock ends when either side leaves the field (SendOutMon, EnemySendOutFirstMon), and the stage may
+; outlast it. One stat it would still change (AGILITY's SPEED, FLASH's other leg) and the move is worth its turn.
+	push bc
+	ld bc, 0 ; b = the trainer's stats moot to raise, c = the player's stats moot to lower
+	ld a, [wEnemyBattleStatus2]
+	bit LOCKED_ON, a
+	jr z, .noOwnLock
+	set MOD_ACCURACY, b
+	set MOD_EVASION, c
+.noOwnLock
+	ld a, [wPlayerBattleStatus2]
+	bit LOCKED_ON, a
+	jr z, .gotMoot
+	set MOD_EVASION, b
+	set MOD_ACCURACY, c
+.gotMoot
+	ld a, b
+	call AIEnemyRaiseMooted ; carry: every stat it raises is at its limit or moot (keeps bc, de, hl)
+	ld a, c ; (ld keeps the flags)
+	call nc, AIPlayerLowerMooted ; carry: every stat it lowers is at -6 or moot (keeps bc, de, hl)
+	pop bc
+	jp c, .discourage
+	jp .nextMove
 
 
 StatusAilmentMoveEffects:
@@ -600,17 +630,26 @@ CheckStatusImmunity:
 ; (F2): layer 1 asks only when the enemy is already pumped - unpumped, the pump is never
 ; wasted. It reads the trainer's own Pokemon: its stages (every change is announced) and its
 ; stats. Keeps bc, de, hl.
+; v1.0 (2026-11-02, LOCK-ON): AIEnemyRaiseMooted is the same walk with a = the stats a lock makes moot
+; (bit n = MOD_ n), counted as refused (layer 1's .checkLockMoot); AIEnemyRaiseRefused passes none.
 AIEnemyRaiseRefused:
+	xor a ; nothing moot: the engine's refusals alone
+AIEnemyRaiseMooted:
 	push hl
 	push de
 	push bc
+	push af ; the moot stats
 	ld a, [wEnemyMoveEffect]
 	ld hl, AIRaiseEffectStats
 	ld de, 2
 	call IsInArray ; carry: listed, hl -> its row
+	pop de ; d = the moot stats (a pop keeps the flags)
 	jr nc, .done ; not a stat-up effect (carry clear)
 	inc hl
-	ld b, [hl] ; bit n: it raises stat MOD_ n; bit 7: it heals too
+	ld a, d
+	cpl
+	and [hl]
+	ld b, a ; bit n: it raises stat MOD_ n, and no lock makes it moot; bit 7: it heals too
 	bit 7, b
 	jr z, .walk
 	ld hl, wEnemyMonHP
@@ -736,17 +775,26 @@ PlayerStatMaxed::
 ; is refused too (AIEnemyStatMaxed). It reads what a trainer sees: the player's stages (every
 ; drop and the -6 refusal are announced), its SUBSTITUTE and its MIST (both announced). Keeps
 ; bc, de, hl.
+; v1.0 (2026-11-02, LOCK-ON): AIPlayerLowerMooted is the same walk with a = the player's stats a lock makes
+; moot (bit n = MOD_ n), counted as already at -6 (layer 1's .checkLockMoot); AIPlayerLowerRefused passes none.
 AIPlayerLowerRefused:
+	xor a ; nothing moot: the engine's refusals alone
+AIPlayerLowerMooted:
 	push hl
 	push de
 	push bc
+	push af ; the moot stats
 	ld a, [wEnemyMoveEffect]
 	ld hl, AILowerEffectStats
 	ld de, 2
 	call IsInArray ; carry: listed, hl -> its row, c = the effect
+	pop de ; d = the moot stats (a pop keeps the flags)
 	jr nc, .done ; not a lowering effect (carry clear)
 	inc hl
-	ld b, [hl] ; bit n: it lowers the player's stat MOD_ n; AI_LOWER_FLINCH_BIT: a flinch rolls too
+	ld a, d
+	cpl
+	and [hl]
+	ld b, a ; bit n: it lowers the player's stat MOD_ n, and no lock makes it moot; AI_LOWER_FLINCH_BIT: a flinch rolls too
 	ld a, [wPlayerBattleStatus2]
 	and (1 << HAS_SUBSTITUTE_UP) | (1 << PROTECTED_BY_MIST) ; (and clears carry)
 	jr nz, .lowerRefused ; every leg fails, the flinch too
@@ -1328,8 +1376,27 @@ AIMoveChoiceModification5:
 ; player poisoned, burned or under the trainer's LEECH SEED, and its own Pokemon free of all three, it
 ; buys a turn of that damage: -1. Otherwise it blocks a move the trainer cannot see coming, and costs
 ; the next turn's PROTECT: +5.
+; v1.0 (2026-11-02): the -3 only for a blow that comes and can touch it. Asleep or frozen, the player is taken as
+; staying down (the priority rule below takes it so too: the trainer sees the status, not the turns left), and the
+; charged move stays charged. A blow the chart stops on the trainer's own #MON - DIG (GROUND) on a FLYING, a GAS or
+; an AIRBORNE one: the walk of the damage, its third type and AIRBORNE included - needs no PROTECT. Either way the
+; rules below decide, as with no blow on its way.
 	ld a, [wPlayerBattleStatus1]
 	bit CHARGING_UP, a
+	jr z, .protectNoBlow
+	ld a, [wBattleMonStatus]
+	and (1 << FRZ) | SLP_MASK
+	jr nz, .protectNoBlow
+	push de
+	push hl
+	ld a, [wEnemyMonSpecies]
+	call SetDefenderTraits ; its third type and AIRBORNE, for the walk
+	ld hl, wEnemyMonType
+	ld a, [wPlayerMoveType] ; the charged move's (the screen named it when the charge began)
+	call AIMatchupAtHL ; a = its multiplier on the trainer's #MON, 0 = "It doesn't affect" (keeps bc, hl)
+	pop hl
+	pop de
+	and a
 	jr z, .protectNoBlow
 	dec [hl]
 	dec [hl]
@@ -1592,6 +1659,9 @@ AISumEnemyStatStages:
 ; a = the enemy's seven stage bytes (MOD_ATTACK..MOD_EVASION; 7 each when
 ; untouched, so 49) added up. The eighth byte of wEnemyMonStatMods is a pad
 ; and is not read. Keeps hl, bc.
+; v1.0 (2026-11-02): a stage a LOCK-ON makes moot counts as untouched - its ACCURACY under its own lock (its moves
+; skip the roll), its EVASION under the player's (the player's moves do). Neither is then a reason to leave nor
+; to stay: the ACCURACY drop that made it lock on does not push it out, throwing the lock away, the next turn.
 	push hl
 	push bc
 	ld hl, wEnemyMonStatMods
@@ -1602,8 +1672,24 @@ AISumEnemyStatStages:
 	inc hl
 	dec c
 	jr nz, .loop
+	ld c, a ; the sum
+	ld a, [wEnemyBattleStatus2]
+	bit LOCKED_ON, a
+	ld hl, wEnemyMonAccuracyMod ; (ld keeps the flags)
+	call nz, .untouched
+	ld a, [wPlayerBattleStatus2]
+	bit LOCKED_ON, a
+	ld hl, wEnemyMonEvasionMod
+	call nz, .untouched
+	ld a, c
 	pop bc
 	pop hl
+	ret
+.untouched ; c = the sum with the stage at hl counted as BASE_STAT_LEVEL
+	ld a, c
+	sub [hl]
+	add BASE_STAT_LEVEL
+	ld c, a
 	ret
 
 AddToBCapped:
