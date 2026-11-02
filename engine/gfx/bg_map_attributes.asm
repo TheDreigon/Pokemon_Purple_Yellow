@@ -96,10 +96,10 @@ LoadBGMapAttributes::
 	call HandlePartyHPBarAttributes
 	jr .done
 .checkIfHandlingBattle
-; the battle attributes (packet 11) point the EXP bar row at BG palette 4,
+; the battle attributes (packet 10) point the EXP bar row at BG palette 4,
 ; which nothing in the vanilla engine ever loads -- load it here so those
 ; cells are never left pointing at an uninitialized palette
-	sub 11 - 5 ; a = packet - 5 here; the battle attributes are packet 11
+	sub 10 - 5 ; a = packet - 5 here; the battle attributes are packet 10
 	call z, LoadEXPBarPalette
 .done
 	call Func_3082
@@ -117,7 +117,6 @@ BGMapAttributesPointers:
 	dw BGMapAttributes_GameFreakIntro
 	dw BGMapAttributes_TrainerCard
 	dw BGMapAttributes_PartyMenu
-	dw BGMapAttributes_NidorinoIntro
 	dw BGMapAttributes_TitleScreen
 	dw BGMapAttributes_Slots
 	dw BGMapAttributes_Pokedex

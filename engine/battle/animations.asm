@@ -2743,7 +2743,7 @@ AnimationShakeEnemyHUD:
 	ldh a, [hGBC]
 	and a
 	jr z, .notGBC
-	ld c, 13
+	ld c, 12 ; BGMapAttributes_Unknown13, its place in BGMapAttributesPointers
 	farcall LoadBGMapAttributes
 .notGBC
 
@@ -2784,7 +2784,7 @@ AnimationShakeEnemyHUD:
 	ldh a, [hGBC]
 	and a
 	jr z, .notGBC2
-	ld c, 11
+	ld c, 10 ; BGMapAttributes_Battle, its place in BGMapAttributesPointers
 	farcall LoadBGMapAttributes
 .notGBC2
 	xor a
