@@ -53,8 +53,8 @@ CureVolatileStatuses:
 	res CONFUSED, [hl]
 	inc hl ; BATTSTATUS2
 	ld a, [hl]
-	; clear USING_X_ACCURACY, PROTECTED_BY_MIST, GETTING_PUMPED, and SEEDED statuses
-	and ~((1 << USING_X_ACCURACY) | (1 << PROTECTED_BY_MIST) | (1 << GETTING_PUMPED) | (1 << SEEDED))
+	; clear LOCKED_ON (was X Accuracy's), PROTECTED_BY_MIST, GETTING_PUMPED, and SEEDED statuses
+	and ~((1 << LOCKED_ON) | (1 << PROTECTED_BY_MIST) | (1 << GETTING_PUMPED) | (1 << SEEDED))
 	ld [hli], a ; BATTSTATUS3
 	ld a, [hl]
 	and %11110000 | (1 << TRANSFORMED) ; clear Bad Poison, Reflect and Light Screen statuses

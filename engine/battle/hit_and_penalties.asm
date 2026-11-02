@@ -33,6 +33,14 @@ DamagingMoveHitTest:
 	jp ClearHyperBeam
 
 MoveHitTest:
+; v1.0 (2026-11-02): PROTECT comes before every other test. A target that protected itself this turn
+; is out of reach of every move aimed at it, and every such move comes through here: the two damage
+; paths and each handler that touches the target (BIDE's release, which skips this test, asks
+; TargetIsProtected itself). It is a miss with its own reason, MOVE_FAILED_PROTECTED: the line is said
+; once, here, and the failure printers stay silent for it; each move then does what it does on a miss
+; (EXPLOSION's user faints, HI JUMP KICK crashes, a WRAP's hold ends).
+	call TargetIsProtected
+	jp nz, .moveProtected
 ; player's turn
 	ld hl, wEnemyBattleStatus1
 	ld de, wPlayerMoveEffect
@@ -103,6 +111,8 @@ MoveHitTest:
 	ret z ; a never-miss move: no Mist, accuracy or evasion below this line applies
 	cp EXPLODE_EFFECT
 	ret z ; v1.0: EXPLOSION never misses either, by the same rule: a hidden target above still dodges it
+	cp LOCK_ON_EFFECT
+	ret z ; v1.0 (2026-11-02): nor does LOCK-ON itself, by the same rule
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .enemyTurn
@@ -144,12 +154,14 @@ MoveHitTest:
 	bit PROTECTED_BY_MIST, a ; is mon protected by mist?
 	jp nz, .moveMissed
 .skipEnemyMistCheck
-; v1.0 (F7, 2026-09-30): nothing sets USING_X_ACCURACY any more, on either side - X ACCURACY is a
-; +1 ACCURACY stage (item_effects.asm ItemUseXStat) and no trainer uses one. Both tests stay: the
-; emu tests stage the bit to force a hit, and a send-out clears it.
+; v1.0 (2026-11-02): LOCKED_ON is LOCK-ON's: until either side leaves the field, the user's moves skip
+; the roll below - accuracy, evasion, the boss edge and the 1-in-256. Everything above still applies:
+; PROTECT, DREAM EATER on a Pokemon awake, a hidden target, a type that stops the move and MIST. The bit
+; was X ACCURACY's, which nothing has set since F7 (2026-09-30: a +1 ACCURACY stage now); the emu tests
+; still stage it to force a hit.
 	ld a, [wPlayerBattleStatus2]
-	bit USING_X_ACCURACY, a ; is the player using X Accuracy?
-	ret nz ; if so, always hit regardless of accuracy/evasion
+	bit LOCKED_ON, a
+	ret nz
 	jr .calcHitChance
 .enemyTurn
 	ld a, [wEnemyMovePower] ; same power gate as the player turn — see above
@@ -173,8 +185,8 @@ MoveHitTest:
 	jp nz, .moveMissed
 .skipPlayerMistCheck
 	ld a, [wEnemyBattleStatus2]
-	bit USING_X_ACCURACY, a ; is the enemy using X Accuracy?
-	ret nz ; if so, always hit regardless of accuracy/evasion
+	bit LOCKED_ON, a ; the enemy's LOCK-ON (see the player's turn)
+	ret nz
 .calcHitChance
 ; v1.0 (F6, 2026-09-30): CalcHitChance hands the hit chance back in a and no longer stores
 ; it over the move's accuracy byte. Stored, it was what a SECOND roll in the same use scaled
@@ -229,6 +241,20 @@ MoveHitTest:
 	jr nc, .moveMissed
 	ret
 .moveMissed
+; v0.7: say WHICH miss this was. b still holds the accuracy the roll was
+; compared against, so b = $FF means the move could only have failed on the
+; 1-in-256 -- the one Gen 1 quirk this game keeps on purpose, and only in hard
+; mode (normal mode returns before the roll when b is $FF). Reporting that as
+; "attack missed" told the player their 100%-accurate move was not.
+	ld a, MOVE_FAILED
+	inc b ; $FF + 1 = 0, so Z means the accuracy was $FF
+	jr nz, .gotFailureReason
+	inc a ; a = MOVE_FAILED_EVADED
+	jr .gotFailureReason
+.moveProtected ; v1.0 (2026-11-02): TargetIsProtected has said it
+	ld a, MOVE_FAILED_PROTECTED
+.gotFailureReason
+	ld [wMoveMissed], a
 ; v1.0 (R16b, 2026-10-07): HI JUMP KICK keeps the damage it would have dealt - its crash
 ; (PrintMoveFailureText) is 1/8 of it, at least 1, as pokecrystal's CheckHit keeps it for
 ; EFFECT_JUMP_KICK. Every other move zeroes it, as before. (de cannot name the effect here: the
@@ -241,26 +267,11 @@ MoveHitTest:
 .gotMoveEffect
 	ld a, [hl]
 	cp JUMP_KICK_EFFECT
-	ld a, 0 ; (ld keeps the flags of the cp)
-	jr z, .keptTheDamage
+	jr z, .endTrappingMove
+	xor a
 	ld hl, wDamage ; zero the damage
 	ld [hli], a
 	ld [hl], a
-.keptTheDamage
-; v0.7: say WHICH miss this was. b still holds the accuracy the roll was
-; compared against, so b = $FF means the move could only have failed on the
-; 1-in-256 -- the one Gen 1 quirk this game keeps on purpose, and only in hard
-; mode (normal mode returns before the roll when b is $FF). Reporting that as
-; "attack missed" told the player their 100%-accurate move was not.
-; Written tightly because Battle Core is within a handful of bytes of its bank:
-; a is already 0 here, b is dead after this point, and MOVE_FAILED/_EVADED are
-; 1 and 2, so two incs do it.
-	inc a ; a = MOVE_FAILED
-	inc b ; $FF + 1 = 0, so Z means the accuracy was $FF
-	jr nz, .gotFailureReason
-	inc a ; a = MOVE_FAILED_EVADED
-.gotFailureReason
-	ld [wMoveMissed], a
 .endTrappingMove
 	ldh a, [hWhoseTurn]
 	and a
@@ -273,6 +284,47 @@ MoveHitTest:
 	ld hl, wPlayerBattleStatus1
 	res USING_TRAPPING_MOVE, [hl] ; end multi-turn attack e.g. wrap
 	ret
+
+; v1.0 (2026-11-02): PROTECT. nz when the target of this turn's move protected itself this turn
+; (PROTECTING, set by ProtectEffect, cleared when the next turn is committed), and the line has
+; then been said; z otherwise. Keeps bc and de.
+TargetIsProtected:
+	ld hl, wEnemyBattleStatus2
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotTarget
+	ld hl, wPlayerBattleStatus2
+.gotTarget
+	bit PROTECTING, [hl]
+	ret z
+	push bc
+	push de
+	ld c, 30
+	call DelayFrames
+	ld hl, ProtectingItselfText
+	call PrintText
+	pop de
+	pop bc
+	or 1 ; nz
+	ret
+
+; v1.0 (2026-11-02): BIDE's release skips MoveHitTest (Check*StatusConditions .UnleashEnergy), so it
+; asks here: a target that protected itself takes none of the stored damage, and the move fails as
+; any protected one does - wDamage zeroed too, as MoveHitTest's miss tail zeroes it, so a BIDE stored
+; later never counts a release that was never dealt.
+BideReleaseMeetsProtect::
+	call TargetIsProtected
+	ret z
+	ld a, MOVE_FAILED_PROTECTED
+	ld [wMoveMissed], a
+	xor a
+	ld [wDamage], a
+	ld [wDamage + 1], a
+	ret
+
+ProtectingItselfText:
+	text_far _ProtectingItselfText
+	text_end
 
 ; Out: a = the hit chance, the move's accuracy scaled by the attacker's ACCURACY and the
 ; target's EVASION stage (1-$FF); hl = the accuracy byte it read. F6: it writes nothing.

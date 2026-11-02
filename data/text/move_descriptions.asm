@@ -422,6 +422,20 @@ _MoveDesc_LightScreen::
 	next "special attacks."
 	done
 
+_MoveDesc_Protect::
+	text "Goes first, and no"
+	next "move aimed at the"
+	next "user lands. Fails"
+	next "twice in a row."
+	done
+
+_MoveDesc_LockOn::
+	text "The user's moves"
+	next "never miss the foe"
+	next "until either one"
+	next "leaves the field."
+	done
+
 _MoveDesc_Reflect::
 	text "Doubles the user's"
 	next "DEFENSE against"

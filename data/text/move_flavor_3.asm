@@ -14,12 +14,6 @@
 
 ; Part 3 of 5.
 
-_MoveFlavor_RAZOR_LEAF::
-	text "Leaves thrown"
-	next "edge-first, stiff"
-	next "enough to cut."
-	done
-
 _MoveFlavor_GIGA_DRAIN::
 	text "The user drains"
 	next "deeply, and is"
@@ -321,4 +315,10 @@ _MoveFlavor_POISON_STING::
 	text "A small, sharp"
 	next "jab, and the venom"
 	next "does the rest."
+	done
+
+_MoveFlavor_POISON_BITE::
+	text "A bite that leaves"
+	next "more behind it"
+	next "than the wound."
 	done

@@ -179,6 +179,8 @@ MoveEffectDescriptions:
 	dw MoveDesc_SpDefDownSide ; SPDEF_DOWN_SIDE_EFFECT
 	dw MoveDesc_SpeedDown1Flinch ; SPEED_DOWN1_FLINCH_EFFECT
 	dw MoveDesc_DefenseDown1Flinch ; DEFENSE_DOWN1_FLINCH_EFFECT
+	dw MoveDesc_Protect ; PROTECT_EFFECT
+	dw MoveDesc_LockOn ; LOCK_ON_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -385,6 +387,10 @@ MoveDesc_LightScreen:
 	text_far _MoveDesc_LightScreen
 	text_end
 
+MoveDesc_LockOn:
+	text_far _MoveDesc_LockOn
+	text_end
+
 MoveDesc_Metronome:
 	text_far _MoveDesc_Metronome
 	text_end
@@ -451,6 +457,10 @@ MoveDesc_PoisonSide2:
 
 MoveDesc_PoisonSide3:
 	text_far _MoveDesc_PoisonSide3
+	text_end
+
+MoveDesc_Protect:
+	text_far _MoveDesc_Protect
 	text_end
 
 MoveDesc_Recoil:

@@ -312,3 +312,9 @@ _MoveFlavor_MEGA_DRAIN::
 	next "foe's strength for"
 	next "itself."
 	done
+
+_MoveFlavor_RAZOR_LEAF::
+	text "Leaves thrown"
+	next "edge-first, stiff"
+	next "enough to cut."
+	done

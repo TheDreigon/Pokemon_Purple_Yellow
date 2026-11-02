@@ -2297,8 +2297,8 @@ ItemUseBattleFlagItem:
 ; refused and kept at +6 (F1; ACCURACY has no stat word, only its stage counts). It was
 ; vanilla's always-hit switch (ItemUseXAccuracy set USING_X_ACCURACY and MoveHitTest hit before
 ; any roll - past the Hard boss edge and the 1/256 miss), and its happiness call read
-; wWhichPokemon, the bag slot, as a party slot; both went with it. Nothing sets
-; USING_X_ACCURACY any more (hit_and_penalties.asm keeps the test).
+; wWhichPokemon, the bag slot, as a party slot; both went with it. The bit is LOCK-ON's
+; since 2026-11-02 (LOCKED_ON, set by LockOnEffect).
 ItemUseXStat:
 	ld a, [wIsInBattle]
 	and a

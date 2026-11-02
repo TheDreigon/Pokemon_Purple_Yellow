@@ -212,6 +212,7 @@ SECTION "Battle Effects", ROMX
 
 INCLUDE "engine/battle/effects.asm"
 INCLUDE "engine/battle/hit_and_penalties.asm"
+INCLUDE "engine/battle/move_effects/protect_lock_on.asm"
 
 
 SECTION "bank10", ROMX

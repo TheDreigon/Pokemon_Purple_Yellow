@@ -129,4 +129,6 @@
 	const SPDEF_DOWN_SIDE_EFFECT      ; $6D  33% target SP.DEF-1 (Bug Buzz, Psybeam, Aurora Beam). Proxy SPATK_DOWN_SIDE.
 	const SPEED_DOWN1_FLINCH_EFFECT   ; $6E  target Speed-1 + ~30% flinch (Hinder; 2026-09-08). The one-step sibling of $6A: same dispatcher, SPEED_DOWN1 as the stat leg.
 	const DEFENSE_DOWN1_FLINCH_EFFECT ; $6F  target Defense-1 + ~30% flinch (Tickle; 2026-09-08). Its own id because DEFENSE_DOWN1 is shared by seven other moves.
+	const PROTECT_EFFECT              ; $70  the user blocks every move aimed at it this turn; fails the turn after one that worked (Protect; 2026-11-02)
+	const LOCK_ON_EFFECT              ; $71  the user's moves never miss the target until either leaves the field (Lock-On; 2026-11-02)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

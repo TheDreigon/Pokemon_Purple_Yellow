@@ -241,3 +241,25 @@ _RepelStillRunningText::
 	text " is"
 	line "still in effect!"
 	prompt
+
+; v1.0 (2026-11-02): PROTECT (engine/battle/move_effects/protect_lock_on.asm). <USER> and <TARGET>
+; are 16 tiles at most ("Enemy " and a 10-letter name); the line on the prompt arrow's row is 17 at most.
+_ProtectedItselfText::
+	text "<USER>"
+	line "protected itself!"
+	prompt
+
+; v1.0 (2026-11-02): a move aimed at a #MON that protected itself (hit_and_penalties.asm
+; TargetIsProtected), Gen 2's line.
+_ProtectingItselfText::
+	text "<TARGET>"
+	line "is protecting"
+	cont "itself!"
+	prompt
+
+; v1.0 (2026-11-02): LOCK-ON (protect_lock_on.asm). The last line is 17 at most with the "!".
+_TookAimText::
+	text "<USER>"
+	line "took aim at"
+	cont "<TARGET>!"
+	prompt

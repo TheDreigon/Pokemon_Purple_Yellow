@@ -220,8 +220,10 @@ MoveFlavorPointers::
 	dw MoveFlavor_SOFTBOILED
 	dw MoveFlavor_LIGHT_SCREEN
 	dw MoveFlavor_REFLECT
+	dw MoveFlavor_PROTECT
 	dw MoveFlavor_BIDE
 	dw MoveFlavor_FOCUS_ENERGY
+	dw MoveFlavor_LOCK_ON
 	dw MoveFlavor_MIMIC
 	dw MoveFlavor_MIRROR_MOVE
 	dw MoveFlavor_SUBSTITUTE
@@ -443,6 +445,8 @@ MoveFlavorLines::
 	db 4
 	db 4
 	db 4
+	db 4
+	db 3
 	db 4
 	db 4
 	db 4
@@ -1302,12 +1306,20 @@ MoveFlavor_REFLECT:
 	text_far _MoveFlavor_REFLECT
 	text_end
 
+MoveFlavor_PROTECT:
+	text_far _MoveFlavor_PROTECT
+	text_end
+
 MoveFlavor_BIDE:
 	text_far _MoveFlavor_BIDE
 	text_end
 
 MoveFlavor_FOCUS_ENERGY:
 	text_far _MoveFlavor_FOCUS_ENERGY
+	text_end
+
+MoveFlavor_LOCK_ON:
+	text_far _MoveFlavor_LOCK_ON
 	text_end
 
 MoveFlavor_MIMIC:

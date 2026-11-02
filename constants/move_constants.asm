@@ -279,8 +279,10 @@
 	const SOFTBOILED
 	const LIGHT_SCREEN
 	const REFLECT
+	const PROTECT      ; v1.0 new move (2026-11-02)
 	const BIDE
 	const FOCUS_ENERGY
+	const LOCK_ON      ; v1.0 new move (2026-11-02)
 	const MIMIC
 	const MIRROR_MOVE
 	const SUBSTITUTE

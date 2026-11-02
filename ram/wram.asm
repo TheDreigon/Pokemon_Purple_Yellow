@@ -1540,12 +1540,13 @@ wPlayerStatsToHalve:: db
 ; bit 7 - confusion
 wPlayerBattleStatus1:: db
 
-; bit 0 - X Accuracy (nothing sets it since v1.0 F7; MoveHitTest keeps the test)
+; bit 0 - locked on: LOCK-ON's sure aim (v1.0 2026-11-02; was X Accuracy's)
 ; bit 1 - protected by "mist"
 ; bit 2 - focus energy effect
+; bit 3 - PROTECT worked this turn (v1.0 2026-11-02)
 ; bit 4 - has a substitute
 ; bit 5 - need to recharge
-; bit 6 - (dead since v0.7: was rage)
+; bit 6 - PROTECT worked the turn before (v1.0 2026-11-02; was rage's dead bit)
 ; bit 7 - leech seeded
 wPlayerBattleStatus2:: db
 
@@ -1553,6 +1554,7 @@ wPlayerBattleStatus2:: db
 ; bit 1 - light screen
 ; bit 2 - reflect
 ; bit 3 - transformed
+; bit 4 - this side's move has run this turn (v1.0 2026-11-02)
 wPlayerBattleStatus3:: db
 
 ; always 0; nothing reads it since v1.0 E1 (see wPlayerStatsToDouble)

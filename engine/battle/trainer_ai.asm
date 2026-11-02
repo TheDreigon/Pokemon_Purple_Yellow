@@ -211,6 +211,12 @@ AIMoveChoiceModification1:
 	jp z, .checkAsleep
 	cp DRAIN_HP_EFFECT ; v1.0 (F5): damaging, so it is caught before the power gate
 	jp z, .checkSubstitute
+	; v1.0 (2026-11-02): two status moves, dispatched up here - in .statusMove's chain their bytes put
+	; three of its jr's out of reach
+	cp LOCK_ON_EFFECT ; its lock already set, or the player hidden
+	jp z, .checkLockOn
+	cp PROTECT_EFFECT ; it worked last turn, or the player recharges
+	jp z, .checkProtect
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .statusMove ; v1.0 (R9): a damaging move meets the type chart here, a power-0 one the rules below
@@ -258,7 +264,8 @@ AIMoveChoiceModification1:
 	jr c, .useless ; refused before its status test: a type immune to it (E4) or, POISON / BURN, a SUBSTITUTE (F5)
 	ld a, [wBattleMonStatus]
 	and a
-	jr z, .nextMove ; no status: nothing refuses it
+	jr z, .toNextMove ; no status: nothing refuses it (v1.0 2026-11-02: through .toNextMove - the LOCK-ON
+	                  ; and PROTECT dispatch put .nextMove one byte out of a jr's reach)
 	bit FRZ, a
 	jr nz, .frozen ; v1.0 (R9g)
 	and (1 << PSN) | (1 << BRN) | (1 << PAR)
@@ -461,6 +468,28 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 .notFullHealth
 	pop de
 	pop hl
+	jp .nextMove
+.checkLockOn
+; v1.0 (2026-11-02): LockOnEffect fails with the trainer's lock already set, which only a switch
+; lifts: USELESS. With the player up in the air or underground it misses, unless the player lands
+; first: +5.
+	ld a, [wEnemyBattleStatus2]
+	bit LOCKED_ON, a
+	jp nz, .useless
+	ld a, [wPlayerBattleStatus1]
+	bit INVULNERABLE, a
+	jp nz, .discourage
+	jp .nextMove
+.checkProtect
+; v1.0 (2026-11-02): ProtectEffect fails the turn after a PROTECT of its own that worked - PROTECTING
+; is still set when the trainer chooses, the turn's commit (CommitTurnBattleBits) moving it on after
+; the choice - and with the player recharging there is nothing to block: USELESS either way.
+	ld a, [wEnemyBattleStatus2]
+	bit PROTECTING, a
+	jp nz, .useless
+	ld a, [wPlayerBattleStatus2]
+	bit NEEDS_TO_RECHARGE, a
+	jp nz, .useless
 	jp .nextMove
 .checkNoMirrorMoveOnFirstTurn
 ; v1.0 (2026-09-08): this read wPlayerLastSelectedMove, a pureRGB byte nothing in
@@ -1146,6 +1175,13 @@ AIMoveChoiceModification5:
 	ret z ; no more moves in move set
 	inc de
 	call ReadMove
+; v1.0 (2026-11-02): PROTECT and LOCK-ON have rules of their own (.protect, .lockOn), and no repeat to weigh:
+; layer 1 leaves a second one in a row USELESS
+	ld a, [wEnemyMoveEffect]
+	cp PROTECT_EFFECT
+	jp z, .protect
+	cp LOCK_ON_EFFECT
+	jp z, .lockOn
 ; the move the enemy keeps using
 	ld a, [wEnemyMoveNum]
 	ld c, a
@@ -1273,6 +1309,57 @@ AIMoveChoiceModification5:
 	call AIMoveEffectiveness ; v1.0 (R9): the shared walk (the flags of cp EFFECTIVE)
 	jp c, .nextMove ; not very effective: the first strike is not worth it
 	dec [hl]
+	jp .nextMove
+.protect
+; v1.0 (2026-11-02): PROTECT is worth its turn when the player's blow is already on its way - charged
+; (SOLARBEAM, SKY ATTACK) or up in the air or underground (FLY, DIG): CHARGING_UP, which the screen
+; announced. That blow lands this turn and PROTECT, first whatever the speeds, takes it: -3. With the
+; player poisoned, burned or under the trainer's LEECH SEED, and its own Pokemon free of all three, it
+; buys a turn of that damage: -1. Otherwise it blocks a move the trainer cannot see coming, and costs
+; the next turn's PROTECT: +5.
+	ld a, [wPlayerBattleStatus1]
+	bit CHARGING_UP, a
+	jr z, .protectNoBlow
+	dec [hl]
+	dec [hl]
+	dec [hl]
+	jp .nextMove
+.protectNoBlow
+	ld a, [wEnemyMonStatus]
+	and (1 << PSN) | (1 << BRN)
+	jp nz, .discourage
+	ld a, [wEnemyBattleStatus2]
+	bit SEEDED, a
+	jp nz, .discourage
+	ld a, [wBattleMonStatus]
+	and (1 << PSN) | (1 << BRN)
+	jr nz, .protectStall
+	ld a, [wPlayerBattleStatus2]
+	bit SEEDED, a
+	jp z, .discourage
+.protectStall
+	dec [hl]
+	jp .nextMove
+.lockOn
+; v1.0 (2026-11-02): LOCK-ON pays against the player's EVASION raised and the trainer's own ACCURACY
+; lowered, both announced on screen: -1 for each. With both at their base it buys little for its
+; turn: +5.
+	ld c, 0
+	ld a, [wPlayerMonEvasionMod]
+	cp BASE_STAT_LEVEL + 1
+	jr c, .lockOnAccuracy
+	dec [hl]
+	inc c
+.lockOnAccuracy
+	ld a, [wEnemyMonAccuracyMod]
+	cp BASE_STAT_LEVEL
+	jr nc, .lockOnGotReasons
+	dec [hl]
+	inc c
+.lockOnGotReasons
+	ld a, c
+	and a
+	jp z, .discourage
 	jp .nextMove
 
 ASSERT AI_ORDER_PLAYER_FIRST == 0, "layer 5 reads it with rra"

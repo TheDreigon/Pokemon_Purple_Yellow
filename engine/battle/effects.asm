@@ -1916,6 +1916,9 @@ ConditionalPrintButItFailed:
 	ld [wMoveDidntMiss], a ; (FLASH into a SUBSTITUTE), as the handlers' own flag did before E5
 
 PrintButItFailedText_:
+	ld a, [wMoveMissed]
+	cp MOVE_FAILED_PROTECTED
+	ret z ; v1.0 (2026-11-02): the target protected itself, and TargetIsProtected has said so
 	ld hl, ButItFailedText
 	jp PrintText
 
@@ -1924,6 +1927,9 @@ ButItFailedText:
 	text_end
 
 PrintDidntAffectText:
+	ld a, [wMoveMissed]
+	cp MOVE_FAILED_PROTECTED
+	ret z ; v1.0 (2026-11-02): as PrintButItFailedText_
 	ld hl, DidntAffectText
 	jp PrintText
 

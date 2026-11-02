@@ -386,6 +386,7 @@ MainInBattleLoop:
 	call z, SelectEnemyMove
 	xor a
 	ld [wAIChoseThisTurn], a
+	call CommitTurnBattleBits ; v1.0 (2026-11-02): PROTECT's bits move on a turn
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr nz, .noLinkBattle
@@ -602,6 +603,31 @@ HandleMovePriority:
 	ret
 
 INCLUDE "data/battle/priority_moves.asm"
+
+; v1.0 (2026-11-02): the turn is committed (MainInBattleLoop, .selectEnemyMove). Every turn that runs
+; passes there once and only once: the FIGHT menu's B goes back above it, and the trainer's choice,
+; made at the top of the turn, still sees last turn's bits (a PROTECT that worked is PROTECTING then).
+; For both sides PROTECT's bits move on a turn - PROTECTED_LAST_TURN takes PROTECTING, which clears -
+; and MOVED_THIS_TURN clears. Clobbers a, hl.
+CommitTurnBattleBits:
+	ld hl, wPlayerBattleStatus2
+	call .side
+	ld hl, wEnemyBattleStatus2
+.side
+	ld a, [hl]
+	and ~(1 << PROTECTED_LAST_TURN)
+	bit PROTECTING, a
+	jr z, .gotStatus2
+	xor (1 << PROTECTING) | (1 << PROTECTED_LAST_TURN)
+.gotStatus2
+	ld [hl], a
+	inc hl ; BattleStatus3
+	res MOVED_THIS_TURN, [hl]
+	ret
+
+ASSERT wPlayerBattleStatus3 == wPlayerBattleStatus2 + 1 && wEnemyBattleStatus3 == wEnemyBattleStatus2 + 1, \
+	"CommitTurnBattleBits steps from battle status 2 to 3"
+ASSERT wPlayerBattleStatus2 == wPlayerBattleStatus1 + 1, "EnemySendOutFirstMon steps from battle status 1 to 2"
 
 HandlePoisonBurnLeechSeed:
 	ld hl, wBattleMonHP
@@ -1494,6 +1520,8 @@ EnemySendOutFirstMon:
 	ld [wAICount], a
 	ld hl, wPlayerBattleStatus1
 	res 5, [hl]
+	inc hl ; wPlayerBattleStatus2
+	res LOCKED_ON, [hl] ; v1.0 (2026-11-02): the player's LOCK-ON was on the #MON that left
 	hlcoord 18, 0
 	ld a, 8
 	call SlideTrainerPicOffScreen
@@ -2050,6 +2078,8 @@ SendOutMon:
 	ld [hli], a
 	ld [hl], a
 	farcall RestoreBattleMonToxic ; a bad POISON it left with comes back, its count at 0 (Gen 3)
+	ld hl, wEnemyBattleStatus2
+	res LOCKED_ON, [hl] ; v1.0 (2026-11-02): the enemy's LOCK-ON was on the #MON that left
 	callfar PrintSendOutMonMessage
 	ld hl, wEnemyMonHP
 	ld a, [hli]
@@ -3795,6 +3825,8 @@ ExecutePlayerMove:
 	ld a, [wActionResultOrTookBattleTurn]
 	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
 	jp nz, ExecutePlayerMoveDone
+	ld hl, wPlayerBattleStatus3
+	set MOVED_THIS_TURN, [hl] ; v1.0 (2026-11-02): its move's slot has come, whatever stops it - a PROTECT after it fails
 	call CheckPlayerStatusConditions
 	jr nz, .playerHasNoSpecialCondition
 	jp hl
@@ -4272,6 +4304,7 @@ CheckPlayerStatusConditions:
 	ld [hl], a
 	ld a, BIDE
 	ld [wPlayerMoveNum], a
+	farcall BideReleaseMeetsProtect ; v1.0 (2026-11-02): PROTECT stops the release, as any move aimed at it
 	ld hl, handleIfPlayerMoveMissed ; skip damage calculation, DecrementPP and MoveHitTest
 	jp .returnToHL
 
@@ -4561,6 +4594,9 @@ PrintMoveFailureText:
 	jr z, .playersTurn
 	ld de, wEnemyMoveEffect
 .playersTurn
+	ld a, [wMoveMissed]
+	cp MOVE_FAILED_PROTECTED
+	jr z, .textSaid ; v1.0 (2026-11-02): the target protected itself, and MoveHitTest has said so
 	ld hl, DoesntAffectMonText
 	ld a, [wDamageMultipliers]
 	and $7f
@@ -4584,9 +4620,10 @@ PrintMoveFailureText:
 .gotTextToPrint
 	push de
 	call PrintText
+	pop de
+.textSaid
 	xor a
 	ld [wCriticalHitOrOHKO], a
-	pop de
 	ld a, [de]
 	cp JUMP_KICK_EFFECT
 	ret nz
@@ -5965,6 +6002,8 @@ ExecuteEnemyMove:
 	cp 4
 	ret nc
 .executeEnemyMove
+	ld hl, wEnemyBattleStatus3
+	set MOVED_THIS_TURN, [hl] ; v1.0 (2026-11-02): as the player's (ExecutePlayerMove)
 	ld hl, wAILayer2Encouragement
 	inc [hl]
 	xor a
@@ -6430,6 +6469,7 @@ CheckEnemyStatusConditions:
 	ld [hl], a
 	ld a, BIDE
 	ld [wEnemyMoveNum], a
+	farcall BideReleaseMeetsProtect ; v1.0 (2026-11-02): PROTECT stops the release, as any move aimed at it
 	call SwapPlayerAndEnemyLevels
 	ld hl, handleIfEnemyMoveMissed ; skip damage calculation, DecrementPP and MoveHitTest
 	jp .enemyReturnToHL

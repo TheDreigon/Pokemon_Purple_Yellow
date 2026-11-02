@@ -14,20 +14,6 @@
 
 ; Part 5 of 5.
 
-_MoveFlavor_IRON_DEFENSE::
-	text "The user hardens"
-	next "itself until very"
-	next "little will get"
-	next "through."
-	done
-
-_MoveFlavor_DEFENSE_CURL::
-	text "The user tucks"
-	next "everything soft"
-	next "away behind"
-	next "everything hard."
-	done
-
 _MoveFlavor_HARDEN::
 	text "The user stiffens"
 	next "all over and waits"
@@ -273,6 +259,12 @@ _MoveFlavor_REFLECT::
 	next "body."
 	done
 
+_MoveFlavor_PROTECT::
+	text "For one turn, the"
+	next "user's guard lets"
+	next "nothing through."
+	done
+
 _MoveFlavor_BIDE::
 	text "The user stands"
 	next "and takes it, then"
@@ -285,6 +277,13 @@ _MoveFlavor_FOCUS_ENERGY::
 	next "itself and starts"
 	next "looking for the"
 	next "weak spot."
+	done
+
+_MoveFlavor_LOCK_ON::
+	text "The user fixes its"
+	next "aim on the foe,"
+	next "and from then on"
+	next "it does not miss."
 	done
 
 _MoveFlavor_MIMIC::

@@ -15,4 +15,6 @@ ResidualEffects1:
 	db SUBSTITUTE_EFFECT
 	db MIMIC_EFFECT
 	db LEECH_SEED_EFFECT
+	db PROTECT_EFFECT ; v1.0 (2026-11-02): its own handler, which runs its own tests (protect_lock_on.asm)
+	db LOCK_ON_EFFECT ; v1.0 (2026-11-02): likewise; it calls MoveHitTest itself, as LEECH SEED does
 	db -1 ; end

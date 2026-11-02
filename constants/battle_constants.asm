@@ -9,6 +9,7 @@ DEF MOVE_HIT               EQU 0
 DEF MOVE_FAILED            EQU 1 ; an ordinary accuracy miss
 DEF MOVE_FAILED_EVADED     EQU 2 ; the 1-in-256 roll on a 100%-accurate move
 DEF MOVE_FAILED_NO_SCRATCH EQU 3 ; it connected, and the damage rounded to zero
+DEF MOVE_FAILED_PROTECTED  EQU 4 ; v1.0 (2026-11-02): the target PROTECTed itself; MoveHitTest has said so
 
 ; wBattleResult (ram/wram.asm): $00 won, $01 lost, $02 drew / ran / caught.
 ; v1.0 (2026-09-24): bit 7 rides on the $01 when the player gave a TRAINER
@@ -153,13 +154,13 @@ DEF SPDSPCDV_TRAINER EQU $88
 
 ; wPlayerBattleStatus2 or wEnemyBattleStatus2 bit flags
 	const_def
-	const USING_X_ACCURACY    ; 0
+	const LOCKED_ON           ; 0 ; LOCK-ON: the user's moves never miss the target (v1.0 2026-11-02; was X Accuracy's, which nothing set since F7)
 	const PROTECTED_BY_MIST   ; 1
 	const GETTING_PUMPED      ; 2 ; Focus Energy
-	const_skip                ; 3 ; unused
+	const PROTECTING          ; 3 ; PROTECT worked this turn (v1.0 2026-11-02; was unused)
 	const HAS_SUBSTITUTE_UP   ; 4
 	const NEEDS_TO_RECHARGE   ; 5 ; Hyper Beam
-	const UNUSED_USING_RAGE   ; 6 DEAD BIT (2026-09-05): was "locked into RAGE"; nothing sets or reads it
+	const PROTECTED_LAST_TURN ; 6 ; PROTECT worked the turn before: this turn's fails (v1.0 2026-11-02; was RAGE's dead bit)
 	const SEEDED              ; 7
 
 ; wPlayerBattleStatus3 or wEnemyBattleStatus3 bit flags
@@ -171,6 +172,7 @@ DEF BOX_LEVEL_TOXIC_F EQU 7
 	const HAS_LIGHT_SCREEN_UP ; 1
 	const HAS_REFLECT_UP      ; 2
 	const TRANSFORMED         ; 3
+	const MOVED_THIS_TURN     ; 4 ; v1.0 (2026-11-02): this side's move has run this turn (a PROTECT after it fails)
 
 ; v1.0 (R11, 2026-10-02): wAITurnOrder's bits - the turn order the trainer AI has SEEN in this matchup
 DEF AI_ORDER_PLAYER_FIRST EQU 0 ; the last order the screen showed (the speeds deciding it) had the player first

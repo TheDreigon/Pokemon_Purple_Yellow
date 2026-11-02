@@ -14,12 +14,6 @@
 
 ; Part 4 of 5.
 
-_MoveFlavor_POISON_BITE::
-	text "A bite that leaves"
-	next "more behind it"
-	next "than the wound."
-	done
-
 _MoveFlavor_TOXIC_FANGS::
 	text "A deep bite with a"
 	next "heavy dose worked"
@@ -321,4 +315,18 @@ _MoveFlavor_HONE_CLAWS::
 	text "The user hones its"
 	next "weapons and takes"
 	next "better aim."
+	done
+
+_MoveFlavor_IRON_DEFENSE::
+	text "The user hardens"
+	next "itself until very"
+	next "little will get"
+	next "through."
+	done
+
+_MoveFlavor_DEFENSE_CURL::
+	text "The user tucks"
+	next "everything soft"
+	next "away behind"
+	next "everything hard."
 	done

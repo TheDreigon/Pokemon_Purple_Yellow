@@ -112,4 +112,6 @@ MoveEffectPointerTable:
 	dw SpDefDownSideEffect       ; SPDEF_DOWN_SIDE_EFFECT
 	dw SpeedDown1FlinchEffect    ; SPEED_DOWN1_FLINCH_EFFECT
 	dw DefenseDown1FlinchEffect  ; DEFENSE_DOWN1_FLINCH_EFFECT
+	dw ProtectEffect             ; PROTECT_EFFECT (engine/battle/move_effects/protect_lock_on.asm)
+	dw LockOnEffect              ; LOCK_ON_EFFECT (the same file)
 	assert_table_length NUM_MOVE_EFFECTS

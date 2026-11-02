@@ -234,8 +234,10 @@ AttackAnimationPointers:
 	dw SoftboiledAnim
 	dw LightScreenAnim
 	dw ReflectAnim
+	dw ProtectAnim
 	dw BideAnim
 	dw FocusEnergyAnim
+	dw LockOnAnim
 	dw MimicAnim
 	dw MirrorMoveAnim
 	dw SubstituteAnim
@@ -3010,6 +3012,15 @@ ReflectAnim:
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
+ProtectAnim:
+	; v1.0 (2026-11-02): the screens' barrier, raised once on the bright palette and sealed with a
+	; flash - a wall for this turn only, where LIGHT SCREEN and REFLECT hold theirs twice.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim PROTECT, SUBANIM_1_BARRIER, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
 BideAnim:
 	; 2026-08-22 (anim pass, test ROM of 2026-08-22): the thud on the impact star, not on the fade to dark (vanilla had it on the star). This body plays on the release hit only; the storing turns use the X-item animation.
 	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
@@ -3025,6 +3036,13 @@ FocusEnergyAnim:
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+LockOnAnim:
+	; v1.0 (2026-11-02): squares closing in on the target - MIMIC's sight, without its toss back -
+	; then a flash: the aim is taken.
+	battle_anim LOCK_ON, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 1, 6
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	db -1 ; end
 
 MimicAnim:
