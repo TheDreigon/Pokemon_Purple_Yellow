@@ -266,8 +266,9 @@ StatusScreen:
 ; v1.0 (2026-09-06): the lower-right panel holds the dex number (row 8), a
 ; blank row, then the types from row 10 - since 2026-11-02 (three types) the
 ; Pokédex DATA page's list: "TYPES/" on row 10 and one name a row on rows
-; 11-13; rows 14-15 free. The ID number and the OT moved to the DV page: with
-; START held, rows 10-13 show IDNo/ and OT/ instead of the types.
+; 11-13; row 14 a margin; "AIRBORNE" on row 15 for an AIRBORNE #MON (the same
+; day). The ID number and the OT moved to the DV page: with START held, rows
+; 10-13 show IDNo/ and OT/ instead of the types.
 	call Joypad
 	ldh a, [hJoyHeld]
 	bit BIT_START, a
@@ -277,6 +278,8 @@ StatusScreen:
 	call PlaceString ; "TYPES/" (row 10)
 	coord hl, 11, 11
 	predef PrintMonTypesList ; the names on rows 11-13
+	coord hl, 11, 15
+	predef PrintMonAirborne ; "AIRBORNE" (row 15), in the names' column
 	jr .panelDone
 .identityPanel
 	coord hl, 10, 10

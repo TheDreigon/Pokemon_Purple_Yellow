@@ -109,3 +109,4 @@ PredefPointers::
 	add_predef TryFieldMove
 	add_predef TryUseRegisteredItem ; v0.7: SELECT in the overworld (appended -- predef ids are positional)
 	add_predef PrintMonTypesList ; v1.0 (2026-11-02): the types as a list (status screen, Pokédex DATA, Hall of Fame)
+	add_predef PrintMonAirborne ; v1.0 (2026-11-02): "AIRBORNE" under the types on the status screen

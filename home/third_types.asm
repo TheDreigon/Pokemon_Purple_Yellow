@@ -20,4 +20,38 @@ GetThirdType::
 	pop hl
 	ret
 
+; v1.0 (2026-11-02, AIRBORNE): In: a = the species (internal index). Out: a = FLYING when it is AIRBORNE
+; (data/pokemon/airborne.asm), else $FF - FLYING because the chart walks let an AIRBORNE defender take
+; GROUND's row against FLYING. Read by SetDefenderTraits and the status screen. Keeps bc, de, hl.
+GetAirborne::
+	push hl
+	push bc
+	ld b, a
+	ld hl, AirborneMons
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .done ; a = $FF: not AIRBORNE
+	cp b
+	jr nz, .loop
+	ld a, FLYING
+.done
+	pop bc
+	pop hl
+	ret
+
+; v1.0 (2026-11-02): what the chart walks read of a defender beyond its two types, from its species -
+; wDefenderType3 (GetThirdType) and wDefenderAirborne (GetAirborne), whose GROUND rows alone read it.
+; Here, not in bank $30, because the switch-in scorer (bank $0E) sets them for its candidate too.
+; In: a = the species (internal index). Keeps bc, de, hl.
+SetDefenderTraits::
+	push af
+	call GetThirdType
+	ld [wDefenderType3], a
+	pop af
+	call GetAirborne
+	ld [wDefenderAirborne], a
+	ret
+
 INCLUDE "data/pokemon/third_types.asm"
+INCLUDE "data/pokemon/airborne.asm"

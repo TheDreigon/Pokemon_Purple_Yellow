@@ -1462,11 +1462,13 @@ ENDU
 ; For the pureRGB AI enhancements (dead since v1.0 E4, 2026-09-29: nothing reads them)
 wAIMoveSpamAvoider:: db
 wAITargetMonStatus:: db
-; v1.0 (2026-11-02): the defender's third type for the chart walks (type_effectiveness.asm), $FF for none:
-; every caller of ApplyTypeEffectivenessToDamage and AIGetTypeEffectivenessDBC sets it first, from the
-; defender's species (GetThirdType). It was wAITargetMonType1, one of the four dead pureRGB AI bytes.
+; v1.0 (2026-11-02): the defender's traits for the chart walks (type_effectiveness.asm), from its species
+; (SetDefenderTraits): every caller of ApplyTypeEffectivenessToDamage and AIGetTypeEffectivenessDBC sets
+; them first. wDefenderType3: its third type, $FF for none. wDefenderAirborne: FLYING when it is AIRBORNE,
+; which only GROUND's rows read, $FF when not (the walks reach it from wDefenderType3 with inc hl). They
+; were wAITargetMonType1 and wAITargetMonType2, two of the four dead pureRGB AI bytes.
 wDefenderType3:: db
-wAITargetMonType2:: db
+wDefenderAirborne:: db
 
 ; money received after battle = base money × level of last enemy mon
 wTrainerBaseMoney:: dw ; BCD

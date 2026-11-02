@@ -17,13 +17,14 @@
 ; In: d = defender type 1, e = defender type 2.
 ; Reads wMoveType, wDamage, wDamageMultipliers, hWhoseTurn and that side's
 ; w*MoveNum (v1.0, F4: MIND BREAK); writes wDamage, wDamageMultipliers,
-; wMoveMissed, wDefenderType3. Clobbers bc.
+; wMoveMissed, wDefenderType3, wDefenderAirborne. Clobbers bc.
 ; v1.0 (2026-11-02, three types): the defender's third type is one more defending type a row can match - this
-; walk's defender is always the target of the turn's move, so it looks the third up itself (SetDefenderType3)
-; and neither caller can forget it. Three matched rows chain to 8x or 1/8; Forte's ladder stops at 6x and 1/6
-; (.done). Two types never reach either.
+; walk's defender is always the target of the turn's move, so it looks its traits up itself
+; (SetTargetDefenderTraits) and neither caller can forget them. Three matched rows chain to 8x or 1/8; Forte's
+; ladder stops at 6x and 1/6 (.done). Two types never reach either. AIRBORNE (the same day): GROUND's rows
+; also match FLYING on an AIRBORNE defender, so GROUND's row against FLYING (NO_EFFECT) stops the move.
 ApplyTypeEffectivenessToDamage::
-	call SetDefenderType3
+	call SetTargetDefenderTraits
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveNum]
@@ -48,6 +49,13 @@ ApplyTypeEffectivenessToDamage::
 	push hl
 	ld hl, wDefenderType3
 	cp [hl] ; v1.0 (2026-11-02): or its third type?
+	jr z, .gotDefender
+	inc hl ; wDefenderAirborne: FLYING when it is AIRBORNE...
+	cp [hl]
+	jr nz, .gotDefender
+	ld a, b
+	cp GROUND ; ...for GROUND's rows alone
+.gotDefender
 	pop hl
 	jr z, .matchingPairFound
 	jr .nextTypePair
@@ -223,13 +231,13 @@ AIGetTypeEffectiveness::
 	ld d, a                    ; d = type of enemy move
 	ld a, [wEnemyMoveNum]
 	ld e, a                    ; v1.0 (F4): e = the enemy's move (layers 1, 3 and 5 ReadMove it first)
-	call SetPlayerDefenderType3 ; v1.0 (2026-11-02): the player's third type
+	call SetPlayerDefenderTraits ; v1.0 (2026-11-02): the player's third type and AIRBORNE
 	ld hl, wBattleMonType
 	ld b, [hl]                 ; b = type 1 of player's pokemon
 	inc hl
 	ld c, [hl]                 ; c = type 2 of player's pokemon
 AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's types, e = the move (NO_MOVE: types alone),
-	                           ; wDefenderType3 = its third type ($FF: none; v1.0, 2026-11-02 - every caller sets it)
+	                           ; wDefenderType3 and wDefenderAirborne = its traits (v1.0, 2026-11-02 - every caller sets them)
 	; initialize to neutral effectiveness
 	ld a, EFFECTIVE ; v0.7 fix: was $10 (=16), a vanilla Gen 1 bug that made
 	ld [wTypeEffectiveness], a ; the AI read untabled (neutral) matchups as super-effective
@@ -248,6 +256,13 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 	push hl
 	ld hl, wDefenderType3
 	cp [hl]                   ; v1.0 (2026-11-02): or its third type
+	jr z, .gotDefender
+	inc hl ; wDefenderAirborne: FLYING when it is AIRBORNE...
+	cp [hl]
+	jr nz, .gotDefender
+	ld a, d
+	cp GROUND ; ...for GROUND's rows alone
+.gotDefender
 	pop hl
 	jr z, .matchingPairFound
 	jr .nextTypePair2
@@ -310,8 +325,8 @@ AITypeMatchup::
 ; attacking type against ANY defender, for AIPickSwitchTarget in bank $0E. A
 ; farcall hands over only c, d and e and gives back only de and hl, so:
 ; in: d = the attacking type, e and c = the defender's two types (a single
-; type stored twice, as everywhere), wDefenderType3 = its third (v1.0, 2026-11-02: the caller, AIMatchupAtHL,
-; sets it from the defender's species). Out: e (and wTypeEffectiveness) = the
+; type stored twice, as everywhere), wDefenderType3 and wDefenderAirborne = its traits (v1.0, 2026-11-02: the
+; caller, AIScoreSwitchCandidate, sets them from the defender's species). Out: e (and wTypeEffectiveness) = the
 ; multiplier: EFFECTIVE = neutral, 0 = immune, above it super effective.
 	ld b, e
 	ld e, NO_MOVE ; v1.0 (F4): types alone - the picker weighs types, not moves
@@ -327,7 +342,7 @@ AITypeMatchup::
 ; "It doesn't affect". Unlike AIGetTypeEffectiveness it reads no wEnemyMove* byte - the picker also
 ; runs on a locked BIDE turn, whose release reads that block after layer 6 - and it writes none.
 AIMoveOnPlayer::
-	call SetPlayerDefenderType3 ; v1.0 (2026-11-02): the player's third type
+	call SetPlayerDefenderTraits ; v1.0 (2026-11-02): the player's third type and AIRBORNE
 	ld hl, wBattleMonType
 	ld b, [hl]
 	inc hl
@@ -337,25 +352,23 @@ AIMoveOnPlayer::
 	ld e, a
 	ret
 
-; v1.0 (2026-11-02, three types): wDefenderType3 = the third type ($FF: none) of the target of this turn's
-; move - the enemy's #MON on the player's turn, the player's on the enemy's (the damage walk's defender).
-; Keeps bc, de, hl.
-SetDefenderType3:
+; v1.0 (2026-11-02, three types, AIRBORNE): the traits (SetDefenderTraits: the third type, AIRBORNE) of the
+; target of this turn's move - the enemy's #MON on the player's turn, the player's on the enemy's (the damage
+; walk's defender). Keeps bc, de, hl.
+SetTargetDefenderTraits:
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wEnemyMonSpecies]
-	jr z, SetDefenderType3OfA
-	ld a, [wBattleMonSpecies]
-	jr SetDefenderType3OfA
+	jp z, SetDefenderTraits
+; fall through: the player's #MON
 
-; v1.0 (2026-11-02): wDefenderType3 = the player's #MON's third type, for the AI's walks on the player
-; (AIGetTypeEffectiveness, AIMoveOnPlayer). Keeps bc, de, hl.
-SetPlayerDefenderType3:
+; v1.0 (2026-11-02): the player's #MON's traits, for the AI's walks on the player (AIGetTypeEffectiveness,
+; AIMoveOnPlayer). Keeps bc, de, hl.
+SetPlayerDefenderTraits:
 	ld a, [wBattleMonSpecies]
-SetDefenderType3OfA:
-	call GetThirdType
-	ld [wDefenderType3], a
-	ret
+	jp SetDefenderTraits
+
+ASSERT wDefenderAirborne == wDefenderType3 + 1, "the walks step from wDefenderType3 to wDefenderAirborne with inc hl"
 
 ; v1.0 (F4, 2026-09-30; MIND BREAK gets an exception too, setting it further apart as the stronger
 ; PSYCHIC move: MIND BREAK vs DARK at 0.5x): the chart's one exception, shared by the damage walk

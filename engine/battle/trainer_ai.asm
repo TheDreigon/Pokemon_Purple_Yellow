@@ -182,8 +182,9 @@ AIGetMoveChoiceList:
 ; already up (a hit taken first may break it, as RECOVER at full HP).
 ; v1.0 (R9, 2026-09-30; the AI did not know that a damaging move into a type immunity does nothing): and a
 ; DAMAGING move the type chart stops - "It doesn't affect", a NO_EFFECT row in ApplyTypeEffectivenessToDamage
-; (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on FLYING and GAS, FIRE on MAGMA, PSYCHIC on DARK;
-; one such type of two is enough; STEEL resists POISON since 2026-10-18) - is USELESS (.useless, the E4 tier of
+; (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on FLYING and GAS - and since 2026-11-02 on an
+; AIRBORNE #MON - FIRE on MAGMA, PSYCHIC on DARK; one such type of two is enough; STEEL resists POISON since
+; 2026-10-18) - is USELESS (.useless, the E4 tier of
 ; a status move on an immune type). AIMoveEffectiveness asks the walk the damage takes (AIGetTypeEffectiveness,
 ; the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c (the fixed-damage moves follow the
 ; immunity rules too) that holds for SetDamageEffects' family too: its set number is never scaled, but
@@ -1822,9 +1823,8 @@ AIScoreSwitchCandidate:
 .enoughHP
 	pop hl
 	push hl
-	ld a, [hl] ; v1.0 (2026-11-02, three types): its species (MON_SPECIES) - its third type, for the walk
-	call GetThirdType
-	ld [wDefenderType3], a
+	ld a, [hl] ; v1.0 (2026-11-02): its species (MON_SPECIES) - its third type and AIRBORNE, for the walk
+	call SetDefenderTraits
 	ld bc, MON_TYPE1
 	add hl, bc ; hl -> its two types
 ; defence: the worst the player's types do to it (v1.0, 2026-11-02: its third too, when it has one)
@@ -2080,8 +2080,9 @@ AIMoveEffectiveness:
 	ret
 
 AIMatchupAtHL:
-; a = how effective attacking type a is on the two defender types at hl, and wDefenderType3 (v1.0, 2026-11-02:
-; the caller sets it from the defender's species) (EFFECTIVE = neutral). Keeps bc, hl.
+; a = how effective attacking type a is on the two defender types at hl, and wDefenderType3 and
+; wDefenderAirborne (v1.0, 2026-11-02: the caller sets them from the defender's species) (EFFECTIVE = neutral).
+; Keeps bc, hl.
 	push bc
 	push hl
 	ld d, a

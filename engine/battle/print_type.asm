@@ -54,6 +54,21 @@ PrintMonTypesList:
 	add hl, bc
 	ret
 
+; v1.0 (2026-11-02, AIRBORNE): "AIRBORNE" at hl for an AIRBORNE #MON (GetAirborne), nothing for the rest - the
+; status screen's row 15, under the types, row 14 a margin. A trait of the species, not an ability.
+; [wMonHIndex] = the #MON (internal): the header PrintMonTypesList just loaded.
+PrintMonAirborne:
+	call GetPredefRegisters
+	ld a, [wMonHIndex]
+	call GetAirborne
+	cp -1
+	ret z
+	ld de, AirborneText
+	jp PlaceString
+
+AirborneText:
+	db "AIRBORNE@"
+
 ; erase "TYPE2/" if the mon only has 1 type
 EraseType2Text:
 	ld a, " "
