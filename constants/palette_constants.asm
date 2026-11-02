@@ -72,51 +72,51 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_GREENBAR             ; $1F
 	const PAL_YELLOWBAR            ; $20
 	const PAL_REDBAR               ; $21
-	const PAL_BADGE                ; $22
-	const PAL_CAVE                 ; $23
-	const PAL_GAMEFREAK            ; $24
-	const PAL_PIKACHUS_BEACH       ; $25
-	const PAL_PIKACHU_PORTRAIT     ; $26
-	const PAL_PIKACHUS_BEACH_TITLE ; $27
-	const PAL_DREIGON              ; $28 — Forte's superboss portrait. APPENDED,
+	const PAL_CAVE                 ; $22
+	const PAL_GAMEFREAK            ; $23
+	const PAL_PIKACHUS_BEACH       ; $24
+	const PAL_PIKACHUS_BEACH_TITLE ; $25
+	const PAL_DREIGON              ; $26 — Forte's superboss portrait. APPENDED,
 	                               ;       never inserted: these ids index two
 	                               ;       fixed tables and a renumber repaints
 	                               ;       the whole game.
-	const PAL_OLIVEMON             ; $29 — o "cinzento" do vanilla, que nunca
+	const PAL_OLIVEMON             ; $27 — o "cinzento" do vanilla, que nunca
 	                               ;       foi cinzento: 20,23,10 e' azeitona.
 	                               ;       Trazido de volta para a linha GEODUDE
 	                               ;       + CUBONE + ONIX + AERODACTYL. A linha
 	                               ;       do MACHOP saiu daqui a 2026-08-18
 	                               ;       (STONE/STEEL/IRON), por isso o azeitona
 	                               ;       quer dizer ROCHA e mais nada.
-	const PAL_AZUREMON             ; $2A — azul intermedio, o ponto medio exacto
+	const PAL_AZUREMON             ; $28 — azul intermedio, o ponto medio exacto
 	                               ;       entre CYANMON e BLUEMON
-	const PAL_ROSEMON                ; $2B — R1 rosa claro
-	const PAL_SAGEMON                ; $2C — G1 verde-seco
-	const PAL_VIOLETMON              ; $2D — D2 violeta-sujo
-	const PAL_LAVENDERMON            ; $2E — P2 lavanda
-	const PAL_STONEMON               ; $2F — MACHOP: pedra clara a puxar ao verde-marinho. APPENDADA,
+	const PAL_ROSEMON                ; $29 — R1 rosa claro
+	const PAL_SAGEMON                ; $2A — G1 verde-seco
+	const PAL_VIOLETMON              ; $2B — D2 violeta-sujo
+	const PAL_LAVENDERMON            ; $2C — P2 lavanda
+	const PAL_STONEMON               ; $2D — MACHOP: pedra clara a puxar ao verde-marinho. APPENDADA,
 	                                 ;       nunca inserida.
-	const PAL_STEELMON               ; $30 — MACHOKE: cinza-aco frio, o meio da linha. APPENDADA,
+	const PAL_STEELMON               ; $2E — MACHOKE: cinza-aco frio, o meio da linha. APPENDADA,
 	                                 ;       nunca inserida.
-	const PAL_IRONMON                ; $31 — MACHAMP: aco escuro, o azul da artwork. APPENDADA,
+	const PAL_IRONMON                ; $2F — MACHAMP: aco escuro, o azul da artwork. APPENDADA,
 	                                 ;       nunca inserida.
-	const PAL_SLATEMON               ; $32 — o cinzento NEUTRO do kep-hack (GREYMON deles), desde
+	const PAL_SLATEMON               ; $30 — o cinzento NEUTRO do kep-hack (GREYMON deles), desde
 	                                 ;       2026-08-30: MAGNEMITE/MAGNETON/ONIX/RHYHORN/
 	                                 ;       RHYDON. O nosso PAL_GREYMON e o rosado vanilla (fica
 	                                 ;       para MAROWAK e para a Pokemon Tower). APPENDADA.
-	const PAL_PIKAMON                ; $33 — o amarelo do PIKACHU um toque mais claro que o puro
-	                                 ;       (P2, escolhido a 2026-09-01, com o re-shade dos
-	                                 ;       sprites). SO o PIKACHU (o real e o fake partilham a
-	                                 ;       paleta por serem a mesma especie); RAICHU/SANDSHREW/
-	                                 ;       WEEDLE continuam no PAL_YELLOWMON. APPENDADA.
-	const PAL_FOREST                 ; $34 - VIRIDIAN FOREST's map palette: a drier green for colour 1 and teal
+	const PAL_FOREST                 ; $31 - VIRIDIAN FOREST's map palette: a drier green for colour 1 and teal
 	                                 ;       for colour 2 (the trees; sky blue in PAL_ROUTE). GetPal_Overworld
 	                                 ;       picks it by map id. APPENDED, never inserted.
-	const PAL_GARDEN                 ; $35 - BILL's GARDEN's map palette: green for colour 1 and coral for
+	const PAL_GARDEN                 ; $32 - BILL's GARDEN's map palette: green for colour 1 and coral for
 	                                 ;       colour 2 (the trees, half of the tall grass, the roof; sky blue in
 	                                 ;       PAL_ROUTE). GetPal_Overworld picks it by map id. APPENDED.
-	const PAL_BLOSSOM                ; $36 - light grey and magenta; colour 3 is true black (00,00,00) on GBC
+	const PAL_BLOSSOM                ; $33 - light grey and magenta; colour 3 is true black (00,00,00) on GBC
 	                                 ;       and 06,06,06, that table's own black, in the SGB row. Kept for later
 	                                 ;       use: no map and no species uses it yet. APPENDED, never inserted.
 DEF NUM_SGB_PALS EQU const_value
+
+; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give
+; one colours of its own again, make it a const and add its two rows at the end of the tables. Every id is used by name
+; (the `.town` rule reads the cities' ids, $01-$0B, and PAL_GREENBAR + a bar colour reads $1F-$21: neither moved).
+DEF PAL_BADGE            EQU PAL_CAVE
+DEF PAL_PIKACHU_PORTRAIT EQU PAL_MEWMON ; the overworld emotes
+DEF PAL_PIKAMON          EQU PAL_MEWMON ; PIKACHU, real and fake; RAICHU, SANDSHREW and WEEDLE keep PAL_YELLOWMON
