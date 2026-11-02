@@ -1,7 +1,7 @@
 	db DEX_BEEDRILL ; pokedex id
 	base_stat_row 65, 95, 65, 60, 75, 90 ; hp atk def spatk spdef spd
 
-	db BUG, POISON ; type
+	db BUG, POISON ; type (+ FLYING, its third: data/pokemon/third_types.asm)
 	db 65 ; catch rate  ; final stage, BST 450, harder to handle
 	db 140 ; base exp  ; BST 450
 

@@ -1,6 +1,6 @@
 	db DEX_GENGAR ; pokedex id
 	base_stat_row 65, 90, 65, 120, 75, 110 ; hp atk def spatk spdef spd
-	db GHOST, DARK ; type
+	db GHOST, DARK ; type (+ POISON, its third: data/pokemon/third_types.asm)
 	db 50 ; catch rate  ; final stage, BST 525, harder to handle
 	db 170 ; base exp  ; BST 525
 

@@ -1,6 +1,6 @@
 	db DEX_BUTTERFREE ; pokedex id
 	base_stat_row 60, 60, 55, 95, 85, 85 ; hp atk def spatk spdef spd
-	db BUG, PSYCHIC_TYPE ; type
+	db BUG, PSYCHIC_TYPE ; type (+ FLYING, its third: data/pokemon/third_types.asm)
 	db 85 ; catch rate  ; final stage, BST 440
 	db 135 ; base exp  ; BST 440
 

@@ -1,7 +1,7 @@
 	db DEX_VENOMOTH ; pokedex id
 	base_stat_row 70, 75, 60, 80, 80, 80 ; hp atk def spatk spdef spd
 
-	db BUG, POISON ; type
+	db BUG, POISON ; type (+ FLYING, its third: data/pokemon/third_types.asm)
 	db 85 ; catch rate  ; final stage, BST 445
 	db 140 ; base exp  ; BST 445
 

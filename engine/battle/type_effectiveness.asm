@@ -17,8 +17,13 @@
 ; In: d = defender type 1, e = defender type 2.
 ; Reads wMoveType, wDamage, wDamageMultipliers, hWhoseTurn and that side's
 ; w*MoveNum (v1.0, F4: MIND BREAK); writes wDamage, wDamageMultipliers,
-; wMoveMissed. Clobbers bc.
+; wMoveMissed, wDefenderType3. Clobbers bc.
+; v1.0 (2026-11-02, three types): the defender's third type is one more defending type a row can match - this
+; walk's defender is always the target of the turn's move, so it looks the third up itself (SetDefenderType3)
+; and neither caller can forget it. Three matched rows chain to 8x or 1/8; Forte's ladder stops at 6x and 1/6
+; (.done). Two types never reach either.
 ApplyTypeEffectivenessToDamage::
+	call SetDefenderType3
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveNum]
@@ -32,13 +37,18 @@ ApplyTypeEffectivenessToDamage::
 .loop
 	ld a, [hli] ; a = "attacking type" of the current type pair
 	cp $ff
-	ret z
+	jr z, .done
 	cp b ; does move type match "attacking type"?
 	jr nz, .nextTypePair
 	ld a, [hl] ; a = "defending type" of the current type pair
 	cp d ; does type 1 of defender match "defending type"?
 	jr z, .matchingPairFound
 	cp e ; does type 2 of defender match "defending type"?
+	jr z, .matchingPairFound
+	push hl
+	ld hl, wDefenderType3
+	cp [hl] ; v1.0 (2026-11-02): or its third type?
+	pop hl
 	jr z, .matchingPairFound
 	jr .nextTypePair
 .matchingPairFound
@@ -106,6 +116,51 @@ ApplyTypeEffectivenessToDamage::
 	inc hl
 	inc hl
 	jp .loop
+.done
+; v1.0 (2026-11-02, Forte's ladder: 2x 4x 6x, 1/2 1/4 1/6): the effectiveness byte doubles on each super
+; effective row and halves on each resisted one, from EFFECTIVE (10): three super effective rows leave 80,
+; three resisted ones 10 -> 5 -> 2 -> 1, and nothing else does. 8x becomes 6x (the damage x 3/4, the byte
+; 60); 1/8 becomes 1/6 (the damage x 4/3; the byte stays 1, read only as "not very effective").
+	ld a, [wDamageMultipliers]
+	and $7f
+	cp EFFECTIVE * 8
+	ld bc, $0304 ; b, c = 3, 4: x 3 / 4
+	jr z, .rescale
+	cp 1
+	ret nz
+	ld bc, $0403 ; x 4 / 3
+.rescale
+	push bc
+	xor a
+	ldh [hMultiplicand], a
+	ld hl, wDamage
+	ld a, [hli]
+	ldh [hMultiplicand + 1], a
+	ld a, [hl]
+	ldh [hMultiplicand + 2], a
+	ld a, b
+	ldh [hMultiplier], a
+	call Multiply
+	pop bc
+	ld a, c
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+	ld hl, wDamage
+	ldh a, [hQuotient + 2]
+	ld [hli], a
+	ldh a, [hQuotient + 3]
+	ld [hl], a
+	ld hl, wDamageMultipliers
+	ld a, [hl]
+	and $7f
+	cp EFFECTIVE * 8
+	ret nz ; 1/6: the byte stays 1
+	ld a, [hl]
+	and $80 ; STAB's bit
+	or EFFECTIVE * 6
+	ld [hl], a
+	ret
 
 ; v1.0 (R9c, 2026-09-30; the fixed-damage moves follow the immunity rules too): SetDamageEffects' family -
 ; SEISMIC TOSS, SUPER FANG, PARASITE, NIGHT SHADE, DRAGON RAGE, SONICBOOM - deals a set number, so the
@@ -131,7 +186,7 @@ FixedDamageImmunity::
 	ld a, [hli]
 	ld d, a ; d, e = the target's types, as AdjustDamageForMoveType hands them to the walk
 	ld e, [hl]
-	call ApplyTypeEffectivenessToDamage
+	call ApplyTypeEffectivenessToDamage ; (v1.0, 2026-11-02: it looks up the target's third type itself)
 	ld hl, wDamageMultipliers
 	ld a, [hl]
 	and $7f
@@ -168,11 +223,13 @@ AIGetTypeEffectiveness::
 	ld d, a                    ; d = type of enemy move
 	ld a, [wEnemyMoveNum]
 	ld e, a                    ; v1.0 (F4): e = the enemy's move (layers 1, 3 and 5 ReadMove it first)
+	call SetPlayerDefenderType3 ; v1.0 (2026-11-02): the player's third type
 	ld hl, wBattleMonType
 	ld b, [hl]                 ; b = type 1 of player's pokemon
 	inc hl
 	ld c, [hl]                 ; c = type 2 of player's pokemon
-AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's types, e = the move (NO_MOVE: types alone)
+AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's types, e = the move (NO_MOVE: types alone),
+	                           ; wDefenderType3 = its third type ($FF: none; v1.0, 2026-11-02 - every caller sets it)
 	; initialize to neutral effectiveness
 	ld a, EFFECTIVE ; v0.7 fix: was $10 (=16), a vanilla Gen 1 bug that made
 	ld [wTypeEffectiveness], a ; the AI read untabled (neutral) matchups as super-effective
@@ -180,13 +237,18 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 .loop
 	ld a, [hli]
 	cp $ff
-	ret z
+	jr z, .done
 	cp d                      ; match the type of the move
 	jr nz, .nextTypePair1
 	ld a, [hli]
 	cp b                      ; match with type 1 of pokemon
 	jr z, .matchingPairFound
 	cp c                      ; or match with type 2 of pokemon
+	jr z, .matchingPairFound
+	push hl
+	ld hl, wDefenderType3
+	cp [hl]                   ; v1.0 (2026-11-02): or its third type
+	pop hl
 	jr z, .matchingPairFound
 	jr .nextTypePair2
 .nextTypePair1
@@ -205,8 +267,8 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 	;
 	; hl points at this row's multiplier; chain it in and keep scanning:
 	;   wTypeEffectiveness = wTypeEffectiveness * multiplier / 10
-	; The running value never exceeds 40 (20 * 20 / 10), so only the low
-	; quotient byte matters.
+	; The running value never exceeds 80 (three types: 20 * 20 * 20 / 100; .done caps it at 60), so only
+	; the low quotient byte matters.
 	; home Multiply preserves only hl and bc, so d (the move type this loop
 	; compares against) is saved explicitly rather than relying on _Multiply
 	; happening to leave de alone.
@@ -233,13 +295,23 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 	pop de
 	pop bc
 	jr .nextTypePair2          ; a defender's OTHER type may still have a row
+.done
+; v1.0 (2026-11-02): Forte's ladder, as in the damage walk - three super effective rows (80) count as 6x
+; (60). Three resisted rows leave 1 (1/8, read as 1/6: below 1/4's 2 either way).
+	ld a, [wTypeEffectiveness]
+	cp EFFECTIVE * 8
+	ret nz
+	ld a, EFFECTIVE * 6
+	ld [wTypeEffectiveness], a
+	ret
 
 AITypeMatchup::
 ; v1.0 (2026-09-26, the switch-in picker): the same chained lookup for ANY
 ; attacking type against ANY defender, for AIPickSwitchTarget in bank $0E. A
 ; farcall hands over only c, d and e and gives back only de and hl, so:
 ; in: d = the attacking type, e and c = the defender's two types (a single
-; type stored twice, as everywhere). Out: e (and wTypeEffectiveness) = the
+; type stored twice, as everywhere), wDefenderType3 = its third (v1.0, 2026-11-02: the caller, AIMatchupAtHL,
+; sets it from the defender's species). Out: e (and wTypeEffectiveness) = the
 ; multiplier: EFFECTIVE = neutral, 0 = immune, above it super effective.
 	ld b, e
 	ld e, NO_MOVE ; v1.0 (F4): types alone - the picker weighs types, not moves
@@ -255,6 +327,7 @@ AITypeMatchup::
 ; "It doesn't affect". Unlike AIGetTypeEffectiveness it reads no wEnemyMove* byte - the picker also
 ; runs on a locked BIDE turn, whose release reads that block after layer 6 - and it writes none.
 AIMoveOnPlayer::
+	call SetPlayerDefenderType3 ; v1.0 (2026-11-02): the player's third type
 	ld hl, wBattleMonType
 	ld b, [hl]
 	inc hl
@@ -262,6 +335,26 @@ AIMoveOnPlayer::
 	call AIGetTypeEffectivenessDBC
 	ld a, [wTypeEffectiveness]
 	ld e, a
+	ret
+
+; v1.0 (2026-11-02, three types): wDefenderType3 = the third type ($FF: none) of the target of this turn's
+; move - the enemy's #MON on the player's turn, the player's on the enemy's (the damage walk's defender).
+; Keeps bc, de, hl.
+SetDefenderType3:
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyMonSpecies]
+	jr z, SetDefenderType3OfA
+	ld a, [wBattleMonSpecies]
+	jr SetDefenderType3OfA
+
+; v1.0 (2026-11-02): wDefenderType3 = the player's #MON's third type, for the AI's walks on the player
+; (AIGetTypeEffectiveness, AIMoveOnPlayer). Keeps bc, de, hl.
+SetPlayerDefenderType3:
+	ld a, [wBattleMonSpecies]
+SetDefenderType3OfA:
+	call GetThirdType
+	ld [wDefenderType3], a
 	ret
 
 ; v1.0 (F4, 2026-09-30; MIND BREAK gets an exception too, setting it further apart as the stronger

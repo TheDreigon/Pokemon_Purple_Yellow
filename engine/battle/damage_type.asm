@@ -40,6 +40,18 @@ AdjustDamageForMoveType::
 	jr z, .sameTypeAttackBonus
 	cp c ; does the move type match type 2 of the attacker?
 	jr z, .sameTypeAttackBonus
+; v1.0 (2026-11-02, three types): or its third (GetThirdType, from the attacker's species: a TRANSFORM, which
+; copies the species, copies it too). Only `a` and `hl` are touched: d/e still hold the defender's types.
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wBattleMonSpecies]
+	jr z, .gotAttacker
+	ld a, [wEnemyMonSpecies]
+.gotAttacker
+	call GetThirdType
+	ld hl, wMoveType
+	cp [hl]
+	jr z, .sameTypeAttackBonus
 ; v0.7: TRI_ATTACK is typed BIRD on purpose, so it is neutral against every
 ; type (BIRD has no rows in the matchups table) — but that also means it can
 ; never match Porygon's NORMAL/ELECTRIC and would never earn STAB. Grant it

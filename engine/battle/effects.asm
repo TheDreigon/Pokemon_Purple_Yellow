@@ -93,15 +93,7 @@ PoisonEffect:
 	ld b, a
 	and a
 	jr nz, .noEffect ; miss if target is already statused
-	ld a, [hli]
-	cp POISON ; can't poison a poison-type target
-	jr z, .noEffect
-	cp STEEL ; v0.7: can't poison a steel-type target either
-	jr z, .noEffect
-	ld a, [hld]
-	cp POISON ; can't poison a poison-type target
-	jr z, .noEffect
-	cp STEEL ; v0.7
+	call PoisonImmuneTarget ; can't poison a POISON or (v0.7) STEEL target - (v1.0) its third type too
 	jr z, .noEffect
 	ld a, [de]
 	cp POISON_SIDE_EFFECT1
@@ -170,6 +162,33 @@ PoisonEffect:
 	ld c, 50
 	call DelayFrames
 	jp PrintDidntAffectText
+
+; v1.0 (2026-11-02, three types): z when the target is a POISON or STEEL type - type 1 or 2 at hl (hl -> its
+; type 1, and back there on return) or its third (GetThirdType: the GASTLY line's POISON). Out of PoisonEffect
+; because inline the third type's test put its jr's to .noEffect out of reach. Keeps bc, de, hl.
+PoisonImmuneTarget:
+	ld a, [hli]
+	call .poisonOrSteel
+	jr z, .back
+	ld a, [hl]
+	call .poisonOrSteel
+	jr z, .back
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyMonSpecies] ; (ld keeps the flags of the and)
+	jr z, .gotSpecies
+	ld a, [wBattleMonSpecies]
+.gotSpecies
+	call GetThirdType
+	call .poisonOrSteel
+.back
+	dec hl ; (a 16-bit dec keeps the flags)
+	ret
+.poisonOrSteel
+	cp POISON
+	ret z
+	cp STEEL
+	ret
 
 PoisonedText:
 	text_far _PoisonedText

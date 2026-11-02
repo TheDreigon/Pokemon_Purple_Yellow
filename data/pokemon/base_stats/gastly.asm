@@ -1,6 +1,6 @@
 	db DEX_GASTLY ; pokedex id
 	base_stat_row 30, 40, 30, 90, 35, 90 ; hp atk def spatk spdef spd
-	db GHOST, GAS ; type
+	db GHOST, GAS ; type (+ POISON, its third: data/pokemon/third_types.asm)
 	db 120 ; catch rate  ; exception: a body of gas; the band cannot see there is nothing to hold
 	db 90 ; base exp  ; BST 315
 

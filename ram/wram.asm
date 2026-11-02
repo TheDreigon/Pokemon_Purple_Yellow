@@ -1459,10 +1459,13 @@ NEXTU
 wLearnMoveMonName:: ds NAME_LENGTH
 ENDU
 
-; For the pureRGB AI enhancements
+; For the pureRGB AI enhancements (dead since v1.0 E4, 2026-09-29: nothing reads them)
 wAIMoveSpamAvoider:: db
 wAITargetMonStatus:: db
-wAITargetMonType1:: db
+; v1.0 (2026-11-02): the defender's third type for the chart walks (type_effectiveness.asm), $FF for none:
+; every caller of ApplyTypeEffectivenessToDamage and AIGetTypeEffectivenessDBC sets it first, from the
+; defender's species (GetThirdType). It was wAITargetMonType1, one of the four dead pureRGB AI bytes.
+wDefenderType3:: db
 wAITargetMonType2:: db
 
 ; money received after battle = base money × level of last enemy mon

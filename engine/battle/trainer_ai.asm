@@ -571,6 +571,12 @@ CheckStatusImmunity:
 	jr z, .discourage
 	cp c ; v0.7
 	jr z, .discourage
+	ld a, [wBattleMonSpecies] ; v1.0 (2026-11-02): and its third type (a POISON one is never poisoned; keeps bc)
+	call GetThirdType
+	cp b
+	jr z, .discourage
+	cp c
+	jr z, .discourage
 .done
 	pop hl
 	pop bc
@@ -1216,6 +1222,10 @@ AIMoveChoiceModification5:
 	ld a, [wEnemyMonType2]
 	cp c
 	jr z, .stab
+	ld a, [wEnemyMonSpecies] ; v1.0 (2026-11-02): or its third type, as AdjustDamageForMoveType reads it (keeps bc)
+	call GetThirdType
+	cp c
+	jr z, .stab
 	ld a, [wEnemyMoveNum] ; v1.0 (R12): AdjustDamageForMoveType's exception - PORYGON's TRI ATTACK has STAB
 	cp TRI_ATTACK
 	jr nz, .noStab
@@ -1812,9 +1822,12 @@ AIScoreSwitchCandidate:
 .enoughHP
 	pop hl
 	push hl
+	ld a, [hl] ; v1.0 (2026-11-02, three types): its species (MON_SPECIES) - its third type, for the walk
+	call GetThirdType
+	ld [wDefenderType3], a
 	ld bc, MON_TYPE1
 	add hl, bc ; hl -> its two types
-; defence: the worst the player's two types do to it
+; defence: the worst the player's types do to it (v1.0, 2026-11-02: its third too, when it has one)
 	ld a, [wBattleMonType1]
 	call AIMatchupAtHL
 	ld b, a
@@ -1824,6 +1837,15 @@ AIScoreSwitchCandidate:
 	jr c, .gotWorst
 	ld b, a
 .gotWorst
+	ld a, [wBattleMonSpecies]
+	call GetThirdType
+	cp -1
+	jr z, .gotWorstOfThree
+	call AIMatchupAtHL
+	cp b
+	jr c, .gotWorstOfThree
+	ld b, a
+.gotWorstOfThree
 	ld a, b
 	ld c, 1 ; takes them neutrally
 	cp EFFECTIVE + 1
@@ -2058,8 +2080,8 @@ AIMoveEffectiveness:
 	ret
 
 AIMatchupAtHL:
-; a = how effective attacking type a is on the two defender types at hl
-; (EFFECTIVE = neutral). Keeps bc, hl.
+; a = how effective attacking type a is on the two defender types at hl, and wDefenderType3 (v1.0, 2026-11-02:
+; the caller sets it from the defender's species) (EFFECTIVE = neutral). Keeps bc, hl.
 	push bc
 	push hl
 	ld d, a

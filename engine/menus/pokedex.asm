@@ -1150,17 +1150,18 @@ Pokedex_PrintBaseStats:
 ;
 ;        0123456789012345678
 ;   row9 ├─────────────────┤
-;  row10 |        BASE STATS|
-;  row11 |TYPE1/   HP    100|
-;  row12 | GRASS   ATK    85|
-;  row13 |TYPE2/   DEF    90|
-;  row14 | POISON  SAT   105|
-;  row15 |TOTAL    SDF   105|
-;  row16 |   565   SPD    80|
+;  row10 |TYPES/  BASE STATS|
+;  row11 | BUG     HP     65|
+;  row12 | POISON  ATK    95|
+;  row13 | FLYING  DEF    65|
+;  row14 |         SAT    60|
+;  row15 |TOTAL    SDF    75|
+;  row16 |   450   SPD    90|
 ;
 ; v1.0 (the SPECIAL split, 2026-09-06): six stat rows (SAT / SDF = SP.ATK /
 ; SP.DEF) fill rows 11-16, so TOTAL moved to the left column under the types,
-; label over value like TYPE1/. TOTAL is the six-stat sum.
+; label over value. TOTAL is the six-stat sum.
+; v1.0 (2026-11-02, three types): the types as a list under one label (BEEDRILL's three above).
 ;
 ; Nothing here has to go and FETCH anything. DrawDexEntryOnScreen already
 ; called GetMonHeader with wd0b5 = the internal index, to find the front
@@ -1171,17 +1172,15 @@ Pokedex_PrintBaseStats:
 	ld de, BaseStatsHeaderText
 	call PlaceString
 
-; The type labels go down BEFORE the names, because PrintMonType erases the
-; "TYPE2/" label itself for a single-typed mon - and it erases six tiles at
-; hl + $13, which is one row below and one column left of where it puts the
-; first name. Names at (2,12) therefore need the labels at (1,11) and (1,13).
-; That is the same relative shape the status screen uses, which is what makes
-; the stock predef fit here without an adapter.
-	hlcoord 1, 11
+; v1.0 (2026-11-02, three types; Forte's layout): one "TYPES/" label on row 10, level with BASE STATS, and
+; the names under it, one a row (rows 11-13: type 1, type 2 when it differs, the third when there is one -
+; PrintMonTypesList); row 14 stays a margin above TOTAL. Every #MON gets this one layout, one name or three.
+; (Before: "TYPE1/" and "TYPE2/" over a name each, through PrintMonType, rows 11-14 - no room for a third.)
+	hlcoord 1, 10
 	ld de, PokedexTypeLabelsText
 	call PlaceString
-	hlcoord 2, 12
-	predef PrintMonType
+	hlcoord 2, 11
+	predef PrintMonTypesList
 
 ; Six labels on six CONSECUTIVE rows. "next" moves two rows unless bit 2 of
 ; hUILayoutFlags is set (home/text.asm), so it goes on here and comes straight
@@ -1304,8 +1303,7 @@ BaseStatTotalText:
 	db "TOTAL@"
 
 PokedexTypeLabelsText:
-	db   "TYPE1/"
-	next "TYPE2/@"
+	db "TYPES/@" ; v1.0 (2026-11-02): one label over the list (PrintMonTypesList)
 
 Pokedex_PrintFlavorTextAtRow11:
 	bccoord 1, 11

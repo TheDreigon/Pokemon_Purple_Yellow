@@ -180,7 +180,7 @@ StatusScreen:
 	lb bc, 6, 10
 	call DrawLineBox ; Draws the box around name, HP and status
 ; v1.0 (2026-09-06): the dex number moved off row 7 into the lower-right panel,
-; above TYPE1/ (row 8, the one row that panel had free), so the left half of
+; above the types (row 8, the one row that panel had free), so the left half of
 ; row 7 is empty - a row of air between the picture and ATTACK.
 	coord hl, 10, 8
 	ld [hl], $60 ; "DE" - the condensed DEX glyph pair, same style as <ID>
@@ -264,8 +264,9 @@ StatusScreen:
 	coord hl, 9, 1
 	call PlaceString ; Pokémon name
 ; v1.0 (2026-09-06): the lower-right panel holds the dex number (row 8), a
-; blank row, then the types on rows 10-13 - rows 14-15 stay free for a
-; possible third type. The ID number and the OT moved to the DV page: with
+; blank row, then the types from row 10 - since 2026-11-02 (three types) the
+; Pokédex DATA page's list: "TYPES/" on row 10 and one name a row on rows
+; 11-13; rows 14-15 free. The ID number and the OT moved to the DV page: with
 ; START held, rows 10-13 show IDNo/ and OT/ instead of the types.
 	call Joypad
 	ldh a, [hJoyHeld]
@@ -273,9 +274,9 @@ StatusScreen:
 	jr nz, .identityPanel
 	coord hl, 10, 10
 	ld de, TypesText
-	call PlaceString ; "TYPE1/" (row 10), "TYPE2/" (row 12)
+	call PlaceString ; "TYPES/" (row 10)
 	coord hl, 11, 11
-	predef PrintMonType ; names on rows 11 and 13; its TYPE2/ erase lands on (10,12)
+	predef PrintMonTypesList ; the names on rows 11-13
 	jr .panelDone
 .identityPanel
 	coord hl, 10, 10
@@ -475,8 +476,7 @@ NamePointers2:
 	dw wDayCareMonName
 
 TypesText:
-	db   "TYPE1/"
-	next "TYPE2/@" ; two rows down
+	db "TYPES/@"
 
 IdentityText: ; the DV page (START held) shows these where the types were
 	db   "<ID>№/"

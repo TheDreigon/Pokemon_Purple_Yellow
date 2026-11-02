@@ -197,13 +197,12 @@ HoFDisplayMonInfo:
 	ld a, [wHoFMonSpecies]
 	ld [wd0b5], a
 	hlcoord 3, 9
-	predef PrintMonType
+	predef PrintMonTypesList ; v1.0 (2026-11-02, three types): one name a row, rows 9-11 - the box's last three
 	ret
 
 HoFMonInfoText:
 	db   "LEVEL/"
-	next "TYPE1/"
-	next "TYPE2/@"
+	next "TYPES/@" ; v1.0 (2026-11-02): one label over the list, as on the Pokédex DATA page
 
 HoFLoadPlayerPics:
 	ld a, [wPlayerGender] ; New gender check
