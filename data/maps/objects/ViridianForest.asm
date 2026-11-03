@@ -44,7 +44,7 @@ ViridianForest_Object:
 	object_event  2, 18, SPRITE_COOLTRAINER_M, STAY, LEFT, TEXT_VIRIDIANFOREST_COOLTRAINER_M, OPP_COOLTRAINER_M, 11, 2
 ; v0.7 (2026-09-02): the shortcut LASS - she faces the bushes she wishes
 ; were gone. Slot 8 (the ordinal contract above applies to her too).
-	object_event 16, 30, SPRITE_COOLTRAINER_F, STAY, UP, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, OPP_LASS, 20, 1
+	object_event 17, 30, SPRITE_COOLTRAINER_F, STAY, LEFT, TEXT_VIRIDIANFOREST_COOLTRAINER_F2, OPP_LASS, 20, 1
 ; v0.7 (2026-09-06): the POTION ball that stood here at (8,3) is a hidden item at (8,4)
 ; now (data/events/hidden_objects.asm); its missable slot pays for this REPEL.
 	object_event 32, 43, SPRITE_POKE_BALL, STAY, NONE, TEXT_VIRIDIANFOREST_REPEL, REPEL
