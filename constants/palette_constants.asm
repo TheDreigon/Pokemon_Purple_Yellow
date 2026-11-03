@@ -117,6 +117,11 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_BLOSSOM                ; $33 - light grey and magenta; colour 3 is true black (00,00,00) on GBC
 	                                 ;       and 06,06,06, that table's own black, in the SGB row. Kept for later
 	                                 ;       use: no map and no species uses it yet. APPENDED, never inserted.
+	const PAL_SAFARI                 ; $34 - the SAFARI ZONE's map palette (the gate, the four areas, the five
+	                                 ;       houses): terracotta for colour 1 (the ground, the roofs, the floors,
+	                                 ;       the sprites: PAL_BROWNMON's, the colour of most of its Pokemon) and
+	                                 ;       green for colour 2 (the trees, the water, the walls). GetPal_Overworld
+	                                 ;       picks it by map id. APPENDED, never inserted.
 DEF NUM_SGB_PALS EQU const_value
 
 ; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give

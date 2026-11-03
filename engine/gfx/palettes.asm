@@ -217,11 +217,19 @@ GetPal_Overworld:
 .normalDungeonOrBuilding
 ; the interiors with a palette of their own, chosen by their map id (a holds wCurMap on both paths that reach this
 ; label); a test on the FOREST tileset would paint the four SAFARI ZONE areas too, and one on wLastMap would paint
-; BILLS_HOUSE, whose wLastMap reads BILLS_GARDEN once the player has walked out of the garden
+; BILLS_HOUSE, whose wLastMap reads BILLS_GARDEN once the player has walked out of the garden. The SAFARI ZONE's ten
+; maps: the gate by its id, the four areas and the five houses by one range of consecutive ids
 	cp VIRIDIAN_FOREST
 	jr z, .viridianForest
 	cp BILLS_GARDEN
 	jr z, .billsGarden
+	cp SAFARI_ZONE_GATE
+	jr z, .safariZone
+	cp SAFARI_ZONE_EAST
+	jr c, .notSafariZone
+	cp SAFARI_ZONE_NORTH_REST_HOUSE + 1
+	jr c, .safariZone
+.notSafariZone
 	ld a, [wLastMap] ; town or route that current dungeon or building is located
 .townOrRoute
 	cp NUM_CITY_MAPS
@@ -267,6 +275,18 @@ GetPal_Overworld:
 .billsGarden
 	ld a, PAL_GARDEN - 1
 	jr .town
+.safariZone
+	ld a, PAL_SAFARI - 1
+	jr .town
+
+; the range test above holds the nine SAFARI ZONE maps after the gate and nothing else, and all ten ids reach it
+; (below CERULEAN_CAVE_2F, the first id the routine sends elsewhere)
+	ASSERT SAFARI_ZONE_NORTH == SAFARI_ZONE_EAST + 1 && SAFARI_ZONE_WEST == SAFARI_ZONE_EAST + 2
+	ASSERT SAFARI_ZONE_CENTER == SAFARI_ZONE_EAST + 3 && SAFARI_ZONE_CENTER_REST_HOUSE == SAFARI_ZONE_EAST + 4
+	ASSERT SAFARI_ZONE_SECRET_HOUSE == SAFARI_ZONE_EAST + 5 && SAFARI_ZONE_WEST_REST_HOUSE == SAFARI_ZONE_EAST + 6
+	ASSERT SAFARI_ZONE_EAST_REST_HOUSE == SAFARI_ZONE_EAST + 7 && SAFARI_ZONE_NORTH_REST_HOUSE == SAFARI_ZONE_EAST + 8
+	ASSERT FIRST_INDOOR_MAP <= SAFARI_ZONE_GATE && SAFARI_ZONE_GATE < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= SAFARI_ZONE_EAST && SAFARI_ZONE_NORTH_REST_HOUSE < CERULEAN_CAVE_2F
 
 ; used when a Pokemon is the only thing on the screen
 ; such as evolution, trading and the Hall of Fame
