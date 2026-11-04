@@ -236,9 +236,23 @@ GetPal_Overworld:
 .townOrRoute
 	cp NUM_CITY_MAPS
 	jr c, .town
-	ld a, PAL_ROUTE - 1
+	cp FIRST_INDOOR_MAP
+	jr c, .route
+	ld a, PAL_ROUTE - 1 ; an indoor id in wLastMap (BILLS_GARDEN's, the one outside map with an indoor id)
 .town
 	inc a ; a town's palette ID is its map ID + 1
+	ret
+.route
+; v1.0 (2026-11-04): each route its own palette (until v1.0 every route took PAL_ROUTE)
+	push hl
+	sub FIRST_ROUTE_MAP
+	add LOW(RoutePalettes)
+	ld l, a
+	adc HIGH(RoutePalettes)
+	sub l
+	ld h, a
+	ld a, [hl]
+	pop hl
 	ret
 .PokemonTowerOrAgatha
 	ld a, PAL_GREYMON - 1
@@ -269,7 +283,9 @@ GetPal_Overworld:
 	ld a, PAL_CERULEAN_CAVE - 1
 	jr .town
 .Lorelei
-	xor a
+; v1.0 (2026-11-04): vanilla gave LORELEI's room PAL_PALLET (xor a, then .town); PALLET TOWN changed colours, the
+; room keeps them in a row of its own
+	ld a, PAL_LORELEI - 1
 	jr .town
 .viridianForest
 	ld a, PAL_FOREST - 1
@@ -289,6 +305,40 @@ GetPal_Overworld:
 	ASSERT SAFARI_ZONE_EAST_REST_HOUSE == SAFARI_ZONE_EAST + 7 && SAFARI_ZONE_NORTH_REST_HOUSE == SAFARI_ZONE_EAST + 8
 	ASSERT FIRST_INDOOR_MAP <= SAFARI_ZONE_GATE && SAFARI_ZONE_GATE < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= SAFARI_ZONE_EAST && SAFARI_ZONE_NORTH_REST_HOUSE < CERULEAN_CAVE_2F
+; .route reads RoutePalettes by (map id - FIRST_ROUTE_MAP): the routes are the ids between the towns and the interiors
+	ASSERT FIRST_ROUTE_MAP == NUM_CITY_MAPS
+	ASSERT ROUTE_1 == FIRST_ROUTE_MAP && ROUTE_25 == FIRST_INDOOR_MAP - 1
+
+; v1.0 (2026-11-04): the palette of each route, ROUTE_1 to ROUTE_25 in map id order (GetPal_Overworld's .route). The
+; interiors that follow wLastMap take the palette of the route they stand on: its gates, houses and centers.
+RoutePalettes:
+	table_width 1, RoutePalettes
+	db PAL_ROUTE              ; ROUTE_1
+	db PAL_ROUTE              ; ROUTE_2
+	db PAL_ROUTE_SOPE         ; ROUTE_3
+	db PAL_ROUTE_PONTE        ; ROUTE_4
+	db PAL_ROUTE_MENTA        ; ROUTE_5
+	db PAL_ROUTE_MENTA        ; ROUTE_6
+	db PAL_ROUTE_TOXICA       ; ROUTE_7
+	db PAL_ROUTE_TOXICA       ; ROUTE_8
+	db PAL_ROUTE_SOPE         ; ROUTE_9
+	db PAL_ROUTE_PONTE        ; ROUTE_10
+	db PAL_ROUTE_PONTE        ; ROUTE_11
+	db PAL_ROUTE_MARINHA      ; ROUTE_12
+	db PAL_ROUTE_PONTE        ; ROUTE_13
+	db PAL_ROUTE_PONTE        ; ROUTE_14
+	db PAL_ROUTE              ; ROUTE_15
+	db PAL_ROUTE              ; ROUTE_16
+	db PAL_ROUTE_DOENTE       ; ROUTE_17
+	db PAL_ROUTE              ; ROUTE_18
+	db PAL_ROUTE_PRAIA        ; ROUTE_19
+	db PAL_ROUTE_ROCHA_GELADA ; ROUTE_20
+	db PAL_ROUTE_PRAIA        ; ROUTE_21
+	db PAL_ROUTE              ; ROUTE_22
+	db PAL_ROUTE              ; ROUTE_23
+	db PAL_ROUTE_MARINHA      ; ROUTE_24
+	db PAL_ROUTE_BRISA        ; ROUTE_25
+	assert_table_length FIRST_INDOOR_MAP - FIRST_ROUTE_MAP
 
 ; v1.0 (2026-11-04): the interiors that took the colours of the town or route outside (wLastMap's) until v1.0 and have
 ; palettes of their own now. a = wCurMap (GetPal_Overworld's .normalDungeonOrBuilding path). Returns carry and a = the
@@ -296,7 +346,8 @@ GetPal_Overworld:
 ; SILPH CO is freed when GIOVANNI is beaten on its 11F: from then on it follows wLastMap again (SAFFRON CITY's
 ; colours, as SAFFRON's free theme plays there); SilphCo11FGiovanniAfterBattleScript sets the event and reloads the
 ; palette in the dark. The ROCKET HIDEOUT keeps PAL_PORYGON for good. The VERMILION DOCK and the underground paths'
-; entrance houses keep following wLastMap.
+; entrance houses keep following wLastMap. BILLS_HOUSE wears ROUTE 25's palette by its id: entered from the garden,
+; its wLastMap reads BILLS_GARDEN, an indoor id that would give it PAL_ROUTE.
 GetPal_InheritedNoMore:
 	cp POWER_PLANT
 	jr z, .electrica
@@ -331,6 +382,8 @@ GetPal_InheritedNoMore:
 	jr z, .blossom
 	cp DAYCARE_2F
 	jr z, .blossom
+	cp BILLS_HOUSE
+	jr z, .brisa
 	cp SILPH_CO_1F
 	jr z, .silphCo
 	cp SILPH_CO_2F
@@ -376,6 +429,10 @@ GetPal_InheritedNoMore:
 	ld a, PAL_BLOSSOM
 	scf
 	ret
+.brisa
+	ld a, PAL_ROUTE_BRISA
+	scf
+	ret
 
 ; each range above holds its place's maps and nothing else, and every map named here reaches the routine (an id below
 ; CERULEAN_CAVE_2F, or above CERULEAN_CAVE_1F and neither LORELEIS_ROOM nor BRUNOS_ROOM, on a tileset other than
@@ -400,6 +457,7 @@ GetPal_InheritedNoMore:
 	ASSERT FIRST_INDOOR_MAP <= FIGHTING_DOJO && FIGHTING_DOJO < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= POKEMON_MANSION_1F && POKEMON_MANSION_B1F < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= DAYCARE && DAYCARE < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= BILLS_HOUSE && BILLS_HOUSE < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= SILPH_CO_1F && SILPH_CO_8F < CERULEAN_CAVE_2F
 	ASSERT CERULEAN_CAVE_1F < SILPH_CO_9F && CERULEAN_CAVE_1F < DAYCARE_2F
 	ASSERT LORELEIS_ROOM > SILPH_CO_ELEVATOR && BRUNOS_ROOM > SILPH_CO_ELEVATOR

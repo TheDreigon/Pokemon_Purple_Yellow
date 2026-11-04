@@ -133,6 +133,23 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_VEGAS                  ; $38 - the GAME CORNER and its prize room: purple and gold
 	const PAL_TIJOLO                 ; $39 - the two underground paths and the FIGHTING DOJO: brick
 	const PAL_VINHO                  ; $3A - the POKEMON MANSION's four floors: wine and a dull purple
+; v1.0 (2026-11-04): the routes' own palettes. Until v1.0 every route took PAL_ROUTE; RoutePalettes (engine/gfx/
+; palettes.asm) gives each route its palette, and routes 1, 2, 15, 16, 18, 22 and 23 keep PAL_ROUTE. Colour 1 paints
+; the ground and a third of the tall grass (and the sprites' middle tone), colour 2 the water, the trees and another
+; third of the tall grass: one colour for all three, so a route's water changes with its trees. Two routes that meet on
+; foot stay within a CIEDE2000 distance of about 6 of each other on both colours. APPENDED, never inserted.
+	const PAL_ROUTE_SOPE             ; $3B - routes 3 and 9, at the foot of the mountains: a slightly drier green
+	const PAL_ROUTE_PONTE            ; $3C - routes 4, 10, 11, 13 and 14: half-way between PAL_ROUTE and MARINHA
+	const PAL_ROUTE_MENTA            ; $3D - routes 5 and 6: a fresh mint green
+	const PAL_ROUTE_TOXICA           ; $3E - routes 7 and 8: a toxic green, purple trees and water
+	const PAL_ROUTE_MARINHA          ; $3F - routes 12 and 24: a sea green, a deeper water
+	const PAL_ROUTE_DOENTE           ; $40 - route 17: a sickly green, PAL_ROUTE's water
+	const PAL_ROUTE_PRAIA            ; $41 - routes 19 and 21: sand, PAL_ROUTE's water
+	const PAL_ROUTE_ROCHA_GELADA     ; $42 - route 20: a cold grey-green on the islands, PAL_ROUTE's water
+	const PAL_ROUTE_BRISA            ; $43 - route 25 and BILL's house: route 24's water, a green half-way to PONTE
+	const PAL_LORELEI                ; $44 - LORELEI's room: PAL_PALLET's vanilla colours in both tables. Vanilla
+	                                 ;       painted the room with PAL_PALLET; PALLET TOWN changed colours on
+	                                 ;       2026-11-04 and the room keeps the old ones. APPENDED, never inserted.
 DEF NUM_SGB_PALS EQU const_value
 
 ; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give
