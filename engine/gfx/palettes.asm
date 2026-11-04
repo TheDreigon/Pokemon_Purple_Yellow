@@ -230,6 +230,8 @@ GetPal_Overworld:
 	cp SAFARI_ZONE_NORTH_REST_HOUSE + 1
 	jr c, .safariZone
 .notSafariZone
+	call GetPal_InheritedNoMore
+	ret c
 	ld a, [wLastMap] ; town or route that current dungeon or building is located
 .townOrRoute
 	cp NUM_CITY_MAPS
@@ -287,6 +289,121 @@ GetPal_Overworld:
 	ASSERT SAFARI_ZONE_EAST_REST_HOUSE == SAFARI_ZONE_EAST + 7 && SAFARI_ZONE_NORTH_REST_HOUSE == SAFARI_ZONE_EAST + 8
 	ASSERT FIRST_INDOOR_MAP <= SAFARI_ZONE_GATE && SAFARI_ZONE_GATE < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= SAFARI_ZONE_EAST && SAFARI_ZONE_NORTH_REST_HOUSE < CERULEAN_CAVE_2F
+
+; v1.0 (2026-11-04): the interiors that took the colours of the town or route outside (wLastMap's) until v1.0 and have
+; palettes of their own now. a = wCurMap (GetPal_Overworld's .normalDungeonOrBuilding path). Returns carry and a = the
+; palette id, or no carry for a map that still follows wLastMap. Changes a and f only, as GetPal_Overworld does.
+; SILPH CO is freed when GIOVANNI is beaten on its 11F: from then on it follows wLastMap again (SAFFRON CITY's
+; colours, as SAFFRON's free theme plays there); SilphCo11FGiovanniAfterBattleScript sets the event and reloads the
+; palette in the dark. The ROCKET HIDEOUT keeps PAL_PORYGON for good. The VERMILION DOCK and the underground paths'
+; entrance houses keep following wLastMap.
+GetPal_InheritedNoMore:
+	cp POWER_PLANT
+	jr z, .electrica
+	cp SS_ANNE_1F
+	jr c, .notSSAnne
+	cp SS_ANNE_B1F_ROOMS + 1
+	jr c, .marinho
+.notSSAnne
+	cp GAME_CORNER
+	jr z, .vegas
+	cp GAME_CORNER_PRIZE_ROOM
+	jr z, .vegas
+	cp ROCKET_HIDEOUT_B1F
+	jr c, .notRocketHideout
+	cp ROCKET_HIDEOUT_ELEVATOR + 1
+	jr c, .porygon
+.notRocketHideout
+	cp UNDERGROUND_PATH_NORTH_SOUTH
+	jr z, .tijolo
+	cp UNDERGROUND_PATH_WEST_EAST
+	jr z, .tijolo
+	cp FIGHTING_DOJO
+	jr z, .tijolo
+	cp POKEMON_MANSION_1F
+	jr z, .vinho
+	cp POKEMON_MANSION_2F
+	jr c, .notMansion
+	cp POKEMON_MANSION_B1F + 1
+	jr c, .vinho
+.notMansion
+	cp DAYCARE
+	jr z, .blossom
+	cp DAYCARE_2F
+	jr z, .blossom
+	cp SILPH_CO_1F
+	jr z, .silphCo
+	cp SILPH_CO_2F
+	jr c, .notSilphCo2Fto8F
+	cp SILPH_CO_8F + 1
+	jr c, .silphCo
+.notSilphCo2Fto8F
+	cp SILPH_CO_9F
+	jr c, .none
+	cp SILPH_CO_ELEVATOR + 1
+	jr c, .silphCo
+.none
+	and a ; no carry: wLastMap's colours
+	ret
+.silphCo
+	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	jr nz, .none
+.porygon
+	ld a, PAL_PORYGON
+	scf
+	ret
+.electrica
+	ld a, PAL_ELECTRICA
+	scf
+	ret
+.marinho
+	ld a, PAL_MARINHO
+	scf
+	ret
+.vegas
+	ld a, PAL_VEGAS
+	scf
+	ret
+.tijolo
+	ld a, PAL_TIJOLO
+	scf
+	ret
+.vinho
+	ld a, PAL_VINHO
+	scf
+	ret
+.blossom
+	ld a, PAL_BLOSSOM
+	scf
+	ret
+
+; each range above holds its place's maps and nothing else, and every map named here reaches the routine (an id below
+; CERULEAN_CAVE_2F, or above CERULEAN_CAVE_1F and neither LORELEIS_ROOM nor BRUNOS_ROOM, on a tileset other than
+; CEMETERY and CAVERN)
+	ASSERT SS_ANNE_2F == SS_ANNE_1F + 1 && SS_ANNE_3F == SS_ANNE_1F + 2 && SS_ANNE_B1F == SS_ANNE_1F + 3
+	ASSERT SS_ANNE_BOW == SS_ANNE_1F + 4 && SS_ANNE_KITCHEN == SS_ANNE_1F + 5
+	ASSERT SS_ANNE_CAPTAINS_ROOM == SS_ANNE_1F + 6 && SS_ANNE_1F_ROOMS == SS_ANNE_1F + 7
+	ASSERT SS_ANNE_2F_ROOMS == SS_ANNE_1F + 8 && SS_ANNE_B1F_ROOMS == SS_ANNE_1F + 9
+	ASSERT VERMILION_DOCK == SS_ANNE_1F - 1 ; the dock stays outside the range
+	ASSERT ROCKET_HIDEOUT_B2F == ROCKET_HIDEOUT_B1F + 1 && ROCKET_HIDEOUT_B3F == ROCKET_HIDEOUT_B1F + 2
+	ASSERT ROCKET_HIDEOUT_B4F == ROCKET_HIDEOUT_B1F + 3 && ROCKET_HIDEOUT_ELEVATOR == ROCKET_HIDEOUT_B1F + 4
+	ASSERT POKEMON_MANSION_3F == POKEMON_MANSION_2F + 1 && POKEMON_MANSION_B1F == POKEMON_MANSION_2F + 2
+	ASSERT SILPH_CO_3F == SILPH_CO_2F + 1 && SILPH_CO_4F == SILPH_CO_2F + 2 && SILPH_CO_5F == SILPH_CO_2F + 3
+	ASSERT SILPH_CO_6F == SILPH_CO_2F + 4 && SILPH_CO_7F == SILPH_CO_2F + 5 && SILPH_CO_8F == SILPH_CO_2F + 6
+	ASSERT SILPH_CO_10F == SILPH_CO_9F + 1 && SILPH_CO_11F == SILPH_CO_9F + 2
+	ASSERT SILPH_CO_ELEVATOR == SILPH_CO_9F + 3
+	ASSERT FIRST_INDOOR_MAP <= POWER_PLANT && POWER_PLANT < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= SS_ANNE_1F && SS_ANNE_B1F_ROOMS < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= GAME_CORNER && GAME_CORNER_PRIZE_ROOM < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= ROCKET_HIDEOUT_B1F && ROCKET_HIDEOUT_ELEVATOR < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= UNDERGROUND_PATH_NORTH_SOUTH && UNDERGROUND_PATH_WEST_EAST < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= FIGHTING_DOJO && FIGHTING_DOJO < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= POKEMON_MANSION_1F && POKEMON_MANSION_B1F < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= DAYCARE && DAYCARE < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= SILPH_CO_1F && SILPH_CO_8F < CERULEAN_CAVE_2F
+	ASSERT CERULEAN_CAVE_1F < SILPH_CO_9F && CERULEAN_CAVE_1F < DAYCARE_2F
+	ASSERT LORELEIS_ROOM > SILPH_CO_ELEVATOR && BRUNOS_ROOM > SILPH_CO_ELEVATOR
+	ASSERT LORELEIS_ROOM != DAYCARE_2F && BRUNOS_ROOM != DAYCARE_2F
 
 ; used when a Pokemon is the only thing on the screen
 ; such as evolution, trading and the Hall of Fame

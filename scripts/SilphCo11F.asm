@@ -172,12 +172,20 @@ SilphCo11FGiovanniAfterBattleScript:
 	ld a, TEXT_SILPHCO11F_GIOVANNI_YOU_RUINED_OUR_PLANS
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
+; v1.0 (2026-11-04): the building is freed in this fade. The event comes first, because the map music
+; (LoadMapMusicOverrides) and the map palette (GetPal_InheritedNoMore) read it: SILPH CO's theme fades out
+; with the screen and SAFFRON's free theme follows, and in the dark the palette goes from PAL_PORYGON back
+; to SAFFRON's, so the screen comes back in the city's colours. Until v1.0 the event was set after the
+; fade-in, and nothing between the two read it.
+	SetEvent EVENT_BEAT_SILPH_CO_GIOVANNI
+	callfar LoadMapMusicOverrides
+	call PlayDefaultMusicFadeOutCurrent
 	call GBFadeOutToBlack
 	farcall SilphCo11FTeamRocketLeavesScript
+	call RunDefaultPaletteCommand
 	call UpdateSprites
 	call Delay3
 	call GBFadeInFromBlack
-	SetEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	xor a
 	ld [wJoyIgnore], a
 	jp SilphCo11FSetCurScript

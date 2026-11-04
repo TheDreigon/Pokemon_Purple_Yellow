@@ -28,16 +28,30 @@ LoadMapMusicOverrides::
 ; table afterwards. It now fires the other way round, so the table holds the
 ; state you spend most of the game in and the override is the reward.
 ;
-; Only the outdoor map is affected, which is what was asked for: the houses,
-; the gyms, the Dojo and the Silph Co floors are all separate map ids and never
-; match this compare, so stepping indoors still changes the music. The Dojo in
-; particular keeps MUSIC_FIGHTING_DOJO permanently.
+; The outdoor map, and since v1.0 (2026-11-04) the SILPH CO floors and their
+; elevator: once freed, the building plays the city's free theme too (and takes
+; SAFFRON's colours back, GetPal_InheritedNoMore). While it is occupied it keeps
+; MUSIC_SILPH_CO, its own theme. The houses, the gyms and the Dojo are separate
+; map ids and never match these compares, so stepping into them still changes
+; the music. The Dojo in particular keeps MUSIC_FIGHTING_DOJO permanently.
+; SilphCo11FGiovanniAfterBattleScript calls this routine itself, in the dark
+; after GIOVANNI's last words, so the free theme starts on 11F.
 	ld a, [wCurMap]
 	cp SAFFRON_CITY
 	jr z, .saffron
 	cp VIRIDIAN_GYM
 	jr z, .viridianGym
-	ret
+	cp SILPH_CO_1F
+	jr z, .saffron
+	cp SILPH_CO_2F
+	jr c, .notSilphCo2Fto8F
+	cp SILPH_CO_8F + 1
+	jr c, .saffron
+.notSilphCo2Fto8F
+	cp SILPH_CO_9F
+	ret c
+	cp SILPH_CO_ELEVATOR + 1
+	ret nc
 .saffron
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	ret z

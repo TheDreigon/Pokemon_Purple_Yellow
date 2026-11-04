@@ -115,13 +115,24 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       colour 2 (the trees, half of the tall grass, the roof; sky blue in
 	                                 ;       PAL_ROUTE). GetPal_Overworld picks it by map id. APPENDED.
 	const PAL_BLOSSOM                ; $33 - light grey and magenta; colour 3 is true black (00,00,00) on GBC
-	                                 ;       and 06,06,06, that table's own black, in the SGB row. Kept for later
-	                                 ;       use: no map and no species uses it yet. APPENDED, never inserted.
+	                                 ;       and 06,06,06, that table's own black, in the SGB row. The DAY CARE's
+	                                 ;       map palette since 2026-11-04 (both floors); no species uses it.
+	                                 ;       APPENDED, never inserted.
 	const PAL_SAFARI                 ; $34 - the SAFARI ZONE's map palette (the gate, the four areas, the five
 	                                 ;       houses): terracotta for colour 1 (the ground, the roofs, the floors,
 	                                 ;       the sprites: PAL_BROWNMON's, the colour of most of its Pokemon) and
 	                                 ;       green for colour 2 (the trees, the water, the walls). GetPal_Overworld
 	                                 ;       picks it by map id. APPENDED, never inserted.
+; v1.0 (2026-11-04): six map palettes for interiors that took the colours of the town or route outside. Colour 1 paints
+; the floor and the sprites' middle tone, colour 2 the details (wall stripes, machines, portholes, the tunnels' grid).
+; GetPal_Overworld picks each by map id. APPENDED, never inserted.
+	const PAL_ELECTRICA              ; $35 - the POWER PLANT: mustard and steel blue
+	const PAL_MARINHO                ; $36 - the S.S. ANNE's ten interior maps (the dock keeps VERMILION's): navy
+	const PAL_PORYGON                ; $37 - the ROCKET HIDEOUT, and SILPH CO until GIOVANNI is beaten there:
+	                                 ;       PORYGON's own blue and red (PAL_CINNABAR's two colours, swapped)
+	const PAL_VEGAS                  ; $38 - the GAME CORNER and its prize room: purple and gold
+	const PAL_TIJOLO                 ; $39 - the two underground paths and the FIGHTING DOJO: brick
+	const PAL_VINHO                  ; $3A - the POKEMON MANSION's four floors: wine and a dull purple
 DEF NUM_SGB_PALS EQU const_value
 
 ; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give
