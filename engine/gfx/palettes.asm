@@ -255,7 +255,12 @@ GetPal_Overworld:
 	pop hl
 	ret
 .PokemonTowerOrAgatha
+; v1.0 (2026-11-05): AGATHA's room takes LAVENDER TOWN's colours; the POKEMON TOWER keeps PAL_GREYMON
+	ld a, [wCurMap]
+	cp AGATHAS_ROOM
 	ld a, PAL_GREYMON - 1
+	jr nz, .town
+	ld a, PAL_LAVENDER - 1
 	jr .town
 .caveOrBruno
 	ld a, [wCurMap]
@@ -274,7 +279,13 @@ GetPal_Overworld:
 	jr z, .SeafoamIslands
 	cp SEAFOAM_ISLANDS_B4F
 	jr z, .SeafoamIslands
+	cp BRUNOS_ROOM
+	jr z, .Bruno
 	ld a, PAL_CAVE - 1
+	jr .town
+.Bruno
+; v1.0 (2026-11-05): BRUNO's room takes the FIGHTING DOJO's brick (it had PAL_CAVE)
+	ld a, PAL_TIJOLO - 1
 	jr .town
 .SeafoamIslands
 	ld a, PAL_CYANMON - 1
@@ -283,9 +294,8 @@ GetPal_Overworld:
 	ld a, PAL_CERULEAN_CAVE - 1
 	jr .town
 .Lorelei
-; v1.0 (2026-11-04): vanilla gave LORELEI's room PAL_PALLET (xor a, then .town); PALLET TOWN changed colours, the
-; room keeps them in a row of its own
-	ld a, PAL_LORELEI - 1
+; v1.0 (2026-11-05): LORELEI's room takes the SEAFOAM ISLANDS' colours (vanilla gave it PAL_PALLET: xor a, then .town)
+	ld a, PAL_CYANMON - 1
 	jr .town
 .viridianForest
 	ld a, PAL_FOREST - 1
@@ -345,45 +355,63 @@ RoutePalettes:
 ; palette id, or no carry for a map that still follows wLastMap. Changes a and f only, as GetPal_Overworld does.
 ; SILPH CO is freed when GIOVANNI is beaten on its 11F: from then on it follows wLastMap again (SAFFRON CITY's
 ; colours, as SAFFRON's free theme plays there); SilphCo11FGiovanniAfterBattleScript sets the event and reloads the
-; palette in the dark. The ROCKET HIDEOUT keeps PAL_PORYGON for good. The VERMILION DOCK and the underground paths'
-; entrance houses keep following wLastMap. BILLS_HOUSE wears ROUTE 25's palette by its id: entered from the garden,
-; its wLastMap reads BILLS_GARDEN, an indoor id that would give it PAL_ROUTE.
+; palette in the dark. The ROCKET HIDEOUT keeps PAL_PORYGON for good. The VERMILION DOCK keeps following wLastMap; the
+; underground paths' entrance houses take PAL_GATE with the other passage houses. The labs (OAK's, BILL's house, the HALL OF
+; FAME, CINNABAR LAB's four maps) wear PAL_LAB and the CHAMPION's room PAL_CHAMPION by their ids, the three fishing
+; brothers' houses PAL_MARINHO like the S.S. ANNE (their SHIP tileset is shared with two other houses, so by id).
 GetPal_InheritedNoMore:
 	cp POWER_PLANT
-	jr z, .electrica
+	jp z, .electrica
 	cp SS_ANNE_1F
 	jr c, .notSSAnne
 	cp SS_ANNE_B1F_ROOMS + 1
-	jr c, .marinho
+	jp c, .marinho
 .notSSAnne
 	cp GAME_CORNER
-	jr z, .vegas
+	jp z, .vegas
 	cp GAME_CORNER_PRIZE_ROOM
-	jr z, .vegas
+	jp z, .vegas
 	cp ROCKET_HIDEOUT_B1F
 	jr c, .notRocketHideout
 	cp ROCKET_HIDEOUT_ELEVATOR + 1
-	jr c, .porygon
+	jp c, .porygon
 .notRocketHideout
 	cp UNDERGROUND_PATH_NORTH_SOUTH
-	jr z, .tijolo
+	jp z, .tijolo
 	cp UNDERGROUND_PATH_WEST_EAST
-	jr z, .tijolo
+	jp z, .tijolo
 	cp FIGHTING_DOJO
-	jr z, .tijolo
+	jp z, .tijolo
 	cp POKEMON_MANSION_1F
-	jr z, .vinho
+	jp z, .vinho
 	cp POKEMON_MANSION_2F
 	jr c, .notMansion
 	cp POKEMON_MANSION_B1F + 1
-	jr c, .vinho
+	jp c, .vinho
 .notMansion
 	cp DAYCARE
-	jr z, .blossom
+	jp z, .blossom
 	cp DAYCARE_2F
 	jr z, .blossom
 	cp BILLS_HOUSE
-	jr z, .brisa
+	jr z, .lab
+	cp OAKS_LAB
+	jr z, .lab
+	cp HALL_OF_FAME
+	jr z, .lab
+	cp CINNABAR_LAB
+	jr c, .notCinnabarLab
+	cp CINNABAR_LAB_FOSSIL_ROOM + 1
+	jr c, .lab
+.notCinnabarLab
+	cp CHAMPIONS_ROOM
+	jr z, .champion
+	cp VIRIDIAN_OLD_ROD_HOUSE
+	jr z, .marinho
+	cp VERMILION_GOOD_ROD_HOUSE
+	jr z, .marinho
+	cp ROUTE_12_SUPER_ROD_HOUSE
+	jr z, .marinho
 	cp SILPH_CO_1F
 	jr z, .silphCo
 	cp SILPH_CO_2F
@@ -392,9 +420,32 @@ GetPal_InheritedNoMore:
 	jr c, .silphCo
 .notSilphCo2Fto8F
 	cp SILPH_CO_9F
-	jr c, .none
+	jr c, .byTileset
 	cp SILPH_CO_ELEVATOR + 1
 	jr c, .silphCo
+.byTileset
+; v1.0 (2026-11-05): the Pokemon Centers, the marts and the passage houses by their tileset; LAVENDER's Center and
+; mart, the CELADON HOTEL (a Center's tileset) and the INDIGO PLATEAU's lobby (a mart's) keep their town's colours. The
+; passage houses: the GATE tileset (the guarded gates and their upper floors, ROUTE 2's and ROUTE 22's, the underground
+; paths' entrances) and the FOREST_GATE tileset (VIRIDIAN FOREST's two); the SAFARI ZONE's gate and rest houses, GATE
+; too, have PAL_SAFARI before this routine is called
+	cp LAVENDER_POKECENTER
+	jr z, .none
+	cp LAVENDER_MART
+	jr z, .none
+	cp CELADON_HOTEL
+	jr z, .none
+	cp INDIGO_PLATEAU_LOBBY
+	jr z, .none
+	ld a, [wCurMapTileset]
+	cp POKECENTER
+	jr z, .pokecenter
+	cp MART
+	jr z, .mart
+	cp GATE
+	jr z, .gate
+	cp FOREST_GATE
+	jr z, .gate
 .none
 	and a ; no carry: wLastMap's colours
 	ret
@@ -429,8 +480,24 @@ GetPal_InheritedNoMore:
 	ld a, PAL_BLOSSOM
 	scf
 	ret
-.brisa
-	ld a, PAL_ROUTE_BRISA
+.lab
+	ld a, PAL_LAB
+	scf
+	ret
+.champion
+	ld a, PAL_CHAMPION
+	scf
+	ret
+.pokecenter
+	ld a, PAL_POKECENTER
+	scf
+	ret
+.mart
+	ld a, PAL_MART
+	scf
+	ret
+.gate
+	ld a, PAL_GATE
 	scf
 	ret
 
@@ -458,6 +525,18 @@ GetPal_InheritedNoMore:
 	ASSERT FIRST_INDOOR_MAP <= POKEMON_MANSION_1F && POKEMON_MANSION_B1F < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= DAYCARE && DAYCARE < CERULEAN_CAVE_2F
 	ASSERT FIRST_INDOOR_MAP <= BILLS_HOUSE && BILLS_HOUSE < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= OAKS_LAB && OAKS_LAB < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= HALL_OF_FAME && HALL_OF_FAME < CERULEAN_CAVE_2F
+	ASSERT CINNABAR_LAB_TRADE_ROOM == CINNABAR_LAB + 1 && CINNABAR_LAB_METRONOME_ROOM == CINNABAR_LAB + 2
+	ASSERT CINNABAR_LAB_FOSSIL_ROOM == CINNABAR_LAB + 3
+	ASSERT FIRST_INDOOR_MAP <= CINNABAR_LAB && CINNABAR_LAB_FOSSIL_ROOM < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= CHAMPIONS_ROOM && CHAMPIONS_ROOM < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= VERMILION_GOOD_ROD_HOUSE && VERMILION_GOOD_ROD_HOUSE < CERULEAN_CAVE_2F
+	ASSERT FIRST_INDOOR_MAP <= ROUTE_12_SUPER_ROD_HOUSE && ROUTE_12_SUPER_ROD_HOUSE < CERULEAN_CAVE_2F
+	ASSERT CERULEAN_CAVE_1F < VIRIDIAN_OLD_ROD_HOUSE && VIRIDIAN_OLD_ROD_HOUSE != LORELEIS_ROOM
+	ASSERT VIRIDIAN_OLD_ROD_HOUSE != BRUNOS_ROOM
+	ASSERT FIRST_INDOOR_MAP <= LAVENDER_POKECENTER && FIRST_INDOOR_MAP <= CELADON_HOTEL
+	ASSERT FIRST_INDOOR_MAP <= LAVENDER_MART && FIRST_INDOOR_MAP <= INDIGO_PLATEAU_LOBBY
 	ASSERT FIRST_INDOOR_MAP <= SILPH_CO_1F && SILPH_CO_8F < CERULEAN_CAVE_2F
 	ASSERT CERULEAN_CAVE_1F < SILPH_CO_9F && CERULEAN_CAVE_1F < DAYCARE_2F
 	ASSERT LORELEIS_ROOM > SILPH_CO_ELEVATOR && BRUNOS_ROOM > SILPH_CO_ELEVATOR

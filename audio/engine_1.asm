@@ -492,6 +492,7 @@ Audio1_tempo:
 	ld [wMusicTempo], a ; store first param
 	call Audio1_GetNextMusicByte
 	ld [wMusicTempo + 1], a ; store second param
+	call Audio1_LavenderPokecenterTempo
 	xor a
 	ld [wChannelNoteDelayCountersFractionalPart], a ; clear RAM
 	ld [wChannelNoteDelayCountersFractionalPart + 1], a
@@ -510,6 +511,30 @@ Audio1_tempo:
 	ld [wChannelNoteDelayCountersFractionalPart + 7], a
 .musicChannelDone
 	jp Audio1_sound_ret
+
+; v1.0 (2026-11-05): LAVENDER TOWN's Center and mart play the Center theme slower: when the theme's tempo command runs
+; there (the song starts, or starts again after the healing jingle), tempo 168 replaces its 144. The theme's loop goes
+; back past the command, so the slower tempo stays. No song of its own: AUDIO_1 has no free song id (the next one is
+; $FF, SFX_STOP_ALL_MUSIC). c = the channel; changes a, b, f and hl, as the other command handlers do.
+DEF LAVENDER_POKECENTER_TEMPO EQU 168
+Audio1_LavenderPokecenterTempo:
+	ld b, 0
+	ld hl, wChannelSoundIDs
+	add hl, bc
+	ld a, [hl]
+	cp MUSIC_POKECENTER
+	ret nz
+	ld a, [wCurMap]
+	cp LAVENDER_POKECENTER
+	jr z, .slower
+	cp LAVENDER_MART
+	ret nz
+.slower
+	ld a, HIGH(LAVENDER_POKECENTER_TEMPO)
+	ld [wMusicTempo], a
+	ld a, LOW(LAVENDER_POKECENTER_TEMPO)
+	ld [wMusicTempo + 1], a
+	ret
 
 Audio1_stereo_panning:
 	cp stereo_panning_cmd

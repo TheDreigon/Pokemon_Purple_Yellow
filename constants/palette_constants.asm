@@ -127,7 +127,9 @@ DEF SET_PAL_DEFAULT EQU $ff
 ; the floor and the sprites' middle tone, colour 2 the details (wall stripes, machines, portholes, the tunnels' grid).
 ; GetPal_Overworld picks each by map id. APPENDED, never inserted.
 	const PAL_ELECTRICA              ; $35 - the POWER PLANT: mustard and steel blue
-	const PAL_MARINHO                ; $36 - the S.S. ANNE's ten interior maps (the dock keeps VERMILION's): navy
+	const PAL_MARINHO                ; $36 - the S.S. ANNE's ten interior maps (the dock keeps VERMILION's) and the
+	                                 ;       three fishing brothers' houses (2026-11-05): navy, a third of the way to
+	                                 ;       petrol blue since 2026-11-05 (apart from PAL_MART's blue)
 	const PAL_PORYGON                ; $37 - the ROCKET HIDEOUT, and SILPH CO until GIOVANNI is beaten there:
 	                                 ;       PORYGON's own blue and red (PAL_CINNABAR's two colours, swapped)
 	const PAL_VEGAS                  ; $38 - the GAME CORNER and its prize room: purple and gold
@@ -147,9 +149,17 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_ROUTE_PRAIA            ; $41 - routes 19 and 21: sand, PAL_ROUTE's water
 	const PAL_ROUTE_ROCHA_GELADA     ; $42 - route 20: a cold grey-green on the islands, PAL_ROUTE's water
 	const PAL_ROUTE_BRISA            ; $43 - route 25 and BILL's house: route 24's water, a green half-way to PONTE
-	const PAL_LORELEI                ; $44 - LORELEI's room: PAL_PALLET's vanilla colours in both tables. Vanilla
-	                                 ;       painted the room with PAL_PALLET; PALLET TOWN changed colours on
-	                                 ;       2026-11-04 and the room keeps the old ones. APPENDED, never inserted.
+	const PAL_LAB                    ; $44 - the labs: OAK's LAB, BILL's house, the HALL OF FAME and CINNABAR LAB's
+	                                 ;       four maps (2026-11-05). PAL_PALLET's vanilla colours in both tables, the
+	                                 ;       lilac OAK's LAB had in vanilla. APPENDED, never inserted.
+; v1.0 (2026-11-05): the Pokemon Centers, the marts, the CHAMPION's room and the passage houses. GetPal_InheritedNoMore
+; picks the Centers, the marts and the passage houses by tileset (LAVENDER's two and the CELADON HOTEL, the INDIGO
+; PLATEAU's lobby keep their town's colours) and the CHAMPION's room by its id. APPENDED, never inserted.
+	const PAL_POKECENTER             ; $45 - every Pokemon Center: red
+	const PAL_MART                   ; $46 - every mart: blue
+	const PAL_CHAMPION               ; $47 - the CHAMPION's room: gold
+	const PAL_GATE                   ; $48 - every passage house (the GATE and FOREST_GATE tilesets): a light peach
+	                                 ;       floor, the bushes and the details green
 DEF NUM_SGB_PALS EQU const_value
 
 ; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give
