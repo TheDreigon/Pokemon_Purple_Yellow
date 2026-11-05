@@ -1,4 +1,5 @@
-; DAMIAN, who is giving away the CHARMANDER on Route 24.
+; DAMIAN, who is giving away the CHARMANDER on Route 25 (Route 24 until 2026-11-05, when the
+; top of Route 24 became the west of Route 25; this file was text/route24_damian.asm).
 ;
 ; Vanilla had him mildly apologetic -- "I should release my CHARMANDER because
 ; it's weak" -- which reads as someone doing the kind thing badly. In the anime
@@ -11,7 +12,7 @@
 ; from anywhere, and this is the third time the pinned Text banks have forced
 ; the same move (see tmhmNames and Cerulean's second TRAINER TIPS sign).
 
-_Route24DamianText1::
+_Route25DamianText1::
 	text "I'm DAMIAN, and"
 	line "that CHARMANDER"
 	cont "is dead weight."
@@ -25,13 +26,13 @@ _Route24DamianText1::
 	cont "leaving it here."
 	done
 
-_Route24DamianText2::
+_Route25DamianText2::
 	text "Fine. Don't come"
 	line "crying when it"
 	cont "quits on you.@"
 	text_end
 
-_Route24DamianText3::
+_Route25DamianText3::
 	text "Suit yourself."
 
 	para "I'll walk it to"
@@ -40,7 +41,7 @@ _Route24DamianText3::
 	cont "will take it."
 	done
 
-_Route24DamianText4::
+_Route25DamianText4::
 	text "Still hauling"
 	line "that thing"
 	cont "around?"
@@ -52,7 +53,7 @@ _Route24DamianText4::
 
 ; v1.0 (2026-09-23): the CHAMPION walks past with a CHARMELEON or a
 ; CHARIZARD. He wants it back; it answers with its cry, and he backs down.
-_Route24DamianGiveItBackText::
+_Route25DamianGiveItBackText::
 	text "DAMIAN: Hold on."
 	line "That's the"
 	cont "CHARMANDER I"
@@ -67,7 +68,7 @@ _Route24DamianGiveItBackText::
 	cont "trainer first."
 	prompt ; wait here: the cry and his "!" answer the player's press, with the demand still on screen
 
-_Route24DamianRefusedText::
+_Route25DamianRefusedText::
 	text_ram wcd6d
 	text " turned"
 	line "away from DAMIAN!"
@@ -79,7 +80,7 @@ _Route24DamianRefusedText::
 	line "to me anyway."
 	done
 
-_Route24DamianAfterText::
+_Route25DamianAfterText::
 	text "DAMIAN: Don't"
 	line "look at me like"
 	cont "that. It chose."

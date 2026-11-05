@@ -148,7 +148,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_ROUTE_DOENTE           ; $40 - route 17: a sickly green, PAL_ROUTE's water
 	const PAL_ROUTE_PRAIA            ; $41 - routes 19 and 21: sand, PAL_ROUTE's water
 	const PAL_ROUTE_ROCHA_GELADA     ; $42 - route 20: a cold grey-green on the islands, PAL_ROUTE's water
-	const PAL_ROUTE_BRISA            ; $43 - route 25 and BILL's house: route 24's water, a green half-way to PONTE
+	const PAL_ROUTE_BRISA            ; $43 - route 25 until 2026-11-05 (route 24's water, a green half-way to PONTE); UNUSED since route 25 took PAL_ROUTE, kept while Forte tries it in game
 	const PAL_LAB                    ; $44 - the labs: OAK's LAB, BILL's house, the HALL OF FAME and CINNABAR LAB's
 	                                 ;       four maps (2026-11-05). PAL_PALLET's vanilla colours in both tables, the
 	                                 ;       lilac OAK's LAB had in vanilla. APPENDED, never inserted.

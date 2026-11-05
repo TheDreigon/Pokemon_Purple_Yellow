@@ -105,8 +105,8 @@ FlyWarpDataPtr:
 .Route10:        fly_warp ROUTE_10,        11, 22
 ; BILL's LAB. ROUTE 25 has no POKeMON CENTER, so by the same rule as PALLET
 ; and INDIGO it lands one cell below the map's first warp -- which here is BILL's
-; own front door at (53, 5).
-.Route25:        fly_warp ROUTE_25,        53,  6
+; own front door at (79, 5) ((53, 5) until 2026-11-05, when ROUTE 25 grew 26 cells west).
+.Route25:        fly_warp ROUTE_25,        79,  6
 ; v1.0 (2026-09-24): the interiors' landing cells, one below each door.
 ; The POWER PLANT's and the CERULEAN CAVE's are strips of land reached only by SURF:
 ; whoever flies there has been inside, so has SURF. All five are land tiles.

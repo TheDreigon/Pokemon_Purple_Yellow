@@ -338,7 +338,7 @@ INCLUDE "text/tmhm_names.asm"
 ; reaches a section in any bank (this one is pinned to ROMX $7 in layout.link).
 SECTION "Route 24 Damian Text", ROMX
 
-INCLUDE "text/route24_damian.asm"
+INCLUDE "text/route25_damian.asm"
 
 ; The museum's amber errand (2026-09-23): kept out of Text 5, the museum's own
 ; bank, to preserve its headroom; the errand's lines stay together here.

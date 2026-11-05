@@ -3786,8 +3786,8 @@ AddStaticEncounters: ; manually add gift mons, static encounters and fossil loca
 	cp MAGIKARP
 	ld b, ROUTE_4
 	jp z, .addEncounter
-	cp CHARMANDER
-	ld b, ROUTE_24
+	cp CHARMANDER ; DAMIAN stands on ROUTE 25 since 2026-11-05 (the old top of ROUTE 24 is ROUTE 25 now)
+	ld b, ROUTE_25
 	jp z, .addEncounter
 	cp SQUIRTLE
 	ld b, VERMILION_CITY

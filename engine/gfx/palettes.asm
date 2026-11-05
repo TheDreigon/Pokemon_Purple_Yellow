@@ -347,7 +347,7 @@ RoutePalettes:
 	db PAL_ROUTE              ; ROUTE_22
 	db PAL_ROUTE              ; ROUTE_23
 	db PAL_ROUTE_MARINHA      ; ROUTE_24
-	db PAL_ROUTE_BRISA        ; ROUTE_25
+	db PAL_ROUTE              ; ROUTE_25 (2026-11-05, after the re-cut: the vivid classic, its grass is VIRIDIAN FOREST's cast; BRISA before)
 	assert_table_length FIRST_INDOOR_MAP - FIRST_ROUTE_MAP
 
 ; v1.0 (2026-11-04): the interiors that took the colours of the town or route outside (wLastMap's) until v1.0 and have
