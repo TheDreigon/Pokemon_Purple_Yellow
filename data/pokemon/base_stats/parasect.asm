@@ -1,8 +1,8 @@
 	db DEX_PARASECT ; pokedex id
-	base_stat_row 90, 90, 90, 70, 85, 20 ; hp atk def spatk spdef spd
+	base_stat_row 100, 90, 90, 75, 85, 20 ; hp atk def spatk spdef spd
 	db BUG, FUNGUS ; type (+ GRASS, its third: data/pokemon/third_types.asm)
-	db 90 ; catch rate  ; final stage, BST 445, easy to approach
-	db 140 ; base exp  ; BST 445
+	db 90 ; catch rate  ; final stage, BST 460, easy to approach
+	db 145 ; base exp  ; BST 460
 
 	INCBIN "gfx/pokemon/front/parasect.pic", 0, 1 ; sprite dimensions
 	dw ParasectPicFront, ParasectPicBack
