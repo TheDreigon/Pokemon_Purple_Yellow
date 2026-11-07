@@ -893,14 +893,12 @@ ItemUseExpShare:
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
 	xor a
-; Both of these are cleared. DisplayListMenuID, the bag list you came from, sets
-; wMenuWatchMovingOutOfBounds to 1 and clears it on the A that chose this item
-; (home/list_menu.asm), so that write is hygiene, while a stale
-; wMenuJoypadPollCount makes HandleMenuInput pick an entry on its own without
-; the player pressing anything (home/window.asm:47-49). The vending machine
-; carries the same two lines.
+; DisplayListMenuID, the bag list you came from, sets wMenuWatchMovingOutOfBounds
+; to 1 and clears it on the A that chose this item (home/list_menu.asm), so this
+; write is hygiene. v1.0 (2026-11-07): the wMenuJoypadPollCount clear beside it
+; went - only the Cable Club ever set that mode, and HandleMenuInput no longer
+; reads it.
 	ld [wMenuWatchMovingOutOfBounds], a
-	ld [wMenuJoypadPollCount], a
 	ld a, [wd730]
 	res 6, a
 	ld [wd730], a

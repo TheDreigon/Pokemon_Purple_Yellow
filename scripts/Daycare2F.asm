@@ -78,8 +78,6 @@ Daycare2FNurseText:
 	ld hl, NurseJoyPreBattleText
 .continue
 	call PrintText
-	xor a
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L55 fight
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

@@ -15,7 +15,6 @@ TrainerBattleSurrenderPrompt::
 	call PrintText
 	xor a
 	ld [wTwoOptionMenuID], a ; YES_NO_MENU
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale poll count would answer by itself
 	hlcoord 0, 7 ; where "Will <PLAYER> change #MON?" puts its YES/NO
 	lb bc, 8, 1
 	ld a, TWO_OPTION_MENU

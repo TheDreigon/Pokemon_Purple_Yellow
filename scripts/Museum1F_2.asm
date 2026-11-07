@@ -170,8 +170,6 @@ Museum1FPrintScientist2Text::
 	jr nz, .waiting
 	ld hl, .RequestText
 	call PrintText
-	xor a
-	ld [wMenuJoypadPollCount], a ; a stale poll count would phantom-accept
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

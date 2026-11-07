@@ -379,7 +379,8 @@ wMaxDaycareLevel:: db
 ; it hides the row rather than showing a stale value.
 wOptionsShowDifficulty:: db
 
-; how many times should HandleMenuInput poll the joypad state before it returns?
+; vanilla: 1 made HandleMenuInput give up after one poll (the Cable Club's menus).
+; v1.0 (2026-11-07): nothing reads it any more, and the menus no longer clear it: a free byte.
 wMenuJoypadPollCount:: db
 
 ; id of menu item selected for swapping (counts from 1) (0 means that no menu item has been selected for swapping)

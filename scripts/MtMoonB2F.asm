@@ -557,8 +557,6 @@ MtMoonB2FSuperNerdText:
 	jr nz, .rematchSpent
 	ld hl, MtMoonB2FSuperNerdRematchChallengeText
 	call PrintText
-	xor a
-	ld [wMenuJoypadPollCount], a ; a stale poll count would phantom-accept
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

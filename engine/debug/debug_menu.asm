@@ -32,8 +32,6 @@ IF DEF(_DEBUG)
 
 	ld a, A_BUTTON | B_BUTTON | START
 	ld [wMenuWatchedKeys], a
-	xor a
-	ld [wMenuJoypadPollCount], a
 	ld a, 4 ; 5 entries: FIGHT/DEBUG/ANIM/MON/CREDITS
 	ld [wMaxMenuItem], a
 	ld a, 7

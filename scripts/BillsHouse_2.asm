@@ -266,9 +266,6 @@ BillsHouseOfferRematch::
 	ld hl, .ChallengeAgainText
 .offer
 	call PrintText
-	xor a
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale poll count would
-	                             ; phantom-accept and force the fight
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -478,7 +475,6 @@ BillsHouseStoneReward::
 ; hygiene). The start-menu wrap QoL used to leave it set; since v1.0
 ; (2026-11-07) every way out of the START menu clears it, and so do the list menus.
 	ld [wMenuWatchMovingOutOfBounds], a
-	ld [wMenuJoypadPollCount], a ; stale 1 (cable club) would auto-answer
 	ld a, A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
 	ld a, 2

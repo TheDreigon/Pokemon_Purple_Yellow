@@ -36,27 +36,17 @@ HandleMenuInput_::
 ; (a real one and confusion). This alternates them. It lives here because this
 ; is the only loop that runs continuously while the player is looking at the
 ; HUD - NOT once a frame: this inner loop has no frame wait (the Delay3 is in
-; .loop1, and wMenuJoypadPollCount is a mode flag, not a counter), so it spins
-; ~50-100 polls a frame. That is why the alternation phase reads the wall
+; .loop1), so it spins ~50-100 polls a frame. That is why the alternation phase reads the wall
 ; clock instead of counting calls (see AlternateHUDStatus). The down-arrow
 ; blink above is the proof that tilemap writes from here reach the screen.
 ; It costs 6 bytes of home and returns immediately
 ; unless hHUDStatusFlip says the battle menu is up.
 	farcall AlternateHUDStatus
 	pop hl
-	ld a, [wMenuJoypadPollCount]
-	dec a
-	jr z, .giveUpWaiting
+; v1.0 (2026-11-07): no give-up exit any more. Vanilla returned a = 0 after a single
+; poll when wMenuJoypadPollCount was 1, and only the Cable Club ever set it to 1:
+; every menu waits for a key now, as every reachable one already did.
 	jr .loop2
-.giveUpWaiting
-; if a key wasn't pressed within the specified number of checks
-	pop af
-	ldh [hDownArrowBlinkCount2], a
-	pop af
-	ldh [hDownArrowBlinkCount1], a ; restore previous values
-	xor a ; return a = 0 (no keys) — deterministic; the vanilla wMenuWrappingEnabled
-	      ; clear that used to leave a=0 here was dropped in the menu-wrap QoL (7dee9f9)
-	ret
 .keyPressed
 	xor a
 	ld [wCheckFor180DegreeTurn], a

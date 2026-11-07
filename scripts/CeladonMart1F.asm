@@ -39,10 +39,6 @@ CeladonMart1FInfoClerkText:
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
-	; A stale poll count left by the Cable Club makes a menu give up before
-	; reading any input and return its default -- a phantom accept. Zero it
-	; before every menu of consequence.
-	ld [wMenuJoypadPollCount], a
 	call .leftColumn
 
 .categoryLoop
@@ -55,7 +51,6 @@ CeladonMart1FInfoClerkText:
 	; A and after B now (ExitListMenu clears it too); the clear stays, as hygiene.
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a
-	ld [wMenuJoypadPollCount], a
 	; DisplayListMenuID rewrites this for its own use (A|B|SELECT, plus Up/Down
 	; for a priced list like this one), so Left and Right stopped being watched
 	; keys the moment the player had opened one category -- HandleMenuInput then
@@ -189,7 +184,6 @@ CeladonMart1FInfoClerkText:
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wListScrollOffset], a
-	ld [wMenuJoypadPollCount], a
 	inc a
 	ld [wPrintItemPrices], a
 	inc a ; a = 2 (PRICEDITEMLISTMENU) -- puts the price beside each name

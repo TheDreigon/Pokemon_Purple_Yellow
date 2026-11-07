@@ -68,7 +68,6 @@ BikeShopClerkText:
 	res 6, [hl]
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene (the START menu and the lists leave it 0 since 2026-11-07)
-	ld [wMenuJoypadPollCount], a         ; or poll count would auto-answer (only the removed Cable Club set one)
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel

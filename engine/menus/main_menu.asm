@@ -54,7 +54,6 @@ MainMenu:
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
-	ld [wMenuJoypadPollCount], a
 	inc a
 	ld [wTopMenuItemX], a
 	inc a

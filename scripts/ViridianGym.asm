@@ -809,8 +809,6 @@ ViridianGymKiyoText:
 	ld hl, .IntroKnowsYouText
 	call PrintText
 .challenge
-	xor a
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept (Pewter's note)
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

@@ -407,7 +407,6 @@ RoofQuizAskQuestion::
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
 	ld [wMenuWatchMovingOutOfBounds], a
-	ld [wMenuJoypadPollCount], a ; stale 1 (cable club) would auto-answer
 	ld a, A_BUTTON
 	ld [wMenuWatchedKeys], a
 	ld a, 2
