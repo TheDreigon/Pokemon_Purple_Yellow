@@ -1427,7 +1427,9 @@ wEnemyMon:: battle_struct wEnemyMon
 wEnemyMonBaseStats:: ds NUM_STATS
 wEnemyMonActualCatchRate:: db
 wEnemyMonBaseExp:: db
-; HalveExpData (experience.asm) halves base stats and base exp as one block.
+; v1.0 (2026-11-07): HalveExpDataBytes (experience.asm, ONE's halving) walks this block from its first
+; byte (NUM_STATS + 2 bytes: the base stats, the catch rate and the base exp; NUM_STATS + 1 keeps the base
+; exp whole), and DivideExpDataByNumMonsGainingExp divides it in two parts.
 ASSERT wEnemyMonBaseExp + 1 - wEnemyMonBaseStats == NUM_STATS + 2, "wEnemyMonBaseStats..wEnemyMonBaseExp must be one NUM_STATS + 2 block"
 
 wBattleMonNick:: ds NAME_LENGTH

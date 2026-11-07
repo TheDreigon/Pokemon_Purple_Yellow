@@ -18,7 +18,7 @@ BattleHudTiles2: INCBIN "gfx/battle/battle_hud_2.1bpp"
 BattleHudTiles3: INCBIN "gfx/battle/battle_hud_3.1bpp"
 BattleHudTiles3End:
 ; v1.0 (2026-09-06): the status page's "DEX" label, two tiles in the style of
-; the <ID> and № glyphs (5 px caps), loaded into vChars2 $60-$61 there.
+; the <ID> and № glyphs (5 px caps), loaded into the font's blank $d3-$d4 there.
 DexLabelTiles: INCBIN "gfx/font/dex_label.1bpp"
 DexLabelTilesEnd:
 

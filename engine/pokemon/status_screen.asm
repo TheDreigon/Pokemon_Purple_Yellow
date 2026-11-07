@@ -3,6 +3,15 @@
 ; hFlags_0xFFF6 = hUILayoutFlags
 ; hTilesetType = hTileAnimations
 
+; v1.0 (2026-11-07): the STATS page's condensed "DEX" glyph pair (DexLabelTiles)
+; lives in two blank cells of the font, $d3-$d4 (beside the gains box's "+" at $d1
+; and the credits' star at $d2; the trainer card's tiles start at $d6), which no
+; text and no screen draws. It used to be vChars2 tiles $60-$61, free on the
+; status pages but in battle the last two tiles of vBackPic ($31-$61): the way
+; back to the battle menu never reloads the back pic, so the active Pokemon wore
+; "DE" "X" in its bottom-right corner for the rest of the battle.
+DEF DEX_LABEL_TILE EQU $d3
+
 DrawHP:
 ; Draws the HP bar in the stats screen
 	call GetPredefRegisters
@@ -161,7 +170,7 @@ StatusScreen:
 	lb bc, BANK(BattleHudTiles3), $02
 	call CopyVideoDataDouble ; ─┘
 	ld de, DexLabelTiles
-	ld hl, vChars2 + $600 ; tiles $60-$61: unused by both pages (the dex's ′ ″ live there elsewhere)
+	ld hl, vChars1 tile (DEX_LABEL_TILE - $80)
 	lb bc, BANK(DexLabelTiles), (DexLabelTilesEnd - DexLabelTiles) / 8
 	call CopyVideoDataDouble ; the condensed "DEX" of "DEX№."
 	jr .screenBlanked
@@ -178,9 +187,9 @@ StatusScreen:
 ; above the types (row 8, the one row that panel had free), so the left half of
 ; row 7 is empty - a row of air between the picture and ATTACK.
 	coord hl, 10, 8
-	ld [hl], $60 ; "DE" - the condensed DEX glyph pair, same style as <ID>
+	ld [hl], DEX_LABEL_TILE ; "DE" - the condensed DEX glyph pair, same style as <ID>
 	inc hl
-	ld [hl], $61 ; "X"
+	ld [hl], DEX_LABEL_TILE + 1 ; "X"
 	inc hl
 	ld de, DexNoText
 	call PlaceString ; "№." - so the number reads apart from the DV page's ID№/
@@ -538,8 +547,9 @@ PrintStatsBox:: ; exported 2026-09-22: PURPLE'S PATCH (maps.o) shows the gains w
 	jp z, PrintStatGainsBox ; v1.0 (2026-09-08): the gains window, drawn first
 ; v1.0 (2026-09-08): the gains box is wider than this one (cols 5-19 against 9-19) and
 ; the RARE CANDY screen has no save/restore, so blank the strip this box will not cover
-; before drawing it. d = 1 reaches here only from the two level-up callers and PURPLE'S
-; PATCH, all three of which draw the gains box first.
+; before drawing it (in battle, put the saved battle screen back there instead: see
+; ClearStatGainsStrip). d = 1 reaches here only from the two level-up callers and
+; PURPLE'S PATCH, all three of which draw the gains box first.
 	call ClearStatGainsStrip
 ; v1.0 (the SPECIAL split, 2026-09-06): Gen 2's level-up box - the top moves
 ; to row 0 and the box grows to ten interior rows, so the five pairs sit on
@@ -732,19 +742,37 @@ PrintStatGain:
 
 ClearStatGainsStrip::
 ; The four columns of the gains box (5-8) that the totals box does not cover.
+; Outside battle (RARE CANDY, PURPLE'S PATCH) they become blank. v1.0
+; (2026-11-07): in battle they come back from wTileMapBackup, the battle screen
+; the level-up saved (LevelUpPartyMon puts all of it back after the totals box):
+; the blanks cut a hole in the top right of the player's back pic (rows 5-7) for
+; as long as the box was up.
 	hlcoord 5, 0
+	ld de, wTileMapBackup + 5 ; the same cell of the saved screen
 	ld c, NUM_STATS + 2 ; the gains box's rows, borders included
 .row
-	push hl
 	ld b, 9 - 5
-	ld a, " "
 .col
+	ld a, [wIsInBattle]
+	and a
+	ld a, " "
+	jr z, .put
+	ld a, [de]
+.put
 	ld [hli], a
+	inc de
 	dec b
 	jr nz, .col
-	pop hl
-	ld de, SCREEN_WIDTH
-	add hl, de
+	push bc
+	ld bc, SCREEN_WIDTH - (9 - 5) ; both to the next row's column 5
+	add hl, bc
+	ld a, e
+	add c
+	ld e, a
+	jr nc, .noCarry
+	inc d
+.noCarry
+	pop bc
 	dec c
 	jr nz, .row
 	ret

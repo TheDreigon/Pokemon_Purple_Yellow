@@ -1177,11 +1177,19 @@ HandlePlayerMonFainted:
 
 ; resets flags, slides mon's pic down, plays cry, and prints fainted message
 RemoveFaintedPlayerMon:
+; v1.0 (2026-11-07): the gain exp flag is cleared on Hard only. On Normal a Pokemon
+; that fought and fainted keeps its share of the next faint's EXP (GainExperience
+; pays a 0-HP Pokemon there, and stays fainted through the level-up); clearing the
+; bit here kept that from ever happening with the EXP.SHARE off.
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .keepGainExpFlag
 	ld a, [wPlayerMonNumber]
 	ld c, a
 	ld hl, wPartyGainExpFlags
 	ld b, FLAG_RESET
 	predef FlagActionPredef ; clear gain exp flag for fainted mon
+.keepGainExpFlag
 	ld hl, wEnemyBattleStatus1
 	res 2, [hl]   ; reset "attacking multiple times" flag
 	res USING_TRAPPING_MOVE, [hl] ; v1.0 (N3): the #MON it held fainted - the hold is over (lets "Use next #MON? NO" run)

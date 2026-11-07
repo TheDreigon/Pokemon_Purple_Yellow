@@ -29,7 +29,19 @@ EndOfBattle:
 .notLinkBattle
 	ld a, [wBattleResult]
 	and a
-	jr nz, .resetVariables
+	jr z, .won
+; v1.0 (2026-11-07): a 2 (drew, ran or caught) runs the evolutions too. A capture
+; pays experience (half a knockout, ItemUseBall), and a level it gave set the
+; Pokemon's wCanEvolveFlags bit, which only a won battle used to act on: the
+; evolution was dropped. The PAY DAY money and the PIKACHU mood stay the win's. A
+; run or a POKE DOLL escape has gained no level, so nothing evolves there.
+	cp $2
+	jr nz, .resetVariables ; lost
+	xor a
+	ld [wForceEvolution], a
+	predef EvolutionAfterBattle
+	jr .resetVariables
+.won
 	ld hl, wTotalPayDayMoney
 	ld a, [hli]
 	or [hl]

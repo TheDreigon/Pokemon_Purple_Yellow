@@ -8,12 +8,21 @@ DistributeExperience::
 ;   ONE   half to the mons that fought, half to the LAST Pokemon in the party.
 ;   TEAM  no halving at all - the whole amount, divided evenly over the team.
 ;
-; The total is CONSERVED in every mode. Nothing here creates experience, so no
-; trainer level, level cap or growth curve has to be looked at again.
+; Nothing here creates experience, so no trainer level, level cap or growth
+; curve has to be looked at again; and (v1.0, 2026-11-07) no share is divided
+; out to a Pokemon that cannot take it. The total is kept in every mode but for
+; two small losses: the remainders of the halving and of the division, and the
+; cap clamp, which shaves what a Pokemon growing INTO the cap in this battle
+; cannot keep (the bookkeeping note in GainExperience). Who takes
+; what is ExpShareWillBePaid's answer in every mode: GainExperience pays by it
+; and DivideExpDataByNumMonsGainingExp counts by it, so a share is divided out
+; only to a Pokemon that receives it. Before, a fighter at or past the Hard cap
+; (paid nothing) or at level 100 (its experience clamped straight back off) took
+; a share in OFF and in ONE's fighters' pass, and the share vanished.
 ;
 ; Whether a fainted Pokemon may be paid is NOT a rule this invents. It is the
-; one already written into .partyMonLoop below: Normal pays them, Hard does
-; not. Both modes ask that same question rather than adding a second law.
+; one ExpShareWillBePaid asks: Normal pays them, Hard does not. Every mode asks
+; that same question rather than adding a second law.
 ; NOBODY TOOK PART, NOTHING TO SHARE. The flags are zero when no Pokemon of the
 ; player's was ever sent out, which is exactly what a SAFARI ZONE battle looks
 ; like - and a Safari ball reaches this same code. Without this test, TEAM built
@@ -22,7 +31,12 @@ DistributeExperience::
 ; experience faucet out of nothing. ONE did the same to one Pokemon.
 ;
 ; It also covers the plain case of an empty flag byte, where ONE would otherwise
-; halve the block and hand the fighters' half to nobody.
+; count no fighter taking anything and hand its target the whole block
+; (.targetTakesAll): a Safari ball would pay the last Pokemon the battle's
+; experience for a capture nobody fought. The byte is also empty
+; on Hard after a double KO in which the only Pokemon that fought went down
+; (RemoveFaintedPlayerMon clears a fainted Pokemon's flag there): the item pays
+; nothing then either, as the Gen 1 rule pays nobody.
 ; #10 follow-up (2026-09-02): the summary bookkeeping starts clean for every
 ; distribution - the party loop below accumulates into these, and
 ; PrintExpShareSummary reads them. Zeroed in all modes; OFF just never prints.
@@ -55,14 +69,33 @@ DistributeExperience::
 ;
 ; The old code got away with the other order because vanilla never promised any
 ; particular amount. This does.
-	call GetExpShareTarget
+;
+; v1.0 (2026-11-07): the fighters' half is only taken away for what a fighter can
+; take. CountExpTakers asks first: if no fighter takes experience (Hard, all of
+; them at or past the cap; Normal, all of them level 100) the target keeps the
+; base exp whole, and if none takes anything at all (Hard) the target takes the
+; whole block and the second pass is skipped. A level 100 fighter on Normal still
+; banks its stat exp from the halved stats, as it would with the item off.
+	call CountExpTakers ; d, e = the fighters that take experience, stat exp
+	push de
+	call GetExpShareTarget ; it uses d
+	pop de
 	jr nc, .noSharing ; nobody to share with, so do not take the half away
 	ld b, a ; the target's index
 	ld a, [wPartyGainExpFlags]
 	push af ; who actually fought - about to be overwritten, and needed after
 	ld a, b
-	call SetSinglePartyGainExpFlag
-	call HalveExpData
+	call SetSinglePartyGainExpFlag ; keeps de
+	ld a, e
+	and a
+	jr z, .targetTakesAll
+	ld b, NUM_STATS + 2 ; the stats, the catch rate and the base exp
+	ld a, d
+	and a
+	jr nz, .halve
+	dec b ; no fighter takes experience: the base exp stays whole for the target
+.halve
+	call HalveExpDataBytes
 	ld a, 1
 	ld [wBoostExpByExpShare], a ; keeps this pass quiet
 	                          ; about the one Pokemon it pays
@@ -75,14 +108,40 @@ DistributeExperience::
 	call GainExperience
 	jp PrintExpShareSummary
 
+.targetTakesAll
+; no fighter takes anything (Hard, every one of them at or past the cap): the
+; whole block is the target's, and the fighters' pass would pay nobody
+	ld a, 1
+	ld [wBoostExpByExpShare], a
+	call GainExperience
+	pop af ; the fighters' flags, not needed: GainExperience has reset the flags
+	jp PrintExpShareSummary
+
 .shareWithWholeTeam
-; No halving: the flags decide the split, and DivideExpDataByNumMonsGainingExp
-; divides by however many are set. Setting them only for the mons that will
-; actually be paid is what keeps the total conserved on Hard - flagging the
-; whole party there would divide by six and then throw away the shares of
-; everyone who is down.
+; No halving: the flags decide who takes part, and
+; DivideExpDataByNumMonsGainingExp divides by how many of them take each part
+; (CountExpTakers). SetExpShareTeamFlags flags only the mons that will actually
+; be paid, so the flags, the summary box and the payout agree. Until v1.0
+; (2026-11-07) the divisor was the number of flags, and that choice alone kept
+; the total on Hard: flagging the whole party divided by six and threw away the
+; shares of everyone who was down.
+	ld a, [wPartyGainExpFlags]
+	push af ; who fought
 	call SetExpShareTeamFlags
+	pop bc ; b = who fought; pop leaves the zero flag alone
 	jr z, .noSharing ; nobody eligible at all; let the normal path run
+; v1.0 (2026-11-07): on Normal the fighters stay flagged too. Every one of them is
+; payable already but a level 100, which banks its stat exp with the item off and
+; lost it here; flagged, it takes a share of the stat exp and none of the
+; experience (DivideExpDataByNumMonsGainingExp counts the two apart).
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr nz, .teamFlagsSet
+	ld a, b
+	ld hl, wPartyGainExpFlags
+	or [hl]
+	ld [hl], a
+.teamFlagsSet
 	ld a, 1
 	ld [wBoostExpByExpShare], a
 	call GainExperience
@@ -347,14 +406,16 @@ GetExpShareMode:
 
 ExpShareWillBePaid:
 ; in:  a = party index
-; out: carry set if GainExperience would actually pay that Pokemon
+; out: carry set if GainExperience would actually pay that Pokemon (its stat exp
+;      and its experience); clear: on Hard it pays it nothing, on Normal (a level
+;      100) only its stat exp. Keeps de; bc and hl are clobbered.
 ;
-; Both modes ask this and neither invents anything: these are the two questions
-; the party loop below already asks, and asking a THIRD question here would put
-; the two out of step the first time either changed.
+; Every mode asks this and none invents anything. Since v1.0 (2026-11-07) the
+; party loop below asks THIS routine too, and so does the divisor's count
+; (CountExpTakers), so the three cannot drift out of step.
 ;
-;   fainted?          Normal pays it, Hard does not (.partyMonLoop)
-;   past the level cap? nobody pays it (the guard before .capOk)
+;   fainted?          Normal pays it, Hard does not
+;   at or past the level cap? nobody pays it experience
 ;
 ; The level cap half is the one that bit. Without it, a Pokemon over the cap in
 ; the last slot still counted as "payable", the fighters were still charged
@@ -419,10 +480,11 @@ SetExpShareTeamFlags:
 ; Flags every party member that will actually be paid. Returns with the zero
 ; flag set if that is nobody.
 ;
-; Only the ones that will be paid, because the divisor is the number of flags:
-; counting a Pokemon that the party loop then refuses would divide the battle
-; by a share it never hands out. That is true of the fainted on Hard and just
-; as true of anything sitting over the level cap.
+; Only the ones that will be paid, so the flags, the summary box and the payout
+; agree. Until v1.0 (2026-11-07) the divisor was the number of flags, and a
+; Pokemon flagged here that the party loop then refused (the fainted on Hard,
+; anything at or over the level cap) divided the battle by a share it never
+; handed out; the divisor counts the takers now (CountExpTakers).
 	ld a, [wPartyCount]
 	and a
 	ret z
@@ -461,6 +523,40 @@ SetSinglePartyGainExpFlag:
 	ld [wPartyGainExpFlags], a
 	ret
 
+CountExpTakers:
+; v1.0 (2026-11-07). in: wPartyGainExpFlags (who takes part), the party.
+; out: d = how many of them GainExperience pays experience (ExpShareWillBePaid
+;      says yes), e = how many it pays stat exp: those, and on Normal a level 100
+;      too, which banks stat exp as in vanilla and takes no experience. On Hard a
+;      Pokemon refused there gets nothing at all (T4a), so e = d.
+	ld de, 0
+	xor a ; the party index
+.loop
+	push af
+	call ExpShareBitMask ; a = the index's bit (b is clobbered)
+	ld hl, wPartyGainExpFlags
+	and [hl]
+	jr z, .next
+	pop af
+	push af
+	call ExpShareWillBePaid ; keeps de
+	jr nc, .refused
+	inc d
+	inc e
+	jr .next
+.refused
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr nz, .next
+	inc e
+.next
+	pop af
+	inc a
+	ld hl, wPartyCount
+	cp [hl]
+	jr c, .loop
+	ret
+
 ExpShareBitMask:
 ; in: a = party index; out: a = that slot's bit.
 ; Bit 0 is party slot 0 - the same order .partyMonLoop reads them in, and the
@@ -478,8 +574,14 @@ HalveExpData:
 ; The enemy's base stats become stat exp and its base exp becomes experience,
 ; so halving this block halves both at once. NUM_STATS + 2 covers the base
 ; stats, the catch rate and the base exp byte (wram.asm asserts the block).
-	ld hl, wEnemyMonBaseStats
+; v1.0 (2026-11-07): ONE calls HalveExpDataBytes directly now (with NUM_STATS + 1
+; when the base exp stays whole); this whole-block entry's only caller is
+; .claude/emu_test_expshare.py.
 	ld b, NUM_STATS + 2
+HalveExpDataBytes:
+; in: b = how many bytes of the block to halve, from the first base stat
+; (NUM_STATS + 1 leaves the base exp whole)
+	ld hl, wEnemyMonBaseStats
 .loop
 	srl [hl]
 	inc hl
@@ -500,21 +602,7 @@ GainExperience:
 	ld [wWhichPokemon], a
 .partyMonLoop ; loop over each mon and add gained exp
 	inc hl
-	ld a, [hli]
-	or [hl] ; is mon's HP 0?
-	jr nz, .participantIsConscious
-; v0.7: vanilla drops a fainted participant's share entirely, which punishes
-; exactly the pattern the early game invites - send the weak one in, let it
-; faint, finish with the starter - and leaves that Pokemon permanently behind.
-; Normal mode now pays it anyway, the way every generation since does. Hard
-; mode keeps the Gen 1 rule, so a Pokemon going down really costs you.
-; See .keepFaintedMonFainted below: paying a fainted mon means it can level up,
-; and the vanilla level-up adds the max-HP gain to CURRENT HP - which would
-; quietly revive it.
-	ld a, [wDifficulty]
-	and a ; NORMAL_MODE?
-	jp nz, .nextMon
-.participantIsConscious
+	inc hl ; wPartyMonNHP + 1, which the offsets below count from
 	push hl
 	ld hl, wPartyGainExpFlags
 	ld a, [wWhichPokemon]
@@ -523,31 +611,40 @@ GainExperience:
 	predef FlagActionPredef
 	ld a, c
 	and a ; is mon's gain exp flag set?
-	pop hl
-	jp z, .nextMon ; if mon's gain exp flag not set, go to next mon
-; v1.0 (2026-09-08, T4a): on HARD a Pokemon at or past the level cap gains
-; NOTHING from a battle - not even stat exp. The cap used to be applied only to
-; the exp, after the stat exp loop below had already run, so a capped Pokemon
-; (a participant) kept growing on the inside: a cheat.
-; The same test moved here from after .statExpDone also keeps the older story
-; true - a gift Pokemon that ARRIVES above the cap (the old roof-house PORYGON,
-; L20 on a cap of 14) is skipped outright, so its exp is never clamped down
-; and its level never drops. Compared as LEVELS, before any arithmetic.
-; Normal is untouched: GetLevelCap says MAX_LEVEL there and a L100 Pokemon
-; still banks stat exp, as in vanilla.
+	jr z, .skipMon ; if mon's gain exp flag not set, go to next mon
+; v1.0 (2026-11-07): who is paid what is ExpShareWillBePaid's answer, the one the
+; divisor counted by (CountExpTakers), so no share divided out is then refused.
+; Its two rules, which used to be written out here:
+; - FAINTED. v0.7: vanilla drops a fainted participant's share entirely, which
+;   punishes exactly the pattern the early game invites - send the weak one in,
+;   let it faint, finish with the starter - and leaves that Pokemon behind.
+;   Normal pays it (RemoveFaintedPlayerMon keeps its flag there); Hard keeps the
+;   Gen 1 rule, so a Pokemon going down really costs you. See
+;   .keepFaintedMonFainted below: a paid fainted mon can level up, and the
+;   vanilla level-up adds the max-HP gain to CURRENT HP - which would revive it.
+; - THE CAP. v1.0 (2026-09-08, T4a): on HARD a Pokemon at or past the level cap
+;   gains NOTHING from a battle - not even stat exp; the cap used to be applied
+;   to the exp only, after the stat exp loop had run, so a capped participant
+;   kept growing on the inside. It also keeps a gift Pokemon that ARRIVES above
+;   the cap (the old roof-house PORYGON, L20 on a cap of 14) from having its exp
+;   clamped down and its level dropped. Compared as LEVELS, before any arithmetic.
+;   On Normal the cap is MAX_LEVEL: a level 100 banks stat exp, as in vanilla,
+;   and takes no share of the experience (which would only be clamped back off).
+	ld a, [wWhichPokemon]
+	call ExpShareWillBePaid ; carry: its stat exp and its experience
+	ld a, 0 ; ld leaves the carry alone
+	jr c, .takesShare
 	ld a, [wDifficulty]
 	and a ; NORMAL_MODE?
-	jr z, .capOk
-	push hl
-	ld de, wPartyMon1Level - (wPartyMon1HP + 1)
-	add hl, de
-	ld b, [hl] ; this mon's level
+	jr z, .statExpOnly
+.skipMon
 	pop hl
-	call GetLevelCap ; a = the cap; preserves bc, de and hl
-	cp b
-	jp c, .nextMon ; cap < level: already past it
-	jp z, .nextMon ; at the cap: that is it
-.capOk
+	jp .nextMon
+.statExpOnly
+	inc a ; 1
+.takesShare
+	pop hl
+	push af ; nonzero: stat exp only
 	ld de, (wPartyMon1HPExp + 1) - (wPartyMon1HP + 1)
 	add hl, de
 	ld d, h
@@ -581,14 +678,18 @@ GainExperience:
 	inc de
 	jr .gainStatExpLoop
 .statExpDone
-; v0.7 FIX (2026-08-06), moved up to .capOk on 2026-09-08: a Pokemon at or
-; past the hard-mode level cap is skipped BEFORE the stat exp loop now (the test
-; that lived here refused only one past it). The story it came from: without it
-; the cap was applied by clamping the mon's exp DOWN to the cap level's exp --
-; fine for a mon growing into the cap, ruinous for one that arrives above it
-; (the roof-house PORYGON, L20 on the cap of 14 then, had its 6400 exp cut to
-; 2195 and DROPPED to L14 off a single Rattata; the level-up path then ran
-; backwards, the move-learn loop wrapped through 255 and current HP underflowed).
+; v0.7 FIX (2026-08-06), moved up on 2026-09-08 (ExpShareWillBePaid's cap rule
+; since 2026-11-07): a Pokemon at or past the hard-mode level cap is skipped
+; BEFORE the stat exp loop now (the test that lived here refused only one past
+; it). The story it came from: without it the cap was applied by clamping the
+; mon's exp DOWN to the cap level's exp -- fine for a mon growing into the cap,
+; ruinous for one that arrives above it (the roof-house PORYGON, L20 on the cap
+; of 14 then, had its 6400 exp cut to 2195 and DROPPED to L14 off a single
+; Rattata; the level-up path then ran backwards, the move-learn loop wrapped
+; through 255 and current HP underflowed).
+	pop af
+	and a
+	jp nz, .nextMon ; a level 100 on Normal: its stat exp is banked, and that is all
 	xor a
 	ldh [hMultiplicand], a
 	ldh [hMultiplicand + 1], a
@@ -825,8 +926,8 @@ LevelUpPartyMon:
 	ld b, a ; bc = difference between old max HP and new max HP after levelling
 	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
 	add hl, de
-; v0.7: in Normal mode a FAINTED participant can reach this point (see
-; .participantIsConscious above), and the line below adds the max-HP gain to
+; v0.7: in Normal mode a FAINTED participant can reach this point (see the rules
+; at GainExperience's .partyMonLoop), and the line below adds the max-HP gain to
 ; CURRENT HP - which on a mon at 0 HP would revive it with a few points, for
 ; free, every time it levelled. This is why vanilla skipped fainted mons at
 ; all. A fainted mon still gets the level, the stats and the moves; it just
@@ -845,7 +946,11 @@ LevelUpPartyMon:
 	ld [hl], a ; wPartyMon1HP
 	jr .hpAfterLevelUpDone
 .keepFaintedMonFainted
-	dec hl ; land on wPartyMon1HP, where the branch above ends up
+; v1.0 (2026-11-07): and a fainted Pokemon that is still the one in battle (a
+; double KO: Normal pays it) skips the battle refresh below, which redrew its HUD
+; into the space RemoveFaintedPlayerMon had cleared. Nothing reads its battle
+; struct before the next send-out reloads it from the party.
+	jr .printGrewLevelText
 .hpAfterLevelUpDone
 	ld a, [wPlayerMonNumber]
 	ld b, a
@@ -950,33 +1055,39 @@ LevelUpPartyMon:
 	ret
 
 ; divide enemy base stats, catch rate, and base exp by the number of mons gaining exp
+; v1.0 (2026-11-07): by the number that really take each part. The base stats (and
+; the catch rate, which nothing reads after) become stat exp, for every flagged
+; Pokemon GainExperience pays at all; the base exp becomes experience, for the ones
+; ExpShareWillBePaid accepts. The two counts differ on Normal only, by a level 100
+; that fought: it banks stat exp, as in vanilla, and takes no share of the
+; experience. Before, one count of every flagged Pokemon divided both, and the
+; share of one that was then refused (at the Hard cap; a level 100's experience)
+; was lost.
 DivideExpDataByNumMonsGainingExp:
-	ld a, [wPartyGainExpFlags]
-	ld b, a
-	xor a
-	ld c, $8
-	ld d, $0
-.countSetBitsLoop ; loop to count set bits in wPartyGainExpFlags
-	xor a
-	srl b
-	adc d
-	ld d, a
-	dec c
-	jr nz, .countSetBitsLoop
-	cp $2
-	ret c ; return if only one mon is gaining exp
-	ld [wd11e], a ; store number of mons gaining exp
+	call CountExpTakers ; d = experience takers, e = stat exp takers
 	ld hl, wEnemyMonBaseStats
-	ld c, wEnemyMonBaseExp + 1 - wEnemyMonBaseStats
+	ld c, wEnemyMonBaseExp - wEnemyMonBaseStats ; the base stats and the catch rate
+	ld b, e
+	call .divide ; keeps de
+	ld hl, wEnemyMonBaseExp
+	ld c, 1
+	ld b, d
+.divide
+; c bytes from hl, each divided in place by b; below 2 they stay as they are
+	ld a, b
+	cp $2
+	ret c ; one taker (or none) gets it all
 .divideLoop
 	xor a
 	ldh [hDividend], a
 	ld a, [hl]
 	ldh [hDividend + 1], a
-	ld a, [wd11e]
+	ld a, b
 	ldh [hDivisor], a
-	ld b, $2
+	push bc
+	ld b, $2 ; the dividend's bytes
 	call Divide ; divide value by number of mons gaining exp
+	pop bc
 	ldh a, [hQuotient + 3]
 	ld [hli], a
 	dec c

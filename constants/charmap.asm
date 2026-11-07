@@ -350,7 +350,10 @@
 	                  ; loads the star there, after its "+" at $d1). Named before its kana so
 	                  ; that it decodes first.
 	charmap "め", $d2
-	charmap "も", $d3
+	charmap "も", $d3 ; v1.0 (2026-11-07): $d3-$d4 are blank cells of the English font that the
+	                  ; STATS page loads its condensed DEX glyph pair into (DEX_LABEL_TILE,
+	                  ; engine/pokemon/status_screen.asm). No string uses them; a feature that
+	                  ; borrows a blank cell here must take another one.
 	charmap "や", $d4
 	charmap "ゆ", $d5
 	charmap "よ", $d6

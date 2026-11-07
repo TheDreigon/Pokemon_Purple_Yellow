@@ -268,13 +268,23 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld a, [hl]
 	sbc b
 	ld b, a
+; v1.0 (2026-11-07): a fainted Pokemon evolves and stays fainted. It can reach here at
+; 0 HP (paid while fainted on Normal, a level gained before fainting later in the same
+; battle, an evolution stone used on it), and the max-HP gain added to 0 HP revived
+; it. It keeps the evolution, the level, the stats and the moves, as the level-up's
+; own guard (.keepFaintedMonFainted, engine/battle/experience.asm) has it.
 	ld hl, wLoadedMonHP + 1
+	ld a, [hld]
+	or [hl] ; wLoadedMonHP: both bytes zero means fainted
+	jr z, .stayFainted ; hl = wLoadedMonHP, where the add below ends too
+	inc hl
 	ld a, [hl]
 	add c
 	ld [hld], a
 	ld a, [hl]
 	adc b
 	ld [hl], a
+.stayFainted
 	dec hl
 	pop bc
 	call CopyData
@@ -1072,7 +1082,13 @@ CopyEvolutionRecords:
 ; depth first, which is exactly the order the page prints in.
 	dec b
 	ret z
+; v1.0 (2026-11-07): GetEvosMovesPointerForSpecies zeroes b (`ld b, 0`). Without the
+; push/pop every recursive call started from b = 0, `dec b` gave $FF and the guard
+; above never fired: a longer chain printed in full, and a cycle in the data recursed
+; until the stack ran out (.claude/emu_test_evo_depth.py).
+	push bc
 	call GetEvosMovesPointerForSpecies
+	pop bc
 .loop
 	ld a, [hli]
 	and a
