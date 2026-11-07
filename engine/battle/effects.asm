@@ -356,8 +356,7 @@ FreezeBurnParalyzeEffect:
 	call FrozenMonLeavesHiding
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
-	ld hl, FrozenText
-	jp PrintText
+	jp PrintFrozenTextAndLowerSpeed ; v1.0 (2026-11-07): the text, then SPEED one stage down
 .opponentAttacker
 	ld a, [wBattleMonStatus] ; mostly same as above with addresses swapped for opponent
 	and a
@@ -468,8 +467,7 @@ FreezeBurnParalyzeEffect:
 	call FrozenMonLeavesHiding
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
-	ld hl, FrozenText
-	jp PrintText
+	jp PrintFrozenTextAndLowerSpeed ; v1.0 (2026-11-07): the text, then SPEED one stage down
 
 BurnedText:
 	text_far _BurnedText
@@ -477,6 +475,56 @@ BurnedText:
 
 FrozenText:
 	text_far _FrozenText
+	text_end
+
+; v1.0 (2026-11-07): a freeze also lowers the frozen #MON's SPEED one stage. The four freeze sites
+; (FreezeBurnParalyzeEffect .freeze1 / .freeze2, TriStatusSideEffect .freezeEnemy / .freezeBattle) jump here once
+; FRZ and its count are set: "was frozen solid!", then "<TARGET>'s / SPEED fell!". The stage falls by the stat rules -
+; not below -6, and not when the SPEED is already 1 (StatModifierDownEffect's two refusals), silently there as any
+; side effect's drop - and the stat is recalculated from the unmodified stat and the new stage alone, as a drop does
+; (CalculateModifiedStat: the 999 cap, never below 1), then HalveSpeedDueToParalysis, the drop's own order (a #MON
+; just frozen carries no PAR: every site needs no status before it writes 1 << FRZ). MIST and GUARD SPEC. do not
+; stop it: it is part of the freeze, as paralysis's halving is; a SUBSTITUTE stops the freeze itself, before here.
+; Like any stage it stays after the thaw until the #MON leaves the field, and a second freeze lowers it again.
+; The trainer AI reads it as any SPEED stage shown on screen (AIForgetStaleTurnOrder, misc.asm).
+; In: hWhoseTurn = the attacker. Ends in PrintText: nothing is kept.
+PrintFrozenTextAndLowerSpeed:
+	ld hl, FrozenText
+	call PrintText
+	ld hl, wEnemyMonSpeedMod
+	ld de, wEnemyMonSpeed
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotTarget
+	ld hl, wPlayerMonSpeedMod
+	ld de, wBattleMonSpeed
+.gotTarget
+	ld a, [hl]
+	dec a
+	ret z ; at -6 (stage 1) it goes no lower: no change, no line
+	ld b, a
+	ld a, [de]
+	ld c, a
+	inc de
+	ld a, [de]
+	dec a
+	or c
+	ret z ; a SPEED of 1 goes no lower either (big-endian: high byte 0, low byte 1)
+	ld [hl], b ; the new stage
+	ldh a, [hWhoseTurn]
+	xor 1 ; the target's side, as CalculateModifiedStat reads it: 0 the player, 1 the enemy
+	ld [wCalculateWhoseStats], a
+	ld c, MOD_SPEED
+	farcall CalculateModifiedStat ; the SPEED alone: unmodified x the new stage's ratio
+	call HalveSpeedDueToParalysis ; the side hWhoseTurn is not: the target
+	ld b, MOD_SPEED + 1
+	call PrintStatText ; "SPEED" into wStringBuffer
+	ld hl, FrozenSpeedFellText
+	jp PrintText
+
+FrozenSpeedFellText: ; MonsStatsFellText's first line and its " fell!", never the "sharply" its effect test picks
+	text_far _MonsStatsFellText
+	text_far _FellText
 	text_end
 
 
@@ -585,8 +633,7 @@ TriStatusSideEffect:
 	ld [wEnemyFreezeCounter], a
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
-	ld hl, FrozenText
-	jp PrintText
+	jp PrintFrozenTextAndLowerSpeed ; v1.0 (2026-11-07): the text, then SPEED one stage down
 
 ; ===== Enemy attacking player =====
 .paralyzeBattle
@@ -654,8 +701,7 @@ TriStatusSideEffect:
 	ld [wPlayerFreezeCounter], a
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
-	ld hl, FrozenText
-	jp PrintText
+	jp PrintFrozenTextAndLowerSpeed ; v1.0 (2026-11-07): the text, then SPEED one stage down
 
 DefrostTargetIfFireOrMagma::
 ; v0.7: ANY damaging FIRE or MAGMA move thaws a frozen target.

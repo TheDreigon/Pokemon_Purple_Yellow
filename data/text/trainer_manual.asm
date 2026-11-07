@@ -337,10 +337,11 @@ _ManualPage_4_2::
 
 _ManualPage_4_3::
 	text "FREEZE holds a"
-	next "#MON still for"
-	next "three to six"
-	next "turns, then thaws"
-	next "on its own."
+	next "#MON for three"
+	next "to six turns, then"
+	next "thaws on its own."
+	next "Each freeze lowers"
+	next "SPEED one step."
 	next ""
 	next "It stays after the"
 	next "battle. A FIRE or"
