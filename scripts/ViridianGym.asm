@@ -269,12 +269,15 @@ ViridianGym_TextPointers:
 	dw_const ViridianGymCooltrainerM3Text,          TEXT_VIRIDIANGYM_COOLTRAINER_M3
 	dw_const ViridianGymGymGuideText,               TEXT_VIRIDIANGYM_GYM_GUIDE
 	dw_const PickUpItemText,                        TEXT_VIRIDIANGYM_MAX_REVIVE
-	dw_const ViridianGymJamesText,                 TEXT_VIRIDIANGYM_JAMES ; a plain object: its id must sit within the first 13 (def_warps_to's rule)
+; v1.0 (2026-11-06): the rows of the map's 13 objects come first, in object order, and every text a script shows
+; by id comes after them. DisplayTextID reads an id of 13 or less as a SPRITE index and prints that sprite's text:
+; the EARTHBADGE speech sat on row 13, so after GIOVANNI's defeat the game printed JAMES's line (object 13).
+	dw_const ViridianGymKiyoText,                  TEXT_VIRIDIANGYM_KIYO ; object 12
+	dw_const ViridianGymJamesText,                 TEXT_VIRIDIANGYM_JAMES ; object 13, a plain object: def_warps_to wants its id within the first 13
 	dw_const ViridianGymGiovanniEarthBadgeInfoText, TEXT_VIRIDIANGYM_GIOVANNI_EARTH_BADGE_INFO
 	dw_const ViridianGymGiovanniReceivedTMText,   TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_TM
 	dw_const ViridianGymGiovanniTMNoRoomText,     TEXT_VIRIDIANGYM_GIOVANNI_TM_NO_ROOM
 	dw_const ViridianGymGiovanniReceivedCandyText, TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_CANDY
-	dw_const ViridianGymKiyoText,                  TEXT_VIRIDIANGYM_KIYO
 	dw_const ViridianGymKiyoPostBattleText,        TEXT_VIRIDIANGYM_KIYO_POST_BATTLE
 
 ViridianGymTrainerHeaders:
