@@ -1181,9 +1181,11 @@ NEXTU
 ; coordinates in registers (c = x, b = y); the AREA page walks its list of map
 ; ids at wBuffer, which this label aliases. Kept as a name for the union slot.
 wTownMapCoords::
-; non-zero: WriteMonMoves also writes each new move's PP and skips the levels up to
-; wDayCareStartLevel - vanilla's DAY CARE withdrawal. v1.0 (R21a): the DAY CARE learns through
-; LearnMoveFromLevelUp; _AddPartyMon and LoadEnemyMonData write 0 here before their WriteMonMoves.
+; vanilla: non-zero made WriteMonMoves also write each new move's PP and skip the levels up to
+; wDayCareStartLevel (the DAY CARE withdrawal). v1.0 (R21a): the DAY CARE learns through
+; LearnMoveFromLevelUp; v1.0 (2026-11-07): WriteMonMoves no longer reads this. _AddPartyMon,
+; LoadEnemyMonData and the debug menu still write 0 here before their WriteMonMoves; that zeroes
+; wBuffer+0 as well (this is its union alias), which is left as it was.
 wLearningMovesFromDayCare::
 	db
 

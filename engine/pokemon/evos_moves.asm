@@ -607,6 +607,11 @@ Func_3b10f:
 
 ; writes the moves a mon has at level [wCurEnemyLVL] to [de]
 ; move slots are being filled up sequentially and shifted if all slots are full
+; v1.0 (2026-11-07): vanilla's three day-care branches went (the levels up to
+; wDayCareStartLevel skipped, each new move's PP written, the PP shifted with the
+; moves). Since R21a the DAY CARE teaches through LearnMoveFromLevelUp, and every
+; caller (_AddPartyMon, LoadEnemyMonData, the debug menu) writes 0 to
+; wLearningMovesFromDayCare first, so none of them could run.
 WriteMonMoves:
 	call GetPredefRegisters
 	push hl
@@ -616,7 +621,6 @@ WriteMonMoves:
 	jr .firstMove
 .nextMove
 	pop de
-.nextMove2
 	inc hl
 .firstMove
 	ld a, [hli]       ; read level of next move in learnset
@@ -626,14 +630,6 @@ WriteMonMoves:
 	ld a, [wCurEnemyLVL]
 	cp b
 	jp c, .done       ; mon level < move level (assumption: learnset is sorted by level)
-	ld a, [wLearningMovesFromDayCare]
-	and a
-	jr z, .skipMinLevelCheck
-	ld a, [wDayCareStartLevel]
-	cp b
-	jr nc, .nextMove2 ; min level >= move level
-
-.skipMinLevelCheck
 
 ; check if the move is already known
 	push de
@@ -665,45 +661,10 @@ WriteMonMoves:
 	ld h, d
 	ld l, e
 	call WriteMonMoves_ShiftMoveData ; shift all moves one up (deleting move 1)
-	ld a, [wLearningMovesFromDayCare]
-	and a
-	jr z, .writeMoveToSlot
-
-; shift PP as well if learning moves from day care
-	push de
-	ld bc, wPartyMon1PP - (wPartyMon1Moves + 3)
-	add hl, bc
-	ld d, h
-	ld e, l
-	call WriteMonMoves_ShiftMoveData ; shift all move PP data one up
-	pop de
-
-.writeMoveToSlot
 	pop hl
 .writeMoveToSlot2
 	ld a, [hl]
 	ld [de], a
-	ld a, [wLearningMovesFromDayCare]
-	and a
-	jr z, .nextMove
-
-; write move PP value if learning moves from day care
-	push hl
-	ld a, [hl]
-	ld hl, wPartyMon1PP - wPartyMon1Moves
-	add hl, de
-	push hl
-	dec a
-	ld hl, Moves
-	ld bc, MOVE_LENGTH
-	call AddNTimes
-	ld de, wBuffer
-	ld a, BANK(Moves)
-	call FarCopyData
-	ld a, [wBuffer + 5]
-	pop hl
-	ld [hl], a
-	pop hl
 	jr .nextMove
 
 .done

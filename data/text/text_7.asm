@@ -188,11 +188,6 @@ _ForgotAndText::
 	para "And..."
 	prompt
 
-_HMCantDeleteText::
-	text "HM techniques"
-	line "can't be deleted!"
-	prompt
-
 _PokemonCenterWelcomeText::
 	text "Welcome to our"
 	line "#MON CENTER!"

@@ -414,10 +414,6 @@ ForgotAndText:
 	text_far _ForgotAndText
 	text_end
 
-HMCantDeleteText: ; vanilla's refusal, unused since the Yellow Legacy's 3d8c2127
-	text_far _HMCantDeleteText
-	text_end
-
 LearnMoveLastFieldMoveText: ; v1.0 (2026-09-24): the MOVE DELETER's line, shared
 	text_far _MoveDeleterLastFieldMoveText
 	text_end
