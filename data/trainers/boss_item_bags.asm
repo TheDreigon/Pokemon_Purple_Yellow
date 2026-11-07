@@ -8,7 +8,7 @@
 ;
 ; Data is loaded into wEnemyTrainerItemBag at battle start by
 ; InitEnemyTrainerItemBag (below — it lives WITH this data, in its own
-; floating section, reached by farcall), but only when
+; section, pinned to bank $16 by layout.link, reached by farcall), but only when
 ; IsHardModeBossOrSemiBattle passes. In Normal mode, in wild battles, or
 ; against a non-boss class the bag stays empty and the boss AI routines
 ; no-op out.
@@ -29,7 +29,7 @@ MistyBossBag::      db SUPER_POTION, 2, X_SPATK,  1, FULL_HEAL,  2, -1, -1
 MistyRematchBag::   db FULL_RESTORE, 2, X_SPATK,  2, FULL_HEAL,  2, -1, -1
 LtSurgeBossBag::    db SUPER_POTION, 2, X_SPEED,    1, FULL_HEAL,  2, -1, -1
 LtSurgeRematchBag:: db FULL_RESTORE, 2, X_SPEED,    2, FULL_HEAL,  2, -1, -1
-; Erika buffs SPECIAL now (2026-08-17 sheet correction; she was on X Defend)
+; Erika buffs SP.DEF (X SP.DEF since the 2026-09-06 SPECIAL split; X Special from the 2026-08-17 sheet correction, X Defend before)
 ErikaBossBag::      db HYPER_POTION, 2, X_SPDEF,  1, FULL_HEAL,  2, -1, -1
 ErikaRematchBag::   db FULL_RESTORE, 2, X_SPDEF,  2, FULL_HEAL,  2, -1, -1
 ; Koga carries a Dire Hit in both fights (2026-09-06 table; it had moved to the rematch on 08-17)
@@ -160,7 +160,7 @@ BossItemBagPointers::
 ; start by init_battle.asm via farcall (after wTrainerClass, wTrainerNo and
 ; wAICount are set AND after wIsInBattle is set to 2 — the tier predicate
 ; requires it — but before any AI tick fires). If this is not a Hard-mode
-; boss battle the bag stays empty (-1 fill) and every CheckAndConsumeBossItem
+; boss OR semi-boss battle the bag stays empty (-1 fill) and every CheckAndConsumeBossItem
 ; returns no-carry, so boss AI routines no-op out cleanly.
 ;
 ; Moved here from trainer_ai.asm (2026-08-17) so the loader shares a bank

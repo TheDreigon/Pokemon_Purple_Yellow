@@ -76,9 +76,9 @@ ROMX $8
 ; "Pics 4" five bytes past a full bank and, once that was fixed, "Pics 1" and
 ; "Pics 2" past theirs too - they were sharing their banks with Battle Engine
 ; 3/4/5 (259+189+265 B) and Slot Machines (2562 B). Those four are all reached
-; through symbolic BANK(...), so nothing pins them here; they now float and the
-; linker puts them wherever there is room. This buys the artwork about 3.2 KB of
-; headroom across the five banks for the next round of swaps.
+; through symbolic BANK(...), so nothing ties them to these banks; the
+; 2026-08-17 rebalance below pinned them in $12 and $17. This buys the artwork
+; about 3.2 KB of headroom across the five banks for the next round of swaps.
 ROMX $9
 	"Pics 1"
 ROMX $A
@@ -123,8 +123,8 @@ ROMX $13
 	; v0.7 rebalance (2026-08-17): floating sections were first-fitting into
 	; the tightest banks in the ROM (audio $02 at 5 B, Pics 3 at 7 B, the
 	; engine banks) and reshuffling on every link. The big ones are pinned
-	; from here on; the placement below leaves every host >1 KB in BOTH
-	; builds.
+	; from here on; on that day the placement left each of its hosts >1 KB
+	; in BOTH builds ($17, $18 and $1D have since dropped below 1 KB).
 	"Item Descriptions"
 ROMX $14
 	"Maps 10"
@@ -193,10 +193,10 @@ ROMX $20
 	"Music 4"
 ROMX $21
 	"Pikachu Cries 1"
-	; v0.7: the four flavour sections are pinned across four stable banks. Left
+	; v0.7: the five flavour sections are pinned across three stable banks. Left
 	; floating they land in whichever bank has room, and the ones with room are
-	; the map banks, which grow every time a map is redrawn. Four pieces rather
-	; than three because the debug build has less room in some banks.
+	; the map banks, which grow every time a map is redrawn. Five pieces rather
+	; than fewer because the debug build has less room in some banks.
 	"Move Flavor Text 1"
 	"Move Flavor Text 4" ; v0.7 (2026-08-31, expansion prep): from bank $24
 ROMX $22
@@ -247,8 +247,8 @@ ROMX $30
 	"bank30"
 	; v0.7: the TRAINER MANUAL's pages. Left floating, the linker put them in
 	; $07 -- next to "Maps 3" and "Maps 4", the banks that grow every time a map
-	; is redrawn. This is the roomiest bank that holds neither map data nor
-	; anything indexed by species, and the manual's text is what grows here.
+	; is redrawn. This bank holds no map data; besides the manual's text, what
+	; grows here is base_stats (one BASE_DATA_SIZE record per new species).
 	"Trainer Manual Text"
 ROMX $31
 	"Pikachu Cries 6"
@@ -259,9 +259,9 @@ ROMX $33
 ROMX $34
 	"Pikachu Cries 9"
 	"Move SFX Table"
-	; v0.7: same reasoning as "Move Info" in $24. This one gets the roomier
-	; bank of the two because it is the half that grows -- every per-move
-	; description override lands here.
+	; v0.7: same reasoning as "Move Info" in $24. This one got the roomier
+	; bank of the two at the time because it is the half that grows -- every
+	; per-move description override lands here.
 	"Move Descriptions Text"
 ROMX $35
 	"Pikachu Cries 10"
@@ -302,8 +302,8 @@ ROMX $3D
 	; v0.7: the generated TYPE MATCHUPS pages, ~4 KB. Left floating they landed
 	; in $06 beside "Maps 1" and "Maps 2" and left that bank with 209 bytes --
 	; the fourth time a floating section has picked a map bank. This one holds
-	; no map data, and "Pics 7" does not grow with new species (the pic-bank
-	; ladder in home/pics.asm sends new indices to "Pics 5").
+	; no map data, and "Pics 7" does not grow with new species (it holds the
+	; player-side back pics; a species' pics sit where its base-stats byte says).
 	"Trainer Manual Types Text"
 ROMX $3E
 	"Surfing Minigame"
@@ -311,8 +311,8 @@ ROMX $3F
 	"Overworld Pikachu"
 	"Text 10"
 ROMX $42
-	; AUDIO_5: the five city themes plus a full mirror of the bank-1 SFX+cry
-	; table. The headers MUST sit at the top of the bank: sound ids are
+	; AUDIO_5: the five city themes and the FIGHTING DOJO's, plus a full mirror
+	; of the bank-1 SFX+cry table. The headers MUST sit at the top of the bank: sound ids are
 	; (header - $4000) / 3, computed cross-bank against SFX_Headers_1, and
 	; that subtraction only works because every audio bank starts with its
 	; header tables at $4000 -- same layout as $02/$08/$1F/$20 above.
@@ -330,8 +330,8 @@ ROMX $43
 	; party icons for dex ids >= 128: grows 128 B per new species past
 	; dex 127 - at ~196 species this section wants ~9.3 KB.
 	"Mon Icons 2"
-	; v1.0 (2026-09-26): the debug ROM's menu and tests (empty in the release
-	; ROM). Out of bank $3F so "Text 10" has the same headroom in both builds.
+	; v1.0 (2026-09-26): the debug ROM's menu and tests (three `ret` stubs in
+	; the release ROM). Out of bank $3F so "Text 10" has the same headroom in both builds.
 	"Debug"
 ROMX $44
 	; frozen data (trainer pics never grow with species) - parked together.
@@ -350,7 +350,7 @@ WRAM0
 	"Main Data"
 	"Current Box Data"
 	"GBC Palette Data"
-	org $deaa ; v1.0 (2026-09-24, fly slots): $dea9 -> $deaa, one byte to wTownVisitedFlag (nineteen fly slots; the saved block grew, save layout broke on purpose, no save in progress): Stack 343 -> 342. Earlier the same day (T23): $de99 -> $dea9, 16 bytes to wMissableObjectFlags2 (the second hide/show table; the saved block grew, save layout broke on purpose): Stack 359 -> 343. Earlier: v1.0 (2026-09-08, T30): $defc -> $de99, 99 more bytes from the dead padding inside the SAVED main-data block (save layout broke on purpose before the new game): Stack 260 -> 359. Earlier the same day: $df80 -> $defc, 132 bytes reclaimed from WRAM0 for the stack without touching a saved range (wOverworldMap 1300 -> 1248, four palette bytes into the Audio RAM tail, dead padding and dead link/pureRGB bytes in SECTION "WRAM"): Stack 128 -> 260. Earlier: raised from $df18 on 2026-09-06 -- the SPECIAL split grew WRAM0 by 104 bytes (a sixth stat exp word and stat word per mon struct, a sixth base stat). Stack 232 -> 128. Measured with a sentinel fill (stack_survey / battle_survey, 2026-09-06): 115 bytes deepest on the overworld/text paths of the emulator suite, and the wild-battle figure is in the CHANGELIST entry. (An attempt to take 40 bytes out of the Tilemap union instead broke the map view: LoadCurrentMapView needs 480 bytes after wTileMapBackup - see wMapViewScratch.) (History: $df3c -> $df3e mart fix; -> $df08 hardening +54; -> $df18 event growth; -> $df80 the split.)
+	org $deaa ; v1.0 (2026-09-24, fly slots): $dea9 -> $deaa, one byte to wTownVisitedFlag (nineteen fly slots; the saved block grew, save layout broke on purpose, no save in progress): Stack 343 -> 342. Earlier the same day (T23): $de99 -> $dea9, 16 bytes to wMissableObjectFlags2 (the second hide/show table; the saved block grew, save layout broke on purpose): Stack 359 -> 343. Earlier: v1.0 (2026-09-08, T30): $defc -> $de99, 99 more bytes from the dead padding inside the SAVED main-data block (save layout broke on purpose before the new game): Stack 260 -> 359. Earlier the same day: $df80 -> $defc, 132 bytes reclaimed from WRAM0 for the stack without touching a saved range (wOverworldMap 1300 -> 1248, four palette variables (eleven bytes) into the Audio RAM tail, dead padding and dead link/pureRGB bytes in SECTION "WRAM"): Stack 128 -> 260. Earlier: raised from $df18 on 2026-09-06 -- the SPECIAL split grew WRAM0 by 104 bytes (a sixth stat exp word and stat word per mon struct, a sixth base stat). Stack 232 -> 128. Measured with a sentinel fill (stack_survey / battle_survey, 2026-09-06): 115 bytes deepest on the overworld/text paths of the emulator suite, and the wild-battle figure is in the CHANGELIST entry. (An attempt to take 40 bytes out of the Tilemap union instead broke the map view: LoadCurrentMapView needs 480 bytes from wTileMapBackup on - see wMapViewScratch.) (History: $df3c -> $df3e mart fix; -> $df08 hardening +54; -> $df18 event growth; -> $df80 the split.)
 	"Stack"
 VRAM $0
 	"VRAM"

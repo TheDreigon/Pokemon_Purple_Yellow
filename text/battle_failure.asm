@@ -1,6 +1,7 @@
 ; The two battle failures that Gen 1 reported as an ordinary miss.
 ;
-; Its own floating section: "Text 2", where _AttackMissedText and its
+; Its own section (pinned to ROMX $12 in layout.link): "Text 2", where
+; _AttackMissedText and its
 ; neighbours live, is pinned in layout.link and has no room -- the SAFARI sign
 ; had to move out of it in the same session. text_far reaches here from
 ; anywhere.
@@ -20,7 +21,7 @@ _NoScratchText::
 	prompt
 
 ; x4 and x1/4 (2026-09-24). Same section as the lines above: the pinned text
-; banks have no room (Text 10 has 317 bytes in the debug build).
+; banks had no room then (Text 10 had 317 bytes in the debug build).
 _ExtremelyEffectiveText::
 	text "It's extremely"
 	line "effective!"

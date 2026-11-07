@@ -15,8 +15,8 @@
 ; himself in advance.
 ;
 ; Widths: this is a plain DisplayTextID box, NOT an end-battle text, so
-; there is no "<CLASS>: " prefix eating the first row - text/line/para get
-; all 18 tiles and cont gets 17.
+; there is no "<CLASS>: " prefix eating the first row - text/para get all
+; 18 tiles, and a line or cont gets 17 when the press-A arrow sits on it.
 _FightingDojoKarateMasterText::
 	text "Grunt!"
 

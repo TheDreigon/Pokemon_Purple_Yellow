@@ -1,16 +1,17 @@
 ; DAMIAN, who is giving away the CHARMANDER on Route 25 (Route 24 until 2026-11-05, when the
 ; top of Route 24 became the west of Route 25; this file was text/route24_damian.asm).
 ;
-; Vanilla had him mildly apologetic -- "I should release my CHARMANDER because
-; it's weak" -- which reads as someone doing the kind thing badly. In the anime
-; he is not kind: he leaves the Pokemon behind and tells himself it deserved it.
-; That is the version here, in our own words.
+; Yellow Legacy had him mildly apologetic -- "I should release my CHARMANDER
+; because it's weak" -- which reads as someone doing the kind thing badly. In
+; the anime he is not kind: he leaves the Pokemon behind and tells himself it
+; deserved it. That is the version here, in our own words.
 ;
-; Its own floating section: these lines are longer than the ones they replace
-; and "Text 4" is pinned in layout.link, so it went 2 bytes over its bank the
-; moment they landed in text/Route24.asm. text_far reaches a floating section
-; from anywhere, and this is the third time the pinned Text banks have forced
-; the same move (see tmhmNames and Cerulean's second TRAINER TIPS sign).
+; Its own section (pinned to ROMX $7 in layout.link): these lines are longer
+; than the ones they replace and "Text 4" is pinned in layout.link, so it went
+; 2 bytes over its bank the moment they landed in text/Route24.asm. text_far
+; reaches a section in any bank, and this was the third time the pinned Text
+; banks forced the same move (after tmhmNames and Cerulean's second TRAINER
+; TIPS sign, which came down on 2026-08-31).
 
 _Route25DamianText1::
 	text "I'm DAMIAN, and"

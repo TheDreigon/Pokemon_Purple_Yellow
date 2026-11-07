@@ -165,7 +165,7 @@ HealEffect_:
 	ld [wHPBarMaxHP+1], a
 	ld b, a
 	jr z, .gotHPAmountToHeal
-; Recover and Softboiled only heal for half the mon's max HP
+; Recover only heals for half the mon's max HP (Softboiled's 3/4 has its own branch)
 	srl b
 	rr c
 .gotHPAmountToHeal

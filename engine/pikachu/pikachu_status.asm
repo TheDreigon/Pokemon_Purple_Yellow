@@ -70,7 +70,7 @@ IsStarterPikachuInOurParty::
 	add hl, bc
 	ld a, [hli]
 	or [hl]
-	jr z, .noPlayerPikachu ; jr z, .noPlayerPikachu ; OTID - NAME_LENGTH points at current HP; a fainted Pikachu doesn't count
+	jr z, .noPlayerPikachu ; OTID - NAME_LENGTH points at current HP; a fainted Pikachu doesn't count
 	pop hl
 	scf
 	ret
@@ -162,7 +162,8 @@ UseFakePikachuFrontPic::
 ; This entry is UNCONDITIONAL on purpose: it serves the battle-enemy
 ; loads and the evolution scene, where a Pikachu can never be the
 ; partner (the partner refuses to evolve and never fights for the
-; other side).
+; other side), and the Pokedex, which shows the species as found in
+; the wild on purpose (DrawDexEntryOnScreen).
 ;
 ; wMonHIndex holds the INTERNAL species id, not the dex id: GetMonHeader
 ; copies the base-stats row (whose byte 0 is the dex id) and then
@@ -236,9 +237,10 @@ UseFakePikachuFrontPicChangeMonPic::
 UseFakePikachuFrontPicHoF::
 ; Hall of Fame INDUCTION: show the individual being inducted
 ; (2026-09-01: the PIKACHU that was used). wHoFPartyMonIndex is the
-; party slot; the full partner test (marker + OTID + OT name) lives two
-; routines up in this same bank. The REPLAY from the League PC never
-; comes here - its records store species only, so it keeps the canonical
+; party slot; the full partner test (marker + OTID + OT name) lives in
+; IsThisPartymonStarterPikachu, above in this same bank. The REPLAY from
+; the League PC never comes here - its records keep species, level and
+; nickname but not the catch-rate marker, so it keeps the canonical
 ; Yellow pic (there is nothing individual left to ask).
 ; Clobbers wWhichPokemon; the HoF flow rewrites it with this same value
 ; right after (HoFDisplayAndRecordMonInfo).

@@ -59,7 +59,7 @@ LoadHpBarAndStatusTilePatterns::
 ; right, which is what makes the two readable side by side and still wrong.
 ;
 ; What it did: copied 144 bytes OUT of VRAM at $8c00 and INTO $4c00, where
-; EXPBarGraphics happens to live. ROM cannot be written, so on this cartridge -
+; EXPBarGraphics lived then ($4600 now). ROM cannot be written, so on this cartridge -
 ; MBC5, from the -m 0x1b in the Makefile - $4000-$5fff is the SRAM BANK NUMBER
 ; register, and this performed 144 consecutive writes to it, leaving it holding
 ; a byte of font graphics. Nothing has been corrupted by that, because every

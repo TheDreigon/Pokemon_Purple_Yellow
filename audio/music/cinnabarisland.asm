@@ -10,14 +10,15 @@
 ;   - tempo 156 -> 200, i.e. SLOWER. Read the direction off the engine, not
 ;     off intuition: Audio1_note_length computes the note delay as
 ;     note_length * note_speed * TEMPO, so a bigger number holds each note
-;     for more frames. Low tempo is FAST. For scale, Cities1 is 232 and
+;     for more frames. Low tempo is FAST. For scale, Cities1 is 144 and
 ;     Indigo Plateau -- which sounds grave for other reasons -- is 132, well
 ;     on the quick side of Vermilion.
 ;   - lead duty_cycle 3 -> 1. The 25% pulse is thin and reedy instead of
 ;     round and bright; the same lever that makes Lavender Town sound haunted
 ;     using perfectly ordinary notes.
-;   - vibrato slower to arrive and deeper when it does, on both pulse
+;   - vibrato slower to arrive and slower when it does, on both pulse
 ;     channels, so held notes sag rather than shimmer.
+;   - Ch2 duty_cycle 3 -> 2.
 ;   - both pulse channels transposed DOWN one octave (3/4 -> 2/3). The single
 ;     strongest "graver" lever available; bass and drums stay put so the
 ;     bottom does not double up.

@@ -300,7 +300,7 @@ RocketData:
 	db 38, RATICATE, MUK, GOLBAT, MAROWAK, ARBOK, 0
 ; Unused
 	db 32, CUBONE, DROWZEE, MAROWAK, 0
-; Jessie & James — MOVED to JessieAndJamesData (boss class, parties $01-$04).
+; Jessie & James — MOVED to JessieAndJamesData (a semi-boss class since 2026-07-26, parties $01-$04).
 ; These 4 parties (Rocket party $2a-$2d) are now orphans referenced by no
 ; script. Kept here so the SUBSEQUENT party indices ($2e-$31, the unused
 ; tail) don't shift. Safe to remove if those tail entries also go.
@@ -416,7 +416,7 @@ GentlemanData:
 ; SS Anne 1F Rooms
 	db 18, GROWLITHE, SEEL, 0 ; variety (2026-09-07): was GROWLITHE, GROWLITHE (a pet of the crossing; GROWLITHE + VULPIX is the Route 11 gambler's pair)
 	db 19, NIDORAN_M, NIDORAN_F, 0
-; SS Anne 2F Rooms/Vermilion Gym
+; SS Anne 2F Rooms (no longer Vermilion Gym's since the 2026-09-06 gym rework)
 	db 22, VOLTORB, MAGNEMITE, 0
 ; Route 12 (2026-09-25): the ROCKER class's last trainer, by the SUPER ROD house, is a
 ; GENTLEMAN now, with a rich man's pets; the slot was vanilla's unused PRIMEAPE 48
@@ -478,7 +478,7 @@ KiyoData:
 RockerData:
 ; Unused since 2026-09-06 (was Vermilion Gym; the three VOLTORB are SAILOR 9 now)
 	db 21, VOLTORB, VOLTORB, VOLTORB, 0
-; Route 12
+; Unused since 2026-09-25 (was Route 12; that trainer is GENTLEMAN 4 now)
 	db 30, VOLTORB, ELECTRODE, 0
 
 PokemaniacData:
@@ -740,7 +740,7 @@ CueBallData:
 BlackbeltData:
 ; Fighting Dojo — the 2026-08-18 redesign: four two-mon schools on a
 ; 32->38 ladder under KIYO's L40 trio. Party 1 is DEAD data (the master
-; fights as KIYO 1 since a6dcf153), kept in place because party ids are
+; fights as KIYO 1 since 2af28995), kept in place because party ids are
 ; positional — never renumber.
 	db 40, HITMONLEE, HITMONCHAN, 0     ; 1: dead, position-load-bearing
 	db 38, GRAVELER, MACHOKE, 0         ; 2: (3,4) the senior — new master post-League
@@ -750,8 +750,8 @@ BlackbeltData:
 ; Viridian Gym
 	db 52, POLIWRATH, GRAVELER, 0
 	db 52, MACHAMP, HITMONLEE, 0
-	db 52, PRIMEAPE, HITMONCHAN, 0
-; Victory Road 2F - Brice
+	db 52, PRIMEAPE, HITMONCHAN, 0 ; unused since 2026-09-06 (the (10,1) blackbelt's object is JESSIE & JAMES's now)
+; Victory Road 1F - Brice
 	db 52, POLIWRATH, DODRIO, MACHAMP, PINSIR, 0
 ; Post-League one-shot dojo rebattles (talk-scripted, scripts/FightingDojo.asm):
 ; each student's own team, evolved — party N returns as party N+8, on a
@@ -762,7 +762,7 @@ BlackbeltData:
 	db 52, MACHOKE, PRIMEAPE, 0         ; 13: (6,7)
 ; KIYO-era Viridian Gym (the gym rework, 9/9, 2026-09-06): parties 14-15, swapped in by
 ; ViridianGymPostLeagueState. 15 carries both Hitmons: the (10,1) BLACKBELT of the design
-; became JESSIE & JAMES's tile, so his HITMONCHAN joined the door guard's HITMONLEE.
+; became JESSIE & JAMES's object, so his HITMONCHAN joined the door guard's HITMONLEE.
 	db $FF, 58, MACHOKE, 58, MACHOKE, 60, MACHAMP, 0 ; 14: (11,11)
 	db 61, HITMONLEE, HITMONCHAN, 0 ; 15: (3,7)
 

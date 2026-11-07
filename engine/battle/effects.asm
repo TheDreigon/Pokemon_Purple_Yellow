@@ -657,7 +657,7 @@ DefrostTargetIfFireOrMagma::
 ; CheckDefrost below was only reached from the burn/freeze/paralyze side-effect
 ; handlers, so before this only the five Fire/Magma moves carrying such an effect
 ; defrosted (EMBER, FLAMETHROWER, FIRE_BLAST, MAGMA_PUNCH, LAVA_PLUME) while
-; FLAME_CHARGE, FLAME_BURST and EXPLOSION left the target frozen -- a rule with
+; FLAME_CHARGE, FLAME_BURST, EXPLOSION and IGNITE left the target frozen -- a rule with
 ; four exceptions nobody could reasonably learn. Called from the post-hit path in
 ; core.asm for both sides. The trainer AI weighs it (v1.0 R10d): its layer 5 ranks a
 ; FIRE or MAGMA hit into a frozen player +5 (an EXPLOSION below half HP keeps its HP rule).
@@ -1239,7 +1239,7 @@ UpdateLoweredStatDone:
 	; v0.7 burn/para reapplication fix: vanilla called HalveSpeed +
 	; HalveAttack here regardless of which stat was just modified, often
 	; on stats that hadn't been recalc'd, causing penalty compounding.
-	; Remove just this sentence; keep the rest of the block.
+	; Replaced with a
 	; selective reapply: only the stat just recalc'd, on the TARGET (which
 	; is already opposite-of-hWhoseTurn — the existing dispatch direction).
 	ld a, [wd11e]                       ; retrieve recalc'd stat index
@@ -1276,7 +1276,7 @@ CantLowerAnymore:
 
 MoveMissed:
 	ld a, [de]
-	cp ATTACK_DOWN_SIDE_EFFECT ; a side effect that fails its roll says nothing
+	cp ATTACK_DOWN_SIDE_EFFECT ; a side effect (here only from the SUBSTITUTE test) says nothing
 	ret nc
 	jp ConditionalPrintButItFailed
 
@@ -1932,7 +1932,7 @@ ConditionalPrintButItFailed:
 	and a
 	ret nz ; return if the side effect failed, yet the attack was successful, or this move said it
 	inc a ; E5: a = 1 - said once per move: a multi-stat move's later leg that fails stays silent
-	ld [wMoveDidntMiss], a ; (FLASH into a SUBSTITUTE), as the handlers' own flag did before E5
+	ld [wMoveDidntMiss], a ; (FLASH into a SUBSTITUTE until F3 gave its later leg its own test), as the handlers' own flag did before E5
 
 PrintButItFailedText_:
 	ld a, [wMoveMissed]
@@ -2241,7 +2241,7 @@ SpeedDown2FlinchEffect:
 
 DefenseDown1FlinchEffect:
 ; Target Defense -1 plus ~30% flinch. Used by TICKLE alone (2026-09-08):
-; DEFENSE_DOWN1_EFFECT itself is shared by seven other moves, so the flinch
+; DEFENSE_DOWN1_EFFECT itself is shared by six other moves, so the flinch
 ; needed an id of its own rather than a change to the plain -1 effect.
 	ld b, DEFENSE_DOWN1_EFFECT
 	ld c, DEFENSE_DOWN1_FLINCH_EFFECT
@@ -2256,7 +2256,7 @@ SpeedDown1FlinchEffect:
 	jr DoStatDownFlinchEffect
 
 SpDefDown1FlinchEffect:
-; Target SP.DEF -1 plus ~30% flinch. Used by SCREECH (same day, same call).
+; Target SP.DEF -1 plus ~30% flinch. Used by SCREECH (2026-09-01, the same call as METAL_SOUND).
 ; The split (2026-09-06): b is the SP.ATK proxy, the override carries MOD_SPDEF.
 	ld b, SPATK_DOWN1_EFFECT
 	ld c, SPDEF_DOWN1_FLINCH_EFFECT
@@ -2376,8 +2376,7 @@ SpeedEvasionDown1Effect:
 
 SpAtkSpeedUp1Effect:
 ; Dual-stat +1 for the user (SP.ATK + Speed). Used by QUIVER_DANCE (v0.7).
-; Mirrors SpDefSpeedDown1Effect in the up direction — same pattern as
-; AttackDefenseUp1Effect / SpeedEvasionUp1Effect above.
+; Same pattern as AttackDefenseUp1Effect / SpeedEvasionUp1Effect above.
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
 	and a
@@ -2400,7 +2399,7 @@ SpAtkSpeedUp1Effect:
 
 AttackUp1Down1Effect:
 ; Mixed-direction dual-stat: ATK+1 to user, ATK-1 to target. Used by FIERCE_ROAR.
-; Up leg always succeeds; down leg has its own hit roll, so reset wMoveMissed
+; Up leg never misses (refused only at +6 or 999); down leg has its own hit roll, so reset wMoveMissed
 ; before invoking it (otherwise a miss carries over from somewhere upstream).
 	ldh a, [hWhoseTurn]
 	ld de, wPlayerMoveEffect
@@ -2457,8 +2456,8 @@ AttackSpAtkUp1HealEffect:
 ; ignored). At full HP that produced "<MON>'s SPECIAL rose!"
 ; immediately followed by "But, it failed!" for the same move — even though the
 ; stat really did go up. Skip the heal leg when the user is already at max HP.
-; Battle Core is at its size limit, so this stays deliberately compact: the
-; effect pointer rides the stack rather than being re-derived.
+; Written compact while this file still lived in Battle Core, at its size limit until
+; 2026-08-06: the effect pointer rides the stack rather than being re-derived.
 	push de
 	ldh a, [hWhoseTurn]
 	and a

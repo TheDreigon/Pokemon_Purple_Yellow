@@ -398,7 +398,7 @@ PokemartAnythingElseText:
 ;
 ; Called from DisplayListMenuIDLoop, which redraws on every cursor move now, so
 ; the number is never one row out of date. The cursor can sit on CANCEL, whose
-; entry byte is -1 and which owns nothing, so that case blanks the number rather
+; entry byte is -1 and which owns nothing, so that case shows 0 rather
 ; than looking a quantity up for item $FF.
 MartInBagCounter::
 	ld a, [wMartShowInBag]

@@ -118,14 +118,14 @@ StatusScreen:
 ; be shown on its own), and white-out / redraw / fade-in reads as "the screen
 ; reopened" - wrong, when the player only changed page or stepped a mon.
 ; v0.7: the tile pattern loads moved ONTO the white-out branch, and a quiet
-; redraw now skips them. Reordered, not added: this block is the same 60 bytes
+; redraw now skips them. Reordered, not added: this block stayed the same 60 bytes
 ; it was, which mattered when bank $4 was believed full. (It is not: ~1.5 KB
 ; free, measured 2026-09-06, and its three sections are ordered rather than
 ; address-pinned in layout.link, so bank4 grows into the gap.)
 ;
 ; Why they cannot run on a quiet redraw: they write the SAME VRAM TWICE.
-; HpBarAndStatusGraphics is 30 tiles at vChars2 tile $62 = $9620-$97ff, and all
-; three CopyVideoDataDouble destinations below - $96d0, $9760, $9780 - land
+; HpBarAndStatusGraphics is 30 tiles at vChars2 tile $62 = $9620-$97ff, and the
+; three BattleHudTiles copies below - $96d0, $9760, $9780 - land
 ; inside it. Vanilla does exactly the same and gets away with it because the
 ; screen is white while it happens.
 ;
@@ -139,10 +139,10 @@ StatusScreen:
 ;
 ; Skipping is safe for the same reason STATUS_KEEPPIC is: QUIET is only ever
 ; set when a status page is ALREADY on screen (start_sub_menus.asm and the
-; battle driver in battle/core.asm are the only writers of the byte, and both
-; only set QUIET on a page-return), and a status page can only be up because
-; a non-quiet entry loaded these. Page 2 loads no tile patterns of its own at
-; all. The flip also comes out four VBlank waits shorter.
+; battle driver in battle/core.asm are the only callers that set it - Bill's
+; PC writes 0 - and both only on a page-return), and a status page can only be
+; up because a non-quiet entry loaded these. Page 2 loads no tile patterns of
+; its own at all. The flip also skips every VBlank wait those loads make.
 	ld a, [wStatusScreenPageChange]
 	and STATUS_QUIET
 	jr nz, .quietRedraw
@@ -166,11 +166,6 @@ StatusScreen:
 	call CopyVideoDataDouble ; the condensed "DEX" of "DEX№."
 	jr .screenBlanked
 .quietRedraw
-; STATUS_QUIET composes this page behind the one already on screen rather than
-; blanking first. Every route back to the stats page is a full redraw (page 2
-; draws over page 1 and reads what page 1 loads, so it can never be shown on
-; its own), and white-out / redraw / fade-in reads as "the screen reopened" -
-; wrong, when the player only changed page or stepped a mon.
 	xor a
 	ldh [hAutoBGTransferEnabled], a ; nothing drawn below reaches VRAM yet
 .screenBlanked
@@ -320,7 +315,7 @@ StatusScreen:
 ; for half a second, which is what showed in play.
 ;
 ; Moved, not added - the two instructions come from further up, so this costs
-; nothing (bank $4 has ~1.5 KB free, not the seven bytes once feared). GetHealthBarColor stays where it
+; nothing (bank $4 has over 1 KB free, not the seven bytes once feared). GetHealthBarColor stays where it
 ; was: it only computes wStatusScreenHPBarColor and paints nothing.
 	ld b, SET_PAL_STATUS_SCREEN
 	call RunPaletteCommand
@@ -402,7 +397,9 @@ StatusScreen_NormalizeMode:
 ; The party menu always leaves 0 today, so this is a trap rather than a bug -
 ; but it is the exact shape of trap that keeps costing this project days, so it
 ; is closed here instead of documented. One test at the top: no opt-in, no
-; modes, and every `and STATUS_*` below can then be taken at face value.
+; modes, and every `and STATUS_*` below can then be taken at face value - as
+; long as the caller wrote the byte: it sits in a big WRAM union, and a stale
+; value with bit 7 set passes this test (constants/menu_constants.asm).
 	ld a, [wStatusScreenPageChange]
 	bit 7, a ; STATUS_OPTIN
 	ret nz
@@ -436,7 +433,7 @@ StatusScreen_PlacePicture:
 StatusScreen_RevealQuietPage:
 ; A quiet page was composed with the BG transfer off, so VRAM still shows the
 ; page the player was reading. Turning the transfer back on swaps the whole
-; page in at once, with no blank frame in between.
+; page in over three frames (see below), with no blank frame in between.
 	ld a, [wStatusScreenPageChange]
 	and STATUS_QUIET
 	ret z
@@ -541,8 +538,8 @@ PrintStatsBox:: ; exported 2026-09-22: PURPLE'S PATCH (maps.o) shows the gains w
 	jp z, PrintStatGainsBox ; v1.0 (2026-09-08): the gains window, drawn first
 ; v1.0 (2026-09-08): the gains box is wider than this one (cols 5-19 against 9-19) and
 ; the RARE CANDY screen has no save/restore, so blank the strip this box will not cover
-; before drawing it. d = 1 reaches here only from the two level-up callers, both of which
-; draw the gains box first.
+; before drawing it. d = 1 reaches here only from the two level-up callers and PURPLE'S
+; PATCH, all three of which draw the gains box first.
 	call ClearStatGainsStrip
 ; v1.0 (the SPECIAL split, 2026-09-06): Gen 2's level-up box - the top moves
 ; to row 0 and the box grows to ten interior rows, so the five pairs sit on
@@ -802,7 +799,7 @@ StatusScreen2:
 	ld c, a
 	ld a, $4
 	sub c
-	ld b, a ; ld b, a ; number of empty move slots (4 - number of moves)
+	ld b, a ; number of empty move slots (4 - number of moves)
 	hlcoord 11, 10
 	ld de, SCREEN_WIDTH * 2
 	ld a, "<BOLD_P>"
@@ -920,7 +917,7 @@ StatusScreen2:
 StatusScreen_WaitForButton:
 ; Answers the caller instead of merely returning, because the party menu drives
 ; both pages of this screen from outside. The answer goes in
-; wStatusScreenPageChange - a predef cannot return one in a register.
+; wStatusScreenPageChange - Predef ends in pop af, so a and the flags cannot carry one.
 ;
 ;   B               -> STATUS_CLOSED       leave the screen
 ;   A, Left, Right  -> STATUS_OTHER_PAGE   the same mon's other page
@@ -928,8 +925,8 @@ StatusScreen_WaitForButton:
 ;
 ; A caller that did not set STATUS_OPTIN keeps vanilla behaviour exactly: A or
 ; B ends the page and the d-pad does nothing. Bill's PC is in that group.
-; Battle opts in since v0.7 (its driver is in battle/core.asm and answers the
-; step answers with a same-page redraw instead of walking the party).
+; Battle opts in since v0.7 (its driver is in battle/core.asm and, since the
+; 2026-08-28 playtest, walks the party with Up/Down the same way).
 	ld a, [wStatusScreenPageChange]
 	bit 7, a ; STATUS_OPTIN
 	jr nz, .optedIn

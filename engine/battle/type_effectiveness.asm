@@ -3,7 +3,7 @@
 ; v0.7: extracted from engine/battle/core.asm (bank $0F) because the
 ; expanded type matchups table pushed Battle Core past 16 KB in debug
 ; builds. Both lookup loops now live in bank $30 alongside the data
-; table itself; core.asm `farcall`s into them.
+; table itself; their callers (damage_type.asm, core.asm, trainer_ai.asm) `farcall` into them.
 ;
 ; The routines here read TypeEffects (defined in data/types/type_matchups.asm,
 ; INCLUDEd at the bottom of this file), directly or through the two walks,
@@ -17,7 +17,7 @@
 ; In: d = defender type 1, e = defender type 2.
 ; Reads wMoveType, wDamage, wDamageMultipliers, hWhoseTurn and that side's
 ; w*MoveNum (v1.0, F4: MIND BREAK); writes wDamage, wDamageMultipliers,
-; wMoveMissed, wDefenderType3, wDefenderAirborne. Clobbers bc.
+; wMoveMissed, wDefenderType3, wDefenderAirborne. Clobbers af, bc, hl.
 ; v1.0 (2026-11-02, three types): the defender's third type is one more defending type a row can match - this
 ; walk's defender is always the target of the turn's move, so it looks its traits up itself
 ; (SetTargetDefenderTraits) and neither caller can forget them. Three matched rows chain to 8x or 1/8; Forte's
@@ -119,7 +119,7 @@ ApplyTypeEffectivenessToDamage::
 	jr nz, .skipTypeImmunity
 .typeImmunity
 ; if damage is 0, make the move miss
-; this only occurs if a move that would do 2 or 3 damage is 0.25x effective against the target
+; this only occurs if a move that would do 2 or 3 damage is 0.25x effective against the target (v1.0: or 2 to 7 at 1/8, three resisting types)
 ;
 ; v0.7: it did connect -- it just could not scratch the paint. Reporting that
 ; as a miss is the one case where Gen 1 lies about what happened, and it is the
@@ -224,7 +224,7 @@ FixedDamageImmunity::
 ;
 ; v0.7 FIX: this used to RETURN at the first matching row, so a dual-typed
 ; defender was judged on one of its two types — whichever the table happened
-; to list first. Measured against the current 188-row table and the 151
+; to list first. Measured against the then 188-row table and the 151
 ; base_stats, 317 (defender, attacking type) combinations disagreed with the
 ; real damage result, and in 27 of them the move is actually a NO_EFFECT
 ; immunity that the AI was reading as neutral or super effective: a boss with
@@ -348,7 +348,7 @@ AITypeMatchup::
 ; farcall hands over only c, d and e and gives back only de and hl, so:
 ; in: d = the attacking type, e and c = the defender's two types (a single
 ; type stored twice, as everywhere), wDefenderType3 and wDefenderAirborne = its traits (v1.0, 2026-11-02: the
-; caller, AIScoreSwitchCandidate, sets them from the defender's species). Out: e (and wTypeEffectiveness) = the
+; callers of AIMatchupAtHL - AIScoreSwitchCandidate and layer 5's PROTECT rule - set them from the defender's species). Out: e (and wTypeEffectiveness) = the
 ; multiplier: EFFECTIVE = neutral, 0 = immune, above it super effective.
 	ld b, e
 	ld e, NO_MOVE ; v1.0 (F4): types alone - the picker weighs types, not moves

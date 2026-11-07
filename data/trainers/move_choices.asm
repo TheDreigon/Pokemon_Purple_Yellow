@@ -27,7 +27,7 @@ ENDM
 ; The ones left short are deliberate: Koga has zero setup moves for layer 2
 ; to score; Blaine/Giovanni carry status on only 1-2 sets out of 10+ and
 ; play as aggressors; Misty's only setup move is one rematch Growth; the
-; rival's arc (1 -> 1,3 -> all four) is the brash kid learning discipline,
+; rival's arc (1 -> 1,3,5 -> 1-5) is the brash kid learning discipline,
 ; told through AI.
 TrainerClassMoveChoiceModifications:
 	list_start TrainerClassMoveChoiceModifications
@@ -66,7 +66,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4, 5 ; BRUNO
 	move_choices 1, 2, 3, 5 ; BROCK — v0.7: was 1. Both main mons carry a setup move (Defense Curl, Coil) and the rematch adds Swords Dance/Intimidate; the fortify-then-hit pattern IS Brock. No status/heal moves at all, so layer 4 stays off.
 	move_choices 1, 3, 4, 5 ; MISTY
-	move_choices 1, 2, 3, 4, 5 ; LT_SURGE — v0.7: +4. His sets are built on the paraflinch combos (Thunder Wave on Magneton in BOTH teams, Nuzzle); without layer 4 the AI never opens the para game it was designed around.
+	move_choices 1, 2, 3, 4, 5 ; LT_SURGE — v0.7: +4. His sets are built on the paraflinch combos (Thunder Wave on the gym team's MAGNEMITE and the rematch's MAGNETON, Nuzzle); without layer 4 the AI never opens the para game it was designed around.
 	move_choices 1, 2, 3, 4, 5 ; ERIKA — v0.7: +2. LEECH_SEED_EFFECT is on layer 2's turn-one list, and turn-one Leech Seed (Tangela, Vileplume; rematch Victreebel Swords Dance) is her signature opening. Layer 1 already stops the re-seed.
 	move_choices 1, 3, 4, 5 ; KOGA
 	move_choices 1, 2, 3, 5 ; BLAINE
@@ -79,7 +79,7 @@ TrainerClassMoveChoiceModifications:
 	move_choices 1, 2, 3, 4, 5 ; AGATHA
 	move_choices 1, 2, 3, 4, 5 ; LANCE
 	move_choices 1, 2, 3, 4, 5 ; WEEBRA
-	move_choices 1, 2, 3, 4, 5 ; JANINE — v0.7: +2. Venomoth's Sleep Powder + Quiver Dance is the sleep-then-setup combo by design, and Beedrill opens Swords Dance; also aligns her with every other semi-boss (all at four).
+	move_choices 1, 2, 3, 4, 5 ; JANINE — v0.7: +2. Venomoth's Sleep Powder + Quiver Dance is the sleep-then-setup combo by design, and Beedrill opens Swords Dance; also aligned her with every other semi-boss (all at four then; 1-5 since layer 5, but JESSIE & JAMES 1-6 and KIYO 1,2,3,5).
 	move_choices 1, 2, 3, 4, 5 ; JOY
 	move_choices 1, 2, 3, 4, 5 ; JENNY
 	move_choices 1, 2, 3, 4, 5, 6 ; JESSIE_AND_JAMES (boss-tier always, even in Normal mode)

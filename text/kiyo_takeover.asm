@@ -299,8 +299,9 @@ _ViridianGymKiyoGiovanniDebtText::
 	cont "mine."
 	done
 
-; the gym guide after the League (2026-09-05): the roster is KIYO's rematch
-; set in Boss Movesets.md - five fighting-types past L60, PRIMEAPE leading.
+; the gym guide after the League (2026-09-05; _ViridianGymGuideKiyoEraText,
+; last in this file): the roster is KIYO's rematch set in Boss Movesets.md -
+; five fighting-types past L60, PRIMEAPE leading.
 ; The seven disciples' battle and end lines (the gym rework, 9/9, 2026-09-06):
 ; the Boss's old muscle, drilled by the dojo master and fighting his way now.
 ; End lines print after the class name on the same row: "COOLTRAINER♂: "

@@ -3,10 +3,10 @@
 ; Vanilla advertised a "Zone Exploration Campaign" and told you nothing. This
 ; one states what the two items actually do, in the numbers the engine uses.
 ;
-; Its own floating section: writing the numbers out is longer than the advert
-; was, and "Text 2" is pinned in layout.link, so it went 12 bytes over the
-; moment this landed in text/SafariZoneWest.asm. One of many floating text
-; sections the pinned Text banks have forced - text.asm lists them all
+; Its own section (pinned to ROMX $12 in layout.link): writing the numbers out
+; is longer than the advert was, and "Text 2" is pinned too, so it went 12 bytes
+; over the moment this landed in text/SafariZoneWest.asm. One of many sections
+; of their own the pinned Text banks have forced - text.asm lists them all
 ; (the count in an older version of this comment went stale twice).
 
 ; The numbers here are the ones the engine actually uses, so they move with it.

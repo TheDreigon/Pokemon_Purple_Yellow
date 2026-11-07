@@ -339,14 +339,15 @@
 	charmap "ま", $cf
 	charmap "み", $d0
 	charmap "む", $d1
-	charmap "+",  $d1 ; v1.0 (2026-09-08): the level-up gains box. $d1 is blank in the
-	                  ; English font and is never a vChars1 load destination (the EXP bar
-	                  ; takes $c0-$c8, the trainer card $c0-$c5 and $d6-$df); the kana
-	                  ; alias above is kept because it decodes first and no string in the
-	                  ; tree uses it.
+	charmap "+",  $d1 ; v1.0 (2026-09-08): the level-up gains box. $d1 was a blank cell of
+	                  ; the English font (gfx/font/font.png draws the "+" there now), away
+	                  ; from the vChars1 loads of the EXP bar ($c0-$c8) and the trainer card
+	                  ; ($c0-$c5, $d6-$df); the credits load a thinner "+" of their own over
+	                  ; it. The kana alias above is kept because it decodes first and no
+	                  ; string in the tree uses it.
 	charmap "★",  $d2 ; 1.0: the star of the credits' "RED★ AND BLUE★", for the credits only:
-	                  ; the font has no star ($d2 is one of its blank tiles and never a
-	                  ; vChars1 load destination, as $d1 above). Named before its kana so
+	                  ; the font has no star ($d2 is one of its blank tiles; CreditsLoadFont
+	                  ; loads the star there, after its "+" at $d1). Named before its kana so
 	                  ; that it decodes first.
 	charmap "め", $d2
 	charmap "も", $d3

@@ -14,8 +14,6 @@ CeladonPrizeMenu::
 ; GetMonName vs GetItemName for the prize names (see GetPrizeMenuId);
 ; HandlePrizeChoice additionally branches on the give path
 ; (GivePokemon vs GiveItem).
-; uniform now; the only Mon-vs-TM branching left is GetMonName vs
-; GetItemName for the prize names (handled in GetPrizeMenuId).
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a

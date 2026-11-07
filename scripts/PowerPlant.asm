@@ -9,8 +9,9 @@ PowerPlant_Script:
 	ret
 
 ; Show the relocated Craig self-insert once Zapdos is gone AND the League is beaten.
-; EndTrainerBattle sets EVENT_BEAT_ZAPDOS on WIN or CATCH; wGameStage is set at the
-; Hall of Fame. Idempotent (ShowObject just clears the hide flag).
+; EndTrainerBattle sets EVENT_BEAT_ZAPDOS on WIN, CATCH or RUN - only a loss is
+; skipped; wGameStage is set at the Hall of Fame. Idempotent (ShowObject just
+; clears the hide flag).
 PowerPlantShowCraigIfEarned:
 	CheckEvent EVENT_BEAT_ZAPDOS
 	ret z

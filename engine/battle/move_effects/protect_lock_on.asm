@@ -2,8 +2,9 @@
 ; Both are ResidualEffects1 moves: no damage calculation, and each runs its own test.
 
 ; PROTECT (priority 11, above EXTREMESPEED: data/battle/priority_moves.asm). The user is out of reach
-; of every move aimed at it for the rest of this turn: PROTECTING, which MoveHitTest reads first
-; (TargetIsProtected) and the turn's commit clears (CommitTurnBattleBits, core.asm). It fails
+; of every move aimed at it for the rest of this turn (TRANSFORM and a WRAP's later turns aside, by
+; design: they skip the hit test): PROTECTING, which MoveHitTest reads first (TargetIsProtected) and
+; the turn's commit clears (CommitTurnBattleBits, core.asm). It fails
 ; - the turn after a PROTECT of its own that worked (PROTECTED_LAST_TURN, which the commit sets
 ;   from PROTECTING): never twice in a row, no luck involved;
 ; - when the user moves last (the target's MOVED_THIS_TURN): with nothing left to block, it would
@@ -47,7 +48,7 @@ LockOnEffect:
 	pop hl
 	ld a, [wMoveMissed]
 	and a
-	jr nz, ProtectLockOnFailed ; protected: TargetIsProtected said it, and the line below stays silent
+	jr nz, ProtectLockOnFailed ; a hidden target, or a protected one (TargetIsProtected said it: silent below)
 	set LOCKED_ON, [hl]
 	call PlayCurrentMoveAnimation
 	ld hl, TookAimText

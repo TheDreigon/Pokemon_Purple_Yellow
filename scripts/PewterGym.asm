@@ -137,7 +137,7 @@ PewterGymBrockText:
 .afterBeat
 	ld a, [wGameStage] ; Check if player has beat the game
 	and a
-	jp nz, .BrockRematch ; jp: the hard-mode party gate pushed it out of jr range
+	jp nz, .BrockRematch
 	ld hl, .PostBattleAdviceText
 	call PrintText
 	jp .done ; jp: the hard-mode party gate pushed it out of jr range
@@ -179,7 +179,7 @@ PewterGymBrockText:
 	ld hl, .PreBattleRematch1Text
 	call PrintText
 	xor a
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L60+ rematch
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale poll count would phantom-accept and force this L60+ rematch
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -261,7 +261,7 @@ PewterGymReceivedCandyText:
 PewterGymBrockReceivedBoulderBadgeText:
 	text_far _PewterGymBrockReceivedBoulderBadgeText
 	sound_get_item_1
-	text_far _PewterGymBrockBoulderBadgeInfoText ; power-up spiel (FLASH moved to LT.SURGE's badge, v0.7 HM remap)
+	text_far _PewterGymBrockBoulderBadgeInfoText ; the first-of-eight line, no boost claimed (FLASH moved to LT.SURGE's badge, v0.7 HM remap)
 	text_end
 
 PewterGymForrestText:

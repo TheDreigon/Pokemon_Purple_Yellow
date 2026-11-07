@@ -12,7 +12,7 @@
 ;   - lead duty_cycle 3 -> 2. The 50% square is flatter and darker than the
 ;     75% pulse without going to the thin, nasal 25% -- that one is Cinnabar's
 ;     voice and Pewter should not borrow it.
-;   - lead vibrato slower to arrive and deeper, so held notes settle.
+;   - lead vibrato slower to arrive and slower, so held notes settle.
 ;   - Ch2 down one octave (3/4/5 -> 2/3/4). That channel is where the sparkle
 ;     lives. Ch1 is already at 2/3 and stays: dropping it too is mud.
 ; The Hall of Fame alternate-tempo entry point is deliberately not copied --

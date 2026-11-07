@@ -89,8 +89,8 @@ DecrementEnemyPP::
 	ld b, 0
 	add hl, bc
 	; safety: never underflow. SelectEnemyMove should already prevent
-	; picking a 0-PP move (it forces Struggle when all are 0 and retries
-	; otherwise), so this is a belt-and-braces guard.
+	; picking a 0-PP move (it forces Struggle when no move but the disabled
+	; one has PP left, and retries otherwise), so this is a belt-and-braces guard.
 	ld a, [hl]
 	and $3f
 	ret z

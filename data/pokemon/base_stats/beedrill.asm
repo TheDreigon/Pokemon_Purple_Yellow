@@ -14,7 +14,7 @@
 	; tm/hm learnset
 	; Warrior drill-bee. Aggressive RAGE/THRASH/OUTRAGE/SWORDS_DANCE,
 	; agile QUICK_ATTACK/AGILITY/AERIAL_ACE. Stinger POISON_BITE/TOXIC,
-	; LEECH_LIFE drain. HM FLY. Fun moves: last-stage line.
+	; LEECH_LIFE drain. HM CUT/FLY. Fun moves: last-stage line.
 	tmhm QUICK_ATTACK, RAGE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, POISON_BITE, AERIAL_ACE, TOXIC, \
 	     INTIMIDATE, LEECH_LIFE, TAKE_DOWN, SWORDS_DANCE, DOUBLE_EDGE, \

@@ -18,7 +18,6 @@ GetName::
 	ld a, [wd0b5]
 	ld [wd11e], a
 
-	; TM names are separate from item names.
 	; TM/HM names are stored separately from item names. Only treat IDs >= HM01 as machines when the list type is items (fixes the vanilla bug where this applied to every name list).
 	;joenote - fixing the aforementioned bug
 	push bc
@@ -34,7 +33,7 @@ GetName::
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;joenote - do some stuff if the item is a machine
 	jr c, .notMachine
-	sub (HM01 - 1)	;need to shift things because tm and hm constants are offset by +$C3 from the first item constant
+	sub (HM01 - 1)	;need to shift things because tm and hm constants are offset by +$C2 from the first item constant
 	ld [wd0b5], a
 	ld a, TMHM_NAME	
 	ld [wNameListType], a

@@ -1,4 +1,4 @@
-; The second of four partially duplicated sound engines.
+; The second of five partially duplicated sound engines.
 ; This copy has a few differences relating to battle sound effects
 ; and the low health alarm that plays in battle
 
@@ -193,7 +193,7 @@ Audio2_CryRet:
 	sound_ret
 
 ; v0.7 space pass (2026-08-17): poke_flute.asm deleted — the in-battle flute
-; music routine lost its only caller when the flute became a key item.
+; music routine lost its only caller when the flute stopped working in battle.
 
 INCLUDE "audio/sfx/pokeflute_ch5_ch6.asm"
 

@@ -1,7 +1,7 @@
 ; TypeNames indexes (see data/types/names.asm)
 ;
 ; PURPLE YELLOW: the physical/special split is TYPE-BASED (Gen 1 convention):
-; types with ID < SPECIAL use Attack/Defense, types >= SPECIAL use Special.
+; types with ID < SPECIAL use Attack/Defense, types >= SPECIAL use SP.ATK/SP.DEF.
 ; We extended the PHYSICAL range to fit the new physical types (DRAGON moved
 ; down from $1A; DARK, STEEL added). GHOST moved from $08 to $0D. FAIRY and
 ; GAS are in the SPECIAL range. 2026-09-02: MAGMA and FUNGUS turned SPECIAL -

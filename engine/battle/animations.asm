@@ -898,8 +898,6 @@ DoBlizzardSpecialEffects:
 	jp z, AnimationFlashScreen
 	ret
 
-; flashes the screen at 3 points in the subanimation
-; unused
 ; v0.7 space pass (2026-08-17): FlashScreenUnused deleted (pret-documented
 ; unused, zero references).
 
@@ -2041,7 +2039,7 @@ WavyScreenLineOffsets:
 ; This sequence vaguely resembles a sine wave.
 	db 0, 0, 0, 0, 0,  1,  1,  1,  2,  2,  2,  2,  2,  1,  1,  1
 	db 0, 0, 0, 0, 0, -1, -1, -1, -2, -2, -2, -2, -2, -1, -1, -1
-	db $80 ; terminator
+	db $80 ; vanilla's terminator, unread since the 2026-08-25 rewrite (the index is masked to 0-31)
 
 AnimationSubstitute:
 ; Changes the pokemon's sprite to the mini sprite

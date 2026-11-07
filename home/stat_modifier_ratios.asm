@@ -1,7 +1,7 @@
 ; The stat-stage multiplier table, kept in the home bank.
 ;
 ; It is read by address from two different banks: CalculateModifiedStat in
-; Battle Core ($0F) and StatModifierUp/DownEffect in Battle Effects ($06).
+; Battle Core ($0F) and StatModifierUp/DownEffect in Battle Effects ($1D).
 ; When the effects moved to their own bank this table went with them, and the
 ; core-side reader silently started reading whatever sat at this address in
 ; $0F -- garbage multipliers on every stat stage change. Data shared across

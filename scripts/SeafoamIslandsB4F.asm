@@ -14,8 +14,9 @@ SeafoamIslandsB4FResetScript:
 	ret
 
 ; Show the relocated Weebra self-insert once Articuno is gone AND the League is beaten.
-; EndTrainerBattle sets EVENT_BEAT_ARTICUNO on WIN or CATCH; wGameStage is set at the
-; Hall of Fame. Idempotent (ShowObject just clears the hide flag).
+; EndTrainerBattle sets EVENT_BEAT_ARTICUNO on WIN, CATCH or RUN - only a loss is
+; skipped; wGameStage is set at the Hall of Fame. Idempotent (ShowObject just
+; clears the hide flag).
 SeafoamIslandsB4FShowWeebraIfEarned:
 	CheckEvent EVENT_BEAT_ARTICUNO
 	ret z

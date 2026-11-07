@@ -4,10 +4,11 @@
 ; HARD_MODE) AND (current trainer is a boss). Each individual knob is
 ; implemented next to its existing logic (CriticalHitTest, trainer party
 ; load, AI move choice, accuracy roll, etc.) — this file
-; only provides the shared definition of "boss" and the two helpers
-; everyone calls.
+; only provides the shared definition of the two tiers (boss and semi-boss),
+; the helpers everyone calls, and the Hard-mode badge-match gate with the gym
+; guide's hint about it (HardModeGymPartyGate, HardModeGymCapHint).
 ;
-; Two tiers, defined at the bottom of this file (2026-07-26; counts and
+; Two tiers, defined further down this file (2026-07-26; counts and
 ; membership re-confirmed 2026-08-18):
 ;   BOSS (17)  = all 8 gym leaders + all 4 Elite Four + all 3 rival classes
 ;                (RIVAL3 = Champion) + Prof Oak + FORTE. Giovanni's three
@@ -35,11 +36,11 @@
 ; rematches (same class), Giovanni's three appearances (same class), and all
 ; rival fights regardless of starter (same RIVALn class).
 ;
-; Routines live in bank $0E (Battle Engine 6) since the 2026-08-17 move,
+; Routines live in bank $0E (Battle Engine 6) since the 2026-07-27 move,
 ; NOT bank $0F as this comment claimed until 2026-08-18. read_trainer_party is
 ; in that same bank and still farcalls in - harmless, and kept because the W
 ; entry point has to reload wTrainerClass anyway. core.asm (CriticalHitTest,
-; LoadEnemyMon, bank $0F), hit_and_penalties (MoveHitTest, bank $1D) and
+; LoadEnemyMonData, bank $0F), hit_and_penalties (MoveHitTest, bank $1D) and
 ; boss_item_bags (bank $16) farcall from other banks. Check pokeyellow.sym,
 ; not this line.
 
@@ -120,11 +121,13 @@ IsBossTrainerClass::
 ; Trashes: a, b, hl
 IsHardModeBossBattle::
 	; v0.7 FIX: never treat a LINK battle as a boss battle. cable_club.asm
-	; starts link fights with `ld a, OPP_RIVAL1 / ld [wCurOpponent], a`, so
-	; wTrainerClass becomes RIVAL1 — a boss class — and wIsInBattle is 2.
+	; started link fights with `ld a, OPP_RIVAL1 / ld [wCurOpponent], a`, so
+	; wTrainerClass became RIVAL1 — a boss class — and wIsInBattle was 2.
 	; Without this guard, a hard-mode player's link battles silently got the
 	; boss crit and accuracy edges, which both sides compute independently:
-	; guaranteed desync against the other Game Boy.
+	; guaranteed desync against the other Game Boy. The link code is gone
+	; (2026-08-13) and nothing stores LINK_STATE_BATTLING any more, so this
+	; check can no longer fire; the link guards were kept on purpose.
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr z, .notHardModeBossBattle
@@ -184,7 +187,8 @@ ShouldMaxEnemyDVs::
 
 ; Returns Z=0 when the trainer may carry a Hard-mode item bag: bosses and
 ; semi-bosses alike. The bag is the third thing a semi-boss inherits, after the
-; AI its class already carries and the maxed DVs above.
+; bosses' AI layers (trainer_ai.asm gates them on this same predicate) and the
+; maxed DVs above.
 ;
 ; Trashes: a, b, hl
 IsHardModeBossOrSemiBattle::
@@ -230,8 +234,8 @@ BossTrainerClasses::
 	db SABRINA
 	db -1                       ; terminator
 
-; The semi-boss tier (2026-07-26). These get the AI their class already
-; carries, maxed DVs in Hard mode, and an item bag - but NOT the crit bonus,
+; The semi-boss tier (2026-07-26). In Hard mode these get every AI layer the
+; bosses get, maxed DVs and an item bag - but NOT the crit bonus,
 ; the +1 level or the accuracy edge. Those three change the rules of the fight
 ; against the player, and staying on the boss side of that line is what keeps a
 ; real boss feeling categorically different.

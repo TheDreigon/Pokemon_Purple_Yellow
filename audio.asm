@@ -645,8 +645,8 @@ INCLUDE "audio/music/meetjessiejames.asm"
 ; The rest of bank $20 is free, and that is not an accident of ours. Vanilla
 ; Yellow left 3399 bytes of filler here - 32 bytes of data every 128, the other
 ; 96 all $ff - and pokeyellow has to INCBIN it back to reproduce the cartridge
-; byte for byte. This project does not: roms.sha1 still holds the upstream
-; hashes and we stopped matching them long ago. b339a63 commented the INCBIN
+; byte for byte. This project does not: we stopped matching the upstream
+; hashes long ago, and roms.sha1 no longer holds them. b339a63 commented the INCBIN
 ; out and freed the space; v0.7 deleted the blob itself. The copies live on in
 ; reference_repos/pokeyellow/garbage/ (as viewable PNGs) if it is ever wanted.
 

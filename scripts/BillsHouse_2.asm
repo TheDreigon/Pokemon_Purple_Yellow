@@ -223,12 +223,14 @@ BillsHouseOfferRematch::
 ; ...and not before he has handed the EEVEE over, which is where it came from:
 ; showing you the garden first would be showing you the shelf before the gift.
 ;
-; It also closes the one hole an adversarial pass found. A player can reach the
+; It also covers the case an adversarial pass raised. A player can reach the
 ; post-game with the Eevee still outstanding (a full box at the door), and
 ; BillsHouseScript9 then arms the doorway scene that hands it over -- a scene
-; whose movement assumes he is at his desk. Without this line the garden walk
-; could leave him at (13,4) with that armed, and he would set off from the wrong
-; side of the room for the rest of the visit.
+; whose movement assumes he is at his desk; a garden walk would leave him at
+; (13,4) with that armed. The only caller already rules it out: BILL2's text
+; (BillsHousePrintBillCheckOutMyRarePokemonText) sends a player still owed the
+; Eevee to BillsHouseGiveEevee, so this check never branches today -- it is a
+; second guard, not the only one.
 	CheckEvent EVENT_GOT_BILL_EEVEE
 	jr z, .rematch
 	CheckEvent EVENT_BILL_OPENED_GARDEN
@@ -421,7 +423,7 @@ Data_f2521:
 	db $3f
 
 ; Bill's Eevee quest — part 1: Bill catches the player at the
-; door on the way out (fired by BillsHouseScript10)
+; door on the way out (fired by BillsHouseScript11 once his walk ends)
 BillsHouseGiveEevee::
 	ld hl, .HeyWaitUpText
 	call PrintText

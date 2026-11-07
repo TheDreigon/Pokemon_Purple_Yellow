@@ -354,8 +354,8 @@ ASSERT XSTATITEM_DUPLICATE_ANIM == XSTATITEM_ANIM + 1, "Bide/X-item +turn pair b
 ASSERT ANIM_B1 == SHRINKING_SQUARE_ANIM + 1, "Thrash +turn pair broke"
 ASSERT TRADE_BALL_POOF_ANIM == TRADE_BALL_DROP_ANIM + 3, "the trade-ball run of 4 broke"
 ; The expansion ceiling (2026-08-31): up to 254 moves - $FF stays reserved
-; (list terminators), and 248/256 are forbidden counts (movedex_seen's % 8
-; assert). See Notes/"Tecto de moves 220-250".
+; (list terminators), and every multiple of 8 is a forbidden count (movedex_seen's % 8
+; assert: 224, 232, 240 and 248 under the ceiling). See Notes/"Tecto de moves 220-250".
 ASSERT NUM_ATTACKS <= 254, "the blessed move ceiling is 254 ($FF is reserved)"
 ; v0.7 expansion prep (2026-08-31): the SAVED movedex bitfield is pre-sized
 ; to this capacity (32 bytes) so move additions stop breaking the save

@@ -47,7 +47,7 @@ Moves: ; Current total = 222
 	move DRAGON_BREATH,  PARALYZE_SIDE_EFFECT2,            75, DRAGON,       100, 20 ; new move.
 	move DRAGON_SLAM,    RECOIL_EFFECT,                    95, DRAGON,        95, 15 ; new move.
 	move OUTRAGE,        THRASH_PETAL_DANCE_EFFECT,       110, DRAGON,       100, 10 ; new move. high-crit.
-	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        80,  5 ; high-crit. apex/legendary pool (9 learners).
+	move HYPER_BEAM,     HYPER_BEAM_EFFECT,               125, DRAGON,        80,  5 ; high-crit. apex/legendary pool (8 learners).
 
 
 	; === ELECTRIC TYPE (7 moves) ===
@@ -68,7 +68,7 @@ Moves: ; Current total = 222
 	move PLAY_ROUGH,     ATTACK_DOWN1_EFFECT,              75, FAIRY,        100, 20 ; new move.
 	move LOVELY_KISS,    CONFUSION_EFFECT,                  0, FAIRY,         80, 25 ; almost-signature.
 	move SING,           SLEEP_EFFECT,                      0, FAIRY,         80, 15 ; singers' pool (6 lines; DEWGONG at 35, seal song, 2026-09-22).
-	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. moon-mons pool (4 lines).
+	move MOONBLAST,      CHARGE_EFFECT,                   180, FAIRY,        100, 10 ; new move. moon-mons pool (5 lines).
 
 
 	; === FIGHTING TYPE (14 moves) ===
@@ -90,7 +90,7 @@ Moves: ; Current total = 222
 
 	; === FIRE TYPE (7 moves) ===
 	move EMBER,          BURN_SIDE_EFFECT1,                35, FIRE,         100, 30
-	move FLAME_CHARGE,   SPEED_UP1_EFFECT,                 55, FIRE,         100, 20 ; new move. fire-runners' pool (5 lines).
+	move FLAME_CHARGE,   SPEED_UP1_EFFECT,                 55, FIRE,         100, 20 ; new move. fire-runners' pool (7 lines).
 	move FLAME_BURST,    SWIFT_EFFECT,                     75, FIRE,         100, 20 ; new move.
 	move FLAMETHROWER,   BURN_SIDE_EFFECT1,                95, FIRE,         100, 15
 	move FIRE_BLAST,     BURN_SIDE_EFFECT2,               115, FIRE,          85, 10
@@ -155,7 +155,7 @@ Moves: ; Current total = 222
 	move EARTHQUAKE,     SPEED_DOWN_SIDE_EFFECT,           95, GROUND,       100, 15
 	move FISSURE,        SPEED_DOWN1_EFFECT,              115, GROUND,        85, 10
 	move BONE_CLUB,      FLINCH_SIDE_EFFECT1,              75, GROUND,       100, 20 ; signature.
-	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; burrowers' staple (5 lines). high-crit. (ambush from below — charge-turn payoff)
+	move DIG,            CHARGE_EFFECT,                    80, GROUND,       100, 20 ; burrowers' staple (4 lines). high-crit. (ambush from below — charge-turn payoff)
 
 
 	; === ICE TYPE (7 moves) ===
@@ -189,11 +189,11 @@ Moves: ; Current total = 222
 	move THRASH,         THRASH_PETAL_DANCE_EFFECT,        95, NORMAL,       100, 10
 	move HEAVY_SLAM,     PARALYZE_SIDE_EFFECT2,           100, NORMAL,        90, 10
 	move DOUBLE_EDGE,    RECOIL_EFFECT,                   120, NORMAL,        80, 10 ; high-crit.
-	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. speedsters' staple (22 learners). priority move. high-crit.
+	move EXTREMESPEED,   NO_ADDITIONAL_EFFECT,             75, NORMAL,       100, 15 ; new move. speedsters' staple (19 learners). priority move. high-crit.
 	move SUPERSONIC,     CONFUSION_EFFECT,                  0, NORMAL,        80, 25
 	move SUPER_FANG,     SUPER_FANG_EFFECT,                 1, NORMAL,        90, 15 ; signature.
 	move HYPER_FANG,     DEFENSE_DOWN1_EFFECT,             75, NORMAL,       100, 20 ; signature. high-crit.
-	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               60, NORMAL,       100, 30 ; new move. never KOs - always leaves the target at 1 HP.
+	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               60, NORMAL,       100, 30 ; new move. never KOs - always leaves the target with at least 1 HP.
 
 
 	; === POISON TYPE (9 moves) === (exception to the regular moves order)
@@ -226,7 +226,7 @@ Moves: ; Current total = 222
 	move HEAD_SMASH,     RECOIL_EFFECT,                    85, ROCK,          95, 20 ; new move.
 	move ROCK_SLIDE,     PARALYZE_SIDE_EFFECT2,            95, ROCK,         100, 15
 	move CLAMP,          TRAPPING_EFFECT,                  19, ROCK,          80, 25 ; signature.
-	move ROLLOUT,        TWO_TO_FIVE_ATTACKS_EFFECT,       20, ROCK,          90, 20 ; rollers' staple (6 lines).
+	move ROLLOUT,        TWO_TO_FIVE_ATTACKS_EFFECT,       20, ROCK,          90, 20 ; rollers' staple (7 lines).
 	move BONEMERANG,     ATTACK_TWICE_EFFECT,              45, ROCK,          90, 20 ; signature.
 	move CRABHAMMER,     FLINCH_SIDE_EFFECT2,              90, ROCK,          90, 15 ; signature.
 	move HORN_DRILL,     DEFENSE_DOWN_SIDE_EFFECT,        100, ROCK,          90, 15 ; horned chargers (4 lines + FLOE trade). high-crit.
@@ -236,7 +236,7 @@ Moves: ; Current total = 222
 	move CUT,            NO_ADDITIONAL_EFFECT,             60, STEEL,        100, 25 ; high-crit.
 	move IRON_TAIL,      DEFENSE_DOWN_SIDE_EFFECT,         65, STEEL,         90, 25 ; new move.
 	move IRON_HEAD,      FLINCH_SIDE_EFFECT2,              75, STEEL,         95, 20 ; new move.
-	move SONICBOOM,      SET_DAMAGE_EFFECT,                 1, STEEL,        100, 20 ; almost-signature (Magnemite-line + ball-line). set damage from 20 to 25.
+	move SONICBOOM,      SET_DAMAGE_EFFECT,                 1, STEEL,        100, 20 ; almost-signature (Magnemite-line + ball-line + Golbat). set damage from 20 to 25.
 	move BULLET_PUNCH,   NO_ADDITIONAL_EFFECT,             45, STEEL,        100, 20 ; new move. punchers' trio (Machamp/Hitmonchan/Electabuzz). priority move.
 	move MAGNET_BOMB,    SWIFT_EFFECT,                    100, STEEL,        100, 10 ; new move. magnetic circle (4 learners).
 
@@ -252,7 +252,7 @@ Moves: ; Current total = 222
 
 
 	; === BIRD TYPE (52 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.
-	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; machine-mind circle (5 learners). new effect - ~30% chance random {paralyze/burn/freeze}.
+	move TRI_ATTACK,     TRI_STATUS_SIDE_EFFECT,           90, BIRD,         100, 15 ; machine-mind circle (4 learners). new effect - ~30% chance random {paralyze/burn/freeze}.
 
 	move SWORDS_DANCE,   ATTACK_UP2_EFFECT,                 0, BIRD,         100, 20
 	move BULK_UP,        ATTACK_DEFENSE_UP1_EFFECT,         0, BIRD,         100, 25 ; new move. new effect.
@@ -285,7 +285,7 @@ Moves: ; Current total = 222
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
 	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. acid pool (5 lines).
-	move TICKLE,         DEFENSE_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 35 ; new move. new effect (2026-09-08): the DEFENSE drop now carries a 30% flinch. Its own id: the plain -1 is shared by seven moves.
+	move TICKLE,         DEFENSE_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 35 ; new move. new effect (2026-09-08): the DEFENSE drop now carries a 30% flinch. Its own id: the plain -1 is shared by six other moves.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 
 	move FAKE_TEARS,     SPDEF_DOWN2_EFFECT,                0, BIRD,          90, 15 ; new move.

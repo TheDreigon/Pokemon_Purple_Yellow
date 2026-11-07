@@ -208,14 +208,16 @@ ItemUseBall:
 ; 24000 = D1 * 5 * B, with B the ball's own twentieths: 240*5*20, 120*5*40,
 ; 80*5*60, 48*5*100 and 40*5*120 all come to 24000, so the ball never has to be
 ; multiplied in at all. That saves a whole Multiply, holds the intermediate at 612,000 rather
-; than 36.7 million, and -- the reason that matters here -- makes every divisor
+; than 36.7 million (both before BILL's CHIP's x6 below), and -- the reason
+; that matters here -- makes every divisor
 ; a CONSTANT out of a table, never a value derived from battle state. The
 ; divide-by-zero hang the crit rework produced cannot be repeated on this path.
 ; Proven over all 61,440 (rate, band, status, ball) states:
 ;   floor(rate*H*S*B/24000) == floor(floor(rate*H*S/D1)/5), no divergences.
 ;
 ;   rate*H*S <= 255*60*40 = 612,000  20 bits, and hMultiplicand holds three
-;   T        <= 3,060                12 bits, which is why the ceiling below is
+;   x6       <= 3,672,000            22 bits (BILL's CHIP's step below)
+;   T        <= 3,825                12 bits, which is why the ceiling below is
 ;                                    a BRANCH: clamping T to 255 would lose one
 ;                                    "guaranteed" throw in 256, and reading the
 ;                                    low byte alone would turn a T of 256 into
@@ -473,7 +475,7 @@ ItemUseBall:
 ; The halving loop in .payCaughtExp is the engine's own idiom - the same one
 ; HalveExpData uses over in engine/battle/experience.asm: it walks the enemy's
 ; base stats, catch rate and base exp and shifts each right once. It stays
-; written out here rather than becoming a farcall because ten bytes inline beat
+; written out here rather than becoming a farcall because eleven bytes inline beat
 ; six bytes of farcall plus the bank switch. Halving the SOURCE rather than the
 ; result means the split downstream is exactly the arithmetic a knockout uses.
 ;
@@ -891,12 +893,12 @@ ItemUseExpShare:
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
 	xor a
-; BOTH of these, and neither is optional. DisplayListMenuID runs immediately
-; before this - it is the bag list you came from - and it leaves
-; wMenuWatchMovingOutOfBounds set to 1 or 2 (home/list_menu.asm), while a stale
+; Both of these are cleared. DisplayListMenuID, the bag list you came from, sets
+; wMenuWatchMovingOutOfBounds to 1 and clears it on the A that chose this item
+; (home/list_menu.asm), so that write is hygiene, while a stale
 ; wMenuJoypadPollCount makes HandleMenuInput pick an entry on its own without
-; the player pressing anything (home/window.asm:35-37). The vending machine
-; carries the same two lines for the same reason.
+; the player pressing anything (home/window.asm:47-49). The vending machine
+; carries the same two lines.
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wMenuJoypadPollCount], a
 	ld a, [wd730]
@@ -1227,9 +1229,9 @@ CheckCanCureConfusion:
 	and a ; clear carry
 	ret
 
-; Called from the two places that already clear wBattleMonStatus, so it only has
-; to decide on the item. The counter is zeroed as well: leaving it set would
-; have the mon snap straight back to confused on the next hit.
+; Called from .clearBattleMonStatus, which has just cleared wBattleMonStatus, so
+; it only has to decide on the item. The counter is zeroed as well, though nothing
+; reads it while the bit is clear and every new confusion writes a fresh count.
 CureConfusionIfFullHealOrRestore:
 	ld a, [wcf91]
 	cp FULL_HEAL
@@ -2048,10 +2050,10 @@ ItemUseBait:
 ; BAIT becomes the tool for a Pokemon you must not lose (it stays put), while
 ; ROCK trades a 1.5x flee roll for the SAFARI BALL's x5 becoming x6.
 ;
-; v0.7 catch rework: the "far fewer balls per catch" figure was measured when
-; the ROCK DOUBLED the catch rate. It is a flat x1.2 on T now (divisor 48 -> 40),
-; so the two jobs are much closer together than that simulation said. The
-; CHANGELIST table written from this paragraph is v0.6 arithmetic.
+; v0.7 catch rework: that simulation was measured when the ROCK DOUBLED the
+; catch rate. It is a flat x1.2 on T now (divisor 48 -> 40), so the two jobs are
+; much closer together than that simulation said. The CHANGELIST table written
+; from this paragraph was v0.6 arithmetic and has been removed.
 	ld a, BAIT_ANIM
 	ld hl, wSafariBaitFactor ; bait factor
 	ld de, wSafariEscapeFactor ; escape factor
@@ -2316,8 +2318,7 @@ ItemUseXStat:
 ; before anything is written (the move bytes, the SP.DEF override): "It won't have any effect.",
 ; the item kept, the turn not spent (ItemUseNoEffect: UseBagItem goes back to the bag) and
 ; PIKACHU's mood untouched - E3b's path. The test is the boss's own (trainer_ai.asm:
-; PlayerStatMaxed and AIEnemyStatMaxed share SideStatMaxed). A move at the limit still spends its
-; PP: knowing the stages is the player's part.
+; PlayerStatMaxed and AIEnemyStatMaxed share SideStatMaxed).
 	ld a, [wcf91]
 	ld c, MOD_SPDEF
 	cp X_SPDEF
@@ -2394,7 +2395,8 @@ ASSERT X_DEFEND - X_ATTACK == DEFENSE_UP1_EFFECT - ATTACK_UP1_EFFECT && X_SPEED 
 	ret
 
 ItemUsePokeflute:
-; The flute is the SNORLAX key and nothing else now. In battle it used to wake
+; The flute is the SNORLAX key now, plus vanilla Yellow's PIKACHU scene in PEWTER's
+; CENTER, and nothing else. In battle it used to wake
 ; every #MON on both sides for free and forever, which made a SLEEP HEAL and a
 ; FULL HEAL pointless against sleep the moment you owned one. Now it only
 ; works outside battle. The whole in-battle branch, and WakeUpEntireParty

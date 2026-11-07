@@ -3,16 +3,17 @@
 ; One full screen describing a single move: its name, TYPE, whether it strikes
 ; with the body or with the mind, POWER, ACCURACY, PP, and what its effect does.
 ; Nothing in the game showed any of this before -- the FIGHT menu shows only
-; TYPE and PP -- which matters here because a large share of the 219 moves are
+; TYPE and PP -- which matters here because a large share of the 222 moves are
 ; new or reworked and a player has no shared knowledge to fall back on.
 ;
 ; Reached from START on the battle FIGHT menu (see the .select block in
-; MoveSelectionMenu, engine/battle/core.asm). It deliberately takes its move
-; from wPlayerSelectedMove and reads nothing else battle-specific, so the
-; ATTACKDEX can drive the very same routine later with no battle running.
+; MoveSelectionMenu, engine/battle/core.asm) and from A on the MOVEDEX list
+; (engine/menus/movedex.asm). It deliberately takes its move from
+; wPlayerSelectedMove and reads nothing else battle-specific, so the MOVEDEX
+; drives the very same routine with no battle running.
 ;
 ; Clobbering the wPlayerMove* block is safe: ExecutePlayerMove calls
-; GetCurrentMove (core.asm:3392) before a move is ever executed, so every field
+; GetCurrentMove (core.asm) before a move is ever executed, so every field
 ; there is re-derived from wPlayerSelectedMove on the way to using it. That is
 ; also why the accuracy conversion below may write its result back over
 ; wPlayerMoveAccuracy instead of needing a WRAM byte of its own -- and WRAM has
@@ -45,9 +46,9 @@ ShowMoveInfo::
 ; the effect description underneath.
 ;
 ; The card is five rows rather than six, and the type shares its row with the
-; category, to buy the description a fifth line. `<NEXT>` moves down two rows
-; (home/text.asm:64), so every row given back here is only half a line gained --
-; which is why the "TYPE/" label had to go. The longest pairing is ELECTRIC
+; category, to buy the description a ninth line: it prints single-spaced (see
+; below), so every row given back here is a whole line gained -- which is why
+; the "TYPE/" label had to go. The longest pairing is FIGHTING
 ; PHYSICAL: 8 + 8 in an 18-wide interior, so it fits with two columns to spare.
 	hlcoord 0, 0
 	lb bc, 5, 18
@@ -90,9 +91,9 @@ ShowMoveInfo::
 
 ; PHYSICAL, SPECIAL or UTILITY.
 ;
-; For a damaging move the split is decided entirely by the type id -- everything
-; below SPECIAL uses ATTACK against DEFENSE (constants/type_constants.asm) -- so
-; it costs no data of its own.
+; For a damaging move the split is decided by the type id, TRI ATTACK aside (see
+; .damaging) -- everything below SPECIAL uses ATTACK against DEFENSE
+; (constants/type_constants.asm) -- so it costs no data of its own.
 ;
 ; A move that deals no damage has no meaningful side of that split, and saying
 ; GROWL is "PHYSICAL" because NORMAL happens to sit in the physical range is
@@ -101,12 +102,12 @@ ShowMoveInfo::
 ; answer and it makes every non-damaging move agree with every other one.
 ;
 ; UTILITY, not STATUS, which is what a modern game would say. This game has
-; already spent the word "status" on sleep/poison/burn/paralysis/freeze: FULL
-; RESTORE "restores HP and status", FULL HEAL "eliminates all status problems",
-; and the Trainer School blackboard teaches exactly those six under that name.
-; Only 16 of the 66 moves in this bucket inflict any of them -- 36 just move
-; stats and 14 are neither -- so reusing the word here would contradict the
-; lesson the game itself gives.
+; already spent the word "status" on sleep/poison/burn/paralysis/freeze and
+; confusion: FULL RESTORE heals HP and "any status at all", FULL HEAL
+; "Clears any status, confusion too.", and the Trainer School blackboard
+; teaches exactly those six under that name. Only 16 of the 68 moves in this
+; bucket inflict any of them -- 36 move stats and 16 are neither -- so reusing
+; the word here would contradict the lesson the game itself gives.
 ;
 ; "Deals no damage" is decided by the effect, not by power alone: NIGHT_SHADE
 ; is written with power 0 and still takes HP off. SUPER_FANG and the other
@@ -182,7 +183,7 @@ ShowMoveInfo::
 
 
 ; PP. This is the move's own PP out of the table, not this Pokemon's current
-; total, because the same card has to make sense in the ATTACKDEX where there
+; total, because the same card has to make sense in the MOVEDEX where there
 ; is no Pokemon in front of it.
 	hlcoord 1, 5
 	ld de, MoveInfoPPText
@@ -206,7 +207,7 @@ ShowMoveInfo::
 	ldh [hUILayoutFlags], a
 
 ; The flavour paragraph first, if this move has one, then the mechanics under
-; it. Two prints rather than one combined block, so the 219 flavour entries can
+; it. Two prints rather than one combined block, so the 222 flavour entries can
 ; each be unique while the mechanics stay shared across the moves that behave
 ; alike -- repeating "Lowers the foe's SPEED one step." word for word is what
 ; makes that rule learnable.
@@ -294,7 +295,7 @@ ShowMoveInfo::
 
 ; Read hJoyHeld directly rather than going through JoypadLowSensitivity, and
 ; bracket the wait with two release loops. This is the Pokedex's
-; .waitForButtonPressLetGo pattern (pokedex.asm:932), not its plainer
+; .waitForButtonPressLetGo pattern (NewPageButtonPressCheck), not its plainer
 ; .waitForButtonPress one, for a specific reason:
 ;
 ; the caller returns straight into MoveSelectionMenu's HandleMenuInput. If we
@@ -321,7 +322,7 @@ ShowMoveInfo::
 
 ; Resolve the description for the move in wPlayerMoveNum.
 ; Per-move overrides win; otherwise the move's effect decides, which is what
-; keeps this affordable -- 219 moves share 83 effects.
+; keeps this affordable -- 222 moves share 92 effects.
 ; OUTPUT: hl = text pointer.
 GetMoveDescription:
 	ld a, [wPlayerMoveNum]
@@ -343,7 +344,7 @@ GetMoveDescription:
 	ret
 .byEffect
 	ld a, [wPlayerMoveEffect]
-	add a ; two bytes per entry; NUM_MOVE_EFFECTS is 98, so this cannot carry
+	add a ; two bytes per entry; NUM_MOVE_EFFECTS is 113, so this cannot carry
 	ld c, a
 	ld b, 0
 	ld hl, MoveEffectDescriptions

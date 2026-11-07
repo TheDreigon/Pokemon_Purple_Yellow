@@ -50,7 +50,7 @@ PlayDefaultMusicCommon::
 ; goes through wAudioROMBank) - ~80 frames of garbage. The walking branch has
 ; always keyed this on c (CompareMapMusicBankWithCurrentBank); d is dead now.
 	ld a, c
-	and a ; is a fade-out pending? (0 only on the PlayDefaultMusic path)
+	and a ; is a fade-out pending? (0 on every no-fade path: PlayDefaultMusic, BikePlayDefaultMusic, the options toggle)
 	ld a, BANK(Music_BikeRiding)
 	jr nz, .next2
 

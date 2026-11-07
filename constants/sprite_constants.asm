@@ -116,18 +116,18 @@
 ; of the list slides without ever turning, however correct its sheet is.
 	const SPRITE_BILL
 DEF FIRST_STILL_SPRITE EQU const_value
-	const SPRITE_POKE_BALL               ; $69
-	const SPRITE_FOSSIL                  ; $6a
-	const SPRITE_BOULDER                 ; $6b
-	const SPRITE_PAPER                   ; $6c
-	const SPRITE_POKEDEX                 ; $6d
-	const SPRITE_CLIPBOARD               ; $6e
-	const SPRITE_SNORLAX                 ; $6f
-	const SPRITE_UNUSED_OLD_AMBER        ; $70
-	const SPRITE_OLD_AMBER               ; $71
-	const SPRITE_UNUSED_GAMBLER_ASLEEP_1 ; $72
-	const SPRITE_UNUSED_GAMBLER_ASLEEP_2 ; $73
-	const SPRITE_GAMBLER_ASLEEP          ; $74
+	const SPRITE_POKE_BALL               ; $6a
+	const SPRITE_FOSSIL                  ; $6b
+	const SPRITE_BOULDER                 ; $6c
+	const SPRITE_PAPER                   ; $6d
+	const SPRITE_POKEDEX                 ; $6e
+	const SPRITE_CLIPBOARD               ; $6f
+	const SPRITE_SNORLAX                 ; $70
+	const SPRITE_UNUSED_OLD_AMBER        ; $71
+	const SPRITE_OLD_AMBER               ; $72
+	const SPRITE_UNUSED_GAMBLER_ASLEEP_1 ; $73
+	const SPRITE_UNUSED_GAMBLER_ASLEEP_2 ; $74
+	const SPRITE_GAMBLER_ASLEEP          ; $75
 	const SPRITE_JOLTEON
 	const SPRITE_FLAREON
 	const SPRITE_WIGGLYTUFF

@@ -3,8 +3,8 @@
 ; music interpreter is Audio1_UpdateMusic for every bank, reading data through
 ; GetNextMusicByte, which switches to wAudioROMBank byte by byte.
 ;
-; The sfx/music window differs from engine_4 on purpose. Bank $20 keeps sfx
-; headers ABOVE its music ids (the get-item jingles), so engine_4 re-routes
+; The sfx/music window differs from engine_4 on purpose. Bank $20's music ids
+; stopped at $a3 in vanilla (the GB Printer song), so engine_4 re-routes
 ; ids above $a3 back to .playSfx. This bank is laid out like bank 1 -- all sfx
 ; below, all music above -- so the window is engine_1's: everything between
 ; MAX_SFX_ID_5 and $fe is music. Send a music id down the sfx path and it

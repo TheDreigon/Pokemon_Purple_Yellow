@@ -37,7 +37,7 @@ ViridianGym_Object:
 ; carries the trainer header (class JESSIE_AND_JAMES, party 5); she faces the
 ; room's only entry tile (4,4) at range 1, so nobody reaches Giovanni without
 ; getting past them. JAMES stands beside her (a plain object, last in the list).
-; They stay after the fight: hide_show has no spare row, and beaten bodyguards
+; They stay after the fight: hide_show had no spare row then, and beaten bodyguards
 ; at their post are the joke.
 	object_event  4,  3, SPRITE_JESSIE, STAY, DOWN, TEXT_VIRIDIANGYM_JESSIE, OPP_JESSIE_AND_JAMES, 5, 1
 	object_event  2, 16, SPRITE_ROCKER, STAY, RIGHT, TEXT_VIRIDIANGYM_ROCKER2, OPP_TAMER, 4, 3

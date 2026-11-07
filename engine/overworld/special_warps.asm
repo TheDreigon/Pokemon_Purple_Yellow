@@ -34,8 +34,8 @@ PrepareForSpecialWarp::
 LoadSpecialWarpData:
 ; v0.7: the TRADE CENTER and COLOSSEUM branches went with the link cable. They
 ; were the only readers of wd72d here and the only users of the four
-; special_warp_spec rows below, all of it in bank1, which the slack audit reports
-; as one hundred per cent full.
+; special_warp_spec rows that went with them, all of it in bank1, which the
+; slack audit then reported as one hundred per cent full.
 	ld a, [wd732]
 	bit BIT_DEBUG_MODE, a
 	; warp to wLastMap (PALLET_TOWN) for StartNewGameDebug

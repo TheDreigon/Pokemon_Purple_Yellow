@@ -4,7 +4,10 @@ DEF MAX_LEVEL EQU 100
 ; failure can then say which failure it was, instead of calling everything a
 ; miss. Every other reader tests it with `and a` and only cares whether the
 ; move connected, so any non-zero value behaves exactly as 1 always did --
-; checked against all fifteen read sites before these were introduced.
+; checked against all fifteen read sites before these were introduced. Since
+; PROTECT (2026-11-02) three more failure lines read the reason, only to stay
+; silent on MOVE_FAILED_PROTECTED: PrintButItFailedText_, PrintDidntAffectText
+; and LEECH SEED's miss line.
 DEF MOVE_HIT               EQU 0
 DEF MOVE_FAILED            EQU 1 ; an ordinary accuracy miss
 DEF MOVE_FAILED_EVADED     EQU 2 ; the 1-in-256 roll on a 100%-accurate move
@@ -16,8 +19,9 @@ DEF MOVE_FAILED_PROTECTED  EQU 4 ; v1.0 (2026-11-02): the target PROTECTed itsel
 ; battle up (RUN -> YES). TrainerBattleSurrenderPrompt sets it,
 ; PartyStandsAfterBattle reads it, ResetStatusAndHalveMoneyOnBlackout zeroes
 ; the byte. Every other reader tests the byte with `and a` (EndOfBattle,
-; GetSavedEndBattleTextPointer, OaksLab.asm) or `cp $2` on a wild battle
-; (Route12/Route16/PokemonTower6F), so the bit changes nothing they see.
+; GetSavedEndBattleTextPointer, OaksLab.asm, PokemonTower6F on a wild battle),
+; `cp $2` on a wild battle (Route12/Route16) or `cp $1` in EndOfBattle's link
+; branch (a link battle is never given up), so the bit changes nothing they see.
 DEF BATTLE_RESULT_LOSE EQU $01
 DEF BATTLE_RESULT_SURRENDERED_F EQU 7
 
@@ -41,7 +45,7 @@ DEF NUM_STATS EQU const_value - 1
 ; bake, Haze and Transform copy, and what the "unmodified" blocks hold.
 DEF NUM_BATTLE_STATS EQU NUM_STATS - 1
 ; The stats that have a stage byte (Attack, Defense, Speed, SP.ATK, SP.DEF):
-; what the stage recalc loop, the badge walk and the X-item doublers walk, and
+; what the stage recalc loop and the badge walk cover, and
 ; where the ACCURACY byte starts. Every battle stat has one since the split's
 ; F2a (2026-09-06); the name survives for the places that mean "the staged
 ; ones" rather than "the stat words".

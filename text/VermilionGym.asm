@@ -240,7 +240,7 @@ _VermilionGymGymGuideBeatLTSurgeText::
 
 ; v0.7 (2026-09-05): the three gym-guide advice texts rewritten on the run
 ; feedback outgrew Text 7 (bank $2C, floor 162); they live here, in Text 6
-; (bank $2B, room in both builds; Text 10 is full in the debug build). The scripts' text_far pointers follow the labels.
+; (bank $2B, room in both builds; Text 10 was then full in the debug build). The scripts' text_far pointers follow the labels.
 ; from text/FuchsiaGym.asm
 _FuchsiaGymGymGuideChampInMakingText::
 	text "Yo! Champ in"

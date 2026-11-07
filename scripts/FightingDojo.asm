@@ -17,7 +17,7 @@ FightingDojo_Script:
 ; beat-events are set here so nobody charges, and each Text handler below
 ; grows a wGameStage branch — the senior at (3,4) speaks (and fights, once)
 ; as the new master, the other three offer their own one-shot rebattles.
-; Idempotent, runs every tick like its three show-if-earned siblings.
+; Idempotent, runs every tick like its four show-if-earned siblings.
 FightingDojoPostLeagueState:
 	ld a, [wGameStage]
 	and a
@@ -170,7 +170,7 @@ FightingDojoRebattlePostBattleScript:
 ; c = student index (1-4) for the shared post-battle state above.
 ; The same de fills BOTH SaveEndBattleTextPointers slots ON PURPOSE: the
 ; engine's loss slot is DEAD, vanilla-wide — its only reader sits behind
-; the victory path (core.asm:953 with wBattleResult forced 0 at :853), and
+; the victory path (core.asm:1120 with wBattleResult forced 0 at :1016), and
 ; a defeated player just blacks out hearing nothing. A per-student loss
 ; table lived here for one day (2026-08-29) and was reverted as unreachable
 ; content; do not split these again without wiring HandlePlayerBlackOut

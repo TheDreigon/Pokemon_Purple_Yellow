@@ -2,8 +2,9 @@
 ;
 ; Only the marking routine lives in the home bank, and only because its caller
 ; is MonName1Text in the battle core -- the "<MON> used MOVE!" announcement --
-; and that bank has under 40 bytes free, which buys a 3-byte `call` and nothing
-; more. Everything else the feature needs (the test, the party sweep, the count)
+; and that bank had under 40 bytes free when this was written (2026-08-03),
+; which bought a 3-byte `call` and nothing more. Everything else the feature
+; needs (the test, the party sweep, the count)
 ; is only ever called by the MOVEDEX and lives in its bank: see
 ; engine/menus/movedex_seen.asm.
 ;

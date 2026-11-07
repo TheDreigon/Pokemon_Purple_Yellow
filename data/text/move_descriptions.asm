@@ -1,7 +1,7 @@
 ; v0.7: MOVE INFO descriptions, keyed by move EFFECT.
 ;
-; One block per effect id, shared by every move that uses it -- 219 moves run on
-; 83 distinct effects, which is what makes this affordable. Moves that need
+; One block per effect id, shared by every move that uses it -- 222 moves run on
+; 92 distinct effects, which is what makes this affordable. Moves that need
 ; their own words get a per-move override instead; see
 ; MoveDescriptionOverrides in data/moves/descriptions.asm.
 ;
@@ -11,8 +11,9 @@
 ;
 ; TWO limits, both enforced by .claude/emu_test_moveinfo.py:
 ;   18 characters per line (the description box interior; `#` renders as 4)
-;   5 lines per description -- `<NEXT>` moves down 2 rows (home/text.asm:64),
-;   so the 9-row box holds 5 lines of text, not 9.
+;   9 lines per description -- the card prints single-spaced (hUILayoutFlags
+;   bit 2, home/text.asm:65-68), and the move's flavour and a blank row come
+;   first in the same 9 rows (.claude/flavor_build.py fits the flavour to them).
 ;
 ; The Gen 1 font has no `%` glyph (see constants/charmap.asm), so chances are
 ; written "N in 100" -- the same number a player would read off a percent sign,
@@ -20,7 +21,7 @@
 ;
 ; Percentages here are read off engine/battle/effects.asm, not assumed:
 ;   _SIDE_EFFECT1 = 15%   _SIDE_EFFECT2 = 30%   _SIDE_EFFECT3 = 45%
-;   the four stat-lowering side effects = 33%
+;   the five stat-lowering side effects = 33% (SP.DEF's rolls through SP.ATK's id)
 ;   FLINCH_SIDE_EFFECT1 = 15%, FLINCH_SIDE_EFFECT2 = 30%
 
 _MoveDesc_NoAdditionalEffect::

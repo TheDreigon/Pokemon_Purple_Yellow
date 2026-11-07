@@ -11,7 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Apex legendary Fire canine. SEISMIC_TOSS is a level-up auto (L56).
+	; Apex legendary Fire canine. SEISMIC_TOSS is a level-up auto (L50).
 	tmhm QUICK_ATTACK, FAINT_ATTACK, SEISMIC_TOSS, RAGE, BODY_SLAM, \
 	     FLAME_BURST, IGNITE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, INTIMIDATE, SCARY_FACE, TAKE_DOWN, \

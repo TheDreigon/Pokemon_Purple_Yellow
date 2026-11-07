@@ -526,8 +526,9 @@ WarpFound2::
 	ld a, [wCurMap]
 	ld [wLastMap], a
 ; v0.7 (#41): remember the mouth we are stepping into, so an ESCAPE ROPE or a DIG
-; can put us back on it. This is the only place the pair is written, so the map
-; is always an outside one and the id always belongs to it.
+; can put us back on it. This is the only place the pair gets a value (a new
+; game only zeroes the map byte, the "nothing remembered" sentinel), so the
+; map is always an outside one and the id always belongs to it.
 ; The bound check is not decoration: the two scripted warps that jump straight
 ; to WarpFound2 (wd72d bit 3, and the safari game-over) arrive with c holding
 ; whatever the last loop left there, so the id above can be nonsense. It is

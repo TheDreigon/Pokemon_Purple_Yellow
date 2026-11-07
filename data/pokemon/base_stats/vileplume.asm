@@ -11,7 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Apex Rafflesia bloom (Grass/Fungus) — powder warfare and dark-spore
+	; Apex Rafflesia bloom (Grass/Poison) — powder warfare and dark-spore
 	; specialist. Spreads venom (TOXIC) and dark spores (DARK_PULSE);
 	; drains (GIGA_DRAIN/LEECH_LIFE). Last-stage fun moves via TM.
 	tmhm BODY_SLAM, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \

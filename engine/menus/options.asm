@@ -304,7 +304,7 @@ OptionsMenu_BikeMusic:
 	ld a, [wOptions2]
 	xor 1 << BIT_BIKE_MUSIC_ROAD_ONLY
 	ld [wOptions2], a
-; Apply it now. The menu only opens from the START menu, so the map's music is
+; Apply it now. Only the START menu's OPTION shows this row, so the map's music is
 ; playing under it. PlayDefaultMusicCommon with no fade (c = d = 0) and
 ; wLastMusicSoundID left alone swaps the track only if the new rule picks a
 ; different one; PlayDefaultMusic itself zeroes wLastMusicSoundID first and

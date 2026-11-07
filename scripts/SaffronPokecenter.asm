@@ -194,7 +194,7 @@ SaffronPokecenterChanseyText:
 ; they are gone - and once they are gone AND both parcels are delivered,
 ; the on-entry branch above really does hide them (the two HS slots were
 ; funded by the CERULEAN CAVE ULTRA BALL conversions and live as the
-; contiguous SaffronPokecenterHS block at the array's end).
+; contiguous SaffronPokecenterHS block, second to last in the array).
 SaffronPokecenterAide1Text:
 	text_asm
 	call SaffronAidesDeliverParcels

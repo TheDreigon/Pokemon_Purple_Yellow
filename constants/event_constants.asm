@@ -602,7 +602,7 @@
 ; map's flag byte (bit 7 of $560's byte, carved from free padding; Mt.
 ; Moon's const_next $570 anchors the next block, so nothing shifts).
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_5
-; v0.7 (2026-09-02): the shortcut LASS at (16,30). Object slot 8 needs bit
+; v0.7 (2026-09-02): the shortcut LASS at (17,30). Object slot 8 needs bit
 ; 8%8 = 0 - this lands at $568, bit 0 of the padding byte between this block
 ; and Mt. Moon's const_next $570 anchor, so nothing shifts.
 	const EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_6
@@ -870,9 +870,9 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 	const_skip 8
 	; v0.7: was EVENT_INITIATED_WEEBRA_BATTLE, declared but never read or written
 	; by anything, so no save can have it set. Reclaimed for the Pewter MART
-	; clerk's one-time badge-tier explanation. NUM_EVENTS cannot grow -- WRAM has
-	; a hard ORG immediately after wEventFlags and the link fails -- so recycling
-	; a dead flag is the only way to add an event at all.
+	; clerk's one-time badge-tier explanation, back when NUM_EVENTS could not grow
+	; (a fixed Stack ORG left WRAM no room; since 2026-08-29 the ceiling is $A80,
+	; see the end of this file).
 	const EVENT_PEWTER_MART_BADGE_ADVICE
 	const EVENT_BEAT_ARTICUNO
 	const EVENT_BEAT_WEEBRA
@@ -898,7 +898,8 @@ DEF INDIGO_PLATEAU_EVENTS_END EQU const_value - 1
 ; buys exactly one rematch from each of them. The flags are independent: using
 ; up MISTY's rematch does not touch BROCK's.
 ; Deliberately started on a byte boundary ($9E8 % 8 == 0) — ResetEventRange
-; over a byte-aligned block costs 10 bytes instead of 12.
+; then clears the first byte whole (5 bytes) instead of with a masked
+; read-modify-write (8); the 11 flags cost 13 bytes.
 	const_next $9E8
 DEF REMATCH_COOLDOWN_EVENTS_START EQU const_value
 	const EVENT_REMATCHED_BROCK

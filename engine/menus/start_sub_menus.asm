@@ -103,7 +103,7 @@ StartMenu_Pokemon::
 ;   B               leaves the screen, from either page
 ;   Up, Down        walk the party, staying on the page being read
 ; Opting in is STATUS_OPTIN below. Battle has its own driver since v0.7
-; (battle/core.asm, no party-walking there); Bill's PC stays vanilla.
+; (battle/core.asm, a copy of this one, Up/Down too); Bill's PC stays vanilla.
 ;
 ; Page 2 draws OVER page 1 and reads data that page 1 loads, so it can never be
 ; shown on its own: every route to it goes through a page 1 redraw first. Those
@@ -206,7 +206,7 @@ StartMenu_Pokemon::
 	dw .softboiled
 .fly
 ; v0.7 HM remap (2026-08-31): FLY unlocks with ERIKA's badge - the HM is
-; picked up in her own city. Was THUNDERBADGE.
+; picked up next to her city (ROUTE 16). Was THUNDERBADGE.
 	bit BIT_RAINBOWBADGE, a
 	jp z, .newBadgeRequired
 	call CheckIfInOutsideMap
@@ -620,7 +620,7 @@ StartMenu_TrainerInfo::
 	ldh [hTileAnimations], a
 	jp RedisplayStartMenu_DoNotDrawStartMenu
 
-; loads tile patterns and draws everything except for gym leader faces / badges
+; loads tile patterns and draws everything except for gym leader faces / badges / names
 DrawTrainerInfo:
 	ld de, RedPicFront
 	lb bc, BANK(RedPicFront), $01

@@ -11,8 +11,8 @@
 	db GROWTH_SLIGHTLY_SLOW ; growth rate
 
 	; tm/hm learnset
-	; Curious ancestral shapeshifter; learns nearly everything, the
-	; broadest pool. Last-stage fun moves allowed.
+	; Curious ancestral shapeshifter with a wide pool. Last-stage fun
+	; moves allowed.
 	; Ladder prereqs: WATER_PULSE, ICY_PULSE, FLAME_BURST, SHOCK_WAVE,
 	; EXTRASENSORY.
 	tmhm QUICK_ATTACK, FAINT_ATTACK, WATER_PULSE, ICY_PULSE, FLAME_BURST, \

@@ -117,7 +117,7 @@ _ViridianForestYoungster6Text::
 
 
 ; v0.7 (2026-08-30): the western-corridor toll gate. His class tag renders
-; "COOLTRAINER(m): " (12 tiles), so the end-battle first row gets 4.
+; "COOLTRAINER(m): " (14 tiles), so the end-battle first row gets 4.
 _ViridianForestCooltrainerMBattleText::
 	text "Check out my"
 	line "SCYTHER and my"

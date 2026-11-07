@@ -1,8 +1,9 @@
 ; The player's MOTHER handing over the TRAINER MANUAL in Pallet Town.
 ; Kept out of text/PalletTown.asm because that file lives in "Text 8", pinned
 ; to bank $2D alongside "NPC Sprites 4", and this block ran it past the end of
-; the bank. "Text 9" floats, so it is where text goes when a pinned bank is
-; full -- and text is never the tight resource here, only the pinned banks are.
+; the bank. "Text 9" floats, so it was where text went when a pinned bank was
+; full, until it ran dry (since 2026-08-30 new far texts go to "Text 10") --
+; and text is never the tight resource here, only the pinned banks are.
 
 ; v0.7: the TRAINER MANUAL hand-over. She catches the player at the north edge
 ; of town after the POKéDEX; the same manual is handed over indoors, in her own

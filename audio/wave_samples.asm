@@ -1,4 +1,4 @@
-; This file is INCLUDEd once, as Audio1_WavePointers (audio.asm, SECTION "Music 1"); the shared sound engine uses this single copy for all four audio banks.
+; This file is INCLUDEd once, as Audio1_WavePointers (audio.asm, SECTION "Music 1"); the shared sound engine uses this single copy for all five audio banks.
 
 	dw .wave0
 	dw .wave1

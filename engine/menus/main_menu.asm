@@ -107,8 +107,8 @@ MainMenu:
 .pressedA
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
-	; v0.7 SAVE-COMPAT HARDENING. SaveSAVtoSRAM sets bit 7 of wCurMapTileset on
-	; every save, and LoadMapHeader treats that bit as "the header mirror in
+	; v0.7 SAVE-COMPAT HARDENING. LoadSAV0 sets bit 7 of wCurMapTileset whenever
+	; the save is loaded, and LoadMapHeader treats that bit as "the header mirror in
 	; WRAM is already correct — skip the copy" (see the `bit 7, b / ret nz` at
 	; its top). That was sound in 1996, when the ROM could never change between
 	; saving and continuing. In a hack it means CONTINUE runs the map through

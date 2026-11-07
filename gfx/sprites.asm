@@ -305,15 +305,15 @@ INCBIN "gfx/icons/mewtwo.2bpp"
 INCBIN "gfx/icons/mew.2bpp"
 
 ; Bill's own overworld sprite: the scientist walking under the youngster's head.
-; Own floating section - "NPC Sprites 2", where he naturally belonged next to
-; the youngster, is pinned to bank $5 and had no room left for another walker.
+; Own section, pinned to bank $16 - "NPC Sprites 2", where he naturally belonged
+; next to the youngster, is pinned to bank $5 and had no room left for another walker.
 SECTION "NPC Sprites 7", ROMX
 
 BillSprite::             INCBIN "gfx/sprites/bill.2bpp"
 
 ; The PSYCHIC's own overworld sprite: Bill's sheet with the hair sunk to black,
-; so the Saffron Gym psychics stop borrowing the youngster's head. Floating
-; section for the same reason Bill needed one.
+; so the Saffron Gym psychics stop borrowing the youngster's head. Own
+; section (pinned to bank $16) for the same reason Bill needed one.
 SECTION "NPC Sprites 8", ROMX
 
 PsychicSprite::          INCBIN "gfx/sprites/psychic.2bpp"

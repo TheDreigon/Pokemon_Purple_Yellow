@@ -61,7 +61,7 @@ ItemPrices::
 	bcd3 700 ; MAX_REPEL (600 until 2026-09-24; level-blind since, back to vanilla Yellow's 700 - the 200/400 ladder below it untouched)
 	bcd3 2000 ; DIRE_HIT
 	bcd3 10    ; COIN
-	bcd3 250   ; FRESH_WATER (was 200; still the cheapest HP in the game at 5 yen per HP, half the potions' 10 - the roof machines are its only shop)
+	bcd3 250   ; FRESH_WATER (was 200; 5 yen per HP, as SODA_POP, half the potions' 10 - LEMONADE's 80 HP for 350 is cheaper - the roof machines are its only shop)
 	bcd3 300   ; SODA_POP
 	bcd3 350   ; LEMONADE
 	bcd3 0     ; S_S_TICKET

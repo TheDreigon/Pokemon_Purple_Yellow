@@ -628,7 +628,7 @@ _BluesBedroomSNESText::
 	done
 
 ; <RIVAL> is his name at runtime, so the first line grows with it: up to seven
-; characters of name plus six more - thirteen at worst, well inside a line.
+; characters of name plus five more ('s is one tile) - twelve at worst, well inside a line.
 _BluesBedroomPCText::
 	text "<RIVAL>'s PC."
 	line "Better leave it"

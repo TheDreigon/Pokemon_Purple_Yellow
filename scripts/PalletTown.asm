@@ -165,9 +165,10 @@ PalletTownMomWalksScript:
 	ret
 
 PalletTownMomGivesScript:
-; wd730 bit 0 is "a sprite is being walked by a script"; MoveSprite clears it
-; when she arrives. 🔴 Never talk before it clears -- a script that waits on a
-; sprite which cannot move is exactly the Oak's Lab soft-lock.
+; wd730 bit 0 is "a sprite is being walked by a script"; MoveSprite sets it and
+; the movement code clears it when she arrives. 🔴 Never talk before it clears --
+; a script that waits on a sprite which cannot move is exactly the Oak's Lab
+; soft-lock.
 	ld a, [wd730]
 	bit 0, a
 	ret nz

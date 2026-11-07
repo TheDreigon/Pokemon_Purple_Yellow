@@ -1,6 +1,6 @@
 ; v0.7 space pass (2026-08-17): PokemonLogoJapanGraphics deleted — 1536 B of
 ; unreferenced Japanese title logo, and it lived in bank 4, the tightest
-; engine bank in the ROM. The .2bpp stays in gfx/title/ for reference.
+; engine bank in the ROM. The .png stays in gfx/title/ for reference.
 FontGraphics:: INCBIN "gfx/font/font.1bpp"
 FontGraphicsEnd::
 

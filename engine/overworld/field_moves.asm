@@ -18,7 +18,7 @@ TrySurf:
 	call HasPartyMove
 	jr nz, .no
 	ld a, [wObtainedBadges]
-	bit BIT_SOULBADGE, a ; was a hard-coded `bit 4` with only this comment naming it
+	bit BIT_SOULBADGE, a
 	jr z, .no
 	farcall IsSurfingAllowed
 	ld hl, wd728
@@ -60,7 +60,7 @@ TryCut:
 	call HasPartyMove
 	jr nz, TrySurf.no2
 	ld a, [wObtainedBadges]
-	bit BIT_CASCADEBADGE, a ; was a hard-coded `bit 1` with only this comment naming it
+	bit BIT_CASCADEBADGE, a
 	jr z, TrySurf.no2
 ; v0.7 (2026-09-06): and the CAPTAIN's HM01 - see the party-menu twin in
 ; engine/menus/start_sub_menus.asm
@@ -227,8 +227,8 @@ TryUseRegisteredItem::
 	jr nz, .use
 ; The "can't get off here" rule lives in the bag UI
 ; (start_sub_menus.asm), NOT in ItemUseBicycle -- without this copy,
-; SELECT would dismount the player on Cycling Road. Same check, both
-; sites commented (the family-of-the-value-left-behind pattern).
+; SELECT would dismount the player on Cycling Road. Same check as the
+; bag's (StartMenu_Item, .useOrTossItem): keep the two in step.
 	ld a, [wd732]
 	bit 5, a
 	ret nz

@@ -258,7 +258,7 @@ LoadTownMap_Fly::
 	pop hl
 	ld a, [hl]
 	ld b, $4
-	call DrawPlayerOrBirdSprite ; draw bird sprite
+	call DrawPlayerOrBirdSprite ; draw the FLY cursor (the flier's icon)
 	hlcoord 3, 0
 	ld de, wcd6d
 	call PlaceString
@@ -378,11 +378,11 @@ endr
 AnimateFlyMonIcon:
 ; Every frame of LoadTownMap_Fly's input loop: the cursor's four OAM entries
 ; (sprites 32-35, WritePlayerOrBirdSpriteOAM) show frame 1 (tiles 4-7) or
-; frame 2 (tiles 8-11) by bit 3 of a frame counter, eight frames each, the
-; party menu's pace for a healthy Pokémon. wAnimCounter is the blink's, but
-; the blink (TownMapSpriteBlinkingAnimation) only runs from DisplayTownMap's
-; loop and the nest page, never here, so this loop owns the counter (it is
-; zeroed on the way out with the blink flag).
+; frame 2 (tiles 8-11) by bit 3 of a frame counter, eight frames each (the
+; party menu's pace for a healthy Pokémon is five on a GBC: GetAnimationSpeed).
+; wAnimCounter is the blink's, but the blink (TownMapSpriteBlinkingAnimation)
+; only runs from DisplayTownMap's loop and the nest page, never here, so this
+; loop owns the counter (LoadTownMap zeroes it on the way in; the exit leaves it).
 	ld hl, wAnimCounter
 	inc [hl]
 	ld a, [hl]
@@ -672,7 +672,7 @@ WritePlayerOrBirdSpriteOAM:
 	and a
 	ld hl, wShadowOAMSprite36 ; for player sprite
 	jr z, WriteTownMapSpriteOAM
-	ld hl, wShadowOAMSprite32 ; for bird sprite
+	ld hl, wShadowOAMSprite32 ; for the FLY cursor (the flier's icon)
 
 WriteTownMapSpriteOAM:
 	push hl
@@ -689,8 +689,8 @@ WriteTownMapSpriteOAM:
 	pop hl
 
 WriteAsymmetricMonPartySpriteOAM:
-; Writes 4 OAM blocks for a helix mon party sprite, since it does not have
-; a vertical line of symmetry.
+; Writes 4 OAM blocks of four distinct tiles: every party icon (none is drawn
+; mirrored any more) and, falling through from above, the Town Map's sprites.
 	lb de, 2, 2
 .loop
 	push de

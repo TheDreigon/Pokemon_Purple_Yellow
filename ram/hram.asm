@@ -185,7 +185,7 @@ hDivideBCDBuffer::
 ; v0.7 anim split (2026-08-31): which SPECIAL battle animation to play when
 ; wAnimationID holds SPECIAL_ANIM_MARKER ($FF). Read repeatedly through a
 ; playback (frame-block special effects re-check it), so it lives outside
-; every HRAM union - this was the file's one anonymous padding byte.
+; every HRAM union - this was one of the file's anonymous padding bytes.
 hSpecialAnimIndex:: db
 
 hSerialReceivedNewData:: db
@@ -413,9 +413,9 @@ hFieldMoveMonMenuTopMenuItemX:: db
 
 hPikachuSpriteVRAMOffset:: db
 
-; Battle HUD: 0 = off, otherwise a free-running frame counter whose bit 7 is the
-; phase. It is BOTH the enable and the timer on purpose -- there was exactly one
-; spare byte here (this `ds 1`, which nothing ever wrote) and one is enough.
+; Battle HUD: nonzero while the battle menu is up, which lets AlternateHUDStatus
+; alternate the status tiles (its phase is wPlayTimeSeconds bit 1, not this
+; byte). It took the spare byte here (this `ds 1`, which nothing ever wrote).
 ; Cleared by HandleMenuInput, which every menu but the party menu goes through;
 ; the battle menu sets it and enters at HandleMenuInput_ instead, the same way
 ; the party menu already does with wPartyMenuAnimMonEnabled.

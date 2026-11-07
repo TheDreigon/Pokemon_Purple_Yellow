@@ -281,7 +281,8 @@ DEF SHOW EQU $15
 	const HS_ROCK_TUNNEL_B1F_ITEM_1 ; TM13 Iron Tail ball
 ; v0.7 (2026-08-30): the SAFFRON aides' exit, funded by deleting the two
 ; CERULEAN CAVE ULTRA BALL rows (the balls became hidden items). They sit
-; at the END as their own contiguous SaffronPokecenterHS block - an
+; near the END (only MR. FUJI's row follows, since 2026-09-23) as their own
+; contiguous SaffronPokecenterHS block - an
 ; in-place rename at the old positions emptied both caves' missable lists
 ; (the loader stops at the first foreign-map row; see PalletTownHS in the
 ; data file). Everything after the two deleted rows renumbered by -1/-2;

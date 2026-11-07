@@ -16,7 +16,7 @@ _SafariZoneWestFindWardensTeethSignText::
 	done
 
 ; The BAIT/ROCK TRAINER TIPS sign moved to text/safari_west_tips.asm and its own
-; floating section -- spelling out the real numbers pushed the pinned "Text 2"
+; section (pinned to ROMX $12) -- spelling out the real numbers pushed the pinned "Text 2"
 ; bank 12 bytes over. See that file.
 
 _SafariZoneWestSignText::

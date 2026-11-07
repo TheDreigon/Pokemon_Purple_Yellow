@@ -8,12 +8,12 @@
 	dw PorygonPicFront, PorygonPicBack
 
 	db THUNDERSHOCK, FOCUS_ENERGY, NO_MOVE, NO_MOVE ; level 1 learnset (silent digital construct, no GROWL)
-	db GROWTH_MEDIUM_FAST ; growth rate  ; v0.7 (2026-09-08): was FAST - handed over at L20, L25 and L30 mid-game with 475 BST, nothing to compensate
+	db GROWTH_MEDIUM_FAST ; growth rate  ; v0.7 (2026-09-08): was FAST - handed over at L20, L25 and L30 mid-game with 475 BST, nothing to compensate (the roof house's L20 gift was removed on 2026-09-22)
 
 	; tm/hm learnset
 	; Single-stage digital construct:
 	; SHOCK_WAVE/THUNDER_WAVE/AGILITY/LIGHT_SCREEN/REFLECT/
-	; THUNDERBOLT/FLASH plus EXTRASENSORY/PSYCHIC_M. HM FLASH.
+	; THUNDERBOLT/FLASH plus EXTRASENSORY/PSYCHIC_M/ICY_PULSE/ICE_BEAM. HM FLASH.
 	; Last-stage fun: MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
 	tmhm SHOCK_WAVE, THUNDER_WAVE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, AGILITY, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, \

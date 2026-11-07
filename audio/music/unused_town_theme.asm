@@ -13,10 +13,10 @@
 ;
 ; TO WIRE IT UP somewhere, four touches and one rename:
 ;   1. rename Music_UnusedTownTheme -> Music_<Town> throughout this file
-;   2. audio/headers/musicheaders4.asm -- APPEND the header, never insert: song
+;   2. audio/headers/musicheaders5.asm -- APPEND the header, never insert: song
 ;      ids are (header - $4000) / 3 and inserting renumbers everything below
-;   3. constants/music_constants.asm -- music_const under AUDIO_4
-;   4. audio.asm -- INCLUDE under SECTION "Music 4"
+;   3. constants/music_constants.asm -- music_const under AUDIO_5
+;   4. audio.asm -- INCLUDE under SECTION "Music 5" (not AUDIO_4: bug #7)
 ;   5. data/maps/songs.asm -- the map's line
 ;   then: python .claude/song_id_audit.py  (nothing may land on id 255)
 ;         python .claude/music_analyze.py  (all channels 192 intro / 3072 loop)
@@ -41,11 +41,11 @@
 ; preferred, rightly. Ch2 sits underneath on the 50% square for body.
 ;
 ; SHAPE. Every phrase is an arc that rises and settles back, and each of the
-; four ends with a rest. That breath is the whole coastal idea; a theme with no
+; four but C ends with a rest. That breath is the whole coastal idea; a theme with no
 ; gaps in it sounds like a town square, not a shoreline. The ornament pairs
-; (the length-1 notes in bars 2, 6, 11 and 14) sit on the crests. Cities2's lead
+; (the length-1 notes in bars 2, 5, 6, 11 and 14) sit on the crests. Cities2's lead
 ; has nine of them and Celadon's sixteen, and they are what stops a melody
-; reading as a row of held notes -- see the note in the memory on this. They are
+; reading as a row of held notes. They are
 ; all written inside a single octave: an `octave` command in the middle of an
 ; ornament ruins it.
 ;
@@ -53,9 +53,8 @@
 ; eighths,
 ; continuously -- but the bar that ends each phrase drops its last two eighths
 ; for a rest, so it swells and recedes instead of ticking. It sits in octave 4,
-; where every shipped city theme puts this channel (Cities1, Cities2, Celadon,
-; Pallet and Vermilion are all octave 4 here; a note in my memory saying octave
-; 3 is simply wrong and was checked against the source).
+; where the shipped city themes put this channel (Cities1, Cities2, Pallet and
+; Vermilion are all octave 4 here, Celadon 4 and 5).
 ;
 ; DRUMS. The Gen 1 figure and nothing else:
 ; 6+6+4, two long hits on instrument 6 and a short one on 7, which is exactly
@@ -68,11 +67,10 @@
 ; quicker than either, which is most of the "happier".
 ;
 ; ENGINE NOTES, because two of these are traps:
-;   - No finite `sound_loop N` anywhere. Its counter is compared before it is
-;     incremented and is reset to 1 and not 0 on exit, so a block plays N+1
-;     times on the first pass and N times afterwards, leaving that channel
-;     permanently offset from the others. Cities1 and Vermilion both ship that
-;     way. Every repeat here is a `sound_call` instead.
+;   - No finite `sound_loop N` anywhere; every repeat here is a `sound_call`.
+;     A top-level one would be safe (InitMusicVariables starts each channel's
+;     loop counter at 1, so its block plays N times on every pass), but the
+;     counter is one per channel, so finite loops cannot nest.
 ;   - `sound_call` does not nest: there is one return address per channel
 ;     (wChannelReturnAddresses). No sub here calls another sub.
 ;   - All four channels are 192 ticks of intro and 3072 of loop -- 1 bar and 16.
@@ -153,7 +151,7 @@ Music_UnusedTownTheme_Ch1::
 	octave 3
 	note A_, 4
 
-; Phrase C -- Bm G D A. The lift: a fifth higher, and the only bar that touches
+; Phrase C -- Bm G D A. The lift: a fifth higher, and the only phrase that touches
 ; octave 5. Back on D two bars later.
 	octave 4
 	note B_, 4
@@ -213,7 +211,7 @@ Music_UnusedTownTheme_Ch2::
 	duty_cycle 2
 	vibrato 12, 2, 3
 	note_type 12, 9, 3
-; Body under the 12.5% lead, and the fill in the bars where the lead rests.
+; Body under the 75% lead, and the fill in the bars where the lead rests.
 	rest 16
 .mainloop:
 	octave 3

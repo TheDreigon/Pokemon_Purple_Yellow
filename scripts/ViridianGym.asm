@@ -445,7 +445,7 @@ ViridianGymCooltrainerM1EndBattleText:
 ; seven regulars fight again as his disciples (the gym rework, 9/9,
 ; 2026-09-06) and ViridianGymKiyoEraTrainerHeaders carries their era texts -
 ; the battle and end lines below, and the after-lines settled 2026-08-17 -
-; so no stub here branches on wGameStage any more.
+; so none of their stubs branches on wGameStage (JESSIE's after-line does).
 ViridianGymCooltrainerM1AfterBattleText:
 	text_far _ViridianGymCooltrainerM1AfterBattleText
 	text_end
@@ -773,7 +773,7 @@ ViridianGymKiyoText:
 	jr .done
 .noDebt
 ; v0.7 fix (decision-tree audit 2026-08-29): GIOVANNI's deferred gifts
-; (TM26 + RARE CANDY, skipped when the bag was full at the badge win) could
+; (TM50 + RARE CANDY, skipped when the bag was full at the badge win) could
 ; only be re-claimed by talking to GIOVANNI himself -- and the takeover
 ; hides him forever once the League falls. Viridian was the only gym that
 ; could eat a leader's gift permanently. KIYO settles his predecessor's

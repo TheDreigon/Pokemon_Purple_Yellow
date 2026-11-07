@@ -97,7 +97,7 @@ AIMoveChoiceModificationFunctionPointers:
 
 ; v0.7 hard mode override list — bosses and semi-bosses get every layer (1-6 since v1.0)
 ; in Hard mode, regardless of their per-class default in
-; TrainerClassMoveChoiceModifications. See AIEnemyTrainerChooseMoves
+; TrainerClassMoveChoiceModifications. See AIGetMoveChoiceList
 ; (.readTrainerClassData) for the redirect.
 HardModeBossAIMods:
 	db 1, 2, 3, 4, 5, 6, 0 ; v1.0 (2026-09-26): + the tactical layer, + the switch layer
@@ -185,7 +185,7 @@ AIGetMoveChoiceList:
 ; v1.0 (R9, 2026-09-30; the AI did not know that a damaging move into a type immunity does nothing): and a
 ; DAMAGING move the type chart stops - "It doesn't affect", a NO_EFFECT row in ApplyTypeEffectivenessToDamage
 ; (NORMAL and FIGHTING on GHOST, ELECTRIC on GROUND, GROUND on FLYING and GAS - and since 2026-11-02 on an
-; AIRBORNE #MON - FIRE on MAGMA, PSYCHIC on DARK; one such type of two is enough; STEEL resists POISON since
+; AIRBORNE #MON - FIRE on MAGMA, PSYCHIC on DARK; one such type of two (or of three) is enough; STEEL resists POISON since
 ; 2026-10-18) - is USELESS (.useless, the E4 tier of
 ; a status move on an immune type). AIMoveEffectiveness asks the walk the damage takes (AIGetTypeEffectiveness,
 ; the same TypeRowMultiplier: MIND BREAK on DARK is 0.5x, it lands). Since R9c (the fixed-damage moves follow the
@@ -227,7 +227,7 @@ AIMoveChoiceModification1:
 	jr z, .statusMove ; v1.0 (R9): a damaging move meets the type chart here, a power-0 one the rules below
 	call AIMoveEffectiveness ; a = the chart's multiplier on the player's types, 0 = stopped (R9c: the fixed family too; keeps bc, de, hl)
 	and a
-	jr nz, .nextMove ; it lands (0.25x to 4x)
+	jr nz, .nextMove ; it lands (1/6x to 6x since the third types, 2026-11-02)
 	jr .useless ; "It doesn't affect": only the player's switch or TRANSFORM, first, would change its types
 .statusMove
 	ld a, [wEnemyMoveEffect]
@@ -285,7 +285,7 @@ AIMoveChoiceModification1:
 	add $5 ; heavily discourage move
 	ld [hl], a
 	jr .toNextMove ; v1.0 (R8): forward, through .toNextMove's jp - since .checkOwnSubstitute's dispatch a jr
-	; back to .nextMove would reach exactly -128, the limit (0 B, the same scores)
+	; back to .nextMove would reach exactly -128, the limit (0 B, the same scores; -150 now, out of reach)
 ; v1.0 (D15, 2026-09-29; +6 and 999 are the limits): a stat-up move that would raise nothing -
 ; every stat it raises already at +6, or at 999 (AIEnemyRaiseRefused) - is useless; v1.0 (E4): so
 ; is every move the rules above and below find the engine would surely refuse. .uselessScore
@@ -567,8 +567,8 @@ CheckStatusImmunity:
 ; v1.0 (F5, 2026-09-30): carry also when POISON or BURN meets the player's SUBSTITUTE -
 ; PoisonEffect and BurnEffect test it before anything else (the target's status, its types).
 ; SLEEP (SleepEffect) and PARALYZE (ParalyzeEffect_) do not test it: they land through a
-; SUBSTITUTE, as in Gen 1. Carry = the handler refuses the move before it looks at the target's
-; status.
+; SUBSTITUTE, as in Gen 1. Carry = the handler refuses the move whatever the target's status (it
+; tests a SUBSTITUTE before the status, an immune type after it).
 	push bc
 	push hl
 	ld a, [wEnemyMoveEffect]
@@ -1161,15 +1161,17 @@ Modifier4PreferredMoves:
 ; Adapted from ExtremeYellow's Mod3 parts 3/4/8/2 (trainer_ai.asm:1173, :1209,
 ; :1858, :1122). For every move of the set:
 ;  - the move the enemy keeps repeating (wEnemyUsedMove, wAIRepeatCount from
-;    MonName1Text): +1 on the fourth use in a row, +2, +3, +4 saturated;
+;    MonName1Text): +1 on the fourth use in a row, +2, +3, +4 saturated (not
+;    PROTECT or LOCK-ON, v1.0 2026-11-02: rules of their own, .protect, .lockOn);
 ; and for the damaging ones only (v1.0 R11: not SetDamageEffects' family, a set number):
 ;  - STAB (the move's type is one of the mon's; v1.0 R12: or the TRI ATTACK of
 ;    a PORYGON, as in the damage) on a hit not resisted (v1.0 R11: 1x or
 ;    more): -1;
 ;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3;
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
-;    +5 - it would go first and hit nothing (nothing lands on a mon up in the
-;    air or underground here, never-miss moves included);
+;    +5 - it would go first and hit nothing (no priority move is one of the few
+;    that reach a hidden mon, MoveReachesHiddenMon); a one-turn move that does
+;    reach it: -1 (v1.0, 2026-11-01);
 ;  - a priority move when the screen showed the player moving first in this
 ;    matchup (v1.0 R11: wAITurnOrder - never the speeds, a hidden stat), the
 ;    player is not asleep or frozen (the status a trainer sees; 2026-09-27: not
@@ -1212,7 +1214,7 @@ Modifier4PreferredMoves:
 ; ("The same priority" is the one fact off the screen it reads: a player's slot that prints no move - asleep,
 ; frozen, fully paralysed - still teaches when the unseen pick had the enemy's priority. The order learned is true.
 ; A turn in which either side stores BIDE energy teaches nothing: that side prints nothing at all.)
-; v1.0 (R11, 2026-10-02): no STAB for a hit the player's types resist (0.5x, 0.25x: AIMoveEffectiveness below
+; v1.0 (R11, 2026-10-02): no STAB for a hit the player's types resist (0.5x, 0.25x, 1/6x: AIMoveEffectiveness below
 ; EFFECTIVE) - 1.5 x 0.5 deals less than a neutral hit of the same power, and the rule weighs the chart the trainer
 ; sees, not the moves' power. Layer 3's +1 then holds it back as any resisted hit (when the mon has a usable damaging
 ; move of another type that hits harder by type - since R12 - or a usable one of the fixed-damage family), and with
@@ -1269,7 +1271,7 @@ AIMoveChoiceModification5:
 	and a
 	jr z, .nextMove ; "It doesn't affect": no damage to weigh - no STAB, no EXPLOSION by HP, no priority
 	cp EFFECTIVE
-	jr c, .noStab ; v1.0 (R11): resisted (0.5x, 0.25x): no STAB - 1.5 x 0.5 < a neutral hit of the same power
+	jr c, .noStab ; v1.0 (R11): resisted (0.5x, 0.25x, 1/6x): no STAB - 1.5 x 0.5 < a neutral hit of the same power
 ; STAB
 	ld a, [wEnemyMonType1]
 	cp c
@@ -1351,7 +1353,8 @@ AIMoveChoiceModification5:
 	call AIGetMovePriorityWrapped
 	cp 8
 	jp c, .nextMove
-.discourage ; +5: a priority move now goes first and hits nothing; (R10d) a FIRE or MAGMA hit thaws a frozen player
+.discourage ; +5: a priority move now goes first and hits nothing; (R10d) a FIRE or MAGMA hit thaws a frozen player;
+; (v1.0, 2026-11-02) and PROTECT's and LOCK-ON's +5 (.protectNoBlow, .lockOnGotReasons)
 	ld a, [hl]
 	add 5
 	ld [hl], a
@@ -1377,7 +1380,7 @@ AIMoveChoiceModification5:
 	jp .nextMove
 .protect
 ; v1.0 (2026-11-02): PROTECT is worth its turn when the player's blow is already on its way - charged
-; (SOLARBEAM, SKY ATTACK) or up in the air or underground (FLY, DIG): CHARGING_UP, which the screen
+; (SOLARBEAM, MOONBLAST) or up in the air or underground (FLY, SKY ATTACK, DIG): CHARGING_UP, which the screen
 ; announced. That blow lands this turn and PROTECT, first whatever the speeds, takes it: -3. With the
 ; player poisoned, burned or under the trainer's LEECH SEED, and its own Pokemon free of all three, it
 ; buys a turn of that damage: -1. Otherwise it blocks a move the trainer cannot see coming, and costs
@@ -3494,13 +3497,13 @@ AIFullRestoreFromBag:
 ;
 ; Loop is bounded by BOSS_BAG_SIZE / 2 pair iterations — defensive against
 ; an uninitialised bag (e.g. wMiscBattleData zeroed but InitEnemyTrainerItem
-; Bag never ran). Today every caller is gated by IsHardModeBossBattle and
+; Bag never ran). Today every caller is gated by IsHardModeBossOrSemiBattle and
 ; the init runs before any AI tick, but the bound is cheap insurance.
 ;
 ; Sentinel value -1 ($FF) for the item_id slot marks the end of the bag.
-; This collides numerically with TM55 ($C9 + 54 = $FF) but TMs are not
-; AI-usable items (no AIUse* handler exists for them), so adding a TM to
-; a boss bag would already be broken upstream. Don't.
+; No item has that id since v0.7 (TM01 is $C8, so TM55, the last TM, is $FE),
+; and TMs are not AI-usable items anyway (no AIUse* handler exists for them),
+; so adding a TM to a boss bag would already be broken upstream. Don't.
 ;
 ; Input:   a = item_id to consume
 ; Output:  carry = 1 → item was available and is now consumed

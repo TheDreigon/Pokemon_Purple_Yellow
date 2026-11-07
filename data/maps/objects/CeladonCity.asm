@@ -32,7 +32,7 @@ CeladonCity_Object:
 
 	def_bg_events
 	; v0.7 T11 (2026-08-31): the two TRAINER TIPS signs came down - the
-	; manual carries their facts (3.1 SPECIAL, 4.9 GUARD SPEC.)
+	; manual carries their facts (3.1 SP.ATK AND SP.DEF, 4.9 GUARD SPEC.)
 	bg_event 17, 13, TEXT_CELADONCITY_SIGN
 	bg_event 36,  7, TEXT_CELADONCITY_POKECENTER_SIGN
 	bg_event 13, 29, TEXT_CELADONCITY_GYM_SIGN

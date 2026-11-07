@@ -25,15 +25,14 @@ PlayBattleMusic::
 	jr .lookup
 .found
 	ld a, [hli] ; music id
-	ld c, [hl]  ; the bank it lives in (not all themes share one)
+	ld c, [hl]  ; the bank it lives in (always Audio-2: the battle_music macro asserts it)
 	jr .playSong
 .noOverride
 ; Everything unlisted gets the normal trainer theme. Vanilla consulted
 ; wGymLeaderNo here, but every class that writes it is now a table entry, so
-; the only thing that branch could still do was leak a STALE leader number
-; onto an ordinary trainer: beat the leader, then fight a gym trainer you
-; skipped without leaving the map (Saffron's teleport maze allows it) and the
-; grunt inherited the leader theme. wGymLeaderNo is only cleared on map entry.
+; that branch had nothing left to do. (Nor could it leak a stale leader number
+; onto a later trainer: the return from every battle runs EnterMap, whose
+; ClearVariablesOnEnterMap zeroes wLoneAttackNo, the same byte.)
 .normalTrainerBattle
 	ld a, MUSIC_TRAINER_BATTLE
 	jr .playSong
@@ -66,7 +65,8 @@ BattleMusicByOpponent:
 	battle_music OPP_GIOVANNI, MUSIC_FINAL_BATTLE,      Music_FinalBattle
 	battle_music OPP_FORTE,    MUSIC_FINAL_BATTLE,      Music_FinalBattle
 ; the gym-leader tier — the 7 badge leaders (Giovanni is a tier above), the
-; Elite Four, and the three self-insert semi-bosses
+; Elite Four, KIYO (the dojo master, then the post-League Viridian leader) and
+; the three self-insert semi-bosses
 	battle_music OPP_BROCK,    MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_MISTY,    MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle
 	battle_music OPP_LT_SURGE, MUSIC_GYM_LEADER_BATTLE, Music_GymLeaderBattle

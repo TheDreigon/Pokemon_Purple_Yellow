@@ -7,7 +7,7 @@
 DEF ITEM_LIST_SIZE  EQU 41
 
 ; The Celadon Dept. Store information desk: a two-column board of categories,
-; with the slot after the last one acting as QUIT. Its largest sublist is 12
+; with the slot after the last one acting as QUIT. Its largest sublist is 13
 ; entries, comfortably inside ITEM_LIST_SIZE above.
 DEF NUM_INFO_DESK_ROWS       EQU 5
 DEF NUM_INFO_DESK_CATEGORIES EQU 9

@@ -25,7 +25,7 @@ MonsterPalettes:
 	db PAL_BROWNMON  ; FEAROW
 	db PAL_PURPLEMON ; EKANS
 	db PAL_PURPLEMON ; ARBOK
-	db PAL_PIKAMON   ; PIKACHU (P2 mais claro, 2026-09-01 - real e fake juntos)
+	db PAL_PIKAMON   ; PIKACHU (PAL_MEWMON's colours, the title screen's, since 2026-09-06 - the real and the fake share them)
 	db PAL_YELLOWMON ; RAICHU
 	db PAL_YELLOWMON ; SANDSHREW
 	db PAL_BROWNMON ; SANDSLASH

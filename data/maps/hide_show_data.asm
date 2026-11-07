@@ -274,8 +274,8 @@ PalletTownHS:
 ; inside Pallet's block, not in a spare row elsewhere: MarkTownVisitedAndLoad-
 ; MissableObjects looks the map up in MapHSPointers and then walks forward until
 ; the map changes, so a map's rows must be contiguous. Paid for by deleting a
-; row from the dead BluesHouseHSCopy block at the end of the array, which keeps
-; the total at 256 -- see hide_show_constants.asm.
+; row from the dead BluesHouseHSCopy block at the end of the array, which kept
+; the total at 256 then -- see hide_show_constants.asm.
 	db PALLET_TOWN, PALLETTOWN_MOM,  HIDE
 ViridianCityHS:
 	db VIRIDIAN_CITY, VIRIDIANCITY_OLD_MAN_SLEEPY, SHOW
@@ -368,7 +368,7 @@ PokemonTower3FHS:
 	db POKEMON_TOWER_3F, POKEMONTOWER3F_FULL_HEAL, SHOW
 PokemonTower4FHS:
 	; v0.7 ground-item redesign: the ELIXIR entry was removed (ball became a
-	; hidden item); its slot funds Rock Tunnel 1F's rope. Array stays 256/256.
+	; hidden item); its slot funds Rock Tunnel 1F's rope. Array stayed 256/256.
 	db POKEMON_TOWER_4F, POKEMONTOWER4F_SLEEP_HEAL, SHOW
 	db POKEMON_TOWER_4F, POKEMONTOWER4F_CALCIUM,     SHOW
 PokemonTower5FHS:
@@ -567,7 +567,7 @@ CeruleanCave2FHS:
 	db CERULEAN_CAVE_2F, CERULEANCAVE2F_FULL_RESTORE, SHOW
 CeruleanCaveB1FHS:
 	; v0.7 ground-item redesign: ULTRA_BALL1 removed (ball became a hidden
-	; item); its slot funds Seafoam 1F's rope. Array stays 256/256.
+	; item); its slot funds Seafoam 1F's rope. Array stayed 256/256.
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_MEWTWO,      SHOW
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_ESCAPE_ROPE, SHOW
 	db CERULEAN_CAVE_B1F, CERULEANCAVEB1F_MAX_REVIVE,  SHOW

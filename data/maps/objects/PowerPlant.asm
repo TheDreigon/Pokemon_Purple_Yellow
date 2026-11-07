@@ -13,7 +13,7 @@
 	const_export POWERPLANT_MAX_ELIXIR
 	const_export POWERPLANT_TM_REFLECT
 	const_export POWERPLANT_TM_THUNDERBOLT
-	const_export POWERPLANT_HP_UP ; dead slot: HP_UP ball removed (its object_event below is commented out). Kept LAST so it indexes no live object; preserves HS_POWER_PLANT_ITEM_5 so later maps' HS ids are not renumbered.
+	const_export POWERPLANT_HP_UP ; dead slot: HP_UP ball removed (its object_event below is commented out). Kept LAST so it indexes no live object.
 
 PowerPlant_Object:
 	db $2e ; border block

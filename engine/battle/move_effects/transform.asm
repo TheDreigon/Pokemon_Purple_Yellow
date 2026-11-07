@@ -29,7 +29,7 @@ TransformEffect_:
 	jr z, .transformEffect
 	ld hl, wEnemyBattleStatus2
 .transformEffect
-; animation(s) played are different if target has Substitute up
+; animation(s) played are different if the user has Substitute up
 	bit HAS_SUBSTITUTE_UP, [hl]
 	push af
 	ld hl, HideSubstituteShowMonAnim
@@ -102,7 +102,7 @@ TransformEffect_:
 	ld bc, wBattleMonPP - wBattleMonAttack
 	call CopyData
 	ld bc, wBattleMonMoves - wBattleMonPP
-	add hl, bc ; ld hl, wBattleMonMoves
+	add hl, bc ; hl = the target's moves (wEnemyMonMoves on your turn, wBattleMonMoves on the enemy's)
 	ld b, NUM_MOVES
 .copyPPLoop
 ; 5 PP for all moves

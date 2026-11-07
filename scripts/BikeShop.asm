@@ -68,7 +68,7 @@ BikeShopClerkText:
 	res 6, [hl]
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
-	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-answer
+	ld [wMenuJoypadPollCount], a         ; or poll count would auto-answer (only the removed Cable Club set one)
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel

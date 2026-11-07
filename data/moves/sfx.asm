@@ -2,8 +2,8 @@
 ; move-id order (constants/move_constants.asm). GetMoveSound (engine/battle/
 ; animations.asm) reads a row whenever an animation script's battle_anim names
 ; that move as its SOUND (the first argument) -- so a move's own row is only
-; ever heard if some script names it. 16 rows are named by no script at all,
-; and the LEECH_SEED row is named by 25 scripts: changing a row changes every
+; ever heard if some script names it. 37 rows are named by no script at all,
+; and the LEECH_SEED row is named by 32 scripts: changing a row changes every
 ; animation that borrows it. `.claude/sfx_model_audit.py --table` lists who
 ; reads what.
 ;
@@ -15,11 +15,13 @@
 ;   PITCH on a tone channel (Ch5/Ch6): added, unsigned and 11-bit, to every
 ;     note's frequency register (Audio1_ApplyFrequencyModifier). Because
 ;     f = 131072 / (2048 - x), a BIGGER byte is always HIGHER: $10 on a ~1800
-;     note is about +1 semitone, $f0 is one to two octaves up. There is no
+;     note is about +1 semitone; $f0 is four to five octaves on such a note
+;     but only +3 semitones on SFX_BATTLE_29's low ones (~300). There is no
 ;     byte that makes a tone channel deeper -- except by accident: when
 ;     note + byte passes 2047 the register wraps and that note FOLDS to
 ;     ~64 Hz. If only some of an SFX's notes fold, the chord breaks in two
-;     (the guard calls this partial-wrap; it is never what anyone wanted).
+;     (the guard calls this partial-wrap). Vanilla's own THUNDERBOLT and
+;     ICE_BEAM rows do it (two of four notes fold) and are kept as they are.
 ;   PITCH on the noise channel (Ch8): added mod 256 to NR43, whose high
 ;     nibble is the LFSR shift clock. Here a BIGGER byte is LOWER: one octave
 ;     per $10. So $f0 (= -$10 mod 256) is one octave UP, $10 is one octave
@@ -88,7 +90,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2F,          $10, $60 ; SHOCK_WAVE
 	db SFX_BATTLE_2F,          $20, $80 ; THUNDERBOLT
 	db SFX_BATTLE_29,          $f0, $40 ; THUNDER ; v0.7 reviewed: was BATTLE_26; deep boom at low pitch sells the 115 BP thunder strike better than the generic crash. -- MEASURED: tone +3 st; noise 1 oct UP; tempo 0.75x; OPPOSITE OF INTENT (went UP)
-	db SFX_BATTLE_2E,          $12, $60 ; THUNDER_WAVE ; ROW NEVER READ: ThunderWaveAnim names LEECH_SEED/THUNDERBOLT as its sound
+	db SFX_BATTLE_2E,          $12, $60 ; THUNDER_WAVE ; ROW NEVER READ: ThunderWaveAnim names LEECH_SEED/NUZZLE as its sound
 	db SFX_BATTLE_2F,            $30, $20 ; VOLT_TACKLE ; Anim pass #13: a slightly less deep sound. Pitch raised $30→$50. -- 2026-08-22 (anim pass #15): a slightly higher sound -- MEASURED: tone PARTIAL-WRAP: 2 of 4 notes fold to ~64 Hz, the rest +1..+1 st; noise 3 oct DOWN; tempo 0.62x
 ; === FAIRY ===
 	db SFX_DOUBLESLAP,         $00, $80 ; DOUBLESLAP
@@ -121,7 +123,7 @@ MoveSoundTable:
 	db SFX_BATTLE_29,            $10, $ff ; FLAMETHROWER ; Anim pass #32: lower pitch + max tempo for a deep, real-fire feel closer to Fire Blast. -- 2026-08-22 (anim pass #29): the ugly synth-key tone replaced, with FIRE_BLAST's deep sound -- MEASURED: tone +0 st; noise 1 oct DOWN; tempo 1.50x
 	db SFX_BATTLE_29,          $1f, $ff ; FIRE_BLAST ; Anim pass #33: tempo $20→$ff for the longer roar matching the bigger anim. -- MEASURED: tone +0 st; noise -20..-19 st; tempo 1.50x; tempo 0.62x -> 1.50x
 	db SFX_BATTLE_19,          $00, $80 ; IGNITE
-	db SFX_BATTLE_34,          $f0, $ff ; EXPLOSION ; v0.7 reviewed: lower pitch ($10→$f0) for catastrophic 200 BP feel matching the new multi-burst anim. -- MEASURED: tone +4 st; noise 1 oct UP; tempo 1.50x; pitch $10 was [tone +0 st; noise 1 oct DOWN]; OPPOSITE OF INTENT (went UP vs the old value)
+	db SFX_BATTLE_34,          $f0, $ff ; EXPLOSION ; v0.7 reviewed: lower pitch ($10→$f0) for catastrophic 250 BP feel matching the new multi-burst anim. -- MEASURED: tone +4 st; noise 1 oct UP; tempo 1.50x; pitch $10 was [tone +0 st; noise 1 oct DOWN]; OPPOSITE OF INTENT (went UP vs the old value)
 ; === FLYING ===
 	db SFX_PECK,               $01, $80 ; PECK ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_12,          $00, $80 ; GUST ; tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)
@@ -130,7 +132,7 @@ MoveSoundTable:
 	db SFX_BATTLE_12,          $20, $80 ; FLY ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; wind whoosh fits the dive much better than a "tink". -- MEASURED: noise 2 oct DOWN; tempo byte inert (noise-only SFX) -- tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_13,          $f0, $80 ; HURRICANE ; Anim pass #37: deeper pitch + max tempo for the sustained storm sound matching the multi-tornado anim. -- MEASURED: noise 1 oct UP; tempo byte inert (noise-only SFX); OPPOSITE OF INTENT (went UP) / TEMPO REQUEST HAD NO EFFECT -- tempo $ff -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_2B,          $48, $ff ; SKY_ATTACK ; v0.7 reviewed: was BATTLE_25 (dash); deep whoosh sells the dive-bomb on the new charge anim. -- MEASURED: tone +1..+2 st; noise 4 oct DOWN; LFSR width flip on 6 note(s) (metallic); tempo 1.50x
-	db SFX_BATTLE_13,          $f0, $80 ; DRILL_PECK ; ROW NEVER READ: DrillPeckAnim names HORN_DRILL/PECK as its sound -- tempo $20 -> $80 (inert: noise-only SFX; 2026-08-22)
+	db SFX_BATTLE_13,          $f0, $80 ; DRILL_PECK ; read only by HornAttackAnim (DrillPeckAnim names HORN_DRILL/PECK/VICEGRIP as its sound) -- tempo $20 -> $80 (inert: noise-only SFX; 2026-08-22)
 ; === FUNGUS ===
 	db SFX_BATTLE_1C,          $11, $80 ; SPORE_DAZE ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_24,          $40, $80 ; PARASITE
@@ -141,7 +143,7 @@ MoveSoundTable:
 	db SFX_BATTLE_1C,          $00, $80 ; POISON_GAS ; tempo $ff -> $80 (inert: noise-only SFX; 2026-08-22)
 ; === GHOST ===
 	db SFX_BATTLE_24,          $f0, $80 ; NIGHT_SHADE ; v0.7 reviewed: was NOT_VERY_EFFECTIVE; drain SFX deep-pitched fits the spectral life-leech feel. -- MEASURED: tone +48 st; noise 1 oct UP; tempo 1.00x; OPPOSITE OF INTENT (went UP) -- ROW NEVER READ: NightShadeAnim names PSYBEAM as its sound
-	db SFX_BATTLE_09,          $10, $60 ; LICK ; Anim pass #48: swapped SFX values with ASTONISH. -- MEASURED: tone +0 st; tempo 0.88x -- ROW NEVER READ: LickAnim names LEECH_SEED as its sound
+	db SFX_BATTLE_09,          $10, $60 ; LICK ; Anim pass #48: swapped SFX values with ASTONISH. -- MEASURED: tone +0 st; tempo 0.88x -- ROW NEVER READ: LickAnim names SLUDGE as its sound
 	db SFX_BATTLE_0B,            $00, $80 ; ASTONISH ; Anim pass #48: swapped SFX values with LICK. -- 2026-08-22 (anim pass #38): the sound did not fit and was not a good sound -- MEASURED: noise +0 st; tempo byte inert (noise-only SFX)
 	db SFX_BATTLE_25,            $10, $80 ; SHADOW_SNEAK ; 2026-08-22 (anim pass #39): a bit too deep; the muffled quality stays -- MEASURED: noise 1 oct DOWN; tempo byte inert (noise-only SFX)
 	db SFX_SUPER_EFFECTIVE,      $00, $80 ; SHADOW_PUNCH ; Anim pass #50: was BATTLE_2B (whoosh — sounded like a gust). Punch SFX deep-pitched for proper imperceptible-fist feel. -- 2026-08-22 (anim pass #40): a plain impact sound is enough -- MEASURED: noise +0 st; tempo byte inert (noise-only SFX)
@@ -191,7 +193,7 @@ MoveSoundTable:
 	db SFX_BATTLE_18,          $00, $80 ; HEADBUTT
 	db SFX_BATTLE_1E,          $00, $60 ; HORN_ATTACK
 	db SFX_BATTLE_0E,            $30, $80 ; SLASH ; Anim pass #78: pitch raised $01→$30 for a sharper / higher cut. -- 2026-08-22 (anim pass #55): an odd sound that did not fit; SCRATCH with a better sound -- MEASURED: noise 3 oct DOWN; tempo byte inert (noise-only SFX)
-	db SFX_BATTLE_20,          $00, $80 ; BODY_SLAM ; ROW NEVER READ: BodySlamAnim names LEECH_SEED as its sound -- tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)
+	db SFX_BATTLE_20,          $00, $80 ; BODY_SLAM ; ROW NEVER READ: BodySlamAnim names HEAVY_SLAM as its sound -- tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_1E,            $30, $c0 ; CRUNCH ; Anim pass #80: was BATTLE_1E (sounded like Bug Bite / Poison Sting). Slam family deep-pitched gives the grinding crunch feel. -- 2026-08-22 (anim pass #56): BITE, slower and heavier -- MEASURED: tone +1 st; noise 3 oct DOWN; tempo 1.25x
 	db SFX_BATTLE_1E,            $30, $a0 ; HORN_CHARGE ; 2026-08-22 (anim pass #57): a new sound, the old one too weak -- MEASURED: tone +1 st; noise 3 oct DOWN; tempo 1.12x
 	db SFX_BATTLE_29,            $11, $c0 ; THRASH ; 2026-08-22 (anim pass #58): a slower sound -- MEASURED: tone +0 st; noise -16..-15 st; tempo 1.25x
@@ -210,7 +212,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2A,          $20, $80 ; SLUDGE ; tempo $20→$80 to fit the longer anim (no SFX-cuts-short). -- MEASURED: tone +1..+2 st; noise 2 oct DOWN; tempo 1.00x; tempo 0.62x -> 1.00x
 	db SFX_BATTLE_2A,            $30, $80 ; SLUDGE_WAVE ; 2026-08-22 (anim pass, test ROM of 2026-08-22): one octave under SLUDGE, one above GUNK_SHOT (was SFX_BATTLE_2A $10 $80) -- MEASURED: tone +1..+3 st; noise 3 oct DOWN; tempo 1.00x
 	db SFX_BATTLE_2A,            $40, $ff ; GUNK_SHOT ; 2026-08-22 (anim pass, test ROM of 2026-08-22): the 115 BP finisher below ACID in the glug, the hiss a rumble (was +12 st, the highest of the sludge line) (was SFX_BATTLE_2A $f0 $ff) -- MEASURED: tone +1..+4 st; noise 4 oct DOWN; tempo 1.50x
-	db SFX_BATTLE_2F,          $20, $a0 ; NEUROTOXIN ; v0.7 reviewed: was BATTLE_0F (cut); electric-crackle SFX fits the neuro-paralysis theme that the new lightning-ball anim ends on. -- MEASURED: tone PARTIAL-WRAP: 2 of 4 notes fold to ~64 Hz, the rest +0..+0 st; noise 2 oct DOWN; tempo 1.12x; CHORD BROKEN
+	db SFX_BATTLE_2F,          $20, $a0 ; NEUROTOXIN ; v0.7 reviewed: was BATTLE_0F (cut); electric-crackle SFX fits the neuro-paralysis theme that the new lightning-ball anim ends on. -- MEASURED: tone PARTIAL-WRAP: 2 of 4 notes fold to ~64 Hz, the rest +0..+0 st; noise 2 oct DOWN; tempo 1.12x; all four notes then sit at 64-87 Hz, vanilla THUNDERBOLT's buzz
 	db SFX_BATTLE_2A,          $10, $c0 ; TOXIC ; v0.7 reviewed: was BATTLE_0F (cut); sludge SFX matches the BLOB_DRIP anim and the badly-poisoned theme. -- MEASURED: tone +0 st; noise 1 oct DOWN; tempo 1.25x
 ; === PSYCHIC ===
 	db SFX_PSYBEAM,              $f0, $40 ; PSYWAVE ; 2026-08-22 (anim pass, test ROM of 2026-08-22): 0.75x (was the longest of the family at 35 BP) (was SFX_PSYBEAM $f0 $f0) -- MEASURED: tone +7..+17 st; noise 1 oct UP; tempo 0.75x
@@ -228,7 +230,7 @@ MoveSoundTable:
 	db SFX_BATTLE_18,          $20, $80 ; HEAD_SMASH ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_36,          $f0, $20 ; ROCK_SLIDE
 	db SFX_BATTLE_0F,          $1f, $80 ; CLAMP ; tempo $ff -> $80 (inert: noise-only SFX; 2026-08-22)
-	db SFX_BATTLE_29,            $f0, $60 ; ROLLOUT ; 2026-08-22 (anim pass, test ROM of 2026-08-22): the row is no longer read (RolloutAnim names LEECH_SEED/BONEMERANG since #76) (was SFX_BATTLE_29 $20 $80) -- MEASURED: tone +3 st; noise 1 oct UP; tempo 0.88x -- ROW NEVER READ: RolloutAnim names BONEMERANG/LEECH_SEED as its sound
+	db SFX_BATTLE_29,            $f0, $60 ; ROLLOUT ; 2026-08-22 (anim pass, test ROM of 2026-08-22): the row is no longer read (RolloutAnim names LEECH_SEED/TAKE_DOWN; off this row since #76) (was SFX_BATTLE_29 $20 $80) -- MEASURED: tone +3 st; noise 1 oct UP; tempo 0.88x -- ROW NEVER READ: RolloutAnim names LEECH_SEED/TAKE_DOWN as its sound
 	db SFX_BATTLE_2B,          $f0, $60 ; BONEMERANG
 	db SFX_BATTLE_22,          $f0, $80 ; CRABHAMMER ; slam SFX deep-pitched fits the hammer-down strike. -- MEASURED: noise 1 oct UP; tempo byte inert (noise-only SFX); OPPOSITE OF INTENT (went UP) -- tempo $ff -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_HORN_DRILL,         $00, $80 ; HORN_DRILL ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
@@ -236,7 +238,7 @@ MoveSoundTable:
 	db SFX_BATTLE_0F,            $00, $80 ; CUT ; 2026-08-22 (anim pass #80): a higher sound -- MEASURED: noise +0 st; tempo byte inert (noise-only SFX)
 	db SFX_BATTLE_26,          $10, $80 ; IRON_TAIL ; tempo $60 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_18,          $10, $80 ; IRON_HEAD
-	db SFX_BATTLE_27,          $00, $80 ; SONICBOOM ; ROW NEVER READ: SonicBoomAnim names SUPERSONIC as its sound
+	db SFX_BATTLE_27,          $00, $80 ; SONICBOOM ; ROW NEVER READ: SonicBoomAnim names HORN_DRILL/SUPERSONIC as its sound
 	db SFX_BATTLE_25,          $00, $80 ; BULLET_PUNCH ; tempo $20 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_2B,          $20, $80 ; MAGNET_BOMB
 ; === WATER ===
@@ -244,9 +246,9 @@ MoveSoundTable:
 	db SFX_BATTLE_25,            $10, $80 ; AQUA_JET ; 2026-08-22 (anim pass #87): a better sound, less deep -- MEASURED: noise 1 oct DOWN; tempo byte inert (noise-only SFX)
 	db SFX_BATTLE_2A,          $f0, $60 ; BUBBLEBEAM
 	db SFX_BATTLE_2A,            $10, $80 ; WATER_PULSE ; 2026-08-22 (anim pass, test ROM of 2026-08-22; #89 changed only the animation order): off BATTLE_27 where half the chord sat at 16 kHz (was SFX_BATTLE_27 $30 $80) -- MEASURED: tone +0 st; noise 1 oct DOWN; tempo 1.00x
-	db SFX_BATTLE_25,          $2f, $80 ; WATERFALL ; ROW NEVER READ: WaterfallAnim names HYDRO_PUMP/KARATE_CHOP/LEECH_SEED as its sound
+	db SFX_BATTLE_25,          $2f, $80 ; WATERFALL ; ROW NEVER READ: WaterfallAnim names KARATE_CHOP/LEECH_SEED/SURF as its sound
 	db SFX_BATTLE_2C,          $00, $80 ; SURF
-	db SFX_BATTLE_2A,            $40, $80 ; HYDRO_PUMP ; 2026-08-22 (anim pass, test ROM of 2026-08-22; #92 rewrote only the animation): the 115 BP rung of the family (-48 st), read also by SURF/WATERFALL/BLIZZARD (was SFX_BATTLE_2A $00 $80) -- MEASURED: tone +1..+4 st; noise 4 oct DOWN; tempo 1.00x
+	db SFX_BATTLE_2A,            $40, $80 ; HYDRO_PUMP ; 2026-08-22 (anim pass, test ROM of 2026-08-22; #92 rewrote only the animation): the 115 BP rung of the family (-48 st) (was SFX_BATTLE_2A $00 $80) -- MEASURED: tone +1..+4 st; noise 4 oct DOWN; tempo 1.00x -- ROW NEVER READ: HydroPumpAnim names SPORE_DAZE/SURF as its sound
 ; === BIRD (typeless) ===
 	db SFX_BATTLE_29,          $f8, $ff ; TRI_ATTACK
 	db SFX_NOT_VERY_EFFECTIVE, $10, $80 ; SWORDS_DANCE ; tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)

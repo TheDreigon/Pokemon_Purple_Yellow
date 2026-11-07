@@ -11,7 +11,7 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Mid-stage flower bud (Grass/Fungus).
+	; Mid-stage flower bud (Grass/Poison).
 	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
 	; end
 

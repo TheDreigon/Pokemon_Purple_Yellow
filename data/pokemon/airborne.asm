@@ -1,4 +1,4 @@
-; v1.0 (2026-11-02): the AIRBORNE #MON, Forte's list. A GROUND move never touches them, as it never touches
+; v1.0 (2026-11-02): the AIRBORNE #MON. A GROUND move never touches them, as it never touches
 ; a FLYING type: the chart walks match GROUND's row against FLYING for them too (wDefenderAirborne, set from
 ; the species with the third type by SetDefenderTraits). Nothing else in battle reads it - not the other
 ; FLYING rows, not STAB, not the status rules. The status screen shows it under the types (PrintMonAirborne):

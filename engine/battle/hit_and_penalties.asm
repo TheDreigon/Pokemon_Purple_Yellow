@@ -8,8 +8,8 @@
 ;
 ; CalcHitChance travels with MoveHitTest because MoveHitTest is its only caller.
 ; Neither of them ends up calling anything left behind in Battle Core:
-; BattleRandom is in the home bank and Multiply/Divide always were, so nothing
-; here pays a farcall at all.
+; BattleRandom is in the home bank and Multiply/Divide always were; the one
+; farcall here, to IsHardModeBossBattle (Battle Engine 6), was one in Battle Core too.
 
 ; v1.0 (R16g, 2026-10-07): the hit test of the two damage paths, PlayerCalcMoveDamage and
 ; EnemyMoveHitTest (core.asm; the effects call MoveHitTest itself). After MoveHitTest, a trapping move
@@ -34,11 +34,12 @@ DamagingMoveHitTest:
 
 MoveHitTest:
 ; v1.0 (2026-11-02): PROTECT comes before every other test. A target that protected itself this turn
-; is out of reach of every move aimed at it, and every such move comes through here: the two damage
-; paths and each handler that touches the target (BIDE's release, which skips this test, asks
-; TargetIsProtected itself). It is a miss with its own reason, MOVE_FAILED_PROTECTED: the line is said
-; once, here, and the failure printers stay silent for it; each move then does what it does on a miss
-; (EXPLOSION's user faints, HI JUMP KICK crashes, a WRAP's hold ends).
+; is out of reach of every move aimed at it (TRANSFORM and a WRAP's later turns aside, by design), and
+; every such move comes through here: the two damage paths and each handler that touches the target
+; (BIDE's release, which skips this test, asks TargetIsProtected itself). It is a miss with its own
+; reason, MOVE_FAILED_PROTECTED: the line is said once, here, and the failure printers stay silent for
+; it; each move then does what it does on a miss (EXPLOSION's user faints, HI JUMP KICK crashes, a
+; WRAP's hold ends).
 	call TargetIsProtected
 	jp nz, .moveProtected
 ; player's turn
@@ -148,7 +149,6 @@ MoveHitTest:
 	jr .skipEnemyMistCheck
 .enemyMistCheck
 ; if move effect is from $12 to $19 inclusive or $3a to $41 inclusive
-; i.e. the following moves
 ; i.e. stat-lowering / status effects that Mist protection (Guard Spec.) blocks; effects handled via their own exclusive functions (Haze, Light Screen, Reflect, ...) never reach this check
 	ld a, [wEnemyBattleStatus2]
 	bit PROTECTED_BY_MIST, a ; is mon protected by mist?
@@ -400,7 +400,7 @@ CalcHitChance:
 	pop hl ; hl = the move's accuracy byte, as before F6 - read above, never written
 	ret ; a = the hit chance (MoveHitTest takes it from here)
 
-; multiplies damage by a random percentage from ~85% to 100%
+; the side hWhoseTurn is NOT loses half its ATTACK when burned (never below 1)
 
 HalveAttackDueToBurn:
 	ldh a, [hWhoseTurn]
@@ -487,4 +487,3 @@ HalveSpeedDueToParalysis:
 	ld [hl], b
 	ret
 
-; HalveAttackDueToBurn moved to engine/battle/hit_and_penalties.asm ("Battle Effects" section).

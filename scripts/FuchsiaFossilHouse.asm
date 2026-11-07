@@ -16,8 +16,8 @@ FuchsiaFossilHouseFishingGuruText:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .refused
-; his speech comes BEFORE the gift, the same way Bill's and the roof
-; Porygon's do: GivePokemon runs its own fanfare and its own box-full line,
+; his speech comes BEFORE the gift, the same way Bill's Eevee gift
+; does: GivePokemon runs its own fanfare and its own box-full line,
 ; so anything printed after it has to fight them for the screen.
 	ld hl, .ReceivedGiftText
 	call PrintText

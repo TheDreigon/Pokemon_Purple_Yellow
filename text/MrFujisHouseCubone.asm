@@ -2,9 +2,9 @@
 ; in his Volunteer House - right after the POKE FLUTE, without forcing. Why her
 ; and not his other wards, and why to this player: her mother is the MAROWAK the
 ; player laid to rest. Lives in Text 8: Fuji's own bank (Text 6) had 470 bytes
-; free, less than these 733; Text 8 keeps 2888 (the bank's tail looks full only
-; because rgblink packs floating sections into it). Every line under the press-A
-; arrow is 17 or less.
+; free, less than these 733. Text 8 shares ROMX $2D with "NPC Sprites 4",
+; pinned there in layout.link, so the bank's tail is real and nearly full (see
+; bank_slack_audit). Every line under the press-A arrow is 17 or less.
 
 _MrFujisHouseMrFujiCuboneOfferText::
 	text "MR.FUJI: There is"

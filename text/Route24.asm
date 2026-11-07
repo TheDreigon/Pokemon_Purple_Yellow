@@ -157,6 +157,6 @@ _Route24Youngster2AfterBattleText::
 	line "have no regrets!"
 	done
 
-; DAMIAN's four lines moved to text/route24_damian.asm (text/route25_damian.asm since 2026-11-05) and its own floating
-; section -- rewriting them for the anime's version of him pushed the pinned
+; DAMIAN's four lines moved to text/route24_damian.asm (text/route25_damian.asm since 2026-11-05) and its own
+; section (pinned to ROMX $7) -- rewriting them for the anime's version of him pushed the pinned
 ; "Text 4" bank 2 bytes over. See that file.

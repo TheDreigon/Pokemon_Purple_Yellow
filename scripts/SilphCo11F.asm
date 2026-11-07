@@ -157,7 +157,7 @@ SilphCo11FGiovanniAfterBattleScript:
 	cp $ff
 	jp z, SilphCo11FResetCurScript
 	ld a, [wSavedCoordIndex]
-	cp 1 ; cp 1 ; index of first, lower-left entry (6,13) in SilphCo11FDefaultScript.PlayerCoordsArray (wCoordIndex is 1-based) — the tile directly below Giovanni's stopping point, hence face up
+	cp 1 ; index of first, lower-left entry (6,13) in SilphCo11FDefaultScript.PlayerCoordsArray (wCoordIndex is 1-based) — the tile directly below Giovanni's stopping point, hence face up
 	jr z, .face_player_up
 	ld a, PLAYER_DIR_LEFT
 	ld b, SPRITE_FACING_RIGHT
@@ -198,7 +198,7 @@ SilphCo11FGiovanniStartBattleScript:
 	ldh [hSpriteIndex], a
 	call SetSpriteMovementBytesToFF
 	ld a, [wSavedCoordIndex]
-	cp 1 ; cp 1 ; index of first, lower-left entry (6,13) in SilphCo11FDefaultScript.PlayerCoordsArray (wCoordIndex is 1-based) — the tile directly below Giovanni's stopping point, hence face up
+	cp 1 ; index of first, lower-left entry (6,13) in SilphCo11FDefaultScript.PlayerCoordsArray (wCoordIndex is 1-based) — the tile directly below Giovanni's stopping point, hence face up
 	jr z, .face_player_up
 	ld a, PLAYER_DIR_LEFT
 	ld b, SPRITE_FACING_RIGHT
@@ -233,7 +233,7 @@ SilphCo11FScript_6229c:
 ; v0.7 fix (decision-tree audit 2026-08-29): after GIOVANNI 2 falls, J&J are
 ; HIDDEN by the TeamRocketLeaves script -- but this ambush zone stayed armed
 ; for a player who reached him by the stairs or elevator without crossing it.
-; Stepping in afterwards (the 7F teleporter pad lands INSIDE the zone) ran
+; Stepping in afterwards (the 7F teleporter pad lands right above it) ran
 ; MoveSprite on a hidden sprite, whose scripted walk never finishes: a hard
 ; softlock under full wJoyIgnore. The pair is gone; so is the ambush.
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI

@@ -1,9 +1,9 @@
 TechnicalMachinePrices:
 ; Each entry is a 3-byte packed BCD price (0..999999).
 ; Reading routine: engine/items/tm_prices.asm:GetMachinePrice.
+; Migrated from nybble_array (max 15000) to 3-byte BCD (max 999999)
 ; in the v0.5 TM rework to support prices up to 30000.
 ; Sale sites (annotated per entry) follow TMs_HMs_before-after.txt (DEPOIS).
-; mapping + new sale-site spec (TMs_HMs_before-after.txt DEPOIS).
 	db $00, $50, $00 ; TM01 ROCK_THROW    =   5000  ; Celadon 5F
 	db $00, $50, $00 ; TM02 QUICK_ATTACK  =   5000  ; Celadon 5F
 	db $00, $75, $00 ; TM03 BIND          =   7500  ; Celadon 5F

@@ -20,13 +20,14 @@
 ;
 ; Moves are listed only once SEEN -- watched being used in a battle, or known by
 ; one of the player's own party. Everything else reads as a dashed line, and the
-; count in the corner is how many of the 219 are open. See home/movedex_seen.asm
+; count in the corner is how many of the 222 are open. See home/movedex_seen.asm
 ; for the two ways a move becomes seen and why the party counts.
 ;
 ; (This file used to argue the opposite, on the grounds that the bitfield needed
-; 28 bytes of WRAM and WRAM is full at 8192/8192. It is: the 28 bytes came out of
-; dead padding INSIDE the saved block instead, so they cost no WRAM and save
-; themselves. See ram/wram.asm at wMovedexSeen.)
+; 28 bytes of WRAM and WRAM is full at 8192/8192. It is: the bytes (32 since the
+; capacity sizing of 2026-08-31) came out of dead padding INSIDE the saved block
+; instead, so they cost no WRAM and save themselves. See ram/wram.asm at
+; wMovedexSeen.)
 
 DEF MOVEDEX_ROWS EQU 7
 
@@ -187,7 +188,7 @@ ShowMovedexMenu::
 	xor a
 	jp .storePage
 
-; Wrapping, the same courtesy the Pokedex list got: the ends of a 219-entry list
+; Wrapping, the same courtesy the Pokedex list got: the ends of a 222-entry list
 ; are a long way apart.
 .wrapToBottom
 	ld a, NUM_ATTACKS - MOVEDEX_ROWS
@@ -238,7 +239,7 @@ Movedex_DrawInterface:
 
 ; A copy of the Pokedex's DrawPokedexVerticalLine: nine tiles down from hl,
 ; alternating between the two halves of the rule. It is copied rather than
-; called because the Pokedex lives in another bank and this is ten bytes.
+; called because the Pokedex lives in another bank and this is fifteen bytes.
 Movedex_DrawVerticalLine:
 	ld c, 9 ; height of line
 	ld de, SCREEN_WIDTH
@@ -254,8 +255,9 @@ Movedex_DrawVerticalLine:
 Movedex_PlaceMoveList:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-; Same window the Pokedex clears for its own list, one column wider: move names
-; run longer than species names and the rule is at column 14 either way.
+; The Pokedex's fourteen rows, but columns 1-12 where it clears 4-13 for its own
+; list: a move name starts at column 1 and runs longer than a species name, and
+; the rule is at column 14 either way.
 	hlcoord 1, 2
 	lb bc, 14, 12
 	call ClearScreenArea

@@ -154,8 +154,8 @@ CountObtainedBadges::
 ; Edits here change the inventory of EVERY regular pokemart at once
 ; (Viridian, Pewter, Cerulean, Lavender, Vermilion, Celadon Mart 2F,
 ; Saffron, Fuchsia, Cinnabar, Indigo Plateau).
-; Celadon Mart 4F (Poké Doll + stones) and 5F (vitamins + X-items)
-; are unrelated and keep their fixed `script_mart` lists.
+; Celadon Mart 2F's other clerk (vitamins + X-items), 4F (Poké Doll + stones)
+; and 5F (TMs) are unrelated and keep their fixed `script_mart` lists.
 RegularMartTieredInventory::
 	; T0 - 0 badges
 	db 0, POKE_BALL

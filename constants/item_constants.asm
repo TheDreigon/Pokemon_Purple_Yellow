@@ -119,7 +119,7 @@ DEF NUM_FLOORS EQU const_value - 1 - NUM_ITEMS
 ; the 55th TM at $FF — the byte EVERY item list uses as its terminator. TM55
 ; (OUTRAGE) was consequently unusable: the Indigo post-game mart truncated at
 ; it, and it could not be held in the bag. Starting one byte lower puts the last
-; TM at $FE. The ids $63-$C3 are an unused gap, so this only consumes one of
+; TM at $FE. The ids $65-$C3 are an unused gap, so this only consumes one of
 ; them; every reference to an HM/TM is symbolic, so nothing else moves.
 ; (Dev note: this shifts every HM/TM item id by one, so TMs in a pre-existing
 ; save file will read as the neighbouring TM.)
@@ -140,7 +140,7 @@ ENDM
 MACRO add_hm
 ; Defines three constants:
 ; - HM_\1: the item id, starting at $C3
-; - \1_TMNUM: the learnable TM/HM flag, starting at 51
+; - \1_TMNUM: the learnable TM/HM flag, starting at 56 (NUM_TMS + 1)
 ; - HM##_MOVE: alias for the move id, equal to the value of \1
 	const HM_\1
 	DEF HM_VALUE = __tmhm_value__ - NUM_TMS

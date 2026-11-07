@@ -2,7 +2,7 @@
 ;
 ; Lets the developer pick a move from a scrollable LIST and watch its
 ; animation auto-loop in PLAY view. Reached from the debug menu (ANIM
-; entry). Lives in bank $3F next to DebugMenu.
+; entry). Lives in bank $43 next to DebugMenu.
 ;
 ; UX:
 ;   * LIST view (entry point):
@@ -237,7 +237,7 @@ IF DEF(_DEBUG)
 	jr nz, .pauseFrame
 	jp .playAnim                       ; auto-replay after pause
 .flipSide
-	; The toggle is hWhoseTurn itself. Everything downstream -- the 27 reads in
+	; The toggle is hWhoseTurn itself. Everything downstream -- the 25 reads in
 	; the animation engine, the subanimation coord flip, the base coords, every
 	; SE_* that picks a mon -- follows it, which is exactly what makes this
 	; screen worth trusting on the enemy side.

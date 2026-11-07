@@ -4,7 +4,7 @@
 PriorityMovesList:
     ; BIRD
     db TRANSFORM,      8
-    db PROTECT,       11 ; v1.0 (2026-11-02): +4, as from Gen 3 on - above EXTREMESPEED, so it is up before any blow
+    db PROTECT,       11 ; v1.0 (2026-11-02): +4, as from Gen 5 on - above EXTREMESPEED, so it is up before any blow
     ; ELECTRIC
     db VOLT_TACKLE,    8
     ; FIGHTING

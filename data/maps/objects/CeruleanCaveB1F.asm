@@ -1,6 +1,6 @@
 	object_const_def
 	const_export CERULEANCAVEB1F_MEWTWO
-	const_export CERULEANCAVEB1F_ESCAPE_ROPE ; name kept when ULTRA_BALL1 was converted to hidden (FUCHSIAGYM_JANINE convention); the ball now holds ESCAPE_ROPE
+	const_export CERULEANCAVEB1F_ESCAPE_ROPE
 	const_export CERULEANCAVEB1F_MAX_REVIVE
 	const_export CERULEANCAVEB1F_MAX_ELIXIR
 	const_export CERULEANCAVEB1F_FORTE

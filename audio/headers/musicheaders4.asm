@@ -14,7 +14,7 @@ Music_MeetJessieJames::
 ; window), and Music_FightingDojo (ex-YellowUnusedSong) sat above -- the Fighting Dojo plays it
 ; permanently. They caused bug #7: this bank's SFX table is the short vanilla
 ; one, so any overworld sound on a map whose music lives here -- a ledge hop,
-; a Pokedex cry, a save, a poison step -- resolved to garbage and wedged
+; a collision, a save, a poison step -- resolved to garbage and wedged
 ; channels 5-8. Every map-playable track now lives in AUDIO_5, which mirrors
 ; the full bank-1 SFX table -- see audio/headers/musicheaders5.asm. The two
 ; that stayed (Surfing Pikachu, Jessie & James) are cutscene/minigame themes,

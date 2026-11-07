@@ -34,7 +34,7 @@ ResidualEffects2:
 	db ATTACK_ACCURACY_UP1_EFFECT    ; dual-stat
 	db SPEED_EVASION_UP1_EFFECT      ; dual-stat
 	db SPDEF_SPEED_DOWN1_EFFECT    ; dual-stat
-	db SPATK_SPDEF_ACCURACY_UP1_EFFECT   ; dual-stat (Calm Mind revised)
+	db SPATK_SPDEF_ACCURACY_UP1_EFFECT   ; triple-stat (Calm Mind revised)
 	; NOTE: every 0-BP stat/heal effect MUST have an entry here. Otherwise it
 	; dispatches via the post-damage fallthrough, which pre-sets
 	; wMoveDidntMiss=1 and silences the move animation (the anim guard in

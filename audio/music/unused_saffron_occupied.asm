@@ -9,14 +9,17 @@
 ; git also has it, in every commit up to that date -- this copy exists so it is
 ; findable without knowing which commit to look in.
 ;
-; TO BRING IT BACK: rename Music_UnusedSaffronOccupied -> Music_SaffronCity throughout,
-; delete the live file, and nothing else changes -- the header, the constant,
-; the audio.asm INCLUDE and the songs.asm line all already name Music_SaffronCity.
+; TO BRING IT BACK: rename Music_UnusedSaffronOccupied -> Music_SaffronCity throughout
+; and put this file in place of the live saffroncity.asm. The constant, the audio.asm
+; INCLUDE and the songs.asm line already name it, but this version has four channels
+; and the live Music_SaffronCity header (audio/headers/musicheaders5.asm) has three:
+; it needs its Ch4 entry back, which moves the id of every song after it.
 ; Then check: python .claude/song_id_audit.py and .claude/music_analyze.py
 ;
 ; A minor on an Am-Em-F-G vamp, tempo 152, 8 bars, 31 notes in the lead.
-; Chosen over two later revisions. Its twin is unused_saffron_free.asm
-; and the two must stay structurally identical.
+; Chosen over two later revisions. Its twin is unused_saffron_free.asm, the same
+; tune in A major, faster, with a second half and no drums. The notes below are as
+; shipped, so their Music_SaffronCity and Music_SaffronFree mean this pair.
 
 ; Saffron City -- an original piece, not derived from anything.
 ;

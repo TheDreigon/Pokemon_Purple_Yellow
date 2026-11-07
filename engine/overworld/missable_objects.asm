@@ -9,7 +9,7 @@ MarkTownVisitedAndLoadMissableObjects::
 ; v1.0 (2026-09-24): the fly slots that are interiors (the two route CENTERs,
 ; BILL's LAB, the DAY CARE, the POWER PLANT, SEAFOAM, VICTORY ROAD, CERULEAN
 ; CAVE) are marked by table in LoadMissableObjects2 (bank $10), which this
-; routine calls at its end for every map: bank3 is full.
+; routine calls at its end for every map: bank3 was full when this was written.
 .notInTown
 	ld hl, MapHSPointers
 	ld a, [wCurMap]

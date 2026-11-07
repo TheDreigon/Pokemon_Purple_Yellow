@@ -73,12 +73,11 @@ SetPal_Battle:
 ;
 ; wTrainerClass is NOT cleared at the end of a battle, so after a trainer fight
 ; it still says FORTE - and a guard written on it would paint the next battle
-; purple. (This comment used to say it "is not cleared by anything", which is
-; too strong: init_battle.asm zeroes it when a WILD battle loads its front
+; purple. (init_battle.asm does zero it when a WILD battle loads its front
 ; sprite. That clear is what stops the stale value surviving a wild encounter;
 ; it does nothing for the trainer-to-trainer case this guard is about.)
 ;
-; Only c moves. b is the player's half, and b is 0 during the intro too, because
+; Only c moves. b is the player's half, and its species is 0 during the intro too, because
 ; no Pokemon is out yet - touching the shared lookup instead of this one byte
 ; would have turned the player's own back sprite purple for those frames.
 	ld a, [wEnemyMonSpecies2]
@@ -320,7 +319,8 @@ GetPal_Overworld:
 	ASSERT ROUTE_1 == FIRST_ROUTE_MAP && ROUTE_25 == FIRST_INDOOR_MAP - 1
 
 ; v1.0 (2026-11-04): the palette of each route, ROUTE_1 to ROUTE_25 in map id order (GetPal_Overworld's .route). The
-; interiors that follow wLastMap take the palette of the route they stand on: its gates, houses and centers.
+; interiors that follow wLastMap take the palette of the route they stand on: its houses (its gates and Centers
+; have PAL_GATE and PAL_POKECENTER since 2026-11-05).
 RoutePalettes:
 	table_width 1, RoutePalettes
 	db PAL_ROUTE              ; ROUTE_1

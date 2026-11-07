@@ -234,13 +234,13 @@ ExpBarBluePalette:
 ; Colours 0 and 3 stay the HP bars' white and black (Crystal's bar sits on
 ; cream; ours on white). No "RGB" + digits in these comments: the audit and
 ; emu_test_expbarblue read the first such token after the label as the data.
-; Living here instead of GBCBasePalettes costs bank1C nothing (it has 1 byte).
+; Living here instead of GBCBasePalettes costs bank1C nothing (it had 1 byte free on 2026-08-16).
 	RGB 31,31,31, 16,26,31, 04,17,31, 03,03,03
 
 LoadEXPBarPalette::
 ; Rebuild BG palette 4 from ExpBarBluePalette, shaded through the current
 ; rBGP value so the EXP bar whites out and fades with the rest of the screen.
-; Called from two places: the packet-11 hook above (battle attribute load),
+; Called from two places: the packet-10 hook above (battle attribute load),
 ; and home's UpdateGBCPal_BGP right after _UpdateGBCPal_BGP, which only
 ; rebuilds palettes 0-3 (NUM_ACTIVE_PALS).
 ;

@@ -17,7 +17,7 @@ Daycare2F_Object:
 
 	def_object_events
 ; The gentleman's daughter and her own two POKeMON (CHANSEY and MR.MIME);
-; the other two up here are boarders. Only NIDORAN F has walk frames in its
+; the other four up here are boarders. Only SEEL has walk frames in its
 ; sheet; the stills must STAY or they animate with the next sprite in the
 ; ROM (the flicker seen in play). STAY sprites still turn when spoken to.
 	object_event  2,  2, SPRITE_NURSE, STAY, NONE, TEXT_DAYCARE2F_NURSE

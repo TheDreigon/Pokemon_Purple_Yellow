@@ -109,7 +109,8 @@ _HardModeGymPartyGateText::
 ; v1.0 (the SPECIAL split, 2026-09-06): the badge map moved the boosts to
 ; THUNDER/RAINBOW/SOUL/GOLD/VOLCANO. Brock's hard twin died with his boost;
 ; Erika's and Sabrina's new twins live next to their normal texts (Text 9 and
-; Text 7) - this bank is full in the debug build.
+; Text 7) - this bank was full in the debug build until the "Debug" section left
+; it for bank $43 on 2026-09-26 (main.asm).
 _VermilionGymLTSurgeThunderBadgeInfoHardText::
 	text "The THUNDERBADGE"
 	line "lets your #MON"

@@ -22,7 +22,7 @@ AnimationIdSpecialEffects:
 	db -1 ; end
 
 ; v0.7 anim split (2026-08-31): the SPECIAL animations' effect rows live in
-; their own table now - their indexes (1..35) overlap move ids, so sharing
+; their own table now - their indexes (1..NUM_SPECIAL_ANIMS) overlap move ids, so sharing
 ; the move-keyed table above would collide. Looked up by hSpecialAnimIndex
 ; when wAnimationID carries SPECIAL_ANIM_MARKER.
 SpecialAnimIdSpecialEffects:

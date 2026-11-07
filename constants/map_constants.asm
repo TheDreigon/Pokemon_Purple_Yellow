@@ -37,8 +37,8 @@ ENDM
 	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework)
 	map_const INDIGO_PLATEAU,                10,  9 ; $09
 	map_const SAFFRON_CITY,                  20, 18 ; $0A
-; v0.7: NUM_CITY_MAPS moved down one line, from 11 to 12. It is the number of
-; FLY SLOTS, not the number of towns -- BuildFlyLocationsList walks 0..it-1 and
+; v0.7: NUM_CITY_MAPS moved down one line, from 11 to 12. It was then the number of
+; FLY SLOTS, not the number of towns -- BuildFlyLocationsList walked 0..it-1 and
 ; wTownVisitedFlag is a bit per slot. Moving the DEF past UNUSED_MAP_0B buys a
 ; twelfth slot without renumbering a single map, because $0B already existed.
 ; The slot is BILL's LAB (listed as BILLS_HOUSE since 2026-09-24: FlySlotMaps in
@@ -91,10 +91,10 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_18,                      25,  9 ; $1D
 	map_const ROUTE_19,                      10, 28 ; $1E (world-design: +1 row, follows Route 20)
 	map_const ROUTE_20,                      50, 12 ; $1F (world-design: 12 rows so its two shore corners meet Cinnabar's channel corners at island rows 8 and 19)
-	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +2 columns WEST toward Cinnabar; Pallet connects at -3 because of it)
+	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +3 columns WEST toward Cinnabar; Pallet connects at -3 because of it)
 	map_const ROUTE_22,                      22, 11 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
-	map_const ROUTE_24,                      13, 14 ; $23 (v1.0, 2026-11-05: the NUGGET BRIDGE and its approach only; rows 0-9 went to ROUTE_25, and the strip above the bridge, row 9, stays here four times over)
+	map_const ROUTE_24,                      13, 14 ; $23 (v1.0, 2026-11-05: the NUGGET BRIDGE and its approach only; rows 0-9 went to ROUTE_25, and the strip above the bridge, row 9, stays here, grown to four rows)
 	map_const ROUTE_25,                      48, 10 ; $24 (v1.0, 2026-11-05: thirteen columns WEST, the old top of ROUTE_24; it now meets ROUTE_24 along its south edge)
 DEF FIRST_INDOOR_MAP EQU const_value
 	map_const REDS_HOUSE_1F,                  4,  4 ; $25
@@ -310,7 +310,7 @@ DEF FIRST_INDOOR_MAP EQU const_value
 	map_const BRUNOS_ROOM,                    5,  6 ; $F6
 	map_const AGATHAS_ROOM,                   5,  6 ; $F7
 	map_const SUMMER_BEACH_HOUSE,             7,  4 ; $F8
-	map_const VIRIDIAN_OLD_ROD_HOUSE,         4,  4 ; $F9 (the standard small-house interior; the FISHING GURU moved here out of the Viridian MART)
+	map_const VIRIDIAN_OLD_ROD_HOUSE,         4,  4 ; $F9 (the fishing houses' interior, VERMILION_GOOD_ROD_HOUSE's blocks on the SHIP tileset; the FISHING GURU moved here out of the Viridian MART)
 	map_const DAYCARE_2F,                     4,  4 ; $FA (the Day Care's upper floor: the gentleman's daughter and her wards)
 	map_const BILLS_GARDEN,                  12, 12 ; $FB (behind BILL's cottage; reached only through the house, and only after the League)
 	map_const BLUES_HOUSE_2F,                 4,  4 ; $FC (the rival's bedroom, mirroring the player's own upstairs)

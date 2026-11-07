@@ -15,7 +15,7 @@
 ;
 ; This is a MUSIC list, deliberately independent of BossTrainerClasses: it
 ; includes the hand-calibrated semi-bosses (Jessie & James, Janine, Joy,
-; Jenny, Smith, Craig, Weebra) and excludes RIVAL1/RIVAL2, so the rival
+; Jenny, Bill, Smith, Craig, Weebra) and excludes RIVAL1/RIVAL2, so the rival
 ; fanfare escalates — only the Champion fight (RIVAL3) sounds grand.
 ; Order doesn't matter (linear scan). Terminator is -1.
 GrandVictoryClasses::

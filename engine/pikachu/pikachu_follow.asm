@@ -963,7 +963,7 @@ Func_fca0a:
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
 ; v0.7: sixteen ticks, not the original eight. The crossing has to cover exactly
-; two cells - 32 pixels - and the two adds available move 4 or 2 pixels a tick,
+; two cells - 32 pixels - and the adds available then moved 4 or 2 pixels a tick,
 ; so the only clean durations are 8 fast ticks or 16 at half speed. In play the
 ; fast one was over before the hop read, especially head-on.
 	ld [hl], $10
@@ -991,12 +991,12 @@ asm_fca1c:
 
 PikachuLedgeHopArc:
 ; v0.7: Pikachu crossed ledges by sliding flat across them. The crossing itself
-; was already right and is untouched - Func_fca0a moves him the same two cells
-; the player's jump covers, at double speed over eight frames. All this adds is
+; was already right and keeps its path - Func_fca0a moves him the same two cells
+; the player's jump covers, at single speed over sixteen frames. All this adds is
 ; a vertical offset on top of that, so the ledge reads as something he jumps
 ; rather than something he skims.
 ;
-; The eight deltas sum to ZERO, so the last frame puts him exactly where the
+; The sixteen deltas sum to ZERO, so the last frame puts him exactly where the
 ; slide had computed. That is the whole reason for storing deltas instead of
 ; heights: no base position to remember between frames, and no drift to correct
 ; at the end - which matters because his position feeds the follow logic, not

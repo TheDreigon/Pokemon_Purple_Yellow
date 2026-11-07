@@ -292,9 +292,9 @@ NEXTU
 ; v0.7: the Game Boy Printer's 1300 bytes of send buffers, tile buffer and
 ; state used to be this branch of the union, wrapped around the two LY override
 ; buffers below. Removing the printer freed no WRAM at all: the branch was
-; exactly wOverworldMap's size, so the union - and therefore the section - is
-; still 1300 bytes wide. What it did buy is the home bank (see home/serial.asm
-; and home/vblank.asm) and ~8 KB of ROMX.
+; exactly wOverworldMap's size, so the union - and therefore the section - stayed
+; 1300 bytes wide (until wOverworldMap shrank to 1248 on 2026-09-08). What it did
+; buy is home bank space (home/printer.asm and its VBlank and Serial hooks) and ~8 KB of ROMX.
 ;
 ; The leading padding is load-bearing: wLYOverrides must start on a page
 ; boundary ($C700), because home/lcdc.asm addresses it as
@@ -553,13 +553,13 @@ wForceEvolution:: db
 
 ; the second AI layer (setup moves on the mon's first turn) runs only while
 ; this reads 0: zeroed at every send-out (and by SwitchEnemyMon since v1.0),
-; counted up by ExecuteEnemyMove. (The old comment said "!= 1": the reverse.)
+; counted up by ExecuteEnemyMove.
 wAILayer2Encouragement:: db
 
 ; v1.0 (2026-09-26, the AI switch layer): the switch layer's request for
 ; TrainerAI: 0 = none, else 1 + the party index of the teammate to bring in
 ; (AIPickSwitchTarget). Cleared by SelectEnemyMove every turn; consumed by
-; EnemySendOut when the switch happens, or by TrainerAI's hook when it does
+; EnemySendOutFirstMon when the switch happens, or by TrainerAI's hook when it does
 ; not - so it lives one turn at most. Before a faint replacement
 ; AIPickFaintReplacement rewrites it (2026-09-27: 0, or its own pick). Was a 1-byte pad inside
 ; wMiscBattleData (zeroed by InitBattleVariables, below the save).
@@ -667,7 +667,7 @@ wEnemyBideAccumulatedDamage:: dw
 ; Per-battle item inventory for the enemy trainer. Populated at battle start
 ; by InitEnemyTrainerItemBag (data/trainers/boss_item_bags.asm — per-FIGHT
 ; bags selected by class + wTrainerNo since 2026-08-17) only when this
-; is a Hard-mode boss battle; otherwise filled with -1 (no items). Format:
+; is a Hard-mode boss or semi-boss battle; otherwise filled with -1 (no items). Format:
 ; pairs of (item_id, count_remaining). End marker -1 in item_id slot.
 ; CheckAndConsumeBossItem walks this and decrements count on use.
 wEnemyTrainerItemBag:: ds BOSS_BAG_SIZE
@@ -1016,7 +1016,7 @@ NEXTU
 ; battle (since v0.7) both opt in; Bill's PC leaves it alone and behaves as
 ; it always did.
 ; Repurposed from wUnusedCD3D: same address, same size, and it sits in menu
-; scratch, nowhere near the saved block - BUT $cd3d is a ~40-way union
+; scratch, nowhere near the saved block - BUT that byte is a ~40-way union
 ; (wBoxNumString, wSwappedMenuItem, wPriceTemp...), so a caller must write it
 ; right before the predef and never trust what it finds there (2026-09-05).
 wStatusScreenPageChange:: db
@@ -1465,8 +1465,8 @@ ENDU
 wSpareBattleByte1:: db
 wSpareBattleByte2:: db
 ; v1.0 (2026-11-02): the defender's traits for the chart walks (type_effectiveness.asm), from its species
-; (SetDefenderTraits): every caller of ApplyTypeEffectivenessToDamage and AIGetTypeEffectivenessDBC sets
-; them first. wDefenderType3: its third type, $FF for none. wDefenderAirborne: FLYING when it is AIRBORNE,
+; (SetDefenderTraits): ApplyTypeEffectivenessToDamage looks them up itself; every caller of AIGetTypeEffectivenessDBC
+; sets them first. wDefenderType3: its third type, $FF for none. wDefenderAirborne: FLYING when it is AIRBORNE,
 ; which only GROUND's rows read, $FF when not (the walks reach it from wDefenderType3 with inc hl). They
 ; were wAITargetMonType1 and wAITargetMonType2, two of the four dead pureRGB AI bytes.
 wDefenderType3:: db
@@ -1819,9 +1819,8 @@ wMonHBackSprite:: dw
 wMonHMoves:: ds NUM_MOVES
 wMonHGrowthRate:: db
 wMonHLearnset:: flag_array NUM_TMS + NUM_HMS
-	; 60 learnset flags (NUM_TMS 55 + NUM_HMS 5) fill 8 bytes exactly, so unlike
-	; vanilla's 55-flag (7 bytes + 1 pad) learnset, the flags themselves need no
-	; padding byte after them.
+	; 60 learnset flags (NUM_TMS 55 + NUM_HMS 5) take 8 bytes, vanilla's 55 took 7;
+	; as in vanilla, the struct's spare byte follows them (wMonHPicBank below).
 ; 2026-08-09: the byte that follows is the ROM struct's spare one (rb_skip in
 ; BASE_DATA_SIZE), and it now carries the bank this mon's pics live in - see
 ; home/pics.asm. It had no name here before, which was a real fault and not just
@@ -2284,17 +2283,13 @@ wd47a:: db
 ; SRAM by the ordinary save path: no new save region, no new WRAM (there is
 ; none: WRAM0 is 8192/8192). The padding was proved dead by canary -- $A5 across
 ; all 47 bytes, 4000 frames of play across a map change, nothing written.
-;
-; ⚠️ A save made before this commit has the OLD meanings here, so it will show a
-; scattering of moves as already seen and the beach-house flags / surf hi-score
-; will read as garbage. Nothing else in the save moves.
 wd492:: db
 wSurfingMinigameHiScore:: dw ; little-endian BCD
 ; v1.0 (2026-09-08, T30): the pad after the high score (PrepareOakSpeech's redundant
 ; clear of + 2 is gone) and wUnknownSerialFlag_d499 (Cable Club) went to the stack.
 wd49c:: db
 
-; One bit per move, set when the move's animation is played in battle and for
+; One bit per move, set when battle announces the move ("<MON> used MOVE!") and for
 ; every move the player's own party knows. See home/movedex_seen.asm.
 ; v0.7 expansion prep (2026-08-31): pre-sized to MOVEDEX_FLAG_CAPACITY (32
 ; bytes) - see the note on the dex bitfields above. CountMovedexSeen masks
@@ -2330,8 +2325,6 @@ wSignTextIDs:: ds 16
 ; number of sprites on the current map (up to 16)
 wNumSprites:: db
 
-; these two variables track the X and Y offset in blocks from the last special warp used
-; they don't seem to be used for anything
 ; v1.0 (2026-09-08, T30): wY/XOffsetSinceLastSpecialWarp (counted on every step, never
 ; read) went to the stack with their six write sites (advance_player_sprite.asm,
 ; special_warps.asm).
@@ -2401,7 +2394,7 @@ wMissableObjectFlagsEnd::
 ; Stack section (359 -> 343: layout.link "Stack" org $de99 -> $dea9). Every
 ; label after this point moved 16 bytes: a SAVE-FORMAT CHANGE
 ; (migrate_sav_specialsplit.py zero-fills this block; escape_rope_audit's
-; wd728 landmark is $3bb now).
+; wd728 landmark went to $3bb, and is $3bc since wTownVisitedFlag grew).
 wMissableObjectFlags2:: flag_array HS2_CAPACITY
 wMissableObjectFlags2End::
 
@@ -2660,7 +2653,7 @@ wBlockNextWarp:: db
 ; bit 3: received Old Rod
 ; bit 4: received Good Rod
 ; bit 5: received Super Rod
-; bit 6: a Saffron gate guard let the player through (four BADGES since 2026-09-06; was "gave a guard a drink") - shared by the four gates and the Route 5 youngster
+; bit 6: a Saffron gate guard let the player through (four BADGES since 2026-09-06; was "gave a guard a drink") - shared by the four gates
 ; bit 7: set by ItemUseCardKey, which is leftover code from a previous implementation of the Card Key
 wd728:: db
 
@@ -2883,8 +2876,7 @@ SECTION "Stack", WRAM0
 ; $df18 -> $df80 ($df80 + $80 = $e000). The deepest use the emulator suite
 ; measured (stack_survey: sentinel fill, 2026-09-06) was 115 bytes of the old
 ; 232 on overworld and text paths, and see the battle figure recorded in
-; layout.link. The v0.7 comment's "~60-70 static worst case" stays as the
-; design figure. Size must stay in sync with layout.link "Stack".
+; the CHANGELIST. Size must stay in sync with layout.link "Stack".
 ; v1.0 (2026-09-08): 359 bytes - 260 after the first pass that afternoon, then T30
 ; took 99 more from the dead padding and dead fields INSIDE the saved main-data
 ; block (vanilla holes in wGameProgressFlags, after wWalkBikeSurfState, after the
@@ -2896,7 +2888,7 @@ SECTION "Stack", WRAM0
 ; doing, so 13 bytes of headroom was inside one interrupt of an overflow (which
 ; lands on wBGPPalsBuffer first, then on the box data, which is SAVED).
 ; 132 bytes came back from WRAM0 without touching a saved range: wOverworldMap
-; 1300 -> 1248, four palette bytes into the "Audio RAM" tail, and the dead
+; 1300 -> 1248, four palette variables (eleven bytes) into the "Audio RAM" tail, and the dead
 ; padding and dead link/pureRGB bytes of SECTION "WRAM" (see the CHANGELIST).
 ; Guards: the ASSERT below, stack_headroom_audit.py (section floor, wStack at
 ; $dfff, WRAM0 packed, map buffer big enough) and emu_harness.Game, which lays a

@@ -1,4 +1,4 @@
-; The first of four partially duplicated sound engines.
+; The first of five partially duplicated sound engines.
 
 Audio1_UpdateMusic::
 	ld c, CHAN1

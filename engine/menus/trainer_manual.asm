@@ -10,8 +10,8 @@
 ;
 ; * THREE LEVELS, LIKE THE CELADON INFORMATION DESK -- chapters, the sections
 ;   inside one, then the page. By design: topics you pick from, not a book
-;   you read through. STATUS has nine sections and TYPE MATCHUPS has
-;   twenty-one; reaching either by paging would be the whole objection.
+;   you read through. STATUS has nine sections and THE TYPES has
+;   twenty-six; reaching either by paging would be the whole objection.
 ; * ONE CURSOR PER SCREEN AT EVERY LEVEL. Every navigation bug playtesting has
 ;   found in this project -- the two on the Celadon desk, the Bill quiz, the
 ;   Purple quiz -- was a screen with TWO cursors visible at once, which is that
@@ -28,10 +28,10 @@
 ; A SECTION MAY OWN MORE THAN ONE PAGE. A chapter holds a flat list of pages
 ; and a list of sections, each of which names the page it starts at. Selecting a
 ; section jumps to its first page; B from a page comes back to whichever section
-; owns the page being read. Every chapter but TYPE MATCHUPS is one page per
-; section today, and that one needs two -- a type as an attacker and the same
-; type as a defender do not fit on one screen together (measured: 23 lines of a
-; 13-line page; see .claude/type_page_fit.py).
+; owns the page being read. Every section is one page today except WHAT A BOSS
+; GETS and the per-type ones of THE TYPES, two each -- a type as an attacker and
+; the same type as a defender do not fit on one screen together (measured: 21
+; lines of a 13-line page; see .claude/type_page_fit.py).
 
 DEF MANUAL_NUM_CHAPTERS EQU 7
 ; Every list routine below takes the chapter it is listing in c, and this
@@ -99,12 +99,12 @@ TrainerManual_DrawContents:
 	hlcoord 1, 1
 	ld de, TrainerManualTitleText
 	call TrainerManual_PlaceCentered
-; Front matter. The framing: a boy leaves on his first journey and his mother
-; buys him the official manual. One line of provenance is what makes it that
+; Front matter. The framing: a child leaves on a first journey and the mother
+; buys the official manual. One line of provenance is what makes it that
 ; object instead of an anonymous list of true statements -- and it is what
 ; explains how a book in Pallet Town knows the rules of a gym battle.
-; Rows 2 and 3, not 3 and 4: nine chapters centre onto row 5, and the front
-; matter sitting directly above them read as a tenth entry.
+; Rows 2 and 3, not 3 and 4: the first version's nine chapters centred onto row 5
+; (the seven now start on row 6), and front matter just above read as a tenth entry.
 	hlcoord 1, 2
 	ld de, TrainerManualIssuedText
 	call TrainerManual_PlaceCentered
@@ -254,8 +254,8 @@ TrainerManual_DrawPage:
 ; The page is headed by the name of the SECTION that owns it, not the chapter's:
 ; it names what is being read, and RIGHT can walk you several sections away from
 ; the one you picked. The chapter is one B press up. Both pages of a two-page
-; section carry the same heading and say which half they are in their first
-; line.
+; section carry the same heading; a type's two say which half they are in their
+; first line.
 	push bc
 	call TrainerManual_SectionOfPage
 	ld b, a
@@ -284,8 +284,8 @@ TrainerManual_DrawPage:
 	pop bc
 
 ; "n/m" in the bottom right corner, counting SECTIONS rather than pages: a
-; two-page section is one topic, and "14/21" is the useful number in a chapter
-; of twenty-one types.
+; two-page section is one topic, and "19/26" is the useful number in a chapter
+; of five written sections and twenty-one types.
 	push bc
 	call TrainerManual_SectionOfPage
 	push af ; the section index -- every lookup below goes through d and e
@@ -353,11 +353,11 @@ TrainerManual_DrawList:
 
 ; A list longer than its window gets the game's own "there is more below" mark.
 ; HandleMenuInput blinks whatever sits at (18,11) if it is a down arrow
-; (home/window.asm:32), so putting one there is the whole feature.
+; (home/window.asm:33-34), so putting one there is the whole feature.
 ;
 ; Column 18 is the last cell a 17-tile section name would reach, so a scrolling
 ; list must not carry a name that long on row 11. The only one that scrolls is
-; TYPE MATCHUPS, whose longest name is ELECTRIC.
+; THE TYPES; its one such name (TWO TYPES AT ONCE) is third and never gets there.
 	push bc
 	call TrainerManual_WindowRows
 	ld b, a
@@ -454,8 +454,8 @@ TrainerManual_PutCursorOn:
 ; returns at the ends -- which is exactly when this needs to scroll.
 ;
 ; hUILayoutFlags bit 1 walks the cursor down consecutive rows instead of every
-; other one (home/window.asm:144-148). The battle FIGHT menu uses the same flag
-; for its four move names.
+; other one (PlaceMenuCursor in home/window.asm). The battle FIGHT menu uses the
+; same flag for its four move names.
 ;
 ; OUTPUT: a = the keys HandleMenuInput answered with. Preserves bc.
 TrainerManual_ReadList:
@@ -478,7 +478,7 @@ TrainerManual_ReadList:
 	ld hl, hUILayoutFlags
 	set 1, [hl]
 	call HandleMenuInput
-	ld b, a ; the answer is in a and the two lines below clobber it
+	ld b, a ; a copy only: the two lines below leave a and the flags alone
 	ld hl, hUILayoutFlags
 	res 1, [hl]
 	ld a, b
@@ -648,7 +648,7 @@ TrainerManual_SectionEntry:
 	inc hl ; past the count
 	ld a, b
 	add a
-	add b ; three bytes an entry; twenty-one sections cannot carry
+	add b ; three bytes an entry; twenty-six sections cannot carry
 	ld e, a
 	ld d, 0
 	add hl, de
@@ -704,7 +704,7 @@ TrainerManual_SwapForDifficulty:
 	or c
 ; v0.7 FIX: was `ret z` -- returning with hl pointing at the END OF THIS TABLE
 ; instead of the page. The page pointer is parked in de the whole time, so on
-; hard mode every page WITHOUT a hard twin (which is all of them but 5_2)
+; hard mode every page WITHOUT a hard twin (then all of them but 5_2)
 ; handed the table's tail to TextCommandProcessor, and the manual printed the
 ; bytes after the terminator as prose. Normal mode returns before the walk,
 ; which is why every reading of the manual until the first hard-mode
@@ -790,8 +790,8 @@ TrainerManual_PlaceCentered:
 
 ; Wait for a fresh press of one of this screen's buttons; return it in a.
 ;
-; Reading hJoyPressed -- the rising edge -- after first waiting for A and B to
-; come back up is the MOVE INFO card's guard, and it is here for the same
+; This reads hJoyPressed -- the rising edge -- after first waiting for A and B
+; to come back up. That wait is the MOVE INFO card's guard, here for the same
 ; reason: the press that opened a page is still down when this is first called,
 ; and read a second time it would turn the page the player was only opening.
 ; That phantom selection has been a bug in this project four times.
@@ -820,9 +820,9 @@ TrainerManualIssuedText:
 TrainerManualLeagueText:
 	db "#MON LEAGUE@"
 
-; A section is a name and the page it opens at. Every section below is one page,
-; except the per-type ones in chapter 6, which are two -- a type as an attacker
-; and the same type as a defender do not fit on one screen together.
+; A section is a name and the page it opens at. Every section below is one page
+; but WHAT A BOSS GETS and chapter 6's per-type ones, which are two -- a type as
+; an attacker and the same type as a defender do not fit on one screen together.
 ;
 ; A section name is at most 17 tiles: the cursor takes column 1 and the
 ; interior of the box ends at column 18.
@@ -973,7 +973,7 @@ TrainerManualChapter5Pages:
 	dw ManualPage_5_1, ManualPage_5_2, ManualPage_5_3
 	dw ManualPage_5_4, ManualPage_5_5, ManualPage_5_6
 
-; THE TYPES: four written sections, then one per type. MANUAL_TYPE_FIRST_PAGE is
+; THE TYPES: five written sections, then one per type. MANUAL_TYPE_FIRST_PAGE is
 ; where the written pages end, and is what the generated rows count from.
 DEF MANUAL_TYPE_FIRST_PAGE EQU 5
 TrainerManualChapter6Sections:
@@ -1153,10 +1153,10 @@ TrainerManualSection7_4:
 	manual_page ManualPage_7_4
 	manual_page ManualPage_7_4b
 
-; A page with a hard-mode twin. The PP page is now the ONLY place in the game
-; to read the difficulty and tell the truth for each setting -- the Viridian
-; PP sign did it first, and came down with the rest of the tips signs (T11,
-; 2026-08-31). A table rather than a test on the page index, so nothing here
+; Pages with a hard-mode twin, which read the difficulty and tell the truth for
+; each setting: the PP page (the Viridian PP sign did it first, and came down
+; with the rest of the tips signs, T11, 2026-08-31) and BADGES AND STATS (knob
+; #17). A table rather than a test on the page index, so nothing here
 ; has to know which chapter it is.
 TrainerManualHardPages:
 	dw ManualPage_5_2, ManualPage_5_2_Hard

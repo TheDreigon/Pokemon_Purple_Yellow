@@ -456,7 +456,7 @@ MainInBattleLoop:
 .enemyFirstUnseen
 	call ExecuteEnemyMove
 	ld a, [wEscapedFromBattle]
-	and a ; and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
+	and a ; escaped from battle? (vestigial for moves: Teleport was repurposed and Roar/Whirlwind removed in the v0.5 movelist overhaul)
 	ret nz ; if so, return
 	ld a, b
 	and a
@@ -919,7 +919,7 @@ HandleEnemyMonFainted:
 ; v1.0 (2026-09-27): a double KO. From here wInHandlePlayerMonFainted reads 1,
 ; as in HandlePlayerMonFainted: the player's replacement is chosen and sent out
 ; first (ChooseNextMon), so AIPickFaintReplacement must not pick against it.
-; Its only readers (FaintEnemyPokemon, RemoveFaintedPlayerMon) have already run.
+; Its other readers (FaintEnemyPokemon, RemoveFaintedPlayerMon) have already run.
 	ld a, 1
 	ld [wInHandlePlayerMonFainted], a
 	call DoUseNextMonDialogue ; this call is useless in a trainer battle. it shouldn't be here
@@ -1016,9 +1016,9 @@ FaintEnemyPokemon:
 	ld [wBattleResult], a
 ; #10: who gets this battle's experience is decided by DistributeExperience,
 ; which lives next to GainExperience in engine/battle/experience.asm. It moved
-; out of here for room - "Battle Core" has 26 bytes of its bank left, and the
-; bank the experience code is in has over 1400 - and it reads better there,
-; because every one of the three EXP.SHARE modes ends in a call to
+; out of here for room - "Battle Core" had 26 bytes of its bank left (2026-08-14), and the
+; bank the experience code is in had over 1400 - and it reads better there,
+; because every one of the three EXP.SHARE modes goes through a call to
 ; GainExperience, which is a near call from that file and a farcall from this
 ; one.
 	jpfar DistributeExperience
@@ -1078,7 +1078,7 @@ ReplaceFaintedEnemyMon:
 ; v1.0 (2026-09-27): who replaces the fainted mon - a trainer with the switch
 ; layer picks it as the layer does; the rest, and a double KO, keep party
 ; order. The answer is in wAISwitchRequest (0 = party order); EnemySendOut
-; consumes it. a, b, c and hl come back clobbered; nothing below reads them.
+; consumes it. a, bc, de and hl come back clobbered; nothing below reads them.
 	callfar AIPickFaintReplacement
 	call EnemySendOut
 	xor a
@@ -2311,7 +2311,7 @@ DrawEnemyHUDAndHPBar:
 	and a
 	jr z, .notOwned
 	coord hl, 1, 1;horizontal/vertical
-	ld [hl], $D0 ; ld [hl], $D0 ; Poké Ball icon: species already owned in the Pokédex
+	ld [hl], $D0 ; Poké Ball icon: species already owned in the Pokédex
 .notOwned
 	pop hl
 	ld de, wEnemyMonNick
@@ -2319,7 +2319,7 @@ DrawEnemyHUDAndHPBar:
 	call CenterMonName
 	call PlaceString
 ; v1.0 (2026-09-24): level at (3,1), status at (7,1), both at once. The ball
-; icon keeps (1,1), the HP bar is row 2 (cols 2-9) and the box's bottom edge
+; icon keeps (1,1), the HP bar is row 2 (cols 2-10) and the box's bottom edge
 ; is row 3 (cols 1-10).
 	hlcoord 3, 1
 	ld a, [wEnemyMonLevel]
@@ -3725,7 +3725,7 @@ SelectEnemyMove:
 	ld [wEnemyMoveListIndex], a
 	; v0.7 (AI PP fix): if the picked move has 0 PP, retry. Termination is
 	; guaranteed by .anySelectableMoveInList at .chooseRandomMove, NOT by
-	; the raw-PP pre-check (the AI list can exclude every PP-holding slot).
+	; v0.7's raw-PP pre-check (its AI list could exclude every PP-holding slot).
 	push hl
 	push bc
 	ld c, a
@@ -3751,11 +3751,11 @@ SelectEnemyMove:
 	ret
 .retryOutOfPP
 ; v0.7 FIX (stack-leak crash). The out-of-PP retry above is reached while
-; the `push hl` from .chooseRandomMove is still on the stack — its balancing
+; the `push hl` from .pickFromList is still on the stack — its balancing
 ; `pop hl` lives further down (after the disabled/exists checks), so jumping
 ; straight back leaked 2 bytes of stack PER retry. The enemy's empty move
 ; slots read as 0 PP, so this fired most turns and slowly overflowed the
-; (then mart-shrunk to ~193B; since re-padded to ~248B) WRAM stack into Main Data -> total crash after a
+; (then mart-shrunk to ~193B; 342B since 2026-09-24) WRAM stack into Main Data -> total crash after a
 ; variable number of turns, in BOTH modes. Pop the orphan before retrying.
 	pop hl
 	jp .chooseRandomMove
@@ -3796,7 +3796,7 @@ SelectEnemyMove:
 	pop hl
 	ret
 
-; this appears to exchange data with the other gameboy during link battles
+; this used to exchange data with the other gameboy during link battles
 LinkBattleExchangeData:
 ; v0.7: the link cable is gone, so there is nobody on the other side to exchange
 ; anything with. The body -- the nybble handshake and the zero-byte drain -- was
@@ -3805,7 +3805,8 @@ LinkBattleExchangeData:
 ; The FOUR call sites are deliberately left where they are, in
 ; ReplaceFaintedEnemyMon, the party menu, .canEscape and SelectEnemyMove. Every
 ; one of them is already behind `ld a, [wLinkState] / cp LINK_STATE_BATTLING`,
-; and wLinkState can no longer be anything but LINK_STATE_NONE, so none of them
+; and wLinkState can no longer be LINK_STATE_BATTLING (it leaves LINK_STATE_NONE
+; only for an in-game trade's evolution, as LINK_STATE_TRADING), so none of them
 ; can reach this. Editing the battle engine to delete four unreachable calls
 ; buys nothing and risks the one routine in the game that must not break.
 	ret
@@ -3858,7 +3859,7 @@ PlayerCanExecuteChargingMove:
 	ld hl, wPlayerBattleStatus1
 	res CHARGING_UP, [hl] ; reset charging up and invulnerability statuses if mon was charging up for an attack
 	                    ; being fully paralyzed or hurting oneself in confusion removes charging up status
-	                    ; resulting in the Pokemon being invulnerable for the whole battle
+	                    ; and invulnerability too (.MonHurtItselfOrFullyParalysed; vanilla left the Pokemon invulnerable for the whole battle)
 	res INVULNERABLE, [hl]
 PlayerCanExecuteMove:
 	call PrintMonName1Text
@@ -4531,7 +4532,7 @@ MonName1Text:
 ; a new mon's first move always reads as a first time. a and hl are kept.
 	push af
 	cp [hl]
-	ld a, 0 ; not xor a: it would clear the Z of the cp
+	ld a, 0 ; not xor a: it would overwrite the Z of the cp
 	jr nz, .storeRepeatCount
 	ld a, [wAIRepeatCount]
 	inc a
@@ -4596,7 +4597,7 @@ PrintMoveFailureText:
 .playersTurn
 	ld a, [wMoveMissed]
 	cp MOVE_FAILED_PROTECTED
-	jr z, .textSaid ; v1.0 (2026-11-02): the target protected itself, and MoveHitTest has said so
+	jr z, .textSaid ; v1.0 (2026-11-02): the target protected itself, and TargetIsProtected has said so
 	ld hl, DoesntAffectMonText
 	ld a, [wDamageMultipliers]
 	and $7f
@@ -4673,7 +4674,7 @@ IsUnaffectedText:
 	text_end
 
 ; MoveEvadedText and NoScratchText live in the home bank (home/battle_failure.asm)
-; because Battle Core has single-digit bytes left. The home bank is mapped at all
+; because Battle Core had single-digit bytes left (2026-08-06). The home bank is mapped at all
 ; times, so PrintText reads them from there exactly as it would from here.
 
 KeptGoingAndCrashedText:
@@ -6391,7 +6392,7 @@ CheckEnemyStatusConditions:
 	cp [hl]
 	jr nz, .checkIfParalysed
 	call PrintMoveIsDisabledText
-	ld hl, ExecuteEnemyMoveDone ; if a disabled move was somehow selected, player can't move this turn
+	ld hl, ExecuteEnemyMoveDone ; if a disabled move was somehow selected, enemy can't move this turn
 	jp .enemyReturnToHL
 .checkIfParalysed
 	ld hl, wEnemyMonStatus
@@ -6570,10 +6571,11 @@ LoadEnemyMonData:
 	ld b, a
 	call BattleRandom
 .storeDVs
-	; v0.7 hard mode boss DV override. Boss enemies get $ff/$ff (DV=15 in
+	; v0.7 boss DV override. Boss enemies get $ff/$ff (DV=15 in
 	; every stat including HP, via the standard DV encoding; SP.DEF shares
 	; the Special DV).
-	; IsHardModeBossBattle gates on trainer-battle + boss class, so the WILD
+	; ShouldMaxEnemyDVs gates on trainer-battle + class (a boss in either
+	; mode, a semi-boss in Hard only), so the WILD
 	; path falls through unchanged — but note the TRANSFORMED path does NOT:
 	; `bit TRANSFORMED / jr nz, .storeDVs` above lands right here, so a
 	; transformed boss mon has its restored wTransformedEnemyMonOriginalDVs
@@ -7137,8 +7139,8 @@ PrintEmptyString:
 	db "@"
 
 
-; BattleRandom moved to home/battle_random.asm. It is called 24 times from
-; here and 23 times from engine/battle/effects.asm, which is about to live in
+; BattleRandom moved to home/battle_random.asm. It is called 21 times from
+; here and 23 times from engine/battle/effects.asm, which lives in
 ; another bank -- and the home bank is mapped at all times, so both sides keep
 ; a plain `call` and neither pays a farcall's clobbered registers.
 

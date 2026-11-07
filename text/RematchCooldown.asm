@@ -2,7 +2,8 @@
 ; EVENT_REMATCHED_* flag is already set, i.e. the player has spent this
 ; League run's rematch against them. Beating the Elite Four again clears
 ; the whole block (scripts/HallOfFame.asm). Lines are <= 17 drawn tiles.
-; The seven gym leaders share one text; JOY and JENNY keep their own voice.
+; The eight gym leaders (KIYO at VIRIDIAN too) share one text; JOY and JENNY
+; keep their own voice.
 
 _GymRematchCooldownText::
 	text "We've already had"
@@ -22,7 +23,7 @@ _NurseJoyRematchCooldownText::
 	line "for the battle!"
 
 ; v0.7 (#38): she has no patients any more -- she left the CENTER to help her
-; father, and says so two pages earlier in her own intro.
+; father, and says so earlier in the same talk, in her own intro.
 	para "But the boarders"
 	line "need feeding."
 

@@ -186,9 +186,9 @@ UpdateNPCSprite:
 ; UpdateSprites before setting it to 8), and an NPC that came ready during the first step would set off right
 ; then - into the cell LedgeLandingIsTaken had just found free. The hold comes before the scripted-movement
 ; branch, so an NPC on a MoveSprite path waits too: delayed by the jump, no step skipped. FishingAnim and
-; AnimatePikachuShadow (PIKACHU's scripted hops) raise the bit too, in loops that do not call UpdateSprites;
-; the one UpdateSprites under it there is EmotionBubble's last on the fishing bite, a frame on which a ready
-; NPC now waits.
+; AnimatePikachuShadow (PIKACHU's scripted hops) raise the bit too. PIKACHU's loop calls no UpdateSprites;
+; FishingAnim's (PrintText's on every cast, EmotionBubble's last on a bite) find every NPC already held at
+; notYetMoving by wFontLoaded bit 0 (the bag's or the registered item's text box): the hold changes nothing.
 	ld a, [wd736]
 	bit 6, a
 	ret nz

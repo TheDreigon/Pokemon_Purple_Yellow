@@ -51,7 +51,7 @@ BillsHouseGardenWalkScript:
 	ldh [hSpriteIndex], a
 ; If the player is facing LEFT they are standing at (5,4), the one cell that is
 ; in his way -- so he goes around by row 5, the way vanilla's own Bill walk
-; picks a detour off the player's facing a few routines above.
+; picks a detour off the player's facing in BillsHouseScript2, further down.
 	ld a, [wSpritePlayerStateData1FacingDirection]
 	cp SPRITE_FACING_LEFT
 	ld de, BillsHouseGardenWalkStraight
@@ -600,7 +600,7 @@ BillsHouseScript11:
 ; textbox before BILL's last step finished. The walk provably terminates on
 ; its own (scripted steps are consumed even when blocked), so the watchdog
 ; only needs headroom: tick it every OTHER frame (play-time parity),
-; doubling the budget to ~126 frames without touching the six-bit home.
+; doubling the budget to ~120 frames without touching the six-bit home.
 	ld a, [wPlayTimeFrames]
 	rrca
 	ret c ; odd frame: the countdown sits this tick out

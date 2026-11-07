@@ -75,7 +75,7 @@ IsPikachuInParty::
 ; structs for PARTY_LENGTH slots regardless of the real count, so the data
 ; remnants of a DEPOSITED mon in the tail slots could satisfy it; this
 ; walks the $ff-terminated species list instead.)
-; Falls into Func_3467, which maintains bit 7 (the partner-in-party flag).
+; Ends with a call to Func_3467, which maintains bit 7 (the partner-in-party flag).
 	ld a, [wd472]
 	and $3f
 	ld [wd472], a
@@ -84,7 +84,7 @@ IsPikachuInParty::
 	ld a, [hli]
 	inc a ; $ff list terminator?
 	jr z, .done
-	cp STARTER_PIKACHU + 1 ; +1: o inc do teste de terminador ja passou por a
+	cp STARTER_PIKACHU + 1 ; +1: the inc of the terminator test already went through a
 	jr nz, .loop
 	ld a, [wd472]
 	set 6, a

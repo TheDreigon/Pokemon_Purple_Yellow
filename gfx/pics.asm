@@ -206,7 +206,7 @@ BeedrillPicBack::     INCBIN "gfx/pokemon/back/beedrillb.pic"
 ; in the wild, which can evolve). Same dims as the Yellow pic (both 6x6), so only
 ; the pointer and bank get swapped (UseFakePikachuFrontPic in
 ; engine/pikachu/pikachu_status.asm). No back pic: only the player's own
-; mon shows a back, and the fake's status/battle appearances are fronts.
+; mon shows a back, and a caught one shows Pikachu's usual back in battle.
 PikachuFakePicFront:: INCBIN "gfx/pokemon/front/pikachu_fake.pic"
 ; LOAD-BEARING: the fake-pic repoint rewrites the header's single shared
 ; pic-bank byte, and the Hall of Fame then loads the BACK pic through it
@@ -360,9 +360,10 @@ SuperNerdPic::     INCBIN "gfx/trainers/supernerd.pic"
 HikerPic::         INCBIN "gfx/trainers/hiker.pic"
 BikerPic::         INCBIN "gfx/trainers/biker.pic"
 BurglarPic::       INCBIN "gfx/trainers/burglar.pic"
-; v0.7: EngineerPic was here. The ENGINEER class slot became KIYO (who reuses
-; BlackbeltPic), so the engineer portrait had no remaining reference and its
-; bytes went back to "Trainer Pics 1". The .pic file stays in gfx/trainers/.
+; v0.7: EngineerPic was here. The ENGINEER class slot became KIYO (on BlackbeltPic
+; then, his own KiyoPic below since 2026-08-18), so the engineer portrait had no
+; remaining reference and its bytes went back to "Trainer Pics 1". The .png file
+; stays in gfx/trainers/.
 FisherPic::        INCBIN "gfx/trainers/fisher.pic"
 SwimmerPic::       INCBIN "gfx/trainers/swimmer.pic"
 CueBallPic::       INCBIN "gfx/trainers/cueball.pic"
@@ -378,7 +379,7 @@ BlackbeltPic::     INCBIN "gfx/trainers/blackbelt.pic"
 ; not a different species of person - but he is his own trainer now, so he gets
 ; his own pic rather than pointing at theirs. It MUST stay in this section:
 ; _LoadTrainerPic picks the bank from the CLASS with a cp ladder, and $0C falls
-; below PROF_OAK into "Trainer Pics 1". pic_bank_audit guards that.
+; below PROF_OAK into "Trainer Pics 1". trainer_pic_bank_audit guards that.
 KiyoPic::          INCBIN "gfx/trainers/kiyo.pic"
 Rival1Pic::        INCBIN "gfx/trainers/rival1.pic"
 

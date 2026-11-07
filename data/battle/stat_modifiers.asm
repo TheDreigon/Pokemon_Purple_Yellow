@@ -7,8 +7,8 @@
 ; only). It started on the modern (Gen 5+) 3/(3+n) curve (-1 = x0.75 against
 ; the shared stat table's x0.66); a playthrough (2026-09-05) still found -1 too
 ; strong, so the curve is one notch shallower, 4/(4+n): -1 = x0.80, -6 = x0.40,
-; +1 = x1.25, +6 = x2.50. Same shape, gentler steps. The four battle stats
-; keep StatModifierRatios above.
+; +1 = x1.25, +6 = x2.50. Same shape, gentler steps. The five battle stats
+; keep StatModifierRatios (home/stat_modifier_ratios.asm).
 ; NOTE: only the per-stage RATIOS are modern. CalcHitChance keeps Gen 1's
 ; structure of multiplying the attacker's accuracy ratio and the target's
 ; (inverted) evasion ratio SEPARATELY — real Gen 5 combines both stages and

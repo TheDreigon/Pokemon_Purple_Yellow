@@ -32,8 +32,8 @@ DEF PC_ITEM_CAPACITY  EQU 50
 	const SAFARI_BATTLE_MENU_TEMPLATE       ; $1b
 ; #10: the EXP.SHARE's three settings. Appended, and safe to append: both
 ; TextBoxCoordTable and the text_box_text table in data/text_boxes.asm are
-; tagged with the id and scanned to a -1 terminator, so nothing is indexed by
-; position and no existing id moves.
+; tagged with the id and searched for it (SearchTextBoxTable), so nothing is
+; indexed by position and no existing id moves.
 	const EXPSHARE_MENU_TEMPLATE            ; $1c
 
 ; two option menu constants
@@ -82,7 +82,7 @@ DEF FIRST_PARTY_MENU_TEXT_ID EQU const_value
 	const BURN_HEAL_MSG        ; $F1
 	const ICE_HEAL_MSG         ; $F2
 	const SLEEP_HEAL_MSG        ; $F3
-	const PARALYSIS_HEAL_MSG   ; $F4 (vanilla spelled this one PARALYZ, not PARLYZ - the 08-31 family sed missed it)
+	const PARALYSIS_HEAL_MSG   ; $F4 (vanilla spelled this one PARALYZ, not PARLYZ)
 	const POTION_MSG           ; $F5
 	const FULL_HEAL_MSG        ; $F6
 	const REVIVE_MSG           ; $F7
@@ -105,7 +105,7 @@ DEF FIRST_PARTY_MENU_TEXT_ID EQU const_value
 ; (Bill's PC) gets vanilla behaviour untouched: A or B ends the page and the
 ; d-pad does nothing. The overworld party menu and battle both opt in.
 ; 🔴 EVERY caller must WRITE the byte before the predef, opt-in or not: it
-; sits at $cd3d, a huge WRAM union (wBoxNumString among ~40 others), so a
+; sits at $ccfb, a huge WRAM union (wBoxNumString among ~40 others), so a
 ; stale value with bit 7 set impersonates an opt-in - Bill's PC drew garbage
 ; pictures for exactly that reason until 2026-09-05. NormalizeMode cannot
 ; tell a stale $F7 from a real mode; only the writer can.
@@ -131,8 +131,8 @@ DEF STATUS_KEEPPIC  EQU %00010000 ; same mon as the page just left: its picture
 	const STATUS_NEXT_MON   ; 2
 	const STATUS_OTHER_PAGE ; 3
 
-; How many frames Bill's doorway walk is allowed before the scene gives up and
+; How many ticks Bill's doorway walk is allowed before the scene gives up and
 ; plays out where he stands. Lives in the low six bits of wd492, whose top two
-; bits Bill's house already uses, so it costs no new WRAM. The walk itself is
-; four steps, well under this.
+; bits Bill's house already uses, so it costs no new WRAM. A tick is every other
+; frame (~120 frames in all); the walk itself is four steps at most, ~68 frames.
 DEF BILLSHOUSE_WALK_TIMEOUT EQU 60

@@ -6,7 +6,7 @@ PrintBlackboardLinkCableText:
 	call PrintPredefTextID
 	ret
 
-; v0.7: LinkCableHelp and its four texts lived here -- the CELADON MANSION roof
+; v0.7: LinkCableHelp and its five texts lived here -- the CELADON MANSION roof
 ; house board that taught HOW TO LINK / COLOSSEUM / TRADE CENTER. They went with
 ; the link cable. PrintBlackboardLinkCableText above is NOT link-specific in
 ; anything but its name: the VIRIDIAN SCHOOL blackboard goes through it too.

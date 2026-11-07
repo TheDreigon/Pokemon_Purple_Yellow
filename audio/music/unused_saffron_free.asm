@@ -9,9 +9,13 @@
 ; git also has it, in every commit up to that date -- this copy exists so it is
 ; findable without knowing which commit to look in.
 ;
-; TO BRING IT BACK: rename Music_UnusedSaffronFree -> Music_SaffronFree throughout,
-; delete the live file, and nothing else changes -- the header, the constant,
-; the audio.asm INCLUDE and the songs.asm line all already name Music_SaffronFree.
+; TO BRING IT BACK: rename Music_UnusedSaffronFree -> Music_SaffronFree throughout
+; and put this file in place of the live saffronfree.asm. The constant, the
+; audio.asm INCLUDE and LoadMapMusicOverrides already name it (no songs.asm line
+; does), but this version has three channels and the live Music_SaffronFree header
+; (audio/headers/musicheaders5.asm) has four: its Ch4 entry must go, which moves
+; the id of every song after it. The notes below are as shipped, so their
+; Music_SaffronCity means this file's twin, unused_saffron_occupied.asm.
 ; Then check: python .claude/song_id_audit.py and .claude/music_analyze.py
 ;
 ; The same piece in A major and about ten percent faster, reached through

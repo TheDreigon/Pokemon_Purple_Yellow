@@ -16,8 +16,8 @@
 ; 1. THE SEA IS Ch3, and it is the heart of this. Cities2's wave channel
 ;    alternates two notes flatly -- E G# E G# for a whole bar, F# A F# A for the
 ;    next -- which TICKS. Here each of those bars is one arc instead: up from
-;    the root an octave lower, through the chord, and back down. Same pitch
-;    classes, same rhythm, same sixteen bars; only the shape changes. The
+;    the root an octave lower, through the chord, and back down. Same chords
+;    (the E bars gain their fifth, B), same rhythm, same sixteen bars. The
 ;    octave-3 root also gives the track a floor it never had -- no Gen 1 city
 ;    theme has a real bass, this channel sits in octave 4 in all of them -- and
 ;    that low note arriving under each bar is what reads as swell.
@@ -35,7 +35,7 @@
 ;    supposed to be opening up.
 ;
 ; 3. Ch1 VIBRATO 8,3,2 -> 14,3,5. Later to arrive, so the quick runs stay clean,
-;    and deeper once it does, so the long notes -- bar 14 is a whole bar on one
+;    and slower once it does, so the long notes -- bar 14 is a whole bar on one
 ;    E -- sway instead of sitting still. Sound carrying over water.
 ;
 ; 4. Ch2 VOLUME 12 -> 10 throughout, fades untouched. Cities2's counter-melody is
@@ -49,10 +49,9 @@
 ;    a becalmed one. 152 is also the most common tempo in Kanto.
 ;
 ; ENGINE NOTES:
-;   - No finite `sound_loop N` anywhere. Its counter is compared before it is
-;     incremented and resets to 1 rather than 0, so a block plays N+1 times on
-;     the first pass and N afterwards, leaving that channel permanently offset.
-;     Cities1 and Vermilion both ship that way. Repeats here are `sound_call`.
+;   - No finite `sound_loop N` anywhere; repeats here are `sound_call`. (A
+;     top-level one would play right: InitMusicVariables starts each channel's
+;     loop counter at 1, so its block plays N times on every pass.)
 ;   - `sound_call` does not nest: one return address per channel.
 ;   - All four channels are 384 ticks of intro and 3072 of loop -- 2 bars and
 ;     16. Nothing in the engine lines channels up and no build error would
@@ -351,7 +350,7 @@ Music_CeruleanCity_Ch3::
 	sound_call .eArc
 	sound_call .fArc
 
-; Bar 8. Same rhythm and same rests as Cities2; only the root drops.
+; Bar 8. Same rhythm and same rests as Cities2; only the opening pair changes (E3 B3 for E4 G#4).
 	octave 3
 	note E_, 2
 	note B_, 2

@@ -73,8 +73,8 @@ TextPredefs::
 	add_tx_pre BookOrSculptureText                  ; 41
 	add_tx_pre ElevatorText                         ; 42
 	add_tx_pre PokemonStuffText                     ; 43
-; APPENDED. The table is positional - the id IS the row number, and predef ids
-; are baked into every tx_pre_jump in the game, so a row inserted in the middle
-; would silently repoint all of them.
+; APPENDED, so every earlier id stays where it was. The table is positional - the
+; id IS the row number - but every user computes its id from the row's _id label
+; at build time (macros/predef.asm), so an inserted row would renumber, not break.
 	add_tx_pre BluesBedroomSNESText                 ; 44
 	add_tx_pre BluesBedroomPCText                   ; 45

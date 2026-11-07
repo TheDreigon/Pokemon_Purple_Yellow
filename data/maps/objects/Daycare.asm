@@ -19,7 +19,7 @@ Daycare_Object:
 
 	def_object_events
 	object_event  2,  3, SPRITE_GENTLEMAN, STAY, RIGHT, TEXT_DAYCARE_GENTLEMAN
-; The current boarders. Only PIDGEY has a 24-tile sheet with walk frames;
+; The current boarders. Only PIDGEY and SLOWPOKE have 24-tile sheets with walk frames;
 ; the others are 12-tile stills -- a still sprite set to WALK animates with
 ; whatever sprite sits NEXT in the ROM, which is the flicker seen in play.
 ; STAY sprites still turn to face the player when spoken to.

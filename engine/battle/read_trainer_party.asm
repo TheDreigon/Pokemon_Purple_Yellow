@@ -68,7 +68,7 @@ ReadTrainer:
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
 	jp z, .AddAdditionalMoveData
-	ld [wcf91], a ; ld [wcf91], a ; species input for AddPartyMon
+	ld [wcf91], a ; species input for AddPartyMon
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a
 	push hl

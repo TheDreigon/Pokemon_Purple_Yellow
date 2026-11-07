@@ -101,7 +101,7 @@ IF DEF(_DEBUG)
 	; appears, and there is nobody in the house to talk to.
 	; Grouped by flag BYTE and set with SetEventReuseHL, which only reloads hl
 	; when the byte changes: five of these live in byte 171 and two in 315, so
-	; this is 25 bytes instead of 45. Debug code still has to fit.
+	; this is 25 bytes instead of 40. Debug code still has to fit.
 	SetEvent EVENT_MET_BILL                          ; byte 170
 	SetEventReuseHL EVENT_BEAT_BILL                  ; byte 171, and the one
 	SetEventReuseHL EVENT_USED_CELL_SEPARATOR_ON_BILL ; that opens the garden
@@ -110,7 +110,7 @@ IF DEF(_DEBUG)
 	SetEventReuseHL EVENT_BILL_SAID_USE_CELL_SEPARATOR
 	SetEventReuseHL EVENT_GOT_BILL_EEVEE             ; byte 315
 	SetEventReuseHL EVENT_GOT_BILL_EEVEELUTION_STONE
-	SetEvent EVENT_GOT_HM01                          ; byte 78 (2026-09-06): field CUT needs the CAPTAIN's HM01 as well as the badge
+	SetEvent EVENT_GOT_HM01                          ; byte 188 (2026-09-06): field CUT needs the CAPTAIN's HM01 as well as the badge
 
 	; ...and count as League Champion, which gates the rematch and the garden.
 	ld a, 1

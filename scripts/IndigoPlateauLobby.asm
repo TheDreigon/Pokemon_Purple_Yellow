@@ -80,5 +80,4 @@ IndigoPlateauLobbyPostGameClerkText::
 	; Post-game clerk: endgame top-tier TMs. (Other apex TMs like
 	; ROCK_SLIDE/PETAL_DANCE/DARK_PULSE are sold by the regular clerk
 	; pre-E4.)
-	; (Other apex TMs like ROCK_SLIDE/PETAL_DANCE/DARK_PULSE now sold pre-E4.)
 	script_mart TM_OUTRAGE, TM_THRASH, TM_DOUBLE_EDGE, PP_UP

@@ -83,9 +83,6 @@ StatusChangesEliminatedText:
 	text_far _StatusChangesEliminatedText
 	text_end
 
-; Bank-$0F call helper (the battle-core bank hosts PlayCurrentMoveAnimation,
-; PrintButItFailedText_, etc.). HazeEffect_ is its only user; caller
-; preloads hl with the target routine.
 ; CallBankF deleted: its name promised bank $0F but its body computed
 ; BANK(PrintButItFailedText_), which now resolves elsewhere. Its one caller
 ; uses farcall now. A wrapper whose bank is keyed to an unrelated symbol is

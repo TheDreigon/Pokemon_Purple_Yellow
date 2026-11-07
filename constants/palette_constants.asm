@@ -88,7 +88,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_OLIVEMON             ; $27 — o "cinzento" do vanilla, que nunca
 	                               ;       foi cinzento: 20,23,10 e' azeitona.
 	                               ;       Trazido de volta para a linha GEODUDE
-	                               ;       + CUBONE + ONIX + AERODACTYL. A linha
+	                               ;       + CUBONE + AERODACTYL. A linha
 	                               ;       do MACHOP saiu daqui a 2026-08-18
 	                               ;       (STONE/STEEL/IRON), por isso o azeitona
 	                               ;       quer dizer ROCHA e mais nada.
@@ -133,13 +133,13 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_PORYGON                ; $37 - the ROCKET HIDEOUT, and SILPH CO until GIOVANNI is beaten there:
 	                                 ;       PORYGON's own blue and red (PAL_CINNABAR's two colours, swapped)
 	const PAL_VEGAS                  ; $38 - the GAME CORNER and its prize room: purple and gold
-	const PAL_TIJOLO                 ; $39 - the two underground paths and the FIGHTING DOJO: brick
+	const PAL_TIJOLO                 ; $39 - the two underground paths, the FIGHTING DOJO and BRUNO's room (2026-11-05): brick
 	const PAL_VINHO                  ; $3A - the POKEMON MANSION's four floors: wine and a dull purple
 ; v1.0 (2026-11-04): the routes' own palettes. Until v1.0 every route took PAL_ROUTE; RoutePalettes (engine/gfx/
-; palettes.asm) gives each route its palette, and routes 1, 2, 15, 16, 18, 22 and 23 keep PAL_ROUTE. Colour 1 paints
+; palettes.asm) gives each route its palette, and routes 1, 2, 15, 16, 18, 22 and 23 keep PAL_ROUTE (and 25 since 2026-11-05). Colour 1 paints
 ; the ground and a third of the tall grass (and the sprites' middle tone), colour 2 the water, the trees and another
 ; third of the tall grass: one colour for all three, so a route's water changes with its trees. Two routes that meet on
-; foot stay within a CIEDE2000 distance of about 6 of each other on both colours. APPENDED, never inserted.
+; foot stay within a CIEDE2000 distance of about 6 of each other on both colours, but for 16-17, 17-18, 19-20 and, since 2026-11-05, 24-25 (all chosen). APPENDED, never inserted.
 	const PAL_ROUTE_SOPE             ; $3B - routes 3 and 9, at the foot of the mountains: a slightly drier green
 	const PAL_ROUTE_PONTE            ; $3C - routes 4, 10, 11, 13 and 14: half-way between PAL_ROUTE and MARINHA
 	const PAL_ROUTE_MENTA            ; $3D - routes 5 and 6: a fresh mint green

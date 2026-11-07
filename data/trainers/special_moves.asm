@@ -945,7 +945,7 @@ SpecialTrainerMoves:
 
 	db SCIENTIST, 9 ; Silph Co. 8F — prototype PORYGON ace (40 MAGNETON, 42 ELECTRODE, 45 PORYGON)
 	; The specified set. All four are level-up moves the L45 Porygon already has
-	; naturally (TRI_ATTACK 40, SHOCK_WAVE 22, ICY_PULSE 35, EXTRASENSORY 30),
+	; naturally (TRI_ATTACK 40, SHOCK_WAVE 20, ICY_PULSE 32, EXTRASENSORY 30),
 	; so this is legal without relying on the learns-later allowance.
 	db 3, 1, TRI_ATTACK
 	db 3, 2, SHOCK_WAVE
@@ -965,8 +965,8 @@ SpecialTrainerMoves:
 	db 2, 4, GIGA_DRAIN ; over SCREECH (slot 4 - SLEEP_POWDER stays in slot 1)
 	db 0
 
-	db COOLTRAINER_F, 10 ; Fuchsia Gym - AYA's VENONAT 40 (her Venonat's Stun Spore, EP176; learnt at 22, pushed out by 40)
-	db 1, 2, STUN_POWDER ; over LEECH_LIFE
+	db COOLTRAINER_F, 10 ; Fuchsia Gym - AYA's VENONAT 40 (her Venonat's Stun Spore, EP176; learnt at 23, pushed out by 36)
+	db 1, 2, STUN_POWDER ; over SMOG
 	db 0
 
 	db -1 ; end

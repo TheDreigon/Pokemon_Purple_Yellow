@@ -325,15 +325,16 @@ SECTION "Trainer Manual Types Text", ROMX
 
 INCLUDE "data/text/trainer_manual_types.asm"
 
-; Moved out of main.asm's bank3 in favour of its own floating section:
+; Moved out of main.asm's bank3 in favour of its own section:
 ; the TM names got longer when the bag gained a column, and bank3 had no
 ; room left. Every caller loads BANK(tmhmNames) first, so it can sit
-; anywhere the linker likes.
+; in any bank (layout.link pins it to ROMX $7).
 SECTION "TM and HM Names", ROMX
 
 INCLUDE "text/tmhm_names.asm"
 
-; DAMIAN's lines on Route 24. Its own section because rewriting them for the
+; DAMIAN's lines on Route 25 (Route 24 until 2026-11-05, hence the section's
+; name). Its own section because rewriting them for the
 ; anime's version of him pushed the pinned "Text 4" bank over, and text_far
 ; reaches a section in any bank (this one is pinned to ROMX $7 in layout.link).
 SECTION "Route 24 Damian Text", ROMX
@@ -346,8 +347,8 @@ SECTION "Museum Amber Quest Text", ROMX
 
 INCLUDE "text/Museum1FAmber.asm"
 
-; The Mt. Moon fossil nerd's rematch (2026-09-23): Text 1, his bank, has 310
-; bytes above its floor, so these lines live in their own pinned section.
+; The Mt. Moon fossil nerd's rematch (2026-09-23): Text 1, his bank, had 310
+; bytes above its floor then, so these lines live in their own pinned section.
 SECTION "Mt Moon Nerd Rematch Text", ROMX
 
 INCLUDE "text/MtMoonB2FRematch.asm"
@@ -364,40 +365,40 @@ SECTION "Battle Failure Text", ROMX
 
 INCLUDE "text/battle_failure.asm"
 
-; Route 5's day-care girl, the youngster stuck at the Saffron gate, and the
-; DAY CARE sign. Own section for the same reason as the four above: the
-; pinned text banks have no room to grow, and text_far reaches a floating
-; section from any bank.
+; Route 5's day-care girl, the youngster stuck at the Saffron gate, the
+; COOLTRAINER who trusts the DAY CARE, and its sign. Own section for the same
+; reason as the ones above: the pinned text banks have no room to grow, and
+; text_far reaches a section in any bank (this one is pinned to ROMX $7).
 SECTION "Route 5 Additions Text", ROMX
 
 INCLUDE "text/route5_additions.asm"
 
 ; The Day Care family: the gentleman's teamwork and champion lines, the
-; daughter upstairs, and the boarders' voices on both floors. Own floating
-; section, same reason as its four siblings above.
+; daughter upstairs, and the boarders' voices on both floors. Own section
+; (pinned to ROMX $18 in layout.link), same reason as its siblings above.
 SECTION "Daycare Text", ROMX
 
 INCLUDE "text/daycare_additions.asm"
 
 ; Bill's post-League battle: the challenge, the repeat, the two answers, the
-; cooldown line and what he says afterwards. Own floating section for the same
-; reason as its siblings above - the pinned text banks have no room to grow,
-; and text_far reaches a floating section from any bank.
+; cooldown line and what he says afterwards. Own section (pinned to ROMX $18
+; in layout.link) for the same reason as its siblings above - the pinned text
+; banks have no room to grow, and text_far reaches a section in any bank.
 SECTION "Bill Rematch Text", ROMX
 
 INCLUDE "text/bill_rematch.asm"
 
 ; The dojo-master takeover: KIYO at the Viridian Gym post-League, and the
-; promoted student at the Fighting Dojo. Own floating section for the same
-; reason as its siblings above.
+; promoted student at the Fighting Dojo. Own section (pinned to ROMX $17 in
+; layout.link) for the same reason as its siblings above.
 SECTION "Kiyo Takeover Text", ROMX
 
 INCLUDE "text/kiyo_takeover.asm"
 
 ; The fishing family's father and mother, in Fuchsia. Moved out of the pinned
 ; "Text 7" when the four gurus were rewritten as one family: his gift speech
-; and her line together pushed that bank ten bytes over its 16 KB. Own floating
-; section for the same reason as its siblings above.
+; and her line together pushed that bank ten bytes over its 16 KB. Own section
+; (pinned to ROMX $18 in layout.link) for the same reason as its siblings above.
 SECTION "Fuchsia Fossil House Text", ROMX
 
 INCLUDE "text/FuchsiaFossilHouse.asm"

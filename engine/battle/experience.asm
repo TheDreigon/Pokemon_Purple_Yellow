@@ -64,7 +64,7 @@ DistributeExperience::
 	call SetSinglePartyGainExpFlag
 	call HalveExpData
 	ld a, 1
-	ld [wBoostExpByExpShare], a ; announces the share, and keeps this pass quiet
+	ld [wBoostExpByExpShare], a ; keeps this pass quiet
 	                          ; about the one Pokemon it pays
 	call GainExperience
 ; and now the ones that actually fought, splitting the other half between them.
@@ -354,7 +354,7 @@ ExpShareWillBePaid:
 ; the two out of step the first time either changed.
 ;
 ;   fainted?          Normal pays it, Hard does not (.partyMonLoop)
-;   past the level cap? nobody pays it (the guard after .statExpDone)
+;   past the level cap? nobody pays it (the guard before .capOk)
 ;
 ; The level cap half is the one that bit. Without it, a Pokemon over the cap in
 ; the last slot still counted as "payable", the fighters were still charged
@@ -382,13 +382,13 @@ ExpShareWillBePaid:
 	cp b
 	jr c, .no ; cap below its level: the party loop refuses it outright
 	jr z, .no ; and AT the cap it gains nothing either, which is the case that
-	          ; matters, because it is the state a cap exists to produce. Such a
-	          ; Pokemon holds exactly CalcExperience(cap), so the exp is added
-	          ; and then clamped straight back off. Testing only "over the cap"
-	          ; mirrored the party loop's SKIP guard and missed the clamp below
-	          ; it. Note this is not a Hard-mode-only case: GetLevelCap returns
-	          ; MAX_LEVEL on Normal, so a level 100 Pokemon in the last slot
-	          ; hits the identical arithmetic.
+	          ; matters, because it is the state a cap exists to produce. On
+	          ; Hard the party loop's guard now refuses it outright (at the cap
+	          ; as well as past it, since 2026-09-08); before, its exp was added
+	          ; and clamped straight back off, and testing only "over the cap"
+	          ; here missed that clamp. Note this is not a Hard-mode-only case:
+	          ; GetLevelCap returns MAX_LEVEL on Normal, so a level 100 Pokemon
+	          ; in the last slot would be paid and clamped straight back off.
 	pop de
 	scf
 	ret
@@ -477,7 +477,7 @@ ExpShareBitMask:
 HalveExpData:
 ; The enemy's base stats become stat exp and its base exp becomes experience,
 ; so halving this block halves both at once. NUM_STATS + 2 covers the base
-; stats and the two bytes of base exp (wram.asm asserts the block).
+; stats, the catch rate and the base exp byte (wram.asm asserts the block).
 	ld hl, wEnemyMonBaseStats
 	ld b, NUM_STATS + 2
 .loop
@@ -528,11 +528,11 @@ GainExperience:
 ; v1.0 (2026-09-08, T4a): on HARD a Pokemon at or past the level cap gains
 ; NOTHING from a battle - not even stat exp. The cap used to be applied only to
 ; the exp, after the stat exp loop below had already run, so a capped Pokemon
-; (a participant, or a TEAM-mode sharer) kept growing on the inside: a cheat.
+; (a participant) kept growing on the inside: a cheat.
 ; The same test moved here from after .statExpDone also keeps the older story
-; true - a gift Pokemon that ARRIVES above the cap (the roof-house PORYGON, L20
-; on a cap of 15) is skipped outright, so its exp is never clamped down and its
-; level never drops. Compared as LEVELS, before any arithmetic.
+; true - a gift Pokemon that ARRIVES above the cap (the old roof-house PORYGON,
+; L20 on a cap of 14) is skipped outright, so its exp is never clamped down
+; and its level never drops. Compared as LEVELS, before any arithmetic.
 ; Normal is untouched: GetLevelCap says MAX_LEVEL there and a L100 Pokemon
 ; still banks stat exp, as in vanilla.
 	ld a, [wDifficulty]
@@ -581,14 +581,14 @@ GainExperience:
 	inc de
 	jr .gainStatExpLoop
 .statExpDone
-; v0.7 FIX (2026-09-02), moved up to .capOk on 2026-09-08: a Pokemon at or
-; past the hard-mode level cap is skipped BEFORE the stat exp loop now, and the
-; test that lived here is the same one. The story it came from: without it the
-; cap was applied by clamping the mon's exp DOWN to the cap level's exp --
+; v0.7 FIX (2026-08-06), moved up to .capOk on 2026-09-08: a Pokemon at or
+; past the hard-mode level cap is skipped BEFORE the stat exp loop now (the test
+; that lived here refused only one past it). The story it came from: without it
+; the cap was applied by clamping the mon's exp DOWN to the cap level's exp --
 ; fine for a mon growing into the cap, ruinous for one that arrives above it
-; (the roof-house PORYGON, L20 on a cap of 15, had its 6400 exp cut to 2195 and
-; DROPPED to L15 off a single Rattata; the level-up path then ran backwards,
-; the move-learn loop wrapped through 255 and current HP underflowed).
+; (the roof-house PORYGON, L20 on the cap of 14 then, had its 6400 exp cut to
+; 2195 and DROPPED to L14 off a single Rattata; the level-up path then ran
+; backwards, the move-learn loop wrapped through 255 and current HP underflowed).
 	xor a
 	ldh [hMultiplicand], a
 	ldh [hMultiplicand + 1], a
@@ -667,7 +667,7 @@ GainExperience:
 	ld [hl], a
 	pop bc
 	pop hl
-; calculate exp for the mon at max level, and cap the exp at that value
+; calculate exp for the mon at its level cap, and cap the exp at that value
 	inc hl
 	push hl
 	ld a, [wWhichPokemon]
@@ -711,8 +711,8 @@ GainExperience:
 	call GetPartyMonName
 	ld a, [wBoostExpByExpShare] ; get using ExpShare flag
 	and a
-	jr nz, .skipExpText ; if there's EXP. all, skip showing any text
-	ld hl, GainedText ;there's no EXP. all, load the text to show
+	jr nz, .skipExpText ; if the EXP.SHARE is sharing, skip showing any text
+	ld hl, GainedText ; no EXP.SHARE sharing, load the text to show
 	call PrintText
 .skipExpText
 	xor a ; PLAYER_PARTY_DATA
@@ -840,7 +840,7 @@ LevelUpPartyMon:
 	ld a, [hl] ; wPartyMon1HP + 1
 	add c
 	ld [hld], a
-	ld a, [hl] ; ld a, [hl] ; wPartyMon1HP
+	ld a, [hl] ; wPartyMon1HP
 	adc b
 	ld [hl], a ; wPartyMon1HP
 	jr .hpAfterLevelUpDone
@@ -1032,7 +1032,8 @@ CallBattleCore:
 GainedText:
 ; (2026-09-02: the wBoostExpByExpShare branch to a share banner is gone -
 ; when the flag is set the per-Pokemon text is skipped wholesale upstream,
-; so this text only ever prints in OFF mode / with no item.)
+; so this text only ever prints on the plain path: OFF, no item, or a share
+; mode that fell back to DistributeExperience's .noSharing.)
 	text_far _GainedText
 	text_asm
 	ld hl, ExpPointsText
@@ -1132,13 +1133,14 @@ IsCurrentMonBattleMon:
 ; about to face, so the party cannot out-level the next gym; once the League is
 ; beaten (wGameStage) the cap comes off.
 ;
-; Two callers want this and they want it at different moments, which is why it
-; is a routine and not the block of `ld d` it used to be: once up front, to
-; refuse exp to a mon that is already past the cap, and once to work out the
-; exp ceiling to clamp a mon growing INTO the cap.
+; GainExperience wants this twice, at different moments, which is why it is a
+; routine and not the block of `ld d` it used to be: once up front, to refuse
+; exp to a mon that is already at or past the cap, and once to work out the exp
+; ceiling to clamp a mon growing INTO the cap. ExpShareWillBePaid asks it too,
+; and GetLevelCapFar below serves the Rare Candy, the Day Care and obedience.
 ;
 ; Preserves bc, de and hl -- the up-front caller is holding a party pointer in
-; de and the mon's level in b.
+; hl and the mon's level in b.
 GetLevelCap::
 	push bc
 	push de

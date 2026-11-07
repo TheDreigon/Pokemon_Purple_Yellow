@@ -454,7 +454,7 @@ DisplayDepositWithdrawMenu:
 	ld a, BOX_DATA
 .next2
 	ld [wMonDataLocation], a
-; v0.7 (2026-09-05, playtest): the status screen's mode byte lives at $cd3d -
+; v0.7 (2026-09-05, playtest): the status screen's mode byte lives at $ccfb -
 ; a ~40-way union that ALSO holds wBoxNumString, the "BOX n" digit this very
 ; menu prints on a deposit. "1" is $F7 in the charmap, and $F7 read as a mode
 ; is OPTIN|QUIET|NOCRY|NOWAIT|KEEPPIC: the page believed the picture was

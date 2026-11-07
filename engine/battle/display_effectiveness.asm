@@ -5,7 +5,8 @@
 ;    landed or the target has fainted -- vanilla printed no hit count at all
 ;    when the target fainted mid-way.
 ;  * x4 and x1/4 get their own lines. wDamageMultipliers is chained per matching
-;    row (engine/battle/type_effectiveness.asm): 40, 20, 10, 5, 2 or 0. The
+;    row (engine/battle/type_effectiveness.asm): 40, 20, 10, 5, 2 or 0 (and, with a
+;    third type since 2026-11-02, 1 for 1/6 and 60 for 6x). The
 ;    "super effective against one type, not very against the other" case is a
 ;    10 and prints nothing, which the chaining already fixed; vanilla kept the
 ;    LAST matching row and said whichever came later in the table.
@@ -29,7 +30,7 @@ DisplayEffectiveness_:
 	jr .done
 .resisted
 	ld hl, NotVeryEffectiveText
-	cp NOT_VERY_EFFECTIVE ; 5: one resistance; anything below (2) is both types resisting
+	cp NOT_VERY_EFFECTIVE ; 5: one resistance; anything below (2, or 1 at 1/6) is two or three types resisting
 	jr nc, .done
 	ld hl, BarelyEffectiveText
 .done

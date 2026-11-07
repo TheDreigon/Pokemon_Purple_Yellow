@@ -95,7 +95,7 @@ INCLUDE "data/maps/force_bike_surf.asm"
 ; clear it in their map scripts, but a map script runs AFTER LoadMapData has
 ; already chosen the music, hence the tileset test: riding into the ROUTE 18
 ; gate from the road must fade to the gate's theme, not carry the bike theme
-; indoors. Trashes a. Keeps d and e (the caller's fade flag).
+; indoors. Trashes a only: the caller's fade counter is c, which it pushes.
 CheckForNoBikingMusicMap::
 	ld a, [wOptions2]
 	bit BIT_BIKE_MUSIC_ROAD_ONLY, a

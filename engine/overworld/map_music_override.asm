@@ -5,8 +5,8 @@
 ; room for "it depends". This runs immediately after that lookup, while its
 ; bank is still switched in, and may overwrite the result. Living in the same
 ; SECTION as the table is the point: the caller in home/overworld.asm pays
-; three bytes for a `call` instead of the ~23 the whole check would cost, and
-; the home bank has under a hundred bytes left.
+; three bytes for a `call` instead of the 62 the whole check costs now, and
+; the home bank had under a hundred bytes left when this was written.
 ;
 ; Anything added here must be cheap and must fall through to the table by
 ; default, so a map with no special case behaves exactly as before.

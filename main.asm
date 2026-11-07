@@ -334,25 +334,25 @@ INCLUDE "engine/gfx/animated_tiles_code.asm"
 
 
 ; v0.7: the MOVE INFO card, reached with START on the battle FIGHT menu.
-; Floating section on purpose -- it carries the effect-description stub table,
-; and the linker has plenty of room to place it (see the free-space figures in
-; the Notes). The strings themselves live in "Move Descriptions Text".
+; Pinned in layout.link (ROMX $24): it carries the effect-description stub table
+; and the flavour tables, and left floating it first-fitted into a map bank.
+; The strings themselves live in "Move Descriptions Text".
 SECTION "Move Info", ROMX
 
 INCLUDE "engine/menus/move_info.asm"
 
 
-; v0.7: its own section -- the Move Info bank is nearly full, and this is the
-; half that will grow if the list ever gains features.
+; v0.7: its own section -- the Move Info bank was nearly full when this was
+; written, and this is the half that will grow if the list ever gains features.
 SECTION "Movedex", ROMX
 
 INCLUDE "engine/menus/movedex.asm"
 INCLUDE "engine/menus/movedex_seen.asm"
 
 
-; v0.7: the TRAINER MANUAL screen, reached with USE on the key item. Floating:
-; it is self-contained menu code with its own tables and has no reason to sit
-; beside anything in particular. Its pages live in "Trainer Manual Text".
+; v0.7: the TRAINER MANUAL screen, reached with USE on the key item. Pinned in
+; layout.link (ROMX $3A), out of the map banks: it is self-contained menu code
+; with its own tables. Its pages live in "Trainer Manual Text".
 SECTION "Trainer Manual", ROMX
 
 INCLUDE "engine/menus/trainer_manual.asm"
@@ -406,8 +406,8 @@ ENDC
 SECTION "bank30", ROMX
 ; v0.6: hosts Pokemon base_stats. Moved here from "Battle Engine 10" (bank $3B)
 ; which overflowed when Pass 2 added ~3KB of level-up learnset data to
-; evos_moves.asm. base_stats.asm is one BASE_DATA_SIZE-byte record per species; plenty of
-; remaining headroom in this bank for future use.
+; evos_moves.asm. base_stats.asm is one BASE_DATA_SIZE-byte record per species; the
+; bank has little room left now (the TRAINER MANUAL's pages share it).
 ;
 ; v0.7: also hosts the type-matchups table + lookup loops (moved from
 ; "Battle Core" / bank $0F, which was 2 bytes over in debug after the
@@ -518,7 +518,7 @@ INCLUDE "engine/pikachu/pikachu_pic_animation.asm"
 
 
 ; v1.0 (2026-09-26): the debug ROM's menu, ANIM TEST and MON TEST. Everything
-; inside is under IF DEF(_DEBUG), so the section is empty in the release ROM.
+; inside is under IF DEF(_DEBUG); the release ROM keeps only three `ret` stubs.
 ; It used to sit inside "Overworld Pikachu" (bank $3F), where its 4.6 KB left
 ; "Text 10" - the home of new far texts - 317 free bytes in the debug build
 ; while the release had 4.9 KB. Pinned in layout.link (ROMX $43). Its only

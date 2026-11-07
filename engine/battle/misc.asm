@@ -55,7 +55,7 @@ FormatMovesString:
 	ld [de], a
 	ret
 
-; XXX this is called in a few places, but it doesn't appear to do anything useful
+; sets wNameListType, wListPointer and wItemPrices (GetItemPrice reads it) for the list wInitListType names
 ; exported: the Celadon information desk builds its own item list from maps.asm,
 ; a different object file from the battle/menu engine that used to be its only caller
 InitList::

@@ -286,7 +286,7 @@ TryingToLearn:
 ; The party's mini-icons are OAM, not tilemap, so restoring the screen does
 ; nothing about them and they floated over the card whenever this was reached by
 ; teaching a TM (the FIGHT menu never showed it, because in battle the Pokemon
-; are background tiles). Clear them going in and put them back coming out --
+; are background tiles). Clear them going in, and wait a frame for it --
 ; ClearSprites only zeroes the shadow buffer, so it takes a frame to reach the
 ; screen.
 ;
@@ -306,8 +306,11 @@ TryingToLearn:
 ; charge re-reads wPlayerSelectedMove in GetCurrentMove, the others reuse the
 ; wPlayerMove* block without re-deriving it -- and the card clobbered both.
 ; Restore the selection and re-derive the block from it (the same fetch
-; GetCurrentMove and the card itself perform). 0 = nothing selected
-; (out-of-battle learn); $ff = "player is trapped" -- nothing to re-derive.
+; GetCurrentMove and the card itself perform). 0 = nothing selected and
+; $ff = "player is trapped" -- nothing to re-derive. Out of battle the byte
+; is union scratch, zeroed only when a battle starts (InitBattleVariables),
+; so it can hold anything; re-deriving from it only rewrites the wPlayerMove*
+; block, which the card has just overwritten anyway.
 	and a
 	jr z, .cardDone
 	inc a

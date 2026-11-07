@@ -1,8 +1,8 @@
 ; The battle PRNG, kept in the home bank.
 ;
-; It used to sit in Battle Core, which is at its 16 KB ceiling. It is called
-; from both sides of the battle code -- 24 times from core.asm and 23 times
-; from effects.asm -- and effects.asm is moving to a bank of its own. Putting
+; It used to sit in Battle Core, at its 16 KB ceiling then (2026-08-06). It was
+; called from both sides of the battle code -- 24 times from core.asm and 23
+; from effects.asm -- and effects.asm was moving to a bank of its own. Putting
 ; it in the home bank, which is mapped at all times, means neither side needs a
 ; farcall: `farcall` here is `ld b / ld hl / rst _Bankswitch`, which clobbers a,
 ; b, c and hl, and BattleRandom is called in the middle of expressions where

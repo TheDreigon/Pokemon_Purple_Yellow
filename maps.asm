@@ -1509,9 +1509,9 @@ INCLUDE "scripts/CeladonMansionRoofHouse_2.asm"
 INCLUDE "scripts/SSAnne2FRooms_2.asm"
 INCLUDE "scripts/SilphCo11F_2.asm"
 
-; BILL's garden, behind the Sea Cottage. A FLOATING section on purpose: every
-; "Maps N" section is pinned to a bank in layout.link, so adding a map to one
-; eats that bank's slack. The header, script, objects and blocks must all live
+; BILL's garden, behind the Sea Cottage. Its own section on purpose, pinned in
+; layout.link (ROMX $12): adding the map to a "Maps N" section would eat that
+; bank's slack. The header, script, objects and blocks must all live
 ; in the SAME section, because map_header stores `dw BillsGarden_Blocks` -- a
 ; 16-bit pointer that is read with the header's own bank.
 ;

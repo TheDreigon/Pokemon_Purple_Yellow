@@ -65,7 +65,7 @@ MoveBoulderDustFunctionPointerTable:
 	boulder_dust_adjust -1, 1, Dust_AdjustOAMBlockXPos ; right
 
 ; Same disease cut2.asm already documents: this file moved out of bank1E in the
-; v0.7 bank reorg, but the two `dw` entries above kept pointing at the
+; v0.7 bank reorg, but the four `dw` entries above kept pointing at the
 ; AdjustOAMBlock*Pos that stayed behind in bank1E — and AnimateBoulderDust's
 ; `jp hl` runs with THIS bank mapped, so every STRENGTH boulder push executed
 ; BaseStats data at those addresses. cross_bank_call_audit only scans call/jp

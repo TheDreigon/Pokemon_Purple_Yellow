@@ -53,7 +53,7 @@ ShowPokedexMenu:
 .goToSideMenu
 	call HandlePokedexSideMenu
 	dec b
-	jr z, .exitPokedex ; if the player chose Quit
+	jr z, .exitPokedex ; b = 1 was QUIT: HandlePokedexSideMenu no longer returns it
 	dec b
 	jr z, .doPokemonListMenu ; if pokemon not seen or player pressed B button
 	dec b
@@ -71,7 +71,7 @@ ShowPokedexMenu:
 ; OUTPUT:
 ; b = reason for exiting menu
 ; 00: showed pokemon data or area
-; 01: the player chose Quit
+; 01: no longer returned (QUIT left the menu; .choseQuit gives 02)
 ; 02: the pokemon has not been seen yet or the player pressed the B button
 HandlePokedexSideMenu:
 	call PlaceUnfilledArrowMenuCursor
@@ -126,7 +126,7 @@ HandlePokedexSideMenu:
 	jr z, .choseEvo
 	dec a
 	jr z, .choseMoves
-; Unreachable since QUIT left the menu: wMaxMenuItem is 3 and all four items are
+; Unreachable since QUIT left the menu: wMaxMenuItem is 4 and all five items are
 ; dispatched above. Kept as a landing pad, and it now behaves like B (back to
 ; the list) rather than slamming the whole POKéDEX shut, which is the safer of
 ; the two if a future edit ever lets the cursor out of range.
@@ -190,9 +190,9 @@ HandlePokedexSideMenu:
 	ld b, 0
 	jr .exitSideMenu
 
-; The MOVE side-menu item. It took over the slot the Game Boy Printer's PRINT
-; used to occupy; v0.7 removed the printer outright, so nothing is repurposed
-; here any more.
+; The MOVE side-menu item. It first took over the slot the Game Boy Printer's
+; PRINT used to occupy (EVO holds it since #24, MOVE moved down into QUIT's);
+; v0.7 removed the printer outright, so nothing is repurposed here any more.
 .choseMoves
 	ld a, 1
 	ld [wMoveListCounter], a
@@ -405,7 +405,7 @@ PokedexContentsText:
 ; which is what B does from anywhere including the list itself. A menu entry
 ; that duplicates B and names itself after something it does not do is worse
 ; than no entry.
-; #24: EVO sits between AREA and MOVE, which puts it on row 16 - the last row
+; #24: EVO sits between AREA and MOVE, which puts MOVE on row 16 - the last row
 ; the panel has. A sixth entry would need row 18 and there isn't one.
 ; The cursor erase on the B path (lb bc, " ", 9 above) wants 2 * wMaxMenuItem + 1
 ; and already said 9: it was left over from when this menu had five entries,
@@ -1081,8 +1081,8 @@ Pokedex_PrintEvolutions:
 	jr .familyLoop
 
 .doesNotEvolve
-; 85 of the 155 species land here, so it is not an edge case - it is the most
-; common page this menu entry draws.
+; 25 of the 151 species land here - the ones alone in their family - so it is
+; not an edge case - it is the most common page this menu entry draws.
 	hlcoord 2, 13
 	ld de, PokedexNoEvolutionText
 	jp PlaceString
@@ -1151,12 +1151,12 @@ Pokedex_PrintBaseStats:
 ;        0123456789012345678
 ;   row9 ├─────────────────┤
 ;  row10 |TYPES/  BASE STATS|
-;  row11 | BUG     HP     65|
-;  row12 | POISON  ATK    95|
-;  row13 | FLYING  DEF    65|
-;  row14 |         SAT    60|
-;  row15 |TOTAL    SDF    75|
-;  row16 |   450   SPD    90|
+;  row11 | BUG      HP    65|
+;  row12 | POISON   ATK   95|
+;  row13 | FLYING   DEF   65|
+;  row14 |          SAT   60|
+;  row15 |TOTAL     SDF   75|
+;  row16 | 450      SPD   90|
 ;
 ; v1.0 (the SPECIAL split, 2026-09-06): six stat rows (SAT / SDF = SP.ATK /
 ; SP.DEF) fill rows 11-16, so TOTAL moved to the left column under the types,
@@ -1184,9 +1184,9 @@ Pokedex_PrintBaseStats:
 
 ; Six labels on six CONSECUTIVE rows. "next" moves two rows unless bit 2 of
 ; hUILayoutFlags is set (home/text.asm), so it goes on here and comes straight
-; back off - the type labels above want the ordinary two-row spacing. TOTAL
-; lives in the left column under the types, label over value like TYPE1/, so
-; it never reads as a seventh row of the stat table.
+; back off - the description page after this one wants the ordinary two-row
+; spacing. TOTAL lives in the left column under the types, label over value
+; like TYPES/, so it never reads as a seventh row of the stat table.
 	ldh a, [hUILayoutFlags]
 	push af
 	set 2, a
@@ -1267,7 +1267,7 @@ Pokedex_PrintBaseStats:
 ; PrintNumber reads its number big-endian out of memory, so it needs an
 ; address. The two bytes are borrowed from hDexWeight and put back, which is
 ; exactly what the weight printing in DrawDexEntryOnScreen does with the same
-; two bytes a few dozen lines above. Borrowing is not free there or here:
+; two bytes further up this file. Borrowing is not free there or here:
 ; hDexWeight is a union member (it shares with hBaseTileID and hOAMTile) and
 ; hDexWeight + 1 is hSpriteIndexOrTextID.
 	ldh a, [hDexWeight]

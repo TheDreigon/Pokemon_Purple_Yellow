@@ -31,12 +31,12 @@ TrainerAIPointers:
 	dbw 2, GenericAI ; blackbelt
 	dbw 3, GenericAI ; rival1 (no item bag — too early-game)
 	dbw 2, ProfOakAI ; prof_oak (v0.7 hard mode boss item bag)
-	dbw 2, SelfInsertBossAI ; Smith (semi-boss: 3x Full Restore bag)
-	dbw 2, SelfInsertBossAI ; Craig (semi-boss: 3x Full Restore bag)
+	dbw 2, SelfInsertBossAI ; Smith (semi-boss: 3x Full Restore + 3x Full Heal bag)
+	dbw 2, SelfInsertBossAI ; Craig (semi-boss: 3x Full Restore + 3x Full Heal bag)
 	dbw 3, GenericAI
-	dbw 2, GiovanniAI ; giovanni — 2 AI item-uses/mon for its 4-item bag (FR/XAtk/XDef/FullHeal)
+	dbw 2, GiovanniAI ; giovanni — 2 AI item-uses/mon for its 4-item bags (FR/XAtk/XDef/FullHeal; the Hideout and Silph bag heals with HYPER POTIONs)
 	dbw 3, GenericAI
-	dbw 2, CooltrainerMAI ; cooltrainerm (non-boss; vanilla's HYPER POTION kept, its blind switch gone: layer 6, v1.0 2026-09-26)
+	dbw 2, CooltrainerMAI ; cooltrainerm (non-boss; Yellow Legacy's HYPER POTION kept, its blind switch gone: layer 6, v1.0 2026-09-26)
 	dbw 1, CooltrainerFAI ; cooltrainerf (non-boss; same routine, same story)
 	dbw 2, BrunoAI ; bruno
 	dbw 1, BrockAI ; brock
@@ -53,16 +53,16 @@ TrainerAIPointers:
 	dbw 3, GenericAI
 	dbw 2, AgathaAI ; agatha
 	dbw 2, LanceAI ; lance — bumped 1→2 (Champion-tier dragon master)
-	dbw 2, SelfInsertBossAI ; Weebra (semi-boss: 3x Full Restore bag)
+	dbw 2, SelfInsertBossAI ; Weebra (semi-boss: 3x Full Restore + 3x Full Heal bag)
 	dbw 1, JanineAI ; janine (v0.7 hard mode boss item bag)
 	dbw 2, JoyAI ; joy (v0.7 hard mode boss item bag — nurse-tier heal)
 	dbw 1, JennyAI ; jenny (v0.7 hard mode boss item bag)
-	dbw 1, JessieAndJamesAI ; Jessie & James (boss-tier; v0.7 hard mode item bag)
+	dbw 1, JessieAndJamesAI ; Jessie & James (semi-boss since 2026-07-26; v0.7 hard mode item bag)
 	dbw 3, ProfOakAI ; Forte (superboss). Was GenericAI, which never touches the
 	                 ; item bag — so ForteBossBag was populated every hard-mode
 	                 ; fight and never consumed, making the game's hardest boss
 	                 ; the only one that could not heal. The boss AI routines are
 	                 ; class-agnostic (they consume whichever bag was populated),
 	                 ; and Oak is the other L75+ superboss, so his profile fits.
-	dbw 1, BillAI ; bill — heals but never buffs; see the routine for why
+	dbw 1, BillAI ; bill — heals, GUARD SPEC and DIRE HIT, never an X item; see the routine for why
 	assert_table_length NUM_TRAINERS

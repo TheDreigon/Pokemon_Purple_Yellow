@@ -1,7 +1,7 @@
 ; The two battle-failure text scripts, kept in the home bank.
 ;
-; They belong beside AttackMissedText in Battle Core, and there is no room:
-; that bank runs within single digits of its 16 KB in debug builds, which is
+; They belong beside AttackMissedText in Battle Core, and there was no room:
+; that bank ran within single digits of its 16 KB in debug builds then, which is
 ; also why the type-matchup lookups were moved out of it in v0.7. The home bank
 ; is mapped at all times, so PrintText follows an hl pointing here without any
 ; banking -- the only cost is that the labels need `::` to be visible from

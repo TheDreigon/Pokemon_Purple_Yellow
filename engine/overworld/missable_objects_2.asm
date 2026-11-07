@@ -1,6 +1,7 @@
 ; v1.0 (T23, 2026-09-24): the SECOND hide/show table.
 ;
-; MissableObjects (bank3) is 256/256. Rather than widen the one-byte index that
+; MissableObjects (bank3) was 256/256; since its last row (the CUBONE) moved
+; here it is 255/256. Rather than widen the one-byte index that
 ; runs through wMissableObjectIndex, the per-map list and the predefs, this is
 ; a parallel table with its own 128-bit flag array (wMissableObjectFlags2) and
 ; its own constants (HS2_*). The vanilla path is untouched; the join is the
@@ -10,7 +11,7 @@
 ; bit. No MapHSPointers2: the table is scanned whole on every map load (at
 ; most 128 rows), so rows can be appended in any order and a map may have
 ; rows in both tables -- but one object lives in exactly one of them.
-; Lives in its own pinned section (layout.link, ROMX $10): bank3 has ~500 B
+; Lives in its own pinned section (layout.link, ROMX $10): bank3 has ~400 B
 ; left. Flag ops go through predef FlagActionPredef, which is how a routine
 ; outside bank3 reaches FlagAction.
 

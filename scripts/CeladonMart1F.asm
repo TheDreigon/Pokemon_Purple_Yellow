@@ -26,7 +26,7 @@ CeladonMart1FReceptionistText:
 ; Two levels: a category board (the two-column shape the Viridian school
 ; blackboard uses) and then the game's own priced item list, so every entry
 ; shows its price beside its name for free. Splitting by category also keeps
-; each sublist far inside wItemList -- the whole catalogue at once would be 45
+; each sublist far inside wItemList -- the whole catalogue at once would be 51
 ; entries against an ITEM_LIST_SIZE of 41 that is already exactly full at the
 ; tiered mart's worst case, with wMartExtras sitting immediately behind it.
 CeladonMart1FInfoClerkText:
@@ -55,9 +55,10 @@ CeladonMart1FInfoClerkText:
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wMenuJoypadPollCount], a
-	; DisplayListMenuID rewrites this to A|B|SELECT for its own use, so Left and
-	; Right stopped being watched keys the moment the player had opened one
-	; category -- HandleMenuInput then just looped on them and the columns froze.
+	; DisplayListMenuID rewrites this for its own use (A|B|SELECT, plus Up/Down
+	; for a priced list like this one), so Left and Right stopped being watched
+	; keys the moment the player had opened one category -- HandleMenuInput then
+	; just looped on them and the columns froze.
 	; Re-arm the whole menu contract every pass; assume nothing survives a submenu.
 	ld a, D_LEFT | D_RIGHT | A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a

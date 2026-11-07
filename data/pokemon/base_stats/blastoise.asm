@@ -15,7 +15,7 @@
 	; Water-tank apex. Water STAB WATER_PULSE/SURF, pressure-cannon
 	; ICE_BEAM/ICY_PULSE. Heavy shell BODY_SLAM/BULK_UP/IRON_HEAD,
 	; weight EARTHQUAKE/BULLDOZE. HM CUT/SURF/STRENGTH. Fun moves:
-	; last-stage line. Ladder prereq: ROCK_THROW.
+	; last-stage line. Hands grab/throw (ROCK_THROW).
 	tmhm BULLDOZE, WATER_PULSE, ICY_PULSE, BODY_SLAM, BULK_UP, \
 	     MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, IRON_HEAD, \
 	     INTIMIDATE, TAKE_DOWN, LIGHT_SCREEN, ICE_BEAM, REFLECT, \

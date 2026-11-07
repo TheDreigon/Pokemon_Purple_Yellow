@@ -2,7 +2,7 @@ VermilionCityPrintOfficerJennyText::
 	CheckEvent EVENT_GOT_SQUIRTLE_FROM_OFFICER_JENNY
 	jr nz, .asm_f1a69
 	ld a, [wBeatGymFlags]
-	bit 1, a ; bit 1, a ; CASCADEBADGE
+	bit 1, a ; CASCADEBADGE
 	jr nz, .asm_f1a24
 	ld hl, OfficerJennyText1
 	call PrintText
@@ -12,7 +12,7 @@ VermilionCityPrintOfficerJennyText::
 	ld hl, OfficerJennyText2
 	call PrintText
 	xor a
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would auto-accept the SQUIRTLE gift
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale poll count would auto-accept the SQUIRTLE gift
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
@@ -61,7 +61,7 @@ VermilionCityPrintOfficerJennyText::
 .offer
 	call PrintText
 	xor a
-	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale Cable Club poll-count would phantom-accept and force this L65 fight
+	ld [wMenuJoypadPollCount], a ; menu hygiene: a stale poll count would phantom-accept and force this L65 fight
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a

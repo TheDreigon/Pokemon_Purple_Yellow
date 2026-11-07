@@ -68,7 +68,7 @@ HallOfFameWipeEvents:
 	ResetEventRange INDIGO_PLATEAU_EVENTS_START, EVENT_BEAT_CHAMPION_RIVAL, 1
 	; v0.7: re-arm the post-game rematches. Beating the League is what buys
 	; them, so clearing the block here gives the player one fresh rematch
-	; against every leader (plus JOY and JENNY) per League run.
+	; against every leader (plus JOY, JENNY and BILL) per League run.
 	ResetEventRange REMATCH_COOLDOWN_EVENTS_START, REMATCH_COOLDOWN_EVENTS_END
 	; v1.0 (the gym rework, 9/9, 2026-09-06): KIYO's seven disciples in the
 	; Viridian Gym fight again each League run, like the leaders - their
@@ -174,7 +174,7 @@ HallOfFameOakCongratulationsScript:
 	jr z, .UnhideFlareon
 	cp VAPOREON
 	jr z, .UnhideVaporeon
-	ld a, HS_CHAMPIONS_ROOM_JOLTEON ; JOLTEON (also the roll's default)
+	ld a, HS_CHAMPIONS_ROOM_JOLTEON ; JOLTEON (also the fallthrough for an unrolled 0)
 	jr .done
 .UnhideFlareon
 	ld a, HS_CHAMPIONS_ROOM_FLAREON

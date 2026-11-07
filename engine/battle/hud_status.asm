@@ -54,7 +54,7 @@ PrintBattlerStatus::
 	ld a, "O"
 	ld [hli], a
 	ld [hl], "X"
-	and a ; NZ: "X" is not zero. Belt and braces, like the CNF tail below.
+	and a ; NZ: "O" is not zero. Belt and braces, like the CNF tail below.
 	ret
 
 ; The HUD's three status tiles: the persistent status (TOX included), else CNF

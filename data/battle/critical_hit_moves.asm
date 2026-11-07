@@ -21,7 +21,7 @@ HighCriticalMoves:
 	; GRASS
 	db RAZOR_LEAF
 	; GROUND
-	db DIG ; ambush strike from below — same charge-move payoff as FLY
+	db DIG ; ambush strike from below — the 2-turn telegraph pays off in crits
 	; NORMAL
 	db SLASH
 	db HORN_CHARGE
