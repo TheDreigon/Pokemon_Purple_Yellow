@@ -70,10 +70,6 @@ TryPushingBoulder::
 	set 1, [hl]
 	ret
 
-BoulderSwitchSoundCheck::
-	
-	ret
-
 PushBoulderUpMovementData:
 	db NPC_MOVEMENT_UP
 	db -1 ; end

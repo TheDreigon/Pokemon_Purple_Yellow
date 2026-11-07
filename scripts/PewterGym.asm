@@ -191,9 +191,6 @@ PewterGymBrockText:
 	ld [wCurOpponent], a
 	ld a, 2
 	ld [wTrainerNo], a
-	ld a, $4
-	ld [wPewterGymCurScript], a
-	ld [wCurMapScript], a
 	jr .endBattle
 .rematchSpent
 	ld hl, .RematchCooldownText

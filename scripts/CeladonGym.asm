@@ -266,9 +266,6 @@ CeladonGymErikaText:
 	ld [wCurOpponent], a
 	ld a, 2 ; the rematch — party 2 since the ghost copies went (2026-08-17)
 	ld [wTrainerNo], a
-	ld a, $4
-	ld [wCeladonGymCurScript], a
-	ld [wCurMapScript], a
 	jr .endBattle
 .rematchSpent
 	ld hl, .RematchCooldownText

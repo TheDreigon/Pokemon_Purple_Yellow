@@ -170,10 +170,6 @@ BillsHousePrintBillCheckOutMyRarePokemonText::
 	text_far _BillsHouseBillGoBeatMistyText
 	text_end
 
-.HowsTheTeamText:
-	text_far _BillsHouseBillHowsTheTeamText
-	text_end
-
 BillsHouseOfferRematch::
 ; Post-League, Bill offers a battle. He does not challenge - he asks, and what
 ; he asks for is readings rather than a win.

@@ -3,7 +3,6 @@ Route1_Script:
 	ld hl, Route1_ScriptPointers
 	ld a, [wRoute1CurScript]
 	jp CallFunctionInTable
-	ret
 
 Route1_ScriptPointers:
 	def_script_pointers
