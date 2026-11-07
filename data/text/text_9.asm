@@ -736,17 +736,22 @@ _BillsHouseBillWhichStoneText::
 	line "it be?"
 	done
 
+; v1.0 (2026-11-06): the "@" only ends the string; text_end ends the stream. Without it each receipt ran on
+; through the receipts below and BILL's "No rush!" (.claude/text_runon_audit.py).
 _BillsHouseWaterStoneReceivedText::
 	text "<PLAYER> received"
 	line "a WATER STONE!@"
+	text_end
 
 _BillsHouseThunderStoneReceivedText::
 	text "<PLAYER> received"
 	line "a THUNDERSTONE!@"
+	text_end
 
 _BillsHouseFireStoneReceivedText::
 	text "<PLAYER> received"
 	line "a FIRE STONE!@"
+	text_end
 
 _BillsHouseBillTakeYourTimeText::
 	text "No rush! Take"
