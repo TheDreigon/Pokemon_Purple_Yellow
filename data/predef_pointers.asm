@@ -83,7 +83,7 @@ PredefPointers::
 	add_predef UpdateHPBar2
 	add_predef DrawEnemyHUDAndHPBar
 	add_predef LoadTownMap_Nest
-	add_predef PrintMonType
+	add_predef PrintMonType ; v1.0 (2026-11-07): dead, a bare ret in print_type.asm; the row stays so no later predef id moves
 	add_predef EmotionBubble
 	add_predef AskName
 	add_predef PewterGuys

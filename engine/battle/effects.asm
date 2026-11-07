@@ -1648,16 +1648,8 @@ GatheredMoonlightText:
 	text_far _GatheredMoonlightText
 	text_end
 
-MadeWhirlwindText:
-	text_far _MadeWhirlwindText
-	text_end
-
 TookInSunlightText:
 	text_far _TookInSunlightText
-	text_end
-
-LoweredItsHeadText:
-	text_far _LoweredItsHeadText
 	text_end
 
 SkyAttackGlowingText:
@@ -2023,14 +2015,6 @@ StatWontGoHigherText:
 
 StatWontGoLowerText:
 	text_far _StatWontGoLowerText
-	text_end
-
-PrintNoEffectText:
-	ld hl, NoEffectText
-	jp PrintText
-
-NoEffectText:
-	text_far _NoEffectText
 	text_end
 
 ConditionalPrintButItFailed:

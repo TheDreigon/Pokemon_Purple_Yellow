@@ -473,7 +473,7 @@ ItemUseBall:
 ; man's tutorial catch skip it via the jr above.
 ;
 ; The halving loop in .payCaughtExp is the engine's own idiom - the same one
-; HalveExpData uses over in engine/battle/experience.asm: it walks the enemy's
+; HalveExpDataBytes uses over in engine/battle/experience.asm: it walks the enemy's
 ; base stats, catch rate and base exp and shifts each right once. It stays
 ; written out here rather than becoming a farcall because eleven bytes inline beat
 ; six bytes of farcall plus the bank switch. Halving the SOURCE rather than the

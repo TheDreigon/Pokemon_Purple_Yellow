@@ -1146,7 +1146,6 @@ PeckAnim:
 	battle_anim PECK, SUBANIM_0_STAR, 0, 6
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
-	db -1 ; end
 
 GustAnim:
 	battle_anim GUST, SUBANIM_1_TORNADO, 1, 6

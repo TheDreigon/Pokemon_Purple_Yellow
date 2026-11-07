@@ -570,17 +570,14 @@ ExpShareBitMask:
 	add a
 	jr .loop
 
-HalveExpData:
+HalveExpDataBytes:
 ; The enemy's base stats become stat exp and its base exp becomes experience,
 ; so halving this block halves both at once. NUM_STATS + 2 covers the base
 ; stats, the catch rate and the base exp byte (wram.asm asserts the block).
-; v1.0 (2026-11-07): ONE calls HalveExpDataBytes directly now (with NUM_STATS + 1
-; when the base exp stays whole); this whole-block entry's only caller is
-; .claude/emu_test_expshare.py.
-	ld b, NUM_STATS + 2
-HalveExpDataBytes:
 ; in: b = how many bytes of the block to halve, from the first base stat
-; (NUM_STATS + 1 leaves the base exp whole)
+; (NUM_STATS + 1 leaves the base exp whole). ONE is the only caller, with either.
+; v1.0 (2026-11-07): the whole-block entry HalveExpData (ld b, NUM_STATS + 2) went:
+; ONE passes b itself since the same day, and only a test still entered there.
 	ld hl, wEnemyMonBaseStats
 .loop
 	srl [hl]

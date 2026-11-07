@@ -94,19 +94,9 @@ _ChargeMoveEffectText::
 	text "<USER>@"
 	text_end
 
-_MadeWhirlwindText::
-	text_start
-	line "made a whirlwind!"
-	prompt
-
 _TookInSunlightText::
 	text_start
 	line "took in sunlight!"
-	prompt
-
-_LoweredItsHeadText::
-	text_start
-	line "lowered its head!"
 	prompt
 
 _SkyAttackGlowingText::
@@ -148,10 +138,6 @@ _MoveWasDisabledText::
 	text_ram wcd6d
 	text " was"
 	cont "disabled!"
-	prompt
-
-_NoEffectText::
-	text "No effect!"
 	prompt
 
 _ButItFailedText::

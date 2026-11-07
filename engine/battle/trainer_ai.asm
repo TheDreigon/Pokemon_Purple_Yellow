@@ -1145,8 +1145,6 @@ AIMoveChoiceModification4:
 .preferMoveEvenMore
 	dec [hl]
 	jr .preferMove
-.done
-	ret
 
 Modifier4PreferredMoves:
 	db SLEEP_EFFECT

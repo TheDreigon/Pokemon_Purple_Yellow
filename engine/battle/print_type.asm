@@ -1,21 +1,9 @@
-; [wd0b5] = pokemon ID
-; hl = dest addr
+; v1.0 (2026-11-07): dead, kept as a bare ret. Vanilla's "TYPE1/ TYPE2/" printer lost its
+; callers to PrintMonTypesList (the status screen, the Pokedex DATA page and the Hall of Fame on
+; 2026-11-02, the debug MON TEST on 2026-11-07); its EraseType2Text went with it. The row stays in
+; data/predef_pointers.asm: predef ids are positional, so none after it moves.
 PrintMonType:
-	call GetPredefRegisters
-	push hl
-	call GetMonHeader
-	pop hl
-	push hl
-	ld a, [wMonHType1]
-	call PrintType
-	ld a, [wMonHType1]
-	ld b, a
-	ld a, [wMonHType2]
-	cp b
-	pop hl
-	jr z, EraseType2Text
-	ld bc, SCREEN_WIDTH * 2
-	add hl, bc
+	ret
 
 ; a = type
 ; hl = dest addr
@@ -75,14 +63,6 @@ AirborneText:
 
 GroundedText:
 	db "GROUNDED@"
-
-; erase "TYPE2/" if the mon only has 1 type
-EraseType2Text:
-	ld a, " "
-	ld bc, $13
-	add hl, bc
-	ld bc, $6
-	jp FillMemory
 
 PrintMoveType:
 	call GetPredefRegisters
