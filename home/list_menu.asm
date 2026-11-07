@@ -31,8 +31,8 @@ DisplayListMenuID::
 	call DisplayTextBoxID ; draw the menu text box
 	call UpdateSprites ; disable sprites behind the text box
 ; the code up to .skipMovingSprites appears to be useless
-	hlcoord 4, 2 ; the vanilla menu text box corner (3, 2 since v0.7; unused)
-	lb de, 9, 14 ; its vanilla height and width (9, 15 since v0.7; unused)
+; v1.0 (2026-11-07): vanilla loaded the box's corner into hl and its size into de here, and nothing read
+; either (PrintListMenuEntries sets both again); the two loads went, 6 bytes of home.
 	ld a, [wListMenuID]
 	and a ; PCPOKEMONLISTMENU?
 	jr nz, .skipMovingSprites
@@ -431,8 +431,11 @@ ExitListMenu::
 	ld [wChosenMenuItem], a
 	ld a, CANCELLED_MENU
 	ld [wMenuExitMethod], a
-	ld [wMenuWatchMovingOutOfBounds], a
+; v1.0 (2026-11-07): vanilla left CANCELLED_MENU in wMenuWatchMovingOutOfBounds as well. The fixed menus wrap
+; only while it is 0, so after a list closed with B (an elevator, the move deleter) the next one - a battle
+; menu, a PC - handed an edge press back as a choice. Every list menu sets the byte again on entry.
 	xor a
+	ld [wMenuWatchMovingOutOfBounds], a
 	ldh [hJoy7], a
 	ld hl, wd730
 	res 6, [hl]
@@ -621,7 +624,10 @@ PrintListMenuEntries::
 	inc c
 	dec b
 	jp nz, .loop
-	ld bc, -8
+; v1.0 (2026-11-07): hl is the fifth row's name cell, (5,12); -7 puts the arrow on (18,11), the box's inner
+; corner and the one cell HandleMenuInput_ blinks (home/window.asm). -8 was right while the names began at
+; column 6; since they moved to column 5 (74cccfa1) it left the arrow on (17,11), solid.
+	ld bc, -7
 	add hl, bc
 	ld a, "▼"
 	ld [hl], a

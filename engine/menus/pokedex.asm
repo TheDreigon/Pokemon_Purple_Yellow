@@ -308,6 +308,12 @@ HandlePokedexListMenu:
 	ret
 
 .startPressed
+; v1.0 (2026-11-07): a NEW press only. hJoy7 = 1 here, so HandleMenuInput also hands back a button that is
+; HELD (after half a second, then every 5 frames), and a held START flipped between this list and the
+; MOVEDEX, whose START closes it, for as long as it was held.
+	ldh a, [hJoyPressed]
+	and START
+	jp z, .loop
 ; Reported in b rather than acted on here: this routine's caller owns the
 ; screen, and its carry already means "a Pokemon was chosen". b costs nothing,
 ; and WRAM has no byte to spare -- it is full at 8192/8192.

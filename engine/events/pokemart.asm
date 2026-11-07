@@ -398,8 +398,12 @@ PokemartAnythingElseText:
 ;
 ; Called from DisplayListMenuIDLoop, which redraws on every cursor move now, so
 ; the number is never one row out of date. The cursor can sit on CANCEL, whose
-; entry byte is -1 and which owns nothing, so that case shows 0 rather
-; than looking a quantity up for item $FF.
+; entry byte is -1 and which owns nothing: -1 matches no slot of the bag (only
+; its terminator, which ends the count first), so that row shows 0.
+;
+; v1.0 (2026-11-07): wd730 bit 6 (no letter delay) is DisplayListMenuID's for the
+; whole menu; this used to set it and then clear it, which left the rest of the
+; list's redraws with the delay bit off.
 MartInBagCounter::
 	ld a, [wMartShowInBag]
 	and a
@@ -416,33 +420,45 @@ MartInBagCounter::
 	ld c, a
 	ld b, 0
 	add hl, bc ; priced-item entries are one byte each
-	ld a, [hl]
-	inc a ; the -1 that ends the list is the CANCEL row
-	jr z, .cancelRow
-	dec a
-	ld b, a
-	predef GetQuantityOfItemInBag ; b in, b out
-	ld a, b
-	jr .draw
-.cancelRow
-	xor a
-.draw
+	ld b, [hl] ; the item under the cursor
+; v1.0 (2026-11-07): every stack of it. The bag splits a stack that would pass 99
+; into a second slot of the same item (AddItemToInventory_), and the first stack
+; alone was all GetQuantityOfItemInBag counted. The sum stops at 255, one byte.
+	ld hl, wBagItems
+	ld c, 0
+.countStacks
+	ld a, [hli]
+	cp -1
+	jr z, .counted
+	cp b
+	ld a, [hli] ; its quantity; a load keeps the flags of the cp
+	jr nz, .countStacks
+	add c
+	ld c, a
+	jr nc, .countStacks
+	ld c, 255
+	jr .countStacks
+.counted
+	ld a, c
 	ld [wMartInBagCount], a
-	ld hl, wd730
-	set 6, [hl] ; no letter-by-letter delay inside a redraw
 	hlcoord 0, 0
 	lb bc, 1, 9
 	call TextBoxBorder
+; v1.0 (2026-11-07): this box is drawn after the list's (DisplayListMenuID draws
+; that one once, before its loop), and its bottom edge is the list's top edge from
+; column 3 on. Put the list's corner and line back over it: the two then meet the
+; way the money box opposite meets the list, which is drawn after it.
+	ld a, "┌"
+	ldcoord_a 3, 2
+	ld a, "─"
+	ldcoord_a 10, 2
 	hlcoord 2, 0
 	ld de, InBagText
 	call PlaceString
-	hlcoord 5, 1
+	hlcoord 4, 1
 	ld de, wMartInBagCount
-	lb bc, 1, 2 ; one byte, two digits; the bag caps a stack at 99
-	call PrintNumber
-	ld hl, wd730
-	res 6, [hl]
-	ret
+	lb bc, 1, 3 ; one byte, three digits: two stacks pass 99
+	jp PrintNumber
 
 InBagText:
 	db "IN BAG@"

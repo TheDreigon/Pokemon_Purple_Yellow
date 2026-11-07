@@ -25,6 +25,8 @@ DrawStartMenu::
 	; that the caller handles the edge (watch = 1) so HandleMenuInput's
 	; generic fixed-menu wrap stays out of the way; otherwise Up-at-top would
 	; jump to that phantom slot below EXIT instead of the manual wrap.
+	; v1.0 (2026-11-07): every way out puts it back to 0: CloseStartMenu (home/start_menu.asm),
+	; SAVE in StartMenu_SaveReset, the field moves through PartyMenuInit.
 	ld a, 1
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld hl, wd730

@@ -51,8 +51,7 @@ ShowMovedexMenu::
 
 ; v0.7: the Pokedex's own tile patterns stay loaded, because this list is now
 ; drawn in the Pokedex's style -- one vertical rule down column 14 rather than
-; text boxes. Only the move card needs the text-box border tiles, and .showCard
-; swaps them in and back out again.
+; text boxes. v1.0 (2026-11-07): the move card draws with them too (see .showCard).
 .redraw
 	call Movedex_DrawInterface
 .loop
@@ -85,7 +84,7 @@ ShowMovedexMenu::
 	bit BIT_B_BUTTON, a
 	jr nz, .done
 	bit BIT_START, a
-	jr nz, .done ; START closes it the same way it opened it
+	jr nz, .startPressed ; START closes it the same way it opened it
 	bit BIT_A_BUTTON, a
 	jr nz, .showCard
 	bit BIT_D_UP, a
@@ -96,6 +95,15 @@ ShowMovedexMenu::
 	jr nz, .pageDown
 	bit BIT_D_LEFT, a
 	jr nz, .pageUp
+	jp .loop
+
+.startPressed
+; v1.0 (2026-11-07): a NEW press only, as on the POKeDEX list. The POKeDEX leaves hJoy7 = 1, so a START still
+; held from opening this list came back here as a press after half a second and closed it, and the list
+; behind opened it again.
+	ldh a, [hJoyPressed]
+	and START
+	jr nz, .done
 	jp .loop
 
 .done
@@ -138,11 +146,12 @@ ShowMovedexMenu::
 	jr z, .notSeenYet
 	ld a, b
 	ld [wPlayerSelectedMove], a
-; The card is drawn with TextBoxBorder, so it needs the text-box tiles; the list
-; behind it needs the Pokedex's. Swap either side of the call.
-	call LoadTextBoxTilePatterns
+; v1.0 (2026-11-07): no tile swap around the card. It draws the frame ($79-$7E), the space ($7F) and the
+; font, and in the POKeDEX set those seven tiles are the text-box set's own patterns (font_battle_extra.2bpp
+; carries them), as in battle, where the FIGHT menu opens the same card over the HP-bar set. No card text
+; uses a glyph on $60-$78. The swap ran while the list was still on screen and turned its rule down column
+; 14 ($70/$71) into quote marks for a few frames.
 	farcall ShowMoveInfo
-	call LoadPokedexTilePatterns_Movedex
 	jp .redraw
 
 ; A dashed line has no card behind it. Say so with the sound the game already

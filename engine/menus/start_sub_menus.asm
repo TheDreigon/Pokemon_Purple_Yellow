@@ -874,6 +874,11 @@ StartMenu_SaveReset::
 	jp nz, Init
 	predef SaveSAV ; save the game
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
+; v1.0 (2026-11-07): this way out of the START menu does not pass CloseStartMenu, and SaveSAV shows no YES/NO
+; (which would clear it) unless an older file is about to be erased: clear wMenuWatchMovingOutOfBounds here
+; too, or the next fixed menu takes an edge press for A (see CloseStartMenu, home/start_menu.asm).
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a
 	jp HoldTextDisplayOpen
 
 StartMenu_Option::

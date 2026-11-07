@@ -47,11 +47,12 @@ CeladonMart1FInfoClerkText:
 
 .categoryLoop
 	; Re-armed EVERY pass, not just on entry: DisplayListMenuID is a scrolling
-	; menu and leaves wMenuWatchMovingOutOfBounds set, which switches
+	; menu and sets wMenuWatchMovingOutOfBounds while it runs, which switches
 	; HandleMenuInput from "wrap around" to "return the direction key to the
 	; caller". This board wraps, so it must be clear -- otherwise Down on the
 	; bottom row returned D_DOWN, fell past the B/Left/Right tests, and got
-	; treated as a selection.
+	; treated as a selection. v1.0 (2026-11-07): the list leaves it at 0 after
+	; A and after B now (ExitListMenu clears it too); the clear stays, as hygiene.
 	xor a
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wMenuJoypadPollCount], a

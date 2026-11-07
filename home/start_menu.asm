@@ -1,7 +1,9 @@
 DisplayStartMenu::
 	ld a, BANK(StartMenu_Pokedex) ; also bank for other functions
 	call BankswitchCommon
-	ld a, [wWalkBikeSurfState] ; walking/biking/surfing
+; v1.0 (2026-11-07): vanilla stored wWalkBikeSurfState into wWalkBikeSurfStateCopy here. The store had gone
+; and the load left before this line was dead (a is overwritten at once): 3 bytes of home back, a bank kept
+; at its floor.
 	ld a, SFX_START_MENU
 	call PlaySound
 
@@ -80,5 +82,12 @@ CloseStartMenu::
 	ldh a, [hJoyPressed]
 	bit BIT_A_BUTTON, a
 	jr nz, CloseStartMenu
+; v1.0 (2026-11-07): DrawStartMenu sets wMenuWatchMovingOutOfBounds so that the START menu keeps its own wrap.
+; The fixed menus wrap at their ends only while it is 0 (HandleMenuInput_), and with it left at 1 the next one
+; (the battle menu, the SAFARI menu, a PC, the school blackboard) handed an edge press back to a caller that
+; reads anything but B as A. The other ways out of the START menu clear it too: SAVE in StartMenu_SaveReset,
+; the field moves through PartyMenuInit.
+	xor a
+	ld [wMenuWatchMovingOutOfBounds], a
 	call LoadTextBoxTilePatterns
 	jp CloseTextDisplay

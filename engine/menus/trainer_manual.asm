@@ -457,7 +457,8 @@ TrainerManual_PutCursorOn:
 ; other one (PlaceMenuCursor in home/window.asm). The battle FIGHT menu uses the
 ; same flag for its four move names.
 ;
-; OUTPUT: a = the keys HandleMenuInput answered with. Preserves bc.
+; OUTPUT: a = the keys HandleMenuInput answered with; when A or B is among them, those alone (the direction
+; dropped). Preserves bc; hl is clobbered.
 TrainerManual_ReadList:
 	push bc
 	ld a, 1
@@ -483,6 +484,14 @@ TrainerManual_ReadList:
 	res 1, [hl]
 	ld a, b
 	pop bc
+; v1.0 (2026-11-07): A or B wins over a direction pressed on the same poll, as in the game's own list menu
+; (DisplayListMenuIDLoop tests A first). HandleMenuInput does not move the cursor when A is pressed, but it
+; hands back A|DOWN whole, and the scroll below then moved the window or jumped the cursor to the far end
+; while the callers, which test UP and DOWN before A, opened nothing.
+	ld h, a
+	and A_BUTTON | B_BUTTON
+	ret nz
+	ld a, h
 	push af
 	bit BIT_D_UP, a
 	jr nz, .scrollUp

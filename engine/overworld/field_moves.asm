@@ -206,6 +206,13 @@ PromptToPlayFluteText:
 ; submenu in engine/menus/start_sub_menus.asm.
 
 TryUseRegisteredItem::
+; v1.0 (2026-11-07): not while a trainer is engaging the player (wFlags_0xcd60 bit 0, set from his "!" until
+; his battle): START and A refuse in that frame (.displayDialogue in home/overworld.asm). A trainer standing
+; right beside the player never walks, so nothing raises wJoyIgnore to $FF, and a SELECT pressed under the
+; "!" got here between the "!" and his words (a rod's bite was then dropped for his battle).
+	ld a, [wFlags_0xcd60]
+	bit 0, a
+	ret nz
 ; v0.7 (2026-09-05, playthrough): the same refusal the A button uses in
 ; home/overworld.asm - NPC movement script, stepping out of a door, simulated
 ; input (this subsumes the old wd730 bit 7 test).
@@ -289,6 +296,8 @@ RegistrableItems:
 	db POKE_FLUTE
 	db -1 ; end
 
+; v1.0 (2026-11-07): both end in `prompt`, as the bag's other refusals do: they used to end the text at the
+; last letter, and ItemMenuLoop put the bag back over them about 13 frames later.
 RegisteredItemText:
 	text "Registered the"
 	line "@"
@@ -296,8 +305,10 @@ RegisteredItemText:
 	text "!"
 
 	para "Press SELECT to"
-	line "use it.@@"
+	line "use it."
+	prompt
 
 CantRegisterItemText:
 	text "Can't register"
-	line "that.@@"
+	line "that."
+	prompt

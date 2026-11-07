@@ -477,9 +477,10 @@ BillsHouseStoneReward::
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
-; the start-menu wrap QoL leaves wMenuWatchMovingOutOfBounds set;
-; stale nonzero lets Up/Down at the menu edges bypass the A/B filter
-; and instantly lock in a stone — clear it (fixed-menu hygiene)
+; a stale nonzero wMenuWatchMovingOutOfBounds lets Up/Down at the menu edges
+; bypass the A/B filter and instantly lock in a stone — clear it (fixed-menu
+; hygiene). The start-menu wrap QoL used to leave it set; since v1.0
+; (2026-11-07) every way out of the START menu clears it, and so do the list menus.
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wMenuJoypadPollCount], a ; stale 1 (cable club) would auto-answer
 	ld a, A_BUTTON | B_BUTTON

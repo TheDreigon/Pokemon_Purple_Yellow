@@ -83,8 +83,8 @@ AIEnemyTrainerChooseMoves:
 ; wAITargetMonStatus here. Nothing ever stored anything else in them (and WRAM is cleared at
 ; boot), so every test of them (layers 1, 3 and 4, CheckSeeded, CheckStatusImmunity) was dead, and so were wAITargetMonType1/2,
 ; read only behind one of those tests. The code went; the four WRAM bytes stayed where they were, and since
-; 2026-11-02 two are the chart walks' defender traits (wDefenderType3, wDefenderAirborne) and two are spare
-; (wSpareBattleByte1, wSpareBattleByte2).
+; 2026-11-02 two are the chart walks' defender traits (wDefenderType3, wDefenderAirborne) and two were spare;
+; since 2026-11-07 one is still spare (wSpareBattleByte1) and the other is the bag's sort switch (wTempFlag).
 	ret
 
 AIMoveChoiceModificationFunctionPointers:

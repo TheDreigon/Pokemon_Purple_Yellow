@@ -52,6 +52,11 @@ JoypadLowSensitivity::
 	ldh [hFrameCounter], a
 	ret
 
+; v1.0 (2026-11-07): passes of the 4-cycle wait in WaitForTextScrollButtonPress's poll (about the cost of the
+; `predef CableClub_Run` vanilla ran there). 43 measured 38.00 / 38.40 frames on / off against vanilla's
+; 38.27 / 38.47 at OAK's first box; 40 gave 36.80 / 37.25.
+DEF BLINK_POLL_WAIT EQU 43
+
 WaitForTextScrollButtonPress::
 	ldh a, [hDownArrowBlinkCount1]
 	push af
@@ -76,6 +81,14 @@ WaitForTextScrollButtonPress::
 	call HandleDownArrowBlinkTiming
 	pop hl
 	call JoypadLowSensitivity
+; v1.0 (2026-11-07): HandleDownArrowBlinkTiming counts calls, not frames, so what one pass of this loop costs
+; is what sets the arrow's blink. Vanilla ran `predef CableClub_Run` here on every pass; the cable code went
+; (974a65d8) and the arrow blinked 1.85x as fast. This wait puts the cost back: 38 frames on, 38 off, as in
+; vanilla (emu_test_arrow_blink measures both). a is free: hJoy5 is read right after.
+	ld a, BLINK_POLL_WAIT
+.pollWait
+	dec a
+	jr nz, .pollWait
 	ldh a, [hJoy5]
 	and A_BUTTON | B_BUTTON
 	jr z, .loop

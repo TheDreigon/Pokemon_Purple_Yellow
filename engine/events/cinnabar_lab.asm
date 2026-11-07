@@ -28,7 +28,7 @@ GiveFossilToCinnabarLab::
 	res 6, [hl]
 	xor a
 	ld [wLastMenuItem], a
-	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene (the START menu and the lists leave it 0 since 2026-11-07)
 	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-pick a fossil
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a

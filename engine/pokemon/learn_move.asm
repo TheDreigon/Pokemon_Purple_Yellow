@@ -170,7 +170,7 @@ TryingToLearn:
 	ld a, [wCurrentMenuItem]
 	ld [hl], a ; wLastMenuItem: the box is redrawn whole, so match the cursor
 	xor a
-	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene: a stale start-menu-wrap flag
+	ld [wMenuWatchMovingOutOfBounds], a ; menu hygiene (the START menu and the lists leave it 0 since 2026-11-07)
 	ld [wMenuJoypadPollCount], a         ; or cable-club poll count would auto-forget a move
 	ld hl, hUILayoutFlags
 	set 1, [hl]

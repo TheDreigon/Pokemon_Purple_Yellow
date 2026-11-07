@@ -998,8 +998,10 @@ wBadgeNameTile:: db
 ; the byte after the list gets read when shifting back one byte
 wBadgeOrFaceTiles:: ds NUM_BADGES + 1
 
-; Used for checking whether we can call sort on the item menu
-wTempFlag:: db
+; v1.0 (2026-11-07): vanilla's pad. Yellow Legacy kept the bag's sort switch here (wTempFlag), and this byte is
+; also wBoxMonCounts[11]: the CHANGE BOX screen wrote BOX 12's count into the switch. It lives in the
+; old second spare battle byte now (wTempFlag, after wSpareBattleByte1).
+	ds 1
 
 ; temporary list created when displaying the badges on the trainer screen
 ; one byte for each badge; 0 = not obtained, 1 = obtained
@@ -1465,7 +1467,13 @@ ENDU
 ; wAIMoveSpamAvoider and wAITargetMonStatus, two of the four pureRGB AI bytes, dead since v1.0 E4 (2026-09-29:
 ; nothing read them); the other two became wDefenderType3 and wDefenderAirborne below.
 wSpareBattleByte1:: db
-wSpareBattleByte2:: db
+; v1.0 (2026-11-07): the second spare byte (wSpareBattleByte2) is the bag's sort switch now. StartMenu_Item
+; sets it to 1 right before DisplayListMenuID, which reads it (1 = START is watched and sorts the bag) and
+; clears it. Its old byte, in the union above, was also BOX 12's count (wBoxMonCounts[11]), so one #MON in
+; BOX 12 turned START on in the next list of any kind. Nothing else writes this one and the save does not hold
+; it. The spare name is gone from it, so that a store meant for a spare byte cannot land here unseen: the one
+; spare byte left is wSpareBattleByte1, above.
+wTempFlag:: db
 ; v1.0 (2026-11-02): the defender's traits for the chart walks (type_effectiveness.asm), from its species
 ; (SetDefenderTraits): ApplyTypeEffectivenessToDamage looks them up itself; every caller of AIGetTypeEffectivenessDBC
 ; sets them first. wDefenderType3: its third type, $FF for none. wDefenderAirborne: FLYING when it is AIRBORNE,
