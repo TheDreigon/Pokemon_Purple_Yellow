@@ -23,6 +23,6 @@ SeafoamIslands1F_Object:
 	; v0.7 ground-item redesign: rope quota, cave 3 of 5.5. Missable slot freed
 	; by the Cerulean Cave B1F Ultra Ball conversion. Kept away from the boulder
 	; push lines on purpose — a solid ball in a puzzle lane would block it.
-	object_event 24,  3, SPRITE_POKE_BALL, STAY, NONE, TEXT_SEAFOAMISLANDS1F_ESCAPE_ROPE, ESCAPE_ROPE ; TODO: placeholder coords, adjust in PolishedMap
+	object_event 27, 10, SPRITE_POKE_BALL, STAY, NONE, TEXT_SEAFOAMISLANDS1F_ESCAPE_ROPE, ESCAPE_ROPE ; final cell (Forte, 2026-11-07)
 
 	def_warps_to SEAFOAM_ISLANDS_1F
