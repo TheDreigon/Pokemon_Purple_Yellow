@@ -115,6 +115,20 @@ PewterNidoranHouse_Blocks:
 PewterSpeechHouse_Blocks:
 ViridianNicknameHouse_Blocks: INCBIN "maps/ViridianNicknameHouse.blk"
 	assert @ - ViridianNicknameHouse_Blocks == VIRIDIAN_NICKNAME_HOUSE_WIDTH * VIRIDIAN_NICKNAME_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match VIRIDIAN_NICKNAME_HOUSE in map_constants.asm"
+	; v1.0 (2026-11-07): every label stacked on a shared INCBIN gets its own size assert, against the map constant its
+	; map_header uses (until then one label of each group was checked, mostly the INCBIN line's; @ - X_Blocks is the
+	; file size for each of them).
+	assert @ - MrPsychicsHouse_Blocks == MR_PSYCHICS_HOUSE_WIDTH * MR_PSYCHICS_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match MR_PSYCHICS_HOUSE in map_constants.asm"
+	assert @ - NameRatersHouse_Blocks == NAME_RATERS_HOUSE_WIDTH * NAME_RATERS_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match NAME_RATERS_HOUSE in map_constants.asm"
+	assert @ - MrFujisHouse_Blocks == MR_FUJIS_HOUSE_WIDTH * MR_FUJIS_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match MR_FUJIS_HOUSE in map_constants.asm"
+	assert @ - Route16FlyHouse_Blocks == ROUTE_16_FLY_HOUSE_WIDTH * ROUTE_16_FLY_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match ROUTE_16_FLY_HOUSE in map_constants.asm"
+	assert @ - Route2TradeHouse_Blocks == ROUTE_2_TRADE_HOUSE_WIDTH * ROUTE_2_TRADE_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match ROUTE_2_TRADE_HOUSE in map_constants.asm"
+	assert @ - SaffronPidgeyHouse_Blocks == SAFFRON_PIDGEY_HOUSE_WIDTH * SAFFRON_PIDGEY_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match SAFFRON_PIDGEY_HOUSE in map_constants.asm"
+	assert @ - VermilionPidgeyHouse_Blocks == VERMILION_PIDGEY_HOUSE_WIDTH * VERMILION_PIDGEY_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match VERMILION_PIDGEY_HOUSE in map_constants.asm"
+	assert @ - LavenderCuboneHouse_Blocks == LAVENDER_CUBONE_HOUSE_WIDTH * LAVENDER_CUBONE_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match LAVENDER_CUBONE_HOUSE in map_constants.asm"
+	assert @ - CeruleanMelaniesHouse_Blocks == CERULEAN_MELANIES_HOUSE_WIDTH * CERULEAN_MELANIES_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match CERULEAN_MELANIES_HOUSE in map_constants.asm"
+	assert @ - PewterNidoranHouse_Blocks == PEWTER_NIDORAN_HOUSE_WIDTH * PEWTER_NIDORAN_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match PEWTER_NIDORAN_HOUSE in map_constants.asm"
+	assert @ - PewterSpeechHouse_Blocks == PEWTER_SPEECH_HOUSE_WIDTH * PEWTER_SPEECH_HOUSE_HEIGHT, "ViridianNicknameHouse.blk size does not match PEWTER_SPEECH_HOUSE in map_constants.asm"
 
 ; Its own copy rather than another label on the stack above, so the interior can
 ; be redrawn in PolishedMap without dragging every other small house with it.
@@ -124,6 +138,7 @@ ViridianOldRodHouse_Blocks: INCBIN "maps/ViridianOldRodHouse.blk"
 CeladonMansionRoofHouse_Blocks:
 ViridianSchoolHouse_Blocks: INCBIN "maps/ViridianSchoolHouse.blk"
 	assert @ - ViridianSchoolHouse_Blocks == VIRIDIAN_SCHOOL_HOUSE_WIDTH * VIRIDIAN_SCHOOL_HOUSE_HEIGHT, "ViridianSchoolHouse.blk size does not match VIRIDIAN_SCHOOL_HOUSE in map_constants.asm"
+	assert @ - CeladonMansionRoofHouse_Blocks == CELADON_MANSION_ROOF_HOUSE_WIDTH * CELADON_MANSION_ROOF_HOUSE_HEIGHT, "ViridianSchoolHouse.blk size does not match CELADON_MANSION_ROOF_HOUSE in map_constants.asm"
 
 CeruleanTrashedHouse_Blocks: INCBIN "maps/CeruleanTrashedHouse.blk"
 	assert @ - CeruleanTrashedHouse_Blocks == CERULEAN_TRASHED_HOUSE_WIDTH * CERULEAN_TRASHED_HOUSE_HEIGHT, "CeruleanTrashedHouse.blk size does not match CERULEAN_TRASHED_HOUSE in map_constants.asm"
@@ -131,6 +146,7 @@ CeruleanTrashedHouse_Blocks: INCBIN "maps/CeruleanTrashedHouse.blk"
 DiglettsCaveRoute11_Blocks:
 DiglettsCaveRoute2_Blocks: INCBIN "maps/DiglettsCaveRoute2.blk"
 	assert @ - DiglettsCaveRoute2_Blocks == DIGLETTS_CAVE_ROUTE_2_WIDTH * DIGLETTS_CAVE_ROUTE_2_HEIGHT, "DiglettsCaveRoute2.blk size does not match DIGLETTS_CAVE_ROUTE_2 in map_constants.asm"
+	assert @ - DiglettsCaveRoute11_Blocks == DIGLETTS_CAVE_ROUTE_11_WIDTH * DIGLETTS_CAVE_ROUTE_11_HEIGHT, "DiglettsCaveRoute2.blk size does not match DIGLETTS_CAVE_ROUTE_11 in map_constants.asm"
 
 
 SECTION "Maps 4", ROMX
@@ -302,6 +318,9 @@ SafariZoneWestRestHouse_Blocks:
 SafariZoneEastRestHouse_Blocks:
 SafariZoneNorthRestHouse_Blocks: INCBIN "maps/SafariZoneCenterRestHouse.blk"
 	assert @ - SafariZoneNorthRestHouse_Blocks == SAFARI_ZONE_NORTH_REST_HOUSE_WIDTH * SAFARI_ZONE_NORTH_REST_HOUSE_HEIGHT, "SafariZoneNorthRestHouse.blk size does not match SAFARI_ZONE_NORTH_REST_HOUSE in map_constants.asm"
+	assert @ - SafariZoneCenterRestHouse_Blocks == SAFARI_ZONE_CENTER_REST_HOUSE_WIDTH * SAFARI_ZONE_CENTER_REST_HOUSE_HEIGHT, "SafariZoneCenterRestHouse.blk size does not match SAFARI_ZONE_CENTER_REST_HOUSE in map_constants.asm"
+	assert @ - SafariZoneWestRestHouse_Blocks == SAFARI_ZONE_WEST_REST_HOUSE_WIDTH * SAFARI_ZONE_WEST_REST_HOUSE_HEIGHT, "SafariZoneCenterRestHouse.blk size does not match SAFARI_ZONE_WEST_REST_HOUSE in map_constants.asm"
+	assert @ - SafariZoneEastRestHouse_Blocks == SAFARI_ZONE_EAST_REST_HOUSE_WIDTH * SAFARI_ZONE_EAST_REST_HOUSE_HEIGHT, "SafariZoneCenterRestHouse.blk size does not match SAFARI_ZONE_EAST_REST_HOUSE in map_constants.asm"
 
 INCLUDE "scripts/LavenderTown.asm"
 
@@ -472,11 +491,15 @@ CeladonPokecenter_Blocks:
 RockTunnelPokecenter_Blocks:
 MtMoonPokecenter_Blocks: INCBIN "maps/MtMoonPokecenter.blk"
 	assert @ - MtMoonPokecenter_Blocks == MT_MOON_POKECENTER_WIDTH * MT_MOON_POKECENTER_HEIGHT, "MtMoonPokecenter.blk size does not match MT_MOON_POKECENTER in map_constants.asm"
+	assert @ - CeladonPokecenter_Blocks == CELADON_POKECENTER_WIDTH * CELADON_POKECENTER_HEIGHT, "MtMoonPokecenter.blk size does not match CELADON_POKECENTER in map_constants.asm"
+	assert @ - RockTunnelPokecenter_Blocks == ROCK_TUNNEL_POKECENTER_WIDTH * ROCK_TUNNEL_POKECENTER_HEIGHT, "MtMoonPokecenter.blk size does not match ROCK_TUNNEL_POKECENTER in map_constants.asm"
 
 Route18Gate1F_Blocks:
 Route15Gate1F_Blocks:
 Route11Gate1F_Blocks: INCBIN "maps/Route11Gate1F.blk"
 	assert @ - Route11Gate1F_Blocks == ROUTE_11_GATE_1F_WIDTH * ROUTE_11_GATE_1F_HEIGHT, "Route11Gate1F.blk size does not match ROUTE_11_GATE_1F in map_constants.asm"
+	assert @ - Route18Gate1F_Blocks == ROUTE_18_GATE_1F_WIDTH * ROUTE_18_GATE_1F_HEIGHT, "Route11Gate1F.blk size does not match ROUTE_18_GATE_1F in map_constants.asm"
+	assert @ - Route15Gate1F_Blocks == ROUTE_15_GATE_1F_WIDTH * ROUTE_15_GATE_1F_HEIGHT, "Route11Gate1F.blk size does not match ROUTE_15_GATE_1F in map_constants.asm"
 
 Route18Gate2F_Blocks:
 Route16Gate2F_Blocks:
@@ -484,6 +507,10 @@ Route15Gate2F_Blocks:
 Route12Gate2F_Blocks:
 Route11Gate2F_Blocks: INCBIN "maps/Route11Gate2F.blk"
 	assert @ - Route11Gate2F_Blocks == ROUTE_11_GATE_2F_WIDTH * ROUTE_11_GATE_2F_HEIGHT, "Route11Gate2F.blk size does not match ROUTE_11_GATE_2F in map_constants.asm"
+	assert @ - Route18Gate2F_Blocks == ROUTE_18_GATE_2F_WIDTH * ROUTE_18_GATE_2F_HEIGHT, "Route11Gate2F.blk size does not match ROUTE_18_GATE_2F in map_constants.asm"
+	assert @ - Route16Gate2F_Blocks == ROUTE_16_GATE_2F_WIDTH * ROUTE_16_GATE_2F_HEIGHT, "Route11Gate2F.blk size does not match ROUTE_16_GATE_2F in map_constants.asm"
+	assert @ - Route15Gate2F_Blocks == ROUTE_15_GATE_2F_WIDTH * ROUTE_15_GATE_2F_HEIGHT, "Route11Gate2F.blk size does not match ROUTE_15_GATE_2F in map_constants.asm"
+	assert @ - Route12Gate2F_Blocks == ROUTE_12_GATE_2F_WIDTH * ROUTE_12_GATE_2F_HEIGHT, "Route11Gate2F.blk size does not match ROUTE_12_GATE_2F in map_constants.asm"
 
 
 SECTION "Maps 8", ROMX
@@ -823,6 +850,7 @@ Route21_Blocks: INCBIN "maps/Route21.blk"
 VermilionGoodRodHouse_Blocks:
 Route12SuperRodHouse_Blocks: INCBIN "maps/VermilionGoodRodHouse.blk"
 	assert @ - VermilionGoodRodHouse_Blocks == VERMILION_GOOD_ROD_HOUSE_WIDTH * VERMILION_GOOD_ROD_HOUSE_HEIGHT, "VermilionGoodRodHouse.blk size does not match VERMILION_GOOD_ROD_HOUSE in map_constants.asm"
+	assert @ - Route12SuperRodHouse_Blocks == ROUTE_12_SUPER_ROD_HOUSE_WIDTH * ROUTE_12_SUPER_ROD_HOUSE_HEIGHT, "VermilionGoodRodHouse.blk size does not match ROUTE_12_SUPER_ROD_HOUSE in map_constants.asm"
 
 Daycare_Blocks: INCBIN "maps/Daycare.blk"
 	assert @ - Daycare_Blocks == DAYCARE_WIDTH * DAYCARE_HEIGHT, "Daycare.blk size does not match DAYCARE in map_constants.asm"
@@ -978,6 +1006,9 @@ LavenderMart_Blocks:
 CeruleanMart_Blocks:
 VermilionMart_Blocks: INCBIN "maps/VermilionMart.blk"
 	assert @ - VermilionMart_Blocks == VERMILION_MART_WIDTH * VERMILION_MART_HEIGHT, "VermilionMart.blk size does not match VERMILION_MART in map_constants.asm"
+	assert @ - SaffronMart_Blocks == SAFFRON_MART_WIDTH * SAFFRON_MART_HEIGHT, "VermilionMart.blk size does not match SAFFRON_MART in map_constants.asm"
+	assert @ - LavenderMart_Blocks == LAVENDER_MART_WIDTH * LAVENDER_MART_HEIGHT, "VermilionMart.blk size does not match LAVENDER_MART in map_constants.asm"
+	assert @ - CeruleanMart_Blocks == CERULEAN_MART_WIDTH * CERULEAN_MART_HEIGHT, "VermilionMart.blk size does not match CERULEAN_MART in map_constants.asm"
 
 ; Three maps, one file. Copycat's bedroom already shared Red's, and the rival's
 ; is meant to be identical to Red's, so it stacks here too and costs 0 bytes.
@@ -987,6 +1018,8 @@ BluesHouse2F_Blocks:
 CopycatsHouse2F_Blocks:
 RedsHouse2F_Blocks: INCBIN "maps/RedsHouse2F.blk"
 	assert @ - RedsHouse2F_Blocks == REDS_HOUSE_2F_WIDTH * REDS_HOUSE_2F_HEIGHT, "RedsHouse2F.blk size does not match REDS_HOUSE_2F in map_constants.asm"
+	assert @ - BluesHouse2F_Blocks == BLUES_HOUSE_2F_WIDTH * BLUES_HOUSE_2F_HEIGHT, "RedsHouse2F.blk size does not match BLUES_HOUSE_2F in map_constants.asm"
+	assert @ - CopycatsHouse2F_Blocks == COPYCATS_HOUSE_2F_WIDTH * COPYCATS_HOUSE_2F_HEIGHT, "RedsHouse2F.blk size does not match COPYCATS_HOUSE_2F in map_constants.asm"
 
 Museum1F_Blocks: INCBIN "maps/Museum1F.blk"
 	assert @ - Museum1F_Blocks == MUSEUM_1F_WIDTH * MUSEUM_1F_HEIGHT, "Museum1F.blk size does not match MUSEUM_1F in map_constants.asm"
@@ -999,17 +1032,25 @@ VermilionPokecenter_Blocks:
 LavenderPokecenter_Blocks:
 PewterPokecenter_Blocks: INCBIN "maps/PewterPokecenter.blk"
 	assert @ - PewterPokecenter_Blocks == PEWTER_POKECENTER_WIDTH * PEWTER_POKECENTER_HEIGHT, "PewterPokecenter.blk size does not match PEWTER_POKECENTER in map_constants.asm"
+	assert @ - SaffronPokecenter_Blocks == SAFFRON_POKECENTER_WIDTH * SAFFRON_POKECENTER_HEIGHT, "PewterPokecenter.blk size does not match SAFFRON_POKECENTER in map_constants.asm"
+	assert @ - VermilionPokecenter_Blocks == VERMILION_POKECENTER_WIDTH * VERMILION_POKECENTER_HEIGHT, "PewterPokecenter.blk size does not match VERMILION_POKECENTER in map_constants.asm"
+	assert @ - LavenderPokecenter_Blocks == LAVENDER_POKECENTER_WIDTH * LAVENDER_POKECENTER_HEIGHT, "PewterPokecenter.blk size does not match LAVENDER_POKECENTER in map_constants.asm"
 
 UndergroundPathRoute7_Blocks:
 UndergroundPathRoute7Copy_Blocks:
 UndergroundPathRoute6_Blocks:
 UndergroundPathRoute5_Blocks: INCBIN "maps/UndergroundPathRoute5.blk"
 	assert @ - UndergroundPathRoute5_Blocks == UNDERGROUND_PATH_ROUTE_5_WIDTH * UNDERGROUND_PATH_ROUTE_5_HEIGHT, "UndergroundPathRoute5.blk size does not match UNDERGROUND_PATH_ROUTE_5 in map_constants.asm"
+	assert @ - UndergroundPathRoute7_Blocks == UNDERGROUND_PATH_ROUTE_7_WIDTH * UNDERGROUND_PATH_ROUTE_7_HEIGHT, "UndergroundPathRoute5.blk size does not match UNDERGROUND_PATH_ROUTE_7 in map_constants.asm"
+	assert @ - UndergroundPathRoute7Copy_Blocks == UNDERGROUND_PATH_ROUTE_7_WIDTH * UNDERGROUND_PATH_ROUTE_7_HEIGHT, "UndergroundPathRoute5.blk size does not match UNDERGROUND_PATH_ROUTE_7 in map_constants.asm"
+	assert @ - UndergroundPathRoute6_Blocks == UNDERGROUND_PATH_ROUTE_6_WIDTH * UNDERGROUND_PATH_ROUTE_6_HEIGHT, "UndergroundPathRoute5.blk size does not match UNDERGROUND_PATH_ROUTE_6 in map_constants.asm"
 
 Route2Gate_Blocks:
 ViridianForestSouthGate_Blocks:
 ViridianForestNorthGate_Blocks: INCBIN "maps/ViridianForestNorthGate.blk"
 	assert @ - ViridianForestNorthGate_Blocks == VIRIDIAN_FOREST_NORTH_GATE_WIDTH * VIRIDIAN_FOREST_NORTH_GATE_HEIGHT, "ViridianForestNorthGate.blk size does not match VIRIDIAN_FOREST_NORTH_GATE in map_constants.asm"
+	assert @ - Route2Gate_Blocks == ROUTE_2_GATE_WIDTH * ROUTE_2_GATE_HEIGHT, "ViridianForestNorthGate.blk size does not match ROUTE_2_GATE in map_constants.asm"
+	assert @ - ViridianForestSouthGate_Blocks == VIRIDIAN_FOREST_SOUTH_GATE_WIDTH * VIRIDIAN_FOREST_SOUTH_GATE_HEIGHT, "ViridianForestNorthGate.blk size does not match VIRIDIAN_FOREST_SOUTH_GATE in map_constants.asm"
 
 INCLUDE "data/maps/headers/RedsHouse2F.asm"
 INCLUDE "scripts/RedsHouse2F.asm"
@@ -1162,8 +1203,9 @@ UndergroundPathNorthSouth_Blocks: INCBIN "maps/UndergroundPathNorthSouth.blk"
 	; past the file for a bottom row nobody can reach. Correcting the constant
 	; would shorten a map that connections and warps are calibrated against —
 	; a real behaviour change to fix something that has never been visible.
-	; Every OTHER map is guarded; if this one ever gets redrawn, give it a
-	; matching height and restore the assert.
+	; Every OTHER map is guarded (each label stacked on a shared INCBIN too,
+	; since 2026-11-07); if this one ever gets redrawn, give it a matching
+	; height and restore the assert.
 UndergroundPathWestEast_Blocks: INCBIN "maps/UndergroundPathWestEast.blk"
 	assert @ - UndergroundPathWestEast_Blocks == UNDERGROUND_PATH_WEST_EAST_WIDTH * UNDERGROUND_PATH_WEST_EAST_HEIGHT, "UndergroundPathWestEast.blk size does not match UNDERGROUND_PATH_WEST_EAST in map_constants.asm"
 
@@ -1171,6 +1213,7 @@ UndergroundPathWestEast_Blocks: INCBIN "maps/UndergroundPathWestEast.blk"
 SSAnneB1FRooms_Blocks:
 SSAnne2FRooms_Blocks: INCBIN "maps/SSAnne2FRooms.blk"
 	assert @ - SSAnne2FRooms_Blocks == SS_ANNE_2F_ROOMS_WIDTH * SS_ANNE_2F_ROOMS_HEIGHT, "SSAnne2FRooms.blk size does not match SS_ANNE_2F_ROOMS in map_constants.asm"
+	assert @ - SSAnneB1FRooms_Blocks == SS_ANNE_B1F_ROOMS_WIDTH * SS_ANNE_B1F_ROOMS_HEIGHT, "SSAnne2FRooms.blk size does not match SS_ANNE_B1F_ROOMS in map_constants.asm"
 
 INCLUDE "data/maps/headers/PokemonTower1F.asm"
 INCLUDE "scripts/PokemonTower1F.asm"
@@ -1330,6 +1373,7 @@ CopycatsHouse1F_Blocks: INCBIN "maps/CopycatsHouse1F.blk"
 CinnabarMart_Blocks:
 PewterMart_Blocks: INCBIN "maps/PewterMart.blk"
 	assert @ - PewterMart_Blocks == PEWTER_MART_WIDTH * PEWTER_MART_HEIGHT, "PewterMart.blk size does not match PEWTER_MART in map_constants.asm"
+	assert @ - CinnabarMart_Blocks == CINNABAR_MART_WIDTH * CINNABAR_MART_HEIGHT, "PewterMart.blk size does not match CINNABAR_MART in map_constants.asm"
 
 FuchsiaBillsGrandpasHouse_Blocks: INCBIN "maps/FuchsiaBillsGrandpasHouse.blk"
 	assert @ - FuchsiaBillsGrandpasHouse_Blocks == FUCHSIA_BILLS_GRANDPAS_HOUSE_WIDTH * FUCHSIA_BILLS_GRANDPAS_HOUSE_HEIGHT, "FuchsiaBillsGrandpasHouse.blk size does not match FUCHSIA_BILLS_GRANDPAS_HOUSE in map_constants.asm"
@@ -1337,6 +1381,7 @@ FuchsiaBillsGrandpasHouse_Blocks: INCBIN "maps/FuchsiaBillsGrandpasHouse.blk"
 CinnabarPokecenter_Blocks:
 FuchsiaPokecenter_Blocks: INCBIN "maps/FuchsiaPokecenter.blk"
 	assert @ - FuchsiaPokecenter_Blocks == FUCHSIA_POKECENTER_WIDTH * FUCHSIA_POKECENTER_HEIGHT, "FuchsiaPokecenter.blk size does not match FUCHSIA_POKECENTER in map_constants.asm"
+	assert @ - CinnabarPokecenter_Blocks == CINNABAR_POKECENTER_WIDTH * CINNABAR_POKECENTER_HEIGHT, "FuchsiaPokecenter.blk size does not match CINNABAR_POKECENTER in map_constants.asm"
 
 CeruleanBadgeHouse_Blocks: INCBIN "maps/CeruleanBadgeHouse.blk"
 	assert @ - CeruleanBadgeHouse_Blocks == CERULEAN_BADGE_HOUSE_WIDTH * CERULEAN_BADGE_HOUSE_HEIGHT, "CeruleanBadgeHouse.blk size does not match CERULEAN_BADGE_HOUSE in map_constants.asm"
