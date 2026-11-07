@@ -1274,7 +1274,6 @@ wPartyMenuHPBarColors:: ds PARTY_LENGTH
 
 wStatusScreenHPBarColor:: db
 
-wCopyingSGBTileData::
 wWhichPartyMenuHPBar::
 wPalPacket::
 	db
