@@ -1742,7 +1742,12 @@ NoWillText:
 ; try to run from battle (hl = player speed, de = enemy speed)
 ; stores whether the attempt was successful in carry flag
 TryRunningFromBattle:
+; v1.0 (2026-11-07): hl survives IsGhostBattle. In POKEMON TOWER it asks IsItemInBag, whose predef
+; leaves hl on the SILPH SCOPE's quantity in wBagItems: the roll below read (quantity, next bag byte)
+; as the player's SPEED, $01xx, faster than anything, and every RUN there escaped.
+	push hl
 	call IsGhostBattle
+	pop hl
 	jp z, .canEscape ; jump if it's a ghost battle
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_SAFARI
@@ -1996,22 +2001,23 @@ LoadBattleMonFromParty:
 ; level: it means nothing for a party #MON, the PC and the Daycare write the
 ; level there when a mon goes in) now holds it - ReadPlayerMonCurHPAndStatus
 ; writes the live count there with the HP and the status, every turn - and it
-; is read back here. A frozen #MON whose byte is not a count (1-6) - caught
+; is read back here. A frozen #MON whose byte is not a count (1-7) - caught
 ; frozen, withdrawn from the PC, or from a save made before this - draws a
-; fresh one, 3-6, like a new freeze. One that is not frozen starts at 0.
-; (A frozen #MON withdrawn from the PC at level 1-6 reads its level as the
+; fresh one, 4-7, like a new freeze (v1.0 2026-11-07: 4-7, was 3-6, see
+; FreezeBurnParalyzeEffect .freeze1). One that is not frozen starts at 0.
+; (A frozen #MON withdrawn from the PC at level 1-7 reads its level as the
 ; count: a legal count, just not a fresh one.)
 	ld hl, wBattleMonStatus
 	bit FRZ, [hl] ; (a = 0 from above)
 	jr z, .setFreezeCounter
 	ld a, [wBattleMonBoxLevel]
 	dec a
-	cp 6
+	cp 7
 	inc a ; (inc leaves the carry alone)
-	jr c, .setFreezeCounter ; 1-6: its own count
+	jr c, .setFreezeCounter ; 1-7: its own count
 	call BattleRandom
 	and 3
-	add 3
+	add 4
 .setFreezeCounter
 	ld [wPlayerFreezeCounter], a
 	ret
@@ -2088,6 +2094,11 @@ SendOutMon:
 	farcall RestoreBattleMonToxic ; a bad POISON it left with comes back, its count at 0 (Gen 3)
 	ld hl, wEnemyBattleStatus2
 	res LOCKED_ON, [hl] ; v1.0 (2026-11-02): the enemy's LOCK-ON was on the #MON that left
+; v1.0 (2026-11-07): the low-HP alarm's three cycles are per stay on the field: every #MON sent out
+; (the battle's first, a SWITCH, a SHIFT, a faint's replacement) gets a fresh latch, reset as the
+; bar leaving the red resets it (0, channel 5 freed if it was sounding). A red newcomer then sounds
+; its own three from the HUD below, whatever the one before it had left in the byte.
+	call DrawPlayerHUDAndHPBar.fainted
 	callfar PrintSendOutMonMessage
 	ld hl, wEnemyMonHP
 	ld a, [hli]
@@ -2210,6 +2221,12 @@ ReadPlayerMonCurHPAndStatus:
 	ld bc, $4               ; 2 bytes HP, byte 3 = the freeze count (bit 7: TOX), 1 byte status
 	jp CopyData
 
+; v1.0 (2026-11-07): a status check's line that changes the HUD - "woke up!", "thawed out!",
+; "confused no more!" - then both HUDs redrawn, before the #MON goes on to its move: the old
+; SLP / FRZ / CNF must not stay on screen through it.
+PrintTextAndDrawHUDs:
+	call PrintText
+	; fall through
 DrawHUDsAndHPBars:
 	call DrawPlayerHUDAndHPBar
 	jp DrawEnemyHUDAndHPBar
@@ -2275,7 +2292,7 @@ DrawPlayerHUDAndHPBar:
 	ld a, [wPlayerHPBarColor]
 	cp HP_BAR_RED
 	jr z, .setLowHealthAlarm
-.fainted
+.fainted ; v1.0 (2026-11-07): also SendOutMon's, for every #MON sent out (a call: it ends in ret)
 	ld hl, wLowHealthAlarm
 	bit 7, [hl] ;low health alarm enabled?
 	ld [hl], $0
@@ -3196,7 +3213,18 @@ SelectMenuItem:
 ; CNF/status HUD alternation too - plain HandleMenuInput's outer entry
 ; clears the flip flag, so a confused+paralyzed mon read only PAR while
 ; the player sat exactly here choosing a move.
+; v1.0 (2026-11-07): the FIGHT menu only. MIMIC's list (wMoveMenuType 1) and
+; the PP list of ETHER / MAX ETHER (2) share this loop, and the alternation
+; writes the HUD's status cells, which their boxes cover: they take the plain
+; entry, which disarms it.
+	ld a, [wMoveMenuType]
+	and a
+	jr nz, .plainInput
 	call BattleMenuInput
+	jr .gotInput
+.plainInput
+	call HandleMenuInput
+.gotInput
 	ld hl, hUILayoutFlags
 	res 1, [hl]
 	bit BIT_D_UP, a
@@ -3209,12 +3237,15 @@ IF DEF(_DEBUG)
 	; In a debug build START still belongs to the TestBattle animation viewer
 	; while TestBattle is running; everywhere else it opens the MOVE INFO
 	; card, so the feature is testable in the debug ROM too.
+	; v1.0 (2026-11-07): the keys wait in b, not on the stack: a `pop af` here
+	; brought back the flags of `bit BIT_START, a` (NZ) and the viewer always
+	; ran. Func_3d4f5 reads them in a (bit 3: START); ld leaves the flags alone.
 	bit BIT_START, a
 	jr z, .notStart
-	push af
+	ld b, a
 	ld a, [wFlags_D733]
 	bit BIT_TEST_BATTLE, a
-	pop af
+	ld a, b
 	jp nz, Func_3d4f5
 	jp ShowMoveInfoInMenu
 .notStart
@@ -4120,8 +4151,7 @@ CheckPlayerStatusConditions:
 ; HUD keeps saying SLP through the attack. Frozen and asleep exclude each
 ; other: skip .FrozenCheck.
 	ld hl, WokeUpText
-	call PrintText
-	call DrawHUDsAndHPBars
+	call PrintTextAndDrawHUDs
 	jr .HeldInPlaceCheck
 
 .FrozenCheck
@@ -4139,7 +4169,7 @@ CheckPlayerStatusConditions:
 	pop hl
 	res FRZ, [hl] ; thaw
 	ld hl, ThawedOutText
-	call PrintText
+	call PrintTextAndDrawHUDs ; v1.0 (2026-11-07): FRZ off the HUD before the move, as .WakeUp does
 	jr .HeldInPlaceCheck
 .playerStillFrozen
 	pop hl
@@ -4203,7 +4233,7 @@ CheckPlayerStatusConditions:
 	ld hl, wPlayerBattleStatus1
 	res CONFUSED, [hl] ; if confused counter hit 0, reset confusion status
 	ld hl, ConfusedNoMoreText
-	call PrintText
+	call PrintTextAndDrawHUDs ; v1.0 (2026-11-07): CNF off the HUD before the move, as .WakeUp does
 	jr .TriedToUseDisabledMoveCheck
 .IsConfused
 	ld hl, IsConfusedText
@@ -4217,8 +4247,8 @@ CheckPlayerStatusConditions:
 	jr c, .TriedToUseDisabledMoveCheck
 	ld hl, wPlayerBattleStatus1
 	ld a, [hl]
-	and 1 << CONFUSED ; if mon hurts itself, clear every other status from wPlayerBattleStatus1
-	ld [hl], a
+	and (1 << CONFUSED) | (1 << INVULNERABLE) ; if mon hurts itself, clear every other status from wPlayerBattleStatus1
+	ld [hl], a ; (INVULNERABLE: .MonHurtItselfOrFullyParalysed reads it, then clears it - v1.0 2026-11-07)
 	call HandleSelfConfusionDamage
 	jr .MonHurtItselfOrFullyParalysed
 
@@ -4247,22 +4277,20 @@ CheckPlayerStatusConditions:
 .MonHurtItselfOrFullyParalysed
 	ld hl, wPlayerBattleStatus1
 	ld a, [hl]
+	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
 	; clear bide, thrashing, charging up, trapping moves such as wrap (already cleared for confusion damage), and invulnerable moves
 	and ~((1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << CHARGING_UP) | (1 << USING_TRAPPING_MOVE) | (1 << INVULNERABLE))
 	ld [hl], a
-	ld a, [wPlayerMoveEffect]
-	cp FLY_EFFECT
-	jr z, .FlyOrChargeEffect
-	cp CHARGE_EFFECT
-	jr z, .FlyOrChargeEffect
-	jr .NotFlyOrChargeEffect
-
-.FlyOrChargeEffect
+; v1.0 (2026-11-07): a #MON hidden by FLY, SKY ATTACK or DIG comes out here (INVULNERABLE cleared above),
+; so its sprite comes back (as FrozenMonLeavesHiding's does). Keyed on INVULNERABLE itself: the move
+; effect this read before can be 0 by now - the other side's BIDE zeroes both sides' (BideEffect).
+	bit INVULNERABLE, b
+	jr z, .notHidden
 	xor a
 	ld [wAnimationType], a
 	ld a, STATUS_AFFECTED_ANIM
 	call PlaySpecialAnimation
-.NotFlyOrChargeEffect
+.notHidden
 	ld hl, ExecutePlayerMoveDone
 	jp .returnToHL ; if using a two-turn move, we need to recharge the first turn
 
@@ -4313,7 +4341,7 @@ CheckPlayerStatusConditions:
 	ld [hl], a
 	ld a, BIDE
 	ld [wPlayerMoveNum], a
-	farcall BideReleaseMeetsProtect ; v1.0 (2026-11-02): PROTECT stops the release, as any move aimed at it
+	farcall BideReleaseHitTest ; v1.0 (2026-11-02, 2026-11-07): PROTECT stops the release, and a hidden #MON dodges it, as any move aimed at it
 	ld hl, handleIfPlayerMoveMissed ; skip damage calculation, DecrementPP and MoveHitTest
 	jp .returnToHL
 
@@ -4707,8 +4735,7 @@ PrintCriticalOHKOText:
 	ld h, [hl]
 	ld l, a
 	call PrintText
-	xor a
-	ld [wCriticalHitOrOHKO], a
+	farcall ClearCritUnlessPayDay ; v1.0 (2026-11-07): PAY DAY's coins still read it (pay_day.asm)
 .done
 	ld c, 20
 	jp DelayFrames
@@ -6252,8 +6279,7 @@ CheckEnemyStatusConditions:
 ; v1.0 (2026-09-24): see .WakeUp on the player side. SelectEnemyMove chose a
 ; fresh move this turn (it chooses every turn since 2026-09-27).
 	ld hl, WokeUpText
-	call PrintText
-	call DrawHUDsAndHPBars
+	call PrintTextAndDrawHUDs
 	jr .checkIfTrapped
 .checkIfFrozen
 	bit FRZ, [hl]
@@ -6270,7 +6296,7 @@ CheckEnemyStatusConditions:
 	pop hl
 	res FRZ, [hl] ; thaw
 	ld hl, ThawedOutText
-	call PrintText
+	call PrintTextAndDrawHUDs ; v1.0 (2026-11-07): FRZ off the HUD before the move, as .wokeUp does
 	jr .checkIfTrapped
 .enemyStillFrozen
 	pop hl
@@ -6329,7 +6355,7 @@ CheckEnemyStatusConditions:
 	ld hl, wEnemyBattleStatus1
 	res CONFUSED, [hl] ; if confused counter hit 0, reset confusion status
 	ld hl, ConfusedNoMoreText
-	call PrintText
+	call PrintTextAndDrawHUDs ; v1.0 (2026-11-07): CNF off the HUD before the move, as .wokeUp does
 	jp .checkIfTriedToUseDisabledMove
 .isConfused
 	ld hl, IsConfusedText
@@ -6343,8 +6369,8 @@ CheckEnemyStatusConditions:
 	jr c, .checkIfTriedToUseDisabledMove
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
-	and 1 << CONFUSED ; if mon hurts itself, clear every other status from wEnemyBattleStatus1
-	ld [hl], a
+	and (1 << CONFUSED) | (1 << INVULNERABLE) ; if mon hurts itself, clear every other status from wEnemyBattleStatus1
+	ld [hl], a ; (INVULNERABLE: .monHurtItselfOrFullyParalysed reads it, then clears it - v1.0 2026-11-07)
 	ld hl, HurtItselfText
 	call PrintText
 	ld hl, wBattleMonDefense
@@ -6414,21 +6440,17 @@ CheckEnemyStatusConditions:
 .monHurtItselfOrFullyParalysed
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
+	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
 	; clear bide, thrashing, charging up, trapping moves such as wrap (already cleared for confusion damage), and invulnerable moves
 	and ~((1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << CHARGING_UP) | (1 << USING_TRAPPING_MOVE) | (1 << INVULNERABLE))
 	ld [hl], a
-	ld a, [wEnemyMoveEffect]
-	cp FLY_EFFECT
-	jr z, .flyOrChargeEffect
-	cp CHARGE_EFFECT
-	jr z, .flyOrChargeEffect
-	jr .notFlyOrChargeEffect
-.flyOrChargeEffect
+	bit INVULNERABLE, b ; v1.0 (2026-11-07): out of hiding, its sprite comes back - see the player side
+	jr z, .notHidden
 	xor a
 	ld [wAnimationType], a
 	ld a, STATUS_AFFECTED_ANIM
 	call PlaySpecialAnimation
-.notFlyOrChargeEffect
+.notHidden
 	ld hl, ExecuteEnemyMoveDone
 	jp .enemyReturnToHL ; if using a two-turn move, enemy needs to recharge the first turn
 .checkIfUsingBide
@@ -6478,7 +6500,7 @@ CheckEnemyStatusConditions:
 	ld [hl], a
 	ld a, BIDE
 	ld [wEnemyMoveNum], a
-	farcall BideReleaseMeetsProtect ; v1.0 (2026-11-02): PROTECT stops the release, as any move aimed at it
+	farcall BideReleaseHitTest ; v1.0 (2026-11-02, 2026-11-07): PROTECT stops the release, and a hidden #MON dodges it, as any move aimed at it
 	call SwapPlayerAndEnemyLevels
 	ld hl, handleIfEnemyMoveMissed ; skip damage calculation, DecrementPP and MoveHitTest
 	jp .enemyReturnToHL

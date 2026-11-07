@@ -22,7 +22,7 @@ StoreBattleMonByte3::
 	rrca
 	and 1 << BOX_LEVEL_TOXIC_F
 .gotToxicBit
-	ld hl, wPlayerFreezeCounter ; 0-6, never bit 7
+	ld hl, wPlayerFreezeCounter ; 0-7, never bit 7
 	or [hl]
 	ld [wBattleMonBoxLevel], a
 	ret

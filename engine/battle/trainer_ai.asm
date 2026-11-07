@@ -192,7 +192,7 @@ AIGetMoveChoiceList:
 ; immunity rules too) that holds for SetDamageEffects' family too: its set number is never scaled, but
 ; FixedDamageImmunity stops it on a NO_EFFECT row (SEISMIC TOSS and SUPER FANG do not affect a GHOST). The
 ; player's types are on screen; only its switch or a TRANSFORM, both deliberate acts, change them first (E4).
-; v1.0 (R10c, 2026-10-01): and of those stopped moves, the two that also hurt their user - THRASH (locked in for 2-3
+; v1.0 (R10c, 2026-10-01): and of those stopped moves, the two that also hurt their user - THRASH (locked in for 1-2
 ; more turns of "It doesn't affect", then confused) and EXPLOSION (the user faints, hit or miss) - rank after every
 ; other useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
 ; v1.0 (2026-11-02): and a stat move a LOCK-ON leaves nothing to change - every stat it touches refused or one a lock
@@ -422,8 +422,8 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 ; v1.0 (R10c, 2026-10-01): the USELESS score, and AI_SCORE_HURTS_USER more when the move judged also hurts its
 ; user - the slot's own move, or MIRROR MOVE's copy while the player recharges (no copy reaches that today,
 ; R10a). Both such effects are damaging, so the chart's stop is their one way here: THRASH_PETAL_DANCE_EFFECT
-; (ThrashPetalDanceEffect locks the user in before the damage, SpecialEffectsCont: 2-3 more turns of "It doesn't
-; affect", then CONFUSED for 2-5) and EXPLODE_EFFECT (the miss path still runs ExplodeEffect: the user faints). No
+; (ThrashPetalDanceEffect locks the user in before the damage, SpecialEffectsCont: 1-2 more turns of "It doesn't
+; affect" since 2026-11-07, then CONFUSED, its counter 2-5: 1 to 4 confused turns) and EXPLODE_EFFECT (the miss path still runs ExplodeEffect: the user faints). No
 ; other stopped move costs its user: a trapping move's trap ends at MoveHitTest's type exit, recoil and HYPER BEAM's
 ; recharge follow a hit only, DIG's charge turn is spent underground, and HI JUMP KICK's crash is 1 HP (wDamage is
 ; 0). Of these moves only THRASH (NORMAL: a GHOST) and EXPLOSION (FIRE: a MAGMA) can be stopped today.
@@ -1184,8 +1184,8 @@ Modifier4PreferredMoves:
 ; weigh, no first strike to buy and no reason to explode - a stopped EXPLOSION (FIRE here: MAGMA
 ; stops it) was the favourite of the useless tier at low HP, the user fainting for nothing.
 ; v1.0 (R10d, 2026-10-01): a damaging FIRE or MAGMA move that leaves a FROZEN player standing thaws it
-; (DefrostTargetIfFireOrMagma, both sides) and hands it back the frozen turns it had left (3-6 drawn at
-; the freeze, one spent each time it would move: 2 to 5 lost turns in all; the count is hidden, FRZ is on
+; (DefrostTargetIfFireOrMagma, both sides) and hands it back the frozen turns it had left (4-7 drawn at
+; the freeze, one spent each time it would move: 3 to 6 lost turns in all; the count is hidden, FRZ is on
 ; screen). The hit still deals its damage, so this is a tactic, not a failure: +5, the weight layer 1
 ; gives a move the turn may still let act. Another type's hit that lands, NIGHT SHADE or a stat move then
 ; goes first (short of its own anti-repeat weight from a fifth use in a row), and the FIRE hit still beats

@@ -18,6 +18,8 @@ PayDayEffect_:
 	ld c, a
 	ld a, [wCriticalHitOrOHKO]
 	dec a ; exactly 1? (dec leaves carry alone)
+	ld a, 0 ; v1.0 (2026-11-07): read once, then cleared, as PrintCriticalOHKOText clears it for every
+	ld [wCriticalHitOrOHKO], a ; other move (ClearCritUnlessPayDay, below); ld leaves the flags alone
 	ld a, c
 	jr nz, .noCritBonus
 	add b ; a = level * 3; sets carry above L85
@@ -57,3 +59,21 @@ PayDayEffect_:
 CoinsScatteredText:
 	text_far _CoinsScatteredText
 	text_end
+
+; v1.0 (2026-11-07): PrintCriticalOHKOText's tail (Battle Core, farcall), after "Critical hit!" or
+; "One-hit KO!". The byte is cleared there so the later hits of a multi-hit move do not say it again.
+; PAY DAY keeps it: its coins (PayDayEffect_ above, from AlwaysHappenSideEffects) run after that line
+; and pay x3 on a crit, and it clears the byte once read. A PAY DAY whose effect a broken SUBSTITUTE
+; took (AttackSubstitute zeroes it before this line) clears it here like any other move.
+ClearCritUnlessPayDay::
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveEffect]
+	jr z, .gotEffect
+	ld a, [wEnemyMoveEffect]
+.gotEffect
+	cp PAY_DAY_EFFECT
+	ret z
+	xor a
+	ld [wCriticalHitOrOHKO], a
+	ret

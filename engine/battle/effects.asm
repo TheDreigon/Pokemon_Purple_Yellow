@@ -52,9 +52,12 @@ SleepEffect:
 	jr nz, .didntAffect
 .setSleepCounter
 ; PURPLE YELLOW v0.5: sleep lasts 2-5 turns (was 1-7 with Stadium override to 1-3).
+; v1.0 (2026-11-07): the counter is 3-6. The wake-up turn attacks (core.asm .WakeUp, since
+; 2026-09-24), so a counter N holds the #MON N - 1 turns: 3-6 is the 2-5 turns the SLEEP card
+; and TRAINER MANUAL 4_4 say (REST's 3 is its 2 turns).
 	call BattleRandom
 	and $3   ; 0-3
-	add 2    ; 2-5
+	add 3    ; 3-6
 	ld b, a
 .asm_3f1ba
 	ld a, b
@@ -343,9 +346,11 @@ FreezeBurnParalyzeEffect:
 	ld a, 1 << FRZ
 	ld [wEnemyMonStatus], a
 	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
+	; v1.0 (2026-11-07): 4-7. The thaw turn attacks, so a counter N holds the #MON N - 1
+	; turns: 4-7 is the 3-6 turns TRAINER MANUAL 4_3 says. Every freeze source draws the same.
 	call BattleRandom
 	and $3
-	add 3
+	add 4
 	ld [wEnemyFreezeCounter], a
 	ld hl, wEnemyBattleStatus1
 	call FrozenMonLeavesHiding
@@ -454,9 +459,10 @@ FreezeBurnParalyzeEffect:
 	ld a, 1 << FRZ
 	ld [wBattleMonStatus], a
 	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
+	; v1.0 (2026-11-07): 4-7, 3-6 turns held (see .freeze1).
 	call BattleRandom
 	and $3
-	add 3
+	add 4
 	ld [wPlayerFreezeCounter], a
 	ld hl, wPlayerBattleStatus1
 	call FrozenMonLeavesHiding
@@ -575,7 +581,7 @@ TriStatusSideEffect:
 	ld [wEnemyMonStatus], a
 	call BattleRandom
 	and $3
-	add 3
+	add 4 ; v1.0 (2026-11-07): 4-7, 3-6 turns held (see FreezeBurnParalyzeEffect .freeze1)
 	ld [wEnemyFreezeCounter], a
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
@@ -644,7 +650,7 @@ TriStatusSideEffect:
 	ld [wBattleMonStatus], a
 	call BattleRandom
 	and $3
-	add 3
+	add 4 ; v1.0 (2026-11-07): 4-7, 3-6 turns held (see FreezeBurnParalyzeEffect .freeze1)
 	ld [wPlayerFreezeCounter], a
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
@@ -1353,6 +1359,37 @@ BideEffect:
 	add XSTATITEM_ANIM ; +turn picks the player/enemy twin
 	jp PlaySpecialBattleAnimation2
 
+; v1.0 (2026-11-07): BIDE's release skips MoveHitTest (Check*StatusConditions .UnleashEnergy, farcall),
+; so it asks here the two tests of it that stop a move aimed at the target: PROTECT
+; (BideReleaseMeetsProtect, 2026-11-02), then the reach rule of 2026-11-01 - a #MON hidden by FLY, SKY
+; ATTACK or DIG is out of reach of every move but the listed ones (MoveReachesHiddenMon), and BIDE is not
+; listed. A miss as MoveHitTest makes one: MOVE_FAILED, wDamage zeroed (a later BIDE never counts it).
+BideReleaseHitTest::
+	call BideReleaseMeetsProtect
+	ld a, [wMoveMissed]
+	and a
+	ret nz ; no energy stored, or the target protected itself
+	ld hl, wEnemyBattleStatus1
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyMoveEffect] ; what hid the target (ld leaves the flags alone)
+	jr z, .gotTarget
+	ld hl, wPlayerBattleStatus1
+	ld a, [wPlayerMoveEffect]
+.gotTarget
+	bit INVULNERABLE, [hl]
+	ret z
+	ld c, a
+	ld a, BIDE
+	call MoveReachesHiddenMon
+	ret c
+	ld a, MOVE_FAILED
+	ld [wMoveMissed], a
+	xor a
+	ld [wDamage], a
+	ld [wDamage + 1], a
+	ret
+
 ThrashPetalDanceEffect:
 	ld hl, wPlayerBattleStatus1
 	ld de, wPlayerNumAttacksLeft
@@ -1363,11 +1400,13 @@ ThrashPetalDanceEffect:
 	ld de, wEnemyNumAttacksLeft
 .thrashPetalDanceEffect
 	set THRASHING_ABOUT, [hl] ; mon is now using thrash/petal dance
+; v1.0 (2026-11-07): the counter is 1 or 2, for the 2 to 3 attacks the card says. This turn
+; attacks, and so does every later turn of the lock, the one it reaches 0 on too (which also
+; confuses the user: Check*StatusConditions, its own count, unchanged): 1 + the counter.
 	call BattleRandom
 	and $1
 	inc a
-	inc a
-	ld [de], a ; set thrash/petal dance counter to 2 or 3 at random
+	ld [de], a ; set thrash/petal dance counter to 1 or 2 at random
 	ldh a, [hWhoseTurn]
 	add SHRINKING_SQUARE_ANIM ; +turn picks the player/enemy twin
 	jp PlaySpecialBattleAnimation2
@@ -1426,10 +1465,25 @@ TwoToFiveAttacksEffect:
 .twineedle
 	ld a, POISON_SIDE_EFFECT2
 	ld [hl], a ; v0.7: Twineedle's poison side-effect is now 30% (tier 2; was
-	           ; POISON_SIDE_EFFECT1 = 15%). Rolled once, after both hits.
+	           ; POISON_SIDE_EFFECT1 = 15%).
 	ld a, $2   ; always 2 hits (explicit now; previously this relied on
 	           ; POISON_SIDE_EFFECT1 happening to equal $02)
-	jr .saveNumberOfHits
+	ld [de], a
+	ld [bc], a
+; v1.0 (2026-11-07): each needle rolls its own POISON, as the card says. This runs once, from the
+; AlwaysHappenSideEffects dispatch right after the first needle landed: its roll is here, the
+; second's is the one .executeOtherEffects runs after both (core.asm). Not into a #MON the first
+; needle knocked out.
+	ld hl, wEnemyMonHP
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotTarget
+	ld hl, wBattleMonHP
+.gotTarget
+	ld a, [hli]
+	or [hl]
+	ret z
+	jp PoisonEffect
 
 FlinchSideEffect:
 	call CheckTargetSubstitute
@@ -1611,6 +1665,12 @@ ConfusionSideEffect:
 ; CONFUSION_SIDE_EFFECT1 = 15% (default tier).
 ; CONFUSION_SIDE_EFFECT2 = 30% (Confusion, Dizzy Punch, Hurricane, Spore Daze).
 ; CONFUSION_SIDE_EFFECT3 = 45% (v0.7 — new Psychic, heaviest tier).
+; v1.0 (2026-11-07): not behind a SUBSTITUTE, as every other side effect (FreezeBurnParalyzeEffect,
+; PoisonEffect, FlinchSideEffect, TriStatusSideEffect, the stat drops) and CONFUSE RAY's
+; ConfusionEffect below. A doll that breaks already took the effect away (AttackSubstitute zeroes it);
+; one that held let this through.
+	call CheckTargetSubstitute
+	ret nz
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveEffect]
@@ -2556,6 +2616,11 @@ BurnEffect:
 	cp MAGMA
 	jr nz, .didntAffect
 .thawFrozenTarget
+; v1.0 (2026-11-07): the move landed, so its animation plays first, as on the fresh-burn path above:
+; a BURN_EFFECT move is in ResidualEffects1, the core plays nothing for it.
+	push bc
+	call PlayCurrentMoveAnimation2
+	pop bc
 	ld a, b ; the defender's status, read above
 	jp CheckDefrost
 .didntAffect

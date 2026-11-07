@@ -2,7 +2,10 @@
 ; move-id order (constants/move_constants.asm). GetMoveSound (engine/battle/
 ; animations.asm) reads a row whenever an animation script's battle_anim names
 ; that move as its SOUND (the first argument) -- so a move's own row is only
-; ever heard if some script names it. 37 rows are named by no script at all,
+; ever heard if some script names it. One reader is not a script: the PIKACHU
+; pic animation's thunderbolt command (PikaPicAnimCommand_thunderbolt,
+; engine/pikachu/pikachu_pic_animation.asm) plays THUNDERBOLT's row directly
+; (v1.0, 2026-11-07). 37 rows are named by no script at all,
 ; and the LEECH_SEED row is named by 32 scripts: changing a row changes every
 ; animation that borrows it. `.claude/sfx_model_audit.py --table` lists who
 ; reads what.

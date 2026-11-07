@@ -808,8 +808,12 @@ PikaPicAnimCommand_thunderbolt:
 	ret
 
 .LoadAudio:
+; v1.0 (2026-11-07): THUNDERBOLT's own row. MoveSoundTable starts at move id 1, so a move's row is
+; id - 1 (GetMoveSound is handed the same, battle_anim stores `\1 - 1`); THUNDERBOLT alone read the
+; next row, vanilla's THUNDER_WAVE and, after this hack's move order, THUNDER's deep boom - against
+; the BANK(SFX_Battle_2F) above, THUNDERBOLT's sound.
 	ld hl, MoveSoundTable
-	ld e, THUNDERBOLT
+	ld e, THUNDERBOLT - 1
 	ld d, 0
 	add hl, de
 	add hl, de

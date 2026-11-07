@@ -10,6 +10,8 @@
 ; The fourth cycle is refused: the byte parks at $60 (count 3, not sounding),
 ; channel 1 goes back to the music, and DrawPlayerHUDAndHPBar leaves $60 alone
 ; until the bar is no longer red - it writes 0 then, which re-arms the alarm.
+; v1.0 (2026-11-07): SendOutMon writes 0 the same way for every #MON sent out
+; (a SWITCH, a SHIFT, a faint's replacement): three cycles per stay on the field.
 Music_DoLowHealthAlarm::
 	ld a, [wLowHealthAlarm]
 	cp $ff

@@ -715,7 +715,7 @@ GetCatchHPMultiplier:
 ; ball can see it. The manual's catch page points at the HUD for it.
 ;
 ; Freeze is one step above sleep and no more, because what it really buys is
-; one extra turn: 3-6 against 2-5 (both retuned in v0.5). The turns already pay
+; one extra turn: 4-7 against 3-6 (v0.5, raised in v1.0). The turns already pay
 ; for themselves in throws; paying twice for them would be double counting.
 GetCatchStatusMultiplier:
 	ld a, [wEnemyMonStatus]
