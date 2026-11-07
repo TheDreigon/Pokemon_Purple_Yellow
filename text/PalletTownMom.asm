@@ -15,7 +15,10 @@ _PalletTownMomCaughtYouText::
 	para "You were going to"
 	line "go explore KANTO"
 	cont "without this."
-	done
+; v1.0 (2026-11-07): prompt, not done: GiveItem and the receipt's PrintText (or
+; the full-bag line's) come straight after, and `done` does not wait, so this
+; page was redrawn away the moment its last letter landed.
+	prompt
 
 _PalletTownMomGotManualText::
 	text "<PLAYER> received"
@@ -67,4 +70,4 @@ _RedsHouse1FMomGoodbyeManualText::
 
 	para "Then take this"
 	line "with you."
-	done
+	prompt ; v1.0 (2026-11-07): the same as outdoors -- the receipt follows at once

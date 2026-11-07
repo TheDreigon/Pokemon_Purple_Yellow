@@ -104,7 +104,8 @@ _BillsHouseGardenThisWayText::
 	cont "privilege."
 	done
 
-; what he says as he hands the chip over, with the wall still coming down
+; what he says as he hands the chip over, once the wall is open and his "privilege" page has been read
+; (v1.0, 2026-11-07: the wall opens before he speaks)
 _BillsHouseChipText::
 	text "Oh! And take"
 	line "this, will you?"

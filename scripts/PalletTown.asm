@@ -34,6 +34,7 @@ PalletTown_ScriptPointers:
 	dw_const PalletTownMomGivesScript,             SCRIPT_PALLETTOWN_MOM_GIVES
 	dw_const PalletTownMomLeavesScript,            SCRIPT_PALLETTOWN_MOM_LEAVES
 	dw_const PalletTownMomHidesScript,             SCRIPT_PALLETTOWN_MOM_HIDES
+	dw_const PalletTownMomWaitScript,              SCRIPT_PALLETTOWN_MOM_WAIT ; v1.0 (2026-11-07), appended for the same reason
 
 PalletTownDefaultScript:
 	CheckEvent EVENT_FOLLOWED_OAK_INTO_LAB
@@ -73,7 +74,8 @@ PalletTownDefaultScript:
 ;
 ; The player's mother is hidden the rest of the time (HS_PALLET_TOWN_MOM), so
 ; nothing here runs twice: the event is set by her text script when she hands it
-; over, and this returns on it.
+; over, and this returns on it. With a full bag the event stays clear, and
+; SCRIPT_PALLETTOWN_MOM_WAIT keeps this quiet until the player has left row 0.
 PalletTownTrainerManualCheck:
 	ld a, [wPalletTownCurScript]
 	cp SCRIPT_PALLETTOWN_MOM_CALLS
@@ -224,7 +226,29 @@ PalletTownMomHidesScript:
 	call PlayDefaultMusic
 	xor a
 	ld [wJoyIgnore], a
-	ld a, SCRIPT_PALLETTOWN_DEFAULT
+; v1.0 (2026-11-07): back to the state this map rests on after the intro, DAISY
+; (see the top of the file). It used to be DEFAULT, which returns at once once
+; Oak is done, so PalletTownDaisyScript never ran again and DAISY never got up
+; from her table. With the manual still owed (a full bag) it waits first for the
+; player to leave row 0: PalletTownTrainerManualCheck runs before the dispatch
+; and restarted the scene on the very next frame, a loop only a held UP got out of.
+	CheckEvent EVENT_GOT_TRAINER_MANUAL
+	ld a, SCRIPT_PALLETTOWN_DAISY
+	jr nz, .rest
+	ld a, SCRIPT_PALLETTOWN_MOM_WAIT
+.rest
+	ld [wPalletTownCurScript], a
+	ret
+
+; v1.0 (2026-11-07): after a full-bag visit. It sits at or above
+; SCRIPT_PALLETTOWN_MOM_CALLS, so PalletTownTrainerManualCheck stays quiet, and
+; hands the map back to DAISY once the player is off row 0; the next arrival on
+; the north exit plays her scene again ("Make room and I'll still be here").
+PalletTownMomWaitScript:
+	ld a, [wYCoord]
+	and a
+	ret z
+	ld a, SCRIPT_PALLETTOWN_DAISY
 	ld [wPalletTownCurScript], a
 	ret
 

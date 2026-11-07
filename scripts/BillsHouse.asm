@@ -110,19 +110,27 @@ BillsHouseGardenPlayerRoute:
 	ld de, BillsHouseGardenRouteFromBelow
 	ret
 
+; v1.0 (2026-11-07): the two-entry lists are written in ENGINE order, the step
+; taken first written last. DecodeRLEList stores a list as written, and
+; GetSimulatedInput (home/overworld.asm) plays it from the end -- it decrements
+; wSimulatedJoypadStatesIndex before each read -- the way vanilla writes its own
+; (ViridianMart's LEFT 1 / UP 2 is walked UP, UP, LEFT). In data order FromAbove
+; went RIGHT along row 3 first, over the divider and the wall (CollisionCheckOnLand
+; checks only the last scripted step), and only then DOWN; FromBelow ran along
+; row 5. .claude/bills_garden_audit.py replays the lists in this order.
 BillsHouseGardenRouteFromWest:  ; (3,4)
 	db D_RIGHT, 9
 	db -1 ; end
 BillsHouseGardenRouteFromEast:  ; (5,4)
 	db D_RIGHT, 7
 	db -1 ; end
-BillsHouseGardenRouteFromAbove: ; (4,3)
+BillsHouseGardenRouteFromAbove: ; (4,3): DOWN onto row 4, then RIGHT along it
+	db D_RIGHT, 8
 	db D_DOWN, 1
-	db D_RIGHT, 8
 	db -1 ; end
-BillsHouseGardenRouteFromBelow: ; (4,5)
-	db D_UP, 1
+BillsHouseGardenRouteFromBelow: ; (4,5): UP onto row 4, then RIGHT along it
 	db D_RIGHT, 8
+	db D_UP, 1
 	db -1 ; end
 
 ; (4,4) -> (13,4), nine steps along a row that is clear from x=3 to x=13.
@@ -157,17 +165,14 @@ BillsHouseGardenOpenScript:
 	ld a, [wSimulatedJoypadStatesIndex]
 	and a
 	ret nz ; the player is still being walked over
-; 🔴 MoveSprite leaves wJoyIgnore at $FF (home/pathfinding.asm:41), and the text
-; below has a page break, which waits on WaitForTextScrollButtonPress -- and
-; _Joypad masks A and B out of hJoy5 while that flag is set. Printing first and
-; clearing after was a HARD FREEZE with no way out but a reset, and because
-; EVENT_BILL_OPENED_GARDEN is set further down, the reset landed the player back
-; before the scene to freeze again. Clear it BEFORE the text, the way
-; BillsHouseScript3 and BillsHouseScript11 in this same file already do.
-	xor a
-	ld [wJoyIgnore], a
-	ld hl, BillsHouseGardenThisWayText
-	call PrintText
+; v1.0 (2026-11-07): the wall first, then his words through DisplayTextID. This
+; is a map script, and the ComeWithMe text closed its window behind it
+; (CloseTextDisplay: hWY = $90, the WRAM-to-VRAM transfer off), so the PrintText
+; calls that used to run from here drew the whole scene into wTileMap and none of
+; it reached the screen -- about fifteen A presses at a still room. DisplayTextID
+; puts the window up (DisplayTextIDInit). The wall comes down BEFORE it, while
+; the window is still off: ReplaceTileBlock redraws the map view into wTileMap,
+; and would wipe a box that was already up.
 	ld a, SFX_GO_INSIDE
 	call PlaySound
 	call WaitForSoundToFinish
@@ -175,19 +180,21 @@ BillsHouseGardenOpenScript:
 	ld [wNewTileBlockID], a
 	lb bc, BillsHouseGardenWallY, BillsHouseGardenWallX
 	predef ReplaceTileBlock
-; The chip goes with the garden -- it is the same reward, for the same reason.
-;
-; 🔴 The wait is NOT optional. BillsHouseGardenThisWayText above ends in `done`,
-; and `done` does not wait -- so the PrintText inside BillsHouseGiveChip would
-; blank "Consider it a CHAMPION's privilege" a few frames after the door sound,
-; which is the payoff line of the whole scene. Same house rule as Daycare2F.asm
-; and ViridianGym.asm. It sits AFTER ReplaceTileBlock on purpose: the wall comes
-; down while his words are still on screen, and the press is what moves on.
-;
-; farcall because BillsHouse_2.asm is in another bank ("Maps 22" against this
-; file's "Maps 4"), which is how this file already reaches its other half.
-	farcall NewPageButtonPressCheck
-	farcall BillsHouseGiveChip
+; 🔴 MoveSprite leaves wJoyIgnore at $FF (home/pathfinding.asm:41), and the text
+; below has page breaks, which wait on WaitForTextScrollButtonPress -- and
+; _Joypad masks A and B out of hJoy5 while that flag is set. Printing first and
+; clearing after was a HARD FREEZE with no way out but a reset, and because
+; EVENT_BILL_OPENED_GARDEN is set further down, the reset landed the player back
+; before the scene to freeze again. Clear it BEFORE the text, the way
+; BillsHouseScript3 and BillsHouseScript11 in this same file already do.
+	xor a
+	ld [wJoyIgnore], a
+	ld a, TEXT_BILLSHOUSE_GARDEN_OPEN
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+; BillsHouseGardenOpenText leaves the no-wait flag set; drop it now rather than
+; at the next tick, so a text the player opens before then still waits.
+	call EnableAutoTextBoxDrawing
 	SetEvent EVENT_BILL_OPENED_GARDEN
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT9
 	ld [wBillsHouseCurScript], a
@@ -507,10 +514,14 @@ BillsHouseScript10:
 	ld de, BillsHouseEeveeWalkToRightDoor
 .walk
 	call MoveSprite
+; v1.0 (2026-11-07): the countdown lives in wd492 bits 2-6 (see
+; BILLSHOUSE_WALK_COUNT_MASK), and the bits around it are kept: 0 and 1 are the
+; SUMMER BEACH HOUSE's saved flags, 7 is this house's. It used to be written
+; over bits 0-5, which erased or set the beach-house flags at random.
 	ld hl, wd492
 	ld a, [hl]
-	and $c0 ; keep the two flag bits this byte already owns
-	or BILLSHOUSE_WALK_TIMEOUT
+	and LOW(~BILLSHOUSE_WALK_COUNT_MASK)
+	or BILLSHOUSE_WALK_TIMEOUT << BILLSHOUSE_WALK_COUNT_SHIFT
 	ld [hl], a
 	ld a, SCRIPT_BILLSHOUSE_SCRIPT11
 	ld [wBillsHouseCurScript], a
@@ -594,25 +605,25 @@ BillsHouseScript11:
 	ld a, [wd730]
 	bit 0, a
 	jr z, .arrived
-; v0.7 fix (decision-tree audit 2026-08-29): the LEFT door column's walk is
-; four steps ~ 68 frames, but this countdown lives in six bits (max 63) --
-; it expired ~8 frames early on every left-column trigger, opening the
-; textbox before BILL's last step finished. The walk provably terminates on
-; its own (scripted steps are consumed even when blocked), so the watchdog
-; only needs headroom: tick it every OTHER frame (play-time parity),
-; doubling the budget to ~120 frames without touching the six-bit home.
-	ld a, [wPlayTimeFrames]
-	rrca
-	ret c ; odd frame: the countdown sits this tick out
+; v1.0 (2026-11-07): one tick every fourth run. This script runs every two
+; frames while BILL walks (the idle overworld loop's two DelayFrame calls), so
+; the old gate on wPlayTimeFrames' parity saw the same parity on every run: it
+; either ticked on every run (60 runs, 120 frames -- short of the left mat's
+; walk, ~138) or never (no watchdog at all). wIgnoreInputCounter is counted down
+; by VBlank every frame whatever the play-time clock does, and bits 1-2 clear
+; hits one run in four on either parity: 8 frames a tick, BILLSHOUSE_WALK_TIMEOUT
+; ticks in all (see menu_constants.asm). The walk provably terminates on its own
+; (scripted steps are consumed even when blocked), so this only bounds a walk
+; that cannot start, like the hidden-sprite freeze above.
+	ld a, [wIgnoreInputCounter]
+	and %110
+	ret nz ; three runs in four sit the tick out
 	ld hl, wd492
 	ld a, [hl]
-	and $3f ; the low six bits are this scene's countdown
+	and BILLSHOUSE_WALK_COUNT_MASK
 	jr z, .giveUp
-	dec a
-	ld b, a
 	ld a, [hl]
-	and $c0
-	or b
+	sub 1 << BILLSHOUSE_WALK_COUNT_SHIFT ; the count is not zero, so nothing borrows out of its bits
 	ld [hl], a
 	ret
 .giveUp
@@ -621,6 +632,11 @@ BillsHouseScript11:
 	xor a
 	ld [wJoyIgnore], a ; ...and the player's controls with it
 .arrived
+; the scene is over: hand bits 2-6 of the save byte back clean
+	ld hl, wd492
+	ld a, [hl]
+	and LOW(~BILLSHOUSE_WALK_COUNT_MASK)
+	ld [hl], a
 	call BillsHouseVisibleBill
 	jr c, .noTurn
 	ldh [hSpriteIndex], a
@@ -650,6 +666,28 @@ BillsHouse_TextPointers:
 	dw_const BillsHouseBillEeveeGiftText,             TEXT_BILLSHOUSE_BILL_EEVEE_GIFT
 	dw_const BillsHouseBillPostBattleText,            TEXT_BILLSHOUSE_BILL_POST_BATTLE
 	dw_const BillsHouseMachineText,                   TEXT_BILLSHOUSE_MACHINE
+	dw_const BillsHouseGardenOpenText,                TEXT_BILLSHOUSE_GARDEN_OPEN
+
+; v1.0 (2026-11-07): the garden scene's words, in the text context DisplayTextID
+; gives them (see BillsHouseGardenOpenScript): BILL's line, then the chip.
+BillsHouseGardenOpenText:
+	text_asm
+	ld hl, BillsHouseGardenThisWayText
+	call PrintText
+; 🔴 The wait is NOT optional. BillsHouseGardenThisWayText ends in `done`, and
+; `done` does not wait -- so the PrintText inside BillsHouseGiveChip would blank
+; "Consider it a CHAMPION's privilege" the moment it was typed, the payoff line
+; of the whole scene. Same house rule as Daycare2F.asm and ViridianGym.asm.
+;
+; farcall because BillsHouse_2.asm is in another bank ("Maps 22" against this
+; file's "Maps 4"), which is how this file already reaches its other half.
+	farcall NewPageButtonPressCheck
+	farcall BillsHouseGiveChip
+; Its last line already took its press (the receipt ends in text_promptbutton,
+; the full-bag line in prompt), and with the chip already given the press above
+; was the last one: close the box on it rather than ask for that page again.
+	call DisableWaitingAfterTextDisplay
+	jp TextScriptEnd
 
 ; v1.0 (2026-09-23): the two TELEPORTER machines, flavour only. Once BILL is
 ; back in one piece (EVENT_MET_BILL) the player knows what they are.

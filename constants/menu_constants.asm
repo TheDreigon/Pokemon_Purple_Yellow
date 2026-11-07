@@ -132,7 +132,17 @@ DEF STATUS_KEEPPIC  EQU %00010000 ; same mon as the page just left: its picture
 	const STATUS_OTHER_PAGE ; 3
 
 ; How many ticks Bill's doorway walk is allowed before the scene gives up and
-; plays out where he stands. Lives in the low six bits of wd492, whose top two
-; bits Bill's house already uses, so it costs no new WRAM. A tick is every other
-; frame (~120 frames in all); the walk itself is four steps at most, ~68 frames.
-DEF BILLSHOUSE_WALK_TIMEOUT EQU 60
+; plays out where he stands (scripts/BillsHouse.asm, BillsHouseScript11).
+; v1.0 (2026-11-07): the count lives in bits 2-6 of wd492, a byte of the saved
+; block, so it costs no new WRAM. The byte's other bits are taken and must
+; survive the scene: 0 and 1 are the SUMMER BEACH HOUSE's (the SURFIN' DUDE
+; greeted, the minigame played; scripts/SummerBeachHouse.asm and
+; engine/minigame/surfing_pikachu.asm), and 7 is the "inside BILL's house" bit
+; that this house, the FAN CLUB, PEWTER and VERMILION share. Bits 2-6 are only
+; ever cleared elsewhere (Route25ShowHideBillScript clears 2-4), and the scene
+; clears them itself when it ends. A tick is every fourth run of the map script,
+; 8 frames, so 30 ticks are ~240 frames; the walk is four steps at most, ~138.
+DEF BILLSHOUSE_WALK_TIMEOUT     EQU 30
+DEF BILLSHOUSE_WALK_COUNT_SHIFT EQU 2
+DEF BILLSHOUSE_WALK_COUNT_MASK  EQU %01111100
+ASSERT BILLSHOUSE_WALK_TIMEOUT >= 1 && BILLSHOUSE_WALK_TIMEOUT <= BILLSHOUSE_WALK_COUNT_MASK >> BILLSHOUSE_WALK_COUNT_SHIFT, "BILLSHOUSE_WALK_TIMEOUT must fit in wd492 bits 2-6"
