@@ -14,6 +14,7 @@ SpecialEffects:
 	db TARGET_LEVEL_DAMAGE_EFFECT
 	db USER_LEVEL_DAMAGE_EFFECT
 	db SET_DAMAGE_EFFECT
+	db FALSE_SWIPE_EFFECT ; v1.0 (2026-11-06): its row in MoveEffectPointerTable is NULL (the clamp is at the damage-apply hook), and every NULL row a move can reach must be listed here, or .executeOtherEffects jumps to $0000
 	db FLY_EFFECT
 	db ATTACK_TWICE_EFFECT
 	db JUMP_KICK_EFFECT
