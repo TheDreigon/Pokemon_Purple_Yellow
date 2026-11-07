@@ -1,7 +1,7 @@
 	db DEX_DODUO ; pokedex id
 	base_stat_row 40, 80, 40, 40, 35, 90 ; hp atk def spatk spdef spd
 
-	db NORMAL, FLYING ; type
+	db NORMAL, FLYING ; type (GROUNDED: data/pokemon/grounded.asm)
 	db 200 ; catch rate  ; base stage, BST 325, harder to handle
 	db 90 ; base exp  ; BST 325
 

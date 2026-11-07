@@ -1,6 +1,6 @@
 	db DEX_STARYU ; pokedex id
 	base_stat_row 30, 40, 55, 70, 50, 75 ; hp atk def spatk spdef spd
-	db WATER, PSYCHIC_TYPE ; type
+	db WATER, PSYCHIC_TYPE ; type (+ FAIRY, its third: data/pokemon/third_types.asm)
 	db 215 ; catch rate  ; base stage, BST 320
 	db 90 ; base exp  ; BST 320
 

@@ -1,6 +1,6 @@
 	db DEX_PARASECT ; pokedex id
 	base_stat_row 90, 90, 90, 70, 85, 20 ; hp atk def spatk spdef spd
-	db BUG, FUNGUS ; type
+	db BUG, FUNGUS ; type (+ GRASS, its third: data/pokemon/third_types.asm)
 	db 90 ; catch rate  ; final stage, BST 445, easy to approach
 	db 140 ; base exp  ; BST 445
 

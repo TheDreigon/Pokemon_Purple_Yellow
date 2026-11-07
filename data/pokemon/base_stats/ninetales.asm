@@ -1,6 +1,6 @@
 	db DEX_NINETALES ; pokedex id
 	base_stat_row 80, 70, 70, 100, 100, 105 ; hp atk def spatk spdef spd
-	db FIRE, FAIRY ; type
+	db FIRE, FAIRY ; type (+ GHOST, its third: data/pokemon/third_types.asm)
 	db 65 ; catch rate  ; final stage, BST 525
 	db 170 ; base exp  ; BST 525
 

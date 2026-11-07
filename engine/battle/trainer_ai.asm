@@ -398,8 +398,12 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	jr z, .uselessUnlessCopy ; LEECH SEED does not affect a GRASS type
 	ld a, [wBattleMonType2]
 	cp GRASS
+	jr z, .uselessUnlessCopy
+	ld a, [wBattleMonSpecies] ; v1.0 (2026-11-07): or its third type, as LeechSeedEffect_ reads it
+	call GetThirdType
+	cp GRASS
 	jp nz, .nextMove
-	; a GRASS type 2: falls into the USELESS verdict (R10a: .uselessUnlessCopy's test sits right below)
+	; a GRASS third type: falls into the USELESS verdict (R10a: .uselessUnlessCopy's test sits right below)
 .uselessUnlessCopy
 ; v1.0 (R10a, 2026-10-01): every USELESS verdict ends here (.useless jumps here). When the slot holds MIRROR
 ; MOVE, the verdict was on its copy (.checkNoMirrorMoveOnFirstTurn): the player's own move, if it goes first,

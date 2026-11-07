@@ -1,7 +1,7 @@
 	db DEX_DODRIO ; pokedex id
 	base_stat_row 60, 120, 60, 60, 60, 110 ; hp atk def spatk spdef spd
 
-	db NORMAL, FLYING ; type
+	db NORMAL, FLYING ; type (GROUNDED: data/pokemon/grounded.asm)
 	db 60 ; catch rate  ; final stage, BST 470, harder to handle
 	db 150 ; base exp  ; BST 470
 

@@ -38,10 +38,21 @@ ApplyTypeEffectivenessToDamage::
 .loop
 	ld a, [hli] ; a = "attacking type" of the current type pair
 	cp $ff
-	jr z, .done
+	jp z, .done ; (jp since the GROUNDED test below put .done out of jr reach)
 	cp b ; does move type match "attacking type"?
-	jr nz, .nextTypePair
+	jp nz, .nextTypePair
 	ld a, [hl] ; a = "defending type" of the current type pair
+	cp FLYING ; v1.0 (2026-11-07, GROUNDED): GROUND's row against FLYING does not apply to a GROUNDED defender
+	jr nz, .notGroundedRow
+	ld a, b
+	cp GROUND
+	jr nz, .flyingRow
+	ld a, [wDefenderAirborne]
+	cp GROUNDED_TRAIT
+	jp z, .nextTypePair
+.flyingRow
+	ld a, FLYING
+.notGroundedRow
 	cp d ; does type 1 of defender match "defending type"?
 	jr z, .matchingPairFound
 	cp e ; does type 2 of defender match "defending type"?
@@ -249,6 +260,17 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 	cp d                      ; match the type of the move
 	jr nz, .nextTypePair1
 	ld a, [hli]
+	cp FLYING ; v1.0 (2026-11-07, GROUNDED): GROUND's row against FLYING does not apply to a GROUNDED defender
+	jr nz, .notGroundedRow
+	ld a, d
+	cp GROUND
+	jr nz, .flyingRow
+	ld a, [wDefenderAirborne]
+	cp GROUNDED_TRAIT
+	jr z, .nextTypePair2 ; hl is past the defending type already: skip the multiplier
+.flyingRow
+	ld a, FLYING
+.notGroundedRow
 	cp b                      ; match with type 1 of pokemon
 	jr z, .matchingPairFound
 	cp c                      ; or match with type 2 of pokemon

@@ -1,6 +1,6 @@
 	db DEX_FARFETCHD ; pokedex id
 	base_stat_row 100, 75, 60, 50, 60, 75 ; hp atk def spatk spdef spd
-	db FIGHTING, FLYING ; type
+	db FIGHTING, FLYING ; type (+ NORMAL, its third: data/pokemon/third_types.asm; GROUNDED: data/pokemon/grounded.asm)
 	db 115 ; catch rate  ; set by hand: run feedback 2026-09-05: a bit easier; one step off its 100
 	db 130 ; base exp  ; BST 420
 

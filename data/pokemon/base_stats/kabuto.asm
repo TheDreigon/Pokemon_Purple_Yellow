@@ -1,6 +1,6 @@
 	db DEX_KABUTO ; pokedex id
 	base_stat_row 35, 80, 90, 55, 45, 40 ; hp atk def spatk spdef spd
-	db ROCK, BUG ; type
+	db ROCK, BUG ; type (+ WATER, its third: data/pokemon/third_types.asm)
 	db 210 ; catch rate  ; base stage, BST 345
 	db 100 ; base exp  ; BST 345
 

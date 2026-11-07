@@ -10,4 +10,5 @@ AirborneMons:
 	db GENGAR    ; GHOST/DARK/POISON
 	db MEW       ; PSYCHIC/FAIRY
 	db MEWTWO    ; PSYCHIC: it levitates
+	db JYNX      ; GHOST/ICE/PSYCHIC: its feet never quite touch the ground (2026-11-07)
 	db -1 ; end

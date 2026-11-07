@@ -21,20 +21,32 @@ GetThirdType::
 	ret
 
 ; v1.0 (2026-11-02, AIRBORNE): In: a = the species (internal index). Out: a = FLYING when it is AIRBORNE
-; (data/pokemon/airborne.asm), else $FF - FLYING because the chart walks let an AIRBORNE defender take
-; GROUND's row against FLYING. Read by SetDefenderTraits and the status screen. Keeps bc, de, hl.
+; (data/pokemon/airborne.asm), GROUNDED_TRAIT when it is GROUNDED (data/pokemon/grounded.asm, 2026-11-07),
+; else $FF - FLYING because the chart walks let an AIRBORNE defender take GROUND's row against FLYING, and
+; GROUNDED_TRAIT because they let a GROUNDED one skip it. Read by SetDefenderTraits and the status screen.
+; Keeps bc, de, hl.
 GetAirborne::
 	push hl
 	push bc
 	ld b, a
 	ld hl, AirborneMons
+	ld c, FLYING
 .loop
 	ld a, [hli]
 	cp -1
-	jr z, .done ; a = $FF: not AIRBORNE
+	jr z, .endOfList
 	cp b
 	jr nz, .loop
-	ld a, FLYING
+	ld a, c ; FLYING, or GROUNDED_TRAIT on the second list
+	jr .done
+.endOfList
+	ld a, c
+	cp GROUNDED_TRAIT
+	ld a, -1
+	jr z, .done ; both lists read: $FF, neither
+	ld hl, GroundedMons
+	ld c, GROUNDED_TRAIT
+	jr .loop
 .done
 	pop bc
 	pop hl
@@ -55,3 +67,4 @@ SetDefenderTraits::
 
 INCLUDE "data/pokemon/third_types.asm"
 INCLUDE "data/pokemon/airborne.asm"
+INCLUDE "data/pokemon/grounded.asm"

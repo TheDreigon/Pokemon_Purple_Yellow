@@ -23,8 +23,8 @@ DisplayEffectiveness_:
 	ret z
 	ld hl, SuperEffectiveText
 	jr c, .resisted
-	cp SUPER_EFFECTIVE * 2 ; 40: super effective against BOTH of the target's types
-	jr nz, .done
+	cp SUPER_EFFECTIVE * 2 ; 40: super effective against two of the target's types; 60 (v1.0, 2026-11-07): all
+	jr c, .done            ; three, the ladder's 6x (PARASECT's FIRE) - both say "extremely", 20 says "super"
 	ld hl, ExtremelyEffectiveText
 	jr .done
 .resisted

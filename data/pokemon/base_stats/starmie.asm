@@ -1,7 +1,7 @@
 	db DEX_STARMIE ; pokedex id
 	base_stat_row 60, 70, 90, 100, 85, 100 ; hp atk def spatk spdef spd
 
-	db WATER, PSYCHIC_TYPE ; type
+	db WATER, PSYCHIC_TYPE ; type (+ FAIRY, its third: data/pokemon/third_types.asm)
 	db 70 ; catch rate  ; final stage, BST 505
 	db 160 ; base exp  ; BST 505
 

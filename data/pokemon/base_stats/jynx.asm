@@ -1,6 +1,6 @@
 	db DEX_JYNX ; pokedex id
 	base_stat_row 70, 60, 50, 120, 110, 105 ; hp atk def spatk spdef spd
-	db GHOST, ICE ; type
+	db GHOST, ICE ; type (+ PSYCHIC, its third: data/pokemon/third_types.asm; AIRBORNE: data/pokemon/airborne.asm)
 	db 65 ; catch rate  ; set by hand: same tier as Electabuzz and Magmar
 	db 165 ; base exp  ; BST 515
 

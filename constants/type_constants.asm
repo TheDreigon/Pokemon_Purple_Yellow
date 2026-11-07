@@ -46,3 +46,9 @@ DEF UNUSED_TYPES_END EQU const_value
 	const GAS ; $1B  ; new type (Purple Yellow)
 
 DEF NUM_TYPES EQU const_value
+
+; v1.0 (2026-11-07): the third value of wDefenderAirborne (GetAirborne), beside FLYING (AIRBORNE) and $FF: the
+; defender is GROUNDED (data/pokemon/grounded.asm) - GROUND's rows never match its FLYING. Not a type: no row
+; of the chart holds it.
+DEF GROUNDED_TRAIT EQU $FE
+	ASSERT GROUNDED_TRAIT >= NUM_TYPES

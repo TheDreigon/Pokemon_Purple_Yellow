@@ -1,6 +1,6 @@
 	db DEX_KABUTOPS ; pokedex id
 	base_stat_row 75, 115, 110, 70, 70, 80 ; hp atk def spatk spdef spd
-	db ROCK, BUG ; type
+	db ROCK, BUG ; type (+ WATER, its third: data/pokemon/third_types.asm)
 	db 60 ; catch rate  ; set by hand: level with Aerodactyl
 	db 165 ; base exp  ; BST 520
 
