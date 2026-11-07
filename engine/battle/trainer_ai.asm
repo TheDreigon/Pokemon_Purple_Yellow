@@ -302,11 +302,12 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 	"a useless move must rank between every usable move ($a, -10..+20) and every unusable one ($50)"
 ; v1.0 (R10c): a stopped move that hurts its user gets AI_SCORE_HURTS_USER more (.uselessScore) - above every
 ; other useless move, even the one layer 5's anti-repeat has lifted by its +4 at most (a status move meets layers 2
-; and 4 too, which only take off). A stopped damaging move meets no rule but layer 3's +1 (R9e: no STAB,
-; EXPLOSION-by-HP or priority rule; R9f: no layer 2; layer 4 weighs power-0 moves and DREAM EATER) and that repeat
-; rule, so it stays below the unusable tier. The other useless damaging moves (DREAM EATER into a Pokemon awake,
-; a DRAIN move into a SUBSTITUTE) are not stopped and meet layer 5's +5 rules too: none of them is FIRE, MAGMA or
-; a priority move today, or one could rank with these (emu_test_ai_useless_moves pins it).
+; and 4 too, which only take off; v1.0 2026-11-07: a USELESS PROTECT or LOCK-ON meets no layer 5 rule at all - it
+; skips the repeat, and its own rules leave it as it is). A stopped damaging move meets no rule but layer 3's +1
+; (R9e: no STAB, EXPLOSION-by-HP or priority rule; R9f: no layer 2; layer 4 weighs power-0 moves and DREAM EATER)
+; and that repeat rule, so it stays below the unusable tier. The other useless damaging moves (DREAM EATER into a
+; Pokemon awake, a DRAIN move into a SUBSTITUTE) are not stopped and meet layer 5's +5 rules too: none of them is
+; FIRE, MAGMA or a priority move today, or one could rank with these (emu_test_ai_useless_moves pins it).
 DEF AI_SCORE_HURTS_USER EQU 5
 ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4 < $50 - 10, \
 	"a useless move that hurts its user must rank above a repeated useless one (+4) and below every unusable one"
@@ -1167,7 +1168,9 @@ Modifier4PreferredMoves:
 ;  - STAB (the move's type is one of the mon's; v1.0 R12: or the TRI ATTACK of
 ;    a PORYGON, as in the damage) on a hit not resisted (v1.0 R11: 1x or
 ;    more): -1;
-;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3;
+;  - EXPLOSION below 1/2, 1/4, 1/8 of the mon's HP: -1, -2, -3 (v1.0 2026-11-07:
+;    not with the player under FLY/DIG unless the screen showed it moving first -
+;    the blast would go first and miss, the user fainting: +5 and no ladder);
 ;  - the player under FLY/DIG: a priority move (PriorityMovesList, 8 and up)
 ;    +5 - it would go first and hit nothing (no priority move is one of the few
 ;    that reach a hidden mon, MoveReachesHiddenMon); a one-turn move that does
@@ -1239,7 +1242,7 @@ AIMoveChoiceModification5:
 	inc de
 	call ReadMove
 ; v1.0 (2026-11-02): PROTECT and LOCK-ON have rules of their own (.protect, .lockOn), and no repeat to weigh:
-; layer 1 leaves a second one in a row USELESS
+; layer 1 leaves a second one in a row USELESS (and since 2026-11-07 those rules leave a USELESS one as it is)
 	ld a, [wEnemyMoveEffect]
 	cp PROTECT_EFFECT
 	jp z, .protect
@@ -1296,6 +1299,17 @@ AIMoveChoiceModification5:
 	ld a, [wEnemyMoveEffect]
 	cp EXPLODE_EFFECT
 	jr nz, .thawGate ; v1.0 (R11): every other damaging move meets the bar first
+; v1.0 (2026-11-07): the player up in the air or underground (INVULNERABLE) dodges EXPLOSION (MoveHitTest), and the
+; user faints all the same (handleExplosionMiss): unless the screen showed the player moving first in this matchup
+; (wAITurnOrder, as the priority rule reads it - then it lands first and the blast connects), EXPLOSION gets no HP
+; ladder and the +5 of a move the turn may still let act (E4: the speeds are hidden).
+	ld a, [wPlayerBattleStatus1]
+	bit INVULNERABLE, a
+	jr z, .explosionLadder
+	ld a, [wAITurnOrder]
+	rra ; AI_ORDER_PLAYER_FIRST (bit 0)
+	jr nc, .discourage
+.explosionLadder
 	ld a, 2
 	call AICheckIfHPBelowFractionWrapped
 	jr nc, .thawTest ; v1.0 (R10d): half HP or more - the ladder adds nothing; the thaw test, as for any FIRE hit
@@ -1354,7 +1368,8 @@ AIMoveChoiceModification5:
 	cp 8
 	jp c, .nextMove
 .discourage ; +5: a priority move now goes first and hits nothing; (R10d) a FIRE or MAGMA hit thaws a frozen player;
-; (v1.0, 2026-11-02) and PROTECT's and LOCK-ON's +5 (.protectNoBlow, .lockOnGotReasons)
+; (v1.0, 2026-11-02) and PROTECT's and LOCK-ON's +5 (.protectNoBlow, .lockOnGotReasons); (2026-11-07) an EXPLOSION into
+; a hidden player that was not seen moving first (.noStab)
 	ld a, [hl]
 	add 5
 	ld [hl], a
@@ -1379,6 +1394,13 @@ AIMoveChoiceModification5:
 	dec [hl]
 	jp .nextMove
 .protect
+; v1.0 (2026-11-07): a PROTECT layer 1 found USELESS - one that worked last turn, or the player recharging - fails
+; whatever these rules weigh, so they leave it at AI_SCORE_USELESS (and one it cannot use in its tier): their +5
+; lifted it to the floor of a stopped THRASH or EXPLOSION (AI_SCORE_HURTS_USER), and the chooser tied the two; their
+; -1 or -3 put it below every other useless move. The line is the one layers 3 and 6 read; .lockOn opens the same way.
+	ld a, [hl]
+	cp AI_SCORE_USELESS - 10
+	jp nc, .nextMove
 ; v1.0 (2026-11-02): PROTECT is worth its turn when the player's blow is already on its way - charged
 ; (SOLARBEAM, MOONBLAST) or up in the air or underground (FLY, SKY ATTACK, DIG): CHARGING_UP, which the screen
 ; announced. That blow lands this turn and PROTECT, first whatever the speeds, takes it: -3. With the
@@ -1390,8 +1412,13 @@ AIMoveChoiceModification5:
 ; charged move stays charged. A blow the chart stops on the trainer's own #MON - DIG (GROUND) on a FLYING, a GAS or
 ; an AIRBORNE one: the walk of the damage, its third type and AIRBORNE included - needs no PROTECT. Either way the
 ; rules below decide, as with no blow on its way.
+; v1.0 (2026-11-07): and a player locked into THRASH, PETAL DANCE, OUTRAGE or RAGE (THRASHING_ABOUT: "thrashing
+; about" on screen every turn) has its blow on its way too - the lock attacks every turn it holds, its last one
+; included (CheckPlayerStatusConditions .ThrashingAboutCheck), with the move whose block GetCurrentMove re-derives
+; each turn, so wPlayerMoveType is its type; the same tests follow. A BIDE storing energy is not: its release turn
+; is hidden.
 	ld a, [wPlayerBattleStatus1]
-	bit CHARGING_UP, a
+	and (1 << CHARGING_UP) | (1 << THRASHING_ABOUT)
 	jr z, .protectNoBlow
 	ld a, [wBattleMonStatus]
 	and (1 << FRZ) | SLP_MASK
@@ -1428,6 +1455,10 @@ AIMoveChoiceModification5:
 	dec [hl]
 	jp .nextMove
 .lockOn
+; v1.0 (2026-11-07): a LOCK-ON layer 1 found USELESS - its own lock already set - is left alone, as at .protect.
+	ld a, [hl]
+	cp AI_SCORE_USELESS - 10
+	jp nc, .nextMove
 ; v1.0 (2026-11-02): LOCK-ON pays against the player's EVASION raised and the trainer's own ACCURACY
 ; lowered, both announced on screen: -1 for each. With both at their base it buys little for its
 ; turn: +5.
@@ -2061,8 +2092,15 @@ AIHasSwitchLayer:
 ; wInHandlePlayerMonFainted = 1 marks it (see HandleEnemyMonFainted). Called by
 ; farcall from ReplaceFaintedEnemyMon just before EnemySendOut, which consumes
 ; the request; a farcall does not return a, so the answer goes to WRAM.
-; Out: wAISwitchRequest = 1 + the party index, or 0 (party order). Clobbers all.
+; v1.0 (2026-11-07): and the newcomer starts with the switch layer's cooldown, as one a switch brings in does
+; (SwitchEnemyMon): every faint replacement, a double KO and a trainer without layer 6 included (the layer alone
+; reads it). Before, it took over what the fainted #MON had left - 0 once that one had made two choices, so the
+; teammate sent out after a faint could be withdrawn at its first choice; 1 or 2 when it had just come in itself.
+; Out: wAISwitchRequest = 1 + the party index, or 0 (party order); wAISwitchCooldown = AISwitchKnobs.cooldown.
+; Clobbers all.
 AIPickFaintReplacement:
+	ld a, [AISwitchKnobs.cooldown]
+	ld [wAISwitchCooldown], a
 	xor a
 	ld [wAISwitchRequest], a ; party order, unless the pick below names the teammate
 	ld a, [wInHandlePlayerMonFainted]
@@ -3185,7 +3223,8 @@ SwitchEnemyMon:
 
 ; v1.0 (2026-09-26, the AI switch layer): the mon that comes in starts
 ; fresh - its setup layer counts from zero again (as yumepokered does) and
-; the switch layer leaves the newcomer alone for a couple of turns. (The
+; the switch layer leaves the newcomer alone for a couple of turns (a faint
+; replacement too since 2026-11-07: AIPickFaintReplacement arms it). (The
 ; player's WRAP needs nothing here: a held enemy never asks to switch -
 ; layer 6's top, N3 - and EnemySendOutFirstMon drops the trapping bit.)
 	xor a

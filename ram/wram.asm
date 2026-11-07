@@ -595,7 +595,7 @@ wAICount:: db
 ; how many times in a row the enemy has already EXECUTED wEnemyUsedMove
 ; (0 = the first time; written in MonName1Text, read by the tactical layer's
 ; anti-repeat rule) and the turns the mon that just came in is protected from
-; the switch layer (set by SwitchEnemyMon, counted down by the layer).
+; the switch layer (set by SwitchEnemyMon and AIPickFaintReplacement, counted down by the layer).
 wAIRepeatCount:: db
 wAISwitchCooldown:: db
 
