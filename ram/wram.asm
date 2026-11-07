@@ -1054,7 +1054,6 @@ wTempSCX::
 wWhichTrade::
 wDexMaxSeenMon::
 wPPRestoreItem::
-wWereAnyMonsAsleep::
 wNumShakes::
 wWhichBadge::
 wTitleMonSpecies::

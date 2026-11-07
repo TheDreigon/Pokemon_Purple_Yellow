@@ -160,7 +160,6 @@ INCLUDE "audio/sfx/faint_thud.asm"
 INCLUDE "audio/sfx/run.asm"
 INCLUDE "audio/sfx/dex_page_added.asm"
 INCLUDE "audio/sfx/swap_2.asm" ; added in yellow
-INCLUDE "audio/sfx/pokeflute_ch7.asm"
 INCLUDE "audio/sfx/peck.asm"
 INCLUDE "audio/sfx/faint_fall.asm"
 INCLUDE "audio/sfx/battle_09.asm"

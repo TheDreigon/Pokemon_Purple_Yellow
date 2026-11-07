@@ -2401,6 +2401,8 @@ ItemUsePokeflute:
 ; FULL HEAL pointless against sleep the moment you owned one. Now it only
 ; works outside battle. The whole in-battle branch, and WakeUpEntireParty
 ; which only that branch called, are gone rather than left unreachable.
+; v1.0 (2026-11-07): so are its "All sleeping #MON woke up." text and the
+; in-battle flute music's channel data (SFX_Pokeflute_Ch5 to Ch7).
 	ld a, [wIsInBattle]
 	and a
 	jp nz, ItemUseNotTime
@@ -2471,17 +2473,12 @@ PlayedFluteNoEffectText:
 	text_far _PlayedFluteNoEffectText
 	text_end
 
-FluteWokeUpText:
-	text_far _FluteWokeUpText
-	text_end
-
 PlayedFluteHadEffectText:
 	text_far _PlayedFluteHadEffectText
 	text_promptbutton
 	text_asm
-	ld a, [wIsInBattle]
-	and a
-	jr nz, .done
+; v1.0 (2026-11-07): no in-battle test here any more: all three users print this after
+; ItemUsePokeflute's in-battle refusal, so wIsInBattle is always 0 by now.
 ; play out-of-battle pokeflute music
 	call StopAllMusic
 	ld a, SFX_POKEFLUTE
@@ -2492,7 +2489,6 @@ PlayedFluteHadEffectText:
 	cp SFX_POKEFLUTE
 	jr z, .musicWaitLoop
 	call PlayDefaultMusic ; start playing normal music again
-.done
 	jp TextScriptEnd ; end text
 
 ItemUseCoinCase:

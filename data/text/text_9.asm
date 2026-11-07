@@ -105,11 +105,6 @@ _PlayedFluteNoEffectText::
 	line "catchy tune!"
 	prompt
 
-_FluteWokeUpText::
-	text "All sleeping"
-	line "#MON woke up."
-	prompt
-
 _PlayedFluteHadEffectText::
 	text "<PLAYER> played the"
 	line "# FLUTE.@"

@@ -194,8 +194,8 @@ Audio2_CryRet:
 
 ; v0.7 space pass (2026-08-17): poke_flute.asm deleted — the in-battle flute
 ; music routine lost its only caller when the flute stopped working in battle.
-
-INCLUDE "audio/sfx/pokeflute_ch5_ch6.asm"
+; v1.0 (2026-11-07): its channel data went too (pokeflute_ch5_ch6.asm here,
+; pokeflute_ch7.asm in Sound Effects 2): that routine was their only reader.
 
 Audio2_InitMusicVariables::
 	xor a
