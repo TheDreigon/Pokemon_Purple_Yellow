@@ -3159,11 +3159,10 @@ ItemUseNotTimeText:
 	text_far _ItemUseNotTimeText
 	text_end
 
-; Local wrapper for item handlers in this bank to use with PrintText. We
-; can't share core.asm's `ItemsCantBeUsedHereText` wrapper directly (single-
-; colon labels in RGBDS are still globally exported, so reusing the name
-; would be a link conflict — see commit history). Both wrappers point at
-; the same exported `_ItemsCantBeUsedHereText::` in data/text/text_2.asm.
+; Local wrapper for item handlers in this bank to use with PrintText, on the
+; exported `_ItemsCantBeUsedHereText::` in data/text/text_2.asm. (core.asm had a
+; wrapper of its own, ItemsCantBeUsedHereText, for the link battle's bag
+; refusal; it went with that branch on 2026-11-07, so this is the only one now.)
 BattleItemsCantBeUsedHereText:
 	text_far _ItemsCantBeUsedHereText
 	text_end

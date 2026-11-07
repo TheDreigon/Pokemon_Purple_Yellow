@@ -887,13 +887,6 @@ _WildRanText::
 	line "ran!"
 	prompt
 
-_EnemyRanText::
-	text "Enemy @"
-	text_ram wEnemyMonNick
-	text_start
-	line "ran!"
-	prompt
-
 _HurtByPoisonText::
 	text "<USER>'s"
 	line "hurt by poison!"
@@ -951,13 +944,6 @@ _PlayerBlackedOutText2::
 
 	para "<PLAYER> blacked"
 	line "out!"
-	prompt
-
-_LinkBattleLostText::
-	text "<PLAYER> lost to"
-	line "@"
-	text_ram wTrainerName
-	text "!"
 	prompt
 
 _TrainerAboutToUseText::

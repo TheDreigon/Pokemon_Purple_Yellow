@@ -207,12 +207,10 @@ PlaceDexEnd::
 	ret
 
 PromptText::
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jp z, .ok
+; v1.0 (2026-11-07): a link battle skipped the arrow here (and in TextCommand_PROMPT_BUTTON);
+; those tests went with the cable.
 	ld a, "▼"
 	ldcoord_a 18, 16
-.ok
 	call ProtectedDelay3
 	call ManualTextScroll
 	ld a, " "
@@ -440,9 +438,6 @@ TextCommand_LOW::
 
 TextCommand_PROMPT_BUTTON::
 ; wait for button press; show arrow
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jp z, TextCommand_WAIT_BUTTON
 	ld a, "▼"
 	ldcoord_a 18, 16 ; place down arrow in lower right corner of dialogue text box
 	push bc

@@ -167,32 +167,8 @@ PlaceHUDTiles:
 	ld [hl], a
 	ret
 
-SetupPlayerAndEnemyPokeballs:
-	call LoadPartyPokeballGfx
-	ld hl, wPartyMons
-	ld de, wPartyCount
-	call SetupPokeballs
-	ld hl, wBaseCoordX
-	ld a, $50
-	ld [hli], a
-	ld [hl], $40
-	ld a, 8
-	ld [wHUDPokeballGfxOffsetX], a
-	xor a
-	ld [wdef5], a
-	ld hl, wShadowOAM
-	call WritePokeballOAMData
-	ld hl, wEnemyMons
-	ld de, wEnemyPartyCount
-	call SetupPokeballs
-	ld hl, wBaseCoordX
-	ld a, $50
-	ld [hli], a
-	ld [hl], $68
-	ld a, $1
-	ld [wdef5], a
-	ld hl, wShadowOAMSprite06
-	jp WritePokeballOAMData
+; v1.0 (2026-11-07): SetupPlayerAndEnemyPokeballs (both parties' balls side by side) went
+; with its only caller, the link battle's VERSUS box (link_battle_versus_text.asm).
 
 ; four tiles: pokeball, black pokeball (status ailment), crossed out pokeball (fainted) and pokeball slot (no mon)
 PokeballTileGraphics::

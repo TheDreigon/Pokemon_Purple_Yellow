@@ -120,17 +120,11 @@ IsBossTrainerClass::
 ;
 ; Trashes: a, b, hl
 IsHardModeBossBattle::
-	; v0.7 FIX: never treat a LINK battle as a boss battle. cable_club.asm
-	; started link fights with `ld a, OPP_RIVAL1 / ld [wCurOpponent], a`, so
-	; wTrainerClass became RIVAL1 — a boss class — and wIsInBattle was 2.
-	; Without this guard, a hard-mode player's link battles silently got the
-	; boss crit and accuracy edges, which both sides compute independently:
-	; guaranteed desync against the other Game Boy. The link code is gone
-	; (2026-08-13) and nothing stores LINK_STATE_BATTLING any more, so this
-	; check can no longer fire; the link guards were kept on purpose.
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr z, .notHardModeBossBattle
+	; v0.7 FIX: never treat a LINK battle as a boss battle (cable_club.asm started
+	; link fights as RIVAL1, a boss class: the boss edges desynced the two Game Boys).
+	; v1.0 (2026-11-07): that guard, and the ones in ShouldMaxEnemyDVs and
+	; IsHardModeBossOrSemiBattle, went: the link code is gone (2026-08-13) and
+	; nothing stores LINK_STATE_BATTLING, so they could no longer fire.
 	ld a, [wDifficulty]
 	cp HARD_MODE
 	jr nz, .notHardModeBossBattle
@@ -169,9 +163,6 @@ IsSemiBossTrainerClassW::
 ;
 ; Trashes: a, b, hl
 ShouldMaxEnemyDVs::
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr z, .noMaxDVs             ; never touch a link battle: guaranteed desync
 	ld a, [wIsInBattle]
 	cp 2                        ; 2 = trainer battle
 	jr nz, .noMaxDVs
@@ -194,9 +185,6 @@ ShouldMaxEnemyDVs::
 IsHardModeBossOrSemiBattle::
 	call IsHardModeBossBattle
 	ret nz                      ; already a hard-mode boss battle
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr z, .noBag
 	ld a, [wDifficulty]
 	cp HARD_MODE
 	jr nz, .noBag

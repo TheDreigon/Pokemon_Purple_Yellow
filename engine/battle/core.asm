@@ -139,19 +139,9 @@ StartBattle:
 	ld [wActionResultOrTookBattleTurn], a
 	inc a
 	ld [wFirstMonsNotOutYet], a
-	ld hl, wEnemyMon1HP
-	ld bc, wEnemyMon2 - wEnemyMon1 - 1
-	ld d, $3
-.findFirstAliveEnemyMonLoop
-	inc d
-	ld a, [hli]
-	or [hl]
-	jr nz, .foundFirstAliveEnemyMon
-	add hl, bc
-	jr .findFirstAliveEnemyMonLoop
-.foundFirstAliveEnemyMon
-	ld a, d
-	ld [wSerialExchangeNybbleReceiveData], a
+; v1.0 (2026-11-07): vanilla walked the enemy party here for its first live #MON and
+; stored 4 + its index in wSerialExchangeNybbleReceiveData, the number a link battle
+; sent the other Game Boy. Only the link branches read it, and they went with the cable.
 	ld a, [wIsInBattle]
 	dec a ; is it a trainer battle?
 	call nz, EnemySendOutFirstMon ; if it is a trainer battle, send out enemy mon
@@ -265,18 +255,10 @@ StartBattle:
 	call SendOutMon
 	jr MainInBattleLoop
 
-; wild mon or link battle enemy ran from battle
+; wild mon ran from battle
 EnemyRan:
 	call LoadScreenTilesFromBuffer1
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
 	ld hl, WildRanText
-	jr nz, .printText
-; link battle
-	xor a
-	ld [wBattleResult], a
-	ld hl, EnemyRanText
-.printText
 	call PrintText
 	ld a, SFX_RUN
 	call PlaySoundWaitForCurrent
@@ -286,10 +268,6 @@ EnemyRan:
 
 WildRanText:
 	text_far _WildRanText
-	text_end
-
-EnemyRanText:
-	text_far _EnemyRanText
 	text_end
 
 MainInBattleLoop:
@@ -319,9 +297,8 @@ MainInBattleLoop:
 ; BIDE or WRAP) is not chosen again after the player's action. Held by a
 ; WRAP, either side still chooses. (Before, a WRAP that stopped the choice
 ; here and that the player's action ended let the enemy choose after that
-; action and see it. A link battle would need the pick after the data
-; exchange; the Cable Club is gone, and SelectEnemyMove's link branch is dead
-; code.)
+; action and see it. A link battle would have needed the pick after the data
+; exchange; the Cable Club is gone, and SelectEnemyMove's link branch with it.)
 	farcall AIForgetStaleTurnOrder ; v1.0 (R11): before the enemy chooses - a speed change the screen showed
 	ld a, [wAIChoseThisTurn]
 	and a
@@ -387,35 +364,8 @@ MainInBattleLoop:
 	xor a
 	ld [wAIChoseThisTurn], a
 	call CommitTurnBattleBits ; v1.0 (2026-11-02): PROTECT's bits move on a turn
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .noLinkBattle
-; link battle
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_RUN
-	jp z, EnemyRan
-	cp LINKBATTLE_STRUGGLE
-	jr z, .noLinkBattle
-	cp LINKBATTLE_NO_ACTION
-	jr z, .noLinkBattle
-	sub 4
-	jr c, .noLinkBattle
-; the link battle enemy has switched mons
-	ld a, [wPlayerBattleStatus1]
-	bit USING_TRAPPING_MOVE, a ; check if using multi-turn move like Wrap
-	jr z, .specialMoveNotUsed
-	ld a, [wPlayerMoveListIndex]
-	ld hl, wBattleMonMoves
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	cp METRONOME ; a MIRROR MOVE check is missing, might lead to a desync in link battles
-	             ; when combined with multi-turn moves
-	jr nz, .specialMoveNotUsed
-	ld [wPlayerSelectedMove], a
-.specialMoveNotUsed
-	callfar SwitchEnemyMon
+; v1.0 (2026-11-07): the link battle's branch (a run, a switch or STRUGGLE read from the
+; other Game Boy) went with the cable; .noLinkBattle stays as a name, the tests enter here.
 .noLinkBattle
 	call HandleMovePriority
 	; c = player priority, e = enemy priority
@@ -929,7 +879,6 @@ HandleEnemyMonFainted:
 	ld a, $1
 	ld [wActionResultOrTookBattleTurn], a
 	call ReplaceFaintedEnemyMon
-	jp z, EnemyRan
 	xor a
 	ld [wActionResultOrTookBattleTurn], a
 	jp MainInBattleLoop
@@ -1054,7 +1003,8 @@ AnyEnemyPokemonAliveCheck:
 	and a
 	ret
 
-; stores whether enemy ran in Z flag
+; v1.0 (2026-11-07): it used to report in Z whether the enemy ran instead (a link
+; battle's opponent could); that branch went with the cable, and so did its callers' test.
 ReplaceFaintedEnemyMon:
 	ld hl, wEnemyHPBarColor
 	ld e, $30
@@ -1065,16 +1015,6 @@ ReplaceFaintedEnemyMon:
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
 	callfar DrawEnemyPokeballs
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .notLinkBattle
-; link battle
-	call LinkBattleExchangeData
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_RUN
-	ret z
-	call LoadScreenTilesFromBuffer1
-.notLinkBattle
 ; v1.0 (2026-09-27): who replaces the fainted mon - a trainer with the switch
 ; layer picks it as the layer does; the rest, and a double KO, keep party
 ; order. The answer is in wAISwitchRequest (0 = party order); EnemySendOut
@@ -1085,7 +1025,6 @@ ReplaceFaintedEnemyMon:
 	ld [wEnemyMoveNum], a
 	ld [wActionResultOrTookBattleTurn], a
 	ld [wAILayer2Encouragement], a
-	inc a ; reset Z flag
 	ret
 
 TrainerBattleVictory:
@@ -1105,15 +1044,10 @@ TrainerBattleVictory:
 	ld hl, wFlags_D733 ; RIVAL3's own fanfare comes from the list above
 	set 1, [hl]
 .notrival
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
 	ld a, b
-	call nz, PlayBattleVictoryMusic
+	call PlayBattleVictoryMusic
 	ld hl, TrainerDefeatedText
 	call PrintText
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	ret z
 	call ScrollTrainerPicAfterBattle
 	ld c, 40
 	call DelayFrames
@@ -1170,7 +1104,6 @@ HandlePlayerMonFainted:
 	ld a, $1
 	ld [wActionResultOrTookBattleTurn], a
 	call ReplaceFaintedEnemyMon
-	jp z, EnemyRan ; if enemy ran from battle rather than sending out another mon, jump
 	xor a
 	ld [wActionResultOrTookBattleTurn], a
 	jp MainInBattleLoop
@@ -1310,13 +1243,6 @@ ChooseNextMon:
 .monChosen
 	call HasMonFainted
 	jr z, .goBackToPartyMenu ; if mon fainted, you have to choose another
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .notLinkBattle
-	ld a, 1
-	ld [wActionResultOrTookBattleTurn], a
-	call LinkBattleExchangeData
-.notLinkBattle
 	xor a
 	ld [wActionResultOrTookBattleTurn], a
 	call ClearSprites
@@ -1345,9 +1271,6 @@ ChooseNextMon:
 ; called when player is out of usable mons.
 ; prints appropriate lose message, sets carry flag if player blacked out (special case for initial rival fight)
 HandlePlayerBlackOut:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr z, .notRival1Battle
 	ld a, [wCurOpponent]
 	cp OPP_RIVAL1
 	jr nz, .notRival1Battle
@@ -1366,11 +1289,6 @@ HandlePlayerBlackOut:
 	ld b, SET_PAL_BATTLE_BLACK
 	call RunPaletteCommand
 	ld hl, PlayerBlackedOutText2
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .noLinkBattle
-	ld hl, LinkBattleLostText
-.noLinkBattle
 	call PrintText
 	ld a, [wd732]
 	res 5, a
@@ -1385,10 +1303,6 @@ Rival1WinText:
 
 PlayerBlackedOutText2:
 	text_far _PlayerBlackedOutText2
-	text_end
-
-LinkBattleLostText:
-	text_far _LinkBattleLostText
 	text_end
 
 ; slides pic of fainted mon downwards until it disappears
@@ -1535,14 +1449,6 @@ EnemySendOutFirstMon:
 	call SlideTrainerPicOffScreen
 	call PrintEmptyString
 	call SaveScreenTilesToBuffer1
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .next
-	ld a, [wSerialExchangeNybbleReceiveData]
-	sub 4
-	ld [wWhichPokemon], a
-	jr .next3
-.next
 ; v1.0 (2026-09-26, the AI switch layer): a switch the AI asked for names the
 ; teammate to bring in (wAISwitchRequest = 1 + its party index, chosen by
 ; AIPickSwitchTarget when the enemy chose - at the start of the turn,
@@ -1609,9 +1515,6 @@ EnemySendOutFirstMon:
 ; v1.0 (2026-10-09): no question while no other party #MON can come in - every one fainted, or the party is
 ; this one #MON (the wPartyCount test this replaces). misc.asm, bank $10: Battle Core is near its floor.
 	farcall AnyOtherPartyMonAlive
-	jr z, .next4
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
 	jr z, .next4
 	ld a, [wDifficulty] ; Check if player is on hard mode
 	and a
@@ -1754,9 +1657,6 @@ TryRunningFromBattle:
 	jp z, .canEscape ; jump if it's a safari battle
 	cp BATTLE_TYPE_RUN
 	jp z, .canEscape ; hurry, get away?
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jp z, .canEscape
 	ld a, [wIsInBattle]
 	dec a
 	jp nz, .trainerBattle ; jump if it's a trainer battle (v1.0: jp, the held test below put it out of jr reach)
@@ -1856,24 +1756,7 @@ TryRunningFromBattle:
 	and a ; reset carry
 	ret
 .canEscape
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
 	ld a, $2
-	jr nz, .playSound
-; link battle
-	call SaveScreenTilesToBuffer1
-	xor a
-	ld [wActionResultOrTookBattleTurn], a
-	ld a, LINKBATTLE_RUN
-	ld [wPlayerMoveListIndex], a
-	call LinkBattleExchangeData
-	call LoadScreenTilesFromBuffer1
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_RUN
-	ld a, $2
-	jr z, .playSound
-	dec a
-.playSound
 	ld [wBattleResult], a
 	ld a, SFX_RUN
 	call PlaySoundWaitForCurrent
@@ -2022,61 +1905,9 @@ LoadBattleMonFromParty:
 	ld [wPlayerFreezeCounter], a
 	ret
 
-; copies from enemy party data to current enemy mon data when sending out a new enemy mon
-LoadEnemyMonFromParty:
-	ld a, [wWhichPokemon]
-	ld bc, wEnemyMon2 - wEnemyMon1
-	ld hl, wEnemyMons
-	call AddNTimes
-	ld de, wEnemyMonSpecies
-	ld bc, wEnemyMonDVs - wEnemyMonSpecies
-	call CopyData
-	ld bc, wEnemyMon1DVs - wEnemyMon1OTID
-	add hl, bc
-	ld de, wEnemyMonDVs
-	ld bc, wEnemyMon1PP - wEnemyMon1DVs
-	call CopyData
-	ld de, wEnemyMonPP
-	ld bc, NUM_MOVES
-	call CopyData
-	ld de, wEnemyMonLevel
-	ld bc, wEnemyMonPP - wEnemyMonLevel
-	call CopyData
-	ld a, [wEnemyMonSpecies]
-	ld [wd0b5], a
-	call GetMonHeader
-	ld hl, wEnemyMonNicks
-	ld a, [wWhichPokemon]
-	call SkipFixedLengthTextEntries
-	ld de, wEnemyMonNick
-	ld bc, NAME_LENGTH
-	call CopyData
-	ld hl, wEnemyMonLevel
-	ld de, wEnemyMonUnmodifiedLevel ; block of memory used for unmodified stats
-	ld bc, 1 + NUM_STATS * 2
-	call CopyData
-	call ApplyBurnAndParalysisPenaltiesToEnemy
-	ld hl, wMonHBaseStats
-	ld de, wEnemyMonBaseStats
-	ld b, NUM_STATS
-.copyBaseStatsLoop
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .copyBaseStatsLoop
-	ld a, $7 ; default stat modifier
-	ld b, NUM_STAT_MODS
-	ld hl, wEnemyMonStatMods
-.statModLoop
-	ld [hli], a
-	dec b
-	jr nz, .statModLoop
-	xor a
-	ld [wStatModIndexOverride], a ; the split (F2a): a stale SP.DEF override must not outlive a send-out
-	ld a, [wWhichPokemon]
-	ld [wEnemyMonPartyPos], a
-	ret
+; v1.0 (2026-11-07): LoadEnemyMonFromParty, the link battle's send-out (the enemy #MON copied
+; whole from the other Game Boy's party), went: LoadEnemyMonData reached it only behind
+; `cp LINK_STATE_BATTLING`, a state nothing stores.
 
 SendOutMon:
 ; v1.0 (2026-09-27): the outgoing #MON's volatile status is cleared BEFORE the
@@ -2676,16 +2507,6 @@ DisplayBattleMenu::
 	jp nz, PartyMenuOrRockOrRun
 
 ; either the bag (normal battle) or bait (safari battle) was selected
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .notLinkBattle
-
-; can't use items in link battles
-	ld hl, ItemsCantBeUsedHereText
-	call PrintText
-	jp DisplayBattleMenu
-
-.notLinkBattle
 	call SaveScreenTilesToBuffer2
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_SAFARI
@@ -2811,10 +2632,6 @@ UseBagItem:
 	ld [wBattleResult], a
 	scf ; set carry
 	ret
-
-ItemsCantBeUsedHereText:
-	text_far _ItemsCantBeUsedHereText
-	text_end
 
 PartyMenuOrRockOrRun:
 	dec a ; was Run selected?
@@ -3155,9 +2972,6 @@ MoveSelectionMenu:
 	jr z, .matchedkeyspicked
 	dec a
 	ld b, D_UP | D_DOWN | A_BUTTON | B_BUTTON
-	jr z, .matchedkeyspicked
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
 	jr z, .matchedkeyspicked
 	; Disable left and right in regular battles; they were only ever debug
 	; hooks. v0.7: START is watched again, because it now opens the MOVE INFO
@@ -3642,27 +3456,8 @@ TypeText:
 	db "TYPE@"
 
 SelectEnemyMove:
-	ld a, [wLinkState]
-	sub LINK_STATE_BATTLING
-	jr nz, .noLinkBattle
-; link battle
-	call SaveScreenTilesToBuffer1
-	call LinkBattleExchangeData
-	call LoadScreenTilesFromBuffer1
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_STRUGGLE
-	jp z, .linkedOpponentUsedStruggle
-	cp LINKBATTLE_NO_ACTION
-	jr z, .unableToSelectMove
-	cp 4
-	ret nc
-	ld [wEnemyMoveListIndex], a
-	ld c, a
-	ld hl, wEnemyMonMoves
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	jp .done
+; v1.0 (2026-11-07): the link battle's branch (the move the other Game Boy sent)
+; went with the cable; .noLinkBattle stays as a name, the tests anchor on it.
 .noLinkBattle
 ; v1.0 (2026-09-26, the AI switch layer): a switch request lives one turn.
 ; It is cleared here, before any of the gates below, so a request the layer
@@ -3695,9 +3490,6 @@ SelectEnemyMove:
 ; the switch decision alone (trainer_ai.asm); wEnemySelectedMove keeps the locked
 ; move. Returns to MainInBattleLoop.
 	jpfar AILockedSwitchDecision
-.unableToSelectMove ; the dead link branch's LINKBATTLE_NO_ACTION
-	ld a, $ff
-	jr .done
 .canSelectMove
 ; v1.0 (N3-5, 2026-09-28; the same rule for both sides): STRUGGLE by the player's
 ; rule, asked of the routine that decides the player's (HasMoveToSelect, which
@@ -3798,9 +3590,6 @@ SelectEnemyMove:
 ; variable number of turns, in BOTH modes. Pop the orphan before retrying.
 	pop hl
 	jp .chooseRandomMove
-.linkedOpponentUsedStruggle
-	ld a, STRUGGLE
-	jr .done
 .anySelectableMoveInList
 ; In: hl = enemy move list being picked from. Out: nz if some slot is
 ; listed (nonzero move), has PP left, and is not the disabled slot;
@@ -3835,20 +3624,9 @@ SelectEnemyMove:
 	pop hl
 	ret
 
-; this used to exchange data with the other gameboy during link battles
-LinkBattleExchangeData:
-; v0.7: the link cable is gone, so there is nobody on the other side to exchange
-; anything with. The body -- the nybble handshake and the zero-byte drain -- was
-; the last caller of the Serial_* routines that used to live in home/serial.asm.
-;
-; The FOUR call sites are deliberately left where they are, in
-; ReplaceFaintedEnemyMon, the party menu, .canEscape and SelectEnemyMove. Every
-; one of them is already behind `ld a, [wLinkState] / cp LINK_STATE_BATTLING`,
-; and wLinkState can no longer be LINK_STATE_BATTLING (it leaves LINK_STATE_NONE
-; only for an in-game trade's evolution, as LINK_STATE_TRADING), so none of them
-; can reach this. Editing the battle engine to delete four unreachable calls
-; buys nothing and risks the one routine in the game that must not break.
-	ret
+; v1.0 (2026-11-07): LinkBattleExchangeData, the link battle's data exchange (an empty
+; ret since the cable left in v0.7), went with its four callers: every one sat behind a
+; `cp LINK_STATE_BATTLING`, a state nothing stores, and the branches are gone.
 
 ExecutePlayerMove:
 	xor a
@@ -4757,13 +4535,6 @@ OHKOText:
 CheckForDisobedience:
 	xor a
 	ld [wMonIsDisobedient], a
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .notLinkBattle
-	ld a, $1
-	and a
-	ret
-.notLinkBattle
 ; v0.7 (2026-09-01, redesign): obedience is the training ceiling now,
 ; nothing else - and it applies to EVERY #MON the player commands, own
 ; or traded alike:
@@ -6028,16 +5799,6 @@ ExecuteEnemyMove:
 	jp z, ExecuteEnemyMoveDone
 	call PrintGhostText
 	jp z, ExecuteEnemyMoveDone
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .executeEnemyMove
-	ld b, $1
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_STRUGGLE
-	jr z, .executeEnemyMove
-	cp 4
-	ret nc
-.executeEnemyMove
 	ld hl, wEnemyBattleStatus3
 	set MOVED_THIS_TURN, [hl] ; v1.0 (2026-11-02): as the player's (ExecutePlayerMove)
 	ld hl, wAILayer2Encouragement
@@ -6577,9 +6338,6 @@ GetCurrentMove:
 	jp CopyToStringBuffer
 
 LoadEnemyMonData:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jp z, LoadEnemyMonFromParty
 	ld a, [wEnemyMonSpecies2]
 	ld [wEnemyMonSpecies], a
 	ld [wd0b5], a
@@ -6815,17 +6573,6 @@ LoadEnemyMonData:
 
 ; calls BattleTransition to show the battle transition animation and initializes some battle variables
 DoBattleTransitionAndInitBattleVariables:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .next
-; link battle
-	xor a
-	ld [wMenuJoypadPollCount], a
-	callfar DisplayLinkBattleVersusTextBox
-	ld a, $1
-	ld [wUpdateSpritesEnabled], a
-	call ClearScreen
-.next
 	call DelayFrame
 	predef BattleTransition
 	callfar LoadHudAndHpBarAndStatusTilePatterns
@@ -7053,9 +6800,6 @@ CalculateModifiedStat:
 	ret
 
 ApplyBadgeStatBoosts:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	ret z ; return if link battle
 ; v0.7 hard mode knob #17 (2026-09-01): badges only strengthen your
 ; #MON in NORMAL mode - hard mode fights on raw stats (the PIKACHU
 ; x1.25 mascot bonus below is part of the badge boost, so it dies with

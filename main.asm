@@ -468,7 +468,6 @@ INCLUDE "engine/events/hidden_objects/vermilion_gym_trash2.asm"
 SECTION "Battle Engine 8", ROMX
 
 INCLUDE "engine/battle/common_text.asm"
-INCLUDE "engine/battle/link_battle_versus_text.asm"
 INCLUDE "engine/battle/pikachu_entrance_anim.asm"
 INCLUDE "engine/battle/decrement_pp.asm"
 INCLUDE "engine/events/pikachu_happiness.asm"

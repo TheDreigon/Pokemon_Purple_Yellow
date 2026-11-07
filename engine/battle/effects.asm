@@ -1542,9 +1542,6 @@ FlinchSideEffect:
 	ld hl, wPlayerBattleStatus1
 	ld de, wEnemyMoveEffect
 .flinchSideEffect
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	call z, ClearHyperBeam
 	ld a, [de]
 	cp FLINCH_SIDE_EFFECT1
 	ld b, 15 percent + 1 ; chance of flinch (FLINCH_SIDE_EFFECT1)
@@ -1836,13 +1833,10 @@ MimicEffect:
 	and a
 	ld hl, wBattleMonMoves
 	ld a, [wPlayerBattleStatus1]
-	jr nz, .enemyTurn
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .letPlayerChooseMove
-	ld hl, wEnemyMonMoves
-	ld a, [wEnemyBattleStatus1]
-.enemyTurn
+; v1.0 (2026-11-07): on the player's turn the player picks the move to copy; the
+; link battle's random pick from the other side's moves went with the cable.
+	jr z, .letPlayerChooseMove
+; the enemy's turn: one of the player's moves at random (a = the player's status 1)
 	bit INVULNERABLE, a
 	jr nz, .mimicMissed
 .getRandomMove

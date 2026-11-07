@@ -240,10 +240,10 @@ MACRO script_prize_vendor
 	db TX_SCRIPT_PRIZE_VENDOR
 ENDM
 
-	const TX_SCRIPT_CABLE_CLUB_RECEPTIONIST ; $f6
-MACRO script_cable_club_receptionist
-	db TX_SCRIPT_CABLE_CLUB_RECEPTIONIST
-ENDM
+; v1.0 (2026-11-07): $f6 was TX_SCRIPT_CABLE_CLUB_RECEPTIONIST (script_cable_club_receptionist).
+; DisplayTextID lost its handler with the Cable Club and no text used it; a text built with it
+; would have printed its bytes. The id stays skipped so the ones after it keep their values.
+	const_skip ; $f6
 
 	const TX_SCRIPT_VENDING_MACHINE ; $f5
 MACRO script_vending_machine

@@ -409,8 +409,8 @@ wDoNotWaitForButtonPressAfterDisplayingText:: db
 ; v1.0 (2026-09-08): this was the twelve-byte union of the Cable Club menu and the
 ; serial-nybble exchange. The link code is gone (home/serial.asm, engine/link/),
 ; so ten bytes went to the stack and the two that code still names stay:
-; wSerialExchangeNybbleReceiveData is written once at battle start (core.asm) and
-; only read behind `cp LINK_STATE_BATTLING`, a state nothing ever stores;
+; wSerialExchangeNybbleReceiveData has no reader or writer since 2026-11-07 (its
+; battle-start store and the link branches that read it went): a free byte;
 ; wEnteringCableClub is read in three places and never written (zero since boot).
 wSerialExchangeNybbleReceiveData:: db
 wEnteringCableClub::

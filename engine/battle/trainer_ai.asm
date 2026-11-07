@@ -2261,9 +2261,6 @@ TrainerAI:
 	ld a, [wIsInBattle]
 	dec a
 	ret z ; if not a trainer, we're done here
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	ret z ; if in a link battle, we're done as well
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;shinpokerednote: FIXED: AI should not use actions (items / switching) if in a move that prevents such a thing
 ; v1.0 (2026-09-27; the opponent follows the rule the player follows): an item
@@ -3251,10 +3248,9 @@ SwitchEnemyMon:
 	ld [wFirstMonsNotOutYet], a
 	pop af
 	ld [wCurrentMenuItem], a
-
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	ret z
+; v1.0 (2026-11-07): carry = the switch was the turn's action, the one thing its callers
+; read (TrainerAI's two callfars test carry; callfar returns the old bank in a). The
+; link battle's no-carry exit went with the cable.
 	scf
 	ret
 

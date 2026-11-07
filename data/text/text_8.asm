@@ -39,11 +39,6 @@ _CutNeedsTechniqueText::
 	cont "right technique!"
 	prompt
 
-_CannotUseItemsHereText::
-	text "You can't use items"
-	line "here."
-	prompt
-
 _CannotGetOffHereText::
 	text "You can't get off"
 	line "here."

@@ -83,8 +83,7 @@ RevertPartyToxic::
 ; player's has (LoadBattleMonFromParty): before this, one the switch layer
 ; called back came in again at its full SPEED or ATTACK. Wild: none - the ball's
 ; reload of a TRANSFORMed #MON (item_effects .skip6) must stay uncut, as
-; AddPartyMon copies these stats. (Link battles never get here:
-; LoadEnemyMonFromParty.) Last (v1.0 D3), in Normal, a trainer's #MON takes the PP
+; AddPartyMon copies these stats. Last (v1.0 D3), in Normal, a trainer's #MON takes the PP
 ; its roster holds, over the full PP LoadMovePPs gave it. Keeps hWhoseTurn.
 ; Trashes a, bc, de, hl.
 LoadEnemyMonDataTail::

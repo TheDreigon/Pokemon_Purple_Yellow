@@ -19,9 +19,8 @@ DEF MOVE_FAILED_PROTECTED  EQU 4 ; v1.0 (2026-11-02): the target PROTECTed itsel
 ; battle up (RUN -> YES). TrainerBattleSurrenderPrompt sets it,
 ; PartyStandsAfterBattle reads it, ResetStatusAndHalveMoneyOnBlackout zeroes
 ; the byte. Every other reader tests the byte with `and a` (EndOfBattle,
-; GetSavedEndBattleTextPointer, OaksLab.asm, PokemonTower6F on a wild battle),
-; `cp $2` on a wild battle (Route12/Route16) or `cp $1` in EndOfBattle's link
-; branch (a link battle is never given up), so the bit changes nothing they see.
+; GetSavedEndBattleTextPointer, OaksLab.asm, PokemonTower6F on a wild battle) or
+; `cp $2` on a wild battle (Route12/Route16), so the bit changes nothing they see.
 DEF BATTLE_RESULT_LOSE EQU $01
 DEF BATTLE_RESULT_SURRENDERED_F EQU 7
 

@@ -1,32 +1,6 @@
 EndOfBattle:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .notLinkBattle
-; link battle
-	ld a, [wEnemyMonPartyPos]
-	ld hl, wEnemyMon1Status
-	ld bc, wEnemyMon2 - wEnemyMon1
-	call AddNTimes
-	ld a, [wEnemyMonStatus]
-	ld [hl], a
-	call ClearScreen
-	ld b, SET_PAL_OVERWORLD
-	call RunPaletteCommand
-	callfar DisplayLinkBattleVersusTextBox
-	ld a, [wBattleResult]
-	cp $1
-	ld de, YouWinText
-	jr c, .placeWinOrLoseString
-	ld de, YouLoseText
-	jr z, .placeWinOrLoseString
-	ld de, DrawText
-.placeWinOrLoseString
-	hlcoord 6, 8
-	call PlaceString
-	ld c, 200
-	call DelayFrames
-	jr .evolution
-.notLinkBattle
+; v1.0 (2026-11-07): the link battle's ending (the VERSUS box and YOU WIN / YOU LOSE /
+; DRAW) went with the cable: it ran only behind `cp LINK_STATE_BATTLING`.
 	ld a, [wBattleResult]
 	and a
 	jr z, .won
@@ -93,15 +67,6 @@ EndOfBattle:
 	ld a, $ff
 	ld [wDestinationWarpID], a
 	ret
-
-YouWinText:
-	db "YOU WIN@"
-
-YouLoseText:
-	db "YOU LOSE@"
-
-DrawText:
-	db "  DRAW@"
 
 PickUpPayDayMoneyText:
 	text_far _PickUpPayDayMoneyText

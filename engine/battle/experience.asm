@@ -156,9 +156,7 @@ PrintExpShareSummary:
 ; One box per battle instead of a text per Pokemon (2026-09-02): "Shared X
 ; EXP / between A, B, and C" - X is everything both passes handed out, the
 ; names are everyone whose exp actually moved. If every candidate was
-; refused (at the cap, fainted on Hard) there is nothing to say. In a link
-; battle GainExperience returns without paying, the flags stay zero, and
-; this stays quiet with it.
+; refused (at the cap, fainted on Hard) there is nothing to say.
 	xor a
 	ld [wBoostExpByExpShare], a ; do not leak the silence past this battle
 	ld a, [wExpSharePaidFlags]
@@ -587,9 +585,6 @@ HalveExpDataBytes:
 	ret
 
 GainExperience:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	ret z ; return if link battle
 	call DivideExpDataByNumMonsGainingExp
 ; (2026-09-02: the "Shared the EXP!" banner that printed here died with the
 ; per-battle summary - PrintExpShareSummary now says everything, once, with

@@ -418,13 +418,8 @@ ItemMenuLoop:
 	call RunDefaultPaletteCommand
 
 StartMenu_Item::
-	ld a, [wLinkState]
-	dec a ; is the player in the Colosseum or Trade Centre?
-	jr nz, .notInCableClubRoom
-	ld hl, CannotUseItemsHereText
-	call PrintText
-	jr .exitMenu
-.notInCableClubRoom
+; v1.0 (2026-11-07): the Cable Club rooms' refusal (wLinkState = LINK_STATE_IN_CABLE_CLUB,
+; which nothing stores since the rooms went) and its "can't use items here" text are gone.
 	; store item bag pointer in wListPointer (for DisplayListMenuID)
 	ld hl, wListPointer
 	ld [hl], LOW(wNumBagItems)
@@ -575,10 +570,6 @@ StartMenu_Item::
 .sortItems
 	callfar SortItems
 	jp ItemMenuLoop
-
-CannotUseItemsHereText:
-	text_far _CannotUseItemsHereText
-	text_end
 
 CannotGetOffHereText:
 	text_far _CannotGetOffHereText
