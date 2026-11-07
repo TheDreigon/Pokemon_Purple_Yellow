@@ -1717,7 +1717,7 @@ ConfusionSideEffectSuccess:
 	and $3
 	inc a
 	inc a
-	ld [bc], a ; confusion status will last 2-5 turns
+	ld [bc], a ; the count 2-5, counted down before the self-hit roll: 1-4 turns confused (v1.0, 2026-11-07)
 	pop af
 	cp CONFUSION_SIDE_EFFECT1
 	jr z, .skipAnim

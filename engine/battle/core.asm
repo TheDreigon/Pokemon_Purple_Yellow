@@ -4372,7 +4372,7 @@ CheckPlayerStatusConditions:
 	call BattleRandom
 	and 3
 	inc a
-	inc a ; confused for 2-5 turns
+	inc a ; the count 2-5, counted down before the self-hit roll: 1-4 turns confused (v1.0, 2026-11-07)
 	ld [wPlayerConfusedCounter], a
 	pop hl ; skip DecrementPP
 	jp .returnToHL
@@ -6521,7 +6521,7 @@ CheckEnemyStatusConditions:
 	call BattleRandom
 	and $3
 	inc a
-	inc a ; confused for 2-5 turns
+	inc a ; the count 2-5, counted down before the self-hit roll: 1-4 turns confused (v1.0, 2026-11-07)
 	ld [wEnemyConfusedCounter], a
 	pop hl ; skip DecrementPP
 	jp .enemyReturnToHL

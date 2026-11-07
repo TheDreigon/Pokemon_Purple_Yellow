@@ -460,7 +460,7 @@ _TM14Description::
 
 _TM15Description::
 	text "Confuses the foe"
-	next "for 2 to 5 turns."
+	next "for 1 to 4 turns."
 	prompt
 
 _TM16Description::

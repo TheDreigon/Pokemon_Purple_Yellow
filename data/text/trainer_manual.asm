@@ -380,7 +380,7 @@ _ManualPage_4_5::
 
 _ManualPage_4_6::
 	text "CONFUSION lasts"
-	next "two to five turns."
+	next "one to four turns."
 	next ""
 	next "Half the time the"
 	next "#MON strikes"
