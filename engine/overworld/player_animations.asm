@@ -4,7 +4,10 @@ EnterMapAnim::
 	ld [wSpritePlayerStateData1YPixels], a
 	call Delay3
 	push hl
-	call GBFadeInFromWhite
+; v1.0 (2026-11-07): GBFadeInFromWhite ends on the lit palette, so a dungeon warp onto a dark floor (a
+; SEAFOAM hole in Hard) showed it lit through the landing and the spin until OverworldLoop's LoadGBPal.
+; FadeInMapPalette is MapEntryAfterBattle's tail: the fade on a lit map, the dark palette on a dark one.
+	call FadeInMapPalette
 	ld hl, wFlags_D733
 	bit 7, [hl] ; used fly out of battle?
 	res 7, [hl]

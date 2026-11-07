@@ -46,17 +46,27 @@ ViridianGym_ScriptPointers:
 
 ; v0.7: the dojo-master takeover. Once the League is beaten, Giovanni's tile
 ; belongs to KIYO — the Fighting Dojo master comes down from Saffron and the
-; 8th gym joins the rematch circuit. Idempotent and cheap pre-League (one
-; loads-and-test), it runs every tick like the Forte/Craig/Smith
+; 8th gym joins the rematch circuit. Cheap pre-League (one load-and-test),
+; it runs every tick like the Forte/Craig/Smith
 ; show-if-earned helpers. Hiding Giovanni here also covers the player who
 ; never returned for his farewell: two leaders cannot share the tile.
+; v1.0 (2026-11-07): HideObject and ShowObject end in a full UpdateSprites, so running both on
+; every tick moved every sprite of the gym two extra steps per tick: each runs only while its
+; object is not yet in the state it wants.
 ViridianGymPostLeagueState:
 	ld a, [wGameStage]
 	and a
 	ret z
+	ld a, [wMissableObjectFlags + HS_VIRIDIAN_GYM_GIOVANNI / 8]
+	bit HS_VIRIDIAN_GYM_GIOVANNI % 8, a
+	jr nz, .giovanniGone
 	ld a, HS_VIRIDIAN_GYM_GIOVANNI
 	ld [wMissableObjectIndex], a
 	predef HideObject
+.giovanniGone
+	ld a, [wMissableObjectFlags + HS_VIRIDIAN_GYM_KIYO / 8]
+	bit HS_VIRIDIAN_GYM_KIYO % 8, a
+	jr z, ViridianGymKiyoEraParties ; KIYO shown already
 	ld a, HS_VIRIDIAN_GYM_KIYO
 	ld [wMissableObjectIndex], a
 	predef ShowObject
@@ -880,6 +890,10 @@ ViridianGymKiyoSettleGiovanniDebt:
 	ld hl, ViridianGymGiovanniReceivedTMText
 	call PrintText
 	SetEvent EVENT_GOT_GIOVANNI_TM
+; v1.0 (2026-11-07): the TM text runs on into its explanation, which ends in `done` ("Long ago..."):
+; the candy receipt or the no-room line printed next replaced that page unread. The candy is always
+; still owed on this path (both gift flows try it only after the TM), so a print always follows.
+	call WaitForTextScrollButtonPress
 .tryCandy
 	CheckEvent EVENT_GOT_GIOVANNI_CANDY
 	ret nz
@@ -915,6 +929,9 @@ ViridianGymKiyoTryHonorReward:
 	ld c, 60
 	call GivePokemon
 	jr c, .delivered
+; v1.0 (2026-11-07): the engine's box-full lines end in `done`; let their last page ("Change the BOX
+; at a #MON CENTER!") be read before his own, as BILL's and the FUCHSIA guru's gifts do
+	call WaitForTextScrollButtonPress
 	ld hl, .NoRoomText ; party and box both full: he says he will wait
 	jp PrintText
 .delivered
@@ -932,5 +949,5 @@ ViridianGymKiyoTryHonorReward:
 ViridianGymGuideFreshWaterText:
 	text_far _GymGuideFreshWaterText
 	sound_get_item_1
-	text_promptbutton
+; v1.0 (2026-11-07): no text_promptbutton: the receipt is the talk's last page and DisplayTextID waits after it (it waited twice)
 	text_end

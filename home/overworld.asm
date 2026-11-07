@@ -859,6 +859,7 @@ ExtraWarpCheck::
 
 MapEntryAfterBattle::
 	farcall IsPlayerStandingOnWarp ; for enabling warp testing after collisions
+FadeInMapPalette:: ; v1.0 (2026-11-07): EnterMapAnim's fade too (a dark floor gets its palette, not the lit fade)
 	ld a, [wMapPalOffset]
 	and a
 	jp z, GBFadeInFromWhite

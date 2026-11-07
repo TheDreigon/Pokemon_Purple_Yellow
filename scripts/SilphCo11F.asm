@@ -121,6 +121,13 @@ SilphCo11FScript_621c5:
 	ldh [hJoyHeld], a
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN | START | SELECT ; v0.7: no START menu (no SAVING!) mid-scene -- the facing/movement forks read an UNSAVED byte after a reload
 	ld [wJoyIgnore], a
+; his sting, all three appearances (2026-08-17): the dojo theme opens every Giovanni confrontation,
+; under his pre-battle words and his walk, as on ROCKET HIDEOUT B4F and in the VIRIDIAN GYM.
+; v1.0 (2026-11-07): it used to sit in SilphCo11FGiovanniStartBattleScript, whose EngageMapTrainer
+; starts the battle in the same overworld tick: the battle music replaced it before it ever played.
+	ld c, BANK(Music_FightingDojo)
+	ld a, MUSIC_FIGHTING_DOJO
+	call PlayMusic
 	ld a, TEXT_SILPHCO11F_GIOVANNI
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -209,11 +216,6 @@ SilphCo11FGiovanniStartBattleScript:
 .continue
 	call SilphCo11FScript_621ff
 	call Delay3
-; his sting, all three appearances (2026-08-17): the dojo theme opens every
-; Giovanni confrontation — plays under his pre-battle words here
-	ld c, BANK(Music_FightingDojo)
-	ld a, MUSIC_FIGHTING_DOJO
-	call PlayMusic
 	xor a
 	ld [wJoyIgnore], a
 	ld hl, wd72d

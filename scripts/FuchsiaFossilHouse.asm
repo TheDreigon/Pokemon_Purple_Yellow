@@ -21,6 +21,9 @@ FuchsiaFossilHouseFishingGuruText:
 ; so anything printed after it has to fight them for the screen.
 	ld hl, .ReceivedGiftText
 	call PrintText
+; v1.0 (2026-11-07): the speech ends in `done`, which does not wait: GivePokemon's own first print
+; ("<PLAYER> got KABUTO!", or the box lines) replaced its last page as soon as it was typed.
+	call WaitForTextScrollButtonPress
 	CheckEvent EVENT_GOT_DOME_FOSSIL
 	jr nz, .giveOmanyte
 	lb bc, KABUTO, 25

@@ -28,6 +28,9 @@ ViridianSchoolHousePrintCooltrainerFText::
 	jr nz, .alreadyHasOne
 	ld hl, .OfferAndGiveText
 	call PrintText
+; v1.0 (2026-11-07): the offer ends in `done`, which does not wait: the receipt (or the bag-full
+; line) printed next replaced "Here. Take one." as soon as it was typed. The house rule: a wait.
+	call WaitForTextScrollButtonPress
 	lb bc, TOWN_MAP, 1
 	call GiveItem
 	jr nc, .bag_full            ; carry = success; never set the flag on failure

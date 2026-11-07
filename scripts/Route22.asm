@@ -37,9 +37,20 @@ Route22Script_50ee1:
 	ld [wTrainerNo], a
 	ret
 
+; v1.0 (2026-11-07): the doorstep backstop. The redrawn map has two ways west that miss the corridor
+; cells: the pond (SURF) and the bottom row (down the east strip by the ledge at (38,17) or the cell
+; (39,17), west along row 18, up through the CUT tree at (3,16)), both open by the second battle.
+; Every way ends on the gate's doorstep (8,8), the only cell the gate (8,7) is entered from: a rival
+; still owed is met there (entry 3 of Route22DefaultScript.Route22RivalBattleCoords). He is not
+; walked over from (25,7), seventeen cells away and off-screen, with PIKACHU one step behind the
+; player and possibly in his last cell: he is put straight into the doorway, the one neighbour of
+; the doorstep PIKACHU cannot be on while the player walks in. The entry is compared as the number
+; 3, and the doorway written as numbers, because coord_table_audit replays these scenes from them.
 Route22MoveRivalRightScript:
 	ld de, Route22RivalMovementData
 	ld a, [wSavedCoordIndex]
+	cp 3 ; the doorstep
+	jr z, .inDoorway
 	cp $1
 	jr z, .skip_first_right
 	inc de
@@ -48,6 +59,44 @@ Route22MoveRivalRightScript:
 	ld a, SPRITE_FACING_RIGHT
 	ldh [hSpriteFacingDirection], a
 	jp SetSpriteFacingDirectionAndDelay
+.inDoorway
+	ld de, Route22RivalStayMovementData ; no step: Route22RivalsToDoorway put him beside the player
+	call MoveSprite
+	ld a, SPRITE_FACING_DOWN
+	ldh [hSpriteFacingDirection], a
+	jp SetSpriteFacingDirectionAndDelay
+
+Route22RivalStayMovementData:
+	db -1 ; end
+
+Route22RivalsToDoorway:
+; Both battle scripts call this before the "!". On the doorstep only: both rival objects (only the
+; owed one is shown) go to the doorway (8,7), one row above the player, who stands at the screen's
+; player position (X $40, Y $3c). The map coordinates carry the engine's +4.
+	ld a, [wSavedCoordIndex]
+	cp 3 ; the doorstep
+	ret nz
+	ld hl, wSprite01StateData1YPixels
+	call .screenPosition
+	ld hl, wSprite02StateData1YPixels
+	call .screenPosition
+	ld hl, wSprite01StateData2MapY
+	ld a, 11 ; 7 + 4
+	ld [hli], a
+	ld a, 12 ; 8 + 4
+	ld [hl], a
+	ld hl, wSprite02StateData2MapY
+	ld a, 11
+	ld [hli], a
+	ld a, 12
+	ld [hl], a
+	jp UpdateSprites ; drawn there before the "!" goes up
+.screenPosition
+	ld [hl], $3c - $10 ; YPixels
+	inc hl
+	inc hl
+	ld [hl], $40 ; XPixels
+	ret
 
 Route22RivalMovementData:
 	db NPC_MOVEMENT_RIGHT
@@ -63,12 +112,26 @@ Route22DefaultScript:
 	call ArePlayerCoordsInArray
 	ret nc
 	ld a, [wCoordIndex]
+	cp 3 ; the doorstep (see Route22MoveRivalRightScript)
+	jr nz, .gotEntry
+; on the way IN only: out of the gate the player faces down and PIKACHU steps out behind, onto the doorway
+	ld a, [wSpritePlayerStateData1FacingDirection]
+	cp SPRITE_FACING_DOWN
+	ret z
+	ld a, 3
+.gotEntry
 	ld [wSavedCoordIndex], a
 	xor a
 	ldh [hJoyHeld], a
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
-	ld a, PLAYER_DIR_LEFT
+	ld b, PLAYER_DIR_LEFT
+	ld a, [wSavedCoordIndex]
+	cp 3
+	jr nz, .gotDirection
+	ld b, PLAYER_DIR_UP ; facing the doorway
+.gotDirection
+	ld a, b
 	ld [wPlayerMovingDirection], a
 	CheckEvent EVENT_1ST_ROUTE22_RIVAL_BATTLE
 	jr nz, Route22FirstRivalBattleScript
@@ -87,12 +150,15 @@ Route22DefaultScript:
 ; The order still matters: entry 1 is the player standing ABOVE him (the scripts
 ; below read wSavedCoordIndex == 1 to face the player down and the rival up, and
 ; give the rival his extra step east so he lands directly underneath), entry 2
-; is the player on his own row.
+; is the player on his own row, entry 3 the gate's doorstep, the backstop for
+; the ways round the corridor (see Route22MoveRivalRightScript).
 	dbmapcoord 29,  6
 	dbmapcoord 29,  7
+	dbmapcoord  8,  8 ; the doorstep, right below the gate's doorway (8,7)
 	db -1 ; end
 
 Route22FirstRivalBattleScript:
+	call Route22RivalsToDoorway
 	ld a, ROUTE22_RIVAL1
 	ld [wEmotionBubbleSpriteIndex], a
 	xor a ; EXCLAMATION_BUBBLE
@@ -125,6 +191,9 @@ Route22Rival1StartBattleScript:
 	ld a, SPRITE_FACING_UP
 	jr .set_rival_facing_direction
 .set_rival_facing_right
+	cp 3 ; the doorstep
+	ld a, SPRITE_FACING_DOWN ; the doorway, above the player (who faces up already)
+	jr z, .set_rival_facing_direction
 	ld a, SPRITE_FACING_RIGHT
 .set_rival_facing_direction
 	ldh [hSpriteFacingDirection], a
@@ -171,6 +240,9 @@ Route22Rival1AfterBattleScript:
 	ld a, SPRITE_FACING_UP
 	jr .set_rival_facing
 .not_facing_down
+	cp SPRITE_FACING_UP
+	ld a, SPRITE_FACING_DOWN ; the doorstep: he is in the doorway above
+	jr z, .set_rival_facing
 	ld a, SPRITE_FACING_RIGHT
 .set_rival_facing
 	ldh [hSpriteFacingDirection], a
@@ -191,6 +263,8 @@ Route22Rival1AfterBattleScript:
 	call .RivalExit1Script
 	jr .next_script
 .exit_movement_2
+	cp 3 ; the doorstep
+	jr z, .next_script ; no walk out of the doorway: the exit script hides him at once
 	call .RivalExit2Script
 .next_script
 	ld a, SCRIPT_ROUTE22_RIVAL1_EXIT
@@ -247,6 +321,7 @@ Route22Rival1ExitScript:
 	ret
 
 Route22SecondRivalBattleScript:
+	call Route22RivalsToDoorway
 	ld a, ROUTE22_RIVAL2
 	ld [wEmotionBubbleSpriteIndex], a
 	xor a ; EXCLAMATION_BUBBLE
@@ -280,6 +355,9 @@ Route22Rival2StartBattleScript:
 	ld a, SPRITE_FACING_UP
 	jr .set_rival_facing_direction
 .set_player_direction_left
+	cp 3 ; the doorstep
+	ld a, SPRITE_FACING_DOWN ; the doorway, above the player (who faces up already)
+	jr z, .set_rival_facing_direction
 	ld a, PLAYER_DIR_LEFT
 	ld [wPlayerMovingDirection], a
 	ld a, SPRITE_FACING_RIGHT
@@ -324,6 +402,9 @@ Route22Rival2AfterBattleScript:
 	ld a, SPRITE_FACING_UP
 	jr .set_rival_facing_direction
 .set_player_direction_left
+	cp 3 ; the doorstep
+	ld a, SPRITE_FACING_DOWN ; the doorway, above the player (who faces up already)
+	jr z, .set_rival_facing_direction
 	ld a, PLAYER_DIR_LEFT
 	ld [wPlayerMovingDirection], a
 	ld a, SPRITE_FACING_RIGHT
@@ -344,6 +425,8 @@ Route22Rival2AfterBattleScript:
 	call .RivalExit1Script
 	jr .next_script
 .exit_movement_2
+	cp 3 ; the doorstep
+	jr z, .next_script ; no walk out of the doorway: the exit script hides him at once
 	call .RivalExit2Script
 .next_script
 	ld a, SCRIPT_ROUTE22_RIVAL2_EXIT

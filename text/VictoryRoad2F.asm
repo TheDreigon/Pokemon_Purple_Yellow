@@ -109,6 +109,8 @@ _VictoryRoad2FSmithBattleText::
 	line "zest you've got!"
 	done
 
+; v1.0 (2026-11-07): `done`, not `prompt`: the post-battle script shows it through DisplayTextID, which
+; waits after it (a prompt made the player press twice on this page)
 _VictoryRoad2FSmithEndBattleText::
 	text "Wow!"
 
@@ -116,7 +118,7 @@ _VictoryRoad2FSmithEndBattleText::
 
 	para "I love to see"
 	line "that."
-	prompt
+	done
 
 _VictoryRoad2FSmithAfterBattleText::
 	text "What zest!"

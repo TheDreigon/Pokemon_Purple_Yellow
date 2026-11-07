@@ -25,8 +25,14 @@ GameCornerPrizeRoomClerkText:
 	ld b, COIN_CASE
 	call IsItemInBag
 	jr z, .no_coin_case
-	; - have room in the Coin Case for at least 9 coins
-	call Has9990Coins
+	; - have room in the Coin Case for all 500 coins
+	; v1.0 (2026-11-07): the 50-coin clerk's Has9990Coins test let 9500-9989 coins through: the ¥11000 was taken
+	; and AddBCD stopped the case at 9999, so up to 499 of the coins paid for were lost
+	ld a, $95
+	ldh [hCoins], a
+	xor a
+	ldh [hCoins + 1], a
+	call HasEnoughCoins
 	jr nc, .coin_case_full
 	; - have at least 11000 yen
 	xor a

@@ -722,6 +722,10 @@ SwimmerData:
 	db 47, STARMIE, 0
 	db 44, TENTACRUEL, BLASTOISE, 0
 	db 44, POLIWHIRL, KINGLER, SEADRA, 0
+; v1.0 (2026-11-07): 16, Route 21's SWIMMER2 at (11,18), vanilla's CUE BALL in the water (CUE BALL 9's team). The
+; class became SWIMMER on 2026-07-28 with party 9, which is Route 20's (83,7) team, fought a second time. Appended:
+; party ids are positional.
+	db 42, CLOYSTER, RHYDON, TENTACRUEL, 0
 
 CueBallData:
 ; Route 16
@@ -734,7 +738,7 @@ CueBallData:
 	db 34, MACHOKE, 0
 	db 30, MANKEY, PRIMEAPE, CLEFABLE, MACHOKE,  0
 	db 32, PRIMEAPE, MACHOKE, 0
-; Route 21
+; Unused since 2026-07-28 (Route 21's swimmer at (11,18) fights its copy, SWIMMER 16); kept: party ids are positional
 	db 42, CLOYSTER, RHYDON, TENTACRUEL, 0
 
 BlackbeltData:

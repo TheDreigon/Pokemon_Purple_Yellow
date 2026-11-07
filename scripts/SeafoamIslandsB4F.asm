@@ -15,14 +15,18 @@ SeafoamIslandsB4FResetScript:
 
 ; Show the relocated Weebra self-insert once Articuno is gone AND the League is beaten.
 ; EndTrainerBattle sets EVENT_BEAT_ARTICUNO on WIN, CATCH or RUN - only a loss is
-; skipped; wGameStage is set at the Hall of Fame. Idempotent (ShowObject just
-; clears the hide flag).
+; skipped; wGameStage is set at the Hall of Fame. Runs on every map-script tick.
 SeafoamIslandsB4FShowWeebraIfEarned:
 	CheckEvent EVENT_BEAT_ARTICUNO
 	ret z
 	ld a, [wGameStage]
 	and a
 	ret z
+; v1.0 (2026-11-07): ShowObject ends in a full UpdateSprites, so calling it on every tick moved
+; every sprite of the map one extra step per tick: only while her hide flag is still set.
+	ld a, [wMissableObjectFlags + HS_SEAFOAM_ISLANDS_B4F_WEEBRA / 8]
+	bit HS_SEAFOAM_ISLANDS_B4F_WEEBRA % 8, a
+	ret z ; shown already
 	ld a, HS_SEAFOAM_ISLANDS_B4F_WEEBRA
 	ld [wMissableObjectIndex], a
 	predef ShowObject

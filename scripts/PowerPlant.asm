@@ -10,14 +10,19 @@ PowerPlant_Script:
 
 ; Show the relocated Craig self-insert once Zapdos is gone AND the League is beaten.
 ; EndTrainerBattle sets EVENT_BEAT_ZAPDOS on WIN, CATCH or RUN - only a loss is
-; skipped; wGameStage is set at the Hall of Fame. Idempotent (ShowObject just
-; clears the hide flag).
+; skipped; wGameStage is set at the Hall of Fame. Runs on every map-script tick.
 PowerPlantShowCraigIfEarned:
 	CheckEvent EVENT_BEAT_ZAPDOS
 	ret z
 	ld a, [wGameStage]
 	and a
 	ret z
+; v1.0 (2026-11-07): ShowObject ends in a full UpdateSprites, so calling it on every tick moved
+; every sprite of the map one extra step per tick (CRAIG wandered at double speed): only while
+; his hide flag is still set.
+	ld a, [wMissableObjectFlags + HS_POWER_PLANT_CRAIG / 8]
+	bit HS_POWER_PLANT_CRAIG % 8, a
+	ret z ; shown already
 	ld a, HS_POWER_PLANT_CRAIG
 	ld [wMissableObjectIndex], a
 	predef ShowObject

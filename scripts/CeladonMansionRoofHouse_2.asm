@@ -170,7 +170,7 @@ RoofHousePatch:
 	ld [wUpdateSpritesEnabled], a
 	ld [wMenuItemToSwap], a
 	call DisplayPartyMenu
-	jr c, .thinkItOver
+	jp c, .thinkItOver ; v1.0 (2026-11-07): jp, out of jr's reach since the restore below
 	call .monStruct
 	ld bc, wPartyMon1DVs - wPartyMon1
 	add hl, bc
@@ -213,7 +213,15 @@ RoofHousePatch:
 ; the gains, then the new totals - the RARE CANDY screens, over the party,
 ; redrawn first so every row shows the new HP (it runs LoadMonData per slot,
 ; hence the LoadMonData after it)
+; v1.0 (2026-11-07): the redraw walks every slot and leaves wWhichPokemon and the nickname on the
+; LAST one; RARE CANDY puts wWhichPokemon back, and so does this now, the nickname too (the result
+; line and both stat windows described the last party #MON, not the patched one)
+	ld a, [wWhichPokemon]
+	push af
 	call RedrawPartyMenu
+	pop af
+	ld [wWhichPokemon], a
+	call GetPartyMonName2 ; wcd6d = its nickname again, for .CameOutText
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
 	call LoadMonData

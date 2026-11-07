@@ -39,13 +39,18 @@ VictoryRoad2FReplaceTileBlockScript:
 
 ; Show the relocated Smith self-insert once Moltres is gone AND the League is beaten.
 ; EndTrainerBattle sets EVENT_BEAT_MOLTRES on WIN or CATCH (only a loss is skipped),
-; so "Moltres dealt with" covers both. Idempotent: ShowObject just clears the hide flag.
+; so "Moltres dealt with" covers both. Runs on every map-script tick.
 VictoryRoad2FShowSmithIfEarned:
 	CheckEvent EVENT_BEAT_MOLTRES
 	ret z
 	ld a, [wGameStage]
 	and a
 	ret z
+; v1.0 (2026-11-07): ShowObject ends in a full UpdateSprites, so calling it on every tick moved
+; every sprite of the map one extra step per tick: only while his hide flag is still set.
+	ld a, [wMissableObjectFlags + HS_VICTORY_ROAD_2F_SMITH / 8]
+	bit HS_VICTORY_ROAD_2F_SMITH % 8, a
+	ret z ; shown already
 	ld a, HS_VICTORY_ROAD_2F_SMITH
 	ld [wMissableObjectIndex], a
 	predef ShowObject

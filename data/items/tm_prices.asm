@@ -22,10 +22,13 @@ TechnicalMachinePrices:
 	db $01, $50, $00 ; TM16 IGNITE        =  15000  ; Fuchsia
 	db $01, $50, $00 ; TM17 THUNDER_WAVE  =  15000  ; Fuchsia
 	db $01, $50, $00 ; TM18 BULK_UP       =  15000  ; Celadon 5F
-	db $00, $00, $00 ; TM19 MIMIC         =      0  ; Game Corner (500 coins)
-	db $00, $00, $00 ; TM20 MIRROR_MOVE   =      0  ; Game Corner (500 coins)
-	db $00, $00, $00 ; TM21 SUBSTITUTE    =      0  ; Game Corner (1000 coins)
-	db $00, $00, $00 ; TM22 METRONOME     =      0  ; Game Corner (1500 coins) + Cinnabar Lab gift
+; v1.0 (2026-11-07): TM19-TM22 cost 0 until today, so any mart bought them for 0 and kept the TM. Their price is
+; the yen value the notes give the GAME CORNER prizes (50 coins = 1000, the GAME CORNER clerk's rate): no mart
+; sells them, so the price only sets what they sell for (half).
+	db $01, $00, $00 ; TM19 MIMIC         =  10000  ; Game Corner (500 coins)
+	db $01, $00, $00 ; TM20 MIRROR_MOVE   =  10000  ; Game Corner (500 coins)
+	db $02, $00, $00 ; TM21 SUBSTITUTE    =  20000  ; Game Corner (1000 coins)
+	db $03, $00, $00 ; TM22 METRONOME     =  30000  ; Game Corner (1500 coins) + Cinnabar Lab gift
 	db $02, $00, $00 ; TM23 GIGA_DRAIN    =  20000  ; Indigo Pre-E4
 	db $01, $00, $00 ; TM24 DAZZLE_GLEAM  =  10000  ; Cinnabar
 	db $01, $75, $00 ; TM25 AGILITY       =  17500  ; Celadon 5F

@@ -183,6 +183,10 @@ CinnabarGymOpenGateScript:
 	jp z, CinnabarGymResetScripts
 	ld a, [wTrainerHeaderFlagBit]
 	sub $2
+; v1.0 (2026-11-07): the gate flags are not byte-aligned since EVENT_GOT_BLAINE_CANDY joined the
+; block before them (GATE0 is bit 1 of its byte); the quiz engine adjusts the same way. Unadjusted,
+; this tested the gate behind the player and the one ahead never opened after a trainer win.
+	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
 	ld c, a
 	ld b, FLAG_TEST
 	EventFlagAddress hl, EVENT_CINNABAR_GYM_GATE0_UNLOCKED
@@ -214,6 +218,10 @@ CinnabarGymOpenGateScript:
 	ld [wCurMapScript], a
 	ret
 
+; v1.0 (2026-11-07): wTrainerHeaderFlagBit (the trainer's sprite id, 2 for EVAN) is used as the bit
+; index from EVENT_BEAT_CINNABAR_GYM_TRAINER_0's byte unadjusted, here and in CinnabarGymScript_75032:
+; that holds only while TRAINER_0 is bit 2 of its byte.
+	ASSERT EVENT_BEAT_CINNABAR_GYM_TRAINER_0 % 8 == 2, "CinnabarGym.asm: the trainer bits need an AdjustEventBit"
 CinnabarGymScript_75023:
 	ld a, [wTrainerHeaderFlagBit]
 	ldh [hGymGateIndex], a
@@ -235,6 +243,7 @@ CinnabarGymScript_75032:
 CinnabarGymScript_75041:
 	ld a, [wTrainerHeaderFlagBit]
 	sub 2
+	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0 ; v1.0 (2026-11-07): see CinnabarGymOpenGateScript
 	ld c, a
 	ld b, FLAG_SET
 	EventFlagAddress hl, EVENT_CINNABAR_GYM_GATE0_UNLOCKED

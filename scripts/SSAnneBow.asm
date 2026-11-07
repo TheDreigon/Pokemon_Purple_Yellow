@@ -51,6 +51,10 @@ SSAnneBowSuperNerd2Text:
 	ld hl, .Text2
 	call PrintText
 	SetEvent EVENT_SS_ANNE_PARTOFTHEGAME
+; v1.0 (2026-11-07): the top byte too: wAmountMoneyWon shares a UNION with wObjectToHide and keeps the
+; last prize's digits, which were added as well
+	xor a
+	ld [wAmountMoneyWon], a
 	ld hl, $0500
 	ld a, l
 	ld [wAmountMoneyWon + 2], a
@@ -60,7 +64,11 @@ SSAnneBowSuperNerd2Text:
 	ld de, wPlayerMoney + 2
 	ld hl, wAmountMoneyWon + 2
 	ld c, $3
-	predef_jump AddBCDPredef
+	predef AddBCDPredef
+; v1.0 (2026-11-07): a text_asm returns to the text engine, so a predef_jump here handed it AddBCD's hl
+; (wEscapedFromBattle) to read as text: it ran on into a <NULL> and TextIDErrorText. Leave as every
+; text_asm does.
+	jp TextScriptEnd
 .GotMoney
 	ld hl, .Text3
 	call PrintText

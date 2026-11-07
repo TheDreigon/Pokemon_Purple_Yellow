@@ -86,5 +86,5 @@ CinnabarGymText_f2187:
 CinnabarGymGuideFreshWaterText:
 	text_far _GymGuideFreshWaterText
 	sound_get_item_1
-	text_promptbutton
+; v1.0 (2026-11-07): no text_promptbutton: the receipt is the talk's last page and DisplayTextID waits after it (it waited twice)
 	text_end

@@ -10,7 +10,7 @@ CeruleanCaveB1F_Script:
 
 ; Show the Forte / DREIGON self-insert superboss, who stands on MEWTWO's tile,
 ; once MEWTWO is gone (beaten OR caught -> EVENT_BEAT_MEWTWO) AND the League is
-; beaten (wGameStage). Idempotent — ShowObject just clears the hide flag. Forte
+; beaten (wGameStage). Runs on every map-script tick. Forte
 ; is repeatable: neither this nor his battle consumes a flag that blocks him, so
 ; he can be re-challenged on every return to the cave after every League win.
 CeruleanCaveB1FShowForteIfEarned:
@@ -19,6 +19,11 @@ CeruleanCaveB1FShowForteIfEarned:
 	ld a, [wGameStage]
 	and a
 	ret z
+; v1.0 (2026-11-07): ShowObject ends in a full UpdateSprites, so calling it on every tick moved
+; every sprite of the map one extra step per tick: only while his hide flag is still set.
+	ld a, [wMissableObjectFlags + HS_CERULEAN_CAVE_B1F_FORTE / 8]
+	bit HS_CERULEAN_CAVE_B1F_FORTE % 8, a
+	ret z ; shown already
 	ld a, HS_CERULEAN_CAVE_B1F_FORTE
 	ld [wMissableObjectIndex], a
 	predef ShowObject

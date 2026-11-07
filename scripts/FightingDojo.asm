@@ -17,14 +17,21 @@ FightingDojo_Script:
 ; beat-events are set here so nobody charges, and each Text handler below
 ; grows a wGameStage branch — the senior at (3,4) speaks (and fights, once)
 ; as the new master, the other three offer their own one-shot rebattles.
-; Idempotent, runs every tick like its four show-if-earned siblings.
+; Runs on every map-script tick, like its four show-if-earned siblings.
+; v1.0 (2026-11-07): HideObject ends in a full UpdateSprites, so the three hides run on every tick
+; moved every sprite of the room up to three extra steps per tick (the player's walk animation
+; advanced 11 times per tile instead of 8): each object is hidden only while it is still shown.
 FightingDojoPostLeagueState:
 	ld a, [wGameStage]
 	and a
 	ret z
+	ld a, [wMissableObjectFlags + HS_FIGHTING_DOJO_MASTER / 8]
+	bit HS_FIGHTING_DOJO_MASTER % 8, a
+	jr nz, .masterGone
 	ld a, HS_FIGHTING_DOJO_MASTER
 	ld [wMissableObjectIndex], a
 	predef HideObject
+.masterGone
 	SetEventRange EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
 ; 2026-08-30: with the master gone the prize fight is gone too, so a
 ; player who never beat him can never open the balls — leaving them
@@ -33,9 +40,16 @@ FightingDojoPostLeagueState:
 ; already retires the unchosen one after a pick).
 	CheckEvent EVENT_BEAT_KARATE_MASTER
 	ret nz
+	ld a, [wMissableObjectFlags + HS_FIGHTING_DOJO_GIFT_1 / 8]
+	bit HS_FIGHTING_DOJO_GIFT_1 % 8, a
+	jr nz, .gift1Gone
 	ld a, HS_FIGHTING_DOJO_GIFT_1
 	ld [wMissableObjectIndex], a
 	predef HideObject
+.gift1Gone
+	ld a, [wMissableObjectFlags + HS_FIGHTING_DOJO_GIFT_2 / 8]
+	bit HS_FIGHTING_DOJO_GIFT_2 % 8, a
+	ret nz
 	ld a, HS_FIGHTING_DOJO_GIFT_2
 	ld [wMissableObjectIndex], a
 	predef HideObject
