@@ -32,14 +32,13 @@ WildMonEncounterSlotChances:
 	encounter_slot_chances 51, 51, 39, 25, 25, 25, 13, 13, 11, 3
 ;                       19.9 19.9 15.2 9.8 9.8 9.8 5.1 5.1 4.3 1.2 %
 
-; ⏳ BILL's garden is supposed to run on its own, flat odds
-; (encounter_slot_chances 26, 25, 26, 25, 26, 25, 26, 25, 26, 26 -- every
-; species between 9.8% and 10.2% instead of 19.9% down to 1.2%), selected by a
-; `cp BILLS_GARDEN` where wild_encounters.asm loads this label.
-;
-; IT DOES NOT FIT YET. That reader lives in "Battle Engine 1", and bank $4 had
-; exactly 9 free bytes before this was tried; the table plus the check needs 27
-; and the link failed with "Sections would extend past the end of ROMX". It
-; needs room made in bank $4 first -- see the note in the task file. Until then
-; the garden uses the normal odds above, which changes nothing except that its
-; ten Pokemon are not equally common.
+; v1.0 (2026-11-07): BILL's garden runs on its own, flat odds - every slot between
+; 9.8% and 10.2% instead of 19.9% down to 1.2%. TryDoWildEncounter (engine/battle/
+; wild_encounters.asm) loads this table instead of the one above when wCurMap is
+; BILLS_GARDEN. The garden's three KANTO starters fill two slots each, so each of
+; them comes out at 19.9% (51/256) and the other four at ~10%. The table and the
+; check took 30 bytes of bank $4 (the "Battle Engine 1" section); the bank had 9
+; free when the garden was built, which is why it ran on the normal odds until now.
+BillsGardenEncounterSlotChances:
+	encounter_slot_chances 26, 25, 26, 25, 26, 25, 26, 25, 26, 26
+;                       10.2 9.8 10.2 9.8 10.2 9.8 10.2 9.8 10.2 10.2 %

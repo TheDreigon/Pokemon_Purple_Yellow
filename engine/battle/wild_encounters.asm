@@ -65,6 +65,12 @@ TryDoWildEncounter:
 	ldh a, [hRandomSub]
 	ld b, a
 	ld hl, WildMonEncounterSlotChances
+; v1.0 (2026-11-07): BILL's GARDEN draws its ten slots on flat odds (data/wild/probabilities.asm);
+; every other map keeps the table above.
+	ld a, [wCurMap]
+	cp BILLS_GARDEN
+	jr nz, .determineEncounterSlot
+	ld hl, BillsGardenEncounterSlotChances
 .determineEncounterSlot
 	ld a, [hli]
 	cp b

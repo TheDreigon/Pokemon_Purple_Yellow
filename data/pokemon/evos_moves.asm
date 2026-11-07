@@ -730,7 +730,7 @@ PikachuEvosMoves:
 	db 0
 ; Learnset
 ; Electric mouse. Electric ladder NUZZLE 35 -> THUNDERSHOCK 55 ->
-; SHOCK_WAVE 70 -> THUNDERBOLT 95 -> THUNDER 115. VOLT_TACKLE L26 is
+; SHOCK_WAVE 75 -> THUNDERBOLT 95 -> THUNDER 115. VOLT_TACKLE L26 is
 ; the line signature; its 60 BP sits mid-ladder because it is a
 ; priority high-crit move. CHARM/FAIRY_WIND -> PLAY_ROUGH = cute mouse.
 ; FLAME_CHARGE L54 = sparks lighting a fire (Electabuzz ruling).
@@ -1705,7 +1705,8 @@ PoliwrathEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Apex Water/Fighting. SUBMISSION signature (shared with Machamp).
+; Apex Water/Fighting. SUBMISSION signature (shared with Machoke, Machamp
+; and Pinsir).
 ; DIZZY_PUNCH for the boxer-frog. SURF natural HM03 learner.
 	db  6, WATER_GUN
 	db  8, HINDER
@@ -1754,7 +1755,7 @@ KadabraEvosMoves:
 	db EVOLVE_LEVEL, 42, ALAKAZAM
 	db 0
 ; Learnset
-; Psychic mage mid-evo. PSYCHIC_BIND owned by the Kadabra line. RECOVER,
+; Psychic mage mid-evo. PSYCHIC_BIND from the Abra backbone. RECOVER,
 ; LIGHT_SCREEN/REFLECT and CALM_MIND round out the mage kit. MIND_BREAK is
 ; reserved for the Alakazam apex.
 	db  5, PSYWAVE
@@ -1779,8 +1780,8 @@ AlakazamEvosMoves:
 	db 0
 ; Learnset
 ; Apex Psychic mage. Shares Kadabra's backbone, plus exclusives:
-; EERIE_IMPULSE, METRONOME, DARK_PULSE, and MIND_BREAK as the very-high
-; last move (L70). FLASH natural HM05 learner.
+; AGILITY, TRI_ATTACK, DARK_PULSE, MIND_BREAK (L65) and METRONOME as the
+; very-high last move (L70). FLASH natural HM05 learner.
 	db  5, PSYWAVE
 	db 10, DISABLE
 	db 15, EERIE_IMPULSE
@@ -1854,8 +1855,9 @@ MachampEvosMoves:
 ; Apex 4-arm humanoid fighter. Shares Machoke's backbone, plus high-level
 ; exclusives: COMET_PUNCH (4 arms = rapid combo punches), MACH_PUNCH
 ; (priority hand), BULLET_PUNCH (steel fast punch), IRON_DEFENSE
-; (strong muscles and 4 arms defense), SWORDS_DANCE (apex setup).
-; SUBMISSION signature shared with Poliwrath.
+; (strong muscles and 4 arms defense), SWORDS_DANCE (apex setup),
+; FALSE_SWIPE, ROCK_SLIDE. SUBMISSION signature shared with Poliwrath and
+; Pinsir.
 	db  5, LOW_KICK
 	db  8, GROUND_STOMP
 	db 10, ROCK_THROW
@@ -1886,7 +1888,7 @@ BellsproutEvosMoves:
 ; Learnset
 ; Carnivorous pitcher predator (pure Grass). Powder rule: ONLY
 ; SLEEP_POWDER (predator just sleeps its prey; no Poison/Stun Powder).
-; CONSTRICT/WRAP + vine kit; SLEEP_POWDER at evo level (signature on evo);
+; CONSTRICT/WRAP + vine kit; SLEEP_POWDER L30, past the evo level (L22);
 ; ACID + RAZOR_LEAF + drain progression (ABSORB->MEGA->GIGA); TICKLE for
 ; debuff. No SLUDGE/CORRODE here (Weepinbell/Victreebel tier).
 	db  6, TICKLE
@@ -1911,9 +1913,9 @@ WeepinbellEvosMoves:
 	db 0
 ; Learnset
 ; Mid-stage carnivore (Grass/Poison). Bellsprout backbone +
-; Weepinbell/Victreebel exclusives: BODY_SLAM (pitcher slam), TAKE_DOWN
-; (vine grapple), SLUDGE (digestive), LEECH_LIFE (insect drain), CORRODE
-; (predator -2 def signature), SLUDGE_WAVE high-level apex poison.
+; Weepinbell/Victreebel exclusives: SLUDGE (digestive), LEECH_LIFE (insect
+; drain), GIGA_DRAIN, CORRODE (predator -2 def signature), and for
+; Victreebel SLUDGE_WAVE (L55) high-level apex poison.
 	db  6, TICKLE
 	db  8, CONSTRICT
 	db 10, BITE
@@ -1929,7 +1931,7 @@ WeepinbellEvosMoves:
 	db 30, SLEEP_POWDER
 	db 33, MEGA_DRAIN
 	db 36, SLUDGE
-	db 42, LEECH_LIFE  ; (EVO LVL)
+	db 42, LEECH_LIFE
 	db 44, GIGA_DRAIN
 	db 50, CORRODE
 	db 0
@@ -1939,9 +1941,9 @@ VictreebelEvosMoves:
 	db 0
 ; Learnset
 ; Apex carnivore (Grass/Poison). Weepinbell backbone + Victreebel-only
-; exclusives: CUT (HM, matured leaves), SLASH (sharp matured leaves),
-; SCARY_FACE (giant trap mouth, eerie/sinister), TOXIC (apex predator
-; finishing poison).
+; exclusives: SCARY_FACE (giant trap mouth, eerie/sinister), SLUDGE_WAVE,
+; GUNK_SHOT. CUT and SLASH come with the Bellsprout backbone; TOXIC is
+; TM-only.
 	db  6, TICKLE
 	db  8, CONSTRICT
 	db 10, BITE
@@ -1957,7 +1959,7 @@ VictreebelEvosMoves:
 	db 30, SLEEP_POWDER
 	db 33, MEGA_DRAIN
 	db 36, SLUDGE
-	db 42, LEECH_LIFE  ; (EVO LVL)
+	db 42, LEECH_LIFE
 	db 44, GIGA_DRAIN
 	db 46, SCARY_FACE
 	db 50, CORRODE
@@ -1971,9 +1973,9 @@ TentacoolEvosMoves:
 	db 0
 ; Learnset
 ; Jellyfish Water/Poison. SLUDGE_WAVE = shared late poison capstone
-; (Tentacruel gets it earliest, L43). NEUROTOXIN: this line owns the
-; EARLY access (L15, paralytic sting); others learn it L50+. No
-; POISON_BITE (a jellyfish has no fangs).
+; (L45 for Tentacruel, Grimer and Muk, the earliest). NEUROTOXIN: this
+; line owns the EARLY access (L18, paralytic sting); others learn it
+; L46+. No POISON_BITE (a jellyfish has no fangs).
 	db  3, LICK
 	db  6, WRAP
 	db  9, CONSTRICT
@@ -1998,8 +2000,8 @@ TentacruelEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Apex jellyfish. Tentacool backbone (SURF L39 incl.) + Tentacruel-
-; exclusive levelup moves: EERIE_IMPULSE, SLUDGE_WAVE, SHOCK_WAVE, TOXIC,
+; Apex jellyfish. Tentacool backbone + Tentacruel-exclusive levelup
+; moves: SURF (L42), SLUDGE_WAVE, SHOCK_WAVE, TOXIC,
 ; CORRODE (jellyfish acid corrodes), HYDRO_PUMP. CUT (HM01) via TM/HM
 ; only, not in the levelset.
 	db  3, LICK
@@ -2033,8 +2035,8 @@ GeodudeEvosMoves:
 	db EVOLVE_LEVEL, 26, GRAVELER
 	db 0
 ; Learnset
-; Basic rolling rock with arms (Rock/Ground). ROLLOUT L36 line signature.
-; ROCK_PUNCH at evo level (it has arms). HEAD_SMASH high level. No DIG.
+; Basic rolling rock with arms (Rock/Ground). ROLLOUT L26 (evo level) line
+; signature. ROCK_PUNCH L21 (it has arms). HEAD_SMASH high level. No DIG.
 ; No EXPLOSION (in this line, Golem only).
 	db  6, GROUND_STOMP
 	db  9, ROCK_THROW
@@ -2055,8 +2057,8 @@ GravelerEvosMoves:
 	db 0
 ; Learnset
 ; Mid-stage rolling rock (Rock/Ground). Geodude backbone +
-; Graveler/Golem exclusives: TAKE_DOWN (charge), EARTHQUAKE, IRON_HEAD
-; (rock-iron), STRENGTH (HM), ROCK_SLIDE (apex rock, after HEAD_SMASH),
+; Graveler/Golem exclusives: HEAVY_SLAM (evo level), EARTHQUAKE, IRON_HEAD
+; (rock-iron), ROCK_SLIDE (apex rock, after HEAD_SMASH),
 ; DOUBLE_EDGE (apex recoil). No BULK_UP (rock, not muscle). No DIG/
 ; EXPLOSION.
 	db  6, GROUND_STOMP
@@ -2082,7 +2084,8 @@ GolemEvosMoves:
 	db 0
 ; Learnset
 ; Apex turtle-shell rock (Rock/Ground). Graveler backbone + Golem-only
-; exclusives: IRON_DEFENSE (DEF +2), HEAVY_SLAM (apex Normal heavy frame).
+; exclusives: IRON_DEFENSE (DEF +2), STRENGTH (L43). HEAVY_SLAM comes with
+; the backbone.
 ; EXPLOSION apex L65 (in this line, Golem only). No HORN moves (no
 ; horn anatomy). No OUTRAGE (gentle giant under the heft).
 	db  6, GROUND_STOMP
@@ -2114,8 +2117,7 @@ PonytaEvosMoves:
 ; Young equine with an open Fire mane. IGNITE (Fire, not Ghost) is
 ; anatomy-correct: the mane flame is literal/open. BODY_SLAM (equine
 ; rear-up + body-down). FAIRY_WIND shared with the Vulpix line (basal
-; Fairy presence). AGILITY at L30 coincides with the evolution. GROUND_STOMP
-; via hooves.
+; Fairy presence). GROUND_STOMP via hooves.
 	db  6, GROUND_STOMP
 	db  9, TACKLE
 	db 12, LOW_KICK
@@ -2136,10 +2138,10 @@ RapidashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Apex equine unicorn. Ponyta backbone + Rapidash-exclusives: HORN_ATTACK
-; (horn appears with the evo, same level as AGILITY), HORN_CHARGE (mid-tier
-; horn), DAZZLE_GLEAM (unicorn glow, Fairy apex), HORN_DRILL (signature,
-; last move L60). No EXTREMESPEED (fast but not agile).
+; Apex equine unicorn. Ponyta backbone (HORN_ATTACK L16 and HORN_CHARGE
+; L30 included) + Rapidash-exclusives: DAZZLE_GLEAM (unicorn glow, Fairy
+; apex), HORN_DRILL (signature, L50), DOUBLE_EDGE, FIRE_BLAST (last move,
+; L60). No EXTREMESPEED (fast but not agile).
 	db  6, GROUND_STOMP
 	db  9, TACKLE
 	db 12, LOW_KICK
@@ -2359,8 +2361,8 @@ DewgongEvosMoves:
 ; Apex Water/Ice. SURF natural via HM03. ICY_PULSE (no Lorelei quirk).
 ; (TACKLE lives in the egg field, not the levelup list.)
 ; SING L35, the evolution level: adult seals sing (the long trills of the bearded
-; seal, the calls of the Weddell seal under the ice). 2026-09-22, level to be
-; revisited in the learnset pass.
+; seal, the calls of the Weddell seal under the ice). 2026-09-22; the level
+; stays at 35 (reviewed 2026-09-23/25).
 	db  4, TAIL_WHIP
 	db  8, WATER_GUN
 	db 10, DOUBLESLAP
@@ -3586,8 +3588,9 @@ LaprasEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Gentle singing ferry. The Fairy arsenal (Draining Kiss/Dazzle Gleam/
-; Moonblast) stays TM-only, but the Psychic side is natural now:
+; Gentle singing ferry. Of the Fairy arsenal only Dazzle Gleam comes, by
+; TM (no TM teaches Draining Kiss or Moonblast), but the Psychic side is
+; natural now:
 ; EXTRASENSORY L36 -> PSYCHIC_M L65, the last move it learns.
 ; ICE ladder strictly scaled by power: ICY_WIND < FROST_BREATH <
 ; ICY_PULSE < AURORA_BEAM < ICE_BEAM < BLIZZARD. SING at L30.
@@ -3634,8 +3637,8 @@ EeveeEvosMoves:
 ; Normal-only base. CHARM + FAIRY_WIND = cute fox kit, shared by all 4
 ; forms. No TAKE_DOWN: of the three evolutions only Flareon still keeps
 ; it. METRONOME L50 = unstable genes rolling a random move — the only
-; fun move on a pre-evo besides Clefairy's (forced into the tmhm by the
-; levelup-subset-of-TM rule).
+; fun move on a pre-evo besides Clefairy's two and Ekans's SUBSTITUTE
+; (forced into the tmhm by the levelup-subset-of-TM rule).
 	db  3, TAIL_WHIP
 	db  6, SAND_ATTACK
 	db  9, QUICK_ATTACK
@@ -3746,9 +3749,9 @@ PorygonEvosMoves:
 ; Learnset
 ; Digital construct. Fun moves are natural levelup here (copy.exe/
 ; mirror.exe/decoy.exe/random.exe). TRI_ATTACK L40 signature, RECOVER
-; (file restore), MAGNET_BOMB L58 (shared signature with Magneton and Electabuzz),
-; HYPER_BEAM L65, EXPLOSION L70 last. No NASTY_PLOT, no TRANSFORM (Ditto), no
-; CONVERSION (move no longer exists).
+; (file restore), MAGNET_BOMB L58 (shared signature with Magneton, Electrode
+; and Electabuzz), HYPER_BEAM L65, EXPLOSION L70 last. No NASTY_PLOT, no
+; TRANSFORM (Ditto), no CONVERSION (move no longer exists).
 	db  6, HARDEN
 	db 10, DISABLE
 	db 12, CONFUSION

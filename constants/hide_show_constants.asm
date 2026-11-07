@@ -300,3 +300,10 @@ DEF SHOW EQU $15
 ; since T23 (2026-09-24). Index 255 is free.
 	const HS_MR_FUJIS_HOUSE_MR_FUJI
 DEF NUM_HS_OBJECTS EQU const_value
+; v1.0 (2026-11-07): 256 rows at most. The index is one byte everywhere (the
+; per-map list, wMissableObjectIndex, the loaders' running counters) and
+; wMissableObjectFlags has $100 bits. Row 255 itself is safe: LoadMissableObjects2
+; finds the end of the per-map list pair by pair, so an index byte of $FF is not
+; taken for its sentinel.
+ASSERT NUM_HS_OBJECTS <= 256, \
+	"MissableObjects has more than 256 rows: the hide/show index is one byte (new objects go to table 2)"

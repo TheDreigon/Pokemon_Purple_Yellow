@@ -24,7 +24,8 @@
 ; animations have something to animate):
 ;   * Enemy front sprite (Rattata) at hlcoord (12, 0), top-right 7x7.
 ;   * Player back sprite (Pikachu) at hlcoord (1, 5), mid-left 7x7.
-;   * Move ID + name on row 13 (bottom dialogue area).
+;   * Move ID on row 12, its name on row 13 (bottom dialogue area); the side
+;     line on row 14.
 ;   * Hints on rows 15-16.
 ;
 ; WHY THE SIDE TOGGLE EXISTS (2026-08-21)
@@ -477,19 +478,21 @@ AnimTest_DrawPlayHeader:
 	lb bc, 6, SCREEN_WIDTH
 	call ClearScreenArea
 
-	; Move ID + name on row 13
-	hlcoord 1, 13
+	; v1.0 (2026-11-07): "MOVE" and the id on row 12, the name on its own row 13
+	; from col 1. A name is up to 12 letters, PlaceString does not clip, and from
+	; (10,13) the 11th and 12th ran on to row 14, in front of the SIDE line.
+	hlcoord 1, 12
 	ld de, .moveLabel
 	call PlaceString
 
-	hlcoord 6, 13
+	hlcoord 6, 12
 	ld a, [wWhichPokemon]
 	ld [wd11e], a
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 
-	hlcoord 10, 13
+	hlcoord 1, 13
 	ld a, [wWhichPokemon]
 	ld [wd11e], a
 	push hl

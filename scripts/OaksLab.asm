@@ -1058,17 +1058,51 @@ OaksLabRivalTakesText5:
 ; Inputs it relies on, all still live at the call site: wCurEnemyLVL is 5 (set
 ; just above) and wMonHeader still holds Pikachu's base stats from AddPartyMon.
 ; b = 0 means "no stat experience", which is true for a fresh gift.
-MaxOutStarterPikachuDVs:
-	ld hl, wPartyMon1DVs
+;
+; v1.0 (2026-11-07): it works on the LAST party slot - the #MON AddPartyMon has
+; just appended - and writes the partner's LIGHT_BALL_GSC marker there too. In a
+; new game that is slot 1, as before. The debug NEW GAME calls it for its own
+; PIKACHU (the 4th, engine/debug/debug_party.asm), and when the debug player
+; walks through this lab OAK's PIKACHU is the 5th: slot 1 was the debug SNORLAX,
+; which got a level-5 PIKACHU's DVs and stats.
+MaxOutStarterPikachuDVs::
+	ld a, [wPartyCount]
+	dec a
+	ld hl, wPartyMon1
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	push hl                      ; the #MON's struct
+	ld bc, wPartyMon1CatchRate - wPartyMon1
+	add hl, bc
+	ld [hl], LIGHT_BALL_GSC      ; the partner's marker (IsStarterPikachuInOurParty)
+	pop hl
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc
 	ld a, $ff
 	ld [hli], a
 	ld [hl], a
-	ld hl, wPartyMon1HPExp - 1   ; CalcStats derives the DV pointer from this
-	ld de, wPartyMon1Stats
+	pop hl
+	push hl
+	ld bc, wPartyMon1Stats - wPartyMon1
+	add hl, bc
+	ld d, h
+	ld e, l                      ; de = its stats
+	pop hl
+	push hl
+	ld bc, (wPartyMon1HPExp - 1) - wPartyMon1
+	add hl, bc                   ; CalcStats derives the DV pointer from this
 	ld b, $0
 	call CalcStats
-	ld hl, wPartyMon1MaxHP
-	ld de, wPartyMon1HP
+	pop hl
+	push hl
+	ld bc, wPartyMon1HP - wPartyMon1
+	add hl, bc
+	ld d, h
+	ld e, l                      ; de = its current HP
+	pop hl
+	ld bc, wPartyMon1MaxHP - wPartyMon1
+	add hl, bc
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -1096,9 +1130,7 @@ OaksLabPlayerReceivedMonText:
 	ld [wd11e], a
 	ld [wcf91], a
 	call AddPartyMon
-	ld a, LIGHT_BALL_GSC
-	ld [wPartyMon1CatchRate], a
-	call MaxOutStarterPikachuDVs
+	call MaxOutStarterPikachuDVs ; the marker and the perfect DVs, on the slot just added
 	call DisablePikachuOverworldSpriteDrawing
 	SetEvent EVENT_GOT_STARTER
 	ld hl, wd72e

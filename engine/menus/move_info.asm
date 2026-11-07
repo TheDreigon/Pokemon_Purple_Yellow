@@ -344,7 +344,7 @@ GetMoveDescription:
 	ret
 .byEffect
 	ld a, [wPlayerMoveEffect]
-	add a ; two bytes per entry; NUM_MOVE_EFFECTS is 113, so this cannot carry
+	add a ; two bytes per entry; cannot carry: NUM_MOVE_EFFECTS < 128 (ASSERT, constants/move_effect_constants.asm)
 	ld c, a
 	ld b, 0
 	ld hl, MoveEffectDescriptions

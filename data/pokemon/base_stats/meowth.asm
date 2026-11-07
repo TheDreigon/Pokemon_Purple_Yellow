@@ -12,8 +12,9 @@
 
 	; tm/hm learnset
 	; Normal/Dark feline pre-evo, slim claw cat.
-	tmhm QUICK_ATTACK, FAINT_ATTACK, AGILITY, INTIMIDATE, SCARY_FACE, \
-	     TAKE_DOWN, CUT, STRENGTH
+	; v1.0 (2026-11-07): RAGE is a level-up auto (L30), as on PERSIAN.
+	tmhm QUICK_ATTACK, FAINT_ATTACK, RAGE, AGILITY, INTIMIDATE, \
+	     SCARY_FACE, TAKE_DOWN, CUT, STRENGTH
 	; end
 
 	db BANK(MeowthPicFront) ; which bank this mon's pics live in

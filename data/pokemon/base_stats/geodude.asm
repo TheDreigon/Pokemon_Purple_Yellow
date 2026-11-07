@@ -13,7 +13,8 @@
 
 	; tm/hm learnset
 	; Basic rolling rock with arms (Rock/Ground). HM STRENGTH.
-	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, STRENGTH, ROCK_SLIDE
+	; v1.0 (2026-11-07): TAKE_DOWN is a level-up auto (L30).
+	tmhm ROCK_THROW, BULLDOZE, BODY_SLAM, TAKE_DOWN, STRENGTH, ROCK_SLIDE
 	; end
 
 	db BANK(GeodudePicFront) ; which bank this mon's pics live in

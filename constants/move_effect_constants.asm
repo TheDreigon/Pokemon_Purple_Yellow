@@ -132,3 +132,10 @@
 	const PROTECT_EFFECT              ; $70  the user blocks every move aimed at it this turn; fails the turn after one that worked (Protect; 2026-11-02)
 	const LOCK_ON_EFFECT              ; $71  the user's moves never miss the target until either leaves the field (Lock-On; 2026-11-02)
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
+; v1.0 (2026-11-07): two readers double the effect id in 8 bits and drop the carry: the MOVE
+; INFO card (ShowMoveInfo -> GetMoveDescription.byEffect, `add a` on ids 0..N into
+; MoveEffectDescriptions; the FIGHT menu, the MOVEDEX and the learn-move screen open it) and
+; the effect dispatcher (_JumpMoveEffect, `dec a / add a` on ids 1..N into MoveEffectPointerTable). An id of 128 would print effect 0's card, and from 129 a move would
+; run another effect's handler, with a green build. Make both lookups 16-bit before raising this.
+ASSERT NUM_MOVE_EFFECTS < 128, \
+	"move effect ids must stay below 128: MOVE INFO and _JumpMoveEffect double them in one byte"

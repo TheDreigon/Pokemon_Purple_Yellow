@@ -36,6 +36,13 @@ IF DEF(_DEBUG)
 
 	call SetDebugNewGameParty
 
+	; v1.0 (2026-11-07): the PIKACHU is the partner, as OAK's is - the
+	; LIGHT_BALL_GSC marker every partner test reads (it follows, it has the
+	; partner's pics and refusals) and the perfect DVs. It is the last #MON
+	; SetDebugNewGameParty adds, so wMonHeader and wCurEnemyLVL still hold its
+	; species and level, as MaxOutStarterPikachuDVs needs.
+	farcall MaxOutStarterPikachuDVs
+
 	; Pikachu gets Surf.
 	ld a, SURF
 	ld hl, wPartyMon4Moves + 2
@@ -124,21 +131,35 @@ DebugSetPokedexEntries:
 ; now, and filling to the End label marked 199 phantom species in the
 ; debug new game (48 glitch dex rows via the boundless PokedexToIndex).
 ; The capacity padding is left zero, as everything downstream assumes.
+; v1.0 (2026-11-07): the partial byte and the zero pad are emitted only when
+; they exist, so every dex size up to the capacity fills exactly the array. The
+; pad used to be counted as capacity bytes - NUM_POKEMON / 8 - 1 into b: from 192
+; species that is 0 (-1 at 200, where the partial byte also fell past the array),
+; and `dec b / jr nz` then ran 256 (255) times, zeroing the bag just filled, the
+; money, the options and the badges after wPokedexSeen.
 	ld b, NUM_POKEMON / 8
 	ld a, %11111111
 .loop
 	ld [hli], a
 	dec b
 	jr nz, .loop
+IF NUM_POKEMON % 8
 	ld a, (1 << (NUM_POKEMON % 8)) - 1
 	ld [hli], a
+ENDC
+IF POKEDEX_FLAG_CAPACITY / 8 - (NUM_POKEMON + 7) / 8
 	xor a
-	ld b, (wPokedexOwnedEnd - wPokedexOwned) - (NUM_POKEMON / 8) - 1
+	ld b, POKEDEX_FLAG_CAPACITY / 8 - (NUM_POKEMON + 7) / 8
 .padLoop
 	ld [hli], a
 	dec b
 	jr nz, .padLoop
+ENDC
 	ret
+	ASSERT wPokedexOwnedEnd - wPokedexOwned == POKEDEX_FLAG_CAPACITY / 8, \
+		"DebugSetPokedexEntries fills POKEDEX_FLAG_CAPACITY / 8 bytes: wPokedexOwned must be that size"
+	ASSERT wPokedexSeenEnd - wPokedexSeen == POKEDEX_FLAG_CAPACITY / 8, \
+		"DebugSetPokedexEntries fills POKEDEX_FLAG_CAPACITY / 8 bytes: wPokedexSeen must be that size"
 
 DebugItemsList:
 	db MASTER_BALL, 99

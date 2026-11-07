@@ -15,11 +15,12 @@
 	; spectral moves fit the mystic kitsune (tails channel the spectral:
 	; SHADOW_BALL/DARK_PULSE) + CALM_MIND apex setup. Last-stage fun
 	; moves via TM.
+	; v1.0 (2026-11-07): PETAL_DANCE is a level-up auto (L60).
 	tmhm QUICK_ATTACK, FAINT_ATTACK, BODY_SLAM, FLAME_BURST, NIGHT_SHADE, \
 	     CONFUSE_RAY, IGNITE, MIMIC, MIRROR_MOVE, SUBSTITUTE, \
 	     METRONOME, DAZZLE_GLEAM, AGILITY, FAKE_TEARS, CHARM, \
 	     EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, DARK_PULSE, SHADOW_BALL, \
-	     FLAMETHROWER, REFLECT, CALM_MIND, CUT
+	     FLAMETHROWER, REFLECT, CALM_MIND, PETAL_DANCE, CUT
 	; end
 
 	db BANK(NinetalesPicFront) ; which bank this mon's pics live in

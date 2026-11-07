@@ -13,7 +13,9 @@
 
 	; tm/hm learnset
 	; Baby psychic, minimalist movepool (canon Abra knows only Teleport).
-	tmhm CALM_MIND
+	; v1.0 (2026-11-07): LIGHT_SCREEN, REFLECT and EXTRASENSORY are level-up
+	; autos (L30/L31/L34; levelup subset-of TM).
+	tmhm EXTRASENSORY, LIGHT_SCREEN, REFLECT, CALM_MIND
 	; end
 
 	db BANK(AbraPicFront) ; which bank this mon's pics live in

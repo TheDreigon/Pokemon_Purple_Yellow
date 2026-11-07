@@ -12,7 +12,8 @@
 
 	; tm/hm learnset
 	; Mid-stage flower bud (Grass/Poison).
-	tmhm GIGA_DRAIN, TOXIC, PETAL_DANCE
+	; v1.0 (2026-11-07): LEECH_LIFE is a level-up auto (L40).
+	tmhm GIGA_DRAIN, TOXIC, LEECH_LIFE, PETAL_DANCE
 	; end
 
 	db BANK(GloomPicFront) ; which bank this mon's pics live in

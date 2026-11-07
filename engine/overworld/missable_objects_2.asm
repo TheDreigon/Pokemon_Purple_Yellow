@@ -38,11 +38,18 @@ LoadMissableObjects2::
 	ld hl, wTownVisitedFlag
 	predef FlagActionPredef
 .flySlotsDone
+; v1.0 (2026-11-07): the end is found pair by pair, testing only the sprite-id
+; byte. An index byte can be $FF - table 1's row 255 is a valid row (its flag
+; array has $100 bits) - and a byte-by-byte scan took it for the sentinel and
+; wrote this table's rows over it.
 	ld hl, wMissableObjectList
 .findEnd
-	ld a, [hli]
+	ld a, [hli]                ; a sprite id (1-14), or the sentinel
 	cp -1
-	jr nz, .findEnd
+	jr z, .foundEnd
+	inc hl                     ; its index
+	jr .findEnd
+.foundEnd
 	dec hl                     ; the sentinel table 1 wrote: overwrite it
 	ld d, h
 	ld e, l

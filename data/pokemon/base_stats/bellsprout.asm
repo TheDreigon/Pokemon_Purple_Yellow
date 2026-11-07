@@ -14,7 +14,8 @@
 	; tm/hm learnset
 	; Basic carnivorous pitcher plant (pure Grass; Poison arrives with WEEPINBELL). Grass STAB
 	; GIGA_DRAIN, digestive TOXIC, ambush FAINT_ATTACK.
-	tmhm FAINT_ATTACK, GIGA_DRAIN, TOXIC
+	; v1.0 (2026-11-07): HM CUT is a level-up auto (L27), as on WEEPINBELL.
+	tmhm FAINT_ATTACK, GIGA_DRAIN, TOXIC, CUT
 	; end
 
 	db BANK(BellsproutPicFront) ; which bank this mon's pics live in

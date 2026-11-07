@@ -31,7 +31,7 @@
 ;    PokedexToIndex. That routine has NO bounds check (it scans PokedexOrder
 ;    until it matches), so the clamp/wrap below must be airtight. Browsing raw
 ;    internal indices instead would walk the ~39 MissingNo. holes.
-;  * BOTH wd0b5 (GetMonHeader / PrintMonType) and wcf91 (pic ROM bank +
+;  * BOTH wd0b5 (GetMonHeader / PrintMonTypesList) and wcf91 (pic ROM bank +
 ;    palette) must hold the internal index. Setting only one gives the wrong
 ;    sprite or a crash — that was a real shipped bug once (commit c38fe87).
 ;  * The pic MUST be drawn at hlcoord 1, 1: SET_PAL_POKEDEX only assigns the
@@ -225,9 +225,10 @@ MonTest_Draw:
 	ld de, wcd6d
 	call PlaceString
 
-	hlcoord 10, 5                  ; TYPE1 here, TYPE2 two rows down.
-	predef PrintMonType            ; single-type mons blank 6 tiles on row 6,
-	                               ; which this layout deliberately leaves empty.
+	hlcoord 10, 5                  ; v1.0 (2026-11-07): one type a row, rows 5-7 -
+	predef PrintMonTypesList       ; type 1, type 2 when it differs, the third
+	                               ; (GetThirdType) when it has one, as the status
+	                               ; screen and the Pokedex DATA page print them.
 	hlcoord 1, 10
 	ld de, MonTestHint1Text
 	call PlaceString

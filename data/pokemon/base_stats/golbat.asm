@@ -14,10 +14,11 @@
 	; tm/hm learnset
 	; Matured vampire bat (last-stage). HM CUT/FLY.
 	; Fun moves (last-stage): MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; v1.0 (2026-11-07): SCARY_FACE is a level-up auto (L46).
 	tmhm QUICK_ATTACK, MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, \
 	     GIGA_DRAIN, AGILITY, POISON_BITE, AERIAL_ACE, HURRICANE, \
-	     TOXIC, INTIMIDATE, LEECH_LIFE, DARK_PULSE, CUT, \
-	     FLY
+	     TOXIC, INTIMIDATE, SCARY_FACE, LEECH_LIFE, DARK_PULSE, \
+	     CUT, FLY
 	; end
 
 	db BANK(GolbatPicFront) ; which bank this mon's pics live in

@@ -14,9 +14,10 @@
 	; tm/hm learnset
 	; Apex three-headed mole, ground speedster. HM CUT/STRENGTH. Fun
 	; moves (last-stage) MIMIC/MIRROR_MOVE/SUBSTITUTE/METRONOME.
+	; v1.0 (2026-11-07): ROCK_SLIDE is a level-up auto (L60).
 	tmhm ROCK_THROW, QUICK_ATTACK, FAINT_ATTACK, BULLDOZE, BODY_SLAM, MIMIC, \
 	     MIRROR_MOVE, SUBSTITUTE, METRONOME, AGILITY, IRON_HEAD, \
-	     TAKE_DOWN, EARTHQUAKE, CUT, STRENGTH
+	     TAKE_DOWN, EARTHQUAKE, ROCK_SLIDE, CUT, STRENGTH
 	; end
 
 	db BANK(DugtrioPicFront) ; which bank this mon's pics live in

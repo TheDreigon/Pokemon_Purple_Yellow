@@ -97,6 +97,10 @@ DEF SAFARI_ROCK EQU CASCADEBADGE ; overload
 	const ZINC          ; $55  the SP.DEF vitamin (CALCIUM is SP.ATK's); sits above RARE_CANDY and REVIVE, so ItemUseVitamin special-cases it
 	const X_SPDEF       ; $56  X SP.DEF: no effect-id ladder of its own, ItemUseXStat serves it through the SP.ATK proxy + wStatModIndexOverride
 DEF NUM_ITEMS EQU const_value - 1
+; v1.0 (2026-11-07): UseItem_ doubles the item id in 8 bits (`dec a / add a` into
+; ItemUsePtrTable) and drops the carry, so item 129 would run item 1's handler.
+ASSERT NUM_ITEMS <= 128, \
+	"item ids must stay at or below 128: UseItem_ doubles them in one byte"
 
 ; elevator floors use item IDs
 	const FLOOR_B2F     ; $57
