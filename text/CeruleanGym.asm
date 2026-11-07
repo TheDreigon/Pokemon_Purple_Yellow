@@ -181,9 +181,11 @@ _CeruleanGymLilyEndBattleText::
 	prompt
 
 _CeruleanGymLilyAfterBattleText::
+; v1.0 (2026-11-07): her sight covers the two cells out of the entrance corridor, so she is always the
+; first sister fought; this line is read before or after the other two, and holds either way
 	text "You, like, beat"
-	line "all three of us?"
-	cont "MISTY's next!"
+	line "me? Well, I'm the"
+	cont "youngest of us!"
 	done
 
 _CeruleanGymGymGuideChampInMakingText::

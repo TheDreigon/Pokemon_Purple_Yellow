@@ -318,9 +318,9 @@ JessieAndJamesData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Mt. Moon B2F
 	db $FF, 15, EKANS, 15, KOFFING, 16, MEOWTH, 0
-; 2: Rocket Hideout (first encounter)
+; 2: Rocket Hideout B4F
 	db $FF, 28, ARBOK, 28, KOFFING, 29, MEOWTH, 0
-; 3: Pokemon Tower 7F (second encounter)
+; 3: Pokemon Tower 7F
 	db $FF, 31, LICKITUNG, 32, ARBOK, 32, WEEZING, 33, MEOWTH, 0
 ; 4: Silph Co. 11F
 	db $FF, 41, LICKITUNG, 42, VICTREEBEL, 42, GYARADOS, 43, ARBOK, 43, WEEZING, 44, MEOWTH, 0
@@ -917,7 +917,7 @@ JennyData:
 
 JoyData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
-; 1: Fuchsia Pokecenter
+; 1: Day Care 2F (Route 5)
 	db $FF, 53, KANGASKHAN, 54, WIGGLYTUFF, 54, CLEFABLE, 55, CHANSEY, 55, MR_MIME, 0
 
 SmithData:

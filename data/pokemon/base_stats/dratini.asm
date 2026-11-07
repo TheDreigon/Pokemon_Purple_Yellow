@@ -2,7 +2,7 @@
 	base_stat_row 60, 60, 40, 50, 50, 60 ; hp atk def spatk spdef spd
 
 	db DRAGON, DRAGON ; type
-	db 40 ; catch rate  ; exception: precious, not strong: BST 270 would read as trivial
+	db 40 ; catch rate  ; exception: precious, not strong: BST 320 would read as trivial
 	db 90 ; base exp  ; BST 320
 
 	INCBIN "gfx/pokemon/front/dratini.pic", 0, 1 ; sprite dimensions

@@ -59,9 +59,14 @@ _Route12CooltrainerMEndBattleText::
 	prompt
 
 _Route12CooltrainerMAfterBattleText::
-	text "I could have made"
-	line "my #MON evolve"
-	cont "with MOON STONE!"
+; v1.0 (2026-11-07): his NIDORINA and NIDORINO evolve at level 35 here, and the MOON STONE evolves
+; neither (evos_moves.asm); the vanilla line taught the vanilla method
+	text "A MOON STONE"
+	line "won't evolve my"
+	cont "#MON..."
+
+	para "They'll evolve"
+	line "with training!"
 	done
 
 _Route12GentlemanBattleText::

@@ -644,7 +644,7 @@ SpecialTrainerMoves:
 	db 3, 4, FURY_ATTACK
 	db 0
 
-	db JESSIE_AND_JAMES, 2 ; Rocket Hideout (first encounter) — 28 ARBOK, 28 KOFFING, 29 MEOWTH
+	db JESSIE_AND_JAMES, 2 ; Rocket Hideout B4F — 28 ARBOK, 28 KOFFING, 29 MEOWTH
 	db 1, 1, POISON_BITE
 	db 1, 2, BITE
 	db 1, 3, SCARY_FACE
@@ -659,7 +659,7 @@ SpecialTrainerMoves:
 	db 3, 4, TAKE_DOWN
 	db 0
 
-	db JESSIE_AND_JAMES, 3 ; Pokemon Tower 7F (second encounter) — 31 LICKITUNG, 32 ARBOK, 32 WEEZING, 33 MEOWTH
+	db JESSIE_AND_JAMES, 3 ; Pokemon Tower 7F — 31 LICKITUNG, 32 ARBOK, 32 WEEZING, 33 MEOWTH
 	db 1, 1, HEADBUTT
 	db 1, 2, ACID
 	db 1, 3, GROUND_STOMP
@@ -778,7 +778,7 @@ SpecialTrainerMoves:
 	db 5, 4, DARK_PULSE
 	db 0
 
-	db JOY, 1 ; Fuchsia Pokecenter — 53 KANGASKHAN, 54 WIGGLYTUFF, 54 CLEFABLE, 55 CHANSEY, 55 MR_MIME
+	db JOY, 1 ; Day Care 2F (Route 5) — 53 KANGASKHAN, 54 WIGGLYTUFF, 54 CLEFABLE, 55 CHANSEY, 55 MR_MIME
 	db 1, 1, BULK_UP
 	db 1, 2, BODY_SLAM
 	db 1, 3, DIZZY_PUNCH

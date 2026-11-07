@@ -357,7 +357,7 @@ TrainerManual_DrawList:
 ;
 ; Column 18 is the last cell a 17-tile section name would reach, so a scrolling
 ; list must not carry a name that long on row 11. The only one that scrolls is
-; THE TYPES; its one such name (TWO TYPES AT ONCE) is third and never gets there.
+; THE TYPES; its one such name (UP TO THREE TYPES) is third and never gets there.
 	push bc
 	call TrainerManual_WindowRows
 	ld b, a
@@ -1092,7 +1092,7 @@ TrainerManualSection6_1:
 TrainerManualSection6_2:
 	db "BODY OR MIND@"
 TrainerManualSection6_3:
-	db "TWO TYPES AT ONCE@"
+	db "UP TO THREE TYPES@" ; v1.0 (2026-11-07): the page covers the third type (it was TWO TYPES AT ONCE)
 TrainerManualSection6_4:
 	db "PHYSICAL TYPES@"
 TrainerManualSection6_5:

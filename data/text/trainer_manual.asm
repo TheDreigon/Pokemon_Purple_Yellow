@@ -5,8 +5,8 @@
 ; characters of "POKé". Blank lines go between paragraphs while the
 ; page has room and are dropped from the bottom when it is full.
 ;
-; ManualPage_5_2 has a _Hard twin: the PP page is the second place in
-; the game to read wDifficulty and tell the truth for each setting.
+; ManualPage_3_4 and ManualPage_5_2 have _Hard twins: the badge page
+; and the PP page read wDifficulty and tell the truth for each setting.
 ; See TrainerManualHardPages in engine/menus/trainer_manual.asm.
 
 _ManualPage_1_1::
@@ -552,16 +552,19 @@ _ManualPage_6_2::
 	done
 
 _ManualPage_6_3::
-	text "A #MON may"
-	next "carry two types."
-	next "Both of them count"
-	next "when a move lands"
-	next "on it."
+	text "A #MON may have"
+	next "up to three types."
+	next "Each counts when a"
+	next "move lands on it."
 	next ""
-	next "And a move of"
-	next "either of its own"
-	next "types hits half"
+	next "Its moves of its"
+	next "own types hit half"
 	next "again as hard."
+	next ""
+	next "AIRBORNE ones"
+	next "never take GROUND."
+	next "GROUNDED ones do,"
+	next "even if FLYING."
 	done
 
 _ManualPage_6_4::

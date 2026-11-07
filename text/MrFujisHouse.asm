@@ -55,15 +55,18 @@ _MrFujisHouseMrFujiReceivedPokeFluteText::
 	text_end
 
 _MrFujisHouseMrFujiPokeFluteExplanationText::
+; v1.0 (2026-11-07): ItemUsePokeflute wakes the SNORLAX on ROUTE 12 and 16, plays PIKACHU's waking scene in
+; the PEWTER #MON CENTER when PIKACHU is right beside the player, and is refused in battle (ItemUseNotTime);
+; the vanilla lines said it woke every sleeping #MON
 	text_start
 
 	para "Upon hearing #"
-	line "FLUTE, sleeping"
-	cont "#MON will"
+	line "FLUTE, a sleeping"
+	cont "SNORLAX will"
 	cont "spring awake."
 
-	para "It works on all"
-	line "sleeping #MON."
+	para "It is no use in"
+	line "battle, though."
 	done
 
 _MrFujisHouseMrFujiPokeFluteNoRoomText::

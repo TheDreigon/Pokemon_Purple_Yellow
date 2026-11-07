@@ -2,7 +2,7 @@
 	base_stat_row 180, 110, 80, 50, 100, 20 ; hp atk def spatk spdef spd
 
 	db NORMAL, NORMAL ; type
-	db 20 ; catch rate  ; set by hand: one per game, and it is an event
+	db 20 ; catch rate  ; set by hand: two per game, and each is an event
 	db 175 ; base exp  ; BST 540
 
 	INCBIN "gfx/pokemon/front/snorlax.pic", 0, 1 ; sprite dimensions

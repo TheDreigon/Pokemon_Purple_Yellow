@@ -256,7 +256,9 @@ _FuchsiaGymGymGuideChampInMakingText::
 	cont "cover his ground-"
 	cont "type weakness."
 
-	para "Two of his 5"
+; v1.0 (2026-11-07): three - GOLBAT (FLYING), WEEZING (GAS) and, since its third type, VENOMOTH
+; (BUG/POISON/FLYING) take no effect from GROUND
+	para "Three of his 5"
 	line "#MON fly or"
 	cont "float over it."
 

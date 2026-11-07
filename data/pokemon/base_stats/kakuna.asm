@@ -2,7 +2,7 @@
 	base_stat_row 40, 35, 60, 20, 40, 10 ; hp atk def spatk spdef spd
 
 	db BUG, POISON ; type
-	db 200 ; catch rate  ; set by hand: an immobile cocoon whose only move is to harden
+	db 200 ; catch rate  ; set by hand: an immobile cocoon that hardly fights back
 	db 45 ; base exp  ; BST 205
 
 	INCBIN "gfx/pokemon/front/kakuna.pic", 0, 1 ; sprite dimensions

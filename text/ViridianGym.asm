@@ -272,10 +272,12 @@ _ViridianGymGuidePreBattleText::
 	line "half of them are"
 	cont "ground-types."
 
-	para "Water and grass"
-	line "moves will hit"
-	cont "those twice"
-	cont "over!"
+; v1.0 (2026-11-07): GRASS is neutral on NIDOKING (POISON halves it) and super effective on GOLEM
+; and RHYDON; WATER is super effective on all three
+	para "Water moves hit"
+	line "all three twice"
+	cont "over, and grass"
+	cont "two of them!"
 
 	para "Bring a fighting-"
 	line "type for the"

@@ -2,7 +2,7 @@
 	base_stat_row 40, 30, 70, 20, 50, 5 ; hp atk def spatk spdef spd
 
 	db BUG, BUG ; type
-	db 200 ; catch rate  ; set by hand: an immobile cocoon whose only move is to harden
+	db 200 ; catch rate  ; set by hand: an immobile cocoon that hardly fights back
 	db 50 ; base exp  ; BST 215
 
 	INCBIN "gfx/pokemon/front/metapod.pic", 0, 1 ; sprite dimensions

@@ -4,13 +4,14 @@
 ; His old spot now holds a bird-counting YOUNGSTER.
 
 _Route15Gate2FWatcherText::
+; v1.0 (2026-11-07): ROUTE 15 holds two BIRD KEEPERS (data/maps/objects/Route15.asm)
 	text "From up here I"
 	line "can count the"
 	cont "BIRD KEEPERS on"
 	cont "the route."
 
-	para "Nine! No, wait."
-	line "Ten!"
+	para "One! No, wait."
+	line "Two!"
 	done
 
 _Route15Gate2FOaksAideExpShareText::
