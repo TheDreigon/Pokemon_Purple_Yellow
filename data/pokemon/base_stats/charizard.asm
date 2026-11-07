@@ -1,7 +1,7 @@
 	db DEX_CHARIZARD ; pokedex id
 	base_stat_row 90, 100, 80, 110, 95, 90 ; hp atk def spatk spdef spd
 
-	db FIRE, FLYING ; type
+	db FIRE, FLYING ; type (+ DRAGON, its third: data/pokemon/third_types.asm)
 	db 45 ; catch rate  ; set by hand: starter line, fully grown
 	db 185 ; base exp  ; BST 565
 
