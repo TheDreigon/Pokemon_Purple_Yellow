@@ -905,9 +905,9 @@ Rival3Data:
 
 ProfOakData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
-; 1: Hall of Fame
+; 1: Route 1 (after the Hall of Fame)
 	db $FF, 70, DRAGONITE, 70, SNORLAX, 70, TAUROS, 75, CHARIZARD, 75, VENUSAUR, 75, BLASTOISE, 0
-; 2: Rematch — Main sets +10 levels
+; 2: Pokemon Mansion 2F (rematch, Main sets +10 levels)
 	db $FF, 80, DRAGONITE, 80, SNORLAX, 80, TAUROS, 85, CHARIZARD, 85, VENUSAUR, 85, BLASTOISE, 0
 
 JennyData:

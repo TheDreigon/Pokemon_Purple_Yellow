@@ -59,6 +59,13 @@ _GameCornerPrizeRoomClerkCoinCaseIsFullText::
 	line "CASE is full."
 	done
 
+; v1.0 (2026-11-08): his refusal from 9500 to 9989 coins (GameCornerPrizeRoomClerkText), a case that is not full
+_GameCornerPrizeRoomClerkNoRoomFor500CoinsText::
+	text "Oops! Your COIN"
+	line "CASE can't hold"
+	cont "500 more coins."
+	done
+
 _GameCornerPrizeRoomClerkDontHaveCoinCaseText::
 	text "You don't have a"
 	line "COIN CASE!"

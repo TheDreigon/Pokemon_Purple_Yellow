@@ -159,6 +159,15 @@ GameCornerClerkText:
 	; - have room in the Coin Case for at least 9 coins
 	call Has9990Coins
 	jr nc, .coin_case_full
+	; - have room in the Coin Case for all 50 coins
+	; v1.0 (2026-11-08): from 9950 to 9989 coins the ¥1000 was taken and AddBCD stopped the case at 9999, so up
+	; to 49 of the coins paid for were lost (vanilla's flaw); he refuses there now, with the line that says why
+	ld a, $99
+	ldh [hCoins], a
+	ld a, $50
+	ldh [hCoins + 1], a
+	call HasEnoughCoins
+	jr nc, .no_room_for_50
 	; - have at least 1000 yen
 	xor a
 	ldh [hMoney], a
@@ -200,6 +209,9 @@ GameCornerClerkText:
 .coin_case_full
 	ld hl, .CoinCaseIsFull
 	jr .print_ret
+.no_room_for_50
+	ld hl, .NoRoomFor50Coins
+	jr .print_ret
 .no_coin_case
 	ld hl, .DontHaveCoinCase
 .print_ret
@@ -224,6 +236,10 @@ GameCornerClerkText:
 
 .CoinCaseIsFull:
 	text_far _GameCornerClerkCoinCaseIsFullText
+	text_end
+
+.NoRoomFor50Coins:
+	text_far _GameCornerClerkNoRoomFor50CoinsText
 	text_end
 
 .DontHaveCoinCase:

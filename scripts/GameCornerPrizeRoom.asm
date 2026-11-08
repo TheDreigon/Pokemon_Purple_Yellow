@@ -25,15 +25,24 @@ GameCornerPrizeRoomClerkText:
 	ld b, COIN_CASE
 	call IsItemInBag
 	jr z, .no_coin_case
+	; - have room in the Coin Case for at least 9 coins (the vanilla clerk's full case, Has9990Coins)
+	ld a, $99
+	ldh [hCoins], a
+	ld a, $90
+	ldh [hCoins + 1], a
+	call HasEnoughCoins
+	jr nc, .coin_case_full
 	; - have room in the Coin Case for all 500 coins
 	; v1.0 (2026-11-07): the 50-coin clerk's Has9990Coins test let 9500-9989 coins through: the ¥11000 was taken
 	; and AddBCD stopped the case at 9999, so up to 499 of the coins paid for were lost
+	; v1.0 (2026-11-08): a case of 9500-9989 coins is not full, so that refusal has its own line (500 more will
+	; not fit); 9990 and up keeps the full case's
 	ld a, $95
 	ldh [hCoins], a
 	xor a
 	ldh [hCoins + 1], a
 	call HasEnoughCoins
-	jr nc, .coin_case_full
+	jr nc, .no_room_for_500
 	; - have at least 11000 yen
 	xor a
 	ldh [hMoney], a
@@ -82,6 +91,9 @@ GameCornerPrizeRoomClerkText:
 .coin_case_full
 	ld hl, .CoinCaseIsFull
 	jr .print_ret
+.no_room_for_500
+	ld hl, .NoRoomFor500Coins
+	jr .print_ret
 .no_coin_case
 	ld hl, .DontHaveCoinCase
 .print_ret
@@ -106,6 +118,10 @@ GameCornerPrizeRoomClerkText:
 
 .CoinCaseIsFull:
 	text_far _GameCornerPrizeRoomClerkCoinCaseIsFullText
+	text_end
+
+.NoRoomFor500Coins:
+	text_far _GameCornerPrizeRoomClerkNoRoomFor500CoinsText
 	text_end
 
 .DontHaveCoinCase:

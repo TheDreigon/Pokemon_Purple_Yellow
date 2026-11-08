@@ -735,10 +735,16 @@ _ViridianBlackboardBurnText::
 	cont "a burn!"
 	prompt
 
+; v1.0 (2026-11-08): every freeze lowers SPEED one stage (PrintFrozenTextAndLowerSpeed, effects.asm); the
+; lesson says so, as the manual's 4_3 does
 _ViridianBlackboardFrozenText::
 	text "A frozen #MON"
 	line "cannot move at"
 	cont "all!"
+
+	para "Each freeze also"
+	line "lowers SPEED one"
+	cont "step!"
 
 	para "The ice melts on"
 	line "its own after a"
