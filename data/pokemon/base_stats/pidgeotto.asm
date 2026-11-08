@@ -1,9 +1,9 @@
 	db DEX_PIDGEOTTO ; pokedex id
-	base_stat_row 70, 65, 55, 50, 50, 75 ; hp atk def spatk spdef spd
+	base_stat_row 70, 65, 55, 55, 50, 80 ; hp atk def spatk spdef spd
 
 	db NORMAL, FLYING ; type
-	db 125 ; catch rate  ; mid stage, BST 365
-	db 110 ; base exp  ; BST 365
+	db 120 ; catch rate  ; mid stage, BST 375
+	db 110 ; base exp  ; BST 375
 
 	INCBIN "gfx/pokemon/front/pidgeotto.pic", 0, 1 ; sprite dimensions
 	dw PidgeottoPicFront, PidgeottoPicBack
