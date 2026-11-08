@@ -89,60 +89,15 @@ CreditsTextPointers:
 	dw CreditsText_Yamazaki
 
 	dw CreditsText_Creator
-	dw CreditsText_Developer
-	dw CreditsText_Editor
-	dw CreditsText_Moderators
-	dw CreditsText_Playtesters
 	dw CreditsText_SpriteArtists
-	dw CreditsText_BackspriteArtists
-	dw CreditsText_Tutorials
 	dw CreditsText_Pret1
 	dw CreditsText_Pret2
 	dw CreditsText_Pret3
 	dw CreditsText_Pret4
-	dw CreditsText_SmithPlaysPokemon
-	dw CreditsText_Smith
-	dw CreditsText_cRzShadows
-	dw CreditsText_Weebra
-	dw CreditsText_Aero
-	dw CreditsText_Zach
-	dw CreditsText_Karlos
-	dw CreditsText_Isona
-	dw CreditsText_Regi
-	dw CreditsText_Daily
-	dw CreditsText_Obelisk
-	dw CreditsText_Disq
-	dw CreditsText_Brice
 	dw CreditsText_ReaderDragon
-	dw CreditsText_Sable
-	dw CreditsText_Soul
-	dw CreditsText_Talos
-	dw CreditsText_Alakadoof
-	dw CreditsText_Rwne
-	dw CreditsText_Rangi42
-	dw CreditsText_PlagueVonKarma
-	dw CreditsText_Jojobear13
-	dw CreditsText_YakiNeen
-	dw CreditsText_Pgattic
-	dw CreditsText_Xillicis
-	dw CreditsText_Dannye
-	dw CreditsText_SoupPotato
-	dw CreditsText_Voloved
-	dw CreditsText_Veganlies2me
-	dw CreditsText_SatoMew
-	dw CreditsText_TPP
-	dw CreditsText_Idain
-	dw CreditsText_Nayru62
-	dw CreditsText_Jaas
-	dw CreditsText_Longlostsoul
 	dw CreditsText_GhostMissingNo
 	dw CreditsText_ZetaNull
-	dw CreditsText_Chamber
-	dw CreditsText_Soloo993
 	dw CreditsText_BlueEmerald
-	dw CreditsText_Lake
-	dw CreditsText_Neslug
-	dw CreditsText_TomWang
 
 	dw CreditsText_TheDreigon
 	dw CreditsText_WithHelpFrom
@@ -394,26 +349,16 @@ CreditsText_Yoshimura:
 CreditsText_Yamazaki:
 	db -6, "SAKAE YAMAZAKI@"
 
-; Yellow Legacy's staff screens left the roll in 1.0: of the strings from here to CreditsText_TomWang
-; only CREATED BY, SPRITE ARTISTS, pret's four, READER DRAGON, GHOST-MISSINGNO, ZETA NULL and BLUE
-; EMERALD are on it, centred by the rule above; the others stay, with Yellow Legacy's offsets, so
-; that no CRED_* id moves
+; Yellow Legacy's strings that the roll shows (its staff screens left the roll in 1.0), centred by the
+; rule above. v1.0 (2026-11-08): the 45 Yellow Legacy strings no CreditsOrder row named are gone, with
+; their pointers and CRED_* ids: its staff screens' words, and the single artist names, which the roll
+; shows in pairs (CreditsText_YLArtists*). CreditsOrder names every string by its CRED_* constant, so the
+; ids that moved down change nothing on screen. Vanilla's own unused strings above (MIYAMOTO to IZUSHI2,
+; and PRODUCERS) stay: what vanilla has is kept.
 CreditsText_Creator:
 	db -4, "CREATED BY@"
-CreditsText_Developer:
-	db -3, "DEVELOPER@"
-CreditsText_Editor:
-	db -2, "EDITOR@"
-CreditsText_Moderators:
-	db -4, "MODERATORS@"
-CreditsText_Playtesters:
-	db -4, "PLAYTESTERS@"
 CreditsText_SpriteArtists:
 	db -6, "SPRITE ARTISTS@"
-CreditsText_BackspriteArtists:
-	db -8, "BACKSPRITE ARTISTS@"
-CreditsText_Tutorials:
-	db -7, "TUTORIALS / CODE@"
 CreditsText_Pret1:
 	db -7, "THANK YOU TO THE@"
 CreditsText_Pret2:
@@ -422,113 +367,14 @@ CreditsText_Pret3:
 	db -4, "POKEYELLOW@"
 CreditsText_Pret4:
 	db -5, "DISASSEMBLY@"
-
-CreditsText_SmithPlaysPokemon:
-	db -7, "SMITHPLAYSPOKEMON@"
-
-CreditsText_Smith:
-	db -6, "THE SMITH PLAYS@"
-CreditsText_cRzShadows:
-	db -4, "CRZ SHADOWS@"
-CreditsText_Weebra:
-	db -2, "WEEBRA@"
-
-; Moderators
-CreditsText_Aero:
-	db -1, "AERO@"
-CreditsText_Zach:
-	db -3, "ZUPERZACH@"
-CreditsText_Karlos:
-	db -2, "KARLOS@"
-CreditsText_Isona:
-	db -1, "ISONA@"
-CreditsText_Regi:
-	db -1, "REGI@"
-CreditsText_Daily:
-	db -1, "DAILY@"
-CreditsText_Obelisk:
-	db -2, "OBELISK@"
-
-; Playtesters
-CreditsText_Disq:
-	db -1, "DISQ@"
-CreditsText_Brice:
-	db -1, "BRICE@"
 CreditsText_ReaderDragon:
 	db -6, "READER DRAGON@"
-CreditsText_Sable:
-	db -1, "SABLE@"
-CreditsText_Soul:
-	db -4, "SOULXCROSS@"
-CreditsText_Talos:
-	db -1, "TALOS@"
-CreditsText_Alakadoof:
-	db -3, "ALAKADOOF@"
-CreditsText_Rwne:
-	db -1, "RWNE@"
-
-
-; Code/Tutorials
-CreditsText_Rangi42:
-	db -2, "RANGI42@"
-CreditsText_PlagueVonKarma:
-	db -6, "PLAGUEVONKARMA@"
-CreditsText_Jojobear13:
-	db -4, "JOJOBEAR13@"
-CreditsText_YakiNeen:
-	db -3, "YAKINEEN@"
-CreditsText_Pgattic:
-	db -2, "PGATTIC@"
-CreditsText_Xillicis:
-	db -3, "XILLICIS@"
-CreditsText_Dannye:
-	db -2, "DANNYE@"
-CreditsText_SoupPotato:
-	db -4, "SOUPPOTATO@"
-CreditsText_Voloved:
-	db -2, "VOLOVED@"
-CreditsText_Veganlies2me:
-	db -5, "VEGANLIES2ME@"
-CreditsText_SatoMew:
-	db -2, "SATOMEW@"
-CreditsText_TPP:
-	db -8, "TWITCHPLAYSPOKEMON@"
-
-; Special Thanks
-CreditsText_Idain:
-	db -1, "IDAIN@"
-CreditsText_Nayru62:
-	db -2, "NAYRU62@"
-CreditsText_Jaas:
-	db -4, "JaaShooUhh@"
-
-; v0.7 space pass (2026-08-17): five orphaned "2" credit-string variants
-; (ZuperZach/Isona/Karlos/ReaderDragon/Alakadoof backsprite-artist copies)
-; deleted — none appeared in CreditsTextPointers; the originals all do.
-
-; Green Sprite
-CreditsText_Longlostsoul:
-	db -4, "MADAME FROG@"
 CreditsText_GhostMissingNo:
 	db -7, "GHOST-MISSINGNO@"
-
-; Porygon Sprite
 CreditsText_ZetaNull:
 	db -4, "ZETA NULL@"
-
-; Party Sprites
-CreditsText_Chamber:
-	db -2, "CHAMBER@"
-CreditsText_Soloo993:
-	db -3, "SOLOO993@"
 CreditsText_BlueEmerald:
 	db -5, "BLUE EMERALD@"
-CreditsText_Lake:
-	db -1, "LAKE@"
-CreditsText_Neslug:
-	db -2, "NESLUG@"
-CreditsText_TomWang:
-	db -3, "TOM WANG@"
 
 ; Pokemon Purple Yellow (1.0)
 CreditsText_TheDreigon:

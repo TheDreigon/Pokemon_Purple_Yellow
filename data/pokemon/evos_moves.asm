@@ -2117,18 +2117,17 @@ PonytaEvosMoves:
 ; Young equine with an open Fire mane. IGNITE (Fire, not Ghost) is
 ; anatomy-correct: the mane flame is literal/open. BODY_SLAM (equine
 ; rear-up + body-down). FAIRY_WIND shared with the Vulpix line (basal
-; Fairy presence). GROUND_STOMP via hooves.
+; Fairy presence). GROUND_STOMP via hooves. v1.0 (2026-11-08): no horn
+; yet, so no horn moves; HORN_ATTACK and HORN_CHARGE are Rapidash's.
 	db  6, GROUND_STOMP
 	db  9, TACKLE
 	db 12, LOW_KICK
 	db 14, FAIRY_WIND
-	db 16, HORN_ATTACK
 	db 18, FLAME_CHARGE
 	db 21, BODY_SLAM
 	db 24, IGNITE
 	db 27, BIDE
 	db 29, FOCUS_ENERGY
-	db 30, HORN_CHARGE  ; (EVO LVL)
 	db 33, TAKE_DOWN
 	db 36, BULLDOZE
 	db 40, FLAMETHROWER
@@ -2138,23 +2137,26 @@ RapidashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Apex equine unicorn. Ponyta backbone (HORN_ATTACK L16 and HORN_CHARGE
-; L30 included) + Rapidash-exclusives: DAZZLE_GLEAM (unicorn glow, Fairy
+; Apex equine unicorn. Ponyta backbone + Rapidash-exclusives: HORN_ATTACK
+; (the horn appears with the evolution: L30, Ponyta's evolution level),
+; HORN_CHARGE (the grown horn, L38), DAZZLE_GLEAM (unicorn glow, Fairy
 ; apex), HORN_DRILL (signature, L50), DOUBLE_EDGE, FIRE_BLAST (last move,
-; L60). No EXTREMESPEED (fast but not agile).
+; L60). No EXTREMESPEED (fast but not agile). v1.0 (2026-11-08): the
+; horn moves left Ponyta (no horn on its sprite); HORN_ATTACK moved from
+; L16 to L30 and HORN_CHARGE from L30 to L38.
 	db  6, GROUND_STOMP
 	db  9, TACKLE
 	db 12, LOW_KICK
 	db 14, FAIRY_WIND
-	db 16, HORN_ATTACK
 	db 18, FLAME_CHARGE
 	db 21, BODY_SLAM
 	db 24, IGNITE
 	db 27, BIDE
 	db 29, FOCUS_ENERGY
-	db 30, HORN_CHARGE  ; (EVO LVL)
+	db 30, HORN_ATTACK  ; (EVO LVL)
 	db 33, TAKE_DOWN
 	db 36, BULLDOZE
+	db 38, HORN_CHARGE
 	db 40, FLAMETHROWER
 	db 45, DAZZLE_GLEAM
 	db 50, HORN_DRILL

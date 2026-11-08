@@ -954,15 +954,16 @@ SpecialTrainerMoves:
 	db 0
 
 	db LASS, 18 ; Celadon Gym - PARASECT 33, EXEGGUTOR 33
-	db 1, 3, SPORE ; over FALSE_SWIPE
+	db 1, 4, SPORE ; over FALSE_SWIPE
 	db 0
 
 	db BEAUTY, 3 ; Celadon Gym - VICTREEBEL 32
-	db 1, 2, SLEEP_POWDER ; over CUT
+	db 1, 2, RAZOR_LEAF ; over CUT
 	db 0
 
 	db COOLTRAINER_F, 1 ; Celadon Gym - IVYSAUR 33, VILEPLUME 33
-	db 2, 4, GIGA_DRAIN ; over SCREECH (slot 4 - SLEEP_POWDER stays in slot 1)
+	db 2, 1, GIGA_DRAIN ; over SCREECH
+	db 2, 4, SLEEP_POWDER ; over EERIE_IMPULSE
 	db 0
 
 	db COOLTRAINER_F, 10 ; Fuchsia Gym - AYA's VENONAT 40 (her Venonat's Stun Spore, EP176; learnt at 23, pushed out by 36)

@@ -2,7 +2,7 @@
 	base_stat_row 80, 85, 120, 95, 80, 60 ; hp atk def spatk spdef spd
 
 	db ROCK, WATER ; type
-	db 60 ; catch rate  ; set by hand: level with Aerodactyl
+	db 60 ; catch rate  ; set by hand: the three fossils, level
 	db 165 ; base exp  ; BST 520
 
 	INCBIN "gfx/pokemon/front/omastar.pic", 0, 1 ; sprite dimensions

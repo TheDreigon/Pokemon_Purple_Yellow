@@ -86,61 +86,17 @@
 	const CRED_NAKAMICHI             ; 53
 	const CRED_YOSHIMURA             ; 54
 	const CRED_YAMAZAKI              ; 55
+; Yellow Legacy's strings that the roll shows. v1.0 (2026-11-08): the 45 it never showed are gone
 	const CRED_CREATOR
-	const CRED_DEVELOPER
-	const CRED_EDITOR
-	const CRED_MODERATORS
-	const CRED_PLAYTESTERS
 	const CRED_SPRITE_ARTISTS
-	const CRED_BACKSPRITE_ARTISTS
-	const CRED_TUTORIALS
 	const CRED_PRET1
 	const CRED_PRET2
 	const CRED_PRET3
 	const CRED_PRET4
-	const CRED_SMITH_PLAYS_POKEMON
-	const CRED_SMITH
-	const CRED_CRZSHADOWS
-	const CRED_WEEBRA
-	const CRED_AERO
-	const CRED_ZACH
-	const CRED_KARLOS
-	const CRED_ISONA
-	const CRED_REGI
-	const CRED_DAILY
-	const CRED_OBELISK
-	const CRED_DISQ
-	const CRED_BRICE
 	const CRED_READERDRAGON
-	const CRED_SABLE
-	const CRED_SOUL
-	const CRED_TALOS
-	const CRED_ALAKADOOFF
-	const CRED_RWNE
-	const CRED_RANGI42
-	const CRED_PLAGUEVONKARMA
-	const CRED_JOJOBEAR13
-	const CRED_YAKINEED
-	const CRED_PGATTIC
-	const CRED_XILLICIS
-	const CRED_DANNYE
-	const CRED_SOUPPOTATO
-	const CRED_VOLOVED
-	const CRED_VEGANLIES2ME
-	const CRED_SATOMEW
-	const CRED_TPP
-	const CRED_IDAIN
-	const CRED_NAYRU62
-	const CRED_JAAS
-	const CRED_LONGLOSTSOUL
 	const CRED_GHOSTMISSINGNO
 	const CRED_ZETANULL
-	const CRED_CHAMBER
-	const CRED_SOLOO993
 	const CRED_BLUE_EMERALD
-	const CRED_LAKE
-	const CRED_NESLUG
-	const CRED_TOM_WANG
 ; Purple Yellow's own screens and vanilla's Game Freak opener (1.0)
 	const CRED_THEDREIGON
 	const CRED_WITH_HELP_FROM
