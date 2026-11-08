@@ -317,8 +317,9 @@ _MoveDesc_JumpKick::
 
 _MoveDesc_Mist::
 	text "Guards the user's"
-	next "stats from being"
-	next "lowered."
+	next "stats from foes."
+	next "A freeze still"
+	next "lowers SPEED."
 	done
 
 _MoveDesc_FocusEnergy::

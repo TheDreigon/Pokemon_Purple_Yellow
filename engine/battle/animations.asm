@@ -2118,6 +2118,10 @@ HideSubstituteShowMonAnim:
 	ld a, [bc]
 	cp FLY
 	jr z, .flyOrDig
+; v1.0 (2026-11-08): SKY ATTACK hides like FLY (FLY_EFFECT) and its animation also ends on SE_SHOW_MON_PIC: its
+; owner stays out of sight until then. Here it used to flash back on screen before the dive
+	cp SKY_ATTACK
+	jr z, .flyOrDig
 	cp DIG
 	jr z, .flyOrDig
 .invulnerable

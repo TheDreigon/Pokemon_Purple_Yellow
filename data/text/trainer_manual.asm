@@ -429,7 +429,9 @@ _ManualPage_4_8::
 _ManualPage_4_9::
 	text "GUARD SPEC. keeps"
 	next "your STATS from"
-	next "being cut."
+	next "being cut, but a"
+	next "FREEZE still"
+	next "lowers SPEED."
 	next ""
 	next "It does nothing"
 	next "about SLEEP,"

@@ -169,7 +169,7 @@ BrockData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Pewter Gym
 	db $FF, 10, RHYHORN, 12, GEODUDE, 14, ONIX, 0
-; 2: Rematch
+; 2: Pewter Gym (rematch, post-League)
 	db $FF, 63, KABUTOPS, 64, GOLBAT, 64, RHYDON, 65, GOLEM, 65, ONIX, 0
 
 JrTrainerMData:
@@ -394,7 +394,7 @@ MistyData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Cerulean Gym
 	db $FF, 18, GOLDEEN, 20, PSYDUCK, 22, STARMIE, 0
-; 2: Rematch
+; 2: Cerulean Gym (rematch, post-League)
 	db $FF, 63, BLASTOISE, 64, GYARADOS, 64, OMASTAR, 65, STARMIE, 65, GOLDUCK, 0
 
 SailorData:
@@ -465,7 +465,7 @@ LtSurgeData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Vermilion Gym
 	db $FF, 27, VOLTORB, 28, MAGNEMITE, 29, ELECTABUZZ, 30, RAICHU, 0
-; 2: Rematch
+; 2: Vermilion Gym (rematch, post-League)
 	db $FF, 63, POLIWRATH, 64, ELECTRODE, 64, MAGNETON, 65, ELECTABUZZ, 65, RAICHU, 0
 
 KiyoData:
@@ -621,7 +621,7 @@ ErikaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Celadon Gym (4th)
 	db $FF, 35, TANGELA, 36, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
-; 2: Rematch
+; 2: Celadon Gym (rematch, post-League)
 	db $FF, 63, EXEGGUTOR, 64, TANGELA, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
 
 GiovanniData:
@@ -668,7 +668,7 @@ KogaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Fuchsia Gym (5th)
 	db $FF, 41, VENOMOTH, 42, WEEZING, 43, MUK, 44, GOLBAT, 45, ARBOK, 0
-; 2: Rematch
+; 2: Fuchsia Gym (rematch, post-League)
 	db $FF, 63, TENTACRUEL, 64, MUK, 64, WEEZING, 65, GOLBAT, 65, ARBOK, 0
 
 JanineData:
@@ -782,7 +782,7 @@ SabrinaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Saffron Gym (6th)
 	db $FF, 41, KADABRA, 43, HYPNO, 45, VENOMOTH, 47, MR_MIME, 49, ALAKAZAM, 0
-; 2: Rematch
+; 2: Saffron Gym (rematch, post-League)
 	db $FF, 63, HYPNO, 64, MR_MIME, 64, VENOMOTH, 65, ALAKAZAM, 65, GENGAR, 0
 
 ScientistData:
@@ -816,7 +816,7 @@ BlaineData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: Cinnabar Gym
 	db $FF, 49, NINETALES, 49, RAPIDASH, 49, ARCANINE, 51, RHYDON, 52, MAGMAR, 0
-; 2: Rematch
+; 2: Cinnabar Gym (rematch, post-League)
 	db $FF, 63, NINETALES, 64, CHARIZARD, 64, ARCANINE, 65, RHYDON, 65, MAGMAR, 0
 
 CooltrainerMData:
@@ -867,28 +867,28 @@ LoreleiData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
 	db $FF, 56, SLOWBRO, 56, JYNX, 57, DEWGONG, 57, CLOYSTER, 58, LAPRAS, 0
-; 2: Rematch
+; 2: Lorelei's room (rematch, post-League)
 	db $FF, 71, SLOWBRO, 71, JYNX, 72, DEWGONG, 72, CLOYSTER, 73, LAPRAS, 0
 
 BrunoData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
 	db $FF, 57, ONIX, 57, NIDOKING, 58, HITMONCHAN, 58, HITMONLEE, 59, MACHAMP, 0
-; 2: Rematch
+; 2: Bruno's room (rematch, post-League)
 	db $FF, 72, ONIX, 72, NIDOKING, 73, HITMONCHAN, 73, HITMONLEE, 74, MACHAMP, 0
 
 AgathaData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
 	db $FF, 58, MAROWAK, 58, PARASECT, 59, GOLBAT, 59, ARBOK, 60, GENGAR, 0
-; 2: Rematch
+; 2: Agatha's room (rematch, post-League)
 	db $FF, 73, MAROWAK, 73, PARASECT, 74, GOLBAT, 74, ARBOK, 75, GENGAR, 0
 
 LanceData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
 ; 1: E4
 	db $FF, 60, CHARIZARD, 60, SEADRA, 61, GYARADOS, 61, AERODACTYL, 62, DRAGONITE, 62, DRAGONITE, 0
-; 2: Rematch — Main sets +15 levels
+; 2: Lance's room (rematch, post-League, Main sets +15 levels)
 	db $FF, 75, CHARIZARD, 75, SEADRA, 76, GYARADOS, 76, AERODACTYL, 77, DRAGONITE, 77, DRAGONITE, 0
 
 Rival3Data:

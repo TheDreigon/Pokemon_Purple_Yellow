@@ -205,7 +205,7 @@ _MaxReviveDescription::
 
 _GuardSpecDescription::
 	text "Guards stats from"
-	next "all enemy drops."
+	next "foes, not freezes."
 	prompt
 
 _SuperRepelDescription::

@@ -31,7 +31,7 @@ SpecialTrainerMoves:
 	db 3, 4, COIL
 	db 0
 
-	db BROCK, 2 ; Rematch — 63 KABUTOPS, 64 GOLBAT, 64 RHYDON, 65 GOLEM, 65 ONIX
+	db BROCK, 2 ; Pewter Gym (rematch, post-League) — 63 KABUTOPS, 64 GOLBAT, 64 RHYDON, 65 GOLEM, 65 ONIX
 	db 1, 1, ROCK_SLIDE
 	db 1, 2, SURF
 	db 1, 3, NIGHT_SLASH
@@ -69,7 +69,7 @@ SpecialTrainerMoves:
 	db 3, 4, ICY_PULSE
 	db 0
 
-	db MISTY, 2 ; Rematch — 63 BLASTOISE, 64 GYARADOS, 64 OMASTAR, 65 STARMIE, 65 GOLDUCK
+	db MISTY, 2 ; Cerulean Gym (rematch, post-League) — 63 BLASTOISE, 64 GYARADOS, 64 OMASTAR, 65 STARMIE, 65 GOLDUCK
 	db 1, 1, HYDRO_PUMP
 	db 1, 2, BLIZZARD
 	db 1, 3, HEAVY_SLAM
@@ -111,7 +111,7 @@ SpecialTrainerMoves:
 	db 4, 4, BODY_SLAM
 	db 0
 
-	db LT_SURGE, 2 ; Rematch — 63 POLIWRATH, 64 ELECTRODE, 64 MAGNETON, 65 ELECTABUZZ, 65 RAICHU
+	db LT_SURGE, 2 ; Vermilion Gym (rematch, post-League) — 63 POLIWRATH, 64 ELECTRODE, 64 MAGNETON, 65 ELECTABUZZ, 65 RAICHU
 	db 1, 1, SURF
 	db 1, 2, SUBMISSION
 	db 1, 3, EARTHQUAKE
@@ -153,7 +153,7 @@ SpecialTrainerMoves:
 	db 4, 4, BULLDOZE
 	db 0
 
-	db ERIKA, 2 ; Rematch — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
+	db ERIKA, 2 ; Celadon Gym (rematch, post-League) — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, PETAL_DANCE
 	db 1, 3, HYPNOSIS
@@ -199,7 +199,7 @@ SpecialTrainerMoves:
 	db 5, 4, TOXIC
 	db 0
 
-	db KOGA, 2 ; Rematch — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
+	db KOGA, 2 ; Fuchsia Gym (rematch, post-League) — 63 TENTACRUEL, 64 MUK, 64 WEEZING, 65 GOLBAT, 65 ARBOK
 	db 1, 1, SURF
 	db 1, 2, SLUDGE_WAVE
 	db 1, 3, ICE_BEAM
@@ -245,7 +245,7 @@ SpecialTrainerMoves:
 	db 5, 4, BODY_SLAM
 	db 0
 
-	db BLAINE, 2 ; Rematch — 63 NINETALES, 64 CHARIZARD, 64 ARCANINE, 65 RHYDON, 65 MAGMAR
+	db BLAINE, 2 ; Cinnabar Gym (rematch, post-League) — 63 NINETALES, 64 CHARIZARD, 64 ARCANINE, 65 RHYDON, 65 MAGMAR
 	db 1, 1, FIRE_BLAST
 	db 1, 2, DARK_PULSE
 	db 1, 3, SHADOW_BALL
@@ -291,7 +291,7 @@ SpecialTrainerMoves:
 	db 5, 4, CALM_MIND
 	db 0
 
-	db SABRINA, 2 ; Rematch — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
+	db SABRINA, 2 ; Saffron Gym (rematch, post-League) — 63 HYPNO, 64 MR_MIME, 64 VENOMOTH, 65 ALAKAZAM, 65 GENGAR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, HYPNOSIS
 	db 1, 3, DREAM_EATER
@@ -406,7 +406,7 @@ SpecialTrainerMoves:
 	db 5, 4, SING
 	db 0
 
-	db LORELEI, 2 ; Rematch — 71 SLOWBRO, 71 JYNX, 72 DEWGONG, 72 CLOYSTER, 73 LAPRAS
+	db LORELEI, 2 ; Lorelei's room (rematch, post-League) — 71 SLOWBRO, 71 JYNX, 72 DEWGONG, 72 CLOYSTER, 73 LAPRAS
 	db 1, 1, SURF
 	db 1, 2, PSYCHIC_M
 	db 1, 3, ICE_BEAM
@@ -452,7 +452,7 @@ SpecialTrainerMoves:
 	db 5, 4, BULK_UP
 	db 0
 
-	db BRUNO, 2 ; Rematch — 72 ONIX, 72 NIDOKING, 73 HITMONCHAN, 73 HITMONLEE, 74 MACHAMP
+	db BRUNO, 2 ; Bruno's room (rematch, post-League) — 72 ONIX, 72 NIDOKING, 73 HITMONCHAN, 73 HITMONLEE, 74 MACHAMP
 	db 1, 1, EARTHQUAKE
 	db 1, 2, ROCK_SLIDE
 	db 1, 3, IRON_TAIL
@@ -498,7 +498,7 @@ SpecialTrainerMoves:
 	db 5, 4, NASTY_PLOT
 	db 0
 
-	db AGATHA, 2 ; Rematch — 73 MAROWAK, 73 PARASECT, 74 GOLBAT, 74 ARBOK, 75 GENGAR
+	db AGATHA, 2 ; Agatha's room (rematch, post-League) — 73 MAROWAK, 73 PARASECT, 74 GOLBAT, 74 ARBOK, 75 GENGAR
 	db 1, 1, EARTHQUAKE
 	db 1, 2, GORE_ATTACK
 	db 1, 3, SHADOW_BALL
@@ -548,7 +548,7 @@ SpecialTrainerMoves:
 	db 6, 4, SURF
 	db 0
 
-	db LANCE, 2 ; Rematch — Main sets +15 levels — 75 CHARIZARD, 75 SEADRA, 76 GYARADOS, 76 AERODACTYL, 77 DRAGONITE, 77 DRAGONITE
+	db LANCE, 2 ; Lance's room (rematch, post-League, Main sets +15 levels) — 75 CHARIZARD, 75 SEADRA, 76 GYARADOS, 76 AERODACTYL, 77 DRAGONITE, 77 DRAGONITE
 	db 1, 1, FLAMETHROWER
 	db 1, 2, DRAGON_RAGE
 	db 1, 3, AERIAL_ACE

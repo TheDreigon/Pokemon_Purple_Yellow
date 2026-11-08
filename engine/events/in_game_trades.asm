@@ -168,7 +168,8 @@ InGameTrade_GiveSpecialMove:
 ; if all four are same-type attacks does the oldest go regardless. It used
 ; to be slot 4, the newest move, which is usually the same-type attack the
 ; mon has just learned: SPORE's PARASECT at 28 and LOLA's JYNX at 25 arrived
-; with no attack of their own type at all.
+; with no attack of their own type at all. v1.0 (2026-11-08): before that, an
+; attack signature replaces the weakest attack of its own type, if any.
 	ld a, [wMoveNum]
 	and a
 	ret z ; dormant rows carry no special move
@@ -192,6 +193,45 @@ InGameTrade_GiveSpecialMove:
 ; four natural moves: find the one that gives way
 	ld bc, -NUM_MOVES
 	add hl, bc ; back to slot 1, the oldest
+; v1.0 (2026-11-08): first, when the signature is an attack and the mon already
+; knows attacks of the SIGNATURE's type, the weakest of those gives way (by the
+; power byte; a tie sends the older): COLT's ROLLING_KICK takes the place of
+; the LOW_KICK it grows out of, DUX's DRILL_PECK PECK's, PTERA's GORE_ATTACK
+; FAINT_ATTACK's. A status signature (MILES's TRANSFORM) skips this step.
+	ld a, e
+	call InGameTrade_IsSameTypeAttack ; only for a = its type, wBuffer + 2 = its power
+	ld [wBuffer], a
+	ld [wBuffer + 1], a ; the signature's type, twice
+	ld a, [wBuffer + 2]
+	and a
+	jr z, .noOwnTypeAttack ; a status signature (the power byte 0; no signature is NIGHT_SHADE)
+	ld bc, NUM_MOVES << 8 ; b: the slots left to look at; c: the weakest one's b (0: none yet)
+	ld d, $ff ; its power
+.findWeakest
+	ld a, [hli]
+	call InGameTrade_IsSameTypeAttack
+	jr nc, .notWeaker
+	ld a, [wBuffer + 2]
+	cp d
+	jr nc, .notWeaker ; a tie keeps the older
+	ld d, a
+	ld c, b
+.notWeaker
+	dec b
+	jr nz, .findWeakest
+	ld a, c
+	and a
+	jr z, .backToSlot1
+	cpl
+	ld c, a
+	ld b, $ff
+	inc bc ; bc = -c
+	add hl, bc ; slot 1 + 4 - c: the weakest one
+	jr .write
+.backToSlot1
+	ld bc, -NUM_MOVES
+	add hl, bc
+.noOwnTypeAttack
 	push hl
 	ld bc, MON_TYPE1 - MON_MOVES
 	add hl, bc
@@ -234,7 +274,8 @@ InGameTrade_GiveSpecialMove:
 InGameTrade_IsSameTypeAttack:
 ; Carry if move a is a damaging move whose type is one of the two latched in
 ; wBuffer / wBuffer + 1 (the received mon's). A status move is never kept for
-; its type. Preserves bc, de and hl.
+; its type. Preserves bc, de and hl. v1.0 (2026-11-08): also leaves the move's
+; power byte in wBuffer + 2 and, for a damaging move, its type in a.
 	push hl
 	push bc
 	dec a
@@ -243,6 +284,7 @@ InGameTrade_IsSameTypeAttack:
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
+	ld [wBuffer + 2], a
 	and a
 	jr nz, .damaging
 ; power 0 is a status move, except NIGHT_SHADE: its damage is the user's

@@ -3,8 +3,10 @@ TradeSpecialMoves:
 ; One signature "illegal" move per NPC trade (event-mon style), indexed by
 ; TRADE_FOR_* like TradeMons. Written into the received mon's first empty
 ; move slot with correct max PP, right after the trade; with four moves, over
-; the oldest one that is not a same-type attack (the oldest of all only when
-; the four are same-type attacks) - see InGameTrade_GiveSpecialMove.
+; the weakest attack of the signature's own type when it knows one (v1.0,
+; 2026-11-08: the signature is an attack), else over the oldest one that is
+; not a same-type attack (the oldest of all only when the four are same-type
+; attacks) - see InGameTrade_GiveSpecialMove.
 ; 0 = no special move (dormant rows).
 	db ROLLING_KICK ; COLT    (Ponyta — a horse's weapon is the kick; it grows out of the foal's own LOW_KICK). v1.0 (2026-09-22): the trade was DUGTRIO "TREMOR" with HEAD_SMASH
 	db TRANSFORM    ; MILES   (Mr. Mime — the perfect mime)
