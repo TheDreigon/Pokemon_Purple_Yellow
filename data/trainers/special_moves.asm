@@ -944,9 +944,10 @@ SpecialTrainerMoves:
 	db 0
 
 	db SCIENTIST, 9 ; Silph Co. 8F — prototype PORYGON ace (40 MAGNETON, 42 ELECTRODE, 45 PORYGON)
-	; The specified set. All four are level-up moves the L45 Porygon already has
-	; naturally (TRI_ATTACK 40, SHOCK_WAVE 20, ICY_PULSE 32, EXTRASENSORY 30),
-	; so this is legal without relying on the learns-later allowance.
+	; The specified set. All four are level-up moves PORYGON learns by L45
+	; (SHOCK_WAVE 20, EXTRASENSORY 30, ICY_PULSE 32, TRI_ATTACK 40), so the set
+	; needs no learns-later allowance. They are not its natural four: at L45
+	; those are REFLECT, TRI_ATTACK, METRONOME, PSYBEAM (v1.0, 2026-11-08).
 	db 3, 1, TRI_ATTACK
 	db 3, 2, SHOCK_WAVE
 	db 3, 3, ICY_PULSE

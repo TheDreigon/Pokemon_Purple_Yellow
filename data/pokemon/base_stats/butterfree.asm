@@ -12,11 +12,12 @@
 
 	; tm/hm learnset
 	; Butterfly Bug/Psychic. Psychic STAB EXTRASENSORY/PSYCHIC_M. Wing
-	; HURRICANE, scale-dust DAZZLE_GLEAM. HM FLY/FLASH (luminous wings).
-	; Fun moves: last-stage line.
-	tmhm MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, DAZZLE_GLEAM, \
-	     HURRICANE, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, REFLECT, \
-	     PETAL_DANCE, FLY, FLASH
+	; HURRICANE and AERIAL_ACE (by TM only, as VENOMOTH; BEEDRILL also
+	; learns it at L28 - 2026-11-08), scale-dust DAZZLE_GLEAM. HM FLY/FLASH
+	; (luminous wings). Fun moves: last-stage line.
+	tmhm MIMIC, MIRROR_MOVE, SUBSTITUTE, METRONOME, AERIAL_ACE, \
+	     DAZZLE_GLEAM, HURRICANE, EXTRASENSORY, PSYCHIC_M, LIGHT_SCREEN, \
+	     REFLECT, PETAL_DANCE, FLY, FLASH
 	; end
 
 	db BANK(ButterfreePicFront) ; which bank this mon's pics live in
