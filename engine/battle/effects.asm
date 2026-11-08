@@ -51,17 +51,7 @@ SleepEffect:
 	and a
 	jr nz, .didntAffect
 .setSleepCounter
-; PURPLE YELLOW v0.5: sleep lasts 2-5 turns (was 1-7 with Stadium override to 1-3).
-; v1.0 (2026-11-07): the counter is 3-6. The wake-up turn attacks (core.asm .WakeUp, since
-; 2026-09-24), so a counter N holds the #MON N - 1 turns: 3-6 is the 2-5 turns the SLEEP card
-; and TRAINER MANUAL 4_4 say (REST's 3 is its 2 turns).
-	call BattleRandom
-	and $3   ; 0-3
-	add 3    ; 3-6
-	ld b, a
-.asm_3f1ba
-	ld a, b
-	ld [de], a
+	call DrawSleepCounter ; [de] = the counter, 3-6
 ; v1.0 (2026-09-27): sleep replaces any status here (the recharge bypass above
 ; skips the "already statused" test): a bad POISON goes with the POISON, or it
 ; would come back as TOX on the next ordinary POISON; and (N5) a burn's ATTACK
@@ -76,6 +66,19 @@ SleepEffect:
 FellAsleepText:
 	text_far _FellAsleepText
 	text_end
+
+; The sleep counter's one draw, stored at de (kills a). PURPLE YELLOW v0.5: sleep lasts 2-5 turns
+; (was 1-7 with Stadium override to 1-3). v1.0 (2026-11-07): the counter is 3-6. The wake-up turn
+; attacks (core.asm .WakeUp, since 2026-09-24), so a counter N holds the #MON N - 1 turns: 3-6 is
+; the 2-5 turns the SLEEP card and TRAINER MANUAL 4_4 say (REST's 3 is its 2 turns).
+; v1.0 (2026-11-08): the disobedience nap stores it too (CheckForDisobedience .monNaps, farcall),
+; so a nap lasts as a SLEEP move's sleep; it drew 1-7 as in Gen 1.
+DrawSleepCounter:
+	call BattleRandom
+	and $3 ; 0-3
+	add 3  ; 3-6
+	ld [de], a
+	ret
 
 AlreadyAsleepText:
 	text_far _AlreadyAsleepText

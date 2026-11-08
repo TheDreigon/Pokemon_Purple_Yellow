@@ -273,10 +273,21 @@ Evolution_PartyMonLoop: ; loop over party mons
 ; battle, an evolution stone used on it), and the max-HP gain added to 0 HP revived
 ; it. It keeps the evolution, the level, the stats and the moves, as the level-up's
 ; own guard (.keepFaintedMonFainted, engine/battle/experience.asm) has it.
+; v1.0 (2026-11-08): by path. The end of a battle (EndOfBattle runs this before it
+; clears wIsInBattle) never revives, in either mode. Out of battle - an evolution stone
+; or a RARE CANDY from the bag, wIsInBattle 0 - it follows the RARE CANDY: Normal adds
+; the gain as Gen 1 did (the candy's level-up has revived it already), Hard does not.
 	ld hl, wLoadedMonHP + 1
 	ld a, [hld]
 	or [hl] ; wLoadedMonHP: both bytes zero means fainted
-	jr z, .stayFainted ; hl = wLoadedMonHP, where the add below ends too
+	jr nz, .addHPGain
+	ld a, [wIsInBattle]
+	and a
+	jr nz, .stayFainted ; hl = wLoadedMonHP, where the add below ends too
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr nz, .stayFainted
+.addHPGain
 	inc hl
 	ld a, [hl]
 	add c
@@ -284,6 +295,14 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld a, [hl]
 	adc b
 	ld [hl], a
+; v1.0 (2026-11-08): at least 1 HP. EEVEE, FLAREON and JOLTEON share base HP 65, so those two
+; stone evolutions gain 0 max HP, and the Normal revive above left a fainted EEVEE at 0 HP.
+	inc hl
+	or [hl]
+	jr nz, .hpGainDone
+	inc [hl] ; the LSB: 1 HP
+.hpGainDone
+	dec hl
 .stayFainted
 	dec hl
 	pop bc

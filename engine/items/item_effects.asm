@@ -1975,12 +1975,23 @@ ASSERT ZINC > RARE_CANDY, "ZINC is the appended SP.DEF vitamin; if it ever joins
 ; add the amount gained to the current HP
 	ld de, (wPartyMon1HP + 1) - wPartyMon1MaxHP
 	add hl, de ; hl now points to LSB of current HP
+; v1.0 (2026-11-08): on Hard a fainted #MON gains the level and stays fainted (the gain added to 0 HP
+; revived it); Normal keeps Gen 1's revive. Its evolution follows (EvolutionAfterBattle).
+	ld a, [wDifficulty]
+	and a ; NORMAL_MODE?
+	jr z, .candyAddsHP
+	ld a, [hld]
+	or [hl] ; both bytes zero means fainted
+	jr z, .candyHPDone ; hl = the MSB, where the add below ends too
+	inc hl
+.candyAddsHP
 	ld a, [hl]
 	add c
 	ld [hld], a
 	ld a, [hl]
 	adc b
 	ld [hl], a
+.candyHPDone
 	ld a, RARE_CANDY_MSG
 	ld [wPartyMenuTypeOrMessageID], a
 	call RedrawPartyMenu

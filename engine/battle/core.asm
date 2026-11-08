@@ -3749,13 +3749,8 @@ playPlayerMoveAnimation:
 playerCheckIfFlyOrChargeEffect:
 	ld c, 30
 	call DelayFrames
-	ld a, [wPlayerMoveEffect]
-	cp FLY_EFFECT
-	jr z, .playAnim
-	cp CHARGE_EFFECT
-	jr z, .playAnim
-	jr MirrorMoveCheck
-.playAnim
+	call AttackerMoveHid ; v1.0 (2026-11-08): no move animation shows a hidden user again here - see AttackerMoveHid
+	jr nz, MirrorMoveCheck
 	xor a
 	ld [wAnimationType], a
 	ld a, STATUS_AFFECTED_ANIM
@@ -4592,12 +4587,8 @@ CheckForDisobedience:
 	call HandleSelfConfusionDamage
 	jp .cannotUseMove
 .monNaps
-	call BattleRandom
-	add a
-	swap a
-	and SLP_MASK
-	jr z, .monNaps ; keep trying until we get at least 1 turn of sleep
-	ld [wBattleMonStatus], a
+	ld de, wBattleMonStatus
+	farcall DrawSleepCounter ; v1.0 (2026-11-08): a SLEEP move's counter, 3-6 (was 1-7, Gen 1's draw)
 	farcall PlayerStatusGone ; v1.0 (2026-09-27): the nap replaces any status - a bad POISON goes with the POISON, and (N5) a burn/para cut
 	ld hl, BeganToNapText
 	jr .printText
@@ -5926,13 +5917,8 @@ EnemyCheckIfFlyOrChargeEffect:
 	call SwapPlayerAndEnemyLevels
 	ld c, 30
 	call DelayFrames
-	ld a, [wEnemyMoveEffect]
-	cp FLY_EFFECT
-	jr z, .playAnim
-	cp CHARGE_EFFECT
-	jr z, .playAnim
-	jr EnemyCheckIfMirrorMoveEffect
-.playAnim
+	call AttackerMoveHid ; v1.0 (2026-11-08): as the player's (playerCheckIfFlyOrChargeEffect)
+	jr nz, EnemyCheckIfMirrorMoveEffect
 	xor a
 	ld [wAnimationType], a
 	ld a, STATUS_AFFECTED_ANIM
@@ -6336,6 +6322,32 @@ GetCurrentMove:
 	call GetName
 	ld de, wcd6d
 	jp CopyToStringBuffer
+
+; v1.0 (2026-11-08): z when the attacker's move hid it on its charge turn - ChargeEffect's own rule, a
+; FLY_EFFECT move (FLY, SKY ATTACK) or DIG. The attack turn's miss path (and its 0-power path) plays no move
+; animation, so it shows the user again on z, and only then: the move that hid it is the move missing now
+; (its charge turn runs ChargeEffect, never this path), and INVULNERABLE is already cleared
+; (Player/EnemyCanExecuteChargingMove). The effect is read from the move table, not from w*MoveEffect:
+; the other side's BIDE zeroes both bytes (BideEffect) and the enemy's attack turn does not reload its
+; move (ExecuteEnemyMove), so a BIDE started the turn the enemy hid left it unseen after a miss.
+; Kills a, bc and hl.
+AttackerMoveHid:
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveNum]
+	jr z, .gotMove
+	ld a, [wEnemyMoveNum]
+.gotMove
+	cp DIG
+	ret z
+	dec a
+	ld hl, Moves + MOVE_EFFECT
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	cp FLY_EFFECT
+	ret
 
 LoadEnemyMonData:
 	ld a, [wEnemyMonSpecies2]
