@@ -79,12 +79,16 @@ ShowMovedexMenu::
 ; thing to rely on.
 	ld a, 1
 	ld [wMenuWatchMovingOutOfBounds], a
+	ld a, [wCurrentMenuItem]
+	push af ; the cursor before this input, for .startPressed
 	call HandleMenuInput
+	pop bc ; b = that cursor (the flags and a = hJoy5 are HandleMenuInput's)
 
 	bit BIT_B_BUTTON, a
 	jr nz, .done
 	bit BIT_START, a
 	jr nz, .startPressed ; START closes it the same way it opened it
+.dispatch
 	bit BIT_A_BUTTON, a
 	jr nz, .showCard
 	bit BIT_D_UP, a
@@ -104,7 +108,18 @@ ShowMovedexMenu::
 	ldh a, [hJoyPressed]
 	and START
 	jr nz, .done
-	jp .loop
+; v1.0 (2026-11-08): a START that is only HELD is invisible, as on the POKeDEX list: the keys that came with it are
+; handled as if it were up (A was tested after START, and was dropped with the D-pad). An Up or Down that
+; HandleMenuInput already moved the cursor for comes back too because START is watched; the cursor still where it
+; was (b) means the window's edge, and the list scrolls.
+	ld a, [wCurrentMenuItem]
+	cp b
+	ldh a, [hJoy5]
+	jr z, .heldStartAtEdge
+	and ~(D_UP | D_DOWN) ; the cursor already moved
+.heldStartAtEdge
+	and ~START
+	jr .dispatch ; nothing left: .dispatch falls through to .loop
 
 .done
 ; 🔴 Hand the screen back BLANK. Pokedex_DrawInterface writes its panel cell by

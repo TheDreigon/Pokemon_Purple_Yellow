@@ -1,4 +1,11 @@
 TryFieldMove:: ; predef
+; v1.0 (2026-11-08): not while a trainer is engaging the player (wFlags_0xcd60 bit 0, set from his "!" until his
+; battle), the same refusal as TryUseRegisteredItem below. A trainer standing right beside the player never walks,
+; so wJoyIgnore stays D-pad only, and an A pressed under the "!" reached the SURF/CUT prompt before his words. Both
+; callers (home/overworld.asm and HiddenItems .itemAlreadyFound) ignore what this returns.
+	ld a, [wFlags_0xcd60]
+	bit 0, a
+	ret nz
 	call GetPredefRegisters
 	call TrySurf
 	ret z

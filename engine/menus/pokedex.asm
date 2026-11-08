@@ -207,7 +207,10 @@ HandlePokedexListMenu:
 .loop
 	call Pokedex_PlacePokemonList
 	call GBPalNormal
+	ld a, [wCurrentMenuItem]
+	push af ; the cursor before this input, for .startPressed
 	call HandleMenuInput
+	pop bc ; b = that cursor (the flags and a = hJoy5 are HandleMenuInput's)
 	bit BIT_B_BUTTON, a ; was the B button pressed?
 	jp nz, .buttonBPressed
 	bit BIT_A_BUTTON, a ; was the A button pressed?
@@ -313,7 +316,21 @@ HandlePokedexListMenu:
 ; MOVEDEX, whose START closes it, for as long as it was held.
 	ldh a, [hJoyPressed]
 	and START
-	jp z, .loop
+	jr nz, .newStart
+; v1.0 (2026-11-08): a START that is only HELD is invisible: the keys that came with it are handled as if it were up
+; (B and A were tested above). START is watched, so HandleMenuInput hands back an Up or Down it has already moved the
+; cursor for, which an unwatched key only does at the window's edge; the cursor still where it was (b) means the
+; edge, and the list scrolls. Before, every key that came with a held START was dropped.
+	ld a, [wCurrentMenuItem]
+	cp b
+	ldh a, [hJoy5]
+	jr z, .heldStartAtEdge
+	and ~(D_UP | D_DOWN) ; the cursor already moved
+.heldStartAtEdge
+	and D_UP | D_DOWN | D_LEFT | D_RIGHT
+	jp z, .loop ; START alone
+	jp .checkIfUpPressed
+.newStart
 ; Reported in b rather than acted on here: this routine's caller owns the
 ; screen, and its carry already means "a Pokemon was chosen". b costs nothing,
 ; and WRAM has no byte to spare -- it is full at 8192/8192.

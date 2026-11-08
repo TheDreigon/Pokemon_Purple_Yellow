@@ -1130,7 +1130,16 @@ OaksLabPlayerReceivedMonText:
 	ld [wd11e], a
 	ld [wcf91], a
 	call AddPartyMon
+IF DEF(_DEBUG)
+; v1.0 (2026-11-08): only when the PIKACHU was added. AddPartyMon returns carry when it appended a #MON and no carry
+; when the party was already full (_AddPartyMon's `ret nc`; Bankswitch and the wrapper's pops keep the flags). The
+; debug NEW GAME's party can be full here, and the routine works on the last slot, so the sixth #MON took the
+; partner's marker, $FFFF DVs and a level-5 PIKACHU's stats. A new game comes here with an empty party, so the
+; release ROM keeps the plain call.
+	call c, MaxOutStarterPikachuDVs
+ELSE
 	call MaxOutStarterPikachuDVs ; the marker and the perfect DVs, on the slot just added
+ENDC
 	call DisablePikachuOverworldSpriteDrawing
 	SetEvent EVENT_GOT_STARTER
 	ld hl, wd72e
