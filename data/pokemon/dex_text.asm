@@ -1086,7 +1086,7 @@ _KoffingDexEntry::
 	page "explode without"
 	next "any warning. Be"
 	next "very careful!"
-	dex
+	dex_nodot ; the vanilla '!@@' ending: <DEXEND> would print a '.' after the '!'
 
 _WeezingDexEntry::
 	text "It lives and grows"
