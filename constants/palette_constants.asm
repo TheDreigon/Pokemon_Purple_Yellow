@@ -120,7 +120,8 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       APPENDED, never inserted.
 	const PAL_SAFARI                 ; $34 - the SAFARI ZONE's map palette (the gate, the four areas, the five
 	                                 ;       houses): terracotta for colour 1 (the ground, the roofs, the floors,
-	                                 ;       the sprites: PAL_BROWNMON's, the colour of most of its Pokemon) and
+	                                 ;       the sprites: PAL_BROWNMON's, the colour of most of its Pokemon; since
+	                                 ;       2026-11-08 about half of its browns wear PAL_DARKBROWNMON instead) and
 	                                 ;       green for colour 2 (the trees, the water, the walls). GetPal_Overworld
 	                                 ;       picks it by map id. APPENDED, never inserted.
 ; v1.0 (2026-11-04): six map palettes for interiors that took the colours of the town or route outside. Colour 1 paints
@@ -160,6 +161,9 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_CHAMPION               ; $47 - the CHAMPION's room: gold
 	const PAL_GATE                   ; $48 - every passage house (the GATE and FOREST_GATE tilesets): a light peach
 	                                 ;       floor, the bushes and the details green
+	const PAL_DARKBROWNMON           ; $49 - PAL_BROWNMON x0.90, a touch darker (2026-11-08): the heavier and the
+	                                 ;       final browns (PIDGEOT, RATICATE, FEAROW, the DIGLETT line, DODRIO, the
+	                                 ;       HITMONs, KANGASKHAN, PINSIR, the KABUTO line); the rest keep PAL_BROWNMON
 DEF NUM_SGB_PALS EQU const_value
 
 ; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give
