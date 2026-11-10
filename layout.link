@@ -244,12 +244,12 @@ ROMX $2f
 	org $5000
 	"BG Map Attributes"
 ROMX $30
+	; base_stats grows here, one BASE_DATA_SIZE (30 B) record per new species.
+	; v1.0 (2026-11-10): "Trainer Manual Text" (7084 B) moved out to ROMX $46; sharing
+	; this bank it left the base stats 158 B, about five species. Alone in the bank,
+	; "bank30" leaves 7242 B free. The "ROMX $30" floor in .claude/bank_slack_floors.json
+	; watches it.
 	"bank30"
-	; v0.7: the TRAINER MANUAL's pages. Left floating, the linker put them in
-	; $07 -- next to "Maps 3" and "Maps 4", the banks that grow every time a map
-	; is redrawn. This bank holds no map data; besides the manual's text, what
-	; grows here is base_stats (one BASE_DATA_SIZE record per new species).
-	"Trainer Manual Text"
 ROMX $31
 	"Pikachu Cries 6"
 ROMX $32
@@ -340,8 +340,15 @@ ROMX $44
 	"Trainer Pics 3"
 ROMX $45
 	; v1.0 (2026-11-09): the pics of the species past the 151 - DREADROW first (front 564 B + back
-	; 145 B). Room for some twenty more species of that size; "Pics 9" opens in the next empty bank after that.
+	; 145 B). Room for some twenty more species of that size; "Pics 9" opens in bank $47 after that.
 	"Pics 8"
+ROMX $46
+	; v1.0 (2026-11-10): the TRAINER MANUAL's pages, out of bank $30. That bank holds the base
+	; stats, which grow 30 B per new species, and these 7084 B left them 158 B. Kept out of the
+	; map banks too: left floating, the pages once landed in $07 beside "Maps 3" and "Maps 4".
+	; Every page is reached through a text_far stub in "Trainer Manual" ($3A), so the
+	; bank they sit in is the linker's business. The "ROMX $46" floor watches this bank.
+	"Trainer Manual Text"
 WRAM0
 	"Audio RAM"
 	org $c100

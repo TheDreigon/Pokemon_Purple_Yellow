@@ -317,6 +317,9 @@ SECTION "Move Flavor Text 5", ROMX
 
 INCLUDE "data/text/move_flavor_5.asm"
 
+; v1.0 (2026-11-10): pinned alone to ROMX $46 in layout.link, out of bank $30, where
+; the base stats grow 30 B per new species. The pages are reached only through
+; the text_far stubs in "Trainer Manual", so they can sit in any bank.
 SECTION "Trainer Manual Text", ROMX
 
 INCLUDE "data/text/trainer_manual.asm"

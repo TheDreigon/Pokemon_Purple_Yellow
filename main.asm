@@ -406,8 +406,9 @@ ENDC
 SECTION "bank30", ROMX
 ; v0.6: hosts Pokemon base_stats. Moved here from "Battle Engine 10" (bank $3B)
 ; which overflowed when Pass 2 added ~3KB of level-up learnset data to
-; evos_moves.asm. base_stats.asm is one BASE_DATA_SIZE-byte record per species; the
-; bank has little room left now (the TRAINER MANUAL's pages share it).
+; evos_moves.asm. base_stats.asm is one BASE_DATA_SIZE-byte record per species.
+; v1.0 (2026-11-10): the TRAINER MANUAL's pages, which shared this bank and left
+; it 158 bytes, moved to ROMX $46; the bank keeps 7242 bytes for new species.
 ;
 ; v0.7: also hosts the type-matchups table + lookup loops (moved from
 ; "Battle Core" / bank $0F, which was 2 bytes over in debug after the
