@@ -158,6 +158,9 @@ PlayCry::
 
 GetCryData::
 ; Load cry data for monster a.
+; v1.0 (2026-11-10): the species goes to wCrySpecies too, where the audio engines look up a custom cry
+; (audio/custom_cries.asm).
+	ld [wCrySpecies], a
 	dec a
 	ld c, a
 	ld b, 0

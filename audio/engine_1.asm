@@ -1401,14 +1401,8 @@ Audio1_PlaySound::
 	jp .playSoundCommon
 
 .playSfx
-	ld l, a
-	ld e, a
-	ld h, 0
-	ld d, h
-	add hl, hl
-	add hl, de
-	ld de, SFX_Headers_1
-	add hl, de
+; v1.0 (2026-11-10): SFX_Headers_1 + 3 * id, or a custom cry's own header (audio/custom_cries.asm)
+	call Audio1_GetSfxHeader
 	ld a, h
 	ld [wSfxHeaderPointer], a
 	ld a, l
@@ -1472,14 +1466,7 @@ Audio1_PlaySound::
 
 .playSoundCommon
 	ld a, [wSoundID]
-	ld l, a
-	ld e, a
-	ld h, 0
-	ld d, h
-	add hl, hl
-	add hl, de
-	ld de, SFX_Headers_1
-	add hl, de
+	call Audio1_GetSfxHeader ; v1.0 (2026-11-10): the same lookup as .playSfx
 	ld e, l
 	ld d, h
 	ld hl, wChannelCommandPointers
@@ -1616,3 +1603,7 @@ Audio1_HWChannelEnableMasks:
 
 Audio1_Pitches:
 INCLUDE "audio/notes.asm"
+
+; v1.0 (2026-11-10): Audio1_GetSfxHeader, the custom-cry table and its channel data, in this engine's bank.
+DEF CUSTOM_CRY_ENGINE = 1
+INCLUDE "audio/custom_cries.asm"

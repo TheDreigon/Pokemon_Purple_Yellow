@@ -12,6 +12,20 @@ MACRO channel
 	DEF _num_channels = 0
 ENDM
 
+; v1.0 (2026-11-10): one row of the custom-cry table (audio/custom_cries.asm). \1 = the species (internal index),
+; \2 = its base cry, the SFX_CRY_xx of its own CryData row, \3 = its data, labelled
+; Audio<CUSTOM_CRY_ENGINE>_\3_Ch5 / _Ch6 / _Ch8 in every audio engine. Then a 3-channel header like an
+; SFX_CryNN one, aimed at this engine's copy of the data.
+MACRO custom_cry
+	ASSERT (\2) >= CRY_SFX_START && (\2) < CRY_SFX_END && ((\2) - CRY_SFX_START) % 3 == 0, \
+		"custom_cry: \2 is not one of the 38 base cries"
+	db \1, \2
+	channel_count 3
+	channel 5, Audio{d:CUSTOM_CRY_ENGINE}_\3_Ch5
+	channel 6, Audio{d:CUSTOM_CRY_ENGINE}_\3_Ch6
+	channel 8, Audio{d:CUSTOM_CRY_ENGINE}_\3_Ch8
+ENDM
+
 	const_def $10
 
 ; arguments: length [0, 7], pitch change [-7, 7]

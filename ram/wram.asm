@@ -1,6 +1,8 @@
 SECTION "Audio RAM", WRAM0
 
-wUnusedC000:: db
+; v1.0 (2026-11-10): the species of the latest GetCryData (home/pokemon.asm), for the audio engines'
+; custom-cry lookup (audio/custom_cries.asm). It was wUnusedC000: written 0, never read.
+wCrySpecies:: db
 
 wSoundID:: db
 

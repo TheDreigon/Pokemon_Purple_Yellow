@@ -19,14 +19,8 @@ Audio2_PlaySound::
 	jp .playSoundCommon
 
 .playSfx
-	ld l, a
-	ld e, a
-	ld h, 0
-	ld d, h
-	add hl, hl
-	add hl, de
-	ld de, SFX_Headers_2
-	add hl, de
+; v1.0 (2026-11-10): SFX_Headers_2 + 3 * id, or a custom cry's own header (audio/custom_cries.asm)
+	call Audio2_GetSfxHeader
 	ld a, h
 	ld [wSfxHeaderPointer], a
 	ld a, l
@@ -90,14 +84,7 @@ Audio2_PlaySound::
 
 .playSoundCommon
 	ld a, [wSoundID]
-	ld l, a
-	ld e, a
-	ld h, 0
-	ld d, h
-	add hl, hl
-	add hl, de
-	ld de, SFX_Headers_2
-	add hl, de
+	call Audio2_GetSfxHeader ; v1.0 (2026-11-10): the same lookup as .playSfx
 	ld e, l
 	ld d, h
 	ld hl, wChannelCommandPointers
@@ -198,8 +185,11 @@ Audio2_CryRet:
 ; pokeflute_ch7.asm in Sound Effects 2): that routine was their only reader.
 
 Audio2_InitMusicVariables::
+; v1.0 (2026-11-10): no longer zeroes wUnusedC000 (here and in Audio2_StopAllAudio): the byte is wCrySpecies now,
+; written by GetCryData alone. Both zeroings also run from VBlank (FadeOutAudio's end: StopAllMusic, then the next
+; song's InitMusicVariables), which can land between a GetCryData and its PlaySound and would cost that cry its
+; custom header (audio/custom_cries.asm).
 	xor a
-	ld [wUnusedC000], a
 	ld [wDisableChannelOutputWhenSfxEnds], a
 	ld [wMusicTempo + 1], a
 	ld [wMusicWaveInstrument], a
@@ -377,7 +367,6 @@ Audio2_StopAllAudio::
 	ld a, $77
 	ldh [rNR50], a ; full volume
 	xor a
-	ld [wUnusedC000], a
 	ld [wDisableChannelOutputWhenSfxEnds], a
 	ld [wMuteAudioAndPauseMusic], a
 	ld [wMusicTempo + 1], a
@@ -405,3 +394,7 @@ Audio2_FillMem:
 	dec b
 	jr nz, .loop
 	ret
+
+; v1.0 (2026-11-10): Audio2_GetSfxHeader, the custom-cry table and its channel data, in this engine's bank.
+DEF CUSTOM_CRY_ENGINE = 2
+INCLUDE "audio/custom_cries.asm"
