@@ -7,6 +7,7 @@ CreditsMons:
 	db BEEDRILL
 	db HITMONLEE
 	db MAGMAR
+	db DREADROW ; v1.0 (2026-11-10): the species Purple Yellow adds, on "POKeMON SPRITES AND / PALETTES REVISED"
 	db GOLEM
 	db GYARADOS
 	db NIDOKING
@@ -30,6 +31,8 @@ CreditsMons:
 	db NIDOKING
 	db PARASECT
 
-REPT 9
+; v1.0 (2026-11-10): 8 GENGARs, vanilla's 9 less the one DREADROW's entry takes, so nothing after the list moves;
+; the copyright screen reads the first, the others are spare
+REPT 8
 	db GENGAR
 ENDR

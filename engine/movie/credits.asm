@@ -34,8 +34,9 @@ HallOfFamePC:
 	ld c, BANK(Music_Credits)
 	ld a, MUSIC_CREDITS
 	call PlayMusic
-	ld c, 26 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla. The roll's pics load in it, so a change
-	         ; to the sprites moves THE END: emu_test_credits_sync and emu_test_credits_copyright L6 measure it
+	ld c, 27 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla. The roll's pics load in it, so a change
+	         ; to the sprites moves THE END: emu_test_credits_sync and emu_test_credits_copyright L6 measure it.
+	         ; v1.0 (2026-11-10): 26 until DREADROW's silhouette screen (.fadeInText); 26 now lands THE END a frame early
 	call DelayFrames
 	xor a
 	ld [wHoFMonSpecies], a
@@ -286,11 +287,12 @@ Credits: ; Roll credits
 
 .fadeInText
 	call FadeInCreditsText
-	ld c, 132
+	ld c, 130 ; v1.0 (2026-11-10): vanilla's 132 less 2, as .showText's 152: the 27 screens of text alone give back the
+	          ; 54 frames of DREADROW's silhouette screen, so THE END stays where it was against the theme
 	jr .next2
 
 .showText
-	ld c, 152
+	ld c, 150 ; v1.0 (2026-11-10): vanilla's 152 less 2 (.fadeInText)
 .next2
 	call DelayFrames
 	jr .nextCreditsScreen
