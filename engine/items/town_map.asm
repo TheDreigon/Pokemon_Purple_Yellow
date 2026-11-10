@@ -259,17 +259,10 @@ LoadTownMap_Fly::
 	ld a, [hl]
 	ld b, $4
 	call DrawPlayerOrBirdSprite ; draw the FLY cursor (the flier's icon)
-; v1.0 (2026-11-10): the flier's own icon colours (SetIconOBJPalette) on the
-; cursor's four entries, sprites 32-35; for DREADROW it also loads OBJ palette 7,
-; since LoadTownMap ran this screen's palette command already. a, b, de and hl
-; are all reloaded below
+; v1.0 (2026-11-10): the cursor's four entries (sprites 32-35) on the flier's party slot's OBJ palette, which
+; LoadIconPalettes filled with its colours (SET_PAL_TOWN_MAP). a, b, de and hl are all reloaded below
 	ld a, [wWhichPokemon]
-	ld e, a
-	ld d, 0
-	ld hl, wPartySpecies
-	add hl, de
-	ld a, [hl]
-	ld hl, wShadowOAMSprite35Attributes
+	ld hl, wShadowOAMSprite36 ; just past the cursor's four entries
 	call SetIconOBJPalette
 	hlcoord 3, 0
 	ld de, wcd6d

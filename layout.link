@@ -103,6 +103,7 @@ ROMX $10
 	"bank10"
 	"Battle Core Overflow"
 	"Missable Objects 2" ; v1.0 (T23): the second hide/show table + its loader; 8 KB free here, and bank3 (table 1) is at ~500 B
+	"Icon Layouts" ; v1.0 (2026-11-10): IconLayouts, one byte per species (LoadIconPalette, bank $1C, reads it with GetFarByte)
 ROMX $11
 	"Maps 5"
 	"Pokédex Rating"

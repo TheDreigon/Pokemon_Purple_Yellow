@@ -7,14 +7,10 @@ _RunPaletteCommand:
 .not_default
 	cp SET_PAL_PARTY_MENU_HP_BARS
 	jp z, UpdatePartyMenuBlkPacket
-; v1.0 (2026-11-10): a new screen's palettes: OBJ palette ICON_OBJ_PAL goes back to its packet's colours
-; (InitGBCPalettes, LoadIconSlotPalette) - except for the party menu's command, which RedrawPartyMenu_ runs after
-; drawing the icons, so it keeps what SetIconOBJPalette raised. a = the command throughout.
-	cp SET_PAL_PARTY_MENU
-	jr z, .keepIconPalette
-	ld hl, wIconOBJPalActive
-	ld [hl], 0
-.keepIconPalette
+; v1.0 (2026-11-10): LoadIconPalettes and TransferCurOBPData read it, to know which party icons the screen shows
+; (SET_PAL_DEFAULT is resolved above; SET_PAL_PARTY_MENU_HP_BARS loads no palette and is left out, so the party
+; menu keeps its own). Stored before SendSGBPackets runs, so they always see the screen being set up.
+	ld [wLastPalCommand], a
 	ld l, a
 	ld h, 0
 	add hl, hl
@@ -638,6 +634,7 @@ SetPalFunctions:
 	dw SetPal_TrainerCard
 	dw SetPal_PikachusBeach
 	dw SetPal_PikachusBeachTitle
+	dw SetPal_Generic ; SET_PAL_GENERIC_ICON (v1.0, 2026-11-10): the same packets; LoadIconPalettes tells them apart
 
 ; The length of the blk data of each badge on the Trainer Card.
 ; The Rainbow Badge has 3 entries because of its many colors.
@@ -1073,7 +1070,7 @@ InitGBCPalettes:
 		call TransferCurOBPData
 	ENDR
 
-	jp LoadIconSlotPalette ; v1.0 (2026-11-10): OBJ palette 7 above is the packet's 4th; the icon's while it owns it
+	jp LoadIconPalettes ; v1.0 (2026-11-10): the party icons' palettes, after every palette command
 
 GetGBCBasePalAddress::
 ; Input: a = palette ID
@@ -1217,24 +1214,58 @@ TransferBGPPals::
 	ret
 
 TransferCurOBPData:
+; a = an OBJ palette, d = 0 for LoadIconPalette's own writes (every other caller has de = a base palette in ROMX)
 	push de
 	add a
 	add a
 	add a
 	or $80 ; auto-increment
 	ldh [rOBPI], a
-	ld de, rOBPD
 	ld hl, wGBCPal
 	ld b, %10 ; mask for non-V-blank/non-H-blank STAT mode
 	ldh a, [rLCDC]
 	and rLCDC_ENABLE_MASK
 	jr nz, .lcdEnabled
+	ld de, rOBPD
 	REPT NUM_PAL_COLORS
 		call TransferPalColorLCDDisabled
 	ENDR
 	jr .done
 .lcdEnabled
-	REPT NUM_PAL_COLORS
+; v1.0 (2026-11-10): on the party menu and the town map (SET_PAL_PARTY_MENU, SET_PAL_TOWN_MAP) OBJ palettes 1-3 and
+; 5-7 belong to the party icons (IconOBJPalettes), which LoadIconPalettes rebuilds right after every packet and every
+; fade. With the screen on, the packet's colours are kept out of them there: written first, they showed on every icon
+; for a frame at each redraw of the menu and at its fade-in. With the screen off nothing shows them, and the transfer
+; above runs exactly as it always did. With it on, the first STAT read comes 9 M-cycles sooner after the entry than
+; before (`ld de, rOBPD` and the call now come after it), and the test runs inside the first colour's wait for mode 2
+; or 3 (at least 252 dots, which TransferPalColorLCDEnabled waits through anyway): the next STAT read comes up to 152
+; dots (38 M-cycles) after the one that saw mode 2/3, instead of 24. So a transfer can start a scanline sooner or
+; later than before, its writes always in H-blank or mode 2, where palette RAM is writable. Sooner when it is entered
+; in the last few dots of mode 3, where the old first read already saw the H-blank and waited for the next one
+; (measured at two map seams: most OBJ palettes started a scanline sooner, and SET_PAL_OVERWORLD's OBJ transfers
+; took 6 to 8 scanlines less). Later on a line whose H-blank is shorter than the test (more than about four sprites
+; on it; the party menu has two). (The Yellow intro runs within a few scanlines of the end of some frames: a test
+; before the transfers made it drop frames, this one leaves it frame for frame as it was.) 0 and 4 stay every
+; screen's own.
+.waitNotInBlankingPeriod
+	ldh a, [rSTAT]
+	and b
+	jr z, .waitNotInBlankingPeriod
+	ld a, d
+	and a ; LoadIconPalette's own write?
+	jr z, .write
+	ldh a, [rOBPI]
+	and %11 << 3 ; OBJ palette bits 0-1 (rOBPI = $80 | palette * 8): 1-3, 5-7
+	jr z, .write
+	ld a, [wLastPalCommand]
+	cp SET_PAL_PARTY_MENU
+	jr z, .done
+	cp SET_PAL_TOWN_MAP
+	jr z, .done
+.write
+	ld de, rOBPD
+	call TransferPalColorLCDEnabled.notInBlankingPeriod
+	REPT NUM_PAL_COLORS - 1
 		call TransferPalColorLCDEnabled
 	ENDR
 .done
@@ -1309,37 +1340,113 @@ _UpdateGBCPal_OBP::
 
 		call TransferCurOBPData
 	ENDR
-; fall through: while the icon owns OBJ palette 7, it follows every rOBP0 / rOBP1 change
+; fall through: the icon palettes follow every rOBP0 / rOBP1 change
 
-LoadIconSlotPalette:
-; v1.0 (2026-11-10): while wIconOBJPalActive is set - from SetIconOBJPalette
-; drawing DREADROW's icon to the next palette command but the party menu's -
-; OBJ palette ICON_OBJ_PAL = DreadrowIconColors shaded through the current
-; rOBP0, as every party icon's palette is, so DREADROW's icon whites out and
-; fades with the others; on the party menu, the nickname screen and the FLY map
-; ($D0) that is white, white, 16,7,4, black (index 1 white, 2 the brown,
-; 3 black). Otherwise it returns at once and palette 7 keeps its packet's
-; colours: other sprites use it (the GAME FREAK splash draws five of its
-; falling stars on it, SmallStarsWave*Coords). The two writers of the OBJ
-; palettes end here: InitGBCPalettes (jp, after a palette packet rebuilt all
-; eight) and _UpdateGBCPal_OBP (falls through, after an rOBP0 or rOBP1 change
-; rebuilt four); SetIconOBJPalette calls it when it raises the flag. All three
-; reach it only on the GBC (SendSGBPackets and home's UpdateGBCPal_OBP0/1 check
-; hGBC, SetIconOBJPalette too). Calls DMGPalToGBCPal.convert, not
-; DMGPalToGBCPal, so wLastOBP0 is left alone and can never mask a pending
-; rebuild of palettes 0-3. Clobbers a, b, de, hl (a alone when the flag is 0).
-	ld a, [wIconOBJPalActive]
+; v1.0 (2026-11-10): every party icon in its species' battle colours on the GBC (DMG and SGB ignore the OAM palette
+; bits). Jumped to at the end of InitGBCPalettes and _UpdateGBCPal_OBP, the two writers of the OBJ palettes, so the
+; icon palettes are rebuilt after every palette command and every fade, shaded by the screen's own rOBP0 / rBGP;
+; also called by the party menu's tile reload with the screen off (LoadMonPartySpriteGfxWithLCDDisabled), so a
+; SWITCH's two icons come back in their new species' colours. All three reach it only on the GBC (SendSGBPackets and
+; home's UpdateGBCPal_OBP0/1 check hGBC, the reload too). Which icons, by the last palette command (wLastPalCommand):
+;   SET_PAL_PARTY_MENU, SET_PAL_TOWN_MAP: every party slot (the party menu, in battle too; the FLY map, whose cursor
+;     is the flier's icon);
+;   SET_PAL_GENERIC_ICON: one icon, the species in wcf91, in slot 0's palette (the naming screen, the trade);
+;   anything else: none. The battle colours its move animations and HUD balls with OBJ palettes 0-4 and always runs
+;     a palette command (SET_PAL_BATTLE / SET_PAL_DEFAULT) before it is shown again; the GAME FREAK splash draws five
+;     of its falling stars on OBJ palette 7 (SET_PAL_GAME_FREAK_INTRO); SET_PAL_GENERIC (the Yellow intro, the menus
+;     before the game starts) shows no icon, and its OBJ palette updates cost no transfer more than before.
+LoadIconPalettes:
+; Clobbers a, b, c, de, hl (a alone on the other screens, as before)
+	ld a, [wLastPalCommand]
+	cp SET_PAL_PARTY_MENU
+	jr z, .party
+	cp SET_PAL_TOWN_MAP
+	jr z, .party
+	cp SET_PAL_GENERIC_ICON
+	ret nz
+	ld hl, wcf91
+	ld a, 1
+	jr .gotCount
+.party
+	ld hl, wPartySpecies
+	ld a, [wPartyCount]
+.gotCount
 	and a
 	ret z
+	ld b, a
+	ld c, 0
+.loop
+	ld a, [hli]
+	push hl
+	push bc
+	call LoadIconPalette
+	pop bc
+	pop hl
+	inc c
+	dec b
+	jr nz, .loop
+	ret
+
+LoadIconPalette:
+; a = a species, c = its slot: OBJ palette IconOBJPalettes[c] = the species' battle palette (MonsterPalettes) in
+; its IconLayouts layout - ICON_RULE through rOBP0 (index 1 white, 2 colour 1, 3 black), ICON_DIRECT through rBGP
+; (1 colour 1, 2 colour 2, 3 black). PAL_DREADROW's icon takes its own darker row. GetFarByte, not the predef: this
+; runs inside every fade, and wd11e and the predef registers must survive it. DMGPalToGBCPal.convert, not
+; DMGPalToGBCPal: wLastOBP0 / wLastBGP are left alone and can never mask a pending rebuild. Keeps c.
+	dec a
+	ld e, a
+	ld d, 0
+	ld hl, PokedexOrder
+	add hl, de
+	ld a, BANK(PokedexOrder)
+	call GetFarByte
+	ld e, a ; de = the dex number
+	ld hl, IconLayouts
+	add hl, de
+	ld a, BANK(IconLayouts)
+	call GetFarByte
+	push af
+	ld hl, MonsterPalettes
+	add hl, de
+	ld a, [hl]
 	ld de, DreadrowIconColors
+	cp PAL_DREADROW
+	call nz, GetGBCBasePalAddress
+	pop af
+	and a ; ICON_RULE?
+	ldh a, [rBGP]
+	jr nz, .gotShades ; ICON_DIRECT: the battle pic's mapping
 	ldh a, [rOBP0]
+; The trade shades sprites through rOBP0 = $E4 (vanilla, so on the DMG its icon is darker than the bubble); read as
+; the party menu's $D0 there, a rule icon looks the same on both screens. $E4 never reaches rOBP0 on the party menu,
+; the naming screen or the FLY map: only on the trade and half-way through the fades to and from black, which only
+; overworld scripts run (wLastPalCommand none).
+	cp %11100100
+	jr nz, .gotShades
+	ld a, %11010000
+.gotShades
 	call DMGPalToGBCPal.convert
-	ld a, ICON_OBJ_PAL
+	ld hl, IconOBJPalettes
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ld d, b ; 0: TransferCurOBPData writes the icon's palette on every screen
 	jp TransferCurOBPData
 
+IconOBJPalettes:
+; the OBJ palette of party slot k's icon. Slot 0 is also the one-icon screens' (SET_PAL_GENERIC_ICON), so it takes 7,
+; the palette DREADROW's icon had alone before, which no other sprite of those screens uses (the GAME FREAK splash's
+; falling stars use it under SET_PAL_GAME_FREAK_INTRO); 6, 5 and 1-3 are loaded only on the party menu and the town
+; map, where every other sprite is on OBJ palette 0 (the town map's cursors, nests and player); 0 and 4 stay every
+; screen's own. Each entry is 7 or less (bit 3 of a GBC OAM attribute is the VRAM bank) and has bit 0 or 1 set
+; (TransferCurOBPData's test).
+	table_width 1, IconOBJPalettes
+	db 7, 6, 5, 1, 2, 3
+	assert_table_length PARTY_LENGTH
+
+; DREADROW's icon colours: its battle palette's (PAL_DREADROW) with the brown two 5-bit steps darker, 18,9,6 ->
+; 16,7,4 (2026-11-10), so the icon sits further from FEAROW's.
 DreadrowIconColors:
-; the battle palette's layout (PAL_DREADROW, the owner's I1) with the brown two
-; 5-bit steps darker (it is 18,9,6 there): the icon's own 8-byte row
 	RGB 31,31,31, 16,07,04, 04,02,01, 00,00,00
 
 TranslatePalPacketToBGMapAttributes::

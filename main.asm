@@ -224,6 +224,13 @@ INCLUDE "engine/movie/trade2.asm"
 INCLUDE "engine/menus/options.asm"
 
 
+SECTION "Icon Layouts", ROMX
+; v1.0 (2026-11-10): the party icons' layouts, one byte per dex number, read by bank $1C's LoadIconPalette with
+; GetFarByte, as it reads PokedexOrder; pinned in bank $10 (layout.link), after everything else there, so no
+; address in the bank moves, and kept out of bank $1C, the palette bank
+INCLUDE "data/pokemon/icon_layouts.asm"
+
+
 SECTION "Missable Objects 2", ROMX
 ; v1.0 (T23): the second hide/show table and its loader (pinned in layout.link, ROMX $10)
 

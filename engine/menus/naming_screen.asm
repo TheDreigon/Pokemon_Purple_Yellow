@@ -87,7 +87,7 @@ DisplayNamingScreen:
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
 	call UpdateSprites
-	ld b, SET_PAL_GENERIC
+	ld b, SET_PAL_GENERIC_ICON ; v1.0 (2026-11-10): SET_PAL_GENERIC + the nickname's party icon in its colours
 	call RunPaletteCommand
 	call LoadHpBarAndStatusTilePatterns
 	call LoadEDTile
@@ -444,8 +444,8 @@ PrintNamingText:
 	dec a
 	jr z, .notNickname
 	ld a, [wcf91]
-; v1.0 (2026-11-10): WriteMonPartySpriteOAMBySpecies reads wcf91 itself; the store to wMonPartySpriteSpecies
-; that stood here had no reader, and the byte is wIconOBJPalActive now
+; v1.0 (2026-11-10): the store to wMonPartySpriteSpecies that stood here had no reader (the icon's graphics and
+; colours come from wcf91, its OAM from slot 0); that byte is wLastPalCommand now
 	push af
 	farcall WriteMonPartySpriteOAMBySpecies
 	pop af

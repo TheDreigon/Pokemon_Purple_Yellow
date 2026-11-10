@@ -33,6 +33,10 @@ DEF DARKNESS_DARK EQU 6 ; FadePal2: the player and the boulders vanish into the 
 	const SET_PAL_TRAINER_CARD             ; $0C
 	const SET_PAL_SURFING_PIKACHU_TITLE    ; $0D
 	const SET_PAL_SURFING_PIKACHU_MINIGAME ; $0E
+	const SET_PAL_GENERIC_ICON             ; $0F - v1.0 (2026-11-10): SET_PAL_GENERIC's packets, on the two screens
+	                                       ;       that show one party icon (the naming screen, the trade): with it,
+	                                       ;       LoadIconPalettes gives that icon its species' battle colours.
+	                                       ;       SET_PAL_GENERIC itself (the Yellow intro, the menus) loads none
 
 DEF SET_PAL_PARTY_MENU_HP_BARS EQU $fc
 DEF SET_PAL_DEFAULT EQU $ff
@@ -175,11 +179,3 @@ DEF NUM_SGB_PALS EQU const_value
 DEF PAL_BADGE            EQU PAL_CAVE
 DEF PAL_PIKACHU_PORTRAIT EQU PAL_MEWMON ; the overworld emotes
 DEF PAL_PIKAMON          EQU PAL_MEWMON ; PIKACHU, real and fake; RAICHU, SANDSHREW and WEEDLE keep PAL_YELLOWMON
-
-; v1.0 (2026-11-10): the GBC OBJ palette of DREADROW's party icon, the one icon with colours of its own
-; (SetIconOBJPalette, engine/gfx/mon_icons.asm). Palette 7 has other users - the GAME FREAK splash draws five of its
-; falling stars on it (SmallStarsWave*Coords, engine/movie/splash.asm) - so it is the icon's only while
-; wIconOBJPalActive is set: from the icon's drawing to the next palette command but the party menu's, the only
-; window in which LoadIconSlotPalette (engine/gfx/palettes.asm) rebuilds it. On the screens that show party icons
-; (the party menu, also in battle; the nickname screen; the FLY map) no other sprite uses it.
-DEF ICON_OBJ_PAL EQU 7

@@ -158,3 +158,8 @@ DEF NUM_ICONS EQU const_value
 DEF ICON_TRADEBUBBLE EQU $e
 
 DEF ICONOFFSET EQU $40 ; difference between alternating icon frames' tile IDs
+
+; v1.0 (2026-11-10): IconLayouts (data/pokemon/icon_layouts.asm, generated): how a species' party icon shows its
+; battle palette on the GBC (LoadIconPalette, engine/gfx/palettes.asm)
+DEF ICON_RULE   EQU 0 ; index 1 white, 2 the palette's colour 1, 3 black: through rOBP0, the game's rule for sprites
+DEF ICON_DIRECT EQU 1 ; index 1 colour 1, 2 colour 2, 3 black: through rBGP, the battle pic's own mapping

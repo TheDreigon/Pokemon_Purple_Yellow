@@ -449,7 +449,7 @@ Trade_InitGameboyTransferGfx:
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
-	ld b, SET_PAL_GENERIC
+	ld b, SET_PAL_GENERIC_ICON ; v1.0 (2026-11-10): SET_PAL_GENERIC + the moving mon's party icon in its colours
 	call RunPaletteCommand
 	xor a
 	ldh [hAutoBGTransferEnabled], a
