@@ -152,4 +152,5 @@ MonsterPalettes:
 	db PAL_AZUREMON   ; DRAGONITE
 	db PAL_LAVENDERMON ; MEWTWO
 	db PAL_ROSEMON   ; MEW
+	db PAL_DREADROW  ; DREADROW
 	assert_table_length NUM_POKEMON + 1

@@ -40,7 +40,7 @@ EvosMovesPointerTable:
 	dw BlastoiseEvosMoves
 	dw PinsirEvosMoves
 	dw TangelaEvosMoves
-	dw NoEvosMoves
+	dw DreadrowEvosMoves
 	dw NoEvosMoves
 	dw GrowlitheEvosMoves
 	dw OnixEvosMoves
@@ -311,7 +311,8 @@ CharizardEvosMoves:
 ; Full dragon-form. Adds 5 anatomical exclusives over Char/Charme: WING_ATTACK
 ; / FLY / AERIAL_ACE / SKY_ATTACK (wings now developed; natural-FLY learner)
 ; and CRUNCH (big jaw). SKY_ATTACK@60 capstone dive-bomb (180 BP charge; joins
-; the flying-apex club — birds/Aerodactyl/Fearow/Pidgeot). HURRICANE is TM-only.
+; the big fliers — birds/Aerodactyl/Fearow/Dreadrow/Pidgeot). HURRICANE is
+; TM-only.
 ; DRAGON_CLAW@36 / DRAGON_BREATH@48 shared across the line. Entry levels unique.
 	db  6, EMBER
 	db  8, BITE
@@ -643,11 +644,12 @@ SpearowEvosMoves:
 
 FearowEvosMoves:
 ; Evolutions
+	db EVOLVE_LEVEL, 40, DREADROW
 	db 0
 ; Learnset
-; Apex predator. Spearow's learnset + anatomical exclusives: DRILL_PECK
-; signature (long beak as drill), GORE_ATTACK (Dark — beak gore), INTIMIDATE
-; (massive raptor presence), SKY_ATTACK (L52 peak).
+; The raptor before DREADROW (L40). Spearow's learnset + anatomical exclusives:
+; DRILL_PECK signature (long beak as drill), GORE_ATTACK (Dark — beak gore),
+; INTIMIDATE (massive raptor presence), SKY_ATTACK (L55).
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
@@ -664,6 +666,33 @@ FearowEvosMoves:
 	db 46, GORE_ATTACK
 	db 50, INTIMIDATE
 	db 55, SKY_ATTACK
+	db 0
+
+DreadrowEvosMoves:
+; Evolutions
+	db 0
+; Learnset
+; PROVISIONAL (2026-11-09): FEAROW's learnset + DARK_PULSE (L40, with DRILL_PECK),
+; SCARY_FACE (L44) and SWORDS_DANCE (L60), until the owner reviews it.
+	db  4, PECK
+	db  6, SAND_ATTACK
+	db  8, LEER
+	db 12, FURY_ATTACK
+	db 14, QUICK_ATTACK
+	db 16, TAILWIND
+	db 18, WING_ATTACK
+	db 23, FAINT_ATTACK
+	db 27, AERIAL_ACE
+	db 31, NIGHT_SLASH
+	db 36, HONE_CLAWS
+	db 40, DRILL_PECK
+	db 40, DARK_PULSE
+	db 42, TAKE_DOWN
+	db 44, SCARY_FACE
+	db 46, GORE_ATTACK
+	db 50, INTIMIDATE
+	db 55, SKY_ATTACK
+	db 60, SWORDS_DANCE
 	db 0
 
 EkansEvosMoves:
@@ -700,7 +729,7 @@ ArbokEvosMoves:
 ; Learnset
 ; Poison/Dark — matured cobra. Ekans's learnset + cobra hood, Dark unlock,
 ; and heavy whip-tail: SCARY_FACE (L21, EVO LVL), IRON_TAIL (high-level
-; whip), INTIMIDATE (full hood display, L52).
+; whip), INTIMIDATE (full hood display, L41).
 	db  3, POISON_STING
 	db  6, BITE
 	db  9, WRAP
@@ -1189,8 +1218,8 @@ GolbatEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Matured vampire bat. Zubat backbone plus apex exclusives DARK_PULSE
-; (L55) and TOXIC (L60). HURRICANE is TM only, not levelup.
+; Matured vampire bat. Zubat backbone plus apex exclusives TOXIC
+; (L55) and DARK_PULSE (L58). HURRICANE is TM only, not levelup.
 	db  7, ASTONISH
 	db 10, POISON_STING
 	db 12, QUICK_ATTACK
@@ -4154,14 +4183,14 @@ MewEvosMoves:
 	db 0
 
 NoEvosMoves:
-; Shared placeholder for the 36 internal-index gaps (the slots that
+; Shared placeholder for the 35 internal-index gaps (the slots that
 ; manifest as MISSINGNO. when reached via the Cinnabar coast wild-encounter
-; bug). The pointer table is positional and must have NUM_POKEMON_INDEXES
-; entries, so every gap-index points here. Engine reads `db 0`/`db 0` =
-; no evolutions, no learnset. ROM-identical to the 36 separate-but-identical
-; placeholder blocks that used to exist. Fossil Kabutops/Aerodactyl/MonGhost
-; are kept as named separate blocks (real gameplay entities, may get
-; learnsets in future).
+; bug; 36 until DREADROW took $1F, 2026-11-09). The pointer table is positional
+; and must have NUM_POKEMON_INDEXES entries, so every gap-index points here.
+; Engine reads `db 0`/`db 0` = no evolutions, no learnset. ROM-identical to
+; the 36 separate-but-identical placeholder blocks that used to exist.
+; Fossil Kabutops/Aerodactyl/MonGhost are kept as named separate blocks (real
+; gameplay entities, may get learnsets in future).
 ; Evolutions
 	db 0
 ; Learnset

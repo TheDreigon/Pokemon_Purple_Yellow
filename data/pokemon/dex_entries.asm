@@ -30,7 +30,7 @@ PokedexEntryPointers:
 	dw BlastoiseDexEntry
 	dw PinsirDexEntry
 	dw TangelaDexEntry
-	dw MissingNoDexEntry
+	dw DreadrowDexEntry
 	dw MissingNoDexEntry
 	dw GrowlitheDexEntry
 	dw OnixDexEntry
@@ -349,6 +349,13 @@ FearowDexEntry:
 	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
 	dw 320 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _FearowDexEntry
+	text_end
+
+DreadrowDexEntry:
+	db "ELDER BEAK@"
+	db 1,9 ; height: meters, decimeters (v0.7 metric dex)
+	dw 490 ; weight in 0.1 kg (v0.7 metric dex)
+	text_far _DreadrowDexEntry
 	text_end
 
 EkansDexEntry:

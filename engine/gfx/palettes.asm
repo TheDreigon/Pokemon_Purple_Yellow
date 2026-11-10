@@ -7,6 +7,14 @@ _RunPaletteCommand:
 .not_default
 	cp SET_PAL_PARTY_MENU_HP_BARS
 	jp z, UpdatePartyMenuBlkPacket
+; v1.0 (2026-11-10): a new screen's palettes: OBJ palette ICON_OBJ_PAL goes back to its packet's colours
+; (InitGBCPalettes, LoadIconSlotPalette) - except for the party menu's command, which RedrawPartyMenu_ runs after
+; drawing the icons, so it keeps what SetIconOBJPalette raised. a = the command throughout.
+	cp SET_PAL_PARTY_MENU
+	jr z, .keepIconPalette
+	ld hl, wIconOBJPalActive
+	ld [hl], 0
+.keepIconPalette
 	ld l, a
 	ld h, 0
 	add hl, hl
@@ -1065,7 +1073,7 @@ InitGBCPalettes:
 		call TransferCurOBPData
 	ENDR
 
-	ret
+	jp LoadIconSlotPalette ; v1.0 (2026-11-10): OBJ palette 7 above is the packet's 4th; the icon's while it owns it
 
 GetGBCBasePalAddress::
 ; Input: a = palette ID
@@ -1301,8 +1309,38 @@ _UpdateGBCPal_OBP::
 
 		call TransferCurOBPData
 	ENDR
+; fall through: while the icon owns OBJ palette 7, it follows every rOBP0 / rOBP1 change
 
-	ret
+LoadIconSlotPalette:
+; v1.0 (2026-11-10): while wIconOBJPalActive is set - from SetIconOBJPalette
+; drawing DREADROW's icon to the next palette command but the party menu's -
+; OBJ palette ICON_OBJ_PAL = DreadrowIconColors shaded through the current
+; rOBP0, as every party icon's palette is, so DREADROW's icon whites out and
+; fades with the others; on the party menu, the nickname screen and the FLY map
+; ($D0) that is white, white, 16,7,4, black (index 1 white, 2 the brown,
+; 3 black). Otherwise it returns at once and palette 7 keeps its packet's
+; colours: other sprites use it (the GAME FREAK splash draws five of its
+; falling stars on it, SmallStarsWave*Coords). The two writers of the OBJ
+; palettes end here: InitGBCPalettes (jp, after a palette packet rebuilt all
+; eight) and _UpdateGBCPal_OBP (falls through, after an rOBP0 or rOBP1 change
+; rebuilt four); SetIconOBJPalette calls it when it raises the flag. All three
+; reach it only on the GBC (SendSGBPackets and home's UpdateGBCPal_OBP0/1 check
+; hGBC, SetIconOBJPalette too). Calls DMGPalToGBCPal.convert, not
+; DMGPalToGBCPal, so wLastOBP0 is left alone and can never mask a pending
+; rebuild of palettes 0-3. Clobbers a, b, de, hl (a alone when the flag is 0).
+	ld a, [wIconOBJPalActive]
+	and a
+	ret z
+	ld de, DreadrowIconColors
+	ldh a, [rOBP0]
+	call DMGPalToGBCPal.convert
+	ld a, ICON_OBJ_PAL
+	jp TransferCurOBPData
+
+DreadrowIconColors:
+; the battle palette's layout (PAL_DREADROW, the owner's I1) with the brown two
+; 5-bit steps darker (it is 18,9,6 there): the icon's own 8-byte row
+	RGB 31,31,31, 16,07,04, 04,02,01, 00,00,00
 
 TranslatePalPacketToBGMapAttributes::
 ; translate the SGB pal packets into something usable for the GBC

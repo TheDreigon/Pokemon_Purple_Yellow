@@ -444,7 +444,8 @@ PrintNamingText:
 	dec a
 	jr z, .notNickname
 	ld a, [wcf91]
-	ld [wMonPartySpriteSpecies], a
+; v1.0 (2026-11-10): WriteMonPartySpriteOAMBySpecies reads wcf91 itself; the store to wMonPartySpriteSpecies
+; that stood here had no reader, and the byte is wIconOBJPalActive now
 	push af
 	farcall WriteMonPartySpriteOAMBySpecies
 	pop af

@@ -303,6 +303,10 @@ INCBIN "gfx/icons/dragonair.2bpp"
 INCBIN "gfx/icons/dragonite.2bpp"
 INCBIN "gfx/icons/mewtwo.2bpp"
 INCBIN "gfx/icons/mew.2bpp"
+INCBIN "gfx/icons/dreadrow.2bpp" ; v1.0 (2026-11-10): ICON_DREADROW, $98
+MonIcons2End:
+	ASSERT MonIcons2End - MonIcons2 == (NUM_ICONS - $80) * $80, \
+		"MonIcons2 must hold one $80-byte icon for every id from $80 to NUM_ICONS - 1, in id order"
 
 ; Bill's own overworld sprite: the scientist walking under the youngster's head.
 ; Own section, pinned to bank $16 - "NPC Sprites 2", where he naturally belonged

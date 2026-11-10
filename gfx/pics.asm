@@ -433,3 +433,11 @@ RedPicBack::       INCBIN "gfx/player/redb.pic"
 GreenPicBack::     INCBIN "gfx/player/greenb.pic"
 OldManPicBack::    INCBIN "gfx/battle/oldmanb.pic"
 ProfOakPicBack::   INCBIN "gfx/battle/prof.oakb.pic"
+
+
+; v1.0 (2026-11-09): the species past the 151, pinned in bank $45 (layout.link), the first of the empty
+; banks. A species' front and back share one bank: its base stats hold one pic-bank byte for both.
+SECTION "Pics 8", ROMX
+
+DreadrowPicFront::     INCBIN "gfx/pokemon/front/dreadrow.pic"
+DreadrowPicBack::      INCBIN "gfx/pokemon/back/dreadrowb.pic"

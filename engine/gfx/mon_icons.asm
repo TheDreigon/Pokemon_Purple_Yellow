@@ -253,6 +253,13 @@ WriteMonPartySpriteOAMByPartyIndex:
 	push de
 	push bc
 	call GetPartyMonSpriteID
+; v1.0 (2026-11-10): a = the species, for the icon's OBJ palette (SetIconOBJPalette)
+	ldh a, [hPartyMonIndex]
+	ld e, a
+	ld d, 0
+	ld hl, wPartySpecies
+	add hl, de
+	ld a, [hl]
 	call WriteMonPartySpriteOAM
 	pop bc
 	pop de
@@ -270,16 +277,21 @@ WriteMonPartySpriteOAMByPartyIndex:
 	ret
 
 WriteMonPartySpriteOAMBySpecies:
-; Write OAM blocks for the party sprite of the species in
-; [wMonPartySpriteSpecies].
+; Write OAM blocks for the party sprite of the species in [wcf91] (the naming
+; screen and the trade animation both set it; the tiles came from it too,
+; LoadMonPartySpriteGfx). v1.0 (2026-11-10): it read wMonPartySpriteSpecies,
+; a value GetPartyMonSpriteID overwrote and the trade never wrote (that byte is
+; wIconOBJPalActive now); wcf91 is read after that call, as the species for the
+; icon's OBJ palette.
 	xor a
 	ldh [hPartyMonIndex], a
-	ld a, [wMonPartySpriteSpecies]
 	call GetPartyMonSpriteID
+	ld a, [wcf91]
 
 WriteMonPartySpriteOAM:
 ; Write the OAM blocks for the first animation frame into the OAM buffer and
-; make a copy at wMonPartySpritesSavedOAM.
+; make a copy at wMonPartySpritesSavedOAM. In: a = the species (v1.0,
+; 2026-11-10: SetIconOBJPalette gives its icon an OBJ palette of its own).
 	push af
 	ld c, $10
 	ld h, HIGH(wShadowOAM)
@@ -288,8 +300,10 @@ WriteMonPartySpriteOAM:
 	ld l, a
 	add $10
 	ld b, a
+	call WriteAsymmetricMonPartySpriteOAM ; reads wOAMBaseTile, not a; hl ends past the 4th entry
 	pop af
-	call WriteAsymmetricMonPartySpriteOAM
+	dec hl ; the attribute byte of the fourth entry
+	call SetIconOBJPalette
 ; Make a copy of the OAM buffer with the first animation frame written so that
 ; we can flip back to it from the second frame by copying it back.
 .makeCopy
@@ -305,6 +319,35 @@ GetPartyMonSpriteID:
 	add a
 	ld [wOAMBaseTile], a
 	ret
+
+SetIconOBJPalette:
+; v1.0 (2026-11-10): DREADROW's icon is the one icon with colours of its own on
+; the GBC: OBJ palette ICON_OBJ_PAL, which LoadIconSlotPalette fills from
+; DreadrowIconColors. Every other icon keeps the screen's OBJ palette 0.
+; In: a = the species, hl = the attribute byte of the last of the icon's four
+; OAM entries (4 bytes apart). Writes the whole byte: both callers
+; (WriteMonPartySpriteOAM, LoadTownMap_Fly) come straight from
+; WriteAsymmetricMonPartySpriteOAM, which wrote 0 there (no flip, no priority,
+; DMG palette OBP0), so 7 only sets the GBC palette bits; the DMG and the SGB
+; ignore those bits. Then it raises wIconOBJPalActive, so palette 7 is the
+; icon's until the next palette command but the party menu's (other sprites use
+; palette 7 elsewhere: the GAME FREAK splash's falling stars), and on the GBC
+; loads it at once: the FLY map and the nickname screen draw the icon after
+; their palette command. Clobbers a, b, de, hl (DREADROW only).
+	cp DREADROW
+	ret nz
+	ld de, -4
+	ld b, 4
+.loop
+	ld [hl], ICON_OBJ_PAL
+	add hl, de
+	dec b
+	jr nz, .loop
+	ld [wIconOBJPalActive], a ; DREADROW: nonzero
+	ldh a, [hGBC]
+	and a
+	ret z
+	jp LoadIconSlotPalette
 
 INCLUDE "data/pokemon/menu_icons.asm"
 

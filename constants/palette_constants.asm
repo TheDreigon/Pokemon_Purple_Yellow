@@ -162,8 +162,11 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_GATE                   ; $48 - every passage house (the GATE and FOREST_GATE tilesets): a light peach
 	                                 ;       floor, the bushes and the details green
 	const PAL_DARKBROWNMON           ; $49 - PAL_BROWNMON x0.90, a touch darker (2026-11-08): the heavier and the
-	                                 ;       final browns (PIDGEOT, RATICATE, FEAROW, the DIGLETT line, DODRIO, the
-	                                 ;       HITMONs, KANGASKHAN, PINSIR, the KABUTO line); the rest keep PAL_BROWNMON
+	                                 ;       final browns (PIDGEOT, RATICATE, the DIGLETT line, DODRIO, the HITMONs,
+	                                 ;       KANGASKHAN, PINSIR, the KABUTO line) and FEAROW, a smaller step to its
+	                                 ;       evolution DREADROW's darker browns; the rest keep PAL_BROWNMON
+	const PAL_DREADROW               ; $4A - DREADROW's own (2026-11-09, the owner's pick "I1"): white, a dark
+	                                 ;       brown 18,9,6, a near-black 4,2,1 and a pure black outline. APPENDED
 DEF NUM_SGB_PALS EQU const_value
 
 ; v1.0 (2026-11-02): the same colours as another palette in both tables, so no row of their own: 16 bytes each. To give
@@ -172,3 +175,11 @@ DEF NUM_SGB_PALS EQU const_value
 DEF PAL_BADGE            EQU PAL_CAVE
 DEF PAL_PIKACHU_PORTRAIT EQU PAL_MEWMON ; the overworld emotes
 DEF PAL_PIKAMON          EQU PAL_MEWMON ; PIKACHU, real and fake; RAICHU, SANDSHREW and WEEDLE keep PAL_YELLOWMON
+
+; v1.0 (2026-11-10): the GBC OBJ palette of DREADROW's party icon, the one icon with colours of its own
+; (SetIconOBJPalette, engine/gfx/mon_icons.asm). Palette 7 has other users - the GAME FREAK splash draws five of its
+; falling stars on it (SmallStarsWave*Coords, engine/movie/splash.asm) - so it is the icon's only while
+; wIconOBJPalActive is set: from the icon's drawing to the next palette command but the party menu's, the only
+; window in which LoadIconSlotPalette (engine/gfx/palettes.asm) rebuilds it. On the screens that show party icons
+; (the party menu, also in battle; the nickname screen; the FLY map) no other sprite uses it.
+DEF ICON_OBJ_PAL EQU 7

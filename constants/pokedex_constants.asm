@@ -155,6 +155,7 @@
 	const DEX_DRAGONITE  ; 149
 	const DEX_MEWTWO     ; 150
 	const DEX_MEW        ; 151
+	const DEX_DREADROW   ; 152  v1.0 (2026-11-09): FEAROW's evolution, appended after MEW (the 151 keep their numbers)
 
 DEF NUM_POKEMON EQU const_value - 1
 

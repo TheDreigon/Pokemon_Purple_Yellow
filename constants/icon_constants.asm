@@ -152,6 +152,8 @@
 	const ICON_DRAGONITE
 	const ICON_MEWTWO
 	const ICON_MEW
+	const ICON_DREADROW ; $98 - v1.0 (2026-11-10): the first icon past the 151; in MonIcons2, like every id from $80
+DEF NUM_ICONS EQU const_value
 
 DEF ICON_TRADEBUBBLE EQU $e
 

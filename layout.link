@@ -327,8 +327,9 @@ ROMX $42
 ; has room where it will actually be spent. Pic banks for new species
 ; ("Pics 8", "Pics 9", ...) should also be opened here when the time comes.
 ROMX $43
-	; party icons for dex ids >= 128: grows 128 B per new species past
-	; dex 127 - at ~196 species this section wants ~9.3 KB.
+	; party icons for ICON ids >= $80 (LoadMonPartySpriteGfx and LoadFlyMonIcon
+	; split MonIcons / MonIcons2 at $80; an icon id is its species' dex number):
+	; 128 B per new species past dex 127 - 69 icons, 8,832 B, at 196 species.
 	"Mon Icons 2"
 	; v1.0 (2026-09-26): the debug ROM's menu and tests (three `ret` stubs in
 	; the release ROM). Out of bank $3F so "Text 10" has the same headroom in both builds.
@@ -337,6 +338,10 @@ ROMX $44
 	; frozen data (trainer pics never grow with species) - parked together.
 	"Trainer Pics 2"
 	"Trainer Pics 3"
+ROMX $45
+	; v1.0 (2026-11-09): the pics of the species past the 151 - DREADROW first (front 564 B + back
+	; 145 B). Room for some twenty more species of that size; "Pics 9" opens in the next empty bank after that.
+	"Pics 8"
 WRAM0
 	"Audio RAM"
 	org $c100

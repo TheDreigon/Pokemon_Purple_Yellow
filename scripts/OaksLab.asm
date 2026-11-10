@@ -824,7 +824,7 @@ OaksLabOak1Text:
 	CheckEvent EVENT_BEAT_POKEMONMANSION2F_OAK
 	jp nz, .done
 	call OaksLab_PokedexCount
-	cp NUM_POKEMON - 1 ; discount Mew
+	cp NUM_POKEMON - 1 ; all but one species: MEW, the one OAK sends you after
 	jr nc, .completed
 	jp .done
 .completed

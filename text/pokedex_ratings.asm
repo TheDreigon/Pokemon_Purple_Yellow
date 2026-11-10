@@ -112,7 +112,15 @@ _DexRatingText_Own140To149::
 	cont "authority now!"
 	done
 
-_DexRatingText_Own150To151::
+; v1.0 (2026-11-09, approved 2026-11-10): the new rung, all but one species owned (DexRatingsTable)
+_DexRatingText_OwnAllButOne::
+	text "Just one more"
+	line "#MON to go!"
+	cont "Your #DEX is"
+	cont "nearly complete!"
+	done
+
+_DexRatingText_OwnAll::
 	text "Your #DEX is"
 	line "fully complete!"
 	cont "Congratulations!"

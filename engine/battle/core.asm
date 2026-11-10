@@ -1779,7 +1779,7 @@ TryRunningFromBattle:
 	ld a, [wEnemyMonSpecies]
 	ld [wd11e], a
 	predef IndexToPokedex
-	ld a, [wd11e] ; now the dex number, 1-151
+	ld a, [wd11e] ; now the dex number, 1 to NUM_POKEMON
 	dec a
 	ld c, a
 	ld b, 0

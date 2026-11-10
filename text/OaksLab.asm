@@ -406,24 +406,25 @@ _OaksLabRivalLeaveItAllToMeText::
 	cont "<PLAYER>! Hahaha!"
 	done
 
+; v1.0 (2026-11-09, approved 2026-11-10): OAK says this at all but one species owned (the gate is NUM_POKEMON - 1,
+; scripts/OaksLab.asm), before he leaves for the MANSION: since DREADROW a complete #DEX counts MEW too, so the
+; text no longer says the #DEX is complete.
 _CompletedDexText::
 	text "Incredible,"
 	line "<PLAYER>!"
 
-	para "You've completed"
-	line "the #DEX!"
+	para "Only one #MON"
+	line "is missing from"
+	cont "your #DEX now!"
 
-	para "Yet, the world"
-	line "of #MON holds"
-	cont "many mysteries."
+	para "That last one is"
+	line "a #MON I have"
+	cont "only read about."
 
 	para "This achievement"
 	line "spurs me on to"
 	cont "uncover what"
 	cont "remains hidden."
-
-	para "There's always"
-	line "more to uncover."
 
 	para "Research calls!"
 	done

@@ -58,7 +58,7 @@ IF DEF(_DEBUG)
 	; so they loop back here and the hl-return contract is preserved.
 	jp z, AnimationTestMenu
 	dec a ; MON?
-	jp z, MonTestMenu ; MON (v0.7): browse all 151, colored sprite + cry
+	jp z, MonTestMenu ; MON (v0.7): browse every species, colored sprite + cry
 	jp DebugCredits ; CREDITS (1.0)
 
 .debug
@@ -1029,7 +1029,7 @@ Func_fee56:
 	ld hl, wcf91
 	dec [hl]
 	jr nz, Func_fee23
-	ld [hl], DEX_MEW
+	ld [hl], NUM_POKEMON ; wrap backwards to the last species (was DEX_MEW: #152 was skipped)
 	jr Func_fee23
 
 Func_fee60:

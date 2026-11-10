@@ -1,4 +1,4 @@
-; MON TEST — debug screen for browsing all 151 species (v0.7).
+; MON TEST — debug screen for browsing every species (v0.7; NUM_POKEMON of them, 152 since DREADROW).
 ;
 ; Sibling of ANIM TEST, reached the same way: SELECT on the title screen ->
 ; DebugMenu -> MON. Shows each species' front sprite in its real gameplay
@@ -16,7 +16,7 @@
 ; never disagree about which species is current.
 ;
 ; Controls, LIST (dex-numbered, 14 per page):
-;   UP / DOWN     previous / next species (wraps #001 <-> #151)
+;   UP / DOWN     previous / next species (wraps #001 <-> the last, #NUM_POKEMON)
 ;   LEFT / RIGHT  page -14 / +14 (clamps at the ends)
 ;   A             open the sprite view on the selection
 ;   B             back to the debug menu
@@ -27,10 +27,11 @@
 ;   B             back to the LIST
 ;
 ; Implementation notes — each of these was a trap found while researching:
-;  * The browse cursor is a DEX number (1..151), converted per step with
+;  * The browse cursor is a DEX number (1..NUM_POKEMON), converted per step with
 ;    PokedexToIndex. That routine has NO bounds check (it scans PokedexOrder
 ;    until it matches), so the clamp/wrap below must be airtight. Browsing raw
-;    internal indices instead would walk the ~39 MissingNo. holes.
+;    internal indices instead would walk the 38 indexes that are not species
+;    (the 35 MissingNo. holes and the 3 pseudo-species).
 ;  * BOTH wd0b5 (GetMonHeader / PrintMonTypesList) and wcf91 (pic ROM bank +
 ;    palette) must hold the internal index. Setting only one gives the wrong
 ;    sprite or a crash — that was a real shipped bug once (commit c38fe87).
@@ -91,14 +92,14 @@ IF DEF(_DEBUG)
 	ld a, [wWhichPokemon]
 	dec a
 	jr nz, .listStore
-	ld a, NUM_POKEMON             ; wrap #001 -> #151
+	ld a, NUM_POKEMON             ; wrap #001 -> the last species
 	jr .listStore
 .listNext
 	ld a, [wWhichPokemon]
 	inc a
 	cp NUM_POKEMON + 1
 	jr c, .listStore
-	ld a, 1                       ; wrap #151 -> #001
+	ld a, 1                       ; wrap the last species -> #001
 	jr .listStore
 .listPageBack
 	ld a, [wWhichPokemon]
@@ -152,14 +153,14 @@ IF DEF(_DEBUG)
 	ld a, [wWhichPokemon]
 	dec a
 	jr nz, .store
-	ld a, NUM_POKEMON             ; wrap #001 -> #151
+	ld a, NUM_POKEMON             ; wrap #001 -> the last species
 	jr .store
 .next
 	ld a, [wWhichPokemon]
 	inc a
 	cp NUM_POKEMON + 1
 	jr c, .store
-	ld a, 1                       ; wrap #151 -> #001
+	ld a, 1                       ; wrap the last species -> #001
 	jr .store
 .back10
 	ld a, [wWhichPokemon]

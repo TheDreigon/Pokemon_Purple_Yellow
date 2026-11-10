@@ -1086,7 +1086,13 @@ wGymTrashCanIndex:: db
 ; v1.0 (2026-09-08): wSymmetricSpriteOAMAttributes went with WriteSymmetricMonPartySpriteOAM
 ; (deleted in the v0.7 space pass); the byte went to the stack.
 
-wMonPartySpriteSpecies:: db
+; v1.0 (2026-11-10): nonzero while GBC OBJ palette ICON_OBJ_PAL is DREADROW's icon colours. SetIconOBJPalette
+; raises it when it draws that icon; _RunPaletteCommand drops it for every palette command but SET_PAL_PARTY_MENU
+; (the party menu runs its command after drawing its icons); LoadIconSlotPalette rebuilds the palette only while
+; it is set. Palette 7 has other users elsewhere (the GAME FREAK splash's falling stars). Not saved; zeroed at boot.
+; The byte was wMonPartySpriteSpecies: the naming screen stored the species there and nothing read it (the one
+; read, in WriteMonPartySpriteOAMBySpecies, was dead: GetPartyMonSpriteID overwrote a at once).
+wIconOBJPalActive:: db
 
 ; in the trade animation, the mon that leaves the left gameboy
 wLeftGBMonSpecies:: db

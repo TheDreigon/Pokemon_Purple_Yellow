@@ -1,7 +1,8 @@
 TradeMons:
 ; entries correspond to TRADE_FOR_* constants
-; NOTE: MEW is intentionally NOT tradeable — it is the dex-150-gated postgame
-; static (Mansion B1F); a Mew trade would wreck that design. (The dormant
+; NOTE: MEW is intentionally NOT tradeable — it is the postgame static behind
+; OAK's all-but-one #DEX gate (NUM_POKEMON - 1 owned: 150 until DREADROW, 151
+; since; Mansion B1F); a Mew trade would wreck that design. (The dormant
 ; BART/STINGER placeholder rows were removed 2026-07-24.)
 	table_width 3 + NAME_LENGTH, TradeMons
 	; give mon, get mon, dialog id, nickname

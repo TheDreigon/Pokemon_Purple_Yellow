@@ -218,6 +218,20 @@ _FearowDexEntry::
 	next "soil and water"
 	dex
 
+; v1.0 (2026-11-09): the only entry with three pages; nothing in the engine counts them (PageChar)
+_DreadrowDexEntry::
+	text "Even proud FEAROW"
+	next "bow before this"
+	next "aged hunter. Its"
+
+	page "battle-worn body"
+	next "shrugs off blows."
+	next "It outlived its"
+
+	page "youth but none of"
+	next "its cruelty"
+	dex
+
 _EkansDexEntry::
 	text "The older it gets,"
 	next "the longer it"

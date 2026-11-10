@@ -116,7 +116,7 @@ LoadFrontSpriteByMonIndex::
 	pop hl
 	jr z, .invalidDexNumber ; dex #0 invalid
 	cp NUM_POKEMON + 1
-	jr c, .validDexNumber   ; dex >#151 invalid
+	jr c, .validDexNumber   ; dex > NUM_POKEMON invalid
 .invalidDexNumber
 	ld a, RHYDON ; $1
 	ld [wcf91], a

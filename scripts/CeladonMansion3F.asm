@@ -23,7 +23,7 @@ CeladonMansion3F_TextPointers:
 CeladonMansion3FProgrammerText:
 	text_asm
 	call CeladonMansion3_PokedexCount
-	cp NUM_POKEMON - 1 ; discount Mew
+	cp NUM_POKEMON ; every species, MEW included (v1.0, 2026-11-09: it was NUM_POKEMON - 1, "discount Mew")
 	ld hl, CeladonMansion3Text_486f5
 	jr nc, .print
 	ld hl, CeladonMansion3Text_486f0
@@ -42,7 +42,7 @@ CeladonMansion3Text_486f5:
 CeladonMansion3FGraphicArtistText:
 	text_asm
 	call CeladonMansion3_PokedexCount
-	cp NUM_POKEMON - 1 ; discount Mew
+	cp NUM_POKEMON ; every species, MEW included (v1.0, 2026-11-09: it was NUM_POKEMON - 1, "discount Mew")
 	jr nc, .completed
 	ld hl, .Text1
 	jr .print
@@ -87,7 +87,7 @@ CeladonMansion3FGraphicArtistText:
 CeladonMansion3FWriterText:
 	text_asm
 	call CeladonMansion3_PokedexCount
-	cp NUM_POKEMON - 1 ; discount Mew
+	cp NUM_POKEMON ; every species, MEW included (v1.0, 2026-11-09: it was NUM_POKEMON - 1, "discount Mew")
 	ld hl, .Text2
 	jr nc, .print
 	ld hl, .Text1
@@ -106,7 +106,7 @@ CeladonMansion3FWriterText:
 CeladonMansion3FGameDesignerText:
 	text_asm
 	call CeladonMansion3_PokedexCount
-	cp NUM_POKEMON - 1 ; discount Mew
+	cp NUM_POKEMON ; every species, MEW included (v1.0, 2026-11-09: it was NUM_POKEMON - 1, "discount Mew")
 	jr nc, .completed_dex
 	ld hl, .Text
 	jr .done

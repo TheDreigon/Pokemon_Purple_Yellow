@@ -75,6 +75,7 @@ SuperPalettes:
 	RGB 31,31,30, 29,24,08, 18,12,04, 06,06,06 ; PAL_CHAMPION
 	RGB 31,31,30, 31,26,19, 16,31,04, 06,06,06 ; PAL_GATE
 	RGB 31,31,30, 23,21,16, 16,13,09, 06,06,06 ; PAL_DARKBROWNMON (PAL_BROWNMON's middle colours x0.90)
+	RGB 31,31,30, 18,09,06, 04,02,01, 00,00,00 ; PAL_DREADROW (the GBC row's colours, the SGB white; black 00, not the species' 06, which is lighter than its dark 04,02,01)
 	assert_table_length NUM_SGB_PALS
 
 GBCBasePalettes:
@@ -154,4 +155,5 @@ GBCBasePalettes:
 	RGB 31,31,31, 29,24,08, 18,12,04, 03,03,03 ; PAL_CHAMPION
 	RGB 31,31,31, 31,26,19, 16,31,04, 03,03,03 ; PAL_GATE
 	RGB 31,31,31, 26,16,09, 15,08,05, 03,03,03 ; PAL_DARKBROWNMON (PAL_BROWNMON's middle colours x0.90, 2026-11-08)
+	RGB 31,31,31, 18,09,06, 04,02,01, 00,00,00 ; PAL_DREADROW (the owner's "I1", 2026-11-09)
 	assert_table_length NUM_SGB_PALS
