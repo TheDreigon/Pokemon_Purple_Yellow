@@ -1881,6 +1881,14 @@ MimicEffect:
 	push af
 	ld a, $1
 	ld [wMoveMenuType], a
+; v1.0 (2026-11-12): the screen is saved as it stands, right before the list covers it. Without this
+; the restore below brought back whatever was saved last: the screen of the turn's menu or, after an
+; enemy switch, one saved before the newcomer's HUD and picture were drawn. So when the enemy had
+; moved first, the HUDs of before its move came back and stayed until the next HUD draw: the player's
+; HP as it was before the hit, the enemy's old HP bar and status label, the withdrawn #MON's name
+; with no picture. The list itself saves and restores nothing (it watches UP, DOWN and A only), and
+; every later restore of the turn is preceded by its own save.
+	call SaveScreenTilesToBuffer1
 	farcall MoveSelectionMenu
 	call LoadScreenTilesFromBuffer1
 	ld hl, wEnemyMonMoves
