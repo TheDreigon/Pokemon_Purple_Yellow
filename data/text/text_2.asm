@@ -691,20 +691,31 @@ _ViridianBlackboardSleepText::
 	prompt
 
 _ViridianBlackboardPoisonText::
+; v1.0 (2026-11-12, Forte: the board has to tell POISON from bad POISON): ordinary
+; POISON no longer bites out of battle; a bad POISON does, and it outlives the
+; battle (engine/events/toxic_step.asm). "after battles" stays: invariants_audit
+; check9 pairs this board with TRAINER MANUAL 4_5.
 	text "When poisoned, a"
 	line "#MON's health"
-	cont "steadily drops."
+	cont "drops each turn."
 
 	para "Poison lingers"
-	line "after battles."
+	line "after battles,"
+	cont "but it only bites"
+	cont "in battle."
 
 	para "Use a POISON HEAL"
 	line "or a FULL HEAL to"
 	cont "cure poison!"
 
-	para "Bad poison from"
-	line "TOXIC takes a"
-	cont "FULL HEAL!"
+	para "Bad poison, from"
+	line "TOXIC, bites"
+	cont "harder each turn,"
+	cont "and bites on as"
+	cont "you walk!"
+
+	para "It takes a FULL"
+	line "HEAL to cure it!"
 	prompt
 
 _ViridianBlackboardPrlzText::

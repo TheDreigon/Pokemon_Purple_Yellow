@@ -369,7 +369,8 @@ PrintStatusCondition::
 .notFainted
 ; v1.0 (2026-09-27; the menu shows TOX): a bad POISON stays bad when the #MON is
 ; called back (TOXIC by the Gen 3 rule), so the party list and the stats screen
-; say TOX in battle too, as the HUD does.
+; say TOX as the HUD does - and since 2026-11-11 out of battle too, and for a
+; #MON in a box: the bad POISON outlives the battle.
 	call IsPartyStatusToxic
 	jr z, PrintStatusConditionNotFainted
 	ld a, "T"
@@ -383,26 +384,22 @@ PrintStatusCondition::
 PrintStatusConditionNotFainted::
 	homejp_sf PrintStatusAilment
 
-; v1.0 (2026-09-27): TOX is a battle-only state: PSN together with bit 7 of the
-; byte before the status (MON_BOX_LEVEL, BOX_LEVEL_TOXIC_F; levels stop at 100,
-; freeze counts at 6 - engine/battle/toxic_carry.asm). Out of battle: POISON.
+; v1.0 (2026-11-11): a bad POISON is PSN and TOX together in the status byte itself
+; ($88, engine/battle/toxic_carry.asm), in battle and out, in the party and in a box.
+; A bit 7 without PSN is not one. (From 2026-09-27 until then the mark was bit 7 of the
+; byte before the status, and only a battle had it.)
 ; IN de = a party / box struct's status byte. OUT nz = TOX. a trashed; bc, de, hl kept.
 IsPartyStatusToxic::
-	ld a, [wIsInBattle]
-	and a
-	ret z
 	ld a, [de]
-	and 1 << PSN
+	bit PSN, a
 	ret z
-	dec de
-	ld a, [de]
-	inc de
-	and 1 << BOX_LEVEL_TOXIC_F
+	and 1 << TOX
 	ret
 
 ; v1.0 (2026-09-27): a POISON HEAL cures ordinary POISON only; TOX takes a FULL
-; HEAL or a FULL RESTORE. Here in home because ItemUseMedicine's bank 3 has no
-; room for a farcall.
+; HEAL or a FULL RESTORE. Here in home because ItemUseMedicine's bank 3 had no
+; room for a farcall then (it has since 2026-11-11, when the step poison loops
+; left it; the routine stayed here).
 ; IN  hl = the party status byte, [wcf91] = the item, d = the party index
 ; OUT carry = refused: the text is printed, wActionResultOrTookBattleTurn = 0,
 ;             the item is NOT used up; a, bc, de, hl trashed.

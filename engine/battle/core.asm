@@ -1922,7 +1922,7 @@ SendOutMon:
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	farcall RestoreBattleMonToxic ; a bad POISON it left with comes back, its count at 0 (Gen 3)
+	farcall RestoreBattleMonToxic ; a bad POISON it carries (TOX in its status byte) is live again, its count at 0 (Gen 3)
 	ld hl, wEnemyBattleStatus2
 	res LOCKED_ON, [hl] ; v1.0 (2026-11-02): the enemy's LOCK-ON was on the #MON that left
 ; v1.0 (2026-11-07): the low-HP alarm's three cycles are per stay on the field: every #MON sent out
@@ -2036,12 +2036,14 @@ AnimateRetreatingPlayerMon:
 ; reads player's current mon's HP into wBattleMonHP
 ReadPlayerMonCurHPAndStatus:
 ; v1.0 (2026-09-27): byte 3 carries the freeze count to the party data with the
-; HP and the status (see the end of LoadBattleMonFromParty), and in its bit 7 a
-; bad POISON (TOXIC by the Gen 3 rule, toxic_carry.asm). This runs at the top of
-; every turn, when the #MON faints, when the enemy's does and after a drain, so
+; HP and the status (see the end of LoadBattleMonFromParty). This runs at the top
+; of every turn, when the #MON faints, when the enemy's does and after a drain, so
 ; the party holds both at every switch, run, battle end and menu: they only
 ; change while a turn executes.
-	farcall StoreBattleMonByte3 ; the freeze count | bit 7 when badly poisoned
+; v1.0 (2026-11-11): a bad POISON travels in the status byte itself (TOX with PSN,
+; toxic_carry.asm), so the copy below carries it and byte 3 is the count alone.
+; The farcall also re-derives both sides' BADLY_POISONED from their status bytes.
+	farcall StoreBattleMonByte3 ; the freeze count; then BADLY_POISONED = the status byte's TOX, both sides
 	ld a, [wPlayerMonNumber]
 	ld hl, wPartyMon1HP
 	ld bc, wPartyMon2 - wPartyMon1
@@ -2049,7 +2051,7 @@ ReadPlayerMonCurHPAndStatus:
 	ld d, h
 	ld e, l
 	ld hl, wBattleMonHP
-	ld bc, $4               ; 2 bytes HP, byte 3 = the freeze count (bit 7: TOX), 1 byte status
+	ld bc, $4               ; 2 bytes HP, byte 3 = the freeze count, 1 byte status (a bad POISON's TOX with it)
 	jp CopyData
 
 ; v1.0 (2026-11-07): a status check's line that changes the HUD - "woke up!", "thawed out!",
@@ -6443,8 +6445,8 @@ LoadEnemyMonData:
 	ld [wEnemyMonHP + 1], a
 	ld a, [wWhichPokemon]
 	ld [wEnemyMonPartyPos], a
-	ld a, [hli] ; v1.0 (2026-09-27): byte 3 = the freeze count it left the field with, bit 7 = badly poisoned (SwitchEnemyMon; 0 for a fresh mon)
-	ld [wEnemyFreezeCounter], a ; RestoreEnemyMonToxic takes bit 7 off, below
+	ld a, [hli] ; v1.0 (2026-09-27): byte 3 = the freeze count it left the field with (SwitchEnemyMon; 0 for a fresh mon)
+	ld [wEnemyFreezeCounter], a ; (2026-11-11: the count alone - a bad POISON is TOX in the status byte, read back below)
 	ld a, [hl]
 	ld [wEnemyMonStatus], a
 	farcall RestoreEnemyMonToxic ; toxic_carry.asm

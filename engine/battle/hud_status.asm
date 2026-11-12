@@ -7,11 +7,10 @@
 ; STATUS BYTE, confusion is volatile and lives in wXBattleStatus1, and the
 ; routine is shared with the party menu and the stats screen, where the row
 ; being drawn is usually not the battler. TOX is read here from the LIVE bit
-; (BADLY_POISONED, wXBattleStatus3 bit 0). Since 2026-09-27 a bad POISON stays
-; when the #MON is called back (TOXIC by the Gen 3 rule): its own copy is bit 7
-; of byte 3 of its party data (toxic_carry.asm), and the battle's end turns it
-; ordinary. A battle struct's byte 3 is no such copy (wBattleMonBoxLevel is only
-; rebuilt at write-backs; the enemy's is wEnemyMonPartyPos), so this never reads it.
+; (BADLY_POISONED, wXBattleStatus3 bit 0). Since 2026-11-11 the #MON's own mark
+; is TOX in its status byte, with PSN ($88; it stays when the #MON is called back
+; and it outlives the battle), and the live bit is kept equal to it at every
+; send-out and at every write-back to the party (toxic_carry.asm).
 ;
 ; A persistent status OUTRANKS confusion: three tiles and no more.
 

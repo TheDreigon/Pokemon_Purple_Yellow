@@ -1628,10 +1628,10 @@ NEXTU
 wPlayerNumHits:: db
 ENDU
 
-; freeze auto-thaw counters: set to 3-6 turns when freeze is inflicted (effects.asm), decremented each turn (core.asm), mon thaws at 0
+; freeze auto-thaw counters: set to 4-7 when freeze is inflicted (effects.asm), decremented each turn (core.asm), mon thaws at 0
 ; v1.0 (2026-09-27): these are the LIVE counts of the mon on the field; each mon keeps its own in byte 3 of its
-; party/roster data (ReadPlayerMonCurHPAndStatus / LoadBattleMonFromParty, SwitchEnemyMon / LoadEnemyMonData), bits 0-6;
-; bit 7 of that byte = it left the field badly poisoned (BOX_LEVEL_TOXIC_F, engine/battle/toxic_carry.asm)
+; party/roster data (ReadPlayerMonCurHPAndStatus / LoadBattleMonFromParty, SwitchEnemyMon / LoadEnemyMonData).
+; v1.0 (2026-11-11): byte 3 is that count alone again - a bad POISON is TOX in the status byte (engine/battle/toxic_carry.asm)
 wPlayerFreezeCounter:: db
 wEnemyFreezeCounter:: db
 

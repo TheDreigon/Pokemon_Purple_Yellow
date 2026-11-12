@@ -456,8 +456,8 @@ _MoveDesc_Poison::
 ; (core.asm HandlePoisonBurnLeechSeed_DecreaseOwnHP, D8), and the count starts
 ; again when the #MON is sent back in (toxic_carry.asm, both sides). Five lines:
 ; TOXIC's flavour takes three rows and the blank one, of nine. Fractions, like
-; SOFTBOILED's 3/4. TOX turning into POISON when the battle ends is on manual page
-; 4_5, as POISON lasting after it is.
+; SOFTBOILED's 3/4. What a bad POISON does after the battle (v1.0 2026-11-11: it
+; stays, and it is the only poison that bites on the map) is on manual page 4_5.
 _MoveDesc_Toxic::
 	text "Badly POISONs the"
 	next "foe: 1/16 of full"

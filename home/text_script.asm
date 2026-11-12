@@ -27,6 +27,7 @@ DisplayTextID::
 	dict TEXT_MON_FAINTED,      DisplayPokemonFaintedText
 	dict TEXT_BLACKED_OUT,      DisplayPlayerBlackedOutText
 	dict TEXT_REPEL_WORE_OFF,   DisplayRepelWoreOffText
+	dict TEXT_TOX_SURVIVED,     DisplayToxSurvivedText ; v1.0 (2026-11-11)
 
 	ld a, [wNumSprites]
 	ld e, a
@@ -194,13 +195,24 @@ DisplaySafariGameOverText::
 	callfar PrintSafariGameOverText
 	jp AfterDisplayingTextID
 
+; v1.0 (2026-11-11): out of battle, in Normal, a bad POISON stops at 1 HP and is over
+; (engine/events/toxic_step.asm). The name is in wcd6d, as for the faint below.
+DisplayToxSurvivedText::
+	ld hl, ToxSurvivedText
+	jr DisplayPokemonFaintedText.print
+
 DisplayPokemonFaintedText::
 	ld hl, PokemonFaintedText
+.print
 	call PrintText
 	jp AfterDisplayingTextID
 
 PokemonFaintedText::
 	text_far _PokemonFaintedText
+	text_end
+
+ToxSurvivedText::
+	text_far _ToxSurvivedText
 	text_end
 
 DisplayPlayerBlackedOutText::

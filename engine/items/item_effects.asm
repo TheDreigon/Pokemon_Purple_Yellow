@@ -1383,7 +1383,7 @@ ItemUseMedicine:
 .curesSomething
 ; if the pokemon has a status the item can heal
 	xor a
-	ld [hl], a ; remove the status ailment in the party data
+	ld [hl], a ; remove the status ailment in the party data (the WHOLE byte: a bad POISON's TOX leaves with its PSN - never a res)
 	ld a, b
 	ld [wPartyMenuTypeOrMessageID], a ; the message to display for the item used
 	ld a, [wPlayerMonNumber]
@@ -1394,8 +1394,10 @@ ItemUseMedicine:
 	jp .doneHealing
 
 ; Clears what the status byte of the party data does not hold, for the #MON
-; that is out: its battle status, TOXIC (a bit of wPlayerBattleStatus3) and,
-; for a FULL HEAL or a FULL RESTORE, confusion; then recalculates its stats.
+; that is out: its battle status, the live copy of a bad POISON (BADLY_POISONED,
+; a bit of wPlayerBattleStatus3; since 2026-11-11 the mark itself is TOX in the
+; status byte, zeroed whole above) and, for a FULL HEAL or a FULL RESTORE,
+; confusion; then recalculates its stats.
 ; Shared by the status items and by a FULL RESTORE below full HP.
 ; v1.0 (2026-09-24): vanilla copied the RAW party stats over the battle
 ; stats here and re-applied burn/para. That dropped every stat stage and,

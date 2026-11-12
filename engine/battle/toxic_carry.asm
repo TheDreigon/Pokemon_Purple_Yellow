@@ -1,80 +1,67 @@
-; v1.0 (2026-09-27; the Gen 3 rule, with the menu showing TOX): TOXIC by the
-; Gen 3 rule. A badly poisoned #MON stays badly poisoned when it is called back,
-; its count starts over when it comes back in, and the battle's end leaves it
-; ordinary POISON (Gen 3-4, EndOfBattle).
-; The flag is bit 7 (BOX_LEVEL_TOXIC_F) of byte 3 of the party / roster data
-; (MON_BOX_LEVEL), above the freeze count (bits 0-6). Bit 7 is free there: FRZ
-; and PSN never share the status byte, a box level is at most MAX_LEVEL, every
-; other writer puts 0. Bit 7 means "badly poisoned" ONLY together with PSN in
-; the same #MON's status byte: never read it alone.
+; v1.0 (2026-11-11; replaces the byte-3 carrier of 2026-09-27): a bad POISON (TOXIC)
+; is marked in the #MON's own STATUS byte: TOX (bit 7) together with PSN = $88.
+; PoisonEffect sets it when TOXIC lands, and it goes wherever the status byte is
+; copied: the party (ReadPlayerMonCurHPAndStatus), the trainer's roster
+; (SwitchEnemyMon), a box, the day care, a caught #MON. It outlives the battle; out
+; of battle it is the only poison that costs HP (engine/events/toxic_step.asm).
+; BADLY_POISONED (bit 0 of wXBattleStatus3) is what the battle reads: the tick, the
+; HUD, the AI, the catch. It is a copy of the mark for the #MON on the field,
+; re-derived from its status byte at every send-out of the player's #MON and of a
+; trainer's, and at every write-back to the party (the top of each turn, a faint, a
+; drain): the two cannot disagree for longer than a turn. Its count starts over at
+; those send-outs (Gen 3). A wild #MON has no send-out of its own: it starts from
+; the battle status bytes EndOfBattle zeroed and a status of 0.
+; Byte 3 of the party / roster data (MON_BOX_LEVEL) is the freeze count alone again.
+; TOX is read only together with PSN: a bit 7 alone is never a bad POISON. Every cure
+; writes the whole status byte (0, or a sleep count), so the mark cannot be left behind.
 ; In "Battle Core Overflow" (bank $10), reached by farcall: Battle Core is near
 ; its floor.
 
 ; ReadPlayerMonCurHPAndStatus, before it copies HP / byte 3 / status to the party.
-; OUT wBattleMonBoxLevel = wPlayerFreezeCounter | (1 << BOX_LEVEL_TOXIC_F) when
-;     the #MON is badly poisoned (PSN and BADLY_POISONED). Trashes a, hl.
+; OUT wBattleMonBoxLevel = wPlayerFreezeCounter (the status byte carries a bad POISON
+;     by itself), then both sides' BADLY_POISONED re-derived. Trashes a, hl.
 StoreBattleMonByte3::
-	ASSERT BADLY_POISONED == 0 && BOX_LEVEL_TOXIC_F == 7, "StoreBattleMonByte3 moves bit 0 to bit 7 with an rrca"
-	ld a, [wBattleMonStatus]
-	and 1 << PSN
-	jr z, .gotToxicBit ; a = 0 (a leftover BADLY_POISONED without PSN is not carried)
-	ld a, [wPlayerBattleStatus3]
-	rrca
-	and 1 << BOX_LEVEL_TOXIC_F
-.gotToxicBit
-	ld hl, wPlayerFreezeCounter ; 0-7, never bit 7
-	or [hl]
+	ld a, [wPlayerFreezeCounter] ; 0-7
 	ld [wBattleMonBoxLevel], a
+	; fallthrough
+
+; Both battlers' BADLY_POISONED = "its status byte has PSN and TOX". Touches that bit
+; alone, never a toxic count. Trashes a, hl.
+SyncToxicFlags:
+	ld a, [wBattleMonStatus]
+	ld hl, wPlayerBattleStatus3
+	call .side
+	ld a, [wEnemyMonStatus]
+	ld hl, wEnemyBattleStatus3
+; IN a = a battler's status byte, hl = its BattleStatus3
+.side
+	res BADLY_POISONED, [hl]
+	and (1 << PSN) | (1 << TOX)
+	cp (1 << PSN) | (1 << TOX)
+	ret nz
+	set BADLY_POISONED, [hl]
 	ret
 
 ; SendOutMon, right after it cleared wPlayerStatsToDouble..wPlayerBattleStatus3.
-; IN  wBattleMonBoxLevel / wBattleMonStatus as LoadBattleMonFromParty copied them.
+; IN  wBattleMonStatus as LoadBattleMonFromParty copied it.
 ; The count starts over (Gen 3). Trashes a, hl.
 RestoreBattleMonToxic::
 	xor a
 	ld [wPlayerToxicCounter], a
 	ld a, [wBattleMonStatus]
-	and 1 << PSN
-	ret z
-	ld a, [wBattleMonBoxLevel]
-	add a ; bit 7 -> carry
-	ret nc
 	ld hl, wPlayerBattleStatus3
-	set BADLY_POISONED, [hl]
-	ret
+	jr SyncToxicFlags.side
 
-; LoadEnemyMonData (trainer branch), right after it copied the roster's byte 3
-; WHOLE into wEnemyFreezeCounter and its status into wEnemyMonStatus.
+; LoadEnemyMonData (trainer branch), right after it copied the roster's byte 3 (the
+; freeze count) into wEnemyFreezeCounter and its status into wEnemyMonStatus.
 ; EnemySendOutFirstMon cleared the enemy's battle status bytes before that.
-; Takes bit 7 off wEnemyFreezeCounter (a stray bit 7 there would be a 128-turn
-; freeze). Trashes a, hl.
+; Trashes a, hl.
 RestoreEnemyMonToxic::
 	xor a
 	ld [wEnemyToxicCounter], a
-	ld hl, wEnemyFreezeCounter
-	bit BOX_LEVEL_TOXIC_F, [hl]
-	ret z
-	res BOX_LEVEL_TOXIC_F, [hl] ; what is left is the freeze count
 	ld a, [wEnemyMonStatus]
-	and 1 << PSN
-	ret z
 	ld hl, wEnemyBattleStatus3
-	set BADLY_POISONED, [hl]
-	ret
-
-; EndOfBattle: every party #MON leaves a bad POISON as ordinary POISON (Gen 3-4),
-; so nothing says TOX outside a battle. All six slots: an empty slot's byte 3 is
-; rewritten when a #MON is added. The freeze count under it stays. Trashes b, de, hl.
-RevertPartyToxic::
-	ld hl, wPartyMon1BoxLevel
-	ld de, wPartyMon2 - wPartyMon1
-	ld b, PARTY_LENGTH
-.loop
-	res BOX_LEVEL_TOXIC_F, [hl]
-	add hl, de
-	dec b
-	jr nz, .loop
-	ret
+	jr SyncToxicFlags.side
 
 ; LoadEnemyMonData's tail (moved here from Battle Core by v1.0 N5-A, 2026-09-27):
 ; the unmodified stats (level + stats, the base every recalculation starts

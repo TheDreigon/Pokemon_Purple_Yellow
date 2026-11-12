@@ -56,10 +56,11 @@ EndOfBattle:
 	ld [hli], a
 	dec b
 	jr nz, .loop
-; v1.0 (2026-09-27): a bad POISON lasts the battle; every party #MON leaves it as
-; ordinary POISON (Gen 3-4), so nothing says TOX outside a battle. Every battle
+; v1.0 (2026-11-11): a bad POISON outlives the battle - TOX stays in the party's
+; status bytes, as every other status does, and it is the only poison that bites
+; on the map (engine/events/toxic_step.asm). From 2026-09-27 until then every
+; party #MON left it here as ordinary POISON (RevertPartyToxic, gone). Every battle
 ; ends here (init_battle.asm: callfar StartBattle, then callfar EndOfBattle).
-	farcall RevertPartyToxic ; toxic_carry.asm
 	ld hl, wd72c
 	set 0, [hl]
 	call WaitForSoundToFinish

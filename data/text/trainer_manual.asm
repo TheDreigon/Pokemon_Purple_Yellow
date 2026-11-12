@@ -366,13 +366,13 @@ _ManualPage_4_4::
 _ManualPage_4_5::
 	text "POISON bites for"
 	next "an eighth of full"
-	next "health each turn,"
-	next "in battle and out."
+	next "health each turn."
+	next ""
 	next "TOX, from TOXIC,"
 	next "bites harder each"
-	next "turn, and is"
-	next "POISON after the"
-	next "battle."
+	next "turn, and bites on"
+	next "as you walk after"
+	next "the battle."
 	next "FULL HEAL and FULL"
 	next "RESTORE clear"
 	next "both. POISON HEAL:"
@@ -664,5 +664,21 @@ _ManualPage_7_4b::
 	next "The leader tells"
 	next "you their count at"
 	next "the door."
+	done
+
+_ManualPage_7_5::
+	text "A bad poison bites"
+	next "as you walk."
+	next ""
+	next "On the harder"
+	next "setting it can"
+	next "make a #MON"
+	next "faint, and black"
+	next "you out."
+	next ""
+	next "On the other it"
+	next "stops at 1 HP, and"
+	next "the poison is"
+	next "over."
 	done
 

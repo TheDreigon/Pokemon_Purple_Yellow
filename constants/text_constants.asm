@@ -19,5 +19,6 @@ DEF LEADING_ZEROES EQU (1 << BIT_LEADING_ZEROES)
 	const TEXT_REPEL_WORE_OFF   ; $d2
 	const TEXT_SAFARI_GAME_OVER ; $d3
 	const TEXT_PIKACHU_ANIM     ; $d4
+	const TEXT_TOX_SURVIVED     ; $d5 ; v1.0 (2026-11-11): a bad POISON ends at 1 HP out of battle (Normal), engine/events/toxic_step.asm
 
 DEF TEXT_START_MENU EQU $00

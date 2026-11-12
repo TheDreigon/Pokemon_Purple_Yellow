@@ -3185,22 +3185,15 @@ SwitchEnemyMon:
 	ld bc, 4
 	call CopyData
 ; v1.0 (2026-09-27): byte 3 of the roster entry (it just got the party
-; position, which nothing reads there) keeps the freeze count and, in bit 7, a
-; bad POISON (TOXIC by the Gen 3 rule: it stays when called back) -
-; wEnemyFreezeCounter and BADLY_POISONED are the side's, not the mon's
-; (LoadEnemyMonData / RestoreEnemyMonToxic read them back). Bit 7 only with PSN:
-; a leftover BADLY_POISONED is not carried.
+; position, which nothing reads there) keeps the freeze count:
+; wEnemyFreezeCounter is the side's, not the mon's (LoadEnemyMonData reads it
+; back). This store has to stay.
+; v1.0 (2026-11-11): a bad POISON needs nothing here any more - it is TOX in the
+; status byte the copy above just wrote (it stays when called back, Gen 3), and
+; RestoreEnemyMonToxic re-derives BADLY_POISONED from it at the next send-out.
 	dec de
 	dec de ; de -> byte 3 of its roster entry
-	ld a, [wEnemyMonStatus]
-	and 1 << PSN
-	jr z, .gotToxicBit ; a = 0
-	ld a, [wEnemyBattleStatus3]
-	rrca ; BADLY_POISONED (bit 0) -> bit 7
-	and 1 << BOX_LEVEL_TOXIC_F
-.gotToxicBit
-	ld hl, wEnemyFreezeCounter
-	or [hl]
+	ld a, [wEnemyFreezeCounter]
 	ld [de], a
 ; v1.0 (2026-09-26): and its battle MaxHP, so the roster's HP and MaxHP are
 ; on the same scale once it has been out (a boss's battle MaxHP comes from

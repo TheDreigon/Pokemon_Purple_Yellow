@@ -137,6 +137,13 @@ DEF SLP_MASK EQU %111 ; 0-7 turns
 	const BRN ; 4
 	const FRZ ; 5
 	const PAR ; 6
+; v1.0 (2026-11-11): a bad POISON (TOXIC), always together with PSN: a badly poisoned
+; #MON's status byte is (1 << PSN) | (1 << TOX) = $88. PoisonEffect sets it when the
+; move is TOXIC; it travels wherever the status byte is copied (party, roster, box,
+; day care) and it is the only poison that bites out of battle. Read it with PSN: a
+; bit 7 alone means nothing. Every cure writes the whole byte.
+	const TOX ; 7
+ASSERT TOX == 7 && PSN == 3, "a bad POISON's status byte is $88"
 
 DEF MAX_STAT_VALUE EQU 999
 
@@ -168,10 +175,7 @@ DEF SPDSPCDV_TRAINER EQU $88
 
 ; wPlayerBattleStatus3 or wEnemyBattleStatus3 bit flags
 	const_def
-	const BADLY_POISONED      ; 0
-; (v1.0 2026-09-27) bit 7 of MON_BOX_LEVEL (byte 3) of a party / roster #MON: it
-; left the field badly poisoned (engine/battle/toxic_carry.asm). Only with PSN.
-DEF BOX_LEVEL_TOXIC_F EQU 7
+	const BADLY_POISONED      ; 0 ; the battler's status byte has TOX: kept equal to it by engine/battle/toxic_carry.asm (v1.0 2026-11-11)
 	const HAS_LIGHT_SCREEN_UP ; 1
 	const HAS_REFLECT_UP      ; 2
 	const TRANSFORMED         ; 3

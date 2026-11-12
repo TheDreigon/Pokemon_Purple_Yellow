@@ -1000,15 +1000,17 @@ TrainerManualChapter6Pages:
 	manual_type_pages
 
 TrainerManualChapter7Sections:
-	db 4
+	db 5
 	manual_section TrainerManualSection7_1, 0
 	manual_section TrainerManualSection7_2, 1
 	manual_section TrainerManualSection7_3, 2
 	manual_section TrainerManualSection7_4, 3
+	manual_section TrainerManualSection7_5, 5 ; v1.0 (2026-11-12): a bad POISON on the map, per setting
 TrainerManualChapter7Pages:
-	db 5
+	db 6
 	dw ManualPage_7_1, ManualPage_7_2, ManualPage_7_3, ManualPage_7_4
 	dw ManualPage_7_4b ; 2nd page of WHAT A BOSS GETS (the badge-match rule)
+	dw ManualPage_7_5
 
 TrainerManualSection1_1:
 	db "ORDERING ITEMS@"
@@ -1106,6 +1108,8 @@ TrainerManualSection7_3:
 	db "EXPERIENCE@"
 TrainerManualSection7_4:
 	db "WHAT A BOSS GETS@"
+TrainerManualSection7_5:
+	db "ON THE ROAD@"
 
 	manual_page ManualPage_1_1
 	manual_page ManualPage_1_2
@@ -1161,6 +1165,7 @@ TrainerManualSection7_4:
 	manual_page ManualPage_7_3
 	manual_page ManualPage_7_4
 	manual_page ManualPage_7_4b
+	manual_page ManualPage_7_5
 
 ; Pages with a hard-mode twin, which read the difficulty and tell the truth for
 ; each setting: the PP page (the Viridian PP sign did it first, and came down

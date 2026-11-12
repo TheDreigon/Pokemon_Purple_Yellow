@@ -12,8 +12,10 @@ _VermilionPokecenterFishingGuruText::
 	done
 
 _VermilionPokecenterSailorText::
+; v1.0 (2026-11-12, Forte's wording): only a bad POISON bites on the map now, and
+; in Normal it stops at 1 HP - "fainted while we were walking" was true in Hard only.
 	text "My #MON was"
-	line "poisoned! It"
-	cont "fainted while we"
-	cont "were walking!"
+	line "badly poisoned!"
+	cont "It got weaker"
+	cont "with every step!"
 	done

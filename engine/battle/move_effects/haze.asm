@@ -57,6 +57,13 @@ CureVolatileStatuses:
 	and ~((1 << LOCKED_ON) | (1 << PROTECTED_BY_MIST) | (1 << GETTING_PUMPED) | (1 << SEEDED))
 	ld [hli], a ; BATTSTATUS3
 	ld a, [hl]
+; (v1.0 2026-11-11) A trap for whoever gives a move HAZE_EFFECT again (none has it:
+; HAZE is a GAS attack). This clears BADLY_POISONED on BOTH sides, but HazeEffect_
+; zeroes only the TARGET's status byte: the USER's stays PSN and TOX ($88), and
+; SyncToxicFlags (toxic_carry.asm) sets its BADLY_POISONED again at the next
+; write-back, so its bad POISON would survive the HAZE. Decide then: clear TOX in the
+; user's status byte too (vanilla: its bad POISON becomes ordinary), or leave the
+; user's side alone.
 	and %11110000 | (1 << TRANSFORMED) ; clear Bad Poison, Reflect and Light Screen statuses
 	ld [hl], a
 	ret

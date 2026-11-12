@@ -129,6 +129,17 @@ PoisonEffect:
 	set PSN, [hl]
 	push de
 	dec de
+; v1.0 (2026-11-11): TOXIC marks the status byte itself (TOX, with the PSN just set: $88
+; on a byte tested zero above). The mark is the #MON's own: it goes with the status to
+; the party, the roster, the box, and it outlives the battle. BADLY_POISONED, set below
+; for this stay on the field, is kept equal to it (toxic_carry.asm). The test at .ok
+; below must stay THIS test: a move that set only one of the two would be undone, or
+; left with a stale count, at the next write-back.
+	ld a, [de] ; the move's id (METRONOME's or MIRROR MOVE's TOXIC too)
+	cp TOXIC
+	jr nz, .notBadPoison
+	set TOX, [hl]
+.notBadPoison
 	ldh a, [hWhoseTurn]
 	and a
 	ld b, SHAKE_SCREEN_ANIM
