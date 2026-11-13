@@ -173,6 +173,16 @@ ExpShareLevelUps:
 	xor a
 	ld [wWhichPokemon], a
 .loop
+; v1.0 (2026-11-13): GrewLevelText prints wcd6d. On the plain path GainExperience
+; fetches each Pokemon's name right before its own level-up; here the level-ups
+; come after the summary box, and wcd6d still held whatever was put there last:
+; the box's last recipient (BuildExpShareNames), the Pokemon a level-up before
+; this one taught a move (LearnMove), or the move the forget dialogue dropped.
+; So a level-up was announced under another name. Fetched for every slot, as
+; LevelUpPartyMon decides who grows. GetPartyMonName2 reads wWhichPokemon, keeps
+; bc, leaves hl = wPartyMonNicks, de = wcd6d and a spent; the lines below load
+; a, hl and bc before reading them, and nothing here reads de or the flags.
+	call GetPartyMonName2
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Exp
 	ld bc, wPartyMon2 - wPartyMon1
