@@ -942,13 +942,13 @@ LevelUpPartyMon:
 ; double KO: Normal pays it) skips the battle refresh below, which redrew its HUD
 ; into the space RemoveFaintedPlayerMon had cleared. Nothing reads its battle
 ; struct before the next send-out reloads it from the party.
-	jr .printGrewLevelText
+	jr .saveScreen
 .hpAfterLevelUpDone
 	ld a, [wPlayerMonNumber]
 	ld b, a
 	ld a, [wWhichPokemon]
 	cp b ; is the current mon in battle?
-	jr nz, .printGrewLevelText
+	jr nz, .saveScreen
 ; current mon is in battle
 	ld de, wBattleMonHP
 ; copy party mon HP to battle mon HP
@@ -994,6 +994,15 @@ LevelUpPartyMon:
 	call CallBattleCore
 	ld hl, DrawPlayerHUDAndHPBar
 	call CallBattleCore
+.saveScreen
+; v1.0 (2026-11-13): every level-up saves the screen its two boxes open over. A
+; Pokemon that is not in battle, or is fainted, used to jump past this save to
+; .printGrewLevelText, and its boxes closed by restoring the last save anyone had
+; made: after a knock-out FaintEnemyPokemon's, which is this same screen, but after
+; a catch the nickname question's (AskName), which could still hold the caught
+; Pokemon's HUD: a piece of it came back next to the totals box, and all of it after.
+; After a knock-out those level-ups now come PrintEmptyString's three frames later.
+; Both jumps reach here with no register live: .printGrewLevelText reads memory only.
 	ld hl, PrintEmptyString
 	call CallBattleCore
 	call SaveScreenTilesToBuffer1

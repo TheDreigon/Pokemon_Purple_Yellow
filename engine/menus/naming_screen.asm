@@ -1,5 +1,4 @@
 AskName:
-	call SaveScreenTilesToBuffer1
 	call GetPredefRegisters
 	push hl
 	ld a, [wIsInBattle]
@@ -7,6 +6,13 @@ AskName:
 	hlcoord 0, 0
 	lb bc, 4, 11
 	call z, ClearScreenArea ; only if in wild battle
+; v1.0 (2026-11-13): the screen is saved after the caught Pokemon's HUD is cleared.
+; It used to be saved on the routine's first line, with the HUD on it, and the
+; naming screen's way out restores this save: a typed nickname brought the HUD of a
+; Pokemon already in the ball back for the whole of the experience that a catch
+; pays. Out of battle the clear is not taken and the save is the same as before.
+; GetPredefRegisters reads only wPredefHL/DE/BC; hl is pushed before the save.
+	call SaveScreenTilesToBuffer1
 	ld a, [wcf91]
 	ld [wd11e], a
 	call GetMonName
