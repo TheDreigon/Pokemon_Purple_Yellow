@@ -304,7 +304,7 @@ Moves: ; Current total = 222
 	move SAND_ATTACK,    ACCURACY_DOWN1_EFFECT,             0, BIRD,         100, 20
 	move SMOKESCREEN,    ACCURACY_DOWN1_EFFECT,             0, BIRD,         100, 20
 
-	move RECOVER,        HEAL_EFFECT,                       0, BIRD,         100, 15 ; heals 1/2 hp and heals status.
+	move RECOVER,        HEAL_EFFECT,                       0, BIRD,         100, 15 ; heals 1/2 hp and heals status (a bad poison it only eases, 2026-11-13).
 	move REST,           HEAL_EFFECT,                       0, BIRD,         100, 30
 	move SOFTBOILED,     HEAL_EFFECT,                       0, BIRD,         100, 20 ; signature. heals 3/4 hp and heals status. (v1.0 2026-11-13: 25 PP -> 20)
 

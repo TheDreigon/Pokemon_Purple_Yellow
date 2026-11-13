@@ -14,6 +14,8 @@
 ; Byte 3 of the party / roster data (MON_BOX_LEVEL) is the freeze count alone again.
 ; TOX is read only together with PSN: a bit 7 alone is never a bad POISON. Every cure
 ; writes the whole status byte (0, or a sleep count), so the mark cannot be left behind.
+; One write is partial (2026-11-13): RECOVER on a bad POISON clears TOX alone, leaving
+; the ordinary POISON ($08), with BADLY_POISONED in the same step (EaseUserBadPoison).
 ; In "Battle Core Overflow" (bank $10), reached by farcall: Battle Core is near
 ; its floor.
 
@@ -62,6 +64,81 @@ RestoreEnemyMonToxic::
 	ld a, [wEnemyMonStatus]
 	ld hl, wEnemyBattleStatus3
 	jr SyncToxicFlags.side
+
+; v1.0 (2026-11-13): RECOVER on a bad POISON only eases it: the first RECOVER makes it
+; an ordinary POISON (status $88 -> $08, BADLY_POISONED off), the second cures that
+; POISON as any other (HealEffect_'s cure). Its heal is unchanged. Both sides. REST
+; and SOFTBOILED still clear a bad POISON outright. The toxic count is left as it
+; is: only a set BADLY_POISONED reads it (the tick, the AI's switch score), and every
+; new bad POISON starts it at 0 (PoisonEffect, RestoreBattleMonToxic,
+; RestoreEnemyMonToxic) - as every cure of a bad POISON has always left it.
+
+; HealEffect_ (heal.asm .recoverPath), RECOVER below full HP, before its heal.
+; IN  hWhoseTurn = the user. OUT carry = eased and said so (the HUD redrawn first,
+;     so the letters say PSN beside the line); no carry = no bad POISON, nothing
+;     done. de kept; a, bc, hl trashed.
+RecoverEasesBadPoison::
+	call EaseUserBadPoison
+	ret nc
+	push de
+	ld c, 50
+	call DelayFrames
+	call BadPoisonEasedLine
+	pop de
+	scf
+	ret
+
+; HealEffect_ (heal.asm .fullHPRecover), RECOVER at full HP: the same, and the move's
+; animation first, as the cure at full HP plays it (no heal follows to play it).
+; IN / OUT as above; de not kept.
+RecoverEasesBadPoisonFullHP::
+	call EaseUserBadPoison
+	ret nc
+	ld c, 50
+	call DelayFrames
+	farcall PlayCurrentMoveAnimation
+	call BadPoisonEasedLine
+	scf
+	ret
+
+BadPoisonEasedLine:
+	farcall DrawHUDsAndHPBars
+	ld hl, BadPoisonEasedText
+	jp PrintText
+
+BadPoisonEasedText:
+	text_far _BadPoisonEasedText
+	text_end
+
+; The user's status byte from $88 to $08 (TOX off, PSN kept) and its BADLY_POISONED
+; off with it, so the live copy never disagrees with the byte (SyncToxicFlags' rule).
+; No stat is touched: a POISON has no cut (status_stat_cut.asm).
+; IN  hWhoseTurn = the user. OUT carry = it was a bad POISON (PSN and TOX), now eased.
+; Trashes a, hl.
+EaseUserBadPoison:
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wBattleMonStatus
+	jr z, .gotStatus
+	ld hl, wEnemyMonStatus
+.gotStatus
+	ld a, [hl]
+	and (1 << PSN) | (1 << TOX)
+	cp (1 << PSN) | (1 << TOX)
+	jr nz, .notBadPoison
+	res TOX, [hl]
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wPlayerBattleStatus3
+	jr z, .gotStatus3
+	ld hl, wEnemyBattleStatus3
+.gotStatus3
+	res BADLY_POISONED, [hl]
+	scf
+	ret
+.notBadPoison
+	and a ; no carry (cp left one for every value below $88)
+	ret
 
 ; LoadEnemyMonData's tail (moved here from Battle Core by v1.0 N5-A, 2026-09-27):
 ; the unmodified stats (level + stats, the base every recalculation starts

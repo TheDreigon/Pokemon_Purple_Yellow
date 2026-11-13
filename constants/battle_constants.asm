@@ -141,7 +141,8 @@ DEF SLP_MASK EQU %111 ; 0-7 turns
 ; #MON's status byte is (1 << PSN) | (1 << TOX) = $88. PoisonEffect sets it when the
 ; move is TOXIC; it travels wherever the status byte is copied (party, roster, box,
 ; day care) and it is the only poison that bites out of battle. Read it with PSN: a
-; bit 7 alone means nothing. Every cure writes the whole byte.
+; bit 7 alone means nothing. Every cure writes the whole byte; RECOVER's easing of a bad
+; POISON (2026-11-13) clears TOX alone, leaving PSN (engine/battle/toxic_carry.asm).
 	const TOX ; 7
 ASSERT TOX == 7 && PSN == 3, "a bad POISON's status byte is $88"
 

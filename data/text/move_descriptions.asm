@@ -376,7 +376,8 @@ _MoveDesc_EvasionUp2::
 _MoveDesc_Heal::
 	text "Restores half of"
 	next "full HP and clears"
-	next "any status."
+	next "a status. A bad"
+	next "POISON only eases."
 	done
 
 _MoveDesc_Transform::

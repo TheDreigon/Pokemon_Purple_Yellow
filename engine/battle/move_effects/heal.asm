@@ -21,12 +21,20 @@ HealEffect_:
 ; v1.0 (2026-09-08): the user's HP is full. RECOVER and SOFTBOILED clear the
 ; user's status now, so with a status to clear they still work (cure only, no
 ; "regained health" line); everything else fails here as it always did.
+; (2026-11-13: RECOVER only eases a bad POISON, here too: .fullHPRecover.)
 	ld a, b
 	cp RECOVER
-	jr z, .fullHPCureOnly
+	jr z, .fullHPRecover
 	cp SOFTBOILED
 	jr z, .fullHPCureOnly
 	jp .failed ; no effect if user's HP is already at its maximum
+.fullHPRecover
+; v1.0 (2026-11-13): RECOVER on a bad POISON only eases it to an ordinary POISON
+; (toxic_carry.asm RecoverEasesBadPoisonFullHP: the animation, the HUD, the line);
+; carry = done. Any other status falls through to the cure below. hl, de and b
+; are not read after this point (.fullHPCureOnly reloads hl).
+	farcall RecoverEasesBadPoisonFullHP
+	ret c
 .fullHPCureOnly
 	call .userStatusPtr
 	ld a, [hl]
@@ -89,7 +97,14 @@ HealEffect_:
 .recoverPath
 ; v1.0 (2026-09-08): RECOVER also clears the user's status - a move slot that
 ; only did half a HYPER POTION was rarely worth carrying. Heal still /2.
-	call .clearUserStatus
+; v1.0 (2026-11-13): but a bad POISON is only eased to an ordinary POISON (its own
+; line; toxic_carry.asm RecoverEasesBadPoison, carry = eased); a second RECOVER
+; cures that POISON as any other. The farcall loads hl itself, so the max HP
+; pointer is kept on the stack; the callee keeps de (the HP pointer).
+	push hl
+	farcall RecoverEasesBadPoison
+	pop hl ; (pop keeps the carry)
+	call nc, .clearUserStatus
 	or 1 ; ensure NZ so .healHP runs the /2 divide
 	jr .healHP
 .softboiledPath

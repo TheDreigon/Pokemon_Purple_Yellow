@@ -461,6 +461,8 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	; v1.0 (E4, 2026-09-29): RECOVER too. It has cured the user's status since 2026-09-08
 	; (HealEffect_ .fullHPCureOnly: RECOVER and SOFTBOILED cure at full HP, REST fails there);
 	; this test had kept SOFTBOILED alone. HEAL_EFFECT's moves are RECOVER, REST and SOFTBOILED.
+	; (2026-11-13: on a bad POISON RECOVER only eases it, at full HP too - it still does
+	; something there, and the POISON it leaves is the next RECOVER's to cure: no change here.)
 	ld a, [wEnemyMoveNum]
 	cp REST
 	jr z, .fullHealthDiscourage
@@ -469,7 +471,7 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	jr z, .fullHealthDiscourage
 	pop de
 	pop hl
-	jp .nextMove ; statused: RECOVER or SOFTBOILED is worth using as a FULL HEAL
+	jp .nextMove ; statused: RECOVER or SOFTBOILED is worth using as a FULL HEAL (RECOVER on a bad POISON: half of one)
 .fullHealthDiscourage
 	pop de
 	pop hl
@@ -1131,6 +1133,7 @@ AIMoveChoiceModification4:
 	; v1.0 (2026-09-27): POISON, BURN, PARALYSIS only (see layer 1: a pick made
 	; asleep or frozen runs once the status is gone).
 	; v1.0 (E4, 2026-09-29): RECOVER too - it cures a status since 2026-09-08 (layer 1).
+	; (2026-11-13: a bad POISON it only eases to an ordinary one, which stays PSN here.)
 	ld a, [wEnemyMoveNum]
 	cp REST
 	jr z, .nextMove

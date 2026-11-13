@@ -274,3 +274,12 @@ _TookAimText::
 	line "took aim at"
 	cont "<TARGET>!"
 	prompt
+
+; v1.0 (2026-11-13): RECOVER on a bad POISON (engine/battle/toxic_carry.asm
+; RecoverEasesBadPoison): the first RECOVER only eases it to an ordinary POISON.
+; <USER> is 16 tiles at most ("Enemy " and a 10-letter name) and 's one more: 17.
+; The line on the prompt arrow's row is 17.
+_BadPoisonEasedText::
+	text "<USER>'s"
+	line "bad poison eased!"
+	prompt
