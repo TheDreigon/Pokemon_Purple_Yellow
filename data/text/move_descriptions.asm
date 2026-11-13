@@ -452,8 +452,8 @@ _MoveDesc_Poison::
 	next "each turn."
 	done
 
-; TOXIC's own card, a per-move override (v1.0 D13, 2026-09-28: the card states the
-; true effect). The tick is the toxic count x 1/16 of the max HP, at least 1
+; TOXIC's own card (v1.0 D13, 2026-09-28: the card states the true effect; a per-move
+; override until 2026-11-13, TOXIC_EFFECT's row since). The tick is the toxic count x 1/16 of the max HP, at least 1
 ; (core.asm HandlePoisonBurnLeechSeed_DecreaseOwnHP, D8), and the count starts
 ; again when the #MON is sent back in (toxic_carry.asm, both sides). Five lines:
 ; TOXIC's flavour takes three rows and the blank one, of nine. Fractions, like

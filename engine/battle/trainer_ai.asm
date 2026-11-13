@@ -554,6 +554,7 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 StatusAilmentMoveEffects:
 	db SLEEP_EFFECT
 	db POISON_EFFECT
+	db TOXIC_EFFECT ; v1.0 (2026-11-13): TOXIC's own effect since then, judged as POISON_EFFECT
 	db PARALYZE_EFFECT
 	db BURN_EFFECT ; Will-O-Wisp & Ignite (pure-status burn moves; damaging burn
 	               ; moves are power-gated out before this lookup, so they are
@@ -579,6 +580,8 @@ CheckStatusImmunity:
 	ld b, POISON
 	ld c, STEEL ; v0.7: Steel-types can't be poisoned either
 	jr z, .substituteFirst ; v1.0 (F5)
+	cp TOXIC_EFFECT ; v1.0 (2026-11-13): TOXIC, the same handler (b and c are set above)
+	jr z, .substituteFirst
 	cp PARALYZE_EFFECT
 	jr z, .checkParalyze
 	ld b, FIRE
@@ -1152,6 +1155,7 @@ AIMoveChoiceModification4:
 Modifier4PreferredMoves:
 	db SLEEP_EFFECT
 	db POISON_EFFECT
+	db TOXIC_EFFECT ; v1.0 (2026-11-13): TOXIC's own effect since then
 	db PARALYZE_EFFECT
 	db BURN_EFFECT       ; Will-O-Wisp & Ignite (always-burn status moves; damaging
 	                     ; burn moves are power-gated out before this lookup)

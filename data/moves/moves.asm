@@ -205,7 +205,7 @@ Moves: ; Current total = 222
 	move SLUDGE_WAVE,    SPEED_DOWN1_EFFECT,               90, POISON,       100, 15 ; new move.
 	move GUNK_SHOT,      POISON_SIDE_EFFECT2,             115, POISON,        85, 10 ; new move. damage + 30% poison (acc 85 in line with Fire Blast/Blizzard/Thunder).
 	move NEUROTOXIN,     PARALYZE_EFFECT,                   0, POISON,        90, 20 ; new move.
-	move TOXIC,          POISON_EFFECT,                     0, POISON,        90, 20
+	move TOXIC,          TOXIC_EFFECT,                      0, POISON,        90, 20
 
 
 	; === PSYCHIC_TYPE (8 moves) ===

@@ -17,4 +17,5 @@ ResidualEffects1:
 	db LEECH_SEED_EFFECT
 	db PROTECT_EFFECT ; v1.0 (2026-11-02): its own handler, which runs its own tests (protect_lock_on.asm)
 	db LOCK_ON_EFFECT ; v1.0 (2026-11-02): likewise; it calls MoveHitTest itself, as LEECH SEED does
+	db TOXIC_EFFECT ; v1.0 (2026-11-13): POISON_EFFECT's handler, as POISON_EFFECT above
 	db -1 ; end

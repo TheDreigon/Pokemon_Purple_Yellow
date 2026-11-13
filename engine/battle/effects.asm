@@ -128,15 +128,16 @@ PoisonEffect:
 	dec hl
 	set PSN, [hl]
 	push de
-	dec de
 ; v1.0 (2026-11-11): TOXIC marks the status byte itself (TOX, with the PSN just set: $88
 ; on a byte tested zero above). The mark is the #MON's own: it goes with the status to
 ; the party, the roster, the box, and it outlives the battle. BADLY_POISONED, set below
 ; for this stay on the field, is kept equal to it (toxic_carry.asm). The test at .ok
 ; below must stay THIS test: a move that set only one of the two would be undone, or
 ; left with a stale count, at the next write-back.
-	ld a, [de] ; the move's id (METRONOME's or MIRROR MOVE's TOXIC too)
-	cp TOXIC
+; v1.0 (2026-11-13): the test is on the move's EFFECT, TOXIC_EFFECT (it was on the move id,
+; `cp TOXIC`): a bad poison is what the effect says, whatever move carries it.
+	ld a, [de] ; the move's effect (METRONOME's or MIRROR MOVE's TOXIC too: they load it)
+	cp TOXIC_EFFECT
 	jr nz, .notBadPoison
 	set TOX, [hl]
 .notBadPoison
@@ -151,8 +152,8 @@ PoisonEffect:
 	ld hl, wEnemyBattleStatus3
 	ld de, wEnemyToxicCounter
 .ok
-	cp TOXIC
-	jr nz, .normalPoison ; done if move is not Toxic
+	cp TOXIC_EFFECT
+	jr nz, .normalPoison ; done if the effect is not Toxic's
 	set BADLY_POISONED, [hl] ; else set Toxic battstatus
 	xor a
 	ld [de], a
@@ -165,6 +166,8 @@ PoisonEffect:
 	ld a, [de]
 	cp POISON_EFFECT
 	jr z, .regularPoisonEffect
+	cp TOXIC_EFFECT ; v1.0 (2026-11-13): the status moves, both: their own animation
+	jr z, .regularPoisonEffect
 	ld a, b ; SHAKE_SCREEN_ANIM or ENEMY_HUD_SHAKE_ANIM - both specials
 	call PlaySpecialBattleAnimation2
 	jp PrintText
@@ -174,6 +177,8 @@ PoisonEffect:
 .noEffect
 	ld a, [de]
 	cp POISON_EFFECT
+	jr z, .didntAffect
+	cp TOXIC_EFFECT ; v1.0 (2026-11-13): a status move says why it failed; a side effect says nothing
 	ret nz
 .didntAffect
 	ld c, 50

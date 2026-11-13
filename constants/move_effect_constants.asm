@@ -131,6 +131,7 @@
 	const DEFENSE_DOWN1_FLINCH_EFFECT ; $6F  target Defense-1 + ~30% flinch (Tickle; 2026-09-08). Its own id because DEFENSE_DOWN1 is shared by six other moves.
 	const PROTECT_EFFECT              ; $70  the user blocks every move aimed at it this turn; fails the turn after one that worked (Protect; 2026-11-02)
 	const LOCK_ON_EFFECT              ; $71  the user's moves never miss the target until either leaves the field (Lock-On; 2026-11-02)
+	const TOXIC_EFFECT                ; $72  a bad POISON, $88 + BADLY_POISONED (Toxic; 2026-11-13). POISON_EFFECT's handler, which tells the two apart by this id (it read the move id before).
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
 ; v1.0 (2026-11-07): two readers double the effect id in 8 bits and drop the carry: the MOVE
 ; INFO card (ShowMoveInfo -> GetMoveDescription.byEffect, `add a` on ids 0..N into

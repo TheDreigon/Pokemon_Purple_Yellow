@@ -45,12 +45,6 @@ MoveDescriptionOverrides:
 	dw MoveDesc_Priority
 	db AQUA_JET,     
 	dw MoveDesc_Priority
-; v1.0 (D13, 2026-09-28): TOXIC runs on POISON_EFFECT with POISON GAS and
-; POISONPOWDER; only its move id makes the poison bad (effects.asm, the
-; `cp TOXIC` in the poison effect). Since D8 its tick is the count x 1/16 of
-; full HP, not POISON's eighth, so it gets words of its own.
-	db TOXIC,
-	dw MoveDesc_Toxic
 ; v1.0 (round 7, 2026-09-30; the card says it hits DARK types, space permitting): since F4
 ; MIND BREAK hits DARK at 0.5x, the one DAMAGING PSYCHIC move that does
 ; (TypeRowMultiplier, type_effectiveness.asm); HYPNOSIS and DISABLE land on DARK since F4
@@ -181,6 +175,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_DefenseDown1Flinch ; DEFENSE_DOWN1_FLINCH_EFFECT
 	dw MoveDesc_Protect ; PROTECT_EFFECT
 	dw MoveDesc_LockOn ; LOCK_ON_EFFECT
+	dw MoveDesc_Toxic ; TOXIC_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
