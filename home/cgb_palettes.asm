@@ -11,6 +11,18 @@ UpdateGBCPal_BGP::
 	ld a, [wLastBGP]
 	cp b
 	jr z, .noChangeInBGP
+; v1.0 (2026-11-12): on a battle screen (the last palette command is SET_PAL_BATTLE_BLACK or SET_PAL_BATTLE) the
+; status letters' palettes, BG 5 and 6, are written FIRST, below both rows of status cells, so they change shade
+; in the same frame as palettes 0-3, which the next call writes at the V-blank that follows
+; (engine/gfx/bg_map_attributes.asm). The test is made here and not behind the far call: every other screen
+; then pays these three instructions per rBGP change and no bank switch (the Yellow intro has no time to
+; spare). b only held rBGP for the compare above.
+	ld a, [wLastPalCommand]
+	cp SET_PAL_BATTLE + 1
+	ASSERT SET_PAL_BATTLE_BLACK == 0 && SET_PAL_BATTLE == 1
+	jr nc, .notBattleScreen
+	farcall PreloadStatusLetterPalettes
+.notBattleScreen
 	farcall _UpdateGBCPal_BGP
 ; _UpdateGBCPal_BGP only rebuilds palettes 0-3 (NUM_ACTIVE_PALS); palette 4
 ; is the EXP bar's and is rebuilt here so it follows every fade and whiteout

@@ -1095,6 +1095,10 @@ wGymTrashCanIndex:: db
 ; HUD balls, the GAME FREAK splash's falling stars on 7). Not saved; zeroed at boot. The byte was
 ; wMonPartySpriteSpecies: the naming screen stored the species there and nothing read it (the one read, in
 ; WriteMonPartySpriteOAMBySpecies, was dead: GetPartyMonSpriteID overwrote a at once).
+; v1.0 (2026-11-12): the battle HUD's coloured status letters read it too (home's UpdateGBCPal_BGP and
+; engine/gfx/bg_map_attributes.asm): the two battle commands, SET_PAL_BATTLE_BLACK and SET_PAL_BATTLE, are
+; the gate of the letters' palette writes on an rBGP change, at a HUD draw and in front of a silhouette
+; command, and SET_PAL_BATTLE_BLACK asks for their silhouette form.
 wLastPalCommand:: db
 
 ; in the trade animation, the mon that leaves the left gameboy
@@ -2885,6 +2889,12 @@ SECTION "GBC Palette Data", WRAM0
 ; to the tail of "Audio RAM" (see there); the eleven bytes went to the stack.
 wGBCPal:: ds PALETTE_SIZE
 wdef5:: db
+; v1.0 (2026-11-12): a second user, no byte added. _UpdateGBCPal_BGP fills it and transfers it in one go, so
+; between two of its runs the buffer is free: the writers of the battle HUD's status-letter palettes
+; (engine/gfx/bg_map_attributes.asm: PreloadStatusLetterPalettes, which home calls right BEFORE
+; _UpdateGBCPal_BGP, PreloadPacket10LetterPalettes, PreloadSilhouetteLetterPalettes and
+; WriteStatusLetterPaletteSynced) build BG palettes 5 and 6 in its first two palettes and write them out before
+; they return. Nothing may keep a value here.
 wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 
 

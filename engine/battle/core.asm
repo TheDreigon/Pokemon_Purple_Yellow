@@ -17,6 +17,9 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	call DisableLCD
 	call LoadFontTilePatterns
 	call LoadHudAndHpBarAndStatusTilePatterns
+; v1.0 (2026-11-12): the HUD's coloured status letters, GBC only, over blank font cells
+; (engine/gfx/bg_map_attributes.asm). Here because this is a battle's one font load, LCD off.
+	farcall LoadStatusLetterTiles
 	ld hl, vBGMap0
 	ld bc, BG_MAP_WIDTH * BG_MAP_HEIGHT
 .clearBackgroundLoop
@@ -1286,6 +1289,10 @@ HandlePlayerBlackOut:
 	cp OAKS_LAB
 	ret z            ; starter battle in oak's lab: don't black out
 .notRival1Battle
+; v1.0 (2026-11-12): the enemy's HUD is on screen. On the GBC its coloured status letters turn black first,
+; below their row, so that they and the HP bar are black in the same frame (engine/gfx/bg_map_attributes.asm);
+; on the DMG / SGB the far call returns at once.
+	callfar PreloadSilhouetteLetterPalettes
 	ld b, SET_PAL_BATTLE_BLACK
 	call RunPaletteCommand
 	ld hl, PlayerBlackedOutText2
@@ -2111,6 +2118,11 @@ DrawPlayerHUDAndHPBar:
 	ld [wcf91], a
 	hlcoord 10, 9
 	predef DrawHP
+; v1.0 (2026-11-12): the ink of the status label just drawn (GBC; engine/battle/hud_status.asm), here, right
+; in front of the BG transfer's switch: a label with a new ink gets its palette in the V-blank that copies
+; its tiles. The call keeps de: e is the HP bar's length, which GetBattleHealthBarColor reads below.
+	ld c, 0 ; the player's HUD
+	callfar SyncStatusLetterInk
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	ld hl, wPlayerHPBarColor
@@ -2249,6 +2261,10 @@ DrawEnemyHUDAndHPBar:
 	ld [wHPBarType], a
 	hlcoord 2, 2
 	call DrawHPBar
+; v1.0 (2026-11-12): the ink of the status label just drawn, as in DrawPlayerHUDAndHPBar. de is kept: e is
+; the bar's length for GetBattleHealthBarColor, which this falls into.
+	ld c, 1 ; the enemy's HUD
+	callfar SyncStatusLetterInk
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	ld hl, wEnemyHPBarColor

@@ -194,8 +194,15 @@ hSerialReceivedNewData:: db
 ; $ff = establishing connection
 hSerialConnectionStatus:: db
 hSerialIgnoringInitialData:: db
-hSerialSendData:: db
-hSerialReceiveData:: db
+
+; v1.0 (2026-11-12): the INK REGISTER of the battle HUD's coloured status letters (GBC), one byte per side: the
+; ink id (STATUS_INK_*, constants/gfx_constants.asm; 0 = none) of the persistent-status label that side's three
+; HUD cells last got. +0 the player's, +1 the enemy's: indexed by the side byte the HUD code passes in c.
+; Written by SyncStatusLetterInk alone (engine/battle/hud_status.asm), at the tail of a HUD draw, together with
+; the palette and the tiles; zeroed once per battle (LoadStatusLetterTiles); read by every rebuild of the
+; letters' palettes (BuildStatusLetterPalette, engine/gfx/bg_map_attributes.asm, which has the whole design).
+; These were hSerialSendData and hSerialReceiveData, dead since the link cable went.
+hStatusLetterInk:: ds 2
 
 ; these values are copied to rSCX, rSCY, and rWY during V-blank
 hSCX:: db

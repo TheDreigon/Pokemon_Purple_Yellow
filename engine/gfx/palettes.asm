@@ -10,6 +10,8 @@ _RunPaletteCommand:
 ; v1.0 (2026-11-10): LoadIconPalettes and TransferCurOBPData read it, to know which party icons the screen shows
 ; (SET_PAL_DEFAULT is resolved above; SET_PAL_PARTY_MENU_HP_BARS loads no palette and is left out, so the party
 ; menu keeps its own). Stored before SendSGBPackets runs, so they always see the screen being set up.
+; v1.0 (2026-11-12): so does the head of LoadBGMapAttributes, which builds the status letters' palettes in the
+; form this command asks for (engine/gfx/bg_map_attributes.asm): the store has to stay in front of the packets.
 	ld [wLastPalCommand], a
 	ld l, a
 	ld h, 0

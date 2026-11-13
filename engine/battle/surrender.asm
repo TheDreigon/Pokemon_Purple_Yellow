@@ -28,6 +28,11 @@ TrainerBattleSurrenderPrompt::
 	ld [wBattleResult], a
 ; the tail of HandlePlayerBlackOut (core.asm .notRival1Battle), minus the
 ; "out of useable #MON" line that would be a lie here
+; v1.0 (2026-11-12): both HUDs are on screen. On the GBC their coloured status
+; letters turn black first, below their rows, so that they and the HP bars are
+; black in the same frame (engine/gfx/bg_map_attributes.asm); on the DMG / SGB
+; the far call returns at once.
+	callfar PreloadSilhouetteLetterPalettes
 	ld b, SET_PAL_BATTLE_BLACK
 	call RunPaletteCommand
 	ld hl, .ForfeitedText
