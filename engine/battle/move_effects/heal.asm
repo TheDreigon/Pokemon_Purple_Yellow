@@ -46,7 +46,18 @@ HealEffect_:
 	ld [hl], a
 	call .userToxicOff
 	farcall PlayCurrentMoveAnimation
+	; fall through
+.refreshedLine
+; the "felt refreshed!" line of both cures (here and .clearUserStatus)
 	ld hl, RegainedStatusText
+.printWithFreshHUDs
+; v1.0 (2026-11-13): prints the line in hl (of this bank) with the HUDs redrawn
+; first: the status letters beside the line are already the ones it speaks of
+; (the HP bar still shows the HP of before; the heal redraws it after the line).
+	push hl
+	ld hl, DrawHUDsAndHPBars
+	call EffectCallBattleCore
+	pop hl
 	jp PrintText
 .userStatusPtr
 ; hl = the user's status byte
@@ -89,7 +100,7 @@ HealEffect_:
 	jr z, .printRestText
 	ld hl, FellAsleepBecameHealthyText ; if mon had an status
 .printRestText
-	call PrintText
+	call .printWithFreshHUDs ; SLP already on the HUD beside the line
 	pop af
 	pop de
 	pop hl
@@ -126,8 +137,7 @@ HealEffect_:
 	xor a
 	ld [hl], a ; clear status
 	call .userToxicOff
-	ld hl, RegainedStatusText
-	call PrintText
+	call .refreshedLine ; the HUDs first, then the line
 .noStatusToClear
 	pop de
 	pop hl
