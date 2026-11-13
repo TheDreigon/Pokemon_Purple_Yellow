@@ -104,6 +104,7 @@ ROMX $10
 	"Battle Core Overflow"
 	"Missable Objects 2" ; v1.0 (T23): the second hide/show table + its loader; 8 KB free here, and bank3 (table 1) is at ~500 B
 	"Icon Layouts" ; v1.0 (2026-11-10): IconLayouts, one byte per species (LoadIconPalette, bank $1C, reads it with GetFarByte)
+	"Vending Machine" ; v1.0 (2026-11-13): out of bank $1D, where "Battle Effects" needs the room; reached only by farcall (home/text_script.asm)
 ROMX $11
 	"Maps 5"
 	"Pokédex Rating"
@@ -174,7 +175,6 @@ ROMX $1D
 	"Maps 19"
 	"Itemfinder 1"
 	"Maps 20"
-	"Vending Machine"
 	"Maps 21"
 	"Battle Effects"
 	"Itemfinder 2"

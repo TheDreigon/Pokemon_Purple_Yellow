@@ -372,6 +372,9 @@ INCLUDE "engine/items/itemfinder.asm"
 
 
 SECTION "Vending Machine", ROMX
+; v1.0 (2026-11-13): pinned in bank $10 (layout.link), after everything else there, out of bank $1D, which
+; "Battle Effects" shares: its only way in is the farcall in home/text_script.asm, and it reads only its own
+; texts and VendingPrices, all inside this section
 
 INCLUDE "engine/events/vending_machine.asm"
 
