@@ -316,24 +316,97 @@ DaycareGentlemanText:
 	ld [wcf91], a
 	ld a, [wPartyCount]
 	dec a
+	ld [wWhichPokemon], a
+; v1.0 (2026-11-13): only a #MON that grew a level here (c, the level MoveMon gives, above b, the
+; level it was left at) is healed, as a #MON CENTER heals (HealParty): HP to max, the whole status
+; byte cleared (a bad POISON's $88 too), every move's PP back to full with its PP UPs. One that did
+; not grow comes back as it was left: MoveMon copied its HP, status and PP from the DAY CARE's copy
+; (.notGrown only cuts an HP above the max HP MoveMon redid).
+; Vanilla set the HP to max for every #MON, grown or not, and left the status and the PP alone.
+	ld a, b
+	cp c
+	jr nc, .notGrown
+	ld a, [wWhichPokemon]
 	ld bc, wPartyMon2 - wPartyMon1
-
-; set mon's HP to max
 	ld hl, wPartyMon1HP
 	call AddNTimes
 	ld d, h
-	ld e, l
-	ld bc, wPartyMon1MaxHP - wPartyMon1HP
+	ld e, l ; de = its HP
+	ld bc, wPartyMon1Status - wPartyMon1HP
+	add hl, bc
+	ld [hl], 0 ; the whole status byte
+	ld bc, wPartyMon1MaxHP - wPartyMon1Status
 	add hl, bc
 	ld a, [hli]
 	ld [de], a
 	inc de
 	ld a, [hl]
-	ld [de], a
+	ld [de], a ; HP = max HP
+	ld a, [wWhichPokemon]
+	ld bc, wPartyMon2 - wPartyMon1
+	ld hl, wPartyMon1Moves
+	call AddNTimes ; hl = its moves
+	push hl
+	ld de, wNormalMaxPPList - 1 ; LoadMovePPs writes from de + 1
+	predef LoadMovePPs ; each move's PP with no PP UP
+	pop hl
+	ld de, wNormalMaxPPList
+	ld b, NUM_MOVES
+.healPPLoop
+	ld a, [hl]
+	and a
+	jr z, .healPPNext ; no move in this slot: its PP byte is left alone (HealParty)
+	push hl
+	push bc
+	ld bc, wPartyMon1PP - wPartyMon1Moves
+	add hl, bc
+	ld a, [de]
+	ld b, a
+	ld a, [hl]
+	and %11000000 ; its PP UPs are kept
+	add b
+	ld [hl], a
+	pop bc
+	pop hl
+.healPPNext
+	inc hl
+	inc de
+	dec b
+	jr nz, .healPPLoop
+	xor a
+	ld [wUsingPPUp], a ; every move, each PP UP counted (as HealParty)
+	callfar RestoreBonusPP ; wWhichPokemon = the last party slot
+	jr .backAsItWasLeft
 
-	ld a, [wPartyCount]
-	dec a
-	ld [wWhichPokemon], a
+.notGrown
+; Not healed, but never above its max HP: MoveMon redid the max HP from the EXP, and a #MON whose EXP
+; sits under its level's floor (.skipCalcExp) comes back a level lower, with a smaller max HP.
+	ld a, [wWhichPokemon]
+	ld bc, wPartyMon2 - wPartyMon1
+	ld hl, wPartyMon1HP
+	call AddNTimes
+	ld d, h
+	ld e, l ; de = its HP
+	ld bc, wPartyMon1MaxHP - wPartyMon1HP
+	add hl, bc ; hl = its max HP
+	inc de
+	inc hl
+	ld a, [de]
+	ld b, a
+	ld a, [hld]
+	sub b ; low bytes: max HP - HP
+	dec de
+	ld a, [de]
+	ld b, a
+	ld a, [hl]
+	sbc b ; carry: the HP is above the max HP
+	jr nc, .backAsItWasLeft
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hl]
+	ld [de], a ; HP = max HP
+.backAsItWasLeft
 	callfar IsThisPartymonStarterPikachu
 	jr c, .withdrewPikachuFromDayCare
 	ld a, [wcf91]

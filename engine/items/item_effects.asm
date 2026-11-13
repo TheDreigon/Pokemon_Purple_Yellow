@@ -3240,7 +3240,8 @@ GotOffBicycleText:
 ; INPUT:
 ; [wWhichPokemon] = index of pokemon in party
 ; [wCurrentMenuItem] = index of move (when using a PP Up)
-RestoreBonusPP:
+; v1.0 (2026-11-13): exported for the DAY CARE's heal of a #MON that grew (scripts/Daycare.asm).
+RestoreBonusPP::
 	ld hl, wPartyMon1Moves
 	ld bc, wPartyMon2 - wPartyMon1
 	ld a, [wWhichPokemon]
