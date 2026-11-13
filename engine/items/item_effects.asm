@@ -708,8 +708,9 @@ GetCatchHPMultiplier:
 
 ; Status: only the BEST one the target has counts. They do not stack, and the
 ; trainer manual says so.
-;   none 20 | confusion 22 | poison 24 | burn 26 | toxic 28
+;   none 20 | confusion 24 | poison 24 | burn 26 | toxic 28
 ;   paralysis 32 | sleep 36 | freeze 40
+; (v1.0 2026-11-13: confusion 22 -> 24, worth as much as a poison.)
 ;
 ; Three different bytes hold these. Sleep, poison, burn, freeze and paralysis
 ; live in the status byte; BADLY_POISONED sits in battle status 3 on top of the
@@ -755,7 +756,7 @@ GetCatchStatusMultiplier:
 .noStatusByte
 	ld a, [wEnemyBattleStatus1]
 	bit CONFUSED, a
-	ld a, 22
+	ld a, 24
 	ret nz
 	ld a, 20
 	ret
