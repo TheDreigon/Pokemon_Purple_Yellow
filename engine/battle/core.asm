@@ -4052,8 +4052,17 @@ CheckPlayerStatusConditions:
 	cp [hl]
 	jr nz, .ParalysisCheck
 	call PrintMoveIsDisabledText
-	ld hl, ExecutePlayerMoveDone ; if a disabled move was somehow selected, player can't move this turn
-	jp .returnToHL
+; v1.0 (2026-11-13): DISABLE breaks a lock. The turn is lost with the line, as before, through the exit of a
+; full paralysis and a confusion self-hit (below), so a lock into the disabled move ends here: BIDE (what it
+; stored is never released; BideEffect zeroes it when a BIDE starts), a rampage (THRASH, PETAL DANCE, OUTRAGE,
+; RAGE: no confusion, which only a rampage's last attack brings), a hold (WRAP, CLAMP: the held #MON is free)
+; and a hidden #MON (FLY, SKY ATTACK, DIG: its picture comes back). The next turn it chooses again, and the move
+; list refuses the disabled move. Before, this exit kept those bits (PrintMoveIsDisabledText clears CHARGING_UP
+; alone): the line came every turn, with no move list, until the DISABLE ran out, and a hidden #MON stayed
+; hidden with its move list back. A hold or a hidden #MON meets this check only when METRONOME or MIRROR MOVE
+; called a move disabled in its own list: DISABLE never reaches a hidden #MON, and a held one cannot move.
+; A move picked from the list and disabled before it ran holds none of these bits: no change.
+	jr .MonHurtItselfOrFullyParalysed
 
 .ParalysisCheck
 	ld hl, wBattleMonStatus
@@ -4065,7 +4074,7 @@ CheckPlayerStatusConditions:
 	ld hl, FullyParalyzedText
 	call PrintText
 
-.MonHurtItselfOrFullyParalysed
+.MonHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.TriedToUseDisabledMoveCheck)
 	ld hl, wPlayerBattleStatus1
 	ld a, [hl]
 	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
@@ -6191,8 +6200,7 @@ CheckEnemyStatusConditions:
 	cp [hl]
 	jr nz, .checkIfParalysed
 	call PrintMoveIsDisabledText
-	ld hl, ExecuteEnemyMoveDone ; if a disabled move was somehow selected, enemy can't move this turn
-	jp .enemyReturnToHL
+	jr .monHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): DISABLE breaks a lock - the turn is lost and a lock into the disabled move ends, see the player side
 .checkIfParalysed
 	ld hl, wEnemyMonStatus
 	bit PAR, [hl]
@@ -6202,7 +6210,7 @@ CheckEnemyStatusConditions:
 	jr nc, .checkIfUsingBide
 	ld hl, FullyParalyzedText
 	call PrintText
-.monHurtItselfOrFullyParalysed
+.monHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.checkIfTriedToUseDisabledMove)
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
 	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
