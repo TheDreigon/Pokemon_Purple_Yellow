@@ -428,7 +428,11 @@ ItemUseBall:
 	ld [wd11e], a
 	ld a, 0
 	ld [wMoveListCounter], a
-	predef ShowPokedexData
+; v1.0 (2026-11-13): the page, then the battle screen put back for the experience the
+; catch pays (ShowPokedexDataInBattle, engine/menus/pokedex.asm). The page reads
+; wd11e and wMoveListCounter, set above, and no register; nothing after the label
+; reads one (callfar does not keep a, b and hl).
+	callfar ShowPokedexDataInBattle
 
 .skipShowingPokedexData
 	ld a, $1

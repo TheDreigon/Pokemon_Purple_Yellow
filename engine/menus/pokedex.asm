@@ -524,6 +524,50 @@ IsPokemonBitSet:
 	and a
 	ret
 
+; function to display pokedex data in a battle: the page of a species just caught
+; (ItemUseBall), then the battle screen put back
+; v1.0 (2026-11-13): a catch pays experience after the page, and a level-up of the
+; Pokemon in battle redraws its HUD; the page clears the screen and ends on the
+; text-box tile set at vChars2 $60-$7F, so that HUD came out alone on a white screen
+; in letters and box pieces. What the page destroys is put back here:
+;   - the tile map, saved in wTileMapBackup2 (nothing in a catch restores from it).
+;     Two rectangles of the saved copy are blanked, so the screen comes back as the
+;     nickname's question is about to show it: the caught Pokemon's HUD, which
+;     AskName clears in a wild battle (brought back, it stood for three frames), and
+;     the inside of the text box (the page's line stood for three frames on the PC's
+;     path, with fourteen or more Pokemon in the box);
+;   - vChars2 $62-$7F, the HP bar's and the HUD's tiles, by the battle's loader;
+;   - vChars2 $60-$61, the last two tiles of the player's back picture, which both of
+;     the page's tile sets overwrite: copied out of VRAM and back by the V-blank
+;     copier, through the first 32 bytes of wTileMapBackup. Every path of a catch
+;     saves the screen there again (AskName) before anything restores from it.
+; The font, the EXP bar's and the status letters' tiles and the rest of the back
+; picture are left alone by the page, and its last palette command is the battle's
+; (RunDefaultPaletteCommand). No HUD draw falls between the save and the restore.
+; The picture at vFrontPic stays the page's: a caught Pokemon's is not on screen.
+ShowPokedexDataInBattle::
+	call SaveScreenTilesToBuffer2
+	ld hl, wTileMapBackup2
+	lb bc, 4, 11
+	call ClearScreenArea ; in the saved copy: the enemy's HUD, the rectangle AskName clears
+	ld hl, wTileMapBackup2 + 13 * SCREEN_WIDTH + 1
+	lb bc, 4, 18
+	call ClearScreenArea ; and the inside of the text box
+	ld de, vChars2 tile $60
+	ld hl, wTileMapBackup
+	lb bc, BANK(ShowPokedexDataInBattle), 2
+	call CopyVideoData ; VRAM to RAM: the copier takes any source
+; the copier steps its destination with `inc l` inside a tile (VBlankCopy,
+; home/vcopy.asm): a RAM destination must keep each tile inside one 256-byte page
+	ASSERT HIGH(wTileMapBackup) == HIGH(wTileMapBackup + 2 * LEN_2BPP_TILE - 1)
+	call ShowPokedexData
+	callfar LoadHudAndHpBarAndStatusTilePatterns
+	ld de, wTileMapBackup
+	ld hl, vChars2 tile $60
+	lb bc, BANK(ShowPokedexDataInBattle), 2
+	call CopyVideoData
+	jp LoadScreenTilesFromBuffer2
+
 ; function to display pokedex data from outside the pokedex
 ShowPokedexData:
 	call GBPalWhiteOutWithDelay3
