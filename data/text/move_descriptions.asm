@@ -51,9 +51,10 @@ _MoveDesc_PoisonSide2::
 	next "to POISON the foe."
 	done
 
-_MoveDesc_PoisonSide3::
-	text "45 in 100 chance"
-	next "to POISON the foe."
+_MoveDesc_PoisonToxicSide1::
+	text "30 in 100 to"
+	next "POISON, 15 in 100"
+	next "to badly POISON."
 	done
 
 _MoveDesc_DrainHP::
@@ -791,4 +792,17 @@ _MoveDesc_DefenseDown2Burn3::
 	text "Lowers DEFENSE two"
 	next "steps. 45 in 100"
 	next "to BURN the foe."
+	done
+
+_MoveDesc_SpeedDownSidePoison1::
+	text "33 in 100 to lower"
+	next "SPEED one step."
+	next "15 in 100 to"
+	next "POISON the foe."
+	done
+
+_MoveDesc_PoisonToxicSide2::
+	text "25 in 100 to"
+	next "POISON, 25 in 100"
+	next "to badly POISON."
 	done

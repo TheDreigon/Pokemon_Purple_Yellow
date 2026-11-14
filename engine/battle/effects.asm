@@ -92,6 +92,19 @@ PoisonEffect:
 	jr z, .poisonEffect
 	ld hl, wBattleMonStatus
 	ld de, wEnemyMoveEffect
+	jr .poisonEffect
+; v1.0 (2026-11-14): the refusals sit here, ahead of the tests, so that their jr's reach them
+; past TOXIC FANGS' and GUNK SHOT's code below.
+.noEffect
+	ld a, [de]
+	cp POISON_EFFECT
+	jr z, .didntAffect
+	cp TOXIC_EFFECT ; v1.0 (2026-11-13): a status move says why it failed; a side effect says nothing
+	ret nz
+.didntAffect
+	ld c, 50
+	call DelayFrames
+	jp PrintDidntAffectText
 .poisonEffect
 	call CheckTargetSubstitute
 	jr nz, .noEffect ; can't poison a substitute target
@@ -108,9 +121,14 @@ PoisonEffect:
 	cp POISON_SIDE_EFFECT2
 	ld b, 30 percent + 1 ; chance of poisoning
 	jr z, .sideEffectTest
-	cp POISON_SIDE_EFFECT3
-	ld b, 45 percent + 1 ; chance of poisoning
-	jr z, .sideEffectTest
+; v1.0 (2026-11-14): TOXIC FANGS and GUNK SHOT roll ONCE for both outcomes: under b a bad
+; poison, under c a plain one (c is the total), else nothing.
+	cp POISON_TOXIC_SIDE_EFFECT1
+	ld bc, (15 percent + 1) << 8 | (45 percent + 1) ; bad poison / any poison
+	jr z, .toxicSideTest
+	cp POISON_TOXIC_SIDE_EFFECT2
+	ld bc, (25 percent + 1) << 8 | (50 percent + 1) ; bad poison / any poison
+	jr z, .toxicSideTest
 	push hl
 	push de
 	call MoveHitTest ; apply accuracy tests
@@ -119,41 +137,50 @@ PoisonEffect:
 	ld a, [wMoveMissed]
 	and a
 	jr nz, .didntAffect
+	ld a, [de]
+	cp TOXIC_EFFECT ; carry for POISON_EFFECT (a plain poison), none for TOXIC_EFFECT
+	jr .inflictPoison
+.toxicSideTest
+	call BattleRandom
+	cp c
+	ret nc ; no poison
+	cp b
+	ccf ; carry: a plain poison; none: a bad one
 	jr .inflictPoison
 .sideEffectTest
 	call BattleRandom
 	cp b ; was side effect successful?
 	ret nc
+; (carry here: a plain poison)
 .inflictPoison
+; In: carry = a plain poison, no carry = a bad one.
 	dec hl
 	set PSN, [hl]
-	push de
 ; v1.0 (2026-11-11): TOXIC marks the status byte itself (TOX, with the PSN just set: $88
 ; on a byte tested zero above). The mark is the #MON's own: it goes with the status to
 ; the party, the roster, the box, and it outlives the battle. BADLY_POISONED, set below
 ; for this stay on the field, is kept equal to it (toxic_carry.asm). The test at .ok
 ; below must stay THIS test: a move that set only one of the two would be undone, or
 ; left with a stale count, at the next write-back.
-; v1.0 (2026-11-13): the test is on the move's EFFECT, TOXIC_EFFECT (it was on the move id,
-; `cp TOXIC`): a bad poison is what the effect says, whatever move carries it.
-	ld a, [de] ; the move's effect (METRONOME's or MIRROR MOVE's TOXIC too: they load it)
-	cp TOXIC_EFFECT
-	jr nz, .notBadPoison
+; v1.0 (2026-11-14): a bad poison is what the paths above decided (TOXIC_EFFECT, or the low
+; band of TOXIC FANGS' and GUNK SHOT's roll); .ok reads it back from the TOX bit in c.
+	jr c, .notBadPoison
 	set TOX, [hl]
 .notBadPoison
+	ld c, [hl] ; the new status byte: TOX = a bad poison
+	push de
 	ldh a, [hWhoseTurn]
 	and a
 	ld b, SHAKE_SCREEN_ANIM
 	ld hl, wPlayerBattleStatus3
-	ld a, [de]
 	ld de, wPlayerToxicCounter
 	jr nz, .ok
 	ld b, ENEMY_HUD_SHAKE_ANIM
 	ld hl, wEnemyBattleStatus3
 	ld de, wEnemyToxicCounter
 .ok
-	cp TOXIC_EFFECT
-	jr nz, .normalPoison ; done if the effect is not Toxic's
+	bit TOX, c
+	jr z, .normalPoison ; done if not a bad poison
 	set BADLY_POISONED, [hl] ; else set Toxic battstatus
 	xor a
 	ld [de], a
@@ -174,16 +201,6 @@ PoisonEffect:
 .regularPoisonEffect
 	call PlayCurrentMoveAnimation2
 	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
-.noEffect
-	ld a, [de]
-	cp POISON_EFFECT
-	jr z, .didntAffect
-	cp TOXIC_EFFECT ; v1.0 (2026-11-13): a status move says why it failed; a side effect says nothing
-	ret nz
-.didntAffect
-	ld c, 50
-	call DelayFrames
-	jp PrintDidntAffectText
 
 ; v1.0 (2026-11-02, three types): z when the target is a POISON or STEEL type - type 1 or 2 at hl (hl -> its
 ; type 1, and back there on return) or its third (GetThirdType: the GASTLY line's POISON). Out of PoisonEffect
@@ -242,6 +259,13 @@ ExplodeEffect:
 	ld [de], a
 	ret
 
+; v1.0 (2026-11-14): DoStatDownBurnEffect's second leg. a = the spoofed status id (also in the
+; effect byte): POISON_SIDE_EFFECT1 (SLUDGE WAVE) goes to PoisonEffect, a BURN_SIDE id falls
+; through to FreezeBurnParalyzeEffect.
+StatDownStatusLeg:
+	cp POISON_SIDE_EFFECT1
+	jp z, PoisonEffect
+	; fallthrough
 FreezeBurnParalyzeEffect:
 ; v0.7 type-immunity refactor:
 ;   - Removed vanilla "if move type == defender type, status fails" check.
@@ -2433,6 +2457,12 @@ DoStatDownFlinchEffect:
 ; rolls unless the move missed (MoveHitTest: a miss, MIST); at -6 it still rolls, as the flinch
 ; does after INTIMIDATE's refusal. Never hand the own id ($74 on) to either handler: both read any
 ; such id as some other effect, with a green build.
+; v1.0 (2026-11-14): SLUDGE WAVE rides the same dispatcher, a SPEED side drop then a 15% POISON:
+; c = POISON_SIDE_EFFECT1, which StatDownStatusLeg hands to PoisonEffect (its rules: POISON /
+; STEEL / third type immune, a status already there, a SUBSTITUTE).
+SpeedDownSidePoison1Effect: ; SLUDGE WAVE: 33% SPEED -1, 15% POISON
+	ld bc, SPEED_DOWN_SIDE_EFFECT << 8 | POISON_SIDE_EFFECT1
+	jr DoStatDownBurnEffect
 DefenseDownSideBurn1Effect: ; ACID: 33% DEFENSE -1, 15% burn
 	ld bc, DEFENSE_DOWN_SIDE_EFFECT << 8 | BURN_SIDE_EFFECT1
 	jr DoStatDownBurnEffect
@@ -2464,7 +2494,7 @@ DoStatDownBurnEffect:
 	push de
 	ld a, c
 	ld [de], a
-	call FreezeBurnParalyzeEffect
+	call StatDownStatusLeg ; the burn, or SLUDGE WAVE's POISON
 	pop de
 .restore
 	pop af

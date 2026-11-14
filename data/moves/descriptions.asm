@@ -136,7 +136,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_AttackDefenseUp1 ; ATTACK_DEFENSE_UP1_EFFECT
 	dw MoveDesc_AccuracyEvasionDown1 ; ACCURACY_EVASION_DOWN1_EFFECT
 	dw MoveDesc_Burn ; BURN_EFFECT
-	dw MoveDesc_PoisonSide3 ; POISON_SIDE_EFFECT3
+	dw MoveDesc_PoisonToxicSide1 ; POISON_TOXIC_SIDE_EFFECT1
 	dw MoveDesc_ConfusionSide1 ; CONFUSION_SIDE_EFFECT1
 	dw MoveDesc_Twineedle ; TWINEEDLE_EFFECT
 	dw MoveDesc_AttackAccuracyUp1 ; ATTACK_ACCURACY_UP1_EFFECT
@@ -180,6 +180,8 @@ MoveEffectDescriptions:
 	dw MoveDesc_DefenseDownSideBurn1 ; DEFENSE_DOWN_SIDE_BURN1_EFFECT
 	dw MoveDesc_DefenseDown1Burn2 ; DEFENSE_DOWN1_BURN2_EFFECT
 	dw MoveDesc_DefenseDown2Burn3 ; DEFENSE_DOWN2_BURN3_EFFECT
+	dw MoveDesc_SpeedDownSidePoison1 ; SPEED_DOWN_SIDE_POISON1_EFFECT
+	dw MoveDesc_PoisonToxicSide2 ; POISON_TOXIC_SIDE_EFFECT2
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -454,8 +456,8 @@ MoveDesc_PoisonSide2:
 	text_far _MoveDesc_PoisonSide2
 	text_end
 
-MoveDesc_PoisonSide3:
-	text_far _MoveDesc_PoisonSide3
+MoveDesc_PoisonToxicSide1:
+	text_far _MoveDesc_PoisonToxicSide1
 	text_end
 
 MoveDesc_Protect:
@@ -684,4 +686,12 @@ MoveDesc_DefenseDown1Burn2:
 
 MoveDesc_DefenseDown2Burn3:
 	text_far _MoveDesc_DefenseDown2Burn3
+	text_end
+
+MoveDesc_SpeedDownSidePoison1:
+	text_far _MoveDesc_SpeedDownSidePoison1
+	text_end
+
+MoveDesc_PoisonToxicSide2:
+	text_far _MoveDesc_PoisonToxicSide2
 	text_end

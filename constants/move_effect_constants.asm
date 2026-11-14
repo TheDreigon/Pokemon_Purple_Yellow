@@ -83,7 +83,7 @@
 	const ATTACK_DEFENSE_UP1_EFFECT  ; $48  user Atk+1 & Def+1 (Bulk Up)
 	const ACCURACY_EVASION_DOWN1_EFFECT ; $49  target Acc-1 & Evasion-1 (Flash)
 	const BURN_EFFECT                ; $4A  always burn (Will-O-Wisp)
-	const POISON_SIDE_EFFECT3        ; $4B  45% poison chance (Toxic Fangs)
+	const POISON_TOXIC_SIDE_EFFECT1  ; $4B  one roll: 15% bad POISON, else up to 45% POISON (Toxic Fangs; was POISON_SIDE_EFFECT3, 45% POISON, until 2026-11-14)
 	const CONFUSION_SIDE_EFFECT1     ; $4C
 	const TWINEEDLE_EFFECT           ; $4D
 	const ATTACK_ACCURACY_UP1_EFFECT ; $4E  user Atk+1 & Acc+1 (Hone Claws)
@@ -138,6 +138,8 @@
 	const DEFENSE_DOWN_SIDE_BURN1_EFFECT ; $74  33% target Defense-1, then 15% burn (Acid). The rules of DEFENSE_DOWN_SIDE and BURN_SIDE_EFFECT1.
 	const DEFENSE_DOWN1_BURN2_EFFECT     ; $75  target Defense-1 after every hit, then 30% burn (Acid Spray). DEFENSE_DOWN1's sure drop, BURN_SIDE_EFFECT2.
 	const DEFENSE_DOWN2_BURN3_EFFECT     ; $76  target Defense-2, then 45% burn (Corrode, power 0). The burn rolls at -6 too, not after a miss.
+	const SPEED_DOWN_SIDE_POISON1_EFFECT ; $77  33% target Speed-1, then 15% POISON, rolled apart (Sludge Wave; 2026-11-14). DoStatDownBurnEffect, SPEED_DOWN_SIDE + POISON_SIDE_EFFECT1.
+	const POISON_TOXIC_SIDE_EFFECT2      ; $78  one roll: 25% bad POISON, else up to 50% POISON (Gunk Shot; 2026-11-14). PoisonEffect.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
 ; v1.0 (2026-11-07): two readers double the effect id in 8 bits and drop the carry: the MOVE
 ; INFO card (ShowMoveInfo -> GetMoveDescription.byEffect, `add a` on ids 0..N into

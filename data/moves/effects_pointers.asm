@@ -75,7 +75,7 @@ MoveEffectPointerTable:
 	dw AttackDefenseUp1Effect    ; ATTACK_DEFENSE_UP1_EFFECT
 	dw AccuracyEvasionDown1Effect; ACCURACY_EVASION_DOWN1_EFFECT
 	dw BurnEffect                ; BURN_EFFECT
-	dw PoisonEffect              ; POISON_SIDE_EFFECT3
+	dw PoisonEffect              ; POISON_TOXIC_SIDE_EFFECT1
 	dw ConfusionSideEffect       ; CONFUSION_SIDE_EFFECT1
 	dw TwoToFiveAttacksEffect    ; TWINEEDLE_EFFECT
 	dw AttackAccuracyUp1Effect   ; ATTACK_ACCURACY_UP1_EFFECT
@@ -119,4 +119,6 @@ MoveEffectPointerTable:
 	dw DefenseDownSideBurn1Effect ; DEFENSE_DOWN_SIDE_BURN1_EFFECT
 	dw DefenseDown1Burn2Effect   ; DEFENSE_DOWN1_BURN2_EFFECT
 	dw DefenseDown2Burn3Effect   ; DEFENSE_DOWN2_BURN3_EFFECT
+	dw SpeedDownSidePoison1Effect ; SPEED_DOWN_SIDE_POISON1_EFFECT
+	dw PoisonEffect              ; POISON_TOXIC_SIDE_EFFECT2
 	assert_table_length NUM_MOVE_EFFECTS
