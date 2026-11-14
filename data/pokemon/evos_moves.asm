@@ -1919,7 +1919,7 @@ BellsproutEvosMoves:
 ; SLEEP_POWDER (predator just sleeps its prey; no Poison/Stun Powder).
 ; CONSTRICT/WRAP + vine kit; SLEEP_POWDER L30, past the evo level (L22);
 ; ACID + RAZOR_LEAF + drain progression (ABSORB->MEGA->GIGA); TICKLE for
-; debuff. No SLUDGE/CORRODE here (Weepinbell/Victreebel tier).
+; debuff. No SLUDGE (Weepinbell on) or CORRODE (Victreebel only) here.
 	db  6, TICKLE
 	db  8, CONSTRICT
 	db 10, BITE
@@ -1943,8 +1943,8 @@ WeepinbellEvosMoves:
 ; Learnset
 ; Mid-stage carnivore (Grass/Poison). Bellsprout backbone +
 ; Weepinbell/Victreebel exclusives: SLUDGE (digestive), LEECH_LIFE (insect
-; drain), GIGA_DRAIN, CORRODE (predator -2 def signature), and for
-; Victreebel SLUDGE_WAVE (L55) high-level apex poison.
+; drain), GIGA_DRAIN, and for Victreebel alone CORRODE (L50, predator -2
+; def signature) and SLUDGE_WAVE (L55) high-level apex poison.
 	db  6, TICKLE
 	db  8, CONSTRICT
 	db 10, BITE
@@ -3043,8 +3043,8 @@ WeezingEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-; Apex gas balloon. Koffing backbone (incl. shared CORRODE L31) +
-; SCARY_FACE (L52), GUNK_SHOT (L62), DARK_PULSE (L65).
+; Apex gas balloon. Koffing backbone + CORRODE (L31, the evo level;
+; Koffing has none), SCARY_FACE (L52), GUNK_SHOT (L62), DARK_PULSE (L65).
 ; (L65). EXPLOSION shared at L55.
 	db  6, TACKLE
 	db 12, DISABLE
