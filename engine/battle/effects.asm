@@ -59,7 +59,7 @@ SleepEffect:
 	farcall TargetStatusGone
 	call PlayCurrentMoveAnimation2
 	ld hl, FellAsleepText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .didntAffect
 	jp PrintDidntAffectText
 
@@ -170,10 +170,10 @@ PoisonEffect:
 	jr z, .regularPoisonEffect
 	ld a, b ; SHAKE_SCREEN_ANIM or ENEMY_HUD_SHAKE_ANIM - both specials
 	call PlaySpecialBattleAnimation2
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .regularPoisonEffect
 	call PlayCurrentMoveAnimation2
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .noEffect
 	ld a, [de]
 	cp POISON_EFFECT
@@ -348,7 +348,7 @@ FreezeBurnParalyzeEffect:
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	ld hl, BurnedText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .freeze1
 	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wEnemyMonType1]
@@ -460,7 +460,7 @@ FreezeBurnParalyzeEffect:
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
 	ld hl, BurnedText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .freeze2
 	; v0.7: ICE and MAGMA defenders are immune to freeze (player side).
 	ld a, [wBattleMonType1]
@@ -509,7 +509,7 @@ FrozenText:
 ; In: hWhoseTurn = the attacker. Ends in PrintText: nothing is kept.
 PrintFrozenTextAndLowerSpeed:
 	ld hl, FrozenText
-	call PrintText
+	call PrintTextWithFreshHUDs ; v1.0 (2026-11-13): FRZ already on the HUD beside the line
 	ld hl, wEnemyMonSpeedMod
 	ld de, wEnemyMonSpeed
 	ldh a, [hWhoseTurn]
@@ -626,7 +626,7 @@ TriStatusSideEffect:
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	ld hl, BurnedText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 
 .freezeEnemy
 	ld a, [wEnemyMonStatus]
@@ -694,7 +694,7 @@ TriStatusSideEffect:
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
 	ld hl, BurnedText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 
 .freezeBattle
 	ld a, [wBattleMonStatus]
@@ -794,7 +794,7 @@ CheckDefrost:
 	ld [hl], a
 	ld hl, FireDefrostedText
 .common
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): FRZ already off the HUD beside the line
 
 FireDefrostedText:
 	text_far _FireDefrostedText
@@ -1781,7 +1781,7 @@ ConfusionSideEffectSuccess:
 	call nz, PlayCurrentMoveAnimation2
 .skipAnim
 	ld hl, BecameConfusedText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): CNF already on the HUD beside the line
 
 BecameConfusedText:
 	text_far _BecameConfusedText
@@ -2074,6 +2074,19 @@ DidntAffectText:
 
 PrintMayNotAttackText:
 	ld hl, ParalyzedMayNotAttackText
+	; fall through
+; v1.0 (2026-11-13): prints the line in hl (of this bank) with the TARGET's HUD redrawn
+; first, so the status letters beside a line that inflicts or cures a status are
+; already the ones it speaks of; every such line of this bank comes here, with the
+; status (or confusion) already written. Before, the HUD caught up after the line.
+; Every one of these lines speaks of the target (the side hWhoseTurn is not), so
+; only its HUD is drawn: the user's stays as the engine left it - an EXPLOSION's
+; user already at 0 HP, undrawn, while "Fire defrosted" thaws its target.
+; (The choice of side lives in Battle Core, beside the two HUD routines: this bank is the tight one.)
+PrintTextWithFreshHUDs:
+	push hl
+	farcall DrawTargetHUDAndHPBar
+	pop hl
 	jp PrintText
 
 ParalyzedMayNotAttackText:
@@ -2643,7 +2656,7 @@ BurnEffect:
 	call HalveAttackDueToBurn
 	call PlayCurrentMoveAnimation2
 	ld hl, BurnedText
-	jp PrintText
+	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .alreadyStatused
 ; v0.7: an always-burn move cannot burn a target that already has a status, but a
 ; FIRE or MAGMA one must still THAW a frozen one -- "any fire move melts the ice",

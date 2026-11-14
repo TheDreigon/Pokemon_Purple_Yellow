@@ -2062,11 +2062,17 @@ ReadPlayerMonCurHPAndStatus:
 	jp CopyData
 
 ; v1.0 (2026-11-07): a status check's line that changes the HUD - "woke up!", "thawed out!",
-; "confused no more!" - then both HUDs redrawn, before the #MON goes on to its move: the old
+; "confused no more!" - with both HUDs redrawn, before the #MON goes on to its move: the old
 ; SLP / FRZ / CNF must not stay on screen through it.
+; v1.0 (2026-11-13): the HUDs are redrawn BEFORE the line in hl (it printed first, so the old
+; letters stood beside it), and the nap's "began to nap!" comes here too. The callers write the
+; status first; nothing changes during the line, so the HUD is still right after it.
 PrintTextAndDrawHUDs:
-	call PrintText
-	; fall through
+	push hl
+	call DrawHUDsAndHPBars
+	pop hl
+	jp PrintText
+
 DrawHUDsAndHPBars:
 	call DrawPlayerHUDAndHPBar
 	jp DrawEnemyHUDAndHPBar
@@ -2086,6 +2092,14 @@ BattleMenuInput:
 	ldh [hHUDStatusFlip], a
 	jp HandleMenuInput_
 
+; v1.0 (2026-11-13): the HUD of the side hWhoseTurn is not - the target of the move in play. For
+; PrintTextWithFreshHUDs (effects.asm): a status line speaks of the target alone, and the user's HUD
+; must stay as the engine left it (an EXPLOSION's user is already at 0 HP, undrawn, at "Fire defrosted").
+DrawTargetHUDAndHPBar:
+	ldh a, [hWhoseTurn]
+	and a
+	jp z, DrawEnemyHUDAndHPBar ; the player's turn: the enemy is the target
+	; fall through
 DrawPlayerHUDAndHPBar:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
@@ -4618,7 +4632,8 @@ CheckForDisobedience:
 	farcall DrawSleepCounter ; v1.0 (2026-11-08): a SLEEP move's counter, 3-6 (was 1-7, Gen 1's draw)
 	farcall PlayerStatusGone ; v1.0 (2026-09-27): the nap replaces any status - a bad POISON goes with the POISON, and (N5) a burn/para cut
 	ld hl, BeganToNapText
-	jr .printText
+	call PrintTextAndDrawHUDs ; v1.0 (2026-11-13): SLP already on the HUD beside the line
+	jp .cannotUseMove
 .monDoesNothing
 	call BattleRandom
 	and $3
