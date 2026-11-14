@@ -244,6 +244,7 @@ ROMX $2f
 	"BG Map Attributes (Debug)"
 	org $5000
 	"BG Map Attributes"
+	"Move SFX Table" ; v1.0 (2026-11-13): out of bank $34, where "Move Descriptions Text" needs the room; read only through GetFarByte with BANK(MoveSoundTable) (engine/battle/animations.asm, engine/pikachu/pikachu_pic_animation.asm)
 ROMX $30
 	; base_stats grows here, one BASE_DATA_SIZE (30 B) record per new species.
 	; v1.0 (2026-11-10): "Trainer Manual Text" (7084 B) moved out to ROMX $46; sharing
@@ -259,7 +260,6 @@ ROMX $33
 	"Pikachu Cries 8"
 ROMX $34
 	"Pikachu Cries 9"
-	"Move SFX Table"
 	; v0.7: same reasoning as "Move Info" in $24. This one got the roomier
 	; bank of the two at the time because it is the half that grows -- every
 	; per-move description override lands here.
