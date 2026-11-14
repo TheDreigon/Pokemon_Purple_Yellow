@@ -4,7 +4,11 @@
 ; in the project and none of this is needed from battle: MarkMoveSeenByID, the
 ; one routine that is, stays in home/movedex_seen.asm.
 
-ASSERT NUM_ATTACKS % 8 != 0, "CountMovedexSeen's mask assumes the last wMovedexSeen byte is partial"
+; CountMovedexSeen masks byte NUM_ATTACKS / 8 down to the bits of real moves and
+; counts the first (NUM_ATTACKS + 7) / 8 bytes. At a multiple of 8 that byte
+; is the first spare byte (mask 0, never counted), so any count works as long as
+; the byte lies inside the saved field.
+ASSERT NUM_ATTACKS / 8 < MOVEDEX_FLAG_CAPACITY / 8, "CountMovedexSeen's mask byte (NUM_ATTACKS / 8) lies past the end of wMovedexSeen"
 
 ; Test move id a. Returns z if the move has NOT been seen.
 ; Preserves bc, de and hl.
@@ -77,8 +81,9 @@ CountMovedexSeen::
 ; unused top bits of the last byte can carry junk that would count as moves which
 ; do not exist. Clear them once, here, where the number is about to be shown.
 ; v0.7 (2026-08-31): the array is capacity-sized now (32 bytes), so the
-; partial byte is at NUM_ATTACKS / 8, not at the array's end, and only the
-; live region is counted - the capacity padding never enters the sum.
+; masked byte is NUM_ATTACKS / 8 (the last move's byte; at a multiple of 8 the
+; first spare byte, masked to 0), not the array's end, and only the live
+; region is counted - the capacity padding never enters the sum.
 	ld hl, wMovedexSeen + NUM_ATTACKS / 8
 	ld a, [hl]
 	and (1 << (NUM_ATTACKS % 8)) - 1

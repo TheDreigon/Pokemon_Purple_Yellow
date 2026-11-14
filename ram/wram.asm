@@ -2317,7 +2317,8 @@ wd49c:: db
 ; every move the player's own party knows. See home/movedex_seen.asm.
 ; v0.7 expansion prep (2026-08-31): pre-sized to MOVEDEX_FLAG_CAPACITY (32
 ; bytes) - see the note on the dex bitfields above. CountMovedexSeen masks
-; the partial byte at its true position and counts only the live region.
+; byte NUM_ATTACKS / 8 (the last move's byte; at a multiple of 8 the first
+; spare one) and counts only the live region.
 wMovedexSeen:: ds MOVEDEX_FLAG_CAPACITY / 8
 wMovedexSeenEnd::
 
