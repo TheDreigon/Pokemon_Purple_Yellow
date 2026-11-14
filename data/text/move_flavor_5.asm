@@ -125,10 +125,10 @@ _MoveFlavor_LEER::
 	done
 
 _MoveFlavor_CORRODE::
-	text "An acid spray that"
-	next "eats its way"
-	next "through the foe's"
-	next "guard."
+	text "It eats through"
+	next "the foe's guard"
+	next "and scalds what"
+	next "lies under it."
 	done
 
 _MoveFlavor_TICKLE::

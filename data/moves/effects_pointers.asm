@@ -116,4 +116,7 @@ MoveEffectPointerTable:
 	dw LockOnEffect              ; LOCK_ON_EFFECT (the same file)
 	dw PoisonEffect              ; TOXIC_EFFECT
 	dw SpDefDown1Effect          ; SPDEF_DOWN1_EFFECT
+	dw DefenseDownSideBurn1Effect ; DEFENSE_DOWN_SIDE_BURN1_EFFECT
+	dw DefenseDown1Burn2Effect   ; DEFENSE_DOWN1_BURN2_EFFECT
+	dw DefenseDown2Burn3Effect   ; DEFENSE_DOWN2_BURN3_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS

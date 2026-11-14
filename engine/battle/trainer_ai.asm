@@ -169,8 +169,8 @@ AIGetMoveChoiceList:
 ; v1.0 (E2, 2026-09-29): and the mirror of D15 for the moves that lower the player's stats -
 ; useless behind the player's SUBSTITUTE or MIST, or when every stat it lowers is already at -6
 ; (not a move whose flinch still rolls there: INTIMIDATE, SCARY FACE, METAL SOUND, SCREECH,
-; HINDER, TICKLE; FIERCE ROAR only when its own ATTACK raise is refused too) (.checkRaise,
-; AIPlayerLowerRefused).
+; HINDER, TICKLE; not CORRODE while its burn can still land, 2026-11-14; FIERCE ROAR only when its
+; own ATTACK raise is refused too) (.checkRaise, AIPlayerLowerRefused).
 ; v1.0 (F5, 2026-09-30): and the player's SUBSTITUTE (on screen): behind it DREAM EATER and the
 ; DRAIN moves miss (MoveHitTest), and POISON, BURN and CONFUSION fail (PoisonEffect, BurnEffect,
 ; ConfusionEffect test it first) - all useless (.checkSubstitute, .checkConfused,
@@ -573,9 +573,10 @@ CheckStatusImmunity:
 ; SLEEP (SleepEffect) and PARALYZE (ParalyzeEffect_) do not test it: they land through a
 ; SUBSTITUTE, as in Gen 1. Carry = the handler refuses the move whatever the target's status (it
 ; tests a SUBSTITUTE before the status, an immune type after it).
+	ld a, [wEnemyMoveEffect]
+.ofEffect ; v1.0 (2026-11-14): a = the effect judged (AIPlayerLowerMooted asks BURN_EFFECT for CORRODE's burn)
 	push bc
 	push hl
-	ld a, [wEnemyMoveEffect]
 	cp POISON_EFFECT
 	ld b, POISON
 	ld c, STEEL ; v0.7: Steel-types can't be poisoned either
@@ -782,11 +783,15 @@ PlayerStatMaxed::
 ; every stat it lowers already at -6 - the stage byte 1, StatModifierDownEffect's
 ; `dec b / jp z, CantLowerAnymore`. The stat VALUE the engine also refuses at 1 is hidden from a
 ; trainer and not read. A move whose flinch still rolls at -6 (INTIMIDATE, SCARY FACE, METAL
-; SOUND, SCREECH, HINDER, TICKLE: AI_LOWER_FLINCHES in its row) is wasted only behind a
-; SUBSTITUTE or MIST; FIERCE ROAR, which first raises the enemy's ATTACK, only when that raise
+; SOUND, SCREECH, HINDER, TICKLE: AI_LOWER_FLINCHES in its row), is wasted only behind a SUBSTITUTE
+; or MIST. A move whose burn rolls at -6 too (CORRODE, the same bit, 2026-11-14) is wasted there only
+; when that burn is refused as well, as FreezeBurnParalyzeEffect refuses it: a POISON, a BURN or a
+; PARALYSIS already on the player (they never wear off by themselves; asleep or frozen, it may wake
+; or thaw in its own turn, before this move), or a FIRE or MAGMA type (CheckStatusImmunity's burn
+; test; no third type is FIRE or MAGMA, data/pokemon/third_types.asm). FIERCE ROAR, which first raises the enemy's ATTACK, only when that raise
 ; is refused too (AIEnemyStatMaxed). It reads what a trainer sees: the player's stages (every
-; drop and the -6 refusal are announced), its SUBSTITUTE and its MIST (both announced). Keeps
-; bc, de, hl.
+; drop and the -6 refusal are announced), its SUBSTITUTE and its MIST (both announced), its status
+; and its types (on screen). Keeps bc, de, hl.
 ; v1.0 (2026-11-02, LOCK-ON): AIPlayerLowerMooted is the same walk with a = the player's stats a lock makes
 ; moot (bit n = MOD_ n), counted as already at -6 (layer 1's .checkLockMoot); AIPlayerLowerRefused passes none.
 AIPlayerLowerRefused:
@@ -809,9 +814,25 @@ AIPlayerLowerMooted:
 	ld b, a ; bit n: it lowers the player's stat MOD_ n, and no lock makes it moot; AI_LOWER_FLINCH_BIT: a flinch rolls too
 	ld a, [wPlayerBattleStatus2]
 	and (1 << HAS_SUBSTITUTE_UP) | (1 << PROTECTED_BY_MIST) ; (and clears carry)
-	jr nz, .lowerRefused ; every leg fails, the flinch too
+	jr nz, .lowerRefused ; every leg fails, the flinch and the burn too
 	bit 7, b ; AI_LOWER_FLINCH_BIT (defined with the table below)
-	jr nz, .done ; at -6 its flinch still rolls: not wasted (carry clear)
+	jr z, .walk
+	; v1.0 (2026-11-14): a second leg that rolls at -6 too. A flinch: never refused there, not wasted. A burn
+	; (CORRODE's; ACID SPRAY's row, were a power-0 move to carry it): FreezeBurnParalyzeEffect refuses it on a
+	; target with a status or of a FIRE or MAGMA type - then the move is as wasted as its stats say
+	ld a, c
+	sub DEFENSE_DOWN1_BURN2_EFFECT
+	cp DEFENSE_DOWN2_BURN3_EFFECT - DEFENSE_DOWN1_BURN2_EFFECT + 1
+	jr nc, .done ; a flinch: not wasted (carry clear)
+	ld a, [wBattleMonStatus]
+	and (1 << PSN) | (1 << BRN) | (1 << PAR)
+	jr nz, .burnRefused ; a status that stays (asleep or frozen, it may wake or thaw in its turn, first)
+	ld a, BURN_EFFECT
+	call CheckStatusImmunity.ofEffect ; carry: a FIRE or MAGMA type (its SUBSTITUTE, tested above, is down)
+	jr nc, .done ; the burn can land: not wasted (carry clear)
+.burnRefused
+	res 7, b ; the stats alone decide
+.walk
 	ld hl, wPlayerMonStatMods
 .nextStat
 	srl b
@@ -872,7 +893,10 @@ AILowerEffectStats:
 	db SPDEF_DOWN2_FLINCH_EFFECT,     1 << MOD_SPDEF | AI_LOWER_FLINCHES      ; METAL SOUND
 	db SPDEF_DOWN1_FLINCH_EFFECT,     1 << MOD_SPDEF | AI_LOWER_FLINCHES      ; SCREECH
 	db SPDEF_DOWN1_EFFECT,            1 << MOD_SPDEF                          ; BUG BUZZ's (2026-11-13): a damaging move, which layer 1 never scores - listed as the plain -1 ids of ICY WIND and ROCK TOMB are
+	db DEFENSE_DOWN2_BURN3_EFFECT,    1 << MOD_DEFENSE | AI_LOWER_FLINCHES    ; CORRODE (2026-11-14): its 45% burn still rolls at -6, as a flinch does - while the burn can land (AIPlayerLowerMooted)
+	db DEFENSE_DOWN1_BURN2_EFFECT,    1 << MOD_DEFENSE | AI_LOWER_FLINCHES    ; ACID SPRAY's: a damaging move, listed as BUG BUZZ's is (its burn read as CORRODE's)
 	db -1 ; end
+ASSERT DEFENSE_DOWN2_BURN3_EFFECT == DEFENSE_DOWN1_BURN2_EFFECT + 1, "AIPlayerLowerMooted's burn rows are one window of two ids"
 
 ; PureRGBnote: CHANGED: AKA the "Boost stats on the first turn" subroutine
 ; slightly encourage moves with specific effects on the first turn. (PureRGBnote: FIXED: used to be the second turn, made it first turn)
@@ -968,6 +992,7 @@ Modifier2PreferredMoves:
 	db DEFENSE_DOWN1_FLINCH_EFFECT   ; Tickle (target down + flinch)
 	db SPDEF_UP2_EFFECT              ; Amnesia (the split, 2026-09-06)
 	db SPDEF_DOWN2_EFFECT            ; Fake Tears (the split)
+	db DEFENSE_DOWN2_BURN3_EFFECT    ; Corrode (target down + burn, 2026-11-14; DEFENSE_DOWN2 before)
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Use Effective damaging moves offensively" subroutine

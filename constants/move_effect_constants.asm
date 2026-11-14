@@ -133,6 +133,11 @@
 	const LOCK_ON_EFFECT              ; $71  the user's moves never miss the target until either leaves the field (Lock-On; 2026-11-02)
 	const TOXIC_EFFECT                ; $72  a bad POISON, $88 + BADLY_POISONED (Toxic; 2026-11-13). POISON_EFFECT's handler, which tells the two apart by this id (it read the move id before).
 	const SPDEF_DOWN1_EFFECT          ; $73  target SP.DEF-1 after every hit (Bug Buzz; 2026-11-13). Proxy SPATK_DOWN1: on a damaging move StatModifierDownEffect's .dropAfterHit, as the plain -1 drops of ICY WIND or ROCK TOMB.
+; v1.0 (2026-11-14): a DEFENSE drop plus a burn, rolled apart. One dispatcher (DoStatDownBurnEffect,
+; effects.asm) spoofs a known DEFENSE id, then a known BURN_SIDE id, and restores the own id.
+	const DEFENSE_DOWN_SIDE_BURN1_EFFECT ; $74  33% target Defense-1, then 15% burn (Acid). The rules of DEFENSE_DOWN_SIDE and BURN_SIDE_EFFECT1.
+	const DEFENSE_DOWN1_BURN2_EFFECT     ; $75  target Defense-1 after every hit, then 30% burn (Acid Spray). DEFENSE_DOWN1's sure drop, BURN_SIDE_EFFECT2.
+	const DEFENSE_DOWN2_BURN3_EFFECT     ; $76  target Defense-2, then 45% burn (Corrode, power 0). The burn rolls at -6 too, not after a miss.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
 ; v1.0 (2026-11-07): two readers double the effect id in 8 bits and drop the carry: the MOVE
 ; INFO card (ShowMoveInfo -> GetMoveDescription.byEffect, `add a` on ids 0..N into

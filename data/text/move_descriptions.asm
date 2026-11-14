@@ -773,3 +773,22 @@ _MoveDesc_SpDefDownSide::
 	next "to lower the foe's"
 	next "SP.DEF one step."
 	done
+
+_MoveDesc_DefenseDownSideBurn1::
+	text "33 in 100 to lower"
+	next "DEFENSE one step."
+	next "15 in 100 to BURN"
+	next "the foe."
+	done
+
+_MoveDesc_DefenseDown1Burn2::
+	text "Lowers DEFENSE one"
+	next "step. 30 in 100"
+	next "to BURN the foe."
+	done
+
+_MoveDesc_DefenseDown2Burn3::
+	text "Lowers DEFENSE two"
+	next "steps. 45 in 100"
+	next "to BURN the foe."
+	done

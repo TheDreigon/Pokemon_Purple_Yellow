@@ -200,7 +200,7 @@ Moves: ; Current total = 222
 	move POISON_STING,   POISON_SIDE_EFFECT1,              35, POISON,       100, 30
 	move POISON_BITE,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
 	move TOXIC_FANGS,    POISON_SIDE_EFFECT3,              85, POISON,        90, 20 ; new move. POISON_SIDE_EFFECT3 = new 45% chance.
-	move ACID,           DEFENSE_DOWN1_EFFECT,             40, POISON,       100, 25
+	move ACID,           DEFENSE_DOWN_SIDE_BURN1_EFFECT,   40, POISON,       100, 25 ; v1.0 (2026-11-14): 33% DEFENSE -1 and, rolled apart, 15% burn.
 	move SLUDGE,         POISON_SIDE_EFFECT1,              65, POISON,       100, 20
 	move SLUDGE_WAVE,    SPEED_DOWN1_EFFECT,               90, POISON,       100, 15 ; new move.
 	move GUNK_SHOT,      POISON_SIDE_EFFECT2,             115, POISON,        85, 10 ; new move. damage + 30% poison (acc 85 in line with Fire Blast/Blizzard/Thunder).
@@ -284,7 +284,7 @@ Moves: ; Current total = 222
 	move GROWL,          ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 	move LEER,           ATTACK_DOWN1_EFFECT,               0, BIRD,         100, 35
 
-	move CORRODE,        DEFENSE_DOWN2_EFFECT,              0, BIRD,          90, 20 ; new move. acid pool (5 lines).
+	move CORRODE,        DEFENSE_DOWN2_BURN3_EFFECT,        0, BIRD,          90, 20 ; new move. acid pool (5 lines). v1.0 (2026-11-14): + 45% burn.
 	move TICKLE,         DEFENSE_DOWN1_FLINCH_EFFECT,       0, BIRD,         100, 35 ; new move. new effect (2026-09-08): the DEFENSE drop now carries a 30% flinch. Its own id: the plain -1 is shared by six other moves.
 	move TAIL_WHIP,      DEFENSE_DOWN1_EFFECT,              0, BIRD,         100, 35
 

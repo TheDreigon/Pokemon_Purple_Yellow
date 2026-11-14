@@ -51,4 +51,5 @@ ResidualEffects2:
 	db DEFENSE_DOWN1_FLINCH_EFFECT   ; stat + flinch (Tickle, 2026-09-08)
 	db SPDEF_UP2_EFFECT              ; Amnesia (the split, 2026-09-06)
 	db SPDEF_DOWN2_EFFECT            ; Fake Tears (the split); NOT the side effect, which rides on a damaging move
+	db DEFENSE_DOWN2_BURN3_EFFECT    ; stat + burn (Corrode, 2026-11-14); ACID's and ACID SPRAY's ride on damaging moves
 	db -1 ; end

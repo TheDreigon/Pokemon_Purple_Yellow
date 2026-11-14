@@ -1048,7 +1048,8 @@ RoseText:
 ; they were; F3b then took the damaging moves' drops off the roll (.dropAfterHit).
 ; A damaging move on a two-leg handler would pass its first leg's MIST silently there, with
 ; wMoveMissed at 0, and this leg would then lower through MIST: none exists (every two-leg
-; handler's move has power 0; emu_test_drop_after_hit C2 fails if one appears).
+; handler's move has power 0; emu_test_drop_after_hit C2 fails if one appears). ACID's
+; DoStatDownBurnEffect is not one: its second leg is a burn (v1.0, 2026-11-14).
 StatModifierDownEffectLaterLeg:
 	ld a, [wMoveMissed]
 	and a
@@ -2421,6 +2422,52 @@ DoStatDownFlinchEffect:
 	pop bc
 .restore
 	ld a, c
+	ld [de], a
+	ret
+
+; v1.0 (2026-11-14): a DEFENSE drop, then a burn rolled on its own. b = the DEFENSE id handed to
+; StatModifierDownEffect, c = the BURN_SIDE id handed to FreezeBurnParalyzeEffect: each leg keeps
+; every rule of its own effect (the roll or the sure drop, MIST, a SUBSTITUTE, -6; the burn tier,
+; FIRE / MAGMA, a status already there). The core runs these after a hit the target survived
+; (ACID, ACID SPRAY: on no dispatch list) or from ResidualEffects2 (CORRODE, power 0). The burn
+; rolls unless the move missed (MoveHitTest: a miss, MIST); at -6 it still rolls, as the flinch
+; does after INTIMIDATE's refusal. Never hand the own id ($74 on) to either handler: both read any
+; such id as some other effect, with a green build.
+DefenseDownSideBurn1Effect: ; ACID: 33% DEFENSE -1, 15% burn
+	ld bc, DEFENSE_DOWN_SIDE_EFFECT << 8 | BURN_SIDE_EFFECT1
+	jr DoStatDownBurnEffect
+DefenseDown1Burn2Effect:    ; ACID SPRAY: DEFENSE -1 after every hit, 30% burn
+	ld bc, DEFENSE_DOWN1_EFFECT << 8 | BURN_SIDE_EFFECT2
+	jr DoStatDownBurnEffect
+DefenseDown2Burn3Effect:    ; CORRODE: DEFENSE -2, 45% burn
+	ld bc, DEFENSE_DOWN2_EFFECT << 8 | BURN_SIDE_EFFECT3
+	; fallthrough
+DoStatDownBurnEffect:
+	ldh a, [hWhoseTurn]
+	ld de, wPlayerMoveEffect
+	and a
+	jr z, .gotEffectPtr
+	ld de, wEnemyMoveEffect
+.gotEffectPtr
+	ld a, [de]
+	push af ; the own id, restored on the way out
+	push bc
+	push de
+	ld a, b
+	ld [de], a
+	call StatModifierDownEffect
+	pop de
+	pop bc
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .restore ; missed: no burn roll
+	push de
+	ld a, c
+	ld [de], a
+	call FreezeBurnParalyzeEffect
+	pop de
+.restore
+	pop af
 	ld [de], a
 	ret
 

@@ -177,6 +177,9 @@ MoveEffectDescriptions:
 	dw MoveDesc_LockOn ; LOCK_ON_EFFECT
 	dw MoveDesc_Toxic ; TOXIC_EFFECT
 	dw MoveDesc_SpDefDown1 ; SPDEF_DOWN1_EFFECT
+	dw MoveDesc_DefenseDownSideBurn1 ; DEFENSE_DOWN_SIDE_BURN1_EFFECT
+	dw MoveDesc_DefenseDown1Burn2 ; DEFENSE_DOWN1_BURN2_EFFECT
+	dw MoveDesc_DefenseDown2Burn3 ; DEFENSE_DOWN2_BURN3_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -669,4 +672,16 @@ MoveDesc_SpDefDown1:
 
 MoveDesc_SpDefDownSide:
 	text_far _MoveDesc_SpDefDownSide
+	text_end
+
+MoveDesc_DefenseDownSideBurn1:
+	text_far _MoveDesc_DefenseDownSideBurn1
+	text_end
+
+MoveDesc_DefenseDown1Burn2:
+	text_far _MoveDesc_DefenseDown1Burn2
+	text_end
+
+MoveDesc_DefenseDown2Burn3:
+	text_far _MoveDesc_DefenseDown2Burn3
 	text_end
