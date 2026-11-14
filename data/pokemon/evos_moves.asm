@@ -1962,7 +1962,6 @@ WeepinbellEvosMoves:
 	db 36, SLUDGE
 	db 42, LEECH_LIFE
 	db 44, GIGA_DRAIN
-	db 50, CORRODE
 	db 0
 
 VictreebelEvosMoves:
@@ -2438,7 +2437,6 @@ GrimerEvosMoves:
 	db 22, GROWTH
 	db 26, BIND
 	db 28, SMOG
-	db 30, CORRODE
 	db 32, BODY_SLAM
 	db 34, SLUDGE
 	db 36, TOXIC
@@ -2463,7 +2461,7 @@ MukEvosMoves:
 	db 22, GROWTH
 	db 26, BIND
 	db 28, SMOG
-	db 30, CORRODE
+	db 31, CORRODE
 	db 32, BODY_SLAM
 	db 34, SLUDGE
 	db 36, TOXIC
@@ -3031,7 +3029,6 @@ KoffingEvosMoves:
 	db 22, BIDE
 	db 25, GROWTH
 	db 28, EERIE_IMPULSE
-	db 31, CORRODE
 	db 31, NIGHT_SHADE
 	db 34, SLUDGE
 	db 36, HAZE
