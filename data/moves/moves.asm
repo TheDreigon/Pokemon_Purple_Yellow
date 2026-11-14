@@ -22,7 +22,7 @@ Moves: ; Current total = 222
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
-	move BUG_BUZZ,       SPDEF_DOWN_SIDE_EFFECT,           80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
+	move BUG_BUZZ,       SPDEF_DOWN1_EFFECT,               80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
 	move GUILLOTINE,     DEFENSE_DOWN1_EFFECT,            115, BUG,           80, 10 ; high-crit.
 	move VICEGRIP,       ATTACK_TWICE_EFFECT,              35, BUG,          100, 25 ; almost-signature.

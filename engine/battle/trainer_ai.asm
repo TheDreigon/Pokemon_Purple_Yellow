@@ -871,6 +871,7 @@ AILowerEffectStats:
 	db DEFENSE_DOWN1_FLINCH_EFFECT,   1 << MOD_DEFENSE | AI_LOWER_FLINCHES    ; TICKLE
 	db SPDEF_DOWN2_FLINCH_EFFECT,     1 << MOD_SPDEF | AI_LOWER_FLINCHES      ; METAL SOUND
 	db SPDEF_DOWN1_FLINCH_EFFECT,     1 << MOD_SPDEF | AI_LOWER_FLINCHES      ; SCREECH
+	db SPDEF_DOWN1_EFFECT,            1 << MOD_SPDEF                          ; BUG BUZZ's (2026-11-13): a damaging move, which layer 1 never scores - listed as the plain -1 ids of ICY WIND and ROCK TOMB are
 	db -1 ; end
 
 ; PureRGBnote: CHANGED: AKA the "Boost stats on the first turn" subroutine

@@ -763,6 +763,11 @@ _MoveDesc_SpDefDown2::
 	next "SP.DEF two steps."
 	done
 
+_MoveDesc_SpDefDown1::
+	text "Lowers the foe's"
+	next "SP.DEF one step."
+	done
+
 _MoveDesc_SpDefDownSide::
 	text "33 in 100 chance"
 	next "to lower the foe's"

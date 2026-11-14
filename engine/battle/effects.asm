@@ -2411,10 +2411,12 @@ DoStatDownFlinchEffect:
 	ld [de], a
 	ret
 
-; The split (2026-09-06): SP.DEF has no effect-id ladder. These three spoof the
+; The split (2026-09-06): SP.DEF has no effect-id ladder. These four spoof the
 ; SP.ATK id of the same sign and size (so every range check, the MIST gate and
 ; the animation guards read a known id), hand MOD_SPDEF to StatModifierUp/Down
 ; Effect through wStatModIndexOverride, and restore their own id on the way out.
+; Never hand the own id ($6B on) to StatModifierDownEffect: it reads any id from
+; ATTACK_DOWN_SIDE_EFFECT up as a 33% side effect, with a green build.
 SpDefUp2Effect:            ; AMNESIA: user SP.DEF +2
 	ld b, SPATK_UP2_EFFECT       ; proxy: +2, in-ladder
 	ld c, SPDEF_UP2_EFFECT       ; own id, restored on exit
@@ -2423,7 +2425,14 @@ SpDefDown2Effect:          ; FAKE TEARS: target SP.DEF -2
 	ld b, SPATK_DOWN2_EFFECT
 	ld c, SPDEF_DOWN2_EFFECT
 	jr DoSpDefStatEffect_Down
-SpDefDownSideEffect:       ; BUG BUZZ / PSYBEAM / AURORA BEAM: 33% target SP.DEF -1
+SpDefDown1Effect:          ; BUG BUZZ (2026-11-13): target SP.DEF -1 after every hit
+; The plain -1 proxy: on a damaging move StatModifierDownEffect takes .dropAfterHit, the
+; sure drop of ICY WIND or ROCK TOMB (no roll; MIST, a SUBSTITUTE and -6 silent). The core
+; runs it from .executeOtherEffects only (on no dispatch list): after a hit the target survived.
+	ld b, SPATK_DOWN1_EFFECT
+	ld c, SPDEF_DOWN1_EFFECT
+	jr DoSpDefStatEffect_Down
+SpDefDownSideEffect:       ; PSYBEAM / AURORA BEAM: 33% target SP.DEF -1
 ; (the 33% roll and the MIST guard live in StatModifierDownEffect's side path, keyed off the proxy)
 	ld b, SPATK_DOWN_SIDE_EFFECT
 	ld c, SPDEF_DOWN_SIDE_EFFECT

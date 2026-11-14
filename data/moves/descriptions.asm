@@ -176,6 +176,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_Protect ; PROTECT_EFFECT
 	dw MoveDesc_LockOn ; LOCK_ON_EFFECT
 	dw MoveDesc_Toxic ; TOXIC_EFFECT
+	dw MoveDesc_SpDefDown1 ; SPDEF_DOWN1_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -660,6 +661,10 @@ MoveDesc_SpDefUp2:
 
 MoveDesc_SpDefDown2:
 	text_far _MoveDesc_SpDefDown2
+	text_end
+
+MoveDesc_SpDefDown1:
+	text_far _MoveDesc_SpDefDown1
 	text_end
 
 MoveDesc_SpDefDownSide:

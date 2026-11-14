@@ -115,4 +115,5 @@ MoveEffectPointerTable:
 	dw ProtectEffect             ; PROTECT_EFFECT (engine/battle/move_effects/protect_lock_on.asm)
 	dw LockOnEffect              ; LOCK_ON_EFFECT (the same file)
 	dw PoisonEffect              ; TOXIC_EFFECT
+	dw SpDefDown1Effect          ; SPDEF_DOWN1_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS
