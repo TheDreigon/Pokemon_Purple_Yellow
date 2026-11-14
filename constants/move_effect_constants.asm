@@ -140,6 +140,7 @@
 	const DEFENSE_DOWN2_BURN3_EFFECT     ; $76  target Defense-2, then 45% burn (Corrode, power 0). The burn rolls at -6 too, not after a miss.
 	const SPEED_DOWN_SIDE_POISON1_EFFECT ; $77  33% target Speed-1, then 15% POISON, rolled apart (Sludge Wave; 2026-11-14). DoStatDownBurnEffect, SPEED_DOWN_SIDE + POISON_SIDE_EFFECT1.
 	const POISON_TOXIC_SIDE_EFFECT2      ; $78  one roll: 25% bad POISON, else up to 50% POISON (Gunk Shot; 2026-11-14). PoisonEffect.
+	const SPDEF_DOWN_SIDE_HEAL_EFFECT    ; $79  33% target SP.DEF-1, then the user heals 1/8 max HP on every hit (Silver Wind; 2026-11-14). SPDEF_DOWN_SIDE's rules; HealEffect_'s 1/8 path. In AlwaysHappenSideEffects + SpecialEffects, as DRAIN_HP.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
 ; v1.0 (2026-11-07): two readers double the effect id in 8 bits and drop the carry: the MOVE
 ; INFO card (ShowMoveInfo -> GetMoveDescription.byEffect, `add a` on ids 0..N into

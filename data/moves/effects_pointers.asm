@@ -121,4 +121,5 @@ MoveEffectPointerTable:
 	dw DefenseDown2Burn3Effect   ; DEFENSE_DOWN2_BURN3_EFFECT
 	dw SpeedDownSidePoison1Effect ; SPEED_DOWN_SIDE_POISON1_EFFECT
 	dw PoisonEffect              ; POISON_TOXIC_SIDE_EFFECT2
+	dw SpDefDownSideHealEffect   ; SPDEF_DOWN_SIDE_HEAL_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS

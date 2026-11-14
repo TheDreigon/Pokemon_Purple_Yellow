@@ -182,6 +182,7 @@ MoveEffectDescriptions:
 	dw MoveDesc_DefenseDown2Burn3 ; DEFENSE_DOWN2_BURN3_EFFECT
 	dw MoveDesc_SpeedDownSidePoison1 ; SPEED_DOWN_SIDE_POISON1_EFFECT
 	dw MoveDesc_PoisonToxicSide2 ; POISON_TOXIC_SIDE_EFFECT2
+	dw MoveDesc_SpDefDownSideHeal ; SPDEF_DOWN_SIDE_HEAL_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -694,4 +695,8 @@ MoveDesc_SpeedDownSidePoison1:
 
 MoveDesc_PoisonToxicSide2:
 	text_far _MoveDesc_PoisonToxicSide2
+	text_end
+
+MoveDesc_SpDefDownSideHeal:
+	text_far _MoveDesc_SpDefDownSideHeal
 	text_end

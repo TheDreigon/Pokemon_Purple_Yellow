@@ -20,6 +20,7 @@ SpecialEffects:
 	db JUMP_KICK_EFFECT
 	db RECOIL_EFFECT
 	db HYPER_BEAM_EFFECT ; v1.0 (2026-09-24): runs from AlwaysHappenSideEffects now - listed here so .executeOtherEffects does not run it a second time
+	db SPDEF_DOWN_SIDE_HEAL_EFFECT ; v1.0 (2026-11-14): SILVER WIND, the same: AlwaysHappenSideEffects runs it
 	; fallthrough
 SpecialEffectsCont:
 ; damaging moves whose effect is executed prior to damage calculation

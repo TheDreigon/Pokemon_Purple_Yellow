@@ -10,4 +10,5 @@ AlwaysHappenSideEffects:
 	db ATTACK_TWICE_EFFECT
 	db RECOIL_EFFECT
 	db TWINEEDLE_EFFECT
+	db SPDEF_DOWN_SIDE_HEAL_EFFECT ; v1.0 (2026-11-14): SILVER WIND heals after every hit, a KO too, as DRAIN_HP (also in SpecialEffects: once)
 	db -1 ; end

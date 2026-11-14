@@ -22,6 +22,9 @@ HealEffect_:
 ; user's status now, so with a status to clear they still work (cure only, no
 ; "regained health" line); everything else fails here as it always did.
 ; (2026-11-13: RECOVER only eases a bad POISON, here too: .fullHPRecover.)
+; v1.0 (2026-11-14): SILVER WIND's heal says nothing at full HP (the hit is the move).
+	call .isEighthHeal
+	ret z
 	ld a, b
 	cp RECOVER
 	jr z, .fullHPRecover
@@ -59,6 +62,16 @@ HealEffect_:
 	call EffectCallBattleCore
 	pop hl
 	jp PrintText
+.isEighthHeal
+; z = the user's move effect is SPDEF_DOWN_SIDE_HEAL_EFFECT (SILVER WIND); keeps bc, de and hl
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveEffect]
+	jr z, .gotEffect
+	ld a, [wEnemyMoveEffect]
+.gotEffect
+	cp SPDEF_DOWN_SIDE_HEAL_EFFECT
+	ret
 .userStatusPtr
 ; hl = the user's status byte
 	ld hl, wBattleMonStatus
@@ -68,6 +81,8 @@ HealEffect_:
 	ld hl, wEnemyMonStatus
 	ret
 .passed
+	call .isEighthHeal
+	jp z, .eighthDivide
 	ld a, b
 	cp REST
 	jr z, .restPath
@@ -181,6 +196,27 @@ HealEffect_:
 	sbc d
 	ld b, a ; bc = maxHP - maxHP / 4
 	pop de
+	jr .gotHPAmountToHeal
+.eighthDivide
+; v1.0 (2026-11-14): SILVER WIND (SPDEF_DOWN_SIDE_HEAL_EFFECT) heals after its hit: 1/8 of max HP, at
+; least 1 (the clamp below keeps it under max HP). Keyed on the effect, not the move: METRONOME and
+; MIRROR MOVE reload it. The hit set wMoveDidntMiss, so .playAnim stays quiet.
+	ld a, [hld]
+	ld [wHPBarMaxHP], a
+	ld c, a
+	ld a, [hl]
+	ld [wHPBarMaxHP+1], a
+	ld b, a
+	ld a, 3
+.halve
+	srl b
+	rr c
+	dec a
+	jr nz, .halve ; bc = maxHP / 8
+	ld a, b
+	or c
+	jr nz, .gotHPAmountToHeal
+	inc c
 	jr .gotHPAmountToHeal
 .healHP
 	ld a, [hld]

@@ -806,3 +806,10 @@ _MoveDesc_PoisonToxicSide2::
 	next "POISON, 25 in 100"
 	next "to badly POISON."
 	done
+
+_MoveDesc_SpDefDownSideHeal::
+	text "33 in 100 to lower"
+	next "SP.DEF one step."
+	next "Heals the user by"
+	next "1/8 of full HP."
+	done
