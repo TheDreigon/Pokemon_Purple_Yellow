@@ -64,6 +64,7 @@ MoveSoundTable:
 ; === BUG ===
 	db SFX_BATTLE_14,          $0f, $80 ; CONSTRICT
 	db SFX_BATTLE_1E,          $00, $80 ; BUG_BITE
+	db SFX_BATTLE_12,          $10, $80 ; SILVER_WIND ; new move (2026-11-14): the wind of GUST and ICY_WIND at ICY_WIND's depth (noise: $10 = 1 oct DOWN from GUST's $00; 60 BP over GUST's 40); tempo byte inert (noise-only SFX)
 	db SFX_BATTLE_24,          $00, $80 ; LEECH_LIFE
 	db SFX_PSYBEAM,            $10, $80 ; BUG_BUZZ
 	db SFX_BATTLE_1E,            $20, $c0 ; MEGAHORN ; 2026-08-22 (anim pass #2): a longer sound -- MEASURED: tone +0 st; noise 2 oct DOWN; tempo 1.25x
@@ -209,10 +210,11 @@ MoveSoundTable:
 	db SFX_BATTLE_0F,          $20, $80 ; FALSE_SWIPE ; borrows VICEGRIP's slice sound (anim is a VICEGRIP variant)
 ; === POISON ===
 	db SFX_BATTLE_1B,          $00, $80 ; POISON_STING
-	db SFX_BATTLE_1B,          $10, $80 ; POISON_BITE ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
-	db SFX_BATTLE_1B,          $20, $80 ; TOXIC_FANGS
 	db SFX_BATTLE_2A,          $80, $c0 ; ACID
+	db SFX_BATTLE_1B,          $10, $80 ; POISON_BITE ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_2A,          $20, $80 ; SLUDGE ; tempo $20→$80 to fit the longer anim (no SFX-cuts-short). -- MEASURED: tone +1..+2 st; noise 2 oct DOWN; tempo 1.00x; tempo 0.62x -> 1.00x
+	db SFX_BATTLE_2A,          $30, $c0 ; ACID_SPRAY ; new move (2026-11-14): the glug of the sludge line at SLUDGE_WAVE's depth (an octave under SLUDGE's noise; $28, between the two, flips NR43 bit 3 on 4 noise notes: sfx_model_audit's width-flip, a metallic buzz), with ACID's 1.25x tempo for the long jet
+	db SFX_BATTLE_1B,          $20, $80 ; TOXIC_FANGS
 	db SFX_BATTLE_2A,            $30, $80 ; SLUDGE_WAVE ; 2026-08-22 (anim pass, test ROM of 2026-08-22): one octave under SLUDGE, one above GUNK_SHOT (was SFX_BATTLE_2A $10 $80) -- MEASURED: tone +1..+3 st; noise 3 oct DOWN; tempo 1.00x
 	db SFX_BATTLE_2A,            $40, $ff ; GUNK_SHOT ; 2026-08-22 (anim pass, test ROM of 2026-08-22): the 115 BP finisher below ACID in the glug, the hiss a rumble (was +12 st, the highest of the sludge line) (was SFX_BATTLE_2A $f0 $ff) -- MEASURED: tone +1..+4 st; noise 4 oct DOWN; tempo 1.50x
 	db SFX_BATTLE_2F,          $20, $a0 ; NEUROTOXIN ; v0.7 reviewed: was BATTLE_0F (cut); electric-crackle SFX fits the neuro-paralysis theme that the new lightning-ball anim ends on. -- MEASURED: tone PARTIAL-WRAP: 2 of 4 notes fold to ~64 Hz, the rest +0..+0 st; noise 2 oct DOWN; tempo 1.12x; all four notes then sit at 64-87 Hz, vanilla THUNDERBOLT's buzz

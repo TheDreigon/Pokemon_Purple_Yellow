@@ -3,6 +3,7 @@ AttackAnimationPointers:
 ; === BUG ===
 	dw ConstrictAnim
 	dw BugBiteAnim
+	dw SilverWindAnim
 	dw LeechLifeAnim
 	dw BugBuzzAnim
 	dw MegahornAnim
@@ -148,10 +149,11 @@ AttackAnimationPointers:
 	dw FalseSwipeAnim
 ; === POISON ===
 	dw PoisonStingAnim
-	dw PoisonBiteAnim
-	dw ToxicFangsAnim
 	dw AcidAnim
+	dw PoisonBiteAnim
 	dw SludgeAnim
+	dw AcidSprayAnim
+	dw ToxicFangsAnim
 	dw SludgeWaveAnim
 	dw GunkShotAnim
 	dw NeurotoxinAnim
@@ -343,6 +345,20 @@ BugBiteAnim:
 	battle_anim BUG_BITE, SUBANIM_0_STAR_TWICE, 0, 6
 	battle_anim BUG_BITE, SUBANIM_0_HORN_JAB_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	db -1 ; end
+
+SilverWindAnim:
+	; v1.0 new move (2026-11-14), built only from existing pieces: the wind of the
+	; wind family (GUST's / FAIRY_WIND's / ICY_WIND's SUBANIM_1_TORNADO) on a light
+	; frame (FAIRY_WIND's and ICY_WIND's SE_LIGHT_SCREEN_PALETTE: silver, not dark),
+	; BUG_BUZZ's long flash for the scales catching the light, and FAIRY_WIND's two
+	; stars at the end. 60 BP: medium, two elements and a flash, no shake. Its own
+	; sound row (SILVER_WIND).
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim SILVER_WIND, SUBANIM_1_TORNADO, 1, 6
+	battle_anim NO_MOVE, SE_FLASH_SCREEN_LONG
+	battle_anim NO_MOVE, SUBANIM_0_STAR_TWICE, 0, 4
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
 LeechLifeAnim:
@@ -2106,6 +2122,21 @@ SludgeAnim:
 	battle_anim SLUDGE, SUBANIM_1_BLOB_TOSS, 1, 9
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim SLUDGE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 12
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_SHAKE_SCREEN
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+AcidSprayAnim:
+	; v1.0 new move (2026-11-14), built only from existing pieces: ACID's dark frame
+	; and blob, thrown twice in quick succession (SLUDGE_WAVE's double BLOB_TOSS) for
+	; the jet at full pressure, ACID's drip on the target for the smoking guard, then
+	; the flash and shake that the 70-100 BP tier gets at impact (as SLUDGE's). Its
+	; own sound row (ACID_SPRAY).
+	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
+	battle_anim ACID_SPRAY, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_TOSS, 1, 4
+	battle_anim NO_MOVE, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 8
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE

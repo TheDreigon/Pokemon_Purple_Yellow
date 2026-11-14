@@ -14,13 +14,14 @@ MACRO move
 		"a move of SetDamageEffects' family must be power 0 or 1"
 ENDM
 
-Moves: ; Current total = 222
+Moves: ; Current total = 224
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
-	; === BUG TYPE (8 moves) ===
+	; === BUG TYPE (9 moves) ===
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
+	move SILVER_WIND,    SPDEF_DOWN_SIDE_HEAL_EFFECT,      60, BUG,          100, 15 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
 	move BUG_BUZZ,       SPDEF_DOWN1_EFFECT,               80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
@@ -196,12 +197,13 @@ Moves: ; Current total = 222
 	move FALSE_SWIPE,    FALSE_SWIPE_EFFECT,               60, NORMAL,       100, 30 ; new move. never KOs - always leaves the target with at least 1 HP.
 
 
-	; === POISON TYPE (9 moves) === (exception to the regular moves order)
+	; === POISON TYPE (10 moves) === (the regular order since 2026-11-14; it was the exception)
 	move POISON_STING,   POISON_SIDE_EFFECT1,              35, POISON,       100, 30
-	move POISON_BITE,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
-	move TOXIC_FANGS,    POISON_TOXIC_SIDE_EFFECT1,        85, POISON,        90, 20 ; new move. v1.0 (2026-11-14): one roll, 15% bad POISON, else up to 45% POISON.
 	move ACID,           DEFENSE_DOWN_SIDE_BURN1_EFFECT,   40, POISON,       100, 25 ; v1.0 (2026-11-14): 33% DEFENSE -1 and, rolled apart, 15% burn.
+	move POISON_BITE,    POISON_SIDE_EFFECT2,              60, POISON,        95, 25 ; new move.
 	move SLUDGE,         POISON_SIDE_EFFECT1,              65, POISON,       100, 20
+	move ACID_SPRAY,     DEFENSE_DOWN1_BURN2_EFFECT,       80, POISON,       100, 15 ; new move.
+	move TOXIC_FANGS,    POISON_TOXIC_SIDE_EFFECT1,        85, POISON,        90, 20 ; new move. v1.0 (2026-11-14): one roll, 15% bad POISON, else up to 45% POISON.
 	move SLUDGE_WAVE,    SPEED_DOWN_SIDE_POISON1_EFFECT,   90, POISON,       100, 15 ; new move. v1.0 (2026-11-14): 33% SPEED -1 and, rolled apart, 15% POISON.
 	move GUNK_SHOT,      POISON_TOXIC_SIDE_EFFECT2,       115, POISON,        85, 10 ; new move. v1.0 (2026-11-14): one roll, 25% bad POISON, else up to 50% POISON (acc 85 in line with Fire Blast/Blizzard/Thunder).
 	move NEUROTOXIN,     PARALYZE_EFFECT,                   0, POISON,        90, 20 ; new move.

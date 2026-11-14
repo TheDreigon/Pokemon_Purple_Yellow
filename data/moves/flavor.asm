@@ -10,6 +10,7 @@ MoveFlavorPointers::
 	table_width 2, MoveFlavorPointers
 	dw MoveFlavor_CONSTRICT
 	dw MoveFlavor_BUG_BITE
+	dw MoveFlavor_SILVER_WIND
 	dw MoveFlavor_LEECH_LIFE
 	dw MoveFlavor_BUG_BUZZ
 	dw MoveFlavor_MEGAHORN
@@ -139,10 +140,11 @@ MoveFlavorPointers::
 	dw MoveFlavor_HYPER_FANG
 	dw MoveFlavor_FALSE_SWIPE
 	dw MoveFlavor_POISON_STING
-	dw MoveFlavor_POISON_BITE
-	dw MoveFlavor_TOXIC_FANGS
 	dw MoveFlavor_ACID
+	dw MoveFlavor_POISON_BITE
 	dw MoveFlavor_SLUDGE
+	dw MoveFlavor_ACID_SPRAY
+	dw MoveFlavor_TOXIC_FANGS
 	dw MoveFlavor_SLUDGE_WAVE
 	dw MoveFlavor_GUNK_SHOT
 	dw MoveFlavor_NEUROTOXIN
@@ -238,6 +240,7 @@ MoveFlavorLines::
 	db 4
 	db 4
 	db 4
+	db 4
 	db 5
 	db 4
 	db 3
@@ -367,8 +370,9 @@ MoveFlavorLines::
 	db 3
 	db 3
 	db 3
-	db 3
 	db 4
+	db 4
+	db 3
 	db 3
 	db 5
 	db 3
@@ -464,6 +468,10 @@ MoveFlavor_CONSTRICT:
 
 MoveFlavor_BUG_BITE:
 	text_far _MoveFlavor_BUG_BITE
+	text_end
+
+MoveFlavor_SILVER_WIND:
+	text_far _MoveFlavor_SILVER_WIND
 	text_end
 
 MoveFlavor_LEECH_LIFE:
@@ -982,20 +990,24 @@ MoveFlavor_POISON_STING:
 	text_far _MoveFlavor_POISON_STING
 	text_end
 
-MoveFlavor_POISON_BITE:
-	text_far _MoveFlavor_POISON_BITE
-	text_end
-
-MoveFlavor_TOXIC_FANGS:
-	text_far _MoveFlavor_TOXIC_FANGS
-	text_end
-
 MoveFlavor_ACID:
 	text_far _MoveFlavor_ACID
 	text_end
 
+MoveFlavor_POISON_BITE:
+	text_far _MoveFlavor_POISON_BITE
+	text_end
+
 MoveFlavor_SLUDGE:
 	text_far _MoveFlavor_SLUDGE
+	text_end
+
+MoveFlavor_ACID_SPRAY:
+	text_far _MoveFlavor_ACID_SPRAY
+	text_end
+
+MoveFlavor_TOXIC_FANGS:
+	text_far _MoveFlavor_TOXIC_FANGS
 	text_end
 
 MoveFlavor_SLUDGE_WAVE:

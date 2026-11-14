@@ -3,7 +3,7 @@
 ; One full screen describing a single move: its name, TYPE, whether it strikes
 ; with the body or with the mind, POWER, ACCURACY, PP, and what its effect does.
 ; Nothing in the game showed any of this before -- the FIGHT menu shows only
-; TYPE and PP -- which matters here because a large share of the 222 moves are
+; TYPE and PP -- which matters here because a large share of the 224 moves are
 ; new or reworked and a player has no shared knowledge to fall back on.
 ;
 ; Reached from START on the battle FIGHT menu (see the .select block in
@@ -207,7 +207,7 @@ ShowMoveInfo::
 	ldh [hUILayoutFlags], a
 
 ; The flavour paragraph first, if this move has one, then the mechanics under
-; it. Two prints rather than one combined block, so the 222 flavour entries can
+; it. Two prints rather than one combined block, so the 224 flavour entries can
 ; each be unique while the mechanics stay shared across the moves that behave
 ; alike -- repeating "Lowers the foe's SPEED one step." word for word is what
 ; makes that rule learnable.
@@ -322,7 +322,7 @@ ShowMoveInfo::
 
 ; Resolve the description for the move in wPlayerMoveNum.
 ; Per-move overrides win; otherwise the move's effect decides, which is what
-; keeps this affordable -- 222 moves share 92 effects.
+; keeps this affordable -- 224 moves share 99 effects.
 ; OUTPUT: hl = text pointer.
 GetMoveDescription:
 	ld a, [wPlayerMoveNum]

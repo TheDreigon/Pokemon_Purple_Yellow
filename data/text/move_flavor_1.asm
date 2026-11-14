@@ -29,6 +29,13 @@ _MoveFlavor_BUG_BITE::
 	next "instead."
 	done
 
+_MoveFlavor_SILVER_WIND::
+	text "A wind thick with"
+	next "silver scales. The"
+	next "user rides it back"
+	next "refreshed."
+	done
+
 _MoveFlavor_LEECH_LIFE::
 	text "A feeding wound."
 	next "The user leaves it"

@@ -4,25 +4,32 @@
 ; - MoveNames (see data/moves/names.asm)
 ; - AttackAnimationPointers (see data/moves/animations.asm)
 ; - MoveSoundTable (see data/moves/sfx.asm)
+; - MoveFlavorPointers and MoveFlavorLines (see data/moves/flavor.asm; GENERATED
+;   by .claude/flavor_build.py --write, never edited by hand)
 ;
 ; Order: alphabetical by TYPE, ascending POWER within type, status moves last
-; within type, signature/pool moves at the bottom of each type (POISON
-; deviates deliberately; BIRD = typeless/status group at the end). Mirrors
-; the authoritative header in data/moves/moves.asm.
+; within type, signature/pool moves at the bottom of each type (BIRD =
+; typeless/status group at the end). Since the v1.0 moves batch (2026-11-14:
+; SILVER_WIND and ACID_SPRAY added, 224 moves) POISON follows the same order
+; as every other type. Mirrors the authoritative header in data/moves/moves.asm.
 ; STRUGGLE must remain the last move (engine asserts NUM_ATTACKS == STRUGGLE).
 ;
-; WARNING — ORDER IS LOAD-BEARING: the engine indexes all four tables above
+; WARNING — ORDER IS LOAD-BEARING: the engine indexes all six tables above
 ; by (move id - 1), so the row order in moves.asm, names.asm, the
-; AttackAnimationPointers table, and sfx.asm must EXACTLY match the const
-; order here. Reordering rows in only one file silently gives moves another
-; move's data in-game (the build still passes — the length asserts can't see
-; it). Run `python .claude/check_move_alignment.py` after any reorder.
+; AttackAnimationPointers table, sfx.asm and flavor.asm must EXACTLY match the
+; const order here. Reordering rows in only one file silently gives moves
+; another move's data in-game (the build still passes — the length asserts
+; can't see it). After any reorder: `python .claude/check_move_alignment.py`,
+; `python .claude/flavor_build.py --write flavor_a flavor_b flavor_c`, and the
+; saves: a save stores move ids, so the test fixture is migrated in the same
+; step (.claude/save_move_table.py + .claude/migrate_sav_moves.py).
 	const_def
 	const NO_MOVE      ; 00
 
 ; === BUG ===
 	const CONSTRICT
 	const BUG_BITE
+	const SILVER_WIND  ; v1.0 new move (2026-11-14)
 	const LEECH_LIFE
 	const BUG_BUZZ
 	const MEGAHORN
@@ -184,10 +191,11 @@
 
 ; === POISON ===
 	const POISON_STING
-	const POISON_BITE
-	const TOXIC_FANGS
 	const ACID
+	const POISON_BITE
 	const SLUDGE
+	const ACID_SPRAY   ; v1.0 new move (2026-11-14)
+	const TOXIC_FANGS
 	const SLUDGE_WAVE
 	const GUNK_SHOT
 	const NEUROTOXIN

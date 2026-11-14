@@ -1,7 +1,7 @@
 ; v0.7: MOVE INFO descriptions, keyed by move EFFECT.
 ;
-; One block per effect id, shared by every move that uses it -- 222 moves run on
-; 92 distinct effects, which is what makes this affordable. Moves that need
+; One block per effect id, shared by every move that uses it -- 224 moves run on
+; 99 distinct effects, which is what makes this affordable. Moves that need
 ; their own words get a per-move override instead; see
 ; MoveDescriptionOverrides in data/moves/descriptions.asm.
 ;

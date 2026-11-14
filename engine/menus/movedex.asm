@@ -20,7 +20,7 @@
 ;
 ; Moves are listed only once SEEN -- watched being used in a battle, or known by
 ; one of the player's own party. Everything else reads as a dashed line, and the
-; count in the corner is how many of the 222 are open. See home/movedex_seen.asm
+; count in the corner is how many of the 224 are open. See home/movedex_seen.asm
 ; for the two ways a move becomes seen and why the party counts.
 ;
 ; (This file used to argue the opposite, on the grounds that the bitfield needed
@@ -212,7 +212,7 @@ ShowMovedexMenu::
 	xor a
 	jp .storePage
 
-; Wrapping, the same courtesy the Pokedex list got: the ends of a 222-entry list
+; Wrapping, the same courtesy the Pokedex list got: the ends of a 224-entry list
 ; are a long way apart.
 .wrapToBottom
 	ld a, NUM_ATTACKS - MOVEDEX_ROWS

@@ -317,6 +317,12 @@ _MoveFlavor_POISON_STING::
 	next "does the rest."
 	done
 
+_MoveFlavor_ACID::
+	text "A spray that eats"
+	next "at whatever it"
+	next "settles on."
+	done
+
 _MoveFlavor_POISON_BITE::
 	text "A bite that leaves"
 	next "more behind it"

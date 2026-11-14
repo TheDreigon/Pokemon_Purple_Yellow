@@ -14,23 +14,24 @@
 
 ; Part 4 of 5.
 
-_MoveFlavor_TOXIC_FANGS::
-	text "A deep bite with a"
-	next "heavy dose worked"
-	next "into it."
-	done
-
-_MoveFlavor_ACID::
-	text "A spray that eats"
-	next "at whatever it"
-	next "settles on."
-	done
-
 _MoveFlavor_SLUDGE::
 	text "A thrown mass of"
 	next "filth, heavy and"
 	next "foul enough to"
 	next "sting."
+	done
+
+_MoveFlavor_ACID_SPRAY::
+	text "A jet of acid at"
+	next "full pressure."
+	next "What it touches"
+	next "smokes."
+	done
+
+_MoveFlavor_TOXIC_FANGS::
+	text "A deep bite with a"
+	next "heavy dose worked"
+	next "into it."
 	done
 
 _MoveFlavor_SLUDGE_WAVE::

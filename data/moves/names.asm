@@ -3,6 +3,7 @@ MoveNames::
 ; === BUG ===
 	li "CONSTRICT"
 	li "BUG BITE"
+	li "SILVER WIND"
 	li "LEECH LIFE"
 	li "BUG BUZZ"
 	li "MEGAHORN"
@@ -148,10 +149,11 @@ MoveNames::
 	li "FALSE SWIPE"
 ; === POISON ===
 	li "POISON STING"
-	li "POISON BITE"
-	li "TOXIC FANGS"
 	li "ACID"
+	li "POISON BITE"
 	li "SLUDGE"
+	li "ACID SPRAY"
+	li "TOXIC FANGS"
 	li "SLUDGE WAVE"
 	li "GUNK SHOT"
 	li "NEUROTOXIN"
