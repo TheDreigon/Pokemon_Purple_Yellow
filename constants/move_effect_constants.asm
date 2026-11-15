@@ -64,7 +64,7 @@
 	const SPATK_UP2_EFFECT         ; $35
 	const ACCURACY_UP2_EFFECT        ; $36
 	const EVASION_UP2_EFFECT         ; $37
-	const HEAL_EFFECT                ; $38 Recover, Softboiled, Rest
+	const HEAL_EFFECT                ; $38 Recover, Softboiled, Rest; on a move with power, the 1/8 heal SILVER WIND keeps when its hit breaks a SUBSTITUTE (AttackSubstitute)
 	const TRANSFORM_EFFECT           ; $39
 	const ATTACK_DOWN2_EFFECT        ; $3A
 	const DEFENSE_DOWN2_EFFECT       ; $3B

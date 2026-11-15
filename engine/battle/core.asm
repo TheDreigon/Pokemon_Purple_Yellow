@@ -5626,17 +5626,25 @@ AttackSubstitute:
 ; recoil move's user takes recoil - counted on what the doll took, as when it holds (all the damage then goes
 ; into the doll): wDamage becomes the doll's HP before the hit. Only RECOIL_EFFECT rewrites it: a multi-hit
 ; move whose later hit breaks the doll goes on with its damage. Every other effect still goes with the doll.
+; v1.0 (2026-11-14): SILVER WIND's heal is the user's too and stays; its SP.DEF leg is the target's and goes
+; with the doll. The effect becomes HEAL_EFFECT: the target stands behind its broken doll, so the core runs it
+; from .executeOtherEffects, and HealEffect_ gives a move with power its 1/8 (silent at full HP).
 	ld a, [hl]
 	cp HYPER_BEAM_EFFECT
 	jr z, .keepEffect
 	cp EXPLODE_EFFECT
 	jr z, .keepEffect
+	cp SPDEF_DOWN_SIDE_HEAL_EFFECT
+	jr z, .healOnly
 	cp RECOIL_EFFECT
 	jr nz, .dropEffect
 	ld hl, wDamage
 	xor a
 	ld [hli], a
 	ld [hl], b
+	jr .keepEffect
+.healOnly
+	ld [hl], HEAL_EFFECT
 	jr .keepEffect
 .dropEffect
 	xor a

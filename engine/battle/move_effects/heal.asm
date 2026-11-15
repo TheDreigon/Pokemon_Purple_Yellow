@@ -24,7 +24,7 @@ HealEffect_:
 ; (2026-11-13: RECOVER only eases a bad POISON, here too: .fullHPRecover.)
 ; v1.0 (2026-11-14): SILVER WIND's heal says nothing at full HP (the hit is the move).
 	call .isEighthHeal
-	ret z
+	ret nz
 	ld a, b
 	cp RECOVER
 	jr z, .fullHPRecover
@@ -63,14 +63,16 @@ HealEffect_:
 	pop hl
 	jp PrintText
 .isEighthHeal
-; z = the user's move effect is SPDEF_DOWN_SIDE_HEAL_EFFECT (SILVER WIND); keeps bc, de and hl
+; nz = the user's move has power: the heal that follows a hit, 1/8 of max HP. SILVER WIND comes here on
+; SPDEF_DOWN_SIDE_HEAL_EFFECT or, after a hit that broke a SUBSTITUTE, on HEAL_EFFECT (AttackSubstitute);
+; every other caller's move has power 0 (RECOVER, REST, SOFTBOILED, GROWTH). Keeps bc, de and hl.
 	ldh a, [hWhoseTurn]
 	and a
-	ld a, [wPlayerMoveEffect]
-	jr z, .gotEffect
-	ld a, [wEnemyMoveEffect]
-.gotEffect
-	cp SPDEF_DOWN_SIDE_HEAL_EFFECT
+	ld a, [wPlayerMovePower]
+	jr z, .gotPower
+	ld a, [wEnemyMovePower]
+.gotPower
+	and a
 	ret
 .userStatusPtr
 ; hl = the user's status byte
@@ -82,7 +84,7 @@ HealEffect_:
 	ret
 .passed
 	call .isEighthHeal
-	jp z, .eighthDivide
+	jp nz, .eighthDivide
 	ld a, b
 	cp REST
 	jr z, .restPath
@@ -199,8 +201,9 @@ HealEffect_:
 	jr .gotHPAmountToHeal
 .eighthDivide
 ; v1.0 (2026-11-14): SILVER WIND (SPDEF_DOWN_SIDE_HEAL_EFFECT) heals after its hit: 1/8 of max HP, at
-; least 1 (the clamp below keeps it under max HP). Keyed on the effect, not the move: METRONOME and
-; MIRROR MOVE reload it. The hit set wMoveDidntMiss, so .playAnim stays quiet.
+; least 1 (the clamp below keeps it under max HP). Keyed on the move's power (.isEighthHeal), not on its
+; id: METRONOME and MIRROR MOVE reload the power with the move. The hit set wMoveDidntMiss, so .playAnim
+; stays quiet.
 	ld a, [hld]
 	ld [wHPBarMaxHP], a
 	ld c, a

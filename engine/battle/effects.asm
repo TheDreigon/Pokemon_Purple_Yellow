@@ -2560,11 +2560,11 @@ DoSpDefStatEffect:
 
 SpDefDownSideHealEffect:   ; SILVER WIND, v1.0 (2026-11-14): 33% target SP.DEF -1, then the user heals 1/8 max HP
 ; In AlwaysHappenSideEffects and SpecialEffects, as DRAIN_HP: it runs once after every hit that lands, the
-; target fainted or not (never after a miss, an immunity or PROTECT). A hit that breaks a SUBSTITUTE drops
-; the effect (AttackSubstitute); one that it holds lands here and does nothing: no heal behind a doll,
-; as a draining move gets none (it misses one).
-	call CheckTargetSubstitute
-	ret nz
+; target fainted or not (never after a miss, an immunity or PROTECT). The heal is the user's: a hit that a
+; SUBSTITUTE took heals as any other (as the user's recoil and recharge stay: AttackSubstitute). The SP.DEF
+; leg is the target's and goes with the doll: one that held refuses it below (StatModifierDownEffect's own
+; test: silent, no roll); one that broke left HEAL_EFFECT in the byte, and the heal alone runs from
+; .executeOtherEffects, never through here.
 	ld hl, wEnemyMonHP
 	ldh a, [hWhoseTurn]
 	and a
@@ -2575,8 +2575,7 @@ SpDefDownSideHealEffect:   ; SILVER WIND, v1.0 (2026-11-14): 33% target SP.DEF -
 	or [hl]
 	ld bc, SPATK_DOWN_SIDE_EFFECT << 8 | SPDEF_DOWN_SIDE_HEAL_EFFECT ; SP.DEF side proxy, own id restored
 	call nz, DoSpDefStatEffect_Down ; no SP.DEF leg on a target that fainted from the hit
-	callfar HealEffect_             ; its 1/8 path, keyed on this effect; silent at full HP
-	ret
+	jpfar HealEffect_               ; a move with power: its 1/8 path; silent at full HP
 
 SpeedEvasionDown1Effect:
 ; Dual-stat -1 on the target (Speed + Evasion). Used by PSYCHIC_BIND (v0.7).
