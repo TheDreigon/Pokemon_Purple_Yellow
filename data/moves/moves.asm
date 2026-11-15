@@ -21,7 +21,7 @@ Moves: ; Current total = 224
 	; === BUG TYPE (9 moves) ===
 	move CONSTRICT,      SPEED_DOWN1_EFFECT,               20, BUG,          100, 30
 	move BUG_BITE,       FLINCH_SIDE_EFFECT2,              40, BUG,          100, 30 ; new move.
-	move SILVER_WIND,    SPDEF_DOWN_SIDE_HEAL_EFFECT,      60, BUG,          100, 15 ; new move.
+	move SILVER_WIND,    SPDEF_DOWN_SIDE_HEAL_EFFECT,      60, BUG,          100, 20 ; new move.
 	move LEECH_LIFE,     DRAIN_HP_EFFECT,                  70, BUG,          100, 20
 	move BUG_BUZZ,       SPDEF_DOWN1_EFFECT,               80, BUG,          100, 20 ; new move. almost-signature (Butterfree + Venomoth).
 	move MEGAHORN,       FLINCH_SIDE_EFFECT2,              85, BUG,           95, 20 ; new move.
