@@ -1454,6 +1454,20 @@ AIMoveChoiceModification5:
 	ld a, [wBattleMonStatus]
 	and (1 << FRZ) | SLP_MASK
 	jr nz, .protectNoBlow
+; v1.0 (2026-11-16): a lock into a DISABLED move brings no blow: the player's turn is only "is disabled!" and the
+; lock breaks there - the engine's own test (CheckPlayerStatusConditions .TriedToUseDisabledMoveCheck: the disabled
+; move's id non-zero and equal to wPlayerSelectedMove, the locked move: no move list while locked). Both the DISABLE
+; and the lock were on screen. The DISABLE is taken as staying, as sleep is: on the turn its count runs out
+; (.AnyMoveDisabledCheck runs first) the blow does come, and the -3 is not given that turn either.
+	ld a, [wPlayerDisabledMoveNumber]
+	and a
+	jr z, .protectLockNotDisabled
+	push hl
+	ld hl, wPlayerSelectedMove
+	cp [hl]
+	pop hl ; (pop keeps the flags of the cp)
+	jr z, .protectNoBlow
+.protectLockNotDisabled
 	push de
 	push hl
 	ld a, [wEnemyMonSpecies]
