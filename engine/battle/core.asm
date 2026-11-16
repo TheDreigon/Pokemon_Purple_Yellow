@@ -5590,8 +5590,13 @@ AttackSubstitute:
 ; subtract damage from HP of substitute
 	sub [hl]
 	ld [de], a
-	ret nc
-	add [hl] ; v1.0 (R16c): back to the doll's HP before the hit (the byte keeps the wrapped difference)
+; v1.0 (2026-11-16): the doll holds only while HP is left. A hit that leaves it at exactly 0 breaks
+; it here, as one that goes under 0 does (Gen 1 tested the carry alone: a 0-HP doll stood until
+; the next hit).
+	jr c, .noHPLeft
+	ret nz
+.noHPLeft
+	add [hl] ; v1.0 (R16c): back to the doll's HP before the hit (the byte keeps 0 or the wrapped difference)
 .substituteBroke
 ; v1.0 (R16c): a = the doll's HP before the hit, all the damage it took: kept for a recoil move
 ; (.nullifyEffect). wDamage still holds the damage computed; only a recoil move's is rewritten there.
