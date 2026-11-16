@@ -12,12 +12,15 @@
 ; wPlayerSelectedMove and reads nothing else battle-specific, so the MOVEDEX
 ; drives the very same routine with no battle running.
 ;
-; Clobbering the wPlayerMove* block is safe: ExecutePlayerMove calls
-; GetCurrentMove (core.asm) before a move is ever executed, so every field
-; there is re-derived from wPlayerSelectedMove on the way to using it. That is
-; also why the accuracy conversion below may write its result back over
-; wPlayerMoveAccuracy instead of needing a WRAM byte of its own -- and WRAM has
-; none to give, being full at 8192/8192.
+; It uses the wPlayerMove* block as its scratch (the accuracy conversion below
+; writes its result back over wPlayerMoveAccuracy: WRAM has no byte to give,
+; being full at 8192/8192). From the FIGHT menu and the MOVEDEX that costs
+; nothing: a move picked from the list is re-derived from wPlayerSelectedMove
+; (GetCurrentMove, core.asm) before it runs. It is NOT true of every turn -- a
+; BIDE's release runs on the block as the battle left it -- so a caller that
+; can open the card while a move is under way hands the block and the selection
+; back itself: the forget-a-move list does (.showCard,
+; engine/pokemon/learn_move.asm; v1.0 2026-11-16).
 ;
 ; INPUT: wPlayerSelectedMove = move to display.
 

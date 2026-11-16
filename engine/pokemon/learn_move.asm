@@ -258,12 +258,12 @@ TryingToLearn:
 .showCard
 	push hl
 	; v0.7 fix: the card writes the inspected move into wPlayerSelectedMove
-	; (ShowMoveInfo's input) and clobbers the wPlayerMove* block. Mid-battle
-	; -- this menu runs on level-up after an enemy faint -- a mon locked
-	; into a charge/Thrash/Bide continuation reuses BOTH across turns,
+	; (ShowMoveInfo's input) and uses the wPlayerMove* block as its scratch.
+	; Mid-battle -- this menu runs on level-up after an enemy faint -- a mon
+	; locked into a charge/Thrash/Bide continuation carries BOTH across turns,
 	; so it would execute the INSPECTED move as its charge release, or run
 	; the continuation with the inspected move's power/type/effect. Save
-	; the selection here; re-derive the block after the card.
+	; the selection here, and the block once the card's move is chosen.
 	ld a, [wPlayerSelectedMove]
 	push af
 	ld a, [wCurrentMenuItem]
@@ -278,6 +278,30 @@ TryingToLearn:
 	ld a, [wMoveNum]
 .gotCardMove
 	ld [wPlayerSelectedMove], a
+; v1.0 (2026-11-16): the six bytes of the wPlayerMove* block go on the stack as
+; they are, above the row pointer and the selection, and come back byte for byte
+; after the card. Re-reading them from the Moves table was wrong: the battle
+; changes the block on purpose, and the re-read undid it -- BideEffect zeroes
+; wPlayerMoveEffect when a BIDE starts, the re-read put BIDE_EFFECT back, and
+; the release turn ran BideEffect again: the BIDE started over by itself.
+; hl, d and e are free here: hl is popped back at .cardDone, de is dead.
+ASSERT MOVE_LENGTH == 6, "the card saves the wPlayerMove* block in three pushes"
+	ld hl, wPlayerMoveNum
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld e, a
+	push de ; wPlayerMoveNum, wPlayerMoveEffect
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld e, a
+	push de ; wPlayerMovePower, wPlayerMoveType
+	ld a, [hli]
+	ld d, a
+	ld a, [hl]
+	ld e, a
+	push de ; wPlayerMoveAccuracy, wPlayerMoveMaxPP
 ; Buffer 1 still holds the screen LearnMove saved on the way in, and the card
 ; does not touch it -- the FIGHT menu wraps it in buffer 2 -- so it can be laid
 ; over the top and the screen pulled back afterwards.
@@ -299,29 +323,30 @@ TryingToLearn:
 	call DelayFrame
 	farcall ShowMoveInfo
 	call LoadScreenTilesFromBuffer1
+; Mid-battle the Thrash/Bide/charge continuations skip move selection: charge
+; and Thrash re-derive the block from wPlayerSelectedMove (GetCurrentMove), and
+; BIDE's release turn runs on the wPlayerMove* block as the battle last left it
+; -- and the card overwrote both. Put back exactly what was there: the block
+; from the three pushes above (last pushed, first popped), then the selection.
+; Out of battle the block and the selection are scratch, so handing them back
+; as they were is harmless. a, d, e and hl die here; hl is popped back below.
+	ld hl, wPlayerMoveNum + MOVE_LENGTH - 1
+	pop de ; wPlayerMoveAccuracy, wPlayerMoveMaxPP
+	ld a, e
+	ld [hld], a
+	ld a, d
+	ld [hld], a
+	pop de ; wPlayerMovePower, wPlayerMoveType
+	ld a, e
+	ld [hld], a
+	ld a, d
+	ld [hld], a
+	pop de ; wPlayerMoveNum, wPlayerMoveEffect
+	ld a, e
+	ld [hld], a
+	ld [hl], d
 	pop af
 	ld [wPlayerSelectedMove], a
-; Mid-battle the Thrash/Bide/charge continuations skip move selection:
-; charge re-reads wPlayerSelectedMove in GetCurrentMove, the others reuse the
-; wPlayerMove* block without re-deriving it -- and the card clobbered both.
-; Restore the selection and re-derive the block from it (the same fetch
-; GetCurrentMove and the card itself perform). 0 = nothing selected and
-; $ff = "player is trapped" -- nothing to re-derive. Out of battle the byte
-; is union scratch, zeroed only when a battle starts (InitBattleVariables),
-; so it can hold anything; re-deriving from it only rewrites the wPlayerMove*
-; block, which the card has just overwritten anyway.
-	and a
-	jr z, .cardDone
-	inc a
-	jr z, .cardDone
-	dec a
-	dec a
-	ld hl, Moves
-	ld bc, MOVE_LENGTH
-	call AddNTimes
-	ld de, wPlayerMoveNum
-	ld a, BANK(Moves)
-	call FarCopyData
 .cardDone
 	pop hl
 	jp .loop
