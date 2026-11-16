@@ -1440,9 +1440,9 @@ AIMoveChoiceModification5:
 ; the next turn's PROTECT: +5.
 ; v1.0 (2026-11-02): the -3 only for a blow that comes and can touch it. Asleep or frozen, the player is taken as
 ; staying down (the priority rule below takes it so too: the trainer sees the status, not the turns left), and the
-; charged move stays charged. A blow the chart stops on the trainer's own #MON - DIG (GROUND) on a FLYING, a GAS or
-; an AIRBORNE one: the walk of the damage, its third type and AIRBORNE included - needs no PROTECT. Either way the
-; rules below decide, as with no blow on its way.
+; turn it loses ends the lock (2026-11-16). A blow the chart stops on the trainer's own #MON - DIG (GROUND) on a
+; FLYING, a GAS or an AIRBORNE one: the walk of the damage, its third type and AIRBORNE included - needs no PROTECT.
+; Either way the rules below decide, as with no blow on its way.
 ; v1.0 (2026-11-07): and a player locked into THRASH, PETAL DANCE, OUTRAGE or RAGE (THRASHING_ABOUT: "thrashing
 ; about" on screen every turn) has its blow on its way too - the lock attacks every turn it holds, its last one
 ; included (CheckPlayerStatusConditions .ThrashingAboutCheck), with the move whose block GetCurrentMove re-derives

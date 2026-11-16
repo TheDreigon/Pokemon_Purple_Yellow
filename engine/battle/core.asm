@@ -331,6 +331,12 @@ MainInBattleLoop:
 ; list only on the turn the counter ran out: a FIRE thaw then ran the last
 ; pick, made turns before - maybe by another #MON - and the list's appearing
 ; told the player the hidden count.)
+; v1.0 (2026-11-16): a #MON locked into a rampage or a charge (the gate above)
+; or a BIDE (below) loses the lock on its first turn asleep or frozen
+; (CheckPlayerStatusConditions .MonHurtItselfOrFullyParalysed), so from the
+; next turn it gets the battle menu and the list. Before, a rampage or a
+; charge got neither, and a BIDE no list, until it woke or thawed; the lock
+; then went on.
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump
@@ -3947,8 +3953,7 @@ CheckPlayerStatusConditions:
 	call PrintText
 	xor a
 	ld [wPlayerUsedMove], a
-	ld hl, ExecutePlayerMoveDone ; player can't move this turn
-	jp .returnToHL
+	jp .MonHurtItselfOrFullyParalysed ; player can't move this turn, and a lock ends (v1.0 2026-11-16, see there)
 .WakeUp
 ; v1.0 (2026-09-24): the turn a #MON wakes up it goes on to its move.
 ; The move list is offered every turn (2026-09-27), so wPlayerSelectedMove is
@@ -3982,8 +3987,7 @@ CheckPlayerStatusConditions:
 	call PrintText
 	xor a
 	ld [wPlayerUsedMove], a
-	ld hl, ExecutePlayerMoveDone ; player can't move this turn
-	jp .returnToHL
+	jp .MonHurtItselfOrFullyParalysed ; player can't move this turn, and a lock ends (v1.0 2026-11-16, see there)
 
 .HeldInPlaceCheck
 	ld a, [wEnemyBattleStatus1]
@@ -4076,6 +4080,7 @@ CheckPlayerStatusConditions:
 ; hidden with its move list back. A hold or a hidden #MON meets this check only when METRONOME or MIRROR MOVE
 ; called a move disabled in its own list: DISABLE never reaches a hidden #MON, and a held one cannot move.
 ; A move picked from the list and disabled before it ran holds none of these bits: no change.
+; v1.0 (2026-11-16): a turn lost asleep or frozen leaves through the same exit now (see there).
 	jr .MonHurtItselfOrFullyParalysed
 
 .ParalysisCheck
@@ -4089,6 +4094,15 @@ CheckPlayerStatusConditions:
 	call PrintText
 
 .MonHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.TriedToUseDisabledMoveCheck)
+; v1.0 (2026-11-16): and a turn lost asleep or frozen (the fast asleep exit, .playerStillFrozen): those turns end a
+; lock here too - BIDE (what it stored is never released), a rampage (no confusion, which only a rampage's last
+; attack brings), a charge (lost; its PP is spent on the release turn, so none is) and a hold (the held #MON is
+; free). Before, a sleep or a freeze kept those bits: MainInBattleLoop gave no battle menu while a rampage or a
+; charge was up, and no move list during a BIDE, until the #MON woke or thawed, and the lock then went on. The
+; wake-up and thaw turns go on to this turn's pick as before, and a lock that lost no turn is kept (frozen, then
+; thawed by a FIRE hit before it acts: it goes on). No move that reaches a hidden #MON puts it to sleep, and a
+; freeze brings it out of hiding as it lands (FrozenMonLeavesHiding), so on those two exits INVULNERABLE is never
+; up; with no lock up either, the code below writes back the byte it read and plays nothing.
 	ld hl, wPlayerBattleStatus1
 	ld a, [hl]
 	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
@@ -6124,8 +6138,7 @@ CheckEnemyStatusConditions:
 	call PlaySpecialAnimation
 	xor a
 	ld [wEnemyUsedMove], a
-	ld hl, ExecuteEnemyMoveDone ; enemy can't move this turn
-	jp .enemyReturnToHL
+	jp .monHurtItselfOrFullyParalysed ; enemy can't move this turn, and a lock ends (v1.0 2026-11-16, see there)
 .wokeUp
 ; v1.0 (2026-09-24): see .WakeUp on the player side. SelectEnemyMove chose a
 ; fresh move this turn (it chooses every turn since 2026-09-27).
@@ -6155,8 +6168,7 @@ CheckEnemyStatusConditions:
 	call PrintText
 	xor a
 	ld [wEnemyUsedMove], a
-	ld hl, ExecuteEnemyMoveDone ; enemy can't move this turn
-	jp .enemyReturnToHL
+	jp .monHurtItselfOrFullyParalysed ; enemy can't move this turn, and a lock ends (v1.0 2026-11-16, see there)
 .checkIfTrapped
 	ld a, [wPlayerBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; is the player using a multi-turn attack like warp
@@ -6288,6 +6300,8 @@ CheckEnemyStatusConditions:
 	ld hl, FullyParalyzedText
 	call PrintText
 .monHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.checkIfTriedToUseDisabledMove)
+; v1.0 (2026-11-16): and a turn lost asleep or frozen (fast asleep, .enemyStillFrozen): those turns end a lock too,
+; see the player side. With its lock gone, SelectEnemyMove's gates let it choose again next turn.
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
 	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
