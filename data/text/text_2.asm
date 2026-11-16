@@ -708,11 +708,11 @@ _ViridianBlackboardPoisonText::
 	line "or a FULL HEAL to"
 	cont "cure poison!"
 
-	para "Bad poison, from"
-	line "TOXIC, bites"
-	cont "harder each turn,"
-	cont "and bites on as"
-	cont "you walk!"
+	para "A bad poison, TOX,"
+	line "bites harder"
+	cont "each turn, and"
+	cont "bites on as you"
+	cont "walk!"
 
 	para "It takes a FULL"
 	line "HEAL to cure it!"

@@ -23,6 +23,9 @@
 ;   _SIDE_EFFECT1 = 15%   _SIDE_EFFECT2 = 30%   _SIDE_EFFECT3 = 45%
 ;   the five stat-lowering side effects = 33% (SP.DEF's rolls through SP.ATK's id)
 ;   FLINCH_SIDE_EFFECT1 = 15%, FLINCH_SIDE_EFFECT2 = 30%
+;   v1.0 (2026-11-16): the two bad-POISON side effects do not follow the suffix. Each
+;   rolls once: POISON_TOXIC_SIDE_EFFECT1 (TOXIC FANGS) 15% bad POISON, else 30%
+;   POISON; POISON_TOXIC_SIDE_EFFECT2 (GUNK SHOT) 25% bad POISON, else 25% POISON.
 
 _MoveDesc_NoAdditionalEffect::
 	text "A straight attack"

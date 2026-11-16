@@ -368,7 +368,7 @@ _ManualPage_4_5::
 	next "an eighth of full"
 	next "health each turn."
 	next ""
-	next "TOX, from TOXIC,"
+	next "TOX, a bad poison,"
 	next "bites harder each"
 	next "turn, and bites on"
 	next "as you walk after"
