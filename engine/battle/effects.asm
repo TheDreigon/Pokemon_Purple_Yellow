@@ -2491,6 +2491,7 @@ DoStatDownBurnEffect:
 	ld a, [wMoveMissed]
 	and a
 	jr nz, .restore ; missed: no burn roll
+	call StatDownBurnLegAnimation ; v1.0 (2026-11-16): the first leg refused, the burn can land: the animation now
 	push de
 	ld a, c
 	ld [de], a
@@ -2499,6 +2500,55 @@ DoStatDownBurnEffect:
 .restore
 	pop af
 	ld [de], a
+	ret
+
+; v1.0 (2026-11-16): the move's animation plays whenever a leg of the move can still take effect.
+; A power-0 move (CORRODE) plays it in its first leg, at UpdateLoweredStatDone, which sets
+; wMoveDidntMiss; a first leg refused (DEFENSE at -6, or the stat at 1) plays nothing and leaves
+; the flag at 0. Then, if the burn can still land, the animation plays here, once: after the
+; refusal line, before the burn roll, also when that roll then fails. "Can land" mirrors the
+; refusals of FreezeBurnParalyzeEffect: a SUBSTITUTE, a status already there, and .burn1 / .burn2
+; (FIRE or MAGMA as type 1 or type 2). Where the burn cannot land, no animation, as before.
+; The damaging moves here (ACID, ACID SPRAY, SLUDGE WAVE) arrive with the flag at 1 (their hit
+; played the animation) and leave at once; a POISON leg (SLUDGE WAVE's c) is never animated here.
+; Draws no random number. In: c = the status leg's id. Keeps bc and de; clobbers a, f and hl.
+StatDownBurnLegAnimation:
+	ld a, [wMoveDidntMiss]
+	and a
+	ret nz ; an animation already played: the hit's, or the first leg's
+	ld a, c
+	cp POISON_SIDE_EFFECT1
+	ret z ; not a burn
+	call CheckTargetSubstitute
+	ret nz
+	ld hl, wEnemyMonStatus
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotTarget
+	ld hl, wBattleMonStatus
+.gotTarget
+ASSERT wEnemyMonType1 == wEnemyMonStatus + 1 && wEnemyMonType2 == wEnemyMonStatus + 2, "status, type 1, type 2 in a row"
+ASSERT wBattleMonType1 == wBattleMonStatus + 1 && wBattleMonType2 == wBattleMonStatus + 2, "status, type 1, type 2 in a row"
+	ld a, [hli]
+	and a
+	ret nz ; a status already there
+	ld a, [hli]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, [hl]
+	cp FIRE
+	ret z
+	cp MAGMA
+	ret z
+	ld a, 1
+	ld [wMoveDidntMiss], a
+	push bc
+	push de
+	call PlayCurrentMoveAnimation2
+	pop de
+	pop bc
 	ret
 
 ; The split (2026-09-06): SP.DEF has no effect-id ladder. These four spoof the
