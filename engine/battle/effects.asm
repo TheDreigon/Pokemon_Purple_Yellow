@@ -1596,9 +1596,22 @@ FlinchSideEffect:
 	call BattleRandom
 	cp b
 	ret nc
+; v1.0 (2026-11-16): a flinch only stops a move still to come. On a target whose move has already
+; run this turn (its MOVED_THIS_TURN) it does nothing - no FLINCHED, and above all no ClearHyperBeam,
+; which gave a HYPER BEAM user hit after its attack a free next turn. After the roll, so the number
+; of random draws stays the same. hl = the target's BattleStatus1; 16-bit inc / dec keep the flags.
+	inc hl
+	inc hl ; BattleStatus3
+	bit MOVED_THIS_TURN, [hl]
+	dec hl
+	dec hl ; BattleStatus1
+	ret nz
 	set FLINCHED, [hl] ; set mon's status to flinching
 	call ClearHyperBeam
 	ret
+
+ASSERT wPlayerBattleStatus3 == wPlayerBattleStatus1 + 2 && wEnemyBattleStatus3 == wEnemyBattleStatus1 + 2, \
+	"FlinchSideEffect steps from battle status 1 to 3"
 
 ChargeEffect:
 	ld hl, wPlayerBattleStatus1
