@@ -192,17 +192,10 @@ DaycareGentlemanText:
 	cp b
 	pop bc
 	jr c, .skipCalcExp
-
-	ld a, [wMaxDaycareLevel]
-	ld d, a
-	callfar CalcExperience
-	ld hl, wDayCareMonExp
-	ldh a, [hExperience]
-	ld [hli], a
-	ldh a, [hExperience + 1]
-	ld [hli], a
-	ldh a, [hExperience + 2]
-	ld [hl], a
+; v1.0 (2026-11-16): at or above the ceiling, the level shown and charged is the ceiling, and the EXP is
+; left alone here: looking in and saying no costs nothing. The EXP is cut to the ceiling's only when the
+; #MON is really taken back (.enoughMoney). This used to write the ceiling's EXP over wDayCareMonExp before
+; the yes/no, so a look at the cap threw away every step walked above it.
 	ld a, [wMaxDaycareLevel]
 	ld d, a
 
@@ -285,6 +278,31 @@ DaycareGentlemanText:
 	jp .leaveMonInDayCare
 
 .enoughMoney
+; v1.0 (2026-11-16): taken back, paid for: a #MON whose EXP gives the ceiling level or more
+; (wMaxDaycareLevel, set by this talk) gets the ceiling's EXP, so MoveMon below hands it over at the
+; ceiling and never above it. The same cut .daycareInUse used to write before the yes/no. Clobbers
+; wLoadedMon, wMonHeader, wd0b5, wd11e, hExperience and every register, and rewrites wMonDataLocation and
+; wcf91 with the values .daycareInUse left there; nothing below reads them before setting them (the
+; bill's subtraction reads wDayCareTotalCost, MoveMon loads the #MON again).
+	ld a, DAYCARE_DATA
+	ld [wMonDataLocation], a
+	call LoadMonData
+	callfar CalcLevelFromExperience
+	ld a, [wMaxDaycareLevel]
+	ld b, a
+	ld a, d
+	cp b
+	jr c, .belowCeiling
+	ld d, b
+	callfar CalcExperience
+	ld hl, wDayCareMonExp
+	ldh a, [hExperience]
+	ld [hli], a
+	ldh a, [hExperience + 1]
+	ld [hli], a
+	ldh a, [hExperience + 2]
+	ld [hl], a
+.belowCeiling
 	xor a
 	ld [wDayCareInUse], a
 	ld hl, wDayCareNumLevelsGrown
