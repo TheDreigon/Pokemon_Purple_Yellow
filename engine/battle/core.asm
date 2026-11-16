@@ -5601,6 +5601,36 @@ AttackSubstitute:
 ; v1.0 (R16c): a = the doll's HP before the hit, all the damage it took: kept for a recoil move
 ; (.nullifyEffect). wDamage still holds the damage computed; only a recoil move's is rewritten there.
 	push af
+; v1.0 (2026-11-16): a multi-hit move whose FIRST hit broke the doll is set up here, before the doll
+; goes: TwoToFiveAttacksEffect would only run from the AlwaysHappenSideEffects dispatch after this
+; hit, and .nullifyEffect below drops the effect byte that dispatch reads, so the move stopped after
+; one hit. Set up now, it goes on: the other hits land on the #MON (.nullifyEffect keeps the byte while
+; hits are still to come). TWINEEDLE's first poison roll runs inside the set-up and the doll, still
+; up, refuses it in silence, as when it holds: that needle hit the doll. On a later hit the move is
+; set up already and TwoToFiveAttacksEffect returns at once (TWINEEDLE's byte is POISON_SIDE_EFFECT2
+; by then and is not tested). bc (the doll's status 2) and de survive the call; a is pushed above.
+	ld hl, wPlayerMoveEffect
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotAttackerEffect
+	ld hl, wEnemyMoveEffect
+.gotAttackerEffect
+	ld a, [hl]
+	cp TWO_TO_FIVE_ATTACKS_EFFECT
+	jr z, .setUpMultiHit
+	cp EFFECT_1E
+	jr z, .setUpMultiHit
+	cp ATTACK_TWICE_EFFECT
+	jr z, .setUpMultiHit
+	cp TWINEEDLE_EFFECT
+	jr nz, .breakDoll
+.setUpMultiHit
+	push bc
+	push de
+	call JumpMoveEffect ; TwoToFiveAttacksEffect
+	pop de
+	pop bc
+.breakDoll
 	ld h, b
 	ld l, c
 	res HAS_SUBSTITUTE_UP, [hl] ; unset the substitute bit
@@ -5630,10 +5660,29 @@ AttackSubstitute:
 ; hit, broken or not, and the user pays as when it holds: EXPLOSION's user faints (as from Gen 2 on), a
 ; recoil move's user takes recoil - counted on what the doll took, as when it holds (all the damage then goes
 ; into the doll): wDamage becomes the doll's HP before the hit. Only RECOIL_EFFECT rewrites it: a multi-hit
-; move whose later hit breaks the doll goes on with its damage. Every other effect still goes with the doll.
+; move whose later hit breaks the doll goes on with its damage. Every other effect still goes with the doll
+; (a multi-hit move's while hits are still to come excepted: 2026-11-16, below).
 ; v1.0 (2026-11-14): SILVER WIND's heal is the user's too and stays; its SP.DEF leg is the target's and goes
 ; with the doll. The effect becomes HEAL_EFFECT: the target stands behind its broken doll, so the core runs it
 ; from .executeOtherEffects, and HealEffect_ gives a move with power its 1/8 (silent at full HP).
+; v1.0 (2026-11-16): a multi-hit move with hits still to come after this one (w*NumAttacksLeft 2 or more: the
+; loop counts this hit off after it) keeps its effect byte: the hits go on into the #MON, and TWINEEDLE's
+; POISON_SIDE_EFFECT2 is the roll after the last needle, which lands on the #MON. On the last hit the rules
+; below apply: the byte goes, and a needle that broke the doll rolls nothing. w*NumAttacksLeft is shared with
+; WRAP, THRASH and BIDE: it is read only under ATTACKING_MULTIPLE_TIMES. a = hWhoseTurn here.
+	ld de, wPlayerNumAttacksLeft
+	and a
+	ld a, [wPlayerBattleStatus1]
+	jr z, .gotMultiHit
+	ld de, wEnemyNumAttacksLeft
+	ld a, [wEnemyBattleStatus1]
+.gotMultiHit
+	bit ATTACKING_MULTIPLE_TIMES, a
+	jr z, .notMultiHit
+	ld a, [de]
+	cp 2
+	jr nc, .keepEffect
+.notMultiHit
 	ld a, [hl]
 	cp HYPER_BEAM_EFFECT
 	jr z, .keepEffect

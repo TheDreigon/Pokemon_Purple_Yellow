@@ -1563,7 +1563,8 @@ TwoToFiveAttacksEffect:
 ; v1.0 (2026-11-07): each needle rolls its own POISON, as the card says. This runs once, from the
 ; AlwaysHappenSideEffects dispatch right after the first needle landed: its roll is here, the
 ; second's is the one .executeOtherEffects runs after both (core.asm). Not into a #MON the first
-; needle knocked out.
+; needle knocked out. v1.0 (2026-11-16): when the first needle breaks a SUBSTITUTE, this runs from
+; AttackSubstitute's .substituteBroke instead, before the doll goes: the doll refuses this roll.
 	ld hl, wEnemyMonHP
 	ldh a, [hWhoseTurn]
 	and a

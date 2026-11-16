@@ -42,7 +42,9 @@ DisplayEffectiveness_:
 ; AlwaysHappenSideEffects dispatch AFTER the effectiveness line); from hit 2 on
 ; the bit is up, and TWINEEDLE's effect byte has been rewritten to
 ; POISON_SIDE_EFFECT2 by then. (ExtremeYellow checks the effect byte alone and
-; prints TWINEEDLE's effectiveness twice.)
+; prints TWINEEDLE's effectiveness twice.) v1.0 (2026-11-16): a first hit that
+; breaks a SUBSTITUTE sets the move up inside AttackSubstitute, so the bit is up
+; already at hit 1's line there; the answer is the same Z.
 ; IN: hWhoseTurn
 IsMultiHitMove:
 	ld hl, wPlayerBattleStatus1
