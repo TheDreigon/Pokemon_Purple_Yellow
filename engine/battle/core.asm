@@ -20,6 +20,8 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 ; v1.0 (2026-11-12): the HUD's coloured status letters, GBC only, over blank font cells
 ; (engine/gfx/bg_map_attributes.asm). Here because this is a battle's one font load, LCD off.
 	farcall LoadStatusLetterTiles
+; The SUBSTITUTE doll's HP tube: its patterns, loaded here for the same reason (engine/battle/substitute_bar.asm).
+	farcall LoadSubstituteBarTiles
 	ld hl, vBGMap0
 	ld bc, BG_MAP_WIDTH * BG_MAP_HEIGHT
 .clearBackgroundLoop
@@ -2133,7 +2135,7 @@ DrawPlayerHUDAndHPBar:
 	hlcoord 11, 8
 	call PrintLevel
 	ld c, 0 ; the player's HUD
-	callfar PrintStatusOrConfusion ; TOX and CNF included -- engine/battle/hud_status.asm
+	callfar DrawHUDStatusAndSubstituteBar ; the status (TOX and CNF included), then the doll's tube
 	ld a, [wLoadedMonSpecies]
 	ld [wcf91], a
 	hlcoord 10, 9
@@ -2216,7 +2218,7 @@ DrawEnemyHUDAndHPBar:
 	ld [wLoadedMonLevel], a
 	call PrintLevel
 	ld c, 1 ; the enemy's HUD
-	callfar PrintStatusOrConfusion ; engine/battle/hud_status.asm
+	callfar DrawHUDStatusAndSubstituteBar ; the status, the ball's spill, then the doll's tube
 	ld hl, wEnemyMonHP
 	ld a, [hli]
 	ldh [hMultiplicand + 1], a
@@ -5608,7 +5610,10 @@ AttackSubstitute:
 ; it here, as one that goes under 0 does (Gen 1 tested the carry alone: a 0-HP doll stood until
 ; the next hit).
 	jr c, .noHPLeft
-	ret nz
+	jr z, .noHPLeft
+; The doll holds: its tube follows the hit (no HUD draw runs on this path). The far routine's ret is this one's;
+; both callers (.moveDidNotMiss of the two Execute*Move) read no register or flag after it.
+	jpfar RedrawTargetSubstituteBar
 .noHPLeft
 	add [hl] ; v1.0 (R16c): back to the doll's HP before the hit (the byte keeps 0 or the wrapped difference)
 .substituteBroke
@@ -5648,6 +5653,9 @@ AttackSubstitute:
 	ld h, b
 	ld l, c
 	res HAS_SUBSTITUTE_UP, [hl] ; unset the substitute bit
+; The bit is clear: this blanks the doll's tube before the "broke" line. a, bc and hl are not kept (bc is not
+; read again; the pushed af is).
+	callfar RedrawTargetSubstituteBar
 	ld hl, SubstituteBrokeText
 	call PrintText
 ; flip whose turn it is for the next function call

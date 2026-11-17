@@ -58,7 +58,9 @@ DEF NUM_TILEMAPS EQU const_value
 ; Two runs, because not every blank cell is free for a whole battle: $c0-$c8 is the
 ; EXP bar, $c9 the naming screen draws as a blank, $d0 is the HUD's ball, $d1 the "+",
 ; and $d3-$d4 are the STATS page's DEX label (reachable from the battle's party menu).
-; $d2, $de and $df stay free.
+; $d2, $de and $df stay free on the GBC. On the DMG and the SGB (hGBC = 0) these letters are never loaded, and
+; $ca-$cf, $d2 and $d5-$de hold the SUBSTITUTE doll's tube instead (SUBBAR_DMG_*, data/battle/substitute_bar.asm;
+; the GBC keeps the tube in VRAM bank 1). $df stays free on every system.
 	const_def $ca
 	const STATUS_TILE_P ; $ca
 	const STATUS_TILE_S ; $cb

@@ -131,7 +131,7 @@ PlacePlayerHUDTiles:
 
 PlayerBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the player's pokemon
-	db $73 ; unused ($73 is hardcoded into the routine that uses these bytes)
+	db $73 ; vertical line tile of the HUD
 	db $77 ; lower-right corner tile of the HUD
 	db $6F ; lower-left triangle tile of the HUD
 
@@ -140,18 +140,28 @@ PlaceEnemyHUDTiles:
 	ld de, wHUDGraphicsTiles
 	ld bc, $3
 	call CopyData
+; The enemy's vertical line has an id of its own, drawn one pixel right of the player's ($73) to leave room for
+; the SUBSTITUTE doll's tube in column 0 (engine/battle/substitute_bar.asm). The table holds the GBC id (VRAM
+; bank 1: cell (1,2) has attribute bit 3); the DMG / SGB id is a bank-0 one.
+	ldh a, [hGBC]
+	and a
+	jr nz, .gotLine
+	ld a, SUBBAR_DMG_LINE_E
+	ld [wHUDGraphicsTiles], a
+.gotLine
 	hlcoord 1, 2
 	ld de, $1
 	jr PlaceHUDTiles
 
 EnemyBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the enemy
-	db $73 ; unused ($73 is hardcoded in the routine that uses these bytes)
+	db SUBBAR_GBC_LINE_E ; vertical line tile of the HUD (PlaceEnemyHUDTiles: another id on the DMG / SGB)
 	db $74 ; lower-left corner tile of the HUD
 	db $78 ; lower-right triangle tile of the HUD
 
 PlaceHUDTiles:
-	ld [hl], $73
+	ld a, [wHUDGraphicsTiles] ; vertical line
+	ld [hl], a
 	ld bc, SCREEN_WIDTH
 	add hl, bc
 	ld a, [wHUDGraphicsTiles + 1] ; leftmost tile
