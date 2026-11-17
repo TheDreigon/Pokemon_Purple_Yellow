@@ -283,12 +283,16 @@ FreezeBurnParalyzeEffect:
 	ld [wAnimationType], a
 	call CheckTargetSubstitute ; call CheckTargetSubstitute ; test the HAS_SUBSTITUTE_UP bit of the defender's BattleStatus2
 	ret nz ; return if they have a substitute, can't effect them
+; v1.0 (2026-11-17): ice over sleep. A target that is only asleep still takes a freeze (the
+; whole-byte 1 << FRZ below ends the sleep); it refuses a burn or a paralysis. Any other status
+; refuses all three, before the roll, as before. The gate is FreezeBurnParalyzeStatusGate (bank
+; $12, both sides; this bank has no room for it): z = it may roll, hl -> the target's status.
+	callfar FreezeBurnParalyzeStatusGate
+	ld a, [hl] ; (ld keeps the flags) CheckDefrost reads the FRZ bit alone
+	jp nz, CheckDefrost ; can't inflict status if opponent is already statused
 	ldh a, [hWhoseTurn]
 	and a
 	jp nz, .opponentAttacker
-	ld a, [wEnemyMonStatus]
-	and a
-	jp nz, CheckDefrost ; can't inflict status if opponent is already statused
 	ld a, [wPlayerMoveEffect]
 	cp FREEZE_SIDE_EFFECT2 ; cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Frost Breath, Blizzard)
 	jr nz, .asm_3f2c7
@@ -400,10 +404,7 @@ FreezeBurnParalyzeEffect:
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	jp PrintFrozenTextAndLowerSpeed ; v1.0 (2026-11-07): the text, then SPEED one stage down
-.opponentAttacker
-	ld a, [wBattleMonStatus] ; mostly same as above with addresses swapped for opponent
-	and a
-	jp nz, CheckDefrost
+.opponentAttacker ; mostly same as above with addresses swapped for opponent (the status gate is above, both sides)
 	ld a, [wEnemyMoveEffect]
 	cp FREEZE_SIDE_EFFECT2 ; cp FREEZE_SIDE_EFFECT2 ; 30% freeze chance (Frost Breath, Blizzard)
 	jr nz, .asm_3f341
@@ -526,8 +527,9 @@ FrozenText:
 ; not below -6, and not when the SPEED is already 1 (StatModifierDownEffect's two refusals), silently there as any
 ; side effect's drop - and the stat is recalculated from the unmodified stat and the new stage alone, as a drop does
 ; (CalculateModifiedStat: the 999 cap, never below 1), then HalveSpeedDueToParalysis, the drop's own order (a #MON
-; just frozen carries no PAR: every site needs no status before it writes 1 << FRZ). MIST and GUARD SPEC. do not
-; stop it: it is part of the freeze, as paralysis's halving is; a SUBSTITUTE stops the freeze itself, before here.
+; just frozen carries no PAR: every site lets through no status but sleep before it writes the whole byte 1 << FRZ,
+; v1.0 2026-11-17). MIST and GUARD SPEC. do not stop it: it is part of the freeze, as paralysis's halving is; a
+; SUBSTITUTE stops the freeze itself, before here.
 ; Like any stage it stays after the thaw until the #MON leaves the field, and a second freeze lowers it again.
 ; The trainer AI reads it as any SPEED stage shown on screen (AIForgetStaleTurnOrder, misc.asm).
 ; In: hWhoseTurn = the attacker. Ends in PrintText: nothing is kept.
@@ -577,7 +579,8 @@ FrozenSpeedFellText: ; MonsStatsFellText's first line and its " fell!", never th
 ; v0.7 type-status immunities apply (same set as FreezeBurnParalyzeEffect):
 ; burn -> FIRE/MAGMA immune; freeze -> ICE/MAGMA immune;
 ; paralyze -> ELECTRIC immune.
-; Substitute blocks all status. Already-statused targets are skipped.
+; Substitute blocks all status. Already-statused targets are skipped, except that a
+; target only asleep still takes the freeze (v1.0, 2026-11-17: ice over sleep).
 TriStatusSideEffect:
 	xor a
 	ld [wAnimationType], a
@@ -654,7 +657,7 @@ TriStatusSideEffect:
 
 .freezeEnemy
 	ld a, [wEnemyMonStatus]
-	and a
+	and ~SLP_MASK ; v1.0 (2026-11-17): ice over sleep - a target only asleep is frozen (the write ends the sleep)
 	jp nz, CheckDefrost
 	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wEnemyMonType1]
@@ -722,7 +725,7 @@ TriStatusSideEffect:
 
 .freezeBattle
 	ld a, [wBattleMonStatus]
-	and a
+	and ~SLP_MASK ; v1.0 (2026-11-17): ice over sleep, as .freezeEnemy
 	jp nz, CheckDefrost
 	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wBattleMonType1]

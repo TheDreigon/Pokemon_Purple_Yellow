@@ -141,6 +141,7 @@ SECTION "Battle Engine 5", ROMX
 INCLUDE "engine/battle/display_effectiveness.asm"
 INCLUDE "engine/battle/hud_status.asm" ; v1.0 (2026-09-24): the HUD's status tiles, out of Battle Core
 INCLUDE "engine/battle/substitute_bar.asm" ; the SUBSTITUTE doll's HP tube beside each HUD
+INCLUDE "engine/battle/status_failure.asm" ; v1.0 (2026-11-17): ice over sleep's status gate
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pikachu/respawn_overworld_pikachu.asm"
 INCLUDE "engine/battle/scale_sprites.asm"
