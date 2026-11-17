@@ -656,7 +656,8 @@ WriteStatusLetterPalettes:
 WriteStatusLetterPaletteSynced::
 ; SetStatusLetterInk's (engine/battle/hud_status.asm), for a label with another ink than the INK REGISTER
 ; held: at the tail of a HUD draw, at a flip of the alternation, at a park (v1.0, 2026-11-17: the last two from
-; the poll loop of a battle menu). The register already names the new ink.
+; a battle menu's wait and its return, BattleMenuInput: a flip from the poll loop or from the return after a
+; key that stays, a park from the return after a key that leaves). The register already names the new ink.
 ; IN  c = 0 the player's letters (BG palette 6), 1 the enemy's (BG palette 5)
 ; That side's palette is written at the very start of a V-blank, and the handler of that same V-blank is made
 ; to copy the third of the tile map that holds the label: the new ink and the new tiles reach the screen in

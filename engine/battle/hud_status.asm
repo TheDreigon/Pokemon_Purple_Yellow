@@ -25,9 +25,14 @@
 ;   - every HUD draw prints the PRIMARY label (PrintStatusOrConfusion);
 ;   - with two labels or more, the alternation shows label number i, from the play clock
 ;     (AlternateHUDStatus, HUDLabelIndex), while a battle menu waits for a key;
-;   - when the battle menu returns with a key that leaves it, both sides are PARKED on
-;     their primary label (ParkHUDStatus, from BattleMenuInput, engine/battle/core.asm),
-;     before anything can save, restore or redraw the screen.
+;   - when the battle menu returns with a key that leaves its screen (the main menu's A;
+;     the FIGHT list's A, B and START; and its SELECT in the debug build's TestBattle, where
+;     it opens the animation viewer), both sides are PARKED on their primary label
+;     (ParkHUDStatus, from BattleMenuInput, engine/battle/core.asm), before anything can
+;     save, restore or redraw the screen. A key that returns and stays on the screen (the
+;     D-pad, the main menu's B, the list's SELECT outside TestBattle) is not a park: the
+;     label on screen stays up through the caller's redraw, which touches neither these
+;     cells nor a palette.
 ;
 ; v1.0 (2026-11-12): on the GBC the three letters are COLOURED, an ink per label.
 ; They are not the font's tiles there but copies of them in colour index 2
@@ -458,8 +463,9 @@ HUDLabelIndex:
 ;     SGB, a flip with the ink already right) the next poll reads the sample the rule read, unless
 ;     a V-blank comes between them, and finds the same presses: hJoyLast only lost keys that were
 ;     up. When the rule sends a side back, the other side flips at the next poll, or, when the poll finds a key, at
-;     the menu's return (HUDStatusAfterMenu: parked with the first side, or flipped after it on the
-;     D-pad keys that return: the main menu's left and right, the move list's up and down). The main
+;     the menu's return (HUDStatusAfterMenu: parked with the first side on a key that leaves, or flipped
+;     after it on a key that returns and stays: the main menu's left, right and B, the move list's up,
+;     down and SELECT, the last outside the debug build's TestBattle). The main
 ;     menu's up and down are handled inside HandleMenuInput_ and do not return: there the other side
 ;     follows after that menu's cursor redraw and Delay3, a few frames later. Left: a V-blank that
 ;     lands between the pad's test and the synced write's di, with a press that lasts that one frame.
@@ -502,19 +508,24 @@ AlternateHUDStatus::
 	ret
 
 ; What BattleMenuInput (engine/battle/core.asm) does with the HUD when the menu returns (v1.0,
-; 2026-11-17). IN  Z: the menu returned with the D-pad only (it goes on): one more step of the
-; alternation, so a side put off by AlternateHUDStatus's pad rule does not wait out the caller's
-; redraw of the cursor. NZ: a key that leaves the menu: the parking, below. The flags are the only
-; input (they survive rst _Bankswitch).
+; 2026-11-17). IN  Z: the menu returned with a key that stays on its screen (the D-pad, the main
+; menu's B, the list's SELECT outside the debug build's TestBattle; it goes on): one more step of
+; the alternation, so a side put off by AlternateHUDStatus's pad rule does not wait out the
+; caller's redraw of the cursor or the list.
+; NZ: a key that leaves the menu's screen (the keys BattleMenuInput's caller names in b): the parking,
+; below. The flags are the only input (they survive rst _Bankswitch).
 HUDStatusAfterMenu::
 	jr z, AlternateHUDStatus
 	; falls through
 
 ; THE PARKING (v1.0, 2026-11-17): both sides back on their PRIMARY label, by the step of a flip.
-; Reached from BattleMenuInput (through HUDStatusAfterMenu) when the menu returns with a key that leaves it
-; (A, B, START or SELECT), before its caller can save, restore or redraw the screen: outside a
-; menu's wait the cells show the primary label and the register names its ink, as a HUD draw
-; leaves them. A side with fewer than two labels never alternated: it is left alone.
+; Reached from BattleMenuInput (through HUDStatusAfterMenu) when the menu returns with a key that leaves
+; its screen (the main menu's A; the FIGHT list's A, B and START, and its SELECT in the debug build's
+; TestBattle), before its caller can save, restore or redraw the screen: outside a menu's wait the
+; cells show the primary label and the register names its ink, as a HUD draw leaves them. The keys
+; that return and stay (the D-pad, the main menu's B, the list's SELECT outside TestBattle) are not
+; parked: their redraws touch neither the cells nor a palette, and the next key that leaves parks.
+; A side with fewer than two labels never alternated: it is left alone.
 ParkHUDStatus::
 	ld c, 0
 	call .side

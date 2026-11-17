@@ -2093,22 +2093,34 @@ DrawHUDsAndHPBars:
 ; at HandleMenuInput_ because the outer entry is precisely what turns the flag
 ; back off for every other menu in the game -- so it also has to do that entry's
 ; own job of clearing wPartyMenuAnimMonEnabled by hand.
-; v1.0 (2026-11-17): THE PARKING. When the menu returns with a key that leaves it (A, B, START or
-; SELECT; not the D-pad, which comes straight back here), both HUDs are put back on their primary
-; label (ParkHUDStatus, engine/battle/hud_status.asm) before the caller can save, restore or redraw
-; the screen: a save never holds a label that the INK REGISTER no longer names. On the D-pad the
-; alternation gets one more step here instead (HUDStatusAfterMenu): the move the caller is about to
-; draw keeps it from polling for a few frames, and a side whose flip was put off when the key came
-; flips now. The keys stay in a and the flags, which every caller tests right after (b and hl come
-; back from the far call as something else; no caller reads them).
+; v1.0 (2026-11-17): THE PARKING. The caller hands over in b the keys that LEAVE its screen: the main
+; menu's A (both columns), the FIGHT list's A, B and START (in the debug build's TestBattle its SELECT
+; too: there SwapMovesInMenu sends SELECT to the animation viewer, Func_3d4f5, which restores the saved
+; screen). When the menu returns with one of them, both HUDs are put back on their primary label
+; (ParkHUDStatus, engine/battle/hud_status.asm) before the caller can save, restore or redraw the
+; screen: a save never holds a label that the INK REGISTER no longer names. Every other key that
+; returns stays on the menu's screen and comes straight back here: the D-pad (the cursor's redraw;
+; in TestBattle left and right redraw the viewer's move number), the main menu's B (the cursor
+; jumps to RUN, wild battles only) and the list's SELECT outside TestBattle (SwapMovesInMenu: the
+; swap's mark, or the swap and the list drawn again by MoveSelectionMenu). None of those draws
+; touches the HUD's status cells or a palette, and none saves or restores the screen, so the label
+; on screen stays up and the alternation gets one more step here instead (HUDStatusAfterMenu): the
+; caller's redraw keeps it from polling for a few frames,
+; and a side whose flip was put off when the key came flips now. Parking on them made the label blink
+; back to the primary for the few frames of that redraw.
+; IN  b = the keys that leave the menu's screen
+; The keys stay in a and the flags, which every caller tests right after with its own bit
+; instructions (bc, de and hl come back as something else; no caller reads them).
 BattleMenuInput:
 	xor a
 	ld [wPartyMenuAnimMonEnabled], a
 	inc a
 	ldh [hHUDStatusFlip], a
+	push bc
 	call HandleMenuInput_
+	pop bc
 	push af
-	and A_BUTTON | B_BUTTON | SELECT | START ; Z: the D-pad; the far call takes the flags in
+	and b ; NZ: a key that leaves; Z: one that stays (the far call takes the flags in)
 	callfar HUDStatusAfterMenu
 	pop af
 	ret
@@ -2450,15 +2462,18 @@ DisplayBattleMenu::
 	or B_BUTTON
 .leftKeys
 	ld [hl], a ; wMenuWatchedKeys
+	ld b, A_BUTTON ; the key that leaves this screen (B only moves the cursor to RUN)
 	call BattleMenuInput
 	bit BIT_D_RIGHT, a
 	jr nz, .rightColumn
 	bit BIT_B_BUTTON, a
 	jr z, .AButtonPressed ; the A button was pressed
 .BButtonPressed
-; v1.0: B (wild/SAFARI only, see the watched keys) parks the cursor on RUN:
+; v1.0: B (wild/SAFARI only, see the watched keys) puts the cursor on RUN:
 ; bottom row of the right column. Falls into .rightColumn, which wipes the
 ; left column's arrow; HandleMenuInput_'s PlaceMenuCursor draws the new one.
+; The menu stays on its screen, so the HUD's labels are not parked on B
+; (BattleMenuInput, b = A_BUTTON).
 	ld a, 1
 	ld [wCurrentMenuItem], a
 	; fall through
@@ -2497,6 +2512,7 @@ DisplayBattleMenu::
 	or B_BUTTON ; v1.0: the RUN shortcut, wild/SAFARI only
 .rightKeys
 	ld [hli], a ; wMenuWatchedKeys
+	ld b, A_BUTTON ; the key that leaves this screen (B only moves the cursor to RUN)
 	call BattleMenuInput
 	bit BIT_D_LEFT, a ; check if left was pressed
 	jp nz, .leftColumn ; if left was pressed, jump (jp: the left column grew past jr's reach)
@@ -3087,6 +3103,16 @@ SelectMenuItem:
 	ld a, [wMoveMenuType]
 	and a
 	jr nz, .plainInput
+	ld b, A_BUTTON | B_BUTTON | START ; the keys that leave the list (SELECT redraws it and waits again)
+IF DEF(_DEBUG)
+	; In TestBattle SELECT leaves too: SwapMovesInMenu sends it to the animation viewer (Func_3d4f5),
+	; which restores the saved screen (LoadScreenTilesFromBuffer1) and plays a move animation.
+	ld a, [wFlags_D733]
+	bit BIT_TEST_BATTLE, a
+	jr z, .leavingKeys
+	ld b, A_BUTTON | B_BUTTON | SELECT | START
+.leavingKeys
+ENDC
 	call BattleMenuInput
 	jr .gotInput
 .plainInput
