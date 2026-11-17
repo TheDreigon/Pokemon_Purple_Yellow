@@ -4054,7 +4054,7 @@ CheckPlayerStatusConditions:
 	ld a, CONF_PLAYER_ANIM
 	call PlaySpecialAnimation
 	call BattleRandom
-	cp 50 percent + 1 ; chance to hurt itself
+	cp 67 percent + 1 ; v1.0 (2026-11-17): it hurts itself one time in three ($AB-$FF, 85 of 256; was half)
 	jr c, .TriedToUseDisabledMoveCheck
 	ld hl, wPlayerBattleStatus1
 	ld a, [hl]
@@ -6236,7 +6236,7 @@ CheckEnemyStatusConditions:
 	ld a, CONF_ANIM
 	call PlaySpecialAnimation
 	call BattleRandom
-	cp $80
+	cp 67 percent + 1 ; v1.0 (2026-11-17): one time in three, as the player's roll (was $80, half)
 	jr c, .checkIfTriedToUseDisabledMove
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
