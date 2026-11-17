@@ -16,7 +16,7 @@
 ;     gets a copy of what else is ever drawn there (the font at $80-$FF and the $62-$7F set: box frames, blank),
 ;     by the same two loaders run again with rVBK = 1.
 ;   - DMG / SGB (hGBC = 0): the patterns sit in bank 0 over font cells that only the GBC's coloured status
-;     letters use ($ca-$cf, $d5-$dd), plus $d2 and $de; fewer patterns, so the tube moves in coarser steps.
+;     letters use ($ca-$cf, $d5-$df since 2026-11-17), plus $d2; fewer patterns, so the tube moves in coarser steps.
 ; The enemy HUD's frame is one pixel shorter on the left in every battle, to make room: its vertical line at
 ; (1,2) has an id of its own (EnemyBattleHUDGraphicsTiles, engine/battle/draw_hud_pokeball_gfx.asm), its corner
 ; ($74) and the "owned" ball ($d0, font) are drawn one pixel right, and the ball's last column spills into (2,1).

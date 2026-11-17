@@ -19,7 +19,7 @@ DEF SUBBAR_GBC_MARK_P EQU $23
 DEF SUBBAR_GBC_MARK_E EQU $24
 
 ; DMG / SGB: bank 0, over font cells the GBC gives to its coloured status letters (blank on these systems)
-; plus $d2 and $de (gfx/battle/substitute_bar_dmg.png, then the marks, in three runs).
+; plus $d2 (gfx/battle/substitute_bar_dmg.png, then the marks, in three runs).
 DEF NUM_SUBBAR_DMG_TILES EQU 17
 DEF SUBBAR_DMG_RUN1     EQU $ca
 DEF SUBBAR_DMG_RUN1_LEN EQU 6

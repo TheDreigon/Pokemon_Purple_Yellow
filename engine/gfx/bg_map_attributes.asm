@@ -338,33 +338,41 @@ TransferBGPalColors:
 ; The letters cannot simply be recoloured: they are font tiles, drawn in colour index 3, the black
 ; of every text, and the bag's list, YES/NO, the level-up boxes and the MOVE INFO card are drawn
 ; over the same six cells. So the EXP bar's recipe is used instead:
-;   - tiles: copies of the font's letters with the ink in colour index 2 (the persistent statuses)
-;     and index 1 (CNF), loaded over blank font cells for the battle (LoadStatusLetterTiles);
+;   - tiles: copies of the font's letters with the ink in colour index 2, every label's (since
+;     2026-11-17: CNF's were in index 1 until then), loaded over blank font cells for the battle
+;     (LoadStatusLetterTiles);
 ;   - cells: the six status cells are on BG palettes 5 (the enemy's) and 6 (the player's) in
 ;     BGMapAttributes_Battle and BGMapAttributes_Unknown13 (data/cgb/bg_map_attributes.asm);
-;   - palettes: 5 and 6 are background / CNF's ink / the status's ink / text colour. Slots 0 and 3
-;     are the HP bar's next to the cells, so any other text there looks as it does around them. With
-;     both inks in the palette at once, the 2-second status / CNF alternation only swaps tiles
-;     (AlternateHUDStatus) and never writes a palette.
+;   - palettes: 5 and 6 are background / CNF's ink / the ink the register names / text colour. Slots 0
+;     and 3 are the HP bar's next to the cells, so any other text there looks as it does around them.
+;     Slot 2 is the ink of the label on screen, whichever it is (a persistent status, CNF): one ink id
+;     space, STATUS_INK_* (constants/gfx_constants.asm). Slot 1 still holds CNF's ink and no tile
+;     uses it any more. So a side shows one label's ink at a time, and the 2-second alternation of a
+;     side's labels (AlternateHUDStatus, engine/battle/hud_status.asm) writes the palette at each flip
+;     to another ink, by the same synced step a HUD draw takes.
 ; BG palette 7 stays free.
 ;
 ; No frame may show a status cell in a colour that is not the HUD's background, the ink of the label
 ; that is on screen in that frame, or the text colour. Four things hold that.
 ;
-; 1. THE INK REGISTER (hStatusLetterInk, a byte per side) names the ink of the persistent-status label
-;    that side's cells last got. Every build of a palette reads the REGISTER, never the status bytes:
-;    a status byte changes when a move lands or a cure is used, the label only at the next HUD draw,
-;    and a rebuild in between (a flash, a fade, a palette command) must not recolour letters that are
-;    still on screen. The register is written by the HUD draw that changes the label and by nothing else
-;    (and zeroed when a battle starts). It follows that a restore of a saved screen must never bring back a
-;    label that a HUD draw has since replaced: no HUD draw that gives a side another label falls between a
-;    save of the screen and its restore (MimicEffect, engine/battle/effects.asm, saves the screen right
-;    before its list for that).
+; 1. THE INK REGISTER (hStatusLetterInk, a byte per side) names the ink of the label that side's cells
+;    last got. Every build of a palette reads the REGISTER, never the status bytes: a status byte
+;    changes when a move lands or a cure is used, the label only at the next HUD draw, and a rebuild in
+;    between (a flash, a fade, a palette command) must not recolour letters that are still on screen.
+;    The register changes in three places only, each together with the tiles (v1.0, 2026-11-17): at a
+;    HUD draw that changes the label, at a flip of the alternation, and at a park (both sides back on
+;    their primary label when a battle menu returns with a key that leaves it: BattleMenuInput,
+;    engine/battle/core.asm); and it is zeroed when a battle starts. It follows that a restore of a saved
+;    screen must never bring back a label that has since been replaced: no flip and no HUD draw that
+;    gives a side another label falls between a save of the screen and its restore. The flips happen
+;    only while a battle menu waits for a key, and the park puts the primary label back before the menu's
+;    caller can save or restore anything (MimicEffect, engine/battle/effects.asm, saves the screen right
+;    before its list for the same reason).
 ;
 ; 2. THE SHADING RULE (BuildStatusLetterPalette). m0 and m3 are the shades rBGP gives slots 0 and 3:
 ;        slot 0 = the side's HP-bar palette at m0     what the cells around the letters show
 ;        slot 3 = the side's HP-bar palette at m3     the text colour (the overlays' text)
-;        slot 1 (CNF) and slot 2 (the status):
+;        slot 1 (CNF's ink, which no tile uses) and slot 2 (the label's):
 ;            m3 = m0                                      -> the colour of slot 0: no text is visible, they hide
 ;            else no ink (register 0), or the silhouette  -> the colour of slot 3: the text colour
 ;            else                                         -> the ink, unshaded
@@ -381,8 +389,9 @@ TransferBGPalColors:
 ;        6 are written below both rows of status cells of the frame being drawn, in a raster window that
 ;        leaves the rebuild time to finish before that V-blank: the whole screen changes shade in one frame.
 ;      - A new label: WriteStatusLetterPaletteSynced, from the tail of the HUD draw that drew it
-;        (SyncStatusLetterInk, engine/battle/hud_status.asm). The ink is written at the start of the
-;        V-blank whose handler copies the label's tiles: ink and tiles are new in the same frame.
+;        (SyncStatusLetterInk), from a flip of the alternation and from a park (ShowHUDLabel), all three
+;        through SetStatusLetterInk (engine/battle/hud_status.asm). The ink is written at the start of
+;        the V-blank whose handler copies the label's tiles: ink and tiles are new in the same frame.
 ;      - The battle's attributes (packet 10): PreloadPacket10LetterPalettes, at the head of
 ;        LoadBGMapAttributes, before the attributes point any cell at palette 5 or 6.
 ;      - SET_PAL_BATTLE_BLACK with a HUD on screen (the black out, the surrender):
@@ -406,7 +415,8 @@ LoadStatusLetterTiles::
 ; Called once per battle, by SlidePlayerAndEnemySilhouettesOnScreen (engine/battle/core.asm) right
 ; after the font and the HUD tiles, WITH THE LCD OFF (plain copies to VRAM). That is the only font
 ; load of a battle, and no screen reachable from one writes these cells (see the constants).
-; On the DMG and the SGB the cells stay blank: nothing draws these ids there.
+; On the DMG and the SGB these tiles are not loaded and the labels are the font's letters; the
+; SUBSTITUTE tube's patterns sit in these cells there (constants/gfx_constants.asm).
 ; The INK REGISTER is zeroed here too: a battle starts with no label on either HUD.
 	ldh a, [hGBC]
 	and a
@@ -426,7 +436,8 @@ LoadStatusLetterTiles::
 StatusInkTable:
 ; One GBC colour per ink (red, green, blue, 0-31). Chosen on 2026-11-12.
 ; In the order of the ink ids (STATUS_INK_*, constants/gfx_constants.asm): ink id n is entry n - 1, which is
-; how BuildStatusLetterPalette reads it. CNF's ink, the last, is not an id: it has a palette slot of its own.
+; how BuildStatusLetterPalette reads it into slot 2. Since 2026-11-17 CNF's ink is an id like the others
+; (STATUS_INK_CNF, the last); BuildStatusLetterPalette still also copies it into slot 1, which no tile uses.
 .psn:    RGB 22,10,28
 .tox:    RGB 13,02,18
 .brn:    RGB 30,03,02
@@ -436,6 +447,7 @@ StatusInkTable:
 .frz:    RGB 08,22,31
 .bleed:  RGB 20,02,04 ; not used yet
 .cnf:    RGB 00,17,15
+.end:
 	ASSERT StatusInkTable.psn    - StatusInkTable == (STATUS_INK_PSN     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.tox    - StatusInkTable == (STATUS_INK_TOX     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.brn    - StatusInkTable == (STATUS_INK_BRN     - 1) * PAL_COLOR_SIZE
@@ -444,7 +456,8 @@ StatusInkTable:
 	ASSERT StatusInkTable.slp    - StatusInkTable == (STATUS_INK_SLP     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.frz    - StatusInkTable == (STATUS_INK_FRZ     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.bleed  - StatusInkTable == (STATUS_INK_BLEED   - 1) * PAL_COLOR_SIZE
-	ASSERT StatusInkTable.cnf    - StatusInkTable == NUM_STATUS_INKS * PAL_COLOR_SIZE
+	ASSERT StatusInkTable.cnf    - StatusInkTable == (STATUS_INK_CNF     - 1) * PAL_COLOR_SIZE
+	ASSERT StatusInkTable.end    - StatusInkTable == NUM_STATUS_INKS * PAL_COLOR_SIZE
 
 BuildStatusLetterPalette:
 ; One side's letter palette by the shading rule (above), from the INK REGISTER and the rBGP of this moment.
@@ -641,16 +654,18 @@ WriteStatusLetterPalettes:
 	jp TransferBGPalColors
 
 WriteStatusLetterPaletteSynced::
-; SyncStatusLetterInk's (engine/battle/hud_status.asm), at the tail of a HUD draw whose persistent-status
-; label has another ink than the INK REGISTER held; the register already names the new one.
+; SetStatusLetterInk's (engine/battle/hud_status.asm), for a label with another ink than the INK REGISTER
+; held: at the tail of a HUD draw, at a flip of the alternation, at a park (v1.0, 2026-11-17: the last two from
+; the poll loop of a battle menu). The register already names the new ink.
 ; IN  c = 0 the player's letters (BG palette 6), 1 the enemy's (BG palette 5)
 ; That side's palette is written at the very start of a V-blank, and the handler of that same V-blank is made
 ; to copy the third of the tile map that holds the label: the new ink and the new tiles reach the screen in
-; the same frame. (The HUD draw switched the BG transfer off when it began: until now the screen shows the old
-; label in the old ink.)
+; the same frame. (The caller switched the BG transfer off before it wrote the tiles: until now the screen
+; shows the old label in the old ink.)
 ; What this leans on:
-;   - the wait under the di is for the V-blank REQUEST (rIF) and for scanline 144, both. Every HUD draw is
-;     entered with interrupts enabled (nothing wraps one in a di), so a request seen under the di was raised
+;   - the wait under the di is for the V-blank REQUEST (rIF) and for scanline 144, both. Every caller is
+;     entered with interrupts enabled (a HUD draw, the menu's poll loop: nothing wraps one in a di), so a
+;     request seen under the di was raised
 ;     after it, at the start of scanline 144, and the scanline test passes at once. That test is for the day
 ;     this stops being true: a stale request then waits for scanline 144, so the burst stays inside V-blank
 ;     (on its first two scanlines at the latest, when the wait itself begins on scanline 144) instead of going

@@ -47,20 +47,24 @@ DEF REDRAW_ROW EQU 2
 	const TILEMAP_LINK_CABLE
 DEF NUM_TILEMAPS EQU const_value
 
-; The battle HUD's status letters on the GBC (v1.0, 2026-11-12): the fifteen tiles of
+; The battle HUD's status letters on the GBC (v1.0, 2026-11-12): the seventeen tiles of
 ; gfx/font/status_letters.png, in this order, loaded for the length of a battle over
 ; cells the font leaves blank (LoadStatusLetterTiles, engine/gfx/bg_map_attributes.asm)
 ; and written by engine/battle/hud_status.asm. They are the font's own letters drawn in
-; colour index 2 (the persistent statuses) and 1 (CNF) instead of 3, so the status
-; cells' palettes (BG 5 and 6) can give them an ink without touching the black of
-; every other text. .claude/status_letters_build.py builds the PNG from the font and
-; reads this list for the order.
+; colour index 2 instead of 3, so the status cells' palettes (BG 5 and 6) can give them
+; the ink of the label on screen without touching the black of every other text.
+; v1.0 (2026-11-17): every label's letters are in index 2 (CNF's were in index 1 until
+; then), and the set is the seventeen glyphs the labels need: the capitals, and the
+; lower-case b r n of BRN_OUT (STATUS_TILE_LOWER_x, the font's own lower case).
+; .claude/status_letters_build.py builds the PNG from the font and reads this list for
+; the order; a constant of another name inside it is an error there.
 ; Two runs, because not every blank cell is free for a whole battle: $c0-$c8 is the
 ; EXP bar, $c9 the naming screen draws as a blank, $d0 is the HUD's ball, $d1 the "+",
 ; and $d3-$d4 are the STATS page's DEX label (reachable from the battle's party menu).
-; $d2, $de and $df stay free on the GBC. On the DMG and the SGB (hGBC = 0) these letters are never loaded, and
+; $d2 stays free on the GBC. $de and $df are only the trainer card's, which no battle
+; reaches. On the DMG and the SGB (hGBC = 0) these letters are never loaded, and
 ; $ca-$cf, $d2 and $d5-$de hold the SUBSTITUTE doll's tube instead (SUBBAR_DMG_*, data/battle/substitute_bar.asm;
-; the GBC keeps the tube in VRAM bank 1). $df stays free on every system.
+; the GBC keeps the tube in VRAM bank 1).
 	const_def $ca
 	const STATUS_TILE_P ; $ca
 	const STATUS_TILE_S ; $cb
@@ -70,33 +74,48 @@ DEF NUM_TILEMAPS EQU const_value
 	const STATUS_TILE_X ; $cf
 DEF NUM_STATUS_TILES_1 EQU const_value - STATUS_TILE_P
 	const_def $d5
-	const STATUS_TILE_B ; $d5
-	const STATUS_TILE_R ; $d6
-	const STATUS_TILE_A ; $d7
-	const STATUS_TILE_L ; $d8
-	const STATUS_TILE_F ; $d9
-	const STATUS_TILE_Z ; $da
-	const CNF_TILE_C    ; $db
-	const CNF_TILE_N    ; $dc
-	const CNF_TILE_F    ; $dd
+	const STATUS_TILE_B       ; $d5
+	const STATUS_TILE_R       ; $d6
+	const STATUS_TILE_A       ; $d7
+	const STATUS_TILE_L       ; $d8
+	const STATUS_TILE_F       ; $d9
+	const STATUS_TILE_Z       ; $da
+	const STATUS_TILE_C       ; $db
+	const STATUS_TILE_D       ; $dc
+	const STATUS_TILE_LOWER_B ; $dd
+	const STATUS_TILE_LOWER_R ; $de
+	const STATUS_TILE_LOWER_N ; $df
 DEF NUM_STATUS_TILES_2 EQU const_value - STATUS_TILE_B
+	ASSERT const_value <= $e0 ; the run ends where the font's cells end
 
-; The ink ids of the persistent-status labels (v1.0, 2026-11-12): what the INK REGISTER holds (hStatusLetterInk,
-; one byte per side) and what the selector returns (BattlerStatusInkID, engine/battle/hud_status.asm). Ink id n
-; is entry n - 1 of StatusInkTable (engine/gfx/bg_map_attributes.asm) and row n - 1 of StatusLetterTileIDs
-; (hud_status.asm); ASSERTs next to both tables hold them to this order. 0 is "no status ink": the status slot
-; of the palette then shows the text colour. CNF's ink is not an id: its palette slot is static.
+; The ink ids of the HUD's labels (v1.0, 2026-11-12; one id space for every label since 2026-11-17): what the
+; INK REGISTER holds (hStatusLetterInk, one byte per side: the id of the label that side's cells show) and what
+; HUDLabelInkID returns (engine/battle/hud_status.asm). Ink id n is entry n - 1 of StatusInkTable
+; (engine/gfx/bg_map_attributes.asm) and row n - 1 of StatusLetterTileIDs and of StatusLetterFontIDs
+; (hud_status.asm); an ASSERT per id next to each table holds them to this order. 0 is "no ink": the status
+; slot of the palette then shows the text colour. An id never exists without its row in every table
+; (BuildStatusLetterPalette indexes the ink table by the register with no bound), and none is ever inserted.
 	const_def
 	const STATUS_INK_NONE    ; 0
 	const STATUS_INK_PSN     ; 1
 	const STATUS_INK_TOX     ; 2
 	const STATUS_INK_BRN     ; 3
-	const STATUS_INK_BRN_OUT ; 4 ; reserved (a burn whose fire is out: BRN's letters, another ink); nothing returns it yet
+	const STATUS_INK_BRN_OUT ; 4 ; a burn whose fire is out (b r n); nothing returns it yet
 	const STATUS_INK_PAR     ; 5
 	const STATUS_INK_SLP     ; 6
 	const STATUS_INK_FRZ     ; 7
-	const STATUS_INK_BLEED   ; 8 ; reserved; nothing returns it yet and it has no tiles
+	const STATUS_INK_BLEED   ; 8 ; B L D; nothing returns it yet
+	const STATUS_INK_CNF     ; 9
 DEF NUM_STATUS_INKS EQU const_value - 1
+
+; THE LABEL LIST (v1.0, 2026-11-17): the labels a side has at once, a bit each, in the order of precedence (bit 0
+; first). BattlerStatusLabels (engine/battle/hud_status.asm) answers it; the PRIMARY label is the lowest bit set.
+	const_def
+	const STATUS_LABEL_HARD ; 0 ; the persistent status: TOX, PSN, BRN, FRZ, PAR or SLP (BattlerStatusInkID)
+	const STATUS_LABEL_CNF  ; 1 ; confusion
+	const STATUS_LABEL_BLD  ; 2 ; reserved for BLEED: never set yet
+	const STATUS_LABEL_SCR  ; 3 ; reserved for FEAR: never set yet
+DEF NUM_STATUS_LABELS EQU const_value
 
 ; The form BuildStatusLetterPalette is asked for in b (engine/gfx/bg_map_attributes.asm): any non-zero value is
 ; the silhouette form.

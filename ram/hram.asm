@@ -196,10 +196,11 @@ hSerialConnectionStatus:: db
 hSerialIgnoringInitialData:: db
 
 ; v1.0 (2026-11-12): the INK REGISTER of the battle HUD's coloured status letters (GBC), one byte per side: the
-; ink id (STATUS_INK_*, constants/gfx_constants.asm; 0 = none) of the persistent-status label that side's three
-; HUD cells last got. +0 the player's, +1 the enemy's: indexed by the side byte the HUD code passes in c.
-; Written by SyncStatusLetterInk alone (engine/battle/hud_status.asm), at the tail of a HUD draw, together with
-; the palette and the tiles; zeroed once per battle (LoadStatusLetterTiles); read by every rebuild of the
+; ink id (STATUS_INK_*, constants/gfx_constants.asm; 0 = none) of the label that side's three HUD cells last got
+; (since 2026-11-17 every label has one, CNF's included). +0 the player's, +1 the enemy's: indexed by the side
+; byte the HUD code passes in c. Written by SetStatusLetterInk alone (engine/battle/hud_status.asm), together with
+; the palette and the tiles, at the tail of a HUD draw, at a flip of the alternation and at a park; zeroed once
+; per battle (LoadStatusLetterTiles); read by every rebuild of the
 ; letters' palettes (BuildStatusLetterPalette, engine/gfx/bg_map_attributes.asm, which has the whole design).
 ; These were hSerialSendData and hSerialReceiveData, dead since the link cable went.
 hStatusLetterInk:: ds 2
@@ -421,7 +422,7 @@ hFieldMoveMonMenuTopMenuItemX:: db
 hPikachuSpriteVRAMOffset:: db
 
 ; Battle HUD: nonzero while the battle menu is up, which lets AlternateHUDStatus
-; alternate the status tiles (its phase is wPlayTimeSeconds bit 1, not this
+; alternate the status tiles (its phase is the play clock, HUDLabelIndex, not this
 ; byte). It took the spare byte here (this `ds 1`, which nothing ever wrote).
 ; Cleared by HandleMenuInput, which every menu but the party menu goes through;
 ; the battle menu sets it and enters at HandleMenuInput_ instead, the same way

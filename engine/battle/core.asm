@@ -2093,12 +2093,25 @@ DrawHUDsAndHPBars:
 ; at HandleMenuInput_ because the outer entry is precisely what turns the flag
 ; back off for every other menu in the game -- so it also has to do that entry's
 ; own job of clearing wPartyMenuAnimMonEnabled by hand.
+; v1.0 (2026-11-17): THE PARKING. When the menu returns with a key that leaves it (A, B, START or
+; SELECT; not the D-pad, which comes straight back here), both HUDs are put back on their primary
+; label (ParkHUDStatus, engine/battle/hud_status.asm) before the caller can save, restore or redraw
+; the screen: a save never holds a label that the INK REGISTER no longer names. On the D-pad the
+; alternation gets one more step here instead (HUDStatusAfterMenu): the move the caller is about to
+; draw keeps it from polling for a few frames, and a side whose flip was put off when the key came
+; flips now. The keys stay in a and the flags, which every caller tests right after (b and hl come
+; back from the far call as something else; no caller reads them).
 BattleMenuInput:
 	xor a
 	ld [wPartyMenuAnimMonEnabled], a
 	inc a
 	ldh [hHUDStatusFlip], a
-	jp HandleMenuInput_
+	call HandleMenuInput_
+	push af
+	and A_BUTTON | B_BUTTON | SELECT | START ; Z: the D-pad; the far call takes the flags in
+	callfar HUDStatusAfterMenu
+	pop af
+	ret
 
 ; v1.0 (2026-11-13): the HUD of the side hWhoseTurn is not - the target of the move in play. For
 ; PrintTextWithFreshHUDs (effects.asm): a status line speaks of the target alone, and the user's HUD
