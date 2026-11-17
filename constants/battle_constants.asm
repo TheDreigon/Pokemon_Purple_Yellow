@@ -5,14 +5,23 @@ DEF MAX_LEVEL EQU 100
 ; miss. Every other reader tests it with `and a` and only cares whether the
 ; move connected, so any non-zero value behaves exactly as 1 always did --
 ; checked against all fifteen read sites before these were introduced. Since
-; PROTECT (2026-11-02) three more failure lines read the reason, only to stay
-; silent on MOVE_FAILED_PROTECTED: PrintButItFailedText_, PrintDidntAffectText
-; and LEECH SEED's miss line.
+; PROTECT (2026-11-02) three more failure lines read the reason, to stay silent
+; on MOVE_FAILED_PROTECTED: PrintButItFailedText_, PrintStatusMoveFailure (v1.0
+; 2026-11-17, in place of PrintDidntAffectText; it also prints MoveEvadedText on
+; MOVE_FAILED_EVADED) and LEECH SEED's miss line.
 DEF MOVE_HIT               EQU 0
 DEF MOVE_FAILED            EQU 1 ; an ordinary accuracy miss
 DEF MOVE_FAILED_EVADED     EQU 2 ; the 1-in-256 roll on a 100%-accurate move
 DEF MOVE_FAILED_NO_SCRATCH EQU 3 ; it connected, and the damage rounded to zero
 DEF MOVE_FAILED_PROTECTED  EQU 4 ; v1.0 (2026-11-02): the target PROTECTed itself; MoveHitTest has said so
+
+; v1.0 (2026-11-17): the cause a refused status move hands PrintStatusMoveFailure in c
+; (engine/battle/status_failure.asm): one line for each.
+DEF STATUS_FAIL_SUBSTITUTE EQU 0 ; "But, it failed!"
+DEF STATUS_FAIL_STATUSED   EQU 1 ; "<TARGET>'s / already <the status it has>"
+DEF STATUS_FAIL_CONFUSED   EQU 2 ; "<TARGET>'s / already confused!"
+DEF STATUS_FAIL_IMMUNE     EQU 3 ; "It doesn't affect <TARGET>!"
+DEF STATUS_FAIL_MISS       EQU 4 ; what PrintMoveFailureText says from wMoveMissed
 
 ; wBattleResult (ram/wram.asm): $00 won, $01 lost, $02 drew / ran / caught.
 ; v1.0 (2026-09-24): bit 7 rides on the $01 when the player gave a TRAINER

@@ -7,9 +7,10 @@ ParalyzeEffect_:
 	ld hl, wBattleMonStatus
 	ld de, wEnemyMoveType
 .next
+	ld c, STATUS_FAIL_STATUSED ; v1.0 (2026-11-17): the cause of each refusal, for PrintStatusMoveFailure
 	ld a, [hl]
 	and a ; does the target already have a status ailment?
-	jr nz, .didntAffect
+	jr nz, .failed
 ; v0.7: ELECTRIC defenders are immune to paralysis (any source).
 	ld b, h
 	ld c, l
@@ -40,20 +41,18 @@ ParalyzeEffect_:
 	push hl
 	callfar MoveHitTest
 	pop hl
+	ld c, STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	and a
-	jr nz, .didntAffect
+	jr nz, .failed
 	set PAR, [hl]
 	callfar HalveSpeedDueToParalysis
 	ld c, 30
 	call DelayFrames
 	callfar PlayCurrentMoveAnimation
 	jpfar PrintMayNotAttackText
-.didntAffect
-	ld c, 50
-	call DelayFrames
-	jpfar PrintDidntAffectText
+; v1.0 (2026-11-17): the 50-frame pause and the line are PrintStatusMoveFailure's (bank $12).
 .doesntAffect
-	ld c, 50
-	call DelayFrames
-	jp PrintDoesntAffectText ; home bank: no farcall needed
+	ld c, STATUS_FAIL_IMMUNE
+.failed
+	jpfar PrintStatusMoveFailure

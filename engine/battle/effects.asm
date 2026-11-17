@@ -34,22 +34,17 @@ SleepEffect:
 	ld [bc], a
 	jr nz, .setSleepCounter ; if the target had to recharge, all hit tests will be skipped
 	                        ; including the event where the target already has another status
+	ld c, STATUS_FAIL_STATUSED ; v1.0 (2026-11-17): asleep or any other status - the line names it
 	ld a, [de]
-	ld b, a
-	and $7
-	jr z, .notAlreadySleeping ; can't affect a mon that is already asleep
-	ld hl, AlreadyAsleepText
-	jp PrintText
-.notAlreadySleeping
-	ld a, b
 	and a
-	jr nz, .didntAffect ; can't affect a mon that is already statused
+	jr nz, StatusMoveFailed ; can't affect a mon that is already statused
 	push de
 	call MoveHitTest ; apply accuracy tests
 	pop de
+	ld c, STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	and a
-	jr nz, .didntAffect
+	jr nz, StatusMoveFailed
 .setSleepCounter
 	call DrawSleepCounter ; [de] = the counter, 3-6
 ; v1.0 (2026-09-27): sleep replaces any status here (the recharge bypass above
@@ -60,8 +55,6 @@ SleepEffect:
 	call PlayCurrentMoveAnimation2
 	ld hl, FellAsleepText
 	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
-.didntAffect
-	jp PrintDidntAffectText
 
 FellAsleepText:
 	text_far _FellAsleepText
@@ -80,9 +73,12 @@ DrawSleepCounter:
 	ld [de], a
 	ret
 
-AlreadyAsleepText:
-	text_far _AlreadyAsleepText
-	text_end
+; v1.0 (2026-11-17): every refusal of a status move ends here, c = the cause (STATUS_FAIL_*):
+; SleepEffect, PoisonEffect (POISON, TOXIC), BurnEffect and ConfusionEffect; ParalyzeEffect_
+; (bank $3D) goes to the routine itself. The pause and the line are PrintStatusMoveFailure's
+; (engine/battle/status_failure.asm, bank $12); farjp passes c and returns to the effect's caller.
+StatusMoveFailed:
+	farjp PrintStatusMoveFailure
 
 PoisonEffect:
 	ld hl, wEnemyMonStatus
@@ -95,23 +91,24 @@ PoisonEffect:
 	jr .poisonEffect
 ; v1.0 (2026-11-14): the refusals sit here, ahead of the tests, so that their jr's reach them
 ; past TOXIC FANGS' and GUNK SHOT's code below.
+; v1.0 (2026-11-17): c = the cause (STATUS_FAIL_*), set beside each test.
 .noEffect
 	ld a, [de]
 	cp POISON_EFFECT
-	jr z, .didntAffect
+	jr z, StatusMoveFailed
 	cp TOXIC_EFFECT ; v1.0 (2026-11-13): a status move says why it failed; a side effect says nothing
-	ret nz
-.didntAffect
-	ld c, 50
-	call DelayFrames
-	jp PrintDidntAffectText
+	jr z, StatusMoveFailed
+	ret
 .poisonEffect
+	ld c, STATUS_FAIL_SUBSTITUTE ; (CheckTargetSubstitute and PoisonImmuneTarget keep bc)
 	call CheckTargetSubstitute
 	jr nz, .noEffect ; can't poison a substitute target
+	ld c, STATUS_FAIL_STATUSED
 	ld a, [hli]
 	ld b, a
 	and a
 	jr nz, .noEffect ; miss if target is already statused
+	ld c, STATUS_FAIL_IMMUNE
 	call PoisonImmuneTarget ; can't poison a POISON or (v0.7) STEEL target - (v1.0) its third type too
 	jr z, .noEffect
 	ld a, [de]
@@ -134,9 +131,10 @@ PoisonEffect:
 	call MoveHitTest ; apply accuracy tests
 	pop de
 	pop hl
+	ld c, STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	and a
-	jr nz, .didntAffect
+	jr nz, StatusMoveFailed ; (only the two status moves roll for accuracy here)
 	ld a, [de]
 	cp TOXIC_EFFECT ; carry for POISON_EFFECT (a plain poison), none for TOXIC_EFFECT
 	jr .inflictPoison
@@ -1786,13 +1784,28 @@ ConfusionSideEffect:
 	ret nc
 	jr ConfusionSideEffectSuccess
 
+; v1.0 (2026-11-17): the status moves' common order - the doll, then a confusion already there, then
+; the accuracy (the confusion was tested after the roll) - each refusal with its cause (StatusMoveFailed).
 ConfusionEffect:
+	ld c, STATUS_FAIL_SUBSTITUTE ; (CheckTargetSubstitute keeps bc)
 	call CheckTargetSubstitute
-	jr nz, ConfusionEffectFailed
+	jr nz, .failed
+	ld c, STATUS_FAIL_CONFUSED
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyBattleStatus1] ; (ld keeps the flags of the and)
+	jr z, .gotTarget
+	ld a, [wPlayerBattleStatus1]
+.gotTarget
+	bit CONFUSED, a
+	jr nz, .failed
 	call MoveHitTest
+	ld c, STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	and a
-	jr nz, ConfusionEffectFailed
+	jr z, ConfusionSideEffectSuccess
+.failed
+	jp StatusMoveFailed
 
 ConfusionSideEffectSuccess:
 	ldh a, [hWhoseTurn]
@@ -1806,7 +1819,7 @@ ConfusionSideEffectSuccess:
 	ld a, [wEnemyMoveEffect]
 .confuseTarget
 	bit CONFUSED, [hl] ; is mon confused?
-	jr nz, ConfusionEffectFailed
+	ret nz ; v1.0 (2026-11-17): only a side effect gets here confused (ConfusionEffect tested it first): silent
 	set CONFUSED, [hl] ; mon is now confused
 	push af
 	call BattleRandom
@@ -1828,20 +1841,6 @@ ConfusionSideEffectSuccess:
 BecameConfusedText:
 	text_far _BecameConfusedText
 	text_end
-
-ConfusionEffectFailed:
-	; Side-effect tiers (1/2/3) are silent on miss — only ConfusionEffect
-	; (the dedicated, never-side-effect move like Confuse Ray) prints
-	; "but it failed".
-	cp CONFUSION_SIDE_EFFECT1
-	ret z
-	cp CONFUSION_SIDE_EFFECT2
-	ret z
-	cp CONFUSION_SIDE_EFFECT3
-	ret z
-	ld c, 50
-	call DelayFrames
-	jp ConditionalPrintButItFailed
 
 ParalyzeEffect:
 	jpfar ParalyzeEffect_
@@ -2098,16 +2097,8 @@ ButItFailedText:
 	text_far _ButItFailedText
 	text_end
 
-PrintDidntAffectText:
-	ld a, [wMoveMissed]
-	cp MOVE_FAILED_PROTECTED
-	ret z ; v1.0 (2026-11-02): as PrintButItFailedText_
-	ld hl, DidntAffectText
-	jp PrintText
-
-DidntAffectText:
-	text_far _DidntAffectText
-	text_end
+; PrintDidntAffectText and its "It didn't affect" went in v1.0 (2026-11-17): every status move's
+; refusal names its cause now (StatusMoveFailed, engine/battle/status_failure.asm).
 
 ; IsUnaffectedText moved to core.asm: its only reader is PrintMoveFailureText,
 ; which hands the address to PrintText with Battle Core's bank mapped. A text
@@ -2788,31 +2779,35 @@ BurnEffect:
 	jr z, .burnEffect
 	ld hl, wBattleMonStatus
 	ld de, wEnemyMoveEffect
+; v1.0 (2026-11-17): c = the cause of a refusal (STATUS_FAIL_*), set beside each test.
 .burnEffect
+	ld c, STATUS_FAIL_SUBSTITUTE ; (CheckTargetSubstitute keeps bc)
 	call CheckTargetSubstitute
-	jr nz, .didntAffect
+	jr nz, .failed
 	ld a, [hli]
 	ld b, a
 	and a
 	jr nz, .alreadyStatused
+	ld c, STATUS_FAIL_IMMUNE
 	ld a, [hli]
 	cp FIRE ; can not burn a fire-type target
-	jr z, .didntAffect
+	jr z, .failed
 	cp MAGMA ; v0.7: nor a magma-type target (matches the side-effect paths)
-	jr z, .didntAffect
+	jr z, .failed
 	ld a, [hld]
 	cp FIRE
-	jr z, .didntAffect
+	jr z, .failed
 	cp MAGMA ; v0.7
-	jr z, .didntAffect
+	jr z, .failed
 	push hl
 	push de
 	call MoveHitTest
 	pop de
 	pop hl
+	ld c, STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	and a
-	jr nz, .didntAffect
+	jr nz, .failed
 	; apply burn
 	dec hl
 	set BRN, [hl]
@@ -2824,23 +2819,15 @@ BurnEffect:
 ; v0.7: an always-burn move cannot burn a target that already has a status, but a
 ; FIRE or MAGMA one must still THAW a frozen one -- "any fire move melts the ice",
 ; with no exception for the one that happens to deal no damage (IGNITE). Any
-; status other than freeze fails exactly as before.
-;
-; MoveHitTest first: IGNITE is 95% accurate and a move that misses must not
-; defrost. The type gate below decides whether this thaws at all.
+; status other than freeze still fails.
+; v1.0 (2026-11-17): the type first, then the accuracy: a frozen target under a
+; move that cannot thaw it (WILL_O_WISP is GHOST; CheckDefrost would `ret` without
+; printing), and any other status under either move, is refused as STATUSED
+; before any roll; IGNITE that misses is a MISS. MoveHitTest still comes before
+; the thaw: IGNITE is 95% accurate and a move that misses must not defrost.
+	ld c, STATUS_FAIL_STATUSED
 	bit FRZ, a
-	jr z, .didntAffect
-	push bc
-	call MoveHitTest
-	pop bc
-	ld a, [wMoveMissed]
-	and a
-	jr nz, .didntAffect
-; v0.7 fix: only a FIRE or MAGMA always-burn move (IGNITE) thaws. For any
-; other type (WILL_O_WISP is GHOST) CheckDefrost would `ret` without printing,
-; leaving the whole turn silent after "used WILL O WISP!" -- fail loudly
-; instead. (Read the type via hWhoseTurn, not via de: MoveHitTest clobbers de
-; -- see the push de around it in the fresh-status path above.)
+	jr z, .failed
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveType] ; ld does not touch flags, the jr still tests hWhoseTurn
@@ -2848,10 +2835,17 @@ BurnEffect:
 	ld a, [wEnemyMoveType]
 .gotBurnMoveType
 	cp FIRE
-	jr z, .thawFrozenTarget
+	jr z, .thawTest
 	cp MAGMA
-	jr nz, .didntAffect
-.thawFrozenTarget
+	jr nz, .failed
+.thawTest
+	push bc
+	call MoveHitTest
+	pop bc
+	ld c, STATUS_FAIL_MISS
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .failed
 ; v1.0 (2026-11-07): the move landed, so its animation plays first, as on the fresh-burn path above:
 ; a BURN_EFFECT move is in ResidualEffects1, the core plays nothing for it.
 	push bc
@@ -2859,5 +2853,5 @@ BurnEffect:
 	pop bc
 	ld a, b ; the defender's status, read above
 	jp CheckDefrost
-.didntAffect
-	jp PrintDidntAffectText
+.failed
+	jp StatusMoveFailed

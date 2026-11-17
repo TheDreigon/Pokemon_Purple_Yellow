@@ -144,11 +144,6 @@ _ButItFailedText::
 	text "But, it failed! "
 	prompt
 
-_DidntAffectText::
-	text "It didn't affect"
-	line "<TARGET>!"
-	prompt
-
 _IsUnaffectedText::
 	text "<TARGET>"
 	line "is unaffected!"
