@@ -34,9 +34,8 @@ SleepEffect:
 	ld [bc], a
 	jr nz, .setSleepCounter ; if the target had to recharge, all hit tests will be skipped
 	                        ; including the event where the target already has another status
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open (keeps de)
 	ld c, STATUS_FAIL_STATUSED ; v1.0 (2026-11-17): asleep or any other status - the line names it
-	ld a, [de]
-	and a
 	jr nz, StatusMoveFailed ; can't affect a mon that is already statused
 	push de
 	call MoveHitTest ; apply accuracy tests
@@ -50,7 +49,8 @@ SleepEffect:
 ; v1.0 (2026-09-27): sleep replaces any status here (the recharge bypass above
 ; skips the "already statused" test): a bad POISON goes with the POISON, or it
 ; would come back as TOX on the next ordinary POISON; and (N5) a burn's ATTACK
-; or a paralysis's SPEED comes back (status_stat_cut.asm).
+; or a paralysis's SPEED comes back (status_stat_cut.asm). v1.0 (2026-11-17): so
+; does the ATTACK of a burn whose fire was out (the open slot, soft_status.asm).
 	farcall TargetStatusGone
 	call PlayCurrentMoveAnimation2
 	ld hl, FellAsleepText
@@ -80,6 +80,22 @@ DrawSleepCounter:
 StatusMoveFailed:
 	farjp PrintStatusMoveFailure
 
+; v1.0 (2026-11-17): the target's hard-status slot, for the gates and the landings of this bank
+; (SleepEffect, PoisonEffect, BurnEffect, FreezeBurnParalyzeEffect, TriStatusSideEffect, and
+; StatDownBurnLegAnimation, which mirrors FreezeBurnParalyzeEffect's gate): one far entry,
+; TargetStatusSlot (engine/battle/soft_status.asm, bank $12), which says what each value of a means.
+; TargetSlotTaken: z = the slot is open (no status, or a burn whose fire is out), nz = taken.
+; TargetSlot: a = TARGET_SLOT_FREEZE, the same question for a freeze (sleep alone is open to it); or a = the
+; new status byte, which lands (a burn whose fire was out goes, its ATTACK cut with it).
+; Out: hl -> the target's status byte, the flags; de kept. Clobbers a, bc (and, for a landing over a burn,
+; what TargetStatusGone clobbers: hMath, wd11e, wCalculateWhoseStats, the target's BADLY_POISONED).
+TargetSlotTaken:
+	ASSERT TARGET_SLOT_ANY == 0
+	xor a
+TargetSlot:
+	ld c, a
+	farjp TargetStatusSlot
+
 PoisonEffect:
 	ld hl, wEnemyMonStatus
 	ld de, wPlayerMoveEffect
@@ -103,11 +119,10 @@ PoisonEffect:
 	ld c, STATUS_FAIL_SUBSTITUTE ; (CheckTargetSubstitute and PoisonImmuneTarget keep bc)
 	call CheckTargetSubstitute
 	jr nz, .noEffect ; can't poison a substitute target
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open (hl -> the status as before; keeps de)
 	ld c, STATUS_FAIL_STATUSED
-	ld a, [hli]
-	ld b, a
-	and a
 	jr nz, .noEffect ; miss if target is already statused
+	inc hl ; -> its type 1
 	ld c, STATUS_FAIL_IMMUNE
 	call PoisonImmuneTarget ; can't poison a POISON or (v0.7) STEEL target - (v1.0) its third type too
 	jr z, .noEffect
@@ -152,19 +167,21 @@ PoisonEffect:
 ; (carry here: a plain poison)
 .inflictPoison
 ; In: carry = a plain poison, no carry = a bad one.
-	dec hl
-	set PSN, [hl]
-; v1.0 (2026-11-11): TOXIC marks the status byte itself (TOX, with the PSN just set: $88
-; on a byte tested zero above). The mark is the #MON's own: it goes with the status to
+; v1.0 (2026-11-17): the whole byte lands through TargetSlot - on a slot tested open above: no status, or a
+; burn whose fire is out, which goes with its ATTACK cut (soft_status.asm).
+	ld a, 1 << PSN
+	jr c, .gotPoison
+	ld a, (1 << PSN) | (1 << TOX)
+.gotPoison
+	call TargetSlot ; hl -> the target's status byte, de kept
+; v1.0 (2026-11-11): TOXIC marks the status byte itself (TOX, with the PSN: $88
+; on a slot tested open above). The mark is the #MON's own: it goes with the status to
 ; the party, the roster, the box, and it outlives the battle. BADLY_POISONED, set below
 ; for this stay on the field, is kept equal to it (toxic_carry.asm). The test at .ok
 ; below must stay THIS test: a move that set only one of the two would be undone, or
 ; left with a stale count, at the next write-back.
 ; v1.0 (2026-11-14): a bad poison is what the paths above decided (TOXIC_EFFECT, or the low
 ; band of TOXIC FANGS' and GUNK SHOT's roll); .ok reads it back from the TOX bit in c.
-	jr c, .notBadPoison
-	set TOX, [hl]
-.notBadPoison
 	ld c, [hl] ; the new status byte: TOX = a bad poison
 	push de
 	ldh a, [hWhoseTurn]
@@ -282,7 +299,9 @@ FreezeBurnParalyzeEffect:
 	call CheckTargetSubstitute ; call CheckTargetSubstitute ; test the HAS_SUBSTITUTE_UP bit of the defender's BattleStatus2
 	ret nz ; return if they have a substitute, can't effect them
 ; v1.0 (2026-11-17): ice over sleep. A target that is only asleep still takes a freeze (the
-; whole-byte 1 << FRZ below ends the sleep); it refuses a burn or a paralysis. Any other status
+; whole-byte 1 << FRZ below ends the sleep); it refuses a burn or a paralysis. A burn whose fire is
+; out leaves the slot open to all three (v1.0, 2026-11-17: each status lands through TargetSlot, which
+; takes that burn's cut away; a burn re-lights it). Any other status
 ; refuses all three, before the roll, as before. The gate is FreezeBurnParalyzeStatusGate (bank
 ; $12, both sides; this bank has no room for it): z = it may roll, hl -> the target's status.
 	callfar FreezeBurnParalyzeStatusGate
@@ -351,7 +370,7 @@ FreezeBurnParalyzeEffect:
 	ret z
 .applyParalyze1
 	ld a, 1 << PAR
-	ld [wEnemyMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	call HalveSpeedDueToParalysis ; halve speed of affected mon
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
@@ -369,8 +388,8 @@ FreezeBurnParalyzeEffect:
 	cp MAGMA
 	ret z
 	ld a, 1 << BRN
-	ld [wEnemyMonStatus], a
-	call HalveAttackDueToBurn ; halve attack of affected mon
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
+	call BurnInflicted ; halve attack of affected mon, draw the bites (v1.0 2026-11-17)
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	ld hl, BurnedText
@@ -389,7 +408,7 @@ FreezeBurnParalyzeEffect:
 	ret z
 	call ClearHyperBeam ; resets hyper beam (recharge) condition from target
 	ld a, 1 << FRZ
-	ld [wEnemyMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
 	; v1.0 (2026-11-07): 4-7. The thaw turn attacks, so a counter N holds the #MON N - 1
 	; turns: 4-7 is the 3-6 turns TRAINER MANUAL 4_3 says. Every freeze source draws the same.
@@ -460,7 +479,7 @@ FreezeBurnParalyzeEffect:
 	ret z
 .applyParalyze2
 	ld a, 1 << PAR
-	ld [wBattleMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
@@ -478,8 +497,8 @@ FreezeBurnParalyzeEffect:
 	cp MAGMA
 	ret z
 	ld a, 1 << BRN
-	ld [wBattleMonStatus], a
-	call HalveAttackDueToBurn
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
+	call BurnInflicted
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
 	ld hl, BurnedText
@@ -498,7 +517,7 @@ FreezeBurnParalyzeEffect:
 	ret z
 	call ClearHyperBeam
 	ld a, 1 << FRZ
-	ld [wBattleMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	; PURPLE YELLOW v0.5: freeze-turn counter 3-6.
 	; v1.0 (2026-11-07): 4-7, 3-6 turns held (see .freeze1).
 	call BattleRandom
@@ -526,7 +545,7 @@ FrozenText:
 ; side effect's drop - and the stat is recalculated from the unmodified stat and the new stage alone, as a drop does
 ; (CalculateModifiedStat: the 999 cap, never below 1), then HalveSpeedDueToParalysis, the drop's own order (a #MON
 ; just frozen carries no PAR: every site lets through no status but sleep before it writes the whole byte 1 << FRZ,
-; v1.0 2026-11-17). MIST and GUARD SPEC. do not stop it: it is part of the freeze, as paralysis's halving is; a
+; v1.0 2026-11-17 - or a burn whose fire is out, whose ATTACK cut TargetSlot has taken away). MIST and GUARD SPEC. do not stop it: it is part of the freeze, as paralysis's halving is; a
 ; SUBSTITUTE stops the freeze itself, before here.
 ; Like any stage it stays after the thaw until the #MON leaves the field, and a second freeze lowers it again.
 ; The trainer AI reads it as any SPEED stage shown on screen (AIForgetStaleTurnOrder, misc.asm).
@@ -578,7 +597,8 @@ FrozenSpeedFellText: ; MonsStatsFellText's first line and its " fell!", never th
 ; burn -> FIRE/MAGMA immune; freeze -> ICE/MAGMA immune;
 ; paralyze -> ELECTRIC immune.
 ; Substitute blocks all status. Already-statused targets are skipped, except that a
-; target only asleep still takes the freeze (v1.0, 2026-11-17: ice over sleep).
+; target only asleep still takes the freeze (v1.0, 2026-11-17: ice over sleep), and a burn
+; whose fire is out leaves the slot open to all three (v1.0, 2026-11-17: TargetSlot).
 TriStatusSideEffect:
 	xor a
 	ld [wAnimationType], a
@@ -613,8 +633,7 @@ TriStatusSideEffect:
 
 ; ===== Player attacking enemy =====
 .paralyzeEnemy
-	ld a, [wEnemyMonStatus]
-	and a
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open
 	ret nz
 	; v0.7: ELECTRIC defenders are immune to paralysis.
 	ld a, [wEnemyMonType1]
@@ -624,15 +643,14 @@ TriStatusSideEffect:
 	cp ELECTRIC
 	ret z
 	ld a, 1 << PAR
-	ld [wEnemyMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	call HalveSpeedDueToParalysis
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	jp PrintMayNotAttackText
 
 .burnEnemy
-	ld a, [wEnemyMonStatus]
-	and a
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open
 	ret nz
 	; v0.7: FIRE and MAGMA defenders are immune to burn.
 	ld a, [wEnemyMonType1]
@@ -646,16 +664,17 @@ TriStatusSideEffect:
 	cp MAGMA
 	ret z
 	ld a, 1 << BRN
-	ld [wEnemyMonStatus], a
-	call HalveAttackDueToBurn
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
+	call BurnInflicted
 	ld a, ENEMY_HUD_SHAKE_ANIM
 	call PlaySpecialBattleAnimation
 	ld hl, BurnedText
 	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 
 .freezeEnemy
-	ld a, [wEnemyMonStatus]
-	and ~SLP_MASK ; v1.0 (2026-11-17): ice over sleep - a target only asleep is frozen (the write ends the sleep)
+	ld a, TARGET_SLOT_FREEZE ; v1.0 (2026-11-17): ice over sleep - a target only asleep is frozen (the write ends the
+	call TargetSlot          ; sleep); and a burn whose fire is out leaves the slot open
+	ld a, [hl] ; (ld keeps the flags) CheckDefrost reads the FRZ bit alone
 	jp nz, CheckDefrost
 	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wEnemyMonType1]
@@ -670,7 +689,7 @@ TriStatusSideEffect:
 	ret z
 	call ClearHyperBeam
 	ld a, 1 << FRZ
-	ld [wEnemyMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	call BattleRandom
 	and $3
 	add 4 ; v1.0 (2026-11-07): 4-7, 3-6 turns held (see FreezeBurnParalyzeEffect .freeze1)
@@ -681,8 +700,7 @@ TriStatusSideEffect:
 
 ; ===== Enemy attacking player =====
 .paralyzeBattle
-	ld a, [wBattleMonStatus]
-	and a
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open
 	ret nz
 	; v0.7: ELECTRIC defenders are immune to paralysis.
 	ld a, [wBattleMonType1]
@@ -692,15 +710,14 @@ TriStatusSideEffect:
 	cp ELECTRIC
 	ret z
 	ld a, 1 << PAR
-	ld [wBattleMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	call HalveSpeedDueToParalysis
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
 	jp PrintMayNotAttackText
 
 .burnBattle
-	ld a, [wBattleMonStatus]
-	and a
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open
 	ret nz
 	; v0.7: FIRE and MAGMA defenders are immune to burn.
 	ld a, [wBattleMonType1]
@@ -714,16 +731,17 @@ TriStatusSideEffect:
 	cp MAGMA
 	ret z
 	ld a, 1 << BRN
-	ld [wBattleMonStatus], a
-	call HalveAttackDueToBurn
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
+	call BurnInflicted
 	ld a, SHAKE_SCREEN_ANIM
 	call PlaySpecialBattleAnimation2
 	ld hl, BurnedText
 	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 
 .freezeBattle
-	ld a, [wBattleMonStatus]
-	and ~SLP_MASK ; v1.0 (2026-11-17): ice over sleep, as .freezeEnemy
+	ld a, TARGET_SLOT_FREEZE ; v1.0 (2026-11-17): as .freezeEnemy
+	call TargetSlot
+	ld a, [hl]
 	jp nz, CheckDefrost
 	; v0.7: ICE and MAGMA defenders are immune to freeze.
 	ld a, [wBattleMonType1]
@@ -738,7 +756,7 @@ TriStatusSideEffect:
 	ret z
 	call ClearHyperBeam
 	ld a, 1 << FRZ
-	ld [wBattleMonStatus], a
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut
 	call BattleRandom
 	and $3
 	add 4 ; v1.0 (2026-11-07): 4-7, 3-6 turns held (see FreezeBurnParalyzeEffect .freeze1)
@@ -2460,14 +2478,15 @@ DoStatDownFlinchEffect:
 ; v1.0 (2026-11-14): a DEFENSE drop, then a burn rolled on its own. b = the DEFENSE id handed to
 ; StatModifierDownEffect, c = the BURN_SIDE id handed to FreezeBurnParalyzeEffect: each leg keeps
 ; every rule of its own effect (the roll or the sure drop, MIST, a SUBSTITUTE, -6; the burn tier,
-; FIRE / MAGMA, a status already there). The core runs these after a hit the target survived
+; FIRE / MAGMA, a status already there - v1.0 (2026-11-17): a burn whose fire is out is none, the
+; open slot of soft_status.asm). The core runs these after a hit the target survived
 ; (ACID, ACID SPRAY: on no dispatch list) or from ResidualEffects2 (CORRODE, power 0). The burn
 ; rolls unless the move missed (MoveHitTest: a miss, MIST); at -6 it still rolls, as the flinch
 ; does after INTIMIDATE's refusal. Never hand the own id ($74 on) to either handler: both read any
 ; such id as some other effect, with a green build.
 ; v1.0 (2026-11-14): SLUDGE WAVE rides the same dispatcher, a SPEED side drop then a 15% POISON:
 ; c = POISON_SIDE_EFFECT1, which StatDownStatusLeg hands to PoisonEffect (its rules: POISON /
-; STEEL / third type immune, a status already there, a SUBSTITUTE).
+; STEEL / third type immune, a status already there (not a burn whose fire is out), a SUBSTITUTE).
 SpeedDownSidePoison1Effect: ; SLUDGE WAVE: 33% SPEED -1, 15% POISON
 	ld bc, SPEED_DOWN_SIDE_EFFECT << 8 | POISON_SIDE_EFFECT1
 	jr DoStatDownBurnEffect
@@ -2515,8 +2534,10 @@ DoStatDownBurnEffect:
 ; wMoveDidntMiss; a first leg refused (DEFENSE at -6, or the stat at 1) plays nothing and leaves
 ; the flag at 0. Then, if the burn can still land, the animation plays here, once: after the
 ; refusal line, before the burn roll, also when that roll then fails. "Can land" mirrors the
-; refusals of FreezeBurnParalyzeEffect: a SUBSTITUTE, a status already there, and .burn1 / .burn2
-; (FIRE or MAGMA as type 1 or type 2). Where the burn cannot land, no animation, as before.
+; refusals of FreezeBurnParalyzeEffect: a SUBSTITUTE, the target's hard-status slot taken (v1.0
+; (2026-11-17): the same TargetSlotTaken as its gate, so a burn whose fire is out leaves the slot
+; open and the burn re-lights it), and .burn1 / .burn2 (FIRE or MAGMA as type 1 or type 2). Where
+; the burn cannot land, no animation, as before.
 ; The damaging moves here (ACID, ACID SPRAY, SLUDGE WAVE) arrive with the flag at 1 (their hit
 ; played the animation) and leave at once; a POISON leg (SLUDGE WAVE's c) is never animated here.
 ; Draws no random number. In: c = the status leg's id. Keeps bc and de; clobbers a, f and hl.
@@ -2529,17 +2550,13 @@ StatDownBurnLegAnimation:
 	ret z ; not a burn
 	call CheckTargetSubstitute
 	ret nz
-	ld hl, wEnemyMonStatus
-	ldh a, [hWhoseTurn]
-	and a
-	jr z, .gotTarget
-	ld hl, wBattleMonStatus
-.gotTarget
 ASSERT wEnemyMonType1 == wEnemyMonStatus + 1 && wEnemyMonType2 == wEnemyMonStatus + 2, "status, type 1, type 2 in a row"
 ASSERT wBattleMonType1 == wBattleMonStatus + 1 && wBattleMonType2 == wBattleMonStatus + 2, "status, type 1, type 2 in a row"
-	ld a, [hli]
-	and a
-	ret nz ; a status already there
+	push bc
+	call TargetSlotTaken ; hl -> the target's status byte
+	pop bc
+	ret nz ; the slot taken (a burn whose fire is out leaves it open: the burn re-lights it)
+	inc hl
 	ld a, [hli]
 	cp FIRE
 	ret z
@@ -2770,6 +2787,19 @@ AttackSpAtkUp1HealEffect:
 	ld [de], a
 	ret
 
+; v1.0 (2026-11-17): the one entry of every site that INFLICTS a burn, in place of its
+; HalveAttackDueToBurn (FreezeBurnParalyzeEffect .burn1 / .burn2 - the burn side effects of every
+; tier, ACID's and ACID SPRAY's second leg and CORRODE's among them - TriStatusSideEffect .burnEnemy /
+; .burnBattle, BurnEffect): the ATTACK cut, then the burn's 2 to 4 bites drawn into the target's
+; battle conditions (DrawBurnBites, engine/battle/soft_status.asm), before the HUD is drawn beside
+; "was burned!". HalveAttackDueToBurn itself is not the hook: the stat recalculations call it too.
+; BRN must already be set. Clobbers a, bc, hl; de is kept.
+; v1.0 (2026-11-17): a burn whose fire was out is re-lit here too: its BRN landed through TargetSlot,
+; which recalculated the stats without the old cut, so this one halving leaves the ATTACK as it was.
+BurnInflicted:
+	call HalveAttackDueToBurn
+	farjp DrawBurnBites
+
 BurnEffect:
 ; Always-burn status move (WILL_O_WISP). Mirrors PoisonEffect structure.
 	ld hl, wEnemyMonStatus
@@ -2784,9 +2814,9 @@ BurnEffect:
 	ld c, STATUS_FAIL_SUBSTITUTE ; (CheckTargetSubstitute keeps bc)
 	call CheckTargetSubstitute
 	jr nz, .failed
-	ld a, [hli]
+	call TargetSlotTaken ; v1.0 (2026-11-17): a burn whose fire is out leaves the slot open: the move re-lights it
+	ld a, [hli] ; (hl -> the status as before; ld keeps the flags)
 	ld b, a
-	and a
 	jr nz, .alreadyStatused
 	ld c, STATUS_FAIL_IMMUNE
 	ld a, [hli]
@@ -2809,14 +2839,15 @@ BurnEffect:
 	and a
 	jr nz, .failed
 	; apply burn
-	dec hl
-	set BRN, [hl]
-	call HalveAttackDueToBurn
+	ld a, 1 << BRN
+	call TargetSlot ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes with its cut, so
+	call BurnInflicted ; the one halving here leaves the ATTACK as that cut did, and a fresh count is drawn
 	call PlayCurrentMoveAnimation2
 	ld hl, BurnedText
 	jp PrintTextWithFreshHUDs ; v1.0 (2026-11-13): the new status already on the HUD beside the line
 .alreadyStatused
-; v0.7: an always-burn move cannot burn a target that already has a status, but a
+; v0.7: an always-burn move cannot burn a target that already has a status (v1.0,
+; 2026-11-17: a burn whose fire is out is none - it is re-lit above), but a
 ; FIRE or MAGMA one must still THAW a frozen one -- "any fire move melts the ice",
 ; with no exception for the one that happens to deal no damage (IGNITE). Any
 ; status other than freeze still fails.

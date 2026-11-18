@@ -20,7 +20,7 @@ SideStatusGone: ; a = the side (0 the player, 1 the enemy): its bad POISON goes,
 RecalcSideStats:
 	ld [wCalculateWhoseStats], a
 	farjp CalculateModifiedStats
-TargetStatusGone:: ; SLEEP on a recharging target (it skips the "already statused" test)
+TargetStatusGone:: ; SLEEP's every landing (on a recharging target it skips the "already statused" test); a new status landing over a burn whose fire is out (TargetStatusSlot, soft_status.asm)
 	ldh a, [hWhoseTurn]
 	xor 1
 	jr SideStatusGone

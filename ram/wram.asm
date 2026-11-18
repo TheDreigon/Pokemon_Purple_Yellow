@@ -2899,6 +2899,23 @@ wdef5:: db
 wBGPPalsBuffer:: ds NUM_ACTIVE_PALS * PALETTE_SIZE
 
 
+SECTION "Battle Conditions", WRAM0
+
+; v1.0 (2026-11-17): the battle conditions of every #MON in the battle, one byte per slot,
+; NOT saved (twelve bytes taken from the Stack's reserve; layout.link pins this section right
+; before the Stack's org). wPlayerMonConds is indexed by the party slot, wEnemyMonConds by the
+; roster slot (a wild #MON uses slot 0). Each byte:
+;   bits 0-2 the burn's bites left (BURN_BITES_MASK): 0 with BRN set = the fire is out
+;   bits 3-5 the bleed's bites left (BLEED_BITES_MASK): 0 = not bleeding
+;   bits 6-7 the bleed's layers minus 1 (BLEED_LAYERS_MASK), meaningful only while it bleeds
+; Zeroed for all twelve at the start of every battle (InitBattleVariables) and for one #MON
+; when it faints; never read outside a battle. Nothing is copied on a switch: the byte belongs
+; to the slot. The accessors are in engine/battle/soft_status.asm.
+wPlayerMonConds:: ds PARTY_LENGTH
+wEnemyMonConds:: ds PARTY_LENGTH
+wMonCondsEnd::
+
+
 SECTION "Stack", WRAM0
 
 ; the stack grows downward. 128 bytes ($80) since the SPECIAL split
@@ -2928,6 +2945,8 @@ SECTION "Stack", WRAM0
 ; v1.0 (2026-09-24, T23): 359 -> 343, 16 bytes to wMissableObjectFlags2 (the
 ; second hide/show table). Later that day: 343 -> 342, one byte to
 ; wTownVisitedFlag (nineteen fly slots).
-	ds $156 - 1
+; v1.0 (2026-11-17): 342 -> 330, twelve bytes to wPlayerMonConds / wEnemyMonConds (the
+; "Battle Conditions" section right below; not saved, so no save range moved).
+	ds $14a - 1
 wStack:: db
 ASSERT wStack == $dfff, "the Stack section must end at $dfff: the org in layout.link and this ds disagree"

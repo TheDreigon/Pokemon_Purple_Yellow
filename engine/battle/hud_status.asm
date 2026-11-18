@@ -78,7 +78,8 @@ LoadBattlerStatusRegs:
 ; THE SELECTOR (v1.0, 2026-11-12): which persistent-status label a battler's status bytes ask for,
 ; as an ink id (STATUS_INK_*, constants/gfx_constants.asm). The bytes and the order of precedence
 ; are those of the party menu's printer: TOX (a PSN whose BattleStatus3 says BADLY_POISONED), then
-; PrintStatusAilment's PSN, BRN, FRZ, PAR, SLP. It answers for the first bit of the label list
+; PrintStatusAilment's PSN, BRN, FRZ, PAR, SLP (a BRN whose fire is out answers BRN_OUT: v1.0,
+; 2026-11-17; the same capitals in another ink, so the party menu's "BRN" stays). It answers for the first bit of the label list
 ; (STATUS_LABEL_HARD), and only BattlerStatusLabels and HUDLabelInkID call it, so the precedence
 ; lives here and in the list and nowhere else. (An id, not a set of tiles: two labels can share
 ; their letters and differ in ink.)
@@ -108,7 +109,25 @@ BattlerStatusInkID:
 	ld a, STATUS_INK_SLP
 	ret
 .brn
-	ld a, STATUS_INK_BRN
+; v1.0 (2026-11-17): BRN while the fire burns, BRN_OUT once it is out: the same capitals, in its own ink on
+; the GBC (on the DMG and the SGB the two look the same; the line "fire burned out!" tells them apart there).
+; The bites are in the side's battle conditions byte (engine/battle/soft_status.asm, a near call: its
+; section is pinned in this bank); the side is the one whose status byte de points at.
+	push bc
+	push hl
+	ld c, 0
+	ld a, e
+	cp LOW(wBattleMonStatus)
+	jr z, .gotSide
+	inc c ; wEnemyMonStatus
+.gotSide
+	call BattlerBurnBitesLeft
+	pop hl
+	pop bc
+	ld a, STATUS_INK_BRN ; (ld keeps the flags)
+	ret nz
+	ASSERT STATUS_INK_BRN_OUT == STATUS_INK_BRN + 1
+	inc a ; STATUS_INK_BRN_OUT: the fire is out
 	ret
 .frz
 	ld a, STATUS_INK_FRZ
@@ -116,6 +135,9 @@ BattlerStatusInkID:
 .par
 	ld a, STATUS_INK_PAR
 	ret
+
+	ASSERT LOW(wBattleMonStatus) != LOW(wEnemyMonStatus), "BattlerStatusInkID tells the sides apart by the low byte"
+	ASSERT BANK(BattlerBurnBitesLeft) == BANK(BattlerStatusInkID), "BattlerStatusInkID calls soft_status.asm near"
 
 ; THE LABEL LIST (v1.0, 2026-11-17): which labels a battler has, a bit each (STATUS_LABEL_*,
 ; constants/gfx_constants.asm) in the order of precedence, the PRIMARY label first: the persistent
@@ -243,7 +265,7 @@ StatusLetterTileIDs:
 .psn:    db STATUS_TILE_P, STATUS_TILE_S, STATUS_TILE_N
 .tox:    db STATUS_TILE_T, STATUS_TILE_O, STATUS_TILE_X
 .brn:    db STATUS_TILE_B, STATUS_TILE_R, STATUS_TILE_N
-.brnOut: db STATUS_TILE_LOWER_B, STATUS_TILE_LOWER_R, STATUS_TILE_LOWER_N
+.brnOut: db STATUS_TILE_B, STATUS_TILE_R, STATUS_TILE_N ; BRN's letters: the ink tells them apart
 .par:    db STATUS_TILE_P, STATUS_TILE_A, STATUS_TILE_R
 .slp:    db STATUS_TILE_S, STATUS_TILE_L, STATUS_TILE_P
 .frz:    db STATUS_TILE_F, STATUS_TILE_R, STATUS_TILE_Z
@@ -266,7 +288,7 @@ StatusLetterFontIDs:
 .psn:    db "PSN"
 .tox:    db "TOX"
 .brn:    db "BRN"
-.brnOut: db "brn"
+.brnOut: db "BRN" ; BRN's letters: without colour the two look the same
 .par:    db "PAR"
 .slp:    db "SLP"
 .frz:    db "FRZ"

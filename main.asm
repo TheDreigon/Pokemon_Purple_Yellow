@@ -148,6 +148,14 @@ INCLUDE "engine/battle/scale_sprites.asm"
 INCLUDE "engine/slots/game_corner_slots2.asm"
 
 
+; v1.0 (2026-11-17): the per-#MON battle conditions (the burn that burns out). Pinned in layout.link to
+; the bank of "Battle Engine 5": the HUD's label list (hud_status.asm) and the status moves' gate
+; (status_failure.asm) reach it with near calls.
+SECTION "Soft Status", ROMX
+
+INCLUDE "engine/battle/soft_status.asm"
+
+
 SECTION "Slot Machines", ROMX
 
 INCLUDE "engine/slots/slot_machine.asm"

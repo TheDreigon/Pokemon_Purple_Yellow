@@ -324,15 +324,18 @@ _ManualPage_4_1::
 
 _ManualPage_4_2::
 	text "A BURN cuts ATTACK"
-	next "in half and bites"
-	next "for an eighth of"
-	next "full health each"
-	next "turn."
+	next "in half. The fire"
+	next "bites for 1/16 of"
+	next "full health a"
+	next "turn, two to four"
+	next "turns, then goes"
+	next "out."
 	next ""
-	next "It stays after the"
-	next "battle. BURN HEAL"
-	next "or a FULL HEAL"
-	next "clears it."
+	next "The cut stays"
+	next "after the battle."
+	next "A BURN HEAL, a"
+	next "FULL HEAL or a new"
+	next "status ends it."
 	done
 
 _ManualPage_4_3::

@@ -528,11 +528,13 @@ _MoveDesc_AccuracyEvasionDown1::
 	next "each."
 	done
 
+; v1.0 (2026-11-17): a burn bites 1/16 of the max HP two to four times, then its fire is out
+; (engine/battle/soft_status.asm); the ATTACK cut stays until a cure.
 _MoveDesc_Burn::
 	text "BURNs the foe."
-	next "ATTACK is halved"
-	next "and an eighth of"
-	next "HP goes each turn."
+	next "ATTACK is halved,"
+	next "1/16 of HP goes"
+	next "for 2 to 4 turns."
 	done
 
 _MoveDesc_ConfusionSide1::

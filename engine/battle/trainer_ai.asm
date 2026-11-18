@@ -267,7 +267,7 @@ AIMoveChoiceModification1:
 .checkStatusImmunity
 	call CheckStatusImmunity
 	jr c, .useless ; refused before its status test: a type immune to it (E4) or, POISON / BURN, a SUBSTITUTE (F5)
-	ld a, [wBattleMonStatus]
+	call AIPlayerStatusShown ; v1.0 (2026-11-17): a burn whose fire is out reads as no status (keeps bc, de, hl)
 	and a
 	jr z, .toNextMove ; no status: nothing refuses it (v1.0 2026-11-02: through .toNextMove - the LOCK-ON
 	                  ; and PROTECT dispatch put .nextMove one byte out of a jr's reach)
@@ -633,6 +633,23 @@ CheckStatusImmunity:
 	ret
 ;;;;;;;;;;
 
+; v1.0 (2026-11-17): a = the player's status byte as the trainer reads it to judge a status move (layer 1's
+; "already statused" rule, the burn leg of AIPlayerLowerMooted): a burn whose fire is out - BRN_OUT on
+; the HUD - leaves the slot open, so it reads as no status (0): every new status lands on it and a burn
+; re-lights it (BattlerSlotTaken, engine/battle/soft_status.asm). The trainer's own cures read its own
+; status byte and still see its burn. Keeps bc, de, hl.
+AIPlayerStatusShown:
+	push bc
+	push hl
+	ld c, 0 ; the player
+	farcall BattlerSlotTaken
+	pop hl
+	pop bc
+	ld a, 0 ; (ld keeps the flags) open: no status, or a burn whose fire is out
+	ret z
+	ld a, [wBattleMonStatus]
+	ret
+
 ; v1.0 (D15, 2026-09-29; +6 and 999 are the limits): carry when the enemy's stat-up move
 ; (wEnemyMoveEffect) would raise nothing: StatModifierUpEffect would refuse every stat it
 ; raises (AIEnemyStatMaxed), and GROWTH, which also heals, only at full HP
@@ -820,11 +837,12 @@ AIPlayerLowerMooted:
 	; v1.0 (2026-11-14): a second leg that rolls at -6 too. A flinch: never refused there, not wasted. A burn
 	; (CORRODE's; ACID SPRAY's row, were a power-0 move to carry it): FreezeBurnParalyzeEffect refuses it on a
 	; target with a status or of a FIRE or MAGMA type - then the move is as wasted as its stats say
+	; (v1.0 2026-11-17: not a burn whose fire is out: the slot is open, and the burn re-lights it)
 	ld a, c
 	sub DEFENSE_DOWN1_BURN2_EFFECT
 	cp DEFENSE_DOWN2_BURN3_EFFECT - DEFENSE_DOWN1_BURN2_EFFECT + 1
 	jr nc, .done ; a flinch: not wasted (carry clear)
-	ld a, [wBattleMonStatus]
+	call AIPlayerStatusShown ; keeps bc, de, hl
 	and (1 << PSN) | (1 << BRN) | (1 << PAR)
 	jr nz, .burnRefused ; a status that stays (asleep or frozen, it may wake or thaw in its turn, first)
 	ld a, BURN_EFFECT
@@ -1435,7 +1453,8 @@ AIMoveChoiceModification5:
 ; v1.0 (2026-11-02): PROTECT is worth its turn when the player's blow is already on its way - charged
 ; (SOLARBEAM, MOONBLAST) or up in the air or underground (FLY, SKY ATTACK, DIG): CHARGING_UP, which the screen
 ; announced. That blow lands this turn and PROTECT, first whatever the speeds, takes it: -3. With the
-; player poisoned, burned or under the trainer's LEECH SEED, and its own Pokemon free of all three, it
+; player poisoned, burning (2026-11-17: a burn whose fire is out costs no health) or under the trainer's
+; LEECH SEED, and its own Pokemon free of all three, it
 ; buys a turn of that damage: -1. Otherwise it blocks a move the trainer cannot see coming, and costs
 ; the next turn's PROTECT: +5.
 ; v1.0 (2026-11-02): the -3 only for a blow that comes and can touch it. Asleep or frozen, the player is taken as
@@ -1484,14 +1503,25 @@ AIMoveChoiceModification5:
 	dec [hl]
 	jp .nextMove
 .protectNoBlow
-	ld a, [wEnemyMonStatus]
-	and (1 << PSN) | (1 << BRN)
+; v1.0 (2026-11-17): "burned" here is a burn whose fire still burns (BattlerHurtsEachTurn, soft_status.asm:
+; poisoned, or burning); a burn whose fire is out costs no health, and the HUD shows which (its ink on the GBC).
+; The far call keeps de; bc (c counts the moves) and hl (the score) are saved around it.
+	push bc
+	push hl
+	ld c, 1 ; the trainer's own #MON
+	farcall BattlerHurtsEachTurn
+	pop hl
+	pop bc
 	jp nz, .discourage
 	ld a, [wEnemyBattleStatus2]
 	bit SEEDED, a
 	jp nz, .discourage
-	ld a, [wBattleMonStatus]
-	and (1 << PSN) | (1 << BRN)
+	push bc
+	push hl
+	ld c, 0 ; the player's
+	farcall BattlerHurtsEachTurn
+	pop hl
+	pop bc
 	jr nz, .protectStall
 	ld a, [wPlayerBattleStatus2]
 	bit SEEDED, a

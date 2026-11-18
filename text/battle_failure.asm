@@ -59,3 +59,10 @@ _BarelyEffectiveText::
 	text "It's barely"
 	line "effective..."
 	prompt
+
+; v1.0 (2026-11-17): the last bite of a burn (BurnBiteTaken, engine/battle/soft_status.asm), printed only
+; if the #MON still stands; after it the burn takes nothing more until it is cured.
+_BurnedOutText::
+	text "<USER>'s"
+	line "fire burned out!"
+	prompt

@@ -611,16 +611,38 @@ HandlePoisonBurnLeechSeed:
 	ld hl, HurtByPoisonText
 	ld a, [de]
 	and 1 << BRN
-	jr z, .poisoned
+	jr z, .poisoned ; a = 0: a poison
+; v1.0 (2026-11-17): a burn bites only while its fire burns (engine/battle/soft_status.asm): 2 to 4
+; bites of 1/16, then nothing at all - no damage, no text, no animation - until it is cured.
+	ldh a, [hWhoseTurn]
+	ld c, a
+	farcall IsBattlerBurning
+	jr z, .fireOut
 	ld hl, HurtByBurnText
+	ld a, 1 << BRN
 .poisoned
+	push af ; a = 1 << BRN for a burn's bite, 0 for a poison's
 	call PrintText
 	xor a
 	ld [wAnimationType], a
 	ld a, BURN_PSN_ANIM
 	call PlaySpecialAnimation   ; play burn/poison animation
+	pop af
 	pop hl
-	call HandlePoisonBurnLeechSeed_DecreaseOwnHP
+	push af
+	ld d, 1 ; the poison / TOX tick
+	and a
+	jr z, .gotTick
+	inc d ; a burn's bite
+.gotTick
+	call HandlePoisonBurnLeechSeed_DecreaseOwnHP.enter
+	pop af
+	and a
+	jr z, .notBurnedOrPoisoned
+	push hl
+	farcall BurnBiteTaken ; one bite less; after the last, "fire burned out!" if it still stands
+.fireOut
+	pop hl
 .notBurnedOrPoisoned
 ; v1.0 (N1, Gen 2): no LEECH SEED on a #MON its poison or burn just knocked out
 	ld a, [hli]
@@ -686,12 +708,14 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHPFlat:
 	ld d, 0
 	jr HandlePoisonBurnLeechSeed_DecreaseOwnHP.enter
 
-; The poison / burn tick: 1/8 of the max HP (at least 1). BADLY_POISONED (TOXIC): 1/16 of
+; The poison tick: 1/8 of the max HP (at least 1). BADLY_POISONED (TOXIC): 1/16 of
 ; the max HP (at least 1) times the toxic count, which it advances first (v1.0 D8).
-; IN  hl = the HP pointer of hWhoseTurn's #MON
+; v1.0 (2026-11-17): a burn's bite enters at .enter with d = 2: 1/16 of the max HP (at least 1),
+; no toxic count (HandlePoisonBurnLeechSeed calls it only while the fire burns).
+; IN  hl = the HP pointer of hWhoseTurn's #MON (.enter: and d = 0 LEECH SEED, 1 poison, 2 burn)
 ; OUT bc = the HP it actually lost (never more than it had); hl kept; a, de, f trashed
 HandlePoisonBurnLeechSeed_DecreaseOwnHP:
-	ld d, 1 ; the poison / burn tick
+	ld d, 1 ; the poison tick
 .enter
 	push hl
 	push hl
@@ -714,7 +738,15 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	inc c         ; damage is at least 1
 .nonZeroDamage
 	dec d
-	jr nz, .noToxic ; LEECH SEED (d was 0): no toxic count
+	jr z, .poisonTick ; d was 1
+	dec d
+	jr nz, .noToxic ; LEECH SEED (d was 0): the flat eighth, no toxic count
+; v1.0 (2026-11-17): a burn's bite (d was 2): max(1, eighth / 2) = max(1, max HP / 16), as TOX's unit below
+	srl c
+	jr nz, .noToxic
+	inc c
+	jr .noToxic
+.poisonTick
 	ld hl, wPlayerBattleStatus3
 	ld de, wPlayerToxicCounter
 	ldh a, [hWhoseTurn]
@@ -726,8 +758,8 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	bit BADLY_POISONED, [hl]
 	jr z, .noToxic
 ; v1.0 (D8): TOXIC takes the count x 1/16 of the max HP, as every official game does (Gen 2
-; GetSixteenthMaxHP: at least 1); the Yellow Legacy base had it at x 1/8. POISON, BURN and
-; LEECH SEED keep the eighth above.
+; GetSixteenthMaxHP: at least 1); the Yellow Legacy base had it at x 1/8. POISON and
+; LEECH SEED keep the eighth above (a burn's bite takes the sixteenth too since 2026-11-17).
 ; max(1, eighth / 2) = max(1, max HP / 16) for every max HP.
 	srl c
 	jr nz, .toxicSixteenth
@@ -907,6 +939,8 @@ FaintEnemyPokemon:
 	ld [hli], a
 	ld [hl], a
 .wild
+	ld c, 1 ; v1.0 (2026-11-17): the fainted #MON's battle conditions go (its roster slot; slot 0 when wild)
+	farcall ClearBattlerConds
 	ld hl, wPlayerBattleStatus1
 	res ATTACKING_MULTIPLE_TIMES, [hl]
 	xor a
@@ -1153,6 +1187,8 @@ RemoveFaintedPlayerMon:
 	ld [hli], a
 	ld [hl], a
 	ld [wBattleMonStatus], a
+	ld c, a ; v1.0 (2026-11-17): the fainted #MON's battle conditions go too (c = 0: the player's side)
+	farcall ClearBattlerConds
 	call ReadPlayerMonCurHPAndStatus
 	hlcoord 9, 7
 	lb bc, 5, 11
@@ -3665,7 +3701,7 @@ SelectEnemyMove:
 ; `pop hl` lives further down (after the disabled/exists checks), so jumping
 ; straight back leaked 2 bytes of stack PER retry. The enemy's empty move
 ; slots read as 0 PP, so this fired most turns and slowly overflowed the
-; (then mart-shrunk to ~193B; 342B since 2026-09-24) WRAM stack into Main Data -> total crash after a
+; (then mart-shrunk to ~193B; 342B since 2026-09-24, 330B since 2026-11-17) WRAM stack into Main Data -> total crash after a
 ; variable number of turns, in BOTH modes. Pop the orphan before retrying.
 	pop hl
 	jp .chooseRandomMove

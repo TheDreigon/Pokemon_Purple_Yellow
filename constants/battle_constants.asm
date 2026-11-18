@@ -23,6 +23,20 @@ DEF STATUS_FAIL_CONFUSED   EQU 2 ; "<TARGET>'s / already confused!"
 DEF STATUS_FAIL_IMMUNE     EQU 3 ; "It doesn't affect <TARGET>!"
 DEF STATUS_FAIL_MISS       EQU 4 ; what PrintMoveFailureText says from wMoveMissed
 
+; v1.0 (2026-11-17): what TargetStatusSlot (engine/battle/soft_status.asm) is asked in c: one of the two
+; gates, or else the new status byte itself, which lands on the target (every status byte that lands is
+; at least 1 << PSN, above both gates).
+DEF TARGET_SLOT_ANY    EQU 0 ; is the target's hard-status slot taken?
+DEF TARGET_SLOT_FREEZE EQU 1 ; the same, for a freeze: a slot that holds only sleep is open to it
+
+; v1.0 (2026-11-17): a battle conditions byte (wPlayerMonConds / wEnemyMonConds, one per slot;
+; engine/battle/soft_status.asm reads and writes them).
+DEF BURN_BITES_MASK   EQU %00000111 ; the burn's bites left; 0 with BRN set = the fire is out
+DEF BLEED_BITES_MASK  EQU %00111000 ; the bleed's bites left; 0 = not bleeding
+DEF BLEED_LAYERS_MASK EQU %11000000 ; the bleed's layers minus 1, while it bleeds
+DEF BURN_BITES_MIN    EQU 2 ; a burn bites 2 to 4 times, drawn uniformly when it is inflicted
+DEF BURN_BITES_MAX    EQU 4
+
 ; wBattleResult (ram/wram.asm): $00 won, $01 lost, $02 drew / ran / caught.
 ; v1.0 (2026-09-24): bit 7 rides on the $01 when the player gave a TRAINER
 ; battle up (RUN -> YES). TrainerBattleSurrenderPrompt sets it,

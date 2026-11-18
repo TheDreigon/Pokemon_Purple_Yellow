@@ -7,9 +7,11 @@ ParalyzeEffect_:
 	ld hl, wBattleMonStatus
 	ld de, wEnemyMoveType
 .next
+; v1.0 (2026-11-17): does the target already have a status ailment? A burn whose fire is out leaves the
+; slot open (TargetStatusSlot, engine/battle/soft_status.asm: hl -> the target's status as before, de kept).
+	ld c, TARGET_SLOT_ANY
+	farcall TargetStatusSlot
 	ld c, STATUS_FAIL_STATUSED ; v1.0 (2026-11-17): the cause of each refusal, for PrintStatusMoveFailure
-	ld a, [hl]
-	and a ; does the target already have a status ailment?
 	jr nz, .failed
 ; v0.7: ELECTRIC defenders are immune to paralysis (any source).
 	ld b, h
@@ -45,7 +47,8 @@ ParalyzeEffect_:
 	ld a, [wMoveMissed]
 	and a
 	jr nz, .failed
-	set PAR, [hl]
+	ld c, 1 << PAR ; v1.0 (2026-11-17): the whole byte lands; a burn whose fire was out goes, and its ATTACK
+	farcall TargetStatusSlot ; cut with it, before the SPEED cut below
 	callfar HalveSpeedDueToParalysis
 	ld c, 30
 	call DelayFrames

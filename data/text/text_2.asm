@@ -731,12 +731,14 @@ _ViridianBlackboardPrlzText::
 	cont "treats it!"
 	prompt
 
+; v1.0 (2026-11-17): a burn's fire bites two to four turns and goes out (engine/battle/soft_status.asm);
+; the cut to power and the burn itself stay until a cure.
 _ViridianBlackboardBurnText::
 	text "A burn reduces"
 	line "power."
-	
-	para "It also causes"
-	line "ongoing damage."
+
+	para "It also hurts for"
+	line "a few turns."
 
 	para "Burns remain"
 	line "after battles."

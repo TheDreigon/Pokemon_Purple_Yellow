@@ -11,7 +11,9 @@
 ; The line, after the same 50-frame pause for every cause:
 ;   STATUS_FAIL_SUBSTITUTE "But, it failed!"
 ;   STATUS_FAIL_STATUSED   "<TARGET>'s / already asleep! | poisoned! | burned! | frozen! | paralyzed", the
-;                          status the target HAS (TOX shares its byte with PSN: "poisoned")
+;                          status the target HAS (TOX shares its byte with PSN: "poisoned"; a burn only
+;                          while its fire burns - one whose fire is out leaves the slot open,
+;                          TargetStatusSlot in soft_status.asm, and the move lands)
 ;   STATUS_FAIL_CONFUSED   "<TARGET>'s / already confused!"
 ;   STATUS_FAIL_IMMUNE     "It doesn't affect <TARGET>!" (PrintDoesntAffectText, home)
 ;   STATUS_FAIL_MISS       what PrintMoveFailureText says from wMoveMissed: nothing for MOVE_FAILED_PROTECTED
@@ -101,30 +103,26 @@ StatusFailMissedText:
 	text_end
 
 ; v1.0 (2026-11-17): ice over sleep - the status gate of FreezeBurnParalyzeEffect (bank $1D, callfar),
-; both sides, before its roll. z: the side effect goes on to its roll - the target has no status, or
-; only sleep bits and the effect is a freeze (FREEZE_SIDE_EFFECT1 / 2: the whole-byte 1 << FRZ ends
-; the sleep). nz: refused - a sleeper under a burn or a paralysis, or any other status (the caller
-; hands that status to CheckDefrost, which thaws a frozen target under a FIRE or MAGMA move).
-; TriStatusSideEffect keeps its own gates: its freeze branch lets a sleeper through (and ~SLP_MASK), its
-; burn and paralysis branches refuse any status (and a), a sleeper too.
+; both sides, before its roll. z: the side effect goes on to its roll - the target's slot is open (no
+; status, or a burn whose fire is out: TargetStatusSlot, soft_status.asm), or it holds only sleep bits
+; and the effect is a freeze (FREEZE_SIDE_EFFECT1 / 2: the whole-byte 1 << FRZ ends the sleep). nz:
+; refused - a sleeper under a burn or a paralysis, or any other status (the caller hands that status to
+; CheckDefrost, which thaws a frozen target under a FIRE or MAGMA move).
+; TriStatusSideEffect asks TargetStatusSlot the same two questions itself (its freeze branch, then its
+; burn and paralysis branches).
 ; In: hWhoseTurn = the attacker. Out: hl -> the target's status byte, the flags; de kept.
 FreezeBurnParalyzeStatusGate::
-	ld hl, wEnemyMonStatus
 	ldh a, [hWhoseTurn]
 	and a
-	ld a, [wPlayerMoveEffect] ; (ld keeps the flags of the and)
-	jr z, .gotSides
-	ld hl, wBattleMonStatus
+	ld a, [wPlayerMoveEffect]
+	jr z, .gotEffect
 	ld a, [wEnemyMoveEffect]
-.gotSides
-	ld b, a
-	ld a, [hl]
-	and a
-	ret z ; no status
-	and ~SLP_MASK
-	ret nz ; a status other than sleep
-	ld a, b
+.gotEffect
+	ld c, TARGET_SLOT_FREEZE
 	cp FREEZE_SIDE_EFFECT1
-	ret z
+	jp z, TargetStatusSlot
 	cp FREEZE_SIDE_EFFECT2
-	ret ; z: a freeze on a sleeper; nz: a burn or a paralysis on one
+	jp z, TargetStatusSlot
+	ASSERT TARGET_SLOT_ANY == TARGET_SLOT_FREEZE - 1
+	dec c ; a burn or a paralysis
+	jp TargetStatusSlot

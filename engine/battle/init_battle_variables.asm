@@ -25,6 +25,14 @@ InitBattleVariables:
 	ld [hli], a
 	dec b
 	jr nz, .loop
+; v1.0 (2026-11-17): every #MON's battle conditions start at 0 (engine/battle/soft_status.asm): a #MON that
+; comes in burned has its fire out, and nothing carries over from the last battle.
+	ld hl, wPlayerMonConds
+	ld b, wMonCondsEnd - wPlayerMonConds
+.condsLoop
+	ld [hli], a
+	dec b
+	jr nz, .condsLoop
 	inc a ; first move id (CONSTRICT after v0.5 reorder; was POUND)
 	ld [wTestBattlePlayerSelectedMove], a
 	ld a, [wCurMap]

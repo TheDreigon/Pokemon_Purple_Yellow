@@ -441,7 +441,7 @@ StatusInkTable:
 .psn:    RGB 22,10,28
 .tox:    RGB 13,02,18
 .brn:    RGB 30,03,02
-.brnOut: RGB 30,15,00 ; not used yet: a burn whose fire is out
+.brnOut: RGB 30,15,00 ; a burn whose fire is out (BattlerStatusInkID, since 2026-11-17)
 .par:    RGB 27,22,00
 .slp:    RGB 04,08,20
 .frz:    RGB 08,22,31

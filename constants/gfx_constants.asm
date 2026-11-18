@@ -47,21 +47,21 @@ DEF REDRAW_ROW EQU 2
 	const TILEMAP_LINK_CABLE
 DEF NUM_TILEMAPS EQU const_value
 
-; The battle HUD's status letters on the GBC (v1.0, 2026-11-12): the seventeen tiles of
+; The battle HUD's status letters on the GBC (v1.0, 2026-11-12): the fourteen tiles of
 ; gfx/font/status_letters.png, in this order, loaded for the length of a battle over
 ; cells the font leaves blank (LoadStatusLetterTiles, engine/gfx/bg_map_attributes.asm)
 ; and written by engine/battle/hud_status.asm. They are the font's own letters drawn in
 ; colour index 2 instead of 3, so the status cells' palettes (BG 5 and 6) can give them
 ; the ink of the label on screen without touching the black of every other text.
 ; v1.0 (2026-11-17): every label's letters are in index 2 (CNF's were in index 1 until
-; then), and the set is the seventeen glyphs the labels need: the capitals, and the
-; lower-case b r n of BRN_OUT (STATUS_TILE_LOWER_x, the font's own lower case).
+; then), and the set is the fourteen capitals the labels need. Every label is capitals:
+; BRN and BRN_OUT share their letters and differ in ink alone.
 ; .claude/status_letters_build.py builds the PNG from the font and reads this list for
 ; the order; a constant of another name inside it is an error there.
 ; Two runs, because not every blank cell is free for a whole battle: $c0-$c8 is the
 ; EXP bar, $c9 the naming screen draws as a blank, $d0 is the HUD's ball, $d1 the "+",
 ; and $d3-$d4 are the STATS page's DEX label (reachable from the battle's party menu).
-; $d2 stays free on the GBC. $de and $df are only the trainer card's, which no battle
+; $d2 and $dd stay free on the GBC; $de and $df are only the trainer card's, which no battle
 ; reaches. On the DMG and the SGB (hGBC = 0) these letters are never loaded, and
 ; $ca-$cf, $d2 and $d5-$de hold the SUBSTITUTE doll's tube instead (SUBBAR_DMG_*, data/battle/substitute_bar.asm;
 ; the GBC keeps the tube in VRAM bank 1).
@@ -74,17 +74,14 @@ DEF NUM_TILEMAPS EQU const_value
 	const STATUS_TILE_X ; $cf
 DEF NUM_STATUS_TILES_1 EQU const_value - STATUS_TILE_P
 	const_def $d5
-	const STATUS_TILE_B       ; $d5
-	const STATUS_TILE_R       ; $d6
-	const STATUS_TILE_A       ; $d7
-	const STATUS_TILE_L       ; $d8
-	const STATUS_TILE_F       ; $d9
-	const STATUS_TILE_Z       ; $da
-	const STATUS_TILE_C       ; $db
-	const STATUS_TILE_D       ; $dc
-	const STATUS_TILE_LOWER_B ; $dd
-	const STATUS_TILE_LOWER_R ; $de
-	const STATUS_TILE_LOWER_N ; $df
+	const STATUS_TILE_B ; $d5
+	const STATUS_TILE_R ; $d6
+	const STATUS_TILE_A ; $d7
+	const STATUS_TILE_L ; $d8
+	const STATUS_TILE_F ; $d9
+	const STATUS_TILE_Z ; $da
+	const STATUS_TILE_C ; $db
+	const STATUS_TILE_D ; $dc
 DEF NUM_STATUS_TILES_2 EQU const_value - STATUS_TILE_B
 	ASSERT const_value <= $e0 ; the run ends where the font's cells end
 
@@ -100,7 +97,7 @@ DEF NUM_STATUS_TILES_2 EQU const_value - STATUS_TILE_B
 	const STATUS_INK_PSN     ; 1
 	const STATUS_INK_TOX     ; 2
 	const STATUS_INK_BRN     ; 3
-	const STATUS_INK_BRN_OUT ; 4 ; a burn whose fire is out (b r n); nothing returns it yet
+	const STATUS_INK_BRN_OUT ; 4 ; a burn whose fire is out (B R N, another ink); BattlerStatusInkID returns it since 2026-11-17
 	const STATUS_INK_PAR     ; 5
 	const STATUS_INK_SLP     ; 6
 	const STATUS_INK_FRZ     ; 7
