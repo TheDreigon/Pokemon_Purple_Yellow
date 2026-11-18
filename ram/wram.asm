@@ -1003,7 +1003,7 @@ wBadgeOrFaceTiles:: ds NUM_BADGES + 1
 
 ; v1.0 (2026-11-07): vanilla's pad. Yellow Legacy kept the bag's sort switch here (wTempFlag), and this byte is
 ; also wBoxMonCounts[11]: the CHANGE BOX screen wrote BOX 12's count into the switch. It lives in the
-; old second spare battle byte now (wTempFlag, after wSpareBattleByte1).
+; old second spare battle byte now (wTempFlag, after wMoveHitSubstitute).
 	ds 1
 
 ; temporary list created when displaying the badges on the trainer screen
@@ -1480,13 +1480,19 @@ ENDU
 ; v1.0 (2026-11-02): two spare bytes, free for the next need of the battle (not saved; zeroed at boot). They were
 ; wAIMoveSpamAvoider and wAITargetMonStatus, two of the four pureRGB AI bytes, dead since v1.0 E4 (2026-09-29:
 ; nothing read them); the other two became wDefenderType3 and wDefenderAirborne below.
-wSpareBattleByte1:: db
+; v1.0 (2026-11-18): the first is "this move struck a SUBSTITUTE": 0 at the start of each side's move
+; (ExecutePlayerMove / ExecuteEnemyMove, beside wMoveMissed), set to 1 by AttackSubstitute whether the doll
+; holds or breaks (never by a confusion self-hit or a crash: they enter ApplyDamageTo*Pokemon at .selfDamage).
+; It stays set through the rest of that move, a multi-hit move's later hits included, so the code after the hit
+; can tell a broken doll from a hit on the #MON (AttackSubstitute has cleared the doll's bit by then).
+; DrainHPEffect_ reads it: a hit on a doll drains nothing. The engine's alone: the AI reads the doll's bit.
+wMoveHitSubstitute:: db
 ; v1.0 (2026-11-07): the second spare byte (wSpareBattleByte2) is the bag's sort switch now. StartMenu_Item
 ; sets it to 1 right before DisplayListMenuID, which reads it (1 = START is watched and sorts the bag) and
 ; clears it. Its old byte, in the union above, was also BOX 12's count (wBoxMonCounts[11]), so one #MON in
 ; BOX 12 turned START on in the next list of any kind. Nothing else writes this one and the save does not hold
-; it. The spare name is gone from it, so that a store meant for a spare byte cannot land here unseen: the one
-; spare byte left is wSpareBattleByte1, above.
+; it. The spare name is gone from it, so that a store meant for a spare byte cannot land here unseen. Since
+; 2026-11-18 no spare battle byte is left (the first is wMoveHitSubstitute, above).
 wTempFlag:: db
 ; v1.0 (2026-11-02): the defender's traits for the chart walks (type_effectiveness.asm), from its species
 ; (SetDefenderTraits): ApplyTypeEffectivenessToDamage looks them up itself; every caller of AIGetTypeEffectivenessDBC

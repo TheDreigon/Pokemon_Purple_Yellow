@@ -84,7 +84,8 @@ AIEnemyTrainerChooseMoves:
 ; boot), so every test of them (layers 1, 3 and 4, CheckSeeded, CheckStatusImmunity) was dead, and so were wAITargetMonType1/2,
 ; read only behind one of those tests. The code went; the four WRAM bytes stayed where they were, and since
 ; 2026-11-02 two are the chart walks' defender traits (wDefenderType3, wDefenderAirborne) and two were spare;
-; since 2026-11-07 one is still spare (wSpareBattleByte1) and the other is the bag's sort switch (wTempFlag).
+; since 2026-11-07 one was still spare and the other is the bag's sort switch (wTempFlag); since 2026-11-18
+; the spare one is the engine's wMoveHitSubstitute (the AI does not read it).
 	ret
 
 AIMoveChoiceModificationFunctionPointers:
@@ -171,11 +172,12 @@ AIGetMoveChoiceList:
 ; (not a move whose flinch still rolls there: INTIMIDATE, SCARY FACE, METAL SOUND, SCREECH,
 ; HINDER, TICKLE; not CORRODE while its burn can still land, 2026-11-14; FIERCE ROAR only when its
 ; own ATTACK raise is refused too) (.checkRaise, AIPlayerLowerRefused).
-; v1.0 (F5, 2026-09-30): and the player's SUBSTITUTE (on screen): behind it DREAM EATER and the
-; DRAIN moves miss (MoveHitTest), and POISON, BURN and CONFUSION fail (PoisonEffect, BurnEffect,
-; ConfusionEffect test it first) - all useless (.checkSubstitute, .checkConfused,
+; v1.0 (F5, 2026-09-30): and the player's SUBSTITUTE (on screen): behind it POISON, BURN and
+; CONFUSION fail (PoisonEffect, BurnEffect, ConfusionEffect test it first) - useless (.checkConfused,
 ; CheckStatusImmunity), as E2's lowering moves already were. SLEEP, PARALYZE, LEECH SEED, DISABLE,
-; MIMIC and TRANSFORM do not test it and still land.
+; MIMIC and TRANSFORM do not test it and still land. v1.0 (2026-11-18): DREAM EATER and the DRAIN
+; moves no longer miss behind it (they hit the doll, and drain nothing off it): damaging moves like
+; any other here (.damagingMove); layers 3 and 4 give their drain no bonus while the doll is up.
 ; v1.0 (R8, 2026-09-30): and the trainer's own SUBSTITUTE, which SubstituteEffect_ refuses with
 ; its doll already up, and with its HP at or below a quarter of its max HP (the cost; at exactly
 ; the cost too, since 2026-09-24) (.checkOwnSubstitute): USELESS at or below the cost, which
@@ -214,8 +216,8 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMoveEffect]
 	cp DREAM_EATER_EFFECT
 	jp z, .checkAsleep
-	cp DRAIN_HP_EFFECT ; v1.0 (F5): damaging, so it is caught before the power gate
-	jp z, .checkSubstitute
+	; v1.0 (2026-11-18): the DRAIN moves are no longer dispatched here: behind a SUBSTITUTE they hit the doll,
+	; so they meet the power gate and the type chart below as any damaging move
 	; v1.0 (2026-11-02): two status moves, dispatched up here - in .statusMove's chain their bytes put
 	; three of its jr's out of reach
 	cp LOCK_ON_EFFECT ; its lock already set, or the player hidden
@@ -225,6 +227,7 @@ AIMoveChoiceModification1:
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .statusMove ; v1.0 (R9): a damaging move meets the type chart here, a power-0 one the rules below
+.damagingMove ; v1.0 (2026-11-18): DREAM EATER into a sleeping Pokemon comes in here too (.checkAsleep)
 	call AIMoveEffectiveness ; a = the chart's multiplier on the player's types, 0 = stopped (R9c: the fixed family too; keeps bc, de, hl)
 	and a
 	jr nz, .nextMove ; it lands (1/6x to 6x since the third types, 2026-11-02)
@@ -295,7 +298,7 @@ AIMoveChoiceModification1:
 ; STRUGGLE with a move it may use), and with only such moves left it uses one, as the player would
 ; have to.
 ; Layer 6 counts it as bad (R9k: AI_SCORE_USELESS - 10 or more). Whatever the other layers add or
-; take (-10..+20; a damaging one - DREAM EATER, a DRAIN move, one the chart stops (R9) - meets
+; take (-10..+20; a damaging one - DREAM EATER into a Pokemon awake, one the chart stops (R9) - meets
 ; layers 3 and 5 too (not 2 since R9f)), the three tiers never meet.
 DEF AI_SCORE_USELESS EQU $30
 ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
@@ -305,9 +308,10 @@ ASSERT AI_SCORE_USELESS - 10 > $a + 20 && AI_SCORE_USELESS + 20 < $50 - 10, \
 ; and 4 too, which only take off; v1.0 2026-11-07: a USELESS PROTECT or LOCK-ON meets no layer 5 rule at all - it
 ; skips the repeat, and its own rules leave it as it is). A stopped damaging move meets no rule but layer 3's +1
 ; (R9e: no STAB, EXPLOSION-by-HP or priority rule; R9f: no layer 2; layer 4 weighs power-0 moves and DREAM EATER)
-; and that repeat rule, so it stays below the unusable tier. The other useless damaging moves (DREAM EATER into a
-; Pokemon awake, a DRAIN move into a SUBSTITUTE) are not stopped and meet layer 5's +5 rules too: none of them is
-; FIRE, MAGMA or a priority move today, or one could rank with these (emu_test_ai_useless_moves pins it).
+; and that repeat rule, so it stays below the unusable tier. The other useless damaging move (DREAM EATER into a
+; Pokemon awake; since 2026-11-18 a DRAIN move into a SUBSTITUTE is not useless) is not stopped and meets layer 5's
+; +5 rules too: it is not FIRE, MAGMA or a priority move today, or it could rank with these (emu_test_ai_useless_moves
+; pins it).
 DEF AI_SCORE_HURTS_USER EQU 5
 ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4 < $50 - 10, \
 	"a useless move that hurts its user must rank above a repeated useless one (+4) and below every unusable one"
@@ -376,12 +380,8 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	ld a, [wBattleMonStatus]
 	and SLP_MASK
 	jr z, .useless ; not asleep: DREAM EATER misses (MoveHitTest) - only the player's own REST, first, would change that
-	; asleep: it still misses behind a SUBSTITUTE
-.checkSubstitute ; v1.0 (F5): DREAM EATER and the DRAIN moves miss behind the player's SUBSTITUTE (MoveHitTest)
-	ld a, [wPlayerBattleStatus2]
-	bit HAS_SUBSTITUTE_UP, a
-	jr nz, .useless
-	jp .nextMove
+	; asleep: a damaging move like any other, behind a SUBSTITUTE too (it hits the doll since 2026-11-18)
+	jp .damagingMove
 .checkConfused
 	ld a, [wPlayerBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
@@ -1024,8 +1024,7 @@ Modifier2PreferredMoves:
 ; effect: its score, which layer 1 (first in every list) has set, below AI_SCORE_USELESS - 10 - the line layer 6
 ; reads (R9k).
 ; The vanilla loop counted every damaging move of another type, the fixed-damage family and FLY even when the chart
-; stops it ("It doesn't affect"), when it surely misses (DREAM EATER into a Pokemon awake, a DRAIN move into a
-; SUBSTITUTE) or when it cannot be used (no PP left, disabled): a resisted move that lands was held back (+1) behind
+; stops it ("It doesn't affect"), when it surely misses (DREAM EATER into a Pokemon awake) or when it cannot be used (no PP left, disabled): a resisted move that lands was held back (+1) behind
 ; every status move for a move that does nothing, and a stopped one was lifted above the other useless moves.
 ; v1.0 (R12, 2026-10-03): and it must hit harder by type than the move it would hold back (AIMoveEffectiveness
 ; above the held move's): until R12 a usable candidate of another type counted however resisted. With every usable
@@ -1126,6 +1125,9 @@ EncourageDrainingMoveIfLowHealth:
 	ld a, [wEnemyMoveEffect]
 	cp DRAIN_HP_EFFECT
 	ret nz
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	ret nz ; v1.0 (2026-11-18): behind the player's SUBSTITUTE (on screen) it hits the doll and drains nothing
 	ld a, 2 ; 1/2 maximum hp gone
 	call AICheckIfHPBelowFractionWrapped
 	ret nc
@@ -1192,6 +1194,9 @@ AIMoveChoiceModification4:
 	ld a, [wBattleMonStatus]
 	and SLP_MASK
 	jr z, .nextMove
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .nextMove ; v1.0 (2026-11-18): behind the player's SUBSTITUTE it hits the doll: no dream to eat
 .preferMoveEvenMore
 	dec [hl]
 	jr .preferMove

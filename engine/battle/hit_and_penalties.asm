@@ -69,13 +69,9 @@ MoveHitTest:
 ; and type-immunity gates. v1.0 (2026-11-01): the one exception is the short
 ; list of moves that reach a hidden #MON (home/hidden_mon.asm), AERIAL ACE among
 ; them against FLY, never against DIG.
-	call CheckTargetSubstitute ; substitute check (note that this overwrites a)
-	jr z, .checkForDigOrFlyStatus
-	ld a, [de]
-	cp DRAIN_HP_EFFECT
-	jp z, .moveMissed
-	cp DREAM_EATER_EFFECT
-	jp z, .moveMissed
+; v1.0 (2026-11-18): the draining moves and DREAM EATER no longer miss a target behind a SUBSTITUTE (Gen 1 made
+; them miss here): they meet these tests as any damaging move, the hit lands on the doll, and DrainHPEffect_
+; drains nothing off it (wMoveHitSubstitute). DREAM EATER's sleep test above stays first.
 .checkForDigOrFlyStatus
 	bit INVULNERABLE, [hl]
 	jr z, .targetInSight

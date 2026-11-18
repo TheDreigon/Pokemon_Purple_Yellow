@@ -1,4 +1,10 @@
 DrainHPEffect_:
+; v1.0 (2026-11-18): a hit on a SUBSTITUTE drains nothing, whether the doll held or broke: a doll has no life
+; to take. No HP, no HP bar, no line. (A doll that breaks already took the effect away in AttackSubstitute;
+; one that holds leaves DRAIN_HP_EFFECT / DREAM_EATER_EFFECT to the dispatch, which lands here.)
+	ld a, [wMoveHitSubstitute]
+	and a
+	ret nz
 	ld hl, wDamage
 	ld a, [hl]
 	srl a ; divide damage by 2

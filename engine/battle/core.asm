@@ -3751,6 +3751,7 @@ ExecutePlayerMove:
 	jp z, ExecutePlayerMoveDone ; for selected move = FF, skip most of player's turn
 	xor a
 	ld [wMoveMissed], a
+	ld [wMoveHitSubstitute], a ; v1.0 (2026-11-18): no doll struck yet (AttackSubstitute sets it)
 	ld [wMonIsDisobedient], a
 	ld [wMoveDidntMiss], a
 	ld a, EFFECTIVE
@@ -5660,7 +5661,11 @@ AttackSubstitute:
 ; confusion self-hit and HI JUMP KICK's crash no longer come here. They called the user's own
 ; ApplyDamageTo*Pokemon with hWhoseTurn the user's, so a doll of its own sent the damage to the
 ; other side's doll (Gen 1); they enter at .selfDamage now. Recoil (RecoilEffect_) never came here.
-
+; v1.0 (2026-11-18): the move struck a doll, held or broken: wMoveHitSubstitute says so to what runs after
+; the hit (DrainHPEffect_), since a doll that breaks below leaves no bit to read. a is free here (PrintText
+; overwrites it).
+	ld a, 1
+	ld [wMoveHitSubstitute], a
 	ld hl, SubstituteTookDamageText
 	call PrintText
 ; values for player turn
@@ -5997,6 +6002,7 @@ ExecuteEnemyMove:
 	inc [hl]
 	xor a
 	ld [wMoveMissed], a
+	ld [wMoveHitSubstitute], a ; v1.0 (2026-11-18): as the player's (ExecutePlayerMove)
 	ld [wMoveDidntMiss], a
 	ld a, EFFECTIVE
 	ld [wDamageMultipliers], a
