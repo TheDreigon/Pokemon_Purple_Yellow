@@ -603,7 +603,7 @@ HandlePoisonBurnLeechSeed:
 	ld a, [hli]
 	or [hl]
 	dec hl ; the HP pointer again (keeps the flags)
-	jr z, .notLeechSeeded ; its HP test there answers Z: fainted
+	jp z, .notLeechSeeded ; its HP test there answers Z: fainted (jp since the bleed's bite put it out of jr reach)
 	ld a, [de]
 	and (1 << BRN) | (1 << PSN)
 	jr z, .notBurnedOrPoisoned
@@ -630,10 +630,10 @@ HandlePoisonBurnLeechSeed:
 	pop af
 	pop hl
 	push af
-	ld d, 1 ; the poison / TOX tick
+	ld de, 1 << 8 | 1 ; d = 1: the poison / TOX tick
 	and a
 	jr z, .gotTick
-	inc d ; a burn's bite
+	inc d ; a burn's bite: d = 2, e = 1 (one sixteenth)
 .gotTick
 	call HandlePoisonBurnLeechSeed_DecreaseOwnHP.enter
 	pop af
@@ -649,6 +649,19 @@ HandlePoisonBurnLeechSeed:
 	or [hl]
 	dec hl
 	jr z, .notLeechSeeded
+; v1.0 (2026-11-18): the bleed's bite (engine/battle/soft_status.asm), after the poison or burn and before
+; LEECH SEED: its line and animation, layers x max(1, max HP / 16), one bite less; no LEECH SEED on a #MON the
+; bite knocked out (Z: the callers' faint path, as for a poison).
+	push hl
+	farcall BleedBiteStart ; NZ: it bleeds - d = 2, e = its layers
+	pop hl
+	jr z, .notBleeding
+	call HandlePoisonBurnLeechSeed_DecreaseOwnHP.enter
+	push hl
+	farcall BleedBiteTaken ; after the last bite "bleeding stopped!" if it still stands; Z: knocked out
+	pop hl
+	jr z, .notLeechSeeded
+.notBleeding
 	ld de, wPlayerBattleStatus2
 	ldh a, [hWhoseTurn]
 	and a
@@ -710,9 +723,11 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHPFlat:
 
 ; The poison tick: 1/8 of the max HP (at least 1). BADLY_POISONED (TOXIC): 1/16 of
 ; the max HP (at least 1) times the toxic count, which it advances first (v1.0 D8).
-; v1.0 (2026-11-17): a burn's bite enters at .enter with d = 2: 1/16 of the max HP (at least 1),
-; no toxic count (HandlePoisonBurnLeechSeed calls it only while the fire burns).
-; IN  hl = the HP pointer of hWhoseTurn's #MON (.enter: and d = 0 LEECH SEED, 1 poison, 2 burn)
+; v1.0 (2026-11-17): a burn's bite enters at .enter with d = 2 and e = 1: 1/16 of the max HP (at least
+; 1), no toxic count (HandlePoisonBurnLeechSeed calls it only while the fire burns). v1.0 (2026-11-18): a
+; bleed's bite enters the same way with e = its layers: e x max(1, max HP / 16), no toxic count either.
+; IN  hl = the HP pointer of hWhoseTurn's #MON (.enter: and d = 0 LEECH SEED, 1 poison, 2 burn or bleed,
+;     with e = the sixteenths for d = 2: 1 for a burn, the layers 1-4 for a bleed)
 ; OUT bc = the HP it actually lost (never more than it had); hl kept; a, de, f trashed
 HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	ld d, 1 ; the poison tick
@@ -741,11 +756,14 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	jr z, .poisonTick ; d was 1
 	dec d
 	jr nz, .noToxic ; LEECH SEED (d was 0): the flat eighth, no toxic count
-; v1.0 (2026-11-17): a burn's bite (d was 2): max(1, eighth / 2) = max(1, max HP / 16), as TOX's unit below
+; v1.0 (2026-11-17): a burn's bite (d was 2): max(1, eighth / 2) = max(1, max HP / 16), as TOX's unit below;
+; v1.0 (2026-11-18): times e, 1 for a burn, the layers for a bleed (TOX's multiply below; its count untouched)
 	srl c
-	jr nz, .noToxic
+	jr nz, .gotSixteenth
 	inc c
-	jr .noToxic
+.gotSixteenth
+	ld a, e
+	jr .sixteenthTimesA
 .poisonTick
 	ld hl, wPlayerBattleStatus3
 	ld de, wPlayerToxicCounter
@@ -768,6 +786,7 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	ld a, [de]    ; increment toxic counter
 	inc a
 	ld [de], a
+.sixteenthTimesA ; a burn's or a bleed's bite joins here: c = its sixteenth, a = how many (v1.0, 2026-11-18)
 	ld hl, 0
 .toxicTicksLoop
 	add hl, bc
@@ -3939,7 +3958,7 @@ MirrorMoveCheck:
 .executeOtherEffects
 	ld a, [wPlayerMoveEffect]
 	and a
-	jp z, ExecutePlayerMoveDone
+	jr z, .bleedSources ; v1.0 (2026-11-18): no side effect, but a bleed may still come
 	ld hl, SpecialEffects
 	ld de, 1
 	call IsInArray
@@ -3947,6 +3966,8 @@ MirrorMoveCheck:
 	; which are the effects not covered yet.
 	; Includes side effects that only need to be called if the target didn't faint.
 	; Responsible for executing Twineedle's second side effect (poison).
+.bleedSources
+	farcall BleedSourceStep ; v1.0 (2026-11-18): the bleed's table, after the side effect (soft_status.asm)
 	jp ExecutePlayerMoveDone
 
 .targetFainted
@@ -5662,8 +5683,8 @@ AttackSubstitute:
 ; ApplyDamageTo*Pokemon with hWhoseTurn the user's, so a doll of its own sent the damage to the
 ; other side's doll (Gen 1); they enter at .selfDamage now. Recoil (RecoilEffect_) never came here.
 ; v1.0 (2026-11-18): the move struck a doll, held or broken: wMoveHitSubstitute says so to what runs after
-; the hit (DrainHPEffect_), since a doll that breaks below leaves no bit to read. a is free here (PrintText
-; overwrites it).
+; the hit (DrainHPEffect_, BleedSourceStep), since a doll that breaks below leaves no bit to read. a is free
+; here (PrintText overwrites it).
 	ld a, 1
 	ld [wMoveHitSubstitute], a
 	ld hl, SubstituteTookDamageText
@@ -6190,11 +6211,13 @@ EnemyCheckIfMirrorMoveEffect:
 .notMultiHitMove
 	ld a, [wEnemyMoveEffect]
 	and a
-	jr z, ExecuteEnemyMoveDone
+	jr z, .bleedSources ; v1.0 (2026-11-18): as the player's (ExecutePlayerMove)
 	ld hl, SpecialEffects
 	ld de, $1
 	call IsInArray
 	call nc, JumpMoveEffect
+.bleedSources
+	farcall BleedSourceStep ; v1.0 (2026-11-18): the bleed's table, after the side effect (soft_status.asm)
 	jr ExecuteEnemyMoveDone
 
 .targetFainted

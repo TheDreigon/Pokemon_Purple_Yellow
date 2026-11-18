@@ -137,6 +137,7 @@ DEF FIRST_SE_ID EQU const_value
 	const SUBANIM_0_STAR_HIGH
 	const SUBANIM_0_STAR_ASCENDING ; 2026-08-22, ported from kep-hack: STAR_DESCENDING with the four base coords reversed (a rising impact star for uppercuts)
 	const SUBANIM_0_CIRCLE_1_SQUARE_CLOSING_ENEMY ; 2026-11-02: CIRCLE_1_SQUARE_CLOSING (HARDEN's) drawn on the target, for LOCK-ON
+	const SUBANIM_1_BLOOD_DROPS ; 2026-11-18: BLOB_DRIP_ENEMY's two drips alone, ENEMY type: the bleed's drops (BleedAnim)
 DEF NUM_SUBANIMS EQU const_value
 
 ; types of subanimations

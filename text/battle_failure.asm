@@ -66,3 +66,32 @@ _BurnedOutText::
 	text "<USER>'s"
 	line "fire burned out!"
 	prompt
+
+; v1.0 (2026-11-18): the bleed (engine/battle/soft_status.asm). A hit makes the target bleed, or bleed one
+; layer more (BleedInflicted); each run of the bleeding side's residual is a bite (BleedBiteStart); the last
+; bite ends it, and the line is printed only if the #MON still stands (BleedBiteTaken). The <TARGET> form of
+; "bleeding stopped!" is for a move that ends the target's bleed.
+_BleedingText::
+	text "<TARGET>"
+	line "is bleeding!"
+	prompt
+
+_BleedingWorseText::
+	text "<TARGET>'s"
+	line "bleeding worse!"
+	prompt
+
+_HurtByBleedingText::
+	text "<USER>'s"
+	line "hurt by bleeding!"
+	prompt
+
+_BleedingStoppedText::
+	text "<USER>'s"
+	line "bleeding stopped!"
+	prompt
+
+_TargetBleedingStoppedText::
+	text "<TARGET>'s"
+	line "bleeding stopped!"
+	prompt

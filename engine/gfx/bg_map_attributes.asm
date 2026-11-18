@@ -445,7 +445,7 @@ StatusInkTable:
 .par:    RGB 27,22,00
 .slp:    RGB 04,08,20
 .frz:    RGB 08,22,31
-.bleed:  RGB 20,02,04 ; not used yet
+.bleed:  RGB 20,02,04 ; BLD, a #MON that bleeds (BattlerStatusLabels, since 2026-11-18)
 .cnf:    RGB 00,17,15
 .end:
 	ASSERT StatusInkTable.psn    - StatusInkTable == (STATUS_INK_PSN     - 1) * PAL_COLOR_SIZE

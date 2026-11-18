@@ -101,7 +101,7 @@ DEF NUM_STATUS_TILES_2 EQU const_value - STATUS_TILE_B
 	const STATUS_INK_PAR     ; 5
 	const STATUS_INK_SLP     ; 6
 	const STATUS_INK_FRZ     ; 7
-	const STATUS_INK_BLEED   ; 8 ; B L D; nothing returns it yet
+	const STATUS_INK_BLEED   ; 8 ; B L D, a #MON that bleeds; HUDLabelInkID returns it since 2026-11-18
 	const STATUS_INK_CNF     ; 9
 DEF NUM_STATUS_INKS EQU const_value - 1
 
@@ -110,7 +110,7 @@ DEF NUM_STATUS_INKS EQU const_value - 1
 	const_def
 	const STATUS_LABEL_HARD ; 0 ; the persistent status: TOX, PSN, BRN, FRZ, PAR or SLP (BattlerStatusInkID)
 	const STATUS_LABEL_CNF  ; 1 ; confusion
-	const STATUS_LABEL_BLD  ; 2 ; reserved for BLEED: never set yet
+	const STATUS_LABEL_BLD  ; 2 ; BLEED: the side bleeds (IsBattlerBleeding; since 2026-11-18)
 	const STATUS_LABEL_SCR  ; 3 ; reserved for FEAR: never set yet
 DEF NUM_STATUS_LABELS EQU const_value
 

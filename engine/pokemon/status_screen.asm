@@ -271,7 +271,8 @@ StatusScreen:
 ; blank row, then the types from row 10 - since 2026-11-02 (three types) the
 ; Pokédex DATA page's list: "TYPES/" on row 10 and one name a row on rows
 ; 11-13; row 14 a margin; "AIRBORNE" on row 15 for an AIRBORNE #MON (the same
-; day). The ID number and the OT moved to the DV page: with START held, rows
+; day), and "BLOODLESS" for a BLOODLESS one (2026-11-18: row 15, or row 16 under
+; an air trait; PrintMonAirborne). The ID number and the OT moved to the DV page: with START held, rows
 ; 10-13 show IDNo/ and OT/ instead of the types.
 	call Joypad
 	ldh a, [hJoyHeld]
@@ -283,7 +284,7 @@ StatusScreen:
 	coord hl, 11, 11
 	predef PrintMonTypesList ; the names on rows 11-13
 	coord hl, 11, 15
-	predef PrintMonAirborne ; "AIRBORNE" (row 15), in the names' column
+	predef PrintMonAirborne ; "AIRBORNE" (row 15), in the names' column; "BLOODLESS" after it (v1.0 2026-11-18)
 	jr .panelDone
 .identityPanel
 	coord hl, 10, 10

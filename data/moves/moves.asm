@@ -36,7 +36,7 @@ Moves: ; Current total = 224
 	move NIGHT_SLASH,    NO_ADDITIONAL_EFFECT,             70, DARK,         100, 20 ; new move. high-crit.
 	move BRUTAL_SWING,   DEFENSE_DOWN1_EFFECT,             80, DARK,          90, 20 ; new move.
 	move DARK_PULSE,     FLINCH_SIDE_EFFECT2,              90, DARK,         100, 15 ; new move.
-	move GORE_ATTACK,    PARALYZE_SIDE_EFFECT2,            95, DARK,          95, 15 ; new move. high-crit.
+	move GORE_ATTACK,    PARALYZE_SIDE_EFFECT1,            95, DARK,          95, 15 ; new move. high-crit.
 	move PAY_DAY,        PAY_DAY_EFFECT,                   60, DARK,         100, 25 ; almost-signature (Meowth-line + Chansey). high-crit.
 	move DREAM_EATER,    DREAM_EATER_EFFECT,              110, DARK,         100, 20 ; almost-signature (Gengar + Drowzee-line).
 	move DEEP_SLEEP,     SLEEP_EFFECT,                      0, DARK,          85, 20 ; almost-signature (Gengar + Drowzee-line).

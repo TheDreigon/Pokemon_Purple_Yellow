@@ -36,6 +36,10 @@ DEF BLEED_BITES_MASK  EQU %00111000 ; the bleed's bites left; 0 = not bleeding
 DEF BLEED_LAYERS_MASK EQU %11000000 ; the bleed's layers minus 1, while it bleeds
 DEF BURN_BITES_MIN    EQU 2 ; a burn bites 2 to 4 times, drawn uniformly when it is inflicted
 DEF BURN_BITES_MAX    EQU 4
+DEF BLEED_BITES_MIN   EQU 2 ; v1.0 (2026-11-18): a bleed bites 2 to 4 times, drawn uniformly at each infliction
+DEF BLEED_BITES_MAX   EQU 4
+DEF BLEED_LAYERS_MAX  EQU 4 ; a further bleed adds a layer, up to 4 (stored as layers minus 1)
+	ASSERT BLEED_BITES_MAX << 3 <= BLEED_BITES_MASK && (BLEED_LAYERS_MAX - 1) << 6 == BLEED_LAYERS_MASK
 
 ; wBattleResult (ram/wram.asm): $00 won, $01 lost, $02 drew / ran / caught.
 ; v1.0 (2026-09-24): bit 7 rides on the $01 when the player gave a TRAINER

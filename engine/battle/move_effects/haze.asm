@@ -1,3 +1,8 @@
+; v1.0 (2026-11-18): no move has HAZE_EFFECT today (the move HAZE is a GAS attack). It does not
+; know the states kept in the per-slot battle conditions bytes (engine/battle/soft_status.asm): a
+; move that used it would also
+; have to end the bleed of both active #MON there (bits 3-7, ClearBleedBits, keeping the burn's bits 0-2)
+; and any later state stored there.
 HazeEffect_:
 	ld a, $7
 ; store 7 on every stat mod

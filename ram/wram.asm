@@ -1485,7 +1485,8 @@ ENDU
 ; holds or breaks (never by a confusion self-hit or a crash: they enter ApplyDamageTo*Pokemon at .selfDamage).
 ; It stays set through the rest of that move, a multi-hit move's later hits included, so the code after the hit
 ; can tell a broken doll from a hit on the #MON (AttackSubstitute has cleared the doll's bit by then).
-; DrainHPEffect_ reads it: a hit on a doll drains nothing. The engine's alone: the AI reads the doll's bit.
+; DrainHPEffect_ reads it: a hit on a doll drains nothing; so does BleedSourceStep (v1.0, 2026-11-18): a hit on a
+; doll makes nothing bleed. The engine's alone: the AI reads the doll's bit.
 wMoveHitSubstitute:: db
 ; v1.0 (2026-11-07): the second spare byte (wSpareBattleByte2) is the bag's sort switch now. StartMenu_Item
 ; sets it to 1 right before DisplayListMenuID, which reads it (1 = START is watched and sorts the bag) and

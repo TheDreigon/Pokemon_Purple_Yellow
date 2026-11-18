@@ -708,17 +708,21 @@ GetCatchHPMultiplier:
 
 ; Status: only the BEST one the target has counts. They do not stack, and the
 ; trainer manual says so.
-;   none 20 | confusion 24 | poison 24 | burn 24 | toxic 28
+;   none 20 | bleeding 22 | confusion 24 | poison 24 | burn 24 | toxic 28
 ;   paralysis 32 | sleep 36 | freeze 40
 ; (v1.0 2026-11-13: confusion 22 -> 24, worth as much as a poison. v1.0 2026-11-17: burn 26 -> 24,
-; whether its fire still burns or is out: the ATTACK cut is what stays.)
+; whether its fire still burns or is out: the ATTACK cut is what stays. v1.0 2026-11-18: a bleed 22,
+; best-of like confusion: it counts only with no status in the status byte and no confusion.)
 ;
-; Three different bytes hold these. Sleep, poison, burn, freeze and paralysis
+; Four different bytes hold these. Sleep, poison, burn, freeze and paralysis
 ; live in the status byte; BADLY_POISONED sits in battle status 3 on top of the
 ; poison bit; and CONFUSED is in battle status 1 -- the STATS screen never
 ; shows it, but since 2026-08-21 the battle HUD spells CNF in the level slot
 ; (and alternates it with a persistent status), so the player throwing the
 ; ball can see it. The manual's catch page points at the HUD for it.
+; (v1.0 2026-11-18: the bleed is the fourth, in the foe's battle conditions
+; byte; the HUD shows it as BLD. CatchSoftStatusTwentieths, soft_status.asm,
+; reads it and confusion.)
 ;
 ; Freeze is one step above sleep and no more, because what it really buys is
 ; one extra turn: 4-7 against 3-6 (v0.5, raised in v1.0). The turns already pay
@@ -755,11 +759,11 @@ GetCatchStatusMultiplier:
 	ret
 
 .noStatusByte
-	ld a, [wEnemyBattleStatus1]
-	bit CONFUSED, a
-	ld a, 24
-	ret nz
-	ld a, 20
+; v1.0 (2026-11-18): confusion 24, else a bleed 22, else 20, in bank $12 beside the bleed's bytes
+; (CatchSoftStatusTwentieths, engine/battle/soft_status.asm; this bank has no room for more than the
+; call). The far call touches only the bank register, none of the h-registers of the chain.
+	farcall CatchSoftStatusTwentieths
+	ld a, e
 	ret
 
 ; Returns the second divisor: 24 while BILL's CHIP is in the bag, 30 otherwise.
@@ -1209,8 +1213,11 @@ RefusingText:
 ; Returns carry when there is confusion for them to clear: a battle is running,
 ; the item is one of those two, and the #MON being treated is the one on the
 ; field. Confusion only exists in battle, so everything else is a no.
+; v1.0 (2026-11-18): a bleed counts the same, on the #MON out or a benched one
+; (its conditions byte, soft_status.asm PartySlotBleeding); it too exists only in
+; battle. The bleed itself ends as the item is used up (.doneHealing).
 ;
-; Trashes a and hl. Leaves d alone: that is the party index the caller holds.
+; Trashes a, bc and hl. Leaves d alone: that is the party index the caller holds.
 CheckCanCureConfusion:
 	ld a, [wIsInBattle]
 	and a
@@ -1221,12 +1228,15 @@ CheckCanCureConfusion:
 	cp FULL_RESTORE
 	jr nz, .nothingToCure
 .rightItem
+	farcall PartySlotBleeding ; NZ: it bleeds (d in, de kept)
+	jr nz, .somethingToCure
 	ld a, [wPlayerMonNumber]
 	cp d ; is the treated #MON the one that is out?
 	jr nz, .nothingToCure
 	ld hl, wPlayerBattleStatus1
 	bit CONFUSED, [hl]
 	jr z, .nothingToCure
+.somethingToCure
 	scf
 	ret
 .nothingToCure
@@ -1745,6 +1755,7 @@ ItemUseMedicine:
 	jr nz, .skipRemovingItem ; no item to remove if using Softboiled
 	push hl
 	call RemoveUsedItem
+	farcall ItemEndsBleed ; v1.0 (2026-11-18): in a battle a FULL HEAL or FULL RESTORE ends the bleed, silently
 	pop hl
 .skipRemovingItem
 	ld a, [wcf91]

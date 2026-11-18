@@ -1,4 +1,4 @@
-; The battle HUD's three status tiles: the persistent status, TOX, CNF, and
+; The battle HUD's three status tiles: the persistent status, TOX, CNF, BLD, and
 ; the 2-second alternation of a side's labels. Moved out of Battle Core on 2026-09-24
 ; (that bank sat at its floor). Bank-agnostic: hlcoord is a WRAM address and
 ; the only calls out are to home (and, since 2026-11-12, one farcall on the GBC).
@@ -15,8 +15,8 @@
 ; Three tiles and no more: a side shows one label at a time.
 ;
 ; v1.0 (2026-11-17): THE LABEL SYSTEM. A side has a LIST of labels (BattlerStatusLabels,
-; a bit each in precedence order: the persistent status, then CNF; bits for BLD and SCR
-; are reserved), and every label has an INK ID (STATUS_INK_*, constants/gfx_constants.asm),
+; a bit each in precedence order: the persistent status, then CNF, then BLD since 2026-11-18;
+; a bit for SCR is reserved), and every label has an INK ID (STATUS_INK_*, constants/gfx_constants.asm),
 ; one id space for all of them. The id of label number i of the list is HUDLabelInkID's;
 ; the PRIMARY label is number 0. Each id has a row of three tiles in StatusLetterTileIDs
 ; (the GBC's coloured tiles) and in StatusLetterFontIDs (the font's letters, which the
@@ -141,9 +141,13 @@ BattlerStatusInkID:
 
 ; THE LABEL LIST (v1.0, 2026-11-17): which labels a battler has, a bit each (STATUS_LABEL_*,
 ; constants/gfx_constants.asm) in the order of precedence, the PRIMARY label first: the persistent
-; status (the selector above), then CNF. BLD and SCR have their bits and are never set yet. The
-; printer, SyncStatusLetterInk, the alternation and the parking all ask here. It never reads the
-; clock: a HUD draw asks twice (its printer, then its tail) and must get the same answer.
+; status (the selector above), then CNF, then BLD (v1.0, 2026-11-18: the side bleeds, IsBattlerBleeding,
+; engine/battle/soft_status.asm, a near call: its section is pinned in this bank). SCR has its bit and is
+; never set yet. The printer, SyncStatusLetterInk, the alternation and the parking all ask here. It never
+; reads the clock: a HUD draw asks twice (its printer, then its tail) and must get the same answer.
+; A label added later takes one more test here (its bit, in its place of the order), one row in each of
+; the two tables below, its ink id and its ink, and nothing else: the count, the index of the alternation
+; and the parking already work for up to four labels.
 ; IN  a = BattleStatus1, bc = BattleStatus3 address, de = status byte (LoadBattlerStatusRegs's)
 ; OUT a = the list. bc, de and hl are kept.
 BattlerStatusLabels:
@@ -156,11 +160,30 @@ BattlerStatusLabels:
 	ld a, 1 << STATUS_LABEL_HARD
 .gotHard
 	bit CONFUSED, l
-	jr z, .done
+	jr z, .gotConfused
 	or 1 << STATUS_LABEL_CNF
+.gotConfused
+; v1.0 (2026-11-18): BLD. The side is the one whose status byte de points at, as in the selector.
+	ld h, a ; the list so far
+	push bc
+	ld c, 0
+	ld a, e
+	cp LOW(wBattleMonStatus)
+	jr z, .gotSide
+	inc c ; wEnemyMonStatus
+.gotSide
+	push hl
+	call IsBattlerBleeding ; NZ: it bleeds (bc and de kept)
+	pop hl
+	pop bc
+	ld a, h ; (ld keeps the flags)
+	jr z, .done
+	or 1 << STATUS_LABEL_BLD
 .done
 	pop hl
 	ret
+
+	ASSERT BANK(IsBattlerBleeding) == BANK(BattlerStatusLabels), "BattlerStatusLabels calls soft_status.asm near"
 
 ; IN  c = side
 ; OUT a = the number of labels in the side's list. bc is kept; de and hl are not.
@@ -210,12 +233,17 @@ HUDLabelInkID:
 	call BattlerStatusInkID
 	jr .done
 .notHard
+	cp 1 << STATUS_LABEL_BLD
+	jr nz, .notBleed
+	ld a, STATUS_INK_BLEED
+	jr .done
+.notBleed
 	cp 1 << STATUS_LABEL_CNF
 	ld a, STATUS_INK_CNF
 	jr z, .done
-; From here a holds STATUS_INK_CNF, not the label's bit, so a bit added later (BLD's, SCR's) cannot
-; be tested here: its test goes right after .notHard, while a still holds the bit, and must leave a
-; alone when it does not match (cp the bit / jr nz, .next / ld a, its id / jr .done / .next).
+; From here a holds STATUS_INK_CNF, not the label's bit, so a bit added later (SCR's) cannot be
+; tested here: its test goes right after .notHard, beside BLD's, while a still holds the bit, and must
+; leave a alone when it does not match (cp the bit / jr nz, .next / ld a, its id / jr .done / .next).
 	xor a
 	ASSERT STATUS_INK_NONE == 0
 .done
@@ -261,7 +289,8 @@ WriteStatusLetterTiles:
 
 StatusLetterTileIDs:
 ; The GBC's three tiles of each label, in the order of the ink ids: ink id n is row n - 1
-; (PrintLabelTiles). Every label has its row, also the ones nothing returns yet.
+; (PrintLabelTiles). Every label has its row, and since v1.0 (2026-11-18) every row is returned: BRN_OUT by the
+; burn that is out, BLD by a bleed.
 .psn:    db STATUS_TILE_P, STATUS_TILE_S, STATUS_TILE_N
 .tox:    db STATUS_TILE_T, STATUS_TILE_O, STATUS_TILE_X
 .brn:    db STATUS_TILE_B, STATUS_TILE_R, STATUS_TILE_N
@@ -307,7 +336,7 @@ StatusLetterFontIDs:
 	ASSERT StatusLetterFontIDs.end    - StatusLetterFontIDs == NUM_STATUS_INKS * 3
 
 ; The HUD's three status tiles: the side's PRIMARY label (the persistent status, TOX
-; included, else CNF when the battler is confused), else nothing.
+; included, else CNF when the battler is confused, else BLD when it bleeds), else nothing.
 ; IN  c = side (see LoadBattlerStatusRegs)
 ; OUT NZ when something was written, Z and the tiles untouched when the list is empty.
 ;     The HUD no longer drops the level on it (the level has its own cells now);
@@ -447,7 +476,8 @@ HUDLabelIndex:
 	ret
 
 ; Alternates the HUD's three status tiles between a side's labels, about every
-; two seconds, for a side with two labels or more (today: a persistent status and CNF).
+; two seconds, for a side with two labels or more (a persistent status, CNF, BLD: up to three
+; since 2026-11-18).
 ;
 ; Called once per POLL of HandleMenuInput_'s inner loop (home/window.asm,
 ; farcall) -- ~50-100 times a frame, NOT once a frame; that loop has no frame

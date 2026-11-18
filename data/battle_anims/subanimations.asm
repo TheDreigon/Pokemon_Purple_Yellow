@@ -88,6 +88,7 @@ SubanimationPointers:
 	dw Subanim_0StarHigh
 	dw Subanim_0StarAscending
 	dw Subanim_0Circle_1Square_ClosingEnemy
+	dw Subanim_1BloodDrops
 	assert_table_length NUM_SUBANIMS
 
 ; format:
@@ -860,6 +861,18 @@ Subanim_0Circle_1Square_ClosingEnemy:
 	db FRAMEBLOCK_6A, BASECOORD_07, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_6B, BASECOORD_0F, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_6C, BASECOORD_17, FRAMEBLOCKMODE_00
+
+Subanim_1BloodDrops:
+; v1.0 (2026-11-18): the bleed's drops (BleedAnim). BLOB_DRIP_ENEMY's two falling drips without its blob, as an
+; ENEMY-type subanimation: drawn on the #MON whose turn it is (the bleeding one, at its residual), as it is on
+; the enemy's side and mirrored onto the player's, so the call site flips no turn.
+	subanim SUBANIMTYPE_ENEMY, 6
+	db FRAMEBLOCK_31, BASECOORD_1C, FRAMEBLOCKMODE_04
+	db FRAMEBLOCK_31, BASECOORD_21, FRAMEBLOCKMODE_04
+	db FRAMEBLOCK_31, BASECOORD_26, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_31, BASECOORD_1D, FRAMEBLOCKMODE_04
+	db FRAMEBLOCK_31, BASECOORD_22, FRAMEBLOCKMODE_04
+	db FRAMEBLOCK_31, BASECOORD_27, FRAMEBLOCKMODE_00
 
 Subanim_0HornJabTwice:
 	subanim SUBANIMTYPE_HVFLIP, 4

@@ -347,7 +347,8 @@ DrawPartyMenuCommon::
 ;      HUD has its own label list (engine/battle/hud_status.asm, since 2026-11-12)
 ;      and prints nothing through here.
 ; hl = destination address
-; OUTPUT: nz when something was written (FNT, TOX, a status)
+; OUTPUT: nz when something was written (FNT, TOX, a status; in a battle, BLD for a
+;         #MON of the party that bleeds with no status: v1.0, 2026-11-18)
 PrintStatusCondition::
 	push de
 	dec de

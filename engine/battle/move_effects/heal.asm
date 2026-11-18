@@ -23,6 +23,8 @@ HealEffect_:
 ; "regained health" line); everything else fails here as it always did.
 ; (2026-11-13: RECOVER only eases a bad POISON, here too: .fullHPRecover.)
 ; v1.0 (2026-11-14): SILVER WIND's heal says nothing at full HP (the hit is the move).
+; v1.0 (2026-11-18): RECOVER and SOFTBOILED also work at full HP on a #MON whose only trouble is a bleed
+; (.fullHPCureOnly); REST at full HP still fails, and a bleed stays then.
 	call .isEighthHeal
 	ret nz
 	ld a, b
@@ -34,22 +36,33 @@ HealEffect_:
 .fullHPRecover
 ; v1.0 (2026-11-13): RECOVER on a bad POISON only eases it to an ordinary POISON
 ; (toxic_carry.asm RecoverEasesBadPoisonFullHP: the animation, the HUD, the line);
-; carry = done. Any other status falls through to the cure below. hl, de and b
+; carry = done (then a bleed ends: .cureBleed). Any other status falls through to the cure below. hl, de and b
 ; are not read after this point (.fullHPCureOnly reloads hl).
 	farcall RecoverEasesBadPoisonFullHP
-	ret c
+	jr c, .cureBleed ; v1.0 (2026-11-18): eased, and a bleed ends too
 .fullHPCureOnly
+; v1.0 (2026-11-18): with no status, a bleed alone is something to cure: CureUserBleed (soft_status.asm) with
+; c = 0 (the empty status byte) closes it after the pause and the animation, or, with no bleed either, pauses and
+; says "But, it failed!" as .failed did.
 	call .userStatusPtr
 	ld a, [hl]
 	and a
-	jp z, .failed
+	ld c, a ; (ld keeps the flags)
+	jr z, .cureBleedC
 	ld c, 50
 	call DelayFrames
 	xor a
 	ld [hl], a
 	call .userToxicOff
 	farcall PlayCurrentMoveAnimation
-	; fall through
+	call .refreshedLine
+.cureBleed
+; v1.0 (2026-11-18): every exit of a REST, a RECOVER or a SOFTBOILED that heals or cures ends here: the user's bleed
+; ends, "<USER>'s / bleeding stopped!" after the move's own lines (CureUserBleed, soft_status.asm; it does nothing
+; for the other moves of the heal tail below, GROWTH and SILVER WIND, nor when the user does not bleed).
+	ld c, 1
+.cureBleedC
+	farjp CureUserBleed
 .refreshedLine
 ; the "felt refreshed!" line of both cures (here and .clearUserStatus)
 	ld hl, RegainedStatusText
@@ -287,7 +300,8 @@ HealEffect_:
 	ld hl, DrawHUDsAndHPBars
 	call EffectCallBattleCore
 	ld hl, RegainedHealthText
-	jp PrintText
+	call PrintText
+	jp .cureBleed ; v1.0 (2026-11-18): REST, RECOVER and SOFTBOILED below full HP end a bleed after their line
 .failed
 	ld c, 50
 	call DelayFrames

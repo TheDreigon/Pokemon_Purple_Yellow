@@ -549,8 +549,13 @@ FrozenText:
 ; SUBSTITUTE stops the freeze itself, before here.
 ; Like any stage it stays after the thaw until the #MON leaves the field, and a second freeze lowers it again.
 ; The trainer AI reads it as any SPEED stage shown on screen (AIForgetStaleTurnOrder, misc.asm).
-; In: hWhoseTurn = the attacker. Ends in PrintText: nothing is kept.
+; v1.0 (2026-11-18): then the freeze ends a bleed: "<TARGET>'s / bleeding stopped!" after the freeze's own lines,
+; on every path of the SPEED drop (FreezeEndsTargetBleed, soft_status.asm; nothing when the target does not bleed).
+; In: hWhoseTurn = the attacker. Nothing is kept.
 PrintFrozenTextAndLowerSpeed:
+	call .textAndSpeed
+	farjp FreezeEndsTargetBleed
+.textAndSpeed
 	ld hl, FrozenText
 	call PrintTextWithFreshHUDs ; v1.0 (2026-11-13): FRZ already on the HUD beside the line
 	ld hl, wEnemyMonSpeedMod

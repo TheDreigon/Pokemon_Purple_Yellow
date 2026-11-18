@@ -463,11 +463,14 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	; this test had kept SOFTBOILED alone. HEAL_EFFECT's moves are RECOVER, REST and SOFTBOILED.
 	; (2026-11-13: on a bad POISON RECOVER only eases it, at full HP too - it still does
 	; something there, and the POISON it leaves is the next RECOVER's to cure: no change here.)
+	; v1.0 (2026-11-18): or a bleed - RECOVER and SOFTBOILED close it at full HP too (AIEnemyCurableAtFullHP,
+	; soft_status.asm; b counts the moves and is saved around the far call).
 	ld a, [wEnemyMoveNum]
 	cp REST
 	jr z, .fullHealthDiscourage
-	ld a, [wEnemyMonStatus]
-	and (1 << PSN) | (1 << BRN) | (1 << PAR)
+	push bc
+	farcall AIEnemyCurableAtFullHP
+	pop bc
 	jr z, .fullHealthDiscourage
 	pop de
 	pop hl
@@ -1183,11 +1186,17 @@ AIMoveChoiceModification4:
 	; asleep or frozen runs once the status is gone).
 	; v1.0 (E4, 2026-09-29): RECOVER too - it cures a status since 2026-09-08 (layer 1).
 	; (2026-11-13: a bad POISON it only eases to an ordinary one, which stays PSN here.)
+	; v1.0 (2026-11-18): or its own bleed, which RECOVER and SOFTBOILED close (AIEnemyCurableAtFullHP,
+	; soft_status.asm: the same question as layer 1's). hl (the score) and b (the count) are saved around the
+	; far call; de (the move pointer) comes back kept.
 	ld a, [wEnemyMoveNum]
 	cp REST
 	jr z, .nextMove
-	ld a, [wEnemyMonStatus]
-	and (1 << PSN) | (1 << BRN) | (1 << PAR)
+	push hl
+	push bc
+	farcall AIEnemyCurableAtFullHP
+	pop bc
+	pop hl
 	jr nz, .preferMove
 	jr .nextMove
 .checkOpponentAsleep
@@ -1510,6 +1519,7 @@ AIMoveChoiceModification5:
 .protectNoBlow
 ; v1.0 (2026-11-17): "burned" here is a burn whose fire still burns (BattlerHurtsEachTurn, soft_status.asm:
 ; poisoned, or burning); a burn whose fire is out costs no health, and the HUD shows which (its ink on the GBC).
+; v1.0 (2026-11-18): a bleed counts too, on either side (BattlerHurtsEachTurn: only that it bleeds, as shown).
 ; The far call keeps de; bc (c counts the moves) and hl (the score) are saved around it.
 	push bc
 	push hl
@@ -3362,6 +3372,7 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 ; lost the odd point and doubled a stat that had no cut)
 	inc a ; 1 = the enemy
 	call SideStatusGone
+	farcall AICureEnemyBleed ; v1.0 (2026-11-18): a bleed ends too, silently (soft_status.asm)
 ; v1.0 (R16e, 2026-10-07): the HUD drops the status now, before the item's line; MainInBattleLoop
 ; redraws it only once TrainerAI is back (after FULL RESTORE's HP bar too). shinpokered does the same.
 	callfar DrawEnemyHUDAndHPBar
@@ -3544,10 +3555,13 @@ AIBattleUseItemText:
 ; never the hidden confusion count. The switch layer decided first (TrainerAI
 ; honours its request before the class routine), so a switch never costs an item.
 ; Every bag item taken here is used at once (a jp to its AIUse*).
+; v1.0 (2026-11-18): a bleed of two layers or more counts as a status in both
+; (AIEnemyStatusOrBleeding, soft_status.asm): below half a FULL RESTORE; else, like
+; a poison, it leaves the mon acting - the HP branch first, then AILateCureItem's
+; FULL HEAL. A bleed of one layer is no status here: it ends by itself, no item.
 ; Out: carry = an item was used. Trashes a, bc, de, hl and the Divide scratch.
 AIStatusCureItem:
-	ld a, [wEnemyMonStatus]
-	and a
+	farcall AIEnemyStatusOrBleeding
 	ret z
 	ld a, 2
 	call AICheckIfHPBelowFraction ; carry: below half
@@ -3570,9 +3584,8 @@ AIStatusCureItem:
 	ret z
 	jr AILateCureItem.fullHeal
 AILateCureItem:
-	ld a, [wEnemyMonStatus]
-	and a
-	jr nz, .fullHeal ; a status the HP branch left
+	farcall AIEnemyStatusOrBleeding
+	jr nz, .fullHeal ; a status (or a bleed) the HP branch left
 	ld a, [wEnemyBattleStatus1]
 	and 1 << CONFUSED ; carry clear from here to the rets
 	ret z
