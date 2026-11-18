@@ -1,3 +1,5 @@
+; MEWTWO's floor: the static L70 MEWTWO stands here (data/maps/objects/CeruleanCaveB1F.asm).
+; The cave has three floors: 1F is the entrance, 2F is the one above it, B1F is this one.
 CeruleanCaveB1FWildMons:
 	def_grass_wildmons 25 ; encounter rate
 	db 64, HYPNO
