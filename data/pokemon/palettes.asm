@@ -114,7 +114,7 @@ MonsterPalettes:
 	db PAL_SLATEMON   ; RHYHORN
 	db PAL_SLATEMON   ; RHYDON
 	db PAL_ROSEMON   ; CHANSEY
-	db PAL_SAGEMON  ; TANGELA
+	db PAL_ROUTE_MARINHA ; TANGELA (the sea green and the deep blue of ROUTES 12 and 24, where it lives)
 	db PAL_DARKBROWNMON  ; KANGASKHAN
 	db PAL_CYANMON   ; HORSEA
 	db PAL_AZUREMON   ; SEADRA
