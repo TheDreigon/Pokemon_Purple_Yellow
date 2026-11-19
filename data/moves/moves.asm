@@ -312,11 +312,11 @@ Moves: ; Current total = 224
 
 	move LIGHT_SCREEN,   LIGHT_SCREEN_EFFECT,               0, BIRD,         100, 30
 	move REFLECT,        REFLECT_EFFECT,                    0, BIRD,         100, 30
-	move PROTECT,        PROTECT_EFFECT,                    0, BIRD,         100, 10 ; new effect. priority move.
+	move PROTECT,        PROTECT_EFFECT,                    0, BIRD,         100, 15 ; new effect. priority move.
 
 	move BIDE,           BIDE_EFFECT,                       0, BIRD,         100, 20
 	move FOCUS_ENERGY,   FOCUS_ENERGY_EFFECT,               0, BIRD,         100, 30 ; also raises user Accuracy +1 (on top of the x3 crit boost)
-	move LOCK_ON,        LOCK_ON_EFFECT,                    0, BIRD,         100,  5 ; new effect.
+	move LOCK_ON,        LOCK_ON_EFFECT,                    0, BIRD,         100, 10 ; new effect.
 	move MIMIC,          MIMIC_EFFECT,                      0, BIRD,         100, 15
 	move MIRROR_MOVE,    MIRROR_MOVE_EFFECT,                0, BIRD,         100, 20
 	move SUBSTITUTE,     SUBSTITUTE_EFFECT,                 0, BIRD,         100, 15
