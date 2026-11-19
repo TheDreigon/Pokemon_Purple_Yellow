@@ -34,9 +34,10 @@ HallOfFamePC:
 	ld c, BANK(Music_Credits)
 	ld a, MUSIC_CREDITS
 	call PlayMusic
-	ld c, 27 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla. The roll's pics load in it, so a change
+	ld c, 28 ; on a GBC the theme ends about 0.6 s before THE END, as in vanilla. The roll's pics load in it, so a change
 	         ; to the sprites moves THE END: emu_test_credits_sync and emu_test_credits_copyright L6 measure it.
 	         ; v1.0 (2026-11-10): 26 until DREADROW's silhouette screen (.fadeInText); 26 now lands THE END a frame early
+	         ; v1.0 (2026-11-19): 27 until TANGELA's smaller front (the roll shows it): its pic loads a frame sooner
 	call DelayFrames
 	xor a
 	ld [wHoFMonSpecies], a
