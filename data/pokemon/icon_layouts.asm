@@ -121,7 +121,7 @@ IconLayouts::
 	db ICON_DIRECT ; RHYHORN    rule 0.927, direct 0.297
 	db ICON_RULE   ; RHYDON     rule 0.707, direct 0.903
 	db ICON_RULE   ; CHANSEY    rule 0.517, direct 1.040
-	db ICON_DIRECT ; TANGELA    rule 1.056, direct 0.220
+	db ICON_DIRECT ; TANGELA    rule 1.050, direct 0.214
 	db ICON_DIRECT ; KANGASKHAN rule 0.817, direct 0.315
 	db ICON_DIRECT ; HORSEA     rule 0.876, direct 0.590
 	db ICON_RULE   ; SEADRA     rule 0.641, direct 0.822
