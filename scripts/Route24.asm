@@ -46,14 +46,15 @@ Route24DefaultScript:
 	ret
 
 .PlayerCoordsArray:
-; The single cell in front of the nugget trainer at (13, 3) -- the bridge is
-; two cells wide there and he stands on the east one facing LEFT, so (12, 3)
+; The single cell in front of the nugget trainer at (13, 5) -- the bridge is
+; two cells wide there and he stands on the east one facing LEFT, so (12, 5)
 ; is the only way past him. Was (10, 15) until the 2026-08-07 route rework
 ; moved the bridge; the trigger then fired from a random spot of the western
 ; junction and never at the bridge top. (12, 19) until 2026-11-05, when the
 ; route was cut under its old top and grew three rows; Forte's polish of that
 ; day moved him two blocks up, to the cell right above the bridge's first post.
-	dbmapcoord 12, 3
+; (12, 3) until 2026-11-19, when the map grew a row at its top and everything went two cells down.
+	dbmapcoord 12, 5
 	db -1 ; end
 
 Route24PlayerMovingScript:

@@ -94,7 +94,7 @@ DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +3 columns WEST toward Cinnabar; Pallet connects at -3 because of it)
 	map_const ROUTE_22,                      22, 11 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
-	map_const ROUTE_24,                      13, 14 ; $23 (v1.0, 2026-11-05: the NUGGET BRIDGE and its approach only; rows 0-9 went to ROUTE_25, and the strip above the bridge, row 9, stays here, grown to four rows)
+	map_const ROUTE_24,                      13, 15 ; $23 (v1.0, 2026-11-05: the NUGGET BRIDGE and its approach only; rows 0-9 went to ROUTE_25, and the strip above the bridge, row 9, stays here, grown to four rows; 2026-11-19: one more row at the top, 14 to 15)
 	map_const ROUTE_25,                      48, 10 ; $24 (v1.0, 2026-11-05: thirteen columns WEST, the old top of ROUTE_24; it now meets ROUTE_24 along its south edge)
 DEF FIRST_INDOOR_MAP EQU const_value
 	map_const REDS_HOUSE_1F,                  4,  4 ; $25
