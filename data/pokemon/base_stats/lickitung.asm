@@ -1,8 +1,8 @@
 	db DEX_LICKITUNG ; pokedex id
-	base_stat_row 90, 70, 75, 70, 80, 40 ; hp atk def spatk spdef spd
+	base_stat_row 85, 70, 75, 70, 80, 40 ; hp atk def spatk spdef spd
 	db NORMAL, POISON ; type
 	db 145 ; catch rate  ; set by hand
-	db 130 ; base exp  ; BST 425
+	db 130 ; base exp  ; BST 420
 
 	INCBIN "gfx/pokemon/front/lickitung.pic", 0, 1 ; sprite dimensions
 	dw LickitungPicFront, LickitungPicBack
