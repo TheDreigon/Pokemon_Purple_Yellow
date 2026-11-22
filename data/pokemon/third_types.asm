@@ -30,4 +30,5 @@ ThirdTypes:
 	third_type GASTLY,     POISON ; GHOST/GAS/POISON (GHOST/POISON in every official game)
 	third_type HAUNTER,    POISON ; GHOST/GAS/POISON
 	third_type GENGAR,     POISON ; GHOST/DARK/POISON
+	third_type GOLBAT,     FLYING ; POISON/DARK/FLYING (2026-11-22: the vampire bat; FLYING last, by convention; ZUBAT stays POISON/FLYING)
 	db -1 ; end

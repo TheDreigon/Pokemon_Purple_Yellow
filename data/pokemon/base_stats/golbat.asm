@@ -1,7 +1,7 @@
 	db DEX_GOLBAT ; pokedex id
 	base_stat_row 65, 80, 65, 70, 75, 110 ; hp atk def spatk spdef spd
 
-	db POISON, FLYING ; type
+	db POISON, DARK ; type (+ FLYING, its third: data/pokemon/third_types.asm)
 	db 80 ; catch rate  ; final stage, BST 465
 	db 145 ; base exp  ; BST 465
 
