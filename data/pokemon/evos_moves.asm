@@ -3931,6 +3931,8 @@ SnorlaxEvosMoves:
 ; (giant roughhousing). No SUBMISSION (Machamp/Poliwrath signature).
 ; GROWTH (it grows!), ROLLOUT (rolls its bulk), BIND (bear hug),
 ; THRASH (woken fury). STRENGTH HM-only.
+	db  4, GROWL
+	db  8, TACKLE
 	db 10, LICK
 	db 12, GROWTH
 	db 14, SMOG
