@@ -1247,9 +1247,9 @@ _JynxDexEntry::
 	next "dances to an"
 	next "eerie song only"
 
-	page "it can hear. Its"
-	next "feet never quite"
-	next "touch the ground"
+	page "it can hear. It"
+	next "walks barefoot"
+	next "on frozen lakes"
 	dex
 
 _ElectabuzzDexEntry::

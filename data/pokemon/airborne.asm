@@ -10,5 +10,5 @@ AirborneMons:
 	db GENGAR    ; GHOST/DARK/POISON
 	db MEW       ; PSYCHIC/FAIRY
 	db MEWTWO    ; PSYCHIC: it levitates
-	db JYNX      ; GHOST/ICE/PSYCHIC: its feet never quite touch the ground (2026-11-07)
+	; JYNX was here from 2026-11-07 to 2026-11-22: off the list with its dex line, it walks on the ice now
 	db -1 ; end
