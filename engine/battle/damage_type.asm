@@ -102,6 +102,7 @@ AdjustDamageForMoveType::
 ; (engine/battle/type_effectiveness.asm). Battle Core was 2 bytes
 ; over budget in debug builds after the matchups expansion.
 	farcall ApplyTypeEffectivenessToDamage
+	call HiddenTargetDamageBonus ; v1.0 (2026-11-22): after the type walk, so a 0 stays 0
 ; v0.7 crit rework: a critical hit is a flat x1.5, applied AFTER type
 ; effectiveness on purpose -- a resisted hit that collapses to 0 must reach
 ; the "not even a scratch" message above, and 1.5x0 is still 0; putting the
@@ -126,3 +127,51 @@ AdjustDamageForMoveType::
 	ld [wDamage + 1], a
 	ret
 
+
+; v1.0 (2026-11-22, Forte): a move that fills the hiding place hits harder there, x1.25: EARTHQUAKE and FISSURE
+; against a #MON underground (DIG), HURRICANE and BLIZZARD - the strong winds - against one up in the air by FLY,
+; not by SKY ATTACK (a THUNDER would be as strong against a bird sitting down; SKY ATTACK's flight takes no bonus
+; at all). They are the first two of their lists in home/hidden_mon.asm: MoveReachesHiddenMon, which the hit test
+; asks too, answers with the move's place in the list. A move that takes the bonus always reaches. Both sides' hits.
+HiddenTargetDamageBonus:
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wEnemyBattleStatus1
+	ld de, wEnemyMoveNum ; what hid the target (its effect is the next byte)
+	ld a, [wPlayerMoveNum]
+	jr z, .gotSides
+	ld hl, wPlayerBattleStatus1
+	ld de, wPlayerMoveNum
+	ld a, [wEnemyMoveNum]
+.gotSides
+	bit INVULNERABLE, [hl]
+	ret z ; the target is in sight
+	ld b, a ; the attacking move
+	ld a, [de]
+	cp SKY_ATTACK
+	ret z
+	inc de
+	ld a, [de]
+	ld c, a ; FLY_EFFECT or CHARGE_EFFECT (DIG): which list
+	ld a, b
+	call MoveReachesHiddenMon
+	ret nc
+	ld a, b
+	cp 2
+	ret nc ; on the list, not one of its first two
+	ld hl, wDamage + 1
+	ld a, [hld]
+	ld h, [hl]
+	ld l, a    ; hl = damage
+	ld b, h
+	ld c, l
+	srl b
+	rr c
+	srl b
+	rr c       ; bc = floor(damage / 4)
+	add hl, bc ; hl = floor(1.25 * damage)
+	ld a, h
+	ld [wDamage], a
+	ld a, l
+	ld [wDamage + 1], a
+	ret

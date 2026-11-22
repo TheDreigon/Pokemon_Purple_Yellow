@@ -4,7 +4,10 @@
 ; because the hit test (Battle Effects) and the AI's layer 5 (Battle Engine 6) both ask.
 
 ; In: a = the attacking move, c = the hidden #MON's move effect.
-; Out: carry if the move reaches it. Kills a, b, c, d, e, h and l.
+; Out: carry if the move reaches it, and b = its place in the list. Kills a, c, d, e, h and l.
+; v1.0 (2026-11-22, Forte): the first two of each list hit harder there, x1.25 - EARTHQUAKE and FISSURE
+; underground, HURRICANE and BLIZZARD (the strong winds) up in the air, but against FLY only, not SKY
+; ATTACK: b < 2 is the bonus (HiddenTargetDamageBonus; the trainer AI's layer 5 weighs it too).
 MoveReachesHiddenMon::
 	ld hl, MovesReachingUnderground
 	ld b, a
@@ -18,7 +21,7 @@ MoveReachesHiddenMon::
 	jp IsInArray
 
 MovesReachingTheSky:
-	db AERIAL_ACE, HURRICANE, SKY_ATTACK, FLY, BLIZZARD, THUNDER, HAZE, -1
+	db HURRICANE, BLIZZARD, AERIAL_ACE, SKY_ATTACK, FLY, THUNDER, HAZE, -1 ; the first two: x1.25 against FLY
 
 MovesReachingUnderground:
-	db EARTHQUAKE, FISSURE, DIG, -1
+	db EARTHQUAKE, FISSURE, DIG, -1 ; the first two: x1.25 against DIG

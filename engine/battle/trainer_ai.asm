@@ -1420,11 +1420,19 @@ AIMoveChoiceModification5:
 	ld c, a
 	ld a, [wEnemyMoveNum]
 	call MoveReachesHiddenMon
+	ld a, b ; v1.0 (2026-11-22): its place in the list - the first two hit harder there (HiddenTargetDamageBonus)
 	pop bc
 	pop de
 	pop hl
 	jr nc, .cannotReach
 	dec [hl]
+	cp 2
+	jr nc, .reachDone
+	ld a, [wPlayerMoveNum] ; what hid the player: SKY ATTACK's flight takes no bonus
+	cp SKY_ATTACK
+	jr z, .reachDone
+	dec [hl] ; x1.25 there: one step more, -2
+.reachDone
 	jp .nextMove
 .cannotReach
 	call AIGetMovePriorityWrapped
