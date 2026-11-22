@@ -94,7 +94,7 @@ IconLayouts::
 	db ICON_RULE   ; DODUO      rule 0.680, direct 0.920
 	db ICON_RULE   ; DODRIO     rule 0.625, direct 0.789
 	db ICON_RULE   ; SEEL       rule 0.362, direct 1.149
-	db ICON_RULE   ; DEWGONG    rule 0.227, direct 1.389
+	db ICON_RULE   ; DEWGONG    rule 0.227, direct 1.394
 	db ICON_DIRECT ; GRIMER     rule 0.939, direct 0.403
 	db ICON_DIRECT ; MUK        rule 0.957, direct 0.483
 	db ICON_DIRECT ; SHELLDER   rule 0.984, direct 0.431
