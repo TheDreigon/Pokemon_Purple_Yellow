@@ -3644,10 +3644,16 @@ SelectEnemyMove:
 	ld a, STRUGGLE
 	jr .done
 .aMoveToSelect
-	ld hl, wEnemyMonMoves ; the wild pick's list (a trainer's comes back in hl)
+; v1.0 (2026-11-22): a wild #MON picks at random from its whole set - but one of the seven fixed encounters
+; (FindFixedWildMoveset, engine/battle/fixed_wild_movesets.asm) thinks with layers 1-3 of the trainers' AI
+; (AIGetMoveChoiceList gives a wild battle that list). A trainer's list comes back in hl.
 	ld a, [wIsInBattle]
 	dec a
-	jr z, .chooseRandomMove ; wild encounter
+	jr nz, .trainerAI
+	callfar FindFixedWildMoveset
+	ld hl, wEnemyMonMoves ; the wild pick's list
+	jr nc, .chooseRandomMove ; an ordinary wild #MON
+.trainerAI
 	callfar AIEnemyTrainerChooseMoves
 .chooseRandomMove
 	; v0.7 fix (pp-freeze): the list in hl (wBuffer for trainers,
@@ -6757,6 +6763,7 @@ LoadEnemyMonData:
 	xor a
 	ld [wLearningMovesFromDayCare], a
 	predef WriteMonMoves ; get moves based on current level
+	callfar ApplyFixedWildMoveset ; v1.0 (2026-11-22): the seven fixed encounters' own sets (fixed_wild_movesets.asm)
 .loadMovePPs
 	ld hl, wEnemyMonMoves
 	ld de, wEnemyMonPP - 1

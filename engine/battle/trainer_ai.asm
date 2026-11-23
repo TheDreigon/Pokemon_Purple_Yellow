@@ -103,12 +103,25 @@ AIMoveChoiceModificationFunctionPointers:
 HardModeBossAIMods:
 	db 1, 2, 3, 4, 5, 6, 0 ; v1.0 (2026-09-26): + the tactical layer, + the switch layer
 
+; v1.0 (2026-11-22): the seven fixed wild encounters (engine/battle/fixed_wild_movesets.asm), in both
+; difficulties: never a useless move (1), the setup move on the first turn (2), the effective hit (3). Not 4 or 5:
+; with them the move of the mon's own type wins nearly every turn and a hand-picked set of four plays as one move.
+; Never 6: a wild #MON has no team to switch to.
+FixedWildAIMods:
+	db 1, 2, 3, 0
+
 ; v1.0 (2026-09-27): hl = the AI layer list this battle uses - the class's row
 ; of TrainerClassMoveChoiceModifications, or HardModeBossAIMods for a boss or a
 ; semi-boss in Hard. Shared by AIEnemyTrainerChooseMoves and AIHasSwitchLayer so
-; the two can never disagree. Trainer battles only (class 0 would walk 255
-; rows). Clobbers a, b; keeps c, de.
+; the two can never disagree. Clobbers a, b; keeps c, de.
+; v1.0 (2026-11-22): a wild battle gets FixedWildAIMods before wTrainerClass is
+; read (class 0 would walk 255 rows): SelectEnemyMove reaches the move layers in
+; a wild battle only for one of the seven fixed encounters (FindFixedWildMoveset).
 AIGetMoveChoiceList:
+	ld a, [wIsInBattle]
+	dec a
+	ld hl, FixedWildAIMods
+	ret z
 	ld hl, TrainerClassMoveChoiceModifications
 	ld a, [wTrainerClass]
 	ld b, a

@@ -493,6 +493,7 @@ INCLUDE "engine/battle/common_text.asm"
 INCLUDE "engine/battle/pikachu_entrance_anim.asm"
 INCLUDE "engine/battle/decrement_pp.asm"
 INCLUDE "engine/events/pikachu_happiness.asm"
+INCLUDE "engine/battle/fixed_wild_movesets.asm"
 
 
 SECTION "Battle Engine 9", ROMX
