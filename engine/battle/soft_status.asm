@@ -425,7 +425,7 @@ BleedBiteStart::
 ; when the #MON is INVULNERABLE (the turn of FLY or DIG that takes it off the screen: nothing to drip from), and
 ; while its SUBSTITUTE is up: the picture on screen is the doll, and the doll does not bleed (the line and the
 ; bite still come: the #MON behind it is the one bleeding). The drops are sprites: they leave the background and
-; the HUD's letters alone. Clobbers everything.
+; the HUD's letters alone. Since 2026-11-22 they have a sound, started here with them. Clobbers everything.
 PlayBleedAnimation:
 	ld a, [wOptions]
 	bit BIT_BATTLE_ANIMATION, a
@@ -449,6 +449,20 @@ PlayBleedAnimation:
 	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a
 	call Delay3
+; v1.0 (2026-11-22): the drop's sound, chosen by ear from recordings of the battle sound engine: WATER GUN's and
+; ABSORB's SFX_BATTLE_24 a little higher ($30 on the tone, which sends its hiss down; the tempo byte $80 = as
+; written). Played here, the way GetMoveSound + PlaySound play an animation's sound, because no move's row of
+; MoveSoundTable holds these bytes (BleedAnim names NO_MOVE: its script stays silent). It starts with the drops;
+; with the animations off nothing plays (the early `ret nz` above), as for a move's own sound. It WAITS for the
+; sound already playing: "hurt by bleeding!" ends on a prompt, the A press plays SFX_PRESS_AB, and the engine
+; refuses an SFX of a higher id while that one holds channel 5 (Audio2_PlaySound's .notNoiseChannel): played at
+; once, the drop would be dropped (about a quarter of a second of waiting).
+	ld a, $30
+	ld [wFrequencyModifier], a
+	ld a, $80
+	ld [wTempoModifier], a
+	ld a, SFX_BATTLE_24
+	call PlaySoundWaitForCurrent
 	predef MoveAnimation
 	callfar Func_78e98
 	ret

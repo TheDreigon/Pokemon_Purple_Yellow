@@ -442,8 +442,9 @@ ConfusionHitAnim:
 
 BleedAnim:
 ; v1.0 (2026-11-18): BLEED's bite (PlayBleedAnimation, engine/battle/soft_status.asm): two drops fall from the
-; bleeding #MON, one line, silent. Its subanimation is ENEMY type, so it is drawn on the #MON whose turn it is;
-; its sprites take that half of the screen's palette on the GBC (the #MON's own colours).
+; bleeding #MON, one line. The script names no sound (NO_MOVE): since 2026-11-22 PlayBleedAnimation plays the
+; drop's own (no move's row of MoveSoundTable holds it). Its subanimation is ENEMY type, so it is drawn on the
+; #MON whose turn it is; its sprites take that half of the screen's palette on the GBC (the #MON's own colours).
 	battle_anim NO_MOVE, SUBANIM_1_BLOOD_DROPS, 1, 4
 	db -1 ; end
 
