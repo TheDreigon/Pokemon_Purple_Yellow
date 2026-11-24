@@ -21,8 +21,9 @@ Route4_TextPointers:
 	dw_const PickUpItemText,          TEXT_ROUTE4_TM_QUICK_ATTACK
 	dw_const Route4CooltrainerF3Text, TEXT_ROUTE4_COOLTRAINER_F3
 	dw_const PokeCenterSignText,      TEXT_ROUTE4_POKECENTER_SIGN
-	dw_const Route4MtMoonSignText,    TEXT_ROUTE4_MT_MOON_SIGN
+	dw_const Route4MtMoonWestSignText, TEXT_ROUTE4_MT_MOON_WEST_SIGN
 	dw_const Route4SignText,          TEXT_ROUTE4_SIGN
+	dw_const Route4MtMoonEastSignText, TEXT_ROUTE4_MT_MOON_EAST_SIGN
 
 Route4TrainerHeaders:
 	def_trainers 2
@@ -76,8 +77,12 @@ Route4CooltrainerF3Text:
 	text_far _Route4CooltrainerF3Text
 	text_end
 
-Route4MtMoonSignText:
-	text_far _Route4MtMoonSignText
+Route4MtMoonWestSignText:
+	text_far _Route4MtMoonWestSignText
+	text_end
+
+Route4MtMoonEastSignText:
+	text_far _Route4MtMoonEastSignText
 	text_end
 
 Route4SignText:

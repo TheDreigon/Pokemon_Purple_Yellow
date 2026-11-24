@@ -15,7 +15,7 @@ HiddenItemCoords:
 	; MAX_ELIXIR. Rewritten in place (not deleted) so every later row keeps its
 	; flag index — an unreachable item's obtained-flag is provably 0 on every
 	; save, so the replacement always spawns collectable.
-	hidden_item ROCK_TUNNEL_1F,                24,   8 ; TODO: provisional coords, adjust in PolishedMap
+	hidden_item ROCK_TUNNEL_1F,                31,   7 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item SEAFOAM_ISLANDS_B2F,           15,  15
 	hidden_item SEAFOAM_ISLANDS_B3F,            9,  16
 	hidden_item SEAFOAM_ISLANDS_B4F,           25,  17
@@ -32,27 +32,27 @@ HiddenItemCoords:
 	hidden_item ROCKET_HIDEOUT_B1F,            21,  15
 	hidden_item ROCKET_HIDEOUT_B3F,            27,  17
 	hidden_item ROCKET_HIDEOUT_B4F,            25,   1
-	hidden_item ROUTE_10,                       9,  17
-	hidden_item ROUTE_10,                      16,  53
+	hidden_item ROUTE_10,                      12,  23
+	hidden_item ROUTE_10,                      18,  65
 	hidden_item POWER_PLANT,                   17,  16
 	hidden_item POWER_PLANT,                   12,   1
-	hidden_item ROUTE_11,                      48,   5
+	hidden_item ROUTE_11,                      54,   5
 	hidden_item ROUTE_12,                       2,  63
 	hidden_item ROUTE_13,                       1,  14
 	hidden_item ROUTE_13,                      16,  13
-	hidden_item ROUTE_17,                      15,  14
-	hidden_item ROUTE_17,                       8,  45
-	hidden_item ROUTE_17,                      17,  72
-	hidden_item ROUTE_17,                       4,  91
-	hidden_item ROUTE_17,                       8, 121
+	hidden_item ROUTE_17,                      18,  15
+	hidden_item ROUTE_17,                      10,  94
+	hidden_item ROUTE_17,                      11,  95
+	hidden_item ROUTE_17,                       1, 119
+	hidden_item ROUTE_17,                      20, 119
 	hidden_item ROUTE_23,                       9,  44
 	hidden_item ROUTE_23,                      19,  70
 	hidden_item ROUTE_23,                       8,  90
 	hidden_item VICTORY_ROAD_2F,                5,   2
 	hidden_item VICTORY_ROAD_2F,               26,   7
-	hidden_item ROUTE_25,                      60,   9 ; the ETHER; (38,3) -> (34,9), 2026-10-06; +26 in x on 2026-11-05 (ROUTE_25 grew west)
-	hidden_item ROUTE_25,                      42,   5 ; the X_ATTACK; (34,9) -> (16,5), 2026-10-06; +26 in x on 2026-11-05
-	hidden_item ROUTE_4,                       40,   3
+	hidden_item ROUTE_25,                      66,   9 ; the ETHER; (38,3) -> (34,9), 2026-10-06; +26 in x on 2026-11-05 (ROUTE_25 grew west)
+	hidden_item ROUTE_25,                      48,   5 ; the X_ATTACK; (34,9) -> (16,5), 2026-10-06; +26 in x on 2026-11-05
+	hidden_item ROUTE_4,                       38,   3
 	hidden_item ROUTE_9,                       14,   7
 	hidden_item COPYCATS_HOUSE_2F,              1,   1
 	hidden_item VIRIDIAN_CITY,                 14,   4
@@ -74,7 +74,7 @@ HiddenItemCoords:
 	hidden_item ROCK_TUNNEL_B1F,               21,  21 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item ROCK_TUNNEL_B1F,               30,  11 ; TODO: provisional coords, adjust in PolishedMap
 	hidden_item SEAFOAM_ISLANDS_B1F,           18,   6 ; TODO: provisional coords, adjust in PolishedMap
-	hidden_item ROUTE_11,                      43,   7 ; NEW 2026-07-30
+	hidden_item ROUTE_11,                      49,   7 ; NEW 2026-07-30
 	hidden_item CERULEAN_CAVE_1F,              29,  16 ; 2026-08-30: the converted 1F ULTRA BALL
 	hidden_item CERULEAN_CAVE_2F,              16,   7 ; 2026-08-30: the converted 2F ULTRA BALL
 	hidden_item VIRIDIAN_FOREST,                8,   4 ; 2026-09-06: the converted (8,3) POTION ball

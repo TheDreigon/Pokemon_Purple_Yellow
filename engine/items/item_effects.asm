@@ -2490,11 +2490,11 @@ Route12SnorlaxFluteCoords:
 	dbmapcoord 11, 62 ; one space East of Snorlax
 	db -1 ; end
 
-; the cells beside the SNORLAX at (27,10) (data/maps/objects/Route16.asm); north of it is a tree,
+; the cells beside the SNORLAX at (25,14) (data/maps/objects/Route16.asm); north of it is a tree,
 ; south a sign
 Route16SnorlaxFluteCoords:
-	dbmapcoord 28, 10 ; one space East of Snorlax
-	dbmapcoord 26, 10 ; one space West of Snorlax
+	dbmapcoord 26, 14 ; one space East of Snorlax
+	dbmapcoord 24, 14 ; one space West of Snorlax
 	db -1 ; end
 
 PlayedFluteNoEffectText:

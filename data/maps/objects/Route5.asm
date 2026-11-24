@@ -7,15 +7,15 @@ Route5_Object:
 	db $a ; border block
 
 	def_warp_events
-	warp_event 10, 37, ROUTE_5_GATE, 3
-	warp_event  9, 37, ROUTE_5_GATE, 3
-	warp_event 10, 41, ROUTE_5_GATE, 1
-	warp_event 17, 33, UNDERGROUND_PATH_ROUTE_5, 1
-	warp_event 10, 21, DAYCARE, 1
+	warp_event 10, 41, ROUTE_5_GATE, 3
+	warp_event  9, 41, ROUTE_5_GATE, 3
+	warp_event 10, 45, ROUTE_5_GATE, 1
+	warp_event 17, 37, UNDERGROUND_PATH_ROUTE_5, 1
+	warp_event 10, 25, DAYCARE, 1
 
 	def_bg_events
-	bg_event 17, 35, TEXT_ROUTE5_UNDERGROUND_PATH_SIGN
-	bg_event  9, 25, TEXT_ROUTE5_DAYCARE_SIGN
+	bg_event 17, 39, TEXT_ROUTE5_UNDERGROUND_PATH_SIGN
+	bg_event  9, 29, TEXT_ROUTE5_DAYCARE_SIGN
 
 	def_object_events
 ; COOLTRAINER_F rather than LITTLE_GIRL: Route 5 is a split-set map (PEWTER_
@@ -26,10 +26,10 @@ Route5_Object:
 ; LEFT_RIGHT rather than ANY_DIR on purpose: her sprite is not in the
 ; SAFFRON set either, so she must never wander into view of a player
 ; standing in the southern strip.
-	object_event  8, 27, SPRITE_COOLTRAINER_F, WALK, LEFT_RIGHT, TEXT_ROUTE5_LITTLE_GIRL
-	object_event 12, 36, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_ROUTE5_YOUNGSTER
+	object_event  8, 31, SPRITE_COOLTRAINER_F, WALK, LEFT_RIGHT, TEXT_ROUTE5_LITTLE_GIRL
+	object_event 12, 40, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_ROUTE5_YOUNGSTER
 ; Vouches for the day care: the gentleman's trainer past, the daughter's
 ; POKeMON CENTER past (lore, 2026-08-07).
-	object_event  4, 32, SPRITE_COOLTRAINER_M, WALK, UP_DOWN, TEXT_ROUTE5_COOLTRAINER_M
+	object_event  4, 36, SPRITE_COOLTRAINER_M, WALK, UP_DOWN, TEXT_ROUTE5_COOLTRAINER_M
 
 	def_warps_to ROUTE_5

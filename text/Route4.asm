@@ -54,9 +54,14 @@ _Route4CooltrainerF3Text::
 	line "up the courage."
 	done
 
-_Route4MtMoonSignText::
+_Route4MtMoonWestSignText::
 	text "MT.MOON"
-	line "Tunnel Entrance"
+	line "West Entrance"
+	done
+
+_Route4MtMoonEastSignText::
+	text "MT.MOON"
+	line "East Entrance"
 	done
 
 _Route4SignText::

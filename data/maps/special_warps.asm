@@ -97,21 +97,22 @@ FlyWarpDataPtr:
 .LavenderTown:   fly_warp LAVENDER_TOWN,    7,  8
 .VermilionCity:  fly_warp VERMILION_CITY,  11,  4
 .CeladonCity:    fly_warp CELADON_CITY,    35,  8
-.FuchsiaCity:    fly_warp FUCHSIA_CITY,    25, 28
+.FuchsiaCity:    fly_warp FUCHSIA_CITY,    25, 32
 .CinnabarIsland: fly_warp CINNABAR_ISLAND, 13, 38
 .IndigoPlateau:  fly_warp INDIGO_PLATEAU,   9,  6
 .SaffronCity:    fly_warp SAFFRON_CITY,     9, 30
 .Route4:         fly_warp ROUTE_4,         11,  6
-.Route10:        fly_warp ROUTE_10,        11, 22
+.Route10:        fly_warp ROUTE_10,        13, 28
 ; BILL's LAB. ROUTE 25 has no POKeMON CENTER, so by the same rule as PALLET
 ; and INDIGO it lands one cell below the map's first warp -- which here is BILL's
-; own front door at (79, 5) ((53, 5) until 2026-11-05, when ROUTE 25 grew 26 cells west).
-.Route25:        fly_warp ROUTE_25,        79,  6
+; own front door at (95, 5) ((79, 5) until 2026-11-24, when ROUTE 25 grew 8 blocks; (53, 5) until
+; 2026-11-05, when it grew 26 cells west).
+.Route25:        fly_warp ROUTE_25,        95,  6
 ; v1.0 (2026-09-24): the interiors' landing cells, one below each door.
 ; The POWER PLANT's and the CERULEAN CAVE's are strips of land reached only by SURF:
 ; whoever flies there has been inside, so has SURF. All five are land tiles.
-.DayCare:        fly_warp ROUTE_5,        10, 22 ; the DAY CARE's door is (10, 21)
-.PowerPlant:     fly_warp ROUTE_10,        4, 42 ; the POWER PLANT's door is (4, 41)
+.DayCare:        fly_warp ROUTE_5,        10, 26 ; the DAY CARE's door is (10, 25)
+.PowerPlant:     fly_warp ROUTE_10,        6, 54 ; the POWER PLANT's door is (6, 53)
 .Seafoam:        fly_warp ROUTE_20,       46,  8 ; SEAFOAM's west door is (46, 7)
 .VictoryRoad:    fly_warp ROUTE_23,        4, 32 ; VICTORY ROAD's 1F door is (4, 31)
 .CeruleanCave:   fly_warp CERULEAN_CITY,   6, 12 ; the cave's door is (6, 11)

@@ -148,18 +148,13 @@ _Route17Biker10AfterBattleText::
 	line "a few Zs!"
 	done
 
-_Route17SignText::
+_Route17SouthSignText::
 	text "ROUTE 17"
 	line "FUCHSIA CITY -"
 	cont "CELADON CITY"
 	done
 
-_Route17CyclingRoadEndsSignText::
-	text "CYCLING ROAD"
-	line "Slope ends here!"
-	done
-
-_Route17Route16SignText::
+_Route17NorthSignText::
 ; the ROUTE 17 label, relocated from Route 16 (its old home now teaches
 ; the slope) - it stands just below the northern border.
 	text "ROUTE 17"

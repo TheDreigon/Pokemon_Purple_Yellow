@@ -14,43 +14,43 @@ FuchsiaCity_Object:
 	db $f ; border block
 
 	def_warp_events
-	warp_event  7, 19, FUCHSIA_MART, 1
-	warp_event 17, 27, FUCHSIA_BILLS_GRANDPAS_HOUSE, 1
-	warp_event 25, 27, FUCHSIA_POKECENTER, 1
-	warp_event 14, 19, WARDENS_HOUSE, 1
+	warp_event  7, 23, FUCHSIA_MART, 1
+	warp_event 17, 31, FUCHSIA_BILLS_GRANDPAS_HOUSE, 1
+	warp_event 25, 31, FUCHSIA_POKECENTER, 1
+	warp_event 14, 23, WARDENS_HOUSE, 1
 	warp_event 18,  3, SAFARI_ZONE_GATE, 1
-	warp_event   7, 27, FUCHSIA_GYM, 1
-	warp_event 20, 13, FUCHSIA_MEETING_ROOM, 1
-	warp_event 37, 29, FUCHSIA_FOSSIL_HOUSE, 2
-	warp_event 37, 25, FUCHSIA_FOSSIL_HOUSE, 1
+	warp_event  7, 31, FUCHSIA_GYM, 1
+	warp_event 20, 17, FUCHSIA_MEETING_ROOM, 1
+	warp_event 37, 33, FUCHSIA_FOSSIL_HOUSE, 2
+	warp_event 37, 29, FUCHSIA_FOSSIL_HOUSE, 1
 
 	def_bg_events
-	bg_event 21, 19, TEXT_FUCHSIACITY_SIGN1
+	bg_event 21, 23, TEXT_FUCHSIACITY_SIGN1
 	; bg_event removed by the world-design Fuchsia redesign (its dw_const row in
 	; scripts/FuchsiaCity.asm is commented out to match, same as the branch did)
 	bg_event 17,  5, TEXT_FUCHSIACITY_SAFARI_GAME_SIGN
-	bg_event  8, 19, TEXT_FUCHSIACITY_MART_SIGN
-	bg_event 26, 27, TEXT_FUCHSIACITY_POKECENTER_SIGN
-	bg_event 11, 19, TEXT_FUCHSIACITY_WARDENS_HOME_SIGN
-	bg_event 19, 15, TEXT_FUCHSIACITY_SAFARI_ZONE_SIGN
-	bg_event   7, 29, TEXT_FUCHSIACITY_GYM_SIGN
-	bg_event 13,  7, TEXT_FUCHSIACITY_CHANSEY_SIGN
-	bg_event  7,  7, TEXT_FUCHSIACITY_VOLTORB_SIGN
-	bg_event 33,  7, TEXT_FUCHSIACITY_KANGASKHAN_SIGN
-	bg_event 33, 11, TEXT_FUCHSIACITY_SLOWPOKE_SIGN
-	bg_event 13, 11, TEXT_FUCHSIACITY_LAPRAS_SIGN
-	bg_event  27,  7, TEXT_FUCHSIACITY_FOSSIL_SIGN
+	bg_event  8, 23, TEXT_FUCHSIACITY_MART_SIGN
+	bg_event 26, 31, TEXT_FUCHSIACITY_POKECENTER_SIGN
+	bg_event 11, 23, TEXT_FUCHSIACITY_WARDENS_HOME_SIGN
+	bg_event 19, 19, TEXT_FUCHSIACITY_SAFARI_ZONE_SIGN
+	bg_event  7, 33, TEXT_FUCHSIACITY_GYM_SIGN
+	bg_event 13, 11, TEXT_FUCHSIACITY_CHANSEY_SIGN
+	bg_event  7, 11, TEXT_FUCHSIACITY_VOLTORB_SIGN
+	bg_event 33, 11, TEXT_FUCHSIACITY_KANGASKHAN_SIGN
+	bg_event 33, 15, TEXT_FUCHSIACITY_SLOWPOKE_SIGN
+	bg_event 13, 15, TEXT_FUCHSIACITY_LAPRAS_SIGN
+	bg_event 27, 11, TEXT_FUCHSIACITY_FOSSIL_SIGN
 
 	def_object_events
-	object_event 17,  7, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_FUCHSIACITY_YOUNGSTER1
-	object_event 27, 18, SPRITE_GAMBLER, WALK, LEFT_RIGHT, TEXT_FUCHSIACITY_GAMBLER
-	object_event 31,  9, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_FUCHSIACITY_ERIK
-	object_event  5,  8, SPRITE_YOUNGSTER, STAY, UP, TEXT_FUCHSIACITY_YOUNGSTER2
-	object_event 12,  5, SPRITE_CHANSEY, STAY, ANY_DIR, TEXT_FUCHSIACITY_CHANSEY ; v1.0 (2026-09-23): she turns in place at random (STAY takes the random path; the facing is written before the step is refused), so her side and back poses show. NOT WALK: chansey.png is 16x48, three poses and no step frames - a walker would draw the next sheet's bytes mid-step
-	object_event  5,  5, SPRITE_POKE_BALL, STAY, NONE, TEXT_FUCHSIACITY_VOLTORB
-	object_event 34,  5, SPRITE_KANGASKHAN, WALK, ANY_DIR, TEXT_FUCHSIACITY_KANGASKHAN
-	object_event 32, 13, SPRITE_SLOWPOKE, WALK, ANY_DIR, TEXT_FUCHSIACITY_SLOWPOKE
-	object_event  9, 13, SPRITE_LAPRAS, WALK, ANY_DIR, TEXT_FUCHSIACITY_LAPRAS
-	object_event 26,  5, SPRITE_FOSSIL, STAY, NONE, TEXT_FUCHSIACITY_FOSSIL
+	object_event 19,  9, SPRITE_YOUNGSTER, WALK, LEFT_RIGHT, TEXT_FUCHSIACITY_YOUNGSTER1
+	object_event 27, 22, SPRITE_GAMBLER, WALK, LEFT_RIGHT, TEXT_FUCHSIACITY_GAMBLER
+	object_event 31, 13, SPRITE_COOLTRAINER_M, STAY, DOWN, TEXT_FUCHSIACITY_ERIK
+	object_event  5, 12, SPRITE_YOUNGSTER, STAY, UP, TEXT_FUCHSIACITY_YOUNGSTER2
+	object_event 12,  9, SPRITE_CHANSEY, STAY, ANY_DIR, TEXT_FUCHSIACITY_CHANSEY ; v1.0 (2026-09-23): she turns in place at random (STAY takes the random path; the facing is written before the step is refused), so her side and back poses show. NOT WALK: chansey.png is 16x48, three poses and no step frames - a walker would draw the next sheet's bytes mid-step
+	object_event  5,  9, SPRITE_POKE_BALL, STAY, NONE, TEXT_FUCHSIACITY_VOLTORB
+	object_event 34,  9, SPRITE_KANGASKHAN, WALK, ANY_DIR, TEXT_FUCHSIACITY_KANGASKHAN
+	object_event 32, 17, SPRITE_SLOWPOKE, WALK, ANY_DIR, TEXT_FUCHSIACITY_SLOWPOKE
+	object_event  9, 17, SPRITE_LAPRAS, WALK, ANY_DIR, TEXT_FUCHSIACITY_LAPRAS
+	object_event 26,  9, SPRITE_FOSSIL, STAY, NONE, TEXT_FUCHSIACITY_FOSSIL
 
 	def_warps_to FUCHSIA_CITY

@@ -151,7 +151,7 @@ CeruleanCave3HiddenObjects:
 ; hidden rope reuses the flag row of the old unreachable UNUSED_MAP_6F entry
 ; (see hidden_item_coords.asm); the B1F pair are appended flags.
 RockTunnel1FHiddenObjects:
-	hidden_object 24,  8, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
+	hidden_object 31,  7, ESCAPE_ROPE, HiddenItems ; TODO: provisional coords, adjust in PolishedMap
 	db -1 ; end
 
 RockTunnelB1FHiddenObjects:
@@ -234,8 +234,8 @@ RocketHideout4HiddenObjects:
 	db -1 ; end
 
 Route10HiddenObjects:
-	hidden_object  9, 17, SUPER_POTION, HiddenItems
-	hidden_object 16, 53, RARE_CANDY, HiddenItems
+	hidden_object 12, 23, SUPER_POTION, HiddenItems
+	hidden_object 18, 65, RARE_CANDY, HiddenItems
 	db -1 ; end
 
 RockTunnelPokecenterHiddenObjects:
@@ -249,8 +249,8 @@ PowerPlantHiddenObjects:
 	db -1 ; end
 
 Route11HiddenObjects:
-	hidden_object 48,  5, ZINC, HiddenItems ; was a GREAT BALL: the split's SP.DEF vitamin (2026-09-06; the visible pair: Silph Co. 3F (8,5) and Pokemon Mansion 3F (1,16), 2026-09-06)
-	hidden_object 43,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was asked for, but it held the GREAT_BALL (the ZINC since 2026-09-06).
+	hidden_object 54,  5, ZINC, HiddenItems ; was a GREAT BALL: the split's SP.DEF vitamin (2026-09-06; the visible pair: Silph Co. 3F (8,5) and Pokemon Mansion 3F (1,16), 2026-09-06)
+	hidden_object 49,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was asked for, but it held the GREAT_BALL (the ZINC since 2026-09-06).
 	db -1 ; end
 
 Route12HiddenObjects:
@@ -267,11 +267,11 @@ Route15Gate2FHiddenObjects:
 	db -1 ; end
 
 Route17HiddenObjects:
-	hidden_object 15,  14, RARE_CANDY, HiddenItems
-	hidden_object  8,  45, CARBOS, HiddenItems
-	hidden_object 17,  72, CARBOS, HiddenItems
-	hidden_object  4,  91, PP_UP, HiddenItems
-	hidden_object  8, 121, NUGGET, HiddenItems
+	hidden_object 18,  15, RARE_CANDY, HiddenItems
+	hidden_object 10,  94, CARBOS, HiddenItems
+	hidden_object 11,  95, CARBOS, HiddenItems
+	hidden_object  1, 119, PP_UP, HiddenItems
+	hidden_object 20, 119, NUGGET, HiddenItems
 	db -1 ; end
 
 Route23HiddenObjects:
@@ -286,8 +286,8 @@ VictoryRoad2HiddenObjects:
 	db -1 ; end
 
 Route25HiddenObjects:
-	hidden_object 60,  9, ETHER, HiddenItems ; (38,3) -> (34,9), 2026-10-06: no reachable cell faces (38,3); (60,9) since 2026-11-05: the route grew 26 cells west
-	hidden_object 42,  5, X_ATTACK, HiddenItems ; (34,9) -> (16,5), 2026-10-06: the ETHER took its bush; (42,5) since 2026-11-05
+	hidden_object 66,  9, ETHER, HiddenItems ; (38,3) -> (34,9), 2026-10-06: no reachable cell faces (38,3); (60,9) since 2026-11-05: the route grew 26 cells west; (66,9) since 2026-11-24
+	hidden_object 48,  5, X_ATTACK, HiddenItems ; (34,9) -> (16,5), 2026-10-06: the ETHER took its bush; (42,5) since 2026-11-05; (48,5) since 2026-11-24
 	db -1 ; end
 
 BillsHouseHiddenObjects:
@@ -295,7 +295,7 @@ BillsHouseHiddenObjects:
 	db -1 ; end
 
 Route4HiddenObjects:
-	hidden_object 40,  3, GREAT_BALL, HiddenItems
+	hidden_object 38,  3, GREAT_BALL, HiddenItems
 	db -1 ; end
 
 MtMoonPokecenterHiddenObjects:

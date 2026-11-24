@@ -25,9 +25,8 @@ Route17_TextPointers:
 	dw_const Route17Biker8Text,              TEXT_ROUTE17_BIKER8
 	dw_const Route17Biker9Text,              TEXT_ROUTE17_BIKER9
 	dw_const Route17Biker10Text,             TEXT_ROUTE17_BIKER10
-	dw_const Route17SignText,                TEXT_ROUTE17_SIGN
-	dw_const Route17CyclingRoadEndsSignText, TEXT_ROUTE17_CYCLING_ROAD_ENDS_SIGN
-	dw_const Route17Route16SignText,         TEXT_ROUTE17_ROUTE16_SIGN
+	dw_const Route17SouthSignText,           TEXT_ROUTE17_SOUTH_SIGN
+	dw_const Route17NorthSignText,           TEXT_ROUTE17_NORTH_SIGN
 
 Route17TrainerHeaders:
 	def_trainers
@@ -233,14 +232,10 @@ Route17Biker10AfterBattleText:
 	text_far _Route17Biker10AfterBattleText
 	text_end
 
-Route17SignText:
-	text_far _Route17SignText
+Route17SouthSignText:
+	text_far _Route17SouthSignText
 	text_end
 
-Route17CyclingRoadEndsSignText:
-	text_far _Route17CyclingRoadEndsSignText
-	text_end
-
-Route17Route16SignText:
-	text_far _Route17Route16SignText
+Route17NorthSignText:
+	text_far _Route17NorthSignText
 	text_end

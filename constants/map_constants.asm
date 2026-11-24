@@ -33,7 +33,7 @@ ENDM
 	map_const LAVENDER_TOWN,                 15, 13 ; $04 (world-design: redesign)
 	map_const VERMILION_CITY,                20, 18 ; $05
 	map_const CELADON_CITY,                  26, 18 ; $06 (world-design: redesign)
-	map_const FUCHSIA_CITY,                  23, 19 ; $07 (world-design: redesign)
+	map_const FUCHSIA_CITY,                  23, 21 ; $07 (world-design: redesign)
 	map_const CINNABAR_ISLAND,               19, 25 ; $08 (world-design: full rework)
 	map_const INDIGO_PLATEAU,                10,  9 ; $09
 	map_const SAFFRON_CITY,                  20, 18 ; $0A
@@ -73,29 +73,29 @@ DEF NUM_FLY_SLOTS          EQU NUM_CITY_MAPS + 7 ; what BuildFlyLocationsList wa
 DEF FIRST_ROUTE_MAP EQU const_value
 	map_const ROUTE_1,                       10, 18 ; $0C
 	map_const ROUTE_2,                       10, 36 ; $0D
-	map_const ROUTE_3,                       35,  9 ; $0E
+	map_const ROUTE_3,                       35, 11 ; $0E
 	map_const ROUTE_4,                       45,  9 ; $0F
-	map_const ROUTE_5,                       10, 22 ; $10
-	map_const ROUTE_6,                       10, 18 ; $11
+	map_const ROUTE_5,                       10, 24 ; $10
+	map_const ROUTE_6,                       10, 21 ; $11
 	map_const ROUTE_7,                       13,  9 ; $12
 	map_const ROUTE_8,                       30, 10 ; $13
-	map_const ROUTE_9,                       30,  9 ; $14
-	map_const ROUTE_10,                      11, 36 ; $15 (world-design: +1 column)
-	map_const ROUTE_11,                      30,  9 ; $16
+	map_const ROUTE_9,                       32,  9 ; $14
+	map_const ROUTE_10,                      12, 43 ; $15 (world-design: +1 column)
+	map_const ROUTE_11,                      33,  9 ; $16
 	map_const ROUTE_12,                      10, 54 ; $17
 	map_const ROUTE_13,                      30,  9 ; $18
 	map_const ROUTE_14,                      10, 27 ; $19
-	map_const ROUTE_15,                      29,  9 ; $1A (world-design: one column trimmed at the Fuchsia seam; objects moved -2 tiles to match)
-	map_const ROUTE_16,                      21,  9 ; $1B
-	map_const ROUTE_17,                      10, 72 ; $1C
-	map_const ROUTE_18,                      25,  9 ; $1D
-	map_const ROUTE_19,                      10, 28 ; $1E (world-design: +1 row, follows Route 20)
-	map_const ROUTE_20,                      50, 12 ; $1F (world-design: 12 rows so its two shore corners meet Cinnabar's channel corners at island rows 8 and 19)
+	map_const ROUTE_15,                      30,  9 ; $1A (world-design: one column trimmed at the Fuchsia seam; objects moved -2 tiles to match)
+	map_const ROUTE_16,                      20, 17 ; $1B
+	map_const ROUTE_17,                      11, 67 ; $1C
+	map_const ROUTE_18,                      29, 15 ; $1D
+	map_const ROUTE_19,                      10, 30 ; $1E (world-design: +1 row, follows Route 20)
+	map_const ROUTE_20,                      47, 12 ; $1F (world-design: 12 rows so its two shore corners meet Cinnabar's channel corners at island rows 8 and 19)
 	map_const ROUTE_21,                      13, 45 ; $20 (world-design: +3 columns WEST toward Cinnabar; Pallet connects at -3 because of it)
 	map_const ROUTE_22,                      22, 11 ; $21
 	map_const ROUTE_23,                      10, 72 ; $22
 	map_const ROUTE_24,                      13, 15 ; $23 (v1.0, 2026-11-05: the NUGGET BRIDGE and its approach only; rows 0-9 went to ROUTE_25, and the strip above the bridge, row 9, stays here, grown to four rows; 2026-11-19: one more row at the top, 14 to 15)
-	map_const ROUTE_25,                      48, 10 ; $24 (v1.0, 2026-11-05: thirteen columns WEST, the old top of ROUTE_24; it now meets ROUTE_24 along its south edge)
+	map_const ROUTE_25,                      56, 10 ; $24 (v1.0, 2026-11-05: thirteen columns WEST, the old top of ROUTE_24; it now meets ROUTE_24 along its south edge)
 DEF FIRST_INDOOR_MAP EQU const_value
 	map_const REDS_HOUSE_1F,                  4,  4 ; $25
 	map_const REDS_HOUSE_2F,                  4,  4 ; $26
