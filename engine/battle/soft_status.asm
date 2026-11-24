@@ -1094,10 +1094,13 @@ FearTurnSpeed:
 	ret
 
 ; Far. The trainer AI's DEATH GLARE (trainer_ai.asm AIMoveChoiceModification1 .checkScared): does FearEffect_ surely
-; refuse it on the player's #MON - a fear already there (the SCR label), a GHOST by any of its three types, or its
-; SUBSTITUTE? Read from what the screen shows: never the count.
+; refuse it on the player's #MON - a GHOST by any of its three types, or its SUBSTITUTE (useless) - or refuse it
+; unless the fear already there (the SCR label) ends first? Read from what the screen shows: never the count. The
+; player's fear can end in its own turn, before DEATH GLARE runs ("scared no more!" when it moves first), as a
+; confusion can before CONFUSE RAY: by E4 only discouraged, as CONFUSE RAY is (the owner, 2026-11-24).
 ; v1.0 (2026-11-24): SPIRAL comes to the same branch (wEnemyMoveEffect = SPIRAL_EFFECT): AISpiralMoveUseless.
-; OUT carry = useless. Clobbers a, c and hl. de is kept.
+; OUT carry = useless; else NZ = discouraged (.discourageUnlessRecharging: USELESS while the player must recharge,
+; whose turn ends before its fear check), Z = nothing. Clobbers a, c and hl. de is kept.
 AIFearMoveUseless::
 	ld a, [wEnemyMoveEffect]
 	cp SPIRAL_EFFECT
@@ -1105,11 +1108,12 @@ AIFearMoveUseless::
 	ld a, [wPlayerBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
 	jr nz, .useless
-	ld a, [wPlayerFearCounter]
-	and a
-	jr nz, .useless
 	ld c, 0 ; the player's #MON
-	jp FearImmuneSide
+	call FearImmuneSide ; carry: a GHOST
+	ret c
+	ld a, [wPlayerFearCounter]
+	and a ; NZ: already scared (and a clears the carry)
+	ret
 .useless
 	scf
 	ret
@@ -1117,7 +1121,9 @@ AIFearMoveUseless::
 ; v1.0 (2026-11-24): SPIRAL (SPIRAL_EFFECT, power 0, in ResidualEffects2 beside SLEEP_EFFECT), from FearEffect_ (the
 ; row it shares in bank $1D). The player's and the enemy's use alike; METRONOME and MIRROR MOVE reach it the same way.
 ; The target's SUBSTITUTE stops the whole move with the doll's line, then ONE accuracy test (MoveHitTest, as for
-; HYPNOSIS: PROTECT, FLY / DIG and LOCK-ON included; no type stops a power-0 move) and the usual miss line. On a hit,
+; HYPNOSIS: PROTECT, FLY / DIG and LOCK-ON included; no type stops a power-0 move) and the usual miss line - none
+; against a target that must recharge, which cannot dodge: HYPNOSIS's rule (SleepEffect skips its hit test then; the
+; owner, 2026-11-24). On a hit,
 ; two rolls of their own, the sleep's first, then the confusion's, each SPIRAL_LEG_CHANCE, each a silent leg when it
 ; does not land (SpiralSleepLeg, SpiralConfusionLeg). The move's animation plays once: with the sleep's landing, or,
 ; when the sleep did not land, before the confusion's leg. When it hits and neither leg lands, by the rolls or by
@@ -1136,11 +1142,14 @@ SpiralEffect_:
 	ld c, STATUS_FAIL_SUBSTITUTE
 	bit HAS_SUBSTITUTE_UP, [hl]
 	jr nz, .failed
+	bit NEEDS_TO_RECHARGE, [hl]
+	jr nz, .hit ; a target that must recharge: no accuracy test (the sleep leg ends the recharge if it lands)
 	callfar MoveHitTest
 	ld c, STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	and a
 	jr nz, .failed
+.hit
 	call SpiralSleepLeg ; carry: the sleep landed, the move's animation played with it
 	ld b, 0 ; (ld keeps the flags)
 	jr nc, .noSleep
@@ -1211,22 +1220,29 @@ SpiralLegShut:
 	and a ; the roll's carry goes: the leg did not land
 	ret
 
-; Far, through AIFearMoveUseless (wEnemyMoveEffect = SPIRAL_EFFECT). The trainer AI's SPIRAL (layer 1): useless when
-; neither leg could land by a gate the screen shows - the player's SUBSTITUTE (it stops the whole move), or a hard
-; status (the sleep's gate; not while it must recharge: the sleep lands then) AND a confusion (the confusion's gate).
-; One leg open is enough. OUT carry = useless. Clobbers a, c, hl. de is kept.
+; Far, through AIFearMoveUseless (wEnemyMoveEffect = SPIRAL_EFFECT). The trainer AI's SPIRAL (layer 1): useless behind
+; the player's SUBSTITUTE (it stops the whole move). With both legs shut by a gate the screen shows - a hard status
+; (the sleep's gate; never while it must recharge: the sleep lands then) AND a confusion (the confusion's gate) - only
+; discouraged: the confusion, and a sleep or a freeze, can end in the player's own turn before SPIRAL runs (E4, as
+; CONFUSE RAY; the owner, 2026-11-24). One leg open is enough. OUT as AIFearMoveUseless: carry = useless, else NZ =
+; discouraged, Z = nothing. Clobbers a, c, hl. de is kept.
 AISpiralMoveUseless:
 	ld a, [wPlayerBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
 	jr nz, .useless
 	bit NEEDS_TO_RECHARGE, a
-	jr nz, SpiralLegShut
+	jr nz, .open
 	ld a, [wPlayerBattleStatus1]
 	bit CONFUSED, a
-	jr z, SpiralLegShut
+	jr z, .open
 	ld c, 0 ; the player's #MON
 	call BattlerSlotTaken ; Z = open (keeps bc, de)
-	jr z, SpiralLegShut
+	jr z, .open
+	or 1 ; both legs shut: NZ, and no carry
+	ret
+.open
+	xor a ; Z, no carry
+	ret
 .useless
 	scf
 	ret

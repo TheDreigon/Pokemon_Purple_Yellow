@@ -212,11 +212,13 @@ AIGetMoveChoiceList:
 ; other useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
 ; v1.0 (2026-11-02): and a stat move a LOCK-ON leaves nothing to change - every stat it touches refused or one a lock
 ; makes moot (an EVASION or ACCURACY stage the locked side's moves never roll against) - is +5 (.checkLockMoot).
-; v1.0 (2026-11-24): and DEATH GLARE (FEAR_EFFECT) into a #MON already scared (its SCR label), a GHOST by any of its
-; three types, or one behind a SUBSTITUTE - FearEffect_'s sure refusals - is USELESS (.checkScared). It tests no hard
-; status: a fear lands beside any. SPIRAL (SPIRAL_EFFECT, sleep and confusion rolled apart) is USELESS behind the
-; player's SUBSTITUTE, or when both its legs are shut: a hard status (not while the player must recharge: the
-; sleep lands then) and a confusion (.checkScared too).
+; v1.0 (2026-11-24): and DEATH GLARE (FEAR_EFFECT) into a GHOST by any of its three types, or one behind a SUBSTITUTE -
+; FearEffect_'s sure refusals - is USELESS (.checkScared); into a #MON already scared (its SCR label) +5, USELESS while
+; the player must recharge (.discourageUnlessRecharging): the fear can end in the player's own turn first, as a
+; confusion can before CONFUSE RAY (E4; the owner, 2026-11-24). It tests no hard status: a fear lands beside any.
+; SPIRAL (SPIRAL_EFFECT, sleep and confusion rolled apart) is USELESS behind the player's SUBSTITUTE, and +5 when both
+; its legs are shut: a hard status (never while the player must recharge: the sleep lands then) and a confusion, either
+; of which can end in the player's own turn first (.checkScared too).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -462,17 +464,19 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	add [hl]
 	ld [hl], a
 	jp .nextMove
-.checkScared ; v1.0 (2026-11-24): FearEffect_'s sure refusals - a SUBSTITUTE, a fear already there, a GHOST by any
-; of its three types (AIFearMoveUseless, soft_status.asm: this bank has room for the call alone). Here, past
-; .uselessScore: between .discourageUnlessRecharging and it, its bytes put that jr out of reach.
-; v1.0 (2026-11-24): SPIRAL comes here too, and the same far call answers for it (AISpiralMoveUseless): its
-; SUBSTITUTE, or a hard status AND a confusion (both legs shut; not while the player must recharge).
+.checkScared ; v1.0 (2026-11-24): FearEffect_'s sure refusals - a SUBSTITUTE, a GHOST by any of its three types -
+; USELESS, and a fear already there +5 (USELESS while the player must recharge: the E4 rule of CONFUSE RAY's confusion)
+; (AIFearMoveUseless, soft_status.asm: this bank has room for the call alone). Here, past .uselessScore: between
+; .discourageUnlessRecharging and it, its bytes put that jr out of reach.
+; v1.0 (2026-11-24): SPIRAL comes here too, and the same far call answers for it (AISpiralMoveUseless): its SUBSTITUTE
+; USELESS, a hard status AND a confusion (both legs shut; never while the player must recharge) +5.
 	push hl
 	push bc
-	farcall AIFearMoveUseless ; (keeps de)
+	farcall AIFearMoveUseless ; (keeps de; carry, then Z, survive the far call's return and the pops)
 	pop bc
 	pop hl
 	jr c, .uselessUnlessCopy
+	jp nz, .discourageUnlessRecharging
 	jp .nextMove
 .checkFullHealth ; avoid using moves like recover at full health.
 	push hl
