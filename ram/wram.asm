@@ -1558,14 +1558,22 @@ wCriticalHitOrOHKO:: db
 
 wMoveMissed:: db
 
-; always 0; nothing reads it since v1.0 E1 (DoubleSelectedStats went). Kept, with
-; wPlayerStatsToHalve and the enemy's two: every writer zeroes them (the five-byte
-; status clears in core.asm, EndOfBattle's span, the debug menu), and
-; taking them out would move the saved Party / Main Data blocks packed after
-; SECTION "WRAM".
+; v1.0 (2026-11-24): the player's FEAR count, 0 = not scared (engine/battle/soft_status.asm: FearInflicted
+; draws 3-5, FearTurnCheck counts it down, CureConfusionIfFullHealOrRestore zeroes it). Since v1.0 E1
+; (DoubleSelectedStats went) the byte was dead and always 0; it was kept, with wPlayerStatsToHalve and the
+; enemy's two, because taking them out would move the saved Party / Main Data blocks packed after SECTION
+; "WRAM". Every send-out, faint and the end of the battle zero it (the five-byte status clears in core.asm,
+; EndOfBattle's span): that is the fear leaving with its #MON. The old name stays on the byte for the tools
+; that name it.
+wPlayerFearCounter::
 wPlayerStatsToDouble:: db
 
-; always 0
+; v1.0 (2026-11-24): no longer always 0. VINE DRAIN's drain line is owed to its hold's first hit that drains:
+; TrappingDrainEffect_ (engine/battle/soft_status.asm) writes 1 at the hold's set-up and 0 at the first drain step of
+; a hit on the #MON; a hit on a doll drains nothing and leaves it at 1 (the owner, 2026-11-24). Nothing else reads it.
+; A 1 left behind (the first hit missed, or a doll held every hit) is harmless: the next set-up writes 1 again. The
+; five-byte status clears above still zero it. The old name stays on the byte for the tools that name it.
+wPlayerTrapDrainLine::
 wPlayerStatsToHalve:: db
 
 ; bit 0 - bide
@@ -1595,10 +1603,13 @@ wPlayerBattleStatus2:: db
 ; bit 4 - this side's move has run this turn (v1.0 2026-11-02)
 wPlayerBattleStatus3:: db
 
-; always 0; nothing reads it since v1.0 E1 (see wPlayerStatsToDouble)
+; v1.0 (2026-11-24): the enemy's FEAR count, as wPlayerFearCounter (the trainer AI's FULL HEAL and FULL
+; RESTORE zero it too: AICureEnemySoftStatus)
+wEnemyFearCounter::
 wEnemyStatsToDouble:: db
 
-; always 0
+; v1.0 (2026-11-24): the enemy's VINE DRAIN line, as wPlayerTrapDrainLine
+wEnemyTrapDrainLine::
 wEnemyStatsToHalve:: db
 
 wEnemyBattleStatus1:: db

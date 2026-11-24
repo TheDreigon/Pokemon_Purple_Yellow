@@ -1,7 +1,7 @@
 ; v0.7: MOVE INFO descriptions, keyed by move EFFECT.
 ;
-; One block per effect id, shared by every move that uses it -- 224 moves run on
-; 99 distinct effects, which is what makes this affordable. Moves that need
+; One block per effect id, shared by every move that uses it -- 227 moves run on
+; 102 distinct effects, which is what makes this affordable. Moves that need
 ; their own words get a per-move override instead; see
 ; MoveDescriptionOverrides in data/moves/descriptions.asm.
 ;
@@ -817,4 +817,32 @@ _MoveDesc_SpDefDownSideHeal::
 	next "SP.DEF one step."
 	next "Heals the user by"
 	next "1/8 of full HP."
+	done
+
+; v1.0 (2026-11-24): the status chapter's four effects (drafts: the wording is approved from captures).
+_MoveDesc_Fear::
+	text "FEARs the foe for"
+	next "2 to 4 turns. It"
+	next "may lose its turn"
+	next "and is slower."
+	done
+
+_MoveDesc_FearSide::
+	text "30 in 100 chance"
+	next "to put FEAR in"
+	next "the foe."
+	done
+
+_MoveDesc_TrappingDrain::
+	text "Traps the foe for"
+	next "2 to 5 turns. The"
+	next "user is healed by"
+	next "half of each hit."
+	done
+
+_MoveDesc_Spiral::
+	text "60 in 100 to put"
+	next "the foe to SLEEP,"
+	next "60 in 100 to"
+	next "CONFUSE it."
 	done

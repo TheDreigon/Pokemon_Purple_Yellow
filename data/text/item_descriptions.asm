@@ -605,7 +605,7 @@ _TM43Description::
 
 _TM44Description::
 	text "30 in 100 chance"
-	next "to PARALYZE it."
+	next "to put FEAR in it."
 	prompt
 
 _TM45Description::

@@ -93,6 +93,7 @@ MoveNames::
 	li "SPIRIT DRAIN"
 	li "SHADOW BALL"
 	li "CONFUSE RAY"
+	li "DEATH GLARE"
 	li "WILL-O-WISP"
 ; === GRASS ===
 	li "ABSORB"
@@ -102,6 +103,7 @@ MoveNames::
 	li "GIGA DRAIN"
 	li "PETAL DANCE"
 	li "SOLARBEAM"
+	li "VINE DRAIN"
 	li "LEECH SEED"
 	li "POISONPOWDER"
 	li "STUN POWDER"
@@ -193,6 +195,7 @@ MoveNames::
 	li "WATERFALL"
 	li "SURF"
 	li "HYDRO PUMP"
+	li "SPIRAL"
 ; === BIRD (typeless) ===
 	li "TRI ATTACK"
 	li "SWORDS DANCE"

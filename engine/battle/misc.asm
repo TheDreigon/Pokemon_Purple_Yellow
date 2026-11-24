@@ -158,27 +158,39 @@ AISpeedContext:
 ; d = the player's speed rank, e = the enemy's: round(8 x log2(the multiplier the engine applies)) + 24 -
 ; StatModifierRatios' row for the stage (AISpeedRanks), then PAR halving it (HalveSpeedDueToParalysis): 8 down.
 ; Equal multipliers rank equal (PAR at +2 = no stage, PAR at -2 = -6 ...), a higher one higher: 0 (-6 with PAR) to
-; 40 (+6). Clobbers a, b, c, hl.
+; 40 (+6). v1.0 (2026-11-24): then a scared side (its SCR label: the fear's count is never read beyond 0 or not)
+; 5 down - x2/3 for the turn order (TurnOrderSpeedCmp) is -4.7 - and never below 0. Clobbers a, b, c, hl.
 	ld a, [wPlayerMonSpeedMod]
 	ld c, a
+	ld a, [wPlayerFearCounter]
+	ld e, a
 	ld a, [wBattleMonStatus]
 	call .rank
 	ld d, a
 	ld a, [wEnemyMonSpeedMod]
 	ld c, a
+	ld a, [wEnemyFearCounter]
+	ld e, a
 	ld a, [wEnemyMonStatus]
 	call .rank
 	ld e, a
 	ret
 .rank
-; c = the SPEED stage (1-13), a = the status
+; c = the SPEED stage (1-13), a = the status, e = the fear's count
 	ld b, 0
 	ld hl, AISpeedRanks - 1
 	add hl, bc
 	and 1 << PAR
 	ld a, [hl]
-	ret z
+	jr z, .notParalysed
 	sub 8 ; PAR halves the speed: one doubling down
+.notParalysed
+	inc e
+	dec e
+	ret z
+	sub 5 ; scared: x2/3
+	ret nc
+	xor a
 	ret
 
 AISpeedRanks:

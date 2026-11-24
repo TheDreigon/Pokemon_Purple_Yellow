@@ -52,4 +52,5 @@ ResidualEffects2:
 	db SPDEF_UP2_EFFECT              ; Amnesia (the split, 2026-09-06)
 	db SPDEF_DOWN2_EFFECT            ; Fake Tears (the split); NOT the side effect, which rides on a damaging move
 	db DEFENSE_DOWN2_BURN3_EFFECT    ; stat + burn (Corrode, 2026-11-14); ACID's and ACID SPRAY's ride on damaging moves
+	db SPIRAL_EFFECT                 ; Spiral (2026-11-24): power 0, sleep + confusion, as SLEEP_EFFECT (SpiralEffect_, soft_status.asm)
 	db -1 ; end

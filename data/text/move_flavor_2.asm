@@ -284,6 +284,13 @@ _MoveFlavor_CONFUSE_RAY::
 	next "mistake."
 	done
 
+_MoveFlavor_DEATH_GLARE::
+	text "The user fixes the"
+	next "foe with a dead"
+	next "stare, and the"
+	next "foe's nerve goes."
+	done
+
 _MoveFlavor_WILL_O_WISP::
 	text "A pale flame set"
 	next "drifting. It finds"

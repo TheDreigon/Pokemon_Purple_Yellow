@@ -44,7 +44,7 @@ SyncToxicFlags:
 	set BADLY_POISONED, [hl]
 	ret
 
-; SendOutMon, right after it cleared wPlayerStatsToDouble..wPlayerBattleStatus3.
+; SendOutMon, right after it cleared wPlayerFearCounter..wPlayerBattleStatus3.
 ; IN  wBattleMonStatus as LoadBattleMonFromParty copied it.
 ; The count starts over (Gen 3). Trashes a, hl.
 RestoreBattleMonToxic::

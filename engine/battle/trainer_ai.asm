@@ -212,6 +212,11 @@ AIGetMoveChoiceList:
 ; other useless move (.uselessScore, AI_SCORE_HURTS_USER): the trainer chooses to leave them for last.
 ; v1.0 (2026-11-02): and a stat move a LOCK-ON leaves nothing to change - every stat it touches refused or one a lock
 ; makes moot (an EVASION or ACCURACY stage the locked side's moves never roll against) - is +5 (.checkLockMoot).
+; v1.0 (2026-11-24): and DEATH GLARE (FEAR_EFFECT) into a #MON already scared (its SCR label), a GHOST by any of its
+; three types, or one behind a SUBSTITUTE - FearEffect_'s sure refusals - is USELESS (.checkScared). It tests no hard
+; status: a fear lands beside any. SPIRAL (SPIRAL_EFFECT, sleep and confusion rolled apart) is USELESS behind the
+; player's SUBSTITUTE, or when both its legs are shut: a hard status (not while the player must recharge: the
+; sleep lands then) and a confusion (.checkScared too).
 AIMoveChoiceModification1:
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
@@ -237,6 +242,8 @@ AIMoveChoiceModification1:
 	jp z, .checkLockOn
 	cp PROTECT_EFFECT ; it worked last turn, or the player recharges
 	jp z, .checkProtect
+	cp SPIRAL_EFFECT ; v1.0 (2026-11-24): SPIRAL, DEATH GLARE's far predicate (one leg open is enough: not in
+	jp z, .checkScared ; StatusAilmentMoveEffects); up here for the same reason as the two above
 	ld a, [wEnemyMovePower]
 	and a
 	jr z, .statusMove ; v1.0 (R9): a damaging move meets the type chart here, a power-0 one the rules below
@@ -266,6 +273,8 @@ AIMoveChoiceModification1:
 	jr z, .checkOwnSubstitute
 	cp CONFUSION_EFFECT
 	jp z, .checkConfused
+	cp FEAR_EFFECT ; v1.0 (2026-11-24): DEATH GLARE, never in StatusAilmentMoveEffects (it tests no status)
+	jp z, .checkScared
 	cp HEAL_EFFECT
 	jp z, .checkFullHealth
 	cp MIRROR_MOVE_EFFECT
@@ -452,6 +461,18 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 .addUselessScore
 	add [hl]
 	ld [hl], a
+	jp .nextMove
+.checkScared ; v1.0 (2026-11-24): FearEffect_'s sure refusals - a SUBSTITUTE, a fear already there, a GHOST by any
+; of its three types (AIFearMoveUseless, soft_status.asm: this bank has room for the call alone). Here, past
+; .uselessScore: between .discourageUnlessRecharging and it, its bytes put that jr out of reach.
+; v1.0 (2026-11-24): SPIRAL comes here too, and the same far call answers for it (AISpiralMoveUseless): its
+; SUBSTITUTE, or a hard status AND a confusion (both legs shut; not while the player must recharge).
+	push hl
+	push bc
+	farcall AIFearMoveUseless ; (keeps de)
+	pop bc
+	pop hl
+	jr c, .uselessUnlessCopy
 	jp .nextMove
 .checkFullHealth ; avoid using moves like recover at full health.
 	push hl
@@ -1137,10 +1158,15 @@ AIMoveChoiceModification3:
 	ret
 
 ; PureRGBnote: ADDED: if the opponent has less than 1/2 health they will prefer healing moves if they use AI subroutine 3
+; v1.0 (2026-11-24): VINE DRAIN (TRAPPING_DRAIN_EFFECT) too: every hit of its hold heals by half, as a drain move's
+; one hit does (the owner's choice, 2026-11-24). Its hold itself still meets no rule of its own (WRAP's: none).
 EncourageDrainingMoveIfLowHealth:
 	ld a, [wEnemyMoveEffect]
 	cp DRAIN_HP_EFFECT
+	jr z, .drain
+	cp TRAPPING_DRAIN_EFFECT
 	ret nz
+.drain
 	ld a, [wPlayerBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
 	ret nz ; v1.0 (2026-11-18): behind the player's SUBSTITUTE (on screen) it hits the doll and drains nothing
@@ -1176,6 +1202,8 @@ AIMoveChoiceModification4:
 	ld a, [wEnemyMoveEffect]
 	cp HEAL_EFFECT
 	jr z, .checkWorthHealing
+	cp SPIRAL_EFFECT
+	jr z, .checkSpiral
 	push hl
 	push de
 	push bc
@@ -1222,6 +1250,12 @@ AIMoveChoiceModification4:
 .preferMoveEvenMore
 	dec [hl]
 	jr .preferMove
+.checkSpiral ; v1.0 (2026-11-24): SPIRAL, preferred as the sleep and confusion moves of Modifier4PreferredMoves are,
+; while the player's #MON shows no hard status (a burn whose fire is out shows none: its sleep leg can land)
+	call AIPlayerStatusShown ; (keeps bc, de, hl)
+	and a
+	jr z, .preferMove
+	jr .nextMove
 
 Modifier4PreferredMoves:
 	db SLEEP_EFFECT
@@ -1646,6 +1680,8 @@ AISwitchKnobs:
 .screen:   db 10 ; off for each screen up (REFLECT, LIGHT SCREEN)
 .cooldown: db 2  ; turns the mon that just came in is left alone
 .doll:     db 10 ; off with its own SUBSTITUTE doll up (v1.0 R8: a switch would throw it away)
+.scared:   db 13 ; v1.0 (2026-11-24): the mon is scared (FEAR, its SCR label; never its turns left): calling it back
+                 ; ends the fear, the remedy the player has too. Last, so the knobs above keep their addresses
 
 AIMoveChoiceModification6:
 	ld a, [wAISwitchCooldown]
@@ -1671,8 +1707,14 @@ AIMoveChoiceModification6:
 	ld b, 0 ; the score, out of 32
 	ld a, [wEnemyBattleStatus1]
 	bit CONFUSED, a
-	jr z, .checkToxic
+	jr z, .checkScared
 	ld a, [AISwitchKnobs.confused]
+	call AddToBCapped
+.checkScared
+	ld a, [wEnemyFearCounter]
+	and a
+	jr z, .checkToxic
+	ld a, [AISwitchKnobs.scared]
 	call AddToBCapped
 .checkToxic
 ; v1.0 (2026-09-27): TOXIC stays on a switch now (Gen 3); only its count
@@ -3393,7 +3435,7 @@ AICureStatus:	;shinpokerednote: CHANGED: modified to be more robust and also und
 ; lost the odd point and doubled a stat that had no cut)
 	inc a ; 1 = the enemy
 	call SideStatusGone
-	farcall AICureEnemyBleed ; v1.0 (2026-11-18): a bleed ends too, silently (soft_status.asm)
+	farcall AICureEnemySoftStatus ; v1.0 (2026-11-18): a bleed ends too, silently (soft_status.asm); v1.0 (2026-11-24): and a fear
 ; v1.0 (R16e, 2026-10-07): the HUD drops the status now, before the item's line; MainInBattleLoop
 ; redraws it only once TrainerAI is back (after FULL RESTORE's HP bar too). shinpokered does the same.
 	callfar DrawEnemyHUDAndHPBar

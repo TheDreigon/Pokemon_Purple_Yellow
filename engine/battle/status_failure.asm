@@ -2,9 +2,13 @@
 ;
 ; SleepEffect, PoisonEffect (POISON, TOXIC), BurnEffect (WILL-O-WISP, IGNITE), ConfusionEffect (bank $1D,
 ; through StatusMoveFailed) and ParalyzeEffect_ (bank $3D) jump here (farjp) when they refuse, with c = the
-; cause (STATUS_FAIL_*, constants/battle_constants.asm). Each handler tests, in this order: the target's
-; SUBSTITUTE (poison, burn and confusion only - sleep and paralysis land through a doll), its status (or, for
-; confusion, its confusion), its type, then the accuracy. The target's state is on screen, so a refusal that
+; cause (STATUS_FAIL_*, constants/battle_constants.asm); v1.0 (2026-11-24) DEATH GLARE's FearEffect_ and
+; SPIRAL's SpiralEffect_ too (soft_status.asm, near: the same bank). Each
+; handler tests, in this order: the target's SUBSTITUTE (poison, burn, confusion, fear and SPIRAL only - sleep and
+; paralysis land through a doll; SPIRAL stops at the doll before its sleep leg), its status (or, for confusion,
+; its confusion; for fear, its fear), its type, then the accuracy. SPIRAL refuses only for the doll and the miss
+; (SUBSTITUTE, MISS): its two legs' gates come after its hit and are silent. The target's state is on screen, so
+; a refusal that
 ; is certain names its reason before any roll. A side effect of a damaging move that is refused says nothing
 ; and never comes here.
 ;
@@ -15,7 +19,9 @@
 ;                          while its fire burns - one whose fire is out leaves the slot open,
 ;                          TargetStatusSlot in soft_status.asm, and the move lands)
 ;   STATUS_FAIL_CONFUSED   "<TARGET>'s / already confused!"
-;   STATUS_FAIL_IMMUNE     "It doesn't affect <TARGET>!" (PrintDoesntAffectText, home)
+;   STATUS_FAIL_SCARED     "<TARGET>'s / already scared!" (v1.0 2026-11-24: DEATH GLARE, FearEffect_ in
+;                          soft_status.asm, which jumps here near: the same bank)
+;   STATUS_FAIL_IMMUNE    "It doesn't affect <TARGET>!" (PrintDoesntAffectText, home)
 ;   STATUS_FAIL_MISS       what PrintMoveFailureText says from wMoveMissed: nothing for MOVE_FAILED_PROTECTED
 ;                          (TargetIsProtected has spoken), "slipped aside!" for MOVE_FAILED_EVADED, else
 ;                          "<USER>'s / attack missed!"
@@ -34,6 +40,9 @@ PrintStatusMoveFailure::
 	jr z, .statused
 	ld hl, StatusFailConfusedText
 	cp STATUS_FAIL_CONFUSED
+	jr z, .print
+	ld hl, StatusFailScaredText
+	cp STATUS_FAIL_SCARED
 	jr z, .print
 	cp STATUS_FAIL_IMMUNE
 	jp z, PrintDoesntAffectText
@@ -100,6 +109,10 @@ StatusFailConfusedText:
 
 StatusFailMissedText:
 	text_far _AttackMissedText
+	text_end
+
+StatusFailScaredText:
+	text_far _AlreadyScaredText
 	text_end
 
 ; v1.0 (2026-11-17): ice over sleep - the status gate of FreezeBurnParalyzeEffect (bank $1D, callfar),

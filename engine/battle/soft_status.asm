@@ -585,9 +585,19 @@ CureUserBleed::
 	ld c, a
 	jr EndBleedWithLine
 
-; Far. FULL HEAL and FULL RESTORE in a battle (item_effects.asm CheckCanCureConfusion): does the party slot's
-; #MON bleed, the active one or a benched one? Its bleed is then something to cure, as a status is.
-; IN  d = the party slot. OUT NZ = it bleeds. de is kept.
+; Far. FULL HEAL and FULL RESTORE in a battle (item_effects.asm CheckCanCureConfusion): is the party slot's #MON
+; the active one and scared (v1.0 2026-11-24), or does it bleed, the active one or a benched one? Either is then
+; something to cure, as a status is (the fear goes in CureConfusionIfFullHealOrRestore, the bleed in ItemEndsBleed).
+; IN  d = the party slot. OUT NZ = yes. de is kept.
+PartySlotCurableInBattle::
+	ld a, [wPlayerMonNumber]
+	cp d
+	jr nz, PartySlotBleeding
+	ld a, [wPlayerFearCounter]
+	and a
+	ret nz
+; fall through
+; Far. Does the party slot's #MON bleed? IN d = the party slot. OUT NZ = it bleeds. de is kept.
 PartySlotBleeding::
 	ld a, d
 	call PlayerSlotCondsAddr
@@ -596,13 +606,17 @@ PartySlotBleeding::
 	ret
 
 ; Far. The capture's status multiplier for a wild #MON with nothing in its status byte (GetCatchStatusMultiplier,
-; engine/items/item_effects.asm .noStatusByte), in twentieths and best-of: confused 24, else bleeding 22, else 20.
-; A bleed counts only there: with a status or a confusion the best of them is already worth more.
+; engine/items/item_effects.asm .noStatusByte), in twentieths and best-of: confused or (v1.0 2026-11-24) scared 24,
+; else bleeding 22, else 20. A bleed or a fear counts only there: with a status or a confusion the best of them is
+; already worth as much or more.
 ; OUT e = the twentieths. Clobbers a, c, hl. d is kept.
 CatchSoftStatusTwentieths::
 	ld e, 24
 	ld a, [wEnemyBattleStatus1]
 	bit CONFUSED, a
+	ret nz
+	ld a, [wEnemyFearCounter]
+	and a
 	ret nz
 	ld c, 1
 	call IsBattlerBleeding ; (keeps de)
@@ -655,8 +669,12 @@ ItemEndsBleed::
 	call PlayerSlotCondsAddr
 	jr ClearBleedBits
 
-; Far. The trainer's FULL HEAL or FULL RESTORE (trainer_ai.asm AICureStatus) ends the bleed of the #MON it treats,
-; silently. Clobbers a, c, hl. de is kept.
+; Far. The trainer's FULL HEAL or FULL RESTORE (trainer_ai.asm AICureStatus) ends the fear (v1.0 2026-11-24) and the
+; bleed of the #MON it treats, silently. Clobbers a, c, hl. de is kept.
+AICureEnemySoftStatus::
+	xor a
+	ld [wEnemyFearCounter], a
+; fall through
 AICureEnemyBleed::
 	ld c, 1
 	call BattlerCondsAddr
@@ -719,5 +737,516 @@ TargetBleedingStoppedText: ; for a move that ends the TARGET's bleed (EndBleedWi
 	text_far _TargetBleedingStoppedText
 	text_end
 
+; v1.0 (2026-11-24): VINE DRAIN (TRAPPING_DRAIN_EFFECT), far, from TrappingDrainEffect (bank $1D), the effect's row.
+; Its hold is WRAP's and every hit drains. The dispatch comes twice on the first turn and once on each held turn,
+; and the attacker's USING_TRAPPING_MOVE bit tells which call this is:
+;   clear: SpecialEffectsCont, before the damage of a fresh use (a #MON in a hold never picks a move, and the bit is
+;          cleared when a hold ends or its first hit misses). The drain line is owed to the first hit that drains
+;          (wPlayerTrapDrainLine / wEnemyTrapDrainLine), then TrappingEffect sets the hold up, unchanged.
+;   set:   AlwaysHappenSideEffects, after a hit: the first or a held one (held turns skip the damage calculation and
+;          repeat wDamage), a KO included. Half the damage (at least 1) goes to the user through DrainHPEffect_, with
+;          the line if it is owed (once a hold), else through DrainHPEffectNoLine_. Both leave half of wDamage in it,
+;          and the held turns repeat wDamage: it is put back as it was. A hit on a doll drains nothing
+;          (wMoveHitSubstitute), the hit that breaks it included, and leaves the line owed (the owner, 2026-11-24:
+;          the line comes with the first real drain). A doll that breaks leaves this effect byte in place
+;          (AttackSubstitute), so the held hits after it, which strike the #MON, drain, the first of them with the
+;          line. A doll that holds every hit leaves the line owed at the end of the hold: harmless, every fresh use
+;          writes it again, and send-out, faint and the end of the battle zero it.
+; Clobbers every register (the dispatchers read none after it).
+TrappingDrainEffect_:
+	ld hl, wPlayerBattleStatus1
+	ld de, wPlayerTrapDrainLine
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotSide
+	ld hl, wEnemyBattleStatus1
+	ld de, wEnemyTrapDrainLine
+.gotSide
+	bit USING_TRAPPING_MOVE, [hl]
+	jr nz, .drain
+	ld a, 1
+	ld [de], a ; the line is owed to the first hit
+	farjp TrappingEffect
+.drain
+	ld hl, wDamage
+	ld a, [hli]
+	ld c, [hl]
+	ld b, a
+	push bc ; the damage, put back below
+	ld a, [wMoveHitSubstitute]
+	and a
+	jr nz, .putDamageBack ; a hit on a doll: no drain, and the line stays owed (DrainHPEffect_ would drain nothing)
+	ld a, [de]
+	and a
+	jr z, .noLine
+	xor a
+	ld [de], a ; said now, once
+	farcall DrainHPEffect_
+	jr .putDamageBack
+.noLine
+	farcall DrainHPEffectNoLine_
+.putDamageBack
+	pop bc
+	ld hl, wDamage
+	ld a, b
+	ld [hli], a
+	ld [hl], c
+	ret
+
+; v1.0 (2026-11-24): FEAR, a volatile status like confusion. Its one store is the count wPlayerFearCounter /
+; wEnemyFearCounter (0 = not scared; ram/wram.asm): no bit anywhere else, so nothing can be left behind. The count
+; is drawn 3-5 when the fear lands (FearInflicted). On each turn the #MON reaches the check (FearTurnCheck, after
+; the DISABLE countdown and before the confusion check of both sides' status routines in Battle Core) it goes down
+; first: at 0 the fear is over ("scared no more!") and the #MON acts; otherwise its turn is lost one time in two
+; ("is too scared!"). So 2 to 4 scared turns. While scared, its SPEED counts x2/3 (at least 1) for the turn order
+; (TurnOrderSpeedCmp), computed there from the stored stat, which is never changed.
+; It coexists with every hard status, confusion, BLEED and a burn (it lands on a sleeping or frozen #MON and waits
+; there). A SUBSTITUTE blocks it, and a GHOST (FearImmuneTypes) never has it. It ends at 0, by a FULL HEAL or a
+; FULL RESTORE on the active #MON (item_effects.asm CureConfusionIfFullHealOrRestore, the AI's AICureStatus), and
+; at every send-out, faint and the end of the battle: the five-byte status clears in Battle Core and EndOfBattle's
+; span zero the count.
+
+DEF FEAR_SIDE_EFFECT_CHANCE EQU 30 percent + 1 ; SHADOW BALL's 30 %: a roll below it lands
+DEF FEAR_LOSES_TURN_CHANCE  EQU 50 percent + 1 ; a scared turn: a roll below it is lost
+
+; Far. FEAR_EFFECT (DEATH GLARE) and FEAR_SIDE_EFFECT (SHADOW BALL), from FearEffect (bank $1D), the two effects' row.
+; DEATH GLARE refuses in the order of the status moves (status_failure.asm), each cause with its line: the target's
+; SUBSTITUTE, a fear already there (STATUS_FAIL_SCARED), a GHOST (STATUS_FAIL_IMMUNE), then the accuracy. It lands
+; on a target asleep, frozen, confused, bleeding or burned. SHADOW BALL's side effect, after a hit that did not
+; faint the target (the move's other effects never run then), says nothing when it cannot land: a doll that held (a
+; doll that broke took the effect away), a GHOST, a target already scared (its count is not drawn again); else
+; FEAR_SIDE_EFFECT_CHANCE.
+; Clobbers every register (the dispatchers read none after it).
+FearEffect_::
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wPlayerMoveEffect]
+	ld hl, wEnemyFearCounter
+	ld de, wEnemyBattleStatus2
+	jr z, .gotSide
+	ld a, [wEnemyMoveEffect]
+	ld hl, wPlayerFearCounter
+	ld de, wPlayerBattleStatus2
+.gotSide
+	cp SPIRAL_EFFECT ; v1.0 (2026-11-24): SPIRAL shares the row (bank $1D has no room for its own far jump)
+	jp z, SpiralEffect_
+	cp FEAR_SIDE_EFFECT
+	jr z, .sideEffect
+	ld c, STATUS_FAIL_SUBSTITUTE
+	ld a, [de]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .failed
+	ld c, STATUS_FAIL_SCARED
+	ld a, [hl]
+	and a
+	jr nz, .failed
+	ld c, STATUS_FAIL_IMMUNE
+	call FearImmuneTarget
+	jr c, .failed
+	push hl
+	callfar MoveHitTest
+	pop hl
+	ld c, STATUS_FAIL_MISS
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .failed
+	call FearInflicted
+	callfar PlayCurrentMoveAnimation2
+	jr .becameScared
+.failed
+	jp PrintStatusMoveFailure
+.sideEffect
+	ld a, [de]
+	bit HAS_SUBSTITUTE_UP, a
+	ret nz
+	ld a, [hl]
+	and a
+	ret nz
+	call FearImmuneTarget
+	ret c
+	call BattleRandom
+	cp FEAR_SIDE_EFFECT_CHANCE
+	ret nc
+	call FearInflicted
+.becameScared
+	farcall DrawTargetHUDAndHPBar
+	ld hl, BecameScaredText
+	jp PrintText
+
+; IN  hl = the target's fear count: it lands, a count of FEAR_COUNT_MIN-FEAR_COUNT_MAX (3-5, one draw: 0-85 3,
+; 86-170 4, 171-255 5). Clobbers a, b. hl is kept.
+FearInflicted:
+	call BattleRandom
+	ld b, FEAR_COUNT_MIN
+	cp 86
+	jr c, .gotCount
+	inc b
+	cp 171
+	jr c, .gotCount
+	inc b
+.gotCount
+	ASSERT FEAR_COUNT_MAX == FEAR_COUNT_MIN + 2
+	ld [hl], b
+	ret
+
+; Is the target (the side hWhoseTurn is not) immune to FEAR: a type of FearImmuneTypes as its type 1, its type 2 or
+; its third type (GetThirdType, by the species it looks like now: TRANSFORM copies types and species)?
+; OUT carry = immune. bc, de and hl are kept.
+FearImmuneTarget:
+	push bc
+	ldh a, [hWhoseTurn]
+	xor 1
+	ld c, a
+	call FearImmuneSide
+	pop bc
+	ret
+
+; The same for the side in c. OUT carry = immune. bc, de and hl are kept.
+FearImmuneSide:
+	push hl
+	push bc
+	call BattlerStatusAddr
+	ASSERT wBattleMonType1 == wBattleMonStatus + 1 && wEnemyMonType1 == wEnemyMonStatus + 1
+	ASSERT wBattleMonType2 == wBattleMonStatus + 2 && wEnemyMonType2 == wEnemyMonStatus + 2
+	ASSERT wBattleMonSpecies == wBattleMonStatus - 4 && wEnemyMonSpecies == wEnemyMonStatus - 4
+	inc hl
+	ld a, [hli]
+	call FearImmuneType
+	jr c, .done
+	ld a, [hld]
+	call FearImmuneType
+	jr c, .done
+	dec hl
+	dec hl
+	dec hl
+	dec hl
+	dec hl
+	ld a, [hl] ; the species
+	call GetThirdType ; (keeps bc, de, hl)
+	call FearImmuneType
+.done
+	pop bc
+	pop hl
+	ret
+
+; IN  a = a type. OUT carry = it is in FearImmuneTypes. Clobbers a, b. de and hl are kept.
+FearImmuneType:
+	push hl
+	ld b, a
+	ld hl, FearImmuneTypes
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .no ; (cp -1 left the carry clear)
+	cp b
+	jr nz, .loop
+	scf
+.no
+	pop hl
+	ret
+
+; Far. The fear's turn, both sides: the status routines of Battle Core (CheckPlayerStatusConditions .FearCheck,
+; CheckEnemyStatusConditions .checkIfScared) call it after the DISABLE countdown and before the confusion check, so
+; it counts only the turns the #MON reaches that point (not asleep, frozen, flinched, recharging or held, and not a
+; turn its side spent on an item or a switch). The count goes down first: at 0 "<USER>'s / scared no more!" with
+; fresh HUDs, and the #MON acts. Otherwise the fear's animation (PlayFearAnimation) and a roll: one time in two
+; "<USER> / is too scared!" and the turn is lost, else it acts. A lost turn counts as a turn of a confusion too: a
+; confusion count above 1 goes down by one (the confusion check ends a confusion, on a turn the #MON reaches it).
+; IN  hWhoseTurn = the side. OUT carry = the turn is lost (the caller leaves through the exit of a full paralysis);
+; no carry = it goes on to the confusion check. Clobbers every register.
+FearTurnCheck::
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wPlayerFearCounter
+	ld de, wPlayerConfusedCounter
+	ld bc, wPlayerBattleStatus1
+	jr z, .gotSide
+	ld hl, wEnemyFearCounter
+	ld de, wEnemyConfusedCounter
+	ld bc, wEnemyBattleStatus1
+.gotSide
+	ld a, [hl]
+	and a
+	ret z ; not scared (and a clears the carry)
+	dec [hl]
+	jr nz, .scared
+	farcall DrawHUDsAndHPBars
+	ld hl, ScaredNoMoreText
+	call PrintText
+	and a
+	ret
+.scared
+	push bc
+	push de
+	call PlayFearAnimation
+	call BattleRandom
+	cp FEAR_LOSES_TURN_CHANCE
+	pop de
+	pop bc
+	ret nc ; it acts
+	ld a, [bc]
+	bit CONFUSED, a
+	jr z, .confusionTicked
+	ld a, [de]
+	cp 2
+	jr c, .confusionTicked ; a count of 1 is left for the confusion check to end, on a turn the #MON reaches it
+	dec a
+	ld [de], a
+.confusionTicked
+	ld hl, TooScaredText
+	call PrintText
+	scf
+	ret
+
+; The fear's animation on the scared #MON (hWhoseTurn), every scared turn before its roll: FEAR_ANIM (FearAnim,
+; data/moves/animations.asm), two quick twitches of its picture. Skipped entirely - no pause - with the BATTLE
+; ANIMATION option off, when the #MON is INVULNERABLE (FLY / DIG: off the screen) and while its SUBSTITUTE is up (the
+; picture is the doll): those effects redraw the picture slot. The same steps as PlayBleedAnimation's, with no sound.
+; Clobbers every register (FearTurnCheck keeps bc and de around it).
+PlayFearAnimation:
+	ld a, [wOptions]
+	bit BIT_BATTLE_ANIMATION, a
+	ret nz ; animations off
+	ld hl, wPlayerBattleStatus1
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotStatus1
+	ld hl, wEnemyBattleStatus1
+.gotStatus1
+	bit INVULNERABLE, [hl]
+	ret nz
+	ASSERT wPlayerBattleStatus2 == wPlayerBattleStatus1 + 1 && wEnemyBattleStatus2 == wEnemyBattleStatus1 + 1
+	inc hl
+	bit HAS_SUBSTITUTE_UP, [hl]
+	ret nz ; the doll is in the picture
+	xor a
+	ld [wAnimationType], a ; no shake or blink after it (PlayApplyingAttackAnimation)
+	ld a, FEAR_ANIM
+	ldh [hSpecialAnimIndex], a
+	ld a, SPECIAL_ANIM_MARKER
+	ld [wAnimationID], a
+	call Delay3
+	predef MoveAnimation
+	callfar Func_78e98
+	ret
+
+; Far. Is the side's #MON scared (the battle HUD's SCR label asks this)?
+; IN  c = the side. OUT NZ = scared, a = its count (never shown: the count is the engine's alone). bc, de, hl kept.
+IsBattlerScared::
+	ld a, c
+	and a
+	ld a, [wPlayerFearCounter]
+	jr z, .gotCount
+	ld a, [wEnemyFearCounter]
+.gotCount
+	and a
+	ret
+
+; Far. The turn order (MainInBattleLoop .compareSpeed): the two speeds compared, each as it counts for the turn: the
+; stored SPEED, or x2/3 of it (at least 1) while the #MON is scared (FearTurnSpeed). Paralysis has already halved the
+; stored stat; the fear's cut is on top of it, and nothing is stored.
+; OUT the flags of StringCmp on (the player's, the enemy's): Z equal, carry = the enemy is faster, else the player.
+; Clobbers every register.
+TurnOrderSpeedCmp::
+	ld hl, wEnemyMonSpeed
+	ld a, [wEnemyFearCounter]
+	call FearTurnSpeed
+	push bc
+	ld hl, wBattleMonSpeed
+	ld a, [wPlayerFearCounter]
+	call FearTurnSpeed
+	pop de
+.compare ; bc = the player's speed for the turn, de = the enemy's
+	ld a, b
+	cp d
+	ret nz
+	ld a, c
+	cp e
+	ret
+
+; IN  hl = a battler's SPEED (big-endian), a = its fear count. OUT bc = its SPEED for the turn order: the stat, or
+; while scared floor(2 x the stat / 3), at least 1. Clobbers a, hl.
+FearTurnSpeed:
+	ld b, [hl]
+	inc hl
+	ld c, [hl]
+	and a
+	ret z
+	sla c
+	rl b ; 2 x the stat (a SPEED is at most 999)
+	ld hl, -1
+.divide
+	inc hl
+	ld a, c
+	sub 3
+	ld c, a
+	ld a, b
+	sbc 0
+	ld b, a
+	jr nc, .divide
+	ld a, h
+	or l
+	jr nz, .gotSpeed
+	inc l ; at least 1
+.gotSpeed
+	ld b, h
+	ld c, l
+	ret
+
+; Far. The trainer AI's DEATH GLARE (trainer_ai.asm AIMoveChoiceModification1 .checkScared): does FearEffect_ surely
+; refuse it on the player's #MON - a fear already there (the SCR label), a GHOST by any of its three types, or its
+; SUBSTITUTE? Read from what the screen shows: never the count.
+; v1.0 (2026-11-24): SPIRAL comes to the same branch (wEnemyMoveEffect = SPIRAL_EFFECT): AISpiralMoveUseless.
+; OUT carry = useless. Clobbers a, c and hl. de is kept.
+AIFearMoveUseless::
+	ld a, [wEnemyMoveEffect]
+	cp SPIRAL_EFFECT
+	jp z, AISpiralMoveUseless
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .useless
+	ld a, [wPlayerFearCounter]
+	and a
+	jr nz, .useless
+	ld c, 0 ; the player's #MON
+	jp FearImmuneSide
+.useless
+	scf
+	ret
+
+; v1.0 (2026-11-24): SPIRAL (SPIRAL_EFFECT, power 0, in ResidualEffects2 beside SLEEP_EFFECT), from FearEffect_ (the
+; row it shares in bank $1D). The player's and the enemy's use alike; METRONOME and MIRROR MOVE reach it the same way.
+; The target's SUBSTITUTE stops the whole move with the doll's line, then ONE accuracy test (MoveHitTest, as for
+; HYPNOSIS: PROTECT, FLY / DIG and LOCK-ON included; no type stops a power-0 move) and the usual miss line. On a hit,
+; two rolls of their own, the sleep's first, then the confusion's, each SPIRAL_LEG_CHANCE, each a silent leg when it
+; does not land (SpiralSleepLeg, SpiralConfusionLeg). The move's animation plays once: with the sleep's landing, or,
+; when the sleep did not land, before the confusion's leg. When it hits and neither leg lands, by the rolls or by
+; the gates, "<TARGET> / looked away!". When both land, "fell asleep!", then "became confused!".
+; A confusion that lands on a sleeping #MON waits behind the sleep: a sleeper never reaches the confusion check.
+; Clobbers every register (the dispatch reads none after it).
+DEF SPIRAL_LEG_CHANCE EQU 60 percent + 1 ; each leg: a roll of 0-153 lands, 154-255 does not
+
+SpiralEffect_:
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wEnemyBattleStatus2
+	jr z, .gotTarget
+	ld hl, wPlayerBattleStatus2
+.gotTarget
+	ld c, STATUS_FAIL_SUBSTITUTE
+	bit HAS_SUBSTITUTE_UP, [hl]
+	jr nz, .failed
+	callfar MoveHitTest
+	ld c, STATUS_FAIL_MISS
+	ld a, [wMoveMissed]
+	and a
+	jr nz, .failed
+	call SpiralSleepLeg ; carry: the sleep landed, the move's animation played with it
+	ld b, 0 ; (ld keeps the flags)
+	jr nc, .noSleep
+	dec b ; $ff
+	push bc
+	jr .confusionLeg
+.noSleep
+	push bc
+	callfar PlayCurrentMoveAnimation2 ; the move's animation, once
+.confusionLeg
+	call SpiralConfusionLeg
+	pop bc ; b = $ff: the sleep landed (pop keeps the flags)
+	ret c ; the confusion landed, its line said
+	inc b
+	ret z ; the sleep landed, its line said
+	ld hl, LookedAwayText
+	jp PrintText
+.failed
+	jp PrintStatusMoveFailure
+
+; SPIRAL's sleep leg: its roll, then SLEEP_EFFECT's gate (SleepEffect): it lands on a target that must recharge,
+; whatever its status (the recharge ends), else only in an open hard-status slot (TargetStatusSlot: no status, or a
+; burn whose fire is out). It lands by SleepEffect's own landing (the count, TargetStatusGone, the move's animation,
+; "fell asleep!" with fresh HUDs). OUT carry = it landed. Clobbers every register.
+SpiralSleepLeg:
+	call BattleRandom
+	cp SPIRAL_LEG_CHANCE
+	ret nc
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wEnemyBattleStatus2
+	ld de, wEnemyMonStatus
+	jr z, .gotTarget
+	ld hl, wPlayerBattleStatus2
+	ld de, wBattleMonStatus
+.gotTarget
+	bit NEEDS_TO_RECHARGE, [hl]
+	res NEEDS_TO_RECHARGE, [hl] ; (res keeps the flags)
+	jr nz, .lands
+	ld c, TARGET_SLOT_ANY
+	call TargetStatusSlot ; Z = open (keeps de)
+	jr nz, SpiralLegShut
+.lands
+	callfar SleepEffect.setSleepCounter ; de = the target's status byte
+	scf
+	ret
+
+; SPIRAL's confusion leg: its roll, then CONFUSION_EFFECT's gate (a confusion already there), and the landing of
+; every confusion move (ConfusionSideEffectSuccess: the count 2-5, "became confused!" with fresh HUDs; it plays no
+; animation for SPIRAL_EFFECT). OUT carry = it landed. Clobbers every register.
+SpiralConfusionLeg:
+	call BattleRandom
+	cp SPIRAL_LEG_CHANCE
+	ret nc
+	ldh a, [hWhoseTurn]
+	and a
+	ld a, [wEnemyBattleStatus1]
+	jr z, .gotTarget
+	ld a, [wPlayerBattleStatus1]
+.gotTarget
+	bit CONFUSED, a
+	jr nz, SpiralLegShut
+	callfar ConfusionSideEffectSuccess
+	scf
+	ret
+
+SpiralLegShut:
+	and a ; the roll's carry goes: the leg did not land
+	ret
+
+; Far, through AIFearMoveUseless (wEnemyMoveEffect = SPIRAL_EFFECT). The trainer AI's SPIRAL (layer 1): useless when
+; neither leg could land by a gate the screen shows - the player's SUBSTITUTE (it stops the whole move), or a hard
+; status (the sleep's gate; not while it must recharge: the sleep lands then) AND a confusion (the confusion's gate).
+; One leg open is enough. OUT carry = useless. Clobbers a, c, hl. de is kept.
+AISpiralMoveUseless:
+	ld a, [wPlayerBattleStatus2]
+	bit HAS_SUBSTITUTE_UP, a
+	jr nz, .useless
+	bit NEEDS_TO_RECHARGE, a
+	jr nz, SpiralLegShut
+	ld a, [wPlayerBattleStatus1]
+	bit CONFUSED, a
+	jr z, SpiralLegShut
+	ld c, 0 ; the player's #MON
+	call BattlerSlotTaken ; Z = open (keeps bc, de)
+	jr z, SpiralLegShut
+.useless
+	scf
+	ret
+
+LookedAwayText:
+	text_far _LookedAwayText
+	text_end
+
+BecameScaredText:
+	text_far _BecameScaredText
+	text_end
+
+ScaredNoMoreText:
+	text_far _ScaredNoMoreText
+	text_end
+
+TooScaredText:
+	text_far _TooScaredText
+	text_end
+
+INCLUDE "data/battle/fear_immune_types.asm"
 INCLUDE "data/battle/bleed_moves.asm"
 INCLUDE "data/pokemon/bloodless.asm"

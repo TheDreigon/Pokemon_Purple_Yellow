@@ -48,6 +48,35 @@ _AlreadyConfusedText::
 	line "already confused!"
 	prompt
 
+; v1.0 (2026-11-24): FEAR (engine/battle/soft_status.asm). DEATH GLARE on a target already scared
+; (PrintStatusMoveFailure); the fear landing (FearEffect_); its turn (FearTurnCheck): over, or lost.
+_AlreadyScaredText::
+	text "<TARGET>'s"
+	line "already scared!"
+	prompt
+
+_BecameScaredText::
+	text "<TARGET>"
+	line "became scared!"
+	prompt
+
+_ScaredNoMoreText::
+	text "<USER>'s"
+	line "scared no more!"
+	prompt
+
+_TooScaredText::
+	text "<USER>"
+	line "is too scared!"
+	prompt
+
+; v1.0 (2026-11-24): SPIRAL hit and neither of its legs landed, by the rolls or by the gates (SpiralEffect_,
+; engine/battle/soft_status.asm).
+_LookedAwayText::
+	text "<TARGET>"
+	line "looked away!"
+	prompt
+
 ; x4 and x1/4 (2026-09-24). Same section as the lines above: the pinned text
 ; banks had no room then (Text 10 had 317 bytes in the debug build).
 _ExtremelyEffectiveText::

@@ -437,7 +437,8 @@ StatusInkTable:
 ; One GBC colour per ink (red, green, blue, 0-31). Chosen on 2026-11-12.
 ; In the order of the ink ids (STATUS_INK_*, constants/gfx_constants.asm): ink id n is entry n - 1, which is
 ; how BuildStatusLetterPalette reads it into slot 2. Since 2026-11-17 CNF's ink is an id like the others
-; (STATUS_INK_CNF, the last); BuildStatusLetterPalette still also copies it into slot 1, which no tile uses.
+; (STATUS_INK_CNF, the last until 2026-11-24, when SCR's came after it); BuildStatusLetterPalette still also copies it
+; into slot 1, which no tile uses.
 .psn:    RGB 22,10,28
 .tox:    RGB 13,02,18
 .brn:    RGB 30,03,02
@@ -447,6 +448,7 @@ StatusInkTable:
 .frz:    RGB 08,22,31
 .bleed:  RGB 20,02,04 ; BLD, a #MON that bleeds (BattlerStatusLabels, since 2026-11-18)
 .cnf:    RGB 00,17,15
+.scr:    RGB 15,15,15 ; SCR, a #MON that is scared (BattlerStatusLabels, since 2026-11-24): a medium dark grey
 .end:
 	ASSERT StatusInkTable.psn    - StatusInkTable == (STATUS_INK_PSN     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.tox    - StatusInkTable == (STATUS_INK_TOX     - 1) * PAL_COLOR_SIZE
@@ -457,6 +459,7 @@ StatusInkTable:
 	ASSERT StatusInkTable.frz    - StatusInkTable == (STATUS_INK_FRZ     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.bleed  - StatusInkTable == (STATUS_INK_BLEED   - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.cnf    - StatusInkTable == (STATUS_INK_CNF     - 1) * PAL_COLOR_SIZE
+	ASSERT StatusInkTable.scr    - StatusInkTable == (STATUS_INK_SCR     - 1) * PAL_COLOR_SIZE
 	ASSERT StatusInkTable.end    - StatusInkTable == NUM_STATUS_INKS * PAL_COLOR_SIZE
 
 BuildStatusLetterPalette:

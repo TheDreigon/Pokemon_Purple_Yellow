@@ -90,6 +90,7 @@ MoveFlavorPointers::
 	dw MoveFlavor_SPIRIT_DRAIN
 	dw MoveFlavor_SHADOW_BALL
 	dw MoveFlavor_CONFUSE_RAY
+	dw MoveFlavor_DEATH_GLARE
 	dw MoveFlavor_WILL_O_WISP
 	dw MoveFlavor_ABSORB
 	dw MoveFlavor_VINE_WHIP
@@ -98,6 +99,7 @@ MoveFlavorPointers::
 	dw MoveFlavor_GIGA_DRAIN
 	dw MoveFlavor_PETAL_DANCE
 	dw MoveFlavor_SOLARBEAM
+	dw MoveFlavor_VINE_DRAIN
 	dw MoveFlavor_LEECH_SEED
 	dw MoveFlavor_POISONPOWDER
 	dw MoveFlavor_STUN_POWDER
@@ -180,6 +182,7 @@ MoveFlavorPointers::
 	dw MoveFlavor_WATERFALL
 	dw MoveFlavor_SURF
 	dw MoveFlavor_HYDRO_PUMP
+	dw MoveFlavor_SPIRAL
 	dw MoveFlavor_TRI_ATTACK
 	dw MoveFlavor_SWORDS_DANCE
 	dw MoveFlavor_BULK_UP
@@ -320,12 +323,14 @@ MoveFlavorLines::
 	db 4
 	db 4
 	db 4
+	db 4
 	db 5
 	db 4
 	db 3
 	db 4
 	db 4
 	db 4
+	db 3
 	db 4
 	db 4
 	db 4
@@ -408,6 +413,7 @@ MoveFlavorLines::
 	db 4
 	db 3
 	db 6
+	db 4
 	db 4
 	db 4
 	db 4
@@ -790,6 +796,10 @@ MoveFlavor_CONFUSE_RAY:
 	text_far _MoveFlavor_CONFUSE_RAY
 	text_end
 
+MoveFlavor_DEATH_GLARE:
+	text_far _MoveFlavor_DEATH_GLARE
+	text_end
+
 MoveFlavor_WILL_O_WISP:
 	text_far _MoveFlavor_WILL_O_WISP
 	text_end
@@ -820,6 +830,10 @@ MoveFlavor_PETAL_DANCE:
 
 MoveFlavor_SOLARBEAM:
 	text_far _MoveFlavor_SOLARBEAM
+	text_end
+
+MoveFlavor_VINE_DRAIN:
+	text_far _MoveFlavor_VINE_DRAIN
 	text_end
 
 MoveFlavor_LEECH_SEED:
@@ -1148,6 +1162,10 @@ MoveFlavor_SURF:
 
 MoveFlavor_HYDRO_PUMP:
 	text_far _MoveFlavor_HYDRO_PUMP
+	text_end
+
+MoveFlavor_SPIRAL:
+	text_far _MoveFlavor_SPIRAL
 	text_end
 
 MoveFlavor_TRI_ATTACK:

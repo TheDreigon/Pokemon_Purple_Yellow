@@ -11,4 +11,5 @@ AlwaysHappenSideEffects:
 	db RECOIL_EFFECT
 	db TWINEEDLE_EFFECT
 	db SPDEF_DOWN_SIDE_HEAL_EFFECT ; v1.0 (2026-11-14): SILVER WIND heals after every hit, a KO too, as DRAIN_HP (also in SpecialEffects: once)
+	db TRAPPING_DRAIN_EFFECT ; v1.0 (2026-11-24): VINE DRAIN drains after every hit, a KO and a held turn too, as DRAIN_HP (in SpecialEffectsCont too: its set-up; SpecialEffects runs on through that list)
 	db -1 ; end

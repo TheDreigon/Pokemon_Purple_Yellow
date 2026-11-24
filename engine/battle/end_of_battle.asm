@@ -50,8 +50,8 @@ EndOfBattle:
 	ld [hli], a
 	ld [hl], a
 	ld [wListScrollOffset], a
-	ld hl, wPlayerStatsToDouble
-	ld b, wEscapedFromBattle + 1 - wPlayerStatsToDouble ; was a literal $18 (v1.0, 2026-09-08: a pad inside the span went to the stack)
+	ld hl, wPlayerFearCounter
+	ld b, wEscapedFromBattle + 1 - wPlayerFearCounter ; was a literal $18 (v1.0, 2026-09-08: a pad inside the span went to the stack)
 .loop
 	ld [hli], a
 	dec b

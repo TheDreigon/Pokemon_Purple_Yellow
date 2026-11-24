@@ -44,6 +44,8 @@ SleepEffect:
 	ld a, [wMoveMissed]
 	and a
 	jr nz, StatusMoveFailed
+; v1.0 (2026-11-24): SPIRAL's sleep leg lands here too, by a far call with de = the target's status byte, after its
+; own gates (SpiralEffect_, engine/battle/soft_status.asm): from here on the landing is the same for both moves.
 .setSleepCounter
 	call DrawSleepCounter ; [de] = the counter, 3-6
 ; v1.0 (2026-09-27): sleep replaces any status here (the recharge bypass above
@@ -75,10 +77,19 @@ DrawSleepCounter:
 
 ; v1.0 (2026-11-17): every refusal of a status move ends here, c = the cause (STATUS_FAIL_*):
 ; SleepEffect, PoisonEffect (POISON, TOXIC), BurnEffect and ConfusionEffect; ParalyzeEffect_
-; (bank $3D) goes to the routine itself. The pause and the line are PrintStatusMoveFailure's
+; (bank $3D) goes to the routine itself, and so do FearEffect_ and SpiralEffect_ (bank $12, near; v1.0
+; 2026-11-24). The pause and the line are PrintStatusMoveFailure's
 ; (engine/battle/status_failure.asm, bank $12); farjp passes c and returns to the effect's caller.
 StatusMoveFailed:
 	farjp PrintStatusMoveFailure
+
+; v1.0 (2026-11-24): FEAR - DEATH GLARE (FEAR_EFFECT, a status move) and SHADOW BALL's 30 % (FEAR_SIDE_EFFECT). One
+; row for both: FearEffect_ (engine/battle/soft_status.asm, bank $12) reads which effect it is. SPIRAL (SPIRAL_EFFECT)
+; shares the far jump: FearEffect_ sends it on to SpiralEffect_ (this bank has no room for another one), which lands
+; its two legs through SleepEffect.setSleepCounter and ConfusionSideEffectSuccess.
+SpiralEffect:
+FearEffect:
+	farjp FearEffect_
 
 ; v1.0 (2026-11-17): the target's hard-status slot, for the gates and the landings of this bank
 ; (SleepEffect, PoisonEffect, BurnEffect, FreezeBurnParalyzeEffect, TriStatusSideEffect, and
@@ -1768,6 +1779,12 @@ TrappingEffect:
 	ld [de], a
 	ret
 
+; v1.0 (2026-11-24): VINE DRAIN. Its hold is WRAP's: TrappingDrainEffect_ (engine/battle/soft_status.asm, bank $12)
+; runs TrappingEffect above for the set-up (the dispatch from SpecialEffectsCont, before the damage), and drains
+; on every hit (the dispatch from AlwaysHappenSideEffects, after it).
+TrappingDrainEffect:
+	farjp TrappingDrainEffect_
+
 MistEffect:
 	jpfar MistEffect_
 
@@ -1854,6 +1871,8 @@ ConfusionSideEffectSuccess:
 	cp CONFUSION_SIDE_EFFECT1
 	jr z, .skipAnim
 	cp CONFUSION_SIDE_EFFECT2
+	jr z, .skipAnim
+	cp SPIRAL_EFFECT ; v1.0 (2026-11-24): SPIRAL's confusion leg (SpiralEffect_): the move's animation has played once already
 	jr z, .skipAnim
 	cp CONFUSION_SIDE_EFFECT3
 	call nz, PlayCurrentMoveAnimation2

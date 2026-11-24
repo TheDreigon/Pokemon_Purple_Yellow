@@ -93,6 +93,7 @@ AttackAnimationPointers:
 	dw SpiritDrainAnim
 	dw ShadowBallAnim
 	dw ConfuseRayAnim
+	dw DeathGlareAnim
 	dw WillOWispAnim
 ; === GRASS ===
 	dw AbsorbAnim
@@ -102,6 +103,7 @@ AttackAnimationPointers:
 	dw GigaDrainAnim
 	dw PetalDanceAnim
 	dw SolarBeamAnim
+	dw VineDrainAnim
 	dw LeechSeedAnim
 	dw PoisonPowderAnim
 	dw StunPowderAnim
@@ -193,6 +195,7 @@ AttackAnimationPointers:
 	dw WaterfallAnim
 	dw SurfAnim
 	dw HydroPumpAnim
+	dw SpiralAnim
 ; === BIRD (typeless) ===
 	dw TriAttackAnim
 	dw SwordsDanceAnim
@@ -292,6 +295,7 @@ SpecialAnimationPointers:
 	dw ThrowBaitAnim
 	dw ConfusionHitAnim
 	dw BleedAnim
+	dw FearAnim
 	assert_table_length NUM_SPECIAL_ANIMS
 
 ; each animation is a list of subanimations
@@ -446,6 +450,16 @@ BleedAnim:
 ; drop's own (no move's row of MoveSoundTable holds it). Its subanimation is ENEMY type, so it is drawn on the
 ; #MON whose turn it is; its sprites take that half of the screen's palette on the GBC (the #MON's own colours).
 	battle_anim NO_MOVE, SUBANIM_1_BLOOD_DROPS, 1, 4
+	db -1 ; end
+
+FearAnim:
+; v1.0 (2026-11-24): FEAR's turn (PlayFearAnimation, engine/battle/soft_status.asm): the scared #MON (the side whose
+; turn it is) twitches twice - its picture shifted aside and put back, twice. No palette change (a darkened palette
+; would darken the whole screen, the HUD's letters too) and no sound.
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
+	battle_anim NO_MOVE, SE_RESET_MON_POSITION
 	db -1 ; end
 
 TwineedleAnim:
@@ -1452,6 +1466,19 @@ WillOWispAnim:
 	db -1 ; end
 
 
+DeathGlareAnim:
+	; v1.0 (2026-11-24): a dark screen, two dark flashes under DEATH GLARE's own sound row, then the target blinks
+	; (SE_BLINK_ENEMY_MON blinks the side that is not hWhoseTurn: the one stared at).
+	battle_anim NO_MOVE, SE_DARK_SCREEN_PALETTE
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim DEATH_GLARE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
+	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_BLINK_ENEMY_MON
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+
 ; ============================================================
 ; === GRASS ===
 ; ============================================================
@@ -1551,6 +1578,17 @@ SolarBeamAnim:
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+VineDrainAnim:
+	; v1.0 (2026-11-24): WRAP's squeeze under the green palette, then ABSORB's orbs. A hold replays it on
+	; every hit.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim VINE_DRAIN, SUBANIM_0_BIND, 0, 8
+	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 8
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 5
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLE_1_SQUARE_TOSS_BACK, 0, 5
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 
@@ -2607,6 +2645,17 @@ HydroPumpAnim:
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim SPORE_DAZE, SE_WAVY_SCREEN
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
+	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
+	db -1 ; end
+
+
+SpiralAnim:
+	; v1.0 (2026-11-24): HYPNOSIS's script, under SPIRAL's own sound row (HYPNOSIS's bytes). Played once per hit
+	; (SpiralEffect_): with the sleep's landing, or before the confusion's leg.
+	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
+	battle_anim NO_MOVE, SUBANIM_0_CIRCLES_1_SQUARES_CENTERING_ENEMY, 0, 6
+	battle_anim NO_MOVE, SE_WAVY_SCREEN
+	battle_anim SPIRAL, SE_FLASH_SCREEN_LONG
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
 	db -1 ; end
 

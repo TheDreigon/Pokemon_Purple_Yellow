@@ -14,7 +14,7 @@ MACRO move
 		"a move of SetDamageEffects' family must be power 0 or 1"
 ENDM
 
-Moves: ; Current total = 224
+Moves: ; Current total = 227
 ; Alphabetical by TYPE → Ascending POWER → Status moves last within type → Signatures at bottom for power moves
 	table_width MOVE_LENGTH, Moves
 
@@ -122,19 +122,20 @@ Moves: ; Current total = 224
 	move POISON_GAS,     POISON_EFFECT,                     0, GAS,           85, 25
 
 
-	; === GHOST TYPE (9 moves) ===
+	; === GHOST TYPE (10 moves) ===
 	move NIGHT_SHADE,    USER_LEVEL_DAMAGE_EFFECT,          0, GHOST,        100, 20
 	move LICK,           PARALYZE_SIDE_EFFECT2,            20, GHOST,        100, 30
 	move ASTONISH,       FLINCH_SIDE_EFFECT2,              40, GHOST,        100, 30 ; new move.
 	move SHADOW_SNEAK,   NO_ADDITIONAL_EFFECT,             45, GHOST,        100, 20 ; new move. priority move.
 	move SHADOW_PUNCH,   SWIFT_EFFECT,                     60, GHOST,        100, 25 ; new move.
 	move SPIRIT_DRAIN,   DRAIN_HP_EFFECT,                  70, GHOST,        100, 20 ; new move.
-	move SHADOW_BALL,    PARALYZE_SIDE_EFFECT2,            90, GHOST,        100, 15 ; new move.
+	move SHADOW_BALL,    FEAR_SIDE_EFFECT,                 90, GHOST,        100, 15 ; new move. v1.0 (2026-11-24): 30% FEAR (was 30% paralysis).
 	move CONFUSE_RAY,    CONFUSION_EFFECT,                  0, GHOST,         90, 20
+	move DEATH_GLARE,    FEAR_EFFECT,                       0, GHOST,         85, 20 ; new move. v1.0 (2026-11-24): scares the target (FEAR); nobody learns it yet.
 	move WILL_O_WISP,    BURN_EFFECT,                       0, GHOST,         85, 20 ; almost-signature.
 
 
-	; === GRASS TYPE (11 moves) ===
+	; === GRASS TYPE (12 moves) ===
 	move ABSORB,         DRAIN_HP_EFFECT,                  25, GRASS,        100, 25
 	move VINE_WHIP,      NO_ADDITIONAL_EFFECT,             35, GRASS,        100, 35
 	move MEGA_DRAIN,     DRAIN_HP_EFFECT,                  50, GRASS,        100, 20
@@ -142,6 +143,7 @@ Moves: ; Current total = 224
 	move GIGA_DRAIN,     DRAIN_HP_EFFECT,                  75, GRASS,        100, 15 ; new move.
 	move PETAL_DANCE,    THRASH_PETAL_DANCE_EFFECT,        80, GRASS,        100, 10
 	move SOLARBEAM,      CHARGE_EFFECT,                   180, GRASS,        100, 10
+	move VINE_DRAIN,     TRAPPING_DRAIN_EFFECT,            19, GRASS,         80, 25 ; new move. signature (the TANGELA line). v1.0 (2026-11-24): WRAP's hold, every hit drains half its damage; nobody learns it yet.
 	move LEECH_SEED,     LEECH_SEED_EFFECT,                 0, GRASS,         90, 20
 	move POISONPOWDER,   POISON_EFFECT,                     0, GRASS,         85, 25 ; powder-family type (was POISON; 0-BP status, type only gates immunity — vs Steel net-identical).
 	move STUN_POWDER,    PARALYZE_EFFECT,                   0, GRASS,         80, 20
@@ -243,7 +245,7 @@ Moves: ; Current total = 224
 	move MAGNET_BOMB,    SWIFT_EFFECT,                    100, STEEL,        100, 10 ; new move. magnetic circle (4 learners).
 
 
-	; === WATER TYPE (7 moves) ===
+	; === WATER TYPE (8 moves) ===
 	move WATER_GUN,      NO_ADDITIONAL_EFFECT,             35, WATER,        100, 35
 	move AQUA_JET,       NO_ADDITIONAL_EFFECT,             45, WATER,        100, 20 ; new move. swimmers' staple (16 learners). priority move.
 	move BUBBLEBEAM,     SPEED_DOWN_SIDE_EFFECT,           55, WATER,        100, 30
@@ -251,6 +253,7 @@ Moves: ; Current total = 224
 	move WATERFALL,      FLINCH_SIDE_EFFECT2,              80, WATER,        100, 20
 	move SURF,           SPEED_DOWN_SIDE_EFFECT,           95, WATER,        100, 15
 	move HYDRO_PUMP,     SPEED_DOWN1_EFFECT,              115, WATER,         85, 10
+	move SPIRAL,         SPIRAL_EFFECT,                     0, WATER,         90, 20 ; new move. signature (the POLIWAG line). v1.0 (2026-11-24): 60% SLEEP and 60% confusion, rolled apart; nobody learns it yet.
 
 
 	; === BIRD TYPE (52 moves) === ; "BIRD" is not related to the Flying type, nor birds. It's just a placeholder name for "Typeless" type.

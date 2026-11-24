@@ -390,10 +390,9 @@ MainInBattleLoop:
 ; side stores BIDE energy (it prints nothing that turn), the screen will show who is faster: the order is pending
 ; (the branch commits it), with the speeds as the screen shows them
 	farcall AISpeedsDecideTheTurn
-	ld de, wBattleMonSpeed ; player speed value
-	ld hl, wEnemyMonSpeed ; enemy speed value
-	ld c, $2
-	call StringCmp ; compare speed values
+; v1.0 (2026-11-24): the two speeds as they count for the turn: a scared side's x2/3 (TurnOrderSpeedCmp,
+; soft_status.asm; StringCmp's flags on the player's speed against the enemy's)
+	farcall TurnOrderSpeedCmp
 	jr z, .speedEqual
 	jr nc, .playerMovesFirst ; if player is faster
 	jr .enemyMovesFirst ; if enemy is faster
@@ -965,7 +964,7 @@ FaintEnemyPokemon:
 	xor a
 	ld [wPlayerBideAccumulatedDamage], a
 	ld [wPlayerBideAccumulatedDamage + 1], a
-	ld hl, wEnemyStatsToDouble ; clear enemy statuses
+	ld hl, wEnemyFearCounter ; clear enemy statuses (v1.0 2026-11-24: the fear first)
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1496,7 +1495,7 @@ EnemySendOut:
 EnemySendOutFirstMon:
 	xor a
 	ld [wAITurnOrder], a ; v1.0 (R11): a new matchup - no order seen
-	ld hl, wEnemyStatsToDouble ; clear enemy statuses
+	ld hl, wEnemyFearCounter ; clear enemy statuses (v1.0 2026-11-24: the fear first)
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -1986,7 +1985,7 @@ SendOutMon:
 ; newcomer). Cleared after it (vanilla's order), the #MON coming in wore the
 ; CNF / TOX of the one going out until the next redraw.
 	xor a
-	ld hl, wPlayerStatsToDouble ; ..StatsToHalve, BattleStatus1 / 2 / 3
+	ld hl, wPlayerFearCounter ; ..StatsToHalve, BattleStatus1 / 2 / 3 (v1.0 2026-11-24: the fear goes with the #MON)
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -2020,7 +2019,7 @@ SendOutMon:
 	ld hl, wPlayerUsedMove
 	ld [hli], a
 	ld [hl], a
-	ld [wPlayerDisabledMove], a ; (the StatsToDouble..BattleStatus3 clear moved to the top)
+	ld [wPlayerDisabledMove], a ; (the FearCounter..BattleStatus3 clear moved to the top)
 	ld [wPlayerDisabledMoveNumber], a
 	ld [wPlayerMonMinimized], a
 	ld [wAITurnOrder], a ; v1.0 (R11): a new matchup - no order seen
@@ -4127,15 +4126,19 @@ CheckPlayerStatusConditions:
 	ld hl, wPlayerDisabledMove
 	ld a, [hl]
 	and a
-	jr z, .ConfusedCheck
+	jr z, .FearCheck
 	dec a
 	ld [hl], a
 	and $f ; did Disable counter hit 0?
-	jr nz, .ConfusedCheck
+	jr nz, .FearCheck
 	ld [hl], a
 	ld [wPlayerDisabledMoveNumber], a
 	ld hl, DisabledNoMoreText
 	call PrintText
+
+.FearCheck ; v1.0 (2026-11-24): the fear's turn (FearTurnCheck, soft_status.asm): carry = lost, as to a full paralysis
+	farcall FearTurnCheck
+	jr c, .MonHurtItselfOrFullyParalysed
 
 .ConfusedCheck
 	ld a, [wPlayerBattleStatus1]
@@ -4208,6 +4211,7 @@ CheckPlayerStatusConditions:
 ; thawed by a FIRE hit before it acts: it goes on). No move that reaches a hidden #MON puts it to sleep, and a
 ; freeze brings it out of hiding as it lands (FrozenMonLeavesHiding), so on those two exits INVULNERABLE is never
 ; up; with no lock up either, the code below writes back the byte it read and plays nothing.
+; v1.0 (2026-11-24): and a turn lost to fear (.FearCheck: FearTurnCheck's carry), as a full paralysis: locks end.
 	ld hl, wPlayerBattleStatus1
 	ld a, [hl]
 	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
@@ -5799,6 +5803,9 @@ AttackSubstitute:
 ; POISON_SIDE_EFFECT2 is the roll after the last needle, which lands on the #MON. On the last hit the rules
 ; below apply: the byte goes, and a needle that broke the doll rolls nothing. w*NumAttacksLeft is shared with
 ; WRAP, THRASH and BIDE: it is read only under ATTACKING_MULTIPLE_TIMES. a = hWhoseTurn here.
+; v1.0 (2026-11-24): VINE DRAIN keeps its effect too. Its hold goes on into the #MON (the hold lives in the status
+; bits, as WRAP's), and every hit drains (the held turns repeat the effect byte): the breaking hit drains nothing,
+; as wMoveHitSubstitute tells DrainHPEffect_, and the held hits after it, which strike the #MON, drain.
 	ld de, wPlayerNumAttacksLeft
 	and a
 	ld a, [wPlayerBattleStatus1]
@@ -5816,6 +5823,8 @@ AttackSubstitute:
 	cp HYPER_BEAM_EFFECT
 	jr z, .keepEffect
 	cp EXPLODE_EFFECT
+	jr z, .keepEffect
+	cp TRAPPING_DRAIN_EFFECT
 	jr z, .keepEffect
 	cp SPDEF_DOWN_SIDE_HEAL_EFFECT
 	jr z, .healOnly
@@ -6317,15 +6326,18 @@ CheckEnemyStatusConditions:
 	ld hl, wEnemyDisabledMove
 	ld a, [hl]
 	and a
-	jr z, .checkIfConfused
+	jr z, .checkIfScared
 	dec a ; decrement disable counter
 	ld [hl], a
 	and $f ; did disable counter hit 0?
-	jr nz, .checkIfConfused
+	jr nz, .checkIfScared
 	ld [hl], a
 	ld [wEnemyDisabledMoveNumber], a
 	ld hl, DisabledNoMoreText
 	call PrintText
+.checkIfScared ; v1.0 (2026-11-24): the fear's turn, as the player's (.FearCheck)
+	farcall FearTurnCheck
+	jp c, .monHurtItselfOrFullyParalysed
 .checkIfConfused
 	ld a, [wEnemyBattleStatus1]
 	add a ; check if enemy mon is confused
@@ -6420,6 +6432,7 @@ CheckEnemyStatusConditions:
 .monHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.checkIfTriedToUseDisabledMove)
 ; v1.0 (2026-11-16): and a turn lost asleep or frozen (fast asleep, .enemyStillFrozen): those turns end a lock too,
 ; see the player side. With its lock gone, SelectEnemyMove's gates let it choose again next turn.
+; v1.0 (2026-11-24): and a turn lost to fear (.checkIfScared), as on the player side.
 	ld hl, wEnemyBattleStatus1
 	ld a, [hl]
 	ld b, a ; v1.0 (2026-11-07): the bits before the clear, for the test below
@@ -6835,7 +6848,7 @@ DoBattleTransitionAndInitBattleVariables:
 	ldh [hWY], a
 	ldh [rWY], a
 	ldh [hTileAnimations], a
-	ld hl, wPlayerStatsToDouble
+	ld hl, wPlayerFearCounter
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a

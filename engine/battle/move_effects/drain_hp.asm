@@ -1,10 +1,20 @@
+; v1.0 (2026-11-24): the same drain with no line, for VINE DRAIN's held turns (TrappingDrainEffect_, soft_status.asm):
+; the user's HP bar moves, nothing is printed. Like DrainHPEffect_, it leaves half the damage in wDamage.
+DrainHPEffectNoLine_:
+	ld c, 0
+	jr DrainHPEffect_.drain
+
 DrainHPEffect_:
+	ld c, 1 ; the line (v1.0, 2026-11-24: c is kept on the stack until it is read, below)
+.drain
 ; v1.0 (2026-11-18): a hit on a SUBSTITUTE drains nothing, whether the doll held or broke: a doll has no life
-; to take. No HP, no HP bar, no line. (A doll that breaks already took the effect away in AttackSubstitute;
-; one that holds leaves DRAIN_HP_EFFECT / DREAM_EATER_EFFECT to the dispatch, which lands here.)
+; to take. No HP, no HP bar, no line. (A doll that breaks already took the effect away in AttackSubstitute,
+; TRAPPING_DRAIN_EFFECT's excepted (2026-11-24: its held hits after the doll drain); one that holds leaves
+; DRAIN_HP_EFFECT / DREAM_EATER_EFFECT / TRAPPING_DRAIN_EFFECT to the dispatch, which lands here.)
 	ld a, [wMoveHitSubstitute]
 	and a
 	ret nz
+	push bc
 	ld hl, wDamage
 	ld a, [hl]
 	srl a ; divide damage by 2
@@ -88,6 +98,9 @@ DrainHPEffect_:
 	predef DrawPlayerHUDAndHPBar
 	predef DrawEnemyHUDAndHPBar
 	callfar ReadPlayerMonCurHPAndStatus
+	pop bc
+	dec c
+	ret nz ; DrainHPEffectNoLine_: no line
 	ld hl, SuckedHealthText
 	ldh a, [hWhoseTurn]
 	and a

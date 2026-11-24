@@ -278,6 +278,13 @@ _MoveFlavor_HYDRO_PUMP::
 	next "footing."
 	done
 
+_MoveFlavor_SPIRAL::
+	text "A belly swirl that"
+	next "turns and turns"
+	next "until the foe's"
+	next "mind follows."
+	done
+
 _MoveFlavor_TRI_ATTACK::
 	text "Three points of"
 	next "fire, ice and"
@@ -323,11 +330,4 @@ _MoveFlavor_IRON_DEFENSE::
 	next "itself until very"
 	next "little will get"
 	next "through."
-	done
-
-_MoveFlavor_DEFENSE_CURL::
-	text "The user tucks"
-	next "everything soft"
-	next "away behind"
-	next "everything hard."
 	done

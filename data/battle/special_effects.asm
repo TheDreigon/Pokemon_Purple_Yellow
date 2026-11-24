@@ -26,4 +26,5 @@ SpecialEffectsCont:
 ; damaging moves whose effect is executed prior to damage calculation
 	db THRASH_PETAL_DANCE_EFFECT
 	db TRAPPING_EFFECT
+	db TRAPPING_DRAIN_EFFECT ; v1.0 (2026-11-24): VINE DRAIN, WRAP's set-up before the damage; AlwaysHappenSideEffects runs its drain after every hit (TrappingDrainEffect_ tells the two calls apart)
 	db -1 ; end

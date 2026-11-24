@@ -122,4 +122,8 @@ MoveEffectPointerTable:
 	dw SpeedDownSidePoison1Effect ; SPEED_DOWN_SIDE_POISON1_EFFECT
 	dw PoisonEffect              ; POISON_TOXIC_SIDE_EFFECT2
 	dw SpDefDownSideHealEffect   ; SPDEF_DOWN_SIDE_HEAL_EFFECT
+	dw FearEffect                ; FEAR_EFFECT (v1.0 2026-11-24: DEATH GLARE; FearEffect_, engine/battle/soft_status.asm)
+	dw FearEffect                ; FEAR_SIDE_EFFECT (SHADOW BALL's 30 %: the same row, FearEffect_ tells them apart)
+	dw TrappingDrainEffect       ; TRAPPING_DRAIN_EFFECT (TrappingDrainEffect_, engine/battle/soft_status.asm)
+	dw SpiralEffect              ; SPIRAL_EFFECT (FearEffect's far jump: FearEffect_ sends it on to SpiralEffect_, engine/battle/soft_status.asm)
 	assert_table_length NUM_MOVE_EFFECTS

@@ -829,11 +829,11 @@ Func_fec10:
 	predef InitOpponent
 	xor a
 	ld [wNumRunAttempts], a
-	ld hl, wPlayerStatsToDouble
-	ld bc, wEnemyStatsToDouble - wPlayerStatsToDouble
+	ld hl, wPlayerFearCounter
+	ld bc, wEnemyFearCounter - wPlayerFearCounter
 	call FillMemory
-	ld hl, wEnemyStatsToDouble
-	ld bc, wPlayerNumAttacksLeft - wEnemyStatsToDouble
+	ld hl, wEnemyFearCounter
+	ld bc, wPlayerNumAttacksLeft - wEnemyFearCounter
 	call FillMemory
 	call LoadFontTilePatterns
 	call ClearScreen

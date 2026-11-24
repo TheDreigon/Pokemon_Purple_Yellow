@@ -154,6 +154,7 @@ MoveSoundTable:
 	db SFX_BATTLE_24,          $10, $80 ; SPIRIT_DRAIN
 	db SFX_BATTLE_29,            $10, $a0 ; SHADOW_BALL ; Anim pass #52: was PSYCHIC_M (sounded like Psybeam). Drain family deep-pitched for ghostly impact. -- 2026-08-22 (anim pass #42): not powerful enough, and muffled (BATTLE_24 at $f0 was an 8 kHz whistle) -- MEASURED: tone +0 st; noise 1 oct DOWN; tempo 1.12x
 	db SFX_BATTLE_13,          $f1, $80 ; CONFUSE_RAY ; tempo $ff -> $80 (inert: noise-only SFX; 2026-08-22)
+	db SFX_PSYCHIC_M,          $20, $80 ; DEATH_GLARE ; new move (2026-11-24): DARK_PULSE's row (a dark wave) until FEAR's animations (SCARY_FACE's row is a full-wrap WARN)
 	db SFX_BATTLE_19,          $40, $80 ; WILL_O_WISP ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
 ; === GRASS ===
 	db SFX_BATTLE_24,          $00, $80 ; ABSORB
@@ -163,6 +164,7 @@ MoveSoundTable:
 	db SFX_BATTLE_24,            $50, $ff ; GIGA_DRAIN ; Anim pass #54: deeper pitch + max tempo for more intensity. -- 2026-08-22 (anim pass #44): the strongest drain had the weakest sound -- MEASURED: tone +6 st; noise 5 oct DOWN; tempo 1.50x
 	db SFX_BATTLE_13,          $14, $80 ; PETAL_DANCE ; tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_2E,          $00, $80 ; SOLARBEAM ; ROW NEVER READ: SolarBeamAnim names HYPER_BEAM/LEECH_SEED as its sound
+	db SFX_BATTLE_14,          $10, $80 ; VINE_DRAIN ; new move (2026-11-24): WRAP's row (the squeeze)
 	db SFX_BATTLE_1B,          $03, $80 ; LEECH_SEED ; tempo $60 -> $80 (inert: noise-only SFX; 2026-08-22)
 	db SFX_BATTLE_1C,          $00, $80 ; POISONPOWDER
 	db SFX_BATTLE_1C,          $11, $80 ; STUN_POWDER ; tempo $a0 -> $80 (inert: noise-only SFX; 2026-08-22)
@@ -254,6 +256,7 @@ MoveSoundTable:
 	db SFX_BATTLE_25,          $2f, $80 ; WATERFALL ; ROW NEVER READ: WaterfallAnim names KARATE_CHOP/LEECH_SEED/SURF as its sound
 	db SFX_BATTLE_2C,          $00, $80 ; SURF
 	db SFX_BATTLE_2A,            $40, $80 ; HYDRO_PUMP ; 2026-08-22 (anim pass, test ROM of 2026-08-22; #92 rewrote only the animation): the 115 BP rung of the family (-48 st) (was SFX_BATTLE_2A $00 $80) -- MEASURED: tone +1..+4 st; noise 4 oct DOWN; tempo 1.00x -- ROW NEVER READ: HydroPumpAnim names SPORE_DAZE/SURF as its sound
+	db SFX_BATTLE_35,          $11, $18 ; SPIRAL ; new move (2026-11-24): HYPNOSIS's row
 ; === BIRD (typeless) ===
 	db SFX_BATTLE_29,          $f8, $ff ; TRI_ATTACK
 	db SFX_NOT_VERY_EFFECTIVE, $10, $80 ; SWORDS_DANCE ; tempo $c0 -> $80 (inert: noise-only SFX; 2026-08-22)

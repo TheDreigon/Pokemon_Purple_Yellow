@@ -29,7 +29,10 @@ DamagingMoveHitTest:
 	ld a, [wEnemyMoveEffect]
 .gotMoveEffect
 	cp TRAPPING_EFFECT
+	jr z, .trappingHit
+	cp TRAPPING_DRAIN_EFFECT ; v1.0 (2026-11-24): VINE DRAIN's hold is WRAP's, this rule too
 	ret nz
+.trappingHit
 	jp ClearHyperBeam
 
 MoveHitTest:

@@ -708,11 +708,12 @@ GetCatchHPMultiplier:
 
 ; Status: only the BEST one the target has counts. They do not stack, and the
 ; trainer manual says so.
-;   none 20 | bleeding 22 | confusion 24 | poison 24 | burn 24 | toxic 28
+;   none 20 | bleeding 22 | confusion 24 | fear 24 | poison 24 | burn 24 | toxic 28
 ;   paralysis 32 | sleep 36 | freeze 40
 ; (v1.0 2026-11-13: confusion 22 -> 24, worth as much as a poison. v1.0 2026-11-17: burn 26 -> 24,
 ; whether its fire still burns or is out: the ATTACK cut is what stays. v1.0 2026-11-18: a bleed 22,
-; best-of like confusion: it counts only with no status in the status byte and no confusion.)
+; best-of like confusion: it counts only with no status in the status byte and no confusion.
+; v1.0 2026-11-24: a fear 24, best-of like confusion.)
 ;
 ; Four different bytes hold these. Sleep, poison, burn, freeze and paralysis
 ; live in the status byte; BADLY_POISONED sits in battle status 3 on top of the
@@ -722,7 +723,7 @@ GetCatchHPMultiplier:
 ; ball can see it. The manual's catch page points at the HUD for it.
 ; (v1.0 2026-11-18: the bleed is the fourth, in the foe's battle conditions
 ; byte; the HUD shows it as BLD. CatchSoftStatusTwentieths, soft_status.asm,
-; reads it and confusion.)
+; reads it and confusion. v1.0 2026-11-24: and the fear's count, the fifth.)
 ;
 ; Freeze is one step above sleep and no more, because what it really buys is
 ; one extra turn: 4-7 against 3-6 (v0.5, raised in v1.0). The turns already pay
@@ -759,7 +760,7 @@ GetCatchStatusMultiplier:
 	ret
 
 .noStatusByte
-; v1.0 (2026-11-18): confusion 24, else a bleed 22, else 20, in bank $12 beside the bleed's bytes
+; v1.0 (2026-11-18): confusion 24 (v1.0 2026-11-24: or a fear), else a bleed 22, else 20, in bank $12 beside the bleed's bytes
 ; (CatchSoftStatusTwentieths, engine/battle/soft_status.asm; this bank has no room for more than the
 ; call). The far call touches only the bank register, none of the h-registers of the chain.
 	farcall CatchSoftStatusTwentieths
@@ -1216,6 +1217,8 @@ RefusingText:
 ; v1.0 (2026-11-18): a bleed counts the same, on the #MON out or a benched one
 ; (its conditions byte, soft_status.asm PartySlotBleeding); it too exists only in
 ; battle. The bleed itself ends as the item is used up (.doneHealing).
+; v1.0 (2026-11-24): and so does a fear on the #MON out (PartySlotCurableInBattle);
+; it ends with the confusion, below.
 ;
 ; Trashes a, bc and hl. Leaves d alone: that is the party index the caller holds.
 CheckCanCureConfusion:
@@ -1228,7 +1231,7 @@ CheckCanCureConfusion:
 	cp FULL_RESTORE
 	jr nz, .nothingToCure
 .rightItem
-	farcall PartySlotBleeding ; NZ: it bleeds (d in, de kept)
+	farcall PartySlotCurableInBattle ; NZ: it bleeds, or (v1.0 2026-11-24) it is out and scared (d in, de kept)
 	jr nz, .somethingToCure
 	ld a, [wPlayerMonNumber]
 	cp d ; is the treated #MON the one that is out?
@@ -1246,6 +1249,7 @@ CheckCanCureConfusion:
 ; Called from .clearBattleMonStatus, which has just cleared wBattleMonStatus, so
 ; it only has to decide on the item. The counter is zeroed as well, though nothing
 ; reads it while the bit is clear and every new confusion writes a fresh count.
+; v1.0 (2026-11-24): a fear goes too (its count is its only store).
 CureConfusionIfFullHealOrRestore:
 	ld a, [wcf91]
 	cp FULL_HEAL
@@ -1257,6 +1261,7 @@ CureConfusionIfFullHealOrRestore:
 	res CONFUSED, [hl]
 	xor a
 	ld [wPlayerConfusedCounter], a
+	ld [wPlayerFearCounter], a
 	ret
 
 ItemUseVitamin:

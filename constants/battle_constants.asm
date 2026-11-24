@@ -22,6 +22,12 @@ DEF STATUS_FAIL_STATUSED   EQU 1 ; "<TARGET>'s / already <the status it has>"
 DEF STATUS_FAIL_CONFUSED   EQU 2 ; "<TARGET>'s / already confused!"
 DEF STATUS_FAIL_IMMUNE     EQU 3 ; "It doesn't affect <TARGET>!"
 DEF STATUS_FAIL_MISS       EQU 4 ; what PrintMoveFailureText says from wMoveMissed
+DEF STATUS_FAIL_SCARED     EQU 5 ; v1.0 (2026-11-24): "<TARGET>'s / already scared!" (DEATH GLARE)
+
+; v1.0 (2026-11-24): FEAR (engine/battle/soft_status.asm). Its count is drawn 3-5 when it lands and goes down
+; first on each turn the #MON reaches the check: 2 to 4 scared turns. A scared turn is lost one time in two.
+DEF FEAR_COUNT_MIN EQU 3
+DEF FEAR_COUNT_MAX EQU 5
 
 ; v1.0 (2026-11-17): what TargetStatusSlot (engine/battle/soft_status.asm) is asked in c: one of the two
 ; gates, or else the new status byte itself, which lands on the target (every status byte that lands is

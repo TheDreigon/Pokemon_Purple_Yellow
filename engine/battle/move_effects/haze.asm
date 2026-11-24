@@ -2,7 +2,8 @@
 ; know the states kept in the per-slot battle conditions bytes (engine/battle/soft_status.asm): a
 ; move that used it would also
 ; have to end the bleed of both active #MON there (bits 3-7, ClearBleedBits, keeping the burn's bits 0-2)
-; and any later state stored there.
+; and any later state stored there. v1.0 (2026-11-24): and the fear of both, which lives outside those bytes:
+; zero wPlayerFearCounter and wEnemyFearCounter, then redraw both HUDs (the SCR label goes with it).
 HazeEffect_:
 	ld a, $7
 ; store 7 on every stat mod

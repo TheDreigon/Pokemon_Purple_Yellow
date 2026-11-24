@@ -183,6 +183,10 @@ MoveEffectDescriptions:
 	dw MoveDesc_SpeedDownSidePoison1 ; SPEED_DOWN_SIDE_POISON1_EFFECT
 	dw MoveDesc_PoisonToxicSide2 ; POISON_TOXIC_SIDE_EFFECT2
 	dw MoveDesc_SpDefDownSideHeal ; SPDEF_DOWN_SIDE_HEAL_EFFECT
+	dw MoveDesc_Fear ; FEAR_EFFECT
+	dw MoveDesc_FearSide ; FEAR_SIDE_EFFECT
+	dw MoveDesc_TrappingDrain ; TRAPPING_DRAIN_EFFECT
+	dw MoveDesc_Spiral ; SPIRAL_EFFECT
 	assert_table_length NUM_MOVE_EFFECTS + 1
 
 MoveDesc_AccuracyDown1:
@@ -699,4 +703,20 @@ MoveDesc_PoisonToxicSide2:
 
 MoveDesc_SpDefDownSideHeal:
 	text_far _MoveDesc_SpDefDownSideHeal
+	text_end
+
+MoveDesc_Fear:
+	text_far _MoveDesc_Fear
+	text_end
+
+MoveDesc_FearSide:
+	text_far _MoveDesc_FearSide
+	text_end
+
+MoveDesc_TrappingDrain:
+	text_far _MoveDesc_TrappingDrain
+	text_end
+
+MoveDesc_Spiral:
+	text_far _MoveDesc_Spiral
 	text_end

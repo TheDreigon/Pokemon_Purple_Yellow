@@ -35,6 +35,12 @@ _MoveFlavor_SOLARBEAM::
 	next "searing line."
 	done
 
+_MoveFlavor_VINE_DRAIN::
+	text "Vines bind the foe"
+	next "and drink from it"
+	next "while they hold."
+	done
+
 _MoveFlavor_LEECH_SEED::
 	text "A seed takes root"
 	next "on the foe and"

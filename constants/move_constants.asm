@@ -11,7 +11,9 @@
 ; within type, signature/pool moves at the bottom of each type (BIRD =
 ; typeless/status group at the end). Since the v1.0 moves batch (2026-11-14:
 ; SILVER_WIND and ACID_SPRAY added, 224 moves) POISON follows the same order
-; as every other type. Mirrors the authoritative header in data/moves/moves.asm.
+; as every other type. The status chapter's three (2026-11-24: DEATH_GLARE,
+; VINE_DRAIN and SPIRAL, each at its place in its type) make 227 moves.
+; Mirrors the authoritative header in data/moves/moves.asm.
 ; STRUGGLE must remain the last move (engine asserts NUM_ATTACKS == STRUGGLE).
 ;
 ; WARNING — ORDER IS LOAD-BEARING: the engine indexes all six tables above
@@ -129,6 +131,7 @@
 	const SPIRIT_DRAIN
 	const SHADOW_BALL
 	const CONFUSE_RAY
+	const DEATH_GLARE  ; v1.0 new move (2026-11-24)
 	const WILL_O_WISP
 
 ; === GRASS ===
@@ -139,6 +142,7 @@
 	const GIGA_DRAIN
 	const PETAL_DANCE
 	const SOLARBEAM
+	const VINE_DRAIN   ; v1.0 new move (2026-11-24)
 	const LEECH_SEED
 	const POISONPOWDER
 	const STUN_POWDER
@@ -239,6 +243,7 @@
 	const WATERFALL
 	const SURF
 	const HYDRO_PUMP
+	const SPIRAL       ; v1.0 new move (2026-11-24)
 
 ; === BIRD (typeless / status moves) ===
 ; Group order: ATK-buffs / DEF-buffs / SPC-buffs / SPD-buffs / EVA-buffs /
@@ -353,9 +358,10 @@ DEF SPECIAL_ANIM_MARKER EQU $FF
 	const BAIT_ANIM ; throw bait
 	const CONFUSION_HIT_ANIM ; the confusion self-hit (v0.7: vanilla POUND's stream, 2026-08-31)
 	const BLEED_ANIM ; drops falling from a bleeding monster, before each bite (v1.0, 2026-11-18)
+	const FEAR_ANIM ; two quick twitches of a scared monster, before its roll (v1.0, 2026-11-24)
 
 DEF NUM_SPECIAL_ANIMS EQU const_value - 1
-ASSERT NUM_SPECIAL_ANIMS == 37, "the special-anim census (and its pointer table) is 37 entries"
+ASSERT NUM_SPECIAL_ANIMS == 38, "the special-anim census (and its pointer table) is 38 entries"
 ASSERT NUM_SPECIAL_ANIMS < SPECIAL_ANIM_MARKER, "special anim indexes must stay below the marker"
 ; structural pins the engine arithmetic depends on (hWhoseTurn `add` pairs
 ; and the trade-ball palette range test):

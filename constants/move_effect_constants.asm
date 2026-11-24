@@ -141,6 +141,12 @@
 	const SPEED_DOWN_SIDE_POISON1_EFFECT ; $77  33% target Speed-1, then 15% POISON, rolled apart (Sludge Wave; 2026-11-14). DoStatDownBurnEffect, SPEED_DOWN_SIDE + POISON_SIDE_EFFECT1.
 	const POISON_TOXIC_SIDE_EFFECT2      ; $78  one roll: 25% bad POISON, else up to 50% POISON (Gunk Shot; 2026-11-14). PoisonEffect.
 	const SPDEF_DOWN_SIDE_HEAL_EFFECT    ; $79  33% target SP.DEF-1, then the user heals 1/8 max HP on every hit (Silver Wind; 2026-11-14). SPDEF_DOWN_SIDE's rules; HealEffect_'s 1/8 path. In AlwaysHappenSideEffects + SpecialEffects, as DRAIN_HP.
+; v1.0 (2026-11-24): the status chapter's four ids, appended with their three moves. Two ids are left below 128
+; after them ($7E, $7F).
+	const FEAR_EFFECT                    ; $7A  the target is scared (Death Glare; power 0, in ResidualEffects1). FearEffect_ (soft_status.asm).
+	const FEAR_SIDE_EFFECT               ; $7B  30% FEAR on a hit (Shadow Ball; silent when it cannot land). FearEffect_ too.
+	const TRAPPING_DRAIN_EFFECT          ; $7C  WRAP's hold, and every hit drains half its damage (Vine Drain). TrappingDrainEffect_ (soft_status.asm): in SpecialEffectsCont (the set-up) and AlwaysHappenSideEffects (the drain).
+	const SPIRAL_EFFECT                  ; $7D  60% SLEEP and 60% confusion, rolled apart (Spiral; power 0, in ResidualEffects2). SpiralEffect_ (soft_status.asm), through FearEffect's row.
 DEF NUM_MOVE_EFFECTS EQU const_value - 1
 ; v1.0 (2026-11-07): two readers double the effect id in 8 bits and drop the carry: the MOVE
 ; INFO card (ShowMoveInfo -> GetMoveDescription.byEffect, `add a` on ids 0..N into

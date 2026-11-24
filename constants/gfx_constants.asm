@@ -103,6 +103,7 @@ DEF NUM_STATUS_TILES_2 EQU const_value - STATUS_TILE_B
 	const STATUS_INK_FRZ     ; 7
 	const STATUS_INK_BLEED   ; 8 ; B L D, a #MON that bleeds; HUDLabelInkID returns it since 2026-11-18
 	const STATUS_INK_CNF     ; 9
+	const STATUS_INK_SCR     ; 10 ; S C R, a #MON that is scared (FEAR); HUDLabelInkID returns it since 2026-11-24
 DEF NUM_STATUS_INKS EQU const_value - 1
 
 ; THE LABEL LIST (v1.0, 2026-11-17): the labels a side has at once, a bit each, in the order of precedence (bit 0
@@ -111,7 +112,7 @@ DEF NUM_STATUS_INKS EQU const_value - 1
 	const STATUS_LABEL_HARD ; 0 ; the persistent status: TOX, PSN, BRN, FRZ, PAR or SLP (BattlerStatusInkID)
 	const STATUS_LABEL_CNF  ; 1 ; confusion
 	const STATUS_LABEL_BLD  ; 2 ; BLEED: the side bleeds (IsBattlerBleeding; since 2026-11-18)
-	const STATUS_LABEL_SCR  ; 3 ; reserved for FEAR: never set yet
+	const STATUS_LABEL_SCR  ; 3 ; FEAR: the side is scared (IsBattlerScared; since 2026-11-24)
 DEF NUM_STATUS_LABELS EQU const_value
 
 ; The form BuildStatusLetterPalette is asked for in b (engine/gfx/bg_map_attributes.asm): any non-zero value is
