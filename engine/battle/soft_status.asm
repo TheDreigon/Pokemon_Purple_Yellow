@@ -467,32 +467,42 @@ PlayBleedAnimation:
 	callfar Func_78e98
 	ret
 
-; v1.0 (2026-11-25, the status chapter's S5: Forte's choice, "gota vermelho-escura"): on the GBC the drops fall in
-; red, not in the bleeding #MON's own colours (black on a dark #MON hid them). DrawFrameBlock
-; (engine/battle/animations.asm) gives a battle animation's sprites OBJ palette 2 on the left half of the screen
-; (the player's picture) and 3 on the right (the enemy's), so the bleeding side's is 2 + hWhoseTurn. Its four
-; colours (BleedDropColors) are written here, each in an H-blank, the way TransferCurOBPData writes one with the
-; screen on (engine/gfx/palettes.asm): that routine is in bank $1C, which is at its floor. Far: called by
-; PlayAnimation's BleedDropsInRed (animations.asm) for BLEED_ANIM only, right after the OBJ palettes are converted
-; for the subanimation (rOBP0 = wAnimPalette) - written before that conversion, they were painted over (the first
-; build of 2026-11-25, caught by emu_test_bleed_anim's leg R). The drops are the only sprites on screen while they
-; fall; PlayAnimation's conversion back after the subanimation (rOBP0 restored: on the GBC wAnimPalette is always
-; another value, so that conversion always runs) gives the palette its #MON colours again (emu_test_bleed_anim's leg
-; V: the OBJ palettes as the animation found them). DMG and SGB: nothing (the OAM's palette bits and the colour RAM
-; are the GBC's alone): there the drops stay in shade 3. Clobbers a, b, c, hl.
-LoadBleedDropPalette::
+; A status's own animation in its colours (v1.0, 2026-11-25; the design is at StatusAnimInInk,
+; engine/battle/animations.asm, whose hook calls this, far, for the animations IsStatusTurnAnim names, right after the
+; OBJ palettes are converted for the subanimation). DrawFrameBlock (animations.asm) gives a battle animation's sprites
+; OBJ palette 2 on the left half of the screen (the player's picture) and 3 on the right (the enemy's), and these
+; animations are drawn on the side whose turn it is, each inside its half (a probe of 2026-11-25: the player's sprites at
+; x 24-72, the enemy's at 88-112): so the side's palette is 2 + hWhoseTurn, and the other one is left alone. Its colours
+; 1 to 3 (colour 0 is a sprite's transparent one) take the animation's three (StatusAnimPalettes, below), each in an
+; H-blank, the way TransferCurOBPData writes one with the screen on (engine/gfx/palettes.asm): that routine is in bank
+; $1C, which is at its floor. Written right after the OBJ palettes are converted for the subanimation (rOBP0 =
+; wAnimPalette) - written before that conversion, the drops' were painted over (the first build of 2026-11-25, caught by
+; emu_test_bleed_anim's leg R). The animation's sprites are the only ones on screen while it plays; PlayAnimation's
+; conversion back after the subanimation (rOBP0 restored: on the GBC wAnimPalette is always another value, so that
+; conversion always runs) gives the palette its #MON colours again. DMG and SGB: nothing (the OAM's palette bits and
+; the colour RAM are the GBC's alone). An id the table does not hold: nothing. Clobbers a, bc, de, hl.
+LoadStatusAnimPalette::
 	ldh a, [hGBC]
 	and a
 	ret z
+	ldh a, [hSpecialAnimIndex]
+	ld hl, StatusAnimPalettes
+	ld de, 3
+	call IsInArray
+	ret nc
+	inc hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a ; hl = the animation's colours 1 to 3
 	ldh a, [hWhoseTurn]
 	add 2 ; OBJ palette 2 (the player's half) or 3 (the enemy's)
 	add a
 	add a
 	add a
+	add 1 * PAL_COLOR_SIZE ; from colour 1
 	or $80 ; rOBPI's auto-increment
 	ldh [rOBPI], a
-	ld hl, BleedDropColors
-	lb bc, %10, NUM_PAL_COLORS ; b: STAT modes 2 and 3, the ones where the colour RAM is drawn from
+	lb bc, %10, NUM_PAL_COLORS - 1 ; b: STAT modes 2 and 3, the ones where the colour RAM is drawn from
 .color
 	ldh a, [rSTAT] ; already in a blanking period: wait for it to end, so the write does not run past it
 	and b
@@ -509,8 +519,73 @@ LoadBleedDropPalette::
 	jr nz, .color
 	ret
 
+; Each status animation's colours 1 to 3 (v1.0, 2026-11-25): its id (a special animation's, constants/move_constants.asm)
+; and the address of its three colours. IsStatusTurnAnim (engine/battle/animations.asm) names the same ids. The inks
+; are the HUD labels' (StatusInkTable, engine/gfx/bg_map_attributes.asm: emu_test_status_anim_ink.py checks that each
+; is there); Forte chose each animation's from sheets, on 2026-11-25 (the drops on 2026-11-25 too, S5).
+StatusAnimPalettes:
+	db BLEED_ANIM
+	dw BleedDropColors + PAL_COLOR_SIZE
+	db BURN_PSN_ANIM
+	dw .psn
+	db TOX_ANIM
+	dw .tox
+	db BRN_ANIM
+	dw .brn
+	db SLP_PLAYER_ANIM
+	dw .slp
+	db SLP_ANIM
+	dw .slp
+	db CONF_PLAYER_ANIM
+	dw .cnf
+	db CONF_ANIM
+	dw .cnf
+	db PAR_ANIM
+	dw .par
+	db FRZ_ANIM
+	dw .frz
+	db FEAR_ANIM
+	dw .scr
+	db -1 ; end
+; the skull, the Zs and the "?" use colour 3 alone: the three take the label's ink, so that no pixel of theirs can show
+; in the #MON's colours
+.psn
+	RGB 22, 10, 28
+	RGB 22, 10, 28
+	RGB 22, 10, 28 ; the PSN label's ink
+.tox
+	RGB 24, 14, 28 ; the bubbles' light pixels
+	RGB 18, 06, 24 ; the bubbles' body
+	RGB 13, 02, 18 ; the skull and the bubbles' rims: the TOX label's ink
+.brn
+	RGB 31, 26, 04 ; the flame's heart: yellow (Forte: "vermelho + miolo amarelo")
+	RGB 30, 03, 02 ; the flame: the BRN label's ink
+	RGB 30, 03, 02 ; (no pixel of EMBER's flame uses colour 3)
+.slp
+	RGB 04, 08, 20
+	RGB 04, 08, 20
+	RGB 04, 08, 20 ; the SLP label's ink
+.cnf
+	RGB 00, 17, 15
+	RGB 00, 17, 15
+	RGB 00, 17, 15 ; the CNF label's ink
+.par
+	RGB 31, 28, 06
+	RGB 27, 22, 00 ; the PAR label's ink
+	RGB 24, 22, 00 ; the jolts (colour 3 alone): a yellow a touch darker than the label's, to be seen on the white
+	               ; (Forte's choice of three, 2026-11-25: 20, 13, 0 was "demasiado laranja")
+.frz
+	RGB 24, 30, 31 ; the crystals' light faces
+	RGB 08, 22, 31 ; the FRZ label's ink
+	RGB 02, 10, 24 ; the crystals' rims
+.scr
+	RGB 12, 12, 12
+	RGB 12, 12, 12
+	RGB 12, 12, 12 ; FEAR's skull: a grey a touch darker than the SCR label's 15, 15, 15 (Forte, as for PAR's jolts)
+
 ; The drop's colours: its body and rim in the BLD label's ink (20, 2, 4: STATUS_INK_BLEED's, bg_map_attributes.asm),
-; and the two-pixel gleam of the drop's tile (shades 1 and 2 of SUBANIM_1_BLOOD_DROPS' tile) in lighter reds.
+; and the two-pixel gleam of the drop's tile (shades 1 and 2 of SUBANIM_1_BLOOD_DROPS' tile) in lighter reds. Colour 0
+; is not written (a sprite's transparent one): StatusAnimPalettes points at colour 1.
 BleedDropColors:
 	RGB 31, 31, 31 ; shade 0: transparent on a sprite
 	RGB 31, 22, 22 ; shade 1: the gleam's light pixels
@@ -1074,11 +1149,36 @@ FearTurnCheck::
 	ret
 
 ; The fear's animation on the scared #MON (hWhoseTurn), every scared turn before its roll: FEAR_ANIM (FearAnim,
-; data/moves/animations.asm), two quick twitches of its picture. Skipped entirely - no pause - with the BATTLE
-; ANIMATION option off, when the #MON is INVULNERABLE (FLY / DIG: off the screen) and while its SUBSTITUTE is up (the
-; picture is the doll): those effects redraw the picture slot. The same steps as PlayBleedAnimation's, with no sound.
+; data/moves/animations.asm): since 2026-11-25 a skull blinking slowly above its head (until then two quick twitches
+; of its picture). Skipped entirely - no pause - with the BATTLE ANIMATION option off, when the #MON is INVULNERABLE
+; (FLY / DIG: off the screen) and while its SUBSTITUTE is up (the picture is the doll; the twitches redrew the picture
+; slot). The same steps as PlayBleedAnimation's, with no sound.
 ; Clobbers every register (FearTurnCheck keeps bc and de around it).
 PlayFearAnimation:
+	ld a, FEAR_ANIM
+	jr PlayStatusSideAnimation
+
+; Far. A frozen turn's animation (v1.0, 2026-11-25, Forte's choice: ICE BEAM's crystals at the #MON's feet), after
+; "<USER> is / frozen solid!" (CheckPlayerStatusConditions, CheckEnemyStatusConditions, engine/battle/core.asm).
+PlayFrozenAnimation::
+	ld a, FRZ_ANIM
+	jr PlayStatusSideAnimation
+
+; Far. A fully paralyzed turn's animation (v1.0, 2026-11-25, Forte's choice: vanilla's ParalyzeAnim, two jolting lines
+; at the #MON's sides, which the game never played), after "<USER>'s / fully paralyzed!" (the same two routines). A
+; paralyzed #MON that moves plays nothing: no new pause on its turns.
+PlayParalyzedAnimation::
+	ld a, PAR_ANIM
+	; fall through
+
+; A special animation on the #MON whose turn it is (hWhoseTurn), the way PlaySpecialAnimation (engine/battle/core.asm)
+; plays one, from this bank: the fear's, a frozen turn's and a fully paralyzed turn's (v1.0, 2026-11-25: the fear's
+; steps, made the three's). Skipped entirely - no pause - with the BATTLE ANIMATION option off (MoveAnimation would
+; wait 30 frames: the new animations add no pause to a battle played without them), when the #MON is INVULNERABLE
+; (FLY / DIG: off the screen; a paralysis can stop it in the air) and while its SUBSTITUTE is up (the picture is the
+; doll, as for the bleed's drops). IN a = the special animation's id. Clobbers every register.
+PlayStatusSideAnimation:
+	ld e, a
 	ld a, [wOptions]
 	bit BIT_BATTLE_ANIMATION, a
 	ret nz ; animations off
@@ -1096,7 +1196,7 @@ PlayFearAnimation:
 	ret nz ; the doll is in the picture
 	xor a
 	ld [wAnimationType], a ; no shake or blink after it (PlayApplyingAttackAnimation)
-	ld a, FEAR_ANIM
+	ld a, e
 	ldh [hSpecialAnimIndex], a
 	ld a, SPECIAL_ANIM_MARKER
 	ld [wAnimationID], a

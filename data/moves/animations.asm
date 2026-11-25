@@ -274,10 +274,10 @@ SpecialAnimationPointers:
 	dw XStatItemBlackAnim
 	dw ShrinkingSquareBlackAnim
 	dw ShrinkingSquareBlackAnim
-	dw ParalyzeAnim
+	dw ParalyzeAnim ; PAR_ANIM (v1.0, 2026-11-25: played at last, for a fully paralyzed turn)
 	dw ParalyzeAnim
 	dw PoisonAnim
-	dw PoisonAnim
+	dw ToxAnim ; TOX_ANIM (v1.0, 2026-11-25; PoisonAnim until then, never played)
 	dw SleepPlayerAnim
 	dw SleepEnemyAnim
 	dw ConfusedPlayerAnim
@@ -296,6 +296,10 @@ SpecialAnimationPointers:
 	dw ConfusionHitAnim
 	dw BleedAnim
 	dw FearAnim
+	dw SleepEnemyAnim    ; ENEMY_REST_ANIM (v1.0, 2026-11-25): the enemy's REST, SLP_ANIM's script under an id of its own
+	dw ConfusedEnemyAnim ; ENEMY_AMNESIA_ANIM: the enemy's AMNESIA, CONF_ANIM's script under an id of its own
+	dw BurnAnim          ; BRN_ANIM (v1.0, 2026-11-25)
+	dw FrozenAnim        ; FRZ_ANIM (v1.0, 2026-11-25)
 	assert_table_length NUM_SPECIAL_ANIMS
 
 ; each animation is a list of subanimations
@@ -453,13 +457,14 @@ BleedAnim:
 	db -1 ; end
 
 FearAnim:
-; v1.0 (2026-11-24): FEAR's turn (PlayFearAnimation, engine/battle/soft_status.asm): the scared #MON (the side whose
-; turn it is) twitches twice - its picture shifted aside and put back, twice. No palette change (a darkened palette
-; would darken the whole screen, the HUD's letters too) and no sound.
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
-	battle_anim NO_MOVE, SE_MOVE_MON_HORIZONTALLY
-	battle_anim NO_MOVE, SE_RESET_MON_POSITION
+; v1.0 (2026-11-24): FEAR's turn (PlayFearAnimation, engine/battle/soft_status.asm), on the scared #MON (the side whose
+; turn it is). Until 2026-11-25 it twitched twice - its picture shifted aside and put back, twice. No palette change
+; (a darkened palette would darken the whole screen, the HUD's letters too) and no sound.
+; v1.0 (2026-11-25, Forte, after sheets and GIFs): the twitches are gone ("ajusta o fear para o pokemon nao se mexer e
+; para serem 3 piscas lentos da caveira"): the poison's skull above the head (on the GBC in a grey a touch darker than
+; the SCR label's) blinks three times, slowly, "para fazer lembrar suspense, medo": 24 frames shown, 20 out
+; (Subanim_0StatusScared, 4 frames each). No sound, no palette change, the picture still.
+	battle_anim NO_MOVE, SUBANIM_0_STATUS_SCARED, 0, 4
 	db -1 ; end
 
 TwineedleAnim:
@@ -3266,13 +3271,38 @@ ShrinkingSquareBlackAnim:
 	db -1 ; end
 
 ParalyzeAnim:
-	battle_anim BIND, SUBANIM_0_STATUS_PARALYZED, 0, 4
-	battle_anim BIND, SUBANIM_0_STATUS_PARALYZED, 0, 4
+; v1.0 (2026-11-25): vanilla's, never played until PAR_ANIM (a fully paralyzed turn); each frame 6, not 4 (Forte: "um
+; pouco mais lento"), and one line: the subanimation plays the jolts twice and holds the last (it was two lines)
+	battle_anim BIND, SUBANIM_0_STATUS_PARALYZED, 0, 6
 	db -1 ; end
 
 PoisonAnim:
 	battle_anim BIND, SUBANIM_0_STATUS_POISONED, 0, 8
 	battle_anim BIND, SUBANIM_0_STATUS_POISONED, 0, 8
+	db -1 ; end
+
+; v1.0 (2026-11-25, Forte's choices of that day; on the GBC each takes its colours, StatusAnimInInk,
+; engine/battle/animations.asm). The three play on the #MON whose turn it is (ENEMY-type subanimations, as
+; PoisonAnim's), as long as PoisonAnim (32 frames), under its sound (BIND's, vanilla's for a bite).
+ToxAnim:
+; TOX_ANIM, a bad poison's bite: PoisonAnim's skull, still above the head, with bubbles rising at its sides (Forte's
+; choice from sheets, after "caveira roxa + pingo tóxico": the drop was lost on a purple #MON)
+	battle_anim BIND, SUBANIM_0_STATUS_BADLY_POISONED, 0, 4
+	battle_anim BIND, SUBANIM_0_STATUS_BADLY_POISONED, 0, 4
+	db -1 ; end
+
+BurnAnim:
+; BRN_ANIM, a burn's bite: VERBATIM "o burn ser uma chama": EMBER's flame, its two frames in turn (a flicker), at the
+; skull's two places
+	battle_anim BIND, SUBANIM_1_STATUS_BURNED, 1, 4
+	battle_anim BIND, SUBANIM_1_STATUS_BURNED, 1, 4
+	db -1 ; end
+
+FrozenAnim:
+; FRZ_ANIM, a frozen turn ("frozen solid!"): ICE BEAM's crystals rising at the #MON's feet (its ICE_RISE's first three
+; frames), under AURORA BEAM's sound (vanilla's SFX_BATTLE_28 as written; ICE BEAM's row bends two of its notes); each
+; frame 12 (Forte: "um pouco mais lento"; it was 8); one line: the subanimation rises in three steps and holds the last
+	battle_anim AURORA_BEAM, SUBANIM_0_STATUS_FROZEN, 0, 12
 	db -1 ; end
 
 SleepPlayerAnim:

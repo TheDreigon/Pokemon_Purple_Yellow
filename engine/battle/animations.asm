@@ -289,11 +289,11 @@ PlayAnimation:
 	ld a, [wAnimPalette]
 	ldh [rOBP0], a
 	call UpdateGBCPal_OBP0
-	call BleedDropsInRed ; v1.0 (2026-11-25): after that conversion, or it paints over them
+	call StatusAnimInInk ; v1.0 (2026-11-25): after that conversion, or it paints over the ink
 	call LoadMoveAnimationTiles
 	call LoadSubanimation
 	call PlaySubanimation
-	call BleedDropsGone ; v1.0 (2026-11-25): before the conversion back, or the last drop shows in its #MON's colours
+	call StatusAnimSpritesGone ; v1.0 (2026-11-25): before the conversion back, or the last frame shows in its #MON's colours
 	pop af
 	vc_hook Stop_reducing_move_anim_flashing_Thunderbolt
 	ldh [rOBP0], a
@@ -308,20 +308,29 @@ PlayAnimation:
 	vc_hook Stop_reducing_move_anim_flashing_Blizzard
 	ret
 
-; v1.0 (2026-11-25, the status chapter's S5: Forte's choice, "gota vermelho-escura"): the bleed's drops (BLEED_ANIM,
-; played by PlayBleedAnimation, engine/battle/soft_status.asm) fall in red on the GBC. Their palette is written here,
-; between the conversion of the OBJ palettes for the subanimation (rOBP0 = wAnimPalette, just above) and the
-; subanimation itself: written any sooner, that conversion paints over it. The conversion back after the subanimation
-; (rOBP0 restored) gives the #MON its colours again. Any other animation: nothing. Keeps every register (the
-; subanimation's loaders follow).
-BleedDropsInRed:
+; A STATUS'S OWN ANIMATION IN ITS INK (GBC). v1.0 (2026-11-25, the status chapter's S5: Forte's choice, "gota
+; vermelho-escura"): the bleed's drops (BLEED_ANIM, played by PlayBleedAnimation, engine/battle/soft_status.asm) fall
+; in red. v1.0 (2026-11-25, Forte's task of that day: "adicionar cor também aos outros status", and his choices from
+; sheets): so do the other statuses' own animations, each in colours of its HUD label's ink: a poison's skull
+; (BURN_PSN_ANIM), a bad poison's skull and drop (TOX_ANIM), a burn's flame (BRN_ANIM; until then the burn showed the
+; poison's skull), the Zs of a sleeping turn (SLP_PLAYER_ANIM, SLP_ANIM), the "?" of a confused turn
+; (CONF_PLAYER_ANIM, CONF_ANIM), and two animations a status never had: the jolts of a fully paralyzed turn
+; (PAR_ANIM, vanilla's ParalyzeAnim) and the crystals of a frozen turn (FRZ_ANIM); and the fear's skull, blinking
+; between its twitches (FEAR_ANIM). A move's animation keeps its #MON's colours, even where it draws the
+; same picture (the player's REST and AMNESIA; the enemy's play ENEMY_REST_ANIM and ENEMY_AMNESIA_ANIM, ids of their
+; own: ShareMoveAnimations). The palette is written here (LoadStatusAnimPalette, soft_status.asm), between the
+; conversion of the OBJ palettes for the subanimation (rOBP0 = wAnimPalette, just above) and the subanimation itself:
+; written any sooner, that conversion paints over it. The conversion back after the subanimation (rOBP0 restored)
+; gives the #MON its colours again. Any other animation: nothing. Keeps every register (the subanimation's loaders
+; follow).
+StatusAnimInInk:
 	push af
-	call IsBleedDropsAnim
+	call IsStatusTurnAnim
 	jr nz, .done
 	push bc
 	push de
 	push hl
-	farcall LoadBleedDropPalette ; GBC only
+	farcall LoadStatusAnimPalette ; GBC only
 	pop hl
 	pop de
 	pop bc
@@ -329,13 +338,14 @@ BleedDropsInRed:
 	pop af
 	ret
 
-; The drops' subanimation is over, and PlayAnimation is about to convert the OBJ palettes back: the last drop is still
-; in the OAM, and in the frame of that conversion it showed in its #MON's colours (one frame, seen in the captures of
-; 2026-11-25). So the sprites are cleared and one frame is let through (the V-blank's OAM DMA takes the cleared
-; shadow OAM) before it. Any other animation: nothing. Keeps every register.
-BleedDropsGone:
+; A status's subanimation is over, and PlayAnimation is about to convert the OBJ palettes back: the last frame's
+; sprites are still in the OAM, and in the frame of that conversion they showed in their #MON's colours (one frame,
+; seen in the captures of the drops, 2026-11-25). So the sprites are cleared and one frame is let through (the
+; V-blank's OAM DMA takes the cleared shadow OAM) before it: one frame more per subanimation, on every machine, as for
+; the drops since they were made red. Any other animation: nothing. Keeps every register.
+StatusAnimSpritesGone:
 	push af
-	call IsBleedDropsAnim
+	call IsStatusTurnAnim
 	jr nz, .done
 	push bc
 	push de
@@ -349,13 +359,35 @@ BleedDropsGone:
 	pop af
 	ret
 
-; Z: the animation playing is the bleed's drops (BLEED_ANIM, a special animation). Clobbers a.
-IsBleedDropsAnim:
+; Z: the animation playing is a status's own (a special animation: BLEED_ANIM, BURN_PSN_ANIM, TOX_ANIM, BRN_ANIM,
+; SLP_PLAYER_ANIM, SLP_ANIM, CONF_PLAYER_ANIM, CONF_ANIM, PAR_ANIM, FRZ_ANIM or FEAR_ANIM).
+; LoadStatusAnimPalette's table (StatusAnimPalettes, engine/battle/soft_status.asm) holds these eleven. Clobbers a.
+IsStatusTurnAnim:
 	ld a, [wAnimationID]
 	cp SPECIAL_ANIM_MARKER
 	ret nz
 	ldh a, [hSpecialAnimIndex]
 	cp BLEED_ANIM
+	ret z
+	cp BURN_PSN_ANIM
+	ret z
+	cp TOX_ANIM
+	ret z
+	cp BRN_ANIM
+	ret z
+	cp SLP_PLAYER_ANIM
+	ret z
+	cp SLP_ANIM
+	ret z
+	cp CONF_PLAYER_ANIM
+	ret z
+	cp CONF_ANIM
+	ret z
+	cp PAR_ANIM
+	ret z
+	cp FRZ_ANIM
+	ret z
+	cp FEAR_ANIM
 	ret
 
 LoadSubanimation:
@@ -536,12 +568,14 @@ ShareMoveAnimations:
 
 	ld a, [wAnimationID]
 
+; v1.0 (2026-11-25): the scripts of CONF_ANIM and SLP_ANIM under ids of their own (constants/move_constants.asm),
+; so that StatusAnimInInk leaves a move's animation in its #MON's colours, as the player's AMNESIA and REST are
 	cp AMNESIA
-	ld b, CONF_ANIM
+	ld b, ENEMY_AMNESIA_ANIM
 	jr z, .replaceAnim
 
 	cp REST
-	ld b, SLP_ANIM
+	ld b, ENEMY_REST_ANIM
 	ret nz
 
 .replaceAnim

@@ -138,6 +138,10 @@ DEF FIRST_SE_ID EQU const_value
 	const SUBANIM_0_STAR_ASCENDING ; 2026-08-22, ported from kep-hack: STAR_DESCENDING with the four base coords reversed (a rising impact star for uppercuts)
 	const SUBANIM_0_CIRCLE_1_SQUARE_CLOSING_ENEMY ; 2026-11-02: CIRCLE_1_SQUARE_CLOSING (HARDEN's) drawn on the target, for LOCK-ON
 	const SUBANIM_1_BLOOD_DROPS ; 2026-11-18: BLOB_DRIP_ENEMY's two drips alone, ENEMY type: the bleed's drops (BleedAnim)
+	const SUBANIM_0_STATUS_BADLY_POISONED ; 2026-11-25: the skull and a falling drop (ToxAnim)
+	const SUBANIM_1_STATUS_BURNED ; 2026-11-25: EMBER's flame, flickering (BurnAnim)
+	const SUBANIM_0_STATUS_FROZEN ; 2026-11-25: ICE_RISE's first two frames, ENEMY type (FrozenAnim)
+	const SUBANIM_0_STATUS_SCARED ; 2026-11-25: the poison's skull alone, still, above the head (FearAnim's blink)
 DEF NUM_SUBANIMS EQU const_value
 
 ; types of subanimations
@@ -274,6 +278,11 @@ DEF NUM_SUBANIMS EQU const_value
 	const FRAMEBLOCK_77
 	const FRAMEBLOCK_78
 	const FRAMEBLOCK_79
+	const FRAMEBLOCK_7A ; 2026-11-25: TOX: the poison's skull, a bubble rising at its right
+	const FRAMEBLOCK_7B ; 2026-11-25: TOX: the right bubble higher, the left one rising
+	const FRAMEBLOCK_7C ; 2026-11-25: TOX: both higher
+	const FRAMEBLOCK_7D ; 2026-11-25: TOX: the left at the top, a new right one
+	const FRAMEBLOCK_7E ; 2026-11-25: nothing in sight at BASECOORD_01, on either side (a pause: FEAR's blink)
 DEF NUM_FRAMEBLOCKS EQU const_value
 
 ; base coordinates that are part of subanimations

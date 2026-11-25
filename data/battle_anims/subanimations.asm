@@ -89,6 +89,10 @@ SubanimationPointers:
 	dw Subanim_0StarAscending
 	dw Subanim_0Circle_1Square_ClosingEnemy
 	dw Subanim_1BloodDrops
+	dw Subanim_0StatusBadlyPoisoned
+	dw Subanim_1StatusBurned
+	dw Subanim_0StatusFrozen
+	dw Subanim_0StatusScared
 	assert_table_length NUM_SUBANIMS
 
 ; format:
@@ -643,8 +647,15 @@ Subanim_0Bind:
 	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
 
 Subanim_0StatusParalyzed:
-	subanim SUBANIMTYPE_ENEMY, 2
+; v1.0 (2026-11-25): vanilla's two frames (the jolts, 2 pixels apart) were played twice by ParalyzeAnim; now twice
+; here, and the last held for three frames more (Forte: the last frame "pausado uns momentos a mais")
+	subanim SUBANIMTYPE_ENEMY, 7
 	db FRAMEBLOCK_51, BASECOORD_2D, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_51, BASECOORD_2D, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
 
 Subanim_0StatusConfused:
@@ -873,6 +884,56 @@ Subanim_1BloodDrops:
 	db FRAMEBLOCK_31, BASECOORD_1D, FRAMEBLOCKMODE_04
 	db FRAMEBLOCK_31, BASECOORD_22, FRAMEBLOCKMODE_04
 	db FRAMEBLOCK_31, BASECOORD_27, FRAMEBLOCKMODE_00
+
+; v1.0 (2026-11-25): the statuses' own animations that the game did not have (Forte's choices of that day; the
+; scripts are ToxAnim, BurnAnim and FrozenAnim, data/moves/animations.asm). ENEMY type, as
+; Subanim_0StatusPoisoned: drawn on the #MON whose turn it is, mirrored onto the player's picture for the player.
+Subanim_0StatusBadlyPoisoned:
+; the poison's skull still above the head (BASECOORD_01, the first of its two places in the poison's), its bubbles
+; rising at its sides (FrameBlock7a-7d)
+	subanim SUBANIMTYPE_ENEMY, 4
+	db FRAMEBLOCK_7A, BASECOORD_01, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_7B, BASECOORD_01, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_7C, BASECOORD_01, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_7D, BASECOORD_01, FRAMEBLOCKMODE_00
+
+Subanim_1StatusBurned:
+; EMBER's two flames (FRAMEBLOCK_0B the low one, FRAMEBLOCK_0C the tall one) in turn, at the skull's two places
+	subanim SUBANIMTYPE_ENEMY, 4
+	db FRAMEBLOCK_0B, BASECOORD_01, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_0C, BASECOORD_01, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_0B, BASECOORD_2C, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_0C, BASECOORD_2C, FRAMEBLOCKMODE_00
+
+Subanim_0StatusFrozen:
+; Subanim_0IceRise's first three frames, as an ENEMY-type subanimation: the ice rises at the picture's two lower corners
+; in three steps (two crystal tips, FRAMEBLOCK_1F at BASECOORD_24; three crystals, FRAMEBLOCK_20 at BASECOORD_20;
+; the bigger cluster, FRAMEBLOCK_21 at BASECOORD_1A: the enemy's picture's width, its feet), and never comes down: the
+; last is held for two frames more (Forte: "3 niveis de subida/altura? sem voltar a descer", and the last frame
+; "pausado uns momentos a mais")
+	subanim SUBANIMTYPE_ENEMY, 5
+	db FRAMEBLOCK_1F, BASECOORD_24, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_20, BASECOORD_20, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_21, BASECOORD_1A, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_21, BASECOORD_1A, FRAMEBLOCKMODE_00
+	db FRAMEBLOCK_21, BASECOORD_1A, FRAMEBLOCKMODE_00
+
+Subanim_0StatusScared:
+; FEAR's skull (FearAnim, Forte's choice: "3 piscas lentos da caveira"): the poison's skull above the head for 6
+; frames, nothing for 5 (FrameBlock7e), three times: at FearAnim's 4 frames each, 24 shown and 20 out, in one
+; subanimation (between two, the next one's tiles take ~11 frames more to load)
+	subanim SUBANIMTYPE_ENEMY, 28
+	REPT 2
+	REPT 6
+	db FRAMEBLOCK_54, BASECOORD_01, FRAMEBLOCKMODE_00
+	ENDR
+	REPT 5
+	db FRAMEBLOCK_7E, BASECOORD_01, FRAMEBLOCKMODE_00
+	ENDR
+	ENDR
+	REPT 6
+	db FRAMEBLOCK_54, BASECOORD_01, FRAMEBLOCKMODE_00
+	ENDR
 
 Subanim_0HornJabTwice:
 	subanim SUBANIMTYPE_HVFLIP, 4

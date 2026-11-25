@@ -43,8 +43,9 @@
 ;   MoveAnimation and can simply be left flipped between plays.
 ;
 ;   Note one real consequence, and it is vanilla, not a bug: ShareMoveAnimations
-;   swaps AMNESIA for CONF_ANIM and REST for SLP_ANIM when hWhoseTurn is set.
-;   Those two genuinely animate differently from the enemy's side.
+;   swaps AMNESIA for CONF_ANIM's script and REST for SLP_ANIM's when hWhoseTurn
+;   is set (since 2026-11-25 under ids of their own, ENEMY_AMNESIA_ANIM and
+;   ENEMY_REST_ANIM). Those two genuinely animate differently from the enemy's side.
 ;
 ; Implementation notes:
 ;   * wWhichPokemon is reused as the current move ID storage. It's

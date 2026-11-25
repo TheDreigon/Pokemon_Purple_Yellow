@@ -337,10 +337,10 @@ DEF SPECIAL_ANIM_MARKER EQU $FF
 	; PURPLE YELLOW v0.5: removed ANIM_B6/ANIM_B7 (UnusedAnim placeholders)
 	; back when these shared the move-id byte. Slots are cheap now (2
 	; pointer bytes each) - the placeholders stay to keep the order stable.
-	const ANIM_B8
+	const PAR_ANIM ; a fully paralyzed turn (v1.0, 2026-11-25: was ANIM_B8, vanilla's ParalyzeAnim, never played until then)
 	const ANIM_B9
-	const BURN_PSN_ANIM ; Plays when a monster is burned or poisoned
-	const ANIM_BB
+	const BURN_PSN_ANIM ; a poison's bite (vanilla: a poison's and a burn's; v1.0, 2026-11-25: BRN_ANIM and TOX_ANIM have their own)
+	const TOX_ANIM ; a bad poison's bite: the skull and a toxic drip (v1.0, 2026-11-25: was ANIM_BB, PoisonAnim again)
 	const SLP_PLAYER_ANIM
 	const SLP_ANIM ; sleeping monster
 	const CONF_PLAYER_ANIM
@@ -358,10 +358,17 @@ DEF SPECIAL_ANIM_MARKER EQU $FF
 	const BAIT_ANIM ; throw bait
 	const CONFUSION_HIT_ANIM ; the confusion self-hit (v0.7: vanilla POUND's stream, 2026-08-31)
 	const BLEED_ANIM ; drops falling from a bleeding monster, before each bite (v1.0, 2026-11-18)
-	const FEAR_ANIM ; two quick twitches of a scared monster, before its roll (v1.0, 2026-11-24)
+	const FEAR_ANIM ; a scared monster, before its roll (v1.0, 2026-11-24: two twitches; 2026-11-25: a skull blinking slowly)
+; v1.0 (2026-11-25): the enemy's REST and AMNESIA play SLP_ANIM's and CONF_ANIM's scripts (ShareMoveAnimations,
+; engine/battle/animations.asm) under ids of their own, so that a status's own animation (a sleeping or a confused
+; turn) is told from a move's: only the first takes the status's ink on the GBC (StatusAnimInInk, the same file).
+	const ENEMY_REST_ANIM ; the enemy's REST: SleepEnemyAnim, as SLP_ANIM
+	const ENEMY_AMNESIA_ANIM ; the enemy's AMNESIA: ConfusedEnemyAnim, as CONF_ANIM
+	const BRN_ANIM ; a burn's bite: EMBER's flame, flickering (v1.0, 2026-11-25)
+	const FRZ_ANIM ; a frozen turn: ICE BEAM's crystals at the #MON's feet (v1.0, 2026-11-25)
 
 DEF NUM_SPECIAL_ANIMS EQU const_value - 1
-ASSERT NUM_SPECIAL_ANIMS == 38, "the special-anim census (and its pointer table) is 38 entries"
+ASSERT NUM_SPECIAL_ANIMS == 42, "the special-anim census (and its pointer table) is 42 entries"
 ASSERT NUM_SPECIAL_ANIMS < SPECIAL_ANIM_MARKER, "special anim indexes must stay below the marker"
 ; structural pins the engine arithmetic depends on (hWhoseTurn `add` pairs
 ; and the trade-ball palette range test):

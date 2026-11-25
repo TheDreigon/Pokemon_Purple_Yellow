@@ -635,8 +635,26 @@ HandlePoisonBurnLeechSeed:
 	call PrintText
 	xor a
 	ld [wAnimationType], a
+; v1.0 (2026-11-25, Forte's choices): each bite its own animation (data/moves/animations.asm): a burn's EMBER flame
+; (BRN_ANIM), a bad poison's skull and drop (TOX_ANIM: the side's BADLY_POISONED, the live bit the HUD's TOX label
+; reads), a poison's skull (BURN_PSN_ANIM). hl is free here: the HP pointer is on the stack.
+	pop af
+	push af
+	and a
+	ld a, BRN_ANIM
+	jr nz, .playBite
+	ld hl, wPlayerBattleStatus3
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotBattleStatus3
+	ld hl, wEnemyBattleStatus3
+.gotBattleStatus3
+	bit BADLY_POISONED, [hl]
 	ld a, BURN_PSN_ANIM
-	call PlaySpecialAnimation   ; play burn/poison animation
+	jr z, .playBite
+	ld a, TOX_ANIM
+.playBite
+	call PlaySpecialAnimation
 	pop af
 	pop hl
 	push af
@@ -4100,6 +4118,7 @@ CheckPlayerStatusConditions:
 	pop hl
 	ld hl, IsFrozenText
 	call PrintText
+	farcall PlayFrozenAnimation ; v1.0 (2026-11-25): the crystals (engine/battle/soft_status.asm)
 	xor a
 	ld [wPlayerUsedMove], a
 	jp .MonHurtItselfOrFullyParalysed ; player can't move this turn, and a lock ends (v1.0 2026-11-16, see there)
@@ -4211,6 +4230,7 @@ CheckPlayerStatusConditions:
 	jr nc, .BideCheck
 	ld hl, FullyParalyzedText
 	call PrintText
+	farcall PlayParalyzedAnimation ; v1.0 (2026-11-25): the jolts (engine/battle/soft_status.asm)
 
 .MonHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.TriedToUseDisabledMoveCheck)
 ; v1.0 (2026-11-16): and a turn lost asleep or frozen (the fast asleep exit, .playerStillFrozen): those turns end a
@@ -6304,6 +6324,7 @@ CheckEnemyStatusConditions:
 	pop hl
 	ld hl, IsFrozenText
 	call PrintText
+	farcall PlayFrozenAnimation ; v1.0 (2026-11-25): the crystals (engine/battle/soft_status.asm)
 	xor a
 	ld [wEnemyUsedMove], a
 	jp .monHurtItselfOrFullyParalysed ; enemy can't move this turn, and a lock ends (v1.0 2026-11-16, see there)
@@ -6440,6 +6461,7 @@ CheckEnemyStatusConditions:
 	jr nc, .checkIfUsingBide
 	ld hl, FullyParalyzedText
 	call PrintText
+	farcall PlayParalyzedAnimation ; v1.0 (2026-11-25): the jolts (engine/battle/soft_status.asm)
 .monHurtItselfOrFullyParalysed ; v1.0 (2026-11-13): and a turn lost to a disabled move (.checkIfTriedToUseDisabledMove)
 ; v1.0 (2026-11-16): and a turn lost asleep or frozen (fast asleep, .enemyStillFrozen): those turns end a lock too,
 ; see the player side. With its lock gone, SelectEnemyMove's gates let it choose again next turn.

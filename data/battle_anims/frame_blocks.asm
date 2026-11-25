@@ -122,6 +122,11 @@ FrameBlockPointers:
 	dw FrameBlock77
 	dw FrameBlock78
 	dw FrameBlock79
+	dw FrameBlock7a
+	dw FrameBlock7b
+	dw FrameBlock7c
+	dw FrameBlock7d
+	dw FrameBlock7e
 	assert_table_length NUM_FRAMEBLOCKS
 
 FrameBlock01:
@@ -1231,6 +1236,53 @@ FrameBlock78:
 FrameBlock79:
 	db 1 ; #
 	dbsprite  0,  0,  0,  0, $4e, 0
+
+; v1.0 (2026-11-25): TOX's bite (Subanim_0StatusBadlyPoisoned), Forte's choice: FrameBlock54's skull (tileset 0)
+; still, and POISON POWDER's bubbles ($49, FrameBlock5f's, the same tileset) rising at its sides, one after the
+; other: the right one from its jaw (x +17, y +12) to its top, the left one a frame behind. Four frames, in turn.
+FrameBlock7a:
+	db 5 ; #
+	dbsprite  0,  0,  0,  0, $0e, 0
+	dbsprite  1,  0,  0,  0, $0e, OAM_HFLIP
+	dbsprite  0,  1,  0,  0, $0f, 0
+	dbsprite  1,  1,  0,  0, $0f, OAM_HFLIP
+	dbsprite  2,  1,  1,  4, $49, 0
+
+FrameBlock7b:
+	db 6 ; #
+	dbsprite  0,  0,  0,  0, $0e, 0
+	dbsprite  1,  0,  0,  0, $0e, OAM_HFLIP
+	dbsprite  0,  1,  0,  0, $0f, 0
+	dbsprite  1,  1,  0,  0, $0f, OAM_HFLIP
+	dbsprite  2,  0,  2,  6, $49, 0
+	dbsprite -2,  1,  7,  4, $49, 0
+
+FrameBlock7c:
+	db 6 ; #
+	dbsprite  0,  0,  0,  0, $0e, 0
+	dbsprite  1,  0,  0,  0, $0e, OAM_HFLIP
+	dbsprite  0,  1,  0,  0, $0f, 0
+	dbsprite  1,  1,  0,  0, $0f, OAM_HFLIP
+	dbsprite  2,  0,  3,  0, $49, 0
+	dbsprite -2,  0,  6,  6, $49, 0
+
+FrameBlock7d:
+	db 6 ; #
+	dbsprite  0,  0,  0,  0, $0e, 0
+	dbsprite  1,  0,  0,  0, $0e, OAM_HFLIP
+	dbsprite  0,  1,  0,  0, $0f, 0
+	dbsprite  1,  1,  0,  0, $0f, OAM_HFLIP
+	dbsprite -2,  0,  5,  0, $49, 0
+	dbsprite  2,  1,  1,  4, $49, 0
+
+; v1.0 (2026-11-25): a frame with nothing on screen, for a pause inside a subanimation (FEAR's blink,
+; Subanim_0StatusScared): one sprite 144 pixels under its base coordinate, which is out of sight on both sides at
+; BASECOORD_01: on the enemy's turn its OAM Y is 16 + 144 = 160 (under the screen), on the player's (an ENEMY-type
+; subanimation's base coordinates flipped, 136 - 16) it is 120 + 144 = 264, so 8 (above it). A frame block of no
+; sprite is not one: DrawFrameBlock draws one before it counts, and would draw 256.
+FrameBlock7e:
+	db 1 ; #
+	dbsprite  0, 18,  0,  0, $0e, 0
 
 INCLUDE "data/battle_anims/base_coords.asm"
 
