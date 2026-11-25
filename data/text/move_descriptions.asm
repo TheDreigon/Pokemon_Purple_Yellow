@@ -824,7 +824,7 @@ _MoveDesc_Fear::
 	text "FEARs the foe for"
 	next "2 to 4 turns. It"
 	next "may lose its turn"
-	next "and is slower."
+	next "and moves last."
 	done
 
 _MoveDesc_FearSide::

@@ -390,8 +390,8 @@ MainInBattleLoop:
 ; side stores BIDE energy (it prints nothing that turn), the screen will show who is faster: the order is pending
 ; (the branch commits it), with the speeds as the screen shows them
 	farcall AISpeedsDecideTheTurn
-; v1.0 (2026-11-24): the two speeds as they count for the turn: a scared side's x2/3 (TurnOrderSpeedCmp,
-; soft_status.asm; StringCmp's flags on the player's speed against the enemy's)
+; v1.0 (2026-11-24): the order of the same priority: a scared side after one that is not (2026-11-25), else the
+; speeds (TurnOrderSpeedCmp, soft_status.asm; StringCmp's flags on the player's side against the enemy's)
 	farcall TurnOrderSpeedCmp
 	jr z, .speedEqual
 	jr nc, .playerMovesFirst ; if player is faster

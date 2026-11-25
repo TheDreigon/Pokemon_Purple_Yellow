@@ -798,8 +798,9 @@ TrappingDrainEffect_:
 ; is drawn 3-5 when the fear lands (FearInflicted). On each turn the #MON reaches the check (FearTurnCheck, after
 ; the DISABLE countdown and before the confusion check of both sides' status routines in Battle Core) it goes down
 ; first: at 0 the fear is over ("scared no more!") and the #MON acts; otherwise its turn is lost one time in two
-; ("is too scared!"). So 2 to 4 scared turns. While scared, its SPEED counts x2/3 (at least 1) for the turn order
-; (TurnOrderSpeedCmp), computed there from the stored stat, which is never changed.
+; ("is too scared!"). So 2 to 4 scared turns. While scared it moves after a #MON that is not, whatever the speeds;
+; two scared #MON compare their speeds (TurnOrderSpeedCmp; the owner, 2026-11-25: x2/3 of the SPEED until then).
+; Priority comes before it. The stored SPEED is never changed.
 ; It coexists with every hard status, confusion, BLEED and a burn (it lands on a sleeping or frozen #MON and waits
 ; there). A SUBSTITUTE blocks it, and a GHOST (FearImmuneTypes) never has it. It ends at 0, by a FULL HEAL or a
 ; FULL RESTORE on the active #MON (item_effects.asm CureConfusionIfFullHealOrRestore, the AI's AICureStatus), and
@@ -1042,55 +1043,42 @@ IsBattlerScared::
 	and a
 	ret
 
-; Far. The turn order (MainInBattleLoop .compareSpeed): the two speeds compared, each as it counts for the turn: the
-; stored SPEED, or x2/3 of it (at least 1) while the #MON is scared (FearTurnSpeed). Paralysis has already halved the
-; stored stat; the fear's cut is on top of it, and nothing is stored.
-; OUT the flags of StringCmp on (the player's, the enemy's): Z equal, carry = the enemy is faster, else the player.
+; Far. The turn order (MainInBattleLoop .compareSpeed, reached only when both moves have the same priority:
+; HandleMovePriority comes first, so a scared #MON's PROTECT or QUICK ATTACK still goes before a plain move).
+; v1.0 (2026-11-25, the owner): a scared #MON (its fear count, the SCR label) moves after one that is not, whatever
+; the speeds; when both or neither are scared, the stored SPEEDs decide (paralysis has already halved its own).
+; (2026-11-24 to 11-25: a scared side's SPEED counted x2/3, at least 1.) Nothing is stored.
+; OUT the flags of StringCmp on (the player's, the enemy's): Z equal, carry = the enemy first, else the player.
 ; Clobbers every register.
 TurnOrderSpeedCmp::
-	ld hl, wEnemyMonSpeed
 	ld a, [wEnemyFearCounter]
-	call FearTurnSpeed
-	push bc
+	and a
+	ld a, [wPlayerFearCounter] ; (ld keeps the flags)
+	jr z, .enemyNotScared
+	and a
+	jr nz, .speeds ; both scared: the speeds
+	inc a ; the enemy scared alone: the player first (a = 1: NZ, no carry)
+	ret
+.enemyNotScared
+	and a
+	jr z, .speeds ; neither scared: the speeds
+	scf ; the player scared alone: the enemy first (NZ from its count, carry)
+	ret
+.speeds
 	ld hl, wBattleMonSpeed
-	ld a, [wPlayerFearCounter]
-	call FearTurnSpeed
-	pop de
-.compare ; bc = the player's speed for the turn, de = the enemy's
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ld hl, wEnemyMonSpeed
+	ld a, [hli]
+	ld d, a
+	ld e, [hl]
+.compare ; bc = the player's SPEED, de = the enemy's
 	ld a, b
 	cp d
 	ret nz
 	ld a, c
 	cp e
-	ret
-
-; IN  hl = a battler's SPEED (big-endian), a = its fear count. OUT bc = its SPEED for the turn order: the stat, or
-; while scared floor(2 x the stat / 3), at least 1. Clobbers a, hl.
-FearTurnSpeed:
-	ld b, [hl]
-	inc hl
-	ld c, [hl]
-	and a
-	ret z
-	sla c
-	rl b ; 2 x the stat (a SPEED is at most 999)
-	ld hl, -1
-.divide
-	inc hl
-	ld a, c
-	sub 3
-	ld c, a
-	ld a, b
-	sbc 0
-	ld b, a
-	jr nc, .divide
-	ld a, h
-	or l
-	jr nz, .gotSpeed
-	inc l ; at least 1
-.gotSpeed
-	ld b, h
-	ld c, l
 	ret
 
 ; Far. The trainer AI's DEATH GLARE (trainer_ai.asm AIMoveChoiceModification1 .checkScared): does FearEffect_ surely

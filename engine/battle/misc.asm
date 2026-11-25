@@ -158,8 +158,11 @@ AISpeedContext:
 ; d = the player's speed rank, e = the enemy's: round(8 x log2(the multiplier the engine applies)) + 24 -
 ; StatModifierRatios' row for the stage (AISpeedRanks), then PAR halving it (HalveSpeedDueToParalysis): 8 down.
 ; Equal multipliers rank equal (PAR at +2 = no stage, PAR at -2 = -6 ...), a higher one higher: 0 (-6 with PAR) to
-; 40 (+6). v1.0 (2026-11-24): then a scared side (its SCR label: the fear's count is never read beyond 0 or not)
-; 5 down - x2/3 for the turn order (TurnOrderSpeedCmp) is -4.7 - and never below 0. Clobbers a, b, c, hl.
+; 40 (+6). v1.0 (2026-11-24, the fear's turn order since 2026-11-25): a side that is NOT scared (its SCR label off:
+; the fear's count is never read beyond 0 or not) gets 64 more - above every rank - since a scared #MON moves after
+; one that is not whatever the speeds, and two scared ones compare their speeds (TurnOrderSpeedCmp): the order is the
+; fear first, then the speed. So the player's fear on, or the enemy's off, forgets "the player first"; the other way
+; keeps it. Clobbers a, b, c, hl.
 	ld a, [wPlayerMonSpeedMod]
 	ld c, a
 	ld a, [wPlayerFearCounter]
@@ -187,10 +190,8 @@ AISpeedContext:
 .notParalysed
 	inc e
 	dec e
-	ret z
-	sub 5 ; scared: x2/3
-	ret nc
-	xor a
+	ret nz ; scared: the rank alone (0-40)
+	add 64 ; not scared: 64-104, above every scared rank
 	ret
 
 AISpeedRanks:
