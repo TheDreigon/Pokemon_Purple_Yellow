@@ -3173,6 +3173,7 @@ TangelaEvosMoves:
 	db 26, LEECH_SEED
 	db 30, STUN_POWDER
 	db 33, BIND
+	db 35, VINE_DRAIN ; v1.0 (2026-11-25, the owner): its signature, at its evolution level (TANGROWTH)
 	db 36, BUBBLEBEAM
 	db 40, ASTONISH
 	db 42, MEGA_DRAIN

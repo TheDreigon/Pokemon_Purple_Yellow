@@ -136,7 +136,7 @@ SpecialTrainerMoves:
 
 	db ERIKA, 1 ; Celadon Gym (4th) — 35 TANGELA, 36 VICTREEBEL, 37 VILEPLUME, 38 VENUSAUR
 	db 1, 1, WATER_GUN
-	db 1, 2, VINE_WHIP
+	db 1, 2, VINE_DRAIN
 	db 1, 3, STUN_POWDER
 	db 1, 4, LEECH_SEED
 	db 2, 1, RAZOR_LEAF
@@ -159,7 +159,7 @@ SpecialTrainerMoves:
 	db 1, 3, HYPNOSIS
 	db 1, 4, BULLDOZE
 	db 2, 1, SURF
-	db 2, 2, PETAL_DANCE
+	db 2, 2, VINE_DRAIN
 	db 2, 3, STUN_POWDER
 	db 2, 4, LEECH_LIFE
 	db 3, 1, GIGA_DRAIN
