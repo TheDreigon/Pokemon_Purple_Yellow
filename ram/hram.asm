@@ -391,7 +391,16 @@ hSavedMapTextPtr:: dw
 	ds 1
 ENDU
 
-	ds 4
+; v1.0 (2026-11-25, the status chapter's S6): the MENUS' INK REGISTER (GBC): the party menu's and the STATS page's
+; coloured status letters, as hStatusLetterInk is the battle HUD's. Byte k names the ink id (STATUS_INK_*) BG
+; palette 5 + k shows. On the party menu, bits 0-6 are the ink and bit 7 (MENU_INK_CLAIMED) says a row of the draw
+; in progress took that palette; on the STATS page byte 0 is the ink palette 5 shows and byte 1 the one the page
+; being composed will show (a quiet page takes it when it is put up). Written by the menus' printers and the STATS
+; page's reveal (engine/battle/hud_status.asm, engine/gfx/bg_map_attributes.asm, which has the whole design);
+; read by every build of those palettes. Three of the four bytes this spot always had free.
+hMenuLetterInk:: ds 3
+
+	ds 1
 
 hWhoseTurn:: db ; 0 on player's turn, 1 on enemy's turn
 

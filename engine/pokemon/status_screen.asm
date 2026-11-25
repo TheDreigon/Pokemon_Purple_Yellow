@@ -173,6 +173,7 @@ StatusScreen:
 	ld hl, vChars1 tile (DEX_LABEL_TILE - $80)
 	lb bc, BANK(DexLabelTiles), (DexLabelTilesEnd - DexLabelTiles) / 8
 	call CopyVideoDataDouble ; the condensed "DEX" of "DEX№."
+	farcall LoadMenuStatusLetterTiles ; v1.0 (2026-11-25, S6): the coloured status letters, outside a battle (GBC)
 	jr .screenBlanked
 .quietRedraw
 	xor a
@@ -248,6 +249,13 @@ StatusScreen:
 	ld de, OKText
 	call PlaceString ; "OK"
 .StatusWritten
+; v1.0 (2026-11-25, the status chapter's S6): on the GBC the label in the HUD's ink (StatsStatusLabel,
+; engine/battle/hud_status.asm); the DMG and the SGB keep the font's letters.
+	ldh a, [hGBC]
+	and a
+	jr z, .statusLabelDone
+	farcall StatsStatusLabel
+.statusLabelDone
 	coord hl, 9, 6
 	ld de, StatusText
 	call PlaceString ; "STATUS/"
@@ -456,6 +464,10 @@ StatusScreen_RevealQuietPage:
 ; arrived in a scrambled order, two torn frames visible. Starting the portion
 ; at 0 makes it a plain downward wipe: rows 0-5, 6-11, 12-17. The same three
 ; bytes sit before page 2's reveal in StatusScreen2.
+; v1.0 (2026-11-25, the status chapter's S6): on the GBC, a label in another ink than the last page's puts the page
+; up itself, its ink in the frame its tiles arrive (RevealStatsLabelInk, engine/gfx/bg_map_attributes.asm: NZ).
+	farcall RevealStatsLabelInk
+	jp nz, Delay3
 	xor a
 	ldh [hAutoBGTransferPortion], a
 	inc a ; 1

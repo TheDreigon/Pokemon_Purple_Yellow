@@ -3,8 +3,20 @@ DrawPartyMenu_::
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call UpdateSprites
+	farcall LoadMenuStatusLetterTiles ; v1.0 (2026-11-25, S6): the coloured status letters, outside a battle (GBC)
 
 RedrawPartyMenu__::
+; v1.0 (2026-11-25, the status chapter's S6): its two callers, a first draw (DrawPartyMenu_, with the BG transfer
+; already off) and a SWITCH (SwitchPartyMon, engine/menus/start_sub_menus.asm, whose two rows change), compose the
+; rows with the transfer off on the GBC, so a label's coloured tiles never reach the screen before their cells'
+; palette (HandlePartyHPBarAttributes writes both at the end of the draw; .done below switches the transfer back
+; on). The DMG and the SGB as before.
+	ldh a, [hGBC]
+	and a
+	jr z, .transferAsItIs
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+.transferAsItIs
 	farcall LoadMonPartySpriteGfxWithLCDDisabled ; load pokemon icon graphics
 
 RedrawPartyMenu_::
@@ -74,8 +86,19 @@ RedrawPartyMenu_::
 	push hl
 	ld bc, 14 ; 14 columns to the right
 	add hl, bc
+; v1.0 (2026-11-25, the status chapter's S6): on the GBC the label in the HUD's ink (PartyMenuStatusLabel,
+; engine/battle/hud_status.asm, which prints it through PrintStatusCondition too); the DMG and the SGB as before.
+	ldh a, [hGBC]
+	and a
+	jr nz, .colouredStatus
 	ld de, wLoadedMonStatus
 	call PrintStatusCondition
+	jr .statusDone
+.colouredStatus
+	ld d, h
+	ld e, l
+	farcall PartyMenuStatusLabel
+.statusDone
 	pop hl
 	push hl
 	ld bc, SCREEN_WIDTH + 1 ; down 1 row and right 1 column

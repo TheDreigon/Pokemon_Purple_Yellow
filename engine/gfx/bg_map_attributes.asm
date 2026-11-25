@@ -8,6 +8,16 @@ LoadBGMapAttributes::
 	ld a, c
 	cp 10 ; BGMapAttributes_Battle, its place in BGMapAttributesPointers (an ASSERT at the table holds the number)
 	call z, PreloadPacket10LetterPalettes
+; v1.0 (2026-11-25, S6): the party menu's (packet 5) and the STATS page's (packet 9) attributes point status cells at
+; the menus' letter palettes, BG 5 to 7: written here first too, for the same reasons (further down, with the design).
+	ld a, c
+	cp 5 ; BGMapAttributes_PartyMenu
+	jr z, .menuLetters
+	cp 9 ; BGMapAttributes_StatusScreen
+	jr nz, .gotLetterPalettes
+.menuLetters
+	call PreloadMenuLetterPalettesNow
+.gotLetterPalettes
 	ld hl, BGMapAttributesPointers
 	ld a, c ; c = which packet
 	push af ; save for later (to determine if we're handling the trainer card or party menu)
@@ -125,10 +135,12 @@ BGMapAttributesPointers:
 	dw BGMapAttributes_Unknown2
 	dw BGMapAttributes_GameFreakIntro
 	dw BGMapAttributes_TrainerCard
+.partyMenu
 	dw BGMapAttributes_PartyMenu
 	dw BGMapAttributes_TitleScreen
 	dw BGMapAttributes_Slots
 	dw BGMapAttributes_Pokedex
+.statusScreen
 	dw BGMapAttributes_StatusScreen
 .battle
 	dw BGMapAttributes_Battle
@@ -138,6 +150,10 @@ BGMapAttributesPointers:
 ; places: the head and the tail of LoadBGMapAttributes (`cp 10`, `sub 10 - 5`) and AnimationShakeEnemyHUD
 ; (`ld c, 10`, engine/battle/animations.asm).
 	ASSERT BGMapAttributesPointers.battle - BGMapAttributesPointers == (10 - 1) * 2
+; v1.0 (2026-11-25, S6): and the party menu's and the STATS page's, 5 and 9, at the head of LoadBGMapAttributes (`cp 5`,
+; `cp 9`); 5 is also the tail's HandlePartyHPBarAttributes.
+	ASSERT BGMapAttributesPointers.partyMenu - BGMapAttributesPointers == (5 - 1) * 2
+	ASSERT BGMapAttributesPointers.statusScreen - BGMapAttributesPointers == (9 - 1) * 2
 
 HandleBadgeFaceAttributes:
 ; zero out the attributes if the player doesn't have the respective badge
@@ -206,35 +222,77 @@ ZeroOutCurrentBadgeAttributes:
 HandlePartyHPBarAttributes:
 ; hp bars require 3 (green, orange, red) colours, when there are only 2 "free" colours per palette
 ; therefore, we must transfer individual bg attributes where the locations of the hp bars are in vram
-	ld hl, vBGMap1 + $25 ; location of start of the HP bar in vram
-	ld de, wPartyHPBarAttributes
-	ld c, PARTY_LENGTH
+; v1.0 (2026-11-25, S6): and each row's three status cells, in the same V-blank (rVBK is 1 here, and this V-blank
+; is the one in which the second transfer above wrote vBGMap1's attributes): their palette, from the control byte
+; of the row's set in the packet (PartyMenuStatusLabel's, keyed; a row it did not draw reads as palette 1), and then
+; their tiles, from wTileMap. Tiles and attributes of the status cells change together, whatever the BG transfer
+; is doing: a label in coloured tiles is never on screen under another palette than its ink's, nor a palette under
+; old tiles (the redraws that change a label run with the transfer off, and the screen shows the last draw until
+; RedrawPartyMenu_ ends). The loop was rewritten to fit the status cells into the time the HP bars alone took.
+	ld hl, vBGMap1 + 17 ; row 0's status cells, (17, 0)
+	ld de, wPartyMenuBlkPacket + 8 ; HP bar 0's set: its control byte, then its palette byte (wPartyHPBarAttributes)
+	ASSERT wPartyHPBarAttributes == wPartyMenuBlkPacket + 8 + 1
+	ld b, PARTY_LENGTH
 .loop
-	push bc
-	push hl
+	ld a, [de]
+	xor PARTY_STATUS_PAL_KEY
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
+	inc de
 	ld a, [de]
 	and $3 ; 4 possible palettes
+	ld c, a
+	ld a, l
+	add BG_MAP_WIDTH + 5 - 20 ; from (20, 2n) to the HP bar, (5, 2n + 1)
+	ld l, a
+	jr nc, .gotBar
+	inc h
+.gotBar
+	ld a, c
 REPT 7 ; hp bar length in tiles
 	ld [hli], a
 ENDR
-	pop hl
-	ld bc, $40 ; get 2nd party location
-	add hl, bc
-	push hl
-
-	push de ; (inefficiently) copy de to hl
-	pop hl
-
-	ld bc, $6
-	add hl, bc ; get the next palette
-
-	push hl
-	pop de ; copy back to de
-
-	pop hl
-	pop bc
-	dec c
+	ld a, l
+	add BG_MAP_WIDTH + 17 - 12 ; from (12, 2n + 1) to the next row's status cells, (17, 2n + 2)
+	ld l, a
+	jr nc, .gotStatus
+	inc h
+.gotStatus
+	ld a, e
+	add 6 - 1 ; the next set's control byte
+	ld e, a
+	jr nc, .gotSet
+	inc d
+.gotSet
+	dec b
 	jr nz, .loop
+; the status cells' tiles, in VRAM bank 0
+	xor a
+	ldh [rVBK], a
+	ld hl, vBGMap1 + 17
+	ld de, wTileMap + 17
+	ld b, PARTY_LENGTH
+.tiles
+REPT 3
+	ld a, [de]
+	inc de
+	ld [hli], a
+ENDR
+	ld a, l
+	add 2 * BG_MAP_WIDTH - 3 ; the next row's status cells, two map rows down
+	ld l, a
+	jr nc, .gotCell
+	inc h
+.gotCell
+	ld a, e
+	add 2 * SCREEN_WIDTH - 3
+	ld e, a
+	jr nc, .gotTile
+	inc d
+.gotTile
+	dec b
+	jr nz, .tiles
 	ret
 
 ExpBarBluePalette:
@@ -425,6 +483,7 @@ LoadStatusLetterTiles::
 	ASSERT STATUS_INK_NONE == 0
 	ldh [hStatusLetterInk], a
 	ldh [hStatusLetterInk + 1], a
+CopyStatusLetterTiles:
 	ld hl, StatusLetterTiles
 	ld de, vFont tile (STATUS_TILE_P - $80)
 	ld bc, NUM_STATUS_TILES_1 tiles
@@ -432,6 +491,33 @@ LoadStatusLetterTiles::
 	ld de, vFont tile (STATUS_TILE_B - $80)
 	ld bc, NUM_STATUS_TILES_2 tiles
 	jp CopyData
+
+LoadMenuStatusLetterTiles::
+; v1.0 (2026-11-25, S6): the same tiles for the menus' labels, outside a battle. A battle has them from its start
+; (above) to its end, and no screen its party menu reaches writes those cells. Outside one, the font reloads blank
+; them (a text box on the map, the trainer card's close): so the party menu's first draw (DrawPartyMenu_, every
+; opening) and the STATS page's first draw (not its quiet redraws, which come from a page that loaded them) load
+; them, both on a whited-out screen. Nothing else outside a battle shows those cells (the English font leaves them
+; blank; the kana that the charmap gives them are never printed). GBC only. With the LCD on the copies go through
+; the V-blank copier, two frames; with it off, at once.
+	ldh a, [hGBC]
+	and a
+	ret z
+	ld a, [wIsInBattle]
+	dec a
+	cp 2 ; a wild (1) or a trainer (2) battle: they are there
+	ret c
+	ldh a, [rLCDC]
+	and rLCDC_ENABLE_MASK
+	jr z, CopyStatusLetterTiles
+	ld de, StatusLetterTiles
+	ld hl, vFont tile (STATUS_TILE_P - $80)
+	lb bc, BANK(StatusLetterTiles), NUM_STATUS_TILES_1
+	call CopyVideoData
+	ld de, StatusLetterTiles + NUM_STATUS_TILES_1 tiles
+	ld hl, vFont tile (STATUS_TILE_B - $80)
+	lb bc, BANK(StatusLetterTiles), NUM_STATUS_TILES_2
+	jp CopyVideoData
 
 StatusInkTable:
 ; One GBC colour per ink (red, green, blue, 0-31). Chosen on 2026-11-12.
@@ -702,6 +788,9 @@ WriteStatusLetterPaletteSynced::
 	jr z, .gotSide
 	lb bc, (5 << 3) | $80, TRANSFERTOP ; the enemy's: BG palette 5
 .gotSide
+.anyPalette
+; v1.0 (2026-11-25, S6): RevealStatsLabelInk's way in too, past the battle's gate: the same write.
+; IN  wBGPPalsBuffer = the palette, b = its rBGPI byte (auto-increment), c = the third of the tile map to copy
 	ld hl, wBGPPalsBuffer
 	ld de, rBGPD
 	ldh a, [rLCDC]
@@ -736,4 +825,200 @@ ENDR
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	ei ; the V-blank handler, pending, runs now: its BG transfer copies that third
+	ret
+
+; v1.0 (2026-11-25, the status chapter's S6): THE MENUS' LETTERS. The party menu and the STATS page show a status in
+; the HUD's ink on the GBC, by the HUD's recipe: the coloured tiles (loaded for a battle, and by the menus outside one:
+; LoadMenuStatusLetterTiles) and palettes of their own whose slots 0 and 3 are the text's colours and slot 2 the ink.
+; The DMG and the SGB keep the font's black letters (the SGB colours by screen area, and every area's colour 3 is dark).
+;   - Palettes: BG 5, 6 and 7 on the party menu, BG 5 on the STATS page: free on both screens (the battle's 5 and 6
+;     are rebuilt from the HUD's register by the SET_PAL_BATTLE that brings the battle screen back; 7 the battle
+;     never points at). Slot 0 = the text palette's colour 0 at its shade, slot 3 = its colour 3 at its shade (the
+;     party menu's BG 1, the STATS page's BG 0: the palettes of the cells around), slot 1 = the text colour, slot 2
+;     = the ink, or the text colour when there is none. The shading rule is BuildStatusLetterPalette's, without the
+;     silhouette (no menu has one): when slot 3's shade is slot 0's, every slot is slot 0's colour, the letters hide
+;     with all the text (a white-out); else the ink is unshaded. Boxes drawn over the cells (the field moves' box)
+;     use colours 0 and 3 alone, so they look as they do around.
+;   - THE MENUS' INK REGISTER (hMenuLetterInk) names each palette's ink; every build reads it, never a status byte.
+;     The party menu has three inks at most at once: a row whose ink finds no palette keeps the font's letters
+;     (black). A draw takes palettes row by row (AllocMenuInk, engine/battle/hud_status.asm): the one that shows the
+;     ink already, else an empty one, else one no row of this draw took. So a redraw that changes no label keeps every
+;     palette, and a cure (which only takes labels away) never repaints a label still on screen.
+;   - Cells: each party row's palette is written with its tiles in the V-blank of the attributes
+;     (HandlePartyHPBarAttributes); the STATS page's three cells are BG 5 in its attribute table.
+;   - When the palettes are written: at the head of LoadBGMapAttributes for packets 5 and 9, before the attributes
+;     point a cell at them (a whited-out screen, or palettes that keep their inks: see the register); on an rBGP
+;     change under either command, in a raster window below every status cell (MENU_PAL_WINDOW_FIRST_LY..LAST_LY),
+;     before palettes 0-3 are rebuilt at the next V-blank, so the whole screen changes shade in one frame (home's
+;     UpdateGBCPal_BGP, through PreloadLetterPalettes); and for a quiet STATS page whose label has another ink than
+;     the last one, in the V-blank that copies the third its label is in (RevealStatsLabelInk).
+
+; IN  c = the byte of the menus' register (BG palette MENU_LETTER_PAL_FIRST + c)
+;     b = the text palette its colours 0 and 3 come from: 1 on the party menu, 0 on the STATS page
+;     de = where to build it: PALETTE_SIZE bytes that are not wGBCPal
+; OUT de = the byte after it; bc kept; a and hl are not
+BuildMenuLetterPalette:
+	push bc
+	push de
+	ld a, b
+	add a
+	add LOW(wGBCBasePalPointers)
+	ld l, a
+	ld h, HIGH(wGBCBasePalPointers)
+	ASSERT HIGH(wGBCBasePalPointers) == HIGH(wGBCBasePalPointers + NUM_ACTIVE_PALS * 2 - 1)
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ld de, wGBCPal
+	ld bc, PALETTE_SIZE
+	ld a, BANK(GBCBasePalettes)
+	call FarCopyData
+	pop de
+	pop bc
+	push bc
+; c = the ink, or 0 when there is none to show: no ink in the register, or slot 3's shade is slot 0's
+	ldh a, [rBGP]
+	ld l, a
+	rlca
+	rlca
+	xor l
+	and %11 ; slot 3's shade (bits 7-6 of rBGP) against slot 0's (bits 1-0)
+	jr z, .gotInk ; a = 0
+	ld a, c
+	add LOW(hMenuLetterInk)
+	ld c, a
+	ldh a, [c]
+	and ~(1 << MENU_INK_CLAIMED)
+.gotInk
+	ld c, a
+; slot 0: the text palette's colour at slot 0's shade
+	ldh a, [rBGP]
+	call BuildStatusLetterPalette.barColor
+	call BuildStatusLetterPalette.putColor
+; hl = the text colour: its colour at slot 3's shade (slot 0's when the two shades are one)
+	ldh a, [rBGP]
+	rlca
+	rlca
+	call BuildStatusLetterPalette.barColor
+	call BuildStatusLetterPalette.putColor ; slot 1: the text colour
+	ld a, c
+	and a
+	ASSERT STATUS_INK_NONE == 0
+	jr z, .slot2
+	push hl
+	ld b, 0
+	ld hl, StatusInkTable - PAL_COLOR_SIZE
+	add hl, bc
+	add hl, bc
+	ASSERT PAL_COLOR_SIZE == 2
+	call BuildStatusLetterPalette.putColor ; slot 2: the ink
+	pop hl
+	jr .slot3
+.slot2
+	call BuildStatusLetterPalette.putColor ; slot 2: the text colour
+.slot3
+	call BuildStatusLetterPalette.putColor
+	pop bc
+	ret
+
+; The screen's letter palettes, from the register and the rBGP of this moment, into wBGPPalsBuffer: BG 5-7 on the
+; party menu (the last palette command SET_PAL_PARTY_MENU), BG 5 on the STATS page (any other: the callers have
+; checked it is SET_PAL_STATUS_SCREEN).
+; OUT c = how many colours to write from BG palette MENU_LETTER_PAL_FIRST on. a, b, de, hl are not kept.
+BuildMenuLetterPalettes:
+	ld de, wBGPPalsBuffer
+	ld a, [wLastPalCommand]
+	cp SET_PAL_PARTY_MENU
+	jr nz, .statusScreen
+	lb bc, 1, 0 ; the party menu's text palette is BG 1; from the register's byte 0
+.party
+	call BuildMenuLetterPalette
+	inc c
+	ld a, c
+	cp NUM_MENU_LETTER_PALS
+	jr c, .party
+	ld c, NUM_MENU_LETTER_PALS * NUM_PAL_COLORS
+	ret
+.statusScreen
+	lb bc, 0, 0 ; the STATS page's is BG 0 (its HP bar's palette: colours 0 and 3 are every HP bar's)
+	call BuildMenuLetterPalette
+	ld c, NUM_PAL_COLORS
+	ret
+	ASSERT NUM_MENU_LETTER_PALS <= NUM_ACTIVE_PALS ; wBGPPalsBuffer holds them
+	ASSERT MENU_LETTER_PAL_FIRST + NUM_MENU_LETTER_PALS <= 8
+
+PreloadMenuLetterPalettesNow:
+; LoadBGMapAttributes's, at its head, for packets 5 and 9 (the last palette command is then SET_PAL_PARTY_MENU or
+; SET_PAL_STATUS_SCREEN: RunPaletteCommand stores it before the packets), before the attributes point a cell at
+; them. With the LCD on the colours take an H-blank each, wherever the beam is: the screen is whited out (a first
+; draw), or the palettes keep the inks the cells on screen show (the register's rule). bc kept.
+	push bc
+	call BuildMenuLetterPalettes
+	call WriteMenuLetterPalettes
+	pop bc
+	ret
+
+PreloadLetterPalettes::
+; Called by home's UpdateGBCPal_BGP on an rBGP change, BEFORE palettes 0-3 are rebuilt, when the last palette command
+; is a battle's, the party menu's or the STATS page's (home has made the tests: v1.0, 2026-11-25).
+	ld a, [wLastPalCommand]
+	cp SET_PAL_BATTLE + 1
+	jp c, PreloadStatusLetterPalettes
+; fall through: the menus
+
+PreloadMenuLetterPalettes:
+; Both menus' palettes built for the new rBGP, then written while the beam is in a window of scanlines: not before
+; MENU_PAL_WINDOW_FIRST_LY (below every status cell: the frame being drawn keeps the old shade on them), not after
+; MENU_PAL_WINDOW_LAST_LY (the twelve colours, then _UpdateGBCPal_BGP's ten scanlines, end before V-blank, where
+; palettes 0-3 are written). Later than that, the write waits for the next frame's window. With the LCD off there is
+; no beam to wait for: at once. PreloadStatusLetterPalettes is the battle's twin, with the same reasons.
+	call BuildMenuLetterPalettes
+	ldh a, [rLCDC]
+	and rLCDC_ENABLE_MASK
+	jr z, WriteMenuLetterPalettes
+.waitForWindow
+	ldh a, [rLY]
+	cp MENU_PAL_WINDOW_FIRST_LY
+	jr c, .waitForWindow ; above the window: wait for its first line
+	cp MENU_PAL_WINDOW_LAST_LY + 1
+	jr nc, .waitForWindow ; below it: wait for the next frame's
+; fall through
+
+WriteMenuLetterPalettes:
+; c colours from wBGPPalsBuffer to BG palette MENU_LETTER_PAL_FIRST on
+	ld a, (MENU_LETTER_PAL_FIRST << 3) | $80 ; color 0, auto-increment
+	ldh [rBGPI], a
+	ld hl, wBGPPalsBuffer
+	jp TransferBGPalColors
+
+RevealStatsLabelInk::
+; Far, from StatusScreen_RevealQuietPage (engine/pokemon/status_screen.asm), in front of the instructions that put a
+; quiet page up. A quiet page was composed with the BG transfer off, so the screen still shows the last page, its
+; label in the ink BG palette 5 holds: the register's byte 0. When the new page's label has another ink (byte 1, from
+; StatsStatusLabel), the page goes up from here: the top third in one V-blank (palette 5 written again as it is),
+; then the middle third, where the label is (row 6), in the next, with palette 5 taking the new ink at its start
+; (WriteStatusLetterPaletteSynced's write). Ink and tiles change in the same frame.
+; OUT NZ: the top and the middle thirds are up and the transfer is on, the bottom third next; Z: nothing done (the
+;     same ink, or the DMG / SGB), the caller puts the page up. The flags are the output (they survive rst _Bankswitch).
+	ldh a, [hGBC]
+	and a
+	ret z
+	ldh a, [hMenuLetterInk + 1]
+	ld b, a
+	ldh a, [hMenuLetterInk]
+	cp b
+	ret z
+	lb bc, 0, 0
+	ld de, wBGPPalsBuffer
+	call BuildMenuLetterPalette ; the ink on screen
+	lb bc, (MENU_LETTER_PAL_FIRST << 3) | $80, TRANSFERTOP
+	call WriteStatusLetterPaletteSynced.anyPalette
+	ldh a, [hMenuLetterInk + 1]
+	ldh [hMenuLetterInk], a
+	lb bc, 0, 0
+	ld de, wBGPPalsBuffer
+	call BuildMenuLetterPalette ; the new one
+	lb bc, (MENU_LETTER_PAL_FIRST << 3) | $80, TRANSFERMIDDLE
+	call WriteStatusLetterPaletteSynced.anyPalette
+	or 1 ; NZ
 	ret

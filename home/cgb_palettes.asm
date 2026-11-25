@@ -17,11 +17,18 @@ UpdateGBCPal_BGP::
 ; (engine/gfx/bg_map_attributes.asm). The test is made here and not behind the far call: every other screen
 ; then pays these three instructions per rBGP change and no bank switch (the Yellow intro has no time to
 ; spare). b only held rBGP for the compare above.
+; v1.0 (2026-11-25, the status chapter's S6): and on the party menu and the STATS page, whose coloured status letters
+; are in BG 5-7 (the same file); PreloadLetterPalettes tells the screens apart.
 	ld a, [wLastPalCommand]
 	cp SET_PAL_BATTLE + 1
 	ASSERT SET_PAL_BATTLE_BLACK == 0 && SET_PAL_BATTLE == 1
-	jr nc, .notBattleScreen
-	farcall PreloadStatusLetterPalettes
+	jr c, .letterScreen
+	cp SET_PAL_STATUS_SCREEN
+	jr z, .letterScreen
+	cp SET_PAL_PARTY_MENU
+	jr nz, .notBattleScreen
+.letterScreen
+	farcall PreloadLetterPalettes
 .notBattleScreen
 	farcall _UpdateGBCPal_BGP
 ; _UpdateGBCPal_BGP only rebuilds palettes 0-3 (NUM_ACTIVE_PALS); palette 4

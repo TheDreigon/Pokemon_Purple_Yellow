@@ -701,6 +701,29 @@ MenuMonBleeding::
 	xor a ; Z
 	ret
 
+; v1.0 (2026-11-25, the status chapter's S6). Near, for MenuLabelInk (engine/battle/hud_status.asm, pinned in this
+; bank): the burn's bites left of the #MON the party menu or the STATS page is drawing, by MenuMonBleeding's rule
+; (in a battle, a #MON of the player's party: wWhichPokemon's byte; anything else none, so outside a battle every
+; burn's fire is out). A menu's BRN takes the HUD's red while the fire burns and its orange once it is out.
+; OUT a = the bites, Z when none. Clobbers hl. bc and de are kept.
+MenuMonBurnBites:
+	ld a, [wIsInBattle]
+	dec a
+	cp 2 ; a wild (1) or a trainer (2) battle?
+	jr nc, .no
+	ld a, [wMonDataLocation]
+	and a
+	ASSERT PLAYER_PARTY_DATA == 0
+	jr nz, .no
+	ld a, [wWhichPokemon]
+	call PlayerSlotCondsAddr
+	ld a, [hl]
+	and BURN_BITES_MASK
+	ret
+.no
+	xor a ; Z
+	ret
+
 ; Far. An item used on a #MON of the player's party (item_effects.asm .doneHealing, as the item is used up): in a
 ; battle a FULL HEAL or a FULL RESTORE ends the bleed of the #MON it treats (wUsedItemOnWhichPokemon), active or
 ; benched, with no line of its own (the item prints only its text). Every other item, and any item outside a battle

@@ -608,3 +608,218 @@ ParkHUDStatus::
 	ret c
 	xor a ; label number 0: the primary
 	jp ShowHUDLabel
+
+; THE MENUS' LABELS (v1.0, 2026-11-25, the status chapter's S6; GBC only). The party menu and the STATS page print a
+; status as they always did, PrintStatusCondition's font letters (home/pokemon.asm); on the GBC the label then takes
+; the HUD's ink: its cells get the HUD's coloured tiles (StatusLetterTileIDs) and one of the menus' palettes, BG 5 to
+; 7, which the menus' INK REGISTER names (hMenuLetterInk, ram/hram.asm). The ink is read back from the letters
+; printed (MenuLabelInk), so it can never disagree with what the cells spell. The palettes, their writers and the
+; attributes are in engine/gfx/bg_map_attributes.asm, with the design. The DMG and the SGB never come here.
+
+; IN  hl = three cells a menu printed a status into (the font's letters, or anything else)
+; OUT a = the ink id (STATUS_INK_*) of the label they spell: the first row of StatusLetterFontIDs that has the
+;     letters; STATUS_INK_NONE for anything that is not a label (FNT, OK, blanks). A burn is STATUS_INK_BRN while
+;     its fire burns (in a battle, a #MON of the player's party with bites left: MenuMonBurnBites,
+;     engine/battle/soft_status.asm, pinned in this bank) and STATUS_INK_BRN_OUT otherwise, as on the HUD.
+;     hl is kept; bc and de are not.
+MenuLabelInk:
+	ld de, StatusLetterFontIDs
+	ld c, STATUS_INK_PSN
+.label
+	push hl
+	ld b, 3
+.letter
+	ld a, [de]
+	cp [hl]
+	jr nz, .notThis
+	inc de
+	inc hl
+	dec b
+	jr nz, .letter
+	pop hl
+	ld a, c
+	cp STATUS_INK_BRN
+	ret nz
+	push hl
+	call MenuMonBurnBites
+	pop hl
+	ld a, STATUS_INK_BRN ; (ld keeps the flags)
+	ret nz
+	ASSERT STATUS_INK_BRN_OUT == STATUS_INK_BRN + 1
+	inc a ; STATUS_INK_BRN_OUT: the fire is out
+	ret
+.notThis
+; de is on letter 3 - b of this row: the next row is b letters on
+	ld a, e
+	add b
+	ld e, a
+	jr nc, .nextLabel
+	inc d
+.nextLabel
+	pop hl
+	inc c
+	ld a, c
+	cp NUM_STATUS_INKS + 1
+	jr c, .label
+	xor a
+	ASSERT STATUS_INK_NONE == 0
+	ret
+	ASSERT BANK(MenuMonBurnBites) == BANK(MenuLabelInk), "MenuLabelInk calls soft_status.asm near"
+
+; IN  a = an ink id that is not STATUS_INK_NONE
+; OUT de = its three coloured tiles' ids, in StatusLetterTileIDs. a and hl are not kept; bc is.
+MenuLabelTileIDs:
+	dec a
+	ld e, a
+	add a
+	add e ; (ink - 1) * 3
+	add LOW(StatusLetterTileIDs)
+	ld e, a
+	ld a, HIGH(StatusLetterTileIDs)
+	adc 0
+	ld d, a
+	ret
+
+; The first row of a party menu draw: no palette is taken yet. The inks stay: a palette's ink still on screen from
+; the last draw keeps its colour until the attributes change (AllocMenuInk takes an empty palette first).
+UnclaimMenuInks:
+	ld hl, hMenuLetterInk
+	ld b, NUM_MENU_LETTER_PALS
+.unclaim
+	res MENU_INK_CLAIMED, [hl]
+	inc hl
+	dec b
+	jr nz, .unclaim
+	ret
+
+; A palette for a party menu row's ink.
+; IN  c = the ink id (not STATUS_INK_NONE)
+; OUT carry: no palette left (the row keeps the font's black letters); else a = the palette's byte of the register
+;     (BG palette MENU_LETTER_PAL_FIRST + a), claimed with the ink. c and de are kept.
+; In this order: the palette that already shows the ink (claimed by an earlier row or not); else one that shows no
+; ink and no row took; else one that no row of this draw took (an ink of the last draw that this one has not asked
+; for so far). So a redraw that changes no label keeps every palette as it was, and one that only takes labels away
+; (a cure) never repaints a label still on screen.
+AllocMenuInk:
+	ld hl, hMenuLetterInk
+	ld b, NUM_MENU_LETTER_PALS
+.same
+	ld a, [hl]
+	and ~(1 << MENU_INK_CLAIMED)
+	cp c
+	jr z, .take
+	inc hl
+	dec b
+	jr nz, .same
+	ld hl, hMenuLetterInk
+	ld b, NUM_MENU_LETTER_PALS
+.empty
+	ld a, [hl]
+	and a ; no ink, and unclaimed
+	ASSERT STATUS_INK_NONE == 0
+	jr z, .take
+	inc hl
+	dec b
+	jr nz, .empty
+	ld hl, hMenuLetterInk
+	ld b, NUM_MENU_LETTER_PALS
+.unclaimed
+	bit MENU_INK_CLAIMED, [hl]
+	jr z, .take
+	inc hl
+	dec b
+	jr nz, .unclaimed
+	scf
+	ret
+.take
+	ld a, c
+	or 1 << MENU_INK_CLAIMED
+	ld [hl], a
+	ld a, l
+	sub LOW(hMenuLetterInk) ; nc
+	ret
+	ASSERT HIGH(hMenuLetterInk) == HIGH(hMenuLetterInk + NUM_MENU_LETTER_PALS - 1)
+
+; Far, from RedrawPartyMenu_'s row loop on the GBC (engine/menus/party_menu.asm), in place of its
+; PrintStatusCondition: the row's label, in its ink.
+; IN  de = the row's three status cells in wTileMap; the row's #MON is loaded (LoadMonData) and wWhichPokemon is the
+;     row (the loop sets both).
+; The label is printed into wcd6d first (the loop is done with the buffer: the row's name is placed), so the cells
+; only ever take the row's final tiles: the font's letters for a moment would show black for a frame when the BG
+; transfer is on (a redraw that changes no label: after the SWITCH / STATS box, a cancelled SWITCH). Then a label
+; with an ink and a palette for it gets its coloured tiles; FNT, blanks and a label past the three palettes get the
+; font's letters (and blanks where nothing is printed: these redraws do not all clear the screen). The row's palette
+; goes to the packet, keyed (PARTY_STATUS_PAL_KEY), for the attributes' writer (HandlePartyHPBarAttributes,
+; engine/gfx/bg_map_attributes.asm), which runs at the end of the draw.
+PartyMenuStatusLabel::
+	push de
+	ld a, [wWhichPokemon]
+	and a
+	call z, UnclaimMenuInks
+	ld hl, wcd6d
+	ld a, " "
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ld hl, wcd6d
+	ld de, wLoadedMonStatus
+	call PrintStatusCondition
+	ld hl, wcd6d
+	call MenuLabelInk
+	ld de, wcd6d ; the tiles: the font's letters...
+	ld b, 1 ; ...in BG palette 1, the text's
+	and a
+	ASSERT STATUS_INK_NONE == 0
+	jr z, .write
+	ld c, a
+	call AllocMenuInk
+	ld b, 1 ; (ld keeps the carry) AllocMenuInk took b
+	jr c, .write
+	add MENU_LETTER_PAL_FIRST
+	ld b, a
+	ld a, c
+	call MenuLabelTileIDs
+.write
+	pop hl
+	call WriteStatusLetterTiles
+; the row's palette, into the control byte of its HP bar's set: set row + 1 of the packet
+	ld a, [wWhichPokemon]
+	ld c, a
+	add a
+	add c
+	add a ; the row * 6
+	add LOW(wPartyMenuBlkPacket + 8)
+	ld l, a
+	ld a, HIGH(wPartyMenuBlkPacket + 8)
+	adc 0
+	ld h, a
+	ld a, b
+	xor PARTY_STATUS_PAL_KEY
+	ld [hl], a
+	ret
+
+; Far, from the STATS page on the GBC (engine/pokemon/status_screen.asm), right after it printed the status, or "OK",
+; at (16, 6): the label in its ink. A label with an ink gets its coloured tiles (the cells are BG palette 5 in
+; BGMapAttributes_StatusScreen). The register's byte 1 takes the ink (STATUS_INK_NONE for OK and FNT), and so does
+; byte 0, the ink palette 5 shows, unless the page is a quiet one: composed with the BG transfer off while the last
+; page is still up, it takes its ink when it is put up, in the frame its label's tiles are (RevealStatsLabelInk,
+; engine/gfx/bg_map_attributes.asm).
+StatsStatusLabel::
+	hlcoord 16, 6
+	call MenuLabelInk
+	ld b, a
+	and a
+	ASSERT STATUS_INK_NONE == 0
+	jr z, .gotTiles
+	call MenuLabelTileIDs
+	hlcoord 16, 6
+	call WriteStatusLetterTiles
+.gotTiles
+	ld a, b
+	ldh [hMenuLetterInk + 1], a
+	ld a, [wStatusScreenPageChange]
+	and STATUS_QUIET
+	ret nz
+	ld a, b
+	ldh [hMenuLetterInk], a
+	ret

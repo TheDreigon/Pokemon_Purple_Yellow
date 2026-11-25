@@ -131,3 +131,19 @@ DEF STATUS_PAL_SILHOUETTE_LAST_LY EQU 100 ; in front of SET_PAL_BATTLE_BLACK (Pr
 ; The scanline a new label's ink is written on (WriteStatusLetterPaletteSynced): the first of V-blank, whose
 ; handler then copies the label's tiles.
 DEF STATUS_PAL_SYNC_LY EQU SCREEN_HEIGHT_PX
+
+; The menus' coloured status letters (v1.0, 2026-11-25, the status chapter's S6; GBC only): the party menu and the
+; STATS page, in BG palettes 5 to 7 (engine/gfx/bg_map_attributes.asm has the design).
+DEF MENU_LETTER_PAL_FIRST  EQU 5 ; the party menu's three ink palettes are 5, 6 and 7; the STATS page uses 5
+DEF NUM_MENU_LETTER_PALS   EQU 3 ; so at most three inks at once on the party menu: a row past them keeps black letters
+DEF MENU_INK_CLAIMED       EQU 7 ; the bit of a party-menu byte of hMenuLetterInk: a row of this draw took the palette
+; The scanlines on which the menus' palettes may start to be written on an rBGP change: below every status cell
+; (the party menu's last row of them is screen row 10, scanlines 80-87; the STATS page's is row 6, 48-55), and
+; early enough for the twelve colours (one H-blank each) and _UpdateGBCPal_BGP's ten scanlines to be over before
+; V-blank, where palettes 0-3 are written.
+DEF MENU_PAL_WINDOW_FIRST_LY EQU 88
+DEF MENU_PAL_WINDOW_LAST_LY  EQU 108
+; A party-menu row's status palette is kept, for the attributes' writer, in the control byte of its HP bar's set
+; in wPartyMenuBlkPacket (a byte only the SGB reads, and the GBC never sends the packet): the palette XOR this key,
+; so that the byte BlkPacket_PartyMenu gives every set (ATTR_BLK_DATA's %010) reads as palette 1, the text's.
+DEF PARTY_STATUS_PAL_KEY EQU %010 ^ 1
