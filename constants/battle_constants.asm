@@ -204,7 +204,7 @@ DEF SPDSPCDV_TRAINER EQU $88
 	const PROTECTING          ; 3 ; PROTECT worked this turn (v1.0 2026-11-02; was unused)
 	const HAS_SUBSTITUTE_UP   ; 4
 	const NEEDS_TO_RECHARGE   ; 5 ; Hyper Beam
-	const PROTECTED_LAST_TURN ; 6 ; PROTECT worked the turn before: this turn's fails (v1.0 2026-11-02; was RAGE's dead bit)
+	const STATUS2_FREE_6      ; 6 ; free since 2026-11-25 (PROTECTED_LAST_TURN from 2026-11-02: PROTECT_CHAIN in status 3 now; RAGE's dead bit before)
 	const SEEDED              ; 7
 
 ; wPlayerBattleStatus3 or wEnemyBattleStatus3 bit flags
@@ -214,6 +214,10 @@ DEF SPDSPCDV_TRAINER EQU $88
 	const HAS_REFLECT_UP      ; 2
 	const TRANSFORMED         ; 3
 	const MOVED_THIS_TURN     ; 4 ; v1.0 (2026-11-02): this side's move has run this turn (a PROTECT after it fails)
+	const PROTECT_CHAIN_LO    ; 5 ; v1.0 (2026-11-25): bits 5-6, the PROTECTs of its own that worked in a row up to last turn,
+	const PROTECT_CHAIN_HI    ; 6 ; 0-3 (CommitTurnBattleBits); a PROTECT then works 1 time in 2^n (ProtectChainRoll)
+DEF PROTECT_CHAIN_MASK EQU (1 << PROTECT_CHAIN_LO) | (1 << PROTECT_CHAIN_HI)
+ASSERT PROTECT_CHAIN_HI == PROTECT_CHAIN_LO + 1, "the chain is a two-bit count"
 
 ; v1.0 (R11, 2026-10-02): wAITurnOrder's bits - the turn order the trainer AI has SEEN in this matchup
 DEF AI_ORDER_PLAYER_FIRST EQU 0 ; the last order the screen showed (the speeds deciding it) had the player first

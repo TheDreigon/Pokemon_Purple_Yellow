@@ -567,22 +567,33 @@ INCLUDE "data/battle/priority_moves.asm"
 ; v1.0 (2026-11-02): the turn is committed (MainInBattleLoop, .selectEnemyMove). Every turn that runs
 ; passes there once and only once: the FIGHT menu's B goes back above it, and the trainer's choice,
 ; made at the top of the turn, still sees last turn's bits (a PROTECT that worked is PROTECTING then).
-; For both sides PROTECT's bits move on a turn - PROTECTED_LAST_TURN takes PROTECTING, which clears -
-; and MOVED_THIS_TURN clears. Clobbers a, hl.
+; For both sides PROTECT's bits move on a turn and MOVED_THIS_TURN clears. v1.0 (2026-11-25, the owner): PROTECTING
+; clears into the chain (PROTECT_CHAIN, status 3): a PROTECT that worked adds one, up to 3; any other turn (another
+; move, a PROTECT that failed, a switch's cleared bytes) leaves it 0. ProtectChainRoll reads it: 1 in 2^n.
+; (2026-11-02 to 11-25: PROTECTED_LAST_TURN, the next PROTECT always failing.) Clobbers a, b, hl.
 CommitTurnBattleBits:
 	ld hl, wPlayerBattleStatus2
 	call .side
 	ld hl, wEnemyBattleStatus2
 .side
 	ld a, [hl]
-	and ~(1 << PROTECTED_LAST_TURN)
 	bit PROTECTING, a
-	jr z, .gotStatus2
-	xor (1 << PROTECTING) | (1 << PROTECTED_LAST_TURN)
-.gotStatus2
+	res PROTECTING, a
+	ld [hli], a ; status 2, PROTECTING cleared (res and ld keep the flags of the bit)
+	ld a, [hl] ; status 3
+	res MOVED_THIS_TURN, a
+	jr z, .chainBroken ; no PROTECT worked this turn
+	ld b, a
+	and PROTECT_CHAIN_MASK
+	cp PROTECT_CHAIN_MASK
+	ld a, b
+	jr z, .gotStatus3 ; at 3 it stays: 1/8 is the floor
+	add 1 << PROTECT_CHAIN_LO
+	jr .gotStatus3
+.chainBroken
+	and ~PROTECT_CHAIN_MASK
+.gotStatus3
 	ld [hl], a
-	inc hl ; BattleStatus3
-	res MOVED_THIS_TURN, [hl]
 	ret
 
 ASSERT wPlayerBattleStatus3 == wPlayerBattleStatus2 + 1 && wEnemyBattleStatus3 == wEnemyBattleStatus2 + 1, \

@@ -534,15 +534,16 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 	jp nz, .discourage
 	jp .nextMove
 .checkProtect
-; v1.0 (2026-11-02): ProtectEffect fails the turn after a PROTECT of its own that worked - PROTECTING
-; is still set when the trainer chooses, the turn's commit (CommitTurnBattleBits) moving it on after
-; the choice - and with the player recharging there is nothing to block: USELESS either way.
-	ld a, [wEnemyBattleStatus2]
-	bit PROTECTING, a
-	jp nz, .useless
+; v1.0 (2026-11-02): with the player recharging there is nothing to block: USELESS. After a PROTECT of its own
+; that worked - PROTECTING is still set when the trainer chooses, the turn's commit (CommitTurnBattleBits) moving it
+; into the chain after the choice - v1.0 (2026-11-25, the owner) it works 1 time in 2, 4 or 8 (ProtectChainRoll):
+; not a sure failure, so +5, as any move that may fail (2026-11-02 to 11-25 it always failed: USELESS).
 	ld a, [wPlayerBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
-	jp nz, .useless
+	jp nz, .useless ; first: the sure failure decides over the chance
+	ld a, [wEnemyBattleStatus2]
+	bit PROTECTING, a
+	jp nz, .discourage
 	jp .nextMove
 .checkNoMirrorMoveOnFirstTurn
 ; v1.0 (2026-09-08): this read wPlayerLastSelectedMove, a pureRGB byte nothing in

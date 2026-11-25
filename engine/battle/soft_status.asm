@@ -1251,6 +1251,42 @@ TooScaredText:
 	text_far _TooScaredText
 	text_end
 
+; Far, from ProtectEffect (bank $1D: its section has no room for this), after its sure refusal (the user moving last).
+; v1.0 (2026-11-25, the owner): the PROTECT chain. After n PROTECTs of its own that worked in a row (PROTECT_CHAIN,
+; status 3, 0-3: CommitTurnBattleBits counts them, a PROTECT that failed or any other move breaks the chain), a
+; PROTECT works 1 time in 2^n: a roll below $100 >> n - 50 %, 25 %, then 12.5 %, the floor. With no chain it surely
+; works and draws nothing. When it works, the user's PROTECTING is set here.
+; OUT carry = it fails. Clobbers a, bc, hl (BattleRandom keeps them).
+ProtectChainRoll::
+	ld hl, wPlayerBattleStatus2
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .gotUser
+	ld hl, wEnemyBattleStatus2
+.gotUser
+	inc hl ; status 3
+	ld a, [hld]
+	and PROTECT_CHAIN_MASK
+	jr z, .works
+	swap a ; the chain's bits 5-6 to bits 1-2
+	rrca ; the chain, 1-3
+	ld b, a
+	ld c, $80 ; 1 in 2 for a chain of 1
+.halve
+	dec b
+	jr z, .roll
+	srl c
+	jr .halve
+.roll
+	call BattleRandom
+	cp c
+	ccf
+	ret c ; a roll of $100 >> n or more: it fails
+.works
+	set PROTECTING, [hl]
+	and a
+	ret
+
 INCLUDE "data/battle/fear_immune_types.asm"
 INCLUDE "data/battle/bleed_moves.asm"
 INCLUDE "data/pokemon/bloodless.asm"

@@ -5,26 +5,26 @@
 ; of every move aimed at it for the rest of this turn (TRANSFORM and a WRAP's later turns aside, by
 ; design: they skip the hit test): PROTECTING, which MoveHitTest reads first (TargetIsProtected) and
 ; the turn's commit clears (CommitTurnBattleBits, core.asm). It fails
-; - the turn after a PROTECT of its own that worked (PROTECTED_LAST_TURN, which the commit sets
-;   from PROTECTING): never twice in a row, no luck involved;
 ; - when the user moves last (the target's MOVED_THIS_TURN): with nothing left to block, it would
 ;   only cost the next turn's PROTECT. Only another PROTECT goes first at that priority, or a
-;   PROTECT that MIRROR MOVE or METRONOME calls in its own speed slot.
+;   PROTECT that MIRROR MOVE or METRONOME calls in its own speed slot. No roll is drawn then;
+; - v1.0 (2026-11-25, the owner) by the chain: after n PROTECTs of its own that worked in a row
+;   (PROTECT_CHAIN, counted by the commit), it works 1 time in 2^n - 50 %, 25 %, then 12.5 % on
+;   (ProtectChainRoll, soft_status.asm, which sets PROTECTING when it works). A PROTECT that fails
+;   breaks the chain: the next one is sure again. (2026-11-02 to 11-25: it always failed the turn
+;   after one that worked.)
 ProtectEffect:
-	ld hl, wPlayerBattleStatus2
 	ld de, wEnemyBattleStatus3
 	ldh a, [hWhoseTurn]
 	and a
-	jr z, .gotSides
-	ld hl, wEnemyBattleStatus2
+	jr z, .gotTarget
 	ld de, wPlayerBattleStatus3
-.gotSides
-	bit PROTECTED_LAST_TURN, [hl]
-	jr nz, ProtectLockOnFailed
+.gotTarget
 	ld a, [de]
 	bit MOVED_THIS_TURN, a
 	jr nz, ProtectLockOnFailed
-	set PROTECTING, [hl]
+	farcall ProtectChainRoll ; carry: the chain's roll failed; else the user's PROTECTING is set (bank $12)
+	jr c, ProtectLockOnFailed
 	call PlayCurrentMoveAnimation
 	ld hl, ProtectedItselfText
 	jp PrintText

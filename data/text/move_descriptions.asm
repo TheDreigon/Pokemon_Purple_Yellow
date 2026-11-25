@@ -432,8 +432,8 @@ _MoveDesc_LightScreen::
 _MoveDesc_Protect::
 	text "Goes first, and no"
 	next "move aimed at the"
-	next "user lands. Fails"
-	next "twice in a row."
+	next "user lands. Odds"
+	next "halve if repeated."
 	done
 
 _MoveDesc_LockOn::
