@@ -17,11 +17,16 @@ MoveDescriptionOverrides:
 	dw MoveDesc_Rest
 	db SOFTBOILED,   
 	dw MoveDesc_Softboiled
-	db NIGHT_SLASH,  
-	dw MoveDesc_HighCrit
-	db DRAGON_CLAW,  
-	dw MoveDesc_HighCrit
-	db VOLT_TACKLE,  
+; v1.0 (2026-11-25, the status chapter's texts): the six moves of BleedMoves (data/battle/bleed_moves.asm) say
+; their chance to make the foe BLEED. GORE ATTACK has a card of its own: its high crit, the BLEED and its own
+; 15 % PARALYZE (PARALYZE_SIDE_EFFECT1, whose shared card it no longer uses).
+	db GORE_ATTACK,
+	dw MoveDesc_GoreAttack
+	db NIGHT_SLASH,
+	dw MoveDesc_HighCritBleed15
+	db DRAGON_CLAW,
+	dw MoveDesc_HighCritBleed15
+	db VOLT_TACKLE,
 	dw MoveDesc_HighCritPriority
 	db MACH_PUNCH,   
 	dw MoveDesc_Priority
@@ -31,16 +36,16 @@ MoveDescriptionOverrides:
 	dw MoveDesc_HighCrit
 	db SHADOW_SNEAK, 
 	dw MoveDesc_Priority
-	db RAZOR_LEAF,   
-	dw MoveDesc_HighCrit
+	db RAZOR_LEAF,
+	dw MoveDesc_HighCritBleed15
 	db QUICK_ATTACK, 
 	dw MoveDesc_Priority
-	db SLASH,        
-	dw MoveDesc_HighCrit
+	db SLASH,
+	dw MoveDesc_HighCritBleed15
 	db EXTREMESPEED, 
 	dw MoveDesc_ExtremeSpeed
-	db CUT,          
-	dw MoveDesc_HighCrit
+	db CUT,
+	dw MoveDesc_HighCritBleed30
 	db BULLET_PUNCH, 
 	dw MoveDesc_Priority
 	db AQUA_JET,     
@@ -607,6 +612,18 @@ MoveDesc_ExtremeSpeed:
 
 MoveDesc_HighCrit:
 	text_far _MoveDesc_HighCrit
+	text_end
+
+MoveDesc_HighCritBleed15:
+	text_far _MoveDesc_HighCritBleed15
+	text_end
+
+MoveDesc_HighCritBleed30:
+	text_far _MoveDesc_HighCritBleed30
+	text_end
+
+MoveDesc_GoreAttack:
+	text_far _MoveDesc_GoreAttack
 	text_end
 
 MoveDesc_HighCritPriority:

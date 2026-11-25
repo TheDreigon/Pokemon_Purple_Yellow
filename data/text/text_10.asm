@@ -283,3 +283,40 @@ _BadPoisonEasedText::
 	text "<USER>'s"
 	line "bad poison eased!"
 	prompt
+
+; v1.0 (2026-11-25, the status chapter's texts): the Viridian school blackboard's BLD and SCR headings
+; (engine/events/hidden_objects/school_blackboard.asm). Here and not beside the other six in Text 2, which sits
+; at its floor. Neither page names a single-status heal: a FULL HEAL is the cure item of both (invariants_audit
+; check9 pairs them with the TRAINER MANUAL's BLEED and FEAR sections). A BLEED ends with the battle and stays
+; when the #MON is called back; FEAR leaves with it (engine/battle/soft_status.asm).
+_ViridianBlackboardBleedText::
+	text "A bleeding #MON"
+	line "loses health each"
+	cont "turn!"
+
+	para "It stops on its"
+	line "own after a few"
+	cont "turns, and when"
+	cont "the battle ends."
+
+	para "Calling it back"
+	line "won't stop it."
+
+	para "A FULL HEAL or"
+	line "REST stops it at"
+	cont "once!"
+	prompt
+
+_ViridianBlackboardFearText::
+	text "A scared #MON"
+	line "moves last, and"
+	cont "may be too scared"
+	cont "to move!"
+
+	para "It passes after a"
+	line "few turns."
+
+	para "Calling it back"
+	line "ends it, and so"
+	cont "does a FULL HEAL!"
+	prompt

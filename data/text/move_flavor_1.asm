@@ -117,10 +117,8 @@ _MoveFlavor_DARK_PULSE::
 
 _MoveFlavor_GORE_ATTACK::
 	text "The user drives in"
-	next "and tears, and"
-	next "does not stop"
-	next "while anything"
-	next "still moves."
+	next "and tears until"
+	next "nothing moves."
 	done
 
 _MoveFlavor_PAY_DAY::
@@ -317,4 +315,11 @@ _MoveFlavor_BIND::
 	next "and the grip"
 	next "leaves the foe"
 	next "stiff."
+	done
+
+_MoveFlavor_MACH_PUNCH::
+	text "The blow lands"
+	next "before the choice"
+	next "to throw it looks"
+	next "finished."
 	done

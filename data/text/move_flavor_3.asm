@@ -14,13 +14,6 @@
 
 ; Part 3 of 5.
 
-_MoveFlavor_GIGA_DRAIN::
-	text "The user drains"
-	next "deeply, and is"
-	next "visibly the better"
-	next "for it."
-	done
-
 _MoveFlavor_PETAL_DANCE::
 	text "The user whirls"
 	next "through a storm of"
@@ -333,4 +326,11 @@ _MoveFlavor_POISON_BITE::
 	text "A bite that leaves"
 	next "more behind it"
 	next "than the wound."
+	done
+
+_MoveFlavor_SLUDGE::
+	text "A thrown mass of"
+	next "filth, heavy and"
+	next "foul enough to"
+	next "sting."
 	done

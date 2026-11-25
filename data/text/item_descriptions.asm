@@ -364,8 +364,8 @@ _XSpDefDescription::
 	prompt
 
 _HM01Description::
-	text "A critical hit is"
-	next "far more likely."
+	text "Often critical; 30"
+	next "in 100 to BLEED."
 	prompt
 
 _HM02Description::
@@ -549,8 +549,8 @@ _TM32Description::
 	prompt
 
 _TM33Description::
-	text "A critical hit is"
-	next "far more likely."
+	text "Often critical; 15"
+	next "in 100 to BLEED."
 	prompt
 
 _TM34Description::

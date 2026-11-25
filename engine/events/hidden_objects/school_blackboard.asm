@@ -11,6 +11,9 @@ PrintBlackboardLinkCableText:
 ; the link cable. PrintBlackboardLinkCableText above is NOT link-specific in
 ; anything but its name: the VIRIDIAN SCHOOL blackboard goes through it too.
 
+; headings in each of the board's two columns (v1.0, 2026-11-25: four, with BLD and SCR)
+DEF BLACKBOARD_ROWS EQU 4
+
 ViridianSchoolBlackboard::
 	text_asm
 	call SaveScreenTilesToBuffer1
@@ -26,7 +29,10 @@ ViridianSchoolBlackboard::
 	; row is grouped with things that are WRITTEN on the blackboard, and
 	; "QUIT" is not one of them -- B leaves, as it does everywhere. Losing it
 	; turned 4+3 back into an even 3+3.
-	ld a, 2
+	; v1.0 (2026-11-25, the status chapter's texts): BLD and SCR (BLEED and
+	; FEAR) make it an even 4+4: four headings a column, rows 2, 4, 6 and 8,
+	; inside a frame two rows taller (rows 0-9, clear of the text box at 12).
+	ld a, BLACKBOARD_ROWS - 1
 	ld [wMaxMenuItem], a
 	ld a, 2
 	ld [wTopMenuItemY], a
@@ -36,7 +42,7 @@ ViridianSchoolBlackboard::
 	ld hl, wd730
 	set 6, [hl]
 	hlcoord 0, 0
-	lb bc, 6, 10
+	lb bc, 2 * BLACKBOARD_ROWS, 10
 	call TextBoxBorder
 	hlcoord 1, 2
 	ld de, StatusAilmentText1
@@ -52,20 +58,20 @@ ViridianSchoolBlackboard::
 	bit BIT_D_RIGHT, a
 	jr z, .didNotPressRight
 	; move cursor to right column
-	ld a, 2
+	ld a, BLACKBOARD_ROWS - 1
 	ld [wMaxMenuItem], a
 	ld a, 2
 	ld [wTopMenuItemY], a
 	ld a, 6
 	ld [wTopMenuItemX], a
-	ld a, 3 ; in the right column, use an offset to prevent overlap
+	ld a, BLACKBOARD_ROWS ; in the right column, use an offset to prevent overlap
 	ld [wMenuItemOffset], a
 	jr .blackboardLoop
 .didNotPressRight
 	bit BIT_D_LEFT, a
 	jr z, .didNotPressLeftOrRight
 	; move cursor to left column
-	ld a, 2
+	ld a, BLACKBOARD_ROWS - 1
 	ld [wMaxMenuItem], a
 	ld a, 2
 	ld [wTopMenuItemY], a
@@ -109,23 +115,37 @@ ViridianSchoolBlackboardText2:
 StatusAilmentText1:
 	db   " SLP"
 	next " PSN"
-	next " PAR@"
+	next " PAR"
+	next " BLD@"
 
 StatusAilmentText2:
 	db   " BRN"
 	next " FRZ"
-	next " CNF@"
+	next " CNF"
+	next " SCR@"
 
 	db "@" ; unused
 
 ViridianBlackboardStatusPointers:
-; order must match the headings: left column 0-2, right column 3-5
+; order must match the headings: left column 0-3, right column 4-7
+	table_width 2, ViridianBlackboardStatusPointers
 	dw ViridianBlackboardSleepText
 	dw ViridianBlackboardPoisonText
 	dw ViridianBlackboardPrlzText
+	dw ViridianBlackboardBleedText
 	dw ViridianBlackboardBurnText
 	dw ViridianBlackboardFrozenText
 	dw ViridianBlackboardConfusionText
+	dw ViridianBlackboardFearText
+	assert_table_length 2 * BLACKBOARD_ROWS
+
+ViridianBlackboardBleedText:
+	text_far _ViridianBlackboardBleedText
+	text_end
+
+ViridianBlackboardFearText:
+	text_far _ViridianBlackboardFearText
+	text_end
 
 ViridianBlackboardSleepText:
 	text_far _ViridianBlackboardSleepText

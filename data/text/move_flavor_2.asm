@@ -14,13 +14,6 @@
 
 ; Part 2 of 5.
 
-_MoveFlavor_MACH_PUNCH::
-	text "The blow lands"
-	next "before the choice"
-	next "to throw it looks"
-	next "finished."
-	done
-
 _MoveFlavor_KARATE_CHOP::
 	text "One edged strike,"
 	next "placed where the"
@@ -324,4 +317,11 @@ _MoveFlavor_RAZOR_LEAF::
 	text "Leaves thrown"
 	next "edge-first, stiff"
 	next "enough to cut."
+	done
+
+_MoveFlavor_GIGA_DRAIN::
+	text "The user drains"
+	next "deeply, and is"
+	next "visibly the better"
+	next "for it."
 	done

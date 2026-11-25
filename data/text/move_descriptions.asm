@@ -704,6 +704,32 @@ _MoveDesc_HighCrit::
 	next "than usual."
 	done
 
+; v1.0 (2026-11-25): the BLEED moves (data/battle/bleed_moves.asm, BleedSourceStep). Four lines: CUT, NIGHT
+; SLASH and DRAGON CLAW have four-line flavours, so their cards have four rows left.
+_MoveDesc_HighCritBleed15::
+	text "A critical hit is"
+	next "far more likely."
+	next "15 in 100 to make"
+	next "the foe BLEED."
+	done
+
+_MoveDesc_HighCritBleed30::
+	text "A critical hit is"
+	next "far more likely."
+	next "30 in 100 to make"
+	next "the foe BLEED."
+	done
+
+; GORE ATTACK: five lines (its flavour went to three, Forte 2026-11-25, to make room for the high crit); its
+; PARALYZE_SIDE_EFFECT1 rolls first, then the BLEED table.
+_MoveDesc_GoreAttack::
+	text "A critical hit is"
+	next "far more likely."
+	next "45 in 100 to make"
+	next "the foe BLEED, 15"
+	next "to PARALYZE it."
+	done
+
 _MoveDesc_Priority::
 	text "Always strikes"
 	next "first, whatever"

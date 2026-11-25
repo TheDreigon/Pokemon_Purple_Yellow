@@ -952,8 +952,10 @@ TrainerManualChapter3Pages:
 	dw ManualPage_3_1, ManualPage_3_2, ManualPage_3_3, ManualPage_3_4
 	dw ManualPage_3_5
 
+; v1.0 (2026-11-25, the status chapter's texts): BLEED and FEAR after CONFUSION, two pages each; IMMUNE TO STATUS
+; has a second page (GHOST and BLOODLESS). Eleven sections: the list still fits its twelve rows unscrolled.
 TrainerManualChapter4Sections:
-	db 9
+	db 11
 	manual_section TrainerManualSection4_1, 0
 	manual_section TrainerManualSection4_2, 1
 	manual_section TrainerManualSection4_3, 2
@@ -961,13 +963,19 @@ TrainerManualChapter4Sections:
 	manual_section TrainerManualSection4_5, 4
 	manual_section TrainerManualSection4_6, 5
 	manual_section TrainerManualSection4_7, 6
-	manual_section TrainerManualSection4_8, 7
-	manual_section TrainerManualSection4_9, 8
+	manual_section TrainerManualSection4_8, 8
+	manual_section TrainerManualSection4_9, 10
+	manual_section TrainerManualSection4_10, 11
+	manual_section TrainerManualSection4_11, 13
 TrainerManualChapter4Pages:
-	db 9
+	db 14
 	dw ManualPage_4_1, ManualPage_4_2, ManualPage_4_3
 	dw ManualPage_4_4, ManualPage_4_5, ManualPage_4_6
-	dw ManualPage_4_7, ManualPage_4_8, ManualPage_4_9
+	dw ManualPage_4_7, ManualPage_4_7b ; BLEED
+	dw ManualPage_4_8, ManualPage_4_8b ; FEAR
+	dw ManualPage_4_9
+	dw ManualPage_4_10, ManualPage_4_10b ; IMMUNE TO STATUS
+	dw ManualPage_4_11
 
 TrainerManualChapter5Sections:
 	db 6
@@ -1070,10 +1078,14 @@ TrainerManualSection4_5:
 TrainerManualSection4_6:
 	db "CONFUSION@"
 TrainerManualSection4_7:
-	db "CALLING ONE BACK@"
+	db "BLEED@"
 TrainerManualSection4_8:
-	db "IMMUNE TO STATUS@"
+	db "FEAR@"
 TrainerManualSection4_9:
+	db "CALLING ONE BACK@"
+TrainerManualSection4_10:
+	db "IMMUNE TO STATUS@"
+TrainerManualSection4_11:
 	db "GUARD SPEC.@"
 
 TrainerManualSection5_1:
@@ -1143,8 +1155,13 @@ TrainerManualSection7_5:
 	manual_page ManualPage_4_5
 	manual_page ManualPage_4_6
 	manual_page ManualPage_4_7
+	manual_page ManualPage_4_7b
 	manual_page ManualPage_4_8
+	manual_page ManualPage_4_8b
 	manual_page ManualPage_4_9
+	manual_page ManualPage_4_10
+	manual_page ManualPage_4_10b
+	manual_page ManualPage_4_11
 
 	manual_page ManualPage_5_1
 	manual_page ManualPage_5_2

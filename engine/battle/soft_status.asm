@@ -463,9 +463,60 @@ PlayBleedAnimation:
 	ld [wTempoModifier], a
 	ld a, SFX_BATTLE_24
 	call PlaySoundWaitForCurrent
-	predef MoveAnimation
+	predef MoveAnimation ; its BleedDropsInRed (animations.asm) paints the drops red on the GBC
 	callfar Func_78e98
 	ret
+
+; v1.0 (2026-11-25, the status chapter's S5: Forte's choice, "gota vermelho-escura"): on the GBC the drops fall in
+; red, not in the bleeding #MON's own colours (black on a dark #MON hid them). DrawFrameBlock
+; (engine/battle/animations.asm) gives a battle animation's sprites OBJ palette 2 on the left half of the screen
+; (the player's picture) and 3 on the right (the enemy's), so the bleeding side's is 2 + hWhoseTurn. Its four
+; colours (BleedDropColors) are written here, each in an H-blank, the way TransferCurOBPData writes one with the
+; screen on (engine/gfx/palettes.asm): that routine is in bank $1C, which is at its floor. Far: called by
+; PlayAnimation's BleedDropsInRed (animations.asm) for BLEED_ANIM only, right after the OBJ palettes are converted
+; for the subanimation (rOBP0 = wAnimPalette) - written before that conversion, they were painted over (the first
+; build of 2026-11-25, caught by emu_test_bleed_anim's leg R). The drops are the only sprites on screen while they
+; fall; PlayAnimation's conversion back after the subanimation (rOBP0 restored: on the GBC wAnimPalette is always
+; another value, so that conversion always runs) gives the palette its #MON colours again (emu_test_bleed_anim's leg
+; V: the OBJ palettes as the animation found them). DMG and SGB: nothing (the OAM's palette bits and the colour RAM
+; are the GBC's alone): there the drops stay in shade 3. Clobbers a, b, c, hl.
+LoadBleedDropPalette::
+	ldh a, [hGBC]
+	and a
+	ret z
+	ldh a, [hWhoseTurn]
+	add 2 ; OBJ palette 2 (the player's half) or 3 (the enemy's)
+	add a
+	add a
+	add a
+	or $80 ; rOBPI's auto-increment
+	ldh [rOBPI], a
+	ld hl, BleedDropColors
+	lb bc, %10, NUM_PAL_COLORS ; b: STAT modes 2 and 3, the ones where the colour RAM is drawn from
+.color
+	ldh a, [rSTAT] ; already in a blanking period: wait for it to end, so the write does not run past it
+	and b
+	jr z, .color
+.waitBlank
+	ldh a, [rSTAT]
+	and b
+	jr nz, .waitBlank
+	ld a, [hli]
+	ldh [rOBPD], a
+	ld a, [hli]
+	ldh [rOBPD], a
+	dec c
+	jr nz, .color
+	ret
+
+; The drop's colours: its body and rim in the BLD label's ink (20, 2, 4: STATUS_INK_BLEED's, bg_map_attributes.asm),
+; and the two-pixel gleam of the drop's tile (shades 1 and 2 of SUBANIM_1_BLOOD_DROPS' tile) in lighter reds.
+BleedDropColors:
+	RGB 31, 31, 31 ; shade 0: transparent on a sprite
+	RGB 31, 22, 22 ; shade 1: the gleam's light pixels
+	RGB 27, 08, 08 ; shade 2: the gleam's darker pixels
+	RGB 20, 02, 04 ; shade 3: the drop
+	ASSERT @ - BleedDropColors == PALETTE_SIZE
 
 ; Far. The user's bleed has just bitten (HandlePoisonBurnLeechSeed, after the damage): one bite less. The last
 ; one ends the bleed (its layers go too): if the #MON still stands, through EndBleedWithLine ("<USER>'s /

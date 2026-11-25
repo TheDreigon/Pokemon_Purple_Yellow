@@ -289,9 +289,11 @@ PlayAnimation:
 	ld a, [wAnimPalette]
 	ldh [rOBP0], a
 	call UpdateGBCPal_OBP0
+	call BleedDropsInRed ; v1.0 (2026-11-25): after that conversion, or it paints over them
 	call LoadMoveAnimationTiles
 	call LoadSubanimation
 	call PlaySubanimation
+	call BleedDropsGone ; v1.0 (2026-11-25): before the conversion back, or the last drop shows in its #MON's colours
 	pop af
 	vc_hook Stop_reducing_move_anim_flashing_Thunderbolt
 	ldh [rOBP0], a
@@ -301,9 +303,59 @@ PlayAnimation:
 	vc_hook Stop_reducing_move_anim_flashing_Guillotine
 	pop hl
 	vc_hook Stop_reducing_move_anim_flashing_Mega_Kick
-	jr .animationLoop
+	jp .animationLoop ; v1.0 (2026-11-25): a jp since the two calls of the bleed's drops put the loop out of a jr's reach
 .AnimationOver
 	vc_hook Stop_reducing_move_anim_flashing_Blizzard
+	ret
+
+; v1.0 (2026-11-25, the status chapter's S5: Forte's choice, "gota vermelho-escura"): the bleed's drops (BLEED_ANIM,
+; played by PlayBleedAnimation, engine/battle/soft_status.asm) fall in red on the GBC. Their palette is written here,
+; between the conversion of the OBJ palettes for the subanimation (rOBP0 = wAnimPalette, just above) and the
+; subanimation itself: written any sooner, that conversion paints over it. The conversion back after the subanimation
+; (rOBP0 restored) gives the #MON its colours again. Any other animation: nothing. Keeps every register (the
+; subanimation's loaders follow).
+BleedDropsInRed:
+	push af
+	call IsBleedDropsAnim
+	jr nz, .done
+	push bc
+	push de
+	push hl
+	farcall LoadBleedDropPalette ; GBC only
+	pop hl
+	pop de
+	pop bc
+.done
+	pop af
+	ret
+
+; The drops' subanimation is over, and PlayAnimation is about to convert the OBJ palettes back: the last drop is still
+; in the OAM, and in the frame of that conversion it showed in its #MON's colours (one frame, seen in the captures of
+; 2026-11-25). So the sprites are cleared and one frame is let through (the V-blank's OAM DMA takes the cleared
+; shadow OAM) before it. Any other animation: nothing. Keeps every register.
+BleedDropsGone:
+	push af
+	call IsBleedDropsAnim
+	jr nz, .done
+	push bc
+	push de
+	push hl
+	call ClearSprites
+	call DelayFrame
+	pop hl
+	pop de
+	pop bc
+.done
+	pop af
+	ret
+
+; Z: the animation playing is the bleed's drops (BLEED_ANIM, a special animation). Clobbers a.
+IsBleedDropsAnim:
+	ld a, [wAnimationID]
+	cp SPECIAL_ANIM_MARKER
+	ret nz
+	ldh a, [hSpecialAnimIndex]
+	cp BLEED_ANIM
 	ret
 
 LoadSubanimation:

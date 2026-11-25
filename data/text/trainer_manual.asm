@@ -170,12 +170,12 @@ _ManualPage_2_6::
 	next "thing counts. They"
 	next "do not stack."
 	next ""
-	next "Confusion counts"
-	next "too. The HUD"
-	next "spells CNF over"
-	next "its level."
+	next "Confusion and FEAR"
+	next "count too, a BLEED"
+	next "a little less."
+	next ""
 	next "POISON, BURN,"
-	next "TOXIC and"
+	next "TOXIC, BLEED and"
 	next "confusion all take"
 	next "health, and will"
 	next "finish the job."
@@ -359,6 +359,10 @@ _ManualPage_4_4::
 	next "#MON still for"
 	next "two to five turns."
 	next ""
+	next "A FREEZE ends it,"
+	next "and holds the"
+	next "#MON instead."
+	next ""
 	next "It stays after the"
 	next "battle. A SLEEP"
 	next "HEAL or a FULL"
@@ -399,22 +403,78 @@ _ManualPage_4_6::
 	done
 
 _ManualPage_4_7::
+	text "A BLEED bites for"
+	next "1/16 of full"
+	next "health a turn, for"
+	next "two to four turns."
+	next ""
+	next "Each new wound"
+	next "adds 1/16 more, up"
+	next "to 4/16, and"
+	next "starts the count"
+	next "again."
+	next ""
+	next "The battle's end"
+	next "closes it."
+	done
+
+_ManualPage_4_7b::
+	text "A FULL HEAL closes"
+	next "it sooner, and so"
+	next "do REST, RECOVER"
+	next "and SOFTBOILED."
+	next ""
+	next "So does a FREEZE."
+	next "A frozen #MON,"
+	next "or one behind a"
+	next "SUBSTITUTE, cannot"
+	next "start to bleed."
+	done
+
+_ManualPage_4_8::
+	text "FEAR lasts two to"
+	next "four turns. A"
+	next "scared #MON"
+	next "moves last, and"
+	next "half the time it"
+	next "is too scared to"
+	next "act."
+	next ""
+	next "A FULL HEAL ends"
+	next "it, and so does"
+	next "calling it back."
+	done
+
+_ManualPage_4_8b::
+	text "If both are"
+	next "scared, the faster"
+	next "goes first."
+	next ""
+	next "A move that always"
+	next "strikes first"
+	next "still does."
+	next ""
+	next "A SUBSTITUTE keeps"
+	next "FEAR out."
+	done
+
+_ManualPage_4_9::
 	text "Call one back and"
 	next "it forgets"
-	next "confusion, every"
-	next "raised or lowered"
-	next "stat, and any"
-	next "guard it had up."
-	next "SLEEP, POISON,"
-	next "TOX, BURN,"
-	next "PARALYSIS and"
-	next "FREEZE travel with"
+	next "confusion, FEAR,"
+	next "every raised or"
+	next "lowered stat, and"
+	next "any guard it had"
+	next "up."
+	next ""
+	next "Its status and any"
+	next "BLEED stay with"
 	next "it. TOX starts"
 	next "again from its"
 	next "first bite."
 	done
 
-_ManualPage_4_8::
+_ManualPage_4_10::
 	text "FIRE and MAGMA"
 	next "never burn. ICE"
 	next "and MAGMA never"
@@ -430,7 +490,18 @@ _ManualPage_4_8::
 	next "in THE TYPES."
 	done
 
-_ManualPage_4_9::
+_ManualPage_4_10b::
+	text "GHOST never bleeds"
+	next "and never takes"
+	next "FEAR."
+	next ""
+	next "BLOODLESS ones"
+	next "never bleed. The"
+	next "STATS page names"
+	next "them."
+	done
+
+_ManualPage_4_11::
 	text "GUARD SPEC. keeps"
 	next "your STATS from"
 	next "being cut, but a"

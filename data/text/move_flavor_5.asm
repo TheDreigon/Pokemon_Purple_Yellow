@@ -14,13 +14,6 @@
 
 ; Part 5 of 5.
 
-_MoveFlavor_DEFENSE_CURL::
-	text "The user tucks"
-	next "everything soft"
-	next "away behind"
-	next "everything hard."
-	done
-
 _MoveFlavor_HARDEN::
 	text "The user stiffens"
 	next "all over and waits"

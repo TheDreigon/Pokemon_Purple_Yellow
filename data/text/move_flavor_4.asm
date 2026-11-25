@@ -14,13 +14,6 @@
 
 ; Part 4 of 5.
 
-_MoveFlavor_SLUDGE::
-	text "A thrown mass of"
-	next "filth, heavy and"
-	next "foul enough to"
-	next "sting."
-	done
-
 _MoveFlavor_ACID_SPRAY::
 	text "A jet of acid at"
 	next "full pressure."
@@ -330,4 +323,11 @@ _MoveFlavor_IRON_DEFENSE::
 	next "itself until very"
 	next "little will get"
 	next "through."
+	done
+
+_MoveFlavor_DEFENSE_CURL::
+	text "The user tucks"
+	next "everything soft"
+	next "away behind"
+	next "everything hard."
 	done
