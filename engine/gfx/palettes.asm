@@ -1215,6 +1215,41 @@ TransferBGPPals::
 	jr nz, .loop
 	ret
 
+; One palette per type, in the order of the type ids without their gap (MoveAnimation's SetMoveTypePalette maps a
+; type to its row): colour 0 (a sprite's transparent one), then the light, the middle and the dark tone the
+; animations' tiles draw with (their shades 1, 2, 3). v1.0 (2026-11-25; the rounds that chose them are in the notes,
+; "Cores dos tipos"): one colour per type, the middle tone; the light tone is it 35% of the way to white, the dark one
+; is it at 65% (farther, the light tones lose the colour, and many drawings are mostly the light tone). ELECTRIC's
+; three are set by hand: a golden yellow darkened that way reads orange-brown (and the electric ball of THUNDERSHOCK,
+; THUNDERBOLT, THUNDER and THUNDER WAVE is drawn in the dark tone), and its light tone was the middle one to the eye.
+; MAGMA is a lava red-orange between FIGHTING's dark red and FIRE's orange (MAGMA PUNCH draws the punches' stars).
+; BIRD is this hack's typeless placeholder (52 moves, most of the status moves: GROWL, SWORDS DANCE, REST...).
+MoveTypeOBJPalettes:
+	table_width PALETTE_SIZE, MoveTypeOBJPalettes
+	RGB 31,31,31, 26,26,23, 24,23,18, 16,15,12 ; NORMAL
+	RGB 31,31,31, 19,13,12, 12,03,02, 08,02,01 ; FIGHTING
+	RGB 31,31,31, 23,23,30, 19,18,30, 12,12,20 ; FLYING
+	RGB 31,31,31, 24,17,26, 20,09,23, 13,06,15 ; POISON
+	RGB 31,31,31, 24,23,17, 21,18,09, 14,12,06 ; GROUND
+	RGB 31,31,31, 19,18,16, 12,11,08, 08,07,05 ; ROCK
+	RGB 31,31,31, 21,21,21, 16,16,16, 10,10,10 ; BIRD (typeless)
+	RGB 31,31,31, 22,23,17, 17,19,09, 11,12,06 ; BUG
+	RGB 31,31,31, 20,16,30, 14,08,29, 09,05,19 ; DRAGON
+	RGB 31,31,31, 13,13,15, 04,04,07, 03,03,05 ; DARK
+	RGB 31,31,31, 23,23,26, 19,19,23, 12,12,15 ; STEEL
+	RGB 31,31,31, 24,15,12, 20,06,01, 13,04,01 ; MAGMA
+	RGB 31,31,31, 30,26,28, 30,24,26, 20,16,17 ; FUNGUS
+	RGB 31,31,31, 20,18,23, 14,11,19, 09,07,12 ; GHOST
+	RGB 31,31,31, 30,19,13, 29,13,03, 19,08,02 ; FIRE
+	RGB 31,31,31, 17,21,30, 09,16,30, 06,10,20 ; WATER
+	RGB 31,31,31, 18,25,14, 11,22,05, 07,14,03 ; GRASS
+	RGB 31,31,31, 31,30,18, 31,26,03, 24,21,02 ; ELECTRIC (by hand)
+	RGB 31,31,31, 22,13,17, 17,04,09, 11,03,06 ; PSYCHIC
+	RGB 31,31,31, 27,31,31, 25,31,31, 16,20,20 ; ICE
+	RGB 31,31,31, 31,24,29, 31,21,28, 20,14,18 ; FAIRY
+	RGB 31,31,31, 23,21,22, 19,15,17, 12,10,11 ; GAS
+	assert_table_length NUM_MOVE_TYPE_PALS
+
 TransferCurOBPData:
 ; a = an OBJ palette, d = 0 for LoadIconPalette's own writes (every other caller has de = a base palette in ROMX)
 	push de
@@ -1319,7 +1354,82 @@ _UpdateGBCPal_BGP::
 	call TransferBGPPals
 	ret
 
+; A MOVE'S ANIMATION IN ITS TYPE'S COLOURS (v1.0, 2026-11-25). While a move's animation plays (hMoveAnimTypePal, set
+; and cleared by MoveAnimation, engine/battle/animations.asm), every conversion of the OBJ palettes from rOBP0 /
+; rOBP1 (the subanimations' rOBP0 = wAnimPalette and back, an effect's own, MoveAnimation's at its start and end)
+; comes here from _UpdateGBCPal_OBP: OBJ palettes 0 to 4 - every palette a battle animation's sprites use: 2 and 3
+; for a subanimation's (DrawFrameBlock, by the half of the screen), 1 to 4 for the sprites some special effects draw
+; themselves (BattleAnimWriteOAMEntry, by position, as RAZOR LEAF's leaves), 0 for others (the drops and embers of
+; ICE BEAM and LAVA PLUME: with palettes 1-4 alone they came out in the HP bar's yellow) - take the move's type's
+; colours (MoveTypeOBJPalettes) as they are, in their three tones, in place of the #MONs'; 5-7 are converted as
+; always. So the colours hold through every conversion, with no flash at a conversion back. (On the GBC the game's
+; conversion gives an animation two tones, wAnimPalette $f0: the light one white, the others the #MON's darkest,
+; almost black, and the colour of the half of the screen the sprite is on, not the attacker's.) The BG palettes are
+; not touched: the #MONs' pictures keep their colours. The DMG and the SGB never come here (no colour RAM).
+; The test sits once at _UpdateGBCPal_OBP's entry, not in TransferCurOBPData: a few cycles there, before each
+; palette's wait for the screen's mode, moved every OBJ transfer of a frame a scanline later and made the Yellow
+; intro lose frames (intro_frames_ab.py: the title screen 5 frames late). Outside a move's animation each palette's
+; transfer runs as it always did.
+; IN  c = CONVERT_OBP0 / CONVERT_OBP1, as _UpdateGBCPal_OBP; hMoveAnimTypePal = the type's row + 1 (not 0).
+MoveTypeUpdateOBP:
+	ld a, c
+	dec a
+	add a
+	add a
+	ld b, a ; the set's first OBJ palette: 0 or 4
+	ld hl, wGBCBasePalPointers
+.palette
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a ; de = the base palette (d not 0, as from _UpdateGBCPal_OBP: TransferCurOBPData's test)
+	push hl
+	push bc
+	ld a, b
+	cp 5 ; OBJ palettes 0 to 4: the type's colours
+	jr nc, .fromMon
+	push de
+	ldh a, [hMoveAnimTypePal]
+	dec a
+	ASSERT NUM_MOVE_TYPE_PALS * PALETTE_SIZE <= $100
+	add a
+	add a
+	add a ; * PALETTE_SIZE
+	ld e, a
+	ld d, 0
+	ld hl, MoveTypeOBJPalettes
+	add hl, de
+	ld de, wGBCPal
+	ld c, PALETTE_SIZE
+.copy
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .copy
+	pop de
+	jr .transfer
+.fromMon
+	ld a, c
+	call DMGPalToGBCPal
+.transfer
+	pop bc
+	push bc
+	ld a, b
+	call TransferCurOBPData
+	pop bc
+	pop hl
+	inc b
+	ld a, b
+	ASSERT NUM_ACTIVE_PALS == 4
+	and NUM_ACTIVE_PALS - 1
+	jr nz, .palette
+	jp LoadIconPalettes
+
 _UpdateGBCPal_OBP::
+	ldh a, [hMoveAnimTypePal] ; v1.0 (2026-11-25): a move's animation in its type's colours (MoveTypeUpdateOBP)
+	and a
+	jr nz, MoveTypeUpdateOBP
 	FOR index, NUM_ACTIVE_PALS
 		ld a, [wGBCBasePalPointers + index * 2]
 		ld e, a

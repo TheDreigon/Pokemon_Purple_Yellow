@@ -400,7 +400,12 @@ ENDU
 ; read by every build of those palettes. Three of the four bytes this spot always had free.
 hMenuLetterInk:: ds 3
 
-	ds 1
+; v1.0 (2026-11-25): a move's animation in its type's colours (GBC). While MoveAnimation plays a MOVE's animation
+; (not a special one), this is that move's type palette + 1 (MOVE_TYPE_PAL_*, MoveTypeOBJPalettes); 0 = none. Set and
+; cleared by MoveAnimation (SetMoveTypePalette, ClearMoveTypePalette, engine/battle/animations.asm); read by
+; TransferCurOBPData (engine/gfx/palettes.asm), which gives OBJ palettes 0-4 those colours instead of the converted
+; #MON's. The last of the four bytes this spot always had free: HRAM has none left.
+hMoveAnimTypePal:: db
 
 hWhoseTurn:: db ; 0 on player's turn, 1 on enemy's turn
 

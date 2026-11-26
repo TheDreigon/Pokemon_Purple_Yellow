@@ -47,6 +47,13 @@ DEF UNUSED_TYPES_END EQU const_value
 
 DEF NUM_TYPES EQU const_value
 
+; v1.0 (2026-11-25): a move's animation in its type's colours. MoveTypeOBJPalettes (engine/gfx/palettes.asm) has one
+; row per type, in the order of the ids without their gap: a type below UNUSED_TYPES is its own row, one from
+; UNUSED_TYPES_END on is its id less the gap (SetMoveTypePalette, engine/battle/animations.asm).
+DEF NUM_MOVE_TYPE_PALS EQU NUM_TYPES - (UNUSED_TYPES_END - UNUSED_TYPES)
+	ASSERT GHOST == UNUSED_TYPES - 1 && FIRE == UNUSED_TYPES_END && GAS == NUM_TYPES - 1, \
+		"MoveTypeOBJPalettes' rows follow the types: NORMAL to GHOST, then FIRE to GAS"
+
 ; v1.0 (2026-11-07): the third value of wDefenderAirborne (GetAirborne), beside FLYING (AIRBORNE) and $FF: the
 ; defender is GROUNDED (data/pokemon/grounded.asm) - GROUND's rows never match its FLYING. Not a type: no row
 ; of the chart holds it.

@@ -513,6 +513,7 @@ MoveAnimation:
 	push bc
 	push af
 	call WaitForSoundToFinish
+	call SetMoveTypePalette ; v1.0 (2026-11-25): a move's animation in its type's colours (GBC)
 	call SetAnimationPalette
 	ld a, [wAnimationID]
 	and a
@@ -545,6 +546,7 @@ MoveAnimation:
 	call PlayApplyingAttackAnimation ; shake the screen or flash the pic in and out (to show damage)
 .animationFinished
 	call WaitForSoundToFinish
+	call ClearMoveTypePalette ; v1.0 (2026-11-25): the #MONs' colours back in the OBJ palettes
 	xor a
 	vc_hook Stop_reducing_move_anim_flashing_Haze_Hyper_Beam
 	ld [wSubAnimSubEntryAddr], a
@@ -663,6 +665,79 @@ AnimationShakeScreenHorizontallySlow:
 	dec c
 	jr nz, AnimationShakeScreenHorizontallySlow
 	ret
+
+; A MOVE'S ANIMATION IN ITS TYPE'S COLOURS (v1.0, 2026-11-25; the design is at MoveTypeOBJPalette,
+; engine/gfx/palettes.asm). At MoveAnimation's start, on the GBC, for a MOVE's animation (wAnimationID a move id, not a
+; special animation's marker) played with the BATTLE ANIMATION option on: hMoveAnimTypePal names the move's type's row
+; of MoveTypeOBJPalettes (+ 1), and the OBJ palettes are converted again at once, so that palettes 0-4 hold the type's
+; colours before any sprite shows. The move is the animation's own (wAnimationID: METRONOME's and MIRROR MOVE's pick, a
+; LEECH SEED's drain), its type read from the Moves table. The enemy's REST and AMNESIA become special ids only later
+; (ShareMoveAnimations): they are moves, and keep their type's colours. Keeps every register.
+SetMoveTypePalette:
+	push af
+	push bc
+	push hl
+	xor a
+	ldh [hMoveAnimTypePal], a
+	ldh a, [hGBC]
+	and a
+	jr z, .done
+	ld a, [wAnimationID]
+	and a
+	jr z, .done
+	cp SPECIAL_ANIM_MARKER
+	jr z, .done
+	ld a, [wOptions]
+	bit BIT_BATTLE_ANIMATION, a
+	jr nz, .done ; the animations off: none plays
+	ld a, [wAnimationID]
+	dec a
+	ld hl, Moves + MOVE_TYPE
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte ; a = the move's type
+	cp UNUSED_TYPES
+	jr c, .gotRow
+	sub UNUSED_TYPES_END - UNUSED_TYPES
+.gotRow
+	inc a
+	ldh [hMoveAnimTypePal], a
+	call ReconvertOBJPalettes
+.done
+	pop hl
+	pop bc
+	pop af
+	ret
+
+; At MoveAnimation's end: the type's colours are put away and the OBJ palettes converted again at once from the
+; #MONs'. A move's sprites are gone by then in almost every animation (its last subanimation cleared them); the few
+; that leave their last frame on screen (HYPNOSIS, SPIRAL, the enemy's DRAGON BREATH; one frame for LEECH SEED, AMNESIA,
+; the enemy's MIMIC) showed it in the #MONs' colours after the conversion back before too. Keeps every register.
+ClearMoveTypePalette:
+	push af
+	ldh a, [hMoveAnimTypePal]
+	and a
+	jr z, .done
+	xor a
+	ldh [hMoveAnimTypePal], a
+	call ReconvertOBJPalettes
+.done
+	pop af
+	ret
+
+; Both OBJ palette sets converted again now (UpdateGBCPal_OBP0 / OBP1 convert only when rOBP0 / rOBP1 differ from what
+; they last converted: the cache, wLastOBP0 / wLastOBP1, is put out of step with them first). On the GBC only (the
+; callers'). Clobbers a.
+ReconvertOBJPalettes:
+	ldh a, [rOBP0]
+	cpl
+	ld [wLastOBP0], a
+	ldh a, [rOBP1]
+	cpl
+	ld [wLastOBP1], a
+	call UpdateGBCPal_OBP0
+	jp UpdateGBCPal_OBP1
 
 SetAnimationPalette:
 	ld a, [wOnSGB]
