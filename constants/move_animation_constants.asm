@@ -142,6 +142,8 @@ DEF FIRST_SE_ID EQU const_value
 	const SUBANIM_1_STATUS_BURNED ; 2026-11-25: EMBER's flame, flickering (BurnAnim)
 	const SUBANIM_0_STATUS_FROZEN ; 2026-11-25: ICE_RISE's first two frames, ENEMY type (FrozenAnim)
 	const SUBANIM_0_STATUS_SCARED ; 2026-11-25: the poison's skull alone, still, above the head (FearAnim's blink)
+	const SUBANIM_1_STAR_BIG_TOSS_AHEAD ; 2026-11-26: STAR_BIG_TOSS from its second spot on, off the attacker's face
+	const SUBANIM_1_LIGHTNING_BALL_SMALL ; 2026-11-26: LIGHTNING_BALL with the 20 px ball, for the weaker moves
 DEF NUM_SUBANIMS EQU const_value
 
 ; types of subanimations

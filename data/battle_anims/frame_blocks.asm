@@ -774,13 +774,24 @@ FrameBlock47:
 	dbsprite  0,  1,  0,  0, $43, OAM_VFLIP
 	dbsprite  1,  1,  0,  0, $43, OAM_HFLIP | OAM_VFLIP
 
+; v1.0 (2026-11-26): the 20 px electric ball (ball D: dark rim, middle ring, light core; vanilla's was a 16 px black
+; disc, 2 x 2 of tile $33), 3 x 3 tiles in a 24 px box 4 px in, so its centre is the 16 px disc's: $33 the corner, $35
+; the top edge, $03 the left edge, $13 the centre, the rest their flips. Drawn with tileset 1 only.
 SmallBlackCircleFrameBlock:
-	db 4 ; #
-	dbsprite  1,  1,  0,  0, $33, 0
-	dbsprite  2,  1,  0,  0, $33, OAM_HFLIP
-	dbsprite  1,  2,  0,  0, $33, OAM_VFLIP
-	dbsprite  2,  2,  0,  0, $33, OAM_HFLIP | OAM_VFLIP
+	db 9 ; #
+	dbsprite  0,  0,  4,  4, $33, 0
+	dbsprite  1,  0,  4,  4, $35, 0
+	dbsprite  2,  0,  4,  4, $33, OAM_HFLIP
+	dbsprite  0,  1,  4,  4, $03, 0
+	dbsprite  1,  1,  4,  4, $13, 0
+	dbsprite  2,  1,  4,  4, $03, OAM_HFLIP
+	dbsprite  0,  2,  4,  4, $33, OAM_VFLIP
+	dbsprite  1,  2,  4,  4, $35, OAM_VFLIP
+	dbsprite  2,  2,  4,  4, $33, OAM_HFLIP | OAM_VFLIP
 
+; v1.0 (2026-11-26): the 30 px electric ball (ball D, as the 20 px one) in vanilla's 32 px box: tiles $22 $23 $32 hold
+; its quadrant's outer three, $3B the inner one ($43, vanilla's inner tile, stays the solid square of MIMIC and
+; TRANSFORM). The SEISMIC TOSS sphere (FrameBlock71-74) draws the same tiles. Drawn with tileset 1 only.
 LargeBlackCircleFrameBlock:
 	db 16 ; #
 	dbsprite  0,  0,  0,  0, $22, 0
@@ -788,31 +799,34 @@ LargeBlackCircleFrameBlock:
 	dbsprite  2,  0,  0,  0, $23, OAM_HFLIP
 	dbsprite  3,  0,  0,  0, $22, OAM_HFLIP
 	dbsprite  0,  1,  0,  0, $32, 0
-	dbsprite  1,  1,  0,  0, $43, 0
-	dbsprite  2,  1,  0,  0, $43, OAM_HFLIP
+	dbsprite  1,  1,  0,  0, $3b, 0
+	dbsprite  2,  1,  0,  0, $3b, OAM_HFLIP
 	dbsprite  3,  1,  0,  0, $32, OAM_HFLIP
 	dbsprite  0,  2,  0,  0, $32, OAM_VFLIP
-	dbsprite  1,  2,  0,  0, $43, OAM_VFLIP
-	dbsprite  2,  2,  0,  0, $43, OAM_HFLIP | OAM_VFLIP
+	dbsprite  1,  2,  0,  0, $3b, OAM_VFLIP
+	dbsprite  2,  2,  0,  0, $3b, OAM_HFLIP | OAM_VFLIP
 	dbsprite  3,  2,  0,  0, $32, OAM_HFLIP | OAM_VFLIP
 	dbsprite  0,  3,  0,  0, $22, OAM_VFLIP
 	dbsprite  1,  3,  0,  0, $23, OAM_VFLIP
 	dbsprite  2,  3,  0,  0, $23, OAM_HFLIP | OAM_VFLIP
 	dbsprite  3,  3,  0,  0, $22, OAM_HFLIP | OAM_VFLIP
 
+; v1.0 (2026-11-26): FrameBlock71-74, SEISMIC TOSS's sphere sinking row by row, is the 30 px ball (see
+; LargeBlackCircleFrameBlock): $3B its inner tile; 71's (1, 0) is $23 like the ball's, where vanilla put $3B (a round
+; mark on the sphere's top) - the sphere is uniform now.
 FrameBlock71:
 	db 16 ; #
 	dbsprite  0,  0,  0,  0, $22, 0
-	dbsprite  1,  0,  0,  0, $3b, 0
+	dbsprite  1,  0,  0,  0, $23, 0
 	dbsprite  2,  0,  0,  0, $23, OAM_HFLIP
 	dbsprite  3,  0,  0,  0, $22, OAM_HFLIP
 	dbsprite  0,  1,  0,  0, $32, 0
-	dbsprite  1,  1,  0,  0, $43, 0
-	dbsprite  2,  1,  0,  0, $43, OAM_HFLIP
+	dbsprite  1,  1,  0,  0, $3b, 0
+	dbsprite  2,  1,  0,  0, $3b, OAM_HFLIP
 	dbsprite  3,  1,  0,  0, $32, OAM_HFLIP
 	dbsprite  0,  2,  0,  0, $32, OAM_VFLIP
-	dbsprite  1,  2,  0,  0, $43, OAM_VFLIP
-	dbsprite  2,  2,  0,  0, $43, OAM_HFLIP | OAM_VFLIP
+	dbsprite  1,  2,  0,  0, $3b, OAM_VFLIP
+	dbsprite  2,  2,  0,  0, $3b, OAM_HFLIP | OAM_VFLIP
 	dbsprite  3,  2,  0,  0, $32, OAM_HFLIP | OAM_VFLIP
 	dbsprite  0,  3,  0,  0, $22, OAM_VFLIP
 	dbsprite  1,  3,  0,  0, $23, OAM_VFLIP
@@ -822,12 +836,12 @@ FrameBlock71:
 FrameBlock72:
 	db 12 ; #
 	dbsprite  0,  0,  0,  0, $32, 0
-	dbsprite  1,  0,  0,  0, $43, 0
-	dbsprite  2,  0,  0,  0, $43, OAM_HFLIP
+	dbsprite  1,  0,  0,  0, $3b, 0
+	dbsprite  2,  0,  0,  0, $3b, OAM_HFLIP
 	dbsprite  3,  0,  0,  0, $32, OAM_HFLIP
 	dbsprite  0,  1,  0,  0, $32, OAM_VFLIP
-	dbsprite  1,  1,  0,  0, $43, OAM_VFLIP
-	dbsprite  2,  1,  0,  0, $43, OAM_HFLIP | OAM_VFLIP
+	dbsprite  1,  1,  0,  0, $3b, OAM_VFLIP
+	dbsprite  2,  1,  0,  0, $3b, OAM_HFLIP | OAM_VFLIP
 	dbsprite  3,  1,  0,  0, $32, OAM_HFLIP | OAM_VFLIP
 	dbsprite  0,  2,  0,  0, $22, OAM_VFLIP
 	dbsprite  1,  2,  0,  0, $23, OAM_VFLIP
@@ -837,8 +851,8 @@ FrameBlock72:
 FrameBlock73:
 	db 8 ; #
 	dbsprite  0,  0,  0,  0, $32, OAM_VFLIP
-	dbsprite  1,  0,  0,  0, $43, OAM_VFLIP
-	dbsprite  2,  0,  0,  0, $43, OAM_HFLIP | OAM_VFLIP
+	dbsprite  1,  0,  0,  0, $3b, OAM_VFLIP
+	dbsprite  2,  0,  0,  0, $3b, OAM_HFLIP | OAM_VFLIP
 	dbsprite  3,  0,  0,  0, $32, OAM_HFLIP | OAM_VFLIP
 	dbsprite  0,  1,  0,  0, $22, OAM_VFLIP
 	dbsprite  1,  1,  0,  0, $23, OAM_VFLIP

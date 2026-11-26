@@ -18,6 +18,12 @@ MoveAnimationTiles2::
 MoveAnimationTiles1::
 	INCBIN "gfx/battle/move_anim_1.2bpp"
 
+; v1.0 (2026-11-26): the splash's shooting star (LoadShootingStarGraphics), its own copy of the two tiles it read from
+; MoveAnimationTiles1 (tiles 3 and 19, now the 20 px electric ball's). Read by bank and address only.
+ShootingStarTiles::
+	INCBIN "gfx/splash/shooting_star.2bpp"
+ShootingStarTilesEnd::
+
 SlotMachineTiles2::
 	INCBIN "gfx/slots/slots_2.2bpp"
 SlotMachineTiles2End::

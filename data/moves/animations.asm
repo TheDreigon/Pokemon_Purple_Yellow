@@ -663,15 +663,15 @@ HyperBeamAnim:
 
 NuzzleAnim:
 	; 2026-08-22 (anim pass #12): a bit shorter -- delay 4->1; SFX 0.69x.
-	battle_anim NUZZLE, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim NUZZLE, SUBANIM_1_LIGHTNING_BALL_SMALL, 1, 1 ; 2026-11-26: the 20 px ball
 	db -1 ; end
 
 ThundershockAnim:
 	; 2026-08-22 (anim pass #13): THUNDERSHOCK and SHOCK_WAVE keep their sounds and swap bodies -- this is the old SHOCK_WAVE body with THUNDERSHOCK's sound.
-	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL_SMALL, 1, 2 ; 2026-11-26: the 20 px ball
 	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING, 1, 4
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
-	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL, 1, 2
+	battle_anim THUNDERSHOCK, SUBANIM_1_LIGHTNING_BALL_SMALL, 1, 2 ; 2026-11-26: the 20 px ball
 	db -1 ; end
 
 ShockWaveAnim:
@@ -716,7 +716,7 @@ ThunderAnim:
 ThunderWaveAnim:
 	; Anim pass #12: a shorter thunder (lightning ball), a slightly
 	; longer constrict (bind). Lightning delay 2→1, binds 2→6.
-	battle_anim NUZZLE, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim NUZZLE, SUBANIM_1_LIGHTNING_BALL_SMALL, 1, 1 ; 2026-11-26: the 20 px ball
 	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 6
 	battle_anim LEECH_SEED, SUBANIM_0_BIND, 0, 6
 	db -1 ; end
@@ -1448,7 +1448,7 @@ ConfuseRayAnim:
 	; 2026-08-22 (anim pass #43): ends with DIZZY_PUNCH's confusion birdies.
 	battle_anim CONFUSE_RAY, SE_DARK_SCREEN_PALETTE
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
-	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_TOSS, 1, 6
+	battle_anim NO_MOVE, SUBANIM_1_STAR_BIG_TOSS_AHEAD, 1, 6 ; 2026-11-26: off the attacker's face (SHADOW BALL keeps the whole toss)
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SUBANIM_0_BIRDIES_CIRCLING_ENEMY, 0, 8
@@ -2231,7 +2231,7 @@ NeurotoxinAnim:
 	; 2026-08-22 (anim pass #68): the closing BIND-style beat played on the user instead of the target -- SUBANIM_0_STATUS_PARALYZED has the USER's base coordinates (ParalyzeAnim's). The bind on the defender replaces it.
 	battle_anim NO_MOVE, SE_DARKEN_MON_PALETTE
 	battle_anim NEUROTOXIN, SUBANIM_1_BLOB_DRIP_ENEMY, 1, 7
-	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL, 1, 1
+	battle_anim NO_MOVE, SUBANIM_1_LIGHTNING_BALL_SMALL, 1, 1 ; 2026-11-26: the 20 px ball
 	battle_anim NO_MOVE, SUBANIM_0_BIND, 0, 7
 	battle_anim NO_MOVE, SE_DARK_SCREEN_FLASH
 	battle_anim NO_MOVE, SE_RESET_SCREEN_PALETTE
@@ -2441,7 +2441,7 @@ RolloutAnim:
 BonemerangAnim:
 	; 2026-08-22 (anim pass #77): light palette, to match BONE_CLUB.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS, 1, 2
+	battle_anim BONEMERANG, SUBANIM_1_STAR_BIG_TOSS_AHEAD, 1, 2 ; 2026-11-26: off the attacker's face
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim DOUBLESLAP, SUBANIM_0_STAR_TWICE, 0, 4
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
@@ -2551,7 +2551,7 @@ BulletPunchAnim:
 MagnetBombAnim:
 	; 2026-08-22 (anim pass #85): the body below was specified line by line.
 	battle_anim NO_MOVE, SE_LIGHT_SCREEN_PALETTE
-	battle_anim MAGNET_BOMB, SUBANIM_1_STAR_BIG_TOSS, 1, 5
+	battle_anim MAGNET_BOMB, SUBANIM_1_STAR_BIG_TOSS_AHEAD, 1, 5 ; 2026-11-26: off the attacker's face
 	battle_anim NO_MOVE, SE_DELAY_ANIMATION_10
 	battle_anim NO_MOVE, SE_SHAKE_SCREEN
 	battle_anim EXPLOSION, SUBANIM_1_STAR_BIG, 1, 6

@@ -713,8 +713,9 @@ SetMoveTypePalette:
 ; v1.0 (2026-11-26): at MoveAnimation's end, before the conversion back, no sprite of a MOVE's animation stays on
 ; screen. A few animations reuse a vanilla subanimation that is the first half of another, its last frame kept on
 ; purpose (FRAMEBLOCKMODE_02 / 03) for the second half to clear: HYPNOSIS and SPIRAL end on the circles closing on the
-; target (the drains' first half), the enemy's DRAGON BREATH on the flame beam played backwards (DRAGON RAGE's first
-; half). That last frame stayed until the next animation or the end of the turn (up to ~3 s), and turned to the #MONs'
+; target (the drains' first half); the enemy's DRAGON BREATH ended on the flame beam played backwards until the beam
+; became SUBANIMTYPE_COORDFLIP (2026-11-26, Subanim_1FlameBeam). That last frame stayed until the next animation or the
+; end of the turn (up to ~3 s), and turned to the #MONs'
 ; colours at the conversion back. Here, when a move's animation (not a special one: the statuses' clear their own,
 ; StatusAnimSpritesGone) ends with a sprite still on screen, the sprites go and a frame passes (the OAM DMA in
 ; V-blank) before the colours change; one that ends with none, almost all of them, costs nothing. Clobbers a, b, hl.

@@ -5,13 +5,16 @@ LoadShootingStarGraphics:
 	ldh [rOBP1], a
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
-	ld de, MoveAnimationTiles1 tile 3 ; star tile (top left quadrant)
+; v1.0 (2026-11-26): the star's two tiles come from its own copy (they were MoveAnimationTiles1's tiles 3 and 19, now
+; the 20 px electric ball's). Two copies of one tile each, as before: each CopyVideoData call waits for a V-blank, and
+; one call of two tiles ran the splash a frame early, moving the intro's timeline (intro_frames_ab.py).
+	ld de, ShootingStarTiles ; star tile (top left quadrant)
 	ld hl, vChars1 tile $20
-	lb bc, BANK(MoveAnimationTiles1), 1
+	lb bc, BANK(ShootingStarTiles), 1
 	call CopyVideoData
-	ld de, MoveAnimationTiles1 tile 19 ; star tile (bottom left quadrant)
+	ld de, ShootingStarTiles tile 1 ; star tile (bottom left quadrant)
 	ld hl, vChars1 tile $21
-	lb bc, BANK(MoveAnimationTiles1), 1
+	lb bc, BANK(ShootingStarTiles), 1
 	call CopyVideoData
 	ld de, FallingStar
 	ld hl, vChars1 tile $22
