@@ -9,7 +9,8 @@
 ; CalcHitChance travels with MoveHitTest because MoveHitTest is its only caller.
 ; Neither of them ends up calling anything left behind in Battle Core:
 ; BattleRandom is in the home bank and Multiply/Divide always were; the one
-; farcall here, to IsHardModeBossBattle (Battle Engine 6), was one in Battle Core too.
+; farcall here, to IsHardModeBossBattle (Battle Engine 6), was one in Battle Core too. (v1.0 2026-11-26: two
+; more since, to the habit in Battle Core Overflow, engine/battle/habituation.asm.)
 
 ; v1.0 (R16g, 2026-10-07): the hit test of the two damage paths, PlayerCalcMoveDamage and
 ; EnemyMoveHitTest (core.asm; the effects call MoveHitTest itself). After MoveHitTest, a trapping move
@@ -196,7 +197,12 @@ MoveHitTest:
 ; (F3b then took that drop off the roll - effects.asm .dropAfterHit - so no use rolls twice
 ; today; F6 stays as the guard, 13 bytes shorter than the read-back.)
 	call CalcHitChance ; a = the move's accuracy scaled by the attacker's accuracy and the target's evasion
-	ld b, a
+	ld d, a
+; v1.0 (2026-11-26): the habit (engine/battle/habituation.asm): INTIMIDATE, SCARY FACE, LEER and DEATH GLARE
+; lose a step per level the target already has, and this use raises it. e = the toll taken off, kept to the
+; roll below (IsHardModeBossBattle and BattleRandom keep de) to tell the miss it alone caused.
+	farcall HabitAccuracy ; d = the chance less the toll (at least 1), e = the toll
+	ld b, d
 .doAccuracyCheck
 	; v0.7 hard mode boss accuracy edge (~±5pp = ±13/256). Applied
 	; BEFORE the wDifficulty/.DontRemoveMiss check below, so the
@@ -237,8 +243,13 @@ MoveHitTest:
 .DontRemoveMiss
 	call BattleRandom
 	cp b
-	jr nc, .moveMissed
-	ret
+	ret c ; a hit
+	sub b
+	cp e
+	jr nc, .moveMissed ; it misses without the habit's toll too: an ordinary miss
+	farcall SayUsedToIt ; "<TARGET> / is used to it!"
+	ld a, MOVE_FAILED_HABITUATED
+	jr .gotFailureReason
 .moveMissed
 ; v0.7: say WHICH miss this was. b still holds the accuracy the roll was
 ; compared against, so b = $FF means the move could only have failed on the

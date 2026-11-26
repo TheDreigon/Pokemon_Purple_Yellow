@@ -37,7 +37,8 @@ LeechSeedEffect_:
 .moveMissed
 	ld a, [wMoveMissed]
 	cp MOVE_FAILED_PROTECTED
-	ret z ; v1.0 (2026-11-02): the target protected itself, and MoveHitTest has said so
+	ret nc ; v1.0 (2026-11-02): the target protected itself, and MoveHitTest has said so (2026-11-26: any reason
+	       ; from there up, as the other miss printers)
 	ld c, 50
 	call DelayFrames
 	ld hl, EvadedAttackText

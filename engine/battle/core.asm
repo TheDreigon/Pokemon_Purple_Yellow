@@ -1542,6 +1542,9 @@ EnemySendOutFirstMon:
 	res 5, [hl]
 	inc hl ; wPlayerBattleStatus2
 	res LOCKED_ON, [hl] ; v1.0 (2026-11-02): the player's LOCK-ON was on the #MON that left
+	res HABIT_LO, [hl] ; v1.0 (2026-11-26): and the player's #MON was used to that one (engine/battle/habituation.asm)
+	inc hl ; wPlayerBattleStatus3
+	res HABIT_HI, [hl]
 	hlcoord 18, 0
 	ld a, 8
 	call SlideTrainerPicOffScreen
@@ -2023,6 +2026,9 @@ SendOutMon:
 	farcall RestoreBattleMonToxic ; a bad POISON it carries (TOX in its status byte) is live again, its count at 0 (Gen 3)
 	ld hl, wEnemyBattleStatus2
 	res LOCKED_ON, [hl] ; v1.0 (2026-11-02): the enemy's LOCK-ON was on the #MON that left
+	res HABIT_LO, [hl] ; v1.0 (2026-11-26): and the enemy's #MON was used to that one (engine/battle/habituation.asm)
+	inc hl ; wEnemyBattleStatus3
+	res HABIT_HI, [hl]
 ; v1.0 (2026-11-07): the low-HP alarm's three cycles are per stay on the field: every #MON sent out
 ; (the battle's first, a SWITCH, a SHIFT, a faint's replacement) gets a fresh latch, reset as the
 ; bar leaving the red resets it (0, channel 5 freed if it was sounding). A red newcomer then sounds
@@ -4544,6 +4550,14 @@ MonName1Text:
 	ld [wAIRepeatCount], a
 	pop af
 .playerTurn
+; v1.0 (2026-11-26): the habit's recovery (engine/battle/habituation.asm), from this move and the last one
+	push af
+	push hl
+	ld d, a
+	ld e, [hl]
+	farcall HabitRecover
+	pop hl
+	pop af
 	ld [hl], a
 	ld [wd11e], a
 	; v0.7: MOVEDEX. This is the moment the game says "<MON> used MOVE!", which
@@ -4601,7 +4615,8 @@ PrintMoveFailureText:
 .playersTurn
 	ld a, [wMoveMissed]
 	cp MOVE_FAILED_PROTECTED
-	jr z, .textSaid ; v1.0 (2026-11-02): the target protected itself, and TargetIsProtected has said so
+	jr nc, .textSaid ; v1.0 (2026-11-02): the target protected itself, and TargetIsProtected has said so (v1.0
+	                 ; 2026-11-26: or, MOVE_FAILED_HABITUATED, the habit made the miss and MoveHitTest said so)
 	ld hl, DoesntAffectMonText
 	ld a, [wDamageMultipliers]
 	and $7f

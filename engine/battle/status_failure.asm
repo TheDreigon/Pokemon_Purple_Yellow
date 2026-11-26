@@ -23,7 +23,8 @@
 ;                          soft_status.asm, which jumps here near: the same bank)
 ;   STATUS_FAIL_IMMUNE    "It doesn't affect <TARGET>!" (PrintDoesntAffectText, home)
 ;   STATUS_FAIL_MISS       what PrintMoveFailureText says from wMoveMissed: nothing for MOVE_FAILED_PROTECTED
-;                          (TargetIsProtected has spoken), "slipped aside!" for MOVE_FAILED_EVADED, else
+;                          (TargetIsProtected has spoken) and MOVE_FAILED_HABITUATED (MoveHitTest has, v1.0
+;                          2026-11-26), "slipped aside!" for MOVE_FAILED_EVADED, else
 ;                          "<USER>'s / attack missed!"
 ; The text stubs sit here, beside their reader: PrintText reads a stub by address with this bank mapped.
 ; In: c = the cause, hWhoseTurn = the attacker. Ends in PrintText, or returns silently: nothing is kept.
@@ -49,7 +50,7 @@ PrintStatusMoveFailure::
 ; STATUS_FAIL_MISS
 	ld a, [wMoveMissed]
 	cp MOVE_FAILED_PROTECTED
-	ret z
+	ret nc ; PROTECT's, or (v1.0 2026-11-26) the habit's: MoveHitTest has said either
 	ld hl, MoveEvadedText
 	cp MOVE_FAILED_EVADED
 	jr z, .print

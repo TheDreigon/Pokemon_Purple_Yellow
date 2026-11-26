@@ -219,7 +219,11 @@ AIGetMoveChoiceList:
 ; SPIRAL (SPIRAL_EFFECT, sleep and confusion rolled apart) is USELESS behind the player's SUBSTITUTE, and +5 when both
 ; its legs are shut: a hard status (never while the player must recharge: the sleep lands then) and a confusion, either
 ; of which can end in the player's own turn first (.checkScared too).
+; v1.0 (2026-11-26): and before all of these, the habit (AIHabitScores, engine/battle/habituation.asm): INTIMIDATE,
+; SCARY FACE, LEER and DEATH GLARE (MIRROR MOVE's copy of one too) +5 with the player's level at 2, +10 at 3 - its
+; hit chance a step lower per level, as the screen has shown every use; nothing while the trainer's own LOCK-ON holds.
 AIMoveChoiceModification1:
+	farcall AIHabitScores ; v1.0 (2026-11-26): the moves the player is used to, +5 or +10 (engine/battle/habituation.asm)
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
 	ld b, NUM_MOVES + 1

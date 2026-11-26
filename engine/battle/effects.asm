@@ -2218,7 +2218,8 @@ ConditionalPrintButItFailed:
 PrintButItFailedText_:
 	ld a, [wMoveMissed]
 	cp MOVE_FAILED_PROTECTED
-	ret z ; v1.0 (2026-11-02): the target protected itself, and TargetIsProtected has said so
+	ret nc ; v1.0 (2026-11-02): the target protected itself, and TargetIsProtected has said so (v1.0 2026-11-26:
+	       ; or the habit made the miss, MOVE_FAILED_HABITUATED, and MoveHitTest said so)
 	ld hl, ButItFailedText
 	jp PrintText
 

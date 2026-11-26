@@ -268,6 +268,11 @@ _ProtectingItselfText::
 	cont "itself!"
 	prompt
 
+_UsedToItText:: ; v1.0 (2026-11-26): the habit (engine/battle/habituation.asm)
+	text "<TARGET>"
+	line "is used to it!"
+	prompt
+
 ; v1.0 (2026-11-02): LOCK-ON (protect_lock_on.asm). The last line is 17 at most with the "!".
 _TookAimText::
 	text "<USER>"
