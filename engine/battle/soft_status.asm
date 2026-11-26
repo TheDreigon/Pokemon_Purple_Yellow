@@ -325,6 +325,8 @@ BleedSourceStep::
 	ld c, b
 	call IsSpeciesBloodless
 	ret c
+	ld e, REALISM_BLEED
+	call AdjustStatusChance ; v1.0 (2026-11-26): d = the chance with the target's realism factors
 	call BattleRandom
 	cp d
 	ret nc ; the roll failed
@@ -1014,8 +1016,10 @@ FearEffect_::
 	ret nz
 	call FearImmuneTarget
 	ret c
+	ld de, FEAR_SIDE_EFFECT_CHANCE << 8 | REALISM_FEAR
+	call AdjustStatusChance ; v1.0 (2026-11-26): d = the chance with the target's realism factors (keeps hl)
 	call BattleRandom
-	cp FEAR_SIDE_EFFECT_CHANCE
+	cp d
 	ret nc
 	call FearInflicted
 .becameScared
@@ -1459,6 +1463,96 @@ ProtectChainRoll::
 .works
 	set PROTECTING, [hl]
 	and a
+	ret
+
+; v1.0 (2026-11-26): THE REALISM FACTORS. A side effect's chance to give a status, changed by the target's types
+; (data/battle/realism_factors.asm, INCLUDEd after this file: 10 points a row, every row of each of its types, its
+; third included; the sum never takes the chance below REALISM_FLOOR, 5 %, nor above 100 %). The target is the side
+; whose turn it is not; the types read are the ones it has now (TRANSFORM and CONVERSION change them), the third its
+; species' (what it looks like now). The immunities are the callers' and stay ahead of this: a factor never lets a
+; status through one. No random draw here: the rolls stay where they were. Callers: SHADOW BALL's fear and the
+; bleed here; the side effects of engine/battle/effects.asm (bank $1D) through AdjustStatusChanceB, far.
+; IN  d = the roll's threshold (a roll below d lands: P percent + 1), e = the status (REALISM_*).
+; OUT d = that threshold with the target's factors. Keeps bc, e, hl.
+AdjustStatusChance::
+	push bc
+	push hl
+	ldh a, [hWhoseTurn]
+	and a
+	ld hl, wEnemyMonType1
+	ld a, [wEnemyMonSpecies] ; (ld keeps the flags of the and)
+	jr z, .gotTarget
+	ld hl, wBattleMonType1
+	ld a, [wBattleMonSpecies]
+.gotTarget
+	call GetThirdType ; a = its third type, $FF for none (keeps bc, de, hl)
+	ld b, a
+	ld a, [hli]
+	ld c, a ; type 1
+	ld h, [hl] ; type 2
+	ld l, b ; its third
+	ld b, 0 ; the sum of the factors (signed)
+	call .factors ; type 1
+	ld a, h
+	cp c
+	call nz, .factors ; type 2, when it is not type 1
+	ld a, l
+	inc a
+	jr z, .sum ; no third type
+	dec a
+	cp c
+	jr z, .sum
+	cp h
+	call nz, .factors ; the third, when it is neither
+.sum
+	ld a, b
+	and a
+	jr z, .done ; no factor
+	bit 7, b
+	ld a, d
+	jr nz, .lower
+	add b
+	jr nc, .gotChance
+	ld a, $ff ; 100 %
+	jr .gotChance
+.lower
+	add b ; b negative: carry when the result did not go below 0
+	jr nc, .floor
+	cp REALISM_FLOOR
+	jr nc, .gotChance
+.floor
+	ld a, REALISM_FLOOR
+.gotChance
+	ld d, a
+.done
+	pop hl
+	pop bc
+	ret
+
+; IN  a = a type, e = the status, b = the sum so far. OUT b += every row of (e, a). Keeps c, de, hl.
+.factors
+	push de
+	push hl
+	ld d, a
+	ld hl, RealismFactors
+.row
+	ld a, [hli] ; the status
+	cp -1
+	jr z, .rowsDone
+	cp e
+	ld a, [hli] ; the type (ld keeps the flags of the cp)
+	jr nz, .nextRow
+	cp d
+	jr nz, .nextRow
+	ld a, [hl] ; the step, + or -
+	add b
+	ld b, a
+.nextRow
+	inc hl
+	jr .row
+.rowsDone
+	pop hl
+	pop de
 	ret
 
 INCLUDE "data/battle/fear_immune_types.asm"

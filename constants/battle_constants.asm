@@ -29,6 +29,24 @@ DEF STATUS_FAIL_SCARED     EQU 5 ; v1.0 (2026-11-24): "<TARGET>'s / already scar
 DEF FEAR_COUNT_MIN EQU 3
 DEF FEAR_COUNT_MAX EQU 5
 
+; v1.0 (2026-11-26): the realism factors (data/battle/realism_factors.asm, AdjustStatusChance in
+; engine/battle/effects.asm): the status a roll's chance is for, and the lowest chance the factors leave (only an
+; immunity gives 0 %).
+	const_def
+	const REALISM_BRN
+	const REALISM_FRZ
+	const REALISM_PAR
+	const REALISM_PSN
+	const REALISM_SLP
+	const REALISM_BLEED
+	const REALISM_CONFUSION
+	const REALISM_FEAR
+	const REALISM_FLINCH
+DEF NUM_REALISM_STATUSES EQU const_value
+DEF REALISM_STEP  EQU 10 percent ; one factor: 10 points of chance
+DEF REALISM_FLOOR EQU 5 percent + 1 ; a roll's threshold never goes below 5 % (a roll below it lands)
+DEF TRI_STATUS_CHANCE EQU 10 percent + 1 ; TRI ATTACK: each of its three statuses' own chance (TriStatusSideEffect)
+
 ; v1.0 (2026-11-17): what TargetStatusSlot (engine/battle/soft_status.asm) is asked in c: one of the two
 ; gates, or else the new status byte itself, which lands on the target (every status byte that lands is
 ; at least 1 << PSN, above both gates).

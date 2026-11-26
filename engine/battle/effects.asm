@@ -165,6 +165,19 @@ PoisonEffect:
 	cp TOXIC_EFFECT ; carry for POISON_EFFECT (a plain poison), none for TOXIC_EFFECT
 	jr .inflictPoison
 .toxicSideTest
+; v1.0 (2026-11-26): the realism factors move the chance of any poison (c); the bad band (b) stays as it is, and
+; never above that chance.
+	push bc
+	ld b, c
+	ld a, REALISM_PSN
+	call AdjustStatusChanceB
+	ld a, b
+	pop bc
+	ld c, a
+	cp b
+	jr nc, .badBandFits
+	ld b, c
+.badBandFits
 	call BattleRandom
 	cp c
 	ret nc ; no poison
@@ -172,6 +185,8 @@ PoisonEffect:
 	ccf ; carry: a plain poison; none: a bad one
 	jr .inflictPoison
 .sideEffectTest
+	ld a, REALISM_PSN ; v1.0 (2026-11-26): the target's realism factors on the chance (keeps de, hl)
+	call AdjustStatusChanceB
 	call BattleRandom
 	cp b ; was side effect successful?
 	ret nc
@@ -253,6 +268,43 @@ PoisonImmuneTarget:
 	cp POISON
 	ret z
 	cp STEEL
+	ret
+
+; v1.0 (2026-11-26): the realism factors for this bank's side effects (PoisonEffect, FreezeBurnParalyzeEffect and
+; its combined effects - ACID's burn, SLUDGE WAVE's poison... -, TriStatusSideEffect, FlinchSideEffect,
+; ConfusionSideEffect): AdjustStatusChance (engine/battle/soft_status.asm, bank $12: this bank has no room for it),
+; far. IN a = the status (REALISM_*), b = the roll's threshold. OUT b = the threshold with the target's factors.
+; Keeps c, de, hl (a is the status).
+AdjustStatusChanceB:
+	push de
+	push hl
+	push bc
+	ld e, a
+	ld d, b
+	farcall AdjustStatusChance
+	pop bc
+	ld b, d
+	ld a, e
+	pop hl
+	pop de
+	ret
+
+; FreezeBurnParalyzeEffect's. IN a = BURN_SIDE_EFFECT1 / FREEZE_SIDE_EFFECT1 / PARALYZE_SIDE_EFFECT1, b = the
+; threshold. OUT b with the target's factors for that status. Keeps a, c, de, hl.
+RealismForSideEffect:
+	push af
+	cp BURN_SIDE_EFFECT1
+	ld a, REALISM_BRN
+	jr z, .gotStatus
+	pop af
+	push af
+	cp FREEZE_SIDE_EFFECT1
+	ld a, REALISM_FRZ
+	jr z, .gotStatus
+	ld a, REALISM_PAR
+.gotStatus
+	call AdjustStatusChanceB
+	pop af
 	ret
 
 PoisonedText:
@@ -347,6 +399,7 @@ FreezeBurnParalyzeEffect:
 	ld b, 30 percent + 1
 	sub BURN_SIDE_EFFECT2 - BURN_SIDE_EFFECT1 ; treat extra effective as regular from now on
 .regular_effectiveness
+	call RealismForSideEffect ; v1.0 (2026-11-26): the target's realism factors on b (keeps a)
 	push af
 	call BattleRandom ; get random 8bit value for probability test
 	cp b
@@ -459,6 +512,7 @@ FreezeBurnParalyzeEffect:
 	ld b, 30 percent + 1
 	sub BURN_SIDE_EFFECT2 - BURN_SIDE_EFFECT1 ; treat extra effective as regular from now on
 .regular_effectiveness2
+	call RealismForSideEffect ; v1.0 (2026-11-26): the target's realism factors on b (keeps a)
 	push af
 	call BattleRandom
 	cp b
@@ -608,7 +662,8 @@ FrozenSpeedFellText: ; MonsStatsFellText's first line and its " fell!", never th
 
 ; v0.7: Tri Attack new effect.
 ; ~30% total chance to inflict a random status on the target —
-; 10% paralyze, 10% burn, 10% freeze (30% first roll, 1/3 split second).
+; 10% paralyze, 10% burn, 10% freeze (since v1.0, 2026-11-26: the 1/3 split first, then each status's own
+; ~10 %, moved by the target's realism factors; it was a 30% first roll, the split second).
 ; v0.7 type-status immunities apply (same set as FreezeBurnParalyzeEffect):
 ; burn -> FIRE/MAGMA immune; freeze -> ICE/MAGMA immune;
 ; paralyze -> ELECTRIC immune.
@@ -620,16 +675,44 @@ TriStatusSideEffect:
 	ld [wAnimationType], a
 	call CheckTargetSubstitute
 	ret nz                                ; substitute blocks
-	; First roll: any status at all? (~30%)
-	call BattleRandom
-	cp 30 percent + 1
-	ret nc
-	; Second roll: which status? (1/3 split → ~10% each)
+	; v1.0 (2026-11-26, the realism factors): which status first, then its own chance. Each status's chance is
+	; ~10 % (TRI_STATUS_CHANCE), with the target's factors for it; the second roll lands under three times that
+	; (a third of the first rolls reach it): with no factor its threshold is the old first roll's, 30 percent + 1.
+	; Two draws, as before; only their order changed (the status was the second).
 	call BattleRandom
 	cp 33 percent + 1
-	jp c, .triParalyze
+	ld e, REALISM_PAR
+	jr c, .gotStatus
 	cp 67 percent
-	jp c, .triBurn
+	ld e, REALISM_BRN
+	jr c, .gotStatus
+	ld e, REALISM_FRZ
+.gotStatus
+	ld a, e
+	ld b, TRI_STATUS_CHANCE
+	call AdjustStatusChanceB ; (keeps de)
+	ld a, b
+	dec a ; the chance, 0-254
+	ld c, a
+	add a
+	jr c, .allRolls
+	add c ; x 3
+	jr c, .allRolls
+	add 2 ; 25 x 3 + 2 = 77 = 30 percent + 1
+	jr nc, .gotThreshold
+.allRolls
+	ld a, $ff ; 100 %
+.gotThreshold
+	ld b, a
+	call BattleRandom ; (keeps de: e = the status)
+	cp b
+	ret nc
+	ld a, e
+	cp REALISM_PAR
+	jp z, .triParalyze
+	cp REALISM_BRN
+	jp z, .triBurn
+	ASSERT TRI_STATUS_CHANCE == 10 percent + 1 && (TRI_STATUS_CHANCE - 1) * 3 + 2 == 30 percent + 1
 	; else: freeze
 .triFreeze
 	ldh a, [hWhoseTurn]
@@ -1628,6 +1711,8 @@ FlinchSideEffect:
 	jr z, .gotEffectChance
 	ld b, 30 percent + 1 ; chance of flinch otherwise
 .gotEffectChance
+	ld a, REALISM_FLINCH ; v1.0 (2026-11-26): the target's realism factors on the chance (keeps de, hl)
+	call AdjustStatusChanceB
 	call BattleRandom
 	cp b
 	ret nc
@@ -1819,6 +1904,8 @@ ConfusionSideEffect:
 	jr z, .rollChance
 	ld b, 45 percent + 1   ; CONFUSION_SIDE_EFFECT3
 .rollChance
+	ld a, REALISM_CONFUSION ; v1.0 (2026-11-26): the target's realism factors on the chance
+	call AdjustStatusChanceB
 	call BattleRandom
 	cp b
 	ret nc

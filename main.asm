@@ -154,6 +154,7 @@ INCLUDE "engine/slots/game_corner_slots2.asm"
 SECTION "Soft Status", ROMX
 
 INCLUDE "engine/battle/soft_status.asm"
+INCLUDE "data/battle/realism_factors.asm" ; v1.0 (2026-11-26): read by AdjustStatusChance (soft_status.asm)
 
 
 SECTION "Slot Machines", ROMX
