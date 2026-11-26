@@ -673,7 +673,7 @@ DreadrowEvosMoves:
 	db 0
 ; Learnset
 ; PROVISIONAL (2026-11-09): FEAROW's learnset + DARK_PULSE (L40, with DRILL_PECK),
-; SCARY_FACE (L44) and SWORDS_DANCE (L60), until the owner reviews it.
+; SCARY_FACE (L44) and SWORDS_DANCE (L60), until I review it.
 	db  4, PECK
 	db  6, SAND_ATTACK
 	db  8, LEER
@@ -3173,7 +3173,7 @@ TangelaEvosMoves:
 	db 26, LEECH_SEED
 	db 30, STUN_POWDER
 	db 33, BIND
-	db 35, VINE_DRAIN ; v1.0 (2026-11-25, the owner): its signature, at its evolution level (TANGROWTH)
+	db 35, VINE_DRAIN ; v1.0 (2026-11-25): its signature, at its evolution level (TANGROWTH)
 	db 36, BUBBLEBEAM
 	db 40, ASTONISH
 	db 42, MEGA_DRAIN
