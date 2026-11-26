@@ -1237,7 +1237,7 @@ FrameBlock79:
 	db 1 ; #
 	dbsprite  0,  0,  0,  0, $4e, 0
 
-; v1.0 (2026-11-25): TOX's bite (Subanim_0StatusBadlyPoisoned), Forte's choice: FrameBlock54's skull (tileset 0)
+; v1.0 (2026-11-25): TOX's bite (Subanim_0StatusBadlyPoisoned): FrameBlock54's skull (tileset 0)
 ; still, and POISON POWDER's bubbles ($49, FrameBlock5f's, the same tileset) rising at its sides, one after the
 ; other: the right one from its jaw (x +17, y +12) to its top, the left one a frame behind. Four frames, in turn.
 FrameBlock7a:

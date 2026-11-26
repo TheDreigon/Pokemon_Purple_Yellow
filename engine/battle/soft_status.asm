@@ -524,7 +524,7 @@ LoadStatusAnimPalette::
 ; Each status animation's colours 1 to 3 (v1.0, 2026-11-25): its id (a special animation's, constants/move_constants.asm)
 ; and the address of its three colours. IsStatusTurnAnim (engine/battle/animations.asm) names the same ids. The inks
 ; are the HUD labels' (StatusInkTable, engine/gfx/bg_map_attributes.asm: emu_test_status_anim_ink.py checks that each
-; is there); Forte chose each animation's from sheets, on 2026-11-25 (the drops on 2026-11-25 too, S5).
+; is there); each animation's chosen from sheets on 2026-11-25 (the drops the same day, S5).
 StatusAnimPalettes:
 	db BLEED_ANIM
 	dw BleedDropColors + PAL_COLOR_SIZE
@@ -560,7 +560,7 @@ StatusAnimPalettes:
 	RGB 18, 06, 24 ; the bubbles' body
 	RGB 13, 02, 18 ; the skull and the bubbles' rims: the TOX label's ink
 .brn
-	RGB 31, 26, 04 ; the flame's heart: yellow (Forte: "vermelho + miolo amarelo")
+	RGB 31, 26, 04 ; the flame's heart: yellow (a red flame with a yellow heart)
 	RGB 30, 03, 02 ; the flame: the BRN label's ink
 	RGB 30, 03, 02 ; (no pixel of EMBER's flame uses colour 3)
 .slp
@@ -575,7 +575,7 @@ StatusAnimPalettes:
 	RGB 31, 28, 06
 	RGB 27, 22, 00 ; the PAR label's ink
 	RGB 24, 22, 00 ; the jolts (colour 3 alone): a yellow a touch darker than the label's, to be seen on the white
-	               ; (Forte's choice of three, 2026-11-25: 20, 13, 0 was "demasiado laranja")
+	               ; (one of three tried, 2026-11-25: 20, 13, 0 read too orange)
 .frz
 	RGB 24, 30, 31 ; the crystals' light faces
 	RGB 08, 22, 31 ; the FRZ label's ink
@@ -583,7 +583,7 @@ StatusAnimPalettes:
 .scr
 	RGB 12, 12, 12
 	RGB 12, 12, 12
-	RGB 12, 12, 12 ; FEAR's skull: a grey a touch darker than the SCR label's 15, 15, 15 (Forte, as for PAR's jolts)
+	RGB 12, 12, 12 ; FEAR's skull: a grey a touch darker than the SCR label's 15, 15, 15 (as for PAR's jolts)
 
 ; The drop's colours: its body and rim in the BLD label's ink (20, 2, 4: STATUS_INK_BLEED's, bg_map_attributes.asm),
 ; and the two-pixel gleam of the drop's tile (shades 1 and 2 of SUBANIM_1_BLOOD_DROPS' tile) in lighter reds. Colour 0
@@ -1162,13 +1162,13 @@ PlayFearAnimation:
 	ld a, FEAR_ANIM
 	jr PlayStatusSideAnimation
 
-; Far. A frozen turn's animation (v1.0, 2026-11-25, Forte's choice: ICE BEAM's crystals at the #MON's feet), after
+; Far. A frozen turn's animation (v1.0, 2026-11-25: ICE BEAM's crystals at the #MON's feet), after
 ; "<USER> is / frozen solid!" (CheckPlayerStatusConditions, CheckEnemyStatusConditions, engine/battle/core.asm).
 PlayFrozenAnimation::
 	ld a, FRZ_ANIM
 	jr PlayStatusSideAnimation
 
-; Far. A fully paralyzed turn's animation (v1.0, 2026-11-25, Forte's choice: vanilla's ParalyzeAnim, two jolting lines
+; Far. A fully paralyzed turn's animation (v1.0, 2026-11-25: vanilla's ParalyzeAnim, two jolting lines
 ; at the #MON's sides, which the game never played), after "<USER>'s / fully paralyzed!" (the same two routines). A
 ; paralyzed #MON that moves plays nothing: no new pause on its turns.
 PlayParalyzedAnimation::

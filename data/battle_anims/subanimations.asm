@@ -648,7 +648,7 @@ Subanim_0Bind:
 
 Subanim_0StatusParalyzed:
 ; v1.0 (2026-11-25): vanilla's two frames (the jolts, 2 pixels apart) were played twice by ParalyzeAnim; now twice
-; here, and the last held for three frames more (Forte: the last frame "pausado uns momentos a mais")
+; here, and the last held for three frames more, so that the jolt is still seen as the text comes
 	subanim SUBANIMTYPE_ENEMY, 7
 	db FRAMEBLOCK_51, BASECOORD_2D, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_51, BASECOORD_6E, FRAMEBLOCKMODE_00
@@ -885,8 +885,8 @@ Subanim_1BloodDrops:
 	db FRAMEBLOCK_31, BASECOORD_22, FRAMEBLOCKMODE_04
 	db FRAMEBLOCK_31, BASECOORD_27, FRAMEBLOCKMODE_00
 
-; v1.0 (2026-11-25): the statuses' own animations that the game did not have (Forte's choices of that day; the
-; scripts are ToxAnim, BurnAnim and FrozenAnim, data/moves/animations.asm). ENEMY type, as
+; v1.0 (2026-11-25): the statuses' own animations that the game did not have (the scripts are ToxAnim, BurnAnim
+; and FrozenAnim, data/moves/animations.asm). ENEMY type, as
 ; Subanim_0StatusPoisoned: drawn on the #MON whose turn it is, mirrored onto the player's picture for the player.
 Subanim_0StatusBadlyPoisoned:
 ; the poison's skull still above the head (BASECOORD_01, the first of its two places in the poison's), its bubbles
@@ -909,8 +909,7 @@ Subanim_0StatusFrozen:
 ; Subanim_0IceRise's first three frames, as an ENEMY-type subanimation: the ice rises at the picture's two lower corners
 ; in three steps (two crystal tips, FRAMEBLOCK_1F at BASECOORD_24; three crystals, FRAMEBLOCK_20 at BASECOORD_20;
 ; the bigger cluster, FRAMEBLOCK_21 at BASECOORD_1A: the enemy's picture's width, its feet), and never comes down: the
-; last is held for two frames more (Forte: "3 niveis de subida/altura? sem voltar a descer", and the last frame
-; "pausado uns momentos a mais")
+; last is held for two frames more: three heights, and the ice stays as the text comes
 	subanim SUBANIMTYPE_ENEMY, 5
 	db FRAMEBLOCK_1F, BASECOORD_24, FRAMEBLOCKMODE_00
 	db FRAMEBLOCK_20, BASECOORD_20, FRAMEBLOCKMODE_00
@@ -919,7 +918,7 @@ Subanim_0StatusFrozen:
 	db FRAMEBLOCK_21, BASECOORD_1A, FRAMEBLOCKMODE_00
 
 Subanim_0StatusScared:
-; FEAR's skull (FearAnim, Forte's choice: "3 piscas lentos da caveira"): the poison's skull above the head for 6
+; FEAR's skull (FearAnim: three slow blinks of a skull): the poison's skull above the head for 6
 ; frames, nothing for 5 (FrameBlock7e), three times: at FearAnim's 4 frames each, 24 shown and 20 out, in one
 ; subanimation (between two, the next one's tiles take ~11 frames more to load)
 	subanim SUBANIMTYPE_ENEMY, 28

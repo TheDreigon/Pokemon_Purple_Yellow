@@ -720,7 +720,7 @@ _MoveDesc_HighCritBleed30::
 	next "the foe BLEED."
 	done
 
-; GORE ATTACK: five lines (its flavour went to three, Forte 2026-11-25, to make room for the high crit); its
+; GORE ATTACK: five lines (its flavour went to three, 2026-11-25, to make room for the high crit); its
 ; PARALYZE_SIDE_EFFECT1 rolls first, then the BLEED table.
 _MoveDesc_GoreAttack::
 	text "A critical hit is"

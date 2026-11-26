@@ -635,7 +635,7 @@ HandlePoisonBurnLeechSeed:
 	call PrintText
 	xor a
 	ld [wAnimationType], a
-; v1.0 (2026-11-25, Forte's choices): each bite its own animation (data/moves/animations.asm): a burn's EMBER flame
+; v1.0 (2026-11-25): each bite its own animation (data/moves/animations.asm): a burn's EMBER flame
 ; (BRN_ANIM), a bad poison's skull and drop (TOX_ANIM: the side's BADLY_POISONED, the live bit the HUD's TOX label
 ; reads), a poison's skull (BURN_PSN_ANIM). hl is free here: the HP pointer is on the stack.
 	pop af

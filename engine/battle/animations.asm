@@ -308,10 +308,9 @@ PlayAnimation:
 	vc_hook Stop_reducing_move_anim_flashing_Blizzard
 	ret
 
-; A STATUS'S OWN ANIMATION IN ITS INK (GBC). v1.0 (2026-11-25, the status chapter's S5: Forte's choice, "gota
-; vermelho-escura"): the bleed's drops (BLEED_ANIM, played by PlayBleedAnimation, engine/battle/soft_status.asm) fall
-; in red. v1.0 (2026-11-25, Forte's task of that day: "adicionar cor também aos outros status", and his choices from
-; sheets): so do the other statuses' own animations, each in colours of its HUD label's ink: a poison's skull
+; A STATUS'S OWN ANIMATION IN ITS INK (GBC). v1.0 (2026-11-25, the status chapter's S5): the bleed's drops
+; (BLEED_ANIM, played by PlayBleedAnimation, engine/battle/soft_status.asm) fall in a dark red. v1.0 (2026-11-25):
+; so do the other statuses' own animations, each in colours of its HUD label's ink: a poison's skull
 ; (BURN_PSN_ANIM), a bad poison's skull and drop (TOX_ANIM), a burn's flame (BRN_ANIM; until then the burn showed the
 ; poison's skull), the Zs of a sleeping turn (SLP_PLAYER_ANIM, SLP_ANIM), the "?" of a confused turn
 ; (CONF_PLAYER_ANIM, CONF_ANIM), and two animations a status never had: the jolts of a fully paralyzed turn
