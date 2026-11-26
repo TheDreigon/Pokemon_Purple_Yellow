@@ -10,7 +10,7 @@
 ;
 ; * THREE LEVELS, LIKE THE CELADON INFORMATION DESK -- chapters, the sections
 ;   inside one, then the page. By design: topics you pick from, not a book
-;   you read through. STATUS has nine sections and THE TYPES has
+;   you read through. STATUS has twelve sections and THE TYPES has
 ;   twenty-six; reaching either by paging would be the whole objection.
 ; * ONE CURSOR PER SCREEN AT EVERY LEVEL. Every navigation bug playtesting has
 ;   found in this project -- the two on the Celadon desk, the Bill quiz, the
@@ -953,9 +953,11 @@ TrainerManualChapter3Pages:
 	dw ManualPage_3_5
 
 ; v1.0 (2026-11-25, the status chapter's texts): BLEED and FEAR after CONFUSION, two pages each; IMMUNE TO STATUS
-; has a second page (GHOST and BLOODLESS). Eleven sections: the list still fits its twelve rows unscrolled.
+; has a second page (GHOST and BLOODLESS). v1.0 (2026-11-26): TYPES AND STATUS after IMMUNE TO STATUS, five pages
+; (the realism factors: the rules, then the table, generated from data/battle/realism_factors.asm); GUARD SPEC. is
+; 4_12. Twelve sections: the list fills its twelve rows, unscrolled.
 TrainerManualChapter4Sections:
-	db 11
+	db 12
 	manual_section TrainerManualSection4_1, 0
 	manual_section TrainerManualSection4_2, 1
 	manual_section TrainerManualSection4_3, 2
@@ -967,15 +969,17 @@ TrainerManualChapter4Sections:
 	manual_section TrainerManualSection4_9, 10
 	manual_section TrainerManualSection4_10, 11
 	manual_section TrainerManualSection4_11, 13
+	manual_section TrainerManualSection4_12, 18
 TrainerManualChapter4Pages:
-	db 14
+	db 19
 	dw ManualPage_4_1, ManualPage_4_2, ManualPage_4_3
 	dw ManualPage_4_4, ManualPage_4_5, ManualPage_4_6
 	dw ManualPage_4_7, ManualPage_4_7b ; BLEED
 	dw ManualPage_4_8, ManualPage_4_8b ; FEAR
 	dw ManualPage_4_9
 	dw ManualPage_4_10, ManualPage_4_10b ; IMMUNE TO STATUS
-	dw ManualPage_4_11
+	dw ManualPage_4_11, ManualPage_4_11b, ManualPage_4_11c, ManualPage_4_11d, ManualPage_4_11e ; TYPES AND STATUS
+	dw ManualPage_4_12
 
 TrainerManualChapter5Sections:
 	db 6
@@ -1086,6 +1090,8 @@ TrainerManualSection4_9:
 TrainerManualSection4_10:
 	db "IMMUNE TO STATUS@"
 TrainerManualSection4_11:
+	db "TYPES AND STATUS@"
+TrainerManualSection4_12:
 	db "GUARD SPEC.@"
 
 TrainerManualSection5_1:
@@ -1162,6 +1168,11 @@ TrainerManualSection7_5:
 	manual_page ManualPage_4_10
 	manual_page ManualPage_4_10b
 	manual_page ManualPage_4_11
+	manual_page ManualPage_4_11b
+	manual_page ManualPage_4_11c
+	manual_page ManualPage_4_11d
+	manual_page ManualPage_4_11e
+	manual_page ManualPage_4_12
 
 	manual_page ManualPage_5_1
 	manual_page ManualPage_5_2

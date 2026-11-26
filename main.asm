@@ -214,6 +214,7 @@ INCLUDE "engine/battle/toxic_carry.asm" ; (v1.0 2026-09-27) lands in Battle Core
 INCLUDE "engine/events/toxic_step.asm" ; (v1.0 2026-11-11) the step poison tick, out of bank 3: reached by farcall
 INCLUDE "engine/battle/grand_victory.asm" ; (v1.0 R9s, 2026-09-30) out of Battle Engine 6: lands here too
 INCLUDE "engine/battle/misc.asm" ; (v1.0 R9t, 2026-09-30) out of Battle Engine 6 too: every caller a callfar
+INCLUDE "engine/battle/realism_accuracy.asm" ; (v1.0 2026-11-26) the realism factors on the status moves' hit chance
 INCLUDE "engine/battle/habituation.asm" ; (v1.0 2026-11-26) the habit: every caller a farcall
 INCLUDE "data/pokemon/cries.asm" ; (v1.0 R11, 2026-10-02) out of it too: read only through BANK(CryData)
 

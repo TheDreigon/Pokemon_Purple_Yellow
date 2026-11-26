@@ -37,10 +37,12 @@
 ; (MOVE_FAILED_HABITUATED). Any other miss says what it always said.
 ;
 ; The trainer AI. Layer 1 (AIMoveChoiceModification1) discourages the four moves from level 2 on (+5, as
-; a move that may fail) and heavily at level 3 (+10): AIHabitScores.
+; a move that may fail) and heavily at level 3 (+10): AIHabitScores, after layer 1's own rules, on the moves they
+; did not find useless.
 ;
 ; The code is in Battle Core Overflow: MoveHitTest (bank $1D), MonName1Text (Battle Core) and the trainer
-; AI (Battle Engine 6) each reach it with one farcall.
+; AI (Battle Engine 6) each reach it with one farcall; MoveHitTest's and the AI's go through the realism factors
+; first (HitChanceTolls, AIHitChanceScores: engine/battle/realism_accuracy.asm), which then jump here.
 
 ASSERT wPlayerBattleStatus3 == wPlayerBattleStatus2 + 1 && wEnemyBattleStatus3 == wEnemyBattleStatus2 + 1, \
 	"the habit's two bits are in status 2 and the byte after it"
@@ -53,7 +55,8 @@ HabitMoves:
 	db LEER,         5 percent
 	db -1
 
-; IN  d = the hit chance CalcHitChance gave (1-$FF); hWhoseTurn = the attacker
+; IN  d = the hit chance CalcHitChance gave (1-$FF), with the realism factors (HitChanceTolls);
+;     hWhoseTurn = the attacker
 ; OUT d = the hit chance less the habit's toll (at least 1), e = what was taken off (0: not one of the four
 ;     moves, or the target's level at 0). One of the four moves: the target's level goes up one (up to
 ;     HABIT_MAX), whatever the roll does next. Clobbers a, bc, hl.
@@ -136,11 +139,13 @@ UsedToItText:
 	text_far _UsedToItText
 	text_end
 
-; The trainer AI's layer 1 (AIMoveChoiceModification1) calls this first. The player's level is what the
-; screen has shown: every use of the four on it was announced. At level 2 each of the four moves in the
-; trainer's set gets +5 (as a move that may fail), at level 3 +10; below that nothing, and nothing with the
-; trainer's own LOCK-ON set (its moves skip the roll). MIRROR MOVE ranks as the move it would copy, the
-; player's last, as in layer 1's own rules. Clobbers every register.
+; The trainer AI's layer 1 (AIMoveChoiceModification1) calls this after its own rules and the realism factors'
+; scores (AIHitChanceScores). The player's level is what the screen has shown: every use of the four on it was
+; announced. At level 2 each of the four moves in the trainer's set gets +5 (as a move that may fail), at level 3
+; +10; below that nothing, nothing on a slot layer 1 scored useless or that cannot be used (AI_SCORE_USELESS or
+; more: a move refused before its roll; the useless tier keeps its own order), and nothing with the trainer's own
+; LOCK-ON set (its moves skip the roll). MIRROR MOVE ranks as the move it would copy, the player's last, as in layer
+; 1's own rules. Clobbers every register.
 AIHabitScores::
 	ld a, [wEnemyBattleStatus2]
 	bit LOCKED_ON, a
@@ -157,7 +162,10 @@ AIHabitScores::
 	ld de, wBuffer ; the scores, one per slot, as layer 1 walks them
 	ld b, NUM_MOVES
 .loop
-	ld a, [hli]
+	ld a, [de]
+	cp AI_SCORE_USELESS
+	ld a, [hli] ; (ld keeps the flags of the cp)
+	jr nc, .next ; useless, or not usable: left alone (AIHitChanceScores)
 	and a
 	ret z ; no more moves
 	cp MIRROR_MOVE

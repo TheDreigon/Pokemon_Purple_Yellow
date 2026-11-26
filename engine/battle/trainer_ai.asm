@@ -219,11 +219,20 @@ AIGetMoveChoiceList:
 ; SPIRAL (SPIRAL_EFFECT, sleep and confusion rolled apart) is USELESS behind the player's SUBSTITUTE, and +5 when both
 ; its legs are shut: a hard status (never while the player must recharge: the sleep lands then) and a confusion, either
 ; of which can end in the player's own turn first (.checkScared too).
-; v1.0 (2026-11-26): and before all of these, the habit (AIHabitScores, engine/battle/habituation.asm): INTIMIDATE,
-; SCARY FACE, LEER and DEATH GLARE (MIRROR MOVE's copy of one too) +5 with the player's level at 2, +10 at 3 - its
-; hit chance a step lower per level, as the screen has shown every use; nothing while the trainer's own LOCK-ON holds.
+; v1.0 (2026-11-26): and after all of these, two scores from Battle Core Overflow (AIHitChanceScores), on the moves
+; these rules left below the useless tier only: a move the engine would refuse before its roll (an immunity, a
+; SUBSTITUTE, a status already there) has no hit chance to lower, and the useless tier keeps its own order (the move
+; that hurts its user last). The realism factors (AIRealismScores, engine/battle/realism_accuracy.asm): a status move
+; that gives a condition, whose factors lower its hit chance on the player's types (WILL-O-WISP into a WATER #MON),
+; +1. Then the habit (AIHabitScores, engine/battle/habituation.asm): INTIMIDATE, SCARY FACE, LEER and DEATH GLARE +5
+; with the player's level at 2, +10 at 3 - its hit chance a step lower per level, as the screen has shown every use.
+; MIRROR MOVE's copy of one of these moves counts as the move; nothing from either while the trainer's own LOCK-ON
+; holds.
 AIMoveChoiceModification1:
-	farcall AIHabitScores ; v1.0 (2026-11-26): the moves the player is used to, +5 or +10 (engine/battle/habituation.asm)
+	call .rules
+	farcall AIHitChanceScores ; v1.0 (2026-11-26): the realism factors' +1, the habit's +5 or +10
+	ret
+.rules
 	ld hl, wBuffer - 1 ; temp move selection array (-1 byte offset)
 	ld de, wEnemyMonMoves ; enemy moves
 	ld b, NUM_MOVES + 1

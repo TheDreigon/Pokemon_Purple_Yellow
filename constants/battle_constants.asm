@@ -34,7 +34,7 @@ DEF FEAR_COUNT_MIN EQU 3
 DEF FEAR_COUNT_MAX EQU 5
 
 ; v1.0 (2026-11-26): the realism factors (data/battle/realism_factors.asm, AdjustStatusChance in
-; engine/battle/effects.asm): the status a roll's chance is for, and the lowest chance the factors leave (only an
+; engine/battle/soft_status.asm): the status a roll's chance is for, and the lowest chance the factors leave (only an
 ; immunity gives 0 %).
 	const_def
 	const REALISM_BRN

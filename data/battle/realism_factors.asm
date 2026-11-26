@@ -3,7 +3,8 @@
 ; rows of all its types (type 1, type 2, its third: data/pokemon/third_types.asm) add up. The immunities stay where
 ; they are and come first: a WATER/ICE #MON is never frozen, whatever WATER's row says. The sum never takes a chance
 ; below 5 % (REALISM_FLOOR: only an immunity gives 0 %) nor above 100 %. AdjustStatusChance
-; (engine/battle/soft_status.asm) reads it. The status moves' own chances (their accuracy) are not read yet.
+; (engine/battle/soft_status.asm) reads it, for the side effects (SPIRAL's two legs among them) and for the hit chance
+; of the status moves that give a condition (engine/battle/realism_accuracy.asm).
 ; Each row: the status, the type, + or - (one step).
 
 MACRO realism

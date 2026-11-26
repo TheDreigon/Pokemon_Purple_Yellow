@@ -1290,13 +1290,15 @@ AIFearMoveUseless::
 ; HYPNOSIS: PROTECT, FLY / DIG and LOCK-ON included; no type stops a power-0 move) and the usual miss line - none
 ; against a target that must recharge, which cannot dodge: HYPNOSIS's rule (SleepEffect skips its hit test then; the
 ; owner, 2026-11-24). On a hit,
-; two rolls of their own, the sleep's first, then the confusion's, each SPIRAL_LEG_CHANCE, each a silent leg when it
-; does not land (SpiralSleepLeg, SpiralConfusionLeg). The move's animation plays once: with the sleep's landing, or,
-; when the sleep did not land, before the confusion's leg. When it hits and neither leg lands, by the rolls or by
-; the gates, "<TARGET> / looked away!". When both land, "fell asleep!", then "became confused!".
+; two rolls of their own, the sleep's first, then the confusion's, each SPIRAL_LEG_CHANCE with the target's realism
+; factors for its status (v1.0, 2026-11-26: SLP, CONFUSION, as a side effect's chance; the move's accuracy takes
+; none), each a silent leg when it does not land (SpiralSleepLeg, SpiralConfusionLeg). The move's animation plays
+; once: with the sleep's landing, or, when the sleep did not land, before the confusion's leg. When it hits and
+; neither leg lands, by the rolls or by the gates, "<TARGET> / looked away!". When both land, "fell asleep!", then
+; "became confused!".
 ; A confusion that lands on a sleeping #MON waits behind the sleep: a sleeper never reaches the confusion check.
 ; Clobbers every register (the dispatch reads none after it).
-DEF SPIRAL_LEG_CHANCE EQU 60 percent + 1 ; each leg: a roll of 0-153 lands, 154-255 does not
+DEF SPIRAL_LEG_CHANCE EQU 60 percent + 1 ; each leg with no factor: a roll of 0-153 lands, 154-255 does not
 
 SpiralEffect_:
 	ldh a, [hWhoseTurn]
@@ -1341,8 +1343,10 @@ SpiralEffect_:
 ; burn whose fire is out). It lands by SleepEffect's own landing (the count, TargetStatusGone, the move's animation,
 ; "fell asleep!" with fresh HUDs). OUT carry = it landed. Clobbers every register.
 SpiralSleepLeg:
+	ld de, SPIRAL_LEG_CHANCE << 8 | REALISM_SLP
+	call AdjustStatusChance ; v1.0 (2026-11-26): d = the chance with the target's realism factors
 	call BattleRandom
-	cp SPIRAL_LEG_CHANCE
+	cp d
 	ret nc
 	ldh a, [hWhoseTurn]
 	and a
@@ -1367,8 +1371,10 @@ SpiralSleepLeg:
 ; every confusion move (ConfusionSideEffectSuccess: the count 2-5, "became confused!" with fresh HUDs; it plays no
 ; animation for SPIRAL_EFFECT). OUT carry = it landed. Clobbers every register.
 SpiralConfusionLeg:
+	ld de, SPIRAL_LEG_CHANCE << 8 | REALISM_CONFUSION
+	call AdjustStatusChance ; v1.0 (2026-11-26): d = the chance with the target's realism factors
 	call BattleRandom
-	cp SPIRAL_LEG_CHANCE
+	cp d
 	ret nc
 	ldh a, [hWhoseTurn]
 	and a
@@ -1470,9 +1476,11 @@ ProtectChainRoll::
 ; third included; the sum never takes the chance below REALISM_FLOOR, 5 %, nor above 100 %). The target is the side
 ; whose turn it is not; the types read are the ones it has now (TRANSFORM and CONVERSION change them), the third its
 ; species' (what it looks like now). The immunities are the callers' and stay ahead of this: a factor never lets a
-; status through one. No random draw here: the rolls stay where they were. Callers: SHADOW BALL's fear and the
-; bleed here; the side effects of engine/battle/effects.asm (bank $1D) through AdjustStatusChanceB, far.
-; IN  d = the roll's threshold (a roll below d lands: P percent + 1), e = the status (REALISM_*).
+; status through one. No random draw here: the rolls stay where they were. Callers: SHADOW BALL's fear, SPIRAL's two
+; legs and the bleed here; the side effects of engine/battle/effects.asm (bank $1D) through AdjustStatusChanceB, far;
+; the status moves' hit chance (engine/battle/realism_accuracy.asm, Battle Core Overflow), far.
+; IN  d = the roll's threshold (a roll below d lands: P percent + 1; for a hit chance, the chance), e = the status
+;     (REALISM_*).
 ; OUT d = that threshold with the target's factors. Keeps bc, e, hl.
 AdjustStatusChance::
 	push bc

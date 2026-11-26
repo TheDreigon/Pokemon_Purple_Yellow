@@ -10,7 +10,8 @@
 ; Neither of them ends up calling anything left behind in Battle Core:
 ; BattleRandom is in the home bank and Multiply/Divide always were; the one
 ; farcall here, to IsHardModeBossBattle (Battle Engine 6), was one in Battle Core too. (v1.0 2026-11-26: two
-; more since, to the habit in Battle Core Overflow, engine/battle/habituation.asm.)
+; more since, to Battle Core Overflow: the realism factors and the habit, engine/battle/realism_accuracy.asm and
+; engine/battle/habituation.asm, and the habit's miss line.)
 
 ; v1.0 (R16g, 2026-10-07): the hit test of the two damage paths, PlayerCalcMoveDamage and
 ; EnemyMoveHitTest (core.asm; the effects call MoveHitTest itself). After MoveHitTest, a trapping move
@@ -198,10 +199,12 @@ MoveHitTest:
 ; today; F6 stays as the guard, 13 bytes shorter than the read-back.)
 	call CalcHitChance ; a = the move's accuracy scaled by the attacker's accuracy and the target's evasion
 	ld d, a
-; v1.0 (2026-11-26): the habit (engine/battle/habituation.asm): INTIMIDATE, SCARY FACE, LEER and DEATH GLARE
-; lose a step per level the target already has, and this use raises it. e = the toll taken off, kept to the
+; v1.0 (2026-11-26): two tolls on that chance, in Battle Core Overflow. First the realism factors
+; (engine/battle/realism_accuracy.asm): a status move that gives a condition hits more or less often with the
+; target's types. Then the habit (engine/battle/habituation.asm): INTIMIDATE, SCARY FACE, LEER and DEATH GLARE
+; lose a step per level the target already has, and this use raises it. e = the habit's toll alone, kept to the
 ; roll below (IsHardModeBossBattle and BattleRandom keep de) to tell the miss it alone caused.
-	farcall HabitAccuracy ; d = the chance less the toll (at least 1), e = the toll
+	farcall HitChanceTolls ; d = the chance with the factors, less the habit's toll (at least 1), e = that toll
 	ld b, d
 .doAccuracyCheck
 	; v0.7 hard mode boss accuracy edge (~±5pp = ±13/256). Applied

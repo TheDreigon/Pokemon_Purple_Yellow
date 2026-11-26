@@ -502,6 +502,84 @@ _ManualPage_4_10b::
 	done
 
 _ManualPage_4_11::
+	text "Some types make a"
+	next "status more or"
+	next "less likely: ten"
+	next "in a hundred each,"
+	next "listed further on."
+	next ""
+	next "All its types add"
+	next "up, the third too."
+	next ""
+	next "It moves a hit's"
+	next "chance to cause"
+	next "one, and a status"
+	next "move's accuracy."
+	done
+
+_ManualPage_4_11b::
+	text "The odds never"
+	next "drop below five in"
+	next "a hundred."
+	next ""
+	next "An immunity still"
+	next "comes first: a"
+	next "FIRE #MON never"
+	next "burns, whatever"
+	next "its other types."
+	next ""
+	next "After a LOCK-ON, a"
+	next "status move still"
+	next "always lands."
+	done
+
+_ManualPage_4_11c::
+	text "Less likely:"
+	next ""
+	next "BURN: GHOST WATER"
+	next "DRAGON"
+	next ""
+	next "FREEZE: GHOST GAS"
+	next "FIRE"
+	next ""
+	next "PARALYSIS: GHOST"
+	next "GAS STEEL"
+	next ""
+	next "POISON: GHOST GAS"
+	next "ROCK ICE MAGMA"
+	done
+
+_ManualPage_4_11d::
+	text "Less likely, too:"
+	next ""
+	next "SLEEP: GHOST"
+	next ""
+	next "BLEED: GAS ROCK"
+	next ""
+	next "CONFUSION: PSYCHIC"
+	next ""
+	next "FEAR: DARK DRAGON"
+	next "FIGHTING"
+	next ""
+	next "FLINCH: DRAGON"
+	next "ROCK"
+	done
+
+_ManualPage_4_11e::
+	text "More likely:"
+	next ""
+	next "BURN: GAS GRASS"
+	next "BUG"
+	next ""
+	next "FREEZE: WATER"
+	next "GRASS DRAGON"
+	next ""
+	next "POISON: BUG"
+	next ""
+	next "FEAR: NORMAL"
+	done
+
+_ManualPage_4_12::
 	text "GUARD SPEC. keeps"
 	next "your STATS from"
 	next "being cut, but a"
