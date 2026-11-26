@@ -1239,7 +1239,7 @@ Pokedex_PrintBaseStats:
 	ld de, BaseStatsHeaderText
 	call PlaceString
 
-; v1.0 (2026-11-02, three types; Forte's layout): one "TYPES/" label on row 10, level with BASE STATS, and
+; v1.0 (2026-11-02, three types; my layout): one "TYPES/" label on row 10, level with BASE STATS, and
 ; the names under it, one a row (rows 11-13: type 1, type 2 when it differs, the third when there is one -
 ; PrintMonTypesList); row 14 stays a margin above TOTAL. Every #MON gets this one layout, one name or three.
 ; (Before: "TYPE1/" and "TYPE2/" over a name each, through PrintMonType, rows 11-14 - no room for a third.)

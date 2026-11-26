@@ -898,7 +898,7 @@ TargetBleedingStoppedText: ; for a move that ends the TARGET's bleed (EndBleedWi
 ;          repeat wDamage), a KO included. Half the damage (at least 1) goes to the user through DrainHPEffect_, with
 ;          the line if it is owed (once a hold), else through DrainHPEffectNoLine_. Both leave half of wDamage in it,
 ;          and the held turns repeat wDamage: it is put back as it was. A hit on a doll drains nothing
-;          (wMoveHitSubstitute), the hit that breaks it included, and leaves the line owed (the owner, 2026-11-24:
+;          (wMoveHitSubstitute), the hit that breaks it included, and leaves the line owed (my choice, 2026-11-24:
 ;          the line comes with the first real drain). A doll that breaks leaves this effect byte in place
 ;          (AttackSubstitute), so the held hits after it, which strike the #MON, drain, the first of them with the
 ;          line. A doll that holds every hit leaves the line owed at the end of the hold: harmless, every fresh use
@@ -950,7 +950,7 @@ TrappingDrainEffect_:
 ; the DISABLE countdown and before the confusion check of both sides' status routines in Battle Core) it goes down
 ; first: at 0 the fear is over ("scared no more!") and the #MON acts; otherwise its turn is lost one time in two
 ; ("is too scared!"). So 2 to 4 scared turns. While scared it moves after a #MON that is not, whatever the speeds;
-; two scared #MON compare their speeds (TurnOrderSpeedCmp; the owner, 2026-11-25: x2/3 of the SPEED until then).
+; two scared #MON compare their speeds (TurnOrderSpeedCmp, since 2026-11-25: x2/3 of the SPEED until then).
 ; Priority comes before it. The stored SPEED is never changed.
 ; It coexists with every hard status, confusion, BLEED and a burn (it lands on a sleeping or frozen #MON and waits
 ; there). A SUBSTITUTE blocks it, and a GHOST (FearImmuneTypes) never has it. It ends at 0, by a FULL HEAL or a
@@ -1223,7 +1223,7 @@ IsBattlerScared::
 
 ; Far. The turn order (MainInBattleLoop .compareSpeed, reached only when both moves have the same priority:
 ; HandleMovePriority comes first, so a scared #MON's PROTECT or QUICK ATTACK still goes before a plain move).
-; v1.0 (2026-11-25, the owner): a scared #MON (its fear count, the SCR label) moves after one that is not, whatever
+; v1.0 (2026-11-25): a scared #MON (its fear count, the SCR label) moves after one that is not, whatever
 ; the speeds; when both or neither are scared, the stored SPEEDs decide (paralysis has already halved its own).
 ; (2026-11-24 to 11-25: a scared side's SPEED counted x2/3, at least 1.) Nothing is stored.
 ; OUT the flags of StringCmp on (the player's, the enemy's): Z equal, carry = the enemy first, else the player.
@@ -1263,7 +1263,7 @@ TurnOrderSpeedCmp::
 ; refuse it on the player's #MON - a GHOST by any of its three types, or its SUBSTITUTE (useless) - or refuse it
 ; unless the fear already there (the SCR label) ends first? Read from what the screen shows: never the count. The
 ; player's fear can end in its own turn, before DEATH GLARE runs ("scared no more!" when it moves first), as a
-; confusion can before CONFUSE RAY: by E4 only discouraged, as CONFUSE RAY is (the owner, 2026-11-24).
+; confusion can before CONFUSE RAY: by E4 only discouraged, as CONFUSE RAY is (2026-11-24).
 ; v1.0 (2026-11-24): SPIRAL comes to the same branch (wEnemyMoveEffect = SPIRAL_EFFECT): AISpiralMoveUseless.
 ; OUT carry = useless; else NZ = discouraged (.discourageUnlessRecharging: USELESS while the player must recharge,
 ; whose turn ends before its fear check), Z = nothing. Clobbers a, c and hl. de is kept.
@@ -1396,7 +1396,7 @@ SpiralLegShut:
 ; the player's SUBSTITUTE (it stops the whole move). With both legs shut by a gate the screen shows - a hard status
 ; (the sleep's gate; never while it must recharge: the sleep lands then) AND a confusion (the confusion's gate) - only
 ; discouraged: the confusion, and a sleep or a freeze, can end in the player's own turn before SPIRAL runs (E4, as
-; CONFUSE RAY; the owner, 2026-11-24). One leg open is enough. OUT as AIFearMoveUseless: carry = useless, else NZ =
+; CONFUSE RAY; 2026-11-24). One leg open is enough. OUT as AIFearMoveUseless: carry = useless, else NZ =
 ; discouraged, Z = nothing. Clobbers a, c, hl. de is kept.
 AISpiralMoveUseless:
 	ld a, [wPlayerBattleStatus2]
@@ -1436,7 +1436,7 @@ TooScaredText:
 	text_end
 
 ; Far, from ProtectEffect (bank $1D: its section has no room for this), after its sure refusal (the user moving last).
-; v1.0 (2026-11-25, the owner): the PROTECT chain. After n PROTECTs of its own that worked in a row (PROTECT_CHAIN,
+; v1.0 (2026-11-25): the PROTECT chain. After n PROTECTs of its own that worked in a row (PROTECT_CHAIN,
 ; status 3, 0-3: CommitTurnBattleBits counts them, a PROTECT that failed or any other move breaks the chain), a
 ; PROTECT works 1 time in 2^n: a roll below $100 >> n - 50 %, 25 %, then 12.5 %, the floor. With no chain it surely
 ; works and draws nothing. When it works, the user's PROTECTING is set here.

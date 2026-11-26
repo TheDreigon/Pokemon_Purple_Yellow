@@ -160,14 +160,14 @@ RockTunnelB1FHiddenObjects:
 	db -1 ; end
 
 ; The gag rope: an ESCAPE ROPE hidden in a cave with a mouth at each end, for the one player who truly cannot
-; find the way out - the Itemfinder points to it. v1.0 R24b: the cave is the owner's own map, roughly an arch
+; find the way out - the Itemfinder points to it. v1.0 R24b: the cave is my own map, roughly an arch
 ; from the ROUTE 2 mouth to the ROUTE 11 mouth (maps/DiglettsCave.blk, cut into DIGLETTS_CAVE and
-; DIGLETTS_CAVE_EAST by maps.asm), and the rope lies on the rock he chose: the master's cell (72,39), block
+; DIGLETTS_CAVE_EAST by maps.asm), and the rope lies on the rock I chose: the master's cell (72,39), block
 ; (36,19), which is the east piece's (22,39). A player faces it from (22,38), facing down, or from (23,39),
 ; facing left, 40 and 38 steps from the ROUTE 11 ladder (45,55); the tile $05 floor below it is walled off
 ; from the corridor by TilePairCollisionsLand.
 DiglettsCaveEastHiddenObjects:
-	hidden_object 22, 39, ESCAPE_ROPE, HiddenItems ; on the rock of the master's (72,39), the owner's cell
+	hidden_object 22, 39, ESCAPE_ROPE, HiddenItems ; on the rock of the master's (72,39), the cell I chose
 	db -1 ; end
 
 SeafoamIslandsB1FHiddenObjects:
@@ -250,7 +250,7 @@ PowerPlantHiddenObjects:
 
 Route11HiddenObjects:
 	hidden_object 54,  5, ZINC, HiddenItems ; was a GREAT BALL: the split's SP.DEF vitamin (2026-09-06; the visible pair: Silph Co. 3F (8,5) and Pokemon Mansion 3F (1,16), 2026-09-06)
-	hidden_object 49,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was asked for, but it held the GREAT_BALL (the ZINC since 2026-09-06).
+	hidden_object 49,  7, X_SPEED, HiddenItems ; NEW 2026-07-30, beside the Carbos ball. (48,5) was my first pick, but it held the GREAT_BALL (the ZINC since 2026-09-06).
 	db -1 ; end
 
 Route12HiddenObjects:

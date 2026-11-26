@@ -845,7 +845,7 @@ _MoveDesc_SpDefDownSideHeal::
 	next "1/8 of full HP."
 	done
 
-; v1.0 (2026-11-24): the status chapter's four effects (drafts: the wording is approved from captures).
+; v1.0 (2026-11-24): the status chapter's four effects (the wording settled from captures).
 _MoveDesc_Fear::
 	text "FEARs the foe for"
 	next "2 to 4 turns. It"

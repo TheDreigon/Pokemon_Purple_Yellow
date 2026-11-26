@@ -252,7 +252,7 @@ _CoinsScatteredText::
 	line "everywhere!"
 	prompt
 
-; v1.0 (2026-11-24, the owner): "Drained HP from", was "Sucked health from"; the labels keep the old name
+; v1.0 (2026-11-24): "Drained HP from", was "Sucked health from"; the labels keep the old name
 _SuckedHealthText::
 	text "Drained HP from"
 	line "<TARGET>!"

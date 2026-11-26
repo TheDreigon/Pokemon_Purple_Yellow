@@ -20,7 +20,7 @@
 ; wMoveMissed, wDefenderType3, wDefenderAirborne. Clobbers af, bc, hl.
 ; v1.0 (2026-11-02, three types): the defender's third type is one more defending type a row can match - this
 ; walk's defender is always the target of the turn's move, so it looks its traits up itself
-; (SetTargetDefenderTraits) and neither caller can forget them. Three matched rows chain to 8x or 1/8; Forte's
+; (SetTargetDefenderTraits) and neither caller can forget them. Three matched rows chain to 8x or 1/8; my
 ; ladder stops at 6x and 1/6 (.done). Two types never reach either. AIRBORNE (the same day): GROUND's rows
 ; also match FLYING on an AIRBORNE defender, so GROUND's row against FLYING (NO_EFFECT) stops the move.
 ApplyTypeEffectivenessToDamage::
@@ -136,7 +136,7 @@ ApplyTypeEffectivenessToDamage::
 	inc hl
 	jp .loop
 .done
-; v1.0 (2026-11-02, Forte's ladder: 2x 4x 6x, 1/2 1/4 1/6): the effectiveness byte doubles on each super
+; v1.0 (2026-11-02, my ladder: 2x 4x 6x, 1/2 1/4 1/6): the effectiveness byte doubles on each super
 ; effective row and halves on each resisted one, from EFFECTIVE (10): three super effective rows leave 80,
 ; three resisted ones 10 -> 5 -> 2 -> 1, and nothing else does. 8x becomes 6x (the damage x 3/4, the byte
 ; 60); 1/8 becomes 1/6 (the damage x 4/3; the byte stays 1, read only as "not very effective").
@@ -333,7 +333,7 @@ AIGetTypeEffectivenessDBC:     ; d = attacking type, b and c = the defender's ty
 	pop bc
 	jr .nextTypePair2          ; a defender's OTHER type may still have a row
 .done
-; v1.0 (2026-11-02): Forte's ladder, as in the damage walk - three super effective rows (80) count as 6x
+; v1.0 (2026-11-02): my ladder, as in the damage walk - three super effective rows (80) count as 6x
 ; (60). Three resisted rows leave 1 (1/8, read as 1/6: below 1/4's 2 either way).
 	ld a, [wTypeEffectiveness]
 	cp EFFECTIVE * 8

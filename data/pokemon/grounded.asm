@@ -1,4 +1,4 @@
-; v1.0 (2026-11-07): the GROUNDED #MON, Forte's list: FLYING #MON that live on the ground. They keep all of
+; v1.0 (2026-11-07): the GROUNDED #MON, my list: FLYING #MON that live on the ground. They keep all of
 ; FLYING (its weaknesses and resistances, STAB on its moves) but GROUND's rows never match their FLYING, so a
 ; GROUND move hits them as their other types take it - the inverse of AIRBORNE. The chart walks read it through
 ; wDefenderAirborne (GROUNDED_TRAIT, set by SetDefenderTraits from GetAirborne); nothing else in battle reads it.

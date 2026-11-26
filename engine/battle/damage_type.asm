@@ -128,7 +128,7 @@ AdjustDamageForMoveType::
 	ret
 
 
-; v1.0 (2026-11-22, Forte): a move that fills the hiding place hits harder there, x1.25: EARTHQUAKE and FISSURE
+; v1.0 (2026-11-22): a move that fills the hiding place hits harder there, x1.25: EARTHQUAKE and FISSURE
 ; against a #MON underground (DIG), HURRICANE and BLIZZARD - the strong winds - against one up in the air by FLY,
 ; not by SKY ATTACK (a THUNDER would be as strong against a bird sitting down; SKY ATTACK's flight takes no bonus
 ; at all). They are the first two of their lists in home/hidden_mon.asm: MoveReachesHiddenMon, which the hit test

@@ -490,7 +490,7 @@ PokemaniacData:
 	db 26, CHARMELEON, CUBONE, 0
 	db 25, SLOWPOKE, 0
 ; Victory Road 2F
-	db 52, VENUSAUR, LAPRAS, DREADROW, 0 ; v1.0 (2026-11-09, the owner's pick): the game's one DREADROW, in place of his LICKITUNG
+	db 52, VENUSAUR, LAPRAS, DREADROW, 0 ; v1.0 (2026-11-09, my pick): the game's one DREADROW, in place of his LICKITUNG
 ; Rock Tunnel 1F
 	db 25, CUBONE, SLOWPOKE, 0
 

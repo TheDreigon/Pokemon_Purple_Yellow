@@ -567,7 +567,7 @@ INCLUDE "data/battle/priority_moves.asm"
 ; v1.0 (2026-11-02): the turn is committed (MainInBattleLoop, .selectEnemyMove). Every turn that runs
 ; passes there once and only once: the FIGHT menu's B goes back above it, and the trainer's choice,
 ; made at the top of the turn, still sees last turn's bits (a PROTECT that worked is PROTECTING then).
-; For both sides PROTECT's bits move on a turn and MOVED_THIS_TURN clears. v1.0 (2026-11-25, the owner): PROTECTING
+; For both sides PROTECT's bits move on a turn and MOVED_THIS_TURN clears. v1.0 (2026-11-25): PROTECTING
 ; clears into the chain (PROTECT_CHAIN, status 3): a PROTECT that worked adds one, up to 3; any other turn (another
 ; move, a PROTECT that failed, a switch's cleared bytes) leaves it 0. ProtectChainRoll reads it: 1 in 2^n.
 ; (2026-11-02 to 11-25: PROTECTED_LAST_TURN, the next PROTECT always failing.) Clobbers a, b, hl.

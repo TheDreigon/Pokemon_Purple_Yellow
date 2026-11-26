@@ -691,7 +691,7 @@ _ViridianBlackboardSleepText::
 	prompt
 
 _ViridianBlackboardPoisonText::
-; v1.0 (2026-11-12, Forte: the board has to tell POISON from bad POISON): ordinary
+; v1.0 (2026-11-12: the board has to tell POISON from bad POISON): ordinary
 ; POISON no longer bites out of battle; a bad POISON does, and it outlives the
 ; battle (engine/events/toxic_step.asm). "after battles" stays: invariants_audit
 ; check9 pairs this board with TRAINER MANUAL 4_5.

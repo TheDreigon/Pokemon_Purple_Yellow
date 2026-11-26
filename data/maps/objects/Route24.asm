@@ -16,7 +16,7 @@ Route24_Object:
 	def_bg_events
 
 ; v1.0 (2026-11-05): ROUTE_24 was cut at its old row 18 (its top went to ROUTE_25) and grew three blocks at the top;
-; Forte then polished the map and placed its trainers anew (the ROCKET at (13,5) since the row added at the top on
+; I then polished the map and placed its trainers anew (the ROCKET at (13,5) since the row added at the top on
 ; 2026-11-19, (13,3) before: his trigger in scripts/Route24.asm is
 ; the cell west of him). DAMIAN, the CHARMANDER guy, was above the cut: he lives in ROUTE_25 now
 ; (ROUTE25_COOLTRAINER_M2).

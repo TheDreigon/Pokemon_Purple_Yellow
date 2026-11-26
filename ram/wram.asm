@@ -1570,7 +1570,7 @@ wPlayerStatsToDouble:: db
 
 ; v1.0 (2026-11-24): no longer always 0. VINE DRAIN's drain line is owed to its hold's first hit that drains:
 ; TrappingDrainEffect_ (engine/battle/soft_status.asm) writes 1 at the hold's set-up and 0 at the first drain step of
-; a hit on the #MON; a hit on a doll drains nothing and leaves it at 1 (the owner, 2026-11-24). Nothing else reads it.
+; a hit on the #MON; a hit on a doll drains nothing and leaves it at 1. Nothing else reads it.
 ; A 1 left behind (the first hit missed, or a doll held every hit) is harmless: the next set-up writes 1 again. The
 ; five-byte status clears above still zero it. The old name stays on the byte for the tools that name it.
 wPlayerTrapDrainLine::

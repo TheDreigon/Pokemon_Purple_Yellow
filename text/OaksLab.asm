@@ -406,7 +406,7 @@ _OaksLabRivalLeaveItAllToMeText::
 	cont "<PLAYER>! Hahaha!"
 	done
 
-; v1.0 (2026-11-09, approved 2026-11-10): OAK says this at all but one species owned (the gate is NUM_POKEMON - 1,
+; v1.0 (2026-11-09, settled 2026-11-10): OAK says this at all but one species owned (the gate is NUM_POKEMON - 1,
 ; scripts/OaksLab.asm), before he leaves for the MANSION: since DREADROW a complete #DEX counts MEW too, so the
 ; text no longer says the #DEX is complete.
 _CompletedDexText::

@@ -1,4 +1,4 @@
-; v1.0 (2026-11-02): the #MON with a third type, Forte's list. The two types every struct keeps (base stats,
+; v1.0 (2026-11-02): the #MON with a third type, my list. The two types every struct keeps (base stats,
 ; party, box, battle) stay as they are: the third comes from the species, through GetThirdType (home), so a
 ; save holds nothing new, and a TRANSFORM, which copies the species, copies it too.
 ;

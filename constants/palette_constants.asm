@@ -153,7 +153,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_ROUTE_DOENTE           ; $40 - route 17: a sickly green, PAL_ROUTE's water
 	const PAL_ROUTE_PRAIA            ; $41 - routes 19 and 21: sand, PAL_ROUTE's water
 	const PAL_ROUTE_ROCHA_GELADA     ; $42 - route 20: a cold grey-green on the islands, PAL_ROUTE's water
-	const PAL_ROUTE_BRISA            ; $43 - route 25 until 2026-11-05 (route 24's water, a green half-way to PONTE); UNUSED since route 25 took PAL_ROUTE, kept while Forte tries it in game
+	const PAL_ROUTE_BRISA            ; $43 - route 25 until 2026-11-05 (route 24's water, a green half-way to PONTE); UNUSED since route 25 took PAL_ROUTE, kept while I try it in game
 	const PAL_LAB                    ; $44 - the labs: OAK's LAB, BILL's house, the HALL OF FAME and CINNABAR LAB's
 	                                 ;       four maps (2026-11-05). PAL_PALLET's vanilla colours in both tables, the
 	                                 ;       lilac OAK's LAB had in vanilla. APPENDED, never inserted.
@@ -169,7 +169,7 @@ DEF SET_PAL_DEFAULT EQU $ff
 	                                 ;       final browns (PIDGEOT, RATICATE, the DIGLETT line, DODRIO, the HITMONs,
 	                                 ;       KANGASKHAN, PINSIR, the KABUTO line) and FEAROW, a smaller step to its
 	                                 ;       evolution DREADROW's darker browns; the rest keep PAL_BROWNMON
-	const PAL_DREADROW               ; $4A - DREADROW's own (2026-11-09, the owner's pick "I1"): white, a dark
+	const PAL_DREADROW               ; $4A - DREADROW's own (2026-11-09, my pick "I1"): white, a dark
 	                                 ;       brown 18,9,6, a near-black 4,2,1 and a pure black outline. APPENDED
 DEF NUM_SGB_PALS EQU const_value
 

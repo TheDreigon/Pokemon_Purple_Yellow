@@ -215,7 +215,7 @@ AIGetMoveChoiceList:
 ; v1.0 (2026-11-24): and DEATH GLARE (FEAR_EFFECT) into a GHOST by any of its three types, or one behind a SUBSTITUTE -
 ; FearEffect_'s sure refusals - is USELESS (.checkScared); into a #MON already scared (its SCR label) +5, USELESS while
 ; the player must recharge (.discourageUnlessRecharging): the fear can end in the player's own turn first, as a
-; confusion can before CONFUSE RAY (E4; the owner, 2026-11-24). It tests no hard status: a fear lands beside any.
+; confusion can before CONFUSE RAY (E4, 2026-11-24). It tests no hard status: a fear lands beside any.
 ; SPIRAL (SPIRAL_EFFECT, sleep and confusion rolled apart) is USELESS behind the player's SUBSTITUTE, and +5 when both
 ; its legs are shut: a hard status (never while the player must recharge: the sleep lands then) and a confusion, either
 ; of which can end in the player's own turn first (.checkScared too).
@@ -549,7 +549,7 @@ ASSERT AI_SCORE_HURTS_USER > 4 && AI_SCORE_USELESS + AI_SCORE_HURTS_USER + 1 + 4
 .checkProtect
 ; v1.0 (2026-11-02): with the player recharging there is nothing to block: USELESS. After a PROTECT of its own
 ; that worked - PROTECTING is still set when the trainer chooses, the turn's commit (CommitTurnBattleBits) moving it
-; into the chain after the choice - v1.0 (2026-11-25, the owner) it works 1 time in 2, 4 or 8 (ProtectChainRoll):
+; into the chain after the choice - v1.0 (2026-11-25) it works 1 time in 2, 4 or 8 (ProtectChainRoll):
 ; not a sure failure, so +5, as any move that may fail (2026-11-02 to 11-25 it always failed: USELESS).
 	ld a, [wPlayerBattleStatus2]
 	bit NEEDS_TO_RECHARGE, a
@@ -1177,7 +1177,7 @@ AIMoveChoiceModification3:
 
 ; PureRGBnote: ADDED: if the opponent has less than 1/2 health they will prefer healing moves if they use AI subroutine 3
 ; v1.0 (2026-11-24): VINE DRAIN (TRAPPING_DRAIN_EFFECT) too: every hit of its hold heals by half, as a drain move's
-; one hit does (the owner's choice, 2026-11-24). Its hold itself still meets no rule of its own (WRAP's: none).
+; one hit does (my choice, 2026-11-24). Its hold itself still meets no rule of its own (WRAP's: none).
 EncourageDrainingMoveIfLowHealth:
 	ld a, [wEnemyMoveEffect]
 	cp DRAIN_HP_EFFECT

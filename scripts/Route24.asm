@@ -51,7 +51,7 @@ Route24DefaultScript:
 ; is the only way past him. Was (10, 15) until the 2026-08-07 route rework
 ; moved the bridge; the trigger then fired from a random spot of the western
 ; junction and never at the bridge top. (12, 19) until 2026-11-05, when the
-; route was cut under its old top and grew three rows; Forte's polish of that
+; route was cut under its old top and grew three rows; my polish of that
 ; day moved him two blocks up, to the cell right above the bridge's first post.
 ; (12, 3) until 2026-11-19, when the map grew a row at its top and everything went two cells down.
 	dbmapcoord 12, 5

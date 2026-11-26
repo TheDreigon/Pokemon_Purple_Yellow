@@ -5,7 +5,7 @@
 
 ; In: a = the attacking move, c = the hidden #MON's move effect.
 ; Out: carry if the move reaches it, and b = its place in the list. Kills a, c, d, e, h and l.
-; v1.0 (2026-11-22, Forte): the first two of each list hit harder there, x1.25 - EARTHQUAKE and FISSURE
+; v1.0 (2026-11-22): the first two of each list hit harder there, x1.25 - EARTHQUAKE and FISSURE
 ; underground, HURRICANE and BLIZZARD (the strong winds) up in the air, but against FLY only, not SKY
 ; ATTACK: b < 2 is the bonus (HiddenTargetDamageBonus; the trainer AI's layer 5 weighs it too).
 MoveReachesHiddenMon::

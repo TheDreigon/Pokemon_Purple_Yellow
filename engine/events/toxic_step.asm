@@ -3,7 +3,7 @@
 ; 3: its gates, the day care's EXP and the black out stay there), moved behind one
 ; farcall because the new rules need more room than bank 3 has. In "Battle Core
 ; Overflow" (bank $10), next to engine/battle/toxic_carry.asm.
-; The rules (Forte, 2026-11-10 and 11):
+; The rules (2026-11-10 and 11):
 ;  - ordinary POISON costs nothing on the map. Only a bad POISON bites - PSN and TOX
 ;    together in the status byte, $88 - for 1 HP every fourth step, as POISON did;
 ;  - Hard: down to a faint, as before (the text, PIKACHU's reaction, and the black out

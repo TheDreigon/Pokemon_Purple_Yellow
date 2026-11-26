@@ -8,7 +8,7 @@
 ; - when the user moves last (the target's MOVED_THIS_TURN): with nothing left to block, it would
 ;   only cost the next turn's PROTECT. Only another PROTECT goes first at that priority, or a
 ;   PROTECT that MIRROR MOVE or METRONOME calls in its own speed slot. No roll is drawn then;
-; - v1.0 (2026-11-25, the owner) by the chain: after n PROTECTs of its own that worked in a row
+; - v1.0 (2026-11-25) by the chain: after n PROTECTs of its own that worked in a row
 ;   (PROTECT_CHAIN, counted by the commit), it works 1 time in 2^n - 50 %, 25 %, then 12.5 % on
 ;   (ProtectChainRoll, soft_status.asm, which sets PROTECTING when it works). A PROTECT that fails
 ;   breaks the chain: the next one is sure again. (2026-11-02 to 11-25: it always failed the turn
