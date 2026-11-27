@@ -632,6 +632,21 @@ CheckStatusImmunity:
 .ofEffect ; v1.0 (2026-11-14): a = the effect judged (AIPlayerLowerMooted asks BURN_EFFECT for CORRODE's burn)
 	push bc
 	push hl
+; v1.0 (2026-11-27): a spore or powder into a BREATHLESS #MON (SporeMoveBlocked, the routine JumpMoveEffect asks):
+; refused whatever its status, before anything else. (CORRODE's burn question reads CORRODE here: no spore.)
+	push af
+	push de
+	ld a, [wEnemyMoveNum]
+	ld d, a
+	ld a, [wBattleMonSpecies2]
+	ld e, a
+	farcall SporeMoveBlocked
+	pop de
+	jr nc, .breathes
+	pop af
+	jr .discourage
+.breathes
+	pop af
 	cp POISON_EFFECT
 	ld b, POISON
 	ld c, STEEL ; v0.7: Steel-types can't be poisoned either

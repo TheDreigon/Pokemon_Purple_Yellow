@@ -499,6 +499,11 @@ _ManualPage_4_10b::
 	next "never bleed. The"
 	next "STATS page names"
 	next "them."
+	next "The MAGNEMITE and"
+	next "VOLTORB lines and"
+	next "PORYGON never"
+	next "breathe in spores"
+	next "or powders."
 	done
 
 _ManualPage_4_11::
