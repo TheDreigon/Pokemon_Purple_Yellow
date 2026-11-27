@@ -350,9 +350,49 @@ _GetTileAndCoordsInFrontOfPlayer:
 ; since it may have been cut already (joenote's fix of the tree that came back and blocked the player)
 	call IsCutTreeTile ; carry: a is the cut tree (keeps a, bc, de, hl)
 	call c, ReadTileFromVram
+	call VirtualFrontTile ; a = the tile the cell acts as (keeps bc, de, hl)
 	ld c, a
 	ld [wTileInFrontOfPlayer], a
 	ret
+
+; v1.0 (2026-11-27): a cell drawn as one tile that acts as another (VirtualFrontTiles: the S.S. ANNE dock's wall and
+; warp carpet in VERMILION CITY), for everything that asks for the tile in front of the player.
+; IN a = the drawn tile, d = y, e = x of the cell in front. OUT a = the tile it acts as. Keeps bc, de, hl.
+VirtualFrontTile:
+	push hl
+	push bc
+	ld c, a ; the drawn tile, the answer if no row matches
+	ld a, [wCurMap]
+	ld b, a
+	ld hl, VirtualFrontTiles
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .done
+	cp b
+	jr nz, .skip3
+	ld a, [hli]
+	cp d
+	jr nz, .skip2
+	ld a, [hli]
+	cp e
+	jr nz, .skip1
+	ld c, [hl]
+	jr .done
+.skip3
+	inc hl
+.skip2
+	inc hl
+.skip1
+	inc hl
+	jr .loop
+.done
+	ld a, c
+	pop bc
+	pop hl
+	ret
+
+INCLUDE "data/tilesets/virtual_front_tiles.asm"
 
 ReadTileFromVram:
 	;b=X window offset

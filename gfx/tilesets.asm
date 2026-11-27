@@ -1,7 +1,9 @@
 SECTION "Tilesets 1", ROMX
 
 Overworld_GFX::     INCBIN "gfx/tilesets/overworld.2bpp"
-	ds 32
+; v1.0 (2026-11-27): the 96 tiles fill the $600 bytes the loader copies; until then the last two ($5E, $5F) were
+; blank, trimmed from the .2bpp, and a "ds 32" kept Overworld_Block at the same place.
+	ASSERT @ - Overworld_GFX == $600, "Overworld_GFX must be exactly 96 tiles"
 Overworld_Block::   INCBIN "gfx/blocksets/overworld.bst"
 
 RedsHouse1_GFX::

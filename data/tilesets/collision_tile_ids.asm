@@ -8,8 +8,11 @@ ENDM
 Underground_Coll::
 	coll_tiles $0b, $0c, $13, $15, $18
 
+; v1.0 (2026-11-27): $23 left Overworld_Coll. It was a blank identical to $00, its 18 blocks now draw $00, and slot
+; $23 holds a new mountain-tip diagonal (block $82), which is never the tile a cell's collision is read from. (The
+; label stays right above its coll_tiles line: a dozen tests read the list that way.)
 Overworld_Coll::
-	coll_tiles $00, $10, $1b, $20, $21, $23, $2c, $2d, $2e, $30, $31, $33, $39, $3c, $3e, $52, $54, $58, $5b
+	coll_tiles $00, $10, $1b, $20, $21, $2c, $2d, $2e, $30, $31, $33, $39, $3c, $3e, $52, $54, $58, $5b
 
 RedsHouse1_Coll::
 RedsHouse2_Coll::

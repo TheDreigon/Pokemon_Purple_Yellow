@@ -78,7 +78,7 @@ HandleLedges::
 	jr z, .noCollisionTile
 	cp $21
 	jr z, .noCollisionTile
-	cp $23
+	cp $23 ; a blank until 2026-11-27, now a mountain-tip diagonal that no landing cell has: harmless here
 	jr z, .noCollisionTile
 	cp $2c
 	jr z, .noCollisionTile
