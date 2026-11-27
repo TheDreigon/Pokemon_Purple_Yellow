@@ -1,17 +1,18 @@
 ; MEWTWO's floor: the static L70 MEWTWO stands here (data/maps/objects/CeruleanCaveB1F.asm).
 ; The cave has three floors: 1F is the entrance, 2F is the one above it, B1F is this one.
+; v1.0 (2026-11-27): the psychic and the ghosts that MEWTWO draws, and the DITTO that copy them.
 CeruleanCaveB1FWildMons:
 	def_grass_wildmons 25 ; encounter rate
-	db 64, HYPNO
-	db 63, GOLDUCK
-	db 62, GOLBAT
-	db 61, SANDSLASH
-	db 65, PARASECT
-	db 60, SLOWBRO
-	db 64, KADABRA
+	db 63, HAUNTER
 	db 63, DITTO
+	db 63, MAROWAK
+	db 64, KADABRA
+	db 63, JYNX
+	db 64, HYPNO
 	db 64, DITTO
-	db 65, ALAKAZAM
+	db 64, HAUNTER
+	db 65, HYPNO
+	db 65, GENGAR
 	end_grass_wildmons
 
 	def_water_wildmons 5 ; encounter rate
