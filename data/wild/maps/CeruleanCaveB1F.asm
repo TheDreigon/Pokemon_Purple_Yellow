@@ -1,4 +1,4 @@
-; MEWTWO's floor: the static L70 MEWTWO stands here (data/maps/objects/CeruleanCaveB1F.asm).
+; MEWTWO's floor: the static L75 MEWTWO stands here (data/maps/objects/CeruleanCaveB1F.asm).
 ; The cave has three floors: 1F is the entrance, 2F is the one above it, B1F is this one.
 ; v1.0 (2026-11-27): the psychic and the ghosts that MEWTWO draws, and the DITTO that copy them.
 CeruleanCaveB1FWildMons:

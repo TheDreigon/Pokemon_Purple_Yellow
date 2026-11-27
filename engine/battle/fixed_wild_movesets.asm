@@ -49,7 +49,8 @@ ApplyFixedWildMoveset::
 	jp CopyData
 
 ; map, species, then the four moves in the order they show in the FIGHT menu. The levels are the encounters' own
-; (30 for the two SNORLAX in scripts/Route12.asm and Route16.asm; 50 and 70 in the maps' object events).
+; (35 for the two SNORLAX in scripts/Route12.asm and Route16.asm; 50 for the birds, 75 for MEWTWO and 80 for MEW in
+; the maps' object events; since 2026-11-27, 30 / 50 / 70 / 70 before).
 FixedWildMovesets:
 	db ROUTE_12,            SNORLAX,  REST,       AMNESIA,     BODY_SLAM,    BULLDOZE   ; the one asleep on the road
 	db ROUTE_16,            SNORLAX,  BODY_SLAM,  CRUNCH,      BULK_UP,      THRASH     ; the one woken up in a mood
