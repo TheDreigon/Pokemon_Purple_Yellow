@@ -35,9 +35,9 @@ CryData::
 	mon_cry SFX_CRY_1E, $02, $20 ; Staryu
 	mon_cry SFX_CRY_13, $00, $80 ; Blastoise
 	mon_cry SFX_CRY_14, $00, $80 ; Pinsir
-	mon_cry SFX_CRY_12, $00, $80 ; Tangela
+	mon_cry SFX_CRY_12, $40, $80 ; Tangela (v1.0 2026-11-26: a touch higher, the pitch $40 - my pick by ear)
 	mon_cry SFX_CRY_18, $40, $FF ; Dreadrow (v1.0 2026-11-10: plays its own cry G5, audio/custom_cries.asm, written for this row)
-	mon_cry SFX_CRY_00, $00, $00 ; MissingNo.
+	mon_cry SFX_CRY_12, $00, $C0 ; Tangrowth (v1.0 2026-11-26: TANGELA's cry, slower - my pick "A" by ear)
 	mon_cry SFX_CRY_1F, $20, $40 ; Growlithe
 	mon_cry SFX_CRY_17, $FF, $C0 ; Onix
 	mon_cry SFX_CRY_18, $40, $A0 ; Fearow

@@ -31,7 +31,7 @@ PokedexEntryPointers:
 	dw PinsirDexEntry
 	dw TangelaDexEntry
 	dw DreadrowDexEntry
-	dw MissingNoDexEntry
+	dw TangrowthDexEntry
 	dw GrowlitheDexEntry
 	dw OnixDexEntry
 	dw FearowDexEntry
@@ -998,8 +998,15 @@ ChanseyDexEntry:
 TangelaDexEntry:
 	db "VINE@"
 	db 0,6 ; height: meters, decimeters (v0.7 metric dex)
-	dw 120 ; weight in 0.1 kg (v0.7 metric dex)
+	dw 150 ; weight in 0.1 kg (v0.7 metric dex)
 	text_far _TangelaDexEntry
+	text_end
+
+TangrowthDexEntry:
+	db "VINE@"
+	db 1,5 ; height: meters, decimeters (v0.7 metric dex)
+	dw 600 ; weight in 0.1 kg (v0.7 metric dex)
+	text_far _TangrowthDexEntry
 	text_end
 
 KangaskhanDexEntry:

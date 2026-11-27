@@ -441,3 +441,5 @@ SECTION "Pics 8", ROMX
 
 DreadrowPicFront::     INCBIN "gfx/pokemon/front/dreadrow.pic"
 DreadrowPicBack::      INCBIN "gfx/pokemon/back/dreadrowb.pic"
+TangrowthPicFront::    INCBIN "gfx/pokemon/front/tangrowth.pic"
+TangrowthPicBack::     INCBIN "gfx/pokemon/back/tangrowthb.pic"

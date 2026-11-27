@@ -1152,6 +1152,16 @@ _TangelaDexEntry::
 	next "growing"
 	dex
 
+_TangrowthDexEntry::
+	text "Its vines grew"
+	next "into two arms that"
+	next "snare its prey."
+
+	page "A lost arm grows"
+	next "back overnight,"
+	next "even thicker"
+	dex
+
 _KangaskhanDexEntry::
 	text "Raises its young"
 	next "in its belly"

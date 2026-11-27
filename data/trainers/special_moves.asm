@@ -153,7 +153,7 @@ SpecialTrainerMoves:
 	db 4, 4, BULLDOZE
 	db 0
 
-	db ERIKA, 2 ; Celadon Gym (rematch, post-League) — 63 EXEGGUTOR, 64 TANGELA, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
+	db ERIKA, 2 ; Celadon Gym (rematch, post-League) — 63 EXEGGUTOR, 64 TANGROWTH, 64 VICTREEBEL, 65 VILEPLUME, 65 VENUSAUR
 	db 1, 1, PSYCHIC_M
 	db 1, 2, PETAL_DANCE
 	db 1, 3, HYPNOSIS
@@ -958,11 +958,11 @@ SpecialTrainerMoves:
 	db 1, 4, SPORE ; over FALSE_SWIPE
 	db 0
 
-	db BEAUTY, 3 ; Celadon Gym - VICTREEBEL 32
-	db 1, 2, RAZOR_LEAF ; over CUT
+	db BEAUTY, 3 ; Celadon Gym - VICTREEBEL 34 (32 until 2026-11-26: CUT was slot 2 then)
+	db 1, 1, RAZOR_LEAF ; over CUT
 	db 0
 
-	db COOLTRAINER_F, 1 ; Celadon Gym - IVYSAUR 33, VILEPLUME 33
+	db COOLTRAINER_F, 1 ; Celadon Gym - IVYSAUR 34, VILEPLUME 34
 	db 2, 1, GIGA_DRAIN ; over SCREECH
 	db 2, 4, SLEEP_POWDER ; over EERIE_IMPULSE
 	db 0

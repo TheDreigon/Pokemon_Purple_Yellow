@@ -3,8 +3,8 @@ SafariZoneCenterWildMons:
 	db 33, NIDORINO
 	db 33, NIDORINA
 	db 34, EXEGGCUTE
-	db 35, WEEPINBELL
-	db 36, WEEPINBELL
+	db 33, WEEPINBELL ; v1.0 (2026-11-26): 33 and 34, were 35 and 36 - below its new evolution level (34) and at it
+	db 34, WEEPINBELL
 	db 35, TANGELA
 	db 36, EXEGGUTOR
 	db 34, LICKITUNG

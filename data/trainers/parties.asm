@@ -228,7 +228,7 @@ JrTrainerFData:
 	db 23, PIDGEOTTO, RATICATE, NIDORINA, WEEPINBELL, 0
 ; Route 15
 	db 34, PSYDUCK, PERSIAN, GOLDUCK, 0
-	db 36, WEEPINBELL, POLIWRATH, 0
+	db 36, VICTREEBEL, POLIWRATH, 0 ; v1.0 (2026-11-26): VICTREEBEL, was a WEEPINBELL past its new evolution level (34)
 	db 38, CLEFABLE, 0
 	db 35, TANGELA, PONYTA, SANDSLASH, 0
 ; Route 20
@@ -593,7 +593,7 @@ BeautyData:
 ; Celadon Gym
 	db 30, TANGELA, EXEGGCUTE, 0 ; the gym rework (2026-09-06): two at 30 (STUN POWDER / DISABLE arrive there)
 	db 31, GLOOM, WEEPINBELL, 0 ; both Grass/Poison - her "dual poison-types" line is true again
-	db 32, VICTREEBEL, 0 ; the solo apex, taught SLEEP POWDER (special_moves)
+	db 34, VICTREEBEL, 0 ; the solo apex, taught RAZOR LEAF (special_moves); v1.0 (2026-11-26): L34, was L32, below the WEEPINBELL's new evolution level
 ; Route 13
 	db 28, VULPIX, NINETALES, GLOOM, 0
 	db 30, CLEFAIRY, PERSIAN, 0
@@ -622,7 +622,7 @@ ErikaData:
 ; 1: Celadon Gym (4th)
 	db $FF, 35, TANGELA, 36, VICTREEBEL, 37, VILEPLUME, 38, VENUSAUR, 0
 ; 2: Celadon Gym (rematch, post-League)
-	db $FF, 63, EXEGGUTOR, 64, TANGELA, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
+	db $FF, 63, EXEGGUTOR, 64, TANGROWTH, 64, VICTREEBEL, 65, VILEPLUME, 65, VENUSAUR, 0
 
 GiovanniData:
 ; v1.0 rosters — generated from Notes/Boss Movesets.md (source of truth)
@@ -656,7 +656,7 @@ TamerData:
 	db 53, RHYDON, 0 ; the gym rework (2026-09-06): 55 tied Giovanni's ace and out-levelled his own RHYDON
 	db 53, ARBOK, TAUROS, 0
 ; Victory Road 2F - Regi
-	db 53, TANGELA, SANDSLASH, LICKITUNG, ARBOK, 0
+	db 53, TANGROWTH, SANDSLASH, LICKITUNG, ARBOK, 0 ; v1.0 (2026-11-26): TANGROWTH, was a TANGELA 18 levels past its evolution
 ; Unused
 	db 42, RHYHORN, PRIMEAPE, ARBOK, TAUROS, 0
 ; KIYO-era Viridian Gym (the gym rework, 9/9, 2026-09-06): parties 7-8, swapped in by
@@ -846,7 +846,7 @@ CooltrainerMData:
 
 CooltrainerFData:
 ; Celadon Gym
-	db 33, IVYSAUR, VILEPLUME, 0 ; the gym rework (2026-09-06): the captain beside Erika, taught GIGA DRAIN
+	db 34, IVYSAUR, VILEPLUME, 0 ; the gym rework (2026-09-06): the captain beside Erika, taught GIGA DRAIN; v1.0 (2026-11-26): L34, was L33, the VILEPLUME below the GLOOM's new evolution level (IVYSAUR's moves are the same at 34)
 ; Victory Road 3F -  Soul, Zach
 	db 53, DRAGONAIR, GENGAR, TAUROS, NIDOQUEEN, 0
 	db $FF, 54, WIGGLYTUFF, 54, CLEFABLE, 54, CHANSEY, 57, EEVEE, 0

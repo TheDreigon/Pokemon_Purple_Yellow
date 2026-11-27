@@ -342,7 +342,7 @@ ROMX $44
 	"Trainer Pics 3"
 ROMX $45
 	; v1.0 (2026-11-09): the pics of the species past the 151 - DREADROW first (front 564 B + back
-	; 145 B). Room for some twenty more species of that size; "Pics 9" opens in bank $47 after that.
+	; 145 B), TANGROWTH second (2026-11-26). Room for some twenty more species of that size; "Pics 9" opens in bank $47 after that.
 	"Pics 8"
 ROMX $46
 	; v1.0 (2026-11-10): the TRAINER MANUAL's pages, out of bank $30. That bank holds the base

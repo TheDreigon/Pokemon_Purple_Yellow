@@ -70,7 +70,7 @@ DexRatingsTable:
 	dbw 120, DexRatingText_Own110To119
 	dbw 130, DexRatingText_Own120To129
 	dbw 140, DexRatingText_Own130To139
-; v1.0 (2026-11-09): a complete #DEX is every species, MEW included (152 since DREADROW). The 140 band now runs to
+; v1.0 (2026-11-09): a complete #DEX is every species, MEW included (153 since TANGROWTH). The 140 band now runs to
 ; all but two; all but one has a rung of its own (the count at which OAK opens the MEW quest, scripts/OaksLab.asm);
 ; "fully complete!" needs them all.
 	dbw NUM_POKEMON - 1, DexRatingText_Own140To149

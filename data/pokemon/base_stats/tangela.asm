@@ -12,11 +12,10 @@
 	db GROWTH_MEDIUM_FAST ; growth rate
 
 	; tm/hm learnset
-	; Grass/Water single-stage, semi-defensive vine blob that constricts
-	; (BIND) and drains (GIGA_DRAIN/LEECH_LIFE). Last-stage fun moves via
-	; TM.
-	tmhm BIND, WATER_PULSE, BODY_SLAM, MIMIC, MIRROR_MOVE, \
-	     SUBSTITUTE, METRONOME, GIGA_DRAIN, LEECH_LIFE, PETAL_DANCE, \
+	; Grass/Water semi-defensive vine blob that constricts (BIND) and drains
+	; (GIGA_DRAIN/LEECH_LIFE). No fun moves: since 2026-11-26 it evolves into
+	; TANGROWTH at L35, and a middle stage leaves them to its last one.
+	tmhm BIND, WATER_PULSE, BODY_SLAM, GIGA_DRAIN, LEECH_LIFE, PETAL_DANCE, \
 	     CUT, SURF
 	; end
 

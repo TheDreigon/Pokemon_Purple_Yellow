@@ -155,4 +155,5 @@ MonPartyData:
 	db ICON_MEWTWO        ; Mewtwo
 	db ICON_MEW           ; Mew
 	db ICON_DREADROW      ; Dreadrow
+	db ICON_TANGROWTH     ; Tangrowth
 	assert_table_length NUM_POKEMON

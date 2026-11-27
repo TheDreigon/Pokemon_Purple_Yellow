@@ -38,7 +38,7 @@
 	const PINSIR             ; $1D
 	const TANGELA            ; $1E
 	const DREADROW           ; $1F  v1.0 (2026-11-09): the first species past the 151, in the first MISSINGNO hole
-	const_skip               ; $20
+	const TANGROWTH          ; $20  v1.0 (2026-11-26): TANGELA's evolution, in the second MISSINGNO hole
 	const GROWLITHE          ; $21
 	const ONIX               ; $22
 	const FEAROW             ; $23
@@ -205,8 +205,8 @@ DEF NUM_POKEMON_INDEXES EQU const_value - 1
 ; against it). The class space is ALSO full at the top (OPP_BILL = 254;
 ; $FF is the -1 terminator OPP-keyed scans stop on). So species indexes
 ; are hard-capped at 199 - with the 3 pseudo-species (fossils + ghost)
-; kept, the real ceiling is 196 species: 152 today (DREADROW took the first
-; hole, $1F, 2026-11-09) + the 35 MISSINGNO const_skip holes left + the 9
+; kept, the real ceiling is 196 species: 153 today (DREADROW took the first
+; hole, $1F, 2026-11-09, TANGROWTH the second, $20, 2026-11-26) + the 34 MISSINGNO const_skip holes left + the 9
 ; tail ids $BF-$C7. Expansion survey 2026-08-31:
 ; Notes/"Especies 151-196 - levantamento".
 ASSERT NUM_POKEMON_INDEXES < OPP_ID_OFFSET, \

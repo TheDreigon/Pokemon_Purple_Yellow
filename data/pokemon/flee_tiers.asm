@@ -163,4 +163,5 @@ FleeTierDeltas:
 	db  -51 ; MEWTWO     (T4 HUNTER)
 	db  127 ; MEW        (T0 VERY DOCILE)
 	db  -51 ; DREADROW   (T4 HUNTER)
+	db    0 ; TANGROWTH  (T2 NEUTRAL)
 	assert_table_length NUM_POKEMON

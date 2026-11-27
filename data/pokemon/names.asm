@@ -31,7 +31,7 @@ MonsterNames::
 	db "PINSIR@@@@"
 	db "TANGELA@@@"
 	db "DREADROW@@"
-	db "MISSINGNO."
+	db "TANGROWTH@"
 	db "GROWLITHE@"
 	db "ONIX@@@@@@"
 	db "FEAROW@@@@"

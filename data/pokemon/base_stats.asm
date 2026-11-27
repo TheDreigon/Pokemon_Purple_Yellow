@@ -152,4 +152,5 @@ INCLUDE "data/pokemon/base_stats/dragonite.asm"
 INCLUDE "data/pokemon/base_stats/mewtwo.asm"
 INCLUDE "data/pokemon/base_stats/mew.asm"
 INCLUDE "data/pokemon/base_stats/dreadrow.asm"
+INCLUDE "data/pokemon/base_stats/tangrowth.asm"
 	assert_table_length NUM_POKEMON

@@ -8,7 +8,7 @@ CeruleanCave1FWildMons:
 	db 60, DITTO
 	db 64, VILEPLUME
 	db 63, VICTREEBEL
-	db 64, RAICHU
+	db 64, TANGROWTH ; v1.0 (2026-11-26): the one wild TANGROWTH, rare (4.3 %), in place of a RAICHU L64
 	db 65, RAICHU
 	end_grass_wildmons
 

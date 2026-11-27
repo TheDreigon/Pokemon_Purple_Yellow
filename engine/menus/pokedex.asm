@@ -1148,7 +1148,7 @@ Pokedex_PrintEvolutions:
 	jr .familyLoop
 
 .doesNotEvolve
-; 25 of the 152 species land here - the ones alone in their family - so it is
+; 24 of the 153 species land here - the ones alone in their family - so it is
 ; not an edge case - it is the most common page this menu entry draws.
 	hlcoord 2, 13
 	ld de, PokedexNoEvolutionText

@@ -304,6 +304,7 @@ INCBIN "gfx/icons/dragonite.2bpp"
 INCBIN "gfx/icons/mewtwo.2bpp"
 INCBIN "gfx/icons/mew.2bpp"
 INCBIN "gfx/icons/dreadrow.2bpp" ; v1.0 (2026-11-10): ICON_DREADROW, $98
+INCBIN "gfx/icons/tangrowth.2bpp" ; v1.0 (2026-11-26): ICON_TANGROWTH, $99
 MonIcons2End:
 	ASSERT MonIcons2End - MonIcons2 == (NUM_ICONS - $80) * $80, \
 		"MonIcons2 must hold one $80-byte icon for every id from $80 to NUM_ICONS - 1, in id order"

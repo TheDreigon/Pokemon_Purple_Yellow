@@ -30,8 +30,8 @@ _BicycleDescription::
 
 ; v0.7 (2026-09-05): one shape for the five stones - "Evolves" first,
 ; species in dex order with EEVEE last, a comma list for three species (no
-; "and" fits in 18 tiles), "A and B." for two. LEAF STONE lists EXEGGCUTE
-; first: the only order of those three names that fits two lines.
+; "and" fits in 18 tiles), "A and B." for two. v1.0 (2026-11-26): LEAF STONE
+; evolves EXEGGCUTE alone, since GLOOM and WEEPINBELL evolve at level 34.
 _MoonStoneDescription::
 	text "Evolves CLEFAIRY,"
 	next "VULPIX, STARYU."
@@ -53,8 +53,7 @@ _WaterStoneDescription::
 	prompt
 
 _LeafStoneDescription::
-	text "Evolves EXEGGCUTE,"
-	next "GLOOM, WEEPINBELL."
+	text "Evolves EXEGGCUTE."
 	prompt
 
 _PoisonHealDescription::

@@ -1,4 +1,4 @@
-; MON TEST — debug screen for browsing every species (v0.7; NUM_POKEMON of them, 152 since DREADROW).
+; MON TEST — debug screen for browsing every species (v0.7; NUM_POKEMON of them, 153 since TANGROWTH).
 ;
 ; Sibling of ANIM TEST, reached the same way: SELECT on the title screen ->
 ; DebugMenu -> MON. Shows each species' front sprite in its real gameplay

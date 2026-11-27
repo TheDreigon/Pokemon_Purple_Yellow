@@ -160,4 +160,5 @@ IconLayouts::
 	db ICON_RULE   ; MEWTWO     rule 0.600, direct 0.925
 	db ICON_RULE   ; MEW        rule 0.599, direct 1.011
 	db ICON_RULE   ; DREADROW   rule 0.586, direct 0.761
+	db ICON_DIRECT ; TANGROWTH  rule 1.215, direct 0.368
 	assert_table_length NUM_POKEMON + 1

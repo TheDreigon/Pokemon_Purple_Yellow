@@ -41,7 +41,7 @@ EvosMovesPointerTable:
 	dw PinsirEvosMoves
 	dw TangelaEvosMoves
 	dw DreadrowEvosMoves
-	dw NoEvosMoves
+	dw TangrowthEvosMoves
 	dw GrowlitheEvosMoves
 	dw OnixEvosMoves
 	dw FearowEvosMoves
@@ -1266,7 +1266,7 @@ OddishEvosMoves:
 
 GloomEvosMoves:
 ; Evolutions
-	db EVOLVE_ITEM, LEAF_STONE, 1, VILEPLUME
+	db EVOLVE_LEVEL, 34, VILEPLUME
 	db 0
 ; Learnset
 ; Mid-stage flower bud (Grass/Fungus). Oddish backbone plus two
@@ -1938,7 +1938,7 @@ BellsproutEvosMoves:
 
 WeepinbellEvosMoves:
 ; Evolutions
-	db EVOLVE_ITEM, LEAF_STONE, 1, VICTREEBEL
+	db EVOLVE_LEVEL, 34, VICTREEBEL
 	db 0
 ; Learnset
 ; Mid-stage carnivore (Grass/Poison). Bellsprout backbone +
@@ -3156,9 +3156,10 @@ ChanseyEvosMoves:
 
 TangelaEvosMoves:
 ; Evolutions
+	db EVOLVE_LEVEL, 35, TANGROWTH
 	db 0
 ; Learnset
-; Grass/Water vines, single-stage. Powder table: STUN_POWDER only.
+; Grass/Water vines; evolves into TANGROWTH at L35 (2026-11-26). Powder table: STUN_POWDER only.
 ; Vine kit: VINE_WHIP/MEGA_DRAIN/GIGA_DRAIN/WRAP/CONSTRICT/GROWTH.
 ; CUT HM01 natural. RECOVER fits (vines regenerate; semi-defensive).
 	db  4, GROWTH
@@ -3174,6 +3175,36 @@ TangelaEvosMoves:
 	db 30, STUN_POWDER
 	db 33, BIND
 	db 35, VINE_DRAIN ; v1.0 (2026-11-25): its signature, at its evolution level (TANGROWTH)
+	db 36, BUBBLEBEAM
+	db 40, ASTONISH
+	db 42, MEGA_DRAIN
+	db 45, RECOVER
+	db 48, BODY_SLAM
+	db 50, WATER_PULSE
+	db 53, PETAL_DANCE
+	db 55, GIGA_DRAIN
+	db 60, LEECH_LIFE
+	db 0
+
+TangrowthEvosMoves:
+; Evolutions
+	db 0
+; Learnset
+; v1.0 (2026-11-26): TANGELA's evolution at L35, the vines grown into two arms. Provisional: TANGELA's learnset as
+; it stands, level for level, so its VINE_DRAIN comes with the evolution at 35; to be reviewed.
+	db  4, GROWTH
+	db  6, WRAP
+	db  6, TICKLE
+	db 12, VINE_WHIP
+	db 14, DEFENSE_CURL
+	db 16, LICK
+	db 19, ABSORB
+	db 22, WATER_GUN
+	db 24, TACKLE
+	db 26, LEECH_SEED
+	db 30, STUN_POWDER
+	db 33, BIND
+	db 35, VINE_DRAIN ; the line's signature, learnt as it evolves
 	db 36, BUBBLEBEAM
 	db 40, ASTONISH
 	db 42, MEGA_DRAIN
@@ -4183,9 +4214,9 @@ MewEvosMoves:
 	db 0
 
 NoEvosMoves:
-; Shared placeholder for the 35 internal-index gaps (the slots that
+; Shared placeholder for the 34 internal-index gaps (the slots that
 ; manifest as MISSINGNO. when reached via the Cinnabar coast wild-encounter
-; bug; 36 until DREADROW took $1F, 2026-11-09). The pointer table is positional
+; bug; 36 until DREADROW took $1F, 2026-11-09, and TANGROWTH $20, 2026-11-26). The pointer table is positional
 ; and must have NUM_POKEMON_INDEXES entries, so every gap-index points here.
 ; Engine reads `db 0`/`db 0` = no evolutions, no learnset. ROM-identical to
 ; the 36 separate-but-identical placeholder blocks that used to exist.
