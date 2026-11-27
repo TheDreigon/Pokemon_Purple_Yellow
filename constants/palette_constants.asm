@@ -153,23 +153,24 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_ROUTE_DOENTE           ; $40 - route 17: a sickly green, PAL_ROUTE's water
 	const PAL_ROUTE_PRAIA            ; $41 - routes 19 and 21: sand, PAL_ROUTE's water
 	const PAL_ROUTE_ROCHA_GELADA     ; $42 - route 20: a cold grey-green on the islands, PAL_ROUTE's water
-	const PAL_ROUTE_BRISA            ; $43 - route 25 until 2026-11-05 (route 24's water, a green half-way to PONTE); UNUSED since route 25 took PAL_ROUTE, kept while I try it in game
-	const PAL_LAB                    ; $44 - the labs: OAK's LAB, BILL's house, the HALL OF FAME and CINNABAR LAB's
+; (PAL_ROUTE_BRISA was $43: route 25's until 2026-11-05, unused after route 25 took PAL_ROUTE; deleted 2026-11-27,
+; and every palette after it moved down one id. Every id is used by name.)
+	const PAL_LAB                    ; $43 - the labs: OAK's LAB, BILL's house, the HALL OF FAME and CINNABAR LAB's
 	                                 ;       four maps (2026-11-05). PAL_PALLET's vanilla colours in both tables, the
 	                                 ;       lilac OAK's LAB had in vanilla. APPENDED, never inserted.
 ; v1.0 (2026-11-05): the Pokemon Centers, the marts, the CHAMPION's room and the passage houses. GetPal_InheritedNoMore
 ; picks the Centers, the marts and the passage houses by tileset (LAVENDER's two and the CELADON HOTEL, the INDIGO
 ; PLATEAU's lobby keep their town's colours) and the CHAMPION's room by its id. APPENDED, never inserted.
-	const PAL_POKECENTER             ; $45 - every Pokemon Center: red
-	const PAL_MART                   ; $46 - every mart: blue
-	const PAL_CHAMPION               ; $47 - the CHAMPION's room: gold
-	const PAL_GATE                   ; $48 - every passage house (the GATE and FOREST_GATE tilesets): a light peach
+	const PAL_POKECENTER             ; $44 - every Pokemon Center: red
+	const PAL_MART                   ; $45 - every mart: blue
+	const PAL_CHAMPION               ; $46 - the CHAMPION's room: gold
+	const PAL_GATE                   ; $47 - every passage house (the GATE and FOREST_GATE tilesets): a light peach
 	                                 ;       floor, the bushes and the details green
-	const PAL_DARKBROWNMON           ; $49 - PAL_BROWNMON x0.90, a touch darker (2026-11-08): the heavier and the
+	const PAL_DARKBROWNMON           ; $48 - PAL_BROWNMON x0.90, a touch darker (2026-11-08): the heavier and the
 	                                 ;       final browns (PIDGEOT, RATICATE, the DIGLETT line, DODRIO, the HITMONs,
 	                                 ;       KANGASKHAN, PINSIR, the KABUTO line) and FEAROW, a smaller step to its
 	                                 ;       evolution DREADROW's darker browns; the rest keep PAL_BROWNMON
-	const PAL_DREADROW               ; $4A - DREADROW's own (2026-11-09, my pick "I1"): white, a dark
+	const PAL_DREADROW               ; $49 - DREADROW's own (2026-11-09, my pick "I1"): white, a dark
 	                                 ;       brown 18,9,6, a near-black 4,2,1 and a pure black outline. APPENDED
 DEF NUM_SGB_PALS EQU const_value
 
